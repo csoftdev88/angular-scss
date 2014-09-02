@@ -37,4 +37,3 @@ deployment:
     branch: master
     commands:
       - git push -f git@heroku.com:mobius-prod.git ${CIRCLE_SHA1}:refs/heads/master
-

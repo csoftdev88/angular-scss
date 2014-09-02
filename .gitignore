@@ -1,6 +1,8 @@
+.build
+bower_components
 node_modules
 npm-debug.log
 dist
 .tmp
 .sass-cache
-app/bower_components
+test-results.xml

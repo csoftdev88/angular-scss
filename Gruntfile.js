@@ -1,331 +1,325 @@
 'use strict';
-var LIVERELOAD_PORT = 35729;
-var path = require('path');
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
+module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-html2js');
 
-module.exports = function (grunt) {
-  // load all grunt tasks
-  require('matchdep').filterAll('grunt-*').forEach(grunt.loadNpmTasks);
-  // show elapsed time at the end
+  // Time how long tasks take
   require('time-grunt')(grunt);
 
-  // configurable paths
-  var yeomanConfig = {
-    app: 'app',
-    dist: 'dist'
-  };
+  /**
+  * Load in our build configuration file.
+  */
+  var buildConfig = require( './build.config.js' );
 
-  try {
-    yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
-  } catch (e) {}
+  var taskConfig = {
+    pkg: grunt.file.readJSON('package.json'),
 
-  grunt.loadNpmTasks('grunt-express');
-
-  grunt.initConfig({
-    yeoman: yeomanConfig,
-    watch: {
-      coffee: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-        tasks: ['coffee:dist']
-      },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
-      },
-      livereload: {
-        options: {
-          livereload: LIVERELOAD_PORT
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
-      }
-    },
-    express: {
-      options: {
-        port: 3000,
-        hostname: '*'
-      },
-      livereload: {
-        options: {
-          showStack: true,
-          livereload: true,
-          serverreload: true,
-          server: path.resolve('app.js'),
-          bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app)]
-        }
-      },
-      test: {
-        options: {
-          server: path.resolve('app.js'),
-          bases: [path.resolve('./.tmp'), path.resolve(__dirname, 'test')]
-        }
-      },
-      dist: {
-        options: {
-          server: path.resolve('app.js'),
-          bases: path.resolve(__dirname, yeomanConfig.dist)
-        }
-      }
-    },
-    open: {
-      server: {
-        url: 'http://localhost:<%= express.options.port %>'
-      }
-    },
     clean: {
-      dist: {
-        files: [{
-          dot: true,
-          src: [
-            '.tmp',
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*'
-          ]
-        }]
-      },
-      server: '.tmp'
+      tmp: '<%= config.build %>',
+      dist: '<%= config.compile %>'
     },
+
     jshint: {
       options: {
-        jshintrc: '.jshintrc'
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish'),
       },
-      all: [
-        'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
-      ]
-    },
-    coffee: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/scripts',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/scripts',
-          ext: '.js'
-        }]
-      },
-      test: {
-        files: [{
-          expand: true,
-          cwd: 'test/spec',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/spec',
-          ext: '.js'
-        }]
-      }
-    },
-    // not used since Uglify task does concat,
-    // but still available if needed
-    /*concat: {
-      dist: {}
-    },*/
-    rev: {
-      dist: {
-        files: {
-          src: [
-            '<%= yeoman.dist %>/scripts/{,*/}*.js',
-            '<%= yeoman.dist %>/styles/{,*/}*.css',
-            '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yeoman.dist %>/styles/fonts/*'
-          ]
-        }
-      }
-    },
-    useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
-      options: {
-        dest: '<%= yeoman.dist %>'
-      }
-    },
-    usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
-      options: {
-        dirs: ['<%= yeoman.dist %>']
-      }
-    },
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg}',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
-    cssmin: {
-      // By default, your `index.html` <!-- Usemin Block --> will take care of
-      // minification. This option is pre-configured if you do not wish to use
-      // Usemin blocks.
-      // dist: {
-      //   files: {
-      //     '<%= yeoman.dist %>/styles/main.css': [
-      //       '.tmp/styles/{,*/}*.css',
-      //       '<%= yeoman.app %>/styles/{,*/}*.css'
-      //     ]
-      //   }
-      // }
-    },
-    htmlmin: {
-      dist: {
-        options: {
-          /*removeCommentsFromCDATA: true,
-          // https://github.com/yeoman/grunt-usemin/issues/44
-          //collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeOptionalTags: true*/
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
-          dest: '<%= yeoman.dist %>'
-        }]
-      }
-    },
-    // Put files not handled in other tasks here
-    copy: {
-      dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            'bower_components/**/*',
-            'images/{,*/}*.{gif,webp,svg}',
-            'styles/fonts/*'
-          ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: [
-            'generated/*'
-          ]
-        }]
-      }
-    },
-    concurrent: {
-      server: [
-        'coffee:dist'
+      src: [
+        '<%= config.gruntfile %>',
+        '<%= config.app_files.js %>'
       ],
       test: [
-        'coffee'
-      ],
-      dist: [
-        'coffee',
-        'imagemin',
-        'htmlmin'
+        '<%= config.app_files.jsunit %>'
       ]
     },
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
-      }
-    },
-    cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/*.html']
-      }
-    },
+
+
+    /* PREBUILD CONFIG */
+
     ngmin: {
-      dist: {
+      default: {
+        expand: true,
+        cwd: '<%= config.client %>',
+        src: '**/*.js',
+        dest: '<%= config.build %>'
+      }
+    },
+
+    /* BUILD CONFIG*/
+
+    /**
+     * The `index` task compiles the `index.html` file as a Grunt template. CSS
+     * and JS files co-exist here but they get split apart later.
+     */
+    index: {
+      /**
+       * During development, we don't want to have wait for compilation,
+       * concatenation, minification, etc. So to avoid these steps, we simply
+       * add all script files directly to the `<head>` of `index.html`. The
+       * `src` property contains the list of included files.
+       */
+      build: {
+        dir: '<%= config.build %>',
+        src: [
+          '<%= config.build %>/**/*.js',
+          '!<%= config.build %>/**/*.spec.js',
+          '<%= config.build %>/**/*.css'
+        ]
+      },
+      compile: {
+        dir: '<%= config.compile %>',
+        src: [
+          '<%= config.compile %>/**/*.js',
+          '<%= config.compile %>/**/*.css'
+        ]
+      },
+    },
+
+    less: {
+      development: {
+        expand: true,
+        cwd: '<%= config.client %>/',
+        src: 'styles/main.less',
+        dest: '<%= config.build %>/',
+        ext: '.css',
+      },
+
+      production: {
+        options: {
+          cleancss: true,
+          report: 'min',
+          compess: true,
+        },
+        expand: true,
+        cwd: '<%= config.client %>/',
+        src: 'styles/main.less',
+        dest: '<%= config.compile %>/',
+        ext: '_<%= pkg.name %>-<%= pkg.version %>.css',
+      }
+    },
+
+    /**
+     * HTML2JS is a Grunt plugin that takes all of your template files and
+     * places them into JavaScript files as strings that are added to
+     * AngularJS's template cache. This means that the templates too become
+     * part of the initial payload as one JavaScript file. Neat!
+     */
+    html2js: {
+      app: {
+        options: {
+          base: '<%= config.client %>/app/'
+        },
+        src: [ '<%= config.client %>/<%= config.app_files.html %>' ],
+        dest: '<%= config.build %>/app/mobius-templates.js'
+      }
+    },
+
+
+    /* PRODUCTION */
+
+    concat: {
+      compileJS: {
+        src: [
+          '.build/app/**/*.js', '!.build/app/**/*.spec.js'
+        ],
+        dest: '<%= config.compile %>/app/<%= pkg.name %>-<%= pkg.version %>.js'
+      }
+    },
+
+    uglify: {
+      options: {
+        mangle: false
+      },
+
+      compile: {
+        files: {
+          '<%= concat.compileJS.dest %>': '<%= concat.compileJS.dest %>'
+        }
+      }
+    },
+
+    usemin: {
+      html: ['<%= config.compile %>/**/*.html'],
+      css: ['<%= config.compile %>/**/*.css'],
+      options: {
+        dest: '<%= config.compile %>',
+        assetsDirs: ['<%= config.compile %>'],
+      },
+    },
+
+    copy: {
+      styles: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>/scripts',
-          src: '*.js',
-          dest: '<%= yeoman.dist %>/scripts'
+          cwd: '<%= config.build %>',
+          src: ['**/*.css'],
+          dest: '<%= config.compile %>'
         }]
       }
     },
-    uglify: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '<%= yeoman.dist %>/scripts/scripts.js'
-          ]
-        }
+
+    html: {
+      files: [ '<%= app_files.html %>' ],
+      tasks: [ 'index:build' ]
+    },
+
+    watch: {
+      markup: {
+        files: ['<%= config.client %>/<%= config.markup %>'],
+        tasks: ['html2js', 'index:build'],
+      },
+      styles: {
+        files: ['<%= config.client %>/<%= config.styles %>'],
+        tasks: ['less:development']
+      },
+      scripts: {
+        files: ['<%= config.app_files.js %>'],
+        tasks: ['prebuild', 'index:build'],
+        options: { livereload: true }
+      },
+      jsunit: {
+        files: ['<%= config.app_files.jsunit %>'],
+        tasks: ['jshint:test', 'test']
+      },
+      server: {
+        files: ['<%= config.server %>/<%= config.scripts %>'],
+        tasks: ['exit']
+      }
+    },
+
+    karma: {
+      options: {
+        configFile: 'karma/karma-unit.js'
+      },
+      unit: {
+        runnerPort: 9101,
+        background: true
+      },
+      continuous: {
+        singleRun: true
       }
     }
-  });
+  };
 
-  grunt.task.registerTask('debug-config', 'Debug grunt task configuration.', function(select) {
-    grunt.log.debug('grunt.config: ' + (select ? select + ': ' : '') +
-      JSON.stringify(grunt.config(select), null, 2));
-  });
+  grunt.initConfig( grunt.util._.extend( taskConfig, buildConfig ));
 
-  grunt.task.registerTask('fix-express-reload', 'Fix express reload watch task.', function(target) {
-    var taskname = 'express_' + target + '_server';
-    var config = grunt.config('watch.' + taskname);
-    if (config) {
-      grunt.log.debug('grunt.config: watch.' + taskname + ' ORIG: ' + JSON.stringify(config, null, 2));
-      config.files = [config.files, 'app.js'];
-      grunt.config('watch.' + taskname + '.files', config.files);
-      grunt.log.debug('grunt.config: watch.' + taskname + ' FIXED: ' + JSON.stringify(config, null, 2));
-    } else {
-      grunt.log.warn('Missing config for watch.' + taskname.cyan + '. Task express:' + target + ' is not running with serverreload:true.');
-    }
-  });
-
-  grunt.registerTask('server', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'express:dist', 'express-keepalive']);
-    }
-
-    grunt.task.run([
-      'clean:server',
-      'concurrent:server',
-      'express:livereload',
-      // 'debug-config:watch',
-      // 'debug-config:express',
-      'fix-express-reload:livereload',
-      'open',
-      'watch'
-    ]);
-  });
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
-    'express:test',
-    'karma'
+    'karma:continuous'
   ]);
 
-  grunt.registerTask('build', [
-    'clean:dist',
-    'useminPrepare',
-    'concurrent:dist',
+  grunt.registerTask('prebuild', [
+    'jshint',
+    'test',
+    'html2js',
+    'ngmin'
+  ]);
+
+
+  grunt.registerTask('default', [
+    'development'
+  ]);
+
+  grunt.registerTask('development', [
+    'build:development',
+    'watch',
+    'sleep'
+  ]);
+
+  grunt.registerTask('build:development', [
+    'clean',
+    'prebuild',
+    'less:development',
+    'index:build'
+  ]);
+
+  grunt.registerTask('production', [
+    'build:production',
+    'sleep'
+  ]);
+
+  grunt.registerTask('build:production', [
+    'clean',
+    'prebuild',
+    'less:production',
     'concat',
-    'copy',
-    'cdnify',
-    'ngmin',
-    'cssmin',
     'uglify',
-    'rev',
+    'copy:styles',
+    'index:compile',
     'usemin'
   ]);
 
-  grunt.registerTask('default', [
-    'jshint',
-    'test',
-    'build'
+  grunt.registerTask('release', [
+    'production'
   ]);
+
+  grunt.registerTask('sleep', 'Keep grunt running', function() {
+    this.async();
+  });
+
+  grunt.registerTask('exit', 'Quit out of Grunt', function() {
+    process.exit(0);
+  });
+
+
+  /**
+   * The index.html template includes the stylesheet and javascript sources
+   * based on dynamic names calculated in this Gruntfile. This task assembles
+   * the list into variables for the template to use and then runs the
+   * compilation.
+   */
+  grunt.registerMultiTask( 'index', 'Process index.html template', function () {
+    var dirRE = new RegExp( '^('+grunt.config('config.build') + '|' + grunt.config('config.compile')+')\/', 'g' );
+
+    var jsFiles = filterForJS( this.filesSrc ).map( function ( file ) {
+      return file.replace( dirRE, '' );
+    });
+
+    var cssFiles = filterForCSS( this.filesSrc ).map( function ( file ) {
+      return file.replace( dirRE, '' );
+    });
+
+    grunt.file.copy(grunt.config('config.client') + '/app/index.html', this.data.dir + '/index.html', {
+      process: function ( contents ) {
+        return grunt.template.process( contents, {
+          data: grunt.util._.extend({
+            scripts: jsFiles,
+            styles: cssFiles,
+            vendor_js: grunt.config('config.vendor_files.js'),
+            vendor_styles: grunt.config('config.vendor_files.styles'),
+            version: grunt.config( 'pkg.version' )
+          }, {})
+        });
+      }
+    });
+  });
+
+  /**
+   * A utility function to get all app JavaScript sources.
+   */
+  function filterForJS ( files ) {
+    return files.filter( function ( file ) {
+      return file.match( /\.js$/ );
+    });
+  }
+
+  /**
+   * A utility function to get all app CSS sources.
+   */
+  function filterForCSS ( files ) {
+    return files.filter( function ( file ) {
+      return file.match( /\.css$/ );
+    });
+  }
 };

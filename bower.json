@@ -2,17 +2,18 @@
   "name": "mobius",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.0.7",
-    "json3": "~3.2.4",
-    "es5-shim": "~2.0.8",
-    "angular-resource": "~1.0.7",
-    "angular-cookies": "~1.0.7",
-    "angular-sanitize": "~1.0.7",
-    "restangular": "~1.1.8",
-    "bootstrap-css": "~2.3.2"
-  },
-  "devDependencies": {
-    "angular-mocks": "~1.0.7",
-    "angular-scenario": "~1.0.7"
+    "angular": "~1.2.9",
+    "angular-resource": "~1.2.9",
+    "angular-bootstrap": "~0.10.0",
+    "angular-route": "~1.2.9",
+    "angular-ui-router": "0.2.10",
+    "jquery": "~2.0.3",
+    "moment": "~2.5.0",
+    "flot": "~0.8.2",
+    "lodash": "~2.4.1",
+    "angular-mocks": "~1.2.9",
+    "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
+    "chai": "~1.7.2",
+    "sinon-chai": "~2.4.0"
   }
 }
