@@ -237,6 +237,10 @@ module.exports = function(grunt) {
     'sleep'
   ]);
 
+  grunt.registerTask('build', [
+    'build:development'
+  ]);
+
   grunt.registerTask('build:development', [
     'clean',
     'prebuild',
