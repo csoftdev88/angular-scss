@@ -16,11 +16,17 @@ angular.module('mobiusApp', [
   $locationProvider.html5Mode(true);
 
   $stateProvider
+    // Default application layout
     .state('default', {
-      templateUrl: 'controllers/main.html',
-      controller: 'MainCtrl',
+      templateUrl: 'layouts/default.html',
+    })
+
+    // Home page
+    .state('default.home', {
+      templateUrl: 'home/home.html',
       url: '/'
     })
+
     .state('otherwise', {
       url: '/'
     });
