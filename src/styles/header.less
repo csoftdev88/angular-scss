@@ -1,6 +1,8 @@
 header {
   background-color: @colorHeaderBackground;
 
+  overflow: auto;
+
   top: 0px;
   left: 0px;
   right: 0px;
@@ -17,11 +19,21 @@ header {
       li {
         float: left;
 
+        padding: 0px @paddingHeaderDefault;
+        display: inline-block;
+
         a {
-          color: @colorMenuDefault;
+          color: @colorMenuTextDefault;
           text-decoration: none;
         }
       }
     }
+  }
+
+  .button-login {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+
+    float: right;
   }
 }
