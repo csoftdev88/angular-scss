@@ -1,0 +1,30 @@
+.button-colors (@backgroundColor: @colorGray, @backgroundColorHover: @colorGray, @color: @colorButtonTextDefault, @colorHover: @colorButtonTextDefault) {
+  background-color: @backgroundColor;
+  color: @color;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-block;
+
+  border-radius: @borderRadiusButtonDefault;
+
+  .paddingButtonDefault;
+  .box-shadow(0, 1px, 1px, rgba(12, 116, 17, 1));
+
+  .textShadowDark;
+
+  .transition(background-color, @transitionDurationDefault);
+
+  &:hover {
+    background-color: @backgroundColorHover;
+    color: @colorHover;
+  }
+}
+
+.button {
+  .button-colors(@colorButtonDefault, @colorButtonDefaultHover);
+}
+
+.button-login {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}

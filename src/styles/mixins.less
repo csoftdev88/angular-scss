@@ -1,0 +1,23 @@
+.inner-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+  -webkit-box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+  -moz-box-shadow:    inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+  box-shadow:         inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+.transition(@property: all, @length: 0.5s, @easing: ease-in-out) {
+  transition: @arguments;
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  -o-transition: @arguments;
+}
+
+.box-shadow(@x: 0, @y: 2px, @size: 4px, @color: rgba(0, 0, 0, 0.1)) {
+  box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  -webkit-box-shadow: @arguments;
+}
+
+.noSpaces {
+  margin: 0px;
+  padding: 0px;
+}
