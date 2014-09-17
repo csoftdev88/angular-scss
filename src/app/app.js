@@ -3,10 +3,12 @@
 angular.module('mobiusApp', [
   'ngRoute',
   'ui.router',
-
   // Template cache
   'templates-app',
+  // 3rd party components
+  'localytics.directives',
 
+  // Application modules
   'mobiusApp.main',
 
   // Custom components
