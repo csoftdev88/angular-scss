@@ -7,7 +7,13 @@ angular.module('mobiusApp', [
   // Template cache
   'templates-app',
 
-  'mobiusApp.main'
+  'mobiusApp.main',
+
+  // Custom components
+  'mobiusApp.directives.slider',
+  'mobiusApp.directives.booking',
+  'mobiusApp.directives.best.offers',
+  'mobiusApp.directives.best.hotels'
 ])
 
 .config(function ($stateProvider, $locationProvider) {
