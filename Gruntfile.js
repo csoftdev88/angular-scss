@@ -9,6 +9,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
 
@@ -107,6 +108,29 @@ module.exports = function(grunt) {
       }
     },
 
+    autoprefixer: {
+      options: {
+        diff: '<%= config.build %>/styles/autoprefixer.patch',
+        browsers: [
+          '> 1%',
+          'last 2 versions',
+          'Firefox ESR',
+          'Opera 12.1',
+          'ie 8',
+          'ie 9',
+          'ie 10',
+          'Android 2',
+          'bb 10',
+          'last 2 op_mob versions',
+          'last 2 and_chr versions',
+          'last 2 ie_mob versions'
+        ]
+      },
+      dist: {
+        src: '<%= config.build %>/<%= config.styles %>'
+      }
+    },
+
     /**
      * HTML2JS is a Grunt plugin that takes all of your template files and
      * places them into JavaScript files as strings that are added to
@@ -187,7 +211,7 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
-        tasks: ['less:development'],
+        tasks: ['less:development', 'autoprefixer'],
         options: { livereload: true }
       },
       scripts: {
@@ -254,6 +278,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:development',
+    'autoprefixer',
     'index:build',
     'copy:images'
   ]);
