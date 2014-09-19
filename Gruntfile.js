@@ -164,6 +164,14 @@ module.exports = function(grunt) {
           src: ['**/*.css'],
           dest: '<%= config.compile %>'
         }]
+      },
+      images: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.client %>/images/',
+          src: ['<%= config.images %>'],
+          dest: '<%= config.build %>/images/'
+        }]
       }
     },
 
@@ -179,7 +187,8 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
-        tasks: ['less:development']
+        tasks: ['less:development'],
+        options: { livereload: true }
       },
       scripts: {
         files: ['<%= config.app_files.js %>'],
@@ -245,7 +254,8 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:development',
-    'index:build'
+    'index:build',
+    'copy:images'
   ]);
 
   grunt.registerTask('production', [
@@ -259,7 +269,7 @@ module.exports = function(grunt) {
     'less:production',
     'concat',
     'uglify',
-    'copy:styles',
+    'copy',
     'index:compile',
     'usemin'
   ]);
