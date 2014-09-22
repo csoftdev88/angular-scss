@@ -1,0 +1,60 @@
+header {
+  &:extend(.clearfix);
+  border-bottom: @headerBorderBottom @colorHeaderBackground solid;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 999;
+  // overflow: auto;
+
+  background-color: @colorHeaderBackground;
+  background-color: fadeout(@colorHeaderBackground, 15%);
+
+  nav {
+    height: @headerHeight;
+    ul {
+      .noSpaces;
+      float: right;
+
+      li {
+        display: inline-block;
+        float: left;
+        padding: 0px @paddingHeaderDefault;
+        line-height: @headerHeight;
+        &:extend(.open-sans-light);
+        &:extend(.font-size-18);
+
+        a {
+          color: @colorMenuTextDefault;
+          text-decoration: none;
+          .transition(box-shadow, 0.2s, linear);
+          box-shadow: 0 2px 0 0 fadeout(@colorMenuTextDefault, 100%);
+
+          &:hover,
+          &:focus,
+          &:active,
+          &.is-active {
+            box-shadow: 0 2px 0 0 @colorMenuTextDefault;
+          }
+        }
+      }
+    }
+  }
+
+  .brand {
+    display: block;
+    float: left;
+    margin: 20px 0;
+  }
+
+
+  .button-login {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+
+    position: absolute;
+    top: @headerHeight + @headerBorderBottom;
+    right: 0;
+  }
+}

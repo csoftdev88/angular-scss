@@ -1,20 +1,15 @@
+// Just put all stuff together
+
 @import 'config.less';
-
-@import 'header.less';
-@import 'footer.less';
-@import 'containers.less';
-
-@import 'buttons.less';
-
-@import 'mixins.less';
-
 @import 'vendor/normilize.less';
 
+@import 'base.less';
+@import 'containers.less';
 
-html {
-  font-family: @fontDefault;
-}
+@import 'partials/header.less';
+@import 'partials/hero-slider.less';
+@import 'partials/footer.less';
+@import 'partials/buttons.less';
 
-ul {
-  list-style: none;
-}
+@import (reference) 'mixins.less';
+@import 'helpers.less';
