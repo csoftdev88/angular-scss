@@ -48,15 +48,23 @@
 }
 
 .clearfix {
-  // Weird and ugly oldschool IE hack
   *zoom: 1;
-  :before,
-  :after {
+  &:before,
+  &:after {
       content: " ";
       display: table;
   }
 
-  :after {
+  &:after {
       clear: both;
   }
+}
+
+// Image replacement
+.ir() {
+  font: ~"0/0" a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
 }
