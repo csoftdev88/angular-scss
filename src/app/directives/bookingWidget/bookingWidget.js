@@ -9,7 +9,15 @@ angular.module('mobiusApp.directives.booking', [])
     templateUrl: 'directives/bookingWidget/bookingWidget.html',
 
     // Widget logic goes here
-    link: function(){
+    link: function(scope){
+      scope.hotel = {};
+
+      scope.hotels = [
+        'Abbotsford',
+        'Blue River',
+        'Cache Creek',
+        'Calgary Airport'
+      ];
       //scope, elem, attrs
     }
   };
