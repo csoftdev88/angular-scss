@@ -1,5 +1,39 @@
 booking-widget {
-  ul {
+  border: 1px solid @colorLightGray;
+  border-radius: 5px;
+  display: block;
+  background-color: @white;
+
+  > ul {
     list-style: none;
+    padding: 0px;
+    margin: 0px;
+    height: 100px;
+
+    .heading {
+      background-color: #eee;
+    }
+
+    > li {
+      width: 16%;
+      float: left;
+      padding: 0 10px;
+
+      .vertical-align;
+
+      box-sizing: border-box;
+
+      input {
+        width: 100%;
+      }
+
+      .more {
+        position: absolute;
+      }
+
+      &.small {
+        width: 8%
+      }
+    }
   }
 }
