@@ -19,6 +19,7 @@ module.exports = {
     scripts: '**/*.js',
 
     images:  '**/*.{png,jpg,jpeg,gif,webp,svg}',
+    fonts:   '**/*.{eot,svg,ttf,woff}',
 
     app_files: {
         html: [

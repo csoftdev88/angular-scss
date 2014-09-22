@@ -196,6 +196,14 @@ module.exports = function(grunt) {
           src: ['<%= config.images %>'],
           dest: '<%= config.build %>/images/'
         }]
+      },
+      fonts: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.client %>/fonts/',
+          src: ['<%= config.fonts %>'],
+          dest: '<%= config.build %>/fonts/'
+        }]
       }
     },
 
@@ -280,7 +288,8 @@ module.exports = function(grunt) {
     'less:development',
     'autoprefixer',
     'index:build',
-    'copy:images'
+    'copy:images',
+    'copy:fonts'
   ]);
 
   grunt.registerTask('production', [

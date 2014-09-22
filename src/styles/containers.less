@@ -3,3 +3,27 @@
   width: 960px;
   margin: 0 auto;
 }
+
+.block {
+  display: block;
+}
+
+.block--left {
+  &:extend(.block);
+  float: left;
+  text-align: left;
+}
+
+.block--center {
+  &:extend(.block);
+  text-align: center;
+  > div {
+    display: inline-block;
+  }
+}
+
+.block--right {
+  &:extend(.block);
+  float: right;
+  text-align: right;
+}
