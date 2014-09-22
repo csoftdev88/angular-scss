@@ -11,6 +11,7 @@ angular.module('mobiusApp.directives.booking', [])
     // Widget logic goes here
     link: function(scope){
       scope.hotel = {};
+      scope.number = {};
 
       scope.hotels = [
         'Abbotsford',
@@ -18,7 +19,10 @@ angular.module('mobiusApp.directives.booking', [])
         'Cache Creek',
         'Calgary Airport'
       ];
-      //scope, elem, attrs
+
+      scope.numbers = [
+        0, 1, 2, 3, 4, 5, 6, 7, 8
+      ];
     }
   };
 });

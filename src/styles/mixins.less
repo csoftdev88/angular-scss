@@ -29,7 +29,6 @@
 .fs-48 { font-size: @fs-8;}
 
 
-
 .inner-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
   box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
 }
@@ -67,4 +66,16 @@
   text-shadow: none;
   background-color: transparent;
   border: 0;
+}
+
+
+/*  ==========================================
+    ALIGN/CENTERING
+    ========================================== */
+.vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

@@ -1,33 +1,40 @@
 <ul>
-	<li>
+	<li class="heading">
 		<h2>Make Your Booking</h2>
 		<p>Lorem ispum solor sid ahmed loresin vane.</p>
 	</li>
 
 	<!-- FIND YOUR HOTEL -->
 	<li>
-		<select name="hotels" required ng-model="hotel" disable-search="false" chosen ng-options="hotel for hotel in hotels">
-		<a>Advanced Options</a>
+		<select name="hotels" required ng-model="hotel" disable-search="false" chosen ng-options="hotel for hotel in hotels" data-placeholder="Find Your Hotel"/>
+		<a class="more" href>Advanced Options</a>
 	</li>
 
 	<!-- ENTER YOUR DATES -->
 	<li>
-		<input>
+		<input placeholder="Enter Your Dates"
+		  datepicker-popup
+                        ng-model="dt"
+                        min="minDate"
+                        max="maxDate"
+                        show-weeks="showWeeks"
+                        ng-required="true"
+                        show-button-bar="false">
 	</li>
 
 	<!-- ENTER YOUR CODE -->
 	<li>
-		<input>
+		<input placeholder="Enter Your Code">
 	</li>
 
-	<!-- NUMBER OF ADULTS -->
-	<li>
-		<select>
+	<li class="small">
+		<!-- NUMBER OF ADULTS -->
+		<select name="adults" required ng-model="number" disable-search="true" chosen ng-options="number for number in numbers" data-placeholder="Number Of Adults"/>
 	</li>
 
-	<!-- NUMBER OF CHILDREN -->
-	<li>
-		<select>
+	<li class="small">
+	  <!-- NUMBER OF CHILDREN -->
+		<select name="children" required ng-model="number" disable-search="true" chosen ng-options="number for number in numbers" data-placeholder="Number Of Children"/>
 	</li>
 
 	<li>

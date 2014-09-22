@@ -3,6 +3,8 @@
 angular.module('mobiusApp', [
   'ngRoute',
   'ui.router',
+  // Bootstrap components
+  'ui.bootstrap',
   // Template cache
   'templates-app',
   // 3rd party components
