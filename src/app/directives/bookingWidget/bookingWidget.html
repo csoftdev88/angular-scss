@@ -1,43 +1,59 @@
-<ul>
-  <li class="heading">
-    <h3>Make Your Booking</h3>
-    <p>Lorem ispum solor sid ahmed loresin vane.</p>
-  </li>
+<div>
+  <ul>
+    <li class="claim">
+      <div>
+        <h3>Make Your Booking</h3>
+        <p>Lorem ispum solor sid ahmed loresin vane.</p>
+      </div>
+    </li>
 
-  <!-- FIND YOUR HOTEL -->
-  <li>
-    <select name="hotels" required ng-model="hotel" disable-search="false" chosen ng-options="hotel for hotel in hotels" data-placeholder="Find Your Hotel"/>
-    <a class="more" href>Advanced Options</a>
-  </li>
+    <!-- FIND YOUR HOTEL -->
+    <li class="hotels">
+      <div>
+        <select name="hotels" required ng-model="hotel" disable-search="false" chosen ng-options="hotel for hotel in hotels" data-placeholder="Find Your Hotel"/>
+        <a class="more" href>Advanced Options</a>
+      </div>
+    </li>
 
-  <!-- ENTER YOUR DATES -->
-  <li>
-    <input type="text" placeholder="Enter Your Dates"
-      datepicker-popup
-      ng-model="dt"
-      min="minDate"
-      max="maxDate"
-      show-weeks="showWeeks"
-      ng-required="true"
-      show-button-bar="false">
-  </li>
+    <!-- ENTER YOUR DATES -->
+    <li class="dates">
+      <div>
+        <input type="text" placeholder="Enter Your Dates"
+          datepicker-popup
+          ng-model="dt"
+          min="minDate"
+          max="maxDate"
+          show-weeks="showWeeks"
+          ng-required="true"
+          show-button-bar="false">
+      </div>
+    </li>
 
-  <!-- ENTER YOUR CODE -->
-  <li>
-    <input type="text" placeholder="Enter Your Code">
-  </li>
+    <!-- ENTER YOUR CODE -->
+    <li class="codes">
+      <div>
+        <input type="text" placeholder="Enter Your Code">
+      </div>
+    </li>
 
-  <li class="small">
-    <!-- NUMBER OF ADULTS -->
-    <select name="adults" required ng-model="number" disable-search="true" chosen ng-options="number for number in numbers" data-placeholder="Number Of Adults"/>
-  </li>
+    <li class="small">
+      <!-- NUMBER OF ADULTS -->
+      <div>
+        <select name="adults" required ng-model="number" disable-search="true" chosen ng-options="number for number in numbers" data-placeholder="Number Of Adults"/>
+      </div>
+    </li>
 
-  <li class="small">
-    <!-- NUMBER OF CHILDREN -->
-    <select name="children" required ng-model="number" disable-search="true" chosen ng-options="number for number in numbers" data-placeholder="Number Of Children"/>
-  </li>
+    <li class="small">
+      <!-- NUMBER OF CHILDREN -->
+      <div>
+        <select name="children" required ng-model="number" disable-search="true" chosen ng-options="number for number in numbers" data-placeholder="Number Of Children"/>
+      </div>
+    </li>
 
-  <li>
-    <button class="button">Search</button>
-  </li>
-</ul>
+    <li class="submit">
+      <div>
+        <button class="button">Search</button>
+      </div>
+    </li>
+  </ul>
+</div>

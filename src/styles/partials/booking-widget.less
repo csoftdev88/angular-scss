@@ -9,23 +9,23 @@ booking-widget {
   margin-top: -55px;
   position: relative;
 
-  > ul {
+  > div {
+    display: table;
+  }
+
+  ul {
+    display: table-row;
     list-style: none;
     padding: 0px;
     margin: 0px;
-    height: 100px;
 
-    .heading {
-      background-color: #eee;
-    }
-
-    > li {
-      width: 16%;
-      float: left;
-      padding: 0 10px;
-      .vertical-align;
-
-      box-sizing: border-box;
+    li {
+      display: table-cell;
+      vertical-align: middle;
+      // width: 10%;
+      // float: left;
+      padding: 33px 5px;
+      // box-sizing: border-box;
 
       .more {
         position: absolute;
@@ -41,15 +41,56 @@ booking-widget {
           color: darken(@colorBookingLinkBlue, 20%);
         }
       }
+    }
 
-      &.small {
-        width: 8%
-      }
+    p {
+      color: @colorBestOffersText;
+      .fs-14;
+    }
 
-      p {
-        color: @colorBestOffersText;
-        .fs-14;
+    .claim {
+      background-color: #eee;
+      // width: 25%;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      padding: 5px 20px;
+
+      div {
+        width: 200px;
       }
+      h3, p {
+        margin: 0;
+      }
+    }
+
+    .hotels {
+      padding-left: 20px;
+    }
+
+    .hotels,
+    .dates,
+    .codes {
+      div {
+        min-width: 140px;
+      }
+    }
+
+    .submit {
+      padding-right: 20px;
+      div {
+        width: 100px;
+      }
+    }
+
+    .small {
+      div {
+        width: 50px;
+      }
+    }
+
+    button {
+      box-sizing: border-box;
+      width: 100px;
     }
   }
 }
