@@ -8,13 +8,44 @@
     .offers-title();
   }
 
-  p {
-    color: @colorBestOffersText;
-    .fs-14;
-  }
+  .best-offers__selection {
+    a {
+      text-decoration: none;
+      color: @colorTextDefault;
+    }
 
-  img {
-    border-radius: 3px;
+    p {
+      color: @colorBestOffersText;
+      .fs-14;
+    }
+
+    img {
+      border-radius: 3px;
+    }
+
+    h3, p {
+      transition: color 0.2s linear;
+    }
+
+    img {
+      border-radius: 3px;
+      transform: translateZ(0);
+      filter: grayscale(0.35);
+      transition: all 0.15s linear;
+      box-shadow: 0 10px 10px -10px fade(@black, 0%);
+    }
+
+    a:hover,
+    a:focus {
+      h3, p {
+        color: @black;
+      }
+      img {
+        transform: translateY(-3px);
+        filter: grayscale(0);
+        box-shadow: 0 10px 10px -10px fade(@black, 40%);
+      }
+    }
   }
 
   .best-offers__explore {
