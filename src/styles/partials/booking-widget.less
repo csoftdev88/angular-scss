@@ -1,8 +1,10 @@
 booking-widget {
-  border: 1px solid @colorLightGray;
+  position: relative;
+  margin-top: -50px;
   border-radius: 5px;
   display: block;
   background-color: @white;
+  box-shadow: 0 0 0 2px fadeout(@black, 90%);
 
   > ul {
     list-style: none;
@@ -29,6 +31,18 @@ booking-widget {
 
       .more {
         position: absolute;
+        margin-top: 8px;
+        border-bottom: 1px @colorBookingLinkBlue solid;
+        color: @colorBookingLinkBlue;
+        .fs-12;
+        line-height: 14px;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+          color: darken(@colorBookingLinkBlue, 20%)
+
+        }
       }
 
       &.small {
@@ -37,3 +51,5 @@ booking-widget {
     }
   }
 }
+
+
