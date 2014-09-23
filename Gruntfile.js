@@ -88,6 +88,7 @@ module.exports = function(grunt) {
     less: {
       development: {
         expand: true,
+        sourceMap: true,
         cwd: '<%= config.client %>/',
         src: 'styles/main.less',
         dest: '<%= config.build %>/',
