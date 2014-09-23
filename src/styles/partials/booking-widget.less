@@ -4,6 +4,9 @@ booking-widget {
   display: block;
   background-color: @white;
 
+  margin-top: -55px;
+	position: relative;
+
   > ul {
     list-style: none;
     padding: 0px;
@@ -18,22 +21,25 @@ booking-widget {
       width: 16%;
       float: left;
       padding: 0 10px;
-
       .vertical-align;
 
       box-sizing: border-box;
 
-      input {
-        width: 100%;
-      }
-
       .more {
         position: absolute;
+        margin: 5px 0;
+        color: @colorLinkDefault;
+        .fs-12;
       }
 
       &.small {
         width: 8%
       }
+
+		  p {
+		    color: @colorBestOffersText;
+		    .fs-14;
+		  }
     }
   }
 }
