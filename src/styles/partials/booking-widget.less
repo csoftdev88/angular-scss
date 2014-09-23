@@ -11,86 +11,86 @@ booking-widget {
 
   > div {
     display: table;
-  }
 
-  ul {
-    display: table-row;
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
+    > ul {
+      display: table-row;
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
 
-    li {
-      display: table-cell;
-      vertical-align: middle;
-      // width: 10%;
-      // float: left;
-      padding: 33px 5px;
-      // box-sizing: border-box;
+      li {
+        display: table-cell;
+        vertical-align: middle;
+        // width: 10%;
+        // float: left;
+        padding: 33px 5px;
+        // box-sizing: border-box;
 
-      .more {
-        position: absolute;
-        margin-top: 8px;
-        border-bottom: 1px @colorBookingLinkBlue solid;
-        color: @colorBookingLinkBlue;
-        .fs-12;
-        line-height: 14px;
-        text-decoration: none;
+        .more {
+          position: absolute;
+          margin-top: 8px;
+          border-bottom: 1px @colorBookingLinkBlue solid;
+          color: @colorBookingLinkBlue;
+          .fs-12;
+          line-height: 14px;
+          text-decoration: none;
 
-        &:hover,
-        &:focus {
-          color: darken(@colorBookingLinkBlue, 20%);
+          &:hover,
+          &:focus {
+            color: darken(@colorBookingLinkBlue, 20%);
+          }
         }
       }
-    }
 
-    p {
-      color: @colorBestOffersText;
-      .fs-14;
-    }
-
-    .claim {
-      background-color: #eee;
-      // width: 25%;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-      padding: 5px 20px;
-
-      div {
-        width: 200px;
+      p {
+        color: @colorBestOffersText;
+        .fs-14;
       }
-      h3, p {
-        margin: 0;
+
+      .claim {
+        background-color: #eee;
+        // width: 25%;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding: 5px 20px;
+
+        div {
+          width: 200px;
+        }
+        h3, p {
+          margin: 0;
+        }
       }
-    }
 
-    .hotels {
-      padding-left: 20px;
-    }
-
-    .hotels,
-    .dates,
-    .codes {
-      div {
-        min-width: 140px;
+      .hotels {
+        padding-left: 20px;
       }
-    }
 
-    .submit {
-      padding-right: 20px;
-      div {
+      .hotels,
+      .dates,
+      .codes {
+        > div {
+          min-width: 140px;
+        }
+      }
+
+      .submit {
+        padding-right: 20px;
+        div {
+          width: 100px;
+        }
+      }
+
+      .small {
+        div {
+          width: 50px;
+        }
+      }
+
+      button {
+        box-sizing: border-box;
         width: 100px;
       }
-    }
-
-    .small {
-      div {
-        width: 50px;
-      }
-    }
-
-    button {
-      box-sizing: border-box;
-      width: 100px;
     }
   }
 }
