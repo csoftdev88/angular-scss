@@ -235,6 +235,11 @@ module.exports = function(grunt) {
       server: {
         files: ['<%= config.server %>/<%= config.scripts %>'],
         tasks: ['exit']
+      },
+      images: {
+        files: ['<%= config.client %>/<%= config.images %>'],
+        tasks: ['copy:images'],
+        options: { livereload: true }
       }
     },
 
