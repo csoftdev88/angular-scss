@@ -10,6 +10,8 @@ module.exports = function (app) {
         // App sources and bower scripts
         app.use('/static/app', express.static(path.join(app.directory, '/.build/app/')));
         app.use('/static/styles', express.static(path.join(app.directory, '/.build/styles/')));
+        app.use('/static/images', express.static(path.join(app.directory, '/.build/images/')));
+        app.use('/static/fonts', express.static(path.join(app.directory, '/.build/fonts/')));
         app.use('/static/bower_components', express.static(path.join(app.directory, '/bower_components')));
 
         app.set('port', process.env.PORT || 9000);

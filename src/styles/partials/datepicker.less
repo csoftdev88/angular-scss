@@ -1,0 +1,79 @@
+ul[datepicker-popup-wrap] {
+  padding: 0px;
+
+  table {
+    .box-shadow;
+    border-radius: @borderRadiusDefault;
+    background-color: @white;
+    margin-top: 5px;
+
+    button {
+      .link-button();
+    }
+
+    thead tr {
+      // Header
+      &:first-child {
+        background-color: @colorDatepickerHeader;
+
+        th:nth-child(1),
+        th:nth-child(3) {
+          background: url('../images/angle-left.svg') no-repeat center center;
+          background-size: 46px 38px;
+          cursor: pointer;
+        }
+
+        th:nth-child(2) {
+          text-align: center;
+        }
+
+        th:nth-child(3) {
+          background-image: url('../images/angle-right.svg');
+        }
+
+        button {
+          padding: 7px 0px;
+
+          strong {
+            color: @white;
+            .fs-12;
+          }
+        }
+      }
+
+      // Months
+      &:nth-child(2) {
+        background-color: @colorDatepickerSubHeader;
+
+        th {
+          color: @colorLinkDefault;
+          .fs-12;
+          font-weight: normal;
+          padding: 7px 12px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        button {
+          padding: 4px 8px;
+          .transition(background-color, @transitionDurationShort);
+
+          span {
+            color: @colorDatepickerDays;
+            .fs-12;
+          }
+
+          &:hover {
+            background-color: @colorDatepickerRange;
+
+            span {
+              color: @white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

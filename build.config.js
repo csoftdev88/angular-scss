@@ -19,6 +19,7 @@ module.exports = {
     scripts: '**/*.js',
 
     images:  '**/*.{png,jpg,jpeg,gif,webp,svg}',
+    fonts:   '**/*.{eot,svg,ttf,woff}',
 
     app_files: {
         html: [
@@ -38,6 +39,7 @@ module.exports = {
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+            'bower_components/angular-chosen-localytics/chosen.js',
             'bower_components/jquery/jquery.js',
             'bower_components/angular-bootstrap/ui-bootstrap.min.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
@@ -53,13 +55,15 @@ module.exports = {
     /* List of vendor files used in application */
     vendor_files: {
         js: [
-            'bower_components/lodash/dist/lodash.js',
             'bower_components/jquery/jquery.js',
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-resource/angular-resource.js',
+            'bower_components/angular-resource/angular-resource.js',
+            'bower_components/angular-chosen-localytics/chosen.js',
             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-            'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
+            'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+            'bower_components/chosen/chosen.jquery.min.js'
         ],
         styles: [
         ]

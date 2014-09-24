@@ -1,0 +1,54 @@
+[widget="best-hotels"]{
+  margin: 2em 0;
+
+  a {
+    text-decoration: none;
+    color: @colorTextDefault;
+  }
+
+  h2 {
+    .offers-heading();
+  }
+
+  h3 {
+    .offers-title();
+  }
+
+  ul {
+    .noSpaces;
+    list-style-type: none;
+  }
+
+  p {
+    margin: 0.25em 0;
+    &:extend(.open-sans-light);
+    font-style: italic;
+    .fs-18;
+  }
+
+  h3, p {
+    transition: color 0.2s linear;
+  }
+
+  img {
+    border-radius: 3px;
+    transform: translateZ(0);
+    filter: grayscale(0.5);
+    transition: all 0.15s linear;
+    box-shadow: 0 10px 10px -10px fade(@black, 0%);
+  }
+
+  a:hover,
+  a:focus {
+    h3, p {
+      color: @black;
+    }
+    img {
+      transform: translateY(-3px);
+      filter: grayscale(0);
+      box-shadow: 0 10px 10px -10px fade(@black, 40%);
+    }
+
+  }
+
+}

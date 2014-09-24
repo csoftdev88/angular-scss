@@ -1,0 +1,48 @@
+input[type="text"] {
+  display: block;
+  width: 100%;
+  height: @inputHeight;
+  padding: 1px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+  background-color: @white;
+  outline: none;
+  border: 1px solid @colorInputBorder;
+  border-radius: 4px;
+  box-sizing: border-box;
+  .transition(border-color, .15s);
+
+  &:focus {
+    border: 1px solid @colorInputBorder;
+    .inner-shadow();
+  }
+}
+
+input[type="text"][datepicker-popup] {
+  background: transparent url('../images/calendar.svg') no-repeat scroll 120px center;
+  background-size: 18px 18px;
+  padding-right: 25px;
+}
+
+.form-group {
+  position: relative;
+
+  input[type="text"]:focus,
+  .chosen-with-drop {
+    & ~ .info {
+      display: block;
+      .formInfoAnimation;
+    }
+  }
+
+  // Short info text above input/select elements
+  .info {
+    .animated;
+    display: none;
+    position: absolute;
+    margin-top: -55px;
+    .fs-12;
+    color: @colorLightGray;
+  }
+}

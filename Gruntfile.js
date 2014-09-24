@@ -9,6 +9,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
 
@@ -87,6 +88,7 @@ module.exports = function(grunt) {
     less: {
       development: {
         expand: true,
+        sourceMap: true,
         cwd: '<%= config.client %>/',
         src: 'styles/main.less',
         dest: '<%= config.build %>/',
@@ -104,6 +106,29 @@ module.exports = function(grunt) {
         src: 'styles/main.less',
         dest: '<%= config.compile %>/',
         ext: '_<%= pkg.name %>-<%= pkg.version %>.css',
+      }
+    },
+
+    autoprefixer: {
+      options: {
+        diff: '<%= config.build %>/styles/autoprefixer.patch',
+        browsers: [
+          '> 1%',
+          'last 2 versions',
+          'Firefox ESR',
+          'Opera 12.1',
+          'ie 8',
+          'ie 9',
+          'ie 10',
+          'Android 2',
+          'bb 10',
+          'last 2 op_mob versions',
+          'last 2 and_chr versions',
+          'last 2 ie_mob versions'
+        ]
+      },
+      dist: {
+        src: '<%= config.build %>/<%= config.styles %>'
       }
     },
 
@@ -164,6 +189,22 @@ module.exports = function(grunt) {
           src: ['**/*.css'],
           dest: '<%= config.compile %>'
         }]
+      },
+      images: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.client %>/images/',
+          src: ['<%= config.images %>'],
+          dest: '<%= config.build %>/images/'
+        }]
+      },
+      fonts: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.client %>/fonts/',
+          src: ['<%= config.fonts %>'],
+          dest: '<%= config.build %>/fonts/'
+        }]
       }
     },
 
@@ -179,7 +220,8 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
-        tasks: ['less:development']
+        tasks: ['less:development', 'autoprefixer'],
+        options: { livereload: true }
       },
       scripts: {
         files: ['<%= config.app_files.js %>'],
@@ -193,6 +235,11 @@ module.exports = function(grunt) {
       server: {
         files: ['<%= config.server %>/<%= config.scripts %>'],
         tasks: ['exit']
+      },
+      images: {
+        files: ['<%= config.client %>/<%= config.images %>'],
+        tasks: ['copy:images'],
+        options: { livereload: true }
       }
     },
 
@@ -245,7 +292,10 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:development',
-    'index:build'
+    'autoprefixer',
+    'index:build',
+    'copy:images',
+    'copy:fonts'
   ]);
 
   grunt.registerTask('production', [
@@ -259,7 +309,7 @@ module.exports = function(grunt) {
     'less:production',
     'concat',
     'uglify',
-    'copy:styles',
+    'copy',
     'index:compile',
     'usemin'
   ]);

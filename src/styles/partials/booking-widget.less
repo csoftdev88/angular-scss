@@ -1,0 +1,99 @@
+booking-widget {
+  position: relative;
+  margin-top: -50px;
+  border-radius: 5px;
+  display: block;
+  background-color: @white;
+  box-shadow: 0 0 0 2px fadeout(@black, 90%);
+
+  margin-top: -55px;
+  position: relative;
+
+  > div {
+    display: table;
+
+    > ul {
+      display: table-row;
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+
+      > li {
+        display: table-cell;
+        vertical-align: middle;
+        // width: 10%;
+        // float: left;
+        padding: 33px 5px;
+        // box-sizing: border-box;
+
+        .more {
+          position: absolute;
+          margin-top: 8px;
+          border-bottom: 1px @colorBookingLinkBlue solid;
+          color: @colorBookingLinkBlue;
+          .fs-12;
+          line-height: 14px;
+          text-decoration: none;
+
+          &:hover,
+          &:focus {
+            color: darken(@colorBookingLinkBlue, 20%);
+          }
+        }
+      }
+
+      p {
+        color: @colorBestOffersText;
+        .fs-14;
+      }
+
+      .claim {
+        background-color: #eee;
+        // width: 25%;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding: 5px 20px;
+
+        div {
+          width: 200px;
+        }
+        h3, p {
+          margin: 0;
+        }
+        h3 {
+          color: @colorHeadingDefault;
+        }
+      }
+
+      .hotels {
+        padding-left: 20px;
+      }
+
+      .hotels,
+      .dates,
+      .codes {
+        > div {
+          min-width: 140px;
+        }
+      }
+
+      .submit {
+        padding-right: 20px;
+        div {
+          width: 100px;
+        }
+      }
+
+      .small {
+        div {
+          width: 50px;
+        }
+      }
+
+      > button {
+        box-sizing: border-box;
+        width: 100px;
+      }
+    }
+  }
+}

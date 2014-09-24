@@ -1,22 +1,31 @@
-body {
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
-}
+// Just put all stuff together
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 30px;
-    background-color: #eee;
-    border-radius: 6px;
-    padding: 60px;
-}
+@import 'config.less';
+@import 'vendor/normilize.less';
 
-.hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-}
+@import 'base.less';
+@import 'containers.less';
+@import 'typography.less';
+
+@import 'partials/header.less';
+@import 'partials/hero-slider.less';
+@import 'partials/footer.less';
+@import 'partials/buttons.less';
+@import 'partials/forms.less';
+@import 'partials/selects.less';
+@import 'partials/dropdowns.less';
+@import 'partials/datepicker.less';
+
+@import 'partials/booking-widget.less';
+@import 'partials/best-offers-widget.less';
+@import 'partials/best-hotels-widget.less';
+@import 'partials/animations.less';
+
+
+@import (reference) 'mixins.less';
+@import 'helpers.less';
+
+// Font icons - only files necessary for now are linked
+// (excluding files for IE7 etc.)
+@import (inline) 'vendor/mobius-icons.css';
+@import (inline) 'vendor/mobius-icons-codes.css';
