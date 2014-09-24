@@ -42,6 +42,22 @@ angular.module('mobiusApp', [
       url: '/'
     })
 
+    // Hotels
+    .state('index.hotels', {
+      templateUrl: 'layouts/hotels/hotels.html',
+      url: '/hotels'
+    })
+
+    .state('index.hotel', {
+      templateUrl: 'layouts/hotels/hotelDetails.html',
+      url: '/hotels/:hotelID'
+    })
+
+    .state('index.room', {
+      templateUrl: 'layouts/hotels/roomDetails.html',
+      url: '/hotels/:hotelID/rooms/:roomID'
+    })
+
     .state('otherwise', {
       url: '/'
     });
