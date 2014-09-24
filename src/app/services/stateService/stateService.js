@@ -6,7 +6,7 @@ angular.module('mobiusApp.services.state', [])
   function getStateLayout(stateName){
     var config = Settings.layout[stateName];
     if(!config){
-      return;
+      return [];
     }
 
     // List of html templates

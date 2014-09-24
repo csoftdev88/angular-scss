@@ -11,7 +11,6 @@ angular.module('mobiusApp', [
   'localytics.directives',
 
   // Application modules
-  'mobiusApp.main',
   'mobiusApp.config',
 
   // Services
