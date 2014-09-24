@@ -12,8 +12,13 @@ angular.module('mobiusApp', [
 
   // Application modules
   'mobiusApp.main',
+  'mobiusApp.config',
+
+  // Services
+  'mobiusApp.services.state',
 
   // Custom components
+  'mobiusApp.directives.layout',
   'mobiusApp.directives.slider',
   'mobiusApp.directives.booking',
   'mobiusApp.directives.best.offers',
@@ -29,6 +34,7 @@ angular.module('mobiusApp', [
     // Default application layout
     .state('default', {
       templateUrl: 'layouts/default.html',
+      controller: 'MainCtrl'
     })
 
     // Home page
@@ -40,4 +46,10 @@ angular.module('mobiusApp', [
     .state('otherwise', {
       url: '/'
     });
+})
+
+.controller( 'MainCtrl',  function($scope, $state) {
+  $scope.$on('$stateChangeSuccess', function() {
+    $scope.$state = $state;
+  });
 });
