@@ -16,8 +16,19 @@ ul[datepicker-popup-wrap] {
       &:first-child {
         background-color: @colorDatepickerHeader;
 
+        th:nth-child(1),
+        th:nth-child(3) {
+          background: url('../images/angle-left.svg') no-repeat center center;
+          background-size: 46px 38px;
+          cursor: pointer;
+        }
+
         th:nth-child(2) {
           text-align: center;
+        }
+
+        th:nth-child(3) {
+          background-image: url('../images/angle-right.svg');
         }
 
         button {
