@@ -24,3 +24,23 @@ input[type="text"][datepicker-popup] {
   background-size: 18px 18px;
   padding-right: 25px;
 }
+
+.form-group {
+  input[type="text"]:focus,
+  .chosen-with-drop {
+    & ~ .info {
+      display: block;
+      .formInfoAnimation;
+    }
+  }
+
+  // Short info text above input/select elements
+  .info {
+    .animated;
+    display: none;
+    position: absolute;
+    margin-top: -55px;
+    .fs-12;
+    color: @colorLightGray;
+  }
+}
