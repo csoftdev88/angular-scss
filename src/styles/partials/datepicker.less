@@ -1,13 +1,68 @@
-ul[datepicker-popup-wrap] table {
-  background-color: @white;
+ul[datepicker-popup-wrap] {
+  padding: 0px;
 
-  button {
-    .link-button();
-  }
+  table {
+    .box-shadow;
+    border-radius: @borderRadiusDefault;
+    background-color: @white;
+    margin-top: 5px;
 
-  thead {
-    &:first-child {
-      background-color: #aaa;
+    button {
+      .link-button();
+    }
+
+    thead tr {
+      // Header
+      &:first-child {
+        background-color: @colorDatepickerHeader;
+
+        th:nth-child(2) {
+          text-align: center;
+        }
+
+        button {
+          padding: 7px 0px;
+
+          strong {
+            color: @white;
+            .fs-12;
+          }
+        }
+      }
+
+      // Months
+      &:nth-child(2) {
+        background-color: @colorDatepickerSubHeader;
+
+        th {
+          color: @colorLinkDefault;
+          .fs-12;
+          font-weight: normal;
+          padding: 7px 12px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        button {
+          padding: 4px 8px;
+          .transition(background-color, @transitionDurationShort);
+
+          span {
+            color: @colorDatepickerDays;
+            .fs-12;
+          }
+
+          &:hover {
+            background-color: @colorDatepickerRange;
+
+            span {
+              color: @white;
+            }
+          }
+        }
+      }
     }
   }
 }
