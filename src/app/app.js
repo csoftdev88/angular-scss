@@ -32,14 +32,14 @@ angular.module('mobiusApp', [
 
   $stateProvider
     // Default application layout
-    .state('default', {
-      templateUrl: 'layouts/default.html',
+    .state('index', {
+      templateUrl: 'layouts/index.html',
       controller: 'MainCtrl'
     })
 
     // Home page
-    .state('default.home', {
-      templateUrl: 'home/home.html',
+    .state('index.home', {
+      templateUrl: 'layouts/home/home.html',
       url: '/'
     })
 

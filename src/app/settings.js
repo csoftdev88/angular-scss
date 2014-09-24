@@ -4,7 +4,7 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'layout': {
-    'default.home': [
+    'index.home': [
       'best-offers',
       'best-hotels'
     ]
