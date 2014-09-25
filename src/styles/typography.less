@@ -39,13 +39,14 @@
 /*  ==========================================
     Relative font-size computing
     ========================================== */
-.font-size(@size: @baseFontSize; @includeLineHeight: false; @base: @htmlFontSize; ) {
+.font-size(@size; @includeLineHeight: false; @base: @htmlFontSize; ) {
   font-size: unit( round( (@size / @base), 5), em);
   .line-height(@includeLineHeight, @size);
 }
 
 /*  ==========================================
-    Relative margins
+    Relative margins for typographic elements
+      - computed relatively to font size
     ========================================== */
 
 .margin-top(@fontSize: @htmlFontSize; @portion: 1) {
@@ -81,6 +82,12 @@ p {
   &:extend(.open-sans);
   .fs-14(true);
   .margin-top-bottom(14, 1);
+}
+
+h1 {
+  &:extend(.open-sans-light);
+  .fs-24(true);
+  .margin-top-bottom(24, 1);
 }
 
 
