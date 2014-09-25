@@ -217,6 +217,7 @@ module.exports = function(grunt) {
       markup: {
         files: ['<%= config.client %>/<%= config.markup %>'],
         tasks: ['html2js', 'index:build'],
+        options: { livereload: true }
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
