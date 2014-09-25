@@ -19,12 +19,22 @@
       .fs-14;
     }
 
+    header {
+      .baselined-height(150);
+      height: @baselinedHeight;
+      // height: ((floor(150px / @baseline) + 1) * @baseline);
+    }
+
     img {
       border-radius: 3px;
     }
 
     h3, p {
       transition: color 0.2s linear;
+    }
+
+    p {
+      margin-top: 0;
     }
 
     img {
@@ -49,7 +59,8 @@
   }
 
   .best-offers__explore {
-    margin: 2em 0;
+    .margin-top(16px);
+    margin-bottom: 16px;
 
     > div {
       border-radius: 5px;
@@ -66,6 +77,7 @@
       background-color: fadeout(@black, 60%);
       text-decoration: none;
       transition: background-color 0.25s linear;
+      font-size: @htmlFontSize;
 
       &:hover,
       &:focus {
@@ -89,7 +101,7 @@
 
       span {
         margin-left: -3em;
-        .fs-36;
+        .fs-36(false, 48);
       }
       strong {
         margin-left: 3em;
