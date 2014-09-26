@@ -1,9 +1,3 @@
-.hotels__list() {
-  > ul {
-    list-style-type: none;
-  }
-}
-
 [widget="hotels"]{
 
   .hotels__header {
@@ -18,23 +12,119 @@
   }
 
   .hotels__controls {
-    .margin-top-bottom;
+    .margin-top;
+    .margin-bottom;
+    height: 2 * @baseline;
   }
 
+  .order-switch {
+    float: left;
+  }
+
+  .view-switch {
+    float: right;
+
+    .icon {
+      cursor: pointer;
+      font-size: 1.5em;
+      line-height: @baseline * 2;
+      color: @colorLightGray;
+
+      &.is-active {
+        color: darken(@colorLightGray, 20%);
+      }
+    }
+
+    .icon--list-view {
+      background-image: url(../images/list.svg);
+    }
+
+    .icon--tile-view {
+      background-image: url(../images/tiles.svg);
+    }
+  }
+
+  .hotels__list--tiles,
+  .hotels__list--list {
+    > ul {
+      list-style-type: none;
+      .noSpaces;
+    }
+  }
 
   .hotels__list--tiles {
-    &:extend(.hotels__list);
+
+    img {
+      display: block;
+      width: 210px;
+      height: 147px;
+    }
 
     .item {
+      .grid-element(3);
+      .margin-bottom;
+    }
 
+    .title {
+      margin: 0;
+      .fs-21(true);
+      .margin-top-bottom(21, 0.5);
+      font-weight: 300;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+
+    .price {
+      float: right;
+      .open-sans-light;
+      .fs-14(true);
+      font-style: italic;
+
+      .value {
+        .fs-18(false, 14);
+        line-height: 1;
+        font-weight: 600;
+        font-style: normal;
+
+      }
+
+      [currency="pound"]:before {
+        content: '£';
+      }
+
+      small {
+        .font-size(10, false, 14);
+      }
+    }
+
+    .rating {
+      float: left;
+      height: @baseline;
+      line-height: @baseline;
+    }
+
+    .star {
+      margin: 0;
+      .fs-14(true);
+      color: @colorStar;
+
+      &:before {
+        width: 0.75ex;
+        line-height: @baseline;
+      }
+      &.icon-star-empty {
+        color: @colorLightGray;
+      }
     }
   }
 
   .hotels__list--list {
-    &:extend(.hotels__list);
 
     .item {
 
     }
   }
 }
+

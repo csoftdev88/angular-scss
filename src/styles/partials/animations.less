@@ -1,21 +1,15 @@
 .animated {
-  -webkit-animation-duration:   @transitionDurationDefault;
   animation-duration:           @transitionDurationDefault;
-  -webkit-animation-fill-mode:  both;
   animation-fill-mode:          both;
 }
 
 @keyframes bounceInUp {
   0% {
-    -webkit-transform:    translateY(10px);
-    -ms-transform:        translateY(10px);
     transform:            translateY(10px);
     opacity:              0;
   }
 
   100% {
-    -webkit-transform:    translateY(0);
-    -ms-transform:        translateY(0);
     transform:            translateY(0);
     opacity:              1;
   }
@@ -24,4 +18,18 @@
 .formInfoAnimation {
   -webkit-animation-name: bounceInUp;
   animation-name:         bounceInUp;
+}
+
+.animate-spin {
+  animation: spin 2s infinite linear;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
 }

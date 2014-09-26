@@ -4,4 +4,9 @@ module.exports = function (app) {
             title: 'Express'
         });
     });
+    app.get('/hotels', function (req, res, next) {
+        res.render('index', {
+            title: 'Express'
+        });
+    });
 };

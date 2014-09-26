@@ -68,30 +68,44 @@
     height: auto;
   }
 
-  .grid-el(@i) when (@i =< @cols){
+  .grid-element-loop(@i) when (@i =< @cols){
 
     [grid="@{i}"]{
       &:extend(.grid);
       width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
     }
     // Recursive call with index incrementation
-    .grid-el(@i + 1);
+    .grid-element-loop(@i + 1);
   }
   // Init grid
-  .grid-el(1);
+  .grid-element-loop(1);
 
-  .grid-wrap(@i) when (@i =< @cols){
+  .grid-wrap-loop(@i) when (@i =< @cols){
 
     [grid-container="@{i}"]{
       &:extend(.grid-outer);
       width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * @i));
     }
     // Recursive call with index incrementation
-    .grid-wrap(@i + 1);
+    .grid-wrap-loop(@i + 1);
   }
 
-  .grid-wrap(1);
+  .grid-wrap-loop(1);
+
 }
 
 // Calling the grid mixin
 .generate-grid(@gridWidth, @gridGap, @gridColumnCount);
+
+// Grid mixins without recursion
+.grid-element(@i; @float: left){
+  float: @float;
+  width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * (@i - 1)));
+  margin-left: @gridGap / 2;
+  margin-right: @gridGap / 2;
+}
+
+.grid-wrap(@i; @float: left){
+  float: @float;
+  width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
+}

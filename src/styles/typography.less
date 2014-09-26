@@ -25,14 +25,17 @@
 /*  ==========================================
     Relative line-height computing
     ========================================== */
+.line-height(@size, @lines: 1) {
+  line-height: unit(round(  (@baseline * @lines) / @size , 5));
+}
 
-.line-height(@include, @size) when (@include = true) and (@size =< @baseline){
+.include-line-height(@include, @size) when (@include = true) and (@size =< @baseline){
   line-height: unit(round( (@baseline / @size), 5));
 }
-.line-height(@include, @size) when (@include = true) and (@size > @baseline) and (@size =< @baseline * 2) {
+.include-line-height(@include, @size) when (@include = true) and (@size > @baseline) and (@size =< @baseline * 2) {
   line-height: unit(round( ( (@baseline * 2) / @size), 5));
 }
-.line-height(@include, @size) when (@include = true) and (@size > @baseline * 2) and (@size =< @baseline * 3) {
+.include-line-height(@include, @size) when (@include = true) and (@size > @baseline * 2) and (@size =< @baseline * 3) {
   line-height: unit(round( ( (@baseline * 3) / @size), 5));
 }
 
@@ -41,7 +44,7 @@
     ========================================== */
 .font-size(@size; @includeLineHeight: false; @base: @htmlFontSize; ) {
   font-size: unit( round( (@size / @base), 5), em);
-  .line-height(@includeLineHeight, @size);
+  .include-line-height(@includeLineHeight, @size);
 }
 
 /*  ==========================================
