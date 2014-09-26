@@ -1,0 +1,40 @@
+.hotels__list() {
+  > ul {
+    list-style-type: none;
+  }
+}
+
+[widget="hotels"]{
+
+  .hotels__header {
+
+    hr {
+      height: 0px;
+      .noSpaces;
+      margin-top: -1px;
+      border: none;
+      border-bottom: 1px dashed @borderBottomColorHeader;
+    }
+  }
+
+  .hotels__controls {
+    .margin-top-bottom;
+  }
+
+
+  .hotels__list--tiles {
+    &:extend(.hotels__list);
+
+    .item {
+
+    }
+  }
+
+  .hotels__list--list {
+    &:extend(.hotels__list);
+
+    .item {
+
+    }
+  }
+}

@@ -38,7 +38,8 @@
 
 // Grid mixin
 .generate-grid(@full, @gap, @cols){
-  .grid-row {
+  .grid-row,
+  [grid-row] {
     clear: both;
     .clearfix;
   }
@@ -51,9 +52,15 @@
   }
 
   .grid {
+    float: left;
     margin-left: @gap / 2;
     margin-right: @gap / 2;
+  }
+
+  .grid-outer {
     float: left;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .grid-img {
@@ -63,15 +70,27 @@
 
   .grid-el(@i) when (@i =< @cols){
 
-    .grid-@{i}{
+    [grid="@{i}"]{
       &:extend(.grid);
       width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
     }
     // Recursive call with index incrementation
     .grid-el(@i + 1);
   }
-
+  // Init grid
   .grid-el(1);
+
+  .grid-wrap(@i) when (@i =< @cols){
+
+    [grid-container="@{i}"]{
+      &:extend(.grid-outer);
+      width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * @i));
+    }
+    // Recursive call with index incrementation
+    .grid-wrap(@i + 1);
+  }
+
+  .grid-wrap(1);
 }
 
 // Calling the grid mixin
