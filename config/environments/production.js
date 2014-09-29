@@ -2,7 +2,7 @@ var express = require('express'),
     path = require('path');
 
 module.exports = function (app) {
-    app.configure('development', function () {
+    app.configure('production', function () {
         app.use(function staticsPlaceholder(req, res, next) {
             return next();
         });
