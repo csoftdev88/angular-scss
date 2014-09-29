@@ -18,6 +18,7 @@ module.exports = function (app) {
         app.set('views', path.join(app.directory, '/build'));
         app.engine('html', require('ejs').renderFile);
         app.set('view engine', 'html');
+        app.use(express.basicAuth('mobius', 'mobius'));
         app.use(express.favicon());
         app.use(express.logger('dev'));
         app.use(express.bodyParser());
