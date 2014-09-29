@@ -4,8 +4,8 @@
 module.exports = {
   config: {
     // Destinations
-    build: '.build',
-    compile: '.compile',
+    build: 'build',
+    compile: 'compile',
 
     gruntfile: 'Gruntfile.js',
     client: 'src',
