@@ -87,23 +87,31 @@ p {
   .margin-top-bottom(14, 1);
 }
 
-h1 {
+h1, h2 {
   &:extend(.open-sans-light);
   .fs-24(true);
   .margin-top-bottom(24, 1);
+  color: @colorHeadingDefault;
 }
 
-h4 {
+h3, h4 {
   &:extend(.open-sans-bold);
   .fs-16(true);
   .margin-top-bottom(16, 1);
+  color: @colorHeadingDefault;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  strong {
+    font-weight: 600;
+  }
 }
 
 
 /*  ==========================================
     Basic reusable typographic styles
     ========================================== */
-.offers-heading(){
+.offers-heading() {
   display: inline-block;
   height: 2 * @baseline - 1; // -1px for bottom border
   .margin-top-bottom(24);
@@ -115,9 +123,25 @@ h4 {
   .fs-24(true);
 }
 
-.offers-title(){
+.offers-title() {
   .margin-top-bottom(21, 0.5);
   color: @colorBestOffersTitle;
   &:extend(.open-sans-light);
   .fs-21(true);
+}
+
+.section-title {
+  .fs-21(false);
+  .line-height(21, 2);
+  margin-bottom: 0;
+}
+
+.list-item-title {
+  margin: 0;
+  .fs-21(true);
+  .margin-top-bottom(21, 0.5);
+  font-weight: 300;
+  strong {
+    font-weight: 600;
+  }
 }
