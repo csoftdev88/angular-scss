@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'mobius-icons';
-  src: url('../font/mobius-icons.eot?94854838');
-  src: url('../font/mobius-icons.eot?94854838#iefix') format('embedded-opentype'),
-       url('../font/mobius-icons.woff?94854838') format('woff'),
-       url('../font/mobius-icons.ttf?94854838') format('truetype'),
-       url('../font/mobius-icons.svg?94854838#mobius-icons') format('svg');
+  src: url('../font/mobius-icons.eot?10273387');
+  src: url('../font/mobius-icons.eot?10273387#iefix') format('embedded-opentype'),
+       url('../font/mobius-icons.woff?10273387') format('woff'),
+       url('../font/mobius-icons.ttf?10273387') format('truetype'),
+       url('../font/mobius-icons.svg?10273387#mobius-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'mobius-icons';
-    src: url('../font/mobius-icons.svg?94854838#mobius-icons') format('svg');
+    src: url('../font/mobius-icons.svg?10273387#mobius-icons') format('svg');
   }
 }
 */
@@ -65,3 +65,8 @@
 .icon-th-thumb-empty:before { content: '\e80c'; } /* '' */
 .icon-mobile:before { content: '\e80d'; } /* '' */
 .icon-mail:before { content: '\e80e'; } /* '' */
+.icon-wheelchair:before { content: '\e80f'; } /* '' */
+.icon-signal:before { content: '\e810'; } /* '' */
+.icon-globe:before { content: '\e811'; } /* '' */
+.icon-lock:before { content: '\e812'; } /* '' */
+.icon-dollar:before { content: '\e813'; } /* '' */

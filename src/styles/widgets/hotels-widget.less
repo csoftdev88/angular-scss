@@ -1,14 +1,10 @@
 /*  ==========================================
     HOTELS widget
     ========================================== */
-[widget="hotels"]{
-
-  .hotels__controls {
-    .margin-top;
-    .margin-bottom;
-    height: 2 * @baseline;
-  }
-
+.hotels__controls {
+  .margin-top;
+  .margin-bottom;
+  height: 2 * @baseline;
   .order-switch {
     float: left;
   }
@@ -37,11 +33,72 @@
   }
 }
 
+[widget="hotels"]{
+
+
+}
+
 /*  ==========================================
     HOTEL DETAIL widget
     ========================================== */
-[widget="hotel-detail"] {
 
+.hotel-detail__rooms {
+
+}
+
+.hotel-detail__location {
+  .img-wrap {
+    height: 18 * @baseline;
+  }
+}
+
+.hotel-detail__services {
+  .margin-bottom(@htmlFontSize, 2);
+
+  ul {
+    .clearfix;
+    padding: 0;
+    list-style-type: none;
+    margin: 1.3125em 20%;
+  }
+  li {
+    float: left;
+    width: 50%;
+    .fs-14;
+    .line-height(14, 2);
+    span {
+
+    }
+    i {
+      float: left;
+      display: block;
+      margin-right: 1ex;
+      .fs-21(false, 14);
+      .line-height(21, 2);
+
+      &:after {
+      }
+    }
+  }
+}
+
+[widget="hotel-detail"] {
+  .entries--list{
+    .item {
+      height: 5 * @baseline;
+      > div {
+        margin-left: 170px;
+      }
+    }
+
+    img {
+      width: 150px;
+      height: 100px;
+      border-radius: 3px;
+      border: 1px @colorLightGray solid;
+      box-shadow: 0 2px 3px -2px rgba(0, 0, 0, 0.15);
+    }
+  }
 }
 
 
@@ -49,6 +106,7 @@
     List views
     ========================================== */
 .entries {
+  .clearfix;
   ul& {
     list-style-type: none;
     .noSpaces;
@@ -127,7 +185,6 @@
   .item {
     position: relative;
     height: 4 * @baseline;
-    .grid-element(9);
     .margin-bottom;
 
     > div {
@@ -159,5 +216,12 @@
 
   .rating {
     clear: right;
+  }
+
+  .more {
+    .button--blue;
+    float: right;
+    height: 1.96875em;
+    .line-height(16, 1.5);
   }
 }
