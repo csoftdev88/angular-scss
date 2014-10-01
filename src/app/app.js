@@ -21,7 +21,9 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.slider',
   'mobiusApp.directives.booking',
   'mobiusApp.directives.best.offers',
-  'mobiusApp.directives.best.hotels'
+  'mobiusApp.directives.best.hotels',
+  'mobiusApp.directives.hotels',
+  'mobiusApp.directives.room'
 ])
 
 .config(function ($stateProvider, $locationProvider) {
