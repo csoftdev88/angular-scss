@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.hotels', [])
 
-.directive('hotels', function(){
+.directive('hotels', ['$location', function($location){
   console.log('hotels');
   return {
     restrict: 'E',
@@ -12,27 +12,34 @@ angular.module('mobiusApp.directives.hotels', [])
     // Widget logic goes here
     link: function(scope){
       //scope, elem, attrs
+      var desc = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh';
+
       scope.sorting = {};
+      scope.view = 'tiles';
 
       scope.sortings = [
-        {priceAsc: 'Price Low to High'},
-        {priceDesc: 'Price High to Low'},
-        {ratingAsc: 'Star Rating Low to High'},
-        {ratingDesc: 'Star Rating High to Low'},
-        {alphabetAsc: 'A - Z'},
-        {alphabetdesc: 'Z - A'}
+        'Price Low to High',
+        'Price High to Low',
+        'Star Rating Low to High',
+        'Star Rating High to Low',
+        'A - Z',
+        'Z - A'
       ];
 
       scope.hotels = [
-        { name: 'Madrid', rating: 4, price: 69},
-        { name: 'Ibiza', rating: 5, price: 89},
-        { name: 'Cordoba', rating: 3, price: 59},
-        { name: 'Lisbon', rating: 4, price: 66},
-        { name: 'Valencia', rating: 2, price: 49},
-        { name: 'Barcelona', rating: 5, price: 95}
+        { name: 'Madrid', rating: 4, price: 69, desc: desc},
+        { name: 'Ibiza', rating: 5, price: 89, desc: desc},
+        { name: 'Cordoba', rating: 3, price: 59, desc: desc},
+        { name: 'Lisbon', rating: 4, price: 66, desc: desc},
+        { name: 'Valencia', rating: 2, price: 49, desc: desc},
+        { name: 'Barcelona', rating: 5, price: 95, desc: desc}
       ];
 
       console.log(scope);
+
+      scope.go = function(path){
+        $location.path(path);
+      };
     }
   };
-});
+}]);

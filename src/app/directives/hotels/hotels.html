@@ -1,37 +1,36 @@
-<section widget="hotels" grid-container="9">
-  <header class="hotels__header" grid="9">
-    <h1>Our <strong>Hotels</strong></h1>
-    <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
-    <hr/>
-  </header>
-  <div class="hotels__controls" grid="9">
-    <div class="order-switch">
-      <select name="sorting" chosen ng-model="hotels" ng-options="sorting for sorting in sortings">
-      </select>
+<div grid-container="9">
+  <section widget="hotels">
+    <header class="hotels__header" grid="9">
+      <h1>Our <strong>Hotels</strong></h1>
+      <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
+      <hr/>
+    </header>
+    <div class="hotels__controls" grid="9">
+      <div class="order-switch">
+        <select name="sorting" chosen ng-model="hotels" ng-options="sorting for sorting in sortings">
+        </select>
+      </div>
+      <div class="view-switch">
+        <i class="icon icon-th-list" ng-class="{'is-active': view == 'list'}" title="Show as list" ng-click="view = 'list'"/>
+        <i class="icon icon-th-thumb" ng-class="{'is-active': view == 'tiles'}" title="Show as tiles" ng-click="view = 'tiles'"/>
+      </div>
     </div>
-    <div class="view-switch">
-      <i class="icon icon-th-list" title="Show as list"></i>
-      <i class="icon icon-th-thumb is-active" title="Show as tiles"></i>
+    <div class="hotels__list">
+      <ul class="entries entries--{{view}}">
+        <li class="item" ng-repeat="hotel in hotels" ng-class="{'grid': view == 'list'}" ng-click="go('/hotels/123')">
+          <img src="static/images/hotel.jpg" alt="Mobius hotel {{hotel.name}} photo">
+          <div>
+            <h3 class="title">Hotel Mobius <strong>{{hotel.name}}</strong></h3>
+            <span class="price">
+              from <span class="value" currency="pound">{{hotel.price}}</span> <small>per night</small>
+            </span>
+            <p>{{hotel.desc}}</p>
+            <span class="rating">
+              <i class="star" ng-repeat="i in [1,2,3,4,5]" ng-class="{'icon-star': i <= hotel.rating, 'icon-star-empty': i > hotel.rating}"></i>
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
-  </div>
-  <div class="hotels__list--tiles">
-    <ul>
-      <li class="item" ng-model="hotels" ng-repeat="hotel in hotels">
-        <img src="static/images/hotel.jpg" alt="">
-        <!-- <img src="//lorempixel.com/210/150/city/1" alt=""> -->
-        <h3 class="title">Hotel Mobius <strong>{{hotel.name}}</strong></h3>
-        <p class="desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
-        <span class="rating">
-          <i class="star icon-star"></i>
-          <i class="star icon-star"></i>
-          <i class="star icon-star"></i>
-          <i class="star icon-star-empty"></i>
-          <i class="star icon-star-empty"></i>
-        </span>
-        <span class="price">
-          from <span class="value" currency="pound">{{hotel.price}}</span> <small>per night</small>
-        </span>
-      </li>
-    </ul>
-  </div>
-</section>
+  </section>
+</div>

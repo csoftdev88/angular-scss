@@ -4,3 +4,17 @@
 [currency="pound"]:before {
   content: '£';
 }
+
+
+/*  ==========================================
+    Others
+    ========================================== */
+
+.vertical-divider {
+  display: block;
+  position: absolute;
+  top: unit((@baseline / @htmlFontSize) * 2, em);
+  bottom: unit((@baseline / @htmlFontSize) * 2, em);
+  width: 1px;
+  background-color: @borderColorDefault;
+}

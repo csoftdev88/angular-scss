@@ -16,6 +16,11 @@
   display: block;
 }
 
+.relative-wrapper {
+  position: relative;
+  .clearfix;
+}
+
 .block--left {
   &:extend(.block);
   float: left;
@@ -109,4 +114,8 @@
 .grid-wrap(@i; @float: left){
   float: @float;
   width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
+}
+
+.divider-position(@i){
+  left: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
 }
