@@ -12,6 +12,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-localization');
 
   // Time how long tasks take
   require('time-grunt')(grunt);
@@ -154,7 +155,7 @@ module.exports = function(grunt) {
     concat: {
       compileJS: {
         src: [
-          '.build/app/**/*.js', '!.build/app/**/*.spec.js'
+          'build/app/**/*.js', '!build/app/**/*.spec.js'
         ],
         dest: '<%= config.compile %>/app/<%= pkg.name %>-<%= pkg.version %>.js'
       }
@@ -216,7 +217,7 @@ module.exports = function(grunt) {
     watch: {
       markup: {
         files: ['<%= config.client %>/<%= config.markup %>'],
-        tasks: ['html2js', 'index:build'],
+        tasks: ['localization', 'html2js', 'index:build'],
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
@@ -254,6 +255,19 @@ module.exports = function(grunt) {
       continuous: {
         singleRun: true
       }
+    },
+
+    localization: {
+      options: {
+        locales: 'src/locales',
+        defaultLocale: 'en_US'
+      },
+      files: {
+        // Core as default component
+        src: [ '**/*.html' ],
+        cwd: 'src/app',
+        dest: 'build/templates/{locale}/'
+      }
     }
   };
 
@@ -269,6 +283,7 @@ module.exports = function(grunt) {
   grunt.registerTask('prebuild', [
     'jshint',
     'test',
+    'localization',
     'html2js',
     'ngmin'
   ]);
@@ -316,6 +331,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('release', [
     'production'
+  ]);
+
+  grunt.registerTask('localize', [
+    'localization'
   ]);
 
   grunt.registerTask('sleep', 'Keep grunt running', function() {
