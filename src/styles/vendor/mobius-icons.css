@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'mobius-icons';
-  src: url('../fonts/mobius-icons.eot?71626288');
-  src: url('../fonts/mobius-icons.eot?71626288#iefix') format('embedded-opentype'),
-       url('../fonts/mobius-icons.woff?71626288') format('woff'),
-       url('../fonts/mobius-icons.ttf?71626288') format('truetype'),
-       url('../fonts/mobius-icons.svg?71626288#mobius-icons') format('svg');
+  src: url('../font/mobius-icons.eot?82227487');
+  src: url('../font/mobius-icons.eot?82227487#iefix') format('embedded-opentype'),
+       url('../font/mobius-icons.woff?82227487') format('woff'),
+       url('../font/mobius-icons.ttf?82227487') format('truetype'),
+       url('../font/mobius-icons.svg?82227487#mobius-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,44 +14,63 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'mobius-icons';
-    src: url('../font/mobius-icons.svg?71626288#mobius-icons') format('svg');
+    src: url('../font/mobius-icons.svg?82227487#mobius-icons') format('svg');
   }
 }
 */
-
+ 
  [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "mobius-icons";
   font-style: normal;
   font-weight: normal;
   speak: none;
-
+ 
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
   margin-right: .2em;
   text-align: center;
   /* opacity: .8; */
-
+ 
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
   text-transform: none;
-
+     
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
-
+ 
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
   margin-left: .2em;
-
+ 
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
-
+ 
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-
+ 
 .icon-twitter:before { content: '\e800'; } /* '' */
 .icon-youtube-1:before { content: '\e801'; } /* '' */
+.icon-menu:before { content: '\e802'; } /* '' */
 .icon-flickr:before { content: '\e803'; } /* '' */
 .icon-pinterest:before { content: '\e804'; } /* '' */
 .icon-facebook-1:before { content: '\e805'; } /* '' */
+.icon-th-thumb:before { content: '\e806'; } /* '' */
+.icon-th-list:before { content: '\e807'; } /* '' */
+.icon-star:before { content: '\e808'; } /* '' */
+.icon-star-empty:before { content: '\e809'; } /* '' */
+.icon-star-half:before { content: '\e80a'; } /* '' */
+.icon-star-half_empty:before { content: '\e80b'; } /* '' */
+.icon-th-thumb-empty:before { content: '\e80c'; } /* '' */
+.icon-mobile:before { content: '\e80d'; } /* '' */
+.icon-mail:before { content: '\e80e'; } /* '' */
+.icon-wheelchair:before { content: '\e80f'; } /* '' */
+.icon-signal:before { content: '\e810'; } /* '' */
+.icon-globe:before { content: '\e811'; } /* '' */
+.icon-lock:before { content: '\e812'; } /* '' */
+.icon-dollar:before { content: '\e813'; } /* '' */
+.icon-star-1:before { content: '\e814'; } /* '' */
+.icon-food:before { content: '\e815'; } /* '' */
+.icon-wine:before { content: '\e816'; } /* '' */
+.icon-coffee:before { content: '\e817'; } /* '' */

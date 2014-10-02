@@ -1,4 +1,5 @@
-.build
+build
+compile
 bower_components
 node_modules
 npm-debug.log

@@ -26,7 +26,7 @@ describe('stateService', function() {
         // Widgets name vs templates map
         'templates': {
           'best-offers': '<best-offers></best-offers>',
-          'best-hotels': '<div class="grid-wrapper"><best-hotels></best-hotels></div>'
+          'best-hotels': '<best-hotels></best-hotels>'
         }
       };
 

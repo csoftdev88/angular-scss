@@ -21,7 +21,10 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.slider',
   'mobiusApp.directives.booking',
   'mobiusApp.directives.best.offers',
-  'mobiusApp.directives.best.hotels'
+  'mobiusApp.directives.best.hotels',
+  'mobiusApp.directives.hotels',
+  'mobiusApp.directives.room',
+  'mobiusApp.directives.room.aside'
 ])
 
 .config(function ($stateProvider, $locationProvider) {
@@ -40,6 +43,22 @@ angular.module('mobiusApp', [
     .state('index.home', {
       templateUrl: 'layouts/home/home.html',
       url: '/'
+    })
+
+    // Hotels
+    .state('index.hotels', {
+      templateUrl: 'layouts/hotels/hotels.html',
+      url: '/hotels'
+    })
+
+    .state('index.hotel', {
+      templateUrl: 'layouts/hotels/hotelDetails.html',
+      url: '/hotels/:hotelID'
+    })
+
+    .state('index.room', {
+      templateUrl: 'layouts/hotels/roomDetails.html',
+      url: '/hotels/:hotelID/rooms/:roomID'
     })
 
     .state('otherwise', {

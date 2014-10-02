@@ -10,6 +10,7 @@
   cursor: pointer;
   font-weight: bold;
   text-align: center;
+  text-decoration: none;
   border-radius: @borderRadiusButtonDefault;
   text-shadow: 0 1px 0 fadeout(@black, 70%);
   -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -37,6 +38,10 @@
 
 .button {
   .button-colors(default, @colorButtonDefault, @colorButtonDefaultHover);
+}
+
+.button--blue {
+  .button-colors(blue, @colorButtonBlue, @colorButtonBlueHover);
 }
 
 .link-button {

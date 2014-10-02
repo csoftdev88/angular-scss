@@ -21,7 +21,7 @@
     .wrapper;
     position: relative;
     margin-top: @headerHeight + @headerBorderBottom;
-    padding-top: 25%;
+    padding-top: 22.5%;
     // height: calc(~"100% - " (@headerHeight + @headerBorderBottom));
   }
 
@@ -32,11 +32,12 @@
   .slide-offer__title {
     position: absolute;
     left: 0;
-    margin-bottom: 1em;
+    margin: 0;
     padding-right: 1em;
     color: @white;
     &:extend(.open-sans);
-    font-size: 36px;
+    font-size: 28px;
+    line-height: 50px;
     text-transform: uppercase;
     background-color: @bgSliderTitle;
     border-top-right-radius: 5px;
@@ -54,12 +55,13 @@
 
   .slide-offer__subtitle {
     position: absolute;
+    top: 58px;
     left: 0;
-    top: 3em;
+    margin: 0;
     padding-right: 1em;
     color: @white;
     &:extend(.open-sans-condensed);
-    font-size: 24px;
+    font-size: 20px;
     text-transform: uppercase;
     background-color: @bgSliderSubtitle;
     border-top-right-radius: 5px;

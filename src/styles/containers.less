@@ -1,3 +1,11 @@
+/*  ==========================================
+    Containers and layout helpers
+    ========================================== */
+
+[widget] {
+  .clearfix;
+}
+
 .wrapper {
   position: relative;
   max-width: 960px;
@@ -6,6 +14,11 @@
 
 .block {
   display: block;
+}
+
+.relative-wrapper {
+  position: relative;
+  .clearfix;
 }
 
 .block--left {
@@ -28,9 +41,10 @@
   text-align: right;
 }
 
-// Grid
+// Grid mixin
 .generate-grid(@full, @gap, @cols){
-  .grid-row {
+  .grid-row,
+  [grid-row] {
     clear: both;
     .clearfix;
   }
@@ -39,13 +53,20 @@
     width: @full;
     margin-left: auto;
     margin-right: auto;
+    .clearfix;
   }
 
-  .grid {
+  .grid,
+  [grid] {
+    float: left;
     margin-left: @gap / 2;
     margin-right: @gap / 2;
-    float: left;
+  }
 
+  .grid-outer {
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .grid-img {
@@ -53,17 +74,48 @@
     height: auto;
   }
 
-  .grid-el(@i) when (@i =< @cols){
+  .grid-element-loop(@i) when (@i =< @cols){
 
-    .grid-@{i}{
+    [grid="@{i}"]{
       &:extend(.grid);
       width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
     }
+    // Recursive call with index incrementation
+    .grid-element-loop(@i + 1);
+  }
+  // Init grid
+  .grid-element-loop(1);
 
-    .grid-el(@i + 1);
+  .grid-wrap-loop(@i) when (@i =< @cols){
+
+    [grid-container="@{i}"]{
+      &:extend(.grid-outer);
+      width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * @i));
+    }
+    // Recursive call with index incrementation
+    .grid-wrap-loop(@i + 1);
   }
 
-  .grid-el(1);
+  .grid-wrap-loop(1);
+
 }
 
+// Calling the grid mixin
 .generate-grid(@gridWidth, @gridGap, @gridColumnCount);
+
+// Grid mixins without recursion
+.grid-element(@i; @float: left){
+  float: @float;
+  width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * (@i - 1)));
+  margin-left: @gridGap / 2;
+  margin-right: @gridGap / 2;
+}
+
+.grid-wrap(@i; @float: left){
+  float: @float;
+  width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
+}
+
+.divider-position(@i){
+  left: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
+}

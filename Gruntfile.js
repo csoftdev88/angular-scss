@@ -201,9 +201,9 @@ module.exports = function(grunt) {
       fonts: {
         files: [{
           expand: true,
-          cwd: '<%= config.client %>/fonts/',
+          cwd: '<%= config.client %>/font/',
           src: ['<%= config.fonts %>'],
-          dest: '<%= config.build %>/fonts/'
+          dest: '<%= config.build %>/font/'
         }]
       }
     },
@@ -217,6 +217,7 @@ module.exports = function(grunt) {
       markup: {
         files: ['<%= config.client %>/<%= config.markup %>'],
         tasks: ['html2js', 'index:build'],
+        options: { livereload: true }
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],

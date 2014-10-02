@@ -4,8 +4,8 @@
 module.exports = {
   config: {
     // Destinations
-    build: '.build',
-    compile: '.compile',
+    build: 'build',
+    compile: 'compile',
 
     gruntfile: 'Gruntfile.js',
     client: 'src',
@@ -28,7 +28,8 @@ module.exports = {
 
         js: [
             'src/app/**/*.js',
-            '!src/app/**/*.spec.js'
+            '!src/app/**/*.spec.js',
+            '!src/app/temp/*'
         ],
         jsunit: [
             'src/app/**/*.spec.js'
@@ -62,7 +63,8 @@ module.exports = {
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-chosen-localytics/chosen.js',
             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-            'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+            // 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+            'src/app/temp/ui-bootstrap-tpls.js',
             'bower_components/chosen/chosen.jquery.min.js'
         ],
         styles: [

@@ -1,5 +1,6 @@
 html {
   font-family: @fontDefault;
+  font-size: @htmlFontSize;
 }
 
 body {
@@ -9,10 +10,15 @@ body {
 }
 
 nav {
-
-  ol,
-  ul {
+  ol, ul {
     list-style: none;
   }
 }
 
+hr {
+  height: 0px;
+  .noSpaces;
+  margin-top: -1px;
+  border: none;
+  border-bottom: 1px dashed @borderBottomColorHeader;
+}

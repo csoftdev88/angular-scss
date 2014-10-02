@@ -1,8 +1,12 @@
 /*  ==========================================
-    FONTS
+    FONTS and TYPOGRAPHY
     ========================================== */
 
 @fontDefault: Verdana, Geneva, sans-serif;
+
+@htmlFontSize: 16px;
+@baseline: 21px;
+@baseFontSize: 14px;
 
 // Font sizes
 @fs-1: 12px;
@@ -28,11 +32,15 @@
 @colorLinkDefault:          #2b5e7f;
 @colorTextDefault:          #818080;
 @colorHeadingDefault:       #373535;
+@borderColorDefault:        #ccc;
 
 // Buttons
 @colorButtonDefault:        #2aad49;
 @colorButtonDefaultHover:   #42c661;
 @colorButtonTextDefault:    #fff;
+
+@colorButtonBlue:           #32a2e3;
+@colorButtonBlueHover:      lighten(@colorButtonBlue, 15%);
 
 // Header
 @colorHeaderBackground:     #000;
@@ -46,11 +54,14 @@
 @colorDatepickerHeader:     @bgSliderSubtitle;
 @colorDatepickerSubHeader:  #ebebeb;
 @colorDatepickerDays:       #aaaaac;
-@colorDatepickerRange:   #65a6d0;
+@colorDatepickerRange:      #65a6d0;
 
 // Footer
 @colorFooterTextDefault:    #aeadad;
 @footerBackground:          @white;
+
+// Forms
+@colorInputBorder:          #ccc;
 
 // Booking widget
 @colorBookingLinkBlue:      #237fbc;
@@ -59,8 +70,15 @@
 @colorBestOffersTitle:      @colorHeadingDefault;
 @colorBestOffersText:       @colorTextDefault;
 
-// Forms
-@colorInputBorder:          #ccc;
+// Hotels widget
+@borderBottomColorHeader:   #c8c8c8;
+@colorStar:                 #2b5e7f;
+
+// Rooms widget
+@bgAccordion:               #fff;
+@bgAccordionActive:         #237fbc;
+@colorAccordionIcons:       #898989;
+
 
 /*  ==========================================
     DIMENSIONS

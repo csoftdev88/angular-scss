@@ -33,5 +33,20 @@
     <body>
         <!-- Add your site or application content here -->
         <div ui-view></div>
+
+        <!-- Temporary script for show/hide typography grid -->
+        <script>
+          (function(){
+            var handleKey = function(event){
+              if (event.keyCode === 71 && event.type === 'keydown')
+                document.querySelector('[typo-grid]').style.backgroundImage = 'url("/static/images/baseline.png")';
+              if (event.keyCode === 71 && event.type === 'keyup')
+                document.querySelector('[typo-grid]').style.backgroundImage = '';
+            };
+            window.addEventListener('keydown', handleKey, false);
+            window.addEventListener('keyup', handleKey, false);
+          })();
+        </script>
     </body>
+
 </html>

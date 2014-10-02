@@ -5,7 +5,7 @@
       </a>
       <ul>
         <li>
-            <a href class="is-active">Hotels</a>
+            <a ui-sref="index.hotels" class="is-active">Hotels</a>
         </li>
 
         <li>
@@ -62,7 +62,10 @@
 </div>
 
 <!-- MAIN CONTENT AREA -->
-<main ui-view>
+<main typo-grid>
+  <div class="grid-wrapper">
+    <div ui-view></div>
+  </div>
 </main>
 
 <footer id="main-footer">
