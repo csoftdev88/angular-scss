@@ -33,11 +33,6 @@
   }
 }
 
-[widget="hotels"]{
-
-
-}
-
 /*  ==========================================
     HOTEL DETAIL widget
     ========================================== */
@@ -52,7 +47,8 @@
   }
 }
 
-.hotel-detail__services {
+.hotel-detail__services,
+.room__amenities {
   .margin-bottom(@htmlFontSize, 2);
 
   ul {
@@ -128,11 +124,6 @@
       line-height: 1;
       font-weight: 600;
       font-style: normal;
-
-    }
-
-    [currency="pound"]:before {
-      content: '£';
     }
 
     small {

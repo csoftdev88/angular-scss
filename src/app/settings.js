@@ -12,7 +12,8 @@ angular.module('mobiusApp.config', [])
       'hotels'
     ],
     'index.room': [
-      'room'
+      'room',
+      'room-aside'
     ]
   },
 
@@ -21,6 +22,7 @@ angular.module('mobiusApp.config', [])
     'best-offers': '<best-offers></best-offers>',
     'best-hotels': '<best-hotels></best-hotels>',
     'hotels': '<hotels></hotels>',
-    'room': '<room></room>'
+    'room': '<room></room>',
+    'room-aside': '<room-aside></room-aside>'
   }
 });

@@ -1,0 +1,154 @@
+/*  ==========================================
+    ROOM widget
+    ========================================== */
+[widget="room"]{
+
+}
+
+accordion {
+  &:extend(.block);
+  .margin-top-bottom;
+}
+
+.room__prices {
+  .clearfix;
+
+  .accordion-toggle {
+    .clearfix;
+  }
+
+  .panel {
+    background-color: @bgAccordion;
+    border: 1px #cccccc solid;
+    padding: ((@baseline / 2) - 1) 10px; // -2px border top/bottom
+    color: @colorHeadingDefault;
+
+    * {
+      margin: 0;
+    }
+
+    &.is-open {
+      background-color: @bgAccordionActive;
+      color: @white;
+      border-color: transparent;
+
+      .icon,
+      .title,
+      .price,
+      .desc {
+        color: @white;
+      }
+    }
+  }
+
+  .panel-collapse {
+    clear: both;
+    overflow: hidden;
+    opacity: 0.5;
+    transition: height 0.25s ease-in,
+                opacity 0.25s linear;
+
+    &.in {
+      opacity: 1;
+    }
+
+    p {
+      .fs-14(true);
+      .margin-top-bottom(14, 0.5);
+    }
+  }
+
+  .panel-title {
+    cursor: pointer;
+
+    .icon {
+      display: block;
+      float: left;
+      .fs-36(true);
+      margin-right: 5px;
+      color: @colorAccordionIcons;
+    }
+
+    .title,
+    .price,
+    .desc {
+      // transition: color 0.35s linear;
+    }
+
+    header {
+      float: left;
+    }
+
+    .title {
+      margin: 0;
+      .fs-18;
+      line-height: 28px;
+      font-weight: 300;
+    }
+
+    .price {
+      float: right;
+      margin: 0;
+      .fs-18;
+      line-height: 2 * @baseline;
+      font-weight: 700;
+
+      small {
+        .fs-14(true, 18);
+        font-weight: 300;
+        font-style: italic;
+      }
+    }
+
+    .desc {
+      margin: 0;
+      .fs-12;
+      line-height: 14px;
+      font-weight: 300;
+      font-style: italic;
+    }
+  }
+}
+
+/*  ==========================================
+    ROOM ASIDE widget
+    ========================================== */
+
+[widget="room-aside"] {
+  table {
+    width: 100%;
+    .margin-top-bottom(16, 2);
+    border-collapse: collapse;
+    border: 1px @borderColorDefault solid;
+    background-color: @white;
+
+    tbody {
+      display: block;
+      padding: @baseline / 2 - 1px 0;
+    }
+
+    th, td {
+      padding: 0 1ex;
+      .fs-14(true);
+      text-transform: uppercase;
+    }
+
+    th {
+      text-align: right;
+      color: #363636;
+    }
+
+    td {
+
+    }
+  }
+
+  advert {
+    .margin-top-bottom(16, 2);
+    height: ceil(395 / @baseline) * @baseline;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
