@@ -209,7 +209,7 @@ module.exports = function(grunt) {
     watch: {
       markup: {
         files: ['<%= config.client %>/<%= config.markup %>'],
-        tasks: ['localization', 'html2js', 'index:build'],
+        tasks: ['localization', 'templateCache', 'index:build'],
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
@@ -284,7 +284,7 @@ module.exports = function(grunt) {
     'jshint',
     'test',
     'localization',
-    'html2js',
+    'templateCache',
     'ngmin'
   ]);
 
@@ -364,7 +364,19 @@ module.exports = function(grunt) {
       return file.replace( dirRE, '' );
     });
 
-    grunt.file.copy(grunt.config('config.client') + '/app/index.html', this.data.dir + '/index.html', {
+    var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
+
+    for(var i = 0; i < supportedLanguages.length; i++){
+      var localeCode = supportedLanguages[i];
+
+      var src = grunt.config('config.build') + '/templates/' + localeCode + '/index.html';
+      var dest = this.data.dir + '/index-' + localeCode + '.html';
+      processIndex(src, dest, jsFiles, cssFiles);
+    }
+  });
+
+  function processIndex(src, dest, jsFiles, cssFiles){
+    grunt.file.copy(src, dest, {
       process: function ( contents ) {
         return grunt.template.process( contents, {
           data: grunt.util._.extend({
@@ -377,7 +389,7 @@ module.exports = function(grunt) {
         });
       }
     });
-  });
+  }
 
   /**
   * Creating template cache for each available locale
@@ -390,10 +402,11 @@ module.exports = function(grunt) {
 
       var basePath = 'build/templates/' + localeCode;
 
+      // Creating multiple
       var taskName = 'html2js.' + localeCode;
       grunt.config.set(taskName + '.options.base', basePath);
       grunt.config.set(taskName + '.src', basePath + '/' + grunt.config('config.markup'));
-      grunt.config.set(taskName + '.dest', grunt.config('config.build') + '/' + 'app/mobius-templates-' + localeCode );
+      grunt.config.set(taskName + '.dest', grunt.config('config.build') + '/' + 'app/mobius-templates-' + localeCode + '.js');
 
       grunt.task.run('html2js:' + localeCode);
     }
