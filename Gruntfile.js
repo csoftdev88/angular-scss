@@ -133,6 +133,7 @@ module.exports = function(grunt) {
       }
     },
 
+
     /**
      * HTML2JS is a Grunt plugin that takes all of your template files and
      * places them into JavaScript files as strings that are added to
@@ -140,18 +141,9 @@ module.exports = function(grunt) {
      * part of the initial payload as one JavaScript file. Neat!
      */
     html2js: {
-      app: {
-        options: {
-          base: '<%= config.client %>/app/'
-        },
-        src: [ '<%= config.client %>/<%= config.app_files.html %>' ],
-        dest: '<%= config.build %>/app/mobius-templates.js'
-      }
     },
 
-
     /* PRODUCTION */
-
     concat: {
       compileJS: {
         src: [
@@ -260,13 +252,21 @@ module.exports = function(grunt) {
     localization: {
       options: {
         locales: 'src/locales',
-        defaultLocale: 'en_US'
+        pattern: /_(.+)_/
       },
       files: {
-        // Core as default component
         src: [ '**/*.html' ],
         cwd: 'src/app',
         dest: 'build/templates/{locale}/'
+      }
+    },
+
+    templateCache: {
+      app:{
+        options: {
+          src: 'build/templates/{locale}/**/*.html',
+          dest: '<%= config.build %>/app/mobius-templates-{locale}.js'
+        }
       }
     }
   };
@@ -334,7 +334,8 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('localize', [
-    'localization'
+    'localization',
+    'templateCache'
   ]);
 
   grunt.registerTask('sleep', 'Keep grunt running', function() {
@@ -379,6 +380,26 @@ module.exports = function(grunt) {
   });
 
   /**
+  * Creating template cache for each available locale
+  */
+  grunt.registerMultiTask( 'templateCache', 'Process localized templates', function () {
+    var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
+
+    for(var i = 0; i < supportedLanguages.length; i++){
+      var localeCode = supportedLanguages[i];
+
+      var basePath = 'build/templates/' + localeCode;
+
+      var taskName = 'html2js.' + localeCode;
+      grunt.config.set(taskName + '.options.base', basePath);
+      grunt.config.set(taskName + '.src', basePath + '/' + grunt.config('config.markup'));
+      grunt.config.set(taskName + '.dest', grunt.config('config.build') + '/' + 'app/mobius-templates-' + localeCode );
+
+      grunt.task.run('html2js:' + localeCode);
+    }
+  });
+
+  /**
    * A utility function to get all app JavaScript sources.
    */
   function filterForJS ( files ) {
@@ -394,5 +415,21 @@ module.exports = function(grunt) {
     return files.filter( function ( file ) {
       return file.match( /\.css$/ );
     });
+  }
+
+
+  // Getting a list of available translations
+  function getSupportedLanguages ( path ) {
+    var supportedLanguages  = [];
+
+    grunt.file.recurse(path, function(path){
+      var localeConfig = grunt.file.readJSON(path);
+      var langageCode = localeConfig.locale;
+      if(supportedLanguages.indexOf(langageCode) === -1 ){
+        supportedLanguages.push(langageCode);
+      }
+    });
+
+    return supportedLanguages;
   }
 };

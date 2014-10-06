@@ -18,6 +18,8 @@ module.exports = {
     styles:  '**/*.{css,less}',
     scripts: '**/*.js',
 
+    locales: 'src/locales',
+
     images:  '**/*.{png,jpg,jpeg,gif,webp,svg}',
     fonts:   '**/*.{eot,svg,ttf,woff}',
 
