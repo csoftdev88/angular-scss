@@ -6,12 +6,6 @@
   .clearfix;
 }
 
-.wrapper {
-  position: relative;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
 .block {
   display: block;
 }
@@ -41,7 +35,32 @@
   text-align: right;
 }
 
-// Grid mixin
+.wrapper {
+  position: relative;
+  max-width: @gridWidth - @gridGap;
+  margin: 0 auto;
+}
+
+// MOBILE SPECIFIC STYLES
+@media @lessThenTablet {
+  .grid,
+  [grid] {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+// DESKTOP STYLES
+@media @moreThenMobile {
+  // Calling the grid mixin
+  .generate-grid(@gridWidth, @gridGap, @gridColumnCount);
+}
+
+
+/*  ==========================================
+    GRID generating mixin
+    ========================================== */
+
 .generate-grid(@full, @gap, @cols){
   .grid-row,
   [grid-row] {
@@ -100,9 +119,6 @@
 
 }
 
-// Calling the grid mixin
-.generate-grid(@gridWidth, @gridGap, @gridColumnCount);
-
 // Grid mixins without recursion
 .grid-element(@i; @float: left){
   float: @float;
@@ -116,6 +132,6 @@
   width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
 }
 
-.divider-position(@i){
-  left: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
+.grid-width(@i){
+  @width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
 }
