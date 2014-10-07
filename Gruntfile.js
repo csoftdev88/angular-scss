@@ -140,8 +140,7 @@ module.exports = function(grunt) {
      * AngularJS's template cache. This means that the templates too become
      * part of the initial payload as one JavaScript file. Neat!
      */
-    html2js: {
-    },
+    html2js: {},
 
     /* PRODUCTION */
     concat: {
@@ -346,7 +345,6 @@ module.exports = function(grunt) {
     process.exit(0);
   });
 
-
   /**
    * The index.html template includes the stylesheet and javascript sources
    * based on dynamic names calculated in this Gruntfile. This task assembles
@@ -358,7 +356,6 @@ module.exports = function(grunt) {
 
     var FILTER_JS = /^(?!.*\bmobius-templates\b).+.js$/;
     var FILTER_CSS = /\.css$/;
-    //var FILTER_TEMPLATES = /(mobius-templates.+).js$/;
 
     // List of JS source files
     var jsFiles = filterFiles( this.filesSrc, FILTER_JS ).map( function ( file ) {
@@ -369,11 +366,6 @@ module.exports = function(grunt) {
     var cssFiles = filterFiles( this.filesSrc, FILTER_CSS ).map( function ( file ) {
       return file.replace( dirRE, '' );
     });
-
-    // Template cache files
-    //var templates = filterFiles( this.filesSrc, FILTER_TEMPLATES ).map( function ( file ) {
-    //  return file.replace( dirRE, '' );
-    //});
 
     var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
 

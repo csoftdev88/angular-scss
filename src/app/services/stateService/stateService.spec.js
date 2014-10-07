@@ -13,15 +13,17 @@ describe('stateService', function() {
   beforeEach(function() {
     module('mobiusApp.services.state', function($provide) {
       var Settings = {
-        'layout': {
-          'index.home': [
-            'best-offers',
-            'best-hotels'
-          ],
-          'index.about': [
-            'widget-doesnt-exist',
-            'best-hotels'
-          ]
+        'UI': {
+          'layout': {
+            'index.home': [
+              'best-offers',
+              'best-hotels'
+            ],
+            'index.about': [
+              'widget-doesnt-exist',
+              'best-hotels'
+            ]
+          }
         },
         // Widgets name vs templates map
         'templates': {

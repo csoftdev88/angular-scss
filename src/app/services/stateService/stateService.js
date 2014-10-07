@@ -4,7 +4,7 @@ angular.module('mobiusApp.services.state', [])
 .service( 'stateService',  function(Settings) {
 
   function getStateLayout(stateName){
-    var config = Settings.layout[stateName];
+    var config = Settings.UI.layout[stateName];
     if(!config){
       return [];
     }
