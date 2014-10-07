@@ -35,6 +35,7 @@
       &:extend(.open-sans-light);
       &:extend(.font-size-18);
       background-color: @colorHeaderBackground;
+      background-color: fadeout(@colorHeaderBackground, 15%);
       text-align: center;
 
       a {
@@ -86,27 +87,6 @@
         transform: translateX(0);
         opacity: 1;
       }
-
-      li {
-
-        a {
-
-          &:hover,
-          &:focus,
-          &:active,
-          &.is-active {
-
-          }
-        }
-      }
-    }
-
-    .brand {
-
-    }
-
-    .button-login {
-
     }
   }
 }

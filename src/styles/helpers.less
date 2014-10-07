@@ -18,3 +18,20 @@
   width: 1px;
   background-color: @borderColorDefault;
 }
+
+/*  ==========================================
+    Media Queries helpers
+    ========================================== */
+
+@media @lessThenTablet {
+  [rwd="desktop"] {
+    display: none !important;
+  }
+}
+
+@media @moreThenMobile {
+  [rwd="mobile"] {
+    display: none !important;
+  }
+}
+
