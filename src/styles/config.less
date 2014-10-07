@@ -4,9 +4,9 @@
 
 @fontDefault: Verdana, Geneva, sans-serif;
 
-@htmlFontSize: 16px;
-@baseline: 21px;
-@baseFontSize: 14px;
+@htmlFontSize:  16px;
+@baseline:      21px;
+@baseFontSize:  14px;
 
 // Font sizes
 @fs-1: 12px;
@@ -92,6 +92,13 @@
 @gridColumnCount: 12;
 @inputHeight:     34px;
 
+
+/*  ==========================================
+    BREAKPOINTS
+    ========================================== */
+@lessThenTablet:     ~"only screen and (max-width: 480px)";
+@moreThenMobile:     ~"only screen and (min-width: 481px)";
+
 /*  ==========================================
     BORDERS
     ========================================== */
@@ -105,7 +112,7 @@
 
 @paddingHeaderDefault: 15px;
 
-.paddingButtonDefault {
+.paddingButtonDefault() {
   padding: 0 10px;
 }
 
@@ -121,7 +128,7 @@
     SHADOWS
     ========================================== */
 
-.textShadowDark {
+.textShadowDark() {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 

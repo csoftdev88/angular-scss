@@ -8,6 +8,10 @@
 accordion {
   &:extend(.block);
   .margin-top-bottom;
+
+  @media @lessThenTablet {
+    margin-bottom: 0;
+  }
 }
 
 .room__prices {
@@ -115,6 +119,8 @@ accordion {
     ========================================== */
 
 [widget="room-aside"] {
+  .margin-bottom(16, 2);
+
   table {
     width: 100%;
     .margin-top-bottom(16, 2);
@@ -141,6 +147,13 @@ accordion {
     td {
 
     }
+
+  }
+
+  @media @lessThenTablet {
+    table {
+      .margin-top-bottom(16, 1);
+    }
   }
 
   advert {
@@ -155,5 +168,6 @@ accordion {
 
 .vertical-divider--room {
   &:extend(.vertical-divider);
-  .divider-position(9);
+  .grid-width(9);
+  left: @width;
 }

@@ -30,10 +30,15 @@
 /*  ==========================================
     Relative line-height computing
     ========================================== */
-.line-height(@size, @lines: 1) {
-  line-height: unit(round(  (@baseline * @lines) / @size , 5));
-}
 
+// Computing line-height to be @lines times @baseline
+.line-height(@fontSize, @lines: 1) {
+  line-height: unit(round( (@baseline * @lines) / @fontSize , 5));
+}
+// Computing line-height to be specified pixel value based on provided font-size
+.specific-line-height(@fontSize, @height) {
+  line-height: unit(round( @height / @fontSize , 5));
+}
 .include-line-height(@include, @size) when (@include = true) and (@size =< @baseline){
   line-height: unit(round( (@baseline / @size), 5));
 }
