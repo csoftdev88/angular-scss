@@ -23,12 +23,12 @@ describe('stateService', function() {
               'widget-doesnt-exist',
               'best-hotels'
             ]
+          },
+
+          'templates': {
+            'best-offers': '<best-offers></best-offers>',
+            'best-hotels': '<div class="grid-wrapper"><best-hotels></best-hotels></div>'
           }
-        },
-        // Widgets name vs templates map
-        'templates': {
-          'best-offers': '<best-offers></best-offers>',
-          'best-hotels': '<div class="grid-wrapper"><best-hotels></best-hotels></div>'
         }
       };
 
