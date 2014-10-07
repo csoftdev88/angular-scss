@@ -6,7 +6,7 @@ angular.module('mobiusApp', [
   // Bootstrap components
   'ui.bootstrap',
   // Template cache
-  'templates-app',
+  'templates-en_US',
   // 3rd party components
   'localytics.directives',
 

@@ -22,11 +22,13 @@
 
         <!-- compiled APP CSS --><% styles.forEach( function ( file ) { %>
         <link rel="stylesheet" type="text/css" href="static/<%= file %>" /><% }); %>
-
         <!-- vendor JS --><% vendor_js.forEach( function ( file ) { %>
         <script type="text/javascript" src="static/<%= file %>"></script><% }); %>
 
         <!-- compiled APP JS --><% scripts.forEach( function ( file ) { %>
+        <script type="text/javascript" src="static/<%= file %>"></script><% }); %>
+
+        <!-- compiled APP TEMPLATES --><% templates.forEach( function ( file ) { %>
         <script type="text/javascript" src="static/<%= file %>"></script><% }); %>
     </head>
 

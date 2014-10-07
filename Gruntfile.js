@@ -356,13 +356,24 @@ module.exports = function(grunt) {
   grunt.registerMultiTask( 'index', 'Process index.html template', function () {
     var dirRE = new RegExp( '^('+grunt.config('config.build') + '|' + grunt.config('config.compile')+')\/', 'g' );
 
-    var jsFiles = filterForJS( this.filesSrc ).map( function ( file ) {
+    var FILTER_JS = /^(?!.*\bmobius-templates\b).+.js$/;
+    var FILTER_CSS = /\.css$/;
+    //var FILTER_TEMPLATES = /(mobius-templates.+).js$/;
+
+    // List of JS source files
+    var jsFiles = filterFiles( this.filesSrc, FILTER_JS ).map( function ( file ) {
       return file.replace( dirRE, '' );
     });
 
-    var cssFiles = filterForCSS( this.filesSrc ).map( function ( file ) {
+    // List of CSS files
+    var cssFiles = filterFiles( this.filesSrc, FILTER_CSS ).map( function ( file ) {
       return file.replace( dirRE, '' );
     });
+
+    // Template cache files
+    //var templates = filterFiles( this.filesSrc, FILTER_TEMPLATES ).map( function ( file ) {
+    //  return file.replace( dirRE, '' );
+    //});
 
     var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
 
@@ -371,17 +382,20 @@ module.exports = function(grunt) {
 
       var src = grunt.config('config.build') + '/templates/' + localeCode + '/index.html';
       var dest = this.data.dir + '/index-' + localeCode + '.html';
-      processIndex(src, dest, jsFiles, cssFiles);
+
+      processIndex(src, dest, jsFiles, cssFiles, localeCode);
     }
   });
 
-  function processIndex(src, dest, jsFiles, cssFiles){
+  function processIndex(src, dest, jsFiles, cssFiles, localeCode){
+    var templateCache = 'app/mobius-templates-' + localeCode + '.js';
     grunt.file.copy(src, dest, {
       process: function ( contents ) {
         return grunt.template.process( contents, {
           data: grunt.util._.extend({
             scripts: jsFiles,
             styles: cssFiles,
+            templates: [templateCache],
             vendor_js: grunt.config('config.vendor_files.js'),
             vendor_styles: grunt.config('config.vendor_files.styles'),
             version: grunt.config( 'pkg.version' )
@@ -413,23 +427,13 @@ module.exports = function(grunt) {
   });
 
   /**
-   * A utility function to get all app JavaScript sources.
+   * A utility function for filtering the sources.
    */
-  function filterForJS ( files ) {
+  function filterFiles (files, filter) {
     return files.filter( function ( file ) {
-      return file.match( /\.js$/ );
+      return file.match( filter );
     });
   }
-
-  /**
-   * A utility function to get all app CSS sources.
-   */
-  function filterForCSS ( files ) {
-    return files.filter( function ( file ) {
-      return file.match( /\.css$/ );
-    });
-  }
-
 
   // Getting a list of available translations
   function getSupportedLanguages ( path ) {
