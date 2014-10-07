@@ -1,19 +1,23 @@
+/*  ==========================================
+    FOOTER styles
+    ========================================== */
+
+// GENERIC STYLES
 #main-footer {
   .clearfix;
   color: @colorFooterTextDefault;
   background-color: @footerBackground;
 
   p {
-    .fs-14;
+    .fs-12(true);
     .noSpaces;
     &:extend(.open-sans);
-    line-height: @footerHeight;
   }
 
   .social-links {
     .noSpaces;
     height: 38px;
-    padding: 15px 0;
+    padding: 3px 0;
 
     li {
       display: inline;
@@ -40,7 +44,7 @@
     }
   }
 
-  .main-nav {
+  .footer-nav {
     .noSpaces;
 
     li {
@@ -66,6 +70,37 @@
       &:last-child {
         margin-right: 0;
       }
+    }
+  }
+}
+
+// MOBILE SPECIFIC STYLES
+@media @lessThenTablet {
+  #main-footer {
+    .wrapper > div {
+      text-align: center;
+    }
+    .footer-nav {
+      display: none;
+    }
+  }
+}
+
+// DESKTOP STYLES
+@media @moreThenMobile {
+  #main-footer {
+
+    .main-footer__block--left { .block--left; }
+    .main-footer__block--right { .block--right; }
+    .main-footer__block--center { .block--center; }
+
+    p {
+      .fs-14;
+      line-height: @footerHeight;
+    }
+
+    .social-links {
+      padding: 15px 0;
     }
   }
 }
