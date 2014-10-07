@@ -1,5 +1,5 @@
 <div>
-  <ul>
+  <ul class="booking-inputs">
     <li class="claim">
       <div>
         <h3>Make Your Booking</h3>
@@ -8,16 +8,16 @@
     </li>
 
     <!-- FIND YOUR HOTEL -->
-    <li class="hotels">
+    <li class="booking-input hotels">
       <div class="form-group">
         <select name="hotels" required ng-model="hotel" disable-search="false" chosen ng-options="hotel for hotel in hotels" data-placeholder="Find Your Hotel"/>
         <span class="info">Find Your Hotel:</span>
-        <a class="more" href>Advanced Options</a>
+        <span class="more"><a href>Advanced Options</a></span>
       </div>
     </li>
 
     <!-- ENTER YOUR DATES -->
-    <li class="dates">
+    <li class="booking-input dates">
       <div class="form-group">
         <input type="text" placeholder="Enter Your Dates"
           datepicker-popup
@@ -29,18 +29,17 @@
           show-button-bar="false">
         <span class="info">Enter Your Dates:</span>
       </div>
-
     </li>
 
     <!-- ENTER YOUR CODE -->
-    <li class="codes">
+    <li class="booking-input codes">
       <div class="form-group">
         <input type="text" placeholder="Enter Your Code">
         <span class="info">Enter Your Code:</span>
       </div>
     </li>
 
-    <li class="small">
+    <li class="booking-input adults small">
       <!-- NUMBER OF ADULTS -->
       <div class="form-group">
         <select name="adults" required ng-model="number" disable-search="true" chosen ng-options="number for number in numbers" data-placeholder="Number Of Adults"/>
@@ -48,7 +47,7 @@
       </div>
     </li>
 
-    <li class="small">
+    <li class="booking-input small">
       <!-- NUMBER OF CHILDREN -->
       <div class="form-group">
         <select name="children" required ng-model="number" disable-search="true" chosen ng-options="number for number in numbers" data-placeholder="Number Of Children"/>
@@ -56,7 +55,7 @@
       </div>
     </li>
 
-    <li class="submit">
+    <li class="booking-input submit">
       <div>
         <button class="button">Search</button>
       </div>
