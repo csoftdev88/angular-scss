@@ -1,5 +1,5 @@
 {
-    "url": "https://mobius:mobius@mobius-qa.herokuapp.com/hotels/123/rooms/123",
+    "url": "http://mobius:mobius@www.mobius-qa.herokuapp.com/hotels/123/rooms/123",
     "win_res": "1024x768",
     "mac_res": "1920x1080",
     "quality": "compressed",
