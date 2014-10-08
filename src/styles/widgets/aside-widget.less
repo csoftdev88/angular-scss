@@ -65,14 +65,43 @@ contact {
   }
   dd {
     margin: 0;
-    span {
-      display: block;
-      border-bottom: 1px #cdcdcd solid;
-      margin-top: -1px;
+  }
+
+  @media @lessThenTablet {
+    dl {
+      margin: 0 10px;
+    }
+    dd,
+    dt i {
+      color: @white;
+    }
+    dd {
+      .margin-bottom;
+      padding-left: 10px;
+      background: @colorButtonBlue;
+      border-radius: 3px;
+      box-shadow: 0 1px 0 0 darken(@colorButtonBlue, 15%);
+      font-weight: 600;
+    }
+  }
+
+  @media @moreThenMobile {
+    dd {
+      span {
+        display: block;
+        border-bottom: 1px #cdcdcd solid;
+        margin-top: -1px;
+      }
     }
   }
 }
 
 advert {
   &:extend(.block);
+
+  @media @lessThenTablet {
+    display: none;
+  }
 }
+
+

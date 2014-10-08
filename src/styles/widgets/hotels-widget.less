@@ -47,34 +47,35 @@
     HOTEL DETAIL widget
     ========================================== */
 
-.hotel-detail__rooms {
-
-}
-
 .hotel-detail__location {
-  .img-wrap {
-    height: 18 * @baseline;
+
+  @media @lessThenTablet {
+    img {
+      max-width: 100%;
+    }
+  }
+
+  @media @moreThenMobile {
+    .img-wrap {
+      height: 18 * @baseline;
+    }
   }
 }
 
 .hotel-detail__services,
 .room__amenities {
-  .margin-bottom(@htmlFontSize, 2);
+  .margin-bottom(@htmlFontSize, 1);
 
   ul {
     .clearfix;
     padding: 0;
     list-style-type: none;
-    margin: 1.3125em 20%;
+    margin: 1.3125em 10px;
   }
   li {
-    float: left;
-    width: 50%;
     .fs-14;
     .line-height(14, 2);
-    span {
 
-    }
     i {
       float: left;
       display: block;
@@ -84,6 +85,18 @@
 
       &:after {
       }
+    }
+  }
+
+  @media @moreThenMobile {
+    .margin-bottom(@htmlFontSize, 2);
+
+    ul {
+      margin: 1.3125em 20%;
+    }
+    li {
+      float: left;
+      width: 50%;
     }
   }
 }
@@ -123,8 +136,12 @@
     &:extend(.list-item-title);
   }
 
+  p {
+    display: none;
+  }
+
   .price {
-    float: right;
+    // float: right;
     .open-sans-light;
     .fs-14(true);
     font-style: italic;
@@ -143,20 +160,16 @@
   }
 
   .rating {
-    float: left;
+    // float: left;
     height: @baseline;
     line-height: @baseline;
   }
 
   .star {
     margin: 0;
-    .fs-14(true);
+    .fs-18(true);
     color: @colorStar;
 
-    &:before {
-      width: 0.75ex;
-      line-height: @baseline;
-    }
     &.icon-star-empty {
       color: @colorLightGray;
     }
@@ -165,20 +178,8 @@
 
 // Specific for view as tiles
 .entries--tiles {
-
   .item {
-    .grid-element(3);
-    .margin-bottom;
-  }
-
-  img {
-    display: block;
-    width: 210px;
-    height: 147px;
-  }
-
-  p {
-    display: none;
+    .margin-bottom(16, 2);
   }
 }
 
@@ -186,7 +187,7 @@
 .entries--list {
   .item {
     position: relative;
-    height: 4 * @baseline;
+    min-height: 4 * @baseline;
     .margin-bottom;
 
     > div {
@@ -211,7 +212,7 @@
   }
 
   .title {
-    float: left;
+    // float: left;
     margin: 0;
     // .margin-top-bottom(21, 0.5);
   }
@@ -225,5 +226,149 @@
     float: right;
     height: 1.96875em;
     .line-height(16, 1.5);
+  }
+}
+
+// MOBILE SPECIFIC STYLES
+@media @lessThenTablet {
+  [widget="hotels"] {
+    margin: 0 10px;
+
+    [grid],
+    .grid {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  .hotels__header {
+    hr,
+    .desc {
+      display: none;
+    }
+  }
+
+  .entries {
+
+    .price,
+    .rating {
+      display: block;
+    }
+  }
+
+  .entries--tiles {
+
+    img {
+      width: 320px;
+      max-width: 100%;
+    }
+
+    .item {
+      clear: both;
+      text-align: center;
+    }
+
+    .price {
+      .margin-bottom(16, 0.5);
+    }
+  }
+
+  .entries--list {
+
+    .title {
+      .fs-18(true);
+      min-height: 2 * @baseline;
+    }
+
+    .star {
+
+      &:before {
+        width: 0.75em;
+      }
+    }
+  }
+
+  // This is ugly shit and needs to be refactored
+  .hotel-detail__rooms {
+    .entries--list {
+      img {
+        position: static;
+        display: inline-block;
+        width: 320px;
+        height: auto;
+        max-width: 100%;
+      }
+
+      .item {
+        clear: both;
+        text-align: center;
+        height: auto;
+        > div {
+          margin-left: 0;
+        }
+      }
+
+      .title {
+        line-height: 42px;
+      }
+
+      .price {
+        .margin-bottom(16, 0.5);
+      }
+
+      .more {
+        display: none;
+      }
+    }
+  }
+}
+
+// DESKTOP SPECIFIC STYLES
+@media @moreThenMobile {
+  .entries {
+
+    .price {
+      float: right;
+    }
+
+    .rating {
+      float: left;
+    }
+
+    .star {
+      .fs-14(true);
+
+      &:before {
+        width: 1.1ex;
+        line-height: @baseline;
+      }
+    }
+  }
+
+  .entries--tiles {
+    .item {
+      .grid-element(3);
+      .margin-bottom;
+    }
+
+    img {
+      display: block;
+      width: 210px;
+      height: 147px;
+    }
+  }
+
+  .entries--list {
+    .item {
+      min-height: 4 * @baseline;
+    }
+
+    .title {
+      float: left;
+    }
+
+    p {
+      display: block;
+    }
   }
 }

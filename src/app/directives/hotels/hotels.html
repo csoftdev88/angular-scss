@@ -7,7 +7,7 @@
     </header>
     <div class="hotels__controls" grid="9">
       <div class="order-switch">
-        <select name="sorting" chosen ng-model="hotels" ng-options="sorting for sorting in sortings">
+        <select name="sorting" chosen ng-model="hotels" ng-options="sorting for sorting in sortings" data-placeholder="Sorting">
         </select>
       </div>
       <div class="view-switch">
@@ -18,7 +18,7 @@
     <div class="hotels__list">
       <ul class="entries entries--{{view}}">
         <li class="item" ng-repeat="hotel in hotels" ng-class="{'grid': view == 'list'}" ng-click="go('/hotels/123')">
-          <img src="static/images/hotel.jpg" alt="Mobius hotel {{hotel.name}} photo">
+          <img src="static/images/hotel.jpg" alt="Mobius hotel {{hotel.name}} photo"/>
           <div>
             <h3 class="title">Hotel Mobius <strong>{{hotel.name}}</strong></h3>
             <span class="price">
