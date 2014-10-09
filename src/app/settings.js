@@ -14,7 +14,7 @@ angular.module('mobiusApp.config', [])
 
     'generics': {
       'currencies': 'generics/currencies',
-      'languages':' /generics/languages'
+      'languages': 'generics/languages'
     }
   },
 

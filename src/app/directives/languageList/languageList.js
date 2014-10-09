@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.language', [])
 
-.directive('languageList', function(Settings, contentService){
+.directive('languageList', function($window, contentService){
   return {
     restrict: 'EA',
     scope: {},
@@ -10,9 +10,19 @@ angular.module('mobiusApp.directives.language', [])
 
     // Widget logic goes here
     link: function(scope){
-      contentService.getLangages().then(function(data){
+      contentService.getLanguages().then(function(data){
         scope.languages = data.languages||[];
       });
+
+      scope.changeLangage = function(language){
+        var location = '';
+        if(!language.default){
+          location = language.code;
+        }
+
+        // TODO: keep other URL params when routes will be defined.
+        $window.location.replace('/' + location);
+      };
     }
   };
 });

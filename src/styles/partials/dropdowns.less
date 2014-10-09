@@ -1,4 +1,6 @@
 .dropdown-menu {
+  .animated;
+
   position: absolute;
   z-index: 1000;
   top: 100%;
@@ -12,7 +14,6 @@
 
   list-style: none;
 
-
   &.submenu {
     background-color: @colorHeaderBackground;
     background-color: fadeout(@colorHeaderBackground, 15%);
@@ -20,10 +21,20 @@
     left: auto;
 
     width: auto;
-    min-width: 150px;
+    min-width: 80px;
+    margin-left: -15px !important;
+
+    li {
+      line-height: 40px !important;
+
+      a {
+
+      }
+    }
   }
 }
 
 .open > .dropdown-menu {
   display: block;
+  .dropdownAnimation;
 }

@@ -21,7 +21,28 @@
   }
 }
 
+@keyframes bounceInDown {
+  0% {
+    -webkit-transform:    translateY(-10px);
+    -ms-transform:        translateY(-10px);
+    transform:            translateY(-10px);
+    opacity:              0;
+  }
+
+  100% {
+    -webkit-transform:    translateY(0);
+    -ms-transform:        translateY(0);
+    transform:            translateY(0);
+    opacity:              1;
+  }
+}
+
 .formInfoAnimation {
   -webkit-animation-name: bounceInUp;
   animation-name:         bounceInUp;
+}
+
+.dropdownAnimation {
+  -webkit-animation-name: bounceInDown;
+  animation-name:         bounceInDown;
 }

@@ -3,7 +3,7 @@
 
   <ul class="dropdown-menu submenu" ng-show="languages.length">
       <li ng-repeat="language in languages">
-          <a class="language" class="icon-{{languages.code}}" href title="{{languages.name}}">{{languages.code}}</a>
+          <a class="language" class="icon-{{language.code}}" href title="{{language.name}}" ng-click="changeLangage(language)">{{language.code}}</a>
       </li>
   </ul>
 </div>
