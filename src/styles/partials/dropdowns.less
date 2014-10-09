@@ -11,4 +11,19 @@
   min-width: 100%;
 
   list-style: none;
+
+
+  &.submenu {
+    background-color: @colorHeaderBackground;
+    background-color: fadeout(@colorHeaderBackground, 15%);
+
+    left: auto;
+
+    width: auto;
+    min-width: 150px;
+  }
+}
+
+.open > .dropdown-menu {
+  display: block;
 }

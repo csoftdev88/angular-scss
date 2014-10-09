@@ -10,6 +10,11 @@ angular.module('mobiusApp.config', [])
       'loyalties': 'content/simpleloyalties',
       'offers': 'content/specialoffers',
       'abouts': 'content/abouts'
+    },
+
+    'generics': {
+      'currencies': 'generics/currencies',
+      'languages':' /generics/languages'
     }
   },
 
@@ -28,6 +33,27 @@ angular.module('mobiusApp.config', [])
       'showAbout': true,
       'showNews': true,
       'showContact': true
+    },
+
+    // List of currencies and their display symbols
+    'currencies': {
+      'default': 'GBP',
+
+      'GBP': {
+        'symbol': '£'
+      },
+
+      'USD': {
+        'symbol': '$'
+      },
+
+      'EUR': {
+        'symbol': '€'
+      },
+
+      'CAD': {
+        'symbol': '€'
+      }
     },
 
     // States layout

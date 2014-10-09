@@ -16,6 +16,7 @@ angular.module('mobiusApp', [
   // Services
   'mobiusApp.services.state',
   'mobiusApp.services.api',
+  'mobiusApp.services.content',
 
   // Custom components
   'mobiusApp.directives.layout',
@@ -23,7 +24,11 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.booking',
   'mobiusApp.directives.best.offers',
   'mobiusApp.directives.best.hotels',
-  'mobiusApp.directives.menu'
+  // Directive based on content data
+  'mobiusApp.directives.menu',
+  // Directives for generic data
+  'mobiusApp.directives.currency',
+  'mobiusApp.directives.language'
 ])
 
 .config(function ($stateProvider, $locationProvider) {

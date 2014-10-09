@@ -2,36 +2,26 @@
     <a class="brand" href="/">
         <img src="static/images/logo.png" alt="Mobius logo">
     </a>
+
     <ul>
-        <li>
+        <li ng-hide="config.menu.singleProperty">
             <a href class="is-active">Hotels</a>
         </li>
 
-        <li>
-            <a href>Offers &amp; Deals</a>
+        <li menu-content="offers" data-title="Offers &amp; Deals" ng-show="config.menu.showOffers">
         </li>
 
-        <li ng-show="config.menu.showAbout">
-            <a href>About Us</a>
+        <li menu-content="about" data-title="About Us" ng-show="config.menu.showAbout">
         </li>
 
-        <li>
-            <a href>News</a>
+        <li menu-content="news" data-title="News" ng-show="config.menu.showNews">
         </li>
 
         <li ng-show="config.menu.showContact">
             <a ui-sref="index.contacts">Contact</a>
         </li>
 
-        <li class="dropdown">
-            <a href class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href>USD</a>
-                </li>
-            </ul>
+        <li currency-list>
         </li>
 
         <li class="dropdown">
