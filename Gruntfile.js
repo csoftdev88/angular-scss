@@ -207,7 +207,10 @@ module.exports = function(grunt) {
 
     watch: {
       markup: {
-        files: ['<%= config.client %>/<%= config.markup %>'],
+        files: [
+          '<%= config.client %>/<%= config.markup %>',
+          '<%= config.client %>/locales/*.json'
+        ],
         tasks: ['localisation', 'templateCache', 'index:build'],
       },
       styles: {
