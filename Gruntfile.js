@@ -12,7 +12,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
-  grunt.loadNpmTasks('grunt-localization');
+  grunt.loadNpmTasks('grunt-localisation');
 
   // Time how long tasks take
   require('time-grunt')(grunt);
@@ -208,7 +208,7 @@ module.exports = function(grunt) {
     watch: {
       markup: {
         files: ['<%= config.client %>/<%= config.markup %>'],
-        tasks: ['localization', 'templateCache', 'index:build'],
+        tasks: ['localisation', 'templateCache', 'index:build'],
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
@@ -248,7 +248,7 @@ module.exports = function(grunt) {
       }
     },
 
-    localization: {
+    localisation: {
       options: {
         locales: 'src/locales',
         pattern: /_(.+)_/
@@ -282,7 +282,7 @@ module.exports = function(grunt) {
   grunt.registerTask('prebuild', [
     'jshint',
     'test',
-    'localization',
+    'localisation',
     'templateCache',
     'ngmin'
   ]);
@@ -333,7 +333,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('localize', [
-    'localization',
+    'localisation',
     'templateCache'
   ]);
 
