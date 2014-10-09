@@ -22,7 +22,8 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.slider',
   'mobiusApp.directives.booking',
   'mobiusApp.directives.best.offers',
-  'mobiusApp.directives.best.hotels'
+  'mobiusApp.directives.best.hotels',
+  'mobiusApp.directives.menu'
 ])
 
 .config(function ($stateProvider, $locationProvider) {
@@ -43,13 +44,22 @@ angular.module('mobiusApp', [
       url: '/'
     })
 
+    // Contact page
+    .state('index.contacts', {
+      templateUrl: 'layouts/contacts/contacts.html',
+      url: '/contacts'
+    })
+
     .state('otherwise', {
       url: '/'
     });
 })
 
-.controller( 'MainCtrl',  function($scope, $state) {
+.controller( 'MainCtrl',  function($scope, $state, Settings) {
   $scope.$on('$stateChangeSuccess', function() {
     $scope.$state = $state;
   });
+
+  // Application settings
+  $scope.config = Settings.UI;
 });
