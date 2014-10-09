@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http) {
+.service( 'apiService',  function($q, $http, Settings) {
   function get(url) {
     var q = $q.defer();
 
@@ -36,9 +36,29 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
+  function getFullURL(path) {
+    var URL = getValue(Settings.API, path);
+    // NOTE: We might want to throw error in case when path is not found
+    return Settings.API.baseURL + URL;
+  }
+
+  function getValue(obj, path) {
+    var keys = path.split('.');
+    for(var i=0; i<keys.length; i++){
+      obj = obj[keys[i]];
+
+      if(typeof obj === 'undefined'){
+        return '';
+      }
+    }
+
+    return obj;
+  }
+
   // Public methods
   return {
     get: get,
-    post: post
+    post: post,
+    getFullURL: getFullURL
   };
 });

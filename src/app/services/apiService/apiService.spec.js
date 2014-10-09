@@ -10,7 +10,19 @@ describe('apiService', function() {
   });
 
   beforeEach(function() {
-    module('mobiusApp.services.api');
+    module('mobiusApp.services.api', function($provide) {
+      // Mocking Settings service
+      var Settings = {
+        'API': {
+          'baseURL': 'http://server.com/',
+          'content': {
+            'about': 'about'
+          }
+        }
+      };
+
+      $provide.value('Settings', Settings);
+    });
   });
 
   beforeEach(inject(function($rootScope, $httpBackend, apiService) {
@@ -54,6 +66,22 @@ describe('apiService', function() {
         env.httpBackend.flush();
         env.rootScope.$apply();
         expect(resolvedValue).equal(false);
+      });
+    });
+  });
+
+  describe('Other logic', function() {
+    describe('getFullURL', function() {
+      it('should return correctly formated URL adress', function() {
+        var URL = env.apiService.getFullURL('content.about');
+
+        expect(URL).equal('http://server.com/about');
+      });
+
+      it('should return only baseURL in case when key is not found in configuration', function() {
+        var URL = env.apiService.getFullURL('content.someother');
+
+        expect(URL).equal('http://server.com/');
       });
     });
   });
