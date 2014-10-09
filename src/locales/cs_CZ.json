@@ -1,0 +1,14 @@
+{
+  "locale": "cs_CZ",
+  "language": "Czech",
+  "description": "Ceska verze",
+  "data": {
+    "page_title": "Mobius Hotely",
+    "hotels": "Hotely",
+    "offers_deals": "Nabídky a Slevy",
+    "about_us": "O Nás",
+    "news": "Novinky",
+    "contact": "Kontakty",
+    "login_register": "Přihlásit / registrovat"
+  }
+}

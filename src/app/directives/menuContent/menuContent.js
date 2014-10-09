@@ -37,7 +37,6 @@ angular.module('mobiusApp.directives.menu', [])
       if(contentType){
         contentService[contentType.method]().then(function(data){
           scope.content = data[contentType.sourceObject]||[];
-          console.log(scope.content);
         });
       }
 
