@@ -67,7 +67,7 @@ contact {
     margin: 0;
   }
 
-  @media @lessThenTablet {
+  @media only screen and @lessThenTablet {
     dl {
       margin: 0 10px;
     }
@@ -85,7 +85,7 @@ contact {
     }
   }
 
-  @media @moreThenMobile {
+  @media only screen and @moreThenMobile {
     dd {
       span {
         display: block;
@@ -99,7 +99,7 @@ contact {
 advert {
   &:extend(.block);
 
-  @media @lessThenTablet {
+  @media only screen and @lessThenTablet {
     display: none;
   }
 }

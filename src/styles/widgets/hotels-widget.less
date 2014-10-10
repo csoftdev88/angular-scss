@@ -49,13 +49,13 @@
 
 .hotel-detail__location {
 
-  @media @lessThenTablet {
+  @media only screen and @lessThenTablet {
     img {
       max-width: 100%;
     }
   }
 
-  @media @moreThenMobile {
+  @media only screen and @moreThenMobile {
     .img-wrap {
       height: 18 * @baseline;
     }
@@ -88,7 +88,7 @@
     }
   }
 
-  @media @moreThenMobile {
+  @media only screen and @moreThenMobile {
     .margin-bottom(@htmlFontSize, 2);
 
     ul {
@@ -230,7 +230,7 @@
 }
 
 // MOBILE SPECIFIC STYLES
-@media @lessThenTablet {
+@media only screen and @lessThenTablet {
   [widget="hotels"] {
     margin: 0 10px;
 
@@ -324,7 +324,7 @@
 }
 
 // DESKTOP SPECIFIC STYLES
-@media @moreThenMobile {
+@media only screen and @moreThenMobile {
   .entries {
 
     .price {

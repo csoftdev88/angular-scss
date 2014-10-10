@@ -3,9 +3,11 @@
     ========================================== */
 
 // GENERIC STYLES
-#hero-slider {
-  position: relative;
-  width: 100%;
+hero-slider {
+  > div {
+    position: relative;
+    width: 100%;
+  }
 
   .slide {
     img {
@@ -27,7 +29,6 @@
     position: relative;
     margin-top: @headerHeight + @headerBorderBottom;
     padding-top: 22.5%;
-    // height: calc(~"100% - " (@headerHeight + @headerBorderBottom));
   }
 
   .slide-content__inner {
@@ -84,8 +85,8 @@
 }
 
 // MOBILE SPECIFIC STYLES
-@media @lessThenTablet {
-  #hero-slider {
+@media only screen and @lessThenTablet {
+  hero-slider {
     .slide-offer__title,
     .slide-offer__subtitle {
       display: none;
@@ -93,9 +94,13 @@
   }
 }
 
+@media only screen and @lessThenDesktop {
+
+}
+
 // DESKTOP STYLES
-@media @moreThenMobile {
-  #hero-slider {
+@media only screen and @moreThenMobile {
+  hero-slider {
 
   }
 }

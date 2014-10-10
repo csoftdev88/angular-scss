@@ -42,7 +42,7 @@
 }
 
 // MOBILE SPECIFIC STYLES
-@media @lessThenTablet {
+@media only screen and @lessThenTablet {
   .grid,
   [grid] {
     margin-left: 10px;
@@ -51,7 +51,7 @@
 }
 
 // DESKTOP STYLES
-@media @moreThenMobile {
+@media only screen and @moreThenMobile {
   // Calling the grid mixin
   .generate-grid(@gridWidth, @gridGap, @gridColumnCount);
 }
