@@ -1,0 +1,9 @@
+<div class="dropdown">
+  <a href class="dropdown-toggle" data-toggle="dropdown">EN</a>
+
+  <ul class="dropdown-menu submenu" ng-show="languages.length">
+      <li ng-repeat="language in languages">
+          <a class="language" class="icon-{{language.code}}" href title="{{language.name}}" ng-click="changeLangage(language)">{{language.code}}</a>
+      </li>
+  </ul>
+</div>

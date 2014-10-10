@@ -1,0 +1,43 @@
+<nav class="main-nav wrapper">
+    <a class="brand" href="/">
+        <img src="/static/images/logo.png" alt="Mobius logo">
+    </a>
+    <a href class="menu-opener icon-menu dropdown-toggle" data-toggle="dropdown"></a>
+    <ul>
+        <li ng-hide="config.menu.singleProperty">
+            <a ui-sref="index.hotels" class="is-active">_hotels_</a>
+        </li>
+
+        <li menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
+        </li>
+
+        <li menu-content="about" data-title="_about_us_" ng-show="config.menu.showAbout">
+        </li>
+
+        <li menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
+        </li>
+
+        <li ng-show="config.menu.showContact">
+            <a ui-sref="index.contacts">_contact_</a>
+        </li>
+
+        <li currency-list>
+        </li>
+
+        <li language-list>
+        </li>
+
+        <li class="dropdown">
+            <a href class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href>EN</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <a class="button button-login">_login_register_</a>
+</nav>

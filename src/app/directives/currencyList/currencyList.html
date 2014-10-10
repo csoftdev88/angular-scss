@@ -1,0 +1,9 @@
+<div class="dropdown">
+  <a href class="dropdown-toggle" data-toggle="dropdown">GBP</a>
+
+  <ul class="dropdown-menu submenu" ng-show="currencies.length">
+      <li ng-repeat="currency in currencies">
+          <a class="currency" class="icon-{{currency.code}}" href title="{{currency.name}}">{{getCurrencySymbol(currency.code)}}</a>
+      </li>
+  </ul>
+</div>

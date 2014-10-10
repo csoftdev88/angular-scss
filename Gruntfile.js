@@ -12,6 +12,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-localisation');
 
   // Time how long tasks take
   require('time-grunt')(grunt);
@@ -43,9 +44,7 @@ module.exports = function(grunt) {
       ]
     },
 
-
     /* PREBUILD CONFIG */
-
     ngmin: {
       default: {
         expand: true,
@@ -138,23 +137,13 @@ module.exports = function(grunt) {
      * AngularJS's template cache. This means that the templates too become
      * part of the initial payload as one JavaScript file. Neat!
      */
-    html2js: {
-      app: {
-        options: {
-          base: '<%= config.client %>/app/'
-        },
-        src: [ '<%= config.client %>/<%= config.app_files.html %>' ],
-        dest: '<%= config.build %>/app/mobius-templates.js'
-      }
-    },
-
+    html2js: {},
 
     /* PRODUCTION */
-
     concat: {
       compileJS: {
         src: [
-          '.build/app/**/*.js', '!.build/app/**/*.spec.js'
+          'build/app/**/*.js', '!build/app/**/*.spec.js'
         ],
         dest: '<%= config.compile %>/app/<%= pkg.name %>-<%= pkg.version %>.js'
       }
@@ -215,9 +204,11 @@ module.exports = function(grunt) {
 
     watch: {
       markup: {
-        files: ['<%= config.client %>/<%= config.markup %>'],
-        tasks: ['html2js', 'index:build'],
-        options: { livereload: true }
+        files: [
+          '<%= config.client %>/<%= config.markup %>',
+          '<%= config.client %>/locales/*.json'
+        ],
+        tasks: ['localisation', 'templateCache', 'index:build'],
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
@@ -255,6 +246,27 @@ module.exports = function(grunt) {
       continuous: {
         singleRun: true
       }
+    },
+
+    localisation: {
+      options: {
+        locales: 'src/locales',
+        pattern: /_(.+)_/
+      },
+      files: {
+        src: [ '**/*.html' ],
+        cwd: 'src/app',
+        dest: 'build/templates/{locale}/'
+      }
+    },
+
+    templateCache: {
+      app:{
+        options: {
+          src: 'build/templates/{locale}/**/*.html',
+          dest: '<%= config.build %>/app/mobius-templates-{locale}.js'
+        }
+      }
     }
   };
 
@@ -270,7 +282,8 @@ module.exports = function(grunt) {
   grunt.registerTask('prebuild', [
     'jshint',
     'test',
-    'html2js',
+    'localisation',
+    'templateCache',
     'ngmin'
   ]);
 
@@ -327,7 +340,6 @@ module.exports = function(grunt) {
     process.exit(0);
   });
 
-
   /**
    * The index.html template includes the stylesheet and javascript sources
    * based on dynamic names calculated in this Gruntfile. This task assembles
@@ -337,20 +349,41 @@ module.exports = function(grunt) {
   grunt.registerMultiTask( 'index', 'Process index.html template', function () {
     var dirRE = new RegExp( '^('+grunt.config('config.build') + '|' + grunt.config('config.compile')+')\/', 'g' );
 
-    var jsFiles = filterForJS( this.filesSrc ).map( function ( file ) {
+    // All JS source files without templates prefix
+    var FILTER_JS = /^(?!.*\bmobius-templates\b).+.js$/;
+    var FILTER_CSS = /\.css$/;
+
+    // List of JS source files
+    var jsFiles = filterFiles( this.filesSrc, FILTER_JS ).map( function ( file ) {
       return file.replace( dirRE, '' );
     });
 
-    var cssFiles = filterForCSS( this.filesSrc ).map( function ( file ) {
+    // List of CSS files
+    var cssFiles = filterFiles( this.filesSrc, FILTER_CSS ).map( function ( file ) {
       return file.replace( dirRE, '' );
     });
 
-    grunt.file.copy(grunt.config('config.client') + '/app/index.html', this.data.dir + '/index.html', {
+    var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
+
+    for(var i = 0; i < supportedLanguages.length; i++){
+      var localeCode = supportedLanguages[i];
+
+      var src = grunt.config('config.build') + '/templates/' + localeCode + '/index.html';
+      var dest = this.data.dir + '/index-' + localeCode + '.html';
+
+      processIndex(src, dest, jsFiles, cssFiles, localeCode);
+    }
+  });
+
+  function processIndex(src, dest, jsFiles, cssFiles, localeCode){
+    var templateCache = 'app/mobius-templates-' + localeCode + '.js';
+    grunt.file.copy(src, dest, {
       process: function ( contents ) {
         return grunt.template.process( contents, {
           data: grunt.util._.extend({
             scripts: jsFiles,
             styles: cssFiles,
+            templates: [templateCache],
             vendor_js: grunt.config('config.vendor_files.js'),
             vendor_styles: grunt.config('config.vendor_files.styles'),
             version: grunt.config( 'pkg.version' )
@@ -358,23 +391,50 @@ module.exports = function(grunt) {
         });
       }
     });
-  });
-
-  /**
-   * A utility function to get all app JavaScript sources.
-   */
-  function filterForJS ( files ) {
-    return files.filter( function ( file ) {
-      return file.match( /\.js$/ );
-    });
   }
 
   /**
-   * A utility function to get all app CSS sources.
+  * Creating template cache for each available locale
+  */
+  grunt.registerMultiTask( 'templateCache', 'Process localized templates', function () {
+    var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
+
+    for(var i = 0; i < supportedLanguages.length; i++){
+      var localeCode = supportedLanguages[i];
+
+      var basePath = 'build/templates/' + localeCode;
+
+      // Creating multiple
+      var taskName = 'html2js.' + localeCode;
+      grunt.config.set(taskName + '.options.base', basePath);
+      grunt.config.set(taskName + '.src', basePath + '/' + grunt.config('config.markup'));
+      grunt.config.set(taskName + '.dest', grunt.config('config.build') + '/' + 'app/mobius-templates-' + localeCode + '.js');
+
+      grunt.task.run('html2js:' + localeCode);
+    }
+  });
+
+  /**
+   * A utility function for filtering the sources.
    */
-  function filterForCSS ( files ) {
+  function filterFiles (files, filter) {
     return files.filter( function ( file ) {
-      return file.match( /\.css$/ );
+      return file.match( filter );
     });
+  }
+
+  // Getting a list of available translations
+  function getSupportedLanguages ( path ) {
+    var supportedLanguages  = [];
+
+    grunt.file.recurse(path, function(path){
+      var localeConfig = grunt.file.readJSON(path);
+      var langageCode = localeConfig.locale;
+      if(supportedLanguages.indexOf(langageCode) === -1 ){
+        supportedLanguages.push(langageCode);
+      }
+    });
+
+    return supportedLanguages;
   }
 };

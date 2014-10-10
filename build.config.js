@@ -10,13 +10,14 @@ module.exports = {
     gruntfile: 'Gruntfile.js',
     client: 'src',
     server: 'server',
-    main: 'fluency.js',
 
     'static': 'static',
 
     markup:  '**/*.html',
     styles:  '**/*.{css,less}',
     scripts: '**/*.js',
+
+    locales: 'src/locales',
 
     images:  '**/*.{png,jpg,jpeg,gif,webp,svg}',
     fonts:   '**/*.{eot,svg,ttf,woff}',

@@ -15,6 +15,8 @@ angular.module('mobiusApp', [
 
   // Services
   'mobiusApp.services.state',
+  'mobiusApp.services.api',
+  'mobiusApp.services.content',
 
   // Custom components
   'mobiusApp.directives.layout',
@@ -24,7 +26,13 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.best.hotels',
   'mobiusApp.directives.hotels',
   'mobiusApp.directives.room',
-  'mobiusApp.directives.room.aside'
+  'mobiusApp.directives.room.aside',
+
+  // Directive based on content data
+  'mobiusApp.directives.menu',
+  // Directives for generic data
+  'mobiusApp.directives.currency',
+  'mobiusApp.directives.language'
 ])
 
 .config(function ($stateProvider, $locationProvider) {
@@ -61,13 +69,22 @@ angular.module('mobiusApp', [
       url: '/hotels/:hotelID/rooms/:roomID'
     })
 
+    // Contact page
+    .state('index.contacts', {
+      templateUrl: 'layouts/contacts/contacts.html',
+      url: '/contacts'
+    })
+
     .state('otherwise', {
       url: '/'
     });
 })
 
-.controller( 'MainCtrl',  function($scope, $state) {
+.controller( 'MainCtrl',  function($scope, $state, Settings) {
   $scope.$on('$stateChangeSuccess', function() {
     $scope.$state = $state;
   });
+
+  // Application settings
+  $scope.config = Settings.UI;
 });

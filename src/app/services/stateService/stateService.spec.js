@@ -13,20 +13,22 @@ describe('stateService', function() {
   beforeEach(function() {
     module('mobiusApp.services.state', function($provide) {
       var Settings = {
-        'layout': {
-          'index.home': [
-            'best-offers',
-            'best-hotels'
-          ],
-          'index.about': [
-            'widget-doesnt-exist',
-            'best-hotels'
-          ]
-        },
-        // Widgets name vs templates map
-        'templates': {
-          'best-offers': '<best-offers></best-offers>',
-          'best-hotels': '<best-hotels></best-hotels>'
+        'UI': {
+          'layout': {
+            'index.home': [
+              'best-offers',
+              'best-hotels'
+            ],
+            'index.about': [
+              'widget-doesnt-exist',
+              'best-hotels'
+            ]
+          },
+
+          'templates': {
+            'best-offers': '<best-offers></best-offers>',
+            'best-hotels': '<div class="grid-wrapper"><best-hotels></best-hotels></div>'
+          }
         }
       };
 

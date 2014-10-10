@@ -4,7 +4,7 @@ angular.module('mobiusApp.services.state', [])
 .service( 'stateService',  function(Settings) {
 
   function getStateLayout(stateName){
-    var config = Settings.layout[stateName];
+    var config = Settings.UI.layout[stateName];
     if(!config){
       return [];
     }
@@ -15,7 +15,7 @@ angular.module('mobiusApp.services.state', [])
     for(var i = 0; i < config.length; i++){
       var areaName = config[i];
       // Check whether area name has template
-      var template = Settings.templates[areaName];
+      var template = Settings.UI.templates[areaName];
 
       if(template){
         layout.push(template);
