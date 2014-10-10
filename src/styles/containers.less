@@ -50,8 +50,12 @@
   }
 }
 
+@media only screen and @moreThenMobile and @lessThenDesktop {
+  .generate-fluid-grid(12);
+}
+
 // DESKTOP STYLES
-@media only screen and @moreThenMobile {
+@media only screen and @moreThenTablet {
   // Calling the grid mixin
   .generate-grid(@gridWidth, @gridGap, @gridColumnCount);
 }
@@ -61,6 +65,9 @@
     GRID generating mixin
     ========================================== */
 
+////////////////////////
+// Desktop grid mixin //
+////////////////////////
 .generate-grid(@full, @gap, @cols){
   .grid-row,
   [grid-row] {
@@ -69,7 +76,7 @@
   }
 
   .grid-wrapper {
-    width: @full;
+    max-width: @full;
     margin-left: auto;
     margin-right: auto;
     .clearfix;
@@ -102,6 +109,7 @@
     // Recursive call with index incrementation
     .grid-element-loop(@i + 1);
   }
+
   // Init grid
   .grid-element-loop(1);
 
@@ -115,16 +123,52 @@
     .grid-wrap-loop(@i + 1);
   }
 
+  // Init grid-wrap
   .grid-wrap-loop(1);
 
 }
 
-// Grid mixins without recursion
+///////////////////////
+// Tablet grid mixin //
+///////////////////////
+.generate-fluid-grid(@cols){
+
+  .grid,
+  [grid] {
+    float: left;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .grid-fluid-element-loop(@i) when (@i =< @cols){
+    [grid="@{i}"]{
+      width: ((100 - (@cols * 2%)) / @cols ) * @i + (2 * (@i - 1));
+    }
+    .grid-fluid-element-loop(@i + 1);
+  }
+  // Fluid grid initiation
+  .grid-fluid-element-loop(1);
+
+  [grid-container] {
+    width: 100%;
+  }
+}
+
+///////////////////////////////////
+// Grid mixins without recursion //
+///////////////////////////////////
 .grid-element(@i; @float: left){
   float: @float;
   width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * (@i - 1)));
   margin-left: @gridGap / 2;
   margin-right: @gridGap / 2;
+}
+
+.grid-fluid-element(@i; @gap: 2%; @float: left){
+  float: @float;
+  width: ((100 - (@gridColumnCount * @gap)) / @gridColumnCount) * @i + (@gap * (@i - 1));
+  margin-left: @gap / 2;
+  margin-right: @gap / 2;
 }
 
 .grid-wrap(@i; @float: left){

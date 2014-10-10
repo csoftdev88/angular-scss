@@ -323,7 +323,32 @@
   }
 }
 
-// DESKTOP SPECIFIC STYLES
+// TABLET STYLES
+@media only screen and @moreThenMobile and @lessThenDesktop {
+  [widget="hotels"] {
+    [grid="9"]{
+      width: 98%;
+      margin-left: 1%;
+      margin-right: 1%;
+    }
+  }
+
+  .entries--tiles {
+    .item {
+      .grid-fluid-element(4);
+      .margin-bottom;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+// TABLET and DESKTOP SPECIFIC STYLES
 @media only screen and @moreThenMobile {
   .entries {
 
@@ -345,18 +370,6 @@
     }
   }
 
-  .entries--tiles {
-    .item {
-      .grid-element(3);
-      .margin-bottom;
-    }
-
-    img {
-      display: block;
-      width: 210px;
-      height: 147px;
-    }
-  }
 
   .entries--list {
     .item {
@@ -369,6 +382,23 @@
 
     p {
       display: block;
+    }
+  }
+}
+
+// DESKTOP SPECIFIC STYLES
+@media only screen and @moreThenTablet {
+
+  .entries--tiles {
+    .item {
+      .grid-element(3);
+      .margin-bottom;
+    }
+
+    img {
+      display: block;
+      width: 210px;
+      height: 147px;
     }
   }
 }

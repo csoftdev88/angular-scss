@@ -1,13 +1,22 @@
+aside {
+  .clearfix;
+  @media only screen and @moreThenMobile and @lessThenDesktop {
+    [grid="3"] {
+      width: 100%;
+      margin: 0;
+      float: none;
+    }
+    hr {
+      display: none;
+    }
+  }
+
+}
+
 search {
   &:extend(.block);
   .margin-bottom;
   .clearfix;
-
-  h4 {
-    .fs-16(false);
-    .line-height(16, 2);
-    margin-bottom: 0;
-  }
 
   input[type="text"],
   input[type="search"] {
@@ -36,10 +45,6 @@ search {
 contact {
   &:extend(.block);
 
-  h3 {
-    &:extend(search h4);
-    margin: 0;
-  }
   dl {
     margin: 0;
     .margin-bottom();
@@ -99,8 +104,33 @@ contact {
 advert {
   &:extend(.block);
 
-  @media only screen and @lessThenTablet {
+  @media only screen and @lessThenDesktop {
     display: none;
+  }
+}
+
+// TABLET STYLES
+@media only screen and @moreThenMobile and @lessThenDesktop {
+  search,
+  contact {
+    .grid-fluid-element(8);
+  }
+}
+
+// DESKTOP STYLES
+@media only screen and @moreThenTablet {
+  search,
+  contact {
+    h3 {
+      .fs-16(false);
+      .line-height(16, 2);
+      margin-bottom: 0;
+    }
+  }
+  contact {
+    h3 {
+      .line-height(16, 1);
+    }
   }
 }
 
