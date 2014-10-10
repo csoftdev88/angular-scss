@@ -94,8 +94,26 @@ hero-slider {
   }
 }
 
-@media only screen and @lessThenDesktop {
+@media only screen and @moreThenMobile and @lessThenDesktop{
+  hero-slider {
+    .slide-content {
+      padding-top: 10%;
+    }
 
+    .slide-offer__title {
+      padding-left: 20px;
+      font-size: 21px;
+      line-height: 42px;
+
+    }
+
+    .slide-offer__subtitle {
+      top: 50px;
+      padding-left: 20px;
+      font-size: 16px;
+
+    }
+  }
 }
 
 // DESKTOP STYLES
