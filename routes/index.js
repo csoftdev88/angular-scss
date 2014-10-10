@@ -1,5 +1,6 @@
 module.exports = function (app) {
-
+    // TODO: routes should be generated dynamically according to available
+    // locales
     app.get('/cs-cz', function (req, res, next) {
         res.render('index-cs_CZ', {
             title: 'Express'
