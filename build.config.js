@@ -5,12 +5,11 @@ module.exports = {
   config: {
     // Destinations
     build: 'build',
-    compile: 'build',
+    compile: 'compile',
 
     gruntfile: 'Gruntfile.js',
     client: 'src',
     server: 'server',
-    main: 'fluency.js',
 
     'static': 'static',
 
