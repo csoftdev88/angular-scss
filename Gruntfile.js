@@ -44,9 +44,7 @@ module.exports = function(grunt) {
       ]
     },
 
-
     /* PREBUILD CONFIG */
-
     ngmin: {
       default: {
         expand: true,
@@ -132,7 +130,6 @@ module.exports = function(grunt) {
         src: '<%= config.build %>/<%= config.styles %>'
       }
     },
-
 
     /**
      * HTML2JS is a Grunt plugin that takes all of your template files and
@@ -335,11 +332,6 @@ module.exports = function(grunt) {
     'production'
   ]);
 
-  grunt.registerTask('localize', [
-    'localisation',
-    'templateCache'
-  ]);
-
   grunt.registerTask('sleep', 'Keep grunt running', function() {
     this.async();
   });
@@ -357,6 +349,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask( 'index', 'Process index.html template', function () {
     var dirRE = new RegExp( '^('+grunt.config('config.build') + '|' + grunt.config('config.compile')+')\/', 'g' );
 
+    // All JS source files without templates prefix
     var FILTER_JS = /^(?!.*\bmobius-templates\b).+.js$/;
     var FILTER_CSS = /\.css$/;
 
