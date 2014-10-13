@@ -96,8 +96,14 @@
 /*  ==========================================
     BREAKPOINTS
     ========================================== */
-@lessThenTablet:     ~"only screen and (max-width: 480px)";
-@moreThenMobile:     ~"only screen and (min-width: 481px)";
+@lessThenTablet:     ~"(max-width: 480px)";
+@moreThenMobile:     ~"(min-width: 481px)";
+
+@lessThenDesktop:    ~"(max-width: 960px)";
+@moreThenTablet:     ~"(min-width: 961px)";
+
+@lessThenTabletPortrait: ~"(max-width: 768px)";
+@moreThenTabletPortrait: ~"(min-width: 769px)";
 
 /*  ==========================================
     BORDERS
