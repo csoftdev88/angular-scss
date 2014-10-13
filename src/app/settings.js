@@ -9,7 +9,8 @@ angular.module('mobiusApp.config', [])
       'news': 'content/news',
       'loyalties': 'content/simpleloyalties',
       'offers': 'content/specialoffers',
-      'abouts': 'content/abouts'
+      'abouts': 'content/abouts',
+      'hightlighted': 'content?hightlighted'
     },
 
     'generics': {
@@ -19,6 +20,8 @@ angular.module('mobiusApp.config', [])
   },
 
   'UI': {
+    'heroSlider': {
+    },
     // Menu settings - showing/hidding menu items
     'menu': {
       'singleProperty': false,

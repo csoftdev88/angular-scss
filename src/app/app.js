@@ -7,6 +7,10 @@ angular.module('mobiusApp', [
   'ui.bootstrap',
   // Template cache
   'templates-app',
+
+  // Controllers
+  'mobius.controllers.main',
+
   // 3rd party components
   'localytics.directives',
 
@@ -78,13 +82,4 @@ angular.module('mobiusApp', [
     .state('otherwise', {
       url: '/'
     });
-})
-
-.controller( 'MainCtrl',  function($scope, $state, Settings) {
-  $scope.$on('$stateChangeSuccess', function() {
-    $scope.$state = $state;
-  });
-
-  // Application settings
-  $scope.config = Settings.UI;
 });
