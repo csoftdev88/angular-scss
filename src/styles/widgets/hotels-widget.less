@@ -49,13 +49,13 @@
 
 .hotel-detail__location {
 
-  @media only screen and @lessThenTablet {
+  @media only screen and @lessThenDesktop {
     img {
       max-width: 100%;
     }
   }
 
-  @media only screen and @moreThenMobile {
+  @media only screen and @moreThenTablet {
     .img-wrap {
       height: 18 * @baseline;
     }
@@ -88,7 +88,7 @@
     }
   }
 
-  @media only screen and @moreThenMobile {
+  @media only screen and @moreThenTablet {
     .margin-bottom(@htmlFontSize, 2);
 
     ul {
@@ -116,6 +116,14 @@
       border-radius: 3px;
       border: 1px @colorLightGray solid;
       box-shadow: 0 2px 3px -2px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+@media only screen and @moreThenMobile and @lessThenDesktop {
+  [widget="hotel-detail"] {
+    &[grid="9"] {
+      .grid-fluid-element(12);
     }
   }
 }
