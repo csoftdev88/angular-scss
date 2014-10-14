@@ -3,9 +3,6 @@
 angular.module('mobiusApp.directives.room.aside', [])
 
 .directive('roomAside', function(){
-  console.log('roomAside');
-  console.log('roomAside arguments', arguments);
-
   return {
     restrict: 'E',
     scope: {},

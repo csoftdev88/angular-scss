@@ -1,0 +1,117 @@
+<reservation-steps>
+  <ol>
+    <li class="is-active"><a href="/reservation/step-1">Guest Details</a></li>
+    <li><a href="/reservation/step-2">Billing Information</a></li>
+    <li><a href="/reservation/step-3">Confirmation</a></li>
+  </ol>
+</reservation-steps>
+
+<div widget="reservation" grid="7">
+
+  <reservation-room-resume>
+    <h3>Your Room Selection</h3>
+    <div class="room-data">
+      <img src="/static/images/room-1.jpg" alt="">
+      <h4>Deluxe Double Room</h4>
+      <p class="desc">Bed and Breakfast</p>
+      <p class="price"><strong>89</strong> <em>per night</em></p>
+    </div>
+    <div class="reservation-data">
+      <table class="data">
+        <tbody>
+          <tr>
+            <th>Check in</th>
+            <td>21 Oct 14</td>
+          </tr>
+          <tr>
+            <th>Check out</th>
+            <td>23 Oct 14</td>
+          </tr>
+          <tr>
+            <th>Adults</th>
+            <td>2</td>
+          </tr>
+          <tr>
+            <th>Children</th>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="charges">
+        <tbody>
+          <tr>
+            <th>Room Charges</th>
+            <td>178</td>
+          </tr>
+          <tr>
+            <th>Tax</th>
+            <td>16.45</td>
+          </tr>
+          <tr>
+            <th>Total</th>
+            <td>194.45</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="more-details">
+      <a href="#">View Price Breakdown</a>
+      <a href="#">View Policies</a>
+    </p>
+  </reservation-room-resume>
+
+  <hr/>
+  <div>
+    <h4>Already Registered?</h4>
+    <p>Click here to <a href="/login">log in</a> or <a href="/register">register</a>.</p>
+  </div>
+  <hr/>
+
+  <reservation-details-form>
+    <h3>Your Details</h3>
+    <label for="title" class="input-left">
+      Title
+      <select name="title" id="">
+        <option value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Ms">Ms</option>
+      </select>
+    </label>
+    <label for="first-name" class="input-right">
+      First name
+      <input type="text" name="first-name"/>
+    </label>
+    <label for="last-name">
+      Last name
+      <input type="text" name="last-name"/>
+    </label>
+    <label for="address">
+      Address
+      <input type="text" name="address"/>
+    </label>
+    <label for="city" class="input-left">
+      City
+      <input type="text" name="city"/>
+    </label>
+    <label for="state" class="input-right">
+      State/Province
+      <input type="text" name="state" placeholder="State/Province"/>
+    </label>
+    <label for="country">
+      Country
+      <input type="text" name="country"/>
+    </label>
+    <label for="postal-code" class="input-left">
+      Zip/Postal Code
+      <input type="text" name="postal-code"/>
+    </label>
+    <label for="telephone" class="input-right">
+      Primary Telephone
+      <input type="text" name="telephone"/>
+    </label>
+    <div class="buttons">
+      <a href="/hotels/123/rooms/123" class="button">Back</a>
+      <a href="/reservation/step-2" class="button">Continue</a>
+    </div>
+  </reservation-details-form>
+</div>
