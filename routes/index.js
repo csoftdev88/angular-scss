@@ -32,4 +32,9 @@ module.exports = function (app) {
         title: 'Express'
       });
     });
+    app.get('/reservation/*', function (req, res, next) {
+      res.render('index-en_US', {
+        title: 'Express'
+      });
+    });
 };
