@@ -60,8 +60,38 @@
     </p>
   </reservation-room-resume>
 
-  <div class="buttons">
+  <hr/>
+
+  <reservation-billing>
+    <h3>Card Details</h3>
+    <form>
+      <label for="form-card-number">
+        Card number
+        <input type="text" id="form-card-number"/>
+      </label>
+      <div class="input-left">
+        <label for="form-expires" class="input-left">
+          Expires
+          <input type="date" id="form-expires"/>
+        </label>
+        <label for="form-cvv" class="input-right">
+          CVV
+          <input type="number" id="form-cvv"/>
+        </label>
+      </div>
+      <label for="form-name-on-card" class="input-right">
+        Name on Card
+        <input type="text" id="form-name-on-card"/>
+      </label>
+      <label for="form-guest-address" class="is-oneline">
+        <input type="checkbox" id="form-guest-address"/>
+        Use Guest Address
+      </label>
+    </form>
+  </reservation-billing>
+
+  <reservation-buttons>
     <a href="/reservation/details" class="button button--gray back">Back</a>
     <a href="/reservation/confirmation" class="button next">Continue</a>
-  </div>
+  </reservation-buttons>
 </div>

@@ -1,4 +1,6 @@
-input[type="text"] {
+input[type="text"],
+input[type="number"],
+input[type="date"] {
   display: block;
   width: 100%;
   height: @inputHeight;
@@ -60,4 +62,18 @@ select {
   border: 1px solid @colorInputBorder;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+label {
+  .clearfix;
+  display: block;
+  clear: both;
+  box-sizing: border-box;
+  padding-bottom: 8px;
+  .fs-14();
+  .line-height(14, 2);
+  font-weight: 700;
+  &.is-oneline {
+    padding-bottom: 0;
+  }
 }

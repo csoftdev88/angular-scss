@@ -104,7 +104,6 @@ angular.module('mobiusApp', [
 .controller( 'MainCtrl',  function($scope, $state, Settings) {
   $scope.$on('$stateChangeSuccess', function() {
     $scope.$state = $state;
-    console.log($scope.$state);
   });
 
   // Application settings
