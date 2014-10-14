@@ -247,7 +247,6 @@ registration-call {
 
 reservation-details-form {
   &:extend(.block);
-
 }
 
 reservation-buttons {
@@ -256,30 +255,72 @@ reservation-buttons {
   height: unit(@baseline / @htmlFontSize * 2, em);
   .padding-top-bottom;
 
-  .button {
-    &.back,
-    &.next {
-      .grid-fluid-width(5);
+  .back,
+  .next {
+    .grid-fluid-width(5);
+    width: @width;
+  }
+
+  .to-home {
+    .grid-fluid-width(8);
+    width: @width;
+
+    @media screen and @moreThenTablet {
+      .grid-fluid-width(6);
       width: @width;
     }
+  }
 
-    &.back {
-      &:before {
-        content: '\00AB';
-        float: left;
-      }
-    }
-
-    &.next {
-      float: right;
-      &:after {
-        content: '\00BB';
-        float: right;
-      }
+  .back {
+    &:before {
+      content: '\00AB';
+      float: left;
     }
   }
+
+  .next,
+  .to-home {
+    float: right;
+  }
+
+  .next {
+    &:after {
+      content: '\00BB';
+      float: right;
+    }
+  }
+
 }
 
+reservation-confirmation {
+  &:extend(.block);
+  .margin-top-bottom;
+  padding: @baseline - 1;
+  border-radius: 10px;
+  border: 1px #a7c6de solid;
+  background: #dce5ea;
+  text-align: center;
+
+  .claim {
+    margin-top: 0;
+    .margin-bottom(21, 1);
+    color: #148bd1;
+    .fs-21(true);
+    font-weight: 400;
+  }
+
+  p {
+    margin: 0;
+    color: #2b5e7f;
+    font-weight: 300;
+    .fs-14(true);
+  }
+
+  strong {
+    white-space: nowrap;
+  }
+
+}
 
 @media only screen and @moreThenMobile {
 
