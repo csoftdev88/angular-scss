@@ -98,6 +98,8 @@ reservation-steps {
 }
 
 reservation-room-resume {
+  &:extend(.block);
+
   .room-data {
     img {
       float: left;
@@ -166,14 +168,41 @@ reservation-room-resume {
   }
 }
 
+registration-call {
+  &:extend(.block);
+  text-align: center;
+
+  h4 {
+    .fs-18(true);
+    .margin-top(18, 1);
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+
+  p {
+    color: @colorHeadingDefault;
+  }
+
+  a {
+    color: @colorLinkLight;
+    &:hover,
+    &:focus {
+      color: @colorLinkDefault;
+    }
+  }
+}
+
 reservation-details-form {
+  &:extend(.block);
+
   label {
     .clearfix;
     display: block;
     clear: both;
     box-sizing: border-box;
     padding-bottom: 8px;
-    .fs-14(true);
+    .fs-14();
+    .line-height(14, 2);
     font-weight: 700;
   }
 
@@ -194,6 +223,32 @@ reservation-details-form {
   }
 
   .buttons {
-    .margin-top-bottom;
+    clear: both;
+    height: unit(@baseline / @htmlFontSize * 2, em);
+    .padding-top-bottom;
+  }
+
+  .button {
+
+    &.back,
+    &.next {
+      .grid-width(2);
+      width: @width;
+    }
+
+    &.back {
+      &:before {
+        content: '\00AB';
+        float: left;
+      }
+    }
+
+    &.next {
+      float: right;
+      &:after {
+        content: '\00BB';
+        float: right;
+      }
+    }
   }
 }
