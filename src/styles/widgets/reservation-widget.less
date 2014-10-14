@@ -3,10 +3,7 @@
     ========================================== */
 
 reservation-steps {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
+  display: none;
   &:extend(.block);
   .clearfix;
   background: #2b5e7f;
@@ -14,9 +11,6 @@ reservation-steps {
 
 
   ol {
-    float: right;
-    position: relative;
-    left: -50%;
     text-align: left;
     .noSpaces;
     list-style-type: none;
@@ -24,16 +18,7 @@ reservation-steps {
   }
 
   li {
-    position: relative;
-    display: block;
-    float: left;
-    left: 50%;
-    margin-left: 20px;
     counter-increment: steps;
-
-    &:first-child {
-      margin-left: 0;
-    }
   }
 
   a {
@@ -81,19 +66,63 @@ reservation-steps {
       box-shadow: inset 0 0 10px -7px #237fbc;
     }
   }
+
+  @media screen and @moreThenMobile {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+
+    ol {
+      float: right;
+      position: relative;
+      left: -50%;
+    }
+    li {
+      position: relative;
+      // display: block;
+      float: left;
+      left: 50%;
+      margin-left: 20px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+    a {
+
+    }
+    .is-active a {
+
+    }
+    a:hover {
+
+    }
+  }
 }
 
 [widget="reservation"] {
   float: none;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: @baseline * 3;
+  margin: 0 10px;
+
+  @media screen and @moreThenMobile {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: @baseline * 3;
+  }
 
   h3 {
     .fs-21;
     .line-height(21, 2);
     font-weight: 300;
     .margin-top-bottom(21, 1);
+  }
+
+  reservation-details-form {
+    h3 {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -113,9 +142,13 @@ reservation-room-resume {
     h4, p {
       margin: 0;
     }
-    .desc {
-      min-height: 4.5em;
+
+    @media screen and @moreThenMobile {
+      .desc {
+        min-height: 4.5em;
+      }
     }
+
     .price {
       .fs-16(true);
       strong {
@@ -125,35 +158,57 @@ reservation-room-resume {
   }
 
   .reservation-data {
+    .margin-top(16, 2);
+    .margin-bottom;
     padding: @baseline - 1px 10px;
-    .margin-top-bottom;
     border: 1px #ccc solid;
     border-radius: 10px;
     .clearfix;
     background-color: @white;
+
     table {
-      width: 50%;
+      width: 100%;
       border-collpase: collapse;
     }
-    .data {
-      float: left;
-    }
 
-    .charges {
-
-    }
     th, td {
       .fs-14(true);
       padding: 0;
     }
+
     th {
       text-align: right;
       color: #2b5e7f;
     }
+
     td {
-      padding-left: 1em;
+      padding-left: 20px;
+
       strong {
         color: #2b5e7f;
+      }
+    }
+
+    @media screen and @lessThenTablet {
+      th {
+        width: 50%;
+      }
+    }
+
+    @media screen and @moreThenMobile {
+      .margin-top-bottom;
+
+      table {
+        width: 50%;
+        border-collpase: collapse;
+      }
+
+      .data {
+        float: left;
+      }
+
+      td {
+        padding-left: 1em;
       }
     }
   }
@@ -206,21 +261,6 @@ reservation-details-form {
     font-weight: 700;
   }
 
-  .input-left,
-  .input-right {
-    clear: none;
-    width: 50%;
-  }
-
-  .input-left {
-    float: left;
-    padding-right: 10px;
-  }
-
-  .input-right {
-    float: right;
-    padding-left: 10px;
-  }
 
   .buttons {
     clear: both;
@@ -232,7 +272,7 @@ reservation-details-form {
 
     &.back,
     &.next {
-      .grid-width(2);
+      .grid-fluid-width(5);
       width: @width;
     }
 
@@ -248,6 +288,41 @@ reservation-details-form {
       &:after {
         content: '\00BB';
         float: right;
+      }
+    }
+  }
+
+}
+
+@media only screen and @moreThenMobile {
+
+}
+
+// DESKTOPS and TABLETS in LANDSCAPE orientation
+@media only screen and @moreThenTabletPortrait {
+
+  reservation-details-form {
+    .input-left,
+    .input-right {
+      clear: none;
+      width: 50%;
+    }
+
+    .input-left {
+      float: left;
+      padding-right: 10px;
+    }
+
+    .input-right {
+      float: right;
+      padding-left: 10px;
+    }
+
+    .button {
+      &.back,
+      &.next {
+        .grid-width(2);
+        width: @width;
       }
     }
   }
