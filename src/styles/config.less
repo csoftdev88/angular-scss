@@ -28,8 +28,10 @@
 
 @bodyBackground:            #f4f4f4;
 @footerBackground:          @white;
+@colorDefaultGray:          #898989;
 @colorLightGray:            #bbb;
 @colorLinkDefault:          #2b5e7f;
+@colorLinkLight:            #237fbc;
 @colorTextDefault:          #818080;
 @colorHeadingDefault:       #373535;
 @borderColorDefault:        #ccc;
@@ -37,14 +39,17 @@
 // Buttons
 @colorButtonDefault:        #2aad49;
 @colorButtonDefaultHover:   #42c661;
-@colorButtonTextDefault:    #fff;
+@colorButtonTextDefault:    @white;
 
 @colorButtonBlue:           #32a2e3;
 @colorButtonBlueHover:      lighten(@colorButtonBlue, 15%);
 
+@colorButtonGray:           @colorDefaultGray;
+@colorButtonGrayHover:      lighten(@colorButtonGray, 15%);
+
 // Header
 @colorHeaderBackground:     #000;
-@colorMenuTextDefault:      #fff;
+@colorMenuTextDefault:      @white;
 
 // Hero
 @bgSliderTitle:             fadeout(@black, 60%);
@@ -64,7 +69,7 @@
 @colorInputBorder:          #ccc;
 
 // Booking widget
-@colorBookingLinkBlue:      #237fbc;
+@colorBookingLinkBlue:      @colorLinkLight;
 
 // Best Offers widget
 @colorBestOffersTitle:      @colorHeadingDefault;
@@ -75,9 +80,9 @@
 @colorStar:                 #2b5e7f;
 
 // Rooms widget
-@bgAccordion:               #fff;
-@bgAccordionActive:         #237fbc;
-@colorAccordionIcons:       #898989;
+@bgAccordion:               @white;
+@bgAccordionActive:         @colorLinkLight;
+@colorAccordionIcons:       @colorDefaultGray;
 
 
 /*  ==========================================

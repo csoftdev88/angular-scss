@@ -69,6 +69,27 @@ angular.module('mobiusApp', [
       url: '/hotels/:hotelID/rooms/:roomID'
     })
 
+    // Room reservation
+    .state('index.reservation', {
+      templateUrl: 'layouts/reservation/reservation.html',
+      url: '/reservation'
+    })
+
+    .state('index.reservation.details', {
+      templateUrl: 'layouts/reservation/reservationDetails.html',
+      url: '/details'
+    })
+
+    .state('index.reservation.billing', {
+      templateUrl: 'layouts/reservation/reservationBilling.html',
+      url: '/billing'
+    })
+
+    .state('index.reservation.confirmation', {
+      templateUrl: 'layouts/reservation/reservationConfirmation.html',
+      url: '/confirmation'
+    })
+
     // Contact page
     .state('index.contacts', {
       templateUrl: 'layouts/contacts/contacts.html',

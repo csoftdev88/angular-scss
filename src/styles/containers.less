@@ -179,3 +179,8 @@
 .grid-width(@i){
   @width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
 }
+
+.grid-fluid-width(@i; @gap: 2%;){
+  @width: round(((100 - (@gridColumnCount * @gap)) / @gridColumnCount) * @i + (@gap * @i));
+}
+

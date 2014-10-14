@@ -1,0 +1,72 @@
+<reservation-steps>
+  <ol>
+    <li><a href="/reservation/details">Guest Details</a></li>
+    <li><a href="/reservation/billing">Billing Information</a></li>
+    <li class="is-active"><a href="/reservation/confirmation">Confirmation</a></li>
+  </ol>
+</reservation-steps>
+
+<div widget="reservation" grid="7">
+
+  <reservation-room-resume>
+    <h3>Your Room Selection</h3>
+    <div class="room-data">
+      <img src="/static/images/room-1.jpg" alt="">
+      <h4>Deluxe Double Room</h4>
+      <p class="desc">Bed and Breakfast</p>
+      <p class="price"><strong>89</strong> <em>per night</em></p>
+    </div>
+    <div class="reservation-data">
+      <table class="data">
+        <tbody>
+          <tr>
+            <th>Check in</th>
+            <td>21 Oct 14</td>
+          </tr>
+          <tr>
+            <th>Check out</th>
+            <td>23 Oct 14</td>
+          </tr>
+          <tr>
+            <th>Adults</th>
+            <td>2</td>
+          </tr>
+          <tr>
+            <th>Children</th>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="charges">
+        <tbody>
+          <tr>
+            <th>Room Charges</th>
+            <td>178</td>
+          </tr>
+          <tr>
+            <th>Tax</th>
+            <td>16.45</td>
+          </tr>
+          <tr>
+            <th>Total</th>
+            <td>194.45</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="more-details">
+      <a href="#">View Price Breakdown</a>
+      <a href="#">View Policies</a>
+    </p>
+  </reservation-room-resume>
+
+  <reservation-confirmation>
+    <h2 class="claim">Thank you for your reservation!</h2>
+    <p>Your Reservation Number is: <strong>MOB-123456</strong></p>
+    <p>A confirmation email will be sent to: <strong>lorem@ipsumdolor.com</strong></p>
+  </reservation-confirmation>
+
+  <reservation-buttons>
+      <a href="/" class="button--blue to-home">Back to Home Page</a>
+  </reservation-buttons>
+</div>

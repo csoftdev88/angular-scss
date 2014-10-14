@@ -58,7 +58,7 @@
 }
 
 /*  ==========================================
-    Relative margins for typographic elements
+    Relative margins and paddings for typographic elements
       - computed relatively to font size
     ========================================== */
 
@@ -70,6 +70,16 @@
 }
 .margin-top-bottom(@fontSize: @htmlFontSize; @portion: 1) {
   margin: unit((@baseline / @fontSize) * @portion, em) 0;
+}
+
+.padding-top(@fontSize: @htmlFontSize; @portion: 1) {
+  padding-top: unit((@baseline / @fontSize) * @portion, em);
+}
+.padding-bottom(@fontSize: @htmlFontSize; @portion: 1) {
+  padding-bottom: unit((@baseline / @fontSize) * @portion, em);
+}
+.padding-top-bottom(@fontSize: @htmlFontSize; @portion: 1) {
+  padding: unit((@baseline / @fontSize) * @portion, em) 0;
 }
 
 // Find closest higher multiple of baseline for given height

@@ -13,18 +13,28 @@ module.exports = function (app) {
         });
     });
     app.get('/hotels', function (req, res, next) {
-        res.render('index', {
+        res.render('index-en_US', {
             title: 'Express'
         });
     });
     app.get('/hotels/*', function (req, res, next) {
-        res.render('index', {
+        res.render('index-en_US', {
             title: 'Express'
         });
     });
     app.get('/hotels/*/rooms/*', function (req, res, next) {
-        res.render('index', {
+        res.render('index-en_US', {
             title: 'Express'
         });
+    });
+    app.get('/reservation', function (req, res, next) {
+      res.render('index-en_US', {
+        title: 'Express'
+      });
+    });
+    app.get('/reservation/*', function (req, res, next) {
+      res.render('index-en_US', {
+        title: 'Express'
+      });
     });
 };
