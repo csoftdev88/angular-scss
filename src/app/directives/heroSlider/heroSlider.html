@@ -2,10 +2,10 @@
 </div>
 
 <div class="slider-controls" ng-show="content.length > 1">
-  <a href class="slide-button slide-left" ng-click="slide(true)"/>
-  <a href class="slide-button slide-right" ng-click="slide(false)"/>
+  <a href class="slide-button slide-left" ng-click="slide(true, true)"/>
+  <a href class="slide-button slide-right" ng-click="slide(false, true)"/>
 
   <div class="pages">
-    <span ng-repeat="page in content" ng-class="{active:slideIndex==$index}" ng-click="slideToIndex($index)"/>
+    <span ng-repeat="page in content" ng-class="{active:slideIndex==$index}" ng-click="slideToIndex($index, true)"/>
   </div>
 </div>

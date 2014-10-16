@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function(){
+.directive('heroSlider', function($timeout, Settings){
   return {
     restrict: 'E',
     scope: {
@@ -18,21 +18,21 @@ angular.module('mobiusApp.directives.slider', [])
       var CLASS_ANIMATION_LEFT = 'animation-left';
       var CLASS_ANIMATION_RIGHT = 'animation-right';
 
-      var ANIMATION_DURATION = 700;
-
-      var slideTemplate = '<div class="hero-slide">' +
+      var SLIDE_TEMPLATE = '<div class="hero-slide">' +
         '<div class="content-inner">' +
-        '<h1 class="slide-title"><span>Some Amazing <strong>Offer</strong></span></h1>' +
-        '<h2 class="slide-subtitle"><span>Subtitle text explaining the offer further</span></h2>' +
+        '<h1 class="slide-title"><span>slide_title</span></h1>' +
+        '<h2 class="slide-subtitle"><span>slide_subtitle</span></h2>' +
         '</div>' +
         '</div>';
 
       var mainSlide;
       var followingSlide;
-
       var isAnimating = false;
 
       var sliderContent = elem.find(SELECTOR_SLIDER_CONTENT);
+
+      var autoplayDelay = Settings.UI.heroSlider.autoplayDelay;
+      var timerID;
 
       // Custom easing function
       $.extend($.easing,{
@@ -46,10 +46,12 @@ angular.module('mobiusApp.directives.slider', [])
         // Clearing slider placeholder
         sliderContent.empty();
 
+        // No slides found
         if(!scope.content.length){
           return;
         }
 
+        // Creating initial slide
         mainSlide = createSlide();
       }
 
@@ -58,13 +60,26 @@ angular.module('mobiusApp.directives.slider', [])
       });
 
       function createSlide(){
-        var slide = $(slideTemplate)[0];
+        var slideData = scope.content[scope.slideIndex];
+
+        var template = SLIDE_TEMPLATE
+          .replace('slide_title', slideData.title)
+          .replace('slide_subtitle', slideData.subtitle);
+
+        var slide = $(template)[0];
+
+        $(slide).css('background-image', 'url(' + slideData.image + ')');
         sliderContent.append(slide);
 
         return $(slide);
       }
 
-      scope.slideToIndex = function(newSlideIndex, isBackwards){
+      scope.slideToIndex = function(newSlideIndex, isManual, isBackwards){
+        if(isManual && autoplayDelay){
+          clearInterval(timerID);
+          autoplayDelay = 0;
+        }
+
         if(isAnimating){
           return;
         }
@@ -100,7 +115,7 @@ angular.module('mobiusApp.directives.slider', [])
             marginLeft: -finalPosition
           },
           {
-            duration: ANIMATION_DURATION,
+            duration: Settings.UI.heroSlider.animationDuration,
             easing: 'customEasing',
             step: function( marginLeft ){
               $(mainSlide).css('margin-left', marginLeft);
@@ -111,7 +126,7 @@ angular.module('mobiusApp.directives.slider', [])
         );
       };
 
-      scope.slide = function(isBackwards){
+      scope.slide = function(isBackwards, isManual){
         var newSlideIndex = scope.slideIndex;
 
         if(isBackwards){
@@ -126,7 +141,7 @@ angular.module('mobiusApp.directives.slider', [])
           newSlideIndex = 0;
         }
 
-        scope.slideToIndex(newSlideIndex, isBackwards);
+        scope.slideToIndex(newSlideIndex, isManual, isBackwards);
       };
 
       function onAnimationComplete(){
@@ -137,11 +152,24 @@ angular.module('mobiusApp.directives.slider', [])
 
         mainSlide
           .removeClass(CLASS_SLIDING_OUT)
-          .removeClass(CLASS_SLIDING_IN);
-          //.removeClass(CLASS_ANIMATION_RIGHT)
-          //.removeClass(CLASS_ANIMATION_LEFT);
+          .removeClass(CLASS_SLIDING_IN)
+          .removeClass(CLASS_ANIMATION_RIGHT)
+          .removeClass(CLASS_ANIMATION_LEFT);
 
         followingSlide = undefined;
+      }
+
+      function autoSlide(){
+        if(autoplayDelay){
+          // Sliding to the next image
+          scope.slide(false);
+        }else if(timerID!==undefined){
+          clearInterval(timerID);
+        }
+      }
+
+      if(autoplayDelay){
+        timerID = setInterval(autoSlide, autoplayDelay);
       }
     }
   };

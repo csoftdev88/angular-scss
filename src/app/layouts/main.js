@@ -17,18 +17,18 @@ angular.module('mobius.controllers.main', [])
 
   $scope.heroContent = [
     {
-      image: 'http://localhost:9000/static/images/hero.jpg',
-      title: 'Some title',
+      image: '/static/images/hero.jpg',
+      title: 'First slide',
       subtitle: 'Some great text goes here'
     },
     {
       image: 'https://www.salsitasoft.com/static/assets/img/heading-solutions.jpg',
-      title: 'Some title',
+      title: 'Second slide',
       subtitle: 'Some great text goes here'
     },
     {
-      image: 'http://localhost:9000/static/images/hero.jpg',
-      title: 'Some title',
+      image: '/static/images/hero.jpg',
+      title: 'Another slide',
       subtitle: 'Some great text goes here'
     }
   ];
