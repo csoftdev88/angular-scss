@@ -1,7 +1,11 @@
 <div class="slider-content">
 </div>
 
-<div class="slider-controls">
+<div class="slider-controls" ng-show="pages.length">
   <a href class="slide-button slide-left" ng-click="slide(true)"/>
   <a href class="slide-button slide-right" ng-click="slide(false)"/>
+
+  <div class="pages">
+    <span ng-repeat="page in pages" ng-class="{active:slideIndex==$index}"/>
+  </div>
 </div>

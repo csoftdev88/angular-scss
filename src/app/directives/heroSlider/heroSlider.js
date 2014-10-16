@@ -12,8 +12,12 @@ angular.module('mobiusApp.directives.slider', [])
 
     // Widget logic goes here
     link: function(scope, elem){
-      var CLASS_SLIDER_CONTENT = '.slider-content';
-      //var ANIMATION_EASING = 'swing';
+      var SELECTOR_SLIDER_CONTENT = '.slider-content';
+      var CLASS_SLIDING_IN = 'sliding-in';
+      var CLASS_SLIDING_OUT = 'sliding-out';
+      var CLASS_ANIMATION_LEFT = 'animation-left';
+      var CLASS_ANIMATION_RIGHT = 'animation-right';
+
       var ANIMATION_DURATION = 700;
 
       var slideTemplate = '<div class="hero-slide">' +
@@ -23,13 +27,14 @@ angular.module('mobiusApp.directives.slider', [])
         '</div>' +
         '</div>';
 
-      var currentSlideIndex = 0;
       var mainSlide;
       var followingSlide;
 
       var isAnimating = false;
 
-      var sliderContent = elem.find(CLASS_SLIDER_CONTENT);
+      var sliderContent = elem.find(SELECTOR_SLIDER_CONTENT);
+
+      scope.pages = [0,1,2,3];
 
       // Custom easing function
       $.extend($.easing,{
@@ -39,7 +44,7 @@ angular.module('mobiusApp.directives.slider', [])
       });
 
       function init(){
-        currentSlideIndex = 0;
+        scope.slideIndex = 0;
 
         // Clearing slider placeholder
         sliderContent.empty();
@@ -60,7 +65,7 @@ angular.module('mobiusApp.directives.slider', [])
 
         sliderContent.append(slide);
 
-        return slide;
+        return $(slide);
       }
 
       scope.slide = function(toLeft){
@@ -73,7 +78,13 @@ angular.module('mobiusApp.directives.slider', [])
           finalPosition = 0 - finalPosition;
         }
 
+        var animationClass = finalPosition<0?CLASS_ANIMATION_RIGHT:CLASS_ANIMATION_LEFT;
+
+        console.log(animationClass);
         followingSlide = createSlide();
+
+        followingSlide.addClass(animationClass).addClass(CLASS_SLIDING_IN);
+        mainSlide.addClass(animationClass).addClass(CLASS_SLIDING_OUT);
 
         isAnimating = true;
 
@@ -95,12 +106,16 @@ angular.module('mobiusApp.directives.slider', [])
       };
 
       function onAnimationComplete(){
-        console.log('complete');
-
         isAnimating = false;
 
         mainSlide.remove();
         mainSlide = followingSlide;
+
+        mainSlide
+          .removeClass(CLASS_SLIDING_OUT)
+          .removeClass(CLASS_SLIDING_IN);
+          //.removeClass(CLASS_ANIMATION_RIGHT)
+          //.removeClass(CLASS_ANIMATION_LEFT);
 
         followingSlide = undefined;
       }
