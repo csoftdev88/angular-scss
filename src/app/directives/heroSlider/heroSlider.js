@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($window){
+.directive('heroSlider', function(){
   return {
     restrict: 'E',
     scope: {
@@ -13,51 +13,97 @@ angular.module('mobiusApp.directives.slider', [])
     // Widget logic goes here
     link: function(scope, elem){
       var CLASS_SLIDER_CONTENT = '.slider-content';
-      var sliderContent = elem.find(CLASS_SLIDER_CONTENT);
-      var sliderWidth = 0;
+      //var ANIMATION_EASING = 'swing';
+      var ANIMATION_DURATION = 700;
 
-      var slideTemplate = '<div class="hero-slide"></div>';
+      var slideTemplate = '<div class="hero-slide">' +
+        '<div class="content-inner">' +
+        '<h1 class="slide-title"><span>Some Amazing <strong>Offer</strong></span></h1>' +
+        '<h2 class="slide-subtitle"><span>Subtitle text explaining the offer further</span></h2>' +
+        '</div>' +
+        '</div>';
 
       var currentSlideIndex = 0;
+      var mainSlide;
+      var followingSlide;
 
-      scope.$watch('content', function() {
-        console.log(scope.content);
-        console.log(sliderContent);
+      var isAnimating = false;
 
-        updateSlides();
+      var sliderContent = elem.find(CLASS_SLIDER_CONTENT);
+
+      // Custom easing function
+      $.extend($.easing,{
+        customEasing: function (x, t, b, c, d) {
+          return -c * ((t=t/d-1)*t*t*t - 1) + b;
+        }
       });
 
-      function updateSlides(){
+      function init(){
         currentSlideIndex = 0;
-        if(!scope.content.length){
-          return;
-        }
 
         // Clearing slider placeholder
         sliderContent.empty();
 
-        insertSlide();
-      }
-
-      function insertSlide(){
-        var activeSlide = $(slideTemplate);
-        sliderContent.append(activeSlide);
-      }
-
-      var resizeListener = angular.element($window).bind('resize', function() {
-        return updateWidth();
-      });
-
-      function updateWidth(){
-        sliderWidth = sliderContent.width();
-      }
-
-      scope.$on('$destroy', function(){
-        // Removing global listeners
-        if(resizeListener){
-          resizeListener();
+        if(!scope.content.length){
+          return;
         }
+
+        mainSlide = createSlide();
+      }
+
+      scope.$watch('content', function() {
+        init();
       });
+
+      function createSlide(){
+        var slide = $(slideTemplate)[0];
+
+        sliderContent.append(slide);
+
+        return slide;
+      }
+
+      scope.slide = function(toLeft){
+        if(isAnimating){
+          return;
+        }
+
+        var finalPosition = sliderContent.width();
+        if(toLeft){
+          finalPosition = 0 - finalPosition;
+        }
+
+        followingSlide = createSlide();
+
+        isAnimating = true;
+
+        $({marginLeft:0})
+        .animate(
+          {
+            marginLeft: -finalPosition
+          },
+          {
+            duration: ANIMATION_DURATION,
+            easing: 'customEasing',
+            step: function( marginLeft ){
+              $(mainSlide).css('margin-left', marginLeft);
+              $(followingSlide).css('margin-left', marginLeft+finalPosition);
+            },
+            complete: onAnimationComplete
+          }
+        );
+      };
+
+      function onAnimationComplete(){
+        console.log('complete');
+
+        isAnimating = false;
+
+        mainSlide.remove();
+        mainSlide = followingSlide;
+
+        followingSlide = undefined;
+      }
     }
   };
 });
