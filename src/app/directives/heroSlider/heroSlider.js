@@ -34,8 +34,6 @@ angular.module('mobiusApp.directives.slider', [])
 
       var sliderContent = elem.find(SELECTOR_SLIDER_CONTENT);
 
-      scope.pages = [0,1,2,3];
-
       // Custom easing function
       $.extend($.easing,{
         customEasing: function (x, t, b, c, d) {
@@ -45,7 +43,6 @@ angular.module('mobiusApp.directives.slider', [])
 
       function init(){
         scope.slideIndex = 0;
-
         // Clearing slider placeholder
         sliderContent.empty();
 
@@ -62,25 +59,34 @@ angular.module('mobiusApp.directives.slider', [])
 
       function createSlide(){
         var slide = $(slideTemplate)[0];
-
         sliderContent.append(slide);
 
         return $(slide);
       }
 
-      scope.slide = function(toLeft){
+      scope.slideToIndex = function(newSlideIndex, isBackwards){
         if(isAnimating){
           return;
         }
 
+        if(isBackwards===undefined){
+          // Detecting direction according to a new slide index
+          if(newSlideIndex > scope.slideIndex){
+            isBackwards = false;
+          }else{
+            isBackwards = true;
+          }
+        }
+
         var finalPosition = sliderContent.width();
-        if(toLeft){
+        if(isBackwards){
           finalPosition = 0 - finalPosition;
         }
 
+        scope.slideIndex = newSlideIndex;
+
         var animationClass = finalPosition<0?CLASS_ANIMATION_RIGHT:CLASS_ANIMATION_LEFT;
 
-        console.log(animationClass);
         followingSlide = createSlide();
 
         followingSlide.addClass(animationClass).addClass(CLASS_SLIDING_IN);
@@ -103,6 +109,24 @@ angular.module('mobiusApp.directives.slider', [])
             complete: onAnimationComplete
           }
         );
+      };
+
+      scope.slide = function(isBackwards){
+        var newSlideIndex = scope.slideIndex;
+
+        if(isBackwards){
+          newSlideIndex--;
+        }else{
+          newSlideIndex++;
+        }
+
+        if(newSlideIndex < 0){
+          newSlideIndex = scope.content.length - 1;
+        }else if(newSlideIndex > scope.content.length - 1){
+          newSlideIndex = 0;
+        }
+
+        scope.slideToIndex(newSlideIndex, isBackwards);
       };
 
       function onAnimationComplete(){

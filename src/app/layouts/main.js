@@ -16,6 +16,20 @@ angular.module('mobius.controllers.main', [])
   });
 
   $scope.heroContent = [
-    'http://localhost:9000/static/images/hero.jpg'
+    {
+      image: 'http://localhost:9000/static/images/hero.jpg',
+      title: 'Some title',
+      subtitle: 'Some great text goes here'
+    },
+    {
+      image: 'https://www.salsitasoft.com/static/assets/img/heading-solutions.jpg',
+      title: 'Some title',
+      subtitle: 'Some great text goes here'
+    },
+    {
+      image: 'http://localhost:9000/static/images/hero.jpg',
+      title: 'Some title',
+      subtitle: 'Some great text goes here'
+    }
   ];
 });
