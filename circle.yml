@@ -1,0 +1,39 @@
+dependencies:
+  override:
+    - npm prune
+    - npm install
+    - bower prune
+    - bower install
+  cache_directories:
+    - node_modules
+    - bower_components
+
+machine:
+  environment:
+    NODE_ENV: test
+
+test:
+  override:
+    - grunt test
+
+deployment:
+  try:
+    branch: /try.*/
+    commands:
+      - git push -f git@heroku.com:mobius-try.git ${CIRCLE_SHA1}:refs/heads/master
+  dev:
+    branch: develop
+    commands:
+      - git push -f git@heroku.com:mobius-dev.git ${CIRCLE_SHA1}:refs/heads/master
+  qa:
+    branch: /release\/.+/
+    commands:
+      - git push -f git@heroku.com:mobius-qa.git ${CIRCLE_SHA1}:refs/heads/master
+  client:
+    branch: client
+    commands:
+      - git push -f git@heroku.com:mobius-client.git ${CIRCLE_SHA1}:refs/heads/master
+  prod:
+    branch: master
+    commands:
+      - git push -f git@heroku.com:mobius-prod.git ${CIRCLE_SHA1}:refs/heads/master

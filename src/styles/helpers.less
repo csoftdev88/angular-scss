@@ -1,0 +1,41 @@
+/*  ==========================================
+    Currency symbols
+    ========================================== */
+[currency="pound"]:before {
+  content: '£';
+}
+
+
+/*  ==========================================
+    Others
+    ========================================== */
+
+.vertical-divider {
+  display: none;
+  position: absolute;
+  top: unit((@baseline / @htmlFontSize) * 2, em);
+  bottom: unit((@baseline / @htmlFontSize) * 2, em);
+  width: 1px;
+  background-color: @borderColorDefault;
+
+  @media @moreThenMobile {
+    display: block;
+  }
+}
+
+/*  ==========================================
+    Media Queries helpers
+    ========================================== */
+
+@media @lessThenTablet {
+  [rwd="desktop"] {
+    display: none !important;
+  }
+}
+
+@media @moreThenMobile {
+  [rwd="mobile"] {
+    display: none !important;
+  }
+}
+

@@ -1,0 +1,50 @@
+.inner-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+  box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+.transition(@property: all, @length: 0.5s, @easing: ease-in-out) {
+  transition: @arguments;
+}
+
+.box-shadow(@x: 0, @y: 2px, @size: 4px, @color: rgba(0, 0, 0, 0.1)) {
+  box-shadow: @arguments;
+}
+
+.noSpaces {
+  margin: 0px;
+  padding: 0px;
+}
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+      content: " ";
+      display: table;
+  }
+
+  &:after {
+      clear: both;
+  }
+}
+
+// Image replacement
+.ir() {
+  font: ~"0/0" a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+
+/*  ==========================================
+    ALIGN/CENTERING
+    ========================================== */
+.vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

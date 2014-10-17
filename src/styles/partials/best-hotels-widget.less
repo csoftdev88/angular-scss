@@ -1,0 +1,78 @@
+/*  ==========================================
+    BEST HOTELS widget
+    ========================================== */
+
+// GENERIC STYLES
+[widget="best-hotels"]{
+  .margin-bottom();
+
+  a {
+    text-decoration: none;
+    color: @colorTextDefault;
+  }
+
+  h2 {
+    .offers-heading();
+  }
+
+  h3 {
+    .offers-title();
+  }
+
+  img {
+    border-radius: 3px;
+    transform: translateZ(0);
+    filter: grayscale(0.5);
+    transition: all 0.15s linear;
+    box-shadow: 0 10px 10px -10px fade(@black, 0%);
+  }
+
+  p {
+    margin: 0;
+    &:extend(.open-sans-light);
+    font-style: italic;
+    .fs-18(true);
+  }
+
+  h3, p {
+    transition: color 0.2s linear;
+  }
+
+  a:hover,
+  a:focus {
+    h3, p {
+      color: @black;
+    }
+    img {
+      transform: translateY(-3px);
+      filter: grayscale(0);
+      box-shadow: 0 10px 10px -10px fade(@black, 40%);
+    }
+
+  }
+
+}
+
+// MOBILE SPECIFIC STYLES
+@media @lessThenTablet {
+  [widget="best-hotels"] {
+    img {
+      max-width: 100%;
+    }
+    // article + article {} selector would be better
+    // if we can be sure that there won't be more than 2 article elements
+    article:not(:first-of-type) {
+      .margin-top;
+    }
+  }
+}
+
+// DESKTOP STYLES
+@media @moreThenMobile {
+  [widget="best-hotels"] {
+    .img-wrap {
+      .baselined-height(280);
+      height: @baselinedHeight;
+    }
+  }
+}
