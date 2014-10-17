@@ -59,6 +59,18 @@ angular.module('mobiusApp.config', [])
       }
     },
 
+    'languages': {
+      'en-us': {
+        'shortName': 'EN'
+      },
+      'en-ca': {
+        'shortName': 'EN'
+      },
+      'cs-cz': {
+        'shortName': 'CZ'
+      }
+    },
+
     // States layout
     'layout': {
       'index.home': [
