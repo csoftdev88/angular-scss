@@ -36,10 +36,8 @@ accordion {
       color: @white;
       border-color: transparent;
 
-      .icon,
-      .title,
-      .price,
-      .desc {
+      *,
+      .icon {
         color: @white;
       }
     }
@@ -93,15 +91,20 @@ accordion {
     .price {
       float: right;
       margin: 0;
-      .fs-18;
-      line-height: 2 * @baseline;
+      .fs-18(true);
       font-weight: 700;
 
-      small {
-        .fs-14(true, 18);
-        font-weight: 300;
-        font-style: italic;
+      &:before {
+        font-weight: 400;
       }
+    }
+
+    small {
+      float: right;
+      clear: right;
+      .fs-14(true);
+      font-weight: 300;
+      font-style: italic;
     }
 
     .desc {
@@ -136,16 +139,15 @@ accordion {
     th, td {
       padding: 0 1ex;
       .fs-14(true);
-      text-transform: uppercase;
+      text-align: right;
     }
 
     th {
-      text-align: right;
       color: #363636;
     }
 
-    td {
-
+    th + td {
+      padding: 0 0 0 2ex;
     }
 
   }
