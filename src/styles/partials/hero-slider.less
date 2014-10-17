@@ -58,6 +58,8 @@ hero-slider {
       position: absolute;
       width: 100%;
 
+      .no-select;
+
       bottom: 10%;
       text-align: center;
       opacity: .7;
@@ -171,5 +173,64 @@ hero-slider {
         }
       }
     }
+  }
+}
+
+// MOBILE SPECIFIC STYLES
+@media only screen and @lessThenTablet {
+  hero-slider {
+    height: 300px;
+
+    .slider-controls {
+      .slide-button {
+        display: none;
+      }
+
+      .pages {
+        bottom: 20%;
+      }
+    }
+
+    .slider-content{
+      .content-inner {
+        h1, h2 {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and @moreThenMobile and @lessThenDesktop{
+  hero-slider {
+    height: 400px;
+
+    .slider-controls {
+      .pages {
+        bottom: 13%;
+      }
+    }
+
+    .slider-content{
+      .hero-slide {
+        .content-inner {
+          top: 50%;
+
+          h1 {
+            font-size: 18px;
+          }
+
+          h2 {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// DESKTOP STYLES
+@media only screen and @moreThenMobile {
+  hero-slider {
   }
 }

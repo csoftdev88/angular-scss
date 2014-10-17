@@ -2,34 +2,33 @@
 
 angular.module('mobius.controllers.main', [])
 
-.controller( 'MainCtrl',  function($scope, $state, contentService, Settings) {
+.controller( 'MainCtrl',  function($scope, $state, orderByFilter, contentService, Settings) {
+  // Application settings
+  $scope.config = Settings.UI;
+
   $scope.$on('$stateChangeSuccess', function() {
     $scope.$state = $state;
   });
 
-  // Application settings
-  $scope.config = Settings.UI;
+  $scope.heroContent = [];
 
   // Getting content hights
   contentService.getHighlightedItems().then(function(data){
-    $scope.highlightedItems = data;
-  });
+    var heroContent = [];
 
-  $scope.heroContent = [
-    {
-      image: '/static/images/hero.jpg',
-      title: 'First slide',
-      subtitle: 'Some great text goes here'
-    },
-    {
-      image: 'https://www.salsitasoft.com/static/assets/img/heading-solutions.jpg',
-      title: 'Second slide',
-      subtitle: 'Some great text goes here'
-    },
-    {
-      image: '/static/images/hero.jpg',
-      title: 'Another slide',
-      subtitle: 'Some great text goes here'
+    for(var key in data){
+      var group = data[key];
+      for(var i=0; i<group.length; i++){
+        var item = group[i];
+        if(key){
+          // NOTE: updating the images manualy since server doesnt have proper images
+          // TODO: remove. Only for QA
+          item.image = '/static/images/hero.jpg';
+          heroContent.push(item);
+        }
+      }
     }
-  ];
+
+    $scope.heroContent = orderByFilter(heroContent, '+order');
+  });
 });
