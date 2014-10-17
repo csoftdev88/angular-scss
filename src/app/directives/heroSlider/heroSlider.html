@@ -1,14 +1,13 @@
-<div>
-  <div class="slide">
-    <img src="/static/images/hero.jpg" alt="Hero slider image" rwd="desktop">
-    <img src="/static/images/hero-small.jpg" alt="Hero slider image" rwd="mobile">
-    <div class="slide-wrapper">
-      <div class="slide-content">
-        <div class="slide-content__inner">
-          <h1 class="slide-offer__title"><span>Some Amazing <strong>Offer</strong></span></h1>
-          <h2 class="slide-offer__subtitle"><span>Subtitle text explaining the offer further</span></h2>
-        </div>
-      </div>
+<div class="slider-content">
+</div>
+
+<div class="slider-controls" ng-click="onContentClick()">
+  <div ng-show="content.length > 1">
+    <a href class="slide-button slide-left" ng-click="slide(true, $event)"/>
+    <a href class="slide-button slide-right" ng-click="slide(false, $event)"/>
+
+    <div class="pages" ng-click="preventClick($event)">
+      <span ng-repeat="page in content" ng-class="{active:slideIndex==$index}" ng-click="slideToIndex($index, $event)"/>
     </div>
   </div>
 </div>

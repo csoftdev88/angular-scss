@@ -16,7 +16,8 @@ describe('contentService', function() {
             'news': 'content/news',
             'loyalties': 'content/simpleloyalties',
             'offers': 'content/specialoffers',
-            'abouts': 'content/abouts'
+            'abouts': 'content/abouts',
+            'hightlighted': 'content?hightlighted'
           },
 
           'generics': {
@@ -83,6 +84,17 @@ describe('contentService', function() {
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
   });
+
+  describe('getHighlightedItems', function() {
+    it('should fire a GET request to content?hightlighted API', function() {
+      env.contentService.getHighlightedItems();
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('content.hightlighted')).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+    });
+  });
+
 
   describe('getCurrencies', function() {
     it('should fire a GET request to generics/currencies API', function() {

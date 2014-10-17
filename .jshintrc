@@ -20,6 +20,7 @@
   "smarttabs": true,
   "globals": {
     "angular": true,
+    "$": true,
 
     // UNIT TESTS
     "describe": true,

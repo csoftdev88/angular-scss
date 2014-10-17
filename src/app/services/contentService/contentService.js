@@ -17,6 +17,10 @@ angular.module('mobiusApp.services.content', [])
     return apiService.get(apiService.getFullURL('content.offers'));
   }
 
+  function getHighlightedItems(){
+    return apiService.get(apiService.getFullURL('content.hightlighted'));
+  }
+
     // Generics
   function getCurrencies(){
     return apiService.get(apiService.getFullURL('generics.currencies'));
@@ -31,6 +35,7 @@ angular.module('mobiusApp.services.content', [])
     getNews: getNews,
     getAbout: getAbout,
     getOffers: getOffers,
+    getHighlightedItems: getHighlightedItems,
     // Generics
     getCurrencies: getCurrencies,
     getLanguages: getLanguages

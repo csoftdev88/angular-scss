@@ -7,6 +7,11 @@ angular.module('mobiusApp', [
   'ui.bootstrap',
   // Template cache
   'templates-app',
+
+  // Controllers
+  'mobius.controllers.main',
+  'mobius.controllers.offers',
+
   // 3rd party components
   'localytics.directives',
 
@@ -90,6 +95,12 @@ angular.module('mobiusApp', [
       url: '/confirmation'
     })
 
+    .state('index.offers', {
+      templateUrl: 'layouts/offers/offers.html',
+      url: '/offers/:category/:offerID',
+      controller: 'OffersCtrl'
+    })
+
     // Contact page
     .state('index.contacts', {
       templateUrl: 'layouts/contacts/contacts.html',
@@ -99,13 +110,4 @@ angular.module('mobiusApp', [
     .state('otherwise', {
       url: '/'
     });
-})
-
-.controller( 'MainCtrl',  function($scope, $state, Settings) {
-  $scope.$on('$stateChangeSuccess', function() {
-    $scope.$state = $state;
-  });
-
-  // Application settings
-  $scope.config = Settings.UI;
 });

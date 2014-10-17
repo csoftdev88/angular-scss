@@ -9,7 +9,8 @@ angular.module('mobiusApp.config', [])
       'news': 'content/news',
       'loyalties': 'content/simpleloyalties',
       'offers': 'content/specialoffers',
-      'abouts': 'content/abouts'
+      'abouts': 'content/abouts',
+      'hightlighted': 'content?hightlighted'
     },
 
     'generics': {
@@ -19,6 +20,15 @@ angular.module('mobiusApp.config', [])
   },
 
   'UI': {
+    'heroSlider': {
+      // All timing settings (autoplayDelay, animationDuration)
+      // are specified in ms.
+
+      // Use 0 value to disable automatic slide animation
+      'autoplayDelay': 5000,
+      'animationDuration': 700,
+      'preloadImages': true
+    },
     // Menu settings - showing/hidding menu items
     'menu': {
       'singleProperty': false,
