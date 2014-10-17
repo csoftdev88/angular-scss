@@ -21,7 +21,10 @@ angular.module('mobiusApp.config', [])
 
   'UI': {
     'heroSlider': {
-      // Timing settings in ms
+      // All timing settings (autoplayDelay, animationDuration)
+      // are specified in ms.
+
+      // Use 0 value to disable automatic slide animation
       'autoplayDelay': 5000,
       'animationDuration': 700,
       'preloadImages': true

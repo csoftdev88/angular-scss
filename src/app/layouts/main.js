@@ -20,7 +20,7 @@ angular.module('mobius.controllers.main', [])
       var group = data[key];
       for(var i=0; i<group.length; i++){
         var item = group[i];
-        if(key){
+        if(item.showOnHomepage && item.image){
           // NOTE: updating the images manualy since server doesnt have proper images
           // TODO: remove. Only for QA
           item.image = '/static/images/hero.jpg';

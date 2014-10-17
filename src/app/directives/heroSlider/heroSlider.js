@@ -31,7 +31,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       var sliderContent = elem.find(SELECTOR_SLIDER_CONTENT);
 
-      var autoplayDelay = Settings.UI.heroSlider.autoplayDelay;
+      var autoplayDelay;
       var timerID;
 
       // Custom easing function
@@ -46,11 +46,12 @@ angular.module('mobiusApp.directives.slider', [])
         // Clearing slider placeholder
         sliderContent.empty();
 
+        cancelAutoplay();
+
         // No slides found
         if(!scope.content.length){
           return;
         }
-
 
         if(Settings.UI.heroSlider.preloadImages){
           preloadImages();
@@ -58,6 +59,14 @@ angular.module('mobiusApp.directives.slider', [])
 
         // Creating initial slide
         mainSlide = createSlide();
+
+        if(scope.content.length > 1){
+          autoplayDelay = Settings.UI.heroSlider.autoplayDelay;
+
+          if(autoplayDelay){
+            timerID = setInterval(autoSlide, autoplayDelay);
+          }
+        }
       }
 
       scope.$watch('content', function() {
@@ -90,8 +99,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       scope.slideToIndex = function(newSlideIndex, $event, isBackwards){
         if($event && autoplayDelay){
-          clearInterval(timerID);
-          autoplayDelay = 0;
+          cancelAutoplay();
         }
 
         if(isAnimating){
@@ -109,10 +117,7 @@ angular.module('mobiusApp.directives.slider', [])
           }
         }
 
-        var finalPosition = sliderContent.width();
-        if(isBackwards){
-          finalPosition = 0 - finalPosition;
-        }
+        var finalPosition = isBackwards?-sliderContent.width():sliderContent.width();
 
         scope.slideIndex = newSlideIndex;
 
@@ -204,13 +209,16 @@ angular.module('mobiusApp.directives.slider', [])
           // Sliding to the next image
           scope.slide(false);
           scope.$apply();
-        }else if(timerID!==undefined){
-          clearInterval(timerID);
+        }else{
+          cancelAutoplay();
         }
       }
 
-      if(autoplayDelay){
-        timerID = setInterval(autoSlide, autoplayDelay);
+      function cancelAutoplay(){
+        autoplayDelay = 0;
+        if(timerID!==undefined){
+          clearInterval(timerID);
+        }
       }
     }
   };
