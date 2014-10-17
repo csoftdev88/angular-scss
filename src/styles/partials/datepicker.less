@@ -1,6 +1,12 @@
 ul[datepicker-popup-wrap] {
   padding: 0px;
 
+  // TODO: Remove this ugly hack and resolve this
+  // problem on UI component level
+  @media @lessThenTablet {
+    left: -5px !important;
+  }
+
   table {
     .box-shadow;
     border-radius: @borderRadiusDefault;
