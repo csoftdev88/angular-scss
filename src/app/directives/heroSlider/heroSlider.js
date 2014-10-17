@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($timeout, Settings){
+.directive('heroSlider', function($timeout, $location, Settings){
   return {
     restrict: 'E',
     scope: {
@@ -51,6 +51,11 @@ angular.module('mobiusApp.directives.slider', [])
           return;
         }
 
+
+        if(Settings.UI.heroSlider.preloadImages){
+          preloadImages();
+        }
+
         // Creating initial slide
         mainSlide = createSlide();
       }
@@ -58,6 +63,15 @@ angular.module('mobiusApp.directives.slider', [])
       scope.$watch('content', function() {
         init();
       });
+
+      // Redirecting to corresponding page
+      scope.onContentClick = function(){
+        var slideData = scope.content[scope.slideIndex];
+
+        if(slideData.categoryName && slideData.ID){
+          $location.path('/offers/' + slideData.categoryName + '/' + slideData.ID);
+        }
+      };
 
       function createSlide(){
         var slideData = scope.content[scope.slideIndex];
@@ -74,8 +88,8 @@ angular.module('mobiusApp.directives.slider', [])
         return $(slide);
       }
 
-      scope.slideToIndex = function(newSlideIndex, isManual, isBackwards){
-        if(isManual && autoplayDelay){
+      scope.slideToIndex = function(newSlideIndex, $event, isBackwards){
+        if($event && autoplayDelay){
           clearInterval(timerID);
           autoplayDelay = 0;
         }
@@ -83,6 +97,8 @@ angular.module('mobiusApp.directives.slider', [])
         if(isAnimating){
           return;
         }
+
+        scope.preventClick($event);
 
         if(isBackwards===undefined){
           // Detecting direction according to a new slide index
@@ -126,7 +142,7 @@ angular.module('mobiusApp.directives.slider', [])
         );
       };
 
-      scope.slide = function(isBackwards, isManual){
+      scope.slide = function(isBackwards, $event){
         var newSlideIndex = scope.slideIndex;
 
         if(isBackwards){
@@ -141,7 +157,14 @@ angular.module('mobiusApp.directives.slider', [])
           newSlideIndex = 0;
         }
 
-        scope.slideToIndex(newSlideIndex, isManual, isBackwards);
+        scope.slideToIndex(newSlideIndex, $event, isBackwards);
+      };
+
+      scope.preventClick = function($event){
+        if($event){
+          $event.preventDefault();
+          $event.stopPropagation();
+        }
       };
 
       function onAnimationComplete(){
@@ -159,10 +182,28 @@ angular.module('mobiusApp.directives.slider', [])
         followingSlide = undefined;
       }
 
+      function preloadImages(){
+        for(var i=0; i<scope.content.length; i++){
+          var imageURL = scope.content[i].image;
+
+          preloadImage(imageURL);
+        }
+      }
+
+      function preloadImage(imageURL){
+        if(!imageURL){
+          return;
+        }
+
+        var image = new Image();
+        image.src = imageURL;
+      }
+
       function autoSlide(){
         if(autoplayDelay){
           // Sliding to the next image
           scope.slide(false);
+          scope.$apply();
         }else if(timerID!==undefined){
           clearInterval(timerID);
         }

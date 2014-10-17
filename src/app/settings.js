@@ -22,8 +22,9 @@ angular.module('mobiusApp.config', [])
   'UI': {
     'heroSlider': {
       // Timing settings in ms
-      autoplayDelay: 5000,
-      animationDuration: 700
+      'autoplayDelay': 5000,
+      'animationDuration': 700,
+      'preloadImages': true
     },
     // Menu settings - showing/hidding menu items
     'menu': {

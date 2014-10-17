@@ -10,6 +10,7 @@ angular.module('mobiusApp', [
 
   // Controllers
   'mobius.controllers.main',
+  'mobius.controllers.offers',
 
   // 3rd party components
   'localytics.directives',
@@ -71,6 +72,13 @@ angular.module('mobiusApp', [
     .state('index.room', {
       templateUrl: 'layouts/hotels/roomDetails.html',
       url: '/hotels/:hotelID/rooms/:roomID'
+    })
+
+
+    .state('index.offers', {
+      templateUrl: 'layouts/offers/offers.html',
+      url: '/offers/:category/:offerID',
+      controller: 'OffersCtrl'
     })
 
     // Contact page

@@ -1,11 +1,14 @@
 <div class="slider-content">
 </div>
 
-<div class="slider-controls" ng-show="content.length > 1">
-  <a href class="slide-button slide-left" ng-click="slide(true, true)"/>
-  <a href class="slide-button slide-right" ng-click="slide(false, true)"/>
+<div class="slider-controls" ng-click="onContentClick()">
+  <div ng-show="content.length > 1">
+  <a href class="slide-button slide-left" ng-click="slide(true, $event)"/>
+  <a href class="slide-button slide-right" ng-click="slide(false, $event)"/>
 
-  <div class="pages">
-    <span ng-repeat="page in content" ng-class="{active:slideIndex==$index}" ng-click="slideToIndex($index, true)"/>
+  <div class="pages" ng-click="preventClick($event)">
+    <span ng-repeat="page in content" ng-class="{active:slideIndex==$index}" ng-click="slideToIndex($index, $event)"/>
   </div>
+  </div>
+
 </div>
