@@ -4,6 +4,8 @@
   "description": "Ceska verze",
   "data": {
     "base_href": "/cs-cz/",
+    "language": "czech",
+    "language_code": "cs-cz",
     "page_title": "Mobius Hotely",
     "hotels": "Hotely",
     "offers_deals": "Nabídky a Slevy",

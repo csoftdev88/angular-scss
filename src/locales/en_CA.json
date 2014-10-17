@@ -1,11 +1,11 @@
 {
-  "locale": "en_US",
+  "locale": "en_CA",
   "language": "English",
-  "description": "English version",
+  "description": "English Canadian version",
   "data": {
-    "base_href": "/en-us/",
+    "base_href": "/",
     "language": "english",
-    "language_code": "en-us",
+    "language_code": "en-ca",
     "page_title": "Mobius Hotels",
     "hotels": "Hotels",
     "offers_deals": "Offers & Deals",
