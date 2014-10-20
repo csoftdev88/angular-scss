@@ -10,7 +10,7 @@ angular.module('mobiusApp.config', [])
       'loyalties': 'content/simpleloyalties',
       'offers': 'content/specialoffers',
       'abouts': 'content/abouts',
-      'hightlighted': 'content?hightlighted'
+      'highlighted': 'content?highlighted'
     },
 
     'generics': {
@@ -26,7 +26,7 @@ angular.module('mobiusApp.config', [])
 
       // Use 0 value to disable automatic slide animation
       'autoplayDelay': 5000,
-      'animationDuration': 700,
+      'animationDuration': 800,
       'preloadImages': true
     },
     // Menu settings - showing/hidding menu items
@@ -37,7 +37,27 @@ angular.module('mobiusApp.config', [])
       'showNews': true,
       'showContact': true
     },
+    // NOTE: This is a temporary solution. Real images will
+    // be provided by the API.
+    'heroContent': {
+      'index.hotels': [
+        {
+          'image': '/static/images/hero-image-1.jpg'
+        }
+      ],
 
+      'index.hotel': [
+        {
+          'image': '/static/images/hero-image-2.jpg'
+        }
+      ],
+
+      'index.room': [
+        {
+          'image': '/static/images/hero-image-2.jpg'
+        }
+      ]
+    },
     // List of currencies and their display symbols
     'currencies': {
       'default': 'GBP',
@@ -55,7 +75,22 @@ angular.module('mobiusApp.config', [])
       },
 
       'CAD': {
-        'symbol': '€'
+        'symbol': '$'
+      }
+    },
+
+    'languages': {
+      'en-us': {
+        'shortName': 'EN',
+        'name': 'English (US)'
+      },
+      'en-ca': {
+        'shortName': 'EN',
+        'name': 'English (CAN)'
+      },
+      'cs-cz': {
+        'shortName': 'CZ',
+        'name': 'Čeština'
       }
     },
 

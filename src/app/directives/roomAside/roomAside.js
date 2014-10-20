@@ -17,6 +17,5 @@ angular.module('mobiusApp.directives.room.aside', [])
       scope.ad = '//placehold.it/210x395';
       scope.currency = 'pound';
     }
-
   };
 });

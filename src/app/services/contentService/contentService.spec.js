@@ -17,7 +17,7 @@ describe('contentService', function() {
             'loyalties': 'content/simpleloyalties',
             'offers': 'content/specialoffers',
             'abouts': 'content/abouts',
-            'hightlighted': 'content?hightlighted'
+            'highlighted': 'content?highlighted'
           },
 
           'generics': {
@@ -86,10 +86,10 @@ describe('contentService', function() {
   });
 
   describe('getHighlightedItems', function() {
-    it('should fire a GET request to content?hightlighted API', function() {
+    it('should fire a GET request to content?highlighted API', function() {
       env.contentService.getHighlightedItems();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('content.hightlighted')).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('content.highlighted')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });

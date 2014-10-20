@@ -15,21 +15,19 @@
   list-style: none;
 
   &.submenu {
-    background-color: @colorHeaderBackground;
-    background-color: fadeout(@colorHeaderBackground, 15%);
-
     left: auto;
-
     width: auto;
     min-width: 80px;
     margin-left: -15px !important;
 
+    background-color: @colorHeaderBackground;
+    background-color: fadeout(@colorHeaderBackground, 15%);
+
     li {
-      line-height: 40px !important;
-
-      a {
-
-      }
+      display: block;
+      float: none;
+      line-height: 50px;
+      white-space: nowrap;
     }
   }
 }
@@ -37,4 +35,39 @@
 .open > .dropdown-menu {
   display: block;
   .dropdownAnimation;
+}
+
+.dropdown-toggle {
+  span {
+    margin-left: 5px;
+    min-width: 25px;
+    display: inline-block;
+  }
+}
+
+.dropdown.has-icons {
+  position: relative;
+  .icon {
+    display: inline-block;
+    width: 38px;
+    height: 23px;
+    vertical-align: text-bottom;
+  }
+
+  .submenu {
+    right: 0;
+
+    li {
+      text-align: right;
+      border-bottom: 2px @borderColorSubmenu solid;
+    }
+
+    li:last-child {
+      border-color: @borderColorSubmenuLast;
+    }
+
+    .icon {
+      margin: 0 18px 0 15px;
+    }
+  }
 }

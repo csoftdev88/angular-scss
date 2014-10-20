@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.language', [])
 
-.directive('languageList', function($window, contentService){
+.directive('languageList', function($window, Settings, stateService, contentService){
   return {
     restrict: 'EA',
     scope: {},
@@ -23,6 +23,28 @@ angular.module('mobiusApp.directives.language', [])
         // TODO: keep other URL params when routes will be defined.
         $window.location.replace('/' + location);
       };
+
+      scope.getShortName = function(languageCode){
+        var settings = Settings.UI.languages[languageCode];
+
+        if(!settings){
+          throw new Error('Language "' + languageCode + '"is not found in configuration.');
+        }
+
+        return settings.shortName;
+      };
+
+      scope.getFullName = function(languageCode){
+        var settings = Settings.UI.languages[languageCode];
+
+        if (!settings){
+          throw new Error('Language "' + languageCode + '"is not found in configuration.');
+        }
+
+        return settings.name;
+      };
+
+      scope.currentLanguage = stateService.getAppLanguage();
     }
   };
 });
