@@ -26,6 +26,13 @@ angular.module('mobius.controllers.main', [])
     var heroContent = Settings.UI.heroContent[stateName];
     if(heroContent){
       $scope.heroContent = heroContent;
+    }else{
+      // Showing demo logo
+      $scope.heroContent = [
+        {
+          'image': '/static/images/hero.jpg'
+        }
+      ];
     }
   }
 

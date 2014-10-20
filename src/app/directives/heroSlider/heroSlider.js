@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($timeout, $location, $templateCache, Settings){
+.directive('heroSlider', function($timeout, $state, $templateCache, Settings){
   return {
     restrict: 'E',
     scope: {
@@ -74,7 +74,7 @@ angular.module('mobiusApp.directives.slider', [])
         var slideData = scope.content[scope.slideIndex];
 
         if(slideData.categoryName && slideData.ID){
-          $location.path('/offers/' + slideData.categoryName + '/' + slideData.ID);
+          $state.go('index.offers', {category: slideData.categoryName, offerID: slideData.ID});
         }
       };
 
