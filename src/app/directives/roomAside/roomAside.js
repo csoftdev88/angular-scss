@@ -3,8 +3,6 @@
 angular.module('mobiusApp.directives.room.aside', [])
 
 .directive('roomAside', function(){
-  console.log('roomAside');
-  console.log('roomAside arguments', arguments);
 
   return {
     restrict: 'E',
@@ -20,6 +18,5 @@ angular.module('mobiusApp.directives.room.aside', [])
       scope.ad = '//placehold.it/210x395';
       scope.currency = 'pound';
     }
-
   };
 });

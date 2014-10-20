@@ -10,7 +10,7 @@ angular.module('mobiusApp.config', [])
       'loyalties': 'content/simpleloyalties',
       'offers': 'content/specialoffers',
       'abouts': 'content/abouts',
-      'hightlighted': 'content?hightlighted'
+      'highlighted': 'content?highlighted'
     },
 
     'generics': {
@@ -37,7 +37,27 @@ angular.module('mobiusApp.config', [])
       'showNews': true,
       'showContact': true
     },
+    // NOTE: This is a temporary solution. Real images will
+    // be provided by the API.
+    'heroContent': {
+      'index.hotels': [
+        {
+          'image': '/static/images/hero-image-1.jpg'
+        }
+      ],
 
+      'index.hotel': [
+        {
+          'image': '/static/images/hero-image-2.jpg'
+        }
+      ],
+
+      'index.room': [
+        {
+          'image': '/static/images/hero-image-2.jpg'
+        }
+      ]
+    },
     // List of currencies and their display symbols
     'currencies': {
       'default': 'GBP',

@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($timeout, $location, Settings){
+.directive('heroSlider', function($timeout, $location, $templateCache, Settings){
   return {
     restrict: 'E',
     scope: {
@@ -18,12 +18,8 @@ angular.module('mobiusApp.directives.slider', [])
       var CLASS_ANIMATION_LEFT = 'animation-left';
       var CLASS_ANIMATION_RIGHT = 'animation-right';
 
-      var SLIDE_TEMPLATE = '<div class="hero-slide">' +
-        '<div class="content-inner">' +
-        '<h1 class="slide-title"><span>slide_title</span></h1>' +
-        '<h2 class="slide-subtitle"><span>slide_subtitle</span></h2>' +
-        '</div>' +
-        '</div>';
+      var SLIDE_TYPE_INFO = 'directives/heroSlider/slides/info.html';
+      var SLIDE_TYPE_SIMPLE = 'directives/heroSlider/slides/simple.html';
 
       var mainSlide;
       var followingSlide;
@@ -85,9 +81,15 @@ angular.module('mobiusApp.directives.slider', [])
       function createSlide(){
         var slideData = scope.content[scope.slideIndex];
 
-        var template = SLIDE_TEMPLATE
-          .replace('slide_title', slideData.title)
-          .replace('slide_subtitle', slideData.subtitle);
+        var template;
+
+        if(slideData.title && slideData.subtitle){
+          template = $templateCache.get(SLIDE_TYPE_INFO)
+            .replace('slide_title', slideData.title)
+            .replace('slide_subtitle', slideData.subtitle);
+        }else{
+          template = $templateCache.get(SLIDE_TYPE_SIMPLE);
+        }
 
         var slide = $(template)[0];
 

@@ -18,7 +18,7 @@ angular.module('mobiusApp.services.content', [])
   }
 
   function getHighlightedItems(){
-    return apiService.get(apiService.getFullURL('content.hightlighted'));
+    return apiService.get(apiService.getFullURL('content.highlighted'));
   }
 
     // Generics

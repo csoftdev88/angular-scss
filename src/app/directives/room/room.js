@@ -3,8 +3,6 @@
 angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function(){
-  console.log('room');
-  console.log('room arguments', arguments);
 
   return {
     restrict: 'E',
