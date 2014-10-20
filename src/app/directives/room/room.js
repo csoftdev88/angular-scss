@@ -31,7 +31,6 @@ angular.module('mobiusApp.directives.room', [])
       ];
 
       scope.oneAtATime = true;
-      scope.status = 1;
     }
 
   };

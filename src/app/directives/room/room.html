@@ -6,8 +6,8 @@
   </header>
   <div class="room__prices">
     <accordion close-others="oneAtATime">
-      <accordion-group heading="Best available Rate" ng-repeat="rate in rates">
-        <accordion-heading>
+      <accordion-group heading="Best available Rate" is-open="open" ng-class="{'is-open': open}" ng-repeat="rate in rates">
+        <accordion-heading ng-click="status = $index">
           <i class="icon icon-{{rate.icon}}"/>
           <header>
             <h3 class="title">{{rate.type}}</h3>
