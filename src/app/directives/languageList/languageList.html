@@ -1,9 +1,12 @@
-<div class="dropdown">
-  <a href class="dropdown-toggle" data-toggle="dropdown">{{getShortName(currentLanguage)}}</a>
-
+<div class="dropdown has-icons">
+  <a href class="dropdown-toggle" data-toggle="dropdown" title="Language">
+    <img src="/static/images/lang-{{currentLanguage}}.jpg" class="icon" alt="{{getShortName(currentLanguage)}}">
+    <span>{{getShortName(currentLanguage)}}</span>
+  </a>
   <ul class="dropdown-menu submenu" ng-show="languages.length">
       <li ng-repeat="language in languages">
-          <a class="language" class="icon-{{language.code}}" href title="{{language.name}}" ng-click="changeLangage(language)">{{getShortName(language.code)}}</a>
+          <a class="language" class="icon-{{language.code}}" href title="{{language.name}}" ng-click="changeLangage(language)">{{getFullName(language.code)}}<img src="/static/images/lang-{{language.code}}.jpg" class="icon" alt="{{language.code}}">
+          </a>
       </li>
   </ul>
 </div>

@@ -1,9 +1,15 @@
-<div class="dropdown">
-  <a href class="dropdown-toggle" data-toggle="dropdown">{{getCurrencySymbol(currentCurrency.code)}}</a>
+<div class="dropdown has-icons">
+  <a href class="dropdown-toggle" data-toggle="dropdown" title="Currency">
+  <img src="/static/images/flag-{{currentCurrency.code}}.jpg" class="icon" alt="{{currentCurrency.code}}">
+  <span>{{getCurrencySymbol(currentCurrency.code)}}</span>
+  </a>
 
   <ul class="dropdown-menu submenu" ng-show="currencies.length">
       <li ng-repeat="currency in currencies">
-          <a class="currency" class="icon-{{currency.code}}" href title="{{currency.name}}" ng-click="changeCurrency(currency)">{{getFormattedLabel(currency.code)}}</a>
+          <a class="currency" href title="{{currency.name}}" ng-click="changeCurrency(currency)">
+            {{getFormattedLabel(currency.code)}}
+            <img src="/static/images/flag-{{currency.code}}.jpg" class="icon" alt="{{currency.code}}">
+          </a>
       </li>
   </ul>
 </div>

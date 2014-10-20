@@ -55,19 +55,22 @@ angular.module('mobiusApp.config', [])
       },
 
       'CAD': {
-        'symbol': '€'
+        'symbol': '$'
       }
     },
 
     'languages': {
       'en-us': {
-        'shortName': 'EN'
+        'shortName': 'EN',
+        'name': 'English (US)'
       },
       'en-ca': {
-        'shortName': 'EN'
+        'shortName': 'EN',
+        'name': 'English (CAN)'
       },
       'cs-cz': {
-        'shortName': 'CZ'
+        'shortName': 'CZ',
+        'name': 'Čeština'
       }
     },
 
