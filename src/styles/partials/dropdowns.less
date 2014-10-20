@@ -15,23 +15,19 @@
   list-style: none;
 
   &.submenu {
-    background-color: @colorHeaderBackground;
-    background-color: fadeout(@colorHeaderBackground, 15%);
-
     left: auto;
-
     width: auto;
     min-width: 80px;
     margin-left: -15px !important;
+
+    background-color: @colorHeaderBackground;
+    background-color: fadeout(@colorHeaderBackground, 15%);
 
     li {
       display: block;
       float: none;
       line-height: 50px;
       white-space: nowrap;
-      a {
-
-      }
     }
   }
 }
@@ -63,11 +59,11 @@
 
     li {
       text-align: right;
-      border-bottom: 2px rgba(255, 255, 255, 0.1) solid;
+      border-bottom: 2px @borderColorSubmenu solid;
     }
 
     li:last-child {
-      border-color: #1f70a5;
+      border-color: @borderColorSubmenuLast;
     }
 
     .icon {
