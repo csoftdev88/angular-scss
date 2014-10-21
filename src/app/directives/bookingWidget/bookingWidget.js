@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function(){
+.directive('bookingWidget', function(propertyService, Settings){
   return {
     restrict: 'E',
     scope: {},
@@ -11,17 +11,20 @@ angular.module('mobiusApp.directives.booking', [])
     // Widget logic goes here
     link: function(scope){
       scope.hotel = {};
-      scope.number = {};
 
-      scope.hotels = [
+      scope.children  = new Array(Settings.UI.bookingWidget.maxChildren);
+      scope.adults  = new Array(Settings.UI.bookingWidget.maxChildren);
+
+      propertyService.getAll().then(function(data){
+        // NOTE: mock API has incorrectly formated JSON
+        scope.propertyList = data;
+      });
+
+      scope.propertyList = [
         'Abbotsford',
         'Blue River',
         'Cache Creek',
         'Calgary Airport'
-      ];
-
-      scope.numbers = [
-        0, 1, 2, 3, 4, 5, 6, 7, 8
       ];
     }
   };

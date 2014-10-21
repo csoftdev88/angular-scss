@@ -22,6 +22,7 @@ angular.module('mobiusApp', [
   'mobiusApp.services.state',
   'mobiusApp.services.api',
   'mobiusApp.services.content',
+  'mobiusApp.services.properties',
 
   // Custom components
   'mobiusApp.directives.layout',
