@@ -69,4 +69,18 @@ angular.module('mobius.controllers.main', [])
       $log.info('Modal dismissed at: ' + new Date());
     });
   };
+
+  $scope.openRegisterDialog = function(){
+    var registerModalInstance = $modal.open({
+      templateUrl: 'layouts/modals/registerDialog.html',
+      controller: 'ModalCtrl'
+    });
+
+    registerModalInstance.result.then(function() {
+      $log.info('Register dialog closed');
+    }, function() {
+      $log.info('Register dialog dismissed');
+    });
+  };
+
 });
