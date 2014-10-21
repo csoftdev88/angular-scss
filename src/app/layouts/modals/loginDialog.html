@@ -1,15 +1,30 @@
 <div class="ui-dialog">
-  <div class="modal-header">
-    <span>Title goes here</span>
-    <button class="button-close" ng-click="cancel()"></button>
+  <div class="modal-header has-form">
+    <h3 class="modal-title">Log in</h3>
+    <button class="button-close" ng-click="cancel()">X</button>
   </div>
 
   <div class="modal-body">
-    <p>Form content goes here</p>
+    <div class="form-wrap">
+      <form action="">
+        <label for="login-email">
+          Email Address
+          <input type="email" id="login-email">
+        </label>
+        <label for="login-password">
+          Password
+          <input type="password" id="login-password">
+        </label>
+      </form>
+      <p>
+        <a href="">Forgotten your password?</a><br/>
+        <a href="">Have a password reset code?</a>
+      </p>
+    </div>
   </div>
 
   <div class="modal-footer">
-    <button class="button" ng-click="ok()">OK</button>
-    <button class="button" ng-click="cancel()">Cancel</button>
+    <button class="button" ng-click="ok()">Continue</button>
+    <!-- <button class="button" ng-click="cancel()">Cancel</button> -->
   </div>
 </div>

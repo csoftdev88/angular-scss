@@ -11,7 +11,9 @@
 }
 
 .ui-dialog {
-  padding: 45px;
+  position: relative;
+  padding: @baseline - 1 10px;
+  background: #ebebeb;
 }
 
 .modal-dialog .modal-body {
@@ -20,10 +22,10 @@
 
 .modal-content {
   position: relative;
-  width: 500px;
+  // width: auto;
   height: auto;
-  margin: 100px auto;
-  background-color: @white;
+  margin: 25px 10px;
+  // background-color: @white;
   border-radius: @borderRadiusDefault;
   .box-shadow;
 }
@@ -70,4 +72,77 @@
 .fade {
   opacity: 0;
   .transition(opacity, .15s, linear);
+}
+
+.modal-header {
+  .button-close {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    border: none;
+    background: transparent none;
+    &:extend(.open-sans-light);
+    .font-size(30px, @baseline, @htmlFontSize);
+  }
+
+  .modal-title {
+    &:extend(.open-sans-light);
+    .fs-21;
+    .line-height(21, 2);
+    margin: 0;
+  }
+
+  &.has-form .modal-title {
+    margin-left: 11px;
+  }
+}
+
+.modal-body {
+  .form-wrap {
+    display: block;
+    .margin-bottom;
+    padding: 0 10px;
+    border: 1px #acacac solid;
+    border-radius: 3px;
+    background: #e1e1e1;
+  }
+}
+
+.modal-footer {
+  text-align: right;
+}
+
+// TABLET and DESKTOP styles
+@media only screen and @moreThenMobile {
+
+  .ui-dialog{
+    padding: (@baseline * 2 - 1) 45px;
+  }
+
+  .modal-content {
+    // position: relative;
+    min-width: 460px;
+    .grid-width(5);
+    max-width: @width;
+    // height: auto;
+    margin: 100px auto;
+    // background-color: @white;
+    // border-radius: @borderRadiusDefault;
+    // .box-shadow;
+  }
+
+  .modal-footer {
+    .margin-top;
+
+    .button {
+      .grid-width(3);
+      min-width: @width;
+    }
+  }
+}
+
+// DESKTOP styles
+@media only screen and @moreThenTablet {
+
+
 }
