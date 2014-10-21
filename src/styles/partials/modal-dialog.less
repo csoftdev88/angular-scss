@@ -1,0 +1,64 @@
+.modal {
+  position: fixed;
+  z-index: 1040;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: none;
+  overflow: auto;
+}
+
+.modal-dialog .modal-body {
+  overflow: hidden;
+}
+
+.modal-backdrop {
+  position: fixed;
+  z-index: 1030;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: @black;
+}
+
+.modal-content {
+  position: relative;
+  width: auto;
+  height: auto;
+  margin: 100px auto;
+}
+
+// Show/Hide effects
+.modal-backdrop.in {
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+.modal.fade.in {
+  display: block;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: .8;
+  filter: alpha(opacity=80);
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+}
+
+.fade.in {
+  opacity: 1;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: .8;
+  filter: alpha(opacity=80);
+}
+
+.fade {
+  opacity: 0;
+  .transition(opacity, .15s, linear);
+}

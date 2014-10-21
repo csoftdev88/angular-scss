@@ -11,9 +11,7 @@ angular.module('mobiusApp', [
   // Controllers
   'mobius.controllers.main',
   'mobius.controllers.offers',
-
-  // 3rd party components
-  'localytics.directives',
+  'mobius.controllers.modal',
 
   // Application modules
   'mobiusApp.config',
@@ -37,7 +35,10 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.menu',
   // Directives for generic data
   'mobiusApp.directives.currency',
-  'mobiusApp.directives.language'
+  'mobiusApp.directives.language',
+
+  // 3rd party components
+  'localytics.directives',
 ])
 
 .config(function ($stateProvider, $locationProvider) {
