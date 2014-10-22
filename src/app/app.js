@@ -38,7 +38,10 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.menu',
   // Directives for generic data
   'mobiusApp.directives.currency',
-  'mobiusApp.directives.language'
+  'mobiusApp.directives.language',
+
+  // Filters
+  'mobiusApp.filters.list'
 ])
 
 .config(function ($stateProvider, $locationProvider) {

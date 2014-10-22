@@ -10,10 +10,8 @@ angular.module('mobiusApp.directives.booking', [])
 
     // Widget logic goes here
     link: function(scope){
-      scope.hotel = {};
-
-      scope.children  = new Array(Settings.UI.bookingWidget.maxChildren);
-      scope.adults  = new Array(Settings.UI.bookingWidget.maxChildren);
+      // Widget settings
+      scope.settings = Settings.UI.bookingWidget;
 
       propertyService.getAll().then(function(data){
         // NOTE: mock API has incorrectly formated JSON
