@@ -12,6 +12,7 @@ angular.module('mobiusApp', [
   'mobius.controllers.main',
   'mobius.controllers.offers',
   'mobius.controllers.modal',
+  'mobius.controllers.modalPasswordReset',
 
   // Application modules
   'mobiusApp.config',
