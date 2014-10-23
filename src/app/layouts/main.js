@@ -3,7 +3,7 @@
 angular.module('mobius.controllers.main', [])
 
 .controller( 'MainCtrl',  function($scope, $state, $modal,
-    $log, orderByFilter, contentService, Settings) {
+    $log, $controller, orderByFilter, modalService, contentService, Settings) {
 
   // Application settings
   $scope.config = Settings.UI;
@@ -57,17 +57,9 @@ angular.module('mobius.controllers.main', [])
     });
   }
 
-  $scope.openLoginDialog = function(){
-    var modalInstance = $modal.open({
-      templateUrl: 'layouts/modals/loginDialog.html',
-      controller: 'ModalCtrl'
-    });
 
-    modalInstance.result.then(function() {
-      $log.info('Modal is closed');
-    }, function() {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
+  $scope.openLoginDialog = function(){
+    modalService.openLoginDialog();
   };
 
   $scope.openRegisterDialog = function(){

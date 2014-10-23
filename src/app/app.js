@@ -12,7 +12,7 @@ angular.module('mobiusApp', [
   'mobius.controllers.main',
   'mobius.controllers.offers',
   'mobius.controllers.modals.generic',
-  'mobius.controllers.modals.passwordReset',
+  'mobius.controllers.modals.loginRegister',
 
   // Application modules
   'mobiusApp.config',
@@ -21,6 +21,7 @@ angular.module('mobiusApp', [
   'mobiusApp.services.state',
   'mobiusApp.services.api',
   'mobiusApp.services.content',
+  'mobiusApp.services.modal',
 
   // Custom components
   'mobiusApp.directives.layout',
