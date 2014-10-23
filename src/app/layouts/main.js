@@ -71,15 +71,28 @@ angular.module('mobius.controllers.main', [])
   };
 
   $scope.openRegisterDialog = function(){
-    var registerModalInstance = $modal.open({
+    var registerModal = $modal.open({
       templateUrl: 'layouts/modals/registerDialog.html',
       controller: 'ModalCtrl'
     });
 
-    registerModalInstance.result.then(function() {
+    registerModal.result.then(function() {
       $log.info('Register dialog closed');
     }, function() {
       $log.info('Register dialog dismissed');
+    });
+  };
+
+  $scope.openForgotPasswordDialog = function(){
+    var forgotPasswordModal = $modal.open({
+      templateUrl: 'layouts/modals/passwordResetDialog.html',
+      controller: 'ModalCtrl'
+    });
+
+    forgotPasswordModal.result.then(function(){
+      $log.info('Forgot Password dialog closed');
+    }, function(){
+      $log.info('Forgot Password dialog dismissed');
     });
   };
 
