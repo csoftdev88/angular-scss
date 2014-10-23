@@ -4,7 +4,7 @@
     <p>{{room.perex}}</p>
     <hr>
   </header>
-  <div class="room__prices">
+  <div class="room-prices">
     <accordion close-others="oneAtATime">
       <accordion-group heading="Best available Rate" ng-repeat="rate in rates">
         <accordion-heading>
@@ -20,11 +20,16 @@
       </accordion-group>
     </accordion>
   </div>
-  <div class="room__description">
+
+  <div class="room-continue">
+    <a class="button" ng-href="/reservation/details">Continue</a>
+  </div>
+
+  <div class="room-desc">
     <h3 class="section-title">Room <strong>Description</strong></h3>
     <p>{{room.description}}</p>
   </div>
-  <div class="room__amenities">
+  <div class="room-amenities">
     <h3 class="section-title">Room <strong>Amenities</strong></h3>
     <ul>
       <li ng-repeat="item in amenities">
