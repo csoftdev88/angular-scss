@@ -86,9 +86,14 @@
       &:after {
       }
     }
+
+    @media only screen and @lessThenTabletPortrait {
+        clear: left;
+    }
   }
 
-  @media only screen and @moreThenTablet {
+
+  @media only screen and @moreThenTabletPortrait {
     .margin-bottom(@htmlFontSize, 2);
 
     ul {
