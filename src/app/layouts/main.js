@@ -75,17 +75,8 @@ angular.module('mobius.controllers.main', [])
     });
   };
 
-  $scope.openForgotPasswordDialog = function(){
-    var forgotPasswordModal = $modal.open({
-      templateUrl: 'layouts/modals/passwordResetDialog.html',
-      controller: 'ModalPasswordResetCtrl'
-    });
-
-    forgotPasswordModal.result.then(function(){
-      $log.info('Forgot Password dialog closed');
-    }, function(){
-      $log.info('Forgot Password dialog dismissed');
-    });
+  $scope.openPasswordResetDialog = function(){
+    modalService.openPasswordResetDialog();
   };
 
   $scope.openEnterCodeDialog = function(){
