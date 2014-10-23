@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobius.controllers.modal', [])
+angular.module('mobius.controllers.modals.generic', [])
 
 .controller( 'ModalCtrl', function($scope, $modalInstance) {
   $scope.ok = function() {

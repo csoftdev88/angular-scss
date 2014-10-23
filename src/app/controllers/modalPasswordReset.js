@@ -1,18 +1,10 @@
 'use strict';
 
-angular.module('mobius.controllers.modalPasswordReset', [])
+angular.module('mobius.controllers.modals.passwordReset', [])
 
-.controller( 'ModalPasswordResetCtrl', function($scope, $modalInstance) {
+.controller( 'ModalPasswordResetCtrl', function($scope, $controller, $modalInstance) {
   $scope.email = '';
   $scope.success = false;
 
-  $scope.ok = function(email) {
-    $scope.success = true;
-    $scope.email = email;
-    // $modalInstance.close();
-  };
-
-  $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
-  };
+  $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 });
