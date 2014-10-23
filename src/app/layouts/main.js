@@ -57,7 +57,6 @@ angular.module('mobius.controllers.main', [])
     });
   }
 
-
   $scope.openLoginDialog = function(){
     modalService.openLoginDialog();
   };
