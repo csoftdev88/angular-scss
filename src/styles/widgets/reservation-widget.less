@@ -172,6 +172,7 @@ reservation-room-resume {
     th, td {
       .fs-14(true);
       padding: 0;
+      vertical-align: bottom;
     }
 
     th {
@@ -179,21 +180,25 @@ reservation-room-resume {
       color: #2b5e7f;
     }
 
-    td {
-      padding-left: 20px;
+    td.currency {
+      width: 1em;
+    }
 
+    td {
+      padding-left: 10px;
+      text-align: left;
       strong {
         color: #2b5e7f;
       }
     }
 
-    @media screen and @lessThenTablet {
+    @media screen and @lessThenTabletPortrait {
       th {
         width: 50%;
       }
     }
 
-    @media screen and @moreThenMobile {
+    @media screen and @moreThenTabletPortrait {
       .margin-top-bottom;
 
       table {
