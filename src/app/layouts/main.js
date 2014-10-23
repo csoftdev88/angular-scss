@@ -62,47 +62,18 @@ angular.module('mobius.controllers.main', [])
   };
 
   $scope.openRegisterDialog = function(){
-    var registerModal = $modal.open({
-      templateUrl: 'layouts/modals/registerDialog.html',
-      controller: 'ModalCtrl'
-    });
-
-    registerModal.result.then(function() {
-      $log.info('Register dialog closed');
-    }, function() {
-      $log.info('Register dialog dismissed');
-    });
+    modalService.openRegisterDialog();
   };
 
   $scope.openForgotPasswordDialog = function(){
-    var forgotPasswordModal = $modal.open({
-      templateUrl: 'layouts/modals/passwordResetDialog.html',
-      controller: 'ModalPasswordResetCtrl'
-    });
-
-    forgotPasswordModal.result.then(function(){
-      $log.info('Forgot Password dialog closed');
-    }, function(){
-      $log.info('Forgot Password dialog dismissed');
-    });
+    modalService.openPasswordResetDialog();
   };
 
   $scope.openEnterCodeDialog = function(){
-    var enterCodeModal = $modal.open({
-      templateUrl: 'layouts/modals/enterCodeDialog',
-      controller: 'ModalCtrl'
-    });
-
-    enterCodeModal.result.then(function(){
-      $log.info('Enter Code dialog closed');
-    }, function(){
-      $log.info('Enter Code dialog dismissed');
-    });
+    modalService.openPromoCodeDialog();
   };
 
-
   $scope.openAdvancedOptionsDialog = function() {
-
   };
 
 });
