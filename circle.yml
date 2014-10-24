@@ -20,6 +20,7 @@ machine:
 test:
   override:
     - grunt test
+    - grunt build
   post:
     - sed -i -e 's/\/node_modules//' .gitignore
     - sed -i -e 's/\/bower_components//' .gitignore
