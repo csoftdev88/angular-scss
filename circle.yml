@@ -1,4 +1,8 @@
 dependencies:
+  # Git requires user.email and user.name configured before git commit can be run.
+  pre:
+    - git config --global user.email "herokuadmin@salsita.com"
+    - git config --global user.name "CircleCI @ Salsita"
   override:
     - npm prune
     - npm install
@@ -15,6 +19,11 @@ machine:
 test:
   override:
     - grunt test
+  post:
+    - sed -i -e 's/\/node_modules//' .gitignore
+    - sed -i -e 's/\/bower_components//' .gitignore
+    - git add -A
+    - git commit -m "build"
 
 deployment:
   try:
