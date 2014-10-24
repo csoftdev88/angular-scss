@@ -33,20 +33,20 @@ deployment:
   try:
     branch: /try.*/
     commands:
-      - git push -f git@heroku.com:mobius-try.git ${CIRCLE_SHA1}:refs/heads/master
+      - git push -f git@heroku.com:mobius-try.git ${CIRCLE_BRANCH}:master
   dev:
     branch: develop
     commands:
-      - git push -f git@heroku.com:mobius-dev.git ${CIRCLE_SHA1}:refs/heads/master
+      - git push -f git@heroku.com:mobius-dev.git ${CIRCLE_BRANCH}:master
   qa:
     branch: /release\/.+/
     commands:
-      - git push -f git@heroku.com:mobius-qa.git ${CIRCLE_SHA1}:refs/heads/master
+      - git push -f git@heroku.com:mobius-qa.git ${CIRCLE_BRANCH}:master
   client:
     branch: client
     commands:
-      - git push -f git@heroku.com:mobius-client.git ${CIRCLE_SHA1}:refs/heads/master
+      - git push -f git@heroku.com:mobius-stage.git ${CIRCLE_BRANCH}:master
   prod:
     branch: master
     commands:
-      - git push -f git@heroku.com:mobius-prod.git ${CIRCLE_SHA1}:refs/heads/master
+      - git push -f git@heroku.com:mobius-prod.git ${CIRCLE_BRANCH}:master
