@@ -10,6 +10,7 @@ angular.module('mobius.controllers.modals.loginRegister', [])
   $scope.email = '';
   $scope.success = false;
   $scope.codePattern = /[0-9\-]{8}/;
+  $scope.passwordChanged = false;
 
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
@@ -23,7 +24,10 @@ angular.module('mobius.controllers.modals.loginRegister', [])
     $scope.cancel();
 
     modalService.openEnterCodeDialog();
+  };
 
+  $scope.changePassword = function(){
+    $scope.passwordChanged = true;
   };
 
 });
