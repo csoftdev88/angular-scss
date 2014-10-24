@@ -1,6 +1,5 @@
-build
-compile
-bower_components
+build/
+bower_components/
 node_modules/
 npm-debug.log
 .tmp
