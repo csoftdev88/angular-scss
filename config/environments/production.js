@@ -8,14 +8,14 @@ module.exports = function (app) {
         });
 
         // App sources and bower scripts
-        app.use('/static/app', express.static(path.join(app.directory, '/build/app/')));
-        app.use('/static/styles', express.static(path.join(app.directory, '/build/styles/')));
-        app.use('/static/images', express.static(path.join(app.directory, '/build/images/')));
-        app.use('/static/font', express.static(path.join(app.directory, '/build/font/')));
-        app.use('/static/bower_components', express.static(path.join(app.directory, '/bower_components')));
+        app.use('/static/app', express.static(path.join(app.directory, 'app/build/app/')));
+        app.use('/static/styles', express.static(path.join(app.directory, 'app/build/styles/')));
+        app.use('/static/images', express.static(path.join(app.directory, 'app/build/images/')));
+        app.use('/static/font', express.static(path.join(app.directory, 'app/build/font/')));
+        app.use('/static/bower_components', express.static(path.join(app.directory, 'app/bower_components')));
 
         app.set('port', process.env.PORT || 9000);
-        app.set('views', path.join(app.directory, '/build'));
+        app.set('views', path.join(app.directory, 'app/build'));
         app.engine('html', require('ejs').renderFile);
         app.set('view engine', 'html');
         app.use(express.basicAuth('mobius', 'mobius'));
