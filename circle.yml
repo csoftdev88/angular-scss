@@ -21,10 +21,10 @@ test:
   override:
     - grunt test
   post:
-    - sed -i -e 's/\node_modules//' .gitignore
-    - sed -i -e 's/\bower_components//' .gitignore
+    - sed -i -e 's/\/node_modules//' .gitignore
+    - sed -i -e 's/\/bower_components//' .gitignore
     - sed -i -e 's/\/bin//' .gitignore
-    - sed -i -e 's/\build//' .gitignore
+    - sed -i -e 's/\/build//' .gitignore
     - git add -A
     - git commit -m "build"
 
