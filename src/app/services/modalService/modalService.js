@@ -5,6 +5,7 @@
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log) {
   var CONTROLLER_LOGIN_REGISTER = 'LoginRegisterCtrl';
+  // var CONTROLLER_DEFAULT = 'ModalCtrl';
 
   function openDialog(templateUrl, controller){
     var q = $q.defer();
@@ -27,13 +28,14 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('layouts/modals/loginDialog.html', CONTROLLER_LOGIN_REGISTER);
   }
 
+  function openRegisterDialog(){
+    return openDialog('layouts/modals/registerDialog.html', CONTROLLER_LOGIN_REGISTER);
+  }
+
   function openPasswordResetDialog(){
     return openDialog('layouts/modals/passwordResetDialog.html', CONTROLLER_LOGIN_REGISTER);
   }
 
-  function openRegisterDialog(){
-    return openDialog('layouts/modals/registerDialog.html', CONTROLLER_LOGIN_REGISTER);
-  }
 
   function openEnterCodeDialog(){
     return openDialog('layouts/modals/enterCodeDialog.html', CONTROLLER_LOGIN_REGISTER);
@@ -42,8 +44,8 @@ angular.module('mobiusApp.services.modal', [])
   // Public methods
   return {
     openLoginDialog: openLoginDialog,
-    openPasswordResetDialog: openPasswordResetDialog,
     openRegisterDialog: openRegisterDialog,
+    openPasswordResetDialog: openPasswordResetDialog,
     openEnterCodeDialog: openEnterCodeDialog
   };
 });
