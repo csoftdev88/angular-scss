@@ -3,7 +3,7 @@
 * This service controls opening of all dialogs in the application
 */
 angular.module('mobiusApp.services.modal', [])
-.service( 'modalService',  function($modal, $q) {
+.service( 'modalService',  function($modal, $q, $log) {
   var CONTROLLER_LOGIN_REGISTER = 'LoginRegisterCtrl';
 
   function openDialog(templateUrl, controller){
@@ -13,8 +13,10 @@ angular.module('mobiusApp.services.modal', [])
       templateUrl: templateUrl,
       controller: controller
     }).result.then(function() {
+      $log.info('Dialog closed');
       q.resolve();
     }, function() {
+      $log.info('Dialog dismissed');
       q.reject();
     });
 
@@ -32,10 +34,16 @@ angular.module('mobiusApp.services.modal', [])
   function openRegisterDialog(){
     return openDialog('layouts/modals/registerDialog.html', CONTROLLER_LOGIN_REGISTER);
   }
+
+  function openEnterCodeDialog(){
+    return openDialog('layouts/modals/enterCodeDialog.html', CONTROLLER_LOGIN_REGISTER);
+  }
+
   // Public methods
   return {
     openLoginDialog: openLoginDialog,
     openPasswordResetDialog: openPasswordResetDialog,
-    openRegisterDialog: openRegisterDialog
+    openRegisterDialog: openRegisterDialog,
+    openEnterCodeDialog: openEnterCodeDialog
   };
 });

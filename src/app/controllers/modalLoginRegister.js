@@ -9,6 +9,7 @@ angular.module('mobius.controllers.modals.loginRegister', [])
   // TODO: same properties should be use for login/reset dialogs
   $scope.email = '';
   $scope.success = false;
+  $scope.codePattern = /[0-9\-]{8}/;
 
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
@@ -17,4 +18,12 @@ angular.module('mobius.controllers.modals.loginRegister', [])
 
     modalService.openPasswordResetDialog();
   };
+
+  $scope.openEnterCodeDialog = function(){
+    $scope.cancel();
+
+    modalService.openEnterCodeDialog();
+
+  };
+
 });
