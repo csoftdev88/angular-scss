@@ -1,7 +1,7 @@
 <div class="slider-content">
 </div>
 
-<div class="slider-controls" ng-click="onContentClick()">
+<div class="slider-controls" ng-swipe-left="slide(false, $event)" ng-swipe-right="slide(true, $event)" ng-click="onContentClick()">
   <div ng-show="content.length > 1">
   <a href class="slide-button slide-left" ng-click="slide(true, $event)"/>
   <a href class="slide-button slide-right" ng-click="slide(false, $event)"/>
