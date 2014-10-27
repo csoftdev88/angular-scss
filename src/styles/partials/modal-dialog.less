@@ -18,7 +18,7 @@
 }
 
 .modal-dialog .modal-body {
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .modal-content {
@@ -133,6 +133,56 @@
   text-align: right;
 }
 
+.advanced-options {
+  label {
+    font-weight: 400;
+
+    &.is-selected { font-weight: 700;}
+  }
+}
+
+.room-count {
+  .margin-top-bottom;
+
+  label { .line-height(16, 1);}
+}
+
+.additional-rooms {
+  text-align: right;
+
+  .room-item {
+    .clearfix;
+    position: relative;
+    padding-right: 90px;
+
+    label,
+    .form-group {
+      display: inline-block;
+      box-sizing: border-box;
+      vertical-align: middle;
+      float: left;
+      width: 33.3333%;
+    }
+
+    // Remove button
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 80px;
+    }
+  }
+
+
+  .form-group {
+    padding-left: 10px;
+  }
+
+  .button-add {
+    margin-right: 90px;
+  }
+}
+
 .info-box-success {
   .margin-top;
   padding: (@baseline / 2 - 1) 10px;
@@ -144,6 +194,8 @@
 
   p { margin: 0;}
 }
+
+
 
 // TABLET and DESKTOP styles
 @media only screen and @moreThenMobile {

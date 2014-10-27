@@ -13,6 +13,7 @@ angular.module('mobiusApp', [
   'mobius.controllers.offers',
   'mobius.controllers.modals.generic',
   'mobius.controllers.modals.loginRegister',
+  'mobius.controllers.modals.advancedOptions',
 
   // Application modules
   'mobiusApp.config',

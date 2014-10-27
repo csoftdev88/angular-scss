@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function(){
+.directive('bookingWidget', ['modalService', function(modalService){
   return {
     restrict: 'E',
     scope: {},
@@ -23,6 +23,10 @@ angular.module('mobiusApp.directives.booking', [])
       scope.numbers = [
         0, 1, 2, 3, 4, 5, 6, 7, 8
       ];
+
+      scope.openAdvancedOptionsDialog = function() {
+        modalService.openAdvancedOptionsDialog();
+      };
     }
   };
-});
+}]);

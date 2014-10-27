@@ -73,8 +73,4 @@ angular.module('mobius.controllers.main', [])
     modalService.openEnterCodeDialog();
   };
 
-  $scope.openAdvancedOptionsDialog = function() {
-
-  };
-
 });
