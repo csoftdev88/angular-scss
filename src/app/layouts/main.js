@@ -73,4 +73,8 @@ angular.module('mobius.controllers.main', [])
     modalService.openEnterCodeDialog();
   };
 
+  $scope.openCCVInfo = modalService.openCCVInfo;
+  $scope.openPoliciesInfo = modalService.openPoliciesInfo;
+  $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
+
 });

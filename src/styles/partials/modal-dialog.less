@@ -10,15 +10,17 @@
   overflow: auto;
 }
 
-.ui-dialog {
+.ui-dialog,
+.ui-info {
   position: relative;
   padding: @baseline - 1 10px;
   border-radius: 3px;
   background: #ebebeb;
 }
 
-.modal-dialog .modal-body {
-  // overflow: hidden;
+.ui-info {
+  padding: @baseline - 1;
+  background: @white;
 }
 
 .modal-content {
@@ -127,6 +129,11 @@
   }
 
   label { color: @colorHeadingDefault;}
+
+  h4 {
+    .fs-14(true);
+    color: #406881;
+  }
 }
 
 .modal-footer {
@@ -205,14 +212,19 @@
   }
 
   .modal-content {
-    // position: relative;
     .grid-width(5);
     max-width: @width;
-    // height: auto;
     margin: 100px auto;
-    // background-color: @white;
-    // border-radius: @borderRadiusDefault;
-    // .box-shadow;
+
+
+    .is-wide & {
+      .grid-width(9);
+      max-width: @width;
+
+      @media only screeb and @lessThenTabletPortrait {
+        margin: 50px 20px;
+      }
+    }
   }
 
   .modal-footer {
@@ -229,4 +241,27 @@
 @media only screen and @moreThenTablet {
 
 
+}
+
+.price-breakdown {
+  color: @colorHeadingDefault;
+
+  table {
+    .margin-top-bottom(14, 1);
+    .fs-14(true);
+    width: 100%;
+  }
+
+  th, td {
+    text-align: left;
+  }
+
+  th + *,
+  td + * {
+    padding-left: 10px;
+  }
+
+  [colspan="3"] {
+    text-align: right;
+  }
 }

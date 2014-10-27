@@ -55,8 +55,8 @@
       </table>
     </div>
     <p class="more-details">
-      <a href="#">View Price Breakdown</a>
-      <a href="#">View Policies</a>
+      <a href="" ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
+      <a href="" ng-click="openPoliciesInfo()">View Policies</a>
     </p>
   </reservation-room-resume>
 
@@ -75,7 +75,7 @@
           <input type="date" id="form-expires"/>
         </label>
         <label for="form-cvv" class="input-right">
-          CVV
+          CVV <span class="help" ng-click="openCCVInfo()">?</span>
           <input type="number" id="form-cvv"/>
         </label>
       </div>

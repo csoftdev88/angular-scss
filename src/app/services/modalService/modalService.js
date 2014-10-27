@@ -4,17 +4,17 @@
 */
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log) {
-  // var CONTROLLER_DEFAULT = 'ModalCtrl';
-  var CONTROLLER_LOGIN_REGISTER = 'LoginRegisterCtrl',
+  var CONTROLLER_DEFAULT = 'ModalCtrl',
+      CONTROLLER_LOGIN_REGISTER = 'LoginRegisterCtrl',
       CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl';
 
-  function openDialog(templateUrl, controller){
-    var q = $q.defer();
+  function openDialog(templateUrl, controller, options){
+    var q = $q.defer(),
+        modalOptions = { templateUrl: templateUrl, controller: controller };
 
-    $modal.open({
-      templateUrl: templateUrl,
-      controller: controller
-    }).result.then(function() {
+    angular.extend(modalOptions, options);
+
+    $modal.open(modalOptions).result.then(function() {
       $log.info('Dialog closed');
       q.resolve();
     }, function() {
@@ -45,13 +45,32 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('layouts/modals/advancedOptionsDialog.html', CONTROLLER_ADVANCED_OPTIONS);
   }
 
+  function openCCVInfo(){
+    return openDialog('layouts/modals/ccvInfo.html', CONTROLLER_DEFAULT);
+  }
+
+  function openPoliciesInfo(){
+    return openDialog('layouts/modals/policiesInfo.html', CONTROLLER_DEFAULT, {
+      windowClass: 'is-wide'
+    });
+  }
+
+  function openPriceBreakdownInfo(){
+    return openDialog('layouts/modals/priceBreakdownInfo.html', CONTROLLER_DEFAULT), {
+      windowClass: 'is-wide'
+    };
+  }
+
   // Public methods
   return {
     openLoginDialog: openLoginDialog,
     openRegisterDialog: openRegisterDialog,
     openPasswordResetDialog: openPasswordResetDialog,
     openEnterCodeDialog: openEnterCodeDialog,
-    openAdvancedOptionsDialog: openAdvancedOptionsDialog
+    openAdvancedOptionsDialog: openAdvancedOptionsDialog,
+    openCCVInfo: openCCVInfo,
+    openPoliciesInfo: openPoliciesInfo,
+    openPriceBreakdownInfo: openPriceBreakdownInfo
   };
 
 });
