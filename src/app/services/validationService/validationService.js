@@ -4,7 +4,7 @@ angular.module('mobiusApp.services.validation', [])
 .service( 'validationService',  function() {
 
   function isQueryParamValid(paramSettings, paramValue){
-    var value = getQueryParamValue(paramSettings, paramValue);
+    var value = convertValue(paramSettings, paramValue);
 
     if(value === undefined){
       return false;
@@ -38,7 +38,7 @@ angular.module('mobiusApp.services.validation', [])
     return true;
   }
 
-  function getQueryParamValue(paramSettings, paramValue){
+  function convertValue(paramSettings, paramValue){
     switch(paramSettings.type){
 
     case 'integer':
@@ -63,6 +63,6 @@ angular.module('mobiusApp.services.validation', [])
   // Public methods
   return {
     isQueryParamValid: isQueryParamValid,
-    getQueryParamValue: getQueryParamValue
+    convertValue: convertValue
   };
 });

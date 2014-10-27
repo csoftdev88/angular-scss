@@ -67,7 +67,7 @@ angular.module('mobiusApp.directives.booking', [])
             queryService.removeParam(paramSettings.search);
           }else{
             // Value is valid, we can assign it to the model
-            scope.selected[key] = validationService.getQueryParamValue(paramSettings, paramValue);
+            scope.selected[key] = validationService.convertValue(paramSettings, paramValue);
           }
         }
       }
@@ -102,7 +102,7 @@ angular.module('mobiusApp.directives.booking', [])
         return function(newValue){
           // URL should be updated only when model value has changed
           var paramValue = queryService.getValue(paramSettings.search);
-          var currentValue = validationService.getQueryParamValue(paramSettings, paramValue);
+          var currentValue = validationService.convertValue(paramSettings, paramValue);
 
           if(currentValue!==newValue){
             queryService.setValue(paramSettings.search, newValue);
@@ -131,7 +131,7 @@ angular.module('mobiusApp.directives.booking', [])
           var paramSettings = PARAM_TYPES[key];
 
           var paramValue = queryService.getValue(paramSettings.search);
-          var queryValue = validationService.getQueryParamValue(paramSettings, paramValue);
+          var queryValue = validationService.convertValue(paramSettings, paramValue);
           var modelValue = scope.selected[key];
 
           if(modelValue!==queryValue){

@@ -31,7 +31,6 @@ describe('apiService', function() {
     env.rootScope = $rootScope;
   }));
 
-
   describe('API comunication', function() {
     describe('GET method', function() {
       afterEach(function() {
