@@ -28,7 +28,6 @@ describe('queryService', function() {
 
       $provide.value('Settings', Settings);
 
-
       var locationService = {
         search: function(){
           return TEST_PARAMS;
@@ -73,7 +72,6 @@ describe('queryService', function() {
       expect(env.locationSearchSpy.calledOnce).equal(true);
     });
   });
-
 
   describe('removeParam', function() {
     it('should remove query parameter from the URL', function() {
