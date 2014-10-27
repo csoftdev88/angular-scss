@@ -72,14 +72,73 @@ angular.module('mobiusApp.directives.booking', [])
         }
       }
 
+
       // Init
       validateParams();
+
+      // NOTE: This should be uncommented in case we want to update URL params once user
+      // changed any of the form controls
+      /*
+      // List of model watchers
+      //var watchers = [];
+
+      // Changes in forms can be displayed in URL automatically
+      function initModelWatchers(){
+        for(var key in PARAM_TYPES){
+          var paramSettings = PARAM_TYPES[key];
+
+          // Creating model watchers
+          var watcher = scope.$watch(
+            'selected.'+key,
+            onModelChanged(paramSettings)
+          );
+
+          watchers.push(watcher);
+        }
+      }
+
+      // Model change watcher
+      function onModelChanged(paramSettings){
+        return function(newValue){
+          // URL should be updated only when model value has changed
+          var paramValue = queryService.getValue(paramSettings.search);
+          var currentValue = validationService.getQueryParamValue(paramSettings, paramValue);
+
+          if(currentValue!==newValue){
+            queryService.setValue(paramSettings.search, newValue);
+          }
+        };
+      }
+      initModelWatchers();
+
+      scope.$on('$destroy', function(){
+        // Removing all model watchers
+        for(var i=0; i < watchers.length; i++){
+          watchers[i]();
+        }
+      });
+      */
 
       // Getting a list of properties
       propertyService.getAll().then(function(data){
         // NOTE: mock API has incorrectly formated JSON
         scope.propertyList = data;
       });
+
+      scope.onSearch = function(){
+        // Updating URL params
+        for(var key in PARAM_TYPES){
+          var paramSettings = PARAM_TYPES[key];
+
+          var paramValue = queryService.getValue(paramSettings.search);
+          var queryValue = validationService.getQueryParamValue(paramSettings, paramValue);
+          var modelValue = scope.selected[key];
+
+          if(modelValue!==queryValue){
+            queryService.setValue(paramSettings.search, modelValue);
+          }
+        }
+      };
     }
   };
 });

@@ -12,9 +12,14 @@ angular.module('mobiusApp.services.query', [])
     return $location.search()[param];
   }
 
+  function setValue(param, value){
+    $location.search(param, value);
+  }
+
   // Public methods
   return {
     removeParam: removeParam,
-    getValue: getValue
+    getValue: getValue,
+    setValue: setValue
   };
 });
