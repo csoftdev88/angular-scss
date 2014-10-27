@@ -10,7 +10,7 @@
     <!-- FIND YOUR HOTEL -->
     <li class="booking-input hotels">
       <div class="form-group">
-        <select name="hotels" required ng-model="hotel" disable-search="false" chosen ng-options="hotel for hotel in hotels" data-placeholder="Find Your Hotel"/>
+        <select name="hotels" required ng-model="selected.property" disable-search="false" chosen ng-options="hotel for hotel in hotels" data-placeholder="Find Your Hotel"/>
         <span class="info">Find Your Hotel:</span>
         <span class="more"><a href>Advanced Options</a></span>
       </div>
@@ -34,7 +34,7 @@
     <!-- ENTER YOUR CODE -->
     <li class="booking-input codes">
       <div class="form-group">
-        <input type="text" placeholder="Enter Your Code">
+        <input type="text" placeholder="Enter Your Code" ng-model="selected.promoCode">
         <span class="info">Enter Your Code:</span>
       </div>
     </li>
@@ -42,7 +42,7 @@
     <li class="booking-input adults small">
       <!-- NUMBER OF ADULTS -->
       <div class="form-group">
-        <select name="adults" required ng-model="numberOfAdults" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.maxAdults" data-placeholder="Number Of Adults"/>
+        <select name="adults" required ng-model="selected.adults" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.maxAdults" data-placeholder="Number Of Adults"/>
         <span class="info">Adults:</span>
       </div>
     </li>
@@ -50,7 +50,7 @@
     <li class="booking-input small">
       <!-- NUMBER OF CHILDREN -->
       <div class="form-group">
-        <select name="children" required ng-model="numberOfChildren" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.maxChildren" data-placeholder="Number Of Children"/>
+        <select name="children" required ng-model="selected.children" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.maxChildren" data-placeholder="Number Of Children"/>
         <span class="info">Children:</span>
       </div>
     </li>

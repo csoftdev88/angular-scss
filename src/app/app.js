@@ -24,6 +24,7 @@ angular.module('mobiusApp', [
   'mobiusApp.services.content',
   'mobiusApp.services.properties',
   'mobiusApp.services.query',
+  'mobiusApp.services.validation',
 
   // Custom components
   'mobiusApp.directives.layout',

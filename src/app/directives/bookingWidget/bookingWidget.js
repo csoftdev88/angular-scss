@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function(queryService, propertyService, Settings){
+.directive('bookingWidget', function(queryService, validationService, propertyService, Settings){
   return {
     restrict: 'E',
     scope: {},
@@ -13,32 +13,16 @@ angular.module('mobiusApp.directives.booking', [])
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
-      var PARAM_TYPES = {
-        'children': {
-          'param': 'children',
-          'type': 'integer',
-          'max': scope.settings.maxChildren
-        },
-        'adults': {
-          'param': 'adults',
-          'type': 'integer',
-          'max': scope.settings.maxAdults
-        },
-        'property': {
-          'param': 'property',
-          'type': 'string'
-        },
-        'promoCode': {
-          'param': 'promoCode',
-          'type': 'string'
-        }
+      // Currently selected form values
+      scope.selected = {
+        'children': undefined,
+        'adults': undefined,
+        'promoCode': '',
+        'property': undefined
       };
 
-      propertyService.getAll().then(function(data){
-        // NOTE: mock API has incorrectly formated JSON
-        scope.propertyList = data;
-      });
-
+      // NODE: default property list
+      // TODO: remove once mock API is working
       scope.propertyList = [
         'Abbotsford',
         'Blue River',
@@ -46,54 +30,56 @@ angular.module('mobiusApp.directives.booking', [])
         'Calgary Airport'
       ];
 
+      // URL parameters and their settings
+      var PARAM_TYPES = {
+        'children': {
+          'search': 'children',
+          'type': 'integer',
+          'max': scope.settings.maxChildren,
+          'min': 0
+        },
+        'adults': {
+          'search': 'adults',
+          'type': 'integer',
+          'max': scope.settings.maxAdults,
+          'min': 0
+        },
+        'property': {
+          'search': 'property',
+          'type': 'string'
+        },
+        'promoCode': {
+          'search': 'promoCode',
+          'type': 'string'
+        }
+      };
+
+      // Function will remove query parameters from the URL in case their
+      // values are not valid
       function validateParams(){
         for(var key in PARAM_TYPES){
-          var type = PARAM_TYPES[key];
+          var paramSettings = PARAM_TYPES[key];
 
-          var paramValue = queryService.getValue(type.param);
+          var paramValue = queryService.getValue(paramSettings.search);
 
           // URL parameter is presented by has no value
-          if(paramValue === true || !isValid(type, paramValue)){
-            queryService.removeParam(type.param);
+          if(paramValue === true || !validationService.isQueryParamValid(paramSettings, paramValue)){
+            queryService.removeParam(paramSettings.search);
           }else{
-
+            // Value is valid, we can assign it to the model
+            scope.selected[key] = validationService.getQueryParamValue(paramSettings, paramValue);
           }
         }
-      }
-
-      function isValid(type, value){
-        switch(type.type){
-
-        case 'integer':
-          var parsedVal = parseInt(value, 10);
-          if(!angular.isNumber(parsedVal)){
-            return false;
-          }
-
-          if(type.max!==undefined && parsedVal > type.max){
-            return false;
-          }
-
-          break;
-
-
-        case 'string':
-          if(value===''){
-            return false;
-          }
-
-          break;
-
-        default:
-          return false;
-
-        }
-
-        return true;
       }
 
       // Init
       validateParams();
+
+      // Getting a list of properties
+      propertyService.getAll().then(function(data){
+        // NOTE: mock API has incorrectly formated JSON
+        scope.propertyList = data;
+      });
     }
   };
 });
