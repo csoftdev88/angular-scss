@@ -44,7 +44,7 @@ describe('propertyService', function() {
     env.apiGetFullURLSpy.restore();
   });
 
-  describe('getNews', function() {
+  describe('getAll', function() {
     it('should fire a GET request to properties/ API', function() {
       env.propertyService.getAll();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
