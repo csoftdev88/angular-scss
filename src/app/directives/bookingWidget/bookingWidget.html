@@ -10,7 +10,7 @@
     <!-- FIND YOUR HOTEL -->
     <li class="booking-input hotels">
       <div class="form-group">
-        <select name="hotels" required ng-model="selected.property" disable-search="false" chosen ng-options="hotel for hotel in hotels" data-placeholder="Find Your Hotel"/>
+        <select name="hotels" required ng-model="selected.property" disable-search="false" chosen ng-options="property.name for property in propertyList" data-placeholder="Find Your Hotel"/>
         <span class="info">Find Your Hotel:</span>
         <span class="more"><a href>Advanced Options</a></span>
       </div>

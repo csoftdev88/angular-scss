@@ -6,7 +6,7 @@ angular.module('mobiusApp.services.validation', [])
   function isQueryParamValid(paramSettings, paramValue){
     var value = convertValue(paramSettings, paramValue);
 
-    if(value === undefined){
+    if(!isValueValid(paramSettings, paramValue)){
       return false;
     }
 
@@ -38,6 +38,38 @@ angular.module('mobiusApp.services.validation', [])
     return true;
   }
 
+  function isValueValid(paramSettings, value){
+    if(value === undefined){
+      return;
+    }
+
+    switch(paramSettings.type){
+
+    case 'integer':
+      if(angular.isString){
+        value = parseInt(value, 10);
+      }
+
+      if(!angular.isNumber(value)){
+        return false;
+      }
+
+      break;
+
+    case 'string':
+      if(value===''){
+        return false;
+      }
+
+      break;
+
+    default:
+      break;
+    }
+
+    return true;
+  }
+
   function convertValue(paramSettings, paramValue){
     switch(paramSettings.type){
 
@@ -63,6 +95,7 @@ angular.module('mobiusApp.services.validation', [])
   // Public methods
   return {
     isQueryParamValid: isQueryParamValid,
-    convertValue: convertValue
+    convertValue: convertValue,
+    isValueValid: isValueValid
   };
 });

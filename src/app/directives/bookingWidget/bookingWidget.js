@@ -13,6 +13,8 @@ angular.module('mobiusApp.directives.booking', [])
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
+      // NOTE: property is presented using property code
+
       // Currently selected form values
       scope.selected = {
         'children': undefined,
@@ -20,15 +22,6 @@ angular.module('mobiusApp.directives.booking', [])
         'promoCode': '',
         'property': undefined
       };
-
-      // NODE: default property list
-      // TODO: remove once mock API is working
-      scope.propertyList = [
-        'Abbotsford',
-        'Blue River',
-        'Cache Creek',
-        'Calgary Airport'
-      ];
 
       // URL parameters and their settings
       var PARAM_TYPES = {
@@ -121,8 +114,28 @@ angular.module('mobiusApp.directives.booking', [])
 
       // Getting a list of properties
       propertyService.getAll().then(function(data){
-        // NOTE: mock API has incorrectly formated JSON
-        scope.propertyList = data;
+        scope.propertyList = data.properties || [];
+
+        var paramSettings = PARAM_TYPES.property;
+        var propertyCode = queryService.getValue(paramSettings.search);
+
+        if(propertyCode===undefined){
+          return;
+        }
+
+        // Checking whether list of properties has property specified in the URL
+        for(var i=0; i<scope.propertyList.length; i++){
+          var property = scope.propertyList[i];
+
+          if(property.code === propertyCode){
+            // Property exist
+            scope.selected.property = property;
+            return;
+          }
+        }
+
+        // Property with the same name doesn't exist - URL param is invalid and should be removed.
+        queryService.removeParam(paramSettings.search);
       });
 
       scope.onSearch = function(){
@@ -131,11 +144,26 @@ angular.module('mobiusApp.directives.booking', [])
           var paramSettings = PARAM_TYPES[key];
 
           var paramValue = queryService.getValue(paramSettings.search);
-          var queryValue = validationService.convertValue(paramSettings, paramValue);
-          var modelValue = scope.selected[key];
 
-          if(modelValue!==queryValue){
+          var modelValue;
+          if(key === 'property'){
+            modelValue = scope.selected[key].code;
+          }else{
+            modelValue = scope.selected[key];
+          }
+
+          if(validationService.isQueryParamValid(paramSettings, paramValue)){
+            var queryValue = validationService.convertValue(paramSettings, paramValue);
+
+            if(modelValue===queryValue){
+              continue;
+            }
+          }
+
+          if(validationService.isValueValid(paramSettings, modelValue)){
             queryService.setValue(paramSettings.search, modelValue);
+          } else {
+            queryService.removeParam(paramSettings.search);
           }
         }
       };
