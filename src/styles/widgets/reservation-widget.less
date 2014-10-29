@@ -103,7 +103,13 @@ reservation-steps {
   float: none;
   margin: 0 10px;
 
-  @media screen and @moreThenMobile {
+  @media screen and @moreThenMobile and @lessThenTabletPortrait {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  @media screen and @moreThenTabletPortrait {
     margin-left: auto;
     margin-right: auto;
     padding-top: @baseline * 3;
@@ -386,6 +392,7 @@ reservation-item {
   th { color: @colorLinkLight;}
 
   reservation-buttons {
+    .clearfix;
     button + button {
       float: right;
     }
@@ -462,6 +469,87 @@ reservation-room {
     .fs-12;
   }
 }
+
+@media screen and @lessThenTablet {
+  reservation-item {
+    reservation-buttons {
+      height: auto;
+
+      button {
+        display: block;
+        width: 100%;
+      }
+      button + .button--gray {
+        float: none;
+        .margin-top;
+      }
+    }
+  }
+
+  reservation-check-in,
+  reservation-charges {
+    table {
+      width: 100%;
+    }
+  }
+}
+
+// MOBILE and TABLETS in PORTRAIT orientation styles
+@media only screen and @lessThenDesktop {
+  reservation-data,
+  reservation-room {
+    display: block;
+
+    > div {
+      display: block;
+    }
+
+    table th {
+      width: 50%;
+    }
+  }
+
+  reservation-hotel,
+  reservation-check-in,
+  reservation-charges {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+
+  reservation-hotel {
+    width: auto;
+  }
+
+  reservation-check-in,
+  reservation-charges {
+    table {
+      width: 70%;
+    }
+  }
+
+  reservation-room {
+    .more-details {
+      display: none;
+    }
+  }
+
+}
+
+@media only screen and @moreThenMobile and @lessThenDesktop {
+  reservation-room {
+    clear: both;
+    div {
+      float: left;
+      width: 30%;
+    }
+    div:first-child {
+      width: 70%;
+    }
+  }
+
+}
+
 
 
 

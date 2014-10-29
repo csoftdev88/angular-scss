@@ -15,6 +15,7 @@ angular.module('mobiusApp', [
   'mobius.controllers.modals.generic',
   'mobius.controllers.modals.loginRegister',
   'mobius.controllers.modals.advancedOptions',
+  'mobius.controllers.modals.reservation',
 
   // Application modules
   'mobiusApp.config',
@@ -34,6 +35,7 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.hotels',
   'mobiusApp.directives.room',
   'mobiusApp.directives.room.aside',
+  'mobiusApp.directives.reservation.data',
 
   // Directive based on content data
   'mobiusApp.directives.menu',

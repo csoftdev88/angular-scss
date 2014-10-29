@@ -7,7 +7,7 @@ angular.module('mobiusApp.services.modal', [])
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_LOGIN_REGISTER = 'LoginRegisterCtrl',
       CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl',
-      CONTROLLER_RESERVATIONS = 'ReservationsCtrl';
+      CONTROLLER_RESERVATIONS = 'ModalReservationCtrl';
 
   function openDialog(templateUrl, controller, options){
     var q = $q.defer(),
@@ -46,8 +46,11 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('layouts/modals/advancedOptionsDialog.html', CONTROLLER_ADVANCED_OPTIONS);
   }
 
-  function openCancelReservationDialog(){
-    return openDialog('layouts/modals/cancelReservationDialog.html', CONTROLLER_RESERVATIONS);
+  function openCancelReservationDialog(reservation){
+    return openDialog('layouts/modals/cancelReservationDialog.html', CONTROLLER_RESERVATIONS, {
+      windowClass: 'is-wide has-white-bg',
+      resolve: {reservation: function(){return reservation;}}
+    });
   }
 
   function openCCVInfo(){

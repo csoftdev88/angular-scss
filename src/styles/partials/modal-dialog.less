@@ -16,6 +16,10 @@
   padding: @baseline - 1 10px;
   border-radius: 3px;
   background: #ebebeb;
+
+  .has-white-bg & {
+    background: @white;
+  }
 }
 
 .ui-info {
@@ -134,6 +138,9 @@
     .fs-14(true);
     color: #406881;
   }
+
+  reservation-item { .margin-top;}
+  .reservation-number { .line-height(14, 2);}
 }
 
 .modal-footer {
