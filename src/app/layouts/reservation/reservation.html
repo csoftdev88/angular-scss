@@ -1,1 +1,81 @@
-<div ui-view></div>
+<div ui-view>
+
+  <div widget="reservation" grid="8">
+    <h3>Your <strong>Next Stay</strong></h3>
+    <reservation-item ng-repeat="reservation in reservations">
+      <div class="table-wrap">
+        <p><strong>Reservation number: </strong>{{reservation.id}}</p>
+        <reservation-data>
+          <div>
+            <reservation-hotel>
+              <img src="/static/images/hotel.jpg" alt="{{reservation.hotel.name}}">
+              <p><strong>{{reservation.hotel.name}}</strong></p>
+              <p>{{reservation.hotel.country}}</p>
+            </reservation-hotel>
+            <reservation-check-in>
+              <table>
+                <tr>
+                  <th>Check in:</th>
+                  <td>{{reservation.checkin}}</td>
+                </tr>
+                <tr>
+                  <th>Check out:</th>
+                  <td>{{reservation.checkout}}</td>
+                </tr>
+              </table>
+            </reservation-check-in>
+            <reservation-charges>
+              <table>
+                <tr>
+                  <th>Room charges:</th>
+                  <!-- TODO: Replace number filter with proper currency filter -->
+                  <td>£ {{reservation.charges | number: 2}}</td>
+                </tr>
+                <tr>
+                  <th>Tax:</th>
+                  <td>£ {{reservation.tax | number: 2}}</td>
+                </tr>
+                <tr>
+                  <th>Total:</th>
+                  <td>£ {{reservation.total | number: 2}}</td>
+                </tr>
+              </table>
+            </reservation-charges>
+          </div>
+          <reservation-room ng-repeat="room in reservation.rooms">
+            <div>
+              <img src="/static/images/room-1.jpg" alt="{{room.type}}">
+              <p><strong>{{room.type}}</strong></p>
+              <p>{{room.rate}}</p>
+              <p><strong>£ {{room.price}}</strong></p>
+            </div>
+            <div>
+              <table>
+                <tr>
+                  <th>Adults:</th>
+                  <td>{{room.adults}}</td>
+                </tr>
+                <tr>
+                  <th>Children:</th>
+                  <td>{{room.children}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="more-details" ng-if="$index === 0">
+              <a href="" ng-click="openPoliciesInfo()">View Policies</a>
+              <br/>
+              <a href="" ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
+            </div>
+          </reservation-room>
+        </reservation-data>
+      </div>
+
+      <reservation-buttons>
+        <button class="button--gray">Edit Reservation</button>
+        <button class="button--gray">Cancel Reservation</button>
+      </reservation-buttons>
+    </reservation-item>
+
+    <h3>Your <strong>Past Stays</strong></h3>
+  </div>
+</div>

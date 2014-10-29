@@ -6,7 +6,8 @@ angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_LOGIN_REGISTER = 'LoginRegisterCtrl',
-      CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl';
+      CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl',
+      CONTROLLER_RESERVATIONS = 'ReservationsCtrl';
 
   function openDialog(templateUrl, controller, options){
     var q = $q.defer(),
@@ -45,6 +46,10 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('layouts/modals/advancedOptionsDialog.html', CONTROLLER_ADVANCED_OPTIONS);
   }
 
+  function openCancelReservationDialog(){
+    return openDialog('layouts/modals/cancelReservationDialog.html', CONTROLLER_RESERVATIONS);
+  }
+
   function openCCVInfo(){
     return openDialog('layouts/modals/ccvInfo.html', CONTROLLER_DEFAULT);
   }
@@ -68,6 +73,7 @@ angular.module('mobiusApp.services.modal', [])
     openPasswordResetDialog: openPasswordResetDialog,
     openEnterCodeDialog: openEnterCodeDialog,
     openAdvancedOptionsDialog: openAdvancedOptionsDialog,
+    openCancelReservationDialog: openCancelReservationDialog,
     openCCVInfo: openCCVInfo,
     openPoliciesInfo: openPoliciesInfo,
     openPriceBreakdownInfo: openPriceBreakdownInfo

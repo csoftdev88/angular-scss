@@ -11,6 +11,7 @@ angular.module('mobiusApp', [
   // Controllers
   'mobius.controllers.main',
   'mobius.controllers.offers',
+  'mobius.controllers.reservations',
   'mobius.controllers.modals.generic',
   'mobius.controllers.modals.loginRegister',
   'mobius.controllers.modals.advancedOptions',
@@ -81,7 +82,8 @@ angular.module('mobiusApp', [
     // Room reservation
     .state('index.reservation', {
       templateUrl: 'layouts/reservation/reservation.html',
-      url: '/reservation'
+      url: '/reservation',
+      controller: 'ReservationsCtrl'
     })
 
     .state('index.reservation.details', {

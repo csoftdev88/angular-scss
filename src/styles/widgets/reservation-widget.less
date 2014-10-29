@@ -358,3 +358,111 @@ reservation-confirmation {
     }
   }
 }
+
+
+/*  ==========================================
+    Users RESERVATION resume page
+      - List of NEXT STAYS
+      - List of PAST STAYS
+      - Buttons for editing and canceling
+    ========================================== */
+reservation-item {
+  &:extend(.block);
+
+  .table-wrap {
+    padding: @baseline - 1;
+    border: 1px @borderColorDefault solid;
+    background: @white;
+
+    > p {
+      margin-top: 0;
+      .margin-bottom(14, 1);
+    }
+  }
+
+  p { margin: 0;}
+
+  strong,
+  th { color: @colorLinkLight;}
+
+  reservation-buttons {
+    button + button {
+      float: right;
+    }
+  }
+}
+
+reservation-data {
+  display: table;
+  width: 100%;
+  .clearfix;
+
+  > div { display: table-row;}
+
+  img {
+    width: 70px;
+    float: left;
+    margin: 5px 5px 0 0;
+    border-radius: 3px;
+  }
+
+  th {
+    text-align: right;
+  }
+
+  th, td {
+    padding-left: 10px;
+    white-space: nowrap;
+    vertical-align: top;
+    .fs-14(true);
+  }
+
+}
+
+.reservation-table-cell {
+  display: table-cell;
+  vertical-align: top;
+}
+
+reservation-hotel {
+  &:extend(.reservation-table-cell);
+  width: 40%;
+
+  p { .fs-14(true);}
+  p + p {
+    .fs-12;
+    line-height: 1.25;
+  }
+}
+
+reservation-check-in {
+  &:extend(.reservation-table-cell);
+}
+
+reservation-charges {
+  &:extend(.reservation-table-cell);
+}
+
+reservation-room {
+  display: table-row;
+
+  > div {
+    display: table-cell;
+    .padding-top(16, 1);
+    vertical-align: top;
+  }
+
+  p { &:extend(reservation-hotel p);}
+  p + p { &:extend(reservation-hotel p + p);}
+
+  .more-details { text-align: right;}
+
+  a {
+    color: @colorLinkDefault;
+    .fs-12;
+  }
+}
+
+
+
+
