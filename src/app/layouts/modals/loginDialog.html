@@ -6,25 +6,33 @@
 
   <div class="modal-body">
     <div class="form-wrap">
-      <form action="">
-        <label for="login-email">
+      <form name="loginForm" ng-submit="loginForm.$valid && ok()">
+        <label for="email">
           Email Address
-          <input type="email" id="login-email">
+          <input type="email" name="email" ng-model="formData.email" required ng-pattern="emailPattern">
         </label>
-        <label for="login-password">
+
+        <label for="password">
           Password
-          <input type="password" id="login-password">
+          <input type="password" name="password" required ng-model="formData.password">
         </label>
+
+        <div class="form-errors" ng-show="loginForm.$invalid">
+          <span ng-show="loginForm.email.$error.email || loginForm.email.$error.pattern">Please enter valid email</span>
+          <span ng-show="loginForm.password.$error.required">Password is required</span>
+        </div>
+
+        <p>
+          <a href="" ng-click="openPasswordResetDialog()">Forgotten your password?</a><br/>
+          <a href="" ng-click="openEnterCodeDialog()">Have a password reset code?</a>
+        </p>
+
       </form>
-      <p>
-        <a href="" ng-click="openPasswordResetDialog()">Forgotten your password?</a><br/>
-        <a href="" ng-click="openEnterCodeDialog()">Have a password reset code?</a>
-      </p>
     </div>
   </div>
 
   <div class="modal-footer">
-    <button class="button" ng-click="ok()">Continue</button>
+    <button class="button" type="submit">Continue</button>
     <!-- <button class="button" ng-click="cancel()">Cancel</button> -->
   </div>
 </div>
