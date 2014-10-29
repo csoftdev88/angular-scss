@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function(queryService, validationService, propertyService, Settings){
+.directive('bookingWidget', function($filter, queryService, validationService, propertyService, Settings){
   return {
     restrict: 'E',
     scope: {},
@@ -20,7 +20,8 @@ angular.module('mobiusApp.directives.booking', [])
         'children': undefined,
         'adults': undefined,
         'promoCode': '',
-        'property': undefined
+        'property': undefined,
+        'startDate': undefined
       };
 
       // URL parameters and their settings
@@ -44,12 +45,17 @@ angular.module('mobiusApp.directives.booking', [])
         'promoCode': {
           'search': 'promoCode',
           'type': 'string'
+        },
+        'startDate': {
+          'search': 'startDate',
+          'type': 'string',
+          'format': 'yyyy-MM-dd'
         }
       };
 
       // Function will remove query parameters from the URL in case their
       // values are not valid
-      function validateParams(){
+      function validateURLParams(){
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
 
@@ -67,7 +73,7 @@ angular.module('mobiusApp.directives.booking', [])
 
 
       // Init
-      validateParams();
+      validateURLParams();
 
       // NOTE: This should be uncommented in case we want to update URL params once user
       // changed any of the form controls
@@ -146,8 +152,10 @@ angular.module('mobiusApp.directives.booking', [])
           var paramValue = queryService.getValue(paramSettings.search);
 
           var modelValue;
-          if(key === 'property'){
+          if(key === 'property' && scope.selected[key]!==undefined){
             modelValue = scope.selected[key].code;
+          } else if(key === 'startDate'){
+            modelValue = $filter('date')(scope.selected[key], paramSettings.format);
           }else{
             modelValue = scope.selected[key];
           }
