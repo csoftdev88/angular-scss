@@ -7,7 +7,10 @@ angular.module('mobius.controllers.modals.loginRegister', [])
 .controller( 'LoginRegisterCtrl', function($scope, $controller, $modalInstance,
   modalService) {
   // TODO: same properties should be use for login/reset dialogs
-  $scope.email = '';
+  $scope.emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+  $scope.formData = {};
+
   $scope.success = false;
   $scope.codePattern = /[0-9\-]{8}/;
   $scope.passwordChanged = false;
