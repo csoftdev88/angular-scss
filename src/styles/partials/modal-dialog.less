@@ -16,6 +16,10 @@
   padding: @baseline - 1 10px;
   border-radius: 3px;
   background: #ebebeb;
+
+  .has-white-bg & {
+    background: @white;
+  }
 }
 
 .ui-info {
@@ -138,6 +142,9 @@
     .fs-14(true);
     color: #406881;
   }
+
+  reservation-item { .margin-top;}
+  .reservation-number { .line-height(14, 2);}
 }
 
 .modal-footer {
@@ -227,6 +234,7 @@
     .is-wide & {
       .grid-width(9);
       max-width: @width;
+      margin: 50px auto;
 
       @media only screeb and @lessThenTabletPortrait {
         margin: 50px 20px;

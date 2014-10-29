@@ -11,9 +11,11 @@ angular.module('mobiusApp', [
   // Controllers
   'mobius.controllers.main',
   'mobius.controllers.offers',
+  'mobius.controllers.reservations',
   'mobius.controllers.modals.generic',
   'mobius.controllers.modals.loginRegister',
   'mobius.controllers.modals.advancedOptions',
+  'mobius.controllers.modals.reservation',
 
   // Application modules
   'mobiusApp.config',
@@ -33,6 +35,7 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.hotels',
   'mobiusApp.directives.room',
   'mobiusApp.directives.room.aside',
+  'mobiusApp.directives.reservation.data',
 
   // Directive based on content data
   'mobiusApp.directives.menu',
@@ -81,7 +84,8 @@ angular.module('mobiusApp', [
     // Room reservation
     .state('index.reservation', {
       templateUrl: 'layouts/reservation/reservation.html',
-      url: '/reservation'
+      url: '/reservation',
+      controller: 'ReservationsCtrl'
     })
 
     .state('index.reservation.details', {
