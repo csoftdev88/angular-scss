@@ -116,6 +116,10 @@
         color: lighten(@colorLinkLight, 15%);
       }
     }
+
+    .modal-footer {
+      position: absolute;
+    }
   }
 
   input[type="text"],
@@ -202,7 +206,10 @@
   p { margin: 0;}
 }
 
-
+// NOTE: Form submit buttons are part of form but visually outside of the form area
+.ui-dialog > .modal-body > .form-wrap {
+  margin-bottom: 50px;
+}
 
 // TABLET and DESKTOP styles
 @media only screen and @moreThenMobile {
