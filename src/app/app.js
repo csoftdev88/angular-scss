@@ -36,6 +36,7 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.room',
   'mobiusApp.directives.room.aside',
   'mobiusApp.directives.reservation.data',
+  'mobiusApp.directives.equals',
 
   // Directive based on content data
   'mobiusApp.directives.menu',

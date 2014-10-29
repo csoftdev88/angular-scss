@@ -5,35 +5,36 @@
   </div>
 
   <div class="modal-body">
-    <form name="resetForm">
+    <form name="resetForm" ng-submit="resetForm.$valid && changePassword()">
 
-      <label for="reset-code">
+      <label for="code">
         Code
-        <input type="text" id="reset-code" name="resetCode" ng-model="code" ng-model-options="{ updateOn: 'blur'}" ng-pattern="codePattern" ng-trim="true" required />
+        <input type="text" name="code" ng-model="formData.code" ng-model-options="{ updateOn: 'blur'}" ng-pattern="codePattern" ng-trim="true" required />
       </label>
 
-      <label for="reset-new-password">
+      <label for="password">
         New Password
-        <input type="password" id="reset-new-password" name="resetNewPassword" ng-model="password" ng-model-options="{ updateOn: 'blur'}" required />
+        <input type="password" name="password" ng-model="formData.password" ng-model-options="{ updateOn: 'blur'}" required />
       </label>
 
-      <label for="reset-confirm-password">
+      <label for="confirmPassword">
         Confirm Password
-        <input type="password" id="reset-confirm-password" name="resetConfirmPassword" ng-model="passwordConfirm" required />
+        <input type="password" name="confirmPassword" ng-model="formData.passwordConfirm" equals="formData.password" required />
       </label>
       <div class="form-errors" ng-show="resetForm.$invalid || password != passwordConfirm">
-          <span ng-show="resetForm.resetCode.$invalid">Invalid code format. </span>
-          <span ng-show="password != passwordConfirm">Passwords difffers.</span>
-          <span ng-show="!password">Please fill your password.</span>
-          <span ng-show="!passwordConfirm">Please confirm your password.</span>
-        </div>
+        <span ng-show="resetForm.code.$invalid">Invalid code format. </span>
+        <span ng-show="resetForm.confirmPassword.$error.equals">Passwords difffers.</span>
+        <span ng-show="resetForm.password.$error.required">Please fill your password.</span>
+        <span ng-show="resetForm.confirmPassword.$error.required">Please confirm your password.</span>
+      </div>
+
+      <div class="modal-footer">
+        <button class="button button-full" type="submit" ng-disabled="resetForm.code.$invalid || !formData.password || !formData.passwordConfirm" ng-hide="passwordChanged">Change Password</button>
+        <button class="button button-full" ng-if="passwordChanged" ng-click="ok()">Continue</button>
+      </div>
     </form>
   </div>
 
-  <div class="modal-footer">
-    <button class="button button-full" ng-disabled="resetForm.resetCode.$invalid || password != passwordConfirm || !password || !passwordConfirm" ng-hide="passwordChanged" ng-click="changePassword()">Change Password</button>
-    <button class="button button-full" ng-if="passwordChanged" ng-click="ok()">Continue</button>
-  </div>
   <div class="info-box-success" ng-show="passwordChanged" ng-class="{'modal-info-success': passwordChanged}">
     <p><strong>Success!</strong></p>
     <p>Your password was successfully changed</p>
