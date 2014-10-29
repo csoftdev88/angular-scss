@@ -2,7 +2,9 @@
 
 angular.module('mobius.controllers.main', [])
 
-.controller( 'MainCtrl',  function($scope, $state, orderByFilter, contentService, Settings) {
+.controller( 'MainCtrl',  function($scope, $state, $modal,
+    $log, $controller, orderByFilter, modalService, contentService, Settings) {
+
   // Application settings
   $scope.config = Settings.UI;
 
@@ -54,4 +56,25 @@ angular.module('mobius.controllers.main', [])
       $scope.heroContent = orderByFilter(heroContent, '+order');
     });
   }
+
+  $scope.openLoginDialog = function(){
+    modalService.openLoginDialog();
+  };
+
+  $scope.openRegisterDialog = function(){
+    modalService.openRegisterDialog();
+  };
+
+  $scope.openPasswordResetDialog = function(){
+    modalService.openPasswordResetDialog();
+  };
+
+  $scope.openEnterCodeDialog = function(){
+    modalService.openEnterCodeDialog();
+  };
+
+  $scope.openCCVInfo = modalService.openCCVInfo;
+  $scope.openPoliciesInfo = modalService.openPoliciesInfo;
+  $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
+
 });

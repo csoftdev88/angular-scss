@@ -209,6 +209,7 @@ module.exports = function(grunt) {
           '<%= config.client %>/locales/*.json'
         ],
         tasks: ['localisation', 'templateCache', 'index:build'],
+        options: { livereload: true }
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],

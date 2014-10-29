@@ -103,7 +103,13 @@ reservation-steps {
   float: none;
   margin: 0 10px;
 
-  @media screen and @moreThenMobile {
+  @media screen and @moreThenMobile and @lessThenTabletPortrait {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  @media screen and @moreThenTabletPortrait {
     margin-left: auto;
     margin-right: auto;
     padding-top: @baseline * 3;
@@ -215,7 +221,6 @@ reservation-room-resume {
     margin-top: 0;
     text-align: right;
     a {
-      color: #2b5e7f;
       margin-left: 1em;
     }
   }
@@ -289,7 +294,6 @@ reservation-buttons {
       float: right;
     }
   }
-
 }
 
 reservation-confirmation {
@@ -297,6 +301,7 @@ reservation-confirmation {
   .margin-top-bottom;
   padding: @baseline - 1;
   border-radius: 10px;
+  // TODO: Decide if colors should be in config.less
   border: 1px #a7c6de solid;
   background: #dce5ea;
   text-align: center;
@@ -311,6 +316,7 @@ reservation-confirmation {
 
   p {
     margin: 0;
+    // TODO: Decide if color should be in config.less
     color: #2b5e7f;
     font-weight: 300;
     .fs-14(true);
@@ -319,7 +325,6 @@ reservation-confirmation {
   strong {
     white-space: nowrap;
   }
-
 }
 
 @media only screen and @moreThenMobile {
@@ -359,3 +364,185 @@ reservation-confirmation {
     }
   }
 }
+
+
+/*  ==========================================
+    Users RESERVATION resume page
+      - List of NEXT STAYS
+      - List of PAST STAYS
+      - Buttons for editing and canceling
+    ========================================== */
+
+reservation-item {
+  &:extend(.block);
+
+  .table-wrap {
+    padding: @baseline - 1;
+    border: 1px @borderColorDefault solid;
+    background: @white;
+
+    > p {
+      margin-top: 0;
+      .margin-bottom(14, 1);
+    }
+  }
+
+  p { margin: 0;}
+
+  strong,
+  th { color: @colorLinkLight;}
+
+  reservation-buttons {
+    .clearfix;
+    button + button {
+      float: right;
+    }
+  }
+}
+
+reservation-data {
+  display: table;
+  width: 100%;
+  .clearfix;
+
+  > div { display: table-row;}
+
+  img {
+    width: 70px;
+    float: left;
+    margin: 5px 5px 0 0;
+    border-radius: 3px;
+  }
+
+  th {
+    text-align: right;
+  }
+
+  th, td {
+    padding-left: 10px;
+    white-space: nowrap;
+    vertical-align: top;
+    .fs-14(true);
+  }
+}
+
+.reservation-table-cell {
+  display: table-cell;
+  vertical-align: top;
+}
+
+reservation-hotel {
+  &:extend(.reservation-table-cell);
+  width: 40%;
+
+  p { .fs-14(true);}
+  p + p {
+    .fs-12;
+    line-height: 1.25;
+  }
+}
+
+reservation-check-in {
+  &:extend(.reservation-table-cell);
+}
+
+reservation-charges {
+  &:extend(.reservation-table-cell);
+}
+
+reservation-room {
+  display: table-row;
+
+  > div {
+    display: table-cell;
+    .padding-top(16, 1);
+    vertical-align: top;
+  }
+
+  p { &:extend(reservation-hotel p);}
+  p + p { &:extend(reservation-hotel p + p);}
+
+  .more-details { text-align: right;}
+
+  a {
+    color: @colorLinkDefault;
+    .fs-12;
+  }
+}
+
+// MOBILE styles
+@media screen and @lessThenTablet {
+  reservation-item {
+    reservation-buttons {
+      height: auto;
+
+      button {
+        display: block;
+        width: 100%;
+      }
+      button + .button--gray {
+        float: none;
+        .margin-top;
+      }
+    }
+  }
+
+  reservation-check-in,
+  reservation-charges {
+    table {
+      width: 100%;
+    }
+  }
+}
+
+// MOBILE and TABLET styles
+@media only screen and @lessThenDesktop {
+  reservation-data,
+  reservation-room {
+    display: block;
+
+    > div { display: block;}
+    table th { width: 50%;}
+  }
+
+  reservation-hotel,
+  reservation-check-in,
+  reservation-charges {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+
+  reservation-hotel {
+    width: auto;
+  }
+
+  reservation-check-in,
+  reservation-charges {
+    table { width: 70%;}
+  }
+
+  reservation-room {
+    .more-details {
+      display: none;
+    }
+  }
+}
+
+// TABLET styles
+@media only screen and @moreThenMobile and @lessThenDesktop {
+  reservation-room {
+    clear: both;
+
+    div {
+      float: left;
+      width: 30%;
+    }
+
+    div:first-child {
+      width: 70%;
+    }
+  }
+}
+
+
