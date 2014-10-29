@@ -294,7 +294,6 @@ reservation-buttons {
       float: right;
     }
   }
-
 }
 
 reservation-confirmation {
@@ -302,6 +301,7 @@ reservation-confirmation {
   .margin-top-bottom;
   padding: @baseline - 1;
   border-radius: 10px;
+  // TODO: Decide if colors should be in config.less
   border: 1px #a7c6de solid;
   background: #dce5ea;
   text-align: center;
@@ -316,6 +316,7 @@ reservation-confirmation {
 
   p {
     margin: 0;
+    // TODO: Decide if color should be in config.less
     color: #2b5e7f;
     font-weight: 300;
     .fs-14(true);
@@ -324,7 +325,6 @@ reservation-confirmation {
   strong {
     white-space: nowrap;
   }
-
 }
 
 @media only screen and @moreThenMobile {
@@ -372,6 +372,7 @@ reservation-confirmation {
       - List of PAST STAYS
       - Buttons for editing and canceling
     ========================================== */
+
 reservation-item {
   &:extend(.block);
 
@@ -423,7 +424,6 @@ reservation-data {
     vertical-align: top;
     .fs-14(true);
   }
-
 }
 
 .reservation-table-cell {
@@ -470,6 +470,7 @@ reservation-room {
   }
 }
 
+// MOBILE styles
 @media screen and @lessThenTablet {
   reservation-item {
     reservation-buttons {
@@ -494,19 +495,14 @@ reservation-room {
   }
 }
 
-// MOBILE and TABLETS in PORTRAIT orientation styles
+// MOBILE and TABLET styles
 @media only screen and @lessThenDesktop {
   reservation-data,
   reservation-room {
     display: block;
 
-    > div {
-      display: block;
-    }
-
-    table th {
-      width: 50%;
-    }
+    > div { display: block;}
+    table th { width: 50%;}
   }
 
   reservation-hotel,
@@ -523,9 +519,7 @@ reservation-room {
 
   reservation-check-in,
   reservation-charges {
-    table {
-      width: 70%;
-    }
+    table { width: 70%;}
   }
 
   reservation-room {
@@ -533,24 +527,22 @@ reservation-room {
       display: none;
     }
   }
-
 }
 
+// TABLET styles
 @media only screen and @moreThenMobile and @lessThenDesktop {
   reservation-room {
     clear: both;
+
     div {
       float: left;
       width: 30%;
     }
+
     div:first-child {
       width: 70%;
     }
   }
-
 }
-
-
-
 
 

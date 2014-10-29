@@ -8,6 +8,7 @@ angular.module('mobius.controllers.reservations', [])
 
   $controller('MainCtrl', {$scope: $scope});
 
+  // NOTE: Dummy data, will be replaced by data from API
   $scope.reservations = [
     {
       id: 'MOBTUN-123555',

@@ -13,6 +13,7 @@ angular.module('mobiusApp.services.modal', [])
     var q = $q.defer(),
         modalOptions = { templateUrl: templateUrl, controller: controller };
 
+    // Merge required and arbitrary options together
     angular.extend(modalOptions, options);
 
     $modal.open(modalOptions).result.then(function() {
@@ -46,6 +47,7 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('layouts/modals/advancedOptionsDialog.html', CONTROLLER_ADVANCED_OPTIONS);
   }
 
+  // Accepting reservation data to be rendered in modal window
   function openCancelReservationDialog(reservation){
     return openDialog('layouts/modals/cancelReservationDialog.html', CONTROLLER_RESERVATIONS, {
       windowClass: 'is-wide has-white-bg',

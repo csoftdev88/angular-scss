@@ -1,6 +1,6 @@
 'use strict';
 /*
-* This module controls reservation in modal window
+* This module controls single reservation in modal window
 */
 angular.module('mobius.controllers.modals.reservation', [])
 
