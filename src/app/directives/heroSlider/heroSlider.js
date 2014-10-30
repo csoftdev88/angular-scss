@@ -71,6 +71,10 @@ angular.module('mobiusApp.directives.slider', [])
 
       // Redirecting to corresponding page
       scope.onContentClick = function(){
+        if(isAnimating){
+          return;
+        }
+
         var slideData = scope.content[scope.slideIndex];
 
         if(slideData.categoryName && slideData.ID){
@@ -106,7 +110,7 @@ angular.module('mobiusApp.directives.slider', [])
 
         scope.preventClick($event);
 
-        if(isAnimating || scope.slideIndex === newSlideIndex){
+        if(isAnimating || scope.slideIndex === newSlideIndex || scope.content.length < 2){
           return;
         }
 

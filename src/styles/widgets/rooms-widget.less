@@ -14,7 +14,7 @@ accordion {
   }
 }
 
-.room__prices {
+.room-prices {
   .clearfix;
 
   .accordion-toggle {
@@ -120,6 +120,22 @@ accordion {
   }
 }
 
+.room-continue {
+  .line-height(16, 2);
+  text-align: right;
+  .button {
+    .grid-width(3);
+    width: @width;
+  }
+
+  @media only screen and @lessThenTablet {
+    .margin-top;
+
+    .button {
+      width: 100%;
+    }
+  }
+}
 /*  ==========================================
     ROOM ASIDE widget
     ========================================== */
@@ -170,10 +186,6 @@ accordion {
   advert {
     .margin-top-bottom(16, 2);
     height: ceil(395 / @baseline) * @baseline;
-  }
-
-  .button {
-    width: 100%;
   }
 }
 

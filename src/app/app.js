@@ -5,6 +5,7 @@ angular.module('mobiusApp', [
   'ui.router',
   // Bootstrap components
   'ui.bootstrap',
+  'ngTouch',
   // Template cache
   'templates-app',
 

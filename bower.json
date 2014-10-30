@@ -13,6 +13,7 @@
     "angular-mocks": "~1.2.9",
     "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
     "chai": "~1.7.2",
-    "sinon-chai": "~2.4.0"
+    "sinon-chai": "~2.4.0",
+    "angular-touch": "~1.2.0"
   }
 }
