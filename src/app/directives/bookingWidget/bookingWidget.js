@@ -67,11 +67,11 @@ angular.module('mobiusApp.directives.booking', [])
           var paramValue = queryService.getValue(paramSettings.search);
 
           // URL parameter is presented by has no value
-          if(paramValue === true || !validationService.isQueryParamValid(paramSettings, paramValue)){
+          if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
             queryService.removeParam(paramSettings.search);
           }else{
             // Value is valid, we can assign it to the model
-            scope.selected[key] = validationService.convertValue(paramSettings, paramValue);
+            scope.selected[key] = validationService.convertValue(paramValue, paramSettings);
           }
         }
       }
@@ -154,8 +154,6 @@ angular.module('mobiusApp.directives.booking', [])
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
 
-          var paramValue = queryService.getValue(paramSettings.search);
-
           var modelValue;
           if(key === 'property' && scope.selected[key]!==undefined){
             modelValue = scope.selected[key].code;
@@ -165,17 +163,15 @@ angular.module('mobiusApp.directives.booking', [])
             modelValue = scope.selected[key];
           }
 
-          if(validationService.isQueryParamValid(paramSettings, paramValue)){
-            var queryValue = validationService.convertValue(paramSettings, paramValue);
+          if(validationService.isValueValid(modelValue, paramSettings)){
+            var paramValue = queryService.getValue(paramSettings.search);
+            var queryValue = validationService.convertValue(paramValue, paramSettings);
 
-            if(modelValue===queryValue){
-              continue;
+            if(modelValue!==queryValue){
+              queryService.setValue(paramSettings.search, modelValue);
             }
-          }
 
-          if(validationService.isValueValid(paramSettings, modelValue)){
-            queryService.setValue(paramSettings.search, modelValue);
-          } else {
+          }else{
             queryService.removeParam(paramSettings.search);
           }
         }
@@ -186,7 +182,7 @@ angular.module('mobiusApp.directives.booking', [])
         for(var key in PARAM_TYPES){
           var settings = PARAM_TYPES[key];
 
-          if(settings.required && !validationService.isValueValid(settings, scope.selected[key])){
+          if(settings.required && !validationService.isValueValid(scope.selected[key], settings)){
             return false;
           }
         }

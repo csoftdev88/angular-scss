@@ -3,21 +3,23 @@
 angular.module('mobiusApp.services.validation', [])
 .service( 'validationService',  function() {
 
-  function isQueryParamValid(paramSettings, paramValue){
-    var value = convertValue(paramSettings, paramValue);
+  function isValueValid(paramValue, paramSettings){
 
-    if(!isValueValid(paramSettings, paramValue)){
+    paramValue = convertValue(paramValue, paramSettings);
+
+    if(paramValue === undefined){
       return false;
     }
 
     switch(paramSettings.type){
 
     case 'integer':
-      if(paramSettings.max!==undefined && value > paramSettings.max){
+      // Range validation
+      if(paramSettings.max!==undefined && paramValue > paramSettings.max){
         return false;
       }
 
-      if(paramSettings.min!==undefined && value < paramSettings.min){
+      if(paramSettings.min!==undefined && paramValue < paramSettings.min){
         return false;
       }
 
@@ -32,45 +34,12 @@ angular.module('mobiusApp.services.validation', [])
 
     default:
       return false;
-
     }
 
     return true;
   }
 
-  function isValueValid(paramSettings, value){
-    if(value === undefined){
-      return;
-    }
-
-    switch(paramSettings.type){
-
-    case 'integer':
-      if(angular.isString){
-        value = parseInt(value, 10);
-      }
-
-      if(!angular.isNumber(value)){
-        return false;
-      }
-
-      break;
-
-    case 'string':
-      if(value===''){
-        return false;
-      }
-
-      break;
-
-    default:
-      break;
-    }
-
-    return true;
-  }
-
-  function convertValue(paramSettings, paramValue){
+  function convertValue(paramValue, paramSettings){
     switch(paramSettings.type){
 
     case 'integer':
@@ -86,7 +55,6 @@ angular.module('mobiusApp.services.validation', [])
 
     default:
       break;
-
     }
 
     return undefined;
@@ -94,7 +62,6 @@ angular.module('mobiusApp.services.validation', [])
 
   // Public methods
   return {
-    isQueryParamValid: isQueryParamValid,
     convertValue: convertValue,
     isValueValid: isValueValid
   };

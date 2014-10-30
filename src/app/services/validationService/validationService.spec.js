@@ -56,7 +56,7 @@ describe('apiService', function() {
     describe('integers', function() {
       it('should make a proper type conversion', function() {
         var testData = TEST_VALUES[0];
-        var converted = env.validationService.convertValue(SETTINGS_INT_SIMPLE, testData.in);
+        var converted = env.validationService.convertValue(testData.in, SETTINGS_INT_SIMPLE);
 
         expect(converted).equal(testData.out);
       });
@@ -65,7 +65,7 @@ describe('apiService', function() {
     describe('strings', function() {
       it('should make a proper type conversion', function() {
         var testData = TEST_VALUES[1];
-        var converted = env.validationService.convertValue(SETTINGS_STRING, testData.in);
+        var converted = env.validationService.convertValue(testData.in, SETTINGS_STRING);
 
         expect(converted).equal(testData.out);
       });
@@ -74,19 +74,18 @@ describe('apiService', function() {
     describe('unknown type', function() {
       it('should return undefined', function() {
         var testData = TEST_VALUES[0];
-        var converted = env.validationService.convertValue(SETTINGS_UNKNOWN, testData.in);
+        var converted = env.validationService.convertValue(testData.in, SETTINGS_UNKNOWN);
 
         expect(converted).equal(undefined);
       });
     });
   });
 
-  describe('isQueryParamValid', function() {
+  describe('isValueValid', function() {
     describe('integers', function() {
-
       it('should do a proper validation without range settings', function() {
         var testData = TEST_VALUES[0];
-        var converted = env.validationService.isQueryParamValid(SETTINGS_INT_SIMPLE, testData.out);
+        var converted = env.validationService.isValueValid(testData.out, SETTINGS_INT_SIMPLE);
         expect(converted).equal(true);
       });
 
@@ -94,17 +93,17 @@ describe('apiService', function() {
         it('should do a proper validation', function() {
           // CASE 1
           var testData = TEST_VALUES[2];
-          var converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MIN, testData.in);
+          var converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MIN);
           expect(converted).equal(false);
 
           // CASE 2
           testData = TEST_VALUES[3];
-          converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MIN, testData.in);
+          converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MIN);
           expect(converted).equal(true);
 
           // CASE 3
           testData = TEST_VALUES[4];
-          converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MIN, testData.in);
+          converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MIN);
           expect(converted).equal(true);
         });
       });
@@ -113,47 +112,46 @@ describe('apiService', function() {
         it('should do a proper validation', function() {
           // CASE 1
           var testData = TEST_VALUES[2];
-          var converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MAX, testData.in);
+          var converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MAX);
           expect(converted).equal(true);
 
           // CASE 2
           testData = TEST_VALUES[3];
-          converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MAX, testData.in);
+          converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MAX);
           expect(converted).equal(true);
 
           // CASE 3
           testData = TEST_VALUES[4];
-          converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MAX, testData.in);
+          converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MAX);
           expect(converted).equal(true);
 
           // CASE 4
           testData = TEST_VALUES[0];
-          converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MAX, testData.in);
+          converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MAX);
           expect(converted).equal(false);
         });
       });
-
 
       describe('when min and max values are specifyed', function() {
         it('should do a proper validation', function() {
           // CASE 1
           var testData = TEST_VALUES[2];
-          var converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MIN_MAX, testData.in);
+          var converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MIN_MAX);
           expect(converted).equal(false);
 
           // CASE 2
           testData = TEST_VALUES[3];
-          converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MIN_MAX, testData.in);
+          converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MIN_MAX);
           expect(converted).equal(false);
 
           // CASE 3
           testData = TEST_VALUES[4];
-          converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MIN_MAX, testData.in);
+          converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MIN_MAX);
           expect(converted).equal(true);
 
           // CASE 4
           testData = TEST_VALUES[0];
-          converted = env.validationService.isQueryParamValid(SETTINGS_INT_RANGE_MAX, testData.in);
+          converted = env.validationService.isValueValid(testData.in, SETTINGS_INT_RANGE_MAX);
           expect(converted).equal(false);
         });
       });
