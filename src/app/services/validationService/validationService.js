@@ -40,6 +40,10 @@ angular.module('mobiusApp.services.validation', [])
   }
 
   function convertValue(paramValue, paramSettings){
+    if(paramSettings === undefined){
+      return;
+    }
+
     switch(paramSettings.type){
 
     case 'integer':
@@ -57,7 +61,7 @@ angular.module('mobiusApp.services.validation', [])
       break;
     }
 
-    return undefined;
+    return;
   }
 
   // Public methods
