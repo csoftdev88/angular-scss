@@ -30,26 +30,31 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'children',
           'type': 'integer',
           'max': scope.settings.maxChildren,
-          'min': 0
+          'min': 0,
+          'required': true
         },
         'adults': {
           'search': 'adults',
           'type': 'integer',
           'max': scope.settings.maxAdults,
-          'min': 0
+          'min': 0,
+          'required': true
         },
         'property': {
           'search': 'property',
-          'type': 'string'
+          'type': 'string',
+          'required': true
         },
         'promoCode': {
           'search': 'promoCode',
-          'type': 'string'
+          'type': 'string',
+          'required': false
         },
         'startDate': {
           'search': 'startDate',
           'type': 'string',
-          'format': 'yyyy-MM-dd'
+          'format': 'yyyy-MM-dd',
+          'required': true
         }
       };
 
@@ -174,6 +179,19 @@ angular.module('mobiusApp.directives.booking', [])
             queryService.removeParam(paramSettings.search);
           }
         }
+      };
+
+      // Search is enabled only when required fields contains data
+      scope.isSearchable = function(){
+        for(var key in PARAM_TYPES){
+          var settings = PARAM_TYPES[key];
+
+          if(settings.required && !validationService.isValueValid(settings, scope.selected[key])){
+            return false;
+          }
+        }
+
+        return true;
       };
     }
   };
