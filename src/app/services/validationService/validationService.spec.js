@@ -9,6 +9,7 @@ describe('apiService', function() {
     {'in': '-10', 'out': -10},
     {'in': '-1', 'out': -1},
     {'in': '0', 'out': 0},
+    {'in': 0, 'out': 0}
   ];
 
   var SETTINGS_INT_SIMPLE = {
@@ -54,8 +55,15 @@ describe('apiService', function() {
 
   describe('convertValue', function() {
     describe('integers', function() {
-      it('should make a proper type conversion', function() {
+      it('should make a proper type conversion from string', function() {
         var testData = TEST_VALUES[0];
+        var converted = env.validationService.convertValue(testData.in, SETTINGS_INT_SIMPLE);
+
+        expect(converted).equal(testData.out);
+      });
+
+      it('should make a proper type conversion', function() {
+        var testData = TEST_VALUES[5];
         var converted = env.validationService.convertValue(testData.in, SETTINGS_INT_SIMPLE);
 
         expect(converted).equal(testData.out);
@@ -72,9 +80,16 @@ describe('apiService', function() {
     });
 
     describe('unknown type', function() {
-      it('should return undefined', function() {
+      it('should return undefined when type is unknown', function() {
         var testData = TEST_VALUES[0];
         var converted = env.validationService.convertValue(testData.in, SETTINGS_UNKNOWN);
+
+        expect(converted).equal(undefined);
+      });
+
+      it('should return undefined when settings are undefined', function() {
+        var testData = TEST_VALUES[0];
+        var converted = env.validationService.convertValue(testData.in);
 
         expect(converted).equal(undefined);
       });
