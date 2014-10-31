@@ -116,6 +116,12 @@ angular.module('mobiusApp.config', [])
       'hotels': '<hotels></hotels>',
       'room': '<room></room>',
       'room-aside': '<room-aside></room-aside>'
+    },
+
+    // Responsive design breakpoints
+    'breakpoints': {
+      'mobile': 768,
+      'desktop': 960
     }
   }
 });

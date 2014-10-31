@@ -1,4 +1,4 @@
-<nav class="main-nav wrapper" resize breakpoint="769px" ng-class="{mobile: mobile}">
+<nav class="main-nav wrapper">
     <a class="brand" ui-sref="index.home">
         <img src="/static/images/logo.png" alt="Mobius logo">
     </a>
@@ -8,7 +8,7 @@
             <a ui-sref="index.hotels" class="is-active">_hotels_</a>
         </li>
 
-        <li menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
+        <li menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers" ng-class="{mobile: mobile}">
         </li>
 
         <li menu-content="about" data-title="_about_us_" ng-show="config.menu.showAbout">
