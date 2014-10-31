@@ -9,6 +9,10 @@
 
   background-color: @colorHeaderBackground;
   background-color: fadeout(@colorHeaderBackground, 15%);
+
+  a {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
 }
 
 // MAIN NAVIGATION IN HEADER
@@ -97,7 +101,7 @@
 
   .main-nav {
 
-    ul {
+    > ul {
       float: left;
       position: absolute;
       top: @mobileHeaderHeight;
@@ -112,14 +116,23 @@
         opacity: 1;
       }
 
-      li {
+      > li {
+        border-top: 1px @borderColorSubmenu solid;
         background-color: @colorHeaderBackground;
         background-color: fadeout(@colorHeaderBackground, 5%);
+        text-transform: uppercase;
 
         a.is-active {
           font-weight: 700;
           text-shadow: 0 2px 0 fade(@black, 50%);
         }
+
+        li {
+          background-color: transparent;
+        }
+      }
+
+      > li + li {
       }
     }
 
