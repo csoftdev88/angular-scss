@@ -1,11 +1,14 @@
 <!doctype html>
 <html ng-app="mobiusApp">
     <head>
-        <base href="/">
+        <base href="_base_href_">
 
-        <title>Mobius Hotels</title>
+        <title>_page_title_</title>
 
         <meta charset="utf-8" />
+        <meta name="language" content="_language_">
+        <meta http-equiv="Content-Language" content="_language_code_">
+
         <meta name="version" CONTENT="<%= version %>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="">
@@ -15,19 +18,21 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,700italic,400,300,700,600|Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
 
         <!-- FAVICON -->
-        <link rel="shortcut icon" type="image/png" href="static/images/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="/static/images/favicon.ico"/>
 
         <!-- vendor styles CSS --><% vendor_styles.forEach( function ( file ) { %>
         <link rel="stylesheet" type="text/css" href="/<%= file %>" /><% }); %>
 
         <!-- compiled APP CSS --><% styles.forEach( function ( file ) { %>
-        <link rel="stylesheet" type="text/css" href="static/<%= file %>" /><% }); %>
-
+        <link rel="stylesheet" type="text/css" href="/static/<%= file %>" /><% }); %>
         <!-- vendor JS --><% vendor_js.forEach( function ( file ) { %>
-        <script type="text/javascript" src="static/<%= file %>"></script><% }); %>
+        <script type="text/javascript" src="/static/<%= file %>"></script><% }); %>
 
         <!-- compiled APP JS --><% scripts.forEach( function ( file ) { %>
-        <script type="text/javascript" src="static/<%= file %>"></script><% }); %>
+        <script type="text/javascript" src="/static/<%= file %>"></script><% }); %>
+
+        <!-- compiled APP TEMPLATES --><% templates.forEach( function ( file ) { %>
+        <script type="text/javascript" src="/static/<%= file %>"></script><% }); %>
     </head>
 
     <body>

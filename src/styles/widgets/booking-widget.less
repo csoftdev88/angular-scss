@@ -65,12 +65,12 @@ booking-widget {
   }
 }
 
-// MOBILE SPECIFIC STYLES
-@media @lessThenTablet {
+// TABLET STYLES
+@media only screen and @lessThenDesktop {
   booking-widget {
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-bottom: 2.625em;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-bottom: 1.97em;
 
     > div {
       margin-left: 10px;
@@ -119,9 +119,17 @@ booking-widget {
   }
 }
 
+// MOBILE SPECIFIC STYLES
+@media only screen and @lessThenTablet {
+  booking-widget {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
 
 // DESKTOP STYLES
-@media @moreThenMobile {
+@media only screen and @moreThenTablet {
   booking-widget {
     > div {
       display: table;
@@ -129,7 +137,6 @@ booking-widget {
 
     .booking-inputs {
       display: table-row;
-
     }
 
     .booking-input,

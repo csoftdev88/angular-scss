@@ -5,8 +5,14 @@ angular.module('mobiusApp', [
   'ui.router',
   // Bootstrap components
   'ui.bootstrap',
+  'ngTouch',
   // Template cache
   'templates-app',
+
+  // Controllers
+  'mobius.controllers.main',
+  'mobius.controllers.offers',
+
   // 3rd party components
   'localytics.directives',
 
@@ -15,6 +21,8 @@ angular.module('mobiusApp', [
 
   // Services
   'mobiusApp.services.state',
+  'mobiusApp.services.api',
+  'mobiusApp.services.content',
 
   // Custom components
   'mobiusApp.directives.layout',
@@ -24,7 +32,13 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.best.hotels',
   'mobiusApp.directives.hotels',
   'mobiusApp.directives.room',
-  'mobiusApp.directives.room.aside'
+  'mobiusApp.directives.room.aside',
+
+  // Directive based on content data
+  'mobiusApp.directives.menu',
+  // Directives for generic data
+  'mobiusApp.directives.currency',
+  'mobiusApp.directives.language'
 ])
 
 .config(function ($stateProvider, $locationProvider) {
@@ -61,13 +75,40 @@ angular.module('mobiusApp', [
       url: '/hotels/:hotelID/rooms/:roomID'
     })
 
+    // Room reservation
+    .state('index.reservation', {
+      templateUrl: 'layouts/reservation/reservation.html',
+      url: '/reservation'
+    })
+
+    .state('index.reservation.details', {
+      templateUrl: 'layouts/reservation/reservationDetails.html',
+      url: '/details'
+    })
+
+    .state('index.reservation.billing', {
+      templateUrl: 'layouts/reservation/reservationBilling.html',
+      url: '/billing'
+    })
+
+    .state('index.reservation.confirmation', {
+      templateUrl: 'layouts/reservation/reservationConfirmation.html',
+      url: '/confirmation'
+    })
+
+    .state('index.offers', {
+      templateUrl: 'layouts/offers/offers.html',
+      url: '/offers/:category/:offerID',
+      controller: 'OffersCtrl'
+    })
+
+    // Contact page
+    .state('index.contacts', {
+      templateUrl: 'layouts/contacts/contacts.html',
+      url: '/contacts'
+    })
+
     .state('otherwise', {
       url: '/'
     });
-})
-
-.controller( 'MainCtrl',  function($scope, $state) {
-  $scope.$on('$stateChangeSuccess', function() {
-    $scope.$state = $state;
-  });
 });

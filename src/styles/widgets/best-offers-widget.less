@@ -118,14 +118,7 @@
 }
 
 // MOBILE SPECIFIC STYLES
-@media @lessThenTablet {
-  [widget="best-offers"] {
-    img {
-      max-width: 100%;
-      width: 100%;
-    }
-  }
-
+@media only screen and @lessThenTablet {
   .best-offers__explore {
     [grid] {
       margin: 0;
@@ -135,11 +128,28 @@
       font-size: @htmlFontSize / 2;
     }
   }
+}
 
+// TABLET and MOBILE STYLES
+@media only screen and @lessThenDesktop {
+  [widget="best-offers"] {
+    img {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  .best-offers__explore {
+    [grid] {
+      float: none;
+      width: 100%;
+      margin: 0;
+    }
+  }
 }
 
 // DESKTOP STYLES
-@media @moreThenMobile {
+@media only screen and @moreThenTablet {
   .best-offers__selection {
     header {
       .baselined-height(150);

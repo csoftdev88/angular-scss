@@ -38,6 +38,7 @@
       background-color: fadeout(@colorHeaderBackground, 15%);
       text-align: center;
 
+
       a {
         display: block;
         color: @colorMenuTextDefault;
@@ -51,6 +52,21 @@
         // &.is-active {
         //   box-shadow: 0 2px 0 0 @colorMenuTextDefault;
         // }
+      }
+
+    }
+
+    li[currency-list],
+    li[language-list]{
+      padding-right: 0;
+
+      a {
+        &:hover,
+        &:focus,
+        &:active,
+        &.is-active {
+          box-shadow: none;
+        }
       }
     }
   }
@@ -67,7 +83,7 @@
 }
 
 // MOBILE SPECIFIC STYLES
-@media @lessThenTablet {
+@media only screen and @lessThenTabletPortrait {
   .main-nav {
 
     ul {
@@ -98,8 +114,19 @@
   }
 }
 
+// Tablet styles
+@media only screen and @lessThenDesktop and @moreThenMobile {
+  .main-nav {
+    ul {
+      li {
+        padding: 0px @paddingHeaderDefault / 2;
+      }
+    }
+  }
+}
+
 // DESKTOP STYLES
-@media @moreThenMobile {
+@media only screen and @moreThenTabletPortrait {
 
   .main-nav {
     height: @headerHeight;
@@ -157,3 +184,4 @@
     }
   }
 }
+

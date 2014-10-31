@@ -1,0 +1,101 @@
+<reservation-steps>
+  <ol>
+    <li><a href="/reservation/details">Guest Details</a></li>
+    <li class="is-active"><a href="/reservation/billing">Billing Information</a></li>
+    <li><a href="/reservation/confirmation">Confirmation</a></li>
+  </ol>
+</reservation-steps>
+
+<div widget="reservation" grid="7">
+
+  <reservation-room-resume>
+    <h3>Your Room Selection</h3>
+    <div class="room-data">
+      <img src="/static/images/room-1.jpg" alt="">
+      <h4>Deluxe Double Room</h4>
+      <p class="desc">Bed and Breakfast</p>
+      <p class="price"><strong>£89</strong> <em>per night</em></p>
+    </div>
+    <div class="reservation-data">
+      <table class="data">
+        <tbody>
+          <tr>
+            <th>Check in:</th>
+            <td>21 Oct 14</td>
+          </tr>
+          <tr>
+            <th>Check out:</th>
+            <td>23 Oct 14</td>
+          </tr>
+          <tr>
+            <th>Adults:</th>
+            <td>2</td>
+          </tr>
+          <tr>
+            <th>Children:</th>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="charges">
+        <tbody>
+          <tr>
+            <th>Room Charges:</th>
+            <td class="currency">£</td>
+            <td>178.00</td>
+          </tr>
+          <tr>
+            <th>Tax:</th>
+            <td class="currency">£</td>
+            <td>&ensp;16.45</td>
+          </tr>
+          <tr>
+            <th>Total:</th>
+            <td class="currency">£</td>
+            <td>194.45</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="more-details">
+      <a href="#">View Price Breakdown</a>
+      <a href="#">View Policies</a>
+    </p>
+  </reservation-room-resume>
+
+  <hr/>
+
+  <reservation-billing>
+    <h3>Card Details</h3>
+    <form>
+      <label for="form-card-number">
+        Card number
+        <input type="text" id="form-card-number"/>
+      </label>
+      <div class="input-left">
+        <label for="form-expires" class="input-left">
+          Expires
+          <input type="date" id="form-expires"/>
+        </label>
+        <label for="form-cvv" class="input-right">
+          CVV
+          <input type="number" id="form-cvv"/>
+        </label>
+      </div>
+      <label for="form-name-on-card" class="input-right">
+        Name on Card
+        <input type="text" id="form-name-on-card"/>
+      </label>
+      <label for="form-guest-address" class="is-oneline">
+        <input type="checkbox" id="form-guest-address"/>
+        Use Guest Address
+      </label>
+    </form>
+  </reservation-billing>
+
+  <reservation-buttons>
+    <a href="/reservation/details" class="button button--gray back">Back</a>
+    <a href="/reservation/confirmation" class="button next">Continue</a>
+  </reservation-buttons>
+</div>

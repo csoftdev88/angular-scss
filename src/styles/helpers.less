@@ -18,7 +18,7 @@
   width: 1px;
   background-color: @borderColorDefault;
 
-  @media @moreThenMobile {
+  @media @moreThenTablet {
     display: block;
   }
 }
@@ -27,13 +27,13 @@
     Media Queries helpers
     ========================================== */
 
-@media @lessThenTablet {
+@media only screen and @lessThenTablet {
   [rwd="desktop"] {
     display: none !important;
   }
 }
 
-@media @moreThenMobile {
+@media only screen and @moreThenMobile {
   [rwd="mobile"] {
     display: none !important;
   }

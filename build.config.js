@@ -10,13 +10,14 @@ module.exports = {
     gruntfile: 'Gruntfile.js',
     client: 'src',
     server: 'server',
-    main: 'fluency.js',
 
     'static': 'static',
 
     markup:  '**/*.html',
     styles:  '**/*.{css,less}',
     scripts: '**/*.js',
+
+    locales: 'src/locales',
 
     images:  '**/*.{png,jpg,jpeg,gif,webp,svg}',
     fonts:   '**/*.{eot,svg,ttf,woff}',
@@ -40,6 +41,7 @@ module.exports = {
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+            'bower_components/angular-touch/angular-touch.min.js',
             'bower_components/angular-chosen-localytics/chosen.js',
             'bower_components/jquery/jquery.js',
             'bower_components/angular-bootstrap/ui-bootstrap.min.js',
@@ -60,7 +62,7 @@ module.exports = {
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-resource/angular-resource.js',
-            'bower_components/angular-resource/angular-resource.js',
+            'bower_components/angular-touch/angular-touch.min.js',
             'bower_components/angular-chosen-localytics/chosen.js',
             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
             // 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
