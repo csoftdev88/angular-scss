@@ -43,17 +43,7 @@
         display: block;
         color: @colorMenuTextDefault;
         text-decoration: none;
-        // .transition(box-shadow, 0.2s, linear);
-        // box-shadow: 0 2px 0 0 fadeout(@colorMenuTextDefault, 100%);
-
-        // &:hover,
-        // &:focus,
-        // &:active,
-        // &.is-active {
-        //   box-shadow: 0 2px 0 0 @colorMenuTextDefault;
-        // }
       }
-
     }
 
     li[currency-list],
@@ -79,7 +69,19 @@
 
   .button-login {
     // TODO: button should be displayed
-    // display: none;
+    position: absolute;
+    top: @mobileHeaderHeight + @headerBorderBottom;
+    right: 10px;
+    padding: 0 30px;
+    height: 39px;
+    line-height: 39px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+
+    transition: opacity 0.2s linear,
+                transform 0.2s ease-out 0.15s;
   }
 }
 
@@ -92,15 +94,12 @@
       position: absolute;
       top: @mobileHeaderHeight;
       left: 0; right: 0;
-      // height: 0;
-      // overflow: hidden;
       transform: translateX(-100%);
       opacity: 0;
       transition: transform 0.4s ease-out,
                   opacity 0.2s linear 0.2s;
 
       .open& {
-        // height: auto;
         transform: translateX(0);
         opacity: 1;
       }
@@ -112,11 +111,20 @@
         }
       }
     }
+
+    &.open {
+      .button-login {
+        z-index: 0;
+        opacity: 0;
+        transform: translateX(110%);
+      }
+    }
   }
 }
 
 // Tablet styles
 @media only screen and @lessThenDesktop and @moreThenMobile {
+
   .main-nav {
     ul {
       li {
@@ -150,7 +158,6 @@
         a {
           display: inline;
           color: @colorMenuTextDefault;
-          // text-decoration: none;
           .transition(box-shadow, 0.2s, linear);
           box-shadow: 0 2px 0 0 fadeout(@colorMenuTextDefault, 100%);
 
@@ -171,16 +178,16 @@
     }
 
     .button-login {
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
-      padding: 0 30px;
-      line-height: 39px;
-      height: 39px;
-
-      position: absolute;
       top: @headerHeight + @headerBorderBottom;
+    }
+  }
+}
+
+@media only screen and @moreThenTablet {
+
+  .main-nav {
+
+    .button-login {
       right: 0;
     }
   }
