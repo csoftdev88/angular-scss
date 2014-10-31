@@ -1,8 +1,8 @@
-# The `src` Directory
+# The `src/app` Directory
 
 ## Overview
 
-The `src/` directory contains all code used in the application along with all
+The `src/app` directory contains all code used in the application along with all
 tests of such code.
 
 ```
@@ -16,12 +16,6 @@ src/
   |  |- index.html
   |  |- settings.js
 ```
-
-- `src/app/` - application-specific code.
-- `src/font/` - static files, fonts, vector images.
-- `src/images/` - application icons, logos.
-- `src/locales/` - localisation files.
-- `src/styles/` - application styles.
 
 - `src/app/index.html` - this is the HTML document of the single-page application.
   See below.

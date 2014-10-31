@@ -26,7 +26,7 @@ mobius/
   |  |  |- <static files>
   |  |- images/
   |  |  |- <icons, logos>
-  |  |- locales/ [Read more &raquo;](src/locales/README.md)
+  |  |- locales/
   |  |  |- en_US.json
   |  |- styles/
   |  |  |- <less files>
