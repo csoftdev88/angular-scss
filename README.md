@@ -26,7 +26,7 @@ mobius/
   |  |  |- <static files>
   |  |- images/
   |  |  |- <icons, logos>
-  |  |- locales/
+  |  |- locales/ [Read more &raquo;](src/locales/README.md)
   |  |  |- en_US.json
   |  |- styles/
   |  |  |- <less files>
@@ -88,4 +88,4 @@ learn more.
 3. Run `NODE_ENV=production node server.js`
 
 ### Configuration
-Application settings are located in src/app/settings.js file. 
+Application settings are located in src/app/settings.js file.
