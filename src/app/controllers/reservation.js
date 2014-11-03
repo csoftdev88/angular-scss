@@ -58,9 +58,6 @@ angular.module('mobius.controllers.reservations', [])
 
   $scope.openPoliciesInfo = modalService.openPoliciesInfo;
   $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
-
-  $scope.openCancelReservationDialog = function(reservation){
-    modalService.openCancelReservationDialog(reservation);
-  };
+  $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
 
 });

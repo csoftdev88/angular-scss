@@ -31,7 +31,7 @@
             <select name="children" required ng-model="room.childrens" disable-search="true" chosen ng-options="number for number in numbers" />
             <span class="info">Children:</span>
           </div>
-          <button class="button--red" ng-if="isRemoveVisible($index)" ng-click="removeRoom()">Remove</button>
+          <button class="button-red" ng-if="isRemoveVisible($index)" ng-click="removeRoom()">Remove</button>
         </div>
         <button class="button button-add" ng-click="addRoom()" ng-show="canAddRoom">Add Room</button>
       </div>
@@ -39,6 +39,6 @@
   </div>
 
   <div class="modal-footer">
-    <button class="button button--blue" ng-disabled="resetForm.loginEmail.$invalid" ng-click="openEnterCodeDialog()">OK</button>
+    <button class="button button-blue" ng-disabled="resetForm.loginEmail.$invalid" ng-click="openEnterCodeDialog()">OK</button>
   </div>
 </div>

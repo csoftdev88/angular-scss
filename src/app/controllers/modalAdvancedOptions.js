@@ -29,6 +29,7 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   $scope.canAddRoom = true;
   $scope.showRemove = false;
 
+  // TODO: Simplify these functions into one
   $scope.addRoom = function(){
     var count = $scope.rooms.length;
     if (count < MAX_ROOMS){
