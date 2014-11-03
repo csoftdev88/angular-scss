@@ -2,8 +2,7 @@
 
 angular.module('mobius.controllers.main', [])
 
-.controller( 'MainCtrl',  function($scope, $state, $modal,
-    $log, $controller, orderByFilter, modalService, contentService, Settings) {
+.controller( 'MainCtrl',  function($scope, $state, $modal, orderByFilter, modalService, contentService, Settings) {
 
   // Application settings
   $scope.config = Settings.UI;
