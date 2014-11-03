@@ -14,8 +14,6 @@ describe('bookingWidget', function() {
     env = {};
   });
 
-  beforeEach(module('mobiusApp.directives.booking'));
-
   beforeEach(function() {
     module('mobiusApp.directives.booking', function($provide) {
       // Mocking the services
@@ -41,12 +39,13 @@ describe('bookingWidget', function() {
   });
 
   beforeEach(inject(function($compile, $rootScope, $templateCache, propertyService,
-      queryService) {
+      queryService, validationService) {
 
     env.$compile = $compile;
     env.$rootScope = $rootScope.$new();
     env.propertyService = propertyService;
     env.queryService = queryService;
+    env.validationService = validationService;
 
     env.$templateCache = $templateCache;
     env.$templateCache.put(TEMPLATE_URL, '');
@@ -54,8 +53,13 @@ describe('bookingWidget', function() {
     // Spy's
     env.templateCacheGet = sinon.spy(env.$templateCache, 'get');
     env.propertyServiceGetAll = sinon.spy(env.propertyService, 'getAll');
-    env.queryServiceGetValue = sinon.spy(env.queryService, 'getValue');
 
+    env.queryServiceGetValue = sinon.spy(env.queryService, 'getValue');
+    env.queryServiceRemoveParam = sinon.spy(env.queryService, 'removeParam');
+
+    env.validationServiceIsValueValid = sinon.spy(env.validationService, 'isValueValid');
+
+    // Final component compile
     env.elem = env.$compile(TEMPLATE)(env.$rootScope);
     env.$rootScope.$digest();
     env.scope = env.elem.isolateScope();
@@ -65,12 +69,16 @@ describe('bookingWidget', function() {
     env.templateCacheGet.restore();
     env.propertyServiceGetAll.restore();
     env.queryServiceGetValue.restore();
+    env.validationServiceIsValueValid.restore();
+    env.queryServiceRemoveParam.restore();
   });
 
   describe('when component is initialized', function() {
     it('should download widget template from template cache', function() {
       expect(env.templateCacheGet.calledOnce).equal(true);
+
       expect(env.templateCacheGet.calledWith(TEMPLATE_URL)).equal(true);
+
     });
 
     it('should read widget settings from the configuration', function() {
@@ -84,6 +92,10 @@ describe('bookingWidget', function() {
 
     it('should do initial param validation', function() {
       expect(env.queryServiceGetValue.callCount).equal(5);
+
+      expect(env.validationServiceIsValueValid.callCount).equal(5);
+
+      expect(env.queryServiceRemoveParam.callCount).equal(5);
     });
   });
 
@@ -96,7 +108,6 @@ describe('bookingWidget', function() {
       expect(env.scope.isSearchable()).equal(false);
     });
   });
-
 
   describe('onSearch', function() {
     it('should be defined on scope as a function', function() {
