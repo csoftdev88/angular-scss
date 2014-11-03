@@ -13,7 +13,7 @@ angular.module('mobiusApp.directives.booking', [])
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
-      // NOTE: property is presented using property code
+      // NOTE: property is presented in the URL by using property code
 
       // Currently selected form values
       scope.selected = {
