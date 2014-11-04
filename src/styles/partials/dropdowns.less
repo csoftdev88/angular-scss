@@ -42,15 +42,9 @@
   }
 
   .submenu {
-    right: 0;
 
     li {
-      text-align: right;
-      border-bottom: 2px @borderColorSubmenu solid;
-    }
-
-    li:last-child {
-      border-color: @borderColorSubmenuLast;
+      text-align: center;
     }
 
     .icon {
@@ -60,7 +54,9 @@
 }
 
 @media only screen and @lessThenTabletPortrait {
-  li[menu-content]{
+  li[menu-content],
+  li[currency-list],
+  li[language-list] {
 
     .dropdown {
 
@@ -100,6 +96,22 @@
       margin-left: -15px;
 
       background-color: fadeout(@colorHeaderBackground, 15%);
+    }
+  }
+
+  .dropdown.has-icons {
+
+    .submenu {
+      right: 0;
+
+      li {
+        text-align: right;
+        border-bottom: 2px @borderColorSubmenu solid;
+      }
+
+      li:last-child {
+        border-color: @borderColorSubmenuLast;
+      }
     }
   }
 }

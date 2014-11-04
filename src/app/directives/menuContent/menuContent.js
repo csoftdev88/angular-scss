@@ -62,7 +62,6 @@ angular.module('mobiusApp.directives.menu', [])
       }
 
       elem.bind(EVENT_MOUSE_CLICK, function(event){
-        console.log(event, mobile);
         // Execute only on mobile
         if (mobile){
           // Prevent event bubbling to prevent
@@ -77,6 +76,7 @@ angular.module('mobiusApp.directives.menu', [])
       scope.$on('$destroy', function(){
         elem.unbind(EVENT_MOUSE_ENTER);
         elem.unbind(EVENT_MOUSE_LEAVE);
+        elem.unbind(EVENT_MOUSE_CLICK);
       });
     }
   };
