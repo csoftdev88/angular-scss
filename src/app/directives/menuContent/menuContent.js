@@ -10,8 +10,10 @@ angular.module('mobiusApp.directives.menu', [])
 
     // Widget logic goes here
     link: function(scope, elem, attrs){
-      var EVENT_MOUSE_ENTER = 'mouseenter';
-      var EVENT_MOUSE_LEAVE = 'mouseleave';
+      var EVENT_MOUSE_ENTER = 'mouseenter',
+          EVENT_MOUSE_LEAVE = 'mouseleave',
+          EVENT_MOUSE_CLICK = 'click',
+          mobile;
 
       // We are using different methods for getting the data
       // from the server according to content type. Also, menu
@@ -31,8 +33,12 @@ angular.module('mobiusApp.directives.menu', [])
         }
       };
 
+      scope.$on('viewport:resize', function(event, viewport){
+        mobile = viewport.mobile;
+      });
+
       scope.title = attrs.title;
-      var contentType  = contentTypes[attrs.menuContent];
+      var contentType = contentTypes[attrs.menuContent];
 
       if(contentType){
         contentService[contentType.method]().then(function(data){
@@ -49,14 +55,28 @@ angular.module('mobiusApp.directives.menu', [])
       });
 
       function onMouseEvent(active){
-        scope.active = active;
-        scope.$apply();
+        if (!mobile){
+          scope.active = active;
+          scope.$apply();
+        }
       }
+
+      elem.bind(EVENT_MOUSE_CLICK, function(event){
+        // Execute only on mobile
+        if (mobile){
+          // Prevent event bubbling to prevent
+          // menu closing when there is a submenu
+          event.stopPropagation();
+          scope.active = !scope.active;
+          scope.$apply();
+        }
+      });
 
       // Removing all listeners when component is destroyed
       scope.$on('$destroy', function(){
         elem.unbind(EVENT_MOUSE_ENTER);
         elem.unbind(EVENT_MOUSE_LEAVE);
+        elem.unbind(EVENT_MOUSE_CLICK);
       });
     }
   };
