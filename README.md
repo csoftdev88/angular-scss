@@ -2,7 +2,7 @@
 
 Rewrite of existing hotel booking engine into angular.js SPA..
 
-### Overall Directory Structure
+## Overall Directory Structure
 
 At a high level, the structure looks roughly like this:
 
@@ -87,5 +87,105 @@ learn more.
 2. Run `grunt build` to build the app.
 3. Run `NODE_ENV=production node server.js`
 
-### Configuration
-Application settings are located in src/app/settings.js file.
+### The Build System
+
+The best way to learn about the build system is by familiarizing yourself with
+Grunt and then reading through the heavily documented build script,
+`Gruntfile.js`.
+
+The driver of the process is the `watch` multi-task, which watches for file
+changes using `grunt-contrib-watch` and executes one of nine tasks when a file
+changes:
+
+* `watch:styles` - When any `*.less` file within `src/styles` changes, the
+  `src/less/main.less` file is linted and copied into
+  `build/styles/main.css`.
+* `watch:scripts` - When any JavaScript file within `src/` that does not end in
+  `.spec.js` changes, all JavaScript sources are linted, all unit tests are run, and the all source files are re-copied to `build/app`.
+* `watch:markup` - When any `*.html` file within `src/` changes, all templates are put into strings in a JavaScript file that will add the template to AngularJS's [`$templateCache`](http://docs.angularjs org/api/ng.$templateCache) so template files are part of the initial JavaScript payload and do not require any future XHR.  The template cache files are  `build/app/mobius-templates-*_*.js`.
+* `watch:jsunit` - When any `*.spec.js` file in `src/` changes, the test files are linted and the unit tests are executed.
+
+As covered in the previous section, `grunt watch` will execute a full build up-front and then run any of the aforementioned `watch:*` tasks as needed to ensure the fastest possible build. So whenever you're working on your project,
+start with:
+
+```sh
+$ grunt watch
+```
+
+### Live Reload!
+
+Build system also includes [Live Reload](http://livereload.com/), so you no
+longer have to refresh your page after making changes! You need a Live Reload
+browser plugin for this:
+
+- Chrome - [Chrome Webstore](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
+- Firefox - [Download from Live Reload](http://download.livereload.com/2.0.8/LiveReload-2.0.8.xpi)
+- Safari - [Download from Live Reload](http://download.livereload.com/2.0.9/LiveReload-2.0.9.safariextz)
+- Internet Explorer - Surely you jest.
+
+When you load your page, click the Live Reload icon in your toolbar and
+everything should work.
+
+If you'd prefer to not install a browser extension, then you must add the
+following to the end of the `body` tag in `index.html`:
+
+```html
+<script src="http://localhost:35729/livereload.js"></script>
+```
+
+### Troubleshooting
+During install some of you may encounter some issues, most of this issues can be solved by one of the following tips.
+
+#### Update NPM, Bower or Grunt
+Sometimes you may find there is a weird error during install like npm's *Error: ENOENT*, usually updating those tools to the latest version solves the issue.
+
+Updating NPM:
+```
+$ npm update -g npm
+```
+
+Updating Grunt:
+```
+$ npm update -g grunt-cli
+```
+
+Updating Bower:
+```
+$ npm update -g bower
+```
+
+#### Cleaning NPM and Bower cache
+NPM and Bower has a caching system for holding packages that you already installed.
+Cleaning the cache solves some troubles this system creates.
+
+NPM Clean Cache:
+```
+$ npm cache clean
+```
+
+Bower Clean Cache:
+```
+$ bower cache clean
+```
+
+## Configuration
+All settings can be categorised into the following categories:
+
+- UI
+- Build
+- Server
+
+### UI
+Front-end configuration is located in the following places:
+`src/app/settings.js`
+`src/styles`
+`src/locales`
+
+### Build process
+Build system is created by using Grunt. See The Build System. All settings related to a build process are located in:
+Gruntfile.js
+build.config.js
+
+### Server
+config/environments
+routes/index.js
