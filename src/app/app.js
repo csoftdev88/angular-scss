@@ -38,7 +38,7 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.room.aside',
   'mobiusApp.directives.reservation.data',
   'mobiusApp.directives.equals',
-  'mobiusApp.directives.resize',
+  'mobiusApp.directives.resize.watcher',
 
   // Directive based on content data
   'mobiusApp.directives.menu',
