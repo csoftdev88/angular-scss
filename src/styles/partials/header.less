@@ -81,10 +81,7 @@
     height: 39px;
     padding: 0 30px;
     line-height: 39px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+    border-radius: 0 0 8px 8px;
 
     transition: opacity 0.2s linear,
                 transform 0.2s ease-out 0.15s;
@@ -191,6 +188,14 @@
           &.is-active {
             box-shadow: 0 2px 0 0 @colorMenuTextDefault;
           }
+        }
+
+        .open > a {
+            box-shadow: 0 2px 0 0 @colorMenuTextDefault;
+        }
+
+        .open.has-icons > a {
+            box-shadow: none;
         }
       }
     }
