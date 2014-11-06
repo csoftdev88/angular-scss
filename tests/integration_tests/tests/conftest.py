@@ -5,13 +5,14 @@
 @summary: Fixtures for handling custom BrowserStack parameters
 """
 import pytest
-from salsa_webqa.library.report.junithtml import LogHTML
 
+from salsa_webqa.library.report.junithtml import LogHTML
 
 # CURRENT TEST INFO OBJECT #
 
 class TestInfo():
     """ Gathers test execution information about currently running test """
+
     def __init__(self):
         self.test_status = None
         self.test_name = None
@@ -19,6 +20,7 @@ class TestInfo():
     def set_test_info(self, new_status=None, new_name=None):
         self.test_status = new_status
         self.test_name = new_name
+
 
 test_info = TestInfo()
 
@@ -44,12 +46,11 @@ def pytest_addoption(parser):
                      help="Test build name")
     group = parser.getgroup("terminal reporting")
     group.addoption('--html', '--junit-html', action="store",
-           dest="htmlpath", metavar="path", default=None,
-           help="create html style report file at given path.")
+                    dest="htmlpath", metavar="path", default=None,
+                    help="create html style report file at given path.")
     group.addoption('--htmlprefix', '--html-prefix', action="store",
-           dest="prefix", metavar="str", default=None,
-           help="prepend prefix to classnames in html output")
-
+                    dest="prefix", metavar="str", default=None,
+                    help="prepend prefix to classnames in html output")
 
 
 def pytest_configure(config):
@@ -61,6 +62,7 @@ def pytest_configure(config):
     if htmlpath and not hasattr(config, 'slaveinput'):
         config._html = LogHTML(htmlpath, prefix)
         config.pluginmanager.register(config._html)
+
 
 def pytest_unconfigure(config):
     html = getattr(config, '_html', None)
@@ -78,9 +80,11 @@ def pytest_runtest_makereport(item, call, __multicall__):
     setattr(item, "rep_" + rep.when, rep)
     return rep
 
+
 @pytest.fixture()
 def test_status(request):
     test_name = request.node.nodeid.split('::')[-1]
+
     def fin():
         # request.node is an "item" because we use the default
         # "function" scope
@@ -91,6 +95,7 @@ def test_status(request):
             if request.node.rep_call.failed:
                 test_info.set_test_info('failed_execution', test_name)
                 print "executing test failed", request.node.nodeid
+
     request.addfinalizer(fin)
     test_info.set_test_info('passed', test_name)
 

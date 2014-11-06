@@ -5,6 +5,7 @@
 """
 from salsa_webqa.library.support.selenium_support import SeleniumTest
 
+
 class Page(object):
     """ Base class for all Pages """
     def __init__(self, driver):

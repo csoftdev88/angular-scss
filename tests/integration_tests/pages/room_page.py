@@ -1,18 +1,25 @@
 __author__ = 'Irina Gvozdeva'
 from selenium.webdriver.common.by import By
+
+from salsa_webqa.library.support.selenium_support import SeleniumTest
 from pages.base_page import Page
+
 
 class RoomPage(Page):
     #Room Page locators
-    _room_description_locator = (By.CSS_SELECTOR, "header")
-    _room_name_locator = (By.CSS_SELECTOR, "h1.ng-binding")
-    _room_prices_area_locator = (By.CSS_SELECTOR, "div.room-prices")
-    _room_rates_area_locator = (By.CSS_SELECTOR, "div.panel.panel-default.ng-isolate-scope")
-    _room_rates_names_locator = (By.CSS_SELECTOR, "h3.title.ng-binding")
-    _room_opened_locator = (By.CSS_SELECTOR, "div.panel.panel-default.ng-isolate-scope.is-open")
-    _room_opened_rate_locator = (By.XPATH, ".//h3[@class='title ng-binding']")
-    _room_amentities_locator = (By.CSS_SELECTOR, "div.room-amenities")
-    _continue_button_locator = (By.CSS_SELECTOR, "div.room-continue")
+    def __init__(self, driver):
+        Page.__init__(self, driver)
+        self.driver = driver
+        self.test_selenium = SeleniumTest(driver)
+        self._room_description_locator = (By.CSS_SELECTOR, "header")
+        self._room_name_locator = (By.CSS_SELECTOR, "h1.ng-binding")
+        self._room_prices_area_locator = (By.CSS_SELECTOR, "div.room-prices")
+        self._room_rates_area_locator = (By.CSS_SELECTOR, "div.panel.panel-default.ng-isolate-scope")
+        self._room_rates_names_locator = (By.CSS_SELECTOR, "h3.title.ng-binding")
+        self._room_opened_locator = (By.CSS_SELECTOR, "div.panel.panel-default.ng-isolate-scope.is-open")
+        self._room_opened_rate_locator = (By.XPATH, ".//h3[@class='title ng-binding']")
+        self._room_amentities_locator = (By.CSS_SELECTOR, "div.room-amenities")
+        self._continue_button_locator = (By.CSS_SELECTOR, "div.room-continue")
 
     @property
     def is_room_visible(self):
