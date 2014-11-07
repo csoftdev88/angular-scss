@@ -171,9 +171,9 @@ $ bower cache clean
 ## Configuration
 All settings can be categorised into the following categories:
 
-- UI
-- Build
+- Front-end
 - Server
+- Build system
 
 ### UI
 Front-end configuration is located in the following places:
@@ -181,11 +181,27 @@ Front-end configuration is located in the following places:
 `src/styles`
 `src/locales`
 
-### Build process
-Build system is created by using Grunt. See The Build System. All settings related to a build process are located in:
-Gruntfile.js
-build.config.js
+#### `Settings.js` - main configuration file which contais customer related settings. 
+Main sections are:
+- `API` - backend endpoints and their URL's.
+- `heroSlider` - slider related settings such as animation duration, autoplay delay, autopreload etc.
+- `menu` - visibility settings for  main menu items in application header. Some of the settings can be overridden by the server.
+- `languages` - list of available languages.  This section is used to provide additional language data such as short name which is missing on the server.
+- `currencies` - list of currencies and their display symbols.
+- `bookingWidget` - settings related to a booking widget such as number of adults, children etc.
+- `layout` - layout related settings, page content, order of the components. Application supports dynamic positioning of the widgets on the page which allows to change the layout without making direct changes to the application templates(.html files). Each page is presented by using corresponding state name like `index.home`  [Read more](https://github.com/angular-ui/ui-router) and a list of nested components. Children will be appended in the same order as they are specifyed in the config. Each component has a corresponding template. List of all supported widgets and their HTML templates is specified under `templates` section.
+
+#### Styles
+All styles are located in `src/styles` folder in [less](http://lesscss.org/) or `css` format. Each component has a corresponding `less` file which is located in`styles/partials` forlder. During the build everything is imported into a single CSS file as long as sources are imported via `main.less` file using `@import` statement. Colors, dimensions, transitions, typography settings are located in `styles/config.less`. Platform related media queries are specifyed at the bottom of each `less` files but in some complex cases can be found elsewhere within the file by using this tag `@media`.
 
 ### Server
-config/environments
-routes/index.js
+`config/environments`
+`routes/index.js`
+
+### Build process
+All build related settings are located in the following files:
+`Gruntfile.js`
+`build.config.js`
+
+See The Build System.
+
