@@ -9,40 +9,27 @@ angular.module('mobiusApp.directives.resize.watcher', [])
     link: function(scope, elem){
       var $$window = angular.element($window);
 
-      scope.updateViewport = function() {
+      function updateView() {
         var MOBILE_CLASS = 'viewport-mobile',
             DESKTOP_CLASS = 'viewport-desktop',
             windowHeight = $window.innerHeight,
             windowWidth = $window.innerWidth,
-            isMobile = windowWidth > Settings.UI.breakpoints.mobile ? false : true,
+            isMobile = windowWidth > Settings.UI.screenTypes.mobile.maxWidth ? false : true,
             isPortrait = windowWidth > windowHeight ? false : true;
 
-        if (isMobile){
-          elem.addClass(MOBILE_CLASS)
-            .removeClass(DESKTOP_CLASS);
-        }
-
-        // Not using else statement because of possible need for
-        // non-binary states in future
-        if (!isMobile){
-          elem.addClass(DESKTOP_CLASS)
-            .removeClass(MOBILE_CLASS);
-        }
+        elem.toggleClass(MOBILE_CLASS, isMobile).toggleClass(DESKTOP_CLASS, !isMobile);
 
         // Emit event and send vieport data as payload
         scope.$broadcast('viewport:resize', {
-          mobile: isMobile,
-          desktop: !isMobile,
-          portrait: isPortrait,
-          landscape: !isPortrait
+          isMobile: isMobile,
+          isPortrait: isPortrait
         });
-      };
+      }
 
-      // Bind handler on window resize event
-      $$window.bind('resize', scope.updateViewport);
+      // Listening on resize event to calculate new values
+      $$window.bind('resize', updateView);
 
-      // Initialize viewport after document is loaded
-      $document.ready(scope.updateViewport);
+      $document.ready(updateView);
 
       // Cleanup listeners when destroyed
       scope.$on('$destroy', function(){

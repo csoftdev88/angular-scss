@@ -119,9 +119,10 @@ angular.module('mobiusApp.config', [])
     },
 
     // Responsive design breakpoints
-    'breakpoints': {
-      'mobile': 768,
-      'desktop': 960
+    'screenTypes': {
+      'mobile': {
+        'maxWidth': 768
+      }
     }
   }
 });
