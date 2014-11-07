@@ -35,6 +35,7 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.hotels',
   'mobiusApp.directives.room',
   'mobiusApp.directives.room.aside',
+  'mobiusApp.directives.datepicker',
 
   // Directive based on content data
   'mobiusApp.directives.menu',

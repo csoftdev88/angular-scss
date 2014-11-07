@@ -9,6 +9,8 @@
     "angular-ui-router": "0.2.10",
     "angular-chosen-localytics": "1.0.6",
     "jquery": "~2.0.3",
+    "jquery-ui": "http://code.jquery.com/ui/1.10.3/jquery-ui.js",
+    "jquery-datepicker": "https://jquery-datepicker.googlecode.com/files/jquery.datePicker.min-2.1.2.js",
     "moment": "~2.5.0",
     "angular-mocks": "~1.2.9",
     "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
