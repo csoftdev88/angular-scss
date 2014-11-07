@@ -31,6 +31,7 @@ accordion {
     }
 
     a {
+      display: block;
       color: @colorHeadingDefault;
     }
 
@@ -63,8 +64,13 @@ accordion {
     }
   }
 
-  .panel-title {
+  .panel-heading {
+    display: block;
     cursor: pointer;
+    .clearfix;
+  }
+
+  .panel-title {
 
     .icon {
       display: block;
