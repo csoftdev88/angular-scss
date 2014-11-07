@@ -21,7 +21,7 @@ angular.module('mobiusApp.directives.booking', [])
         'adults': undefined,
         'promoCode': '',
         'property': undefined,
-        'startDate': undefined
+        'dates': {}
       };
 
       // URL parameters and their settings
@@ -49,13 +49,13 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'promoCode',
           'type': 'string',
           'required': false
-        },
-        'startDate': {
+        }
+        /*'startDate': {
           'search': 'startDate',
-          'type': 'string',
+          'type': 'date',
           'format': 'yyyy-MM-dd',
           'required': true
-        }
+        }*/
       };
 
       // Function will remove query parameters from the URL in case their

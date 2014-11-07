@@ -16,7 +16,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
       var maxDate = attrs.maxDate || null;
-      var numberOfMonths = rangeSelection?[ 1, 2 ]:null;
+
       /**
        * Don't hide the date picker when changing dates
        */
@@ -51,7 +51,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           dateFormat: DATE_FORMAT,
           showButtonPanel: rangeSelection,
           maxDate: maxDate,
-          numberOfMonths: numberOfMonths,
+          numberOfMonths: 1,
           beforeShowDay: function ( date ) {
             return [
               true,
