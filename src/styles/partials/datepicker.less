@@ -4,8 +4,17 @@
 
   .ui-datepicker-header {
     background-color: @colorDatepickerHeader;
+    position: relative;
 
     .ui-datepicker-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      top: 10px;
+
       color: @white;
       display: inline-block;
       text-align: center;
@@ -22,7 +31,8 @@
 
     display: inline-block;
     width: 46px;
-    height: 46px;
+    height: 26px;
+    margin-top: 5px;
     background-size: 46px 38px;
 
     span {
@@ -75,17 +85,36 @@
           }
         }
 
-        &.ui-datepicker-current-day {
+        &.ui-datepicker-current-day,
+        &.date-range-start,
+        &.date-range-end {
           background-color: @colorLinkDefault;
           a {
             color: @white;
           }
         }
 
+        &.date-range-start {
+          border-radius: 3px 0px 0px 3px;
+        }
+
+        &.date-range-end {
+          border-radius: 0px 3px 3px 0px;
+        }
+
         &.date-range-selected {
           background-color: @colorDatepickerRange;
           a {
             color: @white;
+          }
+        }
+
+        &.ui-datepicker-other-month {
+          color: @colorLightGray;
+
+          &:hover {
+            // TODO: not specifyed in invision yet
+            background-color: #BAD4E6;
           }
         }
       }

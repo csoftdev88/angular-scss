@@ -47,24 +47,29 @@ angular.module('mobiusApp.directives.datepicker', [])
           }
         }
 
+        var clickCount;
+
         element.datepicker({
           dateFormat: DATE_FORMAT,
-          showButtonPanel: rangeSelection,
+          showButtonPanel: false,
           maxDate: maxDate,
           numberOfMonths: 1,
+          showOtherMonths: true,
+          //showAnim: 'slideDown',
+
           beforeShowDay: function ( date ) {
             return [
               true,
-              ((date.getTime() >= Math.min(startDate, endDate) &&
-               date.getTime() <= Math.max(startDate, endDate))?'date-range-selected' : '')
+              getDayClassName( date )
             ];
           },
 
           beforeShow: function () {
+            clickCount = 0;
+
             if(ngModelCtrl.$modelValue !== undefined) {
               // NOTE: using setHours(0) is safe for different timezones. By default
               // jquery date picker returns dates at 00 hour
-
               if(typeof(ngModelCtrl.$modelValue) === 'string'){
                 startDate = new Date(ngModelCtrl.$modelValue).setHours(0);
                 endDate = startDate;
@@ -100,6 +105,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             // Update model
             scope.$apply(function() {
               ngModelCtrl.$setViewValue(date);
+              ngModelCtrl.$render();
             });
 
           },
@@ -110,6 +116,12 @@ angular.module('mobiusApp.directives.datepicker', [])
 
             startDate = endDate;
             endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
+
+            clickCount++;
+            if(rangeSelection && clickCount > 1){
+              element.datepicker('hide');
+            }
+
           }
         }).datepicker('show');
       });
@@ -125,6 +137,19 @@ angular.module('mobiusApp.directives.datepicker', [])
         }
 
         return true;
+      }
+
+      function getDayClassName( date ) {
+        var dateTime = date.getTime();
+
+        if(dateTime === startDate) {
+          return 'date-range-start';
+        }else if(dateTime === endDate) {
+          return 'date-range-end';
+        }
+
+        return ((dateTime > Math.min(startDate, endDate) &&
+           dateTime < Math.max(startDate, endDate))?'date-range-selected' : '');
       }
     }
   };
