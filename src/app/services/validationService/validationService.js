@@ -47,6 +47,10 @@ angular.module('mobiusApp.services.validation', [])
     switch(paramSettings.type){
 
     case 'integer':
+      if(isNaN(paramValue)){
+        return;
+      }
+
       var parsedVal = parseInt(paramValue, 10);
       if(angular.isNumber(parsedVal)){
         return parsedVal;

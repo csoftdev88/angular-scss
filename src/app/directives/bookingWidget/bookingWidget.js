@@ -13,7 +13,7 @@ angular.module('mobiusApp.directives.booking', [])
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
-      // NOTE: property is presented in the URL by using property code
+      // NOTE: Hotel is presented in the URL by using property/hotel code
 
       // Currently selected form values
       scope.selected = {
@@ -21,7 +21,8 @@ angular.module('mobiusApp.directives.booking', [])
         'adults': undefined,
         'promoCode': '',
         'property': undefined,
-        'dates': {}
+        // NOTE: dates might be presented as start/end date
+        'dates': ''
       };
 
       // URL parameters and their settings
@@ -49,13 +50,13 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'promoCode',
           'type': 'string',
           'required': false
-        }
-        /*'startDate': {
-          'search': 'startDate',
-          'type': 'date',
-          'format': 'yyyy-MM-dd',
+        },
+        //TODO: add dates validation
+        'dates': {
+          'search': 'dates',
+          'type': 'string',
           'required': true
-        }*/
+        }
       };
 
       // Function will remove query parameters from the URL in case their
@@ -76,52 +77,8 @@ angular.module('mobiusApp.directives.booking', [])
         }
       }
 
-
       // Init
       validateURLParams();
-
-      // NOTE: This should be uncommented in case we want to update URL params once user
-      // changed any of the form controls
-      /*
-      // List of model watchers
-      //var watchers = [];
-
-      // Changes in forms can be displayed in URL automatically
-      function initModelWatchers(){
-        for(var key in PARAM_TYPES){
-          var paramSettings = PARAM_TYPES[key];
-
-          // Creating model watchers
-          var watcher = scope.$watch(
-            'selected.'+key,
-            onModelChanged(paramSettings)
-          );
-
-          watchers.push(watcher);
-        }
-      }
-
-      // Model change watcher
-      function onModelChanged(paramSettings){
-        return function(newValue){
-          // URL should be updated only when model value has changed
-          var paramValue = queryService.getValue(paramSettings.search);
-          var currentValue = validationService.convertValue(paramSettings, paramValue);
-
-          if(currentValue!==newValue){
-            queryService.setValue(paramSettings.search, newValue);
-          }
-        };
-      }
-      initModelWatchers();
-
-      scope.$on('$destroy', function(){
-        // Removing all model watchers
-        for(var i=0; i < watchers.length; i++){
-          watchers[i]();
-        }
-      });
-      */
 
       // Getting a list of properties
       propertyService.getAll().then(function(data){
@@ -157,8 +114,6 @@ angular.module('mobiusApp.directives.booking', [])
           var modelValue;
           if(key === 'property' && scope.selected[key]!==undefined){
             modelValue = scope.selected[key].code;
-          } else if(key === 'startDate'){
-            modelValue = $filter('date')(scope.selected[key], paramSettings.format);
           }else{
             modelValue = scope.selected[key];
           }
@@ -182,7 +137,12 @@ angular.module('mobiusApp.directives.booking', [])
         for(var key in PARAM_TYPES){
           var settings = PARAM_TYPES[key];
 
-          if(settings.required && !validationService.isValueValid(scope.selected[key], settings)){
+          var value = scope.selected[key];
+          if(key === 'property'){
+            value = value === undefined?'':value.code;
+          }
+
+          if(settings.required && !validationService.isValueValid(value, settings)){
             return false;
           }
         }

@@ -13,6 +13,11 @@ angular.module('mobiusApp.directives.datepicker', [])
     require: 'ngModel',
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
+      var DATES_SEPARATOR = ' ';
+      var CLASS_DATE_SELECTED = 'date-range-selected';
+      var CLASS_RANGE_START = 'date-range-start';
+      var CLASS_RANGE_END = 'date-range-end';
+
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
       var maxDate = attrs.maxDate || null;
@@ -47,7 +52,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           }
         }
 
-        var clickCount;
+        var clicksCount;
 
         element.datepicker({
           dateFormat: DATE_FORMAT,
@@ -65,17 +70,23 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
 
           beforeShow: function () {
-            clickCount = 0;
+            clicksCount = 0;
 
             if(ngModelCtrl.$modelValue !== undefined) {
               // NOTE: using setHours(0) is safe for different timezones. By default
               // jquery date picker returns dates at 00 hour
+
+              // TODO: use $parsers/$formates in case when dates should be presented not
+              // as a string
               if(typeof(ngModelCtrl.$modelValue) === 'string'){
-                startDate = new Date(ngModelCtrl.$modelValue).setHours(0);
-                endDate = startDate;
-              }else{
-                startDate = new Date(ngModelCtrl.$modelValue.startDate).setHours(0);
-                endDate = new Date(ngModelCtrl.$modelValue.endDate).setHours(0);
+                var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
+                startDate = new Date(dates[0]).setHours(0);
+
+                if(dates.length === 2){
+                  endDate = new Date(dates[1]).setHours(0);
+                }else{
+                  endDate = startDate;
+                }
               }
             }
           },
@@ -104,7 +115,7 @@ angular.module('mobiusApp.directives.datepicker', [])
 
             // Update model
             scope.$apply(function() {
-              ngModelCtrl.$setViewValue(date);
+              ngModelCtrl.$setViewValue(date.startDate + DATES_SEPARATOR + date.endDate);
               ngModelCtrl.$render();
             });
 
@@ -117,8 +128,8 @@ angular.module('mobiusApp.directives.datepicker', [])
             startDate = endDate;
             endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
 
-            clickCount++;
-            if(rangeSelection && clickCount > 1){
+            clicksCount++;
+            if(rangeSelection && clicksCount > 1){
               element.datepicker('hide');
             }
 
@@ -143,13 +154,13 @@ angular.module('mobiusApp.directives.datepicker', [])
         var dateTime = date.getTime();
 
         if(dateTime === startDate) {
-          return 'date-range-start';
+          return CLASS_RANGE_START;
         }else if(dateTime === endDate) {
-          return 'date-range-end';
+          return CLASS_RANGE_END;
         }
 
         return ((dateTime > Math.min(startDate, endDate) &&
-           dateTime < Math.max(startDate, endDate))?'date-range-selected' : '');
+           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED: '');
       }
     }
   };

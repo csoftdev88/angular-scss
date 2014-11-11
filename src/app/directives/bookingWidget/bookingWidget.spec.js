@@ -91,11 +91,11 @@ describe('bookingWidget', function() {
     });
 
     it('should do initial param validation', function() {
-      expect(env.queryServiceGetValue.callCount).equal(4);
+      expect(env.queryServiceGetValue.callCount).equal(5);
 
-      expect(env.validationServiceIsValueValid.callCount).equal(4);
+      expect(env.validationServiceIsValueValid.callCount).equal(5);
 
-      expect(env.queryServiceRemoveParam.callCount).equal(4);
+      expect(env.queryServiceRemoveParam.callCount).equal(5);
     });
   });
 
