@@ -1,85 +1,129 @@
-ul[datepicker-popup-wrap] {
-  padding: 0px;
+.ui-datepicker {
+  background-color: @white;
+  .box-shadow;
 
-  // TODO: Remove this ugly hack and resolve this
-  // problem on UI component level
-  @media @lessThenTablet {
-    left: -5px !important;
+  .ui-datepicker-header {
+    background-color: @colorDatepickerHeader;
+    position: relative;
+
+    .ui-datepicker-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      top: 10px;
+
+      color: @white;
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+      .fs-12;
+    }
   }
 
-  table {
-    .box-shadow;
-    border-radius: @borderRadiusDefault;
-    background-color: @white;
+  // Navigation buttons
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    background-size: 46px 38px !important;
+    cursor: pointer;
+
+    display: inline-block;
+    width: 46px;
+    height: 26px;
     margin-top: 5px;
+    background-size: 46px 38px;
 
-    button {
-      .link-button();
+    span {
+      display: none;
     }
+  }
 
-    thead tr {
-      // Header
-      &:first-child {
-        background-color: @colorDatepickerHeader;
+  .ui-datepicker-prev {
+    background: url('../images/angle-left.svg') no-repeat center center;
+  }
 
-        th:nth-child(1),
-        th:nth-child(3) {
-          background: url('../images/angle-left.svg') no-repeat center center;
-          background-size: 46px 38px;
-          cursor: pointer;
-        }
+  .ui-datepicker-next {
+    background: url('../images/angle-right.svg') no-repeat center center;
+    float: right;
+  }
 
-        th:nth-child(2) {
-          text-align: center;
-        }
+  table.ui-datepicker-calendar {
+    width: 100%;
 
-        th:nth-child(3) {
-          background-image: url('../images/angle-right.svg');
-        }
+    thead {
+      background-color: @colorDatepickerSubHeader;
 
-        button {
-          padding: 7px 0px;
-
-          strong {
-            color: @white;
-            .fs-12;
-          }
-        }
-      }
-
-      // Months
-      &:nth-child(2) {
-        background-color: @colorDatepickerSubHeader;
-
-        th {
-          color: @colorLinkDefault;
-          .fs-12;
-          font-weight: normal;
-          padding: 7px 12px;
-        }
+      th span {
+        color: @colorLinkDefault;
+        .fs-12;
+        font-weight: normal;
+        padding: 7px 12px;
       }
     }
 
     tbody {
-      tr {
-        button {
-          padding: 4px 8px;
-          .transition(background-color, @transitionDurationShort);
+      td {
+        text-align: center;
+        .fs-12;
+        font-weight: normal;
+        padding: 7px 12px;
+        cursor: pointer;
 
-          span {
-            color: @colorDatepickerDays;
-            .fs-12;
+        a {
+          color: @colorDatepickerDays;
+          text-decoration: none;
+          .transition(background-color, @transitionDurationShort);
+        }
+
+        &:hover {
+          background-color: @colorDatepickerRange;
+
+          a {
+            color: @white;
           }
+        }
+
+        //&.ui-datepicker-current-day,
+        &.date-range-start,
+        &.date-range-end {
+          background-color: @colorLinkDefault;
+          a {
+            color: @white;
+          }
+        }
+
+        &.date-range-start {
+          border-radius: 3px 0px 0px 3px;
+        }
+
+        &.date-range-end {
+          border-radius: 0px 3px 3px 0px;
+        }
+
+        &.date-range-selected {
+          background-color: @colorDatepickerRange;
+          a {
+            color: @white;
+          }
+        }
+
+        &.ui-datepicker-other-month {
+          color: @colorLightGray;
 
           &:hover {
-            background-color: @colorDatepickerRange;
-
-            span {
-              color: @white;
-            }
+            // TODO: not specifyed in invision yet
+            background-color: #BAD4E6;
           }
         }
       }
+    }
+  }
+
+  .ui-datepicker-buttonpane {
+    .ui-datepicker-current {
+      display: none;
     }
   }
 }

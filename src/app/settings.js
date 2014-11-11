@@ -16,6 +16,10 @@ angular.module('mobiusApp.config', [])
     'generics': {
       'currencies': 'generics/currencies',
       'languages': 'generics/languages'
+    },
+
+    'properties': {
+      'all': 'properties'
     }
   },
 
@@ -92,6 +96,12 @@ angular.module('mobiusApp.config', [])
         'shortName': 'CZ',
         'name': 'Čeština'
       }
+    },
+
+    // Settings related to booking process
+    'bookingWidget': {
+      'maxAdults': 6,
+      'maxChildren': 8
     },
 
     // States layout

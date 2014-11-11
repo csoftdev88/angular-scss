@@ -26,6 +26,9 @@ angular.module('mobiusApp', [
   'mobiusApp.services.api',
   'mobiusApp.services.content',
   'mobiusApp.services.modal',
+  'mobiusApp.services.properties',
+  'mobiusApp.services.query',
+  'mobiusApp.services.validation',
 
   // Custom components
   'mobiusApp.directives.layout',
@@ -40,12 +43,14 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.equals',
   'mobiusApp.directives.resize.watcher',
   'mobiusApp.directives.dropdown.group',
-
+  'mobiusApp.directives.datepicker',
   // Directive based on content data
   'mobiusApp.directives.menu',
   // Directives for generic data
   'mobiusApp.directives.currency',
   'mobiusApp.directives.language',
+  // Filters
+  'mobiusApp.filters.list',
 
   // 3rd party components
   'localytics.directives',
