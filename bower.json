@@ -16,6 +16,9 @@
     "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
     "chai": "~1.7.2",
     "sinon-chai": "~2.4.0",
-    "angular-touch": "~1.2.0"
+    "angular-touch": "git://github.com/oilart/bower-angular-touch.git#master"
+  },
+  "resolutions": {
+    "angular": "1.3.3-build.3548+sha.ebc3b7b"
   }
 }
