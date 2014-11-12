@@ -16,6 +16,10 @@ angular.module('mobiusApp.config', [])
     'generics': {
       'currencies': 'generics/currencies',
       'languages': 'generics/languages'
+    },
+
+    'properties': {
+      'all': 'properties'
     }
   },
 
@@ -94,6 +98,12 @@ angular.module('mobiusApp.config', [])
       }
     },
 
+    // Settings related to booking process
+    'bookingWidget': {
+      'maxAdults': 6,
+      'maxChildren': 8
+    },
+
     // States layout
     'layout': {
       'index.home': [
@@ -116,6 +126,13 @@ angular.module('mobiusApp.config', [])
       'hotels': '<hotels></hotels>',
       'room': '<room></room>',
       'room-aside': '<room-aside></room-aside>'
+    },
+
+    // Responsive design breakpoints
+    'screenTypes': {
+      'mobile': {
+        'maxWidth': 768
+      }
     }
   }
 });

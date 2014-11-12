@@ -1,0 +1,282 @@
+.modal {
+  position: fixed;
+  z-index: 1040;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: none;
+  overflow: auto;
+}
+
+.ui-dialog,
+.ui-info {
+  position: relative;
+  padding: @baseline - 1 10px;
+  border-radius: 3px;
+  background: #ebebeb;
+
+  .has-white-bg & {
+    background: @white;
+  }
+}
+
+.ui-info {
+  padding: @baseline - 1;
+  background: @white;
+}
+
+.modal-content {
+  position: relative;
+  height: auto;
+  margin: 25px 10px;
+  border-radius: @borderRadiusDefault;
+  .box-shadow;
+}
+
+.modal-backdrop {
+  position: fixed;
+  z-index: 1030;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: @black;
+
+  // Show/Hide effects
+  &.in {
+    opacity: .5;
+    filter: alpha(opacity=50);
+  }
+
+  &.fade {
+    opacity: 0;
+  }
+}
+
+.modal.fade {
+  top: -25%;
+  .transition(all, .3s, ease-in-out);
+
+  &.in {
+    display: block;
+    top: 0;
+  }
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: .8;
+  filter: alpha(opacity=80);
+}
+
+.fade.in {
+  opacity: 1;
+}
+
+.fade {
+  opacity: 0;
+  .transition(opacity, .15s, linear);
+}
+
+.modal-header {
+  .button-close {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    border: none;
+    background: transparent none;
+    &:extend(.open-sans-light);
+    .font-size(30px, @baseline, @htmlFontSize);
+  }
+
+  .modal-title {
+    &:extend(.open-sans-light);
+    .fs-21;
+    .line-height(21, 2);
+    margin: 0;
+  }
+
+  &.has-form .modal-title {
+    margin-left: 11px;
+  }
+}
+
+.modal-body {
+  .form-wrap {
+    display: block;
+    .margin-bottom;
+    padding: 0 10px;
+    border: 1px #acacac solid;
+    border-radius: 3px;
+    background: #e1e1e1;
+
+    p { margin-top: 0;}
+
+    a {
+      color: @colorLinkLight;
+      &:hover,
+      &:focus {
+        color: lighten(@colorLinkLight, 15%);
+      }
+    }
+
+    .modal-footer {
+      position: absolute;
+    }
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+
+    &:focus {
+      box-shadow: none;
+      border-color: darken(@colorInputBorder, 15%);
+    }
+  }
+
+  label { color: @colorHeadingDefault;}
+
+  h4 {
+    .fs-14(true);
+    color: #406881;
+  }
+
+  reservation-item { .margin-top;}
+  .reservation-number { .line-height(14, 2);}
+}
+
+.modal-footer {
+  text-align: right;
+}
+
+.advanced-options {
+  label {
+    font-weight: 400;
+
+    &.is-selected { font-weight: 700;}
+  }
+}
+
+.room-count {
+  .margin-top-bottom;
+
+  label { .line-height(16, 1);}
+}
+
+.additional-rooms {
+  text-align: right;
+
+  .room-item {
+    .clearfix;
+    position: relative;
+    padding-right: 90px;
+
+    label,
+    .form-group {
+      display: inline-block;
+      box-sizing: border-box;
+      vertical-align: middle;
+      float: left;
+      width: 33.3333%;
+    }
+
+    // Remove button
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 80px;
+    }
+  }
+
+
+  .form-group {
+    padding-left: 10px;
+  }
+
+  .button-add {
+    margin-right: 90px;
+  }
+}
+
+.info-box-success {
+  .margin-top;
+  padding: (@baseline / 2 - 1) 10px;
+  border: 1px #27ae61 solid;
+  border-radius: 3px;
+  background: #a4d5b9;
+  text-align: center;
+  color: #005e20;
+
+  p { margin: 0;}
+}
+
+// NOTE: Form submit buttons are part of form but visually outside of the form area
+.ui-dialog > .modal-body > .form-wrap {
+  margin-bottom: 50px;
+}
+
+// TABLET and DESKTOP styles
+@media only screen and @moreThenMobile {
+
+  .ui-dialog{
+    padding: (@baseline * 2 - 1) 45px;
+  }
+
+  .modal-content {
+    .grid-width(5);
+    max-width: @width;
+    margin: 100px auto;
+
+
+    .is-wide & {
+      .grid-width(9);
+      max-width: @width;
+      margin: 50px auto;
+
+      @media only screeb and @lessThenTabletPortrait {
+        margin: 50px 20px;
+      }
+    }
+  }
+
+  .modal-footer {
+    .margin-top;
+
+    .button {
+      .grid-width(3);
+      min-width: @width;
+    }
+  }
+}
+
+// DESKTOP styles
+@media only screen and @moreThenTablet {
+
+
+}
+
+.price-breakdown {
+  color: @colorHeadingDefault;
+
+  table {
+    .margin-top-bottom(14, 1);
+    .fs-14(true);
+    width: 100%;
+  }
+
+  th, td {
+    text-align: left;
+  }
+
+  th + *,
+  td + * {
+    padding-left: 10px;
+  }
+
+  [colspan="3"] {
+    text-align: right;
+  }
+}

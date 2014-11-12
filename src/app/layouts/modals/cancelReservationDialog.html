@@ -1,0 +1,17 @@
+<div class="ui-dialog">
+  <div class="modal-header">
+    <h3 class="modal-title">Are you sure you want to cancel this reservation?</h3>
+    <button class="button-close" ng-click="cancel()">X</button>
+  </div>
+
+  <div class="modal-body">
+    <reservation-item>
+      <p classs="reservation-number"><strong>Reservation number: </strong>{{reservation.id}}</p>
+      <reservation-data reservation="reservation"></reservation-data>
+    </reservation-item>
+  </div>
+
+  <div class="modal-footer">
+    <button class="button button-blue" ng-click="ok()">Cancel Reservation</button>
+  </div>
+</div>

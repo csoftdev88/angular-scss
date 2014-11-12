@@ -6,7 +6,7 @@
   </header>
   <div class="room-prices">
     <accordion close-others="oneAtATime">
-      <accordion-group heading="Best available Rate" ng-repeat="rate in rates">
+      <accordion-group heading="Best available Rate" is-open="open" ng-class="{'is-open': open}" ng-repeat="rate in rates">
         <accordion-heading>
           <i class="icon icon-{{rate.icon}}"/>
           <header>

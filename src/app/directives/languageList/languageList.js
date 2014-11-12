@@ -10,6 +10,7 @@ angular.module('mobiusApp.directives.language', [])
 
     // Widget logic goes here
     link: function(scope){
+
       contentService.getLanguages().then(function(data){
         scope.languages = data.languages||[];
       });

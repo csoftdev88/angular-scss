@@ -10,8 +10,6 @@ angular.module('mobiusApp.directives.menu', [])
 
     // Widget logic goes here
     link: function(scope, elem, attrs){
-      var EVENT_MOUSE_ENTER = 'mouseenter';
-      var EVENT_MOUSE_LEAVE = 'mouseleave';
 
       // We are using different methods for getting the data
       // from the server according to content type. Also, menu
@@ -32,32 +30,13 @@ angular.module('mobiusApp.directives.menu', [])
       };
 
       scope.title = attrs.title;
-      var contentType  = contentTypes[attrs.menuContent];
+      var contentType = contentTypes[attrs.menuContent];
 
       if(contentType){
         contentService[contentType.method]().then(function(data){
           scope.content = data[contentType.sourceObject]||[];
         });
       }
-
-      elem.bind(EVENT_MOUSE_ENTER, function(){
-        onMouseEvent(true);
-      });
-
-      elem.bind(EVENT_MOUSE_LEAVE, function(){
-        onMouseEvent(false);
-      });
-
-      function onMouseEvent(active){
-        scope.active = active;
-        scope.$apply();
-      }
-
-      // Removing all listeners when component is destroyed
-      scope.$on('$destroy', function(){
-        elem.unbind(EVENT_MOUSE_ENTER);
-        elem.unbind(EVENT_MOUSE_LEAVE);
-      });
     }
   };
 });

@@ -25,10 +25,14 @@ accordion {
     background-color: @bgAccordion;
     border: 1px #cccccc solid;
     padding: ((@baseline / 2) - 1) 10px; // -2px border top/bottom
-    color: @colorHeadingDefault;
 
     * {
       margin: 0;
+    }
+
+    a {
+      display: block;
+      color: @colorHeadingDefault;
     }
 
     &.is-open {
@@ -60,8 +64,13 @@ accordion {
     }
   }
 
-  .panel-title {
+  .panel-heading {
+    display: block;
     cursor: pointer;
+    .clearfix;
+  }
+
+  .panel-title {
 
     .icon {
       display: block;

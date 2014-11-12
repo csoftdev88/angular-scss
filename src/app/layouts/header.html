@@ -2,31 +2,35 @@
     <a class="brand" ui-sref="index.home">
         <img src="/static/images/logo.png" alt="Mobius logo">
     </a>
-    <a href class="menu-opener icon-menu dropdown-toggle" data-toggle="dropdown"></a>
-    <ul>
+    <a href class="menu-opener dropdown-toggle" data-toggle="dropdown"></a>
+    <ul dropdown-group>
         <li ng-hide="config.menu.singleProperty">
-            <a ui-sref="index.hotels" class="is-active">_hotels_</a>
+            <a ui-sref="index.hotels">_hotels_</a>
         </li>
 
-        <li menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
+        <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
         </li>
 
-        <li menu-content="about" data-title="_about_us_" ng-show="config.menu.showAbout">
+        <li has-dropdown="hover" menu-content="about" data-title="_about_us_" ng-show="config.menu.showAbout">
         </li>
 
-        <li menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
+        <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
         </li>
 
         <li ng-show="config.menu.showContact">
             <a ui-sref="index.contacts">_contact_</a>
         </li>
 
-        <li currency-list>
+        <li has-dropdown="click" currency-list>
         </li>
 
-        <li language-list>
+        <li has-dropdown="click" language-list>
         </li>
     </ul>
-
-    <a class="button button-login">_login_register_</a>
+    <!-- NOTE: There can be in ng-click:
+      openLoginDialog()
+      openRegisterDialog()
+      openForgotPasswordDialog()
+    -->
+    <a class="button button-login" ng-click="openLoginDialog()">_login_register_</a>
 </nav>

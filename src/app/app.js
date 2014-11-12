@@ -12,9 +12,11 @@ angular.module('mobiusApp', [
   // Controllers
   'mobius.controllers.main',
   'mobius.controllers.offers',
-
-  // 3rd party components
-  'localytics.directives',
+  'mobius.controllers.reservations',
+  'mobius.controllers.modals.generic',
+  'mobius.controllers.modals.loginRegister',
+  'mobius.controllers.modals.advancedOptions',
+  'mobius.controllers.modals.reservation',
 
   // Application modules
   'mobiusApp.config',
@@ -23,6 +25,10 @@ angular.module('mobiusApp', [
   'mobiusApp.services.state',
   'mobiusApp.services.api',
   'mobiusApp.services.content',
+  'mobiusApp.services.modal',
+  'mobiusApp.services.properties',
+  'mobiusApp.services.query',
+  'mobiusApp.services.validation',
 
   // Custom components
   'mobiusApp.directives.layout',
@@ -33,12 +39,21 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.hotels',
   'mobiusApp.directives.room',
   'mobiusApp.directives.room.aside',
-
+  'mobiusApp.directives.reservation.data',
+  'mobiusApp.directives.equals',
+  'mobiusApp.directives.resize.watcher',
+  'mobiusApp.directives.dropdown.group',
+  'mobiusApp.directives.datepicker',
   // Directive based on content data
   'mobiusApp.directives.menu',
   // Directives for generic data
   'mobiusApp.directives.currency',
-  'mobiusApp.directives.language'
+  'mobiusApp.directives.language',
+  // Filters
+  'mobiusApp.filters.list',
+
+  // 3rd party components
+  'localytics.directives',
 ])
 
 .config(function ($stateProvider, $locationProvider) {
@@ -78,7 +93,8 @@ angular.module('mobiusApp', [
     // Room reservation
     .state('index.reservation', {
       templateUrl: 'layouts/reservation/reservation.html',
-      url: '/reservation'
+      url: '/reservation',
+      controller: 'ReservationsCtrl'
     })
 
     .state('index.reservation.details', {

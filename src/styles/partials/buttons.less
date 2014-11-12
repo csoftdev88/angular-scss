@@ -20,9 +20,6 @@
               backgroundColor @transitionDurationDefault linear;
 
   .paddingButtonDefault;
-  //.box-shadow(0, 1px, 1px, rgba(12, 116, 17, 1));
-  //.textShadowDark;
-  // .transition(background-color, @transitionDurationDefault);
 
   &:hover,
   &:focus,
@@ -40,12 +37,16 @@
   .button-colors(default, @colorButtonDefault, @colorButtonDefaultHover);
 }
 
-.button--blue {
+.button-blue {
   .button-colors(blue, @colorButtonBlue, @colorButtonBlueHover);
 }
 
-.button--gray {
+.button-gray {
   .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
+}
+
+.button-red {
+  .button-colors(red, @colorButtonRed, @colorButtonRedHover);
 }
 
 .link-button {
@@ -53,4 +54,12 @@
   border: none;
   padding: 0;
   cursor: pointer;
+}
+
+.button-full {
+  width: 100%;
+}
+
+.button[disabled]{
+  .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
 }

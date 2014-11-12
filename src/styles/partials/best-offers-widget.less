@@ -1,0 +1,167 @@
+/*  ==========================================
+    BEST OFFERS widget
+    ========================================== */
+
+// GENERIC STYLES
+[widget="best-offers"]{
+
+  h2 {
+    .offers-heading();
+  }
+
+  h3 {
+    .offers-title();
+  }
+}
+
+.best-offers__selection {
+  a {
+    text-decoration: none;
+    color: @colorTextDefault;
+  }
+
+  p {
+    color: @colorBestOffersText;
+    .fs-14;
+  }
+
+  h3, p {
+    transition: color 0.2s linear;
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  img {
+    border-radius: 3px;
+    transform: translateZ(0);
+    filter: grayscale(0.35);
+    transition: all 0.15s linear;
+    box-shadow: 0 10px 10px -10px fade(@black, 0%);
+  }
+
+  a:hover,
+  a:focus {
+    h3, p {
+      color: @black;
+    }
+    img {
+      transform: translateY(-3px);
+      filter: grayscale(0);
+      box-shadow: 0 10px 10px -10px fade(@black, 40%);
+    }
+  }
+}
+
+.best-offers__explore {
+  .margin-top-bottom(16);
+
+  > div {
+    position: relative;
+    overflow: hidden;
+    font-size: 0; // Avoid space between bottom of image and overlay
+  }
+
+  .overlay {
+    display: block;
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    background-color: fadeout(@black, 60%);
+    text-decoration: none;
+    transition: background-color 0.25s linear;
+    font-size: @htmlFontSize;
+
+    &:hover,
+    &:focus {
+      background-color: fadeout(@black, 90%);
+    }
+  }
+
+  h3 {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: @white;
+    &:extend(open-sans-bold);
+    .fs-48;
+    line-height: 1;
+    font-style: italic;
+    transform: translateY(-50%);
+    text-shadow: 2px 2px 2px fadeout(@black, 25%);
+
+    span {
+      margin-left: -3em;
+      .fs-36(false, 48);
+    }
+    strong {
+      margin-left: 3em;
+      font-style: normal;
+      text-transform: uppercase;
+    }
+  }
+
+  p {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    .noSpaces;
+    color: @white;
+    &:extend(open-sans-bold);
+    .fs-24;
+    font-style: italic;
+    text-shadow: 2px 2px 3px fadeout(@black, 50%);
+  }
+}
+
+// MOBILE SPECIFIC STYLES
+@media @lessThenTablet {
+  [widget="best-offers"] {
+    img {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  .best-offers__explore {
+    [grid] {
+      margin: 0;
+    }
+
+    .overlay {
+      font-size: @htmlFontSize / 2;
+    }
+  }
+
+}
+
+// DESKTOP STYLES
+@media @moreThenMobile {
+  .best-offers__selection {
+    header {
+      .baselined-height(150);
+      height: @baselinedHeight;
+    }
+  }
+
+  .best-offers__explore {
+    // Override generic margin-bottom to fit in baseline grid
+    margin-bottom: 16px;
+
+    > div {
+      border-radius: 5px;
+    }
+
+    h3 {
+      top: 50%;
+    }
+
+    p {
+      top: 15px;
+      right: 15px;
+    }
+  }
+}

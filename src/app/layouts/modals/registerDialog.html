@@ -1,0 +1,37 @@
+<div class="ui-dialog">
+  <div class="modal-header has-form">
+    <h3 class="modal-title">Register</h3>
+    <button class="button-close" ng-click="cancel()">X</button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-wrap">
+      <form action="">
+        <label for="login-name">
+          Name
+          <input type="text" id="login-name">
+        </label>
+        <label for="login-surname">
+          Surname
+          <input type="text" id="login-surname">
+        </label>
+        <label for="login-email">
+          Email Address
+          <input type="email" id="login-email">
+        </label>
+        <label for="login-password">
+          Password
+          <input type="password" id="login-password">
+        </label>
+        <label for="login-password-confirm">
+          Confirm Password
+          <input type="password" id="login-password-confirm">
+        </label>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="button" ng-click="ok()">Continue</button>
+  </div>
+</div>

@@ -5,8 +5,11 @@
   .margin-top;
   .margin-bottom;
   height: 2 * @baseline;
+
   .order-switch {
     float: left;
+    .grid-width(2);
+    min-width: @width;
   }
 
   .view-switch {
@@ -235,7 +238,7 @@
   }
 
   .more {
-    .button--blue;
+    .button-blue;
     float: right;
     height: 1.96875em;
     .line-height(16, 1.5);

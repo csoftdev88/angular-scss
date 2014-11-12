@@ -59,8 +59,8 @@
       </table>
     </div>
     <p class="more-details">
-      <a href="#">View Price Breakdown</a>
-      <a href="#">View Policies</a>
+      <a href ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
+      <a href ng-click="openPoliciesInfo()">View Policies</a>
     </p>
   </reservation-room-resume>
 
@@ -79,7 +79,7 @@
           <input type="date" id="form-expires"/>
         </label>
         <label for="form-cvv" class="input-right">
-          CVV
+          CVV <span class="help" ng-click="openCCVInfo()"/>
           <input type="number" id="form-cvv"/>
         </label>
       </div>
@@ -95,7 +95,7 @@
   </reservation-billing>
 
   <reservation-buttons>
-    <a href="/reservation/details" class="button button--gray back">Back</a>
+    <a href="/reservation/details" class="button button-gray back">Back</a>
     <a href="/reservation/confirmation" class="button next">Continue</a>
   </reservation-buttons>
 </div>

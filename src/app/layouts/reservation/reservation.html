@@ -1,1 +1,19 @@
-<div ui-view></div>
+<div ui-view>
+
+  <div widget="reservation" grid="8">
+    <h3>Your <strong>Next Stay</strong></h3>
+    <reservation-item ng-repeat="reservation in reservations">
+      <div class="table-wrap">
+        <p><strong>Reservation number: </strong>{{reservation.id}}</p>
+        <reservation-data reservation="reservation"></reservation-data>
+      </div>
+
+      <reservation-buttons>
+        <button class="button-gray">Edit Reservation</button>
+        <button class="button-gray" ng-click="openCancelReservationDialog(reservation)">Cancel Reservation</button>
+      </reservation-buttons>
+    </reservation-item>
+
+    <h3>Your <strong>Past Stays</strong></h3>
+  </div>
+</div>

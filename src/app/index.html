@@ -35,11 +35,12 @@
         <script type="text/javascript" src="/static/<%= file %>"></script><% }); %>
     </head>
 
-    <body>
+    <body resize-watcher>
         <!-- Add your site or application content here -->
         <div ui-view></div>
 
         <!-- Temporary script for show/hide typography grid -->
+        <!-- TODO: Remove that before going to production -->
         <script>
           (function(){
             var handleKey = function(event){
