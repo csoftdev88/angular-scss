@@ -19,6 +19,6 @@
     "angular-touch": "git://github.com/oilart/bower-angular-touch.git#master"
   },
   "resolutions": {
-    "angular": "1.3.3-build.3548+sha.ebc3b7b"
+    "angular": "1.2.26"
   }
 }
