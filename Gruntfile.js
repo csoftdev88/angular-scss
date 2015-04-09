@@ -257,6 +257,7 @@ module.exports = function(grunt) {
       files: {
         src: [ '**/*.html' ],
         cwd: 'src/app',
+        expand: true,
         dest: 'build/templates/{locale}/'
       }
     },
@@ -371,6 +372,9 @@ module.exports = function(grunt) {
 
       var src = grunt.config('config.build') + '/templates/' + localeCode + '/index.html';
       var dest = this.data.dir + '/index-' + localeCode + '.html';
+
+      console.log(src);
+      console.log(dest);
 
       processIndex(src, dest, jsFiles, cssFiles, localeCode);
     }

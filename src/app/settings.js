@@ -9,7 +9,7 @@ angular.module('mobiusApp.config', [])
       'news': 'content/news',
       'loyalties': 'content/simpleloyalties',
       'offers': 'content/specialoffers',
-      'abouts': 'content/abouts',
+      'abouts': 'content/about',
       'highlighted': 'content?highlighted'
     },
 
