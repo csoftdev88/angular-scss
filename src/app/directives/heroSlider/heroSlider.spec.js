@@ -21,7 +21,7 @@ describe('heroSlider', function() {
     {
       title: 'Promotions',
       categoryName: 'testCat',
-      ID: 'testID'
+      id: 'testID'
     }
   ];
 

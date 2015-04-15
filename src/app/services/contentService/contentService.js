@@ -6,19 +6,19 @@ angular.module('mobiusApp.services.content', [])
 .service( 'contentService',  function(apiService) {
 
   function getNews(){
-    return apiService.get(apiService.getFullURL('content.news'));
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
   }
 
   function getAbout(){
-    return apiService.get(apiService.getFullURL('content.abouts'));
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'about'});
   }
 
   function getOffers(){
-    return apiService.get(apiService.getFullURL('content.offers'));
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'specialOffer'});
   }
 
   function getHighlightedItems(){
-    return apiService.get(apiService.getFullURL('content.highlighted'));
+    return apiService.get(apiService.getFullURL('contents'), {scope: 'homepage', filter: 'news'});
   }
 
     // Generics

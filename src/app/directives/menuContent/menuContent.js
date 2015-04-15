@@ -20,11 +20,11 @@ angular.module('mobiusApp.directives.menu', [])
           'method': 'getNews'
         },
         'offers': {
-          'sourceObject': 'specialOffers',
+          'sourceObject': 'specialOffer',
           'method': 'getOffers'
         },
         'about': {
-          'sourceObject': 'abouts',
+          'sourceObject': 'about',
           'method': 'getAbout'
         }
       };

@@ -3,12 +3,13 @@
 angular.module('mobiusApp.services.api', [])
 
 .service( 'apiService',  function($q, $http, Settings) {
-  function get(url) {
+  function get(url, params) {
     var q = $q.defer();
 
     $http({
       method: 'GET',
-      url: url
+      url: url,
+      params: params
     }).success(function(res) {
       q.resolve(res);
 
