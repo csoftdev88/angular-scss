@@ -12,7 +12,7 @@ angular.module('mobiusApp.directives.language', [])
     link: function(scope){
 
       contentService.getLanguages().then(function(data){
-        scope.languages = data.languages||[];
+        scope.languages = data||[];
       });
 
       scope.changeLangage = function(language){
