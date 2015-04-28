@@ -50,3 +50,7 @@ deployment:
     branch: master
     commands:
       - git push -f git@heroku.com:mobius-prod.git ${CIRCLE_BRANCH}:master
+  v2:
+    branch: v2
+    commands:
+      - git push -f git@heroku.com:mobius-v2.git ${CIRCLE_BRANCH}:master
