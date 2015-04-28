@@ -1,3 +1,11 @@
+machine:
+  environment:
+    NODE_ENV: test
+
+checkout:
+  post:
+    - '[[ ! -e "$(git rev-parse --git-dir)/shallow" ]] || git fetch --unshallow'
+
 dependencies:
   # Git requires user.email and user.name configured before git commit can be run.
   pre:
@@ -12,10 +20,6 @@ dependencies:
     - node_modules
     - bower_components
     - build
-
-machine:
-  environment:
-    NODE_ENV: test
 
 test:
   override:
