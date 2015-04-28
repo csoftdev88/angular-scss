@@ -6,4 +6,4 @@ npm-debug.log
 .sass-cache
 test-results.xml
 *.pyc
-
+.idea
