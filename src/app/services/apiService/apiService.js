@@ -5,10 +5,16 @@ angular.module('mobiusApp.services.api', [])
 .service( 'apiService',  function($q, $http, Settings) {
   function get(url, params) {
     var q = $q.defer();
+    console.log('Settings.API.headers'  + JSON.stringify(Settings.API.headers, null,4));
 
     $http({
       method: 'GET',
       url: url,
+      headers: {
+        'Authorization': 'Basic ZGllZ286ZGllZ28=',
+        'Mobius-chainId': '1',
+        'Mobius-channelId': '6'
+      },
       params: params
     }).success(function(res) {
       q.resolve(res);
@@ -27,6 +33,11 @@ angular.module('mobiusApp.services.api', [])
     $http({
       method: 'POST',
       url: url,
+      headers: {
+        'Authorization': 'Basic ZGllZ286ZGllZ28=',
+        'Mobius-chainId': '1',
+        'Mobius-channelId': '6'
+      },
       data: data
     }).success(function(res) {
       q.resolve(res);
