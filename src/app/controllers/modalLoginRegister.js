@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.modals.loginRegister', [])
 
 .controller( 'LoginRegisterCtrl', function($scope, $controller, $modalInstance,
-  modalService) {
+  modalService, apiService, user, $log) {
   // TODO: same properties should be use for login/reset dialogs
   $scope.emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
@@ -33,4 +33,16 @@ angular.module('mobius.controllers.modals.loginRegister', [])
     $scope.passwordChanged = true;
   };
 
+  $scope.login = function(loginForm, formData){
+    if (loginForm.$valid) {
+      apiService.post(apiService.getFullURL('customers.login'), formData).then(
+        function(response) {
+          user.loadUser(response.id);
+        },
+        function(error) {
+          $log.error('Login error: ' + JSON.stringify(error, null,4));
+        }
+      );
+    }
+  };
 });

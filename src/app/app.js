@@ -8,6 +8,7 @@ angular.module('mobiusApp', [
   'ngTouch',
   // Template cache
   'templates-app',
+  'underscore',
 
   // Controllers
   'mobius.controllers.main',
@@ -20,7 +21,7 @@ angular.module('mobiusApp', [
 
   // Application modules
   'mobiusApp.config',
-
+  'mobiusApp.userobject',
   // Services
   'mobiusApp.services.state',
   'mobiusApp.services.api',
@@ -29,6 +30,7 @@ angular.module('mobiusApp', [
   'mobiusApp.services.properties',
   'mobiusApp.services.query',
   'mobiusApp.services.validation',
+  'mobiusApp.services.user',
 
   // Custom components
   'mobiusApp.directives.layout',

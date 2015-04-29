@@ -2,7 +2,8 @@
 
 angular.module('mobius.controllers.main', [])
 
-.controller( 'MainCtrl',  function($scope, $state, $modal, orderByFilter, modalService, contentService, Settings) {
+.controller( 'MainCtrl',  function($scope, $state, $modal, orderByFilter, modalService, contentService,
+  Settings, user) {
 
   // Application settings
   $scope.config = Settings.UI;
@@ -76,4 +77,6 @@ angular.module('mobius.controllers.main', [])
   $scope.openPoliciesInfo = modalService.openPoliciesInfo;
   $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
 
+  $scope.user = user;
+  $scope.isUserLoggedIn = user.isLoggedIn;
 });
