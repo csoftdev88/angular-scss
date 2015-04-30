@@ -6,15 +6,15 @@
 
   <div class="modal-body">
     <div class="form-wrap">
-      <form name="loginForm" ng-submit="loginForm.$valid && ok()">
+      <form name="loginForm" ng-submit="loginForm.$valid">
         <label for="email">
           Email Address
-          <input type="email" name="email" ng-model="formData.email" required ng-pattern="emailPattern">
+          <input type="email" ng-class="{'is-invalid': loginForm.submitted && loginForm.$error.wrongCredentials && loginForm.$pristine}" name="email" ng-model="formData.email" required ng-pattern="emailPattern">
         </label>
 
         <label for="password">
           Password
-          <input type="password" name="password" required ng-model="formData.password">
+          <input type="password" ng-class="{'is-invalid': loginForm.submitted && loginForm.$error.wrongCredentials && loginForm.$pristine}" name="password" required ng-model="formData.password">
         </label>
 
         <div class="form-errors" ng-show="loginForm.$invalid">

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.user', [])
-  .service( 'user',  function(userObject, apiService, _) {
+  .service( 'user',  function(userObject, apiService, _, $q) {
 
     return {
       isLoggedIn: function() {
@@ -13,14 +13,14 @@ angular.module('mobiusApp.services.user', [])
       loadUser: function(id) {
         userObject.id = id ? id : userObject.id;
         if(userObject.id) {
-          apiService.get(apiService.getFullURL('customers.getCustomer')+'/'+userObject.id).then(
+          return apiService.get(apiService.getFullURL('customers.getCustomer')+'/'+userObject.id).then(
           function(response) {
             userObject = _.extend(response, response);
           }
           );
 
         } else {
-          return {};
+          return $q.reject({});
         }
       }
     };

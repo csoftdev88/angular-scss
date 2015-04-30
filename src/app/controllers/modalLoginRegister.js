@@ -37,12 +37,16 @@ angular.module('mobius.controllers.modals.loginRegister', [])
     if (loginForm.$valid) {
       apiService.post(apiService.getFullURL('customers.login'), formData).then(
         function(response) {
-          user.loadUser(response.id);
+          user.loadUser(response.id).then($scope.ok);
         },
         function(error) {
           $log.error('Login error: ' + JSON.stringify(error, null,4));
+          loginForm.$error.wrongCredentials = true;
+          loginForm.submitted = true;
         }
-      );
+      ).finally(function() {
+          loginForm.$setPristine();
+        });
     }
   };
 });
