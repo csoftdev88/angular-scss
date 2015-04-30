@@ -9,12 +9,12 @@
       <form name="loginForm" ng-submit="loginForm.$valid">
         <label for="email">
           Email Address
-          <input type="email" ng-class="{'is-invalid': loginForm.submitted && loginForm.$error.wrongCredentials && loginForm.$pristine}" name="email" ng-model="formData.email" required ng-pattern="emailPattern">
+          <input type="email" ng-class="{'is-invalid': wrongCredentials(loginForm)}" name="email" ng-model="formData.email" required ng-pattern="emailPattern">
         </label>
 
         <label for="password">
           Password
-          <input type="password" ng-class="{'is-invalid': loginForm.submitted && loginForm.$error.wrongCredentials && loginForm.$pristine}" name="password" required ng-model="formData.password">
+          <input type="password" ng-class="{'is-invalid': wrongCredentials(loginForm)}" name="password" required ng-model="formData.password">
         </label>
 
         <div class="form-errors" ng-show="loginForm.$invalid">
@@ -28,7 +28,8 @@
         </p>
 
         <div class="modal-footer">
-          <button class="button" type="submit" ng-click="login(loginForm, formData)">Continue</button>
+          <button class="button" ng-hide="wrongCredentials(loginForm)" type="submit" ng-click="login(loginForm, formData)">Log In</button>
+          <div class="error-messages" ng-show="wrongCredentials(loginForm)">Incorrect email or password</div>
         </div>
       </form>
     </div>
