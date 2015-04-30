@@ -49,4 +49,8 @@ angular.module('mobius.controllers.modals.loginRegister', [])
         });
     }
   };
+
+  $scope.wrongCredentials = function(loginForm) {
+    return  loginForm.submitted && loginForm.$error.wrongCredentials && loginForm.$pristine;
+  };
 });
