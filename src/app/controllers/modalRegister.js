@@ -6,10 +6,9 @@ angular.module('mobius.controllers.modals.register', [])
 
   .controller( 'RegisterCtrl', function($scope, $controller, $modalInstance/*,
     modalService, apiService, user, $log*/) {
-    var REGISTRATION_STEPS = ['step-1', 'step-2', 'step-3'];
 
     $scope.emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    $scope.registrationStep = REGISTRATION_STEPS[0];
+    $scope.registrationStep = 0;
     $scope.formData = {};
 
     $scope.success = false;
@@ -26,6 +25,7 @@ angular.module('mobius.controllers.modals.register', [])
 
       console.log('form ' + JSON.stringify(form, null,4));
       if (form.$valid) {
+        $scope.registrationStep++;
         /*apiService.post(apiService.getFullURL('customers.login'), formData).then(
           function(response) {
             user.loadUser(response.id).then($scope.ok);
