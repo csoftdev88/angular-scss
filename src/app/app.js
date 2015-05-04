@@ -15,7 +15,8 @@ angular.module('mobiusApp', [
   'mobius.controllers.offers',
   'mobius.controllers.reservations',
   'mobius.controllers.modals.generic',
-  'mobius.controllers.modals.loginRegister',
+  'mobius.controllers.modals.login',
+  'mobius.controllers.modals.register',
   'mobius.controllers.modals.advancedOptions',
   'mobius.controllers.modals.reservation',
 
@@ -56,6 +57,7 @@ angular.module('mobiusApp', [
 
   // 3rd party components
   'localytics.directives',
+  'validation.match'
 ])
 
 .config(function ($stateProvider, $locationProvider) {

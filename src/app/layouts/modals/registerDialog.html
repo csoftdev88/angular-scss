@@ -6,19 +6,20 @@
 
   <div class="modal-body">
     <div class="form-wrap">
-      <form action="">
-        <label for="login-name">
-          Name
-          <input type="text" id="login-name">
-        </label>
-        <label for="login-surname">
-          Surname
-          <input type="text" id="login-surname">
-        </label>
+      <form name="stepOneForm" ng-submit="stepOneForm.$valid">
         <label for="login-email">
-          Email Address
-          <input type="email" id="login-email">
+          Email
+          <input id="login-email" type="email" ng-class="{'is-invalid': stepOneForm.email.$error.email || stepOneForm.email.$error.pattern || stepOneForm.password.$error.required}" name="email" ng-model="formData.email" required ng-pattern="emailPattern">
         </label>
+        <span ng-show="stepOneForm.submitted && (stepOneForm.email.$error.email || stepOneForm.email.$error.pattern)">Please enter valid email</span>
+        <span ng-show="stepOneForm.submitted && stepOneForm.email.$error.required">Email is required</span>
+
+        <label for="login-email-confirm">
+          Confirm Email
+          <input id="login-email-confirm" type="text" ng-class="{'is-invalid': stepOneForm.emailConfirm.$error.match}" name="emailConfirm" ng-model="formData.emailConfirm" match="formData.email">
+        </label>
+        <span ng-show="stepOneForm.submitted && stepOneForm.emailConfirm.$error.match && stepOneForm.emailConfirm.$pristine">Email fields do not match</span>
+
         <label for="login-password">
           Password
           <input type="password" id="login-password">
@@ -32,6 +33,6 @@
   </div>
 
   <div class="modal-footer">
-    <button class="button" ng-click="ok()">Continue</button>
+    <button class="button" ng-click="register(stepOneForm, formData)">Continue</button>
   </div>
 </div>

@@ -70,7 +70,8 @@ module.exports = {
             'bower_components/jquery-datepicker/index.js',
             'bower_components/chosen/chosen.jquery.min.js',
             'bower_components/underscore/underscore.js',
-            'bower_components/angular-underscore-module/angular-underscore-module.js'
+            'bower_components/angular-underscore-module/angular-underscore-module.js',
+            'bower_components/angular-input-match/dist/angular-input-match.js'
         ],
         styles: [
         ]
