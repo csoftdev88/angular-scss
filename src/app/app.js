@@ -57,7 +57,9 @@ angular
     'mobiusApp.directives.currency',
     'mobiusApp.directives.language',
     // Filters
-    'mobiusApp.filters.list'
+    'mobiusApp.filters.list',
+    'mobiusApp.filters.number',
+    'mobiusApp.filters.currency'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, Settings) {
@@ -71,10 +73,13 @@ angular
         abstract: true,
         templateUrl: 'layouts/index.html',
         controller: 'MainCtrl',
-        url: '/:language',
+        url: '/:language?currency',
         resolve: {
           language: function($stateParams) {
             return $stateParams.language;
+          },
+          currency: function($stateParams) {
+            return $stateParams.currency;
           }
         }
       })

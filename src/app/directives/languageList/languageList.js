@@ -15,9 +15,7 @@ angular.module('mobiusApp.directives.language', [])
           scope.languages = [];
           _.each(data, function(languageData) {
             if (!Settings.UI.languages[languageData.code]) {
-              if (console && console.error) {
-                console.error('Language "' + languageData.code + '" not found in configuration', languageData);
-              }
+              throw new Error('Language "' + languageData.code + '" not found in configuration', languageData);
             } else {
               scope.languages.push(languageData);
             }

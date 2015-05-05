@@ -64,18 +64,22 @@ angular.module('mobiusApp.config', [])
       'default': 'GBP',
 
       'GBP': {
+        'code': 'GBP',
         'symbol': '£'
       },
 
       'USD': {
+        'code': 'USD',
         'symbol': '$'
       },
 
       'EUR': {
+        'code': 'EUR',
         'symbol': '€'
       },
 
       'CAD': {
+        'code': 'CAD',
         'symbol': '$'
       }
     },
@@ -84,15 +88,27 @@ angular.module('mobiusApp.config', [])
       // first one is default language
       'en-us': {
         'shortName': 'EN',
-        'name': 'English (US)'
+        'name': 'English (US)',
+        'decimalSeparator': '.',
+        'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
       },
       'en-ca': {
         'shortName': 'EN',
-        'name': 'English (CAN)'
+        'name': 'English (CAN)',
+        'decimalSeparator': '.',
+        'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
       },
       'cs-cz': {
         'shortName': 'CZ',
-        'name': 'Čeština'
+        'name': 'Čeština',
+        'decimalSeparator': ',',
+        'groupSeparator': '\u00a0',
+        'groupSize': 3,
+        'neg': '-'
       }
     },
 
