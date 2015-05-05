@@ -34,41 +34,31 @@
           <span ng-show="stepOneForm.submitted && stepOneForm.passwordConfirm.$error.match && stepOneForm.passwordConfirm.$pristine">Password fields do not match</span>
           </label>
         </form>
+        <div class="modal-footer">
+          <button class="button" ng-click="register(stepOneForm)">Continue</button>
+        </div>
       </div>
 
       <div ng-switch-when="1">
         <form name="stepTwoForm" ng-submit="stepTwoForm.$valid">
-          <label for="login-email">
-            Email
-            <input id="login-email" type="email" ng-class="{'is-invalid': stepOneForm.submitted && (stepOneForm.email.$error.email || stepOneForm.email.$error.pattern || stepOneForm.password.$error.required)}" name="email" ng-model="formData.email" required ng-pattern="emailPattern">
+          <label for="login-name">
+            Name
+            <input type="text" id="login-name">
           </label>
-          <span ng-show="stepOneForm.submitted && (stepOneForm.email.$error.email || stepOneForm.email.$error.pattern)">Please enter valid email</span>
-          <span ng-show="stepOneForm.submitted && stepOneForm.email.$error.required">Email is required</span>
-
-          <label for="login-email-confirm">
-            Confirm Email
-            <input id="login-email-confirm" type="text" ng-class="{'is-invalid': stepOneForm.emailConfirm.$error.match}" name="emailConfirm" ng-model="emailConfirm" match="formData.email">
-          </label>
-          <span ng-show="stepOneForm.submitted && stepOneForm.emailConfirm.$error.match && stepOneForm.emailConfirm.$pristine">Email fields do not match</span>
-
-          <label for="login-password">
-            Password
-            <input id="login-password" type="password" ng-class="{'is-invalid': stepOneForm.submitted && stepOneForm.password.$error.required}" name="password" ng-model="formData.password" required>
-          </label>
-          <span ng-show="stepOneForm.submitted && stepOneForm.password.$error.required">Password is required</span>
-
-          <label for="login-password-confirm">
-            Confirm Password
-            <input id="login-password-confirm" type="password" ng-class="{'is-invalid': stepOneForm.passwordConfirm.$error.match}" name="passwordConfirm" ng-model="passwordConfirm" match="formData.password">
-          </label>
-          <span ng-show="stepOneForm.submitted && stepOneForm.passwordConfirm.$error.match && stepOneForm.passwordConfirm.$pristine">Password fields do not match</span>
+          <label for="login-surname">
+            Surname
+            <input type="text" id="login-surname">
           </label>
         </form>
+        <!-- todo: checkboxes -->
+        
+        <div class="modal-footer">
+
+          <button class="button" ng-click="register(stepTwoForm)">Continue</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="modal-footer">
-    <button class="button" ng-click="register(stepOneForm, formData)">Continue</button>
-  </div>
+
 </div>
