@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.hotels', [])
 
-.directive('hotels', ['$location', function($location){
+.directive('hotels', ['$state', function($state){
   return {
     restrict: 'E',
     scope: {},
@@ -34,8 +34,8 @@ angular.module('mobiusApp.directives.hotels', [])
         { name: 'Barcelona', rating: 5, price: 95, desc: desc}
       ];
 
-      scope.go = function(path){
-        $location.path(path);
+      scope.go = function(hotelID){
+        $state.go('hotel', {hotelID: hotelID});
       };
     }
   };

@@ -1,8 +1,8 @@
 <reservation-steps>
   <ol>
-    <li><a href="/reservation/details">Guest Details</a></li>
-    <li><a href="/reservation/billing">Billing Information</a></li>
-    <li class="is-active"><a href="/reservation/confirmation">Confirmation</a></li>
+    <li><a ui-sref="reservation.details">Guest Details</a></li>
+    <li><a ui-sref="reservation.billing">Billing Information</a></li>
+    <li class="is-active"><a ui-sref="reservation.confirmation">Confirmation</a></li>
   </ol>
 </reservation-steps>
 
@@ -71,6 +71,6 @@
   </reservation-confirmation>
 
   <reservation-buttons>
-      <a href="/" class="button-blue to-home">Back to Home Page</a>
+      <a ui-sref="home" class="button-blue to-home">Back to Home Page</a>
   </reservation-buttons>
 </div>

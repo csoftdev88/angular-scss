@@ -2,50 +2,44 @@
 
 angular.module('mobiusApp.directives.language', [])
 
-.directive('languageList', function($window, Settings, stateService, contentService){
-  return {
-    restrict: 'EA',
-    scope: {},
-    templateUrl: 'directives/languageList/languageList.html',
+  .directive('languageList', function($window, Settings, contentService, $rootScope, $state, $stateParams, _) {
+    return {
+      restrict: 'EA',
+      scope: {},
+      templateUrl: 'directives/languageList/languageList.html',
 
-    // Widget logic goes here
-    link: function(scope){
+      // Widget logic goes here
+      link: function(scope) {
 
-      contentService.getLanguages().then(function(data){
-        scope.languages = data||[];
-      });
+        contentService.getLanguages().then(function(data) {
+          scope.languages = [];
+          _.each(data, function(languageData) {
+            if (!Settings.UI.languages[languageData.code]) {
+              if (console && console.error) {
+                console.error('Language "' + languageData.code + '" not found in configuration', languageData);
+              }
+            } else {
+              scope.languages.push(languageData);
+            }
+          });
+        });
 
-      scope.changeLangage = function(language){
-        var location = '';
-        if(!language.default){
-          location = language.code;
-        }
+        scope.changeLanguage = function(language) {
+          var params = $stateParams;
+          params.language = language.code;
+          $state.go($state.current.name, params);
+        };
 
-        // TODO: keep other URL params when routes will be defined.
-        $window.location.replace('/' + location);
-      };
+        scope.getShortName = function(languageCode) {
+          return Settings.UI.languages[languageCode].shortName;
+        };
 
-      scope.getShortName = function(languageCode){
-        var settings = Settings.UI.languages[languageCode];
+        scope.getFullName = function(languageCode) {
+          return Settings.UI.languages[languageCode].name;
+        };
 
-        if(!settings){
-          throw new Error('Language "' + languageCode + '"is not found in configuration.');
-        }
-
-        return settings.shortName;
-      };
-
-      scope.getFullName = function(languageCode){
-        var settings = Settings.UI.languages[languageCode];
-
-        if (!settings){
-          throw new Error('Language "' + languageCode + '"is not found in configuration.');
-        }
-
-        return settings.name;
-      };
-
-      scope.currentLanguage = stateService.getAppLanguage();
-    }
-  };
-});
+        scope.currentLanguage = $rootScope.language_code;
+      }
+    };
+  })
+;

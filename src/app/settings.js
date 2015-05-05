@@ -41,19 +41,19 @@ angular.module('mobiusApp.config', [])
     // NOTE: This is a temporary solution. Real images will
     // be provided by the API.
     'heroContent': {
-      'index.hotels': [
+      'hotels': [
         {
           'image': '/static/images/hero-image-1.jpg'
         }
       ],
 
-      'index.hotel': [
+      'hotel': [
         {
           'image': '/static/images/hero-image-2.jpg'
         }
       ],
 
-      'index.room': [
+      'room': [
         {
           'image': '/static/images/hero-image-2.jpg'
         }
@@ -81,6 +81,7 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
+      // first one is default language
       'en-us': {
         'shortName': 'EN',
         'name': 'English (US)'
@@ -103,14 +104,14 @@ angular.module('mobiusApp.config', [])
 
     // States layout
     'layout': {
-      'index.home': [
+      'home': [
         'best-offers',
         'best-hotels'
       ],
-      'index.hotels': [
+      'hotels': [
         'hotels'
       ],
-      'index.room': [
+      'room': [
         'room',
         'room-aside'
       ]
