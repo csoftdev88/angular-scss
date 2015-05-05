@@ -10,28 +10,28 @@
       <h2 class="section-title">Our <strong>Rooms</strong></h2>
       <ul class="entries entries--list">
         <li class="item">
-          <a ng-href="/hotels/123/rooms/123"><img src="static/images/room-1.jpg" alt=""></a>
+          <a ui-sref="room({hotelID:123, roomID: 123})"><img src="static/images/room-1.jpg" alt=""></a>
           <!-- <img src="//lorempixel.com/210/150/city/2" alt=""> -->
           <div>
             <h3 class="title"><strong>Double Room</strong></h3>
             <span class="price">
-              from <span class="value" currency="pound">79 pn</span>
+              from <span class="value">{{79 | i18nCurrency}} pn</span>
             </span>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
           </div>
-          <a ng-href="/hotels/123/rooms/123" class="more">View More</a>
+          <a ui-sref="room({hotelID:123, roomID: 123})" class="more">View More</a>
         </li>
         <li class="item">
-          <a ng-href="/hotels/123/rooms/123"><img src="static/images/room-2.jpg" alt=""></a>
+          <a ui-sref="room({hotelID:123, roomID: 123})"><img src="static/images/room-2.jpg" alt=""></a>
           <!-- <img src="//lorempixel.com/210/150/city/3" alt=""> -->
           <div>
             <h3 class="title"><strong>Deluxe Double Room</strong></h3>
             <span class="price">
-              from <span class="value" currency="pound">64 pn</span>
+              from <span class="value">{{64 | i18nCurrency}} pn</span>
             </span>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
           </div>
-          <a ng-href="/hotels/123/rooms/123" class="more">View More</a>
+          <a ui-sref="room({hotelID:123, roomID: 123})" class="more">View More</a>
         </li>
       </ul>
     </section>

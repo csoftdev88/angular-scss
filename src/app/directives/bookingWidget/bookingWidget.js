@@ -2,8 +2,7 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function($filter, modalService, queryService, validationService,
-  propertyService, Settings){
+.directive('bookingWidget', function(modalService, queryService, validationService,  propertyService, Settings){
   return {
     restrict: 'E',
     scope: {},
