@@ -13,6 +13,12 @@ angular.module('mobiusApp.config', [])
 
     'properties': {
       'all': 'properties'
+    },
+
+    'headers': {
+      'Authorization': 'Basic ZGllZ286ZGllZ28=',
+      'Mobius-chainId': '1',
+      'Mobius-channelId': '6'
     }
   },
 
