@@ -47,6 +47,7 @@ angular.module('mobiusApp', [
   'mobiusApp.directives.resize.watcher',
   'mobiusApp.directives.dropdown.group',
   'mobiusApp.directives.datepicker',
+  'mobiusApp.directives.password',
   // Directive based on content data
   'mobiusApp.directives.menu',
   // Directives for generic data
