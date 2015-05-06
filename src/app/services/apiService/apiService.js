@@ -5,7 +5,6 @@ angular.module('mobiusApp.services.api', [])
 .service( 'apiService',  function($q, $http, Settings) {
   function get(url, params) {
     var q = $q.defer();
-    console.log('Settings.API.headers'  + JSON.stringify(Settings.API.headers, null,4));
 
     $http({
       method: 'GET',
