@@ -13,7 +13,7 @@ angular.module('mobiusApp.services.user', [])
       loadUser: function(id) {
         userObject.id = id ? id : userObject.id;
         if(userObject.id) {
-          return apiService.get(apiService.getFullURL('customers.getCustomer')+'/'+userObject.id).then(
+          return apiService.get(apiService.getFullURL('customers.customers')+'/'+userObject.id).then(
           function(response) {
             userObject = _.extend(response, response);
           }

@@ -19,7 +19,8 @@ angular
     'mobius.controllers.offers',
     'mobius.controllers.reservations',
     'mobius.controllers.modals.generic',
-    'mobius.controllers.modals.loginRegister',
+  'mobius.controllers.modals.login',
+  'mobius.controllers.modals.register',
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
 
@@ -51,6 +52,7 @@ angular
     'mobiusApp.directives.resize.watcher',
     'mobiusApp.directives.dropdown.group',
     'mobiusApp.directives.datepicker',
+  'mobiusApp.directives.password',
     // Directive based on content data
     'mobiusApp.directives.menu',
     // Directives for generic data
@@ -60,6 +62,7 @@ angular
     'mobiusApp.filters.list',
     'mobiusApp.filters.number',
     'mobiusApp.filters.currency'
+  'validation.match'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, Settings) {

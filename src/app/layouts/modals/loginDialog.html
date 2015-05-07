@@ -25,11 +25,13 @@
         <p>
           <a href ng-click="openPasswordResetDialog()">Forgotten your password?</a><br/>
           <a href ng-click="openEnterCodeDialog()">Have a password reset code?</a>
+          <br>
+          <a href ng-click="openRegisterDialog()">Register</a>
         </p>
-
         <div class="modal-footer">
           <button class="button" ng-hide="wrongCredentials(loginForm)" type="submit" ng-click="login(loginForm, formData)">Log In</button>
           <div class="error-messages" ng-show="wrongCredentials(loginForm)">Incorrect email or password</div>
+
         </div>
       </form>
     </div>

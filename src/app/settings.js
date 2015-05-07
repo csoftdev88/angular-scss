@@ -16,7 +16,7 @@ angular.module('mobiusApp.config', [])
     },
     'customers': {
       'login': 'customers/actions/login',
-      'getCustomer': 'customers'
+      'customers': 'customers'
     }
   },
 

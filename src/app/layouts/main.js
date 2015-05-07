@@ -61,10 +61,6 @@ angular.module('mobius.controllers.main', [])
     modalService.openLoginDialog();
   };
 
-  $scope.openRegisterDialog = function(){
-    modalService.openRegisterDialog();
-  };
-
   $scope.openPasswordResetDialog = function(){
     modalService.openPasswordResetDialog();
   };

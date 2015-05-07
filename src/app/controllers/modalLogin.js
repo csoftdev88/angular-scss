@@ -2,9 +2,9 @@
 /*
 * This module controls user login and password reset dialogs
 */
-angular.module('mobius.controllers.modals.loginRegister', [])
+angular.module('mobius.controllers.modals.login', [])
 
-.controller( 'LoginRegisterCtrl', function($scope, $controller, $modalInstance,
+.controller( 'LoginCtrl', function($scope, $controller, $modalInstance,
   modalService, apiService, user, $log) {
   // TODO: same properties should be use for login/reset dialogs
   $scope.emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -31,6 +31,12 @@ angular.module('mobius.controllers.modals.loginRegister', [])
 
   $scope.changePassword = function(){
     $scope.passwordChanged = true;
+  };
+
+  $scope.openRegisterDialog = function(){
+    $scope.cancel();
+
+    modalService.openRegisterDialog();
   };
 
   $scope.login = function(loginForm, formData){

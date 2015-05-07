@@ -5,7 +5,8 @@
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
-      CONTROLLER_LOGIN_REGISTER = 'LoginRegisterCtrl',
+      CONTROLLER_LOGIN = 'LoginCtrl',
+      CONTROLLER_REGISTER = 'RegisterCtrl',
       CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl',
       CONTROLLER_RESERVATIONS = 'ModalReservationCtrl';
 
@@ -28,19 +29,19 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openLoginDialog(){
-    return openDialog('layouts/modals/loginDialog.html', CONTROLLER_LOGIN_REGISTER);
+    return openDialog('layouts/modals/loginDialog.html', CONTROLLER_LOGIN);
   }
 
   function openRegisterDialog(){
-    return openDialog('layouts/modals/registerDialog.html', CONTROLLER_LOGIN_REGISTER);
+    return openDialog('layouts/modals/registerDialog.html', CONTROLLER_REGISTER);
   }
 
   function openPasswordResetDialog(){
-    return openDialog('layouts/modals/passwordResetDialog.html', CONTROLLER_LOGIN_REGISTER);
+    return openDialog('layouts/modals/passwordResetDialog.html', CONTROLLER_LOGIN);
   }
 
   function openEnterCodeDialog(){
-    return openDialog('layouts/modals/enterCodeDialog.html', CONTROLLER_LOGIN_REGISTER);
+    return openDialog('layouts/modals/enterCodeDialog.html', CONTROLLER_LOGIN);
   }
 
   function openAdvancedOptionsDialog(){
