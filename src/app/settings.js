@@ -4,7 +4,7 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
-    'baseURL': 'http://52.6.221.79:3010/api/2.7/',
+    'baseURL': 'http://52.6.221.79:3010/api/2.7.1/',
     'contents' : 'contents',
     'generics': {
       'currencies': 'generics/currencies',
