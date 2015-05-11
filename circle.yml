@@ -34,6 +34,28 @@ test:
     - git commit -m "build"
 
 deployment:
+  # v4 branches
+  try:
+    branch: /try.*/
+    commands:
+      - git push -f git@heroku.com:mobius-try.git ${CIRCLE_BRANCH}:master
+  dev:
+    branch: develop
+    commands:
+      - git push -f git@heroku.com:mobius-dev.git ${CIRCLE_BRANCH}:master
+  qa:
+    branch: /release\/.+/
+    commands:
+      - git push -f git@heroku.com:mobius-qa.git ${CIRCLE_BRANCH}:master
+  client:
+    branch: client
+    commands:
+      - git push -f git@heroku.com:mobius-stage.git ${CIRCLE_BRANCH}:master
+  prod:
+    branch: master
+    commands:
+      - git push -f git@heroku.com:mobius-prod.git ${CIRCLE_BRANCH}:master
+  # v2 branches
   try-v2:
     branch: /try-v2.*/
     commands:
