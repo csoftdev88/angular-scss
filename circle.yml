@@ -41,7 +41,7 @@ deployment:
   dev-v2:
     branch: develop-v2
     commands:
-      - git push -f git@heroku.com:mobius-mobius-v2-dev.git ${CIRCLE_BRANCH}:master
+      - git push -f git@heroku.com:mobius-v2-dev.git ${CIRCLE_BRANCH}:master
   qa:
     branch: /release\/.+/
     commands:
