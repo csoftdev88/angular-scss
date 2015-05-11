@@ -9,6 +9,7 @@ angular.module('mobiusApp.services.api', [])
     $http({
       method: 'GET',
       url: url,
+      headers: Settings.API.headers,
       params: params
     }).success(function(res) {
       q.resolve(res);
@@ -27,6 +28,7 @@ angular.module('mobiusApp.services.api', [])
     $http({
       method: 'POST',
       url: url,
+      headers: Settings.API.headers,
       data: data
     }).success(function(res) {
       q.resolve(res);
