@@ -38,10 +38,10 @@ deployment:
     branch: /try.*/
     commands:
       - git push -f git@heroku.com:mobius-try.git ${CIRCLE_BRANCH}:master
-  dev:
-    branch: develop
+  dev-v2:
+    branch: develop-v2
     commands:
-      - git push -f git@heroku.com:mobius-dev.git ${CIRCLE_BRANCH}:master
+      - git push -f git@heroku.com:mobius-mobius-v2-dev.git ${CIRCLE_BRANCH}:master
   qa:
     branch: /release\/.+/
     commands:
