@@ -17,6 +17,12 @@ angular.module('mobiusApp.config', [])
     'customers': {
       'login': 'customers/actions/login',
       'customers': 'customers'
+    },
+
+    'headers': {
+      'Authorization': 'Basic ZGllZ286ZGllZ28=',
+      'Mobius-chainId': '1',
+      'Mobius-channelId': '6'
     }
   },
 
