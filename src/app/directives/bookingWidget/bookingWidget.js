@@ -66,7 +66,7 @@ angular.module('mobiusApp.directives.booking', [])
 
           var paramValue = queryService.getValue(paramSettings.search);
 
-          // URL parameter is presented by has no value
+          // URL parameter is presented but has no value
           if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
             queryService.removeParam(paramSettings.search);
           }else{
@@ -81,7 +81,7 @@ angular.module('mobiusApp.directives.booking', [])
 
       // Getting a list of properties
       propertyService.getAll().then(function(data){
-        scope.propertyList = data.properties || [];
+        scope.propertyList = data || [];
 
         var paramSettings = PARAM_TYPES.property;
         var propertyCode = queryService.getValue(paramSettings.search);
