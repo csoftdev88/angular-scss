@@ -82,6 +82,9 @@ angular.module('mobiusApp.directives.booking', [])
       // Getting a list of properties
       propertyService.getAll().then(function(data){
         scope.propertyList = data || [];
+        // add Special value 'All Properties' to the list. It is also a default value.
+        scope.propertyList.unshift({nameShort: 'All Properties'});
+        scope.selected.property = scope.propertyList[0];
 
         var paramSettings = PARAM_TYPES.property;
         var propertyCode = queryService.getValue(paramSettings.search);
