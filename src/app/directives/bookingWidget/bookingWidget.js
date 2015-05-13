@@ -141,6 +141,10 @@ angular.module('mobiusApp.directives.booking', [])
 
           var value = scope.selected[key];
           if(key === 'property'){
+            // All properties is a valid value in Property field
+            if(value.nameShort === 'All Properties'){
+              continue;
+            }
             value = value === undefined?'':value.code;
           }
 
