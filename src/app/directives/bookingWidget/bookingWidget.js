@@ -118,7 +118,7 @@ angular.module('mobiusApp.directives.booking', [])
        */
       scope.onSearch = function(){
 
-        if(scope.selected['property'].nameShort === 'All Properties'){
+        if(scope.selected.property.nameShort === 'All Properties'){
         // 'All properties' is selected, will redirect to hotel list
         }
         else{
@@ -173,7 +173,7 @@ angular.module('mobiusApp.directives.booking', [])
 
       scope.openAdvancedOptionsDialog = function() {
         modalService.openAdvancedOptionsDialog().then(function(data) {
-          debugger;
+          console.log(data);
         });
       };
     }
