@@ -39,8 +39,7 @@ describe('bookingWidget', function() {
     });
   });
 
-  beforeEach(inject(function($compile, $rootScope, $templateCache, propertyService,
-      queryService, validationService) {
+  beforeEach(inject(function($compile, $rootScope, $templateCache, propertyService, queryService, validationService) {
 
     env.$compile = $compile;
     env.$rootScope = $rootScope.$new();
