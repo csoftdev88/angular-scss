@@ -13,6 +13,7 @@ angular
     'localytics.directives',
     'underscore',
     'pascalprecht.translate',
+    'validation.match',
 
     // Controllers
     'mobius.controllers.main',
@@ -59,10 +60,7 @@ angular
     'mobiusApp.directives.currency',
     'mobiusApp.directives.language',
     // Filters
-    'mobiusApp.filters.list',
-    'mobiusApp.filters.number',
-    'mobiusApp.filters.currency',
-    'validation.match'
+    'mobiusApp.filters.list'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, Settings) {
@@ -76,13 +74,10 @@ angular
         abstract: true,
         templateUrl: 'layouts/index.html',
         controller: 'MainCtrl',
-        url: '/:language?currency',
+        url: '/:language',
         resolve: {
           language: function($stateParams) {
             return $stateParams.language;
-          },
-          currency: function($stateParams) {
-            return $stateParams.currency;
           }
         }
       })

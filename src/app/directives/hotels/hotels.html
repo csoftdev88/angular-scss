@@ -22,7 +22,7 @@
           <div>
             <h3 class="title">Hotel Mobius <strong>{{hotel.name}}</strong></h3>
             <span class="price">
-              from <span class="value">{{hotel.price | i18nCurrency}}</span> <small>per night</small>
+              from <span class="value" currency="pound">{{hotel.price}}</span> <small>per night</small>
             </span>
             <p>{{hotel.desc}}</p>
             <span class="rating">

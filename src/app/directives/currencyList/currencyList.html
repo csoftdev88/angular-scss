@@ -1,8 +1,9 @@
 <div class="dropdown has-icons">
   <a href title="Currency">
-    <img ng-if="$root.currency.code" ng-src="/static/images/flag-{{$root.currency.code}}.jpg" class="icon" alt="{{$root.currency.code}}">
-    <span>{{getCurrencySymbol($root.currency.code)}}</span>
+    <img ng-if="currentCurrency.code" ng-src="/static/images/flag-{{currentCurrency.code}}.jpg" class="icon" alt="{{currentCurrency.code}}">
+    <span>{{getCurrencySymbol(currentCurrency.code)}}</span>
   </a>
+
   <ul class="dropdown-menu submenu" ng-show="currencies.length">
       <li ng-repeat="currency in currencies">
           <a class="currency" href title="{{currency.name}}" ng-click="changeCurrency(currency)">

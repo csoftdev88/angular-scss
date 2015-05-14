@@ -20,15 +20,16 @@
     <table>
       <tr>
         <th>Room charges:</th>
-        <td>{{reservation.charges | i18nCurrency}}</td>
+        <!-- TODO: Replace number filter with proper currency filter -->
+        <td>£ {{reservation.charges | number: 2}}</td>
       </tr>
       <tr>
         <th>Tax:</th>
-        <td>{{reservation.tax | i18nCurrency}}</td>
+        <td>£ {{reservation.tax | number: 2}}</td>
       </tr>
       <tr>
         <th>Total:</th>
-        <td><strong>{{reservation.total | i18nCurrency}}</strong></td>
+        <td><strong>£ {{reservation.total | number: 2}}</strong></td>
       </tr>
     </table>
   </reservation-charges>
@@ -38,7 +39,7 @@
     <img src="/static/images/room-1.jpg" alt="{{room.type}}">
     <p><strong>{{room.type}}</strong></p>
     <p>{{room.rate}}</p>
-    <p><strong>{{room.price | i18nCurrency}}</strong></p>
+    <p><strong>£ {{room.price}}</strong></p>
   </div>
   <div>
     <table>
