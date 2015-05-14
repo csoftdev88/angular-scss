@@ -55,6 +55,11 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'dates',
           'type': 'string',
           'required': true
+        },
+        'rate': {
+          'search': 'rate',
+          'type': 'string',
+          'required': true
         }
       };
 
@@ -108,7 +113,17 @@ angular.module('mobiusApp.directives.booking', [])
         queryService.removeParam(paramSettings.search);
       });
 
+      /**
+       * Updates the url with values from the widget and redirects either to hotel list or a room list
+       */
       scope.onSearch = function(){
+
+        if(scope.selected['property'].nameShort === 'All Properties'){
+        // 'All properties' is selected, will redirect to hotel list
+        }
+        else{
+        // Specific hotel selected, will redirect to room list
+        }
         // Updating URL params
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
