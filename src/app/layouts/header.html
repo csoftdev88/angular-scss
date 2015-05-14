@@ -26,11 +26,9 @@
 
         <li has-dropdown="click" language-list>
         </li>
+
+        <li>
+            <a class="button button-login" ng-click="openLoginDialog()" ng-hide="isUserLoggedIn()">{{'COMMON.LOGIN_REGISTER' | translate}}</a>
+        </li>
     </ul>
-    <!-- NOTE: There can be in ng-click:
-      openLoginDialog()
-      openRegisterDialog()
-      openForgotPasswordDialog()
-    -->
-    <a class="button button-login" ng-click="openLoginDialog()" ng-hide="isUserLoggedIn()">{{'COMMON.LOGIN_REGISTER' | translate}}</a>
 </nav>

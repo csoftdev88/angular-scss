@@ -121,8 +121,7 @@ angular.module('mobiusApp.config', [])
     // States layout
     'layout': {
       'home': [
-        'best-offers',
-        'best-hotels'
+        'about-hotel'
       ],
       'hotels': [
         'hotels'
@@ -135,6 +134,7 @@ angular.module('mobiusApp.config', [])
 
     // Widget names and their templates
     'templates': {
+      'about-hotel': '<about-hotel></about-hotel>',
       'best-offers': '<best-offers></best-offers>',
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',
