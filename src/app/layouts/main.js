@@ -18,7 +18,7 @@ angular.module('mobius.controllers.main', [])
     $scope.heroContent = [];
     var stateName = $scope.$state.current.name;
 
-    if(stateName === 'home'){
+    if(stateName === 'index.home'){
       loadHighlights();
       return;
     }

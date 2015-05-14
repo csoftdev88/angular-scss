@@ -12,7 +12,7 @@ angular
     // 3rd party components
     'localytics.directives',
     'underscore',
-    'pascalprecht.translate',
+    'validation.match',
 
     // Controllers
     'mobius.controllers.main',
@@ -26,7 +26,6 @@ angular
 
     // Application modules
     'mobiusApp.config',
-    'mobius.i18n',
     'mobiusApp.userobject',
     // Services
     'mobiusApp.services.state',
@@ -59,104 +58,79 @@ angular
     'mobiusApp.directives.currency',
     'mobiusApp.directives.language',
     // Filters
-    'mobiusApp.filters.list',
-    'mobiusApp.filters.number',
-    'mobiusApp.filters.currency',
-    'validation.match'
+    'mobiusApp.filters.list'
   ])
 
-  .config(function($stateProvider, $locationProvider, $urlRouterProvider, Settings) {
+  .config(function($stateProvider, $locationProvider) {
     // Using this settings allows to run current
     // SPA without # in the URL
     $locationProvider.html5Mode(true);
 
     $stateProvider
       // Default application layout
-      .state('root', {
-        abstract: true,
+      .state('index', {
         templateUrl: 'layouts/index.html',
-        controller: 'MainCtrl',
-        url: '/:language?currency',
-        resolve: {
-          language: function($stateParams) {
-            return $stateParams.language;
-          },
-          currency: function($stateParams) {
-            return $stateParams.currency;
-          }
-        }
+        controller: 'MainCtrl'
       })
 
       // Home page
-      .state('home', {
-        parent: 'root',
+      .state('index.home', {
         templateUrl: 'layouts/home/home.html',
         url: '/'
       })
 
       // Hotels
-      .state('hotels', {
-        parent: 'root',
+      .state('index.hotels', {
         templateUrl: 'layouts/hotels/hotels.html',
         url: '/hotels'
       })
 
-      .state('hotel', {
-        parent: 'root',
+      .state('index.hotel', {
         templateUrl: 'layouts/hotels/hotelDetails.html',
         url: '/hotels/:hotelID'
       })
 
-      .state('room', {
-        parent: 'root',
+      .state('index.room', {
         templateUrl: 'layouts/hotels/roomDetails.html',
         url: '/hotels/:hotelID/rooms/:roomID'
       })
 
       // Room reservation
-      .state('reservation', {
-        parent: 'root',
+      .state('index.reservation', {
         templateUrl: 'layouts/reservation/reservation.html',
         url: '/reservation',
         controller: 'ReservationsCtrl'
       })
 
-      .state('reservation.details', {
-        parent: 'reservation',
+      .state('index.reservation.details', {
         templateUrl: 'layouts/reservation/reservationDetails.html',
         url: '/details'
       })
 
-      .state('reservation.billing', {
-        parent: 'reservation',
+      .state('index.reservation.billing', {
         templateUrl: 'layouts/reservation/reservationBilling.html',
         url: '/billing'
       })
 
-      .state('reservation.confirmation', {
-        parent: 'reservation',
+      .state('index.reservation.confirmation', {
         templateUrl: 'layouts/reservation/reservationConfirmation.html',
         url: '/confirmation'
       })
 
-      .state('offers', {
-        parent: 'root',
+      .state('index.offers', {
         templateUrl: 'layouts/offers/offers.html',
         url: '/offers/:category/:offerID',
         controller: 'OffersCtrl'
       })
 
       // Contact page
-      .state('contacts', {
-        parent: 'root',
+      .state('index.contacts', {
         templateUrl: 'layouts/contacts/contacts.html',
         url: '/contacts'
       })
-    ;
 
-    // route to root if no valid route found
-    var languages = Object.keys(Settings.UI.languages);
-    $urlRouterProvider.otherwise('/' + languages[0] + '/');
+      .state('otherwise', {
+        url: '/'
+      });
   })
-
 ;

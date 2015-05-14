@@ -25,8 +25,15 @@ angular.module('mobiusApp.services.state', [])
     return layout;
   }
 
+  // Getting language from corresponding meta tag
+  function getAppLanguage(){
+    var meta = $('meta[http-equiv=Content-Language]');
+    return meta.attr('content');
+  }
+
   // Public methods
   return {
-    getStateLayout: getStateLayout
+    getStateLayout: getStateLayout,
+    getAppLanguage: getAppLanguage
   };
 });

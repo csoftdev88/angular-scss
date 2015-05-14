@@ -13,18 +13,16 @@ module.exports = {
 
     'static': 'static',
 
-    markup: '**/*.html',
-    styles: '**/*.{css,less}',
+    markup:  '**/*.html',
+    styles:  '**/*.{css,less}',
     scripts: '**/*.js',
 
-    images: '**/*.{png,jpg,jpeg,gif,webp,svg}',
-    fonts: '**/*.{eot,svg,ttf,woff}',
+    locales: 'src/locales',
+
+    images:  '**/*.{png,jpg,jpeg,gif,webp,svg}',
+    fonts:   '**/*.{eot,svg,ttf,woff}',
 
     app_files: {
-      html: [
-        'app/**/*.html'
-      ],
-
       js: [
         'src/app/**/*.js',
         '!src/app/**/*.spec.js',
@@ -76,12 +74,11 @@ module.exports = {
         'bower_components/angular-chosen-localytics/chosen.js',
         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-        'bower_components/jquery-ui/index.js',
+        'bower_components/jquery-ui/jquery-ui.min.js',
         'bower_components/jquery-datepicker/index.js',
         'bower_components/chosen/chosen.jquery.min.js',
         'bower_components/underscore/underscore.js',
         'bower_components/angular-underscore-module/angular-underscore-module.js',
-        'bower_components/angular-translate/angular-translate.min.js',
         'bower_components/angular-validation-match/dist/angular-input-match.js'
       ],
       styles: []

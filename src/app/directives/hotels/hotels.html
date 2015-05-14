@@ -17,12 +17,12 @@
     </div>
     <div class="hotels__list">
       <ul class="entries entries--{{view}}">
-        <li class="item" ng-repeat="hotel in hotels" ng-class="{'grid': view == 'list'}" ng-click="go(123)">
+        <li class="item" ng-repeat="hotel in hotels" ng-class="{'grid': view == 'list'}" ng-click="go('/hotels/123')">
           <img src="static/images/hotel.jpg" alt="Mobius hotel {{hotel.name}} photo"/>
           <div>
             <h3 class="title">Hotel Mobius <strong>{{hotel.name}}</strong></h3>
             <span class="price">
-              from <span class="value">{{hotel.price | i18nCurrency}}</span> <small>per night</small>
+              from <span class="value" currency="pound">{{hotel.price}}</span> <small>per night</small>
             </span>
             <p>{{hotel.desc}}</p>
             <span class="rating">
