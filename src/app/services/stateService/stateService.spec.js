@@ -2,9 +2,9 @@
 
 describe('stateService', function() {
   var env;
-  var TEST_STATE_1 = 'home';
-  var TEST_STATE_2 = 'some';
-  var TEST_STATE_3 = 'about';
+  var TEST_STATE_1 = 'index.home';
+  var TEST_STATE_2 = 'index.some';
+  var TEST_STATE_3 = 'index.about';
 
   beforeEach(function() {
     env = {};
@@ -15,11 +15,11 @@ describe('stateService', function() {
       var Settings = {
         'UI': {
           'layout': {
-            'home': [
+            'index.home': [
               'best-offers',
               'best-hotels'
             ],
-            'about': [
+            'index.about': [
               'widget-doesnt-exist',
               'best-hotels'
             ]
