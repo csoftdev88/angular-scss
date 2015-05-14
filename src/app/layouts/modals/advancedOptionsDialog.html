@@ -8,11 +8,11 @@
     <form name="advancedOptionsForm" class="advanced-options">
       <label for="advanced-rates">
         Rates
-        <select name="advancedRates" id="advanced-rates" chosen disable-search="true" ng-model="rate" ng-options="rate.code as rate.name for rate in rates"/>
+        <select name="advancedRates" id="advanced-rates" chosen disable-search="true" ng-model="selectedRate" ng-options="rate.code as rate.name for rate in rates"/>
       </label>
       <div class="room-count">
         <label for="advanced-single-room" ng-class="{'is-selected': multiRoom == '0'}">
-          <input type="radio" name="advancedRoomCounts" id="advanced-single-room" value="0" selected="selected" ng-model="multiRoom" >
+          <input type="radio" name="advancedRoomCounts" id="advanced-single-room" value="0" ng-model="multiRoom" >
           Single room Booking
         </label>
         <label for="advanced-multiple-room" ng-class="{'is-selected': multiRoom == '1'}">
@@ -28,7 +28,7 @@
             <span class="info">Adults:</span>
           </div>
           <div class="form-group">
-            <select name="children" required ng-model="room.childrens" disable-search="true" chosen ng-options="number for number in numbers" />
+            <select name="children" required ng-model="room.children" disable-search="true" chosen ng-options="number for number in numbers" />
             <span class="info">Children:</span>
           </div>
           <button class="button-red" ng-if="isRemoveVisible($index)" ng-click="removeRoom()">Remove</button>
@@ -39,6 +39,6 @@
   </div>
 
   <div class="modal-footer">
-    <button class="button button-blue" ng-disabled="resetForm.loginEmail.$invalid" ng-click="openEnterCodeDialog()">OK</button>
+    <button class="button button-blue" ng-click="clickOk()">OK</button>
   </div>
 </div>

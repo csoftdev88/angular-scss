@@ -17,12 +17,12 @@ angular.module('mobiusApp.services.modal', [])
     // Merge required and arbitrary options together
     angular.extend(modalOptions, options);
 
-    $modal.open(modalOptions).result.then(function() {
+    $modal.open(modalOptions).result.then(function(data) {
       $log.info('Dialog closed');
-      q.resolve();
-    }, function() {
+      q.resolve(data);
+    }, function(reason) {
       $log.info('Dialog dismissed');
-      q.reject();
+      q.reject(reason);
     });
 
     return q.promise;

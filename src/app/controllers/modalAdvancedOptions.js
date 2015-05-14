@@ -13,10 +13,10 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   $scope.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
   $scope.rates = [];
-  $scope.rate = '1';
+  $scope.selectedRate = null;
 
   $scope.rooms = [
-    {id: 'room1', adults: 1, childrens: 0}
+    {id: 'room1', adults: 1, children: 0}
   ];
 
   $scope.multiRoom = '0';
@@ -38,7 +38,7 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   $scope.addRoom = function(){
     var count = $scope.rooms.length;
     if (count < MAX_ROOMS){
-      $scope.rooms.push({id: 'room' + (count - 1), adults: 1, childrens: 0});
+      $scope.rooms.push({id: 'room' + (count + 1), adults: 1, children: 0});
     }
     if (count === MAX_ROOMS - 1){
       $scope.canAddRoom = false;
@@ -59,9 +59,9 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
     return (i === $scope.rooms.length - 1) && (i !== 0);
   };
 
-
-/*  $scope.changePassword = function(){
-    $scope.passwordChanged = true;
-  };*/
-
+  $scope.clickOk = function() {
+    var selected = {multiRoom: $scope.multiRoom, rooms: $scope.rooms, rate: $scope.selectedRate};
+    debugger;
+    $modalInstance.close(selected);
+  }
 });
