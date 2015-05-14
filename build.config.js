@@ -74,7 +74,7 @@ module.exports = {
         'bower_components/angular-chosen-localytics/chosen.js',
         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-        'bower_components/jquery-ui/index.js',
+        'bower_components/jquery-ui/jquery-ui.min.js',
         'bower_components/jquery-datepicker/index.js',
         'bower_components/chosen/chosen.jquery.min.js',
         'bower_components/underscore/underscore.js',

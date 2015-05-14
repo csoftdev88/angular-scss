@@ -12,7 +12,6 @@ angular
     // 3rd party components
     'localytics.directives',
     'underscore',
-    'pascalprecht.translate',
     'validation.match',
 
     // Controllers
@@ -27,7 +26,6 @@ angular
 
     // Application modules
     'mobiusApp.config',
-    'mobius.i18n',
     'mobiusApp.userobject',
     // Services
     'mobiusApp.services.state',

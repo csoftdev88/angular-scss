@@ -412,6 +412,7 @@ module.exports = function(grunt) {
       // Creating multiple
       var taskName = 'html2js.' + localeCode;
       grunt.config.set(taskName + '.options.base', basePath);
+      grunt.config.set(taskName + '.options.module', 'templates-main');
       grunt.config.set(taskName + '.src', basePath + '/' + grunt.config('config.markup'));
       grunt.config.set(taskName + '.dest', grunt.config('config.build') + '/' + 'app/mobius-templates-' + localeCode + '.js');
 
