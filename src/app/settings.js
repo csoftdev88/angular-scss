@@ -26,6 +26,8 @@ angular.module('mobiusApp.config', [])
     }
   },
 
+  'currencyParamName': 'currency',
+
   'UI': {
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
@@ -47,19 +49,19 @@ angular.module('mobiusApp.config', [])
     // NOTE: This is a temporary solution. Real images will
     // be provided by the API.
     'heroContent': {
-      'index.hotels': [
+      'hotels': [
         {
           'image': '/static/images/hero-image-1.jpg'
         }
       ],
 
-      'index.hotel': [
+      'hotel': [
         {
           'image': '/static/images/hero-image-2.jpg'
         }
       ],
 
-      'index.room': [
+      'room': [
         {
           'image': '/static/images/hero-image-2.jpg'
         }
@@ -70,34 +72,54 @@ angular.module('mobiusApp.config', [])
       'default': 'GBP',
 
       'GBP': {
-        'symbol': '£'
+        'symbol': '£',
+        'position': 'pre',
+        'space': true
       },
 
       'USD': {
-        'symbol': '$'
+        'symbol': '$',
+        'position': 'pre',
+        'space': false
       },
 
       'EUR': {
-        'symbol': '€'
+        'symbol': '€',
+        'position': 'post',
+        'space': false
       },
 
       'CAD': {
-        'symbol': '$'
+        'symbol': '$',
+        'position': 'pre',
+        'space': false
       }
     },
 
     'languages': {
       'en-us': {
         'shortName': 'EN',
-        'name': 'English (US)'
+        'name': 'English (US)',
+        'decimalSeparator': '.',
+        'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
       },
       'en-ca': {
         'shortName': 'EN',
-        'name': 'English (CAN)'
+        'name': 'English (CAN)',
+        'decimalSeparator': '.',
+        'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
       },
       'cs-cz': {
         'shortName': 'CZ',
-        'name': 'Čeština'
+        'name': 'Čeština',
+        'decimalSeparator': ',',
+        'groupSeparator': '\u00a0',
+        'groupSize': 3,
+        'neg': '-'
       }
     },
 
@@ -109,14 +131,14 @@ angular.module('mobiusApp.config', [])
 
     // States layout
     'layout': {
-      'index.home': [
+      'home': [
         'best-offers',
         'best-hotels'
       ],
-      'index.hotels': [
+      'hotels': [
         'hotels'
       ],
-      'index.room': [
+      'room': [
         'room',
         'room-aside'
       ]

@@ -58,79 +58,95 @@ angular
     'mobiusApp.directives.currency',
     'mobiusApp.directives.language',
     // Filters
-    'mobiusApp.filters.list'
+    'mobiusApp.filters.list',
+    'mobiusApp.filters.number',
+    'mobiusApp.filters.currency'
   ])
 
-  .config(function($stateProvider, $locationProvider) {
+  .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     // Using this settings allows to run current
     // SPA without # in the URL
     $locationProvider.html5Mode(true);
 
     $stateProvider
       // Default application layout
-      .state('index', {
+      .state('root', {
+        abstract: true,
         templateUrl: 'layouts/index.html',
         controller: 'MainCtrl'
+        // uncomment to preserve params in url between pages
+        // url: '?' + Settings.currencyParamName
       })
 
       // Home page
-      .state('index.home', {
+      .state('home', {
+        parent: 'root',
         templateUrl: 'layouts/home/home.html',
         url: '/'
       })
 
       // Hotels
-      .state('index.hotels', {
+      .state('hotels', {
+        parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
         url: '/hotels'
       })
 
-      .state('index.hotel', {
+      .state('hotel', {
+        parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         url: '/hotels/:hotelID'
       })
 
-      .state('index.room', {
+      .state('room', {
+        parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         url: '/hotels/:hotelID/rooms/:roomID'
       })
 
       // Room reservation
-      .state('index.reservation', {
+      .state('reservation', {
+        parent: 'root',
         templateUrl: 'layouts/reservation/reservation.html',
         url: '/reservation',
         controller: 'ReservationsCtrl'
       })
 
-      .state('index.reservation.details', {
+      .state('reservation.details', {
+        parent: 'reservation',
         templateUrl: 'layouts/reservation/reservationDetails.html',
         url: '/details'
       })
 
-      .state('index.reservation.billing', {
+      .state('reservation.billing', {
+        parent: 'reservation',
         templateUrl: 'layouts/reservation/reservationBilling.html',
         url: '/billing'
       })
 
-      .state('index.reservation.confirmation', {
+      .state('reservation.confirmation', {
+        parent: 'reservation',
         templateUrl: 'layouts/reservation/reservationConfirmation.html',
         url: '/confirmation'
       })
 
-      .state('index.offers', {
+      .state('offers', {
+        parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
         url: '/offers/:category/:offerID',
         controller: 'OffersCtrl'
       })
 
       // Contact page
-      .state('index.contacts', {
+      .state('contacts', {
+        parent: 'root',
         templateUrl: 'layouts/contacts/contacts.html',
         url: '/contacts'
-      })
-
-      .state('otherwise', {
-        url: '/'
       });
+
+    $urlRouterProvider.otherwise(function($injector) {
+      var $window = $injector.get('$window');
+      $window.location.href = '/404';
+    });
   })
 ;

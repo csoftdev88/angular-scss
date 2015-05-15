@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish'),
+        reporter: require('jshint-stylish')
       },
       src: [
         '<%= config.gruntfile %>',
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
           '<%= config.compile %>/**/*.js',
           '<%= config.compile %>/**/*.css'
         ]
-      },
+      }
     },
 
     less: {
@@ -91,20 +91,20 @@ module.exports = function(grunt) {
         cwd: '<%= config.client %>/',
         src: 'styles/main.less',
         dest: '<%= config.build %>/',
-        ext: '.css',
+        ext: '.css'
       },
 
       production: {
         options: {
           cleancss: true,
           report: 'min',
-          compess: true,
+          compess: true
         },
         expand: true,
         cwd: '<%= config.client %>/',
         src: 'styles/main.less',
         dest: '<%= config.compile %>/',
-        ext: '_<%= pkg.name %>-<%= pkg.version %>.css',
+        ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
     },
 
@@ -166,8 +166,8 @@ module.exports = function(grunt) {
       css: ['<%= config.compile %>/**/*.css'],
       options: {
         dest: '<%= config.compile %>',
-        assetsDirs: ['<%= config.compile %>'],
-      },
+        assetsDirs: ['<%= config.compile %>']
+      }
     },
 
     copy: {
@@ -193,6 +193,14 @@ module.exports = function(grunt) {
           cwd: '<%= config.client %>/font/',
           src: ['<%= config.fonts %>'],
           dest: '<%= config.build %>/font/'
+        }]
+      },
+      404: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.client %>/app/',
+          src: ['<%= config.404 %>'],
+          dest: '<%= config.build %>'
         }]
       }
     },
@@ -311,7 +319,8 @@ module.exports = function(grunt) {
     'autoprefixer',
     'index:build',
     'copy:images',
-    'copy:fonts'
+    'copy:fonts',
+    'copy:404'
   ]);
 
   grunt.registerTask('production', [
