@@ -22,6 +22,6 @@
     "angular-input-match" : "git://github.com/TheSharpieOne/angular-input-match.git#1.3.x"
   },
   "resolutions": {
-    "angular": "=1.2.26"
+    "angular": "=1.3.15"
   }
 }

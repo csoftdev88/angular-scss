@@ -121,8 +121,7 @@ angular.module('mobiusApp.config', [])
     // States layout
     'layout': {
       'home': [
-        'about-hotel',
-        'site-map'
+        'about-hotel'
       ],
       'hotels': [
         'hotels'
@@ -140,8 +139,7 @@ angular.module('mobiusApp.config', [])
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',
       'room': '<room></room>',
-      'room-aside': '<room-aside></room-aside>',
-      'site-map': '<ng-include src="layouts/header.html">aaaa</ng-include>'
+      'room-aside': '<room-aside></room-aside>'
     },
 
     // Responsive design breakpoints
