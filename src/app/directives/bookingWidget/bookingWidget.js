@@ -21,7 +21,8 @@ angular.module('mobiusApp.directives.booking', [])
         'promoCode': '',
         'property': undefined,
         // NOTE: dates might be presented as start/end date
-        'dates': ''
+        'dates': '',
+        'rates': undefined
       };
 
       // URL parameters and their settings
@@ -59,7 +60,7 @@ angular.module('mobiusApp.directives.booking', [])
         'rate': {
           'search': 'rate',
           'type': 'string',
-          'required': true
+          'required': false
         }
       };
 
@@ -149,7 +150,7 @@ angular.module('mobiusApp.directives.booking', [])
         }
       };
 
-      // Search is enabled only when required fields contains data
+      // Search is enabled only when required fields contain data
       scope.isSearchable = function(){
         for(var key in PARAM_TYPES){
           var settings = PARAM_TYPES[key];
@@ -174,6 +175,18 @@ angular.module('mobiusApp.directives.booking', [])
       scope.openAdvancedOptionsDialog = function() {
         modalService.openAdvancedOptionsDialog().then(function(data) {
           console.log(data);
+          if(data.rate !== null) {
+            scope.selected.rate = data.rate;
+          }
+
+          // Update number of adults and children when these are specified in multiroom selection
+          if(data.multiRoom === '1') {
+            var sumAdults = data.rooms.reduce(function(prev, next) {return prev + next.adults}, 0);
+            var sumChildren = data.rooms.reduce(function(prev, next) {return prev + next.children},0);
+
+            scope.selected.adults = sumAdults;
+            scope.selected.children = sumChildren;
+          }
         });
       };
     }
