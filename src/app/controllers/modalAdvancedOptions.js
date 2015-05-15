@@ -61,7 +61,7 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   };
 
   $scope.clickOk = function() {
-    var selected = {multiRoom: $scope.multiRoom, rooms: $scope.data.rooms, rate: $scope.data.selectedRate};
+    var selected = {multiRoom: $scope.data.multiRoom, rooms: $scope.data.rooms, rate: $scope.data.selectedRate};
 
     $modalInstance.close(selected);
   };
