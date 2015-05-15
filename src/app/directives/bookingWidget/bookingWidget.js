@@ -181,8 +181,8 @@ angular.module('mobiusApp.directives.booking', [])
 
           // Update number of adults and children when these are specified in multiroom selection
           if(data.multiRoom === '1') {
-            var sumAdults = data.rooms.reduce(function(prev, next) {return prev + next.adults}, 0);
-            var sumChildren = data.rooms.reduce(function(prev, next) {return prev + next.children},0);
+            var sumAdults = data.rooms.reduce(function(prev, next) {return prev + next.adults;}, 0);
+            var sumChildren = data.rooms.reduce(function(prev, next) {return prev + next.children;}, 0);
 
             scope.selected.adults = sumAdults;
             scope.selected.children = sumChildren;
