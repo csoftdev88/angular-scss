@@ -98,7 +98,7 @@ describe('heroSlider', function() {
       env.scope.onContentClick();
 
       expect(env.stateGoSpy.calledOnce).equal(true);
-      expect(env.stateGoSpy.calledWith('index.offers', {category: 'testCat', offerID: 'testID'})).equal(true);
+      expect(env.stateGoSpy.calledWith('offers', {category: 'testCat', offerID: 'testID'})).equal(true);
     });
   });
 

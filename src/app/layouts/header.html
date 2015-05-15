@@ -1,11 +1,11 @@
 <nav class="main-nav wrapper">
-    <a class="brand" ui-sref="index.home">
+    <a class="brand" ui-sref="home">
         <img src="/static/images/logo.png" alt="Mobius logo">
     </a>
     <a href class="menu-opener dropdown-toggle" data-toggle="dropdown"></a>
     <ul dropdown-group>
         <li ng-hide="config.menu.singleProperty">
-            <a ui-sref="index.hotels">_hotels_</a>
+            <a ui-sref="hotels">_hotels_</a>
         </li>
 
         <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
@@ -18,7 +18,7 @@
         </li>
 
         <li ng-show="config.menu.showContact">
-            <a ui-sref="index.contacts">_contact_</a>
+            <a ui-sref="contacts">_contact_</a>
         </li>
 
         <li has-dropdown="click" currency-list>

@@ -1,39 +1,91 @@
 'use strict';
 
 angular.module('mobiusApp.services.state', [])
-.service( 'stateService',  function(Settings) {
+  .service('stateService', ['Settings', '$location', function(Settings, $location) {
 
-  function getStateLayout(stateName){
-    var config = Settings.UI.layout[stateName];
-    if(!config){
-      return [];
+    var currency = {};
+    var currencyChangeListeners = [];
+
+    function getStateLayout(stateName) {
+      var config = Settings.UI.layout[stateName];
+      if (!config) {
+        return [];
+      }
+
+      // List of html templates
+      var layout = [];
+
+      for (var i = 0; i < config.length; i++) {
+        var areaName = config[i];
+        // Check whether area name has template
+        var template = Settings.UI.templates[areaName];
+
+        if (template) {
+          layout.push(template);
+        }
+      }
+
+      return layout;
     }
 
-    // List of html templates
-    var layout = [];
+    // Getting language from corresponding meta tag
+    function getAppLanguageCode() {
+      var meta = $('meta[http-equiv=Content-Language]');
+      return meta.attr('content');
+    }
 
-    for(var i = 0; i < config.length; i++){
-      var areaName = config[i];
-      // Check whether area name has template
-      var template = Settings.UI.templates[areaName];
+    function getAppCurrency() {
+      return currency;
+    }
 
-      if(template){
-        layout.push(template);
+    function setAppCurrency(new_currency) {
+      currency = new_currency;
+      notifyAppCurrencyChangeListeners();
+      $location.search(Settings.currencyParamName, currency.code);
+    }
+
+    function addAppCurrencyChangeListener(listener) {
+      if (currencyChangeListeners.indexOf(listener) < 0) {
+        currencyChangeListeners.push(listener);
       }
     }
 
-    return layout;
-  }
+    function removeAppCurrencyChangeListener(listener) {
+      var index = currencyChangeListeners.indexOf(listener);
+      if (index >= 0) {
+        currencyChangeListeners.splice(index, 1);
+      }
+    }
 
-  // Getting language from corresponding meta tag
-  function getAppLanguage(){
-    var meta = $('meta[http-equiv=Content-Language]');
-    return meta.attr('content');
-  }
+    function notifyAppCurrencyChangeListeners() {
+      for (var i in currencyChangeListeners) {
+        if (currencyChangeListeners.hasOwnProperty(i)) {
+          currencyChangeListeners[i](currency);
+        }
+      }
+    }
 
-  // Public methods
-  return {
-    getStateLayout: getStateLayout,
-    getAppLanguage: getAppLanguage
-  };
-});
+    function setDefaultScopeAppCurrencyChangeListener($scope) {
+      function setCurrency(currency) {
+        $scope.currencyCode = currency.code;
+      }
+
+      addAppCurrencyChangeListener(setCurrency);
+      setCurrency(getAppCurrency());
+
+      $scope.$on('$destroy', function() {
+        removeAppCurrencyChangeListener(setCurrency);
+      });
+    }
+
+    // Public methods
+    return {
+      getStateLayout: getStateLayout,
+      getAppLanguageCode: getAppLanguageCode,
+      getAppCurrency: getAppCurrency,
+      setAppCurrency: setAppCurrency,
+      addAppCurrencyChangeListener: addAppCurrencyChangeListener,
+      removeAppCurrencyChangeListener: removeAppCurrencyChangeListener,
+      setDefaultScopeAppCurrencyChangeListener: setDefaultScopeAppCurrencyChangeListener
+    };
+  }]);

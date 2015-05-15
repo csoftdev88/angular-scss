@@ -6,7 +6,7 @@
 </hero-slider>
 
 <!-- BOOKING WIDGET AREA-->
-<div class="wrapper" ng-hide="$state.includes('index.reservation')">
+<div class="wrapper" ng-hide="$state.includes('reservation')">
   <booking-widget>
   </booking-widget>
 </div>
@@ -27,19 +27,19 @@
       <nav>
         <ul class="footer-nav">
             <li>
-                <a href="#">Home</a>
+                <a ui-sref="home">_home_</a>
             </li>
 
-            <li>
-                <a href="#">Hotels</a>
+            <li ng-hide="config.menu.singleProperty">
+                <a ui-sref="hotels">_hotels_</a>
             </li>
 
-            <li>
-                <a href="#">About Us</a>
+            <li ng-show="config.menu.showAbout">
+                <a ui-sref="contacts">_about_us_</a>
             </li>
 
-            <li>
-                <a href="#">Contact</a>
+            <li ng-show="config.menu.showContact">
+                <a ui-sref="contacts">_contact_</a>
             </li>
         </ul>
       </nav>

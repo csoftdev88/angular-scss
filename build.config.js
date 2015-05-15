@@ -21,6 +21,7 @@ module.exports = {
 
     images:  '**/*.{png,jpg,jpeg,gif,webp,svg}',
     fonts:   '**/*.{eot,svg,ttf,woff}',
+    404: '404.html',
 
     app_files: {
       js: [

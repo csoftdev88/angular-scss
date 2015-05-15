@@ -18,6 +18,15 @@ module.exports = function(app) {
       }
     });
 
+    app.route('/:url(static)/*').get(function(req, res) {
+      res.status(404).end();
+    });
+
+    app.get('/404', function(req, res, next) {
+      res.status(404);
+      res.render('404');
+    });
+
     if (baseConfig) {
       installRoute(baseConfig);
     }
