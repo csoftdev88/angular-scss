@@ -14,7 +14,7 @@ angular.module('mobiusApp.directives.layout', [])
       if(templates && templates.length){
 
         // Inserting new layout
-        var content = angular.element(templates.join());
+        var content = angular.element(templates.join(''));
         elem.append(content);
         $compile(content);
       }
