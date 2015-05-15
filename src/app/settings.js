@@ -10,7 +10,9 @@ angular.module('mobiusApp.config', [])
       'currencies': 'generics/currencies',
       'languages': 'generics/languages'
     },
-
+    'filters': {
+      'products': 'filters/products'
+    },
     'properties': {
       'all': 'properties'
     },

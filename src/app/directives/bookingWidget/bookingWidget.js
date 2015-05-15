@@ -22,7 +22,8 @@ angular.module('mobiusApp.directives.booking', [])
         'promoCode': '',
         'property': undefined,
         // NOTE: dates might be presented as start/end date
-        'dates': ''
+        'dates': '',
+        'rates': undefined
       };
 
       // URL parameters and their settings
@@ -56,6 +57,11 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'dates',
           'type': 'string',
           'required': true
+        },
+        'rate': {
+          'search': 'rate',
+          'type': 'string',
+          'required': false
         }
       };
 
@@ -67,7 +73,7 @@ angular.module('mobiusApp.directives.booking', [])
 
           var paramValue = queryService.getValue(paramSettings.search);
 
-          // URL parameter is presented by has no value
+          // URL parameter is presented but has no value
           if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
             queryService.removeParam(paramSettings.search);
           }else{
@@ -82,7 +88,10 @@ angular.module('mobiusApp.directives.booking', [])
 
       // Getting a list of properties
       propertyService.getAll().then(function(data){
-        scope.propertyList = data.properties || [];
+        scope.propertyList = data || [];
+        // add Special value 'All Properties' to the list. It is also a default value.
+        scope.propertyList.unshift({nameShort: 'All Properties'});
+        scope.selected.property = scope.propertyList[0];
 
         var paramSettings = PARAM_TYPES.property;
         var propertyCode = queryService.getValue(paramSettings.search);
@@ -106,7 +115,17 @@ angular.module('mobiusApp.directives.booking', [])
         queryService.removeParam(paramSettings.search);
       });
 
+      /**
+       * Updates the url with values from the widget and redirects either to hotel list or a room list
+       */
       scope.onSearch = function(){
+
+        if(scope.selected.property.nameShort === 'All Properties'){
+        // 'All properties' is selected, will redirect to hotel list
+        }
+        else{
+        // Specific hotel selected, will redirect to room list
+        }
         // Updating URL params
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
@@ -132,13 +151,17 @@ angular.module('mobiusApp.directives.booking', [])
         }
       };
 
-      // Search is enabled only when required fields contains data
+      // Search is enabled only when required fields contain data
       scope.isSearchable = function(){
         for(var key in PARAM_TYPES){
           var settings = PARAM_TYPES[key];
 
           var value = scope.selected[key];
           if(key === 'property'){
+            // 'All properties' is a valid value in Property field
+            if(value.nameShort === 'All Properties'){
+              continue;
+            }
             value = value === undefined?'':value.code;
           }
 
@@ -151,7 +174,20 @@ angular.module('mobiusApp.directives.booking', [])
       };
 
       scope.openAdvancedOptionsDialog = function() {
-        modalService.openAdvancedOptionsDialog();
+        modalService.openAdvancedOptionsDialog().then(function(data) {
+          if(data.rate !== null) {
+            scope.selected.rate = data.rate;
+          }
+
+          // Update number of adults and children when these are specified in multiroom selection
+          if(data.multiRoom === '1') {
+            var sumAdults = data.rooms.reduce(function(prev, next) {return prev + next.adults;}, 0);
+            var sumChildren = data.rooms.reduce(function(prev, next) {return prev + next.children;}, 0);
+
+            scope.selected.adults = sumAdults;
+            scope.selected.children = sumChildren;
+          }
+        });
       };
     }
   };

@@ -21,13 +21,18 @@ angular.module('mobiusApp.services.content', [])
     return apiService.get(apiService.getFullURL('contents'), {scope: 'homepage', filter: 'news'});
   }
 
-    // Generics
+  // Generics
   function getCurrencies(){
     return apiService.get(apiService.getFullURL('generics.currencies'));
   }
 
   function getLanguages(){
     return apiService.get(apiService.getFullURL('generics.languages'));
+  }
+
+  // Filters
+  function getRates(){
+    return apiService.get(apiService.getFullURL('filters.products'));
   }
 
   // Public methods
@@ -38,6 +43,8 @@ angular.module('mobiusApp.services.content', [])
     getHighlightedItems: getHighlightedItems,
     // Generics
     getCurrencies: getCurrencies,
-    getLanguages: getLanguages
+    getLanguages: getLanguages,
+    // Filters
+    getRates: getRates
   };
 });

@@ -18,14 +18,14 @@ angular.module('mobiusApp.services.modal', [])
     // Merge required and arbitrary options together
     angular.extend(modalOptions, options);
 
-    $modal.open(modalOptions).result.then(function() {
+    $modal.open(modalOptions).result.then(function(data) {
       queryService.removeParam(DIALOG_PARAM_NAME);
       $log.info('Dialog closed');
-      q.resolve();
-    }, function() {
+      q.resolve(data);
+    }, function(reason) {
       queryService.removeParam(DIALOG_PARAM_NAME);
       $log.info('Dialog dismissed');
-      q.reject();
+      q.reject(reason);
     });
 
     queryService.setValue(DIALOG_PARAM_NAME, dialogName);
