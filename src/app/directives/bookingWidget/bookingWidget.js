@@ -174,7 +174,6 @@ angular.module('mobiusApp.directives.booking', [])
 
       scope.openAdvancedOptionsDialog = function() {
         modalService.openAdvancedOptionsDialog().then(function(data) {
-          console.log(data);
           if(data.rate !== null) {
             scope.selected.rate = data.rate;
           }
