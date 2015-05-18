@@ -1,12 +1,61 @@
 .site-map {
   background: @siteMapBackground;
   border-top: 1px solid #cacaca;
+  .generate-fluid-grid(7);
+  padding: @baseline 0px;
+
+  position: relative;
+
+  //overflow: auto;
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0px;
+
+    position: absolute;
+  background: @siteMapBackground;
+  border-top: 1px solid #cacaca;
+
+    top: -1px;
+  }
+
+  &:before {
+    left: -100%;
+    right: 100%;
+  }
+
+  &:after {
+    left: 100%;
+    right: 200%;
+  }
 
   ul {
     list-style: none;
+    padding-left: 0px;
 
     li {
       float: left;
+      width: 100%;
+
+      a {
+        text-decoration: none;
+        font-size: @fs-2;
+
+        &:hover {
+          box-shadow: 0 1px 0 0 @colorLinkLight;
+        }
+      }
+
+
+      &:first-of-type {
+        a {
+          font-size: @fs-3;
+          .transition;
+        }
+      }
     }
   }
 }
