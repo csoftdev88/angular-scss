@@ -45,7 +45,7 @@ angular.module('mobiusApp.directives.booking', [])
         'property': {
           'search': 'property',
           'type': 'string',
-          'required': true
+          'required': false
         },
         'promoCode': {
           'search': 'promoCode',
@@ -89,9 +89,6 @@ angular.module('mobiusApp.directives.booking', [])
       // Getting a list of properties
       propertyService.getAll().then(function(data){
         scope.propertyList = data || [];
-        // add Special value 'All Properties' to the list. It is also a default value.
-        scope.propertyList.unshift({nameShort: 'All Properties'});
-        scope.selected.property = scope.propertyList[0];
 
         var paramSettings = PARAM_TYPES.property;
         var propertyCode = queryService.getValue(paramSettings.search);
@@ -119,11 +116,9 @@ angular.module('mobiusApp.directives.booking', [])
        * Updates the url with values from the widget and redirects either to hotel list or a room list
        */
       scope.onSearch = function(){
-
-        if(scope.selected.property.nameShort === 'All Properties'){
+        if(!scope.selected.property){
         // 'All properties' is selected, will redirect to hotel list
-        }
-        else{
+        } else{
         // Specific hotel selected, will redirect to room list
         }
         // Updating URL params
@@ -158,11 +153,7 @@ angular.module('mobiusApp.directives.booking', [])
 
           var value = scope.selected[key];
           if(key === 'property'){
-            // 'All properties' is a valid value in Property field
-            if(value.nameShort === 'All Properties'){
-              continue;
-            }
-            value = value === undefined?'':value.code;
+            continue;
           }
 
           if(settings.required && !validationService.isValueValid(value, settings)){
