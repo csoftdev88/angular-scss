@@ -50,12 +50,11 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openAdvancedOptionsDialog(data){
-    var options;
-    if(data){
-      options = {resolve: {data: function(){return data;}}};
-    }
-
-    return openDialog('AdvancedOptionsDialog', 'layouts/modals/advancedOptionsDialog.html', CONTROLLER_ADVANCED_OPTIONS, options);
+    return openDialog('AdvancedOptionsDialog',
+      'layouts/modals/advancedOptionsDialog.html',
+      CONTROLLER_ADVANCED_OPTIONS,
+      {resolve: {data: function(){return data || {};}}}
+    );
   }
 
   // Accepting reservation data to be rendered in modal window

@@ -8,7 +8,7 @@
     <form name="advancedOptionsForm" class="advanced-options">
       <label for="advanced-rates">
         Rates
-        <select name="advancedRates" id="advanced-rates" chosen disable-search="true" ng-model="options.selectedRate" ng-options="rate.code as rate.name for rate in rates"/>
+        <select name="advancedRates" id="advanced-rates" chosen disable-search="true" ng-model="options.selectedRate" ng-options="rate.id as rate.name for rate in rates"/>
       </label>
       <div class="room-count">
         <label for="advanced-single-room" ng-class="{'is-selected': !options.multiRoom}">

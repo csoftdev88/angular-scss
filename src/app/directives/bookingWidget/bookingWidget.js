@@ -175,6 +175,8 @@ angular.module('mobiusApp.directives.booking', [])
             scope.selected.rate = data.rate;
           }
 
+          console.log(data);
+
           // Update number of adults and children when these are specified in multiroom selection
           if(data.multiroom) {
             var sumAdults = data.rooms.reduce(function(prev, next) {return prev + next.adults;}, 0);

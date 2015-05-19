@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.modals.advancedOptions', [])
 
 .controller( 'AdvancedOptionsCtrl', function($scope, data, Settings, contentService,
-  $controller, $modalInstance) {
+  $controller, $modalInstance, $window) {
 
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
@@ -18,7 +18,9 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   $scope.rates = [];
 
   $scope.options = {
-    selectedRate: data.rate || null,
+    // NOTE: Selected rate will be replaced with selectedRate object
+    // once rates are loaded from the server
+    selectedRate: data.rateId || null,
     multiRoom: data.multiRoom || false,
     rooms: data.rooms || [{id: 'room1', adults: 1, children: 0}]
   };
@@ -32,6 +34,18 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   // TODO: Add cache
   $scope.loadValidRates = function(){
     contentService.getRates().then(function(data) {
+      // Checking if selected rate exist in the list
+      if($scope.options.selectedRate){
+        var rateIndex = $window._.findIndex(data, function(r){
+          return r.id === $scope.options.selectedRate;
+        });
+
+        if(rateIndex === -1){
+          // Invalidating the value when rate is not found
+          $scope.options.selectedRate = null;
+        }
+      }
+
       $scope.rates = data;
     });
   };
@@ -70,7 +84,7 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
 
     // Rate
     if($scope.options.selectedRate){
-      result.rate = $scope.options.selectedRate;
+      result.rateId = $scope.options.selectedRate;
     }
 
     // Rooms
