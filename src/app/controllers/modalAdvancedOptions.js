@@ -4,29 +4,32 @@
 */
 angular.module('mobius.controllers.modals.advancedOptions', [])
 
-.controller( 'AdvancedOptionsCtrl', function($scope, contentService, $controller, $modalInstance) {
+.controller( 'AdvancedOptionsCtrl', function($scope, data, Settings, contentService,
+  $controller, $modalInstance) {
 
-  $controller('ModalCtrl', {$scope: $scope, contentService: contentService, $modalInstance: $modalInstance});
+  $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
-  var MAX_ROOMS = 4;
-
-  $scope.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-
-  $scope.rates = [];
-  $scope.data = {
-    selectedRate: null,
-    rooms: [
-      {id: 'room1', adults: 1, children: 0}
-    ]
+  $scope.settings = {
+    maxAdults: Settings.UI.bookingWidget.maxAdults,
+    maxChildren: Settings.UI.bookingWidget.maxChildren,
+    maxRooms: Settings.UI.bookingWidget.advanced.maxRooms
   };
 
-  $scope.multiRoom = '0';
+  $scope.rates = [];
+
+  $scope.options = {
+    selectedRate: data.rate || null,
+    multiRoom: data.multiRoom || false,
+    rooms: data.rooms || [{id: 'room1', adults: 1, children: 0}]
+  };
+
   $scope.canAddRoom = true;
   $scope.showRemove = false;
 
   /**
    * Function loads list of available rate types from API (eg Corporate Rate, Best Available Rate)
    */
+  // TODO: Add cache
   $scope.loadValidRates = function(){
     contentService.getRates().then(function(data) {
       $scope.rates = data;
@@ -37,32 +40,44 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
 
   // TODO: Simplify these functions into one
   $scope.addRoom = function(){
-    var count = $scope.data.rooms.length;
-    if (count < MAX_ROOMS){
-      $scope.data.rooms.push({id: 'room' + (count + 1), adults: 1, children: 0});
+    var count = $scope.options.rooms.length;
+    if (count < $scope.settings.maxRooms){
+      $scope.options.rooms.push({id: 'room' + (count + 1), adults: 1, children: 0});
     }
-    if (count === MAX_ROOMS - 1){
+    if (count === $scope.settings.maxRooms - 1){
       $scope.canAddRoom = false;
     }
   };
 
   $scope.removeRoom = function(){
-    var count = $scope.data.rooms.length;
+    var count = $scope.options.rooms.length;
     if (count > 1){
-      $scope.data.rooms.pop();
+      $scope.options.rooms.pop();
     }
-    if (count - 1 < MAX_ROOMS){
+    if (count - 1 < $scope.settings.maxRooms){
       $scope.canAddRoom = true;
     }
   };
 
   $scope.isRemoveVisible = function(i){
-    return (i === $scope.data.rooms.length - 1) && (i !== 0);
+    return (i === $scope.options.rooms.length - 1) && (i !== 0);
   };
 
-  $scope.clickOk = function() {
-    var selected = {multiRoom: $scope.data.multiRoom, rooms: $scope.data.rooms, rate: $scope.data.selectedRate};
+  $scope.submit = function() {
+    var result = {
+      multiRoom: $scope.options.multiRoom,
+    };
 
-    $modalInstance.close(selected);
+    // Rate
+    if($scope.options.selectedRate){
+      result.rate = $scope.options.selectedRate;
+    }
+
+    // Rooms
+    if($scope.options.multiRoom){
+      result.rooms = $scope.options.rooms;
+    }
+
+    $modalInstance.close(result);
   };
 });

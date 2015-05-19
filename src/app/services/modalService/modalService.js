@@ -49,8 +49,13 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('EnterCodeDialog', 'layouts/modals/enterCodeDialog.html', CONTROLLER_LOGIN);
   }
 
-  function openAdvancedOptionsDialog(){
-    return openDialog('AdvancedOptionsDialog', 'layouts/modals/advancedOptionsDialog.html', CONTROLLER_ADVANCED_OPTIONS);
+  function openAdvancedOptionsDialog(data){
+    var options;
+    if(data){
+      options = {resolve: {data: function(){return data;}}};
+    }
+
+    return openDialog('AdvancedOptionsDialog', 'layouts/modals/advancedOptionsDialog.html', CONTROLLER_ADVANCED_OPTIONS, options);
   }
 
   // Accepting reservation data to be rendered in modal window

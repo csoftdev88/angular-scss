@@ -128,7 +128,12 @@ angular.module('mobiusApp.config', [])
     // Settings related to booking process
     'bookingWidget': {
       'maxAdults': 6,
-      'maxChildren': 8
+      'maxChildren': 8,
+      'advanced': {
+        'maxRooms': 4
+        // NOTE: maxAdults and maxChildren
+        // settings are defined above
+      }
     },
 
     // States layout

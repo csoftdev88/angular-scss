@@ -14,18 +14,6 @@ angular.module('mobiusApp.directives.booking', [])
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
-      // NOTE: Hotel is presented in the URL by using property/hotel code
-      // Currently selected form values
-      scope.selected = {
-        'children': undefined,
-        'adults': undefined,
-        'promoCode': '',
-        'property': undefined,
-        // NOTE: dates might be presented as start/end date
-        'dates': '',
-        'rates': undefined
-      };
-
       // URL parameters and their settings
       var PARAM_TYPES = {
         'children': {
@@ -64,6 +52,20 @@ angular.module('mobiusApp.directives.booking', [])
           'required': false
         }
       };
+
+      // NOTE: Hotel is presented in the URL by using property/hotel code
+      // Currently selected form values
+      scope.selected = {
+        'children': undefined,
+        'adults': undefined,
+        'promoCode': '',
+        'property': undefined,
+        // NOTE: dates might be presented as start/end date
+        'dates': '',
+        'rates': undefined
+      };
+
+      scope.advancedOptions = {};
 
       // Function will remove query parameters from the URL in case their
       // values are not valid
@@ -117,10 +119,11 @@ angular.module('mobiusApp.directives.booking', [])
        */
       scope.onSearch = function(){
         if(!scope.selected.property){
-        // 'All properties' is selected, will redirect to hotel list
+          // 'All properties' is selected, will redirect to hotel list
         } else{
-        // Specific hotel selected, will redirect to room list
+          // Specific hotel selected, will redirect to room list
         }
+
         // Updating URL params
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
@@ -165,13 +168,15 @@ angular.module('mobiusApp.directives.booking', [])
       };
 
       scope.openAdvancedOptionsDialog = function() {
-        modalService.openAdvancedOptionsDialog().then(function(data) {
+        modalService.openAdvancedOptionsDialog(scope.advancedOptions).then(function(data) {
+          // Saving advanced options
+          scope.advancedOptions = data;
           if(data.rate !== null) {
             scope.selected.rate = data.rate;
           }
 
           // Update number of adults and children when these are specified in multiroom selection
-          if(data.multiRoom === '1') {
+          if(data.multiroom) {
             var sumAdults = data.rooms.reduce(function(prev, next) {return prev + next.adults;}, 0);
             var sumChildren = data.rooms.reduce(function(prev, next) {return prev + next.children;}, 0);
 

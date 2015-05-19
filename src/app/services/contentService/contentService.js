@@ -4,7 +4,6 @@
 */
 angular.module('mobiusApp.services.content', [])
 .service( 'contentService',  function(apiService) {
-
   function getNews(){
     return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
   }
