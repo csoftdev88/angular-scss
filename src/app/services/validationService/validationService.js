@@ -4,7 +4,6 @@ angular.module('mobiusApp.services.validation', [])
 .service( 'validationService',  function() {
 
   function isValueValid(paramValue, paramSettings){
-
     paramValue = convertValue(paramValue, paramSettings);
 
     if(paramValue === undefined){
@@ -32,6 +31,9 @@ angular.module('mobiusApp.services.validation', [])
 
       break;
 
+    case 'object':
+      return true;
+
     default:
       return false;
     }
@@ -39,7 +41,7 @@ angular.module('mobiusApp.services.validation', [])
     return true;
   }
 
-  function convertValue(paramValue, paramSettings){
+  function convertValue(paramValue, paramSettings, decode){
     if(paramSettings === undefined){
       return;
     }
@@ -63,10 +65,14 @@ angular.module('mobiusApp.services.validation', [])
 
     case 'object':
       var value;
-      try {
-        value = JSON.parse(decodeURIComponent(paramValue));
-      }catch(e){
-        value = null;
+      if(decode){
+        try {
+          value = JSON.parse(decodeURIComponent(paramValue));
+        }catch(e){
+          value = null;
+        }
+      }else{
+        value = encodeURIComponent(JSON.stringify(paramValue));
       }
 
       return value;

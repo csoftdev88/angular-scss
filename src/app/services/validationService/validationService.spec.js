@@ -84,12 +84,12 @@ describe('validationService', function() {
 
     describe('object type', function() {
       it('should decode object correctly', function() {
-        var converted = env.validationService.convertValue('%7B%22testProp%22%3A123%7D', SETTINGS_OBJECT);
+        var converted = env.validationService.convertValue('%7B%22testProp%22%3A123%7D', SETTINGS_OBJECT, true);
         expect(converted.testProp).equal(123);
       });
 
       it('should return null when object is invalid', function() {
-        var converted = env.validationService.convertValue('%7A%22testProp%22%3A123%7D', SETTINGS_OBJECT);
+        var converted = env.validationService.convertValue('%7A%22testProp%22%3A123%7D', SETTINGS_OBJECT, true);
         expect(converted).equal(null);
       });
     });

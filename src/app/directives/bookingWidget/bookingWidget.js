@@ -87,7 +87,7 @@ angular.module('mobiusApp.directives.booking', [])
             queryService.removeParam(paramSettings.search);
           }else{
             // Value is valid, we can assign it to the model
-            scope.selected[key] = validationService.convertValue(paramValue, paramSettings);
+            scope.selected[key] = validationService.convertValue(paramValue, paramSettings, true);
           }
         }
       }
@@ -138,18 +138,13 @@ angular.module('mobiusApp.directives.booking', [])
           var modelValue;
           if(key === 'property' && scope.selected[key]!==undefined){
             modelValue = scope.selected[key].code;
-          }else{
+          } else {
             modelValue = scope.selected[key];
           }
 
           if(validationService.isValueValid(modelValue, paramSettings)){
-            var paramValue = queryService.getValue(paramSettings.search);
-            var queryValue = validationService.convertValue(paramValue, paramSettings);
-
-            if(modelValue!==queryValue){
-              queryService.setValue(paramSettings.search, modelValue);
-            }
-
+            var queryValue = validationService.convertValue(modelValue, paramSettings);
+            queryService.setValue(paramSettings.search, queryValue);
           }else{
             queryService.removeParam(paramSettings.search);
           }
@@ -175,9 +170,16 @@ angular.module('mobiusApp.directives.booking', [])
       };
 
       scope.openAdvancedOptionsDialog = function() {
-        var advancedOptions = {
-          rate: scope.selected.rate
-        };
+        var advancedOptions = {};
+
+        if(scope.selected.rate){
+          advancedOptions.rate = scope.selected.rate;
+        }
+
+        if(scope.selected.rooms && scope.selected.rooms.length){
+          advancedOptions.rooms = scope.selected.rooms;
+          advancedOptions.multiRoom = true;
+        }
 
         modalService.openAdvancedOptionsDialog(advancedOptions).then(function(data) {
           // Saving advanced options
@@ -186,12 +188,11 @@ angular.module('mobiusApp.directives.booking', [])
           }
 
           // Update number of adults and children when these are specified in multiroom selection
-          if(data.multiroom) {
-            var sumAdults = data.rooms.reduce(function(prev, next) {return prev + next.adults;}, 0);
-            var sumChildren = data.rooms.reduce(function(prev, next) {return prev + next.children;}, 0);
-
-            scope.selected.adults = sumAdults;
-            scope.selected.children = sumChildren;
+          if(data.rooms && data.rooms.length) {
+            scope.selected.rooms = data.rooms;
+            // TODO: Check if advanced options affect the number of adults/children
+            scope.selected.adults = data.rooms.reduce(function(prev, next) {return prev + next.adults;}, 0);
+            scope.selected.children = data.rooms.reduce(function(prev, next) {return prev + next.children;}, 0);
           }
         });
       };

@@ -16,13 +16,14 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   };
 
   $scope.rates = [];
+  console.log(data);
 
   $scope.options = {
     // NOTE: Selected rate will be replaced with selectedRate object
     // once rates are loaded from the server
     selectedRate: data.rate || null,
     multiRoom: data.multiRoom || false,
-    rooms: data.rooms || [{id: 'room1', adults: 1, children: 0}]
+    rooms: data.rooms || [{adults: 1, children: 0}]
   };
 
   $scope.canAddRoom = true;
@@ -56,7 +57,7 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   $scope.addRoom = function(){
     var count = $scope.options.rooms.length;
     if (count < $scope.settings.maxRooms){
-      $scope.options.rooms.push({id: 'room' + (count + 1), adults: 1, children: 0});
+      $scope.options.rooms.push({adults: 1, children: 0});
     }
     if (count === $scope.settings.maxRooms - 1){
       $scope.canAddRoom = false;
@@ -92,6 +93,7 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
       result.rooms = $scope.options.rooms;
     }
 
+    console.log(result);
     $modalInstance.close(result);
   };
 });
