@@ -50,6 +50,12 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'rate',
           'type': 'integer',
           'required': false
+        },
+
+        'rooms': {
+          'search': 'rooms',
+          'type': 'object',
+          'required': false
         }
       };
 

@@ -61,6 +61,16 @@ angular.module('mobiusApp.services.validation', [])
     case 'string':
       return paramValue;
 
+    case 'object':
+      var value;
+      try {
+        value = JSON.parse(decodeURIComponent(paramValue));
+      }catch(e){
+        value = null;
+      }
+
+      return value;
+
     default:
       break;
     }
