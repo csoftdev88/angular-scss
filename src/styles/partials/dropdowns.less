@@ -34,6 +34,19 @@
 
 .dropdown.has-icons {
   position: relative;
+
+  > a {
+    span {
+      &:after {
+        content: '';
+        display: inline-block;
+        width: 7px;
+        height: 8px;
+        margin-left: 6px;
+        background: url('../images/v4/icon-arrow.png') no-repeat center center;
+      }
+    }
+  }
   .icon {
     display: inline-block;
     width: 38px;
@@ -48,7 +61,7 @@
     }
 
     .icon {
-      margin: 0 18px 0 15px;
+      margin: 0 0 0 15px;
     }
   }
 }
