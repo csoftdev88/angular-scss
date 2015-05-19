@@ -48,7 +48,7 @@ angular.module('mobiusApp.directives.booking', [])
         },
         'rate': {
           'search': 'rate',
-          'type': 'string',
+          'type': 'integer',
           'required': false
         }
       };
@@ -62,10 +62,11 @@ angular.module('mobiusApp.directives.booking', [])
         'property': undefined,
         // NOTE: dates might be presented as start/end date
         'dates': '',
-        'rates': undefined
+        // Advanced options
+        'rate': undefined
       };
 
-      scope.advancedOptions = {};
+      //scope.advancedOptions = {};
 
       // Function will remove query parameters from the URL in case their
       // values are not valid
@@ -168,14 +169,15 @@ angular.module('mobiusApp.directives.booking', [])
       };
 
       scope.openAdvancedOptionsDialog = function() {
-        modalService.openAdvancedOptionsDialog(scope.advancedOptions).then(function(data) {
+        var advancedOptions = {
+          rate: scope.selected.rate
+        };
+
+        modalService.openAdvancedOptionsDialog(advancedOptions).then(function(data) {
           // Saving advanced options
-          scope.advancedOptions = data;
           if(data.rate !== null) {
             scope.selected.rate = data.rate;
           }
-
-          console.log(data);
 
           // Update number of adults and children when these are specified in multiroom selection
           if(data.multiroom) {

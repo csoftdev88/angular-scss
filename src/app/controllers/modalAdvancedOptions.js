@@ -20,7 +20,7 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   $scope.options = {
     // NOTE: Selected rate will be replaced with selectedRate object
     // once rates are loaded from the server
-    selectedRate: data.rateId || null,
+    selectedRate: data.rate || null,
     multiRoom: data.multiRoom || false,
     rooms: data.rooms || [{id: 'room1', adults: 1, children: 0}]
   };
@@ -84,7 +84,7 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
 
     // Rate
     if($scope.options.selectedRate){
-      result.rateId = $scope.options.selectedRate;
+      result.rate = $scope.options.selectedRate;
     }
 
     // Rooms
