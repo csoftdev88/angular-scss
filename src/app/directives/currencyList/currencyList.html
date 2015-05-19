@@ -1,6 +1,5 @@
 <div class="dropdown has-icons">
   <a href title="Currency">
-    <img ng-if="$root.currency.code" ng-src="/static/images/flag-{{$root.currency.code}}.jpg" class="icon" alt="{{$root.currency.code}}">
     <span>{{getCurrencySymbol($root.currency.code)}}</span>
   </a>
   <ul class="dropdown-menu submenu" ng-show="currencies.length">

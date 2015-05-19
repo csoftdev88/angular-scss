@@ -58,6 +58,9 @@ angular
     // Directives for generic data
     'mobiusApp.directives.currency',
     'mobiusApp.directives.language',
+    // V4
+    'mobiusApp.directives.aboutHotel',
+
     // Filters
     'mobiusApp.filters.list',
     'mobiusApp.filters.number',

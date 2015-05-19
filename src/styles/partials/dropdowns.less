@@ -34,6 +34,19 @@
 
 .dropdown.has-icons {
   position: relative;
+
+  > a {
+    span {
+      &:after {
+        content: '';
+        display: inline-block;
+        width: 7px;
+        height: 8px;
+        margin-left: 6px;
+        background: url('../images/v4/icon-arrow.png') no-repeat center center;
+      }
+    }
+  }
   .icon {
     display: inline-block;
     width: 38px;
@@ -48,7 +61,7 @@
     }
 
     .icon {
-      margin: 0 18px 0 15px;
+      margin: 0 0 0 15px;
     }
   }
 }
@@ -85,7 +98,7 @@
   .dropdown-menu {
     position: absolute;
     z-index: 1000;
-    top: 100%;
+    top: 80%;
     left: 0;
     float: left;
 
@@ -95,7 +108,7 @@
       min-width: 80px;
       margin-left: -15px;
 
-      background-color: fadeout(@colorHeaderBackground, 15%);
+      background-color: fadeout(@colorHeaderBackground, 35%);
     }
   }
 

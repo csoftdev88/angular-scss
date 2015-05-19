@@ -119,26 +119,29 @@ hero-slider {
       }
 
       .content-inner {
-
         max-width: 960px;
         margin: 0 auto;
         position: relative;
-        top: 60%;
+        top: 75%;
+
+        h1, h2 {
+          position: absolute;
+          padding-right: @baseline*1.2;
+          color: @white;
+          margin: 0;
+          left: 0;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
 
         h1 {
-          .animated-slow;
-          position: absolute;
-          left: 0;
-          margin: 0;
-          padding-right: 1em;
-          color: @white;
           &:extend(.open-sans);
+          .animated-slow;
+
           font-size: 28px;
           line-height: 50px;
           text-transform: uppercase;
           background-color: @bgSliderTitle;
-          border-top-right-radius: 5px;
-          border-bottom-right-radius: 5px;
 
           &:before {
             content: '';
@@ -151,19 +154,15 @@ hero-slider {
         }
 
         h2 {
-          .animated-slower;
-          position: absolute;
-          top: 58px;
-          left: 0;
-          margin: 0;
-          padding-right: 1em;
-          color: @white;
           &:extend(.open-sans-condensed);
+
+          .animated-slower;
+
+          top: 58px;
+
           font-size: 20px;
           text-transform: uppercase;
           background-color: @bgSliderSubtitle;
-          border-top-right-radius: 5px;
-          border-bottom-right-radius: 5px;
 
           &:before {
             content: '';
