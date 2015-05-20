@@ -8,6 +8,7 @@ describe('i18nCurrency', function() {
   });
 
   beforeEach(function() {
+    module('underscore');
     module('mobiusApp.filters.currency', function($provide, $filterProvider) {
       var Settings = {
         'UI': {

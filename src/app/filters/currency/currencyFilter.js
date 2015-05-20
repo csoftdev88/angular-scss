@@ -2,9 +2,9 @@
 
 angular.module('mobiusApp.filters.currency', [])
 
-  .filter('i18nCurrency', ['$filter', 'Settings', function($filter, Settings) {
+  .filter('i18nCurrency', ['_', '$filter', 'Settings', function(_, $filter, Settings) {
     function filter(number, currencyCode, fractions) {
-      if (!isFinite(number)) {
+      if (!_.isFinite(number)) {
         return number;
       }
 

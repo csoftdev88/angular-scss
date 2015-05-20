@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.filters.number', [])
 
-  .filter('i18nNumber', ['stateService', 'Settings', function(stateService, Settings) {
+  .filter('i18nNumber', ['_', 'stateService', 'Settings', function(_, stateService, Settings) {
     var factorCache = {
       1: 1e1,
       2: 1e2,
@@ -17,7 +17,7 @@ angular.module('mobiusApp.filters.number', [])
     }
 
     function filter(number, fractions) {
-      if (!isFinite(number)) {
+      if (!_.isFinite(number)) {
         return number;
       }
 

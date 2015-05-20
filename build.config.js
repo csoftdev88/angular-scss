@@ -60,6 +60,8 @@ module.exports = {
         'bower_components/sinon/lib/sinon/typeOf.js',
         'bower_components/sinon/lib/sinon/match.js',
         'bower_components/sinon-chai/lib/sinon-chai.js',
+        'bower_components/angular-underscore-module/angular-underscore-module.js',
+        'bower_components/underscore/underscore.js',
         'karma/init.js',
         'src/app/**/*.js'
       ]
