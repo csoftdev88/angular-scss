@@ -2,8 +2,8 @@
 
 angular.module('mobiusApp.directives.currency', [])
 
-  .directive('currencyList', ['Settings', 'contentService', '$stateParams', '_', 'queryService', '$rootScope',
-    function(Settings, contentService, $stateParams, _, queryService, $rootScope) {
+  .directive('currencyList', ['Settings', 'contentService', '_', 'queryService', '$rootScope',
+    function(Settings, contentService, _, queryService, $rootScope) {
     return {
       restrict: 'EA',
       scope: {},
@@ -23,9 +23,10 @@ angular.module('mobiusApp.directives.currency', [])
             }
           });
 
-          if ($stateParams.currency && currencies.hasOwnProperty($stateParams.currency)) {
+          var currency = queryService.getValue(Settings.currencyParamName);
+          if (currency && currencies.hasOwnProperty(currency)) {
             // set by user
-            setCurrency(currencies[$stateParams.currency]);
+            setCurrency(currencies[currency]);
           } else if (scope.currentCurrency) {
             // do nothing
           } else if (currencies.hasOwnProperty(Settings.UI.currencies.default)) {

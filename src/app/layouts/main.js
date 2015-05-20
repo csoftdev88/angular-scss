@@ -2,8 +2,8 @@
 
 angular.module('mobius.controllers.main', [])
 
-  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', 'contentService', 'Settings', 'user', 'stateService', '_',
-    function($scope, $state, $modal, orderByFilter, modalService, contentService, Settings, user, stateService, _) {
+  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', 'contentService', 'Settings', 'user',
+    function($scope, $state, $modal, orderByFilter, modalService, contentService, Settings, user) {
 
       // Application settings
       $scope.config = Settings.UI;
@@ -76,7 +76,5 @@ angular.module('mobius.controllers.main', [])
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
 
-      _.defer(function() {
-        modalService.openDialogIfPresent();
-      });
+      modalService.openDialogIfPresent();
     }]);

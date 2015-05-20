@@ -9,14 +9,14 @@ describe('i18nCurrency', function() {
 
   beforeEach(function() {
     module('underscore');
+    module('mobiusApp.factories.template');
     module('mobiusApp.filters.currency', function($provide, $filterProvider) {
       var Settings = {
         'UI': {
           'currencies': {
             'GBP': {
               'symbol': '£',
-              'position': 'pre',
-              'space': true
+              'format': '{{symbol}} {{amount}}'
             }
           }
         }

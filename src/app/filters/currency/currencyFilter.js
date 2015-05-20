@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.filters.currency', [])
 
-  .filter('i18nCurrency', ['_', '$filter', 'Settings', function(_, $filter, Settings) {
+  .filter('i18nCurrency', ['_', '$filter', 'Settings', 'templateFactory', function(_, $filter, Settings, templateFactory) {
     function filter(number, currencyCode, fractions) {
       if (!_.isFinite(number)) {
         return number;
@@ -17,11 +17,10 @@ angular.module('mobiusApp.filters.currency', [])
 
         var numberString = $filter('i18nNumber')(number, fractions);
         if (numberString.length > 0) {
-          if (currency.position === 'pre') {
-            return currency.symbol + (currency.space ? ' ' : '') + numberString;
-          } else if (currency.position === 'post') {
-            return numberString + (currency.space ? ' ' : '') + currency.symbol;
-          }
+          return templateFactory(currency.format, {
+            symbol: currency.symbol,
+            amount: numberString
+          });
         }
       }
       return '';
