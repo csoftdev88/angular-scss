@@ -60,6 +60,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           maxDate: maxDate,
           numberOfMonths: 1,
           showOtherMonths: true,
+          minDate: 0,
           //showAnim: 'slideDown',
 
           beforeShowDay: function ( date ) {
