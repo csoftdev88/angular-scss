@@ -6,7 +6,7 @@ angular.module('mobiusApp.services.properties', [])
 .service( 'propertyService',  function(apiService) {
 
   function getAll(params){
-    return apiService.get(apiService.getFullURL('properties.all', params));
+    return apiService.get(apiService.getFullURL('properties.all'), params);
   }
 
   // Public methods

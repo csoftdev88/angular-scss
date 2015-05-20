@@ -13,6 +13,11 @@ angular.module('mobiusApp.services.booking', [])
     'promoCode': 'promoCode'
   };
 
+  var API_PARAM_FROM = 'from';
+  var API_PARAM_TO = 'to';
+
+  var DATES_SEPARATOR = ' ';
+
   function getParams(){
     var params = {
       property: $stateParams.hotelID || $stateParams.property,
@@ -27,13 +32,38 @@ angular.module('mobiusApp.services.booking', [])
     return params;
   }
 
+  function datesFromString(str){
+    if(!str || str === ''){
+      return null;
+    }
+
+    var dates = str.split(DATES_SEPARATOR);
+    // TODO: Add validation
+    return {
+      from: dates[0],
+      to: dates[1] || dates[0]
+    };
+  }
+
   // Returns query params in the format expected by the API
   function getAPIParams(){
     var params = getParams();
 
     var queryParams = {};
     $window._.each(params, function(value, key){
-      queryParams[QUERY_TO_API_PARAMS[key]] = value;
+      if(!value){
+        return;
+      }
+
+      if(key !== 'dates'){
+        queryParams[QUERY_TO_API_PARAMS[key]] = value;
+      }else{
+        var dates = datesFromString(value);
+        if(dates){
+          queryParams[API_PARAM_FROM] = dates.from;
+          queryParams[API_PARAM_TO] = dates.to;
+        }
+      }
     });
 
     return queryParams;
@@ -42,6 +72,7 @@ angular.module('mobiusApp.services.booking', [])
   // Public methods
   return {
     getParams: getParams,
-    getAPIParams: getAPIParams
+    getAPIParams: getAPIParams,
+    datesFromString: datesFromString
   };
 });

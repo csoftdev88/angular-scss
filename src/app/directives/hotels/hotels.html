@@ -24,7 +24,7 @@
             <span class="price">
               from <span class="value">{{hotel.priceFrom | i18nCurrency: currencyCode}}</span> <small>per night</small>
             </span>
-            <p>{{hotel.description}}</p>
+            <p ng-if="view = 'list'">{{hotel.description}}</p>
             <span class="rating">
               <i class="star" ng-repeat="i in [1,2,3,4,5]" ng-class="{'icon-star': i <= hotel.rating, 'icon-star-empty': i > hotel.rating}"></i>
             </span>
