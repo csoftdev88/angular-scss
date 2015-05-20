@@ -81,6 +81,7 @@ angular.module('mobiusApp.services.modal', [])
     var dialogName = queryService.getValue(DIALOG_PARAM_NAME);
     switch (dialogName) {
     case '':
+    case undefined:
       // do nothing
       break;
     case 'LoginDialog':

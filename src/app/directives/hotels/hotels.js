@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.hotels', [])
 
-.directive('hotels', ['$state', 'stateService', function($state, stateService){
+.directive('hotels', ['$state', function($state){
   return {
     restrict: 'E',
     scope: {},
@@ -33,8 +33,6 @@ angular.module('mobiusApp.directives.hotels', [])
         { name: 'Valencia', rating: 2, price: 49, desc: desc},
         { name: 'Barcelona', rating: 5, price: 95, desc: desc}
       ];
-
-      stateService.setDefaultScopeAppCurrencyChangeListener(scope);
 
       scope.go = function(hotelID){
         $state.go('hotel', {hotelID: hotelID});

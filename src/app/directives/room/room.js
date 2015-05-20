@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.room', [])
 
-.directive('room', function(stateService){
+.directive('room', function(){
   return {
     restrict: 'E',
     scope: {},
@@ -31,8 +31,6 @@ angular.module('mobiusApp.directives.room', [])
       ];
 
       scope.oneAtATime = true;
-
-      stateService.setDefaultScopeAppCurrencyChangeListener(scope);
     }
 
   };

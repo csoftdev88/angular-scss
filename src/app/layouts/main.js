@@ -57,8 +57,6 @@ angular.module('mobius.controllers.main', [])
         });
       }
 
-      stateService.setDefaultScopeAppCurrencyChangeListener($scope);
-
       $scope.openLoginDialog = function() {
         modalService.openLoginDialog();
       };
