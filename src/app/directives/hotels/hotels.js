@@ -2,7 +2,9 @@
 
 angular.module('mobiusApp.directives.hotels', [])
 
-.directive('hotels', ['$state', 'stateService', function($state, stateService){
+// TODO: Start using ng-min
+.directive('hotels', ['$state', 'stateService', 'bookingService',
+  'propertyService', function($state, stateService, bookingService, propertyService){
   return {
     restrict: 'E',
     scope: {},
@@ -10,9 +12,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
     // Widget logic goes here
     link: function(scope){
-      //scope, elem, attrs
-      var desc = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh';
-
+      // View settings
       scope.sorting = {};
       scope.view = 'tiles';
 
@@ -25,14 +25,12 @@ angular.module('mobiusApp.directives.hotels', [])
         'Z - A'
       ];
 
-      scope.hotels = [
-        { name: 'Madrid', rating: 4, price: 69, desc: desc},
-        { name: 'Ibiza', rating: 5, price: 89, desc: desc},
-        { name: 'Cordoba', rating: 3, price: 59, desc: desc},
-        { name: 'Lisbon', rating: 4, price: 66, desc: desc},
-        { name: 'Valencia', rating: 2, price: 49, desc: desc},
-        { name: 'Barcelona', rating: 5, price: 95, desc: desc}
-      ];
+      // Getting the details from booking widget
+      var bookingParams = bookingService.getAPIParams();
+      // Loading hotels
+      propertyService.getAll(bookingParams).then(function(hotels){
+        scope.hotels = hotels;
+      });
 
       stateService.setDefaultScopeAppCurrencyChangeListener(scope);
 
