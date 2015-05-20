@@ -25,6 +25,10 @@ describe('bookingWidget', function() {
         }
       });
 
+      $provide.value('queryService', {
+        removeParam: function(){}
+      });
+
       $provide.value('$state', {
         go: function(){}
       });
@@ -47,12 +51,14 @@ describe('bookingWidget', function() {
     });
   });
 
-  beforeEach(inject(function($compile, $rootScope, $templateCache, propertyService, bookingService, validationService) {
+  beforeEach(inject(function($compile, $rootScope, $templateCache,
+    queryService, propertyService, bookingService, validationService) {
 
     env.$compile = $compile;
     env.$rootScope = $rootScope.$new();
     env.propertyService = propertyService;
     env.bookingService = bookingService;
+    env.queryService = queryService;
     env.validationService = validationService;
 
     env.$templateCache = $templateCache;
@@ -62,6 +68,7 @@ describe('bookingWidget', function() {
     env.templateCacheGet = sinon.spy(env.$templateCache, 'get');
     env.propertyServiceGetAll = sinon.spy(env.propertyService, 'getAll');
     env.validationServiceIsValueValid = sinon.spy(env.validationService, 'isValueValid');
+    env.queryServiceRemoveParam = sinon.spy(env.queryService, 'removeParam');
 
     // Final component compile
     env.elem = env.$compile(TEMPLATE)(env.$rootScope);
@@ -73,6 +80,7 @@ describe('bookingWidget', function() {
     env.templateCacheGet.restore();
     env.propertyServiceGetAll.restore();
     env.validationServiceIsValueValid.restore();
+    env.queryServiceRemoveParam.restore();
   });
 
   describe('when component is initialized', function() {
@@ -92,6 +100,7 @@ describe('bookingWidget', function() {
 
     it('should do initial param validation', function() {
       expect(env.validationServiceIsValueValid.callCount).equal(7);
+      expect(env.queryServiceRemoveParam.callCount).equal(7);
     });
   });
 

@@ -26,7 +26,7 @@ angular.module('mobiusApp.directives.hotels', [])
       ];
 
       // Getting the details from booking widget
-      var bookingParams = bookingService.getAPIParams();
+      var bookingParams = bookingService.getAPIParams(true);
       // Loading hotels
       propertyService.getAll(bookingParams).then(function(hotels){
         scope.hotels = hotels;
@@ -34,7 +34,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
       stateService.setDefaultScopeAppCurrencyChangeListener(scope);
 
-      scope.go = function(hotelID){
+      scope.navigateToHotel = function(hotelID){
         $state.go('hotel', {hotelID: hotelID});
       };
     }

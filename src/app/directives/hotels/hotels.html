@@ -17,7 +17,7 @@
     </div>
     <div class="hotels__list">
       <ul class="entries entries--{{view}}">
-        <li class="item" ng-repeat="hotel in hotels" ng-class="{'grid': view == 'list'}" ng-click="go(hotel.id)">
+        <li class="item" ng-repeat="hotel in hotels" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.id)">
           <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
           <div>
             <h3 class="title"><strong>{{hotel.nameShort}}</strong></h3>

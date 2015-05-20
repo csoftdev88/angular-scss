@@ -3,7 +3,8 @@
 angular.module('mobiusApp.directives.booking', [])
 
 .directive('bookingWidget', function($filter, $state, modalService,
-  bookingService, validationService, propertyService, Settings){
+  bookingService, queryService, validationService, propertyService,
+  Settings){
   return {
     restrict: 'E',
     scope: {},
@@ -72,8 +73,6 @@ angular.module('mobiusApp.directives.booking', [])
         'rate': undefined
       };
 
-      //scope.advancedOptions = {};
-
       // Function will remove query parameters from the URL in case their
       // values are not valid
       function validateURLParams(){
@@ -85,8 +84,7 @@ angular.module('mobiusApp.directives.booking', [])
 
           // URL parameter is presented but has no value
           if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
-            // TODO:FIX queryService.removeParam(paramSettings.search);
-
+            queryService.removeParam(paramSettings.search);
           }else{
             // Value is valid, we can assign it to the model
             scope.selected[key] = validationService.convertValue(paramValue, paramSettings, true);
@@ -120,8 +118,7 @@ angular.module('mobiusApp.directives.booking', [])
         }
 
         // Property with the same name doesn't exist - URL param is invalid and should be removed.
-        // TODO: FIX
-        //queryService.removeParam(paramSettings.search);
+        queryService.removeParam(paramSettings.search);
       });
 
       /**
@@ -144,9 +141,9 @@ angular.module('mobiusApp.directives.booking', [])
             var queryValue = validationService.convertValue(modelValue, paramSettings);
             //queryService.setValue(paramSettings.search, queryValue);
             stateParams[paramSettings.search] = queryValue;
-          }//else{
-           // queryService.removeParam(paramSettings.search);
-          //}
+          }else{
+            queryService.removeParam(paramSettings.search);
+          }
         }
 
         // Changing application state

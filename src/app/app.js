@@ -15,8 +15,6 @@ angular
     'validation.match',
 
     // Controllers
-    'mobius.controllers.hotels',
-
     'mobius.controllers.main',
     'mobius.controllers.offers',
     'mobius.controllers.reservations',
@@ -94,7 +92,6 @@ angular
       .state('hotels', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
-        controller: 'HotelsCtrl',
         url: '/hotels'
       })
 

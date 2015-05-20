@@ -18,9 +18,8 @@ angular.module('mobiusApp.services.booking', [])
 
   var DATES_SEPARATOR = ' ';
 
-  function getParams(){
+  function getParams(excludePropertyId){
     var params = {
-      property: $stateParams.hotelID || $stateParams.property,
       adults: $stateParams.adults,
       children: $stateParams.children,
       dates: $stateParams.dates,
@@ -28,6 +27,10 @@ angular.module('mobiusApp.services.booking', [])
       rooms: $stateParams.rooms,
       promoCode: $stateParams.promoCode
     };
+
+    if(!excludePropertyId){
+      params.property = $stateParams.hotelID || $stateParams.property;
+    }
 
     return params;
   }
@@ -46,8 +49,8 @@ angular.module('mobiusApp.services.booking', [])
   }
 
   // Returns query params in the format expected by the API
-  function getAPIParams(){
-    var params = getParams();
+  function getAPIParams(excludePropertyId){
+    var params = getParams(excludePropertyId);
 
     var queryParams = {};
     $window._.each(params, function(value, key){

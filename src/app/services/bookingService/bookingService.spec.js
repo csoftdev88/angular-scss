@@ -38,6 +38,15 @@ describe('bookingService', function() {
       expect(params.promoCode).equal('BCD');
       expect(params.dates).equal('2014-01-01 2015-01-01');
     });
+
+    it('should return params presented in the URL without propertyId', function(){
+      var params = _bookingService.getParams(true);
+      expect(params.property).equal(undefined);
+      expect(params.adults).equal(5);
+      expect(params.children).equal(2);
+      expect(params.promoCode).equal('BCD');
+      expect(params.dates).equal('2014-01-01 2015-01-01');
+    });
   });
 
   describe('getAPIParams', function() {
@@ -51,6 +60,11 @@ describe('bookingService', function() {
 
       expect(queryParams.from).equal('2014-01-01');
       expect(queryParams.to).equal('2015-01-01');
+    });
+
+    it('should return params in the format expected by the API without productGroupId', function() {
+      var queryParams = _bookingService.getAPIParams(true);
+      expect(queryParams.productGroupId).equal(undefined);
     });
   });
 

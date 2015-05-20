@@ -16,7 +16,6 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   };
 
   $scope.rates = [];
-  console.log(data);
 
   $scope.options = {
     // NOTE: Selected rate will be replaced with selectedRate object
@@ -93,7 +92,6 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
       result.rooms = $scope.options.rooms;
     }
 
-    console.log(result);
     $modalInstance.close(result);
   };
 });
