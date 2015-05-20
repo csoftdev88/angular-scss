@@ -36,6 +36,8 @@ angular
     'mobiusApp.services.query',
     'mobiusApp.services.validation',
     'mobiusApp.services.user',
+    'mobiusApp.services.booking',
+
     // Factories
     'mobiusApp.factories.template',
 
@@ -75,9 +77,11 @@ angular
       .state('root', {
         abstract: true,
         templateUrl: 'layouts/index.html',
-        controller: 'MainCtrl'
-        // uncomment to preserve params in url between pages
-        // url: '?' + Settings.currencyParamName
+        controller: 'MainCtrl',
+        // NOTE: These params are used by booking widget
+        // Can be placed into induvidual state later if needed
+        // TODO: Unify hotelID/propery param
+        url: '?property&children&adults&dates&rate&rooms'
       })
 
       // Home page

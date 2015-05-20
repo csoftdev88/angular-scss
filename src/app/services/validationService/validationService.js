@@ -32,7 +32,7 @@ angular.module('mobiusApp.services.validation', [])
       break;
 
     case 'object':
-      return true;
+      return paramValue!==undefined || paramValue!==null;
 
     default:
       return false;

@@ -2,8 +2,9 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function($filter, modalService, queryService, validationService,
-  propertyService, Settings){
+.directive('bookingWidget', function($filter, $state, modalService,
+  bookingService, queryService, validationService, propertyService,
+  Settings){
   return {
     restrict: 'E',
     scope: {},
@@ -72,15 +73,14 @@ angular.module('mobiusApp.directives.booking', [])
         'rate': undefined
       };
 
-      //scope.advancedOptions = {};
-
       // Function will remove query parameters from the URL in case their
       // values are not valid
       function validateURLParams(){
+        var stateParams = bookingService.getParams();
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
 
-          var paramValue = queryService.getValue(paramSettings.search);
+          var paramValue = stateParams[paramSettings.search];
 
           // URL parameter is presented but has no value
           if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
@@ -100,7 +100,7 @@ angular.module('mobiusApp.directives.booking', [])
         scope.propertyList = data || [];
 
         var paramSettings = PARAM_TYPES.property;
-        var propertyCode = queryService.getValue(paramSettings.search);
+        var propertyCode = bookingService.getParams()[paramSettings.search];
 
         if(propertyCode===undefined){
           return;
@@ -125,13 +125,8 @@ angular.module('mobiusApp.directives.booking', [])
        * Updates the url with values from the widget and redirects either to hotel list or a room list
        */
       scope.onSearch = function(){
-        if(!scope.selected.property){
-          // 'All properties' is selected, will redirect to hotel list
-        } else{
-          // Specific hotel selected, will redirect to room list
-        }
+        var stateParams = {};
 
-        // Updating URL params
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
 
@@ -144,10 +139,21 @@ angular.module('mobiusApp.directives.booking', [])
 
           if(validationService.isValueValid(modelValue, paramSettings)){
             var queryValue = validationService.convertValue(modelValue, paramSettings);
-            queryService.setValue(paramSettings.search, queryValue);
+            //queryService.setValue(paramSettings.search, queryValue);
+            stateParams[paramSettings.search] = queryValue;
           }else{
             queryService.removeParam(paramSettings.search);
           }
+        }
+
+        // Changing application state
+        if(!scope.selected.property){
+          // 'All properties' is selected, will redirect to hotel list
+          $state.go('hotels', stateParams);
+        } else{
+          // Specific hotel selected, will redirect to room list
+          stateParams.hotelID = scope.selected.property.code;
+          $state.go('hotel', stateParams);
         }
       };
 

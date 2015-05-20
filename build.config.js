@@ -44,6 +44,7 @@ module.exports = {
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'bower_components/chai/chai.js',
         'bower_components/angular-mocks/angular-mocks.js',
+        'bower_components/underscore/underscore.js',
         'bower_components/sinon/lib/sinon.js',
         'bower_components/sinon/lib/sinon/util/core.js',
         'bower_components/sinon/lib/sinon/extend.js',

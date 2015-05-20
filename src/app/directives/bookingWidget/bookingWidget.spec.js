@@ -10,6 +10,8 @@ describe('bookingWidget', function() {
     maxAdults: 5
   };
 
+  var STATE_PARAMS = {};
+
   beforeEach(function() {
     env = {};
   });
@@ -17,10 +19,20 @@ describe('bookingWidget', function() {
   beforeEach(function() {
     module('mobiusApp.directives.booking', function($provide) {
       // Mocking the services
+      $provide.value('bookingService', {
+        getParams: function(){
+          return STATE_PARAMS;
+        }
+      });
+
       $provide.value('queryService', {
-        getValue: function(){},
         removeParam: function(){}
       });
+
+      $provide.value('$state', {
+        go: function(){}
+      });
+
       $provide.value('validationService', {
         isValueValid: function(){}
       });
@@ -39,11 +51,13 @@ describe('bookingWidget', function() {
     });
   });
 
-  beforeEach(inject(function($compile, $rootScope, $templateCache, propertyService, queryService, validationService) {
+  beforeEach(inject(function($compile, $rootScope, $templateCache,
+    queryService, propertyService, bookingService, validationService) {
 
     env.$compile = $compile;
     env.$rootScope = $rootScope.$new();
     env.propertyService = propertyService;
+    env.bookingService = bookingService;
     env.queryService = queryService;
     env.validationService = validationService;
 
@@ -53,11 +67,8 @@ describe('bookingWidget', function() {
     // Spy's
     env.templateCacheGet = sinon.spy(env.$templateCache, 'get');
     env.propertyServiceGetAll = sinon.spy(env.propertyService, 'getAll');
-
-    env.queryServiceGetValue = sinon.spy(env.queryService, 'getValue');
-    env.queryServiceRemoveParam = sinon.spy(env.queryService, 'removeParam');
-
     env.validationServiceIsValueValid = sinon.spy(env.validationService, 'isValueValid');
+    env.queryServiceRemoveParam = sinon.spy(env.queryService, 'removeParam');
 
     // Final component compile
     env.elem = env.$compile(TEMPLATE)(env.$rootScope);
@@ -68,7 +79,6 @@ describe('bookingWidget', function() {
   afterEach(function() {
     env.templateCacheGet.restore();
     env.propertyServiceGetAll.restore();
-    env.queryServiceGetValue.restore();
     env.validationServiceIsValueValid.restore();
     env.queryServiceRemoveParam.restore();
   });
@@ -76,9 +86,7 @@ describe('bookingWidget', function() {
   describe('when component is initialized', function() {
     it('should download widget template from template cache', function() {
       expect(env.templateCacheGet.calledOnce).equal(true);
-
       expect(env.templateCacheGet.calledWith(TEMPLATE_URL)).equal(true);
-
     });
 
     it('should read widget settings from the configuration', function() {
@@ -91,7 +99,6 @@ describe('bookingWidget', function() {
     });
 
     it('should do initial param validation', function() {
-      expect(env.queryServiceGetValue.callCount).equal(7);
       expect(env.validationServiceIsValueValid.callCount).equal(7);
       expect(env.queryServiceRemoveParam.callCount).equal(7);
     });
