@@ -13,6 +13,10 @@
     "about_us": "O Nás",
     "news": "Novinky",
     "contact": "Kontakty",
-    "login_register": "Přihlásit / registrovat"
+    "login_register": "Přihlásit / registrovat",
+    "continue": "Pokračovat",
+    "view_more": "Více",
+    "confirmation": "Potvrdit",
+    "back": "Zpět"
   }
 }

@@ -54,46 +54,4 @@ describe('stateService', function() {
       expect(env.stateService.getStateLayout(TEST_STATE_3).length).equal(1);
     });
   });
-
-  describe('getAppCurrency', function() {
-    it('should return currency object that was set', function() {
-      var currency = {
-        something: 'something'
-      };
-      env.stateService.setAppCurrency(currency);
-      expect(env.stateService.getAppCurrency()).equal(currency);
-    });
-    it('should return empty object when nothing was set', function() {
-      expect(env.stateService.getAppCurrency()).deep.equal({});
-    });
-  });
-
-  describe('addAppCurrencyChangeListener', function() {
-    it('should add only once and invoke listener after change', function() {
-      var currency = {
-        something: 'something'
-      };
-      var listener = sinon.spy();
-
-      env.stateService.addAppCurrencyChangeListener(listener);
-      env.stateService.addAppCurrencyChangeListener(listener);
-      env.stateService.setAppCurrency(currency);
-      expect(listener.withArgs(currency).calledOnce);
-    });
-  });
-
-  describe('removeAppCurrencyChangeListener', function() {
-    it('should remove listener', function() {
-      var currency = {
-        something: 'something'
-      };
-      var listener = sinon.spy();
-
-      env.stateService.addAppCurrencyChangeListener(listener);
-      env.stateService.removeAppCurrencyChangeListener(listener);
-      env.stateService.setAppCurrency(currency);
-      expect(listener.callCount).equal(0);
-    });
-  });
-
 });

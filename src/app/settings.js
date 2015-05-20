@@ -75,26 +75,22 @@ angular.module('mobiusApp.config', [])
 
       'GBP': {
         'symbol': '£',
-        'position': 'pre',
-        'space': true
+        'format': '{{symbol}} {{amount}}'
       },
 
       'USD': {
         'symbol': '$',
-        'position': 'pre',
-        'space': false
+        'format': '{{symbol}}{{amount}}'
       },
 
       'EUR': {
         'symbol': '€',
-        'position': 'post',
-        'space': false
+        'format': '{{amount}}{{symbol}}'
       },
 
       'CAD': {
         'symbol': '$',
-        'position': 'pre',
-        'space': false
+        'format': '{{symbol}}{{amount}}'
       }
     },
 

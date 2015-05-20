@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.modals.generic', [])
 
-.controller( 'ModalCtrl', function($scope, $modalInstance, stateService) {
+.controller( 'ModalCtrl', function($scope, $modalInstance) {
   $scope.ok = function() {
     $modalInstance.close();
   };
@@ -12,6 +12,4 @@ angular.module('mobius.controllers.modals.generic', [])
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
-
-  stateService.setDefaultScopeAppCurrencyChangeListener($scope);
 });

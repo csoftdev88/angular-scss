@@ -36,6 +36,8 @@ angular
     'mobiusApp.services.query',
     'mobiusApp.services.validation',
     'mobiusApp.services.user',
+    // Factories
+    'mobiusApp.factories.template',
 
     // Custom components
     'mobiusApp.directives.layout',
