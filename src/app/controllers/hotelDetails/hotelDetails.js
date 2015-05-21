@@ -11,8 +11,8 @@ angular.module('mobius.controllers.hotel.details', [])
   delete bookingParams.productGroupId;
 
   // Loading the rooms
-  propertyService.getPropertyDetails(propertyCode, bookingParams).then(function(details){
-    $scope.details = details;
-    console.log(details);
-  });
+  propertyService.getPropertyDetails(propertyCode, bookingParams)
+    .then(function(details){
+      $scope.details = details;
+    });
 });
