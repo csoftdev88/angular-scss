@@ -23,6 +23,7 @@ angular
     'mobius.controllers.modals.register',
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
+    'mobius.controllers.hotel.details',
 
     // Application modules
     'mobiusApp.config',
@@ -101,6 +102,7 @@ angular
       .state('hotel', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
+        controller: 'HotelDetailsCtrl',
         url: '/hotels/:hotelID'
       })
 

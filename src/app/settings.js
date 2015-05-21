@@ -14,7 +14,8 @@ angular.module('mobiusApp.config', [])
       'products': 'filters/products'
     },
     'properties': {
-      'all': 'properties'
+      'all': 'properties',
+      'details': 'properties/:propertyCode/'
     },
     'customers': {
       'login': 'customers/actions/login',
