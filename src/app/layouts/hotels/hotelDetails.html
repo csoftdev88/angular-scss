@@ -5,30 +5,18 @@
       <p>{{details.description}}</p>
     </header>
     <hr>
-    <section class="hotel-detail__rooms">
+    <section class="hotel-detail__rooms" ng-if="details.availability && details.availability.rooms && details.availability.rooms.length">
       <h2 class="section-title">Our <strong>Rooms</strong></h2>
-      <ul class="entries entries--list">
+      <ul class="entries entries--list" ng-repeat="room in details.availability.rooms">
         <li class="item">
-          <a ui-sref="room({hotelID: 123, roomID: 123})"><img src="static/images/room-1.jpg" alt=""></a>
+          <a ui-sref="room({hotelID: 123, roomID: 123})"><img ng-src="{{room.image[0].URI}}" alt="{{room.name}}"></a>
           <!-- <img src="//lorempixel.com/210/150/city/2" alt=""> -->
           <div>
-            <h3 class="title"><strong>Double Room</strong></h3>
+            <h3 class="title"><strong>{{room.name}}</strong></h3>
             <span class="price">
-              from <span class="value">{{79 | i18nCurrency: currencyCode}} pn</span>
+              from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}} pn</span>
             </span>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
-          </div>
-          <a ui-sref="room({hotelID: 123, roomID: 123})" class="more">_view_more_</a>
-        </li>
-        <li class="item">
-          <a ui-sref="room({hotelID: 123, roomID: 123})"><img src="static/images/room-2.jpg" alt=""></a>
-          <!-- <img src="//lorempixel.com/210/150/city/3" alt=""> -->
-          <div>
-            <h3 class="title"><strong>Deluxe Double Room</strong></h3>
-            <span class="price">
-              from <span class="value">{{64 | i18nCurrency: currencyCode}} pn</span>
-            </span>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
+            <p>{{room.description}}</p>
           </div>
           <a ui-sref="room({hotelID: 123, roomID: 123})" class="more">_view_more_</a>
         </li>

@@ -22,13 +22,13 @@ angular.module('mobiusApp.directives.booking', [])
           'type': 'integer',
           'max': scope.settings.maxChildren,
           'min': 0,
-          'required': true
+          'required': false
         },
         'adults': {
           'search': 'adults',
           'type': 'integer',
           'max': scope.settings.maxAdults,
-          'min': 0,
+          'min': 1,
           'required': true
         },
         'property': {
