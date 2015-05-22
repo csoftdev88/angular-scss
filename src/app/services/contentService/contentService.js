@@ -29,11 +29,6 @@ angular.module('mobiusApp.services.content', [])
     return apiService.get(apiService.getFullURL('generics.languages'));
   }
 
-  // Filters
-  function getRates(){
-    return apiService.get(apiService.getFullURL('filters.products'));
-  }
-
   // Public methods
   return {
     getNews: getNews,
@@ -43,7 +38,5 @@ angular.module('mobiusApp.services.content', [])
     // Generics
     getCurrencies: getCurrencies,
     getLanguages: getLanguages,
-    // Filters
-    getRates: getRates
   };
 });

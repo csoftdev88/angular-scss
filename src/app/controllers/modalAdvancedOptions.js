@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.modals.advancedOptions', [])
 
-.controller( 'AdvancedOptionsCtrl', function($scope, data, Settings, contentService,
+.controller( 'AdvancedOptionsCtrl', function($scope, data, Settings, filtersService,
   $controller, $modalInstance, $window) {
 
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
@@ -33,7 +33,8 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
    */
   // TODO: Add cache
   $scope.loadValidRates = function(){
-    contentService.getRates().then(function(data) {
+    // NOTE: Rates are presented via product filters
+    filtersService.getProducts().then(function(data) {
       // Checking if selected rate exist in the list
       if($scope.options.selectedRate){
         var rateIndex = $window._.findIndex(data, function(r){

@@ -11,7 +11,8 @@ angular.module('mobiusApp.config', [])
       'languages': 'generics/languages'
     },
     'filters': {
-      'products': 'filters/products'
+      'products': 'filters/products',
+      'rooms': 'filters/rooms'
     },
     'properties': {
       'all': 'properties',
@@ -30,6 +31,7 @@ angular.module('mobiusApp.config', [])
   },
 
   'currencyParamName': 'currency',
+  'bestAvailableRateCode': 'Best Available Rate',
 
   'UI': {
     'heroSlider': {

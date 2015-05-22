@@ -5,14 +5,22 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService,
-  propertyService) {
+  propertyService, filtersService) {
   var bookingParams = bookingService.getAPIParams();
   var propertyCode = bookingParams.productGroupId;
+
   delete bookingParams.productGroupId;
 
-  // Loading the rooms
-  propertyService.getPropertyDetails(propertyCode, bookingParams)
-    .then(function(details){
-      $scope.details = details;
-    });
+  // Getting BRP which is required when asking for availibility
+  filtersService.getBestRateProduct().then(function(brp){
+    if(brp){
+      bookingParams.productGroupId = brp.id;
+    }
+
+    // Loading the rooms
+    propertyService.getPropertyDetails(propertyCode, bookingParams)
+      .then(function(details){
+        $scope.details = details;
+      });
+  });
 });
