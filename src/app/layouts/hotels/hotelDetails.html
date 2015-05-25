@@ -22,10 +22,18 @@
       </ul>
     </section>
     <hr>
-    <section class="hotel-detail__location">
+    <section class="hotel-detail__location" ng-if="position">
       <h2 class="section-title">Our <strong>Location</strong></h2>
       <div class="img-wrap">
-        <img src="//placehold.it/710x367&amp;text=Cool Google Map" alt="Map">
+        <map
+          zoom="18"
+          max-zoom="18"
+          min-zoom="8"
+          center="{{position}}">
+          <marker
+              position="{{position}}"
+              title="{{details.nameShort}}"></marker>
+        </map>
       </div>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
     </section>
@@ -44,7 +52,6 @@
     </section>
   </div>
 </div>
-
 
 <aside grid-container="3">
   <div grid="3">

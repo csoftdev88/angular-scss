@@ -6,6 +6,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService,
   propertyService, filtersService) {
+
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
   bookingParams.includes = 'amenities';
@@ -27,6 +28,10 @@ angular.module('mobius.controllers.hotel.details', [])
           });
 
           $scope.updateHeroContent(heroContent);
+
+          if(angular.isDefined(details.lat) && angular.isDefined(details.long)){
+            $scope.position = [details.lat, details.long];
+          }
         }
       });
   }
