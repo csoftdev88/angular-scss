@@ -7,10 +7,11 @@ angular.module('mobiusApp.services.booking', [])
 
 .service( 'bookingService',  function($stateParams, $window) {
   var QUERY_TO_API_PARAMS = {
-    'property': 'productGroupId',
+    'property': 'property',
     'adults': 'adults',
     'children': 'children',
-    'promoCode': 'promoCode'
+    'promoCode': 'promoCode',
+    'rate': 'productGroupId'
   };
 
   var API_PARAM_FROM = 'from';
@@ -23,6 +24,7 @@ angular.module('mobiusApp.services.booking', [])
       adults: $stateParams.adults,
       children: $stateParams.children,
       dates: $stateParams.dates,
+      // rate is ProductGroupID from filters/product API
       rate: $stateParams.rate,
       rooms: $stateParams.rooms,
       promoCode: $stateParams.promoCode
@@ -59,7 +61,9 @@ angular.module('mobiusApp.services.booking', [])
       }
 
       if(key !== 'dates'){
-        queryParams[QUERY_TO_API_PARAMS[key]] = value;
+        if(QUERY_TO_API_PARAMS[key]){
+          queryParams[QUERY_TO_API_PARAMS[key]] = value;
+        }
       }else{
         var dates = datesFromString(value);
         if(dates){

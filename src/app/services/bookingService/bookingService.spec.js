@@ -56,15 +56,15 @@ describe('bookingService', function() {
 
     it('should return params in the format expected by the API', function() {
       var queryParams = _bookingService.getAPIParams();
-      expect(queryParams.productGroupId).equal('ABC');
+      expect(queryParams.property).equal('ABC');
 
       expect(queryParams.from).equal('2014-01-01');
       expect(queryParams.to).equal('2015-01-01');
     });
 
-    it('should return params in the format expected by the API without productGroupId', function() {
+    it('should return params in the format expected by the API without property', function() {
       var queryParams = _bookingService.getAPIParams(true);
-      expect(queryParams.productGroupId).equal(undefined);
+      expect(queryParams.property).equal(undefined);
     });
   });
 

@@ -14,7 +14,8 @@ describe('propertyService', function() {
           'baseURL': 'http://domain/',
 
           'properties': {
-            'all': 'properties'
+            'all': 'properties',
+            'details': 'properties/propertyCode'
           }
         }
       };
@@ -23,7 +24,9 @@ describe('propertyService', function() {
 
       var apiService = {
         get: function(){},
-        getFullURL: function(){}
+        getFullURL: function(p){
+          return p;
+        }
       };
 
       $provide.value('apiService', apiService);
@@ -45,12 +48,25 @@ describe('propertyService', function() {
   });
 
   describe('getAll', function() {
-    it('should fire a GET request to properties/ API', function() {
+    it('should fire a GET request to properties API', function() {
       env.propertyService.getAll();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
       expect(env.apiGetFullURLSpy.calledWith('properties.all')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
+    });
+  });
+
+  describe('getPropertyDetails', function(){
+    it('should fire a GET request to property details API', function(){
+      env.propertyService.getPropertyDetails('ABC', {a:'test'});
+
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith(
+        'properties.details', {propertyCode:'ABC'})).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+      expect(env.apiGetSpy.calledWith('properties.details', {a: 'test'})).equal(true);
     });
   });
 });

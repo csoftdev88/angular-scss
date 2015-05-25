@@ -6,6 +6,7 @@ angular
     // Bootstrap components
     'ui.bootstrap',
     'ngTouch',
+    'ngMap',
     // Template cache
     'templates-main',
 
@@ -23,6 +24,7 @@ angular
     'mobius.controllers.modals.register',
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
+    'mobius.controllers.hotel.details',
 
     // Application modules
     'mobiusApp.config',
@@ -37,6 +39,7 @@ angular
     'mobiusApp.services.validation',
     'mobiusApp.services.user',
     'mobiusApp.services.booking',
+    'mobiusApp.services.filters',
 
     // Factories
     'mobiusApp.factories.template',
@@ -101,6 +104,7 @@ angular
       .state('hotel', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
+        controller: 'HotelDetailsCtrl',
         url: '/hotels/:hotelID'
       })
 

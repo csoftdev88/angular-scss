@@ -11,10 +11,15 @@ angular.module('mobius.controllers.main', [])
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;
 
-        updateHeroContent();
+        $scope.updateHeroContent();
       });
 
-      function updateHeroContent() {
+      $scope.updateHeroContent = function(data){
+        if(data && data.length){
+          $scope.heroContent = data;
+          return;
+        }
+
         $scope.heroContent = [];
         var stateName = $scope.$state.current.name;
 
@@ -36,7 +41,7 @@ angular.module('mobius.controllers.main', [])
             }
           ];
         }
-      }
+      };
 
       function loadHighlights() {
         // Getting content hights

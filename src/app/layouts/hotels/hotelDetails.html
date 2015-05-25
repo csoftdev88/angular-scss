@@ -1,77 +1,57 @@
 <div grid-container="9">
   <div widget="hotel-detail" grid="9">
     <header>
-      <h1>Hotel Mobius <strong>Tunis</strong></h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
-      <p>Etiam sollicitudin mattis pulvinar. Duis congue dignissim turpis, ut consectetur mauris congue a. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam hendrerit, arcu a vehicula bibendum, dolor orci consectetur nisl, a imperdiet ante magna eget neque. Sed ac dolor ante. Etiam in ipsum neque, et ultricies nibh. Sed vel ultrices nulla. Maecenas nulla ipsum, bibendum sit amet tristique non, rhoncus a neque.</p>
+      <h1>{{details.nameShort}}</h1>
+      <p>{{details.description}}</p>
     </header>
     <hr>
-    <section class="hotel-detail__rooms">
+    <section class="hotel-detail__rooms" ng-if="details.availability && details.availability.rooms && details.availability.rooms.length">
       <h2 class="section-title">Our <strong>Rooms</strong></h2>
-      <ul class="entries entries--list">
+      <ul class="entries entries--list" ng-repeat="room in details.availability.rooms">
         <li class="item">
-          <a ui-sref="room({hotelID: 123, roomID: 123})"><img src="static/images/room-1.jpg" alt=""></a>
-          <!-- <img src="//lorempixel.com/210/150/city/2" alt=""> -->
+          <a ui-sref="room({hotelID: details.id, roomID: room.code})"><img ng-src="{{room.image[0].URI}}" alt="{{room.name}}"></a>
           <div>
-            <h3 class="title"><strong>Double Room</strong></h3>
+            <h3 class="title"><strong>{{room.name}}</strong></h3>
             <span class="price">
-              from <span class="value">{{79 | i18nCurrency: currencyCode}} pn</span>
+              from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}} pn</span>
             </span>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
+            <p>{{room.description}}</p>
           </div>
-          <a ui-sref="room({hotelID: 123, roomID: 123})" class="more">_view_more_</a>
-        </li>
-        <li class="item">
-          <a ui-sref="room({hotelID: 123, roomID: 123})"><img src="static/images/room-2.jpg" alt=""></a>
-          <!-- <img src="//lorempixel.com/210/150/city/3" alt=""> -->
-          <div>
-            <h3 class="title"><strong>Deluxe Double Room</strong></h3>
-            <span class="price">
-              from <span class="value">{{64 | i18nCurrency: currencyCode}} pn</span>
-            </span>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
-          </div>
-          <a ui-sref="room({hotelID: 123, roomID: 123})" class="more">_view_more_</a>
+          <a ui-sref="room({hotelID: details.id, roomID: room.code})" class="more">_view_more_</a>
         </li>
       </ul>
     </section>
     <hr>
-    <section class="hotel-detail__location">
+    <section class="hotel-detail__location" ng-if="position">
       <h2 class="section-title">Our <strong>Location</strong></h2>
       <div class="img-wrap">
-        <img src="//placehold.it/710x367&amp;text=Cool Google Map" alt="Map">
+        <map
+          zoom="18"
+          max-zoom="18"
+          min-zoom="8"
+          center="{{position}}">
+          <marker
+              position="{{position}}"
+              title="{{details.nameShort}}"></marker>
+        </map>
       </div>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
     </section>
     <hr>
-    <section class="hotel-detail__services">
+    <section class="hotel-detail__services" ng-if="details.amenities.length">
       <h2 class="section-title">Our <strong>Services</strong></h2>
       <ul>
-        <li>
-          <i class="icon-wheelchair"></i>
-          <span>Easy Acces</span>
+        <li ng-repeat="amenity in details.amenities">
+          <i ng-class="amenity.icon || 'icon-signal'"></i>
+          <span>{{amenity.name}}</span>
         </li>
-        <li>
-          <i class="icon-signal"></i>
-          <span>WiFi throughout</span>
-        </li>
-        <li>
-          <i class="icon-globe"></i>
-          <span>Multi lingual staff</span>
-        </li>
-        <li>
-          <i class="icon-lock"></i>
-          <span>Secure area for valuables</span>
-        </li>
-        <li>
-          <i class="icon-dollar"></i>
-          <span>Bureau de change</span>
-        </li>
+        <!--
+        icon-wheelchair, icon-signal, icon-globe, icon-lock, icon-dollar
+        -->
       </ul>
     </section>
   </div>
 </div>
-
 
 <aside grid-container="3">
   <div grid="3">
@@ -83,10 +63,10 @@
     <contact>
       <h4>Contact us</h4>
       <dl>
-        <dt><span>Phone</span><i class="icon-mobile"></i></dt>
-        <dd><i rwd="mobile">Call hotel on </i><span>555&nbsp;333&nbsp;22</span></dd>
-        <dt><span>Email</span><i class="icon-mail"></i></dt>
-        <dd><i rwd="mobile">Email on </i>info@mobiustunis.com</dd>
+        <dt ng-if="details.tel1"><span>Phone</span><i class="icon-mobile"></i></dt>
+        <dd ng-if="details.tel1"><i rwd="mobile">Call hotel on </i><span>{{details.tel1}}</span></dd>
+        <dt ng-if="details.email"><span>Email</span><i class="icon-mail"></i></dt>
+        <dd ng-if="details.email"><i rwd="mobile">Email on </i>{{details.email}}</dd>
       </dl>
     </contact>
     <advert>
