@@ -34,7 +34,8 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   // TODO: Add cache
   $scope.loadValidRates = function(){
     // NOTE: Rates are presented via product filters
-    filtersService.getProducts().then(function(data) {
+    // Products data is cached once loaded (true - flag)
+    filtersService.getProducts(true).then(function(data) {
       // Checking if selected rate exist in the list
       if($scope.options.selectedRate){
         var rateIndex = $window._.findIndex(data, function(r){
