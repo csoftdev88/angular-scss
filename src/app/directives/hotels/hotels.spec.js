@@ -35,6 +35,16 @@ describe('hotels directive', function() {
         }
       });
 
+      $provide.value('filtersService', {
+        getBestRateProduct: function(){
+          return {
+            then: function(c){
+              c({id: 321});
+            }
+          };
+        }
+      });
+
       $provide.value('$state', {
         go: function(){}
       });
@@ -83,6 +93,14 @@ describe('hotels directive', function() {
 
     it('should define hotels on the scope ', function() {
       expect(_scope.hotels).equal(PROPERTY_LIST);
+    });
+
+    it('should have sorting options defined on scope', function(){
+      expect(_scope.sortingOptions).to.be.an('array');
+    });
+
+    it('should have default sorting option selected by default', function(){
+      expect(_scope.currentOrder).to.be.an('object');
     });
   });
 

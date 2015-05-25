@@ -9,8 +9,14 @@ angular.module('mobiusApp.services.properties', [])
     return apiService.get(apiService.getFullURL('properties.all'), params);
   }
 
+  function getPropertyDetails(propertyCode, params){
+    var URL = apiService.getFullURL('properties.details', {propertyCode: propertyCode});
+    return apiService.get(URL, params);
+  }
+
   // Public methods
   return {
-    getAll: getAll
+    getAll: getAll,
+    getPropertyDetails: getPropertyDetails
   };
 });

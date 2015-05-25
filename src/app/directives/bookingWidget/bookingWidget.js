@@ -28,7 +28,7 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'adults',
           'type': 'integer',
           'max': scope.settings.maxAdults,
-          'min': 0,
+          'min': 1,
           'required': true
         },
         'property': {
@@ -92,13 +92,23 @@ angular.module('mobiusApp.directives.booking', [])
         }
       }
 
-      // Init
-      validateURLParams();
+      function init(){
+        validateURLParams();
 
-      // Getting a list of properties
-      propertyService.getAll().then(function(data){
-        scope.propertyList = data || [];
+        if(scope.propertyList && scope.propertyList.length){
+          validateProperty();
+        }else{
+          // Getting a list of properties
+          propertyService.getAll().then(function(data){
+            scope.propertyList = data || [];
+            validateProperty();
+          });
+        }
+      }
 
+      // Validating property code presented in the URL and selecting the corresponding
+      // property
+      function validateProperty(){
         var paramSettings = PARAM_TYPES.property;
         var propertyCode = bookingService.getParams()[paramSettings.search];
 
@@ -119,7 +129,10 @@ angular.module('mobiusApp.directives.booking', [])
 
         // Property with the same name doesn't exist - URL param is invalid and should be removed.
         queryService.removeParam(paramSettings.search);
-      });
+      }
+
+      // Init
+      init();
 
       /**
        * Updates the url with values from the widget and redirects either to hotel list or a room list
@@ -202,6 +215,14 @@ angular.module('mobiusApp.directives.booking', [])
           }
         });
       };
+
+      var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
+        init();
+      });
+
+      scope.$on('$destroy', function(){
+        routeChangeListener();
+      });
     }
   };
 });

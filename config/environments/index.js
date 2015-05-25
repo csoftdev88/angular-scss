@@ -8,7 +8,7 @@ var express = require('express'),
   errorhandler = require('errorhandler'),
   request = require('request');
 
-  var API_URL = 'http://52.6.221.79:3010/api/2.7.1/';
+  var API_URL = 'http://52.5.129.243:3010/api/2.7.1/';
 
 module.exports = function(app) {
   app.use(function staticsPlaceholder(req, res, next) {

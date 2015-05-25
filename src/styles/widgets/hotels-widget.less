@@ -112,7 +112,8 @@
 [widget="hotel-detail"] {
   .entries--list{
     .item {
-      height: 5 * @baseline;
+      margin-bottom: @baseline*3;
+
       > div {
         margin-left: 170px;
       }
@@ -156,8 +157,11 @@
     display: none;
   }
 
+  .unavailable {
+    color: #898989;
+  }
+
   .price {
-    // float: right;
     .open-sans-light;
     .fs-14(true);
     font-style: italic;
