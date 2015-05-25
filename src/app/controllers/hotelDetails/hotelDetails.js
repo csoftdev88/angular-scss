@@ -7,6 +7,9 @@ angular.module('mobius.controllers.hotel.details', [])
 .controller( 'HotelDetailsCtrl', function($scope, bookingService,
   propertyService, filtersService) {
   var bookingParams = bookingService.getAPIParams();
+  // Include the amenities
+  bookingParams.includes = 'amenities';
+
   var propertyCode = bookingParams.property;
   delete bookingParams.property;
 

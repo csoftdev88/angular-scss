@@ -7,7 +7,7 @@
     </header>
     <div class="hotels__controls" grid="9">
       <div class="order-switch">
-        <select name="sorting" chosen ng-model="hotels" ng-options="sorting for sorting in sortings" data-placeholder="Sorting">
+        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" ng-change="onSortingChange()">
         </select>
       </div>
       <div class="view-switch">
@@ -17,12 +17,15 @@
     </div>
     <div class="hotels__list">
       <ul class="entries entries--{{view}}">
-        <li class="item" ng-repeat="hotel in hotels" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)">
+        <li class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)">
           <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
           <div>
             <h3 class="title"><strong>{{hotel.nameShort}}</strong></h3>
-            <span class="price">
+            <span class="price" ng-if="hotel.available">
               from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <small>per night</small>
+            </span>
+            <span class="price unavailable" ng-if="!hotel.available">
+              Not Available
             </span>
             <p ng-if="view = 'list'">{{hotel.description}}</p>
             <span class="rating">

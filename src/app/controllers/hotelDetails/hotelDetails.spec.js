@@ -80,7 +80,7 @@ describe('mobius.controllers.hotel.details', function() {
       it('should download hotel details from the server with BAR id', function() {
         expect(_spyPropertyServiceGetPropertyDetails.calledOnce).equal(true);
         expect(_spyPropertyServiceGetPropertyDetails
-          .calledWith(123, {'test': 'testValue', productGroupId: 321})
+          .calledWith(123, {'test': 'testValue', productGroupId: 321, includes: 'amenities'})
           ).equal(true);
       });
 

@@ -22,7 +22,7 @@ angular.module('mobiusApp.directives.booking', [])
           'type': 'integer',
           'max': scope.settings.maxChildren,
           'min': 0,
-          'required': false
+          'required': true
         },
         'adults': {
           'search': 'adults',
