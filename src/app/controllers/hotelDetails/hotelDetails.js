@@ -7,20 +7,39 @@ angular.module('mobius.controllers.hotel.details', [])
 .controller( 'HotelDetailsCtrl', function($scope, bookingService,
   propertyService, filtersService) {
   var bookingParams = bookingService.getAPIParams();
-  var propertyCode = bookingParams.productGroupId;
+  var propertyCode = bookingParams.property;
+  delete bookingParams.property;
 
-  delete bookingParams.productGroupId;
-
-  // Getting BRP which is required when asking for availibility
-  filtersService.getBestRateProduct().then(function(brp){
-    if(brp){
-      bookingParams.productGroupId = brp.id;
-    }
-
-    // Loading the rooms
-    propertyService.getPropertyDetails(propertyCode, bookingParams)
+  function getAvailableRooms(propertyCode, params){
+    // NOTE: In case when productGroupId is not presented in
+    // bookingParams - property details are returned without
+    // availability details
+    propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
+        // Updating Hero content images
+        if(details.previewImages){
+          var heroContent =  details.previewImages.map(function(src){
+            return {'image': src};
+          });
+
+          $scope.updateHeroContent(heroContent);
+        }
       });
-  });
+  }
+
+  // In order to get rooms availability we must call the API with productGroupId
+  // param which is presented as rate parameter set by a bookingWidget
+  if(bookingParams.productGroupId){
+    getAvailableRooms(propertyCode, bookingParams);
+  } else{
+    // productGroupId is not set by the widget - getting default BAR
+    filtersService.getBestRateProduct().then(function(brp){
+      if(brp){
+        bookingParams.productGroupId = brp.id;
+      }
+
+      getAvailableRooms(propertyCode, bookingParams);
+    });
+  }
 });

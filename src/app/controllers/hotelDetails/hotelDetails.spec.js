@@ -3,10 +3,14 @@
 describe('mobius.controllers.hotel.details', function() {
   describe('HotelDetailsCtrl', function() {
     var _scope, _spyBookingServiceGetAPIParams,
-      _spyPropertyServiceGetPropertyDetails, _spyFiltersServiceGetBestRateProduct;
+      _spyPropertyServiceGetPropertyDetails, _spyFiltersServiceGetBestRateProduct,
+      _spyUpdateHeroContent;
 
     var HOTEL_DETAILS = {
-      nameShort: 'Mobius hotel'
+      nameShort: 'Mobius hotel',
+      previewImages: [
+        'http://testimage'
+      ]
     };
 
     beforeEach(function() {
@@ -14,8 +18,8 @@ describe('mobius.controllers.hotel.details', function() {
         $provide.value('bookingService', {
             getAPIParams: function(){
               return {
-                productGroupId: 123,
-                'test': 'testValue'
+                'test': 'testValue',
+                'property': 123
               };
             }
           });
@@ -51,6 +55,8 @@ describe('mobius.controllers.hotel.details', function() {
         propertyService, 'getPropertyDetails');
 
       _spyFiltersServiceGetBestRateProduct = sinon.spy(filtersService, 'getBestRateProduct');
+      _scope.updateHeroContent = function(){};
+      _spyUpdateHeroContent = sinon.spy(_scope, 'updateHeroContent');
 
       $controller('HotelDetailsCtrl', { $scope: _scope });
     }));
@@ -59,6 +65,7 @@ describe('mobius.controllers.hotel.details', function() {
       _spyBookingServiceGetAPIParams.restore();
       _spyPropertyServiceGetPropertyDetails.restore();
       _spyFiltersServiceGetBestRateProduct.restore();
+      _spyUpdateHeroContent.restore();
     });
 
     describe('when controller is initialized', function() {
@@ -79,6 +86,11 @@ describe('mobius.controllers.hotel.details', function() {
 
       it('should define download data on scope', function() {
         expect(_scope.details).equal(HOTEL_DETAILS);
+      });
+
+      it('should update hero images when previewImages are provided', function() {
+        expect(_spyUpdateHeroContent.calledOnce).equal(true);
+        expect(_spyUpdateHeroContent.calledWith([{image: 'http://testimage'}])).equal(true);
       });
     });
   });

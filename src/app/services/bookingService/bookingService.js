@@ -10,7 +10,8 @@ angular.module('mobiusApp.services.booking', [])
     'property': 'property',
     'adults': 'adults',
     'children': 'children',
-    'promoCode': 'promoCode'
+    'promoCode': 'promoCode',
+    'rate': 'productGroupId'
   };
 
   var API_PARAM_FROM = 'from';
@@ -59,8 +60,10 @@ angular.module('mobiusApp.services.booking', [])
         return;
       }
 
-      if(key !== 'dates' && QUERY_TO_API_PARAMS[key]){
-        queryParams[QUERY_TO_API_PARAMS[key]] = value;
+      if(key !== 'dates'){
+        if(QUERY_TO_API_PARAMS[key]){
+          queryParams[QUERY_TO_API_PARAMS[key]] = value;
+        }
       }else{
         var dates = datesFromString(value);
         if(dates){
