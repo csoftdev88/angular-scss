@@ -6,6 +6,7 @@ angular
     // Bootstrap components
     'ui.bootstrap',
     'ngTouch',
+    'ngMap',
     // Template cache
     'templates-main',
 
