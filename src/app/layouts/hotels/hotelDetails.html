@@ -5,7 +5,7 @@
       <p>{{details.description}}</p>
     </header>
     <hr>
-    <section class="hotel-detail__rooms" ng-if="details.availability && details.availability.rooms && details.availability.rooms.length">
+    <section class="hotel-detail__rooms" ng-if="isAnyRoomFound()">
       <h2 class="section-title">Our <strong>Rooms</strong></h2>
       <ul class="entries entries--list" ng-repeat="room in details.availability.rooms">
         <li class="item">
@@ -21,6 +21,7 @@
         </li>
       </ul>
     </section>
+    <section class="hotel-detail__rooms" ng-if="!isAnyRoomFound()">_no_room_found_</section>
     <hr>
     <section class="hotel-detail__location" ng-if="position">
       <h2 class="section-title">Our <strong>Location</strong></h2>
