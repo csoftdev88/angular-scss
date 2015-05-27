@@ -11,6 +11,9 @@ angular.module('mobiusApp.directives.datepicker', [])
   return {
     restrict: 'A',
     require: 'ngModel',
+    scope: {
+      highlights: '='
+    },
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
       var DATES_SEPARATOR = ' ';
@@ -154,15 +157,31 @@ angular.module('mobiusApp.directives.datepicker', [])
       function getDayClassName( date ) {
         var dateTime = date.getTime();
 
+        // Classes to be appended to an element representing the date
+        var dateHighlights = '';
+
+        if(scope.highlights){
+          // Formating the date so we can find it in highlights object
+          var formatedDate = $.datepicker.formatDate(DATE_FORMAT, date);
+          if(scope.highlights[formatedDate]){
+            dateHighlights = ' ' + scope.highlights[formatedDate];
+          }
+          console.log(formatedDate, dateHighlights);
+        }
+
         if(dateTime === startDate) {
-          return CLASS_RANGE_START;
+          return CLASS_RANGE_START + dateHighlights;
         }else if(dateTime === endDate) {
-          return CLASS_RANGE_END;
+          return CLASS_RANGE_END + dateHighlights;
         }
 
         return ((dateTime > Math.min(startDate, endDate) &&
-           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED: '');
+           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED + dateHighlights: '' + dateHighlights);
       }
+
+      scope.$watch('highlights', function(data){
+        console.log(data);
+      });
     }
   };
 });
