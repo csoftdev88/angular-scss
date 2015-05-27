@@ -15,7 +15,6 @@ angular.module('mobiusApp.directives.room.aside', [])
       scope.room.tax = 16.45;
       scope.room.total = 105.45;
       scope.ad = '//placehold.it/210x395';
-      scope.currency = '£';
     }
   };
 });

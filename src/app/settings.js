@@ -4,15 +4,19 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
-    'baseURL': 'http://52.6.221.79:3010/api/2.7.1/',
+    'baseURL': '/api/',
     'contents' : 'contents',
     'generics': {
       'currencies': 'generics/currencies',
       'languages': 'generics/languages'
     },
-
+    'filters': {
+      'products': 'filters/products',
+      'rooms': 'filters/rooms'
+    },
     'properties': {
-      'all': 'properties'
+      'all': 'properties',
+      'details': 'properties/:propertyCode/'
     },
     'customers': {
       'login': 'customers/actions/login',
@@ -25,6 +29,9 @@ angular.module('mobiusApp.config', [])
       'Mobius-channelId': '6'
     }
   },
+
+  'currencyParamName': 'currency',
+  'bestAvailableRateCode': 'Best Available Rate',
 
   'UI': {
     'heroSlider': {
@@ -70,28 +77,27 @@ angular.module('mobiusApp.config', [])
       'default': 'GBP',
 
       'GBP': {
-        'code': 'GBP',
-        'symbol': '£'
+        'symbol': '£',
+        'format': '{{symbol}} {{amount}}'
       },
 
       'USD': {
-        'code': 'USD',
-        'symbol': '$'
+        'symbol': '$',
+        'format': '{{symbol}}{{amount}}'
       },
 
       'EUR': {
-        'code': 'EUR',
-        'symbol': '€'
+        'symbol': '€',
+        'format': '{{amount}}{{symbol}}'
       },
 
       'CAD': {
-        'code': 'CAD',
-        'symbol': '$'
+        'symbol': '$',
+        'format': '{{symbol}}{{amount}}'
       }
     },
 
     'languages': {
-      // first one is default language
       'en-us': {
         'shortName': 'EN',
         'name': 'English (US)',
@@ -121,7 +127,12 @@ angular.module('mobiusApp.config', [])
     // Settings related to booking process
     'bookingWidget': {
       'maxAdults': 6,
-      'maxChildren': 8
+      'maxChildren': 8,
+      'advanced': {
+        'maxRooms': 4
+        // NOTE: maxAdults and maxChildren
+        // settings are defined above
+      }
     },
 
     // States layout

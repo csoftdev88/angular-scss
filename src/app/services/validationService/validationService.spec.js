@@ -1,6 +1,6 @@
 'use strict';
 
-describe('apiService', function() {
+describe('validationService', function() {
   var env;
 
   var TEST_VALUES = [
@@ -40,6 +40,9 @@ describe('apiService', function() {
     'type': 'unknown',
   };
 
+  var SETTINGS_OBJECT = {
+    'type': 'object'
+  };
 
   beforeEach(function() {
     env = {};
@@ -76,6 +79,18 @@ describe('apiService', function() {
         var converted = env.validationService.convertValue(testData.in, SETTINGS_STRING);
 
         expect(converted).equal(testData.out);
+      });
+    });
+
+    describe('object type', function() {
+      it('should decode object correctly', function() {
+        var converted = env.validationService.convertValue('%7B%22testProp%22%3A123%7D', SETTINGS_OBJECT, true);
+        expect(converted.testProp).equal(123);
+      });
+
+      it('should return null when object is invalid', function() {
+        var converted = env.validationService.convertValue('%7A%22testProp%22%3A123%7D', SETTINGS_OBJECT, true);
+        expect(converted).equal(null);
       });
     });
 

@@ -2,7 +2,9 @@
 
 angular.module('mobiusApp.directives.hotels', [])
 
-.directive('hotels', ['$state', function($state){
+// TODO: Start using ng-min
+.directive('hotels', ['$state', 'filtersService', 'bookingService',
+  'propertyService', function($state, filtersService, bookingService, propertyService){
   return {
     restrict: 'E',
     scope: {},
@@ -10,33 +12,75 @@ angular.module('mobiusApp.directives.hotels', [])
 
     // Widget logic goes here
     link: function(scope){
-      //scope, elem, attrs
-      var desc = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh';
+      scope.sortingOptions = [
+        {
+          name: 'Availability',
+          prop: 'available',
+          value: true
+        },
+        {
+          name: 'Price Low to High',
+          prop: 'priceFrom',
+          value: false
+        },
+        {
+          name: 'Price High to Low',
+          prop: 'priceFrom',
+          value: true
+        },
+        {
+          name: 'Star Rating Low to High',
+          prop: 'rating',
+          value: false
+        },
+        {
+          name: 'Star Rating High to Low',
+          prop: 'rating',
+          value: true
+        },
+        {
+          name: 'A - Z',
+          prop: 'nameShort',
+          value: false
+        },
+        {
+          name: 'Z - A',
+          prop: 'nameShort',
+          value: true
+        },
+      ];
 
-      scope.sorting = {};
+      // Default sorting by availability
+      scope.currentOrder = scope.sortingOptions[0];
       scope.view = 'tiles';
 
-      scope.sortings = [
-        'Price Low to High',
-        'Price High to Low',
-        'Star Rating Low to High',
-        'Star Rating High to Low',
-        'A - Z',
-        'Z - A'
-      ];
+      function getProperties(params){
+        // Loading hotels
+        propertyService.getAll(params).then(function(hotels){
+          scope.hotels = hotels;
+        });
+      }
 
-      scope.hotels = [
-        { name: 'Madrid', rating: 4, price: 69, desc: desc},
-        { name: 'Ibiza', rating: 5, price: 89, desc: desc},
-        { name: 'Cordoba', rating: 3, price: 59, desc: desc},
-        { name: 'Lisbon', rating: 4, price: 66, desc: desc},
-        { name: 'Valencia', rating: 2, price: 49, desc: desc},
-        { name: 'Barcelona', rating: 5, price: 95, desc: desc}
-      ];
-
-      scope.go = function(hotelID){
+      scope.navigateToHotel = function(hotelID){
         $state.go('hotel', {hotelID: hotelID});
       };
+
+
+      // Getting the details from booking widget
+      var bookingParams = bookingService.getAPIParams(true);
+
+      if(bookingParams.productGroupId){
+        getProperties(bookingParams);
+      } else{
+        // productGroupId is not set by the widget - getting default BAR
+        filtersService.getBestRateProduct().then(function(brp){
+          if(brp){
+            bookingParams.productGroupId = brp.id;
+          }
+
+          getProperties(bookingParams);
+        });
+      }
     }
   };
 }]);

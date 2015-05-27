@@ -2,7 +2,7 @@
   <ol>
     <li class="is-active"><a ui-sref="reservation.details">Guest Details</a></li>
     <li><a ui-sref="reservation.billing">Billing Information</a></li>
-    <li><a ui-sref="reservation.confirmation">Confirmation</a></li>
+    <li><a ui-sref="reservation.confirmation">_confirmation_</a></li>
   </ol>
 </reservation-steps>
 
@@ -14,7 +14,7 @@
       <img src="/static/images/room-1.jpg" alt="">
       <h4>Deluxe Double Room</h4>
       <p class="desc">Bed and Breakfast</p>
-      <p class="price"><strong>{{89 | i18nCurrency}}</strong> <em>per night</em></p>
+      <p class="price"><strong>{{89 | i18nCurrency: currencyCode}}</strong> <em>per night</em></p>
     </div>
     <div class="reservation-data">
       <table class="data">
@@ -67,7 +67,7 @@
   <hr/>
   <registration-call>
     <h4>Already Registered?</h4>
-    <p>Click here to <a ui-sref="login">log in</a> or <a ui-sref="register">register</a>.</p>
+    <p>Click here to <a href="/login">log in</a> or <a href="/register">register</a>.</p>
   </registration-call>
   <hr/>
 
@@ -116,7 +116,7 @@
   </reservation-details-form>
 
   <reservation-buttons>
-    <a ui-sref="room({hotelID:123, roomID: 123})" class="button button-gray back">Back</a>
-    <a ui-sref="reservation.billing" class="button next">Continue</a>
+    <a ui-sref="room({hotelID: 123, roomID: 123})" class="button button-gray back">_back_</a>
+    <a ui-sref="reservation.billing" class="button next">_continue_</a>
   </reservation-buttons>
 </div>

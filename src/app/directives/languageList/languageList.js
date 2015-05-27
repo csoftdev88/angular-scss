@@ -2,7 +2,15 @@
 
 angular.module('mobiusApp.directives.language', [])
 
-  .directive('languageList', function($window, Settings, contentService, $rootScope, $state, $stateParams, _) {
+  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', function($window, Settings, stateService, contentService, _, $location) {
+    function encodeQueryData(data) {
+      var ret = [];
+      for (var d in data) {
+        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+      }
+      return ret.join(' ');
+    }
+
     return {
       restrict: 'EA',
       scope: {},
@@ -12,20 +20,26 @@ angular.module('mobiusApp.directives.language', [])
       link: function(scope) {
 
         contentService.getLanguages().then(function(data) {
-          scope.languages = [];
+          var languages = {};
           _.each(data, function(languageData) {
             if (!Settings.UI.languages[languageData.code]) {
               throw new Error('Language "' + languageData.code + '" not found in configuration', languageData);
             } else {
-              scope.languages.push(languageData);
+              languageData = _.assign(languageData, Settings.UI.languages[languageData.code]);
+              languages[languageData.code] = languageData;
             }
           });
+
+          scope.languages = _.values(languages);
         });
 
         scope.changeLanguage = function(language) {
-          var params = $stateParams;
-          params.language = language.code;
-          $state.go($state.current.name, params);
+          var language_code = language.default ? '' : language.code;
+          var path = $location.path();
+          var search = encodeQueryData($location.search());
+          var hash = $location.hash();
+
+          $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
         };
 
         scope.getShortName = function(languageCode) {
@@ -36,8 +50,7 @@ angular.module('mobiusApp.directives.language', [])
           return Settings.UI.languages[languageCode].name;
         };
 
-        scope.currentLanguage = $rootScope.language_code;
+        scope.currentLanguage = stateService.getAppLanguageCode();
       }
     };
-  })
-;
+  }]);

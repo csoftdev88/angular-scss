@@ -2,10 +2,9 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, Settings) {
+.service( 'apiService',  function($q, $http, $window, Settings) {
   function get(url, params) {
     var q = $q.defer();
-
     $http({
       method: 'GET',
       url: url,
@@ -39,9 +38,13 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-  function getFullURL(path) {
+  function getFullURL(path, params) {
     var URL = getValue(Settings.API, path);
     // NOTE: We might want to throw error in case when path is not found
+    $window._.each(params, function(value, key){
+      URL = URL.replace(':' + key, value);
+    });
+
     return Settings.API.baseURL + URL;
   }
 

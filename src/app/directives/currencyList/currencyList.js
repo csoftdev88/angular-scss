@@ -2,7 +2,8 @@
 
 angular.module('mobiusApp.directives.currency', [])
 
-  .directive('currencyList', function(Settings, contentService, $rootScope, $state, $stateParams, _) {
+  .directive('currencyList', ['Settings', 'contentService', '_', 'queryService', '$rootScope',
+    function(Settings, contentService, _, queryService, $rootScope) {
     return {
       restrict: 'EA',
       scope: {},
@@ -12,32 +13,36 @@ angular.module('mobiusApp.directives.currency', [])
       link: function(scope) {
 
         contentService.getCurrencies().then(function(data) {
-          scope.currencies = [];
-          var currencyMapping = {};
+          var currencies = {};
           _.each(data, function(currencyData) {
             if (!Settings.UI.currencies[currencyData.code]) {
               throw new Error('Currency "' + currencyData.code + '" not found in configuration', currencyData);
             } else {
-              currencyMapping[currencyData.code] = scope.currencies.length;
-              currencyData.symbol = Settings.UI.currencies[currencyData.code].symbol;
-              scope.currencies.push(currencyData);
+              currencyData = _.assign(currencyData, Settings.UI.currencies[currencyData.code]);
+              currencies[currencyData.code] = currencyData;
             }
           });
 
-          if ($stateParams.currency && currencyMapping.hasOwnProperty($stateParams.currency)) {
+          var currency = queryService.getValue(Settings.currencyParamName);
+          if (currency && currencies.hasOwnProperty(currency)) {
             // set by user
-            $rootScope.currency = scope.currencies[currencyMapping[$stateParams.currency]];
-          } else if ($rootScope.currency) {
+            setCurrency(currencies[currency]);
+          } else if (scope.currentCurrency) {
             // do nothing
-          } else if (Settings.UI.currencies.default && currencyMapping.hasOwnProperty(Settings.UI.currencies.default)) {
+          } else if (currencies.hasOwnProperty(Settings.UI.currencies.default)) {
             // default if nothing is set
-            $rootScope.currency = scope.currencies[currencyMapping[Settings.UI.currencies.default]];
-          } else if (scope.currencies.length) {
-            // some if default not exists
-            $rootScope.currency = scope.currencies[0];
-          } else  {
-            throw new Error('Currency not defined');
+            setCurrency(currencies[Settings.UI.currencies.default]);
+          } else {
+            var codes = Object.keys(currencies);
+            if (codes.length) {
+              // some if default not exists
+              setCurrency(currencies[codes[0]]);
+            } else {
+              throw new Error('Currency not defined');
+            }
           }
+
+          scope.currencies = _.values(currencies);
         });
 
         scope.getCurrencySymbol = function(code) {
@@ -49,11 +54,16 @@ angular.module('mobiusApp.directives.currency', [])
         };
 
         scope.changeCurrency = function(currency) {
-          // reload app to get data in new currency
-          var params = $stateParams;
-          params.currency = currency.code;
-          $state.go($state.current.name, params);
+          if (scope.currentCurrency !== currency) {
+            setCurrency(currency);
+          }
         };
+
+        function setCurrency(currency) {
+          scope.currentCurrency = currency;
+          queryService.setValue(Settings.currencyParamName, currency.code);
+          $rootScope.currencyCode = currency.code;
+        }
       }
     };
-  });
+  }]);

@@ -4,59 +4,96 @@
 */
 angular.module('mobius.controllers.modals.advancedOptions', [])
 
-.controller( 'AdvancedOptionsCtrl', function($scope, $controller, $modalInstance) {
+.controller( 'AdvancedOptionsCtrl', function($scope, data, Settings, filtersService,
+  $controller, $modalInstance, $window) {
 
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
-  var MAX_ROOMS = 4;
+  $scope.settings = {
+    maxAdults: Settings.UI.bookingWidget.maxAdults,
+    maxChildren: Settings.UI.bookingWidget.maxChildren,
+    maxRooms: Settings.UI.bookingWidget.advanced.maxRooms
+  };
 
-  $scope.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  $scope.rates = [];
 
-  $scope.rates = [
-    {value: '1', text: 'Best Available Rate'},
-    {value: '2', text: 'Corporate Rate'},
-    {value: '3', text: 'AAA/CAA Rate'},
-    {value: '4', text: 'Seniors Rate'},
-    {value: '5', text: 'Goverment Rates'}
-  ];
-  $scope.rate = '1';
+  $scope.options = {
+    // NOTE: Selected rate will be replaced with selectedRate object
+    // once rates are loaded from the server
+    selectedRate: data.rate || null,
+    multiRoom: data.multiRoom || false,
+    rooms: data.rooms || [{adults: 1, children: 0}]
+  };
 
-  $scope.rooms = [
-    {id: 'room1', adults: 1, childrens: 0}
-  ];
-
-  $scope.multiRoom = '0';
   $scope.canAddRoom = true;
   $scope.showRemove = false;
 
+  /**
+   * Function loads list of available rate types from API (eg Corporate Rate, Best Available Rate)
+   */
+  // TODO: Add cache
+  $scope.loadValidRates = function(){
+    // NOTE: Rates are presented via product filters
+    // Products data is cached once loaded (true - flag)
+    filtersService.getProducts(true).then(function(data) {
+      // Checking if selected rate exist in the list
+      if($scope.options.selectedRate){
+        var rateIndex = $window._.findIndex(data, function(r){
+          return r.id === $scope.options.selectedRate;
+        });
+
+        if(rateIndex === -1){
+          // Invalidating the value when rate is not found
+          $scope.options.selectedRate = null;
+        }
+      }
+
+      $scope.rates = data;
+    });
+  };
+
+  $scope.loadValidRates();
+
   // TODO: Simplify these functions into one
   $scope.addRoom = function(){
-    var count = $scope.rooms.length;
-    if (count < MAX_ROOMS){
-      $scope.rooms.push({id: 'room' + (count - 1), adults: 1, childrens: 0});
+    var count = $scope.options.rooms.length;
+    if (count < $scope.settings.maxRooms){
+      $scope.options.rooms.push({adults: 1, children: 0});
     }
-    if (count === MAX_ROOMS - 1){
+    if (count === $scope.settings.maxRooms - 1){
       $scope.canAddRoom = false;
     }
   };
 
   $scope.removeRoom = function(){
-    var count = $scope.rooms.length;
+    var count = $scope.options.rooms.length;
     if (count > 1){
-      $scope.rooms.pop();
+      $scope.options.rooms.pop();
     }
-    if (count - 1 < MAX_ROOMS){
+    if (count - 1 < $scope.settings.maxRooms){
       $scope.canAddRoom = true;
     }
   };
 
   $scope.isRemoveVisible = function(i){
-    return (i === $scope.rooms.length - 1) && (i !== 0);
+    return (i === $scope.options.rooms.length - 1) && (i !== 0);
   };
 
+  $scope.submit = function() {
+    var result = {
+      multiRoom: $scope.options.multiRoom,
+    };
 
-/*  $scope.changePassword = function(){
-    $scope.passwordChanged = true;
-  };*/
+    // Rate
+    if($scope.options.selectedRate){
+      result.rate = $scope.options.selectedRate;
+    }
 
+    // Rooms
+    if($scope.options.multiRoom){
+      result.rooms = $scope.options.rooms;
+    }
+
+    $modalInstance.close(result);
+  };
 });

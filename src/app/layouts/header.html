@@ -5,20 +5,20 @@
     <a href class="menu-opener dropdown-toggle" data-toggle="dropdown"></a>
     <ul dropdown-group>
         <li ng-hide="config.menu.singleProperty">
-            <a ui-sref="hotels">{{'COMMON.HOTELS' | translate}}</a>
+            <a ui-sref="hotels">_hotels_</a>
         </li>
 
-        <li has-dropdown="hover" menu-content="offers" data-title="{{'COMMON.OFFERS_DEALS' | translate}}" ng-show="config.menu.showOffers">
+        <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
         </li>
 
-        <li has-dropdown="hover" menu-content="about" data-title="{{'COMMON.ABOUT_US' | translate}}" ng-show="config.menu.showAbout">
+        <li has-dropdown="hover" menu-content="about" data-title="_about_us_" ng-show="config.menu.showAbout">
         </li>
 
-        <li has-dropdown="hover" menu-content="news" data-title="{{'COMMON.NEWS' | translate}}" ng-show="config.menu.showNews">
+        <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
         </li>
 
         <li ng-show="config.menu.showContact">
-            <a ui-sref="contacts">{{'COMMON.CONTACT' | translate}}</a>
+            <a ui-sref="contacts">_contact_</a>
         </li>
 
         <li has-dropdown="click" currency-list>
@@ -32,5 +32,5 @@
       openRegisterDialog()
       openForgotPasswordDialog()
     -->
-    <a class="button button-login" ng-click="openLoginDialog()" ng-hide="isUserLoggedIn()">{{'COMMON.LOGIN_REGISTER' | translate}}</a>
+    <a class="button button-login" ng-click="openLoginDialog()" ng-hide="isUserLoggedIn()">_login_register_</a>
 </nav>

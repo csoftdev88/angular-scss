@@ -2,7 +2,9 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function(modalService, queryService, validationService,  propertyService, Settings){
+.directive('bookingWidget', function($filter, $state, modalService,
+  bookingService, queryService, validationService, propertyService,
+  Settings){
   return {
     restrict: 'E',
     scope: {},
@@ -12,17 +14,6 @@ angular.module('mobiusApp.directives.booking', [])
     link: function(scope){
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
-
-      // NOTE: Hotel is presented in the URL by using property/hotel code
-      // Currently selected form values
-      scope.selected = {
-        'children': undefined,
-        'adults': undefined,
-        'promoCode': '',
-        'property': undefined,
-        // NOTE: dates might be presented as start/end date
-        'dates': ''
-      };
 
       // URL parameters and their settings
       var PARAM_TYPES = {
@@ -37,13 +28,13 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'adults',
           'type': 'integer',
           'max': scope.settings.maxAdults,
-          'min': 0,
+          'min': 1,
           'required': true
         },
         'property': {
           'search': 'property',
           'type': 'string',
-          'required': true
+          'required': false
         },
         'promoCode': {
           'search': 'promoCode',
@@ -55,36 +46,71 @@ angular.module('mobiusApp.directives.booking', [])
           'search': 'dates',
           'type': 'string',
           'required': true
+        },
+        'rate': {
+          'search': 'rate',
+          'type': 'integer',
+          'required': false
+        },
+
+        'rooms': {
+          'search': 'rooms',
+          'type': 'object',
+          'required': false
         }
+      };
+
+      // NOTE: Hotel is presented in the URL by using property/hotel code
+      // Currently selected form values
+      scope.selected = {
+        'children': undefined,
+        'adults': undefined,
+        'promoCode': '',
+        'property': undefined,
+        // NOTE: dates might be presented as start/end date
+        'dates': '',
+        // Advanced options
+        'rate': undefined
       };
 
       // Function will remove query parameters from the URL in case their
       // values are not valid
       function validateURLParams(){
+        var stateParams = bookingService.getParams();
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
 
-          var paramValue = queryService.getValue(paramSettings.search);
+          var paramValue = stateParams[paramSettings.search];
 
-          // URL parameter is presented by has no value
+          // URL parameter is presented but has no value
           if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
             queryService.removeParam(paramSettings.search);
           }else{
             // Value is valid, we can assign it to the model
-            scope.selected[key] = validationService.convertValue(paramValue, paramSettings);
+            scope.selected[key] = validationService.convertValue(paramValue, paramSettings, true);
           }
         }
       }
 
-      // Init
-      validateURLParams();
+      function init(){
+        validateURLParams();
 
-      // Getting a list of properties
-      propertyService.getAll().then(function(data){
-        scope.propertyList = data.properties || [];
+        if(scope.propertyList && scope.propertyList.length){
+          validateProperty();
+        }else{
+          // Getting a list of properties
+          propertyService.getAll().then(function(data){
+            scope.propertyList = data || [];
+            validateProperty();
+          });
+        }
+      }
 
+      // Validating property code presented in the URL and selecting the corresponding
+      // property
+      function validateProperty(){
         var paramSettings = PARAM_TYPES.property;
-        var propertyCode = queryService.getValue(paramSettings.search);
+        var propertyCode = bookingService.getParams()[paramSettings.search];
 
         if(propertyCode===undefined){
           return;
@@ -103,42 +129,55 @@ angular.module('mobiusApp.directives.booking', [])
 
         // Property with the same name doesn't exist - URL param is invalid and should be removed.
         queryService.removeParam(paramSettings.search);
-      });
+      }
 
+      // Init
+      init();
+
+      /**
+       * Updates the url with values from the widget and redirects either to hotel list or a room list
+       */
       scope.onSearch = function(){
-        // Updating URL params
+        var stateParams = {};
+
         for(var key in PARAM_TYPES){
           var paramSettings = PARAM_TYPES[key];
 
           var modelValue;
           if(key === 'property' && scope.selected[key]!==undefined){
             modelValue = scope.selected[key].code;
-          }else{
+          } else {
             modelValue = scope.selected[key];
           }
 
           if(validationService.isValueValid(modelValue, paramSettings)){
-            var paramValue = queryService.getValue(paramSettings.search);
-            var queryValue = validationService.convertValue(paramValue, paramSettings);
-
-            if(modelValue!==queryValue){
-              queryService.setValue(paramSettings.search, modelValue);
-            }
-
+            var queryValue = validationService.convertValue(modelValue, paramSettings);
+            //queryService.setValue(paramSettings.search, queryValue);
+            stateParams[paramSettings.search] = queryValue;
           }else{
             queryService.removeParam(paramSettings.search);
           }
         }
+
+        // Changing application state
+        if(!scope.selected.property){
+          // 'All properties' is selected, will redirect to hotel list
+          $state.go('hotels', stateParams);
+        } else{
+          // Specific hotel selected, will redirect to room list
+          stateParams.hotelID = scope.selected.property.code;
+          $state.go('hotel', stateParams);
+        }
       };
 
-      // Search is enabled only when required fields contains data
+      // Search is enabled only when required fields contain data
       scope.isSearchable = function(){
         for(var key in PARAM_TYPES){
           var settings = PARAM_TYPES[key];
 
           var value = scope.selected[key];
           if(key === 'property'){
-            value = value === undefined?'':value.code;
+            continue;
           }
 
           if(settings.required && !validationService.isValueValid(value, settings)){
@@ -150,8 +189,40 @@ angular.module('mobiusApp.directives.booking', [])
       };
 
       scope.openAdvancedOptionsDialog = function() {
-        modalService.openAdvancedOptionsDialog();
+        var advancedOptions = {};
+
+        if(scope.selected.rate){
+          advancedOptions.rate = scope.selected.rate;
+        }
+
+        if(scope.selected.rooms && scope.selected.rooms.length){
+          advancedOptions.rooms = scope.selected.rooms;
+          advancedOptions.multiRoom = true;
+        }
+
+        modalService.openAdvancedOptionsDialog(advancedOptions).then(function(data) {
+          // Saving advanced options
+          if(data.rate !== null) {
+            scope.selected.rate = data.rate;
+          }
+
+          // Update number of adults and children when these are specified in multiroom selection
+          if(data.rooms && data.rooms.length) {
+            scope.selected.rooms = data.rooms;
+            // TODO: Check if advanced options affect the number of adults/children
+            scope.selected.adults = data.rooms.reduce(function(prev, next) {return prev + next.adults;}, 0);
+            scope.selected.children = data.rooms.reduce(function(prev, next) {return prev + next.children;}, 0);
+          }
+        });
       };
+
+      var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
+        init();
+      });
+
+      scope.$on('$destroy', function(){
+        routeChangeListener();
+      });
     }
   };
 });

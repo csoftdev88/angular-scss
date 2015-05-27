@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.filters.number', [])
 
-  .filter('i18nNumber', ['$translate', 'Settings', function($translate, Settings) {
+  .filter('i18nNumber', ['_', 'stateService', 'Settings', function(_, stateService, Settings) {
     var factorCache = {
       1: 1e1,
       2: 1e2,
@@ -17,7 +17,7 @@ angular.module('mobiusApp.filters.number', [])
     }
 
     function filter(number, fractions) {
-      if (!Number.isFinite(number)) {
+      if (!_.isFinite(number)) {
         return number;
       }
 
@@ -26,7 +26,6 @@ angular.module('mobiusApp.filters.number', [])
       }
 
       var numberString;
-      var sign = Math.sign(number);
       if (fractions > 0) {
         var factor = getFactor(fractions);
         numberString = '' + Math.round(Math.abs(number * factor)) / factor;
@@ -40,7 +39,7 @@ angular.module('mobiusApp.filters.number', [])
       var beforeDecimalArray = beforeDecimal.split('');
 
       var formattedNumber, formattedNumberArray = [], digits;
-      var langSettings = Settings.UI.languages[$translate.use()];
+      var langSettings = Settings.UI.languages[stateService.getAppLanguageCode()];
 
       while (beforeDecimalArray.length > 0) {
         digits = beforeDecimalArray.splice(-langSettings.groupSize, langSettings.groupSize);
@@ -56,7 +55,7 @@ angular.module('mobiusApp.filters.number', [])
         }
         formattedNumber += langSettings.decimalSeparator + afterDecimal;
       }
-      if (sign < 0) {
+      if (number < 0) {
         formattedNumber = langSettings.neg + formattedNumber;
       }
 
