@@ -13,6 +13,7 @@ angular.module('mobiusApp.directives.booking', [])
     // Widget logic goes here
     link: function(scope){
       var DATE_FORMAT = 'YYYY-MM-DD';
+      var CLASS_NOT_AVAILABLE = 'date-not-available';
 
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
@@ -114,8 +115,8 @@ angular.module('mobiusApp.directives.booking', [])
         var paramSettings = PARAM_TYPES.property;
         var propertyCode = bookingService.getParams()[paramSettings.search];
 
-        if(propertyCode===undefined){
-          checkPropertyAvailability();
+        if(!propertyCode){
+          resetAvailability();
           return;
         }
 
@@ -126,25 +127,25 @@ angular.module('mobiusApp.directives.booking', [])
           if(property.code === propertyCode){
             // Property exist
             scope.selected.property = property;
-            checkPropertyAvailability();
+            checkAvailability();
             return;
           }
         }
 
-        checkPropertyAvailability();
+        resetAvailability();
         // Property with the same name doesn't exist - URL param is invalid and should be removed.
         queryService.removeParam(paramSettings.search);
       }
 
-      function checkPropertyAvailability(){
+      function resetAvailability(){
+        if(scope.availability){
+          scope.availability = null;
+        }
+      }
+
+      function checkAvailability(){
         // No need to check availability
         if(!scope.settings.availability){
-          return;
-        }
-
-        if(!scope.selected.property && !scope.selected.property.code){
-          // Cleaning up date highlights
-          scope.highlights = {};
           return;
         }
 
@@ -153,7 +154,7 @@ angular.module('mobiusApp.directives.booking', [])
         bookingParams.from = getAvailabilityCheckDate(bookingParams.from,
           scope.settings.availability.from);
 
-        // NOTE: Value mast be greater than today
+        // NOTE: Value must be greater than today
         if(bookingParams.from){
           if($window.moment(bookingParams.from).valueOf() < $window.moment().valueOf()){
             bookingParams.from = $window.moment().format(DATE_FORMAT);
@@ -164,11 +165,15 @@ angular.module('mobiusApp.directives.booking', [])
           scope.settings.availability.to);
 
         propertyService.getAvailability(scope.selected.property.code, bookingParams).then(function(data){
-          scope.highlights = {};
+          scope.availability = {};
 
           $window._.each(data, function(obj){
-            scope.highlights[obj.date] = obj.isInventory?null:'date-not-available';
+            if(!obj.isInventory){
+              scope.availability[obj.date] = CLASS_NOT_AVAILABLE;
+            }
           });
+        }, function(){
+          scope.resetAvailability();
         });
       }
 

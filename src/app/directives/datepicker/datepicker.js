@@ -69,7 +69,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           beforeShowDay: function ( date ) {
             return [
               true,
-              getDayClassName( date )
+              getDateClass( date )
             ];
           },
 
@@ -154,33 +154,32 @@ angular.module('mobiusApp.directives.datepicker', [])
         return true;
       }
 
-      function getDayClassName( date ) {
+      function getDateClass( date ) {
         var dateTime = date.getTime();
 
-        // Classes to be appended to an element representing the date
-        var dateHighlights = '';
+        // Classes to be appended to an element which represents the date
+        var highlightClasses = '';
 
         if(scope.highlights){
           // Formating the date so we can find it in highlights object
           var formatedDate = $.datepicker.formatDate(DATE_FORMAT, date);
           if(scope.highlights[formatedDate]){
-            dateHighlights = ' ' + scope.highlights[formatedDate];
+            highlightClasses = ' ' + scope.highlights[formatedDate];
           }
-          console.log(formatedDate, dateHighlights);
         }
 
         if(dateTime === startDate) {
-          return CLASS_RANGE_START + dateHighlights;
+          return CLASS_RANGE_START + highlightClasses;
         }else if(dateTime === endDate) {
-          return CLASS_RANGE_END + dateHighlights;
+          return CLASS_RANGE_END + highlightClasses;
         }
 
         return ((dateTime > Math.min(startDate, endDate) &&
-           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED + dateHighlights: '' + dateHighlights);
+           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED + highlightClasses: highlightClasses);
       }
 
-      scope.$watch('highlights', function(data){
-        console.log(data);
+      scope.$watch('highlights', function(){
+        element.datepicker( 'refresh' );
       });
     }
   };

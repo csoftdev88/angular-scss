@@ -111,9 +111,20 @@
 
         &.date-not-available {
           background-color: #cc0001;
-            a {
-              color: @white;
-            }
+          border-radius: 0px;
+          a {
+            color: @white;
+          }
+
+          &.date-range-start,
+          &.date-current-day,
+          &.date-range-end {
+            background-color: #E75F5F;
+          }
+
+          &.date-range-selected {
+            background-color: #EA5A5A;
+          }
         }
 
         &.ui-datepicker-other-month {

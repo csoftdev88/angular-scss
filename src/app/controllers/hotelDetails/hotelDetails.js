@@ -34,12 +34,6 @@ angular.module('mobius.controllers.hotel.details', [])
           }
         }
       });
-
-    if(propertyService.getAvailability){
-      propertyService.getAvailability(propertyCode, params).then(function(data){
-        console.log(data, 'avs');
-      });
-    }
   }
 
   // In order to get rooms availability we must call the API with productGroupId
