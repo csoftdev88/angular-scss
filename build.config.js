@@ -64,6 +64,7 @@ module.exports = {
         'bower_components/angular-underscore-module/angular-underscore-module.js',
         'bower_components/underscore/underscore.js',
         'bower_components/ngmap/build/scripts/ng-map.min.js',
+        'bower_components/moment/min/moment.min.js',
         'karma/init.js',
         'src/app/**/*.js'
       ]
@@ -85,7 +86,8 @@ module.exports = {
         'bower_components/underscore/underscore.js',
         'bower_components/angular-underscore-module/angular-underscore-module.js',
         'bower_components/angular-validation-match/dist/angular-input-match.js',
-        'bower_components/ngmap/build/scripts/ng-map.min.js'
+        'bower_components/ngmap/build/scripts/ng-map.min.js',
+        'bower_components/moment/min/moment.min.js'
       ],
       styles: []
     }
