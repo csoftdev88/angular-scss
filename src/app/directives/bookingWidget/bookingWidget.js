@@ -2,9 +2,9 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function($filter, $state, modalService,
-  bookingService, queryService, validationService, propertyService,
-  Settings){
+.directive('bookingWidget', function($filter, $state, $window,
+  modalService, bookingService, queryService, validationService,
+  propertyService, Settings){
   return {
     restrict: 'E',
     scope: {},
@@ -12,6 +12,8 @@ angular.module('mobiusApp.directives.booking', [])
 
     // Widget logic goes here
     link: function(scope){
+      var DATE_FORMAT = 'YYYY-MM-DD';
+
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
@@ -113,6 +115,7 @@ angular.module('mobiusApp.directives.booking', [])
         var propertyCode = bookingService.getParams()[paramSettings.search];
 
         if(propertyCode===undefined){
+          checkPropertyAvailability();
           return;
         }
 
@@ -123,12 +126,59 @@ angular.module('mobiusApp.directives.booking', [])
           if(property.code === propertyCode){
             // Property exist
             scope.selected.property = property;
+            checkPropertyAvailability();
             return;
           }
         }
 
+        checkPropertyAvailability();
         // Property with the same name doesn't exist - URL param is invalid and should be removed.
         queryService.removeParam(paramSettings.search);
+      }
+
+      function checkPropertyAvailability(){
+        // No need to check availability
+        if(!scope.settings.availability){
+          return;
+        }
+
+        if(!scope.selected.property && !scope.selected.property.code){
+          // Cleaning up date highlights
+          scope.highlights = {};
+          return;
+        }
+
+        var bookingParams = bookingService.getAPIParams(true);
+        // NOTE - We have to check availability for wider range than selected
+        bookingParams.from = getAvailabilityCheckDate(bookingParams.from,
+          scope.settings.availability.from);
+
+        // NOTE: Value mast be greater than today
+        if(bookingParams.from){
+          if($window.moment(bookingParams.from).valueOf() < $window.moment().valueOf()){
+            bookingParams.from = $window.moment().format(DATE_FORMAT);
+          }
+        }
+
+        bookingParams.to = getAvailabilityCheckDate(bookingParams.to,
+          scope.settings.availability.to);
+
+        propertyService.getAvailability(scope.selected.property.code, bookingParams).then(function(data){
+          scope.highlights = {};
+
+          $window._.each(data, function(obj){
+            scope.highlights[obj.date] = obj.isInventory?null:'date-not-available';
+          });
+        });
+      }
+
+      function getAvailabilityCheckDate(date, modificationRule){
+        if(!modificationRule){
+          return date;
+        }
+
+        return $window.moment(date).add(modificationRule.value, modificationRule.type).
+          format(DATE_FORMAT);
       }
 
       // Init
