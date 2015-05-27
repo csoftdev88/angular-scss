@@ -17,6 +17,7 @@
     "continue": "Pokračovat",
     "view_more": "Více",
     "confirmation": "Potvrdit",
-    "back": "Zpět"
+    "back": "Zpět",
+    "no_room_found": "Nebyl nalezen žádný pokoj"
   }
 }
