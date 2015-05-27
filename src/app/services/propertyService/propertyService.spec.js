@@ -15,7 +15,8 @@ describe('propertyService', function() {
 
           'properties': {
             'all': 'properties',
-            'details': 'properties/propertyCode'
+            'details': 'properties/propertyCode',
+            'availability': 'properties/propertyCode/availability'
           }
         }
       };
@@ -67,6 +68,19 @@ describe('propertyService', function() {
 
       expect(env.apiGetSpy.calledOnce).equal(true);
       expect(env.apiGetSpy.calledWith('properties.details', {a: 'test'})).equal(true);
+    });
+  });
+
+  describe('getAvailability', function(){
+    it('should fire a GET request to property availability API', function(){
+      env.propertyService.getAvailability('ABC', {a:'test'});
+
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith(
+        'properties.availability', {propertyCode:'ABC'})).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+      expect(env.apiGetSpy.calledWith('properties.availability', {a: 'test'})).equal(true);
     });
   });
 });
