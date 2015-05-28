@@ -10,6 +10,11 @@ angular.module('mobiusApp.factories.preloader', [])
       return;
     }
 
+    if(promise.$$state && promise.$$state.status !== 0){
+      broadcast(false);
+      return;
+    }
+
     broadcast(true);
 
     promise.then(function(){
