@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService,
-  propertyService, filtersService) {
+  propertyService, filtersService, preloaderFactory) {
 
   $scope.details = {};
 
@@ -20,7 +20,7 @@ angular.module('mobius.controllers.hotel.details', [])
     // NOTE: In case when productGroupId is not presented in
     // bookingParams - property details are returned without
     // availability details
-    propertyService.getPropertyDetails(propertyCode, params)
+    var promise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
         // Updating Hero content images
@@ -36,6 +36,8 @@ angular.module('mobius.controllers.hotel.details', [])
           }
         }
       });
+
+    preloaderFactory(promise);
   }
 
   // In order to get rooms availability we must call the API with productGroupId

@@ -16,6 +16,8 @@ describe('mobius.controllers.hotel.details', function() {
     };
 
     beforeEach(function() {
+      module('mobiusApp.factories.preloader');
+
       module('mobius.controllers.hotel.details', function($provide) {
         $provide.value('bookingService', {
             getAPIParams: function(){

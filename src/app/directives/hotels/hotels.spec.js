@@ -17,6 +17,8 @@ describe('hotels directive', function() {
     _spyStateGo, _spyBookingServiceGetAPIParams, _propertyServiceGetAll;
 
   beforeEach(function() {
+    module('mobiusApp.factories.preloader');
+
     module('mobiusApp.directives.hotels', function($provide) {
       // Mocking the services
       $provide.value('bookingService', {

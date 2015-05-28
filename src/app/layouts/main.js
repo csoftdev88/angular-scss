@@ -2,8 +2,11 @@
 
 angular.module('mobius.controllers.main', [])
 
-  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', 'contentService', 'Settings', 'user',
-    function($scope, $state, $modal, orderByFilter, modalService, contentService, Settings, user) {
+  // TODO: add ng-min into a build step
+  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
+    'contentService', 'Settings', 'user', '$controller',
+    function($scope, $state, $modal, orderByFilter, modalService,
+      contentService, Settings, user, $controller) {
 
       // Application settings
       $scope.config = Settings.UI;
@@ -82,4 +85,6 @@ angular.module('mobius.controllers.main', [])
       $scope.isUserLoggedIn = user.isLoggedIn;
 
       modalService.openDialogIfPresent();
+
+      $controller('PreloaderCtrl', {$scope: $scope});
     }]);

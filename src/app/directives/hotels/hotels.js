@@ -4,7 +4,9 @@ angular.module('mobiusApp.directives.hotels', [])
 
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
-  'propertyService', function($state, filtersService, bookingService, propertyService){
+  'propertyService', 'preloaderFactory',
+  function($state, filtersService, bookingService, propertyService,
+    preloaderFactory){
   return {
     restrict: 'E',
     scope: {},
@@ -56,15 +58,16 @@ angular.module('mobiusApp.directives.hotels', [])
 
       function getProperties(params){
         // Loading hotels
-        propertyService.getAll(params).then(function(hotels){
-          scope.hotels = hotels;
-        });
+        preloaderFactory(
+          propertyService.getAll(params).then(function(hotels){
+            scope.hotels = hotels;
+          })
+        );
       }
 
       scope.navigateToHotel = function(hotelID){
         $state.go('hotel', {hotelID: hotelID});
       };
-
 
       // Getting the details from booking widget
       var bookingParams = bookingService.getAPIParams(true);
