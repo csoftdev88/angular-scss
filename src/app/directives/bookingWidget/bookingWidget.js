@@ -2,9 +2,9 @@
 
 angular.module('mobiusApp.directives.booking', [])
 
-.directive('bookingWidget', function($filter, $state, modalService,
-  bookingService, queryService, validationService, propertyService,
-  Settings){
+.directive('bookingWidget', function($filter, $state, $window,
+  modalService, bookingService, queryService, validationService,
+  propertyService, Settings){
   return {
     restrict: 'E',
     scope: {},
@@ -12,6 +12,9 @@ angular.module('mobiusApp.directives.booking', [])
 
     // Widget logic goes here
     link: function(scope){
+      var DATE_FORMAT = 'YYYY-MM-DD';
+      var CLASS_NOT_AVAILABLE = 'date-not-available';
+
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
@@ -112,7 +115,8 @@ angular.module('mobiusApp.directives.booking', [])
         var paramSettings = PARAM_TYPES.property;
         var propertyCode = bookingService.getParams()[paramSettings.search];
 
-        if(propertyCode===undefined){
+        if(!propertyCode){
+          resetAvailability();
           return;
         }
 
@@ -123,16 +127,60 @@ angular.module('mobiusApp.directives.booking', [])
           if(property.code === propertyCode){
             // Property exist
             scope.selected.property = property;
+            checkAvailability();
             return;
           }
         }
 
+        resetAvailability();
         // Property with the same name doesn't exist - URL param is invalid and should be removed.
         queryService.removeParam(paramSettings.search);
       }
 
-      // Init
-      init();
+      function resetAvailability(){
+        if(scope.availability){
+          scope.availability = null;
+        }
+      }
+
+      function checkAvailability(){
+        // No need to check availability
+        if(!scope.settings.availability){
+          return;
+        }
+
+        var bookingParams = bookingService.getAPIParams(true);
+        // NOTE - We have to check availability for wider range than selected
+        bookingParams.from = getAvailabilityCheckDate(bookingParams.from,
+          scope.settings.availability.from);
+
+        bookingParams.to = getAvailabilityCheckDate(bookingParams.to,
+          scope.settings.availability.to);
+
+        propertyService.getAvailability(scope.selected.property.code, bookingParams).then(function(data){
+          scope.availability = {};
+
+          $window._.each(data, function(obj){
+            if(!obj.isInventory){
+              scope.availability[obj.date] = CLASS_NOT_AVAILABLE;
+            }
+          });
+        }, function(){
+          scope.resetAvailability();
+        });
+      }
+
+      function getAvailabilityCheckDate(date, modificationRule){
+        date = !modificationRule? date : $window.moment(date).add(modificationRule.value, modificationRule.type).
+          format(DATE_FORMAT);
+
+        // NOTE: Date must be eather today or a future date
+        if($window.moment(date).valueOf() < $window.moment().valueOf()){
+          date = $window.moment().format(DATE_FORMAT);
+        }
+
+        return date;
+      }
 
       /**
        * Updates the url with values from the widget and redirects either to hotel list or a room list
@@ -223,6 +271,9 @@ angular.module('mobiusApp.directives.booking', [])
       scope.$on('$destroy', function(){
         routeChangeListener();
       });
+
+      // Init
+      init();
     }
   };
 });

@@ -6,11 +6,41 @@ describe('bookingWidget', function() {
   var TEMPLATE = '<booking-widget></booking-widget>';
   var TEMPLATE_URL = 'directives/bookingWidget/bookingWidget.html';
 
+  //var sandbox = sinon.sandbox.create();
+
+  var TEST_PROPERTY_LIST = [
+    {code: 'TESTPROP'}
+  ];
+
   var TEST_SETTINGS = {
-    maxAdults: 5
+    maxAdults: 5,
+    availability: {
+      'from': {
+        'value': -1,
+        'type': 'month'
+      },
+
+      'to': {
+        'value': 1,
+        'type': 'month'
+      }
+    }
   };
 
-  var STATE_PARAMS = {};
+  var TEST_AVAILABILITY = [
+    {
+      date: '2015-02-02',
+      isInventory: true
+    },
+    {
+      date: '2015-02-03',
+      isInventory: false
+    }
+  ];
+
+  var STATE_PARAMS = {
+    property: 'TESTPROP'
+  };
 
   beforeEach(function() {
     env = {};
@@ -22,6 +52,9 @@ describe('bookingWidget', function() {
       $provide.value('bookingService', {
         getParams: function(){
           return STATE_PARAMS;
+        },
+        getAPIParams: function(){
+          return {from: '2015-02-02', to: '2015-03-03'};
         }
       });
 
@@ -38,7 +71,10 @@ describe('bookingWidget', function() {
       });
       $provide.value('propertyService', {
         getAll: function(){
-          return {then: function(){}};
+          return {then: function(c){c(TEST_PROPERTY_LIST);}};
+        },
+        getAvailability: function(){
+          return {then: function(c){c(TEST_AVAILABILITY);}};
         }
       });
       $provide.value('modalService', {});
@@ -54,6 +90,9 @@ describe('bookingWidget', function() {
   beforeEach(inject(function($compile, $rootScope, $templateCache,
     queryService, propertyService, bookingService, validationService) {
 
+    env.clock = sinon.useFakeTimers(0 , 'Date');
+    env.clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());
+
     env.$compile = $compile;
     env.$rootScope = $rootScope.$new();
     env.propertyService = propertyService;
@@ -67,8 +106,10 @@ describe('bookingWidget', function() {
     // Spy's
     env.templateCacheGet = sinon.spy(env.$templateCache, 'get');
     env.propertyServiceGetAll = sinon.spy(env.propertyService, 'getAll');
+    env.propertyServiceGetAvailability = sinon.spy(env.propertyService, 'getAvailability');
     env.validationServiceIsValueValid = sinon.spy(env.validationService, 'isValueValid');
     env.queryServiceRemoveParam = sinon.spy(env.queryService, 'removeParam');
+    env.bookingServiceGetParams = sinon.spy(env.bookingService, 'getParams');
 
     // Final component compile
     env.elem = env.$compile(TEMPLATE)(env.$rootScope);
@@ -79,8 +120,11 @@ describe('bookingWidget', function() {
   afterEach(function() {
     env.templateCacheGet.restore();
     env.propertyServiceGetAll.restore();
+    env.propertyServiceGetAvailability.restore();
     env.validationServiceIsValueValid.restore();
     env.queryServiceRemoveParam.restore();
+    env.bookingServiceGetParams.restore();
+    env.clock.restore();
   });
 
   describe('when component is initialized', function() {
@@ -101,6 +145,28 @@ describe('bookingWidget', function() {
     it('should do initial param validation', function() {
       expect(env.validationServiceIsValueValid.callCount).equal(7);
       expect(env.queryServiceRemoveParam.callCount).equal(7);
+    });
+
+    it('should read booking parameters from the URL', function() {
+      expect(env.bookingServiceGetParams.callCount).equal(2);
+    });
+  });
+
+  describe('property availability check', function() {
+    it('should request availability data from the server when property is specifyed', function() {
+      expect(env.propertyServiceGetAvailability.calledOnce).equal(true);
+    });
+
+    it('should request availability with dates modifyed by rules provided via settings and dates must be >= todays date', function() {
+      expect(env.propertyServiceGetAvailability.calledWith(TEST_PROPERTY_LIST[0].code,
+        {from: '2015-01-25', to: '2015-04-03'})).equal(true);
+    });
+
+    it('should create availability settings for datepicker', function() {
+      var availability = env.scope.availability;
+      expect(availability).to.be.an('object');
+      expect(Object.keys(availability).length).equal(1);
+      expect(availability['2015-02-03']).equal('date-not-available');
     });
   });
 

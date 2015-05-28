@@ -16,7 +16,8 @@ angular.module('mobiusApp.config', [])
     },
     'properties': {
       'all': 'properties',
-      'details': 'properties/:propertyCode/'
+      'details': 'properties/:propertyCode/',
+      'availability': 'properties/:propertyCode/availabilities'
     },
     'customers': {
       'login': 'customers/actions/login',
@@ -132,6 +133,19 @@ angular.module('mobiusApp.config', [])
         'maxRooms': 4
         // NOTE: maxAdults and maxChildren
         // settings are defined above
+      },
+      'availability': {
+        // Date range modification rules
+        'from': {
+          // Extra day/month added to a date
+          'value': -1,
+          'type': 'month'
+        },
+        'to': {
+          // Extra day/month added to a date
+          'value': 1,
+          'type': 'month'
+        }
       }
     },
 
