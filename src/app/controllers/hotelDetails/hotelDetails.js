@@ -38,10 +38,6 @@ angular.module('mobius.controllers.hotel.details', [])
       });
   }
 
-  $scope.isAnyRoomFound = function() {
-    return $scope.details.hasOwnProperty('availability') && $scope.details.availability && $scope.details.availability.rooms && $scope.details.availability.rooms.length;
-  };
-
   // In order to get rooms availability we must call the API with productGroupId
   // param which is presented as rate parameter set by a bookingWidget
   if(bookingParams.productGroupId){
