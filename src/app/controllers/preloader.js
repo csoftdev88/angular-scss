@@ -1,7 +1,8 @@
 'use strict';
 /*
-* This module contains methods for app preloader
-*/
+ * This module contains methods for app preloader and listens
+ * for event preloader events broadcasted by preloaderFactory
+ */
 angular.module('mobius.controllers.preloader', [])
 
 .controller( 'PreloaderCtrl', function($scope) {
