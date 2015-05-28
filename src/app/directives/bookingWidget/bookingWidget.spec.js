@@ -6,18 +6,25 @@ describe('bookingWidget', function() {
   var TEMPLATE = '<booking-widget></booking-widget>';
   var TEMPLATE_URL = 'directives/bookingWidget/bookingWidget.html';
 
+  //var sandbox = sinon.sandbox.create();
+
   var TEST_PROPERTY_LIST = [
     {code: 'TESTPROP'}
   ];
 
   var TEST_SETTINGS = {
     maxAdults: 5,
-    availability: {}
-  };
+    availability: {
+      'from': {
+        'value': -1,
+        'type': 'month'
+      },
 
-  var TEST_API_PARAMS = {
-    from: '2015-02-02',
-    to: '2015-03-03'
+      'to': {
+        'value': 1,
+        'type': 'month'
+      }
+    }
   };
 
   var TEST_AVAILABILITY = [
@@ -47,7 +54,7 @@ describe('bookingWidget', function() {
           return STATE_PARAMS;
         },
         getAPIParams: function(){
-          return TEST_API_PARAMS;
+          return {from: '2015-02-02', to: '2015-03-03'};
         }
       });
 
@@ -83,6 +90,9 @@ describe('bookingWidget', function() {
   beforeEach(inject(function($compile, $rootScope, $templateCache,
     queryService, propertyService, bookingService, validationService) {
 
+    env.clock = sinon.useFakeTimers(0 , 'Date');
+    env.clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());
+
     env.$compile = $compile;
     env.$rootScope = $rootScope.$new();
     env.propertyService = propertyService;
@@ -114,6 +124,7 @@ describe('bookingWidget', function() {
     env.validationServiceIsValueValid.restore();
     env.queryServiceRemoveParam.restore();
     env.bookingServiceGetParams.restore();
+    env.clock.restore();
   });
 
   describe('when component is initialized', function() {
@@ -139,10 +150,16 @@ describe('bookingWidget', function() {
     it('should read booking parameters from the URL', function() {
       expect(env.bookingServiceGetParams.callCount).equal(2);
     });
+  });
 
+  describe('property availability check', function() {
     it('should request availability data from the server when property is specifyed', function() {
       expect(env.propertyServiceGetAvailability.calledOnce).equal(true);
-      expect(env.propertyServiceGetAvailability.calledWith(TEST_PROPERTY_LIST[0].code, TEST_API_PARAMS)).equal(true);
+    });
+
+    it('should request availability with dates modifyed by rules provided via settings and dates must be >= todays date', function() {
+      expect(env.propertyServiceGetAvailability.calledWith(TEST_PROPERTY_LIST[0].code,
+        {from: '2015-01-25', to: '2015-04-03'})).equal(true);
     });
 
     it('should create availability settings for datepicker', function() {

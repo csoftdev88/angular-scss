@@ -154,13 +154,6 @@ angular.module('mobiusApp.directives.booking', [])
         bookingParams.from = getAvailabilityCheckDate(bookingParams.from,
           scope.settings.availability.from);
 
-        // NOTE: Value must be greater than today
-        if(bookingParams.from){
-          if($window.moment(bookingParams.from).valueOf() < $window.moment().valueOf()){
-            bookingParams.from = $window.moment().format(DATE_FORMAT);
-          }
-        }
-
         bookingParams.to = getAvailabilityCheckDate(bookingParams.to,
           scope.settings.availability.to);
 
@@ -178,16 +171,16 @@ angular.module('mobiusApp.directives.booking', [])
       }
 
       function getAvailabilityCheckDate(date, modificationRule){
-        if(!modificationRule){
-          return date;
+        date = !modificationRule? date : $window.moment(date).add(modificationRule.value, modificationRule.type).
+          format(DATE_FORMAT);
+
+        // NOTE: Date must be eather today or a future date
+        if($window.moment(date).valueOf() < $window.moment().valueOf()){
+          date = $window.moment().format(DATE_FORMAT);
         }
 
-        return $window.moment(date).add(modificationRule.value, modificationRule.type).
-          format(DATE_FORMAT);
+        return date;
       }
-
-      // Init
-      init();
 
       /**
        * Updates the url with values from the widget and redirects either to hotel list or a room list
@@ -278,6 +271,9 @@ angular.module('mobiusApp.directives.booking', [])
       scope.$on('$destroy', function(){
         routeChangeListener();
       });
+
+      // Init
+      init();
     }
   };
 });
