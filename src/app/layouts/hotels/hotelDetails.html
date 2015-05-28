@@ -1,11 +1,11 @@
 <div grid-container="9">
-  <div widget="hotel-detail" grid="9">
+  <div widget="hotel-detail" grid="9" ng-switch="!!(details.availability && details.availability.rooms && details.availability.rooms.length)">
     <header>
       <h1>{{details.nameShort}}</h1>
       <p>{{details.description}}</p>
     </header>
     <hr>
-    <section class="hotel-detail__rooms" ng-if="isAnyRoomFound()">
+    <section class="hotel-detail__rooms" ng-switch-when="true">
       <h2 class="section-title">Our <strong>Rooms</strong></h2>
       <ul class="entries entries--list" ng-repeat="room in details.availability.rooms">
         <li class="item">
@@ -21,7 +21,7 @@
         </li>
       </ul>
     </section>
-    <section class="hotel-detail__rooms" ng-if="!isAnyRoomFound()">
+    <section class="hotel-detail__rooms" ng-switch-when="false">
       _no_room_found_
     </section>
     <hr>
