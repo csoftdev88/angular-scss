@@ -5,11 +5,20 @@ var express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
-  errorhandler = require('errorhandler');
+  errorhandler = require('errorhandler'),
+  request = require('request');
+
+  var API_URL = 'http://52.5.129.243:3010/api/2.7.1/';
 
 module.exports = function(app) {
   app.use(function staticsPlaceholder(req, res, next) {
     return next();
+  });
+
+  // Local proxy
+  app.use('/api', function(req, res) {
+   var url = API_URL + req.url;
+   req.pipe(request(url)).pipe(res);
   });
 
   // App sources and bower scripts
