@@ -25,6 +25,7 @@ angular
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
     'mobius.controllers.hotel.details',
+    'mobius.controllers.preloader',
 
     // Application modules
     'mobiusApp.config',
@@ -43,6 +44,7 @@ angular
 
     // Factories
     'mobiusApp.factories.template',
+    'mobiusApp.factories.preloader',
 
     // Custom components
     'mobiusApp.directives.layout',
