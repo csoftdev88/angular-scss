@@ -1,5 +1,5 @@
 <div grid-container="9">
-  <div widget="hotel-detail" grid="9" ng-switch="!!(details.availability && details.availability.rooms && details.availability.rooms.length)">
+  <div widget="hotel-detail" grid="9" ng-show="details" ng-show="details" ng-switch="!!details.availability.rooms.length">
     <header>
       <h1>{{details.nameShort}}</h1>
       <p>{{details.description}}</p>
