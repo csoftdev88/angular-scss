@@ -65,8 +65,8 @@ angular.module('mobiusApp.directives.hotels', [])
         );
       }
 
-      scope.navigateToHotel = function(hotelID){
-        $state.go('hotel', {hotelID: hotelID});
+      scope.navigateToHotel = function(propertyCode){
+        $state.go('hotel', {propertyCode: propertyCode});
       };
 
       // Getting the details from booking widget

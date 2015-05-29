@@ -25,6 +25,7 @@ angular
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
     'mobius.controllers.hotel.details',
+    'mobius.controllers.room.details',
     'mobius.controllers.preloader',
 
     // Application modules
@@ -85,7 +86,6 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        // TODO: Unify hotelID/propery param
         url: '?property&children&adults&dates&rate&rooms'
       })
 
@@ -107,13 +107,14 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:hotelID'
+        url: '/hotels/:propertyCode'
       })
 
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
-        url: '/hotels/:hotelID/rooms/:roomID'
+        controller: 'RoomDetailsCtrl',
+        url: '/hotels/:propertyCode/rooms/:roomID'
       })
 
       // Room reservation
