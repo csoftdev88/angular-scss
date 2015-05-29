@@ -84,7 +84,6 @@ describe('propertyService', function() {
     });
   });
 
-
   describe('getRoomDetails', function(){
     it('should fire a GET request to room details API', function(){
       env.propertyService.getRoomDetails('ABC', 'QWN');
@@ -95,6 +94,21 @@ describe('propertyService', function() {
 
       expect(env.apiGetSpy.calledOnce).equal(true);
       expect(env.apiGetSpy.calledWith('properties.room.details')).equal(true);
+    });
+  });
+
+
+  describe('getRoomProductDetails', function(){
+    it('should fire a GET request to room product details API', function(){
+      var bookingParams = {'test': 'test123'};
+      env.propertyService.getRoomProductDetails('ABC', 'QWN', bookingParams);
+
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith(
+        'properties.room.productDetails', {propertyCode:'ABC', roomTypeCode: 'QWN'})).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+      expect(env.apiGetSpy.calledWith('properties.room.productDetails', bookingParams)).equal(true);
     });
   });
 });
