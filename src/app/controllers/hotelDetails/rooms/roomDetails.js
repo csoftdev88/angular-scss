@@ -22,6 +22,8 @@ angular.module('mobius.controllers.room.details', [])
   // Room product details
   function getRoomProductDetails(propertyCode, roomCode, params){
     propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data){
+      $scope.details = data;
+
       console.log(data, 'room products');
     });
   }
