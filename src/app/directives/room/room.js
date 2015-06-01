@@ -6,7 +6,7 @@ angular.module('mobiusApp.directives.room', [])
   bookingService, propertyService, filtersService){
   return {
     restrict: 'E',
-    scope: {},
+    scope: true,
     templateUrl: 'directives/room/room.html',
 
     // Widget logic goes here
@@ -23,6 +23,13 @@ angular.module('mobiusApp.directives.room', [])
       propertyService.getRoomDetails(propertyCode, roomCode).then(function(data){
         console.log(data, 'roomDetails');
         scope.details = data;
+
+        // Updating room hero slider images
+        var heroContent =  data.images.map(function(image){
+          return {'image': image.URI};
+        });
+
+        scope.updateHeroContent(heroContent);
       });
 
       // Room product details

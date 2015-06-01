@@ -1,7 +1,7 @@
 <section widget="room" grid>
   <header>
     <h1>{{details.name}}</h1>
-    <p>{{details.description}}</p>
+    <p ng-bind-html="sanitize(details.description)"></p>
     <hr>
   </header>
 
@@ -28,7 +28,7 @@
 
   <div class="room-desc">
     <h3 class="section-title">Room <strong>Description</strong></h3>
-    <p>{{details.description}}</p>
+    <p ng-bind-html="sanitize(details.description)"></p>
   </div>
   <div class="room-amenities">
     <h3 class="section-title">Room <strong>Amenities</strong></h3>

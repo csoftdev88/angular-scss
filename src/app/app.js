@@ -7,6 +7,7 @@ angular
     'ui.bootstrap',
     'ngTouch',
     'ngMap',
+    'ngSanitize',
     // Template cache
     'templates-main',
 
@@ -16,6 +17,8 @@ angular
     'validation.match',
 
     // Controllers
+    'mobius.controllers.common.sanitize',
+
     'mobius.controllers.main',
     'mobius.controllers.offers',
     'mobius.controllers.reservations',
