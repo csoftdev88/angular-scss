@@ -10,6 +10,7 @@ angular.module('mobiusApp.directives.room', [])
 
     // Widget logic goes here
     link: function(scope){
+      var _productSelectWatcher;
 
       var bookingParams = bookingService.getAPIParams();
 
@@ -43,12 +44,18 @@ angular.module('mobiusApp.directives.room', [])
             return false;
           });
 
-          scope.$watch('isOpen', function(){
-            console.log('changed');
-          });
+
+          unbindProductWatcher();
+          scope.$watch('isOpen', function(newSelection, oldSelection){
+            onProductSelected(newSelection, oldSelection);
+          }, true);
 
           selectBestProduct();
         });
+      }
+
+      function onProductSelected(newSelection, oldSelection){
+        console.log(newSelection, oldSelection);
       }
 
       function selectBestProduct(){
@@ -77,7 +84,18 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
+      function unbindProductWatcher(){
+        if($window._.isFunction(_productSelectWatcher)){
+          _productSelectWatcher();
+        }
+      }
+
       scope.oneAtATime = true;
+
+      // Removing event listeners
+      scope.$on('$destroy', function(){
+        unbindProductWatcher();
+      });
     }
   };
 });
