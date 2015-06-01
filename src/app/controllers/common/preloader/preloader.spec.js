@@ -1,12 +1,12 @@
 'use strict';
 
-describe('mobius.controllers.preloader', function() {
+describe('mobius.controllers.common.preloader', function() {
   describe('PreloaderCtrl', function() {
 
     var _scope;
 
     beforeEach(function() {
-      module('mobius.controllers.preloader');
+      module('mobius.controllers.common.preloader');
     });
 
     beforeEach(inject(function($controller, $rootScope) {

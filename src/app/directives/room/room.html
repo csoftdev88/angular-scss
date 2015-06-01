@@ -5,19 +5,19 @@
     <hr>
   </header>
 
-  <div class="room-prices">
+  <div class="room-prices" ng-if="products.length">
     <accordion close-others="oneAtATime">
-      <accordion-group heading="Best available Rate" is-open="open" ng-class="{'is-open': open}" ng-repeat="rate in rates">
-        <accordion-heading>
-          <i class="icon icon-{{rate.icon}}"/>
+      <accordion-group heading="{{product.name}}" is-open="isOpen[$index]" ng-class="{'is-open': isOpen}" ng-repeat="product in products">
+        <accordion-heading >
+          <i class="icon icon-{{product.icon || 'star-1'}}"/>
           <header>
-            <h3 class="title">{{rate.type}}</h3>
-            <p class="desc">{{rate.subtitle}}</p>
+            <h3 class="title">{{$index}} {{isOpen[$index]}} {{product.name}}</h3>
+            <p class="desc">{{product.tagline}}</p>
           </header>
-          <p class="price">{{rate.price | i18nCurrency: $root.currencyCode}}</p>
+          <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
           <small>per night</small>
         </accordion-heading>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.</p>
+        <p ng-bind-html="sanitize(product.description)"></p>
       </accordion-group>
     </accordion>
   </div>

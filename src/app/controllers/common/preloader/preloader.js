@@ -3,7 +3,7 @@
  * This module contains methods for app preloader and listens
  * for event preloader events broadcasted by preloaderFactory
  */
-angular.module('mobius.controllers.preloader', [])
+angular.module('mobius.controllers.common.preloader', [])
 
 .controller( 'PreloaderCtrl', function($scope) {
   var EVENT_PRELOADER = 'EVENT_PRELOADER';

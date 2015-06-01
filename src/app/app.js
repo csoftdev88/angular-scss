@@ -18,6 +18,7 @@ angular
 
     // Controllers
     'mobius.controllers.common.sanitize',
+    'mobius.controllers.common.preloader',
 
     'mobius.controllers.main',
     'mobius.controllers.offers',
@@ -29,7 +30,6 @@ angular
     'mobius.controllers.modals.reservation',
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
-    'mobius.controllers.preloader',
 
     // Application modules
     'mobiusApp.config',

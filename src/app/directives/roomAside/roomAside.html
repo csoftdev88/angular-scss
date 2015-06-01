@@ -4,18 +4,15 @@
       <tbody>
         <tr>
           <th>Room Charges:</th>
-          <td>£</td>
-          <td>{{room.charges | number: 2}}</span></td>
+          <td>{{selectedProduct.price.totalBase | i18nCurrency: $root.currencyCode }}</span></td>
         </tr>
         <tr>
           <th>Tax:</th>
-          <td>£</td>
-          <td>{{room.tax | number: 2}}</span></td>
+          <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</span></td>
         </tr>
         <tr>
           <th>Total:</th>
-          <td>£</td>
-          <td>{{room.total | number: 2}}</span></td>
+          <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</span></td>
         </tr>
       </tbody>
     </table>

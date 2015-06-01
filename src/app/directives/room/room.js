@@ -2,11 +2,10 @@
 
 angular.module('mobiusApp.directives.room', [])
 
-.directive('room', function($stateParams,
-  bookingService, propertyService, filtersService){
+.directive('room', function($stateParams, $window, Settings,
+  bookingService, propertyService, filtersService, preloaderFactory) {
   return {
     restrict: 'E',
-    scope: true,
     templateUrl: 'directives/room/room.html',
 
     // Widget logic goes here
@@ -20,7 +19,7 @@ angular.module('mobiusApp.directives.room', [])
       var roomCode = $stateParams.roomID;
 
       // Getting room details
-      propertyService.getRoomDetails(propertyCode, roomCode).then(function(data){
+      var roomDetailsPromise = propertyService.getRoomDetails(propertyCode, roomCode).then(function(data){
         console.log(data, 'roomDetails');
         scope.details = data;
 
@@ -32,12 +31,37 @@ angular.module('mobiusApp.directives.room', [])
         scope.updateHeroContent(heroContent);
       });
 
+      preloaderFactory(roomDetailsPromise);
+
       // Room product details
       function getRoomProductDetails(propertyCode, roomCode, params){
         propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data){
-          //scope.details = data;
           console.log(data, 'room products');
+          scope.products = data.products;
+
+          scope.isOpen = data.products.map(function(){
+            return false;
+          });
+
+          scope.$watch('isOpen', function(){
+            console.log('changed');
+          });
+
+          selectBestProduct();
         });
+      }
+
+      function selectBestProduct(){
+        // Note: Currently BAR doesn't have code provided so we are matching name against our settings
+        // This should be fixed later on the API side.
+        var bestProduct = $window._.findWhere(scope.products,
+          {name: Settings.bestAvailableRateCode}
+        );
+
+        if(bestProduct){
+          // NOTE: This function is inherited from RoomDetailsCtrl
+          scope.selectProduct(bestProduct);
+        }
       }
 
       if(bookingParams.productGroupId){
@@ -53,30 +77,7 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
-
-
-      scope.room = {};
-      scope.room.name = 'Deluxe Double Room';
-      scope.room.perex = 'am eu ipsum ac metus sagittis pellentesque id ut magna. Nunc in nibh nibh. Morbi nec turpis at est pretium fermentum. Praesent a condimentum leo. Aenean egestas leo ac enim consequat tincidunt jes. Ut et purus leo. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent.';
-      scope.room.description = 'Iam eu ipsum ac metus sagittis pellentesque id ut magna. Nunc in nibh nibh. Morbi nec turpis at est pretium fermentum. Praesent a condimentum leo. Aenean egestas leo ac enim consequat tincidunt jes. Ut et purus leo. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.';
-
-      scope.amenities = [
-        {name: 'Easy Acces', icon: 'wheelchair'},
-        {name: 'WiFi throughout', icon: 'signal'},
-        {name: 'Multi lingual staff', icon: 'globe'},
-        {name: 'Secure area for valuables', icon: 'lock'},
-        {name: 'Bureau de change', icon: 'dollar'}
-      ];
-
-      scope.rates = [
-        {type: 'Best available Rate', subtitle: 'Book now!', price: 79, icon: 'star-1', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.'},
-        {type: 'Bed and Breakfast', subtitle: 'Breakfast for 2 included', price: 89, icon: 'coffee', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.'},
-        {type: 'All Inclusive', subtitle: 'All meals included', price: 119, icon: 'food', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.'},
-        {type: 'Luxury Package', subtitle: 'All meals included plus bottle of champagne, robes and a fruit basket', price: 139, icon: 'wine', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.'}
-      ];
-
       scope.oneAtATime = true;
     }
-
   };
 });
