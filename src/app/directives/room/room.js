@@ -10,8 +10,6 @@ angular.module('mobiusApp.directives.room', [])
 
     // Widget logic goes here
     link: function(scope){
-      var _productSelectWatcher;
-
       var bookingParams = bookingService.getAPIParams();
 
       var propertyCode = bookingParams.property;
@@ -44,19 +42,23 @@ angular.module('mobiusApp.directives.room', [])
             return false;
           });
 
-
-          unbindProductWatcher();
-          scope.$watch('isOpen', function(newSelection, oldSelection){
-            onProductSelected(newSelection, oldSelection);
-          }, true);
-
           selectBestProduct();
         });
       }
 
-      function onProductSelected(newSelection, oldSelection){
-        console.log(newSelection, oldSelection);
-      }
+      scope.onSelectProduct=function(product){
+        if(product === scope.selectedProduct){
+          return;
+        }
+
+        // NOTE: Product must be always selected
+        var productIndex = scope.products.indexOf(product);
+        if(productIndex!==-1){
+          scope.isOpen[productIndex] = true;
+          // NOTE: This function is inherited from RoomDetailsCtrl
+          scope.selectProduct(product);
+        }
+      };
 
       function selectBestProduct(){
         // Note: Currently BAR doesn't have code provided so we are matching name against our settings
@@ -66,8 +68,7 @@ angular.module('mobiusApp.directives.room', [])
         );
 
         if(bestProduct){
-          // NOTE: This function is inherited from RoomDetailsCtrl
-          scope.selectProduct(bestProduct);
+          scope.onSelectProduct(bestProduct);
         }
       }
 
@@ -84,18 +85,7 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
-      function unbindProductWatcher(){
-        if($window._.isFunction(_productSelectWatcher)){
-          _productSelectWatcher();
-        }
-      }
-
       scope.oneAtATime = true;
-
-      // Removing event listeners
-      scope.$on('$destroy', function(){
-        unbindProductWatcher();
-      });
     }
   };
 });

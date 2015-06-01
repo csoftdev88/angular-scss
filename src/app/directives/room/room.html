@@ -5,25 +5,33 @@
     <hr>
   </header>
 
-  <div class="room-prices" ng-if="products.length">
-    <accordion close-others="oneAtATime">
-      <accordion-group heading="{{product.name}}" is-open="isOpen[$index]" ng-class="{'is-open': isOpen}" ng-repeat="product in products">
-        <accordion-heading >
-          <i class="icon icon-{{product.icon || 'star-1'}}"/>
-          <header>
-            <h3 class="title">{{$index}} {{isOpen[$index]}} {{product.name}}</h3>
-            <p class="desc">{{product.tagline}}</p>
-          </header>
-          <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
-          <small>per night</small>
-        </accordion-heading>
-        <p ng-bind-html="sanitize(product.description)"></p>
-      </accordion-group>
-    </accordion>
+  <div ng-if="products.length">
+    <div class="room-prices" >
+      <accordion close-others="oneAtATime">
+        <accordion-group heading="{{product.name}}" is-open="isOpen[$index]" is-disabled="isOpen[$index]" ng-class="{'is-open': isOpen[$index]}" ng-repeat="product in products">
+          <accordion-heading>
+            <div ng-click="onSelectProduct(product)">
+              <i class="icon icon-{{product.icon || 'star-1'}}"/>
+              <header>
+                <h3 class="title">{{product.name}}</h3>
+                <p class="desc">{{product.tagline}}</p>
+              </header>
+              <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
+              <small>per night</small>
+            </div>
+          </accordion-heading>
+          <p ng-bind-html="sanitize(product.description)"></p>
+        </accordion-group>
+      </accordion>
+    </div>
+
+    <div class="room-continue">
+      <a class="button" ng-disabled="!selectedProduct" ui-sref="reservation.details">_continue_</a>
+    </div>
   </div>
 
-  <div class="room-continue">
-    <a class="button" ui-sref="reservation.details">_continue_</a>
+  <div ng-if="products && !products.length">
+    <h2>No Product Found</h2>
   </div>
 
   <div class="room-desc">
