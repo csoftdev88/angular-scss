@@ -1,9 +1,10 @@
 <section widget="room" grid>
   <header>
-    <h1>{{room.name}}</h1>
-    <p>{{room.perex}}</p>
+    <h1>{{details.name}}</h1>
+    <p>{{details.description}}</p>
     <hr>
   </header>
+
   <div class="room-prices">
     <accordion close-others="oneAtATime">
       <accordion-group heading="Best available Rate" is-open="open" ng-class="{'is-open': open}" ng-repeat="rate in rates">
@@ -27,14 +28,14 @@
 
   <div class="room-desc">
     <h3 class="section-title">Room <strong>Description</strong></h3>
-    <p>{{room.description}}</p>
+    <p>{{details.description}}</p>
   </div>
   <div class="room-amenities">
     <h3 class="section-title">Room <strong>Amenities</strong></h3>
     <ul>
-      <li ng-repeat="item in amenities">
-        <i class="icon-{{item.icon}}"/>
-        <span>{{item.name}}</span>
+      <li ng-repeat="amenity in details.amenities">
+        <i class="icon-{{amenity.icon || 'globe'}}"/>
+        <span>{{amenity.name}}</span>
       </li>
     </ul>
   </div>

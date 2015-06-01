@@ -2,7 +2,8 @@
 
 angular.module('mobiusApp.directives.room', [])
 
-.directive('room', function(){
+.directive('room', function($stateParams,
+  bookingService, propertyService, filtersService){
   return {
     restrict: 'E',
     scope: {},
@@ -10,6 +11,43 @@ angular.module('mobiusApp.directives.room', [])
 
     // Widget logic goes here
     link: function(scope){
+
+      var bookingParams = bookingService.getAPIParams();
+
+      var propertyCode = bookingParams.property;
+      delete bookingParams.property;
+
+      var roomCode = $stateParams.roomID;
+
+      // Getting room details
+      propertyService.getRoomDetails(propertyCode, roomCode).then(function(data){
+        console.log(data, 'roomDetails');
+        scope.details = data;
+      });
+
+      // Room product details
+      function getRoomProductDetails(propertyCode, roomCode, params){
+        propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data){
+          //scope.details = data;
+          console.log(data, 'room products');
+        });
+      }
+
+      if(bookingParams.productGroupId){
+        getRoomProductDetails(propertyCode, roomCode, bookingParams);
+      } else{
+        // productGroupId is not set by the widget - getting default BAR
+        filtersService.getBestRateProduct().then(function(brp){
+          if(brp){
+            bookingParams.productGroupId = brp.id;
+          }
+
+          getRoomProductDetails(propertyCode, roomCode, bookingParams);
+        });
+      }
+
+
+
       scope.room = {};
       scope.room.name = 'Deluxe Double Room';
       scope.room.perex = 'am eu ipsum ac metus sagittis pellentesque id ut magna. Nunc in nibh nibh. Morbi nec turpis at est pretium fermentum. Praesent a condimentum leo. Aenean egestas leo ac enim consequat tincidunt jes. Ut et purus leo. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent.';
