@@ -10,8 +10,8 @@ angular.module('mobius.controllers.modals.advancedOptions', [])
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
   $scope.settings = {
-    maxAdults: Settings.UI.bookingWidget.maxAdults,
-    maxChildren: Settings.UI.bookingWidget.maxChildren,
+    maxAdults: Settings.UI.bookingWidget.adults.max,
+    maxChildren: Settings.UI.bookingWidget.children.max,
     maxRooms: Settings.UI.bookingWidget.advanced.maxRooms
   };
 

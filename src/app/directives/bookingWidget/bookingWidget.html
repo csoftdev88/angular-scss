@@ -41,7 +41,7 @@
     <li class="booking-input adults small">
       <!-- NUMBER OF ADULTS -->
       <div class="form-group">
-        <select name="adults" required ng-model="selected.adults" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.maxAdults" data-placeholder="Number Of Adults"/>
+        <select name="adults" required ng-model="selected.adults" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max" data-placeholder="Number Of Adults"/>
         <span class="info">Adults:</span>
       </div>
     </li>
@@ -49,7 +49,7 @@
     <li class="booking-input small">
       <!-- NUMBER OF CHILDREN -->
       <div class="form-group">
-        <select name="children" required ng-model="selected.children" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.maxChildren" data-placeholder="Number Of Children"/>
+        <select name="children" required ng-model="selected.children" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max" data-placeholder="Number Of Children"/>
         <span class="info">Children:</span>
       </div>
     </li>

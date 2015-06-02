@@ -3,12 +3,11 @@
 angular.module('mobiusApp.filters.list', [])
 
 .filter('numberToList', function(){
-  return function(input, length) {
-      var items = [];
-      for (var i = 0; i <= length; i++) {
-        items.push(i);
+  return function(input, min, max) {
+      var list = [];
+      for (var i = min || 0; i <= max; i++) {
+        list.push(i);
       }
-
-      return items;
+      return list;
     };
 });
