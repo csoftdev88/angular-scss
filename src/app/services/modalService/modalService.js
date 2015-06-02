@@ -75,10 +75,15 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
-  function openPriceBreakdownInfo(){
-    return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DEFAULT), {
-      windowClass: 'is-wide'
-    };
+  function openPriceBreakdownInfo(product){
+    return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DEFAULT, {
+      windowClass: 'is-wide',
+      resolve: {
+        data: function(){
+          return product;
+        }
+      }
+    });
   }
 
   function openDialogIfPresent() {

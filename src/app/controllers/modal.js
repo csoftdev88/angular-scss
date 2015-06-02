@@ -4,7 +4,8 @@
 */
 angular.module('mobius.controllers.modals.generic', [])
 
-.controller( 'ModalCtrl', function($scope, $modalInstance) {
+.controller( 'ModalCtrl', function($scope, $modalInstance, data) {
+  $scope.data = data;
   $scope.ok = function() {
     $modalInstance.close();
   };

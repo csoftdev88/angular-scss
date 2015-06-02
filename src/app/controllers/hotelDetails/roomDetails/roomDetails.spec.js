@@ -5,7 +5,12 @@ describe('mobius.controllers.room.details', function() {
     var _scope;
 
     beforeEach(function() {
-      module('mobius.controllers.room.details');
+      module('mobius.controllers.room.details', function($provide){
+        $provide.value('modalService', {
+          openPoliciesInfo: function(){},
+          openPriceBreakdownInfo: function(){}
+        });
+      });
     });
 
     beforeEach(inject(function($controller, $rootScope) {
@@ -23,6 +28,20 @@ describe('mobius.controllers.room.details', function() {
         var product = {test: 123};
         _scope.selectProduct(product);
         expect(_scope.selectedProduct).equal(product);
+      });
+    });
+
+    describe('methods for modals', function(){
+      describe('openPoliciesInfo', function() {
+        it('should be defined as a function on scope', function() {
+          expect(_scope.openPoliciesInfo).to.be.a('function');
+        });
+      });
+
+      describe('openPriceBreakdownInfo', function() {
+        it('should be defined as a function on scope', function() {
+          expect(_scope.openPriceBreakdownInfo).to.be.a('function');
+        });
       });
     });
   });
