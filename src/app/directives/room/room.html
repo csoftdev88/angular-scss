@@ -7,8 +7,8 @@
 
   <div ng-if="products.length">
     <div class="room-prices" >
-      <accordion close-others="oneAtATime">
-        <accordion-group heading="{{product.name}}" is-open="isOpen[$index]" is-disabled="isOpen[$index]" ng-class="{'is-open': isOpen[$index]}" ng-repeat="product in products">
+      <accordion close-others="true">
+        <accordion-group heading="{{product.name}}" ng-init="isOpen = accordionStates[$index]" is-open="isOpen" is-disabled="isOpen" ng-class="{'is-open': isOpen}" ng-repeat="product in products">
           <accordion-heading>
             <div ng-click="onSelectProduct(product)">
               <i class="icon icon-{{product.icon || 'star-1'}}"/>

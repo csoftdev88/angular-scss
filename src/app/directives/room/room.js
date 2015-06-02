@@ -22,7 +22,7 @@ angular.module('mobiusApp.directives.room', [])
         console.log(data, 'roomDetails');
         scope.details = data;
 
-        // Updating room hero slider images
+        // Updating hero slider images
         var heroContent =  data.images.map(function(image){
           return {'image': image.URI};
         });
@@ -38,7 +38,7 @@ angular.module('mobiusApp.directives.room', [])
           console.log(data, 'room products');
           scope.products = data.products;
 
-          scope.isOpen = data.products.map(function(){
+          scope.accordionStates = data.products.map(function(){
             return false;
           });
 
@@ -54,7 +54,7 @@ angular.module('mobiusApp.directives.room', [])
         // NOTE: Product must be always selected
         var productIndex = scope.products.indexOf(product);
         if(productIndex!==-1){
-          scope.isOpen[productIndex] = true;
+          scope.accordionStates[productIndex] = true;
           // NOTE: This function is inherited from RoomDetailsCtrl
           scope.selectProduct(product);
         }
@@ -84,8 +84,6 @@ angular.module('mobiusApp.directives.room', [])
           getRoomProductDetails(propertyCode, roomCode, bookingParams);
         });
       }
-
-      scope.oneAtATime = true;
     }
   };
 });
