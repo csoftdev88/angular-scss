@@ -16,6 +16,7 @@
       </div>
     </div>
     <div class="hotels__list">
+      <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{view}}">
         <li class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)">
           <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>

@@ -60,7 +60,9 @@ angular.module('mobiusApp.directives.hotels', [])
         // Loading hotels
         preloaderFactory(
           propertyService.getAll(params).then(function(hotels){
-            scope.hotels = hotels;
+            // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
+            // hotels = undefined;
+            scope.hotels = hotels || [];
           })
         );
       }

@@ -18,6 +18,7 @@
     "view_more": "Více",
     "confirmation": "Potvrdit",
     "back": "Zpět",
-    "no_room_found": "Nebyl nalezen žádný pokoj"
+    "no_room_found": "Nebyl nalezen žádný pokoj",
+    "no_hotels_found": "Nebyl nalezen žádný hotel"
   }
 }
