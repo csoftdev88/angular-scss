@@ -7,6 +7,7 @@ angular
     'ui.bootstrap',
     'ngTouch',
     'ngMap',
+    'ngSanitize',
     // Template cache
     'templates-main',
 
@@ -16,6 +17,9 @@ angular
     'validation.match',
 
     // Controllers
+    'mobius.controllers.common.sanitize',
+    'mobius.controllers.common.preloader',
+
     'mobius.controllers.main',
     'mobius.controllers.offers',
     'mobius.controllers.reservations',
@@ -24,8 +28,10 @@ angular
     'mobius.controllers.modals.register',
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
+    'mobius.controllers.modals.policy',
+
     'mobius.controllers.hotel.details',
-    'mobius.controllers.preloader',
+    'mobius.controllers.room.details',
 
     // Application modules
     'mobiusApp.config',
@@ -85,7 +91,6 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        // TODO: Unify hotelID/propery param
         url: '?property&children&adults&dates&rate&rooms'
       })
 
@@ -107,13 +112,14 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:hotelID'
+        url: '/hotels/:propertyCode'
       })
 
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
-        url: '/hotels/:hotelID/rooms/:roomID'
+        controller: 'RoomDetailsCtrl',
+        url: '/hotels/:propertyCode/rooms/:roomID'
       })
 
       // Room reservation

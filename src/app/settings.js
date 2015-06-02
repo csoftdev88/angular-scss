@@ -17,7 +17,11 @@ angular.module('mobiusApp.config', [])
     'properties': {
       'all': 'properties',
       'details': 'properties/:propertyCode/',
-      'availability': 'properties/:propertyCode/availabilities'
+      'availability': 'properties/:propertyCode/availabilities',
+      'room': {
+        'details': 'properties/:propertyCode/rooms/:roomTypeCode',
+        'productDetails': 'properties/:propertyCode/rooms/:roomTypeCode/products'
+      }
     },
     'customers': {
       'login': 'customers/actions/login',
@@ -184,6 +188,17 @@ angular.module('mobiusApp.config', [])
       'mobile': {
         'maxWidth': 768
       }
+    },
+
+    // Policy codes from the API and their title translates
+    'policies': {
+      'cancellation': 'Cancellation',
+      'checkInOut': 'Check-In-Out',
+      'extraGuest': 'Extra Guest',
+      'family': 'Family',
+      'guarantee': 'Guarantee',
+      'noShow': 'No Show',
+      'pet': 'Pet'
     }
   }
 });

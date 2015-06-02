@@ -8,8 +8,9 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_LOGIN = 'LoginCtrl',
       CONTROLLER_REGISTER = 'RegisterCtrl',
       CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl',
-      CONTROLLER_RESERVATIONS = 'ModalReservationCtrl';
-  var DIALOG_PARAM_NAME = 'dialog';
+      CONTROLLER_RESERVATIONS = 'ModalReservationCtrl',
+      CONTROLLER_POLICY = 'PolicyCtrl',
+      DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
     var q = $q.defer(),
@@ -69,16 +70,29 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('CCVInfo', 'layouts/modals/ccvInfo.html', CONTROLLER_DEFAULT);
   }
 
-  function openPoliciesInfo(){
-    return openDialog('PoliciesInfo', 'layouts/modals/policiesInfo.html', CONTROLLER_DEFAULT, {
-      windowClass: 'is-wide'
+  function openPoliciesInfo(product){
+    return openDialog('PoliciesInfo', 'layouts/modals/policiesInfo.html', CONTROLLER_POLICY, {
+      windowClass: 'is-wide',
+      resolve: {
+        data: function(){
+          return product;
+        }
+      }
     });
   }
 
-  function openPriceBreakdownInfo(){
-    return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DEFAULT), {
-      windowClass: 'is-wide'
-    };
+  function openPriceBreakdownInfo(roomDetails, product){
+    return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DEFAULT, {
+      windowClass: 'is-wide',
+      resolve: {
+        data: function(){
+          return {
+            roomDetails: roomDetails,
+            product: product
+          };
+        }
+      }
+    });
   }
 
   function openDialogIfPresent() {

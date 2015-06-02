@@ -31,7 +31,7 @@ angular.module('mobiusApp.services.booking', [])
     };
 
     if(!excludePropertyId){
-      params.property = $stateParams.hotelID || $stateParams.property;
+      params.property = $stateParams.propertyCode || $stateParams.property;
     }
 
     return params;

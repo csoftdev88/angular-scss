@@ -214,7 +214,7 @@ angular.module('mobiusApp.directives.booking', [])
           $state.go('hotels', stateParams);
         } else{
           // Specific hotel selected, will redirect to room list
-          stateParams.hotelID = scope.selected.property.code;
+          stateParams.hotelCode = scope.selected.property.code;
           $state.go('hotel', stateParams);
         }
       };

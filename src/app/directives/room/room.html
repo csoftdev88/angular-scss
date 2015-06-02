@@ -1,40 +1,49 @@
 <section widget="room" grid>
   <header>
-    <h1>{{room.name}}</h1>
-    <p>{{room.perex}}</p>
+    <h1>{{roomDetails.name}}</h1>
+    <p ng-bind-html="sanitize(roomDetails.description)"></p>
     <hr>
   </header>
-  <div class="room-prices">
-    <accordion close-others="oneAtATime">
-      <accordion-group heading="Best available Rate" is-open="open" ng-class="{'is-open': open}" ng-repeat="rate in rates">
-        <accordion-heading>
-          <i class="icon icon-{{rate.icon}}"/>
-          <header>
-            <h3 class="title">{{rate.type}}</h3>
-            <p class="desc">{{rate.subtitle}}</p>
-          </header>
-          <p class="price">{{rate.price | i18nCurrency: $root.currencyCode}}</p>
-          <small>per night</small>
-        </accordion-heading>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.</p>
-      </accordion-group>
-    </accordion>
+
+  <div ng-if="products.length">
+    <div class="room-prices" >
+      <accordion close-others="true">
+        <accordion-group heading="{{product.name}}" ng-init="isOpen = accordionStates[$index]" is-open="isOpen" is-disabled="isOpen" ng-class="{'is-open': isOpen}" ng-repeat="product in products">
+          <accordion-heading>
+            <div ng-click="onSelectProduct(product)">
+              <i class="icon icon-{{product.icon || 'star-1'}}"/>
+              <header>
+                <h3 class="title">{{product.name}}</h3>
+                <p class="desc">{{product.tagline}}</p>
+              </header>
+              <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
+              <small>per night</small>
+            </div>
+          </accordion-heading>
+          <p ng-bind-html="sanitize(product.description)"></p>
+        </accordion-group>
+      </accordion>
+    </div>
+
+    <div class="room-continue">
+      <a class="button" ng-disabled="!selectedProduct" ui-sref="reservation.details">_continue_</a>
+    </div>
   </div>
 
-  <div class="room-continue">
-    <a class="button" ui-sref="reservation.details">_continue_</a>
+  <div ng-if="products && !products.length">
+    <h2>No Product Found</h2>
   </div>
 
   <div class="room-desc">
     <h3 class="section-title">Room <strong>Description</strong></h3>
-    <p>{{room.description}}</p>
+    <p ng-bind-html="sanitize(roomDetails.description)"></p>
   </div>
   <div class="room-amenities">
     <h3 class="section-title">Room <strong>Amenities</strong></h3>
     <ul>
-      <li ng-repeat="item in amenities">
-        <i class="icon-{{item.icon}}"/>
-        <span>{{item.name}}</span>
+      <li ng-repeat="amenity in roomDetails.amenities">
+        <i class="icon-{{amenity.icon || 'globe'}}"/>
+        <span>{{amenity.name}}</span>
       </li>
     </ul>
   </div>

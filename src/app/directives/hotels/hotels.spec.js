@@ -110,7 +110,7 @@ describe('hotels directive', function() {
     it('should redirect to hotel details page', function() {
       _scope.navigateToHotel(123);
       expect(_spyStateGo.calledOnce).equal(true);
-      expect(_spyStateGo.calledWith('hotel', {hotelID: 123})).equal(true);
+      expect(_spyStateGo.calledWith('hotel', {propertyCode: 123})).equal(true);
     });
   });
 });

@@ -19,10 +19,28 @@ angular.module('mobiusApp.services.properties', [])
     return apiService.get(URL, params);
   }
 
+  function getRoomDetails(propertyCode, roomTypeCode){
+    var URL = apiService.getFullURL('properties.room.details', {
+      propertyCode: propertyCode,
+      roomTypeCode: roomTypeCode
+    });
+    return apiService.get(URL);
+  }
+
+  function getRoomProductDetails(propertyCode, roomTypeCode, params){
+    var URL = apiService.getFullURL('properties.room.productDetails', {
+      propertyCode: propertyCode,
+      roomTypeCode: roomTypeCode
+    });
+    return apiService.get(URL, params);
+  }
+
   // Public methods
   return {
     getAll: getAll,
     getPropertyDetails: getPropertyDetails,
-    getAvailability: getAvailability
+    getAvailability: getAvailability,
+    getRoomDetails: getRoomDetails,
+    getRoomProductDetails: getRoomProductDetails
   };
 });

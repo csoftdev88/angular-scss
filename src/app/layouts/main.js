@@ -86,5 +86,7 @@ angular.module('mobius.controllers.main', [])
 
       modalService.openDialogIfPresent();
 
+      // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
+      $controller('SanitizeCtrl', {$scope: $scope});
     }]);
