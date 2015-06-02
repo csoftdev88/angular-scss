@@ -23,15 +23,16 @@ angular.module('mobiusApp.directives.booking', [])
         'children': {
           'search': 'children',
           'type': 'integer',
-          'max': scope.settings.maxChildren,
-          'min': 0,
-          'required': true
+          'max': scope.settings.children.max,
+          'min': scope.settings.children.min || 0,
+          'defaultValue': 0,
+          'required': false
         },
         'adults': {
           'search': 'adults',
           'type': 'integer',
-          'max': scope.settings.maxAdults,
-          'min': 1,
+          'max': scope.settings.adults.max,
+          'min': scope.settings.adults.min || 0,
           'required': true
         },
         'property': {
@@ -195,7 +196,7 @@ angular.module('mobiusApp.directives.booking', [])
           if(key === 'property' && scope.selected[key]!==undefined){
             modelValue = scope.selected[key].code;
           } else {
-            modelValue = scope.selected[key];
+            modelValue = scope.selected[key] || paramSettings.defaultValue;
           }
 
           if(validationService.isValueValid(modelValue, paramSettings)){

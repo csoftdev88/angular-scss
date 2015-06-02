@@ -13,7 +13,13 @@ describe('bookingWidget', function() {
   ];
 
   var TEST_SETTINGS = {
-    maxAdults: 5,
+    adults: {
+      min: 1,
+      max: 5
+    },
+    children: {
+      max: 6
+    },
     availability: {
       'from': {
         'value': -1,
