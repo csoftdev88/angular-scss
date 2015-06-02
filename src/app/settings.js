@@ -141,8 +141,6 @@ angular.module('mobiusApp.config', [])
       },
       'advanced': {
         'maxRooms': 4
-        // NOTE: maxAdults and maxChildren
-        // settings are defined above
       },
       'availability': {
         // Date range modification rules
