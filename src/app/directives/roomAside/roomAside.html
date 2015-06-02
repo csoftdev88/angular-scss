@@ -35,8 +35,8 @@
   </div>
 
   <div class="more-info" ng-switch-when="true">
-    <a href ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
-    <a href>View Policies</a>
+    <a href ng-click="openPriceBreakdownInfo()" ng-if="selectedProduct.price.breakdowns.length">View Price Breakdown</a>
+    <a href ng-click="openPoliciesInfo()" ng-if="selectedProduct.policies">View Policies</a>
   </div>
   <advert>
     <img src="{{ad}}" alt="Advertising Banner">

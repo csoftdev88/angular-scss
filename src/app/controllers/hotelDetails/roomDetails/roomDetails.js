@@ -9,7 +9,9 @@ angular.module('mobius.controllers.room.details', [])
     $scope.selectedProduct = product;
   };
 
-  $scope.openPoliciesInfo = modalService.openPoliciesInfo;
+  $scope.openPoliciesInfo = function(){
+    modalService.openPoliciesInfo($scope.selectedProduct);
+  };
 
   $scope.openPriceBreakdownInfo = function(){
     modalService.openPriceBreakdownInfo($scope.selectedProduct);

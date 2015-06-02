@@ -28,6 +28,8 @@ angular
     'mobius.controllers.modals.register',
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
+    'mobius.controllers.modals.policy',
+
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
 
