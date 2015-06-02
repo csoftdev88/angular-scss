@@ -3,8 +3,8 @@
     <h3 class="modal-title">Policies and <strong>Conditions</strong></h3>
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
-  <div class="modal-body" ng-repeat="(key, value) in data.policies">
-    <h4>{{policies[key] || key}}
+  <div class="modal-body" ng-repeat="(policyCode, value) in data.policies">
+    <h4>{{getPolicyTitle(policyCode)}}
     <p ng-bind-html="sanitize(value)"></p>
   </div>
 </div>

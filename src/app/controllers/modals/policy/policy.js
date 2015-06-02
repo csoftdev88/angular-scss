@@ -10,6 +10,8 @@ angular.module('mobius.controllers.modals.policy', [])
     $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance, data: data});
     $controller('SanitizeCtrl', {$scope: $scope});
 
-    $scope.policies = Settings.UI.policies;
+    $scope.getPolicyTitle = function(policyCode){
+      return Settings.UI.policies[policyCode] || policyCode;
+    };
   }
 );
