@@ -19,8 +19,8 @@ angular.module('mobiusApp.directives.room', [])
 
       // Getting room details
       var roomDetailsPromise = propertyService.getRoomDetails(propertyCode, roomCode).then(function(data){
-        console.log(data, 'roomDetails');
-        scope.details = data;
+        // Inherited from RoomDetailsCtrl
+        scope.setRoomDetails(data);
 
         // Updating hero slider images
         var heroContent =  data.images.map(function(image){
@@ -35,7 +35,6 @@ angular.module('mobiusApp.directives.room', [])
       // Room product details
       function getRoomProductDetails(propertyCode, roomCode, params){
         propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data){
-          console.log(data, 'room products');
           scope.products = data.products;
 
           scope.accordionStates = data.products.map(function(){

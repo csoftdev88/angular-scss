@@ -81,12 +81,15 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
-  function openPriceBreakdownInfo(product){
+  function openPriceBreakdownInfo(roomDetails, product){
     return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DEFAULT, {
       windowClass: 'is-wide',
       resolve: {
         data: function(){
-          return product;
+          return {
+            roomDetails: roomDetails,
+            product: product
+          };
         }
       }
     });

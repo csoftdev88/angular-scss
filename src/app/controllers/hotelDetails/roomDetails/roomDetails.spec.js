@@ -31,6 +31,19 @@ describe('mobius.controllers.room.details', function() {
       });
     });
 
+    describe('setRoomDetails', function() {
+      it('should be defined as a function on scope', function() {
+        expect(_scope.setRoomDetails).to.be.a('function');
+      });
+
+      it('should change the value of roomDetails property', function() {
+        expect(_scope.roomDetails).equal(undefined);
+        var room = {test: 123};
+        _scope.setRoomDetails(room);
+        expect(_scope.roomDetails).equal(room);
+      });
+    });
+
     describe('methods for modals', function(){
       describe('openPoliciesInfo', function() {
         it('should be defined as a function on scope', function() {
