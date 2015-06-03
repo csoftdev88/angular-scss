@@ -24,6 +24,7 @@ angular
     'mobius.controllers.offers',
     'mobius.controllers.reservations',
     'mobius.controllers.modals.generic',
+    'mobius.controllers.modals.data',
     'mobius.controllers.modals.login',
     'mobius.controllers.modals.register',
     'mobius.controllers.modals.advancedOptions',

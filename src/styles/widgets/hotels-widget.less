@@ -199,7 +199,17 @@
 // Specific for view as tiles
 .entries--tiles {
   .item {
+    .clearfix;
+
+    > div {
+      .clearfix;
+    }
+
     .margin-bottom(16, 2);
+
+    //.title {
+    //  height: @baseline * 3;
+    //}
   }
 }
 

@@ -167,7 +167,7 @@ angular.module('mobiusApp.directives.booking', [])
             }
           });
         }, function(){
-          scope.resetAvailability();
+          resetAvailability();
         });
       }
 

@@ -5,6 +5,7 @@
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log, queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
+      CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_LOGIN = 'LoginCtrl',
       CONTROLLER_REGISTER = 'RegisterCtrl',
       CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl',
@@ -82,7 +83,7 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openPriceBreakdownInfo(roomDetails, product){
-    return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DEFAULT, {
+    return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DATA, {
       windowClass: 'is-wide',
       resolve: {
         data: function(){

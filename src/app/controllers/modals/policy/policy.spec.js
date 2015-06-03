@@ -6,7 +6,7 @@ describe('mobius.controllers.modals.policy', function() {
     var _scope;
 
     beforeEach(function() {
-      module('mobius.controllers.modals.generic');
+      module('mobius.controllers.modals.data');
       module('mobius.controllers.common.sanitize');
 
       module('mobius.controllers.modals.policy', function($provide){
@@ -31,7 +31,7 @@ describe('mobius.controllers.modals.policy', function() {
     }));
 
     describe('inheritance', function() {
-      it('should inherit methods from ModalCtrl', function() {
+      it('should inherit methods from ModalDataCtrl', function() {
         expect(_scope.cancel).to.be.a('function');
         expect(_scope.ok).to.be.a('function');
       });
