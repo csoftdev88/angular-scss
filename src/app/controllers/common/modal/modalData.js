@@ -6,7 +6,7 @@ angular.module('mobius.controllers.modals.data', [
   'mobius.controllers.modals.generic'
 ])
 
-.controller( 'ModalDataCtrl', function($scope, $controller, data) {
+.controller( 'ModalDataCtrl', function($scope, $modalInstance, $controller, data) {
   $scope.data = data;
-  $controller('ModalCtrl', {$scope: $scope});
+  $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 });
