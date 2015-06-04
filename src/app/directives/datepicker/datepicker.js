@@ -106,10 +106,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             }
 
             if(isNaN(startDate) && isNaN(endDate)){
-              date = {
-                startDate: '',
-                endDate: ''
-              };
+              date = null;
             } else if(rangeSelection) {
               date = {
                 startDate: $.datepicker.formatDate( DATE_FORMAT, new Date(Math.min(startDate,endDate)), {}),
@@ -119,7 +116,12 @@ angular.module('mobiusApp.directives.datepicker', [])
 
             // Update model
             scope.$apply(function() {
-              ngModelCtrl.$setViewValue(date.startDate + DATES_SEPARATOR + date.endDate);
+              if(date){
+                ngModelCtrl.$setViewValue(date.startDate + DATES_SEPARATOR + date.endDate);
+              }else{
+                ngModelCtrl.$setViewValue('');
+              }
+
               ngModelCtrl.$render();
             });
 
