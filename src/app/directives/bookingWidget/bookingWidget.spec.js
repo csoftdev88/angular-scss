@@ -215,6 +215,10 @@ describe('bookingWidget', function() {
 
     it('should add all properties option to the top of the property list', function() {
       expect(env.scope.propertyList.length).equal(2);
+
+      expect(env.scope.propertyList[0].code).equal(undefined);
+      expect(env.scope.propertyList[0].nameShort).to.be.an('string');
+      expect(env.scope.propertyList[1].code).equal('TESTPROP');
     });
   });
 });
