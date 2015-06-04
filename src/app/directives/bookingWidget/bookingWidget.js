@@ -105,6 +105,9 @@ angular.module('mobiusApp.directives.booking', [])
           // Getting a list of properties
           propertyService.getAll().then(function(data){
             scope.propertyList = data || [];
+            if(scope.settings.includeAllPropertyOption){
+              scope.propertyList.unshift({nameShort: 'All Properties'});
+            }
             validateProperty();
           });
         }
@@ -205,12 +208,17 @@ angular.module('mobiusApp.directives.booking', [])
             stateParams[paramSettings.search] = queryValue;
           }else{
             queryService.removeParam(paramSettings.search);
+            // NOTE: Angular doesn't clean the default qwery params when
+            // navigating between states. Setting them to null solves
+            // the issue.
+            stateParams[paramSettings.search] = null;
           }
         }
 
         // Changing application state
-        if(!scope.selected.property){
+        if(!scope.selected.property || !scope.selected.property.code){
           // 'All properties' is selected, will redirect to hotel list
+          stateParams.property = null;
           $state.go('hotels', stateParams);
         } else{
           // Specific hotel selected, will redirect to room list

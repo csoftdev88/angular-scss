@@ -131,6 +131,7 @@ angular.module('mobiusApp.config', [])
 
     // Settings related to booking process
     'bookingWidget': {
+      'includeAllPropertyOption': true,
       'adults': {
         'min': 1,
         'max': 6
