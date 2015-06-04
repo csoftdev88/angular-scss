@@ -9,6 +9,7 @@ var express = require('express'),
   request = require('request');
 
   var API_URL = 'http://52.5.129.243:3010/api/2.7.1/';
+  var AUTH_HEADER = 'Basic ZGllZ286ZGllZ28=';
 
 module.exports = function(app) {
   app.use(function staticsPlaceholder(req, res, next) {
@@ -18,6 +19,7 @@ module.exports = function(app) {
   // Local proxy
   app.use('/api', function(req, res) {
    var url = API_URL + req.url;
+   req.headers['authorization'] = AUTH_HEADER;
    req.pipe(request(url)).pipe(res);
   });
 

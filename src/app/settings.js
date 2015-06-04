@@ -29,7 +29,7 @@ angular.module('mobiusApp.config', [])
     },
 
     'headers': {
-      'Authorization': 'Basic ZGllZ286ZGllZ28=',
+      // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
       'Mobius-channelId': '6'
     }
