@@ -206,10 +206,6 @@
     }
 
     .margin-bottom(16, 2);
-
-    //.title {
-    //  height: @baseline * 3;
-    //}
   }
 }
 
@@ -418,7 +414,6 @@
 
 // DESKTOP SPECIFIC STYLES
 @media only screen and @moreThenTablet {
-
   .entries--tiles {
     .item {
       .grid-element(3);
@@ -429,6 +424,14 @@
       display: block;
       width: 210px;
       height: 147px;
+    }
+  }
+}
+
+@media only screen and @moreThenMobile {
+  .entries--tiles {
+    .item:nth-child(3n + 1){
+      clear: left;
     }
   }
 }
