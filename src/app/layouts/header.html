@@ -1,32 +1,36 @@
-<nav class="main-nav wrapper">
+<nav class="main-nav wrapper" dropdown>
     <a class="brand" ui-sref="home">
         <img src="/static/images/logo.png" alt="Mobius logo">
     </a>
-    <a href class="menu-opener dropdown-toggle" data-toggle="dropdown"></a>
-    <ul dropdown-group>
-        <li ng-hide="config.menu.singleProperty">
-            <a ui-sref="hotels">_hotels_</a>
-        </li>
 
-        <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
-        </li>
+    <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown"></a>
+    <div class="app-menu">
+        <ul dropdown-group>
+            <li ng-hide="config.menu.singleProperty">
+                <a ui-sref="hotels">_hotels_</a>
+            </li>
 
-        <li has-dropdown="hover" menu-content="about" data-title="_about_us_" ng-show="config.menu.showAbout">
-        </li>
+            <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
+            </li>
 
-        <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
-        </li>
+            <li has-dropdown="hover" menu-content="about" data-title="_about_us_" ng-show="config.menu.showAbout">
+            </li>
 
-        <li ng-show="config.menu.showContact">
-            <a ui-sref="contacts">_contact_</a>
-        </li>
+            <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
+            </li>
 
-        <li has-dropdown="click" currency-list>
-        </li>
+            <li ng-show="config.menu.showContact">
+                <a ui-sref="contacts">_contact_</a>
+            </li>
 
-        <li has-dropdown="click" language-list>
-        </li>
-    </ul>
+            <li has-dropdown="click" currency-list>
+            </li>
+
+            <li has-dropdown="click" language-list>
+            </li>
+        </ul>
+    </div>
+
     <!-- NOTE: There can be in ng-click:
       openLoginDialog()
       openRegisterDialog()

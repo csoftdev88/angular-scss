@@ -117,39 +117,46 @@
   }
 
   .main-nav {
-
-    > ul {
-      float: left;
-      position: absolute;
+    > .app-menu {
+      position: fixed;
       top: @mobileHeaderHeight;
-      left: 0; right: 0;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      overflow-y: auto;
+      overflow-x: hidden;
+
       transform: translateX(-100%);
-      opacity: 0;
       transition: transform 0.4s ease-out,
                   opacity 0.2s linear 0.2s;
+      opacity: 0;
 
       .open& {
         transform: translateX(0);
         opacity: 1;
       }
 
-      > li {
-        border-top: 1px @borderColorSubmenu solid;
-        background-color: @colorHeaderBackground;
-        background-color: fadeout(@colorHeaderBackground, 5%);
-        text-transform: uppercase;
+      ul {
+        width: 100%;
 
-        a.is-active {
-          font-weight: 700;
-          text-shadow: 0 2px 0 fade(@black, 50%);
+        > li {
+          border-top: 1px @borderColorSubmenu solid;
+          background-color: @colorHeaderBackground;
+          background-color: fadeout(@colorHeaderBackground, 5%);
+          text-transform: uppercase;
+
+          a.is-active {
+            font-weight: 700;
+            text-shadow: 0 2px 0 fade(@black, 50%);
+          }
+
+          li {
+            background-color: transparent;
+          }
         }
 
-        li {
-          background-color: transparent;
+        > li + li {
         }
-      }
-
-      > li + li {
       }
     }
 
