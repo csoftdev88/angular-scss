@@ -45,11 +45,13 @@
         <form name="stepTwoForm" ng-submit="stepTwoForm.$valid">
           <label for="login-name">
             Name
-            <input type="text" id="login-name" ng-model="formData.firstName">
+            <input type="text" id="login-name" ng-model="formData.firstName" name="firstName" required>
+            <span ng-show="stepTwoForm.submitted && stepTwoForm.firstName.$error.required">Name is required</span>
           </label>
           <label for="login-surname">
             Surname
-            <input type="text" id="login-surname" ng-model="formData.lastName">
+            <input type="text" id="login-surname" ng-model="formData.lastName" name="lastName" required>
+            <span ng-show="stepTwoForm.submitted && stepTwoForm.lastName.$error.required">Surname is required</span>
           </label>
           <label for="terms">
             I agree to the </label><a href="/404" target="_blank">Terms and conditions</a>
