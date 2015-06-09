@@ -1,0 +1,105 @@
+<!-- NAVIGATION -->
+<reservation-steps>
+  <ol>
+    <li class="is-active"><a ui-sref="reservation.details">Guest Details</a></li>
+    <li><a ui-sref="reservation.billing">Billing Information</a></li>
+    <li><a ui-sref="reservation.confirmation">_confirmation_</a></li>
+  </ol>
+</reservation-steps>
+
+<!-- RESERVATION DETAILS -->
+<div widget="reservation" grid="7">
+  <reservation-room-resume ng-if="selectedProduct && roomDetails">
+    <h3>Your Room Selection</h3>
+    <div class="room-data">
+      <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
+      <h4>{{roomDetails.name}}</h4>
+      <p class="desc">{{selectedProduct.name}}</p>
+      <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per night</em></p>
+    </div>
+    <div class="reservation-data">
+      <table class="data">
+        <tbody>
+          <tr>
+            <th>Check in:</th>
+            <td>{{bookingDetails.from | dateTime}}</td>
+          </tr>
+          <tr>
+            <th>Check out:</th>
+            <td>{{bookingDetails.to | dateTime}}</td>
+          </tr>
+          <tr>
+            <th>Adults:</th>
+            <td>{{bookingDetails.adults || 0}}</td>
+          </tr>
+          <tr>
+            <th>Children:</th>
+            <td>{{bookingDetails.children || 0}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="charges">
+        <tbody>
+          <tr>
+            <th>Room Charges:</th>
+            <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
+          </tr>
+
+          <tr>
+            <th>Tax:</th>
+            <td>{{selectedProduct.price.totalTax || 0 | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+
+          <!-- Additional taxes -->
+          <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
+            <th>Additional Taxes:</th>
+            <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+
+          <!-- Additional fees -->
+          <tr ng-if="selectedProduct.price.totalAdditionalFees">
+            <th>Additional Fees:</th>
+            <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+
+           <!-- Additional fees -->
+          <tr ng-if="selectedProduct.price.totalDiscount">
+            <th>Discount:</th>
+            <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+
+          <tr>
+            <th>Total:</th>
+            <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="more-details">
+      <a href ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
+      <a href ng-click="openPoliciesInfo()">View Policies</a>
+    </p>
+  </reservation-room-resume>
+
+  <hr/>
+
+  <registration-call>
+    <h4>Already Registered?</h4>
+    <p>Click here to <a href="/login">log in</a> or <a href="/register">register</a>.</p>
+  </registration-call>
+
+  <hr/>
+
+  <!-- SUBVIEWS -->
+  <!--
+  <ui-view>
+  </ui-view>
+  -->
+
+  <!-- BUTTONS -->
+  <reservation-buttons>
+    <a href ng-click="goBack()" class="button button-gray back">_back_</a>
+    <a ui-sref="reservation.billing" class="button next" ng-click="goToBilling()">_continue_</a>
+  </reservation-buttons>
+</div>

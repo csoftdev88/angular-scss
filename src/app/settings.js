@@ -40,6 +40,9 @@ angular.module('mobiusApp.config', [])
     'loyalties': {
       'all': 'customers/:customerId/loyalty'
     },
+    'reservations': {
+      'new': 'reservations'
+    },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',

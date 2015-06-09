@@ -147,6 +147,7 @@ angular
         controller: 'ReservationsCtrl'
       })
 
+      /*
       .state('reservation.details', {
         parent: 'reservation',
         templateUrl: 'layouts/reservation/reservationDetails.html',
@@ -164,6 +165,7 @@ angular
         templateUrl: 'layouts/reservation/reservationConfirmation.html',
         url: '/confirmation'
       })
+      */
 
        // Offers page
       .state('offers', {
@@ -205,4 +207,3 @@ angular
   .run(function(user) {
     user.loadProfile();
   });
-

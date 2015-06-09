@@ -94,8 +94,16 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
-      scope.openPoliciesInfo = modalService.openPoliciesInfo;
-      scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
+      scope.onContinue = function(){
+        if(!scope.selectedProduct){
+          return;
+        }
+
+        $state.go('reservation', {
+          roomID: roomCode,
+          productCode: scope.selectedProduct.code
+        });
+      };
     }
   };
 });
