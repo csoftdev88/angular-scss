@@ -1,9 +1,9 @@
 <!-- NAVIGATION -->
 <reservation-steps>
   <ol>
-    <li><a href>Guest Details</a></li>
-    <li><a href>Billing Information</a></li>
-    <li><a href>_confirmation_</a></li>
+    <li ng-class="{'is-active': state.current.name === 'reservation' || state.current.name === 'reservation.details'}"><a>Guest Details</a></li>
+    <li ng-class="{'is-active': state.current.name === 'reservation.billing'}"><a>Billing Information</a></li>
+    <li ng-class="{'is-active': state.current.name === 'reservation.confirmation'}"><a>_confirmation_</a></li>
   </ol>
 </reservation-steps>
 
@@ -84,9 +84,9 @@
 
   <hr/>
 
-  <registration-call>
+  <registration-call ng-if="!isUserLoggedIn()">
     <h4>Already Registered?</h4>
-    <p>Click here to <a href="/login">log in</a> or <a href="/register">register</a>.</p>
+    <p>Click here to <a href ng-click="openLoginDialog()">log in</a> or <a href ng-click="openRegisterDialog()">register</a>.</p>
   </registration-call>
 
   <hr/>

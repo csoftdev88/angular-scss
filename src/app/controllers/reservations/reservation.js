@@ -6,31 +6,23 @@ angular.module('mobius.controllers.reservation', [])
 
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService,
-  reservationService, preloaderFactory){
+  reservationService, preloaderFactory, modalService, user){
 
   // Redirecting to details page
   if($state.current.name === 'reservation'){
     $state.go('reservation.details');
   }
 
-  $scope.userDetails = {
-    title: 'Mr',
-    firstName: '',
-    lastName: '',
-    address: '',
-    city: '',
-    stateProvince: '',
-    country: '',
-    zip: '',
-    phone: ''
-  };
+  $scope.state = $state;
+
+  $scope.userDetails = {};
 
   $scope.billingDetails = {
     card: {
       number: '',
-      expires: '',
-      cvv: '',
-      ownersName: ''
+      expirationDate: '',
+      securityCode: '',
+      holderName: ''
     },
     useGuestAddress: true
   };
@@ -70,7 +62,6 @@ angular.module('mobius.controllers.reservation', [])
     $scope.selectProduct(product);
   }
 
-
   $scope.goBack = function(){
     switch($state.current.name){
 
@@ -93,19 +84,62 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.makeReservation = function(){
-    console.log('API CALL');
     var reservationData = {
       arrivalDate: $scope.bookingDetails.from,
       departureDate: $scope.bookingDetails.to,
       hasReadRatePolicies: $scope.hasReadRatePolicies || false,
-      rooms: getRooms()
+      rooms: getRooms(),
+      customer: user.getUser().id,
+      paymentInfo: {
+        paymentMethod: 'CC', // credit card,
+        ccPayment: {
+          holderName: $scope.billingDetails.card.holderName,
+          number: $scope.billingDetails.card.number,
+          expirationDate: $scope.billingDetails.card.expirationDate,
+          securityCode: $scope.billingDetails.card.securityCode,
+          typeCode: 'VI'
+        }
+      },
+
+      guestFirstName: $scope.userDetails.firstName,
+      guestLastName: $scope.userDetails.lastName
     };
 
     if($scope.bookingDetails.promoCode){
       reservationData.promoCode = $scope.bookingDetails.promoCode;
     }
 
-    reservationService.createReservation();
+    reservationData = {
+      arrivalDate: '2015-07-07',
+      departureDate: '2015-07-08',
+      hasReadRatePolicies: true,
+      customer: '6', // TODO: customerID
+      paymentInfo: {
+        paymentMethod: 'cc', // credit card,
+        ccPayment: {
+          holderName: 'Test User',
+          number: '378282246310005',
+          expirationDate: '2015-07-07',
+          securityCode: 123,
+          typeCode: 'VI'
+        }
+      },
+      rooms: [{roomId: 'TWNN', adults: 1, children: 5}]
+    };
+
+    var reservationPromise = reservationService.createReservation(reservationData)
+      .then(function(data){
+        $scope.confirmation = {
+          reservationCode: data.reservationCode,
+          email: user.getUser().email
+        };
+        $state.go('reservation.confirmation');
+
+      }, function(){
+
+    });
+
+    preloaderFactory(reservationPromise);
   };
 
   // List of rooms for booking
@@ -114,9 +148,9 @@ angular.module('mobius.controllers.reservation', [])
     // NOTE: Currently we dont support advanced options
     // Booking only 1 room
     rooms.push({
-      roomID: $stateParams.roomID,
-      adults: $scope.bookingDetails.adults || 0,
-      children: $scope.bookingDetails.children || 0
+      roomId: $stateParams.roomID,
+      adults: parseInt($scope.bookingDetails.adults, 10) || 0,
+      children: parseInt($scope.bookingDetails.children, 10) || 0
     });
 
     return rooms;
@@ -127,6 +161,30 @@ angular.module('mobius.controllers.reservation', [])
     $scope.openPoliciesInfo();
   };
 
+  $scope.prefillUserData = function(){
+    if(!Object.keys($scope.userDetails).length){
+      var userData = user.getUser();
+
+      // No fields are touched yet, prefiling
+      $window._.extend($scope.userDetails, {
+        title: userData.title || '',
+        firstName: userData.firstName || '',
+        lastName: userData.lastName,
+        address: userData.address1 || '',
+        city: userData.city || '',
+        stateProvince: '',
+        country: '',
+        zip: userData.zip,
+        phone: userData.tel1 || ''
+      });
+    }
+  };
+
   // This data is used in view
   $scope.bookingDetails = bookingService.getAPIParams();
+  $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
+
+  // If not logged in user
+  $scope.openLoginDialog = modalService.openLoginDialog;
+  $scope.openRegisterDialog = modalService.openRegisterDialog;
 });

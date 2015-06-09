@@ -28,6 +28,7 @@ describe('mobius.controllers.reservation', function() {
         });
         $provide.value('reservationService', {});
         $provide.value('filtersService', {});
+        $provide.value('user', {});
       });
     });
 

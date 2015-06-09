@@ -9,18 +9,18 @@
     <div class="input-left">
       <label for="form-expires" class="input-left">
         Expires
-        <input type="date" id="form-expires" ng-model="billingDetails.card.expires" required/>
+        <input type="date" id="form-expires" ng-model="billingDetails.card.expirationDate" required/>
       </label>
 
       <label for="form-cvv" class="input-right">
         CVV <span class="help" ng-click="openCCVInfo()"/>
-        <input type="number" id="form-cvv" ng-model="billingDetails.card.cvv" required/>
+        <input type="number" id="form-cvv" ng-model="billingDetails.card.securityCode" required/>
       </label>
     </div>
 
     <label for="form-name-on-card" class="input-right">
       Name on Card
-      <input type="text" id="form-name-on-card" ng-model="billingDetails.card.ownersName" required/>
+      <input type="text" id="form-name-on-card" ng-model="billingDetails.card.holderName" required/>
     </label>
 
     <label for="form-guest-address" class="is-oneline">
@@ -58,12 +58,13 @@
         Primary Telephone
         <input type="text" name="telephone" ng-model="billingDetails.phone" required/>
       </label>
-
     </div>
 
     <label class="form-errors centered" ng-if="billingForm.$invalid">
       Please fill out all the fields indicated
     </label>
+
+    <hr/>
 
     <reservation-buttons>
       <a href ng-click="goBack()" class="button button-gray back">_back_</a>
