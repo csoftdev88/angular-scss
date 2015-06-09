@@ -3,13 +3,13 @@
   <form name="billingForm" novalidate ng-submit="makeReservation()">
     <label for="form-card-number">
       Card number
-      <input type="text" id="form-card-number" luhn-check ng-model="billingDetails.card.number" required/>
+      <input type="text" id="form-card-number" name="cardNumber" luhn-check ng-model="billingDetails.card.number" required/>
     </label>
 
     <div class="input-left">
       <label for="form-expires" class="input-left">
         Expires
-        <input type="date" id="form-expires" ng-model="billingDetails.card.expirationDate" required/>
+        <input type="date" id="form-expires" ng-min="expirationMinDate" ng-model="billingDetails.card.expirationDate" required/>
       </label>
 
       <label for="form-cvv" class="input-right">
@@ -68,8 +68,7 @@
 
     <reservation-buttons>
       <a href ng-click="goBack()" class="button button-gray back">_back_</a>
-      <button type="submit"  class="button next">_continue_</a>
-        <!-- ng-disabled="billingForm.$invalid" -->
+      <button type="submit" ng-disabled="billingForm.$invalid" class="button next">_continue_</a>
     </reservation-buttons>
   </form>
 </reservation-billing>

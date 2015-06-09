@@ -56,12 +56,9 @@
         Please fill out all the fields indicated
       </label>
 
-      <hr/>
-
       <reservation-buttons>
         <a href ng-click="goBack()" class="button button-gray back">_back_</a>
-        <button type="submit" class="button next">_continue_</a>
-          <!-- ng-disabled="detailsForm.$invalid"  -->
+        <button type="submit" ng-disabled="detailsForm.$invalid" class="button next">_continue_</a>
       </reservation-buttons>
     </form>
   </div>

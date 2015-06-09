@@ -84,6 +84,10 @@
 
   <hr/>
 
+  <span class="alert-warning" ng-if="invalidFormData">
+    We are sorry, your payment was not authorized. Please check your details and try again.
+  </span>
+
   <registration-call ng-if="!isUserLoggedIn()">
     <h4>Already Registered?</h4>
     <p>Click here to <a href ng-click="openLoginDialog()">log in</a> or <a href ng-click="openRegisterDialog()">register</a>.</p>

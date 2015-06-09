@@ -8,13 +8,14 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService,
   reservationService, preloaderFactory, modalService, user){
 
+  $scope.expirationMinDate = $window.moment().format('YYYY-MM-DD');
+
   // Redirecting to details page
   if($state.current.name === 'reservation'){
     $state.go('reservation.details');
   }
 
   $scope.state = $state;
-
   $scope.userDetails = {};
 
   $scope.billingDetails = {
@@ -84,6 +85,8 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.makeReservation = function(){
+    $scope.invalidFormData = false;
+
     var reservationData = {
       arrivalDate: $scope.bookingDetails.from,
       departureDate: $scope.bookingDetails.to,
@@ -91,7 +94,7 @@ angular.module('mobius.controllers.reservation', [])
       rooms: getRooms(),
       customer: user.getUser().id,
       paymentInfo: {
-        paymentMethod: 'CC', // credit card,
+        paymentMethod: 'cc', // credit card,
         ccPayment: {
           holderName: $scope.billingDetails.card.holderName,
           number: $scope.billingDetails.card.number,
@@ -109,24 +112,6 @@ angular.module('mobius.controllers.reservation', [])
       reservationData.promoCode = $scope.bookingDetails.promoCode;
     }
 
-    reservationData = {
-      arrivalDate: '2015-07-07',
-      departureDate: '2015-07-08',
-      hasReadRatePolicies: true,
-      customer: '6', // TODO: customerID
-      paymentInfo: {
-        paymentMethod: 'cc', // credit card,
-        ccPayment: {
-          holderName: 'Test User',
-          number: '378282246310005',
-          expirationDate: '2015-07-07',
-          securityCode: 123,
-          typeCode: 'VI'
-        }
-      },
-      rooms: [{roomId: 'TWNN', adults: 1, children: 5}]
-    };
-
     var reservationPromise = reservationService.createReservation(reservationData)
       .then(function(data){
         $scope.confirmation = {
@@ -136,7 +121,8 @@ angular.module('mobius.controllers.reservation', [])
         $state.go('reservation.confirmation');
 
       }, function(){
-
+      $scope.invalidFormData = true;
+      $state.go('reservation.details');
     });
 
     preloaderFactory(reservationPromise);
