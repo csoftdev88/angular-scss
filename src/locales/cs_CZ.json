@@ -1,0 +1,24 @@
+{
+  "locale": "cs_CZ",
+  "language": "Czech",
+  "description": "Ceska verze",
+  "data": {
+    "base_href": "/cs-cz/",
+    "language": "czech",
+    "language_code": "cs-cz",
+    "home": "Domů",
+    "page_title": "Mobius Hotely",
+    "hotels": "Hotely",
+    "offers_deals": "Nabídky a Slevy",
+    "about_us": "O Nás",
+    "news": "Novinky",
+    "contact": "Kontakty",
+    "login_register": "Přihlásit / registrovat",
+    "continue": "Pokračovat",
+    "view_more": "Více",
+    "confirmation": "Potvrdit",
+    "back": "Zpět",
+    "no_room_found": "Nebyl nalezen žádný pokoj",
+    "no_hotels_found": "Nebyl nalezen žádný hotel"
+  }
+}

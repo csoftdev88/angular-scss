@@ -53,3 +53,8 @@ referenced from within it.
 - `layout` - settings for dynamic page layout based on application states. Every displayed page in the application has a corresponding application state. States are short definitions which are specified in app.js file and associate view, controllers and path in the URL. By changing this configuration we can affect the view and component placement without making changes in application templates (layouts). dynamicLayoutDirective will build a final page layout on the fly according to the specified configuration. Content in this section is tightly connected with templates definitions, See below.
 
 - `templates` - map of component names and their templates.
+
+## Controllers
+
+### SanitizeCtrl
+`SanitizeCtrl` provides HTML sanitization for the data recieved from the API. [See more](controllers/common/sanitize/README.md)

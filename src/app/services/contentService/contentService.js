@@ -4,7 +4,6 @@
 */
 angular.module('mobiusApp.services.content', [])
 .service( 'contentService',  function(apiService) {
-
   function getNews(){
     return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
   }
@@ -18,10 +17,10 @@ angular.module('mobiusApp.services.content', [])
   }
 
   function getHighlightedItems(){
-    return apiService.get(apiService.getFullURL('contents'), {scope: 'homepage', filter: 'news'});
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
   }
 
-    // Generics
+  // Generics
   function getCurrencies(){
     return apiService.get(apiService.getFullURL('generics.currencies'));
   }
@@ -38,6 +37,6 @@ angular.module('mobiusApp.services.content', [])
     getHighlightedItems: getHighlightedItems,
     // Generics
     getCurrencies: getCurrencies,
-    getLanguages: getLanguages
+    getLanguages: getLanguages,
   };
 });

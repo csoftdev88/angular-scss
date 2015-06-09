@@ -102,10 +102,32 @@
           border-radius: 0px 3px 3px 0px;
         }
 
+        &.ui-datepicker-unselectable {
+          color: #ccc;
+        }
+
         &.date-range-selected {
           background-color: @colorDatepickerRange;
           a {
             color: @white;
+          }
+        }
+
+        &.date-not-available {
+          background-color: #cc0001;
+          border-radius: 0px;
+          a {
+            color: @white;
+          }
+
+          &.date-range-start,
+          &.date-current-day,
+          &.date-range-end {
+            background-color: #E75F5F;
+          }
+
+          &.date-range-selected {
+            background-color: #EA5A5A;
           }
         }
 
@@ -124,6 +146,18 @@
   .ui-datepicker-buttonpane {
     .ui-datepicker-current {
       display: none;
+    }
+  }
+}
+
+@media only screen and @lessThenTablet {
+  .ui-datepicker {
+    table.ui-datepicker-calendar {
+
+      thead th span,
+      tbody td {
+        padding: 2px 4px;
+      }
     }
   }
 }

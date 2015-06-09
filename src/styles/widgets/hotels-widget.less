@@ -112,7 +112,8 @@
 [widget="hotel-detail"] {
   .entries--list{
     .item {
-      height: 5 * @baseline;
+      margin-bottom: @baseline*3;
+
       > div {
         margin-left: 170px;
       }
@@ -156,8 +157,11 @@
     display: none;
   }
 
+  .unavailable {
+    color: #898989;
+  }
+
   .price {
-    // float: right;
     .open-sans-light;
     .fs-14(true);
     font-style: italic;
@@ -195,6 +199,12 @@
 // Specific for view as tiles
 .entries--tiles {
   .item {
+    .clearfix;
+
+    > div {
+      .clearfix;
+    }
+
     .margin-bottom(16, 2);
   }
 }
@@ -404,7 +414,6 @@
 
 // DESKTOP SPECIFIC STYLES
 @media only screen and @moreThenTablet {
-
   .entries--tiles {
     .item {
       .grid-element(3);
@@ -415,6 +424,14 @@
       display: block;
       width: 210px;
       height: 147px;
+    }
+  }
+}
+
+@media only screen and @moreThenMobile {
+  .entries--tiles {
+    .item:nth-child(3n + 1){
+      clear: left;
     }
   }
 }

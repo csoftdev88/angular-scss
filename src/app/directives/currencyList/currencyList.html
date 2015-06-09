@@ -2,6 +2,7 @@
   <a href title="Currency">
     <span>{{getCurrencySymbol($root.currency.code)}}</span>
   </a>
+
   <ul class="dropdown-menu submenu" ng-show="currencies.length">
       <li ng-repeat="currency in currencies">
           <a class="currency" href title="{{currency.name}}" ng-click="changeCurrency(currency)">

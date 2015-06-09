@@ -2,26 +2,30 @@
 
 angular.module('mobiusApp.filters.currency', [])
 
-  .filter('i18nCurrency', ['$filter', '$rootScope', function($filter, $rootScope) {
-    function filter(number, currency, fractions) {
-      if (!Number.isFinite(number)) {
+  .filter('i18nCurrency', ['_', '$filter', 'Settings', 'templateFactory', function(_, $filter, Settings, templateFactory) {
+    function filter(number, currencyCode, fractions) {
+      if (!_.isFinite(number)) {
         return number;
       }
 
-      if (!currency) {
-        currency = $rootScope.currency.symbol;
-      }
-      if(typeof fractions === 'undefined') {
-        fractions = 2;
-      }
+      if (currencyCode && Settings.UI.currencies[currencyCode]) {
+        var currency = Settings.UI.currencies[currencyCode];
 
-      var numberString = $filter('i18nNumber')(number, fractions);
-      if (numberString.length > 0) {
-        return currency + numberString;
-      } else {
-        return '';
+        if (typeof fractions === 'undefined') {
+          fractions = 2;
+        }
+
+        var numberString = $filter('i18nNumber')(number, fractions);
+        if (numberString.length > 0) {
+          return templateFactory(currency.format, {
+            symbol: currency.symbol,
+            amount: numberString
+          });
+        }
       }
+      return '';
     }
 
     return filter;
-  }]);
+  }])
+;

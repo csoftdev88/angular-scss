@@ -6,27 +6,36 @@ angular
     // Bootstrap components
     'ui.bootstrap',
     'ngTouch',
+    'ngMap',
+    'ngSanitize',
     // Template cache
     'templates-main',
 
     // 3rd party components
     'localytics.directives',
     'underscore',
-    'pascalprecht.translate',
+    'validation.match',
 
     // Controllers
+    'mobius.controllers.common.sanitize',
+    'mobius.controllers.common.preloader',
+
     'mobius.controllers.main',
     'mobius.controllers.offers',
     'mobius.controllers.reservations',
     'mobius.controllers.modals.generic',
+    'mobius.controllers.modals.data',
     'mobius.controllers.modals.login',
     'mobius.controllers.modals.register',
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
+    'mobius.controllers.modals.policy',
+
+    'mobius.controllers.hotel.details',
+    'mobius.controllers.room.details',
 
     // Application modules
     'mobiusApp.config',
-    'mobius.i18n',
     'mobiusApp.userobject',
     // Services
     'mobiusApp.services.state',
@@ -37,6 +46,12 @@ angular
     'mobiusApp.services.query',
     'mobiusApp.services.validation',
     'mobiusApp.services.user',
+    'mobiusApp.services.booking',
+    'mobiusApp.services.filters',
+
+    // Factories
+    'mobiusApp.factories.template',
+    'mobiusApp.factories.preloader',
 
     // Custom components
     'mobiusApp.directives.layout',
@@ -64,11 +79,10 @@ angular
     // Filters
     'mobiusApp.filters.list',
     'mobiusApp.filters.number',
-    'mobiusApp.filters.currency',
-    'validation.match'
+    'mobiusApp.filters.currency'
   ])
 
-  .config(function($stateProvider, $locationProvider, $urlRouterProvider, Settings) {
+  .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     // Using this settings allows to run current
     // SPA without # in the URL
     $locationProvider.html5Mode(true);
@@ -79,15 +93,9 @@ angular
         abstract: true,
         templateUrl: 'layouts/index.html',
         controller: 'MainCtrl',
-        url: '/:language?currency',
-        resolve: {
-          language: function($stateParams) {
-            return $stateParams.language;
-          },
-          currency: function($stateParams) {
-            return $stateParams.currency;
-          }
-        }
+        // NOTE: These params are used by booking widget
+        // Can be placed into induvidual state later if needed
+        url: '?property&children&adults&dates&rate&rooms'
       })
 
       // Home page
@@ -107,13 +115,15 @@ angular
       .state('hotel', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
-        url: '/hotels/:hotelID'
+        controller: 'HotelDetailsCtrl',
+        url: '/hotels/:propertyCode'
       })
 
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
-        url: '/hotels/:hotelID/rooms/:roomID'
+        controller: 'RoomDetailsCtrl',
+        url: '/hotels/:propertyCode/rooms/:roomID'
       })
 
       // Room reservation
@@ -154,12 +164,11 @@ angular
         parent: 'root',
         templateUrl: 'layouts/contacts/contacts.html',
         url: '/contacts'
-      })
-    ;
+      });
 
-    // route to root if no valid route found
-    var languages = Object.keys(Settings.UI.languages);
-    $urlRouterProvider.otherwise('/' + languages[0] + '/');
+    $urlRouterProvider.otherwise(function($injector) {
+      var $window = $injector.get('$window');
+      $window.location.href = '/404';
+    });
   })
-
 ;

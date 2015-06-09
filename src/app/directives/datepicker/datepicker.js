@@ -11,6 +11,9 @@ angular.module('mobiusApp.directives.datepicker', [])
   return {
     restrict: 'A',
     require: 'ngModel',
+    scope: {
+      highlights: '='
+    },
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
       var DATES_SEPARATOR = ' ';
@@ -60,12 +63,13 @@ angular.module('mobiusApp.directives.datepicker', [])
           maxDate: maxDate,
           numberOfMonths: 1,
           showOtherMonths: true,
-          //showAnim: 'slideDown',
+          selectOtherMonths: true,
+          minDate: 0,
 
           beforeShowDay: function ( date ) {
             return [
               true,
-              getDayClassName( date )
+              getDateClass( date )
             ];
           },
 
@@ -102,10 +106,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             }
 
             if(isNaN(startDate) && isNaN(endDate)){
-              date = {
-                startDate: '',
-                endDate: ''
-              };
+              date = null;
             } else if(rangeSelection) {
               date = {
                 startDate: $.datepicker.formatDate( DATE_FORMAT, new Date(Math.min(startDate,endDate)), {}),
@@ -115,7 +116,12 @@ angular.module('mobiusApp.directives.datepicker', [])
 
             // Update model
             scope.$apply(function() {
-              ngModelCtrl.$setViewValue(date.startDate + DATES_SEPARATOR + date.endDate);
+              if(date){
+                ngModelCtrl.$setViewValue(date.startDate + DATES_SEPARATOR + date.endDate);
+              }else{
+                ngModelCtrl.$setViewValue('');
+              }
+
               ngModelCtrl.$render();
             });
 
@@ -150,18 +156,33 @@ angular.module('mobiusApp.directives.datepicker', [])
         return true;
       }
 
-      function getDayClassName( date ) {
+      function getDateClass( date ) {
         var dateTime = date.getTime();
 
+        // Classes to be appended to an element which represents the date
+        var highlightClasses = '';
+
+        if(scope.highlights){
+          // Formating the date so we can find it in highlights object
+          var formatedDate = $.datepicker.formatDate(DATE_FORMAT, date);
+          if(scope.highlights[formatedDate]){
+            highlightClasses = ' ' + scope.highlights[formatedDate];
+          }
+        }
+
         if(dateTime === startDate) {
-          return CLASS_RANGE_START;
+          return CLASS_RANGE_START + highlightClasses;
         }else if(dateTime === endDate) {
-          return CLASS_RANGE_END;
+          return CLASS_RANGE_END + highlightClasses;
         }
 
         return ((dateTime > Math.min(startDate, endDate) &&
-           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED: '');
+           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED + highlightClasses: highlightClasses);
       }
+
+      scope.$watch('highlights', function(){
+        element.datepicker( 'refresh' );
+      });
     }
   };
 });

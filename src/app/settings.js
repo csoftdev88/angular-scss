@@ -4,15 +4,24 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
-    'baseURL': 'http://52.6.221.79:3010/api/2.7.1/',
+    'baseURL': '/api/',
     'contents' : 'contents',
     'generics': {
       'currencies': 'generics/currencies',
       'languages': 'generics/languages'
     },
-
+    'filters': {
+      'products': 'filters/products',
+      'rooms': 'filters/rooms'
+    },
     'properties': {
-      'all': 'properties'
+      'all': 'properties',
+      'details': 'properties/:propertyCode/',
+      'availability': 'properties/:propertyCode/availabilities',
+      'room': {
+        'details': 'properties/:propertyCode/rooms/:roomTypeCode',
+        'productDetails': 'properties/:propertyCode/rooms/:roomTypeCode/products'
+      }
     },
     'customers': {
       'login': 'customers/actions/login',
@@ -20,11 +29,14 @@ angular.module('mobiusApp.config', [])
     },
 
     'headers': {
-      'Authorization': 'Basic ZGllZ286ZGllZ28=',
+      // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
       'Mobius-channelId': '6'
     }
   },
+
+  'currencyParamName': 'currency',
+  'bestAvailableRateCode': 'Best Available Rate',
 
   'UI': {
     'heroSlider': {
@@ -70,28 +82,27 @@ angular.module('mobiusApp.config', [])
       'default': 'GBP',
 
       'GBP': {
-        'code': 'GBP',
-        'symbol': '£'
+        'symbol': '£',
+        'format': '{{symbol}} {{amount}}'
       },
 
       'USD': {
-        'code': 'USD',
-        'symbol': '$'
+        'symbol': '$',
+        'format': '{{symbol}}{{amount}}'
       },
 
       'EUR': {
-        'code': 'EUR',
-        'symbol': '€'
+        'symbol': '€',
+        'format': '{{amount}}{{symbol}}'
       },
 
       'CAD': {
-        'code': 'CAD',
-        'symbol': '$'
+        'symbol': '$',
+        'format': '{{symbol}}{{amount}}'
       }
     },
 
     'languages': {
-      // first one is default language
       'en-us': {
         'shortName': 'EN',
         'name': 'English (US)',
@@ -120,8 +131,31 @@ angular.module('mobiusApp.config', [])
 
     // Settings related to booking process
     'bookingWidget': {
-      'maxAdults': 6,
-      'maxChildren': 8
+      'includeAllPropertyOption': true,
+      'adults': {
+        'min': 1,
+        'max': 6
+      },
+      'children': {
+        'min': 0,
+        'max': 8
+      },
+      'advanced': {
+        'maxRooms': 4
+      },
+      'availability': {
+        // Date range modification rules
+        'from': {
+          // Extra day/month added to a date
+          'value': -1,
+          'type': 'month'
+        },
+        'to': {
+          // Extra day/month added to a date
+          'value': 1,
+          'type': 'month'
+        }
+      }
     },
 
     // States layout
@@ -153,6 +187,17 @@ angular.module('mobiusApp.config', [])
       'mobile': {
         'maxWidth': 768
       }
+    },
+
+    // Policy codes from the API and their title translates
+    'policies': {
+      'cancellation': 'Cancellation',
+      'checkInOut': 'Check-In-Out',
+      'extraGuest': 'Extra Guest',
+      'family': 'Family',
+      'guarantee': 'Guarantee',
+      'noShow': 'No Show',
+      'pet': 'Pet'
     }
   }
 });

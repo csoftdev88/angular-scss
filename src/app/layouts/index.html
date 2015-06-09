@@ -1,6 +1,8 @@
 <header id="main-header" ng-include="'layouts/header.html'">
 </header>
 
+<div class="preloader" ng-show="preloader.visible">loading</div>
+
 <!-- HERO SLIDER AREA -->
 <hero-slider content="heroContent">
 </hero-slider>
@@ -18,7 +20,59 @@
   </div>
 </main>
 
+<<<<<<< HEAD
 <div ng-include="'layouts/siteMap.html'" class="site-map"></div>
 
 <footer id="main-footer" ng-include="'layouts/footer.html'">
+=======
+<footer id="main-footer">
+  <div class="wrapper">
+    <div class="main-footer__block--left">
+      <p>&copy; 2014 Mobius Hotels. All Rights Reserved.</p>
+    </div>
+    <div class="main-footer__block--right">
+      <nav>
+        <ul class="footer-nav">
+            <li>
+                <a ui-sref="home">_home_</a>
+            </li>
+
+            <li ng-hide="config.menu.singleProperty">
+                <a ui-sref="hotels">_hotels_</a>
+            </li>
+
+            <li ng-show="config.menu.showAbout">
+                <a href="/404">_about_us_</a>
+            </li>
+
+            <li ng-show="config.menu.showContact">
+                <a ui-sref="contacts">_contact_</a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="main-footer__block--center">
+      <nav>
+        <!-- SOCIAL LINKS -->
+        <ul class="social-links">
+          <li>
+              <a class="icon-twitter" href="//twitter.com"><span>Twitter</span></a>
+          </li>
+          <li>
+              <a class="icon-facebook-1" href="//facebook.com"><span>Facebook</span></a>
+          </li>
+          <li>
+            <a class="icon-youtube-1" href="//youtube.com"><span>YouTube</span></a>
+          </li>
+          <li>
+            <a class="icon-flickr" href="//flickr.com"><span>Flickr</span></a>
+          </li>
+          <li>
+            <a class="icon-pinterest" href="//pinterest.com"><span>Pinterest</span></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+>>>>>>> develop-v2
 </footer>

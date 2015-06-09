@@ -2,7 +2,7 @@
   <ol>
     <li><a ui-sref="reservation.details">Guest Details</a></li>
     <li><a ui-sref="reservation.billing">Billing Information</a></li>
-    <li class="is-active"><a ui-sref="reservation.confirmation">Confirmation</a></li>
+    <li class="is-active"><a ui-sref="reservation.confirmation">_confirmation_</a></li>
   </ol>
 </reservation-steps>
 
@@ -14,7 +14,7 @@
       <img src="/static/images/room-1.jpg" alt="">
       <h4>Deluxe Double Room</h4>
       <p class="desc">Bed and Breakfast</p>
-      <p class="price"><strong>{{89 | i18nCurrency}}</strong> <em>per night</em></p>
+      <p class="price"><strong>{{89 | i18nCurrency: currencyCode}}</strong> <em>per night</em></p>
     </div>
     <div class="reservation-data">
       <table class="data">

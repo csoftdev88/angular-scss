@@ -10,7 +10,6 @@ angular.module('mobiusApp.directives.reservation.data', [])
 
     // Widget logic goes here
     link: function(){
-
     }
 
   };
