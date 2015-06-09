@@ -116,6 +116,45 @@ reservation-steps {
   }
 }
 
+reservation-billing {
+  .card-type {
+    .transition;
+
+    i {
+      display: block;
+      opacity: 0;
+      .transition;
+
+    }
+
+    &.has-icon {
+      padding-right: 40px;
+      position: relative;
+
+      i {
+        opacity: 1;
+        width: 32px;
+        height: 30px;
+        position: absolute;
+        right: 0px;
+        bottom: 9px;
+
+        &.visa {
+          background: url('../images/card-icons/visa.png') no-repeat center center;
+        }
+
+        &.master {
+          background: url('../images/card-icons/mastercard.png') no-repeat center center;
+        }
+
+        &.amex {
+          background: url('../images/card-icons/amex.png') no-repeat center center;
+        }
+      }
+    }
+  }
+}
+
 reservation-room-resume {
   &:extend(.block);
 
