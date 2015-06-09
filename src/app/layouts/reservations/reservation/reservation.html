@@ -48,7 +48,7 @@
 
           <tr>
             <th>Tax:</th>
-            <td>{{selectedProduct.price.totalTax || 0 | i18nCurrency: $root.currencyCode}}</td>
+            <td>{{ selectedProduct.price.totalAfterTax - selectedProduct.price.totalBase | i18nCurrency: $root.currencyCode}}</td>
           </tr>
 
           <!-- Additional taxes -->
