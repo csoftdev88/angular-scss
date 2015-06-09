@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.reservation', [])
 
 .controller('ReservationCtrl', function($scope, $stateParams,
-  $controller, $window, $state, bookingService,
+  $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user){
 
   $scope.expirationMinDate = $window.moment().format('YYYY-MM-DD');
@@ -164,6 +164,19 @@ angular.module('mobius.controllers.reservation', [])
         phone: userData.tel1 || ''
       });
     }
+  };
+
+  $scope.getCreditCardType = function(number){
+    if(number){
+      for(var type in Settings.UI.booking.cardTypes){
+        var regexObj = Settings.UI.booking.cardTypes[type];
+        if(regexObj.test(number)){
+          return type;
+        }
+      }
+    }
+
+    return null;
   };
 
   // This data is used in view

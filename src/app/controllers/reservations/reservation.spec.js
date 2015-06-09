@@ -29,6 +29,15 @@ describe('mobius.controllers.reservation', function() {
         $provide.value('reservationService', {});
         $provide.value('filtersService', {});
         $provide.value('user', {});
+        $provide.value('Settings', {
+          UI: {
+            'booking': {
+              cardTypes: {
+                visa: /^4[0-9]{12}(?:[0-9]{3})?$/
+              }
+            }
+          }
+        });
       });
     });
 
@@ -59,6 +68,22 @@ describe('mobius.controllers.reservation', function() {
         _scope.readPolicies();
         expect(_spyOpenPoliciesInfo.calledOnce).equal(true);
         expect(_spyOpenPoliciesInfo.calledWith({test: 123})).equal(true);
+      });
+    });
+
+    describe('getCreditCardType', function() {
+      it('should return null when number is not defined', function() {
+        expect(_scope.getCreditCardType()).equal(null);
+        expect(_scope.getCreditCardType(undefined)).equal(null);
+        expect(_scope.getCreditCardType(null)).equal(null);
+      });
+
+      it('should return card type when found in the config', function() {
+        expect(_scope.getCreditCardType('4222222222222')).equal('visa');
+      });
+
+      it('should return null when credit card number doesnt match expressions in the config', function() {
+        expect(_scope.getCreditCardType('2222222222224')).equal(null);
       });
     });
   });

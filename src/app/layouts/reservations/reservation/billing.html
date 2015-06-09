@@ -14,7 +14,7 @@
 
       <label for="form-cvv" class="input-right">
         CVV <span class="help" ng-click="openCCVInfo()"/>
-        <input type="number" id="form-cvv" ng-model="billingDetails.card.securityCode" required/>
+        <input type="number" id="form-cvv" ng-min="100" ng-max="999" ng-model="billingDetails.card.securityCode" required/>
       </label>
     </div>
 
