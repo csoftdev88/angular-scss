@@ -78,7 +78,7 @@
     </div>
     <p class="more-details">
       <a href ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
-      <a href ng-click="openPoliciesInfo()">View Policies</a>
+      <a href ng-click="readPolicies()">View Policies</a>
     </p>
   </reservation-room-resume>
 
@@ -90,16 +90,7 @@
   </registration-call>
 
   <hr/>
-
   <!-- SUBVIEWS -->
-  <!--
   <ui-view>
   </ui-view>
-  -->
-
-  <!-- BUTTONS -->
-  <reservation-buttons>
-    <a href ng-click="goBack()" class="button button-gray back">_back_</a>
-    <a ui-sref="reservation.billing" class="button next" ng-click="goToBilling()">_continue_</a>
-  </reservation-buttons>
 </div>

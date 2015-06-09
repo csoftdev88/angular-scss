@@ -147,27 +147,21 @@ angular
         controller: 'ReservationsCtrl'
       })
 
-      /*
       .state('reservation.details', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationDetails.html',
-        url: '/details'
+        templateUrl: 'layouts/reservations/reservation/details.html',
       })
 
       .state('reservation.billing', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationBilling.html',
-        url: '/billing'
+        templateUrl: 'layouts/reservations/reservation/billing.html',
       })
 
       .state('reservation.confirmation', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationConfirmation.html',
-        url: '/confirmation'
+        templateUrl: 'layouts/reservations/reservation/confirmation.html',
       })
-      */
 
-       // Offers page
       .state('offers', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',

@@ -5,8 +5,14 @@
 angular.module('mobius.controllers.reservation', [])
 
 .controller('ReservationCtrl', function($scope, $stateParams,
-  $controller, $window, $state, bookingService, modalService,
+  $controller, $window, $state, bookingService,
   reservationService, preloaderFactory){
+
+  // Redirecting to details page
+  if($state.current.name === 'reservation'){
+    $state.go('reservation.details');
+  }
+
   $scope.userDetails = {
     title: 'Mr',
     firstName: '',
@@ -17,11 +23,6 @@ angular.module('mobius.controllers.reservation', [])
     country: '',
     zip: '',
     phone: ''
-  };
-
-  $scope.goToBilling = function() {
-    console.log($scope);
-    //debugger;
   };
 
   $scope.cardDetails = {
@@ -102,11 +103,58 @@ angular.module('mobius.controllers.reservation', [])
     $scope.selectProduct(product);
   }
 
+
   $scope.goBack = function(){
-    $state.go('room', {
-      propertyCode: $scope.bookingDetails.property,
-      roomID: $stateParams.roomID
+    switch($state.current.name){
+
+    case 'reservation':
+    case 'reservation.details':
+      $state.go('room', {
+        propertyCode: $scope.bookingDetails.property,
+        roomID: $stateParams.roomID
+      });
+      return;
+
+    case 'reservation.billing':
+      $state.go('reservation.details');
+      return;
+    }
+  };
+
+  $scope.navigateToBilling = function() {
+    $state.go('reservation.billing');
+  };
+
+  $scope.makeReservation = function(){
+    console.log('API CALL');
+    var reservationData = {
+      arrivalDate: $scope.bookingDetails.from,
+      departureDate: $scope.bookingDetails.to,
+      hasReadRatePolicies: $scope.hasReadRatePolicies || false,
+      rooms: getRooms()
+    };
+
+    if($scope.bookingDetails.promoCode){
+      reservationData.promoCode = $scope.bookingDetails.promoCode;
+    }
+  };
+
+  // List of rooms for booking
+  function getRooms(){
+    var rooms = [];
+    // NOTE: Currently we dont support advanced options
+    // Booking only 1 room
+    rooms.push({
+      roomID: $stateParams.roomID,
+      adults: $scope.bookingDetails.adults || 0,
+      children: $scope.bookingDetails.children || 0
     });
+    return rooms;
+  }
+
+  $scope.readPolicies = function(){
+    $scope.hasReadRatePolicies = true;
+    $scope.openPoliciesInfo();
   };
 
   // This data is used in view

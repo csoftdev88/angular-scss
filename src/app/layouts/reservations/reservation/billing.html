@@ -1,0 +1,35 @@
+<reservation-billing>
+  <h3>Card Details</h3>
+  <form name="billingForm" novalidate ng-submit="makeReservation()">
+    <label for="form-card-number">
+      Card number
+      <input type="text" id="form-card-number" ng-model="cardDetails.number" required/>
+    </label>
+
+    <div class="input-left">
+      <label for="form-expires" class="input-left">
+        Expires
+        <input type="date" id="form-expires" ng-model="cardDetails.expires" required/>
+      </label>
+
+      <label for="form-cvv" class="input-right">
+        CVV <span class="help" ng-click="openCCVInfo()"/>
+        <input type="number" id="form-cvv" ng-model="cardDetails.cvv" required/>
+      </label>
+    </div>
+    <label for="form-name-on-card" class="input-right">
+      Name on Card
+      <input type="text" id="form-name-on-card" ng-model="cardDetails.ownersName" required/>
+    </label>
+    <label for="form-guest-address" class="is-oneline">
+      <input type="checkbox" id="form-guest-address"/>
+      Use Guest Address
+    </label>
+
+    <reservation-buttons>
+      <a href ng-click="goBack()" class="button button-gray back">_back_</a>
+      <button type="submit"  class="button next">_continue_</a>
+        <!-- ng-disabled="billingForm.$invalid" -->
+    </reservation-buttons>
+  </form>
+</reservation-billing>

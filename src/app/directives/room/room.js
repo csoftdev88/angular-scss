@@ -99,7 +99,7 @@ angular.module('mobiusApp.directives.room', [])
           return;
         }
 
-        $state.go('reservation', {
+        $state.go('reservation.details', {
           roomID: roomCode,
           productCode: scope.selectedProduct.code
         });
