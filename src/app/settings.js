@@ -4,7 +4,7 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
-    'baseURL': '/api/',
+    'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
     'contents' : 'contents',
     'generics': {
       'currencies': 'generics/currencies',
