@@ -51,7 +51,9 @@
       <input type="text" name="telephone" ng-model="userDetails.phone" required/>
     </label>
 
-    <label class="form-errors" ng-if="detailsForm.$invalid">All fields are required</label>
+    <label class="form-errors centered" ng-if="detailsForm.$invalid">
+      Please fill out all the fields indicated
+    </label>
 
     <reservation-buttons>
       <a href ng-click="goBack()" class="button button-gray back">_back_</a>

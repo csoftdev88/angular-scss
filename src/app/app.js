@@ -34,6 +34,7 @@ angular
     'mobius.controllers.modals.loyalties.loyalty',
     'mobius.controllers.modals.loyalties.badges',
     'mobius.controllers.modals.gallery',
+    'mobius.controllers.room.details',
 
     'mobius.controllers.hotel.details',
 
@@ -76,6 +77,8 @@ angular
     'mobiusApp.directives.datepicker',
     'mobiusApp.directives.password',
     'mobiusApp.directives.chosenOptionsClass',
+    'mobiusApp.directives.luhnCheck',
+
     // Directive based on content data
     'mobiusApp.directives.menu',
     // Directives for generic data

@@ -25,47 +25,14 @@ angular.module('mobius.controllers.reservation', [])
     phone: ''
   };
 
-  $scope.cardDetails = {
-    number: '',
-    expires: '',
-    cvv: '',
-    ownersName: ''
-  };
-
-  $scope.onPayment = function() {
-    console.log($scope);
-    reservationService.createReservation();
-  };
-
-  /**
-   * Luhn check is an algorithm that checks if credit card number is valid
-   * http://en.wikipedia.org/wiki/Luhn_algorithm
-   */
-  $scope.luhnCheck = function(cardNumber) {
-    // accept only digits, dashes or spaces
-    if (/[^0-9-\s]+/.test(cardNumber)) {
-      return false;
-    }
-
-    // The Luhn Algorithm.
-    var nCheck = 0, nDigit = 0, bEven = false;
-    cardNumber = cardNumber.replace(/\D/g, '');
-
-    for (var n = cardNumber.length - 1; n >= 0; n--) {
-      var cDigit = cardNumber.charAt(n);
-      nDigit = parseInt(cDigit, 10);
-
-      if (bEven) {
-        if ((nDigit *= 2) > 9) {
-          nDigit -= 9;
-        }
-      }
-
-      nCheck += nDigit;
-      bEven = !bEven;
-    }
-
-    return (nCheck % 10) === 0;
+  $scope.billingDetails = {
+    card: {
+      number: '',
+      expires: '',
+      cvv: '',
+      ownersName: ''
+    },
+    useGuestAddress: true
   };
 
   // Inheriting the login from RoomDetails controller
@@ -137,6 +104,8 @@ angular.module('mobius.controllers.reservation', [])
     if($scope.bookingDetails.promoCode){
       reservationData.promoCode = $scope.bookingDetails.promoCode;
     }
+
+    reservationService.createReservation();
   };
 
   // List of rooms for booking
@@ -149,6 +118,7 @@ angular.module('mobius.controllers.reservation', [])
       adults: $scope.bookingDetails.adults || 0,
       children: $scope.bookingDetails.children || 0
     });
+
     return rooms;
   }
 

@@ -3,27 +3,66 @@
   <form name="billingForm" novalidate ng-submit="makeReservation()">
     <label for="form-card-number">
       Card number
-      <input type="text" id="form-card-number" ng-model="cardDetails.number" required/>
+      <input type="text" id="form-card-number" luhn-check ng-model="billingDetails.card.number" required/>
     </label>
 
     <div class="input-left">
       <label for="form-expires" class="input-left">
         Expires
-        <input type="date" id="form-expires" ng-model="cardDetails.expires" required/>
+        <input type="date" id="form-expires" ng-model="billingDetails.card.expires" required/>
       </label>
 
       <label for="form-cvv" class="input-right">
         CVV <span class="help" ng-click="openCCVInfo()"/>
-        <input type="number" id="form-cvv" ng-model="cardDetails.cvv" required/>
+        <input type="number" id="form-cvv" ng-model="billingDetails.card.cvv" required/>
       </label>
     </div>
+
     <label for="form-name-on-card" class="input-right">
       Name on Card
-      <input type="text" id="form-name-on-card" ng-model="cardDetails.ownersName" required/>
+      <input type="text" id="form-name-on-card" ng-model="billingDetails.card.ownersName" required/>
     </label>
+
     <label for="form-guest-address" class="is-oneline">
-      <input type="checkbox" id="form-guest-address"/>
+      <input type="checkbox" id="form-guest-address" ng-model="billingDetails.useGuestAddress"/>
       Use Guest Address
+    </label>
+
+    <div ng-if="!billingDetails.useGuestAddress">
+      <label for="address">
+        Address
+        <input type="text" name="address" ng-model="billingDetails.address" required/>
+      </label>
+
+      <label for="city" class="input-left">
+        City
+        <input type="text" name="city" ng-model="billingDetails.city" required/>
+      </label>
+
+      <label for="state" class="input-right">
+        State/Province
+        <input type="text" name="state" placeholder="State/Province" ng-model="billingDetails.stateProvince" required/>
+      </label>
+
+      <label for="country">
+        Country
+        <input type="text" name="country" ng-model="billingDetails.country" required/>
+      </label>
+
+      <label for="postal-code" class="input-left">
+        Zip/Postal Code
+        <input type="text" name="postal-code" ng-model="billingDetails.zip" required/>
+      </label>
+
+      <label for="telephone" class="input-right">
+        Primary Telephone
+        <input type="text" name="telephone" ng-model="billingDetails.phone" required/>
+      </label>
+
+    </div>
+
+    <label class="form-errors centered" ng-if="billingForm.$invalid">
+      Please fill out all the fields indicated
     </label>
 
     <reservation-buttons>
