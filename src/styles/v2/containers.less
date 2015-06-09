@@ -1,6 +1,6 @@
-///////////////////////////////////////
-//// CONTAINERS AND LAYOUT HELPERS ////
-///////////////////////////////////////
+/*  ==========================================
+    Containers and layout helpers
+    ========================================== */
 
 [widget] {
   .clearfix;
@@ -41,8 +41,8 @@
   margin: 0 auto;
 }
 
-// mobile
-@media only screen and @largeMobileMax {
+// MOBILE SPECIFIC STYLES
+@media only screen and @lessThenTablet {
   .grid,
   [grid] {
     margin-left: 10px;
@@ -50,22 +50,24 @@
   }
 }
 
-// tablet portrait
-@media only screen and @tabletPortraitMin and @tabletLandscapeMax {
+@media only screen and @moreThenMobile and @lessThenDesktop {
   .generate-fluid-grid(12);
 }
 
-// tablet landscape and desktop
-@media only screen and @tabletLandscapeMin {
+// DESKTOP STYLES
+@media only screen and @moreThenTablet {
   // Calling the grid mixin
   .generate-grid(@gridWidth, @gridGap, @gridColumnCount);
 }
 
 
-////////////////////////////////
-//// GRID GENERATING MIXINS ////
-////////////////////////////////
+/*  ==========================================
+    GRID generating mixin
+    ========================================== */
 
+////////////////////////
+// Desktop grid mixin //
+////////////////////////
 .generate-grid(@full, @gap, @cols){
   .grid-row,
   [grid-row] {
@@ -126,9 +128,9 @@
 
 }
 
-// TABLET GRID MIXIN //
 ///////////////////////
-
+// Tablet grid mixin //
+///////////////////////
 .generate-fluid-grid(@cols){
 
   .grid,
@@ -152,9 +154,9 @@
   }
 }
 
-// GRID GENERATING MIXINS WITHOUT RECURSION //
-//////////////////////////////////////////////
-
+///////////////////////////////////
+// Grid mixins without recursion //
+///////////////////////////////////
 .grid-element(@i; @float: left){
   float: @float;
   width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * (@i - 1)));

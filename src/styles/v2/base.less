@@ -1,0 +1,36 @@
+html {
+  font-family: @fontDefault;
+  font-size: @htmlFontSize;
+}
+
+body {
+  .open-sans;
+  background-color: @bodyBackground;
+  color: @colorTextDefault;
+}
+
+main {
+  position: relative;
+}
+
+nav {
+  ol, ul {
+    list-style: none;
+  }
+}
+
+a {
+  color: @colorLinkDefault;
+  &:hover,
+  &:focus {
+    color: @colorLinkLight;
+  }
+}
+
+hr {
+  height: 0px;
+  .noSpaces;
+  margin-top: -1px;
+  border: none;
+  border-bottom: 1px dashed @borderBottomColorHeader;
+}

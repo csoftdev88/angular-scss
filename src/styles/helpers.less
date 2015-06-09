@@ -1,33 +1,24 @@
-/*  ==========================================
-    Others
-    ========================================== */
+/////////////////
+//// HELPERS ////
+/////////////////
 
-.vertical-divider {
-  display: none;
-  position: absolute;
-  top: unit((@baseline / @htmlFontSize) * 2, em);
-  bottom: unit((@baseline / @htmlFontSize) * 2, em);
-  width: 1px;
-  background-color: @borderColorDefault;
-
-  @media @moreThenTablet {
-    display: block;
-  }
-}
-
-/*  ==========================================
-    Media Queries helpers
-    ========================================== */
-
-@media only screen and @lessThenTablet {
+// will only be displayed on desktop
+@media only screen and @tabletLandscapeMax {
   [rwd="desktop"] {
     display: none !important;
   }
 }
 
-@media only screen and @moreThenMobile {
-  [rwd="mobile"] {
+// will only be displayed on tablets and bigger
+@media only screen and @largeMobileMax {
+  [rwd="tablet"] {
     display: none !important;
   }
 }
 
+// will only be displayed on large mobiles and bigger
+@media only screen and @smallMobileMax {
+  [rwd="mobile-large"] {
+    display: none !important;
+  }
+}
