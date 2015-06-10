@@ -19,6 +19,9 @@
     "confirmation": "Potvrdit",
     "back": "Zpět",
     "no_room_found": "Nebyl nalezen žádný pokoj",
-    "no_hotels_found": "Nebyl nalezen žádný hotel"
+    "no_hotels_found": "Nebyl nalezen žádný hotel",
+    "make_your_booking": "Rezevujte",
+    "advanced_booking": "Rozšířená rezervace",
+    "my_account": "Můj účet"
   }
 }
