@@ -2,16 +2,7 @@
 //// MIXINS ////
 ////////////////
 
-// transitions
-.transition(@property: all, @length: 0.5s, @easing: ease-in-out) {
-  transition: @arguments;
-}
-
-.transitionFast(@property: all, @length: @td-default, @easing: ease-in-out) {
-  transition: @arguments;
-}
-
-// shadows
+// shadows - we can use mixin for shadow to make sure all shadows look same
 .box-shadow(@x: 0, @y: 2px, @size: 4px, @color: rgba(0, 0, 0, 0.1)) {
   box-shadow: @arguments;
 }
@@ -37,14 +28,6 @@
   &:after {
       clear: both;
   }
-}
-
-.padding(@vertical: 0, @horizontal: @baseline) {
-  padding: @vertical @horizontal;
-}
-
-.margin(@vertical: @baseline, @horizontal: 0) {
-  margin: @vertical @horizontal;
 }
 
 // image replacement

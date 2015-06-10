@@ -1,32 +1,47 @@
 // Just put all stuff together
 
+// Honza suggests to replace normalize with cssreset
+// I agree and will do it - normalize gives us some
+// preset values we don't want and then we have to reset
+// those anyway
+@import 'vendor/normalize.less';
+
 // V2 IMPORTS
-// @import 'v2/partials/header.less';
-// @import 'v2/partials/hero-slider.less';
-// @import 'v2/partials/footer.less';
-// @import 'v2/partials/buttons.less';
-// @import 'v2/partials/forms.less';
-// @import 'v2/partials/selects.less';
-// @import 'v2/partials/dropdowns.less';
-// @import 'v2/partials/datepicker.less';
-// @import 'v2/partials/animations.less';
-// @import 'v2/partials/modal-dialog.less';
-//
-// @import 'v2/partials/site-map.less';
-// @import 'v2/partials/preloader.less';
-//
-// @import 'v2/widgets/booking-widget.less';
-// @import 'v2/widgets/best-offers-widget.less';
-// @import 'v2/widgets/best-hotels-widget.less';
-// @import 'v2/widgets/hotels-widget.less';
-// @import 'v2/widgets/rooms-widget.less';
-// @import 'v2/widgets/aside-widget.less';
-// @import 'v2/widgets/reservation-widget.less';
-// @import 'v2/widgets/about-hotel-widget.less';
+// all this can be removed and then we'll build from scratch
+@import 'v2/config.less';
+
+@import 'v2/base.less';
+@import 'v2/typography.less';
+@import 'v2/containers.less';
+
+@import 'v2/partials/header.less';
+@import 'v2/partials/hero-slider.less';
+@import 'v2/partials/footer.less';
+@import 'v2/partials/buttons.less';
+@import 'v2/partials/forms.less';
+@import 'v2/partials/selects.less';
+@import 'v2/partials/dropdowns.less';
+@import 'v2/partials/datepicker.less';
+@import 'v2/partials/animations.less';
+@import 'v2/partials/modal-dialog.less';
+
+@import 'v2/partials/site-map.less';
+@import 'v2/partials/preloader.less';
+
+@import 'v2/widgets/booking-widget.less';
+@import 'v2/widgets/best-offers-widget.less';
+@import 'v2/widgets/best-hotels-widget.less';
+@import 'v2/widgets/hotels-widget.less';
+@import 'v2/widgets/rooms-widget.less';
+@import 'v2/widgets/aside-widget.less';
+@import 'v2/widgets/reservation-widget.less';
+@import 'v2/widgets/about-hotel-widget.less';
+
+@import (reference) 'v2/mixins.less';
+@import 'v2/helpers.less';
 
 // V4 IMPORTS
 @import 'config.less';
-@import 'vendor/normalize.less';
 
 @import 'base.less';
 @import 'typography.less';

@@ -10,29 +10,34 @@ body {
   font-weight: 400;
 }
 
+// TODO: we agreed with Honza not to style headings directly
+// but instead create a couple types of headings as mixins
+// which we would be able to use in various components as needed
+// we should probably call it differently than just h2() for example
+
 // margins and paddings
-p, ul, table, h1, h2, .h1(), .h2() {
+.h1, .h2 {
   margin-bottom: @baseline;
 }
 
-h2, h3, h4, h5, h6, .h2(), .h3(), .h4(), .h5(), .h6() {
+.h2, .h3, .h4, .h5, .h6 {
   margin-top: @baseline;
 }
 
 // font sizes and weights
-h1, strong, th {
+.h1, strong, th {
   font-weight: 700;
 }
 
-h2, .h2() {
+.h2 {
   font-weight: 300;
 }
 
-h1, h2, .h1(), .h2() {
+.h1, .h2 {
   font-size: @fs5;
 }
 
-h3, h4, .h3(), .h4() {
+.h3, .h4 {
   font-size: @fs3;
   font-weight: 700;
 }

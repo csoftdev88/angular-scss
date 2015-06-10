@@ -2,6 +2,9 @@
 //// CONTAINERS AND LAYOUT HELPERS ////
 ///////////////////////////////////////
 
+// Maybe we don't need all this
+// Honza M. suggested we could use flexbox instead
+
 [widget] {
   .clearfix;
 }
@@ -51,7 +54,7 @@
 }
 
 // tablet portrait
-@media only screen and @tabletPortraitMin and @tabletLandscapeMax {
+@media only screen and @tabletPortraitMin and @tabletPortraitMax {
   .generate-fluid-grid(12);
 }
 

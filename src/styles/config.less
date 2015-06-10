@@ -39,17 +39,11 @@
 @fs4:    round(1.38*@fsBase); // 18
 @fs5:    round(1.54*@fsBase); // 20
 
+// 9, 10, 12, 14, 16, 18, 21, 24, 30
+
 // font families
 @ffDefault:   'Open Sans', Helvetica, Arial, sans-serif;
 @ffCondensed: 'Open Sans Condensed', sans-serif;
-
-//// TRANSITIONS ////
-/////////////////////
-
-@tdDefault: .2s;
-@tdShort:   .05s;
-@tdLong:    .6s;
-@tdLonger:  .7s;
 
 //// BREAKPOINTS ////
 /////////////////////
@@ -60,12 +54,16 @@
 @largeMobileMax:         ~"(max-width: 767px)";
 @tabletPortraitMin:      ~"(min-width: 768px)";
 
-@tabletLandscapeMax:     ~"(max-width: 979px)";
+@tabletPortraitMax:     ~"(max-width: 979px)";
 @tabletLandscapeMin:     ~"(min-width: 980px)";
 
 //// GRID SETTINGS ////
 ///////////////////////
 
+// we can delete this as well if we remove all the grid
+// grid generating stuff in containers.less
+// even if we don't get rid of it, I don't see a reason
+// not to use just flexible grid for everything
 @gridWidth:       1000px;
 @gridGap:         40px;
 @gridColumnCount: 12;
