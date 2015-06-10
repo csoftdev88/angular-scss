@@ -7,12 +7,6 @@
 <hero-slider content="heroContent">
 </hero-slider>
 
-<!-- BOOKING WIDGET AREA-->
-<!--<div class="wrapper" ng-hide="$state.includes('reservation')">
-  <booking-widget>
-  </booking-widget>
-</div>-->
-
 <!-- MAIN CONTENT AREA -->
 <main typo-grid>
   <div class="grid-wrapper">
@@ -21,5 +15,12 @@
 </main>
 
 <div ng-include="'layouts/siteMap.html'" class="site-map"></div>
+
+
+<!-- BOOKING WIDGET AREA-->
+<div class="booking-bar" ng-hide="$state.includes('reservation')">
+  <booking-widget>
+  </booking-widget>
+</div>
 
 <footer id="main-footer" ng-include="'layouts/footer.html'">
