@@ -16,7 +16,7 @@ angular.module('mobiusApp.directives.layout', [])
         // Inserting new layout
         var content = angular.element(templates.join(''));
         elem.append(content);
-        $compile(content);
+        $compile(content)(scope.$new());
       }
     }
   };
