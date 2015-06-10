@@ -6,6 +6,20 @@
   .clearfix;
 }
 
+// TODO: MOVE TO ANOTHER LESS
+[collapse] {
+  height: 0px;
+  overflow: hidden;
+  opacity: 0;
+  .transition;
+
+  &.in {
+    overflow: visible;
+    opacity: 1;
+    height: auto;
+  }
+}
+
 .block {
   display: block;
 }
