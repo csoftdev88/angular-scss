@@ -79,7 +79,8 @@ angular
     // Filters
     'mobiusApp.filters.list',
     'mobiusApp.filters.number',
-    'mobiusApp.filters.currency'
+    'mobiusApp.filters.currency',
+    'mobiusApp.filters.pluralization'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {

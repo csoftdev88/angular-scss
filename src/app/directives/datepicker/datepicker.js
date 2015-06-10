@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function() {
+.directive('rangeDatepicker', function($window, $filter) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -24,6 +24,12 @@ angular.module('mobiusApp.directives.datepicker', [])
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
       var maxDate = attrs.maxDate || null;
+      var hasCounter = attrs.includeCounter === '1';
+      var counterPluralizationRules;
+
+      if(hasCounter){
+        counterPluralizationRules = scope.$eval(attrs.counterPluralization) || {};
+      }
 
       /**
        * Don't hide the date picker when changing dates
@@ -55,11 +61,9 @@ angular.module('mobiusApp.directives.datepicker', [])
           }
         }
 
-        var clicksCount;
-
         element.datepicker({
           dateFormat: DATE_FORMAT,
-          showButtonPanel: false,
+          showButtonPanel: hasCounter,
           maxDate: maxDate,
           numberOfMonths: 1,
           showOtherMonths: true,
@@ -68,14 +72,12 @@ angular.module('mobiusApp.directives.datepicker', [])
 
           beforeShowDay: function ( date ) {
             return [
-              true,
+              !isSelected(date),
               getDateClass( date )
             ];
           },
 
           beforeShow: function () {
-            clicksCount = 0;
-
             if(ngModelCtrl.$modelValue !== undefined) {
               // NOTE: using setHours(0) is safe for different timezones. By default
               // jquery date picker returns dates at 00 hour
@@ -93,6 +95,10 @@ angular.module('mobiusApp.directives.datepicker', [])
                 }
               }
             }
+
+            if(hasCounter){
+              updateCounter();
+            }
           },
 
           onClose: function(date) {
@@ -108,6 +114,10 @@ angular.module('mobiusApp.directives.datepicker', [])
             if(isNaN(startDate) && isNaN(endDate)){
               date = null;
             } else if(rangeSelection) {
+              // In case when selecting the range days must be different
+              if(startDate === endDate){
+                endDate = $window.moment(endDate).add(1, 'day').valueOf();
+              }
               date = {
                 startDate: $.datepicker.formatDate( DATE_FORMAT, new Date(Math.min(startDate,endDate)), {}),
                 endDate: $.datepicker.formatDate( DATE_FORMAT, new Date(Math.max(startDate,endDate)), {})
@@ -124,8 +134,8 @@ angular.module('mobiusApp.directives.datepicker', [])
 
               ngModelCtrl.$render();
             });
-
           },
+
           onSelect: function(date, inst) {
             if(!rangeSelection) {
               return;
@@ -134,14 +144,39 @@ angular.module('mobiusApp.directives.datepicker', [])
             startDate = endDate;
             endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
 
-            clicksCount++;
-            if(rangeSelection && clicksCount > 1){
-              element.datepicker('hide');
+            if(hasCounter){
+              updateCounter();
             }
-
           }
         }).datepicker('show');
       });
+
+      function updateCounter(){
+        $window._.defer(function(){
+          var buttonPane = $( element )
+            .datepicker( 'widget' )
+            .find( '.ui-datepicker-buttonpane' );
+
+          buttonPane.attr( 'data-counter', getCounterText() );
+        });
+      }
+
+      function getCounterText(){
+        var diff;
+
+        if(!startDate || !endDate){
+          diff = 0;
+        }else{
+          diff = Math.abs($window.moment(startDate).diff(endDate, 'days'));
+        }
+
+        return $filter('pluralization')(diff, counterPluralizationRules);
+      }
+
+      // Checking if date is already selected as range starting/ending date
+      function isSelected(date) {
+        return startDate && !$window.moment(date).diff(startDate) || endDate && !$window.moment(date).diff(endDate);
+      }
 
       // Check if date selection is valid
       function isValid() {

@@ -89,8 +89,8 @@
         &.date-range-start,
         &.date-range-end {
           background-color: @colorLinkDefault;
-          a {
-            color: @white;
+          a, span {
+            color: @white !important;
           }
         }
 
@@ -144,6 +144,17 @@
   }
 
   .ui-datepicker-buttonpane {
+    &:before {
+      display: inline-block;
+      content: attr(data-counter);
+      float: left;
+    }
+
+    .ui-datepicker-close {
+      float: right;
+      &:extend(.button);
+    }
+
     .ui-datepicker-current {
       display: none;
     }
