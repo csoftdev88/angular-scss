@@ -1,8 +1,35 @@
 <header grid-row>
   <div grid="12">
     <h1>About <strong>Mobius Hotels</strong></h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</p>
+    <p>3Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</p>
     <a href>Read more</a>
+    <!-- test verca-->
+    abc
+    <div ng-repeat="n in [42, 42, 43, 43] track by $index">
+      {{n}} aa
+    </div>
+    <accordion close-others="oneAtATime">
+      <accordion-group heading="Best available Rate" ng-repeat="rate in [0, 1]">
+        <accordion-heading>
+          <i class="icon icon-{{rate.icon}}"/>
+          <header>
+            <h3 class="title">{{rate.type}}</h3>
+            <p class="desc">{{rate.subtitle}}</p>
+          </header>
+          <p class="price" currency="{{rate.currency}}">{{rate.price}}</p>
+          <small>per night</small>
+        </accordion-heading>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.</p>
+      </accordion-group>
+    </accordion>
+    ijk
+    <accordion >
+      <accordion-group heading="Static Header, initially expanded" is-open="true">
+        This content is straight in the template.
+      </accordion-group>
+    </accordion>
+    def
+    <!-- test verca-->
   </div>
 </header>
 
