@@ -56,7 +56,6 @@ angular
     // Custom components
     'mobiusApp.directives.layout',
     'mobiusApp.directives.slider',
-    'mobiusApp.directives.booking',
     'mobiusApp.directives.best.offers',
     'mobiusApp.directives.best.hotels',
     'mobiusApp.directives.hotels',
@@ -75,6 +74,7 @@ angular
     'mobiusApp.directives.language',
     // V4
     'mobiusApp.directives.aboutHotel',
+    'mobiusApp.directives.floatingBar',
 
     // Filters
     'mobiusApp.filters.list',

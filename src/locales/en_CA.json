@@ -19,6 +19,9 @@
     "confirmation": "Confirmation",
     "back": "Back",
     "no_room_found": "No Room Found",
-    "no_hotels_found": "No Hotels Found"
+    "no_hotels_found": "No Hotels Found",
+    "make_your_booking": "Make Your Booking",
+    "advanced_booking": "Advanced Booking",
+    "my_account": "My Account"
   }
 }

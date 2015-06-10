@@ -4,7 +4,7 @@ describe('bookingWidget', function() {
   var env;
 
   var TEMPLATE = '<booking-widget></booking-widget>';
-  var TEMPLATE_URL = 'directives/bookingWidget/bookingWidget.html';
+  var TEMPLATE_URL = 'directives/floatingBar/bookingWidget/bookingWidget.html';
 
   var TEST_PROPERTY_LIST = [
     {code: 'TESTPROP'}
@@ -49,7 +49,7 @@ describe('bookingWidget', function() {
   function setUp(settings){
     env = {};
 
-    module('mobiusApp.directives.booking', function($provide) {
+    module('mobiusApp.directives.floatingBar.bookingWidget', function($provide) {
       // Mocking the services
       $provide.value('bookingService', {
         getParams: function(){

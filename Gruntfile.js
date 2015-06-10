@@ -260,7 +260,9 @@ module.exports = function(grunt) {
     localisation: {
       options: {
         locales: 'src/locales',
-        pattern: /_(.+)_/
+        //pattern: /_(.+)_/
+        pattern: /_([a-zA-Z_]+)_/
+        //pattern: /[^a-zA-Z](_([a-zA-Z_]+)_)[^a-zA-Z]/
       },
       files: {
         src: [ '**/*.html' ],

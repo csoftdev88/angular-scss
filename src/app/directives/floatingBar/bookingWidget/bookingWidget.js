@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobiusApp.directives.booking', [])
+angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($filter, $state, $window,
   modalService, bookingService, queryService, validationService,
@@ -8,7 +8,7 @@ angular.module('mobiusApp.directives.booking', [])
   return {
     restrict: 'E',
     scope: {},
-    templateUrl: 'directives/bookingWidget/bookingWidget.html',
+    templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
     // Widget logic goes here
     link: function(scope){
