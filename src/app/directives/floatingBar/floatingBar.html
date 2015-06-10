@@ -1,15 +1,13 @@
 <div>
   <ul>
-    <li ng-click="setActive(BOOKING_WIDGET)">_make_your_booking_</li>
-    <li ng-click="setActive(ADVANCED_BOOKING_WIDGET)">_advanced_booking_</li>
-    <li ng-click="setActive(MY_ACCOUNT)">_my_account_</li>
+    <li ng-class="{active: active === BOOKING}" ng-click="setActive(BOOKING)">_make_your_booking_</li>
+    <li ng-class="{active: active === ADVANCED_BOOKING}" ng-click="setActive(ADVANCED_BOOKING)">_advanced_booking_</li>
+    <li ng-class="{active: active === MY_ACCOUNT}" ng-click="setActive(MY_ACCOUNT)">_my_account_</li>
   </ul>
 </div>
 <div ng-if="active">
-  <booking-widget ng-if="active === BOOKING_WIDGET">
+  <booking-widget ng-if="active === BOOKING || active === ADVANCED_BOOKING" advanced="active === ADVANCED_BOOKING">
   </booking-widget>
-  <advanced-booking-widget ng-if="active === ADVANCED_BOOKING_WIDGET">
-  </advanced-booking-widget>
   <my-account ng-if="active === MY_ACCOUNT">
   </my-account>
 </div>

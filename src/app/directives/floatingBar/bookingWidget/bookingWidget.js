@@ -7,7 +7,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
   propertyService, Settings){
   return {
     restrict: 'E',
-    scope: {},
+    scope: {
+      advanced: '='
+    },
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
     // Widget logic goes here

@@ -2,13 +2,12 @@
 
 angular.module('mobiusApp.directives.floatingBar', [
   'mobiusApp.directives.floatingBar.bookingWidget',
-  'mobiusApp.directives.floatingBar.advancedBookingWidget',
   'mobiusApp.directives.floatingBar.myAccount'
 ])
 
   .directive('floatingBar', function() {
-    var BOOKING_WIDGET = 'bookingWidget';
-    var ADVANCED_BOOKING_WIDGET = 'advancedBookingWidget';
+    var BOOKING = 'booking';
+    var ADVANCED_BOOKING = 'advancedBooking';
     var MY_ACCOUNT = 'myAccount';
 
     return {
@@ -18,11 +17,11 @@ angular.module('mobiusApp.directives.floatingBar', [
 
       // Widget logic goes here
       link: function(scope) {
-        scope.BOOKING_WIDGET = BOOKING_WIDGET;
-        scope.ADVANCED_BOOKING_WIDGET = ADVANCED_BOOKING_WIDGET;
+        scope.BOOKING = BOOKING;
+        scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
 
-        scope.active = BOOKING_WIDGET;
+        scope.active = BOOKING;
         scope.setActive = function(newActive) {
           if (newActive === scope.active) {
             scope.active = null;
