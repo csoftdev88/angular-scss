@@ -24,7 +24,11 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         scope.active = BOOKING_WIDGET;
         scope.setActive = function(newActive) {
-          scope.active = newActive;
+          if (newActive === scope.active) {
+            scope.active = null;
+          } else {
+            scope.active = newActive;
+          }
         };
       }
     };
