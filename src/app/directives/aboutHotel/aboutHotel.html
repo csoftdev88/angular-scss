@@ -27,36 +27,23 @@
 <section grid-row class="benefits">
   <div class="section-highlighted"><stars/></div>
 
-  <article grid="4">
-    <a ng-click="openLoginDialog()" href>
-      <img class="grid-img" src="/static/images/v4/icon-offers.png" alt="Great offers">
+  <article grid="4" ng-repeat="icon in bigIcons" ng-switch="isUserLoggedIn()">
+    <a ng-click="openLoginDialog()" ng-switch-when="false" href>
+        <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
 
       <header>
-        <h2><strong>Great offers</strong></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+        <h2><strong>{{icon.name}}</strong></h2>
+        <p>{{icon.text}}</p>
       </header>
     </a>
-  </article>
-  <article grid="4">
-    <a ng-click="openLoginDialog()" href>
-      <img class="grid-img" src="/static/images/v4/icon-discounts.png" alt="Discounts">
+    <div ng-switch-default>
+      <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
 
       <header>
-        <h2><strong>Discounts</strong></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+        <h2><strong>{{icon.name}}</strong></h2>
+        <p>{{icon.text}}</p>
       </header>
-    </a>
-  </article>
-
-  <article grid="4">
-    <a ng-click="openLoginDialog()" href>
-      <img class="grid-img" src="/static/images/v4/icon-news.png" alt="Exciting news">
-
-      <header>
-        <h2><strong>Exciting news</strong></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
-      </header>
-    </a>
+    </div>
   </article>
 
   <div class="section-highlighted"><stars/></div>
