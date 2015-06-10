@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function() {
+.directive('rangeDatepicker', function($window) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -59,7 +59,7 @@ angular.module('mobiusApp.directives.datepicker', [])
 
         element.datepicker({
           dateFormat: DATE_FORMAT,
-          showButtonPanel: false,
+          showButtonPanel: true,
           maxDate: maxDate,
           numberOfMonths: 1,
           showOtherMonths: true,
@@ -93,6 +93,8 @@ angular.module('mobiusApp.directives.datepicker', [])
                 }
               }
             }
+
+            updatePaneCounter();
           },
 
           onClose: function(date) {
@@ -135,13 +137,34 @@ angular.module('mobiusApp.directives.datepicker', [])
             endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
 
             clicksCount++;
-            if(rangeSelection && clicksCount > 1){
-              element.datepicker('hide');
-            }
+            updatePaneCounter();
+            //if(rangeSelection && clicksCount > 1){
+            //  element.datepicker('hide');
+            //}
 
           }
         }).datepicker('show');
       });
+
+      function updatePaneCounter(){
+        $window._.defer(function(){
+          var buttonPane = $( element )
+            .datepicker( 'widget' )
+            .find( '.ui-datepicker-buttonpane' );
+
+          buttonPane.attr('data-counter', getNightsCountText());
+        });
+      }
+
+      function getNightsCountText(){
+        if(!startDate || !endDate){
+          return null;
+        }
+
+        var diff = Math.abs($window.moment(startDate).diff(endDate, 'days'));
+
+        return diff;
+      }
 
       // Check if date selection is valid
       function isValid() {

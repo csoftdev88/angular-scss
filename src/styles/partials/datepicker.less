@@ -144,6 +144,17 @@
   }
 
   .ui-datepicker-buttonpane {
+    &:before {
+      display: inline-block;
+      content: attr(data-counter);
+      float: left;
+    }
+
+    .ui-datepicker-close {
+      float: right;
+      &:extend(.button);
+    }
+
     .ui-datepicker-current {
       display: none;
     }
