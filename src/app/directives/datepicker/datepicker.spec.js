@@ -9,6 +9,7 @@ describe('datepicker', function() {
   beforeEach(function() {
     module('mobiusApp.directives.datepicker', function($provide) {
       $provide.value('ngModelCtrl', {});
+      $provide.value('$filter', {});
     });
   });
 
