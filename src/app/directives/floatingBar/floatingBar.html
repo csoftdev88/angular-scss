@@ -5,7 +5,7 @@
     <li ng-click="setActive(MY_ACCOUNT)">_my_account_</li>
   </ul>
 </div>
-<div>
+<div ng-if="active">
   <booking-widget ng-if="active === BOOKING_WIDGET">
   </booking-widget>
   <advanced-booking-widget ng-if="active === ADVANCED_BOOKING_WIDGET">

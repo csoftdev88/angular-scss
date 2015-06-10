@@ -43,11 +43,20 @@ describe('bookingWidget', function() {
     it('should have set active element', function() {
       expect(env.scope.active).to.not.be.empty;
     });
+  });
 
+  describe('setActive', function() {
     it('should set active element', function() {
       var active = 'some-active';
       env.scope.setActive(active);
       expect(env.scope.active).equal(active);
+    });
+
+    it('should unset active element', function() {
+      var active = 'some-active';
+      env.scope.setActive(active);
+      env.scope.setActive(active);
+      expect(env.scope.active).equal(null);
     });
   });
 
