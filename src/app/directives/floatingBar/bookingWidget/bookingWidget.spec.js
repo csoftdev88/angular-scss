@@ -149,6 +149,7 @@ describe('bookingWidget', function() {
     env.templateCacheGet.restore();
     env.propertyServiceGetAll.restore();
     env.propertyServiceGetAvailability.restore();
+    env.filtersServiceGetProducts.restore();
     env.validationServiceIsValueValid.restore();
     env.queryServiceRemoveParam.restore();
     env.bookingServiceGetParams.restore();
