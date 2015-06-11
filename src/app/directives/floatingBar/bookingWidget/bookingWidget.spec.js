@@ -150,6 +150,7 @@ describe('bookingWidget', function() {
     env.propertyServiceGetAll.restore();
     env.locationServiceGetRegions.restore();
     env.propertyServiceGetAvailability.restore();
+    env.filtersServiceGetProducts.restore();
     env.validationServiceIsValueValid.restore();
     env.queryServiceRemoveParam.restore();
     env.bookingServiceGetParams.restore();
