@@ -48,6 +48,7 @@ angular
     'mobiusApp.services.user',
     'mobiusApp.services.booking',
     'mobiusApp.services.filters',
+    'mobiusApp.services.loyalty',
 
     // Factories
     'mobiusApp.factories.template',

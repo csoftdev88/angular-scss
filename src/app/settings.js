@@ -27,7 +27,10 @@ angular.module('mobiusApp.config', [])
       'login': 'customers/actions/login',
       'customers': 'customers'
     },
-
+    // NOTE: Loyalties API will change - check apiary specs
+    'loyalties': {
+      'all': '/customers/:customerId/loyalty/'
+    },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
