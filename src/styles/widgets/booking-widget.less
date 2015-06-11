@@ -1,0 +1,57 @@
+///////////////////////////////
+//// BOOKING WIDGET STYLES ////
+///////////////////////////////
+
+@booking-widget-background: @c-brown;
+@booking-widget-color: #fff;
+
+.floating-bar {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+
+  > ul {
+    position: absolute;
+    left: 0;
+    top: -30px;
+
+    li {
+      display: inline-block;
+      background: @booking-widget-background;
+      color: @booking-widget-color;
+      line-height: 1.5*@baseline;
+    }
+  }
+}
+
+booking-widget {
+  display: block;
+  background: @booking-widget-background;
+  color: @booking-widget-color;
+
+  .fieldset {
+    .clearfix;
+  }
+}
+
+@media only screen and @tablet-portrait-min {
+
+  booking-widget {
+
+    > div {
+      display: table;
+    }
+
+    .fieldset {
+      display: table-row;
+    }
+
+    .booking-input, .heading {
+      display: table-cell;
+      vertical-align: middle;
+      padding: @baseline/2 @baseline/4;
+    }
+  }
+}

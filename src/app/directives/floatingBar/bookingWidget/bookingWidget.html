@@ -1,23 +1,19 @@
 <div>
-  <ul class="booking-inputs">
-    <li class="claim">
-      <div>
-        <h3>Make Your Booking</h3>
-        <p>Lorem ispum solor sid ahmed loresin vane.</p>
-      </div>
-    </li>
+  <fieldset>
+    <div class="heading">
+      <h3>Make Your Booking</h3>
+    </div>
 
     <!-- FIND YOUR HOTEL -->
-    <li class="booking-input hotels">
+    <div class="booking-input hotels">
       <div class="form-group">
         <select name="hotels" required ng-model="selected.property" disable-search="false" data-placeholder="All Properties" chosen ng-options="property.nameShort for property in propertyList"/>
         <span class="info">Find Your Hotel:</span>
-        <span class="more"><a href ng-click="openAdvancedOptionsDialog()">Advanced Options</a></span>
       </div>
-    </li>
+    </div>
 
     <!-- ENTER YOUR DATES -->
-    <li class="booking-input dates">
+    <div class="booking-input dates">
       <div class="form-group">
         <input type="text" placeholder="Enter Your Dates"
           range-datepicker
@@ -30,36 +26,34 @@
           data-counter-pluralization="{'0': 'No dates selected', '1': '{} night', 'plural': '{} nights'}">
         <span class="info">Enter Your Dates:</span>
       </div>
-    </li>
+    </div>
 
     <!-- ENTER YOUR CODE -->
-    <li class="booking-input codes">
+    <div class="booking-input codes">
       <div class="form-group">
         <input type="text" placeholder="Enter Your Code" ng-model="selected.promoCode">
         <span class="info">Enter Your Code:</span>
       </div>
-    </li>
+    </div>
 
-    <li class="booking-input adults small">
+    <div class="booking-input small">
       <!-- NUMBER OF ADULTS -->
       <div class="form-group">
         <select name="adults" required ng-model="selected.adults" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max" data-placeholder="Number Of Adults"/>
         <span class="info">Adults:</span>
       </div>
-    </li>
+    </div>
 
-    <li class="booking-input small">
+    <div class="booking-input small">
       <!-- NUMBER OF CHILDREN -->
       <div class="form-group">
         <select name="children" required ng-model="selected.children" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max" data-placeholder="Number Of Children"/>
         <span class="info">Children:</span>
       </div>
-    </li>
+    </div>
 
-    <li class="booking-input submit">
-      <div>
-        <button class="button" ng-click="onSearch()" ng-disabled="!isSearchable()">Search</button>
-      </div>
-    </li>
-  </ul>
+    <div class="booking-input submit">
+      <button class="button" ng-click="onSearch()" ng-disabled="!isSearchable()">Search</button>
+    </div>
+  </fieldset>
 </div>
