@@ -6,12 +6,12 @@ describe('bookingWidget', function() {
   var TEMPLATE = '<booking-widget></booking-widget>';
   var TEMPLATE_URL = 'directives/floatingBar/bookingWidget/bookingWidget.html';
 
-  var TEST_LOCATION_LIST = [
-    {code: 'TESTLOC'}
+  var TEST_REGION_LIST = [
+    {code: 'TESTREG'}
   ];
 
   var TEST_PROPERTY_LIST = [
-    {code: 'TESTPROP', locationCode: 'TESTLOC'}
+    {code: 'TESTPROP', regionCode: 'TESTREG'}
   ];
 
   var TEST_PRODUCTS_LIST = [
@@ -90,8 +90,8 @@ describe('bookingWidget', function() {
       });
 
       $provide.value('locationService', {
-        getAll: function(){
-          return {then: function(c){c(TEST_LOCATION_LIST);}};
+        getRegions: function(){
+          return {then: function(c){c(TEST_REGION_LIST);}};
         }
       });
 
@@ -131,7 +131,7 @@ describe('bookingWidget', function() {
       // Spy's
       env.templateCacheGet = sinon.spy(env.$templateCache, 'get');
       env.propertyServiceGetAll = sinon.spy(env.propertyService, 'getAll');
-      env.locationServiceGetAll = sinon.spy(env.locationService, 'getAll');
+      env.locationServiceGetRegions = sinon.spy(env.locationService, 'getRegions');
       env.propertyServiceGetAvailability = sinon.spy(env.propertyService, 'getAvailability');
       env.filtersServiceGetProducts = sinon.spy(env.filtersService, 'getProducts');
       env.validationServiceIsValueValid = sinon.spy(env.validationService, 'isValueValid');
@@ -148,6 +148,7 @@ describe('bookingWidget', function() {
   function tearDown(){
     env.templateCacheGet.restore();
     env.propertyServiceGetAll.restore();
+    env.locationServiceGetRegions.restore();
     env.propertyServiceGetAvailability.restore();
     env.validationServiceIsValueValid.restore();
     env.queryServiceRemoveParam.restore();
@@ -177,7 +178,7 @@ describe('bookingWidget', function() {
 
       it('should download a property and location list from the server', function() {
         expect(env.propertyServiceGetAll.calledOnce).equal(true);
-        expect(env.locationServiceGetAll.calledOnce).equal(true);
+        expect(env.locationServiceGetRegions.calledOnce).equal(true);
         expect(env.filtersServiceGetProducts.calledOnce).equal(true);
       });
 
@@ -239,15 +240,15 @@ describe('bookingWidget', function() {
     });
 
     it('should add all properties option to the top of the property list', function() {
-      expect(env.scope.propertyLocationList.length).equal(3);
+      expect(env.scope.propertyRegionList.length).equal(3);
 
-      expect(env.scope.propertyLocationList[0].code).equal(undefined);
-      expect(env.scope.propertyLocationList[0].name).to.be.an('string');
-      expect(env.scope.propertyLocationList[0].type).equal('all');
-      expect(env.scope.propertyLocationList[1].code).equal('TESTLOC');
-      expect(env.scope.propertyLocationList[1].type).equal('location');
-      expect(env.scope.propertyLocationList[2].code).equal('TESTPROP');
-      expect(env.scope.propertyLocationList[2].type).equal('property');
+      expect(env.scope.propertyRegionList[0].code).equal(undefined);
+      expect(env.scope.propertyRegionList[0].name).to.be.an('string');
+      expect(env.scope.propertyRegionList[0].type).equal('all');
+      expect(env.scope.propertyRegionList[1].code).equal('TESTREG');
+      expect(env.scope.propertyRegionList[1].type).equal('region');
+      expect(env.scope.propertyRegionList[2].code).equal('TESTPROP');
+      expect(env.scope.propertyRegionList[2].type).equal('property');
     });
   });
 });

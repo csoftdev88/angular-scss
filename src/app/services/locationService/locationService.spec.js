@@ -8,13 +8,14 @@ describe('propertyService', function() {
   });
 
   beforeEach(function() {
-    module('mobiusApp.services.properties', function($provide) {
+    module('mobiusApp.services.locations', function($provide) {
       var Settings = {
         'API': {
           'baseURL': 'http://domain/',
 
-          'properties': {
-            'all': 'locations'
+          'locations': {
+            'locations': 'locations',
+            'regions': 'regions'
           }
         }
       };
@@ -32,8 +33,8 @@ describe('propertyService', function() {
     });
   });
 
-  beforeEach(inject(function($rootScope, apiService, Settings, propertyService) {
-    env.propertyService = propertyService;
+  beforeEach(inject(function($rootScope, apiService, Settings, locationService) {
+    env.locationService = locationService;
     env.rootScope = $rootScope;
     env.apiService = apiService;
 
@@ -46,11 +47,21 @@ describe('propertyService', function() {
     env.apiGetFullURLSpy.restore();
   });
 
-  describe('getAll', function() {
-    it('should fire a GET request to properties API', function() {
-      env.propertyService.getAll();
+  describe('getLocations', function() {
+    it('should fire a GET request to locations API', function() {
+      env.locationService.getLocations();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('properties.all')).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('locations.locations')).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+    });
+  });
+
+  describe('getRegions', function() {
+    it('should fire a GET request to regions API', function() {
+      env.locationService.getRegions();
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('locations.regions')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
