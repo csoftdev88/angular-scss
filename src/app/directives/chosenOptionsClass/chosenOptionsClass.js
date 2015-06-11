@@ -23,7 +23,7 @@ angular.module('mobiusApp.directives.chosenOptionsClass', [])
             // also get the option you're going to need. This can be found
             // by looking for the option with the appropriate index in the
             // value attribute.
-              option = elem.parent().find('.chosen-results li[data-option-array-index=' + index + ']');
+              option = elem.parent().find('.chosen-results li[data-option-array-index=' + (index+1) + ']');
 
             // now loop through the key/value pairs in the mapping object
             // and apply the classes that evaluated to be truthy.
