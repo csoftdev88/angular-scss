@@ -1,0 +1,38 @@
+////////////////////////
+//// BOOKING WIDGET ////
+////////////////////////
+
+booking-widget {
+
+  fieldset {
+    width: 100%;
+  }
+
+  @media only screen and @tablet-portrait-min {
+
+    > div {
+      display: table;
+      width: 100%;
+    }
+
+    fieldset {
+      display: table-row;
+    }
+
+    .booking-input, .heading {
+      display: table-cell;
+      white-space: nowrap;
+      width: 16.666%;
+      vertical-align: middle;
+      padding: @baseline/2 0;
+
+      .form-group {
+        padding: 0 @baseline/4;
+      }
+    }
+
+    .heading {
+      padding-left: 0;
+    }
+  }
+}
