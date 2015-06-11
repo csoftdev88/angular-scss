@@ -1,0 +1,188 @@
+//- DATEPICKER -//
+
+//- Config
+@c-datepicker: @c-blue;
+
+
+
+.ui-datepicker {
+  background: #fff;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+//- Header
+.ui-datepicker-header {
+  display: flex;
+  justify-content: space-between;
+
+  background: @c-datepicker;
+  color: #fff;
+
+  font-size: @size-3;
+  font-weight: 600;
+  line-height: @baseline * 2;
+}
+
+// Month title
+.ui-datepicker-title {
+  order: 2;
+}
+
+// Next & prev button
+.ui-datepicker-prev,
+.ui-datepicker-next {
+  order: 1;
+  width: @baseline * 2;
+
+  color: #fff;
+
+  cursor: pointer;
+  text-align: center;
+
+  &:hover,
+  &:focus {
+    background: darken(@c-datepicker, 10%);
+    color: #fff;
+  }
+
+  &:before {
+    .fa;
+
+    content: @fa-var-chevron-left;
+  }
+
+  span {
+    display: none;
+  }
+}
+
+.ui-datepicker-next {
+  order: 3;
+
+  &:before {
+    content: @fa-var-chevron-right;
+  }
+}
+
+
+//- Calendar Table
+.ui-datepicker-calendar {
+
+  tbody {
+    td, th {
+      width: @baseline * 2;
+      color: lighten(@c-text, 50%); // Past days
+      font-size: @size-1;
+      line-height: @baseline * 1.5;
+      text-align: center;
+    }
+
+    td {
+      a {
+        display: block;
+
+        color: @c-text; // Today and Future days
+
+        line-height: @baseline * 1.5;
+        text-decoration: none;
+      }
+
+      // Highlighting today's day
+      &.ui-datepicker-today a {
+        border: 2px solid #c6ccd2;
+        color: @c-text;
+      }
+
+      // Days from other month
+      &.ui-datepicker-other-month a {
+        color: lighten(@c-text, 50%);
+      }
+
+      // Selected start and end day
+      &.date-range-start,
+      &.date-range-end {
+        background: @c-datepicker;
+        color: #fff;
+      }
+
+      // Selected dates
+      &.date-range-selected a {
+        background: lighten(@c-datepicker, 20%);
+        color: #fff;
+      }
+
+      // Day is not available
+      &.date-not-available {
+        background-color: @c-error;
+
+        a {
+          color: #fff;
+        }
+
+        &.date-range-start,
+        &.date-range-end {
+          background-color: darken(@c-error, 10%);
+        }
+
+        &.date-range-selected a {
+          background-color: lighten(@c-error, 20%);
+        }
+      }
+
+    }
+
+  }
+}
+
+//- Bottom Control Panel
+.ui-datepicker-buttonpane {
+  display: flex;
+  justify-content: space-between;
+  padding: @baseline/2 @baseline;
+
+  line-height: @baseline * 1.5;
+
+  //- How many days was selected
+  &:before {
+    display: inline-block;
+    content: attr(data-counter);
+  }
+
+  .ui-datepicker-close {
+    &:extend(.button);
+
+    height: @baseline * 1.5;
+  }
+
+  // Hide today button
+  .ui-datepicker-current {
+    display: none;
+  }
+}
+
+
+
+
+
+/*
+.ui-datepicker {
+
+
+  .ui-datepicker-buttonpane {
+    &:before {
+      display: inline-block;
+      content: attr(data-counter);
+      float: left;
+    }
+
+    .ui-datepicker-close {
+      float: right;
+      &:extend(.button);
+    }
+
+    .ui-datepicker-current {
+      display: none;
+    }
+  }
+}
+*/
