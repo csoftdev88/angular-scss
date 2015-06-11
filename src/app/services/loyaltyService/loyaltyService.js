@@ -6,7 +6,7 @@ angular.module('mobiusApp.services.loyalty', [])
 
 .service( 'loyaltyService',  function($q, apiService, user) {
   function getAll(){
-    if(!user.isUserLoggedIn()){
+    if(!user.isLoggedIn()){
       throw new Error('User must be logged in');
     }
 

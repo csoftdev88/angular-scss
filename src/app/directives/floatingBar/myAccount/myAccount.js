@@ -3,14 +3,12 @@
 angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
   .directive('myAccount', function(loyaltyService, _, $window, modalService){
-
     return {
       restrict: 'E',
       scope: {},
       templateUrl: 'directives/floatingBar/myAccount/myAccount.html',
 
       // Widget logic goes here
-
       link: function(scope) {
         var badges;
 
