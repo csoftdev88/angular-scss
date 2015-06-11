@@ -3,8 +3,8 @@
 /////////////////////
 
 body {
-  background: @cBackgroundBody;
-  color: @cBase;
+  background: @c-background-body;
+  color: @c-base;
 }
 
 main {
@@ -19,11 +19,11 @@ nav {
 }
 
 a {
-  color: @cLink;
+  color: @c-link;
 
   &:hover,
   &:focus {
-    color: lighten(@cLink, 10%);
+    color: lighten(@c-link, 10%);
   }
 }
 
@@ -32,5 +32,5 @@ hr {
   height: 0px;
   margin-top: -1px;
   border: none;
-  border-bottom: 1px dashed @hrColor;
+  border-bottom: 1px dashed @c-hr;
 }

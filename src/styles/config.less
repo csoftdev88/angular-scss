@@ -2,22 +2,33 @@
 //// MAIN CONFIG ////
 /////////////////////
 
+// When adding new widgets, or updating v2 to v4
+// let's use the following variables.
+
+// If some color / dimension repeat multiple times
+// and it's not here, please add it.
+
+// As the work progresses we'll slowly be getting
+// rid of the old variables from v2.
+
 //// COLORS ////
 ////////////////
 
-@cBlack: #333;
-@cWhite: #fefefe;
-@cGrey:  #888;
+// color values used mapped to color names
+@c-black: #333;
+@c-white: #fefefe;
+@c-grey:  #888;
 
-@cGreen: #39b54a;
-@cBrown: #b08f5e;
+@c-green: #39b54a;
+@c-brown: #b08f5e;
 
-// colors to be applied in app
-@cBase:           @cBlack;
-@cBackgroundBody: @cWhite;
-@cLink:           @cBrown;
-@cButton:         @cGreen;
-@hrColor:         @cGrey;
+// color names mapped to meanings
+// these should be used in the app
+@c-base:            @c-black;
+@c-background-body: @c-white;
+@c-link:            @c-brown;
+@c-button:          @c-green;
+@c-hr:              @c-grey;
 
 //// LAYOUT ////
 ////////////////
@@ -28,42 +39,36 @@
 ///////////////
 
 // font sizes
-@fsBase: 13px;
+@size-base: 13px;
 
-@fs-2:   round(.69*@fsBase); // 9
-@fs-1:   round(.92*@fsBase); // 12
-@fs0:    @fsBase;
-@fs1:    round(1.08*@fsBase); // 14
-@fs2:    round(1.15*@fsBase); // 15
-@fs3:    round(1.23*@fsBase); // 16
-@fs4:    round(1.38*@fsBase); // 18
-@fs5:    round(1.54*@fsBase); // 20
-
-// 9, 10, 12, 14, 16, 18, 21, 24, 30
+// This is maybe not optimal, but it
+// corresponds the best to the PSDs,
+// so let's use it for now.
+// We can change the values in the future.
+@size--2: round(.69*@size-base); // 9
+@size--1: round(.92*@size-base); // 12
+@size-0:  @size-base;
+@size-1:  round(1.08*@size-base); // 14
+@size-2:  round(1.15*@size-base); // 15
+@size-3:  round(1.23*@size-base); // 16
+@size-4:  round(1.38*@size-base); // 18
+@size-5:  round(1.54*@size-base); // 20
 
 // font families
-@ffDefault:   'Open Sans', Helvetica, Arial, sans-serif;
-@ffCondensed: 'Open Sans Condensed', sans-serif;
+@ff-default:   'Open Sans', Helvetica, Arial, sans-serif;
+@ff-condensed: 'Open Sans Condensed', sans-serif;
 
 //// BREAKPOINTS ////
 /////////////////////
 
-@smallMobileMax:         ~"(max-width: 479px)";
-@largeMobileMin:         ~"(min-width: 480px)";
+// these are different than the old ones
+// let's use these please
 
-@largeMobileMax:         ~"(max-width: 767px)";
-@tabletPortraitMin:      ~"(min-width: 768px)";
+@small-mobile-max:     ~"(max-width: 479px)";
+@large-mobile-min:     ~"(min-width: 480px)";
 
-@tabletPortraitMax:     ~"(max-width: 979px)";
-@tabletLandscapeMin:     ~"(min-width: 980px)";
+@large-mobile-max:     ~"(max-width: 767px)";
+@tablet-portrait-min:  ~"(min-width: 768px)";
 
-//// GRID SETTINGS ////
-///////////////////////
-
-// we can delete this as well if we remove all the grid
-// grid generating stuff in containers.less
-// even if we don't get rid of it, I don't see a reason
-// not to use just flexible grid for everything
-@gridWidth:       1000px;
-@gridGap:         40px;
-@gridColumnCount: 12;
+@tablet-portrait-max:  ~"(max-width: 979px)";
+@tablet-landscape-min: ~"(min-width: 980px)";
