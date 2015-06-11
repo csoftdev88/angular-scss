@@ -14,6 +14,10 @@ describe('bookingWidget', function() {
     {code: 'TESTPROP', locationCode: 'TESTLOC'}
   ];
 
+  var TEST_PRODUCTS_LIST = [
+
+  ];
+
   var TEST_SETTINGS = {
     adults: {
       min: 1,
@@ -91,6 +95,12 @@ describe('bookingWidget', function() {
         }
       });
 
+      $provide.value('filtersService', {
+        getProducts: function(){
+          return {then: function(c){c(TEST_PRODUCTS_LIST);}};
+        }
+      });
+
       $provide.value('modalService', {});
 
       $provide.value('Settings', {
@@ -101,7 +111,7 @@ describe('bookingWidget', function() {
     });
 
     inject(function($compile, $rootScope, $templateCache,
-      queryService, propertyService, locationService, bookingService, validationService) {
+      queryService, propertyService, locationService, filtersService, bookingService, validationService) {
 
       env.clock = sinon.useFakeTimers(0 , 'Date');
       env.clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());
@@ -110,6 +120,7 @@ describe('bookingWidget', function() {
       env.$rootScope = $rootScope.$new();
       env.propertyService = propertyService;
       env.locationService = locationService;
+      env.filtersService = filtersService;
       env.bookingService = bookingService;
       env.queryService = queryService;
       env.validationService = validationService;
@@ -122,6 +133,7 @@ describe('bookingWidget', function() {
       env.propertyServiceGetAll = sinon.spy(env.propertyService, 'getAll');
       env.locationServiceGetAll = sinon.spy(env.locationService, 'getAll');
       env.propertyServiceGetAvailability = sinon.spy(env.propertyService, 'getAvailability');
+      env.filtersServiceGetProducts = sinon.spy(env.filtersService, 'getProducts');
       env.validationServiceIsValueValid = sinon.spy(env.validationService, 'isValueValid');
       env.queryServiceRemoveParam = sinon.spy(env.queryService, 'removeParam');
       env.bookingServiceGetParams = sinon.spy(env.bookingService, 'getParams');
@@ -166,6 +178,7 @@ describe('bookingWidget', function() {
       it('should download a property and location list from the server', function() {
         expect(env.propertyServiceGetAll.calledOnce).equal(true);
         expect(env.locationServiceGetAll.calledOnce).equal(true);
+        expect(env.filtersServiceGetProducts.calledOnce).equal(true);
       });
 
       it('should do initial param validation', function() {
@@ -174,7 +187,7 @@ describe('bookingWidget', function() {
       });
 
       it('should read booking parameters from the URL', function() {
-        expect(env.bookingServiceGetParams.callCount).equal(3);
+        expect(env.bookingServiceGetParams.callCount).equal(4);
       });
     });
 

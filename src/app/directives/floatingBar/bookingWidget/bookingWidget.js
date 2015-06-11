@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($filter, $state, $window,
   modalService, bookingService, queryService, validationService,
-  propertyService, locationService, Settings, $q){
+  propertyService, locationService, filtersService, Settings, $q){
   return {
     restrict: 'E',
     scope: {
@@ -144,6 +144,31 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
             validatePropertyLocation();
           });
+        }
+
+        if(!$window._.isEmpty(locationsProperties)){
+          validateRate();
+        }else {
+          filtersService.getProducts(true).then(function(data) {
+            scope.rates = data || [];
+            validateRate();
+          });
+        }
+      }
+
+      function validateRate() {
+        var rateSettings = PARAM_TYPES.rate;
+        var rateId = bookingService.getParams()[rateSettings.search];
+
+        if(rateId) {
+          var rate = $window._.find(scope.rates, {id: scope.selected.rate});
+          // Checking whether list of rates has rate specified in the URL
+          if(!rate) {
+            // Property with the same name doesn't exist - URL param is invalid and should be removed.
+            queryService.removeParam(rateSettings.search);
+          } else {
+            scope.selected.rate = rateId;
+          }
         }
       }
 
