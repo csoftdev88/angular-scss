@@ -119,7 +119,7 @@ module.exports = function(grunt) {
           'ie 8',
           'ie 9',
           'ie 10',
-          'Android 2',
+          'Android > 2',
           'bb 10',
           'last 2 op_mob versions',
           'last 2 and_chr versions',
@@ -190,7 +190,7 @@ module.exports = function(grunt) {
       fonts: {
         files: [{
           expand: true,
-          cwd: '<%= config.client %>/font/',
+          cwd: '<%= config.font_awesome %>',
           src: ['<%= config.fonts %>'],
           dest: '<%= config.build %>/font/'
         }]

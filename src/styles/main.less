@@ -23,7 +23,7 @@
 @import 'v2/partials/forms.less';
 @import 'v2/partials/selects.less';
 @import 'v2/partials/dropdowns.less';
-@import 'v2/partials/datepicker.less';
+// @import 'v2/partials/datepicker.less';
 @import 'v2/partials/animations.less';
 @import 'v2/partials/modal-dialog.less';
 
@@ -42,8 +42,14 @@
 @import 'v2/helpers.less';
 
 // V4 IMPORTS
+
+// Libraries
+@import '../../bower_components/font-awesome/less/font-awesome';
+
+// Config
 @import 'config.less';
 
+// Scaffolding
 @import 'base.less';
 @import 'typography.less';
 @import 'containers.less';
@@ -58,3 +64,6 @@
 // Font icons - only files necessary for now are linked
 // (excluding files for IE7 etc.)
 @import (less) 'vendor/mobius-icons.css';
+
+// Components
+@import 'components/datepicker';
