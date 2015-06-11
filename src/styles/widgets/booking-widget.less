@@ -6,52 +6,121 @@
 @booking-widget-color: #fff;
 
 .floating-bar {
-  position: fixed;
-  bottom: 0px;
-  left: 0;
   width: 100%;
-  z-index: 999;
+  display: block;
+  background: @booking-widget-background;
+  color: @booking-widget-color;
+  position: relative;
 
-  > ul {
+  @media only screen and @tablet-portrait-min {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    z-index: 999;
+  }
+
+  .wrapper > ul {
     position: absolute;
     left: 0;
     top: -30px;
+    width: 100%;
 
     li {
-      display: inline-block;
-      background: @booking-widget-background;
+      display: block;
+      float: left;
+      background: lighten(@booking-widget-background, 10%);
       color: @booking-widget-color;
       line-height: 1.5*@baseline;
+      position: relative;
+      padding: 0 .5*@baseline 0 1.5*@baseline;
+      cursor: pointer;
+
+      &.active {
+        background: @booking-widget-background;
+        &:after {
+          border-bottom: 1.5*@baseline solid @booking-widget-background;
+        }
+      }
+
+      &:after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 1.5*@baseline solid lighten(@booking-widget-background, 10%);
+        border-right: @baseline solid transparent;
+        position: absolute;
+        top: 0;
+        right: -@baseline;
+      }
+
+      &.floating-bar--tab-booking {
+        z-index: 1;
+        padding-left: @baseline;
+
+        &.active {
+          z-index: 2;
+        }
+      }
+
+      &.floating-bar--tab-advanced-booking {
+        z-index: 0;
+
+        &.active {
+          z-index: 2;
+        }
+      }
+
+      &.floating-bar--tab-my-accounts {
+        float: right;
+        padding: 0 @baseline 0 @baseline/2;
+        background: #ebaa3d;
+
+        &:after {
+          border-right: 0;
+          border-left: @baseline solid transparent;
+          border-bottom: 1.5*@baseline solid #ebaa3d;
+          position: absolute;
+          top: 0;
+          right: initial;
+          left: -@baseline;
+        }
+      }
     }
   }
 }
 
 booking-widget {
-  display: block;
-  background: @booking-widget-background;
-  color: @booking-widget-color;
 
-  .fieldset {
-    .clearfix;
+  fieldset {
+    width: 100%;
   }
-}
 
-@media only screen and @tablet-portrait-min {
-
-  booking-widget {
+  @media only screen and @tablet-portrait-min {
 
     > div {
       display: table;
+      width: 100%;
     }
 
-    .fieldset {
+    fieldset {
       display: table-row;
     }
 
     .booking-input, .heading {
       display: table-cell;
+      white-space: nowrap;
+      width: 16.666%;
       vertical-align: middle;
-      padding: @baseline/2 @baseline/4;
+      padding: @baseline/2 0;
+
+      .form-group {
+        padding: 0 @baseline/4;
+      }
+    }
+
+    .heading {
+      padding-left: 0;
     }
   }
 }
