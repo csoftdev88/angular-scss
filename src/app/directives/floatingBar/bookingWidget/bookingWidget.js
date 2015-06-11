@@ -84,15 +84,22 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       scope.selected = {
         'children': undefined,
         'adults': undefined,
-        'promoCode': '',
         'property': undefined,
         'location': undefined,
         // NOTE: dates might be presented as start/end date
         'dates': '',
         // Advanced options
-        'rate': undefined
+        'promoCode': '',
+        'rate': undefined,
+        'rooms': []
       };
       scope.locationPropertySelected = undefined;
+
+      scope.canAddRoom = true;
+      function canAddRoom() {
+        var count = scope.selected.rooms.length;
+        scope.canAddRoom = count < scope.settings.maxRooms;
+      }
 
       // Function will remove query parameters from the URL in case their
       // values are not valid
@@ -361,32 +368,37 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         return true;
       };
 
-      scope.openAdvancedOptionsDialog = function() {
-        var advancedOptions = {};
-
-        if(scope.selected.rate){
-          advancedOptions.rate = scope.selected.rate;
+      function recomputeGlobalAdultsChildren() {
+        function getSum(property) {
+          return $window._.chain(scope.selected.rooms).pluck(property).reduce(function(acc, n) {
+            return acc + n;
+          }, 0).value();
         }
 
-        if(scope.selected.rooms && scope.selected.rooms.length){
-          advancedOptions.rooms = scope.selected.rooms;
-          advancedOptions.multiRoom = true;
+        scope.selected.adults = Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults')));
+        scope.selected.children = Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children')));
+      }
+
+      scope.addRoom = function() {
+        var room;
+        if (!scope.selected.rooms) {
+          room = {adults: scope.selected.adults, children: scope.selected.children};
+          scope.selected.rooms = [room];
+        } else if (scope.selected.rooms.length < scope.settings.maxRooms) {
+          room = {adults: 1, children: 0};
+          scope.selected.rooms.push(room);
         }
+        room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
+        canAddRoom();
+      };
 
-        modalService.openAdvancedOptionsDialog(advancedOptions).then(function(data) {
-          // Saving advanced options
-          if(data.rate !== null) {
-            scope.selected.rate = data.rate;
-          }
-
-          // Update number of adults and children when these are specified in multiroom selection
-          if(data.rooms && data.rooms.length) {
-            scope.selected.rooms = data.rooms;
-            // TODO: Check if advanced options affect the number of adults/children
-            scope.selected.adults = data.rooms.reduce(function(prev, next) {return prev + next.adults;}, 0);
-            scope.selected.children = data.rooms.reduce(function(prev, next) {return prev + next.children;}, 0);
-          }
-        });
+      scope.removeRoom = function(i) {
+        if (i >= 0 && i < scope.selected.rooms.length) {
+          var room = scope.selected.rooms.splice(i, 1);
+          room[0].unwatch();
+          recomputeGlobalAdultsChildren();
+        }
+        canAddRoom();
       };
 
       var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
