@@ -1,20 +1,21 @@
-.inner-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
-  box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
-}
+////////////////
+//// MIXINS ////
+////////////////
 
-.transition(@property: all, @length: 0.5s, @easing: ease-in-out) {
-  transition: @arguments;
-}
+// these are the mixins copied from v2 that can be used in v4
+// add more if needed
 
-.transitionFast(@property: all, @length: @transitionDurationDefault, @easing: ease-in-out) {
-  transition: @arguments;
-}
-
+// shadows - we can use mixin for shadow to make sure all shadows look same
 .box-shadow(@x: 0, @y: 2px, @size: 4px, @color: rgba(0, 0, 0, 0.1)) {
   box-shadow: @arguments;
 }
 
-.noSpaces {
+.inner-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+  box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+// layout
+.no-spaces() {
   margin: 0px;
   padding: 0px;
 }
@@ -32,7 +33,7 @@
   }
 }
 
-// Image replacement
+// image replacement
 .ir() {
   font: ~"0/0" a;
   color: transparent;
@@ -41,23 +42,10 @@
   border: 0;
 }
 
-
-/*  ==========================================
-    ALIGN/CENTERING
-    ========================================== */
-.vertical-align {
+.vertical-align() {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-.no-select {
-  -webkit-touch-callout:  none;
-  -webkit-user-select:    none;
-  -khtml-user-select:     none;
-  -moz-user-select:       none;
-  -ms-user-select:        none;
-  user-select:            none;
 }

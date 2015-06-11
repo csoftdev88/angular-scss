@@ -1,12 +1,10 @@
-html {
-  font-family: @fontDefault;
-  font-size: @htmlFontSize;
-}
+/////////////////////
+//// BASE STYLES ////
+/////////////////////
 
 body {
-  .open-sans;
-  background-color: @bodyBackground;
-  color: @colorTextDefault;
+  background: @c-background-body;
+  color: @c-base;
 }
 
 main {
@@ -14,23 +12,25 @@ main {
 }
 
 nav {
+
   ol, ul {
     list-style: none;
   }
 }
 
 a {
-  color: @colorLinkDefault;
+  color: @c-link;
+
   &:hover,
   &:focus {
-    color: @colorLinkLight;
+    color: lighten(@c-link, 10%);
   }
 }
 
 hr {
+  .no-spaces();
   height: 0px;
-  .noSpaces;
   margin-top: -1px;
   border: none;
-  border-bottom: 1px dashed @borderBottomColorHeader;
+  border-bottom: 1px dashed @c-hr;
 }
