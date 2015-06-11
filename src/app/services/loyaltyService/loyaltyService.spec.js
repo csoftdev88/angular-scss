@@ -31,7 +31,7 @@ describe('loyaltyService', function() {
       $provide.value('apiService', apiService);
 
       var userService = {
-        isUserLoggedIn: sandbox.stub(),
+        isLoggedIn: sandbox.stub(),
         getUser: sandbox.stub()
       };
       $provide.value('user', userService);
@@ -64,7 +64,7 @@ describe('loyaltyService', function() {
 
     describe('when user logged in', function() {
       beforeEach(function(){
-        _user.isUserLoggedIn.returns(true);
+        _user.isLoggedIn.returns(true);
         _user.getUser.returns({id: 123});
       });
 

@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
-  .directive('myAccount', function(){
+  .directive('myAccount', function(loyaltyService){
     return {
       restrict: 'E',
       scope: {},
@@ -10,6 +10,7 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
       // Widget logic goes here
       link: function() {
+        console.log('loyaltyService.getAll()' + JSON.stringify(loyaltyService.getAll(), null,4));
       }
     };
   });
