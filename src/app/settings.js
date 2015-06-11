@@ -23,6 +23,9 @@ angular.module('mobiusApp.config', [])
         'productDetails': 'properties/:propertyCode/rooms/:roomTypeCode/products'
       }
     },
+    'locations': {
+      'all': 'locations'
+    },
     'customers': {
       'login': 'customers/actions/login',
       'customers': 'customers'

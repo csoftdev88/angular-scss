@@ -6,8 +6,12 @@ describe('bookingWidget', function() {
   var TEMPLATE = '<booking-widget></booking-widget>';
   var TEMPLATE_URL = 'directives/floatingBar/bookingWidget/bookingWidget.html';
 
+  var TEST_LOCATION_LIST = [
+    {code: 'TESTLOC'}
+  ];
+
   var TEST_PROPERTY_LIST = [
-    {code: 'TESTPROP'}
+    {code: 'TESTPROP', locationCode: 'TESTLOC'}
   ];
 
   var TEST_SETTINGS = {
@@ -81,6 +85,12 @@ describe('bookingWidget', function() {
         }
       });
 
+      $provide.value('locationService', {
+        getAll: function(){
+          return {then: function(c){c(TEST_LOCATION_LIST);}};
+        }
+      });
+
       $provide.value('modalService', {});
 
       $provide.value('Settings', {
@@ -91,7 +101,7 @@ describe('bookingWidget', function() {
     });
 
     inject(function($compile, $rootScope, $templateCache,
-      queryService, propertyService, bookingService, validationService) {
+      queryService, propertyService, locationService, bookingService, validationService) {
 
       env.clock = sinon.useFakeTimers(0 , 'Date');
       env.clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());
@@ -99,6 +109,7 @@ describe('bookingWidget', function() {
       env.$compile = $compile;
       env.$rootScope = $rootScope.$new();
       env.propertyService = propertyService;
+      env.locationService = locationService;
       env.bookingService = bookingService;
       env.queryService = queryService;
       env.validationService = validationService;
@@ -109,6 +120,7 @@ describe('bookingWidget', function() {
       // Spy's
       env.templateCacheGet = sinon.spy(env.$templateCache, 'get');
       env.propertyServiceGetAll = sinon.spy(env.propertyService, 'getAll');
+      env.locationServiceGetAll = sinon.spy(env.locationService, 'getAll');
       env.propertyServiceGetAvailability = sinon.spy(env.propertyService, 'getAvailability');
       env.validationServiceIsValueValid = sinon.spy(env.validationService, 'isValueValid');
       env.queryServiceRemoveParam = sinon.spy(env.queryService, 'removeParam');
@@ -151,18 +163,18 @@ describe('bookingWidget', function() {
         expect(env.scope.selected).to.be.an('object');
       });
 
-      it('should download a property list from the server', function() {
+      it('should download a property and location list from the server', function() {
         expect(env.propertyServiceGetAll.calledOnce).equal(true);
-        expect(env.scope.propertyList).equal(TEST_PROPERTY_LIST);
+        expect(env.locationServiceGetAll.calledOnce).equal(true);
       });
 
       it('should do initial param validation', function() {
-        expect(env.validationServiceIsValueValid.callCount).equal(7);
-        expect(env.queryServiceRemoveParam.callCount).equal(7);
+        expect(env.validationServiceIsValueValid.callCount).equal(8);
+        expect(env.queryServiceRemoveParam.callCount).equal(8);
       });
 
       it('should read booking parameters from the URL', function() {
-        expect(env.bookingServiceGetParams.callCount).equal(2);
+        expect(env.bookingServiceGetParams.callCount).equal(3);
       });
     });
 
@@ -214,11 +226,15 @@ describe('bookingWidget', function() {
     });
 
     it('should add all properties option to the top of the property list', function() {
-      expect(env.scope.propertyList.length).equal(2);
+      expect(env.scope.propertyLocationList.length).equal(3);
 
-      expect(env.scope.propertyList[0].code).equal(undefined);
-      expect(env.scope.propertyList[0].nameShort).to.be.an('string');
-      expect(env.scope.propertyList[1].code).equal('TESTPROP');
+      expect(env.scope.propertyLocationList[0].code).equal(undefined);
+      expect(env.scope.propertyLocationList[0].name).to.be.an('string');
+      expect(env.scope.propertyLocationList[0].type).equal('all');
+      expect(env.scope.propertyLocationList[1].code).equal('TESTLOC');
+      expect(env.scope.propertyLocationList[1].type).equal('location');
+      expect(env.scope.propertyLocationList[2].code).equal('TESTPROP');
+      expect(env.scope.propertyLocationList[2].type).equal('property');
     });
   });
 });

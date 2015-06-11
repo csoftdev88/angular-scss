@@ -48,6 +48,7 @@ angular
     'mobiusApp.services.user',
     'mobiusApp.services.booking',
     'mobiusApp.services.filters',
+    'mobiusApp.services.locations',
 
     // Factories
     'mobiusApp.factories.template',
@@ -67,6 +68,7 @@ angular
     'mobiusApp.directives.dropdown.group',
     'mobiusApp.directives.datepicker',
     'mobiusApp.directives.password',
+    'mobiusApp.directives.chosenOptionsClass',
     // Directive based on content data
     'mobiusApp.directives.menu',
     // Directives for generic data
@@ -95,7 +97,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&children&adults&dates&rate&rooms'
+        url: '?property&location&children&adults&dates&rate&rooms'
       })
 
       // Home page

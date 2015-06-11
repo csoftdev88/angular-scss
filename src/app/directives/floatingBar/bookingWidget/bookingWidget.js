@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($filter, $state, $window,
   modalService, bookingService, queryService, validationService,
-  propertyService, Settings){
+  propertyService, locationService, Settings, $q){
   return {
     restrict: 'E',
     scope: {
@@ -28,41 +28,54 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'max': scope.settings.children.max,
           'min': scope.settings.children.min || 0,
           'defaultValue': 0,
-          'required': false
+          'required': false,
+          'withCode': false
         },
         'adults': {
           'search': 'adults',
           'type': 'integer',
           'max': scope.settings.adults.max,
           'min': scope.settings.adults.min || 0,
-          'required': true
+          'required': true,
+          'withCode': false
+        },
+        'location': {
+          'search': 'location',
+          'type': 'string',
+          'required': false,
+          'withCode': true
         },
         'property': {
           'search': 'property',
           'type': 'string',
-          'required': false
+          'required': false,
+          'withCode': true
         },
         'promoCode': {
           'search': 'promoCode',
           'type': 'string',
-          'required': false
+          'required': false,
+          'withCode': false
         },
         //TODO: add dates validation
         'dates': {
           'search': 'dates',
           'type': 'string',
-          'required': true
+          'required': true,
+          'withCode': false
         },
         'rate': {
           'search': 'rate',
           'type': 'integer',
-          'required': false
+          'required': false,
+          'withCode': false
         },
 
         'rooms': {
           'search': 'rooms',
           'type': 'object',
-          'required': false
+          'required': false,
+          'withCode': false
         }
       };
 
@@ -73,11 +86,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         'adults': undefined,
         'promoCode': '',
         'property': undefined,
+        'location': undefined,
         // NOTE: dates might be presented as start/end date
         'dates': '',
         // Advanced options
         'rate': undefined
       };
+      scope.locationPropertySelected = undefined;
 
       // Function will remove query parameters from the URL in case their
       // values are not valid
@@ -98,49 +113,104 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       }
 
+      var locationsProperties = {};
       function init(){
         validateURLParams();
 
-        if(scope.propertyList && scope.propertyList.length){
-          validateProperty();
+        if(!$window._.isEmpty(locationsProperties)){
+          validatePropertyLocation();
         }else{
-          // Getting a list of properties
-          propertyService.getAll().then(function(data){
-            scope.propertyList = data || [];
-            if(scope.settings.includeAllPropertyOption){
-              scope.propertyList.unshift({nameShort: 'All Properties'});
-            }
-            validateProperty();
+          // Getting a list of locations and properties
+          $q.all([
+            locationService.getAll(),
+            propertyService.getAll()
+          ]).then(function(data) {
+            var locationData = data[0];
+            var propertyData = data[1];
+
+            // available locations of properties
+            var locationCodes = $window._.reduce(propertyData, function(result, property){
+              result[property.locationCode] = true;
+              return result;
+            }, {});
+
+            // only locations of properties
+            $window._.forEach(locationData, function(location) {
+              if (locationCodes[location.code]) {
+                locationsProperties[location.code] = location;
+                locationsProperties[location.code].properties = $window._.filter(propertyData, {locationCode: location.code});
+              }
+            });
+
+            validatePropertyLocation();
           });
         }
       }
 
-      // Validating property code presented in the URL and selecting the corresponding
-      // property
-      function validateProperty(){
-        var paramSettings = PARAM_TYPES.property;
-        var propertyCode = bookingService.getParams()[paramSettings.search];
+      function findLocation(locationCode) {
+        return $window._.find(locationsProperties, {code: locationCode});
+      }
 
-        if(!propertyCode){
-          resetAvailability();
-          return;
-        }
+      function findProperty(propertyCode) {
+        return $window._.chain(locationsProperties).pluck('properties').flatten().find({code: propertyCode}).value();
+      }
 
-        // Checking whether list of properties has property specified in the URL
-        for(var i=0; i<scope.propertyList.length; i++){
-          var property = scope.propertyList[i];
+      function validatePropertyLocation() {
+        var propertySettings = PARAM_TYPES.property;
+        var propertyCode = bookingService.getParams()[propertySettings.search];
 
-          if(property.code === propertyCode){
-            // Property exist
-            scope.selected.property = property;
-            checkAvailability();
-            return;
+        if(propertyCode) {
+          // Checking whether list of properties has property specified in the URL
+          scope.selected.property = findProperty(propertyCode);
+          if(!scope.selected.property) {
+            // Property with the same name doesn't exist - URL param is invalid and should be removed.
+            queryService.removeParam(propertySettings.search);
           }
         }
 
-        resetAvailability();
-        // Property with the same name doesn't exist - URL param is invalid and should be removed.
-        queryService.removeParam(paramSettings.search);
+        var locationSettings = PARAM_TYPES.location;
+        var locationCode = bookingService.getParams()[locationSettings.search];
+
+        if(locationCode) {
+          if(!scope.selected.property || scope.selected.property.locationCode === locationCode) {
+            // Checking whether list of locations has locaiton specified in the URL
+            scope.selected.location = findLocation(locationCode);
+          }
+          if(!scope.selected.location) {
+            // Location with the same name doesn't exist - URL param is invalid and should be removed.
+            queryService.removeParam(locationSettings.search);
+          }
+        }
+
+        setPropertyLocationList();
+        if(scope.selected.property) {
+          checkAvailability();
+        } else {
+          resetAvailability();
+        }
+      }
+
+      function setPropertyLocationList() {
+        if (scope.selected.location && scope.selected.location.code) {
+          scope.propertyLocationList = [
+            {name: 'All locations', type: 'all'},
+            {name: location.name, type: 'location', code: location.code}
+          ];
+          $window._.forEach(scope.selected.location.properties, function(property) {
+            scope.propertyLocationList.push({name: property.nameShort, type: 'property', code: property.code});
+          });
+        } else {
+          scope.propertyLocationList = [];
+          if (scope.settings.includeAllPropertyOption) {
+            scope.propertyLocationList.push({name: 'All Properties', type: 'all'});
+          }
+          $window._.forEach(locationsProperties, function(location) {
+            scope.propertyLocationList.push({name: location.name, type: 'location', code: location.code});
+            $window._.forEach(location.properties, function(property) {
+              scope.propertyLocationList.push({name: property.nameShort, type: 'property', code: property.code});
+            });
+          });
+        }
       }
 
       function resetAvailability(){
@@ -188,6 +258,25 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         return date;
       }
 
+      scope.propertyLocationChanged = function() {
+        switch(scope.locationPropertySelected.type) {
+        case 'all':
+          scope.selected.location = undefined;
+          scope.selected.property = undefined;
+          break;
+        case 'location':
+          scope.selected.location = findLocation(scope.locationPropertySelected.code);
+          scope.selected.property = undefined;
+          break;
+        case 'property':
+          scope.selected.property = findProperty(scope.locationPropertySelected.code);
+          break;
+        default:
+          throw new Error('Undefined type: "' + scope.locationPropertySelected.type + '"');
+        }
+        setPropertyLocationList();
+      };
+
       /**
        * Updates the url with values from the widget and redirects either to hotel list or a room list
        */
@@ -198,7 +287,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           var paramSettings = PARAM_TYPES[key];
 
           var modelValue;
-          if(key === 'property' && scope.selected[key]!==undefined){
+          if(paramSettings.withCode && scope.selected[key]!==undefined){
             modelValue = scope.selected[key].code;
           } else {
             modelValue = scope.selected[key] || paramSettings.defaultValue;
