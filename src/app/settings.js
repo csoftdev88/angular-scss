@@ -24,7 +24,8 @@ angular.module('mobiusApp.config', [])
       }
     },
     'locations': {
-      'all': 'locations'
+      'locations': 'locations',
+      'regions': 'regions/'
     },
     'customers': {
       'login': 'customers/actions/login',

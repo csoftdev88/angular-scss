@@ -11,10 +11,10 @@
     <li class="booking-input hotels">
       <div class="form-group">
         <select name="test" required chosen disable-search="false" data-placeholder="All Properties"
-                ng-model="locationPropertySelected"
-                chosen-options-class="{ 'location' : type === 'location', 'property': type === 'property' }"
-                ng-options="option.name for option in propertyLocationList"
-                ng-change="propertyLocationChanged()">
+                ng-model="regionPropertySelected"
+                chosen-options-class="{ 'region' : type === 'region', 'property': type === 'property' }"
+                ng-options="option.name for option in propertyRegionList"
+                ng-change="propertyRegionChanged()">
           <option></option>
         </select>
         <span class="info">Find Your Hotel:</span>
