@@ -27,7 +27,6 @@ angular
     'mobius.controllers.modals.data',
     'mobius.controllers.modals.login',
     'mobius.controllers.modals.register',
-    'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
     'mobius.controllers.modals.policy',
 

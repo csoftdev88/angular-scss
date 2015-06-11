@@ -8,7 +8,6 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_LOGIN = 'LoginCtrl',
       CONTROLLER_REGISTER = 'RegisterCtrl',
-      CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl',
       CONTROLLER_RESERVATIONS = 'ModalReservationCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
       DIALOG_PARAM_NAME = 'dialog';
@@ -49,14 +48,6 @@ angular.module('mobiusApp.services.modal', [])
 
   function openEnterCodeDialog(){
     return openDialog('EnterCodeDialog', 'layouts/modals/enterCodeDialog.html', CONTROLLER_LOGIN);
-  }
-
-  function openAdvancedOptionsDialog(data){
-    return openDialog('AdvancedOptionsDialog',
-      'layouts/modals/advancedOptionsDialog.html',
-      CONTROLLER_ADVANCED_OPTIONS,
-      {resolve: {data: function(){return data || {};}}}
-    );
   }
 
   // Accepting reservation data to be rendered in modal window
@@ -111,8 +102,6 @@ angular.module('mobiusApp.services.modal', [])
       return openPasswordResetDialog();
     case 'EnterCodeDialog':
       return openEnterCodeDialog();
-    case 'AdvancedOptionsDialog':
-      return openAdvancedOptionsDialog();
     case 'CancelReservationDialog':
       return openCancelReservationDialog();
     case 'CCVInfo':
@@ -132,7 +121,6 @@ angular.module('mobiusApp.services.modal', [])
     openRegisterDialog: openRegisterDialog,
     openPasswordResetDialog: openPasswordResetDialog,
     openEnterCodeDialog: openEnterCodeDialog,
-    openAdvancedOptionsDialog: openAdvancedOptionsDialog,
     openCancelReservationDialog: openCancelReservationDialog,
     openCCVInfo: openCCVInfo,
     openPoliciesInfo: openPoliciesInfo,
