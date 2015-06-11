@@ -153,7 +153,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           });
         }
 
-        if(!$window._.isEmpty(locationsProperties)){
+        if(scope.rates && scope.rates.length){
           validateRate();
         }else {
           filtersService.getProducts(true).then(function(data) {
