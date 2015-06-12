@@ -7,18 +7,17 @@
     Badges list goes here
 
     <div>
-      <ul ng-repeat="badge in badges">
-        <a href>
-          <img ng-src="{{badge.icon}}" alt="{{badge.name}}"  ng-click="showBadgeDetail($index)"/>
+      <ul>
+        <a href ng-repeat="badge in items">
+          <img ng-src="{{badge.icon}}" alt="{{badge.name}}" ng-click="selectItem(badge)"/>
         </a>
       </ul>
     </div>
 
-    <div ng-show="selectedBadge">
-      <h2>{{selectedBadge.name}}</h2>
-      <img ng-src="{{selectedBadge.icon}}" alt="{{selectedBadge.name}}"/>
-      <p>{{selectedBadge.description}}</p>
+    <div ng-show="selectedItem">
+      <h2>{{selectedItem.name}}</h2>
+      <img ng-src="{{selectedItem.icon}}" alt="{{selectedItem.name}}"/>
+      <p>{{selectedItem.description}}</p>
     </div>
   </div>
-
 </div>

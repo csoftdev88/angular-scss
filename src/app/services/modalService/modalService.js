@@ -139,6 +139,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openLoyaltiesDialog(badges){
+    return openDialog('Badges', 'layouts/modals/loyalties/loyalties.html', CONTROLLER_BADGES, {
+      windowClass: 'dialog-loyalties',
+      resolve: {
+        data: function(){
+          return badges;
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     openLoginDialog: openLoginDialog,
@@ -152,7 +163,8 @@ angular.module('mobiusApp.services.modal', [])
     openPriceBreakdownInfo: openPriceBreakdownInfo,
     openDialogIfPresent: openDialogIfPresent,
     // Loyalties
-    openBadgesDialog: openBadgesDialog
+    openBadgesDialog: openBadgesDialog,
+    openLoyaltiesDialog: openLoyaltiesDialog
   };
 
 });

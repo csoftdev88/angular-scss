@@ -30,7 +30,7 @@ angular
     'mobius.controllers.modals.advancedOptions',
     'mobius.controllers.modals.reservation',
     'mobius.controllers.modals.policy',
-    'mobius.controllers.modals.loyalties.badges',
+    'mobius.controllers.modals.loyalties',
 
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
