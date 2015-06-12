@@ -75,6 +75,7 @@ angular.module('mobius.controllers.main', [])
 
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
+      $scope.loyalties = user;
 
       modalService.openDialogIfPresent();
 
