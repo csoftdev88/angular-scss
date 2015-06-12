@@ -65,17 +65,9 @@ angular.module('mobius.controllers.main', [])
         });
       }
 
-      $scope.openLoginDialog = function() {
-        modalService.openLoginDialog();
-      };
-
-      $scope.openPasswordResetDialog = function() {
-        modalService.openPasswordResetDialog();
-      };
-
-      $scope.openEnterCodeDialog = function() {
-        modalService.openEnterCodeDialog();
-      };
+      $scope.openLoginDialog = modalService.openLoginDialog;
+      $scope.openPasswordResetDialog = modalService.openPasswordResetDialog;
+      $scope.openEnterCodeDialog = modalService.openEnterCodeDialog;
 
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;

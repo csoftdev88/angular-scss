@@ -29,8 +29,13 @@
             <li has-dropdown="click" language-list>
             </li>
 
-            <li>
+            <li ng-if="!isUserLoggedIn()">
                 <a class="button button-login" ng-click="openLoginDialog()" ng-hide="isUserLoggedIn()">_login_register_</a>
+            </li>
+
+            <li ng-if="isUserLoggedIn()">
+                <img src="{{user.getUser().avatar}}">
+                <span>{{user.getUser().firstName}} {{user.getUser().lastName}}</span>
             </li>
         </ul>
     </div>
