@@ -11,9 +11,9 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
       // Widget logic goes here
       link: function(scope) {
         var badges;
-
         loyaltyService.getAll().then(function(response) {
-          scope.badges = response.badges;
+          scope.showAccountPanelContent = true;
+          badges = response.badges;
           var lastEarnedBadge = scope.badges ? _.sortBy(scope.badges, 'earned')[0] : {};
           if(lastEarnedBadge.earned) {
             scope.lastBadge = lastEarnedBadge;
@@ -21,7 +21,6 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
               scope.lastBadge.earned, 'YYYY-MM-DD'
             ).format('D MMM YYYY');
           }
-          console.log('scope.lastBadge' + scope.lastBadge);
         });
 
         scope.showBadges = function(){
