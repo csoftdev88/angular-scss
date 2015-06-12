@@ -36,6 +36,7 @@
             <li ng-if="isUserLoggedIn()">
                 <img src="{{user.getUser().avatar}}">
                 <span>{{user.getUser().firstName}} {{user.getUser().lastName}}</span>
+                <span>{{user.getUser().getLoyaltiesObject().tier}} _tier_</span>
             </li>
         </ul>
     </div>

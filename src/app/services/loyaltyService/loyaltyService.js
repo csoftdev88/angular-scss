@@ -4,16 +4,12 @@
 */
 angular.module('mobiusApp.services.loyalty', [])
 
-.service( 'loyaltyService',  function($q, apiService, user) {
-  function getAll(){
-    if(!user.isLoggedIn()){
-      throw new Error('User must be logged in');
-    }
-
+.service( 'loyaltyService',  function($q, apiService) {
+  function getAll(userId){
     var q = $q.defer();
 
     apiService.get(apiService.getFullURL('loyalties.all', {
-      customerId: user.getUser().id
+      customerId: userId
     })).then(function(data){
       q.resolve(data);
     }, function(error){
