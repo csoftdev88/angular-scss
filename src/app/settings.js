@@ -16,7 +16,7 @@ angular.module('mobiusApp.config', [])
     },
     'properties': {
       'all': 'properties',
-      'details': 'properties/:propertyCode/',
+      'details': 'properties/:propertyCode',
       'availability': 'properties/:propertyCode/availabilities',
       'room': {
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
