@@ -11,7 +11,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_ADVANCED_OPTIONS = 'AdvancedOptionsCtrl',
       CONTROLLER_RESERVATIONS = 'ModalReservationCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
-      CONTROLLER_BADGES = 'BadgesCtrl',
+      CONTROLLER_LOYALTIES = 'LoyaltiesCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -129,7 +129,7 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openBadgesDialog(badges){
-    return openDialog('Badges', 'layouts/modals/loyalties/badges.html', CONTROLLER_BADGES, {
+    return openDialog('Badges', 'layouts/modals/loyalties/badges.html', CONTROLLER_LOYALTIES, {
       windowClass: 'dialog-badges',
       resolve: {
         data: function(){
@@ -140,7 +140,7 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openLoyaltiesDialog(badges){
-    return openDialog('Badges', 'layouts/modals/loyalties/loyalties.html', CONTROLLER_BADGES, {
+    return openDialog('Loyalties', 'layouts/modals/loyalties/loyalties.html', CONTROLLER_LOYALTIES, {
       windowClass: 'dialog-loyalties',
       resolve: {
         data: function(){

@@ -5,7 +5,7 @@ angular.module('mobiusApp.services.user', [])
 
     return {
       isLoggedIn: function() {
-        return userObject.id ? true : false;
+        return true;
       },
       getUser: function() {
         return userObject;

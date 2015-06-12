@@ -5,8 +5,7 @@
  */
 angular.module('mobius.controllers.modals.loyalties', [])
 
-.controller( 'BadgesCtrl', function($scope, $controller, $modalInstance,
-  Settings, data, _) {
+.controller( 'LoyaltiesCtrl', function($scope, $controller, $modalInstance, data, _) {
 
     $controller('ModalDataCtrl', {$scope: $scope, $modalInstance: $modalInstance, data: data});
     // NOTE: (Alex) put this back if some of the badges/loyalties have pure HTML content
