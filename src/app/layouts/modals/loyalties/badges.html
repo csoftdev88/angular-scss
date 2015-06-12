@@ -5,14 +5,14 @@
 
 <main>
   <badges-list>
-    <badge-icon ng-repeat="badge in badges" ng-click="showBadgeDetail($index)">
+    <badge-icon ng-repeat="badge in items" ng-click="selectItem(badge)">
       <img ng-src{{badge.icon}} alt="{{badge.name}}"/>
     </badge-icon>
   </badges-list>
 
   <badge-selected>
-    <h2>{{selectedBadge.name}}</h2>
-    <img ng-src{{selectedBadge.icon}} alt="{{selectedBadge.name}}"/>
-    <p>{{selectedBadge.description}}</p>
+    <h2>{{selectedItem.name}}</h2>
+    <img ng-src{{selectedItem.icon}} alt="{{selectedItem.name}}"/>
+    <p>{{selectedItem.description}}</p>
   </badge-selected>
 </main>

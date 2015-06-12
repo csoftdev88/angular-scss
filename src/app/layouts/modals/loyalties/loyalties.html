@@ -1,0 +1,22 @@
+<div class="ui-info">
+  <div class="modal-header">
+    <h1>My <strong>Loyalty Card</strong></h1>
+    <button class="button-close" ng-click="cancel()">X</button>
+  </div>
+  <div class="modal-body">
+    Loyalty cards
+
+    <div>
+      <ul>
+        <a href ng-repeat="card in items" ng-class="{'earned': card.earned}">
+          <img ng-src="{{card.image}}" ng-click="selectItem(card)"/>
+        </a>
+      </ul>
+    </div>
+
+    <div ng-show="selectedItem">
+      <h2>{{selectedItem.name}}</h2>
+      <p>{{selectedItem.description}}</p>
+    </div>
+  </div>
+</div>

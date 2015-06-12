@@ -1,12 +1,25 @@
-<div ng-if="showAccountPanelContent" ng-switch="!!lastBadge" ng-click="showBadges()">
-  <div ng-switch-when="false">You have not earned any badges yet</div>
-  <div ng-switch-default>
-    <img ng-src="{{lastBadge.icon}}" />
-    <p>LAST BADGE <strong>EARNED</strong></p>
-    <p>{{lastBadge.name}}</p>
-    <p>{{lastBadge.shortDescription}}</p>
-    <p>{{lastBadge.displayedDate}}</p>
+<div ng-if="loyaltyCard">
+  <div ng-switch="!!lastBadge" ng-click="showBadges()">
+    <div ng-switch-when="false">You have not earned any badges yet</div>
+    <div ng-switch-default>
+      <img ng-src="{{lastBadge.icon}}" />
+      <p>LAST BADGE <strong>EARNED</strong></p>
+      <p>{{lastBadge.name}}</p>
+      <p>{{lastBadge.shortDescription}}</p>
+      <p>{{lastBadge.displayedDate}}</p>
+    </div>
+  </div>
+
+  <div>
+    <img ng-src="{{loyaltyCard.tierIcon}}"/>
+
+    LOYALTY CARD
+    2/10 Stampts
+    {{loyaltyCard.name}} card
+    <button ng-click="showLoyaltyCards()">Loyalties</button>
   </div>
 </div>
 
-
+<div>
+  Loading the profile...
+</div>
