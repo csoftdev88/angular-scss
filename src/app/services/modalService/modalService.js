@@ -15,7 +15,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openDialog(dialogName, templateUrl, controller, options){
     var q = $q.defer(),
-        modalOptions = { templateUrl: templateUrl, controller: controller };
+        modalOptions = { templateUrl: templateUrl, controller: controller, windowTemplateUrl: 'layouts/modals/window.html'  };
 
     // Merge required and arbitrary options together
     angular.extend(modalOptions, options);
