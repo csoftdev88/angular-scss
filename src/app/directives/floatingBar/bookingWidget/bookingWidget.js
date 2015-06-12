@@ -150,6 +150,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             });
             regionsProperties = $window._.sortBy(regionsProperties, 'nameShort');
 
+            setPropertyRegionList();
             validatePropertyRegion();
           });
         }
@@ -198,6 +199,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(!scope.selected.property) {
             // Property with the same name doesn't exist - URL param is invalid and should be removed.
             queryService.removeParam(propertySettings.search);
+          } else {
+            scope.regionPropertySelected = $window._.find(scope.propertyRegionList, {type: 'property', code: propertyCode});
           }
         }
 
@@ -212,10 +215,11 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(!scope.selected.region) {
             // Region with the same name doesn't exist - URL param is invalid and should be removed.
             queryService.removeParam(regionSettings.search);
+          } else if(!scope.regionPropertySelected) {
+            scope.regionPropertySelected = $window._.find(scope.propertyRegionList, {type: 'region', code: regionCode});
           }
         }
 
-        setPropertyRegionList();
         if(scope.selected.property) {
           checkAvailability();
         } else {
