@@ -1,13 +1,13 @@
-
 My account
-<div ng-if="lastBadge">
-  <img ng-src="{{lastBadge.icon}}" />
-  <p>LAST BADGE <strong>EARNED</strong></p>
-  <p>{{lastBadge.name}}</p>
-  <p>{{lastBadge.shortDescription}}</p>
-  <p>{{lastBadge.displayedDate}}</p>
-
-  <button ng-click="showBadges()">List of badges</button>
+<div ng-if="showAccountPanelContent" ng-switch="!!lastBadge" ng-click="showBadges()">
+  <div ng-switch-when="false">You have not earned any badges yet</div>
+  <div ng-switch-default>
+    <img ng-src="{{lastBadge.icon}}" />
+    <p>LAST BADGE <strong>EARNED</strong></p>
+    <p>{{lastBadge.name}}</p>
+    <p>{{lastBadge.shortDescription}}</p>
+    <p>{{lastBadge.displayedDate}}</p>
+  </div>
 </div>
 
 <div ng-click="showLoaltyCards()">
