@@ -8,7 +8,7 @@ angular.module('mobiusApp.directives.aboutHotel', [])
     templateUrl: 'directives/aboutHotel/aboutHotel.html',
     link: function(scope){
       scope.isCollapsed = true;
-      scope.bigIcons = Settings.UI.aboutHotel.bigIcons;
+      scope.benefits = Settings.UI.aboutHotel.benefits;
     }
   };
 });

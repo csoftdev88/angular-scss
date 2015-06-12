@@ -21,7 +21,7 @@
 <section grid-row class="benefits">
   <div class="section-highlighted"><stars/></div>
 
-  <article grid="4" ng-repeat="icon in bigIcons" ng-switch="isUserLoggedIn()">
+  <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">
     <a ng-click="openLoginDialog()" ng-switch-when="false" href>
         <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
 
