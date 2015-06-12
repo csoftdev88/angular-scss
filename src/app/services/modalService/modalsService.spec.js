@@ -38,14 +38,31 @@ describe('mobiusApp.services.modal', function() {
     });
 
     it('should open badges dialog', function() {
-      _modalService.openBadgesDialog({test: 123});
+      _modalService.openBadgesDialog();
       expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'LoyaltiesCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/loyalties/badges.html'))).equal(true);
     });
   });
 
   describe('openLoyaltiesDialog', function() {
     it('should be defined as a function', function() {
       expect(_modalService.openLoyaltiesDialog).to.be.an('function');
+    });
+
+    it('should open loyalties dialog', function() {
+      _modalService.openLoyaltiesDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'LoyaltiesCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/loyalties/loyalties.html'))).equal(true);
     });
   });
 });
