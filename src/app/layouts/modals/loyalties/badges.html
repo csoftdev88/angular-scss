@@ -1,23 +1,19 @@
-<div class="ui-info">
-  <div class="modal-header">
-    <h1>My <strong>Badges</strong><h1>
-    <button class="button-close" ng-click="cancel()">X</button>
-  </div>
-  <div class="modal-body">
-    Badges list goes here
 
-    <div>
-      <ul ng-repeat="badge in badges">
-        <a href>
-          <img ng-src{{badge.icon}} alt="{{badge.name}}"/>
-        </a>
-      </ul>
-    </div>
+<header>
+  <h1>My <strong>Badges</strong></h1>
+  <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+</header>
 
-    <div>
-      <h2>{{selectedBadge.name}}</h2>
-      <img ng-src{{selectedBadge.icon}} alt="{{selectedBadge.name}}"/>
-      <p>{{selectedBadge.description}}</p>
-    </div>
-  </div>
-</div>
+<main>
+  <badges-list>
+    <badge-icon ng-repeat="badge in badges">
+      <img ng-src{{badge.icon}} alt="{{badge.name}}"/>
+    </badge-icon>
+  </badges-list>
+
+  <badge-selected>
+    <h2>{{selectedBadge.name}}</h2>
+    <img ng-src{{selectedBadge.icon}} alt="{{selectedBadge.name}}"/>
+    <p>{{selectedBadge.description}}</p>
+  </badge-selected>
+</main>

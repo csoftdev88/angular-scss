@@ -1,0 +1,19 @@
+//- BUTTONS -//
+
+
+//- Close
+button-close {
+  display: inline-block;
+  height: @baseline * 2;
+  width: @baseline * 2;
+
+  line-height: @baseline * 2;
+  text-align: center;
+
+  // Cross icon
+  &:before {
+    .fa;
+
+    content: @fa-var-close;
+  }
+}
