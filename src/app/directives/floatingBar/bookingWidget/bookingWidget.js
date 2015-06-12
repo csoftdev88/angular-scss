@@ -150,7 +150,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             });
             regionsProperties = $window._.sortBy(regionsProperties, 'nameShort');
 
-            setPropertyRegionList();
             validatePropertyRegion();
           });
         }
@@ -199,8 +198,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(!scope.selected.property) {
             // Property with the same name doesn't exist - URL param is invalid and should be removed.
             queryService.removeParam(propertySettings.search);
-          } else {
-            scope.regionPropertySelected = $window._.find(scope.propertyRegionList, {type: 'property', code: propertyCode});
           }
         }
 
@@ -215,10 +212,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(!scope.selected.region) {
             // Region with the same name doesn't exist - URL param is invalid and should be removed.
             queryService.removeParam(regionSettings.search);
-          } else if(!scope.regionPropertySelected) {
-            scope.regionPropertySelected = $window._.find(scope.propertyRegionList, {type: 'region', code: regionCode});
           }
         }
+
+        setPropertyRegionList();
 
         if(scope.selected.property) {
           checkAvailability();
@@ -228,27 +225,39 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       }
 
       function setPropertyRegionList() {
-        scope.propertyRegionList = [];
-        if (scope.settings.includeAllPropertyOption) {
-          scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
-        }
-        $window._.forEach(regionsProperties, function(region) {
-          scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
-          $window._.forEach(region.properties, function(property) {
+        var region = scope.selected.region;
+        if (scope.selected.region && scope.selected.region.code) {
+          scope.propertyRegionList = [
+            {name: 'All regions', type: 'all'},
+            {name: region.nameShort, type: 'region', code: region.code}
+          ];
+          $window._.forEach(scope.selected.region.properties, function(property) {
             scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
           });
-        });
-        // TODO: on region page (Malta, Czech, etc.) show only properties of that region
-        //if (scope.selected.region && scope.selected.region.code) {
-        //  scope.propertyRegionList = [
-        //    {name: 'All regions', type: 'all'},
-        //    {name: region.name, type: 'region', code: region.code}
-        //  ];
-        //  $window._.forEach(scope.selected.region.properties, function(property) {
-        //    scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
-        //  });
-        //} else {
-        //}
+        } else {
+          scope.propertyRegionList = [];
+          if (scope.settings.includeAllPropertyOption) {
+            scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
+          }
+          $window._.forEach(regionsProperties, function(region) {
+            scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
+            $window._.forEach(region.properties, function(property) {
+              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+            });
+          });
+        }
+
+        if (scope.selected.property) {
+          scope.regionPropertySelected = $window._.find(scope.propertyRegionList, {
+            type: 'property',
+            code: scope.selected.property.code
+          });
+        } else if (region) {
+          scope.regionPropertySelected = $window._.find(scope.propertyRegionList, {
+            type: 'region',
+            code: region.code
+          });
+        }
       }
 
       function resetAvailability(){
@@ -312,6 +321,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         default:
           throw new Error('Undefined type: "' + scope.regionPropertySelected.type + '"');
         }
+        setPropertyRegionList();
       };
 
       /**
