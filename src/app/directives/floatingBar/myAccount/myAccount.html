@@ -1,1 +1,11 @@
+
 My account
+<div ng-if="lastBadge">
+  <img ng-src="{{lastBadge.icon}}" />
+  <p>LAST BADGE <strong>EARNED</strong></p>
+  <p>{{lastBadge.name}}</p>
+  <p>{{lastBadge.shortDescription}}</p>
+  <p>{{lastBadge.displayedDate}}</p>
+
+  <button ng-click="showBadges()">List of badges</button>
+</div>
