@@ -7,11 +7,11 @@ describe('bookingWidget', function() {
   var TEMPLATE_URL = 'directives/floatingBar/bookingWidget/bookingWidget.html';
 
   var TEST_REGION_LIST = [
-    {code: 'TESTREG'}
+    {code: 'TESTREG', nameShort: 'Test Region'}
   ];
 
   var TEST_PROPERTY_LIST = [
-    {code: 'TESTPROP', regionCode: 'TESTREG'}
+    {code: 'TESTPROP', regionCode: 'TESTREG', nameShort: 'Test Property'}
   ];
 
   var TEST_PRODUCTS_LIST = [

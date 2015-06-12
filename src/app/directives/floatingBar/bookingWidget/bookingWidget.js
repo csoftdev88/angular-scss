@@ -120,7 +120,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       }
 
-      var regionsProperties = {};
+      var regionsProperties = [];
       function init(){
         validateURLParams();
 
@@ -144,10 +144,11 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             // only regions of properties
             $window._.forEach(regionData, function(region) {
               if (regionCodes[region.code]) {
-                regionsProperties[region.code] = region;
-                regionsProperties[region.code].properties = $window._.filter(propertyData, {regionCode: region.code});
+                region.properties = $window._.chain(propertyData).filter({regionCode: region.code}).sortBy('nameShort').value();
+                regionsProperties.push(region);
               }
             });
+            regionsProperties = $window._.sortBy(regionsProperties, 'nameShort');
 
             validatePropertyRegion();
           });
