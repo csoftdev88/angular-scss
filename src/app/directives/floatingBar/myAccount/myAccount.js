@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
-  .directive('myAccount', function(loyaltyService, _, $window){
+  .directive('myAccount', function(loyaltyService, _, $window, modalService){
     return {
       restrict: 'E',
       scope: {},
@@ -10,15 +10,23 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
       // Widget logic goes here
       link: function(scope) {
+        var badges;
+
         loyaltyService.getAll().then(function(response) {
+          badges = response.badges;
+
           var lastEarnedBadge = _.sortBy(response.badges, 'earned')[0];
           if(lastEarnedBadge.earned) {
             scope.lastBadge = lastEarnedBadge;
-            scope.lastBadge.displayedDate = $window.moment(scope.lastBadge.earned, 'YYYY-MM-DD').format('D MMM YYYY');
+            scope.lastBadge.displayedDate = $window.moment(
+              scope.lastBadge.earned, 'YYYY-MM-DD'
+            ).format('D MMM YYYY');
           }
         });
 
-
+        scope.showBadges = function(){
+          modalService.openBadgesDialog(badges);
+        };
       }
     };
   });

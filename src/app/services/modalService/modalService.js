@@ -10,6 +10,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_REGISTER = 'RegisterCtrl',
       CONTROLLER_RESERVATIONS = 'ModalReservationCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
+      CONTROLLER_BADGES = 'BadgesCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -111,8 +112,20 @@ angular.module('mobiusApp.services.modal', [])
     case 'PriceBreakdownInfo':
       return openPriceBreakdownInfo();
     default:
-      throw new Error('Unknown dialog "' + dialogName + '"');
+      // NOTE: Commenting this out. Logic must be reviewed
+      //throw new Error('Unknown dialog "' + dialogName + '"');
     }
+  }
+
+  function openBadgesDialog(badges){
+    return openDialog('Badges', 'layouts/modals/loyalties/badges.html', CONTROLLER_BADGES, {
+      windowClass: 'dialog-badges',
+      resolve: {
+        data: function(){
+          return badges;
+        }
+      }
+    });
   }
 
   // Public methods
@@ -125,7 +138,9 @@ angular.module('mobiusApp.services.modal', [])
     openCCVInfo: openCCVInfo,
     openPoliciesInfo: openPoliciesInfo,
     openPriceBreakdownInfo: openPriceBreakdownInfo,
-    openDialogIfPresent: openDialogIfPresent
+    openDialogIfPresent: openDialogIfPresent,
+    // Loyalties
+    openBadgesDialog: openBadgesDialog
   };
 
 });
