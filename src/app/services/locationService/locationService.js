@@ -9,6 +9,10 @@ angular.module('mobiusApp.services.locations', [])
       return apiService.get(apiService.getFullURL('locations.locations'), params);
     }
 
+    function getLocation(locationCode){
+      return apiService.get(apiService.getFullURL('locations.location', {locationCode: locationCode}));
+    }
+
     function getRegions(){
       return apiService.get(apiService.getFullURL('locations.regions'));
     }
@@ -16,6 +20,7 @@ angular.module('mobiusApp.services.locations', [])
     // Public methods
     return {
       getLocations: getLocations,
+      getLocation: getLocation,
       getRegions: getRegions
     };
   });
