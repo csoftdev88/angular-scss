@@ -13,8 +13,13 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
         function loadLoyalities() {
           user.getUser().loyaltiesPromise.then(function(response) {
             badges = response.badges;
-            var loyaltyCard = response.loyaltyCard || {};
-            stamps = loyaltyCard.stamps;
+            loyaltyCard = response.loyaltyCard || {};
+            loyaltyCard.stamps = _.reduce(_.sortBy(loyaltyCard.stamps, 'startPosition'), function(acc, stamp) {
+              for (var i = stamp.startPosition; i <= stamp.endPosition; i++) {
+                acc.push(stamp);
+              }
+              return acc;
+            }, []);
 
             var lastEarnedBadge = badges ? _.sortBy(badges, 'earned')[0] : {};
             if (lastEarnedBadge.earned) {
@@ -25,22 +30,22 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
             }
 
             scope.loyaltyName = loyaltyCard.name;
-            scope.loyaltiesAll = stamps.length;
-            scope.loyaltiesEarned = _.filter(stamps, 'earned').length;
+            scope.loyaltiesAll = loyaltyCard.stamps.length;
+            scope.loyaltiesEarned = _.filter(loyaltyCard.stamps, 'earned').length;
           });
         }
 
         scope.user = user;
 
         var badges = [];
-        var stamps = [];
+        var loyaltyCard = {};
 
         scope.showBadges = function() {
           modalService.openBadgesDialog(badges);
         };
 
-        scope.showLoyaltyCards = function() {
-          modalService.openLoyaltiesDialog(stamps);
+        scope.showLoyaltyCard = function() {
+          modalService.openLoyaltyDialog(loyaltyCard);
         };
 
         var userUnWatch = scope.$watch(
