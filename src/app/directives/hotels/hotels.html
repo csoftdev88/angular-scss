@@ -10,15 +10,11 @@
         <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" ng-change="onSortingChange()">
         </select>
       </div>
-      <div class="view-switch">
-        <i class="icon icon-th-list" ng-class="{'is-active': view == 'list'}" title="Show as list" ng-click="view = 'list'"/>
-        <i class="icon icon-th-thumb" ng-class="{'is-active': view == 'tiles'}" title="Show as tiles" ng-click="view = 'tiles'"/>
-      </div>
     </div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{view}}">
-        <li class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)">
           <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
           <div>
             <h3 class="title"><strong>{{hotel.nameShort}}</strong></h3>
@@ -38,3 +34,39 @@
     </div>
   </section>
 </div>
+
+<aside grid-container="3">
+  <div grid="3">
+    <div>
+      <h3>View</h3>
+      <div class="view-switch">
+        <i class="icon icon-th-list" ng-class="{'is-active': view == 'list'}" title="Show as list" ng-click="view = 'list'"/>
+        <i class="icon icon-th-thumb" ng-class="{'is-active': view == 'tiles'}" title="Show as tiles" ng-click="view = 'tiles'"/>
+      </div>
+    </div>
+    <hr>
+    <search>
+      <h3>Filter</h3>
+      <h4>Price per night</h4>
+      <!--<div range-slider min="{{minPrice}}" max="{{maxPrice}}" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>-->
+      <div range-slider min="minPrice" max="maxPrice" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>
+      <hr>
+      <h4>Star Rating</h4>
+      <ul>
+        <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}">{{stars}}</li>
+      </ul>
+      to
+      <ul>
+        <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}">{{stars}}</li>
+      </ul>
+      <hr>
+      <h4>TripAdvisor rating</h4>
+      <hr>
+      <h4>Amenities</h4>
+      <hr>
+      <h4>Location</h4>
+      <hr>
+
+    </search>
+  </div>
+</aside>

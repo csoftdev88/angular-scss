@@ -15,6 +15,7 @@ angular
     'localytics.directives',
     'underscore',
     'validation.match',
+    'ui-rangeSlider',
 
     // Controllers
     'mobius.controllers.common.sanitize',
