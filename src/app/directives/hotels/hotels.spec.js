@@ -14,7 +14,8 @@ describe('hotels directive', function() {
   ];
 
   var _rootScope, _scope, _templateCache, _spyTemplateCacheGet,
-    _spyStateGo, _spyBookingServiceGetAPIParams, _propertyServiceGetAll;
+    _spyStateGo, _spyBookingServiceGetAPIParams, _propertyServiceGetAll,
+    _spyBookingServiceAPIParamsHasDates;
 
   beforeEach(function() {
     module('mobiusApp.factories.preloader');
@@ -24,6 +25,9 @@ describe('hotels directive', function() {
       $provide.value('bookingService', {
         getAPIParams: function(){
           return TEST_URL_PARAMS;
+        },
+        APIParamsHasDates: function(){
+          return true;
         }
       });
 
@@ -63,6 +67,7 @@ describe('hotels directive', function() {
     _spyTemplateCacheGet = sinon.spy(_templateCache, 'get');
     _spyStateGo = sinon.spy($state, 'go');
     _spyBookingServiceGetAPIParams = sinon.spy(bookingService, 'getAPIParams');
+    _spyBookingServiceAPIParamsHasDates = sinon.spy(bookingService, 'APIParamsHasDates');
     _propertyServiceGetAll = sinon.spy(propertyService, 'getAll');
     // Final component compile
     var elem = $compile(TEMPLATE)(_rootScope);
@@ -74,6 +79,7 @@ describe('hotels directive', function() {
     _spyTemplateCacheGet.restore();
     _spyStateGo.restore();
     _spyBookingServiceGetAPIParams.restore();
+    _spyBookingServiceAPIParamsHasDates.restore();
     _propertyServiceGetAll.restore();
   });
 
@@ -86,6 +92,10 @@ describe('hotels directive', function() {
     it('should read booking settings from the URL excluding property details', function() {
       expect(_spyBookingServiceGetAPIParams.calledOnce).equal(true);
       expect(_spyBookingServiceGetAPIParams.calledWith(true)).equal(true);
+    });
+
+    it('should read booking settings (from/to) from the URL', function() {
+      expect(_spyBookingServiceAPIParamsHasDates.calledOnce).equal(true);
     });
 
     it('should download a list of properties from the server based on the settings in the URL', function() {
