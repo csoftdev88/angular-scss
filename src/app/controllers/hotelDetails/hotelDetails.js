@@ -52,4 +52,11 @@ angular.module('mobius.controllers.hotel.details', [])
       getAvailableRooms(propertyCode, bookingParams);
     });
   }
+
+  $scope.scrollToRooms = function() {
+    var $item = angular.element('#hotelRooms');
+    angular.element('html, body').animate({
+      scrollTop: $item.offset().top
+    }, 2000);
+  };
 });
