@@ -1,0 +1,17 @@
+<header>
+  <h1>My <strong>Loyalty Card</strong></h1>
+  <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+</header>
+
+<main>
+  <cards-list>
+    <card-icon ng-repeat="stamp in loyalty.stamps track by $index">
+      <img ng-src="{{stamp.image}}" ng-class="{blackAndWhite: !stamp.earned}"/>
+    </card-icon>
+  </cards-list>
+
+  <card-selected>
+    <h2>{{loyalty.name}}</h2>
+    <p>{{loyalty.description}}</p>
+  </card-selected>
+</main>
