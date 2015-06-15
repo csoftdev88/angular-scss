@@ -76,6 +76,16 @@
   .generate-grid(@grid-width, @grid-gap, @grid-column-count);
 }
 
+.grid-row,
+[grid-row] {
+  .clearfix;
+}
+
+.grid-img {
+  width: 100%;
+  height: auto;
+}
+
 
 /*  ==========================================
     GRID generating mixin
@@ -85,11 +95,6 @@
 // Desktop grid mixin //
 ////////////////////////
 .generate-grid(@full, @gap, @cols){
-  .grid-row,
-  [grid-row] {
-    clear: both;
-    .clearfix;
-  }
 
   .grid-wrapper {
     max-width: @full;
@@ -109,11 +114,6 @@
     float: left;
     margin-left: 0;
     margin-right: 0;
-  }
-
-  .grid-img {
-    max-width: 100%;
-    height: auto;
   }
 
   .grid-element-loop(@i) when (@i =< @cols){
