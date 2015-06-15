@@ -4,45 +4,78 @@
 
 booking-widget {
 
-  fieldset {
-    width: 100%;
+  // Chosen dropdown - open up not down
+  .chosen-container .chosen-drop {
+    bottom: 100%;
+    top: initial;
+
+    border: 1px solid #ccc;
+    border-bottom: 0;
   }
 
-  .chosen-results {
-    .region {
-      font-weight: bold;
-    }
+}
 
-    .property {
-      padding-left: 1em;
-    }
+//- Search
+booking-widget-search {
+  display: flex;
+  padding: @baseline 0;
+
+  > * {
+    flex: 1;
+    padding-right: @baseline;
   }
 
-  @media only screen and @tablet-portrait-min {
+  //- Make your booking
+  h3 {
+    flex: 0 0 auto;
 
-    > div {
-      display: table;
-      width: 100%;
+    text-transform: uppercase;
+
+    strong { display: block; }
+  }
+
+  //- Form elements
+  form-element {
+    align-items: center;
+    display: flex;
+
+    form-label {
+      bottom: 0;
     }
 
-    fieldset {
-      display: table-row;
-    }
+    input:focus ~ form-label,
+    select:focus ~ form-label,
+    .chosen-with-drop ~ form-label {
+      opacity: 1;
 
-    .booking-input, .heading {
-      display: table-cell;
-      white-space: nowrap;
-      width: 16.666%;
-      vertical-align: middle;
-      padding: @baseline/2 0;
-
-      .form-group {
-        padding: 0 @baseline/4;
-      }
-    }
-
-    .heading {
-      padding-left: 0;
+      transform: translate(0, 100%);
     }
   }
 }
+
+//- Add Room
+booking-widget-add-room {
+  display: block;
+  padding: 0 0 @baseline 0;
+
+  //- Number of a room
+  h3 {
+    font-weight: bold;
+  }
+
+  //- Options
+  form-element {
+    display: inline-block;
+    margin-right: @baseline;
+    width: 150px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+  booking-widget-room {
+    display: block;
+    margin: 0 0 @baseline 0;
+  }

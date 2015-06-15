@@ -1,5 +1,32 @@
 //- BUTTONS -//
 
+@c-button: @c-green;
+
+//- Button Submit
+.button,
+button-submit {
+  border-radius: 4px;
+  display: inline-block;
+  height: @baseline * 1.5;
+  padding: 0 @baseline*2;
+
+  background: @c-button;
+  border-bottom: 1px solid darken(@c-button, 10%);
+  color: #fff;
+
+  cursor: pointer;
+  font-weight: 700;
+  line-height: @baseline * 1.5;
+
+  transition: 0.2s all;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: darken(@c-button, 5%);
+  }
+}
+
 
 //- Close
 button-close {
@@ -7,10 +34,35 @@ button-close {
   height: @baseline * 2;
   width: @baseline * 2;
 
+  cursor: pointer;
   line-height: @baseline * 2;
   text-align: center;
 
   // Cross icon
+  &:before {
+    .fa;
+
+    content: @fa-var-close;
+  }
+}
+
+
+//- Button Text
+button-text {
+  display: inline-block;
+
+  cursor: pointer;
+}
+
+
+//- Button Remove
+button-remove {
+  display: inline-block;
+  width: @baseline * 2;
+
+  cursor: pointer;
+  text-align: center;
+
   &:before {
     .fa;
 
