@@ -1,91 +1,111 @@
-<div>
-  <fieldset>
-    <div class="heading">
-        <h3>Make Your Booking</h3>
-    </div>
 
-    <!-- FIND YOUR HOTEL -->
-    <div class="booking-input hotels">
-      <div class="form-group">
-        <select name="regionHotels" required chosen disable-search="false" data-placeholder="All Properties"
-                ng-model="regionPropertySelected"
-                chosen-options-class="{ 'region' : type === 'region', 'property': type === 'property' }"
-                ng-options="option.name for option in propertyRegionList"
-                ng-change="propertyRegionChanged()">
-          <option></option>
-        </select>
-        <span class="info">Find Your Hotel:</span>
-      </div>
-    </div>
+<booking-widget-search>
+  <h3>Make Your <strong>Booking</strong></h3>
 
-    <!-- ENTER YOUR DATES -->
-    <div class="booking-input dates">
-      <div class="form-group">
-        <input type="text" placeholder="Enter Your Dates"
-          range-datepicker
-          ng-model="selected.dates"
-          data-range-selection="1"
-          ng-required="true"
-          show-button-bar="false"
-          highlights="availability"
-          data-include-counter="1"
-          data-counter-pluralization="{'0': 'No dates selected', '1': '{} night', 'plural': '{} nights'}">
-        <span class="info">Enter Your Dates:</span>
-      </div>
-    </div>
+  <!-- FIND YOUR HOTEL -->
+  <form-element>
+    <select name="regionHotels" required chosen
+            disable-search="false"
+            data-placeholder="Find Your Hotel"
+            ng-model="regionPropertySelected"
+            chosen-options-class="{ 'region' : type === 'region', 'property': type === 'property' }"
+            ng-options="option.name for option in propertyRegionList"
+            ng-change="propertyRegionChanged()">
+      <option></option>
+    </select>
+    <form-label>Find Your Hotel</form-label>
+  </form-element>
 
-    <div class="booking-input adults small">
-      <!-- NUMBER OF ADULTS -->
-      <div class="form-group">
-        <select name="adults" required ng-model="selected.adults" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max" data-placeholder="Number Of Adults"/>
-        <span class="info">Adults:</span>
-      </div>
-    </div>
+  <!-- ENTER YOUR DATES -->
+  <form-element>
+    <input type="text"
+           placeholder="Enter Your Dates"
+           range-datepicker
+           ng-model="selected.dates"
+           data-range-selection="1"
+           ng-required="true"
+           show-button-bar="false"
+           highlights="availability"
+           data-include-counter="1"
+           data-counter-pluralization="{'0': 'No dates selected', '1': '{} night', 'plural': '{} nights'}">
+    <form-label>Enter Your Dates</form-label>
+  </form-element>
 
-    <li class="booking-input small">
-      <!-- NUMBER OF CHILDREN -->
-      <div class="form-group">
-        <select name="children" required ng-model="selected.children" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max" data-placeholder="Number Of Children"/>
-        <span class="info">Children:</span>
-      </div>
-    </li>
+  <!-- NUMBER OF ADULTS -->
+  <form-element>
+    <select name="adults"
+            required ng-model="selected.adults"
+            disable-search="true"
+            chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max"
+            data-placeholder="Number Of Adults"/>
+    <form-label>Adults</form-label>
+  </form-element>
 
-    <!-- ENTER YOUR CODE -->
-    <div class="booking-input codes" ng-if="advanced">
-      <div class="form-group">
-        <input type="text" placeholder="Enter Your Code" ng-model="selected.promoCode">
-        <span class="info">Enter Your Code:</span>
-      </div>
-    </div>
+  <!-- NUMBER OF CHILDREN -->
+  <form-element>
+    <select name="children"
+            required ng-model="selected.children"
+            disable-search="true"
+            chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max"
+            data-placeholder="Number Of Children"/>
+    <form-label>Children</form-label>
+  </form-element>
 
-    <!-- SELECT RATE -->
-    <div class="booking-input codes" ng-if="advanced">
-      <div class="form-group">
-        <select name="rate" required ng-model="selected.rate" disable-search="true" chosen ng-options="rate.id as rate.name for rate in rates" data-placeholder="Select Rate"/>
-        <span class="info">Select Rate:</span>
-      </div>
-    </div>
+  <!-- ENTER YOUR CODE -->
+  <form-element ng-if="advanced">
+    <input type="text" placeholder="Enter Your Code" ng-model="selected.promoCode">
+    <form-label>Enter Your Code</form-label>
+  </form-element>
 
-    <div class="booking-input submit">
-      <div>
-        <button class="button" ng-click="onSearch()" ng-disabled="!isSearchable()">Search</button>
-      </div>
-    </div>
-  </fieldset>
+  <!-- SELECT RATE -->
+  <form-element ng-if="advanced">
+    <select name="rate"
+            required ng-model="selected.rate"
+            disable-search="true"
+            chosen ng-options="rate.id as rate.name for rate in rates"
+            data-placeholder="Select Rate"/>
+    <form-label>Select Rate</form-label>
+  </form-element>
 
-  <ul ng-if="advanced">
-    <li class="room-item select-group" ng-repeat="room in selected.rooms">
-      <span>Room {{$index + 1}}</span>
-      <div class="form-group">
-        <select name="adults" required ng-model="room.adults" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max" />
-        <span class="info">Adults:</span>
-      </div>
-      <div class="form-group">
-        <select name="children" required ng-model="room.children" disable-search="true" chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max" />
-        <span class="info">Children:</span>
-      </div>
-      <button class="button-red" ng-click="removeRoom($index)">Remove</button>
-    </li>
-    <li ng-click="addRoom()" ng-show="canAddRoom">+ Add a room</li>
-  </ul>
-</div>
+  <!-- SUBMIT BUTTON -->
+  <form-element>
+    <button-submit
+      role="button" tabindex="0"
+      ng-click="onSearch()"
+      ng-disabled="!isSearchable()">
+      Search
+    </button-submit>
+  </form-element>
+</booking-widget-search>
+
+<booking-widget-add-room ng-if="advanced">
+
+  <booking-widget-room ng-repeat="room in selected.rooms">
+    <h3>Room {{$index + 1}}</h3>
+
+    <form-element>
+      <select name="adults"
+              required ng-model="room.adults"
+              data-placeholder="Adults"
+              disable-search="true"
+              chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max" />
+      <form-label>Adults</form-label>
+    </form-element>
+
+    <form-element>
+      <select name="children"
+              required ng-model="room.children"
+              data-placeholder="Children"
+              disable-search="true"
+              chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max" />
+      <form-label>Children</form-label>
+    </form-element>
+
+    <button-remove role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove"></button-remove>
+  </booking-widget-room>
+
+  <div>
+    <button-text role="button" tabindex="0" ng-click="addRoom()" ng-show="canAddRoom">+ Add a room</button-text>
+  </div>
+
+</booking-widget-add-room>
