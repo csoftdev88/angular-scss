@@ -78,10 +78,16 @@ angular.module('mobiusApp.services.booking', [])
     return queryParams;
   }
 
+  function APIParamsHasDates() {
+    var queryParams = getAPIParams(true);
+    return queryParams[API_PARAM_FROM] && queryParams[API_PARAM_TO];
+  }
+
   // Public methods
   return {
     getParams: getParams,
     getAPIParams: getAPIParams,
-    datesFromString: datesFromString
+    datesFromString: datesFromString,
+    APIParamsHasDates: APIParamsHasDates
   };
 });

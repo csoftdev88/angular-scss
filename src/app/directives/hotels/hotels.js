@@ -52,8 +52,6 @@ angular.module('mobiusApp.directives.hotels', [])
         },
       ];
 
-      // Default sorting by availability
-      scope.currentOrder = scope.sortingOptions[0];
       scope.view = 'tiles';
 
       function getProperties(params){
@@ -73,6 +71,13 @@ angular.module('mobiusApp.directives.hotels', [])
 
       // Getting the details from booking widget
       var bookingParams = bookingService.getAPIParams(true);
+
+      // Default sorting by availability or price
+      if(bookingService.APIParamsHasDates()) {
+        scope.currentOrder = scope.sortingOptions[0];
+      } else {
+        scope.currentOrder = scope.sortingOptions[1];
+      }
 
       if(bookingParams.productGroupId){
         getProperties(bookingParams);
