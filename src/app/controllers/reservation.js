@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.reservations', [])
 
-.controller('ReservationsCtrl', function($scope, $controller, modalService){
+.controller('ReservationsCtrl', function($scope, $controller, modalService, creditCardTypeService){
 
   $controller('MainCtrl', {$scope: $scope});
 
@@ -60,4 +60,11 @@ angular.module('mobius.controllers.reservations', [])
   $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
   $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
 
+  $scope.getCreditCardType = creditCardTypeService.getType;
+  $scope.creditCardTypes = {};
+  // change names to icons
+  $scope.creditCardTypes[creditCardTypeService.AMERICAN_EXPRESS] = 'American Express';
+  $scope.creditCardTypes[creditCardTypeService.MAESTRO] = 'Maestro';
+  $scope.creditCardTypes[creditCardTypeService.MASTER_CARD] = 'Master Card';
+  $scope.creditCardTypes[creditCardTypeService.VISA] = 'Visa';
 });

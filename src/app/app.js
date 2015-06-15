@@ -51,6 +51,7 @@ angular
     'mobiusApp.services.filters',
     'mobiusApp.services.loyalty',
     'mobiusApp.services.locations',
+    'mobiusApp.services.creditCardType',
 
     // Factories
     'mobiusApp.factories.template',
