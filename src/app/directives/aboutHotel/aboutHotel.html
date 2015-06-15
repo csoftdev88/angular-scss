@@ -18,34 +18,28 @@
   </div>
 </header>
 
-<section grid-row class="benefits">
-  <div class="section-highlighted"><stars/></div>
+<div class="dividing-line"></div>
 
+<section grid-row class="benefits">
   <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">
     <a ng-click="openLoginDialog()" ng-switch-when="false" href>
-        <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
-
-      <header>
-        <h2><strong>{{icon.name}}</strong></h2>
-        <p>{{icon.text}}</p>
-      </header>
+      <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
+      <h2>{{icon.name}}</h2>
+      <p>{{icon.text}}</p>
     </a>
     <div ng-switch-default>
       <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
-
-      <header>
-        <h2><strong>{{icon.name}}</strong></h2>
-        <p>{{icon.text}}</p>
-      </header>
+      <h2>{{icon.name}}</h2>
+      <p>{{icon.text}}</p>
     </div>
   </article>
-
-  <div class="section-highlighted"><stars/></div>
 </section>
+
+<div class="dividing-line"></div>
 
 <div grid-row>
   <div grid="12">
-    <h1>Our <strong>Offers</strong></h1>
+    <h2>Our <strong>Offers</strong></h2>
   </div>
 </div>
 
@@ -54,12 +48,10 @@
     <a href="#">
       <img class="grid-img" src="/static/images/v4/about-offer-1.png" alt="Free room upgrade">
 
-      <header>
-        <h2>Free room <strong>upgrade</strong></h2>
-        <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
+      <h2>Free room <strong>upgrade</strong></h2>
+      <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
 
-        <a href>Read More</a>
-      </header>
+      <span>Read More</span>
     </a>
   </article>
 
@@ -67,12 +59,10 @@
     <a href="#">
       <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
 
-      <header>
-        <h2>Champagne <strong>breakfast</strong></h2>
-        <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
+      <h2>Champagne <strong>breakfast</strong></h2>
+      <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
 
-        <a href>Read More</a>
-      </header>
+      <span>Read More</span>
     </a>
   </article>
 
@@ -80,7 +70,7 @@
   <article grid="4" class="add">
     <a href="#">
       <img class="grid-img" src="/static/images/v4/about-offer-3.png" alt="Free room upgrade">
-      <h2>Download our mobile app for great rates!</h2>
+      <p>Download our mobile app for great rates!</p>
     </a>
   </article>
 </section>
