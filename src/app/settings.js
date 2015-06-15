@@ -29,7 +29,7 @@ angular.module('mobiusApp.config', [])
     },
     'customers': {
       'login': 'customers/actions/login',
-      'customers': 'customers'
+      'customer': 'customers/:customerId'
     },
     // NOTE: Loyalties API will change - check apiary specs
     'loyalties': {
