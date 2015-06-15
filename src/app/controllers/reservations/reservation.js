@@ -134,7 +134,7 @@ angular.module('mobius.controllers.reservation', [])
     // NOTE: Currently we dont support advanced options
     // Booking only 1 room
     rooms.push({
-      roomId: $stateParams.roomID,
+      roomId: $scope.selectedProduct.productPropertyRoomTypeId,
       adults: parseInt($scope.bookingDetails.adults, 10) || 0,
       children: parseInt($scope.bookingDetails.children, 10) || 0
     });
@@ -166,12 +166,16 @@ angular.module('mobius.controllers.reservation', [])
     }
   };
 
-  $scope.getCreditCardType = function(number){
+  $scope.getCreditCardDetails = function(number){
     if(number){
       for(var type in Settings.UI.booking.cardTypes){
-        var regexObj = Settings.UI.booking.cardTypes[type];
+        var cardDetails = Settings.UI.booking.cardTypes[type];
+        var regexObj = cardDetails.regex;
         if(regexObj.test(number)){
-          return type;
+          return {
+            icon: cardDetails.icon,
+            code: cardDetails.code
+          };
         }
       }
     }

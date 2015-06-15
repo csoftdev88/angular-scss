@@ -33,7 +33,11 @@ describe('mobius.controllers.reservation', function() {
           UI: {
             'booking': {
               cardTypes: {
-                visa: /^4[0-9]{12}(?:[0-9]{3})?$/
+                'visa': {
+                  regex: /^4[0-9]{12}(?:[0-9]{3})?$/,
+                  icon: 'visa',
+                  code: 'VI'
+                }
               }
             }
           }
@@ -71,19 +75,19 @@ describe('mobius.controllers.reservation', function() {
       });
     });
 
-    describe('getCreditCardType', function() {
+    describe('getCreditCardDetails', function() {
       it('should return null when number is not defined', function() {
-        expect(_scope.getCreditCardType()).equal(null);
-        expect(_scope.getCreditCardType(undefined)).equal(null);
-        expect(_scope.getCreditCardType(null)).equal(null);
+        expect(_scope.getCreditCardDetails()).equal(null);
+        expect(_scope.getCreditCardDetails(undefined)).equal(null);
+        expect(_scope.getCreditCardDetails(null)).equal(null);
       });
 
       it('should return card type when found in the config', function() {
-        expect(_scope.getCreditCardType('4222222222222')).equal('visa');
+        expect(_scope.getCreditCardDetails('4222222222222').icon).equal('visa');
       });
 
       it('should return null when credit card number doesnt match expressions in the config', function() {
-        expect(_scope.getCreditCardType('2222222222224')).equal(null);
+        expect(_scope.getCreditCardDetails('2222222222224')).equal(null);
       });
     });
   });
