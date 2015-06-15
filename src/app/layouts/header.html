@@ -34,10 +34,10 @@
             </li>
 
             <li ng-if="isUserLoggedIn()">
-                <img ng-src="{{user.getUser().getLoyaltiesObject().avatar}}">
+                <img ng-src="{{user.getUser().loyalties.avatar}}">
                 <span>{{user.getUser().firstName}} {{user.getUser().lastName}}</span>
-                <span>{{user.getUser().getLoyaltiesObject().tier}} _tier_</span>
-                <span>{{user.getUser().getLoyaltiesObject().amount}} _points_</span>
+                <span>{{user.getUser().loyalties.tier}} _tier_</span>
+                <span>{{user.getUser().loyalties.amount}} _points_</span>
             </li>
         </ul>
     </div>

@@ -10,12 +10,13 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
       // Widget logic goes here
       link: function(scope) {
-        var badges;
-        if (user.isLoggedIn()) {
-          user.getUser().getLoyalties().then(function(response) {
+        function loadLoyalities() {
+          user.getUser().loyaltiesPromise.then(function(response) {
             badges = response.badges;
+            var loyaltyCard = response.loyaltyCard || {};
+            stamps = loyaltyCard.stamps;
 
-            var lastEarnedBadge = scope.badges ? _.sortBy(scope.badges, 'earned')[0] : {};
+            var lastEarnedBadge = badges ? _.sortBy(badges, 'earned')[0] : {};
             if (lastEarnedBadge.earned) {
               scope.lastBadge = lastEarnedBadge;
               scope.lastBadge.displayedDate = $window.moment(
@@ -23,18 +24,39 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
               ).format('D MMM YYYY');
             }
 
-            scope.loyaltyCard = response.loyaltyCard || {};
-            scope.loyaltyCard.stamps = _.sortBy(scope.loyaltyCard.stamps, 'startPosition');
+            scope.loyaltyName = loyaltyCard.name;
+            scope.loyaltiesAll = stamps.length;
+            scope.loyaltiesEarned = _.filter(stamps, 'earned').length;
           });
         }
+
+        scope.user = user;
+
+        var badges = [];
+        var stamps = [];
 
         scope.showBadges = function() {
           modalService.openBadgesDialog(badges);
         };
 
         scope.showLoyaltyCards = function() {
-          modalService.openLoyaltiesDialog(scope.loyaltyCard.stamps);
+          modalService.openLoyaltiesDialog(stamps);
         };
+
+        var userUnWatch = scope.$watch(
+          function() {
+            return user.isLoggedIn();
+          },
+          function(loggedIn) {
+            if (loggedIn) {
+              loadLoyalities();
+            }
+          }
+        );
+
+        scope.$on('$destroy', function() {
+          userUnWatch();
+        });
       }
     };
   });

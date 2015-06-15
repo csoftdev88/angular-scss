@@ -14,29 +14,20 @@ angular.module('mobiusApp.services.user', [])
         id = id || userObject.id;
         if (id) {
           return apiService.get(apiService.getFullURL('customers.customer', {customerId: id})).then(function(response) {
-            userObject = _.extend(userObject, response);
-
-            userObject._loyalties = null;
-            userObject._loyaltiesObject = {};
+            userObject.loyaltiesPromise = null;
+            userObject.loyalties = {};
 
             userObject.reloadLoyalties = function() {
-              userObject._loyalties = loyaltyService.getAll(userObject.id).then(function(loyalties) {
-                userObject._loyaltiesObject = loyalties;
+              userObject.loyaltiesPromise = loyaltyService.getAll(userObject.id);
+              userObject.loyaltiesPromise.then(function(loyalties) {
+                userObject.loyalties = loyalties;
+                return loyalties;
               });
+              return userObject.loyaltiesPromise;
             };
 
-            userObject.getLoyalties = function() {
-              if (!userObject._loyalties) {
-                userObject.reloadLoyalties();
-              }
-              return userObject._loyalties;
-            };
-
-            userObject.getLoyaltiesObject = function() {
-              return userObject._loyaltiesObject;
-            };
-
-            return userObject.getLoyalties().then(function() {
+            return userObject.reloadLoyalties().then(function() {
+              userObject = _.extend(userObject, response);
               return userObject;
             });
           });
