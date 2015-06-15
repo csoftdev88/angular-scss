@@ -69,9 +69,12 @@
   <reservation-billing>
     <h3>Card Details</h3>
     <form>
+      <ul>
+        <li ng-class="{selected: getCreditCardType(creditCardNumber) === type}" ng-repeat="(type, info) in creditCardTypes" class="{{type}}">{{info}}</li>
+      </ul>
       <label for="form-card-number">
         Card number
-        <input type="text" id="form-card-number"/>
+        <input ng-model="creditCardNumber" type="text" id="form-card-number"/>
       </label>
       <div class="input-left">
         <label for="form-expires" class="input-left">
