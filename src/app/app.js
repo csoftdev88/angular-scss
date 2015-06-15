@@ -79,6 +79,7 @@ angular
     // V4
     'mobiusApp.directives.aboutHotel',
     'mobiusApp.directives.floatingBar',
+    'mobiusApp.directives.errSource',
 
     // Filters
     'mobiusApp.filters.list',
