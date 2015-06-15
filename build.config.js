@@ -105,7 +105,8 @@ module.exports = {
         'bower_components/angular-validation-match/dist/angular-input-match.js',
         'bower_components/ngmap/build/scripts/ng-map.min.js',
         'bower_components/moment/min/moment.min.js',
-        'bower_components/angular-sanitize/angular-sanitize.min.js'
+        'bower_components/angular-sanitize/angular-sanitize.min.js',
+        'bower_components/angular-rangeslider/angular.rangeSlider.js'
       ],
       styles: []
     }
