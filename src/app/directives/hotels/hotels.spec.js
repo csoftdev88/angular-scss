@@ -51,6 +51,10 @@ describe('hotels directive', function() {
         }
       });
 
+      $provide.value('user', {
+        isLoggedIn: function(){}
+      });
+
       $provide.value('$state', {
         go: function(){}
       });
