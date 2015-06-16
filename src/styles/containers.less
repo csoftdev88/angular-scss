@@ -124,7 +124,7 @@
 
     [grid="@{i}"]{
       &:extend(.grid);
-      width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
+      width: floor(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
     }
     // Recursive call with index incrementation
     .grid-element-loop(@i + 1);
@@ -137,7 +137,7 @@
 
     [grid-container="@{i}"]{
       &:extend(.grid);
-      width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
+      width: floor(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
     }
     // Recursive call with index incrementation
     .grid-wrap-loop(@i + 1);
