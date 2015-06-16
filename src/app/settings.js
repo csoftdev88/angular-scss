@@ -4,8 +4,12 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
+    'chainCode': 'SAN',
     'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
-    'contents' : 'contents',
+    'contents': 'contents',
+    'chain': {
+      'get': 'chains/:chainCode/'
+    },
     'generics': {
       'currencies': 'generics/currencies',
       'languages': 'generics/languages'

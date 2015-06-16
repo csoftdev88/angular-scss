@@ -13,7 +13,8 @@
             <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
             </li>
 
-            <li has-dropdown="hover" menu-content="about" data-title="_about_us_" ng-show="config.menu.showAbout">
+            <li ng-show="config.menu.showAbout">
+              <a ui-sref="aboutUs">_about_us_</a>
             </li>
 
             <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">

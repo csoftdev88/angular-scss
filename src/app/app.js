@@ -22,6 +22,7 @@ angular
     'mobius.controllers.common.preloader',
 
     'mobius.controllers.main',
+    'mobius.controllers.about',
     'mobius.controllers.offers',
     'mobius.controllers.reservations',
     'mobius.controllers.modals.generic',
@@ -54,6 +55,7 @@ angular
     'mobiusApp.services.locations',
     'mobiusApp.services.creditCardType',
     'mobiusApp.services.userMessagesService',
+    'mobiusApp.services.chains',
 
     // Factories
     'mobiusApp.factories.template',
@@ -175,7 +177,16 @@ angular
         parent: 'root',
         templateUrl: 'layouts/contacts/contacts.html',
         url: '/contacts'
-      });
+      })
+
+      // About Us oage
+      .state('aboutUs', {
+        parent: 'root',
+        templateUrl: 'layouts/about/about.html',
+        url: '/about',
+        controller: 'AboutUsCtrl'
+      })
+    ;
 
     $urlRouterProvider.otherwise(function($injector) {
       var $window = $injector.get('$window');
