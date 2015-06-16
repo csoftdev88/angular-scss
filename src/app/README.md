@@ -54,6 +54,8 @@ referenced from within it.
 
 - `templates` - map of component names and their templates.
 
+- `booking.cardTypes` - credit card validation rules, icons, codes.
+
 ## Controllers
 
 ### SanitizeCtrl

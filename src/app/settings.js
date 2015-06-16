@@ -200,6 +200,11 @@ angular.module('mobiusApp.config', [])
           'code': 'AX',
           'icon': 'amex',
           'regex': /^3[47][0-9]{13}$/
+        },
+        'discover': {
+          'code': 'DS',
+          'icon': 'discover',
+          'regex': /^6(?:011|5[0-9]{2})[0-9]{3,}$/
         }
       }
     },
