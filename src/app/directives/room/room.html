@@ -10,22 +10,21 @@
       <accordion close-others="true">
         <accordion-group heading="{{product.name}}" ng-init="isOpen = accordionStates[$index]" is-open="isOpen" is-disabled="isOpen" ng-class="{'is-open': isOpen}" ng-repeat="product in products">
           <accordion-heading>
-            <div ng-click="onSelectProduct(product)">
+            <div>
               <i class="icon icon-{{product.icon || 'star-1'}}"/>
               <header>
                 <h3 class="title">{{product.name}}</h3>
                 <p class="desc">{{product.tagline}}</p>
                 <p>earn {{product.price.pointsEarned}} points</p>
               </header>
-              <div ng-show="product.memberOnly" ng-switch="isUserLoggedIn()">
-                <p ng-switch-when="true">Most Booked Package</p>
-                <p ng-switch-default>Members Only Rate</p>
-              </div>
+              <p ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</p>
+              <p ng-show="product.highlighted">Most Booked Package</p>
 
               <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
               <small>per night</small>
               <p>or {{product.price.pointsRequired}} points</p>
             </div>
+            <a ng-click="onSelectProduct(product)" href>Select</a>
           </accordion-heading>
           <p ng-bind-html="sanitize(product.description)"></p>
         </accordion-group>
