@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService,
-  propertyService, filtersService, preloaderFactory, locationService, $interval, $window) {
+  propertyService, filtersService, preloaderFactory) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
@@ -13,8 +13,6 @@ angular.module('mobius.controllers.hotel.details', [])
 
   var propertyCode = bookingParams.property;
   delete bookingParams.property;
-
-  var localTimeIntervalPromise = null;
 
   function getAvailableRooms(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
@@ -34,17 +32,6 @@ angular.module('mobius.controllers.hotel.details', [])
           if(angular.isDefined(details.lat) && angular.isDefined(details.long)){
             $scope.position = [details.lat, details.long];
           }
-        }
-
-        if(details.locationCode) {
-          locationService.getLocation(details.locationCode).then(function(location) {
-            $scope.localInfo = location.localInfo;
-            var localTime = $window.moment(location.localInfo.time.localTime);
-            $scope.localTime = localTime.format('h.mm A');
-            localTimeIntervalPromise = $interval(function() {
-              $scope.localTime = localTime.add(1, 'minutes').format('h.mm A');
-            }, 1000*60);
-          });
         }
       });
 
@@ -72,11 +59,4 @@ angular.module('mobius.controllers.hotel.details', [])
       scrollTop: $item.offset().top
     }, 2000);
   };
-
-  $scope.$on('$destroy', function() {
-    if (angular.isDefined(localTimeIntervalPromise)) {
-      $interval.cancel(localTimeIntervalPromise);
-      localTimeIntervalPromise = undefined;
-    }
-  });
 });

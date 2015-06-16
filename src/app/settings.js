@@ -211,6 +211,10 @@ angular.module('mobiusApp.config', [])
       'guarantee': 'Guarantee',
       'noShow': 'No Show',
       'pet': 'Pet'
+    },
+    localTimeUpdates: {
+      format: 'h.mm A',
+      interval: 1000*60 // every minute
     }
   }
 });

@@ -1,9 +1,6 @@
 <div grid-container="9">
   <div widget="hotel-detail" grid="9" ng-show="details" ng-switch="!!details.availability.rooms.length">
-    <div>
-      <span>Local Time: {{localTime}}</span>
-      <span>Local Weather: {{localInfo.temperatureC}}°C/{{localInfo.temperatureF}}°F <img ng-src="{{localInfo.weatherIcon}}" alt="{{localInfo.weather}}"></span>
-    </div>
+    <local-info location-code="details.locationCode"/>
     <header>
       <h1>{{details.nameShort}}</h1>
       <p>{{details.description}}</p>
