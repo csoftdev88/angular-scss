@@ -1,10 +1,11 @@
 'use strict';
+/*jshint -W030 */
 
 describe('mobius.controllers.hotel.details', function() {
   describe('HotelDetailsCtrl', function() {
     var _scope, _spyBookingServiceGetAPIParams,
       _spyPropertyServiceGetPropertyDetails, _spyFiltersServiceGetBestRateProduct,
-      _spyUpdateHeroContent;
+      _spyUpdateHeroContent, _spyPropertyServiceGetRooms;
 
     var HOTEL_DETAILS = {
       nameShort: 'Mobius hotel',
@@ -14,6 +15,8 @@ describe('mobius.controllers.hotel.details', function() {
       long: 'testLong',
       lat: 'testLat'
     };
+
+    var ROOMS = [];
 
     beforeEach(function() {
       module('mobiusApp.factories.preloader');
@@ -33,6 +36,13 @@ describe('mobius.controllers.hotel.details', function() {
               return {
                 then: function(c){
                   c(HOTEL_DETAILS);
+                }
+              };
+            },
+            getRooms: function(){
+              return {
+                then: function(c){
+                  c(ROOMS);
                 }
               };
             }
@@ -59,6 +69,8 @@ describe('mobius.controllers.hotel.details', function() {
       _spyBookingServiceGetAPIParams = sinon.spy(bookingService, 'getAPIParams');
       _spyPropertyServiceGetPropertyDetails = sinon.spy(
         propertyService, 'getPropertyDetails');
+      _spyPropertyServiceGetRooms = sinon.spy(
+        propertyService, 'getRooms');
 
       _spyFiltersServiceGetBestRateProduct = sinon.spy(filtersService, 'getBestRateProduct');
       _scope.updateHeroContent = function(){};
@@ -70,6 +82,7 @@ describe('mobius.controllers.hotel.details', function() {
     afterEach(function() {
       _spyBookingServiceGetAPIParams.restore();
       _spyPropertyServiceGetPropertyDetails.restore();
+      _spyPropertyServiceGetRooms.restore();
       _spyFiltersServiceGetBestRateProduct.restore();
       _spyUpdateHeroContent.restore();
     });
@@ -84,10 +97,14 @@ describe('mobius.controllers.hotel.details', function() {
       });
 
       it('should download hotel details from the server with BAR id', function() {
-        expect(_spyPropertyServiceGetPropertyDetails.calledOnce).equal(true);
+        expect(_spyPropertyServiceGetPropertyDetails).to.be.calledOnce;
         expect(_spyPropertyServiceGetPropertyDetails
-          .calledWith(123, {'test': 'testValue', productGroupId: 321, includes: 'amenities'})
-          ).equal(true);
+            .calledWith(123, {'test': 'testValue', productGroupId: 321, includes: 'amenities'})
+        ).equal(true);
+        expect(_spyPropertyServiceGetRooms).to.be.calledOnce;
+        expect(_spyPropertyServiceGetRooms
+            .calledWith(123)
+        ).equal(true);
       });
 
       it('should define download data on scope', function() {
