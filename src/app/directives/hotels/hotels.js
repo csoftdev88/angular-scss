@@ -4,9 +4,9 @@ angular.module('mobiusApp.directives.hotels', [])
 
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
-  'propertyService', 'preloaderFactory', '_',
+  'propertyService', 'preloaderFactory', '_', 'user',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory, _){
+    preloaderFactory, _, user){
   return {
     restrict: 'E',
     scope: {},
@@ -55,6 +55,7 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.view = 'tiles';
       scope.minStars = 0;
       scope.maxStars = 5;
+      scope.isUserLoggedIn = user.isLoggedIn;
 
       function getProperties(params){
         // Loading hotels
