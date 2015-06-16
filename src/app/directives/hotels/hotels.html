@@ -16,9 +16,9 @@
         <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)" grid="1">
           <div>
             <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
-            <span class="rating">
-              <i class="star" ng-repeat="i in [1,2,3,4,5]" ng-class="{'icon-star': i <= hotel.rating, 'icon-star-empty': i > hotel.rating}"></i>
-            </span>
+            <ul class="rating">
+              <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
+            </ul>
           </div>
           <h2>{{hotel.nameShort}}</h2>
           <span class="price" ng-if="hotel.available">
@@ -33,37 +33,40 @@
     </div>
   </section>
 
-  <aside grid-container="3">
-    <div>
-      <h3>View</h3>
-      <div class="view-switch">
-        <i class="icon icon-th-list" ng-class="{'is-active': view == 'list'}" title="Show as list" ng-click="view = 'list'"/>
-        <i class="icon icon-th-thumb" ng-class="{'is-active': view == 'tiles'}" title="Show as tiles" ng-click="view = 'tiles'"/>
-      </div>
+  <aside grid-container="3" class="hotels__filter">
+    <div class="view-switch">
+      <h2>View</h2>
+      <ul>
+        <li>
+          <i class="icon icon-th-list" ng-class="{'is-active': view == 'list'}" title="Show as list" ng-click="view = 'list'"/> List
+        </li>
+        <li>
+          <i class="icon icon-th-thumb" ng-class="{'is-active': view == 'tiles'}" title="Show as tiles" ng-click="view = 'tiles'"/> Grid
+        </li>
+      </ul>
     </div>
-    <hr>
-    <search>
-      <h3>Filter</h3>
-      <h4>Price per night</h4>
+    <div class="filters-bar">
+      <h2>Filter</h2>
+      <h3>Price per night</h3>
       <!--<div range-slider min="{{minPrice}}" max="{{maxPrice}}" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>-->
       <div range-slider min="minPrice" max="maxPrice" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>
       <hr>
-      <h4>Star Rating</h4>
-      <ul>
-        <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}">{{stars}}</li>
-      </ul>
-      to
-      <ul>
-        <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}">{{stars}}</li>
-      </ul>
+      <h3>Star Rating</h3>
+      <div class="stars">
+        <ul class="stars-left">
+          <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}"></li>
+        </ul>
+        to
+        <ul class="stars-right">
+          <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
+        </ul>
+      </div>
       <hr>
-      <h4>TripAdvisor rating</h4>
+      <h3>TripAdvisor rating</h3>
       <hr>
-      <h4>Amenities</h4>
+      <h3>Amenities</h3>
       <hr>
-      <h4>Location</h4>
-      <hr>
-
-    </search>
+      <h3>Location</h3>
+    </div>
   </aside>
 </div>

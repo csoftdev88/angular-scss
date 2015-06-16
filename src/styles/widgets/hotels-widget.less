@@ -42,14 +42,13 @@ hotels {
 
     // hotel item - grid view
     li {
-
       margin-bottom: @baseline/2;
 
       // image container
       div {
         border-radius: @radius/2;
         width: 100%;
-        background: @c-light-grey;
+        background: lighten(@c-light-grey, 10%);
         position: relative;
         margin-bottom: @baseline/2;
 
@@ -60,8 +59,24 @@ hotels {
 
         .rating {
           position: absolute;
-          bottom: @baseline;
-          right: @baseline;
+          bottom: @baseline/3;
+          right: @baseline/2;
+
+          li {
+            display: inline-block;
+            margin: 0 1px;
+
+            &:after {
+              content: "\f005";
+              font-family: FontAwesome;
+              display: inline-block;
+              color: @c-light-grey;
+            }
+
+            &.included:after {
+              color: @c-link;
+            }
+          }
         }
       }
 
@@ -88,7 +103,78 @@ hotels {
         .value {
           font-style: normal;
           font-size: @size-2;
-          color: @c-brown;
+          color: @c-link;
+        }
+      }
+    }
+  }
+
+  .hotels__filter {
+
+    .view-switch {
+      margin-bottom: @baseline;
+      .clearfix;
+
+      li {
+        display: block;
+        float: left;
+        width: 50%;
+      }
+    }
+
+    .filters-bar {
+      padding: @baseline 0;
+      border-width: 1px 0;
+      border-style: dashed;
+      border-color: @c-light-grey;
+    }
+
+    hr {
+      border-bottom: 1px solid @c-light-grey;
+      margin: @baseline 0;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: @size--1;
+      margin-bottom: @baseline/2;
+    }
+
+    h3 {
+      font-weight: 300;
+      font-size: @size-0;
+      margin-bottom: @baseline/2;
+    }
+
+    .stars {
+      text-align: center;
+      position: relative;
+
+      .stars-left {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .stars-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      li {
+        display: inline-block;
+        margin: 0 1px;
+
+        &:after {
+          content: "\f005";
+          font-family: FontAwesome;
+          display: inline-block;
+          color: @c-light-grey;
+        }
+
+        &.included:after {
+          color: @c-link;
         }
       }
     }
