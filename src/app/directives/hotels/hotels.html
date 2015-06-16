@@ -1,11 +1,12 @@
+<div class="grid-wrapper">
 <div grid-container="9">
   <section widget="hotels">
-    <header class="hotels__header" grid="9">
+    <header class="hotels__header">
       <h1>Our <strong>Hotels</strong></h1>
       <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
       <hr/>
     </header>
-    <div class="hotels__controls" grid="9">
+    <div class="hotels__controls">
       <div class="order-switch">
         <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" ng-change="onSortingChange()">
         </select>
@@ -36,7 +37,6 @@
 </div>
 
 <aside grid-container="3">
-  <div grid="3">
     <div>
       <h3>View</h3>
       <div class="view-switch">
@@ -68,5 +68,5 @@
       <hr>
 
     </search>
-  </div>
 </aside>
+</div>

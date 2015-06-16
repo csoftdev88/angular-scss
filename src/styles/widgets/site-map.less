@@ -1,7 +1,15 @@
 .site-map {
+  // grid
+  @media only screen and @tablet-portrait-min and @tablet-portrait-max {
+    .generate-fluid-grid(6);
+  }
+  @media only screen and @tablet-landscape-min {
+    // Calling the grid mixin
+    .generate-grid(@grid-width, @grid-gap, 6);
+  }
+
   background: #f1f1f1;
   border-top: 1px solid @c-light-grey;
-  .generate-fluid-grid(6);
   padding: @baseline 0px;
   padding-bottom: 6*@baseline;
 
