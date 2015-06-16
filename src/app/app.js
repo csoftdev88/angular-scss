@@ -53,6 +53,7 @@ angular
     'mobiusApp.services.loyalty',
     'mobiusApp.services.locations',
     'mobiusApp.services.creditCardType',
+    'mobiusApp.services.userMessagesService',
 
     // Factories
     'mobiusApp.factories.template',
@@ -83,6 +84,7 @@ angular
     'mobiusApp.directives.floatingBar',
     'mobiusApp.directives.errSource',
     'mobiusApp.directives.localInfo',
+    'mobiusApp.directives.userMessages',
 
     // Filters
     'mobiusApp.filters.list',
