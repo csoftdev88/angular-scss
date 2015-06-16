@@ -1,10 +1,8 @@
 <div class="grid-wrapper">
-<div grid-container="9">
-  <section widget="hotels">
+  <section grid-container="9" widget="hotels">
     <header class="hotels__header">
       <h1>Our <strong>Hotels</strong></h1>
       <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
-      <hr/>
     </header>
     <div class="hotels__controls">
       <div class="order-switch">
@@ -16,27 +14,26 @@
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{view}}">
         <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)">
-          <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
           <div>
-            <h3 class="title"><strong>{{hotel.nameShort}}</strong></h3>
-            <span class="price" ng-if="hotel.available">
-              from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <small>per night</small>
-            </span>
-            <span class="price unavailable" ng-if="!hotel.available">
-              Not Available
-            </span>
-            <p ng-if="view = 'list'">{{hotel.description}}</p>
+            <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
             <span class="rating">
               <i class="star" ng-repeat="i in [1,2,3,4,5]" ng-class="{'icon-star': i <= hotel.rating, 'icon-star-empty': i > hotel.rating}"></i>
             </span>
           </div>
+          <h3 class="title"><strong>{{hotel.nameShort}}</strong></h3>
+          <span class="price" ng-if="hotel.available">
+            from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <small>per night</small>
+          </span>
+          <span class="price unavailable" ng-if="!hotel.available">
+            Not Available
+          </span>
+          <p ng-if="view = 'list'">{{hotel.description}}</p>
         </li>
       </ul>
     </div>
   </section>
-</div>
 
-<aside grid-container="3">
+  <aside grid-container="3">
     <div>
       <h3>View</h3>
       <div class="view-switch">
@@ -68,5 +65,5 @@
       <hr>
 
     </search>
-</aside>
+  </aside>
 </div>
