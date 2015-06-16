@@ -13,16 +13,16 @@
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{view}}">
-        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)" grid="1">
           <div>
             <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
             <span class="rating">
               <i class="star" ng-repeat="i in [1,2,3,4,5]" ng-class="{'icon-star': i <= hotel.rating, 'icon-star-empty': i > hotel.rating}"></i>
             </span>
           </div>
-          <h3 class="title"><strong>{{hotel.nameShort}}</strong></h3>
+          <h2>{{hotel.nameShort}}</h2>
           <span class="price" ng-if="hotel.available">
-            from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <small>per night</small>
+            from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <span>per night</span>
           </span>
           <span class="price unavailable" ng-if="!hotel.available">
             Not Available
