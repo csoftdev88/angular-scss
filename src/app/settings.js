@@ -220,6 +220,9 @@ angular.module('mobiusApp.config', [])
     localTimeUpdates: {
       format: 'h.mm A',
       interval: 1000*60 // every minute
+    },
+    'imageCarousel': {
+      minImages: 6
     }
   }
 });

@@ -12,6 +12,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_POLICY = 'PolicyCtrl',
       CONTROLLER_BADGES = 'BadgesCtrl',
       CONTROLLER_LOAYALTY = 'LoyaltyCtrl',
+      CONTROLLER_GALLERY = 'GalleryCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -140,6 +141,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openGallery(images){
+    return openDialog('openGallery', 'layouts/modals/imagesGallery.html', CONTROLLER_GALLERY, {
+      windowClass: 'is-wide',
+      resolve: {
+        data: function(){
+          return images;
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     openLoginDialog: openLoginDialog,
@@ -153,6 +165,8 @@ angular.module('mobiusApp.services.modal', [])
     openDialogIfPresent: openDialogIfPresent,
     // Loyalties
     openBadgesDialog: openBadgesDialog,
-    openLoyaltyDialog: openLoyaltyDialog
+    openLoyaltyDialog: openLoyaltyDialog,
+    // gallery
+    openGallery: openGallery
   };
 });
