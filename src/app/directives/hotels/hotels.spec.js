@@ -15,7 +15,7 @@ describe('hotels directive', function() {
 
   var _rootScope, _scope, _templateCache, _spyTemplateCacheGet,
     _spyStateGo, _spyBookingServiceGetAPIParams, _propertyServiceGetAll,
-    _spyBookingServiceAPIParamsHasDates;
+    _spyBookingServiceAPIParamsHasDates, _spyUserIsLoggedIn;
 
   beforeEach(function() {
     module('mobiusApp.factories.preloader', 'underscore');
@@ -58,7 +58,7 @@ describe('hotels directive', function() {
   });
 
   beforeEach(inject(function($compile, $rootScope, $state, $templateCache,
-      bookingService, propertyService) {
+      bookingService, propertyService, user) {
     _rootScope = $rootScope.$new();
 
     _templateCache = $templateCache;
@@ -69,6 +69,7 @@ describe('hotels directive', function() {
     _spyBookingServiceGetAPIParams = sinon.spy(bookingService, 'getAPIParams');
     _spyBookingServiceAPIParamsHasDates = sinon.spy(bookingService, 'APIParamsHasDates');
     _propertyServiceGetAll = sinon.spy(propertyService, 'getAll');
+    _spyUserIsLoggedIn = sinon.spy(user, 'isLoggedIn');
     // Final component compile
     var elem = $compile(TEMPLATE)(_rootScope);
     _rootScope.$digest();
@@ -81,6 +82,7 @@ describe('hotels directive', function() {
     _spyBookingServiceGetAPIParams.restore();
     _spyBookingServiceAPIParamsHasDates.restore();
     _propertyServiceGetAll.restore();
+    _spyUserIsLoggedIn.restore();
   });
 
   describe('when component is initialized', function() {
