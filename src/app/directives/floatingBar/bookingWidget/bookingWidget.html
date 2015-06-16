@@ -11,7 +11,7 @@
             chosen-options-class="{ 'region' : type === 'region', 'property': type === 'property' }"
             ng-options="option.name for option in propertyRegionList"
             ng-change="propertyRegionChanged()">
-      <option></option>
+      <option></option> <!-- to get chosen work with angular indexation of options -->
     </select>
     <form-label>Find Your Hotel</form-label>
   </form-element>
