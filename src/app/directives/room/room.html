@@ -15,9 +15,16 @@
               <header>
                 <h3 class="title">{{product.name}}</h3>
                 <p class="desc">{{product.tagline}}</p>
+                <p>earn {{product.price.pointsEarned}} points</p>
               </header>
+              <div ng-show="product.memberOnly" ng-switch="isUserLoggedIn()">
+                <p ng-switch-when="true">Most Booked Package</p>
+                <p ng-switch-default>Members Only Rate</p>
+              </div>
+
               <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
               <small>per night</small>
+              <p>or {{product.price.pointsRequired}} points</p>
             </div>
           </accordion-heading>
           <p ng-bind-html="sanitize(product.description)"></p>
