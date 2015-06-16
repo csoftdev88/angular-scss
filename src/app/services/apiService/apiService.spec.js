@@ -16,7 +16,8 @@ describe('apiService', function() {
         'API': {
           'baseURL': 'http://server.com/',
           'content': {
-            'about': 'about'
+            'about': 'about',
+            'withPlaceholders': 'path/:someParam/v1'
           }
         }
       };
@@ -30,7 +31,6 @@ describe('apiService', function() {
     env.httpBackend = $httpBackend;
     env.rootScope = $rootScope;
   }));
-
 
   describe('API comunication', function() {
     describe('GET method', function() {
@@ -82,6 +82,13 @@ describe('apiService', function() {
         var URL = env.apiService.getFullURL('content.someother');
 
         expect(URL).equal('http://server.com/');
+      });
+
+      it('should return correctly formated URL with replaced params', function() {
+        var URL = env.apiService.getFullURL('content.withPlaceholders',
+          {someParam: 'abc'});
+
+        expect(URL).equal('http://server.com/path/abc/v1');
       });
     });
   });

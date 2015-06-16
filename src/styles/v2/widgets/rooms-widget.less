@@ -1,0 +1,214 @@
+/*  ==========================================
+    ROOM widget
+    ========================================== */
+[widget="room"]{
+
+}
+
+accordion {
+  &:extend(.block);
+  .margin-top-bottom;
+
+  @media only screen and @lessThenTablet {
+    margin-bottom: 0;
+  }
+}
+
+.room-prices {
+  .clearfix;
+
+  .accordion-toggle {
+    .clearfix;
+
+    > div {
+      .clearfix;
+    }
+  }
+
+  .panel {
+    background-color: @bgAccordion;
+    border: 1px #cccccc solid;
+    padding: ((@baseline / 2) - 1) 10px; // -2px border top/bottom
+
+    * {
+      margin: 0;
+    }
+
+    a {
+      display: block;
+      color: @colorHeadingDefault;
+    }
+
+    &.is-open {
+      background-color: @bgAccordionActive;
+      color: @white;
+      border-color: transparent;
+
+      *,
+      .icon {
+        color: @white;
+      }
+    }
+  }
+
+  .panel-collapse {
+    clear: both;
+    overflow: hidden;
+    opacity: 0.5;
+    transition: height 0.25s ease-in,
+                opacity 0.25s linear;
+
+    &.in {
+      opacity: 1;
+    }
+
+    p {
+      .fs-14(true);
+      .margin-top-bottom(14, 0.5);
+    }
+  }
+
+  .panel-heading {
+    display: block;
+    cursor: pointer;
+    .clearfix;
+  }
+
+  .panel-title {
+
+    .icon {
+      display: block;
+      float: left;
+      .fs-36(true);
+      margin-right: 5px;
+      color: @colorAccordionIcons;
+    }
+
+    .title,
+    .price,
+    .desc {
+      // transition: color 0.35s linear;
+    }
+
+    header {
+      float: left;
+    }
+
+    .title {
+      margin: 0;
+      .fs-18;
+      line-height: 28px;
+      font-weight: 300;
+    }
+
+    .price {
+      float: right;
+      margin: 0;
+      .fs-18(true);
+      font-weight: 700;
+
+      &:before {
+        font-weight: 400;
+      }
+    }
+
+    small {
+      float: right;
+      clear: right;
+      .fs-14(true);
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .desc {
+      margin: 0;
+      .fs-12;
+      line-height: 14px;
+      font-weight: 300;
+      font-style: italic;
+    }
+  }
+}
+
+.room-continue {
+  .line-height(16, 2);
+  text-align: right;
+  .button {
+    .grid-width(3);
+    width: @width;
+  }
+
+  @media only screen and @lessThenTablet {
+    .margin-top;
+
+    .button {
+      width: 100%;
+    }
+  }
+}
+/*  ==========================================
+    ROOM ASIDE widget
+    ========================================== */
+
+[widget="room-aside"] {
+  .margin-bottom(16, 2);
+
+  table {
+    width: 100%;
+    .margin-top-bottom(16, 2);
+    border-collapse: collapse;
+    border: 1px @borderColorDefault solid;
+    background-color: @white;
+
+    tbody {
+      display: block;
+      padding: @baseline / 2 - 1px 0;
+    }
+
+    th, td {
+      padding: 0 1ex;
+      .fs-14(true);
+      text-align: right;
+    }
+
+    th {
+      color: #363636;
+    }
+
+    th + td {
+      padding: 0 0 0 2ex;
+    }
+
+  }
+
+  .more-info {
+    a {
+      display: block;
+      text-align: right;
+      font-size: @fs-1;
+    }
+  }
+
+  @media only screen and @lessThenTablet {
+    table {
+      .margin-top-bottom(16, 1);
+    }
+  }
+
+  @media only screen and @moreThenMobile and @lessThenDesktop {
+    float: none;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+
+  advert {
+    .margin-top-bottom(16, 2);
+    height: ceil(395 / @baseline) * @baseline;
+  }
+}
+
+.vertical-divider--room {
+  &:extend(.vertical-divider);
+  .grid-width(9);
+  left: @width;
+}

@@ -1,0 +1,29 @@
+<div ng-if="!user.isLoggedIn()">
+  User is not loaded
+</div>
+
+<ul ng-if="user.isLoggedIn()">
+  <li>
+    <img ng-src="{{user.getUser().loyalties.avatar}}">
+    <span>{{user.getUser().firstName}} {{user.getUser().lastName}}</span>
+    <span>{{user.getUser().loyalties.tier}} _tier_</span>
+    <span>{{user.getUser().loyalties.amount}} _points_</span>
+  </li>
+
+  <li ng-switch="!!lastBadge" ng-click="showBadges()">
+    <img ng-src="{{lastBadge.icon}}" />
+    <p>Last Badge <strong>earned</strong></p>
+    <div ng-switch-when="false">You have not earned any badges yet</div>
+    <div ng-switch-default>
+      <p>{{lastBadge.name}}</p>
+      <p>{{lastBadge.displayedDate}}</p>
+    </div>
+  </li>
+
+  <li ng-click="showLoyaltyCard()">
+    <img ng-src="link_to_loyalities_icon" />
+    <p>Loyalty <strong>Card</strong></p>
+    <p>{{loyaltiesEarned}}/{{loyaltiesAll}} Stamps</p>
+    <p ng-if="loyaltyName">{{loyaltyName}} card</p>
+  </li>
+</ul>

@@ -1,0 +1,39 @@
+<div class="ui-dialog">
+  <div class="modal-header has-form">
+    <h3 class="modal-title">Log in</h3>
+    <button class="button-close" ng-click="cancel()">X</button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-wrap">
+      <form name="loginForm" ng-submit="loginForm.$valid">
+        <label for="email">
+          Email Address
+          <input type="email" ng-class="{'is-invalid': wrongCredentials(loginForm)}" name="email" ng-model="formData.email" required ng-pattern="emailPattern">
+        </label>
+
+        <label for="password">
+          Password
+          <input type="password" ng-class="{'is-invalid': wrongCredentials(loginForm)}" name="password" required ng-model="formData.password">
+        </label>
+
+        <div class="form-errors" ng-show="loginForm.$invalid">
+          <span ng-show="loginForm.email.$error.email || loginForm.email.$error.pattern">Please enter valid email</span>
+          <span ng-show="loginForm.password.$dirty && loginForm.password.$error.required">Password is required</span>
+        </div>
+
+        <p>
+          <a href ng-click="openPasswordResetDialog()">Forgotten your password?</a><br/>
+          <a href ng-click="openEnterCodeDialog()">Have a password reset code?</a>
+          <br>
+          <a href ng-click="openRegisterDialog()">Register</a>
+        </p>
+        <div class="modal-footer">
+          <button class="button" ng-hide="wrongCredentials(loginForm)" type="submit" ng-click="login(loginForm, formData)">Log In</button>
+          <div class="error-messages" ng-show="wrongCredentials(loginForm)">Incorrect email or password</div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

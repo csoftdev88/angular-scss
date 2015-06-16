@@ -2,37 +2,87 @@
 
 angular.module('mobiusApp.directives.room', [])
 
-.directive('room', function(){
+.directive('room', function($stateParams, $window, Settings,
+  bookingService, propertyService, filtersService, preloaderFactory) {
   return {
     restrict: 'E',
-    scope: {},
     templateUrl: 'directives/room/room.html',
 
     // Widget logic goes here
     link: function(scope){
-      scope.room = {};
-      scope.room.name = 'Deluxe Double Room';
-      scope.room.perex = 'am eu ipsum ac metus sagittis pellentesque id ut magna. Nunc in nibh nibh. Morbi nec turpis at est pretium fermentum. Praesent a condimentum leo. Aenean egestas leo ac enim consequat tincidunt jes. Ut et purus leo. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent.';
-      scope.room.description = 'Iam eu ipsum ac metus sagittis pellentesque id ut magna. Nunc in nibh nibh. Morbi nec turpis at est pretium fermentum. Praesent a condimentum leo. Aenean egestas leo ac enim consequat tincidunt jes. Ut et purus leo. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.';
+      var bookingParams = bookingService.getAPIParams();
 
-      scope.amenities = [
-        {name: 'Easy Acces', icon: 'wheelchair'},
-        {name: 'WiFi throughout', icon: 'signal'},
-        {name: 'Multi lingual staff', icon: 'globe'},
-        {name: 'Secure area for valuables', icon: 'lock'},
-        {name: 'Bureau de change', icon: 'dollar'}
-      ];
+      var propertyCode = bookingParams.property;
+      delete bookingParams.property;
 
-      scope.rates = [
-        {type: 'Best available Rate', subtitle: 'Book now!', price: '79', currency: 'pound', icon: 'star-1', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.'},
-        {type: 'Bed and Breakfast', subtitle: 'Breakfast for 2 included', price: '89', currency: 'pound', icon: 'coffee', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.'},
-        {type: 'All Inclusive', subtitle: 'All meals included', price: '119', currency: 'pound', icon: 'food', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.'},
-        {type: 'Luxury Package', subtitle: 'All meals included plus bottle of champagne, robes and a fruit basket', price: '139', currency: 'pound', icon: 'wine', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis odio. Aliquam blandit neque felis, a viverra purus varius quis. Vestibulum augue ante, mattis ac neque non, ultricies rutrum felis. Integer in mattis lorem. Nulla purus diam, rutrum id purus in, iaculis aliquet orci. Nunc vehicula, lectus eu dictum.'}
-      ];
+      var roomCode = $stateParams.roomID;
 
-      scope.oneAtATime = true;
-      scope.status = 1;
+      // Getting room details
+      var roomDetailsPromise = propertyService.getRoomDetails(propertyCode, roomCode).then(function(data){
+        // Inherited from RoomDetailsCtrl
+        scope.setRoomDetails(data);
+
+        // Updating hero slider images
+        var heroContent =  data.images.map(function(image){
+          return {'image': image.URI};
+        });
+
+        scope.updateHeroContent(heroContent);
+      });
+
+      preloaderFactory(roomDetailsPromise);
+
+      // Room product details
+      function getRoomProductDetails(propertyCode, roomCode, params){
+        propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data){
+          scope.products = data.products;
+
+          scope.accordionStates = data.products.map(function(){
+            return false;
+          });
+
+          selectBestProduct();
+        });
+      }
+
+      scope.onSelectProduct=function(product){
+        if(product === scope.selectedProduct){
+          return;
+        }
+
+        // NOTE: Product must be always selected
+        var productIndex = scope.products.indexOf(product);
+        if(productIndex!==-1){
+          scope.accordionStates[productIndex] = true;
+          // NOTE: This function is inherited from RoomDetailsCtrl
+          scope.selectProduct(product);
+        }
+      };
+
+      function selectBestProduct(){
+        // Note: Currently BAR doesn't have code provided so we are matching name against our settings
+        // This should be fixed later on the API side.
+        var bestProduct = $window._.findWhere(scope.products,
+          {name: Settings.bestAvailableRateCode}
+        );
+
+        if(bestProduct){
+          scope.onSelectProduct(bestProduct);
+        }
+      }
+
+      if(bookingParams.productGroupId){
+        getRoomProductDetails(propertyCode, roomCode, bookingParams);
+      } else{
+        // productGroupId is not set by the widget - getting default BAR
+        filtersService.getBestRateProduct().then(function(brp){
+          if(brp){
+            bookingParams.productGroupId = brp.id;
+          }
+
+          getRoomProductDetails(propertyCode, roomCode, bookingParams);
+        });
+      }
     }
-
   };
 });

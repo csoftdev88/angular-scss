@@ -1,0 +1,61 @@
+<div>
+  <reservation-hotel>
+    <img src="/static/images/hotel.jpg" alt="{{reservation.hotel.name}}">
+    <p><strong>{{reservation.hotel.name}}</strong></p>
+    <p>{{reservation.hotel.country}}</p>
+  </reservation-hotel>
+  <reservation-check-in>
+    <table>
+      <tr>
+        <th>Check in:</th>
+        <td>{{reservation.checkin}}</td>
+      </tr>
+      <tr>
+        <th>Check out:</th>
+        <td>{{reservation.checkout}}</td>
+      </tr>
+    </table>
+  </reservation-check-in>
+  <reservation-charges>
+    <table>
+      <tr>
+        <th>Room charges:</th>
+        <!-- TODO: Replace number filter with proper currency filter -->
+        <td>{{reservation.charges | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
+      <tr>
+        <th>Tax:</th>
+        <td>{{reservation.tax | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
+      <tr>
+        <th>Total:</th>
+        <td><strong>{{reservation.total | i18nCurrency: $root.currencyCode}}</strong></td>
+      </tr>
+    </table>
+  </reservation-charges>
+</div>
+<reservation-room ng-repeat="room in reservation.rooms">
+  <div>
+    <img src="/static/images/room-1.jpg" alt="{{room.type}}">
+    <p><strong>{{room.type}}</strong></p>
+    <p>{{room.rate}}</p>
+    <p><strong>{{room.price | i18nCurrency: $root.currencyCode}}</strong></p>
+  </div>
+  <div>
+    <table>
+      <tr>
+        <th>Adults:</th>
+        <td>{{room.adults}}</td>
+      </tr>
+      <tr>
+        <th>Children:</th>
+        <td>{{room.children}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="more-details" ng-if="$index === 0">
+    <a href ng-click="openPoliciesInfo()">View Policies</a>
+    <br/>
+    <a href ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
+  </div>
+</reservation-room>

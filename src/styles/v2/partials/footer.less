@@ -1,0 +1,85 @@
+/*  ==========================================
+    FOOTER styles
+    ========================================== */
+
+// GENERIC STYLES
+#main-footer {
+  .clearfix;
+  color: @colorFooterTextDefault;
+  background-color: @footerBackground;
+
+  p {
+    font-size: @fs-1;
+    .noSpaces;
+    &:extend(.open-sans);
+  }
+
+  .social-links {
+    float: right;
+
+    ul {
+      .noSpaces;
+      height: 38px;
+      padding: 3px 0;
+
+      li {
+        display: inline;
+      }
+
+      a {
+        display: inline-block;
+        margin: 2px;
+        padding: 5px;
+        text-decoration: none;
+        color: @white;
+        background-color: @colorFooterTextDefault;
+        border-radius: 50%;
+        font-size: @fs-1;
+        transition: background-color 0.15s linear;
+        span {
+          .ir;
+        }
+
+        &:hover,
+        &:focus {
+          background-color: darken(@colorFooterTextDefault, 20%);
+        }
+      }
+    }
+
+  }
+}
+
+// MOBILE SPECIFIC STYLES
+@media only screen and @lessThenTablet {
+  #main-footer {
+    .wrapper > div {
+      text-align: center;
+    }
+  }
+}
+
+@media only screen and @moreThenMobile and @lessThenDesktop {
+  #main-footer {
+    .social-links {
+      clear: both;
+    }
+  }
+}
+
+// DESKTOP STYLES
+@media only screen and @moreThenMobile {
+  #main-footer {
+
+    .main-footer__block--left { .block--left; }
+
+    p {
+      .fs-14;
+      line-height: @footerHeight;
+    }
+
+    .social-links {
+      padding: 15px 0;
+    }
+  }
+}

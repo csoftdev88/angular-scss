@@ -1,15 +1,11 @@
 <header id="main-header" ng-include="'layouts/header.html'">
 </header>
 
+<div class="preloader" ng-show="preloader.visible">loading</div>
+
 <!-- HERO SLIDER AREA -->
 <hero-slider content="heroContent">
 </hero-slider>
-
-<!-- BOOKING WIDGET AREA-->
-<div class="wrapper" ng-hide="$state.includes('index.reservation')">
-  <booking-widget>
-  </booking-widget>
-</div>
 
 <!-- MAIN CONTENT AREA -->
 <main typo-grid>
@@ -18,53 +14,10 @@
   </div>
 </main>
 
-<footer id="main-footer">
-  <div class="wrapper">
-    <div class="main-footer__block--left">
-      <p>&copy; 2014 Mobius Hotels. All Rights Reserved.</p>
-    </div>
-    <div class="main-footer__block--right">
-      <nav>
-        <ul class="footer-nav">
-            <li>
-                <a href="#">Home</a>
-            </li>
+<div ng-include="'layouts/siteMap.html'" class="site-map"></div>
 
-            <li>
-                <a href="#">Hotels</a>
-            </li>
 
-            <li>
-                <a href="#">About Us</a>
-            </li>
+<!-- BOOKING WIDGET AREA-->
+<floating-bar class="floating-bar" ng-hide="$state.includes('reservation')"/>
 
-            <li>
-                <a href="#">Contact</a>
-            </li>
-        </ul>
-      </nav>
-    </div>
-    <div class="main-footer__block--center">
-      <nav>
-        <!-- SOCIAL LINKS -->
-        <ul class="social-links">
-          <li>
-              <a class="icon-twitter" href="//twitter.com"><span>Twitter</span></a>
-          </li>
-          <li>
-              <a class="icon-facebook-1" href="//facebook.com"><span>Facebook</span></a>
-          </li>
-          <li>
-            <a class="icon-youtube-1" href="//youtube.com"><span>YouTube</span></a>
-          </li>
-          <li>
-            <a class="icon-flickr" href="//flickr.com"><span>Flickr</span></a>
-          </li>
-          <li>
-            <a class="icon-pinterest" href="//pinterest.com"><span>Pinterest</span></a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</footer>
+<footer id="main-footer" ng-include="'layouts/footer.html'"/>

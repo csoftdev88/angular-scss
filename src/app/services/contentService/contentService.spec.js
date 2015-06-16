@@ -12,14 +12,7 @@ describe('contentService', function() {
       var Settings = {
         'API': {
           'baseURL': 'http://domain/',
-          'content': {
-            'news': 'content/news',
-            'loyalties': 'content/simpleloyalties',
-            'offers': 'content/specialoffers',
-            'abouts': 'content/abouts',
-            'highlighted': 'content?highlighted'
-          },
-
+          'contents': 'contents',
           'generics': {
             'currencies': 'generics/currencies',
             'languages': 'generics/languages'
@@ -56,30 +49,30 @@ describe('contentService', function() {
 
 
   describe('getNews', function() {
-    it('should fire a GET request to content/news API', function() {
+    it('should fire a GET request to contents API', function() {
       env.contentService.getNews();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('content.news')).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('contents')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
   });
 
   describe('getAbout', function() {
-    it('should fire a GET request to content/abouts API', function() {
+    it('should fire a GET request to contents API', function() {
       env.contentService.getAbout();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('content.abouts')).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('contents')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
   });
 
   describe('getOffers', function() {
-    it('should fire a GET request to content/specialoffers API', function() {
+    it('should fire a GET request to contents API', function() {
       env.contentService.getOffers();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('content.offers')).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('contents')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
@@ -89,7 +82,7 @@ describe('contentService', function() {
     it('should fire a GET request to content?highlighted API', function() {
       env.contentService.getHighlightedItems();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('content.highlighted')).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('contents')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });

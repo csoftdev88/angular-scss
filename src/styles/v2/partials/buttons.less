@@ -1,0 +1,65 @@
+.button-colors (@name, @backgroundColor: @colorGray, @backgroundColorHover: @colorGray, @color: @colorButtonTextDefault, @colorHover: @colorButtonTextDefault) {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 34px;
+  line-height: 34px;
+  margin: 0;
+  border: none;
+  background-color: @backgroundColor;
+  color: @color;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: @borderRadiusButtonDefault;
+  text-shadow: 0 1px 0 fadeout(@black, 70%);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: 0 1px 0 0 darken(@backgroundColor, 15%),
+              inset 0px 0px 10px 30px @backgroundColor;
+  transition: box-shadow @transitionDurationDefault linear,
+              backgroundColor @transitionDurationDefault linear;
+
+  .paddingButtonDefault;
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+    animation: btn 0.5s;
+    background-color: @backgroundColorHover;
+    color: @colorHover;
+    box-shadow: 0 1px 0 0 darken(@backgroundColor, 15%),
+                inset 0px 0px 0px 0px fade(@color, 0);
+  }
+}
+
+.button {
+  .button-colors(default, @colorButtonDefault, @colorButtonDefaultHover);
+}
+
+.button-blue {
+  .button-colors(blue, @colorButtonBlue, @colorButtonBlueHover);
+}
+
+.button-gray {
+  .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
+}
+
+.button-red {
+  .button-colors(red, @colorButtonRed, @colorButtonRedHover);
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.button-full {
+  width: 100%;
+}
+
+.button[disabled]{
+  .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
+}

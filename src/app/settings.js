@@ -4,20 +4,46 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
-    'baseURL': 'http://private-00016-mobius1.apiary-mock.com/',
-    'content': {
-      'news': 'content/news',
-      'loyalties': 'content/simpleloyalties',
-      'offers': 'content/specialoffers',
-      'abouts': 'content/abouts',
-      'highlighted': 'content?highlighted'
-    },
-
+    'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
+    'contents' : 'contents',
     'generics': {
       'currencies': 'generics/currencies',
       'languages': 'generics/languages'
+    },
+    'filters': {
+      'products': 'filters/products',
+      'rooms': 'filters/rooms'
+    },
+    'properties': {
+      'all': 'properties',
+      'details': 'properties/:propertyCode',
+      'availability': 'properties/:propertyCode/availabilities',
+      'room': {
+        'details': 'properties/:propertyCode/rooms/:roomTypeCode',
+        'productDetails': 'properties/:propertyCode/rooms/:roomTypeCode/products'
+      }
+    },
+    'locations': {
+      'locations': 'locations',
+      'regions': 'regions/'
+    },
+    'customers': {
+      'login': 'customers/actions/login',
+      'customer': 'customers/:customerId'
+    },
+    // NOTE: Loyalties API will change - check apiary specs
+    'loyalties': {
+      'all': 'customers/:customerId/loyalty'
+    },
+    'headers': {
+      // Auth header is set by a static server. See: config/environment/index.js
+      'Mobius-chainId': '1',
+      'Mobius-channelId': '6'
     }
   },
+
+  'currencyParamName': 'currency',
+  'bestAvailableRateCode': 'Best Available Rate',
 
   'UI': {
     'heroSlider': {
@@ -40,22 +66,29 @@ angular.module('mobiusApp.config', [])
     // NOTE: This is a temporary solution. Real images will
     // be provided by the API.
     'heroContent': {
-      'index.hotels': [
+      'hotels': [
         {
           'image': '/static/images/hero-image-1.jpg'
         }
       ],
 
-      'index.hotel': [
+      'hotel': [
         {
           'image': '/static/images/hero-image-2.jpg'
         }
       ],
 
-      'index.room': [
+      'room': [
         {
           'image': '/static/images/hero-image-2.jpg'
         }
+      ]
+    },
+    'aboutHotel': {
+      'benefits' : [
+        {'name': 'Great offers', 'pictureUrl': '/static/images/v4/icon-offers.png', 'text': 'Take advantage of our great offers and promotions to make your stay even more enjoyable!'},
+        {'name': 'Sutton Prestige', 'pictureUrl': '/static/images/v4/icon-discounts.png', 'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program'},
+        {'name': 'Exciting news', 'pictureUrl': '/static/images/v4/icon-news.png', 'text': 'Keep up to date with our latest news and read our interesting articles!'}
       ]
     },
     // List of currencies and their display symbols
@@ -63,47 +96,89 @@ angular.module('mobiusApp.config', [])
       'default': 'GBP',
 
       'GBP': {
-        'symbol': '£'
+        'symbol': '£',
+        'format': '{{symbol}} {{amount}}'
       },
 
       'USD': {
-        'symbol': '$'
+        'symbol': '$',
+        'format': '{{symbol}}{{amount}}'
       },
 
       'EUR': {
-        'symbol': '€'
+        'symbol': '€',
+        'format': '{{amount}}{{symbol}}'
       },
 
       'CAD': {
-        'symbol': '$'
+        'symbol': '$',
+        'format': '{{symbol}}{{amount}}'
       }
     },
 
     'languages': {
       'en-us': {
         'shortName': 'EN',
-        'name': 'English (US)'
+        'name': 'English (US)',
+        'decimalSeparator': '.',
+        'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
       },
       'en-ca': {
         'shortName': 'EN',
-        'name': 'English (CAN)'
+        'name': 'English (CAN)',
+        'decimalSeparator': '.',
+        'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
       },
       'cs-cz': {
         'shortName': 'CZ',
-        'name': 'Čeština'
+        'name': 'Čeština',
+        'decimalSeparator': ',',
+        'groupSeparator': '\u00a0',
+        'groupSize': 3,
+        'neg': '-'
+      }
+    },
+
+    // Settings related to booking process
+    'bookingWidget': {
+      'includeAllPropertyOption': true,
+      'adults': {
+        'min': 1,
+        'max': 6
+      },
+      'children': {
+        'min': 0,
+        'max': 8
+      },
+      'maxRooms': 4,
+      'availability': {
+        // Date range modification rules
+        'from': {
+          // Extra day/month added to a date
+          'value': -1,
+          'type': 'month'
+        },
+        'to': {
+          // Extra day/month added to a date
+          'value': 1,
+          'type': 'month'
+        }
       }
     },
 
     // States layout
     'layout': {
-      'index.home': [
-        'best-offers',
-        'best-hotels'
+      'home': [
+        'about-hotel'
       ],
-      'index.hotels': [
+      'hotels': [
         'hotels'
       ],
-      'index.room': [
+      'room': [
         'room',
         'room-aside'
       ]
@@ -111,11 +186,30 @@ angular.module('mobiusApp.config', [])
 
     // Widget names and their templates
     'templates': {
+      'about-hotel': '<about-hotel></about-hotel>',
       'best-offers': '<best-offers></best-offers>',
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',
       'room': '<room></room>',
       'room-aside': '<room-aside></room-aside>'
+    },
+
+    // Responsive design breakpoints
+    'screenTypes': {
+      'mobile': {
+        'maxWidth': 768
+      }
+    },
+
+    // Policy codes from the API and their title translates
+    'policies': {
+      'cancellation': 'Cancellation',
+      'checkInOut': 'Check-In-Out',
+      'extraGuest': 'Extra Guest',
+      'family': 'Family',
+      'guarantee': 'Guarantee',
+      'noShow': 'No Show',
+      'pet': 'Pet'
     }
   }
 });

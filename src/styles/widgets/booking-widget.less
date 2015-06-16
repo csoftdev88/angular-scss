@@ -1,186 +1,81 @@
-/*  ==========================================
-    BOOKING WIDGET styles
-    ========================================== */
+////////////////////////
+//// BOOKING WIDGET ////
+////////////////////////
 
-// GENERIC STYLES
 booking-widget {
-  position: relative;
-  margin-top: -50px;
-  border-radius: 5px;
+
+  // Chosen dropdown - open up not down
+  .chosen-container .chosen-drop {
+    bottom: 100%;
+    top: initial;
+
+    border: 1px solid #ccc;
+    border-bottom: 0;
+  }
+
+}
+
+//- Search
+booking-widget-search {
+  display: flex;
+  padding: @baseline 0;
+
+  > * {
+    flex: 1;
+    padding-right: @baseline;
+  }
+
+  //- Make your booking
+  h3 {
+    flex: 0 0 auto;
+
+    text-transform: uppercase;
+
+    strong { display: block; }
+  }
+
+  //- Form elements
+  form-element {
+    align-items: center;
+    display: flex;
+
+    form-label {
+      bottom: 0;
+    }
+
+    input:focus ~ form-label,
+    select:focus ~ form-label,
+    .chosen-with-drop ~ form-label {
+      opacity: 1;
+
+      transform: translate(0, 100%);
+    }
+  }
+}
+
+//- Add Room
+booking-widget-add-room {
   display: block;
-  background-color: @white;
-  box-shadow: 0 0 0 2px fadeout(@black, 90%);
+  padding: 0 0 @baseline 0;
 
-  > div {
-
+  //- Number of a room
+  h3 {
+    font-weight: bold;
   }
 
-  .booking-inputs {
-    .clearfix;
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
-    p {
-      color: @colorBestOffersText;
-      .fs-14;
-    }
-  }
+  //- Options
+  form-element {
+    display: inline-block;
+    margin-right: @baseline;
+    width: 150px;
 
-  .booking-input {
-
-  }
-
-  .more {
-    position: absolute;
-
-    a {
-      border-bottom: 1px @colorBookingLinkBlue solid;
-      color: @colorBookingLinkBlue;
-      .fs-12;
-      line-height: 14px;
-      text-decoration: none;
-
-      &:hover,
-      &:focus {
-        color: darken(@colorBookingLinkBlue, 20%);
-      }
-    }
-  }
-
-  .claim {
-    display: none;
-    background-color: #eee;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-
-    div {
-      width: 200px;
-    }
-    h3, p {
-      margin: 0;
-    }
-    h3 {
-      color: @colorHeadingDefault;
+    &:last-of-type {
+      margin-right: 0;
     }
   }
 }
 
-// TABLET STYLES
-@media only screen and @lessThenDesktop {
-  booking-widget {
-    margin-left: 20%;
-    margin-right: 20%;
-    padding-bottom: 1.97em;
-
-    > div {
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-
-    .booking-inputs {
-
-    }
-
-    .booking-input {
-      float: left;
-      .margin-top(16, 1);
-      box-sizing:  border-box;
-    }
-
-    .hotels {width: 50%; padding-right: 5px;}
-    .dates { width: 50%; padding-left: 5px;}
-    .codes { width: 50%; padding-right: 5px;}
-    .small { width: 25%; padding-left: 5px;}
-    .small.adults { padding-right: 5px;}
-    .submit {width: 100%;}
-
-    .submit {
-      button {
-        box-sizing: border-box;
-        width: 100%;
-      }
-    }
-
-    .form-group {
-      position: static;
-    }
-
-    .more {
-      bottom: 12px;
-      left: 0;
-      right: 0;
-      text-align: center;
-
-      a {
-        .fs-14;
-        font-weight: 700;
-      }
-    }
+  booking-widget-room {
+    display: block;
+    margin: 0 0 @baseline 0;
   }
-}
-
-// MOBILE SPECIFIC STYLES
-@media only screen and @lessThenTablet {
-  booking-widget {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
-
-
-// DESKTOP STYLES
-@media only screen and @moreThenTablet {
-  booking-widget {
-    > div {
-      display: table;
-    }
-
-    .booking-inputs {
-      display: table-row;
-    }
-
-    .booking-input,
-    .claim {
-      display: table-cell;
-      vertical-align: middle;
-      padding: 33px 5px;
-
-    }
-    .claim {
-      padding: 5px 20px;
-    }
-
-    .more {
-      top: 36px;
-      left: 0;
-    }
-
-    .hotels {
-      padding-left: 20px;
-    }
-    .hotels,
-    .dates,
-    .codes {
-      > div {
-        min-width: 140px;
-      }
-    }
-
-    .submit {
-      padding-right: 20px;
-      div {
-        width: 100px;
-      }
-      button {
-        width: 100px;
-      }
-    }
-
-    .small {
-      div {
-        width: 50px;
-      }
-    }
-  }
-}
-

@@ -2,13 +2,14 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, Settings) {
-  function get(url) {
+.service( 'apiService',  function($q, $http, $window, Settings) {
+  function get(url, params) {
     var q = $q.defer();
-
     $http({
       method: 'GET',
-      url: url
+      url: url,
+      headers: Settings.API.headers,
+      params: params
     }).success(function(res) {
       q.resolve(res);
 
@@ -26,6 +27,7 @@ angular.module('mobiusApp.services.api', [])
     $http({
       method: 'POST',
       url: url,
+      headers: Settings.API.headers,
       data: data
     }).success(function(res) {
       q.resolve(res);
@@ -36,9 +38,13 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-  function getFullURL(path) {
+  function getFullURL(path, params) {
     var URL = getValue(Settings.API, path);
     // NOTE: We might want to throw error in case when path is not found
+    $window._.each(params, function(value, key){
+      URL = URL.replace(':' + key, value);
+    });
+
     return Settings.API.baseURL + URL;
   }
 

@@ -1,3 +1,7 @@
+///////////////////////////////////////
+//// CONTAINERS AND LAYOUT HELPERS ////
+///////////////////////////////////////
+
 /*  ==========================================
     Containers and layout helpers
     ========================================== */
@@ -37,27 +41,49 @@
 
 .wrapper {
   position: relative;
-  max-width: @gridWidth - @gridGap;
-  margin: 0 auto;
-}
 
-// MOBILE SPECIFIC STYLES
-@media only screen and @lessThenTablet {
-  .grid,
-  [grid] {
-    margin-left: 10px;
-    margin-right: 10px;
+  @media only screen and @large-mobile-max {
+    margin: 0 @grid-gap/4;
+  }
+
+  @media only screen and @tablet-portrait-min and @tablet-portrait-max {
+    width: 98%;
+    margin: 0 auto;
+  }
+
+  @media only screen and @tablet-landscape-min {
+    width: @grid-width - @grid-gap;
+    margin: 0 auto;
   }
 }
 
-@media only screen and @moreThenMobile and @lessThenDesktop {
+// MOBILE SPECIFIC STYLES
+@media only screen and @large-mobile-max {
+  .grid,
+  [grid] {
+    margin-left: @grid-gap/4;
+    margin-right: @grid-gap/4;
+  }
+}
+
+@media only screen and @tablet-portrait-min and @tablet-portrait-max {
   .generate-fluid-grid(12);
 }
 
 // DESKTOP STYLES
-@media only screen and @moreThenTablet {
+@media only screen and @tablet-landscape-min {
   // Calling the grid mixin
-  .generate-grid(@gridWidth, @gridGap, @gridColumnCount);
+  .generate-grid(@grid-width, @grid-gap, @grid-column-count);
+}
+
+.grid-row,
+[grid-row] {
+  .clearfix;
+}
+
+.grid-img {
+  width: 100%;
+  height: auto;
 }
 
 
@@ -69,11 +95,6 @@
 // Desktop grid mixin //
 ////////////////////////
 .generate-grid(@full, @gap, @cols){
-  .grid-row,
-  [grid-row] {
-    clear: both;
-    .clearfix;
-  }
 
   .grid-wrapper {
     max-width: @full;
@@ -93,11 +114,6 @@
     float: left;
     margin-left: 0;
     margin-right: 0;
-  }
-
-  .grid-img {
-    max-width: 100%;
-    height: auto;
   }
 
   .grid-element-loop(@i) when (@i =< @cols){
@@ -159,28 +175,28 @@
 ///////////////////////////////////
 .grid-element(@i; @float: left){
   float: @float;
-  width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * (@i - 1)));
-  margin-left: @gridGap / 2;
-  margin-right: @gridGap / 2;
+  width: round(((@grid-width - (@grid-column-count * @grid-gap)) / @grid-column-count) * @i + (@grid-gap * (@i - 1)));
+  margin-left: @grid-gap / 2;
+  margin-right: @grid-gap / 2;
 }
 
 .grid-fluid-element(@i; @gap: 2%; @float: left){
   float: @float;
-  width: ((100 - (@gridColumnCount * @gap)) / @gridColumnCount) * @i + (@gap * (@i - 1));
+  width: ((100 - (@grid-column-count * @gap)) / @grid-column-count) * @i + (@gap * (@i - 1));
   margin-left: @gap / 2;
   margin-right: @gap / 2;
 }
 
 .grid-wrap(@i; @float: left){
   float: @float;
-  width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
+  width: round(((@grid-width - (@grid-column-count * @grid-gap)) / @grid-column-count) * @i + (@grid-gap * @i));
 }
 
 .grid-width(@i){
-  @width: round(((@gridWidth - (@gridColumnCount * @gridGap)) / @gridColumnCount) * @i + (@gridGap * @i));
+  @width: round(((@grid-width - (@grid-column-count * @grid-gap)) / @grid-column-count) * @i + (@grid-gap * @i));
 }
 
 .grid-fluid-width(@i; @gap: 2%;){
-  @width: round(((100 - (@gridColumnCount * @gap)) / @gridColumnCount) * @i + (@gap * @i));
+  @width: round(((100 - (@grid-column-count * @gap)) / @grid-column-count) * @i + (@gap * @i));
 }
 

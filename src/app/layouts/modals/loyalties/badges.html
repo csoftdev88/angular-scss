@@ -1,0 +1,18 @@
+<header>
+  <h1>My <strong>Badges</strong></h1>
+  <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+</header>
+
+<main>
+  <badges-list>
+    <badge-icon ng-repeat="badge in badges" ng-click="showBadgeDetail(badge)">
+      <img ng-src{{badge.icon}} alt="{{badge.name}}"/>
+    </badge-icon>
+  </badges-list>
+
+  <badge-selected>
+    <h2>{{selectedBadge.name}}</h2>
+    <img ng-src{{selectedBadge.icon}} alt="{{selectedBadge.name}}"/>
+    <p>{{selectedBadge.description}}</p>
+  </badge-selected>
+</main>

@@ -76,9 +76,8 @@ angular.module('mobiusApp.directives.slider', [])
         }
 
         var slideData = scope.content[scope.slideIndex];
-
-        if(slideData.categoryName && slideData.ID){
-          $state.go('index.offers', {category: slideData.categoryName, offerID: slideData.ID});
+        if(slideData && slideData.categoryName && slideData.id){
+          $state.go('offers', {category: slideData.categoryName, offerID: slideData.id});
         }
       };
 

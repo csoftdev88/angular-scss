@@ -4,24 +4,23 @@
 */
 angular.module('mobiusApp.services.content', [])
 .service( 'contentService',  function(apiService) {
-
   function getNews(){
-    return apiService.get(apiService.getFullURL('content.news'));
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
   }
 
   function getAbout(){
-    return apiService.get(apiService.getFullURL('content.abouts'));
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'about'});
   }
 
   function getOffers(){
-    return apiService.get(apiService.getFullURL('content.offers'));
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'specialOffer'});
   }
 
   function getHighlightedItems(){
-    return apiService.get(apiService.getFullURL('content.highlighted'));
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
   }
 
-    // Generics
+  // Generics
   function getCurrencies(){
     return apiService.get(apiService.getFullURL('generics.currencies'));
   }
@@ -38,6 +37,6 @@ angular.module('mobiusApp.services.content', [])
     getHighlightedItems: getHighlightedItems,
     // Generics
     getCurrencies: getCurrencies,
-    getLanguages: getLanguages
+    getLanguages: getLanguages,
   };
 });

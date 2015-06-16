@@ -1,0 +1,76 @@
+<header grid-row>
+  <div grid="12">
+    <h1>Welcome to <strong>THE SUTTON PLACE HOTELS</strong></h1>
+    <p>The Sutton Place Hotels are a sophisticated 5-star collection of properties in North America. Each hotel is distinctly different in style while offering timeless elegance and exceptional service.
+    As a select group of stylish properties with a distinct European flair, each Sutton Place Hotel is carefully selected for proximity to the business, financial, and entertainment centres in each city or destination that we are located within.</p>
+
+    <a href ng-show="isCollapsed" ng-click="isCollapsed = false">Read more</a>
+
+    <div collapse="isCollapsed">
+      <div>
+        <p> With hotels in Edmonton, Revelstoke Mountain Resort, and Vancouver, The Sutton Place Hotels represent the height of luxury accommodations with tasteful elegance, classically refined décor, and warm and inviting staff. From hand crafted furnishings, silk tapestries, and premium bedding, every detail at The Sutton Place Hotels represents a history of refined style and polished perfection that is both inviting and impressive.
+          Offering a sophisticated appeal, each outstanding location offers world-class amenities ensuring exceptional comfort and ambiance for every occasion.
+          However this should be easily changeable by the client so please ensure you take whatever steps you need to in order to enable this</p>
+        <a href ng-click="isCollapsed = true">Read less</a>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<div class="dividing-line"></div>
+
+<section grid-row class="benefits">
+  <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">
+    <a ng-click="openLoginDialog()" ng-switch-when="false" href>
+      <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
+      <h2>{{icon.name}}</h2>
+      <p>{{icon.text}}</p>
+    </a>
+    <div ng-switch-default>
+      <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
+      <h2>{{icon.name}}</h2>
+      <p>{{icon.text}}</p>
+    </div>
+  </article>
+</section>
+
+<div class="dividing-line"></div>
+
+<div grid-row>
+  <div grid="12">
+    <h2>Our <strong>Offers</strong></h2>
+  </div>
+</div>
+
+<section grid-row class="offers">
+  <article grid="4">
+    <a href="#">
+      <img class="grid-img" src="/static/images/v4/about-offer-1.png" alt="Free room upgrade">
+
+      <h2>Free room <strong>upgrade</strong></h2>
+      <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
+
+      <span>Read More</span>
+    </a>
+  </article>
+
+  <article grid="4">
+    <a href="#">
+      <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
+
+      <h2>Champagne <strong>breakfast</strong></h2>
+      <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
+
+      <span>Read More</span>
+    </a>
+  </article>
+
+
+  <article grid="4" class="add">
+    <a href="#">
+      <img class="grid-img" src="/static/images/v4/about-offer-3.png" alt="Free room upgrade">
+      <p>Download our mobile app for great rates!</p>
+    </a>
+  </article>
+</section>

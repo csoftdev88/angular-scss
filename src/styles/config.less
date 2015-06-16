@@ -1,150 +1,92 @@
-/*  ==========================================
-    FONTS and TYPOGRAPHY
-    ========================================== */
+/////////////////////
+//// MAIN CONFIG ////
+/////////////////////
 
-@fontDefault: Verdana, Geneva, sans-serif;
+// When adding new widgets, or updating v2 to v4
+// let's use the following variables.
 
-@htmlFontSize:  16px;
-@baseline:      21px;
-@baseFontSize:  14px;
+// If some color / dimension repeat multiple times
+// and it's not here, please add it.
 
-// Font sizes
-@fs-1: 12px;
-@fs-2: 14px;
-@fs-3: 16px;
-@fs-4: 18px;
-@fs-5: 21px;
-@fs-6: 24px;
-@fs-7: 36px;
-@fs-8: 48px;
+// As the work progresses we'll slowly be getting
+// rid of the old variables from v2.
 
-/*  ==========================================
-    COLORS
-    ========================================== */
+//// COLORS ////
+////////////////
 
-// General color shorthands
-@white: #fff;
-@black: #000;
+// color values used mapped to color names
+@c-black: #333;
+@c-white: #fefefe;
+@c-grey:  #888;
+@c-light-grey: #d9d9d9;
 
-@bodyBackground:            #f4f4f4;
-@footerBackground:          @white;
-@colorDefaultGray:          #898989;
-@colorLightGray:            #bbb;
-@colorLinkDefault:          #2b5e7f;
-@colorLinkLight:            #237fbc;
-@colorTextDefault:          #818080;
-@colorHeadingDefault:       #373535;
-@borderColorDefault:        #ccc;
+@c-green: #39b54a;
+@c-brown: #b08f5e;
+@c-blue:  #237fbc;
+@c-red:   #e10f2e;
 
-// Buttons
-@colorButtonDefault:        #2aad49;
-@colorButtonDefaultHover:   #42c661;
-@colorButtonTextDefault:    @white;
+// color names mapped to meanings
+// these should be used in the app
+@c-base:            @c-black;
+@c-background-body: @c-white;
+@c-link:            @c-brown;
+@c-button:          @c-green;
+@c-hr:              @c-grey;
+@c-text:            @c-black;
+@c-error:           @c-red;
 
-@colorButtonBlue:           #32a2e3;
-@colorButtonBlueHover:      lighten(@colorButtonBlue, 15%);
+//// LAYOUT ////
+////////////////
 
-@colorButtonGray:           @colorDefaultGray;
-@colorButtonGrayHover:      lighten(@colorButtonGray, 15%);
+@baseline: 20px;
 
-// Header
-@colorHeaderBackground:     #000;
+//// FONTS ////
+///////////////
 
-@colorMenuTextDefault:      #fff;
-@borderColorSubmenu:        rgba(255, 255, 255, 0.1);
-@borderColorSubmenuLast:    #1f70a5;
+// font sizes
 
-// Hero
-@bgSliderTitle:             fadeout(@black, 60%);
-@bgSliderSubtitle:          #2b5e7f;
+// This is maybe not optimal, but it
+// corresponds the best to the PSDs,
+// so let's use it for now.
+// We can change the values in the future.
+@size--3: 10px;
+@size--2: 11px;
+@size--1: 12px;
+@size-0:  14px;
+@size-1:  16px;
+@size-2:  18px;
+@size-3:  21px;
 
-// Datepicker
-@colorDatepickerHeader:     @bgSliderSubtitle;
-@colorDatepickerSubHeader:  #ebebeb;
-@colorDatepickerDays:       #aaaaac;
-@colorDatepickerRange:      #65a6d0;
+// font families
+@ff-default:   'Open Sans', Helvetica, Arial, sans-serif;
+@ff-condensed: 'Open Sans Condensed', sans-serif;
 
-// Footer
-@colorFooterTextDefault:    #aeadad;
-@footerBackground:          @white;
+//// BREAKPOINTS ////
+/////////////////////
 
-// Forms
-@colorInputBorder:          #ccc;
+// these are different than the old ones
+// let's use these please
 
-// Booking widget
-@colorBookingLinkBlue:      @colorLinkLight;
+@small-mobile-max:     ~"(max-width: 479px)";
+@large-mobile-min:     ~"(min-width: 480px)";
 
-// Best Offers widget
-@colorBestOffersTitle:      @colorHeadingDefault;
-@colorBestOffersText:       @colorTextDefault;
+@large-mobile-max:     ~"(max-width: 767px)";
+@tablet-portrait-min:  ~"(min-width: 768px)";
 
-// Hotels widget
-@borderBottomColorHeader:   #c8c8c8;
-@colorStar:                 #2b5e7f;
+@tablet-portrait-max:  ~"(max-width: 999px)";
+@tablet-landscape-min: ~"(min-width: 1000px)";
 
-// Rooms widget
-@bgAccordion:               @white;
-@bgAccordionActive:         #66bd5f;
-@colorAccordionIcons:       @colorDefaultGray;
+//// DIMENSIONS ////
+////////////////////
+
+@grid-width:      1000px;
+@grid-gap:          40px;
+@grid-column-count: 12;
+
+@radius:             4px;
 
 
-/*  ==========================================
-    DIMENSIONS
-    ========================================== */
+//// LIBRARIES ////
+/////////////////////
 
-@headerHeight:    88px;
-@footerHeight:    66px;
-
-@gridWidth:       1000px;
-@gridGap:         40px;
-@gridColumnCount: 12;
-@inputHeight:     34px;
-
-
-/*  ==========================================
-    BREAKPOINTS
-    ========================================== */
-@lessThenTablet:     ~"(max-width: 480px)";
-@moreThenMobile:     ~"(min-width: 481px)";
-
-@lessThenDesktop:    ~"(max-width: 960px)";
-@moreThenTablet:     ~"(min-width: 961px)";
-
-@lessThenTabletPortrait: ~"(max-width: 768px)";
-@moreThenTabletPortrait: ~"(min-width: 769px)";
-
-/*  ==========================================
-    BORDERS
-    ========================================== */
-@headerBorderBottom:        2px;
-@borderRadiusButtonDefault: 3px;
-@borderRadiusDefault:       4px;
-
-/*  ==========================================
-    PADDINGS
-    ========================================== */
-
-@paddingHeaderDefault: 15px;
-
-.paddingButtonDefault() {
-  padding: 0 10px;
-}
-
-
-/*  ==========================================
-    TRANSITIONS
-    ========================================== */
-
-@transitionDurationDefault: .2s;
-@transitionDurationShort: .05s;
-@transitionDurationLong: .6s;
-@transitionDurationLonger: .7s;
-
-/*  ==========================================
-    SHADOWS
-    ========================================== */
-
-.textShadowDark() {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-
+@fa-font-path: '../font';

@@ -6,12 +6,24 @@
     "base_href": "/en-us/",
     "language": "english",
     "language_code": "en-us",
+    "home": "Home",
     "page_title": "Mobius Hotels",
     "hotels": "Hotels",
     "offers_deals": "Offers & Deals",
     "about_us": "About Us",
     "news": "News",
     "contact": "Contact",
-    "login_register": "Log In / Register"
+    "login_register": "Log In / Register",
+    "continue": "Continue",
+    "view_more": "View more",
+    "confirmation": "Confirmation",
+    "back": "Back",
+    "no_room_found": "No Room Found",
+    "no_hotels_found": "No Hotels Found",
+    "make_your_booking": "Make Your Booking",
+    "advanced_booking": "Advanced Booking",
+    "my_account": "My Account",
+    "tier": "Tier",
+    "points": "points"
   }
 }

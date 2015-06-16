@@ -1,114 +1,182 @@
 'use strict';
 
-angular.module('mobiusApp', [
-  'ngRoute',
-  'ui.router',
-  // Bootstrap components
-  'ui.bootstrap',
-  'ngTouch',
-  // Template cache
-  'templates-app',
+angular
+  .module('mobiusApp', [
+    'ui.router',
+    // Bootstrap components
+    'ui.bootstrap',
+    'ngTouch',
+    'ngMap',
+    'ngSanitize',
+    // Template cache
+    'templates-main',
 
-  // Controllers
-  'mobius.controllers.main',
-  'mobius.controllers.offers',
+    // 3rd party components
+    'localytics.directives',
+    'underscore',
+    'validation.match',
+    'ui-rangeSlider',
 
-  // 3rd party components
-  'localytics.directives',
+    // Controllers
+    'mobius.controllers.common.sanitize',
+    'mobius.controllers.common.preloader',
 
-  // Application modules
-  'mobiusApp.config',
+    'mobius.controllers.main',
+    'mobius.controllers.offers',
+    'mobius.controllers.reservations',
+    'mobius.controllers.modals.generic',
+    'mobius.controllers.modals.data',
+    'mobius.controllers.modals.login',
+    'mobius.controllers.modals.register',
+    'mobius.controllers.modals.reservation',
+    'mobius.controllers.modals.policy',
+    'mobius.controllers.modals.loyalties.loyalty',
+    'mobius.controllers.modals.loyalties.badges',
 
-  // Services
-  'mobiusApp.services.state',
-  'mobiusApp.services.api',
-  'mobiusApp.services.content',
+    'mobius.controllers.hotel.details',
+    'mobius.controllers.room.details',
 
-  // Custom components
-  'mobiusApp.directives.layout',
-  'mobiusApp.directives.slider',
-  'mobiusApp.directives.booking',
-  'mobiusApp.directives.best.offers',
-  'mobiusApp.directives.best.hotels',
-  'mobiusApp.directives.hotels',
-  'mobiusApp.directives.room',
-  'mobiusApp.directives.room.aside',
+    // Application modules
+    'mobiusApp.config',
+    'mobiusApp.userobject',
+    // Services
+    'mobiusApp.services.state',
+    'mobiusApp.services.api',
+    'mobiusApp.services.content',
+    'mobiusApp.services.modal',
+    'mobiusApp.services.properties',
+    'mobiusApp.services.query',
+    'mobiusApp.services.validation',
+    'mobiusApp.services.user',
+    'mobiusApp.services.booking',
+    'mobiusApp.services.filters',
+    'mobiusApp.services.loyalty',
+    'mobiusApp.services.locations',
+    'mobiusApp.services.creditCardType',
 
-  // Directive based on content data
-  'mobiusApp.directives.menu',
-  // Directives for generic data
-  'mobiusApp.directives.currency',
-  'mobiusApp.directives.language'
-])
+    // Factories
+    'mobiusApp.factories.template',
+    'mobiusApp.factories.preloader',
 
-.config(function ($stateProvider, $locationProvider) {
-  // Using this settings allows to run current
-  // SPA without # in the URL
-  $locationProvider.html5Mode(true);
+    // Custom components
+    'mobiusApp.directives.layout',
+    'mobiusApp.directives.slider',
+    'mobiusApp.directives.best.offers',
+    'mobiusApp.directives.best.hotels',
+    'mobiusApp.directives.hotels',
+    'mobiusApp.directives.room',
+    'mobiusApp.directives.room.aside',
+    'mobiusApp.directives.reservation.data',
+    'mobiusApp.directives.equals',
+    'mobiusApp.directives.resize.watcher',
+    'mobiusApp.directives.dropdown.group',
+    'mobiusApp.directives.datepicker',
+    'mobiusApp.directives.password',
+    'mobiusApp.directives.chosenOptionsClass',
+    // Directive based on content data
+    'mobiusApp.directives.menu',
+    // Directives for generic data
+    'mobiusApp.directives.currency',
+    'mobiusApp.directives.language',
+    // V4
+    'mobiusApp.directives.aboutHotel',
+    'mobiusApp.directives.floatingBar',
+    'mobiusApp.directives.errSource',
 
-  $stateProvider
-    // Default application layout
-    .state('index', {
-      templateUrl: 'layouts/index.html',
-      controller: 'MainCtrl'
-    })
+    // Filters
+    'mobiusApp.filters.list',
+    'mobiusApp.filters.number',
+    'mobiusApp.filters.currency',
+    'mobiusApp.filters.pluralization'
+  ])
 
-    // Home page
-    .state('index.home', {
-      templateUrl: 'layouts/home/home.html',
-      url: '/'
-    })
+  .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+    // Using this settings allows to run current
+    // SPA without # in the URL
+    $locationProvider.html5Mode(true);
 
-    // Hotels
-    .state('index.hotels', {
-      templateUrl: 'layouts/hotels/hotels.html',
-      url: '/hotels'
-    })
+    $stateProvider
+      // Default application layout
+      .state('root', {
+        abstract: true,
+        templateUrl: 'layouts/index.html',
+        controller: 'MainCtrl',
+        // NOTE: These params are used by booking widget
+        // Can be placed into induvidual state later if needed
+        url: '?property&region&children&adults&dates&rate&rooms'
+      })
 
-    .state('index.hotel', {
-      templateUrl: 'layouts/hotels/hotelDetails.html',
-      url: '/hotels/:hotelID'
-    })
+      // Home page
+      .state('home', {
+        parent: 'root',
+        templateUrl: 'layouts/home/home.html',
+        url: '/'
+      })
 
-    .state('index.room', {
-      templateUrl: 'layouts/hotels/roomDetails.html',
-      url: '/hotels/:hotelID/rooms/:roomID'
-    })
+      // Hotels
+      .state('hotels', {
+        parent: 'root',
+        templateUrl: 'layouts/hotels/hotels.html',
+        url: '/hotels'
+      })
 
-    // Room reservation
-    .state('index.reservation', {
-      templateUrl: 'layouts/reservation/reservation.html',
-      url: '/reservation'
-    })
+      .state('hotel', {
+        parent: 'root',
+        templateUrl: 'layouts/hotels/hotelDetails.html',
+        controller: 'HotelDetailsCtrl',
+        url: '/hotels/:propertyCode'
+      })
 
-    .state('index.reservation.details', {
-      templateUrl: 'layouts/reservation/reservationDetails.html',
-      url: '/details'
-    })
+      .state('room', {
+        parent: 'root',
+        templateUrl: 'layouts/hotels/roomDetails.html',
+        controller: 'RoomDetailsCtrl',
+        url: '/hotels/:propertyCode/rooms/:roomID'
+      })
 
-    .state('index.reservation.billing', {
-      templateUrl: 'layouts/reservation/reservationBilling.html',
-      url: '/billing'
-    })
+      // Room reservation
+      .state('reservation', {
+        parent: 'root',
+        templateUrl: 'layouts/reservation/reservation.html',
+        url: '/reservation',
+        controller: 'ReservationsCtrl'
+      })
 
-    .state('index.reservation.confirmation', {
-      templateUrl: 'layouts/reservation/reservationConfirmation.html',
-      url: '/confirmation'
-    })
+      .state('reservation.details', {
+        parent: 'reservation',
+        templateUrl: 'layouts/reservation/reservationDetails.html',
+        url: '/details'
+      })
 
-    .state('index.offers', {
-      templateUrl: 'layouts/offers/offers.html',
-      url: '/offers/:category/:offerID',
-      controller: 'OffersCtrl'
-    })
+      .state('reservation.billing', {
+        parent: 'reservation',
+        templateUrl: 'layouts/reservation/reservationBilling.html',
+        url: '/billing'
+      })
 
-    // Contact page
-    .state('index.contacts', {
-      templateUrl: 'layouts/contacts/contacts.html',
-      url: '/contacts'
-    })
+      .state('reservation.confirmation', {
+        parent: 'reservation',
+        templateUrl: 'layouts/reservation/reservationConfirmation.html',
+        url: '/confirmation'
+      })
 
-    .state('otherwise', {
-      url: '/'
+      .state('offers', {
+        parent: 'root',
+        templateUrl: 'layouts/offers/offers.html',
+        url: '/offers/:category/:offerID',
+        controller: 'OffersCtrl'
+      })
+
+      // Contact page
+      .state('contacts', {
+        parent: 'root',
+        templateUrl: 'layouts/contacts/contacts.html',
+        url: '/contacts'
+      });
+
+    $urlRouterProvider.otherwise(function($injector) {
+      var $window = $injector.get('$window');
+      $window.location.href = '/404';
     });
-});
+  })
+;

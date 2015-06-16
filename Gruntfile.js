@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish'),
+        reporter: require('jshint-stylish')
       },
       src: [
         '<%= config.gruntfile %>',
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
           '<%= config.compile %>/**/*.js',
           '<%= config.compile %>/**/*.css'
         ]
-      },
+      }
     },
 
     less: {
@@ -91,20 +91,20 @@ module.exports = function(grunt) {
         cwd: '<%= config.client %>/',
         src: 'styles/main.less',
         dest: '<%= config.build %>/',
-        ext: '.css',
+        ext: '.css'
       },
 
       production: {
         options: {
           cleancss: true,
           report: 'min',
-          compess: true,
+          compess: true
         },
         expand: true,
         cwd: '<%= config.client %>/',
         src: 'styles/main.less',
         dest: '<%= config.compile %>/',
-        ext: '_<%= pkg.name %>-<%= pkg.version %>.css',
+        ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
     },
 
@@ -119,7 +119,7 @@ module.exports = function(grunt) {
           'ie 8',
           'ie 9',
           'ie 10',
-          'Android 2',
+          'Android > 2',
           'bb 10',
           'last 2 op_mob versions',
           'last 2 and_chr versions',
@@ -166,8 +166,8 @@ module.exports = function(grunt) {
       css: ['<%= config.compile %>/**/*.css'],
       options: {
         dest: '<%= config.compile %>',
-        assetsDirs: ['<%= config.compile %>'],
-      },
+        assetsDirs: ['<%= config.compile %>']
+      }
     },
 
     copy: {
@@ -190,9 +190,17 @@ module.exports = function(grunt) {
       fonts: {
         files: [{
           expand: true,
-          cwd: '<%= config.client %>/font/',
+          cwd: '<%= config.font_awesome %>',
           src: ['<%= config.fonts %>'],
           dest: '<%= config.build %>/font/'
+        }]
+      },
+      404: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.client %>/app/',
+          src: ['<%= config.404 %>'],
+          dest: '<%= config.build %>'
         }]
       }
     },
@@ -209,6 +217,7 @@ module.exports = function(grunt) {
           '<%= config.client %>/locales/*.json'
         ],
         tasks: ['localisation', 'templateCache', 'index:build'],
+        options: { livereload: true }
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
@@ -251,11 +260,14 @@ module.exports = function(grunt) {
     localisation: {
       options: {
         locales: 'src/locales',
-        pattern: /_(.+)_/
+        //pattern: /_(.+)_/
+        pattern: /_([a-zA-Z_]+)_/
+        //pattern: /[^a-zA-Z](_([a-zA-Z_]+)_)[^a-zA-Z]/
       },
       files: {
         src: [ '**/*.html' ],
         cwd: 'src/app',
+        expand: true,
         dest: 'build/templates/{locale}/'
       }
     },
@@ -309,7 +321,8 @@ module.exports = function(grunt) {
     'autoprefixer',
     'index:build',
     'copy:images',
-    'copy:fonts'
+    'copy:fonts',
+    'copy:404'
   ]);
 
   grunt.registerTask('production', [
@@ -371,6 +384,9 @@ module.exports = function(grunt) {
       var src = grunt.config('config.build') + '/templates/' + localeCode + '/index.html';
       var dest = this.data.dir + '/index-' + localeCode + '.html';
 
+      console.log(src);
+      console.log(dest);
+
       processIndex(src, dest, jsFiles, cssFiles, localeCode);
     }
   });
@@ -407,6 +423,7 @@ module.exports = function(grunt) {
       // Creating multiple
       var taskName = 'html2js.' + localeCode;
       grunt.config.set(taskName + '.options.base', basePath);
+      grunt.config.set(taskName + '.options.module', 'templates-main');
       grunt.config.set(taskName + '.src', basePath + '/' + grunt.config('config.markup'));
       grunt.config.set(taskName + '.dest', grunt.config('config.build') + '/' + 'app/mobius-templates-' + localeCode + '.js');
 
