@@ -172,3 +172,34 @@
     }
   }
 }
+
+// MONTH PICKER
+.month-picker {
+  .ui-datepicker-header {
+    min-width: 250px;
+
+    .ui-datepicker-prev,
+    .ui-datepicker-next {
+      height: 44px;
+    }
+
+    select {
+      width: 50%;
+      float: left;
+    }
+  }
+
+  table.ui-datepicker-calendar {
+    display: none;
+  }
+
+  .ui-datepicker-buttonpane {
+    padding: 10px;
+    height: 35px;
+
+    .ui-datepicker-close {
+      &:extend(.button);
+      width: 100%;
+    }
+  }
+}

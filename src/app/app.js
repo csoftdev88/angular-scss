@@ -78,6 +78,7 @@ angular
     'mobiusApp.directives.password',
     'mobiusApp.directives.chosenOptionsClass',
     'mobiusApp.directives.luhnCheck',
+    'mobiusApp.directives.monthPicker',
 
     // Directive based on content data
     'mobiusApp.directives.menu',
