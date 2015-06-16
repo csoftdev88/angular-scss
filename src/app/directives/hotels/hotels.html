@@ -10,7 +10,7 @@
         </select>
       </div>
     </div>
-    <div ng-if="!isUserLoggedIn()">Save up to 20% by signing in or registering!</div>
+    <div ng-if="!isUserLoggedIn()" class="msg-box">Save up to 20% by signing in or registering!</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{view}}">
