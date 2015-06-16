@@ -194,7 +194,7 @@ angular.module('mobiusApp.config', [])
         'master': {
           'code': 'MC',
           'icon': 'master',
-          'regex': '/^5[1-5][0-9]{14}$/'
+          'regex': /^5[1-5][0-9]{14}$/
         },
         'amex': {
           'code': 'AX',

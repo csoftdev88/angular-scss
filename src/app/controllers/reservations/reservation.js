@@ -100,7 +100,7 @@ angular.module('mobius.controllers.reservation', [])
           number: $scope.billingDetails.card.number,
           expirationDate: $scope.billingDetails.card.expirationDate,
           securityCode: $scope.billingDetails.card.securityCode,
-          typeCode: 'VI'
+          typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code || 'VI'
         }
       },
 

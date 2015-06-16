@@ -83,7 +83,10 @@ describe('mobius.controllers.reservation', function() {
       });
 
       it('should return card type when found in the config', function() {
-        expect(_scope.getCreditCardDetails('4222222222222').icon).equal('visa');
+        var cardDetails = _scope.getCreditCardDetails('4222222222222');
+
+        expect(cardDetails.icon).equal('visa');
+        expect(cardDetails.code).equal('VI');
       });
 
       it('should return null when credit card number doesnt match expressions in the config', function() {
