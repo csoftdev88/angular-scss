@@ -39,6 +39,10 @@
   text-align: right;
 }
 
+.grid-wrapper {
+  .clearfix;
+}
+
 .wrapper {
   position: relative;
 
@@ -60,7 +64,8 @@
 // MOBILE SPECIFIC STYLES
 @media only screen and @large-mobile-max {
   .grid,
-  [grid] {
+  [grid],
+  [grid-container] {
     margin-left: @grid-gap/4;
     margin-right: @grid-gap/4;
   }
@@ -100,7 +105,6 @@
     max-width: @full;
     margin-left: auto;
     margin-right: auto;
-    .clearfix;
   }
 
   .grid,
@@ -120,7 +124,7 @@
 
     [grid="@{i}"]{
       &:extend(.grid);
-      width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
+      width: floor(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
     }
     // Recursive call with index incrementation
     .grid-element-loop(@i + 1);
@@ -132,8 +136,8 @@
   .grid-wrap-loop(@i) when (@i =< @cols){
 
     [grid-container="@{i}"]{
-      &:extend(.grid-outer);
-      width: round(((@full - (@cols * @gap)) / @cols) * @i + (@gap * @i));
+      &:extend(.grid);
+      width: floor(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
     }
     // Recursive call with index incrementation
     .grid-wrap-loop(@i + 1);
@@ -166,7 +170,8 @@
   .grid-fluid-element-loop(1);
 
   [grid-container] {
-    width: 100%;
+    &:extend(.grid);
+    width: 98%;
   }
 }
 
