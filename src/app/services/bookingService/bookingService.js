@@ -11,7 +11,6 @@ angular.module('mobiusApp.services.booking', [])
     'region': 'regionCode',
     'adults': 'adults',
     'children': 'children',
-    'promoCode': 'promoCode',
     'rate': 'productGroupId'
   };
 
@@ -62,15 +61,17 @@ angular.module('mobiusApp.services.booking', [])
         return;
       }
 
-      if(key !== 'dates'){
-        if(QUERY_TO_API_PARAMS[key]){
-          queryParams[QUERY_TO_API_PARAMS[key]] = value;
-        }
-      }else{
+      if (key === 'dates') {
         var dates = datesFromString(value);
-        if(dates){
+        if (dates) {
           queryParams[API_PARAM_FROM] = dates.from;
           queryParams[API_PARAM_TO] = dates.to;
+        }
+      } else if (key === 'promoCode') {
+        queryParams[getCodeParamName(value)] = value;
+      } else {
+        if (QUERY_TO_API_PARAMS[key]) {
+          queryParams[QUERY_TO_API_PARAMS[key]] = value;
         }
       }
     });
@@ -83,11 +84,22 @@ angular.module('mobiusApp.services.booking', [])
     return queryParams[API_PARAM_FROM] && queryParams[API_PARAM_TO];
   }
 
+  function getCodeParamName(code) {
+    if(/^#/.test(code)) {
+      return 'groupCode';
+    } else if(/^[0-9]/.test(code)) {
+      return 'corpCode';
+    } else {
+      return 'promoCode';
+    }
+  }
+
   // Public methods
   return {
     getParams: getParams,
     getAPIParams: getAPIParams,
     datesFromString: datesFromString,
-    APIParamsHasDates: APIParamsHasDates
+    APIParamsHasDates: APIParamsHasDates,
+    getCodeParamName: getCodeParamName
   };
 });
