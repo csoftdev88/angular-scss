@@ -11,6 +11,7 @@ angular.module('mobius.controllers.room.details', [])
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
+    debugger;
   };
 
   $scope.openPoliciesInfo = function(){

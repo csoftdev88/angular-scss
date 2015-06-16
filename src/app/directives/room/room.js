@@ -32,6 +32,9 @@ angular.module('mobiusApp.directives.room', [])
 
       preloaderFactory(roomDetailsPromise);
 
+      // Getting property details
+
+
       // Room product details
       function getRoomProductDetails(propertyCode, roomCode, params){
         propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data){
