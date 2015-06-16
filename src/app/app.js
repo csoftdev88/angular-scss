@@ -33,6 +33,7 @@ angular
     'mobius.controllers.modals.policy',
     'mobius.controllers.modals.loyalties.loyalty',
     'mobius.controllers.modals.loyalties.badges',
+    'mobius.controllers.modals.gallery',
 
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
@@ -87,6 +88,7 @@ angular
     'mobiusApp.directives.errSource',
     'mobiusApp.directives.localInfo',
     'mobiusApp.directives.userMessages',
+    'mobiusApp.directives.imageCarousel',
 
     // Filters
     'mobiusApp.filters.list',
