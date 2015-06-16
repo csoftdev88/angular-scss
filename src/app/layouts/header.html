@@ -1,54 +1,55 @@
 <nav class="main-nav wrapper" dropdown>
-    <a class="brand" ui-sref="home">
-        <img src="/static/images/logo.png" alt="Mobius logo">
-    </a>
+  <a class="brand" ui-sref="home">
+    <img src="/static/images/v4/logo.png" alt="Mobius logo">
+  </a>
 
-    <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown"></a>
-    <div class="app-menu">
-        <ul dropdown-group>
-            <li ng-hide="config.menu.singleProperty">
-                <a ui-sref="hotels">_hotels_</a>
-            </li>
+  <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown"></a>
 
-            <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
-            </li>
+  <div class="app-menu">
+    <ul dropdown-group>
+      <li ng-hide="config.menu.singleProperty">
+          <a ui-sref="hotels">_hotels_</a>
+      </li>
 
-            <li ng-show="config.menu.showAbout">
-              <a ui-sref="aboutUs">_about_us_</a>
-            </li>
+      <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
+      </li>
 
-            <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
-            </li>
+      <li ng-show="config.menu.showAbout">
+        <a ui-sref="aboutUs">_about_us_</a>
+      </li>
 
-            <li ng-show="config.menu.showContact">
-                <a ui-sref="contacts">_contact_</a>
-            </li>
+      <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
+      </li>
 
-            <li has-dropdown="click" currency-list>
-            </li>
+      <li ng-show="config.menu.showContact">
+          <a ui-sref="contacts">_contact_</a>
+      </li>
 
-            <li has-dropdown="click" language-list>
-            </li>
+      <li has-dropdown="click" currency-list>
+      </li>
 
-            <li ng-switch="isUserLoggedIn()">
-              <a ng-switch-when="false" class="button button-login" ng-click="openLoginDialog()" ng-hide="isUserLoggedIn()">_login_register_</a>
+      <li has-dropdown="click" language-list>
+      </li>
 
-              <div ng-switch-when="true">
-                <div class="profile">
-                  <div class="user">
-                    <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().loyalties.avatar}}">
-                    <span>{{user.getUser().firstName}}</span>
-                    <span>{{user.getUser().lastName}}</span>
-                  </div>
+      <li ng-switch="isUserLoggedIn()">
+        <a ng-switch-when="false" class="button button-login" ng-click="openLoginDialog()" ng-hide="isUserLoggedIn()">_login_register_</a>
 
-                  <div class="points">
-                    <span>{{user.getUser().loyalties.amount}} _points_</span>
-                    <span class="vr"/>
-                    <span>{{user.getUser().loyalties.tier}} _tier_</span>
-                  </div>
-                </div>
-              </div>
-            </li>
-        </ul>
-    </div>
+        <div ng-switch-when="true">
+          <div class="profile">
+            <div class="user">
+              <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().loyalties.avatar}}">
+              <span>{{user.getUser().firstName}}</span>
+              <span>{{user.getUser().lastName}}</span>
+            </div>
+
+            <div class="points">
+              <span>{{user.getUser().loyalties.amount}} _points_</span>
+              <span class="vr"/>
+              <span>{{user.getUser().loyalties.tier}} _tier_</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </nav>
