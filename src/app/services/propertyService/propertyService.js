@@ -19,6 +19,13 @@ angular.module('mobiusApp.services.properties', [])
     return apiService.get(URL, params);
   }
 
+  function getRooms(propertyCode){
+    var URL = apiService.getFullURL('properties.room.all', {
+      propertyCode: propertyCode
+    });
+    return apiService.get(URL);
+  }
+
   function getRoomDetails(propertyCode, roomTypeCode){
     var URL = apiService.getFullURL('properties.room.details', {
       propertyCode: propertyCode,
@@ -40,6 +47,7 @@ angular.module('mobiusApp.services.properties', [])
     getAll: getAll,
     getPropertyDetails: getPropertyDetails,
     getAvailability: getAvailability,
+    getRooms: getRooms,
     getRoomDetails: getRoomDetails,
     getRoomProductDetails: getRoomProductDetails
   };
