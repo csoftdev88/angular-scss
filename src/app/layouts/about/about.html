@@ -1,0 +1,14 @@
+<h1>About {{chain.nameLong}}</h1>
+<p>{{chain.description}}</p>
+
+<ul>
+  <li ng-repeat="contact in chain.contacts">
+    <span>{{contact.name}}</span>
+    <span>{{contact.address}}</span>
+    <span>{{contact.city}}, {{contact.country}} {{contact.zip}}</span>
+    <span>{{contact.tel}}</span>
+    <span><a href="mailto:{{contact.email}}">{{contact.email}}</a></span>
+  </li>
+</ul>
+
+<h2>Our offers</h2>
