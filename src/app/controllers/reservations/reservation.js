@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user){
 
-  $scope.expirationMinDate = $window.moment().format('YYYY-MM-DD');
+  $scope.expirationMinDate = $window.moment().format('YYYY-MM');
 
   // Redirecting to details page
   if($state.current.name === 'reservation'){
@@ -98,7 +98,8 @@ angular.module('mobius.controllers.reservation', [])
         ccPayment: {
           holderName: $scope.billingDetails.card.holderName,
           number: $scope.billingDetails.card.number,
-          expirationDate: $scope.billingDetails.card.expirationDate,
+          // Last day of selected month
+          expirationDate:  $window.moment($scope.billingDetails.card.expirationDate).endOf('month').format('YYYY-MM-DD'),
           securityCode: $scope.billingDetails.card.securityCode,
           typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code || 'VI'
         }

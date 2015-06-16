@@ -2,7 +2,8 @@
 
 describe('mobius.controllers.reservation', function() {
   describe('ReservationCtrl', function() {
-    var _scope, _spyOpenPoliciesInfo, _spyStateGo, _spyCreateReservation;
+    var _scope, _spyOpenPoliciesInfo, _spyStateGo, _spyCreateReservation,
+    _clock;
 
     var TEST_USER_ID = 123456789;
     var TEST_RESERVATION_CODE = 95234134;
@@ -73,6 +74,9 @@ describe('mobius.controllers.reservation', function() {
       reservationService, modalService) {
       _scope = $rootScope.$new();
 
+      _clock = sinon.useFakeTimers(0 , 'Date');
+      _clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());
+
       $controller('ReservationCtrl', { $scope: _scope });
 
       _spyOpenPoliciesInfo = sinon.spy(modalService, 'openPoliciesInfo');
@@ -121,6 +125,10 @@ describe('mobius.controllers.reservation', function() {
       it('should return null when credit card number doesnt match expressions in the config', function() {
         expect(_scope.getCreditCardDetails('2222222222224')).equal(null);
       });
+
+      it('should set credit card expiration min date on scope', function() {
+        expect(_scope.expirationMinDate).equal('2015-01');
+      });
     });
 
     describe('makeReservation', function() {
@@ -135,7 +143,8 @@ describe('mobius.controllers.reservation', function() {
 
         _scope.billingDetails = {
           card: {
-            number: TEST_CARD_NUMBER
+            number: TEST_CARD_NUMBER,
+            expirationDate: '2015-01-05'
           }
         };
 
@@ -189,6 +198,11 @@ describe('mobius.controllers.reservation', function() {
         it('should use correct arrival and departure dates', function(){
           expect(bookingParams.arrivalDate).equal('2015-01-01');
           expect(bookingParams.departureDate).equal('2015-02-02');
+        });
+
+        it('should set credit expiration date to end of the currently selected month', function(){
+          expect(bookingParams.paymentInfo.ccPayment.expirationDate).equal('2015-01-31');
+
         });
       });
     });
