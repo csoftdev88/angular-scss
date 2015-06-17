@@ -34,7 +34,6 @@ angular.module('mobiusApp.config', [])
       'regions': 'regions/'
     },
     'customers': {
-      'login': 'customers/actions/login',
       'customer': 'customers/:customerId'
     },
     // NOTE: Loyalties API will change - check apiary specs
