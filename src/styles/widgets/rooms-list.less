@@ -1,0 +1,54 @@
+///////////////////////
+//// LIST OF ROOMS ////
+///////////////////////
+
+.rooms-list {
+
+  .item {
+    position: relative;
+    min-height: 3 * @baseline;
+    border-bottom: 1px dashed @c-light-grey;
+    margin-bottom: @baseline;
+    .clearfix;
+
+    .description {
+      margin-left: 18%;
+      width: 50%;
+
+      h3 {
+        font-weight: 300;
+        margin-bottom: @baseline/2;
+        font-size: @size-2;
+        color: @c-link;
+      }
+
+      p {
+        color: @c-hr;
+      }
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 16%;
+    }
+
+    .details {
+      position: absolute;
+      right: 0;
+      top: -@baseline/2;
+
+      .price {
+        width: 100%;
+        text-align: right;
+      }
+
+      .more {
+        .button;
+        float: right;
+      }
+    }
+  }
+}
