@@ -68,33 +68,3 @@ angular.module('mobiusApp.services.user', [])
       loadLoyalties: loadLoyalties
     };
   });
-
-
-      /*
-      id = id || userObject.id;
-      if (id) {
-        return apiService.get(apiService.getFullURL('customers.customer', {customerId: id})).then(function(response) {
-          userObject.loyaltiesPromise = null;
-          userObject.loyalties = {};
-
-          userObject.reloadLoyalties = function() {
-            userObject.loyaltiesPromise = loyaltyService.getAll(userObject.id);
-            userObject.loyaltiesPromise.then(function(loyalties) {
-              userObject.loyalties = loyalties;
-              return loyalties;
-            });
-            return userObject.loyaltiesPromise;
-          };
-
-          return userObject.reloadLoyalties().then(function() {
-            userObject = _.extend(userObject, response);
-            return userObject;
-          });
-        });
-      } else {
-        return $q.reject({});
-      }
-    }
-
-    */
-

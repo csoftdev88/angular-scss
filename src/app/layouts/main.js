@@ -67,8 +67,6 @@ angular.module('mobius.controllers.main', [])
 
       // TODO: Remove login/register dialogues
       $scope.openLoginDialog = modalService.openLoginDialog;
-      $scope.openPasswordResetDialog = modalService.openPasswordResetDialog;
-      $scope.openEnterCodeDialog = modalService.openEnterCodeDialog;
 
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;
