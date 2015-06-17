@@ -34,7 +34,6 @@ angular.module('mobiusApp.config', [])
       'regions': 'regions/'
     },
     'customers': {
-      'login': 'customers/actions/login',
       'customer': 'customers/:customerId'
     },
     // NOTE: Loyalties API will change - check apiary specs
@@ -52,6 +51,11 @@ angular.module('mobiusApp.config', [])
   'bestAvailableRateCode': 'Best Available Rate',
 
   'UI': {
+    // TEST SETTINGS FOR SSO
+    'SSO': {
+      'customerId': 6414
+    },
+
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
       // are specified in ms.
