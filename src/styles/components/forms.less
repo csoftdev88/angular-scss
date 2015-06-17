@@ -52,6 +52,13 @@ form-element {
 
   display: inline-block;
 
+  input,
+  select,
+  .chosen-container {
+    position: relative;
+    z-index: 1;
+  }
+
 
   form-label {
     position: absolute;
@@ -75,8 +82,6 @@ form-element {
     transform: translate(0, -100%);
   }
 }
-
-
 
 
 //- OLD STYLES -//
