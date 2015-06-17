@@ -24,7 +24,7 @@
               <small>per night</small>
               <p>or {{product.price.pointsRequired}} points</p>
             </div>
-            <a ng-click="onSelectProduct(product)" href>Select</a>
+            <button ng-click="onSelectProduct(product)" ng-disabled="product.memberOnly && !isUserLoggedIn()">Click Me!</button>
           </accordion-heading>
           <p ng-bind-html="sanitize(product.description)"></p>
         </accordion-group>
