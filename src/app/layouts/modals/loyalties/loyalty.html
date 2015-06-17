@@ -4,14 +4,14 @@
 </header>
 
 <main>
-  <cards-list>
-    <card-icon ng-repeat="stamp in loyalty.stamps track by $index">
-      <img ng-src="{{stamp.image}}" ng-class="{blackAndWhite: !stamp.earned}"/>
-    </card-icon>
-  </cards-list>
+  <loyalty-cards-list>
+    <loyalty-card ng-repeat="stamp in loyalty.stamps track by $index" ng-class="{'is-earned': !stamp.earned}">
+      <img ng-src="{{stamp.image}}" err-source="http://lorempixel.com/140/50/" />
+    </loyalty-card>
+  </loyalty-cards-list>
 
-  <card-selected>
+  <loyalty-card-selected>
     <h2>{{loyalty.name}}</h2>
     <p>{{loyalty.description}}</p>
-  </card-selected>
+  </loyalty-card-selected>
 </main>

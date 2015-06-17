@@ -1,0 +1,54 @@
+//////////////////////
+//// MODAL DIALOG ////
+//////////////////////
+
+dialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+
+  border-radius: 5px;
+
+  background: #fff;
+  border: 2px solid #ddd;
+
+  transform: translate(-50%, -50%);
+
+  appearance: none;
+
+  &:focus {
+    outline: 0;
+  }
+
+  //- Header
+  header {
+    position: relative;
+
+    height: @baseline * 2;
+    padding: 0 @baseline;
+
+    border-bottom: 1px solid #ddd;
+
+    line-height: @baseline * 2;
+
+    //- Title
+    h1 {
+      font-size: @size-3;
+
+    }
+
+    //- Close button
+    button-close {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  //- Main Content
+  main {
+    margin: 0;
+  }
+}
+
+

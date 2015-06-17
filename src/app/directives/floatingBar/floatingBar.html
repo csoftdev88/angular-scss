@@ -1,13 +1,27 @@
-<div class="wrapper">
-  <ul>
-    <li ng-click="setActive(BOOKING)" class="floating-bar--tab-booking" ng-class="{'is-active': active === BOOKING}">_make_your_booking_</li>
-    <li ng-click="setActive(ADVANCED_BOOKING)" class="floating-bar--tab-advanced-booking" ng-class="{'is-active': active === ADVANCED_BOOKING}">_advanced_booking_</li>
-    <li ng-click="setActive(MY_ACCOUNT)" class="floating-bar--tab-my-accounts" ng-class="{'is-active': active === MY_ACCOUNT}">_my_account_</li>
-  </ul>
-  <div ng-if="active">
-    <booking-widget ng-if="active === BOOKING || active === ADVANCED_BOOKING" advanced="active === ADVANCED_BOOKING">
-    </booking-widget>
-    <my-account ng-if="active === MY_ACCOUNT">
-    </my-account>
-  </div>
+<ul>
+  <li class="floating-bar--tab-booking" ng-class="{'is-active': active === BOOKING}">
+    <a href="" ng-click="setActive(BOOKING)">
+      _make_your_booking_
+    </a>
+  </li>
+  <li class="floating-bar--tab-advanced-booking" ng-class="{'is-active': active === ADVANCED_BOOKING}">
+    <a href="" ng-click="setActive(ADVANCED_BOOKING)">
+      _advanced_booking_
+    </a>
+  </li>
+  <li class="floating-bar--tab-my-accounts" ng-class="{'is-active': active === MY_ACCOUNT}">
+    <a href="" ng-click="setActive(MY_ACCOUNT)">
+      _my_account_
+    </a>
+  </li>
+</ul>
+<div ng-if="active">
+  <booking-widget
+    ng-if="active === BOOKING || active === ADVANCED_BOOKING"
+    advanced="active === ADVANCED_BOOKING">
+  </booking-widget>
+
+  <my-account
+    ng-if="active === MY_ACCOUNT">
+  </my-account>
 </div>
