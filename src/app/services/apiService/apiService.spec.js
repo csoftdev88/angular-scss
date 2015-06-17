@@ -1,7 +1,7 @@
 'use strict';
 
 describe('apiService', function() {
-  var env;
+  var env, _spyExtend;
   var TEST_URL = 'http://testurl';
   var TEST_DATA = {'data': 'OK'};
 
@@ -23,14 +23,23 @@ describe('apiService', function() {
       };
 
       $provide.value('Settings', Settings);
+
+      $provide.value('_', {
+        extend: function(){}
+      });
     });
   });
 
-  beforeEach(inject(function($rootScope, $httpBackend, apiService) {
+  beforeEach(inject(function($rootScope, $httpBackend, _, apiService) {
     env.apiService = apiService;
     env.httpBackend = $httpBackend;
     env.rootScope = $rootScope;
+    _spyExtend = sinon.spy(_, 'extend');
   }));
+
+  afterEach(function(){
+    _spyExtend.restore();
+  });
 
   describe('API comunication', function() {
     describe('GET method', function() {
@@ -70,7 +79,7 @@ describe('apiService', function() {
     });
   });
 
-  describe('Other logic', function() {
+  describe('Other methods', function() {
     describe('getFullURL', function() {
       it('should return correctly formated URL adress', function() {
         var URL = env.apiService.getFullURL('content.about');
@@ -89,6 +98,14 @@ describe('apiService', function() {
           {someParam: 'abc'});
 
         expect(URL).equal('http://server.com/path/abc/v1');
+      });
+    });
+
+    describe('setHeaders', function() {
+      it('should extend the existing headers', function() {
+        env.apiService.setHeaders({'test': 123});
+        expect(_spyExtend.calledOnce).equal(true);
+        expect(_spyExtend.calledWith({'test': 123}));
       });
     });
   });

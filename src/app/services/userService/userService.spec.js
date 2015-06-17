@@ -2,7 +2,7 @@
 
 describe('userService', function() {
   var _userService, _rootScope, _spyApiServiceGet,
-  _spyApisServiceGetFullURL, _spyLoyaltiesServiceGetAll;
+  _spyApisServiceGetFullURL, _spyLoyaltiesServiceGetAll, _spySetHeaders;
 
   var TEST_USER = {id: 123};
 
@@ -37,7 +37,8 @@ describe('userService', function() {
         },
         getFullURL: function(p){
           return p;
-        }
+        },
+        setHeaders: function(){}
       };
       $provide.value('apiService', apiService);
     });
@@ -47,6 +48,7 @@ describe('userService', function() {
       _userService = user;
       _spyApiServiceGet = sinon.spy(apiService, 'get');
       _spyApisServiceGetFullURL = sinon.spy(apiService, 'getFullURL');
+      _spySetHeaders = sinon.spy(apiService, 'setHeaders');
       _spyLoyaltiesServiceGetAll = sinon.spy(loyaltyService, 'getAll');
     });
   }
@@ -54,6 +56,7 @@ describe('userService', function() {
   function tearDown(){
     _spyApiServiceGet.restore();
     _spyApisServiceGetFullURL.restore();
+    _spySetHeaders.restore();
     _spyLoyaltiesServiceGetAll.restore();
   }
 
@@ -111,7 +114,7 @@ describe('userService', function() {
   describe('when SSO cookies are presented', function(){
     describe('and mobius customer id is available', function(){
       var SSO_COOKIES = {
-        'CustomerProfile': {},
+        'CustomerProfile': 555,
         'CustomerId-Mobius': 12345
       };
 
@@ -133,6 +136,12 @@ describe('userService', function() {
           _userService.loadProfile();
           expect(_spyLoyaltiesServiceGetAll.calledOnce).equal(true);
           expect(_spyLoyaltiesServiceGetAll.calledWith(12345)).equal(true);
+        });
+
+        it('should set infiniti auth header', function(){
+          _userService.loadProfile();
+          expect(_spySetHeaders.calledOnce).equal(true);
+          expect(_spySetHeaders.calledWith({'infinitiAuthN': 555}));
         });
       });
     });
