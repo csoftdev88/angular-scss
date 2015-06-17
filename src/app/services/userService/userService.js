@@ -11,7 +11,7 @@ angular.module('mobiusApp.services.user', [])
     var KEY_CUSTOMER_ID = 'CustomerId-Mobius';
 
     function hasSSOCookies(){
-      return !!$cookies.get(KEY_CUSTOMER_PROFILE);
+      return !!$cookies[KEY_CUSTOMER_PROFILE];
     }
 
     function isProfileLoaded(){
@@ -25,7 +25,7 @@ angular.module('mobiusApp.services.user', [])
       }
 
       // TODO: Remove test customer ID when API is ready
-      return userObject.id || $cookies.get(KEY_CUSTOMER_ID) || Settings.UI.SSO.customerId || null;
+      return userObject.id || $cookies[KEY_CUSTOMER_ID] || Settings.UI.SSO.customerId || null;
     }
 
     function loadLoyalties(customerId){

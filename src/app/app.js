@@ -8,6 +8,7 @@ angular
     'ngTouch',
     'ngMap',
     'ngSanitize',
+    'ngCookies',
     // Template cache
     'templates-main',
 
