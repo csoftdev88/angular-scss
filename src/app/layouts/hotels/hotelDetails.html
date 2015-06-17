@@ -1,64 +1,114 @@
-<div grid-container="9">
-  <div widget="hotel-detail" grid="9" ng-show="details">
-    <local-info location-code="details.locationCode"></local-info>
-    <header>
+<header grid-row>
+  <div grid="6">
       <h1>{{details.nameShort}}</h1>
-      <p>{{details.description}}</p>
-    </header>
-    <button ng-click="scrollToRooms()">Choose your room</button>
-    <hr>
-    <section class="hotel-detail__location" ng-if="position">
-      <h2 class="section-title">Our <strong>Location</strong></h2>
-      <div class="img-wrap">
-        <map
-          zoom="18"
-          max-zoom="18"
-          min-zoom="8"
-          center="{{position}}">
-          <marker
-              position="{{position}}"
-              title="{{details.nameShort}}"></marker>
-        </map>
-      </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
-    </section>
-    <hr>
-    <section class="hotel-detail__services" ng-if="details.amenities.length">
-      <h2 class="section-title">Our <strong>Services</strong></h2>
-      <ul>
-        <li ng-repeat="amenity in details.amenities">
-          <i ng-class="amenity.icon || 'icon-signal'"></i>
-          <span>{{amenity.name}}</span>
-        </li>
-        <!--
-        icon-wheelchair, icon-signal, icon-globe, icon-lock, icon-dollar
-        -->
-      </ul>
-    </section>
-    <hr>
-    <div id="hotelRooms">Our Rooms</div>
-    <section class="hotel-detail__rooms" ng-if="rooms.length">
-      <h2 class="section-title">Our <strong>Rooms</strong></h2>
-      <ul class="entries entries--list" ng-repeat="room in rooms">
-        <li class="item">
-          <a ui-sref="room({propertyCode: details.code, roomID: room.code})"><img ng-src="{{room.image[0].URI}}" alt="{{room.name}}"></a>
-          <div>
-            <h3 class="title"><strong>{{room.name}}</strong></h3>
-            <span class="price">
-              from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}} pn</span>
-            </span>
-            <p>{{room.description}}</p>
-          </div>
-          <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="more">_view_more_</a>
-        </li>
-      </ul>
-    </section>
-    <section class="hotel-detail__rooms" ng-if="!rooms.length">
-      _no_room_found_
-    </section>
   </div>
-</div>
+  <local-info location-code="details.locationCode" grid="6"></local-info>
+</header>
 
+<section class="hotel-detail__description" grid-row>
+  <div grid="8">
+    <p>{{details.description}}</p>
+    <button ng-click="scrollToRooms()" class="button">Choose your room</button>
+    <a href="" class="more">read more</a>
+  </div>
+  <div grid="4">
+    <a href="">view more images</a>
+    <img src="" alt="{{details.nameShort}}" />
+  </div>
+</section>
+
+<section class="hotel-detail__location" ng-if="position" grid-row>
+  <div class="dividing-line"></div>
+  <div grid="12">
+    <h2>{{details.nameShort}} <strong>Location</strong></h2>
+    <map
+      zoom="18"
+      max-zoom="18"
+      min-zoom="8"
+      center="{{position}}">
+      <marker
+        position="{{position}}"
+        title="{{details.nameShort}}"></marker>
+    </map>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
+  </div>
+</section>
+
+<section class="hotel-detail__services" ng-if="details.amenities.length">
+  <div class="dividing-line"></div>
+  <h2 class="section-title">Our <strong>Services</strong></h2>
+  <ul>
+    <li ng-repeat="amenity in details.amenities">
+      <i ng-class="amenity.icon || 'icon-signal'"></i>
+      <span>{{amenity.name}}</span>
+    </li>
+    <!--
+    icon-wheelchair, icon-signal, icon-globe, icon-lock, icon-dollar
+    -->
+  </ul>
+</section>
+
+<section class="hotel-detail__offers" grid-row>
+  <div class="dividing-line"></div>
+  <h2 class="section-title" grid="12">Offers and <strong>Promotions</strong></h2>
+
+  <div grid-row class="offers">
+    <article grid="4">
+      <a href="#">
+        <img class="grid-img" src="/static/images/v4/about-offer-1.png" alt="Free room upgrade">
+
+        <h2>Free room <strong>upgrade</strong></h2>
+        <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
+
+        <span>Read More</span>
+      </a>
+    </article>
+
+    <article grid="4">
+      <a href="#">
+        <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
+
+        <h2>Champagne <strong>breakfast</strong></h2>
+        <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
+
+        <span>Read More</span>
+      </a>
+    </article>
+
+    <article grid="4" class="add">
+      <a href="#">
+        <img class="grid-img" src="/static/images/v4/about-offer-3.png" alt="Free room upgrade">
+        <p>Download our mobile app for great rates!</p>
+      </a>
+    </article>
+  </div>
+</section>
+
+<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
+  <div class="dividing-line"></div>
+  <div grid="12">
+    <h2>Our <strong>Rooms</strong></h2>
+    <ul class="entries entries--list" ng-repeat="room in rooms">
+      <li class="item">
+        <a ui-sref="room({propertyCode: details.code, roomID: room.code})"><img ng-src="{{room.image[0].URI}}" alt="{{room.name}}"></a>
+        <div>
+          <h3 class="title"><strong>{{room.name}}</strong></h3>
+          <span class="price">
+            from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}} pn</span>
+          </span>
+          <p>{{room.description}}</p>
+        </div>
+        <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="more">_view_more_</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="hotel-detail__rooms" ng-if="!rooms.length">
+  _no_room_found_
+</section>
+
+<!--
 <aside grid-container="3">
   <div grid="3">
     <search>
@@ -80,3 +130,4 @@
     </advert>
   </div>
 </aside>
+-->
