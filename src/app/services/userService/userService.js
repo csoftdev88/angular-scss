@@ -7,6 +7,8 @@ angular.module('mobiusApp.services.user', [])
     // We are looking for this cookie in order to detect SSO
     var KEY_CUSTOMER_PROFILE = 'CustomerProfile';
 
+    var HEADER_INFINITI_SSO = 'infinitiAuthN';
+
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'CustomerId-Mobius';
 
@@ -51,6 +53,11 @@ angular.module('mobiusApp.services.user', [])
         var customerId = getCustomerId();
 
         if(customerId){
+          // Setting up the headers for a future requests
+          var headers = {};
+          headers[HEADER_INFINITI_SSO] = $cookies[KEY_CUSTOMER_PROFILE];
+          apiService.setHeaders(headers);
+
           // Loading profile data and users loyelties
           return $q.all([
             apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
