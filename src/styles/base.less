@@ -56,9 +56,36 @@ hr {
   }
 }
 
-.dividing-line {
-  width: 80%;
-  margin: @baseline auto;
+//- Horizontal Line
+hr {
+  position: relative;
+
   height: 35px;
-  background: url(../images/v4/dividing-line.png) 50% 0 no-repeat;
+  margin: @baseline auto;
+  width: 80%;
+
+  border: 0;
+  background: #fff url(../images/general/logo-sp.png) center center no-repeat;
+
+  //- Dashed lines on right and left
+  &:after ,
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    height: 1px;
+    width: 45%;
+
+    border-top: 1px dashed rgba(0, 0, 0, 0.15);
+
+    content: '';
+  }
+
+  &:before {
+    left: initial;
+    right: 0;
+  }
+
 }
+
