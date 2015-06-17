@@ -16,7 +16,7 @@ angular.module('mobiusApp.services.user', [])
 
     function isProfileLoaded(){
       // NOTE: Email data is loaded via customers API
-      return userObject.id && userObject.email;
+      return !!(userObject.id && userObject.email);
     }
 
     function getCustomerId(){
@@ -33,6 +33,8 @@ angular.module('mobiusApp.services.user', [])
 
       return loyaltyService.getAll(customerId).then(function(loyalties){
         userObject.loyalties = loyalties;
+
+        return loyalties;
       });
     }
 

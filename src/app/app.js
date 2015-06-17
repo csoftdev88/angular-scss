@@ -196,4 +196,8 @@ angular
       $window.location.href = '/404';
     });
   })
-;
+
+  .run(function(user) {
+    user.loadProfile();
+  });
+

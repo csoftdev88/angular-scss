@@ -15,7 +15,9 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
         var loyaltyCard = {};
 
         function loadLoyalities() {
-          user.getUser().loyaltiesPromise.then(function(response) {
+          // NOTE: Loyalties object should be already loaded
+          // However, we are fetching the latest data
+          user.loadLoyalties().then(function(response) {
             badges = response.badges;
             loyaltyCard = response.loyaltyCard || {};
             loyaltyCard.stamps = _.reduce(_.sortBy(loyaltyCard.stamps, 'startPosition'), function(acc, stamp) {
@@ -53,8 +55,8 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
           function() {
             return user.isLoggedIn();
           },
-          function(loggedIn) {
-            if (loggedIn) {
+          function(isLoggedIn) {
+            if (isLoggedIn) {
               loadLoyalities();
             }
           }
