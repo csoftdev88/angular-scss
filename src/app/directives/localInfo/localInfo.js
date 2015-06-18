@@ -15,15 +15,30 @@ angular.module('mobiusApp.directives.localInfo', [])
         var localTimeUpdates = Settings.UI.localTimeUpdates;
         var localTimeIntervalPromise;
 
-        var localTime = $window.moment(scope.localInfo.time.localTime);
-        scope.localTime = localTime.format(localTimeUpdates.format);
+        function disposeLocalTimeIntervalPromise() {
+          if (angular.isDefined(localTimeIntervalPromise)) {
+            $interval.cancel(localTimeIntervalPromise);
+            localTimeIntervalPromise = undefined;
+          }
+        }
 
-        localTimeIntervalPromise = $interval(function() {
-          scope.localTime = localTime.add(localTimeUpdates.interval / 1000, 'seconds').format(localTimeUpdates.format);
-        }, localTimeUpdates.interval);
+        function updateLocalTime(localTimeString) {
+          if (localTimeString) {
+            var localTime = $window.moment(localTimeString);
+            scope.localTime = localTime.format(localTimeUpdates.format);
+
+            disposeLocalTimeIntervalPromise();
+            localTimeIntervalPromise = $interval(function() {
+              scope.localTime = localTime.add(localTimeUpdates.interval / 1000, 'seconds').format(localTimeUpdates.format);
+            }, localTimeUpdates.interval);
+          }
+        }
+
+        var localTimeUnWatch = scope.$watch('localInfo.time.localTime', updateLocalTime);
 
         scope.$on('$destroy', function() {
-          $interval.cancel(localTimeIntervalPromise);
+          localTimeUnWatch();
+          disposeLocalTimeIntervalPromise();
         });
       }
     };
