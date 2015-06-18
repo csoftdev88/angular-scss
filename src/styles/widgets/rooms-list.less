@@ -4,11 +4,24 @@
 
 .rooms-list {
 
+  .pricing-switch {
+    text-align: right;
+    color: @c-link;
+    font-size: @size--1;
+    display: block;
+    margin-bottom: @baseline;
+    text-decoration: none;
+
+    .is-active {
+      color: @c-base;
+    }
+  }
+
   .item {
     position: relative;
     min-height: 3 * @baseline;
     border-bottom: 1px dashed @c-light-grey;
-    margin-bottom: @baseline;
+    margin-bottom: @baseline/2;
     .clearfix;
 
     .description {
@@ -24,6 +37,13 @@
 
       p {
         color: @c-hr;
+        margin-bottom: @baseline/2;
+      }
+
+      a {
+        margin-bottom: @baseline/2;
+        font-size: @size--1;
+        display: block;
       }
     }
 
@@ -38,7 +58,7 @@
     .details {
       position: absolute;
       right: 0;
-      top: -@baseline/2;
+      top: 0;
 
       .price {
         width: 100%;

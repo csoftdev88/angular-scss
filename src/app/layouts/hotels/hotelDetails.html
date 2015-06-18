@@ -7,12 +7,12 @@
   </header>
 
   <section class="hotel-detail__description" grid-row>
-    <div grid="8">
+    <div grid="8" class="description-text">
       <p>{{details.description}}</p>
       <button ng-click="scrollToRooms()" class="button">Choose your room</button>
       <a href="" class="more">read more</a>
     </div>
-    <div grid="4">
+    <div grid="4" class="description-image">
       <a href="">view more images</a>
       <img src="" alt="{{details.nameShort}}" />
     </div>
@@ -32,10 +32,31 @@
           position="{{position}}"
           title="{{details.nameShort}}"></marker>
       </map>
+      <!-- this should also be filled with the data from API -->
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
-    </div>
+      <!-- contact information and hot to get to us information
+           should follow here
+      <ul class="contact-information">
+        <li>
+          <i class="fa fa-phone"></i>
+          <strong>Telephone:</strong> XXX.XXX.XXX
+        </li>
+        <li>
+          <i class="fa fa-phone"></i>
+          <strong>Email:</strong> info_vancouver@suttonplace.com
+        </li>
+        <li>
+          <i class="fa fa-phone"></i>
+          <strong>Address:</strong>
+          Street,<br />
+          City, Country disctrict, Postal code
+        </li>
+      </ul>
+    </div> -->
   </section>
 
+  <!-- this should be filled with actual data from API
+       it should be presented in the following structure -->
   <section class="hotel-detail__offers" grid-row>
     <div class="dividing-line"></div>
     <h2 class="section-title" grid="12">Offers and <strong>Promotions</strong></h2>
@@ -44,10 +65,8 @@
       <article grid="4">
         <a href="#">
           <img class="grid-img" src="/static/images/v4/about-offer-1.png" alt="Free room upgrade">
-
           <h2>Free room <strong>upgrade</strong></h2>
           <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
-
           <span>Read More</span>
         </a>
       </article>
@@ -55,10 +74,8 @@
       <article grid="4">
         <a href="#">
           <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
-
           <h2>Champagne <strong>breakfast</strong></h2>
           <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
-
           <span>Read More</span>
         </a>
       </article>
@@ -66,10 +83,8 @@
       <article grid="4">
         <a href="#">
           <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
-
           <h2>Champagne <strong>breakfast</strong></h2>
           <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
-
           <span>Read More</span>
         </a>
       </article>
@@ -80,21 +95,33 @@
     <div class="dividing-line"></div>
     <div grid="12">
       <h2>Our <strong>Rooms</strong></h2>
-      <ul class="rooms-list" ng-repeat="room in rooms">
-        <li class="item">
-          <a ui-sref="room({propertyCode: details.code, roomID: room.code})"><img ng-src="{{room.image[0].URI}}" alt="{{room.name}}"></a>
-          <div class="description">
-            <h3>{{room.name}}</h3>
-            <p>{{room.description}}</p>
-          </div>
-          <div class="details">
-            <span class="price">
-              from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}} pn</span>
-            </span>
-            <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="more">_view_more_</a>
-          </div>
-        </li>
-      </ul>
+      <div class="rooms-list">
+        <div class="pricing-switch">
+          <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
+        </div>
+        <ul ng-repeat="room in rooms">
+          <li class="item">
+            <a ui-sref="room({propertyCode: details.code, roomID: room.code})"><img ng-src="{{room.image[0].URI}}" alt="{{room.name}}"></a>
+            <div class="description">
+              <!-- part of current description should be part of the title
+                   please see the designs in invision -->
+              <h3>{{room.name}}</h3>
+              <!-- description should actually be a list of items instead
+                   of just a block of text -->
+              <p>{{room.description}}</p>
+              <a href="">View more</a>
+            </div>
+            <div class="details">
+              <!-- rate info, points and earning information should
+                   also be here according to the designs -->
+              <span class="price">
+                from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}} pn</span>
+              </span>
+              <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="more">_view_more_</a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -105,9 +132,10 @@
     </div>
   </section>
 
+  <!-- This section is not styled yet since it's hard to test it now. -->
   <section class="hotel-detail__services" ng-if="details.amenities.length">
     <div class="dividing-line"></div>
-    <h2 class="section-title">Hotel <strong>Amenities</strong></h2>
+    <h2>Hotel <strong>Amenities</strong></h2>
     <ul>
       <li ng-repeat="amenity in details.amenities" grid="4">
         <i ng-class="amenity.icon || 'icon-signal'"></i>
@@ -119,7 +147,8 @@
     </ul>
   </section>
 
-  <!--
+  <!-- this is a leftover from Mobius v2 - didn't deleted it yet
+       in case it's needed. There is no such section in v4 designs
   <aside grid-container="3">
     <div grid="3">
       <search>
