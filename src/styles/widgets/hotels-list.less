@@ -134,6 +134,13 @@ hotels {
     hr {
       border-bottom: 1px solid @c-light-grey;
       margin: @baseline 0;
+      background: transparent;
+      height: 0;
+      width: 100%;
+
+      &:after, &:before {
+        display: none;
+      }
     }
 
     h2 {
