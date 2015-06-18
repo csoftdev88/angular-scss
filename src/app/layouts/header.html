@@ -31,8 +31,8 @@
       <li has-dropdown="click" language-list>
       </li>
 
-      <li ng-switch="isUserLoggedIn()">
-        <a ng-switch-when="false" class="infiniti-login-mobile infiniti-button button button-login" ng-hide="isUserLoggedIn()">Login</a>
+      <li>
+        <a class="infiniti-login-mobile infiniti-button button button-login">Login</a>
         <!-- NOTE: INFINITI SSO LOGIN/REGISTER BUTTONS - WAITING FOR UX -->
         <!--
         <a class="infiniti-update-profile-mobile infiniti-button" style="display:none"></a>
@@ -40,7 +40,7 @@
         <a class="infiniti-register-mobile infiniti-button button" style="display:none"></a>
         -->
 
-        <div ng-switch-when="true">
+        <div ng-if="isUserLoggedIn()">
           <div class="profile">
             <div class="user">
               <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().loyalties.avatar}}">
