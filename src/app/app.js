@@ -36,7 +36,6 @@ angular
     'mobius.controllers.modals.gallery',
 
     'mobius.controllers.hotel.details',
-    'mobius.controllers.room.details',
 
     // Application modules
     'mobiusApp.config',
@@ -137,7 +136,6 @@ angular
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
-        controller: 'RoomDetailsCtrl',
         url: '/hotels/:propertyCode/rooms/:roomID'
       })
 

@@ -6,34 +6,34 @@
   </header>
 
   <div ng-if="products.length">
-    <div class="room-prices" >
-      <accordion close-others="true">
-        <accordion-group heading="{{product.name}}" ng-init="isOpen = accordionStates[$index]" is-open="isOpen" is-disabled="isOpen" ng-class="{'is-open': isOpen}" ng-repeat="product in products">
-          <accordion-heading>
-            <div>
-              <i class="icon icon-{{product.icon || 'star-1'}}"/>
-              <header>
-                <h3 class="title">{{product.name}}</h3>
-                <p class="desc">{{product.tagline}}</p>
-                <p>earn {{product.price.pointsEarned}} points</p>
-              </header>
-              <p ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</p>
-              <p ng-show="product.highlighted">Most Booked Package</p>
-
-              <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
-              <small>per night</small>
-              <p>or {{product.price.pointsRequired}} points</p>
+    <ul class="room-prices" >
+        <li heading="{{product.name}}" ng-repeat="product in products">
+          <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/60/60" alt="{{product.name}}"/>
+          <div>
+            <h3>{{product.name}}</h3>
+            <span>Earn {{product.price.pointsEarned}} points</span>
+            <div ng-if="product._expanded">
+              <div ng-bind-html="sanitize(product.description)"></div>
+              <a href ng-click="showMore(product, false)">View less</a>
+              <a href ng-click="openPriceBreakdownInfo(roomDetails, product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a>
+              <a href ng-click="openPoliciesInfo(product)" ng-if="product.policies">View Policies</a>
             </div>
-            <button ng-click="onSelectProduct(product)" ng-disabled="product.memberOnly && !isUserLoggedIn()">Click Me!</button>
-          </accordion-heading>
-          <p ng-bind-html="sanitize(product.description)"></p>
-        </accordion-group>
-      </accordion>
-    </div>
-
-    <div class="room-continue">
-      <a class="button" ng-disabled="!selectedProduct" ui-sref="reservation.details">_continue_</a>
-    </div>
+            <div ng-if="!product._expanded">
+              <p>{{product.descriptionShort}}</p>
+              <a href ng-click="showMore(product, true)">View more</a>
+            </div>
+          </div>
+          <div>
+            <p class="desc">{{product.tagline}}</p>
+            <p ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</p>
+            <p ng-show="product.highlighted">Most Booked Package</p>
+            <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
+            <small>per night</small>
+            <p>or {{product.price.pointsRequired}} points</p>
+            <button ng-click="selectProduct(product)" ng-disabled="product.memberOnly && !isUserLoggedIn()">Select</button>
+          </div>
+        </li>
+    </ul>
   </div>
 
   <div ng-if="products && !products.length">
