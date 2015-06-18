@@ -47,12 +47,13 @@
       </li>
     </ul>
   </div>
-  <div class="other-rooms">
+  <div class="other-rooms" ng-show="otherRooms.length > 1">
     <h3 class="section-title">Other <strong>Rooms</strong></h3>
     <ul>
-      <li ng-repeat="amenity in roomDetails.amenities">
-        <i class="icon-{{amenity.icon || 'globe'}}"/>
-        <span>{{amenity.name}}</span>
+      <li ng-repeat="otherRoom in otherRooms">
+        <span>{{otherRoom.name}} from {{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span>
+        <a ui-sref="room({propertyCode: propertyCode, roomID: otherRoom.code})" class="more">_view_more_</a>
+        <img ng-show="true" src="{{otherRoom.images[0].URI}}" alt="{{otherRoom.name}}">
       </li>
     </ul>
   </div>

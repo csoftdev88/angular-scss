@@ -286,6 +286,7 @@ angular.module('mobiusApp.directives.room', [])
       var bookingParams = bookingService.getAPIParams();
 
       var propertyCode = bookingParams.property;
+      scope.propertyCode = propertyCode;
       delete bookingParams.property;
 
       var roomCode = $stateParams.roomID;
@@ -307,7 +308,6 @@ angular.module('mobiusApp.directives.room', [])
            ones as well. */
         var hotelRooms = hotelMock.availability.rooms;
 
-        debugger;
         var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
         var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
 
@@ -318,13 +318,6 @@ angular.module('mobiusApp.directives.room', [])
 
         scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
         debugger;
-        /*
-        propertyService.getPropertyDetails(propertyCode, {includes: "amenities"})
-          .then(function(details){
-            $scope.otherRooms = hotelMock;
-            debugger;
-          });
-        */
       });
 
       preloaderFactory(roomDetailsPromise);
