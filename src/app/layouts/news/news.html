@@ -1,0 +1,14 @@
+<div ng-if="showNewsList">
+  <h1>Our <strong>News</strong></h1>
+  <div ng-repeat="news in newsList" ng-click="selectNews($index)">
+    <p>{{news.title}}</p>
+    <div ng-bind-html="news.subtitle"></div>
+  </div>
+</div>
+
+<div ng-if="!showNewsList">
+  <p>{{selectedNews.title}}</p>
+  <img ng-src="{{selectedNews.image}}" />
+  <div ng-bind-html="selectedNews.text"></div>
+  <a ng-click="goToNewsList()">Go back</a>
+</div>

@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.menu', [])
 
-.directive('menuContent', function(contentService){
+.directive('menuContent', function(contentService, $state){
   return {
     restrict: 'EA',
     scope: {},
@@ -17,21 +17,28 @@ angular.module('mobiusApp.directives.menu', [])
       var contentTypes = {
         'news': {
           'sourceObject': 'news',
-          'method': 'getNews'
+          'method': 'getNews',
+          'state': 'news'
         },
         'offers': {
           'sourceObject': 'specialOffer',
-          'method': 'getOffers'
+          'method': 'getOffers',
+          'state': 'offers'
         },
         'about': {
           'sourceObject': 'about',
-          'method': 'getAbout'
+          'method': 'getAbout',
+          'state': 'aboutUs'
         }
       };
 
       scope.title = attrs.title;
-      var contentType = contentTypes[attrs.menuContent];
 
+      scope.goToState = function() {
+        $state.go(contentTypes[attrs.menuContent].state);
+      };
+
+      var contentType = contentTypes[attrs.menuContent];
       if(contentType){
         contentService[contentType.method]().then(function(data){
           scope.content = data[contentType.sourceObject]||[];
