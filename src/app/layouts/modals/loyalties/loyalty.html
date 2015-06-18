@@ -1,5 +1,5 @@
 <header>
-  <h1>My <strong>Loyalty Card</strong></h1>
+  <h1>{{loyalty.name}}</h1>
   <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
 </header>
 
@@ -11,7 +11,6 @@
   </loyalty-cards-list>
 
   <loyalty-card-selected>
-    <h2>{{loyalty.name}}</h2>
     <p>{{loyalty.description}}</p>
   </loyalty-card-selected>
 </main>
