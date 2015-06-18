@@ -37,7 +37,9 @@
             required ng-model="selected.adults"
             disable-search="true"
             chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max"
-            data-placeholder="Adults"/>
+            data-placeholder="Adults">
+      <option></option> <!-- to get chosen work with angular indexation of options -->
+    </select>
     <form-label>Number of Adults</form-label>
   </form-element>
 
@@ -47,7 +49,9 @@
             required ng-model="selected.children"
             disable-search="true"
             chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max"
-            data-placeholder="Children"/>
+            data-placeholder="Children">
+      <option></option> <!-- to get chosen work with angular indexation of options -->
+    </select>
     <form-label>Number of Children</form-label>
   </form-element>
 
@@ -63,7 +67,9 @@
             required ng-model="selected.rate"
             disable-search="true"
             chosen ng-options="rate.id as rate.name for rate in rates"
-            data-placeholder="Rate"/>
+            data-placeholder="Rate">
+      <option></option> <!-- to get chosen work with angular indexation of options -->
+    </select>
     <form-label>Select Rate</form-label>
   </form-element>
 
@@ -86,7 +92,9 @@
               required ng-model="room.adults"
               data-placeholder="Adults"
               disable-search="true"
-              chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max" />
+              chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max">
+        <option></option> <!-- to get chosen work with angular indexation of options -->
+      </select>
       <form-label>Number of Adults</form-label>
     </form-element>
 
@@ -95,7 +103,9 @@
               required ng-model="room.children"
               data-placeholder="Children"
               disable-search="true"
-              chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max" />
+              chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max">
+        <option></option> <!-- to get chosen work with angular indexation of options -->
+      </select>
       <form-label>Number of Children</form-label>
     </form-element>
 

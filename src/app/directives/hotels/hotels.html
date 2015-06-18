@@ -1,12 +1,24 @@
+<div ng-if="locationDetails">
+  <h2>{{locationDetails.nameShort}}</h2>
+
+  <figure>
+    <p><a ng-if="locationDetails.images.length" href="#" ng-click="openGallery()">View more images</a></p>
+    <img ng-src="locationDetails.images[0].uri" alt="{{locationDetails.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
+  </figure>
+
+  <h2>{{locationDetails.description}}</h2>
+  <local-info local-info="locationDetails.localInfo"></local-info>
+</div>
 <div class="grid-wrapper">
   <section grid-container="9" widget="hotels">
     <header class="hotels__header">
       <h1>Our <strong>Hotels</strong></h1>
-      <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
+      <p>{{(hotels | filter : hotelFilter).length | pluralization: {'0': 'No hotel available', '1': '{} hotel available', 'plural': '{} hotels available'} }}</p>
     </header>
     <div class="hotels__controls">
       <div class="order-switch">
-        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" ng-change="onSortingChange()">
+        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting">
+          <option></option> <!-- to get chosen work with angular indexation of options -->
         </select>
       </div>
     </div>
@@ -49,7 +61,6 @@
     <div class="filters-bar">
       <h2>Filter</h2>
       <h3>Price per night</h3>
-      <!--<div range-slider min="{{minPrice}}" max="{{maxPrice}}" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>-->
       <div range-slider min="minPrice" max="maxPrice" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>
       <hr />
       <h3>Star Rating</h3>
@@ -62,12 +73,16 @@
           <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
         </ul>
       </div>
-      <hr />
-      <h3>TripAdvisor rating</h3>
-      <hr />
-      <h3>Amenities</h3>
-      <hr />
+      <hr>
+      <!-- Out of scope now -->
+      <!--<h3>TripAdvisor rating</h3>-->
+      <!--<hr>-->
+      <!--<h3>Amenities</h3>-->
+      <!--<hr>-->
       <h3>Location</h3>
+      <select name="location" ng-model="location" data-placeholder="Select a location" chosen ng-options="location.nameShort for location in locations" ng-change="loadLocation()">
+        <option></option> <!-- to get chosen work with angular indexation of options -->
+      </select>
     </div>
   </aside>
 </div>
