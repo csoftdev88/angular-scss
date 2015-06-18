@@ -35,14 +35,6 @@ angular.module('mobiusApp.services.modal', [])
     return q.promise;
   }
 
-  function openLoginDialog(){
-    throw new Error('Integrate with infiniti SSO');
-  }
-
-  function openRegisterDialog(){
-    throw new Error('Integrate with infiniti SSO');
-  }
-
   // Accepting reservation data to be rendered in modal window
   function openCancelReservationDialog(reservation){
     return openDialog('CancelReservationDialog', 'layouts/modals/cancelReservationDialog.html', CONTROLLER_RESERVATIONS, {
@@ -136,8 +128,6 @@ angular.module('mobiusApp.services.modal', [])
 
   // Public methods
   return {
-    openLoginDialog: openLoginDialog,
-    openRegisterDialog: openRegisterDialog,
     openCancelReservationDialog: openCancelReservationDialog,
     openCCVInfo: openCCVInfo,
     openPoliciesInfo: openPoliciesInfo,
