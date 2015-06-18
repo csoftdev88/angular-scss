@@ -3,9 +3,9 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.content', [])
-.service( 'contentService',  function(apiService) {
+.service( 'contentService',  function(apiService, Settings) {
   function getNews(){
-    return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
+    return apiService.get(apiService.getFullURL('contents'), {filter: 'news', chainCode: Settings.API.chainCode});
   }
 
   function getAbout(){

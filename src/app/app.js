@@ -24,6 +24,7 @@ angular
     'mobius.controllers.main',
     'mobius.controllers.about',
     'mobius.controllers.offers',
+    'mobius.controllers.news',
     'mobius.controllers.reservations',
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -167,6 +168,7 @@ angular
         url: '/confirmation'
       })
 
+       // Offers page
       .state('offers', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
@@ -174,6 +176,13 @@ angular
         controller: 'OffersCtrl'
       })
 
+      // News page
+      .state('news', {
+        parent: 'root',
+        templateUrl: 'layouts/news/news.html',
+        url: '/news/',
+        controller: 'NewsCtrl'
+      })
       // Contact page
       .state('contacts', {
         parent: 'root',
