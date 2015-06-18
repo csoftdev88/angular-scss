@@ -5,9 +5,9 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user', 'locationService',
-  '$q', 'modalService',
+  '$q', 'modalService', '$controller',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory, _, user, locationService, $q, modalService){
+    preloaderFactory, _, user, locationService, $q, modalService, $controller){
   return {
     restrict: 'E',
     scope: {},
@@ -15,6 +15,9 @@ angular.module('mobiusApp.directives.hotels', [])
 
     // Widget logic goes here
     link: function(scope){
+
+      $controller('MainCtrl', {$scope: scope});
+
       scope.sortingOptions = [
         {
           name: 'Availability',
@@ -56,7 +59,6 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.view = 'tiles';
       scope.minStars = 0;
       scope.maxStars = 5;
-      scope.isUserLoggedIn = user.isLoggedIn;
 
       function getProperties(params){
         // Loading hotels

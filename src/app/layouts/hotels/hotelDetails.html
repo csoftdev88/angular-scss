@@ -51,8 +51,8 @@
           Street,<br />
           City, Country disctrict, Postal code
         </li>
-      </ul>
-    </div> -->
+      </ul> -->
+    </div>
   </section>
 
   <!-- this should be filled with actual data from API
@@ -115,7 +115,10 @@
               <!-- rate info, points and earning information should
                    also be here according to the designs -->
               <span class="price">
-                from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}} pn</span>
+                from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}}</span> <span>per night</span>
+              </span>
+              <span ng-if="isUserLoggedIn()" class="price">
+                or <span class="value">{{toPoints(room.priceFrom)}}</span> <span>points</span>
               </span>
               <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="more">_view_more_</a>
             </div>

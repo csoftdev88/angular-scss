@@ -29,13 +29,16 @@
         <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-click="navigateToHotel(hotel.code)" grid="{{view === 'list' ? 3 : 1}}">
           <div>
             <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
-            <ul class="rating">
-              <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
-            </ul>
+            <!--<ul class="rating">-->
+              <!--<li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>-->
+            <!--</ul>-->
           </div>
           <h2>{{hotel.nameShort}}</h2>
           <span class="price" ng-if="hotel.available">
             from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <span>per night</span>
+          </span>
+          <span ng-if="hotel.available && isUserLoggedIn()" class="price">
+            or <span class="value">{{toPoints(hotel.priceFrom)}}</span> <span>points</span>
           </span>
           <span class="price unavailable" ng-if="!hotel.available">
             Not Available

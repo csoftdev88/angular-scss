@@ -27,9 +27,12 @@
             <p class="desc">{{product.tagline}}</p>
             <p ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</p>
             <p ng-show="product.highlighted">Most Booked Package</p>
-            <p class="price">{{product.price.totalBase | i18nCurrency: $root.currencyCode}}</p>
-            <small>per night</small>
-            <p>or {{product.price.pointsRequired}} points</p>
+            <span class="price">
+              <span class="value">{{product.price.totalBase | i18nCurrency: currencyCode}}</span> <span>per night</span>
+            </span>
+            <span ng-if="isUserLoggedIn()" class="price">
+              or <span class="value">{{toPoints(product.price.totalBase)}}</span> <span>points</span>
+            </span>
             <button ng-click="selectProduct(product)" ng-disabled="product.memberOnly && !isUserLoggedIn()">Select</button>
           </div>
         </li>
