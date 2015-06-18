@@ -20,7 +20,6 @@ angular.module('mobius.controllers.hotel.details', [])
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
-        debugger;
         $scope.details = details;
         // Updating Hero content images
         if(details.previewImages){
@@ -42,6 +41,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
+        debugger;
         if(!$scope.rooms) {
           $scope.rooms = rooms;
         }

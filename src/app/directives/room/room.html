@@ -59,7 +59,7 @@
       <li ng-repeat="otherRoom in otherRooms">
         <span>{{otherRoom.name}} from {{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span>
         <a ui-sref="room({propertyCode: propertyCode, roomID: otherRoom.code})" class="more">_view_more_</a>
-        <img ng-show="true" src="{{otherRoom.images[0].URI}}" alt="{{otherRoom.name}}">
+        <img ng-show="otherRoom.images[0]" ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}">
       </li>
     </ul>
   </div>
