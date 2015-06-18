@@ -27,68 +27,75 @@ hotels {
 
     ul {
       margin: 0 -1%;
-    }
 
-    .grid,
-    [grid],
-    [grid-container] {
-      margin: 0;
-      width: 100%;
-    }
-
-    @media only screen and @large-mobile-min {
-      .generate-fluid-grid(3);
-    }
-
-    // hotel item - grid view
-    li {
-      margin-bottom: @baseline/2;
-
-      // image container
-      div {
-        border-radius: @radius/2;
+      .grid,
+      [grid],
+      [grid-container] {
+        margin: 0;
         width: 100%;
-        background: lighten(@c-light-grey, 10%);
-        position: relative;
+      }
+
+      @media only screen and @large-mobile-min {
+        .generate-fluid-grid(3);
+      }
+
+      li {
         margin-bottom: @baseline/2;
 
-        img {
-          display: block;
+        // image container
+        div {
+          border-radius: @radius/2;
           width: 100%;
-        }
+          background: lighten(@c-light-grey, 10%);
+          position: relative;
+          margin-bottom: @baseline/2;
 
-        .rating {
-          position: absolute;
-          bottom: @baseline/3;
-          right: @baseline/2;
+          img {
+            display: block;
+            width: 100%;
+          }
 
-          li {
-            display: inline-block;
-            margin: 0 1px;
+          .rating {
+            position: absolute;
+            bottom: @baseline/3;
+            right: @baseline/2;
 
-            &:after {
-              content: "\f005";
-              font-family: FontAwesome;
+            li {
               display: inline-block;
-              color: @c-light-grey;
-            }
+              margin: 0 1px;
 
-            &.included:after {
-              color: @c-link;
+              &:after {
+                content: "\f005";
+                font-family: FontAwesome;
+                display: inline-block;
+                color: @c-light-grey;
+              }
+
+              &.included:after {
+                color: @c-link;
+              }
             }
           }
         }
-      }
 
-      h2 {
-        font-size: @size-1;
-        font-weight: 300;
-        margin-bottom: @baseline/2;
-      }
+        h2 {
+          font-size: @size-1;
+          font-weight: 300;
+          margin-bottom: @baseline/2;
+        }
 
-      p {
-        color: @c-grey;
+        p {
+          color: @c-grey;
+        }
       }
+    }
+
+    .entries--tiles {
+
+    }
+
+    .entries--list {
+
     }
   }
 

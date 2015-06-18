@@ -26,7 +26,7 @@
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{view}}">
-        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)" grid="1">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-click="navigateToHotel(hotel.code)" grid="{{hotels.view == 'list' ? 3 : 1}}">
           <div>
             <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
             <ul class="rating">
@@ -40,7 +40,7 @@
           <span class="price unavailable" ng-if="!hotel.available">
             Not Available
           </span>
-          <p ng-if="view = 'list'">{{hotel.description}}</p>
+          <p>{{hotel.description}}</p>
         </li>
       </ul>
     </div>
