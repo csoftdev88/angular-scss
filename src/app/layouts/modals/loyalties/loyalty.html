@@ -5,7 +5,7 @@
 
 <main>
   <loyalty-cards-list>
-    <loyalty-card ng-repeat="stamp in loyalty.stamps track by $index" ng-class="{'is-earned': !stamp.earned}">
+    <loyalty-card ng-repeat="stamp in loyalty.stamps track by $index" ng-class="{'is-earned': stamp.earned}">
       <img ng-src="{{stamp.image}}" err-source="http://lorempixel.com/140/50/" />
     </loyalty-card>
   </loyalty-cards-list>
