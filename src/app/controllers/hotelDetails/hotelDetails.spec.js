@@ -59,6 +59,7 @@ describe('mobius.controllers.hotel.details', function() {
         });
 
         $provide.value('locationService', {});
+        $provide.value('modalService', {});
       });
     });
 

@@ -13,8 +13,10 @@
       <a href="" class="more">read more</a>
     </div>
     <div grid="4" class="description-image">
-      <a href="">view more images</a>
-      <img src="" alt="{{details.nameShort}}" />
+      <figure>
+        <p><a ng-if="details.images.length" href="#" ng-click="openGallery(details.images)">View more images</a></p>
+        <img ng-src="details.images[0].uri" alt="{{details.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
+      </figure>
     </div>
   </section>
 

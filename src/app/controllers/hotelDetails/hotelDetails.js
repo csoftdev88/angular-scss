@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService,
-  propertyService, filtersService, preloaderFactory, $q) {
+  propertyService, filtersService, preloaderFactory, $q, modalService) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
@@ -37,6 +37,8 @@ angular.module('mobius.controllers.hotel.details', [])
         if(details.availability) {
           $scope.rooms = details.availability.rooms || [];
         }
+
+        $scope.openGallery = modalService.openGallery;
       });
 
     var roomsPromise = propertyService.getRooms(propertyCode)
