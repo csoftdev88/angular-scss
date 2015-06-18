@@ -77,9 +77,9 @@ angular.module('mobiusApp.directives.room', [])
         product._expanded = expanded;
       };
 
-      scope.selectProduct=function(product){
-        $state.go('reservation.details', {productCode: product.code});
-      };
+      //scope.selectProduct=function(product){
+      //  $state.go('reservation.details', {productCode: product.code});
+      //};
 
       if(bookingParams.productGroupId){
         getRoomProductDetails(propertyCode, roomCode, bookingParams);

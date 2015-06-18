@@ -27,6 +27,7 @@ angular
     'mobius.controllers.offers',
     'mobius.controllers.news',
     'mobius.controllers.reservations',
+    'mobius.controllers.reservation',
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
     'mobius.controllers.modals.reservation',
@@ -37,6 +38,7 @@ angular
     'mobius.controllers.room.details',
 
     'mobius.controllers.hotel.details',
+    'mobius.controllers.room.details',
 
     // Application modules
     'mobiusApp.config',
@@ -57,6 +59,7 @@ angular
     'mobiusApp.services.creditCardType',
     'mobiusApp.services.userMessagesService',
     'mobiusApp.services.chains',
+    'mobiusApp.services.reservation',
 
     // Factories
     'mobiusApp.factories.template',
@@ -97,7 +100,8 @@ angular
     'mobiusApp.filters.list',
     'mobiusApp.filters.number',
     'mobiusApp.filters.currency',
-    'mobiusApp.filters.pluralization'
+    'mobiusApp.filters.pluralization',
+    'mobius.filters.dateTime'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -140,15 +144,23 @@ angular
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
+        controller: 'RoomDetailsCtrl',
         url: '/hotels/:propertyCode/rooms/:roomID'
+      })
+
+      .state('reservations', {
+        parent: 'root',
+        templateUrl: 'layouts/reservations/reservations.html',
+        url: '/reservations',
+        controller: 'ReservationsCtrl'
       })
 
       // Room reservation
       .state('reservation', {
         parent: 'root',
-        templateUrl: 'layouts/reservation/reservation.html',
-        url: '/reservation',
-        controller: 'ReservationsCtrl'
+        templateUrl: 'layouts/reservations/reservation/reservation.html',
+        url: '/reservation/:roomID/:productCode',
+        controller: 'ReservationCtrl'
       })
 
       .state('reservation.details', {
