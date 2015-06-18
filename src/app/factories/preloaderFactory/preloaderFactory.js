@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * PreloaderFactory takes promis object and broadcast
+ * PreloaderFactory takes promise object and broadcasts
  * the events when state of the promise has changed.
  */
 angular.module('mobiusApp.factories.preloader', [])

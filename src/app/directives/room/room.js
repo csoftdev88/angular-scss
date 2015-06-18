@@ -7,12 +7,12 @@ angular.module('mobiusApp.directives.room', [])
   return {
     restrict: 'E',
     templateUrl: 'directives/room/room.html',
-
     // Widget logic goes here
     link: function(scope){
       var bookingParams = bookingService.getAPIParams();
 
       var propertyCode = bookingParams.property;
+      scope.propertyCode = propertyCode;
       delete bookingParams.property;
 
       var roomCode = $stateParams.roomID;
@@ -28,6 +28,23 @@ angular.module('mobiusApp.directives.room', [])
         });
 
         scope.updateHeroContent(heroContent);
+
+        /* Getting other rooms. We should show those that are closest in price but have a price that is
+           greater than the currently viewed room. If there are not enough of them we can show the cheaper
+           ones as well. */
+
+        propertyService.getRooms(propertyCode)
+          .then(function(hotelRooms){
+            var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
+            var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
+
+            var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
+
+            // sortedCheaperRooms is sorted by price in descending order
+            var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
+
+            scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
+          });
       });
 
       preloaderFactory(roomDetailsPromise);
