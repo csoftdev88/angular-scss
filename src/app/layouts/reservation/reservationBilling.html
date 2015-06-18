@@ -69,28 +69,27 @@
   <reservation-billing>
     <h3>Card Details</h3>
     <form>
+      <ul>
+        <li ng-class="{selected: getCreditCardType(reservationDetails.creditCardNumber) === type}" ng-repeat="(type, info) in creditCardTypes" class="{{type}}">{{info}}</li>
+      </ul>
       <label for="form-card-number">
         Card number
-        <input type="text" id="form-card-number"/>
+        <input ng-model="reservationDetails.creditCardNumber" type="text" id="form-card-number"/>
+      </label>
+      <label for="form-name-on-card" class="input-right">
+        Name on Card
+        <input ng-model="reservationDetails.creditCardFullName" type="text" id="form-name-on-card"/>
       </label>
       <div class="input-left">
         <label for="form-expires" class="input-left">
           Expires
-          <input type="date" id="form-expires"/>
+          <input ng-model="reservationDetails.creditCardExpireDate" type="date" id="form-expires"/>
         </label>
         <label for="form-cvv" class="input-right">
           CVV <span class="help" ng-click="openCCVInfo()"/>
-          <input type="number" id="form-cvv"/>
+          <input ng-model="reservationDetails.creditCardCVV" type="number" id="form-cvv"/>
         </label>
       </div>
-      <label for="form-name-on-card" class="input-right">
-        Name on Card
-        <input type="text" id="form-name-on-card"/>
-      </label>
-      <label for="form-guest-address" class="is-oneline">
-        <input type="checkbox" id="form-guest-address"/>
-        Use Guest Address
-      </label>
     </form>
   </reservation-billing>
 

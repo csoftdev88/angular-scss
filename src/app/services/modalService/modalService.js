@@ -6,12 +6,11 @@ angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log, queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
-      CONTROLLER_LOGIN = 'LoginCtrl',
-      CONTROLLER_REGISTER = 'RegisterCtrl',
       CONTROLLER_RESERVATIONS = 'ModalReservationCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
       CONTROLLER_BADGES = 'BadgesCtrl',
       CONTROLLER_LOAYALTY = 'LoyaltyCtrl',
+      CONTROLLER_GALLERY = 'GalleryCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -37,19 +36,11 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openLoginDialog(){
-    return openDialog('LoginDialog', 'layouts/modals/loginDialog.html', CONTROLLER_LOGIN);
+    throw new Error('Integrate with infiniti SSO');
   }
 
   function openRegisterDialog(){
-    return openDialog('RegisterDialog', 'layouts/modals/registerDialog.html', CONTROLLER_REGISTER);
-  }
-
-  function openPasswordResetDialog(){
-    return openDialog('PasswordResetDialog', 'layouts/modals/passwordResetDialog.html', CONTROLLER_LOGIN);
-  }
-
-  function openEnterCodeDialog(){
-    return openDialog('EnterCodeDialog', 'layouts/modals/enterCodeDialog.html', CONTROLLER_LOGIN);
+    throw new Error('Integrate with infiniti SSO');
   }
 
   // Accepting reservation data to be rendered in modal window
@@ -96,14 +87,6 @@ angular.module('mobiusApp.services.modal', [])
     case undefined:
       // do nothing
       break;
-    case 'LoginDialog':
-      return openLoginDialog();
-    case 'RegisterDialog':
-      return openRegisterDialog();
-    case 'PasswordResetDialog':
-      return openPasswordResetDialog();
-    case 'EnterCodeDialog':
-      return openEnterCodeDialog();
     case 'CancelReservationDialog':
       return openCancelReservationDialog();
     case 'CCVInfo':
@@ -140,12 +123,21 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openGallery(images){
+    return openDialog('openGallery', 'layouts/modals/imagesGallery.html', CONTROLLER_GALLERY, {
+      windowClass: 'is-wide',
+      resolve: {
+        data: function(){
+          return images;
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     openLoginDialog: openLoginDialog,
     openRegisterDialog: openRegisterDialog,
-    openPasswordResetDialog: openPasswordResetDialog,
-    openEnterCodeDialog: openEnterCodeDialog,
     openCancelReservationDialog: openCancelReservationDialog,
     openCCVInfo: openCCVInfo,
     openPoliciesInfo: openPoliciesInfo,
@@ -153,6 +145,8 @@ angular.module('mobiusApp.services.modal', [])
     openDialogIfPresent: openDialogIfPresent,
     // Loyalties
     openBadgesDialog: openBadgesDialog,
-    openLoyaltyDialog: openLoyaltyDialog
+    openLoyaltyDialog: openLoyaltyDialog,
+    // gallery
+    openGallery: openGallery
   };
 });

@@ -32,8 +32,6 @@
     width: 36px;
     height: 100%;
     margin: 0 10px;
-    // .fs-36(false);
-    // .specific-line-height(36, @mobileHeaderHeight);
     color: @white;
     text-decoration: none;
     background: url("../images/menu-opener.png") no-repeat center center;
@@ -61,8 +59,8 @@
       padding: 0px floor(@paddingHeaderDefault / 2);
       line-height: @mobileHeaderHeight;
 
-      background-color: @colorHeaderBackground;
-      background-color: fadeout(@colorHeaderBackground, 15%);
+      background-color: @c-base;
+      background-color: fadeout(@c-base, 15%);
 
       &:extend(.open-sans-light);
       &:extend(.font-size-18);
@@ -99,7 +97,7 @@
     height: 39px;
     padding: 10px 30px;
     line-height: 39px;
-    border-radius: 8px;
+    border-radius: @radius;
 
     &:hover {
       box-shadow: none;
@@ -111,8 +109,8 @@
 @media only screen and @lessThenTabletPortrait {
 
   #main-header {
-    background-color: @colorHeaderBackground;
-    background-color: fadeout(@colorHeaderBackground, 5%);
+    background-color: @c-base;
+    background-color: fadeout(@c-base, 5%);
   }
 
   .main-nav {
@@ -140,13 +138,13 @@
 
         > li {
           border-top: 1px @borderColorSubmenu solid;
-          background-color: @colorHeaderBackground;
-          background-color: fadeout(@colorHeaderBackground, 5%);
+          background-color: @c-base;
+          background-color: fadeout(@c-base, 5%);
           text-transform: uppercase;
 
           a.is-active {
             font-weight: 700;
-            text-shadow: 0 2px 0 fade(@black, 50%);
+            text-shadow: 0 2px 0 fade(@c-base, 50%);
           }
 
           li {
@@ -229,7 +227,7 @@
     .brand {
       display: block;
       float: left;
-      margin: @baseline 0;
+      margin: @baseline/2 0;
     }
 
     .button-login {
@@ -247,4 +245,3 @@
     }
   }
 }
-

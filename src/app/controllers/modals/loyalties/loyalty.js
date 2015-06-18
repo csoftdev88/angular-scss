@@ -10,6 +10,5 @@ angular.module('mobius.controllers.modals.loyalties.loyalty', [])
     // NOTE: put this back if some of the badges have pure HTML content
     //$controller('SanitizeCtrl', {$scope: $scope});
     $scope.loyalty = data;
-    console.log(data);
   }
 );

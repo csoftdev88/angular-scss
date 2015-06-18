@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $window, Settings,
-  bookingService, propertyService, filtersService, preloaderFactory) {
+  bookingService, propertyService, filtersService, preloaderFactory, _) {
   return {
     restrict: 'E',
     templateUrl: 'directives/room/room.html',
@@ -325,8 +325,11 @@ angular.module('mobiusApp.directives.room', [])
       // Room product details
       function getRoomProductDetails(propertyCode, roomCode, params){
         propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data){
-          scope.products = data.products;
-
+          scope.products = _.where(data.products, {memberOnly : true})
+            .concat(
+              _.where(data.products, {highlighted : true}),
+              _.reject(data.products, function(product){ return product.memberOnly || product.highlighted; })
+            );
           scope.accordionStates = data.products.map(function(){
             return false;
           });

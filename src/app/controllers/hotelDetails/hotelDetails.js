@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService,
-  propertyService, filtersService, preloaderFactory) {
+  propertyService, filtersService, preloaderFactory, $q) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
@@ -14,11 +14,11 @@ angular.module('mobius.controllers.hotel.details', [])
   var propertyCode = bookingParams.property;
   delete bookingParams.property;
 
-  function getAvailableRooms(propertyCode, params){
+  function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
     // bookingParams - property details are returned without
     // availability details
-    var promise = propertyService.getPropertyDetails(propertyCode, params)
+    var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         debugger;
         $scope.details = details;
@@ -29,20 +29,31 @@ angular.module('mobius.controllers.hotel.details', [])
           });
 
           $scope.updateHeroContent(heroContent);
+        }
 
-          if(angular.isDefined(details.lat) && angular.isDefined(details.long)){
-            $scope.position = [details.lat, details.long];
-          }
+        if(angular.isDefined(details.lat) && angular.isDefined(details.long)){
+          $scope.position = [details.lat, details.long];
+        }
+
+        if(details.availability) {
+          $scope.rooms = details.availability.rooms || [];
         }
       });
 
-    preloaderFactory(promise);
+    var roomsPromise = propertyService.getRooms(propertyCode)
+      .then(function(rooms){
+        if(!$scope.rooms) {
+          $scope.rooms = rooms;
+        }
+      });
+
+    preloaderFactory($q.all([detailPromise, roomsPromise]));
   }
 
   // In order to get rooms availability we must call the API with productGroupId
   // param which is presented as rate parameter set by a bookingWidget
   if(bookingParams.productGroupId){
-    getAvailableRooms(propertyCode, bookingParams);
+    getHotelDetails(propertyCode, bookingParams);
   } else{
     // productGroupId is not set by the widget - getting default BAR
     filtersService.getBestRateProduct().then(function(brp){
@@ -50,7 +61,14 @@ angular.module('mobius.controllers.hotel.details', [])
         bookingParams.productGroupId = brp.id;
       }
 
-      getAvailableRooms(propertyCode, bookingParams);
+      getHotelDetails(propertyCode, bookingParams);
     });
   }
+
+  $scope.scrollToRooms = function() {
+    var $item = angular.element('#hotelRooms');
+    angular.element('html, body').animate({
+      scrollTop: $item.offset().top
+    }, 2000);
+  };
 });

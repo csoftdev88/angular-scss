@@ -4,9 +4,9 @@ angular.module('mobiusApp.directives.hotels', [])
 
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
-  'propertyService', 'preloaderFactory',
+  'propertyService', 'preloaderFactory', '_', 'user',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory){
+    preloaderFactory, _, user){
   return {
     restrict: 'E',
     scope: {},
@@ -53,6 +53,9 @@ angular.module('mobiusApp.directives.hotels', [])
       ];
 
       scope.view = 'tiles';
+      scope.minStars = 0;
+      scope.maxStars = 5;
+      scope.isUserLoggedIn = user.isLoggedIn;
 
       function getProperties(params){
         // Loading hotels
@@ -61,6 +64,11 @@ angular.module('mobiusApp.directives.hotels', [])
             // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
             // hotels = undefined;
             scope.hotels = hotels || [];
+
+            scope.minPrice = _.chain(scope.hotels).pluck('priceFrom').min();
+            scope.maxPrice = _.chain(scope.hotels).pluck('priceFrom').max();
+            scope.minSelectedPrice = scope.minPrice;
+            scope.maxSelectedPrice = scope.maxPrice;
           })
         );
       }
@@ -91,6 +99,27 @@ angular.module('mobiusApp.directives.hotels', [])
           getProperties(bookingParams);
         });
       }
+
+      scope.setMinStars = function(stars) {
+        scope.minStars = stars;
+        if(scope.maxStars < scope.minStars) {
+          scope.maxStars = scope.minStars;
+        }
+      };
+
+      scope.setMaxStars = function(stars) {
+        scope.maxStars = stars;
+        if(scope.minStars > scope.maxStars) {
+          scope.minStars = scope.maxStars;
+        }
+      };
+
+      scope.hotelFilter = function(hotel) {
+        return (
+          (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) &&
+          (scope.minStars <= hotel.rating && hotel.rating <= scope.maxStars)
+        );
+      };
     }
   };
 }]);

@@ -1,0 +1,7 @@
+<img ng-src="images[selected].uri" alt="{{images[selected].alt}}">
+
+<button ng-if="images.length > settings.minImages" ng-click="moveLeft()">&lt;</button>
+<ul>
+  <li ng-repeat="image in getCarousel(images)" ng-click="setSelected($index)" ng-class="{selected: $index === selected}"><img ng-src="{{image.uri}}" alt="{{image.alt}}" width="50" height="50"></li>
+</ul>
+<button ng-if="images.length > settings.minImages" ng-click="moveRight()">&gt;</button>

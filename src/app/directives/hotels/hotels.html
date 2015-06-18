@@ -1,40 +1,73 @@
-<div grid-container="9">
-  <section widget="hotels">
-    <header class="hotels__header" grid="9">
+<div class="grid-wrapper">
+  <section grid-container="9" widget="hotels">
+    <header class="hotels__header">
       <h1>Our <strong>Hotels</strong></h1>
       <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
-      <hr/>
     </header>
-    <div class="hotels__controls" grid="9">
+    <div class="hotels__controls">
       <div class="order-switch">
         <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" ng-change="onSortingChange()">
         </select>
       </div>
-      <div class="view-switch">
-        <i class="icon icon-th-list" ng-class="{'is-active': view == 'list'}" title="Show as list" ng-click="view = 'list'"/>
-        <i class="icon icon-th-thumb" ng-class="{'is-active': view == 'tiles'}" title="Show as tiles" ng-click="view = 'tiles'"/>
-      </div>
     </div>
+    <div ng-if="!isUserLoggedIn()" class="msg-box">Save up to 20% by signing in or registering!</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{view}}">
-        <li class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)">
-          <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-class="{'grid': view == 'list'}" ng-click="navigateToHotel(hotel.code)" grid="1">
           <div>
-            <h3 class="title"><strong>{{hotel.nameShort}}</strong></h3>
-            <span class="price" ng-if="hotel.available">
-              from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <small>per night</small>
-            </span>
-            <span class="price unavailable" ng-if="!hotel.available">
-              Not Available
-            </span>
-            <p ng-if="view = 'list'">{{hotel.description}}</p>
-            <span class="rating">
-              <i class="star" ng-repeat="i in [1,2,3,4,5]" ng-class="{'icon-star': i <= hotel.rating, 'icon-star-empty': i > hotel.rating}"></i>
-            </span>
+            <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
+            <ul class="rating">
+              <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
+            </ul>
           </div>
+          <h2>{{hotel.nameShort}}</h2>
+          <span class="price" ng-if="hotel.available">
+            from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <span>per night</span>
+          </span>
+          <span class="price unavailable" ng-if="!hotel.available">
+            Not Available
+          </span>
+          <p ng-if="view = 'list'">{{hotel.description}}</p>
         </li>
       </ul>
     </div>
   </section>
+
+  <aside grid-container="3" class="hotels__filter">
+    <div class="view-switch">
+      <h2>View</h2>
+      <ul>
+        <li ng-class="{'is-active': view == 'list'}" ng-click="view = 'list'">
+          <i class="fa fa-th-list"  title="Show as list" /> List
+        </li>
+        <li ng-class="{'is-active': view == 'tiles'}" ng-click="view = 'tiles'">
+          <i class="fa fa-th-large" title="Show as tiles" /> Grid
+        </li>
+      </ul>
+    </div>
+    <div class="filters-bar">
+      <h2>Filter</h2>
+      <h3>Price per night</h3>
+      <!--<div range-slider min="{{minPrice}}" max="{{maxPrice}}" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>-->
+      <div range-slider min="minPrice" max="maxPrice" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>
+      <hr>
+      <h3>Star Rating</h3>
+      <div class="stars">
+        <ul class="stars-left">
+          <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}"></li>
+        </ul>
+        to
+        <ul class="stars-right">
+          <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
+        </ul>
+      </div>
+      <hr>
+      <h3>TripAdvisor rating</h3>
+      <hr>
+      <h3>Amenities</h3>
+      <hr>
+      <h3>Location</h3>
+    </div>
+  </aside>
 </div>

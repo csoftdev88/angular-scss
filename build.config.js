@@ -46,6 +46,7 @@ module.exports = {
         'bower_components/chai/chai.js',
         'bower_components/angular-mocks/angular-mocks.js',
         'bower_components/angular-sanitize/angular-sanitize.min.js',
+        'bower_components/angular-cookies/angular-cookies.min.js',
 
         'node_modules/lolex/lolex.js',
         'bower_components/sinon/lib/sinon.js',
@@ -105,7 +106,9 @@ module.exports = {
         'bower_components/angular-validation-match/dist/angular-input-match.js',
         'bower_components/ngmap/build/scripts/ng-map.min.js',
         'bower_components/moment/min/moment.min.js',
-        'bower_components/angular-sanitize/angular-sanitize.min.js'
+        'bower_components/angular-sanitize/angular-sanitize.min.js',
+        'bower_components/angular-rangeslider/angular.rangeSlider.js',
+        'bower_components/angular-cookies/angular-cookies.min.js'
       ],
       styles: []
     }

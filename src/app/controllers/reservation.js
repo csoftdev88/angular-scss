@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.reservations', [])
 
-.controller('ReservationsCtrl', function($scope, $controller, modalService){
+.controller('ReservationsCtrl', function($scope, $controller, modalService, creditCardTypeService, $rootScope, userMessagesService){
 
   $controller('MainCtrl', {$scope: $scope});
 
@@ -56,8 +56,30 @@ angular.module('mobius.controllers.reservations', [])
     }
   ];
 
+  $scope.reservationDetails = {};
+
   $scope.openPoliciesInfo = modalService.openPoliciesInfo;
   $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
   $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
 
+  $scope.getCreditCardType = creditCardTypeService.getType;
+  $scope.creditCardTypes = {};
+  // change names to icons
+  $scope.creditCardTypes[creditCardTypeService.AMERICAN_EXPRESS] = 'American Express';
+  $scope.creditCardTypes[creditCardTypeService.MAESTRO] = 'Maestro';
+  $scope.creditCardTypes[creditCardTypeService.MASTER_CARD] = 'Master Card';
+  $scope.creditCardTypes[creditCardTypeService.VISA] = 'Visa';
+
+  var $stateChangeStartUnWatch = $rootScope.$on('$stateChangeStart', function(event, toState) {
+    if (toState.name === 'reservation.confirmation') {
+      userMessagesService.addInfoMessage('' +
+        '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
+        '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.reservationDetails.email + '</strong></div>' +
+        '');
+    }
+  });
+
+  $scope.$on('$destroy', function() {
+    $stateChangeStartUnWatch();
+  });
 });

@@ -7,17 +7,29 @@
 <hero-slider content="heroContent">
 </hero-slider>
 
+<!-- This should probably be a component.
+     I'm not sure because there is more inside it
+     than just breadcrumbs on some pages -->
+<nav class="breadcrumbs">
+  <div class="wrapper">
+    <p>
+      <a ui-sref="home">Home</a> &raquo; <span>Our hotels</span>
+    </p>
+  </div>
+</nav>
+
+<user-messages></user-messages>
+
 <!-- MAIN CONTENT AREA -->
 <main typo-grid>
-  <div class="wrapper">
+  <div class="grid-wrapper">
     <div ui-view></div>
   </div>
 </main>
 
 <div ng-include="'layouts/siteMap.html'" class="site-map"></div>
 
-
 <!-- BOOKING WIDGET AREA-->
-<floating-bar class="floating-bar" ng-hide="$state.includes('reservation')"/>
+<floating-bar ng-hide="$state.includes('reservation')"></floating-bar>
 
-<footer id="main-footer" ng-include="'layouts/footer.html'"/>
+<footer id="main-footer" ng-include="'layouts/footer.html'"></footer>

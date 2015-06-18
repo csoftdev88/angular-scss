@@ -1,51 +1,9 @@
-dialog {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-
-  border-radius: 5px;
-
-
-  background: #fff;
-  border: 2px solid #ddd;
-
-  transform: translate(-50%, -50%);
-
-  appearance: none;
-
-  &:focus {
-    outline: 0;
-  }
-}
+////////////////////////
+//// MODAL - BADGES ////
+////////////////////////
 
 .dialog-badges {
   width: 700px;
-
-  //- Header
-  header {
-    position: relative;
-
-    height: @baseline * 2;
-    padding: 0 @baseline;
-
-    border-bottom: 1px solid #ddd;
-
-    line-height: @baseline * 2;
-
-    //- Title
-    h1 {
-      font-size: @size-3;
-
-    }
-
-    //- Close button
-    button-close {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-  }
-
 
   //- Main Content
 
@@ -63,18 +21,15 @@ dialog {
     padding: 0 @baseline/2;
 
     border-right: 1px dashed #ddd;
-
-    img {display: none;} // Temp
   }
     //- Badge icon
     badge-icon {
       border-radius: 100%;
-      flex: 0 0 71px;
+      flex: 0 0 71px; // width = 71px
       height: 71px;
       margin: @baseline / 2;
-      width: 71px;
 
-      background: #ffc50a; // Temp
+      img { border-radius: 100%; }
     }
 
   //- Selected Badge
@@ -94,6 +49,7 @@ dialog {
 
     //- Image
     img {
+      border-radius: 100%;
       display: block;
       height: 140px;
       margin: 0 auto @baseline auto;

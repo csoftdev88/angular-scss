@@ -1,0 +1,43 @@
+#main-header {
+  .app-menu {
+    li {
+
+      .profile {
+        line-height: initial;
+        margin-top: @baseline;
+
+        color: @c-white;
+
+        .user {
+          overflow: auto;
+
+          img {
+            float: left;
+            width: @baseline * 1.75;
+            height: @baseline * 1.75;
+
+            margin-right: @baseline/2;
+
+            border-radius: @baseline * 1.75;
+            border: 2px solid @c-link;
+          }
+
+          span {
+            display: block;
+            font-weight: bold;
+            line-height: initial;
+            font-size: @size--1;
+          }
+        }
+
+        .points {
+          clear: left;
+          margin-top: @baseline/4;
+          span {
+            font-size: @size--1;
+          }
+        }
+      }
+    }
+  }
+}

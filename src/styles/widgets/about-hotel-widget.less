@@ -1,0 +1,117 @@
+about-hotel {
+
+  h1, h2 {
+    font-size: @size-3;
+    margin-bottom: .75*@baseline;
+  }
+
+  p {
+    color: @c-grey;
+    margin-bottom: .75*@baseline;
+  }
+
+  .benefits,
+  .offers {
+    article {
+      box-sizing: border-box;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .benefits {
+
+    article {
+      position: relative;
+      padding-left: 11%;
+
+      h2 {
+        font-size: @size-3;
+      }
+
+      p {
+        color: @c-grey;
+        font-size: @size--1;
+        margin-bottom: 0;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 30%;
+      }
+    }
+  }
+
+  .offers {
+    margin-bottom: @baseline*2;
+
+    article {
+
+      max-height: 370px;
+      display: block;
+      overflow: hidden;
+      text-align: center;
+      border-radius: @radius*2;
+      border: 1px solid @c-light-grey;
+      box-shadow: 0 1px 2px @c-light-grey;
+
+      > a {
+        display: block;
+        text-decoration: none;
+        position: relative;
+
+        h2 {
+          font-size: @size-2;
+          color: @c-base;
+          padding: 0 @baseline;
+          text-transform: uppercase;
+        }
+
+        p {
+          color: @c-grey;
+          margin-bottom: .75*@baseline;
+          padding: 0 @baseline;
+        }
+
+        img {
+          opacity: 1;
+          margin-bottom: .75*@baseline;
+        }
+
+        span {
+          display: block;
+          color: @c-link;
+          margin-bottom: 2*@baseline;
+          font-weight: 600;
+        }
+
+        &:hover {
+          img {
+            opacity: .8;
+          }
+        }
+      }
+
+      &.add {
+
+        p {
+          background: rgba(0,0,0, .6);
+          color: @white;
+          position: absolute;
+          text-align: left;
+          padding: @baseline/3 @baseline/2;
+          bottom: 120px;
+          line-height: normal;
+          right: @baseline;
+          border-radius: 0 @radius*2 @radius*2 0;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

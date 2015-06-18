@@ -18,7 +18,7 @@ describe('hotels directive', function() {
     _spyBookingServiceAPIParamsHasDates;
 
   beforeEach(function() {
-    module('mobiusApp.factories.preloader');
+    module('mobiusApp.factories.preloader', 'underscore');
 
     module('mobiusApp.directives.hotels', function($provide) {
       // Mocking the services
@@ -49,6 +49,10 @@ describe('hotels directive', function() {
             }
           };
         }
+      });
+
+      $provide.value('user', {
+        isLoggedIn: function(){}
       });
 
       $provide.value('$state', {

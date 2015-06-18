@@ -12,31 +12,29 @@
 // We'll be removing these one by one as we add v4 equivalents
 @import 'v2/config.less';
 
-@import 'v2/base.less';
+//@import 'v2/base.less';
 @import 'v2/typography.less';
-@import 'v2/containers.less';
+//@import 'v2/containers.less';
 
 @import 'v2/partials/header.less';
 @import 'v2/partials/hero-slider.less';
 @import 'v2/partials/footer.less';
 @import 'v2/partials/buttons.less';
-@import 'v2/partials/forms.less';
-@import 'v2/partials/selects.less';
+// @import 'v2/partials/forms.less';
+// @import 'v2/partials/selects.less';
 @import 'v2/partials/dropdowns.less';
 // @import 'v2/partials/datepicker.less';
 @import 'v2/partials/animations.less';
 @import 'v2/partials/modal-dialog.less';
-
-@import 'v2/partials/site-map.less';
 @import 'v2/partials/preloader.less';
 
 @import 'v2/widgets/best-offers-widget.less';
 @import 'v2/widgets/best-hotels-widget.less';
-@import 'v2/widgets/hotels-widget.less';
+//@import 'v2/widgets/hotels-widget.less';
 @import 'v2/widgets/rooms-widget.less';
 @import 'v2/widgets/aside-widget.less';
 @import 'v2/widgets/reservation-widget.less';
-@import 'v2/widgets/about-hotel-widget.less';
+//@import 'v2/widgets/about-hotel-widget.less';
 
 @import (reference) 'v2/mixins.less';
 @import 'v2/helpers.less';
@@ -45,6 +43,7 @@
 
 // Libraries
 @import '../../bower_components/font-awesome/less/font-awesome';
+@import '../../bower_components/angular-rangeslider/angular.rangeSlider.css';
 
 // Config
 @import 'config.less';
@@ -62,6 +61,12 @@
 @import 'widgets/booking-widget.less';
 @import 'widgets/modals/badges.less';
 @import 'widgets/modals/loyalties.less';
+@import 'widgets/header.less';
+@import 'widgets/hotels-widget.less';
+@import 'widgets/about-hotel-widget.less';
+@import 'widgets/site-map.less';
+@import 'widgets/breadcrumbs.less';
+@import 'widgets/about-us';
 
 // Font icons - only files necessary for now are linked
 // (excluding files for IE7 etc.)
@@ -70,3 +75,7 @@
 // Components
 @import 'components/datepicker';
 @import 'components/buttons';
+@import 'components/forms';
+@import 'components/chosen-select';
+@import 'components/msg-box';
+@import 'components/modal-dialog';

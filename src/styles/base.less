@@ -8,6 +8,7 @@ body {
 }
 
 main {
+  margin-top: 1.5*@baseline;
   position: relative;
 }
 
@@ -34,3 +35,57 @@ hr {
   border: none;
   border-bottom: 1px dashed @c-hr;
 }
+
+.vr {
+  border-right: 1px solid @c-white;
+  margin: 0px @baseline/4;
+  width: 1px;
+  height: auto;
+}
+
+[collapse] {
+  height: 0px;
+  overflow: hidden;
+  opacity: 0;
+  .transition;
+
+  &.in {
+    overflow: visible;
+    opacity: 1;
+    height: auto;
+  }
+}
+
+//- Horizontal Line
+hr {
+  position: relative;
+
+  height: 35px;
+  margin: @baseline auto;
+  width: 80%;
+
+  border: 0;
+  background: #fff url(../images/general/logo-sp.png) center center no-repeat;
+
+  //- Dashed lines on right and left
+  &:after ,
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    height: 1px;
+    width: 45%;
+
+    border-top: 1px dashed rgba(0, 0, 0, 0.15);
+
+    content: '';
+  }
+
+  &:before {
+    left: initial;
+    right: 0;
+  }
+
+}
+
