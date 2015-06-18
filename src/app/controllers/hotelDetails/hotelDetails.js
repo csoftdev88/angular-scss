@@ -41,7 +41,6 @@ angular.module('mobius.controllers.hotel.details', [])
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
-        debugger;
         if(!$scope.rooms) {
           $scope.rooms = rooms;
         }
