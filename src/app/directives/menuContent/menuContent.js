@@ -18,24 +18,27 @@ angular.module('mobiusApp.directives.menu', [])
         'news': {
           'sourceObject': 'news',
           'method': 'getNews',
-          'state': 'news'
+          'state': 'news',
+          'reload': true
         },
         'offers': {
           'sourceObject': 'specialOffer',
           'method': 'getOffers',
-          'state': 'offers'
+          'state': 'offers',
+          'reload': false
         },
         'about': {
           'sourceObject': 'about',
           'method': 'getAbout',
-          'state': 'aboutUs'
+          'state': 'aboutUs',
+          'reload': false
         }
       };
 
       scope.title = attrs.title;
 
       scope.goToState = function() {
-        $state.go(contentTypes[attrs.menuContent].state);
+        $state.go(contentTypes[attrs.menuContent].state, {}, {reload: contentTypes[attrs.menuContent].reload});
       };
 
       var contentType = contentTypes[attrs.menuContent];

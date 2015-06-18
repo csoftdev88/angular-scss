@@ -1,6 +1,6 @@
 <div ng-if="showNewsList">
   <h1>Our <strong>News</strong></h1>
-  <div ng-repeat="news in newsList" ng-click="selectNews($index)">
+  <div ng-repeat="news in newsList track by $index" ng-click="selectNews($index)">
     <p>{{news.title}}</p>
     <div ng-bind-html="news.subtitle"></div>
   </div>
@@ -10,5 +10,10 @@
   <p>{{selectedNews.title}}</p>
   <img ng-src="{{selectedNews.image}}" />
   <div ng-bind-html="selectedNews.text"></div>
-  <a ng-click="goToNewsList()">Go back</a>
+
+  <div>You may also be interested in:</div>
+  <div ng-repeat="news in newsList | filter:getRelevant track by $index" ng-click="selectNews($index)">
+    <p>{{news.title}} </p>
+    <div ng-bind-html="news.subtitle"></div>
+  </div>
 </div>
