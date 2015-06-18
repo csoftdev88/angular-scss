@@ -56,12 +56,7 @@ reservation-steps {
   }
 
   a:hover {
-
-    &:before {
-      background-color: @white;
-      color: #2b5e7f;
-      box-shadow: inset 0 0 10px -7px @colorLinkLight;
-    }
+    color: @white;
   }
 
   @media screen and @moreThenMobile {
@@ -86,15 +81,6 @@ reservation-steps {
       &:first-child {
         margin-left: 0;
       }
-    }
-    a {
-
-    }
-    .is-active a {
-
-    }
-    a:hover {
-
     }
   }
 }
@@ -126,6 +112,49 @@ reservation-steps {
   reservation-billing {
     h3 {
       margin-bottom: 0;
+    }
+  }
+}
+
+reservation-billing {
+  .card-type {
+    .transition;
+
+    i {
+      display: block;
+      opacity: 0;
+      .transition;
+
+    }
+
+    &.has-icon {
+      padding-right: 40px;
+      position: relative;
+
+      i {
+        opacity: 1;
+        width: 32px;
+        height: 30px;
+        position: absolute;
+        right: 0px;
+        bottom: 9px;
+
+        &.visa {
+          background: url('../images/card-icons/visa.png') no-repeat center center;
+        }
+
+        &.master {
+          background: url('../images/card-icons/mastercard.png') no-repeat center center;
+        }
+
+        &.amex {
+          background: url('../images/card-icons/amex.png') no-repeat center center;
+        }
+
+        &.discover {
+          background: url('../images/card-icons/discover.png') no-repeat center center;
+        }
+      }
     }
   }
 }

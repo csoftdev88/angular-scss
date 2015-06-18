@@ -27,6 +27,7 @@ angular
     'mobius.controllers.offers',
     'mobius.controllers.news',
     'mobius.controllers.reservations',
+    'mobius.controllers.reservation',
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
     'mobius.controllers.modals.reservation',
@@ -34,8 +35,10 @@ angular
     'mobius.controllers.modals.loyalties.loyalty',
     'mobius.controllers.modals.loyalties.badges',
     'mobius.controllers.modals.gallery',
+    'mobius.controllers.room.details',
 
     'mobius.controllers.hotel.details',
+    'mobius.controllers.room.details',
 
     // Application modules
     'mobiusApp.config',
@@ -56,6 +59,7 @@ angular
     'mobiusApp.services.creditCardType',
     'mobiusApp.services.userMessagesService',
     'mobiusApp.services.chains',
+    'mobiusApp.services.reservation',
 
     // Factories
     'mobiusApp.factories.template',
@@ -76,6 +80,9 @@ angular
     'mobiusApp.directives.datepicker',
     'mobiusApp.directives.password',
     'mobiusApp.directives.chosenOptionsClass',
+    'mobiusApp.directives.luhnCheck',
+    'mobiusApp.directives.monthPicker',
+
     // Directive based on content data
     'mobiusApp.directives.menu',
     // Directives for generic data
@@ -93,7 +100,8 @@ angular
     'mobiusApp.filters.list',
     'mobiusApp.filters.number',
     'mobiusApp.filters.currency',
-    'mobiusApp.filters.pluralization'
+    'mobiusApp.filters.pluralization',
+    'mobius.filters.dateTime'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -136,36 +144,40 @@ angular
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
+        controller: 'RoomDetailsCtrl',
         url: '/hotels/:propertyCode/rooms/:roomID'
+      })
+
+      .state('reservations', {
+        parent: 'root',
+        templateUrl: 'layouts/reservations/reservations.html',
+        url: '/reservations',
+        controller: 'ReservationsCtrl'
       })
 
       // Room reservation
       .state('reservation', {
         parent: 'root',
-        templateUrl: 'layouts/reservation/reservation.html',
-        url: '/reservation',
-        controller: 'ReservationsCtrl'
+        templateUrl: 'layouts/reservations/reservation/reservation.html',
+        url: '/reservation/:roomID/:productCode',
+        controller: 'ReservationCtrl'
       })
 
       .state('reservation.details', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationDetails.html',
-        url: '/details'
+        templateUrl: 'layouts/reservations/reservation/details.html',
       })
 
       .state('reservation.billing', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationBilling.html',
-        url: '/billing'
+        templateUrl: 'layouts/reservations/reservation/billing.html',
       })
 
       .state('reservation.confirmation', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationConfirmation.html',
-        url: '/confirmation'
+        templateUrl: 'layouts/reservations/reservation/confirmation.html',
       })
 
-       // Offers page
       .state('offers', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
@@ -205,4 +217,3 @@ angular
   .run(function(user) {
     user.loadProfile();
   });
-

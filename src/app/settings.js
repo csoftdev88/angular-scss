@@ -40,6 +40,9 @@ angular.module('mobiusApp.config', [])
     'loyalties': {
       'all': 'customers/:customerId/loyalty'
     },
+    'reservations': {
+      'new': 'reservations'
+    },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
@@ -176,6 +179,32 @@ angular.module('mobiusApp.config', [])
           // Extra day/month added to a date
           'value': 1,
           'type': 'month'
+        }
+      }
+    },
+
+    'booking': {
+      // Card types and validation expressions
+      'cardTypes': {
+        'visa': {
+          'code': 'VI',
+          'icon': 'visa',
+          'regex': /^4[0-9]{12}(?:[0-9]{3})?$/,
+        },
+        'master': {
+          'code': 'MC',
+          'icon': 'master',
+          'regex': /^5[1-5][0-9]{14}$/
+        },
+        'amex': {
+          'code': 'AX',
+          'icon': 'amex',
+          'regex': /^3[47][0-9]{13}$/
+        },
+        'discover': {
+          'code': 'DS',
+          'icon': 'discover',
+          'regex': /^6(?:011|5[0-9]{2})[0-9]{3,}$/
         }
       }
     },

@@ -77,9 +77,9 @@ angular.module('mobiusApp.directives.room', [])
         product._expanded = expanded;
       };
 
-      scope.selectProduct=function(product){
-        $state.go('reservation.details', {productCode: product.code});
-      };
+      //scope.selectProduct=function(product){
+      //  $state.go('reservation.details', {productCode: product.code});
+      //};
 
       if(bookingParams.productGroupId){
         getRoomProductDetails(propertyCode, roomCode, bookingParams);
@@ -94,8 +94,16 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
-      scope.openPoliciesInfo = modalService.openPoliciesInfo;
-      scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
+      scope.onContinue = function(){
+        if(!scope.selectedProduct){
+          return;
+        }
+
+        $state.go('reservation.details', {
+          roomID: roomCode,
+          productCode: scope.selectedProduct.code
+        });
+      };
     }
   };
 });
