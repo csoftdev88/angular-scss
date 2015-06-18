@@ -71,7 +71,7 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.maxSelectedPrice = scope.maxPrice;
         });
         // Loading locations
-        var locationsPromise = locationService.getLocations().then(function(locations){
+        var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
           scope.locations = locations || [];
           scope.locations.unshift({nameShort: 'All Locations'});
         });
