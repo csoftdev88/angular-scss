@@ -1,14 +1,23 @@
-<div ng-if="showNewsList">
+<news-view ng-if="showNewsList">
   <h1>Our <strong>News</strong></h1>
-  <div ng-repeat="news in newsList" ng-click="selectNews($index)">
-    <p>{{news.title}}</p>
-    <div ng-bind-html="news.subtitle"></div>
-  </div>
-</div>
+  <p>An on-line reference for news, press releases, promotions and current events. Please click on articles for details.</p>
 
-<div ng-if="!showNewsList">
-  <p>{{selectedNews.title}}</p>
+  <hr>
+
+  <article ng-repeat-start="news in newsList" ng-click="selectNews($index)">
+    <h2>{{news.title}}</h2>
+    <div ng-bind-html="news.subtitle"></div>
+  </article>
+
+  <hr ng-repeat-end>
+</news-view>
+
+<news-detail ng-if="!showNewsList">
+  <h1>{{selectedNews.title}}</h1>
   <img ng-src="{{selectedNews.image}}" />
   <div ng-bind-html="selectedNews.text"></div>
-  <a ng-click="goToNewsList()">Go back</a>
-</div>
+  <hr>
+  <p>
+    <a href="" ng-click="goToNewsList()">Go back</a>
+  </p>
+</news-detail>
