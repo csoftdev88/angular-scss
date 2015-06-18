@@ -13,9 +13,13 @@ describe('hotels directive', function() {
     }
   ];
 
+  var LOCATION_LIST = [
+    {nameShort: 'location'}
+  ];
+
   var _rootScope, _scope, _templateCache, _spyTemplateCacheGet,
     _spyStateGo, _spyBookingServiceGetAPIParams, _propertyServiceGetAll,
-    _spyBookingServiceAPIParamsHasDates;
+    _spyBookingServiceAPIParamsHasDates, _locationServiceGetLocations;
 
   beforeEach(function() {
     module('mobiusApp.factories.preloader', 'underscore');
@@ -41,6 +45,16 @@ describe('hotels directive', function() {
         }
       });
 
+      $provide.value('locationService', {
+        getLocations: function(){
+          return {
+            then: function(c){
+              c(LOCATION_LIST);
+            }
+          };
+        }
+      });
+
       $provide.value('filtersService', {
         getBestRateProduct: function(){
           return {
@@ -49,6 +63,9 @@ describe('hotels directive', function() {
             }
           };
         }
+      });
+
+      $provide.value('modalService', {
       });
 
       $provide.value('user', {
@@ -62,7 +79,7 @@ describe('hotels directive', function() {
   });
 
   beforeEach(inject(function($compile, $rootScope, $state, $templateCache,
-      bookingService, propertyService) {
+      bookingService, propertyService, locationService) {
     _rootScope = $rootScope.$new();
 
     _templateCache = $templateCache;
@@ -73,6 +90,7 @@ describe('hotels directive', function() {
     _spyBookingServiceGetAPIParams = sinon.spy(bookingService, 'getAPIParams');
     _spyBookingServiceAPIParamsHasDates = sinon.spy(bookingService, 'APIParamsHasDates');
     _propertyServiceGetAll = sinon.spy(propertyService, 'getAll');
+    _locationServiceGetLocations = sinon.spy(locationService, 'getLocations');
     // Final component compile
     var elem = $compile(TEMPLATE)(_rootScope);
     _rootScope.$digest();
@@ -85,6 +103,7 @@ describe('hotels directive', function() {
     _spyBookingServiceGetAPIParams.restore();
     _spyBookingServiceAPIParamsHasDates.restore();
     _propertyServiceGetAll.restore();
+    _locationServiceGetLocations.restore();
   });
 
   describe('when component is initialized', function() {
@@ -105,6 +124,10 @@ describe('hotels directive', function() {
     it('should download a list of properties from the server based on the settings in the URL', function() {
       expect(_propertyServiceGetAll.calledOnce).equal(true);
       expect(_propertyServiceGetAll.calledWith(TEST_URL_PARAMS)).equal(true);
+    });
+
+    it('should download a list of locations from the server', function() {
+      expect(_locationServiceGetLocations.calledOnce).equal(true);
     });
 
     it('should define hotels on the scope ', function() {
