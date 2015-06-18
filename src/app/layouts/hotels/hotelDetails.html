@@ -19,7 +19,7 @@
   </section>
 
   <section class="hotel-detail__location" ng-if="position" grid-row>
-    <div class="dividing-line"></div>
+    <hr />
     <div grid="12">
       <h2>{{details.nameShort}} <strong>Location</strong></h2>
       <map
@@ -58,7 +58,7 @@
   <!-- this should be filled with actual data from API
        it should be presented in the following structure -->
   <section class="hotel-detail__offers" grid-row>
-    <div class="dividing-line"></div>
+    <hr />
     <h2 class="section-title" grid="12">Offers and <strong>Promotions</strong></h2>
 
     <div grid-row class="offers-list">
@@ -92,7 +92,7 @@
   </section>
 
   <section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
-    <div class="dividing-line"></div>
+    <hr />
     <div grid="12">
       <h2>Our <strong>Rooms</strong></h2>
       <div class="rooms-list">
@@ -126,7 +126,7 @@
   </section>
 
   <section class="hotel-detail__rooms" ng-if="!rooms.length">
-    <div class="dividing-line"></div>
+    <hr />
     <div grid="12">
       <h2>_no_room_found_</h2>
     </div>
@@ -134,7 +134,7 @@
 
   <!-- This section is not styled yet since it's hard to test it now. -->
   <section class="hotel-detail__services" ng-if="details.amenities.length">
-    <div class="dividing-line"></div>
+    <hr />
     <h2>Hotel <strong>Amenities</strong></h2>
     <ul>
       <li ng-repeat="amenity in details.amenities" grid="4">
