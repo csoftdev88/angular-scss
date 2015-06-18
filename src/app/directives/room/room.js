@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $window, Settings,
-  bookingService, propertyService, filtersService, preloaderFactory, _) {
+  bookingService, propertyService, filtersService, modalService, preloaderFactory, _) {
   return {
     restrict: 'E',
     templateUrl: 'directives/room/room.html',
@@ -77,6 +77,10 @@ angular.module('mobiusApp.directives.room', [])
           // NOTE: This function is inherited from RoomDetailsCtrl
           scope.selectProduct(product);
         }
+      };
+
+      scope.onClickOnAssociatedRoom=function(associatedRoom){
+        modalService.openAssociatedRoomDetail(associatedRoom);
       };
 
       function selectBestProduct(){

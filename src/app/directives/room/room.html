@@ -57,9 +57,11 @@
     <h3 class="section-title">Other <strong>Rooms</strong></h3>
     <ul>
       <li ng-repeat="otherRoom in otherRooms">
-        <span>{{otherRoom.name}} from {{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span>
-        <a ui-sref="room({propertyCode: propertyCode, roomID: otherRoom.code})" class="more">_view_more_</a>
-        <img ng-show="otherRoom.images[0]" ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}">
+        <div ng-click="onClickOnAssociatedRoom(otherRoom)">
+          <span>{{otherRoom.name}} from {{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span>
+          <a ui-sref="room({propertyCode: propertyCode, roomID: otherRoom.code})" class="more">_view_more_</a>
+          <img ng-show="otherRoom.images[0]" ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}">
+        </div>
       </li>
     </ul>
   </div>
