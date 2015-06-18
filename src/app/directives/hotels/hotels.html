@@ -61,7 +61,16 @@
     <div class="filters-bar">
       <h2>Filter</h2>
       <h3>Price per night</h3>
-      <div range-slider min="minPrice" max="maxPrice" model-min="minSelectedPrice" model-max="maxSelectedPrice"></div>
+      <div
+              range-slider
+              min="minPrice"
+              max="maxPrice"
+              model-min="minSelectedPrice"
+              model-max="maxSelectedPrice"
+              show-values="true"
+              filter="i18nCurrency"
+              filter-options="{{$root.currencyCode}}"
+              attach-handle-values="true"></div>
       <hr>
       <h3>Star Rating</h3>
       <div class="stars">

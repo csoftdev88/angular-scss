@@ -65,8 +65,8 @@ angular.module('mobiusApp.directives.hotels', [])
           // hotels = undefined;
           scope.hotels = hotels || [];
 
-          scope.minPrice = _.chain(scope.hotels).pluck('priceFrom').min();
-          scope.maxPrice = _.chain(scope.hotels).pluck('priceFrom').max();
+          scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
+          scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
           scope.minSelectedPrice = scope.minPrice;
           scope.maxSelectedPrice = scope.maxPrice;
         });
