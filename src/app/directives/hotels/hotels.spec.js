@@ -24,7 +24,7 @@ describe('hotels directive', function() {
   beforeEach(function() {
     module('mobiusApp.factories.preloader', 'underscore');
 
-    module('mobiusApp.directives.hotels', function($provide) {
+    module('mobiusApp.directives.hotels', function($provide, $controllerProvider) {
       // Mocking the services
       $provide.value('bookingService', {
         getAPIParams: function(){
@@ -75,6 +75,8 @@ describe('hotels directive', function() {
       $provide.value('$state', {
         go: function(){}
       });
+
+      $controllerProvider.register('MainCtrl', function(){});
     });
   });
 
