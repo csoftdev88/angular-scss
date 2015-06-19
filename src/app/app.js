@@ -200,9 +200,4 @@ angular
       var $window = $injector.get('$window');
       $window.location.href = '/404';
     });
-  })
-
-  .run(function(user) {
-    user.loadProfile();
   });
-
