@@ -106,7 +106,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&region&children&adults&dates&rate&rooms'
+        url: '?property&region&children&adults&dates&rate&rooms&groupCode&corpCode&promoCode'
       })
 
       // Home page
