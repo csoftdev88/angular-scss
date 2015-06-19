@@ -9,8 +9,10 @@ describe('mobius.controllers.hotel.details', function() {
 
     var HOTEL_DETAILS = {
       nameShort: 'Mobius hotel',
-      previewImages: [
-        'http://testimage'
+      images: [
+        {
+          uri: 'http://testimage'
+        }
       ],
       long: 'testLong',
       lat: 'testLat'
