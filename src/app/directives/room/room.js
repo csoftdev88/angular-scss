@@ -3,8 +3,12 @@
 angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $window, Settings,
+<<<<<<< HEAD
   bookingService, propertyService, filtersService, preloaderFactory, _,
   modalService, $state) {
+=======
+  bookingService, propertyService, filtersService, modalService, preloaderFactory, _) {
+>>>>>>> feature/96864354/as-a-user-when-i-click
   return {
     restrict: 'E',
     templateUrl: 'directives/room/room.html',
@@ -80,6 +84,31 @@ angular.module('mobiusApp.directives.room', [])
         setRoomData(data.roomDetails);
         setRoomProductDetails(data.roomProductDetails);
       });
+
+      scope.onClickOnAssociatedRoom=function(associatedRoom){
+        modalService.openAssociatedRoomDetail(associatedRoom, propertyCode);
+      };
+
+      function selectBestProduct(){
+        // Note: Currently BAR doesn't have code provided so we are matching name against our settings
+        // This should be fixed later on the API side.
+        var bestProduct = $window._.findWhere(scope.products,
+          {name: Settings.bestAvailableRateCode}
+        );
+
+        if(bestProduct){
+          scope.onSelectProduct(bestProduct);
+        }
+      }
+
+      if(bookingParams.productGroupId){
+        getRoomProductDetails(propertyCode, roomCode, bookingParams);
+      } else{
+        // productGroupId is not set by the widget - getting default BAR
+        filtersService.getBestRateProduct().then(function(brp){
+          if(brp){
+            bookingParams.productGroupId = brp.id;
+          }
 
       preloaderFactory(promise);
     }

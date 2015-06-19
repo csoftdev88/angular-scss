@@ -11,6 +11,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_BADGES = 'BadgesCtrl',
       CONTROLLER_LOAYALTY = 'LoyaltyCtrl',
       CONTROLLER_GALLERY = 'GalleryCtrl',
+      CONTROLLER_ASSOCIATED_ROOM = 'AssociatedRoomCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -126,6 +127,20 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openAssociatedRoomDetail(roomDetails, propertyCode) {
+    return openDialog('associatedRooms', 'layouts/modals/associatedRooms.html', CONTROLLER_ASSOCIATED_ROOM, {
+      windowClass: 'associated-rooms-modal',
+      resolve: {
+        data: function(){
+          return roomDetails;
+        },
+        propertyCode: function(){
+          return propertyCode;
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     openCancelReservationDialog: openCancelReservationDialog,
@@ -137,6 +152,7 @@ angular.module('mobiusApp.services.modal', [])
     openBadgesDialog: openBadgesDialog,
     openLoyaltyDialog: openLoyaltyDialog,
     // gallery
-    openGallery: openGallery
+    openGallery: openGallery,
+    openAssociatedRoomDetail: openAssociatedRoomDetail
   };
 });

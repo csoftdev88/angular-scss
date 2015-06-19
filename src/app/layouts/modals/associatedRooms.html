@@ -1,0 +1,15 @@
+<div class="ui-info">
+  <div class="modal-header">
+    <h3 class="modal-title">{{roomDetails.name}} - <strong>{{roomDetails.bedTypeName}}</strong></h3>
+    <button class="button-close" ng-click="cancel()">X</button>
+  </div>
+  <div class="modal-body">
+  	<div class="associated-room-description">{{roomDetails.description}}</div>
+  	<span class="associated-room-price">{{roomDetails.priceFrom | i18nCurrency: currencyCode}}</span>
+  	<div class="associated-room-selected-image"><img ng-show="selectedImage" ng-src="{{selectedImage.uri}}" alt="{{roomDetails.name}}"></div>
+  	<div class="associtated-room-thumbnails" ng-repeat="image in roomDetails.images">
+       <img ng-src="{{image.uri}}" ng-click="onImageClick(image)">
+  	</div>
+  	<a ui-sref="room({propertyCode: propertyCode, roomID: roomDetails.code})" class="more" ng-click="onClickViewMore()">_view_more_</a>
+  </div>
+</div>

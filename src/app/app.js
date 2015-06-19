@@ -37,6 +37,7 @@ angular
     'mobius.controllers.modals.loyalties.badges',
     'mobius.controllers.modals.gallery',
     'mobius.controllers.room.details',
+    'mobius.controllers.modals.associatedRoom',
 
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
