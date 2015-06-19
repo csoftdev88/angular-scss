@@ -26,6 +26,7 @@ angular
     'mobius.controllers.about',
     'mobius.controllers.offers',
     'mobius.controllers.news',
+    'mobius.controllers.contacts',
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
     'mobius.controllers.modals.generic',
@@ -196,7 +197,8 @@ angular
       .state('contacts', {
         parent: 'root',
         templateUrl: 'layouts/contacts/contacts.html',
-        url: '/contacts'
+        url: '/contacts',
+        controller: 'ContactsCtrl'
       })
 
       // About Us oage
