@@ -54,6 +54,14 @@
           City, Country disctrict, Postal code
         </li>
       </ul> -->
+      <h4>How to get to us</h4>
+      <ul>
+        <li ng-repeat="direction in details.directions">
+          <img ng-src="{{direction.icon}}" err-source="http://lorempixel.com/20/20">
+          <span>{{direction.name}}</span>
+          <p>{{direction.description}}</p>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -131,7 +139,7 @@
     </div>
   </section>
 
-  <section class="hotel-detail__rooms" ng-if="!rooms.length">
+  <section class="hotel-detail__rooms" ng-if="rooms && !rooms.length">
     <hr />
     <div grid="12">
       <h2>_no_room_found_</h2>
