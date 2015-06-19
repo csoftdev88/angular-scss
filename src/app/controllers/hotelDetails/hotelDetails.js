@@ -22,9 +22,9 @@ angular.module('mobius.controllers.hotel.details', [])
       .then(function(details){
         $scope.details = details;
         // Updating Hero content images
-        if(details.previewImages){
-          var heroContent =  details.previewImages.map(function(src){
-            return {'image': src};
+        if(details.images){
+          var heroContent =  details.images.map(function(img){
+            return {'image': img.uri};
           });
 
           $scope.updateHeroContent(heroContent);
