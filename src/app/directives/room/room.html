@@ -59,7 +59,7 @@
       <li ng-repeat="otherRoom in otherRooms">
         <div ng-click="onClickOnAssociatedRoom(otherRoom)">
           <span>{{otherRoom.name}} from {{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span>
-          <a ui-sref="room({propertyCode: propertyCode, roomID: otherRoom.code})" class="more">_view_more_</a>
+          <a class="more">_view_more_</a>
           <img ng-show="otherRoom.images[0]" ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}">
         </div>
       </li>

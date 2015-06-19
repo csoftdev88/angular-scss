@@ -135,12 +135,15 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
-  function openAssociatedRoomDetail(roomDetails) {
-    return openDialog('associatedRooms', 'layouts/modals/imagesGallery.html', CONTROLLER_ASSOCIATED_ROOM, {
+  function openAssociatedRoomDetail(roomDetails, propertyCode) {
+    return openDialog('associatedRooms', 'layouts/modals/associatedRooms.html', CONTROLLER_ASSOCIATED_ROOM, {
       windowClass: 'associated-rooms-modal',
       resolve: {
         data: function(){
           return roomDetails;
+        },
+        propertyCode: function(){
+          return propertyCode;
         }
       }
     });

@@ -80,7 +80,7 @@ angular.module('mobiusApp.directives.room', [])
       };
 
       scope.onClickOnAssociatedRoom=function(associatedRoom){
-        modalService.openAssociatedRoomDetail(associatedRoom);
+        modalService.openAssociatedRoomDetail(associatedRoom, propertyCode);
       };
 
       function selectBestProduct(){
