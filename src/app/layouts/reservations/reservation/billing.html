@@ -1,6 +1,6 @@
 <reservation-billing>
   <h3>Card Details</h3>
-  <form name="billingForm" novalidate ng-submit="makeReservation()">
+  <form name="forms.billing" novalidate ng-submit="continue()">
     <label for="form-card-number" class="card-type" ng-class="{'has-icon': getCreditCardDetails(billingDetails.card.number).icon}">
       Card number
       <input type="text" id="form-card-number" name="cardNumber" luhn-check ng-model="billingDetails.card.number" required/>
@@ -32,44 +32,38 @@
     <div ng-if="!billingDetails.useGuestAddress">
       <label for="address">
         Address
-        <input type="text" name="address" ng-model="billingDetails.address" required/>
+        <input type="text" id="address" name="address" ng-model="billingDetails.address" required/>
       </label>
 
       <label for="city" class="input-left">
         City
-        <input type="text" name="city" ng-model="billingDetails.city" required/>
+        <input type="text" id="city" name="city" ng-model="billingDetails.city" required/>
       </label>
 
       <label for="state" class="input-right">
         State/Province
-        <input type="text" name="state" placeholder="State/Province" ng-model="billingDetails.stateProvince" required/>
+        <input type="text" id="state" name="state" placeholder="State/Province" ng-model="billingDetails.stateProvince" required/>
       </label>
 
       <label for="country">
         Country
-        <input type="text" name="country" ng-model="billingDetails.country" required/>
+        <input type="text" id="country" name="country" ng-model="billingDetails.country" required/>
       </label>
 
       <label for="postal-code" class="input-left">
         Zip/Postal Code
-        <input type="text" name="postal-code" ng-model="billingDetails.zip" required/>
+        <input type="text" id="postal-code" name="postal-code" ng-model="billingDetails.zip" required/>
       </label>
 
       <label for="telephone" class="input-right">
         Primary Telephone
-        <input type="text" name="telephone" ng-model="billingDetails.phone" required/>
+        <input type="text" id="telephone" name="telephone" ng-model="billingDetails.phone" required/>
       </label>
     </div>
 
-    <label class="form-errors centered" ng-if="billingForm.$invalid">
+    <label class="form-errors centered" ng-if="forms.billing.$invalid">
       Please fill out all the fields indicated
     </label>
 
-    <hr/>
-
-    <reservation-buttons>
-      <a href ng-click="goBack()" class="button button-gray back">_back_</a>
-      <button type="submit" ng-disabled="billingForm.$invalid" class="button next">_continue_</a>
-    </reservation-buttons>
   </form>
 </reservation-billing>

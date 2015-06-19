@@ -1,70 +1,56 @@
 <reservation-details-form ng-switch="isUserLoggedIn()">
   <div ng-switch-when="true" ng-init="prefillUserData()">
-    <h3>Your Details</h3>
+    <h3>Fill out your Details</h3>
 
-    <form name="detailsForm" novalidate ng-submit="navigateToBilling()">
-      <label for="title" class="input-left">
-        Title
-        <select name="title" required>
-          <option value="Mr">Mr</option>
-          <option value="Mrs">Mrs</option>
-          <option value="Ms">Ms</option>
-        </select>
-      </label>
-
-      <label for="first-name" class="input-right">
+    <form name="forms.details" novalidate ng-submit="continue()">
+      <label for="first-name" class="input-left">
         First name
-        <input type="text" name="first-name" ng-model="userDetails.firstName" required/>
+        <input type="text" id="first-name" name="first-name" ng-model="userDetails.firstName" required/>
       </label>
 
-      <label for="last-name">
+      <label for="last-name" class="input-right">
         Last name
-        <input type="text" name="last-name" ng-model="userDetails.lastName" required/>
+        <input type="text" id="last-name"name="last-name" ng-model="userDetails.lastName" required/>
       </label>
 
-      <label for="address">
-        Address
-        <input type="text" name="address" ng-model="userDetails.address" required/>
-      </label>
-
-      <label for="city" class="input-left">
-        City
-        <input type="text" name="city" ng-model="userDetails.city" required/>
-      </label>
-
-      <label for="state" class="input-right">
-        State/Province
-        <input type="text" name="state" placeholder="State/Province" ng-model="userDetails.stateProvince" required/>
-      </label>
-
-      <label for="country">
-        Country
-        <input type="text" name="country" ng-model="userDetails.country" required/>
-      </label>
-
-      <label for="postal-code" class="input-left">
-        Zip/Postal Code
-        <input type="text" name="postal-code" ng-model="userDetails.zip" required/>
+      <label for="email" class="input-left">
+        Email
+        <input type="email" id="email" name="email" ng-model="userDetails.email" required/>
       </label>
 
       <label for="telephone" class="input-right">
         Primary Telephone
-        <input type="text" name="telephone" ng-model="userDetails.phone" required/>
+        <input type="tel" id="telephone" name="telephone" ng-model="userDetails.phone" required/>
       </label>
 
-      <label class="form-errors centered" ng-if="detailsForm.$invalid">
+      <label for="address">
+        Address
+        <input type="text" id="address" name="address" ng-model="userDetails.address" required/>
+      </label>
+
+      <label for="city" class="input-left">
+        City
+        <input type="text" id="city" name="city" ng-model="userDetails.city" required/>
+      </label>
+
+      <label for="state" class="input-right">
+        State/Province
+        <input type="text" id="state" name="state" placeholder="State/Province" ng-model="userDetails.stateProvince" required/>
+      </label>
+
+      <label for="country">
+        Country
+        <input type="text" id="country"name="country" ng-model="userDetails.country" required/>
+      </label>
+
+      <label for="postal-code" class="input-left">
+        Zip/Postal Code
+        <input type="text" id="postal-code"name="postal-code" ng-model="userDetails.zip" required/>
+      </label>
+
+      <label class="form-errors centered" ng-if="forms.details.$invalid">
         Please fill out all the fields indicated
       </label>
-
-      <reservation-buttons>
-        <a href ng-click="goBack()" class="button button-gray back">_back_</a>
-        <button type="submit" ng-disabled="detailsForm.$invalid" class="button next">_continue_</a>
-      </reservation-buttons>
     </form>
-  </div>
-  <div ng-switch-when="false">
-    <reservation-buttons>
-      <a href ng-click="goBack()" class="button button-gray back">_back_</a>
-    </reservation-buttons>
   </div>
 </reservation-details-form>

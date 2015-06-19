@@ -48,6 +48,10 @@ describe('mobius.controllers.reservation', function() {
 
         $provide.value('filtersService', {});
 
+        $provide.value('userMessagesService', {
+          addInfoMessage: function(){}
+        });
+
         $provide.value('user', {
           getUser: function(){
             return {id: TEST_USER_ID};
@@ -163,10 +167,10 @@ describe('mobius.controllers.reservation', function() {
         expect(_spyCreateReservation.calledOnce).equal(true);
       });
 
-      it('should redirect to a confirmation state when reservation complete', function(){
+      it('should redirect to a after state when reservation complete', function(){
         _scope.makeReservation();
         expect(_spyStateGo.calledOnce).equal(true);
-        expect(_spyStateGo.calledWith('reservation.confirmation')).equal(true);
+        expect(_spyStateGo.calledWith('reservation.after')).equal(true);
       });
 
       describe('reservation params check', function() {
