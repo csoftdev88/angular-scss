@@ -77,7 +77,7 @@
       </table>
     </div>
     <p class="more-details">
-      <a href ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
+      <a href ng-click="openPriceBreakdownInfo(selectedProduct)">View Price Breakdown</a>
       <a href ng-click="readPolicies()">View Policies</a>
     </p>
   </reservation-room-resume>
@@ -90,7 +90,7 @@
 
   <registration-call ng-if="!isUserLoggedIn()">
     <h4>Already Registered?</h4>
-    <p>Click here to <a href ng-click="openLoginDialog()">log in</a> or <a href ng-click="openRegisterDialog()">register</a>.</p>
+    <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
   </registration-call>
 
   <hr/>

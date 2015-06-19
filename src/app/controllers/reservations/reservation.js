@@ -34,11 +34,8 @@ angular.module('mobius.controllers.reservation', [])
   // Getting room/products data
   var roomDataPromise = $scope.getRoomData(
     $stateParams.property, $stateParams.roomID).then(function(data){
-    // Data[0] - ROOM DETAILS
-    $scope.setRoomDetails(data[0]);
-
-    // Data[1] - products
-    setProductDetails(data[1].products);
+    $scope.setRoomDetails(data.roomDetails);
+    setProductDetails(data.roomProductDetails.products);
   }, function(){
     $state.go('hotel');
   });
@@ -60,7 +57,7 @@ angular.module('mobius.controllers.reservation', [])
       return;
     }
 
-    $scope.selectProduct(product);
+    $scope.selectedProduct = product;
   }
 
   $scope.goBack = function(){
@@ -145,7 +142,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.readPolicies = function(){
     $scope.hasReadRatePolicies = true;
-    $scope.openPoliciesInfo();
+    $scope.openPoliciesInfo($scope.selectedProduct);
   };
 
   $scope.prefillUserData = function(){
@@ -187,8 +184,4 @@ angular.module('mobius.controllers.reservation', [])
   // This data is used in view
   $scope.bookingDetails = bookingService.getAPIParams();
   $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
-
-  // If not logged in user
-  $scope.openLoginDialog = modalService.openLoginDialog;
-  $scope.openRegisterDialog = modalService.openRegisterDialog;
 });

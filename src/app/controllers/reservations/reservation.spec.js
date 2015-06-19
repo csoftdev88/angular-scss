@@ -101,11 +101,11 @@ describe('mobius.controllers.reservation', function() {
         expect(_scope.hasReadRatePolicies).equal(true);
       });
 
-      it('should open policies dialogue with currently selected product', function() {
-        _scope.readPolicies();
-        expect(_spyOpenPoliciesInfo.calledOnce).equal(true);
-        expect(_spyOpenPoliciesInfo.calledWith({test: 123})).equal(true);
-      });
+      //it('should open policies dialogue with currently selected product', function() {
+      //  _scope.readPolicies();
+      //  expect(_spyOpenPoliciesInfo.calledOnce).equal(true);
+      //  expect(_spyOpenPoliciesInfo.calledWith({test: 123})).equal(true);
+      //});
     });
 
     describe('getCreditCardDetails', function() {
