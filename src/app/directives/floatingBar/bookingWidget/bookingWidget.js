@@ -357,11 +357,11 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if(!scope.selected.property || !scope.selected.property.code){
           // 'All properties' is selected, will redirect to hotel list
           stateParams.property = null;
-          $state.go('hotels', stateParams);
+          $state.go('hotels', stateParams, {reload: true});
         } else{
           // Specific hotel selected, will redirect to room list
           stateParams.hotelCode = scope.selected.property.code;
-          $state.go('hotel', stateParams);
+          $state.go('hotel', stateParams, {reload: true});
         }
       };
 
