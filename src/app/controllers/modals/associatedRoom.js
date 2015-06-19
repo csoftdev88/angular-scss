@@ -21,5 +21,5 @@ angular.module('mobius.controllers.modals.associatedRoom', [])
 
   $scope.onClickViewMore = function() {
     $modalInstance.dismiss();
-  }
+  };
 });
