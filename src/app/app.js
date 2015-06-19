@@ -165,17 +165,17 @@ angular
 
       .state('reservation.details', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/details.html',
+        templateUrl: 'layouts/reservations/reservation/details.html'
       })
 
       .state('reservation.billing', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/billing.html',
+        templateUrl: 'layouts/reservations/reservation/billing.html'
       })
 
       .state('reservation.confirmation', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/confirmation.html',
+        templateUrl: 'layouts/reservations/reservation/confirmation.html'
       })
 
       .state('offers', {
