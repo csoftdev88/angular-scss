@@ -82,8 +82,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // NOTE: Hotel is presented in the URL by using property/hotel code
       // Currently selected form values
       scope.selected = {
-        'children': undefined,
-        'adults': undefined,
+        'children': scope.settings.children.min,
+        'adults': scope.settings.adults.min,
         'property': undefined,
         'region': undefined,
         // NOTE: dates might be presented as start/end date

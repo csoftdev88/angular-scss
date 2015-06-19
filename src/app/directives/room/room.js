@@ -21,9 +21,9 @@ angular.module('mobiusApp.directives.room', [])
       var roomCode = $stateParams.roomID;
 
       // Getting room details
-      var roomDetailsPromise = propertyService.getRoomDetails(propertyCode, roomCode).then(function(data){
+      function setRoomData(data){
         // Inherited from RoomDetailsCtrl
-        scope.roomDetails = data;
+        scope.setRoomDetails(data);
 
         // Updating hero slider images
         var heroContent =  data.images.map(function(image){
@@ -48,62 +48,40 @@ angular.module('mobiusApp.directives.room', [])
 
             scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
           });
-      });
-
-      preloaderFactory(roomDetailsPromise);
+      }
 
       // Room product details
-      function getRoomProductDetails(propertyCode, roomCode, params) {
-        propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data) {
-          scope.products = _.map(_.where(data.products, {memberOnly: true})
-            .concat(
-            _.where(data.products, {highlighted: true}),
-            _.reject(data.products, function(product) {
-              return product.memberOnly || product.highlighted;
-            })
-          ), function(product) {
-            var descriptionShort = angular.element(product.description).text();
-            product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
-            product.hasViewMore = product.descriptionShort.length < descriptionShort;
-            if(product.hasViewMore) {
-              product.descriptionShort += '…';
-            }
-            return product;
-          });
-        });
-      }
-
-      scope.showMore = function(product, expanded) {
-        product._expanded = expanded;
-      };
-
-      //scope.selectProduct=function(product){
-      //  $state.go('reservation.details', {productCode: product.code});
-      //};
-
-      if(bookingParams.productGroupId){
-        getRoomProductDetails(propertyCode, roomCode, bookingParams);
-      } else{
-        // productGroupId is not set by the widget - getting default BAR
-        filtersService.getBestRateProduct().then(function(brp){
-          if(brp){
-            bookingParams.productGroupId = brp.id;
+      function setRoomProductDetails(data) {
+        scope.products = _.map(_.where(data.products, {memberOnly: true})
+          .concat(
+          _.where(data.products, {highlighted: true}),
+          _.reject(data.products, function(product) {
+            return product.memberOnly || product.highlighted;
+          })
+        ), function(product) {
+          var descriptionShort = angular.element(product.description).text();
+          product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
+          product.hasViewMore = product.descriptionShort.length < descriptionShort;
+          if (product.hasViewMore) {
+            product.descriptionShort += '…';
           }
-
-          getRoomProductDetails(propertyCode, roomCode, bookingParams);
+          return product;
         });
       }
 
-      scope.onContinue = function(){
-        if(!scope.selectedProduct){
-          return;
-        }
-
+      scope.selectProduct = function(product) {
         $state.go('reservation.details', {
           roomID: roomCode,
-          productCode: scope.selectedProduct.code
+          productCode: product.code
         });
       };
+
+      var promise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
+        setRoomData(data.roomDetails);
+        setRoomProductDetails(data.roomProductDetails);
+      });
+
+      preloaderFactory(promise);
     }
   };
 });
