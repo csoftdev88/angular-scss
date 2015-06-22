@@ -60,7 +60,6 @@ describe('mobius.controllers.hotel.details', function() {
           }
         });
 
-        $provide.value('locationService', {});
         $provide.value('modalService', {});
       });
     });
@@ -117,12 +116,6 @@ describe('mobius.controllers.hotel.details', function() {
       it('should update hero images when previewImages are provided', function() {
         expect(_spyUpdateHeroContent.calledOnce).equal(true);
         expect(_spyUpdateHeroContent.calledWith([{image: 'http://testimage'}])).equal(true);
-      });
-
-      it('should define position object on scope based on hotel geo data', function() {
-        expect(_scope.position.length).equal(2);
-        expect(_scope.position[0]).equal('testLat');
-        expect(_scope.position[1]).equal('testLong');
       });
     });
   });

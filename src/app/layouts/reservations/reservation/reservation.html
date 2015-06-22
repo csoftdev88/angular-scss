@@ -61,7 +61,7 @@
           <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <!-- Additional fees -->
+        <!-- Discount -->
         <tr ng-if="selectedProduct.price.totalDiscount">
           <th>Discount:</th>
           <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>

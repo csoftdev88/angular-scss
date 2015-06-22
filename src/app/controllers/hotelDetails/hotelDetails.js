@@ -30,10 +30,6 @@ angular.module('mobius.controllers.hotel.details', [])
           $scope.updateHeroContent(heroContent);
         }
 
-        if(angular.isDefined(details.lat) && angular.isDefined(details.long)){
-          $scope.position = [details.lat, details.long];
-        }
-
         if(details.availability) {
           $scope.rooms = details.availability.rooms || [];
         }

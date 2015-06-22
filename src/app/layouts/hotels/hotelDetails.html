@@ -17,48 +17,10 @@
     </view-more-images>
   </section>
 
-  <section ng-if="position" grid-row>
+  <section grid-row>
     <hr />
     <div grid="12">
-      <h2>{{details.nameShort}} <strong>Location</strong></h2>
-      <map
-        zoom="18"
-        max-zoom="18"
-        min-zoom="8"
-        scrollwheel="false"
-        center="{{position}}">
-        <marker
-          position="{{position}}"
-          title="{{details.nameShort}}"></marker>
-      </map>
-      <!-- TODO: this should also be filled with the data from API -->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
-      <!-- contact information and hot to get to us information
-           should follow here
-      <ul class="contact-information">
-        <li>
-          <i class="fa fa-phone"></i>
-          <strong>Telephone:</strong> XXX.XXX.XXX
-        </li>
-        <li>
-          <i class="fa fa-phone"></i>
-          <strong>Email:</strong> info_vancouver@suttonplace.com
-        </li>
-        <li>
-          <i class="fa fa-phone"></i>
-          <strong>Address:</strong>
-          Street,<br />
-          City, Country disctrict, Postal code
-        </li>
-      </ul> -->
-      <h3>How to get to us</h3>
-      <transportation-list>
-        <transportation-item ng-repeat="direction in details.directions">
-          <h4>{{direction.name}}</h4>
-          <img ng-src="{{direction.icon}}" err-source="http://lorempixel.com/20/20">
-          <p>{{direction.description}}</p>
-        </transportation-item>
-      </transportation-list>
+      <hotel-location hotel-details="details"></hotel-location>
     </div>
   </section>
 

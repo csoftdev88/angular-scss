@@ -84,6 +84,7 @@ angular
     'mobiusApp.directives.chosenOptionsClass',
     'mobiusApp.directives.luhnCheck',
     'mobiusApp.directives.monthPicker',
+    'mobiusApp.directives.hotelLocation',
 
     // Directive based on content data
     'mobiusApp.directives.menu',
