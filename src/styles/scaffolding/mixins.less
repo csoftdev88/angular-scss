@@ -1,0 +1,29 @@
+////////////////
+//// MIXINS ////
+////////////////
+
+// these are the mixins copied from v2 that can be used in v4
+// add more if needed
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+      content: " ";
+      display: table;
+  }
+
+  &:after {
+      clear: both;
+  }
+}
+
+// image replacement
+.ir() {
+  font: ~"0/0";
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
