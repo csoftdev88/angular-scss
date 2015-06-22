@@ -1,90 +1,92 @@
-<!-- RESERVATION DETAILS -->
-<div widget="reservation" grid="7">
-  <!-- SUBVIEWS -->
-  <ui-view>
-  </ui-view>
-</div>
-<div grid="5">
-  <p class="more-details">
-    <a href ng-click="openPriceBreakdownInfo(selectedProduct)">View Price Breakdown</a>
-    <a href ng-click="readPolicies()">View Policies</a>
-  </p>
-
-  <div class="room-data">
-    <p>{{property.nameLong}}</p>
-    <h4>{{roomDetails.name}}</h4>
-
-    <p class="desc">{{selectedProduct.name}}</p>
-    <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
-
-    <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
-      night</em></p>
+<reservation-widget grid-row>
+  <!-- RESERVATION DETAILS -->
+  <div grid="7">
+    <!-- SUBVIEWS -->
+    <ui-view>
+    </ui-view>
   </div>
-  <div class="reservation-data">
-    <table class="data">
-      <tbody>
-        <tr>
-          <th>Check in:</th>
-          <td>{{bookingDetails.from | dateTime}}</td>
-          <th>Adults:</th>
-          <td>{{bookingDetails.adults || 0}}</td>
-        </tr>
-        <tr>
-          <th>Check out:</th>
-          <td>{{bookingDetails.to | dateTime}}</td>
-          <th>Children:</th>
-          <td>{{bookingDetails.children || 0}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div grid="5">
+    <p class="more-details">
+      <a href ng-click="openPriceBreakdownInfo(selectedProduct)">View Price Breakdown</a>
+      <a href ng-click="readPolicies()">View Policies</a>
+    </p>
 
-    <table class="charges">
-      <thead ng-switch="billingDetails.paymentMethod">
-      <tr ng-switch-when="cc">
-        <th>Room Charges:</th>
-        <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
-        <th rowspan="4">Total:</th>
-        <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
-      </tr>
-      <tr ng-switch-when="point">
-        <td>{{selectedProduct.price.pointsRequired}} points</td>
-      </tr>
-      <tr ng-switch-default>
-        <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}} or {{selectedProduct.price.pointsRequired}} points</td>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Additional taxes -->
-      <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
-        <th>Taxes:</th>
-        <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</td>
-      </tr>
+    <div class="room-data">
+      <p>{{property.nameLong}}</p>
+      <h4>{{roomDetails.name}}</h4>
 
-      <!-- Additional fees -->
-      <tr ng-if="selectedProduct.price.totalAdditionalFees">
-        <th>Fees:</th>
-        <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
-      </tr>
+      <p class="desc">{{selectedProduct.name}}</p>
+      <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
 
-      <!-- Discount -->
-      <tr ng-if="selectedProduct.price.totalDiscount">
-        <th>Discount:</th>
-        <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
-      </tr>
+      <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
+        night</em></p>
+    </div>
+    <div class="reservation-data">
+      <table class="data">
+        <tbody>
+          <tr>
+            <th>Check in:</th>
+            <td>{{bookingDetails.from | dateTime}}</td>
+            <th>Adults:</th>
+            <td>{{bookingDetails.adults || 0}}</td>
+          </tr>
+          <tr>
+            <th>Check out:</th>
+            <td>{{bookingDetails.to | dateTime}}</td>
+            <th>Children:</th>
+            <td>{{bookingDetails.children || 0}}</td>
+          </tr>
+        </tbody>
+      </table>
 
-      </tbody>
-    </table>
+      <table class="charges">
+        <thead ng-switch="billingDetails.paymentMethod">
+          <tr ng-switch-when="cc">
+            <th>Room Charges:</th>
+            <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
+            <th rowspan="4">Total:</th>
+            <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+          <tr ng-switch-when="points">
+            <td>{{selectedProduct.price.pointsRequired}} points</td>
+          </tr>
+          <tr ng-switch-default>
+            <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}} or {{selectedProduct.price.pointsRequired}} points</td>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Additional taxes -->
+          <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
+            <th>Taxes:</th>
+            <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+
+          <!-- Additional fees -->
+          <tr ng-if="selectedProduct.price.totalAdditionalFees">
+            <th>Fees:</th>
+            <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+
+          <!-- Discount -->
+          <tr ng-if="selectedProduct.price.totalDiscount">
+            <th>Discount:</th>
+            <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
-<span class="alert-warning" ng-if="invalidFormData">
-  We are sorry, your payment was not authorized. Please check the policies, your details and try again.
-</span>
+  <span class="alert-warning" ng-if="invalidFormData">
+    We are sorry, your payment was not authorized. Please check the policies, your details and try again.
+  </span>
 
-<button ng-click="goBack()">Back</button>
-<registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details')">
-  <h4>Already Registered?</h4>
+  <button ng-click="goBack()">Back</button>
+  <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details')">
+    <h4>Already Registered?</h4>
 
-  <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
-</registration-call>
-<button ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
+    <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
+  </registration-call>
+  <button ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
+</reservation-container>

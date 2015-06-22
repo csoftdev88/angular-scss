@@ -4,48 +4,66 @@
 
     <form name="forms.details" novalidate ng-submit="forms.details.$valid && continue()">
       <label for="first-name" class="input-left">
-        First name
-        <input type="text" id="first-name" name="first-name" ng-model="userDetails.firstName" required/>
+        <input type="text" id="first-name" required
+          placeholder="First Name"
+          ng-model="userDetails.firstName" />
+        <span>First Name</span>
       </label>
 
       <label for="last-name" class="input-right">
-        Last name
-        <input type="text" id="last-name"name="last-name" ng-model="userDetails.lastName" required/>
+        <input type="text" id="last-name" required
+          placeholder="Last Name"
+          ng-model="userDetails.lastName" />
+        <span>Last name</span>
       </label>
 
       <label for="email" class="input-left">
-        Email
-        <input type="email" id="email" name="email" ng-model="userDetails.email" required/>
+        <input type="email" id="email" required
+          placeholder="Email"
+          ng-model="userDetails.email" />
+        <span>Email</span>
       </label>
 
       <label for="telephone" class="input-right">
-        Primary Telephone
-        <input type="tel" id="telephone" name="telephone" ng-model="userDetails.phone" required/>
+        <input type="text" id="telephone" required
+          placeholder="Phone"
+          ng-model="userDetails.phone" />
+        <span>Phone</span>
       </label>
 
       <label for="address">
-        Address
-        <input type="text" id="address" name="address" ng-model="userDetails.address" required/>
+        <input type="text" id="address" required
+          placeholder="Address"
+          ng-model="userDetails.address" />
+        <span>Address</span>
       </label>
 
       <label for="city" class="input-left">
-        City
-        <input type="text" id="city" name="city" ng-model="userDetails.city" required/>
+        <input type="text" id="city" required
+          placeholder="City"
+          ng-model="userDetails.city" />
+        <span>City</span>
       </label>
 
-      <label for="state" class="input-right">
-        State/Province
-        <input type="text" id="state" name="state" placeholder="State/Province" ng-model="userDetails.stateProvince" required/>
+      <label for="country" class="input-right">
+        <input type="text" id="country" required
+         placeholder="Country"
+         ng-model="userDetails.country" />
+        <span>Country</span>
       </label>
 
-      <label for="country">
-        Country
-        <input type="text" id="country"name="country" ng-model="userDetails.country" required/>
+      <label for="state">
+        <input type="text" id="state" required
+          placeholder="State/Province"
+          ng-model="userDetails.stateProvince" />
+        <span>State/Province</span>
       </label>
 
       <label for="postal-code" class="input-left">
-        Zip/Postal Code
-        <input type="text" id="postal-code"name="postal-code" ng-model="userDetails.zip" required/>
+        <span>Zip/Postal Code</span>
+        <input type="text" id="postal-code" required
+          placeholder="Zip Code"
+          ng-model="userDetails.zip" />
       </label>
 
       <label class="form-errors centered" ng-if="forms.details.$invalid">

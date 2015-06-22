@@ -85,37 +85,6 @@ reservation-steps {
   }
 }
 
-[widget="reservations"] {
-  float: none;
-  margin: 0 10px;
-
-  @media screen and @moreThenMobile and @lessThenTabletPortrait {
-    width: auto;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  @media screen and @moreThenTabletPortrait {
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: @baseline * 3;
-  }
-
-  h3 {
-    .fs-21;
-    .line-height(21, 2);
-    font-weight: 300;
-    .margin-top-bottom(21, 1);
-  }
-
-  reservation-details-form,
-  reservation-billing {
-    h3 {
-      margin-bottom: 0;
-    }
-  }
-}
-
 reservation-billing {
   .cards {
     cursor: pointer;
