@@ -59,7 +59,7 @@
         <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
       </tr>
 
-      <!-- Additional fees -->
+      <!-- Discount -->
       <tr ng-if="selectedProduct.price.totalDiscount">
         <th>Discount:</th>
         <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
@@ -77,7 +77,7 @@
 
 <hr />
 
-<h3>Hotel Mobius Tunis Location</h3>
+<hotel-location hotel-details="property"></hotel-location>
 
 <hr />
 
