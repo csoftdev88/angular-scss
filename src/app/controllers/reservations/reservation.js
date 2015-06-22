@@ -55,7 +55,7 @@ angular.module('mobius.controllers.reservation', [])
       securityCode: '',
       holderName: ''
     },
-    paymentMethod: null, // 'cc','paypal','bitcoint','point','bill'
+    paymentMethod: null, // 'cc','paypal','bitcoint','points','bill'
     useGuestAddress: true
   };
 
@@ -127,6 +127,23 @@ angular.module('mobius.controllers.reservation', [])
     }
   };
 
+  $scope.selectPaymentMethod = function(paymentMethod) {
+    switch (paymentMethod) {
+    case 'cc':
+      $scope.billingDetails.paymentMethod = 'cc';
+      break;
+    case 'points':
+      $scope.billingDetails.paymentMethod = 'points';
+      $scope.pointsData = {};
+      $scope.pointsData.currentPoints = user.getUser().loyalties.amount;
+      $scope.pointsData.pointsEarned = $scope.selectedProduct.price.pointsEarned;
+      $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints +
+        $scope.selectedProduct.price.pointsEarned - $scope.selectedProduct.price.pointsRequired;
+      break;
+    default:
+      $scope.billingDetails.paymentMethod = 'cc';
+    }
+  };
   $scope.isValid = function() {
     switch($state.current.name){
     case 'reservation.details':
