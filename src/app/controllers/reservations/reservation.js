@@ -7,7 +7,7 @@ angular.module('mobius.controllers.reservation', [])
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
-  $rootScope, userMessagesService){
+  $rootScope, userMessagesService, propertyService){
 
   function setContinueName(stateName) {
     switch (stateName) {
@@ -51,6 +51,7 @@ angular.module('mobius.controllers.reservation', [])
       securityCode: '',
       holderName: ''
     },
+    paymentMethod: null, // 'cc','paypal','bitcoint','point','bill'
     useGuestAddress: true
   };
 
@@ -62,6 +63,10 @@ angular.module('mobius.controllers.reservation', [])
     $stateParams.property, $stateParams.roomID).then(function(data){
     $scope.setRoomDetails(data.roomDetails);
     setProductDetails(data.roomProductDetails.products);
+
+    return propertyService.getPropertyDetails(data.roomDetails.propertytCode).then(function(property) {
+      $scope.property = property;
+    });
   }, function(){
     $state.go('hotel');
   });
@@ -135,7 +140,7 @@ angular.module('mobius.controllers.reservation', [])
       rooms: getRooms(),
       customer: user.getUser().id,
       paymentInfo: {
-        paymentMethod: 'cc', // credit card,
+        paymentMethod: $scope.billingDetails.paymentMethod,
         ccPayment: {
           holderName: $scope.billingDetails.card.holderName,
           number: $scope.billingDetails.card.number,
@@ -157,6 +162,12 @@ angular.module('mobius.controllers.reservation', [])
     var reservationPromise = reservationService.createReservation(reservationData)
       .then(function(data){
         $scope.reservation = data;
+        if(!$scope.reservation.bookDate) {
+          $scope.reservation.bookDate = $window.moment();
+        } else {
+          $scope.reservation.bookDate = $window.moment($scope.reservation.bookDate);
+        }
+        $scope.reservation.bookDateFormatted = $scope.reservation.bookDate.format('D MMM YYYY');
 
         userMessagesService.addInfoMessage('' +
           '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +

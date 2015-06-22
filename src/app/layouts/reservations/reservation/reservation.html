@@ -11,6 +11,7 @@
   </p>
 
   <div class="room-data">
+    <p>{{property.nameLong}}</p>
     <h4>{{roomDetails.name}}</h4>
 
     <p class="desc">{{selectedProduct.name}}</p>
@@ -39,12 +40,12 @@
 
     <table class="charges">
       <tbody>
-        <tr ng-switch="payWith">
+        <tr ng-switch="billingDetails.paymentMethod">
           <th>Room Charges:</th>
           <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
           <th rowspan="4">Total:</th>
-          <td ng-switch-when="cash">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
-          <td ng-switch-when="points">{{toPoints(selectedProduct.price.totalAfterTax)}} points</td>
+          <td ng-switch-when="cc">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
+          <td ng-switch-when="point">{{toPoints(selectedProduct.price.totalAfterTax)}} points</td>
           <td ng-switch-default>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}} or {{toPoints(selectedProduct.price.totalAfterTax)}} points</td>
         </tr>
 
@@ -81,5 +82,4 @@
 
   <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
 </registration-call>
-{{state.current.name}}
 <button ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>

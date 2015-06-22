@@ -1,1 +1,84 @@
-<p>After reservation is submitted</p>
+<h1>{{property.nameLong}}</h1>
+
+<div>
+  <p>Your reference:</p>
+
+  <p>{{reservation.reservationCode}}</p>
+</div>
+
+<div>
+  Booked: {{reservation.bookDateFormatted}}
+</div>
+
+<div>
+  <p>Add to Passbook</p>
+  <p>Print</p>
+</div>
+
+<img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
+<h4>{{roomDetails.name}}</h4>
+<p class="desc">{{selectedProduct.name}}</p>
+
+<div class="reservation-data">
+  <table class="data">
+    <tbody>
+      <tr>
+        <th>Check in:</th>
+        <td>{{bookingDetails.from | dateTime}}</td>
+        <th>Adults:</th>
+        <td>{{bookingDetails.adults || 0}}</td>
+      </tr>
+      <tr>
+        <th>Check out:</th>
+        <td>{{bookingDetails.to | dateTime}}</td>
+        <th>Children:</th>
+        <td>{{bookingDetails.children || 0}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="charges">
+    <tbody>
+      <tr ng-switch="billingDetails.paymentMethod">
+        <th>Room Charges:</th>
+        <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
+        <th rowspan="4">Total:</th>
+        <td ng-switch-when="cc"><a href ng-click="openPriceBreakdownInfo(selectedProduct)">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</a></td>
+        <td ng-switch-when="point"><a href ng-click="openPriceBreakdownInfo(selectedProduct)">{{toPoints(selectedProduct.price.totalAfterTax)}} points</a></td>
+      </tr>
+
+      <!-- Additional taxes -->
+      <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
+        <th>Taxes:</th>
+        <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
+
+      <!-- Additional fees -->
+      <tr ng-if="selectedProduct.price.totalAdditionalFees">
+        <th>Fees:</th>
+        <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
+
+      <!-- Additional fees -->
+      <tr ng-if="selectedProduct.price.totalDiscount">
+        <th>Discount:</th>
+        <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <p><a href ng-click="readPolicies()">View Policies</a></p>
+</div>
+
+<hr />
+
+<h3>Enhance Your Stay With</h3>
+
+<hr />
+
+<h3>Hotel Mobius Tunis Location</h3>
+
+<hr />
+
+<h3>Your Enhancements</h3>
