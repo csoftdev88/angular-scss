@@ -18,8 +18,7 @@
     {{reservation.rooms[0].packageName}}
 
 
-    {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}
-    Check In: 123
-
+    Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}
+    Check In: {{reservation.arrivalDate | checkInDate }}
   </reservation-hotel>
 </div>

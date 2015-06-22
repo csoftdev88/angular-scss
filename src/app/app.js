@@ -103,7 +103,8 @@ angular
     'mobiusApp.filters.number',
     'mobiusApp.filters.currency',
     'mobiusApp.filters.pluralization',
-    'mobius.filters.dateTime'
+    'mobius.filters.dateTime',
+    'mobius.filters.checkInDate'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
