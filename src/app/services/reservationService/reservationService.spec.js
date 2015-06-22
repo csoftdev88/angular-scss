@@ -49,4 +49,14 @@ describe('reservationService', function() {
       expect(_apiPostSpy.calledOnce).equal(true);
     });
   });
+
+  describe('modifyReservation', function() {
+    it('should fire a POST request to reservations API', function() {
+      _reservationService.modifyReservation('RESCODE');
+      expect(_apiGetFullURLSpy.calledOnce).equal(true);
+      expect(_apiGetFullURLSpy.calledWith('reservations.modify', {reservationCode: 'RESCODE'})).equal(true);
+
+      expect(_apiPostSpy.calledOnce).equal(true);
+    });
+  });
 });

@@ -71,6 +71,7 @@ angular.module('mobiusApp.directives.room', [])
 
       scope.selectProduct = function(product) {
         $state.go('reservation.details', {
+          property: propertyCode,
           roomID: roomCode,
           productCode: product.code
         });

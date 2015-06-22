@@ -4,10 +4,15 @@
  */
 angular.module('mobius.controllers.reservation', [])
 
+// TODO: extract after reservation logic and template into reservation detail controller
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
-  $rootScope, userMessagesService, propertyService){
+  $rootScope, userMessagesService, propertyService, $q){
+
+  // This data is used in view
+  $scope.bookingDetails = bookingService.getAPIParams();
+  $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
 
   function setContinueName(stateName) {
     switch (stateName) {
@@ -63,16 +68,33 @@ angular.module('mobius.controllers.reservation', [])
     $stateParams.property, $stateParams.roomID).then(function(data){
     $scope.setRoomDetails(data.roomDetails);
     setProductDetails(data.roomProductDetails.products);
-
-    return propertyService.getPropertyDetails(data.roomDetails.propertytCode).then(function(property) {
-      $scope.property = property;
-    });
   }, function(){
     $state.go('hotel');
   });
 
+  var propertyPromise = propertyService.getPropertyDetails($stateParams.property).then(function(property) {
+    $scope.property = property;
+  });
+
+  var SHORT_DESCRIPTION_LENGTH = 100;
+
+  var extrasPromise = propertyService.getRoomProductAddOns($stateParams.property, $stateParams.roomID, $stateParams.productCode, {
+    from: $scope.bookingDetails.from,
+    to: $scope.bookingDetails.to,
+    customerId: user.getUser().id
+  }).then(function(addons) {
+      $scope.addons = $window._.map(addons, function(addon) {
+        addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+        addon.hasViewMore = addon.descriptionShort.length < addon.description;
+        if (addon.hasViewMore) {
+          addon.descriptionShort += '…';
+        }
+        return addon;
+      });
+    });
+
   // Showing loading mask
-  preloaderFactory(roomDataPromise);
+  preloaderFactory($q.all([roomDataPromise, propertyPromise, extrasPromise]));
 
   function setProductDetails(products){
     // Finding the product which user about to book
@@ -121,22 +143,21 @@ angular.module('mobius.controllers.reservation', [])
     if ($scope.isValid()) {
       switch ($state.current.name) {
       case 'reservation.details':
-        return $state.go('reservation.billing');
+        return $state.go('reservation.billing') && true;
       case 'reservation.billing':
-        return $state.go('reservation.confirmation');
+        return $state.go('reservation.confirmation') && true;
       case 'reservation.confirmation':
-        return $scope.makeReservation();
+        return $scope.makeReservation() && true;
       }
     }
   };
 
-  $scope.makeReservation = function(){
-    $scope.invalidFormData = false;
-
+  function createReservationData() {
     var reservationData = {
       arrivalDate: $scope.bookingDetails.from,
       departureDate: $scope.bookingDetails.to,
       hasReadRatePolicies: $scope.hasReadRatePolicies || false,
+      packages: $scope.reservation ? $scope.reservation.packages : undefined,
       rooms: getRooms(),
       customer: user.getUser().id,
       paymentInfo: {
@@ -156,9 +177,16 @@ angular.module('mobius.controllers.reservation', [])
     };
 
     if($scope.bookingDetails.promoCode){
-      reservationData.promoCode = $scope.bookingDetails.promoCode;
+      reservationData[bookingService.getCodeParamName($scope.bookingDetails.promoCode)] = $scope.bookingDetails.promoCode;
     }
 
+    return reservationData;
+  }
+
+  $scope.makeReservation = function(){
+    $scope.invalidFormData = false;
+
+    var reservationData = createReservationData();
     var reservationPromise = reservationService.createReservation(reservationData)
       .then(function(data){
         $scope.reservation = data;
@@ -168,6 +196,7 @@ angular.module('mobius.controllers.reservation', [])
           $scope.reservation.bookDate = $window.moment($scope.reservation.bookDate);
         }
         $scope.reservation.bookDateFormatted = $scope.reservation.bookDate.format('D MMM YYYY');
+        $scope.reservation.packages = [];
 
         userMessagesService.addInfoMessage('' +
           '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
@@ -239,7 +268,33 @@ angular.module('mobius.controllers.reservation', [])
     return null;
   };
 
-  // This data is used in view
-  $scope.bookingDetails = bookingService.getAPIParams();
-  $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
+  $scope.modifyReservation = function(onError) {
+    var reservationData = createReservationData();
+    var reservationPromise = reservationService.modifyReservation($scope.reservation.reservationCode, reservationData).then(
+      function() {
+        // TODO ?
+    },
+      function(error) {
+        if (error && error.error && error.error.msg) {
+          userMessagesService.addInfoMessage('<p>' + error.error.msg + '</p>');
+        } else {
+          userMessagesService.addInfoMessage('<p>Unknown error</p>');
+        }
+        if (onError) {
+          onError(error);
+        }
+      }
+    );
+
+    preloaderFactory(reservationPromise);
+  };
+
+  $scope.addAddon = function(addon) {
+    if($scope.reservation.packages.indexOf(addon.code) === -1) {
+      $scope.reservation.packages.push(addon.code);
+      $scope.modifyReservation(function() {
+        $scope.reservation.packages.splice($scope.reservation.packages.indexOf(addon.code), 1);
+      });
+    }
+  };
 });

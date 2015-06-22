@@ -2,7 +2,7 @@
   <div ng-switch-when="true" ng-init="prefillUserData()">
     <h3>Fill out your Details</h3>
 
-    <form name="forms.details" novalidate ng-submit="continue()">
+    <form name="forms.details" novalidate ng-submit="forms.details.$valid && continue()">
       <label for="first-name" class="input-left">
         First name
         <input type="text" id="first-name" name="first-name" ng-model="userDetails.firstName" required/>
