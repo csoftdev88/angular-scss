@@ -1,6 +1,6 @@
 <reservation-billing>
   <h3>Card Details</h3>
-  <form name="forms.billing" novalidate ng-submit="continue()">
+  <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()">
     <label for="form-card-number" class="card-type" ng-class="{'has-icon': getCreditCardDetails(billingDetails.card.number).icon}">
       Card number
       <input type="text" id="form-card-number" name="cardNumber" luhn-check ng-model="billingDetails.card.number" required/>

@@ -25,13 +25,16 @@ angular.module('mobiusApp.config', [])
       'room': {
         'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
-        'productDetails': 'properties/:propertyCode/rooms/:roomTypeCode/products'
+        'product': {
+          all: 'properties/:propertyCode/rooms/:roomTypeCode/products',
+          addons: 'properties/:propertyCode/rooms/:roomTypeCode/products/:productCode/addons/'
+        }
       }
     },
     'locations': {
+      'regions': 'regions/',
       'locations': 'locations',
-      'location': 'locations/:locationCode',
-      'regions': 'regions/'
+      'location': 'locations/:locationCode'
     },
     'customers': {
       'customer': 'customers/:customerId'
@@ -41,7 +44,8 @@ angular.module('mobiusApp.config', [])
       'all': 'customers/:customerId/loyalty'
     },
     'reservations': {
-      'new': 'reservations'
+      'new': 'reservations',
+      'modify': 'reservations/:reservationCode'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js

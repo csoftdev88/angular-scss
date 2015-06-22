@@ -51,7 +51,7 @@ angular.module('mobius.controllers.room.details', [])
   function getRoomData(propertyCode, roomCode, bookingParams){
     return $q.all([
       propertyService.getRoomDetails(propertyCode, roomCode),
-      propertyService.getRoomProductDetails(propertyCode, roomCode, bookingParams)
+      propertyService.getRoomProducts(propertyCode, roomCode, bookingParams)
     ]);
   }
 });
