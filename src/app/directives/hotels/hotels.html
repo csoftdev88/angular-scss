@@ -21,7 +21,7 @@
     <div class="hotels__controls">
       <div class="order-switch">
         <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting">
-          <option></option> <!-- to get chosen work with angular indexation of options -->
+          <option></option> <!-- workaround for a bug in angular-chosen -->
         </select>
       </div>
     </div>
@@ -100,7 +100,7 @@
       <!--<hr>-->
       <h3>Location</h3>
       <select name="location" ng-model="location" data-placeholder="Select a location" chosen ng-options="location.nameShort for location in locations" ng-change="loadLocation()">
-        <option></option> <!-- to get chosen work with angular indexation of options -->
+        <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
     </div>
   </aside>
