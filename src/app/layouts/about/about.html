@@ -1,6 +1,6 @@
 <about-us>
 
-  <h1>About <strong>{{chain.nameLong}}</strong></h1>
+  <h1 grid="12">About <strong>{{chain.nameLong}}</strong></h1>
 
   <section grid-row>
     <p grid="8">{{chain.description}}</p>
@@ -13,7 +13,7 @@
 
   <hr>
 
-  <contacts-list>
+  <contacts-list grid="12">
     <contact-item ng-repeat="contact in chain.contacts">
       <h2>{{contact.name}}</h2>
       <p>{{contact.address}}</p>
