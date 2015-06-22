@@ -12,7 +12,6 @@ angular.module('mobius.controllers.reservation', [])
 
   // This data is used in view
   $scope.bookingDetails = bookingService.getAPIParams();
-  $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
 
   function setContinueName(stateName) {
     switch (stateName) {
@@ -306,4 +305,6 @@ angular.module('mobius.controllers.reservation', [])
       .reduce(function(acc, price) { return acc + price; }, 0)
       .value();
   };
+
+  $scope.openAddonDetailDialog = modalService.openAddonDetailDialog;
 });

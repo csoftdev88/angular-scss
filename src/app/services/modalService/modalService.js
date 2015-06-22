@@ -6,11 +6,8 @@ angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log, queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
-      CONTROLLER_RESERVATIONS = 'ModalReservationCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
       CONTROLLER_BADGES = 'BadgesCtrl',
-      CONTROLLER_LOAYALTY = 'LoyaltyCtrl',
-      CONTROLLER_GALLERY = 'GalleryCtrl',
       CONTROLLER_ASSOCIATED_ROOM = 'AssociatedRoomCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
@@ -38,9 +35,16 @@ angular.module('mobiusApp.services.modal', [])
 
   // Accepting reservation data to be rendered in modal window
   function openCancelReservationDialog(reservation){
-    return openDialog('CancelReservationDialog', 'layouts/modals/cancelReservationDialog.html', CONTROLLER_RESERVATIONS, {
+    return openDialog('CancelReservationDialog', 'layouts/modals/cancelReservationDialog.html', CONTROLLER_DATA, {
       windowClass: 'is-wide has-white-bg',
-      resolve: {reservation: function(){return reservation;}}
+      resolve: {data: function(){return reservation;}}
+    });
+  }
+
+  function openAddonDetailDialog(addon){
+    return openDialog('AddonDetailDialog', 'layouts/modals/reservation/addonDetailDialog.html', CONTROLLER_DATA, {
+      windowClass: 'is-wide has-white-bg',
+      resolve: {data: function(){return addon;}}
     });
   }
 
@@ -106,7 +110,7 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openLoyaltyDialog(loyalty){
-    return openDialog('Loyalties', 'layouts/modals/loyalties/loyalty.html', CONTROLLER_LOAYALTY, {
+    return openDialog('Loyalties', 'layouts/modals/loyalties/loyalty.html', CONTROLLER_DATA, {
       windowClass: 'dialog-loyalty',
       resolve: {
         data: function(){
@@ -117,7 +121,7 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openGallery(images){
-    return openDialog('openGallery', 'layouts/modals/imagesGallery.html', CONTROLLER_GALLERY, {
+    return openDialog('openGallery', 'layouts/modals/imagesGallery.html', CONTROLLER_DATA, {
       windowClass: 'is-wide',
       resolve: {
         data: function(){
@@ -144,6 +148,7 @@ angular.module('mobiusApp.services.modal', [])
   // Public methods
   return {
     openCancelReservationDialog: openCancelReservationDialog,
+    openAddonDetailDialog: openAddonDetailDialog,
     openCCVInfo: openCCVInfo,
     openPoliciesInfo: openPoliciesInfo,
     openPriceBreakdownInfo: openPriceBreakdownInfo,
