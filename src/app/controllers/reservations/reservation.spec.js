@@ -7,6 +7,7 @@ describe('mobius.controllers.reservation', function() {
 
     var TEST_USER_ID = 123456789;
     var TEST_RESERVATION_CODE = 95234134;
+    var TEST_PROPERTY = {};
 
     beforeEach(function() {
       module('mobius.controllers.room.details');
@@ -41,6 +42,15 @@ describe('mobius.controllers.reservation', function() {
                 c({
                   reservationCode: TEST_RESERVATION_CODE
                 });
+              }
+            };
+          }
+        });
+        $provide.value('propertyService', {
+          getPropertyDetails: function(){
+            return {
+              then: function(c){
+                c(TEST_PROPERTY);
               }
             };
           }
