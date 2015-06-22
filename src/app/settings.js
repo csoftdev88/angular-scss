@@ -41,7 +41,9 @@ angular.module('mobiusApp.config', [])
       'all': 'customers/:customerId/loyalty'
     },
     'reservations': {
-      'new': 'reservations'
+      'new': 'reservations',
+      // TODO: Waiting for API
+      'all': 'reservations'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js

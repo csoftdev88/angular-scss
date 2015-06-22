@@ -1,6 +1,6 @@
 'use strict';
 /*
- * This module controlls reservations
+ * This module controlls a list of reservation page(My stays)
  */
 angular.module('mobius.controllers.reservations', [])
 
