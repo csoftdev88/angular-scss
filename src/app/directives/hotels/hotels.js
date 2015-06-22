@@ -59,6 +59,8 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.view = 'tiles';
       scope.minStars = 0;
       scope.maxStars = 5;
+      scope.minRating = 0;
+      scope.maxRating = 5;
 
       function getProperties(params){
         // Loading hotels
@@ -133,10 +135,25 @@ angular.module('mobiusApp.directives.hotels', [])
         }
       };
 
+      scope.setMinRating = function(rating) {
+        scope.minRating = rating;
+        if(scope.maxRating < scope.minRating) {
+          scope.maxRating = scope.minRating;
+        }
+      };
+
+      scope.setMaxRating = function(rating) {
+        scope.maxRating = rating;
+        if(scope.minRating > scope.maxRating) {
+          scope.minRating = scope.maxRating;
+        }
+      };
+
       scope.hotelFilter = function(hotel) {
         return (
           (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) &&
           (scope.minStars <= hotel.rating && hotel.rating <= scope.maxStars) &&
+          (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating <= scope.maxRating) &&
           (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode))
         );
       };

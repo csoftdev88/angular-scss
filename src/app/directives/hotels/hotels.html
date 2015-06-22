@@ -93,9 +93,18 @@
         </ul>
       </div>
       <hr>
+      <h3>TripAdvisor rating</h3>
+      <div class="stars">
+        <ul class="stars-left">
+          <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMinRating(rating)" ng-class="{included: rating <= minRating}"></li>
+        </ul>
+        to
+        <ul class="stars-right">
+          <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMaxRating(rating)" ng-class="{included: rating <= maxRating}"></li>
+        </ul>
+      </div>
+      <hr>
       <!-- Out of scope now -->
-      <!--<h3>TripAdvisor rating</h3>-->
-      <!--<hr>-->
       <!--<h3>Amenities</h3>-->
       <!--<hr>-->
       <h3>Location</h3>
