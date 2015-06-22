@@ -1,8 +1,6 @@
 <div class="hotel-detail">
   <header grid-row>
-    <div grid="6">
-        <h1>{{details.nameShort}}</h1>
-    </div>
+    <h1 grid="6">{{details.nameShort}}</h1>
     <local-info local-info="details.localInfo" grid="6"></local-info>
   </header>
 
@@ -12,12 +10,11 @@
       <button ng-click="scrollToRooms()" class="button">Choose your room</button>
       <a href="" class="more">read more</a>
     </div>
-    <div grid="4" class="description-image">
-      <figure>
-        <p><a ng-if="details.images.length" href="#" ng-click="openGallery(details.images)">View more images</a></p>
-        <img ng-src="details.images[0].uri" alt="{{details.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
-      </figure>
-    </div>
+
+    <view-more-images grid="4">
+      <div><a ng-if="details.images.length" href="" ng-click="openGallery(details.images)">View more images</a></div>
+      <img ng-src="details.images[0].uri" alt="{{details.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
+    </view-more-images>
   </section>
 
   <section class="hotel-detail__location" ng-if="position" grid-row>
