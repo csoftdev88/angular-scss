@@ -77,7 +77,9 @@
 
 <ul>
   <li ng-repeat="addon in addons" ng-if="reservation.packages.indexOf(addon.code) === -1">
-    <img src="addon.images[0].uri" err-source="http://lorempixel.com/390/110/" />
+    <a href ng-click="openAddonDetailDialog(addon)">
+      <img src="addon.images[0].uri" err-source="http://lorempixel.com/390/110/" />
+    </a>
     <h4>{{addon.name}}</h4>
     <div ng-if="addon._expanded">
       <p>{{addon.description}}</p>
@@ -88,8 +90,8 @@
       <a href ng-click="addon._expanded = true">[+]</a>
     </div>
     <p>Add to your booking with one click:</p>
-    <a class="button" href ng-click="addAddon(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
-    <a class="button" href ng-click="addAddon(addon)">{{toPoints(addon.price)}}</a>
+    <a class="button" href ng-click="openAddonDetailDialog(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
+    <a class="button" href ng-click="openAddonDetailDialog(addon)">{{toPoints(addon.price)}}</a>
   </li>
 </ul>
 

@@ -59,7 +59,7 @@ describe('mobiusApp.services.modal', function() {
       expect(_spyModalOpen.calledOnce).equal(true);
 
       expect(_spyModalOpen.calledWith(sinon.match.has(
-        'controller', 'LoyaltyCtrl'))).equal(true);
+        'controller', 'ModalDataCtrl'))).equal(true);
 
       expect(_spyModalOpen.calledWith(sinon.match.has(
         'templateUrl', 'layouts/modals/loyalties/loyalty.html'))).equal(true);

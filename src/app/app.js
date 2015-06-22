@@ -31,11 +31,8 @@ angular
     'mobius.controllers.reservation',
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
-    'mobius.controllers.modals.reservation',
     'mobius.controllers.modals.policy',
-    'mobius.controllers.modals.loyalties.loyalty',
     'mobius.controllers.modals.loyalties.badges',
-    'mobius.controllers.modals.gallery',
     'mobius.controllers.room.details',
     'mobius.controllers.modals.associatedRoom',
 
