@@ -1,14 +1,14 @@
-<div class="hotel-detail">
+<hotel-detail>
   <header grid-row>
     <h1 grid="6">{{details.nameShort}}</h1>
     <local-info local-info="details.localInfo" grid="6"></local-info>
   </header>
 
-  <section class="hotel-detail__description" grid-row>
-    <div grid="8" class="description-text">
+  <section grid-row>
+    <div grid="8">
       <p>{{details.description}}</p>
       <button ng-click="scrollToRooms()" class="button">Choose your room</button>
-      <a href="" class="more">read more</a>
+      <a href="" class="read-more">read more</a>
     </div>
 
     <view-more-images grid="4">
@@ -17,7 +17,7 @@
     </view-more-images>
   </section>
 
-  <section class="hotel-detail__location" ng-if="position" grid-row>
+  <section ng-if="position" grid-row>
     <hr />
     <div grid="12">
       <h2>{{details.nameShort}} <strong>Location</strong></h2>
@@ -31,7 +31,7 @@
           position="{{position}}"
           title="{{details.nameShort}}"></marker>
       </map>
-      <!-- this should also be filled with the data from API -->
+      <!-- TODO: this should also be filled with the data from API -->
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
       <!-- contact information and hot to get to us information
            should follow here
@@ -51,14 +51,14 @@
           City, Country disctrict, Postal code
         </li>
       </ul> -->
-      <h4>How to get to us</h4>
-      <ul>
-        <li ng-repeat="direction in details.directions">
+      <h3>How to get to us</h3>
+      <transportation-list>
+        <transportation-item ng-repeat="direction in details.directions">
+          <h4>{{direction.name}}</h4>
           <img ng-src="{{direction.icon}}" err-source="http://lorempixel.com/20/20">
-          <span>{{direction.name}}</span>
           <p>{{direction.description}}</p>
-        </li>
-      </ul>
+        </transportation-item>
+      </transportation-list>
     </div>
   </section>
 
@@ -183,4 +183,4 @@
     </div>
   </aside>
   -->
-</div>
+</hotel-detail>
