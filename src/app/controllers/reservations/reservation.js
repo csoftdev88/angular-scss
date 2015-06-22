@@ -6,7 +6,30 @@ angular.module('mobius.controllers.reservation', [])
 
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings,
-  reservationService, preloaderFactory, modalService, user){
+  reservationService, preloaderFactory, modalService, user,
+  $rootScope, userMessagesService){
+
+  function setContinueName(stateName) {
+    switch (stateName) {
+    case 'reservation.details':
+      $scope.continueName = 'Payment';
+      break;
+    case 'reservation.billing':
+      $scope.continueName = 'Confirmation';
+      break;
+    case 'reservation.confirmation':
+      $scope.continueName = 'Confirm';
+      break;
+    }
+  }
+  var $stateChangeStartUnWatch = $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+    setContinueName(toState.name);
+  });
+  setContinueName($state.current.name);
+
+  $scope.$on('$destroy', function() {
+    $stateChangeStartUnWatch();
+  });
 
   $scope.expirationMinDate = $window.moment().format('YYYY-MM');
 
@@ -16,6 +39,9 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.state = $state;
+
+  $scope.forms = {};
+
   $scope.userDetails = {};
 
   $scope.billingDetails = {
@@ -34,11 +60,8 @@ angular.module('mobius.controllers.reservation', [])
   // Getting room/products data
   var roomDataPromise = $scope.getRoomData(
     $stateParams.property, $stateParams.roomID).then(function(data){
-    // Data[0] - ROOM DETAILS
-    $scope.setRoomDetails(data[0]);
-
-    // Data[1] - products
-    setProductDetails(data[1].products);
+    $scope.setRoomDetails(data.roomDetails);
+    setProductDetails(data.roomProductDetails.products);
   }, function(){
     $state.go('hotel');
   });
@@ -60,28 +83,46 @@ angular.module('mobius.controllers.reservation', [])
       return;
     }
 
-    $scope.selectProduct(product);
+    $scope.selectedProduct = product;
   }
 
-  $scope.goBack = function(){
-    switch($state.current.name){
-
-    case 'reservation':
+  $scope.goBack = function() {
+    switch ($state.current.name) {
     case 'reservation.details':
-      $state.go('room', {
+      return $state.go('room', {
         propertyCode: $scope.bookingDetails.property,
         roomID: $stateParams.roomID
       });
-      return;
-
     case 'reservation.billing':
-      $state.go('reservation.details');
-      return;
+      return $state.go('reservation.details');
+    case 'reservation.confirmation':
+      return $state.go('reservation.billing');
     }
   };
 
-  $scope.navigateToBilling = function() {
-    $state.go('reservation.billing');
+  $scope.isValid = function() {
+    switch($state.current.name){
+    case 'reservation.details':
+      return $scope.forms.details && !$scope.forms.details.$invalid;
+    case 'reservation.billing':
+      return $scope.forms.billing && !$scope.forms.billing.$invalid;
+    case 'reservation.confirmation':
+      return true;
+    }
+    return false;
+  };
+
+  $scope.continue = function() {
+    if ($scope.isValid()) {
+      switch ($state.current.name) {
+      case 'reservation.details':
+        return $state.go('reservation.billing');
+      case 'reservation.billing':
+        return $state.go('reservation.confirmation');
+      case 'reservation.confirmation':
+        return $scope.makeReservation();
+      }
+    }
   };
 
   $scope.makeReservation = function(){
@@ -115,16 +156,19 @@ angular.module('mobius.controllers.reservation', [])
 
     var reservationPromise = reservationService.createReservation(reservationData)
       .then(function(data){
-        $scope.confirmation = {
-          reservationCode: data.reservationCode,
-          email: user.getUser().email
-        };
-        $state.go('reservation.confirmation');
+        $scope.reservation = data;
 
-      }, function(){
-      $scope.invalidFormData = true;
-      $state.go('reservation.details');
-    });
+        userMessagesService.addInfoMessage('' +
+          '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
+          '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
+          '');
+
+        $state.go('reservation.after');
+
+      }, function() {
+        $scope.invalidFormData = true;
+        $state.go('reservation.details');
+      });
 
     preloaderFactory(reservationPromise);
   };
@@ -145,7 +189,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.readPolicies = function(){
     $scope.hasReadRatePolicies = true;
-    $scope.openPoliciesInfo();
+    $scope.openPoliciesInfo($scope.selectedProduct);
   };
 
   $scope.prefillUserData = function(){
@@ -187,8 +231,4 @@ angular.module('mobius.controllers.reservation', [])
   // This data is used in view
   $scope.bookingDetails = bookingService.getAPIParams();
   $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
-
-  // If not logged in user
-  $scope.openLoginDialog = modalService.openLoginDialog;
-  $scope.openRegisterDialog = modalService.openRegisterDialog;
 });

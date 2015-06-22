@@ -22,19 +22,6 @@ describe('mobius.controllers.room.details', function() {
       $controller('RoomDetailsCtrl', { $scope: _scope });
     }));
 
-    describe('selectProduct', function() {
-      it('should be defined as a function on scope', function() {
-        expect(_scope.selectProduct).to.be.a('function');
-      });
-
-      it('should change the value of selectedProduct property', function() {
-        expect(_scope.selectedProduct).equal(undefined);
-        var product = {test: 123};
-        _scope.selectProduct(product);
-        expect(_scope.selectedProduct).equal(product);
-      });
-    });
-
     describe('setRoomDetails', function() {
       it('should be defined as a function on scope', function() {
         expect(_scope.setRoomDetails).to.be.a('function');
@@ -59,6 +46,12 @@ describe('mobius.controllers.room.details', function() {
         it('should be defined as a function on scope', function() {
           expect(_scope.openPriceBreakdownInfo).to.be.a('function');
         });
+      });
+    });
+
+    describe('getRoomData', function() {
+      it('should be defined as a function on scope', function() {
+        expect(_scope.getRoomData).to.be.a('function');
       });
     });
   });

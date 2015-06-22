@@ -2,9 +2,9 @@
 
 angular.module('mobiusApp.directives.room', [])
 
-.directive('room', function($stateParams, $window, Settings,
-  bookingService, propertyService, filtersService, preloaderFactory, _,
-  modalService, $state) {
+.directive('room', function($stateParams, $state, Settings,
+  bookingService, propertyService, filtersService, modalService, preloaderFactory, _) {
+
   return {
     restrict: 'E',
     templateUrl: 'directives/room/room.html',
@@ -21,9 +21,9 @@ angular.module('mobiusApp.directives.room', [])
       var roomCode = $stateParams.roomID;
 
       // Getting room details
-      var roomDetailsPromise = propertyService.getRoomDetails(propertyCode, roomCode).then(function(data){
+      function setRoomData(data){
         // Inherited from RoomDetailsCtrl
-        scope.roomDetails = data;
+        scope.setRoomDetails(data);
 
         // Updating hero slider images
         var heroContent =  data.images.map(function(image){
@@ -48,61 +48,43 @@ angular.module('mobiusApp.directives.room', [])
 
             scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
           });
+      }
+
+      // Room product details
+      function setRoomProductDetails(data) {
+        scope.products = _.map(_.where(data.products, {memberOnly: true})
+          .concat(
+          _.where(data.products, {highlighted: true}),
+          _.reject(data.products, function(product) {
+            return product.memberOnly || product.highlighted;
+          })
+        ), function(product) {
+          var descriptionShort = angular.element(product.description).text();
+          product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
+          product.hasViewMore = product.descriptionShort.length < descriptionShort;
+          if (product.hasViewMore) {
+            product.descriptionShort += '…';
+          }
+          return product;
+        });
+      }
+
+      scope.selectProduct = function(product) {
+        $state.go('reservation.details', {
+          roomID: roomCode,
+          productCode: product.code
+        });
+      };
+
+      var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
+        setRoomData(data.roomDetails);
+        setRoomProductDetails(data.roomProductDetails);
       });
 
       preloaderFactory(roomDetailsPromise);
 
-      // Room product details
-      function getRoomProductDetails(propertyCode, roomCode, params) {
-        propertyService.getRoomProductDetails(propertyCode, roomCode, params).then(function(data) {
-          scope.products = _.map(_.where(data.products, {memberOnly: true})
-            .concat(
-            _.where(data.products, {highlighted: true}),
-            _.reject(data.products, function(product) {
-              return product.memberOnly || product.highlighted;
-            })
-          ), function(product) {
-            var descriptionShort = angular.element(product.description).text();
-            product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
-            product.hasViewMore = product.descriptionShort.length < descriptionShort;
-            if(product.hasViewMore) {
-              product.descriptionShort += '…';
-            }
-            return product;
-          });
-        });
-      }
-
-      scope.showMore = function(product, expanded) {
-        product._expanded = expanded;
-      };
-
-      //scope.selectProduct=function(product){
-      //  $state.go('reservation.details', {productCode: product.code});
-      //};
-
-      if(bookingParams.productGroupId){
-        getRoomProductDetails(propertyCode, roomCode, bookingParams);
-      } else{
-        // productGroupId is not set by the widget - getting default BAR
-        filtersService.getBestRateProduct().then(function(brp){
-          if(brp){
-            bookingParams.productGroupId = brp.id;
-          }
-
-          getRoomProductDetails(propertyCode, roomCode, bookingParams);
-        });
-      }
-
-      scope.onContinue = function(){
-        if(!scope.selectedProduct){
-          return;
-        }
-
-        $state.go('reservation.details', {
-          roomID: roomCode,
-          productCode: scope.selectedProduct.code
-        });
+      scope.onClickOnAssociatedRoom=function(associatedRoom){
+        modalService.openAssociatedRoomDetail(associatedRoom, propertyCode);
       };
     }
   };

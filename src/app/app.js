@@ -26,6 +26,7 @@ angular
     'mobius.controllers.about',
     'mobius.controllers.offers',
     'mobius.controllers.news',
+    'mobius.controllers.contacts',
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
     'mobius.controllers.modals.generic',
@@ -36,6 +37,7 @@ angular
     'mobius.controllers.modals.loyalties.badges',
     'mobius.controllers.modals.gallery',
     'mobius.controllers.room.details',
+    'mobius.controllers.modals.associatedRoom',
 
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
@@ -158,24 +160,35 @@ angular
       // Room reservation
       .state('reservation', {
         parent: 'root',
-        templateUrl: 'layouts/reservations/reservation/reservation.html',
+        template: '<ui-view></ui-view>',
         url: '/reservation/:roomID/:productCode',
         controller: 'ReservationCtrl'
       })
 
-      .state('reservation.details', {
+      .state('reservation.process', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/details.html',
+        templateUrl: 'layouts/reservations/reservation/reservation.html',
+        abstract: true
+      })
+
+      .state('reservation.details', {
+        parent: 'reservation.process',
+        templateUrl: 'layouts/reservations/reservation/details.html'
       })
 
       .state('reservation.billing', {
-        parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/billing.html',
+        parent: 'reservation.process',
+        templateUrl: 'layouts/reservations/reservation/billing.html'
       })
 
       .state('reservation.confirmation', {
+        parent: 'reservation.process',
+        templateUrl: 'layouts/reservations/reservation/confirmation.html'
+      })
+
+      .state('reservation.after', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/confirmation.html',
+        templateUrl: 'layouts/reservations/reservation/after.html'
       })
 
       .state('offers', {
@@ -196,7 +209,8 @@ angular
       .state('contacts', {
         parent: 'root',
         templateUrl: 'layouts/contacts/contacts.html',
-        url: '/contacts'
+        url: '/contacts',
+        controller: 'ContactsCtrl'
       })
 
       // About Us oage

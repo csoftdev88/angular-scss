@@ -65,13 +65,15 @@ angular.module('mobiusApp.services.validation', [])
 
     case 'object':
       var value;
-      if(decode){
+      if (paramValue===undefined || paramValue===null) {
+        value = null;
+      } else if (decode) {
         try {
           value = JSON.parse(decodeURIComponent(paramValue));
-        }catch(e){
+        } catch (e) {
           value = null;
         }
-      }else{
+      } else {
         value = encodeURIComponent(JSON.stringify(paramValue));
       }
 

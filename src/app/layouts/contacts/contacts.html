@@ -1,1 +1,41 @@
 <h1>Contacts page</h1>
+
+<form name="form" ng-submit="form.$valid">
+  <label for="name">
+    Name
+    <input type="text" id="name" ng-model="formData.name" name="name" required>
+    <span ng-show="form.$submitted && form.name.$error.required">Name is required</span>
+  </label>
+
+  <label for="email">
+    Email
+    <input id="email" type="email" ng-class="{'is-invalid': form.$submitted && (form.email.$error.email || form.email.$error.pattern || form.password.$error.required)}"
+           name="email" ng-model="formData.email" required ng-pattern="emailPattern">
+  </label>
+  <span ng-show="form.$submitted && (form.email.$error.email || form.email.$error.pattern)">Please enter valid email</span>
+  <span ng-show="form.$submitted && form.email.$error.required">Email is required</span>
+
+
+  <label for="subject">
+    Subject
+    <input type="text" id="subject" ng-model="formData.subject" name="subject" required>
+    <span ng-show="form.$submitted && form.subject.$error.required">Subject is required</span>
+  </label>
+
+
+  <label for="text">
+    Text
+    <input type="text" id="text" ng-model="formData.text" name="text" required>
+    <span ng-show="form.$submitted && form.text.$error.required">Text is required</span>
+  </label>
+  <button class="button" ng-click="sendForm()">Continue</button>
+</form>
+
+
+<contacts-list>
+  <contact-item ng-repeat="contact in chain.contacts">
+    <h2>{{contact.name}}</h2>
+    <p>{{contact.tel}}</p>
+    <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
+  </contact-item>
+</contacts-list>
