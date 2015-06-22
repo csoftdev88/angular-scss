@@ -55,7 +55,7 @@ angular.module('mobius.controllers.reservation', [])
       securityCode: '',
       holderName: ''
     },
-    paymentMethod: null, // 'cc','paypal','bitcoint','points','bill'
+    paymentMethod: null, // 'cc','paypal','bitcoint','point','bill'
     useGuestAddress: true
   };
 
@@ -132,8 +132,8 @@ angular.module('mobius.controllers.reservation', [])
     case 'cc':
       $scope.billingDetails.paymentMethod = 'cc';
       break;
-    case 'points':
-      $scope.billingDetails.paymentMethod = 'points';
+    case 'point':
+      $scope.billingDetails.paymentMethod = 'point';
       $scope.pointsData = {};
       $scope.pointsData.currentPoints = user.getUser().loyalties.amount;
       $scope.pointsData.pointsEarned = $scope.selectedProduct.price.pointsEarned;

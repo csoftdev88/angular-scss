@@ -1,7 +1,7 @@
 <reservation-billing  ng-switch="billingDetails.paymentMethod">
   <a ng-click="selectPaymentMethod('cc')" href>visa</a>
-  <a ng-click="selectPaymentMethod('points')" href>points</a>
-  <div ng-switch-when="points">
+  <a ng-click="selectPaymentMethod('point')" href>points</a>
+  <div ng-switch-when="point">
     Current points: {{pointsData.currentPoints}}<br>
     Points required for booking: {{selectedProduct.price.pointsRequired}}<br>
     Points earned for booking:  {{pointsData.pointsEarned}}<br>

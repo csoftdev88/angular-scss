@@ -46,7 +46,7 @@
         <th rowspan="4">Total:</th>
         <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
       </tr>
-      <tr ng-switch-when="points">
+      <tr ng-switch-when="point">
         <td>{{selectedProduct.price.pointsRequired}} points</td>
       </tr>
       <tr ng-switch-default>
