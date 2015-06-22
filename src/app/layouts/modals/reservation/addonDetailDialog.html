@@ -1,10 +1,15 @@
 <div class="ui-dialog">
   <div class="modal-header">
-    <h3 class="modal-title">{{data.name}}</h3>
+    <h3 class="modal-title">{{addon.name}}</h3>
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
 
   <div class="modal-body">
+    <image-carousel images="addon.images"></image-carousel>
+    <p>{{addon.description}}</p>
+    <p>Add to your booking with one click!</p>
+    <a class="button" href ng-click="addAddon(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
+    <a class="button" href ng-click="addAddon(addon)">{{toPoints(addon.price)}}</a>
   </div>
 
 </div>

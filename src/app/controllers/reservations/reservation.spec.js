@@ -34,7 +34,8 @@ describe('mobius.controllers.reservation', function() {
         });
 
         $provide.value('modalService', {
-          openPoliciesInfo: function(){}
+          openPoliciesInfo: function(){},
+          openAddonDetailDialog: function(){}
         });
         $provide.value('reservationService', {
           createReservation: function(){
