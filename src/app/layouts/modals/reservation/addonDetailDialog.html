@@ -4,12 +4,23 @@
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
 
-  <div class="modal-body">
+  <div class="modal-body" ng-if="!addon._confirmation">
     <image-carousel images="addon.images"></image-carousel>
     <p>{{addon.description}}</p>
     <p>Add to your booking with one click!</p>
-    <a class="button" href ng-click="addAddon(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
-    <a class="button" href ng-click="addAddon(addon)">{{toPoints(addon.price)}}</a>
+    <a class="button" href ng-click="addon._confirmation = true">{{addon.price | i18nCurrency: currencyCode}}</a>
+    <a class="button" href ng-click="addon._confirmation = true">{{toPoints(addon.price)}}</a>
+  </div>
+
+  <div class="modal-body" ng-if="addon._confirmation">
+    <image-carousel images="addon.images"></image-carousel>
+    <p>Please confirm you want to add this Enhancement to your booking:</p>
+    <p>{{addon.name}}</p>
+    <p>{{addon.price | i18nCurrency: currencyCode}}</p>
+    <p>We will charge the card that you made your booking with. This enhancement is covered by the same terms
+      and policies as the booking it is associated with</p>
+    <a class="button" href ng-click="addon._confirmation = false">Back</a>
+    <a class="button" href ng-click="addAddon(addon)">Confirm</a>
   </div>
 
 </div>

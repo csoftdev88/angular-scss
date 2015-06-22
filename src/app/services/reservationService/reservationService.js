@@ -8,6 +8,7 @@ angular.module('mobiusApp.services.reservation', [])
   function createReservation(data) {
     return apiService.post(apiService.getFullURL('reservations.new'), data);
   }
+
   function modifyReservation(reservationCode, data) {
     return apiService.put(apiService.getFullURL('reservations.modify', {reservationCode: reservationCode}), data);
   }
