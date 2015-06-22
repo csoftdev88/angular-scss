@@ -2,11 +2,17 @@
 //// HOTELS DETAIL ////
 ///////////////////////
 
-.hotel-detail {
+hotel-detail {
 
   h1, h2 {
     font-size: @size-3;
     margin-bottom: @baseline;
+  }
+
+  h3 {
+    margin-bottom: @baseline;
+
+    font-weight: 600;
   }
 
   p {
@@ -14,22 +20,42 @@
   }
 
 
+  //- Read more text button
+  a.read-more {
+    display: block;
+    float: right;
+  }
 
-  .hotel-detail__description {
+  //- Location of hotel in map
+  map {
+    margin-bottom: @baseline;
+  }
 
-    .description-text {
-      a {
-        display: block;
-        float: right;
+  //- Transportation
+  transportation-list {
+    display: flex;
+
+    font-size: @size--1;
+  }
+
+    transportation-item {
+      position: relative;
+
+      flex: 1;
+      padding: 0 @baseline @baseline @baseline*2.5;
+
+      // Name
+      h4 {
+        color: @c-link;
+
+        font-weight: 600;
+      }
+
+      // Icon
+      img {
+        position: absolute;
+        left: @baseline;
+        top: 9
       }
     }
-    
-  }
-
-  .hotel-detail__location {
-
-    map {
-      margin-bottom: @baseline;
-    }
-  }
 }
