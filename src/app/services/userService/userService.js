@@ -72,6 +72,7 @@ angular.module('mobiusApp.services.user', [])
         }
       },
 
+      getCustomerId: getCustomerId,
       loadLoyalties: loadLoyalties
     };
   });

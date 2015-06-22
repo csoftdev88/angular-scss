@@ -5,8 +5,7 @@ describe('reservationService', function() {
     _apiGetFullURLSpy;
 
   var userLoggedIn = {
-    isLoggedIn: function(){return true;},
-    getUser: function(){return {id: 123};}
+    getCustomerId: function(){return 123;}
   };
 
   beforeEach(function() {

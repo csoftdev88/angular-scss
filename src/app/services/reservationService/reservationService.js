@@ -10,12 +10,14 @@ angular.module('mobiusApp.services.reservation', [])
   }
 
   function getReservations(reservationCode){
-    if(!user.isLoggedIn()){
+    var customerId = user.getCustomerId();
+
+    if(!customerId){
       throw new Error('User must be logged in');
     }
 
     var params = {
-      customerId: user.getUser().id,
+      customerId: customerId,
     };
 
     if(reservationCode){
