@@ -91,6 +91,7 @@ angular.module('mobius.controllers.reservation', [])
         }
         return addon;
       });
+      $scope.addons = $window._.indexBy($scope.addons, 'code');
     });
 
   // Showing loading mask
@@ -296,5 +297,13 @@ angular.module('mobius.controllers.reservation', [])
         $scope.reservation.packages.splice($scope.reservation.packages.indexOf(addon.code), 1);
       });
     }
+  };
+
+  $scope.getPackagesPrice = function() {
+    return $window._.chain($scope.reservation.packages)
+      .map(function(code) { return $scope.addons[code]; })
+      .pluck('price')
+      .reduce(function(acc, price) { return acc + price; }, 0)
+      .value();
   };
 });
