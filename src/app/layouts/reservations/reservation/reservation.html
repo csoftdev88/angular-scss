@@ -39,33 +39,38 @@
     </table>
 
     <table class="charges">
+      <thead ng-switch="billingDetails.paymentMethod">
+      <tr ng-switch-when="cc">
+        <th>Room Charges:</th>
+        <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
+        <th rowspan="4">Total:</th>
+        <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
+      <tr ng-switch-when="points">
+        <td>{{selectedProduct.price.pointsRequired}} points</td>
+      </tr>
+      <tr ng-switch-default>
+        <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}} or {{selectedProduct.price.pointsRequired}} points</td>
+      </tr>
+      </thead>
       <tbody>
-        <tr ng-switch="billingDetails.paymentMethod">
-          <th>Room Charges:</th>
-          <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
-          <th rowspan="4">Total:</th>
-          <td ng-switch-when="cc">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
-          <td ng-switch-when="point">{{toPoints(selectedProduct.price.totalAfterTax)}} points</td>
-          <td ng-switch-default>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}} or {{toPoints(selectedProduct.price.totalAfterTax)}} points</td>
-        </tr>
+      <!-- Additional taxes -->
+      <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
+        <th>Taxes:</th>
+        <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
 
-        <!-- Additional taxes -->
-        <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
-          <th>Taxes:</th>
-          <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</td>
-        </tr>
+      <!-- Additional fees -->
+      <tr ng-if="selectedProduct.price.totalAdditionalFees">
+        <th>Fees:</th>
+        <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
 
-        <!-- Additional fees -->
-        <tr ng-if="selectedProduct.price.totalAdditionalFees">
-          <th>Fees:</th>
-          <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
-        </tr>
-
-        <!-- Discount -->
-        <tr ng-if="selectedProduct.price.totalDiscount">
-          <th>Discount:</th>
-          <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
-        </tr>
+      <!-- Discount -->
+      <tr ng-if="selectedProduct.price.totalDiscount">
+        <th>Discount:</th>
+        <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
+      </tr>
 
       </tbody>
     </table>
