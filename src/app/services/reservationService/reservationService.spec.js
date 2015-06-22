@@ -1,7 +1,7 @@
 'use strict';
 
 describe('reservationService', function() {
-  var _reservationService, _apiPostSpy, _apiGetFullURLSpy;
+  var _reservationService, _apiPostSpy, _apiPutSpy, _apiGetFullURLSpy;
 
   beforeEach(function() {
     module('mobiusApp.services.reservation', function($provide) {
@@ -19,6 +19,7 @@ describe('reservationService', function() {
 
       var apiService = {
         post: function(){},
+        put: function(){},
         getFullURL: function(p){
           return p;
         }
@@ -32,11 +33,13 @@ describe('reservationService', function() {
     _reservationService = reservationService;
 
     _apiPostSpy = sinon.spy(apiService, 'post');
+    _apiPutSpy = sinon.spy(apiService, 'put');
     _apiGetFullURLSpy = sinon.spy(apiService, 'getFullURL');
   }));
 
   afterEach(function() {
     _apiPostSpy.restore();
+    _apiPutSpy.restore();
     _apiGetFullURLSpy.restore();
   });
 
@@ -51,12 +54,12 @@ describe('reservationService', function() {
   });
 
   describe('modifyReservation', function() {
-    it('should fire a POST request to reservations API', function() {
+    it('should fire a PUT request to reservations API', function() {
       _reservationService.modifyReservation('RESCODE');
       expect(_apiGetFullURLSpy.calledOnce).equal(true);
       expect(_apiGetFullURLSpy.calledWith('reservations.modify', {reservationCode: 'RESCODE'})).equal(true);
 
-      expect(_apiPostSpy.calledOnce).equal(true);
+      expect(_apiPutSpy.calledOnce).equal(true);
     });
   });
 });

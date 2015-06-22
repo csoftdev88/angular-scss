@@ -113,7 +113,7 @@
     </div>
     <div ng-if="!addons[addonCode]._expanded">
       <p>{{addons[addonCode].descriptionShort}}</p>
-      <a href ng-click="addons[addonCode]._expanded = true">View More</a>
+      <a ng-if="addon.hasViewMore" href ng-click="addons[addonCode]._expanded = true">View More</a>
     </div>
     <p>{{addon.price | i18nCurrency: currencyCode}}</p>
   </li>

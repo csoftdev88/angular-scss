@@ -39,6 +39,23 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
+  function put(url, data) {
+    var q = $q.defer();
+
+    $http({
+      method: 'PUT',
+      url: url,
+      headers: headers,
+      data: data
+    }).success(function(res) {
+      q.resolve(res);
+    }).error(function(err) {
+      q.reject(err);
+    });
+
+    return q.promise;
+  }
+
   function getFullURL(path, params) {
     var URL = getValue(Settings.API, path);
     // NOTE: We might want to throw error in case when path is not found
@@ -70,6 +87,7 @@ angular.module('mobiusApp.services.api', [])
   return {
     get: get,
     post: post,
+    put: put,
     getFullURL: getFullURL,
     setHeaders: setHeaders
   };
