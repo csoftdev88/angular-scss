@@ -1,14 +1,17 @@
-<div ng-if="locationDetails">
-  <h2>{{locationDetails.nameShort}}</h2>
+<header grid-row ng-if="locationDetails">
+  <h1 grid="6">{{locationDetails.nameShort}}</h1>
+  <local-info local-info="locationDetails.localInfo" grid="6"></local-info>
+</header>
 
-  <figure>
-    <p><a ng-if="locationDetails.images.length" href="#" ng-click="openGallery()">View more images</a></p>
+<section grid-row ng-if="locationDetails">
+  <p grid="8">{{locationDetails.description}}</p>
+
+  <view-more-images grid="4">
+    <div><a ng-if="locationDetails.images.length" href="" ng-click="openGallery()">View more images</a></div>
     <img ng-src="locationDetails.images[0].uri" alt="{{locationDetails.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
-  </figure>
+  </view-more-images>
+</section>
 
-  <h2>{{locationDetails.description}}</h2>
-  <local-info local-info="locationDetails.localInfo"></local-info>
-</div>
 <div class="grid-wrapper">
   <section grid-container="9" widget="hotels">
     <header class="hotels__header">
