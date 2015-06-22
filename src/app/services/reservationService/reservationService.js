@@ -4,25 +4,44 @@
 */
 
 angular.module('mobiusApp.services.reservation', [])
-.service( 'reservationService',  function(apiService) {
+.service( 'reservationService',  function(apiService, user) {
   function createReservation(data) {
     return apiService.post(apiService.getFullURL('reservations.new'), data);
   }
 
-  function getAll(includeNextStay) {
-    console.error(includeNextStay, 11111);
-    // TODO: Check the API updates
-    return apiService.get(apiService.getFullURL('reservations.all'), {
-      'reservationCode': 'ABB-EF-01435',
-      'email': 'xxx@domain.com',
-      'password': 'password',
-      'next': includeNextStay
-    });
+  function getReservations(reservationCode){
+    if(!user.isLoggedIn()){
+      throw new Error('User must be logged in');
+    }
+
+    var params = {
+      customerId: user.getUser().id,
+    };
+
+    if(reservationCode){
+      params.reservationCode = reservationCode;
+    }
+
+    return apiService.get(apiService.getFullURL('reservations.all'), params);
+  }
+
+  // Getting all customer reservations
+  function getAll() {
+    return getReservations();
+  }
+
+  function getReservationDetails(reservationCode){
+    if(!reservationCode){
+      throw new Error('reservationCode must be provided');
+    }
+
+    return getReservations(reservationCode);
   }
 
   // Public methods
   return {
     createReservation: createReservation,
-    getAll: getAll
+    getAll: getAll,
+    getReservationDetails: getReservationDetails
   };
 });

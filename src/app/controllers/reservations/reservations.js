@@ -4,11 +4,29 @@
  */
 angular.module('mobius.controllers.reservations', [])
 
-.controller('ReservationsCtrl', function($scope, $controller, modalService, creditCardTypeService){
+.controller('ReservationsCtrl', function($scope, $controller,
+  modalService, creditCardTypeService, reservationService,
+  preloaderFactory){
 
   $controller('MainCtrl', {$scope: $scope});
 
+  var reservationsPromise = reservationService.getAll().then(function(data){
+
+    processReservationsData(data);
+  });
+
+  preloaderFactory(reservationsPromise);
+
+  function processReservationsData(data){
+    $scope.reservations = {
+      nextStay: data[0],
+      past: data,
+      future: data
+    };
+  }
+
   // NOTE: Dummy data, will be replaced by data from API
+  /*
   $scope.reservations = [
     {
       id: 'MOBTUN-123555',
@@ -55,6 +73,9 @@ angular.module('mobius.controllers.reservations', [])
       }]
     }
   ];
+
+  */
+
 
   $scope.reservationDetails = {};
 
