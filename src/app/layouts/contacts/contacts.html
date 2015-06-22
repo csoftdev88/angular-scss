@@ -1,41 +1,52 @@
-<h1>Contacts page</h1>
+<contacts-page grid-row>
+  <h1 grid="12">Contacts page</h1>
 
-<form name="form" ng-submit="form.$valid">
-  <label for="name">
-    Name
-    <input type="text" id="name" ng-model="formData.name" name="name" required>
-    <span ng-show="form.$submitted && form.name.$error.required">Name is required</span>
-  </label>
+  <form name="form" ng-submit="form.$valid" grid="8">
+    <div>
+      <p>How was your stay with us? Did we meet all your expectations? We want your stays at hotels to be the best you have experienced anywhere. You talk, we listen.</p>
 
-  <label for="email">
-    Email
-    <input id="email" type="email" ng-class="{'is-invalid': form.$submitted && (form.email.$error.email || form.email.$error.pattern || form.password.$error.required)}"
-           name="email" ng-model="formData.email" required ng-pattern="emailPattern">
-  </label>
-  <span ng-show="form.$submitted && (form.email.$error.email || form.email.$error.pattern)">Please enter valid email</span>
-  <span ng-show="form.$submitted && form.email.$error.required">Email is required</span>
+      <hr>
+    </div>
+    <fieldset>
+      <form-element>
+        <input type="text" ng-model="formData.name" name="name" placeholder="Name" required>
+        <form-label>Enter Your Name</form-label>
+        <error-message role="alert" ng-show="form.$submitted && form.name.$error.required">Name is required</error-message>
+      </form-element>
 
+      <form-element ng-class="{'is-invalid': form.$submitted && (form.email.$error.email || form.email.$error.pattern || form.password.$error.required)}">
+        <input id="email" type="email" name="email" placeholder="Email" ng-model="formData.email" required ng-pattern="emailPattern">
+        <form-label for="email">Enter Your Email</form-label>
+        <error-message role="alert" ng-show="form.$submitted && (form.email.$error.email || form.email.$error.pattern)">Please enter valid email</error-message>
+        <error-message role="alert" ng-show="form.$submitted && form.email.$error.required">Email is required</error-message>
+      </form-element>
 
-  <label for="subject">
-    Subject
-    <input type="text" id="subject" ng-model="formData.subject" name="subject" required>
-    <span ng-show="form.$submitted && form.subject.$error.required">Subject is required</span>
-  </label>
+      <form-element>
+        <input type="text" ng-model="formData.subject" name="subject" placeholder="Subject" required>
+        <form-label>Enter Subject</form-label>
+        <error-message role="alert" ng-show="form.$submitted && form.subject.$error.required">Subject is required</error-message>
+      </form-element>
+    </fieldset>
 
+    <fieldset>
+      <form-element>
+        <textarea ng-model="formData.text" name="text" placeholder="Text" required></textarea>
+        <form-label>Enter Text</form-label>
+        <span ng-show="form.$submitted && form.text.$error.required">Text is required</span>
+      </form-element>
+    </fieldset>
 
-  <label for="text">
-    Text
-    <input type="text" id="text" ng-model="formData.text" name="text" required>
-    <span ng-show="form.$submitted && form.text.$error.required">Text is required</span>
-  </label>
-  <button class="button" ng-click="sendForm()">Continue</button>
-</form>
+    <div>
+      <button-submit role="button" tabindex="0" ng-click="sendForm()">Continue</button-submit>
+    </div>
+  </form>
 
+  <contact-list grid="4">
+    <contact-item ng-repeat="contact in chain.contacts">
+      <h2>{{contact.name}}</h2>
+      <p>{{contact.tel}}</p>
+      <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
+    </contact-item>
+  </contact-list>
 
-<contacts-list>
-  <contact-item ng-repeat="contact in chain.contacts">
-    <h2>{{contact.name}}</h2>
-    <p>{{contact.tel}}</p>
-    <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
-  </contact-item>
-</contacts-list>
+</contacts-page>
