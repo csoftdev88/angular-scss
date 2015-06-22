@@ -84,6 +84,8 @@ angular
     'mobiusApp.directives.chosenOptionsClass',
     'mobiusApp.directives.luhnCheck',
     'mobiusApp.directives.monthPicker',
+    // Common controllers
+    'mobius.controllers.reservation.directive',
 
     // Directive based on content data
     'mobiusApp.directives.menu',

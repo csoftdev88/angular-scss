@@ -9,6 +9,7 @@ describe('reservationData', function() {
 
   beforeEach(function() {
     module('underscore');
+    module('mobius.controllers.reservation.directive');
     module('mobiusApp.directives.reservation.data');
   });
 
@@ -40,6 +41,11 @@ describe('reservationData', function() {
 
     it('should not insert any template into a parent container', function() {
       expect(_elem.html()).equal('');
+    });
+
+    it('should inherit ReservationDirectiveCtrl', function() {
+      expect(_scope.getAdultsCount).to.be.a('function');
+      expect(_scope.getChildrenCount).to.be.a('function');
     });
   });
 });
