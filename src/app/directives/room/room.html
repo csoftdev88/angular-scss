@@ -31,7 +31,7 @@
               <span class="value">{{product.price.totalBase | i18nCurrency: currencyCode}}</span> <span>per night</span>
             </span>
             <span ng-if="isUserLoggedIn()" class="price">
-              or <span class="value">{{toPoints(product.price.totalBase)}}</span> <span>points</span>
+              or <span class="value">{{product.price.pointsRequired}}</span> <span>points</span>
             </span>
             <a class="button" href ng-click="selectProduct(product)" ng-disabled="product.memberOnly && !isUserLoggedIn()">Select</a>
           </div>

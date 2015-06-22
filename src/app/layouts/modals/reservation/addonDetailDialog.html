@@ -9,7 +9,7 @@
     <p>{{addon.description}}</p>
     <p>Add to your booking with one click!</p>
     <a class="button" href ng-click="addon._confirmation = true">{{addon.price | i18nCurrency: currencyCode}}</a>
-    <a class="button" href ng-click="addon._confirmation = true">{{toPoints(addon.price)}}</a>
+    <a class="button" href ng-click="addon._confirmation = true" ng-if="addon.pointsRequired">{{addon.pointsRequired}}</a>
   </div>
 
   <div class="modal-body" ng-if="addon._confirmation">

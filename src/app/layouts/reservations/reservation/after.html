@@ -44,7 +44,7 @@
         <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
         <th rowspan="4">Total:</th>
         <td ng-switch-when="cc"><a href ng-click="openPriceBreakdownInfo(selectedProduct)">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</a></td>
-        <td ng-switch-when="point"><a href ng-click="openPriceBreakdownInfo(selectedProduct)">{{toPoints(selectedProduct.price.totalAfterTax)}} points</a></td>
+        <td ng-switch-when="point"><a href ng-click="openPriceBreakdownInfo(selectedProduct)">{{selectedProduct.price.pointsRequired}} points</a></td>
       </tr>
 
       <!-- Additional taxes -->
@@ -91,7 +91,7 @@
     </div>
     <p>Add to your booking with one click:</p>
     <a class="button" href ng-click="openAddonDetailDialog(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
-    <a class="button" href ng-click="openAddonDetailDialog(addon)">{{toPoints(addon.price)}}</a>
+    <a class="button" href ng-click="openAddonDetailDialog(addon)" ng-if="addon.pointsRequired">{{addon.pointsRequired}}</a>
   </li>
 </ul>
 

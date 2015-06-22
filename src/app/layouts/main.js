@@ -6,7 +6,7 @@ angular.module('mobius.controllers.main', [])
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
     'contentService', 'Settings', 'user', '$controller', '$filter',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, $filter) {
+      contentService, Settings, user, $controller) {
 
       // Application settings
       $scope.config = Settings.UI;
@@ -64,13 +64,6 @@ angular.module('mobius.controllers.main', [])
           $scope.heroContent = orderByFilter(heroContent, '+order');
         });
       }
-
-      $scope.toPoints = function(price) {
-        var user = $scope.user.getUser();
-        if (user && user.loyalties) {
-          return $filter('i18nNumber')(price * user.loyalties.cashToPoints, 2);
-        }
-      };
 
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;

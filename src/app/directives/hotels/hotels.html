@@ -43,7 +43,7 @@
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <span>per night</span>
               </span>
               <span ng-if="hotel.available && isUserLoggedIn()" class="price">
-                or <span class="value">{{toPoints(hotel.priceFrom)}}</span> <span>points</span>
+                or <span class="value">{{hotel.minPointsRequired}}</span> <span>points</span>
               </span>
               <span class="price unavailable" ng-if="!hotel.available">
                 Not Available
