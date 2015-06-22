@@ -9,6 +9,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_POLICY = 'PolicyCtrl',
       CONTROLLER_BADGES = 'BadgesCtrl',
       CONTROLLER_ASSOCIATED_ROOM = 'AssociatedRoomCtrl',
+      CONTROLLER_ADDON = 'AddonDetailCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -35,16 +36,19 @@ angular.module('mobiusApp.services.modal', [])
 
   // Accepting reservation data to be rendered in modal window
   function openCancelReservationDialog(reservation){
-    return openDialog('CancelReservationDialog', 'layouts/modals/cancelReservationDialog.html', CONTROLLER_DATA, {
+    return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelReservationDialog.html', CONTROLLER_DATA, {
       windowClass: 'is-wide has-white-bg',
       resolve: {data: function(){return reservation;}}
     });
   }
 
-  function openAddonDetailDialog(addon){
-    return openDialog('AddonDetailDialog', 'layouts/modals/reservation/addonDetailDialog.html', CONTROLLER_DATA, {
+  function openAddonDetailDialog(addAddon, addon){
+    return openDialog('AddonDetailDialog', 'layouts/modals/reservation/addonDetailDialog.html', CONTROLLER_ADDON, {
       windowClass: 'is-wide has-white-bg',
-      resolve: {data: function(){return addon;}}
+      resolve: {
+        addon: function(){return addon;},
+        addAddon: function(){return addAddon;}
+      }
     });
   }
 

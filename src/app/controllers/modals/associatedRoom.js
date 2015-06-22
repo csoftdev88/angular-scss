@@ -11,13 +11,6 @@ angular.module('mobius.controllers.modals.associatedRoom', [])
   $scope.propertyCode = propertyCode;
 
   $scope.roomDetails = data;
-  if($scope.roomDetails.images[0]) {
-    $scope.selectedImage = $scope.roomDetails.images[0];
-  }
-
-  $scope.onImageClick = function(image) {
-    $scope.selectedImage = image;
-  };
 
   $scope.onClickViewMore = function() {
     $modalInstance.dismiss();

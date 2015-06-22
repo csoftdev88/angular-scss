@@ -306,5 +306,7 @@ angular.module('mobius.controllers.reservation', [])
       .value();
   };
 
-  $scope.openAddonDetailDialog = modalService.openAddonDetailDialog;
+  if ($scope.addAddon.bind) { // WTF - PhatomJS workaround
+    $scope.openAddonDetailDialog = modalService.openAddonDetailDialog.bind(modalService, $scope.addAddon.bind($scope));
+  }
 });
