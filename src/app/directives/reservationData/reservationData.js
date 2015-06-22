@@ -13,6 +13,27 @@ angular.module('mobiusApp.directives.reservation.data', [])
 
     // Widget logic goes here
     link: function(scope){
+      var formatingRules = [
+        {
+          // It shows the day (day name) if the
+          // check in date is within the next 7 days
+          max: 7 * 86400000,
+          format: 'dd'
+        },
+        {
+          // If the check in date is between 8 and 90 days
+          // it shows the numeric date and the month (ie 5 Aug)
+          min: 7 * 86400000,
+          max: 90 * 86400000,
+          format: 'DD MMM'
+        },
+        {
+          // If it's 90 days away it shows the month and year
+          min: 90 * 86400000,
+          format: 'MMM YYYY'
+        }
+      ];
+
       function getCount(prop){
         if(!scope.reservation){
           return 0;
@@ -39,8 +60,25 @@ angular.module('mobiusApp.directives.reservation.data', [])
           return '';
         }
 
+        console.log($window.moment().format());
         var diff = $window.moment().diff(scope.reservation.arrivalDate);
-        return diff;
+
+        console.log(diff);
+        for(var i = 0; i < formatingRules.length; i++){
+          var rule = formatingRules[i];
+
+          if(rule.min && diff < rule.min){
+            continue;
+          }
+
+          if(rule.max && diff > rule.max){
+            continue;
+          }
+
+          return $window.moment(scope.reservation.arrivalDate).format(rule.format);
+        }
+
+        return scope.reservation.arrivalDate;
       };
     }
   };

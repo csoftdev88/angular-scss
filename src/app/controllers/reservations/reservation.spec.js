@@ -92,6 +92,7 @@ describe('mobius.controllers.reservation', function() {
       _spyOpenPoliciesInfo.restore();
       _spyStateGo.restore();
       _spyCreateReservation.restore();
+      _clock.restore();
     });
 
     describe('readPolicies', function() {
