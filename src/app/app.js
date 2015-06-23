@@ -81,7 +81,7 @@ angular
     'mobiusApp.directives.datepicker',
     'mobiusApp.directives.password',
     'mobiusApp.directives.chosenOptionsClass',
-    'mobiusApp.directives.luhnCheck',
+    'mobiusApp.directives.creditCardCheck',
     'mobiusApp.directives.monthPicker',
     'mobiusApp.directives.hotelLocation',
     // Common controllers

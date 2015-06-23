@@ -8,7 +8,8 @@ angular.module('mobius.controllers.reservation', [])
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
-  $rootScope, userMessagesService, propertyService, $q){
+  $rootScope, userMessagesService, propertyService, $q,
+  creditCardTypeService){
 
   // This data is used in view
   $scope.bookingDetails = bookingService.getAPIParams();
@@ -178,20 +179,23 @@ angular.module('mobius.controllers.reservation', [])
       rooms: getRooms(),
       customer: user.getUser().id,
       paymentInfo: {
-        paymentMethod: $scope.billingDetails.paymentMethod,
-        ccPayment: {
-          holderName: $scope.billingDetails.card.holderName,
-          number: $scope.billingDetails.card.number,
-          // Last day of selected month
-          expirationDate:  $window.moment($scope.billingDetails.card.expirationDate).endOf('month').format('YYYY-MM-DD'),
-          securityCode: $scope.billingDetails.card.securityCode,
-          typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code || 'VI'
-        }
+        paymentMethod: $scope.billingDetails.paymentMethod
       },
 
       guestFirstName: $scope.userDetails.firstName,
       guestLastName: $scope.userDetails.lastName
     };
+
+    if (reservationData.paymentInfo.paymentMethod === 'cc') {
+      reservationData.paymentInfo.ccPayment = {
+        holderName: $scope.billingDetails.card.holderName,
+        number: $scope.billingDetails.card.number,
+        // Last day of selected month
+        expirationDate: $window.moment($scope.billingDetails.card.expirationDate).endOf('month').format('YYYY-MM-DD'),
+        securityCode: $scope.billingDetails.card.securityCode,
+        typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code
+      };
+    }
 
     if($scope.bookingDetails.promoCode){
       reservationData[bookingService.getCodeParamName($scope.bookingDetails.promoCode)] = $scope.bookingDetails.promoCode;
@@ -268,22 +272,8 @@ angular.module('mobius.controllers.reservation', [])
     }
   };
 
-  $scope.getCreditCardDetails = function(number){
-    if(number){
-      for(var type in Settings.UI.booking.cardTypes){
-        var cardDetails = Settings.UI.booking.cardTypes[type];
-        var regexObj = cardDetails.regex;
-        if(regexObj.test(number)){
-          return {
-            icon: cardDetails.icon,
-            code: cardDetails.code
-          };
-        }
-      }
-    }
-
-    return null;
-  };
+  $scope.creditCardsIcons = $window._.pluck(Settings.UI.booking.cardTypes, 'icon');
+  $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
 
   $scope.modifyReservation = function(onError) {
     var reservationData = createReservationData();

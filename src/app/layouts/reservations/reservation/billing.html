@@ -1,5 +1,9 @@
 <reservation-billing  ng-switch="billingDetails.paymentMethod">
-  <a ng-click="selectPaymentMethod('cc')" href>visa</a>
+  <ul class="cards" ng-click="selectPaymentMethod('cc')">
+    <li ng-repeat="cardIcon in creditCardsIcons">
+      <i ng-class="{selected: getCreditCardDetails(billingDetails.card.number).icon === cardIcon}" class="{{cardIcon}}"></i>
+    </li>
+  </ul>
   <a ng-click="selectPaymentMethod('point')" href>points</a>
   <div ng-switch-when="point">
     Current points: {{pointsData.currentPoints}}<br>
@@ -9,11 +13,10 @@
   </div>
   <div ng-switch-default>
     <h3>Card Details</h3>
-  <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()">
-      <label for="form-card-number" class="card-type" ng-class="{'has-icon': getCreditCardDetails(billingDetails.card.number).icon}">
+    <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()">
+      <label for="form-card-number" class="card-type">
         Card number
-        <input type="text" id="form-card-number" name="cardNumber" luhn-check ng-model="billingDetails.card.number" required/>
-        <i ng-class="getCreditCardDetails(billingDetails.card.number).icon"></i>
+        <input type="text" id="form-card-number" name="cardNumber" credit-card-check ng-model="billingDetails.card.number" required/>
       </label>
 
       <div class="input-left">

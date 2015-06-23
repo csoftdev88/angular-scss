@@ -195,7 +195,7 @@ angular.module('mobiusApp.config', [])
         'visa': {
           'code': 'VI',
           'icon': 'visa',
-          'regex': /^4[0-9]{12}(?:[0-9]{3})?$/,
+          'regex': /^4[0-9]{12}(?:[0-9]{3})?$/
         },
         'master': {
           'code': 'MC',
