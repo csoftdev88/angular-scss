@@ -56,7 +56,7 @@ angular.module('mobius.controllers.reservation', [])
       securityCode: '',
       holderName: ''
     },
-    paymentMethod: null, // 'cc','paypal','bitcoint','point','bill'
+    paymentMethod: null, // API: 'cc','paypal','bitcoint','point','bill'
     useGuestAddress: true
   };
 
@@ -85,7 +85,7 @@ angular.module('mobius.controllers.reservation', [])
   }).then(function(addons) {
       $scope.addons = $window._.map(addons, function(addon) {
         addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
-        addon.hasViewMore = addon.descriptionShort.length < addon.description;
+        addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
         if (addon.hasViewMore) {
           addon.descriptionShort += '…';
         }
@@ -211,12 +211,7 @@ angular.module('mobius.controllers.reservation', [])
     var reservationPromise = reservationService.createReservation(reservationData)
       .then(function(data){
         $scope.reservation = data;
-        if(!$scope.reservation.bookDate) {
-          $scope.reservation.bookDate = $window.moment();
-        } else {
-          $scope.reservation.bookDate = $window.moment($scope.reservation.bookDate);
-        }
-        $scope.reservation.bookDateFormatted = $scope.reservation.bookDate.format('D MMM YYYY');
+        $scope.reservation.bookDate = $scope.reservation.bookDate ? $window.moment($scope.reservation.bookDate) : $window.moment();
         $scope.reservation.packages = [];
 
         userMessagesService.addInfoMessage('' +

@@ -61,7 +61,7 @@ angular.module('mobiusApp.directives.room', [])
         ), function(product) {
           var descriptionShort = angular.element(product.description).text();
           product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
-          product.hasViewMore = product.descriptionShort.length < descriptionShort;
+          product.hasViewMore = product.descriptionShort.length < descriptionShort.length;
           if (product.hasViewMore) {
             product.descriptionShort += '…';
           }

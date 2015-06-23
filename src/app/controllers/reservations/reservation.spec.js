@@ -1,14 +1,23 @@
 'use strict';
+/*jshint -W030 */
 
 describe('mobius.controllers.reservation', function() {
   describe('ReservationCtrl', function() {
     var _scope, _spyOpenPoliciesInfo, _spyStateGo, _spyCreateReservation,
-    _clock;
+    _clock, _spyGetPropertyDetails, _spyGetRoomProductAddOns;
 
+    var TEST_PROPERTY_ID = 987654321;
+    var TEST_ROOM_ID = 918273645;
+    var TEST_PRODUCT_CODE = 192837465;
     var TEST_USER_ID = 123456789;
     var TEST_RESERVATION_CODE = 95234134;
-    var TEST_PROPERTY = {};
-    var TEST_ADDONS = [];
+    var TEST_PROPERTY = {
+      code: 'TPROP'
+    };
+    var TEST_ADDONS = [
+      {code: 'short', description: 'description'},
+      {code: 'long', description: 'description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description'}
+    ];
     var TEST_VISA = {
       regex: /^4[0-9]{12}(?:[0-9]{3})?$/,
       icon: 'visa',
@@ -27,8 +36,11 @@ describe('mobius.controllers.reservation', function() {
             };
           }
         });
-        $provide.value('propertyService', {});
-        $provide.value('$stateParams', {});
+        $provide.value('$stateParams', {
+          property: TEST_PROPERTY_ID,
+          roomID: TEST_ROOM_ID,
+          productCode: TEST_PRODUCT_CODE
+        });
 
         $provide.value('$state', {
           current: {
@@ -104,24 +116,44 @@ describe('mobius.controllers.reservation', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, $state,
-      reservationService, modalService) {
+      reservationService, modalService, propertyService) {
       _scope = $rootScope.$new();
 
       _clock = sinon.useFakeTimers(0 , 'Date');
       _clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());
 
-      $controller('ReservationCtrl', { $scope: _scope });
-
       _spyOpenPoliciesInfo = sinon.spy(modalService, 'openPoliciesInfo');
       _spyStateGo = sinon.spy($state, 'go');
       _spyCreateReservation  = sinon.spy(reservationService, 'createReservation');
+      _spyGetPropertyDetails  = sinon.spy(propertyService, 'getPropertyDetails');
+      _spyGetRoomProductAddOns  = sinon.spy(propertyService, 'getRoomProductAddOns');
+
+      $controller('ReservationCtrl', { $scope: _scope });
     }));
 
     afterEach(function() {
       _spyOpenPoliciesInfo.restore();
       _spyStateGo.restore();
       _spyCreateReservation.restore();
+      _spyGetPropertyDetails.restore();
+      _spyGetRoomProductAddOns.restore();
       _clock.restore();
+    });
+
+    describe('when controller initialized', function() {
+      it('should download property details from the server and store them', function(){
+        expect(_spyGetPropertyDetails).calledOnce;
+        expect(_spyGetPropertyDetails.calledWith(TEST_PROPERTY_ID)).equal(true);
+        expect(_scope.property).equal(TEST_PROPERTY);
+      });
+
+      it('should download property details from the server and store them', function(){
+        expect(_spyGetRoomProductAddOns).calledOnce;
+        expect(_spyGetRoomProductAddOns.calledWith(TEST_PROPERTY_ID, TEST_ROOM_ID, TEST_PRODUCT_CODE)).equal(true);
+        expect(_scope.addons).to.have.keys(TEST_ADDONS[0].code, TEST_ADDONS[1].code);
+        expect(_scope.addons[TEST_ADDONS[0].code]).deep.equal({code: TEST_ADDONS[0].code, description: TEST_ADDONS[0].description, descriptionShort: TEST_ADDONS[0].description, hasViewMore: false});
+        expect(_scope.addons[TEST_ADDONS[1].code]).deep.equal({code: TEST_ADDONS[1].code, description: TEST_ADDONS[1].description, descriptionShort: TEST_ADDONS[1].description.substr(0, 100) + '…', hasViewMore: true});
+      });
     });
 
     describe('readPolicies', function() {
@@ -220,7 +252,6 @@ describe('mobius.controllers.reservation', function() {
 
         it('should set credit expiration date to end of the currently selected month', function(){
           expect(bookingParams.paymentInfo.ccPayment.expirationDate).equal('2015-01-31');
-
         });
       });
     });
