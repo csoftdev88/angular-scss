@@ -122,7 +122,15 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&region&children&adults&dates&rate&rooms'
+        url: '?property&region&children&adults&dates&rate&rooms',
+        data: {},
+        resolve: {
+          userObject: function(user) {
+            return user.loadProfile().then(function(userObject) {
+              return userObject;
+            });
+          }
+        }
       })
 
       // Home page
@@ -157,7 +165,10 @@ angular
         parent: 'root',
         templateUrl: 'layouts/reservations/reservations.html',
         url: '/reservations',
-        controller: 'ReservationsCtrl'
+        controller: 'ReservationsCtrl',
+        data: {
+          private: true
+        }
       })
 
       // Room reservation
@@ -173,17 +184,14 @@ angular
         templateUrl: 'layouts/reservations/reservation/reservation.html',
         abstract: true
       })
-
       .state('reservation.details', {
         parent: 'reservation.process',
         templateUrl: 'layouts/reservations/reservation/details.html'
       })
-
       .state('reservation.billing', {
         parent: 'reservation.process',
         templateUrl: 'layouts/reservations/reservation/billing.html'
       })
-
       .state('reservation.confirmation', {
         parent: 'reservation.process',
         templateUrl: 'layouts/reservations/reservation/confirmation.html'
@@ -208,6 +216,7 @@ angular
         url: '/news/',
         controller: 'NewsCtrl'
       })
+
       // Contact page
       .state('contacts', {
         parent: 'root',
@@ -231,6 +240,16 @@ angular
     });
   })
 
-  .run(function(user) {
-    user.loadProfile();
+  .run(function(user, $rootScope, $state) {
+    // $stateChangeSuccess is used because resolve on controller is ready
+    $rootScope.$on('$stateChangeSuccess', function(event, next) {
+      if (next.data.private) {
+        var loggedIn = user.isLoggedIn();
+        if (!loggedIn) {
+          // Redirect to home page
+          event.preventDefault();
+          $state.go('home');
+        }
+      }
+    });
   });
