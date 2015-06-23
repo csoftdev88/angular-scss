@@ -9,6 +9,11 @@ describe('mobius.controllers.reservation', function() {
     var TEST_RESERVATION_CODE = 95234134;
     var TEST_PROPERTY = {};
     var TEST_ADDONS = [];
+    var TEST_VISA = {
+      regex: /^4[0-9]{12}(?:[0-9]{3})?$/,
+      icon: 'visa',
+      code: 'VI'
+    };
 
     beforeEach(function() {
       module('mobius.controllers.room.details');
@@ -81,13 +86,18 @@ describe('mobius.controllers.reservation', function() {
           UI: {
             'booking': {
               cardTypes: {
-                'visa': {
-                  regex: /^4[0-9]{12}(?:[0-9]{3})?$/,
-                  icon: 'visa',
-                  code: 'VI'
-                }
+                'visa': TEST_VISA
               }
             }
+          }
+        });
+
+        $provide.value('creditCardTypeService', {
+          getCreditCardDetails: function() {
+            return {
+              code: TEST_VISA.code,
+              icon: TEST_VISA.icon
+            };
           }
         });
       });
@@ -131,24 +141,7 @@ describe('mobius.controllers.reservation', function() {
       //});
     });
 
-    describe('getCreditCardDetails', function() {
-      it('should return null when number is not defined', function() {
-        expect(_scope.getCreditCardDetails()).equal(null);
-        expect(_scope.getCreditCardDetails(undefined)).equal(null);
-        expect(_scope.getCreditCardDetails(null)).equal(null);
-      });
-
-      it('should return card type when found in the config', function() {
-        var cardDetails = _scope.getCreditCardDetails('4222222222222');
-
-        expect(cardDetails.icon).equal('visa');
-        expect(cardDetails.code).equal('VI');
-      });
-
-      it('should return null when credit card number doesnt match expressions in the config', function() {
-        expect(_scope.getCreditCardDetails('2222222222224')).equal(null);
-      });
-
+    describe('expiration date', function() {
       it('should set credit card expiration min date on scope', function() {
         expect(_scope.expirationMinDate).equal('2015-01');
       });
@@ -165,6 +158,7 @@ describe('mobius.controllers.reservation', function() {
         };
 
         _scope.billingDetails = {
+          paymentMethod: 'cc',
           card: {
             number: TEST_CARD_NUMBER,
             expirationDate: '2015-01-05'

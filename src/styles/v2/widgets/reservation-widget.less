@@ -117,43 +117,33 @@ reservation-steps {
 }
 
 reservation-billing {
-  .card-type {
-    .transition;
+  .cards {
+    cursor: pointer;
+
+    li {
+      float: left;
+    }
 
     i {
       display: block;
-      opacity: 0;
-      .transition;
+      opacity: 1;
+      width: 32px;
+      height: 30px;
 
-    }
+      &.visa {
+        background: url('../images/card-icons/visa.png') no-repeat center center;
+      }
 
-    &.has-icon {
-      padding-right: 40px;
-      position: relative;
+      &.master {
+        background: url('../images/card-icons/mastercard.png') no-repeat center center;
+      }
 
-      i {
-        opacity: 1;
-        width: 32px;
-        height: 30px;
-        position: absolute;
-        right: 0px;
-        bottom: 9px;
+      &.amex {
+        background: url('../images/card-icons/amex.png') no-repeat center center;
+      }
 
-        &.visa {
-          background: url('../images/card-icons/visa.png') no-repeat center center;
-        }
-
-        &.master {
-          background: url('../images/card-icons/mastercard.png') no-repeat center center;
-        }
-
-        &.amex {
-          background: url('../images/card-icons/amex.png') no-repeat center center;
-        }
-
-        &.discover {
-          background: url('../images/card-icons/discover.png') no-repeat center center;
-        }
+      &.discover {
+        background: url('../images/card-icons/discover.png') no-repeat center center;
       }
     }
   }
