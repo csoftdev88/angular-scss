@@ -52,7 +52,7 @@ describe('contentService', function() {
     it('should fire a GET request to contents API', function() {
       env.contentService.getNews();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('contents')).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('contents.news')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
@@ -72,7 +72,7 @@ describe('contentService', function() {
     it('should fire a GET request to contents API', function() {
       env.contentService.getOffers();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('contents')).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('contents.offers')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
