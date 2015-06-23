@@ -256,14 +256,32 @@ angular.module('mobiusApp.config', [])
       'noShow': 'No Show',
       'pet': 'Pet'
     },
-    'arrivalMethods': {
-      'car': '_car_',
-      'bus': '_bus_',
-      'train': '_train_',
-      'plane': '_plane_',
-      'boat': '_boat_',
-      'other': '_other_'
-    },
+    'arrivalMethods': [
+      {
+        apiValue: 'Car',
+        display: '_car_'
+      },
+      {
+        apiValue: 'Bus',
+        display: '_bus_'
+      },
+      {
+        apiValue: 'Train',
+        display: '_train_'
+      },
+      {
+        apiValue: 'Plane',
+        display: '_plane_'
+      },
+      {
+        apiValue: 'Boat',
+        display: '_boat_'
+      },
+      {
+        apiValue: 'Other',
+        display: '_other_'
+      }
+    ],
     localTimeUpdates: {
       format: 'h.mm A',
       interval: 1000*60 // every minute

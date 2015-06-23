@@ -29,7 +29,7 @@
     "bus": "Bus",
     "train": "Train",
     "plane": "Plane",
-    "boat": "Boar",
+    "boat": "Boat",
     "other": "Other"
   }
 }
