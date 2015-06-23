@@ -36,7 +36,7 @@ angular.module('mobiusApp.directives.room', [])
            greater than the currently viewed room. If there are not enough of them we can show the cheaper
            ones as well. */
 
-        propertyService.getRooms(propertyCode)
+        return propertyService.getRooms(propertyCode)
           .then(function(hotelRooms){
             var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
             var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
@@ -79,8 +79,8 @@ angular.module('mobiusApp.directives.room', [])
       };
 
       var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
-        setRoomData(data.roomDetails);
         setRoomProductDetails(data.roomProductDetails);
+        return setRoomData(data.roomDetails);
       }, function() {
         $state.go('hotel', {
           propertyCode: propertyCode
