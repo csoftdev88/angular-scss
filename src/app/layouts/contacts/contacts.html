@@ -15,9 +15,9 @@
       </form-element>
 
       <form-element ng-class="{'is-invalid': form.$submitted && (form.email.$error.email || form.email.$error.pattern || form.password.$error.required)}">
-        <input id="email" type="email" name="email" placeholder="Email" ng-model="formData.email" required ng-pattern="emailPattern">
+        <input id="email" type="email" name="email" placeholder="Email" ng-model="formData.email" required email-check>
         <form-label for="email">Enter Your Email</form-label>
-        <error-message role="alert" ng-show="form.$submitted && (form.email.$error.email || form.email.$error.pattern)">Please enter valid email</error-message>
+        <error-message role="alert" ng-show="form.$submitted && (form.email.$error.email || form.email.$error.emailCheck)">Please enter valid email</error-message>
         <error-message role="alert" ng-show="form.$submitted && form.email.$error.required">Email is required</error-message>
       </form-element>
 

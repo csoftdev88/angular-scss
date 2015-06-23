@@ -79,11 +79,11 @@ angular
     'mobiusApp.directives.resize.watcher',
     'mobiusApp.directives.dropdown.group',
     'mobiusApp.directives.datepicker',
-    'mobiusApp.directives.password',
     'mobiusApp.directives.chosenOptionsClass',
     'mobiusApp.directives.creditCardCheck',
     'mobiusApp.directives.monthPicker',
     'mobiusApp.directives.hotelLocation',
+    'mobiusApp.directives.emailCheck',
     // Common controllers
     'mobius.controllers.reservation.directive',
 

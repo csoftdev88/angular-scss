@@ -12,8 +12,6 @@ angular.module('mobius.controllers.contacts', [])
       $scope.chain = chain;
     });
 
-    $scope.emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
     $scope.sendForm = function(){
       $scope.form.$submitted = true;
       if ($scope.form.$valid) {
