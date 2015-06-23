@@ -60,6 +60,8 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
+  $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
+
   $scope.additionalInfo = {
     arrivalTime: '',
     arrivalMethod: '',

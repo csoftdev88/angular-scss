@@ -24,6 +24,12 @@
     "advanced_booking": "Advanced Booking",
     "my_account": "My Account",
     "tier": "Tier",
-    "points": "points"
+    "points": "points",
+    "car": "Car",
+    "bus": "Bus",
+    "train": "Train",
+    "plane": "Plane",
+    "boat": "Boar",
+    "other": "Other"
   }
 }

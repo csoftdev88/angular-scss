@@ -256,6 +256,14 @@ angular.module('mobiusApp.config', [])
       'noShow': 'No Show',
       'pet': 'Pet'
     },
+    'arrivalMethods': {
+      'car': '_car_',
+      'bus': '_bus_',
+      'train': '_train_',
+      'plane': '_plane_',
+      'boat': '_boat_',
+      'other': '_other_'
+    },
     localTimeUpdates: {
       format: 'h.mm A',
       interval: 1000*60 // every minute
