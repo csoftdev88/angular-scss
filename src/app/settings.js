@@ -45,7 +45,9 @@ angular.module('mobiusApp.config', [])
     },
     'reservations': {
       'new': 'reservations',
-      'modify': 'reservations/:reservationCode'
+      'modify': 'reservations/:reservationCode',
+      // NOTE: Currently used for all/details - check the API
+      'all': 'reservations/'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
@@ -260,6 +262,33 @@ angular.module('mobiusApp.config', [])
     },
     'imageCarousel': {
       minImages: 6
+    },
+
+    // Date formatting rules for reservations
+    'checkInDateFormats': {
+      'defaultFormat': 'MMM YYYY',
+      'rules': [
+        {
+          // It shows the day (day name) if the
+          // check in date is within the next 7 days
+          max: 8 * 86400000,
+          // Only for future dates
+          min: 0,
+          format: 'dd'
+        },
+        {
+          // If the check in date is between 8 and 90 days
+          // it shows the numeric date and the month (ie 5 Aug)
+          min: 8 * 86400000,
+          max: 90 * 86400000,
+          format: 'DD MMM'
+        },
+        {
+          // If it's 90 days away it shows the month and year
+          min: 90 * 86400000,
+          format: 'MMM YYYY'
+        }
+      ]
     }
   }
 });

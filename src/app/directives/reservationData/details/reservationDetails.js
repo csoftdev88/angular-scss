@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('mobiusApp.directives.reservation.data', [])
+angular.module('mobiusApp.directives.reservation.details', [])
 
-.directive('reservationData', function($controller){
+.directive('reservationDetails', function($controller){
   return {
     restrict: 'E',
     scope: {
       reservation: '=',
       property: '='
     },
-    templateUrl: 'directives/reservationData/reservationData.html',
+    templateUrl: 'directives/reservationData/details/reservationDetails.html',
 
     // Widget logic goes here
     link: function(scope){

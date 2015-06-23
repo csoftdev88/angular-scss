@@ -1,19 +1,55 @@
 <div ui-view>
+  <div widget="reservations" grid="12">
+    <div ng-if="eservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length">
+      <h1>No reservations found</h1>
+    </div>
 
-  <div widget="reservation" grid="8">
-    <h3>Your <strong>Next Stay</strong></h3>
-    <reservation-item ng-repeat="reservation in reservations">
-      <div class="table-wrap">
-        <p><strong>Reservation number: </strong>{{reservation.id}}</p>
-        <reservation-data reservation="reservation"></reservation-data>
-      </div>
+    <div ng-if="reservations.nextStay">
+      <h3>Your <strong>Next Stay</strong></h3>
+      <reservation-item>
+        <div class="table-wrap">
+          <reservation-details reservation="reservations.nextStay" property="properties[reservations.nextStay.property.code]"></reservation-details>
+        </div>
 
-      <reservation-buttons>
-        <button class="button-gray">Edit Reservation</button>
-        <button class="button-gray" ng-click="openCancelReservationDialog(reservation)">Cancel Reservation</button>
-      </reservation-buttons>
-    </reservation-item>
+        <!--
+        <reservation-buttons>
+          <button class="button-gray">Edit Reservation</button>
+          <button class="button-gray" ng-click="openCancelReservationDialog(reservation)">Cancel Reservation</button>
+        </reservation-buttons>
+       -->
+      </reservation-item>
+    </div>
 
-    <h3>Your <strong>Past Stays</strong></h3>
+    <div ng-if="reservations.futureStays.length">
+      <h3>Your <strong>Future Stays</strong></h3>
+      <reservation-item ng-repeat="reservation in reservations.futureStays">
+        <div class="table-wrap">
+          <reservation-data reservation="reservation" property="properties[reservation.property.code]"></reservation-data>
+        </div>
+
+        <!--
+        <reservation-buttons>
+          <button class="button-gray">Edit Reservation</button>
+          <button class="button-gray" ng-click="openCancelReservationDialog(reservation)">Cancel Reservation</button>
+        </reservation-buttons>
+      </reservation-item>
+      -->
+    </div>
+
+    <div ng-if="reservations.pastStays.length">
+      <h3>Your <strong>Past Stays</strong></h3>
+      <reservation-item ng-repeat="reservation in reservations.pastStays">
+        <div class="table-wrap">
+          <reservation-data reservation="reservation" property="properties[reservation.property.code]"></reservation-data>
+        </div>
+
+        <!--
+        <reservation-buttons>
+          <button class="button-gray">Edit Reservation</button>
+          <button class="button-gray" ng-click="openCancelReservationDialog(reservation)">Cancel Reservation</button>
+        </reservation-buttons>
+      </reservation-item>
+      -->
+    </div>
   </div>
 </div>

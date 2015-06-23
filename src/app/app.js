@@ -74,6 +74,7 @@ angular
     'mobiusApp.directives.room',
     'mobiusApp.directives.room.aside',
     'mobiusApp.directives.reservation.data',
+    'mobiusApp.directives.reservation.details',
     'mobiusApp.directives.equals',
     'mobiusApp.directives.resize.watcher',
     'mobiusApp.directives.dropdown.group',
@@ -83,6 +84,8 @@ angular
     'mobiusApp.directives.luhnCheck',
     'mobiusApp.directives.monthPicker',
     'mobiusApp.directives.hotelLocation',
+    // Common controllers
+    'mobius.controllers.reservation.directive',
 
     // Directive based on content data
     'mobiusApp.directives.menu',
@@ -102,7 +105,8 @@ angular
     'mobiusApp.filters.number',
     'mobiusApp.filters.currency',
     'mobiusApp.filters.pluralization',
-    'mobius.filters.dateTime'
+    'mobius.filters.dateTime',
+    'mobius.filters.checkInDate'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {

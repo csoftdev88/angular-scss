@@ -1,61 +1,80 @@
 'use strict';
 /*
- * This module controlls reservations
+ * This module controlls a list of reservation page(My stays)
  */
 angular.module('mobius.controllers.reservations', [])
 
-.controller('ReservationsCtrl', function($scope, $controller, modalService, creditCardTypeService){
+.controller('ReservationsCtrl', function($scope, $controller,
+  modalService, creditCardTypeService, reservationService,
+  preloaderFactory, propertyService, $window, _){
 
   $controller('MainCtrl', {$scope: $scope});
 
-  // NOTE: Dummy data, will be replaced by data from API
-  $scope.reservations = [
-    {
-      id: 'MOBTUN-123555',
-      checkin: '21 Oct 14',
-      checkout: '23 Oct 14',
-      charges: 178,
-      tax: 16.45,
-      total: 194.45,
-      hotel: {
-        name: 'Hotel Mobius Tunis',
-        country: 'Tunisia'
-      },
-      rooms: [{
-        type: 'Deluxe Double Room',
-        rate: 'Bed and Breakfast',
-        price: 89.00,
-        adults: 2,
-        children: 0
-      }]
-    },
-    {
-      id: 'MOBBARC-132564',
-      checkin: '13 Nov 14',
-      checkout: '16 Nov 14',
-      charges: 186,
-      tax: 21.65,
-      total: 207.65,
-      hotel: {
-        name: 'Hotel Mobius Barcelona',
-        country: 'Spain'
-      },
-      rooms: [{
-        type: 'Deluxe Double Room',
-        rate: 'Bed and Breakfast',
-        price: 99.00,
-        adults: 1,
-        children: 1
-      }, {
-        type: 'Deluxe Double Room',
-        rate: 'All Inclusive',
-        price: 119.00,
-        adults: 2,
-        children: 0
-      }]
-    }
-  ];
+  // TODO: User must be authorized - make global check
+  // for auth protected routes
 
+  var reservationsPromise = reservationService.getAll().then(function(data){
+    processReservationsData(data);
+  });
+
+  preloaderFactory(reservationsPromise);
+
+  function processReservationsData(data){
+    // Sorting by arrivalDate
+    // NOTE: Could be also sorted by time - format is not clear TBD
+    data = _.sortBy(data, function(reservation){
+      return $window.moment(reservation.arrivalDate).valueOf();
+    });
+
+    fetchProperties(data);
+
+    var futureStays = getFutureStays(data);
+
+    $scope.reservations = {
+      nextStay: futureStays.shift() || {},
+      pastStays: getPastStays(data),
+      futureStays: futureStays
+    };
+  }
+
+  $scope.getPropertyDetails = function(code){
+    return $scope.properties[code];
+  };
+
+  // Getting property details for each reservation
+  function fetchProperties(reservations){
+    // Cache
+    $scope.properties = {};
+
+    _.each(reservations, function(reservation){
+      var propertyCode = reservation.property.code;
+
+      if(!$scope.properties[propertyCode]){
+        $scope.properties[propertyCode] = {};
+
+        propertyService.getPropertyDetails(propertyCode).then(function(propertyDetails){
+          $scope.properties[propertyCode] = propertyDetails;
+        });
+      }
+    });
+  }
+
+  function getPastStays(data){
+    var today = $window.moment().valueOf();
+    return _.filter(data, function(reservation){
+      return $window.moment(reservation.arrivalDate).valueOf() < today;
+    });
+  }
+
+  // TODO: Check whats is a future stay(tomorrow/today?)
+  function getFutureStays(data){
+    var today = $window.moment().valueOf();
+    return _.filter(data, function(reservation){
+      return $window.moment(reservation.arrivalDate).valueOf() >= today;
+    });
+  }
+
+  // TODO: Review code below
   $scope.reservationDetails = {};
 
   $scope.openPoliciesInfo = modalService.openPoliciesInfo;
