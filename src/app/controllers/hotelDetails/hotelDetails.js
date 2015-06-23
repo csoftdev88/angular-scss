@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.hotel.details', [])
 
-.controller( 'HotelDetailsCtrl', function($scope, bookingService,
+.controller( 'HotelDetailsCtrl', function($scope, bookingService, $state,
   propertyService, filtersService, preloaderFactory, $q, modalService) {
 
   var bookingParams = bookingService.getAPIParams();
@@ -35,6 +35,8 @@ angular.module('mobius.controllers.hotel.details', [])
         }
 
         $scope.openGallery = modalService.openGallery;
+      }, function() {
+        $state.go('hotels');
       });
 
     var roomsPromise = propertyService.getRooms(propertyCode)

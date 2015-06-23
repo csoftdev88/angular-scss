@@ -11,6 +11,13 @@ angular.module('mobius.controllers.reservation', [])
   $rootScope, userMessagesService, propertyService, $q,
   creditCardTypeService){
 
+  function goToRoom() {
+    $state.go('room', {
+      propertyCode: $stateParams.property,
+      roomID: $stateParams.roomID
+    });
+  }
+
   // This data is used in view
   $scope.bookingDetails = bookingService.getAPIParams();
 
@@ -64,12 +71,9 @@ angular.module('mobius.controllers.reservation', [])
   $controller('RoomDetailsCtrl', {$scope: $scope});
 
   // Getting room/products data
-  var roomDataPromise = $scope.getRoomData(
-    $stateParams.property, $stateParams.roomID).then(function(data){
+  var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
     $scope.setRoomDetails(data.roomDetails);
     setProductDetails(data.roomProductDetails.products);
-  }, function(){
-    $state.go('hotel');
   });
 
   var propertyPromise = propertyService.getPropertyDetails($stateParams.property).then(function(property) {
@@ -95,7 +99,7 @@ angular.module('mobius.controllers.reservation', [])
     });
 
   // Showing loading mask
-  preloaderFactory($q.all([roomDataPromise, propertyPromise, extrasPromise]));
+  preloaderFactory($q.all([roomDataPromise, propertyPromise, extrasPromise]).catch(goToRoom));
 
   function setProductDetails(products){
     // Finding the product which user about to book
@@ -117,10 +121,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.goBack = function() {
     switch ($state.current.name) {
     case 'reservation.details':
-      return $state.go('room', {
-        propertyCode: $scope.bookingDetails.property,
-        roomID: $stateParams.roomID
-      });
+      return goToRoom();
     case 'reservation.billing':
       return $state.go('reservation.details');
     case 'reservation.confirmation':

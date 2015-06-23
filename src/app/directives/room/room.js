@@ -52,8 +52,9 @@ angular.module('mobiusApp.directives.room', [])
 
       // Room product details
       function setRoomProductDetails(data) {
-        scope.products = _.map(_.where(data.products, {memberOnly: true})
-          .concat(
+        scope.products = _.map(
+          [].concat(
+          _.where(data.products, {memberOnly: true}),
           _.where(data.products, {highlighted: true}),
           _.reject(data.products, function(product) {
             return product.memberOnly || product.highlighted;
@@ -80,6 +81,10 @@ angular.module('mobiusApp.directives.room', [])
       var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
         setRoomData(data.roomDetails);
         setRoomProductDetails(data.roomProductDetails);
+      }, function() {
+        $state.go('hotel', {
+          propertyCode: propertyCode
+        });
       });
 
       preloaderFactory(roomDetailsPromise);
