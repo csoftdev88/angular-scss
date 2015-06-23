@@ -2,6 +2,16 @@
 
 @c-button: @c-green;
 
+button {
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: @size-0;
+  line-height: @baseline * 1.5;
+}
+
 //- Button Submit
 .button,
 button-submit {
@@ -66,7 +76,80 @@ button-remove {
 
   &:before {
     .fa;
-
     content: @fa-var-close;
+  }
+}
+
+//- Button Next -> used in Reservation
+button-next {
+  &:extend(button);
+
+  position: relative;
+  height: @baseline * 2;
+  padding: 0 70px 0 30px; // 30px + 40px width of icon
+
+  color: @c-white;
+  background: @c-button;
+
+  font-size: @size-1;
+  line-height: @baseline * 2;
+  box-shadow: 0 2px 0 0 darken(@c-button, 5%);
+  transition: background-color 0.15s linear;
+
+  &:hover,
+  &:focus {
+    background-color: darken(@c-button, 4%);
+  }
+
+  &:active {
+    box-shadow: 0 1px 0 0 darken(@c-button, 5%);
+    transform: translateY(1px);
+  }
+
+  // Arrow in right part of button
+  &:after {
+    .fa;
+    content: @fa-var-angle-right;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    border-left: 1px solid lighten(@c-button, 10%);
+
+    line-height: 40px;
+    font-size: @size-4;
+    text-align: center;
+
+    box-shadow: -2px 0 0 -1px darken(@c-button, 10%);
+  }
+}
+
+//- Button Back -> used in Reservation
+button-back {
+  &:extend(button);
+
+  border: none;
+  background: transparent;
+  color: @c-gray;
+
+  font-size: @size-2;
+  font-weight: normal;
+  line-height: @baseline * 2;
+
+  // Arrow on left side
+  &:before {
+    .fa;
+    content: @fa-var-angle-left;
+
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    border: 1px solid @c-gray;
+    border-radius: 50%;
+
+    font-size: @size-3;
+    text-align: center;
   }
 }
