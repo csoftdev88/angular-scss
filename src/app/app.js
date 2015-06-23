@@ -128,6 +128,8 @@ angular
           userObject: function(user) {
             return user.loadProfile().then(function(userObject) {
               return userObject;
+            }, function() {
+              return {};
             });
           }
         }
@@ -252,4 +254,5 @@ angular
         }
       }
     });
-  });
+  })
+;
