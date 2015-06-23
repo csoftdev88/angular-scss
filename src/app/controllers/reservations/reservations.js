@@ -10,9 +10,6 @@ angular.module('mobius.controllers.reservations', [])
 
   $controller('MainCtrl', {$scope: $scope});
 
-  // TODO: User must be authorized - make global check
-  // for auth protected routes
-
   var reservationsPromise = reservationService.getAll().then(function(data){
     processReservationsData(data);
   });
@@ -74,18 +71,5 @@ angular.module('mobius.controllers.reservations', [])
     });
   }
 
-  // TODO: Review code below
-  $scope.reservationDetails = {};
-
-  $scope.openPoliciesInfo = modalService.openPoliciesInfo;
-  $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
   $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
-
-  $scope.getCreditCardType = creditCardTypeService.getType;
-  $scope.creditCardTypes = {};
-  // change names to icons
-  $scope.creditCardTypes[creditCardTypeService.AMERICAN_EXPRESS] = 'American Express';
-  $scope.creditCardTypes[creditCardTypeService.MAESTRO] = 'Maestro';
-  $scope.creditCardTypes[creditCardTypeService.MASTER_CARD] = 'Master Card';
-  $scope.creditCardTypes[creditCardTypeService.VISA] = 'Visa';
 });

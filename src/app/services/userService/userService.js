@@ -66,6 +66,7 @@ angular.module('mobiusApp.services.user', [])
             // NOTE: data[0] is userProfile data
             // data[1] is loyalties data - handled in loadLoyalties function
             userObject = _.extend(userObject, data[0]);
+            return userObject;
           });
         } else {
           return $q.reject({});
