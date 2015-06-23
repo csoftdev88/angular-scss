@@ -91,7 +91,6 @@
     <button-back ng-click="goBack()">Back</button-back>
     <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
       <h4>Already Registered?</h4>
-
       <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
     </registration-call>
     <button-next ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button-next>

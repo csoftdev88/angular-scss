@@ -156,6 +156,7 @@ angular.module('mobius.controllers.reservation', [])
       $scope.billingDetails.paymentMethod = 'cc';
     }
   };
+
   $scope.isValid = function() {
     switch($state.current.name){
     case 'reservation.details':
