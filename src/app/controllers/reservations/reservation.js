@@ -300,10 +300,6 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.getPackagesPrice = function() {
-    return $window._.chain($scope.reservation.packages)
-      .map(function(code) { return $scope.addons[code]; })
-      .pluck('price')
-      .reduce(function(acc, price) { return acc + price; }, 0)
-      .value();
+    return $window._.reduce($scope.reservation.packages, function(acc, packageCode) { return acc + $scope.addons[packageCode].price; }, 0);
   };
 });
