@@ -88,11 +88,11 @@
   </span>
 
   <div grid-row>
-    <button-back ng-click="goBack()">Back</button-back>
+    <button class="back" ng-click="goBack()">Back</button>
     <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
       <h4>Already Registered?</h4>
       <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
     </registration-call>
-    <button-next ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button-next>
+    <button class="next" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
   </div>
 </reservation-widget>
