@@ -1,0 +1,180 @@
+/////////////////////
+// Local Variables //
+/////////////////////
+
+@c-reservation-form:  #d7d7d7;
+@c-form-text:         #373535;
+@spacing:  20px;
+
+reservation-widget {
+  display: block;
+  margin: 50px 0 10px 0;
+  padding: @spacing 0;
+  .shadow-box(#ddd);
+
+  h3 {
+    font-size: @size-1;
+  }
+  form {
+    margin-top: 10px;
+  }
+
+  label {
+    position: relative;
+    padding-top: @size--2 + 4px; // 15px
+    padding-bottom: 10px;
+    color: darken(@c-reservation-form, 20%);
+
+    span {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: @size--2;
+      line-height: 1;
+      font-weight: normal;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.2s linear,
+                  transform 0.2s ease-out;
+    }
+
+    &.input-right span {
+      left: 10px;
+    }
+
+    input:focus ~ span {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  input[type="text"],
+  input[type="email"], {
+    height: 45px;
+    padding: 0 15px;
+    border-radius: 0;
+    border-color: @c-reservation-form;
+    color: @c-form-text;
+    font-size: @size-0;
+
+    &:focus {
+      box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+    }
+  }
+
+  .input-checkbox {
+    font-weight: normal;
+    font-size: @size-0;
+  }
+
+  .detail-links {
+    text-align: right;
+    color: @c-brown;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  aside {
+    section + section {
+      margin: @spacing 0;
+    }
+  }
+
+  .room-data {
+
+    h3, h4, p {
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-weight: bold;
+    }
+  }
+
+  .reservation-data {
+
+    table {
+      width: 100%;
+    }
+
+    th {
+      font-weight: normal;
+      text-align: left;
+    }
+
+    td { font-weight: bold; }
+
+    .data {
+      margin: @spacing 0;
+    }
+
+    .charges {
+      padding: 10px;
+      border: 1px solid @c-reservation-form;
+      border-radius: 6px;
+    }
+  }
+
+  button-next {
+    float: right;
+    margin: 0 @spacing;
+  }
+
+  button-back {
+    margin: 0 @spacing;
+  }
+
+  @media screen and @moreThenMobile and @lessThenTabletPortrait {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  @media screen and @moreThenTabletPortrait {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and @moreThenMobile {
+
+}
+
+// DESKTOPS and TABLETS in LANDSCAPE orientation
+@media only screen and @moreThenTabletPortrait {
+
+  reservation-widget {
+    .input-left,
+    .input-right {
+      box-sizing: border-box;
+      clear: none;
+      width: 50%;
+
+      &.wide {    width: 75%; }
+      &.narrow {  width: 25%; }
+    }
+
+    .input-left {
+      float: left;
+      padding-right: 10px;
+    }
+
+    .input-right {
+      float: right;
+      padding-left: 10px;
+    }
+  }
+
+  reservation-buttons {
+    .button {
+      &.back,
+      &.next {
+        .grid-width(2);
+        width: @width;
+      }
+    }
+  }
+}
