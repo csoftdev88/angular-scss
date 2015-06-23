@@ -17,6 +17,7 @@
 
       <label for="form-card-number" class="card-type">
         <input type="text" id="form-card-number" credit-card-check required
+          placeholder="xxxx-xxxx-xxxx-xxxx"
           ng-model="billingDetails.card.number" />
         <span>Card number</span>
       </label>
@@ -24,6 +25,7 @@
       <div class="input-left">
         <label for="form-expires" class="input-left">
           <input type="text" id="form-expires" month-picker required
+            placeholder="YYYY-MM"
             ng-min="expirationMinDate"
             ng-model="billingDetails.card.expirationDate" />
           <span>Expires</span>
@@ -31,6 +33,7 @@
 
         <label for="form-cvv" class="input-right">
           <input type="number" id="form-cvv" required
+            placeholder="CVV"
             ng-min="100"
             ng-max="999"
             ng-model="billingDetails.card.securityCode" />
@@ -40,51 +43,58 @@
 
       <label for="form-name-on-card" class="input-right">
         <input type="text" id="form-name-on-card" required
+          placeholder="John Doe"
           ng-model="billingDetails.card.holderName" />
         <span>Name on Card</span>
       </label>
 
-      <label for="form-guest-address" class="is-oneline">
+      <label for="form-guest-address" class="input-checkbox">
         <input type="checkbox" id="form-guest-address"
           ng-model="billingDetails.useGuestAddress" />
-        <span>Use Guest Address</span>
+        Use Guest Address
       </label>
 
       <div ng-if="!billingDetails.useGuestAddress">
         <label for="address">
-          <span>Address</span>
           <input type="text" id="address" required
+            placeholder="Address"
             ng-model="billingDetails.address" />
+          <span>Address</span>
         </label>
 
         <label for="city" class="input-left">
           <input type="text" id="city" required
+            placeholder="City"
             ng-model="billingDetails.city" />
           <span>City</span>
         </label>
 
         <label for="state" class="input-right">
           <input type="text" id="state" placeholder="State/Province" required
+            placeholder="State / Province"
             ng-model="billingDetails.stateProvince" />
-          <span>State/Province</span>
+          <span>State / Province</span>
         </label>
 
         <label for="country">
           <input type="text" id="country" required
+            placeholder="Country"
             ng-model="billingDetails.country" />
           <span>Country</span>
         </label>
 
         <label for="postal-code" class="input-left">
           <input type="text" id="postal-code" required
+            placeholder="Zip / Postal Code"
             ng-model="billingDetails.zip" />
-          <span>Zip/Postal Code</span>
+          <span>Zip / Postal Code</span>
         </label>
 
         <label for="telephone" class="input-right">
           <input type="text" id="telephone" required
+            placeholder="Telephone"
             ng-model="billingDetails.phone" />
-          <span>Primary Telephone</span>
+          <span>Telephone</span>
         </label>
       </div>
 
