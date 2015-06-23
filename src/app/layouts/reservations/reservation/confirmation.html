@@ -1,1 +1,51 @@
-Confirmation page
+<reservation-confirmation>
+  <h3>Guest Details</h3>
+
+
+  <h3>Billing Details</h3>
+    <ul>
+	  <li>
+	    Card number: {{billingDetails.card.number}}
+	    <i ng-class="getCreditCardDetails(billingDetails.card.number).icon"></i>
+	  </li>
+
+	  <li>
+	    Expires: {{billingDetails.card.expirationDate}}
+      </li>
+
+      <li>
+        CVV: {{billingDetails.card.securityCode}}
+      </li>
+
+      <li>
+        Name on Card: {{billingDetails.card.holderName}}
+      </li>
+
+      <div ng-if="!billingDetails.useGuestAddress">
+        <h4>Guest Address</h4>
+          Address: {{billingDetails.address}}
+
+        <li>
+          City: {{billingDetails.city}}
+        </li>
+
+        <li>
+          State/Province: {{billingDetails.stateProvince}}
+        </li>
+
+        <li>
+          Country: {{billingDetails.country}}
+        </li>
+
+        <li>
+          Zip/Postal Code: {{billingDetails.zip}}
+        </li>
+
+        <li>
+          Primary Telephone: {{billingDetails.phone}}
+        </li>
+      </div>
+
+    </ul>
+  <h3>Additional Details</h3>
+</reservation-confirmation>
