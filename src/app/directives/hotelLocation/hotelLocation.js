@@ -14,7 +14,7 @@ angular.module('mobiusApp.directives.hotelLocation', [])
       // Widget logic goes here
       link: function(scope) {
         var locationUnWatch = scope.$watch('hotelDetails', function(details) {
-          if (angular.isDefined(details.lat) && angular.isDefined(details.long)) {
+          if (details && angular.isDefined(details.lat) && angular.isDefined(details.long)) {
             scope.position = [details.lat, details.long];
           }
         });
