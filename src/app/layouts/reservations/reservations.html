@@ -1,11 +1,14 @@
 <div ui-view>
-
   <div widget="reservations" grid="12">
+    <div ng-if="eservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length">
+      <h1>No reservations found</h1>
+    </div>
+
     <div ng-if="reservations.nextStay">
       <h3>Your <strong>Next Stay</strong></h3>
       <reservation-item>
         <div class="table-wrap">
-          <reservation-data reservation="reservations.nextStay" property="properties[reservations.nextStay.property.code]"></reservation-data>
+          <reservation-details reservation="reservations.nextStay" property="properties[reservations.nextStay.property.code]"></reservation-details>
         </div>
 
         <!--
@@ -49,5 +52,4 @@
       -->
     </div>
   </div>
-
 </div>

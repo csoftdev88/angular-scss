@@ -10,8 +10,10 @@ angular.module('mobius.controllers.reservations', [])
 
   $controller('MainCtrl', {$scope: $scope});
 
-  var reservationsPromise = reservationService.getAll().then(function(data){
+  // TODO: User must be authorized - make global check
+  // for auth protected routes
 
+  var reservationsPromise = reservationService.getAll().then(function(data){
     processReservationsData(data);
   });
 
@@ -29,12 +31,10 @@ angular.module('mobius.controllers.reservations', [])
     var futureStays = getFutureStays(data);
 
     $scope.reservations = {
-      nextStay: futureStays.shift(),
+      nextStay: futureStays.shift() || {},
       pastStays: getPastStays(data),
       futureStays: futureStays
     };
-
-    console.log($scope.reservations);
   }
 
   $scope.getPropertyDetails = function(code){
@@ -66,6 +66,7 @@ angular.module('mobius.controllers.reservations', [])
     });
   }
 
+  // TODO: Check whats is a future stay(tomorrow/today?)
   function getFutureStays(data){
     var today = $window.moment().valueOf();
     return _.filter(data, function(reservation){
@@ -73,6 +74,7 @@ angular.module('mobius.controllers.reservations', [])
     });
   }
 
+  // TODO: Review code below
   $scope.reservationDetails = {};
 
   $scope.openPoliciesInfo = modalService.openPoliciesInfo;

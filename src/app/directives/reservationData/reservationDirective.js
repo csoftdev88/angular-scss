@@ -25,4 +25,16 @@ angular.module('mobius.controllers.reservation.directive', [])
   $scope.getChildrenCount = function(){
     return getCount('children');
   };
+
+  $scope.getPrice = function(){
+    return getCount('price');
+  };
+
+  $scope.getTax = function(){
+    return getCount('tax');
+  };
+
+  $scope.getPriceAfterTax = function(){
+    return getCount('priceAfterTax');
+  };
 });

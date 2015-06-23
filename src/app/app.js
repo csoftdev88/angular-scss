@@ -76,6 +76,7 @@ angular
     'mobiusApp.directives.room',
     'mobiusApp.directives.room.aside',
     'mobiusApp.directives.reservation.data',
+    'mobiusApp.directives.reservation.details',
     'mobiusApp.directives.equals',
     'mobiusApp.directives.resize.watcher',
     'mobiusApp.directives.dropdown.group',
