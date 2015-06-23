@@ -14,62 +14,77 @@
   <div ng-switch-default>
     <h3>Card Details</h3>
     <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()">
+
       <label for="form-card-number" class="card-type">
-        Card number
-        <input type="text" id="form-card-number" name="cardNumber" credit-card-check ng-model="billingDetails.card.number" required/>
+        <input type="text" id="form-card-number" credit-card-check required
+          ng-model="billingDetails.card.number" />
+        <span>Card number</span>
       </label>
 
       <div class="input-left">
         <label for="form-expires" class="input-left">
-          Expires
-          <input type="text" month-picker id="form-expires" ng-min="expirationMinDate" ng-model="billingDetails.card.expirationDate" required/>
+          <input type="text" id="form-expires" month-picker required
+            ng-min="expirationMinDate"
+            ng-model="billingDetails.card.expirationDate" />
+          <span>Expires</span>
         </label>
 
         <label for="form-cvv" class="input-right">
-          CVV <span class="help" ng-click="openCCVInfo()"/>
-          <input type="number" id="form-cvv" ng-min="100" ng-max="999" ng-model="billingDetails.card.securityCode" required/>
+          <input type="number" id="form-cvv" required
+            ng-min="100"
+            ng-max="999"
+            ng-model="billingDetails.card.securityCode" />
+          <span>CVV <span class="help" ng-click="openCCVInfo()"/></span>
         </label>
       </div>
 
       <label for="form-name-on-card" class="input-right">
-        Name on Card
-        <input type="text" id="form-name-on-card" ng-model="billingDetails.card.holderName" required/>
+        <input type="text" id="form-name-on-card" required
+          ng-model="billingDetails.card.holderName" />
+        <span>Name on Card</span>
       </label>
 
       <label for="form-guest-address" class="is-oneline">
-        <input type="checkbox" id="form-guest-address" ng-model="billingDetails.useGuestAddress"/>
-        Use Guest Address
+        <input type="checkbox" id="form-guest-address"
+          ng-model="billingDetails.useGuestAddress" />
+        <span>Use Guest Address</span>
       </label>
 
       <div ng-if="!billingDetails.useGuestAddress">
         <label for="address">
-          Address
-          <input type="text" id="address" name="address" ng-model="billingDetails.address" required/>
+          <span>Address</span>
+          <input type="text" id="address" required
+            ng-model="billingDetails.address" />
         </label>
 
         <label for="city" class="input-left">
-          City
-          <input type="text" id="city" name="city" ng-model="billingDetails.city" required/>
+          <input type="text" id="city" required
+            ng-model="billingDetails.city" />
+          <span>City</span>
         </label>
 
         <label for="state" class="input-right">
-          State/Province
-          <input type="text" id="state" name="state" placeholder="State/Province" ng-model="billingDetails.stateProvince" required/>
+          <input type="text" id="state" placeholder="State/Province" required
+            ng-model="billingDetails.stateProvince" />
+          <span>State/Province</span>
         </label>
 
         <label for="country">
-          Country
-          <input type="text" id="country" name="country" ng-model="billingDetails.country" required/>
+          <input type="text" id="country" required
+            ng-model="billingDetails.country" />
+          <span>Country</span>
         </label>
 
         <label for="postal-code" class="input-left">
-          Zip/Postal Code
-          <input type="text" id="postal-code" name="postal-code" ng-model="billingDetails.zip" required/>
+          <input type="text" id="postal-code" required
+            ng-model="billingDetails.zip" />
+          <span>Zip/Postal Code</span>
         </label>
 
         <label for="telephone" class="input-right">
-          Primary Telephone
-          <input type="text" id="telephone" name="telephone" ng-model="billingDetails.phone" required/>
+          <input type="text" id="telephone" required
+            ng-model="billingDetails.phone" />
+          <span>Primary Telephone</span>
         </label>
       </div>
 
