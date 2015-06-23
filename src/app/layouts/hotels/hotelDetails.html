@@ -80,7 +80,8 @@
               <!-- description should actually be a list of items instead
                    of just a block of text -->
               <p>{{room.description}}</p>
-              <p ng-if="isUserLoggedIn()"> Earn at least {{room.minPointsEarned}} points</p>
+              <p ng-if="isUserLoggedIn() && room.minPointsEarned">Earn at least <ng-pluralize count="room.minPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+              </p>
             </div>
             <div class="details">
               <!-- rate info, points and earning information should
