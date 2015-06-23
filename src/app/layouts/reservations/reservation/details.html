@@ -1,8 +1,8 @@
 <reservation-details-form ng-switch="isUserLoggedIn()">
   <div ng-switch-when="true" ng-init="prefillUserData()">
-    <h3>Fill out your Details</h3>
+    <h3>Fill out <strong>your details</strong></h3>
 
-    <form name="forms.details" novalidate ng-submit="forms.details.$valid && continue()">
+    <form name="forms.details" novalidate ng-submit="forms.details.$valid &amp;&amp; continue()">
       <label for="first-name" class="input-left">
         <input type="text" id="first-name" required
           placeholder="First Name"
@@ -52,21 +52,26 @@
         <span>Country</span>
       </label>
 
-      <label for="state">
+      <label for="state" class="input-left wide">
         <input type="text" id="state" required
-          placeholder="State/Province"
+          placeholder="State / Region / Province"
           ng-model="userDetails.stateProvince" />
-        <span>State/Province</span>
+        <span>State / Province</span>
       </label>
 
-      <label for="postal-code" class="input-left">
-        <span>Zip/Postal Code</span>
+      <label for="postal-code" class="input-right narrow ">
         <input type="text" id="postal-code" required
           placeholder="Zip Code"
           ng-model="userDetails.zip" />
+        <span>Zip/Postal Code</span>
       </label>
 
-      <label class="form-errors centered" ng-if="forms.details.$invalid">
+      <label for="agreement" class="input-checkbox">
+        <input type="checkbox" id="agreement" ng-model="userDetails.agreement"/>
+        I agree that I am happy for the The Sutton Place Hotels  to send me emails
+      </label>
+
+      <label class="form-errors" ng-if="forms.details.$invalid &amp;&amp; forms.details.$submitted">
         Please fill out all the fields indicated
       </label>
     </form>
