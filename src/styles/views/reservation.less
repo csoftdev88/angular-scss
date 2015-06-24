@@ -2,28 +2,53 @@
 // Local Variables //
 /////////////////////
 
-@c-reservation-form:  #d7d7d7;
+@c-gray-reservation:  #d7d7d7;
 @c-form-text:         #373535;
 @spacing:             20px;
 
+
+////////////////////////////////////////////////////
+// Global namespace for whole reservation process //
+////////////////////////////////////////////////////
 reservation-widget {
   display: block;
   margin: 50px 0 10px 0;
   padding: @spacing 0;
   .shadow-box(#ddd);
 
+  [grid-row] {
+    position: relative;
+  }
+
+  aside:before {
+    .grid-width(7);
+    position: absolute;
+    content: '';
+    display: block;
+    width: 0;
+    left: @width;
+    top: 45px;
+    bottom: 20px;
+    border-left: 1px dashed @c-gray-reservation;
+  }
+
   h3 {
     font-size: @size-1;
   }
+
   form {
     margin-top: 10px;
+  }
+
+  table {
+    width: 100%;
   }
 
   label {
     position: relative;
     padding-top: @size--2 + 4px; // 15px
     padding-bottom: 10px;
-    color: darken(@c-reservation-form, 20%);
+    color: darken(@c-gray-reservation, 20%);
 
     span {
       position: absolute;
@@ -44,12 +69,16 @@ reservation-widget {
       left: 10px;
     }
 
-    input:focus ~ span {
+    input:focus ~ span,
+    select:focus ~ span,
+    textarea:focus ~ span {
       opacity: 1;
       transform: translateX(0);
     }
 
-    input.ng-touched.ng-invalid ~ span {
+    input.ng-touched.ng-invalid ~ span,
+    select.ng-touched.ng-invalid ~ span,
+    textarea.ng-touched.ng-invalid ~ span {
       opacity: 1;
       transform: translateX(0);
       color: @c-red;
@@ -58,11 +87,12 @@ reservation-widget {
 
   input[type="text"],
   input[type="email"],
-  input[type="number"] {
+  select,
+  textarea {
     height: 45px;
     padding: 0 15px;
     border-radius: 0;
-    border-color: @c-reservation-form;
+    border-color: @c-gray-reservation;
     color: @c-form-text;
     font-size: @size-0;
     transition: border-color 0.15s linear;
@@ -74,6 +104,13 @@ reservation-widget {
     &.ng-touched.ng-invalid {
       border-color: @c-red;
     }
+  }
+
+  textarea {
+    min-height: 3 * 45px;
+    height: auto;
+    padding: 15px;
+    resize: vertical;
   }
 
   .input-checkbox {
@@ -127,7 +164,7 @@ reservation-widget {
 
     .charges {
       padding: 10px;
-      border: 1px solid @c-reservation-form;
+      border: 1px solid @c-gray-reservation;
       border-radius: 6px;
     }
   }
@@ -195,14 +232,16 @@ reservation-widget {
   }
 }
 
-// Billing details form and payment w/ points
+////////////////////////////////////////////////
+// Billing details form and payment w/ points //
+////////////////////////////////////////////////
 reservation-billing {
 
   // Wrapper
   > div {
     margin: 25px 0 20px 0;
     padding: 30px 40px;
-    border: 1px solid @c-reservation-form;
+    border: 1px solid @c-gray-reservation;
     border-radius: 3px;
     background-color: #f9f9f9;
   }
@@ -223,7 +262,7 @@ reservation-billing {
     .divider {
       width: 0;
       height: 30px;
-      border-right: 1px solid @c-reservation-form;
+      border-right: 1px solid @c-gray-reservation;
     }
 
     i {
@@ -266,10 +305,6 @@ reservation-billing {
   .payment-points {
     margin-top: @spacing;
 
-    table {
-      width: 100%;
-    }
-
     th, td {
       padding: 10px 0;
       font-size: @size-1;
@@ -309,5 +344,80 @@ reservation-billing {
       margin-top: @spacing;
       color: @c-red;
     }
+  }
+}
+
+//////////////////////////////////////////////
+// Confirmation step of reservation process //
+//////////////////////////////////////////////
+reservation-confirmation {
+
+  > div {
+    margin: 45px 0 @spacing 0;
+    border: 1px solid @c-gray-reservation;
+    border-radius: 4px;
+  }
+
+  ///////////////////////////////////////////////
+  // Styles for tabs from Angular Bootstrap UI //
+  ///////////////////////////////////////////////
+
+  // Tab headers (links)
+  .nav-tabs {
+    .clearfix;
+
+    li {
+      float: left;
+      box-sizing: border-box;
+      width: 33.3333%;
+      text-align: center;
+    }
+
+    li + li {
+      border-left: 1px solid @c-gray-reservation;
+    }
+
+    a {
+      display: block;
+      padding: 10px 0;
+      color: @c-gray;
+      font-weight: 400;
+    }
+
+    .active a {
+      color: @c-brown;
+      font-weight: bold;
+    }
+  }
+
+  // Tab content
+  .tab-pane {
+    display: none;
+    padding: 30px 40px;
+    border-top: 1px solid @c-gray-reservation;
+
+    &.active {
+      display: block;
+    }
+
+    &:last-of-type {
+      padding: 10px 40px 25px 40px;
+    }
+  }
+
+  // Tables containing recapitulation of filled data
+  th, td {
+    padding: 5px;
+    vertical-align: top;
+  }
+
+  th {
+    width: 33%;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  td {
+    font-weight: 600;
   }
 }
