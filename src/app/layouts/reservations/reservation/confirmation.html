@@ -104,9 +104,9 @@
 
     <tab heading="Additional Details">
       <form name="forms.additionalInfo" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
-          <label for="arrivalTime" class="card-type">
-            Arrival Time
+          <label for="form-arrival-time" class="input-left">
             <select id="form-arrival-time" ng-model="additionalInfo.arrivalTime">
+              <option value="">Arrival Time</option>
               <option value="5 AM">5 AM</option>
               <option value="6 AM">6 AM</option>
               <option value="7 AM">7 AM</option>
@@ -128,16 +128,21 @@
               <option value="11 PM">11 PM</option>
               <option value="12 AM">12 PM</option>
             </select>
+            <span>Arrival Time</span>
           </label>
 
-          <label for="arrivalMethod">
-            Arrival Method
-            <select ng-model="additionalInfo.arrivalMethod" ng-options="item.apiValue as item.apiValue for item in possibleArrivalMethods"/>
+          <label for="arrival-method" class="input-right">
+            <select id="arrival-method"
+              ng-model="additionalInfo.arrivalMethod"
+              ng-options="item.apiValue as item.apiValue for item in possibleArrivalMethods">
+              <option value="">Arrival Method</option>
+            </select>
+            <span>Arrival Method</span>
           </label>
 
-          <label for="departureTime">
-            Departure Time
+          <label for="form-departure-time">
             <select id="form-departure-time" ng-model="additionalInfo.departureTime" placeholder="Departure Time">
+              <option value="">Departure Time</option>
               <option value="1 AM">1 AM</option>
               <option value="2 AM">2 AM</option>
               <option value="3 AM">3 AM</option>
@@ -163,16 +168,19 @@
               <option value="11 PM">11 PM</option>
               <option value="12 AM">12 PM</option>
             </select>
+            <span>Departure Time</span>
           </label>
 
-          <label for="form-name-on-card" placeholder="2nd Phone Number">
-            2nd Phone Number
-            <input type="text" ng-model="additionalInfo.secondPhoneNumber"/>
+          <label for="form-name-on-card">
+            <input type="text" id="form-name-on-card"
+              placeholder="2nd Phone Number"
+              ng-model="additionalInfo.secondPhoneNumber"/>
+            <span>2nd Phone Number</span>
           </label>
 
-          <label for="address" placeholder="Comments">
-            Comments
-            <textarea id="comments" ng-model="additionalInfo.comments"/>
+          <label for="address">
+            <textarea id="comments" placeholder="Comments" ng-model="additionalInfo.comments"></textarea>
+            <span>Comments</span>
           </label>
         </form>
     </tab>
