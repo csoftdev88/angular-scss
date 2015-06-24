@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.room', [])
 
-.directive('room', function($stateParams, $state, Settings,
+.directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, _) {
 
   return {
@@ -80,14 +80,23 @@ angular.module('mobiusApp.directives.room', [])
 
       var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
         setRoomProductDetails(data.roomProductDetails);
-        return setRoomData(data.roomDetails);
+        return setRoomData(data.roomDetails).then(function() {
+          return data;
+        });
       }, function() {
         $state.go('hotel', {
           propertyCode: propertyCode
         });
       });
 
-      preloaderFactory(roomDetailsPromise);
+      var propertyPromise = propertyService.getPropertyDetails(propertyCode);
+
+      preloaderFactory($q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
+        breadcrumbsService.clear()
+          .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
+          .addBreadCrumb('Rooms')
+          .addBreadCrumb(data[0].roomDetails.name);
+      }));
 
       scope.onClickOnAssociatedRoom=function(associatedRoom){
         modalService.openAssociatedRoomDetail(associatedRoom, propertyCode);

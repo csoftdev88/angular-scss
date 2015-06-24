@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state,
-  propertyService, filtersService, preloaderFactory, $q, modalService) {
+  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
@@ -21,6 +21,13 @@ angular.module('mobius.controllers.hotel.details', [])
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
+        breadcrumbsService.addBreadCrumb(details.nameShort);
+        breadcrumbsService
+          .addHref('About', 'jsAbout')
+          .addHref('Location', 'jsLocation')
+          .addHref('Offers', 'jsOffers')
+          .addHref('Rooms', 'jsRooms');
+
         // Updating Hero content images
         if(details.images){
           var heroContent =  details.images.map(function(img){
@@ -65,7 +72,7 @@ angular.module('mobius.controllers.hotel.details', [])
   }
 
   $scope.scrollToRooms = function() {
-    var $item = angular.element('#hotelRooms');
+    var $item = angular.element('#jsRooms');
     angular.element('html, body').animate({
       scrollTop: $item.offset().top
     }, 2000);

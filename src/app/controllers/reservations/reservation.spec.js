@@ -112,6 +112,14 @@ describe('mobius.controllers.reservation', function() {
             };
           }
         });
+
+        var breadcrumbs = {
+          clear: function(){ return breadcrumbs; },
+          addBreadCrumb: function(){ return breadcrumbs; },
+          addHref: function(){ return breadcrumbs; },
+          setActiveHref: function(){ return breadcrumbs; }
+        };
+        $provide.value('breadcrumbsService', breadcrumbs);
       });
     });
 

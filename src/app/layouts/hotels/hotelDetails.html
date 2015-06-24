@@ -1,5 +1,5 @@
 <hotel-detail>
-  <header grid-row>
+  <header grid-row id="jsAbout">
     <h1 grid="6">{{details.nameShort}}</h1>
     <local-info local-info="details.localInfo" grid="6"></local-info>
   </header>
@@ -17,7 +17,7 @@
     </view-more-images>
   </section>
 
-  <section grid-row>
+  <section grid-row id="jsLocation">
     <hr />
     <div grid="12">
       <hotel-location hotel-details="details"></hotel-location>
@@ -26,7 +26,7 @@
 
   <!-- this should be filled with actual data from API
        it should be presented in the following structure -->
-  <section class="hotel-detail__offers" grid-row>
+  <section class="hotel-detail__offers" grid-row id="jsOffers">
     <hr />
     <h2 class="section-title" grid="12">Offers and <strong>Promotions</strong></h2>
 
@@ -60,7 +60,7 @@
     </div>
   </section>
 
-  <div id="hotelRooms"></div> <!-- used for scrolling button -->
+  <div id="jsRooms"></div> <!-- used for scrolling button -->
 
   <section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
     <hr />

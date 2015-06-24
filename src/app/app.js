@@ -60,6 +60,7 @@ angular
     'mobiusApp.services.userMessagesService',
     'mobiusApp.services.chains',
     'mobiusApp.services.reservation',
+    'mobiusApp.services.breadcrumbs',
 
     // Factories
     'mobiusApp.factories.template',
@@ -99,6 +100,7 @@ angular
     'mobiusApp.directives.localInfo',
     'mobiusApp.directives.userMessages',
     'mobiusApp.directives.imageCarousel',
+    'mobiusApp.directives.breadcrumbs',
 
     // Filters
     'mobiusApp.filters.list',
@@ -242,7 +244,7 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state) {
+  .run(function(user, $rootScope, $state, breadcrumbsService) {
     // $stateChangeSuccess is used because resolve on controller is ready
     $rootScope.$on('$stateChangeSuccess', function(event, next) {
       if (next.data.private) {
@@ -253,6 +255,7 @@ angular
           $state.go('home');
         }
       }
+      breadcrumbsService.clear();
     });
   })
 ;

@@ -5,9 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user', 'locationService',
-  '$q', 'modalService', '$controller',
+  '$q', 'modalService', '$controller', 'breadcrumbsService',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory, _, user, locationService, $q, modalService, $controller){
+    preloaderFactory, _, user, locationService, $q, modalService, $controller,
+    breadcrumbsService){
   return {
     restrict: 'E',
     scope: {},
@@ -15,6 +16,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
     // Widget logic goes here
     link: function(scope){
+      breadcrumbsService.clear().addBreadCrumb('Hotel Search');
 
       $controller('MainCtrl', {$scope: scope});
 

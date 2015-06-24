@@ -4,9 +4,10 @@
  */
 angular.module('mobius.controllers.news', [])
 
-  .controller('NewsCtrl', function($scope, $controller, contentService){
+  .controller('NewsCtrl', function($scope, $controller, contentService, breadcrumbsService){
 
     $controller('MainCtrl', {$scope: $scope});
+    breadcrumbsService.addBreadCrumb('News');
 
     var NUMBER_OF_RELEVANT_NEWS = 3;
 
