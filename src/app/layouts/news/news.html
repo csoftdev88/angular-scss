@@ -1,4 +1,4 @@
-<news-list ng-if="showNewsList">
+<news-list ng-if="!showDetail">
   <h1>Our <strong>News</strong></h1>
 
   <p>An on-line reference for news, press releases, promotions and current events. Please click on articles for details.</p>
@@ -14,7 +14,7 @@
 
 </news-list>
 
-<news-detail ng-if="!showNewsList">
+<news-detail ng-if="showDetail">
   <h1>{{selectedNews.title}}</h1>
   <img ng-src="{{selectedNews.image.uri}}" alt="{{selectedNews.image.alt}}"/>
   <div ng-bind-html="selectedNews.text"></div>

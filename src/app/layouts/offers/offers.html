@@ -1,4 +1,4 @@
-<div ng-if="showOffersList">
+<div ng-if="!showDetail">
   <div ng-repeat="offer in offersList track by $index" >
     <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.uri}}"/>
     <h2>{{offer.title}}</h2>
@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<div ng-if="!showOffersList">
+<div ng-if="showDetail">
   <h1>{{selectedOffer.title}}</h1>
   <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}"/>
   <div ng-bind-html="selectedOffer.text"></div>

@@ -25,7 +25,7 @@ angular.module('mobiusApp.directives.menu', [])
           'sourceObject': 'specialOffer',
           'method': 'getOffers',
           'state': 'offers',
-          'reload': false
+          'reload': true
         },
         'about': {
           'sourceObject': 'about',
