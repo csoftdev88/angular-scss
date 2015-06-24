@@ -24,6 +24,12 @@
     "advanced_booking": "Rozšířená rezervace",
     "my_account": "Můj účet",
     "tier": "Tier",
-    "points": "bodů"
+    "points": "bodů",
+    "car": "Auto",
+    "bus": "Autobus",
+    "train": "Vlak",
+    "plane": "Letadlo",
+    "boat": "Loď",
+    "other": "Jinak"
   }
 }

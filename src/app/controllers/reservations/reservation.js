@@ -67,6 +67,16 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
+  $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
+
+  $scope.additionalInfo = {
+    arrivalTime: '',
+    arrivalMethod: '',
+    departureTime: '',
+    secondPhoneNumber: '',
+    comments: ''
+  };
+
   // Inheriting the login from RoomDetails controller
   $controller('RoomDetailsCtrl', {$scope: $scope});
 
@@ -153,7 +163,7 @@ angular.module('mobius.controllers.reservation', [])
     case 'reservation.billing':
       return $scope.forms.billing && !$scope.forms.billing.$invalid;
     case 'reservation.confirmation':
-      return true;
+      return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
     }
     return false;
   };
@@ -186,6 +196,26 @@ angular.module('mobius.controllers.reservation', [])
       guestFirstName: $scope.userDetails.firstName,
       guestLastName: $scope.userDetails.lastName
     };
+
+    if($scope.additionalInfo.arrivalTime) {
+      reservationData.arrivalTime = $scope.additionalInfo.arrivalTime;
+    }
+
+    if($scope.additionalInfo.arrivalMethod) {
+      reservationData.arrivalMethod = $scope.additionalInfo.arrivalMethod;
+    }
+
+    if($scope.additionalInfo.departureTime) {
+      reservationData.departureTime = $scope.additionalInfo.departureTime;
+    }
+
+    if($scope.additionalInfo.comments) {
+      reservationData.comments = $scope.additionalInfo.comments;
+    }
+
+    if($scope.additionalInfo.secondPhoneNumber) {
+      reservationData.comments = reservationData.comments + '\nSecond Phone Number: ' + $scope.additionalInfo.secondPhoneNumber;
+    }
 
     if (reservationData.paymentInfo.paymentMethod === 'cc') {
       reservationData.paymentInfo.ccPayment = {

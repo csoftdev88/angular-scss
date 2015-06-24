@@ -85,4 +85,78 @@
 
     </ul>
   <h3>Additional Details</h3>
+
+  <form name="forms.additionalInfo" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
+      <label for="arrivalTime" class="card-type">
+        Arrival Time
+        <select id="form-arrival-time" ng-model="additionalInfo.arrivalTime">
+          <option value="5 AM">5 AM</option>
+          <option value="6 AM">6 AM</option>
+          <option value="7 AM">7 AM</option>
+          <option value="8 AM">8 AM</option>
+          <option value="9 AM">9 AM</option>
+          <option value="10 AM">10 AM</option>
+          <option value="11 AM">11 AM</option>
+          <option value="12 PM">12 PM</option>
+          <option value="1 PM">1 PM</option>
+          <option value="2 PM">2 PM</option>
+          <option value="3 PM">3 PM</option>
+          <option value="4 PM">4 PM</option>
+          <option value="5 PM">5 PM</option>
+          <option value="6 PM">6 PM</option>
+          <option value="7 PM">7 PM</option>
+          <option value="8 PM">8 PM</option>
+          <option value="9 PM">9 PM</option>
+          <option value="10 PM">10 PM</option>
+          <option value="11 PM">11 PM</option>
+          <option value="12 AM">12 PM</option>
+        </select>
+      </label>
+
+      <label for="arrivalMethod">
+        Arrival Method
+        <select ng-model="additionalInfo.arrivalMethod" ng-options="item.apiValue as item.apiValue for item in possibleArrivalMethods"/>
+      </label>
+
+      <label for="departureTime">
+        Departure Time
+        <select id="form-departure-time" ng-model="additionalInfo.departureTime" placeholder="Departure Time">
+          <option value="1 AM">1 AM</option>
+          <option value="2 AM">2 AM</option>
+          <option value="3 AM">3 AM</option>
+          <option value="4 AM">4 AM</option>
+          <option value="5 AM">5 AM</option>
+          <option value="6 AM">6 AM</option>
+          <option value="7 AM">7 AM</option>
+          <option value="8 AM">8 AM</option>
+          <option value="9 AM">9 AM</option>
+          <option value="10 AM">10 AM</option>
+          <option value="11 AM">11 AM</option>
+          <option value="12 PM">12 PM</option>
+          <option value="1 PM">1 PM</option>
+          <option value="2 PM">2 PM</option>
+          <option value="3 PM">3 PM</option>
+          <option value="4 PM">4 PM</option>
+          <option value="5 PM">5 PM</option>
+          <option value="6 PM">6 PM</option>
+          <option value="7 PM">7 PM</option>
+          <option value="8 PM">8 PM</option>
+          <option value="9 PM">9 PM</option>
+          <option value="10 PM">10 PM</option>
+          <option value="11 PM">11 PM</option>
+          <option value="12 AM">12 PM</option>
+        </select>
+      </label>
+
+      <label for="form-name-on-card" placeholder="2nd Phone Number">
+        2nd Phone Number
+        <input type="text" ng-model="additionalInfo.secondPhoneNumber"/>
+      </label>
+
+      <label for="address" placeholder="Comments">
+        Comments
+        <textarea id="comments" ng-model="additionalInfo.comments"/>
+      </label>
+
+    </form>
 </reservation-confirmation>
