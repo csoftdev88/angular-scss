@@ -12,13 +12,13 @@ angular.module('mobius.controllers.offers', [])
 
     var selectedOfferIndex;
 
-    $scope.showDetail = $stateParams.$stateParams.showDetail;
+    $scope.showDetail = $stateParams.code ? true : false;
 
     contentService.getOffers().then(function(response) {
       $scope.offersList = response;
-      selectedOfferIndex =  _.findIndex($scope.offersList, function(item) {
-        return item.code === $stateParams.$stateParams.code;
-      });
+      if($stateParams.code) {
+        $scope.selectOffer($stateParams.code);
+      }
     });
 
     $scope.getRelevant = function(offer, index) {
@@ -26,10 +26,12 @@ angular.module('mobius.controllers.offers', [])
       return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
     };
 
-    $scope.selectOffer = function(index) {
-      $scope.selectedOffer = $scope.offersList[index];
-      selectedOfferIndex = index;
+    $scope.selectOffer = function (code) {
+      selectedOfferIndex = _.findIndex($scope.offersList,
+        function (item) {
+          return item.code === code;
+        });
+      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       $scope.showDetail = true;
     };
-
   });

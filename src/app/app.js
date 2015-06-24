@@ -207,7 +207,7 @@ angular
       .state('offers', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
-        url: '/offers/:category/:offerID',
+        url: '/offers/:code',
         controller: 'OffersCtrl'
       })
 
@@ -215,7 +215,7 @@ angular
       .state('news', {
         parent: 'root',
         templateUrl: 'layouts/news/news.html',
-        url: '/news/',
+        url: '/news/:code',
         controller: 'NewsCtrl'
       })
 

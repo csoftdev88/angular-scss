@@ -12,7 +12,14 @@ describe('contentService', function() {
       var Settings = {
         'API': {
           'baseURL': 'http://domain/',
-          'contents': 'contents',
+          'contents': {
+            'contents': 'contents',
+            'news': 'contents/news',
+            'offers': 'contents/offers',
+            'adverts': {
+              'random': 'contents/adverts/random'
+            }
+          },
           'generics': {
             'currencies': 'generics/currencies',
             'languages': 'generics/languages'
@@ -104,6 +111,16 @@ describe('contentService', function() {
       env.contentService.getLanguages();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
       expect(env.apiGetFullURLSpy.calledWith('generics.languages')).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+    });
+  });
+
+  describe('getRandomAdverts', function() {
+    it('should fire a GET request to content/adverts/random API', function() {
+      env.contentService.getRandomAdvert();
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('contents.adverts.random')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
