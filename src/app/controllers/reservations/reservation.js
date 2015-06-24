@@ -11,6 +11,9 @@ angular.module('mobius.controllers.reservation', [])
   $rootScope, userMessagesService, propertyService, $q,
   creditCardTypeService){
 
+  // Alias for lodash to get rid of ugly $window._ calls
+  var _ = $window._;
+
   function goToRoom() {
     $state.go('room', {
       propertyCode: $stateParams.property,
@@ -97,7 +100,7 @@ angular.module('mobius.controllers.reservation', [])
     to: $scope.bookingDetails.to,
     customerId: user.getUser().id
   }).then(function(addons) {
-      $scope.addons = $window._.map(addons, function(addon) {
+      $scope.addons = _.map(addons, function(addon) {
         addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
         addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
         if (addon.hasViewMore) {
@@ -105,7 +108,7 @@ angular.module('mobius.controllers.reservation', [])
         }
         return addon;
       });
-      $scope.addons = $window._.indexBy($scope.addons, 'code');
+      $scope.addons = _.indexBy($scope.addons, 'code');
     });
 
   // Showing loading mask
@@ -113,7 +116,7 @@ angular.module('mobius.controllers.reservation', [])
 
   function setProductDetails(products){
     // Finding the product which user about to book
-    var product = $window._.findWhere(products,
+    var product = _.findWhere(products,
       {
         code: $stateParams.productCode
       }
@@ -156,6 +159,7 @@ angular.module('mobius.controllers.reservation', [])
       $scope.billingDetails.paymentMethod = 'cc';
     }
   };
+
   $scope.isValid = function() {
     switch($state.current.name){
     case 'reservation.details':
@@ -284,7 +288,7 @@ angular.module('mobius.controllers.reservation', [])
       var userData = user.getUser();
 
       // No fields are touched yet, prefiling
-      $window._.extend($scope.userDetails, {
+      _.extend($scope.userDetails, {
         title: userData.title || '',
         firstName: userData.firstName || '',
         lastName: userData.lastName,
@@ -298,7 +302,7 @@ angular.module('mobius.controllers.reservation', [])
     }
   };
 
-  $scope.creditCardsIcons = $window._.pluck(Settings.UI.booking.cardTypes, 'icon');
+  $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
 
   $scope.modifyReservation = function(onError) {
@@ -332,7 +336,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.getPackagesPrice = function() {
-    return $window._.reduce($scope.reservation.packages, function(acc, packageCode) { return acc + $scope.addons[packageCode].price; }, 0);
+    return _.reduce($scope.reservation.packages, function(acc, packageCode) { return acc + $scope.addons[packageCode].price; }, 0);
   };
 
   if ($scope.addAddon.bind) { // WTF - PhatomJS workaround

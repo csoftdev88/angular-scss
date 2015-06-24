@@ -5,11 +5,18 @@
 button {
   display: inline-block;
   box-sizing: border-box;
+  border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-weight: 600;
   font-size: @size-0;
   line-height: @baseline * 1.5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 //- Button Submit
@@ -81,7 +88,8 @@ button-remove {
 }
 
 //- Button Next -> used in Reservation
-button-next {
+button-next,
+button.next {
   &:extend(button);
 
   position: relative;
@@ -98,7 +106,7 @@ button-next {
 
   &:hover,
   &:focus {
-    background-color: darken(@c-button, 4%);
+    background-color: darken(@c-button, 5%);
   }
 
   &:active {
@@ -127,7 +135,8 @@ button-next {
 }
 
 //- Button Back -> used in Reservation
-button-back {
+button-back,
+button.back {
   &:extend(button);
 
   border: none;

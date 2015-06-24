@@ -1,82 +1,127 @@
-<reservation-billing  ng-switch="billingDetails.paymentMethod">
-  <ul class="cards" ng-click="selectPaymentMethod('cc')">
-    <li ng-repeat="cardIcon in creditCardsIcons">
-      <i ng-class="{selected: getCreditCardDetails(billingDetails.card.number).icon === cardIcon}" class="{{cardIcon}}"></i>
-    </li>
-  </ul>
-  <a ng-click="selectPaymentMethod('point')" href>points</a>
-  <div ng-switch-when="point">
-    Current points: {{pointsData.currentPoints}}<br>
-    Points required for booking: {{selectedProduct.price.pointsRequired}}<br>
-    Points earned for booking:  {{pointsData.pointsEarned}}<br>
-    Your balance after this booking: {{pointsData.pointsAfterBooking}} <br>
-  </div>
-  <div ng-switch-default>
-    <h3>Card Details</h3>
-    <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()">
-      <label for="form-card-number" class="card-type">
-        Card number
-        <input type="text" id="form-card-number" name="cardNumber" credit-card-check ng-model="billingDetails.card.number" required/>
-      </label>
+<h3>Fill out <strong>your billing information</strong></h3>
+<reservation-billing>
+  <div ng-switch="billingDetails.paymentMethod">
+    <ul class="payment-methods">
+      <li ng-repeat="cardIcon in creditCardsIcons" ng-click="selectPaymentMethod('cc')">
+        <i class="{{cardIcon}}" ng-class="{selected: getCreditCardDetails(billingDetails.card.number).icon === cardIcon}"></i>
+      </li>
+      <li class="divider"></li>
+      <li ng-click="selectPaymentMethod('point')">
+        <i class="points" ng-class="{selected: billingDetails.paymentMethod == 'point'}"></i>
+      </li>
+    </ul>
+    <section class="payment-points" ng-switch-when="point">
+      <table>
+        <tr>
+          <th>Current points:</th>
+          <td>{{pointsData.currentPoints}}</td>
+        </tr>
+        <tr>
+          <th>Points required for booking:</th>
+          <td>-{{selectedProduct.price.pointsRequired}}</td>
+        </tr>
+        <tr>
+          <th>Points earned for booking:</th>
+          <td class="earned">+{{pointsData.pointsEarned}}</td>
+        </tr>
+        <tr class="balance">
+          <th>Your balance after this booking:</th>
+          <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
+        </tr>
+      </table>
+      <div class="error" ng-show="pointsData.pointsAfterBooking < 0">Sorry, you don't have enough points to perform this purchase.</div>
+    </section>
+    <section class="payment-card" ng-switch-default>
+      <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()">
 
-      <div class="input-left">
-        <label for="form-expires" class="input-left">
-          Expires
-          <input type="text" month-picker id="form-expires" ng-min="expirationMinDate" ng-model="billingDetails.card.expirationDate" required/>
+        <label for="form-card-number" class="card-type">
+          <input type="text" id="form-card-number" credit-card-check required
+            placeholder="xxxx-xxxx-xxxx-xxxx"
+            ng-model="billingDetails.card.number" />
+          <span>Card number</span>
         </label>
 
-        <label for="form-cvv" class="input-right">
-          CVV <span class="help" ng-click="openCCVInfo()"/>
-          <input type="number" id="form-cvv" ng-min="100" ng-max="999" ng-model="billingDetails.card.securityCode" required/>
-        </label>
-      </div>
+        <div class="input-left">
+          <label for="form-expires" class="input-left">
+            <input type="text" id="form-expires" month-picker required
+              placeholder="YYYY-MM"
+              ng-min="expirationMinDate"
+              ng-model="billingDetails.card.expirationDate" />
+            <span>Expires</span>
+          </label>
 
-      <label for="form-name-on-card" class="input-right">
-        Name on Card
-        <input type="text" id="form-name-on-card" ng-model="billingDetails.card.holderName" required/>
-      </label>
+          <label for="form-cvv" class="input-right">
+            <input type="number" id="form-cvv" required
+              placeholder="CVV"
+              ng-min="100"
+              ng-max="999"
+              ng-model="billingDetails.card.securityCode" />
+            <span>CVV <span class="help" ng-click="openCCVInfo()"/></span>
+          </label>
+        </div>
 
-      <label for="form-guest-address" class="is-oneline">
-        <input type="checkbox" id="form-guest-address" ng-model="billingDetails.useGuestAddress"/>
-        Use Guest Address
-      </label>
-
-      <div ng-if="!billingDetails.useGuestAddress">
-        <label for="address">
-          Address
-          <input type="text" id="address" name="address" ng-model="billingDetails.address" required/>
-        </label>
-
-        <label for="city" class="input-left">
-          City
-          <input type="text" id="city" name="city" ng-model="billingDetails.city" required/>
-        </label>
-
-        <label for="state" class="input-right">
-          State/Province
-          <input type="text" id="state" name="state" placeholder="State/Province" ng-model="billingDetails.stateProvince" required/>
+        <label for="form-name-on-card" class="input-right">
+          <input type="text" id="form-name-on-card" required
+            placeholder="John Doe"
+            ng-model="billingDetails.card.holderName" />
+          <span>Name on Card</span>
         </label>
 
-        <label for="country">
-          Country
-          <input type="text" id="country" name="country" ng-model="billingDetails.country" required/>
+        <label for="form-guest-address" class="input-checkbox">
+          <input type="checkbox" id="form-guest-address"
+            ng-model="billingDetails.useGuestAddress" />
+          Use Guest Address
         </label>
 
-        <label for="postal-code" class="input-left">
-          Zip/Postal Code
-          <input type="text" id="postal-code" name="postal-code" ng-model="billingDetails.zip" required/>
+        <div ng-if="!billingDetails.useGuestAddress">
+          <label for="address">
+            <input type="text" id="address" required
+              placeholder="Address"
+              ng-model="billingDetails.address" />
+            <span>Address</span>
+          </label>
+
+          <label for="city" class="input-left">
+            <input type="text" id="city" required
+              placeholder="City"
+              ng-model="billingDetails.city" />
+            <span>City</span>
+          </label>
+
+          <label for="state" class="input-right">
+            <input type="text" id="state" placeholder="State/Province" required
+              placeholder="State / Province"
+              ng-model="billingDetails.stateProvince" />
+            <span>State / Province</span>
+          </label>
+
+          <label for="country">
+            <input type="text" id="country" required
+              placeholder="Country"
+              ng-model="billingDetails.country" />
+            <span>Country</span>
+          </label>
+
+          <label for="postal-code" class="input-left">
+            <input type="text" id="postal-code" required
+              placeholder="Zip / Postal Code"
+              ng-model="billingDetails.zip" />
+            <span>Zip / Postal Code</span>
+          </label>
+
+          <label for="telephone" class="input-right">
+            <input type="text" id="telephone" required
+              placeholder="Telephone"
+              ng-model="billingDetails.phone" />
+            <span>Telephone</span>
+          </label>
+        </div>
+
+        <label class="form-errors centered" ng-if="forms.billing.$invalid">
+          Please fill out all the fields indicated
         </label>
 
-        <label for="telephone" class="input-right">
-          Primary Telephone
-          <input type="text" id="telephone" name="telephone" ng-model="billingDetails.phone" required/>
-        </label>
-      </div>
-
-      <label class="form-errors centered" ng-if="forms.billing.$invalid">
-        Please fill out all the fields indicated
-      </label>
-
-    </form>
+      </form>
+    </section>
   </div>
 </reservation-billing>
