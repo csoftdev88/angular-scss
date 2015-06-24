@@ -52,6 +52,12 @@ describe('mobius.controllers.reservations', function() {
           }
         });
 
+        var breadcrumbs = {
+          clear: function(){ return breadcrumbs; },
+          addBreadCrumb: function(){ return breadcrumbs; }
+        };
+        $provide.value('breadcrumbsService', breadcrumbs);
+
         $controllerProvider.register('MainCtrl', function(){});
       });
     });

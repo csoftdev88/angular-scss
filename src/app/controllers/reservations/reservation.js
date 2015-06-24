@@ -9,7 +9,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService){
+  creditCardTypeService, breadcrumbsService){
 
   // Alias for lodash to get rid of ugly $window._ calls
   var _ = $window._;
@@ -21,19 +21,36 @@ angular.module('mobius.controllers.reservation', [])
     });
   }
 
+  var GUEST_DETAILS = 'Guest details';
+  var BILLING_DETAILS = 'Billing details';
+  var CONFIRMATION = 'Confirmation';
+
   // This data is used in view
   $scope.bookingDetails = bookingService.getAPIParams();
+
+  var lastBreadCrumbName = '';
+  var setBreadCrumbs = function(name) {
+    lastBreadCrumbName = name;
+  };
 
   function setContinueName(stateName) {
     switch (stateName) {
     case 'reservation.details':
+      setBreadCrumbs(GUEST_DETAILS);
       $scope.continueName = 'Payment';
       break;
     case 'reservation.billing':
+      setBreadCrumbs(BILLING_DETAILS);
       $scope.continueName = 'Confirmation';
       break;
     case 'reservation.confirmation':
+      setBreadCrumbs(CONFIRMATION);
       $scope.continueName = 'Confirm';
+      break;
+    case 'reservation.after':
+      breadcrumbsService.clear()
+        .addBreadCrumb('My stays', 'reservations')
+        .addBreadCrumb($scope.reservation.reservationCode);
       break;
     }
   }
@@ -87,10 +104,12 @@ angular.module('mobius.controllers.reservation', [])
   var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
     $scope.setRoomDetails(data.roomDetails);
     setProductDetails(data.roomProductDetails.products);
+    return data;
   });
 
   var propertyPromise = propertyService.getPropertyDetails($stateParams.property).then(function(property) {
     $scope.property = property;
+    return property;
   });
 
   var SHORT_DESCRIPTION_LENGTH = 100;
@@ -112,7 +131,21 @@ angular.module('mobius.controllers.reservation', [])
     });
 
   // Showing loading mask
-  preloaderFactory($q.all([roomDataPromise, propertyPromise, extrasPromise]).catch(goToRoom));
+  preloaderFactory($q.all([roomDataPromise, propertyPromise, extrasPromise]).then(function(data){
+    setBreadCrumbs = function(name) {
+      breadcrumbsService
+        .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
+        .addBreadCrumb('Rooms')
+        .addBreadCrumb(data[0].roomDetails.name, 'hotel', {propertyCode: $stateParams.property, roomID: $stateParams.roomID})
+        .addBreadCrumb(name)
+        .addHref(GUEST_DETAILS)
+        .addHref(BILLING_DETAILS)
+        .addHref(CONFIRMATION)
+        .setActiveHref(name)
+      ;
+    };
+    setBreadCrumbs(lastBreadCrumbName);
+  }, goToRoom));
 
   function setProductDetails(products){
     // Finding the product which user about to book
@@ -255,7 +288,6 @@ angular.module('mobius.controllers.reservation', [])
           '');
 
         $state.go('reservation.after');
-
       }, function() {
         $scope.invalidFormData = true;
         $state.go('reservation.details');

@@ -65,8 +65,11 @@ angular.module('mobiusApp.directives.slider', [])
         }
       }
 
-      scope.$watch('content', function() {
+      var unWatchContent = scope.$watch('content', function() {
         init();
+      });
+      scope.$on('$destroy', function(){
+        unWatchContent();
       });
 
       // Redirecting to corresponding page

@@ -4,9 +4,10 @@
  */
 angular.module('mobius.controllers.about', [])
 
-  .controller('AboutUsCtrl', function($scope, $controller, chainService, Settings, modalService){
+  .controller('AboutUsCtrl', function($scope, $controller, chainService, Settings, modalService, breadcrumbsService){
 
     $controller('MainCtrl', {$scope: $scope});
+    breadcrumbsService.addBreadCrumb('About Us');
 
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;

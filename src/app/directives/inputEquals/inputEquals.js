@@ -20,8 +20,11 @@ angular.module('mobiusApp.directives.equals', [])
         }
       }
 
-      scope.$watch('equals', function(otherModelValue) {
+      var unWatchEquals = scope.$watch('equals', function(otherModelValue) {
         validate(ngModel.$viewValue, otherModelValue);
+      });
+      scope.$on('$destroy', function(){
+        unWatchEquals();
       });
 
       ngModel.$parsers.unshift(function(viewValue) {

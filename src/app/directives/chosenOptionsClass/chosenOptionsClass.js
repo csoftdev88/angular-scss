@@ -35,8 +35,11 @@ angular.module('mobiusApp.directives.chosenOptionsClass', [])
           });
         }
 
-        scope.$watch(optionsSourceStr, function(items) {
+        var unWatchOptions = scope.$watch(optionsSourceStr, function(items) {
           elem.on('chosen:showing_dropdown', setClasses.bind(null, items));
+        });
+        scope.$on('$destroy', function(){
+          unWatchOptions();
         });
       }
     };
