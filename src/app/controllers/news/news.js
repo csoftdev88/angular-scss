@@ -16,7 +16,7 @@ angular.module('mobius.controllers.news', [])
       return selectedNewsIndex !== index && NUMBER_OF_RELEVANT_NEWS + offset > parseInt(index, 10);
     };
 
-    $scope.showNewsList = true;
+    $scope.showDetail = false;
     contentService.getNews().then(function(response) {
       $scope.newsList = response;
     });
@@ -24,7 +24,7 @@ angular.module('mobius.controllers.news', [])
     $scope.selectNews = function(index) {
       $scope.selectedNews = $scope.newsList[index];
       selectedNewsIndex = index;
-      $scope.showNewsList = false;
+      $scope.showDetail = true;
     };
 
   });
