@@ -1,23 +1,23 @@
 <div ng-if="showOffersList">
   <div ng-repeat="offer in offersList track by $index" >
-    <img ng-src="{{offer.image}}" />
+    <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.uri}}"/>
     <h2>{{offer.title}}</h2>
     <div ng-bind-html="offer.subtitle"></div>
-    <a ng-click="selectNews($index)">Read more</a>
+    <a ng-click="selectOffer($index)">Read more</a>
   </div>
 </div>
 
 <div ng-if="!showOffersList">
   <h1>{{selectedOffer.title}}</h1>
-  <img ng-src="{{selectedOffer.image}}" />
+  <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}"/>
   <div ng-bind-html="selectedOffer.text"></div>
-
+  <a ui-sref="hotels({promoCode: selectedOffer.promoCode})">book now</a>
   <hr>
 
-  <h2 ng-if="offer in offersList | filter:getRelevant">You may also be interested in:</h2>
+  <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
 
   <article ng-repeat="offer in offersList | filter:getRelevant track by $index" ng-click="selectOffer($index)">
-    <img ng-src="{{offer.image}}" />
+    <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.uri}}"/>
     <h2>{{offer.title}} </h2>
     <div ng-bind-html="offer.subtitle"></div>
   </article>
