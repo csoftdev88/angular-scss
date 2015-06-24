@@ -4,7 +4,8 @@
  */
 angular.module('mobius.controllers.news', [])
 
-  .controller('NewsCtrl', function($scope, $controller, contentService, breadcrumbsService){
+  .controller('NewsCtrl', function($scope, $controller, contentService,
+    $stateParams, _, breadcrumbsService){
 
     $controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('News');
@@ -12,23 +13,33 @@ angular.module('mobius.controllers.news', [])
     var NUMBER_OF_RELEVANT_NEWS = 3;
 
     var selectedNewsIndex;
+
+    $scope.showDetail = $stateParams.code ? true : false;
+
+    contentService.getNews().then(function(response) {
+      $scope.newsList = response;
+      if($stateParams.code) {
+        $scope.selectNews($stateParams.code);
+      }
+    });
+
     $scope.getRelevant = function(news, index) {
       var offset = selectedNewsIndex < NUMBER_OF_RELEVANT_NEWS ? 1 : 0;
       return selectedNewsIndex !== index && NUMBER_OF_RELEVANT_NEWS + offset > parseInt(index, 10);
     };
 
-    $scope.showDetail = false;
-    contentService.getNews().then(function(response) {
-      $scope.newsList = response;
-    });
 
-    $scope.selectNews = function(index) {
-      $scope.selectedNews = $scope.newsList[index];
+    $scope.selectNews = function(code) {
+      selectedNewsIndex = _.findIndex($scope.newsList,
+        function (item) {
+          return item.code === code;
+        });
+      $scope.selectedNews = $scope.newsList[selectedNewsIndex];
+      $scope.showDetail = true;
       breadcrumbsService.clear()
         .addBreadCrumb('News', 'news')
         .addBreadCrumb($scope.selectedNews.title);
-      selectedNewsIndex = index;
-      $scope.showDetail = true;
+
     };
 
   });

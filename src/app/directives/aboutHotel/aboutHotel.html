@@ -67,9 +67,8 @@
   </article>
 
   <article grid="4" class="add">
-    <a href="#">
-      <img class="grid-img" src="/static/images/v4/about-offer-3.png" alt="Free room upgrade">
-      <p>Download our mobile app for great rates!</p>
+    <a href="#" ng-click="randomAdvertClick()" ng-show="randomAdvert">
+      <img class="grid-img" ng-src="randomAdvert.images.uri" alt="randomAdvert.images.uri">
     </a>
   </article>
 </section>

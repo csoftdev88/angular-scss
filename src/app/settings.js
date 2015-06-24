@@ -9,7 +9,10 @@ angular.module('mobiusApp.config', [])
     'contents': {
       'contents': 'contents',
       'news': 'contents/news',
-      'offers': 'contents/offers'
+      'offers': 'contents/offers',
+      'adverts': {
+        'random': 'contents/adverts/random'
+      }
     },
     'chain': {
       'get': 'chains/:chainCode/'
@@ -68,7 +71,9 @@ angular.module('mobiusApp.config', [])
     'SSO': {
       'customerId': 6414
     },
-
+    'adverts' : {
+      'randomMainPageAdvertSize' : 'tower'
+    },
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
       // are specified in ms.
