@@ -1,21 +1,37 @@
 <div>
   <reservation-hotel ng-class="{'inactive': !reservation.active}">
-    <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+    <div class="property-preview">
+      <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+    </div>
 
-    {{property.nameShort}}
+    <div class="details">
+      <div class="header">
+        <h2>{{property.nameLong}} <strong>{{property.city}}</strong></h2>
+        <span>Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
+      </div>
+    </div>
+
+<!--
     {{property.rating}}
     Total: {{reservation.priceAfterDiscount}}
 
     Adults: {{getAdultsCount()}}
 
     Children: {{getChildrenCount()}}
-
+-->
     <!-- MULTI-ROOM? -->
+    <!--
     {{reservation.rooms[0].roomTypeName}}
     {{reservation.rooms[0].packageName}}
 
+    -->
 
-    Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}
-    Check In: {{reservation.arrivalDate | checkInDate }}
+
+    <check-in-date>
+      <span class="title">Check In</span>
+      <span class="date">
+         {{reservation.arrivalDate | checkInDate }}
+      </span>
+    </check-in-date>
   </reservation-hotel>
 </div>

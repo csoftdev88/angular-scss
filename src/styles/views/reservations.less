@@ -1,0 +1,71 @@
+.reservations {
+  h1 {
+    font-size: @size-3;
+    margin: @baseline 0px @baseline*1.5;
+  }
+
+  reservation-data {
+    .property-preview {
+      width: 115px;
+      height: 80px;
+      float: left;
+      margin-right: @baseline/2;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .header {
+      float: left;
+
+      h2 {
+        font-size: @size-3;
+        font-weight: 400;
+        float: left;
+
+        strong {
+          font-weight: 600;
+        }
+      }
+
+      span {
+        float: right;
+      }
+    }
+
+    check-in-date {
+      display: block;
+      float: right;
+      overflow: hidden;
+
+      width: 100px;
+      height: 90px;
+      border: 2px solid @c-link;
+      border-radius: 10px;
+
+      text-align: center;
+
+      .title {
+        display: block;
+        background-color:  @c-link;
+        color: @c-white;
+        font-size: @size-2;
+        padding: 5px;
+      }
+
+      .date {
+        font-size: @size-3;
+        color: @c-link;
+        height: 60px;
+        padding: 0 10px;
+        font-weight: bold;
+        font-weight: 700;
+        display: table-cell;
+        vertical-align: middle;
+        width: 100px;
+      }
+    }
+  }
+}
