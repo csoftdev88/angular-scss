@@ -316,9 +316,9 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.prefillUserData = function(){
-    if(!Object.keys($scope.userDetails).length){
-      var userData = user.getUser();
+    var userData = user.getUser();
 
+    if(!Object.keys($scope.userDetails).length){
       // No fields are touched yet, prefiling
       _.extend($scope.userDetails, {
         title: userData.title || '',
@@ -332,6 +332,8 @@ angular.module('mobius.controllers.reservation', [])
         phone: userData.tel1 || ''
       });
     }
+
+    $scope.additionalInfo.secondPhoneNumber = userData.tel2 || '';
   };
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
