@@ -40,6 +40,7 @@ angular.module('mobiusApp.config', [])
     },
     'locations': {
       'regions': 'regions/',
+      'region': 'regions/:regionCode',
       'locations': 'locations',
       'location': 'locations/:locationCode'
     },

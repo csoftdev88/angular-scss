@@ -29,16 +29,16 @@ angular
     'mobius.controllers.contacts',
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
+    'mobius.controllers.hotel.details',
+    'mobius.controllers.room.details',
+
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
     'mobius.controllers.modals.policy',
     'mobius.controllers.modals.loyalties.badges',
-    'mobius.controllers.room.details',
     'mobius.controllers.modals.associatedRoom',
     'mobius.controllers.modals.addonDetail',
-
-    'mobius.controllers.hotel.details',
-    'mobius.controllers.room.details',
+    'mobius.controllers.modals.locationDetail',
 
     // Application modules
     'mobiusApp.config',

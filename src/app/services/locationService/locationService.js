@@ -17,10 +17,15 @@ angular.module('mobiusApp.services.locations', [])
       return apiService.get(apiService.getFullURL('locations.regions'));
     }
 
+    function getRegion(regionCode){
+      return apiService.get(apiService.getFullURL('locations.region', {regionCode: regionCode}));
+    }
+
     // Public methods
     return {
       getLocations: getLocations,
       getLocation: getLocation,
-      getRegions: getRegions
+      getRegions: getRegions,
+      getRegion: getRegion
     };
   });
