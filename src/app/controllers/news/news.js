@@ -24,6 +24,9 @@ angular.module('mobius.controllers.news', [])
 
     $scope.selectNews = function(index) {
       $scope.selectedNews = $scope.newsList[index];
+      breadcrumbsService.clear()
+        .addBreadCrumb('News', 'news')
+        .addBreadCrumb($scope.selectedNews.title);
       selectedNewsIndex = index;
       $scope.showDetail = true;
     };

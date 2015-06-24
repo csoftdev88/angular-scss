@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.offers', [])
 
-  .controller('OffersCtrl', function($scope, $controller, contentService, $stateParams, _, breadcrumbsService){
+  .controller('OffersCtrl', function($scope, $controller, contentService, $stateParams, _, breadcrumbsService) {
 
     $controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Offers');
@@ -17,7 +17,7 @@ angular.module('mobius.controllers.offers', [])
 
     contentService.getOffers().then(function(response) {
       $scope.offersList = response;
-      selectedOfferIndex =  _.findIndex($scope.offersList, function(item) {
+      selectedOfferIndex = _.findIndex($scope.offersList, function(item) {
         return item.code === $stateParams.$stateParams.code;
       });
     });
@@ -29,6 +29,9 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.selectOffer = function(index) {
       $scope.selectedOffer = $scope.offersList[index];
+      breadcrumbsService.clear()
+        .addBreadCrumb('Offers', 'offers')
+        .addBreadCrumb($scope.selectedOffer.title);
       selectedOfferIndex = index;
       $scope.showDetail = true;
     };
