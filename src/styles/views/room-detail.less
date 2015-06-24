@@ -1,0 +1,171 @@
+/////////////////////
+//// ROOM DETAIL ////
+/////////////////////
+
+room {
+
+  //- Page Heading
+  h1 {
+    .h1;
+  }
+
+  h2 {
+    margin-bottom: @baseline;
+
+    font-size: @size-2;
+  }
+
+
+  //- List Items
+
+  list-item {
+    position: relative;
+
+    display: block;
+    min-height: 100px;
+    padding: @baseline 170px;
+
+    border-bottom: 1px dashed #ccc;
+
+    &:last-of-type {
+      border: 0;
+    }
+
+    // behave like link
+    &[ng-click] {
+      cursor: pointer;
+    }
+
+    //- Image
+    figure {
+      position: absolute;
+      left: 0;
+      top: @baseline;
+
+      display: block;
+    }
+
+    //- Heading
+    h2 {
+      color: @c-link;
+
+      font-size: @size-2;
+    }
+
+    //- Earned points
+    earned-points {
+      position: absolute;
+      right: 170px;
+      top: @baseline;
+
+      color: #999;
+
+      &:before {
+        .fa;
+
+        margin-right: @baseline / 2;
+
+        color: gold;
+
+        content: @fa-var-star;
+      }
+    }
+
+    //- Pricing info
+    pricing-info {
+      position: absolute;
+      right: 0;
+      top: @baseline;
+
+      border-left: 1px solid #ddd;
+
+      width: 150px;
+
+      text-align: right;
+
+      // members only or most book package
+      highlight-item {
+        display: block;
+
+        color: @c-link;
+
+        font-size: @size--2;
+        text-transform: uppercase;
+      }
+
+      p {
+        margin-bottom: @baseline / 2;
+
+        color: #999;
+
+        font-style: italic;
+      }
+
+      // value
+      strong {
+        color: @c-link;
+
+        font-size: @size-2;
+        font-style: normal;
+        font-weight: 600;
+      }
+    }
+
+    //- Description
+    description-info {
+      display: block;
+
+      color: #333;
+
+      nav {
+        display: flex;
+      }
+
+      nav a {
+        display: inline-block;
+        text-decoration: underline;
+
+        &:first-of-type {
+          flex: 1;
+        }
+
+      }
+    }
+  }
+
+  //- List Items - Grid
+  //  it overides styles ^^
+  .grid-view list-item {
+    float: left;
+    margin-right: @baseline;
+    padding: 0;
+
+    border: 0;
+
+    //- Image
+    figure {
+      position: static;
+    }
+
+    //- Heading
+    h2 {
+      margin: 0;
+
+      color: #000;
+
+      font-size: @size-0;
+      font-weight: 600;
+    }
+
+    pricing-info {
+      position: static;
+
+      border: 0;
+
+      text-align: left;
+    }
+  }
+
+
+
+}

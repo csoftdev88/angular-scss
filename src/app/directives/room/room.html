@@ -1,72 +1,110 @@
-<section widget="room" grid>
-  <header>
-    <h1>{{roomDetails.name}}</h1>
-    <p ng-bind-html="sanitize(roomDetails.description)"></p>
-    <hr>
-  </header>
+<div widget="room" grid="12">
 
-  <div ng-if="products.length">
-    <ul class="room-prices" >
-        <li heading="{{product.name}}" ng-repeat="product in products">
-          <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/60/60" alt="{{product.name}}"/>
-          <div>
-            <h3>{{product.name}}</h3>
-            <span>Earn {{product.price.pointsEarned}} points</span>
-            <div ng-if="product._expanded">
-              <div ng-bind-html="sanitize(product.description)"></div>
+  <h1>{{roomDetails.name}}</h1>
+  <p ng-bind-html="sanitize(roomDetails.description)"></p>
+  <hr>
+
+  <section ng-if="products.length">
+
+    <list-items>
+      <list-item ng-repeat="product in products">
+        <figure>
+          <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/150/100/" alt="{{product.name}}"/>
+        </figure>
+
+        <h2>{{product.name}}</h2>
+
+        <earned-points>Earn {{product.price.pointsEarned}} points</earned-points>
+
+        <pricing-info>
+          <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
+          <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
+
+          <p>
+            <strong>{{product.price.totalBase | i18nCurrency: currencyCode}}</strong> per night
+            <span ng-if="isUserLoggedIn()">
+              or <strong>{{product.price.pointsRequired}}</strong> points
+            </span>
+          </p>
+
+          <button-submit
+            role="button" tabindex="0"
+            ng-click="selectProduct(product)"
+            ng-disabled="product.memberOnly && !isUserLoggedIn()">
+            Select
+          </button-submit>
+        </pricing-info>
+
+        <description-info>
+          <div ng-if="product._expanded">
+            <div ng-bind-html="sanitize(product.description)"></div>
+
+            <nav>
               <a href ng-click="product._expanded = false">View less</a>
-              <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a>
+              <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a> &nbsp;&nbsp; | &nbsp;&nbsp;
               <a href ng-click="openPoliciesInfo(product)" ng-if="product.policies">View Policies</a>
-            </div>
-            <div ng-if="!product._expanded">
-              <p>{{product.descriptionShort}}</p>
+            </nav>
+          </div>
+
+          <div ng-if="!product._expanded">
+            <p>{{product.descriptionShort}}</p>
+
+            <nav>
               <a href ng-click="product._expanded = true">View more</a>
-            </div>
+            </nav>
           </div>
-          <div>
-            <p class="desc">{{product.tagline}}</p>
-            <p ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</p>
-            <p ng-show="product.highlighted">Most Booked Package</p>
-            <span class="price">
-              <span class="value">{{product.price.totalBase | i18nCurrency: currencyCode}}</span> <span>per night</span>
-            </span>
-            <span ng-if="isUserLoggedIn()" class="price">
-              or <span class="value">{{product.price.pointsRequired}}</span> <span>points</span>
-            </span>
-            <a class="button" href ng-click="selectProduct(product)" ng-disabled="product.memberOnly && !isUserLoggedIn()">Select</a>
-          </div>
-        </li>
-    </ul>
-  </div>
+
+          <p>{{product.tagline}}</p>
+
+        </description-info>
+
+      </list-item>
+    </list-items>
+
+  </section>
 
   <div ng-if="products && !products.length">
-    <h2>No Product Found</h2>
+    <p><strong>No Product Found</strong></p>
   </div>
 
-  <div class="room-desc">
-    <h3 class="section-title">Room <strong>Description</strong></h3>
+  <hr>
+
+  <section>
+    <h2>Room <strong>Description</strong></h2>
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
-  </div>
-  <div class="room-amenities">
-    <h3 class="section-title">Room <strong>Amenities</strong></h3>
-    <ul>
-      <li ng-repeat="amenity in roomDetails.amenities">
-        <i class="icon-{{amenity.icon || 'globe'}}"/>
-        <!--<img ng-src="{{amenity.icon}}" err-source="http://lorempixel.com/20/20">-->
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>Room <strong>Amenities</strong></h2>
+
+    <amenities-list>
+      <amenity-item ng-repeat="amenity in roomDetails.amenities">
+        <img ng-src="{{amenity.icon}}" err-source="http://lorempixel.com/20/20">
         <span>{{amenity.name}}</span>
-      </li>
-    </ul>
-  </div>
-  <div class="other-rooms" ng-show="otherRooms.length > 1">
-    <h3 class="section-title">Other <strong>Rooms</strong></h3>
-    <ul>
-      <li ng-repeat="otherRoom in otherRooms">
-        <div ng-click="onClickOnAssociatedRoom(otherRoom)">
-          <span>{{otherRoom.name}} from {{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span>
-          <a class="more">_view_more_</a>
-          <img ng-show="otherRoom.images[0]" ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}">
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
+      </amenity-item>
+    </amenities-list>
+  </section>
+
+  <hr>
+
+  <section ng-show="otherRooms.length > 1">
+    <h2>Other <strong>Rooms</strong></h2>
+
+    <list-items class="grid-view">
+      <list-item ng-repeat="otherRoom in otherRooms"  ng-click="onClickOnAssociatedRoom(otherRoom)">
+        <figure ng-show="otherRoom.images[0]">
+          <img ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}" err-source="http://lorempixel.com/150/100/">
+        </figure>
+
+        <h2>{{otherRoom.name}}</h2>
+
+        <pricing-info>
+          <p> from <strong>{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</strong></p>
+        </pricing-info>
+      </list-item>
+    </list-items>
+
+  </section>
+</div>
