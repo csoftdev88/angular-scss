@@ -10,6 +10,8 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_BADGES = 'BadgesCtrl',
       CONTROLLER_ASSOCIATED_ROOM = 'AssociatedRoomCtrl',
       CONTROLLER_ADDON = 'AddonDetailCtrl',
+      CONTROLLER_LOCATION = 'LocationDetailCtrl',
+
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -137,6 +139,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openLocationDetail(location){
+    return openDialog('openGallery', 'layouts/modals/locationDetail.html', CONTROLLER_LOCATION, {
+      windowClass: 'is-wide',
+      resolve: {
+        data: function(){
+          return location;
+        }
+      }
+    });
+  }
+
   function openAssociatedRoomDetail(roomDetails, propertyCode) {
     return openDialog('associatedRooms', 'layouts/modals/associatedRooms.html', CONTROLLER_ASSOCIATED_ROOM, {
       windowClass: 'associated-rooms-modal',
@@ -164,6 +177,7 @@ angular.module('mobiusApp.services.modal', [])
     openLoyaltyDialog: openLoyaltyDialog,
     // gallery
     openGallery: openGallery,
-    openAssociatedRoomDetail: openAssociatedRoomDetail
+    openAssociatedRoomDetail: openAssociatedRoomDetail,
+    openLocationDetail: openLocationDetail
   };
 });

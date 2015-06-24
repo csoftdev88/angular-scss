@@ -93,7 +93,6 @@ angular.module('mobiusApp.directives.hotels', [])
         if(scope.location && scope.location.code) {
           preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
             scope.locationDetails = location;
-            scope.openGallery = modalService.openGallery.bind(modalService, location.images);
           }));
         } else {
           scope.locationDetails = null;
@@ -159,6 +158,8 @@ angular.module('mobiusApp.directives.hotels', [])
           (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode))
         );
       };
+
+      scope.openLocationDetail = modalService.openLocationDetail;
     }
   };
 }]);
