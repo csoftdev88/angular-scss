@@ -9,20 +9,20 @@
     </div>
     <fieldset>
       <form-element>
-        <input type="text" ng-model="formData.name" name="name" placeholder="Name" required>
+        <input type="text" ng-model="formData.fields.name" name="name" placeholder="Name" required>
         <form-label>Enter Your Name</form-label>
         <error-message role="alert" ng-show="form.$submitted && form.name.$error.required">Name is required</error-message>
       </form-element>
 
       <form-element ng-class="{'is-invalid': form.$submitted && (form.email.$error.email || form.email.$error.pattern || form.password.$error.required)}">
-        <input id="email" type="email" name="email" placeholder="Email" ng-model="formData.email" required email-check>
+        <input id="email" type="email" name="email" placeholder="Email" ng-model="formData.fields.email" required email-check>
         <form-label for="email">Enter Your Email</form-label>
         <error-message role="alert" ng-show="form.$submitted && (form.email.$error.email || form.email.$error.emailCheck)">Please enter valid email</error-message>
         <error-message role="alert" ng-show="form.$submitted && form.email.$error.required">Email is required</error-message>
       </form-element>
 
       <form-element>
-        <input type="text" ng-model="formData.subject" name="subject" placeholder="Subject" required>
+        <input type="text" ng-model="formData.fields.subject" name="subject" placeholder="Subject" required>
         <form-label>Enter Subject</form-label>
         <error-message role="alert" ng-show="form.$submitted && form.subject.$error.required">Subject is required</error-message>
       </form-element>
@@ -30,7 +30,7 @@
 
     <fieldset>
       <form-element>
-        <textarea ng-model="formData.text" name="text" placeholder="Text" required></textarea>
+        <textarea ng-model="formData.fields.message" name="text" placeholder="Text" required></textarea>
         <form-label>Enter Text</form-label>
         <span ng-show="form.$submitted && form.text.$error.required">Text is required</span>
       </form-element>
@@ -39,6 +39,7 @@
     <div>
       <button-submit role="button" tabindex="0" ng-click="sendForm()">Continue</button-submit>
     </div>
+    <div ng-show="showErrorMsg">Sending of message failed</div>
   </form>
 
   <contact-list grid="4">

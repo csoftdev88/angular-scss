@@ -25,6 +25,10 @@ angular.module('mobiusApp.config', [])
       'products': 'filters/products',
       'rooms': 'filters/rooms'
     },
+    'forms': {
+      'contact' : 'forms/contact',
+      'contactSubmissions': 'forms/contact/submissions'
+    },
     'properties': {
       'all': 'properties',
       'details': 'properties/:propertyCode',

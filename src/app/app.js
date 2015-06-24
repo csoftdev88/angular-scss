@@ -59,6 +59,7 @@ angular
     'mobiusApp.services.creditCardType',
     'mobiusApp.services.userMessagesService',
     'mobiusApp.services.chains',
+    'mobiusApp.services.forms',
     'mobiusApp.services.reservation',
     'mobiusApp.services.breadcrumbs',
 

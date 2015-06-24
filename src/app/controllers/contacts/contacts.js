@@ -4,20 +4,39 @@
  */
 angular.module('mobius.controllers.contacts', [])
 
-  .controller('ContactsCtrl', function($scope, $controller, chainService, Settings, breadcrumbsService){
+  .controller('ContactsCtrl', function($scope, $controller, chainService, Settings,
+   breadcrumbsService, formsService){
 
     $controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Contact And Feedback');
 
+    var formDataCopy = {
+      'code': 'contact',
+      'fields': {}
+    };
+    $scope.formData = angular.copy(formDataCopy);
+
+    //get contact information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
+    });
+    //get form structure and default field values
+    formsService.getContactForm().then(function(response) {
+      if(response) {
+        $scope.formData.fields.subject = response.schema.subject.default;
+      }
     });
 
     $scope.sendForm = function(){
       $scope.form.$submitted = true;
       if ($scope.form.$valid) {
-        //send data to API here
-        $scope.form.$setPristine();
+        formsService.sendContactForm($scope.formData).then(function () {
+          $scope.formData = angular.copy(formDataCopy);
+          $scope.form.$setPristine();
+          $scope.showErrorMsg = false;
+        }, function () {
+          $scope.showErrorMsg = true;
+        });
       }
     };
   });
