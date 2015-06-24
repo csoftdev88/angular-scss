@@ -1,12 +1,12 @@
 'use strict';
 
 describe('bookingService', function() {
-  var _rootScope, _bookingService, _stateParams;
+  var _rootScope, _bookingService, _stateParams = {};
 
   beforeEach(function() {
     module('mobiusApp.services.booking', function($provide) {
       // Mocking $stateParams service
-      $provide.value('$stateParams', _stateParams || {});
+      $provide.value('$stateParams', _stateParams);
     });
   });
 
@@ -16,21 +16,19 @@ describe('bookingService', function() {
   }));
 
   describe('getParams', function() {
-    beforeEach(function(){
-      _stateParams = {
-        'property': 'ABC',
-        'adults': 5,
-        'children': 2,
-        'promoCode': 'BCD',
-        'dates': '2014-01-01 2015-01-01'
-      };
+    beforeEach(function() {
+      _stateParams.property = 'ABC';
+      _stateParams.adults = 5;
+      _stateParams.children = 2;
+      _stateParams.promoCode = 'BCD';
+      _stateParams.dates = '2014-01-01 2015-01-01';
     });
 
     it('should be defined as a function', function() {
       expect(_bookingService.getParams).to.be.an('function');
     });
 
-    it('should return params presented in the URL', function(){
+    it('should return params presented in the URL', function() {
       var params = _bookingService.getParams();
       expect(params.property).equal('ABC');
       expect(params.adults).equal(5);
@@ -39,7 +37,7 @@ describe('bookingService', function() {
       expect(params.dates).equal('2014-01-01 2015-01-01');
     });
 
-    it('should return params presented in the URL without propertyId', function(){
+    it('should return params presented in the URL without propertyId', function() {
       var params = _bookingService.getParams(true);
       expect(params.property).equal(undefined);
       expect(params.adults).equal(5);
@@ -84,6 +82,45 @@ describe('bookingService', function() {
       var dates = _bookingService.datesFromString('2015-05-20');
       expect(dates.from).equal('2015-05-20');
       expect(dates.to).equal('2015-05-20');
+    });
+  });
+
+  describe('APIParamsHasDates', function() {
+    it('should be defined as a function', function() {
+      expect(_bookingService.APIParamsHasDates).to.be.an('function');
+    });
+
+    it('should return true when dates are present', function() {
+      _stateParams.dates = '2014-01-01 2015-01-01';
+      expect(_bookingService.APIParamsHasDates()).equal(true);
+    });
+
+    it('should return true when one date is present', function() {
+      _stateParams.dates = '2014-01-01';
+      expect(_bookingService.APIParamsHasDates()).equal(true);
+    });
+
+    it('should return false if both dates are not present', function() {
+      _stateParams.dates = '';
+      expect(_bookingService.APIParamsHasDates()).equal(false);
+    });
+  });
+
+  describe('getCodeParamName', function() {
+    it('should be defined as a function', function() {
+      expect(_bookingService.getCodeParamName).to.be.an('function');
+    });
+
+    it('should return corpCode when code is type of corpCode', function() {
+      expect(_bookingService.getCodeParamName('132')).equal('corpCode');
+    });
+
+    it('should return groupCode when code is type of groupCode', function() {
+      expect(_bookingService.getCodeParamName('#132')).equal('groupCode');
+    });
+
+    it('should return promoCode for others', function() {
+      expect(_bookingService.getCodeParamName('abc')).equal('promoCode');
     });
   });
 });
