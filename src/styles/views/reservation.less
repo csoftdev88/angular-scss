@@ -4,7 +4,7 @@
 
 @c-reservation-form:  #d7d7d7;
 @c-form-text:         #373535;
-@spacing:  20px;
+@spacing:             20px;
 
 reservation-widget {
   display: block;
@@ -79,6 +79,7 @@ reservation-widget {
   .input-checkbox {
     font-weight: normal;
     font-size: @size-0;
+    cursor: pointer;
   }
 
   .detail-links {
@@ -190,6 +191,123 @@ reservation-widget {
         .grid-width(2);
         width: @width;
       }
+    }
+  }
+}
+
+// Billing details form and payment w/ points
+reservation-billing {
+
+  // Wrapper
+  > div {
+    margin: 25px 0 20px 0;
+    padding: 30px 40px;
+    border: 1px solid @c-reservation-form;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+  }
+
+  // Payment with credit/debet card
+  .payment-methods {
+    cursor: pointer;
+
+    li {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    li + li {
+      margin-left: 10px;
+    }
+
+    .divider {
+      width: 0;
+      height: 30px;
+      border-right: 1px solid @c-reservation-form;
+    }
+
+    i {
+      display: block;
+      opacity: 1;
+      width: 32px;
+      height: 30px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      opacity: 0.5;
+
+      &.selected {
+        opacity: 1;
+      }
+
+      &.visa {
+        background-image: url('../images/card-icons/visa.png');
+      }
+
+      &.master {
+        background-image: url('../images/card-icons/mastercard.png');
+      }
+
+      &.amex {
+        background-image: url('../images/card-icons/amex.png');
+      }
+
+      &.discover {
+        background-image: url('../images/card-icons/discover.png');
+      }
+
+      &.points {
+        width: 80px;
+        background-image: url('../images/card-icons/points.png');
+      }
+    }
+  }
+
+  // Payment with users points
+  .payment-points {
+    margin-top: @spacing;
+
+    table {
+      width: 100%;
+    }
+
+    th, td {
+      padding: 10px 0;
+      font-size: @size-1;
+    }
+
+    th {
+      width: 75%;
+      text-align: left;
+      font-weight: normal;
+    }
+
+    td {
+      color: @c-brown;
+      font-weight: bold;
+      font-size: @size-2;
+      text-align: right;
+    }
+
+    .earned {
+      color: @c-green;
+    }
+
+    .balance {
+
+      th, td {
+        font-size: @size-3;
+      }
+    }
+
+    // Negative value
+    .not-enough {
+      color: @c-red;
+    }
+
+    // "Not enough points..."
+    .error {
+      margin-top: @spacing;
+      color: @c-red;
     }
   }
 }
