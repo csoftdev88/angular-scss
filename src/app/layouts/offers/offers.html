@@ -1,3 +1,25 @@
-<h1> <strong>{{category}}</strong> / {{offerID}} </h1>
+<div ng-if="showOffersList">
+  <div ng-repeat="offer in offersList track by $index" >
+    <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.uri}}"/>
+    <h2>{{offer.title}}</h2>
+    <div ng-bind-html="offer.subtitle"></div>
+    <a ng-click="selectOffer($index)">Read more</a>
+  </div>
+</div>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
+<div ng-if="!showOffersList">
+  <h1>{{selectedOffer.title}}</h1>
+  <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}"/>
+  <div ng-bind-html="selectedOffer.text"></div>
+  <a ui-sref="hotels({promoCode: selectedOffer.promoCode})">book now</a>
+  <hr>
+
+  <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
+
+  <article ng-repeat="offer in offersList | filter:getRelevant track by $index" ng-click="selectOffer($index)">
+    <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.uri}}"/>
+    <h2>{{offer.title}} </h2>
+    <div ng-bind-html="offer.subtitle"></div>
+  </article>
+
+</div>

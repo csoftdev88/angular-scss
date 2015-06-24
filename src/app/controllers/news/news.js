@@ -18,7 +18,7 @@ angular.module('mobius.controllers.news', [])
 
     $scope.showNewsList = true;
     contentService.getNews().then(function(response) {
-      $scope.newsList = response.news;
+      $scope.newsList = response;
     });
 
     $scope.selectNews = function(index) {

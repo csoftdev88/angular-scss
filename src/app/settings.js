@@ -6,7 +6,11 @@ angular.module('mobiusApp.config', [])
   'API': {
     'chainCode': 'SAN',
     'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
-    'contents': 'contents',
+    'contents': {
+      'contents': 'contents',
+      'news': 'contents/news',
+      'offers': 'contents/offers'
+    },
     'chain': {
       'get': 'chains/:chainCode/'
     },
