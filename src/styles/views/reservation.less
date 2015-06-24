@@ -2,7 +2,7 @@
 // Local Variables //
 /////////////////////
 
-@c-reservation-form:  #d7d7d7;
+@c-gray-reservation:  #d7d7d7;
 @c-form-text:         #373535;
 @spacing:             20px;
 
@@ -15,15 +15,20 @@ reservation-widget {
   h3 {
     font-size: @size-1;
   }
+
   form {
     margin-top: 10px;
+  }
+
+  table {
+    width: 100%;
   }
 
   label {
     position: relative;
     padding-top: @size--2 + 4px; // 15px
     padding-bottom: 10px;
-    color: darken(@c-reservation-form, 20%);
+    color: darken(@c-gray-reservation, 20%);
 
     span {
       position: absolute;
@@ -57,12 +62,11 @@ reservation-widget {
   }
 
   input[type="text"],
-  input[type="email"],
-  input[type="number"] {
+  input[type="email"] {
     height: 45px;
     padding: 0 15px;
     border-radius: 0;
-    border-color: @c-reservation-form;
+    border-color: @c-gray-reservation;
     color: @c-form-text;
     font-size: @size-0;
     transition: border-color 0.15s linear;
@@ -127,7 +131,7 @@ reservation-widget {
 
     .charges {
       padding: 10px;
-      border: 1px solid @c-reservation-form;
+      border: 1px solid @c-gray-reservation;
       border-radius: 6px;
     }
   }
@@ -202,7 +206,7 @@ reservation-billing {
   > div {
     margin: 25px 0 20px 0;
     padding: 30px 40px;
-    border: 1px solid @c-reservation-form;
+    border: 1px solid @c-gray-reservation;
     border-radius: 3px;
     background-color: #f9f9f9;
   }
@@ -223,7 +227,7 @@ reservation-billing {
     .divider {
       width: 0;
       height: 30px;
-      border-right: 1px solid @c-reservation-form;
+      border-right: 1px solid @c-gray-reservation;
     }
 
     i {
@@ -266,10 +270,6 @@ reservation-billing {
   .payment-points {
     margin-top: @spacing;
 
-    table {
-      width: 100%;
-    }
-
     th, td {
       padding: 10px 0;
       font-size: @size-1;
@@ -309,5 +309,66 @@ reservation-billing {
       margin-top: @spacing;
       color: @c-red;
     }
+  }
+}
+
+reservation-confirmation {
+
+  > div {
+    margin: 30px 0 @spacing 0;
+    border: 1px solid @c-gray-reservation;
+    border-radius: 4px;
+  }
+
+  .nav-tabs {
+    .clearfix;
+
+    li {
+      float: left;
+      box-sizing: border-box;
+      width: 33.3333%;
+      text-align: center;
+    }
+
+    li + li {
+      border-left: 1px solid @c-gray-reservation;
+    }
+
+    a {
+      display: block;
+      padding: 10px 0;
+      color: @c-gray;
+      font-weight: 400;
+    }
+
+    .active a {
+      color: @c-brown;
+      font-weight: bold;
+    }
+  }
+
+  .tab-pane {
+    display: none;
+    padding: 30px 40px;
+    border-top: 1px solid @c-gray-reservation;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  th, td {
+    padding: 5px;
+    vertical-align: top;
+  }
+
+  th {
+    width: 33%;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  td {
+    font-weight: 600;
   }
 }

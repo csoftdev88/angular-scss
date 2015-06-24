@@ -104,9 +104,12 @@ button.next {
   box-shadow: 0 2px 0 0 darken(@c-button, 5%);
   transition: background-color 0.15s linear;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: darken(@c-button, 5%);
+  }
+
+  &:focus {
+    background-color: darken(@c-button, 8%);
   }
 
   &:active {
@@ -146,6 +149,15 @@ button.back {
   font-size: @size-2;
   font-weight: normal;
   line-height: @baseline * 2;
+
+  &:hover,
+  &:focus {
+    color: @c-black;
+
+    &:before {
+      border-color: @c-black;
+    }
+  }
 
   // Arrow on left side
   &:before {
