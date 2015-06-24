@@ -12,6 +12,22 @@ reservation-widget {
   padding: @spacing 0;
   .shadow-box(#ddd);
 
+  [grid-row] {
+    position: relative;
+  }
+
+  aside:before {
+    .grid-width(7);
+    position: absolute;
+    content: '';
+    display: block;
+    width: 0;
+    left: @width;
+    top: 45px;
+    bottom: 20px;
+    border-left: 1px dashed @c-gray-reservation;
+  }
+
   h3 {
     font-size: @size-1;
   }
@@ -315,7 +331,7 @@ reservation-billing {
 reservation-confirmation {
 
   > div {
-    margin: 30px 0 @spacing 0;
+    margin: 45px 0 @spacing 0;
     border: 1px solid @c-gray-reservation;
     border-radius: 4px;
   }
