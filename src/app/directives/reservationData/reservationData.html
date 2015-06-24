@@ -1,31 +1,7 @@
-<div>
-  <reservation-hotel ng-class="{'inactive': !reservation.active}">
+<div ng-class="{'inactive': reservation.status !== 'active'}">
     <div class="property-preview">
       <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
     </div>
-
-    <div class="details">
-      <div class="header">
-        <h2>{{property.nameLong}} <strong>{{property.city}}</strong></h2>
-        <span>Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
-      </div>
-    </div>
-
-<!--
-    {{property.rating}}
-    Total: {{reservation.priceAfterDiscount}}
-
-    Adults: {{getAdultsCount()}}
-
-    Children: {{getChildrenCount()}}
--->
-    <!-- MULTI-ROOM? -->
-    <!--
-    {{reservation.rooms[0].roomTypeName}}
-    {{reservation.rooms[0].packageName}}
-
-    -->
-
 
     <check-in-date>
       <span class="title">Check In</span>
@@ -33,5 +9,40 @@
          {{reservation.arrivalDate | checkInDate }}
       </span>
     </check-in-date>
-  </reservation-hotel>
+
+    <div class="content">
+      <div class="header">
+        <h2>{{property.nameLong}} <strong>{{property.city}}</strong></h2>
+        <span>Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
+      </div>
+
+    <div class="rating">
+      <ul class="stars">
+        <li ng-repeat="rating in [1,2,3,4,5]"  ng-class="{included: rating <= property.rating}"></li>
+      </ul>
+    </div>
+
+      <div class="details">
+        <div class="total">
+           <span class="title">Total:</span>
+           <span class="value">{{reservation.priceAfterDiscount | i18nCurrency: $root.currencyCode}}</span>
+        </div>
+
+        <div class="guests">
+          <div>
+            <span class="title">Adults:</span>
+            <span class="value">{{getAdultsCount()}}</span>
+          </div>
+          <div>
+            <span class="title">Children:</span>
+            <span class="value">{{getChildrenCount()}}</span>
+          </div>
+        </div>
+
+        <div class="desc">
+          <p class="value">{{reservation.rooms[0].roomTypeName}}</p>
+          <p class="value">{{reservation.rooms[0].packageName}}</p>
+        </div>
+      </div>
+    </div>
 </div>
