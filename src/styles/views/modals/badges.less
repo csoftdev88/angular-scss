@@ -2,8 +2,27 @@
 //// MODAL - BADGES ////
 ////////////////////////
 
+
+
+
+
 .dialog-badges {
   width: 700px;
+  transform: translate(-50%, 0);
+  bottom: 106px;
+  top: initial;
+
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 8px;
+    background: url('../images/v4/icon-arrow.png') no-repeat center center;
+    position: absolute;
+    bottom: -8px;
+    // NOTE: Panels are not equal
+    left: 48%;
+  }
 
   //- Main Content
 

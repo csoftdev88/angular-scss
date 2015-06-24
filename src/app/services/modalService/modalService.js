@@ -14,7 +14,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openDialog(dialogName, templateUrl, controller, options){
     var q = $q.defer(),
-        modalOptions = { templateUrl: templateUrl, controller: controller, windowTemplateUrl: 'layouts/modals/window.html'  };
+        modalOptions = { templateUrl: templateUrl, controller: controller, windowTemplateUrl: 'layouts/modals/window.html'};
 
     // Merge required and arbitrary options together
     angular.extend(modalOptions, options);
@@ -105,6 +105,7 @@ angular.module('mobiusApp.services.modal', [])
   function openBadgesDialog(badges){
     return openDialog('Badges', 'layouts/modals/loyalties/badges.html', CONTROLLER_BADGES, {
       windowClass: 'dialog-badges',
+      backdropClass: 'modal-footer',
       resolve: {
         data: function(){
           return badges;
@@ -116,6 +117,7 @@ angular.module('mobiusApp.services.modal', [])
   function openLoyaltyDialog(loyalty){
     return openDialog('Loyalties', 'layouts/modals/loyalties/loyalty.html', CONTROLLER_DATA, {
       windowClass: 'dialog-loyalty',
+      backdropClass: 'modal-footer',
       resolve: {
         data: function(){
           return loyalty;
