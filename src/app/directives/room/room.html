@@ -72,6 +72,11 @@
   <section>
     <h2>Room <strong>Description</strong></h2>
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
+    <ul ng-if="roomDetails.images.length">
+      <li ng-repeat="image in roomDetails.images">
+        <img src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/100/100" />
+      </li>
+    </ul>
   </section>
 
   <hr>
