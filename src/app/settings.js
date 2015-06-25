@@ -74,7 +74,11 @@ angular.module('mobiusApp.config', [])
   'UI': {
     // TEST SETTINGS FOR SSO
     'SSO': {
-      'customerId': 6414
+      'customerId': 6414,
+      // NOTE: SSO lib broadcasts `customerloaded` event before
+      // cookies are beeing set. This should be removed once
+      // solved on SSO side.
+      'initDelay': 200
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert'
