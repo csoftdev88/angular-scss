@@ -21,7 +21,7 @@
     <div class="reservation-data">
       <figure grid="4">
         <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
-        <button>Modify</button>
+        <button class="button">Modify</button>
         <button>Cancel</button>
       </figure>
 
@@ -94,25 +94,30 @@
   <hr>
 
   <section grid-row class="reservation-enhance">
-    <h3>Enhance Your Stay With</h3>
-
+    <h3>Enhance Your <strong>Stay With</strong></h3>
     <ul>
-      <li ng-repeat="addon in addons" ng-if="reservation.packages.indexOf(addon.code) === -1">
-        <a href ng-click="openAddonDetailDialog(addon)">
-          <img src="addon.images[0].uri" err-source="http://lorempixel.com/390/110/" />
-        </a>
-        <h4>{{addon.name}}</h4>
-        <div ng-if="addon._expanded">
-          <p>{{addon.description}}</p>
-          <a href ng-click="addon._expanded = false">[-]</a>
+      <li class="{{ addons.length < 3 ? 'half' : 'third'}}"
+        ng-repeat="addon in addons"
+        ng-if="reservation.packages.indexOf(addon.code) === -1">
+        <div>
+          <a href ng-click="openAddonDetailDialog(addon)">
+            <img src="addon.images[0].uri" err-source="http://lorempixel.com/390/110/" />
+          </a>
+
+          <h4>{{addon.name}}</h4>
+          <p>
+            {{ addon._expanded ? addon.description : addon.descriptionShort }}
+            <a href
+              ng-init="addon._expanded = false"
+              ng-click="addon._expanded = !addon._expanded">
+              {{ addon._expanded ? '[-]' : '[+]'}}
+            </a>
+          </p>
+          <i>Add to your booking with one click:</i>
+
+          <a class="button" href ng-click="openAddonDetailDialog(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
+          <a class="button" href ng-click="openAddonDetailDialog(addon)" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
         </div>
-        <div ng-if="!addon._expanded">
-          <p>{{addon.descriptionShort}}</p>
-          <a href ng-click="addon._expanded = true">[+]</a>
-        </div>
-        <p>Add to your booking with one click:</p>
-        <a class="button" href ng-click="openAddonDetailDialog(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
-        <a class="button" href ng-click="openAddonDetailDialog(addon)" ng-if="addon.pointsRequired">{{addon.pointsRequired}}</a>
       </li>
     </ul>
   </section>
@@ -129,17 +134,15 @@
     <h3>Your Enhancements</h3>
 
     <ul ng-if="reservation.packages.length">
-      <li ng-repeat="addonCode in reservation.packages">
+      <li ng-repeat="addonCode in reservation.packages" grid="{{Math.floor( 12 / reservation.packages.length)}}">
         <img src="addons[addonCode].images[0].uri" err-source="http://lorempixel.com/390/110/" />
         <h4>{{addons[addonCode].name}}</h4>
-        <div ng-if="addons[addonCode]._expanded">
-          <p>{{addons[addonCode].description}}</p>
-          <a href ng-click="addons[addonCode]._expanded = false">View Less</a>
-        </div>
-        <div ng-if="!addons[addonCode]._expanded">
-          <p>{{addons[addonCode].descriptionShort}}</p>
-          <a ng-if="addon.hasViewMore" href ng-click="addons[addonCode]._expanded = true">View More</a>
-        </div>
+        <p>{{ addons[addonCode]._expanded ? addons[addonCode].description : addons[addonCode].descriptionShort }}</p>
+        <a href
+          ng-if="addon.hasViewMore"
+          ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
+          {{ addons[addonCode]._expanded ? 'Show Less]' : 'Show More' }}
+        </a>
         <p>{{addon.price | i18nCurrency: currencyCode}}</p>
       </li>
       <li>

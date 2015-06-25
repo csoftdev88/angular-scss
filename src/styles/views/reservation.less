@@ -4,6 +4,7 @@
 
 @c-gray-reservation:  #d7d7d7;
 @c-form-text:         #373535;
+@c-brown-light:       #d7c6ae;
 @spacing:             20px;
 
 
@@ -436,8 +437,19 @@ reservation-confirmation {
   }
 }
 
+
+////////////////////////////////
+// Reservation Finished page  //
+//  - after succesful payment //
+////////////////////////////////
 reservation-finished {
+
   position: relative;
+
+  section > h3,
+  hotel-location > h2 {
+    font-size: @size-3;
+  }
 
   .reservation-summary {
     padding-top: 3 * @spacing;
@@ -484,6 +496,7 @@ reservation-finished {
     h3 {
       font-size: @size-1;
       line-height: 1.5 * @baseline;
+      font-weight: 600;
     }
 
     h4 {
@@ -526,6 +539,80 @@ reservation-finished {
 
   .reservation-enhance {
 
+    ul {
+      .clearfix;
+      margin: @spacing 0;
+      padding: @spacing @spacing / 2;
+      border: 2px solid #d6b9b9;
+      border-radius: 4px;
+      background-color: @c-brown;
+    }
+
+    li {
+      display: inline-block;
+      box-sizing: border-box;
+      padding: 0 @spacing / 2;
+
+      &.half {  width: 50%; }
+      &.third { width: 33.3333%; }
+
+      > div {
+        padding-bottom: 5px;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 2px 1px 0 fade(@c-black, 50%);
+        text-align: center;
+        overflow: hidden;
+      }
+
+    }
+
+    h4, p, i {
+      padding: 0 @spacing / 2;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    h4 {
+      margin: @baseline 0;
+      font-size: @size-2;
+      text-transform: uppercase;
+    }
+
+    i {
+      display: block;
+      color: @c-brown;
+      font-size: @size--1;
+      line-height: @baseline;
+      text-align: left;
+    }
+
+    p {
+      margin: @baseline 0;
+
+      a {
+        font-weight: 600;
+      }
+    }
+
+    .button {
+      margin: @spacing / 2 0;
+      padding: 0 @spacing / 2;
+      width: 45%;
+
+      small {
+        font-size: 0.65em;
+        font-style: italic;
+        font-weight: normal;
+        opacity: 0.75;
+      }
+    }
+
+    .button + .button {
+      margin-left: @spacing / 2;
+    }
   }
 
   .reservation-hotel-details {
