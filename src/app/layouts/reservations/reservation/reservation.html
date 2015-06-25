@@ -87,12 +87,12 @@
     We are sorry, your payment was not authorized. Please check the policies, your details and try again.
   </span>
 
-  <div grid-row>
+  <div grid-row class="reservation-controls">
     <button class="back" ng-click="goBack()">Back</button>
+    <button class="next" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
     <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
       <h4>Already Registered?</h4>
       <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
     </registration-call>
-    <button class="next" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
   </div>
 </reservation-widget>
