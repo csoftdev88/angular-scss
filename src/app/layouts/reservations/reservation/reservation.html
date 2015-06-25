@@ -44,18 +44,12 @@
         <div class="charges">
           <table>
             <thead ng-switch="billingDetails.paymentMethod">
-              <tr ng-switch-when="cc">
-                <th>Room Charges:</th>
-                <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
-                <th rowspan="4">Total:</th>
-                <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
-              </tr>
-              <tr ng-switch-when="points">
-                <td>{{selectedProduct.price.pointsRequired}} points</td>
-              </tr>
-              <tr ng-switch-default>
-                <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}} or {{selectedProduct.price.pointsRequired}} points</td>
-              </tr>
+              <th>Room Charges:</th>
+              <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
+              <th rowspan="3">Total:</th>
+              <td rowspan="3" ng-switch-when="cc">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
+              <td rowspan="3" ng-switch-when="point">{{selectedProduct.price.pointsRequired}} points</td>
+              <td rowspan="3" ng-switch-default>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}} or {{selectedProduct.price.pointsRequired}} points</td>
             </thead>
             <tbody>
               <!-- Additional taxes -->
@@ -79,9 +73,26 @@
             </tbody>
           </table>
         </div>
+
+        <div ng-if="state.includes('reservation.confirmation')">
+          <label for="agreement1" class="input-checkbox">
+            <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
+            I agree to the <a href ng-click="">Terms and Conditions</a>
+          </label>
+
+          <label for="agreement2" class="input-checkbox">
+            <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
+            I am happy to receive offer via emails
+          </label>
+        </diV>
       </section>
     </aside>
   </div>
+
+  <label for="agreement3" class="input-checkbox" ng-if="state.includes('reservation.details') || state.includes('reservation.billing')">
+    <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
+    I agree that I am happy for the The Sutton Place Hotels to send me emails
+  </label>
 
   <span class="alert-warning" ng-if="invalidFormData">
     We are sorry, your payment was not authorized. Please check the policies, your details and try again.

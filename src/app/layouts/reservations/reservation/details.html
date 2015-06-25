@@ -66,14 +66,11 @@
         <span>Zip/Postal Code</span>
       </label>
 
-      <label for="agreement" class="input-checkbox">
-        <input type="checkbox" id="agreement" ng-model="userDetails.agreement"/>
-        I agree that I am happy for the The Sutton Place Hotels  to send me emails
-      </label>
-
       <label class="form-errors" ng-if="forms.details.$invalid">
         Please fill out all the fields indicated
       </label>
+
+      <input type="submit" id="submit" value="Submit" ng-hide="true" />
     </form>
   </div>
 </reservation-details-form>

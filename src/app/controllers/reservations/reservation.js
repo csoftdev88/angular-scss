@@ -93,8 +93,10 @@ angular.module('mobius.controllers.reservation', [])
     arrivalTime: '',
     arrivalMethod: '',
     departureTime: '',
-    secondPhoneNumber: '',
-    comments: ''
+    secondPhoneNumber: user.getUser().tel2,
+    comments: '',
+    agree: false,
+    optedIn: user.getUser().optedIn
   };
 
   // Inheriting the login from RoomDetails controller
@@ -200,7 +202,7 @@ angular.module('mobius.controllers.reservation', [])
     case 'reservation.billing':
       return $scope.forms.billing && !$scope.forms.billing.$invalid;
     case 'reservation.confirmation':
-      return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
+      return $scope.userDetails.agreement && $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
     }
     return false;
   };
