@@ -202,7 +202,7 @@ angular.module('mobius.controllers.reservation', [])
     case 'reservation.billing':
       switch ($scope.billingDetails.paymentMethod) {
       case 'cc':
-        return $scope.pointsData.pointsAfterBooking >= 0;
+        return user.getUser().loyalties.amount >= $scope.selectedProduct.price.pointsRequired;
       }
       return $scope.forms.billing && !$scope.forms.billing.$invalid;
     case 'reservation.confirmation':
