@@ -20,6 +20,11 @@ reservation-widget {
     position: relative;
   }
 
+  ui-view {
+    display: block;
+    min-height: 1px;
+  }
+
   aside:before {
     .grid-width(7);
     position: absolute;
@@ -169,14 +174,21 @@ reservation-widget {
     }
   }
 
-  button.next {
-    float: right;
-    margin: 0 @spacing;
+  .reservation-controls {
+    text-align: center;
+    margin-top: @spacing;
+
+    .next {
+      float: right;
+      margin: 0 @spacing;
+    }
+
+    .back {
+      float: left;
+      margin: 0 @spacing;
+    }
   }
 
-  button.back {
-    margin: 0 @spacing;
-  }
 
   @media screen and @moreThenMobile and @lessThenTabletPortrait {
     width: auto;
@@ -200,6 +212,7 @@ reservation-widget {
 @media only screen and @moreThenTabletPortrait {
 
   reservation-widget {
+
     .input-left,
     .input-right {
       box-sizing: border-box;
@@ -222,6 +235,7 @@ reservation-widget {
   }
 
   reservation-buttons {
+
     .button {
       &.back,
       &.next {
