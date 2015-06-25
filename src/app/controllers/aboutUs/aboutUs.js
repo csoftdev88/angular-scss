@@ -12,6 +12,7 @@ angular.module('mobius.controllers.about', [])
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
 
-      $scope.openGallery = modalService.openGallery.bind(modalService, chain.images);
+      $scope.openGallery = modalService.openGallery.bind(modalService,
+        chain.images.map(function(image){return {image: image.uri};}));
     });
   });
