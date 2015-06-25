@@ -435,3 +435,104 @@ reservation-confirmation {
     font-weight: 600;
   }
 }
+
+reservation-finished {
+  position: relative;
+
+  .reservation-summary {
+    padding-top: 3 * @spacing;
+
+    header {
+      .clearfix;
+      margin: 0 0 2 * @spacing 0;
+    }
+
+    h1 {
+      color: @c-brown;
+      font-size: @size-3;
+      font-weight: 600;
+      line-height: 2 * @baseline;
+    }
+
+    .reference {
+      color: @c-gray;
+      text-align: center;
+      line-height: @baseline;
+    }
+
+    .booked {
+      color: @c-text;
+      font-size: @size--1;
+      font-weight: bold;
+      line-height: 2 * @baseline;
+      text-align: right;
+    }
+
+    .actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    footer {
+      text-align: right;
+    }
+  }
+
+  .reservation-data {
+
+    h3 {
+      font-size: @size-1;
+      line-height: 1.5 * @baseline;
+    }
+
+    h4 {
+      font-size: @size-0;
+      line-height: 1.5 * @baseline;
+    }
+
+    table {
+      margin-top: @baseline;
+      width: 100%;
+    }
+
+    th, td {
+      width: 25%;
+
+      &[rowspan] {
+        vertical-align: bottom;
+      }
+    }
+
+    th {
+      font-weight: 400;
+      text-align: left;
+    }
+
+    td {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    th:not(:first-child) {
+      padding-left: 2 * @spacing;
+    }
+
+    .total-value a {
+      font-size: @size-2;
+      font-weight: 700;
+    }
+  }
+
+  .reservation-enhance {
+
+  }
+
+  .reservation-hotel-details {
+
+  }
+
+  .reservation-enhancements {
+
+  }
+}
