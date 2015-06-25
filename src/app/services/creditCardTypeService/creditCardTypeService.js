@@ -5,6 +5,8 @@ angular.module('mobiusApp.services.creditCardType', [])
 
     // see https://en.wikipedia.org/wiki/Bank_card_number
     function getCreditCardDetails(creditCardNumber) {
+      creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
+
       if (creditCardNumber && luhnCheck(creditCardNumber)) {
         for (var type in Settings.UI.booking.cardTypes) {
           var cardDetails = Settings.UI.booking.cardTypes[type];
@@ -16,6 +18,8 @@ angular.module('mobiusApp.services.creditCardType', [])
             };
           }
         }
+        // uncomment to accept all card numbers passing luhn check
+        // return {};
       }
 
       return null;
@@ -23,8 +27,9 @@ angular.module('mobiusApp.services.creditCardType', [])
 
     // http://en.wikipedia.org/wiki/Luhn_algorithm
     function luhnCheck(creditCardNumber) {
+      creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
 
-      if (/[^0-9-\s]+/.test(creditCardNumber)) {
+      if (/[^0-9]+/.test(creditCardNumber)) {
         return false;
       }
 
@@ -49,8 +54,13 @@ angular.module('mobiusApp.services.creditCardType', [])
       return (nCheck % 10) === 0;
     }
 
+    function normalizeCreditCardNumber(creditCardNumber) {
+      return creditCardNumber ? ('' + creditCardNumber).replace(/[\s-]/g, '') : '';
+    }
+
     return {
       getCreditCardDetails: getCreditCardDetails,
-      luhnCheck: luhnCheck
+      luhnCheck: luhnCheck,
+      normalizeCreditCardNumber: normalizeCreditCardNumber
     };
   });
