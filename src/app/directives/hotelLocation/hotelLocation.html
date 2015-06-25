@@ -14,23 +14,27 @@
 <p>{{hotelDetails.locationDescription}}</p>
 
 <ul class="contact-information">
-  <li>
+  <li ng-if="hotelDetails.tel1 || hotelDetails.tel2">
     <i class="fa fa-phone"></i>
     <strong>Telephone:</strong>
-    {{hotelDetails.tel1}}
+    <div ng-if="hotelDetails.tel1">{{hotelDetails.tel1}}</div>
     <div ng-if="hotelDetails.tel2">{{hotelDetails.tel2}}</div>
   </li>
-  <li>
-    <i class="fa fa-email"></i>
+  <li ng-if="hotelDetails.fax">
+    <i class="fa fa-fax"></i>
+    <strong>Fax:</strong> {{hotelDetails.fax}}
+  </li>
+  <li ng-if="hotelDetails.email">
+    <i class="fa fa-envelope"></i>
     <strong>Email:</strong> {{hotelDetails.email}}
   </li>
   <li>
     <i class="fa fa-phone"></i>
     <strong>Address:</strong>
-    {{hotelDetails.address1}},<br />
-    <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},<br /></span>
-    <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},<br /></span>
-    {{hotelDetails.city}}, {{hotelDetails.zip}}
+    <div ng-if="hotelDetails.address1">{{hotelDetails.address1}},</div>
+    <div ng-if="hotelDetails.address2">{{hotelDetails.address2}},</div>
+    <div ng-if="hotelDetails.address3">{{hotelDetails.address3}},</div>
+    <div>{{hotelDetails.city}}, {{hotelDetails.zip}}</div>
   </li>
 </ul>
 
