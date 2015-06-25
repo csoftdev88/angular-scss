@@ -10,26 +10,30 @@
           position="{{position}}"
           title="{{hotelDetails.nameShort}}"></marker>
 </map>
-<!-- TODO: this should also be filled with the data from API -->
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nibh varius odio sollicitudin blandit nec eu elit. Suspendisse ac risus nunc, quis elementum lorem. Pellentesque vehicula egestas eros nec commodo. Phasellus adipiscing pretium sem, id congue erat fermentum at. Fusce dapibus felis non ante gravida convallis. Nullam vulputate convallis lectus in ultrices.</p>
-<!-- contact information and hot to get to us information
-     should follow here
+
+<p>{{hotelDetails.locationDescription}}</p>
+
 <ul class="contact-information">
   <li>
     <i class="fa fa-phone"></i>
-    <strong>Telephone:</strong> XXX.XXX.XXX
+    <strong>Telephone:</strong>
+    {{hotelDetails.tel1}}
+    <div ng-if="hotelDetails.tel2">{{hotelDetails.tel2}}</div>
   </li>
   <li>
-    <i class="fa fa-phone"></i>
-    <strong>Email:</strong> info_vancouver@suttonplace.com
+    <i class="fa fa-email"></i>
+    <strong>Email:</strong> {{hotelDetails.email}}
   </li>
   <li>
     <i class="fa fa-phone"></i>
     <strong>Address:</strong>
-    Street,<br />
-    City, Country disctrict, Postal code
+    {{hotelDetails.address1}},<br />
+    <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},<br /></span>
+    <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},<br /></span>
+    {{hotelDetails.city}}, {{hotelDetails.zip}}
   </li>
-</ul> -->
+</ul>
+
 <h3>How to get to us</h3>
 <transportation-list>
   <transportation-item ng-repeat="direction in hotelDetails.directions">
