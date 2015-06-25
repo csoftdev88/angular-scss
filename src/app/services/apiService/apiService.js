@@ -2,13 +2,15 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, Settings) {
+.service( 'apiService',  function($q, $http, $window, _, Settings) {
+  var headers = Settings.API.headers;
+
   function get(url, params) {
     var q = $q.defer();
     $http({
       method: 'GET',
       url: url,
-      headers: Settings.API.headers,
+      headers: headers,
       params: params
     }).success(function(res) {
       q.resolve(res);
@@ -20,14 +22,13 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-
   function post(url, data) {
     var q = $q.defer();
 
     $http({
       method: 'POST',
       url: url,
-      headers: Settings.API.headers,
+      headers: headers,
       data: data
     }).success(function(res) {
       q.resolve(res);
@@ -61,10 +62,15 @@ angular.module('mobiusApp.services.api', [])
     return obj;
   }
 
+  function setHeaders(obj) {
+    _.extend(headers, obj);
+  }
+
   // Public methods
   return {
     get: get,
     post: post,
-    getFullURL: getFullURL
+    getFullURL: getFullURL,
+    setHeaders: setHeaders
   };
 });

@@ -73,45 +73,41 @@
 
   <reservation-details-form>
     <h3>Your Details</h3>
-    <label for="title" class="input-left">
-      Title
-      <select name="title" id="">
-        <option value="Mr">Mr</option>
-        <option value="Mrs">Mrs</option>
-        <option value="Ms">Ms</option>
-      </select>
-    </label>
     <label for="first-name" class="input-right">
       First name
-      <input type="text" name="first-name"/>
+      <input ng-model="reservationDetails.firstName" type="text" id="first-name" name="first-name"/>
     </label>
     <label for="last-name">
       Last name
-      <input type="text" name="last-name"/>
+      <input ng-model="reservationDetails.lastName" type="text" id="last-name" name="last-name"/>
     </label>
-    <label for="address">
-      Address
-      <input type="text" name="address"/>
-    </label>
-    <label for="city" class="input-left">
-      City
-      <input type="text" name="city"/>
-    </label>
-    <label for="state" class="input-right">
-      State/Province
-      <input type="text" name="state" placeholder="State/Province"/>
-    </label>
-    <label for="country">
-      Country
-      <input type="text" name="country"/>
-    </label>
-    <label for="postal-code" class="input-left">
-      Zip/Postal Code
-      <input type="text" name="postal-code"/>
+    <label for="email" class="input-right">
+      Email
+      <input ng-model="reservationDetails.email" type="email" id="email" name="email"/>
     </label>
     <label for="telephone" class="input-right">
       Primary Telephone
-      <input type="text" name="telephone"/>
+      <input ng-model="reservationDetails.telephone" type="tel" id="telephone" name="telephone"/>
+    </label>
+    <label for="street">
+      Street
+      <input ng-model="reservationDetails.street" type="text" id="street" name="street"/>
+    </label>
+    <label for="city" class="input-left">
+      City
+      <input ng-model="reservationDetails.city" type="text" id="city" name="city"/>
+    </label>
+    <label for="state" class="input-right">
+      State/Province
+      <input ng-model="reservationDetails.state" type="text" id="state" name="state" placeholder="State/Province"/>
+    </label>
+    <label for="country">
+      Country
+      <input ng-model="reservationDetails.country" type="text" id="country" name="country"/>
+    </label>
+    <label for="postal-code" class="input-left">
+      Zip/Postal Code
+      <input ng-model="reservationDetails.postalCode" type="text" id="postal-code" name="postal-code"/>
     </label>
   </reservation-details-form>
 

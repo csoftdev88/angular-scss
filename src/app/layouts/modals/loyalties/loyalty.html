@@ -1,17 +1,16 @@
 <header>
-  <h1>My <strong>Loyalty Card</strong></h1>
+  <h1>{{loyalty.name}}</h1>
   <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
 </header>
 
 <main>
-  <cards-list>
-    <card-icon ng-repeat="stamp in loyalty.stamps track by $index">
-      <img ng-src="{{stamp.image}}" ng-class="{blackAndWhite: !stamp.earned}"/>
-    </card-icon>
-  </cards-list>
+  <loyalty-cards-list>
+    <loyalty-card ng-repeat="stamp in loyalty.stamps track by $index" ng-class="{'is-earned': stamp.earned}">
+      <img ng-src="{{stamp.image}}" err-source="http://lorempixel.com/140/50/" />
+    </loyalty-card>
+  </loyalty-cards-list>
 
-  <card-selected>
-    <h2>{{loyalty.name}}</h2>
+  <loyalty-card-selected>
     <p>{{loyalty.description}}</p>
-  </card-selected>
+  </loyalty-card-selected>
 </main>

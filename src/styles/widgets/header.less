@@ -27,6 +27,20 @@
             font-weight: bold;
             line-height: initial;
             font-size: @size--1;
+
+            // Surname
+            &:last-of-type {
+              display: inline-block;
+            }
+          }
+
+          &:after {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 13px;
+            margin-left: 10px;
+            background: url('../images/v4/icon-arrow.png') no-repeat center center;
           }
         }
 

@@ -4,8 +4,12 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
+    'chainCode': 'SAN',
     'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
-    'contents' : 'contents',
+    'contents': 'contents',
+    'chain': {
+      'get': 'chains/:chainCode/'
+    },
     'generics': {
       'currencies': 'generics/currencies',
       'languages': 'generics/languages'
@@ -19,16 +23,17 @@ angular.module('mobiusApp.config', [])
       'details': 'properties/:propertyCode',
       'availability': 'properties/:propertyCode/availabilities',
       'room': {
+        'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
         'productDetails': 'properties/:propertyCode/rooms/:roomTypeCode/products'
       }
     },
     'locations': {
       'locations': 'locations',
+      'location': 'locations/:locationCode',
       'regions': 'regions/'
     },
     'customers': {
-      'login': 'customers/actions/login',
       'customer': 'customers/:customerId'
     },
     // NOTE: Loyalties API will change - check apiary specs
@@ -46,6 +51,15 @@ angular.module('mobiusApp.config', [])
   'bestAvailableRateCode': 'Best Available Rate',
 
   'UI': {
+    // TEST SETTINGS FOR SSO
+    'SSO': {
+      'customerId': 6414,
+      // NOTE: SSO lib broadcasts `customerloaded` event before
+      // cookies are beeing set. This should be removed once
+      // solved on SSO side.
+      'initDelay': 200
+    },
+
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
       // are specified in ms.
@@ -210,6 +224,13 @@ angular.module('mobiusApp.config', [])
       'guarantee': 'Guarantee',
       'noShow': 'No Show',
       'pet': 'Pet'
+    },
+    localTimeUpdates: {
+      format: 'h.mm A',
+      interval: 1000*60 // every minute
+    },
+    'imageCarousel': {
+      minImages: 6
     }
   }
 });

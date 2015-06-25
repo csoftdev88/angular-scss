@@ -84,6 +84,19 @@ describe('propertyService', function() {
     });
   });
 
+  describe('getRooms', function(){
+    it('should fire a GET request to list if rooms API', function(){
+      env.propertyService.getRooms('ABC');
+
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith(
+        'properties.room.all', {propertyCode:'ABC'})).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+      expect(env.apiGetSpy.calledWith('properties.room.all')).equal(true);
+    });
+  });
+
   describe('getRoomDetails', function(){
     it('should fire a GET request to room details API', function(){
       env.propertyService.getRoomDetails('ABC', 'QWN');
@@ -96,7 +109,6 @@ describe('propertyService', function() {
       expect(env.apiGetSpy.calledWith('properties.room.details')).equal(true);
     });
   });
-
 
   describe('getRoomProductDetails', function(){
     it('should fire a GET request to room product details API', function(){

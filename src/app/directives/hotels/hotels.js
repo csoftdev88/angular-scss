@@ -4,9 +4,10 @@ angular.module('mobiusApp.directives.hotels', [])
 
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
-  'propertyService', 'preloaderFactory', '_',
+  'propertyService', 'preloaderFactory', '_', 'user', 'locationService',
+  '$q', 'modalService', '$controller',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory, _){
+    preloaderFactory, _, user, locationService, $q, modalService, $controller){
   return {
     restrict: 'E',
     scope: {},
@@ -14,6 +15,9 @@ angular.module('mobiusApp.directives.hotels', [])
 
     // Widget logic goes here
     link: function(scope){
+
+      $controller('MainCtrl', {$scope: scope});
+
       scope.sortingOptions = [
         {
           name: 'Availability',
@@ -49,7 +53,7 @@ angular.module('mobiusApp.directives.hotels', [])
           name: 'Z - A',
           prop: 'nameShort',
           value: true
-        },
+        }
       ];
 
       scope.view = 'tiles';
@@ -58,22 +62,38 @@ angular.module('mobiusApp.directives.hotels', [])
 
       function getProperties(params){
         // Loading hotels
-        preloaderFactory(
-          propertyService.getAll(params).then(function(hotels){
-            // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
-            // hotels = undefined;
-            scope.hotels = hotels || [];
+        var hotelsPromise = propertyService.getAll(params).then(function(hotels){
+          // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
+          // hotels = undefined;
+          scope.hotels = hotels || [];
 
-            scope.minPrice = _.chain(scope.hotels).pluck('priceFrom').min();
-            scope.maxPrice = _.chain(scope.hotels).pluck('priceFrom').max();
-            scope.minSelectedPrice = scope.minPrice;
-            scope.maxSelectedPrice = scope.maxPrice;
-          })
-        );
+          scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
+          scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
+          scope.minSelectedPrice = scope.minPrice;
+          scope.maxSelectedPrice = scope.maxPrice;
+        });
+        // Loading locations
+        var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
+          scope.locations = locations || [];
+          scope.locations.unshift({nameShort: 'All Locations'});
+        });
+
+        preloaderFactory($q.all([hotelsPromise, locationsPromise]));
       }
 
       scope.navigateToHotel = function(propertyCode){
         $state.go('hotel', {propertyCode: propertyCode});
+      };
+
+      scope.loadLocation = function() {
+        if(scope.location && scope.location.code) {
+          preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
+            scope.locationDetails = location;
+            scope.openGallery = modalService.openGallery.bind(modalService, location.images);
+          }));
+        } else {
+          scope.locationDetails = null;
+        }
       };
 
       // Getting the details from booking widget
@@ -116,7 +136,8 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.hotelFilter = function(hotel) {
         return (
           (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) &&
-          (scope.minStars <= hotel.rating && hotel.rating <= scope.maxStars)
+          (scope.minStars <= hotel.rating && hotel.rating <= scope.maxStars) &&
+          (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode))
         );
       };
     }

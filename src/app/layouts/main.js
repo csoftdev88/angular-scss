@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller',
+    'contentService', 'Settings', 'user', '$controller', '$filter',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller) {
+      contentService, Settings, user, $controller, $filter) {
 
       // Application settings
       $scope.config = Settings.UI;
@@ -65,13 +65,19 @@ angular.module('mobius.controllers.main', [])
         });
       }
 
-      $scope.openLoginDialog = modalService.openLoginDialog;
-      $scope.openPasswordResetDialog = modalService.openPasswordResetDialog;
-      $scope.openEnterCodeDialog = modalService.openEnterCodeDialog;
+      $scope.toPoints = function(price) {
+        var user = $scope.user.getUser();
+        if (user && user.loyalties) {
+          return $filter('i18nNumber')(price * user.loyalties.cashToPoints, 2);
+        }
+      };
 
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;
       $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
+      $scope.openLoginDialog = function() {
+        angular.element('#loginButton')[0].click(); // need to use DOM event
+      };
 
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
