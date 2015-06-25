@@ -11,6 +11,7 @@ angular.module('mobiusApp.config', [])
       'news': 'contents/news',
       'offers': 'contents/offers',
       'adverts': {
+        'adverts': 'contents/adverts',
         'random': 'contents/adverts/random'
       }
     },
@@ -81,7 +82,8 @@ angular.module('mobiusApp.config', [])
       'initDelay': 200
     },
     'adverts' : {
-      'randomMainPageAdvertSize' : 'homepage-advert'
+      'randomMainPageAdvertSize' : 'homepage-advert',
+      'heroAdverts': 'hero-advert'
     },
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
