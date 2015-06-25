@@ -3,7 +3,7 @@
 * This service controls opening of all dialogs in the application
 */
 angular.module('mobiusApp.services.modal', [])
-.service( 'modalService',  function($modal, $q, $log, queryService) {
+.service( 'modalService',  function($modal, $q, $log, $modalStack, queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
@@ -103,6 +103,10 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openBadgesDialog(badges){
+    // NOTE: We need to close other dialogues instances
+    // since booking widget is not covered by a modal backdrop
+    $modalStack.dismissAll();
+
     return openDialog('Badges', 'layouts/modals/loyalties/badges.html', CONTROLLER_BADGES, {
       windowClass: 'dialog-badges',
       backdropClass: 'modal-footer',
@@ -115,6 +119,8 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openLoyaltyDialog(loyalty){
+    $modalStack.dismissAll();
+
     return openDialog('Loyalties', 'layouts/modals/loyalties/loyalty.html', CONTROLLER_DATA, {
       windowClass: 'dialog-loyalty',
       backdropClass: 'modal-footer',
