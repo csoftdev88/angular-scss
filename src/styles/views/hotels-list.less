@@ -173,6 +173,13 @@ hotels {
       margin-bottom: @baseline/2;
     }
 
+    .logo-trip-advisor {
+      display: inline-block;
+      background: transparent url('../images/v4/icon-tripadvisor.png') no-repeat center 2px;
+      width: 100px;
+      height: 20px;
+    }
+
     .stars {
       text-align: center;
       position: relative;
@@ -202,6 +209,35 @@ hotels {
 
         &.included:after {
           color: @c-link;
+        }
+      }
+
+      &.rating-trip-advisor {
+
+        li {
+          @rating-size: 12px;
+          @trip-advisor-color: #4a863f;
+
+          width: @rating-size;
+          margin-top: 2px;
+          height: @rating-size;
+          border-radius: @rating-size;
+          border: 2px solid @trip-advisor-color;
+
+          &:after {
+            content: '';
+            display: block;
+            margin: 2px;
+          }
+
+          &.included:after {
+            @rating-active-size: 8px;
+
+            width: @rating-active-size;
+            height: @rating-active-size;
+            background: @trip-advisor-color;
+            border-radius: @rating-active-size;
+          }
         }
       }
     }
