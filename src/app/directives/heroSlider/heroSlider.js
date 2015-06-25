@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($timeout, $state, $templateCache, Settings){
+.directive('heroSlider', function($timeout, $window, $state, $templateCache, Settings){
   return {
     restrict: 'E',
     scope: {
@@ -11,7 +11,7 @@ angular.module('mobiusApp.directives.slider', [])
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
     // Widget logic goes here
-    link: function(scope, elem){
+    link: function(scope, elem, attrs){
       var SELECTOR_SLIDER_CONTENT = '.slider-content';
       var CLASS_SLIDING_IN = 'sliding-in';
       var CLASS_SLIDING_OUT = 'sliding-out';
@@ -20,6 +20,8 @@ angular.module('mobiusApp.directives.slider', [])
 
       var SLIDE_TYPE_INFO = 'directives/heroSlider/slides/info.html';
       var SLIDE_TYPE_SIMPLE = 'directives/heroSlider/slides/simple.html';
+
+      var EVENT_KEYDOWN = 'keydown';
 
       var mainSlide;
       var followingSlide;
@@ -68,8 +70,13 @@ angular.module('mobiusApp.directives.slider', [])
       var unWatchContent = scope.$watch('content', function() {
         init();
       });
+
       scope.$on('$destroy', function(){
         unWatchContent();
+
+        if(!!attrs.keyboard){
+          angular.element($window).unbind(EVENT_KEYDOWN);
+        }
       });
 
       // Redirecting to corresponding page
@@ -227,6 +234,19 @@ angular.module('mobiusApp.directives.slider', [])
         if(timerID!==undefined){
           clearInterval(timerID);
         }
+      }
+
+      if(!!attrs.keyboard){
+        angular.element($window).bind(EVENT_KEYDOWN, function(e) {
+          // No keycode or escape is pressed
+          if(!e.keyCode || e.keyCode === 27){
+            return;
+          }
+
+          scope.$evalAsync(function(){
+            scope.slide(e.keyCode === 37, e);
+          });
+        });
       }
     }
   };
