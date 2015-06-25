@@ -1,7 +1,7 @@
 'use strict';
 
 describe('mobiusApp.services.modal', function() {
-  var _modalService, _spyModalOpen;
+  var _modalService, _spyModalOpen, _spyModalStackDismissAll;
 
   beforeEach(function() {
     module('mobiusApp.services.modal', function($provide) {
@@ -17,24 +17,35 @@ describe('mobiusApp.services.modal', function() {
         }
       });
 
+      $provide.value('$modalStack', {
+        dismissAll: function(){}
+      });
+
       $provide.value('queryService', {
         setValue: function(){}
       });
     });
   });
 
-  beforeEach(inject(function($rootScope, $modal, modalService) {
+  beforeEach(inject(function($rootScope, $modal, $modalStack, modalService) {
     _modalService = modalService;
     _spyModalOpen = sinon.spy($modal, 'open');
+    _spyModalStackDismissAll = sinon.spy($modalStack, 'dismissAll');
   }));
 
   afterEach(function() {
     _spyModalOpen.restore();
+    _spyModalStackDismissAll.restore();
   });
 
   describe('openBadgesDialog', function() {
     it('should be defined as a function', function() {
       expect(_modalService.openBadgesDialog).to.be.an('function');
+    });
+
+    it('should close all open modal instances', function() {
+      _modalService.openBadgesDialog();
+      expect(_spyModalStackDismissAll.calledOnce).equal(true);
     });
 
     it('should open badges dialog', function() {
@@ -52,6 +63,11 @@ describe('mobiusApp.services.modal', function() {
   describe('openLoyaltyDialog', function() {
     it('should be defined as a function', function() {
       expect(_modalService.openLoyaltyDialog).to.be.an('function');
+    });
+
+    it('should close all open modal instances', function() {
+      _modalService.openLoyaltyDialog();
+      expect(_spyModalStackDismissAll.calledOnce).equal(true);
     });
 
     it('should open loyalties dialog', function() {

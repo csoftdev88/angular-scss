@@ -6,17 +6,17 @@
   width: 710px;
   transform: translate(-50%, 0);
   margin-left: 300px;
-  bottom: 106px;
+  bottom: 110px;
   top: initial;
 
   &:after {
-    content: '';
-    display: inline-block;
-    width: 7px;
-    height: 8px;
-    background: url('../images/v4/icon-arrow.png') no-repeat center center;
+    .fa;
+
+    content: @fa-var-sort-desc;
     position: absolute;
-    bottom: -8px;
+    bottom: -9px;
+    color: @c-white;
+    font-size: @size-3;
     // NOTE: Panels are not equal
     left: 48%;
   }
