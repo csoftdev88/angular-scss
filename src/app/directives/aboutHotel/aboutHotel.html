@@ -44,31 +44,18 @@
 </div>
 
 <section grid-row class="offers-list">
-  <article grid="4">
-    <a href="#">
-      <img class="grid-img" src="/static/images/v4/about-offer-1.png" alt="Free room upgrade">
+  <article grid="4" ng-repeat="offer in offersList track by $index">
+      <img class="grid-img" ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}">
 
-      <h2>Free room <strong>upgrade</strong></h2>
-      <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
+      <h2>{{offer.title}}</h2>
+      <div ng-bind-html="offer.subtitle"></div>
 
-      <span>Read More</span>
-    </a>
+      <a ng-click="advertClick({'type': 'offer', 'code': offer.code})">Read more</a>
   </article>
 
-  <article grid="4">
-    <a href="#">
-      <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
-
-      <h2>Champagne <strong>breakfast</strong></h2>
-      <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
-
-      <span>Read More</span>
-    </a>
-  </article>
-
-  <article grid="4" class="add">
-    <a href="#" ng-click="randomAdvertClick()" ng-show="randomAdvert">
-      <img class="grid-img" ng-src="randomAdvert.images.uri" alt="randomAdvert.images.uri">
+  <article grid="4" class="add" ng-repeat="randomAdvert in randomAdverts track by $index">
+    <a href="#" ng-click="advertClick(randomAdvert.link)" ng-show="randomAdverts[$index]">
+      <img class="grid-img" ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}">
     </a>
   </article>
 </section>

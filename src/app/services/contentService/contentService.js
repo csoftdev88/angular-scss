@@ -12,8 +12,8 @@ angular.module('mobiusApp.services.content', [])
     return apiService.get(apiService.getFullURL('contents'), {filter: 'about'});
   }
 
-  function getOffers(){
-    return apiService.get(apiService.getFullURL('contents.offers'));
+  function getOffers(parameters){
+    return apiService.get(apiService.getFullURL('contents.offers'), parameters);
   }
 
   function getRandomAdvert(bannerSize){
