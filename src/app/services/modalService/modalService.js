@@ -136,7 +136,8 @@ angular.module('mobiusApp.services.modal', [])
 
   function openGallery(images){
     return openDialog('openGallery', 'layouts/modals/imagesGallery.html', CONTROLLER_DATA, {
-      windowClass: 'is-wide',
+      windowClass: 'lightbox',
+      backdropClass: 'modal-lightbox',
       resolve: {
         data: function(){
           return images;
