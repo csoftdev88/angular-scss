@@ -45,7 +45,7 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
           var $item = angular.element('#' + href);
           angular.element('html, body').animate({
             scrollTop: $item.offset().top
-          }, 2000);
+          }, 300);
         };
 
         scope.$state = $state;

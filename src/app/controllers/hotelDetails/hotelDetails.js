@@ -75,6 +75,6 @@ angular.module('mobius.controllers.hotel.details', [])
     var $item = angular.element('#jsRooms');
     angular.element('html, body').animate({
       scrollTop: $item.offset().top
-    }, 2000);
+    }, 300);
   };
 });
