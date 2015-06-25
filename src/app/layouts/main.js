@@ -47,6 +47,13 @@ angular.module('mobius.controllers.main', [])
       };
 
       function loadHighlights() {
+        contentService.getAdverts({bannerSize: Settings.UI.adverts.randomMainPageAdvertSize}).then(
+          function (response) {
+            $scope.heroContent = response;
+            console.log(' $scope.heroContent ' + JSON.stringify( $scope.heroContent, null, 4));
+          }
+        );
+        /*
         // Getting content hights
         contentService.getHighlightedItems().then(function(data) {
           var heroContent = [];
@@ -63,6 +70,7 @@ angular.module('mobius.controllers.main', [])
 
           $scope.heroContent = orderByFilter(heroContent, '+order');
         });
+        */
       }
 
       $scope.openCCVInfo = modalService.openCCVInfo;

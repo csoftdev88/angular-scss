@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($timeout, $state, $templateCache, Settings){
+.directive('heroSlider', function($timeout, $state, $templateCache, Settings, advertsService){
   return {
     restrict: 'E',
     scope: {
@@ -12,6 +12,7 @@ angular.module('mobiusApp.directives.slider', [])
 
     // Widget logic goes here
     link: function(scope, elem){
+      console.log('scope.content ' + JSON.stringify(scope.content, null, 4));
       var SELECTOR_SLIDER_CONTENT = '.slider-content';
       var CLASS_SLIDING_IN = 'sliding-in';
       var CLASS_SLIDING_OUT = 'sliding-out';
@@ -79,9 +80,7 @@ angular.module('mobiusApp.directives.slider', [])
         }
 
         var slideData = scope.content[scope.slideIndex];
-        if(slideData && slideData.categoryName && slideData.id){
-          $state.go('offers', {category: slideData.categoryName, offerID: slideData.id});
-        }
+        advertsService.advertClick(slideData.link);
       };
 
       function createSlide(){
@@ -99,7 +98,7 @@ angular.module('mobiusApp.directives.slider', [])
 
         var slide = $(template)[0];
 
-        $(slide).css('background-image', 'url(' + slideData.image + ')');
+        $(slide).css('background-image', 'url(' + slideData.images[0].uri + ')');
         sliderContent.append(slide);
 
         return $(slide);
@@ -197,7 +196,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       function preloadImages(){
         for(var i=0; i<scope.content.length; i++){
-          var imageURL = scope.content[i].image;
+          var imageURL = scope.content[i].images[0].uri;
 
           preloadImage(imageURL);
         }
