@@ -77,7 +77,7 @@ angular.module('mobiusApp.config', [])
       'customerId': 6414
     },
     'adverts' : {
-      'randomMainPageAdvertSize' : 'tower'
+      'randomMainPageAdvertSize' : 'homepage-advert'
     },
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
