@@ -7,7 +7,7 @@
   <section ng-if="products.length">
 
     <list-items>
-      <list-item ng-repeat="product in products">
+      <list-item ng-repeat="product in products" ng-class="{'is-highlighted': product.highlighted}">
         <figure>
           <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/150/100/" alt="{{product.name}}"/>
         </figure>
@@ -21,9 +21,9 @@
           <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
 
           <p>
-            <strong>{{product.price.totalBase | i18nCurrency: currencyCode}}</strong> per night
+            <span class="value">{{product.price.totalBase | i18nCurrency: currencyCode}}</span> per night
             <span ng-if="isUserLoggedIn()">
-              or <strong>{{product.price.pointsRequired}}</strong> points
+              or <span class="value">{{product.price.pointsRequired}}</span> points
             </span>
           </p>
 
