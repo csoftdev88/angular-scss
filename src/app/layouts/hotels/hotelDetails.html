@@ -75,11 +75,8 @@
             <p>
               from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}}</span> per night
               <span ng-if="isUserLoggedIn()">
-                or <span class="value">{{product.price.pointsRequired}}</span> points
-                </span>
-              <span ng-if="isUserLoggedIn()">
-                or <span class="value">{{room.minPointsRequired}}</span> points
-                </span>
+                <br />or <span class="value">{{room.minPointsRequired}}</span> points
+              </span>
             </p>
 
             <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="button">_view_more_</a>
