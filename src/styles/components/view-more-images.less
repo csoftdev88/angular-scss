@@ -6,14 +6,11 @@
 
 view-more-images {
   display: block;
-
-  //- Link to gallery
-  div {
-    text-align: right;
-  }
+  text-align: right;
 
     a {
       text-decoration: underline;
+      font-size: @size--1;
 
       &:focus,
       &:hover {
@@ -25,5 +22,7 @@ view-more-images {
   //- Image
   img {
     width: 100%;
+    display: block;
+    margin: @baseline/2 0;
   }
 }
