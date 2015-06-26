@@ -1,0 +1,58 @@
+hotel-location {
+
+  > p,
+  h3,
+  li,
+  transportation-item {
+    margin: @baseline 0;
+  }
+
+  ul {
+    .clearfix;
+
+    strong {
+      color: @c-brown;
+    }
+  }
+
+  i {
+    position: absolute;
+    top: 3px;
+    left: 30px;
+    color: #781818;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 40px;
+  }
+
+  h3,
+  h4 {
+    font-size: @size-0;
+    font-weight: bold;
+  }
+
+  h4 {
+    color: @c-brown;
+  }
+
+  transportation-item,
+  li {
+    display: block;
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    padding-left: 50px;
+  }
+
+  li {
+    width: 25%;
+  }
+
+  transportation-item {
+    width: 50%;
+    padding-left: 70px;
+  }
+}
