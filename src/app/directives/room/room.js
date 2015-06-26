@@ -91,8 +91,8 @@ angular.module('mobiusApp.directives.room', [])
           .addBreadCrumb(data[0].roomDetails.name);
       }));
 
-      scope.onClickOnAssociatedRoom=function(associatedRoom){
-        modalService.openAssociatedRoomDetail(associatedRoom, propertyCode);
+      scope.onClickOnAssociatedRoom=function(roomDetails){
+        modalService.openAssociatedRoomDetail({roomDetails: roomDetails, propertyCode: propertyCode});
       };
     }
   };

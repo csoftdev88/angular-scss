@@ -36,7 +36,6 @@ angular
     'mobius.controllers.modals.data',
     'mobius.controllers.modals.policy',
     'mobius.controllers.modals.loyalties.badges',
-    'mobius.controllers.modals.associatedRoom',
     'mobius.controllers.modals.addonDetail',
     'mobius.controllers.modals.locationDetail',
 

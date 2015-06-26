@@ -8,7 +8,6 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
       CONTROLLER_BADGES = 'BadgesCtrl',
-      CONTROLLER_ASSOCIATED_ROOM = 'AssociatedRoomCtrl',
       CONTROLLER_ADDON = 'AddonDetailCtrl',
       CONTROLLER_LOCATION = 'LocationDetailCtrl',
 
@@ -157,15 +156,13 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
-  function openAssociatedRoomDetail(roomDetails, propertyCode) {
-    return openDialog('associatedRooms', 'layouts/modals/associatedRooms.html', CONTROLLER_ASSOCIATED_ROOM, {
-      windowClass: 'associated-rooms-modal',
+  // NOTE: Same block should be used for other details dialogues but using a different template URL
+  function openAssociatedRoomDetail(roomDetails) {
+    return openDialog('openDetails', 'layouts/modals/associatedRooms.html', CONTROLLER_DATA, {
+      windowClass: 'details',
       resolve: {
         data: function(){
           return roomDetails;
-        },
-        propertyCode: function(){
-          return propertyCode;
         }
       }
     });
