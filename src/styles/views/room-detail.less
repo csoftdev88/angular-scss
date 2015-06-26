@@ -2,7 +2,7 @@
 //// ROOM DETAIL ////
 /////////////////////
 
-room {
+hotel-room {
 
   //- Page Heading
   h1 {
@@ -10,8 +10,44 @@ room {
   }
 
   h2 {
-    margin-bottom: @baseline;
+    .h2;
+    margin-top: 0;
+  }
 
-    font-size: @size-2;
+  section.header {
+    margin: @baseline 0 2*@baseline 0;
+  }
+
+  .room-gallery {
+
+    p {
+      color: @c-hr;
+    }
+
+    ul {
+      margin: @baseline -@baseline/2;
+      .clearfix;
+
+      li {
+        float: left;
+        display: block;
+        margin: @baseline/2 @baseline/2 0 @baseline/2;
+        padding: 0;
+        width: 150px;
+      }
+
+      figure {
+        position: static;
+        width: 100%;
+        height: @list-item-min-height;
+        overflow: hidden;
+        margin-bottom: @baseline/2;
+
+        img {
+          width: 100%;
+          display: block;
+        }
+      }
+    }
   }
 }
