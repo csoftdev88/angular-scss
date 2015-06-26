@@ -25,13 +25,6 @@ angular.module('mobiusApp.directives.room', [])
         // Inherited from RoomDetailsCtrl
         scope.setRoomDetails(data);
 
-        // Updating hero slider images
-        var heroContent =  data.images.map(function(image){
-          return {'image': image.uri};
-        });
-
-        scope.updateHeroContent(heroContent);
-
         /* Getting other rooms. We should show those that are closest in price but have a price that is
            greater than the currently viewed room. If there are not enough of them we can show the cheaper
            ones as well. */

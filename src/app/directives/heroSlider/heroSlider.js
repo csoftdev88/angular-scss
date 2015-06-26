@@ -6,13 +6,13 @@ angular.module('mobiusApp.directives.slider', [])
   return {
     restrict: 'E',
     scope: {
-      content: '='
+      content: '=',
+      advert: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
     // Widget logic goes here
     link: function(scope, elem){
-      console.log('scope.content ' + JSON.stringify(scope.content, null, 4));
       var SELECTOR_SLIDER_CONTENT = '.slider-content';
       var CLASS_SLIDING_IN = 'sliding-in';
       var CLASS_SLIDING_OUT = 'sliding-out';
@@ -75,7 +75,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       // Redirecting to corresponding page
       scope.onContentClick = function(){
-        if(isAnimating){
+        if(isAnimating || !scope.advert){
           return;
         }
 
@@ -98,7 +98,7 @@ angular.module('mobiusApp.directives.slider', [])
 
         var slide = $(template)[0];
 
-        $(slide).css('background-image', 'url(' + slideData.images[0].uri + ')');
+        $(slide).css('background-image', 'url(' + slideData.uri + ')');
         sliderContent.append(slide);
 
         return $(slide);
@@ -196,7 +196,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       function preloadImages(){
         for(var i=0; i<scope.content.length; i++){
-          var imageURL = scope.content[i].images[0].uri;
+          var imageURL = scope.content[i].uri;
 
           preloadImage(imageURL);
         }

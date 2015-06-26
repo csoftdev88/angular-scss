@@ -11,7 +11,8 @@ describe('mobius.controllers.hotel.details', function() {
       nameShort: 'Mobius hotel',
       images: [
         {
-          uri: 'http://testimage'
+          uri: 'http://testimage',
+          includeInSlider: true
         }
       ],
       long: 'testLong',
@@ -124,7 +125,8 @@ describe('mobius.controllers.hotel.details', function() {
 
       it('should update hero images when previewImages are provided', function() {
         expect(_spyUpdateHeroContent.calledOnce).equal(true);
-        expect(_spyUpdateHeroContent.calledWith([{image: 'http://testimage'}])).equal(true);
+        expect(_spyUpdateHeroContent.calledWith([{uri: 'http://testimage',
+          includeInSlider: true}])).equal(true);
       });
     });
   });

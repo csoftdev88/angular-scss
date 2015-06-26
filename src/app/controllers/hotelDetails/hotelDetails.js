@@ -5,7 +5,8 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state,
-  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService) {
+  propertyService, filtersService, preloaderFactory, $q, modalService,
+  breadcrumbsService, $window) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
@@ -30,11 +31,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
         // Updating Hero content images
         if(details.images){
-          var heroContent =  details.images.map(function(img){
-            return {'image': img.uri};
-          });
-
-          $scope.updateHeroContent(heroContent);
+          $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));
         }
 
         if(details.availability) {

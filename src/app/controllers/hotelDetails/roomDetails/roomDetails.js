@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.room.details', [])
 
 .controller( 'RoomDetailsCtrl', function($scope, $q, modalService,
-  propertyService, filtersService, bookingService) {
+  propertyService, filtersService, bookingService, $window) {
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
@@ -36,6 +36,7 @@ angular.module('mobius.controllers.room.details', [])
 
     qBookingParam.promise.then(function(bookingParams) {
       getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
+        $scope.updateHeroContent($window._.filter(data[0].images, {includeInSlider: true}));
         qRoomData.resolve({
           roomDetails: data[0],
           roomProductDetails: data[1]
