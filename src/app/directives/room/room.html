@@ -11,7 +11,7 @@
       <pricing-switch>
           <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
         </pricing-switch>
-      <list-item ng-repeat="product in products" ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}">
+      <list-item ng-repeat="product in products | orderBy : ['-memberOnly', '-highlighted']" ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}">
         <figure>
           <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/150/100/" alt="{{product.name}}"/>
         </figure>
