@@ -18,7 +18,7 @@
       </div>
 
       <view-more-images grid="4">
-        <div><a ng-if="details.images.length" href="" ng-click="openGallery(details.images)">View more images</a></div>
+        <a ng-if="details.images.length" href="" ng-click="openGallery(details.images)">View more images</a>
         <img ng-src="details.images[0].uri" alt="{{details.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
       </view-more-images>
     </section>
