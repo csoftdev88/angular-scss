@@ -156,8 +156,9 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  // NOTE: Same block should be used for other details dialogues but using a different template URL
   function openAssociatedRoomDetail(roomDetails) {
-    return openDialog('openDetails', 'layouts/modals/associatedRooms.html', CONTROLLER_ASSOCIATED_ROOM, {
+    return openDialog('openDetails', 'layouts/modals/associatedRooms.html', CONTROLLER_DATA, {
       windowClass: 'details',
       resolve: {
         data: function(){

@@ -81,4 +81,24 @@ describe('mobiusApp.services.modal', function() {
         'templateUrl', 'layouts/modals/loyalties/loyalty.html'))).equal(true);
     });
   });
+
+  describe('openAssociatedRoomDetail', function() {
+    it('should be defined as a function', function() {
+      expect(_modalService.openAssociatedRoomDetail).to.be.an('function');
+    });
+
+    it('should open associated room details dialog', function() {
+      _modalService.openAssociatedRoomDetail();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/associatedRooms.html'))).equal(true);
+    });
+  });
 });
