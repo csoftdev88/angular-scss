@@ -9,20 +9,21 @@ angular.module('mobiusApp.services.content', [])
   }
 
   function getAbout(){
-    return apiService.get(apiService.getFullURL('contents'), {filter: 'about'});
+    return apiService.get(apiService.getFullURL('contents.about'));
   }
 
   function getOffers(parameters){
     return apiService.get(apiService.getFullURL('contents.offers'), parameters);
   }
 
-  function getRandomAdvert(bannerSize){
-    return apiService.get(apiService.getFullURL('contents.adverts.random'),
-      {bannerSize: bannerSize});
+  function getAdverts(parameters){
+    return apiService.get(apiService.getFullURL('contents.adverts.adverts'),
+      parameters);
   }
 
-  function getHighlightedItems(){
-    return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
+  function getRandomAdvert(parameters){
+    return apiService.get(apiService.getFullURL('contents.adverts.random'),
+      parameters);
   }
 
   // Generics
@@ -39,8 +40,8 @@ angular.module('mobiusApp.services.content', [])
     getNews: getNews,
     getAbout: getAbout,
     getOffers: getOffers,
+    getAdverts: getAdverts,
     getRandomAdvert: getRandomAdvert,
-    getHighlightedItems: getHighlightedItems,
     // Generics
     getCurrencies: getCurrencies,
     getLanguages: getLanguages

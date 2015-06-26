@@ -3,19 +3,10 @@
 
 <div class="preloader" ng-show="preloader.visible">loading</div>
 
-<!-- HERO SLIDER AREA -->
-<hero-slider content="heroContent"></hero-slider>
-
-<breadcrumbs></breadcrumbs>
-
 <user-messages></user-messages>
 
 <!-- MAIN CONTENT AREA -->
-<main typo-grid>
-  <div class="grid-wrapper">
-    <div ui-view></div>
-  </div>
-</main>
+<div ui-view></div>
 
 <!-- BOOKING WIDGET AREA-->
 <floating-bar ng-hide="$state.includes('reservation')"></floating-bar>

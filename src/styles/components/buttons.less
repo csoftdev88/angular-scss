@@ -45,6 +45,12 @@ button-submit {
   }
 }
 
+.button[disabled="disabled"],
+button-submit[disabled="disabled"] {
+  background: @c-disabled;
+  border-bottom: 1px solid darken(@c-disabled, 10%);
+}
+
 
 //- Close
 button-close {

@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 describe('heroSlider', function() {
   var env;
@@ -120,3 +120,4 @@ describe('heroSlider', function() {
     });
   });
 });
+*/

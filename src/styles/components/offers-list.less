@@ -2,7 +2,7 @@
 //// LIST OF OFFERS ////
 ////////////////////////
 
-.offers-list {
+offers-list {
   margin-bottom: @baseline;
 
   article {
@@ -17,35 +17,14 @@
     background: #fff;
     box-sizing: border-box;
 
+    &[ng-click] {
+      cursor: pointer;
+    }
+
     > a {
       display: block;
       text-decoration: none;
       position: relative;
-
-      h2 {
-        font-size: @size-2;
-        color: @c-base;
-        padding: 0 @baseline;
-        text-transform: uppercase;
-      }
-
-      p {
-        color: @c-grey;
-        margin-bottom: .75*@baseline;
-        padding: 0 @baseline;
-      }
-
-      img {
-        opacity: 1;
-        margin-bottom: .75*@baseline;
-      }
-
-      span {
-        display: block;
-        color: @c-link;
-        margin-bottom: 2*@baseline;
-        font-weight: 600;
-      }
 
       &:hover {
         img {
@@ -53,6 +32,38 @@
         }
       }
     }
+
+    h2 {
+      margin-bottom: @baseline;
+      padding: 0 @baseline;
+
+      color: @c-base;
+
+      font-size: @size-2;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    div {
+      color: @c-grey;
+      margin-bottom: @baseline;
+      padding: 0 @baseline;
+    }
+
+    img {
+      opacity: 1;
+      margin-bottom: @baseline;
+    }
+
+    span {
+      display: block;
+      color: @c-link;
+      margin-bottom: 2*@baseline;
+      font-weight: 600;
+    }
+
+
+
 
     &.add {
 

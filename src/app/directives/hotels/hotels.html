@@ -34,22 +34,22 @@
           <a href="">
             <div class="item-image">
               <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
-              <!--<ul class="star-rating">-->
-                <!--<li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>-->
-              <!--</ul>-->
+              <ul class="star-rating">
+                <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
+              </ul>
             </div>
             <h2>{{hotel.nameShort}}</h2>
-            <div class="pricing-info">
-              <span class="price" ng-if="hotel.available">
+            <pricing-info>
+              <p ng-if="hotel.available">
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <span>per night</span>
-              </span>
-              <span ng-if="hotel.available && isUserLoggedIn()" class="price">
+              </p>
+              <p ng-if="hotel.available && isUserLoggedIn()">
                 or <span class="value">{{hotel.minPointsRequired}}</span> <span>points</span>
-              </span>
-              <span class="price unavailable" ng-if="!hotel.available">
+              </p>
+              <p class="price unavailable" ng-if="!hotel.available">
                 Not Available
-              </span>
-            </div>
+              </p>
+            </pricing-info>
             <p>{{hotel.description}}</p>
           </a>
         </li>

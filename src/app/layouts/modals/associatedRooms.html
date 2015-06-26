@@ -1,12 +1,21 @@
 <div class="ui-info">
   <div class="modal-header">
-    <h3 class="modal-title">{{roomDetails.name}} - <strong>{{roomDetails.bedTypeName}}</strong></h3>
+    <h1 class="modal-title">{{data.roomDetails.name}} <strong>{{data.roomDetails.bedTypeName}}</strong></h1>
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
   <div class="modal-body">
-    <image-carousel images="roomDetails.images"></image-carousel>
-    <div class="associated-room-description">{{roomDetails.description}}</div>
-    <span class="associated-room-price">{{roomDetails.priceFrom | i18nCurrency: currencyCode}}</span>
-    <a ui-sref="room({propertyCode: propertyCode, roomID: roomDetails.code})" class="more" ng-click="onClickViewMore()">_view_more_</a>
+    <image-carousel images="data.roomDetails.images"></image-carousel>
+    <div class="details">
+      <div class="description">
+        <p>{{data.roomDetails.description}}</p>
+      </div>
+
+      <div class="extra">
+        <span class="price">
+          From <span class="value">{{data.roomDetails.priceFrom | i18nCurrency: $root.currencyCode}}</span>
+        </span>
+        <a ng-click="cancel()" class="button view-more" ui-sref="room({propertyCode: data.propertyCode, roomID: data.roomDetails.code})"><i></i>_view_more_</a>
+      </div>
+    </div>
   </div>
 </div>

@@ -93,10 +93,10 @@ angular.module('mobius.controllers.reservation', [])
     arrivalTime: '',
     arrivalMethod: '',
     departureTime: '',
-    secondPhoneNumber: user.getUser().tel2,
+    secondPhoneNumber: '',
     comments: '',
     agree: false,
-    optedIn: user.getUser().optedIn
+    optedIn: false
   };
 
   // Inheriting the login from RoomDetails controller
@@ -256,10 +256,6 @@ angular.module('mobius.controllers.reservation', [])
       reservationData.comments = $scope.additionalInfo.comments;
     }
 
-    if($scope.additionalInfo.secondPhoneNumber) {
-      reservationData.comments = reservationData.comments + '\nSecond Phone Number: ' + $scope.additionalInfo.secondPhoneNumber;
-    }
-
     if (reservationData.paymentInfo.paymentMethod === 'cc') {
       reservationData.paymentInfo.ccPayment = {
         holderName: $scope.billingDetails.card.holderName,
@@ -282,22 +278,28 @@ angular.module('mobius.controllers.reservation', [])
     $scope.invalidFormData = false;
 
     var reservationData = createReservationData();
-    var reservationPromise = reservationService.createReservation(reservationData)
-      .then(function(data){
-        $scope.reservation = data;
-        $scope.reservation.bookDate = $scope.reservation.bookDate ? $window.moment($scope.reservation.bookDate) : $window.moment();
-        $scope.reservation.packages = [];
+    var userData = {
+      tel2: $scope.additionalInfo.secondPhoneNumber,
+      optedIn: $scope.additionalInfo.optedIn
+    };
+    var reservationPromise = $q.all([
+      reservationService.createReservation(reservationData),
+      user.updateUser(userData)
+    ]).then(function(data) {
+      $scope.reservation = data[0];
+      $scope.reservation.bookDate = $scope.reservation.bookDate ? $window.moment($scope.reservation.bookDate) : $window.moment();
+      $scope.reservation.packages = [];
 
-        userMessagesService.addInfoMessage('' +
-          '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
-          '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
-          '');
+      userMessagesService.addInfoMessage('' +
+        '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
+        '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
+        '');
 
-        $state.go('reservation.after');
-      }, function() {
-        $scope.invalidFormData = true;
-        $state.go('reservation.details');
-      });
+      $state.go('reservation.after');
+    }, function() {
+      $scope.invalidFormData = true;
+      $state.go('reservation.details');
+    });
 
     preloaderFactory(reservationPromise);
   };
@@ -340,6 +342,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     $scope.additionalInfo.secondPhoneNumber = userData.tel2 || '';
+    $scope.additionalInfo.optedIn = user.getUser().optedIn || false;
   };
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');

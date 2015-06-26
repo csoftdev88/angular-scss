@@ -1,13 +1,17 @@
-<div widget="room" grid="12">
+<hotel-room grid="12">
 
-  <h1>{{roomDetails.name}}</h1>
-  <p ng-bind-html="sanitize(roomDetails.description)"></p>
-  <hr>
+  <section class="header">
+    <h1>{{roomDetails.name}}</h1>
+    <p ng-bind-html="sanitize(roomDetails.description)"></p>
+  </section>
 
-  <section ng-if="products.length">
-
-    <list-items>
-      <list-item ng-repeat="product in products">
+  <section ng-if="products">
+    <hr />
+    <list-items ng-if="products.length">
+      <pricing-switch>
+          <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
+        </pricing-switch>
+      <list-item ng-repeat="product in products" ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}">
         <figure>
           <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/150/100/" alt="{{product.name}}"/>
         </figure>
@@ -21,9 +25,9 @@
           <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
 
           <p>
-            <strong>{{product.price.totalBase | i18nCurrency: currencyCode}}</strong> per night
+            <span class="value">{{product.price.totalBase | i18nCurrency: currencyCode}}</span> per night
             <span ng-if="isUserLoggedIn()">
-              or <strong>{{product.price.pointsRequired}}</strong> points
+              or <span class="value">{{product.price.pointsRequired}}</span> points
             </span>
           </p>
 
@@ -61,27 +65,27 @@
       </list-item>
     </list-items>
 
+    <div ng-if="!products.length">
+      <p><strong>No Product Found</strong></p>
+    </div>
+
+    <hr />
   </section>
 
-  <div ng-if="products && !products.length">
-    <p><strong>No Product Found</strong></p>
-  </div>
-
-  <hr>
-
-  <section>
+  <section ng-if="roomDetails.images.length || roomDetails.description" class="room-gallery">
     <h2>Room <strong>Description</strong></h2>
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
-    <ul ng-if="roomDetails.images.length">
+    <ul ng-if="roomDetails.images.length" class="room-gallery">
       <li ng-repeat="image in roomDetails.images">
-        <img src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/100/100" />
+        <figure>
+          <img src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/150/100" />
+        </figure>
       </li>
     </ul>
+    <hr />
   </section>
 
-  <hr>
-
-  <section>
+  <section ng-if="roomDetails.amenities.length">
     <h2>Room <strong>Amenities</strong></h2>
 
     <amenities-list>
@@ -90,9 +94,8 @@
         <span>{{amenity.name}}</span>
       </amenity-item>
     </amenities-list>
+    <hr/>
   </section>
-
-  <hr>
 
   <section ng-show="otherRooms.length > 1">
     <h2>Other <strong>Rooms</strong></h2>
@@ -106,10 +109,10 @@
         <h2>{{otherRoom.name}}</h2>
 
         <pricing-info>
-          <p> from <strong>{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</strong></p>
+          <p> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
         </pricing-info>
       </list-item>
     </list-items>
 
   </section>
-</div>
+</hotel-room>

@@ -5,7 +5,8 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state,
-  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService) {
+  propertyService, filtersService, preloaderFactory, $q, modalService,
+  breadcrumbsService, $window) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
@@ -29,12 +30,9 @@ angular.module('mobius.controllers.hotel.details', [])
           .addHref('Rooms', 'jsRooms');
 
         // Updating Hero content images
-        if(details.images && details.images.length){
-          var heroContent =  details.images.map(function(img){
-            return {'image': img.uri};
-          });
+        if(details.images){
+          $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));
 
-          $scope.updateHeroContent(heroContent);
 
           // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
           // Current version of PhantomJS is missing not supporting .bind

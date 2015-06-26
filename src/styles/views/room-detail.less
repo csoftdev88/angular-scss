@@ -2,7 +2,7 @@
 //// ROOM DETAIL ////
 /////////////////////
 
-room {
+hotel-room {
 
   //- Page Heading
   h1 {
@@ -10,162 +10,44 @@ room {
   }
 
   h2 {
-    margin-bottom: @baseline;
-
-    font-size: @size-2;
+    .h2;
+    margin-top: 0;
   }
 
+  section.header {
+    margin: @baseline 0 2*@baseline 0;
+  }
 
-  //- List Items
+  .room-gallery {
 
-  list-item {
-    position: relative;
-
-    display: block;
-    min-height: 100px;
-    padding: @baseline 170px;
-
-    border-bottom: 1px dashed #ccc;
-
-    &:last-of-type {
-      border: 0;
+    p {
+      color: @c-hr;
     }
 
-    // behave like link
-    &[ng-click] {
-      cursor: pointer;
-    }
+    ul {
+      margin: @baseline -@baseline/2;
+      .clearfix;
 
-    //- Image
-    figure {
-      position: absolute;
-      left: 0;
-      top: @baseline;
-
-      display: block;
-    }
-
-    //- Heading
-    h2 {
-      color: @c-link;
-
-      font-size: @size-2;
-    }
-
-    //- Earned points
-    earned-points {
-      position: absolute;
-      right: 170px;
-      top: @baseline;
-
-      color: #999;
-
-      &:before {
-        .fa;
-
-        margin-right: @baseline / 2;
-
-        color: gold;
-
-        content: @fa-var-star;
-      }
-    }
-
-    //- Pricing info
-    pricing-info {
-      position: absolute;
-      right: 0;
-      top: @baseline;
-
-      border-left: 1px solid #ddd;
-
-      width: 150px;
-
-      text-align: right;
-
-      // members only or most book package
-      highlight-item {
+      li {
+        float: left;
         display: block;
-
-        color: @c-link;
-
-        font-size: @size--2;
-        text-transform: uppercase;
+        margin: @baseline/2 @baseline/2 0 @baseline/2;
+        padding: 0;
+        width: 150px;
       }
 
-      p {
-        margin-bottom: @baseline / 2;
+      figure {
+        position: static;
+        width: 100%;
+        height: @list-item-min-height;
+        overflow: hidden;
+        margin-bottom: @baseline/2;
 
-        color: #999;
-
-        font-style: italic;
-      }
-
-      // value
-      strong {
-        color: @c-link;
-
-        font-size: @size-2;
-        font-style: normal;
-        font-weight: 600;
-      }
-    }
-
-    //- Description
-    description-info {
-      display: block;
-
-      color: #333;
-
-      nav {
-        display: flex;
-      }
-
-      nav a {
-        display: inline-block;
-        text-decoration: underline;
-
-        &:first-of-type {
-          flex: 1;
+        img {
+          width: 100%;
+          display: block;
         }
-
       }
     }
   }
-
-  //- List Items - Grid
-  //  it overides styles ^^
-  .grid-view list-item {
-    float: left;
-    margin-right: @baseline;
-    padding: 0;
-
-    border: 0;
-
-    //- Image
-    figure {
-      position: static;
-    }
-
-    //- Heading
-    h2 {
-      margin: 0;
-
-      color: #000;
-
-      font-size: @size-0;
-      font-weight: 600;
-    }
-
-    pricing-info {
-      position: static;
-
-      border: 0;
-
-      text-align: left;
-    }
-  }
-
-
-
 }

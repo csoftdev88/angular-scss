@@ -8,9 +8,11 @@ angular.module('mobiusApp.config', [])
     'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
     'contents': {
       'contents': 'contents',
+      'about': 'contents/about',
       'news': 'contents/news',
       'offers': 'contents/offers',
       'adverts': {
+        'adverts': 'contents/adverts',
         'random': 'contents/adverts/random'
       }
     },
@@ -81,7 +83,8 @@ angular.module('mobiusApp.config', [])
       'initDelay': 200
     },
     'adverts' : {
-      'randomMainPageAdvertSize' : 'homepage-advert'
+      'randomMainPageAdvertSize' : 'homepage-advert',
+      'heroAdverts': 'hero-advert'
     },
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
@@ -102,22 +105,12 @@ angular.module('mobiusApp.config', [])
     },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the API.
-    'heroContent': {
-      'hotels': [
+    'heroStaticContent': {
+      'default': [
         {
-          'image': '/static/images/hero-image-1.jpg'
-        }
-      ],
-
-      'hotel': [
-        {
-          'image': '/static/images/hero-image-2.jpg'
-        }
-      ],
-
-      'room': [
-        {
-          'image': '/static/images/hero-image-2.jpg'
+          'bannerSize': 'hero-advert',
+          'uri': '/static/images/hero-image-1.jpg',
+          'alt': 'picture1'
         }
       ]
     },

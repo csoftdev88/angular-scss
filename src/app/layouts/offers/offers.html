@@ -1,26 +1,40 @@
-<div ng-if="!showDetail">
-  <div ng-repeat="offer in offersList track by $index" >
-    <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}"/>
-    <h2>{{offer.title}}</h2>
-    <div ng-bind-html="offer.subtitle"></div>
-    <a ng-click="selectOffer(offer.code)">Read more</a>
-  </div>
-</div>
+<hero-slider content="heroContent" class="decoration-image"></hero-slider>
 
-<div ng-if="showDetail">
-  <h1>{{selectedOffer.title}}</h1>
-  <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}"/>
-  <div ng-bind-html="selectedOffer.text"></div>
-  <a ui-sref="hotels({promoCode: selectedOffer.promoCode})">book now</a>
-  <hr>
 
-  <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
+<breadcrumbs></breadcrumbs>
 
-  <article ng-repeat="offer in offersList | filter:getRelevant track by $index">
-    <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.uri}}"/>
-    <h2>{{offer.title}} </h2>
-    <div ng-bind-html="offer.subtitle"></div>
-    <a ng-click="selectOffer(offer.code)">Read more</a>
+<main typo-grid class="grid-wrapper">
+  <offers-list grid-row ng-if="!showDetail">
+
+  <article grid="4" ng-repeat="offer in offersList track by $index" ng-click="selectOffer(offer.code)">
+    <img class="grid-img" ng-src="{{offer.image.uri}}" alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
+
+
+      <h2>{{offer.title}}</h2>
+      <div ng-bind-html="offer.subtitle"></div>
+
+    <span>Read more</span>
   </article>
 
-</div>
+</offers-list>
+
+<offer-detail ng-if="showDetail">
+    <h1>{{selectedOffer.title}}</h1>
+  <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}" err-source="http://lorempixel.com/1000/460/"/
+    <div ng-bind-html="selectedOffer.text"></div>
+  <button-submit ui-sref="hotels({promoCode: selectedOffer.promoCode})">Book Now</button-submit>
+
+    <hr>
+
+  <offers-list grid-row ng-if="!showDetail">
+    <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
+    <article ng-repeat="offer in offersList | filter:getRelevant track by $index">
+      <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.uri}}" err-source="http://lorempixel.com/300/160/"/>
+      <h2>{{offer.title}} </h2>
+      <div ng-bind-html="offer.subtitle"></div>
+      <a ng-click="selectOffer(offer.code)">Read more</a>
+    </article>
+  </offers-list>
+
+</offer-detail>
+</main>
