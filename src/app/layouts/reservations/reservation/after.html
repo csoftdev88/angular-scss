@@ -1,37 +1,46 @@
 <reservation-finished>
   <section grid-row class="reservation-summary">
     <header>
-      <h1 grid="4">{{property.nameLong}}</h1>
+      <h1>{{property.nameLong}}</h1>
 
-      <div grid="4" class="reference">
+      <div class="reference">
         <p>Your reference:</p>
         <p>{{reservation.reservationCode}}</p>
       </div>
 
-      <div grid="4" class="booked">
+      <div class="booked">
         Booked: {{reservation.bookDate | dateTime: 'D MMM YYYY'}}
       </div>
     </header>
 
     <div class="actions">
-      <p>Add to Passbook</p>
-      <p>Print</p>
+      <a href="" class="button-print"><span>Print</span></a>
+      <a href="" class="button-passbook"><span>Add to Passbook</span></a>
     </div>
 
-    <div class="reservation-data">
-      <figure grid="4">
+    <div class="share">
+      Share via:
+      <a href="" class="icon-fb"></a>
+      <a href="" class="icon-twitter"></a>
+      <a href="" class="icon-gplus"></a>
+      <a href="" class="icon-email"></a>
+    </div>
+
+    <div class="tables">
+      <figure>
         <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
+        <!-- TODO: Add actions to buttons -->
         <button class="button">Modify</button>
         <button class="button-gray">Cancel</button>
       </figure>
 
-      <div grid-container="8">
-        <div grid="8">
+      <div>
+        <div>
           <h3>{{roomDetails.name}}</h3>
           <h4>{{selectedProduct.name}}</h4>
         </div>
 
-        <table class="data" grid="4">
+        <table class="data">
           <tbody>
             <tr>
               <th>Check in:</th>
@@ -48,12 +57,12 @@
           </tbody>
         </table>
 
-        <table class="charges" grid="4">
+        <table class="charges">
           <tbody>
             <tr ng-switch="billingDetails.paymentMethod">
               <th>Room Charges: {{billingDetails.paymentMethod}}</th>
               <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
-              <th rowspan="4">Total:</th>
+              <th rowspan="4" class="total">Total:</th>
               <td rowspan="4" class="total-value">
                 <a href
                   ng-switch-when="cc"
@@ -124,7 +133,7 @@
 
   <hr>
 
-  <section grid-row="" class="reservation-hotel-details">
+  <section grid-row="">
     <hotel-location hotel-details="property"></hotel-location>
   </section>
 

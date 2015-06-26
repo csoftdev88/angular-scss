@@ -458,6 +458,12 @@ reservation-finished {
     header {
       .clearfix;
       margin: 0 0 2 * @spacing 0;
+
+      h1,
+      > div {
+        float: left;
+        width: 33.3333%;
+      }
     }
 
     h1 {
@@ -468,6 +474,8 @@ reservation-finished {
     }
 
     .reference {
+      box-sizing: border-box;
+      padding: 0 @spacing;
       color: @c-gray;
       text-align: center;
       line-height: @baseline;
@@ -485,6 +493,71 @@ reservation-finished {
       position: absolute;
       top: 0;
       right: 0;
+
+      a {
+        display: block;
+        float: right;
+        margin-left: @spacing / 2;
+      }
+
+      span {
+        visibility: hidden;
+      }
+    }
+
+    .share {
+      position: absolute;
+      top: 0;
+      left: 0;
+      line-height: @baseline * 1.6;
+
+      a {
+        display: inline-block;
+        height: @baseline * 1.6;
+        width: @baseline * 1.6;
+        margin-left: 10px;
+        border-radius: 100%;
+
+        color: #fff;
+
+        font-size: @size-3;
+        line-height: @baseline * 1.6;
+        text-align: center;
+
+        &:focus,
+        &:hover {
+          background: @c-link;
+          color: #fff;
+        }
+
+        &:before {
+          .fa;
+        }
+
+        &.icon-fb {             background: #36589b;}
+        &.icon-fb:before {      content: @fa-var-facebook; }
+
+        &.icon-twitter {        background: #31aae1;}
+        &.icon-twitter:before { content: @fa-var-twitter; }
+
+        &.icon-gplus {          background: #da4b39;}
+        &.icon-gplus:before {   content: @fa-var-google-plus; }
+
+        &.icon-email {          background: #999;}
+        &.icon-email:before {   content: @fa-var-envelope-o; }
+      }
+    }
+
+    .button-passbook {
+      background: url('../images/v4/btn-passbook.png');
+      width: 108px;
+      height: 36px;
+    }
+
+    .button-print {
+      background: url('../images/v4/btn-print.png');
+      width: 37px;
+      height: 36px;
     }
 
     footer {
@@ -492,7 +565,35 @@ reservation-finished {
     }
   }
 
-  .reservation-data {
+  .tables {
+
+    figure {
+      width: 33.3333%;
+      float: left;
+
+      img {
+        width: 100%;
+        margin-bottom: @baseline;
+      }
+
+      button {
+        height: 30px;
+        line-height: 30px;
+        width: 135px;
+      }
+
+      button + button {
+        float: right;
+      }
+    }
+
+    > div {
+      .clearfix;
+      box-sizing: border-box;
+      width: 66.6666%;
+      float: left;
+      padding-left: @spacing;
+    }
 
     h3 {
       font-size: @size-1;
@@ -532,6 +633,12 @@ reservation-finished {
       padding-left: 2 * @spacing;
     }
 
+    .total {
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: right;
+    }
+
     .total-value a {
       font-size: @size-2;
       font-weight: 700;
@@ -565,7 +672,6 @@ reservation-finished {
         text-align: center;
         overflow: hidden;
       }
-
     }
 
     h4, p, i {
@@ -604,7 +710,7 @@ reservation-finished {
       width: 45%;
 
       small {
-        font-size: 0.65em;
+        font-size: 0.75em;
         font-style: italic;
         font-weight: normal;
         opacity: 0.75;
@@ -614,10 +720,6 @@ reservation-finished {
     .button + .button {
       margin-left: @spacing / 2;
     }
-  }
-
-  .reservation-hotel-details {
-
   }
 
   .reservation-enhancements {
