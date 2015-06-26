@@ -29,19 +29,26 @@ angular.module('mobius.controllers.hotel.details', [])
           .addHref('Rooms', 'jsRooms');
 
         // Updating Hero content images
-        if(details.images){
+        if(details.images && details.images.length){
           var heroContent =  details.images.map(function(img){
             return {'image': img.uri};
           });
 
           $scope.updateHeroContent(heroContent);
+
+          // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
+          // Current version of PhantomJS is missing not supporting .bind
+          // https://github.com/ariya/phantomjs/issues/10522
+          // TODO: Update PhantomJS
+          $scope.openGallery = function(){
+            modalService.openGallery(
+              details.images.map(function(image){return image.uri;}));
+          };
         }
 
         if(details.availability) {
           $scope.rooms = details.availability.rooms || [];
         }
-
-        $scope.openGallery = modalService.openGallery;
       }, function() {
         $state.go('hotels');
       });

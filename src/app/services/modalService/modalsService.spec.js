@@ -81,4 +81,33 @@ describe('mobiusApp.services.modal', function() {
         'templateUrl', 'layouts/modals/loyalties/loyalty.html'))).equal(true);
     });
   });
+
+  describe('openGallery', function() {
+    it('should be defined as a function', function() {
+      expect(_modalService.openGallery).to.be.an('function');
+    });
+
+    it('should open lightbox dialog', function() {
+      _modalService.openGallery();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/lightbox.html'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'lightbox'))).equal(true);
+    });
+
+    it('should open lightbox dialog with with array of images according to heroSlider format', function() {
+      _modalService.openGallery(['http://test.com']);
+      var spyParams = _spyModalOpen.args[0][0];
+
+      var dynamicDataDependency = spyParams.resolve.data();
+      expect(dynamicDataDependency.length).equal(1);
+      expect(dynamicDataDependency[0].image).equal('http://test.com');
+    });
+  });
 });
