@@ -8,6 +8,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
     'contents': {
       'contents': 'contents',
+      'about': 'contents/about',
       'news': 'contents/news',
       'offers': 'contents/offers',
       'adverts': {

@@ -85,16 +85,6 @@ describe('contentService', function() {
     });
   });
 
-  describe('getHighlightedItems', function() {
-    it('should fire a GET request to content?highlighted API', function() {
-      env.contentService.getHighlightedItems();
-      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith('contents')).equal(true);
-
-      expect(env.apiGetSpy.calledOnce).equal(true);
-    });
-  });
-
 
   describe('getCurrencies', function() {
     it('should fire a GET request to generics/currencies API', function() {
