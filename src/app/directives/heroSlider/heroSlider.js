@@ -2,11 +2,13 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($timeout, $window, $state, $templateCache, Settings){
+.directive('heroSlider', function($timeout, $state, $templateCache, Settings,
+  advertsService, $window){
   return {
     restrict: 'E',
     scope: {
-      content: '='
+      content: '=',
+      advert: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
@@ -81,14 +83,12 @@ angular.module('mobiusApp.directives.slider', [])
 
       // Redirecting to corresponding page
       scope.onContentClick = function(){
-        if(isAnimating){
+        if(isAnimating || !scope.advert){
           return;
         }
 
         var slideData = scope.content[scope.slideIndex];
-        if(slideData && slideData.categoryName && slideData.id){
-          $state.go('offers', {category: slideData.categoryName, offerID: slideData.id});
-        }
+        advertsService.advertClick(slideData.link);
       };
 
       function createSlide(){
@@ -106,7 +106,7 @@ angular.module('mobiusApp.directives.slider', [])
 
         var slide = $(template)[0];
 
-        $(slide).css('background-image', 'url(' + slideData.image + ')');
+        $(slide).css('background-image', 'url(' + slideData.uri + ')');
         sliderContent.append(slide);
 
         return $(slide);
@@ -204,7 +204,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       function preloadImages(){
         for(var i=0; i<scope.content.length; i++){
-          var imageURL = scope.content[i].image;
+          var imageURL = scope.content[i].uri;
 
           preloadImage(imageURL);
         }

@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.aboutHotel', [])
 
-.directive('aboutHotel', function(Settings, contentService, $state){
+.directive('aboutHotel', function(Settings, contentService, $state, advertsService){
   return {
     restrict: 'E',
     templateUrl: 'directives/aboutHotel/aboutHotel.html',
@@ -12,7 +12,7 @@ angular.module('mobiusApp.directives.aboutHotel', [])
       scope.randomAdverts = [];
 
       var getRandomAdvert = function (index) {
-        contentService.getRandomAdvert(Settings.UI.adverts.randomMainPageAdvertSize).then(
+        contentService.getRandomAdvert({bannerSize: Settings.UI.adverts.randomMainPageAdvertSize}).then(
           function (response) {
             scope.randomAdverts[index] = response;
           }
@@ -31,22 +31,7 @@ angular.module('mobiusApp.directives.aboutHotel', [])
         }
       });
 
-      scope.advertClick = function (link) {
-        switch(link.type) {
-        case 'news':
-          $state.go('news', {
-            code: link.code
-          });
-          break;
-        case 'offer':
-          $state.go('offers', {
-            code: link.code
-          });
-          break;
-        default:
-          window.open(link.uri, '_blank');
-        }
-      };
+      scope.advertClick = advertsService.advertClick;
     }
   };
 });

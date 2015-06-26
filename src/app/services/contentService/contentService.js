@@ -16,9 +16,14 @@ angular.module('mobiusApp.services.content', [])
     return apiService.get(apiService.getFullURL('contents.offers'), parameters);
   }
 
-  function getRandomAdvert(bannerSize){
+  function getAdverts(parameters){
+    return apiService.get(apiService.getFullURL('contents.adverts.adverts'),
+      parameters);
+  }
+
+  function getRandomAdvert(parameters){
     return apiService.get(apiService.getFullURL('contents.adverts.random'),
-      {bannerSize: bannerSize});
+      parameters);
   }
 
   function getHighlightedItems(){
@@ -39,6 +44,7 @@ angular.module('mobiusApp.services.content', [])
     getNews: getNews,
     getAbout: getAbout,
     getOffers: getOffers,
+    getAdverts: getAdverts,
     getRandomAdvert: getRandomAdvert,
     getHighlightedItems: getHighlightedItems,
     // Generics

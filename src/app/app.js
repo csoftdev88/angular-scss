@@ -60,6 +60,7 @@ angular
     'mobiusApp.services.userMessagesService',
     'mobiusApp.services.chains',
     'mobiusApp.services.forms',
+    'mobiusApp.services.adverts',
     'mobiusApp.services.reservation',
     'mobiusApp.services.breadcrumbs',
 

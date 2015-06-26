@@ -151,6 +151,8 @@ describe('mobius.controllers.reservation', function() {
       reservationService, modalService, propertyService, user) {
       _scope = $rootScope.$new();
 
+      _scope.updateHeroContent = function(){};
+
       _clock = sinon.useFakeTimers(0 , 'Date');
       _clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());
 
