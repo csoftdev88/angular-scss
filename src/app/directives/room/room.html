@@ -9,9 +9,9 @@
     <hr />
     <list-items ng-if="products.length">
       <pricing-switch>
-          <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
-        </pricing-switch>
-      <list-item ng-repeat="product in products" ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}">
+        <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
+      </pricing-switch>
+      <list-item ng-repeat="product in products | orderBy : setRoomsSorting()" ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}">
         <figure>
           <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/150/100/" alt="{{product.name}}"/>
         </figure>
@@ -27,7 +27,7 @@
           <p>
             <span class="value">{{product.price.totalBase | i18nCurrency: currencyCode}}</span> per night
             <span ng-if="isUserLoggedIn()">
-              or <span class="value">{{product.price.pointsRequired}}</span> points
+              <br />or <span class="value">{{product.price.pointsRequired}}</span> points
             </span>
           </p>
 

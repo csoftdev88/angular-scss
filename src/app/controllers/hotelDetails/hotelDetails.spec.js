@@ -65,10 +65,10 @@ describe('mobius.controllers.hotel.details', function() {
 
         $provide.value('modalService', {
           openGallery: function(){}
-          //openGallery: {
-          //  bind: function(){}
-          //}
         });
+
+        $provide.value('advertsService', {});
+
         $provide.value('$state', {
           go: function(){}
         });
