@@ -1,0 +1,119 @@
+dialog.details {
+  .modal-header {
+  	border-bottom: 1px solid #bbb;
+  	margin: 0 -20px;
+  	padding: 0 20px;
+
+    h1 {
+      font-size: @size-4;
+      margin-bottom: 10px;
+    }
+
+    .button-close {
+      top: 20px;
+  		right: 12px;
+    }
+  }
+
+  .modal-body {
+  	@image-size: 400px;
+    min-width: @image-size * 2;
+
+    image-carousel {
+      display: block;
+      width: 50%;
+      float: left;
+      overflow: hidden;
+
+      .image-wrapper {
+      	width: @image-size;
+      	height: @image-size;
+
+      	img {
+	      	width: @image-size;
+	  			height: auto;
+	  			background-size: cover;
+	      }
+      }
+
+      @thumbnail-size: 50px;
+
+      ul {
+        float: left;
+  			width: @image-size;
+  			margin: 6px 0px;
+  			overflow: hidden;
+
+  			li {
+  				display: inline-block;
+  				float: left;
+				  width: @thumbnail-size;
+				  height: @thumbnail-size;
+				  margin: 0 3px;
+
+				  &:first-of-type {
+				    margin-left: 0px;
+				  }
+
+				  &:last-of-typ {
+				    margin-right: 0px;
+				  }
+
+		      img {
+		        width: @thumbnail-size;
+		        height: @thumbnail-size;
+		        position: absolute;
+		      }
+  			}
+      }
+    }
+
+    .details {
+      float: left;
+      width: 50%;
+      margin-bottom: 10px;
+
+      .description,
+      .extra {
+        padding-left: 10px;
+      }
+
+      .description {
+        height: @image-size;
+        overflow-y: scroll;
+
+        p {
+          padding: 10px;
+          color: @c-grey;
+        }
+      }
+
+      .extra {
+        margin: 20px 0 30px;
+
+        .price {
+          color: @c-grey;
+					.value {
+	          font-size: @size-4 * 1.2;
+	          color: @c-link;
+	          padding-left: 10px;
+	        }
+        }
+
+
+        .view-more {
+          float: right;
+
+          i {
+            .fa;
+            padding: 0 10px;
+
+            &:before {
+              content: @fa-var-eye;
+            }
+          }
+        }
+      }
+    }
+  }
+}
