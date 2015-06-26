@@ -1,0 +1,166 @@
+////////////////////
+//// LIST ITEMS ////
+////////////////////
+
+@c-link-alt: darken(@c-link, 12%);
+@c-highlight-bg: #e6dcce;
+@list-item-min-height: 100px;
+
+list-items {
+  display: block;
+  position: relative;
+  margin-left: -@baseline/2;
+  margin-right: -@baseline/2;
+}
+
+list-item {
+  position: relative;
+
+  display: block;
+  min-height: @list-item-min-height;
+  padding: @baseline/2 18%;
+
+  border-top: 1px dashed #ccc;
+
+  &.is-highlighted {
+    background: @c-highlight-bg;
+    border-top: 0;
+
+    pricing-info {
+      border-left: 1px solid #d0cfcc;
+    }
+  }
+
+  &.is-highlighted + & {
+    border-top: 0;
+  }
+
+  &:first-of-type {
+    border: 0;
+  }
+
+  // behave like link
+  &[ng-click] {
+    cursor: pointer;
+  }
+
+  //- Image
+  figure {
+    position: absolute;
+    left: @baseline/2;
+    top: @baseline/2;
+
+    width: 15.6%;
+
+    display: block;
+
+    img {
+      width: 100%;
+      max-height: @list-item-min-height;
+      display: block;
+    }
+  }
+
+  //- Heading
+  h2 {
+    color: @c-link;
+    font-weight: 300;
+    font-size: @size-2;
+    margin-bottom: @baseline/2;
+  }
+
+  //- Earned points
+  earned-points {
+    position: absolute;
+    right: 175px;
+
+    font-style: italic;
+    font-size: @size--1;
+
+    top: @baseline;
+
+    color: #999;
+
+    &:before {
+      width: 16px;
+      height: 16px;
+      background: url(../images/v4-mobius/star-earnings.png) 0 0 no-repeat;
+
+      display: block;
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: -1.25 * @baseline;
+    }
+  }
+
+  pricing-info {
+    position: absolute;
+    right: @baseline/2;
+    top: @baseline/2;
+    bottom: @baseline/2;
+
+    border-left: 1px solid #ddd;
+
+    width: 145px;
+  }
+
+  //- Description
+  description-info {
+    display: block;
+
+    color: @c-gray;
+
+    p {
+      margin-bottom: @baseline/2;
+    }
+
+    nav {
+      display: flex;
+    }
+
+    nav a {
+      display: inline-block;
+      text-decoration: underline;
+      color: @c-link-alt;
+
+      &:first-of-type {
+        flex: 1;
+      }
+
+    }
+  }
+}
+
+//- List Items - Grid
+//  it overides styles ^^
+.grid-view list-item {
+  float: left;
+  margin-right: @baseline;
+  padding: 0;
+
+  border: 0;
+
+  //- Image
+  figure {
+    position: static;
+  }
+
+  //- Heading
+  h2 {
+    margin: 0;
+
+    color: #000;
+
+    font-size: @size-0;
+    font-weight: 600;
+  }
+
+  pricing-info {
+    position: static;
+
+    border: 0;
+
+    text-align: left;
+  }
+}
