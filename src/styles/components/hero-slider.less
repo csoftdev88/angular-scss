@@ -11,7 +11,10 @@ hero-slider {
   display: block;
   overflow: hidden;
 
-  cursor: pointer;
+  &[advert="true"] {
+    cursor: pointer;
+  }
+
 
   &.decoration-image {
     height: 260px;
