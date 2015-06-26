@@ -17,7 +17,7 @@
     </view-more-images>
   </section>
 
-  <section grid-row id="jsLocation">
+  <section grid-row id="jsLocation" ng-if="details">
     <hr />
     <div grid="12">
       <hotel-location hotel-details="details"></hotel-location>
@@ -62,11 +62,11 @@
 
   <div id="jsRooms"></div> <!-- used for scrolling button -->
 
-  <section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
+  <section class="hotel-detail__rooms" ng-if="rooms" grid-row>
     <hr />
     <div grid="12">
       <h2>Our <strong>Rooms</strong></h2>
-      <div class="rooms-list">
+      <div class="rooms-list" ng-if="rooms.length">
         <div class="pricing-switch">
           <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
         </div>
@@ -97,13 +97,7 @@
           </li>
         </ul>
       </div>
-    </div>
-  </section>
-
-  <section class="hotel-detail__rooms" ng-if="rooms && !rooms.length">
-    <hr />
-    <div grid="12">
-      <h2>_no_room_found_</h2>
+      <h2 ng-if="!rooms.length">_no_room_found_</h2>
     </div>
   </section>
 
