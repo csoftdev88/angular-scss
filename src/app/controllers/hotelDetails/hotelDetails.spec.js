@@ -21,6 +21,7 @@ describe('mobius.controllers.hotel.details', function() {
     };
 
     var ROOMS = [];
+    var TEST_OFFERS = [];
 
     beforeEach(function() {
       module('mobiusApp.factories.preloader');
@@ -30,7 +31,7 @@ describe('mobius.controllers.hotel.details', function() {
             getAPIParams: function(){
               return {
                 'test': 'testValue',
-                'property': 123
+                'propertyCode': 123
               };
             }
           });
@@ -70,6 +71,16 @@ describe('mobius.controllers.hotel.details', function() {
         });
         $provide.value('$state', {
           go: function(){}
+        });
+
+        $provide.value('contentService', {
+          getOffers: function() {
+            return {
+              then: function(c) {
+                c(TEST_OFFERS);
+              }
+            };
+          }
         });
 
         var breadcrumbs = {
@@ -119,7 +130,7 @@ describe('mobius.controllers.hotel.details', function() {
       it('should download hotel details from the server with BAR id', function() {
         expect(_spyPropertyServiceGetPropertyDetails).to.be.calledOnce;
         expect(_spyPropertyServiceGetPropertyDetails
-            .calledWith(123, {'test': 'testValue', productGroupId: 321, includes: 'amenities'})
+            .calledWith(123, {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertyCode: 123})
         ).equal(true);
         expect(_spyPropertyServiceGetRooms).to.be.calledOnce;
         expect(_spyPropertyServiceGetRooms
@@ -129,6 +140,7 @@ describe('mobius.controllers.hotel.details', function() {
 
       it('should define download data on scope', function() {
         expect(_scope.details).equal(HOTEL_DETAILS);
+        expect(_scope.offersList).deep.equal(TEST_OFFERS);
       });
 
       it('should update hero images when previewImages are provided', function() {

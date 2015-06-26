@@ -83,7 +83,7 @@
         <div ng-if="state.includes('reservation.confirmation')">
           <label for="agreement1" class="input-checkbox">
             <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
-            I agree to the <a href ng-click="">Terms and Conditions</a>
+            I agree to the <a href ng-click="readPolicies()">Terms and Conditions</a>
           </label>
 
           <label for="agreement2" class="input-checkbox">
