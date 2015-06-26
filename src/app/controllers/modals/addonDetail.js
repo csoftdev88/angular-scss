@@ -9,6 +9,7 @@ angular.module('mobius.controllers.modals.addonDetail', [
   .controller( 'AddonDetailCtrl', function($scope, $modalInstance, $controller, addon, addAddon) {
     $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
     $scope.addon = addon;
+    $scope.addon._confirmation = false;
 
     $scope.addAddon = function(addon) {
       addAddon(addon);

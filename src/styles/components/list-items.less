@@ -14,12 +14,26 @@ list-items {
   margin-right: -@baseline/2;
 }
 
+pricing-switch {
+  text-align: right;
+  color: @c-link;
+  font-size: @size--1;
+  display: block;
+  margin-bottom: @baseline/2;
+  margin-right: @baseline/2;
+  text-decoration: none;
+
+  .is-active {
+    color: @c-base;
+  }
+}
+
 list-item {
   position: relative;
 
   display: block;
   min-height: @list-item-min-height;
-  padding: @baseline/2 18%;
+  padding: @baseline/2 320px @baseline/2 18%;
 
   border-top: 1px dashed #ccc;
 
@@ -81,7 +95,7 @@ list-item {
   }
 
   //- Heading
-  h2 {
+  h2, h3 {
     color: @c-link;
     font-weight: 300;
     font-size: @size-2;
@@ -91,7 +105,7 @@ list-item {
   //- Earned points
   earned-points {
     position: absolute;
-    right: 175px;
+    right: 200px;
 
     font-style: italic;
     font-size: @size--1;
@@ -121,7 +135,7 @@ list-item {
 
     border-left: 1px solid #ddd;
 
-    width: 145px;
+    width: 170px;
   }
 
   //- Description
