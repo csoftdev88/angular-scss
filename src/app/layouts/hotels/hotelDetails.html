@@ -36,33 +36,16 @@
       <hr />
       <h2 class="section-title" grid="12">Offers and <strong>Promotions</strong></h2>
 
+
     <offers-list grid-row>
-        <article grid="4">
-          <a href="#">
-            <img class="grid-img" src="/static/images/v4/about-offer-1.png" alt="Free room upgrade">
-            <h2>Free room <strong>upgrade</strong></h2>
-            <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
-            <span>Read More</span>
-          </a>
-        </article>
+      <article grid="4" ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'offer', 'code': offer.code})">
+        <img class="grid-img" ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
 
-        <article grid="4">
-          <a href="#">
-            <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
-            <h2>Champagne <strong>breakfast</strong></h2>
-            <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
-            <span>Read More</span>
-          </a>
-        </article>
+        <h2>{{offer.title}}</h2>
+        <p ng-bind-html="offer.subtitle"></p>
 
-        <article grid="4">
-          <a href="#">
-            <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
-            <h2>Champagne <strong>breakfast</strong></h2>
-            <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
-            <span>Read More</span>
-          </a>
-        </article>
+        <span>Read more</span>
+      </article>
     </offers-list>
     </section>
 
