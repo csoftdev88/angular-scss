@@ -1,10 +1,12 @@
-<div widget="room" grid="12">
+<hotel-room grid="12">
 
-  <h1>{{roomDetails.name}}</h1>
-  <p ng-bind-html="sanitize(roomDetails.description)"></p>
-  <hr />
+  <section class="header">
+    <h1>{{roomDetails.name}}</h1>
+    <p ng-bind-html="sanitize(roomDetails.description)"></p>
+  </section>
 
   <section ng-if="products">
+    <hr />
     <list-items ng-if="products.length">
       <pricing-switch>
           <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
@@ -70,12 +72,14 @@
     <hr />
   </section>
 
-  <section ng-if="roomDetails.images.length || roomDetails.description">
+  <section ng-if="roomDetails.images.length || roomDetails.description" class="room-gallery">
     <h2>Room <strong>Description</strong></h2>
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
-    <ul ng-if="roomDetails.images.length">
+    <ul ng-if="roomDetails.images.length" class="room-gallery">
       <li ng-repeat="image in roomDetails.images">
-        <img src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/100/100" />
+        <figure>
+          <img src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/150/100" />
+        </figure>
       </li>
     </ul>
     <hr />
@@ -111,4 +115,4 @@
     </list-items>
 
   </section>
-</div>
+</hotel-room>
