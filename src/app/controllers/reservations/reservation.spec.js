@@ -198,12 +198,6 @@ describe('mobius.controllers.reservation', function() {
         _scope.selectedProduct = {test: 123};
       });
 
-      it('should set hasReadRatePolicies property on scope to true', function() {
-        expect(_scope.hasReadRatePolicies).equal(undefined);
-        _scope.readPolicies();
-        expect(_scope.hasReadRatePolicies).equal(true);
-      });
-
       //it('should open policies dialogue with currently selected product', function() {
       //  _scope.readPolicies();
       //  expect(_spyOpenPoliciesInfo.calledOnce).equal(true);
