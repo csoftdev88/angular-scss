@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window) {
+  $window, advertsService) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
@@ -80,20 +80,5 @@ angular.module('mobius.controllers.hotel.details', [])
     $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
   });
 
-  $scope.advertClick = function (link) {
-    switch(link.type) {
-    case 'news':
-      $state.go('news', {
-        code: link.code
-      });
-      break;
-    case 'offer':
-      $state.go('offers', {
-        code: link.code
-      });
-      break;
-    default:
-      window.open(link.uri, '_blank');
-    }
-  };
+  $scope.advertClick = advertsService.advertClick;
 });
