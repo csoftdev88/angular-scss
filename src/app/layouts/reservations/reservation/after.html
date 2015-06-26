@@ -1,163 +1,165 @@
-<reservation-finished>
-  <section grid-row class="reservation-summary">
-    <header>
-      <h1>{{property.nameLong}}</h1>
+<main class="grid-wrapper">
+  <reservation-finished>
+    <section grid-row class="reservation-summary">
+      <header>
+        <h1>{{property.nameLong}}</h1>
 
-      <div class="reference">
-        <p>Your reference:</p>
-        <p>{{reservation.reservationCode}}</p>
-      </div>
-
-      <div class="booked">
-        Booked: {{reservation.bookDate | dateTime: 'D MMM YYYY'}}
-      </div>
-    </header>
-
-    <div class="actions">
-      <a href="" class="button-print"><span>Print</span></a>
-      <a href="" class="button-passbook"><span>Add to Passbook</span></a>
-    </div>
-
-    <div class="share">
-      Share via:
-      <a href="" class="icon-fb"></a>
-      <a href="" class="icon-twitter"></a>
-      <a href="" class="icon-gplus"></a>
-      <a href="" class="icon-email"></a>
-    </div>
-
-    <div class="tables">
-      <figure>
-        <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
-        <!-- TODO: Add actions to buttons -->
-        <button class="button">Modify</button>
-        <button class="button-gray">Cancel</button>
-      </figure>
-
-      <div>
-        <div>
-          <h3>{{roomDetails.name}}</h3>
-          <h4>{{selectedProduct.name}}</h4>
+        <div class="reference">
+          <p>Your reference:</p>
+          <p>{{reservation.reservationCode}}</p>
         </div>
 
-        <table class="data">
-          <tbody>
-            <tr>
-              <th>Check in:</th>
-              <td>{{bookingDetails.from | dateTime}}</td>
-              <th>Adults:</th>
-              <td>{{bookingDetails.adults || 0}}</td>
-            </tr>
-            <tr>
-              <th>Check out:</th>
-              <td>{{bookingDetails.to | dateTime}}</td>
-              <th>Children:</th>
-              <td>{{bookingDetails.children || 0}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="booked">
+          Booked: {{reservation.bookDate | dateTime: 'D MMM YYYY'}}
+        </div>
+      </header>
 
-        <table class="charges">
-          <tbody>
-            <tr ng-switch="billingDetails.paymentMethod">
-              <th>Room Charges: {{billingDetails.paymentMethod}}</th>
-              <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
-              <th rowspan="4" class="total">Total:</th>
-              <td rowspan="4" class="total-value">
-                <a href
-                  ng-switch-when="cc"
-                  ng-click="openPriceBreakdownInfo(selectedProduct)">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</a>
-                <a href
-                  ng-switch-when="point"
-                  ng-click="openPriceBreakdownInfo(selectedProduct)">{{selectedProduct.price.pointsRequired}} points</a>
-              </td>
-            </tr>
-
-            <!-- Additional taxes -->
-            <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
-              <th>Taxes:</th>
-              <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</td>
-            </tr>
-
-            <!-- Additional fees -->
-            <tr ng-if="selectedProduct.price.totalAdditionalFees">
-              <th>Fees:</th>
-              <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
-            </tr>
-
-            <!-- Discount -->
-            <tr ng-if="selectedProduct.price.totalDiscount">
-              <th>Discount:</th>
-              <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
-            </tr>
-
-          </tbody>
-        </table>
+      <div class="actions">
+        <a href="" class="button-print"><span>Print</span></a>
+        <a href="" class="button-passbook"><span>Add to Passbook</span></a>
       </div>
-      <footer>
-        <a href ng-click="readPolicies()">View Policies</a>
-      </footer>
-    </div>
-  </section>
 
-  <hr>
+      <div class="share">
+        Share via:
+        <a href="" class="icon-fb"></a>
+        <a href="" class="icon-twitter"></a>
+        <a href="" class="icon-gplus"></a>
+        <a href="" class="icon-email"></a>
+      </div>
 
-  <section grid-row class="reservation-enhance">
-    <h3>Enhance Your <strong>Stay With</strong></h3>
-    <ul>
-      <li class="{{ addons.length < 3 ? 'half' : 'third'}}"
-        ng-repeat="addon in addons"
-        ng-if="reservation.packages.indexOf(addon.code) === -1">
+      <div class="tables">
+        <figure>
+          <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
+          <!-- TODO: Add actions to buttons -->
+          <button class="button">Modify</button>
+          <button class="button-gray">Cancel</button>
+        </figure>
+
         <div>
-          <a href ng-click="openAddonDetailDialog(addon)">
-            <img src="addon.images[0].uri" err-source="http://lorempixel.com/390/110/" />
-          </a>
+          <div>
+            <h3>{{roomDetails.name}}</h3>
+            <h4>{{selectedProduct.name}}</h4>
+          </div>
 
-          <h4>{{addon.name}}</h4>
-          <p>
-            {{ addon._expanded ? addon.description : addon.descriptionShort }}
-            <a href
-              ng-init="addon._expanded = false"
-              ng-click="addon._expanded = !addon._expanded">
-              {{ addon._expanded ? '[-]' : '[+]'}}
+          <table class="data">
+            <tbody>
+              <tr>
+                <th>Check in:</th>
+                <td>{{bookingDetails.from | dateTime}}</td>
+                <th>Adults:</th>
+                <td>{{bookingDetails.adults || 0}}</td>
+              </tr>
+              <tr>
+                <th>Check out:</th>
+                <td>{{bookingDetails.to | dateTime}}</td>
+                <th>Children:</th>
+                <td>{{bookingDetails.children || 0}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="charges">
+            <tbody>
+              <tr ng-switch="billingDetails.paymentMethod">
+                <th>Room Charges: {{billingDetails.paymentMethod}}</th>
+                <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
+                <th rowspan="4" class="total">Total:</th>
+                <td rowspan="4" class="total-value">
+                  <a href
+                    ng-switch-when="cc"
+                    ng-click="openPriceBreakdownInfo(selectedProduct)">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</a>
+                  <a href
+                    ng-switch-when="point"
+                    ng-click="openPriceBreakdownInfo(selectedProduct)">{{selectedProduct.price.pointsRequired}} points</a>
+                </td>
+              </tr>
+
+              <!-- Additional taxes -->
+              <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
+                <th>Taxes:</th>
+                <td>{{selectedProduct.price.totalAdditionalTaxes | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+              <!-- Additional fees -->
+              <tr ng-if="selectedProduct.price.totalAdditionalFees">
+                <th>Fees:</th>
+                <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+              <!-- Discount -->
+              <tr ng-if="selectedProduct.price.totalDiscount">
+                <th>Discount:</th>
+                <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <footer>
+          <a href ng-click="readPolicies()">View Policies</a>
+        </footer>
+      </div>
+    </section>
+
+    <hr>
+
+    <section grid-row class="reservation-enhance">
+      <h3>Enhance Your <strong>Stay With</strong></h3>
+      <ul>
+        <li class="{{ addons.length < 3 ? 'half' : 'third'}}"
+          ng-repeat="addon in addons"
+          ng-if="reservation.packages.indexOf(addon.code) === -1">
+          <div>
+            <a href ng-click="openAddonDetailDialog(addon)">
+              <img src="addon.images[0].uri" err-source="http://lorempixel.com/390/110/" />
             </a>
-          </p>
-          <i>Add to your booking with one click:</i>
 
-          <a class="button" href ng-click="openAddonDetailDialog(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
-          <a class="button" href ng-click="openAddonDetailDialog(addon)" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
-        </div>
-      </li>
-    </ul>
-  </section>
+            <h4>{{addon.name}}</h4>
+            <p>
+              {{ addon._expanded ? addon.description : addon.descriptionShort }}
+              <a href
+                ng-init="addon._expanded = false"
+                ng-click="addon._expanded = !addon._expanded">
+                {{ addon._expanded ? '[-]' : '[+]'}}
+              </a>
+            </p>
+            <i>Add to your booking with one click:</i>
 
-  <hr>
+            <a class="button" href ng-click="openAddonDetailDialog(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
+            <a class="button" href ng-click="openAddonDetailDialog(addon)" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
+          </div>
+        </li>
+      </ul>
+    </section>
 
-  <section grid-row="">
-    <hotel-location hotel-details="property"></hotel-location>
-  </section>
+    <hr>
 
-  <hr>
+    <section grid-row="">
+      <hotel-location hotel-details="property"></hotel-location>
+    </section>
 
-  <section grid-row class="reservation-enhancements">
-    <h3>Your Enhancements</h3>
+    <hr>
 
-    <ul ng-if="reservation.packages.length">
-      <li ng-repeat="addonCode in reservation.packages" grid="{{Math.floor( 12 / reservation.packages.length)}}">
-        <img src="addons[addonCode].images[0].uri" err-source="http://lorempixel.com/390/110/" />
-        <h4>{{addons[addonCode].name}}</h4>
-        <p>{{ addons[addonCode]._expanded ? addons[addonCode].description : addons[addonCode].descriptionShort }}</p>
-        <a href
-          ng-if="addon.hasViewMore"
-          ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
-          {{ addons[addonCode]._expanded ? 'Show Less]' : 'Show More' }}
-        </a>
-        <p>{{addon.price | i18nCurrency: currencyCode}}</p>
-      </li>
-      <li>
-        <p>Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
-      </li>
-    </ul>
-    <p ng-if="!reservation.packages.length">No enhancements chosen</p>
-  </section>
-</reservation-finished>
+    <section grid-row class="reservation-enhancements">
+      <h3>Your Enhancements</h3>
+
+      <ul ng-if="reservation.packages.length">
+        <li ng-repeat="addonCode in reservation.packages" grid="{{Math.floor( 12 / reservation.packages.length)}}">
+          <img src="addons[addonCode].images[0].uri" err-source="http://lorempixel.com/390/110/" />
+          <h4>{{addons[addonCode].name}}</h4>
+          <p>{{ addons[addonCode]._expanded ? addons[addonCode].description : addons[addonCode].descriptionShort }}</p>
+          <a href
+            ng-if="addon.hasViewMore"
+            ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
+            {{ addons[addonCode]._expanded ? 'Show Less]' : 'Show More' }}
+          </a>
+          <p>{{addon.price | i18nCurrency: currencyCode}}</p>
+        </li>
+        <li>
+          <p>Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
+        </li>
+      </ul>
+      <p ng-if="!reservation.packages.length">No enhancements chosen</p>
+    </section>
+  </reservation-finished>
+</main>
