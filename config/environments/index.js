@@ -8,7 +8,7 @@ var express = require('express'),
   errorhandler = require('errorhandler'),
   request = require('request');
 
-  //var API_URL = 'http://52.5.129.243:3010/api/2.7.1/';
+  var API_URL = 'http://52.5.129.243:3010/api/4.0';
   //var AUTH_HEADER = 'Basic ZGllZ286ZGllZ28=';
 
 module.exports = function(app) {
@@ -17,11 +17,11 @@ module.exports = function(app) {
   });
 
   // Local proxy
-  //app.use('/api', function(req, res) {
-  // var url = API_URL + req.url;
-  // req.headers['authorization'] = AUTH_HEADER;
-  // req.pipe(request(url)).pipe(res);
-  //});
+  app.use('/api', function(req, res) {
+   var url = API_URL + req.url;
+   //req.headers['authorization'] = AUTH_HEADER;
+   req.pipe(request(url)).pipe(res);
+  });
 
   // App sources and bower scripts
   app.use('/static/app', express.static(path.join(app.directory, '/build/app/')));
