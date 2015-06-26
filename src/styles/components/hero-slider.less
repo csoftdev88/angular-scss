@@ -1,6 +1,7 @@
-/*  ==========================================
-    HERO SLIDER
-    ========================================== */
+/////////////////////
+//// HERO SLIDER ////
+/////////////////////
+
 
 // GENERIC STYLES
 hero-slider {
@@ -10,7 +11,18 @@ hero-slider {
   display: block;
   overflow: hidden;
 
-  cursor: pointer;
+  &[advert="true"] {
+    cursor: pointer;
+  }
+
+
+  &.decoration-image {
+    height: 260px;
+
+    .slider-controls {
+      display: none !important;
+    }
+  }
 
   &:hover .slider-controls .slide-button {
     opacity: .5;
