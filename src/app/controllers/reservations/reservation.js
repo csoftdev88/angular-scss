@@ -93,10 +93,10 @@ angular.module('mobius.controllers.reservation', [])
     arrivalTime: '',
     arrivalMethod: '',
     departureTime: '',
-    secondPhoneNumber: user.getUser().tel2,
+    secondPhoneNumber: '',
     comments: '',
     agree: false,
-    optedIn: user.getUser().optedIn
+    optedIn: false
   };
 
   // Inheriting the login from RoomDetails controller
@@ -340,6 +340,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     $scope.additionalInfo.secondPhoneNumber = userData.tel2 || '';
+    $scope.additionalInfo.optedIn = user.getUser().optedIn || false;
   };
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
