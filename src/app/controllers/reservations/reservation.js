@@ -206,7 +206,7 @@ angular.module('mobius.controllers.reservation', [])
       }
       return $scope.forms.billing && !$scope.forms.billing.$invalid;
     case 'reservation.confirmation':
-      return $scope.userDetails.agreement && $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
+      return $scope.additionalInfo.agree && $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
     }
     return false;
   };
