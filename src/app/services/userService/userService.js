@@ -33,6 +33,16 @@ angular.module('mobiusApp.services.user', [])
       return userObject.id || $cookies[KEY_CUSTOMER_ID] || Settings.UI.SSO.customerId || null;
     }
 
+    function updateUser(data) {
+      var customerId = getCustomerId();
+
+      if (customerId) {
+        userObject = _.extend(userObject, data);
+        return apiService.put(apiService.getFullURL('customers.customer', {customerId: customerId}), userObject);
+      } else {
+        throw new Error('No user logged in');
+      }
+    }
 
     function loadProfile() {
       var customerId = getCustomerId();
@@ -104,6 +114,7 @@ angular.module('mobiusApp.services.user', [])
       // NOTE: Will keep this function public for now.
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
-      loadLoyalties: loadLoyalties
+      loadLoyalties: loadLoyalties,
+      updateUser: updateUser
     };
   });

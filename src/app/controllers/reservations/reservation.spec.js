@@ -4,7 +4,7 @@
 describe('mobius.controllers.reservation', function() {
   describe('ReservationCtrl', function() {
     var _scope, _spyOpenPoliciesInfo, _spyStateGo, _spyCreateReservation,
-    _clock, _spyGetPropertyDetails, _spyGetRoomProductAddOns;
+    _clock, _spyGetPropertyDetails, _spyGetRoomProductAddOns, _spyUpdateUser;
 
     var TEST_PROPERTY_ID = 987654321;
     var TEST_ROOM_ID = 918273645;
@@ -14,6 +14,10 @@ describe('mobius.controllers.reservation', function() {
     var TEST_PROPERTY = {
       code: 'TPROP'
     };
+    var TEST_ROOM = {
+    };
+    var TEST_PRODUCTS = [
+    ];
     var TEST_ADDONS = [
       {code: 'short', description: 'description'},
       {code: 'long', description: 'description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description'}
@@ -65,21 +69,34 @@ describe('mobius.controllers.reservation', function() {
             };
           }
         });
-        $provide.value('propertyService', {
-          getPropertyDetails: function(){
-            return {
-              then: function(c){
-                c(TEST_PROPERTY);
-              }
-            };
-          },
-          getRoomProductAddOns: function() {
-            return {
-              then: function(c) {
-                c(TEST_ADDONS);
-              }
-            };
-          }
+
+        $provide.service('propertyService', function($q) {
+          return {
+            getPropertyDetails: function(){
+              return $q.when(TEST_PROPERTY);
+            },
+            getRoomDetails: function() {
+              return {
+                then: function(c) {
+                  c(TEST_ROOM);
+                }
+              };
+            },
+            getRoomProducts: function() {
+              return {
+                then: function(c) {
+                  c(TEST_PRODUCTS);
+                }
+              };
+            },
+            getRoomProductAddOns: function() {
+              return {
+                then: function(c) {
+                  c(TEST_ADDONS);
+                }
+              };
+            }
+          };
         });
 
         $provide.value('filtersService', {});
@@ -91,6 +108,13 @@ describe('mobius.controllers.reservation', function() {
         $provide.value('user', {
           getUser: function(){
             return {id: TEST_USER_ID};
+          },
+          updateUser: function() {
+            return {
+              then: function(c) {
+                c({});
+              }
+            };
           }
         });
 
@@ -124,7 +148,7 @@ describe('mobius.controllers.reservation', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, $state,
-      reservationService, modalService, propertyService) {
+      reservationService, modalService, propertyService, user) {
       _scope = $rootScope.$new();
 
       _clock = sinon.useFakeTimers(0 , 'Date');
@@ -135,8 +159,10 @@ describe('mobius.controllers.reservation', function() {
       _spyCreateReservation  = sinon.spy(reservationService, 'createReservation');
       _spyGetPropertyDetails  = sinon.spy(propertyService, 'getPropertyDetails');
       _spyGetRoomProductAddOns  = sinon.spy(propertyService, 'getRoomProductAddOns');
+      _spyUpdateUser  = sinon.spy(user, 'updateUser');
 
       $controller('ReservationCtrl', { $scope: _scope });
+      _scope.$digest();
     }));
 
     afterEach(function() {
@@ -145,6 +171,7 @@ describe('mobius.controllers.reservation', function() {
       _spyCreateReservation.restore();
       _spyGetPropertyDetails.restore();
       _spyGetRoomProductAddOns.restore();
+      _spyUpdateUser.restore();
       _clock.restore();
     });
 
@@ -218,11 +245,19 @@ describe('mobius.controllers.reservation', function() {
 
       it('should fire a POST request to reservation API', function(){
         _scope.makeReservation();
+        _scope.$digest();
         expect(_spyCreateReservation.calledOnce).equal(true);
+      });
+
+      it('should fire a PUT request to customer API', function(){
+        _scope.makeReservation();
+        _scope.$digest();
+        expect(_spyUpdateUser.calledOnce).equal(true);
       });
 
       it('should redirect to a after state when reservation complete', function(){
         _scope.makeReservation();
+        _scope.$digest();
         expect(_spyStateGo.calledOnce).equal(true);
         expect(_spyStateGo.calledWith('reservation.after')).equal(true);
       });
@@ -231,6 +266,7 @@ describe('mobius.controllers.reservation', function() {
         var bookingParams;
         beforeEach(function(){
           _scope.makeReservation();
+          _scope.$digest();
           bookingParams = _spyCreateReservation.args[0][0];
         });
 
