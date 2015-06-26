@@ -7,7 +7,7 @@ angular.module('mobiusApp.services.booking', [])
 
 .service( 'bookingService',  function($stateParams, $window) {
   var QUERY_TO_API_PARAMS = {
-    'property': 'property',
+    'property': 'propertyCode',
     'region': 'regionCode',
     'adults': 'adults',
     'children': 'children',
