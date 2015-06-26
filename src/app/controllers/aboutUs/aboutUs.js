@@ -13,6 +13,6 @@ angular.module('mobius.controllers.about', [])
       $scope.chain = chain;
 
       $scope.openGallery = modalService.openGallery.bind(modalService,
-        chain.images.map(function(image){return {image: image.uri};}));
+        chain.images.map(function(image){return image.uri;}));
     });
   });
