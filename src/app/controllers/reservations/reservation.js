@@ -378,6 +378,10 @@ angular.module('mobius.controllers.reservation', [])
     }
   };
 
+  $scope.addonsPerLineCount = function(addonsCount){
+    return addonsCount < 3 ? 2 : 3;
+  };
+
   $scope.getPackagesPrice = function() {
     return _.reduce($scope.reservation.packages, function(acc, packageCode) { return acc + $scope.addons[packageCode].price; }, 0);
   };

@@ -4,6 +4,7 @@
 
 @c-gray-reservation:  #d7d7d7;
 @c-form-text:         #373535;
+@c-brown-light:       #d7c6ae;
 @spacing:             20px;
 
 
@@ -433,5 +434,295 @@ reservation-confirmation {
 
   td {
     font-weight: 600;
+  }
+}
+
+
+////////////////////////////////
+// Reservation Finished page  //
+//  - after succesful payment //
+////////////////////////////////
+reservation-finished {
+
+  position: relative;
+
+  section > h3,
+  hotel-location > h2 {
+    margin: @spacing 0;
+    font-size: @size-3;
+  }
+
+  .reservation-summary {
+    padding-top: 3 * @spacing;
+
+    header {
+      .clearfix;
+      margin: 0 0 2 * @spacing 0;
+
+      h1,
+      > div {
+        float: left;
+        width: 33.3333%;
+      }
+    }
+
+    h1 {
+      color: @c-brown;
+      font-size: @size-3;
+      font-weight: 600;
+      line-height: 2 * @baseline;
+    }
+
+    .reference {
+      box-sizing: border-box;
+      padding: 0 @spacing;
+      color: @c-gray;
+      text-align: center;
+      line-height: @baseline;
+    }
+
+    .booked {
+      color: @c-text;
+      font-size: @size--1;
+      font-weight: bold;
+      line-height: 2 * @baseline;
+      text-align: right;
+    }
+
+    .actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      a {
+        display: block;
+        float: right;
+        margin-left: @spacing / 2;
+      }
+
+      span {
+        visibility: hidden;
+      }
+    }
+
+    .share {
+      position: absolute;
+      top: 0;
+      left: 0;
+      line-height: @baseline * 1.6;
+
+      a {
+        display: inline-block;
+        height: @baseline * 1.6;
+        width: @baseline * 1.6;
+        margin-left: 10px;
+        border-radius: 100%;
+
+        color: #fff;
+
+        font-size: @size-3;
+        line-height: @baseline * 1.6;
+        text-align: center;
+
+        &:focus,
+        &:hover {
+          background: @c-link;
+          color: #fff;
+        }
+
+        &:before {
+          .fa;
+        }
+
+        &.icon-fb {             background: #36589b;}
+        &.icon-fb:before {      content: @fa-var-facebook; }
+
+        &.icon-twitter {        background: #31aae1;}
+        &.icon-twitter:before { content: @fa-var-twitter; }
+
+        &.icon-gplus {          background: #da4b39;}
+        &.icon-gplus:before {   content: @fa-var-google-plus; }
+
+        &.icon-email {          background: #999;}
+        &.icon-email:before {   content: @fa-var-envelope-o; }
+      }
+    }
+
+    .button-passbook {
+      background: url('../images/v4/btn-passbook.png');
+      width: 108px;
+      height: 36px;
+    }
+
+    .button-print {
+      background: url('../images/v4/btn-print.png');
+      width: 37px;
+      height: 36px;
+    }
+
+    footer {
+      text-align: right;
+    }
+  }
+
+  .tables {
+
+    figure {
+      width: 33.3333%;
+      float: left;
+
+      img {
+        width: 100%;
+        margin-bottom: @baseline;
+      }
+
+      button {
+        height: 30px;
+        line-height: 30px;
+        width: 135px;
+      }
+
+      button + button {
+        float: right;
+      }
+    }
+
+    > div {
+      .clearfix;
+      box-sizing: border-box;
+      width: 66.6666%;
+      float: left;
+      padding-left: @spacing;
+    }
+
+    h3 {
+      font-size: @size-1;
+      line-height: 1.5 * @baseline;
+      font-weight: 600;
+    }
+
+    h4 {
+      font-size: @size-0;
+      line-height: 1.5 * @baseline;
+    }
+
+    table {
+      margin-top: @baseline;
+      width: 100%;
+    }
+
+    th, td {
+      width: 25%;
+
+      &[rowspan] {
+        vertical-align: bottom;
+      }
+    }
+
+    th {
+      font-weight: 400;
+      text-align: left;
+    }
+
+    td {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    th:not(:first-child) {
+      padding-left: 2 * @spacing;
+    }
+
+    .total {
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .total-value a {
+      font-size: @size-2;
+      font-weight: 700;
+    }
+  }
+
+  .reservation-enhance {
+
+    ul {
+      .clearfix;
+      margin: @spacing 0;
+      padding: @spacing @spacing / 2;
+      border: 2px solid #d6b9b9;
+      border-radius: 4px;
+      background-color: @c-brown;
+    }
+
+    li {
+      display: inline-block;
+      box-sizing: border-box;
+      padding: 0 @spacing / 2;
+
+      &.half {  width: 50%; }
+      &.third { width: 33.3333%; }
+
+      > div {
+        padding-bottom: 5px;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 2px 1px 0 fade(@c-black, 50%);
+        text-align: center;
+        overflow: hidden;
+      }
+    }
+
+    h4, p, i {
+      padding: 0 @spacing / 2;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    h4 {
+      margin: @baseline 0;
+      font-size: @size-2;
+      text-transform: uppercase;
+    }
+
+    i {
+      display: block;
+      color: @c-brown;
+      font-size: @size--1;
+      line-height: @baseline;
+      text-align: left;
+    }
+
+    p {
+      margin: @baseline 0;
+
+      a {
+        font-weight: 600;
+      }
+    }
+
+    .button {
+      margin: @spacing / 2 0;
+      padding: 0 @spacing / 2;
+      width: 45%;
+
+      small {
+        font-size: 0.75em;
+        font-style: italic;
+        font-weight: normal;
+        opacity: 0.75;
+      }
+    }
+
+    .button + .button {
+      margin-left: @spacing / 2;
+    }
+  }
+
+  .reservation-enhancements {
+
   }
 }
