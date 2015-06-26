@@ -4,6 +4,7 @@
 
 @c-link-alt: darken(@c-link, 12%);
 @c-highlight-bg: #e6dcce;
+@c-disabled-bg: #ededed;
 @list-item-min-height: 100px;
 
 list-items {
@@ -31,7 +32,25 @@ list-item {
     }
   }
 
-  &.is-highlighted + & {
+  &.is-disabled {
+    background: @c-disabled-bg;
+    border-top: 0;
+
+    pricing-info {
+      border-left: 1px solid #d3d3d3;
+      color: @c-grey;
+
+      p .value {
+        color: @c-grey;
+      }
+    }
+
+    highlight-item {
+      color: @c-grey;
+    }
+  }
+
+  &.is-highlighted + &, &.is-disabled + & {
     border-top: 0;
   }
 
