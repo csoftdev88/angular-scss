@@ -2,10 +2,9 @@
 
   <h1>{{roomDetails.name}}</h1>
   <p ng-bind-html="sanitize(roomDetails.description)"></p>
-  <hr>
+  <hr />
 
   <section ng-if="products">
-
     <list-items ng-if="products.length">
       <pricing-switch>
           <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
@@ -69,7 +68,6 @@
     </div>
 
     <hr />
-
   </section>
 
   <section ng-if="roomDetails.images.length || roomDetails.description">
@@ -107,7 +105,7 @@
         <h2>{{otherRoom.name}}</h2>
 
         <pricing-info>
-          <p> from <strong>{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</strong></p>
+          <p> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
         </pricing-info>
       </list-item>
     </list-items>

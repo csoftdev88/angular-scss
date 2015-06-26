@@ -166,34 +166,39 @@ list-item {
 }
 
 //- List Items - Grid
-//  it overides styles ^^
-.grid-view list-item {
-  float: left;
-  margin-right: @baseline;
-  padding: 0;
+//  it overrides styles ^^
+list-items.grid-view {
 
-  border: 0;
-
-  //- Image
-  figure {
-    position: static;
-  }
-
-  //- Heading
-  h2 {
-    margin: 0;
-
-    color: #000;
-
-    font-size: @size-0;
-    font-weight: 600;
-  }
-
-  pricing-info {
-    position: static;
+  list-item {
+    float: left;
+    margin: @baseline/2 @baseline/2 0 @baseline/2;
+    padding: 0;
 
     border: 0;
 
-    text-align: left;
+    //- Image
+    figure {
+      position: static;
+      width: 100%;
+      margin-bottom: @baseline/2;
+    }
+
+    //- Heading
+    h2 {
+      margin: 0;
+
+      color: #000;
+
+      font-size: @size-0;
+      font-weight: 600;
+    }
+
+    pricing-info {
+      position: static;
+
+      border: 0;
+
+      text-align: left;
+    }
   }
 }
