@@ -43,19 +43,19 @@
   </div>
 </div>
 
-<section grid-row class="offers-list">
-  <article grid="4" ng-repeat="offer in offersList track by $index">
-      <img class="grid-img" ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}">
+<offers-list grid-row>
+  <article grid="4" ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'offer', 'code': offer.code})">
+      <img class="grid-img" ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
 
       <h2>{{offer.title}}</h2>
       <div ng-bind-html="offer.subtitle"></div>
 
-      <a ng-click="advertClick({'type': 'offer', 'code': offer.code})">Read more</a>
+    <span>Read more</span>
   </article>
 
   <article grid="4" class="add" ng-repeat="randomAdvert in randomAdverts track by $index">
     <a href="#" ng-click="advertClick(randomAdvert.link)" ng-show="randomAdverts[$index]">
-      <img class="grid-img" ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}">
+      <img class="grid-img" ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}"  err-source="http://lorempixel.com/300/160/">
     </a>
   </article>
-</section>
+</offers-list>
