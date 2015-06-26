@@ -17,7 +17,7 @@ describe('bookingService', function() {
 
   describe('getParams', function() {
     beforeEach(function() {
-      _stateParams.property = 'ABC';
+      _stateParams.propertyCode = 'ABC';
       _stateParams.adults = 5;
       _stateParams.children = 2;
       _stateParams.promoCode = 'BCD';
@@ -54,7 +54,7 @@ describe('bookingService', function() {
 
     it('should return params in the format expected by the API', function() {
       var queryParams = _bookingService.getAPIParams();
-      expect(queryParams.property).equal('ABC');
+      expect(queryParams.propertyCode).equal('ABC');
 
       expect(queryParams.from).equal('2014-01-01');
       expect(queryParams.to).equal('2015-01-01');
@@ -62,7 +62,7 @@ describe('bookingService', function() {
 
     it('should return params in the format expected by the API without property', function() {
       var queryParams = _bookingService.getAPIParams(true);
-      expect(queryParams.property).equal(undefined);
+      expect(queryParams.propertyCode).equal(undefined);
     });
   });
 

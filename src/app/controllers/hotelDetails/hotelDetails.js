@@ -4,15 +4,14 @@
 */
 angular.module('mobius.controllers.hotel.details', [])
 
-.controller( 'HotelDetailsCtrl', function($scope, bookingService, $state,
+.controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
   bookingParams.includes = 'amenities';
 
-  var propertyCode = bookingParams.property;
-  delete bookingParams.property;
+  var propertyCode = bookingParams.propertyCode;
 
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
@@ -76,5 +75,28 @@ angular.module('mobius.controllers.hotel.details', [])
     angular.element('html, body').animate({
       scrollTop: $item.offset().top
     }, 300);
+  };
+
+  var NUMBER_OF_OFFERS = 3;
+
+  contentService.getOffers(bookingParams).then(function(response) {
+    $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
+  });
+
+  $scope.advertClick = function (link) {
+    switch(link.type) {
+    case 'news':
+      $state.go('news', {
+        code: link.code
+      });
+      break;
+    case 'offer':
+      $state.go('offers', {
+        code: link.code
+      });
+      break;
+    default:
+      window.open(link.uri, '_blank');
+    }
   };
 });
