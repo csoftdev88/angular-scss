@@ -83,7 +83,7 @@
           </pricing-info>
 
           <description-info>
-            <p>{{room.description}}</p>
+            <p ng-bind-html="sanitize(room.description)"></p>
           </description-info>
         </list-item>
       </list-items>
