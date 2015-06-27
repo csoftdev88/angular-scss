@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window) {
+  $window, advertsService) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
@@ -31,13 +31,21 @@ angular.module('mobius.controllers.hotel.details', [])
         // Updating Hero content images
         if(details.images){
           $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));
+
+
+          // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
+          // Current version of PhantomJS is missing not supporting .bind
+          // https://github.com/ariya/phantomjs/issues/10522
+          // TODO: Update PhantomJS
+          $scope.openGallery = function(){
+            modalService.openGallery(
+              details.images.map(function(image){return image.uri;}));
+          };
         }
 
         if(details.availability) {
           $scope.rooms = details.availability.rooms || [];
         }
-
-        $scope.openGallery = modalService.openGallery;
       }, function() {
         $state.go('hotels');
       });
@@ -80,20 +88,5 @@ angular.module('mobius.controllers.hotel.details', [])
     $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
   });
 
-  $scope.advertClick = function (link) {
-    switch(link.type) {
-    case 'news':
-      $state.go('news', {
-        code: link.code
-      });
-      break;
-    case 'offer':
-      $state.go('offers', {
-        code: link.code
-      });
-      break;
-    default:
-      window.open(link.uri, '_blank');
-    }
-  };
+  $scope.advertClick = advertsService.advertClick;
 });

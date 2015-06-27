@@ -133,13 +133,14 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  // NOTE: images - list of URLs
   function openGallery(images){
     return openDialog('openGallery', 'layouts/modals/lightbox.html', CONTROLLER_DATA, {
       windowClass: 'lightbox',
       backdropClass: 'modal-lightbox',
       resolve: {
         data: function(){
-          return images;
+          return images.map(function(url){return {image: url};});
         }
       }
     });

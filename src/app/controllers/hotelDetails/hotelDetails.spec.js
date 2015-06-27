@@ -5,7 +5,8 @@ describe('mobius.controllers.hotel.details', function() {
   describe('HotelDetailsCtrl', function() {
     var _scope, _spyBookingServiceGetAPIParams,
       _spyPropertyServiceGetPropertyDetails, _spyFiltersServiceGetBestRateProduct,
-      _spyUpdateHeroContent, _spyPropertyServiceGetRooms;
+      _spyUpdateHeroContent, _spyPropertyServiceGetRooms,
+      _spyModalServiceOpenGallery;
 
     var HOTEL_DETAILS = {
       nameShort: 'Mobius hotel',
@@ -62,7 +63,12 @@ describe('mobius.controllers.hotel.details', function() {
           }
         });
 
-        $provide.value('modalService', {});
+        $provide.value('modalService', {
+          openGallery: function(){}
+        });
+
+        $provide.value('advertsService', {});
+
         $provide.value('$state', {
           go: function(){}
         });
@@ -86,7 +92,7 @@ describe('mobius.controllers.hotel.details', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, bookingService,
-      propertyService, filtersService) {
+      propertyService, filtersService, modalService) {
       _scope = $rootScope.$new();
       // Spy's
       _spyBookingServiceGetAPIParams = sinon.spy(bookingService, 'getAPIParams');
@@ -98,6 +104,7 @@ describe('mobius.controllers.hotel.details', function() {
       _spyFiltersServiceGetBestRateProduct = sinon.spy(filtersService, 'getBestRateProduct');
       _scope.updateHeroContent = function(){};
       _spyUpdateHeroContent = sinon.spy(_scope, 'updateHeroContent');
+      _spyModalServiceOpenGallery = sinon.spy(modalService, 'openGallery');
 
       $controller('HotelDetailsCtrl', { $scope: _scope });
     }));
@@ -108,6 +115,7 @@ describe('mobius.controllers.hotel.details', function() {
       _spyPropertyServiceGetRooms.restore();
       _spyFiltersServiceGetBestRateProduct.restore();
       _spyUpdateHeroContent.restore();
+      _spyModalServiceOpenGallery.restore();
     });
 
     describe('when controller is initialized', function() {
@@ -139,6 +147,14 @@ describe('mobius.controllers.hotel.details', function() {
         expect(_spyUpdateHeroContent.calledOnce).equal(true);
         expect(_spyUpdateHeroContent.calledWith([{uri: 'http://testimage',
           includeInSlider: true}])).equal(true);
+      });
+    });
+
+    describe('openGallery', function(){
+      it('should invoke openGallery function on modalService with a list of images', function() {
+        _scope.openGallery();
+        expect(_spyModalServiceOpenGallery.calledOnce).equal(true);
+        expect(_spyModalServiceOpenGallery.calledWith(['http://testimage'])).equal(true);
       });
     });
   });

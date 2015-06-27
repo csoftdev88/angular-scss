@@ -41,10 +41,10 @@
             <h2>{{hotel.nameShort}}</h2>
             <pricing-info>
               <p ng-if="hotel.available">
-                from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> <span>per night</span>
-              </p>
-              <p ng-if="hotel.available && isUserLoggedIn()">
-                or <span class="value">{{hotel.minPointsRequired}}</span> <span>points</span>
+                from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night
+                <span ng-if="hotel.available && isUserLoggedIn()">
+                  <br />or <span class="value">{{hotel.minPointsRequired}}</span> points
+                </span>
               </p>
               <p class="price unavailable" ng-if="!hotel.available">
                 Not Available

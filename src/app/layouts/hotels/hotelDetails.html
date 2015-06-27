@@ -18,7 +18,7 @@
       </div>
 
       <view-more-images grid="4">
-        <div><a ng-if="details.images.length" href="" ng-click="openGallery(details.images)">View more images</a></div>
+        <a ng-if="details.images.length" href="" ng-click="openGallery()">View more images</a>
         <img ng-src="details.images[0].uri" alt="{{details.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
       </view-more-images>
     </section>
@@ -75,11 +75,8 @@
             <p>
               from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}}</span> per night
               <span ng-if="isUserLoggedIn()">
-                or <span class="value">{{product.price.pointsRequired}}</span> points
-                </span>
-              <span ng-if="isUserLoggedIn()">
-                or <span class="value">{{room.minPointsRequired}}</span> points
-                </span>
+                <br />or <span class="value">{{room.minPointsRequired}}</span> points
+              </span>
             </p>
 
             <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="button">_view_more_</a>

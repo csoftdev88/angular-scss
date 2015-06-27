@@ -3,13 +3,14 @@
 angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q,
-  bookingService, propertyService, filtersService, modalService, preloaderFactory, _) {
+  bookingService, propertyService, filtersService, modalService, preloaderFactory, user, _) {
 
   return {
     restrict: 'E',
     templateUrl: 'directives/room/room.html',
     // Widget logic goes here
     link: function(scope){
+
       var SHORT_DESCRIPTION_LENGTH = 200;
 
       var bookingParams = bookingService.getAPIParams();
@@ -62,6 +63,10 @@ angular.module('mobiusApp.directives.room', [])
           return product;
         });
       }
+
+      scope.setRoomsSorting = function() {
+        return user.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
+      };
 
       scope.selectProduct = function(product) {
         $state.go('reservation.details', {
