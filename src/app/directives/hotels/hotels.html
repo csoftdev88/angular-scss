@@ -33,7 +33,7 @@
         <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-click="navigateToHotel(hotel.code)" grid="{{view === 'list' ? 3 : 1}}">
           <a href="">
             <div class="item-image">
-              <img ng-src="{{hotel.images[0].URI}}" alt="Mobius hotel {{hotel.name}} photo"/>
+              <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
               <ul class="star-rating">
                 <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
               </ul>
