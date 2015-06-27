@@ -46,7 +46,9 @@ deployment:
   qa:
     branch: /release\/.+/
     commands:
-      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}-qa.git ${CIRCLE_BRANCH}:master
+      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}-qa.git ${CIRCLE_BRANCH}:master:
+        timeout: 6000
+
   client:
     branch: client
     commands:
