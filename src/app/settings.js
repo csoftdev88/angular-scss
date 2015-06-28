@@ -73,7 +73,7 @@ angular.module('mobiusApp.config', [])
   },
 
   'currencyParamName': 'currency',
-  'bestAvailableRateCode': 'Best Available Rate',
+  'bestAvailableRateCode': 'Business Rates',
 
   'UI': {
     // TEST SETTINGS FOR SSO
