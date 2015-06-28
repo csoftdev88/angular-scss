@@ -114,7 +114,7 @@
       </registration-call>
 
       <button class="back" ng-click="goBack()">Back</button>
-      <button class="next" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
+      <button class="next" ng-disabled="!isUserLoggedIn()" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
     </div>
   </reservation-widget>
 </main>
