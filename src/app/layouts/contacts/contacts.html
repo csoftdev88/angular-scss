@@ -18,7 +18,7 @@
           <label for="name" class="input-left">
             <input type="text" id="name" required
               placeholder="Enter Your Name"
-              ng-model="formData.fields.name" />
+              ng-model="formData.fields.name" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"/>
             <span>Name</span>
           </label>
         </form-element>
@@ -36,7 +36,7 @@
           <label for="subject" class="input-left">
             <input type="text" id="subject" required
               placeholder="Enter Subject"
-              ng-model="formData.fields.subject"/>
+              ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"/>
             <span>Subject</span>
           </label>
         </form-element>
@@ -45,7 +45,9 @@
       <fieldset>
         <form-element>
           <label for="message" class="input-left">
-            <textarea id="message" ng-model="formData.fields.message" name="text" placeholder="Text" required></textarea>
+            <textarea id="message" ng-model="formData.fields.message" name="text" placeholder="Text"
+              required
+              ></textarea>
             <span>Enter Text</span>
           </label>
         </form-element>
