@@ -108,11 +108,12 @@
     </span>
 
     <div class="reservation-controls" grid-row>
-      <button class="back" ng-click="goBack()">Back</button>
       <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
         <h4>Already Registered?</h4>
         <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
       </registration-call>
+
+      <button class="back" ng-click="goBack()">Back</button>
       <button class="next" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
     </div>
   </reservation-widget>
