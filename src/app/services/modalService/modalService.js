@@ -45,7 +45,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openAddonDetailDialog(addAddon, addon){
     return openDialog('AddonDetailDialog', 'layouts/modals/reservation/addonDetailDialog.html', CONTROLLER_ADDON, {
-      windowClass: 'is-wide has-white-bg',
+      windowClass: 'details addons',
       resolve: {
         addon: function(){return addon;},
         addAddon: function(){return addAddon;}
