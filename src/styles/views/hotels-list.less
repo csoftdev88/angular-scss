@@ -81,19 +81,9 @@ hotels {
       }
     }
 
-    .entries--tiles .item {
-      .item-image {
-        width: 100%;
-        margin-bottom: @baseline/2;
-      }
-
-      &:nth-child(3n + 1){
-        clear: left;
-      }
-
+    .item {
       .description {
         position: relative;
-        max-height: 55px;
         overflow: hidden;
 
         &:after {
@@ -107,6 +97,21 @@ hotels {
           background: url('../images/v4/text-overlay.png');
           background-size: 100% 30px;
         }
+      }
+    }
+
+    .entries--tiles .item {
+      .item-image {
+        width: 100%;
+        margin-bottom: @baseline/2;
+      }
+
+      &:nth-child(3n + 1){
+        clear: left;
+      }
+
+      .description {
+        max-height: 55px;
       }
     }
 
@@ -127,6 +132,10 @@ hotels {
         right: 0;
         width: 16%;
         text-align: right;
+      }
+
+      .description {
+        max-height: 135px;
       }
     }
   }
