@@ -83,6 +83,7 @@ reservation-widget {
     }
 
     input.ng-touched.ng-invalid ~ span,
+    input.ng-untouched.ng-invalid ~ span,
     select.ng-touched.ng-invalid ~ span,
     textarea.ng-touched.ng-invalid ~ span {
       opacity: 1;
@@ -107,6 +108,7 @@ reservation-widget {
       box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
     }
 
+    &.ng-untouched.ng-invalid,
     &.ng-touched.ng-invalid {
       border-color: @c-red;
     }
