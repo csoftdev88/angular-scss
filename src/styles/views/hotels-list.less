@@ -86,6 +86,28 @@ hotels {
         width: 100%;
         margin-bottom: @baseline/2;
       }
+
+      &:nth-child(3n + 1){
+        clear: left;
+      }
+
+      .description {
+        position: relative;
+        max-height: 55px;
+        overflow: hidden;
+
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          right: 0;
+          bottom: -10px;
+          left: 0;
+          height: 24px;
+          background: url('../images/v4/text-overlay.png');
+          background-size: 100% 30px;
+        }
+      }
     }
 
     .entries--list .item {
