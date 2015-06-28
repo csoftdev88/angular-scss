@@ -151,6 +151,16 @@ reservation-widget {
     h3 {
       font-weight: bold;
     }
+
+    .image-wrapper {
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        max-height: 160px;
+        border-radius: 10px;
+      }
+    }
   }
 
   .reservation-data {
@@ -175,6 +185,11 @@ reservation-widget {
       border: 1px solid @c-gray-reservation;
       border-radius: 6px;
     }
+  }
+
+  label[for="agreement3"] {
+    margin: 0 @spacing;
+    padding: 0px;
   }
 
   .reservation-controls {

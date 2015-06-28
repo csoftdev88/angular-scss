@@ -22,7 +22,10 @@
           <h3>{{roomDetails.name}}</h3>
 
           <p class="desc">{{selectedProduct.name}}</p>
-          <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
+
+          <div class="image-wrapper">
+            <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+          </div>
 
           <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
             night</em></p>
@@ -104,7 +107,7 @@
       We are sorry, your payment was not authorized. Please check the policies, your details and try again.
     </span>
 
-    <div grid-row>
+    <div class="reservation-controls" grid-row>
       <button class="back" ng-click="goBack()">Back</button>
       <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
         <h4>Already Registered?</h4>
