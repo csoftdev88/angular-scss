@@ -7,7 +7,7 @@
   <contacts-page grid-row>
     <h1 grid="12">Contacts <strong>and Feedback</strong></h1>
 
-    <form name="form" ng-submit="form.$valid" grid="8">
+    <form name="form" ng-submit="form.$valid" grid="8" ng-show="!isSent">
       <div>
         <p>How was your stay with us? Did we meet all your expectations? We want your stays at hotels to be the best you have experienced anywhere. You talk, we listen.</p>
         <hr>
@@ -62,6 +62,11 @@
       </div>
       <div ng-show="showErrorMsg">Sending of message failed</div>
     </form>
+
+    <div grid="8" ng-if="isSent">
+      <span>Your message has been successfully sent. We will send you a reply as soon as possible. Thank you for your interest.</span>
+    </div>
+
 
     <contact-list grid="4">
       <contact-item ng-repeat="contact in chain.contacts">
