@@ -10,7 +10,7 @@ var express = require('express'),
 
   // REAL API: 'http://52.5.129.243:3010/api/4.0'
   // APIARY http://private-anon-b8e439da3-mobiusv41.apiary-mock.com
-  var API_URL = 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com';
+  var API_URL = 'http://52.5.129.243:3010/api/4.0';
   //var AUTH_HEADER = 'Basic ZGllZ286ZGllZ28=';
 
 module.exports = function(app) {
