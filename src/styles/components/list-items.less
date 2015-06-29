@@ -84,7 +84,7 @@ list-item {
     top: @baseline/2;
 
     width: 15.6%;
-    height: @list-item-min-height;
+    max-height: @list-item-min-height;
     overflow: hidden;
 
     display: block;
@@ -92,6 +92,30 @@ list-item {
     img {
       width: 100%;
       display: block;
+    }
+  }
+
+  //- Appear eye icon on hover
+  &.with-special-hover {
+    figure:after {
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      height: 100%;
+      width: 100%;
+
+      background: rgba(0, 0, 0, 0.7) url(../images/v4/eye.svg) center center no-repeat;
+      background-size: 50px;
+      opacity: 0;
+
+      transition: 0.2s all;
+
+      content: '';
+    }
+
+    &:hover figure:after {
+      opacity: 1;
     }
   }
 
@@ -186,9 +210,12 @@ list-items.grid-view {
 
     //- Image
     figure {
-      position: static;
+      position: relative;
+      left: auto;
+      top: auto;
+
       width: 100%;
-      height: @list-item-min-height;
+      max-height: @list-item-min-height;
       overflow: hidden;
       margin-bottom: @baseline/2;
 
