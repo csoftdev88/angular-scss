@@ -33,6 +33,10 @@ angular.module('mobius.controllers.news', [])
       $state.go('news', {code: code});
     };
 
+    $scope.goToNewsList = function() {
+      $state.go('news', {code: ''}, {reload: true});
+    };
+
     function selectNews(code) {
       selectedNewsIndex = _.findIndex($scope.newsList, {code: code});
       if (selectedNewsIndex < 0) {
