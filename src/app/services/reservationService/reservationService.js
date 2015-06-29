@@ -13,6 +13,10 @@ angular.module('mobiusApp.services.reservation', [])
     return apiService.put(apiService.getFullURL('reservations.modify', {reservationCode: reservationCode}), data);
   }
 
+  function getReservation(reservationCode) {
+    return apiService.get(apiService.getFullURL('reservations.detail', {reservationCode: reservationCode}));
+  }
+
   function getReservations(reservationCode){
     var customerId = user.getCustomerId();
 
@@ -36,19 +40,11 @@ angular.module('mobiusApp.services.reservation', [])
     return getReservations();
   }
 
-  function getReservationDetails(reservationCode){
-    if(!reservationCode){
-      throw new Error('reservationCode must be provided');
-    }
-
-    return getReservations(reservationCode);
-  }
-
   // Public methods
   return {
     createReservation: createReservation,
     modifyReservation: modifyReservation,
-    getAll: getAll,
-    getReservationDetails: getReservationDetails
+    getReservation: getReservation,
+    getAll: getAll
   };
 });

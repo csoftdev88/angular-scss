@@ -4,7 +4,6 @@
  */
 angular.module('mobius.controllers.reservation', [])
 
-// TODO: extract after reservation logic and template into reservation detail controller
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
@@ -114,26 +113,8 @@ angular.module('mobius.controllers.reservation', [])
     return property;
   });
 
-  var SHORT_DESCRIPTION_LENGTH = 100;
-
-  var extrasPromise = propertyService.getRoomProductAddOns($stateParams.property, $stateParams.roomID, $stateParams.productCode, {
-    from: $scope.bookingDetails.from,
-    to: $scope.bookingDetails.to,
-    customerId: user.getUser().id
-  }).then(function(addons) {
-      $scope.addons = _.map(addons, function(addon) {
-        addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
-        addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
-        if (addon.hasViewMore) {
-          addon.descriptionShort += '…';
-        }
-        return addon;
-      });
-      $scope.addons = _.indexBy($scope.addons, 'code');
-    });
-
   // Showing loading mask
-  preloaderFactory($q.all([roomDataPromise, propertyPromise, extrasPromise]).then(function(data){
+  preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(data){
     setBreadCrumbs = function(name) {
       breadcrumbsService
         .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
@@ -229,7 +210,6 @@ angular.module('mobius.controllers.reservation', [])
       arrivalDate: $scope.bookingDetails.from,
       departureDate: $scope.bookingDetails.to,
       hasReadRatePolicies: true,
-      packages: $scope.reservation ? $scope.reservation.packages : undefined,
       rooms: getRooms(),
       customer: user.getUser().id,
       paymentInfo: {
@@ -287,16 +267,12 @@ angular.module('mobius.controllers.reservation', [])
       reservationService.createReservation(reservationData),
       user.updateUser(userData)
     ]).then(function(data) {
-      $scope.reservation = data[0];
-      $scope.reservation.bookDate = $scope.reservation.bookDate ? $window.moment($scope.reservation.bookDate) : $window.moment();
-      $scope.reservation.packages = [];
-
       userMessagesService.addInfoMessage('' +
         '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
         '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
         '');
 
-      $state.go('reservation.after');
+      $state.go('reservationDetail', {reservationCode: data[0].reservationCode});
     }, function() {
       $scope.invalidFormData = true;
       $state.go('reservation.details');
@@ -347,46 +323,4 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
-
-  $scope.modifyReservation = function(onError) {
-    var reservationData = createReservationData();
-    var reservationPromise = reservationService.modifyReservation($scope.reservation.reservationCode, reservationData).then(
-      function() {
-        // TODO ?
-    },
-      function(error) {
-        if (error && error.error && error.error.msg) {
-          userMessagesService.addInfoMessage('<p>' + error.error.msg + '</p>');
-        } else {
-          userMessagesService.addInfoMessage('<p>Unknown error</p>');
-        }
-        if (onError) {
-          onError(error);
-        }
-      }
-    );
-
-    preloaderFactory(reservationPromise);
-  };
-
-  $scope.addAddon = function(addon) {
-    if($scope.reservation.packages.indexOf(addon.code) === -1) {
-      $scope.reservation.packages.push(addon.code);
-      $scope.modifyReservation(function() {
-        $scope.reservation.packages.splice($scope.reservation.packages.indexOf(addon.code), 1);
-      });
-    }
-  };
-
-  $scope.addonsPerLineCount = function(addonsCount){
-    return addonsCount < 3 ? 2 : 3;
-  };
-
-  $scope.getPackagesPrice = function() {
-    return _.reduce($scope.reservation.packages, function(acc, packageCode) { return acc + $scope.addons[packageCode].price; }, 0);
-  };
-
-  if ($scope.addAddon.bind) { // WTF - PhatomJS workaround
-    $scope.openAddonDetailDialog = modalService.openAddonDetailDialog.bind(modalService, $scope.addAddon.bind($scope));
-  }
 });

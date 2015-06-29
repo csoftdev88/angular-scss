@@ -60,6 +60,7 @@ angular.module('mobiusApp.config', [])
     'reservations': {
       'new': 'reservations',
       'modify': 'reservations/:reservationCode',
+      'detail': 'reservations/:reservationCode',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/'
     },

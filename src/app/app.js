@@ -29,6 +29,7 @@ angular
     'mobius.controllers.contacts',
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
+    'mobius.controllers.reservationDetail',
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
 
@@ -177,35 +178,35 @@ angular
         }
       })
 
+      .state('reservationDetail', {
+        parent: 'root',
+        templateUrl: 'layouts/reservations/reservationDetail.html',
+        url: '/reservation/:reservationCode',
+        controller: 'ReservationDetailCtrl',
+        data: {
+          private: true
+        }
+      })
+
       // Room reservation
       .state('reservation', {
         parent: 'root',
-        template: '<ui-view></ui-view>',
+        templateUrl: 'layouts/reservations/reservation/reservation.html',
         url: '/reservation/:roomID/:productCode',
         controller: 'ReservationCtrl'
       })
 
-      .state('reservation.process', {
-        parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/reservation.html',
-        abstract: true
-      })
       .state('reservation.details', {
-        parent: 'reservation.process',
+        parent: 'reservation',
         templateUrl: 'layouts/reservations/reservation/details.html'
       })
       .state('reservation.billing', {
-        parent: 'reservation.process',
+        parent: 'reservation',
         templateUrl: 'layouts/reservations/reservation/billing.html'
       })
       .state('reservation.confirmation', {
-        parent: 'reservation.process',
-        templateUrl: 'layouts/reservations/reservation/confirmation.html'
-      })
-
-      .state('reservation.after', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/after.html'
+        templateUrl: 'layouts/reservations/reservation/confirmation.html'
       })
 
       .state('offers', {
