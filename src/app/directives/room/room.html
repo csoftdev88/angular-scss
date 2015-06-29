@@ -90,7 +90,7 @@
 
     <amenities-list>
       <amenity-item ng-repeat="amenity in roomDetails.amenities">
-        <img ng-src="{{amenity.icon}}" err-source="http://lorempixel.com/20/20">
+        <slug-img slug="amenity.slug" width="15" height="15" />
         <span>{{amenity.name}}</span>
       </amenity-item>
     </amenities-list>

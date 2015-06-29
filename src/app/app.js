@@ -102,6 +102,7 @@ angular
     'mobiusApp.directives.userMessages',
     'mobiusApp.directives.imageCarousel',
     'mobiusApp.directives.breadcrumbs',
+    'mobiusApp.directives.slugImg',
 
     // Filters
     'mobiusApp.filters.list',
