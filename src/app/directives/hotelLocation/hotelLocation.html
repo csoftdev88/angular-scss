@@ -13,36 +13,42 @@
 
 <p>{{hotelDetails.locationDescription}}</p>
 
-<ul class="contact-information">
-  <li ng-if="hotelDetails.tel1 || hotelDetails.tel2">
-    <i class="fa fa-phone"></i>
-    <strong>Telephone:</strong>
-    <br>
-    <div ng-if="hotelDetails.tel1">{{hotelDetails.tel1}}</div>
-    <div ng-if="hotelDetails.tel2">{{hotelDetails.tel2}}</div>
-  </li>
-  <li ng-if="hotelDetails.fax">
-    <i class="fa fa-fax"></i>
-    <strong>Fax:</strong>
-    <br>
-    {{hotelDetails.fax}}
-  </li>
-  <li ng-if="hotelDetails.email">
-    <i class="fa fa-envelope"></i>
-    <strong>Email:</strong>
-    <br>
-    <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
-  </li>
-  <li>
-    <i class="fa fa-phone"></i>
-    <strong>Address:</strong>
-    <br>
-    <div ng-if="hotelDetails.address1">{{hotelDetails.address1}},</div>
-    <div ng-if="hotelDetails.address2">{{hotelDetails.address2}},</div>
-    <div ng-if="hotelDetails.address3">{{hotelDetails.address3}},</div>
-    <div>{{hotelDetails.city}}, {{hotelDetails.zip}}</div>
-  </li>
-</ul>
+<contact-list>
+  <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
+    <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
+      <i class="fa fa-phone"></i>
+      <strong>Telephone:</strong>
+      <span ng-if="hotelDetails.tel1">{{hotelDetails.tel1}}</span>
+      <span ng-if="hotelDetails.tel2">{{hotelDetails.tel2}}</span>
+    </div>
+
+    <div ng-if="hotelDetails.fax">
+      <i class="fa fa-fax"></i>
+      <strong>Fax:</strong>
+      {{hotelDetails.fax}}
+    </div>
+  </contact-item>
+
+  <contact-item ng-if="hotelDetails.email">
+    <div>
+      <i class="fa fa-envelope"></i>
+      <strong>Email:</strong>
+      <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
+    </div>
+  </contact-item>
+
+  <contact-item>
+    <div>
+      <i class="fa fa-phone"></i>
+      <strong>Address:</strong>
+      <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
+      <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},</span><br ng-if="hotelDetails.address2" />
+      <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},</span><br ng-if="hotelDetails.address3" />
+      <span>{{hotelDetails.city}}, {{hotelDetails.zip}}</span>
+    </div>
+  </contact-item>
+
+</contact-list>
 
 <h3>How to get to us</h3>
 <transportation-list>
