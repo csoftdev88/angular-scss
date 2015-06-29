@@ -212,7 +212,6 @@ angular.module('mobius.controllers.reservation', [])
       departureDate: $scope.bookingDetails.to,
       hasReadRatePolicies: true,
       rooms: getRooms(),
-      customer: user.getUser().id,
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
       },
@@ -220,6 +219,11 @@ angular.module('mobius.controllers.reservation', [])
       guestFirstName: $scope.userDetails.firstName,
       guestLastName: $scope.userDetails.lastName
     };
+
+    // Adding customerID when logged in
+    if(user.isLoggedIn()){
+      reservationData.customer = user.getUser().id;
+    }
 
     if($scope.additionalInfo.arrivalTime) {
       reservationData.arrivalTime = $scope.additionalInfo.arrivalTime;
@@ -260,14 +264,20 @@ angular.module('mobius.controllers.reservation', [])
     $scope.invalidFormData = false;
 
     var reservationData = createReservationData();
+    // TODO: Check if phone number has changed before saving
     var userData = {
       tel2: $scope.additionalInfo.secondPhoneNumber,
       optedIn: $scope.additionalInfo.optedIn
     };
-    var reservationPromise = $q.all([
-      reservationService.createReservation(reservationData),
-      user.updateUser(userData)
-    ]).then(function(data) {
+
+    var promises = [reservationService.createReservation(reservationData)];
+
+    if(reservationData.customer){
+      // Updating user profile when
+      promises.push(user.updateUser(userData));
+    }
+
+    var reservationPromise = $q.all(promises).then(function(data) {
       userMessagesService.addInfoMessage('' +
         '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
         '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
@@ -275,6 +285,7 @@ angular.module('mobius.controllers.reservation', [])
 
       $state.go('reservationDetail', {reservationCode: data[0].reservationCode});
     }, function() {
+      // TODO: Whaat request has failed
       $scope.invalidFormData = true;
       $state.go('reservation.details');
     });
