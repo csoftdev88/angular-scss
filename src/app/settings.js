@@ -326,6 +326,10 @@ angular.module('mobiusApp.config', [])
           format: 'MMM YYYY'
         }
       ]
+    },
+    'cloudinary': {
+      'prefix': '//res.cloudinary.com/dmh2cjswj/image/upload/v1435333629/Mobius/Sutton/',
+      'suffix': '.png'
     }
   }
 });
