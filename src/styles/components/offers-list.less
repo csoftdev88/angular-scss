@@ -1,0 +1,84 @@
+////////////////////////
+//// LIST OF OFFERS ////
+////////////////////////
+
+offers-list {
+  margin-bottom: @baseline;
+
+  article {
+
+    max-height: 370px;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    border-radius: @radius*2;
+    border: 1px solid @c-light-grey;
+    box-shadow: 0 1px 2px @c-light-grey;
+    background: #fff;
+    box-sizing: border-box;
+
+    &[ng-click] {
+      cursor: pointer;
+    }
+
+    > a {
+      display: block;
+      text-decoration: none;
+      position: relative;
+
+      &:hover {
+        img {
+          opacity: .8;
+        }
+      }
+    }
+
+    h2 {
+      margin-bottom: @baseline;
+      padding: 0 @baseline;
+
+      color: @c-base;
+
+      font-size: @size-2;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    div {
+      color: @c-grey;
+      margin-bottom: @baseline;
+      padding: 0 @baseline;
+    }
+
+    img {
+      opacity: 1;
+      margin-bottom: @baseline;
+    }
+
+    span {
+      display: block;
+      color: @c-link;
+      margin-bottom: 2*@baseline;
+      font-weight: 600;
+    }
+
+
+
+
+    &.add {
+
+      p {
+        background: rgba(0,0,0, .6);
+        color: @white;
+        position: absolute;
+        text-align: left;
+        padding: @baseline/3 @baseline/2;
+        bottom: 120px;
+        line-height: normal;
+        right: @baseline;
+        border-radius: 0 @radius*2 @radius*2 0;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

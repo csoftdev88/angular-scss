@@ -37,11 +37,11 @@
       <a class="infiniti-login-mobile infiniti-button" style="display:none"></a>
       <a class="infiniti-register-mobile infiniti-button button" style="display:none"></a>
       -->
-      <li ng-show="!isUserLoggedIn()">
+      <li ng-show="!isUserLoggedIn()" profile>
         <a id="loginButton" class="infiniti-login-mobile infiniti-button button button-login">Login</a> <!-- ID used to JS click on button -->
       </li>
 
-      <li has-dropdown="click" ng-show="isUserLoggedIn()">
+      <li has-dropdown="click" ng-show="isUserLoggedIn()" profile>
         <div class="dropdown">
           <a href>
             <div class="profile">
@@ -60,6 +60,9 @@
           </a>
 
           <ul class="dropdown-menu submenu">
+            <li>
+              <a ui-sref="reservations">Reservations</a>
+            </li>
             <li>
               <a class="infiniti-update-profile-mobile infiniti-button" style="display:none"></a>
             </li>

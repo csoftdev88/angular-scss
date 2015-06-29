@@ -11,7 +11,7 @@
             chosen-options-class="{ 'region' : type === 'region', 'property': type === 'property' }"
             ng-options="option.name for option in propertyRegionList"
             ng-change="propertyRegionChanged()">
-      <option></option> <!-- to get chosen work with angular indexation of options -->
+      <option></option> <!-- workaround for a bug in angular-chosen  -->
     </select>
     <form-label>Find Your Hotel</form-label>
   </form-element>
@@ -38,7 +38,7 @@
             disable-search="true"
             chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max"
             data-placeholder="Adults">
-      <option></option> <!-- to get chosen work with angular indexation of options -->
+      <option></option> <!-- workaround for a bug in angular-chosen -->
     </select>
     <form-label>Number of Adults</form-label>
   </form-element>
@@ -50,7 +50,7 @@
             disable-search="true"
             chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max"
             data-placeholder="Children">
-      <option></option> <!-- to get chosen work with angular indexation of options -->
+      <option></option> <!-- tworkaround for a bug in angular-chosen -->
     </select>
     <form-label>Number of Children</form-label>
   </form-element>
@@ -68,7 +68,7 @@
             disable-search="true"
             chosen ng-options="rate.id as rate.name for rate in rates"
             data-placeholder="Rate">
-      <option></option> <!-- to get chosen work with angular indexation of options -->
+      <option></option> <!-- workaround for a bug in angular-chosen -->
     </select>
     <form-label>Select Rate</form-label>
   </form-element>
@@ -93,7 +93,7 @@
               data-placeholder="Adults"
               disable-search="true"
               chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max">
-        <option></option> <!-- to get chosen work with angular indexation of options -->
+        <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>Number of Adults</form-label>
     </form-element>
@@ -104,7 +104,7 @@
               data-placeholder="Children"
               disable-search="true"
               chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max">
-        <option></option> <!-- to get chosen work with angular indexation of options -->
+        <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>Number of Children</form-label>
     </form-element>

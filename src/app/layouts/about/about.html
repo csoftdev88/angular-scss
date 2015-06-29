@@ -1,26 +1,36 @@
-<about-us>
+<hero-slider content="heroContent" class="decoration-image"></hero-slider>
 
-  <h1>About <strong>{{chain.nameLong}}</strong></h1>
+<breadcrumbs></breadcrumbs>
 
-  <figure>
-    <p><a ng-if="chain.images.length" href="#" ng-click="openGallery()">View more images</a></p>
-    <img ng-src="chain.images[0].uri" alt="{{chain.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
-  </figure>
+<main typo-grid class="grid-wrapper">
 
-  <p>{{chain.description}}</p>
+  <about-us>
 
-  <hr>
+    <h1 grid="12">About <strong>{{chain.nameLong}}</strong></h1>
 
-  <contacts-list>
-    <contact-item ng-repeat="contact in chain.contacts">
-      <h2>{{contact.name}}</h2>
-      <p>{{contact.address}}</p>
-      <p>{{contact.city}}, {{contact.country}} {{contact.zip}}</p>
-      <p>{{contact.tel}}</p>
-      <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
-    </contact-item>
-  </contacts-list>
+    <section grid-row>
+      <p grid="8">{{chain.description}}</p>
 
-  <hr>
+      <view-more-images grid="4">
+        <div><a ng-if="chain.images.length" href="" ng-click="openGallery()">View more images</a></div>
+        <img ng-src="chain.images[0].uri" alt="{{chain.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
+      </view-more-images>
+    </section>
 
-</about-us>
+    <hr>
+
+    <contacts-list grid="12">
+      <contact-item ng-repeat="contact in chain.contacts">
+        <h2>{{contact.name}}</h2>
+        <p>{{contact.address}}</p>
+        <p>{{contact.city}}, {{contact.country}} {{contact.zip}}</p>
+        <p>{{contact.tel}}</p>
+        <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
+      </contact-item>
+    </contacts-list>
+
+    <hr>
+
+  </about-us>
+
+</main>

@@ -5,9 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user', 'locationService',
-  '$q', 'modalService', '$controller',
+  '$q', 'modalService', '$controller', 'breadcrumbsService',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory, _, user, locationService, $q, modalService, $controller){
+    preloaderFactory, _, user, locationService, $q, modalService, $controller,
+    breadcrumbsService){
   return {
     restrict: 'E',
     scope: {},
@@ -15,6 +16,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
     // Widget logic goes here
     link: function(scope){
+      breadcrumbsService.clear().addBreadCrumb('Hotel Search');
 
       $controller('MainCtrl', {$scope: scope});
 
@@ -59,6 +61,8 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.view = 'tiles';
       scope.minStars = 0;
       scope.maxStars = 5;
+      scope.minRating = 0;
+      scope.maxRating = 5;
 
       function getProperties(params){
         // Loading hotels
@@ -89,7 +93,6 @@ angular.module('mobiusApp.directives.hotels', [])
         if(scope.location && scope.location.code) {
           preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
             scope.locationDetails = location;
-            scope.openGallery = modalService.openGallery.bind(modalService, location.images);
           }));
         } else {
           scope.locationDetails = null;
@@ -133,13 +136,30 @@ angular.module('mobiusApp.directives.hotels', [])
         }
       };
 
+      scope.setMinRating = function(rating) {
+        scope.minRating = rating;
+        if(scope.maxRating < scope.minRating) {
+          scope.maxRating = scope.minRating;
+        }
+      };
+
+      scope.setMaxRating = function(rating) {
+        scope.maxRating = rating;
+        if(scope.minRating > scope.maxRating) {
+          scope.minRating = scope.maxRating;
+        }
+      };
+
       scope.hotelFilter = function(hotel) {
         return (
           (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) &&
           (scope.minStars <= hotel.rating && hotel.rating <= scope.maxStars) &&
+          (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating <= scope.maxRating) &&
           (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode))
         );
       };
+
+      scope.openLocationDetail = modalService.openLocationDetail;
     }
   };
 }]);

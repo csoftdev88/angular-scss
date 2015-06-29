@@ -1,0 +1,111 @@
+///////////////////////
+//// CONTACTS PAGE ////
+///////////////////////
+
+contacts-page {
+
+  //- Page Heading
+  h1 {
+    font-size: @size-3;
+    margin-bottom: @baseline;
+  }
+
+  //- Form
+  form {
+    display: flex;
+    flex-flow: wrap;
+    margin-bottom: @baseline;
+
+    // Columns
+    fieldset {
+      box-sizing: border-box;
+      flex: 1;
+      width: 50%;
+
+      &:first-of-type {
+        padding-right: @baseline / 2;
+      }
+
+      &:last-of-type {
+        padding-left: @baseline / 2;
+      }
+    }
+
+    > div {
+      flex: 2 0 100%;
+      width: 100%;
+
+
+      // Submit button
+      button-submit {
+        float: right;
+      }
+    }
+
+    // Inputs adjustment
+    form-element {
+      margin-bottom: @baseline * 2;
+
+      &:last-of-type {
+        margin-bottom: @baseline;
+      }
+
+      form-label {
+        font-size: @size-0;
+        line-height: @baseline;
+      }
+
+      input[type=text],
+      input[type=email] {
+        height: @baseline * 2;
+
+        line-height: @baseline * 2;
+      }
+
+      textarea {
+        height: 200px;
+      }
+
+      error-message {
+        position: absolute;
+
+        color: @c-error;
+      }
+    }
+  }
+
+  //- List of Contact
+  contact-item {
+    display: block;
+    margin-bottom: @baseline;
+
+    font-size: @size--1;
+
+    // Name of place
+    h2 {
+      font-weight: 700;
+    }
+
+    // Telephone
+    p:nth-of-type(1):before {
+      .fa;
+
+      padding-right: @baseline / 5;
+
+      content: @fa-var-phone;
+    }
+
+    // Email
+    p:nth-of-type(2):before {
+      .fa;
+
+      padding-right: @baseline / 5;
+
+      content: @fa-var-envelope;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}

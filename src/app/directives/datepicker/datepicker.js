@@ -215,8 +215,11 @@ angular.module('mobiusApp.directives.datepicker', [])
            dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED + highlightClasses: highlightClasses);
       }
 
-      scope.$watch('highlights', function(){
+      var unWatchHiglights = scope.$watch('highlights', function(){
         element.datepicker( 'refresh' );
+      });
+      scope.$on('$destroy', function(){
+        unWatchHiglights();
       });
     }
   };

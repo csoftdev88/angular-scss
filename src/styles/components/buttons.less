@@ -2,6 +2,23 @@
 
 @c-button: @c-green;
 
+button {
+  display: inline-block;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: @size-0;
+  line-height: @baseline * 1.5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
 //- Button Submit
 .button,
 button-submit {
@@ -26,6 +43,12 @@ button-submit {
   &:hover {
     background: darken(@c-button, 5%);
   }
+}
+
+.button[disabled="disabled"],
+button-submit[disabled="disabled"] {
+  background: @c-disabled;
+  border-bottom: 1px solid darken(@c-disabled, 10%);
 }
 
 
@@ -66,7 +89,94 @@ button-remove {
 
   &:before {
     .fa;
-
     content: @fa-var-close;
+  }
+}
+
+//- Button Next -> used in Reservation
+button-next,
+button.next {
+  &:extend(button);
+
+  position: relative;
+  height: @baseline * 2;
+  padding: 0 70px 0 30px; // 30px + 40px width of icon
+
+  color: @c-white;
+  background: @c-button;
+
+  font-size: @size-1;
+  line-height: @baseline * 2;
+  box-shadow: 0 2px 0 0 darken(@c-button, 5%);
+  transition: background-color 0.15s linear;
+
+  &:hover {
+    background-color: darken(@c-button, 5%);
+  }
+
+  &:focus {
+    background-color: darken(@c-button, 8%);
+  }
+
+  &:active {
+    box-shadow: 0 1px 0 0 darken(@c-button, 5%);
+    transform: translateY(1px);
+  }
+
+  // Arrow in right part of button
+  &:after {
+    .fa;
+    content: @fa-var-angle-right;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    border-left: 1px solid lighten(@c-button, 10%);
+
+    line-height: 40px;
+    font-size: @size-4;
+    text-align: center;
+
+    box-shadow: -2px 0 0 -1px darken(@c-button, 10%);
+  }
+}
+
+//- Button Back -> used in Reservation
+button-back,
+button.back {
+  &:extend(button);
+
+  border: none;
+  background: transparent;
+  color: @c-gray;
+
+  font-size: @size-2;
+  font-weight: normal;
+  line-height: @baseline * 2;
+
+  &:hover,
+  &:focus {
+    color: @c-black;
+
+    &:before {
+      border-color: @c-black;
+    }
+  }
+
+  // Arrow on left side
+  &:before {
+    .fa;
+    content: @fa-var-angle-left;
+
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    border: 1px solid @c-gray;
+    border-radius: 50%;
+
+    font-size: @size-3;
+    text-align: center;
   }
 }

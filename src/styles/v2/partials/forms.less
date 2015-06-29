@@ -1,6 +1,7 @@
 input[type="text"],
 input[type="number"],
 input[type="date"],
+input[type="month"],
 input[type="email"],
 input[type="password"] {
   display: block;
@@ -21,6 +22,12 @@ input[type="password"] {
     border: 1px solid @colorInputBorder;
     .inner-shadow();
   }
+}
+
+input[type="number"],
+input[type="date"],
+input[type="month"] {
+  padding-right: 0px;
 }
 
 input[type="text"][datepicker-popup] {
@@ -95,4 +102,22 @@ label {
 .form-errors {
   color: red;
   font-weight: 400;
+
+  &.centered {
+    text-align: center;
+  }
+}
+
+input,
+select {
+  &.ng-invalid {
+    border-color: red;
+  }
+}
+
+.alert-warning {
+  display: block;
+  padding: 20px;
+  background-color: #EF8E8E;
+  color: #fff;
 }

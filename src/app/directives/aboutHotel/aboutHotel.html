@@ -43,33 +43,19 @@
   </div>
 </div>
 
-<section grid-row class="offers-list">
-  <article grid="4">
-    <a href="#">
-      <img class="grid-img" src="/static/images/v4/about-offer-1.png" alt="Free room upgrade">
+<offers-list grid-row>
+  <article grid="4" ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'offer', 'code': offer.code})">
+      <img class="grid-img" ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
 
-      <h2>Free room <strong>upgrade</strong></h2>
-      <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
+      <h2>{{offer.title}}</h2>
+      <div ng-bind-html="offer.subtitle"></div>
 
-      <span>Read More</span>
-    </a>
+    <span>Read more</span>
   </article>
 
-  <article grid="4">
-    <a href="#">
-      <img class="grid-img" src="/static/images/v4/about-offer-2.png" alt="Free room upgrade">
-
-      <h2>Champagne <strong>breakfast</strong></h2>
-      <p>Lorem ipsum dolor sit amet, vim omnes indoctum voluptatibus ea. Dicta choro quaeque duo eu, sed ne tamquam invidunt concludaturque. Prima dicunt voluptatum vel cu</p>
-
-      <span>Read More</span>
+  <article grid="4" class="add" ng-repeat="randomAdvert in randomAdverts track by $index">
+    <a href="#" ng-click="advertClick(randomAdvert.link)" ng-show="randomAdverts[$index]">
+      <img class="grid-img" ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}"  err-source="http://lorempixel.com/300/160/">
     </a>
   </article>
-
-  <article grid="4" class="add">
-    <a href="#">
-      <img class="grid-img" src="/static/images/v4/about-offer-3.png" alt="Free room upgrade">
-      <p>Download our mobile app for great rates!</p>
-    </a>
-  </article>
-</section>
+</offers-list>

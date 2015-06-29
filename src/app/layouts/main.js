@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '$filter',
+    'contentService', 'Settings', 'user', '$controller', '_',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, $filter) {
+      contentService, Settings, user, $controller, _) {
 
       // Application settings
       $scope.config = Settings.UI;
@@ -33,44 +33,28 @@ angular.module('mobius.controllers.main', [])
 
         // Images for the rest of the states will be taken
         // from the configuration.
-        var heroContent = Settings.UI.heroContent[stateName];
+        var heroContent = Settings.UI.heroStaticContent[stateName];
         if (heroContent) {
           $scope.heroContent = heroContent;
         } else {
-          // Showing demo logo
-          $scope.heroContent = [
-            {
-              'image': '/static/images/hero.jpg'
-            }
-          ];
+          $scope.heroContent = Settings.UI.heroStaticContent['default'];
         }
       };
 
       function loadHighlights() {
-        // Getting content hights
-        contentService.getHighlightedItems().then(function(data) {
-          var heroContent = [];
-
-          for (var key in data) {
-            var group = data[key];
-            for (var i = 0; i < group.length; i++) {
-              var item = group[i];
-              if (item.showOnHomepage && item.image) {
-                heroContent.push(item);
+        contentService.getAdverts({bannerSize: Settings.UI.adverts.randomMainPageAdvertSize}).then(
+          function (response) {
+            $scope.heroContent = _.reduce(response, function(object, advert){
+              if(!_.isEmpty(advert.images)) {
+                var imageObject = advert.images[0];
+                imageObject.link = advert.link;
+                object.push(imageObject);
               }
-            }
+              return object;
+            }, []);
           }
-
-          $scope.heroContent = orderByFilter(heroContent, '+order');
-        });
+        );
       }
-
-      $scope.toPoints = function(price) {
-        var user = $scope.user.getUser();
-        if (user && user.loyalties) {
-          return $filter('i18nNumber')(price * user.loyalties.cashToPoints, 2);
-        }
-      };
 
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;

@@ -3,19 +3,19 @@
 * This service controls opening of all dialogs in the application
 */
 angular.module('mobiusApp.services.modal', [])
-.service( 'modalService',  function($modal, $q, $log, queryService) {
+.service( 'modalService',  function($modal, $q, $log, $modalStack, queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
-      CONTROLLER_RESERVATIONS = 'ModalReservationCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
       CONTROLLER_BADGES = 'BadgesCtrl',
-      CONTROLLER_LOAYALTY = 'LoyaltyCtrl',
-      CONTROLLER_GALLERY = 'GalleryCtrl',
+      CONTROLLER_ADDON = 'AddonDetailCtrl',
+      CONTROLLER_LOCATION = 'LocationDetailCtrl',
+
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
     var q = $q.defer(),
-        modalOptions = { templateUrl: templateUrl, controller: controller, windowTemplateUrl: 'layouts/modals/window.html'  };
+        modalOptions = { templateUrl: templateUrl, controller: controller, windowTemplateUrl: 'layouts/modals/window.html'};
 
     // Merge required and arbitrary options together
     angular.extend(modalOptions, options);
@@ -37,9 +37,19 @@ angular.module('mobiusApp.services.modal', [])
 
   // Accepting reservation data to be rendered in modal window
   function openCancelReservationDialog(reservation){
-    return openDialog('CancelReservationDialog', 'layouts/modals/cancelReservationDialog.html', CONTROLLER_RESERVATIONS, {
+    return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelReservationDialog.html', CONTROLLER_DATA, {
       windowClass: 'is-wide has-white-bg',
-      resolve: {reservation: function(){return reservation;}}
+      resolve: {data: function(){return reservation;}}
+    });
+  }
+
+  function openAddonDetailDialog(addAddon, addon){
+    return openDialog('AddonDetailDialog', 'layouts/modals/reservation/addonDetailDialog.html', CONTROLLER_ADDON, {
+      windowClass: 'is-wide has-white-bg',
+      resolve: {
+        addon: function(){return addon;},
+        addAddon: function(){return addAddon;}
+      }
     });
   }
 
@@ -94,8 +104,13 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openBadgesDialog(badges){
+    // NOTE: We need to close other dialogues instances
+    // since booking widget is not covered by a modal backdrop
+    $modalStack.dismissAll();
+
     return openDialog('Badges', 'layouts/modals/loyalties/badges.html', CONTROLLER_BADGES, {
       windowClass: 'dialog-badges',
+      backdropClass: 'modal-footer',
       resolve: {
         data: function(){
           return badges;
@@ -105,8 +120,11 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openLoyaltyDialog(loyalty){
-    return openDialog('Loyalties', 'layouts/modals/loyalties/loyalty.html', CONTROLLER_LOAYALTY, {
+    $modalStack.dismissAll();
+
+    return openDialog('Loyalties', 'layouts/modals/loyalties/loyalty.html', CONTROLLER_DATA, {
       windowClass: 'dialog-loyalty',
+      backdropClass: 'modal-footer',
       resolve: {
         data: function(){
           return loyalty;
@@ -115,12 +133,37 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  // NOTE: images - list of URLs
   function openGallery(images){
-    return openDialog('openGallery', 'layouts/modals/imagesGallery.html', CONTROLLER_GALLERY, {
+    return openDialog('openGallery', 'layouts/modals/lightbox.html', CONTROLLER_DATA, {
+      windowClass: 'lightbox',
+      backdropClass: 'modal-lightbox',
+      resolve: {
+        data: function(){
+          return images.map(function(url){return {image: url};});
+        }
+      }
+    });
+  }
+
+  function openLocationDetail(location){
+    return openDialog('openGallery', 'layouts/modals/locationDetail.html', CONTROLLER_LOCATION, {
       windowClass: 'is-wide',
       resolve: {
         data: function(){
-          return images;
+          return location;
+        }
+      }
+    });
+  }
+
+  // NOTE: Same block should be used for other details dialogues but using a different template URL
+  function openAssociatedRoomDetail(roomDetails) {
+    return openDialog('openDetails', 'layouts/modals/associatedRooms.html', CONTROLLER_DATA, {
+      windowClass: 'details',
+      resolve: {
+        data: function(){
+          return roomDetails;
         }
       }
     });
@@ -129,6 +172,7 @@ angular.module('mobiusApp.services.modal', [])
   // Public methods
   return {
     openCancelReservationDialog: openCancelReservationDialog,
+    openAddonDetailDialog: openAddonDetailDialog,
     openCCVInfo: openCCVInfo,
     openPoliciesInfo: openPoliciesInfo,
     openPriceBreakdownInfo: openPriceBreakdownInfo,
@@ -137,6 +181,8 @@ angular.module('mobiusApp.services.modal', [])
     openBadgesDialog: openBadgesDialog,
     openLoyaltyDialog: openLoyaltyDialog,
     // gallery
-    openGallery: openGallery
+    openGallery: openGallery,
+    openAssociatedRoomDetail: openAssociatedRoomDetail,
+    openLocationDetail: openLocationDetail
   };
 });

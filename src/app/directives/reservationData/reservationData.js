@@ -2,15 +2,18 @@
 
 angular.module('mobiusApp.directives.reservation.data', [])
 
-.directive('reservationData', function(){
+.directive('reservationData', function($controller){
   return {
     restrict: 'E',
-    scope: {reservation: '=reservation'},
+    scope: {
+      reservation: '=',
+      property: '='
+    },
     templateUrl: 'directives/reservationData/reservationData.html',
 
     // Widget logic goes here
-    link: function(){
+    link: function(scope){
+      $controller('ReservationDirectiveCtrl', {$scope: scope});
     }
-
   };
 });

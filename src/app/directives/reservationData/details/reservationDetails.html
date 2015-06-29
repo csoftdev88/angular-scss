@@ -1,0 +1,28 @@
+<div>
+  <reservation-hotel-details ng-class="{'inactive': !reservation.active}">
+    <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+
+    {{property.nameShort}}
+    {{property.rating}}
+    Total: {{reservation.priceAfterDiscount}}
+
+    Adults: {{getAdultsCount()}}
+
+    Children: {{getChildrenCount()}}
+
+    <!-- MULTI-ROOM? -->
+    {{reservation.rooms[0].roomTypeName}}
+    {{reservation.rooms[0].packageName}}
+
+    Check In: {{reservation.arrivalDate }}
+    Check out: {{reservation.departureDate}}
+
+    Room Charges: {{getPrice()}}
+    Taxes: {{getTax()}}
+
+    TOTAL: {{getPriceAfterTax()}}
+
+    Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}
+
+  </reservation-hotel-details>
+</div>

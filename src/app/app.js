@@ -26,16 +26,18 @@ angular
     'mobius.controllers.about',
     'mobius.controllers.offers',
     'mobius.controllers.news',
+    'mobius.controllers.contacts',
     'mobius.controllers.reservations',
+    'mobius.controllers.reservation',
+    'mobius.controllers.hotel.details',
+    'mobius.controllers.room.details',
+
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
-    'mobius.controllers.modals.reservation',
     'mobius.controllers.modals.policy',
-    'mobius.controllers.modals.loyalties.loyalty',
     'mobius.controllers.modals.loyalties.badges',
-    'mobius.controllers.modals.gallery',
-
-    'mobius.controllers.hotel.details',
+    'mobius.controllers.modals.addonDetail',
+    'mobius.controllers.modals.locationDetail',
 
     // Application modules
     'mobiusApp.config',
@@ -56,6 +58,10 @@ angular
     'mobiusApp.services.creditCardType',
     'mobiusApp.services.userMessagesService',
     'mobiusApp.services.chains',
+    'mobiusApp.services.forms',
+    'mobiusApp.services.adverts',
+    'mobiusApp.services.reservation',
+    'mobiusApp.services.breadcrumbs',
 
     // Factories
     'mobiusApp.factories.template',
@@ -70,12 +76,19 @@ angular
     'mobiusApp.directives.room',
     'mobiusApp.directives.room.aside',
     'mobiusApp.directives.reservation.data',
+    'mobiusApp.directives.reservation.details',
     'mobiusApp.directives.equals',
     'mobiusApp.directives.resize.watcher',
     'mobiusApp.directives.dropdown.group',
     'mobiusApp.directives.datepicker',
-    'mobiusApp.directives.password',
     'mobiusApp.directives.chosenOptionsClass',
+    'mobiusApp.directives.creditCardCheck',
+    'mobiusApp.directives.monthPicker',
+    'mobiusApp.directives.hotelLocation',
+    'mobiusApp.directives.emailCheck',
+    // Common controllers
+    'mobius.controllers.reservation.directive',
+
     // Directive based on content data
     'mobiusApp.directives.menu',
     // Directives for generic data
@@ -88,12 +101,15 @@ angular
     'mobiusApp.directives.localInfo',
     'mobiusApp.directives.userMessages',
     'mobiusApp.directives.imageCarousel',
+    'mobiusApp.directives.breadcrumbs',
 
     // Filters
     'mobiusApp.filters.list',
     'mobiusApp.filters.number',
     'mobiusApp.filters.currency',
-    'mobiusApp.filters.pluralization'
+    'mobiusApp.filters.pluralization',
+    'mobius.filters.dateTime',
+    'mobius.filters.checkInDate'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -109,7 +125,17 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&region&children&adults&dates&rate&rooms&groupCode&corpCode&promoCode'
+        url: '?property&region&children&adults&dates&rate&rooms&promoCode',
+        data: {},
+        resolve: {
+          userObject: function(user) {
+            return user.loadProfile().then(function(userObject) {
+              return userObject;
+            }, function() {
+              return {};
+            });
+          }
+        }
       })
 
       // Home page
@@ -136,40 +162,55 @@ angular
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
+        controller: 'RoomDetailsCtrl',
         url: '/hotels/:propertyCode/rooms/:roomID'
+      })
+
+      .state('reservations', {
+        parent: 'root',
+        templateUrl: 'layouts/reservations/reservations.html',
+        url: '/reservations',
+        controller: 'ReservationsCtrl',
+        data: {
+          private: true
+        }
       })
 
       // Room reservation
       .state('reservation', {
         parent: 'root',
-        templateUrl: 'layouts/reservation/reservation.html',
-        url: '/reservation',
-        controller: 'ReservationsCtrl'
+        template: '<ui-view></ui-view>',
+        url: '/reservation/:roomID/:productCode',
+        controller: 'ReservationCtrl'
       })
 
+      .state('reservation.process', {
+        parent: 'reservation',
+        templateUrl: 'layouts/reservations/reservation/reservation.html',
+        abstract: true
+      })
       .state('reservation.details', {
-        parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationDetails.html',
-        url: '/details'
+        parent: 'reservation.process',
+        templateUrl: 'layouts/reservations/reservation/details.html'
       })
-
       .state('reservation.billing', {
-        parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationBilling.html',
-        url: '/billing'
+        parent: 'reservation.process',
+        templateUrl: 'layouts/reservations/reservation/billing.html'
       })
-
       .state('reservation.confirmation', {
-        parent: 'reservation',
-        templateUrl: 'layouts/reservation/reservationConfirmation.html',
-        url: '/confirmation'
+        parent: 'reservation.process',
+        templateUrl: 'layouts/reservations/reservation/confirmation.html'
       })
 
-       // Offers page
+      .state('reservation.after', {
+        parent: 'reservation',
+        templateUrl: 'layouts/reservations/reservation/after.html'
+      })
+
       .state('offers', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
-        url: '/offers/:category/:offerID',
+        url: '/offers/:code',
         controller: 'OffersCtrl'
       })
 
@@ -177,14 +218,16 @@ angular
       .state('news', {
         parent: 'root',
         templateUrl: 'layouts/news/news.html',
-        url: '/news/',
+        url: '/news/:code',
         controller: 'NewsCtrl'
       })
+
       // Contact page
       .state('contacts', {
         parent: 'root',
         templateUrl: 'layouts/contacts/contacts.html',
-        url: '/contacts'
+        url: '/contacts',
+        controller: 'ContactsCtrl'
       })
 
       // About Us oage
@@ -200,4 +243,20 @@ angular
       var $window = $injector.get('$window');
       $window.location.href = '/404';
     });
+  })
+
+  .run(function(user, $rootScope, $state, breadcrumbsService) {
+    // $stateChangeSuccess is used because resolve on controller is ready
+    $rootScope.$on('$stateChangeSuccess', function(event, next) {
+      if (next.data.private) {
+        var loggedIn = user.isLoggedIn();
+        if (!loggedIn) {
+          // Redirect to home page
+          event.preventDefault();
+          $state.go('home');
+        }
+      }
+      breadcrumbsService.clear();
+    });
   });
+

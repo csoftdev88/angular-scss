@@ -1,61 +1,48 @@
-<div>
-  <reservation-hotel>
-    <img src="/static/images/hotel.jpg" alt="{{reservation.hotel.name}}">
-    <p><strong>{{reservation.hotel.name}}</strong></p>
-    <p>{{reservation.hotel.country}}</p>
-  </reservation-hotel>
-  <reservation-check-in>
-    <table>
-      <tr>
-        <th>Check in:</th>
-        <td>{{reservation.checkin}}</td>
-      </tr>
-      <tr>
-        <th>Check out:</th>
-        <td>{{reservation.checkout}}</td>
-      </tr>
-    </table>
-  </reservation-check-in>
-  <reservation-charges>
-    <table>
-      <tr>
-        <th>Room charges:</th>
-        <!-- TODO: Replace number filter with proper currency filter -->
-        <td>{{reservation.charges | i18nCurrency: $root.currencyCode}}</td>
-      </tr>
-      <tr>
-        <th>Tax:</th>
-        <td>{{reservation.tax | i18nCurrency: $root.currencyCode}}</td>
-      </tr>
-      <tr>
-        <th>Total:</th>
-        <td><strong>{{reservation.total | i18nCurrency: $root.currencyCode}}</strong></td>
-      </tr>
-    </table>
-  </reservation-charges>
+<div ng-class="{'inactive': reservation.status !== 'active'}">
+    <div class="property-preview">
+      <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+    </div>
+
+    <check-in-date>
+      <span class="title">Check In</span>
+      <span class="date">
+         {{reservation.arrivalDate | checkInDate }}
+      </span>
+    </check-in-date>
+
+    <div class="content">
+      <div class="header">
+        <h2>{{property.nameLong}} <strong>{{property.city}}</strong></h2>
+        <span>Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
+      </div>
+
+    <div class="rating">
+      <ul class="stars">
+        <li ng-repeat="rating in [1,2,3,4,5]"  ng-class="{included: rating <= property.rating}"></li>
+      </ul>
+    </div>
+
+      <div class="details">
+        <div class="total">
+           <span class="title">Total:</span>
+           <span class="value">{{reservation.priceAfterDiscount | i18nCurrency: $root.currencyCode}}</span>
+        </div>
+
+        <div class="guests">
+          <div>
+            <span class="title">Adults:</span>
+            <span class="value">{{getAdultsCount()}}</span>
+          </div>
+          <div>
+            <span class="title">Children:</span>
+            <span class="value">{{getChildrenCount()}}</span>
+          </div>
+        </div>
+
+        <div class="desc">
+          <p class="value">{{reservation.rooms[0].roomTypeName}}</p>
+          <p class="value">{{reservation.rooms[0].packageName}}</p>
+        </div>
+      </div>
+    </div>
 </div>
-<reservation-room ng-repeat="room in reservation.rooms">
-  <div>
-    <img src="/static/images/room-1.jpg" alt="{{room.type}}">
-    <p><strong>{{room.type}}</strong></p>
-    <p>{{room.rate}}</p>
-    <p><strong>{{room.price | i18nCurrency: $root.currencyCode}}</strong></p>
-  </div>
-  <div>
-    <table>
-      <tr>
-        <th>Adults:</th>
-        <td>{{room.adults}}</td>
-      </tr>
-      <tr>
-        <th>Children:</th>
-        <td>{{room.children}}</td>
-      </tr>
-    </table>
-  </div>
-  <div class="more-details" ng-if="$index === 0">
-    <a href ng-click="openPoliciesInfo()">View Policies</a>
-    <br/>
-    <a href ng-click="openPriceBreakdownInfo()">View Price Breakdown</a>
-  </div>
-</reservation-room>

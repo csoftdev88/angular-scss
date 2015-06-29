@@ -89,7 +89,7 @@ module.exports = function(grunt) {
         expand: true,
         sourceMap: true,
         cwd: '<%= config.client %>/',
-        src: 'styles/main.less',
+        src: 'styles/style.less',
         dest: '<%= config.build %>/',
         ext: '.css'
       },
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         cwd: '<%= config.client %>/',
-        src: 'styles/main.less',
+        src: 'styles/style.less',
         dest: '<%= config.compile %>/',
         ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
@@ -110,21 +110,7 @@ module.exports = function(grunt) {
 
     autoprefixer: {
       options: {
-        diff: '<%= config.build %>/styles/autoprefixer.patch',
-        browsers: [
-          '> 1%',
-          'last 2 versions',
-          'Firefox ESR',
-          'Opera 12.1',
-          'ie 8',
-          'ie 9',
-          'ie 10',
-          'Android > 2',
-          'bb 10',
-          'last 2 op_mob versions',
-          'last 2 and_chr versions',
-          'last 2 ie_mob versions'
-        ]
+        diff: '<%= config.build %>/styles/autoprefixer.patch'
       },
       dist: {
         src: '<%= config.build %>/<%= config.styles %>'

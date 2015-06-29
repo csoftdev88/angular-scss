@@ -1,0 +1,190 @@
+<reservation-confirmation>
+  <tabset>
+    <tab heading="Guest Details">
+      <table>
+        <tbody>
+          <tr>
+            <th>First name:</th>
+            <td>{{userDetails.firstName}}</td>
+          </tr>
+          <tr>
+            <th>Last name:</th>
+            <td>{{userDetails.lastName}}</td>
+          </tr>
+          <tr>
+            <th>Email:</th>
+            <td>{{userDetails.email}}</td>
+          </tr>
+          <tr>
+            <th>Primary Telephone:</th>
+            <td>{{userDetails.phone}}</td>
+          </tr>
+          <tr>
+            <th>Address:</th>
+            <td>{{userDetails.address}}</td>
+          </tr>
+          <tr>
+            <th>City:</th>
+            <td>{{userDetails.city}}</td>
+          </tr>
+          <tr>
+            <th>State/Province:</th>
+            <td>{{userDetails.stateProvince}}</td>
+          </tr>
+          <tr>
+            <th>Country:</th>
+            <td>{{userDetails.country}}</td>
+          </tr>
+          <tr>
+            <th>Zip/Postal Code:</th>
+            <td>{{userDetails.zip}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <tab heading="Billing Details">
+      <table>
+        <tbody>
+          <tr>
+            <th>Card number:</th>
+            <td>
+              <i ng-class="getCreditCardDetails(billingDetails.card.number).icon"></i>
+              {{billingDetails.card.number}}
+            </td>
+          </tr>
+          <tr>
+            <th>Expires:</th>
+            <td>{{billingDetails.card.expirationDate}}</td>
+          </tr>
+          <tr>
+            <th>CVV:</th>
+            <td>{{billingDetails.card.securityCode}}</td>
+          </tr>
+          <tr>
+            <th>Name on Card:</th>
+            <td>{{billingDetails.card.holderName}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table ng-if="!billingDetails.useGuestAddress">
+        <thead>
+          <tr>
+            <th colspan="2">Guest Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Address:</th>
+            <td>{{billingDetails.address}}</td>
+          </tr>
+          <tr>
+            <th>City:</th>
+            <td>{{billingDetails.city}}</td>
+          </tr>
+          <tr>
+            <th>State/Province:</th>
+            <td>{{billingDetails.stateProvince}}</td>
+          </tr>
+          <tr>
+            <th>Country:</th>
+            <td>{{billingDetails.country}}</td>
+          </tr>
+          <tr>
+            <th>Zip/Postal Code:</th>
+            <td>{{billingDetails.zip}}</td>
+          </tr>
+          <tr>
+            <th>Primary Telephone:</th>
+            <td>{{billingDetails.phone}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <tab heading="Additional Details">
+      <form name="forms.additionalInfo" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
+          <label for="form-arrival-time" class="input-left">
+            <select id="form-arrival-time" ng-model="additionalInfo.arrivalTime">
+              <option value="">Arrival Time</option>
+              <option value="5 AM">5 AM</option>
+              <option value="6 AM">6 AM</option>
+              <option value="7 AM">7 AM</option>
+              <option value="8 AM">8 AM</option>
+              <option value="9 AM">9 AM</option>
+              <option value="10 AM">10 AM</option>
+              <option value="11 AM">11 AM</option>
+              <option value="12 PM">12 PM</option>
+              <option value="1 PM">1 PM</option>
+              <option value="2 PM">2 PM</option>
+              <option value="3 PM">3 PM</option>
+              <option value="4 PM">4 PM</option>
+              <option value="5 PM">5 PM</option>
+              <option value="6 PM">6 PM</option>
+              <option value="7 PM">7 PM</option>
+              <option value="8 PM">8 PM</option>
+              <option value="9 PM">9 PM</option>
+              <option value="10 PM">10 PM</option>
+              <option value="11 PM">11 PM</option>
+              <option value="12 AM">12 PM</option>
+            </select>
+            <span>Arrival Time</span>
+          </label>
+
+          <label for="arrival-method" class="input-right">
+            <select id="arrival-method"
+              ng-model="additionalInfo.arrivalMethod"
+              ng-options="item.apiValue as item.apiValue for item in possibleArrivalMethods">
+              <option value="">Arrival Method</option>
+            </select>
+            <span>Arrival Method</span>
+          </label>
+
+          <label for="form-departure-time">
+            <select id="form-departure-time" ng-model="additionalInfo.departureTime" placeholder="Departure Time">
+              <option value="">Departure Time</option>
+              <option value="1 AM">1 AM</option>
+              <option value="2 AM">2 AM</option>
+              <option value="3 AM">3 AM</option>
+              <option value="4 AM">4 AM</option>
+              <option value="5 AM">5 AM</option>
+              <option value="6 AM">6 AM</option>
+              <option value="7 AM">7 AM</option>
+              <option value="8 AM">8 AM</option>
+              <option value="9 AM">9 AM</option>
+              <option value="10 AM">10 AM</option>
+              <option value="11 AM">11 AM</option>
+              <option value="12 PM">12 PM</option>
+              <option value="1 PM">1 PM</option>
+              <option value="2 PM">2 PM</option>
+              <option value="3 PM">3 PM</option>
+              <option value="4 PM">4 PM</option>
+              <option value="5 PM">5 PM</option>
+              <option value="6 PM">6 PM</option>
+              <option value="7 PM">7 PM</option>
+              <option value="8 PM">8 PM</option>
+              <option value="9 PM">9 PM</option>
+              <option value="10 PM">10 PM</option>
+              <option value="11 PM">11 PM</option>
+              <option value="12 AM">12 PM</option>
+            </select>
+            <span>Departure Time</span>
+          </label>
+
+          <label for="form-name-on-card">
+            <input type="text" id="form-name-on-card"
+              placeholder="2nd Phone Number"
+              ng-model="additionalInfo.secondPhoneNumber"/>
+            <span>2nd Phone Number</span>
+          </label>
+
+          <label for="comments">
+            <textarea id="comments" placeholder="Comments" ng-model="additionalInfo.comments"></textarea>
+            <span>Comments</span>
+          </label>
+
+        <input type="submit" id="submit" value="Submit" ng-hide="true" />
+        </form>
+    </tab>
+  </tabset>
+</reservation-confirmation>

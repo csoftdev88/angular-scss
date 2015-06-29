@@ -1,0 +1,42 @@
+/////////////////////
+//// BASE STYLES ////
+/////////////////////
+
+body {
+  padding-bottom: 120px;
+
+  background: @c-background-body;
+  color: @c-base;
+}
+
+main {
+  margin-top: 2*@baseline;
+  position: relative;
+}
+
+a {
+  color: @c-link;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: lighten(@c-link, 10%);
+
+    text-decoration: none;
+  }
+}
+
+//- TODO: I don't know, what this is - do we need that
+[collapse] {
+  height: 0px;
+  overflow: hidden;
+  opacity: 0;
+  .transition;
+
+  &.in {
+    overflow: visible;
+    opacity: 1;
+    height: auto;
+  }
+}
+

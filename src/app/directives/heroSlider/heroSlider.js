@@ -2,16 +2,18 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($timeout, $state, $templateCache, Settings){
+.directive('heroSlider', function($timeout, $state, $templateCache, Settings,
+  advertsService, $window){
   return {
     restrict: 'E',
     scope: {
-      content: '='
+      content: '=',
+      advert: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
     // Widget logic goes here
-    link: function(scope, elem){
+    link: function(scope, elem, attrs){
       var SELECTOR_SLIDER_CONTENT = '.slider-content';
       var CLASS_SLIDING_IN = 'sliding-in';
       var CLASS_SLIDING_OUT = 'sliding-out';
@@ -20,6 +22,8 @@ angular.module('mobiusApp.directives.slider', [])
 
       var SLIDE_TYPE_INFO = 'directives/heroSlider/slides/info.html';
       var SLIDE_TYPE_SIMPLE = 'directives/heroSlider/slides/simple.html';
+
+      var EVENT_KEYDOWN = 'keydown';
 
       var mainSlide;
       var followingSlide;
@@ -65,20 +69,26 @@ angular.module('mobiusApp.directives.slider', [])
         }
       }
 
-      scope.$watch('content', function() {
+      var unWatchContent = scope.$watch('content', function() {
         init();
+      });
+
+      scope.$on('$destroy', function(){
+        unWatchContent();
+
+        if(!!attrs.keyboard){
+          angular.element($window).unbind(EVENT_KEYDOWN);
+        }
       });
 
       // Redirecting to corresponding page
       scope.onContentClick = function(){
-        if(isAnimating){
+        if(isAnimating || !scope.advert){
           return;
         }
 
         var slideData = scope.content[scope.slideIndex];
-        if(slideData && slideData.categoryName && slideData.id){
-          $state.go('offers', {category: slideData.categoryName, offerID: slideData.id});
-        }
+        advertsService.advertClick(slideData.link);
       };
 
       function createSlide(){
@@ -96,7 +106,7 @@ angular.module('mobiusApp.directives.slider', [])
 
         var slide = $(template)[0];
 
-        $(slide).css('background-image', 'url(' + slideData.image + ')');
+        $(slide).css('background-image', 'url(' + slideData.uri + ')');
         sliderContent.append(slide);
 
         return $(slide);
@@ -194,7 +204,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       function preloadImages(){
         for(var i=0; i<scope.content.length; i++){
-          var imageURL = scope.content[i].image;
+          var imageURL = scope.content[i].uri;
 
           preloadImage(imageURL);
         }
@@ -224,6 +234,19 @@ angular.module('mobiusApp.directives.slider', [])
         if(timerID!==undefined){
           clearInterval(timerID);
         }
+      }
+
+      if(!!attrs.keyboard){
+        angular.element($window).bind(EVENT_KEYDOWN, function(e) {
+          // No keycode or escape is pressed
+          if(!e.keyCode || e.keyCode === 27){
+            return;
+          }
+
+          scope.$evalAsync(function(){
+            scope.slide(e.keyCode === 37, e);
+          });
+        });
       }
     }
   };

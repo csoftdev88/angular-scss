@@ -6,7 +6,16 @@ angular.module('mobiusApp.config', [])
   'API': {
     'chainCode': 'SAN',
     'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
-    'contents': 'contents',
+    'contents': {
+      'contents': 'contents',
+      'about': 'contents/about',
+      'news': 'contents/news',
+      'offers': 'contents/offers',
+      'adverts': {
+        'adverts': 'contents/adverts',
+        'random': 'contents/adverts/random'
+      }
+    },
     'chain': {
       'get': 'chains/:chainCode/'
     },
@@ -18,6 +27,10 @@ angular.module('mobiusApp.config', [])
       'products': 'filters/products',
       'rooms': 'filters/rooms'
     },
+    'forms': {
+      'contact' : 'forms/contact',
+      'contactSubmissions': 'forms/contact/submissions'
+    },
     'properties': {
       'all': 'properties',
       'details': 'properties/:propertyCode',
@@ -25,13 +38,17 @@ angular.module('mobiusApp.config', [])
       'room': {
         'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
-        'productDetails': 'properties/:propertyCode/rooms/:roomTypeCode/products'
+        'product': {
+          all: 'properties/:propertyCode/rooms/:roomTypeCode/products',
+          addons: 'properties/:propertyCode/rooms/:roomTypeCode/products/:productCode/addons/'
+        }
       }
     },
     'locations': {
+      'regions': 'regions/',
+      'region': 'regions/:regionCode',
       'locations': 'locations',
-      'location': 'locations/:locationCode',
-      'regions': 'regions/'
+      'location': 'locations/:locationCode'
     },
     'customers': {
       'customer': 'customers/:customerId'
@@ -39,6 +56,12 @@ angular.module('mobiusApp.config', [])
     // NOTE: Loyalties API will change - check apiary specs
     'loyalties': {
       'all': 'customers/:customerId/loyalty'
+    },
+    'reservations': {
+      'new': 'reservations',
+      'modify': 'reservations/:reservationCode',
+      // NOTE: Currently used for all/details - check the API
+      'all': 'reservations/'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
@@ -59,7 +82,10 @@ angular.module('mobiusApp.config', [])
       // solved on SSO side.
       'initDelay': 200
     },
-
+    'adverts' : {
+      'randomMainPageAdvertSize' : 'homepage-advert',
+      'heroAdverts': 'hero-advert'
+    },
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
       // are specified in ms.
@@ -79,22 +105,12 @@ angular.module('mobiusApp.config', [])
     },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the API.
-    'heroContent': {
-      'hotels': [
+    'heroStaticContent': {
+      'default': [
         {
-          'image': '/static/images/hero-image-1.jpg'
-        }
-      ],
-
-      'hotel': [
-        {
-          'image': '/static/images/hero-image-2.jpg'
-        }
-      ],
-
-      'room': [
-        {
-          'image': '/static/images/hero-image-2.jpg'
+          'bannerSize': 'hero-advert',
+          'uri': '/static/images/hero-image-1.jpg',
+          'alt': 'picture1'
         }
       ]
     },
@@ -184,6 +200,32 @@ angular.module('mobiusApp.config', [])
       }
     },
 
+    'booking': {
+      // Card types and validation expressions
+      'cardTypes': {
+        'visa': {
+          'code': 'VI',
+          'icon': 'visa',
+          'regex': /^4[0-9]{12}(?:[0-9]{3})?$/
+        },
+        'master': {
+          'code': 'MC',
+          'icon': 'master',
+          'regex': /^5[1-5][0-9]{14}$/
+        },
+        'amex': {
+          'code': 'AX',
+          'icon': 'amex',
+          'regex': /^3[47][0-9]{13}$/
+        },
+        'discover': {
+          'code': 'DS',
+          'icon': 'discover',
+          'regex': /^6(?:011|5[0-9]{2})[0-9]{3,}$/
+        }
+      }
+    },
+
     // States layout
     'layout': {
       'home': [
@@ -225,12 +267,65 @@ angular.module('mobiusApp.config', [])
       'noShow': 'No Show',
       'pet': 'Pet'
     },
+    'arrivalMethods': [
+      {
+        apiValue: 'Car',
+        display: '_car_'
+      },
+      {
+        apiValue: 'Bus',
+        display: '_bus_'
+      },
+      {
+        apiValue: 'Train',
+        display: '_train_'
+      },
+      {
+        apiValue: 'Plane',
+        display: '_plane_'
+      },
+      {
+        apiValue: 'Boat',
+        display: '_boat_'
+      },
+      {
+        apiValue: 'Other',
+        display: '_other_'
+      }
+    ],
     localTimeUpdates: {
       format: 'h.mm A',
       interval: 1000*60 // every minute
     },
     'imageCarousel': {
       minImages: 6
+    },
+
+    // Date formatting rules for reservations
+    'checkInDateFormats': {
+      'defaultFormat': 'MMM YYYY',
+      'rules': [
+        {
+          // It shows the day (day name) if the
+          // check in date is within the next 7 days
+          max: 8 * 86400000,
+          // Only for future dates
+          min: 0,
+          format: 'dd'
+        },
+        {
+          // If the check in date is between 8 and 90 days
+          // it shows the numeric date and the month (ie 5 Aug)
+          min: 8 * 86400000,
+          max: 90 * 86400000,
+          format: 'DD MMM'
+        },
+        {
+          // If it's 90 days away it shows the month and year
+          min: 90 * 86400000,
+          format: 'MMM YYYY'
+        }
+      ]
     }
   }
 });

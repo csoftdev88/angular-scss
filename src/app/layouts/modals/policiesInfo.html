@@ -4,7 +4,7 @@
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
   <div class="modal-body" ng-repeat="(policyCode, value) in data.policies">
-    <h4>{{getPolicyTitle(policyCode)}}
+    <h4>{{getPolicyTitle(policyCode)}}</h4>
     <p ng-bind-html="sanitize(value)"></p>
   </div>
 </div>

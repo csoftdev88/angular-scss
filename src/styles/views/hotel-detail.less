@@ -1,0 +1,65 @@
+///////////////////////
+//// HOTELS DETAIL ////
+///////////////////////
+
+hotel-detail {
+
+  > header {
+    margin-bottom: 2*@baseline;
+  }
+
+  // Page Heading
+  h1, h2 {
+    .h1;
+  }
+
+  h3 {
+    margin-bottom: @baseline;
+
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: @baseline;
+  }
+
+  //- Read more text button
+  a.read-more {
+    display: block;
+    float: right;
+    text-decoration: underline;
+  }
+
+  //- Location of hotel in map
+  map {
+    margin-bottom: @baseline;
+  }
+
+  //- Transportation
+  transportation-list {
+    display: flex;
+
+    font-size: @size--1;
+  }
+
+    transportation-item {
+      position: relative;
+
+      flex: 1;
+      padding: 0 @baseline @baseline @baseline*2.5;
+
+      // Name
+      h4 {
+        color: @c-link;
+
+        font-weight: 600;
+      }
+
+      // Icon
+      img {
+        position: absolute;
+        left: @baseline;
+        top: 9
+      }
+    }
+}

@@ -3,21 +3,27 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.content', [])
-.service( 'contentService',  function(apiService, Settings) {
+.service( 'contentService',  function(apiService) {
   function getNews(){
-    return apiService.get(apiService.getFullURL('contents'), {filter: 'news', chainCode: Settings.API.chainCode});
+    return apiService.get(apiService.getFullURL('contents.news'));
   }
 
   function getAbout(){
-    return apiService.get(apiService.getFullURL('contents'), {filter: 'about'});
+    return apiService.get(apiService.getFullURL('contents.about'));
   }
 
-  function getOffers(){
-    return apiService.get(apiService.getFullURL('contents'), {filter: 'specialOffer'});
+  function getOffers(parameters){
+    return apiService.get(apiService.getFullURL('contents.offers'), parameters);
   }
 
-  function getHighlightedItems(){
-    return apiService.get(apiService.getFullURL('contents'), {filter: 'news'});
+  function getAdverts(parameters){
+    return apiService.get(apiService.getFullURL('contents.adverts.adverts'),
+      parameters);
+  }
+
+  function getRandomAdvert(parameters){
+    return apiService.get(apiService.getFullURL('contents.adverts.random'),
+      parameters);
   }
 
   // Generics
@@ -34,9 +40,10 @@ angular.module('mobiusApp.services.content', [])
     getNews: getNews,
     getAbout: getAbout,
     getOffers: getOffers,
-    getHighlightedItems: getHighlightedItems,
+    getAdverts: getAdverts,
+    getRandomAdvert: getRandomAdvert,
     // Generics
     getCurrencies: getCurrencies,
-    getLanguages: getLanguages,
+    getLanguages: getLanguages
   };
 });

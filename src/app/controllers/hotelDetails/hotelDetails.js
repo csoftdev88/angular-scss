@@ -4,15 +4,15 @@
 */
 angular.module('mobius.controllers.hotel.details', [])
 
-.controller( 'HotelDetailsCtrl', function($scope, bookingService,
-  propertyService, filtersService, preloaderFactory, $q, modalService) {
+.controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
+  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
+  $window, advertsService) {
 
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
   bookingParams.includes = 'amenities';
 
-  var propertyCode = bookingParams.property;
-  delete bookingParams.property;
+  var propertyCode = bookingParams.propertyCode;
 
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
@@ -21,24 +21,33 @@ angular.module('mobius.controllers.hotel.details', [])
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
+        breadcrumbsService.addBreadCrumb(details.nameShort);
+        breadcrumbsService
+          .addHref('About', 'jsAbout')
+          .addHref('Location', 'jsLocation')
+          .addHref('Offers', 'jsOffers')
+          .addHref('Rooms', 'jsRooms');
+
         // Updating Hero content images
-        if(details.previewImages){
-          var heroContent =  details.previewImages.map(function(src){
-            return {'image': src};
-          });
+        if(details.images){
+          $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));
 
-          $scope.updateHeroContent(heroContent);
-        }
 
-        if(angular.isDefined(details.lat) && angular.isDefined(details.long)){
-          $scope.position = [details.lat, details.long];
+          // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
+          // Current version of PhantomJS is missing not supporting .bind
+          // https://github.com/ariya/phantomjs/issues/10522
+          // TODO: Update PhantomJS
+          $scope.openGallery = function(){
+            modalService.openGallery(
+              details.images.map(function(image){return image.uri;}));
+          };
         }
 
         if(details.availability) {
           $scope.rooms = details.availability.rooms || [];
         }
-
-        $scope.openGallery = modalService.openGallery;
+      }, function() {
+        $state.go('hotels');
       });
 
     var roomsPromise = propertyService.getRooms(propertyCode)
@@ -67,9 +76,17 @@ angular.module('mobius.controllers.hotel.details', [])
   }
 
   $scope.scrollToRooms = function() {
-    var $item = angular.element('#hotelRooms');
+    var $item = angular.element('#jsRooms');
     angular.element('html, body').animate({
       scrollTop: $item.offset().top
-    }, 2000);
+    }, 300);
   };
+
+  var NUMBER_OF_OFFERS = 3;
+
+  contentService.getOffers(bookingParams).then(function(response) {
+    $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
+  });
+
+  $scope.advertClick = advertsService.advertClick;
 });

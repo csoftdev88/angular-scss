@@ -1,0 +1,45 @@
+<hero-slider content="heroContent" class="decoration-image"></hero-slider>
+
+<breadcrumbs></breadcrumbs>
+
+<main typo-grid class="grid-wrapper">
+
+  <div ui-view>
+    <div class="reservations" grid="12">
+      <div ng-if="eservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length">
+        <h1>No reservations found</h1>
+      </div>
+
+      <div ng-if="reservations.nextStay">
+        <!-- TODO SAME AS BOOKING COMPLETE PREVIEW -->
+        <h1>Your <strong>Next Stay</strong></h1>
+        <reservation-item>
+          <div class="table-wrap">
+            <reservation-details reservation="reservations.nextStay" property="properties[reservations.nextStay.property.code]"></reservation-details>
+          </div>
+        </reservation-item>
+        <hr/>
+      </div>
+
+      <div ng-if="reservations.futureStays.length">
+        <h1>Your <strong>Future Stays</strong></h1>
+        <reservation-item ng-repeat="reservation in reservations.futureStays">
+          <div class="table-wrap">
+            <reservation-data reservation="reservation" property="properties[reservation.property.code]"></reservation-data>
+          </div>
+          <hr/>
+        </reservation-item>
+      </div>
+
+      <div ng-if="reservations.pastStays.length">
+        <h1>Your <strong>Past Stays</strong></h1>
+        <reservation-item ng-repeat="reservation in reservations.pastStays">
+          <div class="table-wrap">
+            <reservation-data reservation="reservation" property="properties[reservation.property.code]"></reservation-data>
+          </div>
+          <hr/>
+        </reservation-item>
+      </div>
+    </div>
+  </div>
+</main>

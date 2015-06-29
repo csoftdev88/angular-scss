@@ -1,0 +1,116 @@
+<hero-slider content="heroContent" class="decoration-image"></hero-slider>
+
+<breadcrumbs></breadcrumbs>
+
+<main typo-grid class="grid-wrapper">
+
+  <reservation-widget grid-row>
+    <div grid-row>
+      <!-- RESERVATION DETAILS -->
+      <div grid="7">
+        <!-- SUBVIEWS -->
+        <ui-view>
+        </ui-view>
+      </div>
+      <aside grid="5">
+        <section class="detail-links">
+          <a href ng-click="openPriceBreakdownInfo(selectedProduct)">View Price Breakdown</a> | <a href ng-click="readPolicies()">View Policies</a>
+        </section>
+
+        <section class="room-data">
+          <h4>{{property.nameLong}}</h4>
+          <h3>{{roomDetails.name}}</h3>
+
+          <p class="desc">{{selectedProduct.name}}</p>
+          <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
+
+          <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
+            night</em></p>
+        </section>
+        <section class="reservation-data">
+          <div class="data">
+            <table>
+              <tbody>
+                <tr>
+                  <th>Check in:</th>
+                  <td>{{bookingDetails.from | dateTime}}</td>
+                  <th>Adults:</th>
+                  <td>{{bookingDetails.adults || 0}}</td>
+                </tr>
+                <tr>
+                  <th>Check out:</th>
+                  <td>{{bookingDetails.to | dateTime}}</td>
+                  <th>Children:</th>
+                  <td>{{bookingDetails.children || 0}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="charges">
+            <table>
+              <thead ng-switch="billingDetails.paymentMethod">
+              <th>Room Charges:</th>
+              <td>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</td>
+              <th rowspan="3">Total:</th>
+              <td rowspan="3" ng-switch-when="cc">{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</td>
+              <td rowspan="3" ng-switch-when="point">{{selectedProduct.price.pointsRequired}} points</td>
+              <td rowspan="3" ng-switch-default>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}} or {{selectedProduct.price.pointsRequired}} points</td>
+              </thead>
+              <tbody>
+                <!-- Additional taxes -->
+                <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
+                  <th>Taxes:</th>
+                  <td>{{selectedProduct.price.totalAfterTax - selectedProduct.price.totalBase | i18nCurrency: $root.currencyCode}}</td>
+                </tr>
+
+                <!-- Additional fees -->
+                <tr ng-if="selectedProduct.price.totalAdditionalFees">
+                  <th>Fees:</th>
+                  <td>{{selectedProduct.price.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
+                </tr>
+
+                <!-- Discount -->
+                <tr ng-if="selectedProduct.price.totalDiscount">
+                  <th>Discount:</th>
+                  <td>{{selectedProduct.price.totalDiscount | i18nCurrency: $root.currencyCode}}</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+        <div ng-if="state.includes('reservation.confirmation')">
+          <label for="agreement1" class="input-checkbox">
+            <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
+            I agree to the <a href ng-click="readPolicies()">Terms and Conditions</a>
+          </label>
+
+          <label for="agreement2" class="input-checkbox">
+            <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
+            I am happy to receive offer via emails
+          </label>
+        </diV>
+        </section>
+      </aside>
+    </div>
+
+  <label for="agreement3" class="input-checkbox" ng-if="state.includes('reservation.details') || state.includes('reservation.billing')">
+    <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
+    I agree that I am happy for the The Sutton Place Hotels to send me emails
+  </label>
+
+    <span class="alert-warning" ng-if="invalidFormData">
+      We are sorry, your payment was not authorized. Please check the policies, your details and try again.
+    </span>
+
+    <div grid-row>
+      <button class="back" ng-click="goBack()">Back</button>
+      <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
+        <h4>Already Registered?</h4>
+        <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
+      </registration-call>
+      <button class="next" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
+    </div>
+  </reservation-widget>
+</main>

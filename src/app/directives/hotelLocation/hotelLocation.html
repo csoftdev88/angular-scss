@@ -1,0 +1,54 @@
+<h2>{{hotelDetails.nameShort}} <strong>Location</strong></h2>
+<map
+  ng-if="position"
+  zoom="18"
+  max-zoom="18"
+  min-zoom="8"
+  scrollwheel="false"
+  center="{{position}}">
+  <marker
+    position="{{position}}"
+    title="{{hotelDetails.nameShort}}"></marker>
+</map>
+
+<p>{{hotelDetails.locationDescription}}</p>
+
+<ul class="contact-information">
+  <li ng-if="hotelDetails.tel1 || hotelDetails.tel2">
+    <i class="fa fa-phone"></i>
+    <strong>Telephone:</strong>
+    <br>
+    <div ng-if="hotelDetails.tel1">{{hotelDetails.tel1}}</div>
+    <div ng-if="hotelDetails.tel2">{{hotelDetails.tel2}}</div>
+  </li>
+  <li ng-if="hotelDetails.fax">
+    <i class="fa fa-fax"></i>
+    <strong>Fax:</strong>
+    <br>
+    {{hotelDetails.fax}}
+  </li>
+  <li ng-if="hotelDetails.email">
+    <i class="fa fa-envelope"></i>
+    <strong>Email:</strong>
+    <br>
+    {{hotelDetails.email}}
+  </li>
+  <li>
+    <i class="fa fa-phone"></i>
+    <strong>Address:</strong>
+    <br>
+    <div ng-if="hotelDetails.address1">{{hotelDetails.address1}},</div>
+    <div ng-if="hotelDetails.address2">{{hotelDetails.address2}},</div>
+    <div ng-if="hotelDetails.address3">{{hotelDetails.address3}},</div>
+    <div>{{hotelDetails.city}}, {{hotelDetails.zip}}</div>
+  </li>
+</ul>
+
+<h3>How to get to us</h3>
+<transportation-list>
+  <transportation-item ng-repeat="direction in hotelDetails.directions">
+    <img ng-src="{{direction.icon}}" err-source="http://lorempixel.com/20/20">
+    <h4>{{direction.name}}</h4>
+    <p>{{direction.description}}</p>
+  </transportation-item>
+</transportation-list>

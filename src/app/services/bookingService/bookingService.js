@@ -7,7 +7,7 @@ angular.module('mobiusApp.services.booking', [])
 
 .service( 'bookingService',  function($stateParams, $window) {
   var QUERY_TO_API_PARAMS = {
-    'property': 'property',
+    'property': 'propertyCode',
     'region': 'regionCode',
     'adults': 'adults',
     'children': 'children',
@@ -79,7 +79,7 @@ angular.module('mobiusApp.services.booking', [])
 
   function APIParamsHasDates() {
     var queryParams = getAPIParams(true);
-    return queryParams[API_PARAM_FROM] && queryParams[API_PARAM_TO];
+    return !!(queryParams[API_PARAM_FROM] && queryParams[API_PARAM_TO]);
   }
 
   function getCodeParamName(code) {
