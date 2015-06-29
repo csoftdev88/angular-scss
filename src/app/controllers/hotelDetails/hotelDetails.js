@@ -15,6 +15,17 @@ angular.module('mobius.controllers.hotel.details', [])
 
   var propertyCode = bookingParams.propertyCode;
 
+  function scrollTo(hash) {
+    $window._.defer(function () {
+      var $item = angular.element('#' + hash);
+      if($item.length) {
+        angular.element('html, body').animate({
+          scrollTop: $item.offset().top
+        }, 300);
+      }
+    });
+  }
+
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
     // bookingParams - property details are returned without
@@ -66,7 +77,12 @@ angular.module('mobius.controllers.hotel.details', [])
         }
       });
 
-    preloaderFactory($q.all([detailPromise, roomsPromise]));
+    preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
+      var hash = $window.location.hash;
+      if (hash) {
+        scrollTo(hash.substr(1));
+      }
+    }));
   }
 
   // In order to get rooms availability we must call the API with productGroupId
@@ -85,10 +101,7 @@ angular.module('mobius.controllers.hotel.details', [])
   }
 
   $scope.scrollToRooms = function() {
-    var $item = angular.element('#jsRooms');
-    angular.element('html, body').animate({
-      scrollTop: $item.offset().top
-    }, 300);
+    scrollTo('jsRooms');
   };
 
   var NUMBER_OF_OFFERS = 3;

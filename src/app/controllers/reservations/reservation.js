@@ -118,7 +118,7 @@ angular.module('mobius.controllers.reservation', [])
     setBreadCrumbs = function(name) {
       breadcrumbsService
         .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
-        .addBreadCrumb('Rooms')
+        .addBreadCrumb('Rooms', 'hotel', {propertyCode: $stateParams.property}, 'jsRooms')
         .addBreadCrumb(data[0].roomDetails.name, 'hotel', {propertyCode: $stateParams.property, roomID: $stateParams.roomID})
         .addBreadCrumb(name)
         .addHref(GUEST_DETAILS)

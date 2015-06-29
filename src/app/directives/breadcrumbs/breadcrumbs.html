@@ -3,7 +3,7 @@
     <ul ng-if="breadcrumbs.length > 0">
       <li><a ui-sref="home">Home <span>&raquo;</span></a></li>
       <li ng-repeat="link in breadcrumbs">
-        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params)}}">{{link.name}} <span>&raquo;</span></a>
+        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">{{link.name}} <span>&raquo;</span></a>
         <span ng-if="!link.state && !$last">{{link.name}} <span>&raquo;</span></span>
         <span ng-if="!link.state && $last">{{link.name}}</span>
       </li>

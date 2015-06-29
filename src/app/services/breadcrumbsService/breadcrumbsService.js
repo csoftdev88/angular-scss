@@ -22,11 +22,12 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       return object;
     }
 
-    function addBreadCrumb(name, stateName, stateParams) {
+    function addBreadCrumb(name, stateName, stateParams, hash) {
       breadcrumbs.push({
         state: stateName,
         params: stateParams,
-        name: name
+        name: name,
+        hash: hash
       });
       return object;
     }
