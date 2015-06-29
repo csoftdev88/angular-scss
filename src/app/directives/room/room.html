@@ -74,7 +74,6 @@
 
   <section ng-if="roomDetails.images.length || roomDetails.description" class="room-gallery">
     <h2>Room <strong>Description</strong></h2>
-    <p ng-bind-html="sanitize(roomDetails.description)"></p>
     <ul ng-if="roomDetails.images.length" class="room-gallery">
       <li ng-repeat="image in roomDetails.images">
         <figure>
