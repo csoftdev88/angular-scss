@@ -38,7 +38,10 @@ contacts-page {
 
     input.ng-touched.ng-invalid ~ span,
     select.ng-touched.ng-invalid ~ span,
-    textarea.ng-touched.ng-invalid ~ span {
+    textarea.ng-touched.ng-invalid ~ span,
+    input.ng-submitted.ng-invalid ~ span,
+    select.ng-submitted.ng-invalid ~ span,
+    textarea.ng-submitted.ng-invalid ~ span  {
       opacity: 1;
       transform: translateX(0);
       color: @c-red;
@@ -61,7 +64,8 @@ contacts-page {
       box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
     }
 
-    &.ng-touched.ng-invalid {
+    &.ng-touched.ng-invalid,
+    &.ng-submitted.ng-invalid {
       border-color: @c-red;
     }
   }
@@ -71,6 +75,11 @@ contacts-page {
     height: auto;
     padding: 15px;
     resize: vertical;
+
+    &.ng-touched.ng-invalid,
+    &.ng-submitted.ng-invalid {
+      border-color: @c-red;
+    }
   }
 
 
