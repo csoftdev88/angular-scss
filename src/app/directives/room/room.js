@@ -14,7 +14,7 @@ angular.module('mobiusApp.directives.room', [])
       var SHORT_DESCRIPTION_LENGTH = 200;
 
       var bookingParams = bookingService.getAPIParams();
-
+      scope.$stateParams = $stateParams;
       var propertyCode = bookingParams.propertyCode;
       scope.propertyCode = propertyCode;
       delete bookingParams.property;

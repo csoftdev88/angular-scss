@@ -109,7 +109,7 @@ describe('propertyService', function() {
       expect(env.apiGetSpy.calledWith('properties.room.details')).equal(true);
     });
   });
-
+  /* **in this version we don't call room products - unless it will come from booking bar**
   describe('getRoomProducts', function(){
     it('should fire a GET request to room product list API', function(){
       var bookingParams = {'test': 'test123'};
@@ -123,6 +123,7 @@ describe('propertyService', function() {
       expect(env.apiGetSpy.calledWith('properties.room.product.all', bookingParams)).equal(true);
     });
   });
+  */
 
   describe('getRoomProductAddOns', function(){
     it('should fire a GET request to room product addons list API', function(){
