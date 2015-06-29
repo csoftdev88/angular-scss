@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
-  .directive('myAccount', function(user, _, $window, modalService) {
+  .directive('myAccount', function(user, _, $window, modalService, $controller) {
     return {
       restrict: 'E',
       scope: {},
@@ -13,6 +13,8 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
         var badges = [];
         var loyaltyCard = {};
+
+        $controller('SSOCtrl', {$scope: scope});
 
         function loadLoyalities() {
           // NOTE: Loyalties object should be already loaded

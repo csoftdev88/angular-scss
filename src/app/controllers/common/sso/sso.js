@@ -6,7 +6,12 @@ angular.module('mobius.controllers.common.sso', [])
 
 .controller( 'SSOCtrl', function($scope, $window) {
   $scope.sso = {
-    login: $window.infiniti.api.login,
-    register: $window.infiniti.api.register
+    // NOTE: INFINITI SSO doesnt expose the API methods right away
+    login: function(){
+      $window.infiniti.api.login();
+    },
+    register: function(){
+      $window.infiniti.api.register();
+    },
   };
 });

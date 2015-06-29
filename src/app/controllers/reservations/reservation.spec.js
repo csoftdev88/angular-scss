@@ -106,6 +106,9 @@ describe('mobius.controllers.reservation', function() {
           getUser: function(){
             return {id: TEST_USER_ID};
           },
+          isLoggedIn: function(){
+            return true;
+          },
           updateUser: function() {
             return {
               then: function(c) {
