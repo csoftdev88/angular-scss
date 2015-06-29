@@ -20,7 +20,7 @@
 
 <offer-detail ng-if="showDetail">
     <h1>{{selectedOffer.title}}</h1>
-  <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}" err-source="http://lorempixel.com/1000/460/"/
+    <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}" err-source="http://lorempixel.com/1000/460/"/>
     <div ng-bind-html="selectedOffer.text"></div>
   <button-submit ui-sref="hotels({promoCode: selectedOffer.promoCode})">Book Now</button-submit>
 
