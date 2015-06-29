@@ -33,6 +33,10 @@ angular.module('mobius.controllers.offers', [])
       $state.go('offers', {code: code});
     };
 
+    $scope.goToOffersList = function() {
+      $state.go('offers', {code: ''}, {reload: true});
+    };
+
     function selectOffer(code) {
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
