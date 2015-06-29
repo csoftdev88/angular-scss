@@ -19,7 +19,7 @@
     "angular-validation-match": "~1.4.1",
     "angular-sanitize": "~1.3.0",
     "font-awesome": "~4.3.0",
-    "angular-rangeslider": "~0.0.14"
+    "angular-rangeslider": "git://github.com/dolezel/angular-rangeslider.git#master"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.15",
