@@ -92,7 +92,7 @@ angular.module('mobiusApp.directives.room', [])
       preloaderFactory($q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
         breadcrumbsService.clear()
           .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
-          .addBreadCrumb('Rooms')
+          .addBreadCrumb('Rooms', 'hotel', {propertyCode: propertyCode}, 'jsRooms')
           .addBreadCrumb(data[0].roomDetails.name);
       }));
 
