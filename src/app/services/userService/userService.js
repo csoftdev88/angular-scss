@@ -103,7 +103,7 @@ angular.module('mobiusApp.services.user', [])
       $window.addEventListener(
         EVENT_ANONYMOUS_LOADED,
       function(){
-        console.log('anon');
+        // TODO - update listener
       });
     }
 
