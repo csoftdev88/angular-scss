@@ -21,6 +21,8 @@ angular
     // Controllers
     'mobius.controllers.common.sanitize',
     'mobius.controllers.common.preloader',
+    'mobius.controllers.common.auth',
+    'mobius.controllers.common.sso',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
@@ -127,17 +129,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&region&children&adults&dates&rate&rooms&promoCode',
-        data: {},
-        resolve: {
-          userObject: function(user) {
-            return user.loadProfile().then(function(userObject) {
-              return userObject;
-            }, function() {
-              return {};
-            });
-          }
-        }
+        url: '?property&region&children&adults&dates&rate&rooms&promoCode'
       })
 
       // Home page
@@ -174,7 +166,7 @@ angular
         url: '/reservations',
         controller: 'ReservationsCtrl',
         data: {
-          private: true
+          authProtected: true
         }
       })
 
@@ -249,16 +241,14 @@ angular
 
   .run(function(user, $rootScope, $state, breadcrumbsService) {
     // $stateChangeSuccess is used because resolve on controller is ready
-    $rootScope.$on('$stateChangeSuccess', function(event, next) {
-      if (next.data.private) {
-        var loggedIn = user.isLoggedIn();
-        if (!loggedIn) {
+    $rootScope.$on('$stateChangeSuccess', function() {
+      /*if (toState.data && toState.data.authProtected) {
+        if (!user.isLoggedIn()) {
           // Redirect to home page
           event.preventDefault();
           $state.go('home');
         }
-      }
+      }*/
       breadcrumbsService.clear();
     });
   });
-

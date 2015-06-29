@@ -26,6 +26,14 @@ describe('mobius.controllers.reservation', function() {
 
     beforeEach(function() {
       module('mobius.controllers.room.details');
+      module('mobius.controllers.common.sso', function($provide){
+        $provide.value('$window', {
+          infiniti: {api: {}},
+          moment: window.moment,
+          _: window._
+        });
+      });
+
       module('mobiusApp.factories.preloader');
 
       module('mobius.controllers.reservation', function($provide) {

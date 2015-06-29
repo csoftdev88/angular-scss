@@ -8,14 +8,18 @@ angular.module('mobius.controllers.reservations', [])
   modalService, creditCardTypeService, reservationService,
   preloaderFactory, propertyService, $window, _, breadcrumbsService){
 
-  $controller('MainCtrl', {$scope: $scope});
   breadcrumbsService.addBreadCrumb('My Stays');
 
-  var reservationsPromise = reservationService.getAll().then(function(data){
-    processReservationsData(data);
-  });
+  function onAuthorized(){
+    var reservationsPromise = reservationService.getAll().then(function(data){
+      processReservationsData(data);
+    });
 
-  preloaderFactory(reservationsPromise);
+    preloaderFactory(reservationsPromise);
+  }
+
+  $controller('MainCtrl', {$scope: $scope});
+  $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
   function processReservationsData(data){
     // Sorting by arrivalDate
