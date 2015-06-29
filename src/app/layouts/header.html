@@ -8,7 +8,7 @@
   <div class="app-menu">
     <ul dropdown-group>
       <li ng-hide="config.menu.singleProperty">
-          <a ui-sref="hotels">_hotels_</a>
+          <a ui-sref="hotels" ui-sref-opts="{reload: true}">_hotels_</a>
       </li>
 
       <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
