@@ -66,9 +66,7 @@ angular.module('mobiusApp.config', [])
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
-      'Mobius-channelId': '6',
-      'secrettest-customer-mobius': '6414',
-      'secrettest-customer-figur8': 3
+      'Mobius-channelId': '6'
     }
   },
 
@@ -76,14 +74,6 @@ angular.module('mobiusApp.config', [])
   'bestAvailableRateCode': 'Business Rates',
 
   'UI': {
-    // TEST SETTINGS FOR SSO
-    'SSO': {
-      'customerId': 6414,
-      // NOTE: SSO lib broadcasts `customerloaded` event before
-      // cookies are beeing set. This should be removed once
-      // solved on SSO side.
-      'initDelay': 200
-    },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
       'heroAdverts': 'hero-advert'

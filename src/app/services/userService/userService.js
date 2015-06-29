@@ -1,22 +1,23 @@
 'use strict';
 
 angular.module('mobiusApp.services.user', [])
-  .service('user', function($q, $cookies, $window, $timeout,
-    userObject, apiService, _, loyaltyService, Settings) {
+  .service('user', function($q, $cookies, $window,
+    userObject, apiService, _, loyaltyService) {
 
+
+    // SSO will expose mobius customer ID via this cookie
+    var KEY_CUSTOMER_ID = 'MobiusID';
     // We are looking for this cookie in order to detect SSO
     var KEY_CUSTOMER_PROFILE = 'CustomerProfile';
 
     var HEADER_INFINITI_SSO = 'infinitiAuthN';
 
-    // SSO will expose mobius customer ID via this cookie
-    var KEY_CUSTOMER_ID = 'CustomerId-Mobius';
-
     var EVENT_CUSTOMER_LOADED = 'infiniti.customer.loaded';
     var EVENT_CUSTOMER_LOGGED_OUT = 'infiniti.customer.logged.out';
+    //var EVENT_ANON
 
     function hasSSOCookies(){
-      return !!$cookies[KEY_CUSTOMER_PROFILE];
+      return !!$cookies[KEY_CUSTOMER_PROFILE] && !!$cookies[KEY_CUSTOMER_ID];
     }
 
     function isProfileLoaded(){
@@ -30,7 +31,7 @@ angular.module('mobiusApp.services.user', [])
       }
 
       // TODO: Remove test customer ID when API is ready
-      return userObject.id || $cookies[KEY_CUSTOMER_ID] || Settings.UI.SSO.customerId || null;
+      return userObject.id || $cookies[KEY_CUSTOMER_ID] || null;
     }
 
     function updateUser(data) {
@@ -79,6 +80,10 @@ angular.module('mobiusApp.services.user', [])
 
     function logout() {
       userObject = {};
+      // Removing auth headers
+      var headers = {};
+      headers[HEADER_INFINITI_SSO] = null;
+      apiService.setHeaders(headers);
     }
 
     function initSSOListeners(){
@@ -86,11 +91,7 @@ angular.module('mobiusApp.services.user', [])
       $window.addEventListener(
         EVENT_CUSTOMER_LOADED,
       function(){
-        // NOTE: Event is broadcasted before
-        // cookies are set.
-        $timeout(function(){
-          loadProfile();
-        }, Settings.UI.SSO.initDelay);
+        loadProfile();
       });
 
       $window.addEventListener(
@@ -115,6 +116,7 @@ angular.module('mobiusApp.services.user', [])
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
       loadLoyalties: loadLoyalties,
-      updateUser: updateUser
+      updateUser: updateUser,
+      logout: logout
     };
   });
