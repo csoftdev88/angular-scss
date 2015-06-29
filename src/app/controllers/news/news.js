@@ -36,11 +36,11 @@ angular.module('mobius.controllers.news', [])
     function selectNews(code) {
       selectedNewsIndex = _.findIndex($scope.newsList, {code: code});
       if (selectedNewsIndex < 0) {
-        $state.go('news');
+        return $state.go('news', {code: null});
       }
       $scope.selectedNews = $scope.newsList[selectedNewsIndex];
       breadcrumbsService.clear()
-        .addBreadCrumb('News', 'news')
+        .addBreadCrumb('News', 'news', {code: null})
         .addBreadCrumb($scope.selectedNews.title);
     }
   });
