@@ -1,5 +1,7 @@
 <reservation-hotel-details ng-class="{'inactive': !reservation.active}">
 
+<!-- TODO: Remove following comment after we will be sure that all data are in place -->
+
 <!--
   <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
 
@@ -29,12 +31,12 @@
   <section grid-row class="reservation-summary">
     <header>
       <h1>{{property.nameLong}}</h1>
-      <!-- or -->
-      <!-- <h1>{{property.nameShort}}</h1> -->
 
       <div class="reference">
         <p>Your reference:</p>
-        <p><strong>{{reservation.reservationCode}}</strong></p>
+        <!-- TODO: reservation.IRI is string in format "/reservations/ABB-EF-01435",
+        should we cut the reservation code from this field? -->
+        <p><strong>{{reservation.IRI}}</strong></p>
       </div>
 
       <div class="booked">
@@ -93,7 +95,7 @@
             <!-- Discount -->
             <tr>
               <th>Discount:</th>
-              <td>{{'?'}}</td>
+              <td>{{reservation.discount | i18nCurrency: $root.currencyCode}}</td>
             </tr>
 
           </tbody>
