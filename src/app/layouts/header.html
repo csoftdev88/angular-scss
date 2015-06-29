@@ -1,4 +1,4 @@
-<nav class="main-nav wrapper" dropdown>
+git <nav class="main-nav wrapper" dropdown>
   <a class="brand" ui-sref="home">
     <img src="/static/images/v4/logo.png" alt="Mobius logo">
   </a>
@@ -16,21 +16,21 @@
 
       <li has-dropdown="hover" ng-show="config.menu.showOffers">
           <a
-                  ui-sref="offers"
+                  ui-sref="offers({code: null})"
                   ui-sref-opts="{reload: true}"
                   ng-class="{is-active: $state.includes('offers')}">_offers_deals_</a>
       </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showAbout">
         <a
-                ui-sref="aboutUs"
+                ui-sref="aboutUs({code: null})"
                 ui-sref-opts="{reload: true}"
                 ng-class="{is-active: $state.includes('aboutUs')}">_about_us_</a>
       </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showNews">
           <a
-                  ui-sref="news"
+                  ui-sref="news({code: null})"
                   ui-sref-opts="{reload: true}"
                   ng-class="{is-active: $state.includes('news')}">_news_</a>
       </li>
