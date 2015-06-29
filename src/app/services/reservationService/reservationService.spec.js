@@ -127,20 +127,15 @@ describe('reservationService', function() {
       });
     });
 
-    describe('getReservationDetails', function() {
+    describe('getReservation', function() {
       it('should fire a GET request to reservations API with reservationCode query param', function() {
-        _reservationService.getReservationDetails('testCode');
+        _reservationService.getReservation('testCode');
         expect(_apiGetFullURLSpy.calledOnce).equal(true);
-        expect(_apiGetFullURLSpy.calledWith('reservations.all')).equal(true);
+        expect(_apiGetFullURLSpy.calledWith('reservations.detail')).equal(true);
         expect(_apiGetSpy.calledOnce).equal(true);
 
-        var params = _apiGetSpy.args[0];
-        expect(params[1].customerId).equal(123);
+        var params = _apiGetFullURLSpy.args[0];
         expect(params[1].reservationCode).equal('testCode');
-      });
-
-      it('should throw an error when reservation code is not provided', function() {
-        expect(_reservationService.getReservationDetails).to.throw(/reservationCode must be provided/);
       });
     });
   });

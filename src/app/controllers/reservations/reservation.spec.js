@@ -4,7 +4,7 @@
 describe('mobius.controllers.reservation', function() {
   describe('ReservationCtrl', function() {
     var _scope, _spyOpenPoliciesInfo, _spyStateGo, _spyCreateReservation,
-    _clock, _spyGetPropertyDetails, _spyGetRoomProductAddOns, _spyUpdateUser;
+    _clock, _spyGetPropertyDetails, _spyUpdateUser;
 
     var TEST_PROPERTY_ID = 987654321;
     var TEST_ROOM_ID = 918273645;
@@ -17,10 +17,6 @@ describe('mobius.controllers.reservation', function() {
     var TEST_ROOM = {
     };
     var TEST_PRODUCTS = [
-    ];
-    var TEST_ADDONS = [
-      {code: 'short', description: 'description'},
-      {code: 'long', description: 'description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description'}
     ];
     var TEST_VISA = {
       regex: /^4[0-9]{12}(?:[0-9]{3})?$/,
@@ -89,13 +85,6 @@ describe('mobius.controllers.reservation', function() {
                 }
               };
             },
-            getRoomProductAddOns: function() {
-              return {
-                then: function(c) {
-                  c(TEST_ADDONS);
-                }
-              };
-            }
           };
         });
 
@@ -160,7 +149,6 @@ describe('mobius.controllers.reservation', function() {
       _spyStateGo = sinon.spy($state, 'go');
       _spyCreateReservation  = sinon.spy(reservationService, 'createReservation');
       _spyGetPropertyDetails  = sinon.spy(propertyService, 'getPropertyDetails');
-      _spyGetRoomProductAddOns  = sinon.spy(propertyService, 'getRoomProductAddOns');
       _spyUpdateUser  = sinon.spy(user, 'updateUser');
 
       $controller('ReservationCtrl', { $scope: _scope });
@@ -172,7 +160,6 @@ describe('mobius.controllers.reservation', function() {
       _spyStateGo.restore();
       _spyCreateReservation.restore();
       _spyGetPropertyDetails.restore();
-      _spyGetRoomProductAddOns.restore();
       _spyUpdateUser.restore();
       _clock.restore();
     });
@@ -182,14 +169,6 @@ describe('mobius.controllers.reservation', function() {
         expect(_spyGetPropertyDetails).calledOnce;
         expect(_spyGetPropertyDetails.calledWith(TEST_PROPERTY_ID)).equal(true);
         expect(_scope.property).equal(TEST_PROPERTY);
-      });
-
-      it('should download property details from the server and store them', function(){
-        expect(_spyGetRoomProductAddOns).calledOnce;
-        expect(_spyGetRoomProductAddOns.calledWith(TEST_PROPERTY_ID, TEST_ROOM_ID, TEST_PRODUCT_CODE)).equal(true);
-        expect(_scope.addons).to.have.keys(TEST_ADDONS[0].code, TEST_ADDONS[1].code);
-        expect(_scope.addons[TEST_ADDONS[0].code]).deep.equal({code: TEST_ADDONS[0].code, description: TEST_ADDONS[0].description, descriptionShort: TEST_ADDONS[0].description, hasViewMore: false});
-        expect(_scope.addons[TEST_ADDONS[1].code]).deep.equal({code: TEST_ADDONS[1].code, description: TEST_ADDONS[1].description, descriptionShort: TEST_ADDONS[1].description.substr(0, 100) + '…', hasViewMore: true});
       });
     });
 
@@ -251,11 +230,11 @@ describe('mobius.controllers.reservation', function() {
         expect(_spyUpdateUser.calledOnce).equal(true);
       });
 
-      it('should redirect to a after state when reservation complete', function(){
+      it('should redirect to a detail state when reservation complete', function(){
         _scope.makeReservation();
         _scope.$digest();
         expect(_spyStateGo.calledOnce).equal(true);
-        expect(_spyStateGo.calledWith('reservation.after')).equal(true);
+        expect(_spyStateGo.calledWith('reservationDetail')).equal(true);
       });
 
       describe('reservation params check', function() {
