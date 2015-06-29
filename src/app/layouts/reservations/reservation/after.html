@@ -111,7 +111,7 @@
           ng-if="reservation.packages.indexOf(addon.code) === -1">
           <div>
             <a href ng-click="openAddonDetailDialog(addon)">
-              <img src="addon.images[0].uri" err-source="http://lorempixel.com/390/110/" />
+              <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
             </a>
 
             <h4>{{addon.name}}</h4>
@@ -145,7 +145,7 @@
 
       <ul ng-if="reservation.packages.length">
         <li ng-repeat="addonCode in reservation.packages" grid="{{Math.floor( 12 / reservation.packages.length)}}">
-          <img src="addons[addonCode].images[0].uri" err-source="http://lorempixel.com/390/110/" />
+          <img ng-src="{{addons[addonCode].images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
           <h4>{{addons[addonCode].name}}</h4>
           <p>{{ addons[addonCode]._expanded ? addons[addonCode].description : addons[addonCode].descriptionShort }}</p>
           <a href

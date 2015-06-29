@@ -78,7 +78,7 @@
     <ul ng-if="roomDetails.images.length" class="room-gallery">
       <li ng-repeat="image in roomDetails.images">
         <figure>
-          <img src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/150/100" />
+          <img ng-src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/150/100" />
         </figure>
       </li>
     </ul>
