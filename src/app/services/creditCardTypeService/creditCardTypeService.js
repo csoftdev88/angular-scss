@@ -8,14 +8,17 @@ angular.module('mobiusApp.services.creditCardType', [])
       creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
 
       if (creditCardNumber && luhnCheck(creditCardNumber)) {
-        for (var type in Settings.UI.booking.cardTypes) {
-          var cardDetails = Settings.UI.booking.cardTypes[type];
-          var regexObj = cardDetails.regex;
-          if (regexObj.test(creditCardNumber)) {
-            return {
-              icon: cardDetails.icon,
-              code: cardDetails.code
-            };
+        var cardTypes = Settings.UI.booking.cardTypes;
+        for (var type in cardTypes) {
+          if (cardTypes.hasOwnProperty(type)) {
+            var cardDetails = cardTypes[type];
+            var regexObj = cardDetails.regex;
+            if (regexObj.test(creditCardNumber)) {
+              return {
+                icon: cardDetails.icon,
+                code: cardDetails.code
+              };
+            }
           }
         }
         // uncomment to accept all card numbers passing luhn check
