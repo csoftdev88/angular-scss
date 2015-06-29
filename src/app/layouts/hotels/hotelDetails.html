@@ -55,9 +55,11 @@
       <div grid="12">
         <h2>Our <strong>Rooms</strong></h2>
       <list-items class="rooms-list" ng-if="rooms.length">
+        <!-- We don't have functionality fot this now
         <pricing-switch>
             <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
         </pricing-switch>
+        -->
         <list-item ng-repeat="room in rooms">
           <a ui-sref="room({propertyCode: details.code, roomID: room.code})">
             <figure>
