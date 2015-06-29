@@ -101,7 +101,10 @@
     <h2>Other <strong>Rooms</strong></h2>
 
     <list-items class="grid-view">
-      <list-item ng-repeat="otherRoom in otherRooms"  ng-click="onClickOnAssociatedRoom(otherRoom)">
+      <list-item
+        ng-repeat="otherRoom in otherRooms"
+        ng-click="onClickOnAssociatedRoom(otherRoom)"
+        class="with-special-hover">
         <figure ng-show="otherRoom.images[0]">
           <img ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}" err-source="http://lorempixel.com/150/100/">
         </figure>
