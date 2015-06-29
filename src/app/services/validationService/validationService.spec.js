@@ -13,7 +13,7 @@ describe('validationService', function() {
   ];
 
   var SETTINGS_INT_SIMPLE = {
-    'type': 'integer',
+    'type': 'integer'
   };
 
   var SETTINGS_INT_RANGE_MIN = {
@@ -33,11 +33,11 @@ describe('validationService', function() {
   };
 
   var SETTINGS_STRING = {
-    'type': 'string',
+    'type': 'string'
   };
 
   var SETTINGS_UNKNOWN = {
-    'type': 'unknown',
+    'type': 'unknown'
   };
 
   var SETTINGS_OBJECT = {

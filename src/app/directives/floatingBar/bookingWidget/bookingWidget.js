@@ -106,16 +106,18 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       function validateURLParams(){
         var stateParams = bookingService.getParams();
         for(var key in PARAM_TYPES){
-          var paramSettings = PARAM_TYPES[key];
+          if(PARAM_TYPES.hasOwnProperty(key)) {
+            var paramSettings = PARAM_TYPES[key];
 
-          var paramValue = stateParams[paramSettings.search];
+            var paramValue = stateParams[paramSettings.search];
 
-          // URL parameter is presented but has no value
-          if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
-            queryService.removeParam(paramSettings.search);
-          }else{
-            // Value is valid, we can assign it to the model
-            scope.selected[key] = validationService.convertValue(paramValue, paramSettings, true);
+            // URL parameter is presented but has no value
+            if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
+              queryService.removeParam(paramSettings.search);
+            }else{
+              // Value is valid, we can assign it to the model
+              scope.selected[key] = validationService.convertValue(paramValue, paramSettings, true);
+            }
           }
         }
       }
@@ -331,25 +333,27 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         var stateParams = {};
 
         for(var key in PARAM_TYPES){
-          var paramSettings = PARAM_TYPES[key];
+          if(PARAM_TYPES.hasOwnProperty(key)) {
+            var paramSettings = PARAM_TYPES[key];
 
-          var modelValue;
-          if(paramSettings.withCode && scope.selected[key]!==undefined){
-            modelValue = scope.selected[key].code;
-          } else {
-            modelValue = scope.selected[key] || paramSettings.defaultValue;
-          }
+            var modelValue;
+            if (paramSettings.withCode && scope.selected[key] !== undefined) {
+              modelValue = scope.selected[key].code;
+            } else {
+              modelValue = scope.selected[key] || paramSettings.defaultValue;
+            }
 
-          if(validationService.isValueValid(modelValue, paramSettings)){
-            var queryValue = validationService.convertValue(modelValue, paramSettings);
-            //queryService.setValue(paramSettings.search, queryValue);
-            stateParams[paramSettings.search] = queryValue;
-          }else{
-            queryService.removeParam(paramSettings.search);
-            // NOTE: Angular doesn't clean the default qwery params when
-            // navigating between states. Setting them to null solves
-            // the issue.
-            stateParams[paramSettings.search] = null;
+            if (validationService.isValueValid(modelValue, paramSettings)) {
+              var queryValue = validationService.convertValue(modelValue, paramSettings);
+              //queryService.setValue(paramSettings.search, queryValue);
+              stateParams[paramSettings.search] = queryValue;
+            } else {
+              queryService.removeParam(paramSettings.search);
+              // NOTE: Angular doesn't clean the default qwery params when
+              // navigating between states. Setting them to null solves
+              // the issue.
+              stateParams[paramSettings.search] = null;
+            }
           }
         }
 
@@ -368,15 +372,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // Search is enabled only when required fields contain data
       scope.isSearchable = function(){
         for(var key in PARAM_TYPES){
-          var settings = PARAM_TYPES[key];
+          if(PARAM_TYPES.hasOwnProperty(key)) {
+            var settings = PARAM_TYPES[key];
 
-          var value = scope.selected[key];
-          if(key === 'property'){
-            continue;
-          }
+            var value = scope.selected[key];
+            if (key === 'property') {
+              continue;
+            }
 
-          if(settings.required && !validationService.isValueValid(value, settings)){
-            return false;
+            if (settings.required && !validationService.isValueValid(value, settings)) {
+              return false;
+            }
           }
         }
 

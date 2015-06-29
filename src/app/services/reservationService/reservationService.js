@@ -21,7 +21,7 @@ angular.module('mobiusApp.services.reservation', [])
     }
 
     var params = {
-      customerId: customerId,
+      customerId: customerId
     };
 
     if(reservationCode){

@@ -28,7 +28,7 @@ describe('reservationService', function() {
         get: function(){},
         getFullURL: function(p){
           return p;
-        },
+        }
       };
 
       $provide.value('apiService', apiService);
@@ -54,7 +54,7 @@ describe('reservationService', function() {
         put: function(){},
         getFullURL: function(p){
           return p;
-        },
+        }
       };
 
       $provide.value('apiService', apiService);
