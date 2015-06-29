@@ -1,28 +1,105 @@
-<div>
-  <reservation-hotel-details ng-class="{'inactive': !reservation.active}">
-    <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+<reservation-hotel-details ng-class="{'inactive': !reservation.active}">
 
-    {{property.nameShort}}
-    {{property.rating}}
-    Total: {{reservation.priceAfterDiscount}}
+<!--
+  <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
 
-    Adults: {{getAdultsCount()}}
+  {{property.nameShort}}
+  {{property.rating}}
+  Total: {{reservation.priceAfterDiscount}}
 
-    Children: {{getChildrenCount()}}
+  Adults: {{getAdultsCount()}}
 
-    <!-- MULTI-ROOM? -->
-    {{reservation.rooms[0].roomTypeName}}
-    {{reservation.rooms[0].packageName}}
+  Children: {{getChildrenCount()}}
 
-    Check In: {{reservation.arrivalDate }}
-    Check out: {{reservation.departureDate}}
+  <!- - MULTI-ROOM? - ->
+  {{reservation.rooms[0].roomTypeName}}
+  {{reservation.rooms[0].packageName}}
 
-    Room Charges: {{getPrice()}}
-    Taxes: {{getTax()}}
+  Check In: {{reservation.arrivalDate }}
+  Check out: {{reservation.departureDate}}
 
-    TOTAL: {{getPriceAfterTax()}}
+  Room Charges: {{getPrice()}}
+  Taxes: {{getTax()}}`
 
-    Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}
+  TOTAL: {{getPriceAfterTax()}}
 
-  </reservation-hotel-details>
-</div>
+  Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}
+ -->
+
+  <section grid-row class="reservation-summary">
+    <header>
+      <h1>{{property.nameLong}}</h1>
+      <!-- or -->
+      <!-- <h1>{{property.nameShort}}</h1> -->
+
+      <div class="reference">
+        <p>Your reference:</p>
+        <p><strong>{{reservation.reservationCode}}</strong></p>
+      </div>
+
+      <div class="booked">
+        Booked: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
+      </div>
+    </header>
+
+    <div class="tables">
+      <figure>
+        <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+      </figure>
+
+      <div>
+        <div class="room-types" ng-repeat="room in reservation.rooms">
+          <h3>{{room.roomTypeName}}</h3>
+          <h4>{{room.packageName}}</h4>
+        </div>
+
+        <table class="data">
+          <tbody>
+            <tr>
+              <th>Check in:</th>
+              <td>{{reservation.arrivalDate | dateTime}}</td>
+              <th>Adults:</th>
+              <td>{{getAdultsCount()}}</td>
+            </tr>
+            <tr>
+              <th>Check out:</th>
+              <td>{{reservation.departureDate | dateTime}}</td>
+              <th>Children:</th>
+              <td>{{getChildrenCount()}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="charges">
+          <tbody>
+            <tr>
+              <!-- Do we know the payment method? -->
+              <!-- <th>Room Charges: {{reservation.paymentMethod}}</th> -->
+              <th>Room Charges: </th>
+              <td>{{getPrice() | i18nCurrency: $root.currencyCode}}</td>
+              <th rowspan="3" class="total">Total:</th>
+              <td rowspan="3" class="total-value">
+                <a href
+                   ng-click="openPriceBreakdownInfo()">{{getPriceAfterTax() | i18nCurrency: $root.currencyCode}}</a>
+              </td>
+            </tr>
+
+            <!-- Additional taxes -->
+            <tr>
+              <th>Taxes:</th>
+              <td>{{getTax() | i18nCurrency: $root.currencyCode}}</td>
+            </tr>
+
+            <!-- Discount -->
+            <tr>
+              <th>Discount:</th>
+              <td>{{'?'}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</reservation-hotel-details>
