@@ -72,7 +72,7 @@
     <hr />
   </section>
 
-  <section ng-if="roomDetails.images.length || roomDetails.description" class="room-gallery">
+  <section ng-if="roomDetails.images.length" class="room-gallery">
     <h2>Room <strong>Description</strong></h2>
     <ul ng-if="roomDetails.images.length" class="room-gallery">
       <li ng-repeat="image in roomDetails.images">
