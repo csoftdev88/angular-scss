@@ -8,21 +8,26 @@
   <div class="app-menu">
     <ul dropdown-group>
       <li ng-hide="config.menu.singleProperty">
-          <a ui-sref="hotels" ui-sref-opts="{reload: true}">_hotels_</a>
+          <a
+                  ui-sref="hotels"
+                  ui-sref-opts="{reload: true}"
+                  ng-class="{is-active: $state.includes('hotels') || $state.includes('hotel') || $state.includes('room')}">_hotels_</a>
       </li>
 
-      <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
+      <li has-dropdown="hover" ng-show="config.menu.showOffers">
+          <a ui-sref="offers" ng-class="{is-active: $state.includes('offers')}">_offers_deals_</a>
       </li>
 
-      <li ng-show="config.menu.showAbout">
-        <a ui-sref="aboutUs">_about_us_</a>
+      <li has-dropdown="hover" ng-show="config.menu.showAbout">
+        <a ui-sref="aboutUs" ng-class="{is-active: $state.includes('aboutUs')}">_about_us_</a>
       </li>
 
-      <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
+      <li has-dropdown="hover" ng-show="config.menu.showNews">
+          <a ui-sref="news" ng-class="{is-active: $state.includes('news')}">_news_</a>
       </li>
 
       <li ng-show="config.menu.showContact">
-          <a ui-sref="contacts">_contact_</a>
+          <a ui-sref="contacts" ng-class="{is-active: $state.includes('contacts')}">_contact_</a>
       </li>
 
       <li has-dropdown="click" currency-list>
