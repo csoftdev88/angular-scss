@@ -8,6 +8,7 @@ angular.module('mobius.controllers.hotel.details', [])
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
   $window, advertsService) {
 
+  var SHORT_DESCRIPTION_LENGTH = 200;
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
   bookingParams.includes = 'amenities';
@@ -21,6 +22,14 @@ angular.module('mobius.controllers.hotel.details', [])
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
+
+        $scope.details.description = ('' + $scope.details.description);
+        $scope.details.descriptionShort = $scope.details.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+        $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
+        if ($scope.details.hasViewMore) {
+          $scope.details.descriptionShort += '…';
+        }
+
         breadcrumbsService.addBreadCrumb(details.nameShort);
         breadcrumbsService
           .addHref('About', 'jsAbout')
