@@ -101,6 +101,7 @@ angular.module('mobius.controllers.reservation', [])
 
   // Inheriting the login from RoomDetails controller
   $controller('RoomDetailsCtrl', {$scope: $scope});
+  $controller('SSOCtrl', {$scope: $scope});
 
   // Getting room/products data
   var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){

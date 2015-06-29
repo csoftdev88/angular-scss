@@ -22,6 +22,7 @@ angular
     'mobius.controllers.common.sanitize',
     'mobius.controllers.common.preloader',
     'mobius.controllers.common.auth',
+    'mobius.controllers.common.sso',
 
     'mobius.controllers.main',
     'mobius.controllers.about',

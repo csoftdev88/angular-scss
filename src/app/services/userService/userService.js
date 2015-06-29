@@ -14,7 +14,7 @@ angular.module('mobiusApp.services.user', [])
 
     var EVENT_CUSTOMER_LOADED = 'infiniti.customer.loaded';
     var EVENT_CUSTOMER_LOGGED_OUT = 'infiniti.customer.logged.out';
-    //var EVENT_ANON
+    var EVENT_ANONYMOUS_LOADED = 'infiniti.anonymous.loaded';
 
     function hasSSOCookies(){
       return !!$cookies[KEY_CUSTOMER_PROFILE] && !!$cookies[KEY_CUSTOMER_ID];
@@ -98,6 +98,12 @@ angular.module('mobiusApp.services.user', [])
         EVENT_CUSTOMER_LOGGED_OUT,
       function(){
         logout();
+      });
+
+      $window.addEventListener(
+        EVENT_ANONYMOUS_LOADED,
+      function(){
+        console.log('anon');
       });
     }
 
