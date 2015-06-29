@@ -18,7 +18,9 @@
           <label for="name" class="input-left">
             <input type="text" id="name" required
               placeholder="Enter Your Name"
-              ng-model="formData.fields.name" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"/>
+              ng-model="formData.fields.name" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
+              name="name"
+              ng-class="{'form-errors': form.$submitted && (form.name.$error.required || form.name.$error.pattern)}"/>
             <span>Name</span>
           </label>
         </form-element>
@@ -27,7 +29,9 @@
           <label for="email" class="input-left">
             <input type="email" id="email" required
               placeholder="Enter Your Email"
-              ng-model="formData.fields.email" email-check/>
+              ng-model="formData.fields.email" email-check
+              name="email"
+              ng-class="{'form-errors': form.$submitted && form.email.$error.required}"/>
             <span>Email</span>
           </label>
         </form-element>
@@ -36,7 +40,9 @@
           <label for="subject" class="input-left">
             <input type="text" id="subject" required
               placeholder="Enter Subject"
-              ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"/>
+              ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
+              name="subject"
+              ng-class="{'form-errors': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>
             <span>Subject</span>
           </label>
         </form-element>
@@ -46,7 +52,8 @@
         <form-element>
           <label for="message" class="input-left">
             <textarea id="message" ng-model="formData.fields.message" name="text" placeholder="Text"
-              required
+              required name="message"
+              ng-class="{'form-errors': form.$submitted && form.message.$error.required}"
               ></textarea>
             <span>Enter Text</span>
           </label>
@@ -60,7 +67,7 @@
       </div>
 
       <div>
-        <button-submit role="button" tabindex="0" ng-click="sendForm()" ng-disabled="form.$invalid">Continue</button-submit>
+        <button-submit role="button" tabindex="0" ng-click="sendForm()">Continue</button-submit>
       </div>
       <div ng-show="showErrorMsg">Sending of message failed</div>
     </form>
