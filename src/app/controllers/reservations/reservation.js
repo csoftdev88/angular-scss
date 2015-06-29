@@ -228,7 +228,7 @@ angular.module('mobius.controllers.reservation', [])
     var reservationData = {
       arrivalDate: $scope.bookingDetails.from,
       departureDate: $scope.bookingDetails.to,
-      hasReadRatePolicies: $scope.hasReadRatePolicies || false,
+      hasReadRatePolicies: true,
       packages: $scope.reservation ? $scope.reservation.packages : undefined,
       rooms: getRooms(),
       customer: user.getUser().id,
@@ -262,7 +262,8 @@ angular.module('mobius.controllers.reservation', [])
         number: $scope.billingDetails.card.number,
         // Last day of selected month
         expirationDate: $window.moment($scope.billingDetails.card.expirationDate).endOf('month').format('YYYY-MM-DD'),
-        securityCode: $scope.billingDetails.card.securityCode,
+        // TODO: Change input type
+        securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
         typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code
       };
     }
@@ -319,7 +320,6 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.readPolicies = function(){
-    $scope.hasReadRatePolicies = true;
     $scope.openPoliciesInfo($scope.selectedProduct);
   };
 

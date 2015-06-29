@@ -1,5 +1,5 @@
-<reservation-details-form ng-switch="isUserLoggedIn()">
-  <div ng-switch-when="true" ng-init="prefillUserData()">
+<reservation-details-form>
+  <div ng-init="prefillUserData()">
     <h3>Fill out <strong>your details</strong></h3>
 
     <form name="forms.details" novalidate ng-submit="forms.details.$valid &amp;&amp; continue()">

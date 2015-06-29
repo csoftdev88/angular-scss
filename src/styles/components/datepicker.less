@@ -6,7 +6,7 @@
 
 
 .ui-datepicker {
-  z-index: 1000 !important;
+  z-index: 1050 !important;
 
   background: #fff;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
@@ -159,5 +159,42 @@
   // Hide today button
   .ui-datepicker-current {
     display: none;
+  }
+}
+
+
+// MONTH PICKER
+.month-picker {
+  .ui-datepicker-header {
+    min-width: 250px;
+
+    .ui-datepicker-title {
+      margin-top: 7px;
+      min-width: 160px;
+    }
+
+    .ui-datepicker-prev,
+    .ui-datepicker-next {
+      height: 44px;
+    }
+
+    select {
+      width: 50%;
+      float: left;
+    }
+  }
+
+  table.ui-datepicker-calendar {
+    display: none;
+  }
+
+  .ui-datepicker-buttonpane {
+    padding: 10px;
+    height: 35px;
+
+    .ui-datepicker-close {
+      &:extend(.button);
+      width: 100%;
+    }
   }
 }

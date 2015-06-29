@@ -7,46 +7,68 @@
   <contacts-page grid-row>
     <h1 grid="12">Contacts <strong>and Feedback</strong></h1>
 
-    <form name="form" ng-submit="form.$valid" grid="8">
+    <form name="form" ng-submit="form.$valid" grid="8" ng-show="!isSent">
       <div>
         <p>How was your stay with us? Did we meet all your expectations? We want your stays at hotels to be the best you have experienced anywhere. You talk, we listen.</p>
-
         <hr>
       </div>
+
       <fieldset>
         <form-element>
-          <input type="text" ng-model="formData.fields.name" name="name" placeholder="Name" required>
-          <form-label>Enter Your Name</form-label>
-          <error-message role="alert" ng-show="form.$submitted && form.name.$error.required">Name is required</error-message>
-        </form-element>
-
-        <form-element ng-class="{'is-invalid': form.$submitted && (form.email.$error.email || form.email.$error.pattern || form.password.$error.required)}">
-          <input id="email" type="email" name="email" placeholder="Email" ng-model="formData.fields.email" required email-check>
-          <form-label for="email">Enter Your Email</form-label>
-          <error-message role="alert" ng-show="form.$submitted && (form.email.$error.email || form.email.$error.emailCheck)">Please enter valid email</error-message>
-          <error-message role="alert" ng-show="form.$submitted && form.email.$error.required">Email is required</error-message>
+          <label for="name" class="input-left">
+            <input type="text" id="name" required
+              placeholder="Enter Your Name"
+              ng-model="formData.fields.name" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"/>
+            <span>Name</span>
+          </label>
         </form-element>
 
         <form-element>
-          <input type="text" ng-model="formData.fields.subject" name="subject" placeholder="Subject" required>
-          <form-label>Enter Subject</form-label>
-          <error-message role="alert" ng-show="form.$submitted && form.subject.$error.required">Subject is required</error-message>
+          <label for="email" class="input-left">
+            <input type="email" id="email" required
+              placeholder="Enter Your Email"
+              ng-model="formData.fields.email" email-check/>
+            <span>Email</span>
+          </label>
+        </form-element>
+
+        <form-element>
+          <label for="subject" class="input-left">
+            <input type="text" id="subject" required
+              placeholder="Enter Subject"
+              ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"/>
+            <span>Subject</span>
+          </label>
         </form-element>
       </fieldset>
 
       <fieldset>
         <form-element>
-          <textarea ng-model="formData.fields.message" name="text" placeholder="Text" required></textarea>
-          <form-label>Enter Text</form-label>
-          <span ng-show="form.$submitted && form.text.$error.required">Text is required</span>
+          <label for="message" class="input-left">
+            <textarea id="message" ng-model="formData.fields.message" name="text" placeholder="Text"
+              required
+              ></textarea>
+            <span>Enter Text</span>
+          </label>
         </form-element>
       </fieldset>
 
       <div>
-        <button-submit role="button" tabindex="0" ng-click="sendForm()">Continue</button-submit>
+        <label class="form-errors" ng-if="form.$invalid">
+          Please fill out all the fields indicated
+        </label>
+      </div>
+
+      <div>
+        <button-submit role="button" tabindex="0" ng-click="sendForm()" ng-disabled="form.$invalid">Continue</button-submit>
       </div>
       <div ng-show="showErrorMsg">Sending of message failed</div>
     </form>
+
+    <div grid="8" ng-if="isSent">
+      <span>Your message has been successfully sent. We will send you a reply as soon as possible. Thank you for your interest.</span>
+    </div>
+
 
     <contact-list grid="4">
       <contact-item ng-repeat="contact in chain.contacts">
@@ -55,7 +77,6 @@
         <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
       </contact-item>
     </contact-list>
-
   </contacts-page>
 
 </main>

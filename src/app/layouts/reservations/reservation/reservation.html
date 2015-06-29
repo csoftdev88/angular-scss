@@ -22,7 +22,10 @@
           <h3>{{roomDetails.name}}</h3>
 
           <p class="desc">{{selectedProduct.name}}</p>
-          <img ng-src="{{roomDetails.images[0].URI}}" alt="{{roomDetails.name}}">
+
+          <div class="image-wrapper">
+            <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+          </div>
 
           <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
             night</em></p>
@@ -104,13 +107,14 @@
       We are sorry, your payment was not authorized. Please check the policies, your details and try again.
     </span>
 
-    <div grid-row>
-      <button class="back" ng-click="goBack()">Back</button>
+    <div class="reservation-controls" grid-row>
       <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
         <h4>Already Registered?</h4>
         <p>Click here to <a href ng-click="openLoginDialog()">log in or register</a>.</p>
       </registration-call>
-      <button class="next" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
+
+      <button class="back" ng-click="goBack()">Back</button>
+      <button class="next" ng-disabled="!isUserLoggedIn()" ng-click="continue()" ng-disabled="!isValid()">{{continueName}}</button>
     </div>
   </reservation-widget>
 </main>

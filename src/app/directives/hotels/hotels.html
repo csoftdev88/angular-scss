@@ -6,7 +6,7 @@
 <section grid-row ng-if="locationDetails">
   <div grid="8">
     <p>{{locationDetails.description}}</p>
-    <a ng-click="openLocationDetail(locationDetails)">Learn more about {{locationDetails.nameShort}}</a>
+    <a href ng-click="openLocationDetail(locationDetails)">Learn more about {{locationDetails.nameShort}}</a>
   </div>
   <view-more-images grid="4">
     <img ng-src="locationDetails.images[0].uri" alt="{{locationDetails.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
@@ -50,7 +50,7 @@
                 Not Available
               </p>
             </pricing-info>
-            <p>{{hotel.description}}</p>
+            <p class="description">{{hotel.description}}</p>
           </a>
         </li>
       </ul>

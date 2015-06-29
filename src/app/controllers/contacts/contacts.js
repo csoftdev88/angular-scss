@@ -34,6 +34,7 @@ angular.module('mobius.controllers.contacts', [])
           $scope.formData = angular.copy(formDataCopy);
           $scope.form.$setPristine();
           $scope.showErrorMsg = false;
+          $scope.isSent = true;
         }, function () {
           $scope.showErrorMsg = true;
         });

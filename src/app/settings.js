@@ -5,7 +5,7 @@ angular.module('mobiusApp.config', [])
 .constant('Settings', {
   'API': {
     'chainCode': 'SAN',
-    'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
+    'baseURL': '/api/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -66,12 +66,14 @@ angular.module('mobiusApp.config', [])
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
-      'Mobius-channelId': '6'
+      'Mobius-channelId': '6',
+      'secrettest-customer-mobius': '6414',
+      'secrettest-customer-figur8': 3
     }
   },
 
   'currencyParamName': 'currency',
-  'bestAvailableRateCode': 'Best Available Rate',
+  'bestAvailableRateCode': 'Business Rates',
 
   'UI': {
     // TEST SETTINGS FOR SSO

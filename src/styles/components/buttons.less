@@ -141,6 +141,17 @@ button.next {
 
     box-shadow: -2px 0 0 -1px darken(@c-button, 10%);
   }
+
+  &[disabled="disabled"]{
+    background: @c-disabled;
+    border-bottom: 1px solid darken(@c-disabled, 10%);
+    box-shadow: none;
+
+    &:after {
+      border-left: none;
+      box-shadow: none;
+    }
+  }
 }
 
 //- Button Back -> used in Reservation
