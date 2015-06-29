@@ -15,6 +15,14 @@
 
 <contact-list>
   <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
+    <contact-item ng-if="hotelDetails.email">
+      <div>
+        <i class="fa fa-envelope"></i>
+        <strong>Email:</strong>
+        <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
+      </div>
+    </contact-item>
+
     <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
       <i class="fa fa-phone"></i>
       <strong>Telephone:</strong>
@@ -26,14 +34,6 @@
       <i class="fa fa-fax"></i>
       <strong>Fax:</strong>
       {{hotelDetails.fax}}
-    </div>
-  </contact-item>
-
-  <contact-item ng-if="hotelDetails.email">
-    <div>
-      <i class="fa fa-envelope"></i>
-      <strong>Email:</strong>
-      <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
     </div>
   </contact-item>
 
