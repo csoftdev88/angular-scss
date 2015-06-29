@@ -4,7 +4,7 @@
 
 <main typo-grid class="grid-wrapper">
 
-  <news-list ng-if="!showDetail">
+  <news-list ng-if="!showDetail" grid="12">
     <h1>Our <strong>News</strong></h1>
 
     <p>An on-line reference for news, press releases, promotions and current events. Please click on articles for details.</p>
@@ -21,7 +21,7 @@
 
   </news-list>
 
-  <news-detail ng-if="showDetail">
+  <news-detail ng-if="showDetail" grid="12">
     <h1>{{selectedNews.title}}</h1>
     <img ng-src="{{selectedNews.image.uri}}" alt="{{selectedNews.image.alt}}"/>
     <div ng-bind-html="selectedNews.text"></div>
