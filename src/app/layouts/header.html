@@ -15,19 +15,31 @@
       </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showOffers">
-          <a ui-sref="offers" ng-class="{is-active: $state.includes('offers')}">_offers_deals_</a>
+          <a
+                  ui-sref="offers"
+                  ui-sref-opts="{reload: true}"
+                  ng-class="{is-active: $state.includes('offers')}">_offers_deals_</a>
       </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showAbout">
-        <a ui-sref="aboutUs" ng-class="{is-active: $state.includes('aboutUs')}">_about_us_</a>
+        <a
+                ui-sref="aboutUs"
+                ui-sref-opts="{reload: true}"
+                ng-class="{is-active: $state.includes('aboutUs')}">_about_us_</a>
       </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showNews">
-          <a ui-sref="news" ng-class="{is-active: $state.includes('news')}">_news_</a>
+          <a
+                  ui-sref="news"
+                  ui-sref-opts="{reload: true}"
+                  ng-class="{is-active: $state.includes('news')}">_news_</a>
       </li>
 
       <li ng-show="config.menu.showContact">
-          <a ui-sref="contacts" ng-class="{is-active: $state.includes('contacts')}">_contact_</a>
+          <a
+                  ui-sref="contacts"
+                  ui-sref-opts="{reload: true}"
+                  ng-class="{is-active: $state.includes('contacts')}">_contact_</a>
       </li>
 
       <li has-dropdown="click" currency-list>
