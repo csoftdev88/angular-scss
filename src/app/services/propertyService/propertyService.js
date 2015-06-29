@@ -3,7 +3,7 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.properties', [])
-.service( 'propertyService',  function(apiService) {
+.service( 'propertyService',  function(apiService, $q) {
 
   function getAll(params){
     return apiService.get(apiService.getFullURL('properties.all'), params);
@@ -35,6 +35,9 @@ angular.module('mobiusApp.services.properties', [])
   }
 
   function getRoomProducts(propertyCode, roomTypeCode, params){
+    if(!params || !params.from || !params.to) {
+      return $q.when({});
+    }
     var URL = apiService.getFullURL('properties.room.product.all', {
       propertyCode: propertyCode,
       roomTypeCode: roomTypeCode
