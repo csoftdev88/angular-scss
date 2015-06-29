@@ -82,10 +82,17 @@ dialog.details {
       .description {
         height: @image-size;
         overflow-y: auto;
+        padding: 10px;
 
-        p {
-          padding: 10px;
+        p,
+        div {
+          padding: 0 10px;
           color: @c-grey;
+        }
+
+        div + div,
+        p + p {
+          margin-top: 10px;
         }
       }
 
