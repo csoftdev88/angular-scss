@@ -8,7 +8,6 @@ angular
     'ngTouch',
     'ngMap',
     'ngSanitize',
-    'ngCookies',
     // Template cache
     'templates-main',
 
@@ -69,6 +68,7 @@ angular
     // Factories
     'mobiusApp.factories.template',
     'mobiusApp.factories.preloader',
+    'mobiusApp.factories.cookie',
 
     // Custom components
     'mobiusApp.directives.layout',

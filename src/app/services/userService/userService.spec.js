@@ -10,7 +10,7 @@ describe('userService', function() {
     module('mobiusApp.services.user', function($provide) {
       // Mocking $stateParams service
 
-      $provide.value('$cookies', cookies || {});
+      $provide.value('cookieFactory', function(a){return (cookies || {})[a];});
 
       $provide.value('userObject', userObject || TEST_USER);
 
@@ -94,6 +94,7 @@ describe('userService', function() {
       it('should clear user data', function() {
         expect(_userService.getUser()).equal(TEST_USER);
         _userService.logout();
+        _rootScope.$digest();
         expect(_userService.getUser().id).equal(undefined);
       });
 
