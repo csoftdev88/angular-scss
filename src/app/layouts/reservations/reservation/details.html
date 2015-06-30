@@ -2,71 +2,88 @@
   <div ng-init="prefillUserData()">
     <h3>Fill out <strong>your details</strong></h3>
 
-    <form name="forms.details" novalidate ng-submit="forms.details.$valid && continue()">
+    <form name="forms.details" novalidate ng-submit="continue()">
       <label for="first-name" class="input-left">
         <input type="text" id="first-name" required
           placeholder="First Name"
-          ng-model="userDetails.firstName" />
+          ng-model="userDetails.firstName"
+          name="firstName"
+          ng-class="{'ng-submitted': forms.details.$submitted && forms.details.firstName.$error.required}"/>
         <span>First Name</span>
       </label>
 
       <label for="last-name" class="input-right">
         <input type="text" id="last-name" required
           placeholder="Last Name"
-          ng-model="userDetails.lastName" />
+          ng-model="userDetails.lastName" name="lastName"
+          ng-class="{'ng-submitted': forms.details.$submitted && forms.details.lastName.$error.required}"/>
         <span>Last name</span>
       </label>
 
       <label for="email" class="input-left">
         <input type="email" id="email" required
           placeholder="Email"
-          ng-model="userDetails.email" />
+          ng-model="userDetails.email"
+          name="email"
+          ng-class="{'ng-submitted': forms.details.$submitted && forms.details.email.$error.required}"/>
         <span>Email</span>
       </label>
 
       <label for="telephone" class="input-right">
         <input type="text" id="telephone" required
           placeholder="Phone"
-          ng-model="userDetails.phone" />
+          ng-model="userDetails.phone"
+          name="phone"
+          ng-class="{'ng-submitted': forms.details.$submitted && forms.details.phone.$error.required}"/>
         <span>Phone</span>
       </label>
 
       <label for="address">
         <input type="text" id="address" required
           placeholder="Address"
-          ng-model="userDetails.address" />
+          ng-model="userDetails.address"
+          name="address"
+          ng-class="{'ng-submitted': forms.details.$submitted && forms.details.address.$error.required}"/>
         <span>Address</span>
       </label>
 
       <label for="city" class="input-left">
         <input type="text" id="city" required
           placeholder="City"
-          ng-model="userDetails.city" />
+          ng-model="userDetails.city"
+          name="city"
+          ng-class="{'ng-submitted': forms.details.$submitted && forms.details.city.$error.required}" />
         <span>City</span>
       </label>
 
       <label for="country" class="input-right">
         <input type="text" id="country" required
          placeholder="Country"
-         ng-model="userDetails.country" />
+         ng-model="userDetails.country"
+         name="country"
+         ng-class="{'ng-submitted': forms.details.$submitted && forms.details.country.$error.required}"/>
         <span>Country</span>
       </label>
 
       <label for="state" class="input-left wide">
         <input type="text" id="state" required
           placeholder="State / Region / Province"
-          ng-model="userDetails.stateProvince" />
+          ng-model="userDetails.stateProvince"
+          name="stateProvince"
+          ng-class="{'ng-submitted': forms.details.$submitted && forms.details.stateProvince.$error.required}"/>
         <span>State / Province</span>
       </label>
 
       <label for="postal-code" class="input-right narrow ">
         <input type="text" id="postal-code" required
           placeholder="Zip Code"
-          ng-model="userDetails.zip" />
+          ng-model="userDetails.zip"
+          name="zip"
+          ng-class="{'ng-submitted': forms.details.$submitted && forms.details.zip.$error.required}"/>
         <span>Zip/Postal Code</span>
       </label>
 
-      <label class="form-errors" ng-if="forms.details.$invalid">
+      <label class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
         Please fill out all the fields indicated
       </label>
 
