@@ -20,7 +20,8 @@
 
         <h2>{{product.name}}</h2>
 
-        <earned-points>Earn {{product.price.pointsEarned}} points</earned-points>
+        <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn <ng-pluralize count="product.price.pointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+          </earned-points>
 
         <pricing-info>
           <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
@@ -29,7 +30,7 @@
           <p>
             <span class="value">{{(product.price.totalBase * (pricePer === 'stay' ? days : 1)) | i18nCurrency: currencyCode}}</span>
             <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === 'stay'">per stay</span>
-            <span ng-if="isUserLoggedIn()">
+            <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
               <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === 'stay' ? days : 1))}}</span> points
             </span>
           </p>
