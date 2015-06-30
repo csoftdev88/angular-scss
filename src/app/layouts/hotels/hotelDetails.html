@@ -82,7 +82,7 @@
                 <p>
                   from <span class="value">{{(room.priceFrom * (pricePer === 'stay' ? days : 1)) | i18nCurrency: currencyCode}}</span>
                   <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === 'stay'">per stay</span>
-                  <span ng-if="isUserLoggedIn()">
+                  <span ng-if="isUserLoggedIn() && room.minPointsRequired">
                     <br />or <span class="value">{{(room.minPointsRequired * (pricePer === 'stay' ? days : 1))}}</span> points
                   </span>
                 </p>
