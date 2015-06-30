@@ -5,6 +5,11 @@
 <main typo-grid class="grid-wrapper">
 
   <reservation-widget grid-row>
+
+    <span class="alert-warning" ng-if="invalidFormData">
+      We are sorry, your payment was not authorized. Please check the policies, your details and try again.
+    </span>
+
     <div grid-row>
       <!-- RESERVATION DETAILS -->
       <div grid="7">
@@ -98,18 +103,14 @@
       </aside>
     </div>
 
-  <label for="agreement3" class="input-checkbox" ng-if="state.includes('reservation.details') || state.includes('reservation.billing')">
-    <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
-    I agree that I am happy for the The Sutton Place Hotels to send me emails
-  </label>
-
-    <span class="alert-warning" ng-if="invalidFormData">
-      We are sorry, your payment was not authorized. Please check the policies, your details and try again.
-    </span>
+    <label for="agreement3" class="input-checkbox" ng-if="state.includes('reservation.details') || state.includes('reservation.billing')">
+      <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
+      I agree that I am happy for the The Sutton Place Hotels to send me emails
+    </label>
 
     <div class="reservation-controls" grid-row>
       <button class="back" ng-click="goBack()">Back</button>
-      <button class="next" ng-click="continue()" ng-disabled="!isValid() && !state.is('reservation.details')">{{continueName}}</button>
+      <button class="next" ng-click="continue()" ng-disabled="!isValid() && !state.is('reservation.details') && !state.is('reservation.billing')">{{continueName}}</button>
       <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
         <h4>Already Registered?</h4>
         <p>Click here to <a href ng-click="sso.login()">log in or register</a>.</p>
