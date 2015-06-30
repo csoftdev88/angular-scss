@@ -32,7 +32,6 @@ angular.module('mobiusApp.directives.floatingBar', [
           }
           // Set class on root element, so we can change
           // bottom margin of footer
-          console.log(scope.active);
           $el.toggleClass('active', !!scope.active);
         };
 
