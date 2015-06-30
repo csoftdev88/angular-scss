@@ -321,7 +321,7 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix': '//res.cloudinary.com/dmh2cjswj/image/upload/v1435333629/Mobius/Sutton/',
+      'prefix': '//res.cloudinary.com/dmh2cjswj/image/upload/v1435333629/Mobius/Sutton/properties_amenities/',
       'suffix': '.png'
     }
   }
