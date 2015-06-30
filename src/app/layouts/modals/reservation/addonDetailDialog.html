@@ -1,6 +1,6 @@
 <div class="ui-info">
   <div class="modal-header">
-    <h1 class="modal-title">{{data.roomDetails.name}}</h1>
+    <h1 class="modal-title">{{addon.name}}</h1>
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
   <div class="modal-body" ng-if="!addon._confirmation">
@@ -13,7 +13,7 @@
       <div class="extra">
         <p class="add-extra">Add to your booking with one click!</p>
         <a class="button add-confirm" href ng-click="addon._confirmation = true">{{addon.price | i18nCurrency: currencyCode}}</a>
-        <a class="button add-confirm-points" href ng-click="addon._confirmation = true" ng-if="addon.pointsRequired">{{addon.pointsRequired}}</a>
+        <a class="button add-confirm-points" href ng-click="addon._confirmation = true" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
       </div>
 
       <div class="extra">
-        <p class="add-extra">Add to your booking with one click!</p>
+        <p class="add-extra">Add to your booking with just a click!</p>
         <a class="button add-confirm" href ng-click="addon._confirmation = false">Back</a>
         <a class="button add-confirm-points" href ng-click="addAddon(addon)">Confirm</a>
       </div>
