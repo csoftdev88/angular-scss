@@ -125,24 +125,53 @@ dialog.details {
   }
 
   &.addons {
-    .extra {
-      margin: 0 0 20px !important;
+    .ui-info {
+      padding-top: 10px;
+    }
 
-      overflow: auto;
+    .modal-body {
 
-      .add-extra {
-        color: @c-link;
-          margin: 10px 0px;
-          font-size: @size-1;
-          font-weight: 600;
+      .description {
+        padding: 20px 10px 10px 20px;
       }
 
-      .add-confirm {
-        float: left;
-      }
+      .extra {
+        margin: 0 0 20px !important;
+        padding-left: 20px;
 
-      .add-confirm-points {
-        float: right;
+        overflow: auto;
+
+        .modal-body {
+          .clearfix;
+        }
+
+        .add-extra {
+          color: @c-link;
+            margin: 10px 0px;
+            font-size: @size-1;
+            font-weight: 600;
+        }
+
+        .add-confirm,
+        .add-confirm-points {
+          min-width: 160px;
+          height: 40px;
+          line-height: 40px;
+        }
+
+        .add-confirm {
+          float: left;
+        }
+
+        .add-confirm-points {
+          float: right;
+        }
+
+        small {
+          opacity: 0.75;
+          font-size: 0.85em;
+          font-style: italic;
+        }
       }
     }
   }
