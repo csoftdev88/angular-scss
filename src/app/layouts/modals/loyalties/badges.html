@@ -4,6 +4,9 @@
 </header>
 
 <main>
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
   <badges-list>
     <badge-icon ng-repeat="badge in badges" ng-click="showBadgeDetail(badge)">
       <img ng-src="{{badge.icon}}" alt="{{badge.name}}" err-source="http://lorempixel.com/71/71"/>
