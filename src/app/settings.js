@@ -321,7 +321,8 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix': '//res.cloudinary.com/dmh2cjswj/image/upload/v1435333629/Mobius/Sutton/properties_amenities/',
+      'prefix-hotel': 'http://res.cloudinary.com/dmh2cjswj/image/upload/w_15,h_15,c_fit/SAN/properties_amenities/',
+      'prefix-room': 'http://res.cloudinary.com/dmh2cjswj/image/upload/w_15,h_15,c_fit/SAN/rooms_amenities/',
       'suffix': '.png'
     }
   }

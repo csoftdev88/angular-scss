@@ -10,6 +10,7 @@ angular.module('mobiusApp.directives.slugImg', [])
         slug: '=',
         width: '=',
         height: '=',
+        type: '=',
         alt: '='
       },
       replace: true,
@@ -24,7 +25,7 @@ angular.module('mobiusApp.directives.slugImg', [])
           },
           function(slug) {
             if(slug) {
-              scope.src = Settings.UI.cloudinary.prefix + slug + Settings.UI.cloudinary.suffix;
+              scope.src = Settings.UI.cloudinary['prefix-' + attrs.type] + slug + Settings.UI.cloudinary.suffix;
 
               if (attrs.width && attrs.height) {
                 var replaceString = 'w_' + attrs.width + ',h_' + attrs.height + ',c_fit';
