@@ -68,8 +68,8 @@ angular.module('mobius.controllers.hotel.details', [])
           };
         }
 
-        if(details.availability) {
-          $scope.rooms = details.availability.rooms || [];
+        if(details.hasOwnProperty('available')) {
+          $scope.availableRooms = $window._.pluck((details.availability && details.availability.rooms) || [], 'code');
         }
 
         contentService.getOffers(bookingParams).then(function(response) {
