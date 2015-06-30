@@ -1,10 +1,11 @@
 <h2>{{hotelDetails.nameShort}} <strong>Location</strong></h2>
-<a
-        target="_blank"
-        ng-if="position"
-        href="https://www.google.com/maps/place/{{hotelDetails.nameShort}}/@{{position[0]}},{{position[1]}},18z">
-  View full screen
-</a>
+<p>
+  <a target="_blank"
+     ng-if="position"
+     href="https://www.google.com/maps/place/{{hotelDetails.nameShort}}/@{{position[0]}},{{position[1]}},18z">
+    View full screen
+  </a>
+</p>
 <map
   ng-if="position"
   zoom="18"
@@ -20,15 +21,16 @@
 <p>{{hotelDetails.locationDescription}}</p>
 
 <contact-list>
-  <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
-    <contact-item ng-if="hotelDetails.email">
-      <div>
-        <i class="fa fa-envelope"></i>
-        <strong>Email:</strong>
-        <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
-      </div>
-    </contact-item>
 
+  <contact-item ng-if="hotelDetails.email">
+    <div>
+      <i class="fa fa-envelope"></i>
+      <strong>Email:</strong>
+      <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
+    </div>
+  </contact-item>
+
+  <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
     <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
       <i class="fa fa-phone"></i>
       <strong>Telephone:</strong>
