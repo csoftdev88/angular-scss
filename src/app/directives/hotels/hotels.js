@@ -160,8 +160,8 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.hotelFilter = function(hotel) {
         return (
           (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) &&
-          (scope.minStars <= hotel.rating && hotel.rating <= scope.maxStars) &&
-          (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating <= scope.maxRating) &&
+          (scope.minStars <= hotel.rating && hotel.rating < (scope.maxStars + 1)) &&
+          (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating < (scope.maxRating + 1)) &&
           (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode))
         );
       };
