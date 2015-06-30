@@ -11,8 +11,8 @@ angular.module('mobius.controllers.common.content', [])
       'hotels': {
         'service': 'propertyService',
         'method': 'getAll',
-        'states': ['hotels', 'hotel', 'room'],
-        'paramName': 'property',
+        'states': ['hotel', 'hotels', 'room'],
+        'paramName': 'propertyCode',
         'title': 'nameShort'
       },
       'news': {
