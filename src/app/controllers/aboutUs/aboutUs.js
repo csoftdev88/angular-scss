@@ -31,7 +31,7 @@ angular.module('mobius.controllers.about', [])
     $scope.showDetail = $stateParams.code ? true : false;
 
     contentService.getAbout().then(function(response) {
-      $scope.aboutList = response;
+      $scope.aboutList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
         selectAbout($stateParams.code);
       }

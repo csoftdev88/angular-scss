@@ -14,7 +14,9 @@ angular.module('mobius.controllers.common.content', [])
         'detailState': 'hotel',
         'listState': 'hotels',
         'paramName': 'propertyCode',
-        'title': 'nameShort'
+        'title': 'nameShort',
+        'sort': 'nameShort',
+        'reverseSort': false
       },
       'news': {
         'service': 'contentService',
@@ -22,7 +24,9 @@ angular.module('mobius.controllers.common.content', [])
         'detailState': 'news',
         'listState': 'news',
         'paramName': 'code',
-        'title': 'title'
+        'title': 'title',
+        'sort': 'prio',
+        'reverseSort': true
       },
       'offers': {
         'service': 'contentService',
@@ -30,7 +34,9 @@ angular.module('mobius.controllers.common.content', [])
         'detailState': 'offers',
         'listState': 'offers',
         'paramName': 'code',
-        'title': 'title'
+        'title': 'title',
+        'sort': 'prio',
+        'reverseSort': true
       },
       'about': {
         'service': 'contentService',
@@ -38,7 +44,9 @@ angular.module('mobius.controllers.common.content', [])
         'detailState': 'aboutUs',
         'listState': 'aboutUs',
         'paramName': 'code',
-        'title': 'title'
+        'title': 'title',
+        'sort': 'prio',
+        'reverseSort': true
       }
     };
 
@@ -61,12 +69,15 @@ angular.module('mobius.controllers.common.content', [])
       };
 
       services[$scope.settings.service][$scope.settings.method]().then(function(data) {
-        $scope.content = _.map(data || [], function(item) {
+        $scope.content = _.chain(data || []).sortBy($scope.settings.sort).map(function(item) {
           return {
             code: item.code,
             title: item[$scope.settings.title]
           };
-        });
+        }).value();
+        if ($scope.settings.reverseSort) {
+          $scope.content = $scope.content.reverse();
+        }
       });
     }
   });

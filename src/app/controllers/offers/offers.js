@@ -18,7 +18,7 @@ angular.module('mobius.controllers.offers', [])
     $scope.showDetail = $stateParams.code ? true : false;
 
     contentService.getOffers().then(function(response) {
-      $scope.offersList = response;
+      $scope.offersList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
         selectOffer($stateParams.code);
       }

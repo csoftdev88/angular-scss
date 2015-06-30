@@ -18,7 +18,7 @@ angular.module('mobius.controllers.news', [])
     $scope.showDetail = $stateParams.code ? true : false;
 
     contentService.getNews().then(function(response) {
-      $scope.newsList = response;
+      $scope.newsList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
         selectNews($stateParams.code);
       }
