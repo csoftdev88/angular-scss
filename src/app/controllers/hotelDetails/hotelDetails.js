@@ -27,6 +27,9 @@ angular.module('mobius.controllers.hotel.details', [])
     });
   }
 
+  $scope.pricePer = 'night';
+  $scope.days = (bookingParams.to && bookingParams.from) ? $window.moment(bookingParams.to).diff(bookingParams.from, 'days') : 0;
+
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
     // bookingParams - property details are returned without
