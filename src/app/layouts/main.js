@@ -42,7 +42,7 @@ angular.module('mobius.controllers.main', [])
       };
 
       function loadHighlights() {
-        contentService.getAdverts({bannerSize: Settings.UI.adverts.randomMainPageAdvertSize}).then(
+        contentService.getAdverts({bannerSize: Settings.UI.adverts.heroAdverts}).then(
           function (response) {
             $scope.heroContent = _.reduce(response, function(object, advert){
               if(!_.isEmpty(advert.images)) {
