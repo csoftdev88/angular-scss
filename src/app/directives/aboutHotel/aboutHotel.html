@@ -46,7 +46,7 @@
 <offers-list grid-row>
   <offer-item
     ng-repeat="offer in offersList track by $index"
-    ng-click="advertClick({'type': 'offer', 'code': offer.code})">
+    ng-click="advertClick({'type': 'offers', 'code': offer.code})">
     <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
 
     <section>
