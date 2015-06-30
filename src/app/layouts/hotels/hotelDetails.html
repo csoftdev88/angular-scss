@@ -55,11 +55,11 @@
       <div grid="12">
         <h2>Our <strong>Rooms</strong></h2>
       <list-items class="rooms-list" ng-if="rooms.length">
-        <!-- We don't have functionality fot this now
         <pricing-switch>
-            <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
+          <a href ng-class="{'is-active': pricePer === 'night'}" ng-click="pricePer = 'night'">Per Night</a>
+          |
+          <a href ng-class="{'is-active': pricePer === 'stay'}" ng-click="days && (pricePer = 'stay')">Per Stay</a>
         </pricing-switch>
-        -->
         <list-item ng-repeat="room in rooms">
           <a ui-sref="room({propertyCode: details.code, roomID: room.code})">
             <figure>
@@ -74,9 +74,10 @@
 
           <pricing-info>
             <p>
-              from <span class="value">{{room.priceFrom | i18nCurrency: currencyCode}}</span> per night
+              from <span class="value">{{(room.priceFrom * (pricePer === 'stay' ? days : 1)) | i18nCurrency: currencyCode}}</span>
+              <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === 'stay'">per stay</span>
               <span ng-if="isUserLoggedIn()">
-                <br />or <span class="value">{{room.minPointsRequired}}</span> points
+                <br />or <span class="value">{{(room.minPointsRequired * (pricePer === 'stay' ? days : 1))}}</span> points
               </span>
             </p>
 
