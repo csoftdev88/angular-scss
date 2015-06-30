@@ -3,7 +3,7 @@
 
   <ul class="dropdown-menu submenu" ng-show="content.length">
       <li ng-repeat="item in content">
-          <a href>{{item.title}}</a>
+          <a href ng-click="goToState(item.code)" >{{item.title}}</a>
       </li>
   </ul>
 </div>
