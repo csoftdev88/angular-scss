@@ -79,7 +79,7 @@
   <section ng-if="roomDetails.images.length" class="room-gallery">
     <h2>Room <strong>Description</strong></h2>
     <ul ng-if="roomDetails.images.length" class="room-gallery">
-      <li ng-repeat="image in roomDetails.images">
+      <li ng-repeat="image in roomDetails.images" ng-click="openGallery()">
         <figure>
           <img ng-src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/150/100" />
         </figure>
