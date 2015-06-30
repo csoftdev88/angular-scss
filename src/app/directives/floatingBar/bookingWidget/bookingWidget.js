@@ -422,6 +422,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         canAddRoom();
       };
 
+      scope.inputDateText = '';
+
       var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
         init();
       });

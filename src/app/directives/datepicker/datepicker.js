@@ -12,7 +12,8 @@ angular.module('mobiusApp.directives.datepicker', [])
     restrict: 'A',
     require: 'ngModel',
     scope: {
-      highlights: '='
+      highlights: '=',
+      inputText: '='
     },
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
@@ -170,6 +171,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           diff = Math.abs($window.moment(startDate).diff(endDate, 'days'));
         }
 
+        scope.inputText = window.moment(startDate).format('Do of MMM') + ' (' + $filter('pluralization')(diff, counterPluralizationRules) + ')';
         return $filter('pluralization')(diff, counterPluralizationRules);
       }
 
