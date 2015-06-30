@@ -73,6 +73,16 @@ select {
   line-height: @baseline * 1.5;
 }
 
+//- Firefox Fix
+input,
+textarea,
+select {
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
+}
+
 
 //- Form Element - Animated Label
 form-element {

@@ -8,17 +8,20 @@
 
   <offers-list grid-row ng-if="!showDetail">
 
-    <article grid="4" ng-repeat="offer in offersList track by $index" ng-click="goToDetail(offer.code)">
-      <img class="grid-img" ng-src="{{offer.image.uri}}" alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
-      <h2>{{offer.title}}</h2>
-      <div ng-bind-html="offer.subtitle"></div>
+    <offer-item ng-repeat="offer in offersList track by $index" ng-click="goToDetail(offer.code)">
+      <img ng-src="{{offer.image.uri}}" alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
+
+      <section>
+        <h2>{{offer.title}}</h2>
+        <div ng-bind-html="offer.subtitle"></div>
+      </section>
 
       <span>Read more</span>
-    </article>
+    </offer-item>
 
   </offers-list>
 
-  <offer-detail ng-if="showDetail">
+  <offer-detail grid-row ng-if="showDetail">
     <h1>{{selectedOffer.title}}</h1>
     <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}" err-source="http://lorempixel.com/1000/460/"/>
     <div ng-bind-html="selectedOffer.text"></div>
@@ -28,14 +31,18 @@
 
     <hr>
 
-    <offers-list grid-row>
-      <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
-      <article ng-repeat="offer in offersList | filter:getRelevant track by $index">
+    <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
+    <offers-list ng-if="offersList.length > 1">
+      <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index"  ng-click="goToDetail(offer.code)">
         <img ng-src="{{offer.image.uri}}" alt="{{offer.image.uri}}" err-source="http://lorempixel.com/300/160/"/>
-        <h2>{{offer.title}} </h2>
-        <div ng-bind-html="offer.subtitle"></div>
-        <a ng-click="goToDetail(offer.code)">Read more</a>
-      </article>
+
+        <section>
+          <h2>{{offer.title}} </h2>
+          <div ng-bind-html="offer.subtitle"></div>
+        </section>
+
+        <span>Read more</span>
+      </offer-item>
     </offers-list>
 
   </offer-detail>

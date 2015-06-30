@@ -3,58 +3,88 @@
 ////////////////////////
 
 offers-list {
-  margin-bottom: @baseline;
+  clear: both;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  margin: 0 @baseline/4 @baseline @baseline/4;
 
-  article {
-
-    max-height: 370px;
-    display: block;
-    overflow: hidden;
-    text-align: center;
+  offer-item {
     border-radius: @radius*2;
+    box-sizing: border-box;
+    flex: 0 0 ~"calc(33% - 20px)";
+    height: 360px;
+    overflow: hidden;
+    margin: 0 @baseline/2 @baseline @baseline/2;
+    width: ~"calc(33% - 20px)";
+
     border: 1px solid @c-light-grey;
     box-shadow: 0 1px 2px @c-light-grey;
     background: #fff;
-    box-sizing: border-box;
 
+    text-align: center;
+
+    // if it's clickable
     &[ng-click] {
       cursor: pointer;
+
+      &:hover img { opacity: .8; }
     }
 
-    > a {
+    //- Image
+    img {
       display: block;
-      text-decoration: none;
+      margin-bottom: @baseline;
+      max-height: 160px;
+      width: 100%;
+
+      object-fit: cover;
+      opacity: 1;
+    }
+
+    //- Content - Title + Description
+    section {
       position: relative;
 
-      &:hover {
-        img {
-          opacity: .8;
-        }
+      max-height: 150px;
+      overflow: hidden;
+
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        display: block;
+        height: 24px;
+
+        background: url('../images/v4/text-overlay.png');
+        background-size: 100% 30px;
+
+        content: '';
       }
     }
 
-    h2 {
-      margin-bottom: @baseline;
-      padding: 0 @baseline;
+      //- Title
+      h2 {
+        margin-bottom: @baseline;
+        padding: 0 @baseline;
 
-      color: @c-base;
+        color: @c-base;
 
-      font-size: @size-2;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
+        font-size: @size-2;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
 
-    div {
-      color: @c-grey;
-      margin-bottom: @baseline;
-      padding: 0 @baseline;
-    }
+      //- Description
+      div {
+        color: @c-grey;
+        margin-bottom: @baseline;
+        padding: 0 @baseline;
+      }
 
-    img {
-      opacity: 1;
-      margin-bottom: @baseline;
-    }
-
+    //- Read More
     span {
       display: block;
       color: @c-link;
@@ -62,11 +92,8 @@ offers-list {
       font-weight: 600;
     }
 
-
-
-
-    &.add {
-
+    //- Advert Offer
+    &.advert {
       p {
         background: rgba(0,0,0, .6);
         color: @white;
@@ -78,6 +105,12 @@ offers-list {
         right: @baseline;
         border-radius: 0 @radius*2 @radius*2 0;
         text-transform: uppercase;
+      }
+
+      img {
+        height: 100%;
+        margin-bottom: 0;
+        max-height: none;
       }
     }
   }

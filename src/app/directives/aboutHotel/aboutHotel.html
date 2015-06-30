@@ -44,18 +44,24 @@
 </div>
 
 <offers-list grid-row>
-  <article grid="4" ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'offer', 'code': offer.code})">
-      <img class="grid-img" ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
+  <offer-item
+    ng-repeat="offer in offersList track by $index"
+    ng-click="advertClick({'type': 'offer', 'code': offer.code})">
+    <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
 
+    <section>
       <h2>{{offer.title}}</h2>
       <div ng-bind-html="offer.subtitle"></div>
+    </section>
 
     <span>Read more</span>
-  </article>
+  </offer-item>
 
-  <article grid="4" class="add" ng-repeat="randomAdvert in randomAdverts track by $index">
-    <a href="#" ng-click="advertClick(randomAdvert.link)" ng-show="randomAdverts[$index]">
-      <img class="grid-img" ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}"  err-source="http://lorempixel.com/300/160/">
-    </a>
-  </article>
+  <offer-item
+    ng-repeat="randomAdvert in randomAdverts track by $index"
+    ng-click="advertClick(randomAdvert.link)"
+    ng-show="randomAdverts[$index]"
+    class="advert" >
+    <img ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}"  err-source="http://lorempixel.com/300/160/">
+  </offer-item>
 </offers-list>
