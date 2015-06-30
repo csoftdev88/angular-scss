@@ -25,7 +25,6 @@ angular
     'mobius.controllers.common.content',
 
     'mobius.controllers.main',
-    'mobius.controllers.home',
     'mobius.controllers.about',
     'mobius.controllers.offers',
     'mobius.controllers.news',
@@ -140,7 +139,6 @@ angular
       .state('home', {
         parent: 'root',
         templateUrl: 'layouts/home/home.html',
-        controller: 'HomeCtrl',
         url: '/'
       })
 
