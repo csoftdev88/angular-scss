@@ -12,7 +12,7 @@ angular.module('mobiusApp.services.adverts', [])
           code: link.code
         });
         break;
-      case 'offer':
+      case 'offers':
         $state.go('offers', {
           code: link.code
         });
