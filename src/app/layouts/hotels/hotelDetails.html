@@ -63,7 +63,12 @@
           <pricing-switch>
             <a href ng-class="{'is-active': pricePer === 'night'}" ng-click="pricePer = 'night'">Per Night</a>
             |
-            <a href ng-class="{'is-active': pricePer === 'stay'}" ng-click="days && (pricePer = 'stay')">Per Stay</a>
+            <a href
+               ng-class="{'is-active': pricePer === 'stay', 'is-disabled': !days}"
+               ng-click="days && (pricePer = 'stay')"
+               title="{{ days ? false: 'Please select dates to enable per stay pricing'}}">
+              Per Stay
+            </a>
           </pricing-switch>
           <list-item ng-repeat="room in rooms">
             <a ui-sref="room({propertyCode: details.code, roomID: room.code})">
