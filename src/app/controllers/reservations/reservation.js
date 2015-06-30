@@ -224,6 +224,12 @@ angular.module('mobius.controllers.reservation', [])
     // Adding customerID when logged in
     if(user.isLoggedIn()){
       reservationData.customer = user.getUser().id;
+    }else{
+      // TODO: Anonymous reservation working but fails on getting
+      // the data about created reservation back (API auth issue)
+      reservationData.customerFirstName = $scope.userDetails.firstName;
+      reservationData.customerLastName = $scope.userDetails.lastName;
+      reservationData.customerEmail = $scope.userDetails.email;
     }
 
     if($scope.additionalInfo.arrivalTime) {

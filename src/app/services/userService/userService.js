@@ -38,7 +38,9 @@ angular.module('mobiusApp.services.user', [])
       var customerId = getCustomerId();
 
       if (customerId) {
-        return apiService.put(apiService.getFullURL('customers.customer', {customerId: customerId}), data).success(function() {
+        return apiService.put(
+          apiService.getFullURL('customers.customer', {customerId: customerId}), data)
+        .then(function() {
           userObject = _.extend(userObject, data);
         });
       } else {
