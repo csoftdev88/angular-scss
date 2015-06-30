@@ -4,7 +4,7 @@
 
 <main typo-grid class="grid-wrapper">
 
-  <about-us>
+  <about-us ng-if="!showDetail">
 
     <h1 grid="12"><strong>{{chain.nameLong}}</strong></h1>
 
@@ -29,6 +29,34 @@
       </contact-item>
     </contacts-list>
 
+    <hr>
+
+    <article ng-repeat-start="about in aboutList track by $index" ng-click="goToDetail(about.code)">
+      <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" width="100" height="100">
+      <h2>{{about.title}}</h2>
+      <div ng-bind-html="about.subtitle"></div>
+    </article>
+
+    <hr ng-repeat-end />
+
   </about-us>
+
+  <about-detail ng-if="showDetail" grid="12">
+    <h1>{{selectedAbout.title}}</h1>
+    <img ng-src="{{selectedAbout.image.uri}}" alt="{{selectedAbout.image.alt}}"/>
+    <div ng-bind-html="selectedAbout.text"></div>
+    <button-back role="button" tabindex="0" ng-click="goToAboutList()">Back</button-back>
+
+    <hr>
+
+    <h2 ng-if="aboutList.length > 1">You may also be interested in:</h2>
+
+    <article ng-repeat="about in aboutList | filter:getRelevant track by $index" ng-click="goToDetail(about.code)">
+      <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" width="100" height="100">
+      <h2>{{about.title}} </h2>
+      <div ng-bind-html="about.subtitle"></div>
+    </article>
+
+  </about-detail>
 
 </main>

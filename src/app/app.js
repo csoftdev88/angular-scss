@@ -228,7 +228,7 @@ angular
       .state('aboutUs', {
         parent: 'root',
         templateUrl: 'layouts/about/about.html',
-        url: '/about',
+        url: '/about/:code',
         controller: 'AboutUsCtrl'
       })
     ;
