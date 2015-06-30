@@ -234,11 +234,17 @@ angular
         url: '/about/:code',
         controller: 'AboutUsCtrl'
       })
+
+      // 404 page
+      .state('unknown', {
+        parent: 'root',
+        templateUrl: 'layouts/404.html',
+        url: '/404'
+      })
     ;
 
     $urlRouterProvider.otherwise(function($injector) {
-      var $window = $injector.get('$window');
-      $window.location.href = '/404';
+      $injector.get('$state').go('unknown');
     });
   })
 
