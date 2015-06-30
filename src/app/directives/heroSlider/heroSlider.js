@@ -88,7 +88,9 @@ angular.module('mobiusApp.directives.slider', [])
         }
 
         var slideData = scope.content[scope.slideIndex];
-        advertsService.advertClick(slideData.link);
+        if(slideData) {
+          advertsService.advertClick(slideData.link);
+        }
       };
 
       function createSlide(){
