@@ -39,6 +39,7 @@ angular.module('mobiusApp.directives.chosenOptionsClass', [])
 
         var unWatchOptions = scope.$watch(optionsSourceStr, function(items) {
           elem.on('chosen:showing_dropdown', setClasses.bind(null, items));
+          elem.on('chosen:search', setClasses.bind(null, items));
         });
         scope.$on('$destroy', function(){
           unWatchOptions();
