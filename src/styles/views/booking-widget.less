@@ -19,6 +19,72 @@ booking-widget {
 
 }
 
+
+//- Form elements
+booking-widget-search form-element,
+booking-widget-add-room form-element {
+  align-items: center;
+  display: flex;
+  flex: 2;
+  padding-right: @baseline/2;
+
+  &.persons {
+    flex: 1;
+  }
+
+  // icons
+  &:before {
+    .fa;
+
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+
+    width: @baseline * 1.5;
+
+    color: darken(@c-brown, 25%);
+
+    font-size: @size-2;
+    text-align: center;
+
+    transform: translateY(-50%);
+  }
+
+  &.hotel:before   { content: @fa-var-map-marker; }
+  &.persons:before { content: @fa-var-user; }
+  &.dates:before   { content: @fa-var-calendar-o; }
+  &.code:before    { content: @fa-var-tag; }
+  &.rate:before    { content: @fa-var-suitcase; }
+
+  form-label {
+    top: 50%;
+
+    align-items: center;
+    display: flex;
+    min-height: @baseline;
+    padding: @baseline/4 0;
+
+    transform: translateY(-50%);
+  }
+
+  input[type=text],
+  select,
+  .chosen-container-single .chosen-single {
+    padding-left: @baseline * 1.5;
+
+    font-size: 13px;
+  }
+
+  input:focus ~ form-label,
+  select:focus ~ form-label,
+  .chosen-with-drop ~ form-label {
+    opacity: 1;
+
+    transform: translateY(40%);
+  }
+}
+
+
 //- Search
 booking-widget-search {
   display: flex;
@@ -62,68 +128,7 @@ booking-widget-search {
     }
   }
 
-  //- Form elements
-  form-element {
-    align-items: center;
-    display: flex;
-    flex: 2;
-    padding-right: @baseline/2;
 
-    &.persons {
-      flex: 1;
-    }
-
-    // icons
-    &:before {
-      .fa;
-
-      position: absolute;
-      top: 50%;
-      z-index: 2;
-
-      width: @baseline * 1.5;
-
-      color: darken(@c-brown, 25%);
-
-      font-size: @size-2;
-      text-align: center;
-
-      transform: translateY(-50%);
-    }
-
-    &.hotel:before   { content: @fa-var-map-marker; }
-    &.persons:before { content: @fa-var-user; }
-    &.dates:before   { content: @fa-var-calendar-o; }
-    &.code:before    { content: @fa-var-tag; }
-    &.rate:before    { content: @fa-var-suitcase; }
-
-    form-label {
-      top: 50%;
-
-      align-items: center;
-      display: flex;
-      min-height: @baseline;
-      padding: @baseline/4 0;
-
-      transform: translateY(-50%);
-    }
-
-    input[type=text],
-    select,
-    .chosen-container-single .chosen-single {
-      padding-left: @baseline * 1.5;
-
-      font-size: 13px;
-    }
-
-    input:focus ~ form-label,
-    select:focus ~ form-label,
-    .chosen-with-drop ~ form-label {
-      opacity: 1;
-
-      transform: translateY(40%);
-    }
-  }
 
   //- Search button
   button-submit {
@@ -142,7 +147,6 @@ booking-widget-add-room {
     font-weight: bold;
   }
 
-  //- Options
   form-element {
     display: inline-block;
     margin-right: @baseline;
@@ -150,33 +154,6 @@ booking-widget-add-room {
 
     &:last-of-type {
       margin-right: 0;
-    }
-
-    form-label {
-      top: 50%;
-
-      align-items: center;
-      display: flex;
-      min-height: @baseline;
-      padding: @baseline/4 0;
-
-      transform: translateY(-50%);
-    }
-
-    input[type=text],
-    select,
-    .chosen-container-single .chosen-single {
-      padding-left: @baseline * 1.5;
-
-      font-size: 13px;
-    }
-
-    input:focus ~ form-label,
-    select:focus ~ form-label,
-    .chosen-with-drop ~ form-label {
-      opacity: 1;
-
-      transform: translateY(40%);
     }
   }
 }
