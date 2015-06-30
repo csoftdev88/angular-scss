@@ -41,7 +41,7 @@
         <form-element>
           <label for="subject" class="input-left">
             <input type="text" id="subject" required
-              placeholder="Enter Subject"
+              placeholder="Your Subject"
               ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
               name="subject"
               ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>
