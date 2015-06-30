@@ -10,6 +10,14 @@ footer {
   font-size: @size--1;
   line-height: @baseline * 2;
 
+  floating-bar.active  ~ & {
+    margin-bottom: 130px;
+  }
+
+  floating-bar.active.advancedBooking ~ & {
+    margin-bottom: 170px;
+  }
+
   //- Wrapper
   .wrapper {
     display: flex;

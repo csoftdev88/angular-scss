@@ -56,7 +56,7 @@ describe('bookingWidget', function() {
       var active = 'some-active';
       env.scope.setActive(active);
       env.scope.setActive(active);
-      expect(env.scope.active).equal(null);
+      expect(env.scope.active).equal(false);
     });
   });
 
