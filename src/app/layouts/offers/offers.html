@@ -3,6 +3,9 @@
 <breadcrumbs></breadcrumbs>
 
 <main typo-grid class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
   <offers-list grid-row ng-if="!showDetail">
 
     <article grid="4" ng-repeat="offer in offersList track by $index" ng-click="goToDetail(offer.code)">

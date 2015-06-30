@@ -4,6 +4,8 @@
 
 <main typo-grid class="grid-wrapper">
 
+  <div class="preloader" ng-show="preloader.visible"></div>
+
   <div ui-view>
     <div class="reservations" grid="12">
       <div ng-if="eservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length">
