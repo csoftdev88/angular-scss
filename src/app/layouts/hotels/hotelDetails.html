@@ -94,7 +94,7 @@
 
                 <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="button">_view_more_</a>
               </div>
-              <p ng-if="availableRooms && availableRooms.indexOf(room.code) < 0">Not Available on Selected Dates</p>
+              <p ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error">Not Available on Selected Dates</p>
             </pricing-info>
 
             <description-info>
