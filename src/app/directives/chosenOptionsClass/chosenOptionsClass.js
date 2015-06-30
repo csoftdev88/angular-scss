@@ -30,6 +30,8 @@ angular.module('mobiusApp.directives.chosenOptionsClass', [])
             angular.forEach(classes, function(add, className) {
               if (add) {
                 angular.element(option).addClass(className);
+              } else {
+                angular.element(option).removeClass(className);
               }
             });
           });

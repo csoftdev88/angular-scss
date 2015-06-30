@@ -33,13 +33,19 @@
 
     <hr>
 
-    <article ng-repeat-start="about in aboutList track by $index" ng-click="goToDetail(about.code)">
-      <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" width="100" height="100">
-      <h2>{{about.title}}</h2>
-      <div ng-bind-html="about.subtitle"></div>
-    </article>
+    <offers-list>
+      <offer-item ng-repeat="about in aboutList track by $index" ng-click="goToDetail(about.code)">
+        <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" err-source="http://lorempixel.com/300/160/">
 
-    <hr ng-repeat-end />
+        <section>
+          <h2>{{about.title}}</h2>
+          <div ng-bind-html="about.subtitle"></div>
+        </section>
+
+        <span>Read More</span>
+      </offer-item>
+    </offers-list>
+    <hr>
 
   </about-us>
 
@@ -53,11 +59,18 @@
 
     <h2 ng-if="aboutList.length > 1">You may also be interested in:</h2>
 
-    <article ng-repeat="about in aboutList | filter:getRelevant track by $index" ng-click="goToDetail(about.code)">
-      <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" width="100" height="100">
-      <h2>{{about.title}} </h2>
-      <div ng-bind-html="about.subtitle"></div>
-    </article>
+    <offers-list ng-if="aboutList.length > 1">
+      <offer-item ng-repeat="about in aboutList | filter:getRelevant track by $index" ng-click="goToDetail(about.code)">
+        <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" err-source="http://lorempixel.com/300/160/">
+
+        <section>
+          <h2>{{about.title}} </h2>
+          <div ng-bind-html="about.subtitle"></div>
+        </section>
+
+        <span>Read More</span>
+      </offer-item>
+    </offers-list>
 
   </about-detail>
 
