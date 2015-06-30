@@ -32,7 +32,7 @@
       <div class="error" ng-show="pointsData.pointsAfterBooking < 0">Sorry, you don't have enough points to perform this purchase.</div>
     </section>
     <section class="payment-card" ng-switch-default>
-      <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()" ng-click="selectPaymentMethod('cc')">
+      <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()" ng-click="selectPaymentMethod('cc')" ng-class="{'ng-submitted': forms.billing.$submitted}">
 
         <label for="form-card-number" class="card-type">
           <input type="text" id="form-card-number" credit-card-check required
@@ -117,7 +117,7 @@
           </label>
         </div>
 
-        <label class="form-errors centered" ng-if="forms.billing.$invalid">
+        <label class="form-errors" ng-if="forms.billing.$invalid  && forms.billing.$submitted">
           Please fill out all the fields indicated
         </label>
 

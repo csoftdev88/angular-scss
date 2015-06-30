@@ -194,16 +194,24 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.continue = function() {
-    $scope.forms.details.$submitted = true;
-    if ($scope.isValid()) {
-      switch ($state.current.name) {
-      case 'reservation.details':
-        return $state.go('reservation.billing') && true;
-      case 'reservation.billing':
-        return $state.go('reservation.confirmation') && true;
-      case 'reservation.confirmation':
-        return $scope.makeReservation() && true;
+    switch ($state.current.name) {
+    case 'reservation.details':
+      $scope.forms.details.$submitted = true;
+      if($scope.isValid()){
+        $state.go('reservation.billing');
       }
+      break;
+    case 'reservation.billing':
+      $scope.forms.billing.$submitted = true;
+      if($scope.isValid()){
+        $state.go('reservation.confirmation');
+      }
+      break;
+    case 'reservation.confirmation':
+      if($scope.isValid()){
+        $scope.makeReservation();
+      }
+      break;
     }
   };
 
