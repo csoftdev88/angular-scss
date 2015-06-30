@@ -23,9 +23,20 @@ pricing-switch {
   margin-right: @baseline/2;
   text-decoration: none;
 
-  .is-active {
+  a {
     color: @c-base;
+
+    &.is-active {
+      font-weight: bold;
+    }
+
+    &.is-disabled {
+      color: #999;
+
+      cursor: default;
+    }
   }
+
 }
 
 list-item {
