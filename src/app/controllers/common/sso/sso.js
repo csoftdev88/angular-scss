@@ -13,5 +13,11 @@ angular.module('mobius.controllers.common.sso', [])
     register: function(){
       $window.infiniti.api.register();
     },
+    profile: function(){
+      $window.infiniti.api.profile();
+    },
+    logout: function(){
+      $window.infiniti.api.logout();
+    },
   };
 });
