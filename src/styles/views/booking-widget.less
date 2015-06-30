@@ -66,8 +66,12 @@ booking-widget-search {
   form-element {
     align-items: center;
     display: flex;
-    flex: 1;
+    flex: 2;
     padding-right: @baseline/2;
+
+    &.persons {
+      flex: 1;
+    }
 
     // icons
     &:before {
@@ -96,7 +100,10 @@ booking-widget-search {
     form-label {
       top: 50%;
 
-      line-height: @baseline * 1.5;
+      align-items: center;
+      display: flex;
+      min-height: @baseline;
+      padding: @baseline/4 0;
 
       transform: translateY(-50%);
     }
@@ -148,7 +155,10 @@ booking-widget-add-room {
     form-label {
       top: 50%;
 
-      line-height: @baseline * 1.5;
+      align-items: center;
+      display: flex;
+      min-height: @baseline;
+      padding: @baseline/4 0;
 
       transform: translateY(-50%);
     }
