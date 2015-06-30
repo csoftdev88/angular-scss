@@ -6,9 +6,9 @@ angular.module('mobiusApp.directives.floatingBar', [
 ])
 
   .directive('floatingBar', function() {
-    var BOOKING = 'booking';
-    var ADVANCED_BOOKING = 'advancedBooking';
-    var MY_ACCOUNT = 'myAccount';
+    var BOOKING = 'booking',
+        ADVANCED_BOOKING = 'advancedBooking',
+        MY_ACCOUNT = 'myAccount';
 
     return {
       restrict: 'E',
@@ -16,19 +16,27 @@ angular.module('mobiusApp.directives.floatingBar', [
       templateUrl: 'directives/floatingBar/floatingBar.html',
 
       // Widget logic goes here
-      link: function(scope) {
+      link: function(scope, $el) {
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
 
-        scope.active = BOOKING;
         scope.setActive = function(newActive) {
+          $el.removeClass(scope.active);
+
           if (newActive === scope.active) {
-            scope.active = null;
+            scope.active = false;
           } else {
             scope.active = newActive;
+            $el.addClass(newActive);
           }
+          // Set class on root element, so we can change
+          // bottom margin of footer
+          console.log(scope.active);
+          $el.toggleClass('active', !!scope.active);
         };
+
+        scope.setActive(BOOKING);
       }
     };
   });
