@@ -170,8 +170,11 @@ angular.module('mobiusApp.directives.datepicker', [])
         }else{
           diff = Math.abs($window.moment(startDate).diff(endDate, 'days'));
         }
-
-        scope.inputText = window.moment(startDate).format('Do of MMM') + ' (' + $filter('pluralization')(diff, counterPluralizationRules) + ')';
+        if(diff) {
+          scope.inputText = window.moment(startDate).format('Do of MMM') + ' (' + $filter('pluralization')(diff, counterPluralizationRules) + ')';
+        } else {
+          scope.inputText = 'Dates';
+        }
         return $filter('pluralization')(diff, counterPluralizationRules);
       }
 
