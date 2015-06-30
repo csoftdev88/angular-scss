@@ -16,24 +16,22 @@ angular.module('mobiusApp.directives.menu', [])
       // items are located under different objects.
       var contentTypes = {
         'news': {
-          'sourceObject': 'news',
           'method': 'getNews',
           'state': 'news',
           'reload': true,
           'code' : ''
         },
         'offers': {
-          'sourceObject': 'specialOffer',
           'method': 'getOffers',
           'state': 'offers',
           'reload': true,
           'code' : ''
         },
         'about': {
-          'sourceObject': 'about',
           'method': 'getAbout',
           'state': 'aboutUs',
-          'reload': false
+          'reload': true,
+          'code' : ''
         }
       };
 
@@ -43,10 +41,12 @@ angular.module('mobiusApp.directives.menu', [])
         $state.go(contentTypes[attrs.menuContent].state, {code: contentTypes[attrs.menuContent].code}, {reload: contentTypes[attrs.menuContent].reload});
       };
 
+      scope.settings = contentTypes[attrs.menuContent];
+
       var contentType = contentTypes[attrs.menuContent];
       if(contentType){
         contentService[contentType.method]().then(function(data){
-          scope.content = data[contentType.sourceObject]||[];
+          scope.content = data||[];
         });
       }
     }

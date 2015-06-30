@@ -14,26 +14,11 @@ git <nav class="main-nav wrapper" dropdown>
                   ng-class="{'is-active': $state.includes('hotels') || $state.includes('hotel') || $state.includes('room')}">_hotels_</a>
       </li>
 
-      <li has-dropdown="hover" ng-show="config.menu.showOffers">
-          <a
-                  ui-sref="offers({code: null})"
-                  ui-sref-opts="{reload: true}"
-                  ng-class="{'is-active': $state.includes('offers')}">_offers_deals_</a>
-      </li>
+      <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 
-      <li has-dropdown="hover" ng-show="config.menu.showAbout">
-        <a
-                ui-sref="aboutUs({code: null})"
-                ui-sref-opts="{reload: true}"
-                ng-class="{'is-active': $state.includes('aboutUs')}">_about_us_</a>
-      </li>
+      <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
 
-      <li has-dropdown="hover" ng-show="config.menu.showNews">
-          <a
-                  ui-sref="news({code: null})"
-                  ui-sref-opts="{reload: true}"
-                  ng-class="{'is-active': $state.includes('news')}">_news_</a>
-      </li>
+      <li has-dropdown="hover" ng-show="config.menu.showNews" menu-content="news" data-title="_news_"></li>
 
       <li ng-show="config.menu.showContact">
           <a
