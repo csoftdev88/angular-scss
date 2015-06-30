@@ -30,7 +30,7 @@
            data-counter-pluralization="{'0': 'No dates selected', '1': '{} night', 'plural': '{} nights'}"
            input-text="inputDateText">
     <form-label>Enter Your Dates</form-label>
-    <auticko>{{inputDateText}}</auticko>
+    <input-value>{{inputDateText || 'Dates'}}</input-value>
   </form-element>
   <!-- NUMBER OF ADULTS -->
   <form-element class="persons">
