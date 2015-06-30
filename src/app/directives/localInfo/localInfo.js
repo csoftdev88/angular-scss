@@ -24,7 +24,7 @@ angular.module('mobiusApp.directives.localInfo', [])
 
         function updateLocalTime(localTimeString) {
           if (localTimeString) {
-            var localTime = $window.moment(localTimeString);
+            var localTime = $window.moment(localTimeString, 'YYYY-MM-DDTHH:mm:ss');
             scope.localTime = localTime.format(localTimeUpdates.format);
 
             disposeLocalTimeIntervalPromise();
