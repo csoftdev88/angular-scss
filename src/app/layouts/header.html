@@ -26,14 +26,8 @@ git <nav class="main-nav wrapper" dropdown>
 
       <li has-dropdown="click" language-list></li>
 
-      <!-- NOTE: INFINITI SSO LOGIN/REGISTER BUTTONS - WAITING FOR UX -->
-      <!--
-      <a class="infiniti-update-profile-mobile infiniti-button" style="display:none"></a>
-      <a class="infiniti-login-mobile infiniti-button" style="display:none"></a>
-      <a class="infiniti-register-mobile infiniti-button button" style="display:none"></a>
-      -->
       <li ng-show="!isUserLoggedIn()" profile>
-        <a class="infiniti-login-mobile infiniti-button button button-login">Login</a>
+        <a class="button button-login" ng-click="sso.login()">Login</a>
       </li>
 
       <li has-dropdown="click" ng-show="isUserLoggedIn()" profile>
@@ -59,10 +53,10 @@ git <nav class="main-nav wrapper" dropdown>
               <a ui-sref="reservations">Reservations</a>
             </li>
             <li>
-              <a class="infiniti-update-profile-mobile infiniti-button" style="display:none"></a>
+              <a href ng-click="sso.profile()">Profile</a>
             </li>
             <li>
-              <a class="infiniti-login-mobile infiniti-button" style="display:none">Login</a>
+              <a href ng-click="sso.logout()">Logout</a>
             </li>
           </ul>
         </div>
