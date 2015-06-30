@@ -63,7 +63,7 @@
       <hr />
       <div grid="12">
         <h2>Our <strong>Rooms</strong></h2>
-        <list-items class="rooms-list" ng-if="rooms.length">
+        <list-items class="rooms-list" ng-if="rooms.length" ng-init="roomLimit = 4">
           <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
           <pricing-switch>
             <a href ng-class="{'is-active': pricePer === 'night'}" ng-click="pricePer = 'night'">Per Night</a>
@@ -75,7 +75,7 @@
               Per Stay
             </a>
           </pricing-switch>
-          <list-item ng-repeat="room in rooms">
+          <list-item ng-repeat="room in rooms | limitTo: roomLimit">
             <a ui-sref="room({propertyCode: details.code, roomID: room.code})">
               <figure>
                 <img ng-src="{{room.images[0].uri}}" err-source="http://lorempixel.com/150/100/" alt="{{room.name}}">
@@ -106,6 +106,7 @@
               <p ng-bind-html="sanitize(room.description)"></p>
             </description-info>
           </list-item>
+          <a href class="read-more" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
         </list-items>
         <h2 ng-if="!rooms.length">_no_room_found_</h2>
       </div>
