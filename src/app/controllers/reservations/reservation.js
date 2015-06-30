@@ -194,6 +194,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.continue = function() {
+    $scope.forms.details.$submitted = true;
     if ($scope.isValid()) {
       switch ($state.current.name) {
       case 'reservation.details':
