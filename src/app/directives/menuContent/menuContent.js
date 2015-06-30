@@ -16,8 +16,14 @@ angular.module('mobiusApp.directives.menu', [])
 
       $controller('ContentCtr', {$scope: scope});
 
+      var states = {
+        'hotels': ['hotel', 'hotels', 'room'],
+        'news': ['news'],
+        'offers': ['offers'],
+        'about': ['aboutUs']
+      };
       scope.isActive = function() {
-        return _.some(scope.settings.states, function(state) {
+        return _.some(states[attrs.menuContent], function(state) {
           return $state.includes(state);
         });
       };

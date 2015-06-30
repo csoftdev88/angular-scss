@@ -11,28 +11,32 @@ angular.module('mobius.controllers.common.content', [])
       'hotels': {
         'service': 'propertyService',
         'method': 'getAll',
-        'states': ['hotel', 'hotels', 'room'],
+        'detailState': 'hotel',
+        'listState': 'hotels',
         'paramName': 'propertyCode',
         'title': 'nameShort'
       },
       'news': {
         'service': 'contentService',
         'method': 'getNews',
-        'states': ['news'],
+        'detailState': 'news',
+        'listState': 'news',
         'paramName': 'code',
         'title': 'title'
       },
       'offers': {
         'service': 'contentService',
         'method': 'getOffers',
-        'states': ['offers'],
+        'detailState': 'offers',
+        'listState': 'offers',
         'paramName': 'code',
         'title': 'title'
       },
       'about': {
         'service': 'contentService',
         'method': 'getAbout',
-        'states': ['aboutUs'],
+        'detailState': 'aboutUs',
+        'listState': 'aboutUs',
         'paramName': 'code',
         'title': 'title'
       }
@@ -49,7 +53,11 @@ angular.module('mobius.controllers.common.content', [])
       $scope.goToState = function(code) {
         var params = {};
         params[$scope.settings.paramName] = code;
-        $state.go($scope.settings.states[0], params, {reload: true});
+        if (code) {
+          $state.go($scope.settings.detailState, params, {reload: true});
+        } else {
+          $state.go($scope.settings.listState, params, {reload: true});
+        }
       };
 
       services[$scope.settings.service][$scope.settings.method]().then(function(data) {
