@@ -1,4 +1,10 @@
 <h2>{{hotelDetails.nameShort}} <strong>Location</strong></h2>
+<a
+        target="_blank"
+        ng-if="position"
+        href="https://www.google.com/maps/place/{{hotelDetails.nameShort}}/@{{position[0]}},{{position[1]}},18z">
+  View full screen
+</a>
 <map
   ng-if="position"
   zoom="18"
