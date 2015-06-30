@@ -59,9 +59,6 @@ angular.module('mobius.controllers.main', [])
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;
       $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
-      $scope.openLoginDialog = function() {
-        angular.element('#loginButton')[0].click(); // need to use DOM event
-      };
 
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
