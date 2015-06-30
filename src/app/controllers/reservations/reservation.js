@@ -88,15 +88,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
 
-  $scope.additionalInfo = {
-    arrivalTime: '',
-    arrivalMethod: '',
-    departureTime: '',
-    secondPhoneNumber: '',
-    comments: '',
-    agree: false,
-    optedIn: false
-  };
+  $scope.additionalInfo = {};
 
   // Inheriting the login from RoomDetails controller
   $controller('RoomDetailsCtrl', {$scope: $scope});
@@ -320,28 +312,44 @@ angular.module('mobius.controllers.reservation', [])
     $scope.openPoliciesInfo($scope.selectedProduct);
   };
 
-  $scope.prefillUserData = function(){
-    var userData = user.getUser();
-
-    if(!Object.keys($scope.userDetails).length){
-      // No fields are touched yet, prefiling
-      _.extend($scope.userDetails, {
-        title: userData.title || '',
-        firstName: userData.firstName || '',
-        lastName: userData.lastName,
-        address: userData.address1 || '',
-        city: userData.city || '',
-        stateProvince: '',
-        country: '',
-        zip: userData.zip,
-        phone: userData.tel1 || ''
-      });
-    }
-
-    $scope.additionalInfo.secondPhoneNumber = userData.tel2 || '';
-    $scope.additionalInfo.optedIn = user.getUser().optedIn || false;
-  };
-
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
+
+  var unWatchLogged = $scope.$watch(function(){
+    return user.isLoggedIn() && user.getUser();
+  }, function(userData){
+    if (userData) {
+      if (!Object.keys($scope.userDetails).length) {
+        // No fields are touched yet, prefiling
+        _.extend($scope.userDetails, {
+          title: userData.title || '',
+          firstName: userData.firstName || '',
+          lastName: userData.lastName,
+          address: userData.address1 || '',
+          city: userData.city || '',
+          stateProvince: '',
+          country: '',
+          zip: userData.zip,
+          phone: userData.tel1 || ''
+        });
+      }
+
+      if (!Object.keys($scope.additionalInfo).length) {
+        // No fields are touched yet, prefiling
+        _.extend($scope.additionalInfo, {
+          arrivalTime: '',
+          arrivalMethod: '',
+          departureTime: '',
+          secondPhoneNumber: userData.tel2 || '',
+          comments: '',
+          agree: false,
+          optedIn: userData.optedIn || false
+        });
+      }
+    }
+  });
+
+  $scope.$on('$destroy', function(){
+    unWatchLogged();
+  });
 });

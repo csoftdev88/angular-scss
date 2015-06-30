@@ -10,6 +10,7 @@ describe('mobius.controllers.reservation', function() {
     var TEST_ROOM_ID = 918273645;
     var TEST_PRODUCT_CODE = 192837465;
     var TEST_USER_ID = 123456789;
+    var TEST_USER = {id: TEST_USER_ID};
     var TEST_RESERVATION_CODE = 95234134;
     var TEST_PROPERTY = {
       code: 'TPROP'
@@ -105,7 +106,7 @@ describe('mobius.controllers.reservation', function() {
 
         $provide.value('user', {
           getUser: function(){
-            return {id: TEST_USER_ID};
+            return TEST_USER;
           },
           isLoggedIn: function(){
             return true;
