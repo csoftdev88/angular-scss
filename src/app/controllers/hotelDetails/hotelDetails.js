@@ -9,6 +9,7 @@ angular.module('mobius.controllers.hotel.details', [])
   $window, advertsService) {
 
   var SHORT_DESCRIPTION_LENGTH = 200;
+  var NUMBER_OF_OFFERS = 3;
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
   bookingParams.includes = 'amenities';
@@ -66,6 +67,13 @@ angular.module('mobius.controllers.hotel.details', [])
         if(details.availability) {
           $scope.rooms = details.availability.rooms || [];
         }
+
+        contentService.getOffers(bookingParams).then(function(response) {
+          $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
+          if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
+            breadcrumbsService.removeHref('Offers');
+          }
+        });
       }, function() {
         $state.go('hotels');
       });
@@ -103,12 +111,6 @@ angular.module('mobius.controllers.hotel.details', [])
   $scope.scrollToRooms = function() {
     scrollTo('jsRooms');
   };
-
-  var NUMBER_OF_OFFERS = 3;
-
-  contentService.getOffers(bookingParams).then(function(response) {
-    $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
-  });
 
   $scope.advertClick = advertsService.advertClick;
 });
