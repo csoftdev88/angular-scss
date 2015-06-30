@@ -270,6 +270,8 @@ angular.module('mobius.controllers.reservation', [])
       tel2: $scope.additionalInfo.secondPhoneNumber,
       optedIn: $scope.additionalInfo.optedIn
     };
+    userData.firstName = user.getUser().firstName;
+    userData.lastName = user.getUser().lastName;
 
     var promises = [reservationService.createReservation(reservationData)];
 

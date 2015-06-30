@@ -38,8 +38,9 @@ angular.module('mobiusApp.services.user', [])
       var customerId = getCustomerId();
 
       if (customerId) {
-        userObject = _.extend(userObject, data);
-        return apiService.put(apiService.getFullURL('customers.customer', {customerId: customerId}), userObject);
+        return apiService.put(apiService.getFullURL('customers.customer', {customerId: customerId}), data).success(function() {
+          userObject = _.extend(userObject, data);
+        });
       } else {
         throw new Error('No user logged in');
       }
