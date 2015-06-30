@@ -7,12 +7,7 @@ git <nav class="main-nav wrapper" dropdown>
 
   <div class="app-menu">
     <ul dropdown-group>
-      <li ng-hide="config.menu.singleProperty">
-          <a
-                  ui-sref="hotels"
-                  ui-sref-opts="{reload: true}"
-                  ng-class="{'is-active': $state.includes('hotels') || $state.includes('hotel') || $state.includes('room')}">_hotels_</a>
-      </li>
+      <li has-dropdown="hover" ng-hide="config.menu.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
 
       <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 

@@ -23,8 +23,10 @@ angular
     'mobius.controllers.common.preloader',
     'mobius.controllers.common.auth',
     'mobius.controllers.common.sso',
+    'mobius.controllers.common.content',
 
     'mobius.controllers.main',
+    'mobius.controllers.home',
     'mobius.controllers.about',
     'mobius.controllers.offers',
     'mobius.controllers.news',
@@ -94,6 +96,8 @@ angular
 
     // Directive based on content data
     'mobiusApp.directives.menu',
+    'mobiusApp.directives.siteMap',
+
     // Directives for generic data
     'mobiusApp.directives.currency',
     'mobiusApp.directives.language',
@@ -136,6 +140,7 @@ angular
       .state('home', {
         parent: 'root',
         templateUrl: 'layouts/home/home.html',
+        controller: 'HomeCtrl',
         url: '/'
       })
 
