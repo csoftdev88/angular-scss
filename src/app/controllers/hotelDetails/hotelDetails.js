@@ -63,7 +63,8 @@ angular.module('mobius.controllers.hotel.details', [])
           // TODO: Update PhantomJS
           $scope.openGallery = function(){
             modalService.openGallery(
-              details.images.map(function(image){return image.uri;}));
+              details.images.map(function(image){return image.uri;})
+            );
           };
         }
 

@@ -140,7 +140,7 @@ angular.module('mobiusApp.services.modal', [])
       backdropClass: 'modal-lightbox',
       resolve: {
         data: function(){
-          return images.map(function(url){return {image: url};});
+          return images.map(function(url){return {uri: url};});
         }
       }
     });

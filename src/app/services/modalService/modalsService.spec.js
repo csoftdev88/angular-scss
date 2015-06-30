@@ -107,7 +107,7 @@ describe('mobiusApp.services.modal', function() {
 
       var dynamicDataDependency = spyParams.resolve.data();
       expect(dynamicDataDependency.length).equal(1);
-      expect(dynamicDataDependency[0].image).equal('http://test.com');
+      expect(dynamicDataDependency[0].uri).equal('http://test.com');
     });
   });
 

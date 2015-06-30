@@ -8,7 +8,8 @@ describe('mobius.controllers.room.details', function() {
       module('mobius.controllers.room.details', function($provide){
         $provide.value('modalService', {
           openPoliciesInfo: function(){},
-          openPriceBreakdownInfo: function(){}
+          openPriceBreakdownInfo: function(){},
+          openGallery: function(){}
         });
 
         $provide.value('propertyService', {});
@@ -29,7 +30,7 @@ describe('mobius.controllers.room.details', function() {
 
       it('should change the value of roomDetails property', function() {
         expect(_scope.roomDetails).equal(undefined);
-        var room = {test: 123};
+        var room = {test: 123, images: []};
         _scope.setRoomDetails(room);
         expect(_scope.roomDetails).equal(room);
       });
