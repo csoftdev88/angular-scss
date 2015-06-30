@@ -11,35 +11,35 @@ git <nav class="main-nav wrapper" dropdown>
           <a
                   ui-sref="hotels"
                   ui-sref-opts="{reload: true}"
-                  ng-class="{is-active: $state.includes('hotels') || $state.includes('hotel') || $state.includes('room')}">_hotels_</a>
+                  ng-class="{'is-active': $state.includes('hotels') || $state.includes('hotel') || $state.includes('room')}">_hotels_</a>
       </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showOffers">
           <a
                   ui-sref="offers({code: null})"
                   ui-sref-opts="{reload: true}"
-                  ng-class="{is-active: $state.includes('offers')}">_offers_deals_</a>
+                  ng-class="{'is-active': $state.includes('offers')}">_offers_deals_</a>
       </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showAbout">
         <a
                 ui-sref="aboutUs({code: null})"
                 ui-sref-opts="{reload: true}"
-                ng-class="{is-active: $state.includes('aboutUs')}">_about_us_</a>
+                ng-class="{'is-active': $state.includes('aboutUs')}">_about_us_</a>
       </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showNews">
           <a
                   ui-sref="news({code: null})"
                   ui-sref-opts="{reload: true}"
-                  ng-class="{is-active: $state.includes('news')}">_news_</a>
+                  ng-class="{'is-active': $state.includes('news')}">_news_</a>
       </li>
 
       <li ng-show="config.menu.showContact">
           <a
                   ui-sref="contacts"
                   ui-sref-opts="{reload: true}"
-                  ng-class="{is-active: $state.includes('contacts')}">_contact_</a>
+                  ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
       </li>
 
       <li has-dropdown="click" currency-list>
