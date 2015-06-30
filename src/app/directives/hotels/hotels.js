@@ -80,6 +80,13 @@ angular.module('mobiusApp.directives.hotels', [])
         var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
           scope.locations = locations || [];
           scope.locations.unshift({nameShort: 'All Locations'});
+
+          if(bookingParams.locationCode) {
+            scope.location = _.find(scope.locations, {code: bookingParams.locationCode});
+            if(scope.location) {
+              scope.loadLocation();
+            }
+          }
         });
 
         preloaderFactory($q.all([hotelsPromise, locationsPromise]));

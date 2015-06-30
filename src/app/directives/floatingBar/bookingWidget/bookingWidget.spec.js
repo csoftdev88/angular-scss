@@ -1,4 +1,5 @@
 'use strict';
+/*jshint -W030 */
 
 describe('bookingWidget', function() {
   var env;
@@ -10,8 +11,12 @@ describe('bookingWidget', function() {
     {code: 'TESTREG', nameShort: 'Test Region'}
   ];
 
+  var TEST_LOCATION_LIST = [
+    {code: 'TESTLOC', regionCode: 'TESTREG', nameShort: 'Test Location'}
+  ];
+
   var TEST_PROPERTY_LIST = [
-    {code: 'TESTPROP', regionCode: 'TESTREG', nameShort: 'Test Property'}
+    {code: 'TESTPROP', regionCode: 'TESTREG', locationCode: 'TESTLOC', nameShort: 'Test Property'}
   ];
 
   var TEST_PRODUCTS_LIST = [
@@ -92,6 +97,9 @@ describe('bookingWidget', function() {
       $provide.value('locationService', {
         getRegions: function(){
           return {then: function(c){c(TEST_REGION_LIST);}};
+        },
+        getLocations: function(){
+          return {then: function(c){c(TEST_LOCATION_LIST);}};
         }
       });
 
@@ -184,23 +192,23 @@ describe('bookingWidget', function() {
       });
 
       it('should do initial param validation', function() {
-        expect(env.validationServiceIsValueValid.callCount).equal(8);
-        expect(env.queryServiceRemoveParam.callCount).equal(8);
+        expect(env.validationServiceIsValueValid.callCount).equal(9);
+        expect(env.queryServiceRemoveParam.callCount).equal(9);
       });
 
       it('should read booking parameters from the URL', function() {
-        expect(env.bookingServiceGetParams.callCount).equal(4);
+        expect(env.bookingServiceGetParams.callCount).equal(5);
       });
     });
 
     describe('property availability check', function() {
       it('should request availability data from the server when property is specifyed', function() {
-        expect(env.propertyServiceGetAvailability.calledOnce).equal(true);
+        expect(env.propertyServiceGetAvailability).calledOnce;
       });
 
       it('should request availability with dates modifyed by rules provided via settings and dates must be >= todays date', function() {
-        expect(env.propertyServiceGetAvailability.calledWith(TEST_PROPERTY_LIST[0].code,
-          {from: '2015-01-25', to: '2015-04-03'})).equal(true);
+        expect(env.propertyServiceGetAvailability).calledWith(TEST_PROPERTY_LIST[0].code,
+          {from: '2015-01-25', to: '2015-04-03'});
       });
 
       it('should create availability settings for datepicker', function() {
@@ -241,15 +249,17 @@ describe('bookingWidget', function() {
     });
 
     it('should add all properties option to the top of the property list', function() {
-      expect(env.scope.propertyRegionList.length).equal(3);
+      expect(env.scope.propertyRegionList.length).equal(4);
 
       expect(env.scope.propertyRegionList[0].code).equal(undefined);
       expect(env.scope.propertyRegionList[0].name).to.be.an('string');
       expect(env.scope.propertyRegionList[0].type).equal('all');
       expect(env.scope.propertyRegionList[1].code).equal('TESTREG');
       expect(env.scope.propertyRegionList[1].type).equal('region');
-      expect(env.scope.propertyRegionList[2].code).equal('TESTPROP');
-      expect(env.scope.propertyRegionList[2].type).equal('property');
+      expect(env.scope.propertyRegionList[2].code).equal('TESTLOC');
+      expect(env.scope.propertyRegionList[2].type).equal('location');
+      expect(env.scope.propertyRegionList[3].code).equal('TESTPROP');
+      expect(env.scope.propertyRegionList[3].type).equal('property');
     });
   });
 });
