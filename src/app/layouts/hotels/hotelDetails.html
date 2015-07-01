@@ -66,11 +66,11 @@
         <list-items class="rooms-list" ng-if="rooms.length" ng-init="roomLimit = 4">
           <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
           <pricing-switch>
-            <a href ng-class="{'is-active': pricePer === 'night'}" ng-click="pricePer = 'night'">Per Night</a>
+            <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
             |
             <a href
-               ng-class="{'is-active': pricePer === 'stay', 'is-disabled': !days}"
-               ng-click="days && (pricePer = 'stay')"
+               ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
+               ng-click="days && setPricePer(PP_STAY)"
                title="{{ days ? false: 'Please select dates to enable per stay pricing'}}">
               Per Stay
             </a>
@@ -90,10 +90,10 @@
             <pricing-info>
               <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
                 <p>
-                  from <span class="value">{{(room.priceFrom * (pricePer === 'stay' ? days : 1)) | i18nCurrency: currencyCode}}</span>
-                  <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === 'stay'">per stay</span>
+                  from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+                  <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
                   <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-                    <br />or <span class="value">{{(room.minPointsRequired * (pricePer === 'stay' ? days : 1))}}</span> points
+                    <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
                   </span>
                 </p>
 

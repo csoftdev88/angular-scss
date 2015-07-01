@@ -3,7 +3,8 @@
 angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
-  bookingService, propertyService, filtersService, modalService, preloaderFactory, user, _) {
+  bookingService, propertyService, filtersService, modalService, preloaderFactory, user, _,
+  $controller) {
 
   return {
     restrict: 'E',
@@ -11,15 +12,14 @@ angular.module('mobiusApp.directives.room', [])
     // Widget logic goes here
     link: function(scope){
 
+      $controller('PriceCtr', {$scope: scope});
+
       var SHORT_DESCRIPTION_LENGTH = 200;
 
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
       var propertyCode = bookingParams.propertyCode;
       scope.propertyCode = propertyCode;
-
-      scope.pricePer = 'night';
-      scope.days = (bookingParams.to && bookingParams.from) ? $window.moment(bookingParams.to).diff(bookingParams.from, 'days') : 0;
 
       var roomCode = $stateParams.roomID;
 

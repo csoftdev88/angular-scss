@@ -26,7 +26,7 @@ describe('mobius.controllers.hotel.details', function() {
     beforeEach(function() {
       module('mobiusApp.factories.preloader');
 
-      module('mobius.controllers.hotel.details', function($provide) {
+      module('mobius.controllers.hotel.details', function($provide, $controllerProvider) {
         $provide.value('bookingService', {
             getAPIParams: function(){
               return {
@@ -89,6 +89,9 @@ describe('mobius.controllers.hotel.details', function() {
           removeHref: function(){ return breadcrumbs; }
         };
         $provide.value('breadcrumbsService', breadcrumbs);
+
+
+        $controllerProvider.register('PriceCtr', function(){});
       });
     });
 
