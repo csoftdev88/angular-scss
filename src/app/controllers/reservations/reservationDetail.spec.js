@@ -37,7 +37,7 @@ describe('mobius.controllers.reservationDetail', function() {
       module('mobius.controllers.room.details');
       module('mobiusApp.factories.preloader');
 
-      module('mobius.controllers.reservationDetail', function($provide) {
+      module('mobius.controllers.reservationDetail', function($provide, $controllerProvider) {
         $provide.value('$stateParams', {
           reservationCode: TEST_RESERVATION_CODE
         });
@@ -101,6 +101,10 @@ describe('mobius.controllers.reservationDetail', function() {
           }
         };
         $provide.value('breadcrumbsService', breadcrumbs);
+
+        $controllerProvider.register('AuthCtrl', function($scope, config){
+          config.onAuthorized();
+        });
       });
     });
 
