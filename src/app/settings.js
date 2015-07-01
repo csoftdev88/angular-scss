@@ -321,8 +321,8 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix-hotel': 'http://res.cloudinary.com/dmh2cjswj/image/upload/w_15,h_15,c_fit/SAN/properties_amenities/',
-      'prefix-room': 'http://res.cloudinary.com/dmh2cjswj/image/upload/w_15,h_15,c_fit/SAN/rooms_amenities/',
+      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/properties_amenities/',
+      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/rooms_amenities/',
       'suffix': '.png'
     }
   }
