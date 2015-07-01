@@ -23,6 +23,7 @@ angular
     'mobius.controllers.common.auth',
     'mobius.controllers.common.sso',
     'mobius.controllers.common.content',
+    'mobius.controllers.common.price',
 
     'mobius.controllers.main',
     'mobius.controllers.about',

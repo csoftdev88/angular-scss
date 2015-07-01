@@ -6,7 +6,9 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService) {
+  $window, advertsService, $controller) {
+
+  $controller('PriceCtr', {$scope: $scope});
 
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;
@@ -26,9 +28,6 @@ angular.module('mobius.controllers.hotel.details', [])
       }
     });
   }
-
-  $scope.pricePer = 'night';
-  $scope.days = (bookingParams.to && bookingParams.from) ? $window.moment(bookingParams.to).diff(bookingParams.from, 'days') : 0;
 
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in

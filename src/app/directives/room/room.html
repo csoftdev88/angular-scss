@@ -9,9 +9,9 @@
     <hr />
     <list-items ng-if="products.length">
       <pricing-switch>
-        <a href ng-class="{'is-active': pricePer === 'night'}" ng-click="pricePer = 'night'">Per Night</a>
+        <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
         |
-        <a href ng-class="{'is-active': pricePer === 'stay'}" ng-click="days && (pricePer = 'stay')">Per Stay</a>
+        <a href ng-class="{'is-active': pricePer === PP_STAY}" ng-click="days && setPricePer(PP_STAY)">Per Stay</a>
       </pricing-switch>
       <list-item
         ng-repeat="product in products | orderBy : setRoomsSorting()"
@@ -27,10 +27,10 @@
           <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
 
           <p>
-            <span class="value">{{(product.price.totalBase * (pricePer === 'stay' ? days : 1)) | i18nCurrency: currencyCode}}</span>
-            <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === 'stay'">per stay</span>
+            <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+            <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
             <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
-              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === 'stay' ? days : 1))}}</span> points
+              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
             </span>
           </p>
 
