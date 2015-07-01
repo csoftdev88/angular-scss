@@ -14,10 +14,6 @@
         <a href ng-class="{'is-active': pricePer === 'stay'}" ng-click="days && (pricePer = 'stay')">Per Stay</a>
       </pricing-switch>
       <list-item ng-repeat="product in products | orderBy : setRoomsSorting()" ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}">
-        <figure>
-          <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/150/100/" alt="{{product.name}}"/>
-        </figure>
-
         <h2>{{product.name}}</h2>
 
         <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn <ng-pluralize count="product.price.pointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
