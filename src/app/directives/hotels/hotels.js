@@ -97,13 +97,13 @@ angular.module('mobiusApp.directives.hotels', [])
       };
 
       scope.loadLocation = function() {
-        if(scope.location && scope.location.code) {
-          preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
-            scope.locationDetails = location;
-          }));
-        } else {
-          scope.locationDetails = null;
-        }
+        //if(scope.location && scope.location.code) {
+        //  preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
+        //    scope.locationDetails = location;
+        //  }));
+        //} else {
+        //  scope.locationDetails = null;
+        //}
       };
 
       // Getting the details from booking widget
