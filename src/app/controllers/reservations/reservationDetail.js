@@ -9,7 +9,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
   .controller('ReservationDetailCtrl', function($scope, $stateParams, $window,
             reservationService, preloaderFactory, modalService, userMessagesService,
-            propertyService, $q, breadcrumbsService, $controller){
+            propertyService, $q, breadcrumbsService/*, $controller*/){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -72,7 +72,9 @@ angular.module('mobius.controllers.reservationDetail', [])
       preloaderFactory(reservationPromise);
     }
 
-    $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
+    // choose either one of these two lines
+    //$controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
+    onAuthorized();
 
     $scope.modifyReservation = function(onError) {
       var reservationPromise = reservationService.modifyReservation($stateParams.reservationCode, $scope.reservation).then(
