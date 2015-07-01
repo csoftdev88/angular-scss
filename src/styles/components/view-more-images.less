@@ -6,7 +6,17 @@
 
 view-more-images {
   display: block;
+  position: relative;
+  top: -28px;
   text-align: right;
+
+  &.has-no-link {
+    top: 2px;
+
+    img {
+      margin-top: 0;
+    }
+  }
 
     a {
       text-decoration: underline;

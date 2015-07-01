@@ -3,10 +3,16 @@
 ///////////////////////
 
 about-us {
+  display: block;
 
   //- Page Heading
   h1 {
     .h1;
+    font-weight: 300;
+  }
+
+  p {
+    color: @c-gray;
   }
 
   //- Contacts List
@@ -29,6 +35,7 @@ about-us {
 
 
 about-detail {
+  &:extend(about-us);
 
   //- Page Heading
   h1 {
