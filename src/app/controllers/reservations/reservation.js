@@ -322,6 +322,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
+  $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
 
   var unWatchLogged = $scope.$watch(function(){
     return user.isLoggedIn() && user.getUser();

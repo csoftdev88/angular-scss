@@ -56,6 +56,17 @@ describe('creditCardTypeService', function() {
     it('should normilize credit card number with custom separator', function() {
       expect(_creditCardTypeService.formatCreditCardNumber('4222222222222', ' ')).equal('4222 2222 2222 2');
     });
-
   });
+
+  describe('getCreditCardPreviewNumber', function() {
+    it('should anonymize credit card number', function() {
+      expect(_creditCardTypeService.getCreditCardPreviewNumber('4222222222222')).equal('xxxx-xxxx-x222-2');
+      expect(_creditCardTypeService.getCreditCardPreviewNumber('4222')).equal('4222');
+    });
+
+    it('should anonymize credit card number with a custom mask', function() {
+      expect(_creditCardTypeService.getCreditCardPreviewNumber('11115432', '*')).equal('****-5432');
+    });
+  });
+
 });
