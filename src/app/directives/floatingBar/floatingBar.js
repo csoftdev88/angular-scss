@@ -10,6 +10,8 @@ angular.module('mobiusApp.directives.floatingBar', [
         ADVANCED_BOOKING = 'advancedBooking',
         MY_ACCOUNT = 'myAccount';
 
+    var active = BOOKING;
+
     return {
       restrict: 'E',
       scope: {},
@@ -22,20 +24,18 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.MY_ACCOUNT = MY_ACCOUNT;
 
         scope.setActive = function(newActive) {
-          $el.removeClass(scope.active);
-
           if (newActive === scope.active) {
             scope.active = false;
           } else {
             scope.active = newActive;
-            $el.addClass(newActive);
           }
           // Set class on root element, so we can change
           // bottom margin of footer
           $el.toggleClass('active', !!scope.active);
+          active = scope.active; // preserve between pages
         };
 
-        scope.setActive(BOOKING);
+        scope.setActive(active);
       }
     };
   });
