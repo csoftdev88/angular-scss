@@ -47,4 +47,15 @@ describe('creditCardTypeService', function() {
       expect(_creditCardTypeService.getCreditCardDetails('1434')).equal(null);
     });
   });
+
+  describe('formatCreditCardNumber', function() {
+    it('should normilize credit card number with default separator', function() {
+      expect(_creditCardTypeService.formatCreditCardNumber('4222222222222')).equal('4222-2222-2222-2');
+    });
+
+    it('should normilize credit card number with custom separator', function() {
+      expect(_creditCardTypeService.formatCreditCardNumber('4222222222222', ' ')).equal('4222 2222 2222 2');
+    });
+
+  });
 });
