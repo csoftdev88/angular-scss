@@ -1,4 +1,4 @@
-<div ng-class="{'inactive': reservation.status !== 'active'}">
+<div ng-class="{'inactive': reservation.status !== 'active'}" class="" ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
     <div class="property-preview">
       <img ng-src="{{property.images[0].uri}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
     </div>
