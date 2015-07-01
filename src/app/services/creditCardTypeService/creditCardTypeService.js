@@ -61,9 +61,37 @@ angular.module('mobiusApp.services.creditCardType', [])
       return creditCardNumber ? ('' + creditCardNumber).replace(/[\s-]/g, '') : '';
     }
 
+    function formatCreditCardNumber(creditCardNumber, separator) {
+      creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
+
+      var formatedNumber = '';
+
+      for (var i = 0; i < creditCardNumber.length; i++) {
+        if ((i > 0) && (i % 4 === 0)) {
+          formatedNumber += separator || '-';
+        }
+        formatedNumber += creditCardNumber[i];
+      }
+
+      return formatedNumber;
+    }
+
+    function getCreditCardPreviewNumber(creditCardNumber, maskSymbol){
+      creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
+
+      var previewNumber = '';
+      for(var i = 0; i < creditCardNumber.length; i++){
+        previewNumber += i > creditCardNumber.length - 5?creditCardNumber[i]:maskSymbol || 'x';
+      }
+
+      return formatCreditCardNumber(previewNumber);
+    }
+
     return {
       getCreditCardDetails: getCreditCardDetails,
       luhnCheck: luhnCheck,
-      normalizeCreditCardNumber: normalizeCreditCardNumber
+      normalizeCreditCardNumber: normalizeCreditCardNumber,
+      formatCreditCardNumber: formatCreditCardNumber,
+      getCreditCardPreviewNumber: getCreditCardPreviewNumber
     };
   });

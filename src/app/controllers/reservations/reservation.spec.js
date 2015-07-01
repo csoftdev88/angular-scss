@@ -136,7 +136,9 @@ describe('mobius.controllers.reservation', function() {
               code: TEST_VISA.code,
               icon: TEST_VISA.icon
             };
-          }
+          },
+
+          getCreditCardPreviewNumber: function(){}
         });
 
         var breadcrumbs = {
@@ -185,16 +187,10 @@ describe('mobius.controllers.reservation', function() {
       });
     });
 
-    describe('readPolicies', function() {
-      beforeEach(function(){
-        _scope.selectedProduct = {test: 123};
+    describe('getCreditCardPreviewNumber', function(){
+      it('should be defined as a function', function() {
+        expect(_scope.getCreditCardPreviewNumber).to.be.a('function');
       });
-
-      //it('should open policies dialogue with currently selected product', function() {
-      //  _scope.readPolicies();
-      //  expect(_spyOpenPoliciesInfo.calledOnce).equal(true);
-      //  expect(_spyOpenPoliciesInfo.calledWith({test: 123})).equal(true);
-      //});
     });
 
     describe('expiration date', function() {
