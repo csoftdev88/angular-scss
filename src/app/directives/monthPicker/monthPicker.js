@@ -29,6 +29,7 @@ angular.module('mobiusApp.directives.monthPicker', [])
           showButtonPanel: true,
           dateFormat: DATE_FORMAT,
           showAnim: '',
+          minDate: 0,
 
           beforeShow: function() {
             toggleClass(true);
