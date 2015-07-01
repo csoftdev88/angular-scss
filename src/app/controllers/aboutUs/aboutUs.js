@@ -22,8 +22,6 @@ angular.module('mobius.controllers.about', [])
 
     $controller('MainCtrl', {$scope: $scope});
 
-    breadcrumbsService.addBreadCrumb('About Us');
-
     var NUMBER_OF_RELEVANT_ABOUT_US = 3;
 
     var selectedAboutIndex;
