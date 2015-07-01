@@ -93,7 +93,7 @@
               required ng-model="room.adults"
               data-placeholder="Adults"
               disable-search="true"
-              chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max">
+              chosen ng-options="option.title for option in guestsOptions.adults">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>Number of Adult(s)</form-label>
@@ -104,7 +104,7 @@
               required ng-model="room.children"
               data-placeholder="Children"
               disable-search="true"
-              chosen ng-options="number for number in []|numberToList:settings.children.min:settings.children.max">
+              chosen ng-options="option.title for option in guestsOptions.children">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>Number of Children</form-label>

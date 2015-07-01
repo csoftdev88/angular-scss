@@ -462,7 +462,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               continue;
             }
 
-            if(settings.withValue){
+            if(settings.withValue && value!==undefined){
               value = value.value;
             }
 
@@ -507,7 +507,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           room = {adults: scope.selected.adults, children: scope.selected.children};
           scope.selected.rooms = [room];
         } else if (scope.selected.rooms.length < scope.settings.maxRooms) {
-          room = {adults: 1, children: 0};
+          room = {adults: valueToAdultsOption(scope.settings.adults.min), children: valueToChildrenOption(scope.settings.children.min)};
           scope.selected.rooms.push(room);
         }
         room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
