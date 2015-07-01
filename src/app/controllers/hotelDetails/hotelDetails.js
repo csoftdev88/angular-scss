@@ -45,7 +45,8 @@ angular.module('mobius.controllers.hotel.details', [])
           $scope.details.descriptionShort += '…';
         }
 
-        breadcrumbsService.addBreadCrumb(details.nameShort);
+        breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort);
+
         breadcrumbsService
           .addHref('About', 'jsAbout')
           .addHref('Location', 'jsLocation')
