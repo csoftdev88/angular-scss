@@ -34,9 +34,9 @@
           <a href="">
             <div class="item-image">
               <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
-              <ul class="star-rating">
+              <!--<ul class="star-rating">
                 <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
-              </ul>
+              </ul-->
             </div>
             <h2>{{hotel.nameShort}}</h2>
             <pricing-info>
@@ -50,7 +50,7 @@
                 Not Available
               </p>
             </pricing-info>
-            <p class="description">{{hotel.description}}</p>
+            <p class="description">{{hotel.description | limitTo: 50}}</p>
           </a>
         </li>
       </ul>
