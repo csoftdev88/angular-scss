@@ -17,13 +17,22 @@ angular.module('mobius.controllers.main', [])
         $scope.updateHeroContent();
       });
 
+      var heroSliderData;
       $scope.updateHeroContent = function(data){
         if(data && data.length){
           $scope.heroContent = data;
           return;
         }
 
-        $scope.heroContent = [];
+        if(heroSliderData) {
+          $scope.heroContent = heroSliderData;
+        }
+        else {
+          loadHighlights().then(function() {
+            $scope.heroContent = heroSliderData;
+          });
+        }
+        /* this is hidden in case they will decide keep hero slider only on some pages
         var stateName = $scope.$state.current.name;
 
         if (stateName === 'home') {
@@ -38,13 +47,13 @@ angular.module('mobius.controllers.main', [])
           $scope.heroContent = heroContent;
         } else {
           $scope.heroContent = Settings.UI.heroStaticContent['default'];
-        }
+        }*/
       };
 
       function loadHighlights() {
-        contentService.getAdverts({bannerSize: Settings.UI.adverts.heroAdverts}).then(
+        return contentService.getAdverts({bannerSize: Settings.UI.adverts.heroAdverts}).then(
           function (response) {
-            $scope.heroContent = _.reduce(response, function(object, advert){
+            heroSliderData = _.reduce(response, function(object, advert){
               if(!_.isEmpty(advert.images)) {
                 var imageObject = advert.images[0];
                 imageObject.link = advert.link;
