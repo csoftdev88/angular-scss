@@ -179,7 +179,7 @@ angular
         url: '/reservation/:reservationCode',
         controller: 'ReservationDetailCtrl',
         data: {
-          private: true
+          authProtected: true
         }
       })
 
