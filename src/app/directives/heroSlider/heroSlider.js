@@ -49,7 +49,7 @@ angular.module('mobiusApp.directives.slider', [])
         cancelAutoplay();
 
         // No slides found
-        if(!scope.content.length){
+        if(!scope.content || !scope.content.length){
           return;
         }
 
