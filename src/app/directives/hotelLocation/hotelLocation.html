@@ -43,10 +43,12 @@
     <div>
       <i class="fa fa-phone"></i>
       <strong>Address:</strong>
-      <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
-      <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},</span><br ng-if="hotelDetails.address2" />
-      <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},</span><br ng-if="hotelDetails.address3" />
-      <span>{{hotelDetails.city}}, {{hotelDetails.zip}}</span>
+      <address>
+        <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
+        <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},</span><br ng-if="hotelDetails.address2" />
+        <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},</span><br ng-if="hotelDetails.address3" />
+        <span>{{hotelDetails.city}}, {{hotelDetails.zip}}</span>
+      </address>
     </div>
   </contact-item>
 
