@@ -136,7 +136,9 @@ describe('mobius.controllers.reservation', function() {
               code: TEST_VISA.code,
               icon: TEST_VISA.icon
             };
-          }
+          },
+
+          getCreditCardPreviewNumber: function(){}
         });
 
         var breadcrumbs = {
@@ -186,7 +188,7 @@ describe('mobius.controllers.reservation', function() {
     });
 
     describe('getCreditCardPreviewNumber', function(){
-     it('should be defined as a function', function() {
+      it('should be defined as a function', function() {
         expect(_scope.getCreditCardPreviewNumber).to.be.a('function');
       });
     });

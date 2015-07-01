@@ -84,7 +84,6 @@ angular.module('mobiusApp.services.creditCardType', [])
         previewNumber += i > creditCardNumber.length - 5?creditCardNumber[i]:maskSymbol || 'x';
       }
 
-      console.error(previewNumber);
       return formatCreditCardNumber(previewNumber);
     }
 
