@@ -89,7 +89,9 @@ angular.module('mobiusApp.directives.room', [])
         });
       });
 
-      var propertyPromise = propertyService.getPropertyDetails(propertyCode);
+      var propertyPromise = propertyService.getPropertyDetails(propertyCode).then(function(property) {
+        scope.property = property;
+      });
 
       preloaderFactory($q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
         breadcrumbsService.clear()
