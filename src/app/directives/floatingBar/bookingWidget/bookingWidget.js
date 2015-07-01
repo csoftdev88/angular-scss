@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
-.directive('bookingWidget', function($filter, $state, $window,
+.directive('bookingWidget', function($controller, $filter, $state, $window,
   modalService, bookingService, queryService, validationService,
   propertyService, locationService, filtersService, Settings, $q){
   return {
@@ -17,6 +17,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
 
+      $controller('GuestsCtrl', {$scope: scope});
+
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
@@ -29,7 +31,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'min': scope.settings.children.min || 0,
           'defaultValue': 0,
           'required': false,
-          'withCode': false
+          'withValue': true
         },
         'adults': {
           'search': 'adults',
@@ -37,7 +39,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'max': scope.settings.adults.max,
           'min': scope.settings.adults.min || 0,
           'required': true,
-          'withCode': false
+          'withValue': true
         },
         'region': {
           'search': 'region',
@@ -88,8 +90,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // NOTE: Hotel is presented in the URL by using property/hotel code
       // Currently selected form values
       scope.selected = {
-        'children': scope.settings.children.min,
-        'adults': scope.settings.adults.min,
+        'adults': scope.guestsOptions.adults[0],
+        'children': scope.guestsOptions.children[0],
         'property': undefined,
         'location': undefined,
         'region': undefined,
@@ -123,7 +125,19 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               queryService.removeParam(paramSettings.search);
             }else{
               // Value is valid, we can assign it to the model
-              scope.selected[key] = validationService.convertValue(paramValue, paramSettings, true);
+              paramValue = validationService.convertValue(paramValue, paramSettings, true);
+              switch(paramSettings.search){
+              case 'adults':
+                scope.selected[key] = valueToAdultsOption(paramValue);
+                break;
+
+              case 'children':
+                scope.selected[key] = valueToChildrenOption(paramValue);
+                break;
+
+              default:
+                scope.selected[key] = paramValue;
+              }
             }
           }
         }
@@ -405,6 +419,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             var modelValue;
             if (paramSettings.withCode && scope.selected[key] !== undefined) {
               modelValue = scope.selected[key].code;
+            } else if (paramSettings.withValue){
+              modelValue = scope.selected[key].value;
             } else {
               modelValue = scope.selected[key] || paramSettings.defaultValue;
             }
@@ -446,6 +462,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               continue;
             }
 
+            if(settings.withValue && value!==undefined){
+              value = value.value;
+            }
+
             if (settings.required && !validationService.isValueValid(value, settings)) {
               return false;
             }
@@ -456,14 +476,29 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       };
 
       function recomputeGlobalAdultsChildren() {
+        // TODO: FIX SUM
         function getSum(property) {
           return $window._.chain(scope.selected.rooms).pluck(property).reduce(function(acc, n) {
             return acc + n;
           }, 0).value();
         }
 
-        scope.selected.adults = Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults')));
-        scope.selected.children = Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children')));
+        scope.selected.adults = valueToAdultsOption(Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults'))));
+        scope.selected.children = valueToChildrenOption(Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children'))));
+      }
+
+      // NOTE: Matching values from URL to corresponding option
+      // displayed in a dropdown
+      function valueToAdultsOption(value){
+        return $window._.find(scope.guestsOptions.adults, function(item){
+          return item.value === value;
+        });
+      }
+
+      function valueToChildrenOption(value){
+        return $window._.find(scope.guestsOptions.children, function(item){
+          return item.value === value;
+        });
       }
 
       scope.addRoom = function() {
@@ -472,7 +507,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           room = {adults: scope.selected.adults, children: scope.selected.children};
           scope.selected.rooms = [room];
         } else if (scope.selected.rooms.length < scope.settings.maxRooms) {
-          room = {adults: 1, children: 0};
+          room = {adults: valueToAdultsOption(scope.settings.adults.min), children: valueToChildrenOption(scope.settings.children.min)};
           scope.selected.rooms.push(room);
         }
         room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
