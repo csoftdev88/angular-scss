@@ -37,9 +37,10 @@
           <button-submit
             role="button" tabindex="0"
             ng-click="selectProduct(product)"
-            ng-disabled="product.memberOnly && !isUserLoggedIn()">
+            ng-hide="product.memberOnly && !isUserLoggedIn()">
             Select
           </button-submit>
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">Login/Register</a>
         </pricing-info>
 
         <description-info>
