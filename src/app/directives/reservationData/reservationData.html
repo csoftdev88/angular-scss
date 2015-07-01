@@ -1,6 +1,6 @@
 <div ng-class="{'inactive': reservation.status !== 'active'}">
     <div class="property-preview">
-      <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+      <img ng-src="{{property.images[0].uri}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
     </div>
 
     <check-in-date>
