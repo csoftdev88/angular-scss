@@ -17,6 +17,7 @@
 </ul>
 <div ng-if="active">
   <booking-widget
+    hide-bar="setActive(active)"
     ng-if="active === BOOKING || active === ADVANCED_BOOKING"
     advanced="active === ADVANCED_BOOKING">
   </booking-widget>

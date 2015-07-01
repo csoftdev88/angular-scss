@@ -8,7 +8,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
   return {
     restrict: 'E',
     scope: {
-      advanced: '='
+      advanced: '=',
+      hideBar: '&'
     },
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
@@ -449,6 +450,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           stateParams.propertyCode = scope.selected.property.code;
           $state.go('hotel', stateParams, {reload: true});
         }
+
+        scope.hideBar();
       };
 
       // Search is enabled only when required fields contain data
