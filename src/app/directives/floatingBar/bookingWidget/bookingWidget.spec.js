@@ -62,7 +62,7 @@ describe('bookingWidget', function() {
   function setUp(settings){
     env = {};
 
-    module('mobiusApp.directives.floatingBar.bookingWidget', function($provide) {
+    module('mobiusApp.directives.floatingBar.bookingWidget', function($provide, $controllerProvider) {
       // Mocking the services
       $provide.value('bookingService', {
         getParams: function(){
@@ -115,6 +115,10 @@ describe('bookingWidget', function() {
         UI: {
           bookingWidget: settings || TEST_SETTINGS
         }
+      });
+
+      $controllerProvider.register('GuestsCtrl', function($scope){
+        $scope.guestsOptions = {adults: [], children: []};
       });
     });
 

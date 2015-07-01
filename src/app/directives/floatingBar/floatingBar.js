@@ -38,4 +38,23 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.setActive(BOOKING);
       }
     };
+  // Generic controller for booking tabs - defines numbers of guests
+  }).controller('GuestsCtrl', function($scope, $filter, Settings){
+    var numberToListFilter = $filter('numberToList');
+    var settings = Settings.UI.bookingWidget;
+
+    $scope.guestsOptions = {
+      adults: numberToListFilter([], settings.adults.min, settings.adults.max,
+        // TODO: Localize
+        {
+          '1': '{} Adult',
+          'plural': '{} Adults'
+        }),
+        children: numberToListFilter([], settings.children.min, settings.children.max,
+          // TODO: Localize
+          {
+            '0': 'No Children',
+            'plural': '{} Children'
+          })
+        };
   });

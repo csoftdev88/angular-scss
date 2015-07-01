@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
-.directive('bookingWidget', function($filter, $state, $window,
+.directive('bookingWidget', function($controller, $filter, $state, $window,
   modalService, bookingService, queryService, validationService,
   propertyService, locationService, filtersService, Settings, $q){
   return {
@@ -17,6 +17,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
 
+      $controller('GuestsCtrl', {$scope: scope});
+
+      console.log(scope);
+
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
@@ -29,7 +33,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'min': scope.settings.children.min || 0,
           'defaultValue': 0,
           'required': false,
-          'withCode': false
+          'withValue': false
         },
         'adults': {
           'search': 'adults',
@@ -37,7 +41,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'max': scope.settings.adults.max,
           'min': scope.settings.adults.min || 0,
           'required': true,
-          'withCode': false
+          'withValue': false
         },
         'region': {
           'search': 'region',
@@ -88,8 +92,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // NOTE: Hotel is presented in the URL by using property/hotel code
       // Currently selected form values
       scope.selected = {
-        'children': scope.settings.children.min,
-        'adults': scope.settings.adults.min,
+        'adults': scope.guestsOptions.adults[0],
+        'children': scope.guestsOptions.children[0],
         'property': undefined,
         'location': undefined,
         'region': undefined,
@@ -111,6 +115,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // Function will remove query parameters from the URL in case their
       // values are not valid
       function validateURLParams(){
+        console.log(scope.selected.adults);
+
         var stateParams = bookingService.getParams();
         for(var key in PARAM_TYPES){
           if(PARAM_TYPES.hasOwnProperty(key)) {
@@ -446,6 +452,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               continue;
             }
 
+            if(settings.withValue){
+              value = value.value;
+            }
+
             if (settings.required && !validationService.isValueValid(value, settings)) {
               return false;
             }
@@ -462,8 +472,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           }, 0).value();
         }
 
-        scope.selected.adults = Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults')));
-        scope.selected.children = Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children')));
+        scope.selected.adults = scope.guestsOptions.adults[Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults')))];
+        scope.selected.children = scope.guestsOptions.children[Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children')))];
       }
 
       scope.addRoom = function() {
