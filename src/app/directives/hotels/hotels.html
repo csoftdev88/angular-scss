@@ -38,7 +38,7 @@
                 <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
               </ul>
             </div>
-            <h2>{{hotel.nameShort}}</h2>
+            <h2>The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
               <p ng-if="hotel.available">
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night
