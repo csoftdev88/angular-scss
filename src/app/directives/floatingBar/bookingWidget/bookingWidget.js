@@ -19,8 +19,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       $controller('GuestsCtrl', {$scope: scope});
 
-      console.log(scope);
-
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
 
@@ -33,7 +31,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'min': scope.settings.children.min || 0,
           'defaultValue': 0,
           'required': false,
-          'withValue': false
+          'withValue': true
         },
         'adults': {
           'search': 'adults',
@@ -41,7 +39,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'max': scope.settings.adults.max,
           'min': scope.settings.adults.min || 0,
           'required': true,
-          'withValue': false
+          'withValue': true
         },
         'region': {
           'search': 'region',
@@ -115,8 +113,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // Function will remove query parameters from the URL in case their
       // values are not valid
       function validateURLParams(){
-        console.log(scope.selected.adults);
-
         var stateParams = bookingService.getParams();
         for(var key in PARAM_TYPES){
           if(PARAM_TYPES.hasOwnProperty(key)) {
@@ -129,7 +125,19 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               queryService.removeParam(paramSettings.search);
             }else{
               // Value is valid, we can assign it to the model
-              scope.selected[key] = validationService.convertValue(paramValue, paramSettings, true);
+              paramValue = validationService.convertValue(paramValue, paramSettings, true);
+              switch(paramSettings.search){
+              case 'adults':
+                scope.selected[key] = valueToAdultsOption(paramValue);
+                break;
+
+              case 'children':
+                scope.selected[key] = valueToChildrenOption(paramValue);
+                break;
+
+              default:
+                scope.selected[key] = paramValue;
+              }
             }
           }
         }
@@ -411,6 +419,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             var modelValue;
             if (paramSettings.withCode && scope.selected[key] !== undefined) {
               modelValue = scope.selected[key].code;
+            } else if (paramSettings.withValue){
+              modelValue = scope.selected[key].value;
             } else {
               modelValue = scope.selected[key] || paramSettings.defaultValue;
             }
@@ -466,14 +476,29 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       };
 
       function recomputeGlobalAdultsChildren() {
+        // TODO: FIX SUM
         function getSum(property) {
           return $window._.chain(scope.selected.rooms).pluck(property).reduce(function(acc, n) {
             return acc + n;
           }, 0).value();
         }
 
-        scope.selected.adults = scope.guestsOptions.adults[Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults')))];
-        scope.selected.children = scope.guestsOptions.children[Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children')))];
+        scope.selected.adults = valueToAdultsOption(Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults'))));
+        scope.selected.children = valueToChildrenOption(Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children'))));
+      }
+
+      // NOTE: Matching values from URL to corresponding option
+      // displayed in a dropdown
+      function valueToAdultsOption(value){
+        return $window._.find(scope.guestsOptions.adults, function(item){
+          return item.value === value;
+        });
+      }
+
+      function valueToChildrenOption(value){
+        return $window._.find(scope.guestsOptions.children, function(item){
+          return item.value === value;
+        });
       }
 
       scope.addRoom = function() {
