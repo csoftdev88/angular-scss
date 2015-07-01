@@ -69,9 +69,14 @@
       </list-item>
     </list-items>
 
-    <div ng-if="!products.length">
-      <p ng-if="$stateParams.dates"><strong>No Availability on these Dates</strong></p>
-      <p ng-if="!$stateParams.dates"><strong>Please select you dates to view Rates</strong></p>
+    <div ng-if="!products.length" class="products-not-available">
+      <div ng-if="$stateParams.dates">
+        <h3>Sorry, this room is not available for the dates you have selected</h3>
+        <p>Try selecting new dates or choosing a new room.</p>
+      </div>
+      <div ng-if="!$stateParams.dates">
+        <h3>Please select you dates to view Rates</h3>
+      </div>
     </div>
 
     <hr />
