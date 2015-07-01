@@ -2,7 +2,8 @@
 
 angular.module('mobius.controllers.common.content', [])
 
-  .controller('ContentCtr', function($scope, propertyService, contentService, $state, _) {
+  .controller('ContentCtr', function($scope, propertyService, contentService,
+         locationService, $state, _) {
 
     // We are using different methods for getting the data
     // from the server according to content type. Also, menu
@@ -16,7 +17,18 @@ angular.module('mobius.controllers.common.content', [])
         'paramName': 'propertyCode',
         'title': 'nameShort',
         'sort': 'nameShort',
-        'reverseSort': false
+        'reverseSort': false,
+        'fallback': {
+          'maxItems': 5,
+          'service': 'locationService',
+          'method': 'getRegions',
+          'detailState': 'hotels',
+          'listState': 'hotels',
+          'paramName': 'regionCode',
+          'title': 'nameShort',
+          'sort': 'nameShort',
+          'reverseSort': false
+        }
       },
       'news': {
         'service': 'contentService',
@@ -52,12 +64,13 @@ angular.module('mobius.controllers.common.content', [])
 
     var services = {
       propertyService: propertyService,
-      contentService: contentService
+      contentService: contentService,
+      locationService: locationService
     };
 
     $scope.settings = contentTypes[$scope.item];
 
-    if ($scope.settings) {
+    function processSettings() {
       $scope.goToState = function(code) {
         var params = {};
         params[$scope.settings.paramName] = code;
@@ -69,15 +82,25 @@ angular.module('mobius.controllers.common.content', [])
       };
 
       services[$scope.settings.service][$scope.settings.method]().then(function(data) {
-        $scope.content = _.chain(data || []).sortBy($scope.settings.sort).map(function(item) {
-          return {
-            code: item.code,
-            title: item[$scope.settings.title]
-          };
-        }).value();
-        if ($scope.settings.reverseSort) {
-          $scope.content = $scope.content.reverse();
+        var content = data || [];
+        if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
+          $scope.settings = $scope.settings.fallback;
+          processSettings();
+        } else {
+          $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
+            return {
+              code: item.code,
+              title: item[$scope.settings.title]
+            };
+          }).value();
+          if ($scope.settings.reverseSort) {
+            $scope.content = $scope.content.reverse();
+          }
         }
       });
+    }
+
+    if ($scope.settings) {
+      processSettings();
     }
   });
