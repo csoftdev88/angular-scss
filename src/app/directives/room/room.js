@@ -91,6 +91,8 @@ angular.module('mobiusApp.directives.room', [])
 
       var propertyPromise = propertyService.getPropertyDetails(propertyCode).then(function(property) {
         scope.property = property;
+
+        return property;
       });
 
       preloaderFactory($q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
