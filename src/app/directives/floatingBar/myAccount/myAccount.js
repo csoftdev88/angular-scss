@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
-  .directive('myAccount', function(user, _, $window, modalService, $controller) {
+  .directive('myAccount', function(user, _, $window, modalService, $controller, Settings) {
     return {
       restrict: 'E',
       scope: {},
@@ -15,7 +15,7 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
         var loyaltyCard = {};
 
         $controller('SSOCtrl', {$scope: scope});
-
+        scope.displaySettings = Settings.UI.myAccount.displaySettings;
         function loadLoyalities() {
           // NOTE: Loyalties object should be already loaded
           // However, we are fetching the latest data
