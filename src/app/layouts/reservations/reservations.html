@@ -8,7 +8,7 @@
 
   <div ui-view>
     <div class="reservations" grid="12">
-      <div ng-if="eservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length">
+      <div ng-if="!reservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length">
         <h1>No reservations found</h1>
       </div>
 
