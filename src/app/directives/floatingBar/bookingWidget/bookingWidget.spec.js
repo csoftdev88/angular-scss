@@ -56,7 +56,9 @@ describe('bookingWidget', function() {
   ];
 
   var STATE_PARAMS = {
-    property: 'TESTPROP'
+    property: 'TESTPROP',
+    dates: '2015-02-02 2015-03-03',
+    adults: 1
   };
 
   function setUp(settings){
@@ -68,8 +70,11 @@ describe('bookingWidget', function() {
         getParams: function(){
           return STATE_PARAMS;
         },
-        getAPIParams: function(){
-          return {from: '2015-02-02', to: '2015-03-03'};
+        datesFromString: function() {
+          return {
+            from: '2015-02-02',
+            to: '2015-03-03'
+          };
         }
       });
 
@@ -82,7 +87,8 @@ describe('bookingWidget', function() {
       });
 
       $provide.value('validationService', {
-        isValueValid: function(){}
+        isValueValid: function(value){ return value ? true : false; },
+        convertValue: function(value){ return value; }
       });
 
       $provide.value('propertyService', {
@@ -118,7 +124,7 @@ describe('bookingWidget', function() {
       });
 
       $controllerProvider.register('GuestsCtrl', function($scope){
-        $scope.guestsOptions = {adults: [], children: []};
+        $scope.guestsOptions = {adults: [{value: 1}], children: []};
       });
     });
 
@@ -197,7 +203,7 @@ describe('bookingWidget', function() {
 
       it('should do initial param validation', function() {
         expect(env.validationServiceIsValueValid.callCount).equal(9);
-        expect(env.queryServiceRemoveParam.callCount).equal(9);
+        expect(env.queryServiceRemoveParam.callCount).equal(6);
       });
 
       it('should read booking parameters from the URL', function() {
@@ -212,7 +218,7 @@ describe('bookingWidget', function() {
 
       it('should request availability with dates modifyed by rules provided via settings and dates must be >= todays date', function() {
         expect(env.propertyServiceGetAvailability).calledWith(TEST_PROPERTY_LIST[0].code,
-          {from: '2015-01-25', to: '2015-04-03'});
+          {from: '2015-01-25', to: '2015-04-03', adults: 1, children: 0});
       });
 
       it('should create availability settings for datepicker', function() {
