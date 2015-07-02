@@ -1,14 +1,14 @@
-<div ng-class="{'dropdown has-icons': currencies.length > 1}">
+<div ng-class="{'dropdown has-icons': currencies.length > 1}" ng-show="languages.length > 1">
   <a href title="Currency">
     <span>{{getCurrencySymbol($root.currencyCode)}}</span>
   </a>
 
   <ul class="dropdown-menu submenu" ng-show="currencies.length > 1">
-    <li ng-repeat="currency in currencies">
-      <a class="currency" href title="{{currency.name}}" ng-click="changeCurrency(currency)">
-        {{getFormattedLabel(currency.code)}}
-        <img ng-src="/static/images/flag-{{currency.code}}.jpg" class="icon" alt="{{currency.code}}">
-      </a>
-    </li>
+      <li ng-repeat="currency in currencies">
+          <a class="currency" href title="{{currency.name}}" ng-click="changeCurrency(currency)">
+            {{getFormattedLabel(currency.code)}}
+            <img ng-src="/static/images/flag-{{currency.code}}.jpg" class="icon" alt="{{currency.code}}">
+          </a>
+      </li>
   </ul>
 </div>
