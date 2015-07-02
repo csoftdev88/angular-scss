@@ -206,7 +206,10 @@ describe('mobius.controllers.reservation', function() {
       beforeEach(function(){
         // Reservation data
         _scope.selectedProduct = {
-          productPropertyRoomTypeId: TEST_ROOM_ID
+          productPropertyRoomTypeId: TEST_ROOM_ID,
+          price: {
+            totalBase: 555
+          }
         };
 
         _scope.billingDetails = {
@@ -280,6 +283,10 @@ describe('mobius.controllers.reservation', function() {
 
         it('should set credit expiration date to end of the currently selected month', function(){
           expect(bookingParams.paymentInfo.ccPayment.expirationDate).equal('2015-01-31');
+        });
+
+        it('should set a price based on a selectedProduct totalBase price', function(){
+          expect(bookingParams.price).equal(555);
         });
       });
     });

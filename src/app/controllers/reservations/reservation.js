@@ -258,6 +258,9 @@ angular.module('mobius.controllers.reservation', [])
         securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
         typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code
       };
+
+      // Product basePrice
+      reservationData.price = $scope.selectedProduct.price.totalBase;
     }
 
     if($scope.bookingDetails.promoCode){
