@@ -56,28 +56,26 @@ hotel-room {
       }
     }
   }
+}
 
+//- If there are no available products
+.products-not-available,
+.reservations-not-available {
+  padding: @baseline * 2;
 
-  //- If there are no available products
-  .products-not-available {
-    padding: @baseline * 2;
+  background: #f6f3ee;
 
-    background: #f6f3ee;
+  text-align: center;
 
-    text-align: center;
+  h3 {
+    margin-bottom: @baseline;
 
-    h3 {
-      margin-bottom: @baseline;
+    color: #555;
 
-      color: #555;
+    font-size: @size-3;
+  }
 
-      font-size: @size-3;
-    }
-
-    p {
-      color: #999;
-    }
-
-
+  p {
+    color: #999;
   }
 }
