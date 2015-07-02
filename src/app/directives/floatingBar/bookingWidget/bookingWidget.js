@@ -32,7 +32,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'min': scope.settings.children.min || 0,
           'defaultValue': 0,
           'required': false,
-          'withValue': true
+          'field': 'value'
         },
         'adults': {
           'search': 'adults',
@@ -40,51 +40,51 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'max': scope.settings.adults.max,
           'min': scope.settings.adults.min || 0,
           'required': true,
-          'withValue': true
+          'field': 'value'
         },
         'region': {
           'search': 'region',
           'type': 'string',
           'required': false,
-          'withCode': true
+          'field': 'code'
         },
         'location': {
           'search': 'location',
           'type': 'string',
           'required': false,
-          'withCode': true
+          'field': 'code'
         },
         'property': {
           'search': 'property',
           'type': 'string',
           'required': false,
-          'withCode': true
+          'field': 'code'
         },
         'promoCode': {
           'search': 'promoCode',
           'type': 'string',
           'required': false,
-          'withCode': false
+          'field': ''
         },
         //TODO: add dates validation
         'dates': {
           'search': 'dates',
           'type': 'string',
           'required': true,
-          'withCode': false
+          'field': ''
         },
         'rate': {
           'search': 'rate',
           'type': 'integer',
           'required': false,
-          'withCode': false
+          'field': ''
         },
 
         'rooms': {
           'search': 'rooms',
           'type': 'object',
           'required': false,
-          'withCode': false
+          'field': ''
         }
       };
 
@@ -134,6 +134,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
               case 'children':
                 scope.selected[key] = valueToChildrenOption(paramValue);
+                break;
+
+              case 'rooms':
+                createRooms(paramValue);
                 break;
 
               default:
@@ -339,6 +343,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           return;
         }
 
+        var code = scope.selected.property.code || scope.selected.property;
+
         var params = {
           from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
           to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
@@ -346,7 +352,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           children: scope.selected.children ? scope.selected.children.value : 0
         };
 
-        propertyService.getAvailability(scope.selected.property.code, params).then(function(data){
+        propertyService.getAvailability(code, params).then(function(data){
           scope.availability = {};
 
           $window._.each(data, function(obj){
@@ -404,17 +410,18 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
        */
       scope.onSearch = function(){
         var stateParams = {};
-        for(var key in PARAM_TYPES){
-          if(PARAM_TYPES.hasOwnProperty(key)) {
+        for (var key in PARAM_TYPES) {
+          if (PARAM_TYPES.hasOwnProperty(key)) {
             var paramSettings = PARAM_TYPES[key];
 
-            var modelValue;
-            if (paramSettings.withCode && scope.selected[key] !== undefined) {
-              modelValue = scope.selected[key].code;
-            } else if (paramSettings.withValue){
-              modelValue = scope.selected[key].value;
-            } else {
-              modelValue = scope.selected[key] || paramSettings.defaultValue;
+            var modelValue = scope.selected[key];
+            if (scope.selected[key] && paramSettings.field) {
+              modelValue = modelValue[paramSettings.field];
+            }
+            modelValue = modelValue || paramSettings.defaultValue;
+
+            if (key === 'rooms') {
+              modelValue = roomsToNumbers(modelValue);
             }
 
             if (validationService.isValueValid(modelValue, paramSettings)) {
@@ -474,12 +481,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // TODO: FIX SUM
         function getSum(property) {
           return $window._.chain(scope.selected.rooms).pluck(property).reduce(function(acc, n) {
-            return acc + n;
+            return acc + n.value;
           }, 0).value();
         }
 
         scope.selected.adults = valueToAdultsOption(Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults'))));
         scope.selected.children = valueToChildrenOption(Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children'))));
+        scope.checkAvailability();
       }
 
       // NOTE: Matching values from URL to corresponding option
@@ -492,16 +500,44 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         return $window._.find(scope.guestsOptions.children, {value: value});
       }
 
-      scope.addRoom = function() {
+      function roomsToNumbers(rooms) {
+        return $window._.map(rooms, function(room) {
+          return {
+            adults: room.adults.value,
+            children: room.children.value
+          };
+        });
+      }
+
+      function createRooms(rooms) {
+        $window._.forEach(rooms, function(roomData) {
+          scope.addRoom(roomData.adults, roomData.children);
+        });
+      }
+
+      scope.addRoom = function(adults, children) {
         var room;
         if (!scope.selected.rooms) {
-          room = {adults: scope.selected.adults, children: scope.selected.children};
+          if(!adults) {
+            adults = scope.selected.adults.value;
+          }
+          if(!children) {
+            children = scope.selected.children.value;
+          }
+          room = {adults: valueToAdultsOption(adults), children: valueToChildrenOption(children)};
           scope.selected.rooms = [room];
         } else if (scope.selected.rooms.length < scope.settings.maxRooms) {
-          room = {adults: valueToAdultsOption(scope.settings.adults.min), children: valueToChildrenOption(scope.settings.children.min)};
+          if(!adults) {
+            adults = scope.settings.adults.min;
+          }
+          if(!children) {
+            children = scope.settings.children.min;
+          }
+          room = {adults: valueToAdultsOption(adults), children: valueToChildrenOption(children)};
           scope.selected.rooms.push(room);
         }
         room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
+        recomputeGlobalAdultsChildren();
         canAddRoom();
       };
 

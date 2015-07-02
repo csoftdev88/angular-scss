@@ -33,7 +33,7 @@ angular.module('mobius.controllers.reservations', [])
     var futureStays = getFutureStays(data);
 
     $scope.reservations = {
-      nextStay: futureStays.shift() || {},
+      nextStay: futureStays.shift() || null,
       pastStays: getPastStays(data),
       futureStays: futureStays
     };

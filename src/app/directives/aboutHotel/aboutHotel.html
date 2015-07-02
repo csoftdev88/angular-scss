@@ -22,7 +22,7 @@
 
 <section grid-row class="benefits">
   <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">
-    <a ng-click="sso.login()" ng-switch-when="false" href>
+    <a ui-sref="{{icon.state}}" ng-switch-when="false" href>
       <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
       <h2>{{icon.name}}</h2>
       <p>{{icon.text}}</p>
