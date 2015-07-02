@@ -349,19 +349,36 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
           to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
           adults: scope.selected.adults.value,
-          children: scope.selected.children ? scope.selected.children.value : 0
+          children: scope.selected.children ? scope.selected.children.value : 0,
+          productGroupId: scope.selected.rate
         };
 
-        propertyService.getAvailability(code, params).then(function(data){
-          scope.availability = {};
+        var qBookingParam = $q.defer();
 
-          $window._.each(data, function(obj){
-            if(!obj.isInventory){
-              scope.availability[obj.date] = CLASS_NOT_AVAILABLE;
+        // Using PGID from the booking params
+        if(params.productGroupId){
+          qBookingParam.resolve(params);
+        } else {
+          filtersService.getBestRateProduct().then(function(brp){
+            if(brp){
+              params.productGroupId = brp.id;
             }
+            qBookingParam.resolve(params);
           });
-        }, function(){
-          scope.availability = null;
+        }
+
+        return qBookingParam.promise.then(function(params) {
+          return propertyService.getAvailability(code, params).then(function(data) {
+            scope.availability = {};
+
+            $window._.each(data, function(obj) {
+              if (!obj.isInventory) {
+                scope.availability[obj.date] = CLASS_NOT_AVAILABLE;
+              }
+            });
+          }, function() {
+            scope.availability = null;
+          });
         });
       };
 
