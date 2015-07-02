@@ -219,7 +219,13 @@ angular.module('mobiusApp.config', [])
         }
       }
     },
-
+    'myAccount' : {
+      'displaySettings' : {
+        'profile': true,
+        'badges': false,
+        'loyalities': true
+      }
+    },
     // States layout
     'layout': {
       'home': [
