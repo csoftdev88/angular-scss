@@ -447,26 +447,27 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       // Search is enabled only when required fields contain data
       scope.isSearchable = function(){
-        for(var key in PARAM_TYPES){
-          if(PARAM_TYPES.hasOwnProperty(key)) {
-            var settings = PARAM_TYPES[key];
-
-            var value = scope.selected[key];
-            if (key === 'property') {
-              continue;
-            }
-
-            if(settings.withValue && value!==undefined){
-              value = value.value;
-            }
-
-            if (settings.required && !validationService.isValueValid(value, settings)) {
-              return false;
-            }
-          }
-        }
-
-        return true;
+        return scope.selected.property || scope.selected.dates;
+        //for(var key in PARAM_TYPES){
+        //  if(PARAM_TYPES.hasOwnProperty(key)) {
+        //    var settings = PARAM_TYPES[key];
+        //
+        //    var value = scope.selected[key];
+        //    if (key === 'property') {
+        //      continue;
+        //    }
+        //
+        //    if(settings.withValue && value!==undefined){
+        //      value = value.value;
+        //    }
+        //
+        //    if (settings.required && !validationService.isValueValid(value, settings)) {
+        //      return false;
+        //    }
+        //  }
+        //}
+        //
+        //return true;
       };
 
       function recomputeGlobalAdultsChildren() {
