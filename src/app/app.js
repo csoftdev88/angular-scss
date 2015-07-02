@@ -27,6 +27,7 @@ angular
     'mobius.controllers.main',
     'mobius.controllers.about',
     'mobius.controllers.offers',
+    'mobius.controllers.rewards',
     'mobius.controllers.news',
     'mobius.controllers.contacts',
     'mobius.controllers.reservations',
@@ -209,6 +210,14 @@ angular
         templateUrl: 'layouts/offers/offers.html',
         url: '/offers/:code',
         controller: 'OffersCtrl'
+      })
+
+      // Rewards page
+      .state('rewards', {
+        parent: 'root',
+        templateUrl: 'layouts/rewards/rewards.html',
+        url: '/rewards/:code',
+        controller: 'RewardsCtrl'
       })
 
       // News page
