@@ -61,6 +61,7 @@ angular.module('mobiusApp.config', [])
       'new': 'reservations',
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
+      'cancel': 'reservations/:reservationCode/actions/cancel',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/'
     },
