@@ -22,7 +22,7 @@ describe('hotels directive', function() {
     _spyBookingServiceAPIParamsHasDates, _locationServiceGetLocations;
 
   beforeEach(function() {
-    module('mobiusApp.factories.preloader', 'underscore');
+    module('mobiusApp.factories.preloader', 'underscore', 'mobius.controllers.common.preference');
 
     module('mobiusApp.directives.hotels', function($provide, $controllerProvider) {
       // Mocking the services

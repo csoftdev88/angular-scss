@@ -19,6 +19,7 @@ angular.module('mobiusApp.directives.hotels', [])
       breadcrumbsService.clear().addBreadCrumb('Hotel Search');
 
       $controller('MainCtrl', {$scope: scope});
+      $controller('PreferenceCtrl', {$scope: scope});
 
       scope.sortingOptions = [
         {
@@ -58,7 +59,8 @@ angular.module('mobiusApp.directives.hotels', [])
         }
       ];
 
-      scope.view = 'tiles';
+      scope.preference.setDefault('hotels-view-mode', 'tiles');
+
       scope.minStars = 0;
       scope.maxStars = 5;
       scope.minRating = 0;
