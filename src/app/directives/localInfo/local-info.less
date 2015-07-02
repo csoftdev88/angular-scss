@@ -41,13 +41,15 @@ local-info {
   .weather-loop( extract( @icons, 1 ), 1 );
 }
 
-[class^="weather-"],
-[class*=" weather-"] {
+span[class^="weather-"] {
   display: inline-block;
   width: 32px;
   height: 32px;
+  vertical-align: bottom;
+  margin-left: @baseline / 2;
   background-repeat: no-repeat;
   background-position: center center;
 }
 
+// Start the loop
 .weather( @weather-icons );
