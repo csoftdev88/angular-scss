@@ -1,3 +1,4 @@
 Local Time: <strong>{{localTime}}</strong> |
 Local Weather: <strong>{{localInfo.temperatureC}}°C/{{localInfo.temperatureF}}°F</strong>
-<img ng-src="{{localInfo.weatherIcon}}" alt="{{localInfo.weather}}" err-source="/static/images/v4/icon-sun.png"/>
+<span class="weather-{{localInfo.weatherType}}" title="{{localInfo.weatherDescription}}"></span>
+
