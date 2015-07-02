@@ -54,6 +54,7 @@ angular.module('mobiusApp.directives.floatingBar', [
           // TODO: Localize
           {
             '0': 'No Children',
+            '1': '{} Child',
             'plural': '{} Children'
           })
         };

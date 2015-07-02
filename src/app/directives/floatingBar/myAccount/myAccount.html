@@ -8,14 +8,14 @@
 
 <div ng-if="user.isLoggedIn()">
 
-  <article>
+  <article ng-show="displaySettings.profile">
     <img ng-src="{{user.getUser().loyalties.avatar}}" err-source="http://lorempixel.com/60/60">
     <h4>{{user.getUser().firstName}} {{user.getUser().lastName}}</h4>
     <p>{{user.getUser().loyalties.tier}} _tier_</p>
     <p>{{user.getUser().loyalties.amount}} _points_</p>
   </article>
 
-  <article ng-switch="!!lastBadge" ng-click="showBadges()">
+  <article ng-show="displaySettings.badges" ng-switch="!!lastBadge" ng-click="showBadges()">
     <img ng-src="{{lastBadge.icon}}" err-source="http://lorempixel.com/60/60" />
     <h4>Last Badge <strong>earned</strong></h4>
     <p ng-switch-when="false">You have not earned any badges yet</p>
@@ -23,7 +23,7 @@
     <p ng-switch-default>{{lastBadge.displayedDate}}</p>
   </article>
 
-  <article ng-click="showLoyaltyCard()">
+  <article ng-show="displaySettings.loyalities" ng-click="showLoyaltyCard()">
     <img ng-src="link_to_loyalities_icon" err-source="http://lorempixel.com/60/60" />
     <h4>Loyalty <strong>Card</strong></h4>
     <p>{{loyaltiesEarned}}/{{loyaltiesAll}} Stamps</p>
