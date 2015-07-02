@@ -112,6 +112,9 @@ describe('bookingWidget', function() {
       $provide.value('filtersService', {
         getProducts: function(){
           return {then: function(c){c(TEST_PRODUCTS_LIST);}};
+        },
+        getBestRateProduct: function() {
+          return {then: function(c){c({id: 1});}};
         }
       });
 
@@ -218,7 +221,7 @@ describe('bookingWidget', function() {
 
       it('should request availability with dates modifyed by rules provided via settings and dates must be >= todays date', function() {
         expect(env.propertyServiceGetAvailability).calledWith(TEST_PROPERTY_LIST[0].code,
-          {from: '2015-01-25', to: '2015-04-03', adults: 1, children: 0});
+          {from: '2015-01-25', to: '2015-04-03', adults: 1, children: 0, productGroupId: 1});
       });
 
       it('should create availability settings for datepicker', function() {
