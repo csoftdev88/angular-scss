@@ -111,9 +111,9 @@ angular.module('mobiusApp.config', [])
     },
     'aboutHotel': {
       'benefits' : [
-        {'name': 'Great offers', 'pictureUrl': '/static/images/v4/icon-offers.png', 'text': 'Take advantage of our great offers and promotions to make your stay even more enjoyable!'},
-        {'name': 'Sutton Prestige', 'pictureUrl': '/static/images/v4/icon-discounts.png', 'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program'},
-        {'name': 'Exciting news', 'pictureUrl': '/static/images/v4/icon-news.png', 'text': 'Keep up to date with our latest news and read our interesting articles!'}
+        {'name': 'Great offers', 'state': 'offers', 'pictureUrl': '/static/images/v4/icon-offers.png', 'text': 'Take advantage of our great offers and promotions to make your stay even more enjoyable!'},
+        {'name': 'Sutton Prestige', 'state': 'aboutUs({code: "prestige"})', 'pictureUrl': '/static/images/v4/icon-discounts.png', 'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program'},
+        {'name': 'Exciting news', 'state': 'news', 'pictureUrl': '/static/images/v4/icon-news.png', 'text': 'Keep up to date with our latest news and read our interesting articles!'}
       ]
     },
     // List of currencies and their display symbols
