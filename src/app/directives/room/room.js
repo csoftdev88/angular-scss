@@ -56,7 +56,8 @@ angular.module('mobiusApp.directives.room', [])
             return product.memberOnly || product.highlighted;
           })
         ), function(product) {
-          var descriptionShort = angular.element(product.description).text();
+          // NOTE: product.description is a plain text
+          var descriptionShort = product.description;
           product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
           product.hasViewMore = product.descriptionShort.length < descriptionShort.length;
           if (product.hasViewMore) {
