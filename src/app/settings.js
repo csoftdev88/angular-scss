@@ -72,7 +72,7 @@ angular.module('mobiusApp.config', [])
   },
 
   'currencyParamName': 'currency',
-  'bestAvailableRateCode': 'Business Rates',
+  'defaultProductRateCode': 'Leisure Rates',
 
   'UI': {
     'adverts' : {
