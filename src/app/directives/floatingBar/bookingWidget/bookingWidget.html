@@ -10,7 +10,7 @@
             ng-model="regionPropertySelected"
             chosen-options-class="{ 'region': type === 'region', 'location': type === 'location', 'property': type === 'property' }"
             ng-options="option.name for option in propertyRegionList"
-            ng-change="propertyRegionChanged()">
+            ng-change="propertyRegionChanged(); checkAvailability()">
       <option></option> <!-- workaround for a bug in angular-chosen  -->
     </select>
     <form-label>Find Your Hotel</form-label>
@@ -28,7 +28,8 @@
            highlights="availability"
            data-include-counter="1"
            data-counter-pluralization="{'0': 'No dates selected', '1': '{} night', 'plural': '{} nights'}"
-           input-text="inputDateText">
+           input-text="inputDateText"
+           ng-change="checkAvailability()">
     <form-label>Enter Your Dates</form-label>
     <input-value>{{inputDateText || 'Dates'}}</input-value>
   </form-element>
@@ -38,8 +39,9 @@
             required ng-model="selected.adults"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.adults"
-            data-placeholder="Adults">
-      <option></option> <!-- workaround for a bug in angular-chosen -->
+            data-placeholder="Adults"
+            ng-change="checkAvailability()">
+    <option></option> <!-- workaround for a bug in angular-chosen -->
     </select>
     <form-label>Number of Adult(s)</form-label>
   </form-element>
@@ -50,8 +52,9 @@
             required ng-model="selected.children"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.children"
-            data-placeholder="Children">
-      <option></option> <!-- tworkaround for a bug in angular-chosen -->
+            data-placeholder="Children"
+            ng-change="checkAvailability()">
+    <option></option> <!-- tworkaround for a bug in angular-chosen -->
     </select>
     <form-label>Number of Children</form-label>
   </form-element>

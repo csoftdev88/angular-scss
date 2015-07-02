@@ -271,12 +271,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         setPropertyRegionList();
-
-        if(scope.selected.property) {
-          checkAvailability();
-        } else {
-          resetAvailability();
-        }
+        scope.checkAvailability();
       }
 
       function setPropertyRegionList() {
@@ -337,27 +332,21 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       }
 
-      function resetAvailability(){
-        if(scope.availability){
+      scope.checkAvailability = function() {
+        var dates = bookingService.datesFromString(scope.selected.dates);
+        if (!scope.selected.property || !dates || !scope.selected.adults) {
           scope.availability = null;
-        }
-      }
-
-      function checkAvailability(){
-        // No need to check availability
-        if(!scope.settings.availability){
           return;
         }
 
-        var bookingParams = bookingService.getAPIParams(true);
-        // NOTE - We have to check availability for wider range than selected
-        bookingParams.from = getAvailabilityCheckDate(bookingParams.from,
-          scope.settings.availability.from);
+        var params = {
+          from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
+          to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
+          adults: scope.selected.adults.value,
+          children: scope.selected.children ? scope.selected.children.value : 0
+        };
 
-        bookingParams.to = getAvailabilityCheckDate(bookingParams.to,
-          scope.settings.availability.to);
-
-        propertyService.getAvailability(scope.selected.property.code, bookingParams).then(function(data){
+        propertyService.getAvailability(scope.selected.property.code, params).then(function(data){
           scope.availability = {};
 
           $window._.each(data, function(obj){
@@ -366,13 +355,15 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             }
           });
         }, function(){
-          resetAvailability();
+          scope.availability = null;
         });
-      }
+      };
 
       function getAvailabilityCheckDate(date, modificationRule){
-        date = !modificationRule? date : $window.moment(date).add(modificationRule.value, modificationRule.type).
-          format(DATE_FORMAT);
+        date = modificationRule ?
+          $window.moment(date).add(modificationRule.value, modificationRule.type).format(DATE_FORMAT)
+          :
+          date;
 
         // NOTE: Date must be eather today or a future date
         if($window.moment(date).valueOf() < $window.moment().valueOf()){
@@ -493,15 +484,11 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // NOTE: Matching values from URL to corresponding option
       // displayed in a dropdown
       function valueToAdultsOption(value){
-        return $window._.find(scope.guestsOptions.adults, function(item){
-          return item.value === value;
-        });
+        return $window._.find(scope.guestsOptions.adults, {value: value});
       }
 
       function valueToChildrenOption(value){
-        return $window._.find(scope.guestsOptions.children, function(item){
-          return item.value === value;
-        });
+        return $window._.find(scope.guestsOptions.children, {value: value});
       }
 
       scope.addRoom = function() {
