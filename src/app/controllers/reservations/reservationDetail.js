@@ -109,7 +109,11 @@ angular.module('mobius.controllers.reservationDetail', [])
       return _.reduce($scope.reservation.packages, function(acc, packageCode) { return acc + $scope.addons[packageCode].price; }, 0);
     };
 
-    if ($scope.addAddon.bind) { // WTF - PhatomJS workaround
+    if (modalService.openAddonDetailDialog.bind) { // WTF - PhatomJS workaround
       $scope.openAddonDetailDialog = modalService.openAddonDetailDialog.bind(modalService, $scope.addAddon.bind($scope));
+    }
+
+    if (modalService.openCancelReservationDialog.bind) { // WTF - PhatomJS workaround
+      $scope.openCancelReservationDialog = modalService.openCancelReservationDialog.bind(modalService, $stateParams.reservationCode);
     }
   });

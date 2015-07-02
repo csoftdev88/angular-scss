@@ -43,6 +43,7 @@ angular
     'mobius.controllers.modals.loyalties.badges',
     'mobius.controllers.modals.addonDetail',
     'mobius.controllers.modals.locationDetail',
+    'mobius.controllers.modals.confirmation',
 
     // Application modules
     'mobiusApp.config',

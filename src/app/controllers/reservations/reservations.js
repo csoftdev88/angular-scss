@@ -75,6 +75,4 @@ angular.module('mobius.controllers.reservations', [])
       return $window.moment(reservation.arrivalDate).valueOf() >= today;
     });
   }
-
-  $scope.openCancelReservationDialog = modalService.openCancelReservationDialog;
 });
