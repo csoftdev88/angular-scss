@@ -29,8 +29,8 @@
     <div ng-if="!isUserLoggedIn()" class="msg-box" ng-click="sso.login()">Save up to 20% by signing in or registering!</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
-      <ul class="entries entries--{{view}}">
-        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-click="navigateToHotel(hotel.code)" grid="{{view === 'list' ? 3 : 1}}">
+      <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-click="navigateToHotel(hotel.code)" grid="{{preference.get('hotels-view-mode') === 'list' ? 3 : 1}}">
           <a href="">
             <div class="item-image">
               <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
@@ -50,7 +50,7 @@
                 Not Available
               </p>
             </pricing-info>
-            <p class="description">{{hotel.description | limitTo: 50}}</p>
+            <p class="description">{{hotel.descriptionShort}}</p>
           </a>
         </li>
       </ul>
@@ -61,10 +61,10 @@
     <div class="view-switch">
       <h2>View</h2>
       <ul>
-        <li ng-class="{'is-active': view == 'list'}" ng-click="view = 'list'">
+        <li ng-class="{'is-active': preference.get('hotels-view-mode') === 'list'}" ng-click="preference.set('hotels-view-mode', 'list')">
           <i class="fa fa-th-list"  title="Show as list" /> List
         </li>
-        <li ng-class="{'is-active': view == 'tiles'}" ng-click="view = 'tiles'">
+        <li ng-class="{'is-active': preference.get('hotels-view-mode') === 'tiles'}" ng-click="preference.set('hotels-view-mode', 'tiles')">
           <i class="fa fa-th-large" title="Show as tiles" /> Grid
         </li>
       </ul>

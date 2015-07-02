@@ -46,6 +46,8 @@ describe('mobius.controllers.reservationDetail', function() {
           openPoliciesInfo: function() {
           },
           openAddonDetailDialog: function() {
+          },
+          openCancelReservationDialog: function() {
           }
         });
 

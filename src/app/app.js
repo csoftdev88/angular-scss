@@ -24,6 +24,7 @@ angular
     'mobius.controllers.common.sso',
     'mobius.controllers.common.content',
     'mobius.controllers.common.price',
+    'mobius.controllers.common.preference',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
@@ -42,6 +43,7 @@ angular
     'mobius.controllers.modals.loyalties.badges',
     'mobius.controllers.modals.addonDetail',
     'mobius.controllers.modals.locationDetail',
+    'mobius.controllers.modals.confirmation',
 
     // Application modules
     'mobiusApp.config',
@@ -66,6 +68,7 @@ angular
     'mobiusApp.services.adverts',
     'mobiusApp.services.reservation',
     'mobiusApp.services.breadcrumbs',
+    'mobiusApp.services.preference',
 
     // Factories
     'mobiusApp.factories.template',
