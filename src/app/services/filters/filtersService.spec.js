@@ -13,7 +13,7 @@ describe('filtersService', function() {
     module('mobiusApp.services.filters', function($provide) {
       // Mocking $stateParams service
       $provide.value('Settings', {
-        bestAvailableRateCode: 'abc'
+        defaultProductRateCode: 'abc'
       });
 
       var apiService = {

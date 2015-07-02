@@ -31,7 +31,7 @@ angular.module('mobiusApp.services.filters', [])
     var q = $q.defer();
 
     getProducts(true).then(function(products){
-      q.resolve($window._.find(products, {code: Settings.bestAvailableRateCode}));
+      q.resolve($window._.find(products, {code: Settings.defaultProductRateCode}));
     }, function(){
       q.resolve(null);
     });
