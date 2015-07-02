@@ -1,22 +1,23 @@
 'use strict';
 
 angular.module('mobiusApp.services.user', [])
-  .service('user', function($q, $cookies, $window, $timeout,
-    userObject, apiService, _, loyaltyService, Settings) {
+  .service('user', function($rootScope, $q, $window,
+    userObject, apiService, _, loyaltyService, cookieFactory) {
 
+    // SSO will expose mobius customer ID via this cookie
+    var KEY_CUSTOMER_ID = 'MobiusID';
     // We are looking for this cookie in order to detect SSO
     var KEY_CUSTOMER_PROFILE = 'CustomerProfile';
 
     var HEADER_INFINITI_SSO = 'infinitiAuthN';
 
-    // SSO will expose mobius customer ID via this cookie
-    var KEY_CUSTOMER_ID = 'CustomerId-Mobius';
-
     var EVENT_CUSTOMER_LOADED = 'infiniti.customer.loaded';
     var EVENT_CUSTOMER_LOGGED_OUT = 'infiniti.customer.logged.out';
+    // TODO Implement this with AuthCtrl
+    var EVENT_ANONYMOUS_LOADED = 'infiniti.anonymous.loaded';
 
     function hasSSOCookies(){
-      return !!$cookies[KEY_CUSTOMER_PROFILE];
+      return !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
     }
 
     function isProfileLoaded(){
@@ -30,15 +31,18 @@ angular.module('mobiusApp.services.user', [])
       }
 
       // TODO: Remove test customer ID when API is ready
-      return userObject.id || $cookies[KEY_CUSTOMER_ID] || Settings.UI.SSO.customerId || null;
+      return userObject.id || cookieFactory(KEY_CUSTOMER_ID);
     }
 
     function updateUser(data) {
       var customerId = getCustomerId();
 
       if (customerId) {
-        userObject = _.extend(userObject, data);
-        return apiService.put(apiService.getFullURL('customers.customer', {customerId: customerId}), userObject);
+        return apiService.put(
+          apiService.getFullURL('customers.customer', {customerId: customerId}), data)
+        .then(function() {
+          userObject = _.extend(userObject, data);
+        });
       } else {
         throw new Error('No user logged in');
       }
@@ -50,7 +54,7 @@ angular.module('mobiusApp.services.user', [])
       if(customerId){
         // Setting up the headers for a future requests
         var headers = {};
-        headers[HEADER_INFINITI_SSO] = $cookies[KEY_CUSTOMER_PROFILE];
+        headers[HEADER_INFINITI_SSO] = cookieFactory(KEY_CUSTOMER_PROFILE);
         apiService.setHeaders(headers);
 
         // Loading profile data and users loyelties
@@ -78,7 +82,13 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function logout() {
-      userObject = {};
+      $rootScope.$evalAsync(function(){
+        userObject = {};
+      });
+      // Removing auth headers
+      var headers = {};
+      headers[HEADER_INFINITI_SSO] = null;
+      apiService.setHeaders(headers);
     }
 
     function initSSOListeners(){
@@ -86,17 +96,19 @@ angular.module('mobiusApp.services.user', [])
       $window.addEventListener(
         EVENT_CUSTOMER_LOADED,
       function(){
-        // NOTE: Event is broadcasted before
-        // cookies are set.
-        $timeout(function(){
-          loadProfile();
-        }, Settings.UI.SSO.initDelay);
+        loadProfile();
       });
 
       $window.addEventListener(
         EVENT_CUSTOMER_LOGGED_OUT,
       function(){
         logout();
+      });
+
+      $window.addEventListener(
+        EVENT_ANONYMOUS_LOADED,
+      function(){
+        // TODO - update listener
       });
     }
 
@@ -115,6 +127,7 @@ angular.module('mobiusApp.services.user', [])
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
       loadLoyalties: loadLoyalties,
-      updateUser: updateUser
+      updateUser: updateUser,
+      logout: logout
     };
   });

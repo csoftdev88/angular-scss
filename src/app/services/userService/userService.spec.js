@@ -6,12 +6,11 @@ describe('userService', function() {
 
   var TEST_USER = {id: 123};
 
-  function setUp(userObject, cookies, settings){
+  function setUp(userObject, cookies){
     module('mobiusApp.services.user', function($provide) {
       // Mocking $stateParams service
-      $provide.value('Settings', settings || {});
 
-      $provide.value('$cookies', cookies || {});
+      $provide.value('cookieFactory', function(a){return (cookies || {})[a];});
 
       $provide.value('userObject', userObject || TEST_USER);
 
@@ -86,6 +85,25 @@ describe('userService', function() {
         expect(_userService.loadProfile).to.be.an('function');
       });
     });
+
+    describe('logout', function() {
+      it('should be defined as a function', function() {
+        expect(_userService.logout).to.be.an('function');
+      });
+
+      it('should clear user data', function() {
+        expect(_userService.getUser()).equal(TEST_USER);
+        _userService.logout();
+        _rootScope.$digest();
+        expect(_userService.getUser().id).equal(undefined);
+      });
+
+      it('should remove authorization headers', function() {
+        _userService.logout();
+        expect(_spySetHeaders.calledOnce).equal(true);
+        expect(_spySetHeaders.calledWith({'infinitiAuthN': null}));
+      });
+    });
   });
 
   describe('when SSO cookies are not presented on the current domain', function(){
@@ -114,8 +132,8 @@ describe('userService', function() {
   describe('when SSO cookies are presented', function(){
     describe('and mobius customer id is available', function(){
       var SSO_COOKIES = {
-        'CustomerProfile': 555,
-        'CustomerId-Mobius': 12345
+        'MobiusID': 555,
+        'CustomerProfile': 'test'
       };
 
       beforeEach(function(){
@@ -128,57 +146,28 @@ describe('userService', function() {
           expect(_spyApiServiceGet.calledOnce).equal(true);
           expect(_spyApiServiceGet.calledWith('customers.customer')).equal(true);
 
-          expect(_spyApisServiceGetFullURL.calledWith('customers.customer', {customerId: 12345})).equal(true);
+          expect(_spyApisServiceGetFullURL.calledWith('customers.customer', {customerId: 555})).equal(true);
           expect(_spyApisServiceGetFullURL.calledOnce).equal(true);
         });
 
         it('should fire a GET request to loyalties API with detected customer ID', function() {
           _userService.loadProfile();
           expect(_spyLoyaltiesServiceGetAll.calledOnce).equal(true);
-          expect(_spyLoyaltiesServiceGetAll.calledWith(12345)).equal(true);
+          expect(_spyLoyaltiesServiceGetAll.calledWith(555)).equal(true);
         });
 
         it('should set infiniti auth header', function(){
           _userService.loadProfile();
           expect(_spySetHeaders.calledOnce).equal(true);
-          expect(_spySetHeaders.calledWith({'infinitiAuthN': 555}));
+          expect(_spySetHeaders.calledWith({'infinitiAuthN': 'test'}));
         });
       });
     });
-
-    describe('but mobius customer id is missing', function(){
-      var SSO_COOKIES = {
-        'CustomerProfile': {}
-      };
-
-      beforeEach(function(){
-        setUp({}, SSO_COOKIES, {
-          UI: {
-            SSO: {
-              customerId: 987
-            }
-          }
-        });
-      });
-
-      describe('loadProfile', function() {
-        it('should fire a GET request to a customer API with customer ID taken from the settings', function() {
-          _userService.loadProfile();
-          expect(_spyApisServiceGetFullURL.calledWith('customers.customer', {customerId: 987})).equal(true);
-        });
-
-        it('should fire a GET request to loyalties API with customer ID taken from the settings', function() {
-          _userService.loadProfile();
-          expect(_spyLoyaltiesServiceGetAll.calledWith(987)).equal(true);
-        });
-      });
-    });
-
 
     describe('and user profile is loaded', function(){
       var SSO_COOKIES = {
-        'CustomerProfile': {},
-        'CustomerId-Mobius': 12345
+        'MobiusID': 555,
+        'CustomerProfile': {}
       };
 
       beforeEach(function(){

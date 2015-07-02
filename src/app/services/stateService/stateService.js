@@ -34,6 +34,6 @@ angular.module('mobiusApp.services.state', [])
     // Public methods
     return {
       getStateLayout: getStateLayout,
-      getAppLanguageCode: getAppLanguageCode,
+      getAppLanguageCode: getAppLanguageCode
     };
   }]);

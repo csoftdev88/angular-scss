@@ -3,14 +3,14 @@
     <ul ng-if="breadcrumbs.length > 0">
       <li><a ui-sref="home">Home <span>&raquo;</span></a></li>
       <li ng-repeat="link in breadcrumbs">
-        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params)}}">{{link.name}} <span>&raquo;</span></a>
+        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">{{link.name}} <span>&raquo;</span></a>
         <span ng-if="!link.state && !$last">{{link.name}} <span>&raquo;</span></span>
         <span ng-if="!link.state && $last">{{link.name}}</span>
       </li>
     </ul>
     <ul ng-if="hrefs.length > 0" class="alt-nav">
       <li ng-repeat="href in hrefs" ng-class="{selected: activeHref === href.name}">
-        <a ng-if="href.id" ng-click="scrollTo(href.id)">{{href.name}}</a>
+        <a href ng-if="href.id" ng-click="scrollTo(href.id)">{{href.name}}</a>
         <span ng-if="!href.id">{{href.name}}</span>
       </li>
     </ul>

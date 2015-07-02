@@ -13,6 +13,7 @@ about-us {
   contacts-list {
     display: flex;
     justify-content: space-between;
+    margin-bottom: @baseline;
   }
 
   contact-item {
@@ -24,4 +25,28 @@ about-us {
     }
   }
 
+}
+
+
+about-detail {
+
+  //- Page Heading
+  h1 {
+    .h1;
+  }
+
+  h2 {
+    .h2;
+  }
+
+  //- Image
+  img {
+    display: block;
+    margin-bottom: @baseline;
+  }
+
+  //- Content of article
+  > div {
+    margin-bottom: @baseline;
+  }
 }

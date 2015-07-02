@@ -5,7 +5,7 @@ angular.module('mobiusApp.config', [])
 .constant('Settings', {
   'API': {
     'chainCode': 'SAN',
-    'baseURL': 'http://private-anon-b8e439da3-mobiusv41.apiary-mock.com/',
+    'baseURL': '/api/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -60,6 +60,7 @@ angular.module('mobiusApp.config', [])
     'reservations': {
       'new': 'reservations',
       'modify': 'reservations/:reservationCode',
+      'detail': 'reservations/:reservationCode',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/'
     },
@@ -71,17 +72,9 @@ angular.module('mobiusApp.config', [])
   },
 
   'currencyParamName': 'currency',
-  'bestAvailableRateCode': 'Best Available Rate',
+  'bestAvailableRateCode': 'Business Rates',
 
   'UI': {
-    // TEST SETTINGS FOR SSO
-    'SSO': {
-      'customerId': 6414,
-      // NOTE: SSO lib broadcasts `customerloaded` event before
-      // cookies are beeing set. This should be removed once
-      // solved on SSO side.
-      'initDelay': 200
-    },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
       'heroAdverts': 'hero-advert'
@@ -326,6 +319,11 @@ angular.module('mobiusApp.config', [])
           format: 'MMM YYYY'
         }
       ]
+    },
+    'cloudinary': {
+      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/properties_amenities/',
+      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/rooms_amenities/',
+      'suffix': '.png'
     }
   }
 });

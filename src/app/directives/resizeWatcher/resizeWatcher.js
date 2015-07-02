@@ -14,8 +14,8 @@ angular.module('mobiusApp.directives.resize.watcher', [])
             DESKTOP_CLASS = 'viewport-desktop',
             windowHeight = $window.innerHeight,
             windowWidth = $window.innerWidth,
-            isMobile = windowWidth > Settings.UI.screenTypes.mobile.maxWidth ? false : true,
-            isPortrait = windowWidth > windowHeight ? false : true;
+            isMobile = windowWidth <= Settings.UI.screenTypes.mobile.maxWidth,
+            isPortrait = windowWidth <= windowHeight;
 
         elem.toggleClass(MOBILE_CLASS, isMobile).toggleClass(DESKTOP_CLASS, !isMobile);
 

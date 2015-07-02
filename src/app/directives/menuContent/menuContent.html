@@ -1,9 +1,9 @@
 <div class="dropdown">
-  <a ng-click="goToState()" href>{{title}}</a>
+  <a ng-click="goToState()" href ng-class="{'is-active': isActive()}">{{title}}</a>
 
   <ul class="dropdown-menu submenu" ng-show="content.length">
       <li ng-repeat="item in content">
-          <a href>{{item.title}}</a>
+          <a href ng-click="goToState(item.code)" >{{item.title}}</a>
       </li>
   </ul>
 </div>

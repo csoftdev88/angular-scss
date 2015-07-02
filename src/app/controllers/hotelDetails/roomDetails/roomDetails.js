@@ -9,6 +9,13 @@ angular.module('mobius.controllers.room.details', [])
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
+    if (modalService.openGallery.bind) {
+      $scope.openGallery = modalService.openGallery.bind(modalService,
+        roomDetails.images.map(function(image) {
+          return image.uri;
+        })
+      );
+    }
   };
 
   $scope.openPoliciesInfo = modalService.openPoliciesInfo;

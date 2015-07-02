@@ -80,6 +80,13 @@ angular.module('mobiusApp.directives.hotels', [])
         var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
           scope.locations = locations || [];
           scope.locations.unshift({nameShort: 'All Locations'});
+
+          if(bookingParams.locationCode) {
+            scope.location = _.find(scope.locations, {code: bookingParams.locationCode});
+            if(scope.location) {
+              scope.loadLocation();
+            }
+          }
         });
 
         preloaderFactory($q.all([hotelsPromise, locationsPromise]));
@@ -153,8 +160,8 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.hotelFilter = function(hotel) {
         return (
           (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) &&
-          (scope.minStars <= hotel.rating && hotel.rating <= scope.maxStars) &&
-          (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating <= scope.maxRating) &&
+          (scope.minStars <= hotel.rating && hotel.rating < (scope.maxStars + 1)) &&
+          (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating < (scope.maxRating + 1)) &&
           (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode))
         );
       };

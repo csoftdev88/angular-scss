@@ -8,7 +8,6 @@ angular
     'ngTouch',
     'ngMap',
     'ngSanitize',
-    'ngCookies',
     // Template cache
     'templates-main',
 
@@ -21,6 +20,9 @@ angular
     // Controllers
     'mobius.controllers.common.sanitize',
     'mobius.controllers.common.preloader',
+    'mobius.controllers.common.auth',
+    'mobius.controllers.common.sso',
+    'mobius.controllers.common.content',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
@@ -29,6 +31,7 @@ angular
     'mobius.controllers.contacts',
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
+    'mobius.controllers.reservationDetail',
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
 
@@ -66,6 +69,7 @@ angular
     // Factories
     'mobiusApp.factories.template',
     'mobiusApp.factories.preloader',
+    'mobiusApp.factories.cookie',
 
     // Custom components
     'mobiusApp.directives.layout',
@@ -91,6 +95,8 @@ angular
 
     // Directive based on content data
     'mobiusApp.directives.menu',
+    'mobiusApp.directives.siteMap',
+
     // Directives for generic data
     'mobiusApp.directives.currency',
     'mobiusApp.directives.language',
@@ -102,6 +108,7 @@ angular
     'mobiusApp.directives.userMessages',
     'mobiusApp.directives.imageCarousel',
     'mobiusApp.directives.breadcrumbs',
+    'mobiusApp.directives.slugImg',
 
     // Filters
     'mobiusApp.filters.list',
@@ -125,17 +132,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&region&children&adults&dates&rate&rooms&promoCode',
-        data: {},
-        resolve: {
-          userObject: function(user) {
-            return user.loadProfile().then(function(userObject) {
-              return userObject;
-            }, function() {
-              return {};
-            });
-          }
-        }
+        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode'
       })
 
       // Home page
@@ -172,39 +169,39 @@ angular
         url: '/reservations',
         controller: 'ReservationsCtrl',
         data: {
-          private: true
+          authProtected: true
+        }
+      })
+
+      .state('reservationDetail', {
+        parent: 'root',
+        templateUrl: 'layouts/reservations/reservationDetail.html',
+        url: '/reservation/:reservationCode',
+        controller: 'ReservationDetailCtrl',
+        data: {
+          authProtected: true
         }
       })
 
       // Room reservation
       .state('reservation', {
         parent: 'root',
-        template: '<ui-view></ui-view>',
+        templateUrl: 'layouts/reservations/reservation/reservation.html',
         url: '/reservation/:roomID/:productCode',
         controller: 'ReservationCtrl'
       })
 
-      .state('reservation.process', {
-        parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/reservation.html',
-        abstract: true
-      })
       .state('reservation.details', {
-        parent: 'reservation.process',
+        parent: 'reservation',
         templateUrl: 'layouts/reservations/reservation/details.html'
       })
       .state('reservation.billing', {
-        parent: 'reservation.process',
+        parent: 'reservation',
         templateUrl: 'layouts/reservations/reservation/billing.html'
       })
       .state('reservation.confirmation', {
-        parent: 'reservation.process',
-        templateUrl: 'layouts/reservations/reservation/confirmation.html'
-      })
-
-      .state('reservation.after', {
         parent: 'reservation',
-        templateUrl: 'layouts/reservations/reservation/after.html'
+        templateUrl: 'layouts/reservations/reservation/confirmation.html'
       })
 
       .state('offers', {
@@ -234,29 +231,33 @@ angular
       .state('aboutUs', {
         parent: 'root',
         templateUrl: 'layouts/about/about.html',
-        url: '/about',
+        url: '/about/:code',
         controller: 'AboutUsCtrl'
+      })
+
+      // 404 page
+      .state('unknown', {
+        parent: 'root',
+        templateUrl: 'layouts/404.html',
+        url: '/404'
       })
     ;
 
     $urlRouterProvider.otherwise(function($injector) {
-      var $window = $injector.get('$window');
-      $window.location.href = '/404';
+      $injector.get('$state').go('unknown');
     });
   })
 
   .run(function(user, $rootScope, $state, breadcrumbsService) {
     // $stateChangeSuccess is used because resolve on controller is ready
-    $rootScope.$on('$stateChangeSuccess', function(event, next) {
-      if (next.data.private) {
-        var loggedIn = user.isLoggedIn();
-        if (!loggedIn) {
+    $rootScope.$on('$stateChangeSuccess', function() {
+      /*if (toState.data && toState.data.authProtected) {
+        if (!user.isLoggedIn()) {
           // Redirect to home page
           event.preventDefault();
           $state.go('home');
         }
-      }
+      }*/
       breadcrumbsService.clear();
     });
   });
-

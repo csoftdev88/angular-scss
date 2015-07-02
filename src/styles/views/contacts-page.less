@@ -3,6 +3,80 @@
 ///////////////////////
 
 contacts-page {
+  // SAME STYLE AS ON RESERVATION PAGE
+  label {
+    position: relative;
+    padding-top: @size--2 + 4px; // 15px
+    padding-bottom: 10px;
+    color: darken(@c-gray-reservation, 20%);
+
+    span {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: @size--2;
+      line-height: 1;
+      font-weight: normal;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.2s linear,
+                  transform 0.2s ease-out,
+                  color 0.15s linear;
+    }
+
+    &.input-right span {
+      left: 10px;
+    }
+
+    input:focus ~ span,
+    select:focus ~ span,
+    textarea:focus ~ span {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    input.ng-touched.ng-invalid ~ span,
+    select.ng-touched.ng-invalid ~ span,
+    textarea.ng-touched.ng-invalid ~ span,
+    input.ng-submitted.ng-invalid ~ span,
+    select.ng-submitted.ng-invalid ~ span,
+    textarea.ng-submitted.ng-invalid ~ span  {
+      opacity: 1;
+      transform: translateX(0);
+      color: @c-red;
+    }
+  }
+
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    height: 45px;
+    padding: 0 15px;
+    border-radius: 0;
+    border-color: @c-gray-reservation;
+    color: @c-form-text;
+    font-size: @size-0;
+    transition: border-color 0.15s linear;
+
+    &:focus {
+      box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+    }
+
+    &.ng-touched.ng-invalid,
+    &.ng-submitted.ng-invalid {
+      border-color: @c-red;
+    }
+  }
+
+  textarea {
+    min-height: 3 * 45px;
+    height: auto;
+    padding: 15px;
+    resize: vertical;
+  }
+
 
   //- Page Heading
   h1 {
@@ -44,11 +118,7 @@ contacts-page {
 
     // Inputs adjustment
     form-element {
-      margin-bottom: @baseline * 2;
-
-      &:last-of-type {
-        margin-bottom: @baseline;
-      }
+      margin-bottom: 15px;
 
       form-label {
         font-size: @size-0;

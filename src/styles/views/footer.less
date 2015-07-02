@@ -10,19 +10,30 @@ footer {
   font-size: @size--1;
   line-height: @baseline * 2;
 
+  floating-bar.active  ~ & {
+    margin-bottom: 130px;
+  }
+
+  floating-bar.active.advancedBooking ~ & {
+    margin-bottom: 170px;
+  }
+
   //- Wrapper
   .wrapper {
     display: flex;
+    margin-bottom: 50px;
+  }
 
-    > * {
-      flex: 1;
-    }
+  //- Copyright
+  p {
+    flex: 2 0;
   }
 
   //- Social Links
   social-links {
     align-items: center;
     display: flex;
+    flex: 1;
     justify-content: center;
 
     ul {
@@ -76,11 +87,17 @@ footer {
       &.pinterest:before {
         content: @fa-var-pinterest;
       }
+
+      &.instagram:before {
+        content: @fa-var-instagram;
+      }
     }
   }
 
   //- Navigation
   nav {
+    flex: 2 0;
+
     text-align: right;
 
     li {
@@ -96,8 +113,4 @@ footer {
       }
     }
   }
-
-
-
-
 }

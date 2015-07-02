@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.breadcrumbs', [])
-  .service('breadcrumbsService', function() {
+  .service('breadcrumbsService', function(_) {
 
     var breadcrumbs = [];
     var hrefs = [];
@@ -22,11 +22,12 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       return object;
     }
 
-    function addBreadCrumb(name, stateName, stateParams) {
+    function addBreadCrumb(name, stateName, stateParams, hash) {
       breadcrumbs.push({
         state: stateName,
         params: stateParams,
-        name: name
+        name: name,
+        hash: hash
       });
       return object;
     }
@@ -48,6 +49,13 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       return object;
     }
 
+    function removeHref(name) {
+      var indexOfRemovedElement = _.findIndex(hrefs, {name: name});
+      if(indexOfRemovedElement >= 0) {
+        hrefs.splice(indexOfRemovedElement, 1);
+      }
+    }
+
     function setActiveHref(href) {
       activeHref = href;
       return object;
@@ -66,6 +74,7 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       getHrefs: getHrefs,
       setHrefs: setHrefs,
       addHref: addHref,
+      removeHref: removeHref,
       setActiveHref: setActiveHref,
       getActiveHref: getActiveHref
     };

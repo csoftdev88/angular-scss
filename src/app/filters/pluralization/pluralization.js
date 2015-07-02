@@ -9,7 +9,7 @@ angular.module('mobiusApp.filters.pluralization', [])
     if(numberExp !== undefined && rules){
       var expression = rules[numberExp] || rules.plural;
       if(expression){
-        return expression.replace(/{}/g, numberExp);
+        return expression.replace(/\{\}/g, numberExp);
       }
     }
 

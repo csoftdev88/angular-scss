@@ -1,14 +1,16 @@
 hotel-location {
 
-  > p,
-  h3,
-  li,
-  transportation-item {
-    margin: @baseline 0;
+  //- View Full Screen
+  h2 + p {
+    margin-bottom: 0;
+
+    text-align: right;
   }
 
-  ul {
-    .clearfix;
+  contact-list,
+  transportation-list {
+    display: flex;
+    flex-flow: wrap;
 
     strong {
       color: @c-brown;
@@ -39,20 +41,20 @@ hotel-location {
   }
 
   transportation-item,
-  li {
-    display: block;
+  contact-item {
     position: relative;
-    float: left;
+
     box-sizing: border-box;
-    padding-left: 50px;
+    flex: 1 0 33%;
+
+    display: block;
+    width: 33%;
+
+    div {
+      position: relative;
+
+      padding-left: 50px;
+    }
   }
 
-  li {
-    width: 25%;
-  }
-
-  transportation-item {
-    width: 50%;
-    padding-left: 70px;
-  }
 }

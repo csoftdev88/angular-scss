@@ -2,14 +2,16 @@
 
 <breadcrumbs></breadcrumbs>
 
-<main typo-grid class="grid-wrapper">
+<main class="grid-wrapper">
 
-  <about-us>
+  <about-us ng-if="!showDetail">
 
-    <h1 grid="12">About <strong>{{chain.nameLong}}</strong></h1>
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+    <h1 grid="12"><strong>{{chain.nameLong}}</strong></h1>
 
     <section grid-row>
-      <p grid="8">{{chain.description}}</p>
+      <p grid="8" ng-bind-html="sanitize(chain.description)"></p>
 
       <view-more-images grid="4">
         <div><a ng-if="chain.images.length" href="" ng-click="openGallery()">View more images</a></div>
@@ -31,6 +33,45 @@
 
     <hr>
 
+    <offers-list>
+      <offer-item ng-repeat="about in aboutList track by $index" ng-click="goToDetail(about.code)">
+        <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" err-source="http://lorempixel.com/300/160/">
+
+        <section>
+          <h2>{{about.title}}</h2>
+          <div ng-bind-html="about.subtitle"></div>
+        </section>
+
+        <span>Read More</span>
+      </offer-item>
+    </offers-list>
+    <hr>
+
   </about-us>
+
+  <about-detail ng-if="showDetail" grid="12">
+    <h1>{{selectedAbout.title}}</h1>
+    <img ng-src="{{selectedAbout.image.uri}}" alt="{{selectedAbout.image.alt}}"/>
+    <div ng-bind-html="selectedAbout.text"></div>
+    <button-back role="button" tabindex="0" ng-click="goToAboutList()">Back</button-back>
+
+    <hr>
+
+    <h2 ng-if="aboutList.length > 1">You may also be interested in:</h2>
+
+    <offers-list ng-if="aboutList.length > 1">
+      <offer-item ng-repeat="about in aboutList | filter:getRelevant track by $index" ng-click="goToDetail(about.code)">
+        <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" err-source="http://lorempixel.com/300/160/">
+
+        <section>
+          <h2>{{about.title}} </h2>
+          <div ng-bind-html="about.subtitle"></div>
+        </section>
+
+        <span>Read More</span>
+      </offer-item>
+    </offers-list>
+
+  </about-detail>
 
 </main>

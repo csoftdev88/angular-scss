@@ -4,7 +4,6 @@
  */
 angular.module('mobius.controllers.reservation', [])
 
-// TODO: extract after reservation logic and template into reservation detail controller
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
@@ -89,18 +88,11 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
 
-  $scope.additionalInfo = {
-    arrivalTime: '',
-    arrivalMethod: '',
-    departureTime: '',
-    secondPhoneNumber: '',
-    comments: '',
-    agree: false,
-    optedIn: false
-  };
+  $scope.additionalInfo = {};
 
   // Inheriting the login from RoomDetails controller
   $controller('RoomDetailsCtrl', {$scope: $scope});
+  $controller('SSOCtrl', {$scope: $scope});
 
   // Getting room/products data
   var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
@@ -114,30 +106,12 @@ angular.module('mobius.controllers.reservation', [])
     return property;
   });
 
-  var SHORT_DESCRIPTION_LENGTH = 100;
-
-  var extrasPromise = propertyService.getRoomProductAddOns($stateParams.property, $stateParams.roomID, $stateParams.productCode, {
-    from: $scope.bookingDetails.from,
-    to: $scope.bookingDetails.to,
-    customerId: user.getUser().id
-  }).then(function(addons) {
-      $scope.addons = _.map(addons, function(addon) {
-        addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
-        addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
-        if (addon.hasViewMore) {
-          addon.descriptionShort += '…';
-        }
-        return addon;
-      });
-      $scope.addons = _.indexBy($scope.addons, 'code');
-    });
-
   // Showing loading mask
-  preloaderFactory($q.all([roomDataPromise, propertyPromise, extrasPromise]).then(function(data){
+  preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(data){
     setBreadCrumbs = function(name) {
       breadcrumbsService
         .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
-        .addBreadCrumb('Rooms')
+        .addBreadCrumb('Rooms', 'hotel', {propertyCode: $stateParams.property}, 'jsRooms')
         .addBreadCrumb(data[0].roomDetails.name, 'hotel', {propertyCode: $stateParams.property, roomID: $stateParams.roomID})
         .addBreadCrumb(name)
         .addHref(GUEST_DETAILS)
@@ -212,15 +186,24 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.continue = function() {
-    if ($scope.isValid()) {
-      switch ($state.current.name) {
-      case 'reservation.details':
-        return $state.go('reservation.billing') && true;
-      case 'reservation.billing':
-        return $state.go('reservation.confirmation') && true;
-      case 'reservation.confirmation':
-        return $scope.makeReservation() && true;
+    switch ($state.current.name) {
+    case 'reservation.details':
+      $scope.forms.details.$submitted = true;
+      if($scope.isValid()){
+        $state.go('reservation.billing');
       }
+      break;
+    case 'reservation.billing':
+      $scope.forms.billing.$submitted = true;
+      if($scope.isValid()){
+        $state.go('reservation.confirmation');
+      }
+      break;
+    case 'reservation.confirmation':
+      if($scope.isValid()){
+        $scope.makeReservation();
+      }
+      break;
     }
   };
 
@@ -228,10 +211,8 @@ angular.module('mobius.controllers.reservation', [])
     var reservationData = {
       arrivalDate: $scope.bookingDetails.from,
       departureDate: $scope.bookingDetails.to,
-      hasReadRatePolicies: $scope.hasReadRatePolicies || false,
-      packages: $scope.reservation ? $scope.reservation.packages : undefined,
+      hasReadRatePolicies: true,
       rooms: getRooms(),
-      customer: user.getUser().id,
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
       },
@@ -239,6 +220,17 @@ angular.module('mobius.controllers.reservation', [])
       guestFirstName: $scope.userDetails.firstName,
       guestLastName: $scope.userDetails.lastName
     };
+
+    // Adding customerID when logged in
+    if(user.isLoggedIn()){
+      reservationData.customer = user.getUser().id;
+    }else{
+      // TODO: Anonymous reservation working but fails on getting
+      // the data about created reservation back (API auth issue)
+      reservationData.customerFirstName = $scope.userDetails.firstName;
+      reservationData.customerLastName = $scope.userDetails.lastName;
+      reservationData.customerEmail = $scope.userDetails.email;
+    }
 
     if($scope.additionalInfo.arrivalTime) {
       reservationData.arrivalTime = $scope.additionalInfo.arrivalTime;
@@ -262,7 +254,8 @@ angular.module('mobius.controllers.reservation', [])
         number: $scope.billingDetails.card.number,
         // Last day of selected month
         expirationDate: $window.moment($scope.billingDetails.card.expirationDate).endOf('month').format('YYYY-MM-DD'),
-        securityCode: $scope.billingDetails.card.securityCode,
+        // TODO: Change input type
+        securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
         typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code
       };
     }
@@ -278,25 +271,30 @@ angular.module('mobius.controllers.reservation', [])
     $scope.invalidFormData = false;
 
     var reservationData = createReservationData();
+    // TODO: Check if phone number has changed before saving
     var userData = {
       tel2: $scope.additionalInfo.secondPhoneNumber,
       optedIn: $scope.additionalInfo.optedIn
     };
-    var reservationPromise = $q.all([
-      reservationService.createReservation(reservationData),
-      user.updateUser(userData)
-    ]).then(function(data) {
-      $scope.reservation = data[0];
-      $scope.reservation.bookDate = $scope.reservation.bookDate ? $window.moment($scope.reservation.bookDate) : $window.moment();
-      $scope.reservation.packages = [];
+    userData.firstName = user.getUser().firstName;
+    userData.lastName = user.getUser().lastName;
 
+    var promises = [reservationService.createReservation(reservationData)];
+
+    if(reservationData.customer){
+      // Updating user profile when
+      promises.push(user.updateUser(userData));
+    }
+
+    var reservationPromise = $q.all(promises).then(function(data) {
       userMessagesService.addInfoMessage('' +
         '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
         '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
         '');
 
-      $state.go('reservation.after');
+      $state.go('reservationDetail', {reservationCode: data[0].reservationCode});
     }, function() {
+      // TODO: Whaat request has failed
       $scope.invalidFormData = true;
       $state.go('reservation.details');
     });
@@ -319,74 +317,48 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.readPolicies = function(){
-    $scope.hasReadRatePolicies = true;
     $scope.openPoliciesInfo($scope.selectedProduct);
-  };
-
-  $scope.prefillUserData = function(){
-    var userData = user.getUser();
-
-    if(!Object.keys($scope.userDetails).length){
-      // No fields are touched yet, prefiling
-      _.extend($scope.userDetails, {
-        title: userData.title || '',
-        firstName: userData.firstName || '',
-        lastName: userData.lastName,
-        address: userData.address1 || '',
-        city: userData.city || '',
-        stateProvince: '',
-        country: '',
-        zip: userData.zip,
-        phone: userData.tel1 || ''
-      });
-    }
-
-    $scope.additionalInfo.secondPhoneNumber = userData.tel2 || '';
-    $scope.additionalInfo.optedIn = user.getUser().optedIn || false;
   };
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
+  $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
 
-  $scope.modifyReservation = function(onError) {
-    var reservationData = createReservationData();
-    var reservationPromise = reservationService.modifyReservation($scope.reservation.reservationCode, reservationData).then(
-      function() {
-        // TODO ?
-    },
-      function(error) {
-        if (error && error.error && error.error.msg) {
-          userMessagesService.addInfoMessage('<p>' + error.error.msg + '</p>');
-        } else {
-          userMessagesService.addInfoMessage('<p>Unknown error</p>');
-        }
-        if (onError) {
-          onError(error);
-        }
+  var unWatchLogged = $scope.$watch(function(){
+    return user.isLoggedIn() && user.getUser();
+  }, function(userData){
+    if (userData) {
+      if (!Object.keys($scope.userDetails).length) {
+        // No fields are touched yet, prefiling
+        _.extend($scope.userDetails, {
+          title: userData.title || '',
+          firstName: userData.firstName || '',
+          lastName: userData.lastName,
+          address: userData.address1 || '',
+          city: userData.city || '',
+          stateProvince: '',
+          country: '',
+          zip: userData.zip,
+          phone: userData.tel1 || ''
+        });
       }
-    );
 
-    preloaderFactory(reservationPromise);
-  };
-
-  $scope.addAddon = function(addon) {
-    if($scope.reservation.packages.indexOf(addon.code) === -1) {
-      $scope.reservation.packages.push(addon.code);
-      $scope.modifyReservation(function() {
-        $scope.reservation.packages.splice($scope.reservation.packages.indexOf(addon.code), 1);
-      });
+      if (!Object.keys($scope.additionalInfo).length) {
+        // No fields are touched yet, prefiling
+        _.extend($scope.additionalInfo, {
+          arrivalTime: '',
+          arrivalMethod: '',
+          departureTime: '',
+          secondPhoneNumber: userData.tel2 || '',
+          comments: '',
+          agree: false,
+          optedIn: userData.optedIn || false
+        });
+      }
     }
-  };
+  });
 
-  $scope.addonsPerLineCount = function(addonsCount){
-    return addonsCount < 3 ? 2 : 3;
-  };
-
-  $scope.getPackagesPrice = function() {
-    return _.reduce($scope.reservation.packages, function(acc, packageCode) { return acc + $scope.addons[packageCode].price; }, 0);
-  };
-
-  if ($scope.addAddon.bind) { // WTF - PhatomJS workaround
-    $scope.openAddonDetailDialog = modalService.openAddonDetailDialog.bind(modalService, $scope.addAddon.bind($scope));
-  }
+  $scope.$on('$destroy', function(){
+    unWatchLogged();
+  });
 });

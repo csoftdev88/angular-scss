@@ -1,6 +1,9 @@
 
-<div ng-if="!user.isLoggedIn()">
-  User is not loaded
+<div ng-if="!user.isLoggedIn()" class="sign-up">
+  <p>
+    <a href ng-click="sso.register()">Sign up now</a> to earn great rewards
+    during your stay and pay with points!
+  </p>
 </div>
 
 <div ng-if="user.isLoggedIn()">

@@ -2,8 +2,11 @@
 
 <breadcrumbs></breadcrumbs>
 
-<main typo-grid class="grid-wrapper">
-  <section dynamic-layout></section>
+<main class="grid-wrapper">
 
-  <div ng-include="'layouts/siteMap.html'" class="site-map"></div>
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <section dynamic-layout></section>
 </main>
+
+<div ng-include="'layouts/siteMap.html'" class="site-map"></div>

@@ -9,7 +9,9 @@
     <hr />
     <list-items ng-if="products.length">
       <pricing-switch>
-        <a href="" class="is-active">Per Night</a> | <a href="">Per Stay</a>
+        <a href ng-class="{'is-active': pricePer === 'night'}" ng-click="pricePer = 'night'">Per Night</a>
+        |
+        <a href ng-class="{'is-active': pricePer === 'stay'}" ng-click="days && (pricePer = 'stay')">Per Stay</a>
       </pricing-switch>
       <list-item ng-repeat="product in products | orderBy : setRoomsSorting()" ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}">
         <figure>
@@ -18,16 +20,18 @@
 
         <h2>{{product.name}}</h2>
 
-        <earned-points>Earn {{product.price.pointsEarned}} points</earned-points>
+        <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn <ng-pluralize count="product.price.pointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+          </earned-points>
 
         <pricing-info>
           <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
           <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
 
           <p>
-            <span class="value">{{product.price.totalBase | i18nCurrency: currencyCode}}</span> per night
-            <span ng-if="isUserLoggedIn()">
-              <br />or <span class="value">{{product.price.pointsRequired}}</span> points
+            <span class="value">{{(product.price.totalBase * (pricePer === 'stay' ? days : 1)) | i18nCurrency: currencyCode}}</span>
+            <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === 'stay'">per stay</span>
+            <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
+              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === 'stay' ? days : 1))}}</span> points
             </span>
           </p>
 
@@ -66,19 +70,19 @@
     </list-items>
 
     <div ng-if="!products.length">
-      <p><strong>No Product Found</strong></p>
+      <p ng-if="$stateParams.dates"><strong>No Availability on these Dates</strong></p>
+      <p ng-if="!$stateParams.dates"><strong>Please select you dates to view Rates</strong></p>
     </div>
 
     <hr />
   </section>
 
-  <section ng-if="roomDetails.images.length || roomDetails.description" class="room-gallery">
+  <section ng-if="roomDetails.images.length" class="room-gallery">
     <h2>Room <strong>Description</strong></h2>
-    <p ng-bind-html="sanitize(roomDetails.description)"></p>
     <ul ng-if="roomDetails.images.length" class="room-gallery">
-      <li ng-repeat="image in roomDetails.images">
+      <li ng-repeat="image in roomDetails.images" ng-click="openGallery()">
         <figure>
-          <img src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/150/100" />
+          <img ng-src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/150/100" />
         </figure>
       </li>
     </ul>
@@ -90,7 +94,7 @@
 
     <amenities-list>
       <amenity-item ng-repeat="amenity in roomDetails.amenities">
-        <img ng-src="{{amenity.icon}}" err-source="http://lorempixel.com/20/20">
+        <slug-img slug="amenity.slug" type="room" width="15" height="15"></slug-img>
         <span>{{amenity.name}}</span>
       </amenity-item>
     </amenities-list>
@@ -101,7 +105,10 @@
     <h2>Other <strong>Rooms</strong></h2>
 
     <list-items class="grid-view">
-      <list-item ng-repeat="otherRoom in otherRooms"  ng-click="onClickOnAssociatedRoom(otherRoom)">
+      <list-item
+        ng-repeat="otherRoom in otherRooms"
+        ng-click="onClickOnAssociatedRoom(otherRoom)"
+        class="with-special-hover">
         <figure ng-show="otherRoom.images[0]">
           <img ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}" err-source="http://lorempixel.com/150/100/">
         </figure>

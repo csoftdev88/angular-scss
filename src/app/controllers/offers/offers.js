@@ -5,9 +5,10 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($scope, $controller, contentService,
-    $stateParams, _, breadcrumbsService) {
+         $state, $stateParams, _, breadcrumbsService) {
 
     $controller('MainCtrl', {$scope: $scope});
+
     breadcrumbsService.addBreadCrumb('Offers');
 
     var NUMBER_OF_RELEVANT_OFFERS = 3;
@@ -17,9 +18,9 @@ angular.module('mobius.controllers.offers', [])
     $scope.showDetail = $stateParams.code ? true : false;
 
     contentService.getOffers().then(function(response) {
-      $scope.offersList = response;
-      if($stateParams.code) {
-        $scope.selectOffer($stateParams.code);
+      $scope.offersList = _.sortBy(response, 'prio').reverse();
+      if ($stateParams.code) {
+        selectOffer($stateParams.code);
       }
     });
 
@@ -28,15 +29,22 @@ angular.module('mobius.controllers.offers', [])
       return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
     };
 
-    $scope.selectOffer = function (code) {
-      selectedOfferIndex = _.findIndex($scope.offersList,
-        function (item) {
-          return item.code === code;
-        });
-      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
-      $scope.showDetail = true;
-      breadcrumbsService.clear()
-        .addBreadCrumb('Offers', 'offers')
-        .addBreadCrumb($scope.selectedOffer.title);
+    $scope.goToDetail = function(code) {
+      $state.go('offers', {code: code});
     };
+
+    $scope.goToOffersList = function() {
+      $state.go('offers', {code: ''}, {reload: true});
+    };
+
+    function selectOffer(code) {
+      selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
+      if (selectedOfferIndex < 0) {
+        return $state.go('offers', {code: null});
+      }
+      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+      breadcrumbsService.clear()
+        .addBreadCrumb('Offers', 'offers', {code: null})
+        .addBreadCrumb($scope.selectedOffer.title);
+    }
   });

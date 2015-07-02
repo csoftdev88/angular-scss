@@ -85,7 +85,8 @@ describe('mobius.controllers.hotel.details', function() {
 
         var breadcrumbs = {
           addBreadCrumb: function(){ return breadcrumbs; },
-          addHref: function(){ return breadcrumbs; }
+          addHref: function(){ return breadcrumbs; },
+          removeHref: function(){ return breadcrumbs; }
         };
         $provide.value('breadcrumbsService', breadcrumbs);
       });

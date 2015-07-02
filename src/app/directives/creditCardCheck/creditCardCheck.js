@@ -11,19 +11,8 @@ angular.module('mobiusApp.directives.creditCardCheck', [])
       restrict: 'A',
       // Validation logic
       link: function(scope, elem, attrs, ctrl) {
-
         ctrl.$formatters.push(function(modelValue) {
-          var viewValue = '';
-          modelValue = creditCardTypeService.normalizeCreditCardNumber(modelValue);
-
-          for (var i = 0; i < modelValue.length; i++) {
-            if ((i > 0) && (i % 4 === 0)) {
-              viewValue += '-';
-            }
-            viewValue += modelValue[i];
-          }
-
-          return viewValue;
+          return creditCardTypeService.formatCreditCardNumber(modelValue);
         });
 
         ctrl.$parsers.push(creditCardTypeService.normalizeCreditCardNumber);

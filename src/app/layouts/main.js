@@ -42,7 +42,7 @@ angular.module('mobius.controllers.main', [])
       };
 
       function loadHighlights() {
-        contentService.getAdverts({bannerSize: Settings.UI.adverts.randomMainPageAdvertSize}).then(
+        contentService.getAdverts({bannerSize: Settings.UI.adverts.heroAdverts}).then(
           function (response) {
             $scope.heroContent = _.reduce(response, function(object, advert){
               if(!_.isEmpty(advert.images)) {
@@ -59,9 +59,6 @@ angular.module('mobius.controllers.main', [])
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;
       $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
-      $scope.openLoginDialog = function() {
-        angular.element('#loginButton')[0].click(); // need to use DOM event
-      };
 
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
@@ -71,4 +68,5 @@ angular.module('mobius.controllers.main', [])
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
       $controller('SanitizeCtrl', {$scope: $scope});
+      $controller('SSOCtrl', {$scope: $scope});
     }]);

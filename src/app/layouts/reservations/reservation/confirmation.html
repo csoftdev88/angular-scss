@@ -50,7 +50,7 @@
             <th>Card number:</th>
             <td>
               <i ng-class="getCreditCardDetails(billingDetails.card.number).icon"></i>
-              {{billingDetails.card.number}}
+              {{getCreditCardPreviewNumber(billingDetails.card.number)}}
             </td>
           </tr>
           <tr>

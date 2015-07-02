@@ -8,6 +8,7 @@ angular.module('mobiusApp.services.booking', [])
 .service( 'bookingService',  function($stateParams, $window) {
   var QUERY_TO_API_PARAMS = {
     'property': 'propertyCode',
+    'location': 'locationCode',
     'region': 'regionCode',
     'adults': 'adults',
     'children': 'children',
@@ -24,6 +25,7 @@ angular.module('mobiusApp.services.booking', [])
       adults: $stateParams.adults,
       children: $stateParams.children,
       region: $stateParams.region,
+      location: $stateParams.location,
       dates: $stateParams.dates,
       // rate is ProductGroupID from filters/product API
       rate: $stateParams.rate,

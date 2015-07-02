@@ -1,14 +1,14 @@
 
 <booking-widget-search>
-  <h3>Make Your <strong>Booking</strong></h3>
+  <h3>Make <br> Your <strong>Booking</strong></h3>
 
   <!-- FIND YOUR HOTEL -->
   <form-element class="hotel">
     <select name="regionHotels" required chosen
             disable-search="false"
-            data-placeholder="Hotel"
+            data-placeholder="Region / Location / Hotel"
             ng-model="regionPropertySelected"
-            chosen-options-class="{ 'region' : type === 'region', 'property': type === 'property' }"
+            chosen-options-class="{ 'region': type === 'region', 'location': type === 'location', 'property': type === 'property' }"
             ng-options="option.name for option in propertyRegionList"
             ng-change="propertyRegionChanged()">
       <option></option> <!-- workaround for a bug in angular-chosen  -->
@@ -27,10 +27,11 @@
            show-button-bar="false"
            highlights="availability"
            data-include-counter="1"
-           data-counter-pluralization="{'0': 'No dates selected', '1': '{} night', 'plural': '{} nights'}">
+           data-counter-pluralization="{'0': 'No dates selected', '1': '{} night', 'plural': '{} nights'}"
+           input-text="inputDateText">
     <form-label>Enter Your Dates</form-label>
+    <input-value>{{inputDateText || 'Dates'}}</input-value>
   </form-element>
-
   <!-- NUMBER OF ADULTS -->
   <form-element class="persons">
     <select name="adults"
@@ -40,7 +41,7 @@
             data-placeholder="Adults">
       <option></option> <!-- workaround for a bug in angular-chosen -->
     </select>
-    <form-label>Number of Adults</form-label>
+    <form-label>Number of Adult(s)</form-label>
   </form-element>
 
   <!-- NUMBER OF CHILDREN -->
@@ -78,7 +79,7 @@
     role="button" tabindex="0"
     ng-click="onSearch()"
     ng-disabled="!isSearchable()">
-    Search
+    Search Now
   </button-submit>
 </booking-widget-search>
 
@@ -95,7 +96,7 @@
               chosen ng-options="number for number in []|numberToList:settings.adults.min:settings.adults.max">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
-      <form-label>Number of Adults</form-label>
+      <form-label>Number of Adult(s)</form-label>
     </form-element>
 
     <form-element class="persons">

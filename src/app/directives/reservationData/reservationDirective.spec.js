@@ -73,7 +73,7 @@ describe('mobius.controllers.reservation.directive', function() {
           rooms: [
             {tax: 5},
             {tax: 11},
-            {tax: 12},
+            {tax: 12}
           ]
         };
 
@@ -90,7 +90,7 @@ describe('mobius.controllers.reservation.directive', function() {
         _scope.reservation = {
           rooms: [
             {priceAfterTax: 2},
-            {priceAfterTax: 3},
+            {priceAfterTax: 3}
           ]
         };
 

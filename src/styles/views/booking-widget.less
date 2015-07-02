@@ -11,13 +11,104 @@ booking-widget {
   // Chosen dropdown - open up not down
   .chosen-container .chosen-drop {
     bottom: 100%;
-    top: initial;
+    top: auto;
 
     border: 1px solid #ccc;
     border-bottom: 0;
   }
 
 }
+
+
+//- Form elements
+booking-widget-search form-element,
+booking-widget-add-room form-element {
+  align-items: center;
+  display: flex;
+  flex: 2;
+  padding-right: @baseline/2;
+
+  &.persons {
+    flex: 1;
+  }
+
+  // icons
+  &:before {
+    .fa;
+
+    position: absolute;
+    top: 50%;
+    z-index: 2000;
+
+    width: @baseline * 1.5;
+
+    color: darken(@c-brown, 25%);
+
+    font-size: @size-2;
+    text-align: center;
+
+    transform: translateY(-50%);
+  }
+
+    &.hotel:before   { content: @fa-var-map-marker; }
+    &.persons:before { content: @fa-var-user; }
+    &.dates:before   { content: @fa-var-calendar-o; }
+    &.code:before    { content: @fa-var-tag; }
+    &.rate:before    { content: @fa-var-suitcase; }
+
+  // animated label
+  form-label {
+    top: 50%;
+
+    align-items: center;
+    display: flex;
+    min-height: @baseline;
+    padding: @baseline/4 0;
+
+    transform: translateY(-50%);
+  }
+
+  input[type=text],
+  select,
+  .chosen-container-single .chosen-single {
+    padding-left: @baseline * 1.5;
+
+    font-size: 13px;
+  }
+
+  input:focus ~ form-label,
+  select:focus ~ form-label,
+  .chosen-with-drop ~ form-label {
+    opacity: 1;
+
+    transform: translateY(40%);
+  }
+
+  // fake displaying of date picker
+  input-value {
+    position: absolute;
+    left: @baseline * 1.5;
+    top: 50%;
+    z-index: 10;
+
+    border-radius: 4px;
+    height: 24px;
+    overflow: hidden;
+    width: ~"calc(100% - 40px)";
+
+    background: #fff;
+    color: #555;
+
+    line-height: 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    transform: translateY(-50%);
+
+    pointer-events: none;
+  }
+}
+
 
 //- Search
 booking-widget-search {
@@ -26,75 +117,47 @@ booking-widget-search {
 
   // region/hotel styling in dropdown
   .chosen-results {
-    .region {
+    li.region {
       font-weight: bold;
     }
-    li.property {
+    li.location {
+      font-weight: bold;
       padding-left: 1em;
+    }
+    li.property {
+      padding-left: 2em;
     }
   }
 
   //- Make your booking
   h3 {
+    position: relative;
+
     flex: 0 0 auto;
-    padding-right: @baseline/2;
+    padding-right: @baseline * 2;
 
     text-transform: uppercase;
 
     strong { display: block; }
-  }
 
-  //- Form elements
-  form-element {
-    align-items: center;
-    display: flex;
-    flex: 1;
-    padding-right: @baseline/2;
-
-    // icons
-    &:before {
+    &:after {
       .fa;
 
       position: absolute;
+      right: @baseline / 2;
       top: 50%;
-      z-index: 2;
 
-      width: @baseline;
+      color: #ddd;
 
-      color: #000;
-
-      text-align: center;
+      font-size: 21px;
 
       transform: translateY(-50%);
-    }
 
-    &.hotel:before   { content: @fa-var-map-marker; }
-    &.persons:before { content: @fa-var-user; }
-    &.dates:before   { content: @fa-var-calendar; }
-    &.code:before    { content: @fa-var-tag; }
-    &.rate:before    { content: @fa-var-suitcase; }
-    &.hotel:before { content: @fa-var-map-marker; }
-    &.hotel:before { content: @fa-var-map-marker; }
-    &.hotel:before { content: @fa-var-map-marker; }
-
-    form-label {
-      bottom: 0;
-    }
-
-    input[type=text],
-    select,
-    .chosen-container-single .chosen-single {
-      padding-left: @baseline;
-    }
-
-    input:focus ~ form-label,
-    select:focus ~ form-label,
-    .chosen-with-drop ~ form-label {
-      opacity: 1;
-
-      transform: translate(0, 100%);
+      content: @fa-var-chevron-right;
     }
   }
+
+
 
   //- Search button
   button-submit {
@@ -106,14 +169,13 @@ booking-widget-search {
 //- Add Room
 booking-widget-add-room {
   display: block;
-  padding: 0 @baseline @baseline @baseline;
+  padding-bottom: @baseline;
 
   //- Number of a room
   h3 {
     font-weight: bold;
   }
 
-  //- Options
   form-element {
     display: inline-block;
     margin-right: @baseline;
@@ -145,6 +207,30 @@ my-account {
     width: 960px;
   }
 
+
+  //- Sign Up
+  .sign-up {
+    p {
+      margin: 0 auto;
+      padding: @baseline/2 @baseline @baseline/2 @baseline*4;
+      width: 260px;
+
+      background: url(../images/v4/logo-sp-white.png) center left no-repeat;
+    }
+
+    a {
+      color: #fff;
+
+      text-decoration: underline;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
+
   //- Cards - rewards, badges
   article {
     flex: 1;
@@ -170,7 +256,9 @@ my-account {
       border-radius: 100%;
       box-sizing: border-box;
       float: left;
+      height: 60px;
       margin-right: @baseline;
+      width: 60px;
 
       border: 3px solid lighten(@c-booking-widget-my-account, 15%);
     }
@@ -191,7 +279,5 @@ my-account {
       font-size: @size--2;
       line-height: @baseline - 5px;
     }
-
-
   }
 }

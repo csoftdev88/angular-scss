@@ -30,6 +30,8 @@ angular.module('mobiusApp.directives.chosenOptionsClass', [])
             angular.forEach(classes, function(add, className) {
               if (add) {
                 angular.element(option).addClass(className);
+              } else {
+                angular.element(option).removeClass(className);
               }
             });
           });
@@ -37,6 +39,7 @@ angular.module('mobiusApp.directives.chosenOptionsClass', [])
 
         var unWatchOptions = scope.$watch(optionsSourceStr, function(items) {
           elem.on('chosen:showing_dropdown', setClasses.bind(null, items));
+          elem.on('chosen:search', setClasses.bind(null, items));
         });
         scope.$on('$destroy', function(){
           unWatchOptions();

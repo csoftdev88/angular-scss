@@ -6,7 +6,9 @@ angular.module('mobiusApp.directives.language', [])
     function encodeQueryData(data) {
       var ret = [];
       for (var d in data) {
-        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+        if(data.hasOwnProperty(d)) {
+          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+        }
       }
       return ret.join(' ');
     }

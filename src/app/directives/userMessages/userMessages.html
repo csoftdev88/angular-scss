@@ -1,6 +1,8 @@
 <ul ng-if="messages.length">
   <li ng-repeat="message in messages" class="{{message.type}}">
-    <span ng-bind-html="sanitize(message.html)"></span>
-    <span ng-click="closeMessage($index)">x</span>
+    <div class="grid-wrapper">
+      <span class="message-content" ng-bind-html="sanitize(message.html)"></span>
+      <span class="message-close" ng-click="closeMessage($index)">x</span>
+    </div>
   </li>
 </ul>

@@ -8,11 +8,27 @@ angular.module('mobius.controllers.hotel.details', [])
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
   $window, advertsService) {
 
+  var SHORT_DESCRIPTION_LENGTH = 200;
+  var NUMBER_OF_OFFERS = 3;
   var bookingParams = bookingService.getAPIParams();
   // Include the amenities
   bookingParams.includes = 'amenities';
 
   var propertyCode = bookingParams.propertyCode;
+
+  function scrollTo(hash) {
+    $window._.defer(function () {
+      var $item = angular.element('#' + hash);
+      if($item.length) {
+        angular.element('html, body').animate({
+          scrollTop: $item.offset().top
+        }, 300);
+      }
+    });
+  }
+
+  $scope.pricePer = 'night';
+  $scope.days = (bookingParams.to && bookingParams.from) ? $window.moment(bookingParams.to).diff(bookingParams.from, 'days') : 0;
 
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
@@ -21,6 +37,14 @@ angular.module('mobius.controllers.hotel.details', [])
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
+
+        $scope.details.description = ('' + $scope.details.description);
+        $scope.details.descriptionShort = $scope.details.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+        $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
+        if ($scope.details.hasViewMore) {
+          $scope.details.descriptionShort += '…';
+        }
+
         breadcrumbsService.addBreadCrumb(details.nameShort);
         breadcrumbsService
           .addHref('About', 'jsAbout')
@@ -39,13 +63,21 @@ angular.module('mobius.controllers.hotel.details', [])
           // TODO: Update PhantomJS
           $scope.openGallery = function(){
             modalService.openGallery(
-              details.images.map(function(image){return image.uri;}));
+              details.images.map(function(image){return image.uri;})
+            );
           };
         }
 
-        if(details.availability) {
-          $scope.rooms = details.availability.rooms || [];
+        if(details.hasOwnProperty('available')) {
+          $scope.availableRooms = $window._.pluck((details.availability && details.availability.rooms) || [], 'code');
         }
+
+        contentService.getOffers(bookingParams).then(function(response) {
+          $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
+          if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
+            breadcrumbsService.removeHref('Offers');
+          }
+        });
       }, function() {
         $state.go('hotels');
       });
@@ -57,7 +89,12 @@ angular.module('mobius.controllers.hotel.details', [])
         }
       });
 
-    preloaderFactory($q.all([detailPromise, roomsPromise]));
+    preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
+      var hash = $window.location.hash;
+      if (hash) {
+        scrollTo(hash.substr(1));
+      }
+    }));
   }
 
   // In order to get rooms availability we must call the API with productGroupId
@@ -76,17 +113,8 @@ angular.module('mobius.controllers.hotel.details', [])
   }
 
   $scope.scrollToRooms = function() {
-    var $item = angular.element('#jsRooms');
-    angular.element('html, body').animate({
-      scrollTop: $item.offset().top
-    }, 300);
+    scrollTo('jsRooms');
   };
-
-  var NUMBER_OF_OFFERS = 3;
-
-  contentService.getOffers(bookingParams).then(function(response) {
-    $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
-  });
 
   $scope.advertClick = advertsService.advertClick;
 });

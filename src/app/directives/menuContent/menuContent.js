@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.menu', [])
 
-.directive('menuContent', function(contentService, $state){
+.directive('menuContent', function($controller, _, $state){
   return {
     restrict: 'EA',
     scope: {},
@@ -11,44 +11,22 @@ angular.module('mobiusApp.directives.menu', [])
     // Widget logic goes here
     link: function(scope, elem, attrs){
 
-      // We are using different methods for getting the data
-      // from the server according to content type. Also, menu
-      // items are located under different objects.
-      var contentTypes = {
-        'news': {
-          'sourceObject': 'news',
-          'method': 'getNews',
-          'state': 'news',
-          'reload': true,
-          'code' : ''
-        },
-        'offers': {
-          'sourceObject': 'specialOffer',
-          'method': 'getOffers',
-          'state': 'offers',
-          'reload': true,
-          'code' : ''
-        },
-        'about': {
-          'sourceObject': 'about',
-          'method': 'getAbout',
-          'state': 'aboutUs',
-          'reload': false
-        }
-      };
-
       scope.title = attrs.title;
+      scope.item = attrs.menuContent;
 
-      scope.goToState = function() {
-        $state.go(contentTypes[attrs.menuContent].state, {code: contentTypes[attrs.menuContent].code}, {reload: contentTypes[attrs.menuContent].reload});
+      $controller('ContentCtr', {$scope: scope});
+
+      var states = {
+        'hotels': ['hotel', 'hotels', 'room'],
+        'news': ['news'],
+        'offers': ['offers'],
+        'about': ['aboutUs']
       };
-
-      var contentType = contentTypes[attrs.menuContent];
-      if(contentType){
-        contentService[contentType.method]().then(function(data){
-          scope.content = data[contentType.sourceObject]||[];
+      scope.isActive = function() {
+        return _.some(states[attrs.menuContent], function(state) {
+          return $state.includes(state);
         });
-      }
+      };
     }
   };
 });

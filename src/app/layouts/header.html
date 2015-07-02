@@ -1,4 +1,4 @@
-<nav class="main-nav wrapper" dropdown>
+git <nav class="main-nav wrapper" dropdown>
   <a class="brand" ui-sref="home">
     <img src="/static/images/v4/logo.png" alt="Mobius logo">
   </a>
@@ -7,38 +7,27 @@
 
   <div class="app-menu">
     <ul dropdown-group>
-      <li ng-hide="config.menu.singleProperty">
-          <a ui-sref="hotels">_hotels_</a>
-      </li>
+      <li has-dropdown="hover" ng-hide="config.menu.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
 
-      <li has-dropdown="hover" menu-content="offers" data-title="_offers_deals_" ng-show="config.menu.showOffers">
-      </li>
+      <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 
-      <li ng-show="config.menu.showAbout">
-        <a ui-sref="aboutUs">_about_us_</a>
-      </li>
+      <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
 
-      <li has-dropdown="hover" menu-content="news" data-title="_news_" ng-show="config.menu.showNews">
-      </li>
+      <li has-dropdown="hover" ng-show="config.menu.showNews" menu-content="news" data-title="_news_"></li>
 
       <li ng-show="config.menu.showContact">
-          <a ui-sref="contacts">_contact_</a>
+          <a
+                  ui-sref="contacts"
+                  ui-sref-opts="{reload: true}"
+                  ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
       </li>
 
-      <li has-dropdown="click" currency-list>
-      </li>
+      <li has-dropdown="click" currency-list></li>
 
-      <li has-dropdown="click" language-list>
-      </li>
+      <li has-dropdown="click" language-list></li>
 
-      <!-- NOTE: INFINITI SSO LOGIN/REGISTER BUTTONS - WAITING FOR UX -->
-      <!--
-      <a class="infiniti-update-profile-mobile infiniti-button" style="display:none"></a>
-      <a class="infiniti-login-mobile infiniti-button" style="display:none"></a>
-      <a class="infiniti-register-mobile infiniti-button button" style="display:none"></a>
-      -->
       <li ng-show="!isUserLoggedIn()" profile>
-        <a id="loginButton" class="infiniti-login-mobile infiniti-button button button-login">Login</a> <!-- ID used to JS click on button -->
+        <a class="button button-login" ng-click="sso.login()">Login</a>
       </li>
 
       <li has-dropdown="click" ng-show="isUserLoggedIn()" profile>
@@ -64,10 +53,10 @@
               <a ui-sref="reservations">Reservations</a>
             </li>
             <li>
-              <a class="infiniti-update-profile-mobile infiniti-button" style="display:none"></a>
+              <a href ng-click="sso.profile()">Profile</a>
             </li>
             <li>
-              <a class="infiniti-login-mobile infiniti-button" style="display:none">Login</a>
+              <a href ng-click="sso.logout()">Logout</a>
             </li>
           </ul>
         </div>

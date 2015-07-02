@@ -5,9 +5,10 @@
 angular.module('mobius.controllers.news', [])
 
   .controller('NewsCtrl', function($scope, $controller, contentService,
-    $stateParams, _, breadcrumbsService){
+         $state, $stateParams, _, breadcrumbsService) {
 
     $controller('MainCtrl', {$scope: $scope});
+
     breadcrumbsService.addBreadCrumb('News');
 
     var NUMBER_OF_RELEVANT_NEWS = 3;
@@ -17,9 +18,9 @@ angular.module('mobius.controllers.news', [])
     $scope.showDetail = $stateParams.code ? true : false;
 
     contentService.getNews().then(function(response) {
-      $scope.newsList = response;
-      if($stateParams.code) {
-        $scope.selectNews($stateParams.code);
+      $scope.newsList = _.sortBy(response, 'prio').reverse();
+      if ($stateParams.code) {
+        selectNews($stateParams.code);
       }
     });
 
@@ -28,18 +29,22 @@ angular.module('mobius.controllers.news', [])
       return selectedNewsIndex !== index && NUMBER_OF_RELEVANT_NEWS + offset > parseInt(index, 10);
     };
 
-
-    $scope.selectNews = function(code) {
-      selectedNewsIndex = _.findIndex($scope.newsList,
-        function (item) {
-          return item.code === code;
-        });
-      $scope.selectedNews = $scope.newsList[selectedNewsIndex];
-      $scope.showDetail = true;
-      breadcrumbsService.clear()
-        .addBreadCrumb('News', 'news')
-        .addBreadCrumb($scope.selectedNews.title);
-
+    $scope.goToDetail = function(code) {
+      $state.go('news', {code: code});
     };
 
+    $scope.goToNewsList = function() {
+      $state.go('news', {code: ''}, {reload: true});
+    };
+
+    function selectNews(code) {
+      selectedNewsIndex = _.findIndex($scope.newsList, {code: code});
+      if (selectedNewsIndex < 0) {
+        return $state.go('news', {code: null});
+      }
+      $scope.selectedNews = $scope.newsList[selectedNewsIndex];
+      breadcrumbsService.clear()
+        .addBreadCrumb('News', 'news', {code: null})
+        .addBreadCrumb($scope.selectedNews.title);
+    }
   });

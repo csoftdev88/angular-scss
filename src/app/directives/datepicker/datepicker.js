@@ -12,7 +12,8 @@ angular.module('mobiusApp.directives.datepicker', [])
     restrict: 'A',
     require: 'ngModel',
     scope: {
-      highlights: '='
+      highlights: '=',
+      inputText: '='
     },
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
@@ -42,6 +43,30 @@ angular.module('mobiusApp.directives.datepicker', [])
         $.datepicker._selectDateOverload(id, dateStr);
         inst.inline = false;
         this._updateDatepicker(inst);
+      }
+
+      function beforeShow() {
+        if(ngModelCtrl.$modelValue !== undefined) {
+          // NOTE: using setHours(0) is safe for different timezones. By default
+          // jquery date picker returns dates at 00 hour
+
+          // TODO: use $parsers/$formates in case when dates should be presented not
+          // as a string
+          if(typeof(ngModelCtrl.$modelValue) === 'string'){
+            var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
+            startDate = new Date(dates[0]).setHours(0);
+
+            if(dates.length === 2){
+              endDate = new Date(dates[1]).setHours(0);
+            }else{
+              endDate = startDate;
+            }
+          }
+        }
+
+        if(hasCounter){
+          updateCounter();
+        }
       }
 
       // Multi input fields support
@@ -77,29 +102,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             ];
           },
 
-          beforeShow: function () {
-            if(ngModelCtrl.$modelValue !== undefined) {
-              // NOTE: using setHours(0) is safe for different timezones. By default
-              // jquery date picker returns dates at 00 hour
-
-              // TODO: use $parsers/$formates in case when dates should be presented not
-              // as a string
-              if(typeof(ngModelCtrl.$modelValue) === 'string'){
-                var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
-                startDate = new Date(dates[0]).setHours(0);
-
-                if(dates.length === 2){
-                  endDate = new Date(dates[1]).setHours(0);
-                }else{
-                  endDate = startDate;
-                }
-              }
-            }
-
-            if(hasCounter){
-              updateCounter();
-            }
-          },
+          beforeShow: beforeShow,
 
           onClose: function(date) {
             if(!isValid()){
@@ -150,6 +153,22 @@ angular.module('mobiusApp.directives.datepicker', [])
           }
         }).datepicker('show');
       });
+
+      function setInputText() {
+        var diff;
+
+        if(!startDate || !endDate){
+          diff = 0;
+        }else{
+          diff = Math.abs($window.moment(startDate).diff(endDate, 'days'));
+        }
+
+        if(diff) {
+          scope.inputText = window.moment(startDate).format('Do of MMM') + ' (' + $filter('pluralization')(diff, counterPluralizationRules) + ')';
+        } else {
+          scope.inputText = '';
+        }
+      }
 
       function updateCounter(){
         $window._.defer(function(){
@@ -218,8 +237,16 @@ angular.module('mobiusApp.directives.datepicker', [])
       var unWatchHiglights = scope.$watch('highlights', function(){
         element.datepicker( 'refresh' );
       });
+      var unWatchModelValue = scope.$watch(function(){
+        return ngModelCtrl.$modelValue;
+      }, function(){
+        beforeShow();
+        setInputText();
+      });
+
       scope.$on('$destroy', function(){
         unWatchHiglights();
+        unWatchModelValue();
       });
     }
   };

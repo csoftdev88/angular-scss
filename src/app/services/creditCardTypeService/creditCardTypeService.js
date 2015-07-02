@@ -8,14 +8,17 @@ angular.module('mobiusApp.services.creditCardType', [])
       creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
 
       if (creditCardNumber && luhnCheck(creditCardNumber)) {
-        for (var type in Settings.UI.booking.cardTypes) {
-          var cardDetails = Settings.UI.booking.cardTypes[type];
-          var regexObj = cardDetails.regex;
-          if (regexObj.test(creditCardNumber)) {
-            return {
-              icon: cardDetails.icon,
-              code: cardDetails.code
-            };
+        var cardTypes = Settings.UI.booking.cardTypes;
+        for (var type in cardTypes) {
+          if (cardTypes.hasOwnProperty(type)) {
+            var cardDetails = cardTypes[type];
+            var regexObj = cardDetails.regex;
+            if (regexObj.test(creditCardNumber)) {
+              return {
+                icon: cardDetails.icon,
+                code: cardDetails.code
+              };
+            }
           }
         }
         // uncomment to accept all card numbers passing luhn check
@@ -58,9 +61,37 @@ angular.module('mobiusApp.services.creditCardType', [])
       return creditCardNumber ? ('' + creditCardNumber).replace(/[\s-]/g, '') : '';
     }
 
+    function formatCreditCardNumber(creditCardNumber, separator) {
+      creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
+
+      var formatedNumber = '';
+
+      for (var i = 0; i < creditCardNumber.length; i++) {
+        if ((i > 0) && (i % 4 === 0)) {
+          formatedNumber += separator || '-';
+        }
+        formatedNumber += creditCardNumber[i];
+      }
+
+      return formatedNumber;
+    }
+
+    function getCreditCardPreviewNumber(creditCardNumber, maskSymbol){
+      creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
+
+      var previewNumber = '';
+      for(var i = 0; i < creditCardNumber.length; i++){
+        previewNumber += i > creditCardNumber.length - 5?creditCardNumber[i]:maskSymbol || 'x';
+      }
+
+      return formatCreditCardNumber(previewNumber);
+    }
+
     return {
       getCreditCardDetails: getCreditCardDetails,
       luhnCheck: luhnCheck,
-      normalizeCreditCardNumber: normalizeCreditCardNumber
+      normalizeCreditCardNumber: normalizeCreditCardNumber,
+      formatCreditCardNumber: formatCreditCardNumber,
+      getCreditCardPreviewNumber: getCreditCardPreviewNumber
     };
   });

@@ -1,26 +1,39 @@
-<div class="ui-dialog">
+<div class="ui-info">
   <div class="modal-header">
-    <h3 class="modal-title">{{addon.name}}</h3>
+    <h1 class="modal-title">{{addon.name}}</h1>
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
-
   <div class="modal-body" ng-if="!addon._confirmation">
     <image-carousel images="addon.images"></image-carousel>
-    <p>{{addon.description}}</p>
-    <p>Add to your booking with one click!</p>
-    <a class="button" href ng-click="addon._confirmation = true">{{addon.price | i18nCurrency: currencyCode}}</a>
-    <a class="button" href ng-click="addon._confirmation = true" ng-if="addon.pointsRequired">{{addon.pointsRequired}}</a>
+    <div class="details">
+      <div class="description">
+        <p>{{addon.description}}</p>
+      </div>
+
+      <div class="extra">
+        <p class="add-extra">Add to your booking with one click!</p>
+        <a class="button add-confirm" href ng-click="addon._confirmation = true">{{addon.price | i18nCurrency: currencyCode}}</a>
+        <a class="button add-confirm-points" href ng-click="addon._confirmation = true" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
+      </div>
+    </div>
   </div>
 
   <div class="modal-body" ng-if="addon._confirmation">
     <image-carousel images="addon.images"></image-carousel>
-    <p>Please confirm you want to add this Enhancement to your booking:</p>
-    <p>{{addon.name}}</p>
-    <p>{{addon.price | i18nCurrency: currencyCode}}</p>
-    <p>We will charge the card that you made your booking with. This enhancement is covered by the same terms
-      and policies as the booking it is associated with</p>
-    <a class="button" href ng-click="addon._confirmation = false">Back</a>
-    <a class="button" href ng-click="addAddon(addon)">Confirm</a>
-  </div>
+    <div class="details">
+      <div class="description">
+        <p>Please confirm you want to add this Enhancement to your booking:</p>
+        <p>{{addon.name}}</p>
+        <p>{{addon.price | i18nCurrency: currencyCode}}</p>
+        <p>We will charge the card that you made your booking with. This enhancement is covered by the same terms
+          and policies as the booking it is associated with</p>
+      </div>
 
+      <div class="extra">
+        <p class="add-extra">Add to your booking with just a click!</p>
+        <a class="button add-confirm" href ng-click="addon._confirmation = false">Back</a>
+        <a class="button add-confirm-points" href ng-click="addAddon(addon)">Confirm</a>
+      </div>
+    </div>
+  </div>
 </div>

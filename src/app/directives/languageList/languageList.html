@@ -1,4 +1,4 @@
-<div class="dropdown has-icons">
+<div ng-class="{'dropdown has-icons': languages.length > 1}" ng-show="languages.length > 1">
   <a href title="Language">
     <span>{{getShortName(currentLanguage)}}</span>
   </a>

@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.room', [])
 
-.directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q,
+.directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, user, _) {
 
   return {
@@ -14,10 +14,12 @@ angular.module('mobiusApp.directives.room', [])
       var SHORT_DESCRIPTION_LENGTH = 200;
 
       var bookingParams = bookingService.getAPIParams();
-
-      var propertyCode = bookingParams.property;
+      scope.$stateParams = $stateParams;
+      var propertyCode = bookingParams.propertyCode;
       scope.propertyCode = propertyCode;
-      delete bookingParams.property;
+
+      scope.pricePer = 'night';
+      scope.days = (bookingParams.to && bookingParams.from) ? $window.moment(bookingParams.to).diff(bookingParams.from, 'days') : 0;
 
       var roomCode = $stateParams.roomID;
 
@@ -92,7 +94,7 @@ angular.module('mobiusApp.directives.room', [])
       preloaderFactory($q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
         breadcrumbsService.clear()
           .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
-          .addBreadCrumb('Rooms')
+          .addBreadCrumb('Rooms', 'hotel', {propertyCode: propertyCode}, 'jsRooms')
           .addBreadCrumb(data[0].roomDetails.name);
       }));
 
