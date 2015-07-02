@@ -332,6 +332,18 @@ angular.module('mobiusApp.config', [])
       'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/properties_amenities/',
       'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/rooms_amenities/',
       'suffix': '.png'
+    },
+    // See: http://openweathermap.org/wiki/API/Weather_Condition_Codes
+    'weatherTypes': {
+      'cloudy': [ 802, 803, 804, 701, 711, 721, 731, 741],
+      'heavy-rain': [502, 503, 504, 511, 521, 522],
+      'light-rain': [300, 301, 302, 310, 311, 312, 321, 500, 501, 520],
+      'snow': [600, 601, 602, 611, 621, 903],
+      'sun': [800, 904],
+      'sunny-cloudy': [801],
+      'thunder': [200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 906],
+      'wind': [900, 902, 905],
+      'wind-rain': [901]
     }
   }
 });
