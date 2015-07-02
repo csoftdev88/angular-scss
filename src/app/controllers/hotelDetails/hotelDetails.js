@@ -42,8 +42,8 @@ angular.module('mobius.controllers.hotel.details', [])
         var firstBr = $scope.details.description.indexOf('<br>');
         firstParaEnd = Math.max(firstParaEnd, 0);
         firstBr = Math.max(firstBr, 0);
-        var shortDescLength = (firstBr > 0 || (firstBr < firstParaEnd && firstParaEnd > 0)) ? firstBr : firstParaEnd;
-        $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength ? $scope.details.description.indexOf('>', shortDescLength) : SHORT_DESCRIPTION_LENGTH);
+        var shortDescLength = (firstBr > 0 && firstParaEnd > 0) ? Math.min(firstBr, firstParaEnd) : Math.max(firstBr, firstParaEnd);
+        $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
         $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
 
         breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort);
