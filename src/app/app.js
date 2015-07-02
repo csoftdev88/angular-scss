@@ -113,6 +113,7 @@ angular
     'mobiusApp.directives.imageCarousel',
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
+    'mobiusApp.directives.googleAnalyticsScript',
 
     // Filters
     'mobiusApp.filters.list',
