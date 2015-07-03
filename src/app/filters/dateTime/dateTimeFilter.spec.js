@@ -13,7 +13,7 @@ describe('dateTimeFilter', function() {
   var TEST_RESULT_3 = 'Dec 2nd 14';
 
   beforeEach(function() {
-    module('mobius.filters.dateTime', function() {});
+    module('mobiusApp.filters.dateTime', function() {});
   });
 
   beforeEach(inject(function(dateTimeFilter) {

@@ -120,8 +120,9 @@ angular
     'mobiusApp.filters.number',
     'mobiusApp.filters.currency',
     'mobiusApp.filters.pluralization',
-    'mobius.filters.dateTime',
-    'mobius.filters.checkInDate'
+    'mobiusApp.filters.dateTime',
+    'mobiusApp.filters.checkInDate',
+    'mobiusApp.filters.cloudinaryImage'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
