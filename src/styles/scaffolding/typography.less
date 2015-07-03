@@ -41,3 +41,18 @@ body {
   font-size: @size-2;
   font-weight: 700;
 }
+
+main {
+  div {
+    > p + p,
+    > p + ul,
+    > ul + p,
+    > h1 + p,
+    > h2 + p,
+    > h3 + p,
+    > h4 + p,
+    > h5 + p {
+      margin-top: 1em;
+    }
+  }
+}
