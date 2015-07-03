@@ -7,9 +7,9 @@ angular.module('mobius.controllers.reservationDetail', [])
   // TODO: needs some polishing - many could be read from reservation detail response...
   // Price breakdown and policies seems to have different format then expected
 
-  .controller('ReservationDetailCtrl', function($scope, $stateParams, $window,
+  .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
             reservationService, preloaderFactory, modalService, userMessagesService,
-            propertyService, $q, breadcrumbsService/*, $controller*/){
+            propertyService, $q, breadcrumbsService /*, $controller*/){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -77,6 +77,39 @@ angular.module('mobius.controllers.reservationDetail', [])
     // choose either one of these two lines
     //$controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
     onAuthorized();
+
+    // TODO: Unify with modifyReservation
+    $scope.modifyCurrentReservation = function(){
+      // Redirecting to hotel detail page with corresponding booking settings
+      // and switching to edit mode
+      var reservation = $scope.reservation;
+      console.log($scope.reservation);
+      var bookingParams = {
+        property: reservation.property.code,
+        adults: getCount(reservation.rooms, 'adults'),
+        children: getCount(reservation.rooms, 'children'),
+        dates: reservation.arrivalDate + ' ' + reservation.departureDate,
+        // NOTE: Check corp/group codes
+        promoCode: reservation.promoCode,
+        // NOTE: This will enable editing
+        booking: reservation.reservationCode
+      };
+
+      // NOTE: Info dialogue
+      modalService.openModifyingReservationDialogue(reservation.reservationCode);
+
+      $state.go('hotel', bookingParams);
+    };
+
+    // NOTE: Same is in reservationDirective - unify
+    function getCount(rooms, prop){
+        return _.reduce(
+          _.map(rooms, function(room){
+            return room[prop];
+          }), function(t, n){
+            return t + n;
+          });
+      }
 
     $scope.modifyReservation = function(onError) {
       var reservationPromise = reservationService.modifyReservation($stateParams.reservationCode, $scope.reservation).then(

@@ -34,7 +34,7 @@
         <figure>
           <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           <!-- TODO: Add actions to buttons -->
-          <button class="button">Modify</button>
+          <button class="button" ng-click="modifyCurrentReservation()">Modify</button>
           <button class="button-gray" ng-click="openCancelReservationDialog()">Cancel</button>
         </figure>
 

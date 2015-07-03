@@ -69,6 +69,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openModifyingReservationDialogue(reservationCode){
+    return openDialog('modifying-reservation', 'layouts/modals/reservation/modifyReservation.html', CONTROLLER_DATA, {
+      windowClass: 'details addons',
+      resolve: {
+        data: function(){
+          return {reservationCode: reservationCode};
+        }
+      }
+    });
+  }
+
   function openConfirmationDialog(setup) {
     return openDialog('ConfirmationDialog', 'layouts/modals/confirmationDialog.html', CONTROLLER_CONFIRMATION, {
       windowClass: 'is-wide has-white-bg',
@@ -204,7 +215,10 @@ angular.module('mobiusApp.services.modal', [])
 
   // Public methods
   return {
+    // Reservations
+    openModifyingReservationDialogue: openModifyingReservationDialogue,
     openCancelReservationDialog: openCancelReservationDialog,
+
     openConfirmationDialog: openConfirmationDialog,
     openAddonDetailDialog: openAddonDetailDialog,
     openCCVInfo: openCCVInfo,
