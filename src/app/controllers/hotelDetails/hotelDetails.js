@@ -76,9 +76,7 @@ angular.module('mobius.controllers.hotel.details', [])
             $window._.forEach((details.availability && details.availability.rooms) || [], function(availableRoom) {
               var room = $window._.find($scope.rooms, {code: availableRoom.code});
               if(room) {
-                room.minPointsRequired = availableRoom.minPointsRequired;
-                room.minsPointsEarned = availableRoom.minsPointsEarned;
-                room.priceFrom = availableRoom.priceFrom;
+                room = $window._.extend(room, availableRoom);
                 $scope.availableRooms.push(room.code);
               }
             });
