@@ -114,6 +114,7 @@ angular
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
+    'mobiusApp.directives.isoCountryOptions',
 
     // Filters
     'mobiusApp.filters.list',
