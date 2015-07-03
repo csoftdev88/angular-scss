@@ -18,7 +18,7 @@ angular.module('mobiusApp.services.user', [])
 
     // Promise is fullfiled when user logged in as mobius customer
     // or anonymous
-    var loggedInPromise = $q.defer();
+    var authPromise = $q.defer();
 
     function hasSSOCookies(){
       return !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
@@ -70,7 +70,7 @@ angular.module('mobiusApp.services.user', [])
           // data[1] is loyalties data - handled in loadLoyalties function
           userObject = _.extend(userObject, data[0]);
           // Logged in as mobius user
-          loggedInPromise.resolve(true);
+          authPromise.resolve(true);
         });
       } else {
         return $q.reject({});
@@ -96,7 +96,7 @@ angular.module('mobiusApp.services.user', [])
       headers[HEADER_INFINITI_SSO] = null;
       apiService.setHeaders(headers);
 
-      loggedInPromise = $q.defer().promise;
+      authPromise = $q.defer().promise;
     }
 
     function initSSOListeners(){
@@ -117,7 +117,7 @@ angular.module('mobiusApp.services.user', [])
         EVENT_ANONYMOUS_LOADED,
       function(){
         // Logged in as anonymous
-        loggedInPromise.resolve(false);
+        authPromise.resolve(false);
       });
     }
 
@@ -138,6 +138,6 @@ angular.module('mobiusApp.services.user', [])
       loadLoyalties: loadLoyalties,
       updateUser: updateUser,
       logout: logout,
-      loggedInPromise: loggedInPromise.promise
+      authPromise: authPromise.promise
     };
   });

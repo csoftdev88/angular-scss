@@ -69,7 +69,7 @@ describe('userService', function() {
       });
     });
 
-    describe('loggedInPromise', function(){
+    describe('authPromise', function(){
       it('should be defined', function() {
         expect(_userService.isLoggedIn).to.be.a('function');
       });
@@ -167,14 +167,14 @@ describe('userService', function() {
           expect(_spySetHeaders.calledWith({'infinitiAuthN': 'test'}));
         });
 
-        it('should resolve loggedInPromise once user is logged in', function(){
-          var isLoggedIn = null;
-          _userService.loggedInPromise.then(function(status){
-            isLoggedIn = status;
+        it('should resolve authPromise once user is logged in', function(){
+          var isMobiusUser = null;
+          _userService.authPromise.then(function(status){
+            isMobiusUser = status;
           });
           _userService.loadProfile();
           _rootScope.$digest();
-          expect(isLoggedIn).equal(true);
+          expect(isMobiusUser).equal(true);
         });
       });
     });

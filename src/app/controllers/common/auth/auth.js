@@ -5,8 +5,15 @@
 angular.module('mobius.controllers.common.auth', [])
 
 .controller( 'AuthCtrl', function($scope, _, user, config) {
-  var customerId = user.getCustomerId();
-  if(customerId && _.isFunction(config.onAuthorized)){
-    config.onAuthorized();
-  }
+  var authPromise = user.authPromise;
+
+  authPromise.then(function(isMobiusUser){
+    if(_.isFunction(config.onAuthorized)){
+      config.onAuthorized(isMobiusUser);
+    }
+  });
+
+  $scope.$on('$destroy', function() {
+    config.onAuthorized = _.noop;
+  });
 });
