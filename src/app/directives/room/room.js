@@ -78,20 +78,25 @@ angular.module('mobiusApp.directives.room', [])
            ones as well. */
 
         return propertyPromise.then(function(property) {
-          if(!property.hasOwnProperty('available') || property.available) {
-            return propertyService.getRooms(propertyCode)
-              .then(function(hotelRooms){
-                var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
-                var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
+          return propertyService.getRooms(propertyCode)
+            .then(function(hotelRooms){
+              var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
+              var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
 
-                var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
+              var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
 
-                // sortedCheaperRooms is sorted by price in descending order
-                var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
+              // sortedCheaperRooms is sorted by price in descending order
+              var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
 
-                scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
+              scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
+
+              $window._.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
+                var room = $window._.find(scope.otherRooms, {code: availableRoom.code});
+                if(room) {
+                  $window._.extend(room, availableRoom);
+                }
               });
-          }
+            });
         });
       }
 

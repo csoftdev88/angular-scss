@@ -110,7 +110,8 @@
         <h2>{{otherRoom.name}}</h2>
 
         <pricing-info>
-          <p> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
+          <p ng-if="otherRoom.priceFrom"> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
+          <p ng-if="!otherRoom.priceFrom">Please select dates to see the price</p>
         </pricing-info>
       </list-item>
     </list-items>
