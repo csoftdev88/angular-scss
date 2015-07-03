@@ -17,6 +17,11 @@ angular.module('mobiusApp.services.adverts', [])
           code: link.code
         });
         break;
+      case 'about':
+        $state.go('aboutUs', {
+          code: link.code
+        });
+        break;
       default:
         window.open(link.uri, '_blank');
       }
