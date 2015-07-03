@@ -105,10 +105,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       };
       scope.regionPropertySelected = undefined;
 
-      scope.canAddRoom = true;
+      //TODO  Multi room disabled for demo purposes
+      scope.canAddRoom = false;
       function canAddRoom() {
-        var count = scope.selected.rooms.length;
-        scope.canAddRoom = count < scope.settings.maxRooms;
+        //TODO  Multi room disabled for demo purposes
+        //      var count = scope.selected.rooms.length;
+        //      scope.canAddRoom = count < scope.settings.maxRooms;
+
+        scope.canAddRoom = false;
       }
 
       // Function will remove query parameters from the URL in case their

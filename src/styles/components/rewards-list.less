@@ -1,0 +1,102 @@
+/////////////////////////
+//// LIST OF REWARDS ////
+/////////////////////////
+
+rewards-list {
+  clear: both;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  margin: 0 @baseline/4 @baseline @baseline/4;
+
+  reward-item {
+    border-radius: @radius*2;
+    box-sizing: border-box;
+    flex: 0 0 ~"calc(33% - 20px)";
+    height: 360px;
+    overflow: hidden;
+    margin: 0 @baseline/2 @baseline @baseline/2;
+    width: ~"calc(33% - 20px)";
+
+    border: 1px solid @c-light-grey;
+    box-shadow: 0 1px 2px @c-light-grey;
+    background: #fff;
+
+    text-align: center;
+
+    // if it's clickable
+    &[ng-click] {
+      cursor: pointer;
+
+      &:hover img { opacity: .8; }
+    }
+
+    //- Image
+    img {
+      display: block;
+      margin-bottom: @baseline;
+      max-height: 160px;
+      width: 100%;
+
+      object-fit: cover;
+      opacity: 1;
+    }
+
+    //- Content - Title + Description
+    section {
+      position: relative;
+
+      max-height: 150px;
+      overflow: hidden;
+
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        display: block;
+        height: 24px;
+
+        background: url('../images/v4/text-overlay.png');
+        background-size: 100% 30px;
+
+        content: '';
+      }
+    }
+
+      //- Title
+      h2 {
+        margin-bottom: @baseline;
+        padding: 0 @baseline;
+
+        color: @c-base;
+
+        font-size: @size-2;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      //- Description
+      div {
+        color: @c-grey;
+        margin-bottom: @baseline;
+        padding: 0 @baseline;
+      }
+
+    //- Read More
+    span {
+      display: block;
+      color: @c-link;
+      margin-bottom: 2*@baseline;
+      font-weight: 600;
+    }
+
+    //- Advert Offer
+    &.advert img {
+      height: 100%;
+      margin-bottom: 0;
+      max-height: none;
+    }
+  }
+}

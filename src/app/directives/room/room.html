@@ -2,7 +2,6 @@
 
   <section class="header">
     <h1>{{roomDetails.name}}</h1>
-    <p ng-bind-html="sanitize(roomDetails.description)"></p>
   </section>
 
   <section ng-if="products">
@@ -40,7 +39,7 @@
             ng-hide="product.memberOnly && !isUserLoggedIn()">
             Book
           </button-submit>
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">Login/Register</a>
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">Login</a>
         </pricing-info>
 
         <description-info>
@@ -71,8 +70,15 @@
     <hr />
   </section>
 
+
+  <div grid-row>
+    <div grid="12">
+      <h2>Room <strong>Description</strong></h2>
+      <p ng-bind-html="sanitize(roomDetails.description)"></p>
+    </div>
+  </div>
+
   <section ng-if="roomDetails.images.length" class="room-gallery">
-    <h2>Room <strong>Imagery</strong></h2>
     <ul ng-if="roomDetails.images.length" class="room-gallery">
       <li ng-repeat="image in roomDetails.images" ng-click="openGallery()">
         <figure>

@@ -71,6 +71,10 @@ angular.module('mobiusApp.config', [])
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
       'Mobius-channelId': '6'
+    },
+    'rewards': {
+      'all': 'rewards/',
+      'details': 'rewards/:rewardCode'
     }
   },
 
@@ -181,7 +185,7 @@ angular.module('mobiusApp.config', [])
         'min': 0,
         'max': 8
       },
-      'maxRooms': 4,
+      'maxRooms': 1,
       'availability': {
         // Date range modification rules
         'from': {

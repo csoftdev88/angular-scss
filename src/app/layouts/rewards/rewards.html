@@ -1,0 +1,49 @@
+<hero-slider content="heroContent" class="decoration-image"></hero-slider>
+
+<breadcrumbs></breadcrumbs>
+
+<main class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <rewards-list grid-row ng-if="!showDetail">
+
+    <reward-item ng-repeat="reward in rewardsList track by $index" ng-click="goToDetail(reward)">
+      <img ng-src="{{reward.image.uri}}" alt="{{reward.image.alt}}" err-source="http://lorempixel.com/300/160/">
+
+      <section>
+        <h2>{{reward.name}}</h2>
+        <div ng-bind-html="reward.desc"></div>
+      </section>
+
+      <span>Read more</span>
+    </reward-item>
+
+  </rewards-list>
+
+  <reward-detail grid-row ng-if="showDetail">
+    <h1>{{selectedReward.name}}</h1>
+    <img ng-src="{{selectedReward.image.uri}}" alt="{{selectedReward.image.uri}}" err-source="http://lorempixel.com/1000/460/"/>
+    <div ng-bind-html="selectedReward.desc"></div>
+
+    <button-back role="button" tabindex="0" ng-click="goToRewardsList()">Back</button-back>
+    <button-submit ui-sref="hotels({promoCode: selectedOffer.promoCode})">Purchase Reward</button-submit>
+
+    <hr>
+
+    <h2 ng-if="rewardsList.length > 1">You may also be interested in:</h2>
+    <rewards-list ng-if="rewardsList.length > 1">
+      <reward-item ng-repeat="reward in rewardsList | filter:getRelevant track by $index"  ng-click="goToDetail(reward.code)">
+        <img ng-src="{{reward.image.uri}}" alt="{{reward.image.uri}}" err-source="http://lorempixel.com/300/160/"/>
+
+        <section>
+          <h2>{{reward.name}} </h2>
+          <div ng-bind-html="reward.desc"></div>
+        </section>
+
+        <span>Read more</span>
+      </reward-item>
+    </rewards-list>
+
+  </reward-detail>
+</main>
