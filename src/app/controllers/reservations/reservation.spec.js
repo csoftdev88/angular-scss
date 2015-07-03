@@ -62,7 +62,8 @@ describe('mobius.controllers.reservation', function() {
         $provide.value('modalService', {
           openPoliciesInfo: function(){},
           openAddonDetailDialog: function(){},
-          openGallery: function(){}
+          openGallery: function(){},
+          openTermsAgreeDialog: function(){}
         });
         $provide.value('reservationService', {
           createReservation: function(){
@@ -231,18 +232,21 @@ describe('mobius.controllers.reservation', function() {
       });
 
       it('should fire a POST request to reservation API', function(){
+        _scope.additionalInfo.agree = true;
         _scope.makeReservation();
         _scope.$digest();
         expect(_spyCreateReservation.calledOnce).equal(true);
       });
 
       it('should fire a PUT request to customer API', function(){
+        _scope.additionalInfo.agree = true;
         _scope.makeReservation();
         _scope.$digest();
         expect(_spyUpdateUser.calledOnce).equal(true);
       });
 
       it('should redirect to a detail state when reservation complete', function(){
+        _scope.additionalInfo.agree = true;
         _scope.makeReservation();
         _scope.$digest();
         expect(_spyStateGo.calledOnce).equal(true);
@@ -252,6 +256,7 @@ describe('mobius.controllers.reservation', function() {
       describe('reservation params check', function() {
         var bookingParams;
         beforeEach(function(){
+          _scope.additionalInfo.agree = true;
           _scope.makeReservation();
           _scope.$digest();
           bookingParams = _spyCreateReservation.args[0][0];
