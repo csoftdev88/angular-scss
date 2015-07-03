@@ -13,8 +13,7 @@ angular.module('mobius.controllers.about', [])
       $scope.chain = chain;
 
       breadcrumbsService.clear()
-        .addBreadCrumb('About Us')
-        .addBreadCrumb(chain.nameLong);
+        .addBreadCrumb('About Us');
       $scope.openGallery = modalService.openGallery.bind(modalService,
         chain.images.map(function(image) {
           return image.uri;
