@@ -108,7 +108,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       scope.canAddRoom = true;
       function canAddRoom() {
         var count = scope.selected.rooms.length;
-        scope.canAddRoom = count < scope.settings.maxRooms;
+        scope.canAddRoom = (count+1) < scope.settings.maxRooms;
       }
 
       // Function will remove query parameters from the URL in case their
