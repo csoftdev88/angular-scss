@@ -7,14 +7,13 @@ describe('userService', function() {
   var TEST_USER = {id: 123};
 
   function setUp(userObject, cookies){
+    module('underscore');
     module('mobiusApp.services.user', function($provide) {
       // Mocking $stateParams service
 
       $provide.value('cookieFactory', function(a){return (cookies || {})[a];});
 
       $provide.value('userObject', userObject || TEST_USER);
-
-      $provide.value('_', {});
 
       $provide.value('loyaltyService', {
         getAll: function(){
@@ -67,6 +66,12 @@ describe('userService', function() {
     describe('isLoggedIn', function() {
       it('should be defined as a function', function() {
         expect(_userService.isLoggedIn).to.be.an('function');
+      });
+    });
+
+    describe('loggedInPromise', function(){
+      it('should be defined', function() {
+        expect(_userService.isLoggedIn).to.be.a('function');
       });
     });
 
@@ -160,6 +165,16 @@ describe('userService', function() {
           _userService.loadProfile();
           expect(_spySetHeaders.calledOnce).equal(true);
           expect(_spySetHeaders.calledWith({'infinitiAuthN': 'test'}));
+        });
+
+        it('should resolve loggedInPromise once user is logged in', function(){
+          var isLoggedIn = null;
+          _userService.loggedInPromise.then(function(status){
+            isLoggedIn = status;
+          });
+          _userService.loadProfile();
+          _rootScope.$digest();
+          expect(isLoggedIn).equal(true);
         });
       });
     });

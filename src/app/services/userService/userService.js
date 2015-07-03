@@ -16,6 +16,10 @@ angular.module('mobiusApp.services.user', [])
     // TODO Implement this with AuthCtrl
     var EVENT_ANONYMOUS_LOADED = 'infiniti.anonymous.loaded';
 
+    // Promise is fullfiled when user logged in as mobius customer
+    // or anonymous
+    var loggedInPromise = $q.defer();
+
     function hasSSOCookies(){
       return !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
     }
@@ -65,6 +69,8 @@ angular.module('mobiusApp.services.user', [])
           // NOTE: data[0] is userProfile data
           // data[1] is loyalties data - handled in loadLoyalties function
           userObject = _.extend(userObject, data[0]);
+          // Logged in as mobius user
+          loggedInPromise.resolve(true);
         });
       } else {
         return $q.reject({});
@@ -89,6 +95,8 @@ angular.module('mobiusApp.services.user', [])
       var headers = {};
       headers[HEADER_INFINITI_SSO] = null;
       apiService.setHeaders(headers);
+
+      loggedInPromise = $q.defer().promise;
     }
 
     function initSSOListeners(){
@@ -108,7 +116,8 @@ angular.module('mobiusApp.services.user', [])
       $window.addEventListener(
         EVENT_ANONYMOUS_LOADED,
       function(){
-        // TODO - update listener
+        // Logged in as anonymous
+        loggedInPromise.resolve(false);
       });
     }
 
@@ -128,6 +137,7 @@ angular.module('mobiusApp.services.user', [])
       getCustomerId: getCustomerId,
       loadLoyalties: loadLoyalties,
       updateUser: updateUser,
-      logout: logout
+      logout: logout,
+      loggedInPromise: loggedInPromise.promise
     };
   });
