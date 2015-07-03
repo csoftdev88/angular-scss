@@ -83,7 +83,11 @@ angular.module('mobius.controllers.hotel.details', [])
           });
         }
 
-        contentService.getOffers(bookingParams).then(function(response) {
+        var offersParams = $window._.extend({}, bookingParams);
+        delete offersParams.promoCode;
+        delete offersParams.corpCode;
+        delete offersParams.groupCode;
+        contentService.getOffers(offersParams).then(function(response) {
           $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
           if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
             breadcrumbsService.removeHref('Offers');
