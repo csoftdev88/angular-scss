@@ -6,6 +6,7 @@ dialog {
   position: fixed;
   left: 50%;
   top: 50%;
+  max-width: @grid-width - @grid-gap;
 
   border-radius: 5px;
 
@@ -51,4 +52,53 @@ dialog {
   }
 }
 
+
+/////////////////////////////
+// Policies and Conditions //
+/////////////////////////////
+
+.modal-policies {
+  padding-right: 0;
+}
+
+.modal-body {
+
+  .policies-list {
+    padding: @baseline @baseline @baseline 0;
+    overflow-y: auto;
+    max-height: 400px;
+    box-sizing: border-box;
+  }
+
+  .policy {
+
+    h3 {
+      font-size: @size-0;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: @c-text-light;
+    }
+
+    p + p,
+    li + li {
+      margin-top: @baseline / 2;
+    }
+
+    ul {
+      margin: @baseline 0 @baseline @baseline / 2;
+      list-style-type: disc;
+    }
+
+    li {
+      margin-left: 2em;
+    }
+  }
+
+  .policy + .policy {
+    margin-top: @baseline;
+  }
+}
 

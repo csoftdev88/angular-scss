@@ -28,14 +28,15 @@ angular.module('mobiusApp.services.filters', [])
   }
 
   function getBestRateProduct(){
-    var q = $q.defer();
-
-    getProducts(true).then(function(products){
-      q.resolve($window._.find(products, {code: Settings.bestAvailableRateCode}));
-    }, function(){
-      q.resolve(null);
-    });
-    return q.promise;
+    return $q.when({id: Settings.defaultProductRateId});
+    //var q = $q.defer();
+    //
+    //getProducts(true).then(function(products){
+    //  q.resolve($window._.find(products, {code: Settings.defaultProductRateCode}));
+    //}, function(){
+    //  q.resolve(null);
+    //});
+    //return q.promise;
   }
 
   // Public methods

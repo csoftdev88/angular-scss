@@ -10,7 +10,10 @@ describe('reservationData', function() {
   beforeEach(function() {
     module('underscore');
     module('mobius.controllers.reservation.directive');
-    module('mobiusApp.directives.reservation.data');
+    module('mobiusApp.directives.reservation.data', function($provide) {
+      // Mocking the services
+      $provide.value('$state', {});
+    });
   });
 
   beforeEach(inject(function($compile, $rootScope, $templateCache) {

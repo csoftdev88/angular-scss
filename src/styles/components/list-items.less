@@ -48,6 +48,10 @@ list-item {
 
   border-top: 1px dashed #ccc;
 
+  &.without-image {
+    padding-left: @baseline;
+  }
+
   &.is-highlighted {
     background: @c-highlight-bg;
     border-top: 0;
@@ -172,12 +176,6 @@ list-item {
     border-left: 1px solid #ddd;
 
     width: 170px;
-
-    .button, button-submit {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
 
     p.error {
       color: @c-error;

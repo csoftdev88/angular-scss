@@ -13,5 +13,43 @@ local-info {
 
   img {
     vertical-align: bottom;
+    margin-left: @baseline / 2;
   }
 }
+
+// List of Weather Icons
+@weather-icons: cloudy,
+                heavy-rain,
+                light-rain,
+                snow,
+                sun,
+                sunny-cloudy,
+                thunder,
+                wind,
+                wind-rain;
+
+// Loop generating icons from
+.weather( @icons ) {
+  // Generate rule for each item from @icons list
+  .weather-loop( @item, @i ) when ( @i =< length( @icons ) ){
+    .weather-@{item} {
+      background-image: url("../images/v4/weather/@{item}.png");
+    }
+    .weather-loop( extract(@icons, @i + 1 ), @i + 1 );
+  }
+  // Loop initiation
+  .weather-loop( extract( @icons, 1 ), 1 );
+}
+
+span[class^="weather-"] {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  vertical-align: bottom;
+  margin-left: @baseline / 2;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+// Start the loop
+.weather( @weather-icons );

@@ -19,6 +19,7 @@ angular.module('mobiusApp.directives.hotels', [])
       breadcrumbsService.clear().addBreadCrumb('Hotel Search');
 
       $controller('MainCtrl', {$scope: scope});
+      $controller('PreferenceCtrl', {$scope: scope});
 
       scope.sortingOptions = [
         {
@@ -58,7 +59,8 @@ angular.module('mobiusApp.directives.hotels', [])
         }
       ];
 
-      scope.view = 'tiles';
+      scope.preference.setDefault('hotels-view-mode', 'tiles');
+
       scope.minStars = 0;
       scope.maxStars = 5;
       scope.minRating = 0;
@@ -97,13 +99,13 @@ angular.module('mobiusApp.directives.hotels', [])
       };
 
       scope.loadLocation = function() {
-        if(scope.location && scope.location.code) {
-          preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
-            scope.locationDetails = location;
-          }));
-        } else {
-          scope.locationDetails = null;
-        }
+        //if(scope.location && scope.location.code) {
+        //  preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
+        //    scope.locationDetails = location;
+        //  }));
+        //} else {
+        //  scope.locationDetails = null;
+        //}
       };
 
       // Getting the details from booking widget
@@ -162,7 +164,8 @@ angular.module('mobiusApp.directives.hotels', [])
           (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) &&
           (scope.minStars <= hotel.rating && hotel.rating < (scope.maxStars + 1)) &&
           (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating < (scope.maxRating + 1)) &&
-          (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode))
+          (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode)) &&
+          (!bookingParams.regionCode || (bookingParams.regionCode === hotel.regionCode))
         );
       };
 

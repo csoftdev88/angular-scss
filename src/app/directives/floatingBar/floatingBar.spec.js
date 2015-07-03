@@ -59,5 +59,62 @@ describe('bookingWidget', function() {
       expect(env.scope.active).equal(false);
     });
   });
+});
 
+
+describe('GuestsCtrl', function() {
+  var _scope;
+
+  beforeEach(function() {
+    module('mobiusApp.filters.list');
+
+    module('mobiusApp.directives.floatingBar', function($provide) {
+      $provide.value('Settings', {
+          UI: {
+            bookingWidget: {
+              'adults': {
+                'min': 1,
+                'max': 6
+              },
+              'children': {
+                'min': 0,
+                'max': 8
+              }
+            }
+          }
+        });
+    });
+  });
+
+  beforeEach(inject(function($controller, $rootScope) {
+    _scope = $rootScope.$new();
+
+    $controller('GuestsCtrl', { $scope: _scope });
+  }));
+
+  describe('guestsOptions', function(){
+    it('should be define on scope', function() {
+      expect(_scope.guestsOptions).to.be.an('object');
+    });
+  });
+
+  describe('adults and children', function(){
+    it('should be define on scope.guestsOptions', function() {
+      expect(_scope.guestsOptions.adults).to.be.an('array');
+      expect(_scope.guestsOptions.children).to.be.an('array');
+    });
+
+    it('should define a proper number of options according to the config', function() {
+      expect(_scope.guestsOptions.adults.length).equal(6);
+      expect(_scope.guestsOptions.children.length).equal(9);
+    });
+
+    it('should pluralize the options', function() {
+      expect(_scope.guestsOptions.adults[0].value).equal(1);
+      expect(_scope.guestsOptions.children[0].value).equal(0);
+
+      expect(_scope.guestsOptions.adults[0].title).equal('1 Adult');
+      expect(_scope.guestsOptions.children[0].title).equal('No Children');
+    });
+  });
 });

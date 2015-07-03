@@ -37,7 +37,8 @@
         <label for="form-card-number" class="card-type">
           <input type="text" id="form-card-number" credit-card-check required
             placeholder="xxxx-xxxx-xxxx-xxxx"
-            ng-model="billingDetails.card.number" />
+            ng-model="billingDetails.card.number"
+            name="creditcard"/>
           <span>Card number</span>
         </label>
 
@@ -118,7 +119,8 @@
         </div>
 
         <label class="form-errors" ng-if="forms.billing.$invalid  && forms.billing.$submitted">
-          Please fill out all the fields indicated
+          <div>Please fill out all the fields indicated</div>
+          <div ng-if="!forms.billing.creditcard.$valid">Sorry, your card number is not valid, please check it</div>
         </label>
 
         <input type="submit" id="submit" value="Submit" ng-hide="true" />

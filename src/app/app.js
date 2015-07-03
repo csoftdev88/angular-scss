@@ -23,6 +23,8 @@ angular
     'mobius.controllers.common.auth',
     'mobius.controllers.common.sso',
     'mobius.controllers.common.content',
+    'mobius.controllers.common.price',
+    'mobius.controllers.common.preference',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
@@ -42,6 +44,7 @@ angular
     'mobius.controllers.modals.loyalties.badges',
     'mobius.controllers.modals.addonDetail',
     'mobius.controllers.modals.locationDetail',
+    'mobius.controllers.modals.confirmation',
 
     // Application modules
     'mobiusApp.config',
@@ -67,6 +70,7 @@ angular
     'mobiusApp.services.reservation',
     'mobiusApp.services.breadcrumbs',
     'mobiusApp.services.rewards',
+    'mobiusApp.services.preference',
 
     // Factories
     'mobiusApp.factories.template',
@@ -111,6 +115,7 @@ angular
     'mobiusApp.directives.imageCarousel',
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
+    'mobiusApp.directives.googleAnalyticsScript',
 
     // Filters
     'mobiusApp.filters.list',
@@ -259,15 +264,7 @@ angular
   })
 
   .run(function(user, $rootScope, $state, breadcrumbsService) {
-    // $stateChangeSuccess is used because resolve on controller is ready
     $rootScope.$on('$stateChangeSuccess', function() {
-      /*if (toState.data && toState.data.authProtected) {
-        if (!user.isLoggedIn()) {
-          // Redirect to home page
-          event.preventDefault();
-          $state.go('home');
-        }
-      }*/
       breadcrumbsService.clear();
     });
   });

@@ -2,13 +2,14 @@
 
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
-.directive('bookingWidget', function($filter, $state, $window,
+.directive('bookingWidget', function($controller, $filter, $state, $window,
   modalService, bookingService, queryService, validationService,
   propertyService, locationService, filtersService, Settings, $q){
   return {
     restrict: 'E',
     scope: {
-      advanced: '='
+      advanced: '=',
+      hideBar: '&'
     },
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
@@ -16,6 +17,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     link: function(scope){
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
+
+      $controller('GuestsCtrl', {$scope: scope});
 
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
@@ -29,7 +32,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'min': scope.settings.children.min || 0,
           'defaultValue': 0,
           'required': false,
-          'withCode': false
+          'field': 'value'
         },
         'adults': {
           'search': 'adults',
@@ -37,59 +40,59 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'max': scope.settings.adults.max,
           'min': scope.settings.adults.min || 0,
           'required': true,
-          'withCode': false
+          'field': 'value'
         },
         'region': {
           'search': 'region',
           'type': 'string',
           'required': false,
-          'withCode': true
+          'field': 'code'
         },
         'location': {
           'search': 'location',
           'type': 'string',
           'required': false,
-          'withCode': true
+          'field': 'code'
         },
         'property': {
           'search': 'property',
           'type': 'string',
           'required': false,
-          'withCode': true
+          'field': 'code'
         },
         'promoCode': {
           'search': 'promoCode',
           'type': 'string',
           'required': false,
-          'withCode': false
+          'field': ''
         },
         //TODO: add dates validation
         'dates': {
           'search': 'dates',
           'type': 'string',
           'required': true,
-          'withCode': false
+          'field': ''
         },
         'rate': {
           'search': 'rate',
           'type': 'integer',
           'required': false,
-          'withCode': false
+          'field': ''
         },
 
         'rooms': {
           'search': 'rooms',
           'type': 'object',
           'required': false,
-          'withCode': false
+          'field': ''
         }
       };
 
       // NOTE: Hotel is presented in the URL by using property/hotel code
       // Currently selected form values
       scope.selected = {
-        'children': scope.settings.children.min,
-        'adults': scope.settings.adults.min,
+        'adults': scope.guestsOptions.adults[0],
+        'children': scope.guestsOptions.children[0],
         'property': undefined,
         'location': undefined,
         'region': undefined,
@@ -123,7 +126,23 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               queryService.removeParam(paramSettings.search);
             }else{
               // Value is valid, we can assign it to the model
-              scope.selected[key] = validationService.convertValue(paramValue, paramSettings, true);
+              paramValue = validationService.convertValue(paramValue, paramSettings, true);
+              switch(paramSettings.search){
+              case 'adults':
+                scope.selected[key] = valueToAdultsOption(paramValue);
+                break;
+
+              case 'children':
+                scope.selected[key] = valueToChildrenOption(paramValue);
+                break;
+
+              case 'rooms':
+                createRooms(paramValue);
+                break;
+
+              default:
+                scope.selected[key] = paramValue;
+              }
             }
           }
         }
@@ -256,12 +275,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         setPropertyRegionList();
-
-        if(scope.selected.property) {
-          checkAvailability();
-        } else {
-          resetAvailability();
-        }
+        scope.checkAvailability();
       }
 
       function setPropertyRegionList() {
@@ -322,42 +336,57 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       }
 
-      function resetAvailability(){
-        if(scope.availability){
+      scope.checkAvailability = function() {
+        var dates = bookingService.datesFromString(scope.selected.dates);
+        if (!scope.selected.property || !dates || !scope.selected.adults) {
           scope.availability = null;
-        }
-      }
-
-      function checkAvailability(){
-        // No need to check availability
-        if(!scope.settings.availability){
           return;
         }
 
-        var bookingParams = bookingService.getAPIParams(true);
-        // NOTE - We have to check availability for wider range than selected
-        bookingParams.from = getAvailabilityCheckDate(bookingParams.from,
-          scope.settings.availability.from);
+        var code = scope.selected.property.code || scope.selected.property;
 
-        bookingParams.to = getAvailabilityCheckDate(bookingParams.to,
-          scope.settings.availability.to);
+        var params = {
+          from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
+          to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
+          adults: scope.selected.adults.value,
+          children: scope.selected.children ? scope.selected.children.value : 0,
+          productGroupId: scope.selected.rate
+        };
 
-        propertyService.getAvailability(scope.selected.property.code, bookingParams).then(function(data){
-          scope.availability = {};
+        var qBookingParam = $q.defer();
 
-          $window._.each(data, function(obj){
-            if(!obj.isInventory){
-              scope.availability[obj.date] = CLASS_NOT_AVAILABLE;
+        // Using PGID from the booking params
+        if(params.productGroupId){
+          qBookingParam.resolve(params);
+        } else {
+          filtersService.getBestRateProduct().then(function(brp){
+            if(brp){
+              params.productGroupId = brp.id;
             }
+            qBookingParam.resolve(params);
           });
-        }, function(){
-          resetAvailability();
+        }
+
+        return qBookingParam.promise.then(function(params) {
+          return propertyService.getAvailability(code, params).then(function(data) {
+            scope.availability = {};
+
+            $window._.each(data, function(obj) {
+              if (!obj.isInventory) {
+                scope.availability[obj.date] = CLASS_NOT_AVAILABLE;
+              }
+            });
+          }, function() {
+            scope.availability = null;
+          });
         });
-      }
+      };
 
       function getAvailabilityCheckDate(date, modificationRule){
-        date = !modificationRule? date : $window.moment(date).add(modificationRule.value, modificationRule.type).
-          format(DATE_FORMAT);
+        date = modificationRule ?
+          $window.moment(date).add(modificationRule.value, modificationRule.type).format(DATE_FORMAT)
+          :
+          date;
 
         // NOTE: Date must be eather today or a future date
         if($window.moment(date).valueOf() < $window.moment().valueOf()){
@@ -398,15 +427,18 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
        */
       scope.onSearch = function(){
         var stateParams = {};
-        for(var key in PARAM_TYPES){
-          if(PARAM_TYPES.hasOwnProperty(key)) {
+        for (var key in PARAM_TYPES) {
+          if (PARAM_TYPES.hasOwnProperty(key)) {
             var paramSettings = PARAM_TYPES[key];
 
-            var modelValue;
-            if (paramSettings.withCode && scope.selected[key] !== undefined) {
-              modelValue = scope.selected[key].code;
-            } else {
-              modelValue = scope.selected[key] || paramSettings.defaultValue;
+            var modelValue = scope.selected[key];
+            if (scope.selected[key] && paramSettings.field) {
+              modelValue = modelValue[paramSettings.field];
+            }
+            modelValue = modelValue || paramSettings.defaultValue;
+
+            if (key === 'rooms') {
+              modelValue = roomsToNumbers(modelValue);
             }
 
             if (validationService.isValueValid(modelValue, paramSettings)) {
@@ -433,49 +465,96 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           stateParams.propertyCode = scope.selected.property.code;
           $state.go('hotel', stateParams, {reload: true});
         }
+
+        scope.hideBar();
       };
 
       // Search is enabled only when required fields contain data
       scope.isSearchable = function(){
-        for(var key in PARAM_TYPES){
-          if(PARAM_TYPES.hasOwnProperty(key)) {
-            var settings = PARAM_TYPES[key];
-
-            var value = scope.selected[key];
-            if (key === 'property') {
-              continue;
-            }
-
-            if (settings.required && !validationService.isValueValid(value, settings)) {
-              return false;
-            }
-          }
-        }
-
-        return true;
+        return scope.selected.property || scope.selected.dates;
+        //for(var key in PARAM_TYPES){
+        //  if(PARAM_TYPES.hasOwnProperty(key)) {
+        //    var settings = PARAM_TYPES[key];
+        //
+        //    var value = scope.selected[key];
+        //    if (key === 'property') {
+        //      continue;
+        //    }
+        //
+        //    if(settings.withValue && value!==undefined){
+        //      value = value.value;
+        //    }
+        //
+        //    if (settings.required && !validationService.isValueValid(value, settings)) {
+        //      return false;
+        //    }
+        //  }
+        //}
+        //
+        //return true;
       };
 
       function recomputeGlobalAdultsChildren() {
+        // TODO: FIX SUM
         function getSum(property) {
           return $window._.chain(scope.selected.rooms).pluck(property).reduce(function(acc, n) {
-            return acc + n;
+            return acc + n.value;
           }, 0).value();
         }
 
-        scope.selected.adults = Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults')));
-        scope.selected.children = Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children')));
+        scope.selected.adults = valueToAdultsOption(Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults'))));
+        scope.selected.children = valueToChildrenOption(Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children'))));
+        scope.checkAvailability();
       }
 
-      scope.addRoom = function() {
+      // NOTE: Matching values from URL to corresponding option
+      // displayed in a dropdown
+      function valueToAdultsOption(value){
+        return $window._.find(scope.guestsOptions.adults, {value: value});
+      }
+
+      function valueToChildrenOption(value){
+        return $window._.find(scope.guestsOptions.children, {value: value});
+      }
+
+      function roomsToNumbers(rooms) {
+        return $window._.map(rooms, function(room) {
+          return {
+            adults: room.adults.value,
+            children: room.children.value
+          };
+        });
+      }
+
+      function createRooms(rooms) {
+        $window._.forEach(rooms, function(roomData) {
+          scope.addRoom(roomData.adults, roomData.children);
+        });
+      }
+
+      scope.addRoom = function(adults, children) {
         var room;
         if (!scope.selected.rooms) {
-          room = {adults: scope.selected.adults, children: scope.selected.children};
+          if(!adults) {
+            adults = scope.selected.adults.value;
+          }
+          if(!children) {
+            children = scope.selected.children.value;
+          }
+          room = {adults: valueToAdultsOption(adults), children: valueToChildrenOption(children)};
           scope.selected.rooms = [room];
         } else if (scope.selected.rooms.length < scope.settings.maxRooms) {
-          room = {adults: 1, children: 0};
+          if(!adults) {
+            adults = scope.settings.adults.min;
+          }
+          if(!children) {
+            children = scope.settings.children.min;
+          }
+          room = {adults: valueToAdultsOption(adults), children: valueToChildrenOption(children)};
           scope.selected.rooms.push(room);
         }
         room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
+        recomputeGlobalAdultsChildren();
         canAddRoom();
       };
 

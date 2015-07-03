@@ -9,15 +9,14 @@
     <hr />
     <list-items ng-if="products.length">
       <pricing-switch>
-        <a href ng-class="{'is-active': pricePer === 'night'}" ng-click="pricePer = 'night'">Per Night</a>
+        <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
         |
-        <a href ng-class="{'is-active': pricePer === 'stay'}" ng-click="days && (pricePer = 'stay')">Per Stay</a>
+        <a href ng-class="{'is-active': pricePer === PP_STAY}" ng-click="days && setPricePer(PP_STAY)">Per Stay</a>
       </pricing-switch>
-      <list-item ng-repeat="product in products | orderBy : setRoomsSorting()" ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}">
-        <figure>
-          <img ng-src="{{product.icon}}" err-source="http://lorempixel.com/150/100/" alt="{{product.name}}"/>
-        </figure>
-
+      <list-item
+        ng-repeat="product in products | orderBy : setRoomsSorting()"
+        ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}"
+        class="without-image">
         <h2>{{product.name}}</h2>
 
         <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn <ng-pluralize count="product.price.pointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
@@ -28,19 +27,20 @@
           <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
 
           <p>
-            <span class="value">{{(product.price.totalBase * (pricePer === 'stay' ? days : 1)) | i18nCurrency: currencyCode}}</span>
-            <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === 'stay'">per stay</span>
+            <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+            <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
             <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
-              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === 'stay' ? days : 1))}}</span> points
+              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
             </span>
           </p>
 
           <button-submit
             role="button" tabindex="0"
             ng-click="selectProduct(product)"
-            ng-disabled="product.memberOnly && !isUserLoggedIn()">
-            Select
+            ng-hide="product.memberOnly && !isUserLoggedIn()">
+            Book
           </button-submit>
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">Login/Register</a>
         </pricing-info>
 
         <description-info>
@@ -69,16 +69,22 @@
       </list-item>
     </list-items>
 
-    <div ng-if="!products.length">
-      <p ng-if="$stateParams.dates"><strong>No Availability on these Dates</strong></p>
-      <p ng-if="!$stateParams.dates"><strong>Please select you dates to view Rates</strong></p>
+    <div ng-if="!products.length" class="products-not-available">
+      <div ng-if="$stateParams.dates">
+        <h3>Sorry, this room is not available for the dates<br> you have selected</h3>
+        <p>Try selecting new dates or choosing a new room.</p>
+      </div>
+      <div ng-if="!$stateParams.dates">
+        <h3>Please select your stay dates to see available rates!</h3>
+        <p>Enter your dates on the bar below and hit search<br> to see all the rates you can book</p>
+      </div>
     </div>
 
     <hr />
   </section>
 
   <section ng-if="roomDetails.images.length" class="room-gallery">
-    <h2>Room <strong>Description</strong></h2>
+    <h2>Room <strong>Imagery</strong></h2>
     <ul ng-if="roomDetails.images.length" class="room-gallery">
       <li ng-repeat="image in roomDetails.images" ng-click="openGallery()">
         <figure>
@@ -102,7 +108,7 @@
   </section>
 
   <section ng-show="otherRooms.length > 1">
-    <h2>Other <strong>Rooms</strong></h2>
+    <h2>Other <strong>Rooms</strong> at {{property.nameLong}}</h2>
 
     <list-items class="grid-view">
       <list-item

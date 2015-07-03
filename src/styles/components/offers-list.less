@@ -93,10 +93,20 @@ offers-list {
     }
 
     //- Advert Offer
-    &.advert img {
-      height: 100%;
-      margin-bottom: 0;
-      max-height: none;
+    &.advert {
+      height: 358px;
+      position: relative;
+
+      img {
+        display: block;
+        position: absolute;
+        top: -1px;
+        min-width: 100%;
+        min-height: 100%;
+        max-height: none;
+        margin-bottom: 0;
+      }
     }
+
   }
 }

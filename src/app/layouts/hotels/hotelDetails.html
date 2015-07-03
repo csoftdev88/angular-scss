@@ -8,7 +8,7 @@
 
   <hotel-detail>
     <header grid-row id="jsAbout">
-      <h1 grid="6">{{details.nameShort}}</h1>
+      <h1 grid="6"><strong>{{details.nameLong}}</strong></h1>
       <local-info local-info="details.localInfo" grid="6"></local-info>
     </header>
 
@@ -16,14 +16,14 @@
       <div grid="8">
         <p ng-if="!isExpanded" ng-bind-html="sanitize(details.descriptionShort)"></p>
         <p ng-if="isExpanded" ng-bind-html="sanitize(details.description)"></p>
-        <button ng-click="scrollToRooms()" class="button">Choose your room</button>
         <a href ng-hide="isExpanded" ng-click="isExpanded = true" class="read-more">Read more</a>
         <a href ng-show="isExpanded" ng-click="isExpanded = false" class="read-more">Read less</a>
       </div>
 
       <view-more-images grid="4">
         <a ng-if="details.images.length" href="" ng-click="openGallery()">View more images</a>
-        <img ng-src="details.images[0].uri" alt="{{details.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
+        <img ng-src="{{details.images[0].uri}}" alt="{{details.images[0].alt}}" />
+        <button ng-click="scrollToRooms()" class="button">Choose your room</button>
       </view-more-images>
     </section>
 
@@ -38,7 +38,7 @@
          it should be presented in the following structure -->
     <section class="hotel-detail__offers" grid-row id="jsOffers" ng-if="offersList.length">
       <hr />
-      <h2 class="section-title" grid="12">Offers and <strong>Promotions</strong></h2>
+      <h2 grid="12">Offers and <strong>Promotions</strong></h2>
       <p>
         <a ui-sref="offers">
           See more
@@ -66,11 +66,11 @@
         <list-items class="rooms-list" ng-if="rooms.length" ng-init="roomLimit = 4">
           <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
           <pricing-switch>
-            <a href ng-class="{'is-active': pricePer === 'night'}" ng-click="pricePer = 'night'">Per Night</a>
+            <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
             |
             <a href
-               ng-class="{'is-active': pricePer === 'stay', 'is-disabled': !days}"
-               ng-click="days && (pricePer = 'stay')"
+               ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
+               ng-click="days && setPricePer(PP_STAY)"
                title="{{ days ? false: 'Please select dates to enable per stay pricing'}}">
               Per Stay
             </a>
@@ -84,16 +84,16 @@
 
             <h3><a ui-sref="room({propertyCode: details.code, roomID: room.code})">{{room.name}}</a></h3>
 
-            <earned-points ng-if="isUserLoggedIn() && room.minPointsEarned">Earn at least <ng-pluralize count="room.minPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+            <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
               </earned-points>
 
             <pricing-info>
               <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
                 <p>
-                  from <span class="value">{{(room.priceFrom * (pricePer === 'stay' ? days : 1)) | i18nCurrency: currencyCode}}</span>
-                  <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === 'stay'">per stay</span>
+                  from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+                  <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
                   <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-                    <br />or <span class="value">{{(room.minPointsRequired * (pricePer === 'stay' ? days : 1))}}</span> points
+                    <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
                   </span>
                 </p>
 

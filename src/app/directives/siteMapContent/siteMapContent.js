@@ -5,7 +5,9 @@ angular.module('mobiusApp.directives.siteMap', [])
   .directive('siteMapContent', function($controller){
     return {
       restrict: 'EA',
-      scope: {},
+      scope: {
+        limit: '='
+      },
       templateUrl: 'directives/siteMapContent/siteMapContent.html',
 
       // Widget logic goes here

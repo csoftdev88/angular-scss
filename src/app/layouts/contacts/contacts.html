@@ -1,4 +1,4 @@
-<hero-slider content="heroContent" class="decoration-image"></hero-slider>
+<hero-slider content="heroContent"></hero-slider>
 
 <breadcrumbs></breadcrumbs>
 
@@ -74,8 +74,9 @@
       <div ng-show="showErrorMsg">Sending of message failed</div>
     </form>
 
-    <div grid="8" ng-if="isSent">
-      <span>Your message has been successfully sent. We will send you a reply as soon as possible. Thank you for your interest.</span>
+    <div grid="8" class="message-sent" ng-if="isSent">
+      <h1>Your Feedback has been successfully sent!</h1>
+      <p>Many thanks for your request the relevant party will review and respond as required.</p>
     </div>
 
 

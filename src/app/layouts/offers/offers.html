@@ -1,4 +1,4 @@
-<hero-slider content="heroContent" class="decoration-image"></hero-slider>
+<hero-slider content="heroContent"></hero-slider>
 
 <breadcrumbs></breadcrumbs>
 
@@ -22,28 +22,30 @@
   </offers-list>
 
   <offer-detail grid-row ng-if="showDetail">
-    <h1>{{selectedOffer.title}}</h1>
-    <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}" err-source="http://lorempixel.com/1000/460/"/>
-    <div ng-bind-html="selectedOffer.text"></div>
+    <div grid="12">
+      <h1 ng-bind-html="selectedOffer.title"></h1>
+      <img ng-src="{{selectedOffer.image.uri}}" alt="{{selectedOffer.image.uri}}" err-source="http://lorempixel.com/1000/460/"/>
+      <div class="offer-content" ng-bind-html="selectedOffer.text"></div>
 
-    <button-back role="button" tabindex="0" ng-click="goToOffersList()">Back</button-back>
-    <button-submit ui-sref="hotels({promoCode: selectedOffer.promoCode})">Book Now</button-submit>
+      <button-back role="button" tabindex="0" ng-click="goToOffersList()">Back</button-back>
+      <button-submit ui-sref="hotels({promoCode: selectedOffer.promoCode})">Book Now</button-submit>
 
-    <hr>
+      <hr>
 
-    <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
-    <offers-list ng-if="offersList.length > 1">
-      <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index"  ng-click="goToDetail(offer.code)">
-        <img ng-src="{{offer.image.uri}}" alt="{{offer.image.uri}}" err-source="http://lorempixel.com/300/160/"/>
+      <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
+      <offers-list ng-if="offersList.length > 1">
+        <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index"  ng-click="goToDetail(offer.code)">
+          <img ng-src="{{offer.image.uri}}" alt="{{offer.image.uri}}" err-source="http://lorempixel.com/300/160/"/>
 
-        <section>
-          <h2>{{offer.title}} </h2>
-          <div ng-bind-html="offer.subtitle"></div>
-        </section>
+          <section>
+            <h2>{{offer.title}} </h2>
+            <div ng-bind-html="offer.subtitle"></div>
+          </section>
 
-        <span>Read more</span>
-      </offer-item>
-    </offers-list>
+          <span>Read more</span>
+        </offer-item>
+      </offers-list>
+    </div>
 
   </offer-detail>
 </main>

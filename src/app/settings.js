@@ -4,6 +4,7 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
+    'GoogleAnalyticsID': 'UA-44368729-3',
     'chainCode': 'SAN',
     'baseURL': '/api/',
     'contents': {
@@ -61,6 +62,7 @@ angular.module('mobiusApp.config', [])
       'new': 'reservations',
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
+      'cancel': 'reservations/:reservationCode/actions/cancel',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/'
     },
@@ -76,7 +78,8 @@ angular.module('mobiusApp.config', [])
   },
 
   'currencyParamName': 'currency',
-  'bestAvailableRateCode': 'Business Rates',
+  'defaultProductRateCode': 'Leisure Rates',
+  'defaultProductRateId': 1,
 
   'UI': {
     'adverts' : {
@@ -113,9 +116,9 @@ angular.module('mobiusApp.config', [])
     },
     'aboutHotel': {
       'benefits' : [
-        {'name': 'Great offers', 'pictureUrl': '/static/images/v4/icon-offers.png', 'text': 'Take advantage of our great offers and promotions to make your stay even more enjoyable!'},
-        {'name': 'Sutton Prestige', 'pictureUrl': '/static/images/v4/icon-discounts.png', 'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program'},
-        {'name': 'Exciting news', 'pictureUrl': '/static/images/v4/icon-news.png', 'text': 'Keep up to date with our latest news and read our interesting articles!'}
+        {'name': 'Great offers', 'state': 'offers', 'pictureUrl': '/static/images/v4/icon-offers.png', 'text': 'Take advantage of our great offers and promotions to make your stay even more enjoyable!'},
+        {'name': 'Sutton Prestige', 'state': 'aboutUs({code: "prestige"})', 'pictureUrl': '/static/images/v4/icon-discounts.png', 'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program'},
+        {'name': 'Exciting news', 'state': 'news', 'pictureUrl': '/static/images/v4/icon-news.png', 'text': 'Keep up to date with our latest news and read our interesting articles!'}
       ]
     },
     // List of currencies and their display symbols
@@ -222,7 +225,13 @@ angular.module('mobiusApp.config', [])
         }
       }
     },
-
+    'myAccount' : {
+      'displaySettings' : {
+        'profile': true,
+        'badges': false,
+        'loyalities': true
+      }
+    },
     // States layout
     'layout': {
       'home': [
@@ -328,6 +337,18 @@ angular.module('mobiusApp.config', [])
       'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/properties_amenities/',
       'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/rooms_amenities/',
       'suffix': '.png'
+    },
+    // See: http://openweathermap.org/wiki/API/Weather_Condition_Codes
+    'weatherTypes': {
+      'cloudy': [ 802, 803, 804, 701, 711, 721, 731, 741],
+      'heavy-rain': [502, 503, 504, 511, 521, 522],
+      'light-rain': [300, 301, 302, 310, 311, 312, 321, 500, 501, 520],
+      'snow': [600, 601, 602, 611, 621, 903],
+      'sun': [800, 904],
+      'sunny-cloudy': [801],
+      'thunder': [200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 906],
+      'wind': [900, 902, 905],
+      'wind-rain': [901]
     }
   }
 });

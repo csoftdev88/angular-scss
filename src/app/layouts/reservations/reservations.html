@@ -1,4 +1,4 @@
-<hero-slider content="heroContent" class="decoration-image"></hero-slider>
+<hero-slider content="heroContent"></hero-slider>
 
 <breadcrumbs></breadcrumbs>
 
@@ -8,8 +8,11 @@
 
   <div ui-view>
     <div class="reservations" grid="12">
-      <div ng-if="eservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length">
-        <h1>No reservations found</h1>
+      <div ng-if="!reservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length === 0" class="reservations-not-available">
+        <div>
+          <h3>Your reservation list is empty</h3>
+          <p>Please make a <a ui-sref="hotels">reservation</a></p>
+        </div>
       </div>
 
       <div ng-if="reservations.nextStay">
@@ -36,8 +39,8 @@
       <div ng-if="reservations.pastStays.length">
         <h1>Your <strong>Past Stays</strong></h1>
         <reservation-item ng-repeat="reservation in reservations.pastStays">
-          <div class="table-wrap">
-            <reservation-data reservation="reservation" property="properties[reservation.property.code]"></reservation-data>
+          <div class="table-wrap inactive">
+            <reservation-data reservation="reservation" property="properties[reservation.property.code]" class="inactive"></reservation-data>
           </div>
           <hr/>
         </reservation-item>

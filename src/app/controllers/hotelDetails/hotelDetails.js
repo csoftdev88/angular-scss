@@ -6,7 +6,9 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService) {
+  $window, advertsService, $controller) {
+
+  $controller('PriceCtr', {$scope: $scope});
 
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;
@@ -27,9 +29,6 @@ angular.module('mobius.controllers.hotel.details', [])
     });
   }
 
-  $scope.pricePer = 'night';
-  $scope.days = (bookingParams.to && bookingParams.from) ? $window.moment(bookingParams.to).diff(bookingParams.from, 'days') : 0;
-
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
     // bookingParams - property details are returned without
@@ -39,13 +38,16 @@ angular.module('mobius.controllers.hotel.details', [])
         $scope.details = details;
 
         $scope.details.description = ('' + $scope.details.description);
-        $scope.details.descriptionShort = $scope.details.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+        var firstParaEnd = $scope.details.description.indexOf('</p>');
+        var firstBr = $scope.details.description.indexOf('<br>');
+        firstParaEnd = Math.max(firstParaEnd, 0);
+        firstBr = Math.max(firstBr, 0);
+        var shortDescLength = (firstBr > 0 && firstParaEnd > 0) ? Math.min(firstBr, firstParaEnd) : Math.max(firstBr, firstParaEnd);
+        $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
         $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
-        if ($scope.details.hasViewMore) {
-          $scope.details.descriptionShort += '…';
-        }
 
-        breadcrumbsService.addBreadCrumb(details.nameShort);
+        breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort);
+
         breadcrumbsService
           .addHref('About', 'jsAbout')
           .addHref('Location', 'jsLocation')
@@ -69,7 +71,16 @@ angular.module('mobius.controllers.hotel.details', [])
         }
 
         if(details.hasOwnProperty('available')) {
-          $scope.availableRooms = $window._.pluck((details.availability && details.availability.rooms) || [], 'code');
+          roomsPromise.then(function() {
+            $scope.availableRooms = [];
+            $window._.forEach((details.availability && details.availability.rooms) || [], function(availableRoom) {
+              var room = $window._.find($scope.rooms, {code: availableRoom.code});
+              if(room) {
+                room = $window._.extend(room, availableRoom);
+                $scope.availableRooms.push(room.code);
+              }
+            });
+          });
         }
 
         contentService.getOffers(bookingParams).then(function(response) {
@@ -84,9 +95,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
-        if(!$scope.rooms) {
-          $scope.rooms = rooms;
-        }
+        $scope.rooms = rooms;
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
