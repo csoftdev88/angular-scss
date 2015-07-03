@@ -57,7 +57,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         var extrasPromise = propertyService.getRoomProductAddOns(reservation.property.code, room.roomTypeCode, room.productCode, {
           from: reservation.arrivalDate,
           to: reservation.departureDate,
-          customerId: reservation.customer.id
+         // customerId: reservation.customer.id // API does not work with
         }).then(function(addons) {
           $scope.addonsLength = addons.length;
           $scope.addons = _.map(addons, function(addon) {
