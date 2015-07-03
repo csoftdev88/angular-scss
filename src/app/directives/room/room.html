@@ -44,26 +44,14 @@
         </pricing-info>
 
         <description-info>
-          <div ng-if="product._expanded">
+          <div>
             <div ng-bind-html="sanitize(product.description)"></div>
 
-            <nav>
-              <a href ng-click="product._expanded = false">View less</a>
+            <p>
               <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a> &nbsp;&nbsp; | &nbsp;&nbsp;
               <a href ng-click="openPoliciesInfo(product)" ng-if="product.policies">View Policies</a>
-            </nav>
+            </p>
           </div>
-
-          <div ng-if="!product._expanded">
-            <p>{{product.descriptionShort}}</p>
-
-            <nav>
-              <a href ng-click="product._expanded = true">View more</a>
-            </nav>
-          </div>
-
-          <p>{{product.tagline}}</p>
-
         </description-info>
 
       </list-item>
