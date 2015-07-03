@@ -107,7 +107,7 @@
     <hr/>
   </section>
 
-  <section ng-show="otherRooms.length > 1">
+  <section ng-show="property.available && otherRooms.length > 1">
     <h2>Other <strong>Rooms</strong> at {{property.nameLong}}</h2>
 
     <list-items class="grid-view">
