@@ -92,7 +92,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         // NOTE: Check corp/group codes
         promoCode: reservation.promoCode,
         // NOTE: This will enable editing
-        booking: reservation.reservationCode
+        reservation: reservation.reservationCode
       };
 
       // NOTE: Info dialogue
