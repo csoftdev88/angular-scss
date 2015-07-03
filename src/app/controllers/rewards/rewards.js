@@ -4,52 +4,90 @@
  */
 angular.module('mobius.controllers.rewards', [])
 
-  .controller('RewardsCtrl', function($scope, $controller, contentService,
-         $state, $stateParams, _, breadcrumbsService) {
+  .controller('RewardsCtrl', function($scope, $controller, rewardsService,
+         $state, $stateParams, _, breadcrumbsService, modalService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
-    breadcrumbsService.addBreadCrumb('Rewards');
+    breadcrumbsService.addBreadCrumb('My Rewards');
 
     console.log('rewards ctrol');
 
     
-    var NUMBER_OF_RELEVANT_OFFERS = 3;
+    var NUMBER_OF_RELEVANT_REWARDS = 3;
 
-    var selectedOfferIndex;
+    var selectRewardIndex;
 
     $scope.showDetail = $stateParams.code ? true : false;
 
-    contentService.getOffers().then(function(response) {
-      $scope.offersList = _.sortBy(response, 'prio').reverse();
+    $scope.rewardsList = [
+      {
+        'image': {
+          'uri': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1435679651/SAN/offers/government-offer.jpg',
+          'alt': 'image'
+        },
+        'URI': '/api/2.7.1/rewards/FREEUP',
+        'code': 'Freeup',
+        'name': 'free upgrade',
+        'desc': 'present this reward on check in to get a free upgrade',
+        'pointCost': '450'
+      },
+      {
+        'image': {
+          'uri': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1435679651/SAN/offers/government-offer.jpg',
+          'alt': 'image'
+        },
+        'URI': '/api/2.7.1/rewards/FREEUP',
+        'code': 'Freeup',
+        'name': 'free upgrade',
+        'desc': 'present this reward on check in to get a free upgrade',
+        'pointCost': '450'
+      },
+      {
+        'image': {
+          'uri': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1435679651/SAN/offers/government-offer.jpg',
+          'alt': 'image'
+        },
+        'URI': '/api/2.7.1/rewards/FREEUP',
+        'code': 'Freeup',
+        'name': 'free upgrade',
+        'desc': 'present this reward on check in to get a free upgrade',
+        'pointCost': '450'
+      }
+    ];
+
+
+    /*
+    rewardsService.getAll().then(function(response) {
+      $scope.rewardsList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
-        selectOffer($stateParams.code);
+        selectReward($stateParams.code);
       }
     });
+*/
 
-    $scope.getRelevant = function(offer, index) {
-      var offset = selectedOfferIndex < NUMBER_OF_RELEVANT_OFFERS ? 1 : 0;
-      return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
+    $scope.getRelevant = function(reward, index) {
+      var offset = selectRewardIndex < NUMBER_OF_RELEVANT_REWARDS ? 1 : 0;
+      return selectRewardIndex !== index && NUMBER_OF_RELEVANT_REWARDS + offset > parseInt(index, 10);
     };
 
-    $scope.goToDetail = function(code) {
-      $state.go('offers', {code: code});
+    $scope.goToDetail = function(reward) {
+      modalService.openRewardDetail(reward);
     };
 
-    $scope.goToOffersList = function() {
-      $state.go('offers', {code: ''}, {reload: true});
-    };
 
-    function selectOffer(code) {
-      selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
-      if (selectedOfferIndex < 0) {
-        return $state.go('offers', {code: null});
+      /*
+    function selectReward(code) {
+      selectRewardIndex = _.findIndex($scope.rewardsList, {code: code});
+      if (selectRewardIndex < 0) {
+        return $state.go('rewards', {code: null});
       }
-      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+      $scope.selectedReward = $scope.rewardsList[selectRewardIndex];
       breadcrumbsService.clear()
-        .addBreadCrumb('Offers', 'offers', {code: null})
-        .addBreadCrumb($scope.selectedOffer.title);
+        .addBreadCrumb('My Rewards', 'rewards', {code: null})
+        .addBreadCrumb($scope.selectedRewards.title);
     }
+    */
     
 
 

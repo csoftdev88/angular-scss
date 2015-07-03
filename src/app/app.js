@@ -66,6 +66,7 @@ angular
     'mobiusApp.services.adverts',
     'mobiusApp.services.reservation',
     'mobiusApp.services.breadcrumbs',
+    'mobiusApp.services.rewards',
 
     // Factories
     'mobiusApp.factories.template',
