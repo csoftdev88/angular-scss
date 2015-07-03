@@ -65,8 +65,7 @@ angular.module('mobiusApp.services.modal', [])
     return openConfirmationDialog({
       question: 'Are you sure you want to cancel this reservation?',
       yesCallback: cancelFunc.bind(null, reservationCode),
-      yes: 'I want to cancel this reservation',
-      no: 'No'
+      yes: 'I want to cancel this reservation'
     });
   }
 

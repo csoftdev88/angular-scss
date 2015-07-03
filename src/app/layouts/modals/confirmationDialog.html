@@ -1,19 +1,13 @@
-<div class="ui-dialog">
+<div class="ui-info">
   <div class="modal-header">
-    <h3 class="modal-title">{{setup.header}}</h3>
+    <h1 class="modal-title">{{setup.header}}</h1>
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
-
   <div class="modal-body">
-    <reservation-item>
-      <p>{{setup.question}}</p>
-    </reservation-item>
-  </div>
-
-  <div class="modal-footer">
-    <button class="button button-blue" ng-click="yesCallback()">{{setup.yes}}</button>
-  </div>
-  <div class="modal-footer" ng-if="setup.no">
-    <button class="button button-gray" ng-click="noCallback()">{{setup.no}}</button>
+    <p>{{setup.question}}</p>
+    <div class="extra">
+      <button class="button button-blue" ng-click="yesCallback()">{{setup.yes}}</button>
+      <button class="button button-gray" ng-click="noCallback()" ng-hide="!setup.no">{{setup.no}}</button>
+    </div>
   </div>
 </div>
