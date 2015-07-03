@@ -41,7 +41,7 @@
         <div>
           <div>
             <h3>{{roomDetails.name}}</h3>
-            <h4>{{selectedProduct.name}}</h4>
+            <h4>{{reservation.rooms[0].productName}}</h4>
           </div>
 
           <table class="data">
@@ -68,8 +68,8 @@
                 <td>{{reservation.rooms[0].price | i18nCurrency: currencyCode}}</td>
                 <th rowspan="3" class="total">Total:</th>
                 <td rowspan="3" class="total-value">
-                  <a href
-                     ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}</a>
+                    <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}</a>-->
+                    {{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}
                 </td>
               </tr>
 
@@ -96,7 +96,8 @@
 
     <hr>
 
-    <section grid-row class="reservation-enhance" ng-if="reservation.extendable">
+    <!--<section grid-row class="reservation-enhance" ng-if="reservation.extendable">-->
+    <section grid-row class="reservation-enhance" ng-if="addons.length">
       <h3>Enhance Your <strong>Stay With</strong></h3>
       <ul>
         <li class="{{ addonsLength < 3 ? 'half' : 'third' }}"

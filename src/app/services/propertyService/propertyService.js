@@ -5,13 +5,24 @@
 angular.module('mobiusApp.services.properties', [])
 .service( 'propertyService',  function(apiService, $q) {
 
+  function correctParams(params) {
+    if (params && (!params.from || !params.to || !params.adults || !params.productGroupId)) {
+      delete params.from;
+      delete params.to;
+      delete params.adults;
+      delete params.children;
+      delete params.productGroupId;
+    }
+    return params;
+  }
+
   function getAll(params){
-    return apiService.get(apiService.getFullURL('properties.all'), params);
+    return apiService.get(apiService.getFullURL('properties.all'), correctParams(params));
   }
 
   function getPropertyDetails(propertyCode, params){
     var URL = apiService.getFullURL('properties.details', {propertyCode: propertyCode});
-    return apiService.get(URL, params);
+    return apiService.get(URL, correctParams(params));
   }
 
   function getAvailability(propertyCode, params){
@@ -45,15 +56,6 @@ angular.module('mobiusApp.services.properties', [])
     return apiService.get(URL, params);
   }
 
-  function getRoomProductAddOns(propertyCode, roomTypeCode, productCode, params){
-    var URL = apiService.getFullURL('properties.room.product.addons', {
-      propertyCode: propertyCode,
-      roomTypeCode: roomTypeCode,
-      productCode: productCode
-    });
-    return apiService.get(URL, params);
-  }
-
   // Public methods
   return {
     getAll: getAll,
@@ -61,7 +63,6 @@ angular.module('mobiusApp.services.properties', [])
     getAvailability: getAvailability,
     getRooms: getRooms,
     getRoomDetails: getRoomDetails,
-    getRoomProducts: getRoomProducts,
-    getRoomProductAddOns: getRoomProductAddOns
+    getRoomProducts: getRoomProducts
   };
 });

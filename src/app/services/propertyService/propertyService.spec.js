@@ -109,10 +109,10 @@ describe('propertyService', function() {
       expect(env.apiGetSpy.calledWith('properties.room.details')).equal(true);
     });
   });
-  /* **in this version we don't call room products - unless it will come from booking bar**
+
   describe('getRoomProducts', function(){
     it('should fire a GET request to room product list API', function(){
-      var bookingParams = {'test': 'test123'};
+      var bookingParams = {'test': 'test123', from: 'from', to: 'to'};
       env.propertyService.getRoomProducts('ABC', 'QWN', bookingParams);
 
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
@@ -123,19 +123,5 @@ describe('propertyService', function() {
       expect(env.apiGetSpy.calledWith('properties.room.product.all', bookingParams)).equal(true);
     });
   });
-  */
 
-  describe('getRoomProductAddOns', function(){
-    it('should fire a GET request to room product addons list API', function(){
-      var bookingParams = {'test': 'test123'};
-      env.propertyService.getRoomProductAddOns('ABC', 'QWN', 'LW14', bookingParams);
-
-      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith(
-        'properties.room.product.addons', {propertyCode:'ABC', roomTypeCode: 'QWN', productCode: 'LW14'})).equal(true);
-
-      expect(env.apiGetSpy.calledOnce).equal(true);
-      expect(env.apiGetSpy.calledWith('properties.room.product.addons', bookingParams)).equal(true);
-    });
-  });
 });

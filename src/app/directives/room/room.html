@@ -44,26 +44,14 @@
         </pricing-info>
 
         <description-info>
-          <div ng-if="product._expanded">
+          <div>
             <div ng-bind-html="sanitize(product.description)"></div>
 
-            <nav>
-              <a href ng-click="product._expanded = false">View less</a>
+            <p>
               <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a> &nbsp;&nbsp; | &nbsp;&nbsp;
               <a href ng-click="openPoliciesInfo(product)" ng-if="product.policies">View Policies</a>
-            </nav>
+            </p>
           </div>
-
-          <div ng-if="!product._expanded">
-            <p>{{product.descriptionShort}}</p>
-
-            <nav>
-              <a href ng-click="product._expanded = true">View more</a>
-            </nav>
-          </div>
-
-          <p>{{product.tagline}}</p>
-
         </description-info>
 
       </list-item>
@@ -88,7 +76,7 @@
     <ul ng-if="roomDetails.images.length" class="room-gallery">
       <li ng-repeat="image in roomDetails.images" ng-click="openGallery()">
         <figure>
-          <img ng-src="{{image.uri}}" alt="{{image.alt}}" err-source="http://lorempixel.com/150/100" />
+          <img ng-src="{{image.uri | cloudinaryImage : 150 : 65 : 'fill'}}" alt="{{image.alt}}" />
         </figure>
       </li>
     </ul>
@@ -107,7 +95,7 @@
     <hr/>
   </section>
 
-  <section ng-show="otherRooms.length > 1">
+  <section ng-show="property.available && otherRooms.length > 1">
     <h2>Other <strong>Rooms</strong> at {{property.nameLong}}</h2>
 
     <list-items class="grid-view">
@@ -116,13 +104,14 @@
         ng-click="onClickOnAssociatedRoom(otherRoom)"
         class="with-special-hover">
         <figure ng-show="otherRoom.images[0]">
-          <img ng-src="{{otherRoom.images[0].uri}}" alt="{{otherRoom.name}}" err-source="http://lorempixel.com/150/100/">
+          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : 150 : 65 : 'fill'}}" alt="{{otherRoom.name}}">
         </figure>
 
         <h2>{{otherRoom.name}}</h2>
 
         <pricing-info>
-          <p> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
+          <p ng-if="otherRoom.priceFrom"> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
+          <p ng-if="!otherRoom.priceFrom">Please select dates to see the price</p>
         </pricing-info>
       </list-item>
     </list-items>

@@ -62,6 +62,7 @@ angular.module('mobiusApp.config', [])
       'new': 'reservations',
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
+      'addons': 'reservations/:reservationCode/addons/',
       'cancel': 'reservations/:reservationCode/actions/cancel',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/'
@@ -75,6 +76,7 @@ angular.module('mobiusApp.config', [])
 
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
+  'defaultProductRateId': 1,
 
   'UI': {
     'adverts' : {

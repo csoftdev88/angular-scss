@@ -71,10 +71,23 @@ angular.module('mobius.controllers.hotel.details', [])
         }
 
         if(details.hasOwnProperty('available')) {
-          $scope.availableRooms = $window._.pluck((details.availability && details.availability.rooms) || [], 'code');
+          roomsPromise.then(function() {
+            $scope.availableRooms = [];
+            $window._.forEach((details.availability && details.availability.rooms) || [], function(availableRoom) {
+              var room = $window._.find($scope.rooms, {code: availableRoom.code});
+              if(room) {
+                room = $window._.extend(room, availableRoom);
+                $scope.availableRooms.push(room.code);
+              }
+            });
+          });
         }
 
-        contentService.getOffers(bookingParams).then(function(response) {
+        var offersParams = $window._.extend({}, bookingParams);
+        delete offersParams.promoCode;
+        delete offersParams.corpCode;
+        delete offersParams.groupCode;
+        contentService.getOffers(offersParams).then(function(response) {
           $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
           if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
             breadcrumbsService.removeHref('Offers');
@@ -86,9 +99,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
-        if(!$scope.rooms) {
-          $scope.rooms = rooms;
-        }
+        $scope.rooms = rooms;
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {

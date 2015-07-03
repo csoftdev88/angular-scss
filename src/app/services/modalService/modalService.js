@@ -65,8 +65,7 @@ angular.module('mobiusApp.services.modal', [])
     return openConfirmationDialog({
       question: 'Are you sure you want to cancel this reservation?',
       yesCallback: cancelFunc.bind(null, reservationCode),
-      yes: 'I want to cancel this reservation',
-      no: 'No'
+      yes: 'I want to cancel this reservation'
     });
   }
 
@@ -203,6 +202,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openTermsAgreeDialog() {
+    return openDialog('openDetails', 'layouts/modals/reservation/termsAgreeDialog.html', CONTROLLER_DATA, {
+      windowClass: 'details',
+      resolve: {
+        data: function(){
+          return null;
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     openCancelReservationDialog: openCancelReservationDialog,
@@ -218,6 +228,7 @@ angular.module('mobiusApp.services.modal', [])
     // gallery
     openGallery: openGallery,
     openAssociatedRoomDetail: openAssociatedRoomDetail,
-    openLocationDetail: openLocationDetail
+    openLocationDetail: openLocationDetail,
+    openTermsAgreeDialog: openTermsAgreeDialog
   };
 });

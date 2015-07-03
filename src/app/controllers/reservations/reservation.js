@@ -180,7 +180,7 @@ angular.module('mobius.controllers.reservation', [])
       }
       return $scope.forms.billing && !$scope.forms.billing.$invalid;
     case 'reservation.confirmation':
-      return $scope.additionalInfo.agree && $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
+      return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
     }
     return false;
   };
@@ -271,6 +271,10 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.makeReservation = function(){
+    if(!$scope.additionalInfo.agree) {
+      return modalService.openTermsAgreeDialog();
+    }
+
     $scope.invalidFormData = false;
 
     var reservationData = createReservationData();
@@ -336,14 +340,16 @@ angular.module('mobius.controllers.reservation', [])
         _.extend($scope.userDetails, {
           title: userData.title || '',
           firstName: userData.firstName || '',
-          lastName: userData.lastName,
+          lastName: userData.lastName || '',
+          email: userData.email || '',
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: '',
           country: '',
-          zip: userData.zip,
+          zip: userData.zip || '',
           phone: userData.tel1 || ''
         });
+        $scope.userDetails.emailFromApi = !!userData.email;
       }
 
       if (!Object.keys($scope.additionalInfo).length) {

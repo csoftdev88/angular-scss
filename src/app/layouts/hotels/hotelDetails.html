@@ -22,7 +22,7 @@
 
       <view-more-images grid="4">
         <a ng-if="details.images.length" href="" ng-click="openGallery()">View more images</a>
-        <img ng-src="{{details.images[0].uri}}" alt="{{details.images[0].alt}}" />
+        <img ng-src="{{details.images[0].uri | cloudinaryImage : 293}}" alt="{{details.images[0].alt}}" />
         <button ng-click="scrollToRooms()" class="button">Choose your room</button>
       </view-more-images>
     </section>
@@ -47,7 +47,7 @@
 
       <offers-list grid-row>
         <offer-item ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'offers', 'code': offer.code})">
-          <img class="grid-img" ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
+          <img class="grid-img" ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}"  alt="{{offer.image.alt}}">
 
           <section>
           <h2>{{offer.title}}</h2>
@@ -78,28 +78,29 @@
           <list-item ng-repeat="room in rooms | limitTo: roomLimit">
             <a ui-sref="room({propertyCode: details.code, roomID: room.code})">
               <figure>
-                <img ng-src="{{room.images[0].uri}}" err-source="http://lorempixel.com/150/100/" alt="{{room.name}}">
+                <img ng-src="{{room.images[0].uri | cloudinaryImage : 153 : 65 : 'fill'}}" alt="{{room.name}}">
               </figure>
             </a>
 
             <h3><a ui-sref="room({propertyCode: details.code, roomID: room.code})">{{room.name}}</a></h3>
 
-            <earned-points ng-if="isUserLoggedIn() && room.minPointsEarned">Earn at least <ng-pluralize count="room.minPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+            <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
               </earned-points>
 
             <pricing-info>
               <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
-                <p>
+                <p ng-if="room.priceFrom">
                   from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
                   <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
                   <span ng-if="isUserLoggedIn() && room.minPointsRequired">
                     <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
                   </span>
                 </p>
+                <p ng-if="!room.priceFrom">Please select dates to see the price</p>
 
                 <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="button">_view_more_</a>
               </div>
-              <p ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error">Not Available on Selected Dates</p>
+              <p ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
             </pricing-info>
 
             <description-info>

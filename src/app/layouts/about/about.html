@@ -15,7 +15,7 @@
 
       <view-more-images grid="4">
         <div><a ng-if="chain.images.length" href="" ng-click="openGallery()">View more images</a></div>
-        <img ng-src="{{chain.images[0].uri}}" alt="{{chain.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
+        <img ng-src="{{chain.images[0].uri | cloudinaryImage : 293}}" alt="{{chain.images[0].alt}}"/>
       </view-more-images>
     </section>
 
@@ -35,7 +35,7 @@
 
     <offers-list>
       <offer-item ng-repeat="about in aboutList track by $index" ng-click="goToDetail(about.code)">
-        <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" err-source="http://lorempixel.com/300/160/">
+        <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
         <section>
           <h2>{{about.title}}</h2>
@@ -51,7 +51,7 @@
 
   <about-detail ng-if="showDetail" grid="12">
     <h1>{{selectedAbout.title}}</h1>
-    <img ng-src="{{selectedAbout.image.uri}}" alt="{{selectedAbout.image.alt}}"/>
+    <img ng-src="{{selectedAbout.image.uri | cloudinaryImage : 960}}" alt="{{selectedAbout.image.alt}}"/>
     <div ng-bind-html="selectedAbout.text"></div>
     <button-back role="button" tabindex="0" ng-click="goToAboutList()">Back</button-back>
 
@@ -61,7 +61,7 @@
 
     <offers-list ng-if="aboutList.length > 1">
       <offer-item ng-repeat="about in aboutList | filter:getRelevant track by $index" ng-click="goToDetail(about.code)">
-        <img ng-src="{{about.image.uri}}" alt="{{about.image.alt}}" err-source="http://lorempixel.com/300/160/">
+        <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
         <section>
           <h2>{{about.title}} </h2>

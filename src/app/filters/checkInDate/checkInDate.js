@@ -4,7 +4,7 @@
  * Checkin date formatter filter
  */
 
-angular.module('mobius.filters.checkInDate', [])
+angular.module('mobiusApp.filters.checkInDate', [])
 
 .filter('checkInDate', function($window, Settings) {
   return function(input) {

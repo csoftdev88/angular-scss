@@ -24,52 +24,54 @@ angular.module('mobius.controllers.reservationDetail', [])
       var reservationPromise = reservationService.getReservation($stateParams.reservationCode).then(function(reservation) {
         $scope.reservation = reservation;
         $scope.reservation.packages = $scope.reservation.packageItemCodes || []; // API workaround
+        var room = $scope.reservation.rooms[0];
+
+        if (modalService.openPoliciesInfo.bind) { // WTF - PhatomJS workaround
+          var policies = {};
+          $window._.forEach(room, function (value, key) {
+            if(key.indexOf('policy') === 0) {
+              policies[key.substr(6).toLowerCase()] = value;
+            }
+          });
+          $scope.openPoliciesInfo = modalService.openPoliciesInfo.bind(modalService, {
+            policies: policies
+          });
+        }
 
         var propertyPromise = propertyService.getPropertyDetails(reservation.property.code).then(function(property) {
           $scope.property = property;
         });
 
         // Getting room/products data
-        var roomDataPromise = propertyService.getRoomDetails(reservation.property.code, reservation.rooms[0].roomTypeCode).then(function(data) {
+        var roomDataPromise = propertyService.getRoomDetails(reservation.property.code, room.roomTypeCode).then(function(data) {
           $scope.roomDetails = data;
-        });
-
-        var roomProductsPromise = propertyService.getRoomProducts(reservation.property.code, reservation.rooms[0].roomTypeCode, {
-          from: reservation.arrivalDate,
-          to: reservation.departureDate,
-          adults: reservation.rooms[0].adults,
-          children: reservation.rooms[0].children
-        }).then(function(data) {
-          $scope.selectedProduct = _.findWhere(data.products, {code: reservation.rooms[0].productCode});
-        });
-
-        var extrasPromise = propertyService.getRoomProductAddOns(reservation.property.code, reservation.rooms[0].roomTypeCode, reservation.rooms[0].productCode, {
-          from: reservation.arrivalDate,
-          to: reservation.departureDate,
-          customerId: reservation.customer.id
-        }).then(function(addons) {
-          $scope.addonsLength = addons.length;
-          $scope.addons = _.map(addons, function(addon) {
-            addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
-            addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
-            if (addon.hasViewMore) {
-              addon.descriptionShort += '…';
-            }
-            return addon;
-          });
-          $scope.addons = _.indexBy($scope.addons, 'code');
-        });
-
-        return $q.all([propertyPromise, roomDataPromise, roomProductsPromise, extrasPromise]).then(function() {
-          if (modalService.openPoliciesInfo.bind) { // WTF - PhatomJS workaround
-            $scope.openPoliciesInfo = modalService.openPoliciesInfo.bind(modalService, $scope.selectedProduct);
-            $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo.bind(modalService, $scope.roomDetails, $scope.selectedProduct);
+          if (modalService.openPriceBreakdownInfo.bind) { // WTF - PhatomJS workaround
+            $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo.bind(modalService, $scope.roomDetails, {
+              name: room.productName,
+              totalAfterTax: room.price,
+              breakdowns: []
+            });
           }
         });
+
+        return $q.all([propertyPromise, roomDataPromise]);
+      });
+
+      var extrasPromise = reservationService.getReservationAddOns($stateParams.reservationCode).then(function(addons) {
+        $scope.addonsLength = addons.length;
+        $scope.addons = _.map(addons, function(addon) {
+          addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+          addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
+          if (addon.hasViewMore) {
+            addon.descriptionShort += '…';
+          }
+          return addon;
+        });
+        $scope.addons = _.indexBy($scope.addons, 'code');
       });
 
       // Showing loading mask
-      preloaderFactory(reservationPromise);
+      preloaderFactory(reservationPromise, extrasPromise);
     }
 
     // choose either one of these two lines
