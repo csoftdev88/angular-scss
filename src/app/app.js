@@ -254,15 +254,7 @@ angular
   })
 
   .run(function(user, $rootScope, $state, breadcrumbsService) {
-    // $stateChangeSuccess is used because resolve on controller is ready
     $rootScope.$on('$stateChangeSuccess', function() {
-      /*if (toState.data && toState.data.authProtected) {
-        if (!user.isLoggedIn()) {
-          // Redirect to home page
-          event.preventDefault();
-          $state.go('home');
-        }
-      }*/
       breadcrumbsService.clear();
     });
   });

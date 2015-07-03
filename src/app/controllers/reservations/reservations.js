@@ -5,17 +5,21 @@
 angular.module('mobius.controllers.reservations', [])
 
 .controller('ReservationsCtrl', function($scope, $controller,
-  modalService, creditCardTypeService, reservationService,
+  $state, modalService, creditCardTypeService, reservationService,
   preloaderFactory, propertyService, $window, _, breadcrumbsService){
 
   breadcrumbsService.addBreadCrumb('My Stays');
 
-  function onAuthorized(){
-    var reservationsPromise = reservationService.getAll().then(function(data){
-      processReservationsData(data);
-    });
-
-    preloaderFactory(reservationsPromise);
+  function onAuthorized(isMobiusUser){
+    if(isMobiusUser){
+      var reservationsPromise = reservationService.getAll().then(function(data){
+        processReservationsData(data);
+      });
+      preloaderFactory(reservationsPromise);
+    } else {
+      // TODO: Check actions for anonymous user
+      $state.go('home');
+    }
   }
 
   $controller('MainCtrl', {$scope: $scope});

@@ -5,9 +5,7 @@
 angular.module('mobius.controllers.common.auth', [])
 
 .controller( 'AuthCtrl', function($scope, _, user, config) {
-  var authPromise = user.authPromise;
-
-  authPromise.then(function(isMobiusUser){
+  user.authPromise.then(function(isMobiusUser){
     if(_.isFunction(config.onAuthorized)){
       config.onAuthorized(isMobiusUser);
     }
