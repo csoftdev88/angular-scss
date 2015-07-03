@@ -4,7 +4,7 @@ describe('i18nCurrency', function() {
   var _checkInDateFilter, _clock;
 
   beforeEach(function() {
-    module('mobius.filters.checkInDate', function($provide) {
+    module('mobiusApp.filters.checkInDate', function($provide) {
       var Settings = {
         'UI': {
           'checkInDateFormats': {

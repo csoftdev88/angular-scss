@@ -5,7 +5,7 @@
  * moment js lib.
  */
 
-angular.module('mobius.filters.dateTime', [])
+angular.module('mobiusApp.filters.dateTime', [])
 
 .filter('dateTime', function($window) {
   return function(input, outputFormat, inputFormat) {
