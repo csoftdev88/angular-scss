@@ -340,14 +340,16 @@ angular.module('mobius.controllers.reservation', [])
         _.extend($scope.userDetails, {
           title: userData.title || '',
           firstName: userData.firstName || '',
-          lastName: userData.lastName,
+          lastName: userData.lastName || '',
+          email: userData.email || '',
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: '',
           country: '',
-          zip: userData.zip,
+          zip: userData.zip || '',
           phone: userData.tel1 || ''
         });
+        $scope.userDetails.emailFromApi = !!userData.email;
       }
 
       if (!Object.keys($scope.additionalInfo).length) {
