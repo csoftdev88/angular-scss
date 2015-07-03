@@ -78,6 +78,11 @@ hotels {
         p {
           color: @c-grey;
         }
+
+        p.price.unavailable {
+          .not-available();
+          margin-top: 0;
+        }
       }
     }
 

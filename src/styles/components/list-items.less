@@ -168,6 +168,7 @@ list-item {
   }
 
   pricing-info {
+    display: block;
     position: absolute;
     right: @baseline/2;
     top: @baseline/2;
@@ -178,7 +179,7 @@ list-item {
     width: 170px;
 
     p.error {
-      color: @c-error;
+      .not-available();
     }
   }
 
