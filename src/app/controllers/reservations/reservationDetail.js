@@ -54,28 +54,24 @@ angular.module('mobius.controllers.reservationDetail', [])
           }
         });
 
-        var extrasPromise = propertyService.getRoomProductAddOns(reservation.property.code, room.roomTypeCode, room.productCode, {
-          from: reservation.arrivalDate,
-          to: reservation.departureDate,
-         // customerId: reservation.customer.id // API does not work with
-        }).then(function(addons) {
-          $scope.addonsLength = addons.length;
-          $scope.addons = _.map(addons, function(addon) {
-            addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
-            addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
-            if (addon.hasViewMore) {
-              addon.descriptionShort += '…';
-            }
-            return addon;
-          });
-          $scope.addons = _.indexBy($scope.addons, 'code');
-        });
+        return $q.all([propertyPromise, roomDataPromise]);
+      });
 
-        return $q.all([propertyPromise, roomDataPromise, extrasPromise]);
+      var extrasPromise = reservationService.getReservationAddOns($stateParams.reservationCode).then(function(addons) {
+        $scope.addonsLength = addons.length;
+        $scope.addons = _.map(addons, function(addon) {
+          addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+          addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
+          if (addon.hasViewMore) {
+            addon.descriptionShort += '…';
+          }
+          return addon;
+        });
+        $scope.addons = _.indexBy($scope.addons, 'code');
       });
 
       // Showing loading mask
-      preloaderFactory(reservationPromise);
+      preloaderFactory(reservationPromise, extrasPromise);
     }
 
     // choose either one of these two lines

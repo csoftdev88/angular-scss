@@ -3,7 +3,7 @@
 
 describe('mobius.controllers.reservationDetail', function() {
   describe('ReservationDetailCtrl', function() {
-    var _scope, _spyGetReservation, _spyGetPropertyDetails, _spyGetRoomProductAddOns;
+    var _scope, _spyGetReservation, _spyGetPropertyDetails, _spyGetReservationAddOns;
 
     var TEST_RESERVATION_CODE = 95234134;
     var TEST_RESERVATION = {
@@ -62,6 +62,13 @@ describe('mobius.controllers.reservationDetail', function() {
                   c(TEST_RESERVATION);
                 }
               };
+            },
+            getReservationAddOns: function() {
+              return {
+                then: function(c) {
+                  c(TEST_ADDONS);
+                }
+              };
             }
           };
         });
@@ -82,13 +89,6 @@ describe('mobius.controllers.reservationDetail', function() {
               return {
                 then: function(c) {
                   c(TEST_PRODUCTS);
-                }
-              };
-            },
-            getRoomProductAddOns: function() {
-              return {
-                then: function(c) {
-                  c(TEST_ADDONS);
                 }
               };
             }
@@ -118,7 +118,7 @@ describe('mobius.controllers.reservationDetail', function() {
 
       _spyGetReservation = sinon.spy(reservationService, 'getReservation');
       _spyGetPropertyDetails = sinon.spy(propertyService, 'getPropertyDetails');
-      _spyGetRoomProductAddOns = sinon.spy(propertyService, 'getRoomProductAddOns');
+      _spyGetReservationAddOns = sinon.spy(reservationService, 'getReservationAddOns');
 
       $controller('ReservationDetailCtrl', {$scope: _scope});
       _scope.$digest();
@@ -127,7 +127,7 @@ describe('mobius.controllers.reservationDetail', function() {
     afterEach(function() {
       _spyGetReservation.restore();
       _spyGetPropertyDetails.restore();
-      _spyGetRoomProductAddOns.restore();
+      _spyGetReservationAddOns.restore();
     });
 
     describe('when controller initialized', function() {
@@ -144,8 +144,8 @@ describe('mobius.controllers.reservationDetail', function() {
       });
 
       it('should download property details from the server and store them', function() {
-        expect(_spyGetRoomProductAddOns).calledOnce;
-        expect(_spyGetRoomProductAddOns.calledWith(TEST_RESERVATION.property.code, TEST_RESERVATION.rooms[0].roomTypeCode, TEST_RESERVATION.rooms[0].productCode)).equal(true);
+        expect(_spyGetReservationAddOns).calledOnce;
+        expect(_spyGetReservationAddOns.calledWith(TEST_RESERVATION_CODE)).equal(true);
         expect(_scope.addons).to.have.keys(TEST_ADDONS[0].code, TEST_ADDONS[1].code);
         expect(_scope.addons[TEST_ADDONS[0].code]).deep.equal({
           code: TEST_ADDONS[0].code,

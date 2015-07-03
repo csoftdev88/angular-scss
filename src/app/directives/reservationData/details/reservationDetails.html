@@ -81,8 +81,8 @@
               <td>{{getPrice() | i18nCurrency: $root.currencyCode}}</td>
               <th rowspan="3" class="total">Total:</th>
               <td rowspan="3" class="total-value">
-                <a href
-                   ng-click="openPriceBreakdownInfo()">{{getPriceAfterTax() | i18nCurrency: $root.currencyCode}}</a>
+                <!--<a href ng-click="openPriceBreakdownInfo()">{{getPriceAfterTax() | i18nCurrency: $root.currencyCode}}</a>-->
+                {{getPriceAfterTax() | i18nCurrency: $root.currencyCode}}
               </td>
             </tr>
 

@@ -21,6 +21,10 @@ angular.module('mobiusApp.services.reservation', [])
     return apiService.get(apiService.getFullURL('reservations.detail', {reservationCode: reservationCode}));
   }
 
+  function getReservationAddOns(reservationCode) {
+    return apiService.get(apiService.getFullURL('reservations.addons', {reservationCode: reservationCode}));
+  }
+
   // Getting all customer reservations
   function getAll() {
     var customerId = user.getCustomerId();
@@ -40,6 +44,7 @@ angular.module('mobiusApp.services.reservation', [])
     modifyReservation: modifyReservation,
     cancelReservation: cancelReservation,
     getReservation: getReservation,
+    getReservationAddOns: getReservationAddOns,
     getAll: getAll
   };
 });
