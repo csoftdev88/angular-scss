@@ -6,8 +6,9 @@
 amenities-list,
 .amenities-list {
   .clearfix;
-  display: block;
   margin: 2 * @baseline 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 //- Amenity
@@ -26,11 +27,15 @@ amenity-item,
 
   // Icon
   img {
-    position: relative;
+    position: absolute;
     display: inline-block;
-    top: -2px;
+    margin-top: 2px;
     margin-right: @baseline / 2;
-
     vertical-align: middle;
+  }
+
+  span{
+    display: block;
+    padding-left: 25px;
   }
 }

@@ -29,6 +29,7 @@ angular
     'mobius.controllers.main',
     'mobius.controllers.about',
     'mobius.controllers.offers',
+    'mobius.controllers.rewards',
     'mobius.controllers.news',
     'mobius.controllers.contacts',
     'mobius.controllers.reservations',
@@ -68,6 +69,7 @@ angular
     'mobiusApp.services.adverts',
     'mobiusApp.services.reservation',
     'mobiusApp.services.breadcrumbs',
+    'mobiusApp.services.rewards',
     'mobiusApp.services.preference',
 
     // Factories
@@ -114,6 +116,7 @@ angular
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
+    'mobiusApp.directives.isoCountryOptions',
 
     // Filters
     'mobiusApp.filters.list',
@@ -215,6 +218,14 @@ angular
         templateUrl: 'layouts/offers/offers.html',
         url: '/offers/:code',
         controller: 'OffersCtrl'
+      })
+
+      // Rewards page
+      .state('rewards', {
+        parent: 'root',
+        templateUrl: 'layouts/rewards/rewards.html',
+        url: '/rewards/:code',
+        controller: 'RewardsCtrl'
       })
 
       // News page
