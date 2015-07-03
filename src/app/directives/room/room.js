@@ -14,7 +14,7 @@ angular.module('mobiusApp.directives.room', [])
 
       $controller('PriceCtr', {$scope: scope});
 
-      var SHORT_DESCRIPTION_LENGTH = 200;
+      //var SHORT_DESCRIPTION_LENGTH = 200;
 
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
@@ -97,23 +97,30 @@ angular.module('mobiusApp.directives.room', [])
 
       // Room product details
       function setRoomProductDetails(data) {
-        scope.products = _.map(
-          [].concat(
-          _.where(data.products, {memberOnly: true}),
-          _.where(data.products, {highlighted: true}),
-          _.reject(data.products, function(product) {
-            return product.memberOnly || product.highlighted;
-          })
-        ), function(product) {
-          // NOTE: product.description is a plain text
-          var descriptionShort = product.description;
-          product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
-          product.hasViewMore = product.descriptionShort.length < descriptionShort.length;
-          if (product.hasViewMore) {
-            product.descriptionShort += '…';
-          }
-          return product;
-        });
+        //scope.products = _.map(
+        //  [].concat(
+        //  _.where(data.products, {memberOnly: true}),
+        //  _.where(data.products, {highlighted: true}),
+        //  _.reject(data.products, function(product) {
+        //    return product.memberOnly || product.highlighted;
+        //  })
+        //), function(product) {
+        //  // NOTE: product.description is a plain text
+        //  var descriptionShort = product.description;
+        //  product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
+        //  product.hasViewMore = product.descriptionShort.length < descriptionShort.length;
+        //  if (product.hasViewMore) {
+        //    product.descriptionShort += '…';
+        //  }
+        //  return product;
+        //});
+        scope.products = [].concat(
+            _.where(data.products, {memberOnly: true}),
+            _.where(data.products, {highlighted: true}),
+            _.reject(data.products, function(product) {
+              return product.memberOnly || product.highlighted;
+            })
+        );
       }
 
       scope.setRoomsSorting = function() {
