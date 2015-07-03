@@ -23,6 +23,51 @@ angular.module('mobiusApp.directives.room', [])
 
       var roomCode = $stateParams.roomID;
 
+      var propertyPromise;
+      var qBookingParam = $q.defer();
+
+      // Using PGID from the booking params
+      if(bookingParams.productGroupId){
+        qBookingParam.resolve(bookingParams);
+      } else {
+        filtersService.getBestRateProduct().then(function(brp){
+          if(brp){
+            bookingParams.productGroupId = brp.id;
+          }
+          qBookingParam.resolve(bookingParams);
+        });
+      }
+
+      qBookingParam.promise.then(function(bookingParams) {
+        var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
+          setRoomProductDetails(data.roomProductDetails);
+          return setRoomData(data.roomDetails).then(function() {
+            return data;
+          });
+        }, function() {
+          $state.go('hotel', {
+            propertyCode: propertyCode
+          });
+        });
+
+        propertyPromise = propertyService.getPropertyDetails(propertyCode, bookingParams).then(function(property) {
+          scope.property = property;
+          if(!scope.property.hasOwnProperty('available')) {
+            scope.property.available = true;
+          }
+
+          return property;
+        });
+
+        preloaderFactory($q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
+          breadcrumbsService.clear()
+            .addBreadCrumb('Hotels', 'hotels')
+            .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
+            .addBreadCrumb('Rooms', 'hotel', {propertyCode: propertyCode}, 'jsRooms')
+            .addBreadCrumb(data[0].roomDetails.name);
+        }));
+      });
+
       // Getting room details
       function setRoomData(data){
         // Inherited from RoomDetailsCtrl
@@ -32,18 +77,22 @@ angular.module('mobiusApp.directives.room', [])
            greater than the currently viewed room. If there are not enough of them we can show the cheaper
            ones as well. */
 
-        return propertyService.getRooms(propertyCode)
-          .then(function(hotelRooms){
-            var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
-            var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
+        return propertyPromise.then(function(property) {
+          if(!property.hasOwnProperty('available') || property.available) {
+            return propertyService.getRooms(propertyCode)
+              .then(function(hotelRooms){
+                var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
+                var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
 
-            var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
+                var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
 
-            // sortedCheaperRooms is sorted by price in descending order
-            var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
+                // sortedCheaperRooms is sorted by price in descending order
+                var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
 
-            scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
-          });
+                scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
+              });
+          }
+        });
       }
 
       // Room product details
@@ -78,31 +127,6 @@ angular.module('mobiusApp.directives.room', [])
           productCode: product.code
         });
       };
-
-      var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
-        setRoomProductDetails(data.roomProductDetails);
-        return setRoomData(data.roomDetails).then(function() {
-          return data;
-        });
-      }, function() {
-        $state.go('hotel', {
-          propertyCode: propertyCode
-        });
-      });
-
-      var propertyPromise = propertyService.getPropertyDetails(propertyCode).then(function(property) {
-        scope.property = property;
-
-        return property;
-      });
-
-      preloaderFactory($q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
-        breadcrumbsService.clear()
-          .addBreadCrumb('Hotels', 'hotels')
-          .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
-          .addBreadCrumb('Rooms', 'hotel', {propertyCode: propertyCode}, 'jsRooms')
-          .addBreadCrumb(data[0].roomDetails.name);
-      }));
 
       scope.onClickOnAssociatedRoom=function(roomDetails){
         modalService.openAssociatedRoomDetail({roomDetails: roomDetails, propertyCode: propertyCode});
