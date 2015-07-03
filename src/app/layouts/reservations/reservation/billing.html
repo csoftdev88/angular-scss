@@ -97,9 +97,13 @@
           </label>
 
           <label for="country">
-            <input type="text" id="country" required
+            <select type="text" id="country" required
               placeholder="Country"
-              ng-model="billingDetails.country" />
+              data-placeholder="Country"
+              ng-model="billingDetails.country"
+              iso-country-options
+              chosen>
+            </select>
             <span>Country</span>
           </label>
 
