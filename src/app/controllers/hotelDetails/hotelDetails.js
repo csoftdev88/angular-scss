@@ -71,7 +71,18 @@ angular.module('mobius.controllers.hotel.details', [])
         }
 
         if(details.hasOwnProperty('available')) {
-          $scope.availableRooms = $window._.pluck((details.availability && details.availability.rooms) || [], 'code');
+          roomsPromise.then(function() {
+            $scope.availableRooms = [];
+            $window._.forEach((details.availability && details.availability.rooms) || [], function(availableRoom) {
+              var room = $window._.find($scope.rooms, {code: availableRoom.code});
+              if(room) {
+                room.minPointsRequired = availableRoom.minPointsRequired;
+                room.minsPointsEarned = availableRoom.minsPointsEarned;
+                room.priceFrom = availableRoom.priceFrom;
+                $scope.availableRooms.push(room.code);
+              }
+            });
+          });
         }
 
         contentService.getOffers(bookingParams).then(function(response) {
@@ -86,9 +97,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
-        if(!$scope.rooms) {
-          $scope.rooms = rooms;
-        }
+        $scope.rooms = rooms;
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {

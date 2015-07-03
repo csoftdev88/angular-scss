@@ -84,7 +84,7 @@
 
             <h3><a ui-sref="room({propertyCode: details.code, roomID: room.code})">{{room.name}}</a></h3>
 
-            <earned-points ng-if="isUserLoggedIn() && room.minPointsEarned">Earn at least <ng-pluralize count="room.minPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+            <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
               </earned-points>
 
             <pricing-info>
