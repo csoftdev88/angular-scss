@@ -4,10 +4,11 @@
 * the breadcumbs
  */
 var EVENT_NOTIFICATION_MESSAGE_UPDATED = 'notification-message-updated';
+var EVENT_NOTIFICATION_CLOSED = 'notification-closed';
 
 angular.module('mobiusApp.directives.notifications', [])
 
-.directive('notificationBar', function(notificationService){
+.directive('notificationBar', function($rootScope, notificationService){
   return {
     restrict: 'E',
     templateUrl: 'directives/notificationBar/notificationBar.html',
@@ -18,6 +19,10 @@ angular.module('mobiusApp.directives.notifications', [])
       scope.$on(EVENT_NOTIFICATION_MESSAGE_UPDATED, function(){
         scope.message = notificationService.getMessage();
       });
+
+      scope.onClose = function(){
+        $rootScope.$broadcast(EVENT_NOTIFICATION_CLOSED);
+      };
     }
   };
 })

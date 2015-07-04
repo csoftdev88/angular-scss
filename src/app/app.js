@@ -140,7 +140,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode'
+        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation'
       })
 
       // Home page
@@ -161,7 +161,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:propertyCode?reservation',
+        url: '/hotels/:propertyCode',
         data: {
           // Route is also used for reservation updates
           supportsEditMode: true
@@ -172,7 +172,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
-        url: '/hotels/:propertyCode/rooms/:roomID?reservation',
+        url: '/hotels/:propertyCode/rooms/:roomID',
         data: {
           supportsEditMode: true
         }
@@ -202,7 +202,7 @@ angular
       .state('reservation', {
         parent: 'root',
         templateUrl: 'layouts/reservations/reservation/reservation.html',
-        url: '/reservation/:roomID/:productCode?reservation',
+        url: '/reservation/:roomID/:productCode',
         controller: 'ReservationCtrl',
         data: {
           supportsEditMode: true
@@ -270,4 +270,8 @@ angular
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
+  })
+
+  .controller('BaseCtrl', function($scope, $controller){
+    $controller('ReservationUpdateCtrl', {$scope: $scope});
   });

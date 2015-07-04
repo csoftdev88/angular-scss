@@ -301,7 +301,10 @@ angular.module('mobius.controllers.reservation', [])
         '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
         '');
 
-      $state.go('reservationDetail', {reservationCode: data[0].reservationCode});
+      $state.go('reservationDetail', {
+        reservationCode: data[0].reservationCode,
+        reservation: null
+      });
     }, function() {
       // TODO: Whaat request has failed
       $scope.invalidFormData = true;

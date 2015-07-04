@@ -70,8 +70,8 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openModifyingReservationDialogue(reservationCode){
-    return openDialog('modifying-reservation', 'layouts/modals/reservation/modifyReservation.html', CONTROLLER_DATA, {
-      windowClass: 'details addons',
+    return openDialog('reservation-modification', 'layouts/modals/reservation/modifyReservation.html', CONTROLLER_DATA, {
+      windowClass: 'details reservation-modification',
       resolve: {
         data: function(){
           return {reservationCode: reservationCode};
@@ -81,15 +81,20 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openReservationModifyingDisabledDialogue(){
-    return openDialog('cannot-modify', 'layouts/modals/reservation/cannotModify.html', CONTROLLER_DEFAULT);
+    return openDialog('reservation-modification', 'layouts/modals/reservation/cannotModify.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details reservation-modification'
+    });
   }
 
   function openReservationCancelingDisabledDialogue(){
-    return openDialog('cannot-modify', 'layouts/modals/reservation/cannotCancel.html', CONTROLLER_DEFAULT);
+    return openDialog('reservation-modification', 'layouts/modals/reservation/cannotCancel.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details reservation-modification'
+    });
   }
 
   function openReservationModificationCanceledDialogue(reservationCode){
-    return openDialog('cannot-modify', 'layouts/modals/reservation/modificationCanceled.html', CONTROLLER_DATA, {
+    return openDialog('reservation-modification', 'layouts/modals/reservation/modificationCanceled.html', CONTROLLER_DATA, {
+      windowClass: 'details reservation-modification',
       resolve: {
         data: function(){
           return {reservationCode: reservationCode};
