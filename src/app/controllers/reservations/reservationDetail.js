@@ -80,10 +80,16 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     // TODO: Unify with modifyReservation
     $scope.modifyCurrentReservation = function(){
+      var reservation = $scope.reservation;
+      // Checking if reservation can be modifyed
+      // NOTE: API not providing the flag yet
+      if(reservation.canModify === false){
+        modalService.openReservationModifyingDisabledDialogue();
+        return;
+      }
+
       // Redirecting to hotel detail page with corresponding booking settings
       // and switching to edit mode
-      var reservation = $scope.reservation;
-      console.log($scope.reservation);
       var bookingParams = {
         property: reservation.property.code,
         adults: getCount(reservation.rooms, 'adults'),
@@ -99,6 +105,16 @@ angular.module('mobius.controllers.reservationDetail', [])
       modalService.openModifyingReservationDialogue(reservation.reservationCode);
 
       $state.go('hotel', bookingParams);
+    };
+
+    $scope.openCancelReservationDialog = function(){
+      // NOTE: API not providing the flag yet
+      if($scope.reservation.canCancel === false){
+        modalService.openReservationCancelingDisabledDialogue();
+        return;
+      }
+
+      modalService.openCancelReservationDialog($stateParams.reservationCode);
     };
 
     // NOTE: Same is in reservationDirective - unify
@@ -146,9 +162,5 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     if (modalService.openAddonDetailDialog.bind) { // WTF - PhatomJS workaround
       $scope.openAddonDetailDialog = modalService.openAddonDetailDialog.bind(modalService, $scope.addAddon.bind($scope));
-    }
-
-    if (modalService.openCancelReservationDialog.bind) { // WTF - PhatomJS workaround
-      $scope.openCancelReservationDialog = modalService.openCancelReservationDialog.bind(modalService, $stateParams.reservationCode);
     }
   });
