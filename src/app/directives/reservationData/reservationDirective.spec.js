@@ -6,7 +6,9 @@ describe('mobius.controllers.reservation.directive', function() {
   describe('ReservationDirectiveCtrl', function() {
     beforeEach(function() {
       module('underscore');
-      module('mobius.controllers.reservation.directive');
+      module('mobius.controllers.reservation.directive', function($provide){
+        $provide.value('$state', {});
+      });
     });
 
     beforeEach(inject(function($controller, $rootScope) {
