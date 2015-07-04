@@ -88,6 +88,16 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('cannot-modify', 'layouts/modals/reservation/cannotCancel.html', CONTROLLER_DEFAULT);
   }
 
+  function openReservationModificationCanceledDialogue(reservationCode){
+    return openDialog('cannot-modify', 'layouts/modals/reservation/modificationCanceled.html', CONTROLLER_DATA, {
+      resolve: {
+        data: function(){
+          return {reservationCode: reservationCode};
+        }
+      }
+    });
+  }
+
   function openConfirmationDialog(setup) {
     return openDialog('ConfirmationDialog', 'layouts/modals/confirmationDialog.html', CONTROLLER_CONFIRMATION, {
       windowClass: 'is-wide has-white-bg',
@@ -228,6 +238,7 @@ angular.module('mobiusApp.services.modal', [])
     openCancelReservationDialog: openCancelReservationDialog,
     openReservationModifyingDisabledDialogue: openReservationModifyingDisabledDialogue,
     openReservationCancelingDisabledDialogue: openReservationCancelingDisabledDialogue,
+    openReservationModificationCanceledDialogue: openReservationModificationCanceledDialogue,
 
     openConfirmationDialog: openConfirmationDialog,
     openAddonDetailDialog: openAddonDetailDialog,

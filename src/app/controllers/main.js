@@ -78,4 +78,5 @@ angular.module('mobius.controllers.main', [])
       $controller('PreloaderCtrl', {$scope: $scope});
       $controller('SanitizeCtrl', {$scope: $scope});
       $controller('SSOCtrl', {$scope: $scope});
+      $controller('ReservationUpdateCtrl', {$scope: $scope});
     }]);

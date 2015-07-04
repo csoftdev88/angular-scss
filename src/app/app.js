@@ -34,6 +34,7 @@ angular
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
     'mobius.controllers.reservationDetail',
+    'mobius.controllers.reservationUpdate',
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
 
@@ -139,7 +140,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation'
+        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode'
       })
 
       // Home page
@@ -160,14 +161,21 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:propertyCode'
+        url: '/hotels/:propertyCode?reservation',
+        data: {
+          // Route is also used for reservation updates
+          supportsEditMode: true
+        }
       })
 
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
-        url: '/hotels/:propertyCode/rooms/:roomID'
+        url: '/hotels/:propertyCode/rooms/:roomID?reservation',
+        data: {
+          supportsEditMode: true
+        }
       })
 
       .state('reservations', {
@@ -194,8 +202,11 @@ angular
       .state('reservation', {
         parent: 'root',
         templateUrl: 'layouts/reservations/reservation/reservation.html',
-        url: '/reservation/:roomID/:productCode',
-        controller: 'ReservationCtrl'
+        url: '/reservation/:roomID/:productCode?reservation',
+        controller: 'ReservationCtrl',
+        data: {
+          supportsEditMode: true
+        }
       })
 
       .state('reservation.details', {

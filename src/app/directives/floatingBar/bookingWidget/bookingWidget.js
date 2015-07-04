@@ -207,7 +207,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // NOTE: Property dropdown is disable when reservationCode is presented
         // in the URL (reservation param)
         // TODO: NG-DISABLE DOESNT WORK
-        // scope.hasPropertySelection = !$stateParams.reservation;
+        scope.hasPropertySelection = !$stateParams.reservation;
       }
 
       function validateRate() {

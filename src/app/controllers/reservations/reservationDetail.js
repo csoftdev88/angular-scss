@@ -9,7 +9,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
             reservationService, preloaderFactory, modalService, userMessagesService,
-            propertyService, $q, breadcrumbsService, notificationService){
+            propertyService, $q, breadcrumbsService){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -100,10 +100,6 @@ angular.module('mobius.controllers.reservationDetail', [])
         // NOTE: This will enable editing
         reservation: reservation.reservationCode
       };
-
-      notificationService.show('You are currently editing: ' + reservation.reservationCode);
-      // NOTE: Info dialogue
-      modalService.openModifyingReservationDialogue(reservation.reservationCode);
 
       $state.go('hotel', bookingParams);
     };

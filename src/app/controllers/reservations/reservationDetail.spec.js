@@ -110,8 +110,6 @@ describe('mobius.controllers.reservationDetail', function() {
 
         $provide.value('$state', {});
 
-        $provide.value('notificationService', {});
-
         $controllerProvider.register('AuthCtrl', function($scope, config){
           config.onAuthorized();
         });
