@@ -3,9 +3,12 @@ notification-bar {
   width: 100%;
   bottom: 0px;
   display: block;
+  overflow: hidden;
 
   div {
     position: relative;
+    margin-top: -100px;
+    .transition;
 
     span {
       color: @c-white;
@@ -13,6 +16,11 @@ notification-bar {
       width: 100%;
       text-align: center;
       padding: @baseline * 1.5;
+
+    }
+
+    &.active {
+      margin-top: 0px;
     }
   }
 
