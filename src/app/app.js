@@ -94,6 +94,7 @@ angular
     'mobiusApp.directives.monthPicker',
     'mobiusApp.directives.hotelLocation',
     'mobiusApp.directives.emailCheck',
+    'mobiusApp.directives.notifications',
     // Common controllers
     'mobius.controllers.reservation.directive',
 
