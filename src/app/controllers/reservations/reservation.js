@@ -20,6 +20,11 @@ angular.module('mobius.controllers.reservation', [])
     });
   }
 
+  // Redirecting to details page
+  if($state.current.name === 'reservation'){
+    $state.go('reservation.details');
+  }
+
   var GUEST_DETAILS = 'Guest details';
   var BILLING_DETAILS = 'Billing details';
   var CONFIRMATION = 'Confirmation';
@@ -63,11 +68,6 @@ angular.module('mobius.controllers.reservation', [])
   });
 
   $scope.expirationMinDate = $window.moment().format('YYYY-MM');
-
-  // Redirecting to details page
-  if($state.current.name === 'reservation'){
-    $state.go('reservation.details');
-  }
 
   $scope.state = $state;
 
@@ -286,8 +286,14 @@ angular.module('mobius.controllers.reservation', [])
     userData.firstName = user.getUser().firstName;
     userData.lastName = user.getUser().lastName;
 
-    var promises = [reservationService.createReservation(reservationData)];
-
+    var promises = [];
+    if($stateParams.reservation){
+      // Updating existing reservation
+      promises.push(reservationService.modifyReservation($stateParams.reservation, reservationData));
+    }else{
+      // Creating a new reservation
+      promises.push(reservationService.createReservation(reservationData));
+    }
     if(reservationData.customer){
       // Updating user profile when
       promises.push(user.updateUser(userData));
@@ -299,7 +305,10 @@ angular.module('mobius.controllers.reservation', [])
         '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
         '');
 
-      $state.go('reservationDetail', {reservationCode: data[0].reservationCode});
+      $state.go('reservationDetail', {
+        reservationCode: data[0].reservationCode,
+        reservation: null
+      });
     }, function() {
       // TODO: Whaat request has failed
       $scope.invalidFormData = true;

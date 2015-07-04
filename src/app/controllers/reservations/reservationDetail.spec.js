@@ -105,7 +105,10 @@ describe('mobius.controllers.reservationDetail', function() {
             return breadcrumbs;
           }
         };
+
         $provide.value('breadcrumbsService', breadcrumbs);
+
+        $provide.value('$state', {});
 
         $controllerProvider.register('AuthCtrl', function($scope, config){
           config.onAuthorized();
