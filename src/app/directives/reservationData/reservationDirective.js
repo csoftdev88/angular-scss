@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.reservation.directive', [])
 
-.controller( 'ReservationDirectiveCtrl', function($scope, _) {
+.controller( 'ReservationDirectiveCtrl', function($scope, $state, _) {
   function getCount(prop){
     if(!$scope.reservation){
       return 0;
@@ -37,4 +37,6 @@ angular.module('mobius.controllers.reservation.directive', [])
   $scope.getPriceAfterTax = function(){
     return getCount('priceAfterTax');
   };
+
+  $scope.$state = $state;
 });

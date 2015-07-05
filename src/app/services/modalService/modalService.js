@@ -69,6 +69,40 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openModifyingReservationDialogue(reservationCode){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/modifyReservation.html', CONTROLLER_DATA, {
+      windowClass: 'details reservation-modification',
+      resolve: {
+        data: function(){
+          return {reservationCode: reservationCode};
+        }
+      }
+    });
+  }
+
+  function openReservationModifyingDisabledDialogue(){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/cannotModify.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details reservation-modification'
+    });
+  }
+
+  function openReservationCancelingDisabledDialogue(){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/cannotCancel.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details reservation-modification'
+    });
+  }
+
+  function openReservationModificationCanceledDialogue(reservationCode){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/modificationCanceled.html', CONTROLLER_DATA, {
+      windowClass: 'details reservation-modification',
+      resolve: {
+        data: function(){
+          return {reservationCode: reservationCode};
+        }
+      }
+    });
+  }
+
   function openConfirmationDialog(setup) {
     return openDialog('ConfirmationDialog', 'layouts/modals/confirmationDialog.html', CONTROLLER_CONFIRMATION, {
       windowClass: 'is-wide has-white-bg',
@@ -215,7 +249,13 @@ angular.module('mobiusApp.services.modal', [])
 
   // Public methods
   return {
+    // Reservations
+    openModifyingReservationDialogue: openModifyingReservationDialogue,
     openCancelReservationDialog: openCancelReservationDialog,
+    openReservationModifyingDisabledDialogue: openReservationModifyingDisabledDialogue,
+    openReservationCancelingDisabledDialogue: openReservationCancelingDisabledDialogue,
+    openReservationModificationCanceledDialogue: openReservationModificationCanceledDialogue,
+
     openConfirmationDialog: openConfirmationDialog,
     openAddonDetailDialog: openAddonDetailDialog,
     openCCVInfo: openCCVInfo,
