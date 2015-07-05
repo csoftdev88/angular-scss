@@ -106,7 +106,7 @@
 
     <list-items class="grid-view">
       <list-item
-        ng-repeat="otherRoom in otherRooms"
+        ng-repeat="otherRoom in otherRooms | orderBy:'priceFrom'"
         ng-click="onClickOnAssociatedRoom(otherRoom)"
         class="with-special-hover">
         <figure ng-show="otherRoom.images[0]">
