@@ -96,7 +96,7 @@
                     <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
                   </span>
                 </p>
-                <p ng-if="!room.priceFrom">Please select dates to see the price</p>
+                <p ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
                 <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="button">_view_more_</a>
               </div>
