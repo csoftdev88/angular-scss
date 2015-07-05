@@ -3,7 +3,8 @@
 * This service controls opening of all dialogs in the application
 */
 angular.module('mobiusApp.services.modal', [])
-.service( 'modalService',  function($modal, $q, $log, $modalStack, queryService, preloaderFactory, userMessagesService, reservationService) {
+.service( 'modalService',  function($modal, $q, $log, $modalStack,
+    queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
@@ -38,34 +39,9 @@ angular.module('mobiusApp.services.modal', [])
 
   function openCancelReservationDialog(reservationCode){
     // Accepting reservation data to be rendered in modal window
-    //return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelReservationDialog.html', CONTROLLER_DATA, {
-    //  windowClass: 'is-wide has-white-bg',
-    //  resolve: {data: function(){return reservation;}}
-    //});
-
-    function cancelFunc(reservationCode) {
-      var reservationPromise = reservationService.cancelReservation(reservationCode).then(
-        function() {
-          // TODO ?
-          return true;
-        },
-        function(error) {
-          if (error && error.error && error.error.msg) {
-            userMessagesService.addInfoMessage('<p>' + error.error.msg + '</p>');
-          } else {
-            userMessagesService.addInfoMessage('<p>Unknown error</p>');
-          }
-          return true;
-        }
-      );
-
-      preloaderFactory(reservationPromise);
-      return reservationPromise;
-    }
-    return openConfirmationDialog({
-      question: 'Are you sure you want to cancel this reservation?',
-      yesCallback: cancelFunc.bind(null, reservationCode),
-      yes: 'I want to cancel this reservation'
+    return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelReservationDialog.html', CONTROLLER_DATA, {
+      windowClass: 'details confirmation-dialog',
+      resolve: {data: function(){return reservationCode;}}
     });
   }
 
@@ -105,7 +81,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openConfirmationDialog(setup) {
     return openDialog('ConfirmationDialog', 'layouts/modals/confirmationDialog.html', CONTROLLER_CONFIRMATION, {
-      windowClass: 'is-wide has-white-bg',
+      windowClass: 'details confirmation-dialog',
       resolve: {setup: function(){return setup;}}
     });
   }
@@ -156,8 +132,6 @@ angular.module('mobiusApp.services.modal', [])
     case undefined:
       // do nothing
       break;
-    case 'CancelReservationDialog':
-      return openCancelReservationDialog();
     case 'CCVInfo':
       return openCCVInfo();
     case 'PoliciesInfo':
