@@ -34,6 +34,7 @@ local-info {
   .weather-loop( @item, @i ) when ( @i =< length( @icons ) ){
     .weather-@{item} {
       background-image: url("../images/v4/weather/@{item}.png");
+      background-size: cover;
     }
     .weather-loop( extract(@icons, @i + 1 ), @i + 1 );
   }
@@ -43,8 +44,8 @@ local-info {
 
 span[class^="weather-"] {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   vertical-align: bottom;
   margin-left: @baseline / 2;
   background-repeat: no-repeat;
