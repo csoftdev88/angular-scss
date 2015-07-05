@@ -18,11 +18,11 @@
 <div ng-if="active">
   <booking-widget
     hide-bar="setActive(active)"
-    ng-if="active === BOOKING || active === ADVANCED_BOOKING"
+    ng-if="!isCollapsed && (active === BOOKING || active === ADVANCED_BOOKING)"
     advanced="active === ADVANCED_BOOKING">
   </booking-widget>
 
   <my-account
-    ng-if="active === MY_ACCOUNT">
+    ng-if="!isCollapsed && active === MY_ACCOUNT">
   </my-account>
 </div>

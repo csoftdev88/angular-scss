@@ -35,6 +35,7 @@ angular
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
     'mobius.controllers.reservationDetail',
+    'mobius.controllers.reservationUpdate',
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
 
@@ -96,6 +97,7 @@ angular
     'mobiusApp.directives.monthPicker',
     'mobiusApp.directives.hotelLocation',
     'mobiusApp.directives.emailCheck',
+    'mobiusApp.directives.notifications',
     // Common controllers
     'mobius.controllers.reservation.directive',
 
@@ -125,7 +127,8 @@ angular
     'mobiusApp.filters.pluralization',
     'mobiusApp.filters.dateTime',
     'mobiusApp.filters.checkInDate',
-    'mobiusApp.filters.cloudinaryImage'
+    'mobiusApp.filters.cloudinaryImage',
+    'mobiusApp.filters.truncate'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -141,7 +144,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode'
+        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation'
       })
 
       // Home page
@@ -162,14 +165,21 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:propertyCode'
+        url: '/hotels/:propertyCode',
+        data: {
+          // Route is also used for reservation updates
+          supportsEditMode: true
+        }
       })
 
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
-        url: '/hotels/:propertyCode/rooms/:roomID'
+        url: '/hotels/:propertyCode/rooms/:roomID',
+        data: {
+          supportsEditMode: true
+        }
       })
 
       .state('reservations', {
@@ -197,7 +207,10 @@ angular
         parent: 'root',
         templateUrl: 'layouts/reservations/reservation/reservation.html',
         url: '/reservation/:roomID/:productCode',
-        controller: 'ReservationCtrl'
+        controller: 'ReservationCtrl',
+        data: {
+          supportsEditMode: true
+        }
       })
 
       .state('reservation.details', {
@@ -269,4 +282,8 @@ angular
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
+  })
+
+  .controller('BaseCtrl', function($scope, $controller){
+    $controller('ReservationUpdateCtrl', {$scope: $scope});
   });

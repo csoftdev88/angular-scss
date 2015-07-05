@@ -1,6 +1,6 @@
 <hero-slider content="heroContent"></hero-slider>
 
-<breadcrumbs></breadcrumbs>
+<breadcrumbs id="breadcrumbs"></breadcrumbs>
 
 <main class="grid-wrapper">
 
@@ -75,7 +75,7 @@
               Per Stay
             </a>
           </pricing-switch>
-          <list-item ng-repeat="room in rooms | limitTo: roomLimit">
+          <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
             <a ui-sref="room({propertyCode: details.code, roomID: room.code})">
               <figure>
                 <img ng-src="{{room.images[0].uri | cloudinaryImage : 153 : 65 : 'fill'}}" alt="{{room.name}}">

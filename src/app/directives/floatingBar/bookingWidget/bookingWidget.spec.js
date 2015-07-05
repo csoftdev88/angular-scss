@@ -120,6 +120,8 @@ describe('bookingWidget', function() {
 
       $provide.value('modalService', {});
 
+      $provide.value('$stateParams', {});
+
       $provide.value('Settings', {
         UI: {
           bookingWidget: settings || TEST_SETTINGS

@@ -29,6 +29,11 @@
   transition: 0.2s all;
 }
 
+// When updating existing reservation
+.chosen-container.disabled {
+  background: lighten(@c-link, 20%);
+}
+
 .chosen-container .chosen-drop {
   position: absolute;
   top: 100%;
@@ -43,7 +48,6 @@
   background: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
 }
-
 
 .chosen-container.chosen-with-drop .chosen-drop {
   left: 0;

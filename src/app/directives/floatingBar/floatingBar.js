@@ -11,6 +11,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         MY_ACCOUNT = 'myAccount';
 
     var active = BOOKING;
+    var isCollapsed = false;
 
     return {
       restrict: 'E',
@@ -24,17 +25,21 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.MY_ACCOUNT = MY_ACCOUNT;
 
         scope.setActive = function(newActive) {
-          if (newActive === scope.active) {
-            scope.active = false;
-          } else {
-            scope.active = newActive;
+          if(scope.active === newActive){
+            scope.isCollapsed = !scope.isCollapsed;
+          }else if(scope.active && scope.isCollapsed){
+            // Expanding when clicked on another tab
+            scope.isCollapsed = false;
           }
-          // Set class on root element, so we can change
-          // bottom margin of footer
-          $el.toggleClass('active', !!scope.active);
+
+          $el.toggleClass('active', scope.isCollapsed);
+
+          scope.active = newActive;
           active = scope.active; // preserve between pages
+          isCollapsed = scope.isCollapsed;
         };
 
+        scope.isCollapsed = isCollapsed;
         scope.setActive(active);
       }
     };
