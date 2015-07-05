@@ -111,7 +111,20 @@ angular.module('mobius.controllers.reservationDetail', [])
         return;
       }
 
-      modalService.openCancelReservationDialog($stateParams.reservationCode);
+      modalService.openCancelReservationDialog($stateParams.reservationCode).then(function(){
+        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode)
+        .then(function(){
+          $state.go('reservations');
+        }, function(error){
+          if (error && error.error && error.error.msg) {
+            userMessagesService.addInfoMessage('<p>' + error.error.msg + '</p>');
+          } else {
+            userMessagesService.addInfoMessage('<p>Unknown error</p>');
+          }
+        });
+
+        preloaderFactory(reservationPromise);
+      });
     };
 
     // NOTE: Same is in reservationDirective - unify

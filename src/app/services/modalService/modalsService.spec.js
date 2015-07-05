@@ -26,8 +26,6 @@ describe('mobiusApp.services.modal', function() {
       });
 
       $provide.value('preloaderFactory', {});
-      $provide.value('userMessagesService', {});
-      $provide.value('reservationService', {});
     });
   });
 
