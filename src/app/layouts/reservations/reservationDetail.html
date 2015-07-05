@@ -134,10 +134,9 @@
 
     <hr>
 
-    <section grid-row class="reservation-enhancements">
+    <section grid-row class="reservation-enhancements" ng-if="reservation.packages.length">
       <h3>Your Enhancements</h3>
-
-      <ul ng-if="reservation.packages.length">
+      <ul>
         <li ng-repeat="addonCode in reservation.packages" grid="{{Math.floor( 12 / reservation.packages.length)}}">
           <img ng-src="{{addons[addonCode].images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
           <h4>{{addons[addonCode].name}}</h4>
@@ -153,7 +152,6 @@
           <p>Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
         </li>
       </ul>
-      <p ng-if="!reservation.packages.length">No enhancements chosen</p>
     </section>
   </reservation-finished>
 </main>
