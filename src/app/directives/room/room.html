@@ -71,21 +71,18 @@
   </section>
 
 
-  <div grid-row>
-    <div grid="12">
-      <h2>Room <strong>Description</strong></h2>
-      <p ng-bind-html="sanitize(roomDetails.description)"></p>
-    </div>
-  </div>
+  <section>
+    <h2>Room <strong>Description</strong></h2>
+    <p ng-bind-html="sanitize(roomDetails.description)"></p>
 
-  <section ng-if="roomDetails.images.length" class="room-gallery">
-    <ul ng-if="roomDetails.images.length" class="room-gallery">
+    <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
       <li ng-repeat="image in roomDetails.images" ng-click="openGallery()">
         <figure>
           <img ng-src="{{image.uri | cloudinaryImage : 150 : 65 : 'fill'}}" alt="{{image.alt}}" />
         </figure>
       </li>
     </ul>
+
     <hr />
   </section>
 
