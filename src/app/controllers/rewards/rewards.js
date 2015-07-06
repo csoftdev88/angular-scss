@@ -5,67 +5,30 @@
 angular.module('mobius.controllers.rewards', [])
 
   .controller('RewardsCtrl', function($scope, $controller, rewardsService,
-         $state, $stateParams, _, breadcrumbsService, modalService) {
+         $state, $stateParams, _, breadcrumbsService, modalService, user) {
 
     $controller('MainCtrl', {$scope: $scope});
 
+    var userObj = user.getUser();
+    console.log(userObj);
+
     breadcrumbsService.addBreadCrumb('My Rewards');
 
-    console.log('rewards ctrol');
-
-    
     var NUMBER_OF_RELEVANT_REWARDS = 3;
 
     var selectRewardIndex;
 
     $scope.showDetail = $stateParams.code ? true : false;
 
-    /*
-    $scope.rewardsList = [
-      {
-        'image': {
-          'uri': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1435679651/SAN/offers/government-offer.jpg',
-          'alt': 'image'
-        },
-        'URI': '/api/2.7.1/rewards/FREEUP',
-        'code': 'Freeup',
-        'name': 'free upgrade',
-        'desc': 'present this reward on check in to get a free upgrade',
-        'pointCost': '450'
-      },
-      {
-        'image': {
-          'uri': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1435679651/SAN/offers/government-offer.jpg',
-          'alt': 'image'
-        },
-        'URI': '/api/2.7.1/rewards/FREEUP',
-        'code': 'Freeup',
-        'name': 'free upgrade',
-        'desc': 'present this reward on check in to get a free upgrade',
-        'pointCost': '450'
-      },
-      {
-        'image': {
-          'uri': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1435679651/SAN/offers/government-offer.jpg',
-          'alt': 'image'
-        },
-        'URI': '/api/2.7.1/rewards/FREEUP',
-        'code': 'Freeup',
-        'name': 'free upgrade',
-        'desc': 'present this reward on check in to get a free upgrade',
-        'pointCost': '450'
-      }
-    ];
-    */
-
-
     
-    rewardsService.getAll().then(function(response) {
+    /*
+    rewardsService.getAll(userId).then(function(response) {
       $scope.rewardsList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
         //selectReward($stateParams.code);
       }
     });
+    */
 
 
     $scope.getRelevant = function(reward, index) {

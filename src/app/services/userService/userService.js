@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.user', [])
   .service('user', function($rootScope, $q, $window,
-    userObject, apiService, _, loyaltyService, cookieFactory) {
+    userObject, apiService, _, loyaltyService, cookieFactory, rewardsService) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'MobiusID';
@@ -64,7 +64,7 @@ angular.module('mobiusApp.services.user', [])
         // Loading profile data and users loyelties
         return $q.all([
           apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
-          loadLoyalties(customerId)
+          loadLoyalties(customerId), loadRewards(customerId)
         ]).then(function(data){
           // NOTE: data[0] is userProfile data
           // data[1] is loyalties data - handled in loadLoyalties function
@@ -85,6 +85,16 @@ angular.module('mobiusApp.services.user', [])
         userObject.loyalties = loyalties;
 
         return loyalties;
+      });
+    }
+
+    function loadRewards(customerId){
+      customerId = customerId || getCustomerId();
+
+      return rewardsService.getAll(customerId).then(function(rewards){
+        userObject.rewards = rewards;
+
+        return rewards;
       });
     }
 
