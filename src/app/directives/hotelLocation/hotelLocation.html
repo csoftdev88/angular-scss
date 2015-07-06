@@ -34,8 +34,8 @@
     <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
       <i class="fa fa-phone"></i>
       <strong>Telephone:</strong>
-      <span ng-if="hotelDetails.tel1">{{hotelDetails.tel1}}</span>
-      <span ng-if="hotelDetails.tel2">{{hotelDetails.tel2}}</span>
+      <span ng-if="hotelDetails.tel1"><a href="tel:{{hotelDetails.tel1}}">{{hotelDetails.tel1}}</a></span>
+      <span ng-if="hotelDetails.tel2"><a href="tel:{{hotelDetails.tel2}}">{{hotelDetails.tel2}}</a></span>
     </div>
   </contact-item>
 
