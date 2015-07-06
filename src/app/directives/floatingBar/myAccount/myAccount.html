@@ -9,7 +9,7 @@
 <div ng-if="user.isLoggedIn()">
 
   <article ng-show="displaySettings.profile" ng-click="sso.profile()">
-    <img ng-src="{{user.getUser().avatar}}" err-source="/static/images/v4/img-profile.png">
+    <img ng-src="{{user.getUser().avatarUrl}}" err-source="/static/images/v4/img-profile.png">
     <h4>{{user.getUser().firstName}} {{user.getUser().lastName}}</h4>
     <p>{{user.getUser().loyalties.tier}} _tier_</p>
     <p>{{user.getUser().loyalties.amount}} _points_</p>
