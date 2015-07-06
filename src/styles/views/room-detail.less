@@ -22,40 +22,38 @@ hotel-room {
     margin-bottom: 2*@baseline;
   }
 
+  p {
+    color: @c-hr;
+  }
+
+  //room gallery is the ul
   .room-gallery {
     margin: @baseline 0px;
+    .clearfix;
 
-    p {
-      color: @c-hr;
+    li {
+      float: left;
+      display: block;
+      margin: @baseline/2 @baseline/2 0 @baseline/2;
+      padding: 0;
+      width: 150px;
+
+      cursor: pointer;
     }
 
-    ul {
-      margin: @baseline -@baseline/2;
-      .clearfix;
+    figure {
+      position: static;
+      width: 100%;
+      height: @list-item-min-height;
+      overflow: hidden;
+      margin-bottom: @baseline/2;
 
-      li {
-        float: left;
-        display: block;
-        margin: @baseline/2 @baseline/2 0 @baseline/2;
-        padding: 0;
-        width: 150px;
-
-        cursor: pointer;
-      }
-
-      figure {
-        position: static;
+      img {
         width: 100%;
-        height: @list-item-min-height;
-        overflow: hidden;
-        margin-bottom: @baseline/2;
-
-        img {
-          width: 100%;
-          display: block;
-        }
+        display: block;
       }
     }
+    
   }
 }
 
