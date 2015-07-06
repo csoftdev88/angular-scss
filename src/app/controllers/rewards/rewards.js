@@ -20,6 +20,7 @@ angular.module('mobius.controllers.rewards', [])
 
     $scope.showDetail = $stateParams.code ? true : false;
 
+    /*
     $scope.rewardsList = [
       {
         'image': {
@@ -55,16 +56,17 @@ angular.module('mobius.controllers.rewards', [])
         'pointCost': '450'
       }
     ];
+    */
 
 
-    /*
+    
     rewardsService.getAll().then(function(response) {
       $scope.rewardsList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
-        selectReward($stateParams.code);
+        //selectReward($stateParams.code);
       }
     });
-*/
+
 
     $scope.getRelevant = function(reward, index) {
       var offset = selectRewardIndex < NUMBER_OF_RELEVANT_REWARDS ? 1 : 0;

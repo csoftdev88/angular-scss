@@ -482,6 +482,8 @@ reservation-confirmation {
 ////////////////////////////////
 reservation-finished {
   position: relative;
+  display: block;
+  margin-top: 2*@baseline;
 
   // Headings
   section > h3,
@@ -654,6 +656,10 @@ reservation-finished {
   .reservation-enhancements {
 
   }
+
+  .button.disabled {
+    .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
+  }
 }
 
 
@@ -687,7 +693,7 @@ reservation-hotel-details {
       color: @c-brown;
       font-size: @size-3;
       font-weight: 600;
-      line-height: 2 * @baseline;
+      line-height: @baseline;
     }
 
     .reference {
@@ -792,5 +798,11 @@ reservation-hotel-details {
       font-size: @size-2;
       font-weight: 700;
     }
+  }
+}
+
+.reservation-summary {
+  &[ng-click] {
+    cursor: pointer;
   }
 }

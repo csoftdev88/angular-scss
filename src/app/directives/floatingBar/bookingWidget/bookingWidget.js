@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($controller, $filter, $state, $window,
-  modalService, bookingService, queryService, validationService,
+  $stateParams, modalService, bookingService, queryService, validationService,
   propertyService, locationService, filtersService, Settings, $q){
   return {
     restrict: 'E',
@@ -207,6 +207,11 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             validateRate();
           });
         }
+
+        // NOTE: Property dropdown is disable when reservationCode is presented
+        // in the URL (reservation param)
+        // TODO: NG-DISABLE DOESNT WORK
+        scope.hasPropertySelection = !$stateParams.reservation;
       }
 
       function validateRate() {

@@ -3,7 +3,7 @@
   <h3>Make <br> Your <strong>Booking</strong></h3>
 
   <!-- FIND YOUR HOTEL -->
-  <form-element class="hotel">
+  <form-element class="hotel" ng-show="hasPropertySelection">
     <select name="regionHotels" required chosen
             disable-search="false"
             data-placeholder="Region / Location / Hotel"
@@ -14,6 +14,15 @@
       <option></option> <!-- workaround for a bug in angular-chosen  -->
     </select>
     <form-label>Find Your Hotel</form-label>
+  </form-element>
+
+  <form-element class="hotel" ng-show="!hasPropertySelection">
+    <div class="chosen-container chosen-container-single disabled">
+      <a class="chosen-single" tabindex="-1">
+        <span>{{regionPropertySelected.name}}</span>
+        <div><b></b></div>
+      </a>
+    </div>
   </form-element>
 
   <!-- ENTER YOUR DATES -->

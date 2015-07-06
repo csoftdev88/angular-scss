@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService, $controller) {
+  $window, advertsService, $controller, $timeout) {
 
   $controller('PriceCtr', {$scope: $scope});
 
@@ -18,16 +18,23 @@ angular.module('mobius.controllers.hotel.details', [])
 
   var propertyCode = bookingParams.propertyCode;
 
-  function scrollTo(hash) {
+  // TODO: Change to a classic selectors . #
+  function scrollTo(hash, speed, offset) {
     $window._.defer(function () {
       var $item = angular.element('#' + hash);
       if($item.length) {
         angular.element('html, body').animate({
-          scrollTop: $item.offset().top
-        }, 300);
+          scrollTop: $item.offset().top + offset
+        }, speed || 300);
       }
     });
   }
+
+  $scope.scrollToBreadcrumbs = function(){
+    $timeout(function(){
+      scrollTo('breadcrumbs', 1200, -angular.element('#main-header').height());
+    }, 0);
+  };
 
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
@@ -52,12 +59,12 @@ angular.module('mobius.controllers.hotel.details', [])
           .addHref('About', 'jsAbout')
           .addHref('Location', 'jsLocation')
           .addHref('Offers', 'jsOffers')
-          .addHref('Rooms', 'jsRooms');
+          .addHref('Rooms', 'jsRooms')
+          .addHref('Gallery', 'fnOpenLightBox');
 
         // Updating Hero content images
         if(details.images){
           $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));
-
 
           // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
           // Current version of PhantomJS is missing not supporting .bind
@@ -93,6 +100,9 @@ angular.module('mobius.controllers.hotel.details', [])
             breadcrumbsService.removeHref('Offers');
           }
         });
+
+        $scope.scrollToBreadcrumbs();
+
       }, function() {
         $state.go('hotels');
       });

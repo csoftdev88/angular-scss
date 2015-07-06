@@ -3,7 +3,8 @@
 * This service controls opening of all dialogs in the application
 */
 angular.module('mobiusApp.services.modal', [])
-.service( 'modalService',  function($modal, $q, $log, $modalStack, queryService, preloaderFactory, userMessagesService, reservationService) {
+.service( 'modalService',  function($modal, $q, $log, $modalStack,
+    Settings, queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
@@ -38,40 +39,49 @@ angular.module('mobiusApp.services.modal', [])
 
   function openCancelReservationDialog(reservationCode){
     // Accepting reservation data to be rendered in modal window
-    //return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelReservationDialog.html', CONTROLLER_DATA, {
-    //  windowClass: 'is-wide has-white-bg',
-    //  resolve: {data: function(){return reservation;}}
-    //});
+    return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelReservationDialog.html', CONTROLLER_DATA, {
+      windowClass: 'details confirmation-dialog',
+      resolve: {data: function(){return reservationCode;}}
+    });
+  }
 
-    function cancelFunc(reservationCode) {
-      var reservationPromise = reservationService.cancelReservation(reservationCode).then(
-        function() {
-          // TODO ?
-          return true;
-        },
-        function(error) {
-          if (error && error.error && error.error.msg) {
-            userMessagesService.addInfoMessage('<p>' + error.error.msg + '</p>');
-          } else {
-            userMessagesService.addInfoMessage('<p>Unknown error</p>');
-          }
-          return true;
+  function openModifyingReservationDialogue(reservationCode){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/modifyReservation.html', CONTROLLER_DATA, {
+      windowClass: 'details reservation-modification',
+      resolve: {
+        data: function(){
+          return {reservationCode: reservationCode};
         }
-      );
+      }
+    });
+  }
 
-      preloaderFactory(reservationPromise);
-      return reservationPromise;
-    }
-    return openConfirmationDialog({
-      question: 'Are you sure you want to cancel this reservation?',
-      yesCallback: cancelFunc.bind(null, reservationCode),
-      yes: 'I want to cancel this reservation'
+  function openReservationModifyingDisabledDialogue(){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/cannotModify.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details reservation-modification'
+    });
+  }
+
+  function openReservationCancelingDisabledDialogue(){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/cannotCancel.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details reservation-modification'
+    });
+  }
+
+  function openReservationModificationCanceledDialogue(reservationCode){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/modificationCanceled.html', CONTROLLER_DATA, {
+      windowClass: 'details reservation-modification',
+      resolve: {
+        data: function(){
+          return {reservationCode: reservationCode};
+        }
+      }
     });
   }
 
   function openConfirmationDialog(setup) {
     return openDialog('ConfirmationDialog', 'layouts/modals/confirmationDialog.html', CONTROLLER_CONFIRMATION, {
-      windowClass: 'is-wide has-white-bg',
+      windowClass: 'details confirmation-dialog',
       resolve: {setup: function(){return setup;}}
     });
   }
@@ -122,8 +132,6 @@ angular.module('mobiusApp.services.modal', [])
     case undefined:
       // do nothing
       break;
-    case 'CancelReservationDialog':
-      return openCancelReservationDialog();
     case 'CCVInfo':
       return openCCVInfo();
     case 'PoliciesInfo':
@@ -155,8 +163,22 @@ angular.module('mobiusApp.services.modal', [])
   function openLoyaltyDialog(loyalty){
     $modalStack.dismissAll();
 
+    var position = 1;
+
+    if(Settings.UI.myAccount && Settings.UI.myAccount.displaySettings){
+      var items = Settings.UI.myAccount.displaySettings;
+
+      if(items.profile){
+        position++;
+      }
+
+      if(items.badges){
+        position++;
+      }
+    }
+
     return openDialog('Loyalties', 'layouts/modals/loyalties/loyalty.html', CONTROLLER_DATA, {
-      windowClass: 'dialog-loyalty',
+      windowClass: 'dialog-loyalty' + (position?' position-' + position: ''),
       backdropClass: 'modal-footer',
       resolve: {
         data: function(){
@@ -215,7 +237,13 @@ angular.module('mobiusApp.services.modal', [])
 
   // Public methods
   return {
+    // Reservations
+    openModifyingReservationDialogue: openModifyingReservationDialogue,
     openCancelReservationDialog: openCancelReservationDialog,
+    openReservationModifyingDisabledDialogue: openReservationModifyingDisabledDialogue,
+    openReservationCancelingDisabledDialogue: openReservationCancelingDisabledDialogue,
+    openReservationModificationCanceledDialogue: openReservationModificationCanceledDialogue,
+
     openConfirmationDialog: openConfirmationDialog,
     openAddonDetailDialog: openAddonDetailDialog,
     openCCVInfo: openCCVInfo,

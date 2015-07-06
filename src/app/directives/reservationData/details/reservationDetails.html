@@ -28,7 +28,7 @@
   Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}
  -->
 
-  <section grid-row class="reservation-summary">
+  <section grid-row class="reservation-summary" ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
     <header>
       <h1>{{property.nameLong}}</h1>
 

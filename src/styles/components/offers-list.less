@@ -17,6 +17,8 @@ offers-list {
     overflow: hidden;
     margin: 0 @baseline/2 @baseline @baseline/2;
     width: ~"calc(33% - 20px)";
+    position: relative;
+    font-weight: 300;
 
     border: 1px solid @c-light-grey;
     box-shadow: 0 1px 2px @c-light-grey;
@@ -88,8 +90,11 @@ offers-list {
     span {
       display: block;
       color: @c-link;
-      margin-bottom: 2*@baseline;
       font-weight: 600;
+      position: absolute;
+      bottom: 16px;
+      left: 0px;
+      right: 0px;
     }
 
     //- Advert Offer

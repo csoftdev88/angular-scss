@@ -30,7 +30,7 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
             }, []);
 
             var lastEarnedBadge = badges ? _.chain(badges).filter('earned').sortBy('earned').last().value() : {};
-            if (lastEarnedBadge.earned) {
+            if (lastEarnedBadge && lastEarnedBadge.earned) {
               scope.lastBadge = lastEarnedBadge;
               scope.lastBadge.displayedDate = $window.moment(
                 scope.lastBadge.earned, 'YYYY-MM-DD'

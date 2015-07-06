@@ -52,11 +52,12 @@ describe('bookingWidget', function() {
       expect(env.scope.active).equal(active);
     });
 
-    it('should unset active element', function() {
+    it('should set isCollapsed', function() {
       var active = 'some-active';
       env.scope.setActive(active);
+      expect(env.scope.isCollapsed).equal(false);
       env.scope.setActive(active);
-      expect(env.scope.active).equal(false);
+      expect(env.scope.isCollapsed).equal(true);
     });
   });
 });
