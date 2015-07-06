@@ -5,11 +5,9 @@
 angular.module('mobius.controllers.rewards', [])
 
   .controller('RewardsCtrl', function($scope, $controller, rewardsService,
-         $state, $stateParams, _, breadcrumbsService, modalService, user) {
+         $state, $stateParams, _, breadcrumbsService, modalService) {
 
     $controller('MainCtrl', {$scope: $scope});
-
-    var userObj = user.getUser();
 
     breadcrumbsService.addBreadCrumb('My Rewards');
 
