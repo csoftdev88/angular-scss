@@ -5,8 +5,10 @@
 angular.module('mobiusApp.services.rewards', [])
 .service( 'rewardsService',  function(apiService) {
 
-  function getAll(params){
-    return apiService.get(apiService.getFullURL('rewards.all'), params);
+  function getAll(userId){
+    return apiService.get(apiService.getFullURL('rewards.all'), {
+      customerId: userId
+    });
   }
 
   function getRewardDetails(rewardCode, params){
