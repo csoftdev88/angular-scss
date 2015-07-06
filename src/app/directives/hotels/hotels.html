@@ -34,10 +34,22 @@
           <a href="">
             <div class="item-image">
               <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
-              <ul class="star-rating">
-                <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
-              </ul>
             </div>
+
+            <div class="ratings">
+              <div class="stars rating-trip-advisor">
+                <ul class="stars-left">
+                  <li ng-repeat="rating in [1,2,3,4,5]" ng-class="{included: rating <= hotel.tripAdvisorRating}"></li>
+                </ul>
+              </div>
+
+              <div class="rating-default">
+                <ul class="star-rating">
+                  <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
+                </ul>
+              </div>
+            </div>
+
             <h2>The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
               <p ng-if="hotel.available">
@@ -108,10 +120,10 @@
       <!-- Out of scope now -->
       <!--<h3>Amenities</h3>-->
       <!--<hr>-->
-      <h3>Location</h3>
+      <!-- <h3>Location</h3>
       <select name="location" ng-model="location" data-placeholder="Select a location" chosen ng-options="location.nameShort for location in locations" ng-change="loadLocation()">
-        <option></option> <!-- workaround for a bug in angular-chosen -->
-      </select>
+        <option></option> --> <!-- workaround for a bug in angular-chosen -->
+      <!-- </select> -->
     </div>
   </aside>
 </div>

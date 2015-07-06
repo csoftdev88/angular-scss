@@ -23,6 +23,7 @@ angular.module('mobius.controllers.hotel.details', [])
     $window._.defer(function () {
       var $item = angular.element('#' + hash);
       if($item.length) {
+        offset = offset || 0;
         angular.element('html, body').animate({
           scrollTop: $item.offset().top + offset
         }, speed || 300);
@@ -59,7 +60,8 @@ angular.module('mobius.controllers.hotel.details', [])
           .addHref('About', 'jsAbout')
           .addHref('Location', 'jsLocation')
           .addHref('Offers', 'jsOffers')
-          .addHref('Rooms', 'jsRooms');
+          .addHref('Rooms', 'jsRooms')
+          .addHref('Gallery', 'fnOpenLightBox');
 
         // Updating Hero content images
         if(details.images){
