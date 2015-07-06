@@ -10,7 +10,7 @@ angular.module('mobius.controllers.rewards', [])
     $controller('MainCtrl', {$scope: $scope});
 
     var userObj = user.getUser();
-    console.log(userObj);
+    console.log(userObj.rewards);
 
     breadcrumbsService.addBreadCrumb('My Rewards');
 
