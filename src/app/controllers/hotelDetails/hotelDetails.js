@@ -23,6 +23,7 @@ angular.module('mobius.controllers.hotel.details', [])
     $window._.defer(function () {
       var $item = angular.element('#' + hash);
       if($item.length) {
+        offset = offset || 0;
         angular.element('html, body').animate({
           scrollTop: $item.offset().top + offset
         }, speed || 300);
