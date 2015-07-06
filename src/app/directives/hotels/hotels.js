@@ -169,6 +169,10 @@ angular.module('mobiusApp.directives.hotels', [])
         );
       };
 
+      scope.hasDates = function(){
+        return bookingService.APIParamsHasDates();
+      };
+
       scope.openLocationDetail = modalService.openLocationDetail;
     }
   };
