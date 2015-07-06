@@ -47,6 +47,7 @@ describe('rewardsService', function() {
     env.apiGetFullURLSpy.restore();
   });
 
+  /*
   describe('getAll', function() {
     it('should fire a GET request to rewards API', function() {
       env.rewardsService.getAll();
@@ -57,7 +58,7 @@ describe('rewardsService', function() {
     });
   });
 
-  /*
+  
 
   describe('getRewardsDetails', function(){
     it('should fire a GET request to rewards details API', function(){

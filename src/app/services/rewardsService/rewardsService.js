@@ -3,12 +3,21 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.rewards', [])
-.service( 'rewardsService',  function(apiService) {
+.service( 'rewardsService',  function(apiService, $q) {
 
   function getAll(userId){
-    return apiService.get(apiService.getFullURL('rewards.all'), {
+
+    var q = $q.defer();
+
+    apiService.get(apiService.getFullURL('rewards.all', {
       customerId: userId
+    })).then(function(data){
+      q.resolve(data);
+    }, function(error){
+      q.reject(error);
     });
+
+    return q.promise;
   }
 
   function getRewardDetails(rewardCode, params){
