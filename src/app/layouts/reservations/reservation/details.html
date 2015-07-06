@@ -51,15 +51,7 @@
         <span>City</span>
       </label>
 
-      <label for="country" class="input-right">
-        <input type="text" id="country" required
-         placeholder="Country"
-         ng-model="userDetails.country"
-         name="country"/>
-        <span>Country</span>
-      </label>
-
-      <label for="state" class="input-left wide">
+      <label for="state" class="input-right">
         <input type="text" id="state" required
           placeholder="State / Region / Province"
           ng-model="userDetails.stateProvince"
@@ -67,12 +59,20 @@
         <span>State / Province</span>
       </label>
 
-      <label for="postal-code" class="input-right narrow ">
+      <label for="postal-code" class="input-left">
         <input type="text" id="postal-code" required
           placeholder="Zip Code"
           ng-model="userDetails.zip"
           name="zip"/>
         <span>Zip/Postal Code</span>
+      </label>
+
+      <label for="country" class="input-right">
+        <input type="text" id="country" required
+         placeholder="Country"
+         ng-model="userDetails.country"
+         name="country"/>
+        <span>Country</span>
       </label>
 
       <label class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
