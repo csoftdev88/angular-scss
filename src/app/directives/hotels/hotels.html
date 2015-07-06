@@ -34,10 +34,22 @@
           <a href="">
             <div class="item-image">
               <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
-              <ul class="star-rating">
-                <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
-              </ul>
             </div>
+
+            <div class="ratings">
+              <div class="stars rating-trip-advisor">
+                <ul class="stars-left">
+                  <li ng-repeat="rating in [1,2,3,4,5]" ng-class="{included: rating <= hotel.tripAdvisorRating}"></li>
+                </ul>
+              </div>
+
+              <div class="rating-default">
+                <ul class="star-rating">
+                  <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
+                </ul>
+              </div>
+            </div>
+
             <h2>The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
               <p ng-if="hotel.available">
