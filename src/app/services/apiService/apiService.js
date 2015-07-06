@@ -63,8 +63,6 @@ angular.module('mobiusApp.services.api', [])
       URL = URL.replace(':' + key, value);
     });
 
-    console.log('getFullURL :' + Settings.API.baseURL + URL);
-
     return Settings.API.baseURL + URL;
   }
 
