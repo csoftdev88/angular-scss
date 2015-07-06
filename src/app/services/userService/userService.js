@@ -69,6 +69,7 @@ angular.module('mobiusApp.services.user', [])
           // NOTE: data[0] is userProfile data
           // data[1] is loyalties data - handled in loadLoyalties function
           userObject = _.extend(userObject, data[0]);
+          userObject.avatar = userObject.avatar || '/static/images/v4/img-profile.png';
           // Logged in as mobius user
           authPromise.resolve(true);
         });
