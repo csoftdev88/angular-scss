@@ -26,6 +26,16 @@ describe('mobiusApp.services.modal', function() {
       });
 
       $provide.value('preloaderFactory', {});
+
+      $provide.value('Settings', {
+        UI: {
+          myAccount: {
+            displaySettings: {
+              profile: true
+            }
+          }
+        }
+      });
     });
   });
 
@@ -81,6 +91,11 @@ describe('mobiusApp.services.modal', function() {
 
       expect(_spyModalOpen.calledWith(sinon.match.has(
         'templateUrl', 'layouts/modals/loyalties/loyalty.html'))).equal(true);
+    });
+
+    it('should open the dialog and specify dialog position based on the settings', function() {
+      _modalService.openLoyaltyDialog();
+      expect(_spyModalOpen.args[0][0].windowClass).equal('dialog-loyalty position-2');
     });
   });
 
