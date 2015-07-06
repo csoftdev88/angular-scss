@@ -5,12 +5,9 @@
 angular.module('mobius.controllers.rewards', [])
 
   .controller('RewardsCtrl', function($scope, $controller, rewardsService,
-         $state, $stateParams, _, breadcrumbsService, modalService, user) {
+         $state, $stateParams, _, breadcrumbsService, modalService) {
 
     $controller('MainCtrl', {$scope: $scope});
-
-    var userObj = user.getUser();
-    console.log(userObj.rewards);
 
     breadcrumbsService.addBreadCrumb('My Rewards');
 
@@ -20,7 +17,7 @@ angular.module('mobius.controllers.rewards', [])
 
     $scope.showDetail = $stateParams.code ? true : false;
 
-    
+
     /*
     rewardsService.getAll(userId).then(function(response) {
       $scope.rewardsList = _.sortBy(response, 'prio').reverse();
@@ -53,7 +50,7 @@ angular.module('mobius.controllers.rewards', [])
         .addBreadCrumb($scope.selectedRewards.title);
     }
     */
-    
+
 
 
 
