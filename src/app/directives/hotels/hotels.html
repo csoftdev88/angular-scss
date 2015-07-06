@@ -58,7 +58,11 @@
                   <br />or <span class="value">{{hotel.minPointsRequired}}</span> points
                 </span>
               </p>
-              <p class="price unavailable" ng-if="!hotel.available">
+              <p class="price unavailable" ng-if="!hasDates()">
+                Please select your dates to see latest prices
+              </p>
+
+              <p class="price unavailable" ng-if="!hotel.available && hasDates()">
                 Not Available On Selected Dates
               </p>
             </pricing-info>
@@ -82,19 +86,21 @@
       </ul>
     </div>
     <div class="filters-bar">
-      <h2>Filter</h2>
-      <h3>Price per night</h3>
-      <div
-        range-slider
-        min="minPrice"
-        max="maxPrice"
-        model-min="minSelectedPrice"
-        model-max="maxSelectedPrice"
-        show-values="true"
-        filter="i18nCurrency"
-        filter-options="{{$root.currencyCode}}"
-        attach-handle-values="true"></div>
-      <hr>
+      <div ng-if="hasDates()">
+        <h2>Filter</h2>
+        <h3>Price per night</h3>
+        <div
+          range-slider
+          min="minPrice"
+          max="maxPrice"
+          model-min="minSelectedPrice"
+          model-max="maxSelectedPrice"
+          show-values="true"
+          filter="i18nCurrency"
+          filter-options="{{$root.currencyCode}}"
+          attach-handle-values="true"></div>
+        <hr>
+      </div>
       <h3>Star Rating</h3>
       <div class="stars">
         <ul class="stars-left">
