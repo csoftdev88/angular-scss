@@ -25,6 +25,16 @@ describe('userService', function() {
         }
       });
 
+      $provide.value('rewardsService', {
+        getAll: function(){
+          return {
+            then: function(c){
+              c();
+            }
+          };
+        }
+      });
+
       var apiService = {
         get: function(){
           return {
