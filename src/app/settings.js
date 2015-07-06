@@ -73,7 +73,7 @@ angular.module('mobiusApp.config', [])
       'Mobius-channelId': '6'
     },
     'rewards': {
-      'all': 'rewards/',
+      'all': 'rewards',
       'details': 'rewards/:rewardCode'
     }
   },
