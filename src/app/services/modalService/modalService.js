@@ -4,7 +4,7 @@
 */
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log, $modalStack,
-    queryService) {
+    Settings, queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
@@ -163,8 +163,22 @@ angular.module('mobiusApp.services.modal', [])
   function openLoyaltyDialog(loyalty){
     $modalStack.dismissAll();
 
+    var position = 1;
+
+    if(Settings.UI.myAccount && Settings.UI.myAccount.displaySettings){
+      var items = Settings.UI.myAccount.displaySettings;
+
+      if(items.profile){
+        position++;
+      }
+
+      if(items.badges){
+        position++;
+      }
+    }
+
     return openDialog('Loyalties', 'layouts/modals/loyalties/loyalty.html', CONTROLLER_DATA, {
-      windowClass: 'dialog-loyalty',
+      windowClass: 'dialog-loyalty' + (position?' position-' + position: ''),
       backdropClass: 'modal-footer',
       resolve: {
         data: function(){
