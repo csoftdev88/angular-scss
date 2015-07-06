@@ -2,10 +2,11 @@
 
 angular.module('mobiusApp.directives.breadcrumbs', [])
 
-  .directive('breadcrumbs', function(breadcrumbsService, _, $state) {
+  .directive('breadcrumbs', function( $state, breadcrumbsService, _,
+      modalService) {
     return {
       restrict: 'E',
-      scope: {},
+      scope: true,
       templateUrl: 'directives/breadcrumbs/breadcrumbs.html',
 
       // Widget logic goes here
@@ -40,12 +41,23 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
           unWatchActiveHref();
         });
 
+        // TODO: Unify across the app
         scope.scrollTo = function(href) {
+          // TODO - handle this in a better way
+          if(href === 'fnOpenLightBox'){
+            modalService.openGallery(scope.heroContent.map(function(item){
+              return item.uri;
+            }));
+            return;
+          }
+
           scope.activeHref = _.find(scope.hrefs, {id: href}).name;
           var $item = angular.element('#' + href);
-          angular.element('html, body').animate({
-            scrollTop: $item.offset().top
-          }, 300);
+          if($item.length){
+            angular.element('html, body').animate({
+              scrollTop: $item.offset().top
+            }, 300);
+          }
         };
 
         scope.$state = $state;
