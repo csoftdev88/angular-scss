@@ -50,6 +50,26 @@ dialog {
   main {
     margin: 0;
   }
+
+  &.narrow {
+    width: 400px;
+
+    .ui-dialog {
+      background: #fff;
+    }
+  }
+
+  &.login {
+    .clearfix;
+
+    p, button {
+      margin-bottom: @baseline;
+    }
+
+    button {
+      float: right;
+    }
+  }
 }
 
 
