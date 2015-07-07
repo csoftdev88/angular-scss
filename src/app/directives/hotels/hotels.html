@@ -30,17 +30,15 @@
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
-        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" ng-click="navigateToHotel(hotel.code)" grid="{{preference.get('hotels-view-mode') === 'list' ? 3 : 1}}">
-          <a href="">
-            <div class="item-image">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" grid="{{preference.get('hotels-view-mode') === 'list' ? 3 : 1}}">
+        
+            <div class="item-image" ng-click="navigateToHotel(hotel.code)">
               <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
 
             <div class="ratings">
-              <div class="stars rating-trip-advisor">
-                <ul class="stars-left">
-                  <li ng-repeat="rating in [1,2,3,4,5]" ng-class="{included: rating <= hotel.tripAdvisorRating}"></li>
-                </ul>
+              <div class="stars rating-trip-advisor img">
+                <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
               </div>
 
               <div class="rating-default">
@@ -50,7 +48,7 @@
               </div>
             </div>
 
-            <h2>The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
+            <h2 ng-click="navigateToHotel(hotel.code)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
               <p ng-if="hotel.available">
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night
@@ -67,7 +65,7 @@
               </p>
             </pricing-info>
             <p class="description">{{hotel.descriptionShort}}</p>
-          </a>
+         
         </li>
       </ul>
     </div>
