@@ -32,6 +32,14 @@
       <span>Read more</span>
     </reward-item>
 
+    <!-- NO REWARDS CONSUMED -->
+    <div ng-if="viewMode === 'consumed' && consumedRewards && !consumedRewards.length" class="products-not-available ng-scope">
+      <div>
+        <h3>You do not have any rewards at the moment</h3>
+        <p>You can buy rewards in the <a href ng-click="viewMode = 'consumable'">All Rewards</a> section if you have enough points.</p>
+      </div>
+    </div>
+
     <!-- ALL REWARDS -->
     <reward-item ng-if="viewMode !== 'consumed'" ng-repeat="reward in consumableRewards" ng-click="openRewardDetails(reward)">
       <img ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}" err-source="http://lorempixel.com/300/160/">
@@ -42,7 +50,15 @@
       </section>
       <span>Read more</span>
     </reward-item>
+    <!-- NO REWARDS AVAILABLE FOR CONSUMPTION -->
+    <div ng-if="viewMode !== 'consumed' && consumableRewards && !consumableRewards.length" class="products-not-available ng-scope">
+      <div>
+        <h3>Sorry, there are no rewards available</h3>
+        <p>Please check back soon</p>
+      </div>
+    </div>
   </rewards-list>
+
 
 <!--
 
