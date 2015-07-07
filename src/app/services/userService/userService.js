@@ -90,8 +90,8 @@ angular.module('mobiusApp.services.user', [])
 
     function loadRewards(customerId){
       customerId = customerId || getCustomerId();
-      
-      return rewardsService.getAll(customerId).then(function(rewards){
+
+      return rewardsService.getConsumed(customerId).then(function(rewards){
         userObject.rewards = rewards;
 
         return rewards;

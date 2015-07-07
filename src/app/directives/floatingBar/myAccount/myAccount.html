@@ -15,6 +15,11 @@
     <p>{{user.getUser().loyalties.amount}} _points_</p>
   </article>
 
+  <article ng-show="displaySettings.rewards" ui-sref="rewards">
+    <img ng-src="{{lastBadge.icon}}" err-source="http://lorempixel.com/60/60" />
+    <h4>Rewards <strong>earned</strong></h4>
+  </article>
+
   <article ng-show="displaySettings.badges" ng-switch="!!lastBadge" ng-click="showBadges()">
     <img ng-src="{{lastBadge.icon}}" err-source="http://lorempixel.com/60/60" />
     <h4>Last Badge <strong>earned</strong></h4>
@@ -29,5 +34,4 @@
     <p>{{loyaltiesEarned}}/{{loyaltiesAll}} Stamps</p>
     <p ng-if="loyaltyName">{{loyaltyName}} card</p>
   </article>
-
 </div>

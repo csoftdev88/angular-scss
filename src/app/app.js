@@ -237,7 +237,7 @@ angular
       .state('rewards', {
         parent: 'root',
         templateUrl: 'layouts/rewards/rewards.html',
-        url: '/rewards/:code',
+        url: '/rewards',
         controller: 'RewardsCtrl'
       })
 

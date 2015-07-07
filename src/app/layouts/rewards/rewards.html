@@ -6,20 +6,20 @@
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
-  <rewards-list grid-row ng-if="!showDetail">
-
-    <reward-item ng-repeat="reward in rewardsList track by $index" ng-click="goToDetail(reward)">
-      <img ng-src="{{reward.image.uri}}" alt="{{reward.image.alt}}" err-source="http://lorempixel.com/300/160/">
+  <rewards-list grid-row ng-if="rewards.length">
+    <reward-item ng-repeat="reward in rewards" ng-click="openRewardDetails(reward)">
+      <img ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}" err-source="http://lorempixel.com/300/160/">
 
       <section>
         <h2>{{reward.name}}</h2>
-        <div ng-bind-html="reward.desc"></div>
+        <div ng-bind-html="sanitize(reward.description)"></div>
       </section>
-
       <span>Read more</span>
-    </reward-item>
 
+    </reward-item>
   </rewards-list>
+
+<!--
 
   <reward-detail grid-row ng-if="showDetail">
     <h1>{{selectedReward.name}}</h1>
@@ -46,4 +46,5 @@
     </rewards-list>
 
   </reward-detail>
+-->
 </main>
