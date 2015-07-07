@@ -4,21 +4,33 @@
 */
 angular.module('mobiusApp.services.rewards', [])
 .service( 'rewardsService',  function(apiService) {
-
-  function getAll(userId){
-    return apiService.get(apiService.getFullURL('rewards.all'), {
-      customerId: userId
-    });
+  // TODO - Take cusomer ID from userService
+  function getRewards(customerId, params){
+    return apiService.get(apiService.getFullURL(
+      'rewards.all', {customerId: customerId}),
+    params);
   }
 
-  function getRewardDetails(rewardCode, params){
-    var URL = apiService.getFullURL('rewards.details', {rewardCode: rewardCode});
-    return apiService.get(URL, params);
+  function getConsumable(customerId){
+    return getRewards(customerId, {scope:'consumable'});
+  }
+
+  function getConsumed(customerId){
+    return getRewards(customerId, {scope:'consumed'});
+  }
+
+  function consumeReward(customerId, rewardId){
+    return apiService.put(apiService.getFullURL(
+      'rewards.consume', {
+        customerId: customerId,
+        rewardId: rewardId
+      }));
   }
 
   // Public methods
   return {
-    getAll: getAll,
-    getRewardDetails: getRewardDetails
+    getConsumable: getConsumable,
+    getConsumed: getConsumed,
+    consumeReward: consumeReward
   };
 });

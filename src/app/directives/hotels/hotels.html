@@ -26,7 +26,7 @@
         </select>
       </div>
     </div>
-    <div ng-if="!isUserLoggedIn()" class="msg-box" ng-click="sso.login()">Save up to 20% by signing in or registering!</div>
+    <div ng-if="!isUserLoggedIn()" class="msg-box" ng-click="sso.login()">Save up to 20% by <a href ng-click="sso.login()">signing</a> in or <a ng-click="sso.register()">registering</a>!</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
