@@ -147,6 +147,7 @@ angular.module('mobiusApp.services.user', [])
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
       loadLoyalties: loadLoyalties,
+      loadRewards: loadRewards,
       updateUser: updateUser,
       logout: logout,
       authPromise: authPromise.promise

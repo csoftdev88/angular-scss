@@ -25,7 +25,6 @@ angular.module('mobius.controllers.rewards', [])
         rewardsService.getConsumed(user.getCustomerId()),
         rewardsService.getConsumable(user.getCustomerId()),
       ]).then(function(data){
-        console.log(data);
         $scope.consumedRewards = data[0];
         $scope.consumableRewards = data[1].map(function(reward){
           // Adding affordable flag
