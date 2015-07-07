@@ -1,15 +1,17 @@
 ////////////////////////
-//// LIST OF OFFERS ////
+//// LIST OF OFFERS AND REWARDS////
 ////////////////////////
 
-offers-list {
+offers-list,
+rewards-list {
   clear: both;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
   margin: 0 @baseline/4 @baseline @baseline/4;
 
-  offer-item {
+  offer-item,
+  reward-item {
     border-radius: @radius*2;
     box-sizing: border-box;
     flex: 0 0 ~"calc(33% - 20px)";

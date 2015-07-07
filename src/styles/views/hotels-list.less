@@ -47,13 +47,13 @@ hotels {
         margin-bottom: @baseline/2;
         position: relative;
         box-sizing: border-box;
-        cursor: pointer;
 
         // image container
         .item-image {
           border-radius: @radius/2;
           background: lighten(@c-light-grey, 10%);
           position: relative;
+          cursor: pointer;
 
           img {
             display: block;
@@ -73,6 +73,7 @@ hotels {
           font-weight: 300;
           margin-bottom: @baseline/2;
           color: @c-base;
+          cursor: pointer;
         }
 
         p {
@@ -237,6 +238,10 @@ hotels {
     }
 
     &.rating-trip-advisor {
+
+      &.img{
+        display: inline;
+      }
 
       li {
         @rating-size: 12px;

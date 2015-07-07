@@ -1,6 +1,6 @@
 <header grid-row>
   <div grid="12">
-    <h1>Welcome to <strong>THE SUTTON PLACE HOTELS</strong></h1>
+    <h1>Welcome to <strong>The Sutton Place Hotels</strong></h1>
     <p>The Sutton Place Hotels are a sophisticated 5-star collection of properties in North America. Each hotel is distinctly different in style while offering timeless elegance and exceptional service.
     As a select group of stylish properties with a distinct European flair, each Sutton Place Hotel is carefully selected for proximity to the business, financial, and entertainment centres in each city or destination that we are located within.</p>
 
@@ -23,12 +23,12 @@
   <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">
     <a ui-sref="{{icon.state}}" ng-switch-when="false" href>
       <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
-      <h2>{{icon.name}}</h2>
+      <h2 ng-bind-html="icon.name"></h2>
       <p>{{icon.text}}</p>
     </a>
     <div ng-switch-default>
       <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
-      <h2>{{icon.name}}</h2>
+      <h2 ng-bind-html="icon.name"></h2>
       <p>{{icon.text}}</p>
     </div>
   </article>
