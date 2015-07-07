@@ -5,10 +5,10 @@
 angular.module('mobius.controllers.rewards', [])
 
   .controller('RewardsCtrl', function($scope, $controller, rewardsService,
-    preloaderFactory, $state, user, $stateParams, modalService, breadcrumbsService) {
+    $q, preloaderFactory, $state, user, $stateParams, modalService, breadcrumbsService) {
 
     //$controller('MainCtrl', {$scope: $scope});
-    breadcrumbsService.addBreadCrumb('My Rewards');
+    breadcrumbsService.addBreadCrumb('Rewards');
 
     function onAuthorized(isMobiusUser){
       if(!isMobiusUser){
@@ -20,10 +20,14 @@ angular.module('mobius.controllers.rewards', [])
     }
 
     function init(){
+      var rewardsPromise = $q.all([
+        rewardsService.getConsumed(user.getCustomerId()),
+        rewardsService.getConsumable(user.getCustomerId()),
+      ]).then(function(data){
+        console.log(data);
+        $scope.consumedRewards = data[0];
+        $scope.consumableRewards = data[1];
 
-      var rewardsPromise = rewardsService.getConsumable(user.getCustomerId()).then(function(rewards){
-        console.log(rewards);
-        $scope.rewards = rewards;
       }, function(){
         $state.go('home');
       });
@@ -35,6 +39,8 @@ angular.module('mobius.controllers.rewards', [])
     $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
     $scope.openRewardDetails = modalService.openRewardDetailsDialog;
+
+    $scope.viewMode = 'consumed';
 
     /*
     var NUMBER_OF_RELEVANT_REWARDS = 3;
