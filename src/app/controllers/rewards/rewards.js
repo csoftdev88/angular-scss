@@ -22,7 +22,7 @@ angular.module('mobius.controllers.rewards', [])
 
     function init(){
       var rewardsPromise = $q.all([
-        rewardsService.getConsumed(user.getCustomerId()),
+        rewardsService.getMy(user.getCustomerId()),
         rewardsService.getAll(user.getCustomerId()),
       ]).then(function(data){
         $scope.consumedRewards = data[0];
@@ -47,7 +47,7 @@ angular.module('mobius.controllers.rewards', [])
     $scope.openRewardDetails = function(reward){
       modalService.openRewardDetailsDialog(reward).then(function(){
         // Buying a new reward
-        var buyPromise = rewardsService.consumeReward(user.getCustomerId(), reward.id).then(function(){
+        var buyPromise = rewardsService.buyReward(user.getCustomerId(), reward.id).then(function(){
           // Consumed a new reward
           userMessagesService.addInfoMessage('<div>You have successfully bought ' +
             reward.name + ' you can view it in My Rewards</div>');

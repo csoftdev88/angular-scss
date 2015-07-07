@@ -32,13 +32,13 @@
   <article ng-show="displaySettings.rewards" ng-click="showRewards()">
     <img ng-src="{{lastReward.images[0].uri || 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1436277065/SAN/LoyaltyCardStamp.png'}}" err-source="http://res.cloudinary.com/dmh2cjswj/image/upload/v1436277065/SAN/LoyaltyCardStamp.png" />
     <!-- Have last reward -->
-    <div ng-if="lastReward && lastReward.consumed">
+    <div ng-if="lastReward && lastReward.earned">
       <h4>Last reward <strong>bought</strong></h4>
       <p>{{lastReward.name}}</p>
-      <p>{{lastReward.consumed | dateTime:'D MMM YYYY'}}</p>
+      <p>{{lastReward.earned | dateTime:'D MMM YYYY'}}</p>
     </div>
 
-    <div ng-if="lastReward && !lastReward.consumed">
+    <div ng-if="lastReward && !lastReward.earned">
       <h4>Rewards</h4>
       <p>You don’t have any rewards yet</p>
     </div>
