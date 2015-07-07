@@ -73,9 +73,10 @@ angular.module('mobiusApp.config', [])
       'Mobius-channelId': '6'
     },
     'rewards': {
-      'all': 'customers/:customerId/rewards',
-      // Buy
-      'consume': 'customers/:customerId/rewards/:rewardId/actions/consume'
+      // NOTE: Inconsistent API
+      'all': 'rewards',
+      // + BUY(post)
+      'my': 'customers/:customerId/rewards'
     }
   },
 
