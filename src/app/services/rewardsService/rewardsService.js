@@ -11,8 +11,8 @@ angular.module('mobiusApp.services.rewards', [])
     params);
   }
 
-  function getConsumable(customerId){
-    return getRewards(customerId, {scope:'consumable'});
+  function getAll(customerId){
+    return getRewards(customerId);
   }
 
   function getConsumed(customerId){
@@ -29,7 +29,7 @@ angular.module('mobiusApp.services.rewards', [])
 
   // Public methods
   return {
-    getConsumable: getConsumable,
+    getAll: getAll,
     getConsumed: getConsumed,
     consumeReward: consumeReward
   };
