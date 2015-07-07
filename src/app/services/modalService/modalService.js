@@ -246,6 +246,28 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openReservationLookupFailedDialog() {
+    return openDialog('reservationLookupFailed', 'layouts/modals/reservation/reservationLookupFailed.html', CONTROLLER_DEFAULT, {
+      windowClass: 'narrow',
+      resolve: {
+        data: function() {
+          return null;
+        }
+      }
+    });
+  }
+
+  function openReservationLookupLoginDialog() {
+    return openDialog('reservationLookupLogin', 'layouts/modals/reservation/reservationLookupLogin.html', CONTROLLER_DEFAULT, {
+      windowClass: 'narrow login',
+      resolve: {
+        data: function() {
+          return null;
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -254,6 +276,8 @@ angular.module('mobiusApp.services.modal', [])
     openReservationModifyingDisabledDialogue: openReservationModifyingDisabledDialogue,
     openReservationCancelingDisabledDialogue: openReservationCancelingDisabledDialogue,
     openReservationModificationCanceledDialogue: openReservationModificationCanceledDialogue,
+    openReservationLookupFailedDialog: openReservationLookupFailedDialog,
+    openReservationLookupLoginDialog: openReservationLookupLoginDialog,
 
     openConfirmationDialog: openConfirmationDialog,
     openAddonDetailDialog: openAddonDetailDialog,

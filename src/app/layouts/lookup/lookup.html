@@ -1,0 +1,75 @@
+<hero-slider content="heroContent"></hero-slider>
+
+<breadcrumbs></breadcrumbs>
+
+<main class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <contacts-page grid-row class="reservation-lookup">
+    <div grid="8">
+      <h1>Find a <strong>Reservation</strong></h1>
+
+      <form name="form" ng-submit="form.$valid" ng-show="!isSent">
+        <div>
+          <p>You can look up a reservation you made by entering your name, email address and reservation number below. You can find your reservation number on the email you recieved when you make the booking.</p>
+          <hr>
+        </div>
+
+        <form-element>
+          <label for="name">
+            <input type="text" id="name" required
+              placeholder="Your Name"
+              ng-model="formData.fields.name" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
+              name="name"
+              ng-class="{'ng-submitted': form.$submitted && (form.name.$error.required || form.name.$error.pattern)}"/>
+            <span>Your Name</span>
+          </label>
+        </form-element>
+
+        <form-element>
+          <label for="email">
+            <input type="email" id="email" required
+              placeholder="Email address"
+              ng-model="formData.fields.email" email-check
+              name="email"
+              ng-class="{'ng-submitted': form.$submitted && form.email.$error.required}"/>
+            <span>Email address</span>
+          </label>
+        </form-element>
+
+        <form-element>
+          <label for="reservation-number">
+            <input type="text" id="reservation-number" required
+              placeholder="Reservation number"
+              ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
+              name="subject"
+              ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>
+            <span>Reservation Number</span>
+          </label>
+        </form-element>
+
+        <div>
+          <label class="form-errors" ng-if="form.$invalid && form.$submitted">
+            Please fill out all the fields indicated
+          </label>
+        </div>
+
+        <div>
+          <button-submit role="button" tabindex="0" ng-click="sendForm()">Find Reservation</button-submit>
+        </div>
+        <div ng-show="showErrorMsg">Look up of provided reservation number failed.</div>
+      </form>
+    </div>
+
+    <contact-list grid="4">
+      <contact-item ng-repeat="contact in chain.contacts">
+        <h2>{{contact.name}}</h2>
+        <p>{{contact.tel}}</p>
+        <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
+      </contact-item>
+    </contact-list>
+  </contacts-page>
+
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map"></div>
