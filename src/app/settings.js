@@ -73,8 +73,9 @@ angular.module('mobiusApp.config', [])
       'Mobius-channelId': '6'
     },
     'rewards': {
-      'all': 'rewards',
-      'details': 'rewards/:rewardCode'
+      'all': 'customers/:customerId/rewards',
+      // Buy
+      'consume': 'customers/:customerId/rewards/:rewardId/actions/consume'
     }
   },
 
@@ -230,6 +231,7 @@ angular.module('mobiusApp.config', [])
       'displaySettings' : {
         'profile': true,
         'badges': false,
+        'rewards': true,
         'loyalities': true
       }
     },

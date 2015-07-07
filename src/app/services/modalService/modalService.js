@@ -160,6 +160,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openRewardDetailsDialog(reward){
+    return openDialog('Rewards', 'layouts/modals/loyalties/rewardDetails.html', CONTROLLER_DATA, {
+      windowClass: 'details dialog-rewards',
+      resolve: {
+        data: function(){
+          return reward;
+        }
+      }
+    });
+  }
+
   function openLoyaltyDialog(loyalty){
     $modalStack.dismissAll();
 
@@ -253,6 +264,8 @@ angular.module('mobiusApp.services.modal', [])
     // Loyalties
     openBadgesDialog: openBadgesDialog,
     openLoyaltyDialog: openLoyaltyDialog,
+    // Rewards
+    openRewardDetailsDialog: openRewardDetailsDialog,
     // gallery
     openGallery: openGallery,
     openAssociatedRoomDetail: openAssociatedRoomDetail,

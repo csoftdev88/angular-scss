@@ -26,7 +26,7 @@ describe('userService', function() {
       });
 
       $provide.value('rewardsService', {
-        getAll: function(){
+        getConsumed: function(){
           return {
             then: function(c){
               c();

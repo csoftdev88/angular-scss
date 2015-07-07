@@ -2,7 +2,8 @@
 
 angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
-  .directive('myAccount', function(user, _, $window, modalService, $controller, Settings) {
+  .directive('myAccount', function(user, _, $window,
+    $state, modalService, $controller, Settings) {
     return {
       restrict: 'E',
       scope: {},
@@ -43,6 +44,15 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
           });
         }
 
+        function loadRewards(){
+          user.loadRewards().then(function(rewards) {
+            // TODO: We assuming that last reward in the list
+            // is last bought. API doesn't have the timestamp so we
+            // cant sort by dates
+            scope.lastReward = rewards && rewards.length?rewards[rewards.length-1]:{};
+          });
+        }
+
         scope.user = user;
 
         scope.showBadges = function() {
@@ -53,6 +63,10 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
           modalService.openLoyaltyDialog(loyaltyCard);
         };
 
+        scope.showRewards = function(){
+          $state.go('rewards');
+        };
+
         var userUnWatch = scope.$watch(
           function() {
             return user.isLoggedIn();
@@ -60,6 +74,7 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
           function(isLoggedIn) {
             if (isLoggedIn) {
               loadLoyalities();
+              loadRewards();
             }
           }
         );
