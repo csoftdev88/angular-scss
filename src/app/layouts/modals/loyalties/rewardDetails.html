@@ -17,6 +17,6 @@
   </div>
 
   <div class="modal-footer">
-     <button class="button">Buy for <ng-pluralize count="data.pointCost" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize></button>
+     <button class="button" ng-if="!data.consumed" ng-click="ok()" ng-disabled="!data._isAffordable">Buy for <ng-pluralize count="data.pointCost" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize></button>
   </div>
 </div>
