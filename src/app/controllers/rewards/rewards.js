@@ -23,7 +23,7 @@ angular.module('mobius.controllers.rewards', [])
     function init(){
       var rewardsPromise = $q.all([
         rewardsService.getConsumed(user.getCustomerId()),
-        rewardsService.getConsumable(user.getCustomerId()),
+        rewardsService.getAll(user.getCustomerId()),
       ]).then(function(data){
         $scope.consumedRewards = data[0];
         $scope.consumableRewards = data[1].map(function(reward){
