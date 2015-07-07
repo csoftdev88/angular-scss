@@ -26,7 +26,7 @@ angular.module('mobius.controllers.rewards', [])
         rewardsService.getConsumable(user.getCustomerId()),
       ]).then(function(data){
         console.log(data);
-        $scope.consumedRewards = [] || data[0];
+        $scope.consumedRewards = data[0];
         $scope.consumableRewards = data[1].map(function(reward){
           // Adding affordable flag
           reward._isAffordable = user.getUser().loyalties.amount >= reward.pointCost;
@@ -68,6 +68,10 @@ angular.module('mobius.controllers.rewards', [])
         });
         preloaderFactory(buyPromise);
       });
+    };
+
+    $scope.toogleFullListMode = function(){
+      $scope.viewMode = 'consumable';
     };
 
     $scope.viewMode = 'consumed';

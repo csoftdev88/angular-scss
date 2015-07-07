@@ -16,7 +16,7 @@
           <span class="vr"/>
         </li>
         <li ng-class="{active: viewMode !== 'consumed'}">
-          <a href ng-click="viewMode = 'consumable'">All Rewards</a>
+          <a href ng-click="toogleFullListMode()">All Rewards</a>
         </li>
       </ul>
     </nav>
@@ -36,7 +36,7 @@
     <div ng-if="viewMode === 'consumed' && consumedRewards && !consumedRewards.length" class="products-not-available ng-scope">
       <div>
         <h3>You do not have any rewards at the moment</h3>
-        <p>You can buy rewards in the <a href ng-click="viewMode = 'consumable'">All Rewards</a> section if you have enough points.</p>
+        <p>You can buy rewards in the <a href ng-click="toogleFullListMode()">All Rewards</a> section if you have enough points.</p>
       </div>
     </div>
 
