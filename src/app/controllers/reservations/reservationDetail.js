@@ -8,8 +8,8 @@ angular.module('mobius.controllers.reservationDetail', [])
   // Price breakdown and policies seems to have different format then expected
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
-            reservationService, preloaderFactory, modalService, userMessagesService,
-            propertyService, $q, breadcrumbsService){
+    reservationService, preloaderFactory, modalService, userMessagesService,
+    propertyService, $q, breadcrumbsService, $controller){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -21,6 +21,7 @@ angular.module('mobius.controllers.reservationDetail', [])
     $scope.reservationCode = $stateParams.reservationCode;
 
     function onAuthorized() {
+      // Getting reservation details
       var reservationPromise = reservationService.getReservation($stateParams.reservationCode).then(function(reservation) {
         $scope.reservation = reservation;
         $scope.reservation.packages = $scope.reservation.packageItemCodes || []; // API workaround
@@ -38,6 +39,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           });
         }
 
+        // Getting property details
         var propertyPromise = propertyService.getPropertyDetails(reservation.property.code).then(function(property) {
           $scope.property = property;
         });
@@ -54,29 +56,48 @@ angular.module('mobius.controllers.reservationDetail', [])
           }
         });
 
-        return $q.all([propertyPromise, roomDataPromise]);
-      });
+        // Getting available addons and reservation addons
+        var addonsPromise = $q.all([
+          // Available addons
+          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: room.roomTypeCode}),
+          // Reservation addons
+          reservationService.getReservationAddOns($stateParams.reservationCode)
+        ]).then(function(addons){
+          // addons[0] - available addons
+          // Available addons should only contain those which not in reservationAddons
+          //$scope.availableAddons = addons[0];
 
-      var extrasPromise = reservationService.getReservationAddOns($stateParams.reservationCode).then(function(addons) {
-        $scope.addonsLength = addons.length;
-        $scope.addons = _.map(addons, function(addon) {
-          addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
-          addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
-          if (addon.hasViewMore) {
-            addon.descriptionShort += '…';
-          }
-          return addon;
+          $scope.availableAddons = [];
+          _.each(addons[0], function(addon){
+            var addedAddon = _.findWhere(addons[1], function(a){
+              return a.code === addon.code;
+            });
+
+            if(!addedAddon){
+              $scope.availableAddons.push(addon);
+            }
+          });
+
+          // addons[1] - reservation addons
+          $scope.reservationAddons = _.map(addons[1], function(addon) {
+            addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+            addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
+            if (addon.hasViewMore) {
+              addon.descriptionShort += '…';
+            }
+            return addon;
+          });
         });
-        $scope.addons = _.indexBy($scope.addons, 'code');
+
+        preloaderFactory($q.all([propertyPromise, roomDataPromise, addonsPromise]));
       });
 
-      // Showing loading mask
-      preloaderFactory(reservationPromise, extrasPromise);
+      preloaderFactory(reservationPromise);
     }
 
-    // choose either one of these two lines
-    //$controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
-    onAuthorized();
+    // Choose either one of these two lines
+    $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
+    //onAuthorized();
 
     // TODO: Unify with modifyReservation
     $scope.modifyCurrentReservation = function(){
@@ -129,14 +150,15 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     // NOTE: Same is in reservationDirective - unify
     function getCount(rooms, prop){
-        return _.reduce(
-          _.map(rooms, function(room){
-            return room[prop];
-          }), function(t, n){
-            return t + n;
-          });
-      }
+      return _.reduce(
+        _.map(rooms, function(room){
+          return room[prop];
+        }), function(t, n){
+          return t + n;
+        });
+    }
 
+    // TODO: Check if this needed?
     $scope.modifyReservation = function(onError) {
       var reservationPromise = reservationService.modifyReservation($stateParams.reservationCode, $scope.reservation).then(
         function() {
@@ -158,11 +180,18 @@ angular.module('mobius.controllers.reservationDetail', [])
     };
 
     $scope.addAddon = function(addon) {
-      if($scope.reservation.packages.indexOf(addon.code) === -1) {
-        $scope.reservation.packages.push(addon.code);
-        $scope.modifyReservation(function() {
-          $scope.reservation.packages.splice($scope.reservation.packages.indexOf(addon.code), 1);
+      // Checking if same addone is already there
+      if($scope.reservationAddons.indexOf(addon.code) === -1) {
+        // Adding the addon to current reservation
+        var addAddonPromise = reservationService.addAddon($stateParams.reservationCode, addon).then(function(){
+          // Removing from available addons
+          $scope.availableAddons.splice($scope.availableAddons.indexOf(addon.code), 1);
+          // Adding to reservation addons
+          $scope.reservationAddons.push(addon);
+          userMessagesService.addInfoMessage('<div>You have added ' + addon.name + ' to your reservation</div>');
         });
+
+        preloaderFactory(addAddonPromise);
       }
     };
 
