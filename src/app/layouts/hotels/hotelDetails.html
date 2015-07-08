@@ -107,7 +107,7 @@
               <p ng-bind-html="sanitize(room.description)"></p>
             </description-info>
           </list-item>
-          <a href class="read-more" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
+          <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
         </list-items>
         <h2 ng-if="!rooms.length">_no_room_found_</h2>
       </div>

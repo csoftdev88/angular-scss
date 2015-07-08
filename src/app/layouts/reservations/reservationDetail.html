@@ -17,25 +17,25 @@
         </div>
       </header>
 
-      <div class="actions">
+      <!-- <div class="actions">
         <a href="" class="button-print"><span>Print</span></a>
-        <!--<a href="" class="button-passbook"><span>Add to Passbook</span></a>-->
-      </div>
+        <a href="" class="button-passbook"><span>Add to Passbook</span></a>-->
+      <!-- </div> -->
 
-      <div class="share">
+      <!-- <div class="share">
         Share via:
         <a href="" class="icon-fb"></a>
         <a href="" class="icon-twitter"></a>
         <a href="" class="icon-gplus"></a>
         <a href="" class="icon-email"></a>
-      </div>
+      </div> -->
 
       <div class="tables">
         <figure>
           <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           <!-- TODO: Add actions to buttons -->
           <button class="button" ng-click="modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false}">Modify</button>
-          <button class="button button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}">Cancel</button>
+          <button class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}">Cancel</button>
         </figure>
 
         <div>
