@@ -77,5 +77,4 @@ angular.module('mobius.controllers.main', [])
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
       $controller('SanitizeCtrl', {$scope: $scope});
-      $controller('SSOCtrl', {$scope: $scope});
     }]);
