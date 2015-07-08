@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.user', [])
-  .service('user', function($rootScope, $q, $window,
+  .service('user', function($rootScope, $q, $window, $state,
     userObject, apiService, _, loyaltyService, cookieFactory, rewardsService) {
 
     // SSO will expose mobius customer ID via this cookie
@@ -101,6 +101,7 @@ angular.module('mobiusApp.services.user', [])
     function logout() {
       $rootScope.$evalAsync(function(){
         userObject = {};
+        $state.go('home');
       });
       // Removing auth headers
       var headers = {};
