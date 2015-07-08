@@ -137,23 +137,31 @@
     <!-- RESERVATION ADDONS -->
     <section grid-row class="reservation-enhancements" ng-if="reservationAddons.length">
       <h3>Your Enhancements</h3>
-      <ul>
-        <li ng-repeat="addon in reservationAddons" grid="{{Math.floor( 12 / reservationAddons.length)}}">
-          <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
-          <h4>{{addon.name}}</h4>
-          <p>{{ addon._expanded ? addon.description : addon.descriptionShort }}</p>
-          <a href
-             ng-if="addon.hasViewMore"
-             ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
-            {{ addon._expanded ? 'Show Less' : 'Show More' }}
-          </a>
-          <p>{{addon.price | i18nCurrency: currencyCode}}</p>
-        </li>
+      <list-items>
+        <list-item ng-repeat="addon in reservationAddons">
 
-        <li>
-          <p>Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
-        </li>
-      </ul>
+          <figure>
+            <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
+          </figure>
+
+          <h2>{{addon.name}}</h2>
+
+          <pricing-info>
+            <p>{{addon.price | i18nCurrency: currencyCode}}</p>
+          </pricing-info>
+
+          <description-info>
+            <a href
+              ng-if="addon.hasViewMore"
+              ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
+                {{ addon._expanded ? 'Show Less' : 'Show More' }}
+            </a>
+            <p>{{ addon._expanded ? addon.description : addon.descriptionShort }}</p>
+          </description-info>
+
+        </list-item>
+        <p>Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
+      </list-items>
     </section>
   </reservation-finished>
 </main>
