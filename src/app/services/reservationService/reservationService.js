@@ -48,6 +48,12 @@ angular.module('mobiusApp.services.reservation', [])
     });
   }
 
+  function find(reservationCode, email){
+    return apiService.get(apiService.getFullURL('reservations.detail', {
+      reservationCode: reservationCode
+    }), {email: email});
+  }
+
   // Public methods
   return {
     createReservation: createReservation,
@@ -59,6 +65,7 @@ angular.module('mobiusApp.services.reservation', [])
     // Adding the addon to servation
     addAddon: addAddon,
     getAvailableAddons: getAvailableAddons,
-    getAll: getAll
+    getAll: getAll,
+    find: find
   };
 });
