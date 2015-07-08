@@ -147,21 +147,27 @@
           <h2>{{addon.name}}</h2>
 
           <pricing-info>
-            <p>{{addon.price | i18nCurrency: currencyCode}}</p>
+            <p>
+              <span class="value">
+                {{addon.price | i18nCurrency: currencyCode}}
+              </span>
+            </p>
           </pricing-info>
 
           <description-info>
-            <a href
-              ng-if="addon.hasViewMore"
-              ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
-                {{ addon._expanded ? 'Show Less' : 'Show More' }}
-            </a>
             <p>{{ addon._expanded ? addon.description : addon.descriptionShort }}</p>
+            <p>
+              <a href
+                ng-if="addon.hasViewMore"
+                ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
+                  {{ addon._expanded ? 'Show Less' : 'Show More' }}
+              </a>
+            </p>
           </description-info>
 
         </list-item>
-        <p>Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
       </list-items>
+      <p class="total">Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
     </section>
   </reservation-finished>
 </main>
