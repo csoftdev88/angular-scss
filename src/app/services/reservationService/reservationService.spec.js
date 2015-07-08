@@ -138,5 +138,20 @@ describe('reservationService', function() {
         expect(params[1].reservationCode).equal('testCode');
       });
     });
+
+    describe('find', function() {
+      it('should fire a GET request to reservations API with reservationCode and email query param', function() {
+        _reservationService.find('testCode', 'a@a');
+        expect(_apiGetFullURLSpy.calledOnce).equal(true);
+        expect(_apiGetFullURLSpy.calledWith('reservations.detail')).equal(true);
+        expect(_apiGetSpy.calledOnce).equal(true);
+
+        var fullURLParams = _apiGetFullURLSpy.args[0];
+        expect(fullURLParams[1].reservationCode).equal('testCode');
+
+        var getParams = _apiGetSpy.args[0];
+        expect(getParams[1].email).equal('a@a');
+      });
+    });
   });
 });
