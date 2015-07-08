@@ -26,4 +26,22 @@
       </li>
     </ul>
   </article>
+
+  <article grid="2" ng-if="user.isLoggedIn()">
+    <h3><a href ng-click="sso.profile()">Profile</a></h3>
+
+    <ul>
+      <li>
+        <a ui-sref="reservations">Reservations</a>
+      </li>
+
+      <li>
+        <a ui-sref="rewards">Rewards</a>
+      </li>
+
+      <li>
+        <a href ng-click="sso.logout()">Logout</a>
+      </li>
+    </ul>
+  </article>
 </section>
