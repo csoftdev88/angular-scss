@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.user', [])
-  .service('user', function($rootScope, $q, $window,
+  .service('user', function($rootScope, $q, $window, $state,
     userObject, apiService, _, loyaltyService, cookieFactory, rewardsService) {
 
     // SSO will expose mobius customer ID via this cookie
@@ -90,8 +90,8 @@ angular.module('mobiusApp.services.user', [])
 
     function loadRewards(customerId){
       customerId = customerId || getCustomerId();
-      
-      return rewardsService.getAll(customerId).then(function(rewards){
+
+      return rewardsService.getMy(customerId).then(function(rewards){
         userObject.rewards = rewards;
 
         return rewards;
@@ -101,6 +101,7 @@ angular.module('mobiusApp.services.user', [])
     function logout() {
       $rootScope.$evalAsync(function(){
         userObject = {};
+        $state.go('home');
       });
       // Removing auth headers
       var headers = {};
@@ -147,6 +148,7 @@ angular.module('mobiusApp.services.user', [])
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
       loadLoyalties: loadLoyalties,
+      loadRewards: loadRewards,
       updateUser: updateUser,
       logout: logout,
       authPromise: authPromise.promise

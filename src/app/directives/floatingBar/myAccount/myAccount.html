@@ -7,7 +7,6 @@
 </div>
 
 <div ng-if="user.isLoggedIn()">
-
   <article ng-show="displaySettings.profile" ng-click="sso.profile()">
     <img ng-src="{{user.getUser().avatarUrl}}" err-source="/static/images/v4/img-profile.png">
     <h4>{{user.getUser().firstName}} {{user.getUser().lastName}}</h4>
@@ -16,7 +15,7 @@
   </article>
 
   <article ng-show="displaySettings.badges" ng-switch="!!lastBadge" ng-click="showBadges()">
-    <img ng-src="{{lastBadge.icon}}" err-source="http://lorempixel.com/60/60" />
+    <img ng-src="{{lastBadge.icon}}" err-source="http://res.cloudinary.com/dmh2cjswj/image/upload/v1436277065/SAN/LoyaltyCardStamp.png" />
     <h4>Last Badge <strong>earned</strong></h4>
     <p ng-switch-when="false">You have not earned any badges yet</p>
     <p ng-switch-default>{{lastBadge.name}}</p>
@@ -30,4 +29,18 @@
     <p ng-if="loyaltyName">{{loyaltyName}} card</p>
   </article>
 
+  <article ng-show="displaySettings.rewards" ng-click="showRewards()">
+    <img ng-src="{{lastReward.images[0].uri || 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1436277065/SAN/LoyaltyCardStamp.png'}}" err-source="http://res.cloudinary.com/dmh2cjswj/image/upload/v1436277065/SAN/LoyaltyCardStamp.png" />
+    <!-- Have last reward -->
+    <div ng-if="lastReward && lastReward.earned">
+      <h4>Last reward <strong>bought</strong></h4>
+      <p>{{lastReward.name}}</p>
+      <p>{{lastReward.earned | dateTime:'D MMM YYYY'}}</p>
+    </div>
+
+    <div ng-if="lastReward && !lastReward.earned">
+      <h4>Rewards</h4>
+      <p>You don’t have any rewards yet</p>
+    </div>
+  </article>
 </div>

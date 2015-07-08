@@ -34,14 +34,14 @@
     <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
       <i class="fa fa-phone"></i>
       <strong>Telephone:</strong>
-      <span ng-if="hotelDetails.tel1">{{hotelDetails.tel1}}</span>
-      <span ng-if="hotelDetails.tel2">{{hotelDetails.tel2}}</span>
+      <span ng-if="hotelDetails.tel1"><a href="tel:{{hotelDetails.tel1}}">{{hotelDetails.tel1}}</a></span>
+      <span ng-if="hotelDetails.tel2"><a href="tel:{{hotelDetails.tel2}}">{{hotelDetails.tel2}}</a></span>
     </div>
   </contact-item>
 
   <contact-item>
     <div>
-      <i class="fa fa-phone"></i>
+      <i class="fa fa-home"></i>
       <strong>Address:</strong>
       <address>
         <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
@@ -54,6 +54,7 @@
 
 </contact-list>
 
+<!--
 <h3>How to get to us</h3>
 <transportation-list>
   <transportation-item ng-repeat="direction in hotelDetails.directions">
@@ -62,3 +63,4 @@
     <p>{{direction.description}}</p>
   </transportation-item>
 </transportation-list>
+-->

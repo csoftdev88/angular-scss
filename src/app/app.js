@@ -36,6 +36,7 @@ angular
     'mobius.controllers.reservation',
     'mobius.controllers.reservationDetail',
     'mobius.controllers.reservationUpdate',
+    'mobius.controllers.reservationLookup',
     'mobius.controllers.hotel.details',
     'mobius.controllers.room.details',
 
@@ -237,7 +238,7 @@ angular
       .state('rewards', {
         parent: 'root',
         templateUrl: 'layouts/rewards/rewards.html',
-        url: '/rewards/:code',
+        url: '/rewards',
         controller: 'RewardsCtrl'
       })
 
@@ -263,6 +264,14 @@ angular
         templateUrl: 'layouts/about/about.html',
         url: '/about/:code',
         controller: 'AboutUsCtrl'
+      })
+
+      // Reservation Lookup page
+      .state('lookup', {
+        parent: 'root',
+        templateUrl: 'layouts/lookup/lookup.html',
+        url: '/lookup',
+        controller: 'ReservationLookupCtrl'
       })
 
       // 404 page
