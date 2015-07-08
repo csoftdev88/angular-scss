@@ -2,7 +2,8 @@
 
 describe('userService', function() {
   var _userService, _rootScope, _spyApiServiceGet,
-  _spyApisServiceGetFullURL, _spyLoyaltiesServiceGetAll, _spySetHeaders;
+    _spyApisServiceGetFullURL, _spyLoyaltiesServiceGetAll, _spySetHeaders,
+    _spyStateGo;
 
   var TEST_USER = {id: 123};
 
@@ -49,15 +50,20 @@ describe('userService', function() {
         setHeaders: function(){}
       };
       $provide.value('apiService', apiService);
+
+      $provide.value('$state', {
+        go: function(){}
+      });
     });
 
-    inject(function($rootScope, user, apiService, loyaltyService) {
+    inject(function($rootScope, $state, user, apiService, loyaltyService) {
       _rootScope = $rootScope;
       _userService = user;
       _spyApiServiceGet = sinon.spy(apiService, 'get');
       _spyApisServiceGetFullURL = sinon.spy(apiService, 'getFullURL');
       _spySetHeaders = sinon.spy(apiService, 'setHeaders');
       _spyLoyaltiesServiceGetAll = sinon.spy(loyaltyService, 'getAll');
+      _spyStateGo = sinon.spy($state, 'go');
     });
   }
 
@@ -66,6 +72,7 @@ describe('userService', function() {
     _spyApisServiceGetFullURL.restore();
     _spySetHeaders.restore();
     _spyLoyaltiesServiceGetAll.restore();
+    _spyStateGo.restore();
   }
 
   describe('methods', function(){
@@ -117,6 +124,13 @@ describe('userService', function() {
         _userService.logout();
         expect(_spySetHeaders.calledOnce).equal(true);
         expect(_spySetHeaders.calledWith({'infinitiAuthN': null}));
+      });
+
+      it('should redirect user back to a home page', function() {
+        _userService.logout();
+        _rootScope.$digest();
+        expect(_spyStateGo.calledOnce).equal(true);
+        expect(_spyStateGo.calledWith('home'));
       });
     });
   });
