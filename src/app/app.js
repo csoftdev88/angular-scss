@@ -295,4 +295,13 @@ angular
 
   .controller('BaseCtrl', function($scope, $controller){
     $controller('ReservationUpdateCtrl', {$scope: $scope});
+    $controller('SSOCtrl', {$scope: $scope});
+
+    $scope.$on('$stateChangeStart', function() {
+      $scope.sso.trackPageLeave();
+    });
+
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.sso.trackPageView();
+    });
   });
