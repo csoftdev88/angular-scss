@@ -17,25 +17,25 @@
         </div>
       </header>
 
-      <div class="actions">
+      <!-- <div class="actions">
         <a href="" class="button-print"><span>Print</span></a>
-        <!--<a href="" class="button-passbook"><span>Add to Passbook</span></a>-->
-      </div>
+        <a href="" class="button-passbook"><span>Add to Passbook</span></a>-->
+      <!-- </div> -->
 
-      <div class="share">
+      <!-- <div class="share">
         Share via:
         <a href="" class="icon-fb"></a>
         <a href="" class="icon-twitter"></a>
         <a href="" class="icon-gplus"></a>
         <a href="" class="icon-email"></a>
-      </div>
+      </div> -->
 
       <div class="tables">
         <figure>
           <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           <!-- TODO: Add actions to buttons -->
           <button class="button" ng-click="modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false}">Modify</button>
-          <button class="button button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}">Cancel</button>
+          <button class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}">Cancel</button>
         </figure>
 
         <div>
@@ -96,12 +96,12 @@
 
     <hr>
 
-    <!--<section grid-row class="reservation-enhance" ng-if="reservation.extendable">-->
-    <section grid-row class="reservation-enhance" ng-if="addons.length">
+    <!-- AVAILABLE ADDONS -->
+    <section grid-row class="reservation-enhance" ng-if="availableAddons.length">
       <h3>Enhance Your <strong>Stay With</strong></h3>
       <ul>
-        <li class="{{ addonsLength < 3 ? 'half' : 'third' }}"
-            ng-repeat="addon in addons"
+        <li class="{{ availableAddons < 3 ? 'half' : 'third' }}"
+            ng-repeat="addon in availableAddons"
             ng-if="reservation.packages.indexOf(addon.code) === -1">
           <div>
             <a href ng-click="openAddonDetailDialog(addon)">
@@ -134,24 +134,40 @@
 
     <hr>
 
-    <section grid-row class="reservation-enhancements" ng-if="reservation.packages.length">
+    <!-- RESERVATION ADDONS -->
+    <section grid-row class="reservation-enhancements" ng-if="reservationAddons.length">
       <h3>Your Enhancements</h3>
-      <ul>
-        <li ng-repeat="addonCode in reservation.packages" grid="{{Math.floor( 12 / reservation.packages.length)}}">
-          <img ng-src="{{addons[addonCode].images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
-          <h4>{{addons[addonCode].name}}</h4>
-          <p>{{ addons[addonCode]._expanded ? addons[addonCode].description : addons[addonCode].descriptionShort }}</p>
-          <a href
-             ng-if="addon.hasViewMore"
-             ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
-            {{ addons[addonCode]._expanded ? 'Show Less]' : 'Show More' }}
-          </a>
-          <p>{{addon.price | i18nCurrency: currencyCode}}</p>
-        </li>
-        <li>
-          <p>Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
-        </li>
-      </ul>
+      <list-items>
+        <list-item ng-repeat="addon in reservationAddons">
+
+          <figure>
+            <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
+          </figure>
+
+          <h2>{{addon.name}}</h2>
+
+          <pricing-info>
+            <p>
+              <span class="value">
+                {{addon.price | i18nCurrency: currencyCode}}
+              </span>
+            </p>
+          </pricing-info>
+
+          <description-info>
+            <p>{{ addon._expanded ? addon.description : addon.descriptionShort }}</p>
+            <p>
+              <a href
+                ng-if="addon.hasViewMore"
+                ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
+                  {{ addon._expanded ? 'Show Less' : 'Show More' }}
+              </a>
+            </p>
+          </description-info>
+
+        </list-item>
+      </list-items>
+      <p class="total">Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
     </section>
   </reservation-finished>
 </main>

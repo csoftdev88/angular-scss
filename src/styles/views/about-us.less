@@ -29,6 +29,19 @@ about-us {
       font-weight: bold;
       line-height: @baseline * 2;
     }
+    p:before{
+      color: #C1A780;
+    }
+    p.tel:before {
+      .fa;
+      padding-right: @baseline / 5;
+      content: @fa-var-phone;
+    }
+    p.mail:before {
+      .fa;
+      padding-right: @baseline / 5;
+      content: @fa-var-envelope;
+    }
   }
 
 }
