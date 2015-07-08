@@ -27,7 +27,7 @@
           </label>
         </form-element>
 
-        <form-element>
+        <form-element ng-if="!user.isLoggedIn()">
           <label for="email">
             <input type="email" id="email" required
               placeholder="Email address"
@@ -42,7 +42,7 @@
           <label for="reservation-number">
             <input type="text" id="reservation-number" required
               placeholder="Reservation number"
-              ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
+              ng-model="formData.fields.subject" ng-minlength="3"
               name="subject"
               ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>
             <span>Reservation Number</span>
@@ -56,7 +56,7 @@
         </div>
 
         <div>
-          <button-submit role="button" tabindex="0" ng-click="sendForm()">Find Reservation</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="find()">Find Reservation</button-submit>
         </div>
         <div ng-show="showErrorMsg">Look up of provided reservation number failed.</div>
       </form>

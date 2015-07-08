@@ -10,6 +10,8 @@ angular.module('mobius.controllers.reservation', [])
   $rootScope, userMessagesService, propertyService, $q,
   creditCardTypeService, breadcrumbsService){
 
+  // TODO: Add Auth CTRL
+
   // Alias for lodash to get rid of ugly $window._ calls
   var _ = $window._;
 
@@ -188,13 +190,23 @@ angular.module('mobius.controllers.reservation', [])
   $scope.continue = function() {
     switch ($state.current.name) {
     case 'reservation.details':
-      $scope.forms.details.$submitted = true;
+      if($scope.forms.details && !$scope.forms.details.$submitted){
+        $scope.forms.details.$submitted = true;
+      }
+
       if($scope.isValid()){
         $state.go('reservation.billing');
       }
       break;
     case 'reservation.billing':
-      $scope.forms.billing.$submitted = true;
+      // TODO: Fix submited logic when paying with points billing form is
+      // not required
+      // TODO: Billing details on confirmation page should be removed
+      // when paid with points
+      if($scope.forms.billing && !$scope.forms.billing.$submitted){
+        $scope.forms.billing.$submitted = true;
+      }
+
       if($scope.isValid()){
         $state.go('reservation.confirmation');
       }
@@ -258,10 +270,12 @@ angular.module('mobius.controllers.reservation', [])
         securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
         typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code
       };
-
-      // Product basePrice
-      reservationData.price = $scope.selectedProduct.price.totalBase;
     }
+
+
+    // Product basePrice
+    // NOTE - Pay with points requires price as well
+    reservationData.price = $scope.selectedProduct.price.totalBase;
 
     if($scope.bookingDetails.promoCode){
       reservationData[bookingService.getCodeParamName($scope.bookingDetails.promoCode)] = $scope.bookingDetails.promoCode;

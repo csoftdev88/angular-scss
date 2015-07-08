@@ -588,14 +588,13 @@ reservation-finished {
 
   // List of possible enhancements for users reservation
   .reservation-enhance {
-
     ul {
       .clearfix;
       margin: @spacing 0;
       padding: @spacing @spacing / 2;
       border: 2px solid #d6b9b9;
       border-radius: 4px;
-      background-color: @c-brown;
+      background-color: lighten(@c-brown, 20%);
     }
 
     li {
@@ -666,6 +665,18 @@ reservation-finished {
 
   .reservation-enhancements {
 
+    margin-bottom: 2*@baseline;
+
+    .total {
+      font-size: @size-2;
+      font-weight: 600;
+      text-align: right;
+      color: @c-link;
+    }
+
+    list-item {
+      border-top: 0;
+    }
   }
 
   .button.disabled {

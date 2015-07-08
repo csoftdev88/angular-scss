@@ -29,6 +29,8 @@ angular.module('mobiusApp.directives.imageCarousel', [])
         };
 
         scope.getCarousel = function(images) {
+          images = images || [];
+
           if (images.length <= scope.settings.minImages) {
             return images;
           } else {

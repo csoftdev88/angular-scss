@@ -4,7 +4,11 @@
 */
 angular.module('mobius.controllers.common.sso', [])
 
-.controller( 'SSOCtrl', function($scope, $window) {
+.controller( 'SSOCtrl', function($scope, $timeout, $window) {
+  function isSSOReady(){
+    return $window.infiniti && $window.infiniti.api;
+  }
+
   $scope.sso = {
     // NOTE: INFINITI SSO doesnt expose the API methods right away
     login: function(){
@@ -19,5 +23,21 @@ angular.module('mobius.controllers.common.sso', [])
     logout: function(){
       $window.infiniti.api.logout();
     },
+    trackPageView: function(){
+      if(!isSSOReady()){
+        return;
+      }
+
+      $timeout(function(){
+        $window.infiniti.api.trackPageView();
+      }, 1000);
+    },
+    trackPageLeave: function(){
+      if(!isSSOReady()){
+        return;
+      }
+
+      $window.infiniti.api.trackPageLeave();
+    }
   };
 });
