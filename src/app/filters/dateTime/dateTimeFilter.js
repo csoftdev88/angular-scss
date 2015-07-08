@@ -9,6 +9,10 @@ angular.module('mobiusApp.filters.dateTime', [])
 
 .filter('dateTime', function($window) {
   return function(input, outputFormat, inputFormat) {
+    if(!input){
+      return '';
+    }
+
     if(!outputFormat){
       outputFormat = 'DD MMM YY';
     }
