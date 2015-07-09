@@ -43,11 +43,11 @@ angular.module('mobius.controllers.reservation', [])
     switch (stateName) {
     case 'reservation.details':
       setBreadCrumbs(GUEST_DETAILS);
-      $scope.continueName = 'Payment';
+      $scope.continueName = 'Continue';
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
-      $scope.continueName = 'Confirmation';
+      $scope.continueName = 'Continue';
       break;
     case 'reservation.confirmation':
       setBreadCrumbs(CONFIRMATION);
