@@ -104,11 +104,11 @@
             ng-repeat="addon in availableAddons"
             ng-if="reservation.packages.indexOf(addon.code) === -1">
           <div>
-            <a href ng-click="openAddonDetailDialog(addon)">
+            <a href ng-click="openAddonDetailDialog(addon)" class="eye-icon">
               <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
             </a>
 
-            <h4>{{addon.name}}</h4>
+            <h4 ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
             <p>
               {{ addon._expanded ? addon.description : addon.descriptionShort }}
               <a href
