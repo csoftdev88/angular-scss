@@ -20,7 +20,8 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     $scope.reservationCode = $stateParams.reservationCode;
 
-    function onAuthorized() {
+    function onAuthorized(isMobiusUser) {
+
       // Getting reservation details
       var reservationPromise = reservationService.getReservation($stateParams.reservationCode).then(function(reservation) {
         $scope.reservation = reservation;
@@ -97,7 +98,6 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     // Choose either one of these two lines
     $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
-    //onAuthorized();
 
     // TODO: Unify with modifyReservation
     $scope.modifyCurrentReservation = function(){
