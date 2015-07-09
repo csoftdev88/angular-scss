@@ -315,7 +315,7 @@ angular.module('mobius.controllers.reservation', [])
 
     var reservationPromise = $q.all(promises).then(function(data) {
       userMessagesService.addInfoMessage('' +
-        '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
+        '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
         '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
         '');
 
