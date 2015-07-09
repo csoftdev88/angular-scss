@@ -319,10 +319,19 @@ angular.module('mobius.controllers.reservation', [])
         '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
         '');
 
-      $state.go('reservationDetail', {
+      var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
+        // Removing reservation code when booking modification is complete
         reservation: null
-      });
+      };
+
+      // When booked as anonymous we are adding customer email to the next route
+      // so booking data can be fetched from the API
+      if(!user.isLoggedIn()){
+        reservationDetailsParams.email = reservationData.customerEmail;
+      }
+
+      $state.go('reservationDetail', reservationDetailsParams);
     }, function() {
       // TODO: Whaat request has failed
       $scope.invalidFormData = true;
