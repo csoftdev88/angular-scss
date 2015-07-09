@@ -104,7 +104,7 @@
             ng-repeat="addon in availableAddons"
             ng-if="reservation.packages.indexOf(addon.code) === -1">
           <div>
-            <a href ng-click="openAddonDetailDialog(addon)" class="eye-icon">
+            <a href ng-click="openAddonDetailDialog(addon)" class="eye-icon" ng-class="{'disabled': !addon.description || addon.description == ''}">
               <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
             </a>
 
@@ -113,14 +113,15 @@
               {{ addon._expanded ? addon.description : addon.descriptionShort }}
               <a href
                  ng-init="addon._expanded = false"
-                 ng-click="addon._expanded = !addon._expanded">
+                 ng-click="addon._expanded = !addon._expanded"
+                 ng-if="addon.description && addon.description != ''">
                 {{ addon._expanded ? '[-]' : '[+]'}}
               </a>
             </p>
             <i>Add to your booking with one click:</i>
 
-            <a class="button" href ng-click="openAddonDetailDialog(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
-            <a class="button" href ng-click="openAddonDetailDialog(addon)" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
+            <a class="button" href ng-click="addAddon(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
+            <a class="button" href ng-click="addAddon(addon)" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
           </div>
         </li>
       </ul>
