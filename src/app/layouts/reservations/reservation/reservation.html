@@ -26,16 +26,16 @@
 
         <section class="room-data">
           <h4>{{property.nameLong}}</h4>
+          <p class="desc"><strong>{{selectedProduct.name}}</strong></p>
+          <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
+            night</em></p>
           <h3>{{roomDetails.name}}</h3>
-
-          <p class="desc">{{selectedProduct.name}}</p>
 
           <div class="image-wrapper">
             <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           </div>
 
-          <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
-            night</em></p>
+          
         </section>
         <section class="reservation-data">
           <div class="data">
