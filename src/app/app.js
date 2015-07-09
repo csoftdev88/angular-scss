@@ -196,7 +196,7 @@ angular
       .state('reservationDetail', {
         parent: 'root',
         templateUrl: 'layouts/reservations/reservationDetail.html',
-        url: '/reservation/:reservationCode',
+        url: '/reservation/:reservationCode?email',
         controller: 'ReservationDetailCtrl',
         data: {
           authProtected: true

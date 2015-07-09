@@ -17,8 +17,8 @@ angular.module('mobiusApp.services.reservation', [])
     return apiService.put(apiService.getFullURL('reservations.cancel', {reservationCode: reservationCode}));
   }
 
-  function getReservation(reservationCode) {
-    return apiService.get(apiService.getFullURL('reservations.detail', {reservationCode: reservationCode}));
+  function getReservation(reservationCode, params) {
+    return apiService.get(apiService.getFullURL('reservations.detail', {reservationCode: reservationCode}), params);
   }
 
   function getReservationAddOns(reservationCode) {
