@@ -179,6 +179,14 @@ angular.module('mobius.controllers.reservationDetail', [])
       preloaderFactory(reservationPromise);
     };
 
+    $scope.toggleAddonDescription = function(e, addon){
+      addon._expanded = !addon._expanded;
+      if(e){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
     $scope.addAddon = function(addon) {
       // Checking if same addone is already there
       if($scope.reservationAddons.indexOf(addon.code) === -1) {
