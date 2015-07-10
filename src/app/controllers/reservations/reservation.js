@@ -158,11 +158,19 @@ angular.module('mobius.controllers.reservation', [])
       break;
     case 'point':
       $scope.billingDetails.paymentMethod = 'point';
+      // NOTE: Pay with points is only available for logged in users
       $scope.pointsData = {};
-      $scope.pointsData.currentPoints = user.getUser().loyalties.amount;
-      $scope.pointsData.pointsEarned = $scope.selectedProduct.price.pointsEarned;
-      $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints +
-        $scope.selectedProduct.price.pointsEarned - $scope.selectedProduct.price.pointsRequired;
+
+      if(user.isLoggedIn()){
+        if(user.getUser().loyalties){
+          $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
+        }
+
+        $scope.pointsData.pointsEarned = $scope.selectedProduct.price.pointsEarned;
+        $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints +
+          $scope.selectedProduct.price.pointsEarned - $scope.selectedProduct.price.pointsRequired;
+      }
+
       break;
     default:
       $scope.billingDetails.paymentMethod = 'cc';
