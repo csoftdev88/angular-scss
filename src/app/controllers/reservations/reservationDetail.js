@@ -218,7 +218,7 @@ angular.module('mobius.controllers.reservationDetail', [])
     };
 
     // Returns a total price of addons added to current reservation
-    $scope.getAddonsPrice = function() {
+    $scope.getAddonsTotalPrice = function() {
       return _.reduce($scope.reservationAddons, function(acc, addon) { return acc + addon.price; }, 0);
     };
 
