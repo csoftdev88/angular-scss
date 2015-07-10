@@ -46,7 +46,7 @@
           <div>
             <div ng-bind-html="sanitize(product.description)"></div>
 
-            <p>
+            <p class="action-links">
               <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a> &nbsp;&nbsp; | &nbsp;&nbsp;
               <a href ng-click="openPoliciesInfo(product)" ng-if="product.policies">View Policies</a>
             </p>
