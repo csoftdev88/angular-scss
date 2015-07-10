@@ -34,7 +34,10 @@
               ng-model="formData.fields.email" email-check
               name="email"
               ng-class="{'ng-submitted': form.$submitted && form.email.$error.required}"/>
-            <span>Email</span>
+            <span>
+              <span ng-hide="form.$submitted && form.email.$error.emailCheck">Email</span>
+              <span ng-show="form.$submitted && form.email.$error.emailCheck">Please enter a valid email address</span>
+            </span>
           </label>
         </form-element>
 
