@@ -8,12 +8,45 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService){
+  creditCardTypeService, breadcrumbsService, _){
 
-  // TODO: Add Auth CTRL
+  function onAuthorized(){
+    // Getting room/products data
+    var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
+      $scope.setRoomDetails(data.roomDetails);
+      setProductDetails(data.roomProductDetails.products);
+      return data;
+    });
 
-  // Alias for lodash to get rid of ugly $window._ calls
-  var _ = $window._;
+    var propertyPromise = propertyService.getPropertyDetails($stateParams.property).then(function(property) {
+      $scope.property = property;
+      return property;
+    });
+
+    // Showing loading mask
+    preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(data){
+      setBreadCrumbs = function(name) {
+        breadcrumbsService
+          .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
+          .addBreadCrumb('Rooms', 'hotel', {propertyCode: $stateParams.property}, 'jsRooms')
+          .addBreadCrumb(data[0].roomDetails.name, 'hotel', {propertyCode: $stateParams.property, roomID: $stateParams.roomID})
+          .addBreadCrumb(name)
+          .addHref(GUEST_DETAILS)
+          .addHref(BILLING_DETAILS)
+          .addHref(CONFIRMATION)
+          .setActiveHref(name)
+        ;
+      };
+      setBreadCrumbs(lastBreadCrumbName);
+    }, goToRoom));
+  }
+
+  // Inheriting the login from RoomDetails controller
+  $controller('RoomDetailsCtrl', {$scope: $scope});
+  $controller('SSOCtrl', {$scope: $scope});
+
+  // NOTE: Waiting for infiniti SSO auth events
+  $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
   function goToRoom() {
     $state.go('room', {
@@ -60,9 +93,11 @@ angular.module('mobius.controllers.reservation', [])
       break;
     }
   }
+
   var $stateChangeStartUnWatch = $rootScope.$on('$stateChangeSuccess', function(event, toState) {
     setContinueName(toState.name);
   });
+
   setContinueName($state.current.name);
 
   $scope.$on('$destroy', function() {
@@ -70,13 +105,10 @@ angular.module('mobius.controllers.reservation', [])
   });
 
   $scope.expirationMinDate = $window.moment().format('YYYY-MM');
-
   $scope.state = $state;
 
   $scope.forms = {};
-
   $scope.userDetails = {};
-
   $scope.billingDetails = {
     card: {
       number: '',
@@ -89,41 +121,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
-
   $scope.additionalInfo = {};
-
-  // Inheriting the login from RoomDetails controller
-  $controller('RoomDetailsCtrl', {$scope: $scope});
-  $controller('SSOCtrl', {$scope: $scope});
-
-  // Getting room/products data
-  var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
-    $scope.setRoomDetails(data.roomDetails);
-    setProductDetails(data.roomProductDetails.products);
-    return data;
-  });
-
-  var propertyPromise = propertyService.getPropertyDetails($stateParams.property).then(function(property) {
-    $scope.property = property;
-    return property;
-  });
-
-  // Showing loading mask
-  preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(data){
-    setBreadCrumbs = function(name) {
-      breadcrumbsService
-        .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
-        .addBreadCrumb('Rooms', 'hotel', {propertyCode: $stateParams.property}, 'jsRooms')
-        .addBreadCrumb(data[0].roomDetails.name, 'hotel', {propertyCode: $stateParams.property, roomID: $stateParams.roomID})
-        .addBreadCrumb(name)
-        .addHref(GUEST_DETAILS)
-        .addHref(BILLING_DETAILS)
-        .addHref(CONFIRMATION)
-        .setActiveHref(name)
-      ;
-    };
-    setBreadCrumbs(lastBreadCrumbName);
-  }, goToRoom));
 
   function setProductDetails(products){
     // Finding the product which user about to book
@@ -172,19 +170,35 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function() {
+    if(!$scope.selectedProduct){
+      return;
+    }
+
     switch($state.current.name){
     case 'reservation.details':
       return $scope.forms.details && !$scope.forms.details.$invalid;
     case 'reservation.billing':
       switch ($scope.billingDetails.paymentMethod) {
       case 'point':
-        return user.getUser().loyalties.amount >= $scope.selectedProduct.price.pointsRequired;
+        if(user.isLoggedIn() && $scope.selectedProduct.price.pointsRequired){
+          return user.getUser().loyalties.amount >= $scope.selectedProduct.price.pointsRequired;
+        }
+        break;
       }
       return $scope.forms.billing && !$scope.forms.billing.$invalid;
     case 'reservation.confirmation':
       return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
     }
     return false;
+  };
+
+  $scope.isContinueDisabled = function(){
+    // TODO: Do this better - might work via ng-class instead of disabled
+    if($state.is('reservation.billing') && $scope.billingDetails.paymentMethod === 'point') {
+      return !$scope.isValid();
+    }
+
+    return !$scope.isValid() && !$state.is('reservation.details') && !$state.is('reservation.billing');
   };
 
   $scope.continue = function() {

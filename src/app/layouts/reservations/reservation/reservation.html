@@ -111,7 +111,7 @@
 
     <div class="reservation-controls" grid-row>
       <button class="back" ng-click="goBack()">Back</button>
-      <button class="next" ng-click="continue()" ng-disabled="!isValid() && !state.is('reservation.details') && !state.is('reservation.billing')">{{continueName}}</button>
+      <button class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">{{continueName}}</button>
       <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
         <h4>Already Registered?</h4>
         <p>Click here to <a href ng-click="sso.login()">log in or register</a>.</p>
