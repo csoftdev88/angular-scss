@@ -170,6 +170,10 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function() {
+    if(!$scope.selectedProduct){
+      return;
+    }
+
     switch($state.current.name){
     case 'reservation.details':
       return $scope.forms.details && !$scope.forms.details.$invalid;
@@ -177,7 +181,6 @@ angular.module('mobius.controllers.reservation', [])
       switch ($scope.billingDetails.paymentMethod) {
       case 'point':
         if(user.isLoggedIn() && $scope.selectedProduct.price.pointsRequired){
-          $scope.selectedProduct.price.pointsRequired = 100000;
           return user.getUser().loyalties.amount >= $scope.selectedProduct.price.pointsRequired;
         }
         break;
@@ -190,8 +193,12 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isContinueDisabled = function(){
-    return !$scope.isValid() && !$state.is('reservation.details') &&
-      (!$state.is('reservation.billing') && $scope.billingDetails.paymentMethod !== 'point');
+    // TODO: Do this better - might work via ng-class instead of disabled
+    if($state.is('reservation.billing') && $scope.billingDetails.paymentMethod === 'point') {
+      return !$scope.isValid();
+    }
+
+    return !$scope.isValid() && !$state.is('reservation.details') && !$state.is('reservation.billing');
   };
 
   $scope.continue = function() {
