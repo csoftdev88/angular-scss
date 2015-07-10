@@ -31,7 +31,7 @@
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
         <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" grid="{{preference.get('hotels-view-mode') === 'list' ? 3 : 1}}">
-        
+
             <div class="item-image" ng-click="navigateToHotel(hotel.code)">
               <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
@@ -65,7 +65,7 @@
               </p>
             </pricing-info>
             <p class="description">{{hotel.descriptionShort}}</p>
-         
+
         </li>
       </ul>
     </div>
@@ -120,8 +120,18 @@
           <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMaxRating(rating)" ng-class="{included: rating <= maxRating}"></li>
         </ul>
       </div>
-      <hr>
+
+      <h3>Rates</h3>
+      <select name="rate"
+        required ng-model="selected.rate"
+        disable-search="true"
+        chosen ng-options="rate.id as rate.name for rate in rates"
+        data-placeholder="Rate">
+        <option></option> <!-- workaround for a bug in angular-chosen -->
+      </select>
+
       <!-- Out of scope now -->
+      <!-- <hr> -->
       <!--<h3>Amenities</h3>-->
       <!--<hr>-->
       <!-- <h3>Location</h3>

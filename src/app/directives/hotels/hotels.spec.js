@@ -62,6 +62,13 @@ describe('hotels directive', function() {
               c({id: 321});
             }
           };
+        },
+        getProducts: function(){
+          return {
+            then: function(c){
+              c([{a: 123}]);
+            }
+          };
         }
       });
 

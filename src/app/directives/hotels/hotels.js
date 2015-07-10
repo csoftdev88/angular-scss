@@ -94,6 +94,10 @@ angular.module('mobiusApp.directives.hotels', [])
         preloaderFactory($q.all([hotelsPromise, locationsPromise]));
       }
 
+      filtersService.getProducts(true).then(function(data) {
+        scope.rates = data || [];
+      });
+
       scope.navigateToHotel = function(propertyCode){
         $state.go('hotel', {propertyCode: propertyCode});
       };
