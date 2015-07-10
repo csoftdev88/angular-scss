@@ -611,6 +611,7 @@ reservation-finished {
       &.third { width: 33.3333%; }
 
       > div {
+        cursor: pointer;
         padding-bottom: 5px;
         border-radius: 4px;
         background: #fff;
@@ -621,7 +622,19 @@ reservation-finished {
         a.eye-icon{
           position : relative;
           display: block;
+
           &:before {
+            content: '';
+            display: block;
+            background: @c-black;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            .transition(opacity, .3s, ease-in-out);
+          }
+
+          &:after {
             .fa;
             content: @fa-var-eye;
             background: transparent;
@@ -638,13 +651,24 @@ reservation-finished {
             opacity: 0;
             .transition(opacity, .3s, ease-in-out);
           }
-          &:hover:before{
-            opacity: 1;
+
+          &:hover {
+            &:after{
+              opacity: 1;
+            }
+            &:before{
+              opacity: .3;
+            }
           }
+
           &.disabled{
             cursor: default;
             pointer-events: none;
           }
+        }
+
+        h4 {
+          color: @c-black;
         }
       }
     }

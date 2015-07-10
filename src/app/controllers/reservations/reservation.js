@@ -315,14 +315,22 @@ angular.module('mobius.controllers.reservation', [])
 
     var reservationPromise = $q.all(promises).then(function(data) {
       userMessagesService.addInfoMessage('' +
-        '<div>Thank you for your reservation at The Sutton Place Hotel Vancouver!</div>' +
-        '<div class="small">A confirmation email will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>' +
-        '');
+        '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
+        '<div class="small">A confirmation emaill will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>');
 
-      $state.go('reservationDetail', {
+      var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
+        // Removing reservation code when booking modification is complete
         reservation: null
-      });
+      };
+
+      // When booked as anonymous we are adding customer email to the next route
+      // so booking data can be fetched from the API
+      if(!user.isLoggedIn()){
+        reservationDetailsParams.email = reservationData.customerEmail;
+      }
+
+      $state.go('reservationDetail', reservationDetailsParams);
     }, function() {
       // TODO: Whaat request has failed
       $scope.invalidFormData = true;
