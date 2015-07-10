@@ -78,48 +78,47 @@ dialog {
 /////////////////////////////
 
 .modal-policies {
-  padding-right: 0;
+  margin: @baseline;
+  border: 1px solid @c-light-grey;
+  padding: 0;
+
+  .modal-header {
+    border-bottom: 1px solid @c-light-grey;
+    padding: @baseline/4 @baseline;
+  }
+
+  .modal-body {
+
+    .policies-list {
+      overflow-y: auto;
+      max-height: 400px;
+      box-sizing: border-box;
+    }
+
+    .policy {
+
+      border-bottom: 1px solid @c-light-grey;
+      padding: @baseline/3 @baseline;
+      margin: 0;
+
+      h3 {
+        font-size: @size-0;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      p {
+        color: @c-text-light;
+      }
+
+      ul {
+        margin: @baseline 0 @baseline @baseline / 2;
+        list-style-type: disc;
+      }
+
+      li {
+        margin-left: 2em;
+      }
+    }
+  }
 }
-
-.modal-body {
-
-  .policies-list {
-    padding: @baseline @baseline @baseline 0;
-    overflow-y: auto;
-    max-height: 400px;
-    box-sizing: border-box;
-  }
-
-  .policy {
-
-    h3 {
-      font-size: @size-0;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    p {
-      color: @c-text-light;
-    }
-
-    p + p,
-    li + li {
-      margin-top: @baseline / 2;
-    }
-
-    ul {
-      margin: @baseline 0 @baseline @baseline / 2;
-      list-style-type: disc;
-    }
-
-    li {
-      margin-left: 2em;
-    }
-  }
-
-  .policy + .policy {
-    margin-top: @baseline;
-  }
-
-}
-
