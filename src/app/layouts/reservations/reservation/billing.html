@@ -11,7 +11,8 @@
       </li>
     </ul>
     <section class="payment-points" ng-switch-when="point">
-      <table>
+      <!-- Points details only for logged in user -->
+      <table ng-if="user.isLoggedIn()">
         <tr>
           <th>Current points:</th>
           <td>{{pointsData.currentPoints}}</td>
@@ -29,7 +30,16 @@
           <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
         </tr>
       </table>
+
+      <div ng-if="!user.isLoggedIn()">
+        <registration-call>
+          <h4>This feature only available to registered users.</h4>
+          <p>Click here to <a href ng-click="sso.login()">log in or register</a>.</p>
+        </registration-call>
+      </div>
+
       <div class="error" ng-show="pointsData.pointsAfterBooking < 0">Sorry, you don't have enough points to perform this purchase.</div>
+
     </section>
     <section class="payment-card" ng-switch-default>
       <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()" ng-click="selectPaymentMethod('cc')" ng-class="{'ng-submitted': forms.billing.$submitted}">
