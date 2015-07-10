@@ -354,6 +354,34 @@ angular.module('mobiusApp.config', [])
       'thunder': [200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 906],
       'wind': [900, 902, 905],
       'wind-rain': [901]
+    },
+    'forms': {
+      'contactSubjects': [
+        {
+          key: 'Prestige and Loyalty',
+          value: 'Prestige and Loyalty'
+        },
+        {
+          key: 'My Reservation',
+          value: 'My Reservation'
+        },
+        {
+          key: 'Customer Feedback',
+          value: 'Customer Feedback'
+        },
+        {
+          key: 'Technical Issues',
+          value: 'Technical Issues'
+        },
+        {
+          key: 'Event Inquiry',
+          value: 'Event Inquiry'
+        },
+        {
+          key: 'General',
+          value: 'General'
+        }
+      ]
     }
   }
 });

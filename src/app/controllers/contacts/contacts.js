@@ -10,12 +10,13 @@ angular.module('mobius.controllers.contacts', [])
     $controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Contact And Feedback');
 
+    $scope.subjectOptions = Settings.UI.forms.contactSubjects;
     var formDataCopy = {
       'code': 'contact',
       'fields': {}
     };
     $scope.formData = angular.copy(formDataCopy);
-
+    
     //get contact information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
