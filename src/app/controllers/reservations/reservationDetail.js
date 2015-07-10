@@ -217,8 +217,9 @@ angular.module('mobius.controllers.reservationDetail', [])
       }
     };
 
-    $scope.getPackagesPrice = function() {
-      return _.reduce($scope.reservation.packages, function(acc, packageCode) { return acc + $scope.addons[packageCode].price; }, 0);
+    // Returns a total price of addons added to current reservation
+    $scope.getAddonsPrice = function() {
+      return _.reduce($scope.reservationAddons, function(acc, addon) { return acc + addon.price; }, 0);
     };
 
     if (modalService.openAddonDetailDialog.bind) { // WTF - PhatomJS workaround
