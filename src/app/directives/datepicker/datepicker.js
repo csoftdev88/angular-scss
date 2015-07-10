@@ -54,13 +54,8 @@ angular.module('mobiusApp.directives.datepicker', [])
           // as a string
           if(typeof(ngModelCtrl.$modelValue) === 'string'){
             var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
-            startDate = new Date(dates[0]).setHours(0);
-
-            if(dates.length === 2){
-              endDate = new Date(dates[1]).setHours(0);
-            }else{
-              endDate = startDate;
-            }
+            startDate = $window.moment(dates[0], 'YYYY MM DD').valueOf();
+            endDate = dates.length === 2?$window.moment(dates[1], 'YYYY MM DD').valueOf():startDate;
           }
         }
 

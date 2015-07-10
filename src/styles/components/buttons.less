@@ -11,13 +11,12 @@ button {
   font-size: @size-0;
   line-height: @baseline * 1.75;
   height: @baseline * 1.75;
-  box-shadow: 0 1px 0 0 darken(@c-button, 5%);
   padding: 0 @baseline;
-  min-width: 6*@baseline;
   text-align: center;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 
   &:focus {
     outline: none;
@@ -43,6 +42,7 @@ button-submit {
   font-size: @size-0;
   line-height: @baseline * 1.75;
   height: @baseline * 1.75;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 
   transition: 0.2s all;
 
