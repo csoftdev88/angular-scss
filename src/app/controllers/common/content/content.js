@@ -47,6 +47,7 @@ angular.module('mobius.controllers.common.content', [])
         'listState': 'offers',
         'paramName': 'code',
         'title': 'title',
+        'subtitle': 'subtitle',
         'sort': 'prio',
         'reverseSort': true
       },
@@ -90,7 +91,8 @@ angular.module('mobius.controllers.common.content', [])
           $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
             return {
               code: item.code,
-              title: item[$scope.settings.title]
+              title: item[$scope.settings.title],
+              subtitle: item[$scope.settings.subtitle]
             };
           }).value();
           if ($scope.settings.reverseSort) {
