@@ -39,7 +39,10 @@
             placeholder="xxxx-xxxx-xxxx-xxxx"
             ng-model="billingDetails.card.number"
             name="creditcard"/>
-          <span>Card number</span>
+          <span>
+            <span ng-hide="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">Card number</span>
+            <span ng-show="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">Please enter a valid card number</span>
+          </span>
         </label>
 
         <div class="input-left">
@@ -56,7 +59,9 @@
               placeholder="CVV"
               ng-min="100"
               ng-max="999"
-              ng-model="billingDetails.card.securityCode" />
+              ng-model="billingDetails.card.securityCode" 
+              ng-pattern="/^[0-9]{3,4}$/"
+              name="cvv"/>
             <span>CVV <span class="help" ng-click="openCCVInfo()"/></span>
           </label>
         </div>
@@ -125,6 +130,7 @@
         <label class="form-errors" ng-if="forms.billing.$invalid  && forms.billing.$submitted">
           <div>Please fill out all the fields indicated</div>
           <div ng-if="!forms.billing.creditcard.$valid">Sorry, your card number is not valid, please check it</div>
+          <div ng-if="!forms.billing.cvv.$valid || forms.billing.cvv.$error.pattern">Sorry, your cvv number is not valid, please check it</div>
         </label>
 
         <input type="submit" id="submit" value="Submit" ng-hide="true" />
