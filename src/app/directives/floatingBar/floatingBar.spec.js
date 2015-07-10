@@ -13,7 +13,9 @@ describe('bookingWidget', function() {
     module('mobiusApp.directives.floatingBar', function($provide){
       $provide.value('Settings', {
         UI: {
-          bookingWidget: {}
+          bookingWidget: {
+            hasAdvancedTab: true
+          }
         }
       });
     });
@@ -48,6 +50,10 @@ describe('bookingWidget', function() {
 
     it('should have set active element', function() {
       expect(env.scope.active).to.not.be.empty;
+    });
+
+    it('should define hasAdvancedTab property on scope according to configuration', function() {
+      expect(env.scope.hasAdvancedTab).equal(true);
     });
   });
 
