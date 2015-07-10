@@ -105,7 +105,7 @@ angular.module('mobiusApp.services.user', [])
       });
       // Removing auth headers
       var headers = {};
-      headers[HEADER_INFINITI_SSO] = null;
+      headers[HEADER_INFINITI_SSO] = undefined;
       apiService.setHeaders(headers);
 
       authPromise = $q.defer().promise;

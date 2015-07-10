@@ -116,10 +116,12 @@ describe('mobius.controllers.reservationDetail', function() {
 
         $provide.value('breadcrumbsService', breadcrumbs);
 
-        $provide.value('$state', {});
+        $provide.value('$state', {
+          go: function(){}
+        });
 
         $controllerProvider.register('AuthCtrl', function($scope, config){
-          config.onAuthorized();
+          config.onAuthorized(true);
         });
       });
     });

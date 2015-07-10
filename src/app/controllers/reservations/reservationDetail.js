@@ -20,9 +20,24 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     $scope.reservationCode = $stateParams.reservationCode;
 
-    function onAuthorized() {
+    function onAuthorized(isMobiusUser) {
+      var params;
+
+      if(!isMobiusUser){
+        // Logged in as anonymous user - checking if there is an email flag in URL
+        if(!$stateParams.email){
+          // Email is not defined in the URL - redirecting back to home page
+          $state.go('home');
+          return;
+        }
+
+        params = {
+          email: $stateParams.email
+        };
+      }
+
       // Getting reservation details
-      var reservationPromise = reservationService.getReservation($stateParams.reservationCode).then(function(reservation) {
+      var reservationPromise = reservationService.getReservation($stateParams.reservationCode, params).then(function(reservation) {
         $scope.reservation = reservation;
         $scope.reservation.packages = $scope.reservation.packageItemCodes || []; // API workaround
         var room = $scope.reservation.rooms[0];
@@ -97,7 +112,6 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     // Choose either one of these two lines
     $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
-    //onAuthorized();
 
     // TODO: Unify with modifyReservation
     $scope.modifyCurrentReservation = function(){
@@ -177,6 +191,14 @@ angular.module('mobius.controllers.reservationDetail', [])
       );
 
       preloaderFactory(reservationPromise);
+    };
+
+    $scope.toggleAddonDescription = function(e, addon){
+      addon._expanded = !addon._expanded;
+      if(e){
+        e.preventDefault();
+        e.stopPropagation();
+      }
     };
 
     $scope.addAddon = function(addon) {
