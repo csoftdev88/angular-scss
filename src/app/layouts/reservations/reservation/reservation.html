@@ -26,16 +26,15 @@
 
         <section class="room-data">
           <h4>{{property.nameLong}}</h4>
+          <p class="desc"><strong>{{selectedProduct.name}}</strong></p>
+          <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
+            night</em></p>
           <h3>{{roomDetails.name}}</h3>
-
-          <p class="desc">{{selectedProduct.name}}</p>
 
           <div class="image-wrapper">
             <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           </div>
 
-          <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
-            night</em></p>
         </section>
         <section class="reservation-data">
           <div class="data">
@@ -112,7 +111,7 @@
 
     <div class="reservation-controls" grid-row>
       <button class="back" ng-click="goBack()">Back</button>
-      <button class="next" ng-click="continue()" ng-disabled="!isValid() && !state.is('reservation.details') && !state.is('reservation.billing')">{{continueName}}</button>
+      <button class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">{{continueName}}</button>
       <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
         <h4>Already Registered?</h4>
         <p>Click here to <a href ng-click="sso.login()">log in or register</a>.</p>

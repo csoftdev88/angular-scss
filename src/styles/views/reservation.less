@@ -56,7 +56,7 @@ reservation-widget {
     padding-bottom: 10px;
     color: darken(@c-gray-reservation, 20%);
 
-    span {
+    > span {
       position: absolute;
       left: 0;
       top: 0;
@@ -117,9 +117,9 @@ reservation-widget {
     }
   }
 
-
   .additional-details {
     width: 100%;
+    margin-top: -10px;
   }
 
   input[type="text"],
@@ -177,6 +177,11 @@ reservation-widget {
       font-weight: bold;
     }
 
+    .desc,
+    .price{
+      color: @c-brown;
+    }
+
     .image-wrapper {
       overflow: hidden;
 
@@ -190,7 +195,6 @@ reservation-widget {
   }
 
   .reservation-data {
-
     table {
       width: 100%;
     }
@@ -402,6 +406,12 @@ reservation-billing {
       margin-top: @spacing;
       color: @c-red;
     }
+
+    registration-call {
+      text-align: center;
+      display: block;
+      margin: 87px 0px;
+    }
   }
 }
 
@@ -458,8 +468,18 @@ reservation-confirmation {
       display: block;
     }
 
-    &:last-of-type {
-      padding: 10px 40px 25px 40px;
+    .points-balance {
+      th {
+        width: 60%;
+      }
+
+      td {
+        text-align: right;
+
+        &.earned {
+          color: @c-green;
+        }
+      }
     }
   }
 
@@ -594,7 +614,7 @@ reservation-finished {
       padding: @spacing @spacing / 2;
       border: 2px solid #d6b9b9;
       border-radius: 4px;
-      background-color: lighten(@c-brown, 20%);
+      background-color: #d7c6ae;
     }
 
     li {
@@ -606,12 +626,65 @@ reservation-finished {
       &.third { width: 33.3333%; }
 
       > div {
+        cursor: pointer;
         padding-bottom: 5px;
         border-radius: 4px;
         background: #fff;
         box-shadow: 0 2px 1px 0 fade(@c-black, 50%);
         text-align: center;
         overflow: hidden;
+
+        a.eye-icon{
+          position : relative;
+          display: block;
+
+          &:before {
+            content: '';
+            display: block;
+            background: @c-black;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            .transition(opacity, .3s, ease-in-out);
+          }
+
+          &:after {
+            .fa;
+            content: @fa-var-eye;
+            background: transparent;
+            color: #fff;
+            font-size: 48px;
+            line-height: 27px;
+            position: absolute;
+            width: 48px;
+            height: 30px;
+            left: 50%;
+            top: 50%;
+            margin-left: -24px;
+            margin-top: -18px;
+            opacity: 0;
+            .transition(opacity, .3s, ease-in-out);
+          }
+
+          &:hover {
+            &:after{
+              opacity: 1;
+            }
+            &:before{
+              opacity: .3;
+            }
+          }
+
+          &.disabled{
+            cursor: default;
+            pointer-events: none;
+          }
+        }
+
+        h4 {
+          color: @c-black;
+        }
       }
     }
 
@@ -627,6 +700,10 @@ reservation-finished {
       margin: @baseline 0;
       font-size: @size-2;
       text-transform: uppercase;
+      font-weight: 700;
+      span{
+        font-weight: 400;
+      }
     }
 
     i {
@@ -635,6 +712,8 @@ reservation-finished {
       font-size: @size--1;
       line-height: @baseline;
       text-align: left;
+      font-weight: 700;
+      padding: 0 14px;
     }
 
     p {

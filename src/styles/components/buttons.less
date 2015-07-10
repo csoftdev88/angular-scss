@@ -9,7 +9,12 @@ button {
   border-radius: 4px;
   font-weight: 600;
   font-size: @size-0;
-  line-height: @baseline * 1.5;
+  line-height: @baseline * 1.75;
+  height: @baseline * 1.75;
+  box-shadow: 0 1px 0 0 darken(@c-button, 5%);
+  padding: 0 @baseline;
+  min-width: 6*@baseline;
+  text-align: center;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -24,8 +29,10 @@ button {
 button-submit {
   border-radius: 4px;
   display: inline-block;
-  height: @baseline * 1.5;
-  padding: 0 @baseline*2;
+  padding: 0 @baseline;
+  min-width: 6*@baseline;
+  box-sizing: border-box;
+  text-align: center;
 
   background: @c-button;
   border-bottom: 1px solid darken(@c-button, 10%);
@@ -34,9 +41,12 @@ button-submit {
   cursor: pointer;
   font-weight: 600;
   font-size: @size-0;
-  line-height: @baseline * 1.5;
+  line-height: @baseline * 1.75;
+  height: @baseline * 1.75;
 
   transition: 0.2s all;
+
+  box-shadow: 0 1px 0 0 darken(@c-button, 5%);
 
   &:active,
   &:focus,

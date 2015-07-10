@@ -116,10 +116,12 @@ describe('mobius.controllers.reservationDetail', function() {
 
         $provide.value('breadcrumbsService', breadcrumbs);
 
-        $provide.value('$state', {});
+        $provide.value('$state', {
+          go: function(){}
+        });
 
         $controllerProvider.register('AuthCtrl', function($scope, config){
-          config.onAuthorized();
+          config.onAuthorized(true);
         });
       });
     });
@@ -175,6 +177,23 @@ describe('mobius.controllers.reservationDetail', function() {
 
       });
       */
+    });
+
+    describe('getAddonsTotalPrice', function() {
+      it('should return a total price of addons added to current reservation', function() {
+        _scope.reservationAddons = [
+          {price: 5},
+          {price: 11}
+        ];
+
+        expect(_scope.getAddonsTotalPrice()).equal(16);
+
+        _scope.reservationAddons = [];
+        expect(_scope.getAddonsTotalPrice()).equal(0);
+
+        _scope.reservationAddons = null;
+        expect(_scope.getAddonsTotalPrice()).equal(0);
+      });
     });
   });
 });

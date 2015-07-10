@@ -42,6 +42,7 @@
     <form-label>Enter Your Dates</form-label>
     <input-value>{{inputDateText || 'Dates'}}</input-value>
   </form-element>
+
   <!-- NUMBER OF ADULTS -->
   <form-element class="persons">
     <select name="adults"
@@ -69,9 +70,9 @@
   </form-element>
 
   <!-- ENTER YOUR CODE -->
-  <form-element ng-if="advanced" class="code">
-    <input type="text" placeholder="Your Code" ng-model="selected.promoCode">
-    <form-label>Enter Your Code</form-label>
+  <form-element ng-if="advanced || !settings.hasAdvancedTab" class="code">
+    <input type="text" placeholder="Promo Code" ng-model="selected.promoCode">
+    <form-label>Enter Your Promo Code</form-label>
   </form-element>
 
   <!-- SELECT RATE -->
@@ -91,12 +92,11 @@
     role="button" tabindex="0"
     ng-click="isSearchable() && onSearch()"
     ng-disabled="!isSearchable()">
-    Search Now
+    {{hasAdvancedTab? 'Search Now':'Go'}}
   </button-submit>
 </booking-widget-search>
 
 <booking-widget-add-room ng-if="advanced">
-
   <booking-widget-room ng-repeat="room in selected.rooms">
     <h3>Room {{$index + 1}}</h3>
 

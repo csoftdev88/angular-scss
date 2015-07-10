@@ -37,7 +37,7 @@ describe('mobius.controllers.reservation', function() {
 
       module('mobiusApp.factories.preloader');
 
-      module('mobius.controllers.reservation', function($provide) {
+      module('mobius.controllers.reservation', function($provide, $controllerProvider) {
         $provide.value('bookingService', {
           getAPIParams: function(){
             return {
@@ -140,6 +140,12 @@ describe('mobius.controllers.reservation', function() {
           },
 
           getCreditCardPreviewNumber: function(){}
+        });
+
+        $provide.value('_', window._);
+
+        $controllerProvider.register('AuthCtrl', function($scope, config){
+          config.onAuthorized(true);
         });
 
         var breadcrumbs = {

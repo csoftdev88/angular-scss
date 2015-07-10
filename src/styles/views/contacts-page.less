@@ -10,7 +10,7 @@ contacts-page {
     padding-bottom: 10px;
     color: darken(@c-gray-reservation, 20%);
 
-    span {
+    > span {
       position: absolute;
       left: 0;
       top: 0;
@@ -45,6 +45,30 @@ contacts-page {
       opacity: 1;
       transform: translateX(0);
       color: @c-red;
+    }
+  }
+
+  .chosen-container{
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 6px;
+    border-radius: 0;
+    height: 40px;
+    &.chosen-container-active ~ span {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .chosen-single{
+      height: 40px;
+      line-height: 38px;
+      span{
+
+      }
+    }
+    .chosen-results{
+      li{
+        color: @c-grey;
+      }
     }
   }
 

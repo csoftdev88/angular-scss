@@ -26,7 +26,16 @@ angular.module('mobius.controllers.reservationLookup', [])
 
       reservationService.find($scope.formData.fields.subject, $scope.formData.fields.email).then(function(data){
         // Redirecting to reservation details
-        $state.go('reservationDetail', {reservationCode: data.reservationCode});
+        var stateParams = {
+          reservationCode: data.reservationCode
+        };
+
+        if($scope.formData.fields.email){
+          stateParams.email = $scope.formData.fields.email;
+        }
+
+        $state.go('reservationDetail', stateParams);
+
       }, function(){
         modalService.openReservationLookupFailedDialog();
       });

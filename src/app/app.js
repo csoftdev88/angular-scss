@@ -120,6 +120,7 @@ angular
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.isoCountryOptions',
+    'mobiusApp.directives.scrollPosition',
 
     // Filters
     'mobiusApp.filters.list',
@@ -129,7 +130,8 @@ angular
     'mobiusApp.filters.dateTime',
     'mobiusApp.filters.checkInDate',
     'mobiusApp.filters.cloudinaryImage',
-    'mobiusApp.filters.truncate'
+    'mobiusApp.filters.truncate',
+    'mobiusApp.filters.wrapword'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -196,7 +198,7 @@ angular
       .state('reservationDetail', {
         parent: 'root',
         templateUrl: 'layouts/reservations/reservationDetail.html',
-        url: '/reservation/:reservationCode',
+        url: '/reservation/:reservationCode?email',
         controller: 'ReservationDetailCtrl',
         data: {
           authProtected: true

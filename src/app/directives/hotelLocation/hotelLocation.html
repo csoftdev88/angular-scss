@@ -3,7 +3,7 @@
   <a target="_blank"
      ng-if="position"
      href="http://maps.google.com/maps?q={{position[0]}}+{{position[1]}}&z=15&t=m">
-    View full screen
+    View on Google Maps
   </a>
 </p>
 <map
@@ -12,10 +12,13 @@
   max-zoom="18"
   min-zoom="8"
   scrollwheel="false"
-  center="{{position}}">
+  center="{{position}}"
+  styles="[{featureType:'poi.business',elementType:'all',stylers:[{visibility:'off'}]}]"
+>
   <marker
     position="{{position}}"
     title="{{hotelDetails.nameShort}}"></marker>
+
 </map>
 
 <p>{{hotelDetails.locationDescription}}</p>
