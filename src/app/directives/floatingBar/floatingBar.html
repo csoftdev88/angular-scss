@@ -4,7 +4,7 @@
       Make Your <strong>Booking</strong>
     </a>
   </li>
-  <li class="floating-bar--tab-advanced-booking" ng-class="{'is-active': active === ADVANCED_BOOKING}">
+  <li class="floating-bar--tab-advanced-booking" ng-if="hasAdvancedTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
     <a href="" ng-click="setActive(ADVANCED_BOOKING)">
       Advanced <strong>Booking</strong>
     </a>

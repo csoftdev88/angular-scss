@@ -10,7 +10,13 @@ describe('bookingWidget', function() {
   beforeEach(function() {
     env = {};
 
-    module('mobiusApp.directives.floatingBar');
+    module('mobiusApp.directives.floatingBar', function($provide){
+      $provide.value('Settings', {
+        UI: {
+          bookingWidget: {}
+        }
+      });
+    });
 
     inject(function($compile, $rootScope, $templateCache) {
 
