@@ -117,9 +117,9 @@ reservation-widget {
     }
   }
 
-
   .additional-details {
     width: 100%;
+    margin-top: -10px;
   }
 
   input[type="text"],
@@ -195,7 +195,6 @@ reservation-widget {
   }
 
   .reservation-data {
-
     table {
       width: 100%;
     }
@@ -407,6 +406,12 @@ reservation-billing {
       margin-top: @spacing;
       color: @c-red;
     }
+
+    registration-call {
+      text-align: center;
+      display: block;
+      margin: 87px 0px;
+    }
   }
 }
 
@@ -463,8 +468,18 @@ reservation-confirmation {
       display: block;
     }
 
-    &:last-of-type {
-      padding: 10px 40px 25px 40px;
+    .points-balance {
+      th {
+        width: 60%;
+      }
+
+      td {
+        text-align: right;
+
+        &.earned {
+          color: @c-green;
+        }
+      }
     }
   }
 

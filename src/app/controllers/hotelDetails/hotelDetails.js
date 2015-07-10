@@ -17,6 +17,7 @@ angular.module('mobius.controllers.hotel.details', [])
   bookingParams.includes = 'amenities';
 
   var propertyCode = bookingParams.propertyCode;
+  $scope.scroll = 0;
 
   // TODO: Change to a classic selectors . #
   function scrollTo(hash, speed, offset) {

@@ -120,6 +120,7 @@ angular
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.isoCountryOptions',
+    'mobiusApp.directives.scrollPosition',
 
     // Filters
     'mobiusApp.filters.list',

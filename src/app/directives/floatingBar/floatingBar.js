@@ -32,7 +32,7 @@ angular.module('mobiusApp.directives.floatingBar', [
             scope.isCollapsed = false;
           }
 
-          $el.toggleClass('active', scope.isCollapsed);
+          $el.toggleClass('active', !scope.isCollapsed);
 
           scope.active = newActive;
           active = scope.active; // preserve between pages
