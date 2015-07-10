@@ -8,12 +8,9 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService){
+  creditCardTypeService, breadcrumbsService, _){
 
   // TODO: Add Auth CTRL
-
-  // Alias for lodash to get rid of ugly $window._ calls
-  var _ = $window._;
 
   function goToRoom() {
     $state.go('room', {
@@ -178,13 +175,22 @@ angular.module('mobius.controllers.reservation', [])
     case 'reservation.billing':
       switch ($scope.billingDetails.paymentMethod) {
       case 'point':
-        return user.getUser().loyalties.amount >= $scope.selectedProduct.price.pointsRequired;
+        if(user.isLoggedIn() && $scope.selectedProduct.price.pointsRequired){
+          $scope.selectedProduct.price.pointsRequired = 100000;
+          return user.getUser().loyalties.amount >= $scope.selectedProduct.price.pointsRequired;
+        }
+        break;
       }
       return $scope.forms.billing && !$scope.forms.billing.$invalid;
     case 'reservation.confirmation':
       return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
     }
     return false;
+  };
+
+  $scope.isContinueDisabled = function(){
+    return !$scope.isValid() && !$state.is('reservation.details') &&
+      (!$state.is('reservation.billing') && $scope.billingDetails.paymentMethod !== 'point');
   };
 
   $scope.continue = function() {
