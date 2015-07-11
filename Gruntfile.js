@@ -13,6 +13,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-localisation');
+  grunt.loadNpmTasks('grunt-istanbul');
 
   // Time how long tasks take
   require('time-grunt')(grunt);
