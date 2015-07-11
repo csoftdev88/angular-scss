@@ -1,0 +1,73 @@
+///////////////////////
+//// ABOUT US PAGE ////
+///////////////////////
+
+about-us {
+  display: block;
+
+  //- Page Heading
+  h1 {
+    .h1;
+    font-weight: 300;
+  }
+
+  p {
+    color: @c-gray;
+  }
+
+  //- Contacts List
+  contacts-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: @baseline;
+  }
+
+  contact-item {
+    flex: 0 0 250px;
+
+    h2 {
+      font-weight: bold;
+      line-height: @baseline * 2;
+    }
+    p:before{
+      color: #C1A780;
+    }
+    p.tel:before {
+      .fa;
+      padding-right: @baseline / 5;
+      content: @fa-var-phone;
+    }
+    p.mail:before {
+      .fa;
+      padding-right: @baseline / 5;
+      content: @fa-var-envelope;
+    }
+  }
+
+}
+
+
+about-detail {
+  &:extend(about-us);
+
+  //- Page Heading
+  h1 {
+    .h1;
+  }
+
+  h2 {
+    .h2;
+    margin-top: 0;
+  }
+
+  //- Image
+  img {
+    display: block;
+    margin-bottom: @baseline;
+  }
+
+  //- Content of article
+  > div {
+    margin-bottom: @baseline;
+  }
+}

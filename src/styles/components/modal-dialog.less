@@ -1,0 +1,124 @@
+//////////////////////
+//// MODAL DIALOG ////
+//////////////////////
+
+dialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  max-width: @grid-width - @grid-gap;
+
+  border-radius: 5px;
+
+  background: #fff;
+  border: 2px solid #ddd;
+
+  transform: translate(-50%, -50%);
+
+  appearance: none;
+
+  &:focus {
+    outline: 0;
+  }
+
+  //- Header
+  header {
+    position: relative;
+
+    height: @baseline * 2;
+    padding: 0 @baseline;
+
+    border-bottom: 1px solid #ddd;
+
+    line-height: @baseline * 2;
+
+    //- Title
+    h1 {
+      font-size: @size-3;
+
+    }
+
+    //- Close button
+    button-close {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  //- Main Content
+  main {
+    margin: 0;
+  }
+
+  &.narrow {
+    width: 400px;
+
+    .ui-dialog {
+      background: #fff;
+    }
+  }
+
+  &.login {
+    .clearfix;
+
+    p, button {
+      margin-bottom: @baseline;
+    }
+
+    button {
+      float: right;
+    }
+  }
+}
+
+
+/////////////////////////////
+// Policies and Conditions //
+/////////////////////////////
+
+.modal-policies {
+  margin: @baseline;
+  border: 1px solid @c-light-grey;
+  padding: 0;
+
+  .modal-header {
+    border-bottom: 1px solid @c-light-grey;
+    padding: @baseline/4 @baseline;
+  }
+
+  .modal-body {
+
+    .policies-list {
+      overflow-y: auto;
+      max-height: 400px;
+      box-sizing: border-box;
+    }
+
+    .policy {
+
+      border-bottom: 1px solid @c-light-grey;
+      padding: @baseline/3 @baseline;
+      margin: 0;
+
+      h3 {
+        font-size: @size-0;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      p {
+        color: @c-text-light;
+      }
+
+      ul {
+        margin: @baseline 0 @baseline @baseline / 2;
+        list-style-type: disc;
+      }
+
+      li {
+        margin-left: 2em;
+      }
+    }
+  }
+}

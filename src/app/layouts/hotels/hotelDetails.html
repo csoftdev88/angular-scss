@@ -1,0 +1,158 @@
+<hero-slider content="heroContent"></hero-slider>
+
+<breadcrumbs id="breadcrumbs"></breadcrumbs>
+
+<main class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <hotel-detail>
+    <header grid-row id="jsAbout">
+      <h1 grid="6"><strong>{{details.nameLong}}</strong></h1>
+      <local-info local-info="details.localInfo" grid="6"></local-info>
+    </header>
+
+    <section grid-row>
+      <div grid="8">
+        <p ng-if="!isExpanded" ng-bind-html="sanitize(details.descriptionShort)"></p>
+        <p ng-if="isExpanded" ng-bind-html="sanitize(details.description)"></p>
+        <a href ng-hide="isExpanded" ng-click="isExpanded = true" class="read-more">Read more</a>
+        <a href ng-show="isExpanded" ng-click="isExpanded = false" class="read-more">Read less</a>
+      </div>
+
+      <view-more-images grid="4">
+        <a ng-if="details.images.length" href="" ng-click="openGallery()">View more images</a>
+        <img ng-src="{{details.images[0].uri | cloudinaryImage : 293}}" alt="{{details.images[0].alt}}" />
+        <button ng-click="scrollToRooms()" class="button">Choose your room</button>
+      </view-more-images>
+    </section>
+
+    <section grid-row id="jsLocation" ng-if="details">
+      <hr />
+      <div grid="12">
+        <hotel-location hotel-details="details"></hotel-location>
+      </div>
+    </section>
+
+    <!-- this should be filled with actual data from API
+         it should be presented in the following structure -->
+    <section class="hotel-detail__offers" grid-row id="jsOffers" ng-if="offersList.length">
+      <hr />
+      <h2 grid="12">Offers and <strong>Promotions</strong></h2>
+      <p>
+        <a ui-sref="offers">
+          See more
+        </a>
+      </p>
+
+      <offers-list grid-row>
+        <offer-item ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'offers', 'code': offer.code})">
+          <img class="grid-img" ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}"  alt="{{offer.image.alt}}">
+
+          <section>
+          <h2>{{offer.title}}</h2>
+          <div ng-bind-html="offer.subtitle"></div>
+          </section>
+
+          <span>Read more</span>
+        </offer-item>
+      </offers-list>
+    </section>
+
+    <section class="hotel-detail__rooms" ng-if="rooms.length" grid-row id="jsRooms">
+      <hr />
+      <div grid="12">
+        <h2>Our <strong>Rooms</strong></h2>
+        <list-items class="rooms-list" ng-if="rooms.length" ng-init="roomLimit = 4">
+          <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
+          <pricing-switch>
+            <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
+            |
+            <a href
+               ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
+               ng-click="days && setPricePer(PP_STAY)"
+               title="{{ days ? false: 'Please select dates to enable per stay pricing'}}">
+              Per Stay
+            </a>
+          </pricing-switch>
+          <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
+            <a ui-sref="room({propertyCode: details.code, roomID: room.code})">
+              <figure>
+                <img ng-src="{{room.images[0].uri | cloudinaryImage : 153 : 65 : 'fill'}}" alt="{{room.name}}">
+              </figure>
+            </a>
+
+            <h3><a ui-sref="room({propertyCode: details.code, roomID: room.code})">{{room.name}}</a></h3>
+
+            <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+              </earned-points>
+
+            <pricing-info>
+              <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
+                <p ng-if="room.priceFrom">
+                  from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+                  <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+                  <span ng-if="isUserLoggedIn() && room.minPointsRequired">
+                    <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+                  </span>
+                </p>
+                <p ng-if="!room.priceFrom">Please select dates to see the latest price</p>
+
+                <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="button">_view_more_</a>
+              </div>
+              <p ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
+            </pricing-info>
+
+            <description-info>
+              <p ng-bind-html="sanitize(room.description)"></p>
+            </description-info>
+          </list-item>
+          <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
+        </list-items>
+        <h2 ng-if="!rooms.length">_no_room_found_</h2>
+      </div>
+    </section>
+
+    <!-- This section is not styled yet since it's hard to test it now. -->
+    <section class="hotel-detail__services" ng-if="details.amenities.length">
+      <hr />
+      <h2>Hotel <strong>Amenities</strong></h2>
+      <ul class="amenities-list">
+        <li class="amenity-item" ng-repeat="amenity in details.amenities">
+          <slug-img slug="amenity.slug" type="hotel" width="15" height="15"></slug-img>
+          <span>{{amenity.name}}</span>
+        </li>
+        <!--
+        icon-wheelchair, icon-signal, icon-globe, icon-lock, icon-dollar
+        -->
+      </ul>
+    </section>
+
+    <div class="back-to-top" ng-click="scrollToBreadcrumbs()" scroll-position="scroll" ng-class="{visible: scroll > 1000}"><span>Back to top</span></div>
+
+    <!-- this is a leftover from Mobius v2 - didn't deleted it yet
+         in case it's needed. There is no such section in v4 designs
+    <aside grid-container="3">
+      <div grid="3">
+        <search>
+          <h4>Search</h4>
+          <input type="search" placeholder="Search...">
+        </search>
+        <hr>
+        <contact>
+          <h4>Contact us</h4>
+          <dl>
+            <dt ng-if="details.tel1"><span>Phone</span><i class="icon-mobile"></i></dt>
+            <dd ng-if="details.tel1"><i rwd="mobile">Call hotel on </i><span>{{details.tel1}}</span></dd>
+            <dt ng-if="details.email"><span>Email</span><i class="icon-mail"></i></dt>
+            <dd ng-if="details.email"><i rwd="mobile">Email on </i>{{details.email}}</dd>
+          </dl>
+        </contact>
+        <advert>
+          <img src="//placehold.it/208x395" alt="Advertising Banner">
+        </advert>
+      </div>
+    </aside>
+    -->
+  </hotel-detail>
+</main>

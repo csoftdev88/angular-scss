@@ -1,0 +1,21 @@
+<nav class="breadcrumbs" ng-if="breadcrumbs.length > 0">
+  <div class="wrapper">
+    <ul ng-if="breadcrumbs.length > 0">
+      <!-- all these raquos should be removed
+           this should be done on css level
+           story: https://review.salsitasoft.com/r/12842/ -->
+      <li><a ui-sref="home">Home&nbsp;<span>&raquo;</span></a></li>
+      <li ng-repeat="link in breadcrumbs">
+        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">{{link.name}}&nbsp;<span>&raquo;</span></a>
+        <span ng-if="!link.state && !$last">{{link.name}}&nbsp;<span>&raquo;</span></span>
+        <span ng-if="!link.state && $last">&nbsp;{{link.name}}</span>
+      </li>
+    </ul>
+    <ul ng-if="hrefs.length > 0" class="alt-nav">
+      <li ng-repeat="href in hrefs" ng-class="{selected: activeHref === href.name}">
+        <a href ng-if="href.id" ng-click="scrollTo(href.id)">{{href.name}}</a>
+        <span ng-if="!href.id">{{href.name}}</span>
+      </li>
+    </ul>
+  </div>
+</nav>

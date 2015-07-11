@@ -1,0 +1,179 @@
+<main class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <reservation-finished>
+    <section grid-row class="reservation-summary">
+      <header>
+        <h1>{{property.nameLong}}</h1>
+
+        <div class="reference">
+          <p>Your reference:</p>
+          <p><strong>{{reservationCode}}</strong></p>
+        </div>
+
+        <div class="booked">
+          Booked: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
+        </div>
+      </header>
+
+      <!-- <div class="actions">
+        <a href="" class="button-print"><span>Print</span></a>
+        <a href="" class="button-passbook"><span>Add to Passbook</span></a>-->
+      <!-- </div> -->
+
+      <!-- <div class="share">
+        Share via:
+        <a href="" class="icon-fb"></a>
+        <a href="" class="icon-twitter"></a>
+        <a href="" class="icon-gplus"></a>
+        <a href="" class="icon-email"></a>
+      </div> -->
+
+      <div class="tables">
+        <figure>
+          <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+          <!-- TODO: Add actions to buttons -->
+          <button class="button" ng-click="modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false}">Modify</button>
+          <button class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}">Cancel</button>
+        </figure>
+
+        <div>
+          <div>
+            <h3>{{roomDetails.name}}</h3>
+            <h4>{{reservation.rooms[0].productName}}</h4>
+          </div>
+
+          <table class="data">
+            <tbody>
+              <tr>
+                <th>Check in:</th>
+                <td>{{reservation.arrivalDate | dateTime}}</td>
+                <th>Adults:</th>
+                <td>{{reservation.rooms[0].adults || 0}}</td>
+              </tr>
+              <tr>
+                <th>Check out:</th>
+                <td>{{reservation.departureDate | dateTime}}</td>
+                <th>Children:</th>
+                <td>{{reservation.rooms[0].children || 0}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="charges">
+            <tbody>
+              <tr>
+                <th>Room Charges: {{billingDetails.paymentMethod}}</th>
+                <td>{{reservation.rooms[0].price | i18nCurrency: currencyCode}}</td>
+                <th rowspan="3" class="total">Total:</th>
+                <td rowspan="3" class="total-value">
+                    <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}</a>-->
+                    {{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}
+                </td>
+              </tr>
+
+              <!-- Additional taxes -->
+              <tr ng-if="reservation.rooms[0].tax">
+                <th>Taxes:</th>
+                <td>{{reservation.rooms[0].tax | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+              <!-- Discount -->
+              <tr ng-if="reservation.rooms[0].priceBreakdown.discount">
+                <th>Discount:</th>
+                <td>{{reservation.rooms[0].priceBreakdown.discount | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <footer>
+          <a href ng-click="openPoliciesInfo()">View Policies</a>
+        </footer>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- AVAILABLE ADDONS -->
+    <section grid-row class="reservation-enhance" ng-if="availableAddons.length">
+      <h3>Enhance Your <strong>Stay With</strong></h3>
+      <ul>
+        <li class="{{ availableAddons < 3 ? 'half' : 'third' }}"
+            ng-repeat="addon in availableAddons"
+            ng-if="reservation.packages.indexOf(addon.code) === -1"
+            ng-click="openAddonDetailDialog(addon)">
+          <div>
+            <a href ng-click="openAddonDetailDialog(addon)" ng-class="{'disabled': !addon.description || addon.description == ''}">
+              <a class="eye-icon">
+                <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
+              </a>
+
+              <h4 ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
+
+              <p>
+                {{ addon._expanded ? addon.description : addon.descriptionShort }}
+                <a
+                  ng-init="addon._expanded = false"
+                  ng-if="addon.description && addon.description != ''"
+                  ng-click="toggleAddonDescription($event, addon)">
+                    {{ addon._expanded ? '[-]' : '[+]'}}
+                </a>
+              </p>
+
+              <i>Add to your booking with one click:</i>
+
+              <a class="button">{{addon.price | i18nCurrency: currencyCode}}</a>
+              <a class="button"ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
+            </a>
+          </div>
+        </li>
+      </ul>
+
+      <hr />
+    </section>
+
+    <section grid-row="">
+      <hotel-location hotel-details="property"></hotel-location>
+    </section>
+
+    <hr>
+
+    <!-- RESERVATION ADDONS -->
+    <section grid-row class="reservation-enhancements" ng-if="reservationAddons.length">
+      <h3>Your Enhancements</h3>
+      <list-items>
+        <list-item ng-repeat="addon in reservationAddons">
+
+          <figure>
+            <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
+          </figure>
+
+          <h2>{{addon.name}}</h2>
+
+          <pricing-info>
+            <p>
+              <span class="value">
+                {{addon.price | i18nCurrency: currencyCode}}
+              </span>
+            </p>
+          </pricing-info>
+
+          <description-info>
+            <p>{{ addon._expanded ? addon.description : addon.descriptionShort }}</p>
+            <p>
+              <a href
+                ng-if="addon.hasViewMore"
+                ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
+                  {{ addon._expanded ? 'Show Less' : 'Show More' }}
+              </a>
+            </p>
+          </description-info>
+
+        </list-item>
+      </list-items>
+      <p class="total">Total: {{getAddonsTotalPrice() | i18nCurrency: currencyCode}}</p>
+    </section>
+  </reservation-finished>
+</main>

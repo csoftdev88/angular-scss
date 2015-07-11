@@ -1,0 +1,56 @@
+html {
+  font-family: @fontDefault;
+  font-size: @htmlFontSize;
+}
+
+body {
+  .open-sans;
+  background-color: @bodyBackground;
+  color: @colorTextDefault;
+}
+
+main {
+  position: relative;
+}
+
+nav {
+  ol, ul {
+    list-style: none;
+  }
+}
+
+hr {
+  height: 0px;
+  .noSpaces;
+  margin-top: -1px;
+  border: none;
+  border-bottom: 1px dashed @borderBottomColorHeader;
+}
+
+.vr {
+  border-right: 1px solid @c-white;
+  margin: 0px @baseline/4;
+  width: 1px;
+  height: auto;
+}
+
+[collapse] {
+  height: 0px;
+  overflow: hidden;
+  opacity: 0;
+  .transition;
+
+  &.in {
+    overflow: visible;
+    opacity: 1;
+    height: auto;
+  }
+}
+
+
+.dividing-line {
+  width: 80%;
+  margin: @baseline auto;
+  height: 35px;
+  background: url(../images/v4/dividing-line.png) 50% 0 no-repeat;
+}

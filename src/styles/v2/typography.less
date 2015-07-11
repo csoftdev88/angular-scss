@@ -1,0 +1,168 @@
+
+/*[typo-grid] {
+  background: url('../images/baseline.png');
+}*/
+
+/*  ==========================================
+    Font Families
+    ========================================== */
+
+.open-sans {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+.open-sans-light {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
+.open-sans-bold {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+.open-sans-condensed {
+  font-family: 'Open Sans Condensed', sans-serif;;
+  font-weight: 700;
+}
+
+/*  ==========================================
+    Relative line-height computing
+    ========================================== */
+
+// Computing line-height to be @lines times @baseline
+.line-height(@fontSize, @lines: 1) {
+  line-height: unit(round( (@baseline * @lines) / @fontSize , 5));
+}
+// Computing line-height to be specified pixel value based on provided font-size
+.specific-line-height(@fontSize, @height) {
+  line-height: unit(round( @height / @fontSize , 5));
+}
+.include-line-height(@include, @size) when (@include = true) and (@size =< @baseline){
+  line-height: unit(round( (@baseline / @size), 5));
+}
+.include-line-height(@include, @size) when (@include = true) and (@size > @baseline) and (@size =< @baseline * 2) {
+  line-height: unit(round( ( (@baseline * 2) / @size), 5));
+}
+.include-line-height(@include, @size) when (@include = true) and (@size > @baseline * 2) and (@size =< @baseline * 3) {
+  line-height: unit(round( ( (@baseline * 3) / @size), 5));
+}
+
+/*  ==========================================
+    Relative font-size computing
+    ========================================== */
+.font-size(@size; @includeLineHeight: false; @base: @htmlFontSize; ) {
+  font-size: unit( round( (@size / @base), 5), em);
+  .include-line-height(@includeLineHeight, @size);
+}
+
+/*  ==========================================
+    Relative margins and paddings for typographic elements
+      - computed relatively to font size
+    ========================================== */
+
+.margin-top(@fontSize: @htmlFontSize; @portion: 1) {
+  margin-top: unit((@baseline / @fontSize) * @portion, em);
+}
+.margin-bottom(@fontSize: @htmlFontSize; @portion: 1) {
+  margin-bottom: unit((@baseline / @fontSize) * @portion, em);
+}
+.margin-top-bottom(@fontSize: @htmlFontSize; @portion: 1) {
+  margin: unit((@baseline / @fontSize) * @portion, em) 0;
+}
+
+.padding-top(@fontSize: @htmlFontSize; @portion: 1) {
+  padding-top: unit((@baseline / @fontSize) * @portion, em);
+}
+.padding-bottom(@fontSize: @htmlFontSize; @portion: 1) {
+  padding-bottom: unit((@baseline / @fontSize) * @portion, em);
+}
+.padding-top-bottom(@fontSize: @htmlFontSize; @portion: 1) {
+  padding: unit((@baseline / @fontSize) * @portion, em) 0;
+}
+
+// Find closest higher multiple of baseline for given height
+.baselined-height(@height; @base: @baseline){
+  @baselinedHeight: ((floor(@height / @base) + 1) * @base);
+}
+
+// Font sizes for extending
+.fs-12(@line: false; @base: @htmlFontSize) { .font-size(@fs-1; @line; @base); }
+.fs-14(@line: false; @base: @htmlFontSize) { .font-size(@fs-2; @line; @base); }
+.fs-16(@line: false; @base: @htmlFontSize) { .font-size(@fs-3; @line; @base); }
+.fs-18(@line: false; @base: @htmlFontSize) { .font-size(@fs-4; @line; @base); }
+.fs-21(@line: false; @base: @htmlFontSize) { .font-size(@fs-5; @line; @base); }
+.fs-24(@line: false; @base: @htmlFontSize) { .font-size(@fs-6; @line; @base); }
+.fs-36(@line: false; @base: @htmlFontSize) { .font-size(@fs-7; @line; @base); }
+.fs-48(@line: false; @base: @htmlFontSize) { .font-size(@fs-8; @line; @base); }
+
+/*  ==========================================
+    Styles for generic elements
+    ========================================== */
+/* in V4 we don't want this
+p {
+  &:extend(.open-sans);
+  .fs-14(true);
+  .margin-top-bottom(14, 1);
+}
+
+h1, h2 {
+  &:extend(.open-sans-light);
+  .fs-24(true);
+  .margin-top-bottom(24, 1);
+  color: @colorHeadingDefault;
+}
+
+h3, h4 {
+  &:extend(.open-sans-bold);
+  .fs-16(true);
+  .margin-top-bottom(16, 1);
+  color: @colorHeadingDefault;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  strong {
+    font-weight: 600;
+  }
+}
+*/
+
+/*  ==========================================
+    Basic reusable typographic styles
+    ========================================== */
+.offers-heading() {
+  display: inline-block;
+  height: 2 * @baseline - 1; // -1px for bottom border
+  .margin-top-bottom(24);
+  padding: 0 1em;
+  border-bottom: 1px @colorBestOffersTitle solid;
+  color: @colorBestOffersTitle;
+  text-transform: uppercase;
+  &:extend(.open-sans-light);
+  .fs-24(true);
+}
+
+.offers-title() {
+  .margin-top-bottom(21, 0.5);
+  color: @colorBestOffersTitle;
+  &:extend(.open-sans-light);
+  .fs-21(true);
+}
+
+.section-title {
+  .fs-21(false);
+  .line-height(21, 2);
+  .margin-top-bottom(21, 1);
+  font-weight: 300;
+}
+
+.list-item-title {
+  margin: 0;
+  .fs-21(true);
+  .margin-top-bottom(21, 0.5);
+  font-weight: 300;
+  strong {
+    font-weight: 600;
+  }
+}

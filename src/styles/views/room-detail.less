@@ -1,0 +1,80 @@
+/////////////////////
+//// ROOM DETAIL ////
+/////////////////////
+
+hotel-room {
+
+  //- Page Heading
+  h1 {
+    .h1;
+  }
+
+  h2 {
+    .h2;
+    margin-top: 0;
+  }
+
+  h1 + p {
+    color: #999;
+  }
+
+  section.header {
+    margin-bottom: 2*@baseline;
+  }
+
+  p {
+    color: @c-hr;
+  }
+
+  //room gallery is the ul
+  .room-gallery {
+    margin: @baseline 0px;
+    .clearfix;
+
+    li {
+      float: left;
+      display: block;
+      margin: @baseline/2 @baseline/2 0 @baseline/2;
+      padding: 0;
+      width: 150px;
+
+      cursor: pointer;
+    }
+
+    figure {
+      position: static;
+      width: 100%;
+      height: @list-item-min-height;
+      overflow: hidden;
+      margin-bottom: @baseline/2;
+
+      img {
+        width: 100%;
+        display: block;
+      }
+    }
+    
+  }
+}
+
+//- If there are no available products
+.products-not-available,
+.reservations-not-available {
+  padding: @baseline * 2;
+
+  background: #f6f3ee;
+
+  text-align: center;
+
+  h3 {
+    margin-bottom: @baseline;
+
+    color: #555;
+
+    font-size: @size-3;
+  }
+
+  p {
+    color: #999;
+  }
+}

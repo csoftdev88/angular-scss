@@ -1,0 +1,207 @@
+///////////////////////////////////////
+//// CONTAINERS AND LAYOUT HELPERS ////
+///////////////////////////////////////
+
+/*  ==========================================
+    Containers and layout helpers
+    ========================================== */
+
+[widget] {
+  .clearfix;
+}
+
+.block {
+  display: block;
+}
+
+.relative-wrapper {
+  position: relative;
+  .clearfix;
+}
+
+.block--left {
+  &:extend(.block);
+  float: left;
+  text-align: left;
+}
+
+.block--center {
+  &:extend(.block);
+  text-align: center;
+  > div {
+    display: inline-block;
+  }
+}
+
+.block--right {
+  &:extend(.block);
+  float: right;
+  text-align: right;
+}
+
+.grid-wrapper {
+  .clearfix;
+}
+
+.wrapper {
+  position: relative;
+
+  @media only screen and @large-mobile-max {
+    margin: 0 @grid-gap/4;
+  }
+
+  @media only screen and @tablet-portrait-min and @tablet-portrait-max {
+    width: 98%;
+    margin: 0 auto;
+  }
+
+  @media only screen and @tablet-landscape-min {
+    width: @grid-width - @grid-gap;
+    margin: 0 auto;
+  }
+}
+
+// MOBILE SPECIFIC STYLES
+@media only screen and @large-mobile-max {
+  .grid,
+  [grid],
+  [grid-container] {
+    margin-left: @grid-gap/4;
+    margin-right: @grid-gap/4;
+  }
+}
+
+@media only screen and @tablet-portrait-min and @tablet-portrait-max {
+  .generate-fluid-grid(12);
+}
+
+// DESKTOP STYLES
+@media only screen and @tablet-landscape-min {
+  // Calling the grid mixin
+  .generate-grid(@grid-width, @grid-gap, @grid-column-count);
+}
+
+.grid-row,
+[grid-row] {
+  .clearfix;
+}
+
+.grid-img {
+  width: 100%;
+  height: auto;
+}
+
+
+/*  ==========================================
+    GRID generating mixin
+    ========================================== */
+
+////////////////////////
+// Desktop grid mixin //
+////////////////////////
+.generate-grid(@full, @gap, @cols){
+
+  .grid-wrapper {
+    max-width: @full;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .grid,
+  [grid] {
+    float: left;
+    margin-left: @gap / 2;
+    margin-right: @gap / 2;
+  }
+
+  .grid-outer {
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .grid-element-loop(@i) when (@i =< @cols){
+
+    [grid="@{i}"]{
+      &:extend(.grid);
+      width: floor(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
+    }
+    // Recursive call with index incrementation
+    .grid-element-loop(@i + 1);
+  }
+
+  // Init grid
+  .grid-element-loop(1);
+
+  .grid-wrap-loop(@i) when (@i =< @cols){
+
+    [grid-container="@{i}"]{
+      &:extend(.grid);
+      width: floor(((@full - (@cols * @gap)) / @cols) * @i + (@gap * (@i - 1)));
+    }
+    // Recursive call with index incrementation
+    .grid-wrap-loop(@i + 1);
+  }
+
+  // Init grid-wrap
+  .grid-wrap-loop(1);
+
+}
+
+///////////////////////
+// Tablet grid mixin //
+///////////////////////
+.generate-fluid-grid(@cols){
+
+  .grid,
+  [grid] {
+    float: left;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .grid-fluid-element-loop(@i) when (@i =< @cols){
+    [grid="@{i}"]{
+      width: ((100 - (@cols * 2%)) / @cols ) * @i + (2 * (@i - 1));
+    }
+    .grid-fluid-element-loop(@i + 1);
+  }
+  // Fluid grid initiation
+  .grid-fluid-element-loop(1);
+
+  [grid-container] {
+    &:extend(.grid);
+    width: 98%;
+  }
+}
+
+///////////////////////////////////
+// Grid mixins without recursion //
+///////////////////////////////////
+.grid-element(@i; @float: left){
+  float: @float;
+  width: round(((@grid-width - (@grid-column-count * @grid-gap)) / @grid-column-count) * @i + (@grid-gap * (@i - 1)));
+  margin-left: @grid-gap / 2;
+  margin-right: @grid-gap / 2;
+}
+
+.grid-fluid-element(@i; @gap: 2%; @float: left){
+  float: @float;
+  width: ((100 - (@grid-column-count * @gap)) / @grid-column-count) * @i + (@gap * (@i - 1));
+  margin-left: @gap / 2;
+  margin-right: @gap / 2;
+}
+
+.grid-wrap(@i; @float: left){
+  float: @float;
+  width: round(((@grid-width - (@grid-column-count * @grid-gap)) / @grid-column-count) * @i + (@grid-gap * @i));
+}
+
+.grid-width(@i){
+  @width: round(((@grid-width - (@grid-column-count * @grid-gap)) / @grid-column-count) * @i + (@grid-gap * @i));
+}
+
+.grid-fluid-width(@i; @gap: 2%;){
+  @width: round(((100 - (@grid-column-count * @gap)) / @grid-column-count) * @i + (@gap * @i));
+}
+

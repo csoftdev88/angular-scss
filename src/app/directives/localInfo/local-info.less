@@ -1,0 +1,57 @@
+////////////////////
+//// LOCAL INFO ////
+////////////////////
+
+//- Information About Time & Weather
+
+local-info {
+  display: block;
+
+  font-size: @size-1;
+  line-height: @baseline * 1.5;
+  text-align: right;
+
+  img {
+    vertical-align: bottom;
+    margin-left: @baseline / 2;
+  }
+}
+
+// List of Weather Icons
+@weather-icons: cloudy,
+                heavy-rain,
+                light-rain,
+                snow,
+                sun,
+                sunny-cloudy,
+                thunder,
+                wind,
+                wind-rain;
+
+// Loop generating icons from
+.weather( @icons ) {
+  // Generate rule for each item from @icons list
+  .weather-loop( @item, @i ) when ( @i =< length( @icons ) ){
+    .weather-@{item} {
+      background-image: url("../images/v4/weather/@{item}.png");
+      background-size: 24px;
+    }
+    .weather-loop( extract(@icons, @i + 1 ), @i + 1 );
+  }
+  // Loop initiation
+  .weather-loop( extract( @icons, 1 ), 1 );
+}
+
+span[class^="weather-"] {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  vertical-align: bottom;
+  margin-left: @baseline / 2;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-bottom: 5px;
+}
+
+// Start the loop
+.weather( @weather-icons );

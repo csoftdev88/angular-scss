@@ -1,0 +1,14 @@
+<div class="ui-info modal-policies">
+  <div class="modal-header">
+    <h3 class="modal-title">Policies and <strong>Conditions</strong></h3>
+    <button class="button-close" ng-click="cancel()">X</button>
+  </div>
+  <div class="modal-body">
+    <ul class="policies-list">
+      <li class="policy" ng-repeat="(policyCode, value) in data.policies">
+        <h3>{{getPolicyTitle(policyCode)}}:</h3>
+        <p ng-bind-html="sanitize(value)"></p>
+      </li>
+    </ul>
+  </div>
+</div>

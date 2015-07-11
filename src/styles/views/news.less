@@ -1,0 +1,36 @@
+///////////////////
+//// NEWS PAGE ////
+///////////////////
+
+//- List of Articles
+news-list,
+news-detail {
+
+  //- Page Heading
+  h1, h2 {
+    .h1;
+  }
+
+  //- Articles
+  article {
+    cursor: pointer;
+  }
+
+  //- Image
+  img {
+    display: block;
+    margin-bottom: @baseline;
+  }
+
+  //- Content of article
+  > div {
+    margin-bottom: @baseline;
+  }
+}
+
+news-list{
+  img{
+    float: left;
+    margin-right: 20px;
+  }
+}

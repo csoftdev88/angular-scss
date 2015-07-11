@@ -1,0 +1,92 @@
+<reservation-details-form>
+  <div>
+    <h3>Fill out <strong>your details</strong></h3>
+
+    <form name="forms.details" novalidate ng-submit="continue()" ng-class="{'ng-submitted': forms.details.$submitted}">
+      <label for="first-name" class="input-left">
+        <input type="text" id="first-name" required
+          placeholder="First Name"
+          ng-model="userDetails.firstName"
+          name="firstName"/>
+        <span>First Name</span>
+      </label>
+
+      <label for="last-name" class="input-right">
+        <input type="text" id="last-name" required
+          placeholder="Last Name"
+          ng-model="userDetails.lastName" name="lastName"/>
+        <span>Last name</span>
+      </label>
+
+      <label for="email" class="input-left">
+        <input type="email" id="email" required
+          placeholder="Email"
+          ng-model="userDetails.email"
+          ng-disabled="userDetails.emailFromApi"
+          name="email" email-check/>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.email.$error.emailCheck">Email</span>
+          <span ng-show="forms.details.$submitted && forms.details.email.$error.emailCheck">Please enter a valid email address</span>
+        </span>
+      </label>
+
+      <label for="telephone" class="input-right">
+        <input type="text" id="telephone" required
+          placeholder="Phone"
+          ng-model="userDetails.phone"
+          name="phone"
+          ng-pattern="/^[0-9]+$/"/>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.phone.$error.pattern">Phone</span>
+          <span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">Please enter a valid phone number</span>
+        </span>
+      </label>
+
+      <label for="address">
+        <input type="text" id="address" required
+          placeholder="Address"
+          ng-model="userDetails.address"
+          name="address"/>
+        <span>Address</span>
+      </label>
+
+      <label for="city" class="input-left">
+        <input type="text" id="city" required
+          placeholder="City"
+          ng-model="userDetails.city"
+          name="city"/>
+        <span>City</span>
+      </label>
+
+      <label for="state" class="input-right">
+        <input type="text" id="state" required
+          placeholder="State / Region / Province"
+          ng-model="userDetails.stateProvince"
+          name="stateProvince"/>
+        <span>State / Province</span>
+      </label>
+
+      <label for="postal-code" class="input-left">
+        <input type="text" id="postal-code" required
+          placeholder="Zip Code"
+          ng-model="userDetails.zip"
+          name="zip"/>
+        <span>Zip/Postal Code</span>
+      </label>
+
+      <label for="country" class="input-right">
+        <input type="text" id="country" required
+         placeholder="Country"
+         ng-model="userDetails.country"
+         name="country"/>
+        <span>Country</span>
+      </label>
+
+      <label class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
+        Please fill out all the fields indicated
+      </label>
+
+      <input type="submit" id="submit" value="Submit" ng-hide="true" />
+    </form>
+  </div>
+</reservation-details-form>

@@ -1,0 +1,108 @@
+////////////////////////
+//// STYLES IMPORTS ////
+////////////////////////
+
+//- VENDORS -//
+
+@import (less) 'vendor/reset.css';
+@import (less) 'vendor/mobius-icons.css'; // Font icons - only files necessary for now are linked (should be removed later)
+
+//- OLD V2 STYLES -//
+// We will slowly refactor the whole code and replace old V2 styles for V4
+
+@import 'v2/config';
+
+//@import 'v2/base';
+@import 'v2/typography';
+//@import 'v2/containers';
+
+@import 'v2/partials/header';
+@import 'v2/partials/footer';
+@import 'v2/partials/buttons';
+// @import 'v2/partials/forms';
+// @import 'v2/partials/selects';
+@import 'v2/partials/dropdowns';
+// @import 'v2/partials/datepicker';
+@import 'v2/partials/animations';
+@import 'v2/partials/modal-dialog';
+// @import 'v2/partials/preloader';
+
+@import 'v2/widgets/best-offers-widget';
+@import 'v2/widgets/best-hotels-widget';
+//@import 'v2/widgets/hotels-widget';
+@import 'v2/widgets/rooms-widget';
+@import 'v2/widgets/aside-widget';
+// @import 'v2/widgets/reservation-widget';
+//@import 'v2/widgets/about-hotel-widget';
+
+@import (reference) 'v2/mixins';
+@import 'v2/helpers';
+
+
+//- NEW V4 STYLES -//
+
+//- Libraries
+@import '../../bower_components/font-awesome/less/font-awesome';
+
+//- Config
+@import 'config';
+
+//- Scaffolding
+@import 'scaffolding/base';
+@import 'scaffolding/typography';
+@import 'scaffolding/containers';
+
+@import (reference) 'scaffolding/mixins';
+@import 'scaffolding/helpers';
+
+//- Views
+@import 'views/footer';
+@import 'views/floating-bar'; //- TODO: merging those two
+@import 'views/booking-widget'; //- ^^
+@import 'views/header';
+@import 'views/room-detail';
+@import 'views/hotels-list';
+@import 'views/hotel-detail';
+@import 'views/about-hotel';
+@import 'views/site-map';
+@import 'views/breadcrumbs';
+@import 'views/about-us';
+@import 'views/news';
+@import 'views/contacts-page';
+@import 'views/reservation';
+@import 'views/reservations';
+@import 'views/offer-detail';
+@import 'views/404';
+
+//- Modals
+@import 'views/modals/badges';
+@import 'views/modals/loyalties';
+@import 'views/modals/lightbox';
+@import 'views/modals/details';
+@import 'views/modals/reservation';
+@import 'views/modals/rewards';
+
+//- Components
+@import 'components/datepicker';
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/chosen-select';
+@import 'components/msg-box';
+@import 'components/modal-dialog';
+@import 'components/pricing-info';
+@import 'components/star-rating';
+@import 'components/horizontal-line';
+@import 'components/view-more-images';
+@import 'components/amenities';
+@import 'components/list-items';
+@import 'components/hero-slider';
+@import 'components/offers-list';
+@import 'components/rewards-list';
+@import 'components/hotel-location';
+@import 'components/range-slider';
+@import 'components/user-messages';
+@import 'components/preloader';
+@import 'components/notification-bar';
+
+//- Directives
+@import '../app/directives/localInfo/local-info';

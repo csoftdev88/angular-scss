@@ -1,0 +1,12 @@
+<header id="main-header" ng-include="'layouts/header.html'">
+</header>
+
+<user-messages></user-messages>
+
+<!-- MAIN CONTENT AREA -->
+<div ui-view autoscroll="true"></div>
+
+<!-- BOOKING WIDGET AREA-->
+<floating-bar ng-hide="$state.includes('reservation')"></floating-bar>
+
+<footer ng-include="'layouts/footer.html'"></footer>
