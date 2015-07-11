@@ -11,6 +11,8 @@ dependencies:
   pre:
     - git config --global user.email "peter@2pventures.com"
     - git config --global user.name "CircleCI @ 2P Ventures"
+    - npm install -g istanbul
+    - npm install -g codeclimate-test-reporter
   override:
     - npm prune
     - npm install
@@ -20,6 +22,10 @@ dependencies:
     - node_modules
     - bower_components
     - build
+
+general:
+  artifacts:
+    - ./coverage
 
 test:
   override:
@@ -42,5 +48,5 @@ deployment:
   prod:
     branch: master
     commands:
-      - git push -f git@heroku.com:mobius-prod.git ${CIRCLE_BRANCH}:master
+      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}:master
 

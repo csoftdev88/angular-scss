@@ -22,6 +22,7 @@
     "serve-favicon": "~2.2.0"
   },
   "devDependencies": {
+    "codeclimate-test-reporter": "^0.1.0",
     "connect-livereload": "~0.2.0",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~3.0.3",
@@ -50,14 +51,14 @@
     "grunt-rev": "~0.1.0",
     "grunt-text-replace": "~0.3.12",
     "grunt-usemin": "~0.1.11",
+    "istanbul": "^0.3.17",
     "jshint-stylish": "~0.1.5",
     "karma-junit-reporter": "~0.2.2",
     "karma-mocha": "~0.1.4",
     "karma-phantomjs-launcher": "~0.1.4",
     "load-grunt-tasks": "~0.2.1",
-    "matchdep": "~0.1.2",
-    "time-grunt": "~0.2.8",
     "lolex": "1.1.0",
+    "matchdep": "~0.1.2",
     "request": "^2.55.0",
     "time-grunt": "~0.2.8"
   }
