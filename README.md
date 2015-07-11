@@ -44,7 +44,7 @@ mobius/
 
 What follows is a brief description of each entry, but most directories contain
 their own `README.md` file with additional documentation, so browse around to
-learn more.
+learn more:
 
 - `src/` - our application sources. [Read more &raquo;](src/README.md)
 - `bower_components/` - third-party libraries used in front-end. [Bower](http://bower.io) will install
