@@ -1,0 +1,10 @@
+/build
+/bower_components
+/node_modules
+npm-debug.log
+.tmp
+.sass-cache
+test-results.xml
+*.pyc
+.idea
+.DS_Store
