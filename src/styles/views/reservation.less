@@ -224,7 +224,6 @@ reservation-widget {
 
   .reservation-controls {
     text-align: center;
-    margin-top: @spacing;
 
     .next {
       float: right;
@@ -233,7 +232,8 @@ reservation-widget {
 
     .back {
       float: left;
-      margin: 0 @spacing;
+      margin: 0 @spacing 0 0;
+      text-shadow: none;
     }
   }
 
@@ -637,6 +637,10 @@ reservation-finished {
         a.eye-icon{
           position : relative;
           display: block;
+
+          img{
+            display: block;
+          }
 
           &:before {
             content: '';

@@ -7,15 +7,24 @@
         <input type="text" id="first-name" required
           placeholder="First Name"
           ng-model="userDetails.firstName"
-          name="firstName"/>
-        <span>First Name</span>
+          name="firstName" 
+          ng-pattern="/^[a-zA-Z]+$/"/>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">First name</span>
+          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">Please only enter letters in this field</span>
+        </span>
       </label>
 
       <label for="last-name" class="input-right">
         <input type="text" id="last-name" required
           placeholder="Last Name"
-          ng-model="userDetails.lastName" name="lastName"/>
-        <span>Last name</span>
+          ng-model="userDetails.lastName" 
+          name="lastName" 
+          ng-pattern="/^[a-zA-Z]+$/"/>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">Last name</span>
+          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">Please only enter letters in this field</span>
+        </span>
       </label>
 
       <label for="email" class="input-left">
