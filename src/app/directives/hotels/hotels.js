@@ -4,11 +4,11 @@ angular.module('mobiusApp.directives.hotels', [])
 
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
-  'propertyService', 'preloaderFactory', '_', 'user', 'locationService',
-  '$q', 'modalService', '$controller', 'breadcrumbsService',
+  'propertyService', 'preloaderFactory', '_', 'user',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'notificationService',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory, _, user, locationService, $q, modalService, $controller,
-    breadcrumbsService){
+    preloaderFactory, _, user, $q, modalService, $controller,
+    breadcrumbsService, notificationService){
   return {
     restrict: 'E',
     scope: {},
@@ -78,30 +78,51 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.minSelectedPrice = scope.minPrice;
           scope.maxSelectedPrice = scope.maxPrice;
         });
+
         // Loading locations
-        var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
+        /* var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
           scope.locations = locations || [];
           scope.locations.unshift({nameShort: 'All Locations'});
 
-          if(bookingParams.locationCode) {
+          // NOTE: LOCATION FEATURE IS DROPPED
+          /*if(bookingParams.locationCode) {
             scope.location = _.find(scope.locations, {code: bookingParams.locationCode});
             if(scope.location) {
               scope.loadLocation();
             }
           }
-        });
+        });*/
 
-        preloaderFactory($q.all([hotelsPromise, locationsPromise]));
+        preloaderFactory($q.all([hotelsPromise]));
       }
 
       filtersService.getProducts(true).then(function(data) {
         scope.rates = data || [];
       });
 
+      scope.onRateChange = function(){
+        console.log(scope.selectedRate);
+
+        // Server side filtering
+        var bookingParams = bookingService.getAPIParams(true);
+        bookingParams.productGroupId = scope.selectedRate.id;
+
+        // NOTE: Server side filtering by rate
+        getProperties(bookingParams);
+
+        updateRateFilteringInfo(scope.selectedRate);
+      };
+
+      // Updating notification bar
+      function updateRateFilteringInfo(rate){
+        notificationService.show('You are filtering by: ' + rate.name);
+      }
+
       scope.navigateToHotel = function(propertyCode){
         $state.go('hotel', {propertyCode: propertyCode});
       };
 
+      /*
       scope.loadLocation = function() {
         //if(scope.location && scope.location.code) {
         //  preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
@@ -110,7 +131,7 @@ angular.module('mobiusApp.directives.hotels', [])
         //} else {
         //  scope.locationDetails = null;
         //}
-      };
+      };*/
 
       // Getting the details from booking widget
       var bookingParams = bookingService.getAPIParams(true);

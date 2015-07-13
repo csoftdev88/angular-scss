@@ -109,7 +109,9 @@
           <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
         </ul>
       </div>
+
       <hr>
+
       <h3><i class="logo-trip-advisor"></i> Rating</h3>
       <div class="stars rating-trip-advisor">
         <ul class="stars-left">
@@ -121,11 +123,14 @@
         </ul>
       </div>
 
+      <hr/>
+
       <h3>Rates</h3>
       <select name="rate"
-        required ng-model="selected.rate"
+        required ng-model="selectedRate"
         disable-search="true"
-        chosen ng-options="rate.id as rate.name for rate in rates"
+        ng-change="onRateChange()"
+        chosen ng-options="rate as rate.name for rate in rates"
         data-placeholder="Rate">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
