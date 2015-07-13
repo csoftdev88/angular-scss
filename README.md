@@ -1,5 +1,9 @@
 # mobius
 
+[![Code Climate](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/badges/fda5b4afe8ad006ed0fe/gpa.svg)](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/feed)
+[![Circle CI](https://circleci.com/gh/2PVentures/mobius-web/tree/master.svg?style=shield&circle-token=c747f87a995b02c9d999cee050e74265a98745e4)](https://circleci.com/gh/2PVentures/mobius-web/tree/master)
+[![Test Coverage](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/badges/fda5b4afe8ad006ed0fe/coverage.svg)](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/coverage)
+
 Rewrite of existing hotel booking engine into angular.js SPA..
 
 ## Overall Directory Structure
@@ -44,7 +48,7 @@ mobius/
 
 What follows is a brief description of each entry, but most directories contain
 their own `README.md` file with additional documentation, so browse around to
-learn more.
+learn more:
 
 - `src/` - our application sources. [Read more &raquo;](src/README.md)
 - `bower_components/` - third-party libraries used in front-end. [Bower](http://bower.io) will install
@@ -67,6 +71,7 @@ learn more.
 ## FAQ
 
 ### How do I run it locally?
+
 1. Install node.js
 2. `npm install -g grunt-cli bower karma phantomjs`
 3. `git clone https://github.com/salsita/mobius.git`
