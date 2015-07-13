@@ -115,7 +115,7 @@
               {{ addon._expanded ? addon.description : addon.descriptionShort }}
               <a
                 ng-init="addon._expanded = false"
-                ng-if="addon.description && addon.description != ''"
+                ng-if="addon.description && addon.description != '' && addon.description !== addon.descriptionShort"
                 ng-click="toggleAddonDescription($event, addon)">
                   {{ addon._expanded ? '[-]' : '[+]'}}
               </a>
