@@ -41,3 +41,8 @@ test:
     - sed -i -e 's/\/build//' .gitignore
     - git add -A
     - git commit -m "build"
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: mobius-web
