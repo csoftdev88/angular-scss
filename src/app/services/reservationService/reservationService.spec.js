@@ -5,6 +5,7 @@ describe('reservationService', function() {
   var _reservationService, _apiPostSpy, _apiGetSpy, _apiPutSpy, _apiGetFullURLSpy;
 
   var userLoggedIn = {
+    isLoggedIn: function(){return true;},
     getCustomerId: function(){return 123;}
   };
 
@@ -127,15 +128,24 @@ describe('reservationService', function() {
       });
     });
 
+    describe('getAvailableAddons', function() {
+      it('should fire a GET request to addons API with customerId param', function() {
+        _reservationService.getAvailableAddons();
+
+        expect(_apiGetFullURLSpy.calledOnce).equal(true);
+        expect(_apiGetFullURLSpy.calledWith('reservations.availableAddons')).equal(true);
+        expect(_apiGetSpy.calledOnce).equal(true);
+
+        expect(_apiGetSpy.args[0][1].customerId).equal(123);
+      });
+    });
+
     describe('getReservation', function() {
       it('should fire a GET request to reservations API with reservationCode query param', function() {
         _reservationService.getReservation('testCode');
         expect(_apiGetFullURLSpy.calledOnce).equal(true);
         expect(_apiGetFullURLSpy.calledWith('reservations.detail')).equal(true);
         expect(_apiGetSpy.calledOnce).equal(true);
-
-        var params = _apiGetFullURLSpy.args[0];
-        expect(params[1].reservationCode).equal('testCode');
       });
     });
 
