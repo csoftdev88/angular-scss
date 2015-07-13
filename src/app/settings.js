@@ -40,8 +40,8 @@ angular.module('mobiusApp.config', [])
         'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
         'product': {
-          all: 'properties/:propertyCode/rooms/:roomTypeCode/products',
-          addons: 'properties/:propertyCode/rooms/:roomTypeCode/products/:productCode/addons/'
+          'all': 'properties/:propertyCode/rooms/:roomTypeCode/products',
+          'addons': 'properties/:propertyCode/rooms/:roomTypeCode/products/:productCode/addons/'
         }
       }
     },

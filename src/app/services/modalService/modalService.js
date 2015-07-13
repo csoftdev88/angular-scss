@@ -86,12 +86,13 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
-  function openAddonDetailDialog(addAddon, addon){
+  function openAddonDetailDialog(addAddon, addon, payWithPoints){
     return openDialog('AddonDetailDialog', 'layouts/modals/reservation/addonDetailDialog.html', CONTROLLER_ADDON, {
       windowClass: 'details addons',
       resolve: {
         addon: function(){return addon;},
-        addAddon: function(){return addAddon;}
+        addAddon: function(){return addAddon;},
+        payWithPoints: function(){return payWithPoints;}
       }
     });
   }

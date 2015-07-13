@@ -3,7 +3,7 @@
     <h1 class="modal-title">{{addon.name}}</h1>
     <button class="button-close" ng-click="cancel()">X</button>
   </div>
-  <div class="modal-body" ng-if="!addon._confirmation">
+  <div class="modal-body" ng-if="!state.confirmed">
     <image-carousel images="addon.images"></image-carousel>
     <div class="details">
       <div class="description">
@@ -12,26 +12,30 @@
 
       <div class="extra">
         <p class="add-extra">Add to your booking with one click!</p>
-        <a class="button add-confirm" href ng-click="addon._confirmation = true">{{addon.price | i18nCurrency: currencyCode}}</a>
-        <a class="button add-confirm-points" href ng-click="addon._confirmation = true" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
+        <a class="button add-confirm" href ng-click="selectPaymentMethod(false)">{{addon.price | i18nCurrency: currencyCode}}</a>
+        <a class="button add-confirm-points" href ng-click="selectPaymentMethod(true)" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
       </div>
     </div>
   </div>
 
-  <div class="modal-body" ng-if="addon._confirmation">
+  <div class="modal-body" ng-if="state.confirmed">
     <image-carousel images="addon.images"></image-carousel>
     <div class="details">
-      <div class="description">
+      <div class="description" ng-switch="payWithPoints">
         <p>Please confirm you want to add this Enhancement to your booking:</p>
         <p>{{addon.name}}</p>
-        <p>{{addon.price | i18nCurrency: currencyCode}}</p>
-        <p><em>We will charge the card that you made your booking with. This enhancement is covered by the same terms
-          and policies as the booking it is associated with</em></p>
+        <!-- DEFAULT PAYMENT METHOD -->
+        <p ng-switch-default>{{addon.price | i18nCurrency: currencyCode}}</p>
+        <p ng-switch-default><em>We will charge the card that you made your booking with. This enhancement is covered by the same terms and policies as the booking it is associated with.</em></p>
+
+        <!-- PAYMENT WITH POINST -->
+        <p ng-switch-when="true"><ng-pluralize count="addon.pointsRequired" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize></p>
+        <p ng-switch-when="true"><em>You can add this enhancement to your stay by clicking confirm below. Payment will be taken at the hotel. This enhancement is covered by the same terms and policies as the booking that it is associated with.</em></p>
       </div>
 
       <div class="extra">
         <p class="add-extra">Add to your booking with just a click!</p>
-        <a class="button add-confirm" href ng-click="addon._confirmation = false">Back</a>
+        <a class="button add-confirm" href ng-click="state.confirmed = false">Back</a>
         <a class="button add-confirm-points" href ng-click="addAddon(addon)">Confirm</a>
       </div>
     </div>

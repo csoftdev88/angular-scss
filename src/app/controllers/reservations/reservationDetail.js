@@ -8,8 +8,8 @@ angular.module('mobius.controllers.reservationDetail', [])
   // Price breakdown and policies seems to have different format then expected
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
-    reservationService, preloaderFactory, modalService, userMessagesService,
-    propertyService, $q, breadcrumbsService, $controller){
+    $controller, $q, reservationService, preloaderFactory, modalService,
+    userMessagesService, propertyService, breadcrumbsService, user){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -72,6 +72,15 @@ angular.module('mobius.controllers.reservationDetail', [])
         });
 
         // Getting available addons and reservation addons
+
+        var availablePoints;
+
+        if(user.isLoggedIn() && user.getUser().loyalties){
+          availablePoints = user.getUser().loyalties.amount || 0;
+        }else{
+          availablePoints = 0;
+        }
+
         var addonsPromise = $q.all([
           // Available addons
           reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: room.roomTypeCode}),
@@ -89,6 +98,11 @@ angular.module('mobius.controllers.reservationDetail', [])
             });
 
             if(!addedAddon){
+              // Checking if user has enought points to buy the addon
+              if(addon.pointsRequired && availablePoints < addon.pointsRequired){
+                addon.pointsRequired = 0;
+              }
+
               $scope.availableAddons.push(addon);
             }
           });
@@ -211,6 +225,11 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Adding to reservation addons
           $scope.reservationAddons.push(addon);
           userMessagesService.addInfoMessage('<div>You have added ' + addon.name + ' to your reservation</div>');
+
+          // Updating user loyalties once payment was done using the points
+          if(addon.pointsRequired && user.isLoggedIn()){
+            user.loadLoyalties();
+          }
         });
 
         preloaderFactory(addAddonPromise);
@@ -222,7 +241,12 @@ angular.module('mobius.controllers.reservationDetail', [])
       return _.reduce($scope.reservationAddons, function(acc, addon) { return acc + addon.price; }, 0);
     };
 
-    if (modalService.openAddonDetailDialog.bind) { // WTF - PhatomJS workaround
-      $scope.openAddonDetailDialog = modalService.openAddonDetailDialog.bind(modalService, $scope.addAddon.bind($scope));
-    }
+    $scope.openAddonDetailDialog = function(e, addon, payWithPoints){
+      if(e){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      modalService.openAddonDetailDialog($scope.addAddon, addon, payWithPoints);
+    };
   });

@@ -120,6 +120,10 @@ describe('mobius.controllers.reservationDetail', function() {
           go: function(){}
         });
 
+        $provide.value('user', {
+          isLoggedIn: function(){}
+        });
+
         $controllerProvider.register('AuthCtrl', function($scope, config){
           config.onAuthorized(true);
         });
