@@ -70,6 +70,7 @@ learn more:
 ## FAQ
 
 ### How do I run it locally?
+
 1. Install node.js
 2. `npm install -g grunt-cli bower karma phantomjs`
 3. `git clone https://github.com/salsita/mobius.git`
