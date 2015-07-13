@@ -241,6 +241,10 @@ angular.module('mobius.controllers.reservationDetail', [])
       return _.reduce($scope.reservationAddons, function(acc, addon) { return acc + addon.price; }, 0);
     };
 
+    $scope.getAddonsTotalPoints = function() {
+      return _.reduce($scope.reservationAddons, function(acc, addon) { return acc + addon.points; }, 0);
+    };
+
     $scope.openAddonDetailDialog = function(e, addon, payWithPoints){
       if(e){
         e.preventDefault();

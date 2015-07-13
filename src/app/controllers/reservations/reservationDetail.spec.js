@@ -199,5 +199,22 @@ describe('mobius.controllers.reservationDetail', function() {
         expect(_scope.getAddonsTotalPrice()).equal(0);
       });
     });
+
+    describe('getAddonsTotalPoints', function() {
+      it('should return a total price of addons added to current reservation', function() {
+        _scope.reservationAddons = [
+          {points: 5},
+          {points: 11}
+        ];
+
+        expect(_scope.getAddonsTotalPoints()).equal(16);
+
+        _scope.reservationAddons = [];
+        expect(_scope.getAddonsTotalPoints()).equal(0);
+
+        _scope.reservationAddons = null;
+        expect(_scope.getAddonsTotalPoints()).equal(0);
+      });
+    });
   });
 });

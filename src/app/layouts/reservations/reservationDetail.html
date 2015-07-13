@@ -173,7 +173,10 @@
 
         </list-item>
       </list-items>
-      <p class="total">Total: {{getAddonsTotalPrice() | i18nCurrency: currencyCode}}</p>
+      <!-- PAID WITH CARD -->
+      <p class="total" ng-if="getAddonsTotalPrice()">Total: {{getAddonsTotalPrice() | i18nCurrency: currencyCode}}</p>
+      <!-- PAID WITH POINTS -->
+      <p class="total" ng-if="getAddonsTotalPoints()">{{getAddonsTotalPrice()?'':'Total: '}}<ng-pluralize count="getAddonsTotalPoints()" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize></p>
     </section>
   </reservation-finished>
 </main>
