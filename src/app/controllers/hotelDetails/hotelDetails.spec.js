@@ -68,6 +68,7 @@ describe('mobius.controllers.hotel.details', function() {
         });
 
         $provide.value('advertsService', {});
+        $provide.value('scrollService', {});
 
         $provide.value('$state', {
           go: function(){}

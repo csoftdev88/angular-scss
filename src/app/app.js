@@ -73,6 +73,7 @@ angular
     'mobiusApp.services.breadcrumbs',
     'mobiusApp.services.rewards',
     'mobiusApp.services.preference',
+    'mobiusApp.services.scroll',
 
     // Factories
     'mobiusApp.factories.template',
@@ -295,7 +296,7 @@ angular
     });
   })
 
-  .controller('BaseCtrl', function($scope, $controller){
+  .controller('BaseCtrl', function($scope, $controller, scrollService){
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
 
@@ -306,4 +307,11 @@ angular
     $scope.$on('$stateChangeSuccess', function() {
       $scope.sso.trackPageView();
     });
+
+    $scope.$on('$viewContentLoaded', function() {
+      scrollService.scrollTo();
+    });
+
+
+    
   });

@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService, $controller, $timeout) {
+  $window, advertsService, $controller, $timeout, scrollService) {
 
   $controller('PriceCtr', {$scope: $scope});
 
@@ -17,24 +17,12 @@ angular.module('mobius.controllers.hotel.details', [])
   bookingParams.includes = 'amenities';
 
   var propertyCode = bookingParams.propertyCode;
+  //back to top default
   $scope.scroll = 0;
-
-  // TODO: Change to a classic selectors . #
-  function scrollTo(hash, speed, offset) {
-    $window._.defer(function () {
-      var $item = angular.element('#' + hash);
-      if($item.length) {
-        offset = offset || 0;
-        angular.element('html, body').animate({
-          scrollTop: $item.offset().top + offset
-        }, speed || 300);
-      }
-    });
-  }
 
   $scope.scrollToBreadcrumbs = function(){
     $timeout(function(){
-      scrollTo('breadcrumbs', 1200, -angular.element('#main-header').height());
+      scrollService.scrollTo('#breadcrumbs');
     }, 0);
   };
 
@@ -103,7 +91,7 @@ angular.module('mobius.controllers.hotel.details', [])
           }
         });
 
-        $scope.scrollToBreadcrumbs();
+        //$scope.scrollToBreadcrumbs();
 
       }, function() {
         $state.go('hotels');
