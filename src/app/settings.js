@@ -40,8 +40,8 @@ angular.module('mobiusApp.config', [])
         'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
         'product': {
-          all: 'properties/:propertyCode/rooms/:roomTypeCode/products',
-          addons: 'properties/:propertyCode/rooms/:roomTypeCode/products/:productCode/addons/'
+          'all': 'properties/:propertyCode/rooms/:roomTypeCode/products',
+          'addons': 'properties/:propertyCode/rooms/:roomTypeCode/products/:productCode/addons/'
         }
       }
     },
@@ -63,7 +63,7 @@ angular.module('mobiusApp.config', [])
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
-      'availableAddons': 'addons/',
+      'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/'
