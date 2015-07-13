@@ -104,29 +104,27 @@
             ng-repeat="addon in availableAddons"
             ng-if="reservation.packages.indexOf(addon.code) === -1"
             ng-click="openAddonDetailDialog(null, addon)">
-          <div>
-            <a href ng-class="{'disabled': !addon.description || addon.description == ''}">
-              <a class="eye-icon">
-                <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
-              </a>
-
-              <h4 ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
-
-              <p>
-                {{ addon._expanded ? addon.description : addon.descriptionShort }}
-                <a
-                  ng-init="addon._expanded = false"
-                  ng-if="addon.description && addon.description != ''"
-                  ng-click="toggleAddonDescription($event, addon)">
-                    {{ addon._expanded ? '[-]' : '[+]'}}
-                </a>
-              </p>
-
-              <i>Add to your booking with one click:</i>
-
-              <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: currencyCode}}</a>
-              <a class="button"ng-if="addon.pointsRequired" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>points</small></a>
+          <div ng-class="{'disabled': !addon.description || addon.description == ''}">
+            <a class="eye-icon">
+              <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
             </a>
+
+            <h4 ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
+
+            <p>
+              {{ addon._expanded ? addon.description : addon.descriptionShort }}
+              <a
+                ng-init="addon._expanded = false"
+                ng-if="addon.description && addon.description != ''"
+                ng-click="toggleAddonDescription($event, addon)">
+                  {{ addon._expanded ? '[-]' : '[+]'}}
+              </a>
+            </p>
+
+            <i>Add to your booking with one click:</i>
+
+            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: currencyCode}}</a>
+            <a class="button"ng-if="addon.pointsRequired" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>points</small></a>
           </div>
         </li>
       </ul>
