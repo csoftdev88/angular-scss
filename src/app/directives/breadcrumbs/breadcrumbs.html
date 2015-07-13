@@ -1,9 +1,6 @@
 <nav class="breadcrumbs" ng-if="breadcrumbs.length > 0">
   <div class="wrapper">
     <ul ng-if="breadcrumbs.length > 0" class="crumbs">
-      <!-- all these raquos should be removed
-           this should be done on css level
-           story: https://review.salsitasoft.com/r/12842/ -->
       <li><a ui-sref="home">Home</a></li>
       <li ng-repeat="link in breadcrumbs">
         <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">{{link.name}}</a>
