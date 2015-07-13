@@ -32,6 +32,14 @@ angular.module('mobiusApp.services.reservation', [])
   }
 
   function getAvailableAddons(params){
+    if(user.isLoggedIn()){
+      if(!params){
+        params = {};
+      }
+
+      params.customerId = user.getCustomerId();
+    }
+
     return apiService.get(apiService.getFullURL('reservations.availableAddons'), params);
   }
 
