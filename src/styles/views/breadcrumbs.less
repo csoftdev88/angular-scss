@@ -12,23 +12,39 @@
   .clearfix;
   line-height: .75*@baseline;
 
-  li {
-    display: inline-block;
-    //margin-right: @baseline/4;
-
-    a span {
-      color: @c-navbar-content;
-    }
-  }
-
-  ul {
+  .crumbs {
     float: left;
+
+    li {
+      display: block;
+      float: left;
+
+      span, a {
+        display: inline-block;
+        margin-right: @baseline/4;
+      }
+
+      span:after, a:after {
+        display: inline-block;
+        content: "\00BB";
+        margin-left: @baseline/4;
+        color: @c-navbar-content;
+      }
+
+      &:last-child {
+        span:after, a:after {
+          display: none;
+        }
+      }
+
+    }
   }
 
   .alt-nav {
     float: right;
 
     li {
+      display: inline-block;
       margin-left: @baseline/2;
       padding-left: @baseline/2;
       border-left: 1px solid @c-navbar-content;
