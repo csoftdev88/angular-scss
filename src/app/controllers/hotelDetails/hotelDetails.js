@@ -126,7 +126,9 @@ angular.module('mobius.controllers.hotel.details', [])
   }
 
   $scope.scrollToRooms = function() {
-    scrollTo('jsRooms');
+    $timeout(function(){
+      scrollService.scrollTo('#jsRooms', -20);
+    }, 0);
   };
 
   $scope.advertClick = advertsService.advertClick;

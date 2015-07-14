@@ -8,8 +8,6 @@ angular.module('mobiusApp.services.scroll', [])
     // scrollTo() with no params will default to breadcrumbs
     var scrollTo = function(target, offset) {
 
-      console.log('$state.current.name: ' + $state.current.name);
-
       if($state.current.name === 'home'){
         angular.element('html, body').scrollTop(0);
         return;
@@ -17,7 +15,13 @@ angular.module('mobiusApp.services.scroll', [])
 
       $window._.defer(function () {
         var $item = target ? angular.element(target) : angular.element('breadcrumbs');
-        $item = $location.search().scrollTo ? $location.search().scrollTo : $item;
+
+        //TODO make it so we can add scrollTo param to url and scroll to it when data is loaded
+        if($location.search().scrollTo){
+          //offset = -20;
+          //$item = $location.search().scrollTo.indexOf('.') === -1 ? angular.element('#' + $location.search().scrollTo) : angular.element($location.search().scrollTo);
+        }
+
         if($item.length) {
           offset = offset || -angular.element('#main-header').height();
           angular.element('html, body').stop().animate({

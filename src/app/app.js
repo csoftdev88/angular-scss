@@ -299,6 +299,7 @@ angular
   .controller('BaseCtrl', function($scope, $controller, scrollService){
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
+    $controller('HotelDetailsCtrl', {$scope: $scope});
 
     $scope.$on('$stateChangeStart', function() {
       $scope.sso.trackPageLeave();
