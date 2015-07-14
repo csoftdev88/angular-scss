@@ -37,4 +37,4 @@ deployment:
   dev:
     branch: develop
     commands:
-      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}-dev.git ${CIRCLE_BRANCH}:master
+      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}:master
