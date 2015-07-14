@@ -1,0 +1,26 @@
+<!-- this should be filled with actual data from API
+     it should be presented in the following structure -->
+<section class="hotel-detail__offers" grid-row id="jsOffers" ng-if="offersList.length">
+  <hr />
+  <h2 grid="12">Offers and <strong>Promotions</strong></h2>
+
+
+  <offers-list grid-row>
+    <offer-item ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'offers', 'code': offer.code})">
+      <img class="grid-img" ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}"  alt="{{offer.image.alt}}">
+
+      <section>
+      <h2>{{offer.title}}</h2>
+      <div ng-bind-html="offer.subtitle"></div>
+      </section>
+
+      <span>Read more</span>
+    </offer-item>
+  </offers-list>
+
+  <p grid="12" class="more-btn">
+    <a ui-sref="offers">
+      See more
+    </a>
+  </p>
+</section>
