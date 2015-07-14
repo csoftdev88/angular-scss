@@ -11,10 +11,6 @@ dependencies:
   pre:
     - git config --global user.email "peter@2pventures.com"
     - git config --global user.name "CircleCI @ 2P Ventures"
-    - npm install jshint -g
-    - npm install -g istanbul
-    - npm install -g codeclimate-test-reporter
-    - npm install request -g
   override:
     - npm prune
     - npm install
@@ -25,16 +21,10 @@ dependencies:
     - bower_components
     - build
 
-general:
-  artifacts:
-    - ./coverage
-
 test:
   override:
     - grunt test
     - grunt build
-    - istanbul cover karma/karma-unit.js
-    - codeclimate-test-reporter < ./coverage/lcov.info
   post:
     - sed -i -e 's/\/node_modules//' .gitignore
     - sed -i -e 's/\/bower_components//' .gitignore
@@ -42,8 +32,9 @@ test:
     - sed -i -e 's/\/build//' .gitignore
     - git add -A
     - git commit -m "build"
+
 deployment:
   dev:
     branch: develop
     commands:
-      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}:master
+      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}-dev.git ${CIRCLE_BRANCH}:master
