@@ -101,8 +101,6 @@ angular.module('mobiusApp.directives.hotels', [])
       });
 
       scope.onRateChange = function(){
-        console.log(scope.selectedRate);
-
         // Server side filtering
         var bookingParams = bookingService.getAPIParams(true);
         bookingParams.productGroupId = scope.selectedRate.id;
@@ -115,7 +113,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
       // Updating notification bar
       function updateRateFilteringInfo(rate){
-        notificationService.show('You are filtering by: ' + rate.name);
+        notificationService.show('You are filtering by: ' + rate.name, 'notification-rate-filter-removed');
       }
 
       scope.navigateToHotel = function(propertyCode){

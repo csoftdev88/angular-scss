@@ -14,14 +14,19 @@ angular.module('mobiusApp.directives.notifications', [])
     templateUrl: 'directives/notificationBar/notificationBar.html',
     // Widget logic goes here
     link: function(scope){
+      var notificationCloseEvent;
+
       scope.message = notificationService.getMessage();
 
-      scope.$on(EVENT_NOTIFICATION_MESSAGE_UPDATED, function(){
+      scope.$on(EVENT_NOTIFICATION_MESSAGE_UPDATED, function($event, data){
+        notificationCloseEvent = data.closeEvent;
+
         scope.message = notificationService.getMessage();
       });
 
       scope.onClose = function(){
-        $rootScope.$broadcast(EVENT_NOTIFICATION_CLOSED);
+        $rootScope.$broadcast(notificationCloseEvent);
+        scope.message = null;
       };
     }
   };
@@ -30,9 +35,15 @@ angular.module('mobiusApp.directives.notifications', [])
 .service('notificationService', function($rootScope){
   var _message;
 
-  function broadcast(message){
+  function broadcast(message, notificationCloseEvent){
     _message = message;
-    $rootScope.$broadcast(EVENT_NOTIFICATION_MESSAGE_UPDATED);
+
+    // Custom close events
+    var eventData = {
+      closeEvent: notificationCloseEvent || EVENT_NOTIFICATION_CLOSED
+    };
+
+    $rootScope.$broadcast(EVENT_NOTIFICATION_MESSAGE_UPDATED, eventData);
   }
 
   function hide(){
