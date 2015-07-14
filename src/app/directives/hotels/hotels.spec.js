@@ -68,6 +68,7 @@ describe('hotels directive', function() {
       $provide.value('modalService', {
       });
 
+
       $provide.value('user', {
         isLoggedIn: function(){}
       });
@@ -81,6 +82,10 @@ describe('hotels directive', function() {
         addBreadCrumb: function(){ return breadcrumbs; }
       };
       $provide.value('breadcrumbsService', breadcrumbs);
+
+      $provide.value('scrollService', {
+        scrollTo: function(){}
+      });
 
       $controllerProvider.register('MainCtrl', function(){});
     });

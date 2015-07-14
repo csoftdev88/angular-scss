@@ -22,7 +22,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
   $scope.scrollToBreadcrumbs = function(){
     $timeout(function(){
-      scrollService.scrollTo('#breadcrumbs');
+      scrollService.scrollTo('breadcrumbs');
     }, 0);
   };
 
@@ -91,7 +91,7 @@ angular.module('mobius.controllers.hotel.details', [])
           }
         });
 
-        //$scope.scrollToBreadcrumbs();
+        $scope.scrollToBreadcrumbs();
 
       }, function() {
         $state.go('hotels');

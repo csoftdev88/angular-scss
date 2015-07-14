@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user', 'locationService',
-  '$q', 'modalService', '$controller', 'breadcrumbsService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, locationService, $q, modalService, $controller,
-    breadcrumbsService){
+    breadcrumbsService, scrollService){
   return {
     restrict: 'E',
     scope: {},
@@ -66,6 +66,7 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.minRating = 0;
       scope.maxRating = 5;
 
+
       function getProperties(params){
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
@@ -91,7 +92,12 @@ angular.module('mobiusApp.directives.hotels', [])
           }
         });
 
-        preloaderFactory($q.all([hotelsPromise, locationsPromise]));
+        preloaderFactory($q.all([hotelsPromise, locationsPromise]).then(function(){
+          scrollService.scrollTo('breadcrumbs');
+        }));
+
+        
+       
       }
 
       scope.navigateToHotel = function(propertyCode){

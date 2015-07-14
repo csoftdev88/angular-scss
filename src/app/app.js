@@ -306,12 +306,9 @@ angular
 
     $scope.$on('$stateChangeSuccess', function() {
       $scope.sso.trackPageView();
+      $scope.$on('$viewContentLoaded', function() {
+        scrollService.scrollTo();
+      });
     });
-
-    $scope.$on('$viewContentLoaded', function() {
-      scrollService.scrollTo();
-    });
-
-
     
   });
