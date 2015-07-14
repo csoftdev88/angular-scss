@@ -43,7 +43,7 @@ test:
     - git add -A
     - git commit -m "build"
 deployment:
-  staging:
+  dev:
     branch: develop
-    heroku:
-      appname: mobius-web
+    commands:
+      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}:master
