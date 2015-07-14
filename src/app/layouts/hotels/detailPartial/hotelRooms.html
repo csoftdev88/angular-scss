@@ -28,7 +28,7 @@
 
         <pricing-info>
           <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
-            <p ng-if="room.priceFrom">
+            <p class="price-form" ng-if="room.priceFrom">
               from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
               <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
               <span ng-if="isUserLoggedIn() && room.minPointsRequired">
