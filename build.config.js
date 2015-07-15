@@ -107,7 +107,9 @@ module.exports = {
         'bower_components/angular-sanitize/angular-sanitize.min.js',
         'bower_components/angular-rangeslider/angular.rangeSlider.js'
       ],
-      styles: []
+      styles: [
+        'bower_components/font-awesome/css/font-awesome.min.css'
+      ]
     }
   }
 };
