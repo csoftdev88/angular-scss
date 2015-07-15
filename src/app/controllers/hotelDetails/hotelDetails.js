@@ -9,6 +9,8 @@ angular.module('mobius.controllers.hotel.details', [])
   $window, advertsService, $controller, $timeout) {
 
   $controller('PriceCtr', {$scope: $scope});
+  // Used for rate notification message
+  $controller('RatesCtrl', {$scope: $scope});
 
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;

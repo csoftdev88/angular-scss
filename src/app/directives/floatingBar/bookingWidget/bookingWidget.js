@@ -3,8 +3,8 @@
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($controller, $filter, $state, $window,
-  $stateParams, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, $q){
+  $stateParams, $q, modalService, bookingService, queryService, validationService,
+  propertyService, locationService, filtersService, Settings){
   return {
     restrict: 'E',
     scope: {
