@@ -34,6 +34,7 @@ angular.module('mobiusApp.directives.notifications', [])
 
 .service('notificationService', function($rootScope){
   var _message;
+  var _deleteOnStateChange;
 
   function broadcast(message, notificationCloseEvent){
     _message = message;
@@ -46,12 +47,20 @@ angular.module('mobiusApp.directives.notifications', [])
     $rootScope.$broadcast(EVENT_NOTIFICATION_MESSAGE_UPDATED, eventData);
   }
 
+  $rootScope.$on('$stateChangeStart', function() {
+    if(_deleteOnStateChange){
+      hide();
+    }
+  });
+
   function hide(){
     broadcast(null);
   }
 
-  function show(message, notificationCloseEvent){
+  // TODO: Make a list of messages with unique settings
+  function show(message, notificationCloseEvent, deleteOnStateChange){
     broadcast(message, notificationCloseEvent);
+    _deleteOnStateChange = deleteOnStateChange;
   }
 
   function getMessage(){

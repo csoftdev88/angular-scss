@@ -3,8 +3,8 @@
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($controller, $filter, $state, $window,
-  $stateParams, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, $q){
+  $stateParams, $q, modalService, bookingService, queryService, validationService,
+  propertyService, locationService, filtersService, Settings){
   return {
     restrict: 'E',
     scope: {
@@ -148,11 +148,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       var regionsProperties = [];
 
-      function init(toState, toParams){
+      function init(){
         validateURLParams();
-
-
-        console.log(toState, toParams);
 
         if(!$window._.isEmpty(regionsProperties)){
           validatePropertyRegion();
@@ -527,8 +524,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       scope.inputDateText = '';
 
-      var routeChangeListener = scope.$on('$stateChangeSuccess', function(event, toState, toParams){
-        init(toState, toParams);
+      var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
+        init();
       });
 
       scope.$on('$destroy', function(){

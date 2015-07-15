@@ -90,8 +90,9 @@ describe('mobius.controllers.hotel.details', function() {
         };
         $provide.value('breadcrumbsService', breadcrumbs);
 
-
+        // TODO: Unify controller name
         $controllerProvider.register('PriceCtr', function(){});
+        $controllerProvider.register('RatesCtrl', function(){});
       });
     });
 

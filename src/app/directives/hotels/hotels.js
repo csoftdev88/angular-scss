@@ -11,7 +11,7 @@ angular.module('mobiusApp.directives.hotels', [])
     breadcrumbsService){
   return {
     restrict: 'E',
-    scope: true,
+    scope: {},
     templateUrl: 'directives/hotels/hotels.html',
 
     // Widget logic goes here
@@ -20,6 +20,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
       $controller('MainCtrl', {$scope: scope});
       $controller('PreferenceCtrl', {$scope: scope});
+      $controller('RatesCtrl', {$scope: scope});
 
       scope.sortingOptions = [
         {

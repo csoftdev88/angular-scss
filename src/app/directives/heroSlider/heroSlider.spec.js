@@ -1,5 +1,5 @@
 /*'use strict';
-
+TODO: FIX THIS!
 describe('heroSlider', function() {
   var env;
 

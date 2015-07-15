@@ -18,7 +18,9 @@ describe('hotels directive', function() {
     _spyBookingServiceAPIParamsHasDates;
 
   beforeEach(function() {
-    module('mobiusApp.factories.preloader', 'underscore', 'mobius.controllers.common.preference');
+    module('mobiusApp.factories.preloader',
+      'underscore',
+      'mobius.controllers.common.preference');
 
     module('mobiusApp.directives.hotels', function($provide, $controllerProvider) {
       // Mocking the services
@@ -81,6 +83,7 @@ describe('hotels directive', function() {
       $provide.value('breadcrumbsService', breadcrumbs);
 
       $controllerProvider.register('MainCtrl', function(){});
+      $controllerProvider.register('RatesCtrl', function(){});
     });
   });
 
@@ -99,7 +102,7 @@ describe('hotels directive', function() {
     // Final component compile
     var elem = $compile(TEMPLATE)(_rootScope);
     _rootScope.$digest();
-    _scope = elem.scope();
+    _scope = elem.isolateScope();
   }));
 
   afterEach(function() {
