@@ -15,13 +15,13 @@
         </a>
       </pricing-switch>
       <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
-        <a ui-sref="room({propertyCode: details.code, roomID: room.code})">
+        <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">
           <figure>
             <img ng-src="{{room.images[0].uri | cloudinaryImage : 153 : 65 : 'fill'}}" alt="{{room.name}}">
           </figure>
         </a>
 
-        <h3><a ui-sref="room({propertyCode: details.code, roomID: room.code})">{{room.name}}</a></h3>
+        <h3><a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">{{room.name}}</a></h3>
 
         <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
           </earned-points>
@@ -37,7 +37,7 @@
             </p>
             <p ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
-            <a ui-sref="room({propertyCode: details.code, roomID: room.code})" class="button">_view_more_</a>
+            <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" class="button">_view_more_</a>
           </div>
           <p ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
         </pricing-info>

@@ -168,7 +168,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:propertyCode',
+        url: '/hotels/:propertySlug',
         data: {
           // Route is also used for reservation updates
           supportsEditMode: true
@@ -179,7 +179,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
-        url: '/hotels/:propertyCode/rooms/:roomID',
+        url: '/hotels/:propertySlug/rooms/:roomSlug',
         data: {
           supportsEditMode: true
         }

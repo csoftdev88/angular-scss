@@ -17,7 +17,6 @@ angular.module('mobius.controllers.hotel.details', [])
   bookingParams.includes = 'amenities';
 
 
-  console.log($state.params);
   if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
     $scope.partials = [
       'layouts/hotels/detailPartial/hotelInfo.html',
@@ -36,7 +35,14 @@ angular.module('mobius.controllers.hotel.details', [])
     ];
   }
 
-  var propertyCode = bookingParams.propertyCode;
+  var propertyCode = '';
+  if(bookingParams.propertySlug === undefined) {
+    $state.go('hotels');
+  }else{
+    var splits = bookingParams.propertySlug.split('-');
+    propertyCode = splits[1].replace(/_/g, '-');  
+  }
+
   $scope.scroll = 0;
 
   // TODO: Change to a classic selectors . #

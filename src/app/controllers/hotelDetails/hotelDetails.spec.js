@@ -31,7 +31,7 @@ describe('mobius.controllers.hotel.details', function() {
             getAPIParams: function(){
               return {
                 'test': 'testValue',
-                'propertyCode': 123
+                'propertySlug': 'hotel-123'
               };
             }
           });
@@ -134,11 +134,11 @@ describe('mobius.controllers.hotel.details', function() {
       it('should download hotel details from the server with BAR id', function() {
         expect(_spyPropertyServiceGetPropertyDetails).to.be.calledOnce;
         expect(_spyPropertyServiceGetPropertyDetails
-            .calledWith(123, {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertyCode: 123})
+            .calledWith('123', {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertySlug: 'hotel-123'})
         ).equal(true);
         expect(_spyPropertyServiceGetRooms).to.be.calledOnce;
         expect(_spyPropertyServiceGetRooms
-            .calledWith(123)
+            .calledWith('123')
         ).equal(true);
       });
 
