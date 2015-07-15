@@ -5,10 +5,11 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService){
+    breadcrumbsService, scrollService){
+
   return {
     restrict: 'E',
     scope: {},
@@ -67,6 +68,7 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.minRating = 0;
       scope.maxRating = 5;
 
+
       function getProperties(params){
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
@@ -78,6 +80,8 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
           scope.minSelectedPrice = scope.minPrice;
           scope.maxSelectedPrice = scope.maxPrice;
+
+          scrollService.scrollTo('breadcrumbs');
         });
 
         // Loading locations
@@ -93,8 +97,7 @@ angular.module('mobiusApp.directives.hotels', [])
             }
           }
         });*/
-
-        preloaderFactory($q.all([hotelsPromise]));
+        preloaderFactory(hotelsPromise);
       }
 
 /*
