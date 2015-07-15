@@ -152,8 +152,14 @@
 
           <pricing-info>
             <p>
-              <span class="value">
+              <!-- When paid with cash -->
+              <span class="value" ng-if="addon.price">
                 {{addon.price | i18nCurrency: currencyCode}}
+              </span>
+
+              <!-- Paid with points -->
+              <span class="value" ng-if="addon.points">
+                <ng-pluralize count="addon.points" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
               </span>
             </p>
           </pricing-info>

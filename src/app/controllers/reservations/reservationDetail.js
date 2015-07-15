@@ -223,6 +223,9 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Removing from available addons
           $scope.availableAddons.splice($scope.availableAddons.indexOf(addon.code), 1);
           // Adding to reservation addons
+          // NOTE: When getting addons from the API points will be reflected in another
+          // property as in original object `points` instead of `pointsRequired`
+          addon.points = addon.pointsRequired;
           $scope.reservationAddons.push(addon);
           userMessagesService.addInfoMessage('<div>You have added ' + addon.name + ' to your reservation</div>');
 
