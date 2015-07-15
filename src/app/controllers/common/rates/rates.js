@@ -13,7 +13,6 @@ angular.module('mobius.controllers.common.rates', [])
     // all - full rate list from the server
     // selectedRate - user selected option or the one presented in
     // the URL
-    // defaultRate - rate specified in config
     onRateChanged: function(){
       //updateRateFilteringInfo($scope.rates.selectedRate);
       if(_.isFunction($scope.onRateChanged)){
@@ -26,11 +25,7 @@ angular.module('mobius.controllers.common.rates', [])
   filtersService.getProducts(true).then(function(data) {
     $scope.rates.all = data || [];
 
-    // Finding default rate product
-    filtersService.getBestRateProduct().then(function(product){
-      $scope.defaultRate = _.find(data, {id: product.id});
-      updateRateNotification();
-    });
+    updateRateNotification();
   });
 
   function updateRateNotification(){
