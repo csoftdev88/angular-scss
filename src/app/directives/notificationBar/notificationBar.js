@@ -50,8 +50,8 @@ angular.module('mobiusApp.directives.notifications', [])
     broadcast(null);
   }
 
-  function show(message){
-    broadcast(message);
+  function show(message, notificationCloseEvent){
+    broadcast(message, notificationCloseEvent);
   }
 
   function getMessage(){

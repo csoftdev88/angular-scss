@@ -25,6 +25,7 @@ angular
     'mobius.controllers.common.content',
     'mobius.controllers.common.price',
     'mobius.controllers.common.preference',
+    'mobius.controllers.common.rates',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
@@ -171,7 +172,8 @@ angular
         url: '/hotels/:propertyCode',
         data: {
           // Route is also used for reservation updates
-          supportsEditMode: true
+          supportsEditMode: true,
+          hasRateNotification: true
         }
       })
 
@@ -181,7 +183,8 @@ angular
         controller: 'RoomDetailsCtrl',
         url: '/hotels/:propertyCode/rooms/:roomID',
         data: {
-          supportsEditMode: true
+          supportsEditMode: true,
+          hasRateNotification: true
         }
       })
 

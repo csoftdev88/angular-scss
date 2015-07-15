@@ -99,7 +99,7 @@ describe('hotels directive', function() {
     // Final component compile
     var elem = $compile(TEMPLATE)(_rootScope);
     _rootScope.$digest();
-    _scope = elem.isolateScope();
+    _scope = elem.scope();
   }));
 
   afterEach(function() {
@@ -147,7 +147,7 @@ describe('hotels directive', function() {
     it('should redirect to hotel details page', function() {
       _scope.navigateToHotel(123);
       expect(_spyStateGo.calledOnce).equal(true);
-      expect(_spyStateGo.calledWith('hotel', {propertyCode: 123})).equal(true);
+      expect(_spyStateGo.calledWith('hotel', {propertyCode: 123, rate: null})).equal(true);
     });
   });
 });

@@ -127,10 +127,10 @@
 
       <h3>Rates</h3>
       <select name="rate"
-        required ng-model="selectedRate"
+        required ng-model="rates.selectedRate"
         disable-search="true"
-        ng-change="onRateChange()"
-        chosen ng-options="rate as rate.name for rate in rates"
+        ng-change="rates.onRateChanged()"
+        chosen ng-options="rate as rate.name for rate in rates.all"
         data-placeholder="Rate">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>

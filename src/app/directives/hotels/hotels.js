@@ -5,13 +5,13 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'notificationService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, notificationService){
+    breadcrumbsService){
   return {
     restrict: 'E',
-    scope: {},
+    scope: true,
     templateUrl: 'directives/hotels/hotels.html',
 
     // Widget logic goes here
@@ -96,6 +96,7 @@ angular.module('mobiusApp.directives.hotels', [])
         preloaderFactory($q.all([hotelsPromise]));
       }
 
+/*
       filtersService.getProducts(true).then(function(data) {
         scope.rates = data || [];
       });
@@ -115,9 +116,23 @@ angular.module('mobiusApp.directives.hotels', [])
       function updateRateFilteringInfo(rate){
         notificationService.show('You are filtering by: ' + rate.name, 'notification-rate-filter-removed');
       }
+*/
+      // This function invoked from RatesCtrl
+      scope.onRateChanged = function(rate){
+        var bookingParams = bookingService.getAPIParams(true);
+
+        bookingParams.productGroupId = rate?rate.id:scope.rates.defaultRate.id;
+        getProperties(bookingParams);
+      };
 
       scope.navigateToHotel = function(propertyCode){
-        $state.go('hotel', {propertyCode: propertyCode});
+        // Getting rate details from RateCtrl
+        var stateParams = {
+          propertyCode: propertyCode,
+          rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null
+        };
+
+        $state.go('hotel', stateParams);
       };
 
       /*
