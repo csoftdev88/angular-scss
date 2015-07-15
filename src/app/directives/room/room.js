@@ -13,6 +13,7 @@ angular.module('mobiusApp.directives.room', [])
     link: function(scope){
 
       $controller('PriceCtr', {$scope: scope});
+      $controller('RatesCtrl', {$scope: scope});
 
       //var SHORT_DESCRIPTION_LENGTH = 200;
 

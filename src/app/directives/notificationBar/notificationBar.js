@@ -8,6 +8,8 @@ var EVENT_NOTIFICATION_CLOSED = 'notification-closed';
 
 angular.module('mobiusApp.directives.notifications', [])
 
+// TODO - Unify this with other notifications - future promo code will require
+// multiple messages on the page
 .directive('notificationBar', function($rootScope, notificationService){
   return {
     restrict: 'E',
@@ -16,35 +18,39 @@ angular.module('mobiusApp.directives.notifications', [])
     link: function(scope){
       var notificationCloseEvent;
 
-      scope.message = notificationService.getMessage();
-
-      scope.$on(EVENT_NOTIFICATION_MESSAGE_UPDATED, function($event, data){
-        notificationCloseEvent = data.closeEvent;
-
+      function init(){
         scope.message = notificationService.getMessage();
+        notificationCloseEvent = notificationService.getCloseEvent();
+      }
+
+      scope.$on(EVENT_NOTIFICATION_MESSAGE_UPDATED, function(){
+        init();
       });
 
       scope.onClose = function(){
-        $rootScope.$broadcast(notificationCloseEvent);
+        if(notificationCloseEvent){
+          $rootScope.$broadcast(notificationCloseEvent);
+        }
+
         scope.message = null;
       };
+
+      init();
     }
   };
 })
 
 .service('notificationService', function($rootScope){
   var _message;
+  var _notificationCloseEvent;
   var _deleteOnStateChange;
 
   function broadcast(message, notificationCloseEvent){
     _message = message;
-
-    // Custom close events
-    var eventData = {
-      closeEvent: notificationCloseEvent || EVENT_NOTIFICATION_CLOSED
-    };
-
-    $rootScope.$broadcast(EVENT_NOTIFICATION_MESSAGE_UPDATED, eventData);
+    if(message){
+      _notificationCloseEvent = notificationCloseEvent || EVENT_NOTIFICATION_CLOSED;
+    }
+    $rootScope.$broadcast(EVENT_NOTIFICATION_MESSAGE_UPDATED);
   }
 
   $rootScope.$on('$stateChangeStart', function() {
@@ -67,9 +73,14 @@ angular.module('mobiusApp.directives.notifications', [])
     return _message;
   }
 
+  function getCloseEvent(){
+    return _notificationCloseEvent;
+  }
+
   return {
     hide: hide,
     show: show,
-    getMessage: getMessage
+    getMessage: getMessage,
+    getCloseEvent: getCloseEvent
   };
 });

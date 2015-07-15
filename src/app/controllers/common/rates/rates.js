@@ -14,7 +14,6 @@ angular.module('mobius.controllers.common.rates', [])
     // selectedRate - user selected option or the one presented in
     // the URL
     onRateChanged: function(){
-      //updateRateFilteringInfo($scope.rates.selectedRate);
       if(_.isFunction($scope.onRateChanged)){
         $scope.onRateChanged($scope.rates.selectedRate);
       }
@@ -29,7 +28,7 @@ angular.module('mobius.controllers.common.rates', [])
   });
 
   function updateRateNotification(){
-        // Checking if notification message should be displayed
+    // Checking if notification message should be displayed
     if(!$stateParams.rate){
       return;
     }
