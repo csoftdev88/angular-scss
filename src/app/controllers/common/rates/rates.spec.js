@@ -35,7 +35,8 @@ describe('mobius.controllers.common.rates', function() {
         });
         $provide.value('$stateParams', {
           rate: '1',
-          prop: 'VAN'
+          prop: 'VAN',
+          promoCode: 'testPromo'
         });
         $provide.value('notificationService', {
           show: function(){}
@@ -78,20 +79,21 @@ describe('mobius.controllers.common.rates', function() {
         expect(_scope.rates.selectedRate).equal(TEST_RATES[0]);
       });
 
-      it('should show notification message with rate filtering details', function(){
+      it('should show notification message with rate and promo code filtering details', function(){
         expect(_spyNotificationServiceShow.calledOnce).equal(true);
-        expect(_spyNotificationServiceShow.calledWith('You have selected: Best Rate', 'notification-rate-filter-removed', true)).equal(true);
+        expect(_spyNotificationServiceShow.calledWith('<span>You have selected: <strong>Best Rate</strong> ' +
+          '</span><span> Promo code: <strong>testPromo</strong></span>', 'notification-extra-filter-removed', true)).equal(true);
       });
     });
 
     describe('when rate filter notification bar is closed', function(){
       beforeEach(function(){
-        _rootScope.$broadcast('notification-rate-filter-removed');
+        _rootScope.$broadcast('notification-extra-filter-removed');
       });
 
-      it('should update current state excluding rate state parameter', function(){
+      it('should update current state excluding rate and promoCode state parameters', function(){
         expect(_spyStateGo.calledOnce).equal(true);
-        expect(_spyStateGo.calledWith('testState', {prop: 'VAN', rate: null})).equal(true);
+        expect(_spyStateGo.calledWith('testState', {prop: 'VAN', rate: null, promoCode: null})).equal(true);
       });
     });
   });
