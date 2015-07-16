@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout) {
+  $window, advertsService, $controller, $timeout, $location) {
 
   $controller('PriceCtr', {$scope: $scope});
 
@@ -74,6 +74,9 @@ angular.module('mobius.controllers.hotel.details', [])
 
         metaInformationService.setMetaDescription($scope.details.meta.description);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
+
+        $scope.details.meta.microdata.og['og:url'] = $location.absUrl();
+        metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
         $scope.details.description = ('' + $scope.details.description);
         var firstParaEnd = $scope.details.description.indexOf('</p>');

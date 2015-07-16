@@ -95,7 +95,8 @@ describe('mobius.controllers.hotel.details', function() {
         $provide.value('breadcrumbsService', breadcrumbs);
         $provide.value('metaInformationService', {
           setMetaDescription: function() {},
-          setPageTitle: function() {}
+          setPageTitle: function() {},
+          setOgGraph: function() {}
         });
 
 
