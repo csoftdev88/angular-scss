@@ -10,13 +10,16 @@ angular.module('mobiusApp.directives.notifications', [])
 
 // TODO - Unify this with other notifications - future promo code will require
 // multiple messages on the page
-.directive('notificationBar', function($rootScope, notificationService){
+.directive('notificationBar', function($rootScope, $controller, notificationService){
   return {
     restrict: 'E',
+    scope: true,
     templateUrl: 'directives/notificationBar/notificationBar.html',
     // Widget logic goes here
     link: function(scope){
       var notificationCloseEvent;
+
+      $controller('SanitizeCtrl', {$scope: scope});
 
       function init(){
         scope.message = notificationService.getMessage();
