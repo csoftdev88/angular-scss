@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($scope, $controller, contentService,
-         $state, $stateParams, _, breadcrumbsService) {
+         $state, $stateParams, _, breadcrumbsService, metaInformationService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -43,6 +43,7 @@ angular.module('mobius.controllers.offers', [])
         return $state.go('offers', {code: null});
       }
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+      metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
       breadcrumbsService.clear()
         .addBreadCrumb('Offers', 'offers', {code: null})
         .addBreadCrumb($scope.selectedOffer.title);

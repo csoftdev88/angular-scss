@@ -73,6 +73,7 @@ angular
     'mobiusApp.services.breadcrumbs',
     'mobiusApp.services.rewards',
     'mobiusApp.services.preference',
+    'mobiusApp.services.metaInformation',
 
     // Factories
     'mobiusApp.factories.template',
@@ -289,18 +290,20 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state, breadcrumbsService) {
+  .run(function(user, $rootScope, $state, breadcrumbsService, metaInformationService) {
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
+    metaInformationService.reset();
   })
 
-  .controller('BaseCtrl', function($scope, $controller){
+  .controller('BaseCtrl', function($scope, $controller, metaInformationService){
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
 
     $scope.$on('$stateChangeStart', function() {
       $scope.sso.trackPageLeave();
+      metaInformationService.reset();
     });
 
     $scope.$on('$stateChangeSuccess', function() {

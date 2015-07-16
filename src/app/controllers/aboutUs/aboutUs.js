@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.about', [])
 
   .controller('AboutUsCtrl', function($scope, $controller, contentService, chainService,
-         $state, $stateParams, _, Settings, modalService, breadcrumbsService) {
+         $state, $stateParams, _, Settings, modalService, breadcrumbsService, metaInformationService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -55,6 +55,7 @@ angular.module('mobius.controllers.about', [])
         return $state.go('aboutUs', {code: null});
       }
       $scope.selectedAbout = $scope.aboutList[selectedAboutIndex];
+      metaInformationService.setMetaDescription($scope.selectedAbout.meta.description);
       breadcrumbsService.clear()
         .addBreadCrumb('About Us', 'aboutUs', {code: null})
         .addBreadCrumb($scope.selectedAbout.title);

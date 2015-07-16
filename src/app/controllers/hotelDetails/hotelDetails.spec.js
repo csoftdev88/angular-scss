@@ -17,7 +17,10 @@ describe('mobius.controllers.hotel.details', function() {
         }
       ],
       long: 'testLong',
-      lat: 'testLat'
+      lat: 'testLat',
+      meta: {
+        description: 'meta description'
+      }
     };
 
     var ROOMS = [];
@@ -89,6 +92,9 @@ describe('mobius.controllers.hotel.details', function() {
           removeHref: function(){ return breadcrumbs; }
         };
         $provide.value('breadcrumbsService', breadcrumbs);
+        $provide.value('metaInformationService', {
+          setMetaDescription: function() {}
+        });
 
 
         $controllerProvider.register('PriceCtr', function(){});

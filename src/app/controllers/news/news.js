@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.news', [])
 
   .controller('NewsCtrl', function($scope, $controller, contentService,
-         $state, $stateParams, _, breadcrumbsService) {
+         $state, $stateParams, _, breadcrumbsService, metaInformationService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -43,6 +43,7 @@ angular.module('mobius.controllers.news', [])
         return $state.go('news', {code: null});
       }
       $scope.selectedNews = $scope.newsList[selectedNewsIndex];
+      metaInformationService.setMetaDescription($scope.selectedNews.meta.description);
       breadcrumbsService.clear()
         .addBreadCrumb('News', 'news', {code: null})
         .addBreadCrumb($scope.selectedNews.title);

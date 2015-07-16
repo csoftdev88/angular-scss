@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
-  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
+  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
   $window, advertsService, $controller, $timeout) {
 
   $controller('PriceCtr', {$scope: $scope});
@@ -40,7 +40,7 @@ angular.module('mobius.controllers.hotel.details', [])
     $state.go('hotels');
   }else{
     var splits = bookingParams.propertySlug.split('-');
-    propertyCode = splits[1].replace(/_/g, '-');  
+    propertyCode = splits[1].replace(/_/g, '-');
   }
 
   $scope.scroll = 0;
@@ -71,6 +71,8 @@ angular.module('mobius.controllers.hotel.details', [])
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
+
+        metaInformationService.setMetaDescription($scope.details.meta.description);
 
         $scope.details.description = ('' + $scope.details.description);
         var firstParaEnd = $scope.details.description.indexOf('</p>');

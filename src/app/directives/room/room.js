@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
-  bookingService, propertyService, filtersService, modalService, preloaderFactory, user, _,
+  bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
   $controller) {
 
   return {
@@ -26,7 +26,7 @@ angular.module('mobiusApp.directives.room', [])
       var roomSplits = $stateParams.roomSlug.split('-');
       var roomCode = roomSplits[1].replace(/_/g, '-');
       bookingParams.roomCode = roomCode;
-      
+
       var propertyPromise;
       var qBookingParam = $q.defer();
 
@@ -76,7 +76,7 @@ angular.module('mobiusApp.directives.room', [])
       function setRoomData(data){
         // Inherited from RoomDetailsCtrl
         scope.setRoomDetails(data);
-
+        metaInformationService.setMetaDescription(data.meta.description);
         /* Getting other rooms. We should show those that are closest in price but have a price that is
            greater than the currently viewed room. If there are not enough of them we can show the cheaper
            ones as well. */
