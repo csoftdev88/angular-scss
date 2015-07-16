@@ -38,6 +38,7 @@ angular
     'mobius.controllers.reservationUpdate',
     'mobius.controllers.reservationLookup',
     'mobius.controllers.hotel.details',
+    'mobius.controllers.hotel.subpage',
     'mobius.controllers.room.details',
 
     'mobius.controllers.modals.generic',
@@ -173,6 +174,13 @@ angular
           // Route is also used for reservation updates
           supportsEditMode: true
         }
+      })
+
+      .state('hotelInfo', {
+        parent: 'root',
+        templateUrl: 'layouts/hotels/hotelSubpage.html',
+        controller: 'HotelSubpageCtrl',
+        url: '/hotels/:propertySlug/:infoSlug'
       })
 
       .state('room', {
