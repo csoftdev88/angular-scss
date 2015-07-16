@@ -9,7 +9,7 @@
   <hotel-info grid-row>
 
     <header grid-row id="jsAbout">
-      <h1 grid="6"><strong>{{info.title}}</strong></h1>
+      <h1 grid="6" ng-bind-html="info.title | wrapWordHtml : 'span' : 0"></h1>
       <local-info local-info="details.localInfo" grid="6"></local-info>
     </header>
 

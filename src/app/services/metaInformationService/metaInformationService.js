@@ -5,7 +5,13 @@ angular.module('mobiusApp.services.metaInformation', [])
 
     var defaultMetaInformation = {
       description : '',
-      pagetitle: 'Welcome to The Sutton Place Hotels'
+      pagetitle: 'Welcome to The Sutton Place Hotels',
+      ogTitle : '',
+      ogDescription : '',
+      ogType : '',
+      ogUrl : '',
+      ogImage : '',
+      ogLocale : ''
     };
 
     $rootScope.metaInformation = {
@@ -25,12 +31,27 @@ angular.module('mobiusApp.services.metaInformation', [])
       reset: function() {
         $rootScope.metaInformation.description = defaultMetaInformation.description;
         $rootScope.metaInformation.pagetitle = defaultMetaInformation.pagetitle;
+        $rootScope.metaInformation.ogTitle = defaultMetaInformation.ogTitle;
+        $rootScope.metaInformation.ogDescription = defaultMetaInformation.ogDescription;
+        $rootScope.metaInformation.ogType = defaultMetaInformation.ogType;
+        $rootScope.metaInformation.ogUrl = defaultMetaInformation.ogUrl;
+        $rootScope.metaInformation.ogImage = defaultMetaInformation.ogImage;
+        $rootScope.metaInformation.ogLocale = defaultMetaInformation.ogLocale;
       },
       setMetaDescription: function(newMetaDescription) {
         $rootScope.metaInformation.description = newMetaDescription;
       },
       setPageTitle: function(newPageTitle) {
         $rootScope.metaInformation.pagetitle = newPageTitle;
+      },
+      setOgGraph: function(data) {
+        console.log(angular.toJson(data));
+        $rootScope.metaInformation.ogTitle = data['og:title'];
+        $rootScope.metaInformation.ogDescription = data['og:description'];
+        $rootScope.metaInformation.ogType = data['og:type'];
+        $rootScope.metaInformation.ogUrl = data['og:url'];
+        $rootScope.metaInformation.ogImage = data['og:image'];
+        $rootScope.metaInformation.ogLocale = data['og:locale'];
       }
     };
 

@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($scope, $controller, contentService,
-         $state, $stateParams, _, breadcrumbsService, metaInformationService) {
+         $state, $stateParams, _, breadcrumbsService, metaInformationService, $location) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -45,6 +45,8 @@ angular.module('mobius.controllers.offers', [])
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
+      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl();
+      metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('Offers', 'offers', {code: null})
         .addBreadCrumb($scope.selectedOffer.title);

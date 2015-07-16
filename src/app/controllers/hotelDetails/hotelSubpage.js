@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
 .controller( 'HotelSubpageCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService, $controller, $timeout, $stateParams) {
+  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService, $location) {
   
   $scope.scroll = 0;
   $scope.moreInfo = [];
@@ -50,6 +50,13 @@ angular.module('mobius.controllers.hotel.subpage', [])
       .then(function(details){
 
         $scope.details = details;
+
+
+        metaInformationService.setMetaDescription($scope.details.meta.description);
+        metaInformationService.setPageTitle($scope.details.meta.pagetitle);
+
+        $scope.details.meta.microdata.og['og:url'] = $location.absUrl();
+        metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
         sortInfo(details);
 
