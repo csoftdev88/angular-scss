@@ -9,6 +9,12 @@
     <view-more-images grid="4">
         <a ng-if="details.images.length" href="" ng-click="openGallery()">View more images</a>
         <img ng-src="{{details.images[0].uri | cloudinaryImage : 293}}" alt="{{details.images[0].alt}}" />
-        <button ng-click="scrollToRooms()" class="button">Choose your room</button>
+        <!--<button ng-click="scrollToRooms()" class="button">Choose your room</button>-->
+        <read-more>
+          <p>Find out more:</p>
+          <ul>
+            <li ng-repeat="item in details.content"><a href="" ui-sref="hotelInfo({propertySlug: details.meta.slug, infoSlug: item.meta.slug})">{{item.title}}</a></li>
+          </ul>
+        </read-more>
     </view-more-images>
 </section>
