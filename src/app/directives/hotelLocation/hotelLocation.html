@@ -7,18 +7,6 @@
   </a>
 </p>
 
-<contact-list>
-
-  <contact-item ng-if="hotelDetails.email">
-    <div>
-      <i class="fa fa-envelope"></i>
-      <strong>Email:</strong>
-      <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
-    </div>
-  </contact-item>
-
-</contact-list>
-
 <map
   ng-if="position"
   zoom="15"
@@ -37,6 +25,14 @@
 <p>{{hotelDetails.locationDescription}}</p>
 
 <contact-list>
+
+  <contact-item ng-if="hotelDetails.email">
+    <div>
+      <i class="fa fa-envelope"></i>
+      <strong>Email:</strong>
+      <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
+    </div>
+  </contact-item>
 
   <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
     <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
