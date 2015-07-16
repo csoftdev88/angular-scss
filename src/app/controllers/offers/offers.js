@@ -44,6 +44,7 @@ angular.module('mobius.controllers.offers', [])
       }
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
+      metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
       breadcrumbsService.clear()
         .addBreadCrumb('Offers', 'offers', {code: null})
         .addBreadCrumb($scope.selectedOffer.title);

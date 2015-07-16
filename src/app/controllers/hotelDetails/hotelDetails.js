@@ -73,6 +73,7 @@ angular.module('mobius.controllers.hotel.details', [])
         $scope.details = details;
 
         metaInformationService.setMetaDescription($scope.details.meta.description);
+        metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
         $scope.details.description = ('' + $scope.details.description);
         var firstParaEnd = $scope.details.description.indexOf('</p>');

@@ -298,11 +298,10 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state, breadcrumbsService, metaInformationService) {
+  .run(function(user, $rootScope, $state, breadcrumbsService) {
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
-    metaInformationService.reset();
   })
 
   .controller('BaseCtrl', function($scope, $controller, metaInformationService){

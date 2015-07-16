@@ -56,6 +56,7 @@ angular.module('mobius.controllers.about', [])
       }
       $scope.selectedAbout = $scope.aboutList[selectedAboutIndex];
       metaInformationService.setMetaDescription($scope.selectedAbout.meta.description);
+      metaInformationService.setPageTitle($scope.selectedAbout.meta.pagetitle);
       breadcrumbsService.clear()
         .addBreadCrumb('About Us', 'aboutUs', {code: null})
         .addBreadCrumb($scope.selectedAbout.title);

@@ -19,7 +19,8 @@ describe('mobius.controllers.hotel.details', function() {
       long: 'testLong',
       lat: 'testLat',
       meta: {
-        description: 'meta description'
+        description: 'meta description',
+        pagetitle: 'Hotel'
       }
     };
 
@@ -93,7 +94,8 @@ describe('mobius.controllers.hotel.details', function() {
         };
         $provide.value('breadcrumbsService', breadcrumbs);
         $provide.value('metaInformationService', {
-          setMetaDescription: function() {}
+          setMetaDescription: function() {},
+          setPageTitle: function() {}
         });
 
 

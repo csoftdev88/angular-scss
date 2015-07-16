@@ -77,6 +77,7 @@ angular.module('mobiusApp.directives.room', [])
         // Inherited from RoomDetailsCtrl
         scope.setRoomDetails(data);
         metaInformationService.setMetaDescription(data.meta.description);
+        metaInformationService.setPageTitle(data.meta.pagetitle);
         /* Getting other rooms. We should show those that are closest in price but have a price that is
            greater than the currently viewed room. If there are not enough of them we can show the cheaper
            ones as well. */

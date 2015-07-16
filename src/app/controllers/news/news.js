@@ -44,6 +44,7 @@ angular.module('mobius.controllers.news', [])
       }
       $scope.selectedNews = $scope.newsList[selectedNewsIndex];
       metaInformationService.setMetaDescription($scope.selectedNews.meta.description);
+      metaInformationService.setPageTitle($scope.selectedNews.meta.pagetitle);
       breadcrumbsService.clear()
         .addBreadCrumb('News', 'news', {code: null})
         .addBreadCrumb($scope.selectedNews.title);
