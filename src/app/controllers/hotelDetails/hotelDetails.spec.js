@@ -20,7 +20,10 @@ describe('mobius.controllers.hotel.details', function() {
       lat: 'testLat',
       meta: {
         description: 'meta description',
-        pagetitle: 'Hotel'
+        pagetitle: 'Hotel',
+        microdata: {
+          og: []
+        }
       }
     };
 
