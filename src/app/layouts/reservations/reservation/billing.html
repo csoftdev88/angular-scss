@@ -69,7 +69,7 @@
               placeholder="CVV"
               ng-min="100"
               ng-max="999"
-              ng-model="billingDetails.card.securityCode" 
+              ng-model="billingDetails.card.securityCode"
               ng-pattern="/^[0-9]{3,4}$/"
               name="cvv"/>
             <span>CVV <span class="help" ng-click="openCCVInfo()"/></span>
@@ -130,7 +130,7 @@
           </label>
 
           <label for="telephone" class="input-right">
-            <input type="text" id="telephone" required
+            <input type="text" international-tel id="telephone" required
               placeholder="Telephone"
               ng-model="billingDetails.phone" />
             <span>Telephone</span>

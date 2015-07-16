@@ -7,7 +7,7 @@
         <input type="text" id="first-name" required
           placeholder="First Name"
           ng-model="userDetails.firstName"
-          name="firstName" 
+          name="firstName"
           ng-pattern="/^[a-zA-Z]+$/"/>
         <span>
           <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">First name</span>
@@ -18,8 +18,8 @@
       <label for="last-name" class="input-right">
         <input type="text" id="last-name" required
           placeholder="Last Name"
-          ng-model="userDetails.lastName" 
-          name="lastName" 
+          ng-model="userDetails.lastName"
+          name="lastName"
           ng-pattern="/^[a-zA-Z]+$/"/>
         <span>
           <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">Last name</span>
@@ -40,7 +40,7 @@
       </label>
 
       <label for="telephone" class="input-right">
-        <input type="text" id="telephone" required
+        <input type="text" id="telephone" international-tel required
           placeholder="Phone"
           ng-model="userDetails.phone"
           name="phone"

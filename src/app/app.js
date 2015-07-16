@@ -123,6 +123,7 @@ angular
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.isoCountryOptions',
     'mobiusApp.directives.scrollPosition',
+    'mobiusApp.directives.internationalTel',
 
     // Filters
     'mobiusApp.filters.list',
@@ -314,5 +315,5 @@ angular
         scrollService.scrollTo();
       });
     });
-    
+
   });
