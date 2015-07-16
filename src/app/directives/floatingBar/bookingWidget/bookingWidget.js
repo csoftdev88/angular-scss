@@ -522,6 +522,15 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         canAddRoom();
       };
 
+      scope.getCurrentRate = function(){
+        if(scope.selected.rate){
+          var rate = $window._.findWhere(scope.rates, {id: parseInt(scope.selected.rate, 10)});
+          return rate?rate.name:'';
+        }
+
+        return '';
+      };
+
       scope.inputDateText = '';
 
       var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
