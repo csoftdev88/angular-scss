@@ -25,7 +25,7 @@
 
   <news-detail ng-if="showDetail" grid="12">
     <h1>{{selectedNews.title}}</h1>
-    <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 960}}" alt="{{selectedNews.image.alt}}"/>
+    <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 960 : 300 : 'fill'}}" alt="{{selectedNews.image.alt}}"/>
     <div ng-bind-html="selectedNews.text"></div>
     <button-back role="button" tabindex="0" ng-click="goToNewsList()">Back</button-back>
 
