@@ -11,13 +11,12 @@ dependencies:
   pre:
     - git config --global user.email "peter@2pventures.com"
     - git config --global user.name "CircleCI @ 2P Ventures"
+  override:
+    - npm prune
     - npm install jshint -g
     - npm install -g istanbul
     - npm install -g codeclimate-test-reporter
     - npm install request -g
-  override:
-    - npm prune
-    - npm install
     - bower prune
     - bower install
   cache_directories:
