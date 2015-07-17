@@ -5,7 +5,7 @@ angular.module('mobiusApp.directives.floatingBar', [
   'mobiusApp.directives.floatingBar.myAccount'
 ])
 
-  .directive('floatingBar', function() {
+  .directive('floatingBar', function(Settings) {
     var BOOKING = 'booking',
         ADVANCED_BOOKING = 'advancedBooking',
         MY_ACCOUNT = 'myAccount';
@@ -20,6 +20,8 @@ angular.module('mobiusApp.directives.floatingBar', [
 
       // Widget logic goes here
       link: function(scope, $el) {
+        scope.hasAdvancedTab = Settings.UI.bookingWidget.hasAdvancedTab;
+
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
@@ -32,7 +34,7 @@ angular.module('mobiusApp.directives.floatingBar', [
             scope.isCollapsed = false;
           }
 
-          $el.toggleClass('active', scope.isCollapsed);
+          $el.toggleClass('active', !scope.isCollapsed);
 
           scope.active = newActive;
           active = scope.active; // preserve between pages

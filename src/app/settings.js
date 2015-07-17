@@ -40,8 +40,8 @@ angular.module('mobiusApp.config', [])
         'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
         'product': {
-          all: 'properties/:propertyCode/rooms/:roomTypeCode/products',
-          addons: 'properties/:propertyCode/rooms/:roomTypeCode/products/:productCode/addons/'
+          'all': 'properties/:propertyCode/rooms/:roomTypeCode/products',
+          'addons': 'properties/:propertyCode/rooms/:roomTypeCode/products/:productCode/addons/'
         }
       }
     },
@@ -63,7 +63,7 @@ angular.module('mobiusApp.config', [])
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
-      'availableAddons': 'addons/',
+      'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/'
@@ -179,6 +179,7 @@ angular.module('mobiusApp.config', [])
 
     // Settings related to booking process
     'bookingWidget': {
+      'hasAdvancedTab': false,
       'includeAllPropertyOption': true,
       'adults': {
         'min': 1,
@@ -354,6 +355,34 @@ angular.module('mobiusApp.config', [])
       'thunder': [200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 906],
       'wind': [900, 902, 905],
       'wind-rain': [901]
+    },
+    'forms': {
+      'contactSubjects': [
+        {
+          key: 'Prestige and Loyalty',
+          value: 'Prestige and Loyalty'
+        },
+        {
+          key: 'My Reservation',
+          value: 'My Reservation'
+        },
+        {
+          key: 'Customer Feedback',
+          value: 'Customer Feedback'
+        },
+        {
+          key: 'Technical Issues',
+          value: 'Technical Issues'
+        },
+        {
+          key: 'Event Inquiry',
+          value: 'Event Inquiry'
+        },
+        {
+          key: 'General',
+          value: 'General'
+        }
+      ]
     }
   }
 });

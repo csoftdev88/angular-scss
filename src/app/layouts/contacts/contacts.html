@@ -34,17 +34,28 @@
               ng-model="formData.fields.email" email-check
               name="email"
               ng-class="{'ng-submitted': form.$submitted && form.email.$error.required}"/>
-            <span>Email</span>
+            <span>
+              <span ng-hide="form.$submitted && form.email.$error.emailCheck">Email</span>
+              <span ng-show="form.$submitted && form.email.$error.emailCheck">Please enter a valid email address</span>
+            </span>
           </label>
         </form-element>
 
         <form-element>
           <label for="subject" class="input-left">
+          <!--
             <input type="text" id="subject" required
               placeholder="Your Subject"
               ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
               name="subject"
-              ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>
+              ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>-->
+              <select name="subject"
+                      required ng-model="formData.fields.subject"
+                      disable-search="true"
+                      chosen ng-options="option.key for option in subjectOptions"
+                      data-placeholder="Your Subject">
+                <option></option> <!-- workaround for a bug in angular-chosen -->
+              </select>
             <span>Subject</span>
           </label>
         </form-element>

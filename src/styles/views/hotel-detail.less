@@ -4,6 +4,57 @@
 
 hotel-detail {
 
+  .back-to-top{
+    position: fixed;
+    bottom: 150px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: rgba(176, 143, 94, 0.5);
+    transition: 0.2s all;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    span{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      display: block;
+      font-size: 10px;
+      text-align: center;
+      width: 100%;
+      color: #fff;
+    }
+    &:after {
+      .fa;
+      content: @fa-var-arrow-up;
+      background: transparent;
+      color: #fff;
+      font-size: 30px;
+      line-height: 27px;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      left: 50%;
+      top: 50%;
+      margin-left: -15px;
+      margin-top: -17px;
+      transition: 0.2s all;
+      transform: translateY(0px);
+      
+    }
+    &:hover:after{
+      transform: translateY(-2px);
+    }
+    &.visible{
+      height: 60px;
+      overflow: visible;
+      opacity: 1;
+    }
+  }
+
   > header {
     margin-bottom: 2*@baseline;
   }
@@ -70,10 +121,10 @@ hotel-detail {
     }
 
   .hotel-detail__offers {
-    //- See more
-    h2 + p {
-      margin-right: 0 2em 0 0;
-
+    h2{
+      .h2;
+    }
+    .more-btn{
       text-align: right;
     }
   }

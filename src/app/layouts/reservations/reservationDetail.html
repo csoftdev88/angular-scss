@@ -102,25 +102,29 @@
       <ul>
         <li class="{{ availableAddons < 3 ? 'half' : 'third' }}"
             ng-repeat="addon in availableAddons"
-            ng-if="reservation.packages.indexOf(addon.code) === -1">
-          <div>
-            <a href ng-click="openAddonDetailDialog(addon)">
+            ng-if="reservation.packages.indexOf(addon.code) === -1"
+            ng-click="openAddonDetailDialog(null, addon)">
+          <div ng-class="{'disabled': !addon.description || addon.description == ''}">
+            <a class="eye-icon">
               <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
             </a>
 
-            <h4>{{addon.name}}</h4>
+            <h4 ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
+
             <p>
               {{ addon._expanded ? addon.description : addon.descriptionShort }}
-              <a href
-                 ng-init="addon._expanded = false"
-                 ng-click="addon._expanded = !addon._expanded">
-                {{ addon._expanded ? '[-]' : '[+]'}}
+              <a
+                ng-init="addon._expanded = false"
+                ng-if="addon.description && addon.description != '' && addon.description !== addon.descriptionShort"
+                ng-click="toggleAddonDescription($event, addon)">
+                  {{ addon._expanded ? '[-]' : '[+]'}}
               </a>
             </p>
+
             <i>Add to your booking with one click:</i>
 
-            <a class="button" href ng-click="openAddonDetailDialog(addon)">{{addon.price | i18nCurrency: currencyCode}}</a>
-            <a class="button" href ng-click="openAddonDetailDialog(addon)" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
+            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: currencyCode}}</a>
+            <a class="button"ng-if="addon.pointsRequired" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>points</small></a>
           </div>
         </li>
       </ul>
@@ -148,8 +152,14 @@
 
           <pricing-info>
             <p>
-              <span class="value">
+              <!-- When paid with cash -->
+              <span class="value" ng-if="addon.price">
                 {{addon.price | i18nCurrency: currencyCode}}
+              </span>
+
+              <!-- Paid with points -->
+              <span class="value" ng-if="addon.points">
+                <ng-pluralize count="addon.points" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
               </span>
             </p>
           </pricing-info>
@@ -167,7 +177,10 @@
 
         </list-item>
       </list-items>
-      <p class="total">Total: {{getPackagesPrice() | i18nCurrency: currencyCode}}</p>
+      <!-- PAID WITH CARD -->
+      <p class="total" ng-if="getAddonsTotalPrice()">Total: {{getAddonsTotalPrice() | i18nCurrency: currencyCode}}</p>
+      <!-- PAID WITH POINTS -->
+      <p class="total" ng-if="getAddonsTotalPoints()">{{getAddonsTotalPrice()?'':'Total: '}}<ng-pluralize count="getAddonsTotalPoints()" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize></p>
     </section>
   </reservation-finished>
 </main>
