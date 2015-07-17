@@ -42,7 +42,8 @@
       <label for="telephone" class="input-right">
         <input type="text" id="telephone" international-phone-number required
           ng-model="userDetails.phone"
-          name="phone"/>
+          name="phone"
+          placeholder="Phone"/>
         <span>
           <span ng-hide="forms.details.$submitted && forms.details.phone.$error.pattern">Phone</span>
           <span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">Please enter a valid phone number</span>
