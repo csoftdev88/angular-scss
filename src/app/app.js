@@ -123,7 +123,7 @@ angular
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.isoCountryOptions',
     'mobiusApp.directives.scrollPosition',
-    'mobiusApp.directives.internationalTel',
+    'internationalPhoneNumber',
 
     // Filters
     'mobiusApp.filters.list',
@@ -303,7 +303,8 @@ angular
   .controller('BaseCtrl', function($scope, $controller, scrollService){
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
-    $controller('HotelDetailsCtrl', {$scope: $scope});
+    // TODO: FIX THIS - scrolling should be done differently
+    //$controller('HotelDetailsCtrl', {$scope: $scope});
 
     $scope.$on('$stateChangeStart', function() {
       $scope.sso.trackPageLeave();
