@@ -14,10 +14,11 @@ angular.module('mobius.controllers.common.content', [])
         'method': 'getAll',
         'detailState': 'hotel',
         'listState': 'hotels',
-        'paramName': 'propertyCode',
+        'paramName': 'propertySlug',
         'title': 'nameShort',
         'sort': 'nameShort',
         'reverseSort': false,
+        'slug': true,
         'fallback': {
           'maxItems': 5,
           'service': 'locationService',
@@ -90,7 +91,7 @@ angular.module('mobius.controllers.common.content', [])
         } else {
           $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
             return {
-              code: item.code,
+              code: $scope.settings.slug? item.meta.slug : item.code,
               title: item[$scope.settings.title],
               subtitle: item[$scope.settings.subtitle]
             };

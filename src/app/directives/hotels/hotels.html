@@ -31,8 +31,7 @@
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
         <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" grid="{{preference.get('hotels-view-mode') === 'list' ? 3 : 1}}">
-
-            <div class="item-image" ng-click="navigateToHotel(hotel.code)">
+            <div class="item-image" ng-click="navigateToHotel(hotel.meta.slug)">
               <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
 
@@ -48,7 +47,7 @@
               </div>
             </div>
 
-            <h2 ng-click="navigateToHotel(hotel.code)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
+            <h2 ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
               <p ng-if="hotel.available">
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night

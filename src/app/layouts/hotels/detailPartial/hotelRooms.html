@@ -1,0 +1,53 @@
+<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row id="jsRooms">
+  <hr />
+  <div grid="12">
+    <h2>Our <strong>Rooms</strong></h2>
+    <list-items class="rooms-list" ng-if="rooms.length" ng-init="roomLimit = 4">
+      <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
+      <pricing-switch>
+        <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
+        |
+        <a href
+           ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
+           ng-click="days && setPricePer(PP_STAY)"
+           title="{{ days ? false: 'Please select dates to enable per stay pricing'}}">
+          Per Stay
+        </a>
+      </pricing-switch>
+      <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
+        <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">
+          <figure>
+            <img ng-src="{{room.images[0].uri | cloudinaryImage : 153 : 65 : 'fill'}}" alt="{{room.name}}">
+          </figure>
+        </a>
+
+        <h3><a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">{{room.name}}</a></h3>
+
+        <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+          </earned-points>
+
+        <pricing-info>
+          <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
+            <p class="price-form" ng-if="room.priceFrom">
+              from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+              <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+              <span ng-if="isUserLoggedIn() && room.minPointsRequired">
+                <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+              </span>
+            </p>
+            <p ng-if="!room.priceFrom">Please select dates to see the latest price</p>
+
+            <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" class="button">_view_more_</a>
+          </div>
+          <p ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
+        </pricing-info>
+
+        <description-info>
+          <p ng-bind-html="sanitize(room.description)"></p>
+        </description-info>
+      </list-item>
+      <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
+    </list-items>
+    <h2 ng-if="!rooms.length">_no_room_found_</h2>
+  </div>
+</section>

@@ -129,10 +129,10 @@ angular.module('mobiusApp.directives.hotels', [])
         getProperties(bookingParams);
       };
 
-      scope.navigateToHotel = function(propertyCode){
+      scope.navigateToHotel = function(propertySlug){
         // Getting rate details from RateCtrl
         var stateParams = {
-          propertyCode: propertyCode,
+          propertySlug: propertySlug,
           rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null
         };
 

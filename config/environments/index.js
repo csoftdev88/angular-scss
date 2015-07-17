@@ -36,7 +36,7 @@ module.exports = function(app) {
   app.set('views', path.join(app.directory, '/build'));
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
-  app.use(basicAuth('mobius', 'mobius'));
+  //app.use(basicAuth('mobius', 'mobius'));
   //app.use(favicon());
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({

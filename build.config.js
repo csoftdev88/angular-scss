@@ -110,7 +110,9 @@ module.exports = {
         'bower_components/international-phone-number/releases/international-phone-number.min.js',
         'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js'
       ],
-      styles: []
+      styles: [
+        'bower_components/font-awesome/css/font-awesome.min.css'
+      ]
     }
   }
 };

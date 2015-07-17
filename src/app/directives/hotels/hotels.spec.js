@@ -155,7 +155,7 @@ describe('hotels directive', function() {
     it('should redirect to hotel details page', function() {
       _scope.navigateToHotel(123);
       expect(_spyStateGo.calledOnce).equal(true);
-      expect(_spyStateGo.calledWith('hotel', {propertyCode: 123, rate: null})).equal(true);
+      expect(_spyStateGo.calledWith('hotel', {propertySlug: 123, rate: null})).equal(true);
     });
   });
 });

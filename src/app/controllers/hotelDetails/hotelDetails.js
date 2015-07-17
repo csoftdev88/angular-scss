@@ -5,8 +5,8 @@
 angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
-  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService, $controller, $timeout, scrollService) {
+  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
+  $window, advertsService, $controller, $timeout, scrollService, $location) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -18,8 +18,32 @@ angular.module('mobius.controllers.hotel.details', [])
   // Include the amenities
   bookingParams.includes = 'amenities';
 
-  var propertyCode = bookingParams.propertyCode;
-  //back to top default
+  if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
+    $scope.partials = [
+      'layouts/hotels/detailPartial/hotelInfo.html',
+      'layouts/hotels/detailPartial/hotelRooms.html',
+      'layouts/hotels/detailPartial/hotelServices.html',
+      'layouts/hotels/detailPartial/hotelLocation.html',
+      'layouts/hotels/detailPartial/hotelOffers.html'
+    ];
+  } else {
+    $scope.partials = [
+      'layouts/hotels/detailPartial/hotelInfo.html',
+      'layouts/hotels/detailPartial/hotelLocation.html',
+      'layouts/hotels/detailPartial/hotelOffers.html',
+      'layouts/hotels/detailPartial/hotelRooms.html',
+      'layouts/hotels/detailPartial/hotelServices.html'
+    ];
+  }
+
+  var propertyCode = '';
+  if(bookingParams.propertySlug === undefined) {
+    $state.go('hotels');
+  }else{
+    var splits = bookingParams.propertySlug.split('-');
+    propertyCode = splits[1].replace(/_/g, '-');
+  }
+
   $scope.scroll = 0;
 
   $scope.scrollToBreadcrumbs = function(){
@@ -35,6 +59,12 @@ angular.module('mobius.controllers.hotel.details', [])
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
+
+        metaInformationService.setMetaDescription($scope.details.meta.description);
+        metaInformationService.setPageTitle($scope.details.meta.pagetitle);
+
+        $scope.details.meta.microdata.og['og:url'] = $location.absUrl();
+        metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
         $scope.details.description = ('' + $scope.details.description);
         var firstParaEnd = $scope.details.description.indexOf('</p>');
