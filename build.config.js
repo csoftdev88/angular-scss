@@ -105,7 +105,10 @@ module.exports = {
         'bower_components/ngmap/build/scripts/ng-map.min.js',
         'bower_components/moment/min/moment.min.js',
         'bower_components/angular-sanitize/angular-sanitize.min.js',
-        'bower_components/angular-rangeslider/angular.rangeSlider.js'
+        'bower_components/angular-rangeslider/angular.rangeSlider.js',
+        'bower_components/intl-tel-input/build/js/intlTelInput.min.js',
+        'bower_components/international-phone-number/releases/international-phone-number.min.js',
+        'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js'
       ],
       styles: []
     }
