@@ -45,7 +45,6 @@ angular.module('mobiusApp.services.metaInformation', [])
         $rootScope.metaInformation.pagetitle = newPageTitle;
       },
       setOgGraph: function(data) {
-        console.log(angular.toJson(data));
         $rootScope.metaInformation.ogTitle = data['og:title'];
         $rootScope.metaInformation.ogDescription = data['og:description'];
         $rootScope.metaInformation.ogType = data['og:type'];

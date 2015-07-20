@@ -60,6 +60,8 @@ angular.module('mobius.controllers.hotel.details', [])
       .then(function(details){
         $scope.details = details;
 
+        console.log(angular.toJson(details));
+
         metaInformationService.setMetaDescription($scope.details.meta.description);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
@@ -161,6 +163,10 @@ angular.module('mobius.controllers.hotel.details', [])
     $timeout(function(){
       scrollService.scrollTo('#jsRooms', -20);
     }, 0);
+  };
+
+  $scope.getAbsUrl = function(){
+    return $location.absUrl();
   };
 
   $scope.advertClick = advertsService.advertClick;

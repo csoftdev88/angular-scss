@@ -6,9 +6,26 @@
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
-  <hotel-detail>
+  <hotel-detail itemscope itemtype="http://schema.org/Hotel">
+
+    <!-- schema.org -->
+    <meta itemprop="description" content="{{details.meta.microdata.schemaOrg.description}}" />
+    <meta itemprop="parentOrganization" content="{{details.meta.microdata.schemaOrg.parentOrganization}}" />
+    <meta itemprop="email" content="{{details.meta.microdata.schemaOrg.email}}" />
+    <meta itemprop="image" content="{{details.meta.microdata.schemaOrg.image}}" />
+    <meta itemprop="url" content="{{getAbsUrl()}}" />
+    <div itemscope itemtype="http://schema.org/PostalAddress">
+      <meta itemprop="address" content="{{details.meta.microdata.schemaOrg.address}}" />
+      <meta itemprop="telephone" content="{{details.meta.microdata.schemaOrg.telephone}}" />
+    </div>
+    <div itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+     <meta itemprop="latitude" content="{{details.meta.microdata.schemaOrg.geo.latitude}}" />
+     <meta itemprop="longitude" content="{{details.meta.microdata.schemaOrg.geo.longitude}}" />
+    </div>
+    <!-- //schema.org -->
+
     <header grid-row id="jsAbout">
-      <h1 grid="6"><strong>{{details.nameLong}}</strong></h1>
+      <h1 grid="6" itemprop="name"><strong>{{details.nameLong}}</strong></h1>
       <local-info local-info="details.localInfo" grid="6"></local-info>
     </header>
 
