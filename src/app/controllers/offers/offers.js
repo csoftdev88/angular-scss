@@ -4,8 +4,8 @@
  */
 angular.module('mobius.controllers.offers', [])
 
-  .controller('OffersCtrl', function($scope, $controller, $location, contentService,
-         $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService) {
+  .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -58,11 +58,10 @@ angular.module('mobius.controllers.offers', [])
     if(!bookingParams.from || !bookingParams.to){
       // Dates are not yet selected
       $scope.selectDates = function(){
-        $scope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           openDatePicker: true,
           promoCode: $stateParams.code
         });
-        console.log($stateParams.code);
       };
     }
   });

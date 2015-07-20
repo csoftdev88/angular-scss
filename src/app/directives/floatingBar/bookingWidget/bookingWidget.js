@@ -3,13 +3,14 @@
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
-  $stateParams, $q, modalService, bookingService, queryService, validationService,
+  $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
   propertyService, locationService, filtersService, Settings){
   return {
     restrict: 'E',
     scope: {
       advanced: '=',
-      hideBar: '&'
+      hideBar: '&',
+      openBookingTab: '&'
     },
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
@@ -539,13 +540,43 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         init();
       });
 
-      scope.$on('$destroy', function(){
-        routeChangeListener();
+      var prefillListener = $rootScope.$on('BOOKING_BAR_PREFILL_DATA', function(e, data){
+        onPrefill(data);
       });
 
-      $rootScope.$on('BOOKING_BAR_PREFILL_DATA', function(){
-        console.log(123);
+      scope.$on('$destroy', function(){
+        routeChangeListener();
+        prefillListener();
       });
+
+      function onPrefill(settings){
+        scope.openBookingTab();
+
+        $timeout(function(){
+          if(settings.promoCode){
+            scope.selected.promoCode = settings.promoCode;
+
+            var promoInput = angular.element('#booking-widget-promo-code');
+            if(promoInput.length){
+              var prefilledClass = 'prefilled';
+
+              promoInput.addClass(prefilledClass);
+
+              // Removing class when animation complete
+              $timeout(function(){
+                promoInput.removeClass(prefilledClass);
+              }, 1000);
+            }
+          }
+
+          if(settings.openDatePicker){
+            var rangeInput = angular.element('#booking-widget-date-range');
+            if(rangeInput.length){
+              rangeInput.focus();
+            }
+          }
+        }, 0);
+      }
 
       // Init
       init();
