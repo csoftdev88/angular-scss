@@ -28,6 +28,11 @@ angular.module('mobiusApp.services.scroll', [])
             scrollTop: $item.offset().top + offset
           }, 1000);
         }
+
+        angular.element($window).bind('scroll', function() {
+          angular.element('html, body').finish();
+        });
+
       });
     };
 
