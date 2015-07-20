@@ -1,0 +1,27 @@
+/////////////////////////////////
+//// MODAL - PRICE BREAKDOWN ////
+/////////////////////////////////
+
+dialog .ui-info.price-breakdown {
+
+  main {
+    padding: @baseline/2 @baseline;
+
+    table {
+      margin: @baseline/2 0;
+      width: 100%;
+    }
+
+    th, td {
+      text-align: left;
+    }
+
+    th + *, td + * {
+      padding-left: 10px;
+    }
+
+    [colspan="3"] {
+      text-align: right;
+    }
+  }
+}

@@ -1,9 +1,10 @@
-<div class="ui-info">
-  <div class="modal-header">
-    <h3 class="modal-title">Price <strong>Breakdown</strong></h3>
-    <button class="button-close" ng-click="cancel()"><i class="fa fa-times"></i></button>
-  </div>
-  <div class="modal-body price-breakdown">
+<div class="ui-info price-breakdown">
+  <header>
+    <h1>Price <strong>Breakdown</strong></h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main>
     <table>
       <tr>
         <th>Room Type</th>
@@ -38,5 +39,5 @@
         </tr>
       </tfoot>
     </table>
-  </div>
+  </main>
 </div>

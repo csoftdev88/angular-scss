@@ -1,16 +1,15 @@
 <div class="ui-dialog">
-  <div class="modal-header">
-    <h1 class="modal-title">Modifying - <strong>{{data.reservationCode}}</strong></h1>
-    <button class="button-close" ng-click="cancel()"><i class="fa fa-times"></i></button>
-  </div>
+  <header>
+    <h1>Modifying - <strong>{{data.reservationCode}}</strong></h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
 
-  <div class="modal-body">
+  <main>
     <p>You can now modify your booking</p>
-
     <p>Update your dates and number of occupants on the booking bar to search again</p>
-  </div>
+  </main>
 
-  <div class="modal-footer">
+  <footer>
     <button class="button" ng-click="ok()">Continue</button>
-  </div>
+  </footer>
 </div>

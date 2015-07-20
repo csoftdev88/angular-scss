@@ -1,0 +1,44 @@
+//////////////////////////
+//// MODAL - POLICIES ////
+//////////////////////////
+
+dialog .ui-info.modal-policies {
+
+  main {
+    padding: @baseline/2 @baseline;
+
+    ul {
+      overflow-y: auto;
+      max-height: 400px;
+      box-sizing: border-box;
+    }
+
+    li {
+      border-bottom: 1px solid @c-light-grey;
+      padding: @baseline/2 0;
+
+      h3 {
+        font-size: @size-0;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      p {
+        color: @c-text-light;
+      }
+
+      ul {
+        margin: @baseline 0 @baseline @baseline / 2;
+        list-style-type: disc;
+      }
+
+      li {
+        margin-left: 2em;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}
