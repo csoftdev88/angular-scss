@@ -7,30 +7,38 @@ news-list,
 news-detail {
 
   //- Page Heading
-  h1, h2 {
+  h1 {
     .h1;
+  }
+
+  h2 {
+    .h2;
+  }
+
+  button-back {
+    margin-top: @baseline;
   }
 
   //- Articles
   article {
     cursor: pointer;
-  }
 
-  //- Image
-  img {
-    display: block;
-    margin-bottom: @baseline;
-  }
+    //- Image
+    img {
+      display: block;
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      margin: 0 @baseline @baseline 0;
+    }
 
-  //- Content of article
-  > div {
-    margin-bottom: @baseline;
-  }
-}
+    div {
+      display: inline;
+    }
 
-news-list{
-  img{
-    float: left;
-    margin-right: 20px;
+    //- Content of article
+    > div {
+      margin-bottom: @baseline;
+    }
   }
 }

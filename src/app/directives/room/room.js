@@ -151,6 +151,10 @@ angular.module('mobiusApp.directives.room', [])
       scope.onClickOnAssociatedRoom=function(roomDetails){
         modalService.openAssociatedRoomDetail({roomDetails: roomDetails, propertyCode: propertyCode});
       };
+
+      if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
+        scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
+      }
     }
   };
 });

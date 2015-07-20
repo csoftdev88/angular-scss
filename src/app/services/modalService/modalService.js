@@ -269,6 +269,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openRoomDetailsDialog(description) {
+    return openDialog('room-details', 'layouts/modals/roomDetails.html', CONTROLLER_DATA, {
+      windowClass: 'details',
+      resolve: {
+        data: function() {
+          return description;
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -295,6 +306,7 @@ angular.module('mobiusApp.services.modal', [])
     openGallery: openGallery,
     openAssociatedRoomDetail: openAssociatedRoomDetail,
     openLocationDetail: openLocationDetail,
-    openTermsAgreeDialog: openTermsAgreeDialog
+    openTermsAgreeDialog: openTermsAgreeDialog,
+    openRoomDetailsDialog: openRoomDetailsDialog
   };
 });

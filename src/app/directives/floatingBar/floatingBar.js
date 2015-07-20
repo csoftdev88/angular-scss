@@ -41,6 +41,14 @@ angular.module('mobiusApp.directives.floatingBar', [
           isCollapsed = scope.isCollapsed;
         };
 
+        // This will be invoked from child bookingWidget directive
+        // when booking tab should be opened
+        scope.openBookingTab = function(){
+          if(isCollapsed || scope.active !== BOOKING){
+            scope.setActive(BOOKING);
+          }
+        };
+
         scope.isCollapsed = isCollapsed;
         scope.setActive(active);
       }

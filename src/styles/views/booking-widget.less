@@ -3,7 +3,6 @@
 ////////////////////////
 
 booking-widget {
-
   display: block;
   max-width: 960px;
   margin: 0 auto;
@@ -107,6 +106,21 @@ booking-widget-add-room form-element {
     transform: translateY(-50%);
 
     pointer-events: none;
+  }
+
+  #booking-widget-promo-code {
+    transition: box-shadow 0.3s;
+
+    &.prefilled {
+      animation-name: input-prefilled;
+      animation-duration: .5s;
+    }
+  }
+
+  @keyframes input-prefilled {
+    0%   { box-shadow: 0px 0px 0px 2px #eca29b }
+    50%   { box-shadow: 0px 0px 100px 10px #eca29b; }
+    100% { box-shadow: 0px 0px 0px 100px 20px transparent; }
   }
 }
 

@@ -1,14 +1,18 @@
+<!-- TODO: ui-info wrapper class should be removed from all modals
+           and modal-policies modifier should be moved up to the dialog
+           element just like it is on some of other modals -->
 <div class="ui-info modal-policies">
-  <div class="modal-header">
-    <h3 class="modal-title">Policies and <strong>Conditions</strong></h3>
-    <button class="button-close" ng-click="cancel()"><i class="fa fa-times"></i></button>
-  </div>
-  <div class="modal-body">
-    <ul class="policies-list">
-      <li class="policy" ng-repeat="(policyCode, value) in data.policies">
+  <header>
+    <h1>Policies and <strong>Conditions</strong></h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main>
+    <ul>
+      <li ng-repeat="(policyCode, value) in data.policies">
         <h3>{{getPolicyTitle(policyCode)}}:</h3>
         <p ng-bind-html="sanitize(value)"></p>
       </li>
     </ul>
-  </div>
+  </main>
 </div>
