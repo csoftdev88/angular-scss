@@ -53,7 +53,7 @@
     <h1>{{selectedAbout.title}}</h1>
     <img ng-src="{{selectedAbout.image.uri | cloudinaryImage : 960}}" alt="{{selectedAbout.image.alt}}"/>
     <div ng-bind-html="selectedAbout.text"></div>
-    <button-back role="button" tabindex="0" ng-click="goToAboutList()">Back</button-back>
+    <button-back role="button" tabindex="0" ng-click="goToAboutList()" class="pull-left">Back</button-back>
 
     <hr>
 

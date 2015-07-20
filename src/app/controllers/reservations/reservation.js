@@ -24,7 +24,9 @@ angular.module('mobius.controllers.reservation', [])
     });
 
     // Showing loading mask
-    preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(data){
+    preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(){
+      $rootScope.showHomeBreadCrumb = false;
+      /*
       setBreadCrumbs = function(name) {
         breadcrumbsService
           .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
@@ -37,6 +39,7 @@ angular.module('mobius.controllers.reservation', [])
           .setActiveHref(name)
         ;
       };
+      */
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
   }

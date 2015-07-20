@@ -22,6 +22,12 @@ module.exports = function(app) {
       res.status(404).end();
     });
 
+    //robots block crawling
+    app.get('/robots.txt', function (req, res) {
+        res.type('text/plain');
+        res.send('User-agent: *\nAllow: /\n\nUser-agent: Twitterbot\nAllow: /');
+    });
+
     app.get('/404', function(req, res, next) {
       res.status(404);
       res.render('404');

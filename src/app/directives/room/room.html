@@ -44,11 +44,15 @@
 
         <description-info>
           <div>
-            <div ng-bind-html="sanitize(product.description)"></div>
+            <!-- NOTE: API will return descriptionShort prop, full description will be used in
+              room details dialogue -->
+            <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
 
             <p class="action-links">
               <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a> &nbsp;&nbsp; | &nbsp;&nbsp;
               <a href ng-click="openPoliciesInfo(product)" ng-if="product.policies">View Policies</a>
+               &nbsp;&nbsp; | &nbsp;&nbsp;
+              <a href ng-click="openRoomDetailsDialog(product.description)" ng-if="openRoomDetailsDialog">Read More</a>
             </p>
           </div>
         </description-info>
@@ -99,7 +103,7 @@
   </section>
 
   <section ng-show="property.available && otherRooms.length > 1">
-    <h2>Other <strong>Rooms</strong> at {{property.nameLong}}</h2>
+    <h2>Other <strong>Rooms at {{property.nameLong}}</strong></h2>
 
     <list-items class="grid-view">
       <list-item

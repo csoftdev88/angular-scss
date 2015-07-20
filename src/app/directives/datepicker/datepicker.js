@@ -13,7 +13,8 @@ angular.module('mobiusApp.directives.datepicker', [])
     require: 'ngModel',
     scope: {
       highlights: '=',
-      inputText: '='
+      inputText: '=',
+      paneTitle: '='
     },
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
@@ -26,6 +27,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       var rangeSelection = attrs.rangeSelection === '1';
       var maxDate = attrs.maxDate || null;
       var hasCounter = attrs.includeCounter === '1';
+
       var counterPluralizationRules;
 
       if(hasCounter){
@@ -60,8 +62,10 @@ angular.module('mobiusApp.directives.datepicker', [])
         }
 
         if(hasCounter){
-          updateCounter();
+          updateButtonPane('data-counter', getCounterText());
         }
+
+        updateButtonPane('data-title', scope.paneTitle);
       }
 
       // Multi input fields support
@@ -89,6 +93,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           showOtherMonths: true,
           selectOtherMonths: true,
           minDate: 0,
+          closeText: 'Continue',
 
           beforeShowDay: function ( date ) {
             return [
@@ -143,8 +148,10 @@ angular.module('mobiusApp.directives.datepicker', [])
             endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
 
             if(hasCounter){
-              updateCounter();
+              updateButtonPane('data-counter', getCounterText());
             }
+
+            updateButtonPane('data-title', scope.paneTitle);
           }
         }).datepicker('show');
       });
@@ -165,15 +172,17 @@ angular.module('mobiusApp.directives.datepicker', [])
         }
       }
 
-      function updateCounter(){
+      function updateButtonPane(attribute, value){
         $window._.defer(function(){
           var buttonPane = $( element )
             .datepicker( 'widget' )
             .find( '.ui-datepicker-buttonpane' );
 
-          buttonPane.attr( 'data-counter', getCounterText() );
+          buttonPane.attr( attribute, value );
         });
       }
+
+
 
       function getCounterText(){
         var diff;

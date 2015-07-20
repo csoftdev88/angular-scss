@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.breadcrumbs', [])
-  .service('breadcrumbsService', function(_) {
+  .service('breadcrumbsService', function(_, $rootScope) {
 
     var breadcrumbs = [];
     var hrefs = [];
@@ -10,6 +10,7 @@ angular.module('mobiusApp.services.breadcrumbs', [])
     function clear() {
       breadcrumbs = [];
       hrefs = [];
+      $rootScope.showHomeBreadCrumb = true;
       return object;
     }
 

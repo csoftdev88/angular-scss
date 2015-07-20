@@ -1,9 +1,10 @@
 <div class="ui-info">
-  <div class="modal-header">
-    <h1 class="modal-title">{{addon.name}}</h1>
-    <button class="button-close" ng-click="cancel()">X</button>
-  </div>
-  <div class="modal-body" ng-if="!state.confirmed">
+  <header>
+    <h1>{{addon.name}}</h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main ng-if="!state.confirmed">
     <image-carousel images="addon.images"></image-carousel>
     <div class="details">
       <div class="description">
@@ -16,9 +17,9 @@
         <a class="button add-confirm-points" href ng-click="selectPaymentMethod(true)" ng-if="addon.pointsRequired">{{addon.pointsRequired}} <small>points</small></a>
       </div>
     </div>
-  </div>
+  </main>
 
-  <div class="modal-body" ng-if="state.confirmed">
+  <main ng-if="state.confirmed">
     <image-carousel images="addon.images"></image-carousel>
     <div class="details">
       <div class="description" ng-switch="payWithPoints">
@@ -39,5 +40,5 @@
         <a class="button add-confirm-points" href ng-click="addAddon(addon)">Confirm</a>
       </div>
     </div>
-  </div>
+  </main>
 </div>

@@ -14,10 +14,11 @@ angular.module('mobius.controllers.common.content', [])
         'method': 'getAll',
         'detailState': 'hotel',
         'listState': 'hotels',
-        'paramName': 'propertyCode',
+        'paramName': 'propertySlug',
         'title': 'nameShort',
         'sort': 'nameShort',
         'reverseSort': false,
+        'slug': true,
         'fallback': {
           'maxItems': 5,
           'service': 'locationService',
@@ -71,17 +72,32 @@ angular.module('mobius.controllers.common.content', [])
 
     $scope.settings = contentTypes[$scope.item];
 
-    function processSettings() {
-      $scope.goToState = function(code) {
-        var params = {};
-        params[$scope.settings.paramName] = code;
-        if (code) {
-          $state.go($scope.settings.detailState, params, {reload: true});
-        } else {
-          $state.go($scope.settings.listState, params, {reload: true});
-        }
-      };
+    $scope.getStateHref = function(code){
+      if(!$scope.settings){
+        return null;
+      }
 
+      var params = {};
+      params[$scope.settings.paramName] = code;
+
+      return $state.href(code?$scope.settings.detailState:$scope.settings.listState, params);
+    };
+
+    $scope.goToState = function($event, code){
+      if(!$scope.settings){
+        return null;
+      }
+
+      var params = {};
+      params[$scope.settings.paramName] = code;
+
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $state.go(code?$scope.settings.detailState:$scope.settings.listState, params, {reload: true});
+    };
+
+    function processSettings() {
       services[$scope.settings.service][$scope.settings.method]().then(function(data) {
         var content = data || [];
         if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
@@ -90,7 +106,7 @@ angular.module('mobius.controllers.common.content', [])
         } else {
           $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
             return {
-              code: item.code,
+              code: $scope.settings.slug? item.meta.slug : item.code,
               title: item[$scope.settings.title],
               subtitle: item[$scope.settings.subtitle]
             };

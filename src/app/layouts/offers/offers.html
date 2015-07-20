@@ -21,14 +21,19 @@
 
   </offers-list>
 
-  <offer-detail grid-row ng-if="showDetail">
+  <offer-detail grid-row ng-if="showDetail" ng-switch="!!selectDates">
     <div grid="12">
       <h1 ng-bind-html="selectedOffer.title"></h1>
       <img ng-src="{{selectedOffer.image.uri | cloudinaryImage : 960 : 300 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
       <div class="offer-content" ng-bind-html="selectedOffer.text"></div>
 
       <button-back role="button" tabindex="0" ng-click="goToOffersList()">Back</button-back>
-      <button-submit ui-sref="hotels({promoCode: selectedOffer.promoCode})">Book Now</button-submit>
+
+      <!-- DATES ARE SELECTED -->
+      <button-submit ng-switch-when="false" ui-sref="hotels({promoCode: selectedOffer.promoCode})">Book Now</button-submit>
+
+      <!-- USER SPECIFIES DATES -->
+      <button-submit ng-switch-when="true" ng-click="selectDates()">Select Dates</button-submit>
 
       <hr>
 

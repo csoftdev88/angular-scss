@@ -1,14 +1,14 @@
 <div class="ui-dialog">
-  <div class="modal-header">
-    <h1 class="modal-title">Modifying - <strong>{{data.reservationCode}}</strong></h1>
-    <button class="button-close" ng-click="cancel()">X</button>
-  </div>
+  <header>
+    <h1>Modifying - <strong>{{data.reservationCode}}</strong></h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
 
-  <div class="modal-body">
+  <main>
     <p>Your changes will not be saved if you navigate away from this page in order to update your booking you need to finish the reservation process</p>
-  </div>
+  </main>
 
-  <div class="modal-footer">
+  <footer>
     <button class="button" ng-click="ok()">Continue</button>
-  </div>
+  </footer>
 </div>

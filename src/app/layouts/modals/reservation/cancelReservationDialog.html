@@ -1,14 +1,14 @@
 <div class="ui-dialog">
-  <div class="modal-header">
-    <h3 class="modal-title">Are you sure you want to cancel this reservation?</h3>
-    <button class="button-close" ng-click="cancel()">X</button>
-  </div>
+  <header>
+    <h1>Are you sure you want to cancel this reservation?</h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
 
-  <div class="modal-body">
+  <main>
     <p><strong>Reservation number: </strong>{{data}}</p>
-  </div>
+  </main>
 
-  <div class="modal-footer">
+  <footer>
     <button class="button button-blue" ng-click="ok()">I want to cancel this reservation</button>
-  </div>
+  </footer>
 </div>
