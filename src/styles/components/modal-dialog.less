@@ -58,17 +58,18 @@ dialog {
     padding: @baseline;
     border-bottom: 2px solid #ddd;
     min-height: @baseline;
+    box-sizing: border-box;
 
     button-close {
       position: absolute;
       top: @baseline/2;
-      right: @baseline/2;
+      right: @baseline;
       border: none;
-      background: #eee;
+      background: #e8e8e8;
       line-height: 35px;
       border-radius: 4px;
       font-size: 24px;
-      color: #888;
+      color: #666;
     }
 
     h1 {
@@ -81,10 +82,12 @@ dialog {
   main {
     margin: 0;
     padding: @baseline;
+    box-sizing: border-box;
   }
 
   footer {
     padding: @baseline;
     text-align: right;
+    box-sizing: border-box;
   }
 }
