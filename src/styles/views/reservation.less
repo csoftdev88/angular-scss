@@ -218,12 +218,19 @@ reservation-widget {
   }
 
   label[for="agreement3"] {
-    margin: 0 @spacing;
+    margin: 0 @spacing @baseline/2 @spacing;
     padding: 0px;
   }
 
   .reservation-controls {
     text-align: center;
+
+    h4 {
+      font-size: @size-4;
+      color: @c-link;
+      margin-bottom: @baseline/4;
+      font-weight: 100;
+    }
 
     .next {
       float: right;
