@@ -1,9 +1,11 @@
 <section grid-row>
     <div grid="8">
+        <p ng-bind-html="sanitize(details.description)"></p>
+        <!--
         <p ng-if="!isExpanded" ng-bind-html="sanitize(details.descriptionShort)"></p>
-        <p ng-if="isExpanded" ng-bind-html="sanitize(details.description)"></p>
         <a href ng-hide="isExpanded" ng-click="isExpanded = true" class="read-more">Read more</a>
         <a href ng-show="isExpanded" ng-click="isExpanded = false" class="read-more">Read less</a>
+        -->
     </div>
 
     <view-more-images grid="4">

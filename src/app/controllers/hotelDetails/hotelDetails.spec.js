@@ -22,6 +22,7 @@ describe('mobius.controllers.hotel.details', function() {
         description: 'meta description',
         pagetitle: 'Hotel',
         microdata: {
+          schemaOrg: [],
           og: []
         }
       }
