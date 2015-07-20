@@ -1,6 +1,6 @@
-<h3><a ng-click="goToState()" href>{{title}}</a></h3>
+<h3><a href="{{getStateHref()}}">{{title}}</a></h3>
 <ul ng-show="content.length">
   <li ng-repeat="item in content | limitTo: (limit ? limit : content.length)">
-    <a href ng-click="goToState(item.code)" >{{item.title | truncateString:17}}</a>
+    <a href="{{getStateHref(item.code)}}" >{{item.title | truncateString:17}}</a>
   </li>
 </ul>

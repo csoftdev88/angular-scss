@@ -72,17 +72,22 @@ angular.module('mobius.controllers.common.content', [])
 
     $scope.settings = contentTypes[$scope.item];
 
-    function processSettings() {
-      $scope.goToState = function(code) {
-        var params = {};
-        params[$scope.settings.paramName] = code;
-        if (code) {
-          $state.go($scope.settings.detailState, params, {reload: true});
-        } else {
-          $state.go($scope.settings.listState, params, {reload: true});
-        }
-      };
+    $scope.getStateHref = function(code){
+      if(!$scope.settings){
+        return null;
+      }
 
+      var params = {};
+      params[$scope.settings.paramName] = code;
+
+      if (code) {
+        return $state.href($scope.settings.detailState, params, {reload: true});
+      } else {
+        return $state.href ($scope.settings.listState, params, {reload: true});
+      }
+    };
+
+    function processSettings() {
       services[$scope.settings.service][$scope.settings.method]().then(function(data) {
         var content = data || [];
         if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
