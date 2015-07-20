@@ -1,9 +1,10 @@
 <div class="ui-info">
-  <div class="modal-header">
-    <h1 class="modal-title">{{data.roomDetails.name}}</h1>
-    <button class="button-close" ng-click="cancel()"><i class="fa fa-times"></i></button>
-  </div>
-  <div class="modal-body">
+  <header>
+    <h1>{{data.roomDetails.name}}</h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main>
     <image-carousel images="data.roomDetails.images"></image-carousel>
     <div class="details">
       <div class="description" ng-bind-html="sanitize(data.roomDetails.description)"></div>
@@ -14,5 +15,5 @@
         <a ng-click="cancel()" class="button view-more" ui-sref="room({propertyCode: data.propertyCode, roomID: data.roomDetails.code})"><i></i>_view_room_</a>
       </div>
     </div>
-  </div>
+  </main>
 </div>
