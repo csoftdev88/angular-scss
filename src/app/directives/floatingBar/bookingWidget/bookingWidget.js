@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
-.directive('bookingWidget', function($controller, $filter, $state, $window,
+.directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, modalService, bookingService, queryService, validationService,
   propertyService, locationService, filtersService, Settings){
   return {
@@ -541,6 +541,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       scope.$on('$destroy', function(){
         routeChangeListener();
+      });
+
+      $rootScope.$on('BOOKING_BAR_PREFILL_DATA', function(){
+        console.log(123);
       });
 
       // Init
