@@ -118,6 +118,11 @@ angular.module('mobiusApp.config', [])
         }
       ]
     },
+
+    'roomDetails': {
+      'hasReadMore': true
+    },
+
     'aboutHotel': {
       'benefits' : [
         {'name': 'Great <strong>Offers</strong>', 'state': 'offers', 'pictureUrl': '/static/images/v4/icon-offers.png', 'text': 'Take advantage of our great offers and promotions to make your stay even more enjoyable!'},
