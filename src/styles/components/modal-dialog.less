@@ -2,6 +2,42 @@
 //// MODAL DIALOG ////
 //////////////////////
 
+.ui-dialog, .ui-info {
+  position: relative;
+  padding: @baseline - 1 10px;
+  border-radius: 3px;
+  background: #ebebeb;
+
+  .has-white-bg & {
+    background: @white;
+  }
+}
+
+.ui-info {
+  padding: @baseline - 1;
+  background: @white;
+}
+
+.modal-backdrop {
+  position: fixed;
+  z-index: 1030;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: @black;
+  opacity: .8;
+
+  // Show/Hide effects
+  &.in, &.fade.in {
+    opacity: .8;
+  }
+
+  &.fade {
+    opacity: 0;
+  }
+}
+
 dialog {
   position: fixed;
   left: 50%;
@@ -35,7 +71,6 @@ dialog {
     //- Title
     h1 {
       font-size: @size-3;
-
     }
 
     //- Close button
@@ -72,11 +107,11 @@ dialog {
   }
 }
 
+/////////////////////
+// SPECIFIC MODALS //
+/////////////////////
 
-/////////////////////////////
-// Policies and Conditions //
-/////////////////////////////
-
+// Policies and Conditions
 .modal-policies {
   margin: @baseline;
   border: 1px solid @c-light-grey;
