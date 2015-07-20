@@ -80,11 +80,21 @@ angular.module('mobius.controllers.common.content', [])
       var params = {};
       params[$scope.settings.paramName] = code;
 
-      if (code) {
-        return $state.href($scope.settings.detailState, params, {reload: true});
-      } else {
-        return $state.href ($scope.settings.listState, params, {reload: true});
+      return $state.href(code?$scope.settings.detailState:$scope.settings.listState, params);
+    };
+
+    $scope.goToState = function($event, code){
+      if(!$scope.settings){
+        return null;
       }
+
+      var params = {};
+      params[$scope.settings.paramName] = code;
+
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $state.go(code?$scope.settings.detailState:$scope.settings.listState, params, {reload: true});
     };
 
     function processSettings() {
