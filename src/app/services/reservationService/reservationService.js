@@ -21,13 +21,16 @@ angular.module('mobiusApp.services.reservation', [])
     return apiService.get(apiService.getFullURL('reservations.detail', {reservationCode: reservationCode}), params);
   }
 
-  function getReservationAddOns(reservationCode) {
-    return apiService.get(apiService.getFullURL('reservations.addons', {reservationCode: reservationCode}));
+  function getReservationAddOns(reservationCode, email) {
+    return apiService.get(apiService.getFullURL('reservations.addons',
+      {reservationCode: reservationCode}), email?{email:email}:null);
   }
 
-  function addAddon(reservationCode, addon) {
-    return apiService.post(apiService.getFullURL('reservations.addons', {reservationCode: reservationCode}),
-      addon
+  function addAddon(reservationCode, addon, email) {
+    return apiService.post(apiService.getFullURL('reservations.addons',
+      {reservationCode: reservationCode}),
+      addon,
+      email?{email:email}:null
     );
   }
 

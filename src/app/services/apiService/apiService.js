@@ -22,14 +22,15 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-  function post(url, data) {
+  function post(url, data, params) {
     var q = $q.defer();
 
     $http({
       method: 'POST',
       url: url,
       headers: headers,
-      data: data
+      data: data,
+      params: params
     }).success(function(res) {
       q.resolve(res);
     }).error(function(err) {

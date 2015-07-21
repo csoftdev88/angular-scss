@@ -85,7 +85,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Available addons
           reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: room.roomTypeCode}),
           // Reservation addons
-          reservationService.getReservationAddOns($stateParams.reservationCode)
+          reservationService.getReservationAddOns($stateParams.reservationCode, isMobiusUser?null:$stateParams.email)
         ]).then(function(addons){
           // addons[0] - available addons
           // Available addons should only contain those which not in reservationAddons
@@ -223,7 +223,10 @@ angular.module('mobius.controllers.reservationDetail', [])
       // Checking if same addone is already there
       if($scope.reservationAddons.indexOf(addon.code) === -1) {
         // Adding the addon to current reservation
-        var addAddonPromise = reservationService.addAddon($stateParams.reservationCode, addon).then(function(){
+        var addAddonPromise = reservationService.addAddon(
+          $stateParams.reservationCode,
+          addon,
+          user.isLoggedIn()?null:$stateParams.email).then(function(){
           // Removing from available addons
           $scope.availableAddons.splice($scope.availableAddons.indexOf(addon.code), 1);
           // Adding to reservation addons
