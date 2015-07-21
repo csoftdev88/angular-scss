@@ -25,7 +25,7 @@
     <!-- //schema.org -->
 
     <header grid-row id="jsAbout">
-      <h1 grid="6" itemprop="name"><strong>{{details.nameLong}}</strong></h1>
+      <h1 grid="6" ng-bind-html="details.nameLong | mainHeaderStyle" itemprop="name"></h1>
       <local-info local-info="details.localInfo" grid="6"></local-info>
     </header>
 

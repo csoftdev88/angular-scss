@@ -1,7 +1,7 @@
 <hotel-room grid="12">
 
   <section class="header">
-    <h1>{{roomDetails.name}}</h1>
+    <h1 ng-bind-html="roomDetails.name | mainHeaderStyle"></h1>
   </section>
 
   <section ng-if="products">

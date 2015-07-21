@@ -136,7 +136,8 @@ angular
     'mobiusApp.filters.checkInDate',
     'mobiusApp.filters.cloudinaryImage',
     'mobiusApp.filters.truncate',
-    'mobiusApp.filters.wrapword'
+    'mobiusApp.filters.wrapword',
+    'mobiusApp.filters.mainHeaderStyle'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
