@@ -1,7 +1,5 @@
 'use strict';
-/*
- * Simple string truncate filter
- */
+
 angular.module('mobiusApp.filters.mainHeaderStyle', [])
 
 .filter('mainHeaderStyle' , function() {
@@ -12,9 +10,13 @@ angular.module('mobiusApp.filters.mainHeaderStyle', [])
     }
 
     var ar = input.split(' ');
+    var len = ar.length;
     var first = ar.shift();
+    if(len > 2){
+      var second = ar.shift();
+    }
     var wrapped = '<strong>' + ar.join(' ') + '</strong>';
-    return first + ' ' + wrapped;
+    return len > 2 ? (first + ' ' + second + ' ' + wrapped) : (first + ' ' + wrapped);
 
   }
 
