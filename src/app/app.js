@@ -152,7 +152,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation&fromSearch'
+        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation&fromSearch&email'
       })
 
       // Home page
@@ -212,7 +212,7 @@ angular
       .state('reservationDetail', {
         parent: 'root',
         templateUrl: 'layouts/reservations/reservationDetail.html',
-        url: '/reservation/:reservationCode?email',
+        url: '/reservation/:reservationCode',
         controller: 'ReservationDetailCtrl',
         data: {
           authProtected: true

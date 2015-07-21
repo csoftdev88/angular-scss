@@ -109,6 +109,62 @@ describe('reservationService', function() {
 
       expect(_apiPutSpy.calledOnce).equal(true);
     });
+
+    it('should fire a PUT request to reservations API including email query param', function() {
+      _reservationService.modifyReservation('RESCODE', {}, 'test@test');
+      expect(_apiGetFullURLSpy.calledOnce).equal(true);
+      expect(_apiGetFullURLSpy.calledWith('reservations.modify', {reservationCode: 'RESCODE'})).equal(true);
+
+      expect(_apiPutSpy.calledOnce).equal(true);
+      expect(_apiPutSpy.args[0][2].email).equal('test@test');
+    });
+  });
+
+  describe('addAddon', function() {
+    beforeEach(function(){
+      setUp();
+    });
+
+    it('should fire a POST request to reservations API', function() {
+      _reservationService.addAddon('RESCODE');
+      expect(_apiGetFullURLSpy.calledOnce).equal(true);
+      expect(_apiGetFullURLSpy.calledWith('reservations.addons', {reservationCode: 'RESCODE'})).equal(true);
+
+      expect(_apiPostSpy.calledOnce).equal(true);
+    });
+
+    it('should fire a POST request to reservations API including email query param', function() {
+      _reservationService.addAddon('RESCODE', {}, 'test@test');
+      expect(_apiGetFullURLSpy.calledOnce).equal(true);
+      expect(_apiGetFullURLSpy.calledWith('reservations.addons', {reservationCode: 'RESCODE'})).equal(true);
+
+      expect(_apiPostSpy.calledOnce).equal(true);
+      expect(_apiPostSpy.args[0][2].email).equal('test@test');
+    });
+  });
+
+
+  describe('getReservationAddOns', function() {
+    beforeEach(function(){
+      setUp();
+    });
+
+    it('should fire a GET request to reservations API', function() {
+      _reservationService.getReservationAddOns('RESCODE');
+      expect(_apiGetFullURLSpy.calledOnce).equal(true);
+      expect(_apiGetFullURLSpy.calledWith('reservations.addons', {reservationCode: 'RESCODE'})).equal(true);
+
+      expect(_apiGetSpy.calledOnce).equal(true);
+    });
+
+    it('should fire a GET request to reservations API including email query param', function() {
+      _reservationService.getReservationAddOns('RESCODE', 'test@test');
+      expect(_apiGetFullURLSpy.calledOnce).equal(true);
+      expect(_apiGetFullURLSpy.calledWith('reservations.addons', {reservationCode: 'RESCODE'})).equal(true);
+
+      expect(_apiGetSpy.calledOnce).equal(true);
+      expect(_apiGetSpy.args[0][1].email).equal('test@test');
+    });
   });
 
   describe('when user is logged-in', function(){
