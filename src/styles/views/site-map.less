@@ -1,12 +1,17 @@
 .site-map {
 
+  .generate-grid(@grid-width, @grid-gap, 5);
+
   margin-top: 2*@baseline;
   padding: @baseline 0 @baseline 0;
-
-  // grid
   background: #f1f1f1;
   border-top: 1px solid @c-light-grey;
   box-sizing: border-box;
+  .clearfix;
+
+  article {
+
+  }
 
   a {
     text-decoration: none;
@@ -14,10 +19,11 @@
 
   h3 {
     font-size: @size-0;
-    margin-bottom: .5*@baseline;
+    margin-bottom: @baseline/2;
   }
 
   ul {
+    margin-bottom: @baseline/2;
 
     li {
       width: 100%;
