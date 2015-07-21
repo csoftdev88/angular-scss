@@ -39,7 +39,8 @@
             ng-hide="product.memberOnly && !isUserLoggedIn()">
             Book Now
           </button-submit>
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">Login</a>
+
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
         </pricing-info>
 
         <description-info>

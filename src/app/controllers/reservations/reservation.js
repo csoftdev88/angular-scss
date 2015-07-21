@@ -10,7 +10,11 @@ angular.module('mobius.controllers.reservation', [])
   $rootScope, userMessagesService, propertyService, $q,
   creditCardTypeService, breadcrumbsService, _){
 
-  function onAuthorized(){
+  $scope.userDetails = {};
+  $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
+  $scope.additionalInfo = {};
+
+  function onAuthorized(isMobiusUser){
     // Getting room/products data
     var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
       $scope.setRoomDetails(data.roomDetails);
@@ -26,22 +30,47 @@ angular.module('mobius.controllers.reservation', [])
     // Showing loading mask
     preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(){
       $rootScope.showHomeBreadCrumb = false;
-      /*
-      setBreadCrumbs = function(name) {
-        breadcrumbsService
-          .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
-          .addBreadCrumb('Rooms', 'hotel', {propertyCode: $stateParams.property}, 'jsRooms')
-          .addBreadCrumb(data[0].roomDetails.name, 'hotel', {propertyCode: $stateParams.property, roomID: $stateParams.roomID})
-          .addBreadCrumb(name)
-          .addHref(GUEST_DETAILS)
-          .addHref(BILLING_DETAILS)
-          .addHref(CONFIRMATION)
-          .setActiveHref(name)
-        ;
-      };
-      */
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
+
+    // Updating users data
+    prefillUserDetails(isMobiusUser ? user.getUser():{email:$stateParams.email});
+  }
+
+  function prefillUserDetails(userData){
+    if(!userData){
+      return;
+    }
+
+    if (!Object.keys($scope.userDetails).length) {
+      // No fields are touched yet, prefiling
+      _.extend($scope.userDetails, {
+        title: userData.title || '',
+        firstName: userData.firstName || '',
+        lastName: userData.lastName || '',
+        email: userData.email || '',
+        address: userData.address1 || '',
+        city: userData.city || '',
+        stateProvince: '',
+        country: '',
+        zip: userData.zip || '',
+        phone: userData.tel1 || ''
+      });
+      $scope.userDetails.emailFromApi = !!userData.email;
+    }
+
+    if (!Object.keys($scope.additionalInfo).length) {
+      // No fields are touched yet, prefiling
+      _.extend($scope.additionalInfo, {
+        arrivalTime: '',
+        arrivalMethod: '',
+        departureTime: '',
+        secondPhoneNumber: userData.tel2 || '',
+        comments: '',
+        agree: false,
+        optedIn: userData.optedIn || false
+      });
+    }
   }
 
   // Inheriting the login from RoomDetails controller
@@ -111,7 +140,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.state = $state;
 
   $scope.forms = {};
-  $scope.userDetails = {};
+
   $scope.billingDetails = {
     card: {
       number: '',
@@ -122,9 +151,6 @@ angular.module('mobius.controllers.reservation', [])
     paymentMethod: null, // API: 'cc','paypal','bitcoint','point','bill'
     useGuestAddress: true
   };
-
-  $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
-  $scope.additionalInfo = {};
 
   function setProductDetails(products){
     // Finding the product which user about to book
@@ -328,7 +354,9 @@ angular.module('mobius.controllers.reservation', [])
     var promises = [];
     if($stateParams.reservation){
       // Updating existing reservation
-      promises.push(reservationService.modifyReservation($stateParams.reservation, reservationData));
+      promises.push(reservationService.modifyReservation($stateParams.reservation, reservationData,
+        // Email parameter when user modifying as anonymous.
+        $scope.isModifyingAsAnonymous()?$stateParams.email:null));
     }else{
       // Creating a new reservation
       promises.push(reservationService.createReservation(reservationData));
@@ -386,44 +414,4 @@ angular.module('mobius.controllers.reservation', [])
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
-
-  var unWatchLogged = $scope.$watch(function(){
-    return user.isLoggedIn() && user.getUser();
-  }, function(userData){
-    if (userData) {
-      if (!Object.keys($scope.userDetails).length) {
-        // No fields are touched yet, prefiling
-        _.extend($scope.userDetails, {
-          title: userData.title || '',
-          firstName: userData.firstName || '',
-          lastName: userData.lastName || '',
-          email: userData.email || '',
-          address: userData.address1 || '',
-          city: userData.city || '',
-          stateProvince: '',
-          country: '',
-          zip: userData.zip || '',
-          phone: userData.tel1 || ''
-        });
-        $scope.userDetails.emailFromApi = !!userData.email;
-      }
-
-      if (!Object.keys($scope.additionalInfo).length) {
-        // No fields are touched yet, prefiling
-        _.extend($scope.additionalInfo, {
-          arrivalTime: '',
-          arrivalMethod: '',
-          departureTime: '',
-          secondPhoneNumber: userData.tel2 || '',
-          comments: '',
-          agree: false,
-          optedIn: userData.optedIn || false
-        });
-      }
-    }
-  });
-
-  $scope.$on('$destroy', function(){
-    unWatchLogged();
-  });
 });

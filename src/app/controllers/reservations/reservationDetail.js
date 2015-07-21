@@ -147,7 +147,11 @@ angular.module('mobius.controllers.reservationDetail', [])
         // NOTE: Check corp/group codes
         promoCode: reservation.promoCode,
         // NOTE: This will enable editing
-        reservation: reservation.reservationCode
+        reservation: reservation.reservationCode,
+        // Removing email param when user is logged in
+        email: user.isLoggedIn()?null:$stateParams.email,
+        // propertySlug is required
+        propertySlug: $scope.property.meta && $scope.property.meta.slug?$scope.property.meta.slug:reservation.property.code
       };
 
       $state.go('hotel', bookingParams);

@@ -39,14 +39,15 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-  function put(url, data) {
+  function put(url, data, params) {
     var q = $q.defer();
 
     $http({
       method: 'PUT',
       url: url,
       headers: headers,
-      data: data
+      data: data,
+      params: params
     }).success(function(res) {
       q.resolve(res);
     }).error(function(err) {

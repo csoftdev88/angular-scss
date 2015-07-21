@@ -3,7 +3,8 @@
 describe('apiService', function() {
   var env, _spyExtend;
   var TEST_URL = 'http://testurl';
-  var TEST_DATA = {'data': 'OK'};
+  var TEST_RESPONSE = {'data': 'OK'};
+  var TEST_DATA = {'some': 'testValue'};
 
   beforeEach(function() {
     env = {};
@@ -50,7 +51,7 @@ describe('apiService', function() {
 
       it('should fire a GET request and return fulfilled promise', function() {
         env.httpBackend.expectGET(TEST_URL)
-        .respond(200, TEST_DATA);
+        .respond(200, TEST_RESPONSE);
 
         var resolvedValue;
 
@@ -60,7 +61,7 @@ describe('apiService', function() {
 
         env.httpBackend.flush();
         env.rootScope.$apply();
-        expect(resolvedValue.data).equal(TEST_DATA.data);
+        expect(resolvedValue.data).equal(TEST_RESPONSE.data);
       });
 
 
@@ -69,6 +70,78 @@ describe('apiService', function() {
         var resolvedValue = true;
 
         env.apiService.get(TEST_URL).then(function(){
+        }, function() {
+          resolvedValue = false;
+        });
+        env.httpBackend.flush();
+        env.rootScope.$apply();
+        expect(resolvedValue).equal(false);
+      });
+    });
+
+    describe('POST method', function() {
+      afterEach(function() {
+        env.httpBackend.verifyNoOutstandingExpectation();
+        env.httpBackend.verifyNoOutstandingRequest();
+      });
+
+      it('should fire a POST request and return fulfilled promise', function() {
+        env.httpBackend.expectPOST(TEST_URL, TEST_DATA)
+        .respond(200, TEST_RESPONSE);
+
+        var resolvedValue;
+
+        env.apiService.post(TEST_URL, TEST_DATA).then(function(data){
+          resolvedValue = data;
+        });
+
+        env.httpBackend.flush();
+        env.rootScope.$apply();
+        expect(resolvedValue.data).equal(TEST_RESPONSE.data);
+      });
+
+
+      it('should return rejected promise in case server doesnt return HTTP status 200', function() {
+        env.httpBackend.expectPOST(TEST_URL).respond(500);
+        var resolvedValue = true;
+
+        env.apiService.post(TEST_URL).then(function(){
+        }, function() {
+          resolvedValue = false;
+        });
+        env.httpBackend.flush();
+        env.rootScope.$apply();
+        expect(resolvedValue).equal(false);
+      });
+    });
+
+
+    describe('PUT method', function() {
+      afterEach(function() {
+        env.httpBackend.verifyNoOutstandingExpectation();
+        env.httpBackend.verifyNoOutstandingRequest();
+      });
+
+      it('should fire a PUT request and return fulfilled promise', function() {
+        env.httpBackend.expectPUT(TEST_URL, TEST_DATA)
+        .respond(200, TEST_RESPONSE);
+
+        var resolvedValue;
+
+        env.apiService.put(TEST_URL, TEST_DATA).then(function(data){
+          resolvedValue = data;
+        });
+
+        env.httpBackend.flush();
+        env.rootScope.$apply();
+        expect(resolvedValue.data).equal(TEST_RESPONSE.data);
+      });
+
+      it('should return rejected promise in case server doesnt return HTTP status 200', function() {
+        env.httpBackend.expectPUT(TEST_URL).respond(500);
+        var resolvedValue = true;
+
+        env.apiService.put(TEST_URL).then(function(){
         }, function() {
           resolvedValue = false;
         });
