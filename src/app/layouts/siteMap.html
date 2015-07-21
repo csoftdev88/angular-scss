@@ -1,47 +1,31 @@
 <section class="grid-wrapper">
-  <!--
-  <article grid="2">
-    <h3><a ui-sref="home">Home</a></h3>
-  </article>
-  -->
+  <article grid="1" ng-hide="config.menu.singleProperty" site-map-content="hotels" data-title="_hotels_"></article>
 
-  <article grid="2" ng-hide="config.menu.singleProperty" site-map-content="hotels" data-title="_hotels_"></article>
+  <article grid="1" ng-show="config.menu.showOffers" site-map-content="offers" data-title="_offers_deals_" limit="5"></article>
 
-  <article grid="2" ng-show="config.menu.showOffers" site-map-content="offers" data-title="_offers_deals_" limit="5"></article>
+  <article grid="1" ng-show="config.menu.showAbout" site-map-content="about" data-title="_about_us_" limit="5"></article>
 
-  <article grid="2" ng-show="config.menu.showAbout" site-map-content="about" data-title="_about_us_" limit="5"></article>
+  <article grid="1" ng-show="config.menu.showNews" site-map-content="news" data-title="_news_" limit="3"></article>
 
-  <article grid="2" ng-show="config.menu.showNews" site-map-content="news" data-title="_news_"  limit="3"></article>
-
-  <article grid="2">
+  <article grid="1" ng-if="!user.isLoggedIn()">
     <h3><a ui-sref="contacts">Contact</a></h3>
-  </article>
-
-  <article grid="2" ng-if="!user.isLoggedIn()">
     <h3><a href ng-click="sso.login()">Login</a></h3>
-
-    <ul>
-      <li>
-        <a ui-sref="lookup">Look up a Booking</a>
-      </li>
-    </ul>
+    <h3><a ui-sref="lookup">Look up a Booking</a></h3>
   </article>
 
-  <article grid="2" ng-if="user.isLoggedIn()">
+  <article grid="1" ng-if="user.isLoggedIn()">
     <h3><a href ng-click="sso.profile()">Profile</a></h3>
-
     <ul>
       <li>
         <a ui-sref="reservations">Reservations</a>
       </li>
-
       <li>
         <a ui-sref="rewards">Rewards</a>
       </li>
-
       <li>
         <a href ng-click="sso.logout()">Logout</a>
       </li>
     </ul>
+    <h3><a ui-sref="contacts">Contact</a></h3>
   </article>
 </section>
