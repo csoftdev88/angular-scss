@@ -15,7 +15,7 @@
 
     <article ng-repeat-start="news in newsList track by $index" ng-click="goToDetail(news.code)">
       <img ng-src="{{news.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{news.image.alt}}">
-      <h2>{{news.title}}</h2>
+      <h2 ng-bind-html="news.title | mainHeaderStyle"></h2>
       <div ng-bind-html="news.subtitle"></div>
     </article>
 
