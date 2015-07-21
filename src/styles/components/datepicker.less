@@ -9,8 +9,8 @@
 
   background: #fff;
   box-shadow: 0 0 1px @c-link;
-  margin-top: -45px;
-  margin-left: -145px;
+  margin-top: -10px;
+  margin-left: -66px;
 
   &:after {
     .fa;
@@ -85,7 +85,9 @@
 
 //- Calendar Table
 .ui-datepicker-calendar {
-  margin: @baseline;
+  margin: @baseline/2 @baseline 0 @baseline;
+  width: 260px;
+  height: 275px;
 
   tbody {
     tr {
@@ -173,7 +175,7 @@
     content: attr(data-counter);
     position: absolute;
     left: 20px;
-    top: 17px;
+    top: 10px;
   }
 
   // Currently selected rate
