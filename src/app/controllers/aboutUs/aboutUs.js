@@ -9,11 +9,11 @@ angular.module('mobius.controllers.about', [])
 
     $controller('MainCtrl', {$scope: $scope});
 
+    breadcrumbsService.clear()
+     .addBreadCrumb('About Us');
+
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
-
-      breadcrumbsService.clear()
-        .addBreadCrumb('About Us');
       $scope.openGallery = modalService.openGallery.bind(modalService,
         chain.images.map(function(image) {
           return image.uri;
@@ -60,7 +60,6 @@ angular.module('mobius.controllers.about', [])
 
       $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl();
       metaInformationService.setOgGraph($scope.selectedAbout.meta.microdata.og);
-      
       breadcrumbsService.clear()
         .addBreadCrumb('About Us', 'aboutUs', {code: null})
         .addBreadCrumb($scope.selectedAbout.title);
