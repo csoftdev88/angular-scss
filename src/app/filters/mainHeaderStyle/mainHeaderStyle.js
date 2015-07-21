@@ -1,4 +1,8 @@
 'use strict';
+/**
+ * Filter for wraping part of a string in strong tag
+ * used for styling page headings
+ */
 
 angular.module('mobiusApp.filters.mainHeaderStyle', [])
 
