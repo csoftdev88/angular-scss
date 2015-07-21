@@ -23,7 +23,7 @@
 
   <offer-detail grid-row ng-if="showDetail">
     <div grid="12">
-      <h1 ng-bind-html="selectedOffer.title"></h1>
+      <h1 ng-bind-html="selectedOffer.title | mainHeaderStyle"></h1>
       <img ng-src="{{selectedOffer.image.uri | cloudinaryImage : 960 : 300 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
       <div class="offer-content" ng-bind-html="selectedOffer.text"></div>
 
