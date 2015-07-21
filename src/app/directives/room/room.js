@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location) {
+  $controller,$location,$rootScope) {
 
   return {
     restrict: 'E',
@@ -154,6 +154,19 @@ angular.module('mobiusApp.directives.room', [])
 
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
         scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
+      }
+
+
+      // Checking if user have selected dates
+
+      if(!bookingParams.from || !bookingParams.to){
+        // Dates are not yet selected
+        scope.selectDates = function(){
+          $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+            openDatePicker: true,
+            promoCode: $stateParams.code
+          });
+        };
       }
     }
   };
