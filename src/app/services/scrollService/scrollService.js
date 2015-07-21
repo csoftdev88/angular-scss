@@ -29,9 +29,11 @@ angular.module('mobiusApp.services.scroll', [])
           }, 1000);
         }
 
+        /*
         angular.element($window).bind('scroll', function() {
           angular.element('html, body').finish();
         });
+*/
 
       });
     };
