@@ -103,6 +103,7 @@ angular
     'mobiusApp.directives.hotelLocation',
     'mobiusApp.directives.emailCheck',
     'mobiusApp.directives.notifications',
+    'mobiusApp.directives.markdownTextParser',
     // Common controllers
     'mobius.controllers.reservation.directive',
 
@@ -137,8 +138,7 @@ angular
     'mobiusApp.filters.cloudinaryImage',
     'mobiusApp.filters.truncate',
     'mobiusApp.filters.wrapword',
-    'mobiusApp.filters.mainHeaderStyle',
-    'mobiusApp.filters.markdownTextParser'
+    'mobiusApp.filters.mainHeaderStyle'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {

@@ -52,7 +52,7 @@
   <about-detail ng-if="showDetail" grid="12">
     <h1 ng-bind-html="selectedAbout.title | mainHeaderStyle"></h1>
     <img ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedAbout.image.alt}}"/>
-    <div ng-bind-html="selectedAbout.text | markdownTextParser"></div>
+    <div ng-bind-html="selectedAbout.text" markdown-text-parser></div>
     <button-back role="button" tabindex="0" ng-click="goToAboutList()" class="pull-left">Back</button-back>
 
     <hr>
