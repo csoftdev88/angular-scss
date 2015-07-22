@@ -27,7 +27,6 @@
     "connect-livereload": "~0.2.0",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~3.0.3",
-    "grunt-cli": "0.1.13",
     "grunt-concurrent": "~0.3.0",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-coffee": "~0.7.0",
