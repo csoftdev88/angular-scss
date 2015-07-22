@@ -14,6 +14,7 @@ dependencies:
   override:
     - npm prune
     - npm install jshint -g
+    - npm install -g grunt-cli
     - npm install -g istanbul
     - npm install -g codeclimate-test-reporter
     - npm install request -g
