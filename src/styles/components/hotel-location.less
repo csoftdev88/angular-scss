@@ -3,17 +3,20 @@ hotel-location {
   header{
     margin-bottom: 10px;
 
-    h2{
-      .h2;
-    }
-
     //- View Full Screen
     p {
-      margin-bottom: 0;
+      margin: -1.75*@baseline 0 0 0;
       display: inline;
       float: right;
-      position: relative;
-      top: 3px;
+      a {
+        text-decoration: underline;
+        font-size: @size--1;
+
+        &:focus,
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
   }
 
