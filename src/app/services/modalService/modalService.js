@@ -166,6 +166,13 @@ angular.module('mobiusApp.services.modal', [])
       windowClass: 'details dialog-rewards',
       resolve: {
         data: function(){
+          function formatRewardName(rewardName) {
+            var wordArray = rewardName.split(' ');
+            var lastWord = wordArray.pop();
+            var firstPart = wordArray.join(' ');
+            return (firstPart + ' <strong>' + lastWord + '</strong>');
+          }
+          reward.nameFormatted = formatRewardName(reward.name);
           return reward;
         }
       }
