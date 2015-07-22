@@ -1,14 +1,36 @@
 hotel-location {
 
-  //- View Full Screen
-  h2 + p {
-    margin-bottom: 0;
+  header{
+    margin-bottom: 10px;
+    h2{
+      display: inline;
+    }
 
-    text-align: right;
+    //- View Full Screen
+    p {
+      margin-bottom: 0;
+      display: inline;
+      float: right;
+      position: relative;
+      top: 3px;
+    }
   }
+
 
   contact-list {
     margin-bottom: @baseline;
+
+    // Email
+    contact-item:nth-of-type(1) div {
+      padding-left: 0 !important;
+      text-align: left !important;
+    }
+
+    // Address
+    contact-item:nth-of-type(3) div {
+      padding-left: 0 !important;
+      text-align: right !important;
+    }
   }
 
   contact-list,

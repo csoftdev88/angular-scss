@@ -1,6 +1,6 @@
 'use strict';
 /*
- * This service contains reusable methods for adverts
+ * This service contains reusable methods for page scrolling
  */
 angular.module('mobiusApp.services.scroll', [])
   .service( 'scrollService',  function($window, $location, $state) {
@@ -23,15 +23,11 @@ angular.module('mobiusApp.services.scroll', [])
         }
 
         if($item.length) {
-          offset = offset || -angular.element('#main-header').height();
+          offset = offset || -(angular.element('#main-header').height()+angular.element('hero-slider').height()/2);
           angular.element('html, body').stop().animate({
             scrollTop: $item.offset().top + offset
-          }, 1000);
+          }, 500);
         }
-
-        angular.element($window).bind('scroll', function() {
-          angular.element('html, body').finish();
-        });
 
       });
     };

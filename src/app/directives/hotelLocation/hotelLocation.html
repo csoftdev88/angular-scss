@@ -1,11 +1,13 @@
-<h2>The Sutton Place Hotel {{hotelDetails.nameShort}} <strong>Location</strong></h2>
-<p>
-  <a target="_blank"
-     ng-if="position"
-     href="http://maps.google.com/maps?q={{position[0]}}+{{position[1]}}&z=15&t=m">
-    View on Google Maps
-  </a>
-</p>
+<header>
+  <h2>The<strong> Sutton Place Hotel {{hotelDetails.nameShort}} Location</strong></h2>
+  <p>
+    <a target="_blank"
+       ng-if="position"
+       href="http://maps.google.com/maps?q={{position[0]}}+{{position[1]}}&z=15&t=m">
+      View on Google Maps
+    </a>
+  </p>
+</header>
 
 <map
   ng-if="position"

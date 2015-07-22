@@ -15,7 +15,7 @@
 
     <article ng-repeat-start="news in newsList track by $index" ng-click="goToDetail(news.code)">
       <img ng-src="{{news.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{news.image.alt}}">
-      <h2>{{news.title}}</h2>
+      <h2 ng-bind-html="news.title | mainHeaderStyle"></h2>
       <div ng-bind-html="news.subtitle"></div>
     </article>
 
@@ -24,12 +24,10 @@
   </news-list>
 
   <news-detail ng-if="showDetail" grid="12">
-    <article>
-      <h1>{{selectedNews.title}}</h1>
-      <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 310 : 200 : 'fill'}}" alt="{{selectedNews.image.alt}}"/>
-      <div ng-bind-html="selectedNews.text"></div>
-      <button-back role="button" tabindex="0" ng-click="goToNewsList()">Back</button-back>
-    </article>
+    <h1 ng-bind-html="selectedNews.title | mainHeaderStyle"></h1>
+    <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedNews.image.alt}}"/>
+    <div ng-bind-html="selectedNews.text"></div>
+    <button-back role="button" tabindex="0" ng-click="goToNewsList()" class="pull-left">Back</button-back>
 
     <hr>
 

@@ -1,7 +1,7 @@
 <hotel-room grid="12">
 
   <section class="header">
-    <h1>{{roomDetails.name}}</h1>
+    <h1 ng-bind-html="roomDetails.name | mainHeaderStyle"></h1>
   </section>
 
   <section ng-if="products">
@@ -70,6 +70,8 @@
         <h3>Please select your stay dates to see available rates!</h3>
         <p>Enter your dates on the bar below and hit search<br> to see all the rates you can book</p>
       </div>
+      <!-- USER SPECIFIES DATES -->
+      <button-submit ng-click="selectDates()">Select Dates</button-submit>
     </div>
 
     <hr />
