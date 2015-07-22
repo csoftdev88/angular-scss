@@ -39,7 +39,8 @@
             ng-hide="product.memberOnly && !isUserLoggedIn()">
             Book Now
           </button-submit>
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">Login</a>
+
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
         </pricing-info>
 
         <description-info>
@@ -113,7 +114,7 @@
         ng-click="onClickOnAssociatedRoom(otherRoom)"
         class="with-special-hover">
         <figure ng-show="otherRoom.images[0]">
-          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : 150 : 65 : 'fill'}}" alt="{{otherRoom.name}}">
+          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{otherRoom.name}}">
         </figure>
 
         <h2>{{otherRoom.name}}</h2>

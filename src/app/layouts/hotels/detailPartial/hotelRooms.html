@@ -17,7 +17,7 @@
       <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
         <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">
           <figure>
-            <img ng-src="{{room.images[0].uri | cloudinaryImage : 153 : 65 : 'fill'}}" alt="{{room.name}}">
+            <img ng-src="{{room.images[0].uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{room.name}}">
           </figure>
         </a>
 
@@ -43,7 +43,7 @@
         </pricing-info>
 
         <description-info>
-          <p ng-bind-html="sanitize(room.description)"></p>
+          <div ng-bind-html="sanitize(room.description)"></div>
         </description-info>
       </list-item>
       <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
