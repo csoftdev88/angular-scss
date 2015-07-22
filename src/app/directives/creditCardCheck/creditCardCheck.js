@@ -20,11 +20,6 @@ angular.module('mobiusApp.directives.creditCardCheck', [])
         ctrl.$validators.creditCardCheck = function(modelValue, viewValue) {
           return !!creditCardTypeService.getCreditCardDetails(viewValue);
         };
-
-        scope.$watch(attrs.ngModel, function (newValue, oldValue) {
-          console.log('oldValue=' + oldValue);
-          console.log('newValue=' + newValue);
-        });
       }
     };
   });
