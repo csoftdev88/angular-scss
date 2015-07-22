@@ -60,8 +60,6 @@ angular.module('mobius.controllers.hotel.details', [])
       .then(function(details){
         $scope.details = details;
 
-        console.log(angular.toJson(details));
-
         metaInformationService.setMetaDescription($scope.details.meta.description);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 

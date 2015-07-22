@@ -38,6 +38,7 @@ angular.module('mobius.controllers.news', [])
     };
 
     function selectNews(code) {
+      code = code.split('-')[1];
       selectedNewsIndex = _.findIndex($scope.newsList, {code: code});
       if (selectedNewsIndex < 0) {
         return $state.go('news', {code: null});

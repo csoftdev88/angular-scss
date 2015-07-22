@@ -39,7 +39,8 @@ angular.module('mobius.controllers.common.content', [])
         'paramName': 'code',
         'title': 'title',
         'sort': 'prio',
-        'reverseSort': true
+        'reverseSort': true,
+        'slug': true
       },
       'offers': {
         'service': 'contentService',
@@ -50,7 +51,8 @@ angular.module('mobius.controllers.common.content', [])
         'title': 'title',
         'subtitle': 'subtitle',
         'sort': 'prio',
-        'reverseSort': true
+        'reverseSort': true,
+        'slug': true
       },
       'about': {
         'service': 'contentService',
@@ -60,7 +62,8 @@ angular.module('mobius.controllers.common.content', [])
         'paramName': 'code',
         'title': 'title',
         'sort': 'prio',
-        'reverseSort': true
+        'reverseSort': true,
+        'slug': true
       }
     };
 

@@ -38,6 +38,7 @@ angular.module('mobius.controllers.offers', [])
     };
 
     function selectOffer(code) {
+      code = code.split('-')[1];
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go('offers', {code: null});

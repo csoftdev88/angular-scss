@@ -13,7 +13,7 @@
 
     <hr>
 
-    <article ng-repeat-start="news in newsList track by $index" ng-click="goToDetail(news.code)">
+    <article ng-repeat-start="news in newsList track by $index" ng-click="goToDetail(news.meta.slug)">
       <img ng-src="{{news.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{news.image.alt}}">
       <h2 ng-bind-html="news.title | mainHeaderStyle"></h2>
       <div ng-bind-html="news.subtitle"></div>
@@ -34,7 +34,7 @@
     <h2 ng-if="newsList.length > 1">You may also be interested in:</h2>
 
     <offers-list grid-row>
-      <offer-item ng-repeat="news in newsList | filter:getRelevant track by $index" ng-click="goToDetail(news.code)">
+      <offer-item ng-repeat="news in newsList | filter:getRelevant track by $index" ng-click="goToDetail(news.meta.slug)">
         <img ng-src="{{news.image.uri | cloudinaryImage : 270 : 140 : 'fill'}}" alt="{{news.image.alt}}">
         <section>
           <h3>{{news.title}}</h3>
