@@ -144,7 +144,6 @@ angular.module('mobius.controllers.reservation', [])
   $scope.billingDetails = {
     card: {
       number: '',
-      expirationDate: '',
       securityCode: '',
       holderName: ''
     },
@@ -319,7 +318,7 @@ angular.module('mobius.controllers.reservation', [])
         holderName: $scope.billingDetails.card.holderName,
         number: $scope.billingDetails.card.number,
         // Last day of selected month
-        expirationDate: $window.moment($scope.billingDetails.card.expirationDate).endOf('month').format('YYYY-MM-DD'),
+        expirationDate: $scope.getCardExpirationDate(),
         // TODO: Change input type
         securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
         typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code

@@ -65,9 +65,9 @@
         <div class="input-left">
           <!-- EXP MONTH -->
           <label for="form-expires-month" class="input-left">
-            <select id="form-expires-month" name="form-expires-month" 
-            required ng-model="expiration.selectedMonth"
-            disable-search="true" ng-change="onExpirationChange()"
+            <select id="form-expires-month" name="form-expires-month"
+            required ng-model="cardExpiration.selectedMonth"
+            disable-search="true"
             chosen ng-options="month.name for month in cardExpiration.months"
             data-placeholder="Month">
             <option></option>
@@ -76,9 +76,9 @@
           </label>
 
           <label for="form-expires-year" class="input-left">
-            <select id="form-expires-year" name="form-expires-year" 
-            required ng-model="expiration.selectedYear"
-            disable-search="true" ng-change="onExpirationChange()"
+            <select id="form-expires-year" name="form-expires-year"
+            required ng-model="cardExpiration.selectedYear"
+            disable-search="true" ng-change="onExpirationYearChange()"
             chosen ng-options="year for year in cardExpiration.years"
             data-placeholder="Year">
             <option></option>
@@ -88,7 +88,7 @@
 
           <!-- EXP YEAR -->
           <label for="form-cvv" class="input-right">
-            
+
             <span>Year</span>
           </label>
 
@@ -103,7 +103,7 @@
             <span>CVV <span class="help" ng-click="openCCVInfo()"/></span>
           </label>
         </div>
- 
+
 
         <label for="form-guest-address" class="input-checkbox">
           <input type="checkbox" id="form-guest-address"
