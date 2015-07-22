@@ -76,6 +76,7 @@ angular.module('mobius.controllers.reservation', [])
   // Inheriting the login from RoomDetails controller
   $controller('RoomDetailsCtrl', {$scope: $scope});
   $controller('SSOCtrl', {$scope: $scope});
+  $controller('CardExpirationCtrl', {$scope: $scope});
 
   // NOTE: Waiting for infiniti SSO auth events
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
@@ -136,7 +137,6 @@ angular.module('mobius.controllers.reservation', [])
     $stateChangeStartUnWatch();
   });
 
-  $scope.expirationMinDate = $window.moment().format('YYYY-MM');
   $scope.state = $state;
 
   $scope.forms = {};
@@ -241,6 +241,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.continue = function() {
     switch ($state.current.name) {
     case 'reservation.details':
+      /* TODO: MOVE BACK
       if($scope.forms.details && !$scope.forms.details.$submitted){
         $scope.forms.details.$submitted = true;
       }
@@ -248,6 +249,8 @@ angular.module('mobius.controllers.reservation', [])
       if($scope.isValid()){
         $state.go('reservation.billing');
       }
+      */
+      $state.go('reservation.billing');
       break;
     case 'reservation.billing':
       // TODO: Fix submited logic when paying with points billing form is

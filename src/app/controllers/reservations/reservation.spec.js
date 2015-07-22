@@ -148,6 +148,8 @@ describe('mobius.controllers.reservation', function() {
           config.onAuthorized(true);
         });
 
+        $controllerProvider.register('CardExpirationCtrl', function(){});
+
         var breadcrumbs = {
           clear: function(){ return breadcrumbs; },
           addBreadCrumb: function(){ return breadcrumbs; },
@@ -197,12 +199,6 @@ describe('mobius.controllers.reservation', function() {
     describe('getCreditCardPreviewNumber', function(){
       it('should be defined as a function', function() {
         expect(_scope.getCreditCardPreviewNumber).to.be.a('function');
-      });
-    });
-
-    describe('expiration date', function() {
-      it('should set credit card expiration min date on scope', function() {
-        expect(_scope.expirationMinDate).equal('2015-01');
       });
     });
 

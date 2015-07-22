@@ -44,7 +44,7 @@
     <section class="payment-card" ng-switch-default>
       <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()" ng-click="selectPaymentMethod('cc')" ng-class="{'ng-submitted': forms.billing.$submitted}">
 
-        <label for="form-card-number" class="card-type">
+        <label for="form-card-number">
           <input type="text" id="form-card-number" credit-card-check required
             placeholder="xxxx-xxxx-xxxx-xxxx"
             ng-model="billingDetails.card.number"
@@ -55,13 +55,41 @@
           </span>
         </label>
 
+        <label for="form-name-on-card">
+          <input type="text" id="form-name-on-card" required
+            placeholder="John Doe"
+            ng-model="billingDetails.card.holderName" />
+          <span>Name on Card</span>
+        </label>
+
         <div class="input-left">
-          <label for="form-expires" class="input-left">
-            <input type="text" id="form-expires" month-picker required
-              placeholder="YYYY-MM"
-              ng-min="expirationMinDate"
-              ng-model="billingDetails.card.expirationDate" />
-            <span>Expires</span>
+          <!-- EXP MONTH -->
+          <label for="form-expires-month" class="input-left">
+            <select id="form-expires-month" name="form-expires-month" 
+            required ng-model="expiration.selectedMonth"
+            disable-search="true" ng-change="onExpirationChange()"
+            chosen ng-options="month.name for month in cardExpiration.months"
+            data-placeholder="Month">
+            <option></option>
+          </select>
+            <span>Month</span>
+          </label>
+
+          <label for="form-expires-year" class="input-left">
+            <select id="form-expires-year" name="form-expires-year" 
+            required ng-model="expiration.selectedYear"
+            disable-search="true" ng-change="onExpirationChange()"
+            chosen ng-options="year for year in cardExpiration.years"
+            data-placeholder="Year">
+            <option></option>
+          </select>
+            <span>Month</span>
+          </label>
+
+          <!-- EXP YEAR -->
+          <label for="form-cvv" class="input-right">
+            
+            <span>Year</span>
           </label>
 
           <label for="form-cvv" class="input-right">
@@ -75,13 +103,7 @@
             <span>CVV <span class="help" ng-click="openCCVInfo()"/></span>
           </label>
         </div>
-
-        <label for="form-name-on-card" class="input-right">
-          <input type="text" id="form-name-on-card" required
-            placeholder="John Doe"
-            ng-model="billingDetails.card.holderName" />
-          <span>Name on Card</span>
-        </label>
+ 
 
         <label for="form-guest-address" class="input-checkbox">
           <input type="checkbox" id="form-guest-address"
