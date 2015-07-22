@@ -126,6 +126,7 @@ angular
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.isoCountryOptions',
     'mobiusApp.directives.scrollPosition',
+    'mobiusApp.directives.stickable',
     'internationalPhoneNumber',
 
     // Filters
