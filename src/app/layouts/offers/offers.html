@@ -30,7 +30,7 @@
       <button-back role="button" tabindex="0" ng-click="goToOffersList()" class="pull-left">Back</button-back>
 
       <!-- DATES ARE SELECTED -->
-      <button-submit ng-switch-when="false" ui-sref="hotels({promoCode: selectedOffer.promoCode})">Book Now</button-submit>
+      <button-submit ng-switch-when="false" ui-sref="hotels({promoCode: selectedOffer.promoCode, scrollTo: 'hotels'})">Book Now</button-submit>
 
       <!-- USER SPECIFIES DATES -->
       <button-submit ng-switch-when="true" ng-click="selectDates()">Select Dates</button-submit>

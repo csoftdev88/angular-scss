@@ -135,9 +135,12 @@ angular.module('mobius.controllers.hotel.details', [])
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
-      var hash = $window.location.hash;
-      if (hash) {
-        scrollTo(hash.substr(1));
+      //scroll to element if set in url scrollTo param
+      var scrollToValue = $location.search().scrollTo || null;
+      if (scrollToValue) {
+        $timeout(function(){
+          scrollService.scrollTo(scrollToValue, 20);
+        }, 500);
       }
     }));
   }

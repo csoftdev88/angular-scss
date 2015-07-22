@@ -14,7 +14,6 @@ angular.module('mobiusApp.directives.aboutHotel', [])
       var getRandomAdvert = function (index) {
         contentService.getRandomAdvert({bannerSize: Settings.UI.adverts.randomMainPageAdvertSize}).then(
           function (response) {
-            console.log(angular.toJson(response));
             scope.randomAdverts[index] = response;
           }
         );

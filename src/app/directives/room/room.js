@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location,$rootScope) {
+  $controller,$location,$rootScope,scrollService,$timeout) {
 
   return {
     restrict: 'E',
@@ -70,6 +70,16 @@ angular.module('mobiusApp.directives.room', [])
             .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
             .addBreadCrumb('Rooms', 'hotel', {propertyCode: propertyCode}, 'jsRooms')
             .addBreadCrumb(data[0].roomDetails.name);
+
+          //scroll to element if set in url scrollTo param
+          var scrollToValue = $location.search().scrollTo || null;
+          if (scrollToValue) {
+            $timeout(function(){
+              scrollService.scrollTo(scrollToValue, 20);
+            }, 500);
+          }
+
+
         }));
       });
 
