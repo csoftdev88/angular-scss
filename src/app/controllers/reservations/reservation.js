@@ -240,7 +240,6 @@ angular.module('mobius.controllers.reservation', [])
   $scope.continue = function() {
     switch ($state.current.name) {
     case 'reservation.details':
-      /* TODO: MOVE BACK
       if($scope.forms.details && !$scope.forms.details.$submitted){
         $scope.forms.details.$submitted = true;
       }
@@ -248,8 +247,7 @@ angular.module('mobius.controllers.reservation', [])
       if($scope.isValid()){
         $state.go('reservation.billing');
       }
-      */
-      $state.go('reservation.billing');
+
       break;
     case 'reservation.billing':
       // TODO: Fix submited logic when paying with points billing form is

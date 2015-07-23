@@ -38,9 +38,9 @@ describe('mobius.controllers.common.cardExpiration', function() {
         expect(_scope.getCardExpirationDate).to.be.a('function');
       });
 
-      //it('should return null when month/year are not selected', function(){
-      //  expect(_scope.getCardExpirationDate()).equal(null);
-      //});
+      it('should return null when month/year are not selected', function(){
+        expect(_scope.getCardExpirationDate()).equal(null);
+      });
 
       it('should return last day of the selected month', function(){
         _scope.cardExpiration = {
@@ -51,6 +51,15 @@ describe('mobius.controllers.common.cardExpiration', function() {
         };
 
         expect(_scope.getCardExpirationDate()).equal('2015-07-31');
+
+        _scope.cardExpiration = {
+          selectedYear: 2016,
+          selectedMonth: {
+            id: 0
+          }
+        };
+
+        expect(_scope.getCardExpirationDate()).equal('2016-01-31');
       });
     });
   });

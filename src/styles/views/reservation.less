@@ -421,9 +421,103 @@ reservation-billing {
     }
   }
 
+  .chosen-container {
+    line-height: 45px;
+    height: 45px;
+    border-radius: 0;
+    border-color: #d7d7d7;
+
+    a {
+      margin-top: 7px;
+      font-size: 14px;
+      font-weight: normal;
+      padding-left: 10px;
+    }
+  }
+
   .payment-card {
     form {
       width: 100%;
+
+      .card-details {
+        .expiry-title {
+          width: 70%;
+          position: relative;
+          text-align: center;
+
+          label {
+            padding: 5px;
+            line-height: 20px;
+            font-weight: normal;
+            display: inline-block;
+            background-color: #f9f9f9;
+          }
+
+          &:before {
+            content: '';
+            display: block;
+            border-left: 1px solid @c-light-grey;
+            border-right: 1px solid @c-light-grey;
+            border-top: 1px solid @c-light-grey;
+            height: 10px;
+            position: absolute;
+            left: 0px;
+            right: 10px;
+            top: 15px;
+          }
+        }
+
+        .card-expiry {
+          float: left;
+          width: 70%;
+
+          > label {
+            padding-top: 5px;
+          }
+        }
+
+        .card-cvv {
+          float: left;
+          width: 30%;
+          position: relative;
+
+          > label {
+            padding-top: 5px;
+
+            span {
+              top: -10px;
+            }
+          }
+
+          .help {
+            cursor: pointer;
+            position: absolute;
+            border-radius: 30px;
+            border: 1px solid @c-light-grey;
+            right: -28px;
+            top: 18px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+          }
+        }
+
+        &.invalid {
+          .expiry-title {
+            label {
+              color: @c-red;
+            }
+
+            &:before {
+              border-color: @c-red;
+            }
+          }
+
+          .chosen-container {
+            border-color: @c-red;
+          }
+        }
+      }
     }
   }
 }

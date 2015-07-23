@@ -31,7 +31,7 @@ angular.module('mobius.controllers.common.cardExpiration', [])
       $scope.cardExpiration.years = [];
       var currentYear = $window.moment().year();
       var extraYears = 0;
-      while(extraYears<10){
+      while(extraYears < 10){
         $scope.cardExpiration.years.push(currentYear+extraYears);
         extraYears++;
       }
