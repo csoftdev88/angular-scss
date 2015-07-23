@@ -76,6 +76,7 @@ angular.module('mobius.controllers.reservation', [])
   // Inheriting the login from RoomDetails controller
   $controller('RoomDetailsCtrl', {$scope: $scope});
   $controller('SSOCtrl', {$scope: $scope});
+  $controller('CardExpirationCtrl', {$scope: $scope});
 
   // NOTE: Waiting for infiniti SSO auth events
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
@@ -136,7 +137,6 @@ angular.module('mobius.controllers.reservation', [])
     $stateChangeStartUnWatch();
   });
 
-  $scope.expirationMinDate = $window.moment().format('YYYY-MM');
   $scope.state = $state;
 
   $scope.forms = {};
@@ -144,7 +144,6 @@ angular.module('mobius.controllers.reservation', [])
   $scope.billingDetails = {
     card: {
       number: '',
-      expirationDate: '',
       securityCode: '',
       holderName: ''
     },
@@ -248,6 +247,7 @@ angular.module('mobius.controllers.reservation', [])
       if($scope.isValid()){
         $state.go('reservation.billing');
       }
+
       break;
     case 'reservation.billing':
       // TODO: Fix submited logic when paying with points billing form is
@@ -316,7 +316,7 @@ angular.module('mobius.controllers.reservation', [])
         holderName: $scope.billingDetails.card.holderName,
         number: $scope.billingDetails.card.number,
         // Last day of selected month
-        expirationDate: $window.moment($scope.billingDetails.card.expirationDate).endOf('month').format('YYYY-MM-DD'),
+        expirationDate: $scope.getCardExpirationDate(),
         // TODO: Change input type
         securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
         typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code

@@ -49,6 +49,7 @@ angular
     'mobius.controllers.modals.addonDetail',
     'mobius.controllers.modals.locationDetail',
     'mobius.controllers.modals.confirmation',
+    'mobius.controllers.common.cardExpiration',
 
     // Application modules
     'mobiusApp.config',
@@ -99,7 +100,6 @@ angular
     'mobiusApp.directives.datepicker',
     'mobiusApp.directives.chosenOptionsClass',
     'mobiusApp.directives.creditCardCheck',
-    'mobiusApp.directives.monthPicker',
     'mobiusApp.directives.hotelLocation',
     'mobiusApp.directives.emailCheck',
     'mobiusApp.directives.notifications',
