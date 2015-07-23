@@ -6,11 +6,12 @@
 @c-booking-widget-my-account: #ebaa3d;
 
 floating-bar {
-  position: relative;
-
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  z-index: 1001;
   display: block;
   width: 100%;
-
   background: @c-booking-widget;
   color: #fff;
 
@@ -30,13 +31,6 @@ floating-bar {
         color: #fff;
       }
     }
-  }
-
-  @media only screen and @tablet-portrait-min {
-    position: fixed;
-    bottom: 0px;
-    left: 0;
-    z-index: 1001;
   }
 
   //- Tabs
