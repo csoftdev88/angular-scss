@@ -5,7 +5,7 @@ angular.module('mobiusApp.directives.stickable', [])
   .directive('stickable', function ($window) {
     return {
       link: function (scope, elem, attr) {
-        var STICKABLE_Z_INDEX = 1000;
+        var STICKABLE_Z_INDEX = 995;
         var windowEl = angular.element($window);
         var elementOffset = elem.offset().top;
         var handler = function () {
