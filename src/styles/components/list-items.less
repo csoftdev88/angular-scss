@@ -12,6 +12,11 @@ list-items {
   position: relative;
   margin-left: -@baseline/2;
   margin-right: -@baseline/2;
+
+  &.rooms-list{
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 pricing-switch {
@@ -41,12 +46,30 @@ pricing-switch {
 
 list-item {
   position: relative;
-
   display: block;
   min-height: @list-item-min-height;
   padding: @baseline/2 320px @baseline/2 19%;
-
   border-top: 1px dashed #ccc;
+
+  .hotel-detail__rooms &{
+    padding: @baseline 320px @baseline 19%;
+  }
+
+  // MOBILE SPECIFIC STYLES
+  @media only screen and @large-mobile-max {
+
+    .hotel-detail__rooms &{
+      padding-right: 0;
+      padding-bottom: 90px;
+      padding-left: 120px;
+    }
+
+  }
+  @media only screen and @small-mobile-max {
+    .hotel-detail__rooms &{
+      padding-left: 0px;
+    }
+  }
 
   &.without-image {
     padding-left: @baseline;
@@ -97,13 +120,36 @@ list-item {
     position: absolute;
     left: @baseline/2;
     top: @baseline/2;
-
     width: 15.6%;
     max-height: @list-item-min-height;
     overflow: hidden;
-
     display: block;
     border: 1px solid #ccc;
+
+    .hotel-detail__rooms &{
+      left: 0;
+      top: @baseline;
+    }
+
+    // MOBILE SPECIFIC STYLES
+    @media only screen and @large-mobile-max {
+      .hotel-detail__rooms &{
+        width: 100px;
+      }
+    }
+    @media only screen and @small-mobile-max {
+      .hotel-detail__rooms &{
+        width: 100%;
+        box-sizing: border-box;
+        position: relative;
+        left: auto;
+        top: auto;
+        overflow: visible;
+        max-height: none;
+        border: none;
+        margin-bottom: 14px;
+      }
+    }
 
     img {
       width: 100%;
@@ -187,6 +233,20 @@ list-item {
     p.error {
       .not-available();
     }
+
+    // MOBILE SPECIFIC STYLES
+    @media only screen and @large-mobile-max {
+
+      .hotel-detail__rooms &{
+        right: 14px;
+        top: auto;
+        bottom: 20px;
+        border: none;
+        width: auto;
+      }
+
+    }// MOBILE SPECIFIC STYLES
+
   }
 
   //- Description

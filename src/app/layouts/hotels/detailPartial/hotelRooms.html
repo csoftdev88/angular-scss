@@ -17,7 +17,7 @@
       <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
         <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">
           <figure>
-            <img ng-src="{{room.images[0].uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{room.name}}">
+            <img ng-src="{{room.images[0].uri | cloudinaryImage : 430 : 286 : 'fill'}}" alt="{{room.name}}">
           </figure>
         </a>
 
