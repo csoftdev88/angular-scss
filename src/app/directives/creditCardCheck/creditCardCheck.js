@@ -5,7 +5,7 @@
  */
 angular.module('mobiusApp.directives.creditCardCheck', [])
 
-  .directive('creditCardCheck', function(creditCardTypeService) {
+  .directive('creditCardCheck', function($browser, creditCardTypeService) {
     return {
       require: 'ngModel',
       restrict: 'A',
@@ -21,9 +21,26 @@ angular.module('mobiusApp.directives.creditCardCheck', [])
           return !!creditCardTypeService.getCreditCardDetails(viewValue);
         };
 
-        scope.$watch(attrs.ngModel, function (newValue, oldValue) {
-          console.log('oldValue=' + oldValue);
-          console.log('newValue=' + newValue);
+        // View formating when changing input value
+        function formatViewValue(){
+          elem.val(creditCardTypeService.formatCreditCardNumber(ctrl.$viewValue));
+        }
+
+        elem.bind('change', function() {
+          formatViewValue();
+        });
+
+        elem.bind('keydown', function(event) {
+          var key = event.keyCode;
+          // CTRL, SHIFT, ARROWS, META keys handling
+          if (key === 91 || (15 < key && key < 19) || (37 <= key && key <= 40)){
+            return;
+          }
+          $browser.defer(formatViewValue);
+        });
+
+        elem.bind('paste cut', function() {
+          $browser.defer(formatViewValue);
         });
       }
     };
