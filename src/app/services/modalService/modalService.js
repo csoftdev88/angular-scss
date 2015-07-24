@@ -3,7 +3,7 @@
 * This service controls opening of all dialogs in the application
 */
 angular.module('mobiusApp.services.modal', [])
-.service( 'modalService',  function($modal, $q, $log, $modalStack,
+.service( 'modalService',  function($modal, $q, $log, $window, $modalStack,
     Settings, queryService) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
@@ -287,6 +287,22 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  // Prompt user to login/register when not logged in
+  function openLoginDialog(){
+    return openDialog('login-prompt', 'layouts/modals/loginPrompt.html', CONTROLLER_DATA, {
+      windowClass: 'login-prompt',
+      resolve: {
+        data: function(){
+          return {
+            login: function(){
+              $window.infiniti.api.login();
+            }
+          };
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -314,6 +330,7 @@ angular.module('mobiusApp.services.modal', [])
     openAssociatedRoomDetail: openAssociatedRoomDetail,
     openLocationDetail: openLocationDetail,
     openTermsAgreeDialog: openTermsAgreeDialog,
-    openRoomDetailsDialog: openRoomDetailsDialog
+    openRoomDetailsDialog: openRoomDetailsDialog,
+    openLoginDialog: openLoginDialog
   };
 });

@@ -6,7 +6,7 @@ angular.module('mobiusApp.config', [])
   'API': {
     'GoogleAnalyticsID': 'UA-44368729-3',
     'chainCode': 'SAN',
-    'baseURL': '/api/',
+    'baseURL': 'http://52.3.22.21:3010/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
