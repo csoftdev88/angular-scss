@@ -49,7 +49,7 @@
 
             <h2 ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
-              <p class="price available" ng-if="hotel.available">
+              <p class="price available left" ng-if="hotel.available">
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night
                 <span ng-if="hotel.available && isUserLoggedIn()">
                   <br />or <span class="value">{{hotel.minPointsRequired}}</span> points
