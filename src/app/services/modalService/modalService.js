@@ -287,6 +287,13 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  // Prompt user to login/register when not logged in
+  function openLoginDialog(){
+    return openDialog('login-prompt', 'layouts/modals/loginPrompt.html', CONTROLLER_DEFAULT, {
+      windowClass: 'login-prompt'
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -314,6 +321,7 @@ angular.module('mobiusApp.services.modal', [])
     openAssociatedRoomDetail: openAssociatedRoomDetail,
     openLocationDetail: openLocationDetail,
     openTermsAgreeDialog: openTermsAgreeDialog,
-    openRoomDetailsDialog: openRoomDetailsDialog
+    openRoomDetailsDialog: openRoomDetailsDialog,
+    openLoginDialog: openLoginDialog
   };
 });
