@@ -40,7 +40,7 @@ hotels {
         width: 100%;
       }
 
-      @media only screen and @large-mobile-min {
+      @media only screen and @tablet-portrait-min {
         .generate-fluid-grid(3);
       }
 
@@ -48,6 +48,17 @@ hotels {
         margin-bottom: @baseline/2;
         position: relative;
         box-sizing: border-box;
+
+        // MOBILE SPECIFIC STYLES
+        @media only screen and @large-mobile-max {
+          border-top: 1px dashed @c-light-grey;
+          margin-bottom: 25px;
+          padding-top: 30px;
+
+          &:first-child{
+            border-top: none;
+          }
+        }
 
         // image container
         .item-image {
@@ -77,15 +88,45 @@ hotels {
           cursor: pointer;
         }
 
-        p {
-          color: @c-grey;
-        }
+        pricing-info {
+          display: inline-block;
+          width: 100%;
 
-        p.price.unavailable {
-          .not-available();
-          margin-top: 0;
-          float: none;
-          max-width: none;
+          p {
+            color: @c-grey; 
+          }
+
+          p.price.available {
+
+            // MOBILE SPECIFIC STYLES
+            @media only screen and @large-mobile-max {
+              text-align: left;
+              display: inline;
+              float: left;
+            }
+
+          }
+
+          p.price.unavailable {
+            .not-available();
+            margin-top: 0;
+            float: none;
+            max-width: none;
+          }
+
+          button-submit{
+            display: none;
+            // MOBILE SPECIFIC STYLES
+            @media only screen and @large-mobile-max {
+              display: inline-block;
+              float: right;
+              padding: 10px;
+              min-width: 0;
+              line-height: 1;
+              height: auto;
+            }
+          }
+
         }
       }
     }
@@ -109,24 +150,34 @@ hotels {
     }
 
     .entries--list .item {
-      padding-left: 18%;
-      padding-right: 18%;
 
-      .item-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 16%;
-      }
 
-      pricing-info {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 16%;
-        text-align: right;
-      }
+      //DESKTOP SPECIFIC STYLES
+      @media only screen and @tablet-portrait-min {
+
+        padding-left: 18%;
+        padding-right: 18%;
+
+        .item-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 16%;
+        }
+
+        pricing-info {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 16%;
+          text-align: right;
+        }
+        
+      }//DESKTOP SPECIFIC STYLES
+      
     }
+
+
   }
 
   .hotels__filter {
@@ -206,6 +257,16 @@ hotels {
     .rating-default {
       float: right;
     }
+
+    // MOBILE SPECIFIC STYLES
+    @media only screen and @large-mobile-max {
+      margin-top: -35px;
+      z-index: 10;
+      position: relative;
+      padding-right: 10px;
+      margin-bottom: 10px;
+    }
+
   }
 
   .stars {
@@ -244,6 +305,10 @@ hotels {
 
       &.img{
         display: inline;
+        // MOBILE SPECIFIC STYLES
+        @media only screen and @large-mobile-max {
+          display: none;
+        }
       }
 
       li {

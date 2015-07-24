@@ -76,9 +76,14 @@ hotel-detail {
   a.read-more {
     text-decoration: underline;
   }
-   a.read-more-rooms {
+  a.read-more-rooms {
     text-decoration: underline;
     margin-left: 19%;
+    @media only screen and @large-mobile-max {
+      margin-left: 0;
+      margin-right: 14px;
+      float: right;
+    }
   }
 
   //- Location of hotel in map
