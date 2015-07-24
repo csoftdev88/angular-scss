@@ -168,7 +168,7 @@ angular.module('mobiusApp.services.modal', [])
         data: function(){
           function formatRewardName(rewardName) {
             var words = rewardName.split(' ');
-            var lastWord = wordArray.pop();
+            var lastWord = words.pop();
             return (words.join(' ') + ' <strong>' + lastWord + '</strong>');
           }
           reward.nameFormatted = formatRewardName(reward.name);
