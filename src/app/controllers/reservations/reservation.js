@@ -38,7 +38,6 @@ angular.module('mobius.controllers.reservation', [])
 
     // Showing login/register dialog when user making reservation as not logged in
     // user. This doesn't apply for modifications
-    modalService.openLoginDialog();
     if(!isMobiusUser && !$scope.isModifyingAsAnonymous()){
       modalService.openLoginDialog();
     }
@@ -131,6 +130,12 @@ angular.module('mobius.controllers.reservation', [])
         .addBreadCrumb('My stays', 'reservations')
         .addBreadCrumb($scope.reservation.reservationCode);
       break;
+
+    default:
+      // Showing login prompt when skipping checkout flow
+      if(!user.isLoggedIn() && !$scope.isModifyingAsAnonymous()){
+        modalService.openLoginDialog();
+      }
     }
   }
 
