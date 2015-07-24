@@ -27,6 +27,17 @@ booking-widget-add-room form-element {
   flex: 2;
   padding-right: @baseline/2;
 
+  .viewport-mobile &{
+    padding-right: 0;
+    margin-bottom: 20px;
+    input,
+    .chosen-container,
+    .chosen-single{
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+
   &.persons {
     flex: 1;
   }
@@ -37,7 +48,7 @@ booking-widget-add-room form-element {
 
     position: absolute;
     top: 50%;
-    z-index: 2000;
+    z-index: 1009;
 
     width: @baseline * 1.5;
 
@@ -133,6 +144,8 @@ booking-widget-search {
   .viewport-mobile &{
     display: inline-block;
     width: 100%;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
   }
 
   // region/hotel styling in dropdown
@@ -169,6 +182,7 @@ booking-widget-search {
       padding: 0;
       text-align: center;
       margin-bottom: 30px;
+      display: none;
       br{
         display: none;
       }
@@ -177,20 +191,6 @@ booking-widget-search {
       }
       &:after{
         content: none;
-      }
-      .mobile-close{
-        display:inline;
-        cursor: pointer;
-        &:after {
-          .fa;
-          position: absolute;
-          right: @baseline / 2;
-          top: 50%;
-          color: #fff;
-          font-size: 21px;
-          transform: translateY(-50%);
-          content: @fa-var-close;
-        }
       }
     }
 
@@ -212,6 +212,9 @@ booking-widget-search {
   button-submit {
     align-self: center;
     flex: 0 0 auto;
+    .viewport-mobile &{
+      display: block;
+    }
   }
 }
 

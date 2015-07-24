@@ -150,10 +150,9 @@ floating-bar {
           float: none;
           text-align: center;
           padding-right: 0;
-          display: none;
-          
-          &.mobile-visible{
-            display: block;
+
+          &.mobile-is-open a{
+            background: @c-brown;
           }
 
           a{
@@ -162,8 +161,22 @@ floating-bar {
             .desktop{
               display: none;
             }
+
             .mobile{
               display: inline;
+              .mobile-close{
+                cursor: pointer;
+                &:after {
+                  .fa;
+                  position: absolute;
+                  right: @baseline / 2;
+                  top: 20px;
+                  color: #fff;
+                  font-size: 21px;
+                  transform: translateY(-50%);
+                  content: @fa-var-close;
+                }
+              }
             }
           }
           

@@ -1,8 +1,8 @@
 <ul>
-  <li class="floating-bar--tab-booking" ng-class="{'is-active': active === BOOKING, 'mobile-visible': isCollapsed}">
+  <li class="floating-bar--tab-booking" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}">
     <a href="" ng-click="setActive(BOOKING)">
       <span class="desktop">Make Your <strong>Booking</strong></span>
-      <span class="mobile"><strong>Book now</strong></span>
+      <span class="mobile"><strong>Book now</strong><span class="mobile-close" ng-click="isCollapsed === true" ng-show="!isCollapsed"></span></span>
     </a>
   </li>
   <li class="floating-bar--tab-advanced-booking" ng-if="hasAdvancedTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
