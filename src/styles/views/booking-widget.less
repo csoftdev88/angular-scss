@@ -130,6 +130,11 @@ booking-widget-search {
   display: flex;
   padding: @baseline 0;
 
+  .viewport-mobile &{
+    display: inline-block;
+    width: 100%;
+  }
+
   // region/hotel styling in dropdown
   .chosen-results {
     li.region {
@@ -146,28 +151,57 @@ booking-widget-search {
 
   //- Make your booking
   h3 {
-    position: relative;
 
+    position: relative;
     flex: 0 0 auto;
     padding-right: @baseline * 2;
-
     text-transform: uppercase;
 
-    strong { display: block; }
+    strong { 
+      display: block; 
+    }
+
+    .mobile-close{
+      display: none;
+    }
+
+    .viewport-mobile &{
+      padding: 0;
+      text-align: center;
+      margin-bottom: 30px;
+      br{
+        display: none;
+      }
+      strong{
+        display: inline;
+      }
+      &:after{
+        content: none;
+      }
+      .mobile-close{
+        display:inline;
+        cursor: pointer;
+        &:after {
+          .fa;
+          position: absolute;
+          right: @baseline / 2;
+          top: 50%;
+          color: #fff;
+          font-size: 21px;
+          transform: translateY(-50%);
+          content: @fa-var-close;
+        }
+      }
+    }
 
     &:after {
       .fa;
-
       position: absolute;
       right: @baseline / 2;
       top: 50%;
-
       color: #ddd;
-
       font-size: 21px;
-
       transform: translateY(-50%);
-
       content: @fa-var-chevron-right;
     }
   }
