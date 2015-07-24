@@ -5,24 +5,11 @@ var express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
-  errorhandler = require('errorhandler'),
-  request = require('request');
-
-  // REAL API: 'http://52.5.129.243:3010/api/4.0'
-  // APIARY http://private-anon-b8e439da3-mobiusv41.apiary-mock.com
-  var API_URL = 'http://52.5.129.243:3010/api/4.0';
-  //var AUTH_HEADER = 'Basic ZGllZ286ZGllZ28=';
+  errorhandler = require('errorhandler');
 
 module.exports = function(app) {
   app.use(function staticsPlaceholder(req, res, next) {
     return next();
-  });
-
-  // Local proxy
-  app.use('/api', function(req, res) {
-   var url = API_URL + req.url;
-   //req.headers['authorization'] = AUTH_HEADER;
-   req.pipe(request(url)).pipe(res);
   });
 
   // App sources and bower scripts
