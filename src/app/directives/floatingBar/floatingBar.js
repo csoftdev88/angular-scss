@@ -59,8 +59,6 @@ angular.module('mobiusApp.directives.floatingBar', [
             scope.isCollapsed = true;
           }
         });
-
-
       }
     };
   // Generic controller for booking tabs - defines numbers of guests

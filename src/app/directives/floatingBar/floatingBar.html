@@ -1,5 +1,5 @@
 <ul>
-  <li class="floating-bar--tab-booking" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}">
+  <li class="floating-bar--tab-booking" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
     <a href="" ng-click="setActive(BOOKING)">
       <span class="desktop">Make Your <strong>Booking</strong></span>
       <span class="mobile"><strong>Book now</strong><span class="mobile-close" ng-click="isCollapsed === true" ng-show="!isCollapsed"></span></span>
