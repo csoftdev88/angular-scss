@@ -35,6 +35,12 @@ angular.module('mobius.controllers.reservation', [])
 
     // Updating users data
     prefillUserDetails(isMobiusUser ? user.getUser():{email:$stateParams.email});
+
+    // Showing login/register dialog when user making reservation as not logged in
+    // user. This doesn't apply for modifications
+    if(!isMobiusUser && !$scope.isModifyingAsAnonymous()){
+      modalService.openLoginDialog();
+    }
   }
 
   function prefillUserDetails(userData){
@@ -124,6 +130,12 @@ angular.module('mobius.controllers.reservation', [])
         .addBreadCrumb('My stays', 'reservations')
         .addBreadCrumb($scope.reservation.reservationCode);
       break;
+
+    default:
+      // Showing login prompt when skipping checkout flow
+      if(!user.isLoggedIn() && !$scope.isModifyingAsAnonymous()){
+        modalService.openLoginDialog();
+      }
     }
   }
 
