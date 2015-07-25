@@ -55,16 +55,12 @@ list-item {
     padding: @baseline 320px @baseline 19%;
   }
 
-  // MOBILE SPECIFIC STYLES
-  @media only screen and @large-mobile-max {
-
-    .hotel-detail__rooms &{
-      padding-right: 0;
-      padding-bottom: 90px;
-      padding-left: 120px;
-    }
-
+  .viewport-mobile &{
+    padding-right: 0;
+    padding-bottom: 90px;
+    padding-left: 120px;
   }
+
   @media only screen and @small-mobile-max {
     .hotel-detail__rooms &{
       padding-left: 0px;
@@ -131,11 +127,8 @@ list-item {
       top: @baseline;
     }
 
-    // MOBILE SPECIFIC STYLES
-    @media only screen and @large-mobile-max {
-      .hotel-detail__rooms &{
-        width: 100px;
-      }
+    .viewport-mobile &{
+      width: 100px;
     }
     @media only screen and @small-mobile-max {
       .hotel-detail__rooms &{
@@ -198,25 +191,34 @@ list-item {
   earned-points {
     position: absolute;
     right: 200px;
-
     font-style: italic;
     font-size: @size--1;
-
     top: @baseline/2;
-
     color: #999;
 
     &:before {
       width: 16px;
       height: 16px;
       background: url(../images/v4-mobius/star-earnings.png) 0 0 no-repeat;
-
       display: block;
       content: "";
       position: absolute;
       top: 1px;
       left: -1.25 * @baseline;
     }
+
+    .viewport-mobile &{
+      position: relative;
+      right: auto;
+      top: auto;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      display: inline-block;
+      &:before {
+        left: 0;
+      }
+    }
+
   }
 
   pricing-info {
@@ -234,18 +236,13 @@ list-item {
       .not-available();
     }
 
-    // MOBILE SPECIFIC STYLES
-    @media only screen and @large-mobile-max {
-
-      .hotel-detail__rooms &{
+    .viewport-mobile &{
         right: 14px;
         top: auto;
         bottom: 20px;
         border: none;
         width: auto;
-      }
-
-    }// MOBILE SPECIFIC STYLES
+    }
 
   }
 
