@@ -29,10 +29,10 @@ angular.module('mobius.controllers.hotel.details', [])
   } else {
     $scope.partials = [
       'layouts/hotels/detailPartial/hotelInfo.html',
-      'layouts/hotels/detailPartial/hotelLocation.html',
-      'layouts/hotels/detailPartial/hotelOffers.html',
       'layouts/hotels/detailPartial/hotelRooms.html',
-      'layouts/hotels/detailPartial/hotelServices.html'
+      'layouts/hotels/detailPartial/hotelServices.html',
+      'layouts/hotels/detailPartial/hotelLocation.html',
+      'layouts/hotels/detailPartial/hotelOffers.html'
     ];
   }
 
