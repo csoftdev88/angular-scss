@@ -12,6 +12,13 @@
   margin-top: -10px;
   margin-left: -66px;
 
+  .viewport-mobile &{
+    margin-top: 0;
+    margin-left: 0;
+    width: 100%;
+    left: 0!important;
+  }
+
   &:after {
     .fa;
 
@@ -88,6 +95,11 @@
   margin: @baseline/2 @baseline 0 @baseline;
   width: 260px;
   height: 275px;
+
+  .viewport-mobile &{
+    width: auto;
+    margin: @baseline/2 auto @baseline;
+  }
 
   tbody {
     tr {
