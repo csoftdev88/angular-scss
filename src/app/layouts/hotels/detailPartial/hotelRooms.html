@@ -37,7 +37,7 @@
             </p>
             <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
-            <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" class="button">_view_more_</a>
+            <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" class="button">View Details</a>
           </div>
           <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
         </pricing-info>

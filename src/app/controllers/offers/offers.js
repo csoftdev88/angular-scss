@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -31,6 +31,9 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.goToDetail = function(code) {
       $state.go('offers', {code: code});
+      $timeout(function(){
+        scrollService.scrollTo('offer-detail', 20);
+      }, 0);
     };
 
     $scope.goToOffersList = function() {

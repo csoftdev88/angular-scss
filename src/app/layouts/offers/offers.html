@@ -21,7 +21,7 @@
 
   </offers-list>
 
-  <offer-detail grid-row ng-if="showDetail" ng-switch="!!selectDates">
+  <offer-detail id="offer-detail" grid-row ng-if="showDetail" ng-switch="!!selectDates">
     <div grid="12">
       <h1 ng-bind-html="selectedOffer.title | mainHeaderStyle"></h1>
       <img ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
