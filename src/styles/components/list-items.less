@@ -29,15 +29,14 @@ pricing-switch {
   text-decoration: none;
 
   a {
-    color: @c-link;
+    color: @c-base;
 
     &.is-active {
       font-weight: bold;
     }
 
     &.is-disabled {
-      color: #ccc;
-      font-weight: 300;
+      color: #999;
 
       cursor: default;
     }
@@ -228,9 +227,7 @@ list-item {
     right: @baseline/2;
     top: @baseline/2;
     bottom: @baseline/2;
-
     border-left: 1px solid #ddd;
-
     width: 170px;
 
     p.error {
