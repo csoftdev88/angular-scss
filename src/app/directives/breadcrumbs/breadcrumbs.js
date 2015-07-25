@@ -54,7 +54,7 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
           scope.activeHref = _.find(scope.hrefs, {id: href}).name;
           var $item = angular.element('#' + href);
           if($item.length){
-            scrollService.scrollTo($item, -20);
+            scrollService.scrollTo(href, 20);
           }
         };
 
