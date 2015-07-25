@@ -18,23 +18,13 @@ angular.module('mobius.controllers.hotel.details', [])
   // Include the amenities
   bookingParams.includes = 'amenities';
 
-  if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
-    $scope.partials = [
+  $scope.partials = [
       'layouts/hotels/detailPartial/hotelInfo.html',
       'layouts/hotels/detailPartial/hotelRooms.html',
       'layouts/hotels/detailPartial/hotelServices.html',
       'layouts/hotels/detailPartial/hotelLocation.html',
       'layouts/hotels/detailPartial/hotelOffers.html'
     ];
-  } else {
-    $scope.partials = [
-      'layouts/hotels/detailPartial/hotelInfo.html',
-      'layouts/hotels/detailPartial/hotelRooms.html',
-      'layouts/hotels/detailPartial/hotelServices.html',
-      'layouts/hotels/detailPartial/hotelLocation.html',
-      'layouts/hotels/detailPartial/hotelOffers.html'
-    ];
-  }
 
   var propertyCode = '';
   if(bookingParams.propertySlug === undefined) {
