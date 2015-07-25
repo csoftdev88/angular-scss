@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -22,6 +22,9 @@ angular.module('mobius.controllers.offers', [])
       if ($stateParams.code) {
         selectOffer($stateParams.code);
       }
+      $timeout(function(){
+        scrollService.scrollTo('all-offers', 20);
+      }, 0);
     });
 
     $scope.getRelevant = function(offer, index) {
