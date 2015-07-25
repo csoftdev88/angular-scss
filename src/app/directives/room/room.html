@@ -121,7 +121,7 @@
 
         <pricing-info>
           <p ng-if="otherRoom.priceFrom"> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
-          <p ng-if="!otherRoom.priceFrom">Please select dates to see the latest prices</p>
+          <p ng-if="!otherRoom.priceFrom" class="select-dates">Please select dates to see the latest prices</p>
         </pricing-info>
       </list-item>
     </list-items>
