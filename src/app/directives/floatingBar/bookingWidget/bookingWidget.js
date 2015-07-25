@@ -422,7 +422,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           // Specific hotel selected, will redirect to room list
           stateParams.propertySlug = scope.selected.property.meta.slug;
           stateParams.fromSearch = '1';
-          stateParams.scrollTo = 'hotel-rooms';
+          stateParams.scrollTo = 'jsRooms';
           $state.go('hotel', stateParams, {reload: true});
         }
 

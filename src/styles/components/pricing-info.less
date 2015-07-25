@@ -24,10 +24,20 @@ pricing-info {
     color: @c-grey;
     text-align: right;
 
+    .viewport-mobile &{
+      & br{
+        display: none;
+      }
+    }
+
     &.unavailable{
       text-align: center;
       max-width: 70%;
       float: right;
+      .viewport-mobile &{
+        max-width: none;
+        float: none;
+      }
     }
 
     .value {

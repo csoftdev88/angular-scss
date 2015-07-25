@@ -22,9 +22,6 @@ angular.module('mobius.controllers.offers', [])
       if ($stateParams.code) {
         selectOffer($stateParams.code);
       }
-      $timeout(function(){
-        scrollService.scrollTo('all-offers', 20);
-      }, 0);
     });
 
     $scope.getRelevant = function(offer, index) {
@@ -34,6 +31,9 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.goToDetail = function(code) {
       $state.go('offers', {code: code});
+      $timeout(function(){
+        scrollService.scrollTo('offer-detail', 20);
+      }, 0);
     };
 
     $scope.goToOffersList = function() {
