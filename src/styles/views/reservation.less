@@ -945,6 +945,10 @@ reservation-hotel-details {
       > div {
         float: left;
         width: 33.3333%;
+        .viewport-mobile & {
+          width: 100%;
+          float: none;
+        }
       }
     }
 
@@ -953,6 +957,9 @@ reservation-hotel-details {
       font-size: @size-3;
       font-weight: 600;
       line-height: 1.5 * @baseline;
+      .viewport-mobile & {
+        margin-bottom: 10px;
+      }
     }
 
     .reference {
@@ -967,6 +974,14 @@ reservation-hotel-details {
         font-size: @size-2;
         font-weight: 600;
       }
+
+      .viewport-mobile & {
+        text-align: left;
+        padding: 0;
+        p{
+          display: inline;
+        }
+      }
     }
 
     .booked {
@@ -975,6 +990,9 @@ reservation-hotel-details {
       font-weight: bold;
       line-height: 2 * @baseline;
       text-align: right;
+      .viewport-mobile & {
+        text-align: left;
+      }
     }
   }
 
@@ -984,6 +1002,10 @@ reservation-hotel-details {
     figure {
       width: 33.3333%;
       float: left;
+
+      .viewport-mobile & {
+        width: 100%;
+      }
 
       img {
         width: 100%;
@@ -1007,6 +1029,10 @@ reservation-hotel-details {
       width: 66.6666%;
       float: left;
       padding-left: @spacing;
+      .viewport-mobile & {
+        width: 100%;
+        padding-left: 0;
+      }
     }
 
     h3 {
