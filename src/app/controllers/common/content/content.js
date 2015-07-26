@@ -2,8 +2,8 @@
 
 angular.module('mobius.controllers.common.content', [])
 
-  .controller('ContentCtr', function($scope, preloaderFactory, propertyService, contentService,
-         locationService, bookingService, $state, _) {
+  .controller('ContentCtr', function($scope, $rootScope, preloaderFactory, propertyService, contentService,
+         locationService, bookingService, $state, $timeout, _) {
 
     // We are using different methods for getting the data
     // from the server according to content type. Also, menu
@@ -79,11 +79,17 @@ angular.module('mobius.controllers.common.content', [])
     var bookingParams = bookingService.getAPIParams(true);
 
     // Loading hotels
-    var hotelsPromise = propertyService.getAll(bookingParams).then(function(hotels){
+    var hotelsPromise = services.propertyService.getAll(bookingParams).then(function(hotels){
       $scope.hotels = hotels || [];
     });
 
+    // Loading offers
+    var offers = services.contentService.getOffers(bookingParams).then(function(offers){
+      $scope.offers = offers || [];
+    });
+
     preloaderFactory(hotelsPromise);
+    preloaderFactory(offers);
 
     function findPropertyBySlug(value) {
       var obj;
@@ -111,6 +117,22 @@ angular.module('mobius.controllers.common.content', [])
       }
     }
 
+    function broadcast(code) {
+      //if offer details page
+      if (contentTypes.offers.detailState === $scope.settings.detailState &&
+        contentTypes.offers.paramName === $scope.settings.paramName && code) {
+        code = code.split('-')[1];
+        var selectedOfferIndex = _.findIndex($scope.offers, {code: code});
+        if (selectedOfferIndex >= 0) {
+          $timeout(function () {
+            $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+              promoCode: $scope.offers[selectedOfferIndex].promoCode
+            });
+          }, 0);
+        }
+      }
+    }
+
     $scope.getStateHref = function(code){
       if(!$scope.settings){
         return null;
@@ -127,6 +149,9 @@ angular.module('mobius.controllers.common.content', [])
       var params = createParamsObject(code);
       $event.preventDefault();
       $event.stopPropagation();
+
+      broadcast(code);
+
       $state.go(code?$scope.settings.detailState:$scope.settings.listState, params, {reload: true});
     };
 

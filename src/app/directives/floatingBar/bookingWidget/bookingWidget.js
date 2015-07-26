@@ -371,6 +371,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           break;
         case 'property':
           scope.selected.property = findProperty(scope.regionPropertySelected.code);
+          $stateParams.property = scope.selected.property.code;
           break;
         default:
           throw new Error('Undefined type: "' + scope.regionPropertySelected.type + '"');
