@@ -26,6 +26,11 @@ angular.module('mobiusApp.services.reservation', [])
       {reservationCode: reservationCode}), email?{email:email}:null);
   }
 
+  function sendToPassbook(reservationCode){
+    return apiService.get(apiService.getFullURL('reservations.action',
+      {reservationCode: reservationCode, actionType: 'sendToPassbook'}));
+  }
+
   function addAddon(reservationCode, addon, email) {
     return apiService.post(apiService.getFullURL('reservations.addons',
       {reservationCode: reservationCode}),
@@ -69,6 +74,7 @@ angular.module('mobiusApp.services.reservation', [])
   return {
     createReservation: createReservation,
     modifyReservation: modifyReservation,
+    sendToPassbook: sendToPassbook,
     cancelReservation: cancelReservation,
     getReservation: getReservation,
     // Addons added to reservation

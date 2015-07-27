@@ -263,4 +263,15 @@ angular.module('mobius.controllers.reservationDetail', [])
 
       modalService.openAddonDetailDialog($scope.addAddon, addon, payWithPoints);
     };
+
+
+    $scope.sendToPassbook = function(){
+      reservationService.sendToPassbook($stateParams.reservationCode).then(function(){
+        userMessagesService.addInfoMessage('<div>You have successfully added your reservation <strong>' +
+          $stateParams.reservationCode + '</strong> to passbook.</div>');
+      }, function(){
+        userMessagesService.addInfoMessage('<div>Sorry, we could not add reservation <strong>' +
+          $stateParams.reservationCode + '</strong> to passbook, please try again.</div>');
+      });
+    };
   });

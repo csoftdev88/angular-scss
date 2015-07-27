@@ -66,7 +66,8 @@ angular.module('mobiusApp.config', [])
       'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
       // NOTE: Currently used for all/details - check the API
-      'all': 'reservations/'
+      'all': 'reservations/',
+      'action': 'reservations/:reservationCode/actions/:actionType'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
