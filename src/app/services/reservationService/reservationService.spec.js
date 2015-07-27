@@ -219,5 +219,19 @@ describe('reservationService', function() {
         expect(getParams[1].email).equal('a@a');
       });
     });
+
+
+    describe('sendToPassbook', function() {
+      it('should fire a GET request to actions/sendToPassbook API with reservationCode', function() {
+        _reservationService.sendToPassbook('testCode');
+        expect(_apiGetFullURLSpy.calledOnce).equal(true);
+        expect(_apiGetFullURLSpy.calledWith('reservations.action')).equal(true);
+        expect(_apiGetSpy.calledOnce).equal(true);
+
+        var fullURLParams = _apiGetFullURLSpy.args[0];
+        expect(fullURLParams[1].reservationCode).equal('testCode');
+        expect(fullURLParams[1].actionType).equal('sendToPassbook');
+      });
+    });
   });
 });
