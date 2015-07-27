@@ -13,9 +13,14 @@
 ////////////////////////////////////////////////////
 reservation-widget {
   display: block;
-  margin: 50px 0 10px 0;
+  margin-bottom: 10px;
   padding: @spacing 0;
   .shadow-box(#ddd);
+  float: left;
+
+  .viewport-mobile &{
+    padding: 20px;
+  }
 
   [grid-row] {
     position: relative;
@@ -24,18 +29,6 @@ reservation-widget {
   ui-view {
     display: block;
     min-height: 1px;
-  }
-
-  aside:before {
-    .grid-width(7);
-    position: absolute;
-    content: '';
-    display: block;
-    width: 0;
-    left: @width;
-    top: 45px;
-    bottom: 20px;
-    border-left: 1px dashed @c-gray-reservation;
   }
 
   h3 {
@@ -49,6 +42,7 @@ reservation-widget {
   table {
     width: 100%;
   }
+
 
   label {
     position: relative;
@@ -94,6 +88,9 @@ reservation-widget {
   }
 
   form {
+    .viewport-mobile &{
+      width: 100%;
+    }
     &.ng-submitted {
       label {
         input,
@@ -147,7 +144,7 @@ reservation-widget {
   }
 
   .input-checkbox {
-    font-weight: normal;
+    font-weight: 300;
     font-size: @size-0;
     cursor: pointer;
   }
@@ -165,6 +162,21 @@ reservation-widget {
     section + section {
       margin: @spacing 0;
     }
+    &:before {
+      .grid-width(7);
+      position: absolute;
+      content: '';
+      display: block;
+      width: 0;
+      left: @width;
+      top: 45px;
+      bottom: 20px;
+      border-left: 1px dashed @c-gray-reservation;
+      @media only screen and @tablet-portrait-max {
+        content: none;
+      }
+    }
+
   }
 
   .room-data {
@@ -202,9 +214,13 @@ reservation-widget {
     th {
       font-weight: normal;
       text-align: left;
+      padding: 0 5px;
     }
 
-    td { font-weight: bold; }
+    td { 
+      font-weight: bold; 
+      padding: 0 5px;
+    }
 
     .data {
       margin: @spacing 0;
@@ -214,12 +230,24 @@ reservation-widget {
       padding: 10px;
       border: 1px solid @c-gray-reservation;
       border-radius: 6px;
+      .viewport-mobile &{
+        table, thead, tbody, th, td, tr { 
+          display: block; 
+          text-align: right;
+        }
+      }
     }
+
   }
 
   label[for="agreement3"] {
     margin: 0 @spacing @baseline/2 @spacing;
     padding: 0px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    .viewport-mobile &{
+      margin-left: 0;
+    }
   }
 
   .reservation-controls {
@@ -235,12 +263,19 @@ reservation-widget {
     .next {
       float: right;
       margin: 0 @spacing;
+      .viewport-mobile &{
+        margin: 0 0 0 @spacing/2;
+      }
     }
 
     .back {
       float: left;
-      margin: 0 @spacing 0 @baseline;
+      margin: 0 @spacing 0 0;
       text-shadow: none;
+      .viewport-mobile &{
+        padding: 0;
+        margin: 0 @spacing/2 0 0;
+      }
     }
   }
 
@@ -313,6 +348,9 @@ reservation-billing {
     border: 1px solid @c-gray-reservation;
     border-radius: 3px;
     background-color: #f9f9f9;
+    .viewport-mobile &{
+      padding: 20px;
+    }
   }
 
   // Payment with credit/debet card
@@ -444,6 +482,9 @@ reservation-billing {
           width: 70%;
           position: relative;
           text-align: center;
+          .viewport-mobile &{
+            width: 100%;
+          }
 
           label {
             padding: 5px;
@@ -470,6 +511,10 @@ reservation-billing {
         .card-expiry {
           float: left;
           width: 70%;
+
+          .viewport-mobile &{
+            width: 100%;
+          }
 
           > label {
             padding-top: 5px;
@@ -570,6 +615,9 @@ reservation-confirmation {
     display: none;
     padding: 30px 40px;
     border-top: 1px solid @c-gray-reservation;
+    .viewport-mobile &{
+      padding: 20px;
+    }
 
     &.active {
       display: block;
@@ -898,6 +946,10 @@ reservation-hotel-details {
       > div {
         float: left;
         width: 33.3333%;
+        .viewport-mobile & {
+          width: 100%;
+          float: none;
+        }
       }
     }
 
@@ -905,7 +957,10 @@ reservation-hotel-details {
       color: @c-brown;
       font-size: @size-3;
       font-weight: 600;
-      line-height: @baseline;
+      line-height: 1.5 * @baseline;
+      .viewport-mobile & {
+        margin-bottom: 10px;
+      }
     }
 
     .reference {
@@ -920,6 +975,14 @@ reservation-hotel-details {
         font-size: @size-2;
         font-weight: 600;
       }
+
+      .viewport-mobile & {
+        text-align: left;
+        padding: 0;
+        p{
+          display: inline;
+        }
+      }
     }
 
     .booked {
@@ -928,6 +991,9 @@ reservation-hotel-details {
       font-weight: bold;
       line-height: 2 * @baseline;
       text-align: right;
+      .viewport-mobile & {
+        text-align: left;
+      }
     }
   }
 
@@ -937,6 +1003,10 @@ reservation-hotel-details {
     figure {
       width: 33.3333%;
       float: left;
+
+      .viewport-mobile & {
+        width: 100%;
+      }
 
       img {
         width: 100%;
@@ -960,6 +1030,10 @@ reservation-hotel-details {
       width: 66.6666%;
       float: left;
       padding-left: @spacing;
+      .viewport-mobile & {
+        width: 100%;
+        padding-left: 0;
+      }
     }
 
     h3 {

@@ -371,6 +371,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           break;
         case 'property':
           scope.selected.property = findProperty(scope.regionPropertySelected.code);
+          $stateParams.property = scope.selected.property.code;
           break;
         default:
           throw new Error('Undefined type: "' + scope.regionPropertySelected.type + '"');
@@ -422,7 +423,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           // Specific hotel selected, will redirect to room list
           stateParams.propertySlug = scope.selected.property.meta.slug;
           stateParams.fromSearch = '1';
-          stateParams.scrollTo = 'hotel-rooms';
+          stateParams.scrollTo = 'jsRooms';
           $state.go('hotel', stateParams, {reload: true});
         }
 
@@ -558,6 +559,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(settings.promoCode){
             scope.selected.promoCode = settings.promoCode;
 
+
             var promoInput = angular.element('#booking-widget-promo-code');
             if(promoInput.length){
               var prefilledClass = 'prefilled';
@@ -569,7 +571,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
                 promoInput.removeClass(prefilledClass);
               }, 1000);
             }
+          } else {
+            scope.selected.promoCode = '';
           }
+          queryService.removeParam(PARAM_TYPES.promoCode.search);
 
           if(settings.openDatePicker){
             var rangeInput = angular.element('#booking-widget-date-range');

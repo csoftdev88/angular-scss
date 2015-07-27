@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -29,8 +29,21 @@ angular.module('mobius.controllers.offers', [])
       return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
     };
 
-    $scope.goToDetail = function(code) {
+    $scope.goToDetail = function (code) {
+      code = code.split('-')[1];
+      selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
+      if (selectedOfferIndex < 0) {
+        return $state.go('offers', {code: null});
+      }
+      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+
       $state.go('offers', {code: code});
+      $timeout(function () {
+        scrollService.scrollTo('offer-detail', 20);
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+          promoCode: $scope.selectedOffer.promoCode
+        });
+      }, 0);
     };
 
     $scope.goToOffersList = function() {

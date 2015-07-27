@@ -1,6 +1,6 @@
-<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row id="jsRooms">
+<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
   <hr />
-  <div grid="12" id="hotel-rooms">
+  <div grid="12" id="jsRooms">
     <h2>Our <strong>Rooms</strong></h2>
     <list-items class="rooms-list" ng-if="rooms.length" ng-init="roomLimit = 4">
       <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
@@ -37,7 +37,7 @@
             </p>
             <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
-            <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" class="button">_view_more_</a>
+            <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" class="button">View Details</a>
           </div>
           <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
         </pricing-info>

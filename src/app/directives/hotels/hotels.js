@@ -136,15 +136,21 @@ angular.module('mobiusApp.directives.hotels', [])
       };
 
       scope.navigateToHotel = function(propertySlug){
+        // Getting the current hotel
+        var selectedHotel = _.find(scope.hotels, function (item) {
+          return item && item.meta && item.meta.slug === propertySlug;
+        });
+
         // Getting rate details from RateCtrl
         var stateParams = {
+          property: selectedHotel ? selectedHotel.code : null,
           propertySlug: propertySlug,
           rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null
         };
+
         if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
-          stateParams.scrollTo = 'hotel-rooms';
+          stateParams.scrollTo = 'jsRooms';
         }
-        
 
         $state.go('hotel', stateParams);
       };
