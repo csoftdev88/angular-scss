@@ -1,6 +1,5 @@
-
 <booking-widget-search>
-  <h3>Make <br> Your <strong>Booking</strong></h3>
+  <h3 ng-if="!advanced">Make <br> Your <strong>Booking</strong></h3>
 
   <!-- FIND YOUR HOTEL -->
   <form-element class="hotel" ng-show="hasPropertySelection">
@@ -46,7 +45,7 @@
   </form-element>
 
   <!-- NUMBER OF ADULTS -->
-  <form-element class="persons">
+  <form-element class="persons" ng-if="!advanced">
     <select name="adults"
             required ng-model="selected.adults"
             disable-search="true"
@@ -59,7 +58,7 @@
   </form-element>
 
   <!-- NUMBER OF CHILDREN -->
-  <form-element class="persons">
+  <form-element class="persons" ng-if="!advanced">
     <select name="children"
             required ng-model="selected.children"
             disable-search="true"
@@ -72,30 +71,10 @@
   </form-element>
 
   <!-- ENTER YOUR CODE -->
-  <form-element ng-if="advanced || !settings.hasAdvancedTab" class="code">
+  <form-element ng-if="!advanced" class="code">
     <input type="text" placeholder="Promo Code" ng-model="selected.promoCode" id="booking-widget-promo-code">
     <form-label>Enter Your Promo Code</form-label>
   </form-element>
-
-  <!-- SELECT RATE -->
-  <form-element ng-if="advanced" class="rate">
-    <select name="rate"
-            required ng-model="selected.rate"
-            disable-search="true"
-            chosen ng-options="rate.id as rate.name for rate in rates"
-            data-placeholder="Rate">
-      <option></option> <!-- workaround for a bug in angular-chosen -->
-    </select>
-    <form-label>Select Rate</form-label>
-  </form-element>
-
-  <!-- SUBMIT BUTTON -->
-  <button-submit
-    role="button" tabindex="0"
-    ng-click="isSearchable() && onSearch()"
-    ng-disabled="!isSearchable()">
-    {{hasAdvancedTab? 'Search Now':'Go'}}
-  </button-submit>
 </booking-widget-search>
 
 <booking-widget-add-room ng-if="advanced">
@@ -132,3 +111,11 @@
   </div>
 
 </booking-widget-add-room>
+
+<!-- SUBMIT BUTTON -->
+<button-submit
+  role="button" tabindex="0"
+  ng-click="isSearchable() && onSearch()"
+  ng-disabled="!isSearchable()">
+  {{hasMultiroomTab? 'Search Now':'Go'}}
+</button-submit>

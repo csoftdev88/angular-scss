@@ -184,7 +184,7 @@ angular.module('mobiusApp.config', [])
 
     // Settings related to booking process
     'bookingWidget': {
-      'hasAdvancedTab': false,
+      'hasMutiroomTab': true,
       'includeAllPropertyOption': true,
       'adults': {
         'min': 1,

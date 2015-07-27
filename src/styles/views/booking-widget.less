@@ -129,6 +129,12 @@ booking-widget-add-room form-element {
 booking-widget-search {
   display: flex;
   padding: @baseline 0;
+  float: left;
+  width: 90%;
+
+  &.multiroom {
+    width: 40%;
+  }
 
   // region/hotel styling in dropdown
   .chosen-results {

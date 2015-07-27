@@ -4,9 +4,9 @@
       Make Your <strong>Booking</strong>
     </a>
   </li>
-  <li class="floating-bar--tab-advanced-booking" ng-if="hasAdvancedTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
+  <li class="floating-bar--tab-advanced-booking" ng-if="hasMutiroomTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
     <a href="" ng-click="setActive(ADVANCED_BOOKING)">
-      Advanced <strong>Booking</strong>
+      Multiroom <strong>Booking</strong>
     </a>
   </li>
   <li class="floating-bar--tab-my-accounts" ng-class="{'is-active': active === MY_ACCOUNT}">
@@ -17,6 +17,7 @@
 </ul>
 <div ng-show="active">
   <booking-widget
+    ng-class="{'multiroom-mode': active === ADVANCED_BOOKING}"
     open-booking-tab="openBookingTab()"
     hide-bar="setActive(active)"
     ng-show="!isCollapsed && (active === BOOKING || active === ADVANCED_BOOKING)"

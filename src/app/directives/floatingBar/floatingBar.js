@@ -20,7 +20,7 @@ angular.module('mobiusApp.directives.floatingBar', [
 
       // Widget logic goes here
       link: function(scope, $el) {
-        scope.hasAdvancedTab = Settings.UI.bookingWidget.hasAdvancedTab;
+        scope.hasMutiroomTab = Settings.UI.bookingWidget.hasMutiroomTab;
 
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
