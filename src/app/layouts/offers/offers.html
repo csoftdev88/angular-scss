@@ -21,7 +21,7 @@
 
   </offers-list>
 
-  <offer-detail grid-row ng-if="showDetail" ng-switch="!!selectDates">
+  <offer-detail id="offer-detail" grid-row ng-if="showDetail" ng-switch="!!selectDates">
     <div grid="12">
       <h1 ng-bind-html="selectedOffer.title | mainHeaderStyle"></h1>
       <img ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
@@ -37,7 +37,7 @@
 
       <hr>
 
-      <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
+      <h2 ng-if="offersList.length > 1">You may also be <strong>interested in:</strong></h2>
       <offers-list ng-if="offersList.length > 1">
         <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index"  ng-click="goToDetail(offer.meta.slug)">
           <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.uri}}"/>

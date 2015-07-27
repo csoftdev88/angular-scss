@@ -98,11 +98,8 @@ hotels {
 
           p.price.available {
 
-            // MOBILE SPECIFIC STYLES
-            @media only screen and @large-mobile-max {
+            .viewport-mobile & {
               text-align: left;
-              display: inline;
-              float: left;
             }
 
           }
@@ -112,18 +109,19 @@ hotels {
             margin-top: 0;
             float: none;
             max-width: none;
+            font-weight: 500;
           }
 
           button-submit{
             display: none;
-            // MOBILE SPECIFIC STYLES
-            @media only screen and @large-mobile-max {
+            .viewport-mobile & {
               display: inline-block;
-              float: right;
+              float: left;
               padding: 10px;
               min-width: 0;
               line-height: 1;
               height: auto;
+              margin-bottom: 10px;
             }
           }
 

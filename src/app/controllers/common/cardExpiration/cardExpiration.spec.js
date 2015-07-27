@@ -29,7 +29,12 @@ describe('mobius.controllers.common.cardExpiration', function() {
       });
 
       it('should gerenate month options starting from current month', function(){
-        console.error(_scope.cardExpiration.months);
+        expect(_scope.cardExpiration.months.length).equal(8);
+      });
+
+      it('should have month id and name defined', function(){
+        expect(_scope.cardExpiration.months[0].id).equal(5);
+        expect(_scope.cardExpiration.months[0].name).equal('May');
       });
     });
 
