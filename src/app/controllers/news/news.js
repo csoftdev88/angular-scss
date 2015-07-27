@@ -45,6 +45,7 @@ angular.module('mobius.controllers.news', [])
       }
       $scope.selectedNews = $scope.newsList[selectedNewsIndex];
       metaInformationService.setMetaDescription($scope.selectedNews.meta.description);
+      metaInformationService.setMetaKeywords($scope.selectedNews.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedNews.meta.pagetitle);
       $scope.selectedNews.meta.microdata.og['og:url'] = $location.absUrl();
       metaInformationService.setOgGraph($scope.selectedNews.meta.microdata.og);

@@ -58,6 +58,7 @@ angular.module('mobius.controllers.offers', [])
       }
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
+      metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
       $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl();
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
