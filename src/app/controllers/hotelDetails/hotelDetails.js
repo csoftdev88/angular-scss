@@ -38,7 +38,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
   $scope.scrollToBreadcrumbs = function(){
     $timeout(function(){
-      scrollService.scrollTo('breadcrumbs');
+      scrollService.scrollTo();
     }, 0);
   };
 
