@@ -57,6 +57,9 @@ angular.module('mobius.controllers.main', [])
               if(!_.isEmpty(advert.images)) {
                 var imageObject = advert.images[0];
                 imageObject.link = advert.link;
+                imageObject.title = advert.strapline;
+                imageObject.subtitle = advert.subtitle;
+
                 object.push(imageObject);
               }
               return object;
