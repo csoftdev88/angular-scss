@@ -555,30 +555,36 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       function onPrefill(settings){
         scope.openBookingTab();
 
-        $timeout(function(){
-          if(settings.promoCode){
-            scope.selected.promoCode = settings.promoCode;
-
-
-            var promoInput = angular.element('#booking-widget-promo-code');
-            if(promoInput.length){
-              var prefilledClass = 'prefilled';
-
-              promoInput.addClass(prefilledClass);
-
-              // Removing class when animation complete
-              $timeout(function(){
-                promoInput.removeClass(prefilledClass);
-              }, 1000);
-            }
-          } else {
-            scope.selected.promoCode = '';
-          }
+        function prefillPromoCode() {
           queryService.removeParam(PARAM_TYPES.promoCode.search);
+          scope.selected.promoCode = settings.promoCode;
+          var promoInput = angular.element('#booking-widget-promo-code');
+          if (promoInput.length) {
+            var prefilledClass = 'prefilled';
+            promoInput.addClass(prefilledClass);
 
-          if(settings.openDatePicker){
+            // Removing class when animation complete
+            $timeout(function () {
+              promoInput.removeClass(prefilledClass);
+            }, 1000);
+          }
+        }
+
+        function removePromoCode() {
+          scope.selected.promoCode = '';
+          queryService.removeParam(PARAM_TYPES.promoCode.search);
+        }
+
+        $timeout(function () {
+          if (settings.promoCode) {
+            prefillPromoCode();
+          } else {
+            removePromoCode();
+          }
+
+          if (settings && settings.openDatePicker) {
             var rangeInput = angular.element('#booking-widget-date-range');
-            if(rangeInput.length){
+            if (rangeInput.length) {
               rangeInput.focus();
             }
           }
