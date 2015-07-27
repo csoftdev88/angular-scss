@@ -1,33 +1,4 @@
 <reservation-hotel-details ng-class="{'inactive': !reservation.active}">
-
-<!-- TODO: Remove following comment after we will be sure that all data are in place -->
-
-<!--
-  <img ng-src="property.images[0].uri" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
-
-  {{property.nameShort}}
-  {{property.rating}}
-  Total: {{reservation.priceAfterDiscount}}
-
-  Adults: {{getAdultsCount()}}
-
-  Children: {{getChildrenCount()}}
-
-  <!- - MULTI-ROOM? - ->
-  {{reservation.rooms[0].roomTypeName}}
-  {{reservation.rooms[0].packageName}}
-
-  Check In: {{reservation.arrivalDate }}
-  Check out: {{reservation.departureDate}}
-
-  Room Charges: {{getPrice()}}
-  Taxes: {{getTax()}}`
-
-  TOTAL: {{getPriceAfterTax()}}
-
-  Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}
- -->
-
   <section grid-row class="reservation-summary" ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
     <header>
       <h1>{{property.nameLong}}</h1>
@@ -72,16 +43,16 @@
           </tbody>
         </table>
 
-        <table class="charges">
-          <tbody>
+        <table class="charges" ng-switch="!!reservation.pointValue">
+          <tbody ng-switch-when="false">
             <tr>
               <!-- Do we know the payment method? -->
               <!-- <th>Room Charges: {{reservation.paymentMethod}}</th> -->
               <th>Room Charges: </th>
               <td>{{getPrice() | i18nCurrency: $root.currencyCode}}</td>
               <th rowspan="3" class="total">Total:</th>
+
               <td rowspan="3" class="total-value">
-                <!--<a href ng-click="openPriceBreakdownInfo()">{{getPriceAfterTax() | i18nCurrency: $root.currencyCode}}</a>-->
                 {{getPriceAfterTax() | i18nCurrency: $root.currencyCode}}
               </td>
             </tr>
@@ -97,7 +68,15 @@
               <th>Discount:</th>
               <td>{{reservation.discount | i18nCurrency: $root.currencyCode}}</td>
             </tr>
+          </tbody>
 
+          <tbody ng-switch-when="true">
+            <tr>
+              <th rowspan="3" class="total">Total:</th>
+              <td rowspan="3" class="total-value">
+                <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

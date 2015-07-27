@@ -23,9 +23,12 @@
   </div>
 
     <div class="details">
-      <div class="total">
-         <span class="title">Total:</span>
-         <span class="value">{{reservation.priceAfterDiscount | i18nCurrency: $root.currencyCode}}</span>
+      <div class="total" ng-switch="!!reservation.pointValue">
+        <span class="title">Total:</span>
+        <span class="value" ng-switch-when="false">{{reservation.priceAfterDiscount | i18nCurrency: $root.currencyCode}}</span>
+        <span class="value" ng-switch-when="true">
+          <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
+        </span>
       </div>
 
       <div class="guests">
