@@ -129,6 +129,13 @@ angular.module('mobius.controllers.common.content', [])
               promoCode: $scope.offers[selectedOfferIndex].promoCode
             });
           }, 0);
+        } else {
+          //empty promoCode if offer is not available
+          $timeout(function () {
+            $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+              promoCode: ''
+            });
+          }, 0);
         }
       }
     }

@@ -570,6 +570,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
                 promoInput.removeClass(prefilledClass);
               }, 1000);
             }
+          } else {
+            scope.selected.promoCode = '';
+            queryService.removeParam(PARAM_TYPES.promoCode.search);
           }
 
           if(settings.openDatePicker){
