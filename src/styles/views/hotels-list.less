@@ -110,6 +110,9 @@ hotels {
             float: none;
             max-width: none;
             font-weight: 500;
+            .viewport-mobile & {
+              text-align: left;
+            }
           }
 
           button-submit{
@@ -186,9 +189,19 @@ hotels {
       background: url(../images/v4/dividing-line.png) 50% 0 no-repeat;
     }
 
+    .viewport-mobile &{
+      background-position: 50% 100%;
+      padding: 0 0 45px 0;
+      margin: 0 0 @baseline 0;
+    }
+
     .view-switch {
       margin-bottom: @baseline;
       .clearfix;
+
+      .viewport-mobile &{
+        display: none;
+      }
 
       li {
         display: block;
@@ -216,6 +229,9 @@ hotels {
       border-width: 1px 0;
       border-style: dashed;
       border-color: @c-light-grey;
+      .viewport-mobile &{
+        border: none;
+      }
     }
 
     hr {
@@ -224,6 +240,7 @@ hotels {
       background: transparent;
       height: 0;
       width: 100%;
+      left: 0;
 
       &:after, &:before {
         display: none;
@@ -270,6 +287,7 @@ hotels {
   .stars {
     text-align: center;
     position: relative;
+    margin-bottom: 10px;
 
     .stars-left {
       position: absolute;
@@ -286,6 +304,7 @@ hotels {
     li {
       display: inline-block;
       margin: 0 1px;
+      cursor: pointer;
 
       &:after {
         content: "\f005";

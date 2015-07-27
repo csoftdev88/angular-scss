@@ -8,7 +8,15 @@ angular.module('mobiusApp.directives.stickable', [])
         var STICKABLE_Z_INDEX = 995;
         var windowEl = angular.element($window);
         var elementOffset = elem.offset().top;
+        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+        var isMobile = false;
+        scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+          isMobile = viewport.isMobile;
+        });
         var handler = function () {
+          if(isMobile){
+            return;
+          }
           scope.scroll = windowEl.scrollTop();
           var elementToStick = $('#' + attr.stickable);
           var elementToStickHeight = elementToStick.height();
