@@ -84,7 +84,7 @@ angular.module('mobius.controllers.common.content', [])
     });
 
     // Loading offers
-    var offers = services.contentService.getOffers(bookingParams).then(function(offers){
+    var offers = services.contentService.getOffers().then(function(offers){
       $scope.offers = offers || [];
     });
 

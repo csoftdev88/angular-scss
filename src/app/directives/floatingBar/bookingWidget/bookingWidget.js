@@ -559,6 +559,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(settings.promoCode){
             scope.selected.promoCode = settings.promoCode;
 
+
             var promoInput = angular.element('#booking-widget-promo-code');
             if(promoInput.length){
               var prefilledClass = 'prefilled';
@@ -572,8 +573,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             }
           } else {
             scope.selected.promoCode = '';
-            queryService.removeParam(PARAM_TYPES.promoCode.search);
           }
+          queryService.removeParam(PARAM_TYPES.promoCode.search);
 
           if(settings.openDatePicker){
             var rangeInput = angular.element('#booking-widget-date-range');
