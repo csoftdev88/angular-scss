@@ -3,7 +3,8 @@
 
 describe('mobius.controllers.reservationDetail', function() {
   describe('ReservationDetailCtrl', function() {
-    var _scope, _spyGetReservation, _spyGetPropertyDetails, _spyGetReservationAddOns;
+    var _scope, _spyGetReservation, _spyGetPropertyDetails, _spyGetReservationAddOns,
+      _spySendToPassBook, _spyAddInfoMessage;
 
     var TEST_RESERVATION_CODE = 95234134;
     var TEST_RESERVATION = {
@@ -77,6 +78,14 @@ describe('mobius.controllers.reservationDetail', function() {
                   c();
                 }
               };
+            },
+
+            sendToPassbook: function(){
+              return {
+                then: function(c){
+                  c();
+                }
+              };
             }
           };
         });
@@ -130,12 +139,15 @@ describe('mobius.controllers.reservationDetail', function() {
       });
     });
 
-    beforeEach(inject(function($controller, $rootScope, reservationService, modalService, propertyService) {
+    beforeEach(inject(function($controller, $rootScope, reservationService, modalService, propertyService,
+        userMessagesService) {
       _scope = $rootScope.$new();
 
       _spyGetReservation = sinon.spy(reservationService, 'getReservation');
       _spyGetPropertyDetails = sinon.spy(propertyService, 'getPropertyDetails');
       _spyGetReservationAddOns = sinon.spy(reservationService, 'getReservationAddOns');
+      _spySendToPassBook = sinon.spy(reservationService, 'sendToPassbook');
+      _spyAddInfoMessage = sinon.spy(userMessagesService, 'addInfoMessage');
 
       $controller('ReservationDetailCtrl', {$scope: _scope});
       _scope.$digest();
@@ -145,6 +157,8 @@ describe('mobius.controllers.reservationDetail', function() {
       _spyGetReservation.restore();
       _spyGetPropertyDetails.restore();
       _spyGetReservationAddOns.restore();
+      _spySendToPassBook.restore();
+      _spyAddInfoMessage.restore();
     });
 
     describe('when controller initialized', function() {
@@ -214,6 +228,20 @@ describe('mobius.controllers.reservationDetail', function() {
 
         _scope.reservationAddons = null;
         expect(_scope.getAddonsTotalPoints()).equal(0);
+      });
+    });
+
+    describe('sendToPassbook', function(){
+      it('should send current reservation to passbook endpoint', function() {
+        _scope.sendToPassbook();
+        expect(_spySendToPassBook.calledOnce).equal(true);
+        expect(_spySendToPassBook.calledWith(TEST_RESERVATION_CODE)).equal(true);
+      });
+
+      it('should show notification when reservation is successfully addded to passbook', function(){
+        _scope.sendToPassbook();
+        expect(_spyAddInfoMessage.calledOnce).equal(true);
+        expect(_spyAddInfoMessage.calledWith('<div>You have successfully added your reservation <strong>95234134</strong> to passbook.</div>')).equal(true);
       });
     });
   });
