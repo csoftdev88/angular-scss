@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.breadcrumbs', [])
 
   .directive('breadcrumbs', function( $state, breadcrumbsService, _,
-      modalService) {
+      modalService, scrollService) {
     return {
       restrict: 'E',
       scope: true,
@@ -54,9 +54,7 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
           scope.activeHref = _.find(scope.hrefs, {id: href}).name;
           var $item = angular.element('#' + href);
           if($item.length){
-            angular.element('html, body').animate({
-              scrollTop: $item.offset().top
-            }, 300);
+            scrollService.scrollTo(href, 20);
           }
         };
 

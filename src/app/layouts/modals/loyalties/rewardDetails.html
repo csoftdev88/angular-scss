@@ -1,22 +1,22 @@
 <div class="ui-info">
-  <div class="modal-header">
-    <h1 class="modal-title">{{data.name}}</h1>
-    <button class="button-close" ng-click="cancel()">X</button>
-  </div>
+  <header>
+    <h1 ng-bind-html="data.nameFormatted"></h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
 
-  <div class="modal-body">
-      <div class="preview">
-        <img ng-src="{{data.images[0].uri}}" alt="{{data.images[0].alt}}" err-source="http://lorempixel.com/300/160/"/>
+  <main>
+    <div class="preview">
+      <img ng-src="{{data.images[0].uri}}" alt="{{data.images[0].alt}}" err-source="http://lorempixel.com/300/160/"/>
+    </div>
+
+    <div class="details">
+      <div class="description">
+        <p ng-bind-html="sanitize(data.description)"></p>
       </div>
+    </div>
+  </main>
 
-      <div class="details">
-        <div class="description">
-          <p ng-bind-html="sanitize(data.description)"></p>
-        </div>
-      </div>
-  </div>
-
-  <div class="modal-footer">
-     <button class="button" ng-if="!data.earned" ng-click="ok()" ng-disabled="!data._isAffordable">Buy for <ng-pluralize count="data.pointCost" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize></button>
-  </div>
+  <footer>
+    <button class="button" ng-if="!data.earned" ng-click="ok()" ng-disabled="!data._isAffordable">Buy for <ng-pluralize count="data.pointCost" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize></button>
+  </footer>
 </div>

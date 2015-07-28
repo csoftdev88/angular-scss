@@ -147,4 +147,44 @@ describe('mobiusApp.services.modal', function() {
         'templateUrl', 'layouts/modals/associatedRooms.html'))).equal(true);
     });
   });
+
+  describe('openRoomDetailsDialog', function() {
+    it('should be defined as a function', function() {
+      expect(_modalService.openRoomDetailsDialog).to.be.an('function');
+    });
+
+    it('should open room details dialog', function() {
+      _modalService.openRoomDetailsDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/roomDetails.html'))).equal(true);
+    });
+  });
+
+  describe('openLoginDialog', function() {
+    it('should be defined as a function', function() {
+      expect(_modalService.openLoginDialog).to.be.an('function');
+    });
+
+    it('should open login prompt dialog', function() {
+      _modalService.openLoginDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'login-prompt'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/loginPrompt.html'))).equal(true);
+    });
+  });
 });

@@ -1,0 +1,46 @@
+<hero-slider content="heroContent"></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper" class="hotel-subpage">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <hotel-info grid-row>
+
+    <header grid-row id="jsAbout">
+      <h1 grid="6" ng-bind-html="info.title | wrapWordHtml : 'span' : 0"></h1>
+      <local-info local-info="details.localInfo" grid="6"></local-info>
+    </header>
+
+    <div grid="12">
+      <div class="desc" ng-bind-html="info.description"></div>
+      <button class="back" ng-click="goBack()">Back</button>
+    </div>
+
+  </hotel-info>
+
+
+
+  <more-info-list grid-row ng-if="moreInfo.length">
+    <div grid="12">
+      <hr>
+      <h2>You may also be <strong>interested in:</strong></h2>
+      <info-list>
+        <info-item ng-repeat="info in moreInfo" ng-click="goToInfo(info)">
+
+          <section>
+            <h2>{{info.title}} </h2>
+            <div ng-bind-html="info.descriptionShort"></div>
+          </section>
+
+          <span>Read more</span>
+        </info-item>
+      </info-list>
+    </div>
+  </more-info-list>
+
+
+
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map"></div>

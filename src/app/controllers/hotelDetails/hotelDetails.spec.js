@@ -17,7 +17,16 @@ describe('mobius.controllers.hotel.details', function() {
         }
       ],
       long: 'testLong',
-      lat: 'testLat'
+      lat: 'testLat',
+      meta: {
+        description: 'meta description',
+        pagetitle: 'Hotel',
+        keywords: 'hotel, rooms',
+        microdata: {
+          schemaOrg: [],
+          og: []
+        }
+      }
     };
 
     var ROOMS = [];
@@ -31,7 +40,7 @@ describe('mobius.controllers.hotel.details', function() {
             getAPIParams: function(){
               return {
                 'test': 'testValue',
-                'propertyCode': 123
+                'propertySlug': 'hotel-123'
               };
             }
           });
@@ -68,6 +77,7 @@ describe('mobius.controllers.hotel.details', function() {
         });
 
         $provide.value('advertsService', {});
+        $provide.value('scrollService', {scrollTo: function(){}});
 
         $provide.value('$state', {
           go: function(){}
@@ -89,9 +99,16 @@ describe('mobius.controllers.hotel.details', function() {
           removeHref: function(){ return breadcrumbs; }
         };
         $provide.value('breadcrumbsService', breadcrumbs);
+        $provide.value('metaInformationService', {
+          setMetaDescription: function() {},
+          setMetaKeywords: function() {},
+          setPageTitle: function() {},
+          setOgGraph: function() {}
+        });
 
-
+        // TODO: Unify controller name
         $controllerProvider.register('PriceCtr', function(){});
+        $controllerProvider.register('RatesCtrl', function(){});
       });
     });
 
@@ -134,11 +151,11 @@ describe('mobius.controllers.hotel.details', function() {
       it('should download hotel details from the server with BAR id', function() {
         expect(_spyPropertyServiceGetPropertyDetails).to.be.calledOnce;
         expect(_spyPropertyServiceGetPropertyDetails
-            .calledWith(123, {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertyCode: 123})
+            .calledWith('123', {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertySlug: 'hotel-123'})
         ).equal(true);
         expect(_spyPropertyServiceGetRooms).to.be.calledOnce;
         expect(_spyPropertyServiceGetRooms
-            .calledWith(123)
+            .calledWith('123')
         ).equal(true);
       });
 

@@ -10,6 +10,11 @@ view-more-images {
   top: -28px;
   text-align: right;
 
+  // MOBILE SPECIFIC STYLES
+  @media only screen and @large-mobile-max {
+    top: 20px;
+  }
+
   &.has-no-link {
     top: 2px;
 
@@ -39,5 +44,24 @@ view-more-images {
   //- if there is button
   button {
     width: 100%;
+  }
+
+  read-more{
+    position: relative;
+    text-align: left;
+    
+    p{
+      color: @c-black;
+      margin-bottom: 5px;
+    }
+    ul{
+      li{
+        margin-bottom: 10px;
+        a{
+          cursor: pointer;
+          font-size: 14px;
+        }
+      }
+    }
   }
 }

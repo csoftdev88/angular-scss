@@ -1,11 +1,11 @@
-<hotel-room grid="12">
+<hotel-room grid="12" id="hotel-room">
 
   <section class="header">
-    <h1>{{roomDetails.name}}</h1>
+    <h1 ng-bind-html="roomDetails.name | mainHeaderStyle"></h1>
   </section>
 
   <section ng-if="products">
-    <hr />
+    <hr class="dividerWithoutImage"/>
     <list-items ng-if="products.length">
       <pricing-switch>
         <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
@@ -39,16 +39,21 @@
             ng-hide="product.memberOnly && !isUserLoggedIn()">
             Book Now
           </button-submit>
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">Login</a>
+
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
         </pricing-info>
 
         <description-info>
           <div>
-            <div ng-bind-html="sanitize(product.description)"></div>
+            <!-- NOTE: API will return descriptionShort prop, full description will be used in
+              room details dialogue -->
+            <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
 
             <p class="action-links">
               <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a> &nbsp;&nbsp; | &nbsp;&nbsp;
               <a href ng-click="openPoliciesInfo(product)" ng-if="product.policies">View Policies</a>
+               &nbsp;&nbsp; | &nbsp;&nbsp;
+              <a href ng-click="openRoomDetailsDialog(product.description)" ng-if="openRoomDetailsDialog">Read More</a>
             </p>
           </div>
         </description-info>
@@ -65,6 +70,8 @@
         <h3>Please select your stay dates to see available rates!</h3>
         <p>Enter your dates on the bar below and hit search<br> to see all the rates you can book</p>
       </div>
+      <!-- USER SPECIFIES DATES -->
+      <button-submit ng-click="selectDates()">Select Dates</button-submit>
     </div>
 
     <hr />
@@ -99,7 +106,7 @@
   </section>
 
   <section ng-show="property.available && otherRooms.length > 1">
-    <h2>Other <strong>Rooms</strong> at {{property.nameLong}}</h2>
+    <h2>Other <strong>Rooms at {{property.nameLong}}</strong></h2>
 
     <list-items class="grid-view">
       <list-item
@@ -107,14 +114,14 @@
         ng-click="onClickOnAssociatedRoom(otherRoom)"
         class="with-special-hover">
         <figure ng-show="otherRoom.images[0]">
-          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : 150 : 65 : 'fill'}}" alt="{{otherRoom.name}}">
+          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{otherRoom.name}}">
         </figure>
 
         <h2>{{otherRoom.name}}</h2>
 
         <pricing-info>
           <p ng-if="otherRoom.priceFrom"> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
-          <p ng-if="!otherRoom.priceFrom">Please select dates to see the latest prices</p>
+          <p ng-if="!otherRoom.priceFrom" class="select-dates">Please select dates to see the latest prices</p>
         </pricing-info>
       </list-item>
     </list-items>

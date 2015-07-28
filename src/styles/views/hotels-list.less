@@ -11,6 +11,7 @@ hotels {
   //- Page Heading
   h1 {
     .h1;
+    font-weight: 300;
   }
 
   p {
@@ -39,7 +40,7 @@ hotels {
         width: 100%;
       }
 
-      @media only screen and @large-mobile-min {
+      @media only screen and @tablet-portrait-min {
         .generate-fluid-grid(3);
       }
 
@@ -47,6 +48,17 @@ hotels {
         margin-bottom: @baseline/2;
         position: relative;
         box-sizing: border-box;
+
+        // MOBILE SPECIFIC STYLES
+        @media only screen and @large-mobile-max {
+          border-top: 1px dashed @c-light-grey;
+          margin-bottom: 25px;
+          padding-top: 30px;
+
+          &:first-child{
+            border-top: none;
+          }
+        }
 
         // image container
         .item-image {
@@ -76,13 +88,46 @@ hotels {
           cursor: pointer;
         }
 
-        p {
-          color: @c-grey;
-        }
+        pricing-info {
+          display: inline-block;
+          width: 100%;
 
-        p.price.unavailable {
-          .not-available();
-          margin-top: 0;
+          p {
+            color: @c-grey; 
+          }
+
+          p.price.available {
+
+            .viewport-mobile & {
+              text-align: left;
+            }
+
+          }
+
+          p.price.unavailable {
+            .not-available();
+            margin-top: 0;
+            float: none;
+            max-width: none;
+            font-weight: 500;
+            .viewport-mobile & {
+              text-align: left;
+            }
+          }
+
+          button-submit{
+            display: none;
+            .viewport-mobile & {
+              display: inline-block;
+              float: left;
+              padding: 10px;
+              min-width: 0;
+              line-height: 1;
+              height: auto;
+              margin-bottom: 10px;
+            }
+          }
+
         }
       }
     }
@@ -106,24 +151,34 @@ hotels {
     }
 
     .entries--list .item {
-      padding-left: 18%;
-      padding-right: 18%;
 
-      .item-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 16%;
-      }
 
-      pricing-info {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 16%;
-        text-align: right;
-      }
+      //DESKTOP SPECIFIC STYLES
+      @media only screen and @tablet-portrait-min {
+
+        padding-left: 18%;
+        padding-right: 18%;
+
+        .item-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 16%;
+        }
+
+        pricing-info {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 16%;
+          text-align: right;
+        }
+        
+      }//DESKTOP SPECIFIC STYLES
+      
     }
+
+
   }
 
   .hotels__filter {
@@ -134,9 +189,19 @@ hotels {
       background: url(../images/v4/dividing-line.png) 50% 0 no-repeat;
     }
 
+    .viewport-mobile &{
+      background-position: 50% 100%;
+      padding: 0 0 45px 0;
+      margin: 0 0 @baseline 0;
+    }
+
     .view-switch {
       margin-bottom: @baseline;
       .clearfix;
+
+      .viewport-mobile &{
+        display: none;
+      }
 
       li {
         display: block;
@@ -164,6 +229,9 @@ hotels {
       border-width: 1px 0;
       border-style: dashed;
       border-color: @c-light-grey;
+      .viewport-mobile &{
+        border: none;
+      }
     }
 
     hr {
@@ -172,6 +240,7 @@ hotels {
       background: transparent;
       height: 0;
       width: 100%;
+      left: 0;
 
       &:after, &:before {
         display: none;
@@ -203,11 +272,22 @@ hotels {
     .rating-default {
       float: right;
     }
+
+    // MOBILE SPECIFIC STYLES
+    @media only screen and @large-mobile-max {
+      margin-top: -35px;
+      z-index: 10;
+      position: relative;
+      padding-right: 10px;
+      margin-bottom: 10px;
+    }
+
   }
 
   .stars {
     text-align: center;
     position: relative;
+    margin-bottom: 10px;
 
     .stars-left {
       position: absolute;
@@ -224,6 +304,7 @@ hotels {
     li {
       display: inline-block;
       margin: 0 1px;
+      cursor: pointer;
 
       &:after {
         content: "\f005";
@@ -241,6 +322,10 @@ hotels {
 
       &.img{
         display: inline;
+        // MOBILE SPECIFIC STYLES
+        @media only screen and @large-mobile-max {
+          display: none;
+        }
       }
 
       li {

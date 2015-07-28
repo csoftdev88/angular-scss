@@ -8,9 +8,13 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout){
 
-  function onAuthorized(){
+  $scope.userDetails = {};
+  $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
+  $scope.additionalInfo = {};
+
+  function onAuthorized(isMobiusUser){
     // Getting room/products data
     var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
       $scope.setRoomDetails(data.roomDetails);
@@ -24,26 +28,61 @@ angular.module('mobius.controllers.reservation', [])
     });
 
     // Showing loading mask
-    preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(data){
-      setBreadCrumbs = function(name) {
-        breadcrumbsService
-          .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: $stateParams.property})
-          .addBreadCrumb('Rooms', 'hotel', {propertyCode: $stateParams.property}, 'jsRooms')
-          .addBreadCrumb(data[0].roomDetails.name, 'hotel', {propertyCode: $stateParams.property, roomID: $stateParams.roomID})
-          .addBreadCrumb(name)
-          .addHref(GUEST_DETAILS)
-          .addHref(BILLING_DETAILS)
-          .addHref(CONFIRMATION)
-          .setActiveHref(name)
-        ;
-      };
+    preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(){
+      $rootScope.showHomeBreadCrumb = false;
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
+
+    // Updating users data
+    prefillUserDetails(isMobiusUser ? user.getUser():{email:$stateParams.email});
+
+    // Showing login/register dialog when user making reservation as not logged in
+    // user. This doesn't apply for modifications
+    if(!isMobiusUser && !$scope.isModifyingAsAnonymous()){
+      modalService.openLoginDialog();
+    }
+  }
+
+  function prefillUserDetails(userData){
+    if(!userData){
+      return;
+    }
+
+    if (!Object.keys($scope.userDetails).length) {
+      // No fields are touched yet, prefiling
+      _.extend($scope.userDetails, {
+        title: userData.title || '',
+        firstName: userData.firstName || '',
+        lastName: userData.lastName || '',
+        email: userData.email || '',
+        address: userData.address1 || '',
+        city: userData.city || '',
+        stateProvince: '',
+        country: '',
+        zip: userData.zip || '',
+        phone: userData.tel1 || ''
+      });
+      $scope.userDetails.emailFromApi = !!userData.email;
+    }
+
+    if (!Object.keys($scope.additionalInfo).length) {
+      // No fields are touched yet, prefiling
+      _.extend($scope.additionalInfo, {
+        arrivalTime: '',
+        arrivalMethod: '',
+        departureTime: '',
+        secondPhoneNumber: userData.tel2 || '',
+        comments: '',
+        agree: false,
+        optedIn: userData.optedIn || false
+      });
+    }
   }
 
   // Inheriting the login from RoomDetails controller
   $controller('RoomDetailsCtrl', {$scope: $scope});
   $controller('SSOCtrl', {$scope: $scope});
+  $controller('CardExpirationCtrl', {$scope: $scope});
 
   // NOTE: Waiting for infiniti SSO auth events
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
@@ -72,11 +111,18 @@ angular.module('mobius.controllers.reservation', [])
     lastBreadCrumbName = name;
   };
 
+  function scrollToGuestDetails() {
+    $timeout(function(){
+      scrollService.scrollTo('reservationDetailsForm', 20);
+    }, 100);
+  }
+
   function setContinueName(stateName) {
     switch (stateName) {
     case 'reservation.details':
       setBreadCrumbs(GUEST_DETAILS);
       $scope.continueName = 'Continue';
+      scrollToGuestDetails();
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
@@ -91,6 +137,12 @@ angular.module('mobius.controllers.reservation', [])
         .addBreadCrumb('My stays', 'reservations')
         .addBreadCrumb($scope.reservation.reservationCode);
       break;
+
+    default:
+      // Showing login prompt when skipping checkout flow
+      if(!user.isLoggedIn() && !$scope.isModifyingAsAnonymous()){
+        modalService.openLoginDialog();
+      }
     }
   }
 
@@ -104,24 +156,19 @@ angular.module('mobius.controllers.reservation', [])
     $stateChangeStartUnWatch();
   });
 
-  $scope.expirationMinDate = $window.moment().format('YYYY-MM');
   $scope.state = $state;
 
   $scope.forms = {};
-  $scope.userDetails = {};
+
   $scope.billingDetails = {
     card: {
       number: '',
-      expirationDate: '',
       securityCode: '',
       holderName: ''
     },
     paymentMethod: null, // API: 'cc','paypal','bitcoint','point','bill'
     useGuestAddress: true
   };
-
-  $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
-  $scope.additionalInfo = {};
 
   function setProductDetails(products){
     // Finding the product which user about to book
@@ -219,6 +266,7 @@ angular.module('mobius.controllers.reservation', [])
       if($scope.isValid()){
         $state.go('reservation.billing');
       }
+
       break;
     case 'reservation.billing':
       // TODO: Fix submited logic when paying with points billing form is
@@ -287,7 +335,7 @@ angular.module('mobius.controllers.reservation', [])
         holderName: $scope.billingDetails.card.holderName,
         number: $scope.billingDetails.card.number,
         // Last day of selected month
-        expirationDate: $window.moment($scope.billingDetails.card.expirationDate).endOf('month').format('YYYY-MM-DD'),
+        expirationDate: $scope.getCardExpirationDate(),
         // TODO: Change input type
         securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
         typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code
@@ -325,7 +373,9 @@ angular.module('mobius.controllers.reservation', [])
     var promises = [];
     if($stateParams.reservation){
       // Updating existing reservation
-      promises.push(reservationService.modifyReservation($stateParams.reservation, reservationData));
+      promises.push(reservationService.modifyReservation($stateParams.reservation, reservationData,
+        // Email parameter when user modifying as anonymous.
+        $scope.isModifyingAsAnonymous()?$stateParams.email:null));
     }else{
       // Creating a new reservation
       promises.push(reservationService.createReservation(reservationData));
@@ -383,44 +433,4 @@ angular.module('mobius.controllers.reservation', [])
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
-
-  var unWatchLogged = $scope.$watch(function(){
-    return user.isLoggedIn() && user.getUser();
-  }, function(userData){
-    if (userData) {
-      if (!Object.keys($scope.userDetails).length) {
-        // No fields are touched yet, prefiling
-        _.extend($scope.userDetails, {
-          title: userData.title || '',
-          firstName: userData.firstName || '',
-          lastName: userData.lastName || '',
-          email: userData.email || '',
-          address: userData.address1 || '',
-          city: userData.city || '',
-          stateProvince: '',
-          country: '',
-          zip: userData.zip || '',
-          phone: userData.tel1 || ''
-        });
-        $scope.userDetails.emailFromApi = !!userData.email;
-      }
-
-      if (!Object.keys($scope.additionalInfo).length) {
-        // No fields are touched yet, prefiling
-        _.extend($scope.additionalInfo, {
-          arrivalTime: '',
-          arrivalMethod: '',
-          departureTime: '',
-          secondPhoneNumber: userData.tel2 || '',
-          comments: '',
-          agree: false,
-          optedIn: userData.optedIn || false
-        });
-      }
-    }
-  });
-
-  $scope.$on('$destroy', function(){
-    unWatchLogged();
-  });
 });

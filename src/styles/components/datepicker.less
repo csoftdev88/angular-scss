@@ -3,24 +3,45 @@
 //- Config
 @c-datepicker: @c-brown;
 
-
-
 .ui-datepicker {
   z-index: 1050 !important;
+  display: none;
 
   background: #fff;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px @c-link;
+  margin-top: -10px;
+  margin-left: -66px;
+
+  .viewport-mobile &{
+    margin-top: 0;
+    margin-left: 0;
+    width: 100%;
+    left: 0!important;
+  }
+
+  &:after {
+    .fa;
+
+    content: @fa-var-sort-desc;
+    position: absolute;
+    font-size: 36px;
+    bottom: -14px;
+    color: @c-link;
+    // NOTE: Panels are not equal
+    left: 48%;
+  }
 }
 
 //- Header
 .ui-datepicker-header {
   display: flex;
   justify-content: space-between;
+  padding: 10px 4px;
 
   background: @c-datepicker;
   color: #fff;
 
-  font-size: @size-2;
+  font-size: @size-3;
   font-weight: 600;
   line-height: @baseline * 2;
 }
@@ -28,6 +49,7 @@
 // Month title
 .ui-datepicker-title {
   order: 2;
+  font-size: @size-1;
 }
 
 // Next & prev button
@@ -40,6 +62,7 @@
 
   cursor: pointer;
   text-align: center;
+  font-size: @size--1;
 
   &:hover,
   &:focus {
@@ -69,29 +92,38 @@
 
 //- Calendar Table
 .ui-datepicker-calendar {
+  margin: @baseline/2 @baseline 0 @baseline;
+  width: 260px;
+  height: 275px;
+
+  .viewport-mobile &{
+    width: auto;
+    margin: @baseline/2 auto @baseline;
+  }
 
   tbody {
+    tr {
+      border: 8px solid @c-white;
+    }
+
     td, th {
-      width: @baseline * 2;
+      width: @baseline*3;
       color: lighten(@c-text, 50%); // Past days
-      font-size: @size-1;
-      line-height: @baseline * 1.5;
+      font-size: @size-2;
+      line-height: @baseline*2;
       text-align: center;
     }
 
     td {
+
       a {
         display: block;
-
         color: @c-text; // Today and Future days
-
-        line-height: @baseline * 1.5;
         text-decoration: none;
       }
 
       // Highlighting today's day
       &.ui-datepicker-today a {
-        border: 2px solid #c6ccd2;
         color: @c-text;
       }
 
@@ -109,13 +141,13 @@
 
       // Selected dates
       &.date-range-selected a {
-        background: lighten(@c-datepicker, 20%);
+        background: lighten(@c-datepicker, 5%);
         color: #fff;
       }
 
       // Day is not available
       &.date-not-available {
-        background-color: @c-error;
+        background-color: #ed1c24;
 
         a {
           color: #fff;
@@ -123,11 +155,11 @@
 
         &.date-range-start,
         &.date-range-end {
-          background-color: darken(@c-error, 10%);
+          background-color: darken(#ed1c24, 2%);
         }
 
         &.date-range-selected a {
-          background-color: lighten(@c-error, 20%);
+          background-color: lighten(#ed1c24, 2%);
         }
       }
 
@@ -138,63 +170,51 @@
 
 //- Bottom Control Panel
 .ui-datepicker-buttonpane {
+  position: relative;
+
   display: flex;
   justify-content: space-between;
   padding: @baseline/2 @baseline;
+  color: @c-white;
 
-  line-height: @baseline * 1.5;
+  background-color: @c-link;
+  height: 35px;
+  line-height: 35px;
 
   //- How many days was selected
   &:before {
     display: inline-block;
     content: attr(data-counter);
+    position: absolute;
+    left: 20px;
+    top: 10px;
+  }
+
+  // Currently selected rate
+  &:after {
+    display: inline-block;
+    content: attr(data-title);
+    position: absolute;
+    left: @baseline;
+    font-weight: bold;
+    top: 0px;
+    font-size: @size-1;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 30px;
+    white-space: nowrap;
   }
 
   .ui-datepicker-close {
     &:extend(.button);
-
+    position: absolute;
+    right: @baseline;
     height: @baseline * 1.5;
   }
 
   // Hide today button
   .ui-datepicker-current {
     display: none;
-  }
-}
-
-
-// MONTH PICKER
-.month-picker {
-  .ui-datepicker-header {
-    min-width: 250px;
-
-    .ui-datepicker-title {
-      margin-top: 7px;
-      min-width: 160px;
-    }
-
-    .ui-datepicker-prev,
-    .ui-datepicker-next {
-      height: 44px;
-    }
-
-    select {
-      width: 50%;
-      float: left;
-    }
-  }
-
-  table.ui-datepicker-calendar {
-    display: none;
-  }
-
-  .ui-datepicker-buttonpane {
-    padding: 10px;
-    height: 35px;
-
-    .ui-datepicker-close {
-      &:extend(.button);
-      width: 100%;
-    }
   }
 }

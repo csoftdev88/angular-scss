@@ -11,6 +11,11 @@ local-info {
   line-height: @baseline * 1.5;
   text-align: right;
 
+  // MOBILE SPECIFIC STYLES
+  @media only screen and @large-mobile-max {
+    text-align: left;
+  }
+
   img {
     vertical-align: bottom;
     margin-left: @baseline / 2;

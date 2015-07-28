@@ -27,7 +27,9 @@ angular.module('mobiusApp.services.filters', [])
     return apiService.get(apiService.getFullURL('filters.rooms'));
   }
 
+  // TODO: Function should return product not an object with ID
   function getBestRateProduct(){
+    // TODO: Fix this - code should be used as before!
     return $q.when({id: Settings.defaultProductRateId});
     //var q = $q.defer();
     //

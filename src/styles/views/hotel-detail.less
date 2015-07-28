@@ -6,7 +6,7 @@ hotel-detail {
 
   .back-to-top{
     position: fixed;
-    bottom: 150px;
+    bottom: 50px;
     right: 20px;
     width: 60px;
     height: 60px;
@@ -17,6 +17,14 @@ hotel-detail {
     opacity: 0;
     height: 0;
     overflow: hidden;
+    z-index: 9999;
+    .viewport-mobile &{
+      bottom: 80px;
+      right: 10px;
+    }
+    .floating-bar-active &{
+      bottom: 150px;
+    }
     span{
       position: absolute;
       left: 0;
@@ -43,7 +51,7 @@ hotel-detail {
       margin-top: -17px;
       transition: 0.2s all;
       transform: translateY(0px);
-      
+
     }
     &:hover:after{
       transform: translateY(-2px);
@@ -60,31 +68,30 @@ hotel-detail {
   }
 
   // Page Heading
-  h1, h2 {
+  h1{
     .h1;
 
     font-weight: 300;
     margin-bottom: 0.25*@baseline;
-    margin-top: 0.5*@baseline;
+    line-height: 30px;
   }
 
-  h3 {
-    margin-bottom: @baseline;
-
-    font-weight: 600;
-  }
-
-  p {
-    margin-bottom: @baseline;
+  h2 {
+    .h2;
   }
 
   //- Read more text button
   a.read-more {
     text-decoration: underline;
   }
-   a.read-more-rooms {
+  a.read-more-rooms {
     text-decoration: underline;
-    margin-left: 18%;
+    margin-left: 19%;
+    @media only screen and @large-mobile-max {
+      margin-left: 0;
+      margin-right: 14px;
+      float: right;
+    }
   }
 
   //- Location of hotel in map
@@ -99,33 +106,44 @@ hotel-detail {
     font-size: @size--1;
   }
 
-    transportation-item {
-      position: relative;
+  transportation-item {
+    position: relative;
 
-      flex: 1;
-      padding: 0 @baseline @baseline @baseline*2.5;
+    flex: 1;
+    padding: 0 @baseline @baseline @baseline*2.5;
 
-      // Name
-      h4 {
-        color: @c-link;
+    // Name
+    h4 {
+      color: @c-link;
 
-        font-weight: 600;
-      }
-
-      // Icon
-      img {
-        position: absolute;
-        left: @baseline;
-        top: 9
-      }
+      font-weight: 600;
     }
+
+    // Icon
+    img {
+      position: absolute;
+      left: @baseline;
+      top: 9
+    }
+  }
+
+  .hotel-detail__rooms {
+    pricing-switch {
+      margin-top: -1.75*@baseline;
+    }
+  }
 
   .hotel-detail__offers {
-    h2{
-      .h2;
-    }
-    .more-btn{
+    .more-btn {
+      margin-top: -@baseline;
       text-align: right;
+      text-decoration: underline;
+      font-size: @size--1;
+
+      &:focus,
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }

@@ -3,7 +3,6 @@
 ////////////////////////
 
 booking-widget {
-
   display: block;
   max-width: 960px;
   margin: 0 auto;
@@ -28,7 +27,22 @@ booking-widget-add-room form-element {
   flex: 2;
   padding-right: @baseline/2;
 
+  .viewport-mobile &{
+    padding-right: 0;
+    margin-bottom: 20px;
+    input,
+    .chosen-container,
+    .chosen-single{
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+
   &.persons {
+    flex: 1;
+  }
+
+    &.children {
     flex: 1;
   }
 
@@ -38,7 +52,7 @@ booking-widget-add-room form-element {
 
     position: absolute;
     top: 50%;
-    z-index: 2000;
+    z-index: 1009;
 
     width: @baseline * 1.5;
 
@@ -52,6 +66,7 @@ booking-widget-add-room form-element {
 
     &.hotel:before   { content: @fa-var-map-marker; }
     &.persons:before { content: @fa-var-user; }
+    &.children:before { content: @fa-var-child; }
     &.dates:before   { content: @fa-var-calendar-o; }
     &.code:before    { content: @fa-var-tag; }
     &.rate:before    { content: @fa-var-suitcase; }
@@ -86,6 +101,7 @@ booking-widget-add-room form-element {
 
   // fake displaying of date picker
   input-value {
+    font-size: 13px;
     position: absolute;
     left: @baseline * 1.5;
     top: 50%;
@@ -107,6 +123,21 @@ booking-widget-add-room form-element {
 
     pointer-events: none;
   }
+
+  #booking-widget-promo-code {
+    transition: box-shadow 0.3s;
+
+    &.prefilled {
+      animation-name: input-prefilled;
+      animation-duration: .5s;
+    }
+  }
+
+  @keyframes input-prefilled {
+    0%   { box-shadow: 0px 0px 0px 2px #eca29b }
+    50%   { box-shadow: 0px 0px 100px 10px #eca29b; }
+    100% { box-shadow: 0px 0px 0px 100px 20px transparent; }
+  }
 }
 
 
@@ -114,6 +145,13 @@ booking-widget-add-room form-element {
 booking-widget-search {
   display: flex;
   padding: @baseline 0;
+
+  .viewport-mobile &{
+    display: inline-block;
+    width: 100%;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
+  }
 
   // region/hotel styling in dropdown
   .chosen-results {
@@ -131,28 +169,44 @@ booking-widget-search {
 
   //- Make your booking
   h3 {
-    position: relative;
 
+    position: relative;
     flex: 0 0 auto;
     padding-right: @baseline * 2;
-
     text-transform: uppercase;
 
-    strong { display: block; }
+    strong { 
+      display: block; 
+    }
+
+    .mobile-close{
+      display: none;
+    }
+
+    .viewport-mobile &{
+      padding: 0;
+      text-align: center;
+      margin-bottom: 30px;
+      display: none;
+      br{
+        display: none;
+      }
+      strong{
+        display: inline;
+      }
+      &:after{
+        content: none;
+      }
+    }
 
     &:after {
       .fa;
-
       position: absolute;
       right: @baseline / 2;
       top: 50%;
-
       color: #ddd;
-
       font-size: 21px;
-
       transform: translateY(-50%);
-
       content: @fa-var-chevron-right;
     }
   }
@@ -163,6 +217,9 @@ booking-widget-search {
   button-submit {
     align-self: center;
     flex: 0 0 auto;
+    .viewport-mobile &{
+      display: block;
+    }
   }
 }
 

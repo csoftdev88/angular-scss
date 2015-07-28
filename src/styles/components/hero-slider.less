@@ -140,6 +140,7 @@ hero-slider {
         top: 75%;
 
         h1, h2 {
+          &:extend(.open-sans);
           position: absolute;
           padding-right: @baseline*1.2;
           color: @white;
@@ -150,7 +151,6 @@ hero-slider {
         }
 
         h1 {
-          &:extend(.open-sans);
           .animated-slow;
 
           font-size: 28px;
@@ -169,15 +169,16 @@ hero-slider {
         }
 
         h2 {
-          &:extend(.open-sans-condensed);
-
           .animated-slower;
-
           top: 58px;
-
-          font-size: 20px;
+          font-size: @size-1;
           text-transform: uppercase;
-          background-color: @bgSliderSubtitle;
+          background-color: #b08e5e;
+
+          span {
+            padding: 5px;
+            display: inline-block;
+          }
 
           &:before {
             content: '';

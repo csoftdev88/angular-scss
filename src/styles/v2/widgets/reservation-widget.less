@@ -116,6 +116,13 @@ reservation-billing {
       }
     }
   }
+
+  .card-details {
+    .card-expiry {
+      float: left;
+      width: 70%;
+    }
+  }
 }
 
 reservation-room-resume {
@@ -389,6 +396,12 @@ reservation-item {
     .clearfix;
     button + button {
       float: right;
+    }
+  }
+
+  .viewport-mobile &{
+    table, thead, tbody, th, td, tr { 
+      display: block; 
     }
   }
 }

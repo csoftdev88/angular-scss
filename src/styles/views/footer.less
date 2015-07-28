@@ -12,16 +12,23 @@ footer {
 
   floating-bar.active  ~ & {
     margin-bottom: 130px;
+    .viewport-mobile & {
+      margin-bottom: 0;
+    }
   }
 
   floating-bar.active.advancedBooking ~ & {
     margin-bottom: 170px;
+    .viewport-mobile & {
+      margin-bottom: 0;
+    }
   }
 
   //- Wrapper
   .wrapper {
     display: flex;
     margin-bottom: 50px;
+    padding-left: 5px;
   }
 
   //- Copyright
@@ -35,6 +42,12 @@ footer {
     display: flex;
     flex: 1;
     justify-content: center;
+    
+    .viewport-mobile & {
+      align-items: right;
+      justify-content: right;
+      flex: 0;
+    }
 
     ul {
       display: flex;
@@ -113,4 +126,22 @@ footer {
       }
     }
   }
+
+  // MOBILE SPECIFIC STYLES
+  @media only screen and @large-mobile-max {
+    
+    //- Navigation
+    nav{
+      display: none;
+    }
+
+    //- Copyright
+    p {
+      line-height: 16px;
+      padding-right: 16px;
+    }
+
+  }
+
+
 }

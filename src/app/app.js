@@ -25,6 +25,7 @@ angular
     'mobius.controllers.common.content',
     'mobius.controllers.common.price',
     'mobius.controllers.common.preference',
+    'mobius.controllers.common.rates',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
@@ -38,6 +39,7 @@ angular
     'mobius.controllers.reservationUpdate',
     'mobius.controllers.reservationLookup',
     'mobius.controllers.hotel.details',
+    'mobius.controllers.hotel.subpage',
     'mobius.controllers.room.details',
 
     'mobius.controllers.modals.generic',
@@ -47,6 +49,7 @@ angular
     'mobius.controllers.modals.addonDetail',
     'mobius.controllers.modals.locationDetail',
     'mobius.controllers.modals.confirmation',
+    'mobius.controllers.common.cardExpiration',
 
     // Application modules
     'mobiusApp.config',
@@ -73,6 +76,8 @@ angular
     'mobiusApp.services.breadcrumbs',
     'mobiusApp.services.rewards',
     'mobiusApp.services.preference',
+    'mobiusApp.services.scroll',
+    'mobiusApp.services.metaInformation',
 
     // Factories
     'mobiusApp.factories.template',
@@ -95,10 +100,10 @@ angular
     'mobiusApp.directives.datepicker',
     'mobiusApp.directives.chosenOptionsClass',
     'mobiusApp.directives.creditCardCheck',
-    'mobiusApp.directives.monthPicker',
     'mobiusApp.directives.hotelLocation',
     'mobiusApp.directives.emailCheck',
     'mobiusApp.directives.notifications',
+    'mobiusApp.directives.markdownTextParser',
     // Common controllers
     'mobius.controllers.reservation.directive',
 
@@ -121,6 +126,8 @@ angular
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.isoCountryOptions',
     'mobiusApp.directives.scrollPosition',
+    'mobiusApp.directives.stickable',
+    'internationalPhoneNumber',
 
     // Filters
     'mobiusApp.filters.list',
@@ -131,7 +138,8 @@ angular
     'mobiusApp.filters.checkInDate',
     'mobiusApp.filters.cloudinaryImage',
     'mobiusApp.filters.truncate',
-    'mobiusApp.filters.wrapword'
+    'mobiusApp.filters.wrapword',
+    'mobiusApp.filters.mainHeaderStyle'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -147,7 +155,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation'
+        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation&fromSearch&email&scrollTo'
       })
 
       // Home page
@@ -168,20 +176,29 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:propertyCode',
+        url: '/hotels/:propertySlug',
         data: {
           // Route is also used for reservation updates
-          supportsEditMode: true
+          supportsEditMode: true,
+          hasRateNotification: true
         }
+      })
+
+      .state('hotelInfo', {
+        parent: 'root',
+        templateUrl: 'layouts/hotels/hotelSubpage.html',
+        controller: 'HotelSubpageCtrl',
+        url: '/hotels/:propertySlug/:infoSlug'
       })
 
       .state('room', {
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
-        url: '/hotels/:propertyCode/rooms/:roomID',
+        url: '/hotels/:propertySlug/rooms/:roomSlug',
         data: {
-          supportsEditMode: true
+          supportsEditMode: true,
+          hasRateNotification: true
         }
       })
 
@@ -198,7 +215,7 @@ angular
       .state('reservationDetail', {
         parent: 'root',
         templateUrl: 'layouts/reservations/reservationDetail.html',
-        url: '/reservation/:reservationCode?email',
+        url: '/reservation/:reservationCode',
         controller: 'ReservationDetailCtrl',
         data: {
           authProtected: true
@@ -295,15 +312,23 @@ angular
     });
   })
 
-  .controller('BaseCtrl', function($scope, $controller){
+  .controller('BaseCtrl', function($scope, $controller, scrollService,
+    metaInformationService){
+
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
+    // TODO: FIX THIS - scrolling should be done differently
+    //$controller('HotelDetailsCtrl', {$scope: $scope});
 
     $scope.$on('$stateChangeStart', function() {
       $scope.sso.trackPageLeave();
+      metaInformationService.reset();
     });
 
     $scope.$on('$stateChangeSuccess', function() {
       $scope.sso.trackPageView();
+      $scope.$on('$viewContentLoaded', function() {
+        scrollService.scrollTo();
+      });
     });
   });

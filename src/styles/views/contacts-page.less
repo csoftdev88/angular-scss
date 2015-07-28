@@ -106,6 +106,7 @@ contacts-page {
   h1 {
     font-size: @size-3;
     margin-bottom: @baseline;
+    font-weight: 300;
   }
 
   //- Form
@@ -113,6 +114,12 @@ contacts-page {
     display: flex;
     flex-flow: wrap;
     margin-bottom: @baseline;
+
+    // MOBILE SPECIFIC STYLES
+    @media only screen and @large-mobile-max {
+      width: 100%;
+      display: inline-block;
+    }
 
     // Columns
     fieldset {
@@ -126,6 +133,16 @@ contacts-page {
 
       &:last-of-type {
         padding-left: @baseline / 2;
+      }
+
+      // MOBILE SPECIFIC STYLES
+      @media only screen and @large-mobile-max {
+        width: 100%;
+        float: left;
+        &:first-of-type,
+        &:last-of-type {
+          padding: 0;
+        }
       }
     }
 
@@ -169,44 +186,53 @@ contacts-page {
   }
 
   //- List of Contact
-  contact-item {
-    display: block;
-    margin-bottom: @baseline;
+  contact-list{
 
-    font-size: @size--1;
+    float: left;
 
-    // Name of place
-    h2 {
-      font-weight: 700;
-      color:#781818;
+    contact-item {
+      display: block;
+      margin-bottom: @baseline;
+
+      font-size: @size--1;
+
+      // Name of place
+      h2 {
+        font-weight: 700;
+        color: #000;
+      }
+
+      p:before {
+        color: #781818;
+        margin-right: 10px;
+      }
+
+      // Telephone
+      p:nth-of-type(1):before {
+        .fa;
+
+        padding-right: @baseline / 5;
+
+        content: @fa-var-phone;
+      }
+
+      // Email
+      p:nth-of-type(2):before {
+        .fa;
+
+        padding-right: @baseline / 5;
+
+        content: @fa-var-envelope;
+      }
+
+      a {
+        text-decoration: none;
+        color: @c-brown;
+      }
     }
 
-    p:before {
-      color: #781818;
-    }
-
-    // Telephone
-    p:nth-of-type(1):before {
-      .fa;
-
-      padding-right: @baseline / 5;
-
-      content: @fa-var-phone;
-    }
-
-    // Email
-    p:nth-of-type(2):before {
-      .fa;
-
-      padding-right: @baseline / 5;
-
-      content: @fa-var-envelope;
-    }
-
-    a {
-      text-decoration: underline;
-    }
   }
+  
 
   .message-sent {
     margin-top: 2 * @baseline;

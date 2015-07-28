@@ -5,15 +5,15 @@
 angular.module('mobius.controllers.about', [])
 
   .controller('AboutUsCtrl', function($scope, $controller, contentService, chainService,
-         $state, $stateParams, _, Settings, modalService, breadcrumbsService) {
+         $state, $stateParams, _, Settings, modalService, breadcrumbsService, metaInformationService, $location) {
 
     $controller('MainCtrl', {$scope: $scope});
 
+    breadcrumbsService.clear()
+     .addBreadCrumb('About Us');
+
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
-
-      breadcrumbsService.clear()
-        .addBreadCrumb('About Us');
       $scope.openGallery = modalService.openGallery.bind(modalService,
         chain.images.map(function(image) {
           return image.uri;
@@ -50,11 +50,18 @@ angular.module('mobius.controllers.about', [])
     };
 
     function selectAbout(code) {
+      code = code.split('-')[1];
       selectedAboutIndex = _.findIndex($scope.aboutList, {code: code});
       if (selectedAboutIndex < 0) {
         return $state.go('aboutUs', {code: null});
       }
       $scope.selectedAbout = $scope.aboutList[selectedAboutIndex];
+      metaInformationService.setMetaDescription($scope.selectedAbout.meta.description);
+      metaInformationService.setMetaKeywords($scope.selectedAbout.meta.keywords);
+      metaInformationService.setPageTitle($scope.selectedAbout.meta.pagetitle);
+
+      $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl();
+      metaInformationService.setOgGraph($scope.selectedAbout.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('About Us', 'aboutUs', {code: null})
         .addBreadCrumb($scope.selectedAbout.title);

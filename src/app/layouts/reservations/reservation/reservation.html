@@ -1,6 +1,6 @@
 <hero-slider content="heroContent"></hero-slider>
 
-<breadcrumbs></breadcrumbs>
+<breadcrumbs stickable="main-header"></breadcrumbs>
 
 <main class="grid-wrapper">
 
@@ -112,8 +112,8 @@
     <div class="reservation-controls" grid-row>
       <button class="back" ng-click="goBack()">Back</button>
       <button class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">{{continueName}}</button>
-      <registration-call ng-if="!isUserLoggedIn() &amp;&amp; state.includes('reservation.details')">
-        <h4>Already Registered?</h4>
+      <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous()">
+        <h4>Already <strong>Registered?</strong></h4>
         <p>Click here to <a href ng-click="sso.login()">log in or register</a>.</p>
       </registration-call>
     </div>

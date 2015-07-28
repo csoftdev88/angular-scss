@@ -2,14 +2,15 @@
 
 angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
-.directive('bookingWidget', function($controller, $filter, $state, $window,
-  $stateParams, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, $q){
+.directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
+  $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
+  propertyService, locationService, filtersService, Settings){
   return {
     restrict: 'E',
     scope: {
       advanced: '=',
-      hideBar: '&'
+      hideBar: '&',
+      openBookingTab: '&'
     },
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
@@ -370,6 +371,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           break;
         case 'property':
           scope.selected.property = findProperty(scope.regionPropertySelected.code);
+          $stateParams.property = scope.selected.property.code;
           break;
         default:
           throw new Error('Undefined type: "' + scope.regionPropertySelected.type + '"');
@@ -414,10 +416,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if(!scope.selected.property || !scope.selected.property.code){
           // 'All properties' is selected, will redirect to hotel list
           stateParams.propertyCode = null;
+          stateParams.fromSearch = '1';
+          stateParams.scrollTo = 'hotels';
           $state.go('hotels', stateParams, {reload: true});
         } else{
           // Specific hotel selected, will redirect to room list
-          stateParams.propertyCode = scope.selected.property.code;
+          stateParams.propertySlug = scope.selected.property.meta.slug;
+          stateParams.fromSearch = '1';
+          stateParams.scrollTo = 'jsRooms';
           $state.go('hotel', stateParams, {reload: true});
         }
 
@@ -522,15 +528,68 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         canAddRoom();
       };
 
+      scope.getCurrentRate = function(){
+        if(scope.selected.rate){
+          var rate = $window._.findWhere(scope.rates, {id: parseInt(scope.selected.rate, 10)});
+          return rate?rate.name:'';
+        }
+
+        return '';
+      };
+
       scope.inputDateText = '';
 
       var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
         init();
       });
 
+      var prefillListener = $rootScope.$on('BOOKING_BAR_PREFILL_DATA', function(e, data){
+        onPrefill(data);
+      });
+
       scope.$on('$destroy', function(){
         routeChangeListener();
+        prefillListener();
       });
+
+      function onPrefill(settings){
+        scope.openBookingTab();
+
+        function prefillPromoCode() {
+          queryService.removeParam(PARAM_TYPES.promoCode.search);
+          scope.selected.promoCode = settings.promoCode;
+          var promoInput = angular.element('#booking-widget-promo-code');
+          if (promoInput.length) {
+            var prefilledClass = 'prefilled';
+            promoInput.addClass(prefilledClass);
+
+            // Removing class when animation complete
+            $timeout(function () {
+              promoInput.removeClass(prefilledClass);
+            }, 1000);
+          }
+        }
+
+        function removePromoCode() {
+          scope.selected.promoCode = '';
+          queryService.removeParam(PARAM_TYPES.promoCode.search);
+        }
+
+        $timeout(function () {
+          if (settings.promoCode) {
+            prefillPromoCode();
+          } else {
+            removePromoCode();
+          }
+
+          if (settings && settings.openDatePicker) {
+            var rangeInput = angular.element('#booking-widget-date-range');
+            if (rangeInput.length) {
+              rangeInput.focus();
+            }
+          }
+        }, 0);
+      }
 
       // Init
       init();

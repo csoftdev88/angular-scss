@@ -1,7 +1,8 @@
-/*'use strict';
+'use strict';
 
 describe('heroSlider', function() {
-  var env;
+  var env,
+    _spyAdvertClick;
 
   var TEMPLATE_PLACEHOLDER = '<hero-slider content="testContent"></hero-slider>';
   var TEMPLATE_CONTENT = '<div class="slider-content"></div><div class="slider-controls"></div>';
@@ -19,9 +20,7 @@ describe('heroSlider', function() {
 
   var TEST_CONTENT = [
     {
-      title: 'Promotions',
-      categoryName: 'testCat',
-      id: 'testID'
+      link: 'testLink'
     }
   ];
 
@@ -41,10 +40,14 @@ describe('heroSlider', function() {
       $provide.value('$state', {
         go: function(){}
       });
+
+      $provide.value('advertsService', {
+        advertClick: function(){}
+      });
     });
   });
 
-  beforeEach(inject(function($compile, $rootScope, $state, $templateCache) {
+  beforeEach(inject(function($compile, $rootScope, $state, $templateCache, advertsService) {
 
     env.$compile = $compile;
     env.$rootScope = $rootScope.$new();
@@ -55,6 +58,8 @@ describe('heroSlider', function() {
 
     // Spy's
     env.templateCacheGetSpy = sinon.spy(env.$templateCache, 'get');
+    _spyAdvertClick = sinon.spy(advertsService, 'advertClick');
+
     env.stateGoSpy = sinon.spy(env.$state, 'go');
 
     // Final component compile
@@ -69,6 +74,7 @@ describe('heroSlider', function() {
   afterEach(function() {
     env.templateCacheGetSpy.restore();
     env.stateGoSpy.restore();
+    _spyAdvertClick.restore();
   });
 
   describe('when component is initialized', function() {
@@ -95,10 +101,11 @@ describe('heroSlider', function() {
     });
 
     it('should navigate to the offers state in case caterory and offer ID are specified', function() {
+      env.scope.advert = {};
       env.scope.onContentClick();
 
-      expect(env.stateGoSpy.calledOnce).equal(true);
-      expect(env.stateGoSpy.calledWith('offers', {category: 'testCat', offerID: 'testID'})).equal(true);
+      expect(_spyAdvertClick.calledOnce).equal(true);
+      expect(_spyAdvertClick.calledWith(TEST_CONTENT[0].link)).equal(true);
     });
   });
 
@@ -120,4 +127,3 @@ describe('heroSlider', function() {
     });
   });
 });
-*/

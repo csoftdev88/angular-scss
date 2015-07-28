@@ -1,6 +1,6 @@
 <hero-slider content="heroContent" class="decoration-image"></hero-slider>
 
-<breadcrumbs></breadcrumbs>
+<breadcrumbs stickable="main-header"></breadcrumbs>
 
 <main class="grid-wrapper">
 
@@ -27,7 +27,7 @@
 
       <section>
         <h2>{{reward.name}}</h2>
-        <div ng-bind-html="sanitize(reward.description)"></div>
+        <div ng-bind-html="sanitize(reward.descriptionShort)"></div>
       </section>
       <span>Read more</span>
     </reward-item>
@@ -46,7 +46,7 @@
 
       <section>
         <h2>{{reward.name}}</h2>
-        <div ng-bind-html="sanitize(reward.description)"></div>
+        <div ng-bind-html="sanitize(reward.descriptionShort)"></div>
       </section>
       <span>Read more</span>
     </reward-item>

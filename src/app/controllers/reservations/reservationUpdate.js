@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.reservationUpdate', [])
   .controller('ReservationUpdateCtrl', function($scope, $state,
-    $location, $stateParams, notificationService, modalService){
+    $location, $stateParams, notificationService, modalService, user){
     var EVENT_NOTIFICATION_CLOSED = 'notification-closed';
 
     var reservationUpdateMode = false;
@@ -17,7 +17,7 @@ angular.module('mobius.controllers.reservationUpdate', [])
         // by checking fromState.name (if defined)
         if(!reservationUpdateMode){
           reservationUpdateMode = true;
-          notificationService.show('You are currently editing: ' + toParams.reservation);
+          notificationService.show('<span>You are currently editing: <strong>' + toParams.reservation + '</strong></span>');
           // NOTE: Info dialogue
           modalService.openModifyingReservationDialogue(toParams.reservation);
         }
@@ -26,8 +26,7 @@ angular.module('mobius.controllers.reservationUpdate', [])
       }
 
       // NOTE: LEAVING RESERVATION UPDATE MODE
-      if(
-        reservationUpdateMode &&
+      if(reservationUpdateMode &&
         ((fromParams.reservation && (!toState.data || !toState.data.supportsEditMode)) ||
         (!fromParams.reservation && !toParams.reservation))) {
         // Leaving reservation edit mode
@@ -36,8 +35,9 @@ angular.module('mobius.controllers.reservationUpdate', [])
 
         // NOTE: on reservationDetail state we dont show the modal
         cancelReservationUpdate(null, fromParams.reservation, toState.name !== 'reservationDetail');
-        // Removing reservation code from the URL
+        // Removing reservation code and email from the URL
         toParams.reservation = null;
+        toParams.email = null;
         $state.go(toState.name, toParams);
         return;
       }
@@ -49,6 +49,12 @@ angular.module('mobius.controllers.reservationUpdate', [])
       }
       cancelReservationUpdate('reservations', null, true);
     });
+
+    // Returns true when user is not logged-in and modifying the
+    // reservation based on his email and reservation code
+    $scope.isModifyingAsAnonymous = function(){
+      return !user.isLoggedIn() && $stateParams.email && $stateParams.reservation;
+    };
 
     function cancelReservationUpdate(redirectTo, reservationCode, showModal){
       reservationUpdateMode = false;

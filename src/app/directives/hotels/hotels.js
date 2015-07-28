@@ -4,11 +4,12 @@ angular.module('mobiusApp.directives.hotels', [])
 
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
-  'propertyService', 'preloaderFactory', '_', 'user', 'locationService',
-  '$q', 'modalService', '$controller', 'breadcrumbsService',
+  'propertyService', 'preloaderFactory', '_', 'user',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory, _, user, locationService, $q, modalService, $controller,
-    breadcrumbsService){
+    preloaderFactory, _, user, $q, modalService, $controller,
+    breadcrumbsService, scrollService, $location, $timeout){
+
   return {
     restrict: 'E',
     scope: {},
@@ -20,6 +21,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
       $controller('MainCtrl', {$scope: scope});
       $controller('PreferenceCtrl', {$scope: scope});
+      $controller('RatesCtrl', {$scope: scope});
 
       scope.sortingOptions = [
         {
@@ -66,6 +68,7 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.minRating = 0;
       scope.maxRating = 5;
 
+
       function getProperties(params){
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
@@ -77,27 +80,82 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
           scope.minSelectedPrice = scope.minPrice;
           scope.maxSelectedPrice = scope.maxPrice;
+
+          //scroll to element if set in url scrollTo param
+          var scrollToValue = $location.search().scrollTo || null;
+          if (scrollToValue) {
+            $timeout(function(){
+              scrollService.scrollTo(scrollToValue, 20);
+            }, 500);
+          }
         });
+
         // Loading locations
-        var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
+        /* var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
           scope.locations = locations || [];
           scope.locations.unshift({nameShort: 'All Locations'});
 
-          if(bookingParams.locationCode) {
+          // NOTE: LOCATION FEATURE IS DROPPED
+          /*if(bookingParams.locationCode) {
             scope.location = _.find(scope.locations, {code: bookingParams.locationCode});
             if(scope.location) {
               scope.loadLocation();
             }
           }
-        });
-
-        preloaderFactory($q.all([hotelsPromise, locationsPromise]));
+        });*/
+        preloaderFactory(hotelsPromise);
       }
 
-      scope.navigateToHotel = function(propertyCode){
-        $state.go('hotel', {propertyCode: propertyCode});
+/*
+      filtersService.getProducts(true).then(function(data) {
+        scope.rates = data || [];
+      });
+
+      scope.onRateChange = function(){
+        // Server side filtering
+        var bookingParams = bookingService.getAPIParams(true);
+        bookingParams.productGroupId = scope.selectedRate.id;
+
+        // NOTE: Server side filtering by rate
+        getProperties(bookingParams);
+
+        updateRateFilteringInfo(scope.selectedRate);
       };
 
+      // Updating notification bar
+      function updateRateFilteringInfo(rate){
+        notificationService.show('You are filtering by: ' + rate.name, 'notification-rate-filter-removed');
+      }
+*/
+      // This function invoked from RatesCtrl
+      scope.onRateChanged = function(rate){
+        var bookingParams = bookingService.getAPIParams(true);
+
+        bookingParams.productGroupId = rate?rate.id:scope.rates.defaultRate.id;
+        getProperties(bookingParams);
+      };
+
+      scope.navigateToHotel = function(propertySlug){
+        // Getting the current hotel
+        var selectedHotel = _.find(scope.hotels, function (item) {
+          return item && item.meta && item.meta.slug === propertySlug;
+        });
+
+        // Getting rate details from RateCtrl
+        var stateParams = {
+          property: selectedHotel ? selectedHotel.code : null,
+          propertySlug: propertySlug,
+          rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null
+        };
+
+        if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
+          stateParams.scrollTo = 'jsRooms';
+        }
+
+        $state.go('hotel', stateParams);
+      };
+
+      /*
       scope.loadLocation = function() {
         //if(scope.location && scope.location.code) {
         //  preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
@@ -106,7 +164,7 @@ angular.module('mobiusApp.directives.hotels', [])
         //} else {
         //  scope.locationDetails = null;
         //}
-      };
+      };*/
 
       // Getting the details from booking widget
       var bookingParams = bookingService.getAPIParams(true);

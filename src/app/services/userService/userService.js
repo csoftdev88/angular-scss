@@ -66,9 +66,16 @@ angular.module('mobiusApp.services.user', [])
           apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
           loadLoyalties(customerId), loadRewards(customerId)
         ]).then(function(data){
+          var userData = data[0];
+
           // NOTE: data[0] is userProfile data
           // data[1] is loyalties data - handled in loadLoyalties function
-          userObject = _.extend(userObject, data[0]);
+          if(userData && _.isArray(userData.email) &&  userData.email.length){
+            // Multiple email are not needed - we picking the first one
+            userData.email =  userData.email[0].value;
+          }
+
+          userObject = _.extend(userObject, userData);
           userObject.avatarUrl = userObject.avatarUrl || '/static/images/v4/img-profile.png';
           // Logged in as mobius user
           authPromise.resolve(true);

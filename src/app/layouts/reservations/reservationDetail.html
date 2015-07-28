@@ -17,10 +17,10 @@
         </div>
       </header>
 
-      <!-- <div class="actions">
-        <a href="" class="button-print"><span>Print</span></a>
-        <a href="" class="button-passbook"><span>Add to Passbook</span></a>-->
-      <!-- </div> -->
+      <div class="actions">
+        <!--<a href="" class="button-print"><span>Print</span></a>-->
+        <a href ng-click="sendToPassbook()"class="button-passbook"><span>Add to Passbook</span></a>
+      </div>
 
       <!-- <div class="share">
         Share via:
@@ -34,8 +34,8 @@
         <figure>
           <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           <!-- TODO: Add actions to buttons -->
-          <button class="button" ng-click="modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false}">Modify</button>
-          <button class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}">Cancel</button>
+          <button class="button" ng-click="modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false}" ng-if="!reservation.isInThePast">Modify</button>
+          <button class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}" ng-if="!reservation.isInThePast">Cancel</button>
         </figure>
 
         <div>
@@ -61,8 +61,8 @@
             </tbody>
           </table>
 
-          <table class="charges">
-            <tbody>
+          <table class="charges" ng-switch="!!reservation.pointValue">
+            <tbody ng-switch-when="false">
               <tr>
                 <th>Room Charges: {{billingDetails.paymentMethod}}</th>
                 <td>{{reservation.rooms[0].price | i18nCurrency: currencyCode}}</td>
@@ -84,7 +84,15 @@
                 <th>Discount:</th>
                 <td>{{reservation.rooms[0].priceBreakdown.discount | i18nCurrency: $root.currencyCode}}</td>
               </tr>
+            </tbody>
 
+            <tbody ng-switch-when="true">
+              <tr>
+                <th rowspan="3" class="total">Total:</th>
+                <td rowspan="3" class="total-value">
+                  <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

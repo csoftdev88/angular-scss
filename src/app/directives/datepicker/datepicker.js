@@ -13,7 +13,8 @@ angular.module('mobiusApp.directives.datepicker', [])
     require: 'ngModel',
     scope: {
       highlights: '=',
-      inputText: '='
+      inputText: '=',
+      paneTitle: '='
     },
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
@@ -26,6 +27,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       var rangeSelection = attrs.rangeSelection === '1';
       var maxDate = attrs.maxDate || null;
       var hasCounter = attrs.includeCounter === '1';
+
       var counterPluralizationRules;
 
       if(hasCounter){
@@ -46,22 +48,27 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       function beforeShow() {
-        if(ngModelCtrl.$modelValue !== undefined) {
+        // NOTE: using setHours(0) is safe for different timezones. By default
+        // jquery date picker returns dates at 00 hour
+
+        if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
           // NOTE: using setHours(0) is safe for different timezones. By default
           // jquery date picker returns dates at 00 hour
 
           // TODO: use $parsers/$formates in case when dates should be presented not
           // as a string
-          if(typeof(ngModelCtrl.$modelValue) === 'string'){
+          if (typeof(ngModelCtrl.$modelValue) === 'string') {
             var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
             startDate = $window.moment(dates[0], 'YYYY MM DD').valueOf();
-            endDate = dates.length === 2?$window.moment(dates[1], 'YYYY MM DD').valueOf():startDate;
+            endDate = dates.length === 2 ? $window.moment(dates[1], 'YYYY MM DD').valueOf() : startDate;
           }
         }
 
-        if(hasCounter){
-          updateCounter();
+        if (hasCounter) {
+          updateButtonPane('data-counter', getCounterText());
         }
+
+        updateButtonPane('data-title', scope.paneTitle);
       }
 
       // Multi input fields support
@@ -89,6 +96,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           showOtherMonths: true,
           selectOtherMonths: true,
           minDate: 0,
+          closeText: 'Continue',
 
           beforeShowDay: function ( date ) {
             return [
@@ -143,8 +151,10 @@ angular.module('mobiusApp.directives.datepicker', [])
             endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
 
             if(hasCounter){
-              updateCounter();
+              updateButtonPane('data-counter', getCounterText());
             }
+
+            updateButtonPane('data-title', scope.paneTitle);
           }
         }).datepicker('show');
       });
@@ -165,15 +175,17 @@ angular.module('mobiusApp.directives.datepicker', [])
         }
       }
 
-      function updateCounter(){
+      function updateButtonPane(attribute, value){
         $window._.defer(function(){
           var buttonPane = $( element )
             .datepicker( 'widget' )
             .find( '.ui-datepicker-buttonpane' );
 
-          buttonPane.attr( 'data-counter', getCounterText() );
+          buttonPane.attr( attribute, value );
         });
       }
+
+
 
       function getCounterText(){
         var diff;

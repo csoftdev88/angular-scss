@@ -12,7 +12,9 @@ angular.module('mobiusApp.services.booking', [])
     'region': 'regionCode',
     'adults': 'adults',
     'children': 'children',
-    'rate': 'productGroupId'
+    'rate': 'productGroupId',
+    'propertySlug': 'propertySlug',
+    'roomSlug': 'roomSlug'
   };
 
   var API_PARAM_FROM = 'from';
@@ -30,7 +32,9 @@ angular.module('mobiusApp.services.booking', [])
       // rate is ProductGroupID from filters/product API
       rate: $stateParams.rate,
       rooms: $stateParams.rooms,
-      promoCode: $stateParams.promoCode
+      promoCode: $stateParams.promoCode,
+      propertySlug: $stateParams.propertySlug,
+      roomSlug: $stateParams.roomSlug
     };
 
     if(!excludePropertyId){
