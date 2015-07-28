@@ -13,8 +13,8 @@
   </view-more-images>
 </section>
 
-<div class="grid-wrapper">
-  <section grid-container="9" widget="hotels" id="hotels">
+
+  <section grid-container="9" widget="hotels" id="hotels" class="swap-on-mobile-default">
     <header class="hotels__header">
       <h1>Our <strong>Hotels</strong></h1>
       <!--<p>{{(hotels | filter : hotelFilter).length | pluralization: {'0': 'No hotel available', '1': '{} hotel available', 'plural': '{} hotels available'} }}</p>-->
@@ -49,7 +49,7 @@
 
             <h2 ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
-              <p class="price available" ng-if="hotel.available">
+              <p class="price available left" ng-if="hotel.available">
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night
                 <span ng-if="hotel.available && isUserLoggedIn()">
                   <br />or <span class="value">{{hotel.minPointsRequired}}</span> points
@@ -72,7 +72,7 @@
     </div>
   </section>
 
-  <aside grid-container="3" class="hotels__filter">
+  <aside grid-container="3" class="hotels__filter swap-on-mobile">
     <div class="view-switch">
       <h2>View</h2>
       <ul>
@@ -146,4 +146,4 @@
       <!-- </select> -->
     </div>
   </aside>
-</div>
+

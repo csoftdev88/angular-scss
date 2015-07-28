@@ -39,6 +39,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       // Getting reservation details
       var reservationPromise = reservationService.getReservation($stateParams.reservationCode, params).then(function(reservation) {
         $scope.reservation = reservation;
+        $scope.reservation.isInThePast = isInThePast(reservation);
         $scope.reservation.packages = $scope.reservation.packageItemCodes || []; // API workaround
         var room = $scope.reservation.rooms[0];
 
@@ -262,5 +263,19 @@ angular.module('mobius.controllers.reservationDetail', [])
       }
 
       modalService.openAddonDetailDialog($scope.addAddon, addon, payWithPoints);
+    };
+
+    function isInThePast(reservation){
+      var today = $window.moment().valueOf();
+      return $window.moment(reservation.departureDate).valueOf() < today;
+    }
+    $scope.sendToPassbook = function(){
+      reservationService.sendToPassbook($stateParams.reservationCode).then(function(){
+        userMessagesService.addInfoMessage('<div>You have successfully added your reservation <strong>' +
+          $stateParams.reservationCode + '</strong> to passbook.</div>');
+      }, function(){
+        userMessagesService.addInfoMessage('<div>Sorry, we could not add reservation <strong>' +
+          $stateParams.reservationCode + '</strong> to passbook, please try again.</div>');
+      });
     };
   });

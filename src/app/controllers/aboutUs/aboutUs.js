@@ -57,6 +57,7 @@ angular.module('mobius.controllers.about', [])
       }
       $scope.selectedAbout = $scope.aboutList[selectedAboutIndex];
       metaInformationService.setMetaDescription($scope.selectedAbout.meta.description);
+      metaInformationService.setMetaKeywords($scope.selectedAbout.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedAbout.meta.pagetitle);
 
       $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl();

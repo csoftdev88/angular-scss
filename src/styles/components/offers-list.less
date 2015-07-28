@@ -7,8 +7,12 @@ rewards-list {
   clear: both;
   display: flex;
   flex-flow: wrap;
-  justify-content: center;
-  margin: 0 @baseline/4 @baseline @baseline/4;
+  justify-content: left;
+  margin: 0 @baseline/4 @baseline 0;
+
+  .viewport-mobile &{
+    margin-right: 0;
+  }
 
   offer-item,
   reward-item {
@@ -49,9 +53,9 @@ rewards-list {
     //- Content - Title + Description
     section {
       position: relative;
-
       max-height: 150px;
       overflow: hidden;
+      float: left;
 
       &:after {
         position: absolute;
@@ -115,12 +119,12 @@ rewards-list {
       }
     }
 
-    @media only screen and @large-mobile-max {
+    .viewport-mobile &{
 
-      flex: 0 0 ~"calc(100% - 5px)";
-      height: auto;
-      width: ~"calc(100% - 5px)";
+      flex: 100%;
+      width: 100%;
       padding-bottom: 16px;
+      margin: 0 0 @baseline;
 
       span {
         position: relative;

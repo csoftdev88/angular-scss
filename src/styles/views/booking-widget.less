@@ -27,7 +27,22 @@ booking-widget-add-room form-element {
   flex: 2;
   padding-right: @baseline/2;
 
+  .viewport-mobile &{
+    padding-right: 0;
+    margin-bottom: 20px;
+    input,
+    .chosen-container,
+    .chosen-single{
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+
   &.persons {
+    flex: 1;
+  }
+
+    &.children {
     flex: 1;
   }
 
@@ -37,7 +52,7 @@ booking-widget-add-room form-element {
 
     position: absolute;
     top: 50%;
-    z-index: 2000;
+    z-index: 1009;
 
     width: @baseline * 1.5;
 
@@ -51,6 +66,7 @@ booking-widget-add-room form-element {
 
     &.hotel:before   { content: @fa-var-map-marker; }
     &.persons:before { content: @fa-var-user; }
+    &.children:before { content: @fa-var-child; }
     &.dates:before   { content: @fa-var-calendar-o; }
     &.code:before    { content: @fa-var-tag; }
     &.rate:before    { content: @fa-var-suitcase; }
@@ -124,6 +140,27 @@ booking-widget-add-room form-element {
   }
 }
 
+.multiroom-mode {
+  booking-widget-search {
+    width: 40%;
+  }
+
+  booking-widget-add-room {
+    margin-top: 25px;
+    width: 40%;
+    float: left;
+  }
+
+  button-submit {
+    width: 20%;
+    float: right;
+    margin-top: @baseline;
+  }
+
+  form-element ~ button-text {
+    margin-right: -100px;
+  }
+}
 
 //- Search
 booking-widget-search {
@@ -132,8 +169,11 @@ booking-widget-search {
   float: left;
   width: 90%;
 
-  &.multiroom {
-    width: 40%;
+  .viewport-mobile &{
+    display: inline-block;
+    width: 100%;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
   }
 
   // region/hotel styling in dropdown
@@ -152,28 +192,44 @@ booking-widget-search {
 
   //- Make your booking
   h3 {
-    position: relative;
 
+    position: relative;
     flex: 0 0 auto;
     padding-right: @baseline * 2;
-
     text-transform: uppercase;
 
-    strong { display: block; }
+    strong {
+      display: block;
+    }
+
+    .mobile-close{
+      display: none;
+    }
+
+    .viewport-mobile &{
+      padding: 0;
+      text-align: center;
+      margin-bottom: 30px;
+      display: none;
+      br{
+        display: none;
+      }
+      strong{
+        display: inline;
+      }
+      &:after{
+        content: none;
+      }
+    }
 
     &:after {
       .fa;
-
       position: absolute;
       right: @baseline / 2;
       top: 50%;
-
       color: #ddd;
-
       font-size: 21px;
-
       transform: translateY(-50%);
-
       content: @fa-var-chevron-right;
     }
   }
@@ -184,6 +240,9 @@ booking-widget-search {
   button-submit {
     align-self: center;
     flex: 0 0 auto;
+    .viewport-mobile &{
+      display: block;
+    }
   }
 }
 
@@ -211,6 +270,16 @@ booking-widget-add-room {
   booking-widget-room {
     display: block;
     margin: 0 0 @baseline 0;
+
+    h3 {
+      float: left;
+      width: 20%;
+    }
+
+    form-element {
+      width: 35%;
+      box-sizing: border-box;
+    }
   }
 
 

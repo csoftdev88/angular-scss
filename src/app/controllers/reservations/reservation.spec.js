@@ -97,7 +97,7 @@ describe('mobius.controllers.reservation', function() {
                   c(TEST_PRODUCTS);
                 }
               };
-            },
+            }
           };
         });
 
@@ -157,6 +157,7 @@ describe('mobius.controllers.reservation', function() {
           setActiveHref: function(){ return breadcrumbs; }
         };
         $provide.value('breadcrumbsService', breadcrumbs);
+        $provide.value('scrollService',{});
       });
     });
 

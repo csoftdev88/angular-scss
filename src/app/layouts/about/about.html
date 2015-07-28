@@ -57,7 +57,7 @@
 
     <hr>
 
-    <h2 ng-if="aboutList.length > 1">You may also be interested in:</h2>
+    <h2 ng-if="aboutList.length > 1">You may also be <strong>interested in:</strong></h2>
 
     <offers-list ng-if="aboutList.length > 1">
       <offer-item ng-repeat="about in aboutList | filter:getRelevant track by $index" ng-click="goToDetail(about.meta.slug)">

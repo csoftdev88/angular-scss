@@ -7,6 +7,44 @@
 
   <div class="app-menu">
     <ul dropdown-group>
+
+      <li class="mobile-header">
+        <a ui-sref="home">
+          <img src="/static/images/v4/logo.png" alt="Mobius logo">
+        </a>
+        <span class="close"></span>
+      </li>
+
+      <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="mobile-profile">
+        <div class="dropdown">
+          <a href>
+            <div class="profile">
+              <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
+              <div class="user">
+                <div class="name">{{user.getUser().firstName}} {{user.getUser().lastName}}</div>
+                <div class="points">
+                  <span>{{user.getUser().loyalties.amount}} _points_</span>
+                  <span class="vr">|</span>
+                  <span>{{user.getUser().loyalties.tier}} _tier_</span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <ul class="dropdown-menu submenu">
+            <li>
+              <a ui-sref="reservations">Reservations</a>
+            </li>
+            <li>
+              <a href ng-click="sso.profile()">Profile</a>
+            </li>
+            <li>
+              <a href ng-click="sso.logout()">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
       <li has-dropdown="hover" ng-hide="config.menu.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
 
       <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
@@ -30,7 +68,7 @@
         <a class="button button-login" ng-click="sso.login()">Login</a>
       </li>
 
-      <li has-dropdown="click" ng-show="isUserLoggedIn()" profile>
+      <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
         <div class="dropdown">
           <a href>
             <div class="profile">
