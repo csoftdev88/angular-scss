@@ -60,3 +60,15 @@ referenced from within it.
 
 ### SanitizeCtrl
 `SanitizeCtrl` provides HTML sanitization for the data recieved from the API. [See more](controllers/common/sanitize/README.md)
+
+## Embedded forms
+It's possible to embed special elements thru the content which is coming from the API. In case when data contains plain text or HTML which includes `<embedded-form type="snippet-type"></embedded-form>` tag corresponding snipped will be appended when found. All snippets are available in `app\directives\embeddedForms\snippets\` folder. Each snippet is a HTML template and can also include javascript functions e.g.:
+
+```
+<a class="typeform-share button" href="https://peterswain.typeform.com/to/KZfV4O" data-mode="2" target="_blank">Best Price Guarantee</a>
+
+<script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typeform',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}id=id+'';if(!gi.call(d,id)){qs=ce.call(d,'link');qs.rel='stylesheet';qs.id=id;qs.href=b+'share-button.css';s=gt.call(d,'head')[0];s.appendChild(qs,s)}})()</script>
+
+```
+
+See also [bind-unsafe](app/directives/bindUnsafe) directive.
