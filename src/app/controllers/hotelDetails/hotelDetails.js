@@ -158,7 +158,7 @@ angular.module('mobius.controllers.hotel.details', [])
   };
 
   $scope.getAbsUrl = function(){
-    return $location.absUrl();
+    return $location.absUrl().split('?')[0];
   };
 
   $scope.advertClick = advertsService.advertClick;
