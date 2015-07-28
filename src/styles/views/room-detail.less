@@ -40,21 +40,47 @@ hotel-room {
       width: 150px;
 
       cursor: pointer;
-    }
+      //- Image
+      figure {
+        position: relative;
+        left: @baseline/2;
+        top: @baseline/2;
 
-    figure {
-      position: static;
-      width: 100%;
-      height: @list-item-min-height;
-      overflow: hidden;
-      margin-bottom: @baseline/2;
-
-      img {
-        width: 100%;
+        max-height: @list-item-min-height;
+        overflow: hidden;
         display: block;
+        border: 1px solid #ccc;
+
+        img {
+          width: 100%;
+          display: block;
+        }
+      }
+
+      //- Appear eye icon on hover
+      &.with-special-eye-hover {
+        figure:after {
+          position: absolute;
+          left: 0;
+          top: 0;
+
+          height: 100%;
+          width: 100%;
+
+          background: rgba(0, 0, 0, 0.7) url(../images/v4/eye.svg) center center no-repeat;
+          background-size: 50px;
+          opacity: 0;
+
+          transition: 0.2s all;
+
+          content: '';
+        }
+
+        &:hover figure:after {
+          opacity: 1;
+        }
       }
     }
-    
   }
 }
 
