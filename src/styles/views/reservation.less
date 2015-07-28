@@ -689,6 +689,10 @@ reservation-finished {
       width: 100%;
       margin-bottom: 20px;
 
+      @media print { 
+       display: none;
+      }
+
       a {
         display: block;
         margin-left: @spacing / 2;
@@ -1030,6 +1034,9 @@ reservation-hotel-details {
         height: 30px;
         line-height: 30px;
         width: 135px;
+        @media print { 
+         display: none;
+        }
       }
 
       button + button {

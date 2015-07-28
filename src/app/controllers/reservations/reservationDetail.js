@@ -289,4 +289,9 @@ angular.module('mobius.controllers.reservationDetail', [])
       });
     };
 
+    //print page
+    $scope.printPage = function(){
+      $window.print();
+    };
+
   });
