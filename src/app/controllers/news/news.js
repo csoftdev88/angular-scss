@@ -47,7 +47,7 @@ angular.module('mobius.controllers.news', [])
       metaInformationService.setMetaDescription($scope.selectedNews.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedNews.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedNews.meta.pagetitle);
-      $scope.selectedNews.meta.microdata.og['og:url'] = $location.absUrl();
+      $scope.selectedNews.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedNews.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('News', 'news', {code: null})

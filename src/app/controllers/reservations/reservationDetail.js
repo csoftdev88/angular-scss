@@ -9,7 +9,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
-    userMessagesService, propertyService, breadcrumbsService, user){
+    userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location, metaInformationService){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -19,6 +19,12 @@ angular.module('mobius.controllers.reservationDetail', [])
     breadcrumbsService.addBreadCrumb('My Stays', 'reservations').addBreadCrumb($stateParams.reservationCode);
 
     $scope.reservationCode = $stateParams.reservationCode;
+
+    $timeout(function(){
+      $rootScope.$broadcast('floatingBarEvent', {
+        isCollapsed: true
+      });
+    });
 
     function onAuthorized(isMobiusUser) {
       var params;
@@ -58,6 +64,10 @@ angular.module('mobius.controllers.reservationDetail', [])
         // Getting property details
         var propertyPromise = propertyService.getPropertyDetails(reservation.property.code).then(function(property) {
           $scope.property = property;
+          //sharing
+          $scope.shareURL = $location.port() ? $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/hotels/' + $scope.property.meta.slug : $location.protocol() + '://' + $location.host() + '/hotels/' + $scope.property.meta.slug;
+          $scope.property.meta.microdata.og['og:url'] = $scope.shareURL;
+          metaInformationService.setOgGraph($scope.property.meta.microdata.og);
         });
 
         // Getting room/products data
@@ -278,4 +288,10 @@ angular.module('mobius.controllers.reservationDetail', [])
           $stateParams.reservationCode + '</strong> to passbook, please try again.</div>');
       });
     };
+
+    //print page
+    $scope.printPage = function(){
+      $window.print();
+    };
+
   });

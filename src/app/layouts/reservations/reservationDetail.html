@@ -4,6 +4,19 @@
 
   <reservation-finished>
     <section grid-row class="reservation-summary">
+
+      <div class="actions">
+        <div class="share">
+          Share via:
+          <a href="" ng-href="https://www.facebook.com/sharer/sharer.php" title="Share on Facebook" target="_blank" class="icon-fb"></a>
+          <a href="" ng-href="https://twitter.com/intent/tweet?source={{shareURL}}&text={{shareURL}}&via=SuttonPlaceHtl" title="Tweet" target="_blank" class="icon-twitter"></a>
+          <a href="" ng-href="https://plus.google.com/share?url={{shareURL}}" title="Share on Google+" target="_blank" class="icon-gplus"></a>
+          <a href="" ng-href="mailto:?body={{shareURL}}" title="Email" target="_blank" class="icon-email"></a>
+        </div>
+        <a href="" class="button-print" ng-click="printPage()"><span>Print</span></a>
+        <a href ng-click="sendToPassbook()"class="button-passbook"><span>Add to Passbook</span></a>
+      </div>
+      
       <header>
         <h1>{{property.nameLong}}</h1>
 
@@ -16,19 +29,6 @@
           Booked: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
         </div>
       </header>
-
-      <div class="actions">
-        <!--<a href="" class="button-print"><span>Print</span></a>-->
-        <a href ng-click="sendToPassbook()"class="button-passbook"><span>Add to Passbook</span></a>
-      </div>
-
-      <!-- <div class="share">
-        Share via:
-        <a href="" class="icon-fb"></a>
-        <a href="" class="icon-twitter"></a>
-        <a href="" class="icon-gplus"></a>
-        <a href="" class="icon-email"></a>
-      </div> -->
 
       <div class="tables">
         <figure>

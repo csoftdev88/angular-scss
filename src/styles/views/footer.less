@@ -4,11 +4,13 @@
 
 footer {
   padding-top: @baseline;
-
   color: #999;
-
   font-size: @size--1;
   line-height: @baseline * 2;
+
+  @media print { 
+   display: none;
+  }
 
   floating-bar.active  ~ & {
     margin-bottom: 130px;

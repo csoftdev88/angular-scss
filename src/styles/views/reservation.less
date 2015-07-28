@@ -663,7 +663,7 @@ reservation-confirmation {
 reservation-finished {
   position: relative;
   display: block;
-  margin-top: 4*@baseline;
+  margin-top: 2*@baseline;
 
   // Headings
   section > h3,
@@ -682,76 +682,81 @@ reservation-finished {
   .reservation-summary {
     padding-top: 3 * @spacing;
 
-    // Block w/ PRINT and ADD TO PASSBOOK buttons
+    // Block w/ PRINT and ADD TO PASSBOOK and SHARE buttons
     .actions {
-      position: absolute;
-      top: 0;
-      right: 0;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 20px;
+
+      @media print { 
+       display: none;
+      }
 
       a {
         display: block;
-        float: right;
         margin-left: @spacing / 2;
+      }
+
+      .button-passbook {
+        background: url('../images/v4/btn-passbook.png');
+        width: 108px;
+        height: 36px;
+        float: right;
+      }
+
+      .button-print {
+        background: url('../images/v4/btn-print.png');
+        width: 37px;
+        height: 36px;
+        float: right;
+      }
+
+      // Block w/ share buttons under the header
+      .share {
+        position: relative;
+        float: left;
+        line-height: @baseline * 1.6;
+
+        a {
+          display: inline-block;
+          height: @baseline * 1.6;
+          width: @baseline * 1.6;
+          margin-left: 10px;
+          border-radius: 100%;
+
+          color: #fff;
+
+          font-size: @size-3;
+          line-height: @baseline * 1.6;
+          text-align: center;
+
+          &:focus,
+          &:hover {
+            background: @c-link;
+            color: #fff;
+          }
+
+          &:before {
+            .fa;
+          }
+
+          &.icon-fb {             background: #36589b;}
+          &.icon-fb:before {      content: @fa-var-facebook; }
+
+          &.icon-twitter {        background: #31aae1;}
+          &.icon-twitter:before { content: @fa-var-twitter; }
+
+          &.icon-gplus {          background: #da4b39;}
+          &.icon-gplus:before {   content: @fa-var-google-plus; }
+
+          &.icon-email {          background: #999;}
+          &.icon-email:before {   content: @fa-var-envelope-o; }
+        }
       }
 
       span {
         visibility: hidden;
-      }
-    }
-
-    .button-passbook {
-      background: url('../images/v4/btn-passbook.png');
-      width: 108px;
-      height: 36px;
-    }
-
-    .button-print {
-      background: url('../images/v4/btn-print.png');
-      width: 37px;
-      height: 36px;
-    }
-
-    // Block w/ share buttons under the header
-    .share {
-      position: absolute;
-      top: 0;
-      left: 0;
-      line-height: @baseline * 1.6;
-
-      a {
-        display: inline-block;
-        height: @baseline * 1.6;
-        width: @baseline * 1.6;
-        margin-left: 10px;
-        border-radius: 100%;
-
-        color: #fff;
-
-        font-size: @size-3;
-        line-height: @baseline * 1.6;
-        text-align: center;
-
-        &:focus,
-        &:hover {
-          background: @c-link;
-          color: #fff;
-        }
-
-        &:before {
-          .fa;
-        }
-
-        &.icon-fb {             background: #36589b;}
-        &.icon-fb:before {      content: @fa-var-facebook; }
-
-        &.icon-twitter {        background: #31aae1;}
-        &.icon-twitter:before { content: @fa-var-twitter; }
-
-        &.icon-gplus {          background: #da4b39;}
-        &.icon-gplus:before {   content: @fa-var-google-plus; }
-
-        &.icon-email {          background: #999;}
-        &.icon-email:before {   content: @fa-var-envelope-o; }
       }
     }
 
@@ -777,8 +782,18 @@ reservation-finished {
       box-sizing: border-box;
       padding: 0 @spacing / 2;
 
-      &.half {  width: 50%; }
-      &.third { width: 33.3333%; }
+      &.half {  
+        width: 50%;
+        .viewport-mobile &{
+          width: 100%;
+        }
+      }
+      &.third { 
+        width: 33.3333%;
+        .viewport-mobile &{
+          width: 100%;
+        }
+      }
 
       > div {
         cursor: pointer;
@@ -941,6 +956,8 @@ reservation-hotel-details {
     header {
       .clearfix;
       margin: 0 0 2 * @spacing 0;
+      float: left;
+      width: 100%;
 
       h1,
       > div {
@@ -1017,6 +1034,9 @@ reservation-hotel-details {
         height: 30px;
         line-height: 30px;
         width: 135px;
+        @media print { 
+         display: none;
+        }
       }
 
       button + button {
