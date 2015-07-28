@@ -9,7 +9,17 @@ describe('mobius.controllers.reservationDetail', function() {
     var TEST_RESERVATION_CODE = 95234134;
     var TEST_RESERVATION = {
       property: {
-        code: 'TEST_PROP_CODE'
+        code: 'TEST_PROP_CODE',
+        meta: {
+          slug: 'test_slug',
+          description: 'meta description',
+          pagetitle: 'Hotel',
+          keywords: 'hotel, rooms',
+          microdata: {
+            schemaOrg: [],
+            og: []
+          }
+        }
       },
       customer: {
         id: 'TEST_CUST_ID'
@@ -22,7 +32,17 @@ describe('mobius.controllers.reservationDetail', function() {
       ]
     };
     var TEST_PROPERTY = {
-      code: 'TPROP'
+      code: 'TPROP',
+      meta: {
+        slug: 'test_slug',
+        description: 'meta description',
+        pagetitle: 'Hotel',
+        keywords: 'hotel, rooms',
+        microdata: {
+          schemaOrg: [],
+          og: []
+        }
+      }
     };
     var TEST_ROOM = {};
     var TEST_PRODUCTS = [];
@@ -53,6 +73,10 @@ describe('mobius.controllers.reservationDetail', function() {
           },
           openCancelReservationDialog: function() {
           }
+        });
+
+        $provide.value('metaInformationService', {
+          setOgGraph: function() {}
         });
 
         $provide.service('reservationService', function() {

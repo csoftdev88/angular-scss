@@ -33,7 +33,7 @@ describe('mobius.controllers.common.cardExpiration', function() {
       });
 
       it('should have month id and name defined', function(){
-        expect(_scope.cardExpiration.months[0].id).equal(5);
+        expect(_scope.cardExpiration.months[0].id).equal(4);
         expect(_scope.cardExpiration.months[0].name).equal('May');
       });
     });

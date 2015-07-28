@@ -27,6 +27,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.MY_ACCOUNT = MY_ACCOUNT;
 
         var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+        var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
         scope.setActive = function(newActive) {
           if(scope.active === newActive){
@@ -59,6 +60,9 @@ angular.module('mobiusApp.directives.floatingBar', [
           if(viewport.isMobile){
             scope.isCollapsed = true;
           }
+        });
+        scope.$on(EVENT_FLOATING_BAR, function(event, floatingBar){
+          scope.isCollapsed = floatingBar.isCollapsed;
         });
       }
     };

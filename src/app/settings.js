@@ -329,7 +329,7 @@ angular.module('mobiusApp.config', [])
           max: 8 * 86400000,
           // Only for future dates
           min: 0,
-          format: 'dd'
+          format: 'ddd'
         },
         {
           // If the check in date is between 8 and 90 days

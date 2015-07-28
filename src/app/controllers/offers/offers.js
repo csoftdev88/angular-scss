@@ -17,6 +17,16 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.showDetail = $stateParams.code ? true : false;
 
+    $scope.$watch(function(){
+      return $scope.showDetail;
+    }, function(){
+      if($scope.showDetail) {
+        $timeout(function () {
+          scrollService.scrollTo('offer-detail', 20);
+        });
+      }
+    });
+
     contentService.getOffers().then(function(response) {
       $scope.offersList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
@@ -39,11 +49,10 @@ angular.module('mobius.controllers.offers', [])
 
       $state.go('offers', {code: slug});
       $timeout(function () {
-        scrollService.scrollTo('offer-detail', 20);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           promoCode: $scope.selectedOffer.promoCode
         });
-      }, 0);
+      });
     };
 
     $scope.goToOffersList = function() {
@@ -60,7 +69,7 @@ angular.module('mobius.controllers.offers', [])
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
-      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl();
+      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('Offers', 'offers', {code: null})
