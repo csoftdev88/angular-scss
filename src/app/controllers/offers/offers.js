@@ -17,6 +17,16 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.showDetail = $stateParams.code ? true : false;
 
+    $scope.$watch(function(){
+      return $scope.showDetail;
+    }, function(){
+      if($scope.showDetail) {
+        $timeout(function () {
+          scrollService.scrollTo('offer-detail', 20);
+        });
+      }
+    });
+
     contentService.getOffers().then(function(response) {
       $scope.offersList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
@@ -39,7 +49,6 @@ angular.module('mobius.controllers.offers', [])
 
       $state.go('offers', {code: slug});
       $timeout(function () {
-        scrollService.scrollTo('offer-detail', 20);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           promoCode: $scope.selectedOffer.promoCode
         });
