@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.userMessagesService', [])
-  .service('userMessagesService', function($rootScope) {
+  .service('userMessagesService', function($rootScope, $timeout) {
 
     var INFO = 'info-message';
     var ERROR = 'error-message';
@@ -11,6 +11,7 @@ angular.module('mobiusApp.services.userMessagesService', [])
     function addMessage(type, html, keepOldMessages) {
       if(!keepOldMessages && messages.length){
         messages.length = 0;
+        document.body.style.paddingTop = 0;
       }
 
       $rootScope.$evalAsync(function(){
@@ -18,6 +19,11 @@ angular.module('mobiusApp.services.userMessagesService', [])
           type: type,
           html: html
         });
+        
+        $timeout(function () {
+          document.body.style.paddingTop = angular.element('#user-messages').height() + 'px';
+        }, 500);
+        
       });
     }
 

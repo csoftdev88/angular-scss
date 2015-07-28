@@ -663,7 +663,7 @@ reservation-confirmation {
 reservation-finished {
   position: relative;
   display: block;
-  margin-top: 4*@baseline;
+  margin-top: 2*@baseline;
 
   // Headings
   section > h3,
@@ -684,9 +684,9 @@ reservation-finished {
 
     // Block w/ PRINT and ADD TO PASSBOOK buttons
     .actions {
-      position: absolute;
-      top: 0;
-      right: 0;
+      position: relative;
+      float: right;
+      margin-bottom: 20px;
 
       a {
         display: block;
@@ -777,8 +777,18 @@ reservation-finished {
       box-sizing: border-box;
       padding: 0 @spacing / 2;
 
-      &.half {  width: 50%; }
-      &.third { width: 33.3333%; }
+      &.half {  
+        width: 50%;
+        .viewport-mobile &{
+          width: 100%;
+        }
+      }
+      &.third { 
+        width: 33.3333%;
+        .viewport-mobile &{
+          width: 100%;
+        }
+      }
 
       > div {
         cursor: pointer;
@@ -941,6 +951,8 @@ reservation-hotel-details {
     header {
       .clearfix;
       margin: 0 0 2 * @spacing 0;
+      float: left;
+      width: 100%;
 
       h1,
       > div {
