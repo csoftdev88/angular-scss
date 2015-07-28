@@ -148,6 +148,7 @@ angular.module('mobius.controllers.reservation', [])
 
   var $stateChangeStartUnWatch = $rootScope.$on('$stateChangeSuccess', function(event, toState) {
     setContinueName(toState.name);
+    $rootScope.showHomeBreadCrumb = false;
   });
 
   setContinueName($state.current.name);
