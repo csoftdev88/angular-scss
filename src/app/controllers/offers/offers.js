@@ -43,7 +43,7 @@ angular.module('mobius.controllers.offers', [])
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           promoCode: $scope.selectedOffer.promoCode
         });
-      }, 0);
+      });
     };
 
     $scope.goToOffersList = function() {
