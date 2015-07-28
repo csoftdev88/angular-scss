@@ -10,7 +10,7 @@ angular.module('mobiusApp.services.scroll', [])
 
       //No scroll if home
       //If url has scrollTo and target is not set let controller handle scrolling when content has loaded
-      if($state.current.name === 'home' || $location.search().scrollTo && ($state.current.name === 'hotels' || $state.current.name === 'hotel' || $state.current.name === 'room')){
+      if($state.current.name === 'home' || $location.search().scrollTo && !target && ($state.current.name === 'hotel' || $state.current.name === 'room')){
         angular.element('html, body').scrollTop(0);
         return;
       }

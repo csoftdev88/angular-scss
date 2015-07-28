@@ -90,7 +90,7 @@ angular.module('mobiusApp.directives.room', [])
         metaInformationService.setMetaDescription(data.meta.description);
         metaInformationService.setMetaKeywords(data.meta.keywords);
         metaInformationService.setPageTitle(data.meta.pagetitle);
-        data.meta.microdata.og['og:url'] = $location.absUrl();
+        data.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph(data.meta.microdata.og);
         /* Getting other rooms. We should show those that are closest in price but have a price that is
            greater than the currently viewed room. If there are not enough of them we can show the cheaper
