@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout){
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
@@ -111,11 +111,18 @@ angular.module('mobius.controllers.reservation', [])
     lastBreadCrumbName = name;
   };
 
+  function scrollToGuestDetails() {
+    $timeout(function(){
+      scrollService.scrollTo('reservationDetailsForm', 20);
+    }, 100);
+  }
+
   function setContinueName(stateName) {
     switch (stateName) {
     case 'reservation.details':
       setBreadCrumbs(GUEST_DETAILS);
       $scope.continueName = 'Continue';
+      scrollToGuestDetails();
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
