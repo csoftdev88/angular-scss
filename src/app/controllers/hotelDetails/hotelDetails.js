@@ -38,7 +38,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
   $scope.scrollToBreadcrumbs = function(){
     $timeout(function(){
-      scrollService.scrollTo('breadcrumbs');
+      scrollService.scrollTo();
     }, 0);
   };
 
@@ -51,6 +51,7 @@ angular.module('mobius.controllers.hotel.details', [])
         $scope.details = details;
 
         metaInformationService.setMetaDescription($scope.details.meta.description);
+        metaInformationService.setMetaKeywords($scope.details.meta.keywords);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
         $scope.details.meta.microdata.og['og:url'] = $location.absUrl();

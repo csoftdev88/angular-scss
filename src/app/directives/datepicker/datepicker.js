@@ -51,7 +51,20 @@ angular.module('mobiusApp.directives.datepicker', [])
         // NOTE: using setHours(0) is safe for different timezones. By default
         // jquery date picker returns dates at 00 hour
 
-        if(hasCounter){
+        if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
+          // NOTE: using setHours(0) is safe for different timezones. By default
+          // jquery date picker returns dates at 00 hour
+
+          // TODO: use $parsers/$formates in case when dates should be presented not
+          // as a string
+          if (typeof(ngModelCtrl.$modelValue) === 'string') {
+            var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
+            startDate = $window.moment(dates[0], 'YYYY MM DD').valueOf();
+            endDate = dates.length === 2 ? $window.moment(dates[1], 'YYYY MM DD').valueOf() : startDate;
+          }
+        }
+
+        if (hasCounter) {
           updateButtonPane('data-counter', getCounterText());
         }
 

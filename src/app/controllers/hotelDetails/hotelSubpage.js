@@ -53,6 +53,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
 
         metaInformationService.setMetaDescription($scope.details.meta.description);
+        metaInformationService.setMetaKeywords($scope.details.meta.keywords);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
         $scope.details.meta.microdata.og['og:url'] = $location.absUrl();

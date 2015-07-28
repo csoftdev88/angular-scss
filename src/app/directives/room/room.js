@@ -88,6 +88,7 @@ angular.module('mobiusApp.directives.room', [])
         // Inherited from RoomDetailsCtrl
         scope.setRoomDetails(data);
         metaInformationService.setMetaDescription(data.meta.description);
+        metaInformationService.setMetaKeywords(data.meta.keywords);
         metaInformationService.setPageTitle(data.meta.pagetitle);
         data.meta.microdata.og['og:url'] = $location.absUrl();
         metaInformationService.setOgGraph(data.meta.microdata.og);

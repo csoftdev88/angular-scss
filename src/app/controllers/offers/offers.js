@@ -29,15 +29,15 @@ angular.module('mobius.controllers.offers', [])
       return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
     };
 
-    $scope.goToDetail = function (code) {
-      code = code.split('-')[1];
+    $scope.goToDetail = function (slug) {
+      var code = slug.split('-')[1];
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go('offers', {code: null});
       }
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
-      $state.go('offers', {code: code});
+      $state.go('offers', {code: slug});
       $timeout(function () {
         scrollService.scrollTo('offer-detail', 20);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
@@ -58,6 +58,7 @@ angular.module('mobius.controllers.offers', [])
       }
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
+      metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
       $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl();
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
