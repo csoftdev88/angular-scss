@@ -106,6 +106,8 @@ angular
     'mobiusApp.directives.markdownTextParser',
     // Common controllers
     'mobius.controllers.reservation.directive',
+    'mobiusApp.directives.embeddedForm',
+    'mobiusApp.directives.bindUnsafe',
 
     // Directive based on content data
     'mobiusApp.directives.menu',
