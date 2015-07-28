@@ -9,7 +9,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
-    userMessagesService, propertyService, breadcrumbsService, user){
+    userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -19,6 +19,12 @@ angular.module('mobius.controllers.reservationDetail', [])
     breadcrumbsService.addBreadCrumb('My Stays', 'reservations').addBreadCrumb($stateParams.reservationCode);
 
     $scope.reservationCode = $stateParams.reservationCode;
+
+    $timeout(function(){
+      $rootScope.$broadcast('floatingBarEvent', {
+        isCollapsed: true
+      });
+    });
 
     function onAuthorized(isMobiusUser) {
       var params;
