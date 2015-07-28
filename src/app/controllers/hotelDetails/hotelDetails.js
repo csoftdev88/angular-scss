@@ -48,8 +48,6 @@ angular.module('mobius.controllers.hotel.details', [])
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
-        console.log(details);
-        details.description = details.description + '<embedded-form type="best-price"></embedded-form>';
         $scope.details = details;
 
         metaInformationService.setMetaDescription($scope.details.meta.description);

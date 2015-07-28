@@ -5,16 +5,20 @@
  */
 angular.module('mobiusApp.directives.bindUnsafe', [])
 
-  .directive('bindUnsafe', function(){
+  .directive('bindUnsafe', function($compile){
     return {
       restrict: 'A',
       scope: {
         bindUnsafe: '='
       },
-      // Validation logic
       link: function(scope, elem){
-        scope.$watch('bindUnsafe', function(){
-          elem.html = scope.bindUnsafe;
+        var removeWatcher = scope.$watch('bindUnsafe', function(){
+          var content = scope.bindUnsafe || '';
+          elem.append($compile(content)(scope.$new()));
+        });
+
+        scope.$on('$destroy', function(){
+          removeWatcher();
         });
       }
     };
