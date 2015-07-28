@@ -69,7 +69,7 @@ angular.module('mobius.controllers.offers', [])
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
-      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl();
+      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('Offers', 'offers', {code: null})

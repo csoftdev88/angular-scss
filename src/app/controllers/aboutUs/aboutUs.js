@@ -60,7 +60,7 @@ angular.module('mobius.controllers.about', [])
       metaInformationService.setMetaKeywords($scope.selectedAbout.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedAbout.meta.pagetitle);
 
-      $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl();
+      $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedAbout.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('About Us', 'aboutUs', {code: null})

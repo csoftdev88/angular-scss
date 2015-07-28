@@ -54,7 +54,7 @@ angular.module('mobius.controllers.hotel.details', [])
         metaInformationService.setMetaKeywords($scope.details.meta.keywords);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
-        $scope.details.meta.microdata.og['og:url'] = $location.absUrl();
+        $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
         $scope.details.description = ('' + $scope.details.description);
