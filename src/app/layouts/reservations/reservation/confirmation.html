@@ -56,7 +56,7 @@
           </tr>
           <tr>
             <th>Expires:</th>
-            <td>{{billingDetails.card.expirationDate}}</td>
+            <td>{{getCardExpirationDate() | dateTime:'MM/YYYY'}}</td>
           </tr>
           <tr>
             <th>CVV:</th>
