@@ -30,7 +30,7 @@ angular.module('mobius.controllers.offers', [])
     contentService.getOffers().then(function(response) {
       $scope.offersList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
-        selectOffer($stateParams.code);
+        selectOffer(bookingService.getCodeFromSlug($stateParams.code));
       }
     });
 
@@ -40,11 +40,13 @@ angular.module('mobius.controllers.offers', [])
     };
 
     $scope.goToDetail = function (slug) {
-      var code = slug.split('-')[1];
+      var code = bookingService.getCodeFromSlug(slug);
+
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go('offers', {code: null});
       }
+
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
       $state.go('offers', {code: slug});
@@ -60,7 +62,6 @@ angular.module('mobius.controllers.offers', [])
     };
 
     function selectOffer(code) {
-      code = code.split('-')[1];
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go('offers', {code: null});
