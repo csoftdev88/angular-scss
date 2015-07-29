@@ -73,9 +73,10 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       // Multi input fields support
-      element.bind('focus', function(){
+      element.bind('focus', function(e){
         // For some reason extend widget factory doesnt work for datepicker
         // so I'm overriding the method directly
+        e.preventDefault();
         if(rangeSelection) {
           // Check if function was overrided already
           if($.datepicker._selectDateOverload === undefined) {
