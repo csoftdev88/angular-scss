@@ -66,13 +66,19 @@
   .grid,
   [grid],
   [grid-container] {
-    margin-left: @grid-gap/4;
-    margin-right: @grid-gap/4;
+    //margin-left: @grid-gap/4;
+    //margin-right: @grid-gap/4;
+  }
+  .grid-wrapper {
+    padding: 0 20px;
   }
 }
 
 @media only screen and @tablet-portrait-min and @tablet-portrait-max {
   .generate-fluid-grid(12);
+  .grid-wrapper {
+    padding: 0 20px;
+  }
 }
 
 // DESKTOP STYLES

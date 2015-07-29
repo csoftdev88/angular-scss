@@ -1,6 +1,6 @@
 <hero-slider content="heroContent"></hero-slider>
 
-<breadcrumbs></breadcrumbs>
+<breadcrumbs stickable="main-header"></breadcrumbs>
 
 <main class="grid-wrapper">
 
@@ -8,7 +8,7 @@
 
   <offers-list grid-row ng-if="!showDetail">
 
-    <offer-item ng-repeat="offer in offersList track by $index" ng-click="goToDetail(offer.code)">
+    <offer-item ng-repeat="offer in offersList track by $index" ng-click="goToDetail(offer.meta.slug)">
       <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.alt}}"/>
 
       <section>
@@ -21,25 +21,25 @@
 
   </offers-list>
 
-  <offer-detail grid-row ng-if="showDetail" ng-switch="!!selectDates">
+  <offer-detail id="offer-detail" grid-row ng-if="showDetail" ng-switch="!!selectDates">
     <div grid="12">
-      <h1 ng-bind-html="selectedOffer.title"></h1>
-      <img ng-src="{{selectedOffer.image.uri | cloudinaryImage : 960 : 300 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
+      <h1 ng-bind-html="selectedOffer.title | mainHeaderStyle"></h1>
+      <img ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
       <div class="offer-content" ng-bind-html="selectedOffer.text"></div>
 
-      <button-back role="button" tabindex="0" ng-click="goToOffersList()">Back</button-back>
-
       <!-- DATES ARE SELECTED -->
-      <button-submit ng-switch-when="false" ui-sref="hotels({promoCode: selectedOffer.promoCode})">Book Now</button-submit>
+      <button-submit ng-switch-when="false" ui-sref="hotels({promoCode: selectedOffer.promoCode, scrollTo: 'hotels'})">Book Now</button-submit>
 
       <!-- USER SPECIFIES DATES -->
       <button-submit ng-switch-when="true" ng-click="selectDates()">Select Dates</button-submit>
 
+      <button-back role="button" tabindex="0" ng-click="goToOffersList()" class="pull-left">Back</button-back>
+
       <hr>
 
-      <h2 ng-if="offersList.length > 1">You may also be interested in:</h2>
+      <h2 ng-if="offersList.length > 1">You may also be <strong>interested in:</strong></h2>
       <offers-list ng-if="offersList.length > 1">
-        <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index"  ng-click="goToDetail(offer.code)">
+        <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index"  ng-click="goToDetail(offer.meta.slug)">
           <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.uri}}"/>
 
           <section>

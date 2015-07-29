@@ -9,8 +9,17 @@
 
   background: #fff;
   box-shadow: 0 0 1px @c-link;
-  margin-top: -45px;
-  margin-left: -145px;
+  margin-top: -10px;
+  margin-left: -66px;
+
+  .viewport-mobile &{
+    margin-top: 0;
+    margin-left: 0;
+    width: 100%;
+    height: 100%;
+    left: 0!important;
+    top: 0!important;
+  }
 
   &:after {
     .fa;
@@ -85,7 +94,14 @@
 
 //- Calendar Table
 .ui-datepicker-calendar {
-  margin: @baseline;
+  margin: @baseline/2 @baseline 0 @baseline;
+  width: 260px;
+  height: 275px;
+
+  .viewport-mobile &{
+    width: auto;
+    margin: @baseline/2 auto @baseline;
+  }
 
   tbody {
     tr {
@@ -173,7 +189,7 @@
     content: attr(data-counter);
     position: absolute;
     left: 20px;
-    top: 17px;
+    top: 10px;
   }
 
   // Currently selected rate
@@ -202,42 +218,5 @@
   // Hide today button
   .ui-datepicker-current {
     display: none;
-  }
-}
-
-
-// MONTH PICKER
-.month-picker {
-  .ui-datepicker-header {
-    min-width: 250px;
-
-    .ui-datepicker-title {
-      margin-top: 7px;
-      min-width: 160px;
-    }
-
-    .ui-datepicker-prev,
-    .ui-datepicker-next {
-      height: 44px;
-    }
-
-    select {
-      width: 50%;
-      float: left;
-    }
-  }
-
-  table.ui-datepicker-calendar {
-    display: none;
-  }
-
-  .ui-datepicker-buttonpane {
-    padding: 10px;
-    height: 35px;
-
-    .ui-datepicker-close {
-      &:extend(.button);
-      width: 100%;
-    }
   }
 }

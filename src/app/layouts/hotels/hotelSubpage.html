@@ -1,6 +1,6 @@
 <hero-slider content="heroContent"></hero-slider>
 
-<breadcrumbs></breadcrumbs>
+<breadcrumbs stickable="main-header"></breadcrumbs>
 
 <main class="grid-wrapper" class="hotel-subpage">
 
@@ -20,12 +20,12 @@
 
   </hotel-info>
 
-  
+
 
   <more-info-list grid-row ng-if="moreInfo.length">
     <div grid="12">
       <hr>
-      <h2>You may also be interested in:</h2>
+      <h2>You may also be <strong>interested in:</strong></h2>
       <info-list>
         <info-item ng-repeat="info in moreInfo" ng-click="goToInfo(info)">
 

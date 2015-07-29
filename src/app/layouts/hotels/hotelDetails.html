@@ -1,6 +1,6 @@
 <hero-slider content="heroContent"></hero-slider>
 
-<breadcrumbs id="breadcrumbs"></breadcrumbs>
+<breadcrumbs stickable="main-header" id="breadcrumbs"></breadcrumbs>
 
 <main class="grid-wrapper">
 
@@ -25,14 +25,14 @@
     <!-- //schema.org -->
 
     <header grid-row id="jsAbout">
-      <h1 grid="6" itemprop="name"><strong>{{details.nameLong}}</strong></h1>
+      <h1 grid="6" ng-bind-html="details.nameLong | mainHeaderStyle" itemprop="name"></h1>
       <local-info local-info="details.localInfo" grid="6"></local-info>
     </header>
 
 
-    <div ng-repeat-start="partial in partials" ng-include="partial" include-replace ng-repeat-end>
+    <div ng-repeat-start="partial in partials" ng-include="partial" include-replace ng-repeat-end></div>
 
-    <div class="back-to-top" ng-click="scrollToBreadcrumbs()" scroll-position="scroll" ng-class="{visible: scroll > 1000}"><span>Back to top</span></div>
+    <div class="back-to-top" ng-click="scrollToBreadcrumbs()" scroll-position="scroll" ng-class="{visible: scroll > 500}"><span>Back to top</span></div>
 
     <!-- this is a leftover from Mobius v2 - didn't deleted it yet
          in case it's needed. There is no such section in v4 designs

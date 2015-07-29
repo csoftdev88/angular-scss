@@ -13,8 +13,8 @@
   </view-more-images>
 </section>
 
-<div class="grid-wrapper">
-  <section grid-container="9" widget="hotels">
+
+  <section grid-container="9" widget="hotels" id="hotels">
     <header class="hotels__header">
       <h1>Our <strong>Hotels</strong></h1>
       <!--<p>{{(hotels | filter : hotelFilter).length | pluralization: {'0': 'No hotel available', '1': '{} hotel available', 'plural': '{} hotels available'} }}</p>-->
@@ -49,7 +49,7 @@
 
             <h2 ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
-              <p ng-if="hotel.available">
+              <p class="price available left" ng-if="hotel.available">
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night
                 <span ng-if="hotel.available && isUserLoggedIn()">
                   <br />or <span class="value">{{hotel.minPointsRequired}}</span> points
@@ -62,7 +62,9 @@
               <p class="price unavailable" ng-if="!hotel.available && hasDates()">
                 Not Available On Selected Dates
               </p>
+              <button-submit role="button" tabindex="0" ng-click="navigateToHotel(hotel.meta.slug)">View More</button-submit>
             </pricing-info>
+
             <p class="description">{{hotel.descriptionShort}}</p>
 
         </li>
@@ -144,4 +146,4 @@
       <!-- </select> -->
     </div>
   </aside>
-</div>
+

@@ -5,6 +5,7 @@ angular.module('mobiusApp.services.metaInformation', [])
 
     var defaultMetaInformation = {
       description : '',
+      keywords : '',
       pagetitle: 'Welcome to The Sutton Place Hotels',
       ogTitle : '',
       ogDescription : '',
@@ -21,15 +22,18 @@ angular.module('mobiusApp.services.metaInformation', [])
 
     chainService.getChain('SAN').then(function(data) {
       defaultMetaInformation.description = data.meta.description;
+      defaultMetaInformation.keywords = data.meta.keywords;
       defaultMetaInformation.pagetitle = data.meta.pagetitle;
 
       $rootScope.metaInformation.description = data.meta.description;
+      $rootScope.metaInformation.keywords = data.meta.keywords;
       $rootScope.metaInformation.pagetitle = data.meta.pagetitle;
     });
 
     return {
       reset: function() {
         $rootScope.metaInformation.description = defaultMetaInformation.description;
+        $rootScope.metaInformation.keywords = defaultMetaInformation.keywords;
         $rootScope.metaInformation.pagetitle = defaultMetaInformation.pagetitle;
         $rootScope.metaInformation.ogTitle = defaultMetaInformation.ogTitle;
         $rootScope.metaInformation.ogDescription = defaultMetaInformation.ogDescription;
@@ -40,6 +44,9 @@ angular.module('mobiusApp.services.metaInformation', [])
       },
       setMetaDescription: function(newMetaDescription) {
         $rootScope.metaInformation.description = newMetaDescription;
+      },
+      setMetaKeywords: function(newMetaKeywords) {
+        $rootScope.metaInformation.keywords = newMetaKeywords;
       },
       setPageTitle: function(newPageTitle) {
         $rootScope.metaInformation.pagetitle = newPageTitle;

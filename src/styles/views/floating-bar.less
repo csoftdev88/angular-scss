@@ -6,13 +6,18 @@
 @c-booking-widget-my-account: #ebaa3d;
 
 floating-bar {
-  position: relative;
-
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  z-index: 1001;
   display: block;
   width: 100%;
-
   background: @c-booking-widget;
   color: #fff;
+
+  @media print { 
+   display: none;
+  }
 
   &.my-account {
     background: #ebaa3d;
@@ -32,23 +37,22 @@ floating-bar {
     }
   }
 
-  @media only screen and @tablet-portrait-min {
-    position: fixed;
-    bottom: 0px;
-    left: 0;
-    z-index: 1001;
-  }
-
   //- Tabs
   > ul {
     position: absolute;
     left: 50%;
     top: -30px;
-
     max-width: 960px;
     width: 100%;
-
     transform: translate(-50%, 0);
+
+    .viewport-mobile & {
+      position: relative;
+      left: auto;
+      top: 0;
+      max-width: 100%;
+      transform: translate(0, 0);
+    }
 
     li {
       position: relative;
@@ -66,12 +70,10 @@ floating-bar {
       a {
         position: relative;
         z-index: 1;
-
         display: block;
-
         color: #fff;
-
         text-decoration: none;
+        padding: 0 10px;
 
         &:focus,
         &:hover {
@@ -140,6 +142,47 @@ floating-bar {
         &.is-active {
           z-index: 2;
         }
+
+        .mobile{
+          display: none;
+        }
+
+        //Mobile
+        .viewport-mobile & {
+          float: none;
+          text-align: center;
+          padding-right: 0;
+
+          &.mobile-is-open a{
+            background: @c-brown;
+          }
+
+          a{
+            background: @c-green;
+            padding: 20px 0;
+            .desktop{
+              display: none;
+            }
+
+            .mobile{
+              display: inline;
+              .mobile-close{
+                cursor: pointer;
+                &:after {
+                  .fa;
+                  position: absolute;
+                  right: @baseline / 2;
+                  top: 20px;
+                  color: #fff;
+                  font-size: 21px;
+                  transform: translateY(-50%);
+                  content: @fa-var-close;
+                }
+              }
+            }
+          }
+          
+        }
       }
 
       &.floating-bar--tab-advanced-booking {
@@ -166,6 +209,12 @@ floating-bar {
           border-left: @baseline solid transparent;
           border-bottom: @baseline*1.5 solid @c-booking-widget-my-account;
         }
+
+        //Mobile
+        .viewport-mobile & {
+          display: none;
+        }
+
       }
     }
   }

@@ -7,7 +7,7 @@ offer-detail {
   //- Page Heading
   h1 {
     .h1;
-    //font-weight: 300;
+    font-weight: 300;
   }
 
   h2 {
@@ -22,9 +22,10 @@ offer-detail {
 
   //- Image
   img {
-    display: block;
+    float: left;
+    margin: 0 20px 10px 0;
+    border: 1px solid @c-light-grey;
     max-width: 100%;
-    margin-bottom: @baseline;
   }
 
   //- Content
@@ -35,6 +36,13 @@ offer-detail {
   //- Book Now Button
   button-submit {
     float: right;
+  }
+
+  //- Back button
+  button-back{
+    display: block;
+    clear: both;
+    text-align: left;
   }
 
 }

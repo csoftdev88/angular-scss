@@ -1,6 +1,6 @@
 <div ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
   <div class="property-preview">
-    <img ng-src="{{property.images[0].uri}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+    <img ng-src="{{property.images[0].uri | cloudinaryImage : 430 : 300 : 'fill'}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
   </div>
 
   <check-in-date>
@@ -23,9 +23,12 @@
   </div>
 
     <div class="details">
-      <div class="total">
-         <span class="title">Total:</span>
-         <span class="value">{{reservation.priceAfterDiscount | i18nCurrency: $root.currencyCode}}</span>
+      <div class="total" ng-switch="!!reservation.pointValue">
+        <span class="title">Total:</span>
+        <span class="value" ng-switch-when="false">{{reservation.priceAfterDiscount | i18nCurrency: $root.currencyCode}}</span>
+        <span class="value" ng-switch-when="true">
+          <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
+        </span>
       </div>
 
       <div class="guests">

@@ -26,6 +26,9 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
 
+        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+        var EVENT_FLOATING_BAR = 'floatingBarEvent';
+
         scope.setActive = function(newActive) {
           if(scope.active === newActive){
             scope.isCollapsed = !scope.isCollapsed;
@@ -35,6 +38,7 @@ angular.module('mobiusApp.directives.floatingBar', [
           }
 
           $el.toggleClass('active', !scope.isCollapsed);
+          document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
 
           scope.active = newActive;
           active = scope.active; // preserve between pages
@@ -51,6 +55,15 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         scope.isCollapsed = isCollapsed;
         scope.setActive(active);
+
+        scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+          if(viewport.isMobile){
+            scope.isCollapsed = true;
+          }
+        });
+        scope.$on(EVENT_FLOATING_BAR, function(event, floatingBar){
+          scope.isCollapsed = floatingBar.isCollapsed;
+        });
       }
     };
   // Generic controller for booking tabs - defines numbers of guests

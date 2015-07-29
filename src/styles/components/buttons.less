@@ -81,6 +81,16 @@ button-close {
   }
 }
 
+button-cancel {
+  &:extend(button);
+  background: @c-white;
+  color: @c-button;
+  border: 2px solid @c-button;
+  text-shadow: none;
+  line-height: @baseline * 1.85;
+  height: @baseline * 1.85;
+  box-sizing: initial;
+}
 
 //- Button Text
 button-text {
@@ -88,7 +98,6 @@ button-text {
 
   cursor: pointer;
 }
-
 
 //- Button Remove
 button-remove {
@@ -183,6 +192,8 @@ button.back {
   font-size: @size--0;
   font-weight: normal;
   line-height: @baseline * 2;
+
+  margin-left: 0;
 
 
   &:hover,

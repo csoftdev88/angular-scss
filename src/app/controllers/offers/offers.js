@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -17,10 +17,20 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.showDetail = $stateParams.code ? true : false;
 
+    $scope.$watch(function(){
+      return $scope.showDetail;
+    }, function(){
+      if($scope.showDetail) {
+        $timeout(function () {
+          scrollService.scrollTo('offer-detail', 20);
+        });
+      }
+    });
+
     contentService.getOffers().then(function(response) {
       $scope.offersList = _.sortBy(response, 'prio').reverse();
       if ($stateParams.code) {
-        selectOffer($stateParams.code);
+        selectOffer(bookingService.getCodeFromSlug($stateParams.code));
       }
     });
 
@@ -29,8 +39,22 @@ angular.module('mobius.controllers.offers', [])
       return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
     };
 
-    $scope.goToDetail = function(code) {
-      $state.go('offers', {code: code});
+    $scope.goToDetail = function (slug) {
+      var code = bookingService.getCodeFromSlug(slug);
+
+      selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
+      if (selectedOfferIndex < 0) {
+        return $state.go('offers', {code: null});
+      }
+
+      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+
+      $state.go('offers', {code: slug});
+      $timeout(function () {
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+          promoCode: $scope.selectedOffer.promoCode
+        });
+      });
     };
 
     $scope.goToOffersList = function() {
@@ -44,8 +68,9 @@ angular.module('mobius.controllers.offers', [])
       }
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
+      metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
-      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl();
+      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('Offers', 'offers', {code: null})

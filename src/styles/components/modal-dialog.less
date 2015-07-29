@@ -35,6 +35,14 @@ dialog {
   transform: translate(-50%, -50%);
   appearance: none;
 
+  .viewport-mobile &{
+    max-width: 90%;
+    max-height: 90%;
+    left: 5%;
+    transform: translate(0, -50%);
+    overflow-y: auto;
+  }
+
   &:focus {
     outline: 0;
   }
@@ -63,12 +71,11 @@ dialog {
     button-close {
       position: absolute;
       top: @baseline/2;
-      right: @baseline;
+      right: @baseline/4;
       border: none;
-      background: #e8e8e8;
-      line-height: 35px;
+      line-height: 38px;
       border-radius: 4px;
-      font-size: 24px;
+      font-size: 18px;
       color: #666;
     }
 
@@ -83,6 +90,9 @@ dialog {
     margin: 0;
     padding: @baseline;
     box-sizing: border-box;
+    .viewport-mobile &{
+      width: 100%;
+    }
   }
 
   footer {

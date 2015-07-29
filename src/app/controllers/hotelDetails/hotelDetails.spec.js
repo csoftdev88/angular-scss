@@ -21,6 +21,7 @@ describe('mobius.controllers.hotel.details', function() {
       meta: {
         description: 'meta description',
         pagetitle: 'Hotel',
+        keywords: 'hotel, rooms',
         microdata: {
           schemaOrg: [],
           og: []
@@ -41,6 +42,9 @@ describe('mobius.controllers.hotel.details', function() {
                 'test': 'testValue',
                 'propertySlug': 'hotel-123'
               };
+            },
+            getCodeFromSlug: function(){
+              return '123';
             }
           });
 
@@ -100,6 +104,7 @@ describe('mobius.controllers.hotel.details', function() {
         $provide.value('breadcrumbsService', breadcrumbs);
         $provide.value('metaInformationService', {
           setMetaDescription: function() {},
+          setMetaKeywords: function() {},
           setPageTitle: function() {},
           setOgGraph: function() {}
         });

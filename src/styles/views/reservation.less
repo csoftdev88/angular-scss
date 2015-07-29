@@ -13,9 +13,14 @@
 ////////////////////////////////////////////////////
 reservation-widget {
   display: block;
-  margin: 50px 0 10px 0;
+  margin-bottom: 10px;
   padding: @spacing 0;
   .shadow-box(#ddd);
+  float: left;
+
+  .viewport-mobile &{
+    padding: 20px;
+  }
 
   [grid-row] {
     position: relative;
@@ -24,18 +29,6 @@ reservation-widget {
   ui-view {
     display: block;
     min-height: 1px;
-  }
-
-  aside:before {
-    .grid-width(7);
-    position: absolute;
-    content: '';
-    display: block;
-    width: 0;
-    left: @width;
-    top: 45px;
-    bottom: 20px;
-    border-left: 1px dashed @c-gray-reservation;
   }
 
   h3 {
@@ -49,6 +42,7 @@ reservation-widget {
   table {
     width: 100%;
   }
+
 
   label {
     position: relative;
@@ -94,6 +88,9 @@ reservation-widget {
   }
 
   form {
+    .viewport-mobile &{
+      width: 100%;
+    }
     &.ng-submitted {
       label {
         input,
@@ -147,7 +144,7 @@ reservation-widget {
   }
 
   .input-checkbox {
-    font-weight: normal;
+    font-weight: 300;
     font-size: @size-0;
     cursor: pointer;
   }
@@ -165,6 +162,21 @@ reservation-widget {
     section + section {
       margin: @spacing 0;
     }
+    &:before {
+      .grid-width(7);
+      position: absolute;
+      content: '';
+      display: block;
+      width: 0;
+      left: @width;
+      top: 45px;
+      bottom: 20px;
+      border-left: 1px dashed @c-gray-reservation;
+      @media only screen and @tablet-portrait-max {
+        content: none;
+      }
+    }
+
   }
 
   .room-data {
@@ -202,9 +214,13 @@ reservation-widget {
     th {
       font-weight: normal;
       text-align: left;
+      padding: 0 5px;
     }
 
-    td { font-weight: bold; }
+    td {
+      font-weight: bold;
+      padding: 0 5px;
+    }
 
     .data {
       margin: @spacing 0;
@@ -214,12 +230,24 @@ reservation-widget {
       padding: 10px;
       border: 1px solid @c-gray-reservation;
       border-radius: 6px;
+      .viewport-mobile &{
+        table, thead, tbody, th, td, tr {
+          display: block;
+          text-align: right;
+        }
+      }
     }
+
   }
 
   label[for="agreement3"] {
     margin: 0 @spacing @baseline/2 @spacing;
     padding: 0px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    .viewport-mobile &{
+      margin-left: 0;
+    }
   }
 
   .reservation-controls {
@@ -235,12 +263,19 @@ reservation-widget {
     .next {
       float: right;
       margin: 0 @spacing;
+      .viewport-mobile &{
+        margin: 0 0 0 @spacing/2;
+      }
     }
 
     .back {
       float: left;
-      margin: 0 @spacing 0 @baseline;
+      margin: 0 @spacing 0 0;
       text-shadow: none;
+      .viewport-mobile &{
+        padding: 0;
+        margin: 0 @spacing/2 0 0;
+      }
     }
   }
 
@@ -313,6 +348,9 @@ reservation-billing {
     border: 1px solid @c-gray-reservation;
     border-radius: 3px;
     background-color: #f9f9f9;
+    .viewport-mobile &{
+      padding: 20px;
+    }
   }
 
   // Payment with credit/debet card
@@ -420,6 +458,113 @@ reservation-billing {
       margin: 87px 0px;
     }
   }
+
+  .chosen-container {
+    line-height: 45px;
+    height: 45px;
+    border-radius: 0;
+    border-color: #d7d7d7;
+
+    a {
+      margin-top: 7px;
+      font-size: 14px;
+      font-weight: normal;
+      padding-left: 10px;
+    }
+  }
+
+  .payment-card {
+    form {
+      width: 100%;
+
+      .card-details {
+        .expiry-title {
+          width: 70%;
+          position: relative;
+          text-align: center;
+          .viewport-mobile &{
+            width: 100%;
+          }
+
+          label {
+            padding: 5px;
+            line-height: 20px;
+            font-weight: normal;
+            display: inline-block;
+            background-color: #f9f9f9;
+          }
+
+          &:before {
+            content: '';
+            display: block;
+            border-left: 1px solid @c-light-grey;
+            border-right: 1px solid @c-light-grey;
+            border-top: 1px solid @c-light-grey;
+            height: 10px;
+            position: absolute;
+            left: 0px;
+            right: 10px;
+            top: 15px;
+          }
+        }
+
+        .card-expiry {
+          float: left;
+          width: 70%;
+
+          .viewport-mobile &{
+            width: 100%;
+          }
+
+          > label {
+            padding-top: 5px;
+          }
+        }
+
+        .card-cvv {
+          float: left;
+          width: 30%;
+          position: relative;
+
+          > label {
+            padding-top: 5px;
+
+            span {
+              top: -10px;
+            }
+          }
+
+          .help {
+            cursor: pointer;
+            position: absolute;
+            border-radius: 30px;
+            border: 1px solid @c-light-grey;
+            right: -28px;
+            top: 18px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+          }
+        }
+
+        &.invalid {
+          .expiry-title {
+            label {
+              color: @c-red;
+            }
+
+            &:before {
+              border-color: @c-red;
+            }
+          }
+
+          .chosen-container {
+            border-color: @c-red;
+          }
+        }
+      }
+    }
+  }
 }
 
 //////////////////////////////////////////////
@@ -470,6 +615,9 @@ reservation-confirmation {
     display: none;
     padding: 30px 40px;
     border-top: 1px solid @c-gray-reservation;
+    .viewport-mobile &{
+      padding: 20px;
+    }
 
     &.active {
       display: block;
@@ -534,76 +682,91 @@ reservation-finished {
   .reservation-summary {
     padding-top: 3 * @spacing;
 
-    // Block w/ PRINT and ADD TO PASSBOOK buttons
+    // Block w/ PRINT and ADD TO PASSBOOK and SHARE buttons
     .actions {
-      position: absolute;
-      top: 0;
-      right: 0;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 20px;
+
+      @media print { 
+       display: none;
+      }
 
       a {
         display: block;
-        float: right;
         margin-left: @spacing / 2;
+      }
+
+      .button-passbook {
+        background: url('../images/v4/btn-passbook.png');
+        width: 108px;
+        height: 36px;
+        float: right;
+      }
+
+      .button-print {
+        background: url('../images/v4/btn-print.png');
+        width: 37px;
+        height: 36px;
+        float: right;
+      }
+
+      // Block w/ share buttons under the header
+      .share {
+        position: relative;
+        float: left;
+        line-height: @baseline * 1.6;
+
+        a {
+          display: inline-block;
+          height: 22px;
+          width: 22px;
+          margin-left: 0;
+          border-radius: 100%;
+          color: #fff;
+          font-size: @size--1;
+          line-height: 22px;
+          text-align: center;
+
+          &:first-child{
+            margin-left: 5px;
+          }
+
+          &:focus,
+          &:hover {
+            background: @c-link;
+            color: #fff;
+          }
+
+          &:before {
+            .fa;
+          }
+
+          &.icon-fb {             background: #3b579d;}
+          .fb-share-button{
+            width: 22px;
+            height: 22px;
+            border-radius: 100%;
+            span{
+              vertical-align: middle!important;
+            }
+          }
+          //&.icon-fb:before {      content: @fa-var-facebook; }
+
+          &.icon-twitter {        background: #31aae1;}
+          &.icon-twitter:before { content: @fa-var-twitter; }
+
+          &.icon-gplus {          background: #da4b39;}
+          &.icon-gplus:before {   content: @fa-var-google-plus; }
+
+          &.icon-email {          background: #999;}
+          &.icon-email:before {   content: @fa-var-envelope-o; }
+        }
       }
 
       span {
         visibility: hidden;
-      }
-    }
-
-    .button-passbook {
-      background: url('../images/v4/btn-passbook.png');
-      width: 108px;
-      height: 36px;
-    }
-
-    .button-print {
-      background: url('../images/v4/btn-print.png');
-      width: 37px;
-      height: 36px;
-    }
-
-    // Block w/ share buttons under the header
-    .share {
-      position: absolute;
-      top: 0;
-      left: 0;
-      line-height: @baseline * 1.6;
-
-      a {
-        display: inline-block;
-        height: @baseline * 1.6;
-        width: @baseline * 1.6;
-        margin-left: 10px;
-        border-radius: 100%;
-
-        color: #fff;
-
-        font-size: @size-3;
-        line-height: @baseline * 1.6;
-        text-align: center;
-
-        &:focus,
-        &:hover {
-          background: @c-link;
-          color: #fff;
-        }
-
-        &:before {
-          .fa;
-        }
-
-        &.icon-fb {             background: #36589b;}
-        &.icon-fb:before {      content: @fa-var-facebook; }
-
-        &.icon-twitter {        background: #31aae1;}
-        &.icon-twitter:before { content: @fa-var-twitter; }
-
-        &.icon-gplus {          background: #da4b39;}
-        &.icon-gplus:before {   content: @fa-var-google-plus; }
-
-        &.icon-email {          background: #999;}
-        &.icon-email:before {   content: @fa-var-envelope-o; }
       }
     }
 
@@ -629,8 +792,18 @@ reservation-finished {
       box-sizing: border-box;
       padding: 0 @spacing / 2;
 
-      &.half {  width: 50%; }
-      &.third { width: 33.3333%; }
+      &.half {  
+        width: 50%;
+        .viewport-mobile &{
+          width: 100%;
+        }
+      }
+      &.third { 
+        width: 33.3333%;
+        .viewport-mobile &{
+          width: 100%;
+        }
+      }
 
       > div {
         cursor: pointer;
@@ -793,11 +966,17 @@ reservation-hotel-details {
     header {
       .clearfix;
       margin: 0 0 2 * @spacing 0;
+      float: left;
+      width: 100%;
 
       h1,
       > div {
         float: left;
         width: 33.3333%;
+        .viewport-mobile & {
+          width: 100%;
+          float: none;
+        }
       }
     }
 
@@ -805,7 +984,10 @@ reservation-hotel-details {
       color: @c-brown;
       font-size: @size-3;
       font-weight: 600;
-      line-height: @baseline;
+      line-height: 1.5 * @baseline;
+      .viewport-mobile & {
+        margin-bottom: 10px;
+      }
     }
 
     .reference {
@@ -820,6 +1002,14 @@ reservation-hotel-details {
         font-size: @size-2;
         font-weight: 600;
       }
+
+      .viewport-mobile & {
+        text-align: left;
+        padding: 0;
+        p{
+          display: inline;
+        }
+      }
     }
 
     .booked {
@@ -828,6 +1018,9 @@ reservation-hotel-details {
       font-weight: bold;
       line-height: 2 * @baseline;
       text-align: right;
+      .viewport-mobile & {
+        text-align: left;
+      }
     }
   }
 
@@ -838,6 +1031,10 @@ reservation-hotel-details {
       width: 33.3333%;
       float: left;
 
+      .viewport-mobile & {
+        width: 100%;
+      }
+
       img {
         width: 100%;
         margin-bottom: @baseline;
@@ -847,6 +1044,9 @@ reservation-hotel-details {
         height: 30px;
         line-height: 30px;
         width: 135px;
+        @media print { 
+         display: none;
+        }
       }
 
       button + button {
@@ -860,6 +1060,10 @@ reservation-hotel-details {
       width: 66.6666%;
       float: left;
       padding-left: @spacing;
+      .viewport-mobile & {
+        width: 100%;
+        padding-left: 0;
+      }
     }
 
     h3 {

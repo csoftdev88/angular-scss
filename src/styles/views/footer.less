@@ -4,29 +4,50 @@
 
 footer {
   padding-top: @baseline;
-
   color: #999;
-
   font-size: @size--1;
   line-height: @baseline * 2;
+  .viewport-mobile & {
+    display: inline-block;
+  }
+
+  @media print { 
+   display: none;
+  }
 
   floating-bar.active  ~ & {
     margin-bottom: 130px;
+    .viewport-mobile & {
+      margin-bottom: 0;
+    }
   }
 
   floating-bar.active.advancedBooking ~ & {
     margin-bottom: 170px;
+    .viewport-mobile & {
+      margin-bottom: 0;
+    }
   }
 
   //- Wrapper
   .wrapper {
     display: flex;
     margin-bottom: 50px;
+    padding-left: 5px;
+    .viewport-mobile & {
+      display: block;
+      padding-left: 10px;
+    }
   }
 
   //- Copyright
   p {
     flex: 2 0;
+    .viewport-mobile & {
+      width: 100%;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
   }
 
   //- Social Links
@@ -35,14 +56,30 @@ footer {
     display: flex;
     flex: 1;
     justify-content: center;
+    
+    .viewport-mobile & {
+      display: inline;
+      margin-right: 10px;
+      text-align: right;
+    }
 
     ul {
       display: flex;
       justify-content: center;
+      .viewport-mobile & {
+        display: inline-block;
+      }
     }
 
     li {
       margin: 0 @baseline/4;
+      .viewport-mobile & {
+        float: left;
+        margin-left: 2px;
+        &:first-child{
+          margin-left: 0;
+        }
+      }
     }
 
     a {
@@ -113,4 +150,22 @@ footer {
       }
     }
   }
+
+  // MOBILE SPECIFIC STYLES
+  @media only screen and @large-mobile-max {
+    
+    //- Navigation
+    nav{
+      display: none;
+    }
+
+    //- Copyright
+    p {
+      line-height: 16px;
+      padding-right: 16px;
+    }
+
+  }
+
+
 }

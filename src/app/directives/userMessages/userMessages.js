@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.userMessages', [])
 
-  .directive('userMessages', ['userMessagesService', '$controller', function(userMessagesService, $controller) {
+  .directive('userMessages', ['userMessagesService', '$controller', '$timeout', function(userMessagesService, $controller, $timeout) {
     return {
       restrict: 'E',
       templateUrl: 'directives/userMessages/userMessages.html',
@@ -15,6 +15,9 @@ angular.module('mobiusApp.directives.userMessages', [])
         scope.closeMessage = function(index) {
           if (0 <= index && index < scope.messages.length) {
             scope.messages.splice(index, 1);
+            $timeout(function () {
+              document.body.style.paddingTop = scope.messages.length ? angular.element('#user-messages').height() + 'px' : 0;
+            }, 500);
           }
         };
 

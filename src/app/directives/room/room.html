@@ -1,11 +1,11 @@
-<hotel-room grid="12">
+<hotel-room grid="12" id="hotel-room">
 
   <section class="header">
-    <h1>{{roomDetails.name}}</h1>
+    <h1 ng-bind-html="roomDetails.name | mainHeaderStyle"></h1>
   </section>
 
   <section ng-if="products">
-    <hr />
+    <hr class="dividerWithoutImage"/>
     <list-items ng-if="products.length">
       <pricing-switch>
         <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
@@ -39,7 +39,8 @@
             ng-hide="product.memberOnly && !isUserLoggedIn()">
             Book Now
           </button-submit>
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">Login</a>
+
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
         </pricing-info>
 
         <description-info>
@@ -69,6 +70,8 @@
         <h3>Please select your stay dates to see available rates!</h3>
         <p>Enter your dates on the bar below and hit search<br> to see all the rates you can book</p>
       </div>
+      <!-- USER SPECIFIES DATES -->
+      <button-submit ng-click="selectDates()">Select Dates</button-submit>
     </div>
 
     <hr />
@@ -80,9 +83,9 @@
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
 
     <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
-      <li ng-repeat="image in roomDetails.images" ng-click="openGallery()">
+      <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery()">
         <figure>
-          <img ng-src="{{image.uri | cloudinaryImage : 150 : 65 : 'fill'}}" alt="{{image.alt}}" />
+          <img ng-src="{{image.uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{image.alt}}" />
         </figure>
       </li>
     </ul>
@@ -95,8 +98,8 @@
 
     <amenities-list>
       <amenity-item ng-repeat="amenity in roomDetails.amenities">
-        <slug-img slug="amenity.slug" type="room" width="15" height="15"></slug-img>
-        <span>{{amenity.name}}</span>
+        <slug-img slug="amenity.slug" type="room" width="15"></slug-img>
+        <span class="amenity-caption">{{amenity.name}}</span>
       </amenity-item>
     </amenities-list>
     <hr/>
@@ -111,14 +114,14 @@
         ng-click="onClickOnAssociatedRoom(otherRoom)"
         class="with-special-hover">
         <figure ng-show="otherRoom.images[0]">
-          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : 150 : 65 : 'fill'}}" alt="{{otherRoom.name}}">
+          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{otherRoom.name}}">
         </figure>
 
         <h2>{{otherRoom.name}}</h2>
 
         <pricing-info>
           <p ng-if="otherRoom.priceFrom"> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
-          <p ng-if="!otherRoom.priceFrom">Please select dates to see the latest prices</p>
+          <p ng-if="!otherRoom.priceFrom" class="select-dates">Please select dates to see the latest prices</p>
         </pricing-info>
       </list-item>
     </list-items>

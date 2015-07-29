@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location) {
+  $controller,$location,$rootScope,scrollService,$timeout) {
 
   return {
     restrict: 'E',
@@ -19,13 +19,11 @@ angular.module('mobiusApp.directives.room', [])
 
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
-      var propertySplits = bookingParams.propertySlug.split('-');
-      var propertyCode = propertySplits[1];
+      var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
       scope.propertyCode = propertyCode;
       bookingParams.propertyCode = propertyCode;
 
-      var roomSplits = $stateParams.roomSlug.split('-');
-      var roomCode = roomSplits[1].replace(/_/g, '-');
+      var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;
 
       var propertyPromise;
@@ -70,6 +68,16 @@ angular.module('mobiusApp.directives.room', [])
             .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
             .addBreadCrumb('Rooms', 'hotel', {propertyCode: propertyCode}, 'jsRooms')
             .addBreadCrumb(data[0].roomDetails.name);
+
+          //scroll to element if set in url scrollTo param
+          var scrollToValue = $location.search().scrollTo || null;
+          if (scrollToValue) {
+            $timeout(function(){
+              scrollService.scrollTo(scrollToValue, 20);
+            }, 500);
+          }
+
+
         }));
       });
 
@@ -78,8 +86,9 @@ angular.module('mobiusApp.directives.room', [])
         // Inherited from RoomDetailsCtrl
         scope.setRoomDetails(data);
         metaInformationService.setMetaDescription(data.meta.description);
+        metaInformationService.setMetaKeywords(data.meta.keywords);
         metaInformationService.setPageTitle(data.meta.pagetitle);
-        data.meta.microdata.og['og:url'] = $location.absUrl();
+        data.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph(data.meta.microdata.og);
         /* Getting other rooms. We should show those that are closest in price but have a price that is
            greater than the currently viewed room. If there are not enough of them we can show the cheaper
@@ -154,6 +163,19 @@ angular.module('mobiusApp.directives.room', [])
 
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
         scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
+      }
+
+
+      // Checking if user have selected dates
+
+      if(!bookingParams.from || !bookingParams.to){
+        // Dates are not yet selected
+        scope.selectDates = function(){
+          $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+            openDatePicker: true,
+            promoCode: $stateParams.code
+          });
+        };
       }
     }
   };

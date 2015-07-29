@@ -7,11 +7,17 @@ body {
 
   background: @c-background-body;
   color: @c-base;
+  &.modal-open{
+    overflow: hidden;
+  }
 }
 
 main {
   margin-top: 2*@baseline;
   position: relative;
+  .viewport-mobile & {
+    margin-top: @baseline;
+  }
 }
 
 a {

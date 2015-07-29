@@ -9,7 +9,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
-    userMessagesService, propertyService, breadcrumbsService, user){
+    userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location, metaInformationService){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -19,6 +19,12 @@ angular.module('mobius.controllers.reservationDetail', [])
     breadcrumbsService.addBreadCrumb('My Stays', 'reservations').addBreadCrumb($stateParams.reservationCode);
 
     $scope.reservationCode = $stateParams.reservationCode;
+
+    $timeout(function(){
+      $rootScope.$broadcast('floatingBarEvent', {
+        isCollapsed: true
+      });
+    });
 
     function onAuthorized(isMobiusUser) {
       var params;
@@ -39,6 +45,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       // Getting reservation details
       var reservationPromise = reservationService.getReservation($stateParams.reservationCode, params).then(function(reservation) {
         $scope.reservation = reservation;
+        $scope.reservation.isInThePast = isInThePast(reservation);
         $scope.reservation.packages = $scope.reservation.packageItemCodes || []; // API workaround
         var room = $scope.reservation.rooms[0];
 
@@ -57,6 +64,15 @@ angular.module('mobius.controllers.reservationDetail', [])
         // Getting property details
         var propertyPromise = propertyService.getPropertyDetails(reservation.property.code).then(function(property) {
           $scope.property = property;
+          //sharing
+          $scope.shareURL = $location.protocol() + '://' + $location.host() + '/hotels/' + $scope.property.meta.slug;
+          $scope.property.meta.microdata.og['og:url'] = $scope.shareURL;
+          metaInformationService.setOgGraph($scope.property.meta.microdata.og);
+          $scope.facebookShare = {
+            url: $scope.shareURL,
+            name: $scope.property.meta.microdata.og['og:description'], 
+            image: $scope.property.meta.microdata.og['og:image']
+          };
         });
 
         // Getting room/products data
@@ -85,7 +101,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Available addons
           reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: room.roomTypeCode}),
           // Reservation addons
-          reservationService.getReservationAddOns($stateParams.reservationCode)
+          reservationService.getReservationAddOns($stateParams.reservationCode, isMobiusUser?null:$stateParams.email)
         ]).then(function(addons){
           // addons[0] - available addons
           // Available addons should only contain those which not in reservationAddons
@@ -147,7 +163,11 @@ angular.module('mobius.controllers.reservationDetail', [])
         // NOTE: Check corp/group codes
         promoCode: reservation.promoCode,
         // NOTE: This will enable editing
-        reservation: reservation.reservationCode
+        reservation: reservation.reservationCode,
+        // Removing email param when user is logged in
+        email: user.isLoggedIn()?null:$stateParams.email,
+        // propertySlug is required
+        propertySlug: $scope.property.meta && $scope.property.meta.slug?$scope.property.meta.slug:reservation.property.code
       };
 
       $state.go('hotel', bookingParams);
@@ -219,7 +239,10 @@ angular.module('mobius.controllers.reservationDetail', [])
       // Checking if same addone is already there
       if($scope.reservationAddons.indexOf(addon.code) === -1) {
         // Adding the addon to current reservation
-        var addAddonPromise = reservationService.addAddon($stateParams.reservationCode, addon).then(function(){
+        var addAddonPromise = reservationService.addAddon(
+          $stateParams.reservationCode,
+          addon,
+          user.isLoggedIn()?null:$stateParams.email).then(function(){
           // Removing from available addons
           $scope.availableAddons.splice($scope.availableAddons.indexOf(addon.code), 1);
           // Adding to reservation addons
@@ -256,4 +279,24 @@ angular.module('mobius.controllers.reservationDetail', [])
 
       modalService.openAddonDetailDialog($scope.addAddon, addon, payWithPoints);
     };
+
+    function isInThePast(reservation){
+      var today = $window.moment().valueOf();
+      return $window.moment(reservation.departureDate).valueOf() < today;
+    }
+    $scope.sendToPassbook = function(){
+      reservationService.sendToPassbook($stateParams.reservationCode).then(function(){
+        userMessagesService.addInfoMessage('<div>You have successfully added your reservation <strong>' +
+          $stateParams.reservationCode + '</strong> to passbook.</div>');
+      }, function(){
+        userMessagesService.addInfoMessage('<div>Sorry, we could not add reservation <strong>' +
+          $stateParams.reservationCode + '</strong> to passbook, please try again.</div>');
+      });
+    };
+
+    //print page
+    $scope.printPage = function(){
+      $window.print();
+    };
+
   });

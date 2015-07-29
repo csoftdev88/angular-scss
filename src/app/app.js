@@ -16,6 +16,7 @@ angular
     'underscore',
     'validation.match',
     'ui-rangeSlider',
+    'angulike',
 
     // Controllers
     'mobius.controllers.common.sanitize',
@@ -49,6 +50,7 @@ angular
     'mobius.controllers.modals.addonDetail',
     'mobius.controllers.modals.locationDetail',
     'mobius.controllers.modals.confirmation',
+    'mobius.controllers.common.cardExpiration',
 
     // Application modules
     'mobiusApp.config',
@@ -99,12 +101,14 @@ angular
     'mobiusApp.directives.datepicker',
     'mobiusApp.directives.chosenOptionsClass',
     'mobiusApp.directives.creditCardCheck',
-    'mobiusApp.directives.monthPicker',
     'mobiusApp.directives.hotelLocation',
     'mobiusApp.directives.emailCheck',
     'mobiusApp.directives.notifications',
+    'mobiusApp.directives.markdownTextParser',
     // Common controllers
     'mobius.controllers.reservation.directive',
+    'mobiusApp.directives.embeddedForm',
+    'mobiusApp.directives.bindUnsafe',
 
     // Directive based on content data
     'mobiusApp.directives.menu',
@@ -125,6 +129,7 @@ angular
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.isoCountryOptions',
     'mobiusApp.directives.scrollPosition',
+    'mobiusApp.directives.stickable',
     'internationalPhoneNumber',
 
     // Filters
@@ -136,7 +141,8 @@ angular
     'mobiusApp.filters.checkInDate',
     'mobiusApp.filters.cloudinaryImage',
     'mobiusApp.filters.truncate',
-    'mobiusApp.filters.wrapword'
+    'mobiusApp.filters.wrapword',
+    'mobiusApp.filters.mainHeaderStyle'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -152,7 +158,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation&fromSearch'
+        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation&fromSearch&email&scrollTo'
       })
 
       // Home page
@@ -212,7 +218,7 @@ angular
       .state('reservationDetail', {
         parent: 'root',
         templateUrl: 'layouts/reservations/reservationDetail.html',
-        url: '/reservation/:reservationCode?email',
+        url: '/reservation/:reservationCode',
         controller: 'ReservationDetailCtrl',
         data: {
           authProtected: true
@@ -307,6 +313,7 @@ angular
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
+    $rootScope.facebookAppId = '954663594591416';
   })
 
   .controller('BaseCtrl', function($scope, $controller, scrollService,

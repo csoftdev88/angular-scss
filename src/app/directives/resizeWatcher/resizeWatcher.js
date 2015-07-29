@@ -24,6 +24,19 @@ angular.module('mobiusApp.directives.resize.watcher', [])
           isMobile: isMobile,
           isPortrait: isPortrait
         });
+
+        angular.element('.swap-on-mobile').each(function(){
+          var $this = angular.element(this);
+          if(isMobile && !$this.hasClass('swapped')){
+            $this.addClass('swapped');
+            $this.insertBefore(angular.element('.swap-on-mobile-default'));
+          }
+          else if(!isMobile && $this.hasClass('swapped')){
+            $this.removeClass('swapped');
+            $this.insertAfter(angular.element('.swap-on-mobile-default'));
+          }
+        });
+
       }
 
       // Listening on resize event to calculate new values

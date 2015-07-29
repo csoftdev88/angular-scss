@@ -18,37 +18,26 @@ angular.module('mobius.controllers.hotel.details', [])
   // Include the amenities
   bookingParams.includes = 'amenities';
 
-  if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
-    $scope.partials = [
+  $scope.partials = [
       'layouts/hotels/detailPartial/hotelInfo.html',
       'layouts/hotels/detailPartial/hotelRooms.html',
       'layouts/hotels/detailPartial/hotelServices.html',
       'layouts/hotels/detailPartial/hotelLocation.html',
       'layouts/hotels/detailPartial/hotelOffers.html'
     ];
-  } else {
-    $scope.partials = [
-      'layouts/hotels/detailPartial/hotelInfo.html',
-      'layouts/hotels/detailPartial/hotelLocation.html',
-      'layouts/hotels/detailPartial/hotelOffers.html',
-      'layouts/hotels/detailPartial/hotelRooms.html',
-      'layouts/hotels/detailPartial/hotelServices.html'
-    ];
-  }
 
-  var propertyCode = '';
-  if(bookingParams.propertySlug === undefined) {
+  var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
+
+  if(!propertyCode){
     $state.go('hotels');
-  }else{
-    var splits = bookingParams.propertySlug.split('-');
-    propertyCode = splits[1].replace(/_/g, '-');
+    return;
   }
 
   $scope.scroll = 0;
 
   $scope.scrollToBreadcrumbs = function(){
     $timeout(function(){
-      scrollService.scrollTo('breadcrumbs');
+      scrollService.scrollTo();
     }, 0);
   };
 
@@ -60,12 +49,11 @@ angular.module('mobius.controllers.hotel.details', [])
       .then(function(details){
         $scope.details = details;
 
-        console.log(angular.toJson(details));
-
         metaInformationService.setMetaDescription($scope.details.meta.description);
+        metaInformationService.setMetaKeywords($scope.details.meta.keywords);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
-        $scope.details.meta.microdata.og['og:url'] = $location.absUrl();
+        $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
         $scope.details.description = ('' + $scope.details.description);
@@ -137,9 +125,12 @@ angular.module('mobius.controllers.hotel.details', [])
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
-      var hash = $window.location.hash;
-      if (hash) {
-        scrollTo(hash.substr(1));
+      //scroll to element if set in url scrollTo param
+      var scrollToValue = $location.search().scrollTo || null;
+      if (scrollToValue) {
+        $timeout(function(){
+          scrollService.scrollTo(scrollToValue, 20);
+        }, 500);
       }
     }));
   }
@@ -166,7 +157,7 @@ angular.module('mobius.controllers.hotel.details', [])
   };
 
   $scope.getAbsUrl = function(){
-    return $location.absUrl();
+    return $location.absUrl().split('?')[0];
   };
 
   $scope.advertClick = advertsService.advertClick;

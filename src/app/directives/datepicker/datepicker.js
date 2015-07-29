@@ -48,20 +48,24 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       function beforeShow() {
-        if(ngModelCtrl.$modelValue !== undefined) {
+        // NOTE: using setHours(0) is safe for different timezones. By default
+        // jquery date picker returns dates at 00 hour
+        element.blur();
+
+        if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
           // NOTE: using setHours(0) is safe for different timezones. By default
           // jquery date picker returns dates at 00 hour
 
           // TODO: use $parsers/$formates in case when dates should be presented not
           // as a string
-          if(typeof(ngModelCtrl.$modelValue) === 'string'){
+          if (typeof(ngModelCtrl.$modelValue) === 'string') {
             var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
             startDate = $window.moment(dates[0], 'YYYY MM DD').valueOf();
-            endDate = dates.length === 2?$window.moment(dates[1], 'YYYY MM DD').valueOf():startDate;
+            endDate = dates.length === 2 ? $window.moment(dates[1], 'YYYY MM DD').valueOf() : startDate;
           }
         }
 
-        if(hasCounter){
+        if (hasCounter) {
           updateButtonPane('data-counter', getCounterText());
         }
 
@@ -69,9 +73,10 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       // Multi input fields support
-      element.bind('focus', function(){
+      element.bind('focus', function(e){
         // For some reason extend widget factory doesnt work for datepicker
         // so I'm overriding the method directly
+        e.preventDefault();
         if(rangeSelection) {
           // Check if function was overrided already
           if($.datepicker._selectDateOverload === undefined) {

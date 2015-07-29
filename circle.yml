@@ -13,6 +13,7 @@ dependencies:
     - git config --global user.name "CircleCI @ 2P Ventures"
   override:
     - npm prune
+    - npm install
     - npm install jshint -g
     - npm install -g istanbul
     - npm install -g codeclimate-test-reporter

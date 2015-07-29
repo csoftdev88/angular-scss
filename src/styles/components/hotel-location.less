@@ -1,14 +1,48 @@
 hotel-location {
 
-  //- View Full Screen
-  h2 + p {
-    margin-bottom: 0;
+  header{
+    margin-bottom: 10px;
 
-    text-align: right;
+    //- View Full Screen
+    p {
+      margin: -1.75*@baseline 0 0 0;
+      display: inline;
+      float: right;
+      a {
+        text-decoration: underline;
+        font-size: @size--1;
+
+        &:focus,
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      // MOBILE SPECIFIC STYLES
+      @media only screen and @large-mobile-max {
+        margin: 0;
+        float: none;
+      }
+    }
   }
+
 
   contact-list {
     margin-bottom: @baseline;
+
+    // Email
+    contact-item:nth-of-type(1) div {
+      padding-left: 0 !important;
+      text-align: left !important;
+    }
+
+    // Address
+    contact-item:nth-of-type(3) div {
+      padding-left: 0 !important;
+      text-align: right !important;
+      .viewport-mobile &{
+        text-align: left !important;
+      }
+    }
   }
 
   contact-list,
@@ -25,7 +59,7 @@ hotel-location {
   i {
     top: 3px;
     left: 0;
-    color: #781818;
+    color: @c-brown;
   }
 
   img {
@@ -47,16 +81,32 @@ hotel-location {
   transportation-item,
   contact-item {
     position: relative;
-
     box-sizing: border-box;
     flex: 1 0 33%;
-
     display: block;
     width: 33%;
+
+    .viewport-mobile &{
+      flex: 1 0 100%;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 5px;
+      div{
+        padding-left: 0;
+      }
+    }
 
     div {
       position: relative;
       padding-left: 20px;
+    }
+  }
+
+  contact-item{
+    div{
+      a{
+        color: #000;
+      }
     }
   }
 

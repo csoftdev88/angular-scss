@@ -12,6 +12,11 @@ list-items {
   position: relative;
   margin-left: -@baseline/2;
   margin-right: -@baseline/2;
+
+  &.rooms-list{
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 pricing-switch {
@@ -41,12 +46,26 @@ pricing-switch {
 
 list-item {
   position: relative;
-
   display: block;
   min-height: @list-item-min-height;
-  padding: @baseline/2 320px @baseline/2 18%;
-
+  padding: @baseline/2 320px @baseline/2 19%;
   border-top: 1px dashed #ccc;
+
+  .hotel-detail__rooms &{
+    padding: @baseline 320px @baseline 19%;
+  }
+
+  .viewport-mobile &{
+    padding-right: 0;
+    padding-bottom: 90px;
+    padding-left: 120px;
+  }
+
+  @media only screen and @small-mobile-max {
+    .hotel-detail__rooms &{
+      padding-left: 0px;
+    }
+  }
 
   &.without-image {
     padding-left: @baseline;
@@ -97,13 +116,33 @@ list-item {
     position: absolute;
     left: @baseline/2;
     top: @baseline/2;
-
     width: 15.6%;
     max-height: @list-item-min-height;
     overflow: hidden;
-
     display: block;
     border: 1px solid #ccc;
+
+    .hotel-detail__rooms &{
+      left: 0;
+      top: @baseline;
+    }
+
+    .viewport-mobile &{
+      width: 100px;
+    }
+    @media only screen and @small-mobile-max {
+      .hotel-detail__rooms &{
+        width: 100%;
+        box-sizing: border-box;
+        position: relative;
+        left: auto;
+        top: auto;
+        overflow: visible;
+        max-height: none;
+        border: none;
+        margin-bottom: 14px;
+      }
+    }
 
     img {
       width: 100%;
@@ -152,25 +191,34 @@ list-item {
   earned-points {
     position: absolute;
     right: 200px;
-
     font-style: italic;
     font-size: @size--1;
-
     top: @baseline/2;
-
     color: #999;
 
     &:before {
       width: 16px;
       height: 16px;
       background: url(../images/v4-mobius/star-earnings.png) 0 0 no-repeat;
-
       display: block;
       content: "";
       position: absolute;
       top: 1px;
       left: -1.25 * @baseline;
     }
+
+    .viewport-mobile &{
+      position: relative;
+      right: auto;
+      top: auto;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      display: inline-block;
+      &:before {
+        left: 0;
+      }
+    }
+
   }
 
   pricing-info {
@@ -179,14 +227,25 @@ list-item {
     right: @baseline/2;
     top: @baseline/2;
     bottom: @baseline/2;
-
     border-left: 1px solid #ddd;
-
     width: 170px;
 
     p.error {
       .not-available();
     }
+
+    .viewport-mobile &{
+        left: 14px;
+        top: auto;
+        bottom: 20px;
+        border: none;
+        width: auto;
+        text-align: left;
+        p{
+          text-align: left;
+        }
+    }
+
   }
 
   //- Description

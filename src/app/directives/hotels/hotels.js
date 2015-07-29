@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService){
+    breadcrumbsService, scrollService, $location, $timeout){
 
   return {
     restrict: 'E',
@@ -81,7 +81,13 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.minSelectedPrice = scope.minPrice;
           scope.maxSelectedPrice = scope.maxPrice;
 
-          scrollService.scrollTo('breadcrumbs');
+          //scroll to element if set in url scrollTo param
+          var scrollToValue = $location.search().scrollTo || null;
+          if (scrollToValue) {
+            $timeout(function(){
+              scrollService.scrollTo(scrollToValue, 20);
+            }, 500);
+          }
         });
 
         // Loading locations
@@ -130,11 +136,21 @@ angular.module('mobiusApp.directives.hotels', [])
       };
 
       scope.navigateToHotel = function(propertySlug){
+        // Getting the current hotel
+        var selectedHotel = _.find(scope.hotels, function (item) {
+          return item && item.meta && item.meta.slug === propertySlug;
+        });
+
         // Getting rate details from RateCtrl
         var stateParams = {
+          property: selectedHotel ? selectedHotel.code : null,
           propertySlug: propertySlug,
           rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null
         };
+
+        if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
+          stateParams.scrollTo = 'jsRooms';
+        }
 
         $state.go('hotel', stateParams);
       };

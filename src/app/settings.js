@@ -6,7 +6,7 @@ angular.module('mobiusApp.config', [])
   'API': {
     'GoogleAnalyticsID': 'UA-44368729-3',
     'chainCode': 'SAN',
-    'baseURL': '/api/',
+    'baseURL': 'http://52.3.22.21:3010/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -66,7 +66,8 @@ angular.module('mobiusApp.config', [])
       'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
       // NOTE: Currently used for all/details - check the API
-      'all': 'reservations/'
+      'all': 'reservations/',
+      'action': 'reservations/:reservationCode/actions/:actionType'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
@@ -328,7 +329,7 @@ angular.module('mobiusApp.config', [])
           max: 8 * 86400000,
           // Only for future dates
           min: 0,
-          format: 'dd'
+          format: 'ddd'
         },
         {
           // If the check in date is between 8 and 90 days

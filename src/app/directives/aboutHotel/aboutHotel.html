@@ -4,15 +4,7 @@
     <p>The Sutton Place Hotels are a sophisticated 5-star collection of properties in North America. Each hotel is distinctly different in style while offering timeless elegance and exceptional service.
     As a select group of stylish properties with a distinct European flair, each Sutton Place Hotel is carefully selected for proximity to the business, financial, and entertainment centres in each city or destination that we are located within.</p>
 
-    <a href ng-show="isCollapsed" ng-click="isCollapsed = false">Read more</a>
-
-    <div collapse="isCollapsed">
-      <div>
-        <p> With hotels in Edmonton, Revelstoke Mountain Resort, and Vancouver, The Sutton Place Hotels represent the height of luxury accommodations with tasteful elegance, classically refined décor, and warm and inviting staff. From hand crafted furnishings, silk tapestries, and premium bedding, every detail at The Sutton Place Hotels represents a history of refined style and polished perfection that is both inviting and impressive.
-          Offering a sophisticated appeal, each outstanding location offers world-class amenities ensuring exceptional comfort and ambiance for every occasion.</p>
-        <a href ng-click="isCollapsed = true">Read less</a>
-      </div>
-    </div>
+    <p> With hotels in Edmonton, Revelstoke Mountain Resort, and Vancouver, The Sutton Place Hotels represent the height of luxury accommodations with tasteful elegance, classically refined décor, and warm and inviting staff. From hand crafted furnishings, silk tapestries, and premium bedding, every detail at The Sutton Place Hotels represents a history of refined style and polished perfection that is both inviting and impressive. Offering a sophisticated appeal, each outstanding location offers world-class amenities ensuring exceptional comfort and ambiance for every occasion.</p>
 
   </div>
 </header>
@@ -45,7 +37,7 @@
 <offers-list grid-row>
   <offer-item
     ng-repeat="offer in offersList track by $index"
-    ng-click="advertClick({'type': 'offers', 'code': offer.code})">
+    ng-click="advertClick({'type': 'offers', 'code': offer.meta.slug})">
     <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
 
     <section>

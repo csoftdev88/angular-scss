@@ -16,9 +16,13 @@ dialog.details {
       float: left;
       overflow: hidden;
 
+      .viewport-mobile &{
+        width: 100%;
+      }
+
       .image-wrapper {
         width: @image-size;
-        height: @image-size;
+        //height: @image-size;
 
         img {
           width: @image-size;
@@ -63,6 +67,28 @@ dialog.details {
       float: left;
       width: 50%;
       margin-bottom: 10px;
+
+      .viewport-mobile &{
+        width: 100%;
+        .description {
+          padding: 10px 0;
+          height: auto;
+          p,
+          div {
+            padding: 0;
+          }
+        }
+        .extra{
+          padding: 0;
+          .price{
+            display: block;
+            margin-bottom: 10px;
+          }
+          .view-more {
+            float: none;
+          }
+        }
+      }
 
       .description,
       .extra {
