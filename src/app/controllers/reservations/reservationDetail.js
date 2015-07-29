@@ -65,9 +65,14 @@ angular.module('mobius.controllers.reservationDetail', [])
         var propertyPromise = propertyService.getPropertyDetails(reservation.property.code).then(function(property) {
           $scope.property = property;
           //sharing
-          $scope.shareURL = $location.port() ? $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/hotels/' + $scope.property.meta.slug : $location.protocol() + '://' + $location.host() + '/hotels/' + $scope.property.meta.slug;
+          $scope.shareURL = $location.protocol() + '://' + $location.host() + '/hotels/' + $scope.property.meta.slug;
           $scope.property.meta.microdata.og['og:url'] = $scope.shareURL;
           metaInformationService.setOgGraph($scope.property.meta.microdata.og);
+          $scope.facebookShare = {
+            url: $scope.shareURL,
+            name: $scope.property.meta.microdata.og['og:description'], 
+            image: $scope.property.meta.microdata.og['og:image']
+          };
         });
 
         // Getting room/products data

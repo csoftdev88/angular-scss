@@ -31,17 +31,22 @@ amenity-item,
 .amenity-item {
   color: @c-gray;
 
-  // Icon
-  img {
-    position: absolute;
-    display: inline-block;
-    margin-top: 2px;
-    margin-right: @baseline / 2;
+  span {
+    display: table-cell;
     vertical-align: middle;
-  }
+    text-align: center;
+    min-width: 25px;
 
-  span{
-    display: block;
-    padding-left: 25px;
+    &.amenity-caption {
+      padding-top: 2px;
+    }
+
+    // Icon
+    img {
+      display: inline-block;
+      margin-right: @baseline / 2;
+      vertical-align: middle;
+      max-height: 15px;
+    }
   }
 }

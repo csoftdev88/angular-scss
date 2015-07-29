@@ -136,7 +136,7 @@ contacts-page {
       }
 
       // MOBILE SPECIFIC STYLES
-      @media only screen and @large-mobile-max {
+      .viewport-mobile & {
         width: 100%;
         float: left;
         &:first-of-type,
@@ -160,6 +160,9 @@ contacts-page {
     // Inputs adjustment
     form-element {
       margin-bottom: 15px;
+      .viewport-mobile & {
+        margin-bottom: 0;
+      }
 
       form-label {
         font-size: @size-0;

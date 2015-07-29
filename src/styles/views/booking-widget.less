@@ -87,8 +87,13 @@ booking-widget-add-room form-element {
   select,
   .chosen-container-single .chosen-single {
     padding-left: @baseline * 1.5;
-
     font-size: 13px;
+    .viewport-mobile &{
+      padding-left: 0;
+      text-indent: @baseline * 1.5;
+      line-height: 40px;
+      height: 40px;
+    }
   }
 
   input:focus ~ form-label,
