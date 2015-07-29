@@ -720,16 +720,18 @@ reservation-finished {
 
         a {
           display: inline-block;
-          height: @baseline * 1.6;
-          width: @baseline * 1.6;
-          margin-left: 10px;
+          height: 22px;
+          width: 22px;
+          margin-left: 0;
           border-radius: 100%;
-
           color: #fff;
-
-          font-size: @size-3;
-          line-height: @baseline * 1.6;
+          font-size: @size--1;
+          line-height: 22px;
           text-align: center;
+
+          &:first-child{
+            margin-left: 5px;
+          }
 
           &:focus,
           &:hover {
@@ -741,11 +743,14 @@ reservation-finished {
             .fa;
           }
 
-          &.icon-fb {             background: #36589b;}
+          &.icon-fb {             background: #3b579d;}
           .fb-share-button{
-            width: 32px;
-            height: 32px;
+            width: 22px;
+            height: 22px;
             border-radius: 100%;
+            span{
+              vertical-align: middle!important;
+            }
           }
           //&.icon-fb:before {      content: @fa-var-facebook; }
 
