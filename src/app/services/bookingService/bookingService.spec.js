@@ -129,4 +129,25 @@ describe('bookingService', function() {
       expect(_bookingService.getCodeParamName('abc')).equal('promoCode');
     });
   });
+
+  describe('getCodeFromSlug', function() {
+    it('should be defined as a function', function() {
+      expect(_bookingService.getCodeFromSlug).to.be.an('function');
+    });
+
+    it('should return code out of the a slug and capitalize it', function() {
+      expect(_bookingService.getCodeFromSlug('the-sutton-place-hotel-edmonton-edm')).equal('EDM');
+    });
+
+    it('should return code out of the a slug replace _ with -', function() {
+      expect(_bookingService.getCodeFromSlug('the-sutton-place-hotel-edmonton-edm_van')).equal('EDM-VAN');
+      expect(_bookingService.getCodeFromSlug('the-edm_van_rev')).equal('EDM-VAN-REV');
+    });
+
+    it('should return null when slug is not defined or an empty string is used', function() {
+      expect(_bookingService.getCodeFromSlug('')).equal(null);
+      expect(_bookingService.getCodeFromSlug(null)).equal(null);
+      expect(_bookingService.getCodeFromSlug(undefined)).equal(null);
+    });
+  });
 });
