@@ -57,8 +57,8 @@ angular.module('mobius.controllers.reservation', [])
         email: userData.email || '',
         address: userData.address1 || '',
         city: userData.city || '',
-        stateProvince: '',
-        country: '',
+        stateProvince: userData.state,
+        country: userData.country,
         zip: userData.zip || '',
         phone: userData.tel1 || ''
       });
