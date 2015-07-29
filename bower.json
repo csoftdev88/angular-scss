@@ -3,7 +3,7 @@
   "version": "0.6.0",
   "dependencies": {
     "angular": "",
-    "angular-bootstrap": "~0.13.0",
+    "angular-bootstrap": "=0.13.0",
     "angular-ui-router": "~0.2.14",
     "angular-chosen-localytics": "~1.0.7",
     "jquery": "~2.1.4",
