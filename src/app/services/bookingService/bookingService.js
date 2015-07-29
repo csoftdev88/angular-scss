@@ -83,6 +83,20 @@ angular.module('mobiusApp.services.booking', [])
     return queryParams;
   }
 
+  // Returns a property code out of propertySlug state parameter
+  // NOTE: Slug contains `-` separators, code has only `_` and presented
+  // in the end of slug string.
+  function getCodeFromSlug(slug){
+    if(slug){
+      var codeStartIndex = slug.lastIndexOf('-');
+      if(codeStartIndex !== -1 && codeStartIndex < slug.length - 1){
+        return slug.substring(codeStartIndex + 1).toUpperCase().replace(/_/g, '-');
+      }
+    }
+
+    return null;
+  }
+
   function APIParamsHasDates() {
     var queryParams = getAPIParams(true);
     return !!(queryParams[API_PARAM_FROM] && queryParams[API_PARAM_TO]);
@@ -104,6 +118,7 @@ angular.module('mobiusApp.services.booking', [])
     getAPIParams: getAPIParams,
     datesFromString: datesFromString,
     APIParamsHasDates: APIParamsHasDates,
-    getCodeParamName: getCodeParamName
+    getCodeParamName: getCodeParamName,
+    getCodeFromSlug: getCodeFromSlug
   };
 });

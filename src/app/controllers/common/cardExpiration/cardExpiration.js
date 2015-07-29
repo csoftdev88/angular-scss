@@ -16,9 +16,11 @@ angular.module('mobius.controllers.common.cardExpiration', [])
     // Generating new month list
     while (startFromMonth < 12) {
       $scope.cardExpiration.months.push({
-        name: $window.moment().month(startFromMonth++).format('MMMM'),
+        name: $window.moment().month(startFromMonth).format('MMMM'),
         id: startFromMonth
       });
+
+      startFromMonth++;
     }
     if($scope.cardExpiration.selectedMonth){
       // Finding same month
