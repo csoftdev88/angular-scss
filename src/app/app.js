@@ -16,6 +16,7 @@ angular
     'underscore',
     'validation.match',
     'ui-rangeSlider',
+    'angulike',
 
     // Controllers
     'mobius.controllers.common.sanitize',
@@ -312,6 +313,7 @@ angular
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
+    $rootScope.facebookAppId = '954663594591416';
   })
 
   .controller('BaseCtrl', function($scope, $controller, scrollService,
