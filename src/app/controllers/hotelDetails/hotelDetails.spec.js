@@ -42,6 +42,9 @@ describe('mobius.controllers.hotel.details', function() {
                 'test': 'testValue',
                 'propertySlug': 'hotel-123'
               };
+            },
+            getCodeFromSlug: function(){
+              return '123';
             }
           });
 
