@@ -26,12 +26,11 @@ angular.module('mobius.controllers.hotel.details', [])
       'layouts/hotels/detailPartial/hotelOffers.html'
     ];
 
-  var propertyCode = '';
-  if(bookingParams.propertySlug === undefined) {
+  var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
+
+  if(!propertyCode){
     $state.go('hotels');
-  }else{
-    var splits = bookingParams.propertySlug.split('-');
-    propertyCode = splits[1].replace(/_/g, '-');
+    return;
   }
 
   $scope.scroll = 0;

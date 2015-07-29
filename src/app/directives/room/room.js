@@ -19,13 +19,11 @@ angular.module('mobiusApp.directives.room', [])
 
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
-      var propertySplits = bookingParams.propertySlug.split('-');
-      var propertyCode = propertySplits[1];
+      var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
       scope.propertyCode = propertyCode;
       bookingParams.propertyCode = propertyCode;
 
-      var roomSplits = $stateParams.roomSlug.split('-');
-      var roomCode = roomSplits[1].replace(/_/g, '-');
+      var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;
 
       var propertyPromise;
