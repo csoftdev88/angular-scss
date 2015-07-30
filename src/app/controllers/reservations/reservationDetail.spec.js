@@ -4,7 +4,7 @@
 describe('mobius.controllers.reservationDetail', function() {
   describe('ReservationDetailCtrl', function() {
     var _scope, _spyGetReservation, _spyGetPropertyDetails, _spyGetReservationAddOns,
-      _spySendToPassBook, _spyAddInfoMessage;
+      _spySendToPassBook, _spyAddMessage;
 
     var TEST_RESERVATION_CODE = 95234134;
     var TEST_RESERVATION = {
@@ -137,7 +137,7 @@ describe('mobius.controllers.reservationDetail', function() {
         });
 
         $provide.value('userMessagesService', {
-          addInfoMessage: function() {
+          addMessage: function() {
           }
         });
 
@@ -171,7 +171,7 @@ describe('mobius.controllers.reservationDetail', function() {
       _spyGetPropertyDetails = sinon.spy(propertyService, 'getPropertyDetails');
       _spyGetReservationAddOns = sinon.spy(reservationService, 'getReservationAddOns');
       _spySendToPassBook = sinon.spy(reservationService, 'sendToPassbook');
-      _spyAddInfoMessage = sinon.spy(userMessagesService, 'addInfoMessage');
+      _spyAddMessage = sinon.spy(userMessagesService, 'addMessage');
 
       $controller('ReservationDetailCtrl', {$scope: _scope});
       _scope.$digest();
@@ -182,7 +182,7 @@ describe('mobius.controllers.reservationDetail', function() {
       _spyGetPropertyDetails.restore();
       _spyGetReservationAddOns.restore();
       _spySendToPassBook.restore();
-      _spyAddInfoMessage.restore();
+      _spyAddMessage.restore();
     });
 
     describe('when controller initialized', function() {
@@ -264,8 +264,8 @@ describe('mobius.controllers.reservationDetail', function() {
 
       it('should show notification when reservation is successfully addded to passbook', function(){
         _scope.sendToPassbook();
-        expect(_spyAddInfoMessage.calledOnce).equal(true);
-        expect(_spyAddInfoMessage.calledWith('<div>You have successfully added your reservation <strong>95234134</strong> to passbook.</div>')).equal(true);
+        expect(_spyAddMessage.calledOnce).equal(true);
+        expect(_spyAddMessage.calledWith('<div>You have successfully added your reservation <strong>95234134</strong> to passbook.</div>')).equal(true);
       });
     });
   });
