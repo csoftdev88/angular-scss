@@ -1,4 +1,4 @@
-<hero-slider content="heroContent" class="decoration-image"></hero-slider>
+<hero-slider content="heroContent"></hero-slider>
 
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
@@ -72,7 +72,7 @@
 
     <hr>
 
-    <h2 ng-if="rewardsList.length > 1">You may also be interested in:</h2>
+    <h2 ng-if="rewardsList.length > 1">You may also be <strong>interested in:</strong></h2>
     <rewards-list ng-if="rewardsList.length > 1">
       <reward-item ng-repeat="reward in rewardsList | filter:getRelevant track by $index"  ng-click="goToDetail(reward.code)">
         <img ng-src="{{reward.image.uri}}" alt="{{reward.image.uri}}" err-source="http://lorempixel.com/300/160/"/>
