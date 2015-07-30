@@ -50,7 +50,6 @@ angular.module('mobiusApp.directives.datepicker', [])
       function beforeShow() {
         // NOTE: using setHours(0) is safe for different timezones. By default
         // jquery date picker returns dates at 00 hour
-        //element.blur();
 
         if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
           // NOTE: using setHours(0) is safe for different timezones. By default
@@ -76,7 +75,6 @@ angular.module('mobiusApp.directives.datepicker', [])
       element.bind('focus', function(){
         // For some reason extend widget factory doesnt work for datepicker
         // so I'm overriding the method directly
-        //e.preventDefault();
         if(rangeSelection) {
           // Check if function was overrided already
           if($.datepicker._selectDateOverload === undefined) {

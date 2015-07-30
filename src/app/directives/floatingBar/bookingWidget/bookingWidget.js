@@ -152,9 +152,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       function init(){
         validateURLParams();
 
+        //override/close keyboard on mobile when focusing on date input
         var rangeInput = $('#booking-widget-date-range');
         if (rangeInput.length) {
-          rangeInput.css('background', 'red').focus(function(){
+          rangeInput.focus(function(){
             $(this).blur();
           });
         }
