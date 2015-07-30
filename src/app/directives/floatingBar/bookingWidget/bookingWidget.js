@@ -152,6 +152,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       function init(){
         validateURLParams();
 
+        var rangeInput = $('#booking-widget-date-range');
+        if (rangeInput.length) {
+          rangeInput.focus(function(){
+            $(this).blur();
+          });
+        }
+
         if(!$window._.isEmpty(regionsProperties)){
           validatePropertyRegion();
         }else{
@@ -600,6 +607,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       // Init
       init();
+
     }
   };
 });
