@@ -89,6 +89,7 @@ describe('hotels directive', function() {
 
       $controllerProvider.register('MainCtrl', function(){});
       $controllerProvider.register('RatesCtrl', function(){});
+      $controllerProvider.register('SSOCtrl', function(){});
     });
   });
 
