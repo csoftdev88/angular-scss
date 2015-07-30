@@ -70,7 +70,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           metaInformationService.setOgGraph($scope.property.meta.microdata.og);
           $scope.facebookShare = {
             url: $scope.shareURL,
-            name: $scope.property.meta.microdata.og['og:description'], 
+            name: $scope.property.meta.microdata.og['og:description'],
             image: $scope.property.meta.microdata.og['og:image']
           };
         });
@@ -183,6 +183,10 @@ angular.module('mobius.controllers.reservationDetail', [])
       modalService.openCancelReservationDialog($stateParams.reservationCode).then(function(){
         var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode)
         .then(function(){
+          // Reservation is removed, notifying user
+          userMessagesService.addInfoMessage('<div>Your Reservation <strong>' +
+            $stateParams.reservationCode + '</strong> was successfully canceled.</div>');
+
           $state.go('reservations');
         }, function(error){
           if (error && error.error && error.error.msg) {
