@@ -22,6 +22,7 @@ angular.module('mobiusApp.directives.hotels', [])
       $controller('MainCtrl', {$scope: scope});
       $controller('PreferenceCtrl', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
+      $controller('SSOCtrl', {$scope: scope});
 
       scope.sortingOptions = [
         {
