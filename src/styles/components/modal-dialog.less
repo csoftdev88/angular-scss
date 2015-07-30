@@ -35,6 +35,14 @@ dialog {
   transform: translate(-50%, -50%);
   appearance: none;
 
+  .viewport-mobile &{
+    max-width: 90%;
+    max-height: 90%;
+    left: 5%;
+    transform: translate(0, -50%);
+    overflow-y: auto;
+  }
+
   &:focus {
     outline: 0;
   }
@@ -82,6 +90,9 @@ dialog {
     margin: 0;
     padding: @baseline;
     box-sizing: border-box;
+    .viewport-mobile &{
+      width: 100%;
+    }
   }
 
   footer {

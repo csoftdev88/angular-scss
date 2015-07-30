@@ -7,6 +7,9 @@ footer {
   color: #999;
   font-size: @size--1;
   line-height: @baseline * 2;
+  .viewport-mobile & {
+    display: inline-block;
+  }
 
   @media print { 
    display: none;
@@ -31,11 +34,20 @@ footer {
     display: flex;
     margin-bottom: 50px;
     padding-left: 5px;
+    .viewport-mobile & {
+      display: block;
+      padding-left: 10px;
+    }
   }
 
   //- Copyright
   p {
     flex: 2 0;
+    .viewport-mobile & {
+      width: 100%;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
   }
 
   //- Social Links
@@ -46,18 +58,28 @@ footer {
     justify-content: center;
     
     .viewport-mobile & {
-      align-items: right;
-      justify-content: right;
-      flex: 0;
+      display: inline;
+      margin-right: 10px;
+      text-align: right;
     }
 
     ul {
       display: flex;
       justify-content: center;
+      .viewport-mobile & {
+        display: inline-block;
+      }
     }
 
     li {
       margin: 0 @baseline/4;
+      .viewport-mobile & {
+        float: left;
+        margin-left: 2px;
+        &:first-child{
+          margin-left: 0;
+        }
+      }
     }
 
     a {
