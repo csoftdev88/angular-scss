@@ -19,6 +19,7 @@ angular.module('mobiusApp.directives.hotels', [])
     link: function(scope){
       breadcrumbsService.clear().addBreadCrumb('Hotel Search');
 
+      $controller('SSOCtrl', {$scope: scope});
       $controller('MainCtrl', {$scope: scope});
       $controller('PreferenceCtrl', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
