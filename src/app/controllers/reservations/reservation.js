@@ -14,6 +14,8 @@ angular.module('mobius.controllers.reservation', [])
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
   $scope.additionalInfo = {};
 
+  $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
+
   function onAuthorized(isMobiusUser){
     // Getting room/products data
     var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
