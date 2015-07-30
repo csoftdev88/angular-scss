@@ -5,7 +5,8 @@
 angular.module('mobius.controllers.news', [])
 
   .controller('NewsCtrl', function($scope, $controller, contentService,
-         $state, $stateParams, _, breadcrumbsService, metaInformationService, $location) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, $location,
+      bookingService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -38,7 +39,7 @@ angular.module('mobius.controllers.news', [])
     };
 
     function selectNews(code) {
-      code = code.split('-')[1];
+      code = bookingService.getCodeFromSlug(code);
       selectedNewsIndex = _.findIndex($scope.newsList, {code: code});
       if (selectedNewsIndex < 0) {
         return $state.go('news', {code: null});

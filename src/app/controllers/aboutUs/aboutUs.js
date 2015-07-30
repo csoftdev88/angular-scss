@@ -5,7 +5,8 @@
 angular.module('mobius.controllers.about', [])
 
   .controller('AboutUsCtrl', function($scope, $controller, contentService, chainService,
-         $state, $stateParams, _, Settings, modalService, breadcrumbsService, metaInformationService, $location) {
+         $state, $stateParams, _, Settings, modalService, breadcrumbsService,
+         metaInformationService, $location, bookingService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -50,7 +51,7 @@ angular.module('mobius.controllers.about', [])
     };
 
     function selectAbout(code) {
-      code = code.split('-')[1];
+      code = bookingService.getCodeFromSlug(code);
       selectedAboutIndex = _.findIndex($scope.aboutList, {code: code});
       if (selectedAboutIndex < 0) {
         return $state.go('aboutUs', {code: null});
