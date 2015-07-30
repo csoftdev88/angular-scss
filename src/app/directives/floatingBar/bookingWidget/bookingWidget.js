@@ -154,7 +154,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         var rangeInput = $('#booking-widget-date-range');
         if (rangeInput.length) {
-          rangeInput.focus(function(){
+          rangeInput.css('background', 'red').focus(function(){
             $(this).blur();
           });
         }
