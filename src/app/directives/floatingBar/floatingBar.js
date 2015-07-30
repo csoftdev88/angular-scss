@@ -38,11 +38,11 @@ angular.module('mobiusApp.directives.floatingBar', [
           }
 
           $el.toggleClass('active', !scope.isCollapsed);
-          document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
-
+          
           scope.active = newActive;
           active = scope.active; // preserve between pages
           isCollapsed = scope.isCollapsed;
+          document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
         };
 
         // This will be invoked from child bookingWidget directive
@@ -59,10 +59,12 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
           if(viewport.isMobile){
             scope.isCollapsed = true;
+            document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
           }
         });
         scope.$on(EVENT_FLOATING_BAR, function(event, floatingBar){
           scope.isCollapsed = floatingBar.isCollapsed;
+          document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
         });
       }
     };
