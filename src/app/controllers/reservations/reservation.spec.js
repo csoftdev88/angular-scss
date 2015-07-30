@@ -104,7 +104,7 @@ describe('mobius.controllers.reservation', function() {
         $provide.value('filtersService', {});
 
         $provide.value('userMessagesService', {
-          addInfoMessage: function(){}
+          addMessage: function(){}
         });
 
         $provide.value('user', {
