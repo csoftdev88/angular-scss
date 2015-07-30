@@ -50,7 +50,7 @@ angular.module('mobius.controllers.rewards', [])
         var buyPromise = rewardsService.buyReward(user.getCustomerId(), reward.id).then(function(){
           // Consumed a new reward
           userMessagesService.addInfoMessage('<div>You have successfully bought ' +
-            reward.name + ' you can view it in My Rewards</div>');
+            reward.name);
 
           // Reloading user loyalties data
           user.loadLoyalties().then(function(){
