@@ -70,7 +70,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           metaInformationService.setOgGraph($scope.property.meta.microdata.og);
           $scope.facebookShare = {
             url: $scope.shareURL,
-            name: $scope.property.meta.microdata.og['og:description'], 
+            name: $scope.property.meta.microdata.og['og:description'],
             image: $scope.property.meta.microdata.og['og:image']
           };
         });
@@ -183,12 +183,16 @@ angular.module('mobius.controllers.reservationDetail', [])
       modalService.openCancelReservationDialog($stateParams.reservationCode).then(function(){
         var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode)
         .then(function(){
+          // Reservation is removed, notifying user
+          userMessagesService.addMessage('<div>Your Reservation <strong>' +
+            $stateParams.reservationCode + '</strong> was successfully canceled.</div>');
+
           $state.go('reservations');
         }, function(error){
           if (error && error.error && error.error.msg) {
-            userMessagesService.addInfoMessage('<p>' + error.error.msg + '</p>');
+            userMessagesService.addMessage('<p>' + error.error.msg + '</p>');
           } else {
-            userMessagesService.addInfoMessage('<p>Unknown error</p>');
+            userMessagesService.addMessage('<p>Unknown error</p>');
           }
         });
 
@@ -214,9 +218,9 @@ angular.module('mobius.controllers.reservationDetail', [])
       },
         function(error) {
           if (error && error.error && error.error.msg) {
-            userMessagesService.addInfoMessage('<p>' + error.error.msg + '</p>');
+            userMessagesService.addMessage('<p>' + error.error.msg + '</p>');
           } else {
-            userMessagesService.addInfoMessage('<p>Unknown error</p>');
+            userMessagesService.addMessage('<p>Unknown error</p>');
           }
           if (onError) {
             onError(error);
@@ -250,7 +254,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           // property as in original object `points` instead of `pointsRequired`
           addon.points = addon.pointsRequired;
           $scope.reservationAddons.push(addon);
-          userMessagesService.addInfoMessage('<div>You have added ' + addon.name + ' to your reservation</div>');
+          userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', true, true);
 
           // Updating user loyalties once payment was done using the points
           if(addon.pointsRequired && user.isLoggedIn()){
@@ -284,12 +288,13 @@ angular.module('mobius.controllers.reservationDetail', [])
       var today = $window.moment().valueOf();
       return $window.moment(reservation.departureDate).valueOf() < today;
     }
+
     $scope.sendToPassbook = function(){
       reservationService.sendToPassbook($stateParams.reservationCode).then(function(){
-        userMessagesService.addInfoMessage('<div>You have successfully added your reservation <strong>' +
+        userMessagesService.addMessage('<div>You have successfully added your reservation <strong>' +
           $stateParams.reservationCode + '</strong> to passbook.</div>');
       }, function(){
-        userMessagesService.addInfoMessage('<div>Sorry, we could not add reservation <strong>' +
+        userMessagesService.addMessage('<div>Sorry, we could not add reservation <strong>' +
           $stateParams.reservationCode + '</strong> to passbook, please try again.</div>');
       });
     };
@@ -298,5 +303,4 @@ angular.module('mobius.controllers.reservationDetail', [])
     $scope.printPage = function(){
       $window.print();
     };
-
   });

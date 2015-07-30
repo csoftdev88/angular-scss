@@ -49,8 +49,8 @@ angular.module('mobius.controllers.rewards', [])
         // Buying a new reward
         var buyPromise = rewardsService.buyReward(user.getCustomerId(), reward.id).then(function(){
           // Consumed a new reward
-          userMessagesService.addInfoMessage('<div>You have successfully bought ' +
-            reward.name + ' you can view it in My Rewards</div>');
+          userMessagesService.addMessage('<div>You have successfully bought ' +
+            reward.name);
 
           // Reloading user loyalties data
           user.loadLoyalties().then(function(){
@@ -63,7 +63,7 @@ angular.module('mobius.controllers.rewards', [])
           });
         }, function(){
           // Something went wrong
-          userMessagesService.addInfoMessage('<div>Sorry, we could not complete the transaction, please try again.</div>');
+          userMessagesService.addMessage('<div>Sorry, we could not complete the transaction, please try again.</div>');
         });
         preloaderFactory(buyPromise);
       });

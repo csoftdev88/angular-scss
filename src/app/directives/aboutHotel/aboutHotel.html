@@ -13,16 +13,11 @@
 
 <section grid-row class="benefits">
   <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">
-    <a ui-sref="{{icon.state}}" ng-switch-when="false" href>
+    <a ui-sref="{{icon.state}}">
       <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
       <h2 ng-bind-html="icon.name"></h2>
       <p>{{icon.text}}</p>
     </a>
-    <div ng-switch-default>
-      <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
-      <h2 ng-bind-html="icon.name"></h2>
-      <p>{{icon.text}}</p>
-    </div>
   </article>
 </section>
 
