@@ -137,6 +137,9 @@ angular.module('mobius.controllers.common.content', [])
             });
           }, 0);
         }
+      } else if (contentTypes.hotels.paramName === $scope.settings.paramName && code){
+        //if hotel details set active booking bar
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {});
       }
     }
 
