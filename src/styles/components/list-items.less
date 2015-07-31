@@ -48,22 +48,65 @@ list-item {
   position: relative;
   display: block;
   min-height: @list-item-min-height;
-  padding: @baseline/2 320px @baseline/2 19%;
+  padding: @baseline/2 185px @baseline/2 19%;
   border-top: 1px dashed #ccc;
 
   .hotel-detail__rooms &{
-    padding: @baseline 320px @baseline 19%;
+    padding: @baseline 185px @baseline 19%;
+  }
+
+  .list-item-header {
+    height: 30px;
+
+    pricing-info {
+      display: none;
+    }
+
+    earned-points {
+      width: 12%;
+      display: inline;
+      vertical-align: middle;
+    }
+  }
+
+  .wide-button {
+    display: none;
   }
 
   .viewport-mobile &{
     padding-right: 0;
     padding-bottom: 90px;
     padding-left: 120px;
+
+    .list-item-header {
+      height: 110px;
+
+      pricing-info {
+        position: relative;
+        display: inline-block;
+        margin-top: 30px;
+        margin-left: 15px;
+
+        p {
+          display: block;
+        }
+      }
+    }
   }
 
   @media only screen and @small-mobile-max {
     .hotel-detail__rooms &{
-      padding-left: 0px;
+      padding-left: 0;
+      padding-bottom: 20px;
+    }
+
+    .wide-button {
+      margin-top: 45px;
+      display: block;
+
+      a, button-submit {
+        width: 100%;
+      }
     }
   }
 
@@ -184,16 +227,15 @@ list-item {
     color: @c-link;
     font-weight: 300;
     font-size: @size-2;
-    margin-bottom: @baseline/2;
+    display: inline-block;
+    width: 80%;
   }
 
   //- Earned points
   earned-points {
     position: absolute;
-    right: 200px;
     font-style: italic;
     font-size: @size--1;
-    top: @baseline/2;
     color: #999;
 
     &:before {
@@ -212,8 +254,9 @@ list-item {
       right: auto;
       top: auto;
       padding-left: 20px;
-      margin-bottom: 10px;
       display: inline-block;
+      width: 100%;
+      bottom: 20px;
       &:before {
         left: 0;
       }
@@ -243,9 +286,13 @@ list-item {
         text-align: left;
         p{
           text-align: left;
+          display: none;
         }
     }
 
+    @media only screen and @small-mobile-max {
+      display: none;
+    }
   }
 
   //- Description
@@ -278,6 +325,10 @@ list-item {
         flex: 1;
       }
 
+    }
+
+    .viewport-mobile &{
+      width: 80%;
     }
   }
 }

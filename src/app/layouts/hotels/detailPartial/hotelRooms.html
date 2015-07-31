@@ -21,10 +21,27 @@
           </figure>
         </a>
 
-        <h3><a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">{{room.name}}</a></h3>
+        <div class="list-item-header">
+          <h3><a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">{{room.name}}</a></h3>
 
-        <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+          <pricing-info>
+            <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
+              <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
+                from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+                <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+              <span ng-if="isUserLoggedIn() && room.minPointsRequired">
+                <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+              </span>
+              </p>
+              <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
+            </div>
+            <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
+          </pricing-info>
+
+          <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least
+            <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
           </earned-points>
+        </div>
 
         <pricing-info>
           <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
@@ -45,6 +62,9 @@
         <description-info>
           <div ng-bind-html="sanitize(room.description)"></div>
         </description-info>
+        <div class="wide-button">
+          <a class="button" ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">View Details</a>
+        </div>
       </list-item>
       <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
     </list-items>
