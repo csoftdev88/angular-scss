@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -29,9 +29,25 @@ angular.module('mobius.controllers.offers', [])
 
     contentService.getOffers().then(function(response) {
       $scope.offersList = _.sortBy(response, 'prio').reverse();
+
+      if($stateParams.property){
+        $scope.offersList = _.filter($scope.offersList, function(f){
+          return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length;
+        });
+      }
+      
       if ($stateParams.code) {
         selectOffer(bookingService.getCodeFromSlug($stateParams.code));
       }
+    });
+
+    chainService.getChain(Settings.API.chainCode).then(function(chain) {
+      var chainData = chain;
+
+      chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+      chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
+      chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
+      metaInformationService.setOgGraph(chainData.meta.microdata.og);
     });
 
     $scope.getRelevant = function(offer, index) {

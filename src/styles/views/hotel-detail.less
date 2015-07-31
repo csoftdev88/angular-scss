@@ -17,13 +17,16 @@ hotel-detail {
     opacity: 0;
     height: 0;
     overflow: hidden;
-    z-index: 9999;
+    z-index: 999;
     .viewport-mobile &{
       bottom: 80px;
       right: 10px;
     }
     .floating-bar-active &{
       bottom: 150px;
+      .viewport-mobile &{
+        bottom: 80px;
+      }
     }
     span{
       position: absolute;

@@ -63,7 +63,8 @@
       &:extend(.font-size-18);
       text-align: center;
 
-      &.mobile-header{
+      &.mobile-header,
+      &.mobile-logout{
         display: none;
       }
 
@@ -73,12 +74,14 @@
         text-decoration: none;
       }
 
-      &.mobile-profile{
+      &.mobile-profile,
+      &.mobile-rewards{
         display: none;
       }
 
       .viewport-mobile &{
-        &.mobile-profile{
+        &.mobile-profile,
+        &.mobile-rewards{
           display: block;
           text-align: left;
         }
@@ -328,6 +331,19 @@
             }
           }
 
+          &.mobile-logout{
+            display: block;
+            a{
+              font-weight: 300;
+              &:active,
+              &:focus,
+              &:hover,
+              &.is-active {
+                background: none;
+              }
+            }
+          }
+
           a.is-active {
             font-weight: 700;
             text-shadow: 0 2px 0 fade(@c-base, 50%);
@@ -345,9 +361,20 @@
 
     &.open {
       .button-login {
-        z-index: 0;
-        opacity: 0;
-        transform: translateX(110%);
+        height: 58px;
+        line-height: 58px;
+        padding: 0;
+        background: none!important;
+        box-shadow: none!important;
+        border: none!important;
+        text-align: left;
+        font-weight: 300;
+        &:active,
+        &:focus,
+        &:hover,
+        &.is-active {
+          background: none;
+        }
       }
     }
   }

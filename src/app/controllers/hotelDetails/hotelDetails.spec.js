@@ -97,6 +97,7 @@ describe('mobius.controllers.hotel.details', function() {
         });
 
         var breadcrumbs = {
+          clear: function() {},
           addBreadCrumb: function(){ return breadcrumbs; },
           addHref: function(){ return breadcrumbs; },
           removeHref: function(){ return breadcrumbs; }

@@ -27,6 +27,7 @@ angular
     'mobius.controllers.common.price',
     'mobius.controllers.common.preference',
     'mobius.controllers.common.rates',
+    'mobius.controllers.common.isoCountries',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
@@ -127,7 +128,6 @@ angular
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
-    'mobiusApp.directives.isoCountryOptions',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
     'internationalPhoneNumber',

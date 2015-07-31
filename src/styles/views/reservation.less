@@ -20,6 +20,9 @@ reservation-widget {
 
   .viewport-mobile &{
     padding: 20px;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
   }
 
   [grid-row] {
@@ -122,18 +125,30 @@ reservation-widget {
   input[type="text"],
   input[type="email"],
   select,
+  .chosen-container,
+  .chosen-container .chosen-single,
   textarea {
     height: 45px;
+    line-height: 45px;
     padding: 0 15px;
     border-radius: 0;
     border-color: @c-gray-reservation;
     color: @c-form-text;
     font-size: @size-0;
+    font-weight: normal;
     transition: border-color 0.15s linear;
 
     &:focus {
       box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
     }
+  }
+
+  .chosen-container {
+    padding: 0 7px 0 15px;
+  }
+  .chosen-container .chosen-single,
+  .chosen-container .chosen-single span {
+    padding: 0;
   }
 
   textarea {
@@ -155,6 +170,9 @@ reservation-widget {
 
     a {
       text-decoration: underline;
+      .viewport-mobile &{
+        font-size: 12px;
+      }
     }
   }
 
@@ -252,6 +270,18 @@ reservation-widget {
 
   .reservation-controls {
     text-align: center;
+
+    .viewport-mobile &{
+      width: 100%;
+      registration-call {
+        margin-top: 20px;
+        clear: both;
+        float: left;
+        width: 100%;
+        display: inline-block;
+        margin-top: 20px;
+      }
+    }
 
     h4 {
       font-size: @size-4;
@@ -526,6 +556,10 @@ reservation-billing {
           width: 30%;
           position: relative;
 
+          .viewport-mobile &{
+            width: 100%;
+          }
+
           > label {
             padding-top: 5px;
 
@@ -544,6 +578,9 @@ reservation-billing {
             width: 20px;
             height: 20px;
             text-align: center;
+            .viewport-mobile &{
+              right: 5px;
+            }
           }
         }
 
@@ -591,6 +628,7 @@ reservation-confirmation {
       box-sizing: border-box;
       width: 33.3333%;
       text-align: center;
+      padding: 0 5px;
     }
 
     li + li {
@@ -607,6 +645,17 @@ reservation-confirmation {
     .active a {
       color: @c-brown;
       font-weight: bold;
+    }
+
+    .viewport-mobile &{
+      li{
+        height: 60px;
+        display: table;
+        a{
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
     }
   }
 
@@ -689,7 +738,7 @@ reservation-finished {
       width: 100%;
       margin-bottom: 20px;
 
-      @media print { 
+      @media print {
        display: none;
       }
 
@@ -698,25 +747,41 @@ reservation-finished {
         margin-left: @spacing / 2;
       }
 
-      .button-passbook {
-        background: url('../images/v4/btn-passbook.png');
-        width: 108px;
-        height: 36px;
+      .passbook{
         float: right;
+        .button-passbook {
+          background: url('../images/v4/btn-passbook.png');
+          width: 108px;
+          height: 36px;
+          float: left;
+        }
+
+        .button-print {
+          background: url('../images/v4/btn-print.png');
+          width: 37px;
+          height: 36px;
+          float: left;
+        }
+
+        .viewport-mobile &{
+          clear: both;
+          float: left;
+          .button-print {
+            margin-left: 0;
+          }
+        }
       }
 
-      .button-print {
-        background: url('../images/v4/btn-print.png');
-        width: 37px;
-        height: 36px;
-        float: right;
-      }
+
 
       // Block w/ share buttons under the header
       .share {
         position: relative;
         float: left;
         line-height: @baseline * 1.6;
+        .viewport-mobile &{
+          margin-bottom: 10px;
+        }
 
         a {
           display: inline-block;
@@ -792,13 +857,13 @@ reservation-finished {
       box-sizing: border-box;
       padding: 0 @spacing / 2;
 
-      &.half {  
+      &.half {
         width: 50%;
         .viewport-mobile &{
           width: 100%;
         }
       }
-      &.third { 
+      &.third {
         width: 33.3333%;
         .viewport-mobile &{
           width: 100%;
@@ -1044,7 +1109,7 @@ reservation-hotel-details {
         height: 30px;
         line-height: 30px;
         width: 135px;
-        @media print { 
+        @media print {
          display: none;
         }
       }

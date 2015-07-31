@@ -141,6 +141,14 @@ reservation-hotel-details {
           color: @c-link;
           font-size: @size-2;
         }
+
+        .reservation-number {
+          display: block;
+          color: @c-link;
+          margin-top: @baseline/4;
+          font-weight: bold;
+          width: 100%;
+        }
       }
 
       .guests {
@@ -232,7 +240,8 @@ reservation-hotel-details {
       }
 
       .value, .title,
-      .total .value {
+      .total .value,
+      .total .reservation-number {
         color: @c-light-grey;
       }
 

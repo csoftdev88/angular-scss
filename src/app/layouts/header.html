@@ -38,6 +38,9 @@
             <li>
               <a href ng-click="sso.profile()">Profile</a>
             </li>
+            <li class="mobile-rewards">
+              <a href ui-sref="rewards">Rewards</a>
+            </li>
             <li>
               <a href ng-click="sso.logout()">Logout</a>
             </li>
@@ -66,6 +69,9 @@
 
       <li ng-show="!isUserLoggedIn()" profile>
         <a class="button button-login" ng-click="sso.login()">Login</a>
+      </li>
+      <li ng-show="isUserLoggedIn()" profile class="mobile-logout">
+        <a class="button button-login" ng-click="sso.logout()">Logout</a>
       </li>
 
       <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">

@@ -14,6 +14,8 @@ angular.module('mobius.controllers.reservation', [])
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
   $scope.additionalInfo = {};
 
+  $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
+
   function onAuthorized(isMobiusUser){
     // Getting room/products data
     var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
@@ -83,7 +85,6 @@ angular.module('mobius.controllers.reservation', [])
   $controller('RoomDetailsCtrl', {$scope: $scope});
   $controller('SSOCtrl', {$scope: $scope});
   $controller('CardExpirationCtrl', {$scope: $scope});
-
   // NOTE: Waiting for infiniti SSO auth events
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
@@ -111,9 +112,9 @@ angular.module('mobius.controllers.reservation', [])
     lastBreadCrumbName = name;
   };
 
-  function scrollToGuestDetails() {
+  function scrollToDetails(target) {
     $timeout(function(){
-      scrollService.scrollTo('reservationDetailsForm', 20);
+      scrollService.scrollTo(target, 20);
     }, 100);
   }
 
@@ -122,27 +123,27 @@ angular.module('mobius.controllers.reservation', [])
     case 'reservation.details':
       setBreadCrumbs(GUEST_DETAILS);
       $scope.continueName = 'Continue';
-      scrollToGuestDetails();
+      scrollToDetails('reservationDetailsForm');
+      $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
       $scope.continueName = 'Continue';
+      scrollToDetails('reservationBillingForm');
+      $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.confirmation':
       setBreadCrumbs(CONFIRMATION);
       $scope.continueName = 'Confirm';
+      scrollToDetails('reservationConfirmation');
+      $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.after':
       breadcrumbsService.clear()
         .addBreadCrumb('My stays', 'reservations')
         .addBreadCrumb($scope.reservation.reservationCode);
+      $rootScope.showHomeBreadCrumb = false;
       break;
-
-    default:
-      // Showing login prompt when skipping checkout flow
-      if(!user.isLoggedIn() && !$scope.isModifyingAsAnonymous()){
-        modalService.openLoginDialog();
-      }
     }
   }
 
@@ -387,7 +388,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     var reservationPromise = $q.all(promises).then(function(data) {
-      userMessagesService.addInfoMessage('' +
+      userMessagesService.addMessage('' +
         '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
         '<div class="small">A confirmation email will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>');
 
@@ -430,6 +431,8 @@ angular.module('mobius.controllers.reservation', [])
   $scope.readPolicies = function(){
     $scope.openPoliciesInfo($scope.selectedProduct);
   };
+
+  $controller('ISOCountriesCtrl', {$scope: $scope});
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;

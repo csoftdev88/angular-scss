@@ -63,6 +63,9 @@ describe('hotels directive', function() {
       $provide.value('modalService', {
       });
 
+      $provide.value('$stateParams', {
+      });
+
 
       $provide.value('user', {
         isLoggedIn: function(){}
@@ -89,6 +92,8 @@ describe('hotels directive', function() {
 
       $controllerProvider.register('MainCtrl', function(){});
       $controllerProvider.register('RatesCtrl', function(){});
+      $controllerProvider.register('SSOCtrl', function(){});
+      $controllerProvider.register('OffersCtrl', function(){});
     });
   });
 

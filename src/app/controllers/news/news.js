@@ -6,7 +6,7 @@ angular.module('mobius.controllers.news', [])
 
   .controller('NewsCtrl', function($scope, $controller, contentService,
       $state, $stateParams, _, breadcrumbsService, metaInformationService, $location,
-      bookingService) {
+      bookingService, chainService, Settings) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -23,6 +23,15 @@ angular.module('mobius.controllers.news', [])
       if ($stateParams.code) {
         selectNews($stateParams.code);
       }
+    });
+
+    chainService.getChain(Settings.API.chainCode).then(function(chain) {
+      var chainData = chain;
+
+      chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+      chainData.meta.microdata.og['og:title'] = 'News: ' + chainData.meta.microdata.og['og:title'];
+      chainData.meta.microdata.og['og:description'] = 'News: ' + chainData.meta.microdata.og['og:description'];
+      metaInformationService.setOgGraph(chainData.meta.microdata.og);
     });
 
     $scope.getRelevant = function(news, index) {
