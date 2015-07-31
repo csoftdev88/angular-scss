@@ -13,8 +13,10 @@
           <a href="" ng-href="https://plus.google.com/share?url={{shareURL}}" title="Share on Google+" target="_blank" class="icon-gplus"></a>
           <a href="" ng-href="mailto:?body={{shareURL}}" title="Email" target="_blank" class="icon-email"></a>
         </div>
-        <a href="" class="button-print" ng-click="printPage()"><span>Print</span></a>
-        <a href ng-click="sendToPassbook()"class="button-passbook"><span>Add to Passbook</span></a>
+        <div class="passbook">
+          <a href="" class="button-print" ng-click="printPage()"><span>Print</span></a>
+          <a href ng-click="sendToPassbook()"class="button-passbook"><span>Add to Passbook</span></a>
+        </div>
       </div>
       
       <header>
