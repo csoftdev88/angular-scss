@@ -138,12 +138,6 @@ angular.module('mobius.controllers.reservation', [])
         .addBreadCrumb('My stays', 'reservations')
         .addBreadCrumb($scope.reservation.reservationCode);
       break;
-
-    default:
-      // Showing login prompt when skipping checkout flow
-      if(!user.isLoggedIn() && !$scope.isModifyingAsAnonymous()){
-        modalService.openLoginDialog();
-      }
     }
   }
 
