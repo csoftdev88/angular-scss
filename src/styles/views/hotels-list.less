@@ -55,8 +55,9 @@ hotels {
         // MOBILE SPECIFIC STYLES
         @media only screen and @large-mobile-max {
           border-top: 1px dashed @c-light-grey;
-          margin-bottom: 25px;
+          margin-bottom: 20px;
           padding-top: 30px;
+          padding-bottom: 70px;
 
           &:first-child{
             border-top: none;
@@ -94,6 +95,11 @@ hotels {
         pricing-info {
           display: inline-block;
           width: 100%;
+
+          .viewport-mobile &{
+            position: absolute;
+            bottom: 0;
+          }
 
           p {
             color: @c-grey; 
