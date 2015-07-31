@@ -148,6 +148,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var regionsProperties = [];
 
       function init(){
+        scope.selected.rooms = [];
+
+        // Adding one room by default
         validateURLParams();
 
         if(!$window._.isEmpty(regionsProperties)){
@@ -411,6 +414,11 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         // Changing application state
+        if(!scope.advanced){
+          // Removing rooms when not in multiroom booking mode
+          stateParams.rooms = null;
+        }
+
         if(!scope.selected.property || !scope.selected.property.code){
           // 'All properties' is selected, will redirect to hotel list
           stateParams.propertyCode = null;
