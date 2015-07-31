@@ -101,14 +101,17 @@ angular.module('mobiusApp.directives.hotels', [])
           // hotels = undefined;
           scope.hotels = hotels || [];
 
+          //check if offer is limited to some properties and only display those
           var currentOffer = '';
           if($stateParams.promoCode){
             currentOffer = _.find(scope.offersList, function(offer){
               return offer.meta.slug === $stateParams.promoCode;
             });
-            scope.hotels = _.filter(scope.hotels, function(hotel){
-              return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
-            });
+            if(currentOffer){
+              scope.hotels = _.filter(scope.hotels, function(hotel){
+                return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
+              });
+            }
           }
 
           scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
