@@ -45,6 +45,10 @@ angular.module('mobius.controllers.rewards', [])
     $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
     $scope.openRewardDetails = function(reward){
+      if(!reward._isAffordable){
+        reward._customerTotalPoints = user.getUser().loyalties.amount;
+      }
+
       modalService.openRewardDetailsDialog(reward).then(function(){
         // Buying a new reward
         var buyPromise = rewardsService.buyReward(user.getCustomerId(), reward.id).then(function(){
