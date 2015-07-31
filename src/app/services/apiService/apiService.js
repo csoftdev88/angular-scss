@@ -85,12 +85,33 @@ angular.module('mobiusApp.services.api', [])
     _.extend(headers, obj);
   }
 
+  var cache = {};
+
+  function getThrottled(url, params, timeout) {
+    var canCache = !params || Object.keys(params).length === 0;
+    if (canCache) {
+      timeout = timeout || Settings.API.defaultThrottleTimeout;
+      var ts = (new Date()).valueOf();
+      if (!cache[url] || (cache[url].ts + timeout * 1000) < ts) {
+        cache[url] = {
+          ts: ts,
+          p: object.get(url, params)
+        };
+      }
+      return cache[url].p;
+    } else {
+      return object.get(url, params);
+    }
+  }
+
   // Public methods
-  return {
+  var object = {
     get: get,
+    getThrottled: getThrottled,
     post: post,
     put: put,
     getFullURL: getFullURL,
     setHeaders: setHeaders
   };
+  return object;
 });
