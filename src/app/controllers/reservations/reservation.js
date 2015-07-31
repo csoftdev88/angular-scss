@@ -113,9 +113,9 @@ angular.module('mobius.controllers.reservation', [])
     lastBreadCrumbName = name;
   };
 
-  function scrollToGuestDetails() {
+  function scrollToDetails(target) {
     $timeout(function(){
-      scrollService.scrollTo('reservationDetailsForm', 20);
+      scrollService.scrollTo(target, 20);
     }, 100);
   }
 
@@ -124,17 +124,19 @@ angular.module('mobius.controllers.reservation', [])
     case 'reservation.details':
       setBreadCrumbs(GUEST_DETAILS);
       $scope.continueName = 'Continue';
-      scrollToGuestDetails();
+      scrollToDetails('reservationDetailsForm');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
       $scope.continueName = 'Continue';
+      scrollToDetails('reservationBillingForm');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.confirmation':
       setBreadCrumbs(CONFIRMATION);
       $scope.continueName = 'Confirm';
+      scrollToDetails('reservationConfirmation');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.after':
