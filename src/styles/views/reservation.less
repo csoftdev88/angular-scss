@@ -256,6 +256,18 @@ reservation-widget {
   .reservation-controls {
     text-align: center;
 
+    .viewport-mobile &{
+      width: 100%;
+      registration-call {
+        margin-top: 20px;
+        clear: both;
+        float: left;
+        width: 100%;
+        display: inline-block;
+        margin-top: 20px;
+      }
+    }
+
     h4 {
       font-size: @size-4;
       color: @c-link;
@@ -529,6 +541,10 @@ reservation-billing {
           width: 30%;
           position: relative;
 
+          .viewport-mobile &{
+            width: 100%;
+          }
+
           > label {
             padding-top: 5px;
 
@@ -547,6 +563,9 @@ reservation-billing {
             width: 20px;
             height: 20px;
             text-align: center;
+            .viewport-mobile &{
+              right: 5px;
+            }
           }
         }
 
@@ -594,6 +613,7 @@ reservation-confirmation {
       box-sizing: border-box;
       width: 33.3333%;
       text-align: center;
+      padding: 0 5px;
     }
 
     li + li {
