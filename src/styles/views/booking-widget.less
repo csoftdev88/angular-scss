@@ -16,6 +16,17 @@ booking-widget {
     border-bottom: 0;
   }
 
+  //- Search button
+  button-submit {
+    width: 10%;
+    float: right;
+    align-self: center;
+    flex: 0 0 auto;
+    margin-top: 30px;
+    .viewport-mobile &{
+      display: block;
+    }
+  }
 }
 
 
@@ -167,7 +178,7 @@ booking-widget-search {
   display: flex;
   padding: @baseline 0;
   float: left;
-  width: 90%;
+  width: 85%;
 
   .viewport-mobile &{
     display: inline-block;
@@ -231,17 +242,6 @@ booking-widget-search {
       font-size: 21px;
       transform: translateY(-50%);
       content: @fa-var-chevron-right;
-    }
-  }
-
-
-
-  //- Search button
-  button-submit {
-    align-self: center;
-    flex: 0 0 auto;
-    .viewport-mobile &{
-      display: block;
     }
   }
 }
