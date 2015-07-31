@@ -29,6 +29,13 @@ angular.module('mobius.controllers.offers', [])
 
     contentService.getOffers().then(function(response) {
       $scope.offersList = _.sortBy(response, 'prio').reverse();
+
+      if($stateParams.property){
+        $scope.offersList = _.filter($scope.offersList, function(f){
+          return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length;
+        });
+      }
+      
       if ($stateParams.code) {
         selectOffer(bookingService.getCodeFromSlug($stateParams.code));
       }
