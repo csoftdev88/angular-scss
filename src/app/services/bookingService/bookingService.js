@@ -92,6 +92,9 @@ angular.module('mobiusApp.services.booking', [])
       if(codeStartIndex !== -1 && codeStartIndex < slug.length - 1){
         return slug.substring(codeStartIndex + 1).toUpperCase().replace(/_/g, '-');
       }
+      else{
+        return slug.toUpperCase().replace(/_/g, '-');
+      }
     }
 
     return null;
