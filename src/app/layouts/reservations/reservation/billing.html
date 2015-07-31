@@ -139,7 +139,7 @@
               placeholder="Country"
               data-placeholder="Country"
               ng-model="billingDetails.country"
-              iso-country-options
+              chosen ng-options="country.title as country.title for country in iso.countries"
               chosen>
             </select>
             <span>Country</span>
@@ -154,7 +154,7 @@
 
           <label for="telephone" class="input-right">
             <input type="text" international-phone-number id="telephone" required
-              placeholder="Telephone"
+              placeholder="Telephone" default-country="{{defaultCountryCode || 'ca'}}"
               ng-model="billingDetails.phone"
               placeholder="Phone"/>
             <span>Telephone</span>

@@ -86,9 +86,9 @@
         <select type="text" id="country" required
           placeholder="Country"
           data-placeholder="Country"
+          chosen ng-options="country.title as country.title for country in iso.countries"
           ng-model="userDetails.country"
           name="country"
-          iso-country-options
           chosen>
         </select>
         <span>Country</span>

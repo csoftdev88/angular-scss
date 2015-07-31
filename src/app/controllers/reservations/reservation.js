@@ -85,7 +85,6 @@ angular.module('mobius.controllers.reservation', [])
   $controller('RoomDetailsCtrl', {$scope: $scope});
   $controller('SSOCtrl', {$scope: $scope});
   $controller('CardExpirationCtrl', {$scope: $scope});
-
   // NOTE: Waiting for infiniti SSO auth events
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
@@ -432,6 +431,8 @@ angular.module('mobius.controllers.reservation', [])
   $scope.readPolicies = function(){
     $scope.openPoliciesInfo($scope.selectedProduct);
   };
+
+  $controller('ISOCountriesCtrl', {$scope: $scope});
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
