@@ -129,9 +129,9 @@ module.exports = function(grunt) {
     /* PRODUCTION */
     concat: {
       compileJS: {
-        src: [
+        src: buildConfig.config.vendor_files.js.concat([
           'build/app/**/*.js', '!build/app/**/*.spec.js'
-        ],
+        ]),
         dest: '<%= config.compile %>/app/<%= pkg.name %>-<%= pkg.version %>.js'
       }
     },
@@ -313,8 +313,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('production', [
-    'build:production',
-    'sleep'
+    'build:production'
   ]);
 
   grunt.registerTask('build:production', [
@@ -324,8 +323,8 @@ module.exports = function(grunt) {
     'concat',
     'uglify',
     'copy',
-    'index:compile',
-    'usemin'
+    'index:compile'
+    //'usemin'
   ]);
 
   grunt.registerTask('release', [
@@ -386,8 +385,8 @@ module.exports = function(grunt) {
           data: grunt.util._.extend({
             scripts: jsFiles,
             styles: cssFiles,
-            templates: [templateCache],
-            vendor_js: grunt.config('config.vendor_files.js'),
+            templates: jsFiles.length === 1 ? [] : [templateCache],
+            vendor_js: jsFiles.length === 1 ? [] : grunt.config('config.vendor_files.js'),
             vendor_styles: grunt.config('config.vendor_files.styles'),
             version: grunt.config( 'pkg.version' )
           }, {})

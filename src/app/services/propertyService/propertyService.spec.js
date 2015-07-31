@@ -25,6 +25,7 @@ describe('propertyService', function() {
 
       var apiService = {
         get: function(){},
+        getThrottled: function(){},
         getFullURL: function(p){
           return p;
         }
@@ -40,11 +41,13 @@ describe('propertyService', function() {
     env.apiService = apiService;
 
     env.apiGetSpy = sinon.spy(env.apiService, 'get');
+    env.apiGetThrottledSpy = sinon.spy(env.apiService, 'getThrottled');
     env.apiGetFullURLSpy = sinon.spy(env.apiService, 'getFullURL');
   }));
 
   afterEach(function() {
     env.apiGetSpy.restore();
+    env.apiGetThrottledSpy.restore();
     env.apiGetFullURLSpy.restore();
   });
 
@@ -54,7 +57,7 @@ describe('propertyService', function() {
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
       expect(env.apiGetFullURLSpy.calledWith('properties.all')).equal(true);
 
-      expect(env.apiGetSpy.calledOnce).equal(true);
+      expect(env.apiGetThrottledSpy.calledOnce).equal(true);
     });
   });
 

@@ -150,6 +150,8 @@ describe('mobius.controllers.reservation', function() {
           config.onAuthorized(true);
         });
 
+        $controllerProvider.register('ISOCountriesCtrl', function(){});
+
         var breadcrumbs = {
           clear: function(){ return breadcrumbs; },
           addBreadCrumb: function(){ return breadcrumbs; },
