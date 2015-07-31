@@ -40,7 +40,7 @@
       </label>
 
       <label for="telephone" class="input-right">
-        <input type="text" id="telephone" international-phone-number required
+        <input type="text" id="telephone" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number required
           ng-model="userDetails.phone"
           name="phone"
           placeholder="Phone"/>
@@ -67,7 +67,7 @@
       </label>
 
       <label for="state" class="input-right">
-        <input type="text" id="state" required
+        <input type="text" id="state"
           placeholder="State / Region / Province"
           ng-model="userDetails.stateProvince"
           name="stateProvince"/>

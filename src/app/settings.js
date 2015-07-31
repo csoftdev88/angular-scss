@@ -300,6 +300,7 @@ angular.module('mobiusApp.config', [])
       'noShow': 'No Show',
       'pet': 'Pet'
     },
+    'defaultCountryCode': 'ca',
     'arrivalMethods': [
       {
         apiValue: 'Car',
