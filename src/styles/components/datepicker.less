@@ -6,6 +6,11 @@
 .ui-datepicker {
   z-index: 1050 !important;
   display: none;
+  transform: translate3d(0px,0px,0px);
+  -webkit-transform: translate3d(0px,0px,0px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
 
   background: #fff;
   box-shadow: 0 0 1px @c-link;
@@ -19,6 +24,7 @@
     height: 100%;
     left: 0!important;
     top: 0!important;
+    transform: translate(0, 0);
   }
 
   &:after {

@@ -20,6 +20,9 @@ reservation-widget {
 
   .viewport-mobile &{
     padding: 20px;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
   }
 
   [grid-row] {
@@ -122,18 +125,30 @@ reservation-widget {
   input[type="text"],
   input[type="email"],
   select,
+  .chosen-container,
+  .chosen-container .chosen-single,
   textarea {
     height: 45px;
+    line-height: 45px;
     padding: 0 15px;
     border-radius: 0;
     border-color: @c-gray-reservation;
     color: @c-form-text;
     font-size: @size-0;
+    font-weight: normal;
     transition: border-color 0.15s linear;
 
     &:focus {
       box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
     }
+  }
+
+  .chosen-container {
+    padding: 0 7px 0 15px;
+  }
+  .chosen-container .chosen-single,
+  .chosen-container .chosen-single span {
+    padding: 0;
   }
 
   textarea {
@@ -689,7 +704,7 @@ reservation-finished {
       width: 100%;
       margin-bottom: 20px;
 
-      @media print { 
+      @media print {
        display: none;
       }
 
@@ -792,13 +807,13 @@ reservation-finished {
       box-sizing: border-box;
       padding: 0 @spacing / 2;
 
-      &.half {  
+      &.half {
         width: 50%;
         .viewport-mobile &{
           width: 100%;
         }
       }
-      &.third { 
+      &.third {
         width: 33.3333%;
         .viewport-mobile &{
           width: 100%;
@@ -1044,7 +1059,7 @@ reservation-hotel-details {
         height: 30px;
         line-height: 30px;
         width: 135px;
-        @media print { 
+        @media print {
          display: none;
         }
       }

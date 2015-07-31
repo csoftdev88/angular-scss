@@ -25,6 +25,25 @@ hotel-location {
     }
   }
 
+  .map-wrapper{
+    position: relative;
+    .map-overlay{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 9;
+      display: none;
+      .viewport-mobile &{
+        display: block;
+      }
+      a{
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    }
+  }
+
 
   contact-list {
     margin-bottom: @baseline;

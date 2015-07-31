@@ -104,7 +104,7 @@ describe('mobius.controllers.reservation', function() {
         $provide.value('filtersService', {});
 
         $provide.value('userMessagesService', {
-          addInfoMessage: function(){}
+          addMessage: function(){}
         });
 
         $provide.value('user', {
@@ -149,6 +149,8 @@ describe('mobius.controllers.reservation', function() {
         $controllerProvider.register('AuthCtrl', function($scope, config){
           config.onAuthorized(true);
         });
+
+        $controllerProvider.register('ISOCountriesCtrl', function(){});
 
         var breadcrumbs = {
           clear: function(){ return breadcrumbs; },

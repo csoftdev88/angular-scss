@@ -31,7 +31,7 @@
 
     <hr>
 
-    <h2 ng-if="newsList.length > 1">You may also be interested in:</h2>
+    <h2 ng-if="newsList.length > 1">You may also be <strong>interested in:</strong></h2>
 
     <offers-list grid-row>
       <offer-item ng-repeat="news in newsList | filter:getRelevant track by $index" ng-click="goToDetail(news.meta.slug)">

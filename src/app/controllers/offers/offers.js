@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -32,6 +32,15 @@ angular.module('mobius.controllers.offers', [])
       if ($stateParams.code) {
         selectOffer(bookingService.getCodeFromSlug($stateParams.code));
       }
+    });
+
+    chainService.getChain(Settings.API.chainCode).then(function(chain) {
+      var chainData = chain;
+
+      chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+      chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
+      chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
+      metaInformationService.setOgGraph(chainData.meta.microdata.og);
     });
 
     $scope.getRelevant = function(offer, index) {
