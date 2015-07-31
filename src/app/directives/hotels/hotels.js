@@ -23,7 +23,6 @@ angular.module('mobiusApp.directives.hotels', [])
       $controller('MainCtrl', {$scope: scope});
       $controller('PreferenceCtrl', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
-      $controller('SSOCtrl', {$scope: scope});
       $controller('OffersCtrl', {$scope: scope});
 
       scope.sortingOptions = [
@@ -97,9 +96,20 @@ angular.module('mobiusApp.directives.hotels', [])
             return;
           }
 
+
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
           scope.hotels = hotels || [];
+
+          var currentOffer = '';
+          if($stateParams.promoCode){
+            currentOffer = _.find(scope.offersList, function(offer){
+              return offer.meta.slug === $stateParams.promoCode;
+            });
+            scope.hotels = _.filter(scope.hotels, function(hotel){
+              return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
+            });
+          }
 
           scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
           scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
