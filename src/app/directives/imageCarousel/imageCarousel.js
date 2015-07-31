@@ -6,7 +6,11 @@ angular.module('mobiusApp.directives.imageCarousel', [])
     return {
       restrict: 'E',
       scope: {
-        images: '='
+        images: '=',
+        // Cloudinary settings for big image
+        width: '=',
+        height: '=',
+        fill: '='
       },
       templateUrl: 'directives/imageCarousel/imageCarousel.html',
 
