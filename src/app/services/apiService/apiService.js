@@ -95,17 +95,17 @@ angular.module('mobiusApp.services.api', [])
       if (!cache[url] || (cache[url].ts + timeout * 1000) < ts) {
         cache[url] = {
           ts: ts,
-          p: object.get(url, params)
+          p: api.get(url, params)
         };
       }
       return cache[url].p;
     } else {
-      return object.get(url, params);
+      return api.get(url, params);
     }
   }
 
   // Public methods
-  var object = {
+  var api = {
     get: get,
     getThrottled: getThrottled,
     post: post,
@@ -113,5 +113,5 @@ angular.module('mobiusApp.services.api', [])
     getFullURL: getFullURL,
     setHeaders: setHeaders
   };
-  return object;
+  return api;
 });
