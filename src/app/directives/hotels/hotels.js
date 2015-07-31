@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout){
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope){
 
   return {
     restrict: 'E',
@@ -153,6 +153,9 @@ angular.module('mobiusApp.directives.hotels', [])
         if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
           stateParams.scrollTo = 'jsRooms';
         }
+
+        //if hotel details set active booking bar
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {});
 
         $state.go('hotel', stateParams);
       };
