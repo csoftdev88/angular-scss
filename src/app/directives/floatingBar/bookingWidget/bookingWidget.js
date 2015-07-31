@@ -19,6 +19,21 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
 
+      scope.codeTypes = [
+        {
+          title: 'Corporate Code',
+          param: 'corpCode'
+        },
+        {
+          title: 'Group Code',
+          param: 'groupCode'
+        },
+        {
+          title: 'Promo Code',
+          param: 'promoCode'
+        }
+      ];
+
       $controller('GuestsCtrl', {$scope: scope});
 
       // Widget settings

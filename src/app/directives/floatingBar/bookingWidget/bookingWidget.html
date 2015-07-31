@@ -71,10 +71,20 @@
     <form-label>Number of Children</form-label>
   </form-element>
 
-  <!-- ENTER YOUR CODE -->
   <form-element ng-if="advanced || !settings.hasAdvancedTab" class="code">
+    <!--
     <input type="text" placeholder="Promo Code" ng-model="selected.promoCode" id="booking-widget-promo-code">
-    <form-label>Enter Your Promo Code</form-label>
+    <form-label>Enter Your Promo Code</form-label>-->
+
+    <select name="code"
+        required ng-model="selected.code"
+        disable-search="true"
+        chosen ng-options="code as code.title for code in codeTypes"
+        data-placeholder="Apply code">
+      <option></option>
+    </select>
+
+    <input type="text" placeholder="Apply code" ng-model="selected.promoCode" id="booking-widget-promo-code">
   </form-element>
 
   <!-- SELECT RATE -->
