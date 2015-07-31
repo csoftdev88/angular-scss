@@ -145,10 +145,19 @@ reservation-widget {
 
   .chosen-container {
     padding: 0 7px 0 15px;
-  }
-  .chosen-container .chosen-single,
-  .chosen-container .chosen-single span {
-    padding: 0;
+
+    .chosen-drop {
+      border: 1px solid @c-gray-reservation;
+    }
+
+    .chosen-results {
+      padding: 2px 0;
+    }
+
+    .chosen-single, .chosen-single span {
+      padding: 0;
+    }
+
   }
 
   textarea {
@@ -496,7 +505,6 @@ reservation-billing {
     border-color: #d7d7d7;
 
     a {
-      margin-top: 7px;
       font-size: 14px;
       font-weight: normal;
       padding-left: 10px;
