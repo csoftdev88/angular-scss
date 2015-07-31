@@ -1,6 +1,6 @@
 machine:
   environment:
-    NODE_ENV: test
+    NODE_ENV: production
 
 checkout:
   post:
@@ -32,7 +32,7 @@ general:
 test:
   override:
     - grunt test
-    - grunt production
+    - grunt build
     - istanbul cover karma/karma-unit.js
     - codeclimate-test-reporter < ./coverage/lcov.info
   post:
