@@ -107,7 +107,7 @@ describe('apiService', function() {
           var result2 = env.apiService.getThrottled('C', {}, 0.1);
           expect(result1).not.equal(result2);
           done();
-        }, 100);
+        }, 101);
       });
     });
 
