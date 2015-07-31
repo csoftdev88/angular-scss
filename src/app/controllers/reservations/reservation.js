@@ -125,19 +125,23 @@ angular.module('mobius.controllers.reservation', [])
       setBreadCrumbs(GUEST_DETAILS);
       $scope.continueName = 'Continue';
       scrollToGuestDetails();
+      $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
       $scope.continueName = 'Continue';
+      $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.confirmation':
       setBreadCrumbs(CONFIRMATION);
       $scope.continueName = 'Confirm';
+      $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.after':
       breadcrumbsService.clear()
         .addBreadCrumb('My stays', 'reservations')
         .addBreadCrumb($scope.reservation.reservationCode);
+      $rootScope.showHomeBreadCrumb = false;
       break;
 
     default:
