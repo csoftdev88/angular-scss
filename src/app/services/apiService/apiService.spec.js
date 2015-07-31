@@ -79,6 +79,37 @@ describe('apiService', function() {
       });
     });
 
+    describe('GET method throttled', function() {
+      beforeEach(function() {
+        env.apiGetSpy = sinon.spy(env.apiService, 'get');
+      });
+
+      afterEach(function() {
+        env.apiGetSpy.restore();
+      });
+
+      it('should call GET method and return result', function() {
+        env.apiService.getThrottled('A');
+        expect(env.apiGetSpy.calledOnce).equal(true);
+        expect(env.apiGetSpy.calledWith('A')).equal(true);
+      });
+
+      it('should call GET method and return result should be same on subsequent calls', function() {
+        var result1 = env.apiService.getThrottled('B');
+        var result2 = env.apiService.getThrottled('B');
+        expect(result1).equal(result2);
+      });
+
+      it('should call GET method and return result should be not be same on subsequent calls after timeout', function(done) {
+        var result1 = env.apiService.getThrottled('C');
+        setTimeout(function() {
+          var result2 = env.apiService.getThrottled('C', {}, 0.1);
+          expect(result1).not.equal(result2);
+          done();
+        }, 100);
+      });
+    });
+
     describe('POST method', function() {
       afterEach(function() {
         env.httpBackend.verifyNoOutstandingExpectation();

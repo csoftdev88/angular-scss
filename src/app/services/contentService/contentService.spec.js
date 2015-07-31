@@ -32,6 +32,7 @@ describe('contentService', function() {
       var apiService = {
         post: function(){},
         get: function(){},
+        getThrottled: function(){},
         getFullURL: function(){}
       };
 
@@ -46,12 +47,14 @@ describe('contentService', function() {
 
     env.apiPostSpy = sinon.spy(env.apiService, 'post');
     env.apiGetSpy = sinon.spy(env.apiService, 'get');
+    env.apiGetThrottledSpy = sinon.spy(env.apiService, 'getThrottled');
     env.apiGetFullURLSpy = sinon.spy(env.apiService, 'getFullURL');
   }));
 
   afterEach(function() {
     env.apiPostSpy.restore();
     env.apiGetSpy.restore();
+    env.apiGetThrottledSpy.restore();
   });
 
 
@@ -61,7 +64,7 @@ describe('contentService', function() {
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
       expect(env.apiGetFullURLSpy.calledWith('contents.news')).equal(true);
 
-      expect(env.apiGetSpy.calledOnce).equal(true);
+      expect(env.apiGetThrottledSpy.calledOnce).equal(true);
     });
   });
 
@@ -71,7 +74,7 @@ describe('contentService', function() {
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
       expect(env.apiGetFullURLSpy.calledWith('contents.about')).equal(true);
 
-      expect(env.apiGetSpy.calledOnce).equal(true);
+      expect(env.apiGetThrottledSpy.calledOnce).equal(true);
     });
   });
 
@@ -81,7 +84,7 @@ describe('contentService', function() {
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
       expect(env.apiGetFullURLSpy.calledWith('contents.offers')).equal(true);
 
-      expect(env.apiGetSpy.calledOnce).equal(true);
+      expect(env.apiGetThrottledSpy.calledOnce).equal(true);
     });
   });
 

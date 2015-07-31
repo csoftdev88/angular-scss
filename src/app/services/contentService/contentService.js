@@ -5,15 +5,15 @@
 angular.module('mobiusApp.services.content', [])
 .service( 'contentService',  function(apiService) {
   function getNews(){
-    return apiService.get(apiService.getFullURL('contents.news'));
+    return apiService.getThrottled(apiService.getFullURL('contents.news'));
   }
 
   function getAbout(){
-    return apiService.get(apiService.getFullURL('contents.about'));
+    return apiService.getThrottled(apiService.getFullURL('contents.about'));
   }
 
   function getOffers(parameters){
-    return apiService.get(apiService.getFullURL('contents.offers'), parameters);
+    return apiService.getThrottled(apiService.getFullURL('contents.offers'), parameters);
   }
 
   function getAdverts(parameters){

@@ -17,7 +17,7 @@ angular.module('mobiusApp.services.properties', [])
   }
 
   function getAll(params){
-    return apiService.get(apiService.getFullURL('properties.all'), correctParams(params));
+    return apiService.getThrottled(apiService.getFullURL('properties.all'), correctParams(params));
   }
 
   function getPropertyDetails(propertyCode, params){
