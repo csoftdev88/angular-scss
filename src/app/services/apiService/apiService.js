@@ -90,7 +90,7 @@ angular.module('mobiusApp.services.api', [])
   function getThrottled(url, params, timeout) {
     var canCache = !params || Object.keys(params).length === 0;
     if (canCache) {
-      timeout = timeout || 10;
+      timeout = timeout || Settings.API.defaultThrottleTimeout;
       var ts = (new Date()).valueOf();
       if (!cache[url] || (cache[url].ts + timeout * 1000) < ts) {
         cache[url] = {
