@@ -83,10 +83,14 @@
       </label>
 
       <label for="country" class="input-right">
-        <input type="text" id="country" required
-         placeholder="Country"
-         ng-model="userDetails.country"
-         name="country"/>
+        <select type="text" id="country" required
+          placeholder="Country"
+          data-placeholder="Country"
+          ng-model="userDetails.country"
+          name="country"
+          iso-country-options
+          chosen>
+        </select>
         <span>Country</span>
       </label>
 
