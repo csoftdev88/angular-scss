@@ -15,6 +15,7 @@ describe('apiService', function() {
       // Mocking Settings service
       var Settings = {
         'API': {
+          'defaultThrottleTimeout': 10,
           'baseURL': 'http://server.com/',
           'content': {
             'about': 'about',
