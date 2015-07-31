@@ -30,8 +30,6 @@
               <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
             </span>
             </p>
-
-            <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
           </pricing-info>
 
           <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn
@@ -77,12 +75,13 @@
           </div>
         </description-info>
         <div class="wide-button">
-          <button-submit
+          <button-submit class="wide-button-room-details"
             role="button" tabindex="0"
             ng-click="selectProduct(product)"
             ng-hide="product.memberOnly && !isUserLoggedIn()">
             Book Now
           </button-submit>
+          <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
         </div>
       </list-item>
     </list-items>
