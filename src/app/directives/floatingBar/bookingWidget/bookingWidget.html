@@ -71,13 +71,13 @@
     <form-label>Number of Children</form-label>
   </form-element>
 
-  <form-element ng-if="advanced || !settings.hasAdvancedTab" class="code">
+  <form-element ng-if="advanced || !settings.hasAdvancedTab" class="code" ng-class="{'code-input': selected.codeType}">
     <!--
     <input type="text" placeholder="Promo Code" ng-model="selected.promoCode" id="booking-widget-promo-code">
     <form-label>Enter Your Promo Code</form-label>-->
 
     <select name="code"
-        required ng-model="selected.code"
+        required ng-model="selected.codeType"
         disable-search="true"
         chosen ng-options="code as code.title for code in codeTypes"
         data-placeholder="Apply code">
