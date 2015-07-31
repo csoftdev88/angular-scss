@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope){
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams){
 
   return {
     restrict: 'E',
@@ -23,7 +23,7 @@ angular.module('mobiusApp.directives.hotels', [])
       $controller('MainCtrl', {$scope: scope});
       $controller('PreferenceCtrl', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
-      $controller('SSOCtrl', {$scope: scope});
+      $controller('OffersCtrl', {$scope: scope});
 
       scope.sortingOptions = [
         {
@@ -74,9 +74,45 @@ angular.module('mobiusApp.directives.hotels', [])
       function getProperties(params){
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
+
+          //check if offer is limited to only one property and if so navigate to it
+          var offerLimitedToOneProperty = [];
+          var limitedToProperty = [];
+          var limitedToPropertyCode = '';
+
+          if($stateParams.promoCode){
+            offerLimitedToOneProperty = _.filter(scope.offersList, function(offer){
+              return offer.meta.slug === $stateParams.promoCode && offer.limitToPropertyCodes.length === 1;
+            });
+          }
+          if(offerLimitedToOneProperty.length){
+            limitedToPropertyCode = offerLimitedToOneProperty[0].limitToPropertyCodes[0];
+          }
+
+          limitedToProperty = _.find(hotels, function(hotel){ return hotel.code === limitedToPropertyCode; });
+
+          if(limitedToProperty){
+            scope.navigateToHotel(limitedToProperty.meta.slug);
+            return;
+          }
+
+
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
           scope.hotels = hotels || [];
+
+          //check if offer is limited to some properties and only display those
+          var currentOffer = '';
+          if($stateParams.promoCode){
+            currentOffer = _.find(scope.offersList, function(offer){
+              return offer.meta.slug === $stateParams.promoCode;
+            });
+            if(currentOffer){
+              scope.hotels = _.filter(scope.hotels, function(hotel){
+                return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
+              });
+            }
+          }
 
           scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
           scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());

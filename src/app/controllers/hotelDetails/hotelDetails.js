@@ -65,6 +65,7 @@ angular.module('mobius.controllers.hotel.details', [])
         $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
         $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
 
+        breadcrumbsService.clear();
         breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort);
 
         breadcrumbsService
