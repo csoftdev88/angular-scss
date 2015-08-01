@@ -32,13 +32,20 @@ angular.module('mobiusApp.services.booking', [])
       // rate is ProductGroupID from filters/product API
       rate: $stateParams.rate,
       rooms: $stateParams.rooms,
-      promoCode: $stateParams.promoCode,
       propertySlug: $stateParams.propertySlug,
       roomSlug: $stateParams.roomSlug
     };
 
     if(!excludePropertyId){
       params.property = $stateParams.propertyCode || $stateParams.property;
+    }
+
+    if($stateParams.promoCode){
+      params.promoCode = $stateParams.promoCode;
+    }else if($stateParams.corpCode){
+      params.corpCode = $stateParams.corpCode;
+    }else if($stateParams.groupCode){
+      params.groupCode = $stateParams.groupCode;
     }
 
     return params;
