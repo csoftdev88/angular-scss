@@ -70,8 +70,21 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'required': false,
           'field': 'code'
         },
+        // CODES
         'promoCode': {
           'search': 'promoCode',
+          'type': 'string',
+          'required': false,
+          'field': ''
+        },
+        'corpCode': {
+          'search': 'corpCode',
+          'type': 'string',
+          'required': false,
+          'field': ''
+        },
+        'groupCode': {
+          'search': 'groupCode',
           'type': 'string',
           'required': false,
           'field': ''
@@ -160,6 +173,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             }
           }
         }
+
+        // Detecting promo/group/corp codes
+
       }
 
       var regionsProperties = [];
