@@ -422,6 +422,12 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         setPropertyRegionList();
       };
 
+      scope.onCodeTypeChanged = function(){
+        scope.selected.promoCode = null;
+        scope.selected.groupCode = null;
+        scope.selected.corpCode = null;
+      };
+
       /**
        * Updates the url with values from the widget and redirects either to hotel list or a room list
        */

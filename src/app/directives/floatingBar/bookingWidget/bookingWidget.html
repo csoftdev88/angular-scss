@@ -76,15 +76,17 @@
         required ng-model="selected.codeType"
         disable-search="true"
         chosen ng-options="code as code.title for code in codeTypes"
+        ng-change="onCodeTypeChanged()"
         data-placeholder="Apply code">
       <option></option>
     </select>
 
-    <input type="text" ng-if="selected.codeType.param === 'promoCode'" placeholder="Promo Code" ng-model="selected.code" id="booking-widget-promo-code">
+    <input type="text" ng-if="selected.codeType.param === 'promoCode'" placeholder="Promo Code" ng-model="selected.promoCode" id="booking-widget-promo-code">
 
-    <input type="text" ng-if="selected.codeType.param === 'corpCode'" placeholder="Corp Code" ng-model="selected.code" id="booking-widget-promo-code">
+    <input type="text" ng-if="selected.codeType.param === 'corpCode'" placeholder="Corp Code" ng-model="selected.corpCode" id="booking-widget-promo-code">
 
-    <input type="text" ng-if="selected.codeType.param === 'groupCode'" placeholder="Group Code" ng-model="selected.code" id="booking-widget-promo-code">
+    <input type="text" ng-if="selected.codeType.param === 'groupCode'" placeholder="Group Code" ng-model="selected.groupCode" id="booking-widget-promo-code">
+    <form-label>{{selected.codeType.title}}</form-label>
   </form-element>
 
   <!-- SELECT RATE -->

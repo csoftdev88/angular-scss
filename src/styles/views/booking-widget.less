@@ -68,7 +68,6 @@ booking-widget-add-room form-element {
     &.persons:before { content: @fa-var-user; }
     &.children:before { content: @fa-var-child; }
     &.dates:before   { content: @fa-var-calendar-o; }
-    //&.code:before    { content: @fa-var-tag; }
     &.rate:before    { content: @fa-var-suitcase; }
 
   // animated label
@@ -237,9 +236,17 @@ booking-widget-search form-element.code {
   }
 
   .chosen-container {
-    .transition(all, .2s, ease-in-out);
+    .transition(all, .3s, ease-in-out);
     .chosen-single {
-      padding-left: 5px;
+      padding-left: 15px;
+
+      &:before {
+        .fa;
+        content: @fa-var-tag;
+        float: left;
+        margin: 10px 0px -10px;
+        padding-right: 5px;
+      }
     }
   }
 
@@ -248,11 +255,19 @@ booking-widget-search form-element.code {
       width: 40px !important;
     }
 
-    .chosen-container-active.chosen-with-drop {
-      width: 400px !important;
+    .chosen-container-active {
+      &.chosen-with-drop {
+        width: 300px !important;
+      }
 
-      & ~ input {
-        //width: 50px;
+      .chosen-drop {
+        width: 170px;
+      }
+    }
+
+    .chosen-single {
+      &:before {
+        display: none;
       }
     }
 
