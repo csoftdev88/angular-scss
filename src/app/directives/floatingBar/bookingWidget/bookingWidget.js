@@ -122,7 +122,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // NOTE: dates might be presented as start/end date
         'dates': '',
         // Advanced options
-        'promoCode': '',
         'rate': undefined,
         'rooms': []
       };
@@ -167,6 +166,12 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
                 createRooms(paramValue);
                 break;
 
+              case 'promoCode':
+              case 'groupCode':
+              case 'corpCode':
+                scope.selected[key] = paramValue;
+                scope.selected.codeType = $window._.findWhere(scope.codeTypes, {param: key});
+                break;
               default:
                 scope.selected[key] = paramValue;
               }
@@ -175,7 +180,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         // Detecting promo/group/corp codes
-
       }
 
       var regionsProperties = [];
@@ -479,26 +483,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // Search is enabled only when required fields contain data
       scope.isSearchable = function(){
         return scope.selected.property || scope.selected.dates;
-        //for(var key in PARAM_TYPES){
-        //  if(PARAM_TYPES.hasOwnProperty(key)) {
-        //    var settings = PARAM_TYPES[key];
-        //
-        //    var value = scope.selected[key];
-        //    if (key === 'property') {
-        //      continue;
-        //    }
-        //
-        //    if(settings.withValue && value!==undefined){
-        //      value = value.value;
-        //    }
-        //
-        //    if (settings.required && !validationService.isValueValid(value, settings)) {
-        //      return false;
-        //    }
-        //  }
-        //}
-        //
-        //return true;
       };
 
       function recomputeGlobalAdultsChildren() {
@@ -601,6 +585,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       function onPrefill(settings){
         scope.openBookingTab();
 
+        // TODO: Set code type from offers
         function prefillPromoCode() {
           queryService.removeParam(PARAM_TYPES.promoCode.search);
           scope.selected.promoCode = settings.promoCode;

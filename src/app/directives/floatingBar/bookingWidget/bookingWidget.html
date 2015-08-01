@@ -72,10 +72,6 @@
   </form-element>
 
   <form-element ng-if="advanced || !settings.hasAdvancedTab" class="code" ng-class="{'code-input': selected.codeType}">
-    <!--
-    <input type="text" placeholder="Promo Code" ng-model="selected.promoCode" id="booking-widget-promo-code">
-    <form-label>Enter Your Promo Code</form-label>-->
-
     <select name="code"
         required ng-model="selected.codeType"
         disable-search="true"
@@ -84,7 +80,11 @@
       <option></option>
     </select>
 
-    <input type="text" placeholder="Apply code" ng-model="selected.promoCode" id="booking-widget-promo-code">
+    <input type="text" ng-if="selected.codeType.param === 'promoCode'" placeholder="Promo Code" ng-model="selected.code" id="booking-widget-promo-code">
+
+    <input type="text" ng-if="selected.codeType.param === 'corpCode'" placeholder="Corp Code" ng-model="selected.code" id="booking-widget-promo-code">
+
+    <input type="text" ng-if="selected.codeType.param === 'groupCode'" placeholder="Group Code" ng-model="selected.code" id="booking-widget-promo-code">
   </form-element>
 
   <!-- SELECT RATE -->
