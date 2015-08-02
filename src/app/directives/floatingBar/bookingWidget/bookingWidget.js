@@ -467,9 +467,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if(!scope.advanced){
           // Removing rooms when not in multiroom booking mode
           stateParams.rooms = null;
+          stateParams.room = null;
         }else{
           // Starting with first room
-          stateParams.room = 1;
+          var roomIndex = 1;
+          stateParams.room = roomIndex;
+          roomIndex--;
+          var rooms = roomsToNumbers(scope.selected.rooms);
+          if(rooms.length > roomIndex){
+            stateParams.adults = rooms[roomIndex].adults;
+            stateParams.children = rooms[roomIndex].children;
+          }
         }
 
         if(!scope.selected.property || !scope.selected.property.code){

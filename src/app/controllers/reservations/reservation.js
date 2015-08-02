@@ -8,7 +8,8 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout,
+  validationService){
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
@@ -16,13 +17,40 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
 
+  $scope.isMultiRoomMode = $stateParams.room && $stateParams.rooms;
+  var multiRooms;
   function onAuthorized(isMobiusUser){
     // Getting room/products data
-    var roomDataPromise = $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
-      $scope.setRoomDetails(data.roomDetails);
-      setProductDetails(data.roomProductDetails.products);
-      return data;
-    });
+    //
+    var roomsPromises = [];
+    if(!$scope.isMultiRoomMode){
+      // One room booking
+      roomsPromises.push(
+        $scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
+          $scope.setRoomDetails(data.roomDetails);
+          setProductDetails(data.roomProductDetails.products);
+          return data;
+        }));
+    }else{
+      multiRooms = validationService.convertValue($stateParams.rooms, {type: 'object'}, true);
+      var defaultRoom = multiRooms[0];
+
+      var defaultRoomPromise = $scope.getRoomData($stateParams.property, defaultRoom.roomID).then(function(data){
+        $scope.setRoomDetails(data.roomDetails);
+        setProductDetails(data.roomProductDetails.products, defaultRoom.productCode);
+        return data;
+      });
+
+      roomsPromises.push(defaultRoomPromise);
+      $scope.otherRooms = [];
+      $scope.otherProducts = [];
+
+      // Other rooms
+      for(var i=1; i<multiRooms.length; i++){
+        var room = multiRooms[i];
+        roomsPromises.push(getOtherRoomPromise(room));
+      }
+    }
 
     var propertyPromise = propertyService.getPropertyDetails($stateParams.property).then(function(property) {
       $scope.property = property;
@@ -30,7 +58,7 @@ angular.module('mobius.controllers.reservation', [])
     });
 
     // Showing loading mask
-    preloaderFactory($q.all([roomDataPromise, propertyPromise]).then(function(){
+    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise]).then(function(){
       $rootScope.showHomeBreadCrumb = false;
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
@@ -43,6 +71,24 @@ angular.module('mobius.controllers.reservation', [])
     if(!isMobiusUser && !$scope.isModifyingAsAnonymous()){
       modalService.openLoginDialog();
     }
+  }
+
+  function getOtherRoomPromise(room){
+    return $scope.getRoomData($stateParams.property, room.roomID).then(function(data){
+
+      var roomData = data.roomDetails;
+
+      var product = _.findWhere(data.roomProductDetails.products,
+        {
+          code: room.productCode
+        }
+      );
+
+      // TODO if !product - redirect
+      roomData._selectedProduct = product;
+
+      $scope.otherRooms.push(roomData);
+    });
   }
 
   function prefillUserDetails(userData){
@@ -172,11 +218,11 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
-  function setProductDetails(products){
+  function setProductDetails(products, productCode){
     // Finding the product which user about to book
     var product = _.findWhere(products,
       {
-        code: $stateParams.productCode
+        code: productCode || $stateParams.productCode
       }
     );
 
@@ -424,6 +470,22 @@ angular.module('mobius.controllers.reservation', [])
       adults: parseInt($scope.bookingDetails.adults, 10) || 0,
       children: parseInt($scope.bookingDetails.children, 10) || 0
     });
+
+    if($scope.isMultiRoomMode){
+      // Adding other rooms
+      for(var i = 1; i < multiRooms.length; i++){
+        var roomSettings = multiRooms[i];
+        var room = _.findWhere($scope.otherRooms, {code: roomSettings.roomID});
+
+        var roomDetails = {
+          roomId: room._selectedProduct.productPropertyRoomTypeId,
+          adults: parseInt(roomSettings.adults, 10) || 0,
+          children: parseInt(roomSettings.children, 10) || 0,
+        };
+
+        rooms.push(roomDetails);
+      }
+    }
 
     return rooms;
   }
