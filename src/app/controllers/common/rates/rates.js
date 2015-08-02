@@ -46,6 +46,10 @@ angular.module('mobius.controllers.common.rates', [])
     // Promo code
     if($stateParams.promoCode){
       notificationMessage += '<span> Promo code: <strong>' + $stateParams.promoCode + '</strong></span>';
+    }else if($stateParams.corpCode){
+      notificationMessage += '<span> Corp code: <strong>' + $stateParams.corpCode + '</strong></span>';
+    }else if($stateParams.groupCode){
+      notificationMessage += '<span> Group code: <strong>' + $stateParams.groupCode + '</strong></span>';
     }
 
     if(notificationMessage !== ''){
@@ -57,6 +61,8 @@ angular.module('mobius.controllers.common.rates', [])
     var stateParams = $stateParams;
     stateParams.rate = null;
     stateParams.promoCode = null;
+    stateParams.corpCode = null;
+    stateParams.groupCode = null;
     // Updating current state excluding rate
     $state.go($state.current.name, stateParams);
   });

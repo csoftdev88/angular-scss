@@ -7,7 +7,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
 .controller( 'HotelSubpageCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
   $window, advertsService, $controller, $timeout, $stateParams, metaInformationService, $location) {
-  
+
   $scope.scroll = 0;
   $scope.moreInfo = [];
 
@@ -56,12 +56,12 @@ angular.module('mobius.controllers.hotel.subpage', [])
         metaInformationService.setMetaKeywords($scope.details.meta.keywords);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
-        $scope.details.meta.microdata.og['og:url'] = $location.absUrl();
+        $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
         sortInfo(details);
 
-        breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug}).addBreadCrumb($stateParams.infoSlug.split('_').join(' '));
+        breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug}).addBreadCrumb($stateParams.infoSlug.split('-').join(' '));
 
         // Updating Hero content images
         if(details.images){
@@ -93,7 +93,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
     }));
   }
 
-  getHotelDetails($stateParams.propertySlug.split('-')[1]);
+  getHotelDetails(bookingService.getCodeFromSlug($stateParams.propertySlug));
 
   $scope.goToInfo = function(info) {
     $state.go('hotelInfo', {propertySlug: $stateParams.propertySlug, infoSlug: info.meta.slug});
@@ -101,6 +101,4 @@ angular.module('mobius.controllers.hotel.subpage', [])
   $scope.goBack = function() {
     $state.go('hotel', {propertySlug: $stateParams.propertySlug});
   };
-
-
 });

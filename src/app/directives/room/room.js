@@ -19,13 +19,11 @@ angular.module('mobiusApp.directives.room', [])
 
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
-      var propertySplits = bookingParams.propertySlug.split('-');
-      var propertyCode = propertySplits[1];
+      var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
       scope.propertyCode = propertyCode;
       bookingParams.propertyCode = propertyCode;
 
-      var roomSplits = $stateParams.roomSlug.split('-');
-      var roomCode = roomSplits[1].replace(/_/g, '-');
+      var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;
 
       var propertyPromise;
@@ -90,7 +88,7 @@ angular.module('mobiusApp.directives.room', [])
         metaInformationService.setMetaDescription(data.meta.description);
         metaInformationService.setMetaKeywords(data.meta.keywords);
         metaInformationService.setPageTitle(data.meta.pagetitle);
-        data.meta.microdata.og['og:url'] = $location.absUrl();
+        data.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph(data.meta.microdata.og);
         /* Getting other rooms. We should show those that are closest in price but have a price that is
            greater than the currently viewed room. If there are not enough of them we can show the cheaper

@@ -20,10 +20,19 @@ about-us {
     display: flex;
     justify-content: space-between;
     margin-bottom: @baseline;
+    .viewport-mobile & {
+      display: block;
+    }
   }
 
   contact-item {
     flex: 0 0 250px;
+    .viewport-mobile & {
+      flex: 0;
+      width: 100%;
+      margin-bottom: 20px;
+      display: block;
+    }
 
     h2 {
       font-weight: bold;

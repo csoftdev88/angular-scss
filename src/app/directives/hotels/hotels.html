@@ -14,7 +14,7 @@
 </section>
 
 
-  <section grid-container="9" widget="hotels" id="hotels" class="swap-on-mobile-default">
+  <section grid-container="9" widget="hotels" id="hotels">
     <header class="hotels__header">
       <h1>Our <strong>Hotels</strong></h1>
       <!--<p>{{(hotels | filter : hotelFilter).length | pluralization: {'0': 'No hotel available', '1': '{} hotel available', 'plural': '{} hotels available'} }}</p>-->
@@ -26,7 +26,7 @@
         </select>
       </div>
     </div>
-    <div ng-if="!isUserLoggedIn()" class="msg-box" ng-click="sso.login()">Save up to 20% by <a href ng-click="sso.login()">signing</a> in or <a ng-click="sso.register()">registering</a>!</div>
+    <div ng-if="!isUserLoggedIn()" class="msg-box">Save up to 20% by <a href ng-click="sso.login()">signing</a> in or <a ng-click="sso.register()">registering</a>!</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
@@ -72,7 +72,7 @@
     </div>
   </section>
 
-  <aside grid-container="3" class="hotels__filter swap-on-mobile">
+  <aside grid-container="3" class="hotels__filter">
     <div class="view-switch">
       <h2>View</h2>
       <ul>

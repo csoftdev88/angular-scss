@@ -79,7 +79,6 @@ booking-widget-add-room form-element {
     &.persons:before { content: @fa-var-user; }
     &.children:before { content: @fa-var-child; }
     &.dates:before   { content: @fa-var-calendar-o; }
-    &.code:before    { content: @fa-var-tag; }
     &.rate:before    { content: @fa-var-suitcase; }
 
   // animated label
@@ -98,8 +97,13 @@ booking-widget-add-room form-element {
   select,
   .chosen-container-single .chosen-single {
     padding-left: @baseline * 1.5;
-
     font-size: 13px;
+    .viewport-mobile &{
+      padding-left: 0;
+      text-indent: @baseline * 1.5;
+      line-height: 40px;
+      height: 40px;
+    }
   }
 
   input:focus ~ form-label,
@@ -136,7 +140,7 @@ booking-widget-add-room form-element {
   }
 
   #booking-widget-promo-code {
-    transition: box-shadow 0.3s;
+    //transition: box-shadow 0.3s;
 
     &.prefilled {
       animation-name: input-prefilled;
@@ -242,6 +246,57 @@ booking-widget-search {
       font-size: 21px;
       transform: translateY(-50%);
       content: @fa-var-chevron-right;
+    }
+  }
+}
+
+booking-widget-search form-element.code {
+  input {
+    width: 0px;
+    opacity: 0;
+    .transition(all, .3s, ease-in-out);
+    padding-left: 10px;
+  }
+
+  .chosen-container {
+    .transition(all, .3s, ease-in-out);
+    .chosen-single {
+      padding-left: 15px;
+
+      &:before {
+        .fa;
+        content: @fa-var-tag;
+        float: left;
+        margin: 10px 0px -10px;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  &.code-input {
+    .chosen-container {
+      width: 40px !important;
+    }
+
+    .chosen-container-active {
+      &.chosen-with-drop {
+        width: 300px !important;
+      }
+
+      .chosen-drop {
+        width: 170px;
+      }
+    }
+
+    .chosen-single {
+      &:before {
+        display: none;
+      }
+    }
+
+    input {
+      width: auto;
+      opacity: 1;
     }
   }
 }

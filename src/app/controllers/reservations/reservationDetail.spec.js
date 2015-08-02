@@ -4,12 +4,22 @@
 describe('mobius.controllers.reservationDetail', function() {
   describe('ReservationDetailCtrl', function() {
     var _scope, _spyGetReservation, _spyGetPropertyDetails, _spyGetReservationAddOns,
-      _spySendToPassBook, _spyAddInfoMessage;
+      _spySendToPassBook, _spyAddMessage;
 
     var TEST_RESERVATION_CODE = 95234134;
     var TEST_RESERVATION = {
       property: {
-        code: 'TEST_PROP_CODE'
+        code: 'TEST_PROP_CODE',
+        meta: {
+          slug: 'test_slug',
+          description: 'meta description',
+          pagetitle: 'Hotel',
+          keywords: 'hotel, rooms',
+          microdata: {
+            schemaOrg: [],
+            og: []
+          }
+        }
       },
       customer: {
         id: 'TEST_CUST_ID'
@@ -22,7 +32,17 @@ describe('mobius.controllers.reservationDetail', function() {
       ]
     };
     var TEST_PROPERTY = {
-      code: 'TPROP'
+      code: 'TPROP',
+      meta: {
+        slug: 'test_slug',
+        description: 'meta description',
+        pagetitle: 'Hotel',
+        keywords: 'hotel, rooms',
+        microdata: {
+          schemaOrg: [],
+          og: []
+        }
+      }
     };
     var TEST_ROOM = {};
     var TEST_PRODUCTS = [];
@@ -53,6 +73,10 @@ describe('mobius.controllers.reservationDetail', function() {
           },
           openCancelReservationDialog: function() {
           }
+        });
+
+        $provide.value('metaInformationService', {
+          setOgGraph: function() {}
         });
 
         $provide.service('reservationService', function() {
@@ -113,7 +137,7 @@ describe('mobius.controllers.reservationDetail', function() {
         });
 
         $provide.value('userMessagesService', {
-          addInfoMessage: function() {
+          addMessage: function() {
           }
         });
 
@@ -147,7 +171,7 @@ describe('mobius.controllers.reservationDetail', function() {
       _spyGetPropertyDetails = sinon.spy(propertyService, 'getPropertyDetails');
       _spyGetReservationAddOns = sinon.spy(reservationService, 'getReservationAddOns');
       _spySendToPassBook = sinon.spy(reservationService, 'sendToPassbook');
-      _spyAddInfoMessage = sinon.spy(userMessagesService, 'addInfoMessage');
+      _spyAddMessage = sinon.spy(userMessagesService, 'addMessage');
 
       $controller('ReservationDetailCtrl', {$scope: _scope});
       _scope.$digest();
@@ -158,7 +182,7 @@ describe('mobius.controllers.reservationDetail', function() {
       _spyGetPropertyDetails.restore();
       _spyGetReservationAddOns.restore();
       _spySendToPassBook.restore();
-      _spyAddInfoMessage.restore();
+      _spyAddMessage.restore();
     });
 
     describe('when controller initialized', function() {
@@ -240,8 +264,8 @@ describe('mobius.controllers.reservationDetail', function() {
 
       it('should show notification when reservation is successfully addded to passbook', function(){
         _scope.sendToPassbook();
-        expect(_spyAddInfoMessage.calledOnce).equal(true);
-        expect(_spyAddInfoMessage.calledWith('<div>You have successfully added your reservation <strong>95234134</strong> to passbook.</div>')).equal(true);
+        expect(_spyAddMessage.calledOnce).equal(true);
+        expect(_spyAddMessage.calledWith('<div>You have successfully added your reservation <strong>95234134</strong> to passbook.</div>')).equal(true);
       });
     });
   });

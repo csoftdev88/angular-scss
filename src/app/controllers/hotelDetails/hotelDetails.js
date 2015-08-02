@@ -26,12 +26,11 @@ angular.module('mobius.controllers.hotel.details', [])
       'layouts/hotels/detailPartial/hotelOffers.html'
     ];
 
-  var propertyCode = '';
-  if(bookingParams.propertySlug === undefined) {
+  var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
+
+  if(!propertyCode){
     $state.go('hotels');
-  }else{
-    var splits = bookingParams.propertySlug.split('-');
-    propertyCode = splits[1].replace(/_/g, '-');
+    return;
   }
 
   $scope.scroll = 0;
@@ -54,7 +53,7 @@ angular.module('mobius.controllers.hotel.details', [])
         metaInformationService.setMetaKeywords($scope.details.meta.keywords);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
-        $scope.details.meta.microdata.og['og:url'] = $location.absUrl();
+        $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
         $scope.details.description = ('' + $scope.details.description);
@@ -66,6 +65,7 @@ angular.module('mobius.controllers.hotel.details', [])
         $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
         $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
 
+        breadcrumbsService.clear();
         breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort);
 
         breadcrumbsService
@@ -158,7 +158,7 @@ angular.module('mobius.controllers.hotel.details', [])
   };
 
   $scope.getAbsUrl = function(){
-    return $location.absUrl();
+    return $location.absUrl().split('?')[0];
   };
 
   $scope.advertClick = advertsService.advertClick;

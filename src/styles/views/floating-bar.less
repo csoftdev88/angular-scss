@@ -15,6 +15,10 @@ floating-bar {
   background: @c-booking-widget;
   color: #fff;
 
+  @media print { 
+   display: none;
+  }
+
   &.my-account {
     background: #ebaa3d;
     .sign-up{

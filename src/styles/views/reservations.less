@@ -141,6 +141,14 @@ reservation-hotel-details {
           color: @c-link;
           font-size: @size-2;
         }
+
+        .reservation-number {
+          display: block;
+          color: @c-link;
+          margin-top: @baseline/4;
+          font-weight: bold;
+          width: 100%;
+        }
       }
 
       .guests {
@@ -193,7 +201,7 @@ reservation-hotel-details {
         font-size: @size-2;
         padding: 5px;
         .viewport-mobile & {
-          font-size: 13px;
+          font-size: 12px;
           padding: 2px;
         }
       }
@@ -210,6 +218,8 @@ reservation-hotel-details {
         width: 100px;
         .viewport-mobile & {
           height: 30px;
+          padding: 0;
+          font-size: 12px;
         }
       }
     }
@@ -230,7 +240,8 @@ reservation-hotel-details {
       }
 
       .value, .title,
-      .total .value {
+      .total .value,
+      .total .reservation-number {
         color: @c-light-grey;
       }
 

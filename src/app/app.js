@@ -16,6 +16,7 @@ angular
     'underscore',
     'validation.match',
     'ui-rangeSlider',
+    'angulike',
 
     // Controllers
     'mobius.controllers.common.sanitize',
@@ -26,6 +27,7 @@ angular
     'mobius.controllers.common.price',
     'mobius.controllers.common.preference',
     'mobius.controllers.common.rates',
+    'mobius.controllers.common.isoCountries',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
@@ -107,6 +109,8 @@ angular
     'mobiusApp.directives.markdownTextParser',
     // Common controllers
     'mobius.controllers.reservation.directive',
+    'mobiusApp.directives.embeddedForm',
+    'mobiusApp.directives.bindUnsafe',
 
     // Directive based on content data
     'mobiusApp.directives.menu',
@@ -125,7 +129,6 @@ angular
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
-    'mobiusApp.directives.isoCountryOptions',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
     'internationalPhoneNumber',
@@ -156,7 +159,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&room&&promoCode&reservation&fromSearch&email&scrollTo'
+        url: '?property&location&region&children&adults&dates&rate&rooms&room&promoCode&corpCode&groupCode&reservation&fromSearch&email&scrollTo'
       })
 
       // Home page
@@ -314,6 +317,7 @@ angular
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
+    $rootScope.facebookAppId = '954663594591416';
   })
 
   .controller('BaseCtrl', function($scope, $controller, scrollService,

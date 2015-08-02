@@ -1,6 +1,6 @@
 <div ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
   <div class="property-preview">
-    <img ng-src="{{property.images[0].uri | cloudinaryImage : 115 : 80 : 'fill'}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+    <img ng-src="{{property.images[0].uri | cloudinaryImage : 430 : 300 : 'fill'}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
   </div>
 
   <check-in-date>
@@ -18,7 +18,7 @@
 
   <div class="rating">
     <ul class="stars">
-      <li ng-repeat="rating in [1,2,3,4,5]"  ng-class="{included: rating <= property.rating}"></li>
+      <li ng-repeat="rating in [1,2,3,4,5]" ng-class="{included: rating <= property.rating}"></li>
     </ul>
   </div>
 
@@ -29,6 +29,7 @@
         <span class="value" ng-switch-when="true">
           <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
         </span>
+        <span class="reservation-number">{{reservation.reservationCode}}</span>
       </div>
 
       <div class="guests">

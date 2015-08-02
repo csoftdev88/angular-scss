@@ -4,6 +4,7 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
+    'defaultThrottleTimeout': 10,
     'GoogleAnalyticsID': 'UA-44368729-3',
     'chainCode': 'SAN',
     'baseURL': 'http://52.3.22.21:3010/api/4.0/',
@@ -126,9 +127,24 @@ angular.module('mobiusApp.config', [])
 
     'aboutHotel': {
       'benefits' : [
-        {'name': 'Great <strong>Offers</strong>', 'state': 'offers', 'pictureUrl': '/static/images/v4/icon-offers.png', 'text': 'Take advantage of our great offers and promotions to make your stay even more enjoyable!'},
-        {'name': 'Sutton <strong>Prestige</strong>', 'state': 'aboutUs({code: "prestige"})', 'pictureUrl': '/static/images/v4/icon-discounts.png', 'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program'},
-        {'name': 'Exciting <strong>News</strong>', 'state': 'news', 'pictureUrl': '/static/images/v4/icon-news.png', 'text': 'Keep up to date with our latest news and read our interesting articles!'}
+        {
+          'name': 'Great <strong>Offers</strong>',
+          'state': 'offers',
+          'pictureUrl': '/static/images/v4/icon-offers.png',
+          'text': 'Take advantage of our great offers and promotions to make your stay even more enjoyable!'
+        },
+        {
+          'name': 'Sutton <strong>Prestige</strong>',
+          'state': 'aboutUs({code: "prestige"})',
+          'pictureUrl': '/static/images/v4/icon-discounts.png',
+          'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program'
+        },
+        {
+          'name': 'Exciting <strong>News</strong>',
+          'state': 'news',
+          'pictureUrl': '/static/images/v4/icon-news.png',
+          'text': 'Keep up to date with our latest news and read our interesting articles!'
+        }
       ]
     },
     // List of currencies and their display symbols
@@ -285,6 +301,7 @@ angular.module('mobiusApp.config', [])
       'noShow': 'No Show',
       'pet': 'Pet'
     },
+    'defaultCountryCode': 'ca',
     'arrivalMethods': [
       {
         apiValue: 'Car',
@@ -329,7 +346,7 @@ angular.module('mobiusApp.config', [])
           max: 8 * 86400000,
           // Only for future dates
           min: 0,
-          format: 'dd'
+          format: 'ddd'
         },
         {
           // If the check in date is between 8 and 90 days

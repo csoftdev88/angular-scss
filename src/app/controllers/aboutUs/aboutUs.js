@@ -5,7 +5,8 @@
 angular.module('mobius.controllers.about', [])
 
   .controller('AboutUsCtrl', function($scope, $controller, contentService, chainService,
-         $state, $stateParams, _, Settings, modalService, breadcrumbsService, metaInformationService, $location) {
+         $state, $stateParams, _, Settings, modalService, breadcrumbsService,
+         metaInformationService, $location, bookingService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -14,6 +15,12 @@ angular.module('mobius.controllers.about', [])
 
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
+      metaInformationService.setMetaDescription($scope.chain.meta.description);
+      metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
+      metaInformationService.setPageTitle($scope.chain.meta.pagetitle);
+
+      $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+      metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
       $scope.openGallery = modalService.openGallery.bind(modalService,
         chain.images.map(function(image) {
           return image.uri;
@@ -50,7 +57,7 @@ angular.module('mobius.controllers.about', [])
     };
 
     function selectAbout(code) {
-      code = code.split('-')[1];
+      code = bookingService.getCodeFromSlug(code);
       selectedAboutIndex = _.findIndex($scope.aboutList, {code: code});
       if (selectedAboutIndex < 0) {
         return $state.go('aboutUs', {code: null});
@@ -60,7 +67,7 @@ angular.module('mobius.controllers.about', [])
       metaInformationService.setMetaKeywords($scope.selectedAbout.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedAbout.meta.pagetitle);
 
-      $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl();
+      $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedAbout.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('About Us', 'aboutUs', {code: null})

@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -17,11 +17,37 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.showDetail = $stateParams.code ? true : false;
 
+    $scope.$watch(function(){
+      return $scope.showDetail;
+    }, function(){
+      if($scope.showDetail) {
+        $timeout(function () {
+          scrollService.scrollTo('offer-detail', 20);
+        });
+      }
+    });
+
     contentService.getOffers().then(function(response) {
       $scope.offersList = _.sortBy(response, 'prio').reverse();
-      if ($stateParams.code) {
-        selectOffer($stateParams.code);
+
+      if($stateParams.property){
+        $scope.offersList = _.filter($scope.offersList, function(f){
+          return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length;
+        });
       }
+      
+      if ($stateParams.code) {
+        selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+      }
+    });
+
+    chainService.getChain(Settings.API.chainCode).then(function(chain) {
+      var chainData = chain;
+
+      chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+      chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
+      chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
+      metaInformationService.setOgGraph(chainData.meta.microdata.og);
     });
 
     $scope.getRelevant = function(offer, index) {
@@ -30,20 +56,21 @@ angular.module('mobius.controllers.offers', [])
     };
 
     $scope.goToDetail = function (slug) {
-      var code = slug.split('-')[1];
+      var code = bookingService.getCodeFromSlug(slug);
+
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go('offers', {code: null});
       }
+
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
       $state.go('offers', {code: slug});
       $timeout(function () {
-        scrollService.scrollTo('offer-detail', 20);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           promoCode: $scope.selectedOffer.promoCode
         });
-      }, 0);
+      });
     };
 
     $scope.goToOffersList = function() {
@@ -51,7 +78,6 @@ angular.module('mobius.controllers.offers', [])
     };
 
     function selectOffer(code) {
-      code = code.split('-')[1];
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go('offers', {code: null});
@@ -60,7 +86,7 @@ angular.module('mobius.controllers.offers', [])
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
-      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl();
+      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
       breadcrumbsService.clear()
         .addBreadCrumb('Offers', 'offers', {code: null})

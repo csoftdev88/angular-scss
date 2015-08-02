@@ -97,6 +97,8 @@ angular.module('mobiusApp.directives.datepicker', [])
           selectOtherMonths: true,
           minDate: 0,
           closeText: 'Continue',
+          showAnim: '',
+          duration: 0,
 
           beforeShowDay: function ( date ) {
             return [

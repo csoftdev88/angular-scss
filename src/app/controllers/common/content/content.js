@@ -121,7 +121,7 @@ angular.module('mobius.controllers.common.content', [])
       //if offer details page
       if (contentTypes.offers.detailState === $scope.settings.detailState &&
         contentTypes.offers.paramName === $scope.settings.paramName && code) {
-        code = code.split('-')[1];
+        code = bookingService.getCodeFromSlug(code);
         var selectedOfferIndex = _.findIndex($scope.offers, {code: code});
         if (selectedOfferIndex >= 0) {
           $timeout(function () {
@@ -137,6 +137,9 @@ angular.module('mobius.controllers.common.content', [])
             });
           }, 0);
         }
+      } else if (contentTypes.hotels.paramName === $scope.settings.paramName && code){
+        //if hotel details set active booking bar
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {});
       }
     }
 

@@ -1,4 +1,4 @@
-<reservation-confirmation>
+<reservation-confirmation id="reservationConfirmation">
   <tabset>
     <tab heading="Guest Details">
       <table>
@@ -56,7 +56,7 @@
           </tr>
           <tr>
             <th>Expires:</th>
-            <td>{{billingDetails.card.expirationDate}}</td>
+            <td>{{getCardExpirationDate() | dateTime:'MM/YYYY'}}</td>
           </tr>
           <tr>
             <th>CVV:</th>

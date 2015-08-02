@@ -16,10 +16,27 @@
         ng-repeat="product in products | orderBy : setRoomsSorting()"
         ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}"
         class="without-image">
-        <h2>{{product.name}}</h2>
+        <div class="list-item-header">
+          <h2>{{product.name}}</h2>
 
-        <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn <ng-pluralize count="product.price.pointsEarned" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+          <pricing-info>
+            <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
+            <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
+
+            <p>
+              <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+              <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+            <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
+              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+            </span>
+            </p>
+          </pricing-info>
+
+          <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn
+            <ng-pluralize count="product.price.pointsEarned"
+                          when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
           </earned-points>
+        </div>
 
         <pricing-info>
           <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
@@ -57,7 +74,15 @@
             </p>
           </div>
         </description-info>
-
+        <div class="wide-button">
+          <button-submit class="wide-button-room-details"
+            role="button" tabindex="0"
+            ng-click="selectProduct(product)"
+            ng-hide="product.memberOnly && !isUserLoggedIn()">
+            Book Now
+          </button-submit>
+          <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
+        </div>
       </list-item>
     </list-items>
 
@@ -83,9 +108,9 @@
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
 
     <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
-      <li ng-repeat="image in roomDetails.images" ng-click="openGallery()">
+      <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery()">
         <figure>
-          <img ng-src="{{image.uri | cloudinaryImage : 150 : 65 : 'fill'}}" alt="{{image.alt}}" />
+          <img ng-src="{{image.uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{image.alt}}" />
         </figure>
       </li>
     </ul>
@@ -98,8 +123,8 @@
 
     <amenities-list>
       <amenity-item ng-repeat="amenity in roomDetails.amenities">
-        <slug-img slug="amenity.slug" type="room" width="15" height="15"></slug-img>
-        <span>{{amenity.name}}</span>
+        <slug-img slug="amenity.slug" type="room" width="15"></slug-img>
+        <span class="amenity-caption">{{amenity.name}}</span>
       </amenity-item>
     </amenities-list>
     <hr/>
