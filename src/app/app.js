@@ -41,6 +41,7 @@ angular
     'mobius.controllers.hotel.details',
     'mobius.controllers.hotel.subpage',
     'mobius.controllers.room.details',
+    'mobius.controllers.reservationMultiRoom',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -155,7 +156,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&promoCode&reservation&fromSearch&email&scrollTo'
+        url: '?property&location&region&children&adults&dates&rate&rooms&room&&promoCode&reservation&fromSearch&email&scrollTo'
       })
 
       // Home page
@@ -180,6 +181,7 @@ angular
         data: {
           // Route is also used for reservation updates
           supportsEditMode: true,
+          supportsMultiRoom: true,
           hasRateNotification: true
         }
       })
@@ -198,6 +200,7 @@ angular
         url: '/hotels/:propertySlug/rooms/:roomSlug',
         data: {
           supportsEditMode: true,
+          supportsMultiRoom: true,
           hasRateNotification: true
         }
       })
@@ -229,7 +232,8 @@ angular
         url: '/reservation/:roomID/:productCode',
         controller: 'ReservationCtrl',
         data: {
-          supportsEditMode: true
+          supportsEditMode: true,
+          supportsMultiRoom: true
         }
       })
 
@@ -317,6 +321,8 @@ angular
 
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
+    $controller('ReservationMultiRoomCtrl', {$scope: $scope});
+
     // TODO: FIX THIS - scrolling should be done differently
     //$controller('HotelDetailsCtrl', {$scope: $scope});
 

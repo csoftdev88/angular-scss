@@ -103,7 +103,7 @@
       <form-label>Number of Children</form-label>
     </form-element>
 
-    <button-text ng-if="!$first" role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove Room">Remove Room</button-text>
+    <button-text ng-if="$index > 1" role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove Room">Remove Room</button-text>
   </booking-widget-room>
 
   <div>

@@ -163,6 +163,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           ]).then(function(data) {
             var regionData = data[0];
             var propertyData = data[1];
+            console.log('LOADED');
 
             // available regions of properties
             var regionCodes = $window._.reduce(propertyData, function(result, property){
@@ -417,6 +418,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if(!scope.advanced){
           // Removing rooms when not in multiroom booking mode
           stateParams.rooms = null;
+        }else{
+          // Starting with first room
+          stateParams.room = 1;
         }
 
         if(!scope.selected.property || !scope.selected.property.code){
