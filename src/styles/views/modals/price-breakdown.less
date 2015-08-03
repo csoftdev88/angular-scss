@@ -5,12 +5,20 @@
 dialog .ui-info.price-breakdown {
   width: @grid-width / 2;
 
+  .viewport-mobile &{
+    width: 100%;
+  }
+
   main {
     padding: @baseline/2 @baseline;
 
     table {
       margin: @baseline/2 0;
       width: 100%;
+
+      .viewport-mobile &{
+        font-size: 12px;
+      }
 
       thead {
         border-top: 1px solid @c-light-grey;
@@ -45,6 +53,9 @@ dialog .ui-info.price-breakdown {
 
       td {
         padding: @baseline @baseline/2 @baseline @baseline/2;
+        .viewport-mobile &{
+          padding: @baseline @baseline/10;
+        }
       }
 
       td:last-child {

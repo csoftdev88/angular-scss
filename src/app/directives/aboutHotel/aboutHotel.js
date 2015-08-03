@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.aboutHotel', [])
 
-.directive('aboutHotel', function(Settings, contentService, $state, advertsService){
+.directive('aboutHotel', function(Settings, contentService, $state, advertsService, chainService, metaInformationService, $location){
   return {
     restrict: 'E',
     templateUrl: 'directives/aboutHotel/aboutHotel.html',
@@ -18,6 +18,15 @@ angular.module('mobiusApp.directives.aboutHotel', [])
           }
         );
       };
+
+      chainService.getChain(Settings.API.chainCode).then(function(chain) {
+        var chainData = chain;
+
+        chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+        chainData.meta.microdata.og['og:title'] = chainData.meta.microdata.og['og:title'];
+        chainData.meta.microdata.og['og:description'] = chainData.meta.microdata.og['og:description'];
+        metaInformationService.setOgGraph(chainData.meta.microdata.og);
+      });
 
       //load first random advert
       getRandomAdvert(0);

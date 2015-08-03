@@ -187,4 +187,28 @@ describe('mobiusApp.services.modal', function() {
         'templateUrl', 'layouts/modals/loginPrompt.html'))).equal(true);
     });
   });
+
+
+  describe('openOtherRoomsDialog', function() {
+    it('should be defined as a function', function() {
+      expect(_modalService.openOtherRoomsDialog).to.be.an('function');
+    });
+
+    it('should open other rooms dialog', function() {
+      _modalService.openOtherRoomsDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'other-rooms details'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/otherRooms.html'))).equal(true);
+    });
+  });
+
+
+
 });

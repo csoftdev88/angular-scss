@@ -4,6 +4,7 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
+    'defaultThrottleTimeout': 10,
     'GoogleAnalyticsID': 'UA-44368729-3',
     'chainCode': 'SAN',
     'baseURL': 'http://52.3.22.21:3010/api/4.0/',
@@ -200,7 +201,7 @@ angular.module('mobiusApp.config', [])
 
     // Settings related to booking process
     'bookingWidget': {
-      'hasAdvancedTab': false,
+      'hasMutiroomTab': true,
       'includeAllPropertyOption': true,
       'adults': {
         'min': 1,
@@ -210,7 +211,7 @@ angular.module('mobiusApp.config', [])
         'min': 0,
         'max': 8
       },
-      'maxRooms': 1,
+      'maxRooms': 4,
       'availability': {
         // Date range modification rules
         'from': {

@@ -36,6 +36,7 @@ dialog {
   appearance: none;
 
   .viewport-mobile &{
+    width: 90%;
     max-width: 90%;
     max-height: 90%;
     left: 5%;
@@ -66,7 +67,10 @@ dialog {
     padding: @baseline;
     border-bottom: 2px solid #ddd;
     min-height: @baseline;
-    box-sizing: border-box;
+
+    .viewport-mobile &{
+      padding: 14px;
+    }
 
     button-close {
       position: absolute;
@@ -92,6 +96,7 @@ dialog {
     box-sizing: border-box;
     .viewport-mobile &{
       width: 100%;
+      padding: 14px;
     }
   }
 
@@ -99,5 +104,8 @@ dialog {
     padding: @baseline;
     text-align: right;
     box-sizing: border-box;
+    .viewport-mobile &{
+      padding: 14px;
+    }
   }
 }

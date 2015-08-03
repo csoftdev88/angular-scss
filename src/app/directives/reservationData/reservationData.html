@@ -44,7 +44,7 @@
       </div>
 
       <div class="desc">
-        <p class="value">{{reservation.rooms[0].roomTypeName}}</p>
+        <p class="value">{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': 'room', 'other': 'rooms'}"></ng-pluralize></a></p>
         <p class="value">{{reservation.rooms[0].packageName}}</p>
       </div>
     </div>
