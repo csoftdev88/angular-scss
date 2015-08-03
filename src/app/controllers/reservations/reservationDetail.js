@@ -155,10 +155,11 @@ angular.module('mobius.controllers.reservationDetail', [])
 
       // Redirecting to hotel detail page with corresponding booking settings
       // and switching to edit mode
+      // TODO: Support multiroom modification once API is ready
       var bookingParams = {
         property: reservation.property.code,
-        adults: getCount(reservation.rooms, 'adults'),
-        children: getCount(reservation.rooms, 'children'),
+        adults: $scope.getCount('adults'),
+        children: $scope.getCount('children'),
         dates: reservation.arrivalDate + ' ' + reservation.departureDate,
         // NOTE: Check corp/group codes
         promoCode: reservation.promoCode,
@@ -201,14 +202,18 @@ angular.module('mobius.controllers.reservationDetail', [])
     };
 
     // NOTE: Same is in reservationDirective - unify
-    function getCount(rooms, prop){
+    $scope.getCount = function(prop){
+      if(!$scope.reservation || !$scope.reservation.rooms || !$scope.reservation.rooms.length){
+        return null;
+      }
+
       return _.reduce(
-        _.map(rooms, function(room){
+        _.map($scope.reservation.rooms, function(room){
           return room[prop];
         }), function(t, n){
           return t + n;
         });
-    }
+    };
 
     // TODO: Check if this needed?
     $scope.modifyReservation = function(onError) {
@@ -297,6 +302,30 @@ angular.module('mobius.controllers.reservationDetail', [])
         userMessagesService.addMessage('<div>Sorry, we could not add reservation <strong>' +
           $stateParams.reservationCode + '</strong> to passbook, please try again.</div>');
       });
+    };
+
+    $scope.openOtherRoomsDialog = function(){
+      if(!$scope.reservation){
+        return;
+      }
+
+      // Getting rooms settings
+      // TODO: Fix images
+      var rooms = $scope.reservation.rooms.map(function(room){
+        return {
+          _adults: room.adults,
+          _children: room.children,
+          name: room.roomTypeName,
+          _selectedProduct: {
+            name: room.productName,
+            price: {
+              totalBase: room.price
+            }
+          }
+        };
+      });
+
+      modalService.openOtherRoomsDialog(rooms);
     };
 
     //print page

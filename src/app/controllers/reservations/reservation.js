@@ -411,6 +411,7 @@ angular.module('mobius.controllers.reservation', [])
     return reservationData;
   }
 
+  // TODO - move to common CTRL or service
   $scope.getTotal = function(prop){
     // Returning a total price of all products
     return _.reduce(

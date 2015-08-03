@@ -18,7 +18,7 @@
           <a href ng-click="sendToPassbook()"class="button-passbook"><span>Add to Passbook</span></a>
         </div>
       </div>
-      
+
       <header>
         <h1>{{property.nameLong}}</h1>
 
@@ -42,7 +42,7 @@
 
         <div>
           <div>
-            <h3>{{roomDetails.name}}</h3>
+            <h3>{{roomDetails.name}} <a href ng-click="openOtherRoomsDialog()" ng-if="reservation.rooms.length > 1">+ {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': 'room', 'other': 'rooms'}"> </ng-pluralize></a></h3>
             <h4>{{reservation.rooms[0].productName}}</h4>
           </div>
 
