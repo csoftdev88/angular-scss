@@ -26,13 +26,14 @@
 
         <section class="room-data">
           <h4>{{property.nameLong}}</h4>
-          <p class="desc"><strong>{{selectedProduct.name}}</strong></p>
-          <p class="price"><strong>{{selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
+
+          <p class="desc"><strong>{{allRooms[0]._selectedProduct.name}}</strong></p>
+          <p class="price"><strong>{{allRooms[0]._selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
             night</em></p>
-          <h3>{{roomDetails.name}}</h3>
+          <h3>{{allRooms[0].name}} <a href ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} other <ng-pluralize count="allRooms.length" when="{'2': 'room', 'other': 'rooms'}"> </ng-pluralize></a></h3>
 
           <div class="image-wrapper">
-            <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+            <img ng-src="{{allRooms[0].images[0].uri}}" alt="{{allRooms[0].name}}">
           </div>
 
         </section>
