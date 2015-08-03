@@ -3,35 +3,35 @@
  * This module controlls reservation update flow
  */
 angular.module('mobius.controllers.reservationMultiRoom', [])
-  .controller('ReservationMultiRoomCtrl', function($scope, $state,
-    $location, $stateParams, notificationService, validationService){
+  .controller('ReservationMultiRoomCtrl', function($scope, $state, $filter,
+    $location, $stateParams, notificationService, bookingService, validationService){
     var isMultiRoomMode = false;
 
     $scope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams){
       // NOTE: ENTERING MULTIROOM RESRVATION MODE
-      if(toParams.room && toParams.rooms && toState.data && toState.data.supportsMultiRoom){
+      if(toParams.rooms && toState.data && toState.data.supportsMultiRoom){
         // NOTE: We can disable reservation edition when app starts
         // by checking fromState.name (if defined)
-        if(!isMultiRoomMode){
-          isMultiRoomMode = true;
+        isMultiRoomMode = true;
+
+        var rooms, currentRoomIndex;
+
+        if(toParams.room){
+          rooms = bookingService.getMultiRoomData(toParams.rooms);
+          currentRoomIndex = parseInt(toParams.room, 10) - 1;
+          showNotification(rooms, currentRoomIndex);
+        }else{
+          notificationService.hide();
         }
 
-        showNotification();
-
-        if(toState.name === 'reservation.details'){
+        if(toState.name === 'reservation.details' && toParams.room){
           // User is heading to payment page
           // Checking if other rooms must be selected
-          var rooms = validationService.convertValue(toParams.rooms, {type: 'object'}, true);
-          var currentRoomIndex = parseInt(toParams.room, 10);
-          currentRoomIndex--;
-
-
           if(currentRoomIndex < rooms.length){
             rooms[currentRoomIndex].roomID = toParams.roomID;
             rooms[currentRoomIndex].productCode = toParams.productCode;
 
             // Setting rooms details
-
             e.preventDefault();
             e.noUpdate = true;
             if(currentRoomIndex !== rooms.length-1){
@@ -46,7 +46,8 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
               toParams.propertySlug = fromParams.propertySlug;
               $state.go('hotel', toParams);
             }else if(currentRoomIndex === rooms.length-1){
-              toParams.room = currentRoomIndex+2;
+              // Removing room index
+              toParams.room = null;
               toParams.rooms = validationService.convertValue(rooms, {type: 'object'});
               // Payment form
               $state.go(toState.name, toParams);
@@ -76,11 +77,24 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
       }
     });
 
-    function showNotification(){
-      notificationService.show('<div class="multiroom-notification"><div class="rooms"><p>Room</p><p>1 of 2</p></div>' +
-        '<div class="details"><p>2 adults</p><p>0 children</p></div></div>');
-      //notificationService.show('<span>Multiroom Mode<strong>' + toParams.room + ' - ' +
-      //  toParams.adults + ':Adults ' + toParams.children + ':Children </strong></span>');
+    function showNotification(rooms, currentRoomIndex){
+      var currentRoom = rooms[currentRoomIndex];
+
+      currentRoomIndex++;
+
+      notificationService.show('<div class="multiroom-notification"><div class="rooms"><p>Room</p><p>' +
+        currentRoomIndex + ' of ' + rooms.length +'</p></div>' +
+        '<div class="details"><p>' + getAdultsCount(currentRoom) + '</p><p>' + currentRoom.children + ' children</p></div></div>');
+    }
+
+    function getAdultsCount(room){
+      var rules = {
+        '0': 'no adults',
+        '1': '{} adult',
+        'plural': '{} adults'
+      };
+
+      return $filter('pluralization')(room.adults, rules);
     }
 
     function cancelMultriRoomMode(redirectTo){
