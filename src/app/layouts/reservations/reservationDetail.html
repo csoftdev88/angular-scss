@@ -52,13 +52,13 @@
                 <th>Check in:</th>
                 <td>{{reservation.arrivalDate | dateTime}}</td>
                 <th>Adults:</th>
-                <td>{{reservation.rooms[0].adults || 0}}</td>
+                <td>{{getCount('adults')}}</td>
               </tr>
               <tr>
                 <th>Check out:</th>
                 <td>{{reservation.departureDate | dateTime}}</td>
                 <th>Children:</th>
-                <td>{{reservation.rooms[0].children || 0}}</td>
+                <td>{{getCount('children')}}</td>
               </tr>
             </tbody>
           </table>
@@ -67,18 +67,18 @@
             <tbody ng-switch-when="false">
               <tr>
                 <th>Room Charges: {{billingDetails.paymentMethod}}</th>
-                <td>{{reservation.rooms[0].price | i18nCurrency: currencyCode}}</td>
+                <td>{{getCount('price') | i18nCurrency: currencyCode}}</td>
                 <th rowspan="3" class="total">Total:</th>
                 <td rowspan="3" class="total-value">
                     <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}</a>-->
-                    {{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}
+                    {{getCount('priceAfterTax') | i18nCurrency: $root.currencyCode}}
                 </td>
               </tr>
 
               <!-- Additional taxes -->
               <tr ng-if="reservation.rooms[0].tax">
                 <th>Taxes:</th>
-                <td>{{reservation.rooms[0].tax | i18nCurrency: $root.currencyCode}}</td>
+                <td>{{getCount('tax') | i18nCurrency: $root.currencyCode}}</td>
               </tr>
 
               <!-- Discount -->
