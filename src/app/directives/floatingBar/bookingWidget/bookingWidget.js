@@ -545,6 +545,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       }
 
       function createRooms(rooms) {
+        scope.selected.rooms = [];
         $window._.forEach(rooms, function(roomData) {
           scope.addRoom(roomData.adults, roomData.children);
         });
