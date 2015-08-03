@@ -7,6 +7,8 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
     $location, $stateParams, notificationService, bookingService, validationService){
     var isMultiRoomMode = false;
 
+    var EVENT_MULTIROOM_CANCELED = 'EVENT-MULTIROOM-CANCELED';
+
     $scope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams){
       // NOTE: ENTERING MULTIROOM RESRVATION MODE
       if(toParams.rooms && toState.data && toState.data.supportsMultiRoom){
@@ -69,9 +71,9 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
 
         // NOTE: on reservationDetail state we dont show the modal
         cancelMultriRoomMode();
-        // Removing reservation code and email from the URL
-        toParams.reservation = null;
         toParams.email = null;
+        toParams.room = null;
+        toParams.rooms = null;
         $state.go(toState.name, toParams);
         return;
       }
@@ -84,7 +86,9 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
 
       notificationService.show('<div class="multiroom-notification"><div class="rooms"><p>Room</p><p>' +
         currentRoomIndex + ' of ' + rooms.length +'</p></div>' +
-        '<div class="details"><p>' + getAdultsCount(currentRoom) + '</p><p>' + currentRoom.children + ' children</p></div></div>');
+        '<div class="details"><p>' + getAdultsCount(currentRoom) +
+        '</p><p>' + getChildrenCount(currentRoom) +'</p></div></div>',
+        EVENT_MULTIROOM_CANCELED);
     }
 
     function getAdultsCount(room){
@@ -95,6 +99,16 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
       };
 
       return $filter('pluralization')(room.adults, rules);
+    }
+
+    function getChildrenCount(room){
+      var rules = {
+        '0': 'no children',
+        '1': '{} child',
+        'plural': '{} children'
+      };
+
+      return $filter('pluralization')(room.children, rules);
     }
 
     function cancelMultriRoomMode(redirectTo){
@@ -108,5 +122,9 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
         $state.go(redirectTo, {rooms: null, room: null});
       }
     }
+
+    $scope.$on(EVENT_MULTIROOM_CANCELED, function(){
+      cancelMultriRoomMode('hotels');
+    });
   }
 );

@@ -161,13 +161,18 @@ booking-widget-add-room form-element {
   }
 
   booking-widget-add-room {
-    margin-top: 25px;
-    width: 40%;
+    margin-top: @baseline;
+    width: 45%;
     float: left;
+    margin-left: 20px;
+
+    button-text {
+      margin-left: 20%;
+    }
   }
 
   button-submit {
-    width: 20%;
+    width: 10%;
     float: right;
     margin-top: @baseline;
   }
@@ -207,7 +212,6 @@ booking-widget-search {
 
   //- Make your booking
   h3 {
-
     position: relative;
     flex: 0 0 auto;
     padding-right: @baseline * 2;
@@ -329,6 +333,7 @@ booking-widget-add-room {
     h3 {
       float: left;
       width: 20%;
+      margin-top: 5px;
     }
 
     form-element {
