@@ -47,11 +47,11 @@ angular.module('mobius.controllers.reservationDetail', [])
         $scope.reservation = reservation;
         $scope.reservation.isInThePast = isInThePast(reservation);
         $scope.reservation.packages = $scope.reservation.packageItemCodes || []; // API workaround
-        var room = $scope.reservation.rooms[0];
+        var defaultRoom = $scope.reservation.rooms[0];
 
         if (modalService.openPoliciesInfo.bind) { // WTF - PhatomJS workaround
           var policies = {};
-          $window._.forEach(room, function (value, key) {
+          $window._.forEach(defaultRoom, function (value, key) {
             if(key.indexOf('policy') === 0) {
               policies[key.substr(6).toLowerCase()] = value;
             }
@@ -76,13 +76,24 @@ angular.module('mobius.controllers.reservationDetail', [])
         });
 
         // Getting room/products data
-        var roomDataPromise = propertyService.getRoomDetails(reservation.property.code, room.roomTypeCode).then(function(data) {
+        var roomDataPromise = propertyService.getRoomDetails(reservation.property.code, defaultRoom.roomTypeCode).then(function(data) {
           $scope.roomDetails = data;
           if (modalService.openPriceBreakdownInfo.bind) { // WTF - PhatomJS workaround
             $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo.bind(modalService, $scope.roomDetails, {
-              name: room.productName,
-              totalAfterTax: room.price,
+              name: defaultRoom.productName,
+              totalAfterTax: defaultRoom.price,
               breakdowns: []
+            });
+          }
+        });
+
+        $scope.otherRooms = [];
+        // Getting the details for other rooms
+        _.each($scope.reservation.rooms, function(room){
+          if(room.roomTypeCode !== defaultRoom.roomTypeCode){
+            // Other room - getting the details
+            propertyService.getRoomDetails(reservation.property.code, room.roomTypeCode).then(function(data) {
+              $scope.otherRooms.push(data);
             });
           }
         });
@@ -99,7 +110,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
         var addonsPromise = $q.all([
           // Available addons
-          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: room.roomTypeCode}),
+          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode}),
           // Reservation addons
           reservationService.getReservationAddOns($stateParams.reservationCode, isMobiusUser?null:$stateParams.email)
         ]).then(function(addons){
@@ -155,10 +166,11 @@ angular.module('mobius.controllers.reservationDetail', [])
 
       // Redirecting to hotel detail page with corresponding booking settings
       // and switching to edit mode
+      // TODO: Support multiroom modification once API is ready
       var bookingParams = {
         property: reservation.property.code,
-        adults: getCount(reservation.rooms, 'adults'),
-        children: getCount(reservation.rooms, 'children'),
+        adults: $scope.getCount('adults'),
+        children: $scope.getCount('children'),
         dates: reservation.arrivalDate + ' ' + reservation.departureDate,
         // NOTE: Check corp/group codes
         promoCode: reservation.promoCode,
@@ -201,14 +213,18 @@ angular.module('mobius.controllers.reservationDetail', [])
     };
 
     // NOTE: Same is in reservationDirective - unify
-    function getCount(rooms, prop){
+    $scope.getCount = function(prop){
+      if(!$scope.reservation || !$scope.reservation.rooms || !$scope.reservation.rooms.length){
+        return null;
+      }
+
       return _.reduce(
-        _.map(rooms, function(room){
+        _.map($scope.reservation.rooms, function(room){
           return room[prop];
         }), function(t, n){
           return t + n;
         });
-    }
+    };
 
     // TODO: Check if this needed?
     $scope.modifyReservation = function(onError) {
@@ -297,6 +313,43 @@ angular.module('mobius.controllers.reservationDetail', [])
         userMessagesService.addMessage('<div>Sorry, we could not add reservation <strong>' +
           $stateParams.reservationCode + '</strong> to passbook, please try again.</div>');
       });
+    };
+
+    $scope.openOtherRoomsDialog = function(){
+      if(!$scope.reservation){
+        return;
+      }
+
+      // Getting rooms settings
+      // TODO: Fix images
+      var rooms = $scope.reservation.rooms.map(function(room){
+        // Finding corresponding images
+        var images;
+
+        var otherRoom = _.findWhere($scope.otherRooms, {code: room.roomTypeCode});
+
+        if(otherRoom){
+          images = otherRoom.images;
+        }else{
+          // Picking up default images
+          images = $scope.roomDetails.images;
+        }
+
+        return {
+          _adults: room.adults,
+          _children: room.children,
+          name: room.roomTypeName,
+          images: images,
+          _selectedProduct: {
+            name: room.productName,
+            price: {
+              totalBase: room.price
+            }
+          }
+        };
+      });
+
+      modalService.openOtherRoomsDialog(rooms);
     };
 
     //print page

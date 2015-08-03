@@ -19,6 +19,21 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
 
+      scope.codeTypes = [
+        {
+          title: 'Corporate Code',
+          param: 'corpCode'
+        },
+        {
+          title: 'Group Code',
+          param: 'groupCode'
+        },
+        {
+          title: 'Promo Code',
+          param: 'promoCode'
+        }
+      ];
+
       $controller('GuestsCtrl', {$scope: scope});
 
       // Widget settings
@@ -55,8 +70,21 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'required': false,
           'field': 'code'
         },
+        // CODES
         'promoCode': {
           'search': 'promoCode',
+          'type': 'string',
+          'required': false,
+          'field': ''
+        },
+        'corpCode': {
+          'search': 'corpCode',
+          'type': 'string',
+          'required': false,
+          'field': ''
+        },
+        'groupCode': {
+          'search': 'groupCode',
           'type': 'string',
           'required': false,
           'field': ''
@@ -94,20 +122,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // NOTE: dates might be presented as start/end date
         'dates': '',
         // Advanced options
-        'promoCode': '',
         'rate': undefined,
         'rooms': []
       };
       scope.regionPropertySelected = undefined;
 
-      //TODO  Multi room disabled for demo purposes
-      scope.canAddRoom = false;
+      scope.canAddRoom = true;
+
       function canAddRoom() {
         //TODO  Multi room disabled for demo purposes
-        //      var count = scope.selected.rooms.length;
-        //      scope.canAddRoom = count < scope.settings.maxRooms;
-
-        scope.canAddRoom = false;
+        var count = scope.selected.rooms.length;
+        scope.canAddRoom = count < scope.settings.maxRooms;
       }
 
       // Function will remove query parameters from the URL in case their
@@ -139,12 +164,20 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
                 createRooms(paramValue);
                 break;
 
+              case 'promoCode':
+              case 'groupCode':
+              case 'corpCode':
+                scope.selected[key] = paramValue;
+                scope.selected.codeType = $window._.findWhere(scope.codeTypes, {param: key});
+                break;
               default:
                 scope.selected[key] = paramValue;
               }
             }
           }
         }
+
+        // Detecting promo/group/corp codes
       }
 
       var regionsProperties = [];
@@ -204,6 +237,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // in the URL (reservation param)
         // TODO: NG-DISABLE DOESNT WORK
         scope.hasPropertySelection = !$stateParams.reservation;
+
+        if(!scope.selected.rooms || scope.selected.rooms.length < 2){
+          scope.selected.rooms = [];
+          // Minimal number of rooms for multiroom booking
+          scope.addRoom(1,0);
+          scope.addRoom(1,0);
+        }
       }
 
       function validateRate() {
@@ -387,6 +427,12 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         setPropertyRegionList();
       };
 
+      scope.onCodeTypeChanged = function(){
+        scope.selected.promoCode = null;
+        scope.selected.groupCode = null;
+        scope.selected.corpCode = null;
+      };
+
       /**
        * Updates the url with values from the widget and redirects either to hotel list or a room list
        */
@@ -421,6 +467,22 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         // Changing application state
+        if(!scope.advanced){
+          // Removing rooms when not in multiroom booking mode
+          stateParams.rooms = null;
+          stateParams.room = null;
+        }else{
+          // Starting with first room
+          var roomIndex = 1;
+          stateParams.room = roomIndex;
+          roomIndex--;
+          var rooms = roomsToNumbers(scope.selected.rooms);
+          if(rooms.length > roomIndex){
+            stateParams.adults = rooms[roomIndex].adults;
+            stateParams.children = rooms[roomIndex].children;
+          }
+        }
+
         if(!scope.selected.property || !scope.selected.property.code){
           // 'All properties' is selected, will redirect to hotel list
           stateParams.propertyCode = null;
@@ -448,26 +510,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // Search is enabled only when required fields contain data
       scope.isSearchable = function(){
         return scope.selected.property || scope.selected.dates;
-        //for(var key in PARAM_TYPES){
-        //  if(PARAM_TYPES.hasOwnProperty(key)) {
-        //    var settings = PARAM_TYPES[key];
-        //
-        //    var value = scope.selected[key];
-        //    if (key === 'property') {
-        //      continue;
-        //    }
-        //
-        //    if(settings.withValue && value!==undefined){
-        //      value = value.value;
-        //    }
-        //
-        //    if (settings.required && !validationService.isValueValid(value, settings)) {
-        //      return false;
-        //    }
-        //  }
-        //}
-        //
-        //return true;
       };
 
       function recomputeGlobalAdultsChildren() {
@@ -503,6 +545,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       }
 
       function createRooms(rooms) {
+        scope.selected.rooms = [];
         $window._.forEach(rooms, function(roomData) {
           scope.addRoom(roomData.adults, roomData.children);
         });
@@ -529,15 +572,15 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           room = {adults: valueToAdultsOption(adults), children: valueToChildrenOption(children)};
           scope.selected.rooms.push(room);
         }
-        room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
+        //room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
         recomputeGlobalAdultsChildren();
         canAddRoom();
       };
 
       scope.removeRoom = function(i) {
         if (i >= 0 && i < scope.selected.rooms.length) {
-          var room = scope.selected.rooms.splice(i, 1);
-          room[0].unwatch();
+          scope.selected.rooms.splice(i, 1);
+          //room[0].unwatch();
           recomputeGlobalAdultsChildren();
         }
         canAddRoom();
@@ -570,6 +613,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       function onPrefill(settings){
         scope.openBookingTab();
 
+        // TODO: Set code type from offers
         function prefillPromoCode() {
           queryService.removeParam(PARAM_TYPES.promoCode.search);
           scope.selected.promoCode = settings.promoCode;
