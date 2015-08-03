@@ -5,7 +5,7 @@ notification-bar {
   display: block;
   overflow: hidden;
 
-  div {
+  > div {
     position: relative;
     margin-top: -100px;
     .transition;
@@ -18,7 +18,7 @@ notification-bar {
       cursor: pointer;
     }
 
-    p {
+    > p {
       color: @c-white;
       display: inline-block;
       width: 100%;
@@ -42,5 +42,49 @@ notification-bar {
     right: 0px;
     top: 0px;
     bottom: 0px;
+  }
+
+  .multiroom-notification {
+    width: 350px;
+    margin: 0 auto;
+    display: block;
+    overflow: auto;
+
+    .rooms,
+    .details {
+      width: 50%;
+      float: left;
+      box-sizing: border-box;
+
+      p {
+        color: @c-white;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      &:before {
+        .fa;
+        margin: 10px;
+        font-size: 21px;
+        float: left;
+      }
+    }
+
+    .rooms {
+      border-right: 1px solid @c-white;
+      padding: 5px 30px 5px 0;
+
+      &:before {
+        content: @fa-var-bed;
+      }
+    }
+
+    .details {
+      padding: 5px 0 5px 30px;
+
+      &:before {
+        content: @fa-var-users;
+      }
+    }
   }
 }
