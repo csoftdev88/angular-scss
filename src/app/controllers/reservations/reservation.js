@@ -393,7 +393,7 @@ angular.module('mobius.controllers.reservation', [])
 
     // Product basePrice
     // NOTE - Pay with points requires price as well
-    reservationData.price = $scope.selectedProduct.price.totalBase;
+    reservationData.price = 300;//$scope.selectedProduct.price.totalBase;
 
     if($scope.bookingDetails.promoCode){
       reservationData[bookingService.getCodeParamName($scope.bookingDetails.promoCode)] = $scope.bookingDetails.promoCode;

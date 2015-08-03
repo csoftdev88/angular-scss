@@ -183,9 +183,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var regionsProperties = [];
 
       function init(){
-        scope.selected.rooms = [];
-
-        // Adding one room by default
         validateURLParams();
 
         //override/close keyboard on mobile when focusing on date input
@@ -241,6 +238,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // in the URL (reservation param)
         // TODO: NG-DISABLE DOESNT WORK
         scope.hasPropertySelection = !$stateParams.reservation;
+
+        if(!scope.selected.rooms || scope.selected.rooms.length < 2){
+          scope.selected.rooms = [];
+          // Minimal number of rooms for multiroom booking
+          scope.addRoom(1,0);
+          scope.addRoom(1,0);
+        }
       }
 
       function validateRate() {
@@ -568,15 +572,15 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           room = {adults: valueToAdultsOption(adults), children: valueToChildrenOption(children)};
           scope.selected.rooms.push(room);
         }
-        room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
+        //room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
         recomputeGlobalAdultsChildren();
         canAddRoom();
       };
 
       scope.removeRoom = function(i) {
         if (i >= 0 && i < scope.selected.rooms.length) {
-          var room = scope.selected.rooms.splice(i, 1);
-          room[0].unwatch();
+          scope.selected.rooms.splice(i, 1);
+          //room[0].unwatch();
           recomputeGlobalAdultsChildren();
         }
         canAddRoom();
