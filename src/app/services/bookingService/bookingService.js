@@ -5,7 +5,7 @@
  */
 angular.module('mobiusApp.services.booking', [])
 
-.service( 'bookingService',  function($stateParams, $window) {
+.service( 'bookingService',  function($stateParams, $window, validationService) {
   var QUERY_TO_API_PARAMS = {
     'property': 'propertyCode',
     'location': 'locationCode',
@@ -19,6 +19,7 @@ angular.module('mobiusApp.services.booking', [])
 
   var API_PARAM_FROM = 'from';
   var API_PARAM_TO = 'to';
+  var ROOMS_PARAM_SETTINGS = {type: 'object'};
 
   var DATES_SEPARATOR = ' ';
 
@@ -122,6 +123,15 @@ angular.module('mobiusApp.services.booking', [])
     }
   }
 
+  function isMultiRoomBooking(roomsStateObject){
+    return !!getMultiRoomData(roomsStateObject);
+  }
+
+  function getMultiRoomData(roomsStateObject){
+    return validationService.convertValue(
+      roomsStateObject || $stateParams.rooms, ROOMS_PARAM_SETTINGS, true);
+  }
+
   // Public methods
   return {
     getParams: getParams,
@@ -129,6 +139,8 @@ angular.module('mobiusApp.services.booking', [])
     datesFromString: datesFromString,
     APIParamsHasDates: APIParamsHasDates,
     getCodeParamName: getCodeParamName,
-    getCodeFromSlug: getCodeFromSlug
+    getCodeFromSlug: getCodeFromSlug,
+    isMultiRoomBooking: isMultiRoomBooking,
+    getMultiRoomData: getMultiRoomData
   };
 });

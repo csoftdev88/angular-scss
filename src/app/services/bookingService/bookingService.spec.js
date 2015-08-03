@@ -4,6 +4,7 @@ describe('bookingService', function() {
   var _rootScope, _bookingService, _stateParams = {};
 
   beforeEach(function() {
+    module('mobiusApp.services.validation');
     module('mobiusApp.services.booking', function($provide) {
       // Mocking $stateParams service
       $provide.value('$stateParams', _stateParams);
@@ -148,6 +149,36 @@ describe('bookingService', function() {
       expect(_bookingService.getCodeFromSlug('')).equal(null);
       expect(_bookingService.getCodeFromSlug(null)).equal(null);
       expect(_bookingService.getCodeFromSlug(undefined)).equal(null);
+    });
+  });
+
+  describe('isMultiRoomBooking', function() {
+    beforeEach(function(){
+      _stateParams.rooms = '%5B%7B%22adults%22%3A2%2C%22children%22%3A0%7D%2C%7B%22adults%22%3A1%2C%22children%22%3A0%7D%5D';
+    });
+
+    it('should be defined as a function', function() {
+      expect(_bookingService.isMultiRoomBooking).to.be.an('function');
+    });
+
+    it('should return true when rooms object property encoded', function() {
+      expect(_bookingService.isMultiRoomBooking(
+      '%5B%7B%22adults%22%3A2%2C%22children%22%3A0%7D%2C%7B%22adults%22%3A1%2C%22children%22%3A0%7D%5D')).equal(true);
+    });
+
+    it('should return true when state params contains encoded rooms list', function() {
+      expect(_bookingService.isMultiRoomBooking()).equal(true);
+    });
+  });
+
+  describe('getMultiRoomData', function() {
+    it('should be defined as a function', function() {
+      expect(_bookingService.getMultiRoomData).to.be.an('function');
+    });
+
+    it('should encoded rooms list', function() {
+      expect(_bookingService.getMultiRoomData(
+      '%5B%7B%22adults%22%3A2%2C%22children%22%3A0%7D%2C%7B%22adults%22%3A1%2C%22children%22%3A0%7D%5D').length).equal(2);
     });
   });
 });

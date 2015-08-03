@@ -16,8 +16,7 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
           isMultiRoomMode = true;
         }
 
-        notificationService.show('<span>Multiroom Mode<strong>' + toParams.room + ' - ' +
-          toParams.adults + ':Adults ' + toParams.children + ':Children </strong></span>');
+        showNotification();
 
         if(toState.name === 'reservation.details'){
           // User is heading to payment page
@@ -76,6 +75,13 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
         return;
       }
     });
+
+    function showNotification(){
+      notificationService.show('<div class="multiroom-notification"><div class="rooms"><p>Room</p><p>1 of 2</p></div>' +
+        '<div class="details"><p>2 adults</p><p>0 children</p></div></div>');
+      //notificationService.show('<span>Multiroom Mode<strong>' + toParams.room + ' - ' +
+      //  toParams.adults + ':Adults ' + toParams.children + ':Children </strong></span>');
+    }
 
     function cancelMultriRoomMode(redirectTo){
       isMultiRoomMode = false;
