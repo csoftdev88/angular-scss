@@ -36,11 +36,6 @@ angular.module('mobius.controllers.reservation', [])
         roomID: $stateParams.roomID,
         productCode: $stateParams.productCode
       });
-        /*$scope.getRoomData($stateParams.property, $stateParams.roomID).then(function(data){
-          $scope.setRoomDetails(data.roomDetails);
-          setProductDetails(data.roomProductDetails.products);
-          return data;
-        }));*/
     } else {
       multiRoomData = bookingService.getMultiRoomData();
       rooms = multiRoomData.map(function(room){
@@ -50,33 +45,12 @@ angular.module('mobius.controllers.reservation', [])
           productCode: room.productCode
         };
       });
-
-      // .convertValue($stateParams.rooms, {type: 'object'}, true);
-      //var defaultRoom = multiRoomData[0];
-
-      //var defaultRoomPromise = $scope.getRoomData($stateParams.property, defaultRoom.roomID).then(function(data){
-      //  $scope.setRoomDetails(data.roomDetails);
-      //  setProductDetails(data.roomProductDetails.products, defaultRoom.productCode);
-      //  return data;
-      //});
     }
 
     // Loading all the rooms;
     roomsPromises = rooms.map(function(room){
       return getRoomPromise(room);
     });
-
-    /*
-      roomsPromises.push(defaultRoomPromise);
-      $scope.otherRooms = [];
-      $scope.otherProducts = [];
-
-      // Other rooms
-      for(var i=1; i<multiRoomData.length; i++){
-        var room = multiRoomData[i];
-        roomsPromises.push(getOtherRoomPromise(room));
-      }
-    }*/
 
     var propertyPromise = propertyService.getPropertyDetails($stateParams.property).then(function(property) {
       $scope.property = property;
@@ -130,7 +104,7 @@ angular.module('mobius.controllers.reservation', [])
         address: userData.address1 || '',
         city: userData.city || '',
         stateProvince: userData.state,
-        country: userData.country,
+        country: userData.iso3,
         zip: userData.zip || '',
         phone: userData.tel1 || ''
       });
@@ -261,7 +235,9 @@ angular.module('mobius.controllers.reservation', [])
     case 'point':
       $scope.billingDetails.paymentMethod = 'point';
       // NOTE: Pay with points is only available for logged in users
-      $scope.pointsData = {};
+      $scope.pointsData = {
+        pointsRequired: $scope.getTotal('pointsRequired')
+      };
 
       if(user.isLoggedIn()){
         if(user.getUser().loyalties){
@@ -501,30 +477,54 @@ angular.module('mobius.controllers.reservation', [])
 
   // List of rooms for booking
   function getRooms(){
-    var multiRoomData = bookingService.getMultiRoomData();
+    var rooms;
 
-    var rooms = multiRoomData.map(function(roomSettings){
-      // Finding corresponding room and product
-      var room = _.findWhere($scope.allRooms, {code: roomSettings.roomID});
-      if(room){
-        return {
-          roomId: room._selectedProduct.productPropertyRoomTypeId,
-          adults: roomSettings.adults,
-          children: roomSettings.children
-        };
-      }else{
-        $log.info('Cant find room with code:"'+ roomSettings.roomID + '"' );
-      }
-    });
+    if($scope.isMultiRoomMode){
+      var multiRoomData = bookingService.getMultiRoomData();
+
+      rooms = multiRoomData.map(function(roomSettings){
+        // Finding corresponding room and product
+        var room = _.findWhere($scope.allRooms, {code: roomSettings.roomID});
+        if(room){
+          return {
+            roomId: room._selectedProduct.productPropertyRoomTypeId,
+            adults: roomSettings.adults,
+            children: roomSettings.children
+          };
+        }else{
+          $log.info('Cant find room with code:"'+ roomSettings.roomID + '"' );
+        }
+      });
+
+    }else{
+      // Single room booking
+      rooms = [{
+        roomId: $scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId,
+        adults: parseInt($scope.bookingDetails.adults, 10) || 0,
+        children: parseInt($scope.bookingDetails.children, 10) || 0
+      }];
+    }
 
     return rooms;
   }
 
   $scope.readPolicies = function(){
-    $scope.openPoliciesInfo($scope.selectedProduct);
+    if($scope.allRooms && $scope.allRooms.length){
+      var products = $scope.allRooms.map(function(room){
+        return room._selectedProduct;
+      });
+
+      $scope.openPoliciesInfo(products);
+    }
   };
 
   $controller('ISOCountriesCtrl', {$scope: $scope});
+
+  $scope.openPriceBreakdownInfo = function(){
+    if($scope.allRooms && $scope.allRooms.length){
+      modalService.openPriceBreakdownInfo($scope.allRooms);
+    }
+  };
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;

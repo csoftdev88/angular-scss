@@ -23,8 +23,14 @@ booking-widget {
     align-self: center;
     flex: 0 0 auto;
     margin-top: 30px;
-    .viewport-mobile &{
+  }
+
+  .viewport-mobile &{
+    padding: 0 20px;
+    button-submit {
       display: block;
+      width: 100%;
+      margin: 20px 0 20px;
     }
   }
 }
@@ -73,6 +79,8 @@ booking-widget-add-room form-element {
     text-align: center;
 
     transform: translateY(-50%);
+    -webkit-transform:translateY(-50%);
+    vertical-align:top;
   }
 
     &.hotel:before   { content: @fa-var-map-marker; }
@@ -80,6 +88,11 @@ booking-widget-add-room form-element {
     &.children:before { content: @fa-var-child; }
     &.dates:before   { content: @fa-var-calendar-o; }
     &.rate:before    { content: @fa-var-suitcase; }
+    &.code:before    { content: @fa-var-tag; }
+
+  &.disabled-hotel:before {
+    color: #999;
+  }
 
   // animated label
   form-label {
@@ -91,6 +104,8 @@ booking-widget-add-room form-element {
     padding: @baseline/4 0;
 
     transform: translateY(-50%);
+    -webkit-transform:translateY(-50%);
+    vertical-align:top;
   }
 
   input[type=text],
@@ -112,6 +127,7 @@ booking-widget-add-room form-element {
     opacity: 1;
 
     transform: translateY(40%);
+    vertical-align:top;
   }
 
   // fake displaying of date picker
@@ -135,17 +151,10 @@ booking-widget-add-room form-element {
     white-space: nowrap;
 
     transform: translateY(-50%);
+    -webkit-transform:translateY(-50%);
+    vertical-align:top;
 
     pointer-events: none;
-  }
-
-  #booking-widget-promo-code {
-    //transition: box-shadow 0.3s;
-
-    &.prefilled {
-      animation-name: input-prefilled;
-      animation-duration: .5s;
-    }
   }
 
   @keyframes input-prefilled {
@@ -168,6 +177,12 @@ booking-widget-add-room form-element {
 
     button-text {
       margin-left: 20%;
+      .viewport-mobile &{
+        margin: 0;
+        float: right;
+        clear: both;
+        margin: 20px 0;
+      }
     }
   }
 
@@ -179,6 +194,10 @@ booking-widget-add-room form-element {
 
   form-element ~ button-text {
     margin-right: -100px;
+    .viewport-mobile &{
+      margin: 0;
+      margin-top: -15px;
+    }
   }
 }
 
@@ -192,8 +211,8 @@ booking-widget-search {
   .viewport-mobile &{
     display: inline-block;
     width: 100%;
-    padding: 0 20px 20px;
     box-sizing: border-box;
+    padding: 0;
   }
 
   // region/hotel styling in dropdown
@@ -249,6 +268,8 @@ booking-widget-search {
       color: #ddd;
       font-size: 21px;
       transform: translateY(-50%);
+      -webkit-transform:translateY(-50%);
+      vertical-align:top;
       content: @fa-var-chevron-right;
     }
   }
@@ -257,49 +278,80 @@ booking-widget-search {
 booking-widget-search form-element.code {
   input {
     width: 0px;
+    padding-right: 20px;
     opacity: 0;
     .transition(all, .3s, ease-in-out);
     padding-left: 10px;
+
+    &.prefilled {
+      animation-name: input-prefilled;
+      animation-duration: .5s;
+    }
   }
 
   .chosen-container {
+    opacity: 1;
     .transition(all, .3s, ease-in-out);
     .chosen-single {
-      padding-left: 15px;
-
-      &:before {
-        .fa;
-        content: @fa-var-tag;
-        float: left;
-        margin: 10px 0px -10px;
-        padding-right: 5px;
+      b {
+        left: 0px;
       }
+    }
+  }
+
+  remove-code {
+    opacity: 0;
+    .transition;
+
+    display: inline-block;
+    position: absolute;
+    margin: 2px 4px;
+    right: 0px;
+    top: 17px;
+    color: @c-gray;
+    z-index: 9;
+    cursor: pointer;
+
+    &:before {
+      .fa;
+      content: @fa-var-times;
     }
   }
 
   &.code-input {
+
+    &:before {
+      display: none;
+    }
+
+    remove-code {
+      opacity: 1;
+      right: 13px;
+    }
     .chosen-container {
-      width: 40px !important;
+      width: 0px !important;
+      opacity: 0;
     }
 
     .chosen-container-active {
       &.chosen-with-drop {
-        width: 300px !important;
+        width: 75% !important;
       }
 
       .chosen-drop {
-        width: 170px;
+        width: 165px;
       }
     }
 
     .chosen-single {
+      padding-left: 15px;
       &:before {
         display: none;
       }
     }
 
     input {
-      width: auto;
+      width: 100%;
       opacity: 1;
     }
   }
@@ -313,6 +365,13 @@ booking-widget-add-room {
   //- Number of a room
   h3 {
     font-weight: bold;
+  }
+
+  .viewport-mobile &{
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
   }
 
   form-element {
@@ -329,6 +388,9 @@ booking-widget-add-room {
   booking-widget-room {
     display: block;
     margin: 0 0 @baseline 0;
+    .viewport-mobile &{
+      margin: 0;
+    }
 
     h3 {
       float: left;
@@ -339,6 +401,8 @@ booking-widget-add-room {
     form-element {
       width: 35%;
       box-sizing: border-box;
+      .viewport-mobile &{
+        width: 100%;      }
     }
   }
 

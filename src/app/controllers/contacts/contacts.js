@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.contacts', [])
 
   .controller('ContactsCtrl', function($scope, $controller, chainService, Settings,
-   breadcrumbsService, formsService){
+   breadcrumbsService, formsService, metaInformationService, $location){
 
     $controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Contact And Feedback');
@@ -20,6 +20,11 @@ angular.module('mobius.controllers.contacts', [])
     //get contact information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
+
+      $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+      $scope.chain.meta.microdata.og['og:title'] = 'Contact: ' + $scope.chain.meta.microdata.og['og:title'];
+      $scope.chain.meta.microdata.og['og:description'] = 'Contact: ' + $scope.chain.meta.microdata.og['og:description'];
+      metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
     });
     //get form structure and default field values
     formsService.getContactForm().then(function(response) {
