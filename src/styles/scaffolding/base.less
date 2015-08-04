@@ -10,7 +10,9 @@ body {
   color: @c-base;
   &.modal-open,
   &.floating-bar-active{
-    overflow: hidden;
+    .viewport-mobile &{
+      overflow: hidden;
+    }
   }
 }
 
