@@ -87,6 +87,7 @@ booking-widget-add-room form-element {
     &.children:before { content: @fa-var-child; }
     &.dates:before   { content: @fa-var-calendar-o; }
     &.rate:before    { content: @fa-var-suitcase; }
+    &.code:before    { content: @fa-var-tag; }
 
   &.disabled-hotel:before {
     color: #999;
@@ -290,15 +291,6 @@ booking-widget-search form-element.code {
   .chosen-container {
     .transition(all, .3s, ease-in-out);
     .chosen-single {
-      padding-left: 15px;
-
-      &:before {
-        .fa;
-        content: @fa-var-tag;
-        float: left;
-        margin: 10px 0px -10px;
-        padding-right: 5px;
-      }
     }
   }
 
