@@ -5,6 +5,7 @@ describe('mobius.controllers.room.details', function() {
     var _scope;
 
     beforeEach(function() {
+      module('underscore');
       module('mobius.controllers.room.details', function($provide){
         $provide.value('modalService', {
           openPoliciesInfo: function(){},

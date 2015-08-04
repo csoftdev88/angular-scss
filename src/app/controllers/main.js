@@ -70,7 +70,9 @@ angular.module('mobius.controllers.main', [])
 
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;
-      $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
+
+      // TODO Seems like this function is used in roomDetails controller as well
+      //$scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
 
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
