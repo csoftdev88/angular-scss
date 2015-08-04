@@ -22,11 +22,13 @@ angular.module('mobiusApp.directives.datepicker', [])
       var CLASS_DATE_SELECTED = 'date-range-selected';
       var CLASS_RANGE_START = 'date-range-start';
       var CLASS_RANGE_END = 'date-range-end';
+      var CLASS_EDIT_RANGE = 'date-range-edit';
 
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
       var maxDate = attrs.maxDate || null;
       var hasCounter = attrs.includeCounter === '1';
+      var editDateRangeInProgress = false;
 
       var counterPluralizationRules;
 
@@ -52,9 +54,6 @@ angular.module('mobiusApp.directives.datepicker', [])
         // jquery date picker returns dates at 00 hour
 
         if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
-          // NOTE: using setHours(0) is safe for different timezones. By default
-          // jquery date picker returns dates at 00 hour
-
           // TODO: use $parsers/$formates in case when dates should be presented not
           // as a string
           if (typeof(ngModelCtrl.$modelValue) === 'string') {
@@ -86,6 +85,10 @@ angular.module('mobiusApp.directives.datepicker', [])
           if($.datepicker._selectDateOverload !== undefined) {
             $.datepicker._selectDate = $.datepicker._selectDateOverload;
           }
+        }
+
+        function getDatetimeFromInstance(inst) {
+          return new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay).getTime();
         }
 
         element.datepicker({
@@ -145,12 +148,42 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
 
           onSelect: function(date, inst) {
-            if(!rangeSelection) {
+            if (!rangeSelection) {
               return;
             }
 
-            startDate = endDate;
-            endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
+            //click on endDate should start edit date range process
+            if (isTheSameDay(endDate, date)) {
+              editDateRangeInProgress = true;
+            } else {
+              //if edit date range process in progress && clicked on another date then extend date range
+              if (editDateRangeInProgress && !isTheSameDay(endDate, date)) {
+                endDate = getDatetimeFromInstance(inst);
+              }
+
+              var diff = getDaysBetween(startDate, endDate);
+
+              if (!editDateRangeInProgress) {
+                if (diff) {
+                  //move checkout automatically
+                  startDate = getDatetimeFromInstance(inst);
+
+                  var checkout = new Date(startDate);
+                  checkout.setDate(checkout.getDate() + diff);
+                  endDate = checkout.getTime();
+                } else {
+                  startDate = endDate;
+                  endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
+                }
+              }
+
+              editDateRangeInProgress = false;
+            }
+
+            if (startDate > endDate) {
+              //swap values
+              endDate = [startDate, startDate = endDate][0];
+            }
 
             if(hasCounter){
               updateButtonPane('data-counter', getCounterText());
@@ -161,15 +194,26 @@ angular.module('mobiusApp.directives.datepicker', [])
         }).datepicker('show');
       });
 
-      function setInputText() {
-        var diff;
+      function isTheSameDay(datetime, dateString) {
+        var dateFromString = new Date(dateString);
+        var dateToCheck = new Date(datetime);
 
-        if(!startDate || !endDate){
-          diff = 0;
-        }else{
-          diff = Math.abs($window.moment(startDate).diff(endDate, 'days'));
+        return dateFromString && dateToCheck &&
+          dateFromString.getDate() === dateToCheck.getDate() &&
+          dateFromString.getMonth() === dateToCheck.getMonth() &&
+          dateFromString.getFullYear() === dateToCheck.getFullYear();
+      }
+
+      function getDaysBetween(startDate, endDate) {
+        if (!startDate || !endDate) {
+          return 0;
+        } else {
+          return Math.abs($window.moment(startDate).diff(endDate, 'days'));
         }
+      }
 
+      function setInputText() {
+        var diff = getDaysBetween(startDate, endDate);
         if(diff) {
           scope.inputText = window.moment(startDate).format('Do of MMM') + ' (' + $filter('pluralization')(diff, counterPluralizationRules) + ')';
         } else {
@@ -187,23 +231,14 @@ angular.module('mobiusApp.directives.datepicker', [])
         });
       }
 
-
-
       function getCounterText(){
-        var diff;
-
-        if(!startDate || !endDate){
-          diff = 0;
-        }else{
-          diff = Math.abs($window.moment(startDate).diff(endDate, 'days'));
-        }
-
+        var diff = getDaysBetween(startDate, endDate);
         return $filter('pluralization')(diff, counterPluralizationRules);
       }
 
-      // Checking if date is already selected as range starting/ending date
+      // Checking if date is already selected (start date only)
       function isSelected(date) {
-        return startDate && !$window.moment(date).diff(startDate) || endDate && !$window.moment(date).diff(endDate);
+        return startDate && !$window.moment(date).diff(startDate);
       }
 
       // Check if date selection is valid
@@ -236,7 +271,7 @@ angular.module('mobiusApp.directives.datepicker', [])
         if(dateTime === startDate) {
           return CLASS_RANGE_START + highlightClasses;
         }else if(dateTime === endDate) {
-          return CLASS_RANGE_END + highlightClasses;
+          return CLASS_RANGE_END + highlightClasses + (editDateRangeInProgress ? ' ' + CLASS_EDIT_RANGE : '');
         }
 
         return ((dateTime > Math.min(startDate, endDate) &&
