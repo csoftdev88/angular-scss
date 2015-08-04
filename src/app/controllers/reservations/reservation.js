@@ -512,6 +512,12 @@ angular.module('mobius.controllers.reservation', [])
 
   $controller('ISOCountriesCtrl', {$scope: $scope});
 
+  $scope.openPriceBreakdownInfo = function(){
+    if($scope.allRooms && $scope.allRooms.length){
+      modalService.openPriceBreakdownInfo($scope.allRooms);
+    }
+  };
+
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;

@@ -78,13 +78,18 @@ angular.module('mobius.controllers.reservationDetail', [])
         // Getting room/products data
         var roomDataPromise = propertyService.getRoomDetails(reservation.property.code, defaultRoom.roomTypeCode).then(function(data) {
           $scope.roomDetails = data;
-          if (modalService.openPriceBreakdownInfo.bind) { // WTF - PhatomJS workaround
-            $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo.bind(modalService, $scope.roomDetails, {
+
+          $scope.openPriceBreakdownInfo = function(){
+            var room = _.clone(data);
+            // TODO: Check if this data is enough
+            room._selectedProduct = {
               name: defaultRoom.productName,
               totalAfterTax: defaultRoom.price,
               breakdowns: []
-            });
-          }
+            };
+
+            modalService.openPriceBreakdownInfo([room]);
+          };
         });
 
         $scope.otherRooms = [];

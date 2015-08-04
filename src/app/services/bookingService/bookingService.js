@@ -124,7 +124,8 @@ angular.module('mobiusApp.services.booking', [])
   }
 
   function isMultiRoomBooking(roomsStateObject){
-    return !!getMultiRoomData(roomsStateObject);
+    var rooms = getMultiRoomData(roomsStateObject);
+    return !!(rooms && rooms.length);
   }
 
   function getMultiRoomData(roomsStateObject){
