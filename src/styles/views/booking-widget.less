@@ -23,8 +23,14 @@ booking-widget {
     align-self: center;
     flex: 0 0 auto;
     margin-top: 30px;
-    .viewport-mobile &{
+  }
+
+  .viewport-mobile &{
+    padding: 0 20px;
+    button-submit {
       display: block;
+      width: 100%;
+      margin: 20px 0 20px;
     }
   }
 }
@@ -168,6 +174,12 @@ booking-widget-add-room form-element {
 
     button-text {
       margin-left: 20%;
+      .viewport-mobile &{
+        margin: 0;
+        float: right;
+        clear: both;
+        margin: 20px 0;
+      }
     }
   }
 
@@ -179,6 +191,10 @@ booking-widget-add-room form-element {
 
   form-element ~ button-text {
     margin-right: -100px;
+    .viewport-mobile &{
+      margin: 0;
+      margin-top: -15px;
+    }
   }
 }
 
@@ -192,8 +208,8 @@ booking-widget-search {
   .viewport-mobile &{
     display: inline-block;
     width: 100%;
-    padding: 0 20px 20px;
     box-sizing: border-box;
+    padding: 0;
   }
 
   // region/hotel styling in dropdown
@@ -315,6 +331,13 @@ booking-widget-add-room {
     font-weight: bold;
   }
 
+  .viewport-mobile &{
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+  }
+
   form-element {
     display: inline-block;
     margin-right: @baseline;
@@ -329,6 +352,9 @@ booking-widget-add-room {
   booking-widget-room {
     display: block;
     margin: 0 0 @baseline 0;
+    .viewport-mobile &{
+      margin: 0;
+    }
 
     h3 {
       float: left;
@@ -339,6 +365,8 @@ booking-widget-add-room {
     form-element {
       width: 35%;
       box-sizing: border-box;
+      .viewport-mobile &{
+        width: 100%;      }
     }
   }
 

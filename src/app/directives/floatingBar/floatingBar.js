@@ -25,12 +25,14 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
+        scope.isMobile = false;
 
         var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
-        scope.setActive = function(newActive) {
-          if(scope.active === newActive){
+        scope.setActive = function(newActive, isMobileToggle) {
+
+          if(scope.active === newActive || isMobileToggle && !scope.isCollapsed && scope.isMobile){
             scope.isCollapsed = !scope.isCollapsed;
           }else if(scope.active && scope.isCollapsed){
             // Expanding when clicked on another tab
@@ -53,12 +55,18 @@ angular.module('mobiusApp.directives.floatingBar', [
           }
         };
 
+        scope.mobileToggleCollapse = function(){
+          scope.isCollapsed = !scope.isCollapsed;
+        };
+
         scope.isCollapsed = isCollapsed;
         scope.setActive(active);
 
         scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+          scope.isMobile = viewport.isMobile;
           if(viewport.isMobile){
             scope.isCollapsed = true;
+            $el.toggleClass('active', !scope.isCollapsed);
             document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
           }
         });

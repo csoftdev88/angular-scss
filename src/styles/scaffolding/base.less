@@ -4,10 +4,12 @@
 
 body {
   padding-bottom: 60px;
+  overflow-x: hidden;
 
   background: @c-background-body;
   color: @c-base;
-  &.modal-open{
+  &.modal-open,
+  &.floating-bar-active{
     overflow: hidden;
   }
 }

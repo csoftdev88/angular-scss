@@ -1,8 +1,13 @@
 <ul>
-  <li class="floating-bar--tab-booking" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
-    <a href="" ng-click="setActive(BOOKING)">
+  <li class="floating-bar--tab-booking main-mobile-toggle" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
+    <a href="" ng-click="setActive(BOOKING, true);">
       <span class="desktop">Make Your <strong>Booking</strong></span>
       <span class="mobile"><strong>Book now</strong><span class="mobile-close" ng-click="isCollapsed === true" ng-show="!isCollapsed"></span></span>
+    </a>
+  </li>
+  <li class="floating-bar--tab-booking mobile-single-booking" ng-class="{'is-active': active === BOOKING}">
+    <a href="" ng-click="setActive(BOOKING)">
+      <span class="desktop">Single <strong>Booking</strong></span>
     </a>
   </li>
   <li class="floating-bar--tab-advanced-booking" ng-if="hasMutiroomTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
