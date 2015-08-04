@@ -481,6 +481,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.adults = rooms[roomIndex].adults;
             stateParams.children = rooms[roomIndex].children;
           }
+          stateParams.promoCode = null;
+          stateParams.corpCode = null;
+          stateParams.groupCode = null;
         }
 
         if(!scope.selected.property || !scope.selected.property.code){

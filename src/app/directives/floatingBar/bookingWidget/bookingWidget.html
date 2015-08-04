@@ -71,7 +71,7 @@
   </form-element>
 
   <!-- ENTER YOUR CODE -->
-  <form-element ng-if="!settings.hasMutiroomTab" class="code" ng-class="{'code-input': selected.codeType}">
+  <form-element ng-if="!advanced" class="code" ng-class="{'code-input': selected.codeType}">
     <select name="code"
         required ng-model="selected.codeType"
         disable-search="true"
