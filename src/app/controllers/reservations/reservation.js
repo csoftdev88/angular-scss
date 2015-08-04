@@ -507,7 +507,13 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.readPolicies = function(){
-    $scope.openPoliciesInfo($scope.selectedProduct);
+    if($scope.allRooms && $scope.allRooms.length){
+      var products = $scope.allRooms.map(function(room){
+        return room._selectedProduct;
+      });
+
+      $scope.openPoliciesInfo(products);
+    }
   };
 
   $controller('ISOCountriesCtrl', {$scope: $scope});

@@ -101,12 +101,12 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('CCVInfo', 'layouts/modals/ccvInfo.html', CONTROLLER_DEFAULT);
   }
 
-  function openPoliciesInfo(product){
+  function openPoliciesInfo(products){
     return openDialog('PoliciesInfo', 'layouts/modals/policiesInfo.html', CONTROLLER_POLICY, {
       windowClass: 'is-wide',
       resolve: {
         data: function(){
-          return product;
+          return products;
         }
       }
     });
@@ -144,8 +144,6 @@ angular.module('mobiusApp.services.modal', [])
       break;
     case 'CCVInfo':
       return openCCVInfo();
-    case 'PoliciesInfo':
-      return openPoliciesInfo();
     default:
       // NOTE: Commenting this out. Logic must be reviewed
       //throw new Error('Unknown dialog "' + dialogName + '"');
