@@ -216,12 +216,16 @@ describe('mobius.controllers.reservation', function() {
 
       beforeEach(function(){
         // Reservation data
-        _scope.selectedProduct = {
-          productPropertyRoomTypeId: TEST_ROOM_ID,
-          price: {
-            totalBase: 555
+        _scope.allRooms = [
+          {
+            _selectedProduct: {
+              productPropertyRoomTypeId: TEST_ROOM_ID,
+              price: {
+                totalBase: 555
+              }
+            }
           }
-        };
+        ];
 
         _scope.billingDetails = {
           paymentMethod: 'cc',
@@ -241,30 +245,29 @@ describe('mobius.controllers.reservation', function() {
         expect(_scope.makeReservation).to.be.a('function');
       });
 
-      /*it('should fire a POST request to reservation API', function(){
+      it('should fire a POST request to reservation API', function(){
         _scope.additionalInfo.agree = true;
         _scope.makeReservation();
         _scope.$digest();
         expect(_spyCreateReservation.calledOnce).equal(true);
-      });*/
+      });
 
-      /*
       it('should fire a PUT request to customer API', function(){
         _scope.additionalInfo.agree = true;
+
         _scope.makeReservation();
         _scope.$digest();
         expect(_spyUpdateUser.calledOnce).equal(true);
-      });*/
-      /*
+      });
+
       it('should redirect to a detail state when reservation complete', function(){
         _scope.additionalInfo.agree = true;
         _scope.makeReservation();
         _scope.$digest();
         expect(_spyStateGo.calledOnce).equal(true);
         expect(_spyStateGo.calledWith('reservationDetail')).equal(true);
-      });*/
+      });
 
-      /*
       describe('reservation params check', function() {
         var bookingParams;
         beforeEach(function(){
@@ -298,15 +301,14 @@ describe('mobius.controllers.reservation', function() {
           expect(bookingParams.departureDate).equal('2015-02-02');
         });
 
-        // TODO: FIX
         it('should set credit expiration date to end of the currently selected month', function(){
           expect(bookingParams.paymentInfo.ccPayment.expirationDate).equal(null);
         });
 
         it('should set a price based on a selectedProduct totalBase price', function(){
-          //expect(bookingParams.price).equal(555);
+          expect(bookingParams.price).equal(555);
         });
-      });*/
+      });
     });
   });
 });
