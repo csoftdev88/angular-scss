@@ -235,7 +235,9 @@ angular.module('mobius.controllers.reservation', [])
     case 'point':
       $scope.billingDetails.paymentMethod = 'point';
       // NOTE: Pay with points is only available for logged in users
-      $scope.pointsData = {};
+      $scope.pointsData = {
+        pointsRequired: $scope.getTotal('pointsRequired')
+      };
 
       if(user.isLoggedIn()){
         if(user.getUser().loyalties){
