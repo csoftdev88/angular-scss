@@ -481,6 +481,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.adults = rooms[roomIndex].adults;
             stateParams.children = rooms[roomIndex].children;
           }
+          stateParams.promoCode = null;
+          stateParams.corpCode = null;
+          stateParams.groupCode = null;
         }
 
         if(!scope.selected.property || !scope.selected.property.code){
@@ -512,6 +515,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         return scope.selected.property || scope.selected.dates;
       };
 
+      /*
       function recomputeGlobalAdultsChildren() {
         // TODO: FIX SUM
         function getSum(property) {
@@ -523,7 +527,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.selected.adults = valueToAdultsOption(Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults'))));
         scope.selected.children = valueToChildrenOption(Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children'))));
         scope.checkAvailability();
-      }
+      }*/
 
       // NOTE: Matching values from URL to corresponding option
       // displayed in a dropdown
@@ -573,7 +577,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.selected.rooms.push(room);
         }
         //room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
-        recomputeGlobalAdultsChildren();
+        //recomputeGlobalAdultsChildren();
         canAddRoom();
       };
 
@@ -581,7 +585,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if (i >= 0 && i < scope.selected.rooms.length) {
           scope.selected.rooms.splice(i, 1);
           //room[0].unwatch();
-          recomputeGlobalAdultsChildren();
+          //recomputeGlobalAdultsChildren();
         }
         canAddRoom();
       };
@@ -616,8 +620,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // TODO: Set code type from offers
         function prefillPromoCode() {
           queryService.removeParam(PARAM_TYPES.promoCode.search);
+          queryService.removeParam(PARAM_TYPES.corpCode.search);
+          queryService.removeParam(PARAM_TYPES.groupCode.search);
+
           scope.selected.promoCode = settings.promoCode;
-          var promoInput = angular.element('#booking-widget-promo-code');
+          // TODO: Offers should have code types - needs API
+          scope.selected.codeType = $window._.findWhere(scope.codeTypes, {param: 'promoCode'});
+
+          var promoInput = angular.element('.booking-widget-promo-code');
           if (promoInput.length) {
             var prefilledClass = 'prefilled';
             promoInput.addClass(prefilledClass);

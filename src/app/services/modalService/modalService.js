@@ -4,7 +4,7 @@
 */
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log, $window, $modalStack,
-    Settings, queryService) {
+    Settings, queryService, _) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
@@ -101,25 +101,34 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('CCVInfo', 'layouts/modals/ccvInfo.html', CONTROLLER_DEFAULT);
   }
 
-  function openPoliciesInfo(product){
+  function openPoliciesInfo(products){
     return openDialog('PoliciesInfo', 'layouts/modals/policiesInfo.html', CONTROLLER_POLICY, {
       windowClass: 'is-wide',
       resolve: {
         data: function(){
-          return product;
+          return products;
         }
       }
     });
   }
 
-  function openPriceBreakdownInfo(roomDetails, product){
+  // rooms is an array of rooms and each room has _selectedProduct object with corresponding
+  // product
+  function openPriceBreakdownInfo(rooms){
+    var totalAfterTax = _.reduce(
+      _.map(rooms, function(room){
+        return room._selectedProduct.price.totalAfterTax;
+      }), function(t, n){
+        return t + n;
+      });
+
     return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DATA, {
       windowClass: 'is-wide',
       resolve: {
         data: function(){
           return {
-            roomDetails: roomDetails,
-            product: product
+            rooms: rooms,
+            totalAfterTax: totalAfterTax
           };
         }
       }
@@ -135,10 +144,6 @@ angular.module('mobiusApp.services.modal', [])
       break;
     case 'CCVInfo':
       return openCCVInfo();
-    case 'PoliciesInfo':
-      return openPoliciesInfo();
-    case 'PriceBreakdownInfo':
-      return openPriceBreakdownInfo();
     default:
       // NOTE: Commenting this out. Logic must be reviewed
       //throw new Error('Unknown dialog "' + dialogName + '"');

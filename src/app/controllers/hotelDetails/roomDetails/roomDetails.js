@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $q, modalService,
+.controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
   propertyService, filtersService, bookingService, $window) {
 
   $scope.setRoomDetails = function(roomDetails){
@@ -19,8 +19,12 @@ angular.module('mobius.controllers.room.details', [])
   };
 
   $scope.openPoliciesInfo = modalService.openPoliciesInfo;
+
   $scope.openPriceBreakdownInfo = function(product) {
-    return modalService.openPriceBreakdownInfo($scope.roomDetails, product);
+    var room = _.clone($scope.roomDetails);
+    room._selectedProduct = product;
+
+    return modalService.openPriceBreakdownInfo([room]);
   };
 
   $scope.getRoomData = function(propertyCode, roomCode){

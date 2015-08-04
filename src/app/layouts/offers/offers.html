@@ -28,7 +28,7 @@
       <div class="offer-content" ng-bind-html="selectedOffer.text"></div>
 
       <!-- DATES ARE SELECTED -->
-      <button-submit ng-switch-when="false" ui-sref="hotels({promoCode: selectedOffer.promoCode, scrollTo: 'hotels'})">Book Now</button-submit>
+      <button-submit ng-switch-when="false" ng-click="goToHotels(selectedOffer)">Book Now</button-submit>
 
       <!-- USER SPECIFIES DATES -->
       <button-submit ng-switch-when="true" ng-click="selectDates()">Select Dates</button-submit>
