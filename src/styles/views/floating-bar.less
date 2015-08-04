@@ -65,7 +65,7 @@ floating-bar {
       top: 0;
       max-width: 100%;
       transform: translate(0, 0);
-      padding: 0 20px;
+      padding: 0;
       box-sizing: border-box;
       background: @c-green;
     }
@@ -79,10 +79,6 @@ floating-bar {
       color: #fff;
       line-height: @baseline * 1.5;
       text-transform: uppercase;
-
-      .viewport-mobile &{
-        background: @c-green;
-      }
 
       a {
         position: relative;
@@ -211,7 +207,7 @@ floating-bar {
                 &:after {
                   .fa;
                   position: absolute;
-                  right: 0;
+                  right: 20px;
                   top: 20px;
                   color: #fff;
                   font-size: 21px;

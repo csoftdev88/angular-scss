@@ -78,7 +78,9 @@ angular.module('mobiusApp.services.user', [])
           userObject = _.extend(userObject, userData);
           userObject.avatarUrl = userObject.avatarUrl || '/static/images/v4/img-profile.png';
           // Logged in as mobius user
-          authPromise.resolve(true);
+          if(authPromise){
+            authPromise.resolve(true);
+          }
         });
       } else {
         return $q.reject({});
@@ -136,7 +138,9 @@ angular.module('mobiusApp.services.user', [])
         EVENT_ANONYMOUS_LOADED,
       function(){
         // Logged in as anonymous
-        authPromise.resolve(false);
+        if(authPromise){
+          authPromise.resolve(false);
+        }
       });
     }
 
