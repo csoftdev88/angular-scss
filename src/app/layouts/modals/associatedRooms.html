@@ -12,7 +12,7 @@
         <span class="price">
           From <span class="value">{{data.roomDetails.priceFrom | i18nCurrency: $root.currencyCode}}</span>
         </span>
-        <a ng-click="cancel()" class="button view-more" ui-sref="room({propertyCode: data.propertyCode, roomID: data.roomDetails.code})"><i></i>_view_room_</a>
+        <a ng-click="cancel()" class="button view-more" ui-sref="room({propertySlug: data.propertySlug, roomSlug: data.roomDetails.meta.slug})"><i></i>_view_room_</a>
       </div>
     </div>
   </main>

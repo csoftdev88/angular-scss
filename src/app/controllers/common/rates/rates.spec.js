@@ -93,7 +93,7 @@ describe('mobius.controllers.common.rates', function() {
 
       it('should update current state excluding rate and promoCode state parameters', function(){
         expect(_spyStateGo.calledOnce).equal(true);
-        expect(_spyStateGo.calledWith('testState', {prop: 'VAN', rate: null, promoCode: null})).equal(true);
+        expect(_spyStateGo.calledWith('testState', {prop: 'VAN', rate: null, corpCode: null, groupCode: null, promoCode: null})).equal(true);
       });
     });
   });

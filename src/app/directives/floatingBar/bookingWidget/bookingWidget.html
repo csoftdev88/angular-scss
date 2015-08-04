@@ -1,6 +1,5 @@
-
 <booking-widget-search>
-  <h3>Make <br> Your <strong>Booking</strong></h3>
+  <h3 ng-if="!advanced">Make <br> Your <strong>Booking</strong></h3>
 
   <!-- FIND YOUR HOTEL -->
   <form-element class="hotel" ng-show="hasPropertySelection">
@@ -46,7 +45,7 @@
   </form-element>
 
   <!-- NUMBER OF ADULTS -->
-  <form-element class="persons">
+  <form-element class="persons" ng-if="!advanced">
     <select name="adults"
             required ng-model="selected.adults"
             disable-search="true"
@@ -59,7 +58,7 @@
   </form-element>
 
   <!-- NUMBER OF CHILDREN -->
-  <form-element class="children">
+  <form-element class="persons" ng-if="!advanced">
     <select name="children"
             required ng-model="selected.children"
             disable-search="true"
@@ -72,30 +71,23 @@
   </form-element>
 
   <!-- ENTER YOUR CODE -->
-  <form-element ng-if="advanced || !settings.hasAdvancedTab" class="code">
-    <input type="text" placeholder="Promo Code" ng-model="selected.promoCode" id="booking-widget-promo-code">
-    <form-label>Enter Your Promo Code</form-label>
-  </form-element>
-
-  <!-- SELECT RATE -->
-  <form-element ng-if="advanced" class="rate">
-    <select name="rate"
-            required ng-model="selected.rate"
-            disable-search="true"
-            chosen ng-options="rate.id as rate.name for rate in rates"
-            data-placeholder="Rate">
-      <option></option> <!-- workaround for a bug in angular-chosen -->
+  <form-element ng-if="!settings.hasMutiroomTab" class="code" ng-class="{'code-input': selected.codeType}">
+    <select name="code"
+        required ng-model="selected.codeType"
+        disable-search="true"
+        chosen ng-options="code as code.title for code in codeTypes"
+        ng-change="onCodeTypeChanged()"
+        data-placeholder="Apply code">
+      <option></option>
     </select>
-    <form-label>Select Rate</form-label>
-  </form-element>
 
-  <!-- SUBMIT BUTTON -->
-  <button-submit
-    role="button" tabindex="0"
-    ng-click="isSearchable() && onSearch()"
-    ng-disabled="!isSearchable()">
-    {{hasAdvancedTab? 'Search Now':'Go'}}
-  </button-submit>
+    <input type="text" ng-if="selected.codeType.param === 'promoCode'" placeholder="Promo Code" ng-model="selected.promoCode" id="booking-widget-promo-code">
+
+    <input type="text" ng-if="selected.codeType.param === 'corpCode'" placeholder="Corp Code" ng-model="selected.corpCode" id="booking-widget-promo-code">
+
+    <input type="text" ng-if="selected.codeType.param === 'groupCode'" placeholder="Group Code" ng-model="selected.groupCode" id="booking-widget-promo-code">
+    <form-label>{{selected.codeType.title}}</form-label>
+  </form-element>
 </booking-widget-search>
 
 <booking-widget-add-room ng-if="advanced">
@@ -124,7 +116,7 @@
       <form-label>Number of Children</form-label>
     </form-element>
 
-    <button-remove role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove"></button-remove>
+    <button-text ng-if="$index > 1" role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove Room">Remove Room</button-text>
   </booking-widget-room>
 
   <div>
@@ -132,3 +124,11 @@
   </div>
 
 </booking-widget-add-room>
+
+<!-- SUBMIT BUTTON -->
+<button-submit
+  role="button" tabindex="0"
+  ng-click="isSearchable() && onSearch()"
+  ng-disabled="!isSearchable()">
+  {{hasMultiroomTab? 'Search Now':'Go'}}
+</button-submit>

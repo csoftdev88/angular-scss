@@ -14,7 +14,7 @@ describe('bookingWidget', function() {
       $provide.value('Settings', {
         UI: {
           bookingWidget: {
-            hasAdvancedTab: true
+            hasMutiroomTab: true
           }
         }
       });
@@ -52,8 +52,8 @@ describe('bookingWidget', function() {
       expect(env.scope.active).to.not.be.empty;
     });
 
-    it('should define hasAdvancedTab property on scope according to configuration', function() {
-      expect(env.scope.hasAdvancedTab).equal(true);
+    it('should define hasMutiroomTab property on scope according to configuration', function() {
+      expect(env.scope.hasMutiroomTab).equal(true);
     });
   });
 

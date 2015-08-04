@@ -286,6 +286,19 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openOtherRoomsDialog(rooms) {
+    return openDialog('other-rooms', 'layouts/modals/reservation/otherRooms.html', CONTROLLER_DATA, {
+      windowClass: 'other-rooms details',
+      resolve: {
+        data: function() {
+          return {
+            rooms: rooms
+          };
+        }
+      }
+    });
+  }
+
   // Prompt user to login/register when not logged in
   function openLoginDialog(){
     return openDialog('login-prompt', 'layouts/modals/loginPrompt.html', CONTROLLER_DATA, {
@@ -330,6 +343,7 @@ angular.module('mobiusApp.services.modal', [])
     openLocationDetail: openLocationDetail,
     openTermsAgreeDialog: openTermsAgreeDialog,
     openRoomDetailsDialog: openRoomDetailsDialog,
+    openOtherRoomsDialog: openOtherRoomsDialog,
     openLoginDialog: openLoginDialog
   };
 });

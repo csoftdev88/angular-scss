@@ -16,6 +16,17 @@ booking-widget {
     border-bottom: 0;
   }
 
+  //- Search button
+  button-submit {
+    width: 10%;
+    float: right;
+    align-self: center;
+    flex: 0 0 auto;
+    margin-top: 30px;
+    .viewport-mobile &{
+      display: block;
+    }
+  }
 }
 
 
@@ -68,7 +79,6 @@ booking-widget-add-room form-element {
     &.persons:before { content: @fa-var-user; }
     &.children:before { content: @fa-var-child; }
     &.dates:before   { content: @fa-var-calendar-o; }
-    &.code:before    { content: @fa-var-tag; }
     &.rate:before    { content: @fa-var-suitcase; }
 
   // animated label
@@ -130,7 +140,7 @@ booking-widget-add-room form-element {
   }
 
   #booking-widget-promo-code {
-    transition: box-shadow 0.3s;
+    //transition: box-shadow 0.3s;
 
     &.prefilled {
       animation-name: input-prefilled;
@@ -145,11 +155,39 @@ booking-widget-add-room form-element {
   }
 }
 
+.multiroom-mode {
+  booking-widget-search {
+    width: 40%;
+  }
+
+  booking-widget-add-room {
+    margin-top: @baseline;
+    width: 45%;
+    float: left;
+    margin-left: 20px;
+
+    button-text {
+      margin-left: 20%;
+    }
+  }
+
+  button-submit {
+    width: 10%;
+    float: right;
+    margin-top: @baseline;
+  }
+
+  form-element ~ button-text {
+    margin-right: -100px;
+  }
+}
 
 //- Search
 booking-widget-search {
   display: flex;
   padding: @baseline 0;
+  float: left;
+  width: 85%;
 
   .viewport-mobile &{
     display: inline-block;
@@ -174,14 +212,13 @@ booking-widget-search {
 
   //- Make your booking
   h3 {
-
     position: relative;
     flex: 0 0 auto;
     padding-right: @baseline * 2;
     text-transform: uppercase;
 
-    strong { 
-      display: block; 
+    strong {
+      display: block;
     }
 
     .mobile-close{
@@ -215,15 +252,55 @@ booking-widget-search {
       content: @fa-var-chevron-right;
     }
   }
+}
 
+booking-widget-search form-element.code {
+  input {
+    width: 0px;
+    opacity: 0;
+    .transition(all, .3s, ease-in-out);
+    padding-left: 10px;
+  }
 
+  .chosen-container {
+    .transition(all, .3s, ease-in-out);
+    .chosen-single {
+      padding-left: 15px;
 
-  //- Search button
-  button-submit {
-    align-self: center;
-    flex: 0 0 auto;
-    .viewport-mobile &{
-      display: block;
+      &:before {
+        .fa;
+        content: @fa-var-tag;
+        float: left;
+        margin: 10px 0px -10px;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  &.code-input {
+    .chosen-container {
+      width: 40px !important;
+    }
+
+    .chosen-container-active {
+      &.chosen-with-drop {
+        width: 300px !important;
+      }
+
+      .chosen-drop {
+        width: 170px;
+      }
+    }
+
+    .chosen-single {
+      &:before {
+        display: none;
+      }
+    }
+
+    input {
+      width: auto;
+      opacity: 1;
     }
   }
 }
@@ -252,6 +329,17 @@ booking-widget-add-room {
   booking-widget-room {
     display: block;
     margin: 0 0 @baseline 0;
+
+    h3 {
+      float: left;
+      width: 20%;
+      margin-top: 5px;
+    }
+
+    form-element {
+      width: 35%;
+      box-sizing: border-box;
+    }
   }
 
 
