@@ -130,7 +130,7 @@ angular.module('mobius.controllers.reservation', [])
         address: userData.address1 || '',
         city: userData.city || '',
         stateProvince: userData.state,
-        country: userData.country,
+        country: userData.iso3,
         zip: userData.zip || '',
         phone: userData.tel1 || ''
       });
