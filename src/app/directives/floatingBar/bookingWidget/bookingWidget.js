@@ -515,6 +515,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         return scope.selected.property || scope.selected.dates;
       };
 
+      scope.removeCode = function(){
+        scope.selected.codeType = null;
+        scope.selected.promoCode = null;
+        scope.selected.corpCode = null;
+        scope.selected.groupCode = null;
+      };
+
       /*
       function recomputeGlobalAdultsChildren() {
         // TODO: FIX SUM
