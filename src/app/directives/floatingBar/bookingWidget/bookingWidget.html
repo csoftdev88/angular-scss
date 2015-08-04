@@ -81,11 +81,11 @@
       <option></option>
     </select>
 
-    <input type="text" ng-if="selected.codeType.param === 'promoCode'" placeholder="Promo Code" ng-model="selected.promoCode" id="booking-widget-promo-code">
+    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'promoCode'" placeholder="Promo Code" ng-model="selected.promoCode">
 
-    <input type="text" ng-if="selected.codeType.param === 'corpCode'" placeholder="Corp Code" ng-model="selected.corpCode" id="booking-widget-promo-code">
+    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'corpCode'" placeholder="Corp Code" ng-model="selected.corpCode">
 
-    <input type="text" ng-if="selected.codeType.param === 'groupCode'" placeholder="Group Code" ng-model="selected.groupCode" id="booking-widget-promo-code">
+    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'groupCode'" placeholder="Group Code" ng-model="selected.groupCode">
     <form-label>{{selected.codeType.title}}</form-label>
   </form-element>
 </booking-widget-search>
