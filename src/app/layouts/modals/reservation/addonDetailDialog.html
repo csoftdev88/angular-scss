@@ -5,7 +5,7 @@
   </header>
 
   <main ng-if="!state.confirmed">
-    <image-carousel images="addon.images"></image-carousel>
+    <image-carousel width="400" height="400" fill="'fill'" images="addon.images"></image-carousel>
     <div class="details">
       <div class="description">
         <p>{{addon.description}}</p>
@@ -20,7 +20,7 @@
   </main>
 
   <main ng-if="state.confirmed">
-    <image-carousel images="addon.images"></image-carousel>
+    <image-carousel width="400" height="400" fill="'fill'" images="addon.images"></image-carousel>
     <div class="details">
       <div class="description" ng-switch="payWithPoints">
         <p>Please confirm you want to add this Enhancement to your booking:</p>

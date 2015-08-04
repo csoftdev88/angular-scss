@@ -37,7 +37,10 @@ angular.module('mobius.controllers.reservationUpdate', [])
         cancelReservationUpdate(null, fromParams.reservation, toState.name !== 'reservationDetail');
         // Removing reservation code and email from the URL
         toParams.reservation = null;
-        toParams.email = null;
+        if(toState.name !== 'reservationDetail'){
+          toParams.email = null;
+        }
+
         $state.go(toState.name, toParams);
         return;
       }
