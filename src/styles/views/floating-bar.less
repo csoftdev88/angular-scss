@@ -72,16 +72,17 @@ floating-bar {
 
     li {
       position: relative;
-
       display: block;
       float: left;
       padding: 0 @baseline/2 0 @baseline*1.5;
-
       background: lighten(@c-booking-widget, 10%);
       color: #fff;
-
       line-height: @baseline * 1.5;
       text-transform: uppercase;
+
+      .viewport-mobile &{
+        background: @c-green;
+      }
 
       a {
         position: relative;
