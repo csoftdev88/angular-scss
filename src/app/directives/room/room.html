@@ -17,7 +17,7 @@
         ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}"
         class="without-image">
         <div class="list-item-header">
-          <h2>{{product.name}}</h2>
+          <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
 
           <pricing-info>
             <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
