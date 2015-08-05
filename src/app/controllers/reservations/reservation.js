@@ -216,6 +216,10 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
+  if(!user.isLoggedIn()){
+    $scope.billingDetails.paymentMethod = 'cc';
+  }
+
   $scope.goBack = function() {
     switch ($state.current.name) {
     case 'reservation.details':
