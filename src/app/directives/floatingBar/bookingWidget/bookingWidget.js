@@ -10,7 +10,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     scope: {
       advanced: '=',
       hideBar: '&',
-      openBookingTab: '&'
+      openBookingTab: '='
     },
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
@@ -604,9 +604,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         onPrefill(data);
       });
 
+      var openMRBTabListener = $rootScope.$on('BOOKING_BAR_OPEN_MRB_TAB', function(){
+        scope.openBookingTab(true);
+      });
+
       scope.$on('$destroy', function(){
         routeChangeListener();
         prefillListener();
+        openMRBTabListener();
       });
 
       function onPrefill(settings){
