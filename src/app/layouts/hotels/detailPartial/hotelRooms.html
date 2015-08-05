@@ -15,14 +15,14 @@
         </a>
       </pricing-switch>
       <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
-        <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">
+        <a ng-click="goToRoom(details.meta.slug, room.meta.slug)">
           <figure>
             <img ng-src="{{room.images[0].uri | cloudinaryImage : 430 : 286 : 'fill'}}" alt="{{room.name}}">
           </figure>
         </a>
 
         <div class="list-item-header">
-          <h3><a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
+          <h3><a ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
 
           <pricing-info>
             <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
@@ -55,7 +55,7 @@
 
             <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
-            <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" class="button">View Details</a>
+            <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">View Details</a>
           </div>
           <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
         </pricing-info>
@@ -64,7 +64,7 @@
           <div ng-bind-html="sanitize(room.description)"></div>
         </description-info>
         <div class="wide-button">
-          <a class="button" ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">View Details</a>
+          <a class="button" ng-click="goToRoom(details.meta.slug, room.meta.slug)">View Details</a>
         </div>
       </list-item>
       <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>

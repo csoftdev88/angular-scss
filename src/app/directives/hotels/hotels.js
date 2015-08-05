@@ -183,7 +183,8 @@ angular.module('mobiusApp.directives.hotels', [])
         var stateParams = {
           property: selectedHotel ? selectedHotel.code : null,
           propertySlug: propertySlug,
-          rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null
+          rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null,
+          promoCode: $stateParams.promoCode ? $stateParams.promoCode : null
         };
 
         if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {

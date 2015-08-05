@@ -150,11 +150,22 @@ angular.module('mobiusApp.directives.room', [])
       };
 
       scope.selectProduct = function(product) {
-        $state.go('reservation.details', {
-          property: propertyCode,
-          roomID: roomCode,
-          productCode: product.code
-        });
+        if($stateParams.promoCode){
+          $state.go('reservation.details', {
+            property: propertyCode,
+            roomID: roomCode,
+            productCode: product.code,
+            promoCode: $stateParams.promoCode
+          });
+        }
+        else{
+          $state.go('reservation.details', {
+            property: propertyCode,
+            roomID: roomCode,
+            productCode: product.code
+          });
+        }
+        
       };
 
       scope.onClickOnAssociatedRoom=function(roomDetails){
