@@ -28,8 +28,7 @@
           <h4>{{property.nameLong}}</h4>
 
           <p class="desc"><strong>{{allRooms[0]._selectedProduct.name}}</strong></p>
-          <p class="price"><strong>{{getTotal('totalBase') | i18nCurrency: currencyCode}}</strong> <em>per
-            night</em></p>
+          <p class="price"><strong>{{getProductPricePerNight(getTotal('totalBase')) | i18nCurrency: currencyCode}}</strong> <em>per night</em></p>
           <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} other <ng-pluralize count="allRooms.length" when="{'2': 'room', 'other': 'rooms'}"> </ng-pluralize></a></h3>
 
           <div class="image-wrapper">

@@ -87,6 +87,8 @@
 
     <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'groupCode'" placeholder="Group Code" ng-model="selected.groupCode">
     <form-label>{{selected.codeType.title}}</form-label>
+
+    <remove-code role="button" class="remove" ng-click="removeCode()"></remove-code>
   </form-element>
 </booking-widget-search>
 

@@ -280,6 +280,7 @@ booking-widget-search {
 booking-widget-search form-element.code {
   input {
     width: 0px;
+    padding-right: 20px;
     opacity: 0;
     .transition(all, .3s, ease-in-out);
     padding-left: 10px;
@@ -291,6 +292,7 @@ booking-widget-search form-element.code {
   }
 
   .chosen-container {
+    opacity: 1;
     .transition(all, .3s, ease-in-out);
     .chosen-single {
       b {
@@ -299,13 +301,38 @@ booking-widget-search form-element.code {
     }
   }
 
+  remove-code {
+    opacity: 0;
+    .transition;
+
+    display: inline-block;
+    position: absolute;
+    margin: 2px 4px;
+    right: 0px;
+    top: 17px;
+    color: @c-gray;
+    z-index: 9;
+    cursor: pointer;
+
+    &:before {
+      .fa;
+      content: @fa-var-times;
+    }
+  }
+
   &.code-input {
+
     &:before {
       display: none;
     }
 
+    remove-code {
+      opacity: 1;
+      right: 13px;
+    }
     .chosen-container {
-      width: 40px !important;
+      width: 0px !important;
+      opacity: 0;
     }
 
     .chosen-container-active {
