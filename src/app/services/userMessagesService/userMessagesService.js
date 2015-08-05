@@ -5,17 +5,20 @@ angular.module('mobiusApp.services.userMessagesService', [])
     var TYPE_INFO = 'info-message';
     var messages = [];
 
-    function addMessage(html, keepOldMessages, removeOnStateChange) {
+    function clearMessages(){
+      messages.length = 0;
+      document.body.style.paddingTop = 0;
+    }
+
+    function addMessage(html, keepOldMessages) {
       if(!keepOldMessages && messages.length){
-        messages.length = 0;
-        document.body.style.paddingTop = 0;
+        clearMessages();
       }
 
       $rootScope.$evalAsync(function(){
         messages.push({
           type: TYPE_INFO,
-          html: html,
-          removeOnStateChange: removeOnStateChange
+          html: html
         });
 
         $timeout(function () {
@@ -26,24 +29,11 @@ angular.module('mobiusApp.services.userMessagesService', [])
 
     // State change listener
     $rootScope.$on('$stateChangeSuccess', function() {
-      // Removing the notifications with removeOnStateChange flag
-      if(!messages.length){
-        return;
+      //Remove all messages on route change
+      if(messages.length){
+        clearMessages();
       }
 
-      // NOTE: Cant use underscope _.without since it breaks
-      // $watch on model
-      var messageToRemove = [];
-      for(var i=0; i<messages.length; i++){
-        var message = messages[i];
-        if(message.removeOnStateChange){
-          messageToRemove.push(message);
-        }
-
-        for(i=0; i<messageToRemove.length; i++){
-          messages.splice(messages.indexOf(messageToRemove[i]));
-        }
-      }
     });
 
     function getMessages(){
