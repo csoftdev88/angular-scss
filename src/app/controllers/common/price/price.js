@@ -2,6 +2,8 @@
 
 angular.module('mobius.controllers.common.price', [])
 
+  // TODO - Refactor, add unit tests
+  // In templates - use ng-switch instead of multiple ng-if's
   .controller('PriceCtr', function($scope, bookingService, $window,
       preferenceService, perStay) {
     var PP_NIGHT = 'night';
