@@ -91,7 +91,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         children: numberToListFilter([], settings.children.min, settings.children.max,
           // TODO: Localize
           {
-            '0': 'No Children',
+            '0': 'Children',
             '1': '{} Child',
             'plural': '{} Children'
           })
