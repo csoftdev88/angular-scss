@@ -22,12 +22,22 @@ angular.module('mobius.controllers.common.price', [])
     };
 
     $scope.getValuePer = function(value, isProductValue){
+      if(value === undefined){
+        return null;
+      }
       // Product values are already perStay
       if(isProductValue){
-        return $scope.pricePer === PP_STAY ? value:value / ($scope.days || 1);
+        return $scope.pricePer === PP_STAY ? value:$scope.getProductPricePerNight(value);
       }else{
         return $scope.pricePer === PP_NIGHT ? value:value * ($scope.days || 1);
       }
+    };
+
+    $scope.getProductPricePerNight = function(value){
+      if(value === undefined){
+        return null;
+      }
+      return value / ($scope.days || 1);
     };
 
     var bookingParams = bookingService.getAPIParams();

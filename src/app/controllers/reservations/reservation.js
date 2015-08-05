@@ -529,4 +529,5 @@ angular.module('mobius.controllers.reservation', [])
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
+  $controller('PriceCtr', {$scope: $scope});
 });
