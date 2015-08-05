@@ -88,17 +88,25 @@
       </list-item>
     </list-items>
 
-    <div ng-if="!products.length" class="products-not-available">
+    <div ng-if="!products.length" class="products-not-available" ng-switch="isOverAdultsCapacity()">
       <div ng-if="$stateParams.dates">
-        <h3>Sorry, this room is not available for the dates<br> you have selected</h3>
-        <p>Try selecting new dates or choosing a new room.</p>
+        <div ng-switch-when="false">
+          <h3>Sorry, this room is not available for the dates<br> you have selected</h3>
+          <p>Try selecting new dates or choosing a new room.</p>
+        </div>
+        <div ng-switch-when="true">
+          <h3>Not available on these dates.<br></h3>
+          <p> Please call the hotel on <span itemprop="telephone"><a href="tel:{{property.tel1}}">{{property.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</p>
+        </div>
       </div>
+
       <div ng-if="!$stateParams.dates">
         <h3>Please select your stay dates to see available rates!</h3>
         <p>Enter your dates on the bar below and hit search<br> to see all the rates you can book</p>
       </div>
+
       <!-- USER SPECIFIES DATES -->
-      <button-submit ng-click="selectDates()">Select Dates</button-submit>
+      <button-submit div ng-switch-when="false" ng-click="selectDates()">Select Dates</button-submit>
     </div>
 
     <hr />
