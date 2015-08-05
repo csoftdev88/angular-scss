@@ -257,7 +257,7 @@ angular.module('mobiusApp.config', [])
         'profile': true,
         'badges': false,
         'rewards': true,
-        'loyalities': true
+        'loyalities': false
       }
     },
     // States layout
