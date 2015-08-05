@@ -15,8 +15,6 @@ angular.module('mobiusApp.directives.room', [])
       $controller('PriceCtr', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
 
-      //var SHORT_DESCRIPTION_LENGTH = 200;
-
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
       var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
@@ -76,8 +74,6 @@ angular.module('mobiusApp.directives.room', [])
               scrollService.scrollTo(scrollToValue, 20);
             }, 500);
           }
-
-
         }));
       });
 
@@ -119,23 +115,6 @@ angular.module('mobiusApp.directives.room', [])
 
       // Room product details
       function setRoomProductDetails(data) {
-        //scope.products = _.map(
-        //  [].concat(
-        //  _.where(data.products, {memberOnly: true}),
-        //  _.where(data.products, {highlighted: true}),
-        //  _.reject(data.products, function(product) {
-        //    return product.memberOnly || product.highlighted;
-        //  })
-        //), function(product) {
-        //  // NOTE: product.description is a plain text
-        //  var descriptionShort = product.description;
-        //  product.descriptionShort = descriptionShort.substr(0, SHORT_DESCRIPTION_LENGTH);
-        //  product.hasViewMore = product.descriptionShort.length < descriptionShort.length;
-        //  if (product.hasViewMore) {
-        //    product.descriptionShort += '…';
-        //  }
-        //  return product;
-        //});
         scope.products = [].concat(
             _.where(data.products, {memberOnly: true}),
             _.where(data.products, {highlighted: true}),
@@ -145,16 +124,39 @@ angular.module('mobiusApp.directives.room', [])
         );
       }
 
+      scope.isOverAdultsCapacity = function(){
+        return Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking &&
+          !bookingService.isMultiRoomBooking() &&
+          bookingParams.from &&
+          bookingParams.to &&
+          bookingParams.adults > Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking;
+      };
+
+      scope.switchToMRBMode = function(){
+        $rootScope.$broadcast('BOOKING_BAR_OPEN_MRB_TAB');
+      };
+
       scope.setRoomsSorting = function() {
         return user.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
       };
 
       scope.selectProduct = function(product) {
-        $state.go('reservation.details', {
-          property: propertyCode,
-          roomID: roomCode,
-          productCode: product.code
-        });
+        if($stateParams.promoCode){
+          $state.go('reservation.details', {
+            property: propertyCode,
+            roomID: roomCode,
+            productCode: product.code,
+            promoCode: $stateParams.promoCode
+          });
+        }
+        else{
+          $state.go('reservation.details', {
+            property: propertyCode,
+            roomID: roomCode,
+            productCode: product.code
+          });
+        }
+        
       };
 
       scope.onClickOnAssociatedRoom=function(roomDetails){
@@ -165,9 +167,7 @@ angular.module('mobiusApp.directives.room', [])
         scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
       }
 
-
       // Checking if user have selected dates
-
       if(!bookingParams.from || !bookingParams.to){
         // Dates are not yet selected
         scope.selectDates = function(){

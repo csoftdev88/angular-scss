@@ -10,7 +10,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     scope: {
       advanced: '=',
       hideBar: '&',
-      openBookingTab: '&'
+      openBookingTab: '='
     },
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
@@ -306,31 +306,18 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         //var location = scope.selected.location;
         var property = scope.selected.property;
 
-        if (region && region.code) {
-          scope.propertyRegionList = [
-            {name: 'All regions', type: 'all'},
-            {name: region.nameShort, type: 'region', code: region.code}
-          ];
-          $window._.forEach(region.locations, function(location) {
-            scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
-            $window._.forEach(location.properties, function(property) {
-              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
-            });
-          });
-        } else {
-          scope.propertyRegionList = [];
-          if (scope.settings.includeAllPropertyOption) {
-            scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
-          }
-          $window._.forEach(regionsProperties, function(region) {
-            scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
-            //$window._.forEach(region.locations, function(location) {
-            //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
-            $window._.forEach(region.properties, function(property) {
-              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
-            });
-          });
+        scope.propertyRegionList = [];
+        if (scope.settings.includeAllPropertyOption) {
+          scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
         }
+        $window._.forEach(regionsProperties, function(region) {
+          scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
+          //$window._.forEach(region.locations, function(location) {
+          //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
+          $window._.forEach(region.properties, function(property) {
+            scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+          });
+        });
 
         if (property) {
           scope.regionPropertySelected = $window._.find(scope.propertyRegionList, {
@@ -417,6 +404,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.selected.location = undefined;
           scope.selected.property = undefined;
           break;
+
         case 'property':
           scope.selected.property = findProperty(scope.regionPropertySelected.code);
           $stateParams.property = scope.selected.property.code;
@@ -616,9 +604,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         onPrefill(data);
       });
 
+      var openMRBTabListener = $rootScope.$on('BOOKING_BAR_OPEN_MRB_TAB', function(){
+        scope.openBookingTab(true);
+      });
+
       scope.$on('$destroy', function(){
         routeChangeListener();
         prefillListener();
+        openMRBTabListener();
       });
 
       function onPrefill(settings){

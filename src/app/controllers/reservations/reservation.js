@@ -216,6 +216,10 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
+  if(!user.isLoggedIn()){
+    $scope.billingDetails.paymentMethod = 'cc';
+  }
+
   $scope.goBack = function() {
     switch ($state.current.name) {
     case 'reservation.details':
@@ -529,4 +533,5 @@ angular.module('mobius.controllers.reservation', [])
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
+  $controller('PriceCtr', {$scope: $scope});
 });

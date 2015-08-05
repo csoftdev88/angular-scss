@@ -202,10 +202,14 @@ angular.module('mobiusApp.config', [])
     // Settings related to booking process
     'bookingWidget': {
       'hasMutiroomTab': true,
+      // Suggest MRB when number of adults is highter
+      // than this settings and server returns no
+      // products
+      'maxAdultsForSingleRoomBooking': 3,
       'includeAllPropertyOption': true,
       'adults': {
         'min': 1,
-        'max': 6
+        'max': 8
       },
       'children': {
         'min': 0,
@@ -257,7 +261,7 @@ angular.module('mobiusApp.config', [])
         'profile': true,
         'badges': false,
         'rewards': true,
-        'loyalities': true
+        'loyalities': false
       }
     },
     // States layout

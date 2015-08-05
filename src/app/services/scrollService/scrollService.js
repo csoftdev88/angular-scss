@@ -8,6 +8,8 @@ angular.module('mobiusApp.services.scroll', [])
     // scrollTo() with no params will default to top of content
     var scrollTo = function(target, offset) {
 
+      var toAnimate = navigator.userAgent.indexOf('Safari') > -1 ? angular.element('body') : angular.element('html, body');
+
       //No scroll if home
       //If url has scrollTo and target is not set let controller handle scrolling when content has loaded
       if($state.current.name === 'home' || $location.search().scrollTo && !target && ($state.current.name === 'hotel' || $state.current.name === 'room')){
@@ -28,7 +30,7 @@ angular.module('mobiusApp.services.scroll', [])
           //Default offset to half of hero slider
           var $offset = offset ? -(angular.element('#main-header').height() + angular.element('breadcrumbs').height() + offset) : -(angular.element('#main-header').height() + angular.element('hero-slider').height()/2 + 40);
           //scroll
-          angular.element('html, body').stop().animate({
+          toAnimate.stop().animate({
             scrollTop: $item.offset().top + $offset
           }, 500);
         }

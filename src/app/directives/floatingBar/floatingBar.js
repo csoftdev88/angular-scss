@@ -40,7 +40,7 @@ angular.module('mobiusApp.directives.floatingBar', [
           }
 
           $el.toggleClass('active', !scope.isCollapsed);
-          
+
           scope.active = newActive;
           active = scope.active; // preserve between pages
           isCollapsed = scope.isCollapsed;
@@ -49,9 +49,11 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         // This will be invoked from child bookingWidget directive
         // when booking tab should be opened
-        scope.openBookingTab = function(){
-          if(isCollapsed || scope.active !== BOOKING){
-            scope.setActive(BOOKING);
+        scope.openBookingTab = function(isMRB){
+          var tabType = isMRB?ADVANCED_BOOKING:BOOKING;
+
+          if(isCollapsed || scope.active !== tabType){
+            scope.setActive(tabType);
           }
         };
 
@@ -91,7 +93,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         children: numberToListFilter([], settings.children.min, settings.children.max,
           // TODO: Localize
           {
-            '0': 'No Children',
+            '0': 'Children',
             '1': '{} Child',
             'plural': '{} Children'
           })

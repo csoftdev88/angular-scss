@@ -9,4 +9,4 @@
 <!-- BOOKING WIDGET AREA-->
 <floating-bar ng-hide="$state.includes('reservation')"></floating-bar>
 
-<footer ng-include="'layouts/footer.html'"></footer>
+<footer ng-class="$state.includes('hotel') ? 'special-footer' : ''" ng-include="'layouts/footer.html'"></footer>

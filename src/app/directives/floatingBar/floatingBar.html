@@ -24,7 +24,7 @@
 <div ng-show="active">
   <booking-widget
     ng-class="{'multiroom-mode': active === ADVANCED_BOOKING}"
-    open-booking-tab="openBookingTab()"
+    open-booking-tab="openBookingTab"
     hide-bar="setActive(active)"
     ng-show="!isCollapsed && (active === BOOKING || active === ADVANCED_BOOKING)"
     advanced="active === ADVANCED_BOOKING">

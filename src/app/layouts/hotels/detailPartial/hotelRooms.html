@@ -10,19 +10,19 @@
         <a href
            ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
            ng-click="days && setPricePer(PP_STAY)"
-           title="{{ days ? false: 'Please select dates to enable per stay pricing'}}">
+           title="{{ days ? '': 'Please select dates to enable per stay pricing'}}">
           Per Stay
         </a>
       </pricing-switch>
       <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
-        <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">
+        <a ng-click="goToRoom(details.meta.slug, room.meta.slug)">
           <figure>
             <img ng-src="{{room.images[0].uri | cloudinaryImage : 430 : 286 : 'fill'}}" alt="{{room.name}}">
           </figure>
         </a>
 
         <div class="list-item-header">
-          <h3><a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">{{room.name}}</a></h3>
+          <h3><a ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
 
           <pricing-info>
             <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
@@ -46,15 +46,16 @@
         <pricing-info>
           <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
             <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-              from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+              from <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: currencyCode}}</span>
               <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
               <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-                <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+                <br />or <span class="value">{{getValuePer(room.minPointsRequired)}}</span> points
               </span>
             </p>
+
             <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
-            <a ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})" class="button">View Details</a>
+            <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">View Details</a>
           </div>
           <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
         </pricing-info>
@@ -63,7 +64,7 @@
           <div ng-bind-html="sanitize(room.description)"></div>
         </description-info>
         <div class="wide-button">
-          <a class="button" ui-sref="room({propertySlug: details.meta.slug, roomSlug: room.meta.slug})">View Details</a>
+          <a class="button" ng-click="goToRoom(details.meta.slug, room.meta.slug)">View Details</a>
         </div>
       </list-item>
       <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>

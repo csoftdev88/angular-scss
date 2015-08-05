@@ -17,7 +17,7 @@
         ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}"
         class="without-image">
         <div class="list-item-header">
-          <h2>{{product.name}}</h2>
+          <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
 
           <pricing-info>
             <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
@@ -25,10 +25,12 @@
 
             <p>
               <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
-              <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-            <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
-              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
-            </span>
+              <span ng-if="pricePer === PP_NIGHT">per night</span>
+              <span ng-if="pricePer === PP_STAY">per stay</span>
+
+              <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
+                <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+              </span>
             </p>
           </pricing-info>
 
@@ -43,10 +45,10 @@
           <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
 
           <p>
-            <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
-            <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+            <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
+            <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
             <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
-              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+              <br />or <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> points
             </span>
           </p>
 
@@ -86,17 +88,25 @@
       </list-item>
     </list-items>
 
-    <div ng-if="!products.length" class="products-not-available">
+    <div ng-if="!products.length" class="products-not-available" ng-switch="isOverAdultsCapacity()">
       <div ng-if="$stateParams.dates">
-        <h3>Sorry, this room is not available for the dates<br> you have selected</h3>
-        <p>Try selecting new dates or choosing a new room.</p>
+        <div ng-switch-when="false">
+          <h3>Sorry, this room is not available for the dates<br> you have selected</h3>
+          <p>Try selecting new dates or choosing a new room.</p>
+        </div>
+        <div ng-switch-when="true">
+          <h3>Not available on these dates.<br></h3>
+          <p> Please call the hotel on <span itemprop="telephone"><a href="tel:{{property.tel1}}">{{property.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</p>
+        </div>
       </div>
+
       <div ng-if="!$stateParams.dates">
         <h3>Please select your stay dates to see available rates!</h3>
         <p>Enter your dates on the bar below and hit search<br> to see all the rates you can book</p>
       </div>
+
       <!-- USER SPECIFIES DATES -->
-      <button-submit ng-click="selectDates()">Select Dates</button-submit>
+      <button-submit div ng-switch-when="false" ng-click="selectDates()">Select Dates</button-submit>
     </div>
 
     <hr />

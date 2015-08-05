@@ -284,7 +284,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           // property as in original object `points` instead of `pointsRequired`
           addon.points = addon.pointsRequired;
           $scope.reservationAddons.push(addon);
-          userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', true, true);
+          userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', true);
 
           // Updating user loyalties once payment was done using the points
           if(addon.pointsRequired && user.isLoggedIn()){

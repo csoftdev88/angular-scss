@@ -32,7 +32,7 @@
       <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
         <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" grid="{{preference.get('hotels-view-mode') === 'list' ? 3 : 1}}">
             <div class="item-image" ng-click="navigateToHotel(hotel.meta.slug)">
-              <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
+              <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
 
             <div class="ratings">
@@ -85,7 +85,7 @@
       </ul>
     </div>
     <div class="filters-bar">
-      <div ng-if="hasDates()">
+      <div ng-show="hasDates()">
         <h2>Filter</h2>
         <h3>Price per night</h3>
         <div
