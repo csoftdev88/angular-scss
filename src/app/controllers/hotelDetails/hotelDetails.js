@@ -162,8 +162,4 @@ angular.module('mobius.controllers.hotel.details', [])
   };
 
   $scope.advertClick = advertsService.advertClick;
-
-  $timeout(function(){
-    angular.element('footer').addClass('special-footer');
-  });
 });
