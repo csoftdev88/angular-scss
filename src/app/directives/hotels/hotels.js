@@ -184,7 +184,9 @@ angular.module('mobiusApp.directives.hotels', [])
           property: selectedHotel ? selectedHotel.code : null,
           propertySlug: propertySlug,
           rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null,
-          promoCode: $stateParams.promoCode ? $stateParams.promoCode : null
+          promoCode: $stateParams.promoCode ? $stateParams.promoCode : null,
+          corpCode: $stateParams.corpCode ? $stateParams.corpCode : null,
+          groupCode: $stateParams.groupCode ? $stateParams.groupCode : null
         };
 
         if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
@@ -192,7 +194,9 @@ angular.module('mobiusApp.directives.hotels', [])
         }
 
         //if hotel details set active booking bar
-        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {});
+        // TODO: Check if this is needed and how same codes should be
+        // broadcasted?
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
 
         $state.go('hotel', stateParams);
       };
