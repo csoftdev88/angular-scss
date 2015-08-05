@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.details', [])
 
 .controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout, scrollService, $location) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -155,6 +155,16 @@ angular.module('mobius.controllers.hotel.details', [])
     $timeout(function(){
       scrollService.scrollTo('#jsRooms', -20);
     }, 0);
+  };
+
+  $scope.goToRoom = function(pSlug, rSlug) {
+    if($stateParams.promoCode){
+      $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode});
+    }
+    else{
+      $state.go('room', {propertySlug: pSlug, roomSlug: rSlug});
+    }
+    
   };
 
   $scope.getAbsUrl = function(){
