@@ -6,21 +6,19 @@ angular.module('mobiusApp.services.adverts', [])
   .service( 'advertsService',  function($state, $rootScope, $timeout, contentService, _,
       bookingService) {
 
-    var advertClick = function (link) {
+    function advertClick(link) {
       switch(link.type) {
       case 'news':
-        $state.go('news', {
-          code: link.code
-        });
+        navigateToState('news', link.code);
+
         break;
       case 'offers':
         contentService.getOffers().then(function (offers) {
           var code = bookingService.getCodeFromSlug(link.code);
           var selectedOfferIndex = _.findIndex(offers, {code: code});
           var offer = offers[selectedOfferIndex];
-          $state.go('offers', {
-            code: link.code
-          });
+          navigateToState('offers',link.code);
+
           if (offer) {
             $timeout(function () {
               $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
@@ -31,14 +29,23 @@ angular.module('mobiusApp.services.adverts', [])
         });
         break;
       case 'about':
-        $state.go('aboutUs', {
-          code: link.code
-        });
+        navigateToState('aboutUs', link.code);
         break;
       default:
         window.open(link.uri, '_blank');
       }
-    };
+    }
+
+    function navigateToState(stateName, code){
+      // Checking if user is already on that state
+      if($state.current.name === stateName && $state.params.code === code){
+        return;
+      }
+
+      $state.go(stateName, {
+        code: code
+      });
+    }
 
     // Public methods
     return {
