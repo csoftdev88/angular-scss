@@ -31,6 +31,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       var editDateRangeInProgress = false;
 
       var counterPluralizationRules;
+      var isStartDateSelected;
 
       if(hasCounter){
         counterPluralizationRules = scope.$eval(attrs.counterPluralization) || {};
@@ -68,6 +69,7 @@ angular.module('mobiusApp.directives.datepicker', [])
         }
 
         updateButtonPane('data-title', scope.paneTitle);
+        isStartDateSelected = false;
       }
 
       // Multi input fields support
@@ -85,10 +87,6 @@ angular.module('mobiusApp.directives.datepicker', [])
           if($.datepicker._selectDateOverload !== undefined) {
             $.datepicker._selectDate = $.datepicker._selectDateOverload;
           }
-        }
-
-        function getDatetimeFromInstance(inst) {
-          return new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay).getTime();
         }
 
         element.datepicker({
@@ -148,41 +146,25 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
 
           onSelect: function(date, inst) {
-            if (!rangeSelection) {
+            if(!rangeSelection) {
               return;
             }
 
-            //click on endDate should start edit date range process
-            if (isTheSameDay(endDate, date)) {
-              editDateRangeInProgress = true;
-            } else {
-              //if edit date range process in progress && clicked on another date then extend date range
-              if (editDateRangeInProgress && !isTheSameDay(endDate, date)) {
-                endDate = getDatetimeFromInstance(inst);
+            var selectedDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
+
+            if(isStartDateSelected){
+              // Selecting endDate;
+              if(selectedDate > startDate){
+                endDate = selectedDate;
+              }else{
+                // Reversing the selection back
+                endDate = startDate;
+                startDate = selectedDate;
               }
-
-              var diff = getDaysBetween(startDate, endDate);
-
-              if (!editDateRangeInProgress) {
-                if (diff) {
-                  //move checkout automatically
-                  startDate = getDatetimeFromInstance(inst);
-
-                  var checkout = new Date(startDate);
-                  checkout.setDate(checkout.getDate() + diff);
-                  endDate = checkout.getTime();
-                } else {
-                  startDate = endDate;
-                  endDate = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
-                }
-              }
-
-              editDateRangeInProgress = false;
-            }
-
-            if (startDate > endDate) {
-              //swap values
-              endDate = [startDate, startDate = endDate][0];
+            }else{
+              // Selecting start/end date
+              startDate = selectedDate;
+              endDate = startDate;
             }
 
             if(hasCounter){
@@ -190,19 +172,12 @@ angular.module('mobiusApp.directives.datepicker', [])
             }
 
             updateButtonPane('data-title', scope.paneTitle);
+
+            isStartDateSelected = !isStartDateSelected;
+
           }
         }).datepicker('show');
       });
-
-      function isTheSameDay(datetime, dateString) {
-        var dateFromString = new Date(dateString);
-        var dateToCheck = new Date(datetime);
-
-        return dateFromString && dateToCheck &&
-          dateFromString.getDate() === dateToCheck.getDate() &&
-          dateFromString.getMonth() === dateToCheck.getMonth() &&
-          dateFromString.getFullYear() === dateToCheck.getFullYear();
-      }
 
       function getDaysBetween(startDate, endDate) {
         if (!startDate || !endDate) {
@@ -237,8 +212,13 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       // Checking if date is already selected (start date only)
+      // This applies only for start date selection
       function isSelected(date) {
-        return startDate && !$window.moment(date).diff(startDate);
+        if(isStartDateSelected){
+          return startDate && !$window.moment(date).diff(startDate);
+        }else{
+          return endDate && !$window.moment(date).diff(endDate);
+        }
       }
 
       // Check if date selection is valid
