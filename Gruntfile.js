@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-autoprefixer');
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-localisation');
@@ -109,12 +109,15 @@ module.exports = function(grunt) {
       }
     },
 
-    autoprefixer: {
+    postcss: {
       options: {
-        diff: '<%= config.build %>/styles/autoprefixer.patch'
+        processors: [
+          require('autoprefixer-core')
+        ]
       },
       dist: {
-        src: '<%= config.build %>/<%= config.styles %>'
+        src: ['<%= config.compile %>/<%= config.styles %>',
+          '<%= config.build %>/<%= config.styles %>']
       }
     },
 
@@ -208,7 +211,7 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
-        tasks: ['less:development', 'autoprefixer'],
+        tasks: ['less:development', 'postcss'],
         options: { livereload: true }
       },
       scripts: {
@@ -305,7 +308,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:development',
-    'autoprefixer',
+    'postcss',
     'index:build',
     'copy:images',
     'copy:fonts',
@@ -320,6 +323,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:production',
+    'postcss',
     'concat',
     'uglify',
     'copy',
