@@ -12,7 +12,9 @@ body {
 
   background: @c-background-body;
   color: @c-base;
-  &.modal-open,
+  &.modal-open{
+    overflow: hidden;
+  }
   &.floating-bar-active{
     .viewport-mobile &{
       overflow: hidden;

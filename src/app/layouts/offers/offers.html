@@ -1,9 +1,8 @@
-<hero-slider content="heroContent"></hero-slider>
+<hero-slider content="heroContent" hero-sliderфву></hero-slider>
 
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
 <main class="grid-wrapper">
-
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <offers-list grid-row ng-if="!showDetail">
@@ -34,7 +33,8 @@
       <button-submit ng-switch-when="true" ng-click="selectDates()">Select Dates</button-submit>
 
       <button-back role="button" tabindex="0" ng-click="goToOffersList()" class="pull-left">Back</button-back>
-
+    </div>
+    <div grid="12">
       <hr>
 
       <h2 ng-if="offersList.length > 1">You may also be <strong>interested in:</strong></h2>
