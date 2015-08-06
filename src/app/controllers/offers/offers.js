@@ -35,7 +35,7 @@ angular.module('mobius.controllers.offers', [])
           return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length;
         });
       }
-      
+
       if ($stateParams.code) {
         selectOffer(bookingService.getCodeFromSlug($stateParams.code));
       }
@@ -103,7 +103,7 @@ angular.module('mobius.controllers.offers', [])
       else{
         $state.go('hotels', {promoCode: offer.promoCode, scrollTo: 'hotels'});
       }
-      
+
     };
 
     // Checking if user have selected dates
@@ -114,7 +114,9 @@ angular.module('mobius.controllers.offers', [])
       $scope.selectDates = function(){
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           openDatePicker: true,
-          promoCode: $stateParams.code
+          promoCode: $scope.selectedOffer.promoCode || null,
+          corpCode: $scope.selectedOffer.corpCode || null,
+          groupCode: $scope.selectedOffer.groupCode || null
         });
       };
     }
