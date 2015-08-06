@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-autoprefixer');
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-localisation');
@@ -109,12 +109,24 @@ module.exports = function(grunt) {
       }
     },
 
-    autoprefixer: {
-      options: {
-        diff: '<%= config.build %>/styles/autoprefixer.patch'
-      },
-      dist: {
+    postcss: {
+      development: {
+        options: {
+          processors: [
+            require('autoprefixer-core')
+          ]
+        },
         src: '<%= config.build %>/<%= config.styles %>'
+      },
+
+      production: {
+        options: {
+          processors: [
+            require('autoprefixer-core'),
+            require('cssnano')()
+          ]
+        },
+        src: '<%= config.compile %>/<%= config.styles %>'
       }
     },
 
@@ -208,7 +220,7 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
-        tasks: ['less:development', 'autoprefixer'],
+        tasks: ['less:development', 'postcss:development'],
         options: { livereload: true }
       },
       scripts: {
@@ -305,7 +317,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:development',
-    'autoprefixer',
+    'postcss:development',
     'index:build',
     'copy:images',
     'copy:fonts',
@@ -320,6 +332,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:production',
+    'postcss:production',
     'concat',
     'uglify',
     'copy',
