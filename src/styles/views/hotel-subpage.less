@@ -45,7 +45,7 @@ more-info-list{
       border-radius: @radius*2;
       box-sizing: border-box;
       flex: 0 0 ~"calc(33% - 20px)";
-      height: 200px;
+      height: 360px;
       overflow: hidden;
       margin: 0 @baseline/2 @baseline @baseline/2;
       width: ~"calc(33% - 20px)";
@@ -57,9 +57,13 @@ more-info-list{
       background: #fff;
 
       text-align: center;
+      display: table;
 
       &.has-image{
-        height: 360px;
+        display: block;
+        section{
+          display: block;
+        }
         h2{
           margin-top: 0;
         }
@@ -84,9 +88,10 @@ more-info-list{
       //- Content - Title + Description
       section {
         position: relative;
-
         max-height: 150px;
         overflow: hidden;
+        display: table-cell;
+        vertical-align: middle;
 
         &:after {
           position: absolute;
