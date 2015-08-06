@@ -402,6 +402,19 @@ angular.module('mobius.controllers.reservation', [])
       });
   };
 
+  $scope.getGuestsCount = function(type){
+    if($scope.isMultiRoomMode){
+      return _.reduce(
+      _.map(multiRoomData, function(room){
+        return room[type];
+      }), function(t, n){
+        return t + n;
+      });
+    }
+
+    return $scope.bookingDetails[type];
+  };
+
   $scope.makeReservation = function(){
     if(!$scope.additionalInfo.agree) {
       return modalService.openTermsAgreeDialog();

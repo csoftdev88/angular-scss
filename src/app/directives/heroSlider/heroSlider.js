@@ -7,8 +7,7 @@ angular.module('mobiusApp.directives.slider', [])
   return {
     restrict: 'E',
     scope: {
-      content: '=',
-      advert: '='
+      content: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
@@ -83,12 +82,12 @@ angular.module('mobiusApp.directives.slider', [])
 
       // Redirecting to corresponding page
       scope.onContentClick = function(){
-        if(isAnimating || !scope.advert){
+        if(isAnimating){
           return;
         }
 
         var slideData = scope.content[scope.slideIndex];
-        if(slideData) {
+        if(slideData && slideData.link) {
           advertsService.advertClick(slideData.link);
         }
       };

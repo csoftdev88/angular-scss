@@ -33,7 +33,6 @@ angular.module('mobiusApp.services.userMessagesService', [])
       if(messages.length){
         clearMessages();
       }
-
     });
 
     function getMessages(){
