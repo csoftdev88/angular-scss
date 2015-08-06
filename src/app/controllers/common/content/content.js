@@ -118,29 +118,22 @@ angular.module('mobius.controllers.common.content', [])
     }
 
     function broadcast(code) {
+      //clone state object
+      var stateParams = angular.copy($state.params);
+
       //if offer details page
       if (contentTypes.offers.detailState === $scope.settings.detailState &&
         contentTypes.offers.paramName === $scope.settings.paramName && code) {
         code = bookingService.getCodeFromSlug(code);
         var selectedOfferIndex = _.findIndex($scope.offers, {code: code});
         if (selectedOfferIndex >= 0) {
-          $timeout(function () {
-            $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-              promoCode: $scope.offers[selectedOfferIndex].promoCode
-            });
-          }, 0);
-        } else {
-          //empty promoCode if offer is not available
-          $timeout(function () {
-            $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-              promoCode: ''
-            });
-          }, 0);
+          stateParams.promoCode = $scope.offers[selectedOfferIndex].promoCode;
         }
-      } else if (contentTypes.hotels.paramName === $scope.settings.paramName && code){
-        //if hotel details set active booking bar
-        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {});
       }
+
+      $timeout(function(){
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
+      });
     }
 
     $scope.getStateHref = function(code){
