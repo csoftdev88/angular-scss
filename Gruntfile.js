@@ -110,15 +110,23 @@ module.exports = function(grunt) {
     },
 
     postcss: {
-      options: {
-        processors: [
-          require('autoprefixer-core'),
-          require('cssnano')()
-        ]
+      development: {
+        options: {
+          processors: [
+            require('autoprefixer-core')
+          ]
+        },
+        src: '<%= config.build %>/<%= config.styles %>'
       },
-      dist: {
-        src: ['<%= config.compile %>/<%= config.styles %>',
-          '<%= config.build %>/<%= config.styles %>']
+
+      production: {
+        options: {
+          processors: [
+            require('autoprefixer-core'),
+            require('cssnano')()
+          ]
+        },
+        src: '<%= config.compile %>/<%= config.styles %>'
       }
     },
 
@@ -212,7 +220,7 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
-        tasks: ['less:development', 'postcss'],
+        tasks: ['less:development', 'postcss:development'],
         options: { livereload: true }
       },
       scripts: {
@@ -309,7 +317,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:development',
-    'postcss',
+    'postcss:development',
     'index:build',
     'copy:images',
     'copy:fonts',
@@ -324,7 +332,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:production',
-    'postcss',
+    'postcss:production',
     'concat',
     'uglify',
     'copy',
