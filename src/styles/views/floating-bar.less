@@ -15,6 +15,19 @@ floating-bar {
   background: @c-booking-widget;
   color: #fff;
 
+  .viewport-mobile &{
+    height: 70px;
+    &.active{
+      height: auto;
+      max-height: 100%;
+      overflow-y: auto;
+
+      > ul{
+        background: @c-brown;
+      }
+    }
+  }
+
   @media print { 
    display: none;
   }
@@ -52,18 +65,18 @@ floating-bar {
       top: 0;
       max-width: 100%;
       transform: translate(0, 0);
+      padding: 0;
+      box-sizing: border-box;
+      background: @c-green;
     }
 
     li {
       position: relative;
-
       display: block;
       float: left;
       padding: 0 @baseline/2 0 @baseline*1.5;
-
       background: lighten(@c-booking-widget, 10%);
       color: #fff;
-
       line-height: @baseline * 1.5;
       text-transform: uppercase;
 
@@ -81,6 +94,11 @@ floating-bar {
         }
       }
 
+      .viewport-mobile &{
+        padding: 0;
+        text-align: center;
+      }
+
       //- Filling
       &:first-of-type:before{
         position: absolute;
@@ -92,6 +110,10 @@ floating-bar {
         background: lighten(@c-booking-widget, 10%);;
 
         content: '';
+
+        .viewport-mobile &{
+          display: none;
+        }
       }
 
       &.is-active:first-of-type:before {
@@ -124,6 +146,10 @@ floating-bar {
         border-right: @baseline solid transparent;
 
         content: "";
+
+        .viewport-mobile &{
+          content: none;
+        }
       }
 
       //- If tab is selected
@@ -143,12 +169,22 @@ floating-bar {
           z-index: 2;
         }
 
+        &.mobile-single-booking{
+          display: none;
+        }
+
         .mobile{
           display: none;
         }
 
         //Mobile
-        .viewport-mobile & {
+        .viewport-mobile &.mobile-single-booking {
+          display: block;
+          width: 50%;
+          margin-bottom: 20px;
+        }
+
+        .viewport-mobile &.main-mobile-toggle {
           float: none;
           text-align: center;
           padding-right: 0;
@@ -171,7 +207,7 @@ floating-bar {
                 &:after {
                   .fa;
                   position: absolute;
-                  right: @baseline / 2;
+                  right: 20px;
                   top: 20px;
                   color: #fff;
                   font-size: 21px;
@@ -190,6 +226,10 @@ floating-bar {
 
         &.is-active {
           z-index: 2;
+        }
+        .viewport-mobile & {
+          width: 50%;
+          margin-bottom: 20px;
         }
       }
 

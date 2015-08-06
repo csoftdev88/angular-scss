@@ -7,10 +7,24 @@ dialog .ui-info.modal-policies {
   main {
     padding: @baseline/2 @baseline;
 
+    accordion{
+      .panel-group{
+        .panel{
+          .panel-heading{
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border: 1px solid #ccc;
+          }
+        }
+      }
+    }
+
     ul {
       overflow-y: auto;
       max-height: 400px;
       box-sizing: border-box;
+      border: 1px solid #ccc;
+      padding: 10px;
     }
 
     li {
@@ -42,3 +56,6 @@ dialog .ui-info.modal-policies {
     }
   }
 }
+
+
+

@@ -6,7 +6,7 @@ angular.module('mobius.controllers.rewards', [])
 
   .controller('RewardsCtrl', function($scope, $controller, rewardsService,
     $q, preloaderFactory, $state, user, $stateParams, modalService, breadcrumbsService,
-    userMessagesService) {
+    userMessagesService, _) {
 
     //$controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Rewards');
@@ -25,7 +25,7 @@ angular.module('mobius.controllers.rewards', [])
         rewardsService.getMy(user.getCustomerId()),
         rewardsService.getAll(user.getCustomerId()),
       ]).then(function(data){
-        $scope.consumedRewards = data[0];
+        $scope.consumedRewards = _.sortBy(data[0], 'earned').reverse();
         $scope.consumableRewards = data[1].map(function(reward){
           // Adding affordable flag
           reward._isAffordable = user.getUser().loyalties.amount >= reward.pointCost;

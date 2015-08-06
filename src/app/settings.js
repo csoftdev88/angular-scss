@@ -205,7 +205,7 @@ angular.module('mobiusApp.config', [])
       'includeAllPropertyOption': true,
       'adults': {
         'min': 1,
-        'max': 6
+        'max': 8
       },
       'children': {
         'min': 0,
@@ -257,7 +257,7 @@ angular.module('mobiusApp.config', [])
         'profile': true,
         'badges': false,
         'rewards': true,
-        'loyalities': true
+        'loyalities': false
       }
     },
     // States layout

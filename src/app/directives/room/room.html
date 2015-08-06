@@ -17,7 +17,7 @@
         ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}"
         class="without-image">
         <div class="list-item-header">
-          <h2>{{product.name}}</h2>
+          <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
 
           <pricing-info>
             <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
@@ -25,10 +25,12 @@
 
             <p>
               <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
-              <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-            <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
-              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
-            </span>
+              <span ng-if="pricePer === PP_NIGHT">per night</span>
+              <span ng-if="pricePer === PP_STAY">per stay</span>
+
+              <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
+                <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+              </span>
             </p>
           </pricing-info>
 
@@ -43,10 +45,10 @@
           <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
 
           <p>
-            <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
-            <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+            <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
+            <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
             <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
-              <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+              <br />or <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> points
             </span>
           </p>
 
@@ -68,7 +70,7 @@
 
             <p class="action-links">
               <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a> &nbsp;&nbsp; | &nbsp;&nbsp;
-              <a href ng-click="openPoliciesInfo(product)" ng-if="product.policies">View Policies</a>
+              <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies">View Policies</a>
                &nbsp;&nbsp; | &nbsp;&nbsp;
               <a href ng-click="openRoomDetailsDialog(product.description)" ng-if="openRoomDetailsDialog">Read More</a>
             </p>

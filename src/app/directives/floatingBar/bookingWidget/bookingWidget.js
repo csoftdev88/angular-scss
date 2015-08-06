@@ -306,31 +306,18 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         //var location = scope.selected.location;
         var property = scope.selected.property;
 
-        if (region && region.code) {
-          scope.propertyRegionList = [
-            {name: 'All regions', type: 'all'},
-            {name: region.nameShort, type: 'region', code: region.code}
-          ];
-          $window._.forEach(region.locations, function(location) {
-            scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
-            $window._.forEach(location.properties, function(property) {
-              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
-            });
-          });
-        } else {
-          scope.propertyRegionList = [];
-          if (scope.settings.includeAllPropertyOption) {
-            scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
-          }
-          $window._.forEach(regionsProperties, function(region) {
-            scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
-            //$window._.forEach(region.locations, function(location) {
-            //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
-            $window._.forEach(region.properties, function(property) {
-              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
-            });
-          });
+        scope.propertyRegionList = [];
+        if (scope.settings.includeAllPropertyOption) {
+          scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
         }
+        $window._.forEach(regionsProperties, function(region) {
+          scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
+          //$window._.forEach(region.locations, function(location) {
+          //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
+          $window._.forEach(region.properties, function(property) {
+            scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+          });
+        });
 
         if (property) {
           scope.regionPropertySelected = $window._.find(scope.propertyRegionList, {
@@ -417,6 +404,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.selected.location = undefined;
           scope.selected.property = undefined;
           break;
+
         case 'property':
           scope.selected.property = findProperty(scope.regionPropertySelected.code);
           $stateParams.property = scope.selected.property.code;
@@ -481,6 +469,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.adults = rooms[roomIndex].adults;
             stateParams.children = rooms[roomIndex].children;
           }
+          stateParams.promoCode = null;
+          stateParams.corpCode = null;
+          stateParams.groupCode = null;
         }
 
         if(!scope.selected.property || !scope.selected.property.code){
@@ -512,6 +503,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         return scope.selected.property || scope.selected.dates;
       };
 
+      scope.removeCode = function(){
+        scope.selected.codeType = null;
+        scope.selected.promoCode = null;
+        scope.selected.corpCode = null;
+        scope.selected.groupCode = null;
+      };
+
+      /*
       function recomputeGlobalAdultsChildren() {
         // TODO: FIX SUM
         function getSum(property) {
@@ -523,7 +522,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.selected.adults = valueToAdultsOption(Math.max(scope.settings.adults.min, Math.min(scope.settings.adults.max, getSum('adults'))));
         scope.selected.children = valueToChildrenOption(Math.max(scope.settings.children.min, Math.min(scope.settings.children.max, getSum('children'))));
         scope.checkAvailability();
-      }
+      }*/
 
       // NOTE: Matching values from URL to corresponding option
       // displayed in a dropdown
@@ -573,7 +572,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.selected.rooms.push(room);
         }
         //room.unwatch = scope.$watch(function() { return room; }, recomputeGlobalAdultsChildren, true);
-        recomputeGlobalAdultsChildren();
+        //recomputeGlobalAdultsChildren();
         canAddRoom();
       };
 
@@ -581,7 +580,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if (i >= 0 && i < scope.selected.rooms.length) {
           scope.selected.rooms.splice(i, 1);
           //room[0].unwatch();
-          recomputeGlobalAdultsChildren();
+          //recomputeGlobalAdultsChildren();
         }
         canAddRoom();
       };
@@ -616,8 +615,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // TODO: Set code type from offers
         function prefillPromoCode() {
           queryService.removeParam(PARAM_TYPES.promoCode.search);
+          queryService.removeParam(PARAM_TYPES.corpCode.search);
+          queryService.removeParam(PARAM_TYPES.groupCode.search);
+
           scope.selected.promoCode = settings.promoCode;
-          var promoInput = angular.element('#booking-widget-promo-code');
+          // TODO: Offers should have code types - needs API
+          scope.selected.codeType = $window._.findWhere(scope.codeTypes, {param: 'promoCode'});
+
+          var promoInput = angular.element('.booking-widget-promo-code');
           if (promoInput.length) {
             var prefilledClass = 'prefilled';
             promoInput.addClass(prefilledClass);

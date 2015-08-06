@@ -49,17 +49,26 @@ angular.module('mobius.controllers.reservationDetail', [])
         $scope.reservation.packages = $scope.reservation.packageItemCodes || []; // API workaround
         var defaultRoom = $scope.reservation.rooms[0];
 
-        if (modalService.openPoliciesInfo.bind) { // WTF - PhatomJS workaround
-          var policies = {};
-          $window._.forEach(defaultRoom, function (value, key) {
-            if(key.indexOf('policy') === 0) {
-              policies[key.substr(6).toLowerCase()] = value;
-            }
+        $scope.openPoliciesInfo = function(){
+          var products = $scope.reservation.rooms.map(function(room){
+            var policies = {};
+
+            $window._.forEach(room, function (value, key) {
+              if(key.indexOf('policy') === 0) {
+                policies[key.substr(6).toLowerCase()] = value;
+              }
+            });
+
+            return {
+              name: room.productName,
+              policies: policies
+            };
           });
-          $scope.openPoliciesInfo = modalService.openPoliciesInfo.bind(modalService, {
-            policies: policies
-          });
-        }
+
+
+
+          modalService.openPoliciesInfo(products);
+        };
 
         // Getting property details
         var propertyPromise = propertyService.getPropertyDetails(reservation.property.code).then(function(property) {
@@ -78,13 +87,18 @@ angular.module('mobius.controllers.reservationDetail', [])
         // Getting room/products data
         var roomDataPromise = propertyService.getRoomDetails(reservation.property.code, defaultRoom.roomTypeCode).then(function(data) {
           $scope.roomDetails = data;
-          if (modalService.openPriceBreakdownInfo.bind) { // WTF - PhatomJS workaround
-            $scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo.bind(modalService, $scope.roomDetails, {
+
+          $scope.openPriceBreakdownInfo = function(){
+            var room = _.clone(data);
+            // TODO: Check if this data is enough
+            room._selectedProduct = {
               name: defaultRoom.productName,
               totalAfterTax: defaultRoom.price,
               breakdowns: []
-            });
-          }
+            };
+
+            modalService.openPriceBreakdownInfo([room]);
+          };
         });
 
         $scope.otherRooms = [];

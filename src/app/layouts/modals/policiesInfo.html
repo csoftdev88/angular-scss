@@ -8,11 +8,20 @@
   </header>
 
   <main>
-    <ul>
-      <li ng-repeat="(policyCode, value) in data.policies">
-        <h3>{{getPolicyTitle(policyCode)}}:</h3>
-        <p ng-bind-html="sanitize(value)"></p>
-      </li>
+      <accordion close-others="true">
+        <accordion-group is-open="$first " ng-repeat="product in data">
+          <accordion-heading ng-if="data.length !== 1">
+            <div>
+              {{product.name}}
+            </div>
+          </accordion-heading>
+          <ul>
+            <li ng-repeat="(policyCode, value) in product.policies">
+              <h3>{{getPolicyTitle(policyCode)}}:</h3>
+              <p ng-bind-html="sanitize(value)"></p>
+          </ul>
+        </accordion-group>
+      </accordion>
     </ul>
   </main>
 </div>

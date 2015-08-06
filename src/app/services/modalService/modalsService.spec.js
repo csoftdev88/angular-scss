@@ -4,6 +4,7 @@ describe('mobiusApp.services.modal', function() {
   var _modalService, _spyModalOpen, _spyModalStackDismissAll;
 
   beforeEach(function() {
+    module('underscore');
     module('mobiusApp.services.modal', function($provide) {
       // Mocking $stateParams service
 

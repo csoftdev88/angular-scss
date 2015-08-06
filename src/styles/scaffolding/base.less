@@ -1,14 +1,22 @@
 /////////////////////
 //// BASE STYLES ////
 /////////////////////
+body,
+html{
+  position: relative;
+}
 
 body {
   padding-bottom: 60px;
+  overflow-x: hidden;
 
   background: @c-background-body;
   color: @c-base;
-  &.modal-open{
-    overflow: hidden;
+  &.modal-open,
+  &.floating-bar-active{
+    .viewport-mobile &{
+      overflow: hidden;
+    }
   }
 }
 

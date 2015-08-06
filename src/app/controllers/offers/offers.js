@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -92,6 +92,19 @@ angular.module('mobius.controllers.offers', [])
         .addBreadCrumb('Offers', 'offers', {code: null})
         .addBreadCrumb($scope.selectedOffer.title);
     }
+
+    $scope.goToHotels = function(offer) {
+      if($stateParams.property){
+        propertyService.getPropertyDetails($stateParams.property)
+          .then(function(details){
+            $state.go('hotel', {propertySlug: details.meta.slug, promoCode: offer.promoCode, scrollTo: 'jsRooms'}, {reload: true});
+          });
+      }
+      else{
+        $state.go('hotels', {promoCode: offer.promoCode, scrollTo: 'hotels'});
+      }
+      
+    };
 
     // Checking if user have selected dates
     var bookingParams = bookingService.getAPIParams();

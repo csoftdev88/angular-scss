@@ -156,6 +156,7 @@ describe('mobius.controllers.reservation', function() {
         });
 
         $controllerProvider.register('ISOCountriesCtrl', function(){});
+        $controllerProvider.register('PriceCtr', function(){});
 
         var breadcrumbs = {
           clear: function(){ return breadcrumbs; },

@@ -104,7 +104,7 @@ angular.module('mobius.controllers.reservation', [])
         address: userData.address1 || '',
         city: userData.city || '',
         stateProvince: userData.state,
-        country: userData.country,
+        country: userData.iso3,
         zip: userData.zip || '',
         phone: userData.tel1 || ''
       });
@@ -235,7 +235,9 @@ angular.module('mobius.controllers.reservation', [])
     case 'point':
       $scope.billingDetails.paymentMethod = 'point';
       // NOTE: Pay with points is only available for logged in users
-      $scope.pointsData = {};
+      $scope.pointsData = {
+        pointsRequired: $scope.getTotal('pointsRequired')
+      };
 
       if(user.isLoggedIn()){
         if(user.getUser().loyalties){
@@ -507,12 +509,25 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.readPolicies = function(){
-    $scope.openPoliciesInfo($scope.selectedProduct);
+    if($scope.allRooms && $scope.allRooms.length){
+      var products = $scope.allRooms.map(function(room){
+        return room._selectedProduct;
+      });
+
+      $scope.openPoliciesInfo(products);
+    }
   };
 
   $controller('ISOCountriesCtrl', {$scope: $scope});
 
+  $scope.openPriceBreakdownInfo = function(){
+    if($scope.allRooms && $scope.allRooms.length){
+      modalService.openPriceBreakdownInfo($scope.allRooms);
+    }
+  };
+
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
+  $controller('PriceCtr', {$scope: $scope});
 });
