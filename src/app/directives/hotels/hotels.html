@@ -35,6 +35,8 @@
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
 
+            <h2 ng-if="preference.get('hotels-view-mode') === 'list'" ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
+
             <div class="ratings">
               <div class="stars rating-trip-advisor img">
                 <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
@@ -47,7 +49,7 @@
               </div>
             </div>
 
-            <h2 ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
+            <h2 ng-if="preference.get('hotels-view-mode') === 'tiles'" ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
               <p class="price available left" ng-if="hotel.available">
                 from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night
