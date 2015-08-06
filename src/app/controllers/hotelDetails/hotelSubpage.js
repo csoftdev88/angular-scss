@@ -39,6 +39,18 @@ angular.module('mobius.controllers.hotel.subpage', [])
         $scope.info = c;
       }
       else{
+
+        //Pull first image of description to use in moreInfo thumbnails
+        var elem = document.createElement('div');
+        elem.innerHTML = c.description;
+        var images = elem.getElementsByTagName('img');
+        if(images.length){
+          c.image = {};
+          c.image.uri = images[0].src;
+          c.image.alt = images[0].alt;
+        }
+        elem.remove();
+
         $scope.moreInfo.push(c);
       }
     }
