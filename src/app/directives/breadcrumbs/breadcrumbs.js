@@ -27,6 +27,14 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
             scope.hrefs = hrefs || [];
           }
         );
+        var unWatchAbsHrefs = scope.$watch(
+          function() {
+            return breadcrumbsService.getAbsHrefs();
+          },
+          function(absHrefs) {
+            scope.absHrefs = absHrefs || [];
+          }
+        );
         var unWatchActiveHref = scope.$watch(
           function() {
             return breadcrumbsService.getActiveHref();
@@ -39,6 +47,7 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
           unWatchBreadcrumbs();
           unWatchHrefs();
           unWatchActiveHref();
+          unWatchAbsHrefs();
         });
 
         // TODO: Unify across the app

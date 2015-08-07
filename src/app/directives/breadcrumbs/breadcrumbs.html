@@ -14,5 +14,11 @@
         <span ng-if="!href.id">{{href.name}}</span>
       </li>
     </ul>
+    <ul ng-if="absHrefs.length" class="alt-nav">
+      <li ng-repeat="link in absHrefs">
+        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params)}}">{{link.name}}</a>
+        <span ng-if="!link.state">{{link.name}}</span>
+      </li>
+    </ul>
   </div>
 </nav>

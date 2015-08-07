@@ -125,11 +125,13 @@ angular.module('mobiusApp.directives.room', [])
       }
 
       scope.isOverAdultsCapacity = function(){
+        var params = bookingService.getAPIParams();
+
         return Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking &&
           !bookingService.isMultiRoomBooking() &&
-          bookingParams.from &&
-          bookingParams.to &&
-          bookingParams.adults > Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking;
+          params.from &&
+          params.to &&
+          params.adults > Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking;
       };
 
       scope.switchToMRBMode = function(){
@@ -156,7 +158,7 @@ angular.module('mobiusApp.directives.room', [])
             productCode: product.code
           });
         }
-        
+
       };
 
       scope.onClickOnAssociatedRoom=function(roomDetails){
