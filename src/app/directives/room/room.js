@@ -64,7 +64,7 @@ angular.module('mobiusApp.directives.room', [])
           breadcrumbsService.clear()
             .addBreadCrumb('Hotels', 'hotels')
             .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
-            .addBreadCrumb('Rooms', 'hotel', {propertyCode: propertyCode}, 'jsRooms')
+            .addBreadCrumb('Rooms', 'hotel', {propertySlug: bookingParams.propertySlug}, 'jsRooms')
             .addBreadCrumb(data[0].roomDetails.name);
 
           //scroll to element if set in url scrollTo param
@@ -125,11 +125,13 @@ angular.module('mobiusApp.directives.room', [])
       }
 
       scope.isOverAdultsCapacity = function(){
+        var params = bookingService.getAPIParams();
+
         return Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking &&
           !bookingService.isMultiRoomBooking() &&
-          bookingParams.from &&
-          bookingParams.to &&
-          bookingParams.adults > Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking;
+          params.from &&
+          params.to &&
+          params.adults > Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking;
       };
 
       scope.switchToMRBMode = function(){
@@ -156,7 +158,7 @@ angular.module('mobiusApp.directives.room', [])
             productCode: product.code
           });
         }
-        
+
       };
 
       scope.onClickOnAssociatedRoom=function(roomDetails){
