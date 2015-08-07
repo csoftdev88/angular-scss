@@ -55,7 +55,7 @@
 
             <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
-            <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">View Details</a>
+            <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">{{room.priceFrom ? 'Book Now' : 'View Details'}}</a>
           </div>
           <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
         </pricing-info>
