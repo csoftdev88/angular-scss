@@ -209,11 +209,13 @@ angular.module('mobius.controllers.reservationDetail', [])
       modalService.openCancelReservationDialog($stateParams.reservationCode).then(function(){
         var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode)
         .then(function(){
+          
           // Reservation is removed, notifying user
           userMessagesService.addMessage('<div>Your Reservation <strong>' +
-            $stateParams.reservationCode + '</strong> was successfully canceled.</div>');
-
+          $stateParams.reservationCode + '</strong> was successfully canceled.</div>', false, true);
+          
           $state.go('reservations');
+          
         }, function(error){
           if (error && error.error && error.error.msg) {
             userMessagesService.addMessage('<p>' + error.error.msg + '</p>');
