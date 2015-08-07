@@ -112,6 +112,15 @@ angular.module('mobius.controllers.hotel.details', [])
           if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
             breadcrumbsService.removeHref('Offers');
           }
+          else{
+            var scrollToValue = $location.search().scrollTo || null;
+            if (scrollToValue && scrollToValue === 'jsOffers') {
+              $timeout(function(){
+                scrollService.scrollTo(scrollToValue, 20);
+              }, 500);
+            }
+          }
+          
         });
 
         $scope.scrollToBreadcrumbs();
@@ -128,10 +137,14 @@ angular.module('mobius.controllers.hotel.details', [])
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
       //scroll to element if set in url scrollTo param
       var scrollToValue = $location.search().scrollTo || null;
-      if (scrollToValue) {
+      if (scrollToValue && scrollToValue !== 'jsOffers' && scrollToValue !== 'fnOpenLightBox') {
         $timeout(function(){
           scrollService.scrollTo(scrollToValue, 20);
         }, 500);
+      }
+      else if(scrollToValue && scrollToValue === 'fnOpenLightBox'){
+        $scope.openGallery();
+        $location.search('scrollTo', null);
       }
     }));
   }
