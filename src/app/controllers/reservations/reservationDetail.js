@@ -178,9 +178,18 @@ angular.module('mobius.controllers.reservationDetail', [])
         return;
       }
 
+      // Opening modification confirmation dialogue
+      modalService.openModifyingReservationDialogue(reservation.reservationCode)
+        .then(function(){
+          // Reservation modification is confirmed
+          startModification(reservation);
+        });
+    };
+
+    function startModification(reservation){
       // Redirecting to hotel detail page with corresponding booking settings
       // and switching to edit mode
-      // TODO: Support multiroom modification once API is ready
+      // TODO: Support multiroom modification once API is ready for modification
       var bookingParams = {
         property: reservation.property.code,
         adults: $scope.getCount('adults'),
@@ -197,7 +206,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       };
 
       $state.go('hotel', bookingParams);
-    };
+    }
 
     $scope.openCancelReservationDialog = function(){
       // NOTE: API not providing the flag yet
