@@ -4,13 +4,17 @@ angular.module('mobiusApp.services.userMessagesService', [])
   .service('userMessagesService', function($rootScope, $timeout) {
     var TYPE_INFO = 'info-message';
     var messages = [];
+    var isChangingRoute = false;
 
     function clearMessages(){
       messages.length = 0;
       document.body.style.paddingTop = 0;
     }
 
-    function addMessage(html, keepOldMessages) {
+    function addMessage(html, keepOldMessages, routeIsChanging) {
+      
+      isChangingRoute = routeIsChanging || false;
+
       if(!keepOldMessages && messages.length){
         clearMessages();
       }
@@ -28,11 +32,12 @@ angular.module('mobiusApp.services.userMessagesService', [])
     }
 
     // State change listener
-    $rootScope.$on('$stateChangeSuccess', function() {
+    $rootScope.$on('$stateChangeStart', function() {
       //Remove all messages on route change
-      if(messages.length){
+      if(messages.length && !isChangingRoute){
         clearMessages();
       }
+      isChangingRoute = false;
     });
 
     function getMessages(){

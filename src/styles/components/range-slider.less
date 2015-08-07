@@ -47,7 +47,7 @@
 .ngrs-range-slider {
   position: relative;
   margin: 10px 0 30px;
-  padding: 4px;
+  padding: 4px 0;
   background: #fff;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -193,7 +193,12 @@
 }
 /* line 172, scss/_rangeSlider.scss */
 .ngrs-range-slider .ngrs-attached-handles .ngrs-value > div {
-  margin: 0 0 0 -50%;
+  transform: translate(-50%, 0);
+  background: @c-dark-brown;
+  color: #fff;
+  padding: 2px 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 /* line 181, scss/_rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical {

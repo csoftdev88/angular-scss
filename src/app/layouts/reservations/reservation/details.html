@@ -41,6 +41,7 @@
 
       <label for="telephone" class="input-right">
         <input type="text" id="telephone" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number required
+          preferred-countries="ca, us, gb"
           ng-model="userDetails.phone"
           name="phone"
           placeholder="Phone"/>
@@ -68,7 +69,7 @@
 
       <label for="state" class="input-right">
         <input type="text" id="state"
-          placeholder="State / Region / Province"
+          placeholder="Province / State"
           ng-model="userDetails.stateProvince"
           name="stateProvince"/>
         <span>State / Province</span>
@@ -76,10 +77,10 @@
 
       <label for="postal-code" class="input-left">
         <input type="text" id="postal-code" required
-          placeholder="Zip Code"
+          placeholder="Postal Code / Zip Code"
           ng-model="userDetails.zip"
           name="zip"/>
-        <span>Zip/Postal Code</span>
+        <span>Postal Code / Zip Code</span>
       </label>
 
       <label for="country" class="input-right">
