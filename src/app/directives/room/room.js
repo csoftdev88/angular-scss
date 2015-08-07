@@ -64,7 +64,7 @@ angular.module('mobiusApp.directives.room', [])
           breadcrumbsService.clear()
             .addBreadCrumb('Hotels', 'hotels')
             .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
-            .addBreadCrumb('Rooms', 'hotel', {propertyCode: propertyCode}, 'jsRooms')
+            .addBreadCrumb('Rooms', 'hotel', {propertySlug: bookingParams.propertySlug}, 'jsRooms')
             .addBreadCrumb(data[0].roomDetails.name);
 
           //scroll to element if set in url scrollTo param
