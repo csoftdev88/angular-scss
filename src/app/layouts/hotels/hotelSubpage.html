@@ -27,8 +27,8 @@
       <hr>
       <h2>You may also be <strong>interested in:</strong></h2>
       <info-list>
-        <info-item ng-repeat="info in moreInfo" ng-click="goToInfo(info)">
-
+        <info-item ng-repeat="info in moreInfo" ng-click="goToInfo(info)" ng-class="{ 'has-image' : info.image }">
+          <img ng-if="info.image" ng-src="{{info.image.uri | cloudinaryImage : 270 : 140 : 'fill'}}" alt="{{info.image.alt}}">
           <section>
             <h2>{{info.title}} </h2>
             <div ng-bind-html="info.descriptionShort"></div>

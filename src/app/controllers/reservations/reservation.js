@@ -216,6 +216,10 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
+  if(!user.isLoggedIn()){
+    $scope.billingDetails.paymentMethod = 'cc';
+  }
+
   $scope.goBack = function() {
     switch ($state.current.name) {
     case 'reservation.details':
@@ -396,6 +400,19 @@ angular.module('mobius.controllers.reservation', [])
       }), function(t, n){
         return t + n;
       });
+  };
+
+  $scope.getGuestsCount = function(type){
+    if($scope.isMultiRoomMode){
+      return _.reduce(
+      _.map(multiRoomData, function(room){
+        return room[type];
+      }), function(t, n){
+        return t + n;
+      });
+    }
+
+    return $scope.bookingDetails[type];
   };
 
   $scope.makeReservation = function(){

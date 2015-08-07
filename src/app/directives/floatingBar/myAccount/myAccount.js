@@ -46,10 +46,11 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
         function loadRewards(){
           user.loadRewards().then(function(rewards) {
-            // TODO: We assuming that last reward in the list
-            // is last bought. API doesn't have the timestamp so we
-            // cant sort by dates
-            scope.lastReward = rewards && rewards.length?rewards[rewards.length-1]:{};
+            // Sorting by earned date
+            // TODO - timestampt should be used instead
+            // once API is ready
+            var earnedRewards = _.sortBy(rewards, 'earned').reverse();
+            scope.lastReward = earnedRewards && earnedRewards.length?earnedRewards[0]:{};
           });
         }
 

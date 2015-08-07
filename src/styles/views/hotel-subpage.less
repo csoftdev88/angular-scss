@@ -14,11 +14,18 @@ hotel-info{
     max-width: 50%;
     float: left;
     margin-right: 20px;
+    .viewport-mobile &{
+      width: 100%;
+      max-width: 100%;
+      float: none;
+      margin: 0 0 10px;
+    }
   }
 
   .desc{
     margin-bottom: 30px;
   }
+
 }
 
 more-info-list{
@@ -38,7 +45,7 @@ more-info-list{
       border-radius: @radius*2;
       box-sizing: border-box;
       flex: 0 0 ~"calc(33% - 20px)";
-      height: 200px;
+      height: 360px;
       overflow: hidden;
       margin: 0 @baseline/2 @baseline @baseline/2;
       width: ~"calc(33% - 20px)";
@@ -50,18 +57,41 @@ more-info-list{
       background: #fff;
 
       text-align: center;
+      display: table;
+
+      &.has-image{
+        display: block;
+        section{
+          display: block;
+        }
+        h2{
+          margin-top: 0;
+        }
+      }
 
       // if it's clickable
       &[ng-click] {
         cursor: pointer;
       }
 
+      //- Image
+      img {
+        display: block;
+        margin-bottom: @baseline;
+        max-height: 160px;
+        width: 100%;
+
+        object-fit: cover;
+        opacity: 1;
+      }
+
       //- Content - Title + Description
       section {
         position: relative;
-
         max-height: 150px;
         overflow: hidden;
+        display: table-cell;
+        vertical-align: middle;
 
         &:after {
           position: absolute;
@@ -79,25 +109,25 @@ more-info-list{
         }
       }
 
-        //- Title
-        h2 {
-          margin-bottom: @baseline;
-          margin-top: @baseline;
-          padding: 0 @baseline;
+      //- Title
+      h2 {
+        margin-bottom: @baseline;
+        margin-top: @baseline;
+        padding: 0 @baseline;
 
-          color: @c-base;
+        color: @c-base;
 
-          font-size: @size-2;
-          font-weight: 600;
-          text-transform: uppercase;
-        }
+        font-size: @size-2;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
 
-        //- Description
-        div {
-          color: @c-grey;
-          margin-bottom: @baseline;
-          padding: 0 @baseline;
-        }
+      //- Description
+      div {
+        color: @c-grey;
+        margin-bottom: @baseline;
+        padding: 0 @baseline;
+      }
 
       //- Read More
       span {
@@ -110,21 +140,19 @@ more-info-list{
         right: 0px;
       }
 
+      .viewport-mobile &{
+        flex: 100%;
+        width: 100%;
+        padding-bottom: 16px;
+        margin: 0 0 @baseline;
+      }
+
     }
   }
 }
 
 
-@media only screen and @large-mobile-max {
-  hotel-info{
-    img{
-      width: 100%;
-      max-width: 100%;
-      float: none;
-      margin: 0 0 10px;
-    }
-  }
-}
+
 
 
 

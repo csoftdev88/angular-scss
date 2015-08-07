@@ -10,7 +10,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     scope: {
       advanced: '=',
       hideBar: '&',
-      openBookingTab: '&'
+      openBookingTab: '='
     },
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
@@ -604,9 +604,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         onPrefill(data);
       });
 
+      var openMRBTabListener = $rootScope.$on('BOOKING_BAR_OPEN_MRB_TAB', function(){
+        scope.openBookingTab(true);
+      });
+
       scope.$on('$destroy', function(){
         routeChangeListener();
         prefillListener();
+        openMRBTabListener();
       });
 
       function onPrefill(settings){
@@ -614,10 +619,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         // TODO: Set code type from offers
         function prefillPromoCode() {
-          queryService.removeParam(PARAM_TYPES.promoCode.search);
-          queryService.removeParam(PARAM_TYPES.corpCode.search);
-          queryService.removeParam(PARAM_TYPES.groupCode.search);
-
           scope.selected.promoCode = settings.promoCode;
           // TODO: Offers should have code types - needs API
           scope.selected.codeType = $window._.findWhere(scope.codeTypes, {param: 'promoCode'});
