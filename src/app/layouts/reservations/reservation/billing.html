@@ -155,6 +155,7 @@
           <label for="telephone" class="input-right">
             <input type="text" international-phone-number id="telephone" required
               placeholder="Telephone" default-country="{{defaultCountryCode || 'ca'}}"
+              preferred-countries="ca, us, gb"
               ng-model="billingDetails.phone"
               placeholder="Phone"/>
             <span>Telephone</span>
