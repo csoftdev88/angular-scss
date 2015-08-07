@@ -9,7 +9,9 @@ angular.module('mobiusApp.services.scroll', [])
     var scrollTo = function(target, offset) {
 
       //safari/chrome on mac don't like animating body,html
-      var toAnimate = navigator.userAgent.toLowerCase().indexOf('safari') || navigator.userAgent.toLowerCase().indexOf('chrome') > -1 ? angular.element('body') : angular.element('html, body');
+      var safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+      var chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+      var toAnimate = safari || chrome ? angular.element('body') : angular.element('html, body');
 
       //No scroll if home
       //If url has scrollTo and target is not set let controller handle scrolling when content has loaded
