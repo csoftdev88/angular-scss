@@ -18,8 +18,6 @@ angular.module('mobius.controllers.reservationUpdate', [])
         if(!reservationUpdateMode){
           reservationUpdateMode = true;
           notificationService.show('<span>You are currently editing: <strong>' + toParams.reservation + '</strong></span>');
-          // NOTE: Info dialogue
-          modalService.openModifyingReservationDialogue(toParams.reservation);
         }
 
         return;

@@ -5,11 +5,13 @@ angular.module('mobiusApp.services.breadcrumbs', [])
 
     var breadcrumbs = [];
     var hrefs = [];
+    var absHrefs = [];
     var activeHref;
 
     function clear() {
       breadcrumbs = [];
       hrefs = [];
+      absHrefs = [];
       $rootScope.showHomeBreadCrumb = true;
       return object;
     }
@@ -50,6 +52,19 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       return object;
     }
 
+    function getAbsHrefs() {
+      return absHrefs;
+    }
+
+    function addAbsHref(name, stateName, stateParams) {
+      absHrefs.push({
+        state: stateName,
+        params: stateParams,
+        name: name
+      });
+      return object;
+    }
+
     function removeHref(name) {
       var indexOfRemovedElement = _.findIndex(hrefs, {name: name});
       if(indexOfRemovedElement >= 0) {
@@ -75,6 +90,8 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       getHrefs: getHrefs,
       setHrefs: setHrefs,
       addHref: addHref,
+      addAbsHref: addAbsHref,
+      getAbsHrefs: getAbsHrefs,
       removeHref: removeHref,
       setActiveHref: setActiveHref,
       getActiveHref: getActiveHref

@@ -202,9 +202,8 @@ angular.module('mobiusApp.config', [])
     // Settings related to booking process
     'bookingWidget': {
       'hasMutiroomTab': true,
-      // Suggest MRB when number of adults is highter
-      // than this settings and server returns no
-      // products
+      // Suggest MRB when number of adults is higher
+      // than this value and server returns no products
       'maxAdultsForSingleRoomBooking': 3,
       'includeAllPropertyOption': true,
       'adults': {

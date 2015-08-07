@@ -129,9 +129,9 @@
 
           <label for="state" class="input-right">
             <input type="text" id="state" required
-              placeholder="State / Province"
+              placeholder="Province / State"
               ng-model="billingDetails.stateProvince" />
-            <span>State / Province</span>
+            <span>Province / State</span>
           </label>
 
           <label for="country">
@@ -147,14 +147,15 @@
 
           <label for="postal-code" class="input-left">
             <input type="text" id="postal-code" required
-              placeholder="Zip / Postal Code"
+              placeholder="Postal Code / Zip Code"
               ng-model="billingDetails.zip" />
-            <span>Zip / Postal Code</span>
+            <span>Postal Code / Zip Code</span>
           </label>
 
           <label for="telephone" class="input-right">
             <input type="text" international-phone-number id="telephone" required
               placeholder="Telephone" default-country="{{defaultCountryCode || 'ca'}}"
+              preferred-countries="ca, us, gb"
               ng-model="billingDetails.phone"
               placeholder="Phone"/>
             <span>Telephone</span>

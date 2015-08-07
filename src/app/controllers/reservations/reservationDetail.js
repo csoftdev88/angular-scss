@@ -178,9 +178,18 @@ angular.module('mobius.controllers.reservationDetail', [])
         return;
       }
 
+      // Opening modification confirmation dialogue
+      modalService.openModifyingReservationDialogue(reservation.reservationCode)
+        .then(function(){
+          // Reservation modification is confirmed
+          startModification(reservation);
+        });
+    };
+
+    function startModification(reservation){
       // Redirecting to hotel detail page with corresponding booking settings
       // and switching to edit mode
-      // TODO: Support multiroom modification once API is ready
+      // TODO: Support multiroom modification once API is ready for modification
       var bookingParams = {
         property: reservation.property.code,
         adults: $scope.getCount('adults'),
@@ -197,7 +206,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       };
 
       $state.go('hotel', bookingParams);
-    };
+    }
 
     $scope.openCancelReservationDialog = function(){
       // NOTE: API not providing the flag yet
@@ -209,11 +218,13 @@ angular.module('mobius.controllers.reservationDetail', [])
       modalService.openCancelReservationDialog($stateParams.reservationCode).then(function(){
         var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode)
         .then(function(){
+          
           // Reservation is removed, notifying user
           userMessagesService.addMessage('<div>Your Reservation <strong>' +
-            $stateParams.reservationCode + '</strong> was successfully canceled.</div>');
-
+          $stateParams.reservationCode + '</strong> was successfully canceled.</div>', false, true);
+          
           $state.go('reservations');
+          
         }, function(error){
           if (error && error.error && error.error.msg) {
             userMessagesService.addMessage('<p>' + error.error.msg + '</p>');

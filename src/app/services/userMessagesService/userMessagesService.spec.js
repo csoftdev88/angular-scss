@@ -33,7 +33,7 @@ describe('userMessagesService', function() {
     it('should remove all messages with "removeOnStateChange" flag on state change', function() {
       _userMessagesService.addMessage('test', true);
       _$rootScope.$digest();
-      _$rootScope.$broadcast('$stateChangeSuccess');
+      _$rootScope.$broadcast('$stateChangeStart');
       _$rootScope.$digest();
       expect(_userMessagesService.getMessages().length).equal(0);
     });
