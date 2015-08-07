@@ -73,7 +73,17 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         sortInfo(details);
 
-        breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug}).addBreadCrumb($stateParams.infoSlug.split('-').join(' '));
+        breadcrumbsService
+          .addBreadCrumb('Hotels', 'hotels')
+          .addBreadCrumb(details.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
+          .addBreadCrumb($stateParams.infoSlug.split('-').join(' '));
+
+        breadcrumbsService
+          .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
+          .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
+          .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
+          .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
+          .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
 
         // Updating Hero content images
         if(details.images){
