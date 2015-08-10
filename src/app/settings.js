@@ -409,6 +409,10 @@ angular.module('mobiusApp.config', [])
           value: 'General'
         }
       ]
+    },
+    // Form prefill default delay
+    'autofillSync': {
+      'delay': 500
     }
   }
 });

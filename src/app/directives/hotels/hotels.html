@@ -68,7 +68,15 @@
             </pricing-info>
 
             <p class="description">{{hotel.descriptionShort}}</p>
+        </li>
 
+        <li class="item filter-no-matches" ng-if="hotels">
+          <div class="products-not-available">
+            <div>
+              <h3>No hotels match your filter!</h3>
+              <p>Please adjust your filter options on the right to view available hotels <br>to view available hotels</p>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
