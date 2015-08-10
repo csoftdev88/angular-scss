@@ -154,6 +154,9 @@
       <select name="location" ng-model="location" data-placeholder="Select a location" chosen ng-options="location.nameShort for location in locations" ng-change="loadLocation()">
         <option></option> --> <!-- workaround for a bug in angular-chosen -->
       <!-- </select> -->
+      <div class="reset-filters">
+        <a href ng-click="resetFilters()">Reset Filters</a>
+      </div>
     </div>
   </aside>
 

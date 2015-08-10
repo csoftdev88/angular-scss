@@ -65,11 +65,15 @@ angular.module('mobiusApp.directives.hotels', [])
 
       scope.preference.setDefault('hotels-view-mode', 'tiles');
 
-      scope.minStars = 0;
-      scope.maxStars = 5;
-      scope.minRating = 0;
-      scope.maxRating = 5;
+      scope.MIN_STARS = 0;
+      scope.MAX_STARS = 5;
+      scope.MIN_RATING = 0;
+      scope.MAX_RATING = 5;
 
+      scope.minStars = scope.MIN_STARS;
+      scope.maxStars = scope.MAX_STARS;
+      scope.minRating = scope.MIN_RATING;
+      scope.maxRating = scope.MAX_RATING;
 
       function getProperties(params){
         // Loading hotels
@@ -171,6 +175,14 @@ angular.module('mobiusApp.directives.hotels', [])
 
         bookingParams.productGroupId = rate?rate.id:scope.rates.defaultRate.id;
         getProperties(bookingParams);
+      };
+
+      scope.resetFilters = function() {
+        scope.setMinStars(scope.MIN_STARS);
+        scope.setMaxStars(scope.MAX_STARS);
+        scope.setMinRating(scope.MIN_RATING);
+        scope.setMaxRating(scope.MAX_RATING);
+        scope.rates.selectedRate = null;
       };
 
       scope.navigateToHotel = function(propertySlug){
