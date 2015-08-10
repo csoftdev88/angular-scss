@@ -24,6 +24,9 @@ angular.module('mobiusApp.directives.datepicker', [])
       var CLASS_RANGE_END = 'date-range-end';
       var CLASS_EDIT_RANGE = 'date-range-edit';
 
+      var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+      var resizeUnbindHandler;
+
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
       var maxDate = attrs.maxDate || null;
@@ -89,6 +92,8 @@ angular.module('mobiusApp.directives.datepicker', [])
           }
         }
 
+        bindResizeListener();
+
         element.datepicker({
           dateFormat: DATE_FORMAT,
           showButtonPanel: hasCounter,
@@ -143,6 +148,11 @@ angular.module('mobiusApp.directives.datepicker', [])
 
               ngModelCtrl.$render();
             });
+
+            if(resizeUnbindHandler){
+              resizeUnbindHandler();
+              resizeUnbindHandler = null;
+            }
           },
 
           onSelect: function(date, inst) {
@@ -261,12 +271,30 @@ angular.module('mobiusApp.directives.datepicker', [])
       var unWatchHiglights = scope.$watch('highlights', function(){
         element.datepicker( 'refresh' );
       });
+
       var unWatchModelValue = scope.$watch(function(){
         return ngModelCtrl.$modelValue;
       }, function(){
         beforeShow();
         setInputText();
       });
+
+      function bindResizeListener(){
+        unbindResizeListener();
+
+        resizeUnbindHandler = scope.$on(EVENT_VIEWPORT_RESIZE, function(){
+          if(resizeUnbindHandler){
+            element.datepicker('hide');
+          }
+        });
+      }
+
+      function unbindResizeListener(){
+        if(resizeUnbindHandler){
+          resizeUnbindHandler();
+          resizeUnbindHandler = null;
+        }
+      }
 
       scope.$on('$destroy', function(){
         unWatchHiglights();
