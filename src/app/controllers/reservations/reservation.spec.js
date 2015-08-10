@@ -157,6 +157,7 @@ describe('mobius.controllers.reservation', function() {
 
         $controllerProvider.register('ISOCountriesCtrl', function(){});
         $controllerProvider.register('PriceCtr', function(){});
+        $controllerProvider.register('AutofillSyncCtrl', function(){});
 
         var breadcrumbs = {
           clear: function(){ return breadcrumbs; },
@@ -174,6 +175,7 @@ describe('mobius.controllers.reservation', function() {
       _scope = $rootScope.$new();
 
       _scope.updateHeroContent = function(){};
+      _scope.autofillSync = function(){};
 
       _clock = sinon.useFakeTimers(0 , 'Date');
       _clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());

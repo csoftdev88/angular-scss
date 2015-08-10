@@ -28,6 +28,7 @@ angular
     'mobius.controllers.common.preference',
     'mobius.controllers.common.rates',
     'mobius.controllers.common.isoCountries',
+    'mobius.controllers.common.autofillSync',
 
     'mobius.controllers.main',
     'mobius.controllers.about',
