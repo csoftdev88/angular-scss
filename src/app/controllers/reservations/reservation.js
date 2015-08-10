@@ -123,6 +123,8 @@ angular.module('mobius.controllers.reservation', [])
         optedIn: userData.optedIn || false
       });
     }
+
+    $scope.autofillSync(1000);
   }
 
   // Inheriting the login from RoomDetails controller
@@ -223,9 +225,13 @@ angular.module('mobius.controllers.reservation', [])
   $scope.goBack = function() {
     switch ($state.current.name) {
     case 'reservation.details':
-      return goToRoom();
+      goToRoom();
+      $scope.autofillSync();
+      break;
     case 'reservation.billing':
-      return $state.go('reservation.details');
+      $state.go('reservation.details');
+      $scope.autofillSync();
+      break;
     case 'reservation.confirmation':
       return $state.go('reservation.billing');
     }
@@ -299,6 +305,7 @@ angular.module('mobius.controllers.reservation', [])
 
       if($scope.isValid()){
         $state.go('reservation.billing');
+        $scope.autofillSync();
       }
 
       break;
@@ -547,4 +554,5 @@ angular.module('mobius.controllers.reservation', [])
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
   $controller('PriceCtr', {$scope: $scope});
+  $controller('AutofillSyncCtrl', {$scope: $scope});
 });
