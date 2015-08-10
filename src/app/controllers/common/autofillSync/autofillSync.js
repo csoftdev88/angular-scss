@@ -36,6 +36,6 @@ angular.module('mobius.controllers.common.autofillSync', [])
           inputs.trigger(e);
         }
       });
-    }, delay || Settings.UI.autoprefill && Settings.UI.autoprefill.delay?Settings.UI.autoprefill.delay:0);
+    }, delay || Settings.UI.autofillSync && Settings.UI.autofillSync.delay?Settings.UI.autofillSync.delay:0);
   };
 });

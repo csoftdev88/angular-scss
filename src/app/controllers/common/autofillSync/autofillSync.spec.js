@@ -9,7 +9,7 @@ describe('mobius.controllers.common.autofillSync', function() {
       module('mobius.controllers.common.autofillSync', function($provide){
         $provide.value('Settings', {
           UI: {
-            autoprefill: {
+            autofillSync: {
               delay: 500
             }
           }
@@ -27,5 +27,7 @@ describe('mobius.controllers.common.autofillSync', function() {
         expect(_scope.autofillSync).to.be.a('function');
       });
     });
+
+    // TODO: add tests
   });
 });

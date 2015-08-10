@@ -410,8 +410,8 @@ angular.module('mobiusApp.config', [])
         }
       ]
     },
-    // Browser form autoprefill delay
-    'autoprefill': {
+    // Form prefill default delay
+    'autofillSync': {
       'delay': 500
     }
   }
