@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.breadcrumbs', [])
 
-  .directive('breadcrumbs', function( $state, breadcrumbsService, _,
+  .directive('breadcrumbs', function( $state, $window, breadcrumbsService, _,
       modalService, scrollService) {
     return {
       restrict: 'E',
@@ -11,6 +11,8 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
 
       // Widget logic goes here
       link: function(scope) {
+        var EVENTS_SCROLL_RESIZE = 'scroll resize';
+
         var unWatchBreadcrumbs = scope.$watch(
           function() {
             return breadcrumbsService.getBreadCrumbs();
@@ -43,11 +45,29 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
             scope.activeHref = activeHref;
           }
         );
+
+        var onScrollDebounced = _.debounce(function(){
+          var activeHref = breadcrumbsService.getViewportHref();
+          if(activeHref){
+            activeHref = _.findWhere(scope.hrefs, {id: activeHref.id});
+          }
+
+          scope.$evalAsync(function(){
+            scope.scrollActiveHref = activeHref || null;
+          });
+        }, 250);
+
+        // Scroll listener
+        angular.element($window).bind(EVENTS_SCROLL_RESIZE, onScrollDebounced);
+
         scope.$on('$destroy', function() {
+          // TODO move wathers,listeners into an array
           unWatchBreadcrumbs();
           unWatchHrefs();
           unWatchActiveHref();
           unWatchAbsHrefs();
+
+          angular.element($window).unbind(EVENTS_SCROLL_RESIZE, onScrollDebounced);
         });
 
         // TODO: Unify across the app

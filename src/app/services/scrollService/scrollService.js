@@ -3,11 +3,10 @@
  * This service contains reusable methods for page scrolling
  */
 angular.module('mobiusApp.services.scroll', [])
-  .service( 'scrollService',  function($window, $location, $state) {
+  .service( 'scrollService',  function($window, $document, $location, $state) {
 
     // scrollTo() with no params will default to top of content
-    var scrollTo = function(target, offset) {
-
+    function scrollTo(target, offset) {
       //safari/chrome on mac don't like animating body,html
       var safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
       var chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
@@ -21,7 +20,6 @@ angular.module('mobiusApp.services.scroll', [])
       }
 
       $window._.defer(function () {
-
         //Default target to top of content
         var $item = angular.element('main');
         //If target check if it's a class if not make it an id (hash in url breaks)
@@ -31,19 +29,27 @@ angular.module('mobiusApp.services.scroll', [])
 
         if($item.length) {
           //Default offset to half of hero slider
-          var $offset = offset ? -(angular.element('#main-header').height() + angular.element('breadcrumbs').height() + offset) : -(angular.element('#main-header').height() + angular.element('hero-slider').height()/2 + 40);
+          var $offset = offset ? -(getHeaderHeight() + offset) : -(angular.element('#main-header').height() + angular.element('hero-slider').height()/2 + 40);
           //scroll
           toAnimate.stop().animate({
             scrollTop: $item.offset().top + $offset
           }, 500);
         }
-
       });
-    };
+    }
+
+    function getHeaderHeight(hasHeroSlider){
+      return angular.element('#main-header').height() + angular.element('breadcrumbs').height() + hasHeroSlider?angular.element('hero-slider').height():0;
+    }
+
+    function getScrollTop(){
+      return ($window.pageYOffset || $document.scrollTop)  - ($document.clientTop || 0);
+    }
 
     // Public methods
     return {
-      scrollTo: scrollTo
+      scrollTo: scrollTo,
+      getScrollTop: getScrollTop,
+      getHeaderHeight: getHeaderHeight
     };
-
   });

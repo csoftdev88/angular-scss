@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.services.breadcrumbs', [])
-  .service('breadcrumbsService', function(_, $rootScope) {
+  .service('breadcrumbsService', function(_, $rootScope,
+      scrollService) {
 
     var breadcrumbs = [];
     var hrefs = [];
@@ -72,6 +73,7 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       }
     }
 
+    // TODO: This seems to be redundant
     function setActiveHref(href) {
       activeHref = href;
       return object;
@@ -79,6 +81,54 @@ angular.module('mobiusApp.services.breadcrumbs', [])
 
     function getActiveHref() {
       return activeHref;
+    }
+
+    // Return visible href in viewport
+    function getViewportHref(){
+      if(hrefs && hrefs.length){
+        // Getting positions
+        var positions = _.compact(hrefs.map(function(href){
+          var top = getHrefPosition(href);
+          // NOTE - interested in only real positions
+          if(top){
+            return {
+              href: href,
+              top: top
+            };
+          }else{
+            return null;
+          }
+        }));
+
+        // Sorting by positions
+        positions = _.sortBy(positions, function(pos){
+          return pos.top;
+        });
+
+        if(positions.length){
+          var viewPortOffset = scrollService.getScrollTop();
+          for(var i = positions.length-1; i >=0; i--){
+            var pos = positions[i];
+            if(pos.top - scrollService.getHeaderHeight(true) < viewPortOffset){
+              return pos.href;
+            }
+          }
+
+          // NOTE: Returning first href
+          return positions[0].href;
+        }
+      }
+
+      return null;
+    }
+
+    function getHrefPosition(href){
+      var hrefElement = angular.element('#' + href.id);
+      if(hrefElement.length){
+        return hrefElement.offset().top;
+      }
+
+      return 0;
     }
 
     // Public methods
@@ -94,7 +144,8 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       getAbsHrefs: getAbsHrefs,
       removeHref: removeHref,
       setActiveHref: setActiveHref,
-      getActiveHref: getActiveHref
+      getActiveHref: getActiveHref,
+      getViewportHref: getViewportHref
     };
 
     return object;
