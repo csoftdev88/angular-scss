@@ -95,6 +95,7 @@
       </ul>
     </div>
     <div class="filters-bar">
+    
       <div ng-show="hasDates()">
         <h2>Filter</h2>
         <h3>Price per night</h3>
@@ -110,41 +111,47 @@
           attach-handle-values="true"></div>
         <hr>
       </div>
-      <h3>Star Rating</h3>
-      <div class="stars">
-        <ul class="stars-left">
-          <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}"></li>
-        </ul>
-        to
-        <ul class="stars-right">
-          <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
-        </ul>
+
+      <div ng-show="showFilter('stars')">
+        <h3>Star Rating</h3>
+        <div class="stars">
+          <ul class="stars-left">
+            <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}"></li>
+          </ul>
+          to
+          <ul class="stars-right">
+            <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
+          </ul>
+        </div>
+        <hr>
       </div>
 
-      <hr>
 
-      <h3><i class="logo-trip-advisor"></i> Rating</h3>
-      <div class="stars rating-trip-advisor">
-        <ul class="stars-left">
-          <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMinRating(rating)" ng-class="{included: rating <= minRating}"></li>
-        </ul>
-        to
-        <ul class="stars-right">
-          <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMaxRating(rating)" ng-class="{included: rating <= maxRating}"></li>
-        </ul>
+      <div ng-show="showFilter('tripAdvisor')">
+        <h3><i class="logo-trip-advisor"></i> Rating</h3>
+        <div class="stars rating-trip-advisor">
+          <ul class="stars-left">
+            <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMinRating(rating)" ng-class="{included: rating <= minRating}"></li>
+          </ul>
+          to
+          <ul class="stars-right">
+            <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMaxRating(rating)" ng-class="{included: rating <= maxRating}"></li>
+          </ul>
+        </div>
+        <hr/>
       </div>
 
-      <hr/>
-
-      <h3>Rates</h3>
-      <select name="rate"
-        required ng-model="rates.selectedRate"
-        disable-search="true"
-        ng-change="rates.onRateChanged()"
-        chosen ng-options="rate as rate.name for rate in rates.all"
-        data-placeholder="Rate">
-        <option></option> <!-- workaround for a bug in angular-chosen -->
-      </select>
+      <div ng-show="showFilter('rates')">
+        <h3>Rates</h3>
+        <select name="rate"
+          required ng-model="rates.selectedRate"
+          disable-search="true"
+          ng-change="rates.onRateChanged()"
+          chosen ng-options="rate as rate.name for rate in rates.all"
+          data-placeholder="Rate">
+          <option></option> <!-- workaround for a bug in angular-chosen -->
+        </select>
+      </div>
 
       <!-- Out of scope now -->
       <!-- <hr> -->

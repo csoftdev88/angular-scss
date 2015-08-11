@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService){
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings){
 
   return {
     restrict: 'E',
@@ -296,6 +296,10 @@ angular.module('mobiusApp.directives.hotels', [])
 
       scope.hasDates = function(){
         return bookingService.APIParamsHasDates();
+      };
+
+      scope.showFilter = function(filter){
+        return Settings.UI.hotelFilters[filter];
       };
 
       scope.openLocationDetail = modalService.openLocationDetail;

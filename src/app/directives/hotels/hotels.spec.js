@@ -69,6 +69,14 @@ describe('hotels directive', function() {
       $provide.value('contentService', {
       });
 
+      $provide.value('Settings', {
+        UI: {
+          hotelFilters: {
+            rates: true
+          }
+        }
+      });
+
 
       $provide.value('user', {
         isLoggedIn: function(){}
