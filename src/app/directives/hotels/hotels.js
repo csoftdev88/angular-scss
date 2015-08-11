@@ -78,6 +78,9 @@ angular.module('mobiusApp.directives.hotels', [])
       function getProperties(params){
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
+          // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
+          // hotels = undefined;
+          scope.hotels = hotels || [];
 
           //check if offer is limited to only one property and if so navigate to it
           var offerLimitedToOneProperty = [];
@@ -111,6 +114,7 @@ angular.module('mobiusApp.directives.hotels', [])
             currentOffer = _.find(scope.offersList, function(offer){
               return offer.meta.slug === $stateParams.promoCode;
             });
+
             if(currentOffer){
               scope.hotels = _.filter(scope.hotels, function(hotel){
                 return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
@@ -183,6 +187,11 @@ angular.module('mobiusApp.directives.hotels', [])
         scope.setMinRating(scope.MIN_RATING);
         scope.setMaxRating(scope.MAX_RATING);
         scope.rates.selectedRate = null;
+        filtersService.getBestRateProduct().then(function(rate){
+          if(rate){
+            scope.onRateChanged(rate);
+          }
+        });
       };
 
       scope.navigateToHotel = function(propertySlug){
