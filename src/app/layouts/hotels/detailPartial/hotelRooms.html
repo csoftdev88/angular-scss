@@ -25,6 +25,8 @@
           <h3><a ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
 
           <pricing-info>
+            <!-- TODO: This seems to be exaclty the same as block below - refactor
+            desktop/mobile layouts -->
             <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
               <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
                 from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
@@ -35,7 +37,13 @@
               </p>
               <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
             </div>
-            <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
+            <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error" ng-switch="isOverAdultsCapacity()">
+              <span ng-switch-when="false">Not Available on Selected Dates</span>
+              <span ng-switch-when="true">
+                <span>Not available on these dates.<br></span>
+                <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
+              </span>
+            </p>
           </pricing-info>
 
           <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least
@@ -57,7 +65,13 @@
 
             <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">{{room.priceFrom ? 'Book Now' : 'View Details'}}</a>
           </div>
-          <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error"><span>Not Available on Selected Dates</span></p>
+          <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error" ng-switch="isOverAdultsCapacity()">
+            <span ng-switch-when="false">Not Available on Selected Dates</span>
+            <span ng-switch-when="true">
+              <span>Not available on these dates.<br></span>
+              <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
+            </span>
+          </p>
         </pricing-info>
 
         <description-info>

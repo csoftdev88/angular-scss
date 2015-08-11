@@ -120,7 +120,7 @@ angular.module('mobius.controllers.hotel.details', [])
               }, 500);
             }
           }
-          
+
         });
 
         $scope.scrollToBreadcrumbs();
@@ -177,7 +177,7 @@ angular.module('mobius.controllers.hotel.details', [])
     else{
       $state.go('room', {propertySlug: pSlug, roomSlug: rSlug});
     }
-    
+
   };
 
   $scope.getAbsUrl = function(){
@@ -185,4 +185,7 @@ angular.module('mobius.controllers.hotel.details', [])
   };
 
   $scope.advertClick = advertsService.advertClick;
+
+  $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
+  $scope.switchToMRBMode = bookingService.switchToMRBMode;
 });
