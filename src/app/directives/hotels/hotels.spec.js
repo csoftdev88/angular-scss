@@ -66,6 +66,9 @@ describe('hotels directive', function() {
       $provide.value('$stateParams', {
       });
 
+      $provide.value('contentService', {
+      });
+
 
       $provide.value('user', {
         isLoggedIn: function(){}
