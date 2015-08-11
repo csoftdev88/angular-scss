@@ -78,7 +78,7 @@ angular.module('mobiusApp.directives.hotels', [])
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
 
-          
+
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
           scope.hotels = hotels || [];
@@ -119,7 +119,7 @@ angular.module('mobiusApp.directives.hotels', [])
               }
 
             });
-            
+
           }
 
           scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
@@ -187,6 +187,11 @@ angular.module('mobiusApp.directives.hotels', [])
         scope.setMinRating(scope.MIN_RATING);
         scope.setMaxRating(scope.MAX_RATING);
         scope.rates.selectedRate = null;
+        filtersService.getBestRateProduct().then(function(rate){
+          if(rate){
+            scope.onRateChanged(rate);
+          }
+        });
       };
 
       scope.navigateToHotel = function(propertySlug){
