@@ -6,7 +6,7 @@ angular.module('mobiusApp.services.scroll', [])
   .service( 'scrollService',  function($window, $document, $location, $state) {
 
     // scrollTo() with no params will default to top of content
-    var scrollTo = function(target, offset, ignoreScrollTo) {
+    function scrollTo(target, offset, ignoreScrollTo) {
       ignoreScrollTo = ignoreScrollTo || null;
 
       //safari/chrome on mac don't like animating body,html
