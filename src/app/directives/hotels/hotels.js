@@ -187,9 +187,11 @@ angular.module('mobiusApp.directives.hotels', [])
         scope.setMinRating(scope.MIN_RATING);
         scope.setMaxRating(scope.MAX_RATING);
         scope.rates.selectedRate = null;
-        if (scope.rates.all && scope.rates.all.length > 0) {
-          scope.onRateChanged(scope.rates.all[0]);
-        }
+        filtersService.getBestRateProduct().then(function(rate){
+          if(rate){
+            scope.onRateChanged(rate);
+          }
+        });
       };
 
       scope.navigateToHotel = function(propertySlug){
