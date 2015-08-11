@@ -84,12 +84,12 @@ angular.module('mobiusApp.services.breadcrumbs', [])
     }
 
     // Return visible href in viewport
-    function getViewportHref(){
+    function getVisibleHref(){
       if(hrefs && hrefs.length){
         // Getting positions
-        var positions = _.compact(hrefs.map(function(href){
+        var hrefAreas = _.compact(hrefs.map(function(href){
           var top = getHrefPosition(href);
-          // NOTE - interested in only real positions
+          // NOTE - interested only real poritive positions
           if(top){
             return {
               href: href,
@@ -101,21 +101,22 @@ angular.module('mobiusApp.services.breadcrumbs', [])
         }));
 
         // Sorting by positions
-        positions = _.sortBy(positions, function(pos){
-          return pos.top;
+        hrefAreas = _.sortBy(hrefAreas, function(area){
+          return area.top;
         });
 
-        if(positions.length){
-          var viewPortOffset = scrollService.getScrollTop();
-          for(var i = positions.length-1; i >=0; i--){
-            var pos = positions[i];
-            if(pos.top - scrollService.getHeaderHeight(true) < viewPortOffset){
-              return pos.href;
+        if(hrefAreas.length){
+          var scrollTop = scrollService.getScrollTop();
+          for(var i = hrefAreas.length-1; i >=0; i--){
+            var area = hrefAreas[i];
+            // NOTE: Set highlight accuracy here
+            if(area.top - scrollService.getHeaderHeight(true) < scrollTop){
+              return area.href;
             }
           }
 
           // NOTE: Returning first href
-          return positions[0].href;
+          return hrefAreas[0].href;
         }
       }
 
@@ -145,7 +146,7 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       removeHref: removeHref,
       setActiveHref: setActiveHref,
       getActiveHref: getActiveHref,
-      getViewportHref: getViewportHref
+      getVisibleHref: getVisibleHref
     };
 
     return object;

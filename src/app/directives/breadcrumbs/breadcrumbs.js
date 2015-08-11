@@ -47,7 +47,7 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
         );
 
         var onScrollDebounced = _.debounce(function(){
-          var activeHref = breadcrumbsService.getViewportHref();
+          var activeHref = breadcrumbsService.getVisibleHref();
           if(activeHref){
             activeHref = _.findWhere(scope.hrefs, {id: activeHref.id});
           }
