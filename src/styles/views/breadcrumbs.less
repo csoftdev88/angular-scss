@@ -13,7 +13,7 @@ breadcrumbs{
   @media only screen and @large-mobile-max {
     display: none;
   }
-  
+
 }
 
 .breadcrumbs {
@@ -61,6 +61,25 @@ breadcrumbs{
       margin-left: @baseline/2;
       padding-left: @baseline/2;
       border-left: 1px solid @c-navbar-content;
+
+      a {
+        color: @c-white;
+        &:after {
+          content: '';
+          display: block;
+          border-bottom: 2px solid @c-white;
+          opacity: 0;
+          .transition;
+        }
+      }
+
+      &.selected {
+        a {
+          &:after {
+            opacity: 1;
+          }
+        }
+      }
     }
 
     li:first-child {

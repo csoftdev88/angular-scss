@@ -9,7 +9,7 @@
       </li>
     </ul>
     <ul ng-if="hrefs.length > 0" class="alt-nav">
-      <li ng-repeat="href in hrefs" ng-class="{selected: activeHref === href.name}">
+      <li ng-repeat="href in hrefs" ng-class="{selected: scrollActiveHref.id === href.id}">
         <a href ng-if="href.id" ng-click="scrollTo(href.id)">{{href.name}}</a>
         <span ng-if="!href.id">{{href.name}}</span>
       </li>
