@@ -6,7 +6,9 @@ angular.module('mobiusApp.services.scroll', [])
   .service( 'scrollService',  function($window, $location, $state) {
 
     // scrollTo() with no params will default to top of content
-    var scrollTo = function(target, offset) {
+    var scrollTo = function(target, offset, ignoreScrollTo) {
+
+      ignoreScrollTo = ignoreScrollTo || null;
 
       //safari/chrome on mac don't like animating body,html
       var safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
@@ -15,7 +17,7 @@ angular.module('mobiusApp.services.scroll', [])
 
       //No scroll if home
       //If url has scrollTo and target is not set let controller handle scrolling when content has loaded
-      if($state.current.name === 'home' || $location.search().scrollTo && !target && ($state.current.name === 'hotel' || $state.current.name === 'room')){
+      if($state.current.name === 'home' || $location.search().scrollTo && !ignoreScrollTo && !target && ($state.current.name === 'hotel' || $state.current.name === 'room')){
         angular.element('html, body').scrollTop(0);
         return;
       }

@@ -67,15 +67,28 @@ angular.module('mobiusApp.directives.room', [])
             .addBreadCrumb('Rooms', 'hotel', {propertySlug: bookingParams.propertySlug}, 'jsRooms')
             .addBreadCrumb(data[0].roomDetails.name);
 
-          //scroll to element if set in url scrollTo param
-          var scrollToValue = $location.search().scrollTo || null;
-          if (scrollToValue) {
-            $timeout(function(){
-              scrollService.scrollTo(scrollToValue, 20);
-            }, 500);
-          }
+          scrollManager();
+          
         }));
       });
+
+      //Handle scrolling
+      function scrollManager(){
+
+        //scroll to element if set in url scrollTo param and actually exists on the page, otherwise scroll to default
+        var scrollToValue = $location.search().scrollTo || null;
+        if(scrollToValue){
+          var scrollItem = scrollToValue.indexOf('.') === -1 ? angular.element('#'+scrollToValue) : angular.element(scrollToValue);
+          scrollToValue = scrollItem.length ? scrollToValue : null;
+        }
+        var scrollOffset = scrollToValue ? 20 : 0;
+        var ignoreScrollTo = scrollToValue ? false : true;
+
+        $timeout(function(){
+          scrollService.scrollTo(scrollToValue, scrollOffset, ignoreScrollTo);
+        }, 100);
+
+      }
 
       // Getting room details
       function setRoomData(data){
