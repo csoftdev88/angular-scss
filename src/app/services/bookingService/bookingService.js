@@ -5,7 +5,9 @@
  */
 angular.module('mobiusApp.services.booking', [])
 
-.service( 'bookingService',  function($stateParams, $window, validationService) {
+.service( 'bookingService',  function($stateParams, $window, $rootScope,
+  validationService, Settings) {
+
   var QUERY_TO_API_PARAMS = {
     'property': 'propertyCode',
     'location': 'locationCode',
@@ -133,6 +135,20 @@ angular.module('mobiusApp.services.booking', [])
       roomsStateObject || $stateParams.rooms, ROOMS_PARAM_SETTINGS, true);
   }
 
+  function isOverAdultsCapacity(){
+    var params = getAPIParams();
+
+    return Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking &&
+      !isMultiRoomBooking() &&
+      params.from &&
+      params.to &&
+      params.adults > Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking;
+  }
+
+  function switchToMRBMode(){
+    $rootScope.$broadcast('BOOKING_BAR_OPEN_MRB_TAB');
+  }
+
   // Public methods
   return {
     getParams: getParams,
@@ -142,6 +158,8 @@ angular.module('mobiusApp.services.booking', [])
     getCodeParamName: getCodeParamName,
     getCodeFromSlug: getCodeFromSlug,
     isMultiRoomBooking: isMultiRoomBooking,
-    getMultiRoomData: getMultiRoomData
+    getMultiRoomData: getMultiRoomData,
+    isOverAdultsCapacity: isOverAdultsCapacity,
+    switchToMRBMode: switchToMRBMode
   };
 });
