@@ -10,6 +10,7 @@ angular.module('mobiusApp.directives.resize.watcher', [])
       var $$window = angular.element($window);
 
       function updateView() {
+        
         var MOBILE_CLASS = 'viewport-mobile',
             DESKTOP_CLASS = 'viewport-desktop',
             windowHeight = $window.innerHeight,
