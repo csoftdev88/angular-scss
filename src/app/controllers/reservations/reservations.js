@@ -18,7 +18,7 @@ angular.module('mobius.controllers.reservations', [])
       ]).then(function(data){
         // data[0] - all(future, past) reservations
         // data[1] - cancelled reservation
-        processReservationsData(_.union(data[0], data[1]));
+        processReservationsData(data[0], data[1]);
       });
       preloaderFactory(reservationsPromise);
     } else {
@@ -30,22 +30,29 @@ angular.module('mobius.controllers.reservations', [])
   $controller('MainCtrl', {$scope: $scope});
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
-  function processReservationsData(reservations){
-    // Sorting by arrivalDate
-    // NOTE: Could be also sorted by time - format is not clear TBD
-    reservations = _.sortBy(reservations, function(reservation){
-      return $window.moment(reservation.arrivalDate).valueOf();
-    });
+  function processReservationsData(activeReservations, cancelledReservations){
+    var pastStays = sortByArrivalDate(
+      _.union(getPastStays(activeReservations), cancelledReservations)
+    );
 
-    fetchProperties(reservations);
+    activeReservations = sortByArrivalDate(activeReservations);
+    fetchProperties(activeReservations);
 
-    var futureStays = getFutureStays(reservations);
+    var futureStays = getFutureStays(activeReservations);
 
     $scope.reservations = {
       nextStay: futureStays.shift() || null,
-      pastStays: getPastStays(reservations),
+      pastStays: pastStays,
       futureStays: futureStays
     };
+  }
+
+  // Sorting by arrivalDate
+  // NOTE: Could be also sorted by time - format is not clear TBD
+  function sortByArrivalDate(reservations){
+    return _.sortBy(reservations, function(reservation){
+      return $window.moment(reservation.arrivalDate).valueOf();
+    });
   }
 
   $scope.getPropertyDetails = function(code){
