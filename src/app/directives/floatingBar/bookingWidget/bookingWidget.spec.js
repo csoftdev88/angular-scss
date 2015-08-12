@@ -70,6 +70,9 @@ describe('bookingWidget', function() {
         getParams: function(){
           return STATE_PARAMS;
         },
+        getAPIParams: function(){
+          return STATE_PARAMS;
+        },
         datesFromString: function() {
           return {
             from: '2015-02-02',

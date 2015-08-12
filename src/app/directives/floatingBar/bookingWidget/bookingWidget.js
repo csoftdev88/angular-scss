@@ -111,10 +111,16 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       };
 
+      function getDefaultAdultCount() {
+        return $window._.find(scope.guestsOptions.adults, {
+          value: bookingService.getAPIParams(true).adults || scope.settings.defaultAdultCount
+        });
+      }
+
       // NOTE: Hotel is presented in the URL by using property/hotel code
       // Currently selected form values
       scope.selected = {
-        'adults': scope.guestsOptions.adults[0],
+        'adults': getDefaultAdultCount(),
         'children': scope.guestsOptions.children[0],
         'property': undefined,
         'location': undefined,

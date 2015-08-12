@@ -220,6 +220,7 @@ angular.module('mobiusApp.config', [])
         'min': 0,
         'max': 8
       },
+      'defaultAdultCount': 2,
       'maxRooms': 4,
       'availability': {
         // Date range modification rules
