@@ -16,8 +16,8 @@ angular.module('mobius.controllers.reservations', [])
         reservationService.getAll(),
         reservationService.getCancelledReservations()
       ]).then(function(data){
-        // data[0] - all(future, past) reservations
-        // data[1] - cancelled reservation
+        // data[0] - all active reservations
+        // data[1] - cancelled reservations
         processReservationsData(data[0], data[1]);
       });
       preloaderFactory(reservationsPromise);
