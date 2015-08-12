@@ -52,15 +52,25 @@ angular.module('mobiusApp.services.reservation', [])
   }
 
   // Getting all customer reservations
-  function getAll() {
+  function getAll(params) {
     var customerId = user.getCustomerId();
 
     if(!customerId){
       throw new Error('User must be logged in');
     }
 
-    return apiService.get(apiService.getFullURL('reservations.all'), {
-      customerId: customerId
+    if(!params){
+      params = {};
+    }
+
+    params.customerId = customerId;
+
+    return apiService.get(apiService.getFullURL('reservations.all'), params);
+  }
+
+  function getCancelledReservations(){
+    return getAll({
+      filter: 'cancelled'
     });
   }
 
@@ -83,6 +93,7 @@ angular.module('mobiusApp.services.reservation', [])
     addAddon: addAddon,
     getAvailableAddons: getAvailableAddons,
     getAll: getAll,
+    getCancelledReservations: getCancelledReservations,
     find: find
   };
 });

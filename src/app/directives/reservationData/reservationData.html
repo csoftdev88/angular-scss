@@ -12,7 +12,10 @@
 
   <div class="content">
     <div class="header">
-      <h2>{{property.nameLong}} <!-- TODO: hotel name already in property.nameLong so duplicates, flag needs to be added to config file<strong>{{property.city}}</strong>--></h2>
+      <h2>
+        {{property.nameLong}} <!-- TODO: hotel name already in property.nameLong so duplicates, flag needs to be added to config file<strong>{{property.city}}</strong>-->
+        <span ng-if="reservation.status === 'Cancelled'">&nbsp;- Cancelled</span>
+      </h2>
       <span>Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
     </div>
 
