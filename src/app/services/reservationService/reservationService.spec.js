@@ -234,16 +234,16 @@ describe('reservationService', function() {
       });
     });
 
-    describe('getCanceledReservations', function() {
+    describe('getCancelledReservations', function() {
       it('should fire a GET request to reservations API including filter query param', function() {
-        _reservationService.getCanceledReservations();
+        _reservationService.getCancelledReservations();
         expect(_apiGetFullURLSpy.calledOnce).equal(true);
         expect(_apiGetFullURLSpy.calledWith('reservations.all')).equal(true);
         expect(_apiGetSpy.calledOnce).equal(true);
 
         var params = _apiGetSpy.args[0];
         expect(params[1].customerId).equal(123);
-        expect(params[1].filter).equal('canceled');
+        expect(params[1].filter).equal('cancelled');
       });
     });
   });

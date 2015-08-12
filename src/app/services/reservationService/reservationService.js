@@ -68,9 +68,9 @@ angular.module('mobiusApp.services.reservation', [])
     return apiService.get(apiService.getFullURL('reservations.all'), params);
   }
 
-  function getCanceledReservations(){
+  function getCancelledReservations(){
     return getAll({
-      filter: 'canceled'
+      filter: 'cancelled'
     });
   }
 
@@ -93,7 +93,7 @@ angular.module('mobiusApp.services.reservation', [])
     addAddon: addAddon,
     getAvailableAddons: getAvailableAddons,
     getAll: getAll,
-    getCanceledReservations: getCanceledReservations,
+    getCancelledReservations: getCancelledReservations,
     find: find
   };
 });

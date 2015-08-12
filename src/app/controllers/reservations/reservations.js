@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.reservations', [])
 
-.controller('ReservationsCtrl', function($scope, $controller,
+.controller('ReservationsCtrl', function($scope, $controller, $q,
   $state, modalService, creditCardTypeService, reservationService,
   preloaderFactory, propertyService, $window, _, breadcrumbsService){
 
@@ -12,8 +12,13 @@ angular.module('mobius.controllers.reservations', [])
 
   function onAuthorized(isMobiusUser){
     if(isMobiusUser){
-      var reservationsPromise = reservationService.getAll().then(function(data){
-        processReservationsData(data);
+      var reservationsPromise = $q.all([
+        reservationService.getAll(),
+        reservationService.getCancelledReservations()
+      ]).then(function(data){
+        // data[0] - all(future, past) reservations
+        // data[1] - cancelled reservation
+        processReservationsData(_.union(data[0], data[1]));
       });
       preloaderFactory(reservationsPromise);
     } else {
@@ -25,20 +30,20 @@ angular.module('mobius.controllers.reservations', [])
   $controller('MainCtrl', {$scope: $scope});
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
-  function processReservationsData(data){
+  function processReservationsData(reservations){
     // Sorting by arrivalDate
     // NOTE: Could be also sorted by time - format is not clear TBD
-    data = _.sortBy(data, function(reservation){
+    reservations = _.sortBy(reservations, function(reservation){
       return $window.moment(reservation.arrivalDate).valueOf();
     });
 
-    fetchProperties(data);
+    fetchProperties(reservations);
 
-    var futureStays = getFutureStays(data);
+    var futureStays = getFutureStays(reservations);
 
     $scope.reservations = {
       nextStay: futureStays.shift() || null,
-      pastStays: getPastStays(data),
+      pastStays: getPastStays(reservations),
       futureStays: futureStays
     };
   }
@@ -54,7 +59,6 @@ angular.module('mobius.controllers.reservations', [])
 
     _.each(reservations, function(reservation){
       var propertyCode = reservation.property.code;
-
       if(!$scope.properties[propertyCode]){
         $scope.properties[propertyCode] = {};
 
