@@ -1,8 +1,23 @@
 <ul>
   <li class="floating-bar--tab-booking main-mobile-toggle" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
-    <a href="" ng-click="setActive(BOOKING, true);">
-      <span class="desktop">Make Your <strong>Booking</strong></span>
-      <span class="mobile"><strong>Book now</strong><span class="mobile-close" ng-click="isCollapsed === true" ng-show="!isCollapsed"></span></span>
+    <a href="" ng-click="setActive(BOOKING, true);" ng-class="{'with-search-params' : hasSearchParams()}">
+      <div class="desktop">Make Your <strong>Booking</strong></div>
+      <div class="mobile">
+        <div ng-hide="hasSearchParams()" class="book-now-button">Book now</div>
+        <div ng-hide="!hasSearchParams()" ng-class="{'in-line' : inLine()}" class="search-params-bar">
+          <div class="cell dates">
+            <div class="date-cell">{{getCheckIn()}}</div>
+            <div class="date-cell">{{getCheckOut()}}</div>
+          </div>
+          <div class="cell separator-cell"> | </div>
+          <div class="cell people">
+            <div ng-show="adults == 1">1 Adult</div>
+            <div ng-show="adults > 1">{{adults}} Adults</div>
+            <div ng-show="children == 1">1 Child</div>
+            <div ng-show="children > 1">{{children}} Children</div>
+          </div>
+        </div>
+        <span class="mobile-close" ng-click="isCollapsed === true" ng-show="!isCollapsed"></span></div>
     </a>
   </li>
   <li class="floating-bar--tab-booking mobile-single-booking" ng-class="{'is-active': active === BOOKING}">

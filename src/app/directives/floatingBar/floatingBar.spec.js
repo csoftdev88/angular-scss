@@ -6,6 +6,7 @@ describe('bookingWidget', function() {
 
   var TEMPLATE = '<floating-bar></floating-bar>';
   var TEMPLATE_URL = 'directives/floatingBar/floatingBar.html';
+  var TEST_URL_PARAMS = {testParam: 'testValue'};
 
   beforeEach(function() {
     env = {};
@@ -16,6 +17,16 @@ describe('bookingWidget', function() {
           bookingWidget: {
             hasMutiroomTab: true
           }
+        }
+      });
+
+      // Mocking the services
+      $provide.value('bookingService', {
+        getAPIParams: function(){
+          return TEST_URL_PARAMS;
+        },
+        APIParamsHasDates: function(){
+          return true;
         }
       });
     });
