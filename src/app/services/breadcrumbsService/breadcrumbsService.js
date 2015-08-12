@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.services.breadcrumbs', [])
-  .service('breadcrumbsService', function(_, $rootScope) {
+  .service('breadcrumbsService', function(_, $rootScope,
+      scrollService) {
 
     var breadcrumbs = [];
     var hrefs = [];
@@ -72,6 +73,7 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       }
     }
 
+    // TODO: This seems to be redundant
     function setActiveHref(href) {
       activeHref = href;
       return object;
@@ -79,6 +81,55 @@ angular.module('mobiusApp.services.breadcrumbs', [])
 
     function getActiveHref() {
       return activeHref;
+    }
+
+    // Return visible href in viewport
+    function getVisibleHref(){
+      if(hrefs && hrefs.length){
+        // Getting positions
+        var hrefAreas = _.compact(hrefs.map(function(href){
+          var top = getHrefPosition(href);
+          // NOTE - interested only real poritive positions
+          if(top){
+            return {
+              href: href,
+              top: top
+            };
+          }else{
+            return null;
+          }
+        }));
+
+        // Sorting by positions
+        hrefAreas = _.sortBy(hrefAreas, function(area){
+          return area.top;
+        });
+
+        if(hrefAreas.length){
+          var scrollTop = scrollService.getScrollTop();
+          for(var i = hrefAreas.length-1; i >=0; i--){
+            var area = hrefAreas[i];
+            // NOTE: Set highlight accuracy here
+            if(area.top - scrollService.getHeaderHeight(true) < scrollTop){
+              return area.href;
+            }
+          }
+
+          // NOTE: Returning first href
+          return hrefAreas[0].href;
+        }
+      }
+
+      return null;
+    }
+
+    function getHrefPosition(href){
+      var hrefElement = angular.element('#' + href.id);
+      if(hrefElement.length){
+        return hrefElement.offset().top;
+      }
+
+      return 0;
     }
 
     // Public methods
@@ -94,7 +145,8 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       getAbsHrefs: getAbsHrefs,
       removeHref: removeHref,
       setActiveHref: setActiveHref,
-      getActiveHref: getActiveHref
+      getActiveHref: getActiveHref,
+      getVisibleHref: getVisibleHref
     };
 
     return object;
