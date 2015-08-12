@@ -233,5 +233,18 @@ describe('reservationService', function() {
         expect(fullURLParams[1].actionType).equal('sendToPassbook');
       });
     });
+
+    describe('getCanceledReservations', function() {
+      it('should fire a GET request to reservations API including filter query param', function() {
+        _reservationService.getCanceledReservations();
+        expect(_apiGetFullURLSpy.calledOnce).equal(true);
+        expect(_apiGetFullURLSpy.calledWith('reservations.all')).equal(true);
+        expect(_apiGetSpy.calledOnce).equal(true);
+
+        var params = _apiGetSpy.args[0];
+        expect(params[1].customerId).equal(123);
+        expect(params[1].filter).equal('canceled');
+      });
+    });
   });
 });
