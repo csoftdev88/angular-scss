@@ -13,7 +13,7 @@ angular.module('mobiusApp.directives.floatingBar', [
     var active = BOOKING;
     var isCollapsed = false;
     var DATE_FORMAT_DAY = 'd';
-    var DATE_FORMAT_FULL = 'd M, yy';
+    var DATE_FORMAT_FULL = 'd MMM, YYYY';
 
     return {
       restrict: 'E',
@@ -73,7 +73,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         };
 
         function getFormattedDate(format, date) {
-          return $.datepicker.formatDate(format, date).toUpperCase();
+          return $window.moment(date).format(format || Settings.UI.checkInDateFormats.defaultFormat).toUpperCase();
         }
 
         function isTheSameMonth() {
