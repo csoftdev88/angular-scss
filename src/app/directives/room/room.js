@@ -68,13 +68,12 @@ angular.module('mobiusApp.directives.room', [])
             .addBreadCrumb(data[0].roomDetails.name);
 
           scrollManager();
-          
+
         }));
       });
 
       //Handle scrolling
       function scrollManager(){
-
         //scroll to element if set in url scrollTo param and actually exists on the page, otherwise scroll to default
         var scrollToValue = $location.search().scrollTo || null;
         if(scrollToValue){
@@ -137,20 +136,6 @@ angular.module('mobiusApp.directives.room', [])
         );
       }
 
-      scope.isOverAdultsCapacity = function(){
-        var params = bookingService.getAPIParams();
-
-        return Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking &&
-          !bookingService.isMultiRoomBooking() &&
-          params.from &&
-          params.to &&
-          params.adults > Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking;
-      };
-
-      scope.switchToMRBMode = function(){
-        $rootScope.$broadcast('BOOKING_BAR_OPEN_MRB_TAB');
-      };
-
       scope.setRoomsSorting = function() {
         return user.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
       };
@@ -192,6 +177,9 @@ angular.module('mobiusApp.directives.room', [])
           });
         };
       }
+
+      scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
+      scope.switchToMRBMode = bookingService.switchToMRBMode;
     }
   };
 });

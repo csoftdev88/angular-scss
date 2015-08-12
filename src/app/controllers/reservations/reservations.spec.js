@@ -41,6 +41,11 @@ describe('mobius.controllers.reservations', function() {
             return {
               then: function(c){c(TEST_RESERVATIONS);}
             };
+          },
+          getCancelledReservations: function(){
+            return {
+              then: function(c){c([]);}
+            };
           }
         });
 
@@ -79,6 +84,7 @@ describe('mobius.controllers.reservations', function() {
       _spyPropertyServiceGetPropertyDetails = sinon.spy(propertyService, 'getPropertyDetails');
 
       $controller('ReservationsCtrl', { $scope: _scope });
+      _scope.$digest();
     }));
 
     afterEach(function(){

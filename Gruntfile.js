@@ -2,6 +2,7 @@
 
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -9,7 +10,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-localisation');
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
         options: {
           cleancss: true,
           report: 'min',
-          compess: true
+          compress: true
         },
         expand: true,
         cwd: '<%= config.client %>/',
@@ -109,23 +109,11 @@ module.exports = function(grunt) {
       }
     },
 
-    postcss: {
+    autoprefixer: {
       development: {
-        options: {
-          processors: [
-            require('autoprefixer-core')
-          ]
-        },
         src: '<%= config.build %>/<%= config.styles %>'
       },
-
       production: {
-        options: {
-          processors: [
-            require('autoprefixer-core'),
-            require('cssnano')()
-          ]
-        },
         src: '<%= config.compile %>/<%= config.styles %>'
       }
     },
@@ -220,7 +208,7 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
-        tasks: ['less:development', 'postcss:development'],
+        tasks: ['less:development', 'autoprefixer:development'],
         options: { livereload: true }
       },
       scripts: {
@@ -317,7 +305,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:development',
-    'postcss:development',
+    'autoprefixer:development',
     'index:build',
     'copy:images',
     'copy:fonts',
@@ -332,7 +320,7 @@ module.exports = function(grunt) {
     'clean',
     'prebuild',
     'less:production',
-    'postcss:production',
+    'autoprefixer:production',
     'concat',
     'uglify',
     'copy',

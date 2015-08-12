@@ -1,20 +1,32 @@
 'use strict';
 
 describe('bookingService', function() {
-  var _rootScope, _bookingService, _stateParams = {};
+  var _rootScope, _bookingService, _spyBroadcast, _stateParams = {};
 
   beforeEach(function() {
     module('mobiusApp.services.validation');
     module('mobiusApp.services.booking', function($provide) {
       // Mocking $stateParams service
       $provide.value('$stateParams', _stateParams);
+      $provide.value('Settings', {
+        UI: {
+          bookingWidget: {
+            maxAdultsForSingleRoomBooking: 5
+          }
+        }
+      });
     });
   });
 
   beforeEach(inject(function($rootScope, bookingService) {
     _rootScope = $rootScope;
+    _spyBroadcast = sinon.spy(_rootScope, '$broadcast');
     _bookingService = bookingService;
   }));
+
+  afterEach(function(){
+    _spyBroadcast.restore();
+  });
 
   describe('getParams', function() {
     beforeEach(function() {
@@ -179,6 +191,47 @@ describe('bookingService', function() {
     it('should encoded rooms list', function() {
       expect(_bookingService.getMultiRoomData(
       '%5B%7B%22adults%22%3A2%2C%22children%22%3A0%7D%2C%7B%22adults%22%3A1%2C%22children%22%3A0%7D%5D').length).equal(2);
+    });
+  });
+
+  describe('isOverAdultsCapacity', function() {
+    it('should be defined as a function', function() {
+      expect(_bookingService.isOverAdultsCapacity).to.be.an('function');
+    });
+
+    it('should return false when in multiroom booking mode', function() {
+      _stateParams.rooms =
+        '%5B%7B%22adults%22%3A2%2C%22children%22%3A0%7D%2C%7B%22adults%22%3A1%2C%22children%22%3A0%7D%5D';
+      expect(_bookingService.isOverAdultsCapacity()).equal(false);
+    });
+
+    it('should return false when dates are not selected', function() {
+      expect(_bookingService.isOverAdultsCapacity()).equal(false);
+    });
+
+    it('should return false when dates are selected but adults count is lower than maxAdultsForSingleRoomBooking' +
+        'specified in the config', function() {
+      _stateParams.adults = 4;
+      _stateParams.dates = '2015-01-01 2015-03-03';
+
+      expect(_bookingService.isOverAdultsCapacity()).equal(false);
+    });
+
+    it('should return true when dates are selected and adults count is higher than maxAdultsForSingleRoomBooking' +
+        'specified in the config', function() {
+      _stateParams.adults = 6;
+      _stateParams.rooms = null;
+      _stateParams.dates = '2015-01-01 2015-03-03';
+
+      expect(_bookingService.isOverAdultsCapacity()).equal(true);
+    });
+  });
+
+  describe('switchToMRBMode', function(){
+    it('should broadcast BOOKING_BAR_OPEN_MRB_TAB event', function() {
+      _bookingService.switchToMRBMode();
+      expect(_spyBroadcast.calledOnce).equal(true);
+      expect(_spyBroadcast.calledWith('BOOKING_BAR_OPEN_MRB_TAB')).equal(true);
     });
   });
 });

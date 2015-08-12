@@ -28,7 +28,7 @@
     <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedNews.image.alt}}"/>
     <div ng-bind-html="selectedNews.text"></div>
     <button-back role="button" tabindex="0" ng-click="goToNewsList()" class="pull-left">Back</button-back>
-
+    <div class="clearfix"></div>
     <hr>
 
     <h2 ng-if="newsList.length > 1">You may also be <strong>interested in:</strong></h2>

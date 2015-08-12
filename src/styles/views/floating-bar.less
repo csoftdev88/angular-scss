@@ -28,7 +28,7 @@ floating-bar {
     }
   }
 
-  @media print { 
+  @media print {
    display: none;
   }
 
@@ -195,13 +195,59 @@ floating-bar {
 
           a{
             background: @c-green;
+            margin-top: auto;
+            margin-bottom: auto;
             padding: 20px 0;
+            font-weight: bold;
             .desktop{
               display: none;
             }
 
+            &.with-search-params {
+              background: @c-brown;
+            }
+
             .mobile{
               display: inline;
+
+              div {
+                &.book-now-button {
+                  line-height: 35px;
+                }
+
+                &.search-params-bar {
+                  display: table;
+                  margin-left: auto;
+                  margin-right: auto;
+                  line-height: 18px;
+
+                  &.in-line {
+                    line-height: 30px;
+                  }
+
+                  .cell {
+                    display: table-cell;
+                    vertical-align: middle;
+                  }
+
+                  .dates {
+                    text-align: right;
+                    width: 8.6em;
+                  }
+
+                  .date-cell {
+                    display: inline-block;
+                  }
+
+                  .separator-cell {
+                    padding: 0 10px;
+                  }
+
+                  .people {
+                    text-align: left;
+                  }
+                }
+              }
               .mobile-close{
                 cursor: pointer;
                 &:after {
@@ -217,7 +263,7 @@ floating-bar {
               }
             }
           }
-          
+
         }
       }
 

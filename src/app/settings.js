@@ -147,6 +147,12 @@ angular.module('mobiusApp.config', [])
         }
       ]
     },
+    // toggle filters on hotels page
+    'hotelFilters': {
+      'stars': true,
+      'tripAdvisor': true,
+      'rates': true
+    },
     // List of currencies and their display symbols
     'currencies': {
       'default': 'GBP',
