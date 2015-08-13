@@ -60,7 +60,8 @@ describe('mobius.controllers.reservationDetail', function() {
 
       module('mobius.controllers.reservationDetail', function($provide, $controllerProvider) {
         $provide.value('$stateParams', {
-          reservationCode: TEST_RESERVATION_CODE
+          reservationCode: TEST_RESERVATION_CODE,
+          view: 'summary'
         });
 
         $provide.value('modalService', {
@@ -198,6 +199,11 @@ describe('mobius.controllers.reservationDetail', function() {
         expect(_scope.property).equal(TEST_PROPERTY);
       });
 
+      it('should set isEditable flag to false when view state param is equal to "summary"', function() {
+        expect(_scope.isEditable).equal(false);
+      });
+
+      // TODO: Fix
       /*
       it('should download property details from the server and store them', function() {
         expect(_spyGetReservationAddOns).calledOnce;
@@ -216,7 +222,6 @@ describe('mobius.controllers.reservationDetail', function() {
           descriptionShort: TEST_ADDONS[1].description.substr(0, 100) + '…',
           hasViewMore: true
         });
-
       });
       */
     });

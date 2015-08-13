@@ -263,12 +263,32 @@ describe('mobius.controllers.reservation', function() {
         expect(_spyUpdateUser.calledOnce).equal(true);
       });
 
-      it('should redirect to a detail state when reservation complete', function(){
-        _scope.additionalInfo.agree = true;
-        _scope.makeReservation();
-        _scope.$digest();
-        expect(_spyStateGo.calledOnce).equal(true);
-        expect(_spyStateGo.calledWith('reservationDetail')).equal(true);
+      describe('when reservation is complete', function(){
+        var stateParams;
+
+        beforeEach(function(){
+          _scope.additionalInfo.agree = true;
+          _scope.makeReservation();
+          _scope.$digest();
+
+          stateParams = _spyStateGo.args[0][1];
+        });
+
+        it('should redirect to reservation details page', function(){
+          expect(_spyStateGo.calledOnce).equal(true);
+          expect(_spyStateGo.calledWith('reservationDetail')).equal(true);
+          expect(stateParams.reservationCode).equal(95234134);
+        });
+
+        it('should remove reservation, room and rooms state params', function(){
+          expect(stateParams.reservation).equal(null);
+          expect(stateParams.room).equal(null);
+          expect(stateParams.rooms).equal(null);
+        });
+
+        it('should set view mode to summary', function(){
+          expect(stateParams.view).equal('summary');
+        });
       });
 
       describe('reservation params check', function() {
