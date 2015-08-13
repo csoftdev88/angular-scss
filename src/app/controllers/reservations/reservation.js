@@ -474,6 +474,8 @@ angular.module('mobius.controllers.reservation', [])
       reservationDetailsParams.room = null;
       reservationDetailsParams.rooms = null;
 
+      // Newly created reservation
+      reservationDetailsParams.view = 'summary';
       $state.go('reservationDetail', reservationDetailsParams);
     }, function() {
       // TODO: Whaat request has failed
