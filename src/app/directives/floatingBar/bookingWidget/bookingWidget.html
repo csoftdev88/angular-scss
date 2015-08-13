@@ -49,7 +49,6 @@
   <form-element class="persons" ng-if="!advanced">
     <select name="adults"
             required ng-model="selected.adults"
-            ng-init="selected.adults = guestsOptions.adults[1]"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.adults"
             data-placeholder="Adults"

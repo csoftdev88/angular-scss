@@ -24,11 +24,13 @@ angular.module('mobiusApp.directives.floatingBar', [
       // Widget logic goes here
       link: function(scope, $el) {
         scope.hasMutiroomTab = Settings.UI.bookingWidget.hasMutiroomTab;
+        scope.isMobile = $window.innerWidth <= Settings.UI.screenTypes.mobile.maxWidth;
+        isCollapsed = scope.isMobile;
 
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
-        scope.isMobile = false;
+
         scope.from = new Date(bookingService.getAPIParams(true).from);
         scope.to = new Date(bookingService.getAPIParams(true).to);
         scope.adults = bookingService.getAPIParams(true).adults;
@@ -39,7 +41,7 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         scope.setActive = function(newActive, isMobileToggle) {
 
-          if(scope.active === newActive || isMobileToggle && !scope.isCollapsed && scope.isMobile){
+          if(scope.active === newActive && !scope.isMobile || isMobileToggle && !scope.isCollapsed && scope.isMobile){
             scope.isCollapsed = !scope.isCollapsed;
           }else if(scope.active && scope.isCollapsed){
             // Expanding when clicked on another tab
@@ -57,6 +59,9 @@ angular.module('mobiusApp.directives.floatingBar', [
         // This will be invoked from child bookingWidget directive
         // when booking tab should be opened
         scope.openBookingTab = function(isMRB){
+          if(scope.isMobile){
+            return;
+          }
           var tabType = isMRB?ADVANCED_BOOKING:BOOKING;
 
           if(isCollapsed || scope.active !== tabType){

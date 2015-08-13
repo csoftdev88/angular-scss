@@ -94,16 +94,28 @@ angular.module('mobius.controllers.offers', [])
     }
 
     $scope.goToHotels = function(offer) {
-      if($stateParams.property){
-        propertyService.getPropertyDetails($stateParams.property)
+      bookingParams = bookingService.getAPIParams();
+
+      var stateParams = {};
+      stateParams.adults = bookingParams.adults;
+      stateParams.children = bookingParams.children;
+      stateParams.promoCode = offer.promoCode;
+      if (bookingParams.from && bookingParams.to) {
+        stateParams.dates = bookingParams.from + ' ' + bookingParams.to;
+      }
+
+      if(bookingParams.propertyCode){
+        propertyService.getPropertyDetails(bookingParams.propertyCode)
           .then(function(details){
-            $state.go('hotel', {propertySlug: details.meta.slug, promoCode: offer.promoCode, scrollTo: 'jsRooms'}, {reload: true});
+            stateParams.propertySlug = details.meta.slug;
+            stateParams.scrollTo = 'jsRooms';
+            $state.go('hotel', stateParams, {reload: true});
           });
       }
       else{
-        $state.go('hotels', {promoCode: offer.promoCode, scrollTo: 'hotels'});
+        stateParams.scrollTo = 'hotels';
+        $state.go('hotels', stateParams);
       }
-
     };
 
     // Checking if user have selected dates
