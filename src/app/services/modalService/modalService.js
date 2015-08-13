@@ -320,6 +320,12 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openTiersListDialog(){
+    return openDialog('tiers-list', 'layouts/modals/loyalties/tiersList.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details tiers-list'
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -340,6 +346,7 @@ angular.module('mobiusApp.services.modal', [])
     // Loyalties
     openBadgesDialog: openBadgesDialog,
     openLoyaltyDialog: openLoyaltyDialog,
+    openTiersListDialog: openTiersListDialog,
     // Rewards
     openRewardDetailsDialog: openRewardDetailsDialog,
     // gallery
@@ -349,6 +356,6 @@ angular.module('mobiusApp.services.modal', [])
     openTermsAgreeDialog: openTermsAgreeDialog,
     openRoomDetailsDialog: openRoomDetailsDialog,
     openOtherRoomsDialog: openOtherRoomsDialog,
-    openLoginDialog: openLoginDialog
+    openLoginDialog: openLoginDialog,
   };
 });
