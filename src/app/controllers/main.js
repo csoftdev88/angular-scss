@@ -70,6 +70,12 @@ angular.module('mobius.controllers.main', [])
 
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;
+      $scope.openTiersListDialog = function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        modalService.openTiersListDialog();
+      };
 
       // TODO Seems like this function is used in roomDetails controller as well
       //$scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
