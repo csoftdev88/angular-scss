@@ -13,8 +13,9 @@ angular.module('mobiusApp.directives.floatingBar', [
 
     var active = BOOKING;
     var isCollapsed = false;
-    var DATE_FORMAT_DAY = 'd';
-    var DATE_FORMAT_FULL = 'd MMM, YYYY';
+    var OUTPUT_DATE_FORMAT_DAY = 'D';
+    var OUTPUT_DATE_FORMAT_FULL = 'D MMM, YYYY';
+    var INPUT_DATE_FORMAT = 'YYYY-MM-DD';
 
     return {
       restrict: 'E',
@@ -31,10 +32,12 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
 
-        scope.from = new Date(bookingService.getAPIParams(true).from);
-        scope.to = new Date(bookingService.getAPIParams(true).to);
-        scope.adults = bookingService.getAPIParams(true).adults;
-        scope.children = bookingService.getAPIParams(true).children;
+        var bookingParams = bookingService.getAPIParams();
+
+        scope.from = $window.moment.utc(bookingParams.from, INPUT_DATE_FORMAT)._d;
+        scope.to = $window.moment.utc(bookingParams.to, INPUT_DATE_FORMAT)._d;
+        scope.adults = bookingParams.adults;
+        scope.children = bookingParams.children;
 
         var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
@@ -84,12 +87,12 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         scope.getCheckIn = function() {
           return (isTheSameMonth()) ?
-            getFormattedDate(DATE_FORMAT_DAY, scope.from) + ' - ' :
-            getFormattedDate(DATE_FORMAT_FULL, scope.from);
+            getFormattedDate(OUTPUT_DATE_FORMAT_DAY, scope.from) + ' - ' :
+            getFormattedDate(OUTPUT_DATE_FORMAT_FULL, scope.from);
         };
 
         scope.getCheckOut = function() {
-          return getFormattedDate(DATE_FORMAT_FULL, scope.to);
+          return getFormattedDate(OUTPUT_DATE_FORMAT_FULL, scope.to);
         };
 
         scope.hasSearchParams = function() {

@@ -210,6 +210,23 @@ describe('mobiusApp.services.modal', function() {
     });
   });
 
+  describe('openTiersListDialog', function() {
+    it('should be defined as a function', function() {
+      expect(_modalService.openTiersListDialog).to.be.an('function');
+    });
 
+    it('should open other rooms dialog', function() {
+      _modalService.openTiersListDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
 
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details tiers-list'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/loyalties/tiersList.html'))).equal(true);
+    });
+  });
 });
