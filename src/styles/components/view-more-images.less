@@ -9,6 +9,48 @@ view-more-images {
   position: relative;
   top: -28px;
   text-align: right;
+  overflow: hidden;
+
+  hero-slider {
+    overflow: auto;
+
+    height: 200px;
+    .slider-content {
+      .hero-slide {
+        overflow: auto;
+
+        .content-inner {
+          h1 {
+            &:before {
+              display: none;
+            }
+
+          }
+
+          h2 {
+            display: none;
+          }
+        }
+      }
+    }
+    .slider-controls {
+      .slide-button {
+        background: none;
+
+        &:before {
+          .fa;
+        }
+
+        &.slide-left {
+          content: @fa-var-chevron-left;
+        }
+
+        &.slide-right {
+          content: @fa-var-chevron-right;
+        }
+      }
+    }
+  }
 
   // MOBILE SPECIFIC STYLES
   @media only screen and @large-mobile-max {
