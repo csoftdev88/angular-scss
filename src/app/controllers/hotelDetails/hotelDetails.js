@@ -2,9 +2,11 @@
 /*
 *  Controller for hotel details page with a list of rooms
 */
-angular.module('mobius.controllers.hotel.details', [])
+angular.module('mobius.controllers.hotel.details', [
+  'mobiusApp.filters.cloudinaryImage'
+])
 
-.controller( 'HotelDetailsCtrl', function($scope, bookingService, $state, contentService,
+.controller( 'HotelDetailsCtrl', function($scope, $filter, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
   $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams) {
 
@@ -85,9 +87,13 @@ angular.module('mobius.controllers.hotel.details', [])
           // TODO: Update PhantomJS
           $scope.openGallery = function(){
             modalService.openGallery(
-              details.images.map(function(image){return image.uri;})
+              contentService.getLightBoxContent(details.images)
             );
           };
+
+          // Preview content
+          $scope.previewImages = contentService.getLightBoxContent(
+            details.images, 300, 150, 'fill');
         }
 
         if(details.hasOwnProperty('available')) {

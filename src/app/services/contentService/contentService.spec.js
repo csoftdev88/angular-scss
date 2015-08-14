@@ -88,7 +88,6 @@ describe('contentService', function() {
     });
   });
 
-
   describe('getCurrencies', function() {
     it('should fire a GET request to generics/currencies API', function() {
       env.contentService.getCurrencies();
@@ -116,6 +115,25 @@ describe('contentService', function() {
       expect(env.apiGetFullURLSpy.calledWith('contents.adverts.random')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
+    });
+  });
+
+  describe('getLightBoxContent', function() {
+    it('should convert images into hero slider format without titles', function() {
+      var images = env.contentService.getLightBoxContent([
+        {uri: 'test.com'}
+      ]);
+      expect(images.length).equal(1);
+      expect(images[0].uri).equal('test.com');
+    });
+
+    it('should convert images into hero slider format including titles', function() {
+      var images = env.contentService.getLightBoxContent([
+        {uri: 'test.com', alt:'test alt'}
+      ]);
+      expect(images.length).equal(1);
+      expect(images[0].title).equal('test alt');
+      expect(images[0].subtitle).equal('test alt');
     });
   });
 });

@@ -7,7 +7,7 @@ angular.module('mobiusApp.directives.slider', [])
   return {
     restrict: 'E',
     scope: {
-      content: '='
+      content: '=',
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
@@ -32,6 +32,11 @@ angular.module('mobiusApp.directives.slider', [])
 
       var autoplayDelay;
       var timerID;
+
+      // True by default
+      scope.hasNotificationBar = attrs.hasNotificationBar !== 'false';
+      // Counter types - bullets/counter
+      scope.counterType = attrs.counterType || 'bullets';
 
       // Custom easing function
       $.extend($.easing,{
