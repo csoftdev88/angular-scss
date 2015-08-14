@@ -19,14 +19,14 @@
         <div class="dropdown">
           <a href>
             <div class="profile">
-              <img err-source="/static/images/v4/img-profile.png" ng-click="openTiersListDialog($event)" ng-src="{{user.getUser().avatarUrl}}">
+              <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
 
               <div class="user">
                 <div class="name">{{user.getUser().firstName}} {{user.getUser().lastName}}</div>
                 <div class="points">
                   <span>{{user.getUser().loyalties.amount}} _points_</span>
                   <span class="vr">|</span>
-                  <span>{{user.getUser().loyalties.tier}} _tier_</span>
+                  <span ng-click="openTiersListDialog($event)">{{user.getUser().loyalties.tier}} _tier_</span>
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@
           <a href>
             <div class="profile">
               <div class="user">
-                <img err-source="/static/images/v4/img-profile.png" ng-click="openTiersListDialog($event)" ng-src="{{user.getUser().avatarUrl}}">
+                <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
                 <span>{{user.getUser().firstName}}</span>
                 <span>{{user.getUser().lastName}}</span>
               </div>
@@ -88,7 +88,7 @@
               <div class="points">
                 <span>{{user.getUser().loyalties.amount}} _points_</span>
                 <span class="vr">|</span>
-                <span>{{user.getUser().loyalties.tier}} _tier_</span>
+                <span ng-click="openTiersListDialog($event)">{{user.getUser().loyalties.tier}} _tier_</span>
               </div>
             </div>
           </a>

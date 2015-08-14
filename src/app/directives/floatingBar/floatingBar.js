@@ -5,7 +5,8 @@ angular.module('mobiusApp.directives.floatingBar', [
   'mobiusApp.directives.floatingBar.myAccount'
 ])
 
-  .directive('floatingBar', ['Settings', 'bookingService', '$window',  function(Settings, bookingService, $window) {
+  .directive('floatingBar', ['Settings', 'bookingService', '$window', function(
+      Settings, bookingService, $window) {
     var BOOKING = 'booking',
         ADVANCED_BOOKING = 'advancedBooking',
         MY_ACCOUNT = 'myAccount';

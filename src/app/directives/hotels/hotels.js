@@ -77,6 +77,9 @@ angular.module('mobiusApp.directives.hotels', [])
       function getProperties(params){
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
+          // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
+          // hotels = undefined;
+          scope.hotels = hotels || [];
 
 
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
@@ -108,18 +111,12 @@ angular.module('mobiusApp.directives.hotels', [])
                 return;
               }
 
-              //check if offer is limited to some properties and only display those
-              currentOffer = _.find(offersList, function(offer){
-                return offer.meta.slug === $stateParams.promoCode;
-              });
               if(currentOffer){
                 scope.hotels = _.filter(scope.hotels, function(hotel){
                   return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
                 });
               }
-
             });
-
           }
 
           scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
