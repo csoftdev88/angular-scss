@@ -23,6 +23,36 @@ view-more-images {
       height: 225px;
       position: relative;
 
+      &:before {
+        .fa;
+        .transition;
+        opacity: 0;
+        content: @fa-var-search;
+        display: block;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 150px;
+        background: rgba(0,0,0, .5);
+
+        z-index: 1;
+        height: 150px;
+        background: rgba(0, 0, 0, 0.5);
+        color: @c-white;
+        text-align: center;
+        font-size: @size-5;
+        line-height: 150px;
+        height: 150px;
+        cursor: pointer;
+      }
+
+      &:hover {
+        &:before {
+          opacity: 1;
+        }
+      }
+
       .hero-slide {
         overflow: visible;
         height: 150px;
