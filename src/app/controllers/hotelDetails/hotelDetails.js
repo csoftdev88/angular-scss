@@ -95,7 +95,7 @@ angular.module('mobius.controllers.hotel.details', [
           $scope.lightboxContent = details.images.map(function(img){
             return {
               // NOTE: Reducing the size of images
-              uri: $filter('cloudinaryImage')(img.uri, 300, 200, 'fill'),
+              uri: $filter('cloudinaryImage')(img.uri, 300, 150, 'fill'),
               title: img.alt,
               subtitle: img.alt
             };

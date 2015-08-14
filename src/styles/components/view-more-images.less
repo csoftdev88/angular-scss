@@ -10,27 +10,25 @@ view-more-images {
   position: relative;
   top: -28px;
   text-align: right;
-  overflow: hidden;
 
   hero-slider {
     overflow: visible;
-    margin: 0 20px;
     width: auto;
 
-    height: 300px;
+    height: 225px;
 
     .slider-content {
       overflow: hidden;
       //width: 300px;
-      height: 200px;
+      height: 225px;
       position: relative;
 
       .hero-slide {
         overflow: visible;
-        height: 275px;
+        height: 150px;
 
         .content-inner {
-          top: 230px;
+          top: 180px;
 
           h1 {
             font-size: @size--1;
@@ -57,9 +55,10 @@ view-more-images {
 
     .slider-controls {
       position: initial;
+      height: auto;
 
       .pages {
-        top: 205px;
+        top: 155px;
 
         counter {
           display: inline-block;
@@ -72,7 +71,7 @@ view-more-images {
         background: none;
         width: 12px;
         height: 12px;
-        top: 90px;
+        top: 60px;
         color: @c-grey;
         width: auto;
         height: auto;
@@ -98,7 +97,7 @@ view-more-images {
             content: @fa-var-chevron-right;
           }
 
-          right: -32px;
+          right: -27px;
         }
       }
     }
@@ -120,8 +119,6 @@ view-more-images {
   a {
     text-decoration: none;
     font-size: @size--1;
-
-    padding-right: @baseline;
 
     &:focus,
     &:hover {
