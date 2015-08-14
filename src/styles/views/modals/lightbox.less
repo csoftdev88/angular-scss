@@ -31,6 +31,31 @@
 
       .hero-slide {
         height: 640px;
+        overflow: visible;
+
+        .content-inner {
+          top: 680px;
+
+          h1 {
+            font-size: @size-2;
+            color: @c-white;
+            background: none;
+            line-height: initial;
+            text-align: center;
+            text-transform: none;
+            width: 100%;
+            padding: 0px;
+
+            &:before {
+              display: none;
+            }
+
+          }
+
+          h2 {
+            display: none;
+          }
+        }
       }
     }
 

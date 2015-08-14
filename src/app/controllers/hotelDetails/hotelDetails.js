@@ -87,19 +87,13 @@ angular.module('mobius.controllers.hotel.details', [
           // TODO: Update PhantomJS
           $scope.openGallery = function(){
             modalService.openGallery(
-              details.images.map(function(image){return image.uri;})
+              contentService.getLightBoxContent(details.images)
             );
           };
 
           // Preview content
-          $scope.lightboxContent = details.images.map(function(img){
-            return {
-              // NOTE: Reducing the size of images
-              uri: $filter('cloudinaryImage')(img.uri, 300, 150, 'fill'),
-              title: img.alt,
-              subtitle: img.alt
-            };
-          });
+          $scope.previewImages = contentService.getLightBoxContent(
+            details.images, 300, 150, 'fill');
         }
 
         if(details.hasOwnProperty('available')) {
