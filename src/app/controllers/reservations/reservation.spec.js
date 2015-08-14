@@ -26,6 +26,9 @@ describe('mobius.controllers.reservation', function() {
     };
 
     beforeEach(function() {
+      module('mobiusApp.services.content',  function($provide){
+        $provide.value('contentService', function(){});
+      });
       module('mobius.controllers.room.details');
       module('mobius.controllers.common.cardExpiration');
       module('mobius.controllers.common.sso', function($provide){
