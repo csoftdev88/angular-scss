@@ -21,10 +21,12 @@ angular.module('mobius.controllers.about', [])
 
       $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+
+      $scope.previewImages = contentService.getLightBoxContent(
+        chain.images, 300, 150, 'fill');
+
       $scope.openGallery = modalService.openGallery.bind(modalService,
-        chain.images.map(function(image) {
-          return image.uri;
-        })
+        contentService.getLightBoxContent(chain.images)
       );
     });
 

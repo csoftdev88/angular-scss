@@ -6,11 +6,13 @@
     <a href class="slide-button slide-left" ng-click="slide(true, $event)"/>
     <a href class="slide-button slide-right" ng-click="slide(false, $event)"/>
 
-    <div class="pages" ng-click="preventClick($event)">
-      <span ng-repeat="page in content" ng-class="{active:slideIndex==$index}" ng-click="slideToIndex($index, $event)"/>
+    <div class="pages" ng-click="preventClick($event)" ng-if="content.length" ng-switch="counterType">
+      <span ng-switch-default ng-repeat="page in content" ng-class="{active:slideIndex==$index}" ng-click="slideToIndex($index, $event)"/>
+
+      <counter ng-switch-when="counter">{{slideIndex + 1}} / {{content.length}}</counter>
     </div>
   </div>
 </div>
 
-<notification-bar>
+<notification-bar ng-if="hasNotificationBar">
 </notification-bar>

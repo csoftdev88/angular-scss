@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.breadcrumbs', [])
 
   .directive('breadcrumbs', function( $state, $window, breadcrumbsService, _,
-      modalService, scrollService) {
+      modalService, scrollService, contentService) {
     return {
       restrict: 'E',
       scope: true,
@@ -74,9 +74,7 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
         scope.scrollTo = function(href) {
           // TODO - handle this in a better way
           if(href === 'fnOpenLightBox'){
-            modalService.openGallery(scope.heroContent.map(function(item){
-              return item.uri;
-            }));
+            modalService.openGallery(contentService.getLightBoxContent(scope.heroContent));
             return;
           }
 

@@ -93,6 +93,11 @@ describe('mobius.controllers.hotel.details', function() {
                 c(TEST_OFFERS);
               }
             };
+          },
+          getLightBoxContent: function() {
+            return [{
+              uri: 'http://testimage'
+            }];
           }
         });
 
@@ -181,7 +186,9 @@ describe('mobius.controllers.hotel.details', function() {
       it('should invoke openGallery function on modalService with a list of images', function() {
         _scope.openGallery();
         expect(_spyModalServiceOpenGallery.calledOnce).equal(true);
-        expect(_spyModalServiceOpenGallery.calledWith(['http://testimage'])).equal(true);
+        expect(_spyModalServiceOpenGallery.calledWith([{
+          uri: 'http://testimage'
+        }])).equal(true);
       });
     });
   });
