@@ -12,13 +12,15 @@ angular.module('mobiusApp.directives.resize.watcher', [])
       function updateView() {
         
         var MOBILE_CLASS = 'viewport-mobile',
+            TABLET_CLASS = 'viewport-tablet',
             DESKTOP_CLASS = 'viewport-desktop',
             windowHeight = $window.innerHeight,
             windowWidth = $window.innerWidth,
             isMobile = windowWidth <= Settings.UI.screenTypes.mobile.maxWidth,
+            isTablet = windowWidth <= Settings.UI.screenTypes.tablet.maxWidth && windowWidth > Settings.UI.screenTypes.mobile.maxWidth,
             isPortrait = windowWidth <= windowHeight;
 
-        elem.toggleClass(MOBILE_CLASS, isMobile).toggleClass(DESKTOP_CLASS, !isMobile);
+        elem.toggleClass(MOBILE_CLASS, isMobile).toggleClass(DESKTOP_CLASS, !isMobile && !isTablet).toggleClass(TABLET_CLASS, isTablet);
 
         // Emit event and send vieport data as payload
         scope.$broadcast('viewport:resize', {
