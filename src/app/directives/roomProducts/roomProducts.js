@@ -10,6 +10,7 @@ angular.module('mobiusApp.directives.room.products', [])
       roomSlug: '=',
       propertySlug: '='
     },
+
     link: function(scope){
       var bookingParams = bookingService.getAPIParams();
       bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.propertySlug);
@@ -17,7 +18,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
-          console.log(data);
+          scope.products = data.products;
         });
       }
 
