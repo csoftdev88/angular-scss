@@ -5,10 +5,36 @@ describe('RoomProducts', function() {
   var TEMPLATE_URL = 'directives/roomProducts/roomProducts.html';
   var TEMPLATE_CONTENT = '<div>room products</div>';
 
+  var TEST_ROOM_PRODUCTS = [
+    {
+      productId: 123
+    }
+  ];
+
   var _rootScope, _scope, _elem, _templateCache, _spyTemplateCacheGet;
 
   beforeEach(function() {
-    module('mobiusApp.directives.room.products');
+    module('mobiusApp.directives.room.products', function($provide){
+      $provide.value('filtersService', {});
+
+      $provide.value('bookingService', {
+        getAPIParams: function(){
+          return {
+            productGroupId: 1
+          };
+        },
+        getCodeFromSlug: function(){}
+      });
+      $provide.value('propertyService', {
+        getRoomProducts: function(){
+          return {
+            then: function(c){
+              return c(TEST_ROOM_PRODUCTS);
+            }
+          };
+        }
+      });
+    });
   });
 
   beforeEach(inject(function($compile, $rootScope, $templateCache) {

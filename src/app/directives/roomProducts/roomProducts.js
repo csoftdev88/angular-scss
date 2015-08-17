@@ -2,16 +2,36 @@
 
 angular.module('mobiusApp.directives.room.products', [])
 
-.directive('roomProducts', function(){
+.directive('roomProducts', function(filtersService, bookingService, propertyService){
   return {
     restrict: 'E',
     templateUrl: 'directives/roomProducts/roomProducts.html',
     scope: {
-      roomCode: '=',
-      propertyCode: '='
+      roomSlug: '=',
+      propertySlug: '='
     },
     link: function(scope){
-      console.log(scope.roomCode);
+      var bookingParams = bookingService.getAPIParams();
+      bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.propertySlug);
+      bookingParams.roomCode = bookingService.getCodeFromSlug(scope.roomSlug);
+
+      function getRoomProducts(params){
+        propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
+          console.log(data);
+        });
+      }
+
+      // Using PGID from the booking params
+      if(bookingParams.productGroupId){
+        getRoomProducts(bookingParams);
+      } else {
+        filtersService.getBestRateProduct().then(function(brp){
+          if(brp){
+            bookingParams.productGroupId = brp.id;
+            getRoomProducts(bookingParams);
+          }
+        });
+      }
     }
   };
 });

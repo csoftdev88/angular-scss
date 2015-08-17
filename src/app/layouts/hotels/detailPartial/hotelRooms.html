@@ -53,11 +53,13 @@
           <!-- //Room info -->
 
           <!-- Room rates -->
+          <room-products data-product-slug="details.meta.slug", data-room-slug="room.meta.slug">
+          </room-products>
+
+          <!--
           <div class="list-item-rates">
 
             <ul>
-
-              <!-- ng-repeat item -->
               <li class="highlighted">
 
                 <div class="rate-description">
@@ -69,7 +71,7 @@
                     <li><a href>Read More</a></li>
                   </ul>
                 </div>
-                
+
                 <pricing-info>
                   <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
                     <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
@@ -93,9 +95,6 @@
                   </p>
                 </pricing-info>
               </li>
-              <!-- //ng-repeat item -->
-
-              <!-- ng-repeat item -->
               <li>
 
                 <div class="rate-description">
@@ -107,7 +106,7 @@
                     <li><a href>Read More</a></li>
                   </ul>
                 </div>
-                
+
                 <pricing-info>
                   <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
                     <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
@@ -130,12 +129,7 @@
                     </span>
                   </p>
                 </pricing-info>
-                
-
               </li>
-              <!-- //ng-repeat item -->
-
-              <!-- ng-repeat item -->
               <li>
 
                 <div class="rate-description">
@@ -147,7 +141,7 @@
                     <li><a href>Read More</a></li>
                   </ul>
                 </div>
-                
+
                 <pricing-info>
                   <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
                     <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
@@ -170,12 +164,9 @@
                     </span>
                   </p>
                 </pricing-info>
-                
+
 
               </li>
-              <!-- //ng-repeat item -->
-
-              <!-- ng-repeat item -->
               <li>
 
                 <div class="rate-description">
@@ -187,7 +178,7 @@
                     <li><a href>Read More</a></li>
                   </ul>
                 </div>
-                
+
                 <pricing-info>
                   <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
                     <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
@@ -210,24 +201,20 @@
                     </span>
                   </p>
                 </pricing-info>
-                
+
 
               </li>
-              <!-- //ng-repeat item -->
-
-
             </ul>
 
           </div>
-          <!-- //Room rates -->
+          -->
 
         </div>
         <!-- //list-item-container -->
-
       </list-item>
 
       <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
-      
+
     </list-items>
     <h2 ng-if="!rooms.length">_no_room_found_</h2>
   </div>
