@@ -14,6 +14,8 @@ describe('RoomProducts', function() {
   var _rootScope, _scope, _elem, _templateCache, _spyTemplateCacheGet;
 
   beforeEach(function() {
+    module('underscore');
+
     module('mobiusApp.directives.room.products', function($provide){
       $provide.value('filtersService', {});
 
@@ -25,6 +27,7 @@ describe('RoomProducts', function() {
         },
         getCodeFromSlug: function(){}
       });
+
       $provide.value('propertyService', {
         getRoomProducts: function(){
           return {
@@ -33,6 +36,19 @@ describe('RoomProducts', function() {
             }
           };
         }
+      });
+
+      $provide.value('Settings', {
+        UI: {
+          roomDetails: {
+            hasReadMore: true
+          }
+        }
+      });
+
+      $provide.value('modalService', {
+        openRoomDetailsDialog: function(){},
+        openPoliciesInfo: function(){}
       });
     });
   });

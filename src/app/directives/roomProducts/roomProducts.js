@@ -2,19 +2,25 @@
 
 angular.module('mobiusApp.directives.room.products', [])
 
-.directive('roomProducts', function(filtersService, bookingService, propertyService){
+.directive('roomProducts', function(_, Settings, filtersService,
+    bookingService, propertyService, modalService){
+
   return {
     restrict: 'E',
     templateUrl: 'directives/roomProducts/roomProducts.html',
     scope: {
-      roomSlug: '=',
+      roomDetails: '=',
       propertySlug: '='
     },
 
     link: function(scope){
+      if(!scope.roomDetails || !scope.propertySlug){
+        return;
+      }
+
       var bookingParams = bookingService.getAPIParams();
       bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.propertySlug);
-      bookingParams.roomCode = bookingService.getCodeFromSlug(scope.roomSlug);
+      bookingParams.roomCode = bookingService.getCodeFromSlug(scope.roomDetails.meta.slug);
 
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
@@ -33,6 +39,20 @@ angular.module('mobiusApp.directives.room.products', [])
           }
         });
       }
+
+
+      if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
+        scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
+      }
+
+      scope.openPoliciesInfo = modalService.openPoliciesInfo;
+
+      scope.openPriceBreakdownInfo = function(product) {
+        var room = _.clone(scope.roomDetails);
+        room._selectedProduct = product;
+
+        return modalService.openPriceBreakdownInfo([room]);
+      };
     }
   };
 });

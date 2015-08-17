@@ -167,7 +167,10 @@ hotel-detail {
 
         .list-item-container{
           display: inline-block;
+          width: 100%;
+
           border-top: 3px solid @c-light-grey;
+
           .viewport-mobile &{
             border-top-width: 1px;
             border-bottom: 2px solid @c-light-grey;
@@ -252,124 +255,129 @@ hotel-detail {
                 text-decoration: underline;
               }
             }
+          }
 
-            &.list-item-rates{
-              width: 63%;
+          // ROOM PRODUCTS
+          room-products {
+            display: inline;
+            float: left;
+            width: 63%;
 
-              .viewport-mobile &{
-                width: 100%;
-                margin-top: 16px;
-              }
+            .viewport-mobile &{
+              width: 100%;
+              margin-top: 16px;
+            }
 
-              > ul{
+            > ul{
 
-                > li{
-                  height: 85px;
-                  &.highlighted{
-                    background: @c-light-brown;
-                  }
+              > li{
+                height: 85px;
+                &.highlighted{
+                  background: @c-light-brown;
+                }
 
-                  .viewport-tablet &{
-                    height: 120px;
-                  }
+                .viewport-tablet &{
+                  height: 120px;
+                }
 
-                  .viewport-mobile &{
-                    border-top: 1px dashed @c-light-grey;
-                    height: auto;
-                    min-height: 85px;
-                    .rate-description,
-                    pricing-info{
-                      border: none;
-                    }
-                  }
-
+                .viewport-mobile &{
+                  border-top: 1px dashed @c-light-grey;
+                  height: auto;
+                  min-height: 85px;
                   .rate-description,
                   pricing-info{
-                    float: left;
-                    border: 1px solid @c-light-grey;
-                    box-sizing: border-box;
-                    height: 100%;
+                    border: none;
                   }
+                }
 
-                  .rate-description{
-                    width: 70%;
-                    padding: 5px 5px 5px 20px;
-                    border-right: none;
-                    border-top: none;
+                .rate-description,
+                pricing-info{
+                  float: left;
+                  border: 1px solid @c-light-grey;
+                  box-sizing: border-box;
+                  height: 100%;
+                }
+
+                .rate-description{
+                  width: 70%;
+                  padding: 5px 5px 5px 20px;
+                  border-right: none;
+                  border-top: none;
+                  .viewport-mobile &{
+                    width: 63%;
+                    padding-left: 0;
+                  }
+                  h4{
+                    font-size: 14px;
+                  }
+                  p{
+                    font-size: 13px;
+                    margin-top: 5px;
+                  }
+                  ul.action-links{
+                    margin-top: 10px;
                     .viewport-mobile &{
-                      width: 63%;
-                      padding-left: 0;
+                      display: none;
                     }
-                    h4{
-                      font-size: 14px;
-                    }
-                    p{
-                      font-size: 13px;
-                      margin-top: 5px;
-                    }
-                    ul.action-links{
-                      margin-top: 10px;
-                      .viewport-mobile &{
-                        display: none;
+                    li{
+                      position: relative;
+                      display: inline;
+                      float: left;
+                      padding: 0 6px;
+                      font-size: 12px;
+                      &:before{
+                        content: '|';
+                        position: absolute;
+                        left: -3px;
+                        top: -1px;
+                        color: @c-brown;
                       }
-                      li{
-                        position: relative;
-                        display: inline;
-                        float: left;
-                        padding: 0 6px;
-                        font-size: 12px;
+                      &:first-child{
+                        padding-left: 0;
                         &:before{
-                          content: '|';
-                          position: absolute;
-                          left: -3px;
-                          top: -1px;
-                          color: @c-brown;
+                          content: none;
                         }
-                        &:first-child{
-                          padding-left: 0;
-                          &:before{
-                            content: none;
-                          }
-                        }
-
                       }
+
                     }
                   }
-                  pricing-info{
-                    position: relative;
-                    right: auto;
-                    top: auto;
-                    bottom: auto;
-                    width: 30%;
-                    border-top: none;
-                    padding: 10px;
-                    text-align: center;
-                    .viewport-mobile &{
-                      width: 37%;
-                      text-align: right;
-                      p{
-                        text-align: right;
-                      }
-                    }
+                }
+                pricing-info{
+                  position: relative;
+                  right: auto;
+                  top: auto;
+                  bottom: auto;
+                  width: 30%;
+                  border-top: none;
+                  padding: 10px;
+                  text-align: center;
+                  .viewport-mobile &{
+                    width: 37%;
+                    text-align: right;
                     p{
-                      text-align: center;
-                      line-height: 16px;
-                      .value{
-                        color: @c-black;
-                      }
+                      text-align: right;
                     }
-                    .button{
-                      min-width: 0;
-                      height: 22px;
-                      line-height: 22px;
-                      padding: 0 16px;
-                      font-size: 13px;
+                  }
+                  p{
+                    text-align: center;
+                    line-height: 16px;
+                    .value{
+                      color: @c-black;
                     }
+                  }
+                  .button{
+                    min-width: 0;
+                    height: 22px;
+                    line-height: 22px;
+                    padding: 0 16px;
+                    font-size: 13px;
                   }
                 }
               }
             }
           }
+
+
         }
       }
     }

@@ -53,10 +53,15 @@
           <!-- //Room info -->
 
           <!-- Room rates -->
-          <room-products data-property-slug="details.meta.slug", data-room-slug="room.meta.slug">
+
+          <h1> NEW </h1>
+
+          <room-products ng-if="details" data-property-slug="details.meta.slug", data-room-details="room">
           </room-products>
 
-          <!--
+          <h1>OLD</h1>
+
+
           <div class="list-item-rates">
 
             <ul>
@@ -207,7 +212,6 @@
             </ul>
 
           </div>
-          -->
 
         </div>
         <!-- //list-item-container -->
