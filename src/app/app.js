@@ -96,6 +96,7 @@ angular
     'mobiusApp.directives.hotels',
     'mobiusApp.directives.room',
     'mobiusApp.directives.room.aside',
+    'mobiusApp.directives.room.products',
     'mobiusApp.directives.reservation.data',
     'mobiusApp.directives.reservation.details',
     'mobiusApp.directives.equals',
