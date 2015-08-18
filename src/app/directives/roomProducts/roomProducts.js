@@ -8,22 +8,18 @@ angular.module('mobiusApp.directives.room.products', [])
   return {
     restrict: 'E',
     templateUrl: 'directives/roomProducts/roomProducts.html',
-    scope: {
-      roomDetails: '=',
-      propertySlug: '=',
-      isAvailable: '='
-    },
-
+    scope: false,
     link: function(scope){
-      if(!scope.roomDetails || !scope.propertySlug){
-        return;
-      }
+      //if(!scope.room || !scope.details.meta.slug){
+      //  return;
+      //}
 
-      $controller('SanitizeCtrl', {$scope: scope});
+//      $controller('SanitizeCtrl', {$scope: scope});
+//      $controller('PriceCtr', {$scope: scope});
 
       var bookingParams = bookingService.getAPIParams();
-      bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.propertySlug);
-      bookingParams.roomCode = bookingService.getCodeFromSlug(scope.roomDetails.meta.slug);
+      bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.details.meta.slug);
+      bookingParams.roomCode = bookingService.getCodeFromSlug(scope.room.meta.slug);
 
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
@@ -43,7 +39,6 @@ angular.module('mobiusApp.directives.room.products', [])
         });
       }
 
-
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
         scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
       }
@@ -51,7 +46,7 @@ angular.module('mobiusApp.directives.room.products', [])
       scope.openPoliciesInfo = modalService.openPoliciesInfo;
 
       scope.openPriceBreakdownInfo = function(product) {
-        var room = _.clone(scope.roomDetails);
+        var room = _.clone(scope.room);
         room._selectedProduct = product;
 
         return modalService.openPriceBreakdownInfo([room]);

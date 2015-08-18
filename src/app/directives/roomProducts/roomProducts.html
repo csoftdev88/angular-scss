@@ -12,140 +12,33 @@
       </ul>
     </div>
 
-    <pricing-info ng-switch="isAvailable">
+    <pricing-info ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
       <div ng-switch-when="true">
-        <p class="price-form" ng-if="roomDetails.priceFrom" itemprop="priceRange">
-          from <span class="value">{{getValuePer(roomDetails.priceFrom) | i18nCurrency: currencyCode}}</span>
-          <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-          <span ng-if="isUserLoggedIn() && roomDetails.minPointsRequired">
-            <br />or <span class="value">{{getValuePer(roomDetails.minPointsRequired)}}</span> points
-          </span>
-        </p>
-
-        <p class="unavailable" ng-if="!roomDetails.priceFrom">Please select dates to see the latest price</p>
-
-        <a ng-click="goToRoom(details.meta.slug, roomDetails.meta.slug)" class="button">{{roomDetails.priceFrom ? 'Book Now' : 'View Details'}}</a>
-      </div>
-
-      <p class="unavailable error" > <!-- ng-switch="isOverAdultsCapacity()" -->
-        <!--<span ng-switch-when="false">Not Available on Selected Dates</span>
-        <span ng-switch-when="true">
-          <span>Not available on these dates.<br></span>
-          <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
-        </span>-->
-        FIX
-      </p>
-    </pricing-info>
-  </li>
-
-  <!--
-  <li>
-
-    <div class="rate-description">
-      <h4>Exclusive Sutton Savour</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <ul class="action-links">
-        <li><a href>View Price Breakdown</a></li>
-        <li><a href>View Policies</a></li>
-        <li><a href>Read More</a></li>
-      </ul>
-    </div>
-
-    <pricing-info>
-      <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
         <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-          from <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: currencyCode}}</span>
+          from <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
           <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
           <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-            <br />or <span class="value">{{getValuePer(room.minPointsRequired)}}</span> points
+            <br />or <span class="value">{{getValuePer(product.price.pointsRequired)}}</span> points
           </span>
         </p>
 
         <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
+        <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn
+          <ng-pluralize count="getValuePer(product.price.pointsEarned, true)"
+                        when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
+        </earned-points>
+
         <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">{{room.priceFrom ? 'Book Now' : 'View Details'}}</a>
       </div>
-      <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error" ng-switch="isOverAdultsCapacity()">
-        <span ng-switch-when="false">Not Available on Selected Dates</span>
-        <span ng-switch-when="true">
+
+      <p class="unavailable error" ng-switch-when="false">
+        <span ng-if="!isOverAdultsCapacity()">Not Available on Selected Dates</span>
+        <span ng-if="isOverAdultsCapacity()">
           <span>Not available on these dates.<br></span>
           <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
         </span>
       </p>
     </pricing-info>
   </li>
-  <li>
-
-    <div class="rate-description">
-      <h4>Exclusive Sutton Savour</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <ul class="action-links">
-        <li><a href>View Price Breakdown</a></li>
-        <li><a href>View Policies</a></li>
-        <li><a href>Read More</a></li>
-      </ul>
-    </div>
-
-    <pricing-info>
-      <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
-        <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-          from <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: currencyCode}}</span>
-          <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-          <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-            <br />or <span class="value">{{getValuePer(room.minPointsRequired)}}</span> points
-          </span>
-        </p>
-
-        <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
-
-        <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">{{room.priceFrom ? 'Book Now' : 'View Details'}}</a>
-      </div>
-      <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error" ng-switch="isOverAdultsCapacity()">
-        <span ng-switch-when="false">Not Available on Selected Dates</span>
-        <span ng-switch-when="true">
-          <span>Not available on these dates.<br></span>
-          <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
-        </span>
-      </p>
-    </pricing-info>
-
-
-  </li>
-  <li>
-
-    <div class="rate-description">
-      <h4>Exclusive Sutton Savour</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <ul class="action-links">
-        <li><a href>View Price Breakdown</a></li>
-        <li><a href>View Policies</a></li>
-        <li><a href>Read More</a></li>
-      </ul>
-    </div>
-
-    <pricing-info>
-      <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
-        <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-          from <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: currencyCode}}</span>
-          <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-          <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-            <br />or <span class="value">{{getValuePer(room.minPointsRequired)}}</span> points
-          </span>
-        </p>
-
-        <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
-
-        <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">{{room.priceFrom ? 'Book Now' : 'View Details'}}</a>
-      </div>
-      <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error" ng-switch="isOverAdultsCapacity()">
-        <span ng-switch-when="false">Not Available on Selected Dates</span>
-        <span ng-switch-when="true">
-          <span>Not available on these dates.<br></span>
-          <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
-        </span>
-      </p>
-    </pricing-info>
-
-
-  </li> -->
 </ul>
