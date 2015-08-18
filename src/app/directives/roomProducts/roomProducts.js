@@ -2,21 +2,14 @@
 
 angular.module('mobiusApp.directives.room.products', [])
 
-.directive('roomProducts', function($controller, _, Settings, filtersService,
-    bookingService, propertyService, modalService){
+.directive('roomProducts', function($controller, $state, $stateParams, _,
+  Settings, filtersService, bookingService, propertyService, modalService){
 
   return {
     restrict: 'E',
     templateUrl: 'directives/roomProducts/roomProducts.html',
     scope: false,
     link: function(scope){
-      //if(!scope.room || !scope.details.meta.slug){
-      //  return;
-      //}
-
-//      $controller('SanitizeCtrl', {$scope: scope});
-//      $controller('PriceCtr', {$scope: scope});
-
       var bookingParams = bookingService.getAPIParams();
       bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.details.meta.slug);
       bookingParams.roomCode = bookingService.getCodeFromSlug(scope.room.meta.slug);
@@ -42,6 +35,17 @@ angular.module('mobiusApp.directives.room.products', [])
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
         scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
       }
+
+      scope.selectProduct = function(roomCode, productCode){
+        var params = {
+          property: scope.details.code,
+          roomID: roomCode,
+          productCode: productCode,
+          promoCode: $stateParams.promoCode || null
+        };
+
+        $state.go('reservation.details', params);
+      };
 
       scope.openPoliciesInfo = modalService.openPoliciesInfo;
 
