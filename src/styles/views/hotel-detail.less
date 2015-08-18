@@ -89,7 +89,6 @@ hotel-detail {
   }
   a.read-more-rooms {
     text-decoration: underline;
-    margin-left: 19%;
     @media only screen and @large-mobile-max {
       margin-left: 0;
       margin-right: 14px;
@@ -131,8 +130,269 @@ hotel-detail {
   }
 
   .hotel-detail__rooms {
-    pricing-switch {
-      margin-top: -1.75*@baseline;
+
+    .section-header{
+      margin-bottom: 30px;
+      h2,
+      p{
+        display: inline;
+      }
+      pricing-switch {
+        float: right;
+      }
+    }
+
+    list-items{
+      list-item{
+        display: inline-block;
+        width: 100%;
+        padding: 0;
+        min-height: 0;
+        border: none;
+        margin-bottom: 40px;
+
+        .item-header{
+          margin-bottom: 5px;
+          h3{
+            a{
+              color: @c-black;
+            }
+          }
+          earned-points{
+            position: relative;
+            float: right;
+          }
+        }
+
+        .list-item-container{
+          display: inline-block;
+          width: 100%;
+
+          border-top: 3px solid @c-light-grey;
+
+          .viewport-mobile &{
+            border-top-width: 1px;
+            border-bottom: 2px solid @c-light-grey;
+            padding-top: 16px;
+          }
+          > div{
+            display: inline;
+            float: left;
+
+            &.list-item-info{
+              box-sizing: border-box;
+              width: 37%;
+              padding: 13px 13px 0 0;
+
+              .viewport-mobile &{
+                width: 100%;
+                padding: 0;
+              }
+
+              .room-image{
+                cursor: pointer;
+                width: 150px;
+                max-width: 40%;
+                float: left;
+                margin-bottom: 30px;
+                &.mobile{
+                  display: none;
+                }
+                .viewport-mobile &{
+                  width: 100%;
+                  max-width: 100%;
+                  margin-bottom: 16px;
+                  display: block;
+                  &.desktop{
+                    display: none;
+                  }
+                }
+
+              }
+
+
+              ul.amenities{
+                float: left;
+                max-width: 60%;
+                padding-left: 16px;
+                box-sizing: border-box;
+                margin-bottom: 30px;
+
+                .viewport-mobile &{
+                  display: none;
+                }
+
+                li{
+                  font-size: 13px;
+                  margin-bottom: 5px;
+                  span {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                    min-width: 25px;
+
+                    &.amenity-caption {
+                      padding-top: 2px;
+                      text-align: left;
+
+                    }
+
+                    // Icon
+                    img {
+                      display: inline-block;
+                      margin-right: @baseline / 2;
+                      vertical-align: middle;
+                      max-height: 15px;
+                    }
+                  }
+                }
+              }
+              description-info{
+                clear: both;
+              }
+              a{
+                text-decoration: underline;
+              }
+            }
+          }
+
+          // ROOM PRODUCTS
+          room-products {
+            display: inline;
+            float: left;
+            width: 63%;
+
+            .viewport-mobile &{
+              width: 100%;
+              margin-top: 16px;
+            }
+
+            > ul{
+              > li{
+                height: 100px;
+
+                &.highlighted{
+                  background: @c-light-brown;
+                }
+
+                earned-points {
+                  position: relative;
+                }
+
+                .viewport-tablet &{
+                  height: 120px;
+                }
+
+                .viewport-mobile &{
+                  border-top: 1px dashed @c-light-grey;
+                  height: auto;
+                  min-height: 85px;
+                  .rate-description,
+                  pricing-info{
+                    border: none;
+                  }
+                }
+
+                .rate-description,
+                pricing-info{
+                  float: left;
+                  border: 1px solid @c-light-grey;
+                  box-sizing: border-box;
+                  height: 100%;
+                }
+
+                .rate-description{
+                  width: 70%;
+                  padding: 5px 5px 5px 20px;
+                  border-right: none;
+                  border-top: none;
+
+                  .viewport-mobile &{
+                    width: 63%;
+                    padding-left: 0;
+                  }
+
+                  h4{
+                    font-size: 14px;
+                  }
+
+                  p{
+                    font-size: 13px;
+                    margin-top: 5px;
+                    overflow: hidden;
+                    height: 25px;
+                  }
+
+                  ul.action-links{
+                    margin-top: 10px;
+                    .viewport-mobile &{
+                      display: none;
+                    }
+                    li{
+                      position: relative;
+                      display: inline;
+                      float: left;
+                      padding: 0 6px;
+                      font-size: 12px;
+                      &:before{
+                        content: '|';
+                        position: absolute;
+                        left: -3px;
+                        top: -1px;
+                        color: @c-brown;
+                      }
+                      &:first-child{
+                        padding-left: 0;
+                        &:before{
+                          content: none;
+                        }
+                      }
+
+                    }
+                  }
+                }
+
+                .no-products {
+                  padding: @baseline;
+                  text-align: center;
+                }
+
+                pricing-info{
+                  position: relative;
+                  right: auto;
+                  top: auto;
+                  bottom: auto;
+                  width: 30%;
+                  border-top: none;
+                  padding: 10px;
+                  text-align: center;
+                  .viewport-mobile &{
+                    width: 37%;
+                    text-align: right;
+                    p{
+                      text-align: right;
+                    }
+                  }
+                  p{
+                    text-align: center;
+                    line-height: 16px;
+                    .value{
+                      color: @c-black;
+                    }
+                  }
+                  .button{
+                    min-width: 0;
+                    height: 22px;
+                    line-height: 22px;
+                    padding: 0 16px;
+                    font-size: 13px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 

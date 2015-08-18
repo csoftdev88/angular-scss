@@ -3,7 +3,7 @@
  * This service contains reusable methods for adverts
  */
 angular.module('mobiusApp.services.adverts', [])
-  .service( 'advertsService',  function($state, $rootScope, $timeout, contentService, _,
+  .service( 'advertsService',  function($state, $rootScope, $timeout, $window, contentService, _,
       bookingService) {
 
     function advertClick(link) {
@@ -15,12 +15,14 @@ angular.module('mobiusApp.services.adverts', [])
       case 'offers':
         contentService.getOffers().then(function (offers) {
           var code = bookingService.getCodeFromSlug(link.code);
+          // TODO Use findWhere
           var selectedOfferIndex = _.findIndex(offers, {code: code});
           var offer = offers[selectedOfferIndex];
           navigateToState('offers',link.code);
 
           if (offer) {
             $timeout(function () {
+              // TODO: Check other code types
               $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
                 promoCode: offer.promoCode
               });
@@ -32,7 +34,7 @@ angular.module('mobiusApp.services.adverts', [])
         navigateToState('aboutUs', link.code);
         break;
       default:
-        window.open(link.uri, '_blank');
+        $window.open(link.uri, '_blank');
       }
     }
 
