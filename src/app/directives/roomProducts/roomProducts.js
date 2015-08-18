@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.room.products', [])
 
-.directive('roomProducts', function(_, Settings, filtersService,
+.directive('roomProducts', function($controller, _, Settings, filtersService,
     bookingService, propertyService, modalService){
 
   return {
@@ -10,13 +10,16 @@ angular.module('mobiusApp.directives.room.products', [])
     templateUrl: 'directives/roomProducts/roomProducts.html',
     scope: {
       roomDetails: '=',
-      propertySlug: '='
+      propertySlug: '=',
+      isAvailable: '='
     },
 
     link: function(scope){
       if(!scope.roomDetails || !scope.propertySlug){
         return;
       }
+
+      $controller('SanitizeCtrl', {$scope: scope});
 
       var bookingParams = bookingService.getAPIParams();
       bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.propertySlug);

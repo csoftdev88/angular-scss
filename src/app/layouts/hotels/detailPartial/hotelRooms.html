@@ -2,11 +2,11 @@
 <section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
   <hr />
   <div grid="12" id="jsRooms">
-
     <header class="section-header">
       <h2>Our <strong>Rooms</strong></h2>
       <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
-      <pricing-switch>
+
+      <!--<pricing-switch>
         <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
         <a href
            ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
@@ -14,13 +14,11 @@
            title="{{ days ? '': 'Please select dates to enable per stay pricing'}}">
           Per Stay
         </a>
-      </pricing-switch>
+      </pricing-switch>-->
     </header>
 
     <list-items class="rooms-list" ng-init="roomLimit = 4">
-
       <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
-
         <header class="item-header">
           <h3><a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
           <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least
@@ -29,7 +27,6 @@
         </header>
 
         <div class="list-item-container">
-
           <!-- Room info -->
           <div class="list-item-info">
 
@@ -46,27 +43,17 @@
             <description-info>
               <div ng-bind-html="sanitize(room.description)"></div>
             </description-info>
-
             <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>
-
           </div>
-          <!-- //Room info -->
 
-          <!-- Room rates -->
-
-          <h1> NEW </h1>
-
-          <room-products ng-if="details" data-property-slug="details.meta.slug", data-room-details="room">
+          <room-products ng-if="details" data-is-available="!availableRooms || availableRooms.indexOf(room.code) !== -1" data-property-slug="details.meta.slug", data-room-details="room">
           </room-products>
 
+          <!--
           <h1>OLD</h1>
-
-
           <div class="list-item-rates">
-
             <ul>
               <li class="highlighted">
-
                 <div class="rate-description">
                   <h4>Exclusive Sutton Savour</h4>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -212,7 +199,7 @@
             </ul>
 
           </div>
-
+          -->
         </div>
         <!-- //list-item-container -->
       </list-item>
@@ -224,8 +211,8 @@
   </div>
 </section>
 
-
 <!-- Old layout - keeping it for now for reference - Delete when new layout is complete -->
+<!--
 <section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
   <hr />
   <div grid="12" id="jsRooms">
@@ -255,6 +242,7 @@
           <pricing-info>
             <!-- TODO: This seems to be exaclty the same as block below - refactor
             desktop/mobile layouts -->
+            <!--
             <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
               <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
                 from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
@@ -314,6 +302,4 @@
     <h2 ng-if="!rooms.length">_no_room_found_</h2>
   </div>
 </section>
-
-
-
+-->
