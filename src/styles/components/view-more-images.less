@@ -149,15 +149,17 @@ view-more-images {
     text-decoration: none;
     font-size: @size--1;
 
+    &:focus,
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  a.gallery-link {
     &:before {
       .fa;
       content: @fa-var-plus-square;
       padding: 0 5px;
-    }
-
-    &:focus,
-    &:hover {
-      text-decoration: none;
     }
   }
 
