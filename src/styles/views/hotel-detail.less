@@ -271,12 +271,22 @@ hotel-detail {
               > li{
                 height: 100px;
 
-                &.highlighted{
-                  background: @c-light-brown;
+                &:hover {
+                  pricing-info {
+                    .button {
+                      display: inline-block;
+                    }
+                  }
                 }
 
-                earned-points {
-                  position: relative;
+                pricing-info {
+                  .button {
+                    display: none;
+                  }
+                }
+
+                &.highlighted{
+                  background: @c-light-brown;
                 }
 
                 .viewport-tablet &{
@@ -307,13 +317,27 @@ hotel-detail {
                   border-right: none;
                   border-top: none;
 
+                  // NOTE - description must be wrapped
+                  // inside p
+                  > p > p {
+                    width: 95%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
+
                   .viewport-mobile &{
                     width: 63%;
                     padding-left: 0;
                   }
 
-                  h4{
+                  h4 {
                     font-size: 14px;
+                    position: relative;
+
+                    earned-points {
+                      right: 0px;
+                    }
                   }
 
                   p{

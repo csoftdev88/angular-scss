@@ -1,7 +1,15 @@
 <ul>
   <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products">
     <div class="rate-description">
-      <h4 ng-bind-html="product.name"></h4>
+      <h4>
+        <span ng-bind-html="product.name">
+        </span>
+
+        <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn
+          <ng-pluralize count="getValuePer(product.price.pointsEarned, true)"
+            when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
+        </earned-points>
+      </h4>
 
       <p ng-bind-html="sanitize(product.descriptionShort || product.description)"></p>
 
@@ -16,7 +24,7 @@
       <div ng-switch-when="true">
         <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
           from <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
-          <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+          <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
           <span ng-if="isUserLoggedIn() && room.minPointsRequired">
             <br />or <span class="value">{{getValuePer(product.price.pointsRequired)}}</span> points
           </span>
@@ -24,15 +32,8 @@
 
         <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
 
-        <p>
-          <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn
-            <ng-pluralize count="getValuePer(product.price.pointsEarned, true)"
-              when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
-          </earned-points>
-        </p>
-
         <a ng-if="!room.priceFrom" ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">View Details</a>
-        <a ng-if="room.priceFrom" ng-hide="product.memberOnly && !isUserLoggedIn()" ng-click="selectProduct(product)" class="button">Book Now</a>
+        <a ng-if="room.priceFrom" ng-hide="product.memberOnly && !isUserLoggedIn()" ng-click="selectProduct(room.code, product.code)" class="button">Book Now</a>
       </div>
 
       <p class="unavailable error" ng-switch-when="false">
