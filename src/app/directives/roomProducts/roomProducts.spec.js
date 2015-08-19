@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 describe('RoomProducts', function() {
   var TEMPLATE = '<room-products></room-products>';
   var TEMPLATE_URL = 'directives/roomProducts/roomProducts.html';
@@ -11,7 +11,8 @@ describe('RoomProducts', function() {
     }
   ];
 
-  var _rootScope, _scope, _elem, _templateCache, _spyTemplateCacheGet;
+  var _rootScope, _scope, _elem, _templateCache, _spyTemplateCacheGet,
+    _spyOpenPoliciesInfo;
 
   beforeEach(function() {
     module('underscore');
@@ -38,6 +39,12 @@ describe('RoomProducts', function() {
         }
       });
 
+      $provide.value('$state', {
+        go: function(){}
+      });
+
+      $provide.value('$stateParams', {});
+
       $provide.value('Settings', {
         UI: {
           roomDetails: {
@@ -53,20 +60,37 @@ describe('RoomProducts', function() {
     });
   });
 
-  beforeEach(inject(function($compile, $rootScope, $templateCache) {
+  beforeEach(inject(function($compile, $rootScope, $templateCache,
+      modalService) {
     _rootScope = $rootScope.$new();
     _templateCache = $templateCache;
     _templateCache.put(TEMPLATE_URL, TEMPLATE_CONTENT);
     // Spy's
     _spyTemplateCacheGet = sinon.spy(_templateCache, 'get');
+    _spyOpenPoliciesInfo = sinon.spy(modalService, 'openPoliciesInfo');
+
     // Final component compile
+    // Data on parent scope
+    _rootScope.details = {
+      meta: {
+        slug: 'hotelCode'
+      }
+    };
+
+    _rootScope.room = {
+      meta: {
+        slug: 'roomCode'
+      }
+    };
+
     _elem = $compile(TEMPLATE)(_rootScope);
     _rootScope.$digest();
-    _scope = _elem.isolateScope();
+    _scope = _elem.scope();
   }));
 
   afterEach(function() {
     _spyTemplateCacheGet.restore();
+    _spyOpenPoliciesInfo.restore();
   });
 
   describe('when component is initialized', function() {
@@ -79,5 +103,35 @@ describe('RoomProducts', function() {
       expect(_elem.html()).equal(TEMPLATE_CONTENT);
     });
   });
+
+  describe('openRoomDetailsDialog', function(){
+    it('should be defined as a function on scope according to settings in config', function(){
+      expect(_scope.openRoomDetailsDialog).to.be.a('function');
+    });
+  });
+
+  describe('openPoliciesInfo', function(){
+    it('should open policies modal dialog', function(){
+      var testObj = {test: 123};
+
+      _scope.openPoliciesInfo(testObj);
+      expect(_spyOpenPoliciesInfo.calledOnce).equal(true);
+      expect(_spyOpenPoliciesInfo.calledWith(testObj)).equal(true);
+    });
+  });
+
+
+  describe('getProductName', function(){
+    it('should return first word of a product name', function(){
+      expect(_scope.getProductName('testname')).equal('testname');
+      expect(_scope.getProductName('test name')).equal('test');
+    });
+  });
+
+  describe('getProductSuffix', function(){
+    it('should return product name without the first word', function(){
+      expect(_scope.getProductSuffix('testname')).equal('');
+      expect(_scope.getProductSuffix('test name')).equal('name');
+    });
+  });
 });
-*/
