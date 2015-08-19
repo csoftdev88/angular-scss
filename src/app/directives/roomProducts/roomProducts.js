@@ -55,6 +55,16 @@ angular.module('mobiusApp.directives.room.products', [])
 
         return modalService.openPriceBreakdownInfo([room]);
       };
+
+      scope.getProductName = function(fullName){
+        return fullName.split(' ')[0];
+      };
+
+      scope.getProductSuffix = function(fullName){
+        var words = fullName.split(' ');
+        words.shift();
+        return words.join(' ');
+      };
     }
   };
 });
