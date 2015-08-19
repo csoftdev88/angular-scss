@@ -24,6 +24,9 @@
       <div ng-switch-when="true">
         <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
           from <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
+        </p>
+
+        <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
           <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
         </p>
 
