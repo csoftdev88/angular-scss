@@ -26,7 +26,9 @@ angular.module('mobiusApp.directives.floatingBar', [
       link: function(scope, $el) {
         scope.hasMutiroomTab = Settings.UI.bookingWidget.hasMutiroomTab;
         scope.isMobile = $window.innerWidth <= Settings.UI.screenTypes.mobile.maxWidth;
-        isCollapsed = scope.isMobile;
+        isCollapsed = isCollapsed || scope.isMobile;
+        scope.isCollapsed = isCollapsed;
+        scope.active = active;
 
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
@@ -43,8 +45,8 @@ angular.module('mobiusApp.directives.floatingBar', [
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
         scope.setActive = function(newActive, isMobileToggle) {
-
-          if(scope.active === newActive && !scope.isMobile || isMobileToggle && !scope.isCollapsed && scope.isMobile){
+          //scope.active === newActive && !scope.isMobile || isMobileToggle && !scope.isCollapsed && scope.isMobile
+          if(scope.active === newActive || isMobileToggle){
             scope.isCollapsed = !scope.isCollapsed;
           }else if(scope.active && scope.isCollapsed){
             // Expanding when clicked on another tab
@@ -62,9 +64,6 @@ angular.module('mobiusApp.directives.floatingBar', [
         // This will be invoked from child bookingWidget directive
         // when booking tab should be opened
         scope.openBookingTab = function(isMRB){
-          if(scope.isMobile){
-            return;
-          }
           var tabType = isMRB?ADVANCED_BOOKING:BOOKING;
 
           if(isCollapsed || scope.active !== tabType){
@@ -102,9 +101,6 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.inLine = function() {
           return isTheSameMonth() && (!scope.children || parseInt(scope.children, 10) === 0);
         };
-
-        scope.isCollapsed = isCollapsed;
-        scope.setActive(active);
 
         scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
           scope.isMobile = viewport.isMobile;

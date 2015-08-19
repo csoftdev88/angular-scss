@@ -314,24 +314,26 @@ list-item {
     color: @c-black;
     font-weight: 300;
 
-    max-height: 150px;
-    margin-bottom: 10px;
-    overflow: hidden;
+    &.overflow {
+      max-height: 150px;
+      margin-bottom: 10px;
+      overflow: hidden;
 
 
-    &:after {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
 
-      display: block;
-      height: 24px;
+        display: block;
+        height: 24px;
 
-      background: url('../images/v4/text-overlay.png');
-      background-size: 100% 30px;
+        background: url('../images/v4/text-overlay.png');
+        background-size: 100% 30px;
 
-      content: '';
+        content: '';
+      }
     }
 
     p {
