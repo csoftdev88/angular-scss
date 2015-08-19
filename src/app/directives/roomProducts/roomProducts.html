@@ -1,4 +1,4 @@
-<ul ng-if="products">
+<ul>
   <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products">
     <div class="rate-description">
       <h4>
@@ -50,7 +50,7 @@
   </li>
 
   <li ng-if="!products.length">
-    <p class="unavailable error no-products" ng-if="availableRooms && availableRooms.indexOf(room.code) === -1">
+    <p class="unavailable error no-products">
       <span ng-if="!isOverAdultsCapacity()">Not Available on Selected Dates</span>
       <span ng-if="isOverAdultsCapacity()">
         <span>Not available on these dates.<br></span>
