@@ -125,6 +125,7 @@ angular.module('mobius.controllers.offers', [])
       // Dates are not yet selected
       $scope.selectDates = function(){
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+          openBookingTab: true,
           openDatePicker: true,
           promoCode: $scope.selectedOffer.promoCode || null,
           corpCode: $scope.selectedOffer.corpCode || null,
