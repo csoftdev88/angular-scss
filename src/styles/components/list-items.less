@@ -308,9 +308,14 @@ list-item {
   //- Description
   description-info {
     display: block;
+    font-size: @size--1;
 
     color: @c-black;
     font-weight: 300;
+
+    max-height: 150px;
+    margin-bottom: 10px;
+    overflow: hidden;
 
     p {
       margin-bottom: @baseline/2;
@@ -323,7 +328,7 @@ list-item {
         line-height: 20px !important;
         color: @c-black !important;
       }
-      
+
     }
 
     .action-links {

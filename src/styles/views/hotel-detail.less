@@ -168,7 +168,7 @@ hotel-detail {
           display: inline-block;
           width: 100%;
 
-          border-top: 3px solid @c-light-grey;
+          border-top: 2px solid @c-light-grey;
 
           .viewport-mobile &{
             border-top-width: 1px;
@@ -234,6 +234,7 @@ hotel-detail {
                     &.amenity-caption {
                       padding-top: 2px;
                       text-align: left;
+                      font-weight: 200;
 
                     }
 
@@ -258,18 +259,20 @@ hotel-detail {
 
           // ROOM PRODUCTS
           room-products {
-            display: inline;
-            float: left;
             width: 63%;
+            float: right;
+            display: block;
 
-            .viewport-mobile &{
-              width: 100%;
-              margin-top: 16px;
-            }
+            .box-shadow;
 
-            > ul{
-              > li{
-                height: 100px;
+            > ul {
+              > li {
+                border: 1px solid @c-light-grey;
+                border-top: none;
+                overflow: auto;
+
+                padding: 0px 10px;
+
 
                 &:hover {
                   pricing-info {
@@ -279,138 +282,71 @@ hotel-detail {
                   }
                 }
 
+                .rate-description {
+                  padding: 10px 10px 10px 0px;
+                  width: 70%;
+                  float: left;
+                  border-right: 1px solid @c-light-grey;
+                  box-sizing: border-box;
+
+                  h4 {
+                    > span {
+                      font-size: @size-0;
+                      font-weight: 600;
+
+                    }
+
+                    earned-points {
+                      position: relative;
+                      float: right;
+                    }
+                  }
+
+                  .action-links {
+                    margin-top: 5px;
+                    li {
+                      float: left;
+                      padding-right: 10px;
+                    }
+                  }
+
+                   > p {
+                    max-height: 25px;
+                    overflow: hidden;
+                    margin-top: 10px;
+
+                    > p {
+                      width: 95%;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                    }
+                  }
+                }
+
                 pricing-info {
+                  display: block;
+                  position: relative;
+                  width: 30%;
+                  float: right;
+                  border: none;
+                  right: 0;
+                  bottom: 0;
+                  top: 0;
+                  padding: 10px 0px;
+
                   .button {
                     display: none;
                   }
                 }
 
-                &.highlighted{
-                  background: @c-light-brown;
-                }
-
-                .viewport-tablet &{
-                  height: 120px;
-                }
-
-                .viewport-mobile &{
-                  border-top: 1px dashed @c-light-grey;
-                  height: auto;
-                  min-height: 85px;
-                  .rate-description,
-                  pricing-info{
-                    border: none;
-                  }
-                }
-
-                .rate-description,
-                pricing-info{
-                  float: left;
-                  border: 1px solid @c-light-grey;
-                  box-sizing: border-box;
-                  height: 100%;
-                }
-
-                .rate-description{
-                  width: 70%;
-                  padding: 5px 5px 5px 20px;
-                  border-right: none;
-                  border-top: none;
-
-                  // NOTE - description must be wrapped
-                  // inside p
-                  > p > p {
-                    width: 95%;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                  }
-
-                  .viewport-mobile &{
-                    width: 63%;
-                    padding-left: 0;
-                  }
-
-                  h4 {
-                    font-size: 14px;
-                    position: relative;
-
-                    earned-points {
-                      right: 0px;
-                    }
-                  }
-
-                  p{
-                    font-size: 13px;
-                    margin-top: 5px;
-                    overflow: hidden;
-                    height: 25px;
-                  }
-
-                  ul.action-links{
-                    margin-top: 10px;
-                    .viewport-mobile &{
-                      display: none;
-                    }
-                    li{
-                      position: relative;
-                      display: inline;
-                      float: left;
-                      padding: 0 6px;
-                      font-size: 12px;
-                      &:before{
-                        content: '|';
-                        position: absolute;
-                        left: -3px;
-                        top: -1px;
-                        color: @c-brown;
-                      }
-                      &:first-child{
-                        padding-left: 0;
-                        &:before{
-                          content: none;
-                        }
-                      }
-
-                    }
-                  }
-                }
-
                 .no-products {
-                  padding: @baseline;
                   text-align: center;
+                  padding: @baseline;
                 }
 
-                pricing-info{
-                  position: relative;
-                  right: auto;
-                  top: auto;
-                  bottom: auto;
-                  width: 30%;
-                  border-top: none;
-                  padding: 10px;
-                  text-align: center;
-                  .viewport-mobile &{
-                    width: 37%;
-                    text-align: right;
-                    p{
-                      text-align: right;
-                    }
-                  }
-                  p{
-                    text-align: center;
-                    line-height: 16px;
-                    .value{
-                      color: @c-black;
-                    }
-                  }
-                  .button{
-                    min-width: 0;
-                    height: 22px;
-                    line-height: 22px;
-                    padding: 0 16px;
-                    font-size: 13px;
-                  }
+                &:last-of-type {
+                  border-radius: 0px 0px 4px 4px;
                 }
               }
             }

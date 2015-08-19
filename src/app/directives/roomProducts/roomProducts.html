@@ -1,4 +1,4 @@
-<ul>
+<ul ng-if="products">
   <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products">
     <div class="rate-description">
       <h4>
@@ -25,9 +25,6 @@
         <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
           from <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
           <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-          <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-            <br />or <span class="value">{{getValuePer(product.price.pointsRequired)}}</span> points
-          </span>
         </p>
 
         <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
