@@ -24,10 +24,13 @@
       <div ng-switch-when="true">
         <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
           from <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
+          <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
         </p>
 
-        <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-          <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+        <p class="price-form" ng-if="room.priceFrom && product.price.pointsRequired && isUserLoggedIn()">
+          <span>
+             or <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> points
+          </span>
         </p>
 
         <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
