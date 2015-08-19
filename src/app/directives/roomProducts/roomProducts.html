@@ -4,8 +4,7 @@
   <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products">
     <div class="rate-description">
       <h4>
-        <span>{{getProductName(product.name)}}</span>
-        <strong>{{getProductSuffix(product.name)}}</strong>
+        <span ng-bind-html="product.name | mainHeaderStyle"></span>
 
         <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn
           <ng-pluralize count="getValuePer(product.price.pointsEarned, true)"

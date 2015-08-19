@@ -153,20 +153,6 @@ describe('RoomProducts', function() {
     });
   });
 
-  describe('getProductName', function(){
-    it('should return first word of a product name', function(){
-      expect(_scope.getProductName('testname')).equal('testname');
-      expect(_scope.getProductName('test name')).equal('test');
-    });
-  });
-
-  describe('getProductSuffix', function(){
-    it('should return product name without the first word', function(){
-      expect(_scope.getProductSuffix('testname')).equal('');
-      expect(_scope.getProductSuffix('test name')).equal('name');
-    });
-  });
-
   describe('selectProduct', function(){
     it('should redirect to reservation details state', function(){
       _scope.selectProduct('testRoom', 'testProduct');
