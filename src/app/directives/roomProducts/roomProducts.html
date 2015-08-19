@@ -1,4 +1,6 @@
-<ul>
+<div class="preloader" ng-show="!products"></div>
+
+<ul ng-if="products">
   <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products">
     <div class="rate-description">
       <h4>
