@@ -1,12 +1,13 @@
+<!-- New layout - Delete old layout below when this is complete -->
 <section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
   <hr />
   <div grid="12" id="jsRooms">
-    <h2>Our <strong>Rooms</strong></h2>
-    <list-items class="rooms-list" ng-if="rooms.length" ng-init="roomLimit = 4">
+    <header class="section-header">
+      <h2>Our <strong>Rooms</strong></h2>
       <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
+
       <pricing-switch>
         <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
-        |
         <a href
            ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
            ng-click="days && setPricePer(PP_STAY)"
@@ -14,74 +15,45 @@
           Per Stay
         </a>
       </pricing-switch>
+    </header>
+
+    <list-items class="rooms-list" ng-init="roomLimit = 4">
       <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
-        <a ng-click="goToRoom(details.meta.slug, room.meta.slug)">
-          <figure>
-            <img ng-src="{{room.images[0].uri | cloudinaryImage : 430 : 286 : 'fill'}}" alt="{{room.name}}">
-          </figure>
-        </a>
-
-        <div class="list-item-header">
-          <h3><a ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
-
-          <pricing-info>
-            <!-- TODO: This seems to be exaclty the same as block below - refactor
-            desktop/mobile layouts -->
-            <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
-              <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-                from <span class="value">{{(room.priceFrom * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
-                <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-              <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-                <br />or <span class="value">{{(room.minPointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
-              </span>
-              </p>
-              <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
-            </div>
-            <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error" ng-switch="isOverAdultsCapacity()">
-              <span ng-switch-when="false">Not Available on Selected Dates</span>
-              <span ng-switch-when="true">
-                <span>Not available on these dates.<br></span>
-                <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
-              </span>
-            </p>
-          </pricing-info>
-
+        <header class="item-header">
+          <h3><a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
           <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least
             <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
           </earned-points>
-        </div>
+        </header>
 
-        <pricing-info>
-          <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1">
-            <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-              from <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: currencyCode}}</span>
-              <span ng-if="pricePer === 'night'">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-              <span ng-if="isUserLoggedIn() && room.minPointsRequired">
-                <br />or <span class="value">{{getValuePer(room.minPointsRequired)}}</span> points
-              </span>
-            </p>
+        <div class="list-item-container">
+          <!-- Room info -->
+          <div class="list-item-info">
+            <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 150 : 150 : 'fill'}}" alt="{{room.name}}">
+            <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 768 : 384 : 'fill'}}" alt="{{room.name}}">
 
-            <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
+            <ul class="amenities">
+              <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:3">
+                <slug-img slug="amenity.slug" type="room" width="15"></slug-img>
+                <span class="amenity-caption">{{amenity.name}}</span>
+              </li>
+            </ul>
 
-            <a ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">{{room.priceFrom ? 'Book Now' : 'View Details'}}</a>
+            <description-info class="overflow">
+              <div ng-bind-html="sanitize(room.description)"></div>
+            </description-info>
+            <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>
           </div>
-          <p class="unavailable" ng-if="availableRooms && availableRooms.indexOf(room.code) < 0" class="error" ng-switch="isOverAdultsCapacity()">
-            <span ng-switch-when="false">Not Available on Selected Dates</span>
-            <span ng-switch-when="true">
-              <span>Not available on these dates.<br></span>
-              <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
-            </span>
-          </p>
-        </pricing-info>
 
-        <description-info>
-          <div ng-bind-html="sanitize(room.description)"></div>
-        </description-info>
-        <div class="wide-button">
-          <a class="button" ng-click="goToRoom(details.meta.slug, room.meta.slug)">View Details</a>
+          <room-products ng-if="details">
+          </room-products>
+
         </div>
+        <!-- //list-item-container -->
       </list-item>
+
       <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
+
     </list-items>
     <h2 ng-if="!rooms.length">_no_room_found_</h2>
   </div>

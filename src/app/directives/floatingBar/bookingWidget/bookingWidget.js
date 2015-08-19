@@ -621,7 +621,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       });
 
       function onPrefill(settings){
-        scope.openBookingTab();
+        if(settings.openBookingTab){
+          scope.openBookingTab();
+        }
 
         // TODO: Set code type from offers
         function prefillPromoCode() {

@@ -53,7 +53,7 @@ list-item {
   border-top: 1px dashed #ccc;
 
   .hotel-detail__rooms &{
-    padding: @baseline 185px @baseline 19%;
+    //padding: @baseline 185px @baseline 19%;
   }
 
   .list-item-header {
@@ -98,8 +98,8 @@ list-item {
 
   @media only screen and @small-mobile-max {
     .hotel-detail__rooms &{
-      padding-left: 0;
-      padding-bottom: 20px;
+      //padding-left: 0;
+      //padding-bottom: 20px;
     }
 
     .wide-button-room-details {
@@ -176,8 +176,8 @@ list-item {
     border: 1px solid #ccc;
 
     .hotel-detail__rooms &{
-      left: 0;
-      top: @baseline;
+      //left: 0;
+      //top: @baseline;
     }
 
     .viewport-mobile &{
@@ -185,15 +185,15 @@ list-item {
     }
     @media only screen and @small-mobile-max {
       .hotel-detail__rooms &{
-        width: 100%;
-        box-sizing: border-box;
-        position: relative;
-        left: auto;
-        top: auto;
-        overflow: visible;
-        max-height: none;
-        border: none;
-        margin-bottom: 14px;
+        //width: 100%;
+        //box-sizing: border-box;
+        //position: relative;
+        //left: auto;
+        //top: auto;
+        //overflow: visible;
+        //max-height: none;
+        //border: none;
+        //margin-bottom: 14px;
       }
     }
 
@@ -308,9 +308,33 @@ list-item {
   //- Description
   description-info {
     display: block;
+    font-size: @size--1;
+    position: relative;
 
     color: @c-black;
     font-weight: 300;
+
+    &.overflow {
+      max-height: 150px;
+      margin-bottom: 10px;
+      overflow: hidden;
+
+
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        display: block;
+        height: 24px;
+
+        background: url('../images/v4/text-overlay.png');
+        background-size: 100% 30px;
+
+        content: '';
+      }
+    }
 
     p {
       margin-bottom: @baseline/2;
@@ -323,7 +347,7 @@ list-item {
         line-height: 20px !important;
         color: @c-black !important;
       }
-      
+
     }
 
     .action-links {

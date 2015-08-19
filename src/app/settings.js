@@ -296,6 +296,9 @@ angular.module('mobiusApp.config', [])
 
     // Responsive design breakpoints
     'screenTypes': {
+      'tablet': {
+        'maxWidth': 1024
+      },
       'mobile': {
         'maxWidth': 768
       }
