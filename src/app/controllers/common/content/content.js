@@ -76,11 +76,12 @@ angular.module('mobius.controllers.common.content', [])
     $scope.settings = contentTypes[$scope.item];
 
     // Getting the details from booking widget
-    var bookingParams = bookingService.getAPIParams(true);
+    $scope.bookingParams = bookingService.getAPIParams(true);
 
     // Loading hotels
-    var hotelsPromise = services.propertyService.getAll(bookingParams).then(function(hotels){
+    var hotelsPromise = services.propertyService.getAll($scope.bookingParams).then(function(hotels){
       $scope.hotels = hotels || [];
+      $scope.city = getCityOfContent();
     });
 
     // Loading offers
@@ -158,6 +159,27 @@ angular.module('mobius.controllers.common.content', [])
       $state.go(code?$scope.settings.detailState:$scope.settings.listState, params, {reload: true});
     };
 
+    function needFilter() {
+      return $scope.settings.method === contentTypes.offers.method && $state.params.property;
+    }
+
+    function isFiltered(item) {
+      if (needFilter()) {
+        var codes = item.limitToPropertyCodes;
+        var element = _.find(codes, function (code) {
+          return code === $state.params.property;
+        });
+        return element !== undefined;
+      } else {
+        return true;
+      }
+    }
+
+    function getCityOfContent() {
+      var property = findPropertyBySlug($state.params.propertySlug);
+      return property ? property.city : null;
+    }
+
     function processSettings() {
       services[$scope.settings.service][$scope.settings.method]().then(function(data) {
         var content = data || [];
@@ -169,7 +191,8 @@ angular.module('mobius.controllers.common.content', [])
             return {
               code: $scope.settings.slug? item.meta.slug : item.code,
               title: item[$scope.settings.title],
-              subtitle: item[$scope.settings.subtitle]
+              subtitle: item[$scope.settings.subtitle],
+              filtered: isFiltered(item)
             };
           }).value();
           if ($scope.settings.reverseSort) {

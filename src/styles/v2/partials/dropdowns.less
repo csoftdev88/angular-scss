@@ -13,16 +13,24 @@
     li {
       display: block;
       float: none;
-      white-space: nowrap;
       line-height: 1;
-      padding: 15px;
+      padding: 10px 15px;
       a{
         span{
           display: block;
-          font-size: 13px;
+          font-size: 12px;
           margin-top: 5px;
         }
       }
+    }
+  }
+
+  .dropdown-submenu {
+    .dropdown-menu {
+      left: 100%;
+      margin-left: 0;
+      margin-top: 41px;
+      width: 100% !important;
     }
   }
 }
@@ -114,6 +122,7 @@
       left: auto;
       width: auto;
       min-width: 80px;
+      max-width: 360px;
       margin-left: -15px;
 
       background-color: fadeout(@colorHeaderBackground, 35%);

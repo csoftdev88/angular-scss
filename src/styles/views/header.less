@@ -14,6 +14,10 @@
   @media print {
    display: none;
   }
+
+  .app-menu {
+    font-size: @fs-1;
+  }
 }
 
 // MAIN NAVIGATION IN HEADER
@@ -416,25 +420,65 @@
 
         a {
           display: inline;
-          color: @colorMenuTextDefault;
-          .transition(box-shadow, 0.2s, linear);
-          box-shadow: 0 2px 0 0 fadeout(@colorMenuTextDefault, 100%);
-
-          &:hover,
-          &:focus,
-          &:active,
+          box-shadow: none;
           &.is-active {
-            box-shadow: 0 2px 0 0 @colorMenuTextDefault;
+            font-weight: bold;
           }
         }
 
-        .open > a {
-            box-shadow: 0 2px 0 0 @colorMenuTextDefault;
+        .dropdown {
+          color: @colorMenuTextDefault;
+          a {
+            &.is-active {
+              box-shadow: none;
+              font-weight: bold;
+            }
+          }
+
+          .dropdown-menu {
+            a {
+              .transition(box-shadow, 0.2s, linear);
+              box-shadow: 0 2px 0 0 fadeout(@colorMenuTextDefault, 100%);
+              font-weight: bold;
+
+              span {
+                font-weight: normal;
+              }
+
+              &:hover,
+              &:focus,
+              &:active {
+                box-shadow: 0 2px 0 0 @colorMenuTextDefault;
+              }
+            }
+
+            .open > a {
+              box-shadow: 0 2px 0 0 @colorMenuTextDefault;
+
+              &.submenu-link {
+                box-shadow: none;
+                cursor: pointer;
+              }
+            }
+          }
         }
 
         .open.has-icons > a {
             box-shadow: none;
         }
+
+        .divider {
+          height: 1px;
+          overflow: hidden;
+          background-color: #fff;
+          padding: 0;
+          margin: 0 15px;
+        }
+      }
+
+      .submenu-header {
+        color: #fff;
+        font-weight: bold;
       }
     }
 
