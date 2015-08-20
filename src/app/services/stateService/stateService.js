@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.state', [])
-  .service('stateService', ['Settings', '$location', function(Settings) {
+  .service('stateService', ['$window', 'Settings', function($window, Settings) {
 
     function getStateLayout(stateName) {
       var config = Settings.UI.layout[stateName];
@@ -31,9 +31,14 @@ angular.module('mobiusApp.services.state', [])
       return meta.attr('content');
     }
 
+    function isMobile(){
+      return $window.innerWidth <= Settings.UI.screenTypes.mobile.maxWidth;
+    }
+
     // Public methods
     return {
       getStateLayout: getStateLayout,
-      getAppLanguageCode: getAppLanguageCode
+      getAppLanguageCode: getAppLanguageCode,
+      isMobile: isMobile
     };
   }]);

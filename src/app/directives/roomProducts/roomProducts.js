@@ -3,7 +3,8 @@
 angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
-  Settings, filtersService, bookingService, propertyService, modalService){
+  Settings, filtersService, bookingService, propertyService, modalService,
+  stateService){
 
   return {
     restrict: 'E',
@@ -38,7 +39,20 @@ angular.module('mobiusApp.directives.room.products', [])
         scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
       }
 
-      scope.selectProduct = function(roomCode, productCode){
+      scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, event){
+        if(isMemberOnly === null && roomPriceFrom === null && !event){
+          return;
+        }
+
+        if(event){
+          event.preventDefault();
+          event.stopPropagation();
+        }else{
+          if(!stateService.isMobile() || isMemberOnly && !scope.isUserLoggedIn() || !roomPriceFrom){
+            return;
+          }
+        }
+
         var params = {
           property: scope.details.code,
           roomID: roomCode,
