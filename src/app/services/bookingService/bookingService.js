@@ -145,6 +145,12 @@ angular.module('mobiusApp.services.booking', [])
       params.adults > Settings.UI.bookingWidget.maxAdultsForSingleRoomBooking;
   }
 
+  function isDateRangeSelected(){
+    var params = getAPIParams();
+
+    return params.from && params.to;
+  }
+
   function switchToMRBMode(){
     $rootScope.$broadcast('BOOKING_BAR_OPEN_MRB_TAB');
   }
@@ -160,6 +166,7 @@ angular.module('mobiusApp.services.booking', [])
     isMultiRoomBooking: isMultiRoomBooking,
     getMultiRoomData: getMultiRoomData,
     isOverAdultsCapacity: isOverAdultsCapacity,
+    isDateRangeSelected: isDateRangeSelected,
     switchToMRBMode: switchToMRBMode
   };
 });

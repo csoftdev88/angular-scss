@@ -51,6 +51,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.openPoliciesInfo = modalService.openPoliciesInfo;
 
+      scope.isDateRangeSelected = bookingService.isDateRangeSelected;
       scope.openPriceBreakdownInfo = function(product) {
         var room = _.clone(scope.room);
         room._selectedProduct = product;
