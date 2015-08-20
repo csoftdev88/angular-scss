@@ -12,6 +12,10 @@ body {
 
   background: @c-background-body;
   color: @c-base;
+
+  // Fix for Google fonts in Safari
+  -webkit-font-smoothing: subpixel-antialiased;
+
   &.modal-open{
     overflow: hidden;
   }
