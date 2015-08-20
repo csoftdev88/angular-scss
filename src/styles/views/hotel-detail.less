@@ -161,6 +161,10 @@ hotel-detail {
           earned-points{
             position: relative;
             float: right;
+
+            .viewport-mobile & {
+              width: auto;
+            }
           }
         }
 
@@ -339,11 +343,17 @@ hotel-detail {
                   top: 0;
                   padding-top: 10px;
 
-                  p {
-                    margin: 0px;
+                  > div {
+                    p {
+                      margin: 0px;
+                    }
                   }
 
                   .button {
+                    display: none;
+                  }
+
+                  .description {
                     display: none;
                   }
                 }
@@ -355,6 +365,96 @@ hotel-detail {
 
                 &:last-of-type {
                   border-radius: 0px 0px 4px 4px;
+                }
+              }
+            }
+
+            .viewport-mobile & {
+              width: 100%;
+              float: left;
+
+              margin-top: 20px;
+
+              ul {
+                li {
+                  border-left: none;
+                  border-right: none;
+                  padding: 0px;
+
+                  &:last-of-type {
+                    border-bottom: none;
+                  }
+
+                  pricing-info {
+                    width: 100%;
+                    float: left;
+                    padding-top: 0px;
+
+                    .description {
+                      display: block;
+                      width: 100%;
+                      float: left;
+                      height: 25px;
+                      overflow: hidden;
+                      max-height: 25px;
+                      overflow: hidden;
+                      margin-top: 10px;
+
+                      > p {
+                        width: 95%;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: block;
+                      }
+                    }
+
+                    > div {
+                      p {
+                        display: block;
+                        text-align: left;
+                        float: left;
+                        padding: 0 4px 10px 0;
+
+                        .per-night,
+                        .per-stay {
+                          display: none;
+                        }
+
+                        .value {
+                          font-size: @size-1;
+                        }
+                      }
+                    }
+
+
+                    .button {
+                      display: inline-block;
+                      float: right;
+                      height: 28px;
+                      line-height: 28px;
+                      margin: -5px 0px;
+                    }
+                  }
+
+                  .rate-description {
+                    border-right: none;
+                    width: 100%;
+
+                    h4 {
+                     earned-points {
+                       display: none;
+                     }
+                    }
+
+                    > p {
+                      display: none;
+                    }
+
+                    .action-links {
+                      display: none;
+                    }
+                  }
                 }
               }
             }
