@@ -30,6 +30,12 @@ describe('RoomProducts', function() {
         getCodeFromSlug: function(){}
       });
 
+      $provide.value('stateService', {
+        isMobile: function(){
+          return true;
+        }
+      });
+
       $provide.value('propertyService', {
         getRoomProducts: function(){
           return {
@@ -153,7 +159,10 @@ describe('RoomProducts', function() {
 
   describe('selectProduct', function(){
     it('should redirect to reservation details state', function(){
-      _scope.selectProduct('testRoom', 'testProduct');
+      _scope.selectProduct('testRoom', 'testProduct', false, 10, {
+        preventDefault: function(){},
+        stopPropagation: function(){}
+      });
       expect(_spyStateGo.calledOnce).equal(true);
       expect(_spyStateGo.calledWith('reservation.details')).equal(true);
     });
