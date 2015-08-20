@@ -16,7 +16,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
-          scope.products = data.products;
+          scope.products = data.products || [];
         }, function(){
           scope.products = [];
         });
@@ -51,6 +51,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.openPoliciesInfo = modalService.openPoliciesInfo;
 
+      scope.isDateRangeSelected = bookingService.isDateRangeSelected;
       scope.openPriceBreakdownInfo = function(product) {
         var room = _.clone(scope.room);
         room._selectedProduct = product;

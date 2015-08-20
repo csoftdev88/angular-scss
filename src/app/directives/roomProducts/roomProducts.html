@@ -34,8 +34,6 @@
           </span>
         </p>
 
-        <p class="unavailable" ng-if="!room.priceFrom">Please select dates to see the latest price</p>
-
         <a ng-if="!room.priceFrom" ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">View Details</a>
         <a ng-if="room.priceFrom" ng-hide="product.memberOnly && !isUserLoggedIn()" ng-click="selectProduct(room.code, product.code)" class="button">Book Now</a>
       </div>
@@ -52,7 +50,11 @@
 
   <li ng-if="!products.length">
     <p class="unavailable error no-products">
-      <span ng-if="!isOverAdultsCapacity()">Not Available on Selected Dates</span>
+      <span ng-if="!isOverAdultsCapacity()">
+        <span ng-if="isDateRangeSelected()">Not Available on Selected Dates</span>
+        <span ng-if="!isDateRangeSelected()">Please select dates to see the latest price</span>
+      </span>
+
       <span ng-if="isOverAdultsCapacity()">
         <span>Not available on these dates.<br></span>
         <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>

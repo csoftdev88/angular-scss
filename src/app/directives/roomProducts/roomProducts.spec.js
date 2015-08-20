@@ -6,11 +6,9 @@ describe('RoomProducts', function() {
   var TEMPLATE_CONTENT = '<div>room products</div>';
 
   var TEST_ROOM_PRODUCTS = {
-    data: {
-      products: [
-        {code: 123}
-      ]
-    }
+    products: [
+      {code: 123}
+    ]
   };
 
   var _rootScope, _scope, _elem, _templateCache, _spyTemplateCacheGet,
