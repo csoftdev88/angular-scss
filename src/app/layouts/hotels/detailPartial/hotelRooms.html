@@ -8,6 +8,7 @@
 
       <pricing-switch>
         <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
+        |
         <a href
            ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
            ng-click="days && setPricePer(PP_STAY)"
