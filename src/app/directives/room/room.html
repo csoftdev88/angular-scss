@@ -5,7 +5,7 @@
   </section>
 
   <section ng-if="products">
-    <hr class="dividerWithoutImage"/>
+    <!-- <hr class="dividerWithoutImage"/> -->
     <list-items ng-if="products.length">
       <pricing-switch>
         <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
@@ -109,11 +109,11 @@
       </div>
     </div>
 
-    <hr />
+    <!-- <hr /> -->
   </section>
 
 
-  <section>
+  <section class="room-description">
     <h2>Room <strong>Description</strong></h2>
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
 
