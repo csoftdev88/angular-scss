@@ -25,6 +25,22 @@ hotel-room {
     margin-top: 15px;
   }
 
+  list-items {
+    list-item {
+      &:first-of-type {
+        border-top: 2px solid #ccc;
+      }
+
+      &:last-of-type {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+  }
+
+  section.room-description {
+    margin-top: @baseline*2;
+  }
+
   //room gallery is the ul
   .room-gallery {
     margin: @baseline 0px;
