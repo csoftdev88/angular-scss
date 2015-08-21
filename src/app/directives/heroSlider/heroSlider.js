@@ -8,6 +8,7 @@ angular.module('mobiusApp.directives.slider', [])
     restrict: 'E',
     scope: {
       content: '=',
+      onSlideClick: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
@@ -79,6 +80,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       scope.$on('$destroy', function(){
         unWatchContent();
+        cancelAutoplay();
 
         if(!!attrs.keyboard){
           angular.element($window).unbind(EVENT_KEYDOWN);
@@ -94,6 +96,10 @@ angular.module('mobiusApp.directives.slider', [])
         var slideData = scope.content[scope.slideIndex];
         if(slideData && slideData.link) {
           advertsService.advertClick(slideData.link);
+        }else{
+          if(scope.onSlideClick){
+            scope.onSlideClick();
+          }
         }
       };
 
