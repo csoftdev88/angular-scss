@@ -341,4 +341,128 @@ describe('mobiusApp.services.modal', function() {
     });
   });
 
+  describe('openConfirmationDialog', function() {
+    it('should open confirmation dialog', function() {
+      _modalService.openConfirmationDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ConfirmationCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details confirmation-dialog'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/confirmationDialog.html'))).equal(true);
+    });
+  });
+
+  describe('openAddonDetailDialog', function() {
+    it('should open addon dialog', function() {
+      _modalService.openAddonDetailDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'AddonDetailCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details addons'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/addonDetailDialog.html'))).equal(true);
+    });
+  });
+
+  describe('openCCVInfo', function() {
+    it('should open CCV help dialog', function() {
+      _modalService.openCCVInfo();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/ccvInfo.html'))).equal(true);
+    });
+  });
+
+  describe('openPoliciesInfo', function() {
+    it('should open policies detail dialog', function() {
+      _modalService.openPoliciesInfo();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'PolicyCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'is-wide'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/policiesInfo.html'))).equal(true);
+    });
+  });
+
+  describe('openPriceBreakdownInfo', function() {
+    it('should price-breakdown dialog', function() {
+      _modalService.openPriceBreakdownInfo();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'is-wide'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/priceBreakdownInfo.html'))).equal(true);
+    });
+  });
+
+  describe('openRewardDetailsDialog', function() {
+    it('should open reward details dialog', function() {
+      _modalService.openRewardDetailsDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details dialog-rewards'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/loyalties/rewardDetails.html'))).equal(true);
+    });
+  });
+
+  describe('openLocationDetail', function() {
+    it('should open location detail dialog', function() {
+      _modalService.openLocationDetail();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'LocationDetailCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'is-wide'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/locationDetail.html'))).equal(true);
+    });
+  });
+
+  describe('openTermsAgreeDialog', function() {
+    it('should terms & agree dialog', function() {
+      _modalService.openTermsAgreeDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/termsAgreeDialog.html'))).equal(true);
+    });
+  });
 });

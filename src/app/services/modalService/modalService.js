@@ -266,12 +266,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openReservationLookupLoginDialog() {
     return openDialog('reservationLookupLogin', 'layouts/modals/reservation/reservationLookupLogin.html', CONTROLLER_DEFAULT, {
-      windowClass: 'narrow login',
-      resolve: {
-        data: function() {
-          return null;
-        }
-      }
+      windowClass: 'narrow login'
     });
   }
 
