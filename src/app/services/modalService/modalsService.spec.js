@@ -228,4 +228,117 @@ describe('mobiusApp.services.modal', function() {
         'templateUrl', 'layouts/modals/loyalties/tiersList.html'))).equal(true);
     });
   });
+
+  describe('openModifyingReservationDialogue', function() {
+    it('should open modifying reservation dialogue', function() {
+      _modalService.openModifyingReservationDialogue();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details reservation-modification'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/modifyReservation.html'))).equal(true);
+    });
+  });
+
+  describe('openCancelReservationDialog', function() {
+    it('should open cancel reservation dialog', function() {
+      _modalService.openCancelReservationDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details confirmation-dialog'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/cancelReservationDialog.html'))).equal(true);
+    });
+  });
+
+  describe('openReservationModifyingDisabledDialogue', function() {
+    it('should open reservation modifying disable dialogue', function() {
+      _modalService.openReservationModifyingDisabledDialogue();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details reservation-modification'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/cannotModify.html'))).equal(true);
+    });
+  });
+
+  describe('openReservationCancelingDisabledDialogue', function() {
+    it('should open reservation canceling disable dialogue', function() {
+      _modalService.openReservationCancelingDisabledDialogue();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details reservation-modification'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/cannotCancel.html'))).equal(true);
+    });
+  });
+
+  describe('openReservationModificationCanceledDialogue', function() {
+    it('should open reservation modification canceled dialogue', function() {
+      _modalService.openReservationModificationCanceledDialogue();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalDataCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'details reservation-modification'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/modificationCanceled.html'))).equal(true);
+    });
+  });
+
+  describe('openReservationLookupFailedDialog', function() {
+    it('should open reservation lookup failed dialog', function() {
+      _modalService.openReservationLookupFailedDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'narrow'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/reservationLookupFailed.html'))).equal(true);
+    });
+  });
+
+  describe('openReservationLookupLoginDialog', function() {
+    it('should open reservation lookup login dialog', function() {
+      _modalService.openReservationLookupLoginDialog();
+      expect(_spyModalOpen.calledOnce).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'controller', 'ModalCtrl'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'windowClass', 'narrow login'))).equal(true);
+
+      expect(_spyModalOpen.calledWith(sinon.match.has(
+        'templateUrl', 'layouts/modals/reservation/reservationLookupLogin.html'))).equal(true);
+    });
+  });
+
 });

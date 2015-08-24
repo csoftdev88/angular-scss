@@ -260,12 +260,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openReservationLookupFailedDialog() {
     return openDialog('reservationLookupFailed', 'layouts/modals/reservation/reservationLookupFailed.html', CONTROLLER_DEFAULT, {
-      windowClass: 'narrow',
-      resolve: {
-        data: function() {
-          return null;
-        }
-      }
+      windowClass: 'narrow'
     });
   }
 
