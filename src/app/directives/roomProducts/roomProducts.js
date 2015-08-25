@@ -15,23 +15,27 @@ angular.module('mobiusApp.directives.room.products', [])
       bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.details.meta.slug);
       bookingParams.roomCode = bookingService.getCodeFromSlug(scope.room.meta.slug);
 
+      scope.init = function(){
+        scope.products = undefined;
+
+        // Using PGID from the booking params
+        if(bookingParams.productGroupId){
+          getRoomProducts(bookingParams);
+        } else {
+          filtersService.getBestRateProduct().then(function(brp){
+            if(brp){
+              bookingParams.productGroupId = brp.id;
+              getRoomProducts(bookingParams);
+            }
+          });
+        }
+      };
+
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
           scope.products = data.products || [];
         }, function(){
-          scope.products = [];
-        });
-      }
-
-      // Using PGID from the booking params
-      if(bookingParams.productGroupId){
-        getRoomProducts(bookingParams);
-      } else {
-        filtersService.getBestRateProduct().then(function(brp){
-          if(brp){
-            bookingParams.productGroupId = brp.id;
-            getRoomProducts(bookingParams);
-          }
+          scope.products = null;
         });
       }
 
@@ -72,6 +76,8 @@ angular.module('mobiusApp.directives.room.products', [])
 
         return modalService.openPriceBreakdownInfo([room]);
       };
+
+      scope.init();
     }
   };
 });
