@@ -46,7 +46,7 @@ angular.module('mobiusApp.services.scroll', [])
     }
 
     function getScrollTop(){
-      return ($window.pageYOffset || $document.scrollTop)  - ($document.clientTop || 0);
+      return ($window.pageYOffset || $document.scrollTop)  - ($document.clientTop || 0) || 0;
     }
 
     // Public methods

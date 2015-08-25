@@ -1,5 +1,5 @@
 <!-- New layout - Delete old layout below when this is complete -->
-<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
+<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row data-infinite-scroll>
   <hr />
   <div grid="12" id="jsRooms">
     <header class="section-header">
@@ -19,7 +19,7 @@
     </header>
 
     <list-items class="rooms-list" ng-init="roomLimit = 4">
-      <list-item ng-repeat="room in rooms | orderBy: 'priceFrom' | limitTo: roomLimit">
+      <list-item ng-repeat="room in rooms | limitTo: roomLimit">
         <header class="item-header">
           <h3><a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
           <!--

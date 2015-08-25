@@ -33,6 +33,7 @@ describe('mobius.controllers.hotel.details', function() {
     var TEST_OFFERS = [];
 
     beforeEach(function() {
+      module('underscore');
       module('mobiusApp.factories.preloader');
 
       module('mobius.controllers.hotel.details', function($provide, $controllerProvider) {

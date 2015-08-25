@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.details', [
   'mobiusApp.filters.cloudinaryImage'
 ])
 
-.controller( 'HotelDetailsCtrl', function($scope, $filter, bookingService, $state, contentService,
+.controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
   $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams) {
 
@@ -137,7 +137,10 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
-        $scope.rooms = rooms;
+        // Sorting rooms by priceFrom
+        $scope.rooms = _.sortBy(rooms,function(room){
+          return room.priceFrom;
+        });
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
