@@ -1,5 +1,5 @@
 <!-- New layout - Delete old layout below when this is complete -->
-<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row data-infinite-scroll>
+<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row data-infinite-scroll data-on-scroll="onScroll">
   <hr />
   <div grid="12" id="jsRooms">
     <header class="section-header">
@@ -18,8 +18,8 @@
       </pricing-switch>
     </header>
 
-    <list-items class="rooms-list" ng-init="roomLimit = 4">
-      <list-item ng-repeat="room in rooms | limitTo: roomLimit">
+    <list-items class="rooms-list">
+      <list-item ng-repeat="room in rooms | limitTo: numberOfRoomsDisplayed">
         <header class="item-header">
           <h3><a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
           <!--
@@ -55,7 +55,9 @@
         <!-- //list-item-container -->
       </list-item>
 
+      <!--
       <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
+      -->
 
     </list-items>
     <h2 ng-if="!rooms.length">_no_room_found_</h2>

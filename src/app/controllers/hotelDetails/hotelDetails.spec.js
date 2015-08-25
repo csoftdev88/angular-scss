@@ -104,6 +104,14 @@ describe('mobius.controllers.hotel.details', function() {
 
         $provide.value('$stateParams', {});
 
+        $provide.value('Settings', {
+          UI: {
+            hotelDetails: {
+              defaultNumberOfRooms: 2
+            }
+          }
+        });
+
         var breadcrumbs = {
           clear: function() {},
           addBreadCrumb: function(){ return breadcrumbs; },

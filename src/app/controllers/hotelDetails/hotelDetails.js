@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -141,6 +141,8 @@ angular.module('mobius.controllers.hotel.details', [
         $scope.rooms = _.sortBy(rooms,function(room){
           return room.priceFrom;
         });
+
+        $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
@@ -197,4 +199,15 @@ angular.module('mobius.controllers.hotel.details', [
 
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
+
+  // Infinite scroll
+  $scope.onScroll = function(){
+    if($scope.rooms && $scope.rooms.length > $scope.numberOfRoomsDisplayed){
+      displayMoreRooms();
+    }
+  };
+
+  function displayMoreRooms(){
+    $scope.numberOfRoomsDisplayed++;
+  }
 });

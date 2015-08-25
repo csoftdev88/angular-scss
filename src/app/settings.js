@@ -121,6 +121,11 @@ angular.module('mobiusApp.config', [])
       ]
     },
 
+    'hotelDetails': {
+      //List of rooms and their products
+      'defaultNumberOfRooms': 2
+    },
+
     'roomDetails': {
       'hasReadMore': true
     },
