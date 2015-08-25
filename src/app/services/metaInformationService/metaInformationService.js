@@ -20,6 +20,8 @@ angular.module('mobiusApp.services.metaInformation', [])
       pagetitle: 'Welcome to The Sutton Place Hotels'
     };
 
+    // TODO - Remove hardcoded codes!
+    // Move those into Settings service
     chainService.getChain('SAN').then(function(data) {
       defaultMetaInformation.description = data.meta.description;
       defaultMetaInformation.keywords = data.meta.keywords;
@@ -60,5 +62,4 @@ angular.module('mobiusApp.services.metaInformation', [])
         $rootScope.metaInformation.ogLocale = data['og:locale'];
       }
     };
-
   }]);

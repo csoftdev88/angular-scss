@@ -69,4 +69,10 @@ describe('creditCardTypeService', function() {
     });
   });
 
+  describe('normalizeCreditCardNumber', function() {
+    it('should normilize credit card number', function() {
+      expect(_creditCardTypeService.normalizeCreditCardNumber(4222222222222)).equal('4222222222222');
+      expect(_creditCardTypeService.normalizeCreditCardNumber('42222 2222 2222')).equal('4222222222222');
+    });
+  });
 });
