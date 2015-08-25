@@ -275,6 +275,13 @@ hotel-detail {
             float: right;
             display: block;
 
+            .preloader {
+              &:after {
+                content: 'Fetching Room Rates';
+                text-transform: initial;
+              }
+            }
+
             > ul {
               > li {
                 border: 1px solid @c-light-grey;
