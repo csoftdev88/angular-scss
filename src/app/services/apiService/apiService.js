@@ -104,6 +104,10 @@ angular.module('mobiusApp.services.api', [])
     }
   }
 
+  function objectToQueryParams(obj){
+    return $window.$.param(obj);
+  }
+
   // Public methods
   var api = {
     get: get,
@@ -111,7 +115,8 @@ angular.module('mobiusApp.services.api', [])
     post: post,
     put: put,
     getFullURL: getFullURL,
-    setHeaders: setHeaders
+    setHeaders: setHeaders,
+    objectToQueryParams: objectToQueryParams
   };
   return api;
 });

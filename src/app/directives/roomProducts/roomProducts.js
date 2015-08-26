@@ -32,11 +32,17 @@ angular.module('mobiusApp.directives.room.products', [])
       };
 
       function getRoomProducts(params){
-        propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
+        propertyService.getRoomProducts(params.propertyCode, params.roomCode, params,
+          getRatesCacheTimeout()).then(function(data){
           scope.products = data.products || [];
         }, function(){
           scope.products = null;
         });
+      }
+
+      function getRatesCacheTimeout(){
+        return Settings.UI.hotelDetails &&
+          Settings.UI.hotelDetails.ratesCacheTimeout?Settings.UI.hotelDetails.ratesCacheTimeout:0;
       }
 
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){

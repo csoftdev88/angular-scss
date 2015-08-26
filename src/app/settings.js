@@ -124,7 +124,9 @@ angular.module('mobiusApp.config', [])
     'hotelDetails': {
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
-      'numberOfRoomsAddedOnScroll': 1
+      'numberOfRoomsAddedOnScroll': 1,
+      // Cache timeout in seconds
+      'ratesCacheTimeout': 30 * 60
     },
 
     'roomDetails': {
