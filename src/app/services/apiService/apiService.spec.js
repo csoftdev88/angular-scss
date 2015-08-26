@@ -213,5 +213,12 @@ describe('apiService', function() {
         expect(_spyExtend.calledWith({'test': 123}));
       });
     });
+
+    describe('objectToQueryParams', function() {
+      it('should return query string', function() {
+        expect(env.apiService.objectToQueryParams({'test': 123, 'b':'c'})).
+          equal('test=123&b=c');
+      });
+    });
   });
 });

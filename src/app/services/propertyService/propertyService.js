@@ -55,6 +55,9 @@ angular.module('mobiusApp.services.properties', [])
       roomTypeCode: roomTypeCode
     });
 
+    // TODO: Caching should be done using URL without query params
+    // Also, we might consider cleaning cache when booking criteria
+    // are changed. TBD
     if(cacheTimeout){
       URL += '?' + apiService.objectToQueryParams(params);
       return apiService.getThrottled(URL, null, cacheTimeout);

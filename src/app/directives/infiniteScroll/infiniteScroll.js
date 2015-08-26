@@ -9,28 +9,23 @@ angular.module('mobiusApp.directives.infiniteScroll', [])
   return {
     restrict: 'A',
     scope: {
-      infiniteScroll: '&'
+      infiniteScroll: '&',
+      threshold: '='
     },
 
     link: function(scope, elem) {
       var container = angular.element($window);
-      var lastScrollPosition = 0;
-
       elem = angular.element(elem);
+      scope.threshold = parseInt(scope.threshold, 10) || 0;
 
       var onScrollDebounced = _.debounce(function(){
         var scrollTop = scrollService.getScrollTop();
-        if(lastScrollPosition >= scrollTop){
-          return;
-        }
 
         // Checking if scrolled to the bottom of the element
         // within viewport
         var elemBottom = elem.offset().top + elem.height();
 
-        if(scrollTop > elemBottom - container.height()){
-          lastScrollPosition = scrollTop;
-
+        if(scrollTop > elemBottom - container.height() - scope.threshold){
           scope.$evalAsync(scope.infiniteScroll());
         }
       }, DEFAULT_DEBOUNCE_DELAY);
