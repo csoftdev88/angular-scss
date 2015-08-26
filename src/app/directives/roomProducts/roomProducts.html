@@ -1,7 +1,8 @@
-<div class="preloader" ng-show="!products"></div>
+<div class="preloader" ng-show="products === undefined"></div>
 
 <ul ng-if="products">
-  <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products" ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)">
+  <!-- PRODUCTS -->
+  <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | orderBy : 'price.totalBase'" ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)">
     <div class="rate-description">
       <h4>
         <span ng-bind-html="product.name | mainHeaderStyle"></span>
@@ -50,7 +51,8 @@
     </pricing-info>
   </li>
 
-  <li ng-if="!products.length">
+  <!-- NO PRODUCTS AVAILABLE -->
+  <li ng-if="products.length === 0">
     <p class="unavailable error no-products">
       <span ng-if="!isOverAdultsCapacity()">
         <span ng-if="isDateRangeSelected()">Not Available on Selected Dates</span>
@@ -64,3 +66,10 @@
     </p>
   </li>
 </ul>
+
+<!-- FAILED TO DOWNLOAD PRODUCTS -->
+<div class="loading-failed" ng-if="products === null">
+  <h3>Unfortunately we were unable to load the rates for this room.</h3>
+  <p>Click the button below to re-try loading these rates</p>
+  <button-retry role="button" class="button-retry" ng-click="init()">Reload Rates</button-retry>
+</div>

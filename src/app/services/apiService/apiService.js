@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, _, Settings) {
+.service( 'apiService',  function($q, $http, $window, $interval, _, Settings) {
   var headers = Settings.API.headers;
 
   function get(url, params) {
@@ -90,11 +90,12 @@ angular.module('mobiusApp.services.api', [])
   function getThrottled(url, params, timeout) {
     var canCache = !params || Object.keys(params).length === 0;
     if (canCache) {
-      timeout = timeout || Settings.API.defaultThrottleTimeout;
-      var ts = (new Date()).valueOf();
-      if (!cache[url] || (cache[url].ts + timeout * 1000) < ts) {
+      if (!cache[url] || isCacheObjectExpired(url)) {
+        timeout = timeout || Settings.API.defaultThrottleTimeout;
+
         cache[url] = {
-          ts: ts,
+          // Expiration timestamp
+          ts: $window.moment().valueOf() + timeout * 1000,
           p: api.get(url, params)
         };
       }
@@ -104,6 +105,28 @@ angular.module('mobiusApp.services.api', [])
     }
   }
 
+  function isCacheObjectExpired(key){
+    return cache[key].ts < $window.moment().valueOf();
+  }
+
+  function initCacheFlusher(delay){
+    $interval(function(){
+      _.each(_.keys(cache), function(key){
+        if(isCacheObjectExpired(key)){
+          delete cache[key];
+        }
+      });
+    }, delay, 0, false);
+  }
+
+  if(Settings.API.cacheFlushInterval){
+    initCacheFlusher(Settings.API.cacheFlushInterval * 1000);
+  }
+
+  function objectToQueryParams(obj){
+    return $window.$.param(obj);
+  }
+
   // Public methods
   var api = {
     get: get,
@@ -111,7 +134,8 @@ angular.module('mobiusApp.services.api', [])
     post: post,
     put: put,
     getFullURL: getFullURL,
-    setHeaders: setHeaders
+    setHeaders: setHeaders,
+    objectToQueryParams: objectToQueryParams
   };
   return api;
 });
