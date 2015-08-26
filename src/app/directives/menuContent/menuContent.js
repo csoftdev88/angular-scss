@@ -10,11 +10,13 @@ angular.module('mobiusApp.directives.menu', [])
 
     // Widget logic goes here
     link: function(scope, elem, attrs){
-
-      scope.title = attrs.title;
-      scope.item = attrs.menuContent;
-
-      $controller('ContentCtr', {$scope: scope});
+      var EVENT_CLICK = 'click',
+        EVENT_ENTER = 'mouseenter',
+        EVENT_LEAVE = 'mouseleave',
+        EVENT_VIEWPORT_RESIZE = 'viewport:resize',
+        ATTR_NAME = 'has-dropdown',
+        OPEN_CLASS = 'open',
+        items, isMobile;
 
       var states = {
         'hotels': ['hotel', 'hotels', 'room'],
@@ -23,6 +25,12 @@ angular.module('mobiusApp.directives.menu', [])
         'about': ['aboutUs'],
         'contacts' : ['contacts']
       };
+
+      scope.title = attrs.title;
+      scope.item = attrs.menuContent;
+
+      $controller('ContentCtr', {$scope: scope});
+
       scope.isActive = function() {
         return _.some(states[attrs.menuContent], function(state) {
           return $state.includes(state);
@@ -34,14 +42,6 @@ angular.module('mobiusApp.directives.menu', [])
           return !item.filtered;
         });
       };
-
-      var EVENT_CLICK = 'click',
-        EVENT_ENTER = 'mouseenter',
-        EVENT_LEAVE = 'mouseleave',
-        EVENT_VIEWPORT_RESIZE = 'viewport:resize',
-        ATTR_NAME = 'has-dropdown',
-        OPEN_CLASS = 'open',
-        items, isMobile;
 
       function mouseEventHandler(active){
         // Hover functionality works only on bigger screens

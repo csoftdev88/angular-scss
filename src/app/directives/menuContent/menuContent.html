@@ -4,11 +4,13 @@
   <ul class="dropdown-menu submenu" ng-show="content.length">
 
     <!--hide it when the all of ng-repeat items above has filtered flag set with true-->
-    <li ng-show="hasFilteredItems(content)">
-      <span class="submenu-header">{{city}} {{settings.listState}}</span>
+    <li class="submenu-header" ng-if="hasFilteredItems(content) && city">
+      <span>{{city}} {{settings.listState}}</span>
+      <div class="divider"/>
     </li>
-    <li ng-show="hasFilteredItems(content)" class="divider"></li>
 
+    <!--<li ng-show="hasFilteredItems(content)" class="divider"></li>
+    -->
     <!-- visible when filtered flag for item is set with true -->
     <li ng-repeat="item in content | filteredContent">
       <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)">
@@ -18,10 +20,10 @@
     </li>
 
     <!--hide it when the all of ng-repeat items above has filtered flag set with true-->
-    <li ng-show="hasFilteredItems(content)" class="divider"></li>
-    <li has-dropdown="hover" class="dropdown-submenu" ng-show="hasFilteredItems(content)" style="background-color: rgba(0, 0, 0, 0.8)">
+    <li has-dropdown="hover" class="dropdown-submenu" ng-show="hasFilteredItems(content)">
+      <div class="divider"/>
       <div class="dropdown">
-        <span class="fa fa-angle-right" style="float: right;"></span>
+        <span class="fa fa-angle-right"></span>
         <a ng-href class="submenu-link">See all {{settings.listState}}</a>
         <ul class="dropdown-menu submenu">
           <li ng-repeat="item in content">

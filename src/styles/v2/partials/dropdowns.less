@@ -9,7 +9,6 @@
   list-style: none;
 
   &.submenu {
-
     li {
       display: block;
       float: none;
@@ -25,11 +24,36 @@
     }
   }
 
+  .submenu-header {
+    span {
+      color: @c-white;
+      cursor: default;
+      margin: 10px 0px;
+      display: inline-block;
+    }
+
+    .divider {
+      margin: 0px;
+    }
+  }
+
   .dropdown-submenu {
+    .divider {
+      margin: 0px;
+    }
+
+    .dropdown {
+      padding: @baseline/2 0px;
+
+      > .fa {
+        float: right;
+      }
+    }
+
     .dropdown-menu {
       left: 100%;
       margin-left: 0;
-      margin-top: 41px;
+      margin-top: @baseline*2;
       width: 100% !important;
     }
   }
