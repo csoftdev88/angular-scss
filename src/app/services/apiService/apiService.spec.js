@@ -1,7 +1,7 @@
 'use strict';
 
 describe('apiService', function() {
-  var env, _spyExtend;
+  var env, _clock, _spyExtend;
   var TEST_URL = 'http://testurl';
   var TEST_RESPONSE = {'data': 'OK'};
   var TEST_DATA = {'some': 'testValue'};
@@ -36,11 +36,14 @@ describe('apiService', function() {
     env.apiService = apiService;
     env.httpBackend = $httpBackend;
     env.rootScope = $rootScope;
+    _clock = sinon.useFakeTimers(0 , 'Date');
+
     _spyExtend = sinon.spy(_, 'extend');
   }));
 
   afterEach(function(){
     _spyExtend.restore();
+    _clock.restore();
   });
 
   describe('API comunication', function() {
@@ -101,13 +104,12 @@ describe('apiService', function() {
         expect(result1).equal(result2);
       });
 
-      it('should call GET method and return result should be not be same on subsequent calls after timeout', function(done) {
+      it('should call GET method and return result should be not be same on subsequent calls after timeout', function() {
+        _clock.tick(1420102810000);
         var result1 = env.apiService.getThrottled('C');
-        setTimeout(function() {
-          var result2 = env.apiService.getThrottled('C', {}, 0.1);
-          expect(result1).not.equal(result2);
-          done();
-        }, 101);
+        _clock.tick(10001);
+        var result2 = env.apiService.getThrottled('C');
+        expect(result1).not.equal(result2);
       });
     });
 
