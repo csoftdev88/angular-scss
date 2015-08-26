@@ -116,11 +116,11 @@ angular.module('mobiusApp.services.api', [])
           delete cache[key];
         }
       });
-    }, delay);
+    }, delay, 0, false);
   }
 
   if(Settings.API.cacheFlushInterval){
-    initCacheFlusher(Settings.API.cacheFlushInterval);
+    initCacheFlusher(Settings.API.cacheFlushInterval * 1000);
   }
 
   function objectToQueryParams(obj){

@@ -1,7 +1,7 @@
 'use strict';
 
 describe('apiService', function() {
-  var env, _clock, _spyExtend;
+  var env, _$interval, _clock, _spyExtend;
   var TEST_URL = 'http://testurl';
   var TEST_RESPONSE = {'data': 'OK'};
   var TEST_DATA = {'some': 'testValue'};
@@ -11,11 +11,14 @@ describe('apiService', function() {
   });
 
   beforeEach(function() {
+    module('underscore');
+
     module('mobiusApp.services.api', function($provide) {
       // Mocking Settings service
       var Settings = {
         'API': {
           'defaultThrottleTimeout': 10,
+          'cacheFlushInterval': 15,
           'baseURL': 'http://server.com/',
           'content': {
             'about': 'about',
@@ -25,17 +28,14 @@ describe('apiService', function() {
       };
 
       $provide.value('Settings', Settings);
-
-      $provide.value('_', {
-        extend: function(){}
-      });
     });
   });
 
-  beforeEach(inject(function($rootScope, $httpBackend, _, apiService) {
+  beforeEach(inject(function($rootScope, $httpBackend, $interval, _, apiService) {
     env.apiService = apiService;
     env.httpBackend = $httpBackend;
     env.rootScope = $rootScope;
+    _$interval = $interval;
     _clock = sinon.useFakeTimers(0 , 'Date');
 
     _spyExtend = sinon.spy(_, 'extend');
