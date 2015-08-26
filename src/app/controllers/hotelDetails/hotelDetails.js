@@ -208,6 +208,6 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   function displayMoreRooms(){
-    $scope.numberOfRoomsDisplayed++;
+    $scope.numberOfRoomsDisplayed += Settings.UI.hotelDetails.numberOfRoomsAddedOnScroll || 1;
   }
 });

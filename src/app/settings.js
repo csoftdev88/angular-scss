@@ -123,7 +123,8 @@ angular.module('mobiusApp.config', [])
 
     'hotelDetails': {
       //List of rooms and their products
-      'defaultNumberOfRooms': 2
+      'defaultNumberOfRooms': 2,
+      'numberOfRoomsAddedOnScroll': 1
     },
 
     'roomDetails': {
