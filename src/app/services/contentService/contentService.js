@@ -24,9 +24,7 @@ angular.module('mobiusApp.services.content', [])
         // if requested with bannerSize query param. More details PT#101113466
         if(parameters && parameters.bannerSize){
           _.each(data, function(advert){
-            advert.images = _.filter(advert.images, function(advertImage){
-              return advertImage.bannerSize === parameters.bannerSize;
-            });
+            advert.images = _.filter(advert.images, {bannerSize: parameters.bannerSize});
           });
         }
 
