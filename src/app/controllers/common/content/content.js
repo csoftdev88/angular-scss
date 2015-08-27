@@ -3,7 +3,7 @@
 angular.module('mobius.controllers.common.content', [])
 
 .controller('ContentCtr', function($scope, $rootScope, preloaderFactory, propertyService, contentService,
- locationService, bookingService, $state, $timeout, _) {
+ locationService, bookingService, $state, $timeout, _, Settings) {
 
   // We are using different methods for getting the data
   // from the server according to content type. Also, menu
@@ -183,7 +183,7 @@ angular.module('mobius.controllers.common.content', [])
   }
 
   function needFilter() {
-    return $scope.settings.method === contentTypes.offers.method && $state.params.property;
+    return Settings.UI.menu.offerSpecificToSelectedProperty && $scope.settings.method === contentTypes.offers.method && $state.params.property;
   }
 
   function getCityOfContent() {

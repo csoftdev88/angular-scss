@@ -107,6 +107,7 @@ angular.module('mobiusApp.config', [])
     'menu': {
       'singleProperty': false,
       'showOffers': true,
+      'offerSpecificToSelectedProperty': true,
       'showAbout': true,
       'showNews': true,
       'showContact': true
