@@ -31,23 +31,45 @@
       cursor: default;
       margin: 10px 0px;
       display: inline-block;
+      font-weight: bold;
     }
 
     .divider {
       margin: 0px;
+      border-top: 1px solid @c-white;
+
+      .viewport-mobile & {
+        display: none;
+      }
     }
   }
 
   .dropdown-submenu {
     .divider {
       margin: 0px;
+      border-top: 1px solid @c-white;
+
+      .viewport-mobile & {
+        display: none;
+      }
     }
 
     .dropdown {
-      padding: @baseline/2 0px;
+      padding: @baseline 0px @baseline/2;
+
+      span {
+        font-weight: bold;
+        cursor: default;
+      }
 
       > .fa {
         float: right;
+        color: @c-white;
+        font-weight: bold;
+
+        .viewport-mobile & {
+          display: none;
+        }
       }
     }
 
