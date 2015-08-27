@@ -24,6 +24,7 @@ describe('rewardsService', function() {
 
       var apiService = {
         get: function(){},
+        post: function(){},
         getFullURL: function(p){
           return p;
         }
@@ -39,15 +40,16 @@ describe('rewardsService', function() {
     env.apiService = apiService;
 
     env.apiGetSpy = sinon.spy(env.apiService, 'get');
+    env.apiPostSpy = sinon.spy(env.apiService, 'post');
     env.apiGetFullURLSpy = sinon.spy(env.apiService, 'getFullURL');
   }));
 
   afterEach(function() {
     env.apiGetSpy.restore();
+    env.apiPostSpy.restore();
     env.apiGetFullURLSpy.restore();
   });
 
-  /*
   describe('getAll', function() {
     it('should fire a GET request to rewards API', function() {
       env.rewardsService.getAll();
@@ -58,39 +60,25 @@ describe('rewardsService', function() {
     });
   });
 
-  
-
-  describe('getRewardsDetails', function(){
-    it('should fire a GET request to rewards details API', function(){
-      env.propertyService.getPropertyDetails('ABC', {a:'test'});
-
+  describe('getMy', function() {
+    it('should fire a GET request to rewards.my API', function() {
+      env.rewardsService.getMy(123);
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith(
-        'properties.details', {rewardCode:'ABC'})).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('rewards.my', {customerId: 123})).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
-      expect(env.apiGetSpy.calledWith('rewards.details', {a: 'test'})).equal(true);
+      expect(env.apiGetSpy.calledWith('rewards.my', {scope:'consumable'})).equal(true);
     });
   });
 
-*/
-
-  
-  /* **in this version we don't call room products - unless it will come from booking bar**
-  describe('getRoomProducts', function(){
-    it('should fire a GET request to room product list API', function(){
-      var bookingParams = {'test': 'test123'};
-      env.propertyService.getRoomProducts('ABC', 'QWN', bookingParams);
-
+  describe('buyReward', function() {
+    it('should fire a POST request to rewards.my API', function() {
+      env.rewardsService.buyReward(123, 321);
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
-      expect(env.apiGetFullURLSpy.calledWith(
-        'properties.room.product.all', {propertyCode:'ABC', roomTypeCode: 'QWN'})).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('rewards.my', {customerId: 123})).equal(true);
 
-      expect(env.apiGetSpy.calledOnce).equal(true);
-      expect(env.apiGetSpy.calledWith('properties.room.product.all', bookingParams)).equal(true);
+      expect(env.apiPostSpy.calledOnce).equal(true);
+      expect(env.apiPostSpy.calledWith('rewards.my', {rewardId:321})).equal(true);
     });
   });
-  */
-
-  
 });
