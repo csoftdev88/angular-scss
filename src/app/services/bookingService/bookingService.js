@@ -16,7 +16,10 @@ angular.module('mobiusApp.services.booking', [])
     'children': 'children',
     'rate': 'productGroupId',
     'propertySlug': 'propertySlug',
-    'roomSlug': 'roomSlug'
+    'roomSlug': 'roomSlug',
+    'promoCode': 'promoCode',
+    'corpCode': 'corpCode',
+    'groupCode': 'groupCode'
   };
 
   var API_PARAM_FROM = 'from';
