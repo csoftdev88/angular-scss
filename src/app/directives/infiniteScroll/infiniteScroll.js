@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.infiniteScroll', [])
 
 .directive('infiniteScroll', function($window, _, scrollService){
   var EVENT_SCROLL = 'scroll';
-  var DEFAULT_DEBOUNCE_DELAY = 250;
+  var DEFAULT_DEBOUNCE_DELAY = 100;
 
   return {
     restrict: 'A',
