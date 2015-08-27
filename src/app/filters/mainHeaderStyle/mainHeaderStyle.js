@@ -12,14 +12,14 @@ angular.module('mobiusApp.filters.mainHeaderStyle', [])
     if(!input){
       return '';
     }
-
+    // TODO: Fix this!
     var ar = input.split(' ');
     var len = ar.length;
     var first = ar.shift();
     var second = len > 2 ? ar.shift(): '';
     var wrapped = '<strong>' + ar.join(' ') + '</strong>';
     return len > 2 ? (first + ' ' + second + ' ' + wrapped) : (first + ' ' + wrapped);
-    
+
   }
 
   return filter;

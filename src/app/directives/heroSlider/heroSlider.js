@@ -7,7 +7,8 @@ angular.module('mobiusApp.directives.slider', [])
   return {
     restrict: 'E',
     scope: {
-      content: '='
+      content: '=',
+      onSlideClick: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
@@ -32,6 +33,11 @@ angular.module('mobiusApp.directives.slider', [])
 
       var autoplayDelay;
       var timerID;
+
+      // True by default
+      scope.hasNotificationBar = attrs.hasNotificationBar !== 'false';
+      // Counter types - bullets/counter
+      scope.counterType = attrs.counterType || 'bullets';
 
       // Custom easing function
       $.extend($.easing,{
@@ -74,6 +80,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       scope.$on('$destroy', function(){
         unWatchContent();
+        cancelAutoplay();
 
         if(!!attrs.keyboard){
           angular.element($window).unbind(EVENT_KEYDOWN);
@@ -89,6 +96,10 @@ angular.module('mobiusApp.directives.slider', [])
         var slideData = scope.content[scope.slideIndex];
         if(slideData && slideData.link) {
           advertsService.advertClick(slideData.link);
+        }else{
+          if(scope.onSlideClick){
+            scope.onSlideClick();
+          }
         }
       };
 

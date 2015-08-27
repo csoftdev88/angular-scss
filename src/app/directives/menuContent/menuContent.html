@@ -2,7 +2,6 @@
   <a ng-href="{{getStateHref()}}" ng-click="goToState($event)" ng-class="{'is-active': isActive()}">{{title}}</a>
 
   <ul class="dropdown-menu submenu" ng-show="content.length">
-
     <!--hide it when the all of ng-repeat items above has filtered flag set with true-->
     <li class="submenu-header" ng-if="hasFilteredItems(content) && city">
       <span>{{city}} {{settings.listState}}</span>

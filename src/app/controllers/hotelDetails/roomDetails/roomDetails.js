@@ -5,15 +5,13 @@
 angular.module('mobius.controllers.room.details', [])
 
 .controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
-  propertyService, filtersService, bookingService, $window) {
+  propertyService, filtersService, bookingService, $window, contentService) {
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
     if (modalService.openGallery.bind) {
       $scope.openGallery = modalService.openGallery.bind(modalService,
-        roomDetails.images.map(function(image) {
-          return image.uri;
-        })
+        contentService.getLightBoxContent(roomDetails.images)
       );
     }
   };

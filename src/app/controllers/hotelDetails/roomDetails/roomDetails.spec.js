@@ -13,6 +13,7 @@ describe('mobius.controllers.room.details', function() {
           openGallery: function(){}
         });
 
+        $provide.value('contentService', {});
         $provide.value('propertyService', {});
         $provide.value('filtersService', {});
         $provide.value('bookingService', {});

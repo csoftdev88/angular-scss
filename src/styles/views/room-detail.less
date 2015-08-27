@@ -4,6 +4,12 @@
 
 hotel-room {
 
+  .header {
+    h1 {
+      margin-bottom: @baseline;
+    }
+  }
+
   //- Page Heading
   h1 {
     .h1;
@@ -23,6 +29,33 @@ hotel-room {
   p {
     color: @c-black;
     margin-top: 15px;
+  }
+
+  list-items {
+    list-item {
+
+      h2,
+      h3 {
+        color: @c-black;
+        font-weight: 300;
+        font-size: 18px;
+        display: inline-block;
+        width: 80%;
+        padding-top: @baseline/2;
+      }
+
+      &:first-of-type {
+        border-top: 2px solid #ccc;
+      }
+
+      &:last-of-type {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+  }
+
+  section.room-description {
+    margin-top: @baseline*2;
   }
 
   //room gallery is the ul

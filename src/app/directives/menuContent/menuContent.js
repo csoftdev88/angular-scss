@@ -22,8 +22,7 @@ angular.module('mobiusApp.directives.menu', [])
         'hotels': ['hotel', 'hotels', 'room'],
         'news': ['news'],
         'offers': ['offers'],
-        'about': ['aboutUs'],
-        'contacts' : ['contacts']
+        'about': ['aboutUs']
       };
 
       scope.title = attrs.title;

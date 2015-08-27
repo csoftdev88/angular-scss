@@ -4,7 +4,9 @@ angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
   'API': {
-    'defaultThrottleTimeout': 10,
+    'defaultThrottleTimeout': 30,
+    'cacheFlushInterval': 60,
+
     'GoogleAnalyticsID': 'UA-44368729-3',
     'chainCode': 'SAN',
     'baseURL': 'http://52.3.22.21:3010/api/4.0/',
@@ -119,6 +121,14 @@ angular.module('mobiusApp.config', [])
           'alt': 'picture1'
         }
       ]
+    },
+
+    'hotelDetails': {
+      //List of rooms and their products
+      'defaultNumberOfRooms': 2,
+      'numberOfRoomsAddedOnScroll': 1,
+      // Cache timeout in seconds
+      'ratesCacheTimeout': 30 * 60
     },
 
     'roomDetails': {
@@ -296,6 +306,9 @@ angular.module('mobiusApp.config', [])
 
     // Responsive design breakpoints
     'screenTypes': {
+      'tablet': {
+        'maxWidth': 1024
+      },
       'mobile': {
         'maxWidth': 768
       }

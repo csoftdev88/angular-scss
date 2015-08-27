@@ -33,6 +33,7 @@ describe('mobius.controllers.hotel.details', function() {
     var TEST_OFFERS = [];
 
     beforeEach(function() {
+      module('underscore');
       module('mobiusApp.factories.preloader');
 
       module('mobius.controllers.hotel.details', function($provide, $controllerProvider) {
@@ -93,10 +94,23 @@ describe('mobius.controllers.hotel.details', function() {
                 c(TEST_OFFERS);
               }
             };
+          },
+          getLightBoxContent: function() {
+            return [{
+              uri: 'http://testimage'
+            }];
           }
         });
 
         $provide.value('$stateParams', {});
+
+        $provide.value('Settings', {
+          UI: {
+            hotelDetails: {
+              defaultNumberOfRooms: 2
+            }
+          }
+        });
 
         var breadcrumbs = {
           clear: function() {},
@@ -181,7 +195,9 @@ describe('mobius.controllers.hotel.details', function() {
       it('should invoke openGallery function on modalService with a list of images', function() {
         _scope.openGallery();
         expect(_spyModalServiceOpenGallery.calledOnce).equal(true);
-        expect(_spyModalServiceOpenGallery.calledWith(['http://testimage'])).equal(true);
+        expect(_spyModalServiceOpenGallery.calledWith([{
+          uri: 'http://testimage'
+        }])).equal(true);
       });
     });
   });

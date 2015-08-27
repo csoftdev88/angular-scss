@@ -222,3 +222,11 @@ button.back {
     text-align: center;
   }
 }
+
+button-retry {
+  &:extend(button);
+  height: @baseline*2;
+
+  border: 2px solid lighten(@c-link, 10%);
+  color: lighten(@c-link, 10%);
+}

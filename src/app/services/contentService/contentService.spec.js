@@ -1,13 +1,15 @@
 'use strict';
 
 describe('contentService', function() {
-  var env;
+  var env, _getResponse;
 
   beforeEach(function() {
     env = {};
   });
 
   beforeEach(function() {
+    module('underscore');
+
     module('mobiusApp.services.content', function($provide) {
       var Settings = {
         'API': {
@@ -31,7 +33,13 @@ describe('contentService', function() {
 
       var apiService = {
         post: function(){},
-        get: function(){},
+        get: function(){
+          return {
+            then: function(c){
+              c(_getResponse);
+            }
+          };
+        },
         getThrottled: function(){},
         getFullURL: function(){}
       };
@@ -49,6 +57,7 @@ describe('contentService', function() {
     env.apiGetSpy = sinon.spy(env.apiService, 'get');
     env.apiGetThrottledSpy = sinon.spy(env.apiService, 'getThrottled');
     env.apiGetFullURLSpy = sinon.spy(env.apiService, 'getFullURL');
+    _getResponse = null;
   }));
 
   afterEach(function() {
@@ -88,7 +97,6 @@ describe('contentService', function() {
     });
   });
 
-
   describe('getCurrencies', function() {
     it('should fire a GET request to generics/currencies API', function() {
       env.contentService.getCurrencies();
@@ -118,4 +126,54 @@ describe('contentService', function() {
       expect(env.apiGetSpy.calledOnce).equal(true);
     });
   });
+
+  describe('getLightBoxContent', function() {
+    it('should convert images into hero slider format without titles', function() {
+      var images = env.contentService.getLightBoxContent([
+        {uri: 'test.com'}
+      ]);
+      expect(images.length).equal(1);
+      expect(images[0].uri).equal('test.com');
+    });
+
+    it('should convert images into hero slider format including titles', function() {
+      var images = env.contentService.getLightBoxContent([
+        {uri: 'test.com', alt:'test alt'}
+      ]);
+      expect(images.length).equal(1);
+      expect(images[0].title).equal('test alt');
+      expect(images[0].subtitle).equal('test alt');
+    });
+  });
+
+  describe('getAdverts', function() {
+    it('should fire a GET request to contents/adverts API', function() {
+      env.contentService.getAdverts();
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('contents.adverts.adverts')).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+    });
+
+    it('should fire a GET request to contents/adverts API and filter out the resalts base on provided params', function() {
+      _getResponse = [{
+        images: [
+          {bannerSize: 'test'},
+          {bannerSize: 'unknown'},
+        ]
+      }];
+
+      var adverts;
+      env.contentService.getAdverts({bannerSize: 'test'}).then(function(data){
+        adverts = data;
+      });
+
+      env.rootScope.$digest();
+
+      expect(adverts.length).equal(1);
+      expect(adverts[0].images.length).equal(1);
+      expect(adverts[0].images[0].bannerSize).equal('test');
+    });
+  });
+
 });
