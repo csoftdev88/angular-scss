@@ -8,18 +8,15 @@ angular.module('mobiusApp.filters.mainHeaderStyle', [])
 
 .filter('mainHeaderStyle' , function() {
   function filter(input) {
-
     if(!input){
       return '';
     }
-    // TODO: Fix this!
-    var ar = input.split(' ');
-    var len = ar.length;
-    var first = ar.shift();
-    var second = len > 2 ? ar.shift(): '';
-    var wrapped = '<strong>' + ar.join(' ') + '</strong>';
-    return len > 2 ? (first + ' ' + second + ' ' + wrapped) : (first + ' ' + wrapped);
 
+    var words = input.split(' ');
+    if(words.length > 1){
+      words[words.length-1] = '<strong>' + words[words.length-1] + '</strong>';
+    }
+    return words.join(' ');
   }
 
   return filter;
