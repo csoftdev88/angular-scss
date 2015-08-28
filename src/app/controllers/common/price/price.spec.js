@@ -76,8 +76,7 @@ describe('mobius.controllers.common.price', function() {
         expect(_scope.getValuePer(100, true)).equal(100);
       });
 
-      it('should return 0 when value is not defined', function(){
-        expect(_scope.getValuePer(undefined, true)).equal(null);
+      it('should return null when value is not defined', function(){
         expect(_scope.getValuePer(undefined)).equal(null);
       });
     });
@@ -85,6 +84,15 @@ describe('mobius.controllers.common.price', function() {
     describe('getProductPricePerNight', function() {
       it('should be defined as a function on scope', function(){
         expect(_scope.getProductPricePerNight).to.be.a('function');
+      });
+
+      it('should return null when value is not defined', function(){
+        expect(_scope.getProductPricePerNight(undefined)).equal(null);
+      });
+
+      it('should return product price per night', function(){
+        _scope.setPricePer('night');
+        expect(_scope.getProductPricePerNight(100, true)).equal(10);
       });
     });
   });
