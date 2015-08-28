@@ -5,10 +5,8 @@ describe('bindUnsafe', function() {
 
   var TEMPLATE = '<section bind-unsafe="test"></section>';
 
-  beforeEach(module('mobiusApp.directives.bindUnsafe'));
-
   beforeEach(function() {
-    module('mobiusApp.directives.bindUnsafe', function() {});
+    module('mobiusApp.directives.bindUnsafe');
   });
 
   beforeEach(inject(function($compile, $rootScope) {

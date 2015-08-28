@@ -10,7 +10,6 @@ angular.module('mobiusApp.directives.best.hotels', [])
 
     // Widget logic goes here
     link: function(){
-      //scope, elem, attrs
     }
   };
 });
