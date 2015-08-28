@@ -18,30 +18,46 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
             return breadcrumbsService.getBreadCrumbs();
           },
           function(breadcrumbs) {
+            if(scope.breadcrumbs === breadcrumbs){
+              return;
+            }
+
             scope.breadcrumbs = breadcrumbs || [];
           }
         );
+
         var unWatchHrefs = scope.$watch(
           function() {
             return breadcrumbsService.getHrefs();
           },
           function(hrefs) {
+            if(scope.hrefs === hrefs){
+              return;
+            }
             scope.hrefs = hrefs || [];
           }
         );
+
         var unWatchAbsHrefs = scope.$watch(
           function() {
             return breadcrumbsService.getAbsHrefs();
           },
           function(absHrefs) {
+            if(scope.absHrefs === absHrefs){
+              return;
+            }
             scope.absHrefs = absHrefs || [];
           }
         );
+
         var unWatchActiveHref = scope.$watch(
           function() {
             return breadcrumbsService.getActiveHref();
           },
           function(activeHref) {
+            if(scope.activeHref === activeHref){
+              return;
+            }
             scope.activeHref = activeHref;
           }
         );
