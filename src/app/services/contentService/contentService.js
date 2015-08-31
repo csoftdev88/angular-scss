@@ -24,9 +24,7 @@ angular.module('mobiusApp.services.content', [])
         // if requested with bannerSize query param. More details PT#101113466
         if(parameters && parameters.bannerSize){
           _.each(data, function(advert){
-            advert.images = _.filter(advert.images, function(advertImage){
-              return advertImage.bannerSize === parameters.bannerSize;
-            });
+            advert.images = _.filter(advert.images, {bannerSize: parameters.bannerSize});
           });
         }
 
@@ -39,8 +37,21 @@ angular.module('mobiusApp.services.content', [])
   }
 
   function getRandomAdvert(parameters){
-    return apiService.get(apiService.getFullURL('contents.adverts.random'),
-      parameters);
+    var q = $q.defer();
+
+    apiService.get(apiService.getFullURL('contents.adverts.random'),
+      parameters).then(function(advert){
+        // More details PT#101113466
+        if(parameters && parameters.bannerSize){
+          advert.images = _.filter(advert.images, {bannerSize: parameters.bannerSize});
+        }
+
+        q.resolve(advert);
+      }, function(error){
+        q.reject(error);
+      });
+
+    return q.promise;
   }
 
   // Generics
