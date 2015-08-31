@@ -113,6 +113,7 @@ angular
     'mobius.controllers.reservation.directive',
     'mobiusApp.directives.embeddedForm',
     'mobiusApp.directives.bindUnsafe',
+    'mobiusApp.directives.infiniteScroll',
 
     // Directive based on content data
     'mobiusApp.directives.menu',
@@ -145,7 +146,8 @@ angular
     'mobiusApp.filters.cloudinaryImage',
     'mobiusApp.filters.truncate',
     'mobiusApp.filters.wrapword',
-    'mobiusApp.filters.mainHeaderStyle'
+    'mobiusApp.filters.mainHeaderStyle',
+    'mobiusApp.filters.content'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {

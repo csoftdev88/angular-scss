@@ -2,8 +2,36 @@
   <a ng-href="{{getStateHref()}}" ng-click="goToState($event)" ng-class="{'is-active': isActive()}">{{title}}</a>
 
   <ul class="dropdown-menu submenu" ng-show="content.length">
-      <li ng-repeat="item in content">
-          <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)" >{{item.title}}<span>{{item.subtitle}}</span></a>
-      </li>
+    <!--hide it when the all of ng-repeat items above has filtered flag set with true-->
+    <li class="submenu-header" ng-if="hasFilteredItems(content) && city">
+      <span>{{city}} {{settings.listState}}</span>
+      <div class="divider"/>
+    </li>
+
+    <!--<li ng-show="hasFilteredItems(content)" class="divider"></li>
+    -->
+    <!-- visible when filtered flag for item is set with true -->
+    <li ng-repeat="item in content | filteredContent">
+      <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)">
+        {{item.title}}
+        <span>{{item.subtitle}}</span>
+      </a>
+    </li>
+
+    <!--hide it when the all of ng-repeat items above has filtered flag set with true-->
+    <li has-dropdown="hover" class="dropdown-submenu" ng-show="hasFilteredItems(content)">
+      <div class="divider"/>
+      <div class="dropdown">
+        <span class="fa fa-angle-right"></span>
+        <a ng-href class="submenu-link">See all {{settings.listState}}</a>
+        <ul class="dropdown-menu submenu">
+          <li ng-repeat="item in content">
+            <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)">
+              {{item.title}}
+              <span>{{item.subtitle}}</span></a>
+          </li>
+        </ul>
+      </div>
+    </li>
   </ul>
 </div>
