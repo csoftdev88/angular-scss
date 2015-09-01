@@ -321,6 +321,7 @@ angular
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
+    // TODO - Move into settings
     $rootScope.facebookAppId = '954663594591416';
   })
 
