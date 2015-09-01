@@ -107,10 +107,12 @@ angular.module('mobiusApp.config', [])
     'menu': {
       'singleProperty': false,
       'showOffers': true,
-      'offerSpecificToSelectedProperty': true,
       'showAbout': true,
       'showNews': true,
-      'showContact': true
+      'showContact': true,
+      'offerSpecificToSelectedProperty': true,
+      // Details: PT #102456878
+      'hasSecondLevelDropdown': false
     },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the API.
