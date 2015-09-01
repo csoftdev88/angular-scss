@@ -25,8 +25,10 @@ angular.module('mobius.controllers.about', [])
       $scope.previewImages = contentService.getLightBoxContent(
         chain.images, 300, 150, 'fill');
 
-      $scope.openGallery = function(){
-        modalService.openGallery(contentService.getLightBoxContent(chain.images));
+      $scope.openGallery = function(slideIndex){
+        modalService.openGallery(
+          contentService.getLightBoxContent(chain.images),
+          slideIndex);
       };
     });
 
