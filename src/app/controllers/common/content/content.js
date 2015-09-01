@@ -115,6 +115,8 @@ angular.module('mobius.controllers.common.content', [])
     if (contentTypes.hotels.paramName === $scope.settings.paramName && code) {
       var property = findPropertyBySlug(code);
       params.property = property ? property.code : null;
+    }else{
+      params.property = null;
     }
   }
 
