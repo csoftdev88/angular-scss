@@ -70,15 +70,12 @@ angular.module('mobius.controllers.hotel.details', [
         breadcrumbsService.clear();
         breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort);
 
-        /*
-        NOTE: Removed as per #102149194
         breadcrumbsService
           .addHref('About', 'jsAbout')
           .addHref('Rooms', 'jsRooms')
           .addHref('Location', 'jsLocation')
           .addHref('Offers', 'jsOffers')
           .addHref('Gallery', 'fnOpenLightBox');
-        */
 
         // Updating Hero content images
         if(details.images){
