@@ -85,9 +85,10 @@ angular.module('mobius.controllers.hotel.details', [
           // Current version of PhantomJS is missing not supporting .bind
           // https://github.com/ariya/phantomjs/issues/10522
           // TODO: Update PhantomJS
-          $scope.openGallery = function(){
+          $scope.openGallery = function(slideIndex){
             modalService.openGallery(
-              contentService.getLightBoxContent(details.images)
+              contentService.getLightBoxContent(details.images),
+              slideIndex
             );
           };
 

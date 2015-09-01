@@ -8,6 +8,7 @@ angular.module('mobiusApp.directives.slider', [])
     restrict: 'E',
     scope: {
       content: '=',
+      defaultSlideIndex: '=',
       onSlideClick: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
@@ -47,7 +48,7 @@ angular.module('mobiusApp.directives.slider', [])
       });
 
       function init(){
-        scope.slideIndex = 0;
+        scope.slideIndex = scope.defaultSlideIndex || 0;
         // Clearing slider placeholder
         sliderContent.empty();
 
@@ -98,7 +99,7 @@ angular.module('mobiusApp.directives.slider', [])
           advertsService.advertClick(slideData.link);
         }else{
           if(scope.onSlideClick){
-            scope.onSlideClick();
+            scope.onSlideClick(scope.slideIndex);
           }
         }
       };

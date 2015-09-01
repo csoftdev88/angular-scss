@@ -118,7 +118,7 @@
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
 
     <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
-      <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery()">
+      <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery($index)">
         <figure>
           <img ng-src="{{image.uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{image.alt}}" />
         </figure>
