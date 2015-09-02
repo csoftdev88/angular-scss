@@ -9,7 +9,10 @@
 
 .lightbox {
   border: none;
-  max-width: 1000px;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+
   background: transparent !important;
 
   .viewport-mobile & {
@@ -17,29 +20,62 @@
   }
 
   .ui-info {
+    height: 100%;
+    width: 100%;
     background: transparent !important;
+    padding: @baseline*3;
+    box-sizing: border-box;
+
+    .viewport-mobile & {
+      padding: @baseline;
+    }
+
+    header {
+      padding: 0;
+      border: 0;
+      position: relative;
+      min-height: 0px;
+
+      button-close {
+        color: @c-white;
+        z-index: 1;
+        font-weight: normal;
+        font-size: @size-0;
+        top: -20px;
+        right: -12px;
+      }
+    }
+
+    main {
+      height: 100%;
+      width: 100%;
+      padding: 0px;
+    }
   }
 
   hero-slider {
-    width: 1000px;
-    height: 700px;
+    height: 100%;
+    width: 100%;
+
     border-radius: 10px;
     border: none;
     overflow: visible;
 
     .slider-content {
       overflow: hidden;
-      height: 700px;
+      height: 100%;
       position: relative;
       border-radius: 10px;
 
       .hero-slide {
-        height: 640px;
+        height: 90%;
         overflow: visible;
         border-radius: 10px;
+        background-size: cover;
 
         .content-inner {
-          top: 680px;
+          //top: 680px;
+          top: 100%;
 
           h1 {
             font-size: @size-2;
@@ -59,21 +95,10 @@
           h2 {
             display: none;
           }
-
-          .viewport-mobile & {
-            top: 300px;
-          }
         }
-
-        .viewport-mobile & {
-          height: 250px;
-        }
-      }
-
-      .viewport-mobile & {
-        height: 325px;
       }
     }
+
 
     .slider-controls {
       position: initial;
@@ -88,11 +113,22 @@
       }
 
       .pages {
+        transition: none;
+        bottom: 3%;
+
+        span {
+          transition: none;
+        }
+
         counter {
           color: @c-white;
           font-weight: bold;
           font-size: @size-1;
           opacity: 1;
+
+          .viewport-mobile & {
+            display: none;
+          }
         }
       }
 
@@ -102,6 +138,7 @@
         height: 12px;
         font-size: @size-5;
         top: 280px;
+        transition: none;
 
         color: @c-grey;
         width: auto;
@@ -126,42 +163,7 @@
 
           right: -40px;
         }
-
-        .viewport-mobile & {
-          top: 100px;
-        }
       }
     }
-
-    .viewport-mobile &{
-      width: 100%;
-      height: 300px;
-      .slider-controls .pages {
-          bottom: 0;
-      }
-    }
-  }
-
-  header {
-    padding: 0;
-    border: 0;
-    min-height: 0;
-
-    button-close {
-      color: @c-white;
-      z-index: 1;
-      font-weight: normal;
-      top: -35px;
-      right: -14px;
-      font-size: @size-0;
-    }
-
-    .viewport-mobile & {
-      padding: 0px;
-    }
-  }
-
-  main {
-    padding: 0;
   }
 }
