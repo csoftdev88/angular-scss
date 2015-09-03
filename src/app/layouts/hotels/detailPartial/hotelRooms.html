@@ -1,5 +1,5 @@
 <!-- New layout - Delete old layout below when this is complete -->
-<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row data-infinite-scroll="onScroll" data-threshold="300">
+<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
   <hr />
   <div grid="12" id="jsRooms">
     <header class="section-header">
@@ -41,23 +41,24 @@
                 <span class="amenity-caption">{{amenity.name}}</span>
               </li>
             </ul>
-
-            <description-info class="overflow">
-              <div ng-bind-html="sanitize(room.description)"></div>
-            </description-info>
-            <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>
+            <!--<a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>-->
           </div>
 
+          <description-info>
+            <div ng-bind-html="sanitize(room.description)"></div>
+          </description-info>
+
+          <!--
           <room-products ng-if="details">
           </room-products>
+           -->
 
         </div>
         <!-- //list-item-container -->
       </list-item>
 
-      <!--
-      <a href class="read-more-rooms" ng-show="roomLimit && roomLimit < rooms.length" ng-click="roomLimit = rooms.length">View more rooms</a>
-      -->
+      <a href class="show-all-rooms" ng-show="numberOfRoomsDisplayed && numberOfRoomsDisplayed < rooms.length" ng-click="showAllRooms()">View All Rooms</a>
+
 
     </list-items>
     <h2 ng-if="!rooms.length">_no_room_found_</h2>

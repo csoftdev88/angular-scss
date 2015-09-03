@@ -113,7 +113,6 @@ angular
     'mobius.controllers.reservation.directive',
     'mobiusApp.directives.embeddedForm',
     'mobiusApp.directives.bindUnsafe',
-    'mobiusApp.directives.infiniteScroll',
 
     // Directive based on content data
     'mobiusApp.directives.menu',

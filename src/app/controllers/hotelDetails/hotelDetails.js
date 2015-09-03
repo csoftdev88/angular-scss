@@ -201,14 +201,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
 
-  // Infinite scroll
-  $scope.onScroll = function(){
-    if($scope.rooms && $scope.rooms.length > $scope.numberOfRoomsDisplayed){
-      displayMoreRooms();
-    }
+  $scope.showAllRooms = function(){
+    $scope.numberOfRoomsDisplayed = $scope.rooms.length;
   };
-
-  function displayMoreRooms(){
-    $scope.numberOfRoomsDisplayed += Settings.UI.hotelDetails.numberOfRoomsAddedOnScroll || 1;
-  }
 });

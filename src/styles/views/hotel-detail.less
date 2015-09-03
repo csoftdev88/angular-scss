@@ -147,6 +147,17 @@ hotel-detail {
     }
 
     list-items{
+
+      .show-all-rooms {
+        float: right;
+        width: 60%;
+        display: inline-block;
+        text-align: center;
+        padding: 15px;
+        background: lighten(@c-link, 40%);
+        border-radius: 2px;
+      }
+
       list-item{
         display: inline-block;
         width: 100%;
@@ -175,10 +186,7 @@ hotel-detail {
         .list-item-container {
           display: inline-block;
           width: 100%;
-
           border-top: 2px solid @c-light-grey;
-
-          border-bottom: 1px dashed #d9d9d9;
           padding-bottom: 50px;
 
           .viewport-mobile &{
@@ -186,11 +194,12 @@ hotel-detail {
             border-bottom: 2px solid @c-light-grey;
             padding-top: 16px;
           }
+
           > div{
             display: inline;
             float: left;
 
-            &.list-item-info{
+            &.list-item-info {
               box-sizing: border-box;
               width: 37%;
               padding: 13px 13px 0 0;
@@ -218,11 +227,9 @@ hotel-detail {
                     display: none;
                   }
                 }
-
               }
 
-
-              ul.amenities{
+              ul.amenities {
                 float: left;
                 max-width: 60%;
                 padding-left: 16px;
@@ -259,13 +266,16 @@ hotel-detail {
                   }
                 }
               }
-              description-info{
-                clear: both;
-              }
-              a{
-                text-decoration: underline;
-              }
             }
+          }
+
+          description-info {
+            float: left;
+            width: 63%;
+            padding: 15px;
+            border: 1px solid @c-light-grey;
+            box-sizing: border-box;
+            border-top: none;
           }
 
           // ROOM PRODUCTS
