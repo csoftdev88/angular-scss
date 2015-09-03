@@ -115,7 +115,7 @@ angular.module('mobiusApp.config', [])
       'hasSecondLevelDropdown': false
     },
     // NOTE: This is a temporary solution. Real images will
-    // be provided by the API.
+    // be provided by the PmobAI.
     'heroStaticContent': {
       'default': [
         {
@@ -129,6 +129,17 @@ angular.module('mobiusApp.config', [])
     'hotelDetails': {
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
+      'rooms': {
+        'defaultNumberOfAmenities': 3,
+        'viewRatesButtonText': 'View Rates',
+        // Room Rates
+        'rates': {
+          'bookNowButtonText': 'Book Now',
+          'ratesPerRoom': 20,
+          'showDescription': true
+        }
+
+      },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60
     },

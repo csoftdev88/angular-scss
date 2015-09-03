@@ -2,7 +2,7 @@
 
 <ul ng-if="products">
   <!-- PRODUCTS -->
-  <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | orderBy : 'price.totalBase'" ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)">
+  <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | orderBy : 'price.totalBase' | limitTo: settings.ratesPerRoom" ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)">
     <div class="rate-description">
       <h4>
         <span ng-bind-html="product.name | mainHeaderStyle"></span>
@@ -14,12 +14,13 @@
       </h4>
 
       <p ng-bind-html="sanitize(product.descriptionShort || product.description)"></p>
-
+      <!--
       <ul class="action-links">
         <li><a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a></li>
         <li><a href ng-click="openPoliciesInfo([product])" ng-if="product.policies">View Policies</a></li>
         <li><a href ng-click="openRoomDetailsDialog(product.description)" ng-if="openRoomDetailsDialog">Read More</a></li>
       </ul>
+      -->
     </div>
 
     <pricing-info ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
@@ -36,7 +37,7 @@
         </p>
 
         <a ng-if="!room.priceFrom" ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">View Details</a>
-        <a ng-if="room.priceFrom" ng-hide="product.memberOnly && !isUserLoggedIn()" ng-click="selectProduct(room.code, product.code, null, null, $event)" class="button">Book Now</a>
+        <a ng-if="room.priceFrom" ng-hide="product.memberOnly && !isUserLoggedIn()" ng-click="selectProduct(room.code, product.code, null, null, $event)" class="button">{{settings.bookNowButtonText}}</a>
       </div>
 
       <p class="unavailable error" ng-switch-when="false">
@@ -47,7 +48,7 @@
         </span>
       </p>
 
-      <p class="description" ng-bind-html="sanitize(product.descriptionShort || product.description)"></p>
+      <p ng-if="settings.showDescription" class="tag-line">{{product.tagline}}</p>
     </pricing-info>
   </li>
 

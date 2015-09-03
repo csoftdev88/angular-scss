@@ -23,9 +23,11 @@
 
 
     <list-items class="rooms-list">
-      <list-item ng-repeat="room in rooms | limitTo: numberOfRoomsDisplayed |  orderBy : currentOrder.prop: currentOrder.value">
+      <list-item ng-repeat="room in rooms | orderBy : currentOrder.prop: currentOrder.value | limitTo: numberOfRoomsDisplayed">
         <header class="item-header">
-          <h3><a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a></h3>
+          <h3>
+            <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>
+          </h3>
           <!--
           <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least
             <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
@@ -51,7 +53,7 @@
             <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 768 : 384 : 'fill'}}" alt="{{room.name}}">
 
             <ul class="amenities">
-              <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:3">
+              <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:numberOfAmenities">
                 <slug-img slug="amenity.slug" type="room" width="15"></slug-img>
                 <span class="amenity-caption">{{amenity.name}}</span>
               </li>
@@ -61,19 +63,18 @@
 
           <description-info>
             <div ng-bind-html="sanitize(room.description)"></div>
+
+            <button class="button" ng-click="room._displayRates = true">{{viewRatesButtonText}}</button>
           </description-info>
 
-          <!--
-          <room-products ng-if="details">
-          </room-products>
-           -->
 
+          <room-products ng-if="details && room._displayRates">
+          </room-products>
         </div>
         <!-- //list-item-container -->
       </list-item>
 
       <a href class="show-all-rooms" ng-show="numberOfRoomsDisplayed && numberOfRoomsDisplayed < rooms.length" ng-click="showAllRooms()">View All Rooms</a>
-
 
     </list-items>
     <h2 ng-if="!rooms.length">_no_room_found_</h2>

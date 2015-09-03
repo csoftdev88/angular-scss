@@ -23,17 +23,16 @@ angular.module('mobius.controllers.hotel.details', [
   // Sorting options
   $scope.sortingOptions = [
     {
-      name: 'Price Low to High',
+      name: 'Price - Low to High',
       prop: 'priceFrom',
       value: false
     },
     {
-      name: 'Price High to Low',
+      name: 'Price - High to Low',
       prop: 'priceFrom',
       value: true
     }
   ];
-
   $scope.currentOrder = $scope.sortingOptions[0];
 
   $scope.partials = [
@@ -160,6 +159,8 @@ angular.module('mobius.controllers.hotel.details', [
         });
 
         $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
+        $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;
+        $scope.viewRatesButtonText = Settings.UI.hotelDetails.rooms.viewRatesButtonText;
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {

@@ -185,6 +185,14 @@ hotel-detail {
           h3{
             a{
               color: @c-black;
+
+              &:after {
+                .fa;
+                display: inline-block;
+                content: @fa-var-info-circle;
+                color: @c-link;
+                padding: 0 5px;
+              }
             }
           }
 
@@ -323,14 +331,6 @@ hotel-detail {
 
                 padding: 0px 10px;
 
-                &:hover {
-                  pricing-info {
-                    .button {
-                      display: inline-block;
-                    }
-                  }
-                }
-
                 .rate-description {
                   padding: 10px 10px 10px 0px;
                   width: 70%;
@@ -342,23 +342,22 @@ hotel-detail {
                     > span {
                       font-size: @size-0;
                       font-weight: 400;
+                      &:after {
+                        .fa;
+                        display: inline-block;
+                        content: @fa-var-info-circle;
+                        color: @c-link;
+                        padding: 0 5px;
+                      }
                     }
 
                     earned-points {
+                      &:before {
+                        display: none;
+                      }
+
                       position: relative;
                       float: right;
-                    }
-                  }
-
-                  .action-links {
-                    margin-top: 5px;
-                    li {
-                      float: left;
-                      padding-right: 10px;
-
-                      a {
-                        font-size: @size--1;
-                      }
                     }
                   }
 
@@ -391,10 +390,6 @@ hotel-detail {
                     p {
                       margin: 0px;
                     }
-                  }
-
-                  .button {
-                    display: none;
                   }
 
                   .description {
@@ -490,16 +485,12 @@ hotel-detail {
                     width: 100%;
 
                     h4 {
-                     earned-points {
-                       display: none;
-                     }
+                      earned-points {
+                        display: none;
+                      }
                     }
 
                     > p {
-                      display: none;
-                    }
-
-                    .action-links {
                       display: none;
                     }
                   }

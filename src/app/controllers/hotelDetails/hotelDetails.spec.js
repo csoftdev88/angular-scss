@@ -107,7 +107,8 @@ describe('mobius.controllers.hotel.details', function() {
         $provide.value('Settings', {
           UI: {
             hotelDetails: {
-              defaultNumberOfRooms: 2
+              defaultNumberOfRooms: 2,
+              rooms: {}
             }
           }
         });

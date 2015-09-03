@@ -54,6 +54,13 @@ describe('RoomProducts', function() {
 
       $provide.value('Settings', {
         UI: {
+          hotelDetails: {
+            rooms: {
+              rates: {
+                bookNowButtonText: 'Book Now'
+              }
+            }
+          },
           roomDetails: {
             hasReadMore: true
           }

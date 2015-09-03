@@ -49,6 +49,8 @@ angular.module('mobiusApp.directives.room.products', [])
         scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
       }
 
+      scope.settings = Settings.UI.hotelDetails.rooms.rates;
+
       scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, event){
         if(isMemberOnly === null && roomPriceFrom === null && !event){
           return;
