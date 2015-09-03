@@ -20,6 +20,22 @@ angular.module('mobius.controllers.hotel.details', [
   // Include the amenities
   bookingParams.includes = 'amenities';
 
+  // Sorting options
+  $scope.sortingOptions = [
+    {
+      name: 'Price Low to High',
+      prop: 'priceFrom',
+      value: false
+    },
+    {
+      name: 'Price High to Low',
+      prop: 'priceFrom',
+      value: true
+    }
+  ];
+
+  $scope.currentOrder = $scope.sortingOptions[0];
+
   $scope.partials = [
       'layouts/hotels/detailPartial/hotelInfo.html',
       'layouts/hotels/detailPartial/hotelRooms.html',

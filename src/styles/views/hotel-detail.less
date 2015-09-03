@@ -137,12 +137,22 @@ hotel-detail {
       p{
         display: inline;
       }
-      pricing-switch {
+
+      order-switch {
         float: right;
 
-        .viewport-mobile & {
-          display: none;
+        .chosen-container {
+          width: 150px !important;
         }
+      }
+    }
+
+    .search-details {
+      margin: @baseline/2 0px;
+
+      .room-counter {
+        color: @c-grey;
+        font-style: italic;
       }
     }
 
@@ -154,7 +164,7 @@ hotel-detail {
         display: inline-block;
         text-align: center;
         padding: 15px;
-        background: lighten(@c-link, 40%);
+        background: lighten(@c-link, 50%);
         border-radius: 2px;
       }
 
@@ -166,6 +176,10 @@ hotel-detail {
         border: none;
         margin-bottom: 40px;
 
+        &:last-of-type {
+          margin-bottom: 10px;
+        }
+
         .item-header{
           margin-bottom: 5px;
           h3{
@@ -173,6 +187,15 @@ hotel-detail {
               color: @c-black;
             }
           }
+
+          pricing-switch {
+            float: right;
+
+            .viewport-mobile & {
+              display: none;
+            }
+          }
+
           earned-points{
             position: relative;
             float: right;
@@ -187,7 +210,7 @@ hotel-detail {
           display: inline-block;
           width: 100%;
           border-top: 2px solid @c-light-grey;
-          padding-bottom: 50px;
+          //padding-bottom: 50px;
 
           .viewport-mobile &{
             border-top-width: 1px;
