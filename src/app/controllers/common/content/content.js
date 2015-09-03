@@ -52,6 +52,7 @@ angular.module('mobius.controllers.common.content', [])
       'subtitle': 'subtitle',
       'sort': 'prio',
       'reverseSort': true,
+      'keepProperty': true,
       'slug': true
     },
     'about': {
@@ -115,7 +116,7 @@ angular.module('mobius.controllers.common.content', [])
     if (contentTypes.hotels.paramName === $scope.settings.paramName && code) {
       var property = findPropertyBySlug(code);
       params.property = property ? property.code : null;
-    }else{
+    }else if(!$scope.settings.keepProperty){
       params.property = null;
     }
   }
