@@ -64,7 +64,10 @@
           <description-info>
             <div ng-bind-html="sanitize(room.description)"></div>
 
-            <button class="button" ng-click="room._displayRates = true">{{viewRatesButtonText}}</button>
+            <div class="pricing-info">
+              <button class="button" ng-click="displayRoomRates(room)">{{viewRatesButtonText}}</button>
+            </div>
+
           </description-info>
 
 

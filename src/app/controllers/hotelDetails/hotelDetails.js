@@ -218,6 +218,14 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
 
+  $scope.displayRoomRates = function(room){
+    if(!room || room._displayRates){
+      return;
+    }
+
+    room._displayRates = true;
+  };
+
   $scope.showAllRooms = function(){
     $scope.numberOfRoomsDisplayed = $scope.rooms.length;
   };
