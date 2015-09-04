@@ -320,7 +320,7 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openProductDetailsDialog(room, product){
-    return openDialog('product-details', 'layouts/modals/productDetails.html', CONTROLLER_DATA, {
+    return openDialog('product-details', 'layouts/modals/productDetails.html', CONTROLLER_POLICY, {
       windowClass: 'dialog-product-details',
       resolve: {
         data: function(){
