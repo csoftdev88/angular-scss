@@ -300,7 +300,7 @@ hotel-detail {
             }
           }
 
-          description-info {
+          room-details {
             float: left;
             width: 63%;
             padding: 15px;
@@ -308,223 +308,39 @@ hotel-detail {
             box-sizing: border-box;
             border-top: none;
 
-            > div {
-              // Description text
+            .description {
+              float: left;
+              width: 70%;
+            }
 
+            .pricing-info {
+              float: left;
+              width: 30%;
+
+              .price-form {
+                float: right;
+                color: @c-gray;
+                font-style: italic;
+                font-size: @size--1;
+                padding-bottom: @baseline/2;
+
+                .value {
+                  font-style: normal;
+                  font-weight: bold;
+                  color: @c-black;
+                  font-size: @size-1;
+                  padding-left: 5px;
+                }
+              }
+
+              button {
+                float: right;
+              }
             }
           }
 
           // ROOM PRODUCTS
-          room-products {
-            position: relative;
-            width: 63%;
-            float: right;
-            display: block;
 
-            .preloader {
-              &:after {
-                content: 'Fetching Room Rates';
-                text-transform: initial;
-              }
-            }
-
-            > ul {
-              > li {
-                border: 1px solid @c-light-grey;
-                border-top: none;
-                overflow: auto;
-
-                padding: 0px 10px;
-
-                .rate-description {
-                  padding: 10px 10px 10px 0px;
-                  width: 70%;
-                  float: left;
-                  border-right: 1px solid @c-light-grey;
-                  box-sizing: border-box;
-
-                  h4 {
-                    a.info {
-                      &:after {
-                        .fa;
-                        display: inline-block;
-                        content: @fa-var-info-circle;
-                        color: @c-link;
-                        padding: 0 5px;
-                      }
-                    }
-
-                    > span {
-                      font-size: @size-0;
-                      font-weight: 400;
-                    }
-
-                    earned-points {
-                      &:before {
-                        display: none;
-                      }
-
-                      position: relative;
-                      float: right;
-                    }
-                  }
-
-                   > p {
-                    max-height: 25px;
-                    overflow: hidden;
-                    margin-top: 10px;
-
-                    > p {
-                      width: 95%;
-                      white-space: nowrap;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                    }
-                  }
-                }
-
-                pricing-info {
-                  display: block;
-                  position: relative;
-                  width: 30%;
-                  float: right;
-                  border: none;
-                  right: 0;
-                  bottom: 0;
-                  top: 0;
-                  padding-top: 10px;
-
-                  > div {
-                    p {
-                      margin: 0px;
-                    }
-                  }
-
-                  .description {
-                    display: none;
-                  }
-                }
-
-                .no-products {
-                  text-align: center;
-                  padding: @baseline;
-                }
-
-                &:last-of-type {
-                  border-radius: 0px 0px 4px 4px;
-                }
-              }
-            }
-
-            .viewport-mobile & {
-              width: 100%;
-              float: left;
-
-              margin-top: 20px;
-
-              ul {
-                li {
-                  border-left: none;
-                  border-right: none;
-                  padding: 0px;
-
-                  &:first-of-type {
-                    border-top: 1px dashed @c-light-grey;
-                  }
-
-                  &:last-of-type {
-                    border-bottom: none;
-                  }
-
-                  pricing-info {
-                    width: 100%;
-                    float: left;
-                    padding-top: 0px;
-
-                    .description {
-                      display: block;
-                      width: 100%;
-                      float: left;
-                      height: 25px;
-                      overflow: hidden;
-                      max-height: 25px;
-                      overflow: hidden;
-                      margin-top: 10px;
-
-                      > p {
-                        width: 95%;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: block;
-                      }
-                    }
-
-                    > div {
-                      p {
-                        display: block;
-                        text-align: left;
-                        float: left;
-                        padding: 0 4px 10px 0;
-
-                        .per-night,
-                        .per-stay {
-                          display: none;
-                        }
-
-                        .value {
-                          font-size: @size-1;
-                        }
-                      }
-                    }
-
-
-                    .button {
-                      display: inline-block;
-                      float: right;
-                      height: 28px;
-                      line-height: 28px;
-                      margin: -5px 0px;
-                    }
-                  }
-
-                  .rate-description {
-                    border-right: none;
-                    width: 100%;
-
-                    h4 {
-                      earned-points {
-                        display: none;
-                      }
-                    }
-
-                    > p {
-                      display: none;
-                    }
-                  }
-                }
-              }
-            }
-
-            .loading-failed {
-              padding: @baseline*4 @baseline;
-              text-align: center;
-
-              border-left: 1px solid @c-light-grey;
-
-              > * {
-                margin: @baseline;
-              }
-
-              h3 {
-                color: @c-black;
-              }
-
-              p {
-                color: @c-grey;
-              }
-            }
-          }
         }
       }
     }

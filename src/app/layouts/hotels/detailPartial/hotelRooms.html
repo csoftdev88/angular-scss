@@ -10,7 +10,8 @@
       <p ng-if="availableRooms && availableRooms.length === 0">No room available, please change your search criteria</p>
 
       <order-switch>
-        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting">
+        <select name="sorting" ng-model="currentOrder" disable-search="true"
+ chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting">
           <option></option> <!-- workaround for a bug in angular-chosen -->
         </select>
       </order-switch>
@@ -61,14 +62,19 @@
             <!--<a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>-->
           </div>
 
-          <description-info>
-            <div ng-bind-html="sanitize(room.description)"></div>
+          <room-details>
+            <div class="description" ng-bind-html="sanitize(room.description)"></div>
 
             <div class="pricing-info">
+              <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom">
+                <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
+                  From <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: currencyCode}}</span>
+                </p>
+              </div>
+
               <button class="button" ng-click="displayRoomRates(room)">{{viewRatesButtonText}}</button>
             </div>
-
-          </description-info>
+          </room-details>
 
 
           <room-products ng-if="details && room._displayRates">

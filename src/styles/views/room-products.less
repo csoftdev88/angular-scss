@@ -1,0 +1,155 @@
+room-products {
+  position: relative;
+  width: 63%;
+  float: right;
+  display: block;
+  border: 1px solid @c-light-grey;
+  border-top: none;
+  box-sizing: border-box;
+
+  .preloader {
+    position: relative;
+    top: 0px;
+    padding: @baseline*2 0px;
+
+    &:after {
+      content: 'Fetching Room Rates';
+      text-transform: initial;
+    }
+  }
+
+  > ul {
+    > li {
+      border-top: none;
+      overflow: auto;
+      border-top: 1px solid @c-light-grey;
+      border-bottom: 1px solid @c-light-grey;
+
+      padding: 0px 10px;
+
+      .rate-description {
+        padding: 10px 10px 10px 0px;
+        width: 65%;
+        float: left;
+        border-right: 1px solid @c-light-grey;
+        box-sizing: border-box;
+
+        h4 {
+          a.info {
+            &:after {
+              .fa;
+              display: inline-block;
+              content: @fa-var-info-circle;
+              color: @c-link;
+              padding: 0 5px;
+            }
+          }
+
+          > span {
+            font-size: @size-0;
+            font-weight: 400;
+          }
+
+          earned-points {
+            &:before {
+              display: none;
+            }
+
+            position: relative;
+            float: right;
+          }
+        }
+
+        .tag-line {
+          display: none;
+
+          .viewport-mobile & {
+            display: block;
+          }
+        }
+
+         > p {
+          max-height: 20px;
+          overflow: hidden;
+          margin-top: 10px;
+
+          > p {
+            width: 95%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      pricing-info {
+        display: block;
+        position: relative;
+        width: 35%;
+        float: right;
+        border: none;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        padding-top: 10px;
+
+        .price-details {
+          float: left;
+          width: 50%;
+          padding-top: 3px;
+
+          .price-form {
+            font-style: italic;
+            color: @c-gray;
+            font-size: @size--0;
+            margin: 0px;
+
+            .value {
+              font-size: @size-1;
+              color: @c-black;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .action-buttons {
+          width: 50%;
+          float: left;
+          padding: 0px 5px;
+          box-sizing: border-box;
+
+          .button {
+            min-width: initial;
+            padding: 0px 10px;
+            margin: 5px 0px;
+          }
+        }
+      }
+
+      .no-products {
+        text-align: center;
+        padding: @baseline;
+      }
+
+      &:last-of-type {
+        border-radius: 0px 0px 4px 4px;
+      }
+    }
+  }
+
+  .loading-failed {
+    text-align: center;
+
+    > * {
+      margin: @baseline;
+    }
+
+    h3 {
+      color: @c-black;
+    }
+
+    p {
+      color: @c-grey;
+    }
+  }
+}
