@@ -24,7 +24,7 @@
 
 
     <list-items class="rooms-list">
-      <list-item ng-repeat="room in rooms | orderBy : currentOrder.prop: currentOrder.value | limitTo: numberOfRoomsDisplayed">
+      <list-item ng-repeat="room in rooms | orderBy : currentOrder.prop: currentOrder.value | limitTo: numberOfRoomsDisplayed" data-hover-trigger>
         <header class="item-header">
           <h3>
             <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>

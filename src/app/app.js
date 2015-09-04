@@ -133,6 +133,8 @@ angular
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
+    'mobiusApp.directives.hoverTrigger',
+
     'internationalPhoneNumber',
 
     // Filters
