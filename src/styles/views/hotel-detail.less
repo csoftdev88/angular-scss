@@ -144,6 +144,15 @@ hotel-detail {
         .chosen-container {
           width: 150px !important;
         }
+
+        .viewport-mobile & {
+          width: 100%;
+          margin: 10px 0px;
+
+          .chosen-container {
+            width: 100% !important;
+          }
+        }
       }
     }
 
@@ -166,6 +175,11 @@ hotel-detail {
         padding: 15px;
         background: lighten(@c-link, 50%);
         border-radius: 2px;
+
+        .viewport-mobile & {
+          box-sizing: border-box;
+          width: 100%;
+        }
       }
 
       list-item{
@@ -182,6 +196,7 @@ hotel-detail {
 
         .item-header{
           margin-bottom: 5px;
+
           h3{
             a{
               color: @c-black;
@@ -192,6 +207,19 @@ hotel-detail {
                 content: @fa-var-info-circle;
                 color: @c-link;
                 padding: 0 5px;
+              }
+            }
+
+            .viewport-mobile & {
+              width: 100%;
+
+              a {
+                &:after {
+                  color: @c-grey;
+                  content: @fa-var-chevron-right;
+                  float: right;
+                  margin-top: 2px;
+                }
               }
             }
           }
@@ -314,7 +342,7 @@ hotel-detail {
             }
 
             .pricing-info {
-              float: left;
+              float: right;
               width: 30%;
 
               .price-form {
@@ -337,9 +365,19 @@ hotel-detail {
                 float: right;
               }
             }
-          }
 
-          // ROOM PRODUCTS
+            .viewport-mobile & {
+              width: 100%;
+
+              .description {
+                width: 55%;
+              }
+
+              .pricing-info {
+                width: 45%;
+              }
+            }
+          }
 
         }
       }

@@ -29,7 +29,7 @@ room-products {
 
       .rate-description {
         padding: 10px 10px 10px 0px;
-        width: 65%;
+        width: 55%;
         float: left;
         border-right: 1px solid @c-light-grey;
         box-sizing: border-box;
@@ -85,7 +85,7 @@ room-products {
       pricing-info {
         display: block;
         position: relative;
-        width: 35%;
+        width: 45%;
         float: right;
         border: none;
         right: 0;
@@ -150,6 +150,22 @@ room-products {
 
     p {
       color: @c-grey;
+    }
+  }
+
+  .viewport-mobile & {
+    width: 100%;
+
+    h4 {
+      a {
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+    earned-points {
+      display: none;
     }
   }
 }
