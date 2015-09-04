@@ -6,6 +6,7 @@
     <div class="rate-description">
       <h4>
         <span ng-bind-html="product.name | mainHeaderStyle"></span>
+        <a class="info" href ng-click="openProductDetailsDialog(product)"></a>
 
         <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn
           <ng-pluralize count="getValuePer(product.price.pointsEarned, true)"

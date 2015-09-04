@@ -319,6 +319,20 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openProductDetailsDialog(room, product){
+    return openDialog('product-details', 'layouts/modals/productDetails.html', CONTROLLER_DATA, {
+      windowClass: 'dialog-product-details',
+      resolve: {
+        data: function(){
+          return {
+            room: room,
+            product: product
+          };
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -350,5 +364,6 @@ angular.module('mobiusApp.services.modal', [])
     openRoomDetailsDialog: openRoomDetailsDialog,
     openOtherRoomsDialog: openOtherRoomsDialog,
     openLoginDialog: openLoginDialog,
+    openProductDetailsDialog: openProductDetailsDialog
   };
 });
