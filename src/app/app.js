@@ -39,6 +39,7 @@ angular
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
     'mobius.controllers.reservationDetail',
+    'mobius.controllers.reservation.confirmationNumber',
     'mobius.controllers.reservationUpdate',
     'mobius.controllers.reservationLookup',
     'mobius.controllers.hotel.details',
