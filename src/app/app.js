@@ -8,6 +8,7 @@ angular
     'ngTouch',
     'ngMap',
     'ngSanitize',
+    'btford.markdown',
     // Template cache
     'templates-main',
 
