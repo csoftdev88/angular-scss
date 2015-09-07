@@ -1070,10 +1070,15 @@ reservation-hotel-details {
       text-align: center;
       line-height: @baseline;
       text-transform: uppercase;
+      visibility: hidden;
 
       strong {
         font-size: @size-2;
         font-weight: 600;
+      }
+
+      &.reference-visible {
+        visibility: visible;
       }
 
       .viewport-mobile & {

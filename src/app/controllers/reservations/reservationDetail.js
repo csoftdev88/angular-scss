@@ -71,6 +71,9 @@ angular.module('mobius.controllers.reservationDetail', [])
           modalService.openPoliciesInfo(products);
         };
 
+
+        $controller('ConfirmationNumberCtrl', {$scope: $scope, propertyCode: reservation.property.code});
+
         // Getting property details
         var propertyPromise = propertyService.getPropertyDetails(reservation.property.code).then(function(property) {
           $scope.property = property;

@@ -137,17 +137,65 @@ hotel-detail {
       p{
         display: inline;
       }
-      pricing-switch {
+
+      order-switch {
         float: right;
+
+        .chosen-container {
+          width: 150px !important;
+        }
+
+        .viewport-mobile & {
+          width: 100%;
+          margin: 10px 0px;
+
+          .chosen-container {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+
+    .search-details {
+      margin: @baseline/2 0px;
+
+      .room-counter {
+        color: @c-grey;
+        font-style: italic;
+      }
+    }
+
+    list-items{
+
+      .display-all-rooms,
+      .display-more-rooms {
+        float: right;
+        width: 60%;
+        text-align: center;
+        padding: 15px;
+        background: lighten(@c-link, 50%);
+        border-radius: 2px;
+      }
+
+      .display-all-rooms {
+        display: inline-block;
 
         .viewport-mobile & {
           display: none;
         }
       }
-    }
 
-    list-items{
-      list-item{
+      .display-more-rooms {
+        display: none;
+
+        .viewport-mobile & {
+          display: inline-block;
+          width: 100%;
+          padding: 15px 0px;
+        }
+      }
+
+      list-item {
         display: inline-block;
         width: 100%;
         padding: 0;
@@ -155,19 +203,85 @@ hotel-detail {
         border: none;
         margin-bottom: 40px;
 
+        .viewport-mobile & {
+          border-bottom: 20px solid @c-light-grey;
+          margin-bottom: 10px;
+        }
+
+        &:last-of-type {
+          margin-bottom: 10px;
+          border: none;
+        }
+
         .item-header{
           margin-bottom: 5px;
+
           h3{
             a{
               color: @c-black;
+
+              &:after {
+                .fa;
+                display: inline-block;
+                content: @fa-var-info-circle;
+                color: @c-link;
+                padding: 0 5px;
+              }
+            }
+
+            .viewport-mobile & {
+              width: 100%;
+
+              a {
+                &:after {
+                  color: @c-grey;
+                  content: @fa-var-chevron-right;
+                  float: right;
+                  margin-top: 2px;
+                }
+              }
             }
           }
+
+          pricing-switch {
+            float: right;
+
+            .viewport-mobile & {
+              display: none;
+            }
+          }
+
           earned-points{
             position: relative;
             float: right;
 
             .viewport-mobile & {
+              display: none !important;
+            }
+          }
+
+          &.desktop {
+            .viewport-mobile & {
               display: none;
+            }
+          }
+
+          &.mobile {
+            display: none;
+
+            .viewport-mobile & {
+              display: block;
+              float: left;
+              width: 100%;
+              border-bottom: 1px solid @c-light-grey;
+
+              h3 {
+                margin-bottom: @baseline/2;
+
+                a {
+                  margin: 0px @baseline/2;
+                }
+              }
             }
           }
         }
@@ -175,22 +289,25 @@ hotel-detail {
         .list-item-container {
           display: inline-block;
           width: 100%;
-
           border-top: 2px solid @c-light-grey;
-
-          border-bottom: 1px dashed #d9d9d9;
-          padding-bottom: 50px;
+          //padding-bottom: 50px;
 
           .viewport-mobile &{
             border-top-width: 1px;
             border-bottom: 2px solid @c-light-grey;
             padding-top: 16px;
+
+            &:fist-of-type {
+              border-top: none;
+              padding-top: 0px;
+            }
           }
+
           > div{
             display: inline;
             float: left;
 
-            &.list-item-info{
+            &.list-item-info {
               box-sizing: border-box;
               width: 37%;
               padding: 13px 13px 0 0;
@@ -205,10 +322,11 @@ hotel-detail {
                 width: 150px;
                 max-width: 40%;
                 float: left;
-                margin-bottom: 30px;
+
                 &.mobile{
                   display: none;
                 }
+
                 .viewport-mobile &{
                   width: 100%;
                   max-width: 100%;
@@ -218,11 +336,9 @@ hotel-detail {
                     display: none;
                   }
                 }
-
               }
 
-
-              ul.amenities{
+              ul.amenities {
                 float: left;
                 max-width: 60%;
                 padding-left: 16px;
@@ -259,239 +375,95 @@ hotel-detail {
                   }
                 }
               }
-              description-info{
-                clear: both;
-              }
-              a{
-                text-decoration: underline;
+
+              .viewport-mobile & {
+
               }
             }
           }
 
-          // ROOM PRODUCTS
-          room-products {
-            position: relative;
+          room-details {
+            float: left;
             width: 63%;
-            float: right;
-            display: block;
+            padding: 15px;
+            border: 1px solid @c-light-grey;
+            box-sizing: border-box;
+            border-top: none;
 
-            .preloader {
-              &:after {
-                content: 'Fetching Room Rates';
-                text-transform: initial;
+            .description {
+              float: left;
+              width: 70%;
+
+              div {
+                p {
+                  display: none;
+
+                  &:nth-child(-n+3){
+                    display: block;
+                  }
+                }
               }
             }
 
-            > ul {
-              > li {
-                border: 1px solid @c-light-grey;
-                border-top: none;
-                overflow: auto;
+            > .pricing-info {
+              float: right;
+              width: 30%;
 
-                padding: 0px 10px;
+              .price-form {
+                float: right;
+                color: @c-gray;
+                font-style: italic;
+                font-size: @size--1;
+                padding-bottom: @baseline/2;
 
-                &:hover {
-                  pricing-info {
-                    .button {
-                      display: inline-block;
-                    }
-                  }
+                .value {
+                  font-style: normal;
+                  font-weight: bold;
+                  color: @c-black;
+                  font-size: @size-1;
+                  padding-left: 5px;
                 }
+              }
 
-                .rate-description {
-                  padding: 10px 10px 10px 0px;
-                  width: 70%;
-                  float: left;
-                  border-right: 1px solid @c-light-grey;
-                  box-sizing: border-box;
+              button {
+                float: right;
+              }
+            }
 
-                  h4 {
-                    > span {
-                      font-size: @size-0;
-                      font-weight: 400;
-                    }
+            .our-rates {
+              display: none;
+              float: left;
+              width: 100%;
+              font-weight: bold;
+              margin-top: 15px;
+              text-align: center;
+              color: @c-link;
 
-                    earned-points {
-                      position: relative;
-                      float: right;
-                    }
-                  }
-
-                  .action-links {
-                    margin-top: 5px;
-                    li {
-                      float: left;
-                      padding-right: 10px;
-
-                      a {
-                        font-size: @size--1;
-                      }
-                    }
-                  }
-
-                   > p {
-                    max-height: 25px;
-                    overflow: hidden;
-                    margin-top: 10px;
-
-                    > p {
-                      width: 95%;
-                      white-space: nowrap;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                    }
-                  }
-                }
-
-                pricing-info {
-                  display: block;
-                  position: relative;
-                  width: 30%;
-                  float: right;
-                  border: none;
-                  right: 0;
-                  bottom: 0;
-                  top: 0;
-                  padding-top: 10px;
-
-                  > div {
-                    p {
-                      margin: 0px;
-                    }
-                  }
-
-                  .button {
-                    display: none;
-                  }
-
-                  .description {
-                    display: none;
-                  }
-                }
-
-                .no-products {
-                  text-align: center;
-                  padding: @baseline;
-                }
-
-                &:last-of-type {
-                  border-radius: 0px 0px 4px 4px;
-                }
+              .viewport-mobile & {
+                display: block;
               }
             }
 
             .viewport-mobile & {
               width: 100%;
-              float: left;
+              border: none;
 
-              margin-top: 20px;
+              border-bottom: 1px solid @c-light-grey;
 
-              ul {
-                li {
-                  border-left: none;
-                  border-right: none;
-                  padding: 0px;
+              .description {
+                width: 100%;
+              }
 
-                  &:first-of-type {
-                    border-top: 1px dashed @c-light-grey;
-                  }
-
-                  &:last-of-type {
-                    border-bottom: none;
-                  }
-
-                  pricing-info {
-                    width: 100%;
-                    float: left;
-                    padding-top: 0px;
-
-                    .description {
-                      display: block;
-                      width: 100%;
-                      float: left;
-                      height: 25px;
-                      overflow: hidden;
-                      max-height: 25px;
-                      overflow: hidden;
-                      margin-top: 10px;
-
-                      > p {
-                        width: 95%;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: block;
-                      }
-                    }
-
-                    > div {
-                      p {
-                        display: block;
-                        text-align: left;
-                        float: left;
-                        padding: 0 4px 10px 0;
-
-                        .per-night,
-                        .per-stay {
-                          display: none;
-                        }
-
-                        .value {
-                          font-size: @size-1;
-                        }
-                      }
-                    }
-
-
-                    .button {
-                      display: inline-block;
-                      float: right;
-                      height: 28px;
-                      line-height: 28px;
-                      margin: -5px 0px;
-                    }
-                  }
-
-                  .rate-description {
-                    border-right: none;
-                    width: 100%;
-
-                    h4 {
-                     earned-points {
-                       display: none;
-                     }
-                    }
-
-                    > p {
-                      display: none;
-                    }
-
-                    .action-links {
-                      display: none;
-                    }
-                  }
-                }
+              > .pricing-info {
+                display: none;
               }
             }
+          }
 
-            .loading-failed {
-              padding: @baseline*4 @baseline;
-              text-align: center;
-
-              border-left: 1px solid @c-light-grey;
-
-              > * {
-                margin: @baseline;
-              }
-
-              h3 {
-                color: @c-black;
-              }
-
-              p {
-                color: @c-grey;
-              }
-            }
+          .viewport-mobile & {
+            border-top: none;
+            padding-top: 0px;
+            border-bottom: none;
           }
         }
       }

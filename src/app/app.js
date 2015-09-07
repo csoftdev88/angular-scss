@@ -39,6 +39,7 @@ angular
     'mobius.controllers.reservations',
     'mobius.controllers.reservation',
     'mobius.controllers.reservationDetail',
+    'mobius.controllers.reservation.confirmationNumber',
     'mobius.controllers.reservationUpdate',
     'mobius.controllers.reservationLookup',
     'mobius.controllers.hotel.details',
@@ -113,7 +114,6 @@ angular
     'mobius.controllers.reservation.directive',
     'mobiusApp.directives.embeddedForm',
     'mobiusApp.directives.bindUnsafe',
-    'mobiusApp.directives.infiniteScroll',
 
     // Directive based on content data
     'mobiusApp.directives.menu',
@@ -134,6 +134,8 @@ angular
     'mobiusApp.directives.googleAnalyticsScript',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
+    'mobiusApp.directives.hoverTrigger',
+
     'internationalPhoneNumber',
 
     // Filters

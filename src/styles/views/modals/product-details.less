@@ -1,0 +1,138 @@
+.dialog-product-details {
+  max-height: 80%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  main {
+    padding: 0px;
+
+    section {
+      border-bottom: 1px solid @c-light-grey;
+
+      article {
+        padding: @baseline;
+      }
+
+      &.terms-and-conditions {
+        accordion{
+          margin-top: 0px;
+
+          .panel-group{
+            .panel{
+              .panel-heading{
+                display: none;
+              }
+            }
+          }
+        }
+
+        > ul {
+          overflow-y: auto;
+          max-height: 400px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          padding: 10px;
+        }
+
+        li {
+          border-bottom: 1px solid @c-light-grey;
+          padding: @baseline/2 0;
+
+          h3 {
+            font-size: @size-0;
+            font-weight: bold;
+            text-transform: uppercase;
+          }
+
+          p {
+            color: @c-text-light;
+          }
+
+          ul {
+            margin: @baseline 0 @baseline @baseline / 2;
+            list-style-type: disc;
+          }
+
+          li {
+            margin-left: 2em;
+          }
+
+          &:last-child {
+            border-bottom: 0;
+          }
+        }
+      }
+
+      &.price-breakdown {
+        table {
+          margin: @baseline/2 0;
+          width: 100%;
+
+          .viewport-mobile &{
+            font-size: 12px;
+          }
+
+          thead {
+            border-top: 1px solid @c-light-grey;
+            border-bottom: 1px solid @c-light-grey;
+          }
+
+          tfoot {
+            border-top: 2px solid @c-light-grey;
+          }
+
+          th, td {
+            text-align: left;
+          }
+
+          td {
+            padding: 5px 0px;
+          }
+
+          .price-breakdown-content {
+            th {
+              padding: @baseline/2 0 @baseline/2 0;
+            }
+
+            th:last-child {
+              text-align: right;
+            }
+
+            th:nth-child(1), th:nth-child(2) {
+              width: 30%;
+            }
+
+            th:nth-child(2), th:nth-child(3) {
+              padding-left: @baseline/2;
+            }
+
+            td {
+              padding: @baseline @baseline/2 @baseline @baseline/2;
+              .viewport-mobile &{
+                padding: @baseline @baseline/10;
+              }
+            }
+
+            td:last-child {
+              text-align: right;
+            }
+
+            tbody {
+              tr:nth-child(even) {
+                background: #efefef;
+              }
+
+              tr:nth-child(odd) {
+                background: #ffffff;
+              }
+            }
+          }
+
+          [colspan="3"] {
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+}

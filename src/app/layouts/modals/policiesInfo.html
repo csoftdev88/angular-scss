@@ -19,9 +19,9 @@
             <li ng-repeat="(policyCode, value) in product.policies">
               <h3>{{getPolicyTitle(policyCode)}}:</h3>
               <p ng-bind-html="sanitize(value)"></p>
+            </li>
           </ul>
         </accordion-group>
       </accordion>
-    </ul>
   </main>
 </div>

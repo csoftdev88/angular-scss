@@ -45,9 +45,7 @@ angular.module('mobiusApp.directives.room.products', [])
           Settings.UI.hotelDetails.ratesCacheTimeout?Settings.UI.hotelDetails.ratesCacheTimeout:0;
       }
 
-      if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
-        scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
-      }
+      scope.settings = Settings.UI.hotelDetails.rooms.rates;
 
       scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, event){
         if(isMemberOnly === null && roomPriceFrom === null && !event){
@@ -73,14 +71,26 @@ angular.module('mobiusApp.directives.room.products', [])
         $state.go('reservation.details', params);
       };
 
+      scope.isDateRangeSelected = bookingService.isDateRangeSelected;
+
+
+      /*
       scope.openPoliciesInfo = modalService.openPoliciesInfo;
 
-      scope.isDateRangeSelected = bookingService.isDateRangeSelected;
       scope.openPriceBreakdownInfo = function(product) {
         var room = _.clone(scope.room);
         room._selectedProduct = product;
 
         return modalService.openPriceBreakdownInfo([room]);
+      };
+
+     if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
+        scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
+      }
+      */
+
+      scope.openProductDetailsDialog = function(product){
+        modalService.openProductDetailsDialog(scope.room, product);
       };
 
       scope.init();
