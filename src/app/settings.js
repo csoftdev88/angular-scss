@@ -125,7 +125,6 @@ angular.module('mobiusApp.config', [])
         }
       ]
     },
-
     'hotelDetails': {
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
@@ -150,6 +149,16 @@ angular.module('mobiusApp.config', [])
 
     'roomDetails': {
       'hasReadMore': true
+    },
+
+    'reservations': {
+      // Confirmation number display settings per hotel(code)
+      'confirmationNumber': {
+        'REV': {
+          displayOnListView: true,
+          displayOnDetailsView: true
+        }
+      }
     },
 
     'aboutHotel': {

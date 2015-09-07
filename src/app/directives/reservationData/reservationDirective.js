@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.reservation.directive', [])
 
-.controller( 'ReservationDirectiveCtrl', function($scope, $state, _) {
+.controller( 'ReservationDirectiveCtrl', function($scope, $controller, $state, _) {
   function getCount(prop){
     if(!$scope.reservation){
       return 0;

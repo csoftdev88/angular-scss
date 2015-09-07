@@ -22,7 +22,7 @@
       <header>
         <h1>{{property.nameLong}}</h1>
 
-        <div class="reference">
+        <div class="reference" ng-class="{'reference-visible': displayConfirmationNumber}">
           <p>Your reference:</p>
           <p><strong>{{reservationCode}}</strong></p>
         </div>
