@@ -80,6 +80,11 @@ describe('mobius.controllers.hotel.details', function() {
           openGallery: function(){}
         });
 
+
+        $provide.value('stateService', {
+          isMobile: sinon.stub()
+        });
+
         $provide.value('advertsService', {});
         $provide.value('scrollService', {scrollTo: function(){}});
 

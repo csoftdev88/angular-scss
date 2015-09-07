@@ -190,10 +190,12 @@ hotel-detail {
 
         .viewport-mobile & {
           display: inline-block;
+          width: 100%;
+          padding: 15px 0px;
         }
       }
 
-      list-item{
+      list-item {
         display: inline-block;
         width: 100%;
         padding: 0;
@@ -201,8 +203,14 @@ hotel-detail {
         border: none;
         margin-bottom: 40px;
 
+        .viewport-mobile & {
+          border-bottom: 20px solid @c-light-grey;
+          margin-bottom: 10px;
+        }
+
         &:last-of-type {
           margin-bottom: 10px;
+          border: none;
         }
 
         .item-header{
@@ -248,7 +256,32 @@ hotel-detail {
             float: right;
 
             .viewport-mobile & {
+              display: none !important;
+            }
+          }
+
+          &.desktop {
+            .viewport-mobile & {
               display: none;
+            }
+          }
+
+          &.mobile {
+            display: none;
+
+            .viewport-mobile & {
+              display: block;
+              float: left;
+              width: 100%;
+              border-bottom: 1px solid @c-light-grey;
+
+              h3 {
+                margin-bottom: @baseline/2;
+
+                a {
+                  margin: 0px @baseline/2;
+                }
+              }
             }
           }
         }
@@ -263,6 +296,11 @@ hotel-detail {
             border-top-width: 1px;
             border-bottom: 2px solid @c-light-grey;
             padding-top: 16px;
+
+            &:fist-of-type {
+              border-top: none;
+              padding-top: 0px;
+            }
           }
 
           > div{
@@ -284,10 +322,11 @@ hotel-detail {
                 width: 150px;
                 max-width: 40%;
                 float: left;
-                margin-bottom: 30px;
+
                 &.mobile{
                   display: none;
                 }
+
                 .viewport-mobile &{
                   width: 100%;
                   max-width: 100%;
@@ -336,6 +375,10 @@ hotel-detail {
                   }
                 }
               }
+
+              .viewport-mobile & {
+
+              }
             }
           }
 
@@ -350,9 +393,19 @@ hotel-detail {
             .description {
               float: left;
               width: 70%;
+
+              div {
+                p {
+                  display: none;
+
+                  &:nth-child(-n+3){
+                    display: block;
+                  }
+                }
+              }
             }
 
-            .pricing-info {
+            > .pricing-info {
               float: right;
               width: 30%;
 
@@ -377,19 +430,41 @@ hotel-detail {
               }
             }
 
+            .our-rates {
+              display: none;
+              float: left;
+              width: 100%;
+              font-weight: bold;
+              margin-top: 15px;
+              text-align: center;
+              color: @c-link;
+
+              .viewport-mobile & {
+                display: block;
+              }
+            }
+
             .viewport-mobile & {
               width: 100%;
+              border: none;
+
+              border-bottom: 1px solid @c-light-grey;
 
               .description {
-                width: 55%;
+                width: 100%;
               }
 
-              .pricing-info {
-                width: 45%;
+              > .pricing-info {
+                display: none;
               }
             }
           }
 
+          .viewport-mobile & {
+            border-top: none;
+            padding-top: 0px;
+            border-bottom: none;
+          }
         }
       }
     }

@@ -25,7 +25,7 @@
 
     <list-items class="rooms-list">
       <list-item ng-repeat="room in rooms | orderBy : currentOrder.prop: currentOrder.value | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="1000">
-        <header class="item-header">
+        <header class="item-header desktop">
           <h3>
             <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>
           </h3>
@@ -53,6 +53,12 @@
             <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 150 : 150 : 'fill'}}" alt="{{room.name}}">
             <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 768 : 384 : 'fill'}}" alt="{{room.name}}">
 
+            <header class="item-header mobile">
+              <h3>
+                <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>
+              </h3>
+            </header>
+
             <ul class="amenities">
               <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:numberOfAmenities">
                 <slug-img slug="amenity.slug" type="room" width="15"></slug-img>
@@ -74,6 +80,8 @@
 
               <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates">{{viewRatesButtonText}}</button>
             </div>
+
+            <p class="our-rates">Our Rates</p>
           </room-details>
 
 

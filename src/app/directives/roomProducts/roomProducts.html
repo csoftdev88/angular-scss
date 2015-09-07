@@ -16,12 +16,14 @@
         </earned-points>
       </h4>
 
-      <p ng-if="settings.showDescription" ng-bind-html="sanitize(product.descriptionShort || product.description)"></p>
+      <p class="full-description" ng-if="settings.showDescription" ng-bind-html="sanitize(product.descriptionShort || product.description)"></p>
 
       <p ng-if="settings.showDescription" class="tag-line">{{product.tagline}}</p>
+
+      <a class="info mobile" href ng-click="openProductDetailsDialog(product)">View Details</a>
     </div>
 
-    <pricing-info ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
+    <pricing-details ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
       <div ng-switch-when="true">
         <div class="price-details">
           <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
@@ -46,7 +48,7 @@
           <span>Please call the hotel on <span itemprop="telephone"><a href="tel:{{details.tel1}}">{{details.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</span>
         </span>
       </p>
-    </pricing-info>
+    </pricing-details>
   </li>
 
   <!-- NO PRODUCTS AVAILABLE -->

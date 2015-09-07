@@ -22,14 +22,21 @@ room-products {
     > li {
       border-top: none;
       overflow: auto;
-      border-top: 1px solid @c-light-grey;
       border-bottom: 1px solid @c-light-grey;
 
       padding: 0px 10px;
 
+      .viewport-mobile & {
+        border-bottom: 1px dotted @c-light-grey !important;
+
+        &:last-of-type {
+          border-bottom: none !important;
+        }
+      }
+
       .rate-description {
         padding: 10px 10px 10px 0px;
-        width: 55%;
+        width: 60%;
         float: left;
         border-right: 1px solid @c-light-grey;
         box-sizing: border-box;
@@ -42,6 +49,10 @@ room-products {
               content: @fa-var-info-circle;
               color: @c-link;
               padding: 0 5px;
+            }
+
+            .viewport-mobile & {
+              display: none;
             }
           }
 
@@ -57,6 +68,12 @@ room-products {
 
             position: relative;
             float: right;
+          }
+        }
+
+        .full-description {
+          .viewport-mobile & {
+            display: none;
           }
         }
 
@@ -80,12 +97,26 @@ room-products {
             text-overflow: ellipsis;
           }
         }
+
+        .info.mobile {
+          display: none;
+
+          .viewport-mobile & {
+            display: block;
+            margin: 10px 0px;
+            text-decoration: underline;
+          }
+        }
+
+        .viewport-mobile & {
+          border: none;
+        }
       }
 
-      pricing-info {
-        display: block;
+      pricing-details {
+        display: block !important;
         position: relative;
-        width: 45%;
+        width: 40%;
         float: right;
         border: none;
         right: 0;
@@ -97,6 +128,7 @@ room-products {
           float: left;
           width: 50%;
           padding-top: 3px;
+          text-align: center;
 
           .price-form {
             font-style: italic;
@@ -108,7 +140,13 @@ room-products {
               font-size: @size-1;
               color: @c-black;
               font-weight: bold;
+              font-style: normal;
             }
+          }
+
+          .viewport-mobile & {
+            width: 100%;
+            text-align: right;
           }
         }
 
@@ -117,12 +155,22 @@ room-products {
           float: left;
           padding: 0px 5px;
           box-sizing: border-box;
+          text-align: right;
 
           .button {
             min-width: initial;
             padding: 0px 10px;
             margin: 5px 0px;
           }
+
+          .viewport-mobile & {
+            width: 100%;
+            padding: 0px;
+          }
+        }
+
+        .viewport-mobile & {
+          display: none;
         }
       }
 
@@ -133,6 +181,10 @@ room-products {
 
       &:last-of-type {
         border-radius: 0px 0px 4px 4px;
+      }
+
+      .viewport-mobile & {
+        border: none;
       }
     }
   }
@@ -155,6 +207,7 @@ room-products {
 
   .viewport-mobile & {
     width: 100%;
+    border: none;
 
     h4 {
       a {
@@ -165,7 +218,7 @@ room-products {
     }
 
     earned-points {
-      display: none;
+      display: none !important;
     }
   }
 }

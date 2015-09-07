@@ -10,7 +10,7 @@ angular.module('mobiusApp.directives.resize.watcher', [])
       var $$window = angular.element($window);
 
       function updateView() {
-        
+        // TODO: Use stateService for platform detection
         var MOBILE_CLASS = 'viewport-mobile',
             TABLET_CLASS = 'viewport-tablet',
             DESKTOP_CLASS = 'viewport-desktop',

@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -153,6 +153,13 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
+        if(stateService.isMobile()){
+          // Marking rates as displayed by default
+          _.each(rooms, function(room){
+            $scope.displayRoomRates(room);
+          });
+        }
+
         // Sorting rooms by priceFrom
         $scope.rooms = _.sortBy(rooms,function(room){
           return room.priceFrom;
