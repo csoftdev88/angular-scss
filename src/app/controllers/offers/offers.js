@@ -101,6 +101,7 @@ angular.module('mobius.controllers.offers', [])
       if (selectedOfferIndex < 0) {
         return $state.go('offers', {code: null});
       }
+
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
