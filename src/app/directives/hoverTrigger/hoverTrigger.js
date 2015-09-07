@@ -8,17 +8,33 @@ angular.module('mobiusApp.directives.hoverTrigger', [])
 
   return {
     scope: {
-      hoverTrigger: '=',
+      hoverTrigger: '&',
       triggerDelay: '='
     },
     restrict: 'A',
     link: function(scope, elem) {
+      if(!scope.triggerDelay){
+        return;
+      }
+
+      var timerId;
+
       function onMouseover(){
-        console.log('mouseover');
+        cancelTimer();
+
+        timerId = setTimeout(function(){
+          scope.hoverTrigger();
+        }, parseInt(scope.triggerDelay, 10) || 0);
       }
 
       function onMouseout(){
-        console.log('mouseout');
+        cancelTimer();
+      }
+
+      function cancelTimer(){
+        if(timerId){
+          clearTimeout(timerId);
+        }
       }
 
       elem.bind(EVENT_MOUSEOUT, onMouseout);
@@ -31,6 +47,7 @@ angular.module('mobiusApp.directives.hoverTrigger', [])
 
       scope.$on('$destroy', function(){
         unbindListeners();
+        cancelTimer();
       });
     }
   };
