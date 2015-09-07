@@ -161,6 +161,7 @@ angular.module('mobius.controllers.hotel.details', [
         $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
         $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;
         $scope.viewRatesButtonText = Settings.UI.hotelDetails.rooms.viewRatesButtonText;
+        $scope.hoverTriggerDelay = Settings.UI.hotelDetails.rooms.hoverTriggerDelay;
       });
 
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
@@ -226,7 +227,11 @@ angular.module('mobius.controllers.hotel.details', [
     room._displayRates = true;
   };
 
-  $scope.showAllRooms = function(){
+  $scope.displayAllRooms = function(){
     $scope.numberOfRoomsDisplayed = $scope.rooms.length;
+  };
+
+  $scope.displayMoreRooms = function(){
+    $scope.numberOfRoomsDisplayed  += Settings.UI.hotelDetails.numberOfRoomsAddedOnMobile || 1;
   };
 });

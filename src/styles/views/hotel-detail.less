@@ -167,18 +167,29 @@ hotel-detail {
 
     list-items{
 
-      .show-all-rooms {
+      .display-all-rooms,
+      .display-more-rooms {
         float: right;
         width: 60%;
-        display: inline-block;
         text-align: center;
         padding: 15px;
         background: lighten(@c-link, 50%);
         border-radius: 2px;
+      }
+
+      .display-all-rooms {
+        display: inline-block;
 
         .viewport-mobile & {
-          box-sizing: border-box;
-          width: 100%;
+          display: none;
+        }
+      }
+
+      .display-more-rooms {
+        display: none;
+
+        .viewport-mobile & {
+          display: inline-block;
         }
       }
 

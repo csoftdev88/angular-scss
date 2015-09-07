@@ -129,9 +129,13 @@ angular.module('mobiusApp.config', [])
     'hotelDetails': {
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
+      'numberOfRoomsAddedOnMobile': 2,
       'rooms': {
         'defaultNumberOfAmenities': 3,
         'viewRatesButtonText': 'View Rates',
+        // Loading rates when hovering over the room
+        // in ms.
+        'hoverTriggerDelay': 2000,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Book Now',

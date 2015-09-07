@@ -72,7 +72,7 @@
                 </p>
               </div>
 
-              <button class="button" ng-click="displayRoomRates(room)">{{viewRatesButtonText}}</button>
+              <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates">{{viewRatesButtonText}}</button>
             </div>
           </room-details>
 
@@ -83,7 +83,10 @@
         <!-- //list-item-container -->
       </list-item>
 
-      <a href class="show-all-rooms" ng-show="numberOfRoomsDisplayed && numberOfRoomsDisplayed < rooms.length" ng-click="showAllRooms()">View All Rooms</a>
+      <a href class="display-all-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < rooms.length" ng-click="displayAllRooms()">View All Rooms</a>
+
+      <a href class="display-more-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < rooms.length" ng-click="displayMoreRooms()">View More Rooms</a>
+
 
     </list-items>
     <h2 ng-if="!rooms.length">_no_room_found_</h2>
