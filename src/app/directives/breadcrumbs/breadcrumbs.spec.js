@@ -2,7 +2,8 @@
 
 describe('breadcrumbs', function() {
   var _$compile, _$rootScope, _element, _scope, _modalService, _contentService,
-    _scrollService, _spyTemplateCacheGet, _stubAngularElement;
+    _breadcrumbsService, _scrollService, _spyTemplateCacheGet, _stubAngularElement,
+    _underscore;
 
   var TEMPLATE = '<breadcrumbs></breadcrumbs>';
   var TEMPLATE_URL = 'directives/breadcrumbs/breadcrumbs.html';
@@ -13,12 +14,18 @@ describe('breadcrumbs', function() {
   };
 
   beforeEach(function() {
-    module('underscore');
-
     module('mobiusApp.directives.breadcrumbs', function($provide){
       $provide.value('$state', STATE);
 
+      $provide.value('_', {
+        find: window._.find,
+        findWhere: window._.findWhere,
+        debounce: function(c){return c;}
+      });
+
       $provide.value('breadcrumbsService', {
+        getVisibleHref: sinon.stub(),
+
         getBreadCrumbs: function(){
           return [{bc: 123}];
         },
@@ -35,6 +42,7 @@ describe('breadcrumbs', function() {
           return 'activeHref';
         }
       });
+
       $provide.value('modalService', {
         openGallery: sinon.spy()
       });
@@ -50,7 +58,7 @@ describe('breadcrumbs', function() {
   });
 
   beforeEach(inject(function($compile, $rootScope, $templateCache, modalService, contentService,
-      scrollService) {
+      scrollService, breadcrumbsService, _) {
     _$compile = $compile;
     _$rootScope = $rootScope;
 
@@ -60,6 +68,9 @@ describe('breadcrumbs', function() {
     _modalService = modalService;
     _contentService = contentService;
     _scrollService = scrollService;
+    _breadcrumbsService = breadcrumbsService;
+
+    _underscore = _;
 
     _stubAngularElement = sinon.stub(angular, 'element').returns({
       bind: sinon.spy(),
@@ -149,6 +160,22 @@ describe('breadcrumbs', function() {
       expect(_scope.activeHref).equal('testName');
     });
   });
+
+  describe('when scroll event is broadcasted', function(){
+    it('should call getVisibleHref on breadcrumbsService', function(){
+      var activeHref = {id: 'testId'};
+      var scrollFunction = _stubAngularElement().bind.args[0][1];
+
+      _breadcrumbsService.getVisibleHref.returns(activeHref);
+      _scope.hrefs = [activeHref];
+
+      scrollFunction();
+      _scope.$digest();
+      expect(_breadcrumbsService.getVisibleHref.calledOnce).equal(true);
+      expect(_scope.scrollActiveHref).equal(activeHref);
+    });
+  });
+
 
   describe('when component is destroyed', function(){
     beforeEach(function(){
