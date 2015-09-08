@@ -2,7 +2,8 @@
 
 describe('mobius.controllers.offers', function() {
   describe('OffersCtrl', function() {
-    var _scope, _breadcrumbsService, _$state, _contentService, _chainService, _$location;
+    var _scope, _breadcrumbsService, _$state, _contentService, _chainService, _$location,
+      _propertyService;
 
     var CHAIN_DATA = {
       images: [1,2],
@@ -20,6 +21,18 @@ describe('mobius.controllers.offers', function() {
       {
         code: 'TEST-CODE',
         prio: 5,
+        limitToPropertyCodes: ['VAN', 'REV'],
+        meta: {
+          description: 'desc',
+          microdata: {
+            og: 'og-microdata'
+          }
+        }
+      },
+      {
+        code: 'TEST-UNAVAILABLE',
+        prio: 5,
+        limitToPropertyCodes: ['VAN'],
         meta: {
           description: 'desc',
           microdata: {
@@ -30,12 +43,22 @@ describe('mobius.controllers.offers', function() {
       {
         code: 'TEST-CODE-1',
         prio: 10,
+        limitToPropertyCodes: ['REV', 'VAN'],
         meta: {
           description: 'desc',
           microdata: {
             og: 'og-microdata'
           }
         }
+      }
+    ];
+
+    var DATA_PROPERTIES = [
+      {
+        code: 'VAN'
+      },
+      {
+        code: 'REV'
       }
     ];
 
@@ -71,7 +94,8 @@ describe('mobius.controllers.offers', function() {
         });
 
         $provide.value('propertyService', {
-          getPropertyDetails: sinon.stub()
+          getPropertyDetails: sinon.stub(),
+          getAll: sinon.stub()
         });
 
         $provide.value('metaInformationService', {
@@ -103,7 +127,7 @@ describe('mobius.controllers.offers', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, $q, $location, $state,
-        breadcrumbsService, contentService, chainService) {
+        breadcrumbsService, propertyService, contentService, chainService) {
       _scope = $rootScope.$new();
       _breadcrumbsService = breadcrumbsService;
       _$state = $state;
@@ -117,6 +141,9 @@ describe('mobius.controllers.offers', function() {
 
       _chainService = chainService;
       _chainService.getChain.returns($q.when(CHAIN_DATA));
+
+      _propertyService = propertyService;
+      _propertyService.getAll.returns($q.when(DATA_PROPERTIES));
 
       _$location = $location;
       _$location.absUrl.returns('http://testdomain/about');
@@ -139,14 +166,14 @@ describe('mobius.controllers.offers', function() {
         expect(_chainService.getChain.calledWith('TESTCHAIN')).equal(true);
       });
 
-      it('should define offers list on scope', function(){
+      it('should contain offers available to all the properties and define then on scope', function(){
         _scope.$digest();
-        expect(_scope.offersList.length).equal(OFFERS_DATA.length);
+        expect(_scope.offersList.length).equal(OFFERS_DATA.length - 1);
       });
 
       it('should sort offers list by priorities', function(){
         _scope.$digest();
-        expect(_scope.offersList[0].code).equal(OFFERS_DATA[1].code);
+        expect(_scope.offersList[0].code).equal(OFFERS_DATA[2].code);
         expect(_scope.offersList[1].code).equal(OFFERS_DATA[0].code);
       });
     });
@@ -172,7 +199,7 @@ describe('mobius.controllers.offers', function() {
         expect(_scope.getRelevant(null, 0)).equal(true);
       });
 
-      it('should return false when viewing other about details', function(){
+      it('should return false when viewing other offers details', function(){
         _scope.$digest();
         expect(_scope.getRelevant(null, 1)).equal(false);
       });

@@ -119,12 +119,13 @@ describe('mobiusApp.services.modal', function() {
         'windowClass', 'lightbox'))).equal(true);
     });
 
-    it('should open lightbox dialog with with array of images according to heroSlider format', function() {
-      _modalService.openGallery(['http://test.com']);
+    it('should open lightbox dialog with array of images according to heroSlider format', function() {
+      _modalService.openGallery(['http://test.com'], 0);
       var spyParams = _spyModalOpen.args[0][0];
 
       var dynamicDataDependency = spyParams.resolve.data();
-      expect(dynamicDataDependency.length).equal(1);
+      expect(dynamicDataDependency.images.length).equal(1);
+      expect(dynamicDataDependency.slideIndex).equal(0);
     });
   });
 

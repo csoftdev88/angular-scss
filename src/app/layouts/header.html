@@ -1,5 +1,5 @@
 <nav class="main-nav wrapper" dropdown>
-  <a class="brand" ui-sref="home">
+  <a class="brand" ui-sref="home({property:null})">
     <img src="/static/images/v4/logo.png" alt="Mobius logo">
   </a>
 
@@ -9,7 +9,7 @@
     <ul dropdown-group>
 
       <li class="mobile-header">
-        <a ui-sref="home">
+        <a ui-sref="home({property:null})">
           <img src="/static/images/v4/logo.png" alt="Mobius logo">
         </a>
         <span class="close"></span>
@@ -59,7 +59,7 @@
 
       <li ng-show="config.menu.showContact">
           <a
-                  ui-sref="contacts"
+                  ui-sref="contacts({property: null})"
                   ui-sref-opts="{reload: true}"
                   ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
       </li>

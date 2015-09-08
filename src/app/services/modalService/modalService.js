@@ -212,13 +212,16 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   // NOTE: images - list of URLs
-  function openGallery(images){
+  function openGallery(images, slideIndex){
     return openDialog('openGallery', 'layouts/modals/lightbox.html', CONTROLLER_DATA, {
       windowClass: 'lightbox',
       backdropClass: 'modal-lightbox',
       resolve: {
         data: function(){
-          return images;
+          return {
+            images: images,
+            slideIndex: slideIndex || 0
+          };
         }
       }
     });
@@ -316,6 +319,20 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openProductDetailsDialog(room, product){
+    return openDialog('product-details', 'layouts/modals/productDetails.html', CONTROLLER_POLICY, {
+      windowClass: 'dialog-product-details',
+      resolve: {
+        data: function(){
+          return {
+            room: room,
+            product: product
+          };
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -347,5 +364,6 @@ angular.module('mobiusApp.services.modal', [])
     openRoomDetailsDialog: openRoomDetailsDialog,
     openOtherRoomsDialog: openOtherRoomsDialog,
     openLoginDialog: openLoginDialog,
+    openProductDetailsDialog: openProductDetailsDialog
   };
 });

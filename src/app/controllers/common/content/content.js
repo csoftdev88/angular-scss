@@ -52,6 +52,7 @@ angular.module('mobius.controllers.common.content', [])
       'subtitle': 'subtitle',
       'sort': 'prio',
       'reverseSort': true,
+      'keepProperty': true,
       'slug': true
     },
     'about': {
@@ -115,6 +116,8 @@ angular.module('mobius.controllers.common.content', [])
     if (contentTypes.hotels.paramName === $scope.settings.paramName && code) {
       var property = findPropertyBySlug(code);
       params.property = property ? property.code : null;
+    }else if(!$scope.settings.keepProperty){
+      params.property = null;
     }
   }
 
@@ -142,6 +145,7 @@ angular.module('mobius.controllers.common.content', [])
     if(!$scope.settings){
       return null;
     }
+
     var params = createParamsObject(code);
     var link = $state.href(code?$scope.settings.detailState:$scope.settings.listState, params);
     return (link && link.substr(-1) === '/') ? link.slice(0,-1) : link;

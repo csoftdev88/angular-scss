@@ -161,6 +161,8 @@ describe('mobius.controllers.reservationDetail', function() {
         $controllerProvider.register('AuthCtrl', function($scope, config){
           config.onAuthorized(true);
         });
+
+        $controllerProvider.register('ConfirmationNumberCtrl', function(){});
       });
     });
 

@@ -28,53 +28,53 @@ dialog .ui-info.price-breakdown {
       tfoot {
         border-top: 2px solid @c-light-grey;
       }
-    }
 
-    th, td {
-      text-align: left;
-    }
-
-    .price-breakdown-content {
-      th {
-        padding: @baseline/2 0 @baseline/2 0;
+      th, td {
+        text-align: left;
       }
 
-      th:last-child {
+      .price-breakdown-content {
+        th {
+          padding: @baseline/2 0 @baseline/2 0;
+        }
+
+        th:last-child {
+          text-align: right;
+        }
+
+        th:nth-child(1), th:nth-child(2) {
+          width: 30%;
+        }
+
+        th:nth-child(2), th:nth-child(3) {
+          padding-left: @baseline/2;
+        }
+
+        td {
+          padding: @baseline @baseline/2 @baseline @baseline/2;
+          .viewport-mobile &{
+            padding: @baseline @baseline/10;
+          }
+        }
+
+        td:last-child {
+          text-align: right;
+        }
+
+        tbody {
+          tr:nth-child(even) {
+            background: #efefef;
+          }
+
+          tr:nth-child(odd) {
+            background: #ffffff;
+          }
+        }
+      }
+
+      [colspan="3"] {
         text-align: right;
       }
-
-      th:nth-child(1), th:nth-child(2) {
-        width: 30%;
-      }
-
-      th:nth-child(2), th:nth-child(3) {
-        padding-left: @baseline/2;
-      }
-
-      td {
-        padding: @baseline @baseline/2 @baseline @baseline/2;
-        .viewport-mobile &{
-          padding: @baseline @baseline/10;
-        }
-      }
-
-      td:last-child {
-        text-align: right;
-      }
-
-      tbody {
-        tr:nth-child(even) {
-          background: #efefef;
-        }
-
-        tr:nth-child(odd) {
-          background: #ffffff;
-        }
-      }
-    }
-
-    [colspan="3"] {
-      text-align: right;
     }
   }
 }

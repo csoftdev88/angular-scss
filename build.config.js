@@ -108,7 +108,9 @@ module.exports = {
         'bower_components/angular-rangeslider/angular.rangeSlider.js',
         'bower_components/intl-tel-input/build/js/intlTelInput.min.js',
         'bower_components/international-phone-number/releases/international-phone-number.min.js',
-        'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js'
+        'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js',
+        'bower_components/showdown/compressed/Showdown.min.js',
+        'bower_components/angular-markdown-directive/markdown.js'
       ],
       styles: [
         'bower_components/font-awesome/css/font-awesome.min.css'

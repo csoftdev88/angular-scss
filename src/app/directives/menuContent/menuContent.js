@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.menu', [])
 
-.directive('menuContent', function($controller, _, $state, $document){
+.directive('menuContent', function($controller, _, $state, $document, Settings){
   return {
     restrict: 'EA',
     scope: {},
@@ -41,6 +41,8 @@ angular.module('mobiusApp.directives.menu', [])
           return !item.filtered;
         });
       };
+
+      scope.hasSecondLevelDropdown = Settings.UI.menu.hasSecondLevelDropdown || false;
 
       function mouseEventHandler(active){
         // Hover functionality works only on bigger screens

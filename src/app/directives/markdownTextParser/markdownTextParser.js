@@ -1,9 +1,13 @@
 'use strict';
 
+
 /**
  * Directive for formating text coming from admin markdown editor
  * used for styling page headings
  */
+
+// TODO: Review, most probably can be removed from the project.
+// This is quite similar to mainHeaderStyle filter<
 
 angular.module('mobiusApp.directives.markdownTextParser', [])
 
@@ -24,7 +28,7 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
         });
       };
 
-      $scope.$watch($attrs.ngBindHtml, function(html) { 
+      $scope.$watch($attrs.ngBindHtml, function(html) {
         if(!html){
           return;
         }

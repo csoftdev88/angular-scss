@@ -54,6 +54,13 @@ describe('RoomProducts', function() {
 
       $provide.value('Settings', {
         UI: {
+          hotelDetails: {
+            rooms: {
+              rates: {
+                bookNowButtonText: 'Book Now'
+              }
+            }
+          },
           roomDetails: {
             hasReadMore: true
           }
@@ -122,6 +129,8 @@ describe('RoomProducts', function() {
     });
   });
 
+
+  /*
   describe('openRoomDetailsDialog', function(){
     it('should be defined as a function on scope according to settings in config', function(){
       expect(_scope.openRoomDetailsDialog).to.be.a('function');
@@ -156,6 +165,7 @@ describe('RoomProducts', function() {
       expect(_spyOpenPoliciesInfo.calledWith(testObj)).equal(true);
     });
   });
+  */
 
   describe('selectProduct', function(){
     it('should redirect to reservation details state', function(){
