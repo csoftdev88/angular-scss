@@ -8,6 +8,9 @@ angular.module('mobiusApp.directives.stickable', [])
 
     return {
       link: function (scope, elem, attr) {
+        // TODO: Same as in scrollTo, breadcrumbs directives
+        // remove scope.scroll and dont use scope data binding
+        // which is too slow on scroll events etc.
         var STICKABLE_Z_INDEX = 995;
         var $$window = angular.element($window);
         var elementOffset = elem.offset().top;
