@@ -29,11 +29,12 @@ module.exports = function ( karma ) {
     junitReporter: {
         outputFile: 'test-results.xml'
     },
-
+    
     coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
-    },
+        type : 'lcovonly',
+		    dir: 'coverage/',
+		    file: 'lcov.info'
+		},
 
     /**
      * On which port should the browser connect, on which port is the test runner
