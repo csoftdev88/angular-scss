@@ -8,6 +8,8 @@ angular.module('mobiusApp.config', [])
     'cacheFlushInterval': 60,
 
     'GoogleAnalyticsID': 'UA-44368729-3',
+    'useEcommerceDataLayer': true,
+
     'chainCode': 'SAN',
     'baseURL': 'http://52.3.22.21:3010/api/4.0/',
     'contents': {
