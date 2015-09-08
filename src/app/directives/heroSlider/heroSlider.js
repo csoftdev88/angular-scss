@@ -77,7 +77,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       var unWatchContent = scope.$watch('content', function() {
         init();
-      });
+      }, false);
 
       scope.$on('$destroy', function(){
         unWatchContent();
@@ -236,7 +236,7 @@ angular.module('mobiusApp.directives.slider', [])
         if(autoplayDelay){
           // Sliding to the next image
           scope.slide(false);
-          scope.$apply();
+          scope.$digest();
         }else{
           cancelAutoplay();
         }
