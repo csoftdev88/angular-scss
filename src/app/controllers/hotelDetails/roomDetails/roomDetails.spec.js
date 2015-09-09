@@ -19,7 +19,8 @@ describe('mobius.controllers.room.details', function() {
         $provide.value('bookingService', {});
 
         $provide.value('dataLayerService', {
-          trackProductsDetailsView: sinon.spy()
+          trackProductsDetailsView: sinon.spy(),
+          trackProductsImpressions: sinon.spy()
         });
       });
     });

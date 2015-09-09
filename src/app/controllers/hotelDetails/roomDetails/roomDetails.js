@@ -67,6 +67,16 @@ angular.module('mobius.controllers.room.details', [])
     qBookingParam.promise.then(function(bookingParams) {
       getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
         $scope.updateHeroContent($window._.filter(data[0].images, {includeInSlider: true}));
+        // Tracking products impressions
+        if(data[1].products){
+          dataLayerService.trackProductsImpressions(data[1].products.map(function(p){
+            return {
+              name: p.name,
+              code: p.code,
+              price: p.price.totalBase
+            };
+          }));
+        }
         qRoomData.resolve({
           roomDetails: data[0],
           roomProductDetails: data[1]
