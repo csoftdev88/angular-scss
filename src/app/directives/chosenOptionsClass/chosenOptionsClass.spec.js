@@ -1,6 +1,4 @@
-// TODO: Fix test
 
-/*
 'use strict';
 
 describe('chosenOptionsClass', function() {
@@ -36,4 +34,3 @@ describe('chosenOptionsClass', function() {
     });
   });
 });
-*/

@@ -166,7 +166,7 @@ angular.module('mobiusApp.directives.room', [])
 
       };
 
-      scope.onClickOnAssociatedRoom=function(roomDetails){
+      scope.onClickOnAssociatedRoom = function(roomDetails){
         modalService.openAssociatedRoomDetail({roomDetails: roomDetails, propertySlug: bookingParams.propertySlug});
       };
 
