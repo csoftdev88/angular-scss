@@ -75,11 +75,11 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.openProductDetailsDialog = function(product){
         // Tracking product view
-        dataLayerService.trackProductDetailsView({
+        dataLayerService.trackProductsDetailsView([{
           name: product.name,
           code: product.code,
           price: product.price.totalBase
-        });
+        }]);
 
         modalService.openProductDetailsDialog(scope.room, product);
       };

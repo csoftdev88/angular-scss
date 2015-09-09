@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.room.details', [])
 
 .controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
-  propertyService, filtersService, bookingService, $window, contentService) {
+  propertyService, filtersService, bookingService, $window, contentService, dataLayerService) {
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
@@ -18,11 +18,30 @@ angular.module('mobius.controllers.room.details', [])
     };
   };
 
-  $scope.openPoliciesInfo = modalService.openPoliciesInfo;
+  $scope.openPoliciesInfo = function(products){
+    // Tracking product view
+    dataLayerService.trackProductsDetailsView(
+      products.map(function(p){
+        return {
+          name: p.name,
+          code: p.code,
+          price: p.price.totalBase
+        };
+      }));
+
+    modalService.openPoliciesInfo(products);
+  };
 
   $scope.openPriceBreakdownInfo = function(product) {
     var room = _.clone($scope.roomDetails);
     room._selectedProduct = product;
+
+    // Tracking product view
+    dataLayerService.trackProductsDetailsView([{
+      name: product.name,
+      code: product.code,
+      price: product.price.totalBase
+    }]);
 
     return modalService.openPriceBreakdownInfo([room]);
   };

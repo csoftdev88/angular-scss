@@ -67,7 +67,7 @@ describe('RoomProducts', function() {
       });
 
       $provide.value('dataLayerService', {
-        trackProductDetailsView: sinon.spy()
+        trackProductsDetailsView: sinon.spy()
       });
 
       $provide.value('modalService', {
@@ -139,12 +139,12 @@ describe('RoomProducts', function() {
 
       _scope.openProductDetailsDialog(testProduct);
 
-      expect(_dataLayerService.trackProductDetailsView.calledOnce).equal(true);
-      expect(_dataLayerService.trackProductDetailsView.calledWith({
+      expect(_dataLayerService.trackProductsDetailsView.calledOnce).equal(true);
+      expect(_dataLayerService.trackProductsDetailsView.calledWith([{
           name: 'test',
           code: 123,
           price: 100
-        })).equal(true);
+        }])).equal(true);
     });
   });
 

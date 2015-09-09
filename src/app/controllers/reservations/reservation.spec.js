@@ -29,7 +29,11 @@ describe('mobius.controllers.reservation', function() {
       module('mobiusApp.services.content',  function($provide){
         $provide.value('contentService', function(){});
       });
-      module('mobius.controllers.room.details');
+
+      module('mobius.controllers.room.details', function($provide){
+        $provide.value('dataLayerService', {});
+      });
+
       module('mobius.controllers.common.cardExpiration');
       module('mobius.controllers.common.sso', function($provide){
         $provide.value('$window', {

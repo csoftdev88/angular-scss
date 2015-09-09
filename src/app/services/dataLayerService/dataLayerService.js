@@ -53,7 +53,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackProductDetailsView(product){
+  function trackProductsDetailsView(products){
     if(!isDataLayerActive()){
       return;
     }
@@ -61,7 +61,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     getDataLayer().push({
       ecommerce: {
         detail: {
-          products: [product]
+          products: products
         }
       }
     });
@@ -72,6 +72,6 @@ angular.module('mobiusApp.services.dataLayer', [])
     setUserId: setUserId,
     trackProductImpressions: trackProductImpressions,
     trackProductClick: trackProductClick,
-    trackProductDetailsView: trackProductDetailsView
+    trackProductsDetailsView: trackProductsDetailsView
   };
 });

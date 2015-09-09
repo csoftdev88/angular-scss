@@ -39,6 +39,10 @@ describe('room', function() {
       });
       $provide.value('scrollService', {});
 
+      $provide.value('dataLayerService', {
+        trackProductsDetailsView: sinon.spy()
+      });
+
       $provide.value('breadcrumbsService', {
         clear: sinon.stub(),
         addBreadCrumb: sinon.stub()
