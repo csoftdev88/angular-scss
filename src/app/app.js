@@ -84,6 +84,7 @@ angular
     'mobiusApp.services.preference',
     'mobiusApp.services.scroll',
     'mobiusApp.services.metaInformation',
+    'mobiusApp.services.dataLayer',
 
     // Factories
     'mobiusApp.factories.template',

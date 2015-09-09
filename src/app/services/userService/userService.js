@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.user', [])
   .service('user', function($rootScope, $q, $window, $state,
-    userObject, apiService, _, loyaltyService, cookieFactory, rewardsService) {
+    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'MobiusID';
@@ -73,6 +73,8 @@ angular.module('mobiusApp.services.user', [])
           if(userData && _.isArray(userData.email) &&  userData.email.length){
             // Multiple email are not needed - we picking the first one
             userData.email =  userData.email[0].value;
+            // Updating user details in data layer
+            dataLayerService.setUserId(customerId);
           }
 
           userObject = _.extend(userObject, userData);

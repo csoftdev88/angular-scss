@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
   Settings, filtersService, bookingService, propertyService, modalService,
-  stateService){
+  stateService, dataLayerService){
 
   return {
     restrict: 'E',
@@ -35,6 +35,15 @@ angular.module('mobiusApp.directives.room.products', [])
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params,
           getRatesCacheTimeout()).then(function(data){
           scope.products = data.products || [];
+
+          // Tracking product impressions
+          dataLayerService.trackProductsImpressions(scope.products.map(function(p){
+            return {
+              name: p.name,
+              code: p.code,
+              price: p.price.totalBase
+            };
+          }));
         }, function(){
           scope.products = null;
         });
@@ -68,28 +77,29 @@ angular.module('mobiusApp.directives.room.products', [])
           promoCode: $stateParams.promoCode || null
         };
 
+        var selectedProduct = _.findWhere(scope.products, {code: productCode});
+
+        if(selectedProduct){
+          dataLayerService.trackProductClick({
+            name: selectedProduct.name,
+            code: selectedProduct.code,
+            price: selectedProduct.price.totalBase
+          });
+        }
+
         $state.go('reservation.details', params);
       };
 
       scope.isDateRangeSelected = bookingService.isDateRangeSelected;
 
-
-      /*
-      scope.openPoliciesInfo = modalService.openPoliciesInfo;
-
-      scope.openPriceBreakdownInfo = function(product) {
-        var room = _.clone(scope.room);
-        room._selectedProduct = product;
-
-        return modalService.openPriceBreakdownInfo([room]);
-      };
-
-     if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
-        scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
-      }
-      */
-
       scope.openProductDetailsDialog = function(product){
+        // Tracking product view
+        dataLayerService.trackProductsDetailsView([{
+          name: product.name,
+          code: product.code,
+          price: product.price.totalBase
+        }]);
+
         modalService.openProductDetailsDialog(scope.room, product);
       };
 
