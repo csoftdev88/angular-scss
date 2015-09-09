@@ -93,4 +93,58 @@ describe('dataLayerService', function() {
       }));
     });
   });
+
+  describe('trackProductsCheckout', function() {
+    it('should push products checkout event', function() {
+
+      _dataLayerService.trackProductsCheckout(PRODUCTS);
+
+      expect(_$window.dataLayer.push.calledOnce);
+      expect(_$window.dataLayer.push.calledWith({
+        event: 'checkout',
+        ecommerce: {
+          checkout: {
+            products: PRODUCTS
+          }
+        }
+      }));
+    });
+  });
+
+  describe('trackProductsPurchase', function() {
+    it('should push products purchase event', function() {
+
+      _dataLayerService.trackProductsPurchase(PRODUCTS, 'action');
+
+      expect(_$window.dataLayer.push.calledOnce);
+      expect(_$window.dataLayer.push.calledWith({
+        ecommerce: {
+          purchase: {
+            actionField: 'action'
+          },
+          products: PRODUCTS
+        }
+      }));
+    });
+  });
+
+  describe('trackReservationRefund', function() {
+    it('should push reservation refund event', function() {
+
+      _dataLayerService.trackReservationRefund('testCode');
+
+      expect(_$window.dataLayer.push.calledOnce);
+      expect(_$window.dataLayer.push.calledWith({
+        ecommerce: {
+          refund: {
+            actionField: {
+              id: 'testCode'
+            }
+          }
+        }
+      }));
+    });
+  });
+
+
 });
