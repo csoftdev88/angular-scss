@@ -25,7 +25,7 @@ angular.module('mobiusApp.services.dataLayer', [])
 
   // Trackers
   // https://developers.google.com/tag-manager/enhanced-ecommerce#product-impressions
-  function trackProductImpressions(products){
+  function trackProductsImpressions(products){
     if(!isDataLayerActive()){
       return;
     }
@@ -116,7 +116,7 @@ angular.module('mobiusApp.services.dataLayer', [])
   // Public methods
   return {
     setUserId: setUserId,
-    trackProductImpressions: trackProductImpressions,
+    trackProductsImpressions: trackProductsImpressions,
     trackProductClick: trackProductClick,
     trackProductsDetailsView: trackProductsDetailsView,
     trackProductsCheckout: trackProductsCheckout,

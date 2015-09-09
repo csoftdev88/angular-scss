@@ -35,6 +35,15 @@ angular.module('mobiusApp.directives.room.products', [])
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params,
           getRatesCacheTimeout()).then(function(data){
           scope.products = data.products || [];
+
+          // Tracking product impressions
+          dataLayerService.trackProductsImpressions(scope.products.map(function(p){
+            return {
+              name: p.name,
+              code: p.code,
+              price: p.price.totalBase
+            };
+          }));
         }, function(){
           scope.products = null;
         });

@@ -7,7 +7,13 @@ describe('RoomProducts', function() {
 
   var TEST_ROOM_PRODUCTS = {
     products: [
-      {code: 123}
+      {
+        code: 123,
+        name: 'test',
+        price: {
+          totalBase: 20
+        }
+      }
     ]
   };
 
@@ -67,7 +73,8 @@ describe('RoomProducts', function() {
       });
 
       $provide.value('dataLayerService', {
-        trackProductsDetailsView: sinon.spy()
+        trackProductsDetailsView: sinon.spy(),
+        trackProductsImpressions: sinon.spy()
       });
 
       $provide.value('modalService', {
@@ -124,6 +131,15 @@ describe('RoomProducts', function() {
 
     it('should download room products from the server', function(){
       expect(_scope.products).equal(TEST_ROOM_PRODUCTS.products);
+    });
+
+    it('should send product impressions once products are displayed', function(){
+      expect(_dataLayerService.trackProductsImpressions.calledOnce).equal(true);
+      expect(_dataLayerService.trackProductsImpressions.calledWith([{
+        code: 123,
+        name: 'test',
+        price: 20
+      }])).equal(true);
     });
   });
 
