@@ -31,7 +31,9 @@ describe('mobius.controllers.reservation', function() {
       });
 
       module('mobius.controllers.room.details', function($provide){
-        $provide.value('dataLayerService', {});
+        $provide.value('dataLayerService', {
+          trackProductsPurchase: sinon.spy()
+        });
       });
 
       module('mobius.controllers.common.cardExpiration');

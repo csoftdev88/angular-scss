@@ -82,12 +82,28 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
+  function trackProductsPurchase(products, actionField){
+    if(!isDataLayerActive()){
+      return;
+    }
+
+    getDataLayer().push({
+      ecommerce: {
+        purchase: {
+          actionField: actionField
+        },
+        products: products
+      }
+    });
+  }
+
   // Public methods
   return {
     setUserId: setUserId,
     trackProductImpressions: trackProductImpressions,
     trackProductClick: trackProductClick,
     trackProductsDetailsView: trackProductsDetailsView,
-    trackProductsCheckout: trackProductsCheckout
+    trackProductsCheckout: trackProductsCheckout,
+    trackProductsPurchase: trackProductsPurchase
   };
 });

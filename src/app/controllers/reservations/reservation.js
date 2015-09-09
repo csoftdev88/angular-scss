@@ -82,8 +82,6 @@ angular.module('mobius.controllers.reservation', [])
         }
       );
 
-      console.log('product', product);
-
       // TODO if !product - redirect
       if(product){
         // Tracking checkout
@@ -490,6 +488,23 @@ angular.module('mobius.controllers.reservation', [])
 
       // Newly created reservation
       reservationDetailsParams.view = 'summary';
+
+      // Tracking purchase
+      var products = $scope.allRooms.map(function(room){
+        var p = room._selectedProduct;
+
+        return {
+          name: p.name,
+          code: p.code,
+          price: p.price.totalBase
+        };
+      });
+
+      dataLayerService.trackProductsPurchase(products, {
+        // Transaction ID
+        id: reservationDetailsParams.reservationCode
+      });
+
       $state.go('reservationDetail', reservationDetailsParams);
     }, function() {
       // TODO: Whaat request has failed
