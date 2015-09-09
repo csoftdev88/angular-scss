@@ -68,7 +68,6 @@ describe('mobius.controllers.reservation', function() {
           go: function(){}
         });
 
-
         $provide.value('validationService', {});
 
         $provide.value('modalService', {

@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService){
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
@@ -82,7 +82,18 @@ angular.module('mobius.controllers.reservation', [])
         }
       );
 
+      console.log('product', product);
+
       // TODO if !product - redirect
+      if(product){
+        // Tracking checkout
+        dataLayerService.trackProductsCheckout([{
+          name: product.name,
+          code: product.code,
+          price: product.price.totalBase
+        }]);
+      }
+
       roomData._selectedProduct = product;
 
       $scope.allRooms.push(roomData);
