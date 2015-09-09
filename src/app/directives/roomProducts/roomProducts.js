@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
   Settings, filtersService, bookingService, propertyService, modalService,
-  stateService){
+  stateService, dataLayerService){
 
   return {
     restrict: 'E',
@@ -73,23 +73,14 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.isDateRangeSelected = bookingService.isDateRangeSelected;
 
-
-      /*
-      scope.openPoliciesInfo = modalService.openPoliciesInfo;
-
-      scope.openPriceBreakdownInfo = function(product) {
-        var room = _.clone(scope.room);
-        room._selectedProduct = product;
-
-        return modalService.openPriceBreakdownInfo([room]);
-      };
-
-     if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
-        scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
-      }
-      */
-
       scope.openProductDetailsDialog = function(product){
+        // Tracking product view
+        dataLayerService.trackProductDetailsView({
+          name: product.name,
+          code: product.code,
+          price: product.price.totalBase
+        });
+
         modalService.openProductDetailsDialog(scope.room, product);
       };
 

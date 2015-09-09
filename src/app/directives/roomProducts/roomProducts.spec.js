@@ -12,8 +12,7 @@ describe('RoomProducts', function() {
   };
 
   var _rootScope, _scope, _elem, _templateCache, _spyTemplateCacheGet,
-    _spyOpenPoliciesInfo, _spyOpenRoomDetailsDialog, _spyOpenPriceBreakdownInfo,
-    _spyStateGo;
+    _spyStateGo, _dataLayerService;
 
   beforeEach(function() {
     module('underscore');
@@ -67,25 +66,27 @@ describe('RoomProducts', function() {
         }
       });
 
+      $provide.value('dataLayerService', {
+        trackProductDetailsView: sinon.spy()
+      });
+
       $provide.value('modalService', {
-        openRoomDetailsDialog: function(){},
-        openPoliciesInfo: function(){},
-        openPriceBreakdownInfo: function(){}
+        openProductDetailsDialog: sinon.spy()
       });
     });
   });
 
   beforeEach(inject(function($compile, $rootScope, $templateCache,
-      $state, modalService) {
+      $state, modalService, dataLayerService) {
     _rootScope = $rootScope.$new();
     _templateCache = $templateCache;
     _templateCache.put(TEMPLATE_URL, TEMPLATE_CONTENT);
     // Spy's
     _spyTemplateCacheGet = sinon.spy(_templateCache, 'get');
-    _spyOpenPoliciesInfo = sinon.spy(modalService, 'openPoliciesInfo');
-    _spyOpenRoomDetailsDialog = sinon.spy(modalService, 'openRoomDetailsDialog');
-    _spyOpenPriceBreakdownInfo = sinon.spy(modalService, 'openPriceBreakdownInfo');
+
     _spyStateGo = sinon.spy($state, 'go');
+
+    _dataLayerService = dataLayerService;
 
     // Final component compile
     // Data on parent scope
@@ -108,9 +109,6 @@ describe('RoomProducts', function() {
 
   afterEach(function() {
     _spyTemplateCacheGet.restore();
-    _spyOpenPoliciesInfo.restore();
-    _spyOpenRoomDetailsDialog.restore();
-    _spyOpenPriceBreakdownInfo.restore();
     _spyStateGo.restore();
   });
 
@@ -129,43 +127,26 @@ describe('RoomProducts', function() {
     });
   });
 
+  describe('openProductDetailsDialog', function(){
+    it('should track product details view in data layer', function(){
+      var testProduct = {
+        name: 'test',
+        code: 123,
+        price:{
+          totalBase: 100
+        }
+      };
 
-  /*
-  describe('openRoomDetailsDialog', function(){
-    it('should be defined as a function on scope according to settings in config', function(){
-      expect(_scope.openRoomDetailsDialog).to.be.a('function');
-    });
+      _scope.openProductDetailsDialog(testProduct);
 
-    it('should open room details dialog', function(){
-      var testObj = {test: 123};
-
-      _scope.openRoomDetailsDialog(testObj);
-      expect(_spyOpenRoomDetailsDialog.calledOnce).equal(true);
-      expect(_spyOpenRoomDetailsDialog.calledWith(testObj)).equal(true);
-    });
-  });
-
-  describe('openPriceBreakdownInfo', function(){
-    it('should be defined as a function on scope', function(){
-      expect(_scope.openPriceBreakdownInfo).to.be.a('function');
-    });
-
-    it('should open price breakdown dialog', function(){
-      _scope.openPriceBreakdownInfo();
-      expect(_spyOpenPriceBreakdownInfo.calledOnce).equal(true);
+      expect(_dataLayerService.trackProductDetailsView.calledOnce).equal(true);
+      expect(_dataLayerService.trackProductDetailsView.calledWith({
+          name: 'test',
+          code: 123,
+          price: 100
+        })).equal(true);
     });
   });
-
-  describe('openPoliciesInfo', function(){
-    it('should open policies modal dialog', function(){
-      var testObj = {test: 123};
-
-      _scope.openPoliciesInfo(testObj);
-      expect(_spyOpenPoliciesInfo.calledOnce).equal(true);
-      expect(_spyOpenPoliciesInfo.calledWith(testObj)).equal(true);
-    });
-  });
-  */
 
   describe('selectProduct', function(){
     it('should redirect to reservation details state', function(){

@@ -1,7 +1,7 @@
 'use strict';
 
 describe('stateService', function() {
-  var env;
+  var env, _$rootScope;
   var TEST_STATE_1 = 'home';
   var TEST_STATE_2 = 'some';
   var TEST_STATE_3 = 'about';
@@ -28,6 +28,18 @@ describe('stateService', function() {
           'templates': {
             'best-offers': '<best-offers></best-offers>',
             'best-hotels': '<div class="grid-wrapper"><best-hotels></best-hotels></div>'
+          },
+
+          'currencies': {
+            'default': 'GBP',
+
+            'GBP': {
+              'symbol': '£'
+            },
+
+            'USD': {
+              'symbol': '$'
+            }
           }
         }
       };
@@ -39,6 +51,7 @@ describe('stateService', function() {
   beforeEach(inject(function($rootScope, stateService, Settings) {
     env.stateService = stateService;
     env.Settings = Settings;
+    _$rootScope = $rootScope;
   }));
 
   describe('getStateLayout', function() {
@@ -52,6 +65,22 @@ describe('stateService', function() {
 
     it('should return a list of existing templates only', function() {
       expect(env.stateService.getStateLayout(TEST_STATE_3).length).equal(1);
+    });
+  });
+
+  describe('getCurrentCurrency', function() {
+    it('should return default currency', function() {
+      expect(env.stateService.getCurrentCurrency().symbol).equal('£');
+    });
+
+    it('should return currency selected by user', function() {
+      _$rootScope.currencyCode = 'USD';
+      expect(env.stateService.getCurrentCurrency().symbol).equal('$');
+    });
+
+    it('should return null when currency is not found in the configuration', function() {
+      _$rootScope.currencyCode = 'CZK';
+      expect(env.stateService.getCurrentCurrency()).equal(null);
     });
   });
 });

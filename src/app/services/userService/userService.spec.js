@@ -26,6 +26,8 @@ describe('userService', function() {
         }
       });
 
+      $provide.value('dataLayerService', {});
+
       $provide.value('rewardsService', {
         getMy: function(){
           return {
