@@ -74,7 +74,8 @@ describe('RoomProducts', function() {
 
       $provide.value('dataLayerService', {
         trackProductsDetailsView: sinon.spy(),
-        trackProductsImpressions: sinon.spy()
+        trackProductsImpressions: sinon.spy(),
+        trackProductClick: sinon.spy()
       });
 
       $provide.value('modalService', {

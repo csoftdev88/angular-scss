@@ -9,11 +9,11 @@ angular.module('mobiusApp.services.dataLayer', [])
   }
 
   function isDataLayerActive(){
-    return Settings.API.useEcommerceDataLayer && $window.dataLayer;
+    return Settings.API.ecommerceDataLayer.active && $window.dataLayer;
   }
 
   function setUserId(userId){
-    if(!isDataLayerActive()){
+    if(!isDataLayerActive() || !Settings.API.ecommerceDataLayer.trackUserId){
       return;
     }
 

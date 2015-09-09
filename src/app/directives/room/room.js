@@ -141,6 +141,13 @@ angular.module('mobiusApp.directives.room', [])
       };
 
       scope.selectProduct = function(product) {
+        // Tracking product click
+        dataLayerService.trackProductClick({
+          name: product.name,
+          code: product.code,
+          price: product.price.totalBase
+        });
+
         if($stateParams.promoCode){
           $state.go('reservation.details', {
             property: propertyCode,

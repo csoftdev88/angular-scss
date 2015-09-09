@@ -77,6 +77,16 @@ angular.module('mobiusApp.directives.room.products', [])
           promoCode: $stateParams.promoCode || null
         };
 
+        var selectedProduct = _.findWhere(scope.products, {code: productCode});
+
+        if(selectedProduct){
+          dataLayerService.trackProductClick({
+            name: selectedProduct.name,
+            code: selectedProduct.code,
+            price: selectedProduct.price.totalBase
+          });
+        }
+
         $state.go('reservation.details', params);
       };
 

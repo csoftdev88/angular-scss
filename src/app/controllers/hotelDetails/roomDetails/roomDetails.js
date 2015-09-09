@@ -77,6 +77,7 @@ angular.module('mobius.controllers.room.details', [])
             };
           }));
         }
+
         qRoomData.resolve({
           roomDetails: data[0],
           roomProductDetails: data[1]
