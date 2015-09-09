@@ -97,6 +97,22 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
+  function trackReservationRefund(reservationCode){
+    if(!isDataLayerActive()){
+      return;
+    }
+
+    getDataLayer().push({
+      ecommerce: {
+        refund: {
+          actionField: {
+            id: reservationCode
+          }
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     setUserId: setUserId,
@@ -104,6 +120,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     trackProductClick: trackProductClick,
     trackProductsDetailsView: trackProductsDetailsView,
     trackProductsCheckout: trackProductsCheckout,
-    trackProductsPurchase: trackProductsPurchase
+    trackProductsPurchase: trackProductsPurchase,
+    trackReservationRefund: trackReservationRefund
   };
 });

@@ -9,7 +9,8 @@ angular.module('mobius.controllers.reservationDetail', [])
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
-    userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location, metaInformationService){
+    userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
+    metaInformationService, dataLayerService){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -226,6 +227,9 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Reservation is removed, notifying user
           userMessagesService.addMessage('<div>Your Reservation <strong>' +
           $stateParams.reservationCode + '</strong> was successfully canceled.</div>', false, true);
+
+          // Tracking refund
+          dataLayerService.trackReservationRefund($stateParams.reservationCode);
 
           $state.go('reservations');
 
