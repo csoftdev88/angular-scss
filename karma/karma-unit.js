@@ -28,8 +28,10 @@ module.exports = function ( karma ) {
     },
 
     coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
+      type : 'lcovonly',
+      dir : 'coverage/',
+      subdir: '.',
+      file: 'lcov.info'
     },
 
     /**
