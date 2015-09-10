@@ -32,8 +32,9 @@ module.exports = function ( karma ) {
     
     coverageReporter: {
         type : 'lcovonly',
-		    dir: 'coverage/',
-		    file: 'lcov.info'
+        dir : 'coverage/',
+        subdir: '.',
+        file: 'lcov.info'
 		},
 
     /**
