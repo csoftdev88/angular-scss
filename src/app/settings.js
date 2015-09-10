@@ -158,7 +158,7 @@ angular.module('mobiusApp.config', [])
     'reservations': {
       // Confirmation number display settings per hotel(code)
       'confirmationNumber': {
-        'REV': {
+        'VAN': {
           displayOnListView: true,
           displayOnDetailsView: true
         }
