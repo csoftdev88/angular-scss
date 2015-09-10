@@ -15,17 +15,14 @@ module.exports = function ( karma ) {
      * This is the list of file patterns to load into the browser during testing.
      */
     files: files,
-    preprocessors: {
-      'src/app/**/!(*spec).js': 'coverage'
-    },
 
     frameworks: [ 'mocha' ],
-    plugins: [ 'karma-mocha', 'karma-phantomjs-launcher', 'karma-junit-reporter', 'karma-coverage' ],
+    plugins: [ 'karma-mocha', 'karma-phantomjs-launcher', 'karma-junit-reporter'],
 
     /**
      * How to report, by default.
      */
-    reporters: ['dots', 'junit', 'coverage'],
+    reporters: ['dots', 'junit'],
     junitReporter: {
         outputFile: 'test-results.xml'
     },
