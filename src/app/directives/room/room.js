@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location,$rootScope,scrollService,$timeout) {
+  $controller,$location,$rootScope,scrollService,$timeout, dataLayerService) {
 
   return {
     restrict: 'E',
@@ -141,6 +141,13 @@ angular.module('mobiusApp.directives.room', [])
       };
 
       scope.selectProduct = function(product) {
+        // Tracking product click
+        dataLayerService.trackProductClick({
+          name: product.name,
+          code: product.code,
+          price: product.price.totalBase
+        });
+
         if($stateParams.promoCode){
           $state.go('reservation.details', {
             property: propertyCode,
@@ -159,12 +166,21 @@ angular.module('mobiusApp.directives.room', [])
 
       };
 
-      scope.onClickOnAssociatedRoom=function(roomDetails){
+      scope.onClickOnAssociatedRoom = function(roomDetails){
         modalService.openAssociatedRoomDetail({roomDetails: roomDetails, propertySlug: bookingParams.propertySlug});
       };
 
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
-        scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
+        scope.openRoomDetailsDialog = function(product){
+          // Tracking product view
+          dataLayerService.trackProductsDetailsView([{
+            name: product.name,
+            code: product.code,
+            price: product.price.totalBase
+          }]);
+
+          modalService.openRoomDetailsDialog(product.description);
+        };
       }
 
       // Checking if user have selected dates

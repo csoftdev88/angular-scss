@@ -84,6 +84,7 @@ angular
     'mobiusApp.services.preference',
     'mobiusApp.services.scroll',
     'mobiusApp.services.metaInformation',
+    'mobiusApp.services.dataLayer',
 
     // Factories
     'mobiusApp.factories.template',
@@ -324,6 +325,7 @@ angular
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
+    // TODO - Move into settings
     $rootScope.facebookAppId = '954663594591416';
   })
 

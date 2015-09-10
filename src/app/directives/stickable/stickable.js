@@ -3,24 +3,37 @@
 angular.module('mobiusApp.directives.stickable', [])
 
   .directive('stickable', function ($window) {
+    var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+    var EVENT_SCROLL = 'scroll';
+
     return {
       link: function (scope, elem, attr) {
+        // TODO: Same as in scrollTo, breadcrumbs directives
+        // remove scope.scroll and dont use scope data binding
+        // which is too slow on scroll events etc.
         var STICKABLE_Z_INDEX = 995;
-        var windowEl = angular.element($window);
+        var $$window = angular.element($window);
         var elementOffset = elem.offset().top;
-        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+
         var isMobile = false;
+
         scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
           isMobile = viewport.isMobile;
         });
-        var handler = function () {
+
+        function onScroll(){
           if(isMobile){
             return;
           }
-          scope.scroll = windowEl.scrollTop();
+
+          var scrollTop = $$window.scrollTop();
+          if(scrollTop === scope.scroll){
+            return;
+          }
+
           var elementToStick = $('#' + attr.stickable);
           var elementToStickHeight = elementToStick.height();
-          if (elementToStickHeight && (elementOffset - scope.scroll < elementToStickHeight)) {
+          if (elementToStickHeight && (elementOffset - scrollTop < elementToStickHeight)) {
             elem.next().css('margin-top', elem.height() * 2);
             elem.css('position', 'fixed');
             elem.css('top', elementToStickHeight);
@@ -30,9 +43,19 @@ angular.module('mobiusApp.directives.stickable', [])
             elem.css('top', '');
             elem.next().css('margin-top','');
           }
-        };
-        windowEl.on('scroll', scope.$apply.bind(scope, handler));
-        handler();
+
+          scope.$evalAsync(function(){
+            scope.scroll = scrollTop;
+          });
+        }
+
+        onScroll();
+
+        $$window.bind(EVENT_SCROLL, onScroll);
+
+        scope.$on('$destroy', function(){
+          $$window.unbind(EVENT_SCROLL, onScroll);
+        });
       }
     };
   });

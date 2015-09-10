@@ -3,7 +3,7 @@
 describe('room', function() {
   var _$rootScope, _scope, _$compile, _elem,
     _$templateCache, _$q,_templateCacheGet, _filtersService, _propertyService,
-    _breadcrumbsService;
+    _breadcrumbsService, _modalService;
 
   var TEMPLATE = '<room/>';
   var TEMPLATE_URL = 'directives/room/room.html';
@@ -28,7 +28,9 @@ describe('room', function() {
 
     module('mobiusApp.directives.room', function($provide, $controllerProvider) {
       // Mocking the services
-      $provide.value('$stateParams', {});
+      $provide.value('$stateParams', {
+        roomSlug: 'ROOM-CODE'
+      });
       $provide.value('$state', {});
       $provide.value('Settings', {
         UI: {
@@ -38,6 +40,10 @@ describe('room', function() {
         }
       });
       $provide.value('scrollService', {});
+
+      $provide.value('dataLayerService', {
+        trackProductsDetailsView: sinon.spy()
+      });
 
       $provide.value('breadcrumbsService', {
         clear: sinon.stub(),
@@ -60,7 +66,9 @@ describe('room', function() {
       $provide.value('bookingService', {
         getAPIParams: function(){
           return {
-            code: 123
+            code: 123,
+            propertySlug: 'PROPERTY-CODE',
+            roomSlug: 'ROOM-CODE'
           };
         },
         getCodeFromSlug: function(c){
@@ -76,20 +84,26 @@ describe('room', function() {
         getBestRateProduct: sinon.stub()
       });
 
-      $provide.value('modalService', {});
+      $provide.value('modalService', {
+        openAssociatedRoomDetail: sinon.spy()
+      });
 
-      $controllerProvider.register('PriceCtr', function(){});
-      $controllerProvider.register('RatesCtrl', function(){});
+      $controllerProvider.register('PriceCtr', function($scope){
+        $scope._priceCtrlInherited = true;
+      });
+      $controllerProvider.register('RatesCtrl', function($scope){
+        $scope._ratesCtrlInherited = true;
+      });
     });
   });
 
   beforeEach(inject(function($compile, $rootScope, $templateCache, $q, filtersService,
-      propertyService, breadcrumbsService) {
+      propertyService, breadcrumbsService, modalService) {
     _$compile = $compile;
     _$rootScope = $rootScope;
 
     _$templateCache = $templateCache;
-    _$templateCache.put(TEMPLATE_URL, '');
+    _$templateCache.put(TEMPLATE_URL, '<p>room</p>');
 
     _$q = $q;
 
@@ -106,6 +120,17 @@ describe('room', function() {
 
     _filtersService = filtersService;
     _filtersService.getBestRateProduct.returns($q.when());
+
+    _modalService = modalService;
+
+
+    // Initialization
+    _elem = _$compile(TEMPLATE)(_$rootScope);
+    _$rootScope.getRoomData = sinon.stub().returns(_$q.when(ROOM_DATA));
+    _$rootScope.setRoomDetails = sinon.spy();
+
+    _$rootScope.$digest();
+    _scope = _elem.isolateScope();
   }));
 
   afterEach(function(){
@@ -113,22 +138,32 @@ describe('room', function() {
   });
 
   describe('when directive is initialized', function() {
-    beforeEach(function() {
-      _elem = _$compile(TEMPLATE)(_$rootScope);
-      _$rootScope.getRoomData = sinon.stub().returns(_$q.when(ROOM_DATA));
-      _$rootScope.setRoomDetails = sinon.spy();
-
-      _$rootScope.$digest();
-      _scope = _elem.isolateScope();
-    });
-
     it('should get directives template form template cache)', function() {
       expect(_templateCacheGet.calledOnce).equal(true);
       expect(_templateCacheGet.calledWith(TEMPLATE_URL)).equal(true);
     });
 
-    it('should not insert any template into a parent container', function() {
-      expect(_elem.html()).equal('');
+    it('should insert template content into a parent element', function() {
+      expect(_elem.html()).equal('<p>room</p>');
     });
+
+    it('should download room details from the server', function(){
+      expect(_$rootScope.getRoomData.calledOnce).equal(true);
+      expect(_$rootScope.getRoomData.calledWith('PROPERTY-CODE', 'ROOM-CODE')).equal(true);
+    });
+
+    it('should set downloaded room data on scope via parent controller', function(){
+      expect(_$rootScope.setRoomDetails.calledOnce).equal(true);
+    });
+
+    /*
+    it('should inherit PriceCtr', function() {
+      expect(_scope._priceCtrlInherited).equal(true);
+    });
+
+    it('should inherit RatesCtrl', function() {
+      expect(_scope._ratesCtrlInherited).equal(true);
+    });
+    */
   });
 });

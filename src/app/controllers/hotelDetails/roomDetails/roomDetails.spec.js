@@ -2,14 +2,14 @@
 
 describe('mobius.controllers.room.details', function() {
   describe('RoomDetailsCtrl', function() {
-    var _scope;
+    var _scope, _modalService;
 
     beforeEach(function() {
       module('underscore');
       module('mobius.controllers.room.details', function($provide){
         $provide.value('modalService', {
-          openPoliciesInfo: function(){},
-          openPriceBreakdownInfo: function(){},
+          openPoliciesInfo: sinon.spy(),
+          openPriceBreakdownInfo: sinon.spy(),
           openGallery: function(){}
         });
 
@@ -17,11 +17,18 @@ describe('mobius.controllers.room.details', function() {
         $provide.value('propertyService', {});
         $provide.value('filtersService', {});
         $provide.value('bookingService', {});
+
+        $provide.value('dataLayerService', {
+          trackProductsDetailsView: sinon.spy(),
+          trackProductsImpressions: sinon.spy()
+        });
       });
     });
 
-    beforeEach(inject(function($controller, $rootScope) {
+    beforeEach(inject(function($controller, $rootScope, modalService) {
       _scope = $rootScope.$new();
+      _modalService = modalService;
+
       $controller('RoomDetailsCtrl', { $scope: _scope });
     }));
 

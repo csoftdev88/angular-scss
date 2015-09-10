@@ -25,4 +25,34 @@ describe('mobiusApp module', function() {
       }
     });
   });
+  /*
+  describe('BaseCtrl', function() {
+    var _scope;
+
+    beforeEach(function() {
+      module('mobiusApp', function($provide, $controllerProvider) {
+        $provide.value('scrollService', {});
+        $provide.value('metaInformationService', {});
+
+        $controllerProvider.register('ReservationUpdateCtrl', function($scope){
+          $scope._reservationUpdateCtrlInherited = true;
+        });
+        $controllerProvider.register('SSOCtrl', function(){});
+        $controllerProvider.register('ReservationMultiRoomCtrl', function(){});
+      });
+    });
+
+    beforeEach(inject(function($controller, $rootScope) {
+      _scope = $rootScope.$new();
+
+      $controller('BaseCtrl', { $scope: _scope });
+    }));
+
+    describe('when controller initialized', function() {
+      it('should inherit methods from ReservationUpdateCtrl', function(){
+        expect(_scope._reservationUpdateCtrlInherited).equal(true);
+      });
+    });
+  });
+  */
 });

@@ -115,6 +115,10 @@ describe('mobius.controllers.reservationDetail', function() {
           };
         });
 
+        $provide.value('dataLayerService', {
+          trackReservationRefund: sinon.spy()
+        });
+
         $provide.service('propertyService', function($q) {
           return {
             getPropertyDetails: function() {

@@ -12,7 +12,6 @@ angular.module('mobiusApp.directives.siteMap', [])
 
       // Widget logic goes here
       link: function(scope, elem, attrs){
-
         scope.title = attrs.title;
         scope.item = attrs.siteMapContent;
 

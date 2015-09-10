@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService){
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
@@ -83,6 +83,15 @@ angular.module('mobius.controllers.reservation', [])
       );
 
       // TODO if !product - redirect
+      if(product){
+        // Tracking checkout
+        dataLayerService.trackProductsCheckout([{
+          name: product.name,
+          code: product.code,
+          price: product.price.totalBase
+        }]);
+      }
+
       roomData._selectedProduct = product;
 
       $scope.allRooms.push(roomData);
@@ -479,6 +488,23 @@ angular.module('mobius.controllers.reservation', [])
 
       // Newly created reservation
       reservationDetailsParams.view = 'summary';
+
+      // Tracking purchase
+      var products = $scope.allRooms.map(function(room){
+        var p = room._selectedProduct;
+
+        return {
+          name: p.name,
+          code: p.code,
+          price: p.price.totalBase
+        };
+      });
+
+      dataLayerService.trackProductsPurchase(products, {
+        // Transaction ID
+        id: reservationDetailsParams.reservationCode
+      });
+
       $state.go('reservationDetail', reservationDetailsParams);
     }, function() {
       // TODO: Whaat request has failed

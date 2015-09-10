@@ -26,7 +26,6 @@ angular.module('mobiusApp.directives.slugImg', [])
           function(slug) {
             if(slug) {
               scope.src = Settings.UI.cloudinary['prefix-' + attrs.type] + slug + Settings.UI.cloudinary.suffix;
-
               // see http://cloudinary.com/documentation/image_transformations
               if (attrs.width) {
                 var replaceString = 'w_' + attrs.width + ',c_fit';

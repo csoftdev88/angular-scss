@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.state', [])
-  .service('stateService', ['$window', 'Settings', function($window, Settings) {
+  .service('stateService', ['$window', 'Settings', '$rootScope', function($window, Settings, $rootScope) {
 
     function getStateLayout(stateName) {
       var config = Settings.UI.layout[stateName];
@@ -31,6 +31,11 @@ angular.module('mobiusApp.services.state', [])
       return meta.attr('content');
     }
 
+    function getCurrentCurrency() {
+      var currentCurrency = $rootScope.currencyCode || Settings.UI.currencies.default;
+      return Settings.UI.currencies[currentCurrency] || null;
+    }
+
     function isMobile(){
       return $window.innerWidth <= Settings.UI.screenTypes.mobile.maxWidth;
     }
@@ -39,6 +44,7 @@ angular.module('mobiusApp.services.state', [])
     return {
       getStateLayout: getStateLayout,
       getAppLanguageCode: getAppLanguageCode,
+      getCurrentCurrency: getCurrentCurrency,
       isMobile: isMobile
     };
   }]);

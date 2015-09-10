@@ -29,7 +29,14 @@ describe('mobius.controllers.reservation', function() {
       module('mobiusApp.services.content',  function($provide){
         $provide.value('contentService', function(){});
       });
-      module('mobius.controllers.room.details');
+
+      module('mobius.controllers.room.details', function($provide){
+        $provide.value('dataLayerService', {
+          trackProductsPurchase: sinon.spy(),
+          trackProductsImpressions: sinon.spy()
+        });
+      });
+
       module('mobius.controllers.common.cardExpiration');
       module('mobius.controllers.common.sso', function($provide){
         $provide.value('$window', {
@@ -63,7 +70,6 @@ describe('mobius.controllers.reservation', function() {
 
           go: function(){}
         });
-
 
         $provide.value('validationService', {});
 

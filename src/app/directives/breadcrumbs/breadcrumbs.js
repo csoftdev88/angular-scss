@@ -13,54 +13,27 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
       link: function(scope) {
         var EVENTS_SCROLL_RESIZE = 'scroll resize';
 
-        var unWatchBreadcrumbs = scope.$watch(
-          function() {
-            return breadcrumbsService.getBreadCrumbs();
-          },
-          function(breadcrumbs) {
-            if(scope.breadcrumbs === breadcrumbs){
-              return;
-            }
-
-            scope.breadcrumbs = breadcrumbs || [];
+        var unWatchData = scope.$watch(function(){
+          var breadcrumbs = breadcrumbsService.getBreadCrumbs() || [];
+          if(scope.breadcrumbs !== breadcrumbs){
+            scope.breadcrumbs = breadcrumbs;
           }
-        );
 
-        var unWatchHrefs = scope.$watch(
-          function() {
-            return breadcrumbsService.getHrefs();
-          },
-          function(hrefs) {
-            if(scope.hrefs === hrefs){
-              return;
-            }
-            scope.hrefs = hrefs || [];
+          var hrefs = breadcrumbsService.getHrefs() || [];
+          if(scope.hrefs !== hrefs){
+            scope.hrefs = hrefs;
           }
-        );
 
-        var unWatchAbsHrefs = scope.$watch(
-          function() {
-            return breadcrumbsService.getAbsHrefs();
-          },
-          function(absHrefs) {
-            if(scope.absHrefs === absHrefs){
-              return;
-            }
-            scope.absHrefs = absHrefs || [];
+          var absHrefs = breadcrumbsService.getAbsHrefs() || [];
+          if(scope.absHrefs !== absHrefs){
+            scope.absHrefs = absHrefs;
           }
-        );
 
-        var unWatchActiveHref = scope.$watch(
-          function() {
-            return breadcrumbsService.getActiveHref();
-          },
-          function(activeHref) {
-            if(scope.activeHref === activeHref){
-              return;
-            }
+          var activeHref = breadcrumbsService.getActiveHref();
+          if(scope.activeHref !== activeHref){
             scope.activeHref = activeHref;
           }
-        );
+        });
 
         var onScrollDebounced = _.debounce(function(){
           var activeHref = breadcrumbsService.getVisibleHref();
@@ -77,11 +50,7 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
         angular.element($window).bind(EVENTS_SCROLL_RESIZE, onScrollDebounced);
 
         scope.$on('$destroy', function() {
-          // TODO move wathers,listeners into an array
-          unWatchBreadcrumbs();
-          unWatchHrefs();
-          unWatchActiveHref();
-          unWatchAbsHrefs();
+          unWatchData();
 
           angular.element($window).unbind(EVENTS_SCROLL_RESIZE, onScrollDebounced);
         });
