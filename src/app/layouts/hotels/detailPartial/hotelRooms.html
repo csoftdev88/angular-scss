@@ -29,12 +29,6 @@
           <h3>
             <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>
           </h3>
-          <!--
-          <earned-points ng-if="isUserLoggedIn() && room.minsPointsEarned">Earn at least
-            <ng-pluralize count="room.minsPointsEarned" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
-          </earned-points>
-          -->
-
           <pricing-switch ng-if="$first">
             <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
             |

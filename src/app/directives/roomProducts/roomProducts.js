@@ -47,6 +47,10 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.settings = Settings.UI.hotelDetails.rooms.rates;
 
+      scope.getRatesLimit = function(){
+        return stateService.isMobile() ? scope.settings.ratesPerRoomOnMobile : scope.settings.ratesPerRoomOnDesktop;
+      };
+
       scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, event){
         if(isMemberOnly === null && roomPriceFrom === null && !event){
           return;
@@ -72,22 +76,6 @@ angular.module('mobiusApp.directives.room.products', [])
       };
 
       scope.isDateRangeSelected = bookingService.isDateRangeSelected;
-
-
-      /*
-      scope.openPoliciesInfo = modalService.openPoliciesInfo;
-
-      scope.openPriceBreakdownInfo = function(product) {
-        var room = _.clone(scope.room);
-        room._selectedProduct = product;
-
-        return modalService.openPriceBreakdownInfo([room]);
-      };
-
-     if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
-        scope.openRoomDetailsDialog = modalService.openRoomDetailsDialog;
-      }
-      */
 
       scope.openProductDetailsDialog = function(product){
         modalService.openProductDetailsDialog(scope.room, product);
