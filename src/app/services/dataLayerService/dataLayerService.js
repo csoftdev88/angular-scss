@@ -31,9 +31,9 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      currencyCode: stateService.getCurrentCurrency().symbol,
-      ecommerce: {
-        impressions: products
+      'currencyCode': stateService.getCurrentCurrency().symbol,
+      'ecommerce': {
+        'impressions': products
       }
     });
   }
@@ -44,10 +44,10 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      event: 'productClick',
-      ecommerce: {
-        click: {
-          products: [product]
+      'event': 'productClick',
+      'ecommerce': {
+        'click': {
+          'products': [product]
         }
       }
     });
@@ -59,9 +59,9 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      ecommerce: {
-        detail: {
-          products: products
+      'ecommerce': {
+        'detail': {
+          'products': products
         }
       }
     });
@@ -73,10 +73,10 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      event: 'checkout',
-      ecommerce: {
-        checkout: {
-          products: products
+      'event': 'checkout',
+      'ecommerce': {
+        'checkout': {
+          'products': products
         }
       }
     });
@@ -88,11 +88,11 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      ecommerce: {
-        purchase: {
-          actionField: actionField
+      'ecommerce': {
+        'purchase': {
+          'actionField': actionField
         },
-        products: products
+        'products': products
       }
     });
   }
@@ -103,10 +103,10 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      ecommerce: {
-        refund: {
-          actionField: {
-            id: reservationCode
+      'ecommerce': {
+        'refund': {
+          'actionField': {
+            'id': reservationCode
           }
         }
       }
