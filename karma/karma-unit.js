@@ -28,12 +28,11 @@ module.exports = function ( karma ) {
     },
 
     coverageReporter: {
-      type : 'lcovonly',
-      dir : 'coverage/',
-      subdir: '.',
-      file: 'lcov.info'
+        type : 'lcovonly',
+        dir : 'coverage/',
+        subdir: '.',
+        file: 'lcov.info'
     },
-
     /**
      * On which port should the browser connect, on which port is the test runner
      * operating, and what is the URL path for the browser to use.
