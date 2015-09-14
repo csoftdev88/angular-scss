@@ -90,7 +90,7 @@ module.exports = function(grunt) {
         expand: true,
         sourceMap: true,
         cwd: '<%= config.client %>/',
-        src: 'styles/style.less',
+        src: ['targets/<%= grunt.task.current.args[0] %>/config.less', 'styles/style.less'],
         dest: '<%= config.build %>/',
         ext: '.css'
       },
@@ -103,7 +103,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         cwd: '<%= config.client %>/',
-        src: 'styles/style.less',
+        src: ['targets/<%= grunt.task.current.args[0] %>/config.less', 'styles/style.less'],
         dest: '<%= config.compile %>/',
         ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
@@ -301,10 +301,25 @@ module.exports = function(grunt) {
     'build:development'
   ]);
 
+  grunt.registerTask('build:sutton', [
+    'build:development:sutton'
+  ]);
+
   grunt.registerTask('build:development', [
     'clean',
     'prebuild',
     'less:development',
+    'autoprefixer:development',
+    'index:build',
+    'copy:images',
+    'copy:fonts',
+    'copy:404'
+  ]);
+
+  grunt.registerTask('build:development:sutton', [
+    'clean',
+    'prebuild',
+    'less:development:sutton',
     'autoprefixer:development',
     'index:build',
     'copy:images',
