@@ -261,7 +261,7 @@
 }
 
 // MOBILE SPECIFIC STYLES
-@media only screen and @lessThenTabletPortrait {
+@media only screen and @large-mobile-max {
 
   #main-header {
     background-color: @c-base;
@@ -382,7 +382,7 @@
 }
 
 // Tablet styles
-@media only screen and @lessThenDesktop and @moreThenMobile {
+@media only screen and @tablet-portrait-max and @large-mobile-min {
 
   .main-nav {
     ul {
@@ -394,7 +394,7 @@
 }
 
 // DESKTOP STYLES
-@media only screen and @moreThenTabletPortrait {
+@media only screen and @tablet-portrait-min {
 
   .main-nav {
     height: @headerHeight;
@@ -450,7 +450,7 @@
   }
 }
 
-@media only screen and @moreThenTablet {
+@media only screen and @tablet-landscape-min {
 
   .main-nav {
 
