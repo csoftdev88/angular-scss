@@ -308,6 +308,10 @@ module.exports = function(grunt) {
     'sleep'
   ]);
 
+  grunt.registerTask('build', [
+    'build:sutton'
+  ]);
+
   grunt.registerTask('build:sutton', [
     'build:development:sutton'
   ]);
