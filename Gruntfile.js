@@ -17,6 +17,9 @@ module.exports = function(grunt) {
   // Time how long tasks take
   require('time-grunt')(grunt);
 
+  // Get grunt target
+  var target = grunt.option('target') || 'sutton';
+
   /**
   * Load in our build configuration file.
   */
@@ -89,7 +92,7 @@ module.exports = function(grunt) {
         expand: true,
         sourceMap: true,
         cwd: '<%= config.client %>/',
-        src: ['styles/style.less', 'targets/<%= grunt.task.current.args[0] %>/styles/style.less'],
+        src: ['styles/style.less', 'targets/' + target + '/styles/style.less'],
         dest: '<%= config.build %>/',
         ext: '.css'
       },
@@ -102,7 +105,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         cwd: '<%= config.client %>/',
-        src: ['styles/style.less', 'targets/<%= grunt.task.current.args[0] %>/styles/style.less'],
+        src: ['styles/style.less', 'targets/' + target + '/styles/style.less'],
         dest: '<%= config.compile %>/',
         ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
@@ -169,7 +172,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: '<%= config.client %>',
-          src: ['images/<%= config.images %>', 'targets/<%= grunt.task.current.args[0] %>/images/<%= config.images %>'],
+          src: ['images/<%= config.images %>', 'targets/' + target + '/images/<%= config.images %>'],
           dest: '<%= config.build %>'
         }]
       },
@@ -184,7 +187,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: '<%= config.font_awesome %>',
           src: ['<%= config.fonts %>'],
-          dest: '<%= config.build %>/targets/<%= grunt.task.current.args[0] %>/font/'
+          dest: '<%= config.build %>/targets/' + target + '/font/'
         }]
       },
       404: {
@@ -297,32 +300,28 @@ module.exports = function(grunt) {
 
   //default development task
   grunt.registerTask('default', [
-    'development:sutton'
+    'development'
   ]);
 
   //development tasks
-  grunt.registerTask('development:sutton', [
-    'build:development:sutton',
+  grunt.registerTask('development', [
+    'build:development',
     'watch',
     'sleep'
   ]);
 
   grunt.registerTask('build', [
-    'build:sutton'
+    'build:development'
   ]);
 
-  grunt.registerTask('build:sutton', [
-    'build:development:sutton'
-  ]);
-
-  grunt.registerTask('build:development:sutton', [
+  grunt.registerTask('build:development', [
     'clean',
     'prebuild',
-    'less:development:sutton',
+    'less:development',
     'autoprefixer:development',
     'index:build',
-    'copy:images:sutton',
-    'copy:fonts:sutton',
+    'copy:images',
+    'copy:fonts',
     'copy:404'
   ]);
 
@@ -332,17 +331,17 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('production', [
-    'build:production:sutton'
+    'build:production'
   ]);
 
-  grunt.registerTask('build:production:sutton', [
+  grunt.registerTask('build:production', [
     'clean',
     'prebuild',
-    'less:production:sutton',
+    'less:production',
     'autoprefixer:production',
     'concat',
     'uglify',
-    'copy:sutton',
+    'copy',
     'index:compile'
     //'usemin'
   ]);

@@ -81,18 +81,18 @@ learn more:
 4. `cd mobius`:
   * `npm install`
   * `bower install`
-  * `grunt build:sutton`
+  * `grunt build --target=sutton` to build the app using "sutton" as target.
   * Run server `NODE_ENV=development node server.js`
   * Finally, open `localhost:9000` in your browser
 
 ### Local development
 1. Follow installation steps 1-3 described above.
-2. Run `grunt development`
+2. Run `grunt development --target=sutton` to build the app using "sutton" as target.
 3. Run server `NODE_ENV=development node server.js`.
 
 ### Production
 1. Follow instalation steps 1-4 described above.
-2. Run `grunt build` to build the app.
+2. Run `grunt build --target=sutton` to build the app using "sutton" as target.
 3. Run `NODE_ENV=production node server.js`
 
 ### The Build System
