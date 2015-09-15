@@ -90,7 +90,7 @@ module.exports = function(grunt) {
         expand: true,
         sourceMap: true,
         cwd: '<%= config.client %>/',
-        src: ['targets/<%= grunt.task.current.args[0] %>/config.less', 'styles/style.less'],
+        src: ['styles/style.less', 'targets/<%= grunt.task.current.args[0] %>/styles/style.less'],
         dest: '<%= config.build %>/',
         ext: '.css'
       },
@@ -103,7 +103,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         cwd: '<%= config.client %>/',
-        src: ['targets/<%= grunt.task.current.args[0] %>/config.less', 'styles/style.less'],
+        src: ['styles/style.less', 'targets/<%= grunt.task.current.args[0] %>/styles/style.less'],
         dest: '<%= config.compile %>/',
         ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
