@@ -207,7 +207,8 @@ module.exports = function(grunt) {
       markup: {
         files: [
           '<%= config.client %>/<%= config.markup %>',
-          '<%= config.client %>/locales/*.json'
+          '<%= config.client %>/locales/*.json',
+          '<%= config.client %>/targets/<%= grunt.task.current.args[0] %>/locales/*.json'
         ],
         tasks: ['localisation', 'templateCache', 'index:build'],
         options: { livereload: true }
@@ -280,10 +281,13 @@ module.exports = function(grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
+
+  //run tests
   grunt.registerTask('test', [
     'karma:continuous'
   ]);
 
+  //Prebuild
   grunt.registerTask('prebuild', [
     'jshint',
     'test',
@@ -292,33 +296,17 @@ module.exports = function(grunt) {
     'ngmin'
   ]);
 
-
+  //default development task
   grunt.registerTask('default', [
-    'development'
+    'development:sutton'
   ]);
 
-  grunt.registerTask('development', [
-    'build:development',
-    'watch',
+  //development tasks
+  grunt.registerTask('development:sutton', [
+    'build:development:sutton',
+    'watch:sutton',
     'sleep'
   ]);
-
-  /*
-  grunt.registerTask('build', [
-    'build:development'
-  ]);
-
-  grunt.registerTask('build:development', [
-    'clean',
-    'prebuild',
-    'less:development',
-    'autoprefixer:development',
-    'index:build',
-    'copy:images',
-    'copy:fonts',
-    'copy:404'
-  ]);
-  */
 
   grunt.registerTask('build:sutton', [
     'build:development:sutton'
@@ -332,6 +320,53 @@ module.exports = function(grunt) {
     'index:build',
     'copy:images:sutton',
     'copy:fonts:sutton',
+    'copy:404'
+  ]);
+
+  //production tasks
+  grunt.registerTask('release', [
+    'production'
+  ]);
+
+  grunt.registerTask('production', [
+    'build:production:sutton'
+  ]);
+
+  grunt.registerTask('build:production:sutton', [
+    'clean',
+    'prebuild',
+    'less:production:sutton',
+    'autoprefixer:production',
+    'concat',
+    'uglify',
+    'copy:sutton',
+    'index:compile'
+    //'usemin'
+  ]);
+
+
+  grunt.registerTask('sleep', 'Keep grunt running', function() {
+    this.async();
+  });
+
+  grunt.registerTask('exit', 'Quit out of Grunt', function() {
+    process.exit(0);
+  });
+
+  /*
+  //Old tasks
+  grunt.registerTask('build', [
+    'build:development'
+  ]);
+
+  grunt.registerTask('build:development', [
+    'clean',
+    'prebuild',
+    'less:development',
+    'autoprefixer:development',
+    'index:build',
+    'copy:images',
+    'copy:fonts',
     'copy:404'
   ]);
 
@@ -351,17 +386,7 @@ module.exports = function(grunt) {
     //'usemin'
   ]);
 
-  grunt.registerTask('release', [
-    'production'
-  ]);
-
-  grunt.registerTask('sleep', 'Keep grunt running', function() {
-    this.async();
-  });
-
-  grunt.registerTask('exit', 'Quit out of Grunt', function() {
-    process.exit(0);
-  });
+  */
 
   /**
    * The index.html template includes the stylesheet and javascript sources
