@@ -1,0 +1,231 @@
+/////////////////////
+//// MAIN CONFIG ////
+/////////////////////
+
+// When adding new widgets, or updating v2 to v4
+// let's use the following variables.
+
+// If some color / dimension repeat multiple times
+// and it's not here, please add it.
+
+// As the work progresses we'll slowly be getting
+// rid of the old variables from v2.
+
+//// COLORS ////
+////////////////
+
+// color values used mapped to color names
+@c-black:      #333;
+@c-white:      #fefefe;
+@c-grey:       #888;
+@c-gray:       @c-grey;
+@c-light-grey: #d9d9d9;
+
+@c-green:      #39b54a;
+@c-brown:      #b08f5e;
+@c-light-brown:#f4efe9;
+@c-dark-brown: #8d6036;
+@c-blue:       #237fbc;
+@c-red:        #e10f2e;
+
+// color names mapped to meanings
+// these should be used in the app
+@c-base:              @c-black;
+@c-background-body:   @c-white;
+@c-link:              @c-dark-brown;
+@c-button:            @c-green;
+@c-hr:                @c-grey;
+@c-text:              @c-black;
+@c-text-light:        #373535;
+@c-error:             @c-red;
+@c-disabled:          @c-gray;
+
+@c-navbar-background: rgba(0,0,0,0.85);
+
+//// LAYOUT ////
+////////////////
+
+@baseline: 20px;
+
+//// FONTS ////
+///////////////
+
+// font sizes
+
+// This is maybe not optimal, but it
+// corresponds the best to the PSDs,
+// so let's use it for now.
+// We can change the values in the future.
+@size--3: 10px;
+@size--2: 11px;
+@size--1: 12px;
+@size--0: 13px;
+@size-0:  14px;
+@size-1:  16px;
+@size-2:  18px;
+@size-3:  21px;
+@size-4:  24px;
+@size-5:  28px;
+
+// font families
+@ff-default:   'Open Sans', Helvetica, Arial, sans-serif;
+@ff-condensed: 'Open Sans Condensed', sans-serif;
+
+//// BREAKPOINTS ////
+/////////////////////
+
+// these are different than the old ones
+// let's use these please
+
+@small-mobile-max:     ~"(max-width: 479px)";
+@large-mobile-min:     ~"(min-width: 480px)";
+
+@large-mobile-max:     ~"(max-width: 767px)";
+@tablet-portrait-min:  ~"(min-width: 768px)";
+
+@tablet-portrait-max:  ~"(max-width: 999px)";
+@tablet-landscape-min: ~"(min-width: 1000px)";
+
+//// DIMENSIONS ////
+////////////////////
+
+@grid-width:      1000px;
+@grid-gap:          40px;
+@grid-column-count: 12;
+
+@radius:             4px;
+
+@headerHeight:    88px;
+
+
+// BORDERS
+
+@headerBorderBottom:        2px;
+@borderRadiusButtonDefault: 3px;
+@borderRadiusDefault:       4px;
+
+
+//   PADDINGS
+@paddingHeaderDefault: 15px;
+
+.paddingButtonDefault() {
+  padding: 0 10px;
+}
+
+//// LIBRARIES ////
+/////////////////////
+
+@fa-font-path: '../font';
+
+
+// TODO update legacy code
+/*  ==========================================
+    FONTS and TYPOGRAPHY
+    ========================================== */
+
+@fontDefault: Verdana, Geneva, sans-serif;
+
+@htmlFontSize:  16px;
+@baseline:      22px;
+@baseFontSize:  14px;
+
+// Font sizes
+@fs-1: 12px;
+@fs-2: 14px;
+@fs-3: 16px;
+@fs-4: 18px;
+@fs-5: 21px;
+@fs-6: 24px;
+@fs-7: 36px;
+@fs-8: 48px;
+
+/*  ==========================================
+    COLORS
+    ========================================== */
+
+// General color shorthands
+@white: #fff;
+@black: #000;
+
+@bodyBackground:            #fefefe;
+@colorDefaultGray:          #898989;
+@colorLightGray:            #bbb;
+@colorLinkDefault:          #5f9fbb;
+@colorLinkLight:            lighten(@colorLinkDefault, 10%);
+@colorTextDefault:          #818080;
+@colorHeadingDefault:       #373535;
+@borderColorDefault:        #eee;
+
+// Buttons
+@colorButtonDefault:        #2aad49;
+@colorButtonDefaultHover:   #42c661;
+@colorButtonTextDefault:    @white;
+
+@colorButtonBlue:           #32a2e3;
+@colorButtonBlueHover:      lighten(@colorButtonBlue, 15%);
+
+@colorButtonGray:           @colorDefaultGray;
+@colorButtonGrayHover:      lighten(@colorButtonGray, 15%);
+
+@colorButtonRed:            #c00;
+@colorButtonRedHover:       lighten(@colorButtonRed, 15%);
+
+// Header
+@colorHeaderBackground:     #000;
+
+@colorMenuTextDefault:      #fff;
+@borderColorSubmenu:        rgba(255, 255, 255, 0.2);
+@borderColorSubmenuLast:    #1f70a5;
+
+// Hero
+@bgSliderTitle:             fadeout(@black, 60%);
+@bgSliderSubtitle:          #2b5e7f;
+
+// Datepicker
+@colorDatepickerHeader:     @bgSliderSubtitle;
+@colorDatepickerSubHeader:  #ebebeb;
+@colorDatepickerDays:       #aaaaac;
+@colorDatepickerRange:      #65a6d0;
+
+// Footer
+@colorFooterTextDefault:    #aeadad;
+@footerBackground:          #e1e1e1;
+
+// SiteMap
+@siteMapBackground:         #f2f2f2;
+
+// Forms
+@colorInputBorder:          #ccc;
+
+// Booking widget
+@colorBookingLinkBlue:      @colorLinkLight;
+
+// Best Offers widget
+@colorBestOffersTitle:      @colorHeadingDefault;
+@colorBestOffersText:       @colorTextDefault;
+
+// Hotels widget
+@borderBottomColorHeader:   #c8c8c8;
+@colorStar:                 #2b5e7f;
+
+// Rooms widget
+@bgAccordion:               @white;
+@bgAccordionActive:         #66bd5f;
+@colorAccordionIcons:       @colorDefaultGray;
+
+/*  ==========================================
+    TRANSITIONS
+    ========================================== */
+
+@transitionDurationDefault: .2s;
+@transitionDurationShort: .05s;
+@transitionDurationLong: .6s;
+@transitionDurationLonger: .7s;
+
+/*  ==========================================
+    SHADOWS
+    ========================================== */
+
+.textShadowDark() {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}

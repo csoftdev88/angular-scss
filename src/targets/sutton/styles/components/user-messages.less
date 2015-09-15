@@ -1,0 +1,44 @@
+/////////////////////////////////////////////////
+// USER MESSAGES                               //
+// - shown as list in stripe under page header //
+/////////////////////////////////////////////////
+
+user-messages {
+  display: block;
+  background: @c-brown;
+  text-align: center;
+  margin-top: 0px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 88px;
+  z-index: 998;
+
+  li {
+    position: relative;
+    padding: @baseline / 2;
+    color: @c-white;
+  }
+
+  li + li {
+    margin-top: @baseline;
+  }
+
+  .message-content {
+    font-size: @size-3;
+    line-height: 2;
+    font-weight: 300;
+
+    .small {
+      font-size: @size-0;
+    }
+  }
+
+  .message-close {
+    position: absolute;
+    padding: 0 5px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+}

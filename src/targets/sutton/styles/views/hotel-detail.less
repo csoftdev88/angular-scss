@@ -1,0 +1,486 @@
+///////////////////////
+//// HOTELS DETAIL ////
+///////////////////////
+
+hotel-detail {
+
+  .back-to-top{
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: rgba(176, 143, 94, 0.5);
+    transition: 0.2s all;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: 999;
+    .viewport-mobile &{
+      bottom: 80px;
+      right: 10px;
+    }
+    .floating-bar-active &{
+      bottom: 150px;
+      .viewport-mobile &{
+        bottom: 80px;
+      }
+    }
+    span{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      display: block;
+      font-size: 10px;
+      text-align: center;
+      width: 100%;
+      color: #fff;
+    }
+    &:after {
+      .fa;
+      content: @fa-var-arrow-up;
+      background: transparent;
+      color: #fff;
+      font-size: 30px;
+      line-height: 27px;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      left: 50%;
+      top: 50%;
+      margin-left: -15px;
+      margin-top: -17px;
+      transition: 0.2s all;
+      transform: translateY(0px);
+
+    }
+    &:hover:after{
+      transform: translateY(-2px);
+    }
+    &.visible{
+      height: 60px;
+      overflow: visible;
+      opacity: 1;
+    }
+  }
+
+  > header {
+    margin-bottom: 2*@baseline;
+  }
+
+  // Page Heading
+  h1{
+    .h1;
+
+    font-weight: 300;
+    margin-bottom: 0.25*@baseline;
+    line-height: 30px;
+  }
+
+  h2 {
+    .h2;
+  }
+
+  //- Read more text button
+  a.read-more {
+    text-decoration: underline;
+  }
+  a.read-more-rooms {
+    text-decoration: underline;
+    @media only screen and @large-mobile-max {
+      margin-left: 0;
+      margin-right: 14px;
+      float: right;
+    }
+  }
+
+  //- Location of hotel in map
+  map {
+    margin-bottom: @baseline;
+  }
+
+  //- Transportation
+  transportation-list {
+    display: flex;
+
+    font-size: @size--1;
+  }
+
+  transportation-item {
+    position: relative;
+
+    flex: 1;
+    padding: 0 @baseline @baseline @baseline*2.5;
+
+    // Name
+    h4 {
+      color: @c-link;
+
+      font-weight: 600;
+    }
+
+    // Icon
+    img {
+      position: absolute;
+      left: @baseline;
+      top: 9
+    }
+  }
+
+  .hotel-detail__rooms {
+
+    .section-header{
+      margin-bottom: 30px;
+      h2,
+      p{
+        display: inline;
+      }
+
+      order-switch {
+        float: right;
+
+        .chosen-container {
+          width: 150px !important;
+        }
+
+        .viewport-mobile & {
+          width: 100%;
+          margin: 10px 0px;
+
+          .chosen-container {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+
+    .search-details {
+      margin: @baseline/2 0px;
+
+      .room-counter {
+        color: @c-grey;
+        font-style: italic;
+      }
+    }
+
+    list-items{
+
+      .display-all-rooms,
+      .display-more-rooms {
+        float: right;
+        width: 60%;
+        text-align: center;
+        padding: 15px;
+        background: lighten(@c-link, 50%);
+        border-radius: 2px;
+      }
+
+      .display-all-rooms {
+        display: inline-block;
+
+        .viewport-mobile & {
+          display: none;
+        }
+      }
+
+      .display-more-rooms {
+        display: none;
+
+        .viewport-mobile & {
+          display: inline-block;
+          width: 100%;
+          padding: 15px 0px;
+        }
+      }
+
+      list-item {
+        display: inline-block;
+        width: 100%;
+        padding: 0;
+        min-height: 0;
+        border: none;
+        margin-bottom: 40px;
+
+        .viewport-mobile & {
+          border-bottom: 20px solid @c-light-grey;
+          margin-bottom: 10px;
+        }
+
+        &:last-of-type {
+          margin-bottom: 10px;
+          border: none;
+        }
+
+        .item-header{
+          margin-bottom: 5px;
+
+          h3{
+            a{
+              color: @c-black;
+
+              &:after {
+                .fa;
+                display: inline-block;
+                content: @fa-var-info-circle;
+                color: @c-link;
+                padding: 0 5px;
+              }
+            }
+
+            .viewport-mobile & {
+              width: 100%;
+
+              a {
+                &:after {
+                  color: @c-grey;
+                  content: @fa-var-chevron-right;
+                  float: right;
+                  margin-top: 2px;
+                }
+              }
+            }
+          }
+
+          pricing-switch {
+            float: right;
+
+            .viewport-mobile & {
+              display: none;
+            }
+          }
+
+          earned-points{
+            position: relative;
+            float: right;
+
+            .viewport-mobile & {
+              display: none !important;
+            }
+          }
+
+          &.desktop {
+            .viewport-mobile & {
+              display: none;
+            }
+          }
+
+          &.mobile {
+            display: none;
+
+            .viewport-mobile & {
+              display: block;
+              float: left;
+              width: 100%;
+              border-bottom: 1px solid @c-light-grey;
+
+              h3 {
+                margin-bottom: @baseline/2;
+
+                a {
+                  margin: 0px @baseline/2;
+                }
+              }
+            }
+          }
+        }
+
+        .list-item-container {
+          display: inline-block;
+          width: 100%;
+          border-top: 2px solid @c-light-grey;
+          //padding-bottom: 50px;
+
+          .viewport-mobile &{
+            border-top-width: 1px;
+            border-bottom: 2px solid @c-light-grey;
+            padding-top: 16px;
+
+            &:fist-of-type {
+              border-top: none;
+              padding-top: 0px;
+            }
+          }
+
+          > div{
+            display: inline;
+            float: left;
+
+            &.list-item-info {
+              box-sizing: border-box;
+              width: 37%;
+              padding: 13px 13px 0 0;
+
+              .viewport-mobile &{
+                width: 100%;
+                padding: 0;
+              }
+
+              .room-image{
+                cursor: pointer;
+                width: 150px;
+                max-width: 40%;
+                float: left;
+
+                &.mobile{
+                  display: none;
+                }
+
+                .viewport-mobile &{
+                  width: 100%;
+                  max-width: 100%;
+                  margin-bottom: 16px;
+                  display: block;
+                  &.desktop{
+                    display: none;
+                  }
+                }
+              }
+
+              ul.amenities {
+                float: left;
+                max-width: 60%;
+                padding-left: 16px;
+                box-sizing: border-box;
+                margin-bottom: 30px;
+
+                .viewport-mobile &{
+                  display: none;
+                }
+
+                li{
+                  font-size: 13px;
+                  margin-bottom: 5px;
+                  span {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                    min-width: 25px;
+
+                    &.amenity-caption {
+                      padding-top: 2px;
+                      text-align: left;
+                      font-weight: 200;
+
+                    }
+
+                    // Icon
+                    img {
+                      display: inline-block;
+                      margin-right: @baseline / 2;
+                      vertical-align: middle;
+                      max-height: 15px;
+                    }
+                  }
+                }
+              }
+
+              .viewport-mobile & {
+
+              }
+            }
+          }
+
+          room-details {
+            float: left;
+            width: 63%;
+            padding: 15px;
+            border: 1px solid @c-light-grey;
+            box-sizing: border-box;
+            border-top: none;
+
+            .description {
+              float: left;
+              width: 70%;
+
+              div {
+                p {
+                  display: none;
+
+                  &:nth-child(-n+3){
+                    display: block;
+                  }
+                }
+              }
+            }
+
+            > .pricing-info {
+              float: right;
+              width: 30%;
+
+              .price-form {
+                float: right;
+                color: @c-gray;
+                font-style: italic;
+                font-size: @size--1;
+                padding-bottom: @baseline/2;
+
+                .value {
+                  font-style: normal;
+                  font-weight: bold;
+                  color: @c-black;
+                  font-size: @size-1;
+                  padding-left: 5px;
+                }
+              }
+
+              button {
+                float: right;
+              }
+            }
+
+            .our-rates {
+              display: none;
+              float: left;
+              width: 100%;
+              font-weight: bold;
+              margin-top: 15px;
+              text-align: center;
+              color: @c-link;
+
+              .viewport-mobile & {
+                display: block;
+              }
+            }
+
+            .viewport-mobile & {
+              width: 100%;
+              border: none;
+
+              border-bottom: 1px solid @c-light-grey;
+
+              .description {
+                width: 100%;
+              }
+
+              > .pricing-info {
+                display: none;
+              }
+            }
+          }
+
+          .viewport-mobile & {
+            border-top: none;
+            padding-top: 0px;
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+
+  .hotel-detail__offers {
+    .more-btn {
+      margin-top: -@baseline;
+      text-align: right;
+      text-decoration: underline;
+      font-size: @size--1;
+
+      &:focus,
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

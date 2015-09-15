@@ -1,0 +1,261 @@
+
+///////////////////////////////////////////////////////////////
+// NEXT STAY                                                 //
+//  - Most of used code is shared w/ RESERVATION DETAIL page //
+//    and is placed in `src/styles/views/reservation.less`   //
+///////////////////////////////////////////////////////////////
+reservation-hotel-details {
+
+  .reservation-summary {
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .room-types + .room-types {
+    margin-top: @baseline;
+  }
+}
+
+//////////////////////////
+// List of FUTURE STAYS //
+//////////////////////////
+.reservations {
+  h1 {
+    font-size: @size-3;
+    margin: @baseline 0px @baseline*1.5;
+  }
+
+  reservation-data {
+    cursor: pointer;
+    .viewport-mobile & {
+      display: inline-block;
+    }
+
+    .property-preview {
+      width: 115px;
+      height: 80px;
+      float: left;
+      margin-right: @baseline/2;
+
+      .viewport-mobile & {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .content {
+      margin: 0 125px;
+
+      > div {
+        width: 100%;
+        float: left;
+      }
+
+      .viewport-mobile & {
+        float: left;
+        margin: 0;
+      }
+
+      .header {
+        h2 {
+          font-size: @size-3;
+          font-weight: 400;
+          float: left;
+
+          strong {
+            font-weight: 600;
+          }
+        }
+
+        span {
+          float: right;
+        }
+
+        .viewport-mobile & {
+          margin-bottom: 10px;
+          h2{
+            float: none;
+            display: block;
+          }
+          span{
+            float: left;
+          }
+        }
+      }
+    }
+
+    .rating {
+      .stars {
+        list-style: none;
+        li {
+          display: inline-block;
+          margin: 0 1px;
+
+          &:after {
+            content: "\f005";
+            font-family: FontAwesome;
+            display: inline-block;
+            color: @c-light-grey;
+          }
+
+          &.included:after {
+            color: @c-link;
+          }
+        }
+      }
+    }
+
+    .details {
+      > div {
+        margin-top: 5px;
+
+        .title {
+          min-width: 80px;
+          display: inline-block;
+          .viewport-mobile & {
+            min-width: 70px;
+          }
+        }
+
+        .value {
+          font-weight: 600;
+        }
+      }
+
+      .total {
+        width: 30%;
+        float: left;
+        .viewport-mobile & {
+          width: 60%;
+        }
+
+        .value {
+          color: @c-link;
+          font-size: @size-2;
+        }
+
+        .reservation-number {
+          display: block;
+          color: @c-link;
+          margin-top: @baseline/4;
+          font-weight: bold;
+          width: 100%;
+        }
+      }
+
+      .guests {
+        width: 25%;
+        float: left;
+        .viewport-mobile & {
+          width: 40%;
+          padding-left: 5px;
+          box-sizing: border-box;
+        }
+      }
+
+      .desc {
+        width: 45%;
+        float: right;
+        .viewport-mobile & {
+          width: auto;
+          float: left;
+          p + p{
+            margin: 0;
+          }
+        }
+
+      }
+    }
+
+    check-in-date {
+      display: block;
+      float: right;
+      overflow: hidden;
+      width: 100px;
+      height: 90px;
+      border: 1px solid @c-link;
+      border-radius: 10px;
+      text-align: center;
+
+      .viewport-mobile & {
+        float: left;
+        width: 60px;
+        height: 55px;
+        margin-top: -78px;
+        margin-left: 7px;
+        background: #fff;
+      }
+
+      .title {
+        display: block;
+        background-color: @c-link;
+        color: @c-white;
+        font-size: @size-2;
+        padding: 5px;
+        .viewport-mobile & {
+          font-size: 12px;
+          padding: 2px;
+        }
+      }
+
+      .date {
+        font-size: @size-3;
+        color: @c-link;
+        height: 60px;
+        padding: 0 10px;
+        font-weight: bold;
+        font-weight: 700;
+        display: table-cell;
+        vertical-align: middle;
+        width: 100px;
+        .viewport-mobile & {
+          height: 30px;
+          padding: 0;
+          font-size: 12px;
+        }
+      }
+    }
+
+    &.inactive {
+      .property-preview img {
+        opacity: .3;
+      }
+
+      .header {
+        color: @c-light-grey;
+      }
+
+      .rating .stars li.included {
+        &:after {
+          color: @c-light-grey;
+        }
+      }
+
+      .value, .title,
+      .total .value,
+      .total .reservation-number {
+        color: @c-light-grey;
+      }
+
+      check-in-date {
+        border: 1px solid @c-light-grey;
+
+        .title {
+          background-color: @c-light-grey;
+        }
+
+        .date {
+          color: @c-light-grey;
+        }
+      }
+    }
+  }
+}

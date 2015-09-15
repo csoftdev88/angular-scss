@@ -1,0 +1,67 @@
+about-hotel {
+
+  //- Page Heading
+  h1, h2 {
+    .h1;
+
+    font-weight: 300;
+  }
+
+  p {
+    color: @c-black;
+    margin-bottom: @baseline;
+  }
+
+  .benefits {
+
+    article {
+      position: relative;
+      padding-left: 11%;
+      box-sizing: border-box;
+
+      h2 {
+        font-size: @size-3;
+        color: @c-black;
+      }
+
+      p {
+        color: @c-black;
+        font-size: @size-0;
+        margin-bottom: 0;
+        font-weight: 300;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 30%;
+      }
+    }
+  }
+
+  // MOBILE SPECIFIC STYLES
+  @media only screen and @large-mobile-max {
+
+    .benefits {
+      article{
+        display: inline-block;
+        padding: 5px 0 0 110px;
+        margin-top: 30px;
+        &:first-child{
+          margin-top: 0;
+        }
+        img{
+          width: 100px;
+        }
+      }
+    }
+
+  }// MOBILE SPECIFIC STYLES
+
+}

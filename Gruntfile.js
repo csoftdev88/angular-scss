@@ -169,9 +169,9 @@ module.exports = function(grunt) {
       images: {
         files: [{
           expand: true,
-          cwd: '<%= config.client %>/images/',
-          src: ['<%= config.images %>'],
-          dest: '<%= config.build %>/images/'
+          cwd: '<%= config.client %>',
+          src: ['images/<%= config.images %>', 'targets/<%= grunt.task.current.args[0] %>/images/<%= config.images %>'],
+          dest: '<%= config.build %>'
         }]
       },
       fonts: {
@@ -180,6 +180,12 @@ module.exports = function(grunt) {
           cwd: '<%= config.font_awesome %>',
           src: ['<%= config.fonts %>'],
           dest: '<%= config.build %>/font/'
+        },
+        {
+          expand: true,
+          cwd: '<%= config.font_awesome %>',
+          src: ['<%= config.fonts %>'],
+          dest: '<%= config.build %>/targets/<%= grunt.task.current.args[0] %>/font/'
         }]
       },
       404: {
@@ -297,12 +303,9 @@ module.exports = function(grunt) {
     'sleep'
   ]);
 
+  /*
   grunt.registerTask('build', [
     'build:development'
-  ]);
-
-  grunt.registerTask('build:sutton', [
-    'build:development:sutton'
   ]);
 
   grunt.registerTask('build:development', [
@@ -315,6 +318,11 @@ module.exports = function(grunt) {
     'copy:fonts',
     'copy:404'
   ]);
+  */
+
+  grunt.registerTask('build:sutton', [
+    'build:development:sutton'
+  ]);
 
   grunt.registerTask('build:development:sutton', [
     'clean',
@@ -322,8 +330,8 @@ module.exports = function(grunt) {
     'less:development:sutton',
     'autoprefixer:development',
     'index:build',
-    'copy:images',
-    'copy:fonts',
+    'copy:images:sutton',
+    'copy:fonts:sutton',
     'copy:404'
   ]);
 

@@ -27,13 +27,16 @@ mobius/
   |  |  |- settings.js
   |  |  |- index.html
   |  |- font/
-  |  |  |- <static files>
+  |  |  |- <core static files>
   |  |- images/
-  |  |  |- <icons, logos>
+  |  |  |- <core icons, logos>
   |  |- locales/
   |  |  |- en_US.json
   |  |- styles/
-  |  |  |- <less files>
+  |  |  |- <core less files>
+  |  |-targets
+  |  |  |-sutton
+  |  |  |  |- <target specific files>
   |- bower_components/
   |- node_modules/
   |- karma/
@@ -78,7 +81,7 @@ learn more:
 4. `cd mobius`:
   * `npm install`
   * `bower install`
-  * `grunt build`
+  * `grunt build:sutton`
   * Run server `NODE_ENV=development node server.js`
   * Finally, open `localhost:9000` in your browser
 
