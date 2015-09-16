@@ -221,7 +221,7 @@ module.exports = function(grunt) {
         options: { livereload: true }
       },
       scripts: {
-        files: ['<%= config.app_files.js %>'],
+        files: ['<%= config.app_files.js %>', '<%= config.client %>/targets/' + target + '/settings.js'],
         tasks: ['prebuild', 'index:build'],
         options: { livereload: true }
       },
