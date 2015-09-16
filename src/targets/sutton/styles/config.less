@@ -123,19 +123,10 @@
     FONTS and TYPOGRAPHY
     ========================================== */
 
-@fontDefault: Verdana, Geneva, sans-serif;
-
 @htmlFontSize:  16px;
 @baseline:      22px;
-@baseFontSize:  14px;
 
 // Font sizes
-@fs-1: 12px;
-@fs-2: 14px;
-@fs-3: 16px;
-@fs-4: 18px;
-@fs-5: 21px;
-@fs-6: 24px;
 @fs-7: 36px;
 @fs-8: 48px;
 
@@ -147,14 +138,8 @@
 @white: #fff;
 @black: #000;
 
-@bodyBackground:            #fefefe;
 @colorDefaultGray:          #898989;
 @colorLightGray:            #bbb;
-@colorLinkDefault:          #5f9fbb;
-@colorLinkLight:            lighten(@colorLinkDefault, 10%);
-@colorTextDefault:          #818080;
-@colorHeadingDefault:       #373535;
-@borderColorDefault:        #eee;
 
 // Buttons
 @colorButtonDefault:        #2aad49;
@@ -167,51 +152,12 @@
 @colorButtonGray:           @colorDefaultGray;
 @colorButtonGrayHover:      lighten(@colorButtonGray, 15%);
 
-@colorButtonRed:            #c00;
-@colorButtonRedHover:       lighten(@colorButtonRed, 15%);
-
 // Header
-@colorHeaderBackground:     #000;
+@colorHeaderBackground:     @black;
 
-@colorMenuTextDefault:      #fff;
+@colorMenuTextDefault:      @white;
 @borderColorSubmenu:        rgba(255, 255, 255, 0.2);
 @borderColorSubmenuLast:    #1f70a5;
-
-// Hero
-@bgSliderTitle:             fadeout(@black, 60%);
-@bgSliderSubtitle:          #2b5e7f;
-
-// Datepicker
-@colorDatepickerHeader:     @bgSliderSubtitle;
-@colorDatepickerSubHeader:  #ebebeb;
-@colorDatepickerDays:       #aaaaac;
-@colorDatepickerRange:      #65a6d0;
-
-// Footer
-@colorFooterTextDefault:    #aeadad;
-@footerBackground:          #e1e1e1;
-
-// SiteMap
-@siteMapBackground:         #f2f2f2;
-
-// Forms
-@colorInputBorder:          #ccc;
-
-// Booking widget
-@colorBookingLinkBlue:      @colorLinkLight;
-
-// Best Offers widget
-@colorBestOffersTitle:      @colorHeadingDefault;
-@colorBestOffersText:       @colorTextDefault;
-
-// Hotels widget
-@borderBottomColorHeader:   #c8c8c8;
-@colorStar:                 #2b5e7f;
-
-// Rooms widget
-@bgAccordion:               @white;
-@bgAccordionActive:         #66bd5f;
-@colorAccordionIcons:       @colorDefaultGray;
 
 /*  ==========================================
     TRANSITIONS
