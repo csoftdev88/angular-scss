@@ -51,6 +51,13 @@
 
       <li has-dropdown="hover" ng-hide="config.menu.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
 
+      <li ng-show="config.menu.singleProperty">
+          <a
+                  ui-sref="hotel({property: null})"
+                  ui-sref-opts="{reload: true}"
+                  ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
+      </li>
+
       <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 
       <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
