@@ -210,7 +210,7 @@ module.exports = function(grunt) {
         files: [
           '<%= config.client %>/<%= config.markup %>',
           '<%= config.client %>/locales/*.json',
-          '<%= config.client %>/targets/<%= grunt.task.current.args[0] %>/locales/*.json'
+          '<%= config.client %>/targets/' + target + '/locales/*.json'
         ],
         tasks: ['localisation', 'templateCache', 'index:build'],
         options: { livereload: true }
