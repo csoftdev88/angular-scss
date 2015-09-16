@@ -355,40 +355,6 @@ module.exports = function(grunt) {
     process.exit(0);
   });
 
-  /*
-  //Old tasks
-  grunt.registerTask('build', [
-    'build:development'
-  ]);
-
-  grunt.registerTask('build:development', [
-    'clean',
-    'prebuild',
-    'less:development',
-    'autoprefixer:development',
-    'index:build',
-    'copy:images',
-    'copy:fonts',
-    'copy:404'
-  ]);
-
-  grunt.registerTask('production', [
-    'build:production'
-  ]);
-
-  grunt.registerTask('build:production', [
-    'clean',
-    'prebuild',
-    'less:production',
-    'autoprefixer:production',
-    'concat',
-    'uglify',
-    'copy',
-    'index:compile'
-    //'usemin'
-  ]);
-
-  */
 
   /**
    * The index.html template includes the stylesheet and javascript sources
