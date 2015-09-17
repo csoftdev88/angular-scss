@@ -28,13 +28,13 @@
               <span ng-if="pricePer === PP_NIGHT">per night</span>
               <span ng-if="pricePer === PP_STAY">per stay</span>
 
-              <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
+              <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled">
                 <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
               </span>
             </p>
           </pricing-info>
 
-          <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn
+          <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled">Earn
             <ng-pluralize count="product.price.pointsEarned"
                           when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
           </earned-points>
@@ -47,7 +47,7 @@
           <p>
             <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
             <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
-            <span ng-if="isUserLoggedIn() && product.price.pointsRequired">
+            <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled">
               <br />or <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> points
             </span>
           </p>

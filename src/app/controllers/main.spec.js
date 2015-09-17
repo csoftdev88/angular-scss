@@ -28,6 +28,9 @@ describe('mobius.controllers.main', function() {
 
         $provide.value('Settings', {
           UI: {
+            generics: {
+              loyaltyProgramEnabled: true
+            },
             adverts: {
               heroAdverts: 'test-size'
             }
