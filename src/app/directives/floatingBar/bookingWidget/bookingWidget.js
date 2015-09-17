@@ -244,6 +244,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         // TODO: NG-DISABLE DOESNT WORK
         scope.hasPropertySelection = !$stateParams.reservation;
 
+        scope.singleProperty = Settings.UI.generics.singleProperty;
+
         if(!scope.selected.rooms || scope.selected.rooms.length < 2){
           scope.selected.rooms = [];
           // Minimal number of rooms for multiroom booking

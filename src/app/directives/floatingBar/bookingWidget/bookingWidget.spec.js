@@ -127,7 +127,10 @@ describe('bookingWidget', function() {
 
       $provide.value('Settings', {
         UI: {
-          bookingWidget: settings || TEST_SETTINGS
+          bookingWidget: settings || TEST_SETTINGS,
+          generics: {
+            'singleProperty': false
+          }
         }
       });
 
