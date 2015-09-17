@@ -8,6 +8,9 @@ describe('hotels directive', function() {
 
   var PROPERTY_LIST = [
     {
+      meta: {
+        slug: 'slug'
+      },
       id: 1,
       name: 'TestHotel'
     }
@@ -71,6 +74,9 @@ describe('hotels directive', function() {
 
       $provide.value('Settings', {
         UI: {
+          generics:{
+            singleProperty: true
+          },
           hotelFilters: {
             rates: true
           }
@@ -166,12 +172,14 @@ describe('hotels directive', function() {
       expect(_scope.currentOrder).to.be.an('object');
     });
   });
-
+  
+  
   describe('navigateToHotel', function() {
     it('should redirect to hotel details page', function() {
       _scope.navigateToHotel(123);
-      expect(_spyStateGo.calledOnce).equal(true);
+      expect(_spyStateGo.calledTwice).equal(true);
       expect(_spyStateGo.calledWith('hotel', {property: null, propertySlug: 123, rate: null, promoCode: null, corpCode: null, groupCode: null})).equal(true);
     });
   });
+
 });
