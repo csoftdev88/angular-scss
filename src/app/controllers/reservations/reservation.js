@@ -15,8 +15,11 @@ angular.module('mobius.controllers.reservation', [])
   $scope.additionalInfo = {};
 
   $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
+  $scope.loyaltyProgramEnabled = Settings.UI.generics.loyaltyProgramEnabled;
 
   $scope.isMultiRoomMode = bookingService.isMultiRoomBooking();
+
+
 
   var multiRoomData;
 

@@ -10,7 +10,7 @@
         <span ng-bind-html="product.name | mainHeaderStyle"></span>
         <a class="info" href ng-click="openProductDetailsDialog(product)"></a>
 
-        <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned">Earn at least
+        <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled">Earn at least
           <ng-pluralize count="getValuePer(product.price.pointsEarned, true)"
             when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
         </earned-points>
@@ -30,7 +30,7 @@
             <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
           </p>
 
-          <p class="price-form" ng-if="room.priceFrom && product.price.pointsRequired && isUserLoggedIn()">
+          <p class="price-form" ng-if="room.priceFrom && product.price.pointsRequired && isUserLoggedIn() && loyaltyProgramEnabled">
             <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> points
           </p>
         </div>

@@ -59,6 +59,9 @@ describe('RoomProducts', function() {
 
       $provide.value('Settings', {
         UI: {
+          generics: {
+            loyaltyProgramEnabled: true
+          },
           hotelDetails: {
             rooms: {
               rates: {
