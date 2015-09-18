@@ -296,6 +296,17 @@ angular.module('mobiusApp.directives.hotels', [])
         return bookingService.APIParamsHasDates();
       };
 
+      scope.hotelAvailable = function(){
+        var isAvailable = false;
+        _.find(scope.hotels, function(hotel){
+          if(hotel.available){
+            isAvailable = true;
+            return isAvailable;
+          }
+        });
+        return isAvailable;
+      };
+
       scope.showFilter = function(filter){
         return Settings.UI.hotelFilters[filter];
       };
