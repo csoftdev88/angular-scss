@@ -3,7 +3,7 @@
 angular.module('mobius.controllers.common.content', [])
 
 .controller('ContentCtr', function($scope, $rootScope, preloaderFactory, propertyService, contentService,
- locationService, bookingService, $state, $timeout, _, Settings) {
+ locationService, bookingService, $q, $state, $timeout, _, Settings) {
 
   // We are using different methods for getting the data
   // from the server according to content type. Also, menu
@@ -53,6 +53,7 @@ angular.module('mobius.controllers.common.content', [])
       'sort': 'prio',
       'reverseSort': true,
       'keepProperty': true,
+      'limitToPropertyCodes': true,
       'slug': true
     },
     'about': {
@@ -90,8 +91,13 @@ angular.module('mobius.controllers.common.content', [])
     $scope.offers = offers || [];
   });
 
-  preloaderFactory(hotelsPromise);
-  preloaderFactory(offers);
+  var allPromises = $q.all([hotelsPromise, offers]).then(function(){
+    if($scope.settings){
+      processSettings();
+    }
+  });
+
+  preloaderFactory(allPromises);
 
   function findPropertyBySlug(value) {
     var obj;
@@ -171,6 +177,19 @@ angular.module('mobius.controllers.common.content', [])
         $scope.settings = $scope.settings.fallback;
         processSettings();
       } else {
+
+        if($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property){
+          var limitedContent = [];
+
+          _.each(content, function(c){
+            if(c.limitToPropertyCodes && c.limitToPropertyCodes.length === $scope.hotels.length){
+              limitedContent.push(c);
+            }
+          });
+
+          content = limitedContent;
+        }
+
         $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
           return {
             code: $scope.settings.slug? item.meta.slug : item.code,
@@ -205,9 +224,5 @@ angular.module('mobius.controllers.common.content', [])
     } else {
       return true;
     }
-  }
-
-  if ($scope.settings) {
-    processSettings();
   }
 });
