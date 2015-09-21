@@ -93,6 +93,10 @@ angular.module('mobiusApp.services.user', [])
       customerId = customerId || getCustomerId();
 
       return loyaltyService.getAll(customerId).then(function(loyalties){
+        if(loyalties && loyalties.amount === undefined){
+          loyalties.amount = 0;
+        }
+
         userObject.loyalties = loyalties;
 
         return loyalties;
