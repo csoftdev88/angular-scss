@@ -26,6 +26,14 @@ describe('userService', function() {
         }
       });
 
+      $provide.value('Settings', {
+        UI: {
+          generics: {
+            loyaltyProgramEnabled: true
+          }
+        }
+      });
+
       $provide.value('dataLayerService', {});
 
       $provide.value('rewardsService', {
