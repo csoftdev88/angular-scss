@@ -115,6 +115,7 @@ angular.module('mobiusApp.config', [])
       'showNews': true,
       'showContact': true,
       'offerSpecificToSelectedProperty': true,
+      'maxOffersCount': 7,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false
     },

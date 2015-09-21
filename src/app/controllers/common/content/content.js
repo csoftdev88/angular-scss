@@ -54,6 +54,7 @@ angular.module('mobius.controllers.common.content', [])
       'reverseSort': true,
       'keepProperty': true,
       'limitToPropertyCodes': true,
+      'maxItemsCount': Settings.UI.menu.maxOffersCount,
       'slug': true
     },
     'about': {

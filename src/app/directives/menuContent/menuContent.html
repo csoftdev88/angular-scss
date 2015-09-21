@@ -11,7 +11,7 @@
     <!--<li ng-show="hasFilteredItems(content)" class="divider"></li>
     -->
     <!-- visible when filtered flag for item is set with true -->
-    <li ng-repeat="item in content | filteredContent">
+    <li ng-repeat="item in content | filteredContent | limitTo: (settings.maxItemsCount ? settings.maxItemsCount : content.length)">
       <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)">
         {{item.title}}
         <span>{{item.subtitle}}</span>
@@ -25,7 +25,7 @@
         <span class="fa fa-angle-right"></span>
         <a ng-href class="submenu-link">See all {{settings.listState}}</a>
         <ul class="dropdown-menu submenu">
-          <li ng-repeat="item in content">
+          <li ng-repeat="item in content | limitTo: (settings.maxItemsCount ? settings.maxItemsCount : content.length)">
             <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)">
               {{item.title}}
               <span>{{item.subtitle}}</span></a>
