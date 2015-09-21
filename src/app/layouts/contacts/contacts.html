@@ -43,12 +43,7 @@ Contact
 
         <form-element>
           <label for="subject" class="input-left">
-          <!--
-            <input type="text" id="subject" required
-              placeholder="Your Subject"
-              ng-model="formData.fields.subject" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
-              name="subject"
-              ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>-->
+
               <select name="subject"
                       required ng-model="formData.fields.subject"
                       disable-search="true"
@@ -64,7 +59,7 @@ Contact
       <fieldset>
         <form-element>
           <label for="message" class="input-left">
-            <textarea id="message" ng-model="formData.fields.message" placeholder="Text"
+            <textarea id="message" ng-model="formData.fields.message" placeholder="How can we help?"
               required name="message"
               ng-class="{'ng-submitted': form.$submitted && form.message.$error.required}"
               ></textarea>
