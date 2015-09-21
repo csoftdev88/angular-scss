@@ -1,6 +1,6 @@
 <ul>
   <li class="floating-bar--tab-booking main-mobile-toggle" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
-    <a href="" ng-click="setActive(BOOKING, true);" ng-class="{'with-search-params' : hasSearchParams()}">
+    <a href ng-click="setActive(BOOKING)" ng-class="{'with-search-params' : hasSearchParams()}">
       <div class="desktop">Make Your <strong>Booking</strong></div>
       <div class="mobile">
         <div ng-hide="hasSearchParams()" class="book-now-button">Book now</div>
