@@ -151,6 +151,7 @@ angular
     'mobiusApp.filters.truncate',
     'mobiusApp.filters.wrapword',
     'mobiusApp.filters.mainHeaderStyle',
+    'mobiusApp.filters.stringLocaleReplace',
     'mobiusApp.filters.content'
   ])
 

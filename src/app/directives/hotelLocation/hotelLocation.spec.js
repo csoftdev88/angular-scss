@@ -7,6 +7,7 @@ describe('hotelLocation', function() {
   var TEMPLATE = '<hotel-location hotel-details="details"></hotel-location>';
   var TEMPLATE_URL = 'directives/hotelLocation/hotelLocation.html';
   var TEMPLATE_CONTENT = '<span>location data</span>';
+
   beforeEach(function() {
     module('mobiusApp.directives.hotelLocation');
   });
