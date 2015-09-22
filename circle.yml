@@ -35,7 +35,7 @@ general:
 test:
   override:
     - grunt test
-    - grunt production
+    - grunt build --target=sutton
     - istanbul cover karma/karma-unit.js
     - codeclimate-test-reporter < ./coverage/lcov.info
   post:
