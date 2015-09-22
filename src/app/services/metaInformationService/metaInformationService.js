@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.metaInformation', [])
-  .service('metaInformationService', ['$rootScope', 'chainService', function($rootScope, chainService) {
+  .service('metaInformationService', ['$rootScope', 'chainService', 'Settings', function($rootScope, chainService, Settings) {
 
     var defaultMetaInformation = {
       description : '',
@@ -22,7 +22,7 @@ angular.module('mobiusApp.services.metaInformation', [])
 
     // TODO - Remove hardcoded codes!
     // Move those into Settings service
-    chainService.getChain('SAN').then(function(data) {
+    chainService.getChain(Settings.API.chainCode).then(function(data) {
       defaultMetaInformation.description = data.meta.description;
       defaultMetaInformation.keywords = data.meta.keywords;
       defaultMetaInformation.pagetitle = data.meta.pagetitle;

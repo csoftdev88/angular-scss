@@ -10,7 +10,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-    metaInformationService, dataLayerService){
+    metaInformationService, dataLayerService, Settings){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -21,6 +21,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     $scope.reservationCode = $stateParams.reservationCode;
     $scope.isEditable = $stateParams.view !== 'summary';
+    $scope.loyaltyProgramEnabled = Settings.UI.generics.loyaltyProgramEnabled;
 
     $timeout(function(){
       $rootScope.$broadcast('floatingBarEvent', {

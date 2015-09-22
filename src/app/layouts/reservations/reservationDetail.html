@@ -134,7 +134,7 @@
             <i>Add to your booking with one click:</i>
 
             <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: currencyCode}}</a>
-            <a class="button"ng-if="addon.pointsRequired" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>points</small></a>
+            <a class="button"ng-if="addon.pointsRequired && loyaltyProgramEnabled" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>points</small></a>
           </div>
         </li>
       </ul>
@@ -168,7 +168,7 @@
               </span>
 
               <!-- Paid with points -->
-              <span class="value" ng-if="addon.points">
+              <span class="value" ng-if="addon.points && loyaltyProgramEnabled">
                 <ng-pluralize count="addon.points" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
               </span>
             </p>
@@ -190,7 +190,7 @@
       <!-- PAID WITH CARD -->
       <p class="total" ng-if="getAddonsTotalPrice()">Total: {{getAddonsTotalPrice() | i18nCurrency: currencyCode}}</p>
       <!-- PAID WITH POINTS -->
-      <p class="total" ng-if="getAddonsTotalPoints()">{{getAddonsTotalPrice()?'':'Total: '}}<ng-pluralize count="getAddonsTotalPoints()" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize></p>
+      <p class="total" ng-if="getAddonsTotalPoints() && loyaltyProgramEnabled">{{getAddonsTotalPrice()?'':'Total: '}}<ng-pluralize count="getAddonsTotalPoints()" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize></p>
     </section>
   </reservation-finished>
 </main>

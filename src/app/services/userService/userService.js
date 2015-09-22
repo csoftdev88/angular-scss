@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.user', [])
   .service('user', function($rootScope, $q, $window, $state,
-    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService) {
+    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'MobiusID';
@@ -90,6 +90,11 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function loadLoyalties(customerId){
+
+      if(!Settings.UI.generics.loyaltyProgramEnabled){
+        return;
+      }
+
       customerId = customerId || getCustomerId();
 
       return loyaltyService.getAll(customerId).then(function(loyalties){
@@ -100,6 +105,11 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function loadRewards(customerId){
+
+      if(!Settings.UI.generics.loyaltyProgramEnabled){
+        return;
+      }
+      
       customerId = customerId || getCustomerId();
 
       return rewardsService.getMy(customerId).then(function(rewards){

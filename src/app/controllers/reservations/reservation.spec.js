@@ -139,6 +139,9 @@ describe('mobius.controllers.reservation', function() {
 
         $provide.value('Settings', {
           UI: {
+            'generics': {
+              loyaltyProgramEnabled: true
+            },
             'booking': {
               cardTypes: {
                 'visa': TEST_VISA
