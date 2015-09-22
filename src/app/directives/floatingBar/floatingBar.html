@@ -31,8 +31,7 @@
     </a>
   </li>
   <li class="floating-bar--tab-my-accounts" ng-show="loyaltyProgramEnabled" ng-class="{'is-active': active === MY_ACCOUNT}">
-    <a href="" ng-click="setActive(MY_ACCOUNT)">
-      Sutton <strong>Prestige</strong>
+    <a href="" ng-click="setActive(MY_ACCOUNT)" ng-bind-html="'_loyalty_progam_title_' | mainHeaderStyle">
     </a>
   </li>
 </ul>

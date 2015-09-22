@@ -133,6 +133,7 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'hotelDetails': {
+      'chainPrefix': 'Sutton Place Hotel',
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
