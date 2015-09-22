@@ -131,6 +131,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         'rate': undefined,
         'rooms': []
       };
+
       scope.regionPropertySelected = undefined;
 
       scope.canAddRoom = true;

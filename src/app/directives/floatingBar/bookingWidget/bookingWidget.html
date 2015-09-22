@@ -2,7 +2,7 @@
   <h3 ng-if="!advanced"></h3>
 
   <!-- FIND YOUR HOTEL -->
-  <form-element class="hotel" ng-if="hasPropertySelection && !singleProperty">
+  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty">
     <select name="regionHotels" required chosen
             disable-search="false"
             data-placeholder="Region / Hotel"
@@ -15,7 +15,7 @@
     <form-label>Find Your Hotel</form-label>
   </form-element>
 
-  <form-element class="hotel disabled-hotel" ng-if="!hasPropertySelection && !singleProperty">
+  <form-element class="hotel disabled-hotel" ng-show="!hasPropertySelection && !singleProperty">
     <div class="chosen-container chosen-container-single disabled">
       <a class="chosen-single" tabindex="-1">
         <span>{{regionPropertySelected.name}}</span>
