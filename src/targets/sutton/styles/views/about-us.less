@@ -1,0 +1,98 @@
+///////////////////////
+//// ABOUT US PAGE ////
+///////////////////////
+
+about-us {
+  display: block;
+
+  //- Page Heading
+  h1 {
+    .h1;
+    font-weight: 300;
+  }
+
+  p {
+    color: @c-black;
+  }
+
+  //- Contacts List
+  contacts-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: @baseline;
+    .viewport-mobile & {
+      display: block;
+    }
+  }
+
+  contact-item {
+    flex: 0 0 250px;
+    .viewport-mobile & {
+      flex: 0;
+      width: 100%;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    h2 {
+      font-weight: bold;
+      line-height: @baseline * 2;
+    }
+    p:before{
+      color: #C1A780;
+    }
+    p.tel:before {
+      .fa;
+      padding-right: @baseline / 5;
+      content: @fa-var-phone;
+    }
+    p.mail:before {
+      .fa;
+      padding-right: @baseline / 5;
+      content: @fa-var-envelope;
+    }
+  }
+
+}
+
+
+about-detail {
+  &:extend(about-us);
+
+  //- Page Heading
+  h1 {
+    .h1;
+    font-weight: 300;
+  }
+
+  h2 {
+    .h2;
+    margin-top: 0;
+  }
+
+  //- Image
+  img{
+    float: left;
+    margin: 0 20px 10px 0;
+    border: 1px solid @c-light-grey;
+    max-width: 100%;
+    @media only screen and @large-mobile-max {
+      width: 100%;
+    }
+
+  }
+
+  //- Content of article
+  > div {
+    margin-bottom: @baseline;
+    ol, ul {
+      list-style: initial;
+      list-style-position: inside;
+
+      li {
+        color: @c-black;
+        font-weight: 300;
+      }
+    }
+  }
+}

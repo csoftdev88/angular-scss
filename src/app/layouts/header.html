@@ -23,7 +23,7 @@
 
               <div class="user">
                 <div class="name">{{user.getUser().firstName}} {{user.getUser().lastName}}</div>
-                <div class="points">
+                <div class="points" ng-if="config.generics.loyaltyProgramEnabled">
                   <span>{{user.getUser().loyalties.amount}} _points_</span>
                   <span class="vr">|</span>
                   <span ng-click="openTiersListDialog($event)">{{user.getUser().loyalties.tier}} _tier_</span>
@@ -49,7 +49,14 @@
         </div>
       </li>
 
-      <li has-dropdown="hover" ng-hide="config.menu.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
+      <li has-dropdown="hover" ng-hide="config.generics.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
+
+      <li ng-show="config.generics.singleProperty">
+          <a
+                  ui-sref="hotel({property: null})"
+                  ui-sref-opts="{reload: true}"
+                  ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
+      </li>
 
       <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 
@@ -85,7 +92,7 @@
                 <span>{{user.getUser().lastName}}</span>
               </div>
 
-              <div class="points">
+              <div class="points" ng-if="config.generics.loyaltyProgramEnabled">
                 <span>{{user.getUser().loyalties.amount}} _points_</span>
                 <span class="vr">|</span>
                 <span ng-click="openTiersListDialog($event)">{{user.getUser().loyalties.tier}} _tier_</span>

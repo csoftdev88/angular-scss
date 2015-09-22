@@ -19,6 +19,7 @@ module.exports = function(app) {
   app.use('/static/images', express.static(path.join(app.directory, '/build/images/')));
   app.use('/static/font', express.static(path.join(app.directory, '/build/font/')));
   app.use('/static/bower_components', express.static(path.join(app.directory, '/bower_components')));
+  app.use('/static/targets', express.static(path.join(app.directory, '/' + directory + '/targets/')));
 
   app.set('port', process.env.PORT || 9000);
   app.set('views', path.join(app.directory, '/' + directory));

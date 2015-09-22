@@ -82,9 +82,10 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.hotels = hotels || [];
 
 
-          // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
-          // hotels = undefined;
-          scope.hotels = hotels || [];
+          if(Settings.UI.generics.singleProperty){
+            scope.navigateToHotel(scope.hotels[0].meta.slug);
+          }
+
 
           //check if offer is limited to only one property and if so navigate to it
           if($stateParams.promoCode){
@@ -293,6 +294,17 @@ angular.module('mobiusApp.directives.hotels', [])
 
       scope.hasDates = function(){
         return bookingService.APIParamsHasDates();
+      };
+
+      scope.hotelAvailable = function(){
+        var isAvailable = false;
+        _.find(scope.hotels, function(hotel){
+          if(hotel.available){
+            isAvailable = true;
+            return isAvailable;
+          }
+        });
+        return isAvailable;
       };
 
       scope.showFilter = function(filter){

@@ -14,6 +14,9 @@ describe('bookingWidget', function() {
     module('mobiusApp.directives.floatingBar', function($provide){
       $provide.value('Settings', {
         UI: {
+          generics: {
+            loyaltyProgramEnabled: true
+          },
           bookingWidget: {
             hasMutiroomTab: true
           },

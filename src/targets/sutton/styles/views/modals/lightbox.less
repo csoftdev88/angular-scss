@@ -1,0 +1,173 @@
+//////////////////////////
+//// MODAL - LIGHTBOX ////
+//////////////////////////
+
+// backdrop not so dark as on other modals
+.modal-lightbox {
+  opacity: .8 !important;
+}
+
+.lightbox {
+  border: none;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+
+  background: transparent !important;
+
+  .viewport-mobile & {
+    overflow-y: initial;
+  }
+
+  .ui-info {
+    height: 100%;
+    width: 100%;
+    background: transparent !important;
+    padding: @baseline*3;
+    box-sizing: border-box;
+
+    .viewport-mobile & {
+      padding: @baseline;
+    }
+
+    header {
+      padding: 0;
+      border: 0;
+      position: relative;
+      min-height: 0px;
+
+      button-close {
+        color: @c-white;
+        z-index: 1;
+        font-weight: normal;
+        font-size: @size-0;
+        top: -40px;
+        right: -12px;
+
+        .viewport-mobile & {
+          top: -20px;
+        }
+      }
+    }
+
+    main {
+      height: 100%;
+      width: 100%;
+      padding: 0px;
+    }
+  }
+
+  hero-slider {
+    height: 100%;
+    width: 100%;
+
+    border-radius: 10px;
+    border: none;
+    overflow: visible;
+
+    .slider-content {
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+      border-radius: 10px;
+
+      .hero-slide {
+        height: 90%;
+        overflow: visible;
+        border-radius: 10px;
+        background-size: cover;
+
+        .content-inner {
+          //top: 680px;
+          top: 100%;
+
+          h1 {
+            font-size: @size-2;
+            color: @c-white;
+            background: none;
+            line-height: initial;
+            text-align: center;
+            text-transform: none;
+            width: 100%;
+            padding: 0px;
+
+            &:before {
+              display: none;
+            }
+          }
+
+          h2 {
+            display: none;
+          }
+        }
+      }
+    }
+
+
+    .slider-controls {
+      position: initial;
+
+      > div {
+        background: none;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        top: 0px;
+      }
+
+      .pages {
+        transition: none;
+        bottom: 3%;
+
+        span {
+          transition: none;
+        }
+
+        counter {
+          color: @c-white;
+          font-weight: bold;
+          font-size: @size-1;
+          opacity: 1;
+
+          .viewport-mobile & {
+            display: none;
+          }
+        }
+      }
+
+      .slide-button {
+        background: none;
+        width: 12px;
+        height: 12px;
+        font-size: @size-5;
+        top: 280px;
+        transition: none;
+
+        color: @c-grey;
+        width: auto;
+        height: auto;
+
+        &:before {
+          .fa;
+        }
+
+        &.slide-left {
+          &:before {
+            content: @fa-var-chevron-left;
+          }
+
+          left: -40px;
+        }
+
+        &.slide-right {
+          &:before {
+            content: @fa-var-chevron-right;
+          }
+
+          right: -40px;
+        }
+      }
+    }
+  }
+}

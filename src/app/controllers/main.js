@@ -10,6 +10,7 @@ angular.module('mobius.controllers.main', [])
 
       // Application settings
       $scope.config = Settings.UI;
+      $scope.loyaltyProgramEnabled = $scope.config.generics.loyaltyProgramEnabled;
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;

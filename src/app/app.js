@@ -322,7 +322,9 @@ angular
   })
 
   .run(function(user, $rootScope, $state, breadcrumbsService) {
-    $rootScope.$on('$stateChangeSuccess', function() {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      $state.fromState = fromState;
+      $state.fromParams = fromParams;
       breadcrumbsService.clear();
     });
     // TODO - Move into settings

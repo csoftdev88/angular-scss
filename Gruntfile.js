@@ -8,7 +8,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-html2js');
@@ -17,6 +16,9 @@ module.exports = function(grunt) {
 
   // Time how long tasks take
   require('time-grunt')(grunt);
+
+  // Get grunt target
+  var target = grunt.option('target') || 'sutton';
 
   /**
   * Load in our build configuration file.
@@ -90,7 +92,7 @@ module.exports = function(grunt) {
         expand: true,
         sourceMap: true,
         cwd: '<%= config.client %>/',
-        src: 'styles/style.less',
+        src: ['styles/style.less', 'targets/' + target + '/styles/style.less'],
         dest: '<%= config.build %>/',
         ext: '.css'
       },
@@ -103,7 +105,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         cwd: '<%= config.client %>/',
-        src: 'styles/style.less',
+        src: ['styles/style.less', 'targets/' + target + '/styles/style.less'],
         dest: '<%= config.compile %>/',
         ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
@@ -169,9 +171,9 @@ module.exports = function(grunt) {
       images: {
         files: [{
           expand: true,
-          cwd: '<%= config.client %>/images/',
-          src: ['<%= config.images %>'],
-          dest: '<%= config.build %>/images/'
+          cwd: '<%= config.client %>',
+          src: ['images/<%= config.images %>', 'targets/' + target + '/images/<%= config.images %>'],
+          dest: '<%= config.build %>'
         }]
       },
       fonts: {
@@ -180,6 +182,12 @@ module.exports = function(grunt) {
           cwd: '<%= config.font_awesome %>',
           src: ['<%= config.fonts %>'],
           dest: '<%= config.build %>/font/'
+        },
+        {
+          expand: true,
+          cwd: '<%= config.font_awesome %>',
+          src: ['<%= config.fonts %>'],
+          dest: '<%= config.build %>/targets/' + target + '/font/'
         }]
       },
       404: {
@@ -201,7 +209,8 @@ module.exports = function(grunt) {
       markup: {
         files: [
           '<%= config.client %>/<%= config.markup %>',
-          '<%= config.client %>/locales/*.json'
+          '<%= config.client %>/locales/*.json',
+          '<%= config.client %>/targets/' + target + '/locales/*.json'
         ],
         tasks: ['localisation', 'templateCache', 'index:build'],
         options: { livereload: true }
@@ -212,7 +221,7 @@ module.exports = function(grunt) {
         options: { livereload: true }
       },
       scripts: {
-        files: ['<%= config.app_files.js %>'],
+        files: ['<%= config.app_files.js %>', '<%= config.client %>/targets/' + target + '/settings.js'],
         tasks: ['prebuild', 'index:build'],
         options: { livereload: true }
       },
@@ -274,10 +283,13 @@ module.exports = function(grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
+
+  //run tests
   grunt.registerTask('test', [
     'karma:continuous'
   ]);
 
+  //Prebuild
   grunt.registerTask('prebuild', [
     'jshint',
     'test',
@@ -286,11 +298,12 @@ module.exports = function(grunt) {
     'ngmin'
   ]);
 
-
+  //default development task
   grunt.registerTask('default', [
     'development'
   ]);
 
+  //development tasks
   grunt.registerTask('development', [
     'build:development',
     'watch',
@@ -312,6 +325,11 @@ module.exports = function(grunt) {
     'copy:404'
   ]);
 
+  //production tasks
+  grunt.registerTask('release', [
+    'production'
+  ]);
+
   grunt.registerTask('production', [
     'build:production'
   ]);
@@ -328,9 +346,6 @@ module.exports = function(grunt) {
     //'usemin'
   ]);
 
-  grunt.registerTask('release', [
-    'production'
-  ]);
 
   grunt.registerTask('sleep', 'Keep grunt running', function() {
     this.async();
@@ -339,6 +354,7 @@ module.exports = function(grunt) {
   grunt.registerTask('exit', 'Quit out of Grunt', function() {
     process.exit(0);
   });
+
 
   /**
    * The index.html template includes the stylesheet and javascript sources

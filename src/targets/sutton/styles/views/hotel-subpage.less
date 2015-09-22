@@ -1,0 +1,158 @@
+///////////////////////
+//// HOTELS SUBPAGE ///
+///////////////////////
+
+hotel-info{
+  h1{
+    .h1;
+    span{
+      font-weight: 300;
+    }
+  }
+  img{
+    width: auto;
+    max-width: 50%;
+    float: left;
+    margin-right: 20px;
+    .viewport-mobile &{
+      width: 100%;
+      max-width: 100%;
+      float: none;
+      margin: 0 0 10px;
+    }
+  }
+
+  .desc{
+    margin-bottom: 30px;
+  }
+
+}
+
+more-info-list{
+
+  h2{
+    .h2;
+  }
+
+  info-list {
+    clear: both;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: left;
+    margin: 0 @baseline/4 @baseline 0;
+
+    info-item {
+      border-radius: @radius*2;
+      box-sizing: border-box;
+      flex: 0 0 ~"calc(33% - 20px)";
+      height: 360px;
+      overflow: hidden;
+      margin: 0 @baseline/2 @baseline @baseline/2;
+      width: ~"calc(33% - 20px)";
+      position: relative;
+      font-weight: 300;
+
+      border: 1px solid @c-light-grey;
+      box-shadow: 0 1px 2px @c-light-grey;
+      background: #fff;
+
+      text-align: center;
+      display: table;
+
+      &.has-image{
+        display: block;
+        section{
+          display: block;
+        }
+        h2{
+          margin-top: 0;
+        }
+      }
+
+      // if it's clickable
+      &[ng-click] {
+        cursor: pointer;
+      }
+
+      //- Image
+      img {
+        display: block;
+        margin-bottom: @baseline;
+        max-height: 160px;
+        width: 100%;
+
+        object-fit: cover;
+        opacity: 1;
+      }
+
+      //- Content - Title + Description
+      section {
+        position: relative;
+        max-height: 150px;
+        overflow: hidden;
+        display: table-cell;
+        vertical-align: middle;
+
+        &:after {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+
+          display: block;
+          height: 24px;
+
+          background: url('../images/v4/text-overlay.png');
+          background-size: 100% 30px;
+
+          content: '';
+        }
+      }
+
+      //- Title
+      h2 {
+        margin-bottom: @baseline;
+        margin-top: @baseline;
+        padding: 0 @baseline;
+
+        color: @c-base;
+
+        font-size: @size-2;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      //- Description
+      div {
+        color: @c-grey;
+        margin-bottom: @baseline;
+        padding: 0 @baseline;
+      }
+
+      //- Read More
+      span {
+        display: block;
+        color: @c-link;
+        font-weight: 600;
+        position: absolute;
+        bottom: 16px;
+        left: 0px;
+        right: 0px;
+      }
+
+      .viewport-mobile &{
+        flex: 100%;
+        width: 100%;
+        padding-bottom: 16px;
+        margin: 0 0 @baseline;
+      }
+
+    }
+  }
+}
+
+
+
+
+
+

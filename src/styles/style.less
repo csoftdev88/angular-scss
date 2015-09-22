@@ -10,33 +10,33 @@
 //- OLD V2 STYLES -//
 // We will slowly refactor the whole code and replace old V2 styles for V4
 
-@import 'v2/config';
+//@import 'v2/config';
 
 //@import 'v2/base';
-@import 'v2/typography';
+//@import 'v2/typography';
 //@import 'v2/containers';
 
 //@import 'v2/partials/header';
-@import 'v2/partials/footer';
-@import 'v2/partials/buttons';
+//@import 'v2/partials/footer';
+//@import 'v2/partials/buttons';
 // @import 'v2/partials/forms';
 // @import 'v2/partials/selects';
-@import 'v2/partials/dropdowns';
+//@import 'v2/partials/dropdowns';
 // @import 'v2/partials/datepicker';
-@import 'v2/partials/animations';
+//@import 'v2/partials/animations';
 // @import 'v2/partials/modal-dialog';
 // @import 'v2/partials/preloader';
 
-@import 'v2/widgets/best-offers-widget';
-@import 'v2/widgets/best-hotels-widget';
+//@import 'v2/widgets/best-offers-widget';
+//@import 'v2/widgets/best-hotels-widget';
 //@import 'v2/widgets/hotels-widget';
-@import 'v2/widgets/rooms-widget';
-@import 'v2/widgets/aside-widget';
+//@import 'v2/widgets/rooms-widget';
+//@import 'v2/widgets/aside-widget';
 // @import 'v2/widgets/reservation-widget';
 //@import 'v2/widgets/about-hotel-widget';
 
-@import (reference) 'v2/mixins';
-@import 'v2/helpers';
+//@import (reference) 'v2/mixins';
+//@import 'v2/helpers';
 
 
 //- NEW V4 STYLES -//
@@ -91,8 +91,10 @@
 @import 'views/modals/product-details';
 
 //- Components
+@import 'components/animations';
 @import 'components/datepicker';
 @import 'components/buttons';
+@import 'components/dropdowns';
 @import 'components/forms';
 @import 'components/chosen-select';
 @import 'components/msg-box';
@@ -112,6 +114,4 @@
 @import 'components/preloader';
 @import 'components/notification-bar';
 @import 'components/international-tel';
-
-//- Directives
-@import '../app/directives/localInfo/local-info';
+@import 'components/local-info';

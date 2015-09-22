@@ -34,6 +34,9 @@ describe('room', function() {
       $provide.value('$state', {});
       $provide.value('Settings', {
         UI: {
+          'generics' : {
+            'loyaltyProgramEnabled': true
+          },
           'roomDetails': {
             'hasReadMore': true
           }

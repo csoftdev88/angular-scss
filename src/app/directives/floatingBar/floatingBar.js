@@ -25,6 +25,7 @@ angular.module('mobiusApp.directives.floatingBar', [
       // Widget logic goes here
       link: function(scope, $el) {
         scope.hasMutiroomTab = Settings.UI.bookingWidget.hasMutiroomTab;
+        scope.loyaltyProgramEnabled = Settings.UI.generics.loyaltyProgramEnabled;
         scope.isMobile = $window.innerWidth <= Settings.UI.screenTypes.mobile.maxWidth;
         isCollapsed = isCollapsed || scope.isMobile;
         scope.isCollapsed = isCollapsed;

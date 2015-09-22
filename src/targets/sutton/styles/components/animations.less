@@ -1,0 +1,100 @@
+.animated {
+  animation-duration:           @transitionDurationDefault;
+  animation-fill-mode:          both;
+}
+
+.animated-slow {
+  animation-duration:           @transitionDurationLong;
+  animation-fill-mode:          both;
+}
+
+.animated-slower {
+  animation-duration:           @transitionDurationLonger;
+  animation-fill-mode:          both;
+}
+
+@keyframes bounceInUp {
+  0% {
+    transform:            translateY(10px);
+    opacity:              0;
+  }
+
+  100% {
+    transform:            translateY(0);
+    opacity:              1;
+  }
+}
+
+@keyframes bounceInDown {
+  0% {
+    -webkit-transform:    translateY(-10px);
+    -ms-transform:        translateY(-10px);
+    transform:            translateY(-10px);
+    opacity:              0;
+  }
+
+  100% {
+    -webkit-transform:    translateY(0);
+    -ms-transform:        translateY(0);
+    transform:            translateY(0);
+    opacity:              1;
+  }
+}
+
+@keyframes bounceInLeft {
+  0% {
+    transform:            translateX(500px);
+    opacity:              0;
+  }
+
+  100% {
+    transform:            translateX(0);
+    opacity:              1;
+  }
+}
+
+@keyframes bounceInRight {
+  0% {
+    transform:            translateX(-500px);
+    opacity:              0;
+  }
+
+  100% {
+    transform:            translateX(0);
+    opacity:              1;
+  }
+}
+
+.formInfoAnimation {
+  -webkit-animation-name: bounceInUp;
+  animation-name:         bounceInUp;
+}
+
+.animate-spin {
+  animation: spin 2s infinite linear;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+.dropdownAnimation {
+  -webkit-animation-name: bounceInDown;
+  animation-name:         bounceInDown;
+}
+
+.slide-animation-left {
+  -webkit-animation-name: bounceInLeft;
+  animation-name:         bounceInLeft;
+}
+
+.slide-animation-right {
+  -webkit-animation-name: bounceInRight;
+  animation-name:         bounceInRight;
+}

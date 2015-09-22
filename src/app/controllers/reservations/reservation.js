@@ -19,6 +19,10 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMultiRoomMode = bookingService.isMultiRoomBooking();
 
   var multiRoomData;
+  var previousState = {
+    state: $state.fromState,
+    params: $state.fromParams
+  };
 
   function onAuthorized(isMobiusUser){
     // Getting room/products data
@@ -144,10 +148,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
   function goToRoom() {
-    $state.go('room', {
-      propertyCode: $stateParams.property,
-      roomID: $stateParams.roomID
-    });
+    $state.go(previousState.state, previousState.params);
   }
 
   // Redirecting to details page

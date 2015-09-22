@@ -38,12 +38,14 @@ describe('mobius.controllers.common.content', function() {
         $provide.value('Settings', {
           UI: {
             menu: {
-              'singleProperty': false,
               'showOffers': true,
               'offerSpecificToSelectedProperty': true,
               'showAbout': true,
               'showNews': true,
               'showContact': true
+            },
+            generics: {
+              'singleProperty': false
             }
           }
         });

@@ -94,6 +94,10 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
 
   'UI': {
+    'generics': {
+      'singleProperty': false,
+      'loyaltyProgramEnabled': true
+    },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
       'heroAdverts': 'hero-advert'
@@ -109,7 +113,6 @@ angular.module('mobiusApp.config', [])
     },
     // Menu settings - showing/hidding menu items
     'menu': {
-      'singleProperty': false,
       'showOffers': true,
       'showAbout': true,
       'showNews': true,
