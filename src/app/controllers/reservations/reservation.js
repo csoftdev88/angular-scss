@@ -520,13 +520,22 @@ angular.module('mobius.controllers.reservation', [])
     // Getting rooms settings
     var roomsSettings = bookingService.getMultiRoomData();
 
-    var rooms = $scope.allRooms.map(function(room){
-      // Adding guests details
-      var roomSettings = _.findWhere(roomsSettings, {roomID: room.code});
-      room._adults = roomSettings.adults;
-      room._children = roomSettings.children;
-      return room;
-    });
+    var allRooms = $scope.allRooms.map(function(room){return room;});
+
+    var rooms = [];
+    for(var i=0; i < roomsSettings.length; i++){
+      var roomSettings = roomsSettings[i];
+
+      var roomData = _.findWhere(allRooms, {code: roomSettings.roomID});
+      if(roomData){
+        var room = roomData;
+        allRooms.splice(allRooms.indexOf(room), 1);
+
+        room._adults = roomSettings.adults;
+        room._children = roomSettings.children;
+        rooms.push(room);
+      }
+    }
 
     modalService.openOtherRoomsDialog(rooms);
   };
