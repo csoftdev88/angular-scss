@@ -93,7 +93,7 @@ angular.module('mobius.controllers.hotel.details', [
           .addHref('Rooms', 'jsRooms')
           .addHref('Location', 'jsLocation')
           .addHref('Offers', 'jsOffers')
-          .addHref('Gallery', 'fnOpenLightBox');
+          .addHref('Gallery', 'fnOpenHotelLightBox');
 
         // Updating Hero content images
         if(details.images){

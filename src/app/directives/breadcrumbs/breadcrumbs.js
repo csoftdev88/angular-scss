@@ -61,6 +61,9 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
           if(href === 'fnOpenLightBox'){
             modalService.openGallery(contentService.getLightBoxContent(scope.heroContent));
             return;
+          } else if (href === 'fnOpenHotelLightBox'){
+            modalService.openGallery(contentService.getLightBoxContent(scope.details.images));
+            return;
           }
 
           scope.activeHref = _.find(scope.hrefs, {id: href}).name;
