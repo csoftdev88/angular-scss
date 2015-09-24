@@ -8,9 +8,7 @@
 
   <reservation-widget grid-row>
 
-    <span class="alert-warning" ng-if="invalidFormData">
-      We are sorry, your payment was not authorized. Please check the policies, your details and try again.
-    </span>
+    <span id="error-msg" class="alert-warning" ng-if="invalidFormData.error">{{invalidFormData.msg}}</span>
 
     <div grid-row>
       <!-- RESERVATION DETAILS -->
