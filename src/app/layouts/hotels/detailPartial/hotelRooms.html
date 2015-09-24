@@ -23,7 +23,7 @@
     </header>
 
     <list-items class="rooms-list">
-      <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="1000">
+      <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay">
         <header class="item-header desktop">
           <h3>
             <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>
@@ -71,7 +71,11 @@
                 </p>
               </div>
 
-              <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates">{{viewRatesButtonText}}</button>
+              <div class="not-available" ng-if="!availableRooms.indexOf(room.code) > -1 && !room.priceFrom">
+                <p>Not Available on Selected Dates</p>
+              </div>
+
+              <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom">{{viewRatesButtonText}}</button>
             </div>
 
             <p class="our-rates">Our Rates</p>

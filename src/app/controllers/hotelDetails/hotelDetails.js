@@ -227,7 +227,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
 
   $scope.displayRoomRates = function(room){
-    if(!room || room._displayRates){
+    if(!room || room._displayRates || $scope.availableRooms.indexOf(room.code) === -1 && !room.priceFrom){
       return;
     }
 
