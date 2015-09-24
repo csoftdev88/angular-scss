@@ -440,7 +440,10 @@ angular.module('mobius.controllers.reservation', [])
       return modalService.openTermsAgreeDialog();
     }
 
-    $scope.invalidFormData = false;
+    $scope.invalidFormData = {
+      error: false,
+      msg: null
+    };
 
     var reservationData = createReservationData();
     // TODO: Check if phone number has changed before saving
@@ -507,9 +510,15 @@ angular.module('mobius.controllers.reservation', [])
       });
 
       $state.go('reservationDetail', reservationDetailsParams);
-    }, function() {
+    }, function(data) {
       // TODO: Whaat request has failed
-      $scope.invalidFormData = true;
+      //Apparently soap reason is not reliable so checking against msg
+      if(data.error.msg === 'User already registered'){
+        $scope.invalidFormData.msg = 'The email already exists. Either login under ' + $scope.userDetails.email + ' or try to select other email address.';
+      }else{
+        $scope.invalidFormData.msg = 'We are sorry, your payment was not authorized. Please check the policies, your details and try again.';
+      }
+      $scope.invalidFormData.error = true;
       $state.go('reservation.details');
     });
 
