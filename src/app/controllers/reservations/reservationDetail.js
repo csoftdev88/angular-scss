@@ -342,8 +342,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       reservationService.sendToPassbook($stateParams.reservationCode).then(function(){
         userMessagesService.addMessage('<div>You have successfully added your reservation to passbook.</div>');
       }, function(){
-        userMessagesService.addMessage('<div>Sorry, we could not add reservation <strong>' +
-          $stateParams.reservationCode + '</strong> to passbook, please try again.</div>');
+        userMessagesService.addMessage('<div>Sorry, we could not add reservation to passbook, please try again.</div>');
       });
     };
 
