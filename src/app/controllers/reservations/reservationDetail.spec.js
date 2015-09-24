@@ -276,7 +276,7 @@ describe('mobius.controllers.reservationDetail', function() {
       it('should show notification when reservation is successfully addded to passbook', function(){
         _scope.sendToPassbook();
         expect(_spyAddMessage.calledOnce).equal(true);
-        expect(_spyAddMessage.calledWith('<div>You have successfully added your reservation <strong>95234134</strong> to passbook.</div>')).equal(true);
+        expect(_spyAddMessage.calledWith('<div>You have successfully added your reservation to passbook.</div>')).equal(true);
       });
     });
   });
