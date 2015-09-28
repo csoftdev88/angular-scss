@@ -111,8 +111,9 @@ contacts-page {
 
   //- Form
   form {
-    display: flex;
-    flex-flow: wrap;
+    //display: flex;
+    //flex-flow: wrap;
+    display: inline-block;
     margin-bottom: @baseline;
 
     // MOBILE SPECIFIC STYLES
@@ -124,8 +125,9 @@ contacts-page {
     // Columns
     fieldset {
       box-sizing: border-box;
-      flex: 1;
+      //flex: 1;
       width: 50%;
+      float: left;
 
       &:first-of-type {
         padding-right: @baseline / 2;
