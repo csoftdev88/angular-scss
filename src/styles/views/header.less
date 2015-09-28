@@ -381,18 +381,6 @@
   }
 }
 
-// Tablet styles
-@media only screen and @tablet-portrait-max and @large-mobile-min {
-
-  .main-nav {
-    ul {
-      li {
-        padding: 0px @paddingHeaderDefault / 2;
-      }
-    }
-  }
-}
-
 // DESKTOP STYLES
 @media only screen and @tablet-portrait-min {
 
@@ -446,6 +434,18 @@
 
     .button-login {
       top: @headerHeight + @headerBorderBottom;
+    }
+  }
+}
+
+// Tablet styles
+@media only screen and @large-mobile-min and @tablet-portrait-max {
+
+  .main-nav {
+    ul {
+      li {
+        padding: 0px @paddingHeaderDefault / 2;
+      }
     }
   }
 }
