@@ -2,12 +2,21 @@
 
 describe('mobius.controllers.main', function() {
   describe('MainCtrl', function() {
-    var _scope, _modalService, _contentService;
+    var _scope, _modalService, _contentService, _propertyService;
 
     var ADVERTS_DATA = [{
-      images: [{a: 123}, {b: 123}]
+      images: [{a: 123, link: {code: 'CODE'}}, {b: 123, link: {code: 'CODE'}}]
     }];
 
+    var PROPERTIES_DATA = [{
+      properties: [{a: 123}, {b: 123}]
+    }];
+
+    var OFFERS_DATA = [{
+      offers: [{a: 123}, {b: 123}]
+    }];
+
+  
     beforeEach(function() {
       module('underscore');
 
@@ -23,7 +32,12 @@ describe('mobius.controllers.main', function() {
         });
 
         $provide.value('contentService', {
-          getAdverts: sinon.stub()
+          getAdverts: sinon.stub(),
+          getOffers: sinon.stub()
+        });
+
+        $provide.value('propertyService', {
+          getAll: sinon.stub()
         });
 
         $provide.value('Settings', {
@@ -37,11 +51,12 @@ describe('mobius.controllers.main', function() {
           }
         });
         $provide.value('user', {});
+        $provide.value('$stateParams', {});
       });
     });
 
     beforeEach(inject(function($controller, $rootScope, $q, modalService,
-        contentService) {
+        contentService, propertyService) {
 
       _scope = $rootScope.$new();
 
@@ -49,6 +64,10 @@ describe('mobius.controllers.main', function() {
 
       _contentService = contentService;
       _contentService.getAdverts.returns($q.when(ADVERTS_DATA));
+      _contentService.getOffers.returns($q.when(OFFERS_DATA));
+
+      _propertyService = propertyService;
+      _propertyService.getAll.returns($q.when(PROPERTIES_DATA));
 
       $controller('MainCtrl', { $scope: _scope });
     }));
@@ -61,7 +80,7 @@ describe('mobius.controllers.main', function() {
 
     describe('updateHeroContent', function() {
       it('should update hero content', function(){
-        var data = [{a: 'test'}];
+        var data = [{a: 'test', link: {code: 'CODE'}}];
         _scope.updateHeroContent(data);
         expect(_scope.heroContent).equal(data);
       });
