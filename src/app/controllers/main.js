@@ -62,8 +62,6 @@ angular.module('mobius.controllers.main', [])
 
           contentService.getOffers().then(function(offers) {
 
-            //allOffers = offers;
-
             if($stateParams.property){
               filteredOffers = _.filter(offers, function(offer){
                 return _.contains(offer.limitToPropertyCodes, $stateParams.property) || !offer.limitToPropertyCodes.length;
@@ -85,14 +83,7 @@ angular.module('mobius.controllers.main', [])
 
             $scope.heroContent = data;
 
-            //console.log('filteredOffers: ' + angular.toJson(filteredOffers));
             console.log('data: ' + angular.toJson(data));
-
-            /*
-            _.each(allOffers, function(offer){
-              console.log('offers: ' + angular.toJson(offer));
-            });
-*/
 
           });
 
