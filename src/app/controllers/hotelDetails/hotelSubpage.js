@@ -11,6 +11,11 @@ angular.module('mobius.controllers.hotel.subpage', [])
   $scope.scroll = 0;
   $scope.moreInfo = [];
 
+  if(!$stateParams.infoSlug || $stateParams.infoSlug === ''){
+    var propertyCode = bookingService.getCodeFromSlug($stateParams.propertySlug);
+    $state.go('hotel', {property: propertyCode, propertySlug: $stateParams.propertySlug});
+  }
+
   // TODO: Change to a classic selectors . #
   function scrollTo(hash, speed, offset) {
     $window._.defer(function () {
