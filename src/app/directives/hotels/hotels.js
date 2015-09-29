@@ -81,7 +81,6 @@ angular.module('mobiusApp.directives.hotels', [])
           // hotels = undefined;
           scope.hotels = hotels || [];
 
-
           if(Settings.UI.generics.singleProperty){
             scope.navigateToHotel(scope.hotels[0].meta.slug);
           }

@@ -5,13 +5,14 @@
 angular.module('mobius.controllers.contacts', [])
 
   .controller('ContactsCtrl', function($scope, $controller, chainService, Settings,
-   breadcrumbsService, formsService, metaInformationService, $location, $timeout, $rootScope){
+   breadcrumbsService, formsService, metaInformationService, $location, $timeout, $rootScope, scrollService){
 
     $timeout(function(){
       $rootScope.$broadcast('floatingBarEvent', {
         isCollapsed: true
       });
-    });
+      scrollService.scrollTo('jsForm', 20);
+    }, 500);
 
     $controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Contact And Feedback');

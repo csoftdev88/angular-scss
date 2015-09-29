@@ -67,6 +67,8 @@ describe('mobius.controllers.contacts', function() {
           absUrl: sinon.stub()
         });
 
+        $provide.value('scrollService', {});
+
         $controllerProvider.register('MainCtrl', function($scope){
           $scope._mainCtrlInherited = true;
         });
