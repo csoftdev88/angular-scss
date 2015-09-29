@@ -5,7 +5,7 @@ describe('mobius.controllers.main', function() {
     var _scope, _modalService, _contentService, _propertyService;
 
     var ADVERTS_DATA = [{
-      images: [{a: 123, link: {code: 'CODE'}}, {b: 123, link: {code: 'CODE'}}]
+      images: [{a: 123}, {b: 123}]
     }];
 
     var PROPERTIES_DATA = [{
@@ -80,14 +80,14 @@ describe('mobius.controllers.main', function() {
 
     describe('updateHeroContent', function() {
       it('should update hero content', function(){
-        var data = [{a: 'test', link: {code: 'CODE'}}];
+        var data = [{a: 'test'}];
         _scope.updateHeroContent(data);
         expect(_scope.heroContent).equal(data);
       });
 
       it('should load hero content from the server', function(){
         _scope.updateHeroContent();
-        _scope.$digest();
+        //_scope.$digest();
         expect(_contentService.getAdverts.calledOnce).equal(true);
         expect(_contentService.getAdverts.calledWith({bannerSize: 'test-size'})).equal(true);
       });

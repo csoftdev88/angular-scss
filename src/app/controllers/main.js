@@ -78,16 +78,19 @@ angular.module('mobius.controllers.main', [])
             filteredOffers = _.pluck(filteredOffers, 'code');
 
             data = _.filter(data, function(item){
-              return _.contains(filteredOffers, item.link.code) || item.link.type !== 'offers';
+              if(item.link){
+                return _.contains(filteredOffers, item.link.code) || item.link.type !== 'offers';
+              }
+              else{
+                return item;
+              }
+              
             });
-
+            
             $scope.heroContent = data;
-
-            console.log('data: ' + angular.toJson(data));
 
           });
 
-          
         });
 
         return data;
