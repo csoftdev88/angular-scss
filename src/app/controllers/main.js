@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams) {
 
       // Application settings
       $scope.config = Settings.UI;
@@ -21,18 +21,19 @@ angular.module('mobius.controllers.main', [])
       var heroSliderData;
       $scope.updateHeroContent = function(data){
         if(data && data.length){
-          $scope.heroContent = data;
+          $scope.heroContent = filterHeroContent(data);
           return;
         }
 
         if(heroSliderData) {
-          $scope.heroContent = heroSliderData;
+          $scope.heroContent = filterHeroContent(heroSliderData);
         }
         else {
           loadHighlights().then(function() {
-            $scope.heroContent = heroSliderData;
+            $scope.heroContent = filterHeroContent(heroSliderData);
           });
         }
+
         /* this is hidden in case they will decide keep hero slider only on some pages
         var stateName = $scope.$state.current.name;
 
@@ -50,6 +51,51 @@ angular.module('mobius.controllers.main', [])
           $scope.heroContent = Settings.UI.heroStaticContent['default'];
         }*/
       };
+
+      var propertyCodes;
+      var filteredOffers = [];
+      function filterHeroContent(data){
+
+        // Displaying the offers available on all the properties
+        propertyService.getAll().then(function(properties){
+          propertyCodes = _.pluck(properties, 'code');
+
+          contentService.getOffers().then(function(offers) {
+
+            if($stateParams.property){
+              filteredOffers = _.filter(offers, function(offer){
+                return _.contains(offer.limitToPropertyCodes, $stateParams.property) || !offer.limitToPropertyCodes.length;
+              });
+            }
+            else{
+              _.each(offers, function(offer){
+                if(offer.limitToPropertyCodes && offer.limitToPropertyCodes.length === propertyCodes.length){
+                  filteredOffers.push(offer);
+                }
+              });
+            }
+
+            filteredOffers = _.pluck(filteredOffers, 'code');
+
+            data = _.filter(data, function(item){
+              if(item.link){
+                return _.contains(filteredOffers, item.link.code) || item.link.type !== 'offers';
+              }
+              else{
+                return item;
+              }
+              
+            });
+            
+            $scope.heroContent = data;
+
+          });
+
+        });
+
+        return data;
+
+      }
 
       function loadHighlights() {
         return contentService.getAdverts({bannerSize: Settings.UI.adverts.heroAdverts}).then(

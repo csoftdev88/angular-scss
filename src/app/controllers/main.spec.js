@@ -2,12 +2,21 @@
 
 describe('mobius.controllers.main', function() {
   describe('MainCtrl', function() {
-    var _scope, _modalService, _contentService;
+    var _scope, _modalService, _contentService, _propertyService;
 
     var ADVERTS_DATA = [{
       images: [{a: 123}, {b: 123}]
     }];
 
+    var PROPERTIES_DATA = [{
+      properties: [{a: 123}, {b: 123}]
+    }];
+
+    var OFFERS_DATA = [{
+      offers: [{a: 123}, {b: 123}]
+    }];
+
+  
     beforeEach(function() {
       module('underscore');
 
@@ -23,7 +32,12 @@ describe('mobius.controllers.main', function() {
         });
 
         $provide.value('contentService', {
-          getAdverts: sinon.stub()
+          getAdverts: sinon.stub(),
+          getOffers: sinon.stub()
+        });
+
+        $provide.value('propertyService', {
+          getAll: sinon.stub()
         });
 
         $provide.value('Settings', {
@@ -37,11 +51,12 @@ describe('mobius.controllers.main', function() {
           }
         });
         $provide.value('user', {});
+        $provide.value('$stateParams', {});
       });
     });
 
     beforeEach(inject(function($controller, $rootScope, $q, modalService,
-        contentService) {
+        contentService, propertyService) {
 
       _scope = $rootScope.$new();
 
@@ -49,6 +64,10 @@ describe('mobius.controllers.main', function() {
 
       _contentService = contentService;
       _contentService.getAdverts.returns($q.when(ADVERTS_DATA));
+      _contentService.getOffers.returns($q.when(OFFERS_DATA));
+
+      _propertyService = propertyService;
+      _propertyService.getAll.returns($q.when(PROPERTIES_DATA));
 
       $controller('MainCtrl', { $scope: _scope });
     }));
@@ -68,7 +87,7 @@ describe('mobius.controllers.main', function() {
 
       it('should load hero content from the server', function(){
         _scope.updateHeroContent();
-        _scope.$digest();
+        //_scope.$digest();
         expect(_contentService.getAdverts.calledOnce).equal(true);
         expect(_contentService.getAdverts.calledWith({bannerSize: 'test-size'})).equal(true);
       });
