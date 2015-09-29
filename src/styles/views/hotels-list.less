@@ -99,8 +99,13 @@ hotels {
         pricing-info {
           display: inline-block;
           width: 100%;
-
+          /*
           .viewport-mobile &{
+            position: absolute;
+            bottom: 0;
+          }
+          */
+          @media only screen and @large-mobile-max {
             position: absolute;
             bottom: 0;
           }
@@ -129,7 +134,7 @@ hotels {
 
           button-submit{
             display: none;
-            .viewport-mobile & {
+            @media only screen and @large-mobile-max {
               display: inline-block;
               float: left;
               padding: 10px;
