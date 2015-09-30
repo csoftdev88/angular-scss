@@ -26,7 +26,7 @@
   <news-detail ng-if="showDetail" grid="12">
     <h1 ng-bind-html="selectedNews.title | mainHeaderStyle"></h1>
     <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedNews.image.alt}}"/>
-    <div ng-bind-html="selectedNews.text"></div>
+    <div ng-bind-html="selectedNews.text" markdown-text-parser></div>
     <button-back role="button" tabindex="0" ng-click="goToNewsList()" class="pull-left">Back</button-back>
     <div class="clearfix"></div>
     <hr>

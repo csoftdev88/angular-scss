@@ -6,17 +6,15 @@
  * used for styling page headings
  */
 
-// TODO: Review, most probably can be removed from the project.
-// This is quite similar to mainHeaderStyle filter<
-
 angular.module('mobiusApp.directives.markdownTextParser', [])
 
-.directive('markdownTextParser', function(){
+.directive('markdownTextParser', function($location){
   return {
     restrict: 'A',
     link: function($scope, $element, $attrs) {
 
       var parse = function() {
+        //format headers
         angular.element($element).find('h1').each(function(){
           var txt = angular.element(this).html();
           var ar = txt.split(' ');
@@ -25,6 +23,14 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
           var second = len > 2 ? ar.shift(): '';
           var wrapped = '<strong>' + ar.join(' ') + '</strong>';
           angular.element(this).html(len > 2 ? (first + ' ' + second + ' ' + wrapped) : (first + ' ' + wrapped));
+        });
+        //add target blank to links if not linking to current host
+        var host = $location.host();
+        angular.element($element).find('a').each(function(){
+          var href = angular.element(this).attr('href');
+          if(href.indexOf(host) === -1){
+            angular.element(this).attr('target', '_blank');
+          }
         });
       };
 
