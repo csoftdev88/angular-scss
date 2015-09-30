@@ -74,7 +74,18 @@ angular.module('mobius.controllers.reservation', [])
     // user. This doesn't apply for modifications
     if(!isMobiusUser && !$scope.isModifyingAsAnonymous()){
       modalService.openLoginDialog();
+    }else if($scope.isModifyingAsAnonymous()){
+      var reservationParams = {
+        email: $stateParams.email
+      };
+      reservationService.getReservation($stateParams.reservation, reservationParams).then(function(reservation) {
+        console.log('modify get reservation: ' + angular.toJson(reservation));
+        reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(data) {
+          console.log('modify getAnonUserProfile: ' + angular.toJson(data));
+        });
+      });
     }
+
   }
 
   function getRoomPromise(room){
@@ -470,6 +481,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     var reservationPromise = $q.all(promises).then(function(data) {
+      console.log(angular.toJson(data));
       userMessagesService.addMessage('' +
         '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
         '<div class="small">A confirmation email will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>');
@@ -509,7 +521,55 @@ angular.module('mobius.controllers.reservation', [])
         id: reservationDetailsParams.reservationCode
       });
 
-      $state.go('reservationDetail', reservationDetailsParams);
+
+      //creating anon user account
+      if(!user.isLoggedIn()){
+        var anonUserData = {
+          firstName: $scope.userDetails.firstName,
+          lastName: $scope.userDetails.lastName,
+          userDetails: {
+            firstName: $scope.userDetails.firstName,
+            lastName: $scope.userDetails.lastName,
+            phone: $scope.userDetails.phone,
+            address: $scope.userDetails.address,
+            city: $scope.userDetails.city,
+            stateProvince: $scope.userDetails.stateProvince,
+            zip: $scope.userDetails.zip,
+            country: $scope.userDetails.country
+          },
+          billingDetails: {
+            address: $scope.billingDetails.address,
+            city: $scope.billingDetails.city,
+            stateProvince: $scope.billingDetails.stateProvince,
+            country: $scope.billingDetails.country,
+            zip: $scope.billingDetails.zip,
+            phone: $scope.billingDetails.phone
+          },
+          additionalInfo :{
+            arrivalTime: $scope.additionalInfo.arrivalTime,
+            arrivalMethod: $scope.additionalInfo.arrivalMethod,
+            departureTime: $scope.additionalInfo.departureTime,
+            secondPhoneNumber: $scope.additionalInfo.secondPhoneNumber,
+            comments: $scope.additionalInfo.comments,
+            optedIn: $scope.additionalInfo.optedIn
+          }
+        };
+        var params = {
+          email: $scope.userDetails.email
+        };
+        reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
+          console.log('make res getReservation: ' + angular.toJson(reservation));
+          reservationService.updateAnonUserProfile(reservation.customer.id, params.email, anonUserData).then(function() {
+            $state.go('reservationDetail', reservationDetailsParams);
+          });
+        });
+      }
+      else{
+        $state.go('reservationDetail', reservationDetailsParams);
+      }
+      
+
+      
     }, function(data) {
       // TODO: Whaat request has failed
       //Apparently soap reason is not reliable so checking against msg

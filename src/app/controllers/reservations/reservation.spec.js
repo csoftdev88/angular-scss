@@ -4,7 +4,7 @@
 describe('mobius.controllers.reservation', function() {
   describe('ReservationCtrl', function() {
     var _scope, _spyOpenPoliciesInfo, _spyStateGo, _spyCreateReservation,
-    _clock, _spyGetPropertyDetails, _spyUpdateUser;
+    _clock, _spyGetPropertyDetails, _spyUpdateUser, _spyGetReservation;
 
     var TEST_PROPERTY_ID = 987654321;
     var TEST_ROOM_ID = 918273645;
@@ -87,6 +87,15 @@ describe('mobius.controllers.reservation', function() {
               then: function(c){
                 c({
                   reservationCode: TEST_RESERVATION_CODE
+                });
+              }
+            };
+          },
+          getReservation: function(){
+            return {
+              then: function(c){
+                c({
+                  id: 123
                 });
               }
             };
@@ -185,6 +194,7 @@ describe('mobius.controllers.reservation', function() {
 
       _scope.updateHeroContent = function(){};
       _scope.autofillSync = function(){};
+      _scope.isModifyingAsAnonymous = function(){};
 
       _clock = sinon.useFakeTimers(0 , 'Date');
       _clock.tick(window.moment('2015-01-25T10:53:35+0000').valueOf());
@@ -193,6 +203,7 @@ describe('mobius.controllers.reservation', function() {
       _spyStateGo = sinon.spy($state, 'go');
       _spyCreateReservation  = sinon.spy(reservationService, 'createReservation');
       _spyGetPropertyDetails  = sinon.spy(propertyService, 'getPropertyDetails');
+      _spyGetReservation  = sinon.spy(reservationService, 'getReservation');
       _spyUpdateUser  = sinon.spy(user, 'updateUser');
 
       $controller('ReservationCtrl', { $scope: _scope });
@@ -204,16 +215,23 @@ describe('mobius.controllers.reservation', function() {
       _spyStateGo.restore();
       _spyCreateReservation.restore();
       _spyGetPropertyDetails.restore();
+      _spyGetReservation.restore();
       _spyUpdateUser.restore();
       _clock.restore();
     });
 
     describe('when controller initialized', function() {
+      
       it('should download property details from the server and store them', function(){
         expect(_spyGetPropertyDetails).calledOnce;
         expect(_spyGetPropertyDetails.calledWith(TEST_PROPERTY_ID)).equal(true);
         expect(_scope.property).equal(TEST_PROPERTY);
       });
+
+      it('should be check if user is modifying as a anon', function() {
+        expect(_scope.isModifyingAsAnonymous).to.be.a('function');
+      });
+
     });
 
     describe('getCreditCardPreviewNumber', function(){
