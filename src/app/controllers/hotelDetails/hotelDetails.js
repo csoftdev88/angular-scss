@@ -241,4 +241,8 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.displayMoreRooms = function(){
     $scope.numberOfRoomsDisplayed  += Settings.UI.hotelDetails.numberOfRoomsAddedOnMobile || 1;
   };
+
+  $scope.hasDates = function(){
+    return bookingService.APIParamsHasDates();
+  };
 });

@@ -71,8 +71,12 @@
                 </p>
               </div>
 
-              <div class="not-available" ng-if="!availableRooms.indexOf(room.code) > -1 && !room.priceFrom">
+              <div class="not-available" ng-if="!availableRooms.indexOf(room.code) > -1 && !room.priceFrom && hasDates()">
                 <p>Not Available on Selected Dates</p>
+              </div>
+
+              <div class="not-available" ng-if="!hasDates()">
+                Please select your dates to see latest prices
               </div>
 
               <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom">{{viewRatesButtonText}}</button>
