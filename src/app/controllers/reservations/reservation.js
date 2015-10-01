@@ -78,10 +78,26 @@ angular.module('mobius.controllers.reservation', [])
       var reservationParams = {
         email: $stateParams.email
       };
+
       reservationService.getReservation($stateParams.reservation, reservationParams).then(function(reservation) {
         console.log('modify get reservation: ' + angular.toJson(reservation));
+
+        $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
+        $scope.additionalInfo.arrivalMethod = reservation.arrivalMethod;
+        $scope.additionalInfo.departureTime = reservation.departureTime;
+        $scope.additionalInfo.comments = reservation.comments;
+
         reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(data) {
           console.log('modify getAnonUserProfile: ' + angular.toJson(data));
+          $scope.userDetails.firstName = data.firstName;
+          $scope.userDetails.lastName = data.lastName;
+          $scope.userDetails.address = data.address1;
+          $scope.userDetails.city = data.city;
+          $scope.userDetails.zip = data.zip;
+          $scope.userDetails.stateProvince = data.state;
+          $scope.userDetails.phone = data.tel1;
+          $scope.additionalInfo.secondPhoneNumber = data.tel2;
+          $scope.additionalInfo.optedIn = data.optedIn;
         });
       });
     }
@@ -521,38 +537,18 @@ angular.module('mobius.controllers.reservation', [])
         id: reservationDetailsParams.reservationCode
       });
 
-
       //creating anon user account
       if(!user.isLoggedIn()){
         var anonUserData = {
           firstName: $scope.userDetails.firstName,
           lastName: $scope.userDetails.lastName,
-          userDetails: {
-            firstName: $scope.userDetails.firstName,
-            lastName: $scope.userDetails.lastName,
-            phone: $scope.userDetails.phone,
-            address: $scope.userDetails.address,
-            city: $scope.userDetails.city,
-            stateProvince: $scope.userDetails.stateProvince,
-            zip: $scope.userDetails.zip,
-            country: $scope.userDetails.country
-          },
-          billingDetails: {
-            address: $scope.billingDetails.address,
-            city: $scope.billingDetails.city,
-            stateProvince: $scope.billingDetails.stateProvince,
-            country: $scope.billingDetails.country,
-            zip: $scope.billingDetails.zip,
-            phone: $scope.billingDetails.phone
-          },
-          additionalInfo :{
-            arrivalTime: $scope.additionalInfo.arrivalTime,
-            arrivalMethod: $scope.additionalInfo.arrivalMethod,
-            departureTime: $scope.additionalInfo.departureTime,
-            secondPhoneNumber: $scope.additionalInfo.secondPhoneNumber,
-            comments: $scope.additionalInfo.comments,
-            optedIn: $scope.additionalInfo.optedIn
-          }
+          address1: $scope.userDetails.address,
+          city: $scope.userDetails.city,
+          zip: $scope.userDetails.zip,
+          state: $scope.userDetails.stateProvince,
+          tel1: $scope.userDetails.phone,
+          tel2: $scope.additionalInfo.secondPhoneNumber,
+          optedIn: $scope.additionalInfo.optedIn
         };
         var params = {
           email: $scope.userDetails.email
