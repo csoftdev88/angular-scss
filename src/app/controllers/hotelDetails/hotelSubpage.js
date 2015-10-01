@@ -54,8 +54,10 @@ angular.module('mobius.controllers.hotel.subpage', [])
           c.image.uri = images[0].src;
           c.image.alt = images[0].alt;
         }
-        elem.parentNode.removeChild(elem);
-
+        if(elem.parentNode){
+          elem.parentNode.removeChild(elem);
+        }
+        
         $scope.moreInfo.push(c);
       }
     }
