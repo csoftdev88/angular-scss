@@ -80,6 +80,14 @@ angular.module('mobiusApp.services.reservation', [])
     }), {email: email});
   }
 
+  function updateAnonUserProfile(id, email, data) {
+    return apiService.put(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: email}), data);
+  }
+
+  function getAnonUserProfile(id, email) {
+    return apiService.get(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: email}));
+  }
+
   // Public methods
   return {
     createReservation: createReservation,
@@ -94,6 +102,8 @@ angular.module('mobiusApp.services.reservation', [])
     getAvailableAddons: getAvailableAddons,
     getAll: getAll,
     getCancelledReservations: getCancelledReservations,
-    find: find
+    find: find,
+    updateAnonUserProfile: updateAnonUserProfile,
+    getAnonUserProfile: getAnonUserProfile
   };
 });
