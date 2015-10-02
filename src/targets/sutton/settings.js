@@ -92,6 +92,7 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
+  'loginEndpoint': 'mobius',
 
   'UI': {
     'generics': {

@@ -114,5 +114,45 @@
         </div>
       </li>
     </ul>
+    <div class="login-dialog" ng-if="!sso.isInfiniti()">
+
+      <form name="loginForm" class="login-form" novalidate ng-submit="sso.login()" ng-if="isMobiusLogin">
+        <form-element>
+          <label for="loginEmail">
+            <input 
+              type="email" 
+              id="loginEmail"
+              name="loginEmail"
+              placeholder="Email Address"
+              ng-model="login.email" 
+              required
+              email-check
+              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            <span>
+              <span ng-hide="loginForm.$submitted && loginForm.email.$error.emailCheck">Email Address</span>
+            </span>
+          </label>
+        </form-element>
+
+        <form-element>
+          <label for="loginPassword">
+            <input 
+              type="password" 
+              id="loginPassword"
+              name="loginPassword"
+              placeholder="Password"
+              ng-model="login.password"
+              required
+              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            <span>
+              <span ng-hide="loginForm.$submitted && loginForm.email.$error.emailCheck">Password</span>
+            </span>
+          </label>
+        </form-element>
+        <input type="submit" id="submit" value="Log-in"/>
+      </form>
+
+
+    </div>
   </div>
 </nav>

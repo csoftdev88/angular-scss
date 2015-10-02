@@ -4,27 +4,46 @@
 */
 angular.module('mobius.controllers.common.sso', [])
 
-.controller( 'SSOCtrl', function($scope, $timeout, $window) {
+.controller( 'SSOCtrl', function($scope, $timeout, $window, Settings) {
+
   function isSSOReady(){
     return $window.infiniti && $window.infiniti.api;
   }
 
+  function isInfinitiLogin(){
+    return Settings.API.loginEndpoint === 'infiniti';
+  }
+
   $scope.sso = {
     // NOTE: INFINITI SSO doesnt expose the API methods right away
+    isInfiniti: function(){
+      return isInfinitiLogin();
+    },
     login: function(){
-      $window.infiniti.api.login();
+      if(isInfinitiLogin()){
+        $window.infiniti.api.login();
+      }
+      
     },
     register: function(){
-      $window.infiniti.api.register();
+      if(isInfinitiLogin()){
+        $window.infiniti.api.register();
+      }
+      
     },
     profile: function(){
-      $window.infiniti.api.profile();
+      if(isInfinitiLogin()){
+        $window.infiniti.api.profile();
+      }
+      
     },
     logout: function(){
-      $window.infiniti.api.logout();
+      if(isInfinitiLogin()){
+        $window.infiniti.api.logout();
+      }
     },
     trackPageView: function(){
-      if(!isSSOReady()){
+      if(!isSSOReady() || !isInfinitiLogin()){
         return;
       }
 
@@ -33,7 +52,7 @@ angular.module('mobius.controllers.common.sso', [])
       }, 1000);
     },
     trackPageLeave: function(){
-      if(!isSSOReady()){
+      if(!isSSOReady() || !isInfinitiLogin()){
         return;
       }
 
