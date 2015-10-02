@@ -97,7 +97,8 @@ angular.module('mobiusApp.config', [])
   'UI': {
     'generics': {
       'singleProperty': false,
-      'loyaltyProgramEnabled': true
+      'loyaltyProgramEnabled': true,
+      'sentryID': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
