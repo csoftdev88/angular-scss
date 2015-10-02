@@ -1,4 +1,5 @@
 'use strict';
+/*globals Raven */
 
 angular
   .module('mobiusApp', [
@@ -85,6 +86,7 @@ angular
     'mobiusApp.services.scroll',
     'mobiusApp.services.metaInformation',
     'mobiusApp.services.dataLayer',
+    'mobiusApp.services.exceptionHandler',
 
     // Factories
     'mobiusApp.factories.template',
@@ -321,7 +323,7 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state, breadcrumbsService) {
+  .run(function(user, $rootScope, $state, breadcrumbsService, Settings, $window) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       $state.fromState = fromState;
       $state.fromParams = fromParams;
@@ -329,6 +331,10 @@ angular
     });
     // TODO - Move into settings
     $rootScope.facebookAppId = '954663594591416';
+    //Sentry
+    if($window.Raven){
+      Raven.config(Settings.UI.generics.sentryID).install();
+    }
   })
 
   .controller('BaseCtrl', function($scope, $controller, scrollService,
