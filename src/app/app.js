@@ -329,8 +329,8 @@ angular
       $state.fromParams = fromParams;
       breadcrumbsService.clear();
     });
-    // TODO - Move into settings
-    $rootScope.facebookAppId = '954663594591416';
+    //Facebook
+    $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
     //Sentry
     if($window.Raven){
       Raven.config(Settings.UI.generics.sentryID).install();
