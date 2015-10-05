@@ -11,7 +11,7 @@ angular.module('mobius.controllers.common.sso', [])
   }
 
   function isInfinitiLogin(){
-    return Settings.API.loginEndpoint === 'infiniti';
+    return Settings.loginEndpoint === 'infiniti';
   }
 
   $scope.sso = {

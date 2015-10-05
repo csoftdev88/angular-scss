@@ -3,6 +3,10 @@
 angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
+  'currencyParamName': 'currency',
+  'defaultProductRateCode': 'Leisure Rates',
+  'defaultProductRateId': 1,
+  'loginEndpoint': 'infiniti',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -88,12 +92,6 @@ angular.module('mobiusApp.config', [])
       'my': 'customers/:customerId/rewards'
     }
   },
-
-  'currencyParamName': 'currency',
-  'defaultProductRateCode': 'Leisure Rates',
-  'defaultProductRateId': 1,
-  'loginEndpoint': 'mobius',
-
   'UI': {
     'generics': {
       'singleProperty': false,
