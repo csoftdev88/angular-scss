@@ -52,7 +52,10 @@ module.exports = function(grunt) {
       default: {
         expand: true,
         cwd: '<%= config.client %>',
-        src: '**/*.js',
+        src: [
+          'app/**/*.js',
+          'targets/' + target + '/**/*.js'
+        ],
         dest: '<%= config.build %>'
       }
     },
