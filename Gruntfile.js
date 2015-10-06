@@ -95,7 +95,7 @@ module.exports = function(grunt) {
         expand: true,
         sourceMap: true,
         cwd: '<%= config.client %>/',
-        src: ['styles/style.less', 'targets/' + target + '/styles/style.less'],
+        src: 'targets/' + target + '/styles/style.less',
         dest: '<%= config.build %>/',
         ext: '.css'
       },
@@ -108,7 +108,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         cwd: '<%= config.client %>/',
-        src: ['styles/style.less', 'targets/' + target + '/styles/style.less'],
+        src: 'targets/' + target + '/styles/style.less',
         dest: '<%= config.compile %>/',
         ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
