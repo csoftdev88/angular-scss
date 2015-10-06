@@ -118,133 +118,137 @@
       <figure class="logo">
         <img src="/static/images/v4/logo.png" alt="logo">
       </figure>
+
+      <div class="form-wrapper">
       
-      <form name="loginForm" class="login-form" novalidate>
-        <fieldset>
-          <form-element>
-            <label for="loginEmail">Email Address</label>
-            <input 
-              type="email" 
-              id="loginEmail"
-              name="loginEmail"
-              ng-model="login.email" 
-              required
-              email-check
-              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
-          </form-element>
+        <form name="loginForm" class="login-form" novalidate>
+          <fieldset>
+            <form-element>
+              <label for="loginEmail">Email Address</label>
+              <input 
+                type="email" 
+                id="loginEmail"
+                name="loginEmail"
+                ng-model="login.email" 
+                required
+                email-check
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            </form-element>
 
-          <form-element>
-            <label for="loginPassword">Password</label>
-            <input 
-              type="password" 
-              id="loginPassword"
-              name="loginPassword"
-              ng-model="login.password"
-              required
-              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
-          </form-element>
+            <form-element>
+              <label for="loginPassword">Password</label>
+              <input 
+                type="password" 
+                id="loginPassword"
+                name="loginPassword"
+                ng-model="login.password"
+                required
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            </form-element>
 
-          <form-element>
-            <label for="keepLoggedin" class="input-checkbox">
-              <input type="checkbox" id="keepLoggedin" ng-model="additionalInfo.agree"/>
-              Keep me Logged in
-            </label>
-          </form-element>
+            <form-element>
+              <label for="keepLoggedin" class="input-checkbox">
+                <input type="checkbox" id="keepLoggedin" ng-model="additionalInfo.agree"/>
+                Keep me Logged in
+              </label>
+            </form-element>
 
-        </fieldset>
+          </fieldset>
 
-        <ul class="options">
-          <li><a href="">Forgot password</a></li>
-          <li><a href="">Register Now</a></li>
-        </ul>
+          <ul class="options">
+            <li><a href="">Forgot password</a></li>
+            <li><a href="">Register Now</a></li>
+          </ul>
 
-        <button-submit role="button" tabindex="0" ng-click="sso.login()">Log-in</button-submit>
-      </form>
+          <button-submit role="button" tabindex="0" ng-click="sso.login()">Log-in</button-submit>
+        </form>
 
-      <form name="registerForm" class="register-form" novalidate>
-        <fieldset>
+        <form name="registerForm" class="register-form" novalidate>
+          <fieldset>
 
-          <form-element>
-            <label for="registerTitle">Title</label>
-            <select name="registerTitle" required chosen
-                    data-placeholder="Title"
-                    ng-model="register.title"
-                    ng-options="option.name for option in titleList">
-              <option></option> <!-- workaround for a bug in angular-chosen  -->
-            </select>
-          </form-element>
+            <form-element>
+              <label for="registerTitle">Title</label>
+              <select name="registerTitle" required chosen
+                      data-placeholder="Title"
+                      ng-model="register.title"
+                      ng-options="option.name for option in titleList">
+                <option></option> <!-- workaround for a bug in angular-chosen  -->
+              </select>
+            </form-element>
 
-          <form-element>
-            <label for="registerFname">First Name</label>
-            <input 
-              type="text" 
-              id="registerFname"
-              name="registerFname"
-              ng-model="register.fName" 
-              required
-              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
-          </form-element>
+            <form-element>
+              <label for="registerFname">First Name</label>
+              <input 
+                type="text" 
+                id="registerFname"
+                name="registerFname"
+                ng-model="register.fName" 
+                required
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            </form-element>
 
-          <form-element>
-            <label for="registerLname">Last Name</label>
-            <input 
-              type="text" 
-              id="registerLname"
-              name="registerLname"
-              ng-model="register.lName" 
-              required
-              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
-          </form-element>
+            <form-element>
+              <label for="registerLname">Last Name</label>
+              <input 
+                type="text" 
+                id="registerLname"
+                name="registerLname"
+                ng-model="register.lName" 
+                required
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            </form-element>
 
-          <form-element>
-            <label for="registerEmail">Email Address</label>
-            <input 
-              type="email" 
-              id="registerEmail"
-              name="registerEmail"
-              ng-model="register.email" 
-              required
-              email-check
-              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
-          </form-element>
+            <form-element>
+              <label for="registerEmail">Email Address</label>
+              <input 
+                type="email" 
+                id="registerEmail"
+                name="registerEmail"
+                ng-model="register.email" 
+                required
+                email-check
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            </form-element>
 
-          <form-element>
-            <label for="registerEmailConfirm">Confirm Email</label>
-            <input 
-              type="email" 
-              id="registerEmailConfirm"
-              name="registerEmailConfirm"
-              ng-model="register.emailConf" 
-              required
-              email-check
-              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
-          </form-element>
+            <form-element>
+              <label for="registerEmailConfirm">Confirm Email</label>
+              <input 
+                type="email" 
+                id="registerEmailConfirm"
+                name="registerEmailConfirm"
+                ng-model="register.emailConf" 
+                required
+                email-check
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            </form-element>
 
-          <form-element>
-            <label for="registerPhone">Phone Number</label>
-            <input 
-              type="phone" 
-              id="registerPhone"
-              name="registerPhone"
-              ng-model="register.phone" 
-              required
-              ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
-          </form-element>
+            <form-element>
+              <label for="registerPhone">Phone Number</label>
+              <input 
+                type="phone" 
+                id="registerPhone"
+                name="registerPhone"
+                ng-model="register.phone" 
+                required
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+            </form-element>
 
-          <form-element>
-            <label for="registerTitle">Prefered Contact</label>
-            <select name="registerTitle" required chosen
-                    data-placeholder="Title"
-                    ng-model="register.title"
-                    ng-options="option.name for option in contactList">
-              <option></option> <!-- workaround for a bug in angular-chosen  -->
-            </select>
-          </form-element>
+            <form-element>
+              <label for="registerTitle">Prefered Contact</label>
+              <select name="registerTitle" required chosen
+                      data-placeholder="Title"
+                      ng-model="register.title"
+                      ng-options="option.name for option in contactList">
+                <option></option> <!-- workaround for a bug in angular-chosen  -->
+              </select>
+            </form-element>
 
-        </fieldset>
-        
-        <button-submit role="button" tabindex="0" ng-click="sso.register()">Create Account</button-submit>
-      </form>
+          </fieldset>
+          
+          <button-submit role="button" tabindex="0" ng-click="sso.register()">Create Account</button-submit>
+        </form>
+
+      </div>
 
 
     </div>

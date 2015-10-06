@@ -23,7 +23,6 @@ angular.module('mobius.controllers.common.sso', [])
       if(isInfinitiLogin()){
         $window.infiniti.api.login();
       }
-      
     },
     register: function(){
       if(isInfinitiLogin()){

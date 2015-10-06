@@ -52,102 +52,106 @@
     }
   }
 
-  form {
-    width: 100%;
-
-    fieldset{
-       padding: 0 12px;
-
-      label {
-        position: relative;
-      }
-
-      .chosen-container{
-        font-size: 14px;
-        font-weight: 400;
-        padding-left: 6px;
-        border-radius: 0;
-        height: 40px;
-        &.chosen-container-active ~ span {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        .chosen-single{
-          height: 40px;
-          line-height: 38px;
-          span{
-
-          }
-        }
-        .chosen-results{
-          li{
-            color: @c-grey;
-          }
-        }
-      }
-
-      input[type="text"],
-      input[type="email"],
-      input[type="password"],
-      select,
-      textarea {
-        height: 45px;
-        padding: 0 15px;
-        border-radius: 0;
-        border-color: @c-gray-reservation;
-        color: @c-form-text;
-        font-size: @size-0;
-        transition: border-color 0.15s linear;
-
-        &:focus {
-          box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
-        }
-
-        &.ng-touched.ng-invalid,
-        &.ng-submitted.ng-invalid {
-          border-color: @c-red;
-        }
-      }
-
-      .input-checkbox {
-        float: right;
-        font-weight: 300;
-        font-size: @size--3;
-        cursor: pointer;
-        padding-top: 0;
-        input{
-          top: 3px;
-        }
-      }
-
-
-      // Inputs adjustment
-      form-element {
-
-        form-label {
-          font-size: @size-0;
-          line-height: @baseline;
-        }
-
-        input[type=text],
-        input[type=email],
-        input[type="password"] {
-          height: @baseline * 2;
-          line-height: @baseline * 2;
-        }
-
-        error-message {
-          position: absolute;
-          color: @c-error;
-        }
-      }
-    }
-
-    // Submit button
-    button-submit {
+  .form-wrapper{
+    form {
       width: 100%;
-      border-radius: 0;
-      border: 0;
+
+      fieldset{
+         padding: 0 12px;
+
+        label {
+          position: relative;
+        }
+
+        .chosen-container{
+          font-size: 14px;
+          font-weight: 400;
+          padding-left: 6px;
+          border-radius: 0;
+          height: 40px;
+          &.chosen-container-active ~ span {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          .chosen-single{
+            height: 40px;
+            line-height: 38px;
+            span{
+
+            }
+          }
+          .chosen-results{
+            li{
+              color: @c-grey;
+            }
+          }
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+          height: 45px;
+          padding: 0 15px;
+          border-radius: 0;
+          border-color: @c-gray-reservation;
+          color: @c-form-text;
+          font-size: @size-0;
+          transition: border-color 0.15s linear;
+
+          &:focus {
+            box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+          }
+
+          &.ng-touched.ng-invalid,
+          &.ng-submitted.ng-invalid {
+            border-color: @c-red;
+          }
+        }
+
+        .input-checkbox {
+          float: right;
+          font-weight: 300;
+          font-size: @size--3;
+          cursor: pointer;
+          padding-top: 0;
+          input{
+            top: 3px;
+          }
+        }
+
+
+        // Inputs adjustment
+        form-element {
+
+          form-label {
+            font-size: @size-0;
+            line-height: @baseline;
+          }
+
+          input[type=text],
+          input[type=email],
+          input[type="password"] {
+            height: @baseline * 2;
+            line-height: @baseline * 2;
+          }
+
+          error-message {
+            position: absolute;
+            color: @c-error;
+          }
+        }
+      }
+
+      // Submit button
+      button-submit {
+        width: 100%;
+        border-radius: 0;
+        border: 0;
+      }
     }
   }
+
+  
 }

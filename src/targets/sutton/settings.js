@@ -6,7 +6,7 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'loginEndpoint': 'infiniti',
+  'loginEndpoint': 'mobius',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
