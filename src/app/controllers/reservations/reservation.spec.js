@@ -93,6 +93,8 @@ describe('mobius.controllers.reservation', function() {
           }
         });
 
+        $provide.value('userObject', TEST_USER);
+
         $provide.service('propertyService', function($q) {
           return {
             getPropertyDetails: function(){

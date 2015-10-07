@@ -21,7 +21,7 @@ angular.module('mobiusApp.services.user', [])
     var authPromise = $q.defer();
 
     function hasSSOCookies(){
-      return !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
+      return Settings.authType === 'mobius' ? true : !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
     }
 
     function isProfileLoaded(){
@@ -54,6 +54,8 @@ angular.module('mobiusApp.services.user', [])
 
     function loadProfile() {
       var customerId = getCustomerId();
+
+      console.log('loadProfile: ' + customerId);
 
       if(customerId){
         // Setting up the headers for a future requests

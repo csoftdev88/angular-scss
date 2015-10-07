@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.common.sso', [])
 
-.controller( 'SSOCtrl', function($scope, $timeout, $window, Settings, apiService) {
+.controller( 'SSOCtrl', function($scope, $timeout, $window, Settings, apiService, userObject, _, user) {
 
   function isSSOReady(){
     return $window.infiniti && $window.infiniti.api;
@@ -43,8 +43,10 @@ angular.module('mobius.controllers.common.sso', [])
       if(!isInfinitiLogin()){
         loginForm.$submitted = true;
         if (loginForm.$valid) {
-          apiService.get(apiService.getFullURL('customers.login'), loginData).then(function(){
+          apiService.post(apiService.getFullURL('customers.login'), loginData).then(function(data){
             clearErrorMsg();
+            userObject.id = data.id;
+            user.loadProfile();
           }, function(){
             //TODO: Move into locale
             setErrorMsg('The email and/or password you entered is incorrect');
@@ -62,8 +64,11 @@ angular.module('mobius.controllers.common.sso', [])
       else{
         registerForm.$submitted = true;
         if (registerForm.$valid) {
-          apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(){
+          apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(data){
             clearErrorMsg();
+            userObject.id = data.id;
+            user.loadProfile();
+
           }, function(){
             //TODO: Move into locale
             setErrorMsg('Sorry, there was an error, please try again');

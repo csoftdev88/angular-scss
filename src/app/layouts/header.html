@@ -37,7 +37,8 @@
               <a ui-sref="reservations">Reservations</a>
             </li>
             <li>
-              <a href ng-click="sso.profile()">Profile</a>
+              <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">Profile</a>
+              <a ng-if="!sso.isInfiniti()" href ui-sref="profile">Profile</a>
             </li>
             <li class="mobile-rewards">
               <a href ui-sref="rewards">Rewards</a>
@@ -105,7 +106,8 @@
               <a ui-sref="reservations">Reservations</a>
             </li>
             <li>
-              <a href ng-click="sso.profile()">Profile</a>
+              <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">Profile</a>
+              <a ng-if="!sso.isInfiniti()" href ui-sref="profile">Profile</a>
             </li>
             <li>
               <a href ng-click="sso.logout()">Logout</a>
@@ -166,7 +168,7 @@
             <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors();">Register Now</a></li>
           </ul>
 
-          <button-submit role="button" tabindex="0" ng-click="sso.login(loginForm, loginData)">Log-in</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="sso.doLogin(loginForm, loginData)">Log-in</button-submit>
         </form>
 
         <form name="registerForm" class="register-form" novalidate>
@@ -178,7 +180,7 @@
                       disable-search="true"
                       data-placeholder="Title"
                       ng-model="registerData.title"
-                      ng-options="title.name for title in registerTitles">
+                      ng-options="title.name as title.code for title in registerTitles">
                 <option></option> <!-- workaround for a bug in angular-chosen  -->
               </select>
             </form-element>
@@ -230,6 +232,28 @@
             </form-element>
 
             <form-element>
+              <label for="registerPassword">Password</label>
+              <input 
+                type="password" 
+                id="registerPassword"
+                name="registerPassword"
+                ng-model="registerData.password" 
+                required
+                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerPassword.$error.required}"/>
+            </form-element>
+
+            <form-element>
+              <label for="registerPasswordConfirm">Confirm Password</label>
+              <input 
+                type="password" 
+                id="registerPasswordConfirm"
+                name="registerPasswordConfirm"
+                ng-model="registerData.passwordConf" 
+                required
+                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerPasswordConfirm.$error.required}"/>
+            </form-element>
+
+            <form-element>
               <label for="registerPhone">Phone Number</label>
               <input 
                 type="tel" 
@@ -246,7 +270,7 @@
                       disable-search="true"
                       data-placeholder="Prefered Contact"
                       ng-model="registerData.preferredContactMethodCode"
-                      ng-options="contact.name for contact in registerContacts">
+                      ng-options="contact.name as contact.code for contact in registerContacts">
                 <option></option> <!-- workaround for a bug in angular-chosen  -->
               </select>
             </form-element>

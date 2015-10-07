@@ -1,0 +1,123 @@
+<hero-slider content="heroContent"></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <profile-page grid-row>
+    <h1 grid="12">You <strong>Profile</strong></h1>
+    <p>We will not share your details with any third parties. Please check our Privacy Policy for further details Check your <a ui-sref="reservations">reservations</a></p>
+
+    <form name="form" ng-submit="form.$valid" grid="8" ng-show="!isSent">
+
+      <h2>CHANGE YOUR PASSWORD</h2>
+
+      <fieldset>
+
+        <form-element>
+          <label for="newPassword">New Password</label>
+          <input 
+            type="password" 
+            id="newPassword"
+            name="newPassword"
+            ng-model="profileData.password"
+            ng-class="{'ng-submitted': form.$submitted && form.newPassword.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="newPasswordConf">Confirm Password</label>
+          <input 
+            type="password" 
+            id="newPasswordConf"
+            name="newPasswordConf"
+            ng-model="profileData.passwordConf"
+            ng-class="{'ng-submitted': form.$submitted && form.newPasswordConf.$error.required}"/>
+        </form-element>
+
+      </fieldset>
+
+      <h2>ABOUT YOU</h2>
+
+      <fieldset>
+
+        <form-element>
+          <label for="profileTitle">Title</label>
+          <select name="profileTitle" required chosen
+                  disable-search="true"
+                  data-placeholder="Title"
+                  ng-model="profileData.title"
+                  ng-options="title.name as title.code for title in profileTitles">
+            <option></option> <!-- workaround for a bug in angular-chosen  -->
+          </select>
+        </form-element>
+
+        <form-element>
+          <label for="profileFname">First Name</label>
+          <input 
+            type="text" 
+            id="profileFname"
+            name="profileFname"
+            ng-model="profileData.firstName" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileLname">Last Name</label>
+          <input 
+            type="text" 
+            id="profileLname"
+            name="profileLname"
+            ng-model="profileData.lastName" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"/>
+        </form-element>
+
+      </fieldset>
+
+      <h2>CONTACT INFORMATION</h2>
+
+      <fieldset>
+
+        <form-element>
+          <label for="profileTitle">Title</label>
+          <select name="profileTitle" required chosen
+                  disable-search="true"
+                  data-placeholder="Title"
+                  ng-model="profileData.title"
+                  ng-options="title.name as title.code for title in profileTitles">
+            <option></option> <!-- workaround for a bug in angular-chosen  -->
+          </select>
+        </form-element>
+
+        <form-element>
+          <label for="profileFname">First Name</label>
+          <input 
+            type="text" 
+            id="profileFname"
+            name="profileFname"
+            ng-model="profileData.firstName" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileLname">Last Name</label>
+          <input 
+            type="text" 
+            id="profileLname"
+            name="profileLname"
+            ng-model="profileData.lastName" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"/>
+        </form-element>
+
+      </fieldset>
+
+      <button-submit role="button" tabindex="0" ng-click="sendForm()">Save</button-submit>
+
+      <div ng-show="showErrorMsg">Sending of message failed</div>
+    </form>
+
+  </profile-page>
+
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map"></div>

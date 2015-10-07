@@ -47,6 +47,7 @@ angular
     'mobius.controllers.hotel.subpage',
     'mobius.controllers.room.details',
     'mobius.controllers.reservationMultiRoom',
+    'mobius.controllers.profile',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -314,6 +315,14 @@ angular
         parent: 'root',
         templateUrl: 'layouts/404.html',
         url: '/404'
+      })
+
+      // Contact page
+      .state('profile', {
+        parent: 'root',
+        templateUrl: 'layouts/profile/profile.html',
+        url: '/profile',
+        controller: 'ProfileCtrl'
       })
     ;
 

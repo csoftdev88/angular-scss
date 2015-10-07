@@ -17,7 +17,7 @@ angular.module('mobiusApp.config', [])
       'trackUserId': true
     },
     'chainCode': 'LAVAL',
-    'baseURL': 'http://52.24.20.173:3010/api/4.0/',
+    'baseURL': 'http://laval.mobiuswebservices.com/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
