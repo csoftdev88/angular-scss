@@ -28,7 +28,7 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
         var host = $location.host();
         angular.element($element).find('a').each(function(){
           var href = angular.element(this).attr('href');
-          if(href.indexOf(host) === -1){
+          if(href.indexOf(host) === -1 && href.indexOf('http') !== -1){
             angular.element(this).attr('target', '_blank');
           }
         });
