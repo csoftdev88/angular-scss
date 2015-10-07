@@ -6,20 +6,60 @@
 
 .login-dialog {
 
-  background: #fff;
   width: 300px;
   position: absolute;
   right: 0;
   top: 80px;
   right: -100px;
 
-  .logo{
-    text-align: center;
-    display: block;
-    margin-top: 7px;
-    img{
-      display: inline-block;
-      max-height: 46px;
+  .back-btn,
+  .close-btn{
+    position: absolute;
+    top: 8px;
+    font-size: @size--3;
+    color: @c-black;
+    &:before {
+      .fa;
+      font-size: @size--3;
+    }
+  }
+
+  header{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+
+    .back-btn{
+      left: 12px;
+      &:before {
+        content: @fa-var-chevron-left;
+        margin-right: 5px;
+      }
+    }
+
+    .close-btn{
+      right: 12px;
+      &:before {
+        content: @fa-var-close;
+      }
+    }
+
+    .logo{
+      text-align: center;
+      display: block;
+      margin-top: 7px;
+      img{
+        display: inline-block;
+        max-height: 46px;
+      }
+    }
+
+    .error-msg{
+      color: @c-red;
+      padding: 12px;
+      font-weight: 700;
+      font-size: @size--1;
+      line-height: 16px;
     }
   }
 
@@ -52,99 +92,145 @@
     }
   }
 
+  &.form-step1{
+    .login-form{
+      //visibility: visible;
+      //opacity: 1;
+      //transform: scale(1);
+      //height: auto;
+      //max-height: none;
+      //overflow: visible;
+      display: block;
+    }
+  }
+
+  &.form-step2{
+    .register-form{
+      //visibility: visible;
+      //opacity: 1;
+      //transform: scale(1);
+      //height: auto;
+      //max-height: none;
+      //overflow: visible;
+      display: block;
+    }
+  }
+
+  &.form-step3{
+    .reset-form{
+      //visibility: visible;
+      //opacity: 1;
+      //transform: scale(1);
+      //height: auto;
+      //max-height: none;
+      //overflow: visible;
+      display: block;
+    }
+  }
+
   .form-wrapper{
+
     form {
       width: 100%;
+      background: #fff;
+      //visibility:hidden;
+      //opacity: 0;
+      .transition(all, .2s, ease-out);
+      //transform: scale(.7);
+      //height: 0;
+      //max-height: 0;
+      //overflow: hidden;
+      display: none;
 
       fieldset{
          padding: 0 12px;
+         margin-bottom: 20px;
 
-        label {
-          position: relative;
-        }
-
-        .chosen-container{
-          font-size: 14px;
-          font-weight: 400;
-          padding-left: 6px;
-          border-radius: 0;
-          height: 40px;
-          &.chosen-container-active ~ span {
-            opacity: 1;
-            transform: translateX(0);
-          }
-          .chosen-single{
-            height: 40px;
-            line-height: 38px;
-            span{
-
-            }
-          }
-          .chosen-results{
-            li{
-              color: @c-grey;
-            }
-          }
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        select,
-        textarea {
-          height: 45px;
-          padding: 0 15px;
-          border-radius: 0;
-          border-color: @c-gray-reservation;
-          color: @c-form-text;
-          font-size: @size-0;
-          transition: border-color 0.15s linear;
-
-          &:focus {
-            box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
-          }
-
-          &.ng-touched.ng-invalid,
-          &.ng-submitted.ng-invalid {
-            border-color: @c-red;
-          }
-        }
-
-        .input-checkbox {
-          float: right;
-          font-weight: 300;
-          font-size: @size--3;
-          cursor: pointer;
-          padding-top: 0;
-          input{
-            top: 3px;
-          }
-        }
-
-
-        // Inputs adjustment
         form-element {
 
-          form-label {
-            font-size: @size-0;
-            line-height: @baseline;
+          margin-bottom: 10px;
+
+          label {
+            position: relative;
+            font-size: @size--1;
+            line-height: 16px;
+            font-weight: 300;
+            padding: 0;
+            margin-bottom: 5px;
+
+          }
+          .chosen-container{
+            font-size: 14px;
+            font-weight: 300;
+            padding-left: 6px;
+            border-radius: 0;
+            height: 30px;
+            &.chosen-container-active ~ span {
+              opacity: 1;
+              transform: translateX(0);
+            }
+            .chosen-single{
+              height: 30px;
+              line-height: 28px;
+              span{
+
+              }
+            }
+            .chosen-results{
+              box-sizing: border-box;
+              width: 100%;
+              li{
+                color: @c-grey;
+                width: 100%;
+                box-sizing: border-box;
+              }
+            }
           }
 
-          input[type=text],
-          input[type=email],
-          input[type="password"] {
-            height: @baseline * 2;
-            line-height: @baseline * 2;
+          input[type="text"],
+          input[type="email"],
+          input[type="password"],
+          input[type="tel"],
+          select,
+          textarea {
+            height: 30px;
+            line-height: 30px;
+            padding: 0 15px;
+            border-radius: 0;
+            border-color: @c-gray-reservation;
+            color: @c-form-text;
+            font-size: @size-0;
+            transition: border-color 0.15s linear;
+
+            &:focus {
+              box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+            }
+
+            &.ng-touched.ng-invalid,
+            &.ng-submitted.ng-invalid {
+              border-color: @c-red;
+            }
+          }
+
+          .input-checkbox {
+            float: right;
+            font-weight: 300;
+            font-size: @size--3;
+            cursor: pointer;
+            padding-top: 0;
+            input{
+              top: 3px;
+            }
           }
 
           error-message {
             position: absolute;
             color: @c-error;
           }
+
         }
       }
 
-      // Submit button
       button-submit {
         width: 100%;
         border-radius: 0;

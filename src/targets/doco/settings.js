@@ -33,7 +33,9 @@ angular.module('mobiusApp.config', [])
     },
     'generics': {
       'currencies': 'generics/currencies',
-      'languages': 'generics/languages'
+      'languages': 'generics/languages',
+      'titles': 'generics/titles',
+      'contactmethods': 'generics/contactmethods'
     },
     'filters': {
       'products': 'filters/products',
@@ -63,7 +65,12 @@ angular.module('mobiusApp.config', [])
       'location': 'locations/:locationCode'
     },
     'customers': {
-      'customer': 'customers/:customerId'
+      'customer': 'customers/:customerId',
+      'login':  'customers/actions/login',
+      'logout':  'customers/actions/logout',
+      'forgotPassword':  'customers/actions/forgotPassword',
+      'changePassword':  'customers/actions/changePassword',
+      'register':  'customers/'
     },
     // NOTE: Loyalties API will change - check apiary specs
     'loyalties': {

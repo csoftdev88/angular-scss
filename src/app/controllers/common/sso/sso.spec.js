@@ -19,8 +19,24 @@ describe('mobius.controllers.common.sso', function() {
           });
 
         $provide.value('Settings', {
-          loginEndpoint: 'infiniti'
+          authType: 'infiniti'
         });
+
+        var apiService = {
+          get: function(){
+            return {
+              then: function(c){
+                c();
+              }
+            };
+          },
+
+          getFullURL: function(p){
+            return p;
+          }
+        };
+
+        $provide.value('apiService', apiService);
 
       });
     });

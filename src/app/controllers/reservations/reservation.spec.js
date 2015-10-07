@@ -161,6 +161,22 @@ describe('mobius.controllers.reservation', function() {
           getCreditCardPreviewNumber: function(){}
         });
 
+        var apiService = {
+          get: function(){
+            return {
+              then: function(c){
+                c();
+              }
+            };
+          },
+
+          getFullURL: function(p){
+            return p;
+          }
+        };
+
+        $provide.value('apiService', apiService);
+
         $provide.value('_', window._);
 
         $controllerProvider.register('AuthCtrl', function($scope, config){

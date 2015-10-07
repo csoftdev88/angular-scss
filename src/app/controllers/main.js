@@ -78,6 +78,7 @@ angular.module('mobius.controllers.main', [])
         modalService.openTiersListDialog();
       };
 
+
       // TODO Seems like this function is used in roomDetails controller as well
       //$scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
 
@@ -85,6 +86,16 @@ angular.module('mobius.controllers.main', [])
       $scope.isUserLoggedIn = user.isLoggedIn;
 
       modalService.openDialogIfPresent();
+
+
+      //Login dialog
+      $scope.loginFormStep = 1;
+      contentService.getTitles().then(function(data) {
+        $scope.registerTitles = data;
+      });
+      contentService.getContactMethods().then(function(data) {
+        $scope.registerContacts = data;
+      });
 
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});

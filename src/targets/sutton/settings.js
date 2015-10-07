@@ -6,7 +6,7 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'loginEndpoint': 'mobius',
+  'authType': 'mobius',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -16,8 +16,8 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true
     },
-    'chainCode': 'SAN',
-    'baseURL': 'http://52.3.22.21:3010/api/4.0/',
+    'chainCode': 'LAVAL',
+    'baseURL': 'http://52.24.20.173:3010/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -33,7 +33,9 @@ angular.module('mobiusApp.config', [])
     },
     'generics': {
       'currencies': 'generics/currencies',
-      'languages': 'generics/languages'
+      'languages': 'generics/languages',
+      'titles': 'generics/titles',
+      'contactmethods': 'generics/contactmethods'
     },
     'filters': {
       'products': 'filters/products',
@@ -63,7 +65,12 @@ angular.module('mobiusApp.config', [])
       'location': 'locations/:locationCode'
     },
     'customers': {
-      'customer': 'customers/:customerId'
+      'customer': 'customers/:customerId',
+      'login':  'customers/actions/login',
+      'logout':  'customers/actions/logout',
+      'forgotPassword':  'customers/actions/forgotPassword',
+      'changePassword':  'customers/actions/changePassword',
+      'register':  'customers/'
     },
     // NOTE: Loyalties API will change - check apiary specs
     'loyalties': {
@@ -82,7 +89,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-chainId': '355',
       'Mobius-channelId': '6'
     },
     'rewards': {

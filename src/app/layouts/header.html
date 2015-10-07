@@ -114,10 +114,16 @@
         </div>
       </li>
     </ul>
-    <div class="login-dialog" ng-if="!sso.isInfiniti()">
-      <figure class="logo">
-        <img src="/static/images/v4/logo.png" alt="logo">
-      </figure>
+    <div class="login-dialog" ng-if="!sso.isInfiniti() && showLoginDialog" ng-class="'form-step' + loginFormStep">
+
+      <header>
+        <a href="" ng-click="loginFormStep = 1; sso.clearErrors();" class="back-btn">Back</a>
+        <a href="" ng-click="sso.clearErrors(); sso.login();" class="close-btn"></a>
+        <figure class="logo">
+          <img src="/static/images/v4/logo.png" alt="logo">
+        </figure>
+        <p class="error-msg" ng-if="loginDialogError">{{loginDialogError}}</p>
+      </header>
 
       <div class="form-wrapper">
       
@@ -129,10 +135,10 @@
                 type="email" 
                 id="loginEmail"
                 name="loginEmail"
-                ng-model="login.email" 
+                ng-model="loginData.email" 
                 required
                 email-check
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginEmail.$error.required}"/>
             </form-element>
 
             <form-element>
@@ -141,14 +147,14 @@
                 type="password" 
                 id="loginPassword"
                 name="loginPassword"
-                ng-model="login.password"
+                ng-model="loginData.password"
                 required
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"/>
             </form-element>
 
             <form-element>
               <label for="keepLoggedin" class="input-checkbox">
-                <input type="checkbox" id="keepLoggedin" ng-model="additionalInfo.agree"/>
+                <input type="checkbox" id="keepLoggedin" ng-model="loginData.keep"/>
                 Keep me Logged in
               </label>
             </form-element>
@@ -156,11 +162,11 @@
           </fieldset>
 
           <ul class="options">
-            <li><a href="">Forgot password</a></li>
-            <li><a href="">Register Now</a></li>
+            <li><a href="" ng-click="loginFormStep = 3; sso.clearErrors();">Forgot password</a></li>
+            <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors();">Register Now</a></li>
           </ul>
 
-          <button-submit role="button" tabindex="0" ng-click="sso.login()">Log-in</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="sso.login(loginForm, loginData)">Log-in</button-submit>
         </form>
 
         <form name="registerForm" class="register-form" novalidate>
@@ -169,9 +175,10 @@
             <form-element>
               <label for="registerTitle">Title</label>
               <select name="registerTitle" required chosen
+                      disable-search="true"
                       data-placeholder="Title"
-                      ng-model="register.title"
-                      ng-options="option.name for option in titleList">
+                      ng-model="registerData.title"
+                      ng-options="title.name for title in registerTitles">
                 <option></option> <!-- workaround for a bug in angular-chosen  -->
               </select>
             </form-element>
@@ -182,9 +189,9 @@
                 type="text" 
                 id="registerFname"
                 name="registerFname"
-                ng-model="register.fName" 
+                ng-model="registerData.firstName" 
                 required
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerFname.$error.required}"/>
             </form-element>
 
             <form-element>
@@ -193,9 +200,9 @@
                 type="text" 
                 id="registerLname"
                 name="registerLname"
-                ng-model="register.lName" 
+                ng-model="registerData.lastName" 
                 required
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerLname.$error.required}"/>
             </form-element>
 
             <form-element>
@@ -204,10 +211,10 @@
                 type="email" 
                 id="registerEmail"
                 name="registerEmail"
-                ng-model="register.email" 
+                ng-model="registerData.email" 
                 required
                 email-check
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerEmail.$error.required}"/>
             </form-element>
 
             <form-element>
@@ -216,36 +223,56 @@
                 type="email" 
                 id="registerEmailConfirm"
                 name="registerEmailConfirm"
-                ng-model="register.emailConf" 
+                ng-model="registerData.emailConf" 
                 required
                 email-check
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerEmailConfirm.$error.required}"/>
             </form-element>
 
             <form-element>
               <label for="registerPhone">Phone Number</label>
               <input 
-                type="phone" 
+                type="tel" 
                 id="registerPhone"
                 name="registerPhone"
-                ng-model="register.phone" 
+                ng-model="registerData.tel1" 
                 required
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.email.$error.required}"/>
+                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerPhone.$error.required}"/>
             </form-element>
 
             <form-element>
-              <label for="registerTitle">Prefered Contact</label>
-              <select name="registerTitle" required chosen
-                      data-placeholder="Title"
-                      ng-model="register.title"
-                      ng-options="option.name for option in contactList">
+              <label for="registerContact">Prefered Contact</label>
+              <select name="registerContact" required chosen
+                      disable-search="true"
+                      data-placeholder="Prefered Contact"
+                      ng-model="registerData.preferredContactMethodCode"
+                      ng-options="contact.name for contact in registerContacts">
                 <option></option> <!-- workaround for a bug in angular-chosen  -->
               </select>
             </form-element>
 
           </fieldset>
           
-          <button-submit role="button" tabindex="0" ng-click="sso.register()">Create Account</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="sso.register(registerForm, registerData)">Create Account</button-submit>
+        </form>
+
+        <form name="resetForm" class="reset-form" novalidate>
+          <fieldset>
+            <form-element>
+              <label for="resetEmail">Email Address</label>
+              <input 
+                type="email" 
+                id="resetEmail"
+                name="resetEmail"
+                ng-model="resetData.email" 
+                required
+                email-check
+                ng-class="{'ng-submitted': resetForm.$submitted && resetForm.resetEmail.$error.required}"/>
+            </form-element>
+
+          </fieldset>
+
+          <button-submit role="button" tabindex="0" ng-click="sso.reset(resetForm, resetData)">Reset Password</button-submit>
         </form>
 
       </div>

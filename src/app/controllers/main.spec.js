@@ -7,6 +7,12 @@ describe('mobius.controllers.main', function() {
     var ADVERTS_DATA = [{
       images: [{a: 123}, {b: 123}]
     }];
+    var TITLES_DATA = [{
+      titles: [{a: 123}, {b: 123}]
+    }];
+    var CONTACT_DATA = [{
+      contacts: [{a: 123}, {b: 123}]
+    }];
 
     beforeEach(function() {
       module('underscore');
@@ -23,7 +29,9 @@ describe('mobius.controllers.main', function() {
         });
 
         $provide.value('contentService', {
-          getAdverts: sinon.stub()
+          getAdverts: sinon.stub(),
+          getTitles: sinon.stub(),
+          getContactMethods: sinon.stub()
         });
 
         $provide.value('Settings', {
@@ -37,6 +45,22 @@ describe('mobius.controllers.main', function() {
           }
         });
         $provide.value('user', {});
+
+        var apiService = {
+          get: function(){
+            return {
+              then: function(c){
+                c();
+              }
+            };
+          },
+
+          getFullURL: function(p){
+            return p;
+          }
+        };
+
+        $provide.value('apiService', apiService);
       });
     });
 
@@ -49,6 +73,8 @@ describe('mobius.controllers.main', function() {
 
       _contentService = contentService;
       _contentService.getAdverts.returns($q.when(ADVERTS_DATA));
+      _contentService.getTitles.returns($q.when(TITLES_DATA));
+      _contentService.getContactMethods.returns($q.when(CONTACT_DATA));
 
       $controller('MainCtrl', { $scope: _scope });
     }));
@@ -56,6 +82,10 @@ describe('mobius.controllers.main', function() {
     describe('when controller initialized', function() {
       it('should check if modals should be opened for current state', function(){
         expect(_modalService.openDialogIfPresent.calledOnce).equal(true);
+      });
+      it('should get titles and contact methods content from the server', function(){
+        expect(_contentService.getTitles.calledOnce).equal(true);
+        expect(_contentService.getContactMethods.calledOnce).equal(true);
       });
     });
 
