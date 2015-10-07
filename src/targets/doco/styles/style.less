@@ -13,7 +13,7 @@
 
 //- Config
 @import '../../../styles/config';
-@import 'config'; // Override defaults vars with target specific 
+@import 'config'; // Override defaults vars with target specific
 
 //- Scaffolding
 @import '../../../styles/scaffolding/base';
@@ -25,6 +25,7 @@
 
 //- Views
 @import '../../../styles/views/footer';
+@import 'views/footer'; // Target override
 @import '../../../styles/views/floating-bar'; //- TODO: merging those two
 @import '../../../styles/views/booking-widget'; //- ^^
 @import '../../../styles/views/header';
@@ -35,6 +36,7 @@
 @import '../../../styles/views/hotel-subpage';
 @import '../../../styles/views/about-hotel';
 @import '../../../styles/views/site-map';
+@import 'views/site-map'; // Target override
 @import '../../../styles/views/breadcrumbs';
 @import '../../../styles/views/about-us';
 @import '../../../styles/views/news';
