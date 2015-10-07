@@ -175,7 +175,15 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: '<%= config.client %>',
-          src: ['images/<%= config.images %>', 'targets/' + target + '/images/<%= config.images %>'],
+          src: ['images/<%= config.images %>'],
+          dest: '<%= config.build %>'
+        }]
+      },
+      imagestarget: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.client %>/targets/' + target,
+          src: ['images/<%= config.images %>'],
           dest: '<%= config.build %>'
         }]
       },
@@ -238,7 +246,7 @@ module.exports = function(grunt) {
       },
       images: {
         files: ['<%= config.client %>/<%= config.images %>'],
-        tasks: ['copy:images'],
+        tasks: ['copy:images', 'copy:imagestarget' ],
         options: { livereload: true }
       }
     },
@@ -324,6 +332,7 @@ module.exports = function(grunt) {
     'autoprefixer:development',
     'index:build',
     'copy:images',
+    'copy:imagestarget',
     'copy:fonts',
     'copy:404'
   ]);
