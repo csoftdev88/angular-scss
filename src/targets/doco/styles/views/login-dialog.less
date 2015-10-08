@@ -1,0 +1,72 @@
+///////////////////////
+//// LOGIN DIALOG  ////
+///////////////////////
+
+
+.login-dialog {
+  background: linear-gradient(to bottom, #7d9cd9 0%, #000 100%);
+  box-shadow: 0 2px 4px 1px #fff;
+
+  header {
+    background: rgba(0, 0, 0, 0);
+    .logo {
+      margin: 10px 0;
+      img {
+        max-height: 38px;
+      }
+    }
+  }
+
+  .form-wrapper {
+    form{
+      background: rgba(0, 0, 0, 0);
+
+      label {
+        color: #fff;
+      }
+      fieldset{
+        form-element {
+          margin-bottom: 15px;
+
+          .input-checkbox input {
+            top: 0;
+          }
+
+          input[type="text"],
+          input[type="email"],
+          input[type="password"],
+          input[type="tel"],
+          select,
+          textarea {
+            border-color: #fff
+          }
+        }
+      }
+    }
+  }
+
+  .back-btn,
+  .close-btn {
+    color: #fff
+  }
+  .back-btn:before {
+    font-size: 12px;
+  }
+  .close-btn:before {
+    font-size: 14px;
+  }
+  .options {
+    li {
+      a {
+        color: #fff;
+        font-size: 9px;
+        font-weight: 300;
+      }
+      &:first-child {
+        a {
+          padding-left: 0
+        }
+      }
+    }
+  }
+}

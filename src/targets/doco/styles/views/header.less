@@ -1,0 +1,28 @@
+#main-header {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.84) 0%,  rgba(0, 0, 0, 0) 100%);
+}
+
+
+.main-nav {
+	ul[dropdown-group]{
+		li {
+			font-size: @size-0+1;
+			font-weight: 700;
+			text-transform: uppercase;
+			text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+		}
+	}
+	.button-login{
+		border-radius: 2px;
+		text-transform: initial;
+	}
+}
+
+// DESKTOP STYLES
+@media only screen and @tablet-portrait-min {
+	.main-nav {
+		.brand {
+    	margin: @baseline+4 0 0;
+  	}
+	}
+}
