@@ -6,7 +6,7 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'loginEndpoint': 'mobius',
+  'loginEndpoint': 'infiniti',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -16,8 +16,8 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true
     },
-    'chainCode': 'DOCO',
-    'baseURL': 'http://doco.mobiuswebservices.com/api/4.0/',
+    'chainCode': 'LAVAL',
+    'baseURL': 'http://52.26.179.169:3010/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -89,7 +89,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '354',
+      'Mobius-chainId': '355',
       'Mobius-channelId': '6'
     },
     'rewards': {
