@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $interval, _, Settings) {
+.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject) {
   var headers = Settings.API.headers;
 
   function get(url, params) {
@@ -31,7 +31,10 @@ angular.module('mobiusApp.services.api', [])
       headers: headers,
       data: data,
       params: params
-    }).success(function(res) {
+    }).success(function(res, status, headers) {
+      if(Settings.authType === 'mobius' && headers('mobius-authentication')){
+        userObject.token = headers('mobius-authentication');
+      }
       q.resolve(res);
     }).error(function(err) {
       q.reject(err);

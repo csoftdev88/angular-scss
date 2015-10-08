@@ -102,7 +102,7 @@ angular.module('mobiusApp.config', [])
   'UI': {
     'generics': {
       'singleProperty': false,
-      'loyaltyProgramEnabled': true
+      'loyaltyProgramEnabled': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',

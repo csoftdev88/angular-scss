@@ -44,6 +44,7 @@ angular.module('mobius.controllers.common.sso', [])
         loginForm.$submitted = true;
         if (loginForm.$valid) {
           apiService.post(apiService.getFullURL('customers.login'), loginData).then(function(data){
+            $scope.showLoginDialog = false;
             clearErrorMsg();
             userObject.id = data.id;
             user.loadProfile();
@@ -65,6 +66,7 @@ angular.module('mobius.controllers.common.sso', [])
         registerForm.$submitted = true;
         if (registerForm.$valid) {
           apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(data){
+            $scope.showLoginDialog = false;
             clearErrorMsg();
             userObject.id = data.id;
             user.loadProfile();

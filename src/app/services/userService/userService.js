@@ -2,14 +2,14 @@
 
 angular.module('mobiusApp.services.user', [])
   .service('user', function($rootScope, $q, $window, $state,
-    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings) {
+    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'MobiusID';
     // We are looking for this cookie in order to detect SSO
     var KEY_CUSTOMER_PROFILE = 'CustomerProfile';
 
-    var HEADER_INFINITI_SSO = 'infinitiAuthN';
+    var HEADER_INFINITI_SSO = Settings.authType === 'mobius' ? 'mobius-authentication' : 'infinitiAuthN';
 
     var EVENT_CUSTOMER_LOADED = 'infiniti.customer.loaded';
     var EVENT_CUSTOMER_LOGGED_OUT = 'infiniti.customer.logged.out';
@@ -60,7 +60,7 @@ angular.module('mobiusApp.services.user', [])
       if(customerId){
         // Setting up the headers for a future requests
         var headers = {};
-        headers[HEADER_INFINITI_SSO] = cookieFactory(KEY_CUSTOMER_PROFILE);
+        headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token : cookieFactory(KEY_CUSTOMER_PROFILE);
         apiService.setHeaders(headers);
 
         // Loading profile data and users loyelties
@@ -69,6 +69,7 @@ angular.module('mobiusApp.services.user', [])
           loadLoyalties(customerId), loadRewards(customerId)
         ]).then(function(data){
           var userData = data[0];
+          console.log('userData: ' + angular.toJson(userData));
 
           // NOTE: data[0] is userProfile data
           // data[1] is loyalties data - handled in loadLoyalties function
@@ -81,6 +82,13 @@ angular.module('mobiusApp.services.user', [])
 
           userObject = _.extend(userObject, userData);
           userObject.avatarUrl = userObject.avatarUrl || '/static/images/v4/img-profile.png';
+
+          console.log('userObject: ' + angular.toJson(userObject));
+
+          $timeout(function(){
+            $rootScope.$broadcast('USER_PROFILE_LOADED');
+          });
+
           // Logged in as mobius user
           if(authPromise){
             authPromise.resolve(true);

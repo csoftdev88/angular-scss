@@ -85,6 +85,11 @@ angular.module('mobius.controllers.main', [])
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
 
+      $scope.$on('USER_PROFILE_LOADED', function(){
+        console.log('ON USER_PROFILE_LOADED');
+        $scope.isUserLoggedIn = user.isLoggedIn;
+      });
+
       modalService.openDialogIfPresent();
 
 
