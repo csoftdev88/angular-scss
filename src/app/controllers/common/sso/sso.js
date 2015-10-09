@@ -36,7 +36,6 @@ angular.module('mobius.controllers.common.sso', [])
       }
       else{
         $scope.showLoginDialog = !$scope.showLoginDialog;
-        console.log($scope.showLoginDialog);
       }
     },
     doLogin: function(loginForm, loginData){

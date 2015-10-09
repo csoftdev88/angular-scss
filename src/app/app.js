@@ -351,7 +351,7 @@ angular
     $rootScope.facebookAppId = '954663594591416';
   })
 
-  .controller('BaseCtrl', function($scope, $controller, scrollService,
+  .controller('BaseCtrl', function($scope, $controller,$state, scrollService,
     metaInformationService){
 
     $controller('ReservationUpdateCtrl', {$scope: $scope});

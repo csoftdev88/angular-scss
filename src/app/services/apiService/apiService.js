@@ -12,7 +12,11 @@ angular.module('mobiusApp.services.api', [])
       url: url,
       headers: headers,
       params: params
-    }).success(function(res) {
+    }).success(function(res, status, headers) {
+      if(Settings.authType === 'mobius' && headers('mobius-authentication')){
+        userObject.token = headers('mobius-authentication');
+        updateMobiusAuthHeader(headers('mobius-authentication'));
+      }
       q.resolve(res);
 
     }).error(function(err) {
@@ -34,6 +38,7 @@ angular.module('mobiusApp.services.api', [])
     }).success(function(res, status, headers) {
       if(Settings.authType === 'mobius' && headers('mobius-authentication')){
         userObject.token = headers('mobius-authentication');
+        updateMobiusAuthHeader(headers('mobius-authentication'));
       }
       q.resolve(res);
     }).error(function(err) {
@@ -52,7 +57,11 @@ angular.module('mobiusApp.services.api', [])
       headers: headers,
       data: data,
       params: params
-    }).success(function(res) {
+    }).success(function(res, status, headers) {
+      if(Settings.authType === 'mobius' && headers('mobius-authentication')){
+        userObject.token = headers('mobius-authentication');
+        updateMobiusAuthHeader(headers('mobius-authentication'));
+      }
       q.resolve(res);
     }).error(function(err) {
       q.reject(err);
@@ -86,6 +95,12 @@ angular.module('mobiusApp.services.api', [])
 
   function setHeaders(obj) {
     _.extend(headers, obj);
+  }
+
+  function updateMobiusAuthHeader(val) {
+    var headersObj = {};
+    headersObj['mobius-authentication'] = val;
+    setHeaders(headersObj);
   }
 
   var cache = {};

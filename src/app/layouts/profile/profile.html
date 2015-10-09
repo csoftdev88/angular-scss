@@ -13,7 +13,7 @@
       <p>We will not share your details with any third parties. Please check our Privacy Policy for further details Check your <a ui-sref="reservations">reservations</a></p>
     </header>
 
-    <form name="form" ng-submit="form.$valid" grid="8" ng-show="!isSent">
+    <form name="form" grid="8">
 
       <h2>CHANGE YOUR PASSWORD</h2>
 
@@ -36,7 +36,9 @@
             id="newPasswordConf"
             name="newPasswordConf"
             ng-model="profileData.passwordConf"
-            ng-class="{'ng-submitted': form.$submitted && form.newPasswordConf.$error.required}"/>
+            equals="profileData.password"
+            ng-class="{'ng-submitted': form.$submitted && (form.newPasswordConf.$error.required || form.newPasswordConf.$error.equals)}"/>
+            <span class="error" ng-if="form.$submitted && form.newPasswordConf.$error.equals">The passwords do not match</span>
         </form-element>
 
       </fieldset>
@@ -193,7 +195,7 @@
       <p class="feedback-msg error" ng-if="errorMsg">{{errorMsg}}</p>
       <p class="feedback-msg" ng-if="successMsg">{{successMsg}}</p>
 
-      <button-submit role="button" tabindex="0" ng-click="sendForm()">Save</button-submit>
+      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)">Save</button-submit>
 
     </form>
 
