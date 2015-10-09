@@ -140,7 +140,7 @@
                 ng-model="loginData.email" 
                 required
                 email-check
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginEmail.$error.required}"/>
+                ng-class="{'ng-submitted': loginForm.$submitted && (loginForm.loginEmail.$error.required || loginForm.loginEmail.$error.emailCheck)}"/>
             </form-element>
 
             <form-element>
@@ -154,130 +154,14 @@
                 ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"/>
             </form-element>
 
-            <form-element>
-              <label for="keepLoggedin" class="input-checkbox">
-                <input type="checkbox" id="keepLoggedin" ng-model="loginData.keep"/>
-                Keep me Logged in
-              </label>
-            </form-element>
-
           </fieldset>
 
           <ul class="options">
-            <li><a href="" ng-click="loginFormStep = 3; sso.clearErrors();">Forgot password</a></li>
-            <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors();">Register Now</a></li>
+            <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors();">Forgot password</a></li>
+            <li><a href="" ui-sref="register" ng-click="sso.clearErrors(); sso.login();">Register Now</a></li>
           </ul>
 
           <button-submit role="button" tabindex="0" ng-click="sso.doLogin(loginForm, loginData)">Log-in</button-submit>
-        </form>
-
-        <form name="registerForm" class="register-form" novalidate>
-          <fieldset>
-
-            <form-element>
-              <label for="registerTitle">Title</label>
-              <select name="registerTitle" required chosen
-                      disable-search="true"
-                      data-placeholder="Title"
-                      ng-model="registerData.title"
-                      ng-options="title.name as title.code for title in registerTitles">
-                <option></option> <!-- workaround for a bug in angular-chosen  -->
-              </select>
-            </form-element>
-
-            <form-element>
-              <label for="registerFname">First Name</label>
-              <input 
-                type="text" 
-                id="registerFname"
-                name="registerFname"
-                ng-model="registerData.firstName" 
-                required
-                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerFname.$error.required}"/>
-            </form-element>
-
-            <form-element>
-              <label for="registerLname">Last Name</label>
-              <input 
-                type="text" 
-                id="registerLname"
-                name="registerLname"
-                ng-model="registerData.lastName" 
-                required
-                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerLname.$error.required}"/>
-            </form-element>
-
-            <form-element>
-              <label for="registerEmail">Email Address</label>
-              <input 
-                type="email" 
-                id="registerEmail"
-                name="registerEmail"
-                ng-model="registerData.email" 
-                required
-                email-check
-                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerEmail.$error.required}"/>
-            </form-element>
-
-            <form-element>
-              <label for="registerEmailConfirm">Confirm Email</label>
-              <input 
-                type="email" 
-                id="registerEmailConfirm"
-                name="registerEmailConfirm"
-                ng-model="registerData.emailConf" 
-                required
-                email-check
-                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerEmailConfirm.$error.required}"/>
-            </form-element>
-
-            <form-element>
-              <label for="registerPassword">Password</label>
-              <input 
-                type="password" 
-                id="registerPassword"
-                name="registerPassword"
-                ng-model="registerData.password" 
-                required
-                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerPassword.$error.required}"/>
-            </form-element>
-
-            <form-element>
-              <label for="registerPasswordConfirm">Confirm Password</label>
-              <input 
-                type="password" 
-                id="registerPasswordConfirm"
-                name="registerPasswordConfirm"
-                ng-model="registerData.passwordConf" 
-                required
-                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerPasswordConfirm.$error.required}"/>
-            </form-element>
-
-            <form-element>
-              <label for="registerPhone">Phone Number</label>
-              <input 
-                type="tel" 
-                id="registerPhone"
-                name="registerPhone"
-                ng-model="registerData.tel1" 
-                required
-                ng-class="{'ng-submitted': registerForm.$submitted && registerForm.registerPhone.$error.required}"/>
-            </form-element>
-
-            <form-element>
-              <label for="registerContact">Prefered Contact</label>
-              <select name="registerContact" required chosen
-                      disable-search="true"
-                      data-placeholder="Prefered Contact"
-                      ng-model="registerData.preferredContactMethodCode"
-                      ng-options="contact.name as contact.code for contact in registerContacts">
-                <option></option> <!-- workaround for a bug in angular-chosen  -->
-              </select>
-            </form-element>
-
-          </fieldset>
-          
-          <button-submit role="button" tabindex="0" ng-click="sso.register(registerForm, registerData)">Create Account</button-submit>
         </form>
 
         <form name="resetForm" class="reset-form" novalidate>

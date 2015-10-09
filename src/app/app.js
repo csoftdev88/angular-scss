@@ -48,6 +48,7 @@ angular
     'mobius.controllers.room.details',
     'mobius.controllers.reservationMultiRoom',
     'mobius.controllers.profile',
+    'mobius.controllers.register',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -317,12 +318,23 @@ angular
         url: '/404'
       })
 
-      // Contact page
+      // Profile page
       .state('profile', {
         parent: 'root',
         templateUrl: 'layouts/profile/profile.html',
         url: '/profile',
-        controller: 'ProfileCtrl'
+        controller: 'ProfileCtrl',
+        data: {
+          authProtected: true
+        }
+      })
+
+      // Profile page
+      .state('register', {
+        parent: 'root',
+        templateUrl: 'layouts/register/register.html',
+        url: '/register',
+        controller: 'RegisterCtrl'
       })
     ;
 

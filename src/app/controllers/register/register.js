@@ -1,31 +1,29 @@
 'use strict';
 /*
- * This module controlls profile page
+ * This module controlls register page
  */
-angular.module('mobius.controllers.profile', [])
+angular.module('mobius.controllers.register', [])
 
-  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user){
+  .controller('RegisterCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user){
 
-    breadcrumbsService.addBreadCrumb('Profile');
+    breadcrumbsService.addBreadCrumb('Register');
 
 		contentService.getTitles().then(function(data) {
-			$scope.profileTitles = data;
+			$scope.registerTitles = data;
 		});
 
 		contentService.getContactMethods().then(function(data) {
-			$scope.profileContacts = data;
+			$scope.registerContacts = data;
 		});
 
-		$controller('ISOCountriesCtrl', {$scope: $scope});
-
-
-		$scope.update = function(form, profileData){
+		$scope.register = function(form, registerData){
 			form.$submitted = true;
 		  if (form.$valid) {
-		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), profileData).then(function(response){
+		    apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
 		      clearErrorMsg();
-		      user.updateUser(response);
-		      setErrorMsg('Thanks you, your profile has been updated', 'success');
+		      userObject.id = response.id;
+		      user.loadProfile();
+		      $state.go('home');
 		    }, function(){
 		      //TODO: Move into locale
 		      setErrorMsg('Sorry, there was an error, please try again', 'error');
@@ -49,5 +47,6 @@ angular.module('mobius.controllers.profile', [])
 	    $scope.errorMsg = null;
 	    $scope.successMsg = null;
 	  }
-
+	  
+      
   });

@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.common.sso', [])
 
-.controller( 'SSOCtrl', function($scope, $timeout, $window, Settings, apiService, userObject, _, user) {
+.controller( 'SSOCtrl', function($scope, $timeout, $window, $state, Settings, apiService, userObject, _, user) {
 
   function isSSOReady(){
     return $window.infiniti && $window.infiniti.api;
@@ -58,27 +58,9 @@ angular.module('mobius.controllers.common.sso', [])
         }
       }
     },
-    register: function(registerForm, registerData){
+    register: function(){
       if(isInfinitiLogin()){
         $window.infiniti.api.register();
-      }
-      else{
-        registerForm.$submitted = true;
-        if (registerForm.$valid) {
-          apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(data){
-            $scope.showLoginDialog = false;
-            clearErrorMsg();
-            userObject.id = data.id;
-            user.loadProfile();
-
-          }, function(){
-            //TODO: Move into locale
-            setErrorMsg('Sorry, there was an error, please try again');
-          });
-        }
-        else{
-          setErrorMsg('Please fill out all the fields indicated');
-        }
       }
     },
     reset: function(resetForm, resetData){
@@ -107,6 +89,9 @@ angular.module('mobius.controllers.common.sso', [])
     logout: function(){
       if(isInfinitiLogin()){
         $window.infiniti.api.logout();
+      }
+      else{
+        user.logout();
       }
     },
     trackPageView: function(){

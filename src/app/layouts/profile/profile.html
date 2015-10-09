@@ -7,8 +7,11 @@
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <profile-page grid-row>
-    <h1 grid="12">You <strong>Profile</strong></h1>
-    <p>We will not share your details with any third parties. Please check our Privacy Policy for further details Check your <a ui-sref="reservations">reservations</a></p>
+
+    <header grid="12">
+      <h1>You <strong>Profile</strong></h1>
+      <p>We will not share your details with any third parties. Please check our Privacy Policy for further details Check your <a ui-sref="reservations">reservations</a></p>
+    </header>
 
     <form name="form" ng-submit="form.$valid" grid="8" ng-show="!isSent">
 
@@ -46,7 +49,7 @@
           <label for="profileTitle">Title</label>
           <select name="profileTitle" required chosen
                   disable-search="true"
-                  data-placeholder="Title"
+                  data-placeholder=""
                   ng-model="profileData.title"
                   ng-options="title.name as title.code for title in profileTitles">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
@@ -80,41 +83,118 @@
       <fieldset>
 
         <form-element>
-          <label for="profileTitle">Title</label>
-          <select name="profileTitle" required chosen
+          <label for="profileEmail">Email Address</label>
+          <input 
+            type="email" 
+            id="profileEmail"
+            name="profileEmail"
+            ng-model="profileData.email" 
+            email-check
+            ng-class="{'ng-submitted': form.$submitted && form.profileEmail.$error.emailCheck}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileAddress1">Address Line 1</label>
+          <input 
+            type="text" 
+            id="profileAddress1"
+            name="profileAddress1"
+            ng-model="profileData.address1" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileAddress2">Address Line 2</label>
+          <input 
+            type="text" 
+            id="profileAddress2"
+            name="profileAddress2"
+            ng-model="profileData.address2" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileCity">City</label>
+          <input 
+            type="text" 
+            id="profileCity"
+            name="profileCity"
+            ng-model="profileData.city" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileState">County/State/Province</label>
+          <input 
+            type="text" 
+            id="profileState"
+            name="profileState"
+            ng-model="profileData.state" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileCountry">Country</label>
+          <select name="profileCountry" chosen
                   disable-search="true"
-                  data-placeholder="Title"
-                  ng-model="profileData.title"
-                  ng-options="title.name as title.code for title in profileTitles">
+                  data-placeholder=""
+                  ng-model="profileData.country"
+                  ng-options="country.title as country.title for country in iso.countries">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>
 
         <form-element>
-          <label for="profileFname">First Name</label>
+          <label for="profileZip">Postcode/Zipcode</label>
           <input 
             type="text" 
-            id="profileFname"
-            name="profileFname"
-            ng-model="profileData.firstName" 
-            ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"/>
+            id="profileZip"
+            name="profileZip"
+            ng-model="profileData.zip" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"/>
         </form-element>
 
         <form-element>
-          <label for="profileLname">Last Name</label>
+          <label for="profileTel">Phone Number</label>
           <input 
             type="text" 
-            id="profileLname"
-            name="profileLname"
-            ng-model="profileData.lastName" 
-            ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"/>
+            id="profileTel"
+            name="profileTel"
+            ng-model="profileData.tel1"
+            ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileContact">Prefered Contact</label>
+          <select name="profileContact" required chosen
+                  disable-search="true"
+                  data-placeholder=""
+                  ng-model="profileData.preferredContactMethodCode"
+                  ng-options="contact.name as contact.code for contact in profileContacts">
+            <option></option> <!-- workaround for a bug in angular-chosen  -->
+          </select>
         </form-element>
 
       </fieldset>
 
+      <h2>NEWSLETTER PREFERENCES</h2>
+
+      <fieldset>
+
+        <form-element>
+          <label for="profileOptedIn" class="input-checkbox">
+            <input type="checkbox" id="profileOptedIn" ng-model="profileData.optedIn"/>
+            Subscribed to the La Val Newsletter
+          </label>
+        </form-element>
+
+      </fieldset>
+
+      <p class="feedback-msg error" ng-if="errorMsg">{{errorMsg}}</p>
+      <p class="feedback-msg" ng-if="successMsg">{{successMsg}}</p>
+
       <button-submit role="button" tabindex="0" ng-click="sendForm()">Save</button-submit>
 
-      <div ng-show="showErrorMsg">Sending of message failed</div>
     </form>
 
   </profile-page>

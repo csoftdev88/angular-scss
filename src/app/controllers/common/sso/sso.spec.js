@@ -45,6 +45,9 @@ describe('mobius.controllers.common.sso', function() {
         };
 
         $provide.value('apiService', apiService);
+        $provide.value('$state', {
+          go: sinon.spy()
+        });
 
       });
     });

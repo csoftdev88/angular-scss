@@ -55,8 +55,6 @@ angular.module('mobiusApp.services.user', [])
     function loadProfile() {
       var customerId = getCustomerId();
 
-      console.log('loadProfile: ' + customerId);
-
       if(customerId){
         // Setting up the headers for a future requests
         var headers = {};
@@ -69,7 +67,6 @@ angular.module('mobiusApp.services.user', [])
           loadLoyalties(customerId), loadRewards(customerId)
         ]).then(function(data){
           var userData = data[0];
-          console.log('userData: ' + angular.toJson(userData));
 
           // NOTE: data[0] is userProfile data
           // data[1] is loyalties data - handled in loadLoyalties function
@@ -83,10 +80,8 @@ angular.module('mobiusApp.services.user', [])
           userObject = _.extend(userObject, userData);
           userObject.avatarUrl = userObject.avatarUrl || '/static/images/v4/img-profile.png';
 
-          console.log('userObject: ' + angular.toJson(userObject));
-
           $timeout(function(){
-            $rootScope.$broadcast('USER_PROFILE_LOADED');
+            $rootScope.$broadcast('USER_LOGIN_EVENT');
           });
 
           // Logged in as mobius user
@@ -138,6 +133,10 @@ angular.module('mobiusApp.services.user', [])
       var headers = {};
       headers[HEADER_INFINITI_SSO] = undefined;
       apiService.setHeaders(headers);
+
+      $timeout(function(){
+        $rootScope.$broadcast('USER_LOGIN_EVENT');
+      });
 
       authPromise = $q.defer().promise;
     }
