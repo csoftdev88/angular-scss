@@ -1,8 +1,57 @@
 floating-bar {
+	&.active {
+		> ul{
+			.viewport-mobile & {
+				background: transparent;
+			}
+		}
+	}
+	.viewport-mobile & {
+    height: 95px;
+
+      background: linear-gradient(to bottom, #7d9cd9 0%, #000 100%);
+
+  }
 	> ul{
 		top: -28px;
+		.viewport-mobile & {
+			background: transparent;
+		}
 		li {
 			line-height: 28px;
+
+			&.floating-bar--tab-booking.main-mobile-toggle {
+				a{
+					.viewport-mobile & {
+						border-bottom: 1px solid #2d8e3a;
+						margin: 20px 20px 0;
+				    padding: 0;
+					}
+
+					.mobile div.book-now-button {
+						.viewport-mobile & {
+							font-size:16px;
+							border-radius: 2px;
+							line-height: 48px;
+						}
+					}
+				}
+				&.mobile-is-open {
+					a{
+						.viewport-mobile & {
+							background: transparent;
+							border-bottom: 0;
+							margin: 0;
+					    padding: 20px 0;
+						}
+					}
+				}
+			}
+			&.is-active{
+				.viewport-mobile & {
+				    background: transparent;
+				}
+			}
 			&.is-active:after,
 			&:after{
 				border-bottom-width: 28px;
@@ -10,6 +59,14 @@ floating-bar {
 			a {
 				font-size: 12px
 			}
+
+			&.floating-bar--tab-booking.mobile-single-booking,
+			&.floating-bar--tab-advanced-booking {
+
+		        .viewport-mobile & {
+			        display: none;
+		        }
+		    }
 		}
 	}
 }

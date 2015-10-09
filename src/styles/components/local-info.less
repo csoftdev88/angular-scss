@@ -38,7 +38,7 @@ local-info {
   // Generate rule for each item from @icons list
   .weather-loop( @item, @i ) when ( @i =< length( @icons ) ){
     .weather-@{item} {
-      background-image: url("../images/v4/weather/@{item}.png");
+      background-image: url("@{img-prefix}/v4/weather/@{item}.png");
       background-size: 24px;
     }
     .weather-loop( extract(@icons, @i + 1 ), @i + 1 );

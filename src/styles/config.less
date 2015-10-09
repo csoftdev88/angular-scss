@@ -42,6 +42,7 @@
 
 @c-navbar-background: rgba(0,0,0,0.85);
 
+
 //// LAYOUT ////
 ////////////////
 
@@ -96,6 +97,7 @@
 @radius:             4px;
 
 @headerHeight:    88px;
+@mobileHeaderHeight: floor(@headerHeight / 1.5);
 
 
 // BORDERS
@@ -118,11 +120,18 @@
 @fa-font-path: '../font';
 
 
+//// IMG PREFIX ////
+////////////////////
+@img-prefix:  '../images';
+
 ///// Components /////
 //////////////////////
+
+// Booking widget
 @c-booking-widget: @c-brown;
 @c-booking-widget-my-account: #ebaa3d;
 
+// Date Picker
 @c-datepicker: @c-brown;
 
 
