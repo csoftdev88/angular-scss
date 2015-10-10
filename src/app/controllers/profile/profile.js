@@ -18,6 +18,7 @@ angular.module('mobius.controllers.profile', [])
 
 		$controller('ISOCountriesCtrl', {$scope: $scope});
 
+		$scope.profileData = userObject;
 
 		$scope.update = function(form, profileData){
 			form.$submitted = true;

@@ -5,7 +5,7 @@ angular.module('mobiusApp.services.user', [])
     userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout) {
 
     // SSO will expose mobius customer ID via this cookie
-    var KEY_CUSTOMER_ID = 'MobiusID';
+    var KEY_CUSTOMER_ID = Settings.authType === 'mobius' ? 'mobius-authentication' : 'MobiusID';
     // We are looking for this cookie in order to detect SSO
     var KEY_CUSTOMER_PROFILE = 'CustomerProfile';
 
@@ -52,7 +52,26 @@ angular.module('mobiusApp.services.user', [])
       }
     }
 
+    function storeUser(data) {
+      localStorage.mobiusId = data.id;
+      localStorage.mobiusToken = data.token;
+    }
+
+    function getStoredUser() {
+      var data = {
+        id: localStorage.mobiusId,
+        token: localStorage.mobiusToken
+      };
+      return data;
+    }
+
+    function clearStoredUser() {
+      localStorage.removeItem('mobiusId');
+      localStorage.removeItem('mobiusToken');
+    }
+
     function loadProfile() {
+
       var customerId = getCustomerId();
 
       if(customerId){
@@ -183,6 +202,9 @@ angular.module('mobiusApp.services.user', [])
       loadRewards: loadRewards,
       updateUser: updateUser,
       logout: logout,
-      authPromise: authPromise.promise
+      authPromise: authPromise.promise,
+      storeUser: storeUser,
+      getStoredUser: getStoredUser,
+      clearStoredUser: clearStoredUser
     };
   });

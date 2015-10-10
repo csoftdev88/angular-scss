@@ -59,6 +59,7 @@
             required
             email-check
             ng-class="{'ng-submitted': form.$submitted && (form.registerEmail.$error.required || form.registerEmail.$error.emailCheck)}"/>
+            <span class="error" ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">This email is not valid</span>
         </form-element>
 
         <form-element>
@@ -70,7 +71,10 @@
             ng-model="registerData.emailConf" 
             required
             email-check
-            ng-class="{'ng-submitted': form.$submitted && (form.registerEmailConfirm.$error.required || form.registerEmailConfirm.$error.emailCheck)}"/>
+            equals="registerData.email"
+            ng-class="{'ng-submitted': form.$submitted && (form.registerEmailConfirm.$error.required || form.registerEmailConfirm.$error.emailCheck || form.registerEmailConfirm.$error.equals)}"/>
+            <span class="error" ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">This email is not valid</span>
+            <span class="error" ng-if="form.$submitted && form.registerEmailConfirm.$error.equals">The emails do not match</span>
         </form-element>
 
         <form-element>
@@ -92,7 +96,9 @@
             name="registerPasswordConfirm"
             ng-model="registerData.passwordConf" 
             required
-            ng-class="{'ng-submitted': form.$submitted && form.registerPasswordConfirm.$error.required}"/>
+            equals="registerData.password"
+            ng-class="{'ng-submitted': form.$submitted && (form.registerPasswordConfirm.$error.required || form.registerPasswordConfirm.$error.equals)}"/>
+            <span class="error" ng-if="form.$submitted && form.registerPasswordConfirm.$error.equals">The passwords do not match</span>
         </form-element>
 
         <form-element>
