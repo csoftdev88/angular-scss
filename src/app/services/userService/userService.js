@@ -34,8 +34,13 @@ angular.module('mobiusApp.services.user', [])
         return null;
       }
 
-      // TODO: Remove test customer ID when API is ready
-      return userObject.id || cookieFactory(KEY_CUSTOMER_ID);
+      if(Settings.authType === 'mobius'){
+        return userObject.id || getStoredUser().id;
+      }
+      else{
+        return userObject.id || cookieFactory(KEY_CUSTOMER_ID);
+      }
+      
     }
 
     function updateUser(data) {
@@ -52,9 +57,8 @@ angular.module('mobiusApp.services.user', [])
       }
     }
 
-    function storeUser(data) {
-      localStorage.mobiusId = data.id;
-      localStorage.mobiusToken = data.token;
+    function storeUserId(id) {
+      localStorage.mobiusId = id;
     }
 
     function getStoredUser() {
@@ -74,10 +78,15 @@ angular.module('mobiusApp.services.user', [])
 
       var customerId = getCustomerId();
 
+      //We need token to load mobius profile
+      if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
+        return;
+      }
+
       if(customerId){
         // Setting up the headers for a future requests
         var headers = {};
-        headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token : cookieFactory(KEY_CUSTOMER_PROFILE);
+        headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token || getStoredUser().token : cookieFactory(KEY_CUSTOMER_PROFILE);
         apiService.setHeaders(headers);
 
         // Loading profile data and users loyelties
@@ -153,6 +162,12 @@ angular.module('mobiusApp.services.user', [])
       headers[HEADER_INFINITI_SSO] = undefined;
       apiService.setHeaders(headers);
 
+      clearStoredUser();
+
+      apiService.get(apiService.getFullURL('customers.logout')).then(function(){
+      }, function(){
+      });
+
       $timeout(function(){
         $rootScope.$broadcast('USER_LOGIN_EVENT');
       });
@@ -203,7 +218,7 @@ angular.module('mobiusApp.services.user', [])
       updateUser: updateUser,
       logout: logout,
       authPromise: authPromise.promise,
-      storeUser: storeUser,
+      storeUserId: storeUserId,
       getStoredUser: getStoredUser,
       clearStoredUser: clearStoredUser
     };

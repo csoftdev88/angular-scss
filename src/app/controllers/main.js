@@ -85,6 +85,10 @@ angular.module('mobius.controllers.main', [])
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
 
+      if(Settings.authType === 'mobius'){
+        user.loadProfile();
+      }
+
       $scope.$on('USER_LOGIN_EVENT', function(){
         $scope.isUserLoggedIn = user.isLoggedIn;
       });
