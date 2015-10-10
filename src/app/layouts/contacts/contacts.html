@@ -9,7 +9,7 @@
   <contacts-page grid-row>
     <h1 grid="12">Contacts <strong>and Feedback</strong></h1>
 
-    <form name="form" ng-submit="form.$valid" grid="8" ng-show="!isSent">
+    <form name="form" ng-submit="form.$valid" grid="{{viewSettings.formGrid}}" ng-show="!isSent">
       <div>
         <p>How was your stay with us? Did we meet all your expectations? We want your stays at our hotels to be the best they can be. You talk, we listen.</p>
         <hr>
@@ -85,13 +85,13 @@
       <div ng-show="showErrorMsg">Sending of message failed</div>
     </form>
 
-    <div grid="8" class="message-sent" ng-if="isSent">
+    <div grid="{{viewSettings.formGrid}}" class="message-sent" ng-if="isSent">
       <h1>Your Feedback has been successfully sent!</h1>
       <p>Many thanks for your request the relevant party will review and respond as required.</p>
     </div>
 
 
-    <contact-list grid="4">
+    <contact-list grid="4" ng-if="!viewSettings.hasMap">
       <contact-item ng-repeat="contact in chain.contacts">
         <h2>{{contact.name}}</h2>
         <p><a href="tel:{{contact.tel}}">{{contact.tel}}</a></p>
@@ -100,5 +100,8 @@
     </contact-list>
   </contacts-page>
 
+  <section dynamic-layout></section>
 </main>
+
+
 <div ng-include="'layouts/siteMap.html'" class="site-map"></div>

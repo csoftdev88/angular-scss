@@ -47,6 +47,12 @@ describe('mobius.controllers.contacts', function() {
               contact : 'forms/contact',
               contactSubmissions: 'forms/contact/submissions',
               contactSubjects: 'cSubjects'
+            },
+            viewsSettings: {
+              contacts: {
+                formGrid: 12,
+                hasMap: true
+              }
             }
           }
         });

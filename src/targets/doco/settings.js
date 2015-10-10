@@ -121,7 +121,7 @@ angular.module('mobiusApp.config', [])
     'menu': {
       'showOffers': true,
       'showAbout': true,
-      'showNews': true,
+      'showNews': false,
       'showContact': true,
       'offerSpecificToSelectedProperty': true,
       // Details: PT #102456878
@@ -139,7 +139,7 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'hotelDetails': {
-      'chainPrefix': 'Sutton Place Hotel',
+      'chainPrefix': 'DO&CO Hotel Vienna',
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
@@ -332,6 +332,9 @@ angular.module('mobiusApp.config', [])
       'room': [
         'room',
         'room-aside'
+      ],
+      'contacts': [
+        'hotel-location'
       ]
     },
 
@@ -342,7 +345,8 @@ angular.module('mobiusApp.config', [])
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',
       'room': '<room></room>',
-      'room-aside': '<room-aside></room-aside>'
+      'room-aside': '<room-aside></room-aside>',
+      'hotel-location': '<hotel-location></hotel-location>'
     },
 
     // Responsive design breakpoints
@@ -352,6 +356,13 @@ angular.module('mobiusApp.config', [])
       },
       'mobile': {
         'maxWidth': 768
+      }
+    },
+
+    'viewsSettings':{
+      'contacts': {
+        'formGrid': 12,
+        'hasMap': true
       }
     },
 
