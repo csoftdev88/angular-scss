@@ -6,10 +6,12 @@
 
 angular.module('mobiusApp.filters.mainHeaderStyle', [])
 
-.filter('mainHeaderStyle' , function() {
+.filter('mainHeaderStyle' , function(Settings) {
   function filter(input, wrap) {
     if(!input){
       return '';
+    }else if(Settings.UI.generics.disableMainHeaderStyle){
+      return input;
     }
     wrap = (angular.isUndefined(wrap))?1:wrap;
 

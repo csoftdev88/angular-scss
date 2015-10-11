@@ -102,7 +102,8 @@ angular.module('mobiusApp.config', [])
   'UI': {
     'generics': {
       'singleProperty': false,
-      'loyaltyProgramEnabled': false
+      'loyaltyProgramEnabled': false,
+      'disableMainHeaderStyle': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
@@ -352,6 +353,13 @@ angular.module('mobiusApp.config', [])
       },
       'mobile': {
         'maxWidth': 768
+      }
+    },
+
+    'viewsSettings':{
+      'contacts': {
+        'formGrid': 8,
+        'hasMap': false
       }
     },
 

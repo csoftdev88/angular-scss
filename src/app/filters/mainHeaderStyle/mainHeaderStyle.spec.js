@@ -2,9 +2,20 @@
 
 describe('mainHeaderStyle', function() {
   var _mainHeaderStyleFilter;
+  var TEST_SETTINGS = {
+    'disableMainHeaderStyle': false
+  };
+
 
   beforeEach(function() {
-    module('mobiusApp.filters.mainHeaderStyle');
+    module('mobiusApp.filters.mainHeaderStyle', function ($provide) {
+      // Mocking the services
+      $provide.value('Settings', {
+        UI: {
+          generics: TEST_SETTINGS
+        }
+      });
+    });
   });
 
   beforeEach(inject(function($filter) {

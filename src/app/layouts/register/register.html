@@ -9,7 +9,7 @@
   <profile-page grid-row>
 
     <header grid="12">
-      <h1>Create <strong>your Profile</strong></h1>
+      <h1 ng-bind-html="'Create your Profile'| mainHeaderStyle:2"></h1>
     </header>
 
     <form name="form" grid="8">
@@ -29,33 +29,33 @@
 
         <form-element>
           <label for="registerFname">First Name</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="registerFname"
             name="registerFname"
-            ng-model="registerData.firstName" 
+            ng-model="registerData.firstName"
             required
             ng-class="{'ng-submitted': form.$submitted && form.registerFname.$error.required}"/>
         </form-element>
 
         <form-element>
           <label for="registerLname">Last Name</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="registerLname"
             name="registerLname"
-            ng-model="registerData.lastName" 
+            ng-model="registerData.lastName"
             required
             ng-class="{'ng-submitted': form.$submitted && form.registerLname.$error.required}"/>
         </form-element>
 
         <form-element>
           <label for="registerEmail">Email Address</label>
-          <input 
-            type="email" 
+          <input
+            type="email"
             id="registerEmail"
             name="registerEmail"
-            ng-model="registerData.email" 
+            ng-model="registerData.email"
             required
             email-check
             ng-class="{'ng-submitted': form.$submitted && (form.registerEmail.$error.required || form.registerEmail.$error.emailCheck)}"/>
@@ -64,11 +64,11 @@
 
         <form-element>
           <label for="registerEmailConfirm">Confirm Email</label>
-          <input 
-            type="email" 
+          <input
+            type="email"
             id="registerEmailConfirm"
             name="registerEmailConfirm"
-            ng-model="registerData.emailConf" 
+            ng-model="registerData.emailConf"
             required
             email-check
             equals="registerData.email"
@@ -79,22 +79,22 @@
 
         <form-element>
           <label for="registerPassword">Password</label>
-          <input 
-            type="password" 
+          <input
+            type="password"
             id="registerPassword"
             name="registerPassword"
-            ng-model="registerData.password" 
+            ng-model="registerData.password"
             required
             ng-class="{'ng-submitted': form.$submitted && form.registerPassword.$error.required}"/>
         </form-element>
 
         <form-element>
           <label for="registerPasswordConfirm">Confirm Password</label>
-          <input 
-            type="password" 
+          <input
+            type="password"
             id="registerPasswordConfirm"
             name="registerPasswordConfirm"
-            ng-model="registerData.passwordConf" 
+            ng-model="registerData.passwordConf"
             required
             equals="registerData.password"
             ng-class="{'ng-submitted': form.$submitted && (form.registerPasswordConfirm.$error.required || form.registerPasswordConfirm.$error.equals)}"/>
@@ -103,11 +103,11 @@
 
         <form-element>
           <label for="registerPhone">Phone Number</label>
-          <input 
-            type="tel" 
+          <input
+            type="tel"
             id="registerPhone"
             name="registerPhone"
-            ng-model="registerData.tel1" 
+            ng-model="registerData.tel1"
             required
             ng-class="{'ng-submitted': form.$submitted && form.registerPhone.$error.required}"/>
         </form-element>
