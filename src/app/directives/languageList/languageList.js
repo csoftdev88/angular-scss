@@ -22,6 +22,7 @@ angular.module('mobiusApp.directives.language', [])
       link: function(scope) {
 
         contentService.getLanguages().then(function(data) {
+          
           var languages = {};
           _.each(data, function(languageData) {
             if (!Settings.UI.languages[languageData.code]) {

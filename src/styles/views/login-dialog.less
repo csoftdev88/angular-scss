@@ -12,6 +12,19 @@
   top: 80px;
   right: -100px;
 
+  @media only screen and @small-desktop-max {
+    right: 0;
+  }
+
+  @media only screen and @large-mobile-max {
+    position: fixed;
+    max-width: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-50%,0px);
+    -webkit-transform: translate3d(-50%,-50%,0px);
+  }
+
   .back-btn,
   .close-btn{
     position: absolute;
@@ -75,6 +88,7 @@
       height: auto;
       line-height: 1;
       padding: 0;
+      background: transparent;
       a{
         position: relative;
         color: @c-brown;

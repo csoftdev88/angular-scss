@@ -6,7 +6,7 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'loginEndpoint': 'infiniti',
+  'loginEndpoint': 'mobius',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -16,8 +16,8 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true
     },
-    'chainCode': 'LAVAL',
-    'baseURL': 'http://52.26.179.169:3010/api/4.0/',
+    'chainCode': 'DOCO',
+    'baseURL': 'http://doco.mobiuswebservices.com/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -89,7 +89,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '355',
+      'Mobius-chainId': '354',
       'Mobius-channelId': '6'
     },
     'rewards': {
@@ -250,6 +250,14 @@ angular.module('mobiusApp.config', [])
       'cs-cz': {
         'shortName': 'CZ',
         'name': 'Čeština',
+        'decimalSeparator': ',',
+        'groupSeparator': '\u00a0',
+        'groupSize': 3,
+        'neg': '-'
+      },
+      'de': {
+        'shortName': 'DE',
+        'name': 'German',
         'decimalSeparator': ',',
         'groupSeparator': '\u00a0',
         'groupSize': 3,

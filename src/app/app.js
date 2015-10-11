@@ -343,7 +343,12 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state, breadcrumbsService) {
+  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService) {
+
+    var langObj = {};
+    langObj['mobius-languagecode'] = stateService.getAppLanguageCode();
+    apiService.setHeaders(langObj);
+    
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
