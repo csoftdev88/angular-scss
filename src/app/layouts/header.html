@@ -72,9 +72,9 @@
                   ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
       </li>
 
-      <li has-dropdown="click" currency-list ng-show="currencies.length > 1"></li>
+      <li has-dropdown="click" currency-list></li>
 
-      <li has-dropdown="click" language-list ng-show="languages.length > 1"></li>
+      <li has-dropdown="click" language-list></li>
 
       <li ng-show="!isUserLoggedIn()" profile>
         <a class="button button-login" ng-click="sso.login()">Login</a>
