@@ -66,6 +66,7 @@ describe('languageList', function() {
         search: sinon.stub().returns('currency=CAD'),
         hash: sinon.stub().returns('')
       });
+
     });
   });
 
@@ -112,8 +113,8 @@ describe('languageList', function() {
     });
 
     it('should define all languages on scope', function(){
-      //expect(_scope.languages.length).equal(1);
-      //expect(_scope.languages[0].name).equal('English (US)');
+      expect(_scope.languages.length).equal(1);
+      expect(_scope.languages[0].name).equal('English (US)');
     });
   });
 
