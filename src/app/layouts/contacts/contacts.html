@@ -91,7 +91,7 @@
     </div>
 
 
-    <contact-list grid="4" ng-if="!viewSettings.hasMap">
+    <contact-list grid="4" ng-if="viewSettings.hasMap">
       <contact-item ng-repeat="contact in chain.contacts">
         <h2>{{contact.name}}</h2>
         <p><a href="tel:{{contact.tel}}">{{contact.tel}}</a></p>
