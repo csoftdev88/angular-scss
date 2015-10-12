@@ -11,6 +11,8 @@ angular.module('mobiusApp.directives.equals', [])
     },
     link: function(scope, elem, attrs, ngModel) {
       function validate(myValue, otherValue) {
+        myValue = myValue === undefined ? '' : myValue;
+        otherValue = otherValue === undefined ? '' : otherValue;
         if (myValue === otherValue) {
           ngModel.$setValidity('equals', true);
           return myValue;
