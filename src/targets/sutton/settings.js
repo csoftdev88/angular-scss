@@ -122,7 +122,7 @@ angular.module('mobiusApp.config', [])
     'menu': {
       'showOffers': true,
       'showAbout': true,
-      'showNews': true,
+      'showNews': false,
       'showContact': true,
       'offerSpecificToSelectedProperty': true,
       // Details: PT #102456878
