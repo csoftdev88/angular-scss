@@ -1,0 +1,98 @@
+#main-header {
+  background: #fff;
+  border-bottom: 1px solid red;
+  height: 96px;
+}
+
+// GENERIC STYLES
+.main-nav {
+  height: 96px;
+}
+
+// MOBILE SPECIFIC STYLES
+@media only screen and @large-mobile-max {
+
+}
+
+// Tablet styles
+@media only screen and @tablet-portrait-max and @large-mobile-min {
+
+}
+
+// DESKTOP STYLES
+@media only screen and @tablet-portrait-min {
+
+  .main-nav {
+
+    ul {
+
+      li {
+
+        position: relative;
+
+        a {
+          color: @c-primary;
+          box-shadow: none;
+          text-transform: uppercase;
+          .questrial;
+
+          &:hover,
+          &:focus,
+          &:active,
+          &.is-active {
+            box-shadow: none;
+          }
+
+          &.button-login{
+            color: #fff;
+            border-radius: 2px;
+            &:after {
+              position: absolute;
+              content: '';
+              display: inline-block;
+              width: 4px;
+              height: 4px;
+              bottom: 15px;
+              left: 50%;
+              margin-left: 6px;
+              background: url('@{img-prefix}/v4/icon-arrow.png') no-repeat center center;
+            }
+          }
+        }
+
+        .open > a {
+            box-shadow: none;
+        }
+
+        .open.has-icons > a {
+            box-shadow: none;
+        }
+      }
+
+      li[currency-list],
+      li[language-list] {
+        a{
+          color: @c-grey;
+          font-size: @size--3;
+        }
+      }
+    }
+
+    .brand {
+      display: block;
+      float: left;
+      margin: @baseline/2 0;
+    }
+  }
+}
+
+@media only screen and @tablet-landscape-min {
+
+  .main-nav {
+
+    .button-login {
+      right: 0;
+    }
+  }
+}
+

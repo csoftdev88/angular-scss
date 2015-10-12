@@ -218,6 +218,18 @@
     li[language-list] {
       padding-right: 0;
 
+      > div > a:after {
+        content: '';
+        display: inline-block;
+        position: relative;
+        width: 4px;
+        height: 4px;
+        margin-left: 2px;
+        top: -2px;
+        background: url('@{img-prefix}/v4/icon-arrow.png') no-repeat center center;
+      }
+
+
       a {
         &:hover,
         &:focus,
