@@ -67,6 +67,10 @@ describe('languageList', function() {
         hash: sinon.stub().returns('')
       });
 
+      $provide.value('user', {
+        storeUserLanguage: function(){}
+      });
+
     });
   });
 

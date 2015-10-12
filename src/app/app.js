@@ -343,7 +343,25 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService) {
+  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location) {
+
+    function encodeQueryData(data) {
+      var ret = [];
+      for (var d in data) {
+        if(data.hasOwnProperty(d)) {
+          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+        }
+      }
+      return ret.join(' ');
+    }
+
+    if(user.getUserLanguage() && user.getUserLanguage() !== stateService.getAppLanguageCode()){
+      var language_code = user.getUserLanguage();
+      var path = $location.path();
+      var search = encodeQueryData($location.search());
+      var hash = $location.hash();
+      $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+    }
 
     var langObj = {};
     langObj['mobius-languagecode'] = stateService.getAppLanguageCode();

@@ -74,6 +74,14 @@ angular.module('mobiusApp.services.user', [])
       localStorage.removeItem('mobiusToken');
     }
 
+    function storeUserLanguage(lang) {
+      localStorage.mobiusLanguagecode = lang;
+    }
+
+    function getUserLanguage() {
+      return localStorage.mobiusLanguagecode;
+    }
+
     function loadProfile() {
 
       var customerId = getCustomerId();
@@ -220,6 +228,9 @@ angular.module('mobiusApp.services.user', [])
       authPromise: authPromise.promise,
       storeUserId: storeUserId,
       getStoredUser: getStoredUser,
-      clearStoredUser: clearStoredUser
+      clearStoredUser: clearStoredUser,
+      storeUserLanguage: storeUserLanguage,
+      getUserLanguage: getUserLanguage
     };
   });
+

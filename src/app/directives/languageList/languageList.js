@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.language', [])
 
-  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', function($window, Settings, stateService, contentService, _, $location) {
+  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', 'user', function($window, Settings, stateService, contentService, _, $location, user) {
     function encodeQueryData(data) {
       var ret = [];
       for (var d in data) {
@@ -41,6 +41,8 @@ angular.module('mobiusApp.directives.language', [])
           var path = $location.path();
           var search = encodeQueryData($location.search());
           var hash = $location.hash();
+
+          user.storeUserLanguage(language.code);
 
           $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
         };
