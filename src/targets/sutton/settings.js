@@ -6,7 +6,7 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'authType': 'mobius',
+  'authType': 'infiniti',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -16,8 +16,8 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true
     },
-    'chainCode': 'LAVAL',
-    'baseURL': 'http://laval.mobiuswebservices.com/api/4.0/',
+    'chainCode': 'SAN',
+    'baseURL': 'http://52.3.22.21:3010/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -89,7 +89,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '355',
+      'Mobius-chainId': '1',
       'Mobius-channelId': '6'
     },
     'rewards': {
@@ -102,7 +102,7 @@ angular.module('mobiusApp.config', [])
   'UI': {
     'generics': {
       'singleProperty': false,
-      'loyaltyProgramEnabled': false,
+      'loyaltyProgramEnabled': true,
       'disableMainHeaderStyle': false
     },
     'adverts' : {
@@ -231,35 +231,11 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
-      'en-us': {
-        'shortName': 'EN',
-        'name': 'English (US)',
-        'decimalSeparator': '.',
-        'groupSeparator': ',',
-        'groupSize': 3,
-        'neg': '-'
-      },
       'en-ca': {
         'shortName': 'EN',
         'name': 'English (CAN)',
         'decimalSeparator': '.',
         'groupSeparator': ',',
-        'groupSize': 3,
-        'neg': '-'
-      },
-      'cs-cz': {
-        'shortName': 'CZ',
-        'name': 'Čeština',
-        'decimalSeparator': ',',
-        'groupSeparator': '\u00a0',
-        'groupSize': 3,
-        'neg': '-'
-      },
-      'de': {
-        'shortName': 'DE',
-        'name': 'German',
-        'decimalSeparator': ',',
-        'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
       }

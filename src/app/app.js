@@ -343,7 +343,7 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location) {
+  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings) {
 
     function encodeQueryData(data) {
       var ret = [];
@@ -355,8 +355,10 @@ angular
       return ret.join(' ');
     }
 
-    if(user.getUserLanguage() && user.getUserLanguage() !== stateService.getAppLanguageCode()){
-      var language_code = user.getUserLanguage();
+    var userLang = user.getUserLanguage();
+
+    if(userLang && userLang !== stateService.getAppLanguageCode() && Settings.UI.languages[userLang]){
+      var language_code = userLang;
       var path = $location.path();
       var search = encodeQueryData($location.search());
       var hash = $location.hash();
