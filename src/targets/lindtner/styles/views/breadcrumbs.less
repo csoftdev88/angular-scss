@@ -7,7 +7,7 @@ breadcrumbs{
 }
 
 .breadcrumbs {
-  background: transparent;
+  background: #fff;
   padding: 27px 0;
   font-size: @size--3;
   color: @c-grey;
@@ -33,6 +33,11 @@ breadcrumbs{
           color: @c-primary
         }
       }
+
+      span:after, a:after {
+        color: @c-grey;
+      }
+
     }
   }
 

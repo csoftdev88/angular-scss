@@ -119,7 +119,7 @@
     <div class="login-dialog" ng-if="!sso.isInfiniti() && showLoginDialog" ng-class="'form-step' + loginFormStep">
 
       <header>
-        <a href="" ng-click="loginFormStep = 1; sso.clearErrors();" class="back-btn">Back</a>
+        <a href="" ng-click="loginFormStep = 1; sso.clearErrors();" ng-show="loginFormStep == 2" class="back-btn">Back</a>
         <a href="" ng-click="sso.clearErrors(); sso.login();" class="close-btn"></a>
         <figure class="logo">
           <img src="/static/images/v4/logo-login.png" alt="logo">

@@ -366,8 +366,8 @@ angular.module('mobiusApp.config', [])
 
     'viewsSettings':{
       'contacts': {
-        'formGrid': 8,
-        'hasMap': false
+        'formGrid': 12,
+        'hasMap': true
       }
     },
 
