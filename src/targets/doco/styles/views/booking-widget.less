@@ -1,6 +1,9 @@
 booking-widget {
 	button-submit{
 		border-radius: 2px;
+		min-width: inherit;
+		width: 15%;
+		margin-top: 33px;
 
 		.viewport-mobile & {
 			font-size: 16px;
@@ -11,18 +14,28 @@ booking-widget {
 	}
 }
 
-booking-widget-search form-element:before,
-booking-widget-add-room form-element:before {
-	color: #bbb
+booking-widget-search,
+booking-widget-add-room {
+	form-element{
+		&:before {
+			color: #bbb
+		}
+		.viewport-mobile & {
+		  margin-bottom: 38px;
+		}
+	}
 }
 
-booking-widget-search h3:after {
-	color: #fff
-}
-booking-widget-search form-element,
-booking-widget-add-room form-element {
-	.viewport-mobile & {
-	    margin-bottom: 38px;
+booking-widget-search {
+	h3:after {
+		color: #fff
+	}
+	form-element {
+		&.dates{
+			input-value{
+				width: calc(100% - 71px);
+			}
+		}
 	}
 }
 

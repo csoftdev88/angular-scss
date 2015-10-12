@@ -12,6 +12,7 @@ angular.module('mobius.controllers.contacts', [])
 
     $scope.subjectOptions = Settings.UI.forms.contactSubjects;
     $scope.viewsSettings = Settings.UI.viewsSettings.contacts;
+    $scope.hotelDetails = Settings.UI.hotelDetails;
     var formDataCopy = {
       'code': 'contact',
       'fields': {}
