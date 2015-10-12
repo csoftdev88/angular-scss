@@ -1,12 +1,21 @@
 #main-header {
   background: #fff;
-  border-bottom: 1px solid red;
   height: 96px;
+  .viewport-mobile &{
+    height: auto;
+  }
 }
 
 // GENERIC STYLES
 .main-nav {
   height: 96px;
+  .viewport-mobile &{
+    height: 60px;
+  }
+
+  .menu-opener{
+    background-size: 21px 16px;
+  }
 }
 
 // MOBILE SPECIFIC STYLES
@@ -71,6 +80,7 @@
 
       li[currency-list],
       li[language-list] {
+        line-height: 86px;
         a{
           color: @c-grey;
           font-size: @size--3;

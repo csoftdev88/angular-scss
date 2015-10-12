@@ -341,6 +341,9 @@ angular.module('mobiusApp.config', [])
       'room': [
         'room',
         'room-aside'
+      ],
+      'contacts': [
+        'hotel-location'
       ]
     },
 
@@ -351,7 +354,8 @@ angular.module('mobiusApp.config', [])
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',
       'room': '<room></room>',
-      'room-aside': '<room-aside></room-aside>'
+      'room-aside': '<room-aside></room-aside>',
+      'hotel-location': '<hotel-location></hotel-location>'
     },
 
     // Responsive design breakpoints
@@ -366,8 +370,8 @@ angular.module('mobiusApp.config', [])
 
     'viewsSettings':{
       'contacts': {
-        'formGrid': 8,
-        'hasMap': false
+        'formGrid': 12,
+        'hasMap': true
       }
     },
 

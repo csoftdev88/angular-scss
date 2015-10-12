@@ -1,0 +1,71 @@
+/////////////////////
+//// HERO SLIDER ////
+/////////////////////
+
+
+// GENERIC STYLES
+hero-slider {
+
+  height: 500px;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+
+  .slider-controls {
+
+    .pages {
+      span {
+        background-color: @c-primary;
+        &.active {
+          background-color: @c-secondary;
+        }
+        &:hover{
+          background-color: @c-secondary;
+        }
+      }
+    }
+  }
+
+  .slider-content {
+
+    .hero-slide {
+
+      .content-inner {
+        position: absolute;
+        width: 100%;
+        max-width: none;
+        top: auto;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.87);
+        padding: 10px 0 30px;
+
+        h1, h2 {
+          &:extend(.questrial);
+          position: relative;
+          padding: 0;
+          color: @c-primary;
+          width: 960px;
+          margin: 0 auto;
+          left: 0;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          &:before {
+            content: none;
+          }
+        }
+
+        h1 {
+          background-color: transparent;
+          line-height: 38px;
+        }
+
+        h2 {
+          top: 0;
+          font-size: @size-0;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
