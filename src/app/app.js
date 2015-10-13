@@ -377,7 +377,7 @@ angular
   })
 
   .controller('BaseCtrl', function($scope, $controller,$state, scrollService,
-    metaInformationService){
+    metaInformationService, Settings){
 
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
@@ -386,7 +386,13 @@ angular
     // TODO: FIX THIS - scrolling should be done differently
     //$controller('HotelDetailsCtrl', {$scope: $scope});
 
-    $scope.$on('$stateChangeStart', function() {
+    $scope.$on('$stateChangeStart', function(e, toState) {
+
+      //if single property redirect home state to hotel page
+      if(Settings.UI.generics.singleProperty && toState.name === 'home'){
+        $state.go('hotel', {property: null});
+      }
+
       $scope.sso.trackPageLeave();
       metaInformationService.reset();
     });

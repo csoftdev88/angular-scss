@@ -54,7 +54,7 @@
 
       <li ng-show="config.generics.singleProperty">
           <a
-                  ui-sref="hotel({property: null})"
+                  ui-sref="hotel({property: apiConfig.chainCode})"
                   ui-sref-opts="{reload: true}"
                   ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
       </li>

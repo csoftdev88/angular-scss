@@ -34,6 +34,7 @@ angular.module('mobius.controllers.hotel.details', [
     }
   ];
   $scope.currentOrder = $scope.sortingOptions[0];
+  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
 
   $scope.partials = [
       'layouts/hotels/detailPartial/hotelInfo.html',

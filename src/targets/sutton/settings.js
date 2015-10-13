@@ -231,11 +231,35 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
+      'en-us': {
+        'shortName': 'EN',
+        'name': 'English (US)',
+        'decimalSeparator': '.',
+        'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
+      },
       'en-ca': {
         'shortName': 'EN',
         'name': 'English (CAN)',
         'decimalSeparator': '.',
         'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
+      },
+      'cs-cz': {
+        'shortName': 'CZ',
+        'name': 'Čeština',
+        'decimalSeparator': ',',
+        'groupSeparator': '\u00a0',
+        'groupSize': 3,
+        'neg': '-'
+      },
+      'de': {
+        'shortName': 'DE',
+        'name': 'German',
+        'decimalSeparator': ',',
+        'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
       }

@@ -16,7 +16,7 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true
     },
-    'chainCode': 'Lindtner',
+    'chainCode': 'LINDTNER',
     'baseURL': 'http://lindtner.mobiuswebservices.com/api/4.0/',
     'contents': {
       'contents': 'contents',
@@ -160,7 +160,8 @@ angular.module('mobiusApp.config', [])
 
       },
       // Cache timeout in seconds
-      'ratesCacheTimeout': 30 * 60
+      'ratesCacheTimeout': 30 * 60,
+      'showLocalInfo': false
     },
 
     'roomDetails': {

@@ -453,6 +453,8 @@ angular.module('mobius.controllers.reservation', [])
     userData.firstName = user.getUser().firstName;
     userData.lastName = user.getUser().lastName;
 
+
+
     var promises = [];
     if($stateParams.reservation){
       // Updating existing reservation
