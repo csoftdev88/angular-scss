@@ -15,7 +15,7 @@ angular.module('mobiusApp.directives.room', [])
       $controller('PriceCtr', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
 
-      scope.loyaltyProgramEnabled = Settings.UI.generics.loyaltyProgramEnabled;
+      scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
       var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);

@@ -25,11 +25,12 @@ angular.module('mobiusApp.directives.floatingBar', [
       // Widget logic goes here
       link: function(scope, $el) {
         scope.hasMutiroomTab = Settings.UI.bookingWidget.hasMutiroomTab;
-        scope.loyaltyProgramEnabled = Settings.UI.generics.loyaltyProgramEnabled;
+        scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
         scope.isMobile = $window.innerWidth <= Settings.UI.screenTypes.mobile.maxWidth;
         isCollapsed = isCollapsed || scope.isMobile;
         scope.isCollapsed = isCollapsed;
         scope.active = active;
+        document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
 
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;

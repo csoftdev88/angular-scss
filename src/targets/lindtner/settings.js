@@ -102,7 +102,6 @@ angular.module('mobiusApp.config', [])
   'UI': {
     'generics': {
       'singleProperty': true,
-      'loyaltyProgramEnabled': false,
       'disableMainHeaderStyle': true
     },
     'adverts' : {
@@ -122,7 +121,7 @@ angular.module('mobiusApp.config', [])
     'menu': {
       'showOffers': true,
       'showAbout': true,
-      'showNews': true,
+      'showNews': false,
       'showContact': true,
       'offerSpecificToSelectedProperty': true,
       // Details: PT #102456878
@@ -208,7 +207,7 @@ angular.module('mobiusApp.config', [])
     },
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'GBP',
+      'default': 'EUR',
 
       'GBP': {
         'symbol': '£',
