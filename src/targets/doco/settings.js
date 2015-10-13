@@ -140,7 +140,7 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'hotelDetails': {
-      'chainPrefix': 'DO&CO Hotel Vienna',
+      'chainPrefix': 'DO & CO Hotel Vienna',
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,

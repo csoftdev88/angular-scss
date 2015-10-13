@@ -5,9 +5,7 @@ describe('stringLocaleReplace', function() {
   var TEST_SETTINGS = {
     'chainPrefix': 'Sutton Place Hotel'
   };
-  var TEST_PARAM = {
-    'nameShort': 'Revelstoke'
-  };
+  var TEST_PARAM = 'Revelstoke';
   var TEST_STRING = 'The {chainPrefix} {nameShort} Location';
 
   beforeEach(function() {
