@@ -102,6 +102,7 @@ angular.module('mobiusApp.services.user', [])
           apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
           loadLoyalties(customerId), loadRewards(customerId)
         ]).then(function(data){
+          console.log('success: ' + angular.toJson(data));
           var userData = data[0];
 
           // NOTE: data[0] is userProfile data
@@ -123,6 +124,10 @@ angular.module('mobiusApp.services.user', [])
           // Logged in as mobius user
           if(authPromise){
             authPromise.resolve(true);
+          }
+        }, function(){
+          if(Settings.authType === 'mobius'){
+            clearStoredUser();
           }
         });
       } else {
