@@ -102,7 +102,6 @@ angular.module('mobiusApp.config', [])
   'UI': {
     'generics': {
       'singleProperty': true,
-      'loyaltyProgramEnabled': false,
       'disableMainHeaderStyle': true
     },
     'adverts' : {

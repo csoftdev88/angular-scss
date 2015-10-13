@@ -21,7 +21,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     $scope.reservationCode = $stateParams.reservationCode;
     $scope.isEditable = $stateParams.view !== 'summary';
-    $scope.loyaltyProgramEnabled = Settings.UI.generics.loyaltyProgramEnabled;
+    $scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
 
     $timeout(function(){
       $rootScope.$broadcast('floatingBarEvent', {

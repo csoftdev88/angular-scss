@@ -27,11 +27,7 @@ describe('userService', function() {
       });
 
       $provide.value('Settings', {
-        UI: {
-          generics: {
-            loyaltyProgramEnabled: true
-          }
-        }
+        authType: 'infiniti'
       });
 
       $provide.value('dataLayerService', {});

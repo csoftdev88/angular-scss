@@ -132,7 +132,7 @@ angular.module('mobiusApp.services.user', [])
 
     function loadLoyalties(customerId){
 
-      if(!Settings.UI.generics.loyaltyProgramEnabled){
+      if(Settings.authType !== 'infiniti'){
         return;
       }
 
@@ -147,7 +147,7 @@ angular.module('mobiusApp.services.user', [])
 
     function loadRewards(customerId){
 
-      if(!Settings.UI.generics.loyaltyProgramEnabled){
+      if(Settings.authType !== 'infiniti'){
         return;
       }
       

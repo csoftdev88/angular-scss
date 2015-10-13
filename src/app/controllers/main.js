@@ -10,7 +10,7 @@ angular.module('mobius.controllers.main', [])
 
       // Application settings
       $scope.config = Settings.UI;
-      $scope.loyaltyProgramEnabled = $scope.config.generics.loyaltyProgramEnabled;
+      $scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;
