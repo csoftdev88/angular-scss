@@ -29,7 +29,6 @@
       <local-info ng-if="showLocalInfo" local-info="details.localInfo" grid="6"></local-info>
     </header>
 
-
     <div ng-repeat-start="partial in partials" ng-include="partial" include-replace ng-repeat-end></div>
 
     <div class="back-to-top" ng-click="scrollToBreadcrumbs()" scroll-position="scroll" ng-class="{visible: scroll > 500}"><span>Back to top</span></div>

@@ -14,6 +14,10 @@ angular.module('mobius.controllers.hotel.details', [
   // Used for rate notification message
   $controller('RatesCtrl', {$scope: $scope});
 
+  // Set grid based on settings:
+  $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
+  $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasAmenities;
+
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;
   var bookingParams = bookingService.getAPIParams();

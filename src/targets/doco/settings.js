@@ -103,7 +103,8 @@ angular.module('mobiusApp.config', [])
     'generics': {
       'singleProperty': true,
       'loyaltyProgramEnabled': false,
-      'disableMainHeaderStyle': true
+      'disableMainHeaderStyle': true,
+      'showAltNav': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
@@ -369,10 +370,14 @@ angular.module('mobiusApp.config', [])
       }
     },
 
-    'viewsSettings':{
+    'viewsSettings': {
       'contacts': {
         'formGrid': 12,
         'hasMap': true
+      },
+      'hotelDetails':{
+        'hasViewMore': false,
+        'hasAmenities': false
       }
     },
 

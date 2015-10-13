@@ -1,9 +1,9 @@
 <section grid-row>
-    <div grid="8">
+    <div grid="{{(hasViewMore)?8:12}}">
         <p ng-bind-html="sanitize(details.description)"></p>
     </div>
 
-    <view-more-images grid="4">
+    <view-more-images grid="4" ng-if="hasViewMore">
         <a ng-if="details.images.length" href class="gallery-link" ng-click="openGallery()">View more images</a>
         <hero-slider data-has-notification-bar="false" on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
 

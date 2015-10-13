@@ -3,7 +3,7 @@
 describe('breadcrumbs', function() {
   var _$compile, _$rootScope, _element, _scope, _modalService, _contentService,
     _breadcrumbsService, _scrollService, _spyTemplateCacheGet, _stubAngularElement,
-    _underscore;
+    _underscore, _Settings;
 
   var TEMPLATE = '<breadcrumbs></breadcrumbs>';
   var TEMPLATE_URL = 'directives/breadcrumbs/breadcrumbs.html';
@@ -54,13 +54,22 @@ describe('breadcrumbs', function() {
       $provide.value('contentService', {
         getLightBoxContent: sinon.spy()
       });
+
+      $provide.value('Settings', {
+        UI: {
+          generics: {
+            showAltNav: true
+          }
+        }
+      });
     });
   });
 
   beforeEach(inject(function($compile, $rootScope, $templateCache, modalService, contentService,
-      scrollService, breadcrumbsService, _) {
+      scrollService, breadcrumbsService, _, Settings) {
     _$compile = $compile;
     _$rootScope = $rootScope;
+    _Settings = Settings;
 
     $templateCache.put(TEMPLATE_URL, TEMPLATE_CONTENT);
     _spyTemplateCacheGet = sinon.spy($templateCache, 'get');
