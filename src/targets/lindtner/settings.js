@@ -221,7 +221,7 @@ angular.module('mobiusApp.config', [])
 
       'EUR': {
         'symbol': '€',
-        'format': '{{amount}}{{symbol}}'
+        'format': '{{symbol}}{{amount}}'
       },
 
       'CAD': {

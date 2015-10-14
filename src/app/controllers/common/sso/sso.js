@@ -42,6 +42,9 @@ angular.module('mobius.controllers.common.sso', [])
       if(!isInfinitiLogin()){
         loginForm.$submitted = true;
         if (loginForm.$valid) {
+          var headersObj = {};
+          headersObj['mobius-authentication'] = undefined;
+          apiService.setHeaders(headersObj);
           apiService.post(apiService.getFullURL('customers.login'), loginData).then(function(data){
             $scope.showLoginDialog = false;
             clearErrorMsg();

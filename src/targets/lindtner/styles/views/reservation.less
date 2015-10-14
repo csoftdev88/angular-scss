@@ -12,114 +12,11 @@
 // Global namespace for whole reservation process //
 ////////////////////////////////////////////////////
 reservation-widget {
-  display: block;
-  margin-bottom: 10px;
-  padding: @spacing 0;
-  .shadow-box(#ddd);
-  float: left;
 
-  .viewport-mobile &{
-    padding: 20px;
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-  [grid-row] {
-    position: relative;
-  }
-
-  ui-view {
-    display: block;
-    min-height: 1px;
-  }
-
-  h3 {
-    font-size: @size-1;
-  }
-
-  form {
-    margin-top: 10px;
-  }
-
-  table {
-    width: 100%;
-  }
-
-
-  label {
-    position: relative;
-    padding-top: @size--2 + 4px; // 15px
-    padding-bottom: 10px;
-    color: darken(@c-gray-reservation, 20%);
-
-    > span {
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-size: @size--2;
-      line-height: 1;
+  h3{
+    strong{
       font-weight: normal;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateX(40px);
-      transition: opacity 0.2s linear,
-                  transform 0.2s ease-out,
-                  color 0.15s linear;
     }
-
-    &.input-right span {
-      left: 10px;
-    }
-
-    input:focus ~ span,
-    select:focus ~ span,
-    textarea:focus ~ span {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  .alert-warning {
-    display: block;
-    text-align: center;
-    background-color: #B58080;
-    padding: @baseline;
-    margin: @baseline;
-    color: @c-white;
-    border-radius: 5px;
-  }
-
-  form {
-    .viewport-mobile &{
-      width: 100%;
-    }
-    &.ng-submitted {
-      label {
-        input,
-        select,
-        textarea {
-          &.ng-invalid ~ span {
-            opacity: 1;
-            transform: translateX(0);
-            color: @c-red;
-          }
-        }
-      }
-
-      input,
-      select,
-      textarea {
-        &.ng-invalid {
-          border-color: @c-red;
-        }
-      }
-    }
-  }
-
-  .additional-details {
-    width: 100%;
-    margin-top: -10px;
   }
 
   input[type="text"],
@@ -162,27 +59,14 @@ reservation-widget {
 
   textarea {
     min-height: 3 * 45px;
-    height: auto;
-    padding: 15px;
-    resize: vertical;
   }
 
   .input-checkbox {
-    font-weight: 300;
-    font-size: @size-0;
-    cursor: pointer;
+    font-weight: normal;
   }
 
   .detail-links {
-    text-align: right;
-    color: @c-brown;
-
-    a {
-      text-decoration: underline;
-      .viewport-mobile &{
-        font-size: 12px;
-      }
-    }
+    color: @c-primary;
   }
 
   aside {
@@ -213,22 +97,18 @@ reservation-widget {
     }
 
     h3 {
-      font-weight: bold;
+      font-weight: normal;
+    }
+
+    h4{
+      color: @c-primary;
     }
 
     .desc,
     .price{
-      color: @c-brown;
-    }
-
-    .image-wrapper {
-      overflow: hidden;
-
-      img {
-        border-radius: @baseline / 4;
-        margin: @baseline/2 0;
-        max-height: 160px;
-        width: 100%;
+      color: @c-grey;
+      strong{
+        font-weight: normal;
       }
     }
   }
@@ -389,61 +269,6 @@ reservation-billing {
     background-color: #f9f9f9;
     .viewport-mobile &{
       padding: 20px;
-    }
-  }
-
-  // Payment with credit/debet card
-  .payment-methods {
-    cursor: pointer;
-
-    li {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    li + li {
-      margin-left: 10px;
-    }
-
-    .divider {
-      width: 0;
-      height: 30px;
-      border-right: 1px solid @c-gray-reservation;
-    }
-
-    i {
-      display: block;
-      opacity: 1;
-      width: 32px;
-      height: 30px;
-      background-repeat: no-repeat;
-      background-position: center center;
-      opacity: 0.5;
-
-      &.selected {
-        opacity: 1;
-      }
-
-      &.visa {
-        background-image: url('@{img-prefix}/card-icons/visa.png');
-      }
-
-      &.master {
-        background-image: url('@{img-prefix}/card-icons/mastercard.png');
-      }
-
-      &.amex {
-        background-image: url('@{img-prefix}/card-icons/amex.png');
-      }
-
-      &.discover {
-        background-image: url('@{img-prefix}/card-icons/discover.png');
-      }
-
-      &.points {
-        width: 80px;
-        background-image: url('@{img-prefix}/card-icons/points.png');
-      }
     }
   }
 
@@ -617,98 +442,13 @@ reservation-billing {
 //////////////////////////////////////////////
 reservation-confirmation {
 
-  > div {
-    margin: 45px 0 @spacing 0;
-    border: 1px solid @c-gray-reservation;
-    border-radius: 4px;
-  }
-
-  ///////////////////////////////////////////////
-  // Styles for tabs from Angular Bootstrap UI //
-  ///////////////////////////////////////////////
-
   // Tab headers (links)
   .nav-tabs {
-    .clearfix;
-
-    li {
-      float: left;
-      box-sizing: border-box;
-      width: 33.3333%;
-      text-align: center;
-      padding: 0 5px;
-    }
-
-    li + li {
-      border-left: 1px solid @c-gray-reservation;
-    }
-
-    a {
-      display: block;
-      padding: 10px 0;
-      color: @c-gray;
-      font-weight: 400;
-    }
 
     .active a {
-      color: @c-brown;
-      font-weight: bold;
+      color: @c-secondary;
+      font-weight: normal;
     }
-
-    .viewport-mobile &{
-      li{
-        height: 60px;
-        display: table;
-        a{
-          display: table-cell;
-          vertical-align: middle;
-        }
-      }
-    }
-  }
-
-  // Tab content
-  .tab-pane {
-    display: none;
-    padding: 30px 40px;
-    border-top: 1px solid @c-gray-reservation;
-    .viewport-mobile &{
-      padding: 20px;
-    }
-
-    &.active {
-      display: block;
-    }
-
-    .points-balance {
-      th {
-        width: 60%;
-      }
-
-      td {
-        text-align: right;
-
-        &.earned {
-          color: @c-green;
-        }
-      }
-    }
-  }
-
-  // Tables containing recapitulation of filled data
-  th, td {
-    padding: 5px;
-    vertical-align: top;
-  }
-
-  th {
-    width: 33%;
-    text-align: left;
-    font-weight: 400;
-  }
-
-  td {
-    font-weight: 600;
   }
 }
 
@@ -758,14 +498,14 @@ reservation-finished {
       .passbook{
         float: right;
         .button-passbook {
-          background: url('@{img-prefix}/v4/btn-passbook.png');
+          background: url('../images/v4/btn-passbook.png');
           width: 108px;
           height: 36px;
           float: left;
         }
 
         .button-print {
-          background: url('@{img-prefix}/v4/btn-print.png');
+          background: url('../images/v4/btn-print.png');
           width: 37px;
           height: 36px;
           float: left;
