@@ -458,26 +458,10 @@ reservation-confirmation {
 //  - after succesful payment //
 ////////////////////////////////
 reservation-finished {
-  position: relative;
-  display: block;
-  margin-top: 2*@baseline;
 
-  // Headings
-  section > h3,
-  hotel-location > h2 {
-    margin: @spacing 0;
-    font-size: @size-3;
-  }
-
-  hotel-location{
-      map {
-         margin-bottom: @baseline;
-      }
-  }
 
   // This part is specific for RESERVATION DETAIL page only
   .reservation-summary {
-    padding-top: 3 * @spacing;
 
     // Block w/ PRINT and ADD TO PASSBOOK and SHARE buttons
     .actions {
@@ -680,7 +664,7 @@ reservation-finished {
         }
 
         h4 {
-          color: @c-black;
+          color: @c-primary;
         }
       }
     }
@@ -697,15 +681,15 @@ reservation-finished {
       margin: @baseline 0;
       font-size: @size-2;
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: normal;
       span{
-        font-weight: 400;
+        font-weight: normal;
       }
     }
 
     i {
       display: block;
-      color: @c-brown;
+      color: @c-primary;
       font-size: @size--1;
       line-height: @baseline;
       text-align: left;
@@ -794,7 +778,7 @@ reservation-hotel-details {
     }
 
     h1 {
-      color: @c-brown;
+      color: @c-primary;
       font-size: @size-3;
       font-weight: 600;
       line-height: 1.5 * @baseline;
@@ -831,14 +815,9 @@ reservation-hotel-details {
     }
 
     .booked {
-      color: @c-text;
-      font-size: @size--1;
-      font-weight: bold;
-      line-height: 2 * @baseline;
-      text-align: right;
-      .viewport-mobile & {
-        text-align: left;
-      }
+      color: @c-grey;
+      font-size: @size-2;
+      font-weight: normal;
     }
   }
 
@@ -887,13 +866,16 @@ reservation-hotel-details {
 
     h3 {
       font-size: @size-1;
-      line-height: 1.5 * @baseline;
-      font-weight: 600;
+      line-height: @baseline;
+      font-weight: normal;
+      color: @c-primary;
+      text-transform: uppercase;
     }
 
     h4 {
       font-size: @size-0;
       line-height: 1.5 * @baseline;
+      text-transform: uppercase;
     }
 
     table {
@@ -910,12 +892,12 @@ reservation-hotel-details {
     }
 
     th {
-      font-weight: 400;
+      font-weight: normal;
       text-align: left;
     }
 
     td {
-      font-weight: 600;
+      font-weight: normal;
       text-align: right;
     }
 
@@ -924,9 +906,7 @@ reservation-hotel-details {
     }
 
     .total {
-      text-transform: uppercase;
-      font-weight: bold;
-      text-align: right;
+      font-weight: normal;
     }
 
     .total-value a {

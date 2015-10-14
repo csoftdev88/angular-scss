@@ -285,6 +285,8 @@ describe('mobius.controllers.reservation', function() {
         expect(_spyCreateReservation.calledOnce).equal(true);
       });
 
+      /*
+      Remove when confirmed
       it('should fire a PUT request to customer API', function(){
         _scope.additionalInfo.agree = true;
 
@@ -292,6 +294,7 @@ describe('mobius.controllers.reservation', function() {
         _scope.$digest();
         expect(_spyUpdateUser.calledOnce).equal(true);
       });
+      */
 
       describe('when reservation is complete', function(){
         var stateParams;

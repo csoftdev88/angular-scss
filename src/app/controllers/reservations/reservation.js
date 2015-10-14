@@ -465,10 +465,11 @@ angular.module('mobius.controllers.reservation', [])
       // Creating a new reservation
       promises.push(reservationService.createReservation(reservationData));
     }
-    if(reservationData.customer){
+    //Hidding this for now but it's wrong, will be removed
+    //if(reservationData.customer){
       // Updating user profile when
-      promises.push(user.updateUser(userData));
-    }
+      //promises.push(user.updateUser(userData));
+    //}
 
     var reservationPromise = $q.all(promises).then(function(data) {
       userMessagesService.addMessage('' +
