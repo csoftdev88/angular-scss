@@ -376,7 +376,7 @@ angular
     $rootScope.facebookAppId = '954663594591416';
   })
 
-  .controller('BaseCtrl', function($scope, $controller,$state, scrollService,
+  .controller('BaseCtrl', function($scope, $rootScope, $controller,$state, scrollService,
     metaInformationService, Settings, propertyService){
 
     $controller('ReservationUpdateCtrl', {$scope: $scope});
@@ -396,6 +396,7 @@ angular
             var slug = details.meta.slug;
             $state.go('hotel', {propertySlug: slug});
             Settings.API.propertySlug = slug;
+            $rootScope.propertySlug = slug;
           });
         }
       }
