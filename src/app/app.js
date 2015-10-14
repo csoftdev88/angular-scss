@@ -377,28 +377,38 @@ angular
   })
 
   .controller('BaseCtrl', function($scope, $controller,$state, scrollService,
-    metaInformationService, Settings){
+    metaInformationService, Settings, propertyService){
 
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
     $controller('ReservationMultiRoomCtrl', {$scope: $scope});
 
-    // TODO: FIX THIS - scrolling should be done differently
-    //$controller('HotelDetailsCtrl', {$scope: $scope});
-
     $scope.$on('$stateChangeStart', function(e, toState) {
 
       //if single property redirect home state to hotel page
       if(Settings.UI.generics.singleProperty && toState.name === 'home'){
-        $state.go('hotel', {property: null});
+        e.preventDefault();
+        if(Settings.API.propertySlug){
+          $state.go('hotel', {propertySlug: Settings.API.propertySlug});
+        }
+        else{
+          propertyService.getPropertyDetails(Settings.API.chainCode).then(function(details){
+            var slug = details.meta.slug;
+            $state.go('hotel', {propertySlug: slug});
+            Settings.API.propertySlug = slug;
+          });
+        }
       }
-
-      $scope.sso.trackPageLeave();
+      if(Settings.authType === 'infiniti'){
+        $scope.sso.trackPageLeave();
+      }
       metaInformationService.reset();
     });
 
     $scope.$on('$stateChangeSuccess', function() {
-      $scope.sso.trackPageView();
+      if(Settings.authType === 'infiniti'){
+        $scope.sso.trackPageView();
+      }
       $scope.$on('$viewContentLoaded', function() {
         scrollService.scrollTo();
       });
