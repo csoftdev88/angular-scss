@@ -21,6 +21,83 @@
 // MOBILE SPECIFIC STYLES
 @media only screen and @large-mobile-max {
 
+  #main-header {
+    background-color: @c-white;
+  }
+
+  .main-nav {
+
+    > .app-menu {
+      background-color: @c-white;
+
+      ul {
+        width: 100%;
+
+        > li {
+          border-top: 1px @c-primary solid;
+          background-color: @c-white;
+
+          &.mobile-header{
+            .close{
+              &:after {
+                .fa;
+                color: @c-primary;
+                content: @fa-var-close;
+                top: 22px;
+              }
+            }
+          }
+
+          a{
+            color: @c-primary;
+          }
+
+          a.is-active {
+            font-weight: 700;
+            text-shadow: none;
+          }
+
+          &.mobile-header{
+            border-top: 0;
+          }
+
+          &.mobile-profile{
+            height: 70px;
+            line-height: 50px;
+            text-transform: none;
+            border-top: 0;
+            a{
+              text-transform: none;
+            }
+            .profile {
+              margin-top: 0;
+              height: 50px;
+              .message{
+                font-size: @size--1;
+                color: @c-primary;
+              }
+
+              .user {
+                color: @c-primary;
+                font-size: @size-0;
+                line-height: @size-0;
+
+                span {
+                  display: inline;
+                  font-weight: normal;
+
+                  // Surname
+                  &:last-of-type {
+                    display: inline;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 // Tablet styles
@@ -38,6 +115,7 @@
       li {
 
         position: relative;
+        line-height: 96px;
 
         a {
           color: @c-primary;
@@ -55,13 +133,14 @@
           &.button-login{
             color: #fff;
             border-radius: 2px;
+            text-shadow: none;
             &:after {
               position: absolute;
               content: '';
               display: inline-block;
               width: 4px;
               height: 4px;
-              bottom: 15px;
+              bottom: 20px;
               left: 50%;
               margin-left: 6px;
               background: url('@{img-prefix}/v4/icon-arrow.png') no-repeat center center;
@@ -76,11 +155,43 @@
         .open.has-icons > a {
             box-shadow: none;
         }
+
+        &.desktop-profile{
+          height: 96px;
+          line-height: 96px;
+          text-transform: none;
+          a{
+            text-transform: none;
+          }
+          .profile {
+            margin-top: 33px;
+            min-width: 0;
+            .message{
+              color: @c-secondary;
+            }
+
+            .user {
+              color: @c-grey;
+              font-size: @size--2;
+              line-height: @size--2;
+
+              span {
+                display: inline;
+                font-weight: normal;
+
+                // Surname
+                &:last-of-type {
+                  display: inline;
+                }
+              }
+            }
+          }
+        }
       }
 
       li[currency-list],
       li[language-list] {
-        line-height: 86px;
+        line-height: 94px;
         a{
           color: @c-grey;
           font-size: @size--3;

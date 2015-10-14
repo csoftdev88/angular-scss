@@ -10,7 +10,7 @@
 
       <li class="mobile-header">
         <a ui-sref="home({property:null})">
-          <img src="/static/images/v4/logo.png" alt="Mobius logo">
+          <img src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
         </a>
         <span class="close"></span>
       </li>
@@ -19,8 +19,10 @@
         <div class="dropdown">
           <a href>
             <div class="profile">
-              <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
-
+              <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
+              <div class="message" ng-if="config.viewsSettings.userProfile.hasWelcomeMessage">
+                <span>Welcome Back</span>
+              </div>
               <div class="user">
                 <div class="name">{{user.getUser().firstName}} {{user.getUser().lastName}}</div>
                 <div class="points" ng-if="config.generics.loyaltyProgramEnabled">
@@ -87,8 +89,11 @@
         <div class="dropdown">
           <a href>
             <div class="profile">
+              <div class="message" ng-if="config.viewsSettings.userProfile.hasWelcomeMessage">
+                <span>Welcome Back</span>
+              </div>
               <div class="user">
-                <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
+                <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
                 <span>{{user.getUser().firstName}}</span>
                 <span>{{user.getUser().lastName}}</span>
               </div>

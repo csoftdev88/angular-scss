@@ -161,8 +161,14 @@
           line-height: @baseline;
           margin-top: @baseline;
           min-width: 150px;
-
           color: @c-white;
+
+          .message{
+            position: relative;
+            top: 4px;
+            font-size: @size--3;
+            line-height: @size--3;
+          }
 
           .user {
             overflow: auto;
@@ -225,7 +231,7 @@
         width: 4px;
         height: 4px;
         margin-left: 2px;
-        top: -2px;
+        top: -1px;
         background: url('@{img-prefix}/v4/icon-arrow.png') no-repeat center center;
       }
 
@@ -237,6 +243,10 @@
         &.is-active {
           box-shadow: none;
         }
+      }
+
+      & .dropdown-menu.submenu li{
+        padding: 5px 10px;
       }
     }
 
@@ -364,7 +374,27 @@
           }
         }
 
-        > li + li {
+        li[currency-list],
+        li[language-list] {
+
+          > div > a:after {
+            background: none;
+          }
+
+          .dropdown {
+
+            > a:after {
+              content: '›';
+              float: right;
+              margin-right: 1em;
+              transition: transform 0.25s ease-out;
+              font-weight: 700;
+            }
+          }
+        }
+
+        li[currency-list] {
+          border: none;
         }
       }
     }

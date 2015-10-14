@@ -378,6 +378,10 @@ angular.module('mobiusApp.config', [])
       'hotelDetails':{
         'hasViewMore': false,
         'hasAmenities': false
+      },
+      'userProfile':{
+        'hasAvatar': false,
+        'hasWelcomeMessage': true
       }
     },
 
