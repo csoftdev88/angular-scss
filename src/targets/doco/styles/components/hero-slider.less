@@ -20,10 +20,16 @@ hero-slider {
 	}
 	.slider-content {
 		.hero-slide {
+			view-more-images & {
+				height: 150px
+			}
 			.content-inner {
 				background: rgba(0,0,0,.5);
 				max-width: none;
     		min-height: 66px;
+    		view-more-images & {
+    			top: 97px
+    		}
 
 				h2,
 				h1{
@@ -33,6 +39,9 @@ hero-slider {
 					margin: 0 auto;
 					position: relative;
 					top: 0;
+					view-more-images & {
+						color: #fff
+					}
 				}
 				h1 {
 					font-size: @size-3 - 1;
@@ -48,7 +57,11 @@ hero-slider {
 		}
 	}
 }
-
+view-more-images {
+	a {
+		color: #9f936b
+	}
+}
 
 // MOBILE SPECIFIC STYLES
 @media only screen and @small-mobile-max {
@@ -101,6 +114,11 @@ hero-slider {
 	      	min-height: 53px;
 	        margin-left: 0;
     			top: 62%;
+
+    			h1,
+    			h2 {
+    				padding: 0 25px;
+    			}
 	      }
 	    }
     }

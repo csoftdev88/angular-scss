@@ -1,6 +1,6 @@
 <header>
   <h2 ng-bind-html="'_mapLocationHeader_' | stringLocaleReplace:nameShort | mainHeaderStyle:5"></h2>
-  <p>
+  <p class="view-map-link">
     <a target="_blank"
        ng-if="position"
        href="http://maps.google.com/maps?q={{position[0]}}+{{position[1]}}&z=15&t=m">

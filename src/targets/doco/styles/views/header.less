@@ -5,14 +5,31 @@
 .main-nav {
 	height: 69px;
 
-	ul[dropdown-group]{
-		li {
-      font-family: @ff-bold;
-			font-size: @size-0+1;
-			text-transform: uppercase;
-			text-shadow: 0 1px 1px rgba(0,0,0,0.5);
-		}
-	}
+	ul{
+    &[dropdown-group]{
+      li {
+        font-family: @ff-bold;
+        font-size: @size-0+1;
+        text-transform: uppercase;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        &[language-list] {
+          font-size: @size--3;
+
+          ul[dropdown-group] li {
+            font-size: @size--3;
+          }
+        }
+      }
+    }
+    li[currency-list],
+    li[language-list] {
+       > div > a:after{
+        background: none;
+        content: '▼';
+        font-size: 5px
+      }
+    }
+  }
 	.button-login{
 		border-radius: 2px;
 		text-transform: initial;
@@ -78,11 +95,15 @@
         }
       }
     }
-
-	  li[menu-content] .dropdown > a:after{
-	  	content: '>';
-	  	font-size: 14px;
-	  }
+    li[language-list],
+	  li[menu-content] {
+      .dropdown {
+        > a:after{
+          content: '>';
+          font-size: 14px;
+          }
+        }
+    }
   }
 }
 

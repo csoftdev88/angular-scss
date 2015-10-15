@@ -5,6 +5,12 @@
 footer {
 	padding-top: @baseline*2;
 
+	&.special-footer{
+		background: none;
+    border-top: 0;
+    margin:0
+	}
+
  	p {
  		color: #bbb;
  	}
@@ -16,6 +22,11 @@ footer {
 		.viewport-mobile & {
 	      display: none;
 	    }
+	    a {
+	    	&:focus,
+	    	&:hover {
+	    		background: #9f936b;
+	    	}
+	    }
 	}
 }
-

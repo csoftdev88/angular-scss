@@ -8,13 +8,42 @@ hotel-location {
 				color: @c-grey;
 			}
 		}
+		contact-item{
+			.viewport-mobile & {
+				margin-bottom: 15px
+			}
+		}
+	}
+	contact-list {
+		margin-bottom: @baseline;
+		.viewport-mobile & {
+			border-top: 1px dashed #b0b0b0;
+			padding-top: 25px
+		}
+	}
+	contact-item {
+		display: inline-block;
+	    text-align: left;
+	    -webkit-box-flex: inherit;
+	    -webkit-flex: inherit;
+	    -ms-flex: inherit;
+	    flex: inherit;
+	    width: auto;
+	    margin-right: @baseline * 2;
 	}
 	i{
 		color: #a49335;
 
 		hotel-detail & {
-			color: #9D8E64;
+			color: #9f936b;
 			font-size: @size-1
 		}
+	}
+	address {
+		text-align: left;
+	}
+
+	.view-map-link {
+		display: none;
 	}
 }

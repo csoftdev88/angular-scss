@@ -24,6 +24,9 @@ hotel-detail {
   		margin: 0;
   		.room-counter {
   			font-style: inherit;
+        .viewport-mobile & {
+          display: none
+        }
   		}
   	}
   	.section-header {
@@ -52,7 +55,34 @@ hotel-detail {
   	}
   	list-items {
   		list-item {
+        .viewport-mobile & {
+          border-width: 1px;
+          margin-bottom: @baseline;
+        }
+
+        .item-header.mobile{
+          margin-bottom: 0;
+          .viewport-mobile &{
+            border: 0;
+          }
+          h3 {
+            a {
+              .viewport-mobile & {
+                margin: 0;
+              }
+              &:after{
+                display: none !important
+              }
+            }
+          }
+        }
+
   			.list-item-container{
+          room-details {
+            .viewport-mobile & {
+              padding: 0;
+            }
+          }
   				> div {
   					&.list-item-info{
   						padding-top: 1px;
@@ -79,6 +109,12 @@ hotel-detail {
 	  			}
   			}
   		}
+      .display-all-rooms,
+      .display-more-rooms {
+        color: #fff;
+        font-family: @ff-bold;
+        background: #a49335;
+      }
   	}
   }
 }
