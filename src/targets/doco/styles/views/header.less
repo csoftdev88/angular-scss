@@ -15,7 +15,14 @@
         &[language-list] {
           font-size: @size--3;
 
-          ul[dropdown-group] li {
+          .viewport-mobile &{
+            font-size: @size-0+1;
+            .dropdown-menu li {
+              font-size: @size-0+1;
+            }
+          }
+
+          .dropdown-menu li {
             font-size: @size--3;
           }
         }
@@ -72,6 +79,15 @@
     > .app-menu {
     	background: rgba(0,0,0,0.5);
     	ul {
+        li[language-list],
+        li[menu-content] {
+          .dropdown {
+            > a:after{
+              content: '>';
+              font-size: 14px;
+              }
+            }
+        }
         > li {
         	background: transparent;
         	border-top: 2px solid #979797;
@@ -94,15 +110,6 @@
           }
         }
       }
-    }
-    li[language-list],
-	  li[menu-content] {
-      .dropdown {
-        > a:after{
-          content: '>';
-          font-size: 14px;
-          }
-        }
     }
   }
 }
