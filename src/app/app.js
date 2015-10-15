@@ -114,6 +114,7 @@ angular
     'mobiusApp.directives.emailCheck',
     'mobiusApp.directives.notifications',
     'mobiusApp.directives.markdownTextParser',
+    'mobiusApp.directives.socialLinks',
     // Common controllers
     'mobius.controllers.reservation.directive',
     'mobiusApp.directives.embeddedForm',
@@ -368,7 +369,7 @@ angular
     var langObj = {};
     langObj['mobius-languagecode'] = stateService.getAppLanguageCode();
     apiService.setHeaders(langObj);
-    
+
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
