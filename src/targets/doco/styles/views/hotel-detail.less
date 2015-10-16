@@ -30,6 +30,9 @@ hotel-detail {
   		}
   	}
   	.section-header {
+      h2 {
+        color: @c-grey;
+      }
   		order-switch {
   			.chosen-container{
   				width: 220px !important;
@@ -40,18 +43,21 @@ hotel-detail {
   		pricing-switch {
   	  		margin: -20px 0 0;
   	  	}
-  	  list-item h3 {
-  	  	font-family: @ff-bold;
-  	  	margin-bottom: 10px;
-  	  	margin-top: 10px;
-  	  	a {
-  	  		color: @c-grey;
+  	  list-item {
+        .item-header h3,
+        h3 {
+          font-family: @ff-bold;
+          margin-bottom: 10px;
+          margin-top: 10px;
+          a {
+            color: @c-grey;
 
-	  	  	&:after {
-	  	  		display: none;
-	  	  	}
-  	  	}
-  	  }
+            &:after {
+              display: none;
+            }
+          }
+        }
+      }
   	}
   	list-items {
   		list-item {
