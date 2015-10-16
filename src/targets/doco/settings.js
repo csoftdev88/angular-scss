@@ -129,6 +129,15 @@ angular.module('mobiusApp.config', [])
       // Details: PT #102456878
       'hasSecondLevelDropdown': false
     },
+    // Social links
+    'socialLinks': [
+      {'network': 'pinterest', 'link': 'https://pinterest.com/'},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/thesuttonplacehotels'},
+      {'network': 'google', 'link': 'https://www.google.com'},
+      {'network': 'twitter', 'link': 'https://twitter.com/SuttonPlaceHtl'},
+      {'network': 'yelp', 'link': 'https://yelp.com'},
+      {'network': 'flickr', 'link': 'https://flickr.com'}
+    ],
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
     'heroStaticContent': {

@@ -20,13 +20,24 @@ footer {
 	}
 	social-links {
 		.viewport-mobile & {
-	      display: none;
-	    }
-	    a {
-	    	&:focus,
-	    	&:hover {
-	    		background: #9f936b;
-	    	}
-	    }
+      display: none;
+    }
+    li {
+    	margin: 0 5.5px;
+    }
+    a {
+    	font-size: 20px;
+    	height: @baseline - 2;
+    	line-height: @baseline + 1;
+    	width: @baseline - 2;
+    	&:focus,
+    	&:hover {
+    		background: #9f936b;
+    	}
+
+    	&.pinterest:before {
+				content: @fa-var-pinterest-p;
+			}
+    }
 	}
 }

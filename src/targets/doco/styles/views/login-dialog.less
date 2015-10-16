@@ -7,6 +7,23 @@
   background: linear-gradient(to bottom, #7d9cd9 0%, #000 100%);
   box-shadow: 0 2px 4px 1px #fff;
 
+  &:before {
+    content:'▲';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    font-size: 8px;
+    color: #fff;
+    margin-left: -4px;
+    @media only screen and @small-desktop-max {
+      right: 60px;
+      left: inherit;
+    }
+    @media only screen and @large-mobile-max {
+      display: none
+    }
+  }
+
   header {
     background: rgba(0, 0, 0, 0);
     .logo {
