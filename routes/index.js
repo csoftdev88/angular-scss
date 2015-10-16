@@ -1,7 +1,7 @@
 var glob = require('glob');
 
 module.exports = function(app) {
-  var basePath = './src/locales/';
+  var basePath = './src/targets/' + process.env.TARGET + '/locales/';
   glob(basePath + '*.json', function(er, files) {
     var baseConfig = null;
     files.forEach(function(file) {

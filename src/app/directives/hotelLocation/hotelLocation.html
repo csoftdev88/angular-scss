@@ -4,7 +4,7 @@
     <a target="_blank"
        ng-if="position"
        href="http://maps.google.com/maps?q={{position[0]}}+{{position[1]}}&z=15&t=m">
-      View on Google Maps
+      _hotel_map_external_link_
     </a>
   </p>
 </header>
@@ -36,7 +36,7 @@
   <contact-item ng-if="hotelDetails.email">
     <div>
       <i class="fa fa-envelope"></i>
-      <strong>Email:</strong>
+      <strong>_hotel_map_email_label_:</strong>
       <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
     </div>
   </contact-item>
@@ -44,7 +44,7 @@
   <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
     <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
       <i class="fa fa-phone"></i>
-      <strong>Telephone:</strong>
+      <strong>_hotel_map_phone_label_:</strong>
       <span ng-if="hotelDetails.tel1"><a href="tel:{{hotelDetails.tel1}}">{{hotelDetails.tel1}}</a></span>
       <span ng-if="hotelDetails.tel2"><a href="tel:{{hotelDetails.tel2}}">{{hotelDetails.tel2}}</a></span>
     </div>
@@ -53,7 +53,7 @@
   <contact-item>
     <div>
       <i class="fa fa-home"></i>
-      <strong>Address:</strong>
+      <strong>_hotel_map_address_label_:</strong>
       <address>
         <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
         <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},</span><br ng-if="hotelDetails.address2" />

@@ -1,7 +1,7 @@
 <nav class="breadcrumbs">
   <div class="wrapper">
     <ul class="crumbs">
-      <li ng-if="showHomeBreadCrumb"><a ui-sref="home">Home</a></li>
+      <li ng-if="showHomeBreadCrumb"><a ui-sref="home">_home_</a></li>
       <li ng-repeat="link in breadcrumbs">
         <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">{{link.name}}</a>
         <span ng-if="!link.state && !$last">{{link.name}}</span>

@@ -1,4 +1,4 @@
-<h3 id="reservationBillingForm">Fill out <strong>your billing information</strong></h3>
+<h3 id="reservationBillingForm" ng-bind-html="'_reservation_page_billing_title_' | mainHeaderStyle"></h3>
 <reservation-billing>
   <div ng-switch="billingDetails.paymentMethod">
     <ul class="payment-methods">
@@ -14,31 +14,31 @@
       <!-- Points details only for logged in user -->
       <table ng-if="user.isLoggedIn()">
         <tr>
-          <th>Current points:</th>
+          <th>_current_points_</th>
           <td>{{pointsData.currentPoints}}</td>
         </tr>
         <tr>
-          <th>Points required for booking:</th>
+          <th>_points_required_booking_</th>
           <td>-{{pointsData.pointsRequired}}</td>
         </tr>
         <tr>
-          <th>Points earned for booking:</th>
+          <th>_points_earned_booking_</th>
           <td class="earned">+{{pointsData.pointsEarned}}</td>
         </tr>
         <tr class="balance">
-          <th>Your balance after this booking:</th>
+          <th>_balance_after_booking_</th>
           <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
         </tr>
       </table>
 
       <div ng-if="!user.isLoggedIn()">
         <registration-call>
-          <h4>This feature only available to registered users.</h4>
-          <p>Click here to <a href ng-click="sso.login()">log in or register</a>.</p>
+          <h4>_feature_available_registered_</h4>
+          <p>_click_here_to_ <a href ng-click="sso.login()">_login_register_</a>.</p>
         </registration-call>
       </div>
 
-      <div class="error" ng-show="pointsData.pointsAfterBooking < 0">Sorry, you don't have enough points to perform this purchase.</div>
+      <div class="error" ng-show="pointsData.pointsAfterBooking < 0">_not_enough_points_to_purchase_</div>
 
     </section>
     <section class="payment-card" ng-switch-default>
@@ -50,21 +50,21 @@
             ng-model="billingDetails.card.number"
             name="creditcard"/>
           <span>
-            <span ng-hide="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">Card number</span>
-            <span ng-show="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">Please enter a valid card number</span>
+            <span ng-hide="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">_card_number_label_</span>
+            <span ng-show="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">_card_number_error_</span>
           </span>
         </label>
 
         <label for="form-name-on-card">
           <input type="text" id="form-name-on-card" required
-            placeholder="John Doe"
+            placeholder="_card_name_placeholder_"
             ng-model="billingDetails.card.holderName" />
-          <span>Name on Card</span>
+          <span>_card_name_label_</span>
         </label>
 
         <div class="card-details" ng-class="{invalid: forms.billing.$submitted && !getCardExpirationDate()}">
           <div class="expiry-title">
-            <label>EXPIRY DATE </label>
+            <label>_card_expiry_label_ </label>
           </div>
 
           <div class="card-expiry">
@@ -74,7 +74,7 @@
                 required ng-model="cardExpiration.selectedMonth"
                 disable-search="true"
                 chosen ng-options="month.name for month in cardExpiration.months"
-                data-placeholder="Month">
+                data-placeholder="_card_expiry_month_label_">
                 <option></option>
               </select>
             </label>
@@ -85,7 +85,7 @@
                 required ng-model="cardExpiration.selectedYear"
                 disable-search="true" ng-change="onExpirationYearChange()"
                 chosen ng-options="year for year in cardExpiration.years"
-                data-placeholder="Year">
+                data-placeholder="_card_expiry_year_label_">
                 <option></option>
               </select>
             </label>
@@ -94,13 +94,13 @@
           <div class="card-cvv">
             <label for="form-cvv">
               <input type="text" id="form-cvv" required
-                placeholder="CVV"
+                placeholder="_card_cvv_placeholder_"
                 ng-min="100"
                 ng-max="999"
                 ng-model="billingDetails.card.securityCode"
                 ng-pattern="/^[0-9]{3,4}$/"
                 name="cvv"/>
-              <span>CVV</span>
+              <span>_card_cvv_label_</span>
             </label>
             <span class="help" ng-click="openCCVInfo()">?</span>
           </div>
@@ -109,67 +109,67 @@
         <label for="form-guest-address" class="input-checkbox">
           <input type="checkbox" id="form-guest-address"
             ng-model="billingDetails.useGuestAddress" />
-          Use Guest Address
+          _use_guest_address_label_
         </label>
 
         <div ng-if="!billingDetails.useGuestAddress">
           <label for="address">
             <input type="text" id="address" required
-              placeholder="Address"
+              placeholder="_address_placeholder_"
               ng-model="billingDetails.address" />
-            <span>Address</span>
+            <span>_address_label_</span>
           </label>
 
           <label for="city" class="input-left">
             <input type="text" id="city" required
-              placeholder="City"
+              placeholder="_city_placeholder_"
               ng-model="billingDetails.city" />
-            <span>City</span>
+            <span>_city_label_</span>
           </label>
 
           <label for="state" class="input-right">
             <input type="text" id="state" required
-              placeholder="Province / State"
+              placeholder="_state_placeholder_"
               ng-model="billingDetails.stateProvince" />
-            <span>Province / State</span>
+            <span>_state_label_</span>
           </label>
 
           <label for="country">
             <select type="text" id="country" required
-              placeholder="Country"
-              data-placeholder="Country"
+              placeholder="_country_placeholder_"
+              data-placeholder="_country_placeholder_"
               ng-model="billingDetails.country"
               chosen ng-options="country.title as country.title for country in iso.countries"
               chosen>
             </select>
-            <span>Country</span>
+            <span>_country_label_</span>
           </label>
 
           <label for="postal-code" class="input-left">
             <input type="text" id="postal-code" required
-              placeholder="Postal Code / Zip Code"
+              placeholder="_postcode_placeholder_"
               ng-model="billingDetails.zip" />
-            <span>Postal Code / Zip Code</span>
+            <span>_postcode_label_</span>
           </label>
 
           <label for="telephone" class="input-right">
             <input type="text" international-phone-number id="telephone" required
-              placeholder="Telephone" default-country="{{defaultCountryCode || 'ca'}}"
+              placeholder="_phone_placeholder_" default-country="{{defaultCountryCode || 'ca'}}"
               preferred-countries="ca, us, gb"
               ng-model="billingDetails.phone"
               placeholder="Phone"/>
-            <span>Telephone</span>
+            <span>_phone_label_</span>
           </label>
         </div>
 
         <label class="form-errors" ng-if="forms.billing.$invalid  && forms.billing.$submitted">
-          <div>Please fill out all the fields indicated</div>
-          <div ng-if="!forms.billing.creditcard.$valid">Sorry, your card number is not valid, please check it</div>
-          <div ng-if="forms.billing.$submitted && !getCardExpirationDate()">Sorry, your card expiry date is not valid, please check it</div>
-          <div ng-if="!forms.billing.cvv.$valid || forms.billing.cvv.$error.pattern">Sorry, your cvv number is not valid, please check it</div>
+          <div>_missing_fields_message_</div>
+          <div ng-if="!forms.billing.creditcard.$valid">_card_number_error_</div>
+          <div ng-if="forms.billing.$submitted && !getCardExpirationDate()">_card_expiry_error_</div>
+          <div ng-if="!forms.billing.cvv.$valid || forms.billing.cvv.$error.pattern">_card_cvv_error_</div>
         </label>
 
-        <input type="submit" id="submit" value="Submit" ng-hide="true" />
+        <input type="submit" id="submit" value="_submit_" ng-hide="true" />
       </form>
     </section>
   </div>

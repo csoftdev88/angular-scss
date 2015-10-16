@@ -266,7 +266,7 @@ module.exports = function(grunt) {
 
     localisation: {
       options: {
-        locales: 'src/locales',
+        locales: 'src/targets/' + target + '/locales',
         //pattern: /_(.+)_/
         pattern: /_([a-zA-Z_]+)_/
         //pattern: /[^a-zA-Z](_([a-zA-Z_]+)_)[^a-zA-Z]/
@@ -391,7 +391,7 @@ module.exports = function(grunt) {
       return file.replace( dirRE, '' );
     });
 
-    var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
+    var supportedLanguages = getSupportedLanguages('src/targets/' + target + '/locales');
 
     for(var i = 0; i < supportedLanguages.length; i++){
       var localeCode = supportedLanguages[i];
@@ -428,7 +428,7 @@ module.exports = function(grunt) {
   * Creating template cache for each available locale
   */
   grunt.registerMultiTask( 'templateCache', 'Process localized templates', function () {
-    var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
+    var supportedLanguages = getSupportedLanguages('src/targets/' + target + '/locales');
 
     for(var i = 0; i < supportedLanguages.length; i++){
       var localeCode = supportedLanguages[i];

@@ -2,7 +2,7 @@
      it should be presented in the following structure -->
 <section class="hotel-detail__offers" grid-row ng-if="offersList.length">
   <hr />
-  <h2 grid="12" id="jsOffers">Offers <strong>and Promotions</strong></h2>
+  <h2 grid="12" id="jsOffers" ng-bind-html="'_offers_title_' | mainHeaderStyle"></h2>
 
 
   <offers-list grid-row>
@@ -14,13 +14,13 @@
       <div ng-bind-html="offer.subtitle"></div>
       </section>
 
-      <span>Read more</span>
+      <span>_read_more_</span>
     </offer-item>
   </offers-list>
 
   <p grid="12" class="more-btn">
     <a ui-sref="offers">
-      See more
+      _see_more_
     </a>
   </p>
 </section>

@@ -23,7 +23,7 @@
       <div class="divider"/>
       <div class="dropdown">
         <span class="fa fa-angle-right"></span>
-        <a ng-href class="submenu-link">See all {{settings.listState}}</a>
+        <a ng-href class="submenu-link">_see_all_ {{settings.listState}}</a>
         <ul class="dropdown-menu submenu">
           <li ng-repeat="item in content">
             <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)">
@@ -37,7 +37,7 @@
     <li has-dropdown="hover" class="dropdown-submenu" ng-show="hasFilteredItems(content) && !hasSecondLevelDropdown">
       <div class="divider"/>
       <div class="dropdown">
-        <a ng-href="{{getStateHref()}}" ng-click="goToState($event)" class="submenu-link">See all {{settings.listState}}</a>
+        <a ng-href="{{getStateHref()}}" ng-click="goToState($event)" class="submenu-link">_see_all_ {{settings.listState}}</a>
       </div>
     </li>
   </ul>

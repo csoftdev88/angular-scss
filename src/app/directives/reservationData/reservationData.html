@@ -4,7 +4,7 @@
   </div>
 
   <check-in-date>
-    <span class="title">Check In</span>
+    <span class="title">_check_in_</span>
     <span class="date">
        {{reservation.arrivalDate | checkInDate }}
     </span>
@@ -14,9 +14,9 @@
     <div class="header">
       <h2>
         {{property.nameLong}} <!-- TODO: hotel name already in property.nameLong so duplicates, flag needs to be added to config file<strong>{{property.city}}</strong>-->
-        <span ng-if="reservation.status === 'Cancelled'">&nbsp;- Cancelled</span>
+        <span ng-if="reservation.status === 'Cancelled'">&nbsp;- _cancelled_</span>
       </h2>
-      <span>Booked: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
+      <span>_booked_: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
     </div>
 
   <div class="rating">
@@ -27,7 +27,7 @@
 
     <div class="details">
       <div class="total" ng-switch="!!reservation.pointValue">
-        <span class="title">Total:</span>
+        <span class="title">_total_:</span>
         <span class="value" ng-switch-when="false">{{reservation.priceAfterDiscount | i18nCurrency: $root.currencyCode}}</span>
         <span class="value" ng-switch-when="true">
           <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
@@ -37,17 +37,17 @@
 
       <div class="guests">
         <div>
-          <span class="title">Adults:</span>
+          <span class="title">_adults_:</span>
           <span class="value">{{getAdultsCount()}}</span>
         </div>
         <div>
-          <span class="title">Children:</span>
+          <span class="title">_children_:</span>
           <span class="value">{{getChildrenCount()}}</span>
         </div>
       </div>
 
       <div class="desc">
-        <p class="value">{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': 'room', 'other': 'rooms'}"></ng-pluralize></a></p>
+        <p class="value">{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': '_room_', 'other': '_rooms_'}"></ng-pluralize></a></p>
         <p class="value">{{reservation.rooms[0].productName}}</p>
       </div>
     </div>

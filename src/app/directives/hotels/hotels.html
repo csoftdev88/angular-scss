@@ -6,7 +6,7 @@
 <section grid-row ng-if="locationDetails">
   <div grid="8">
     <p>{{locationDetails.description}}</p>
-    <a href ng-click="openLocationDetail(locationDetails)">Learn more about {{locationDetails.nameShort}}</a>
+    <a href ng-click="openLocationDetail(locationDetails)">_learn_more_about_ {{locationDetails.nameShort}}</a>
   </div>
   <view-more-images grid="4" class="has-no-link">
     <img ng-src="{{locationDetails.images[0].uri}}" alt="{{locationDetails.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
@@ -16,7 +16,7 @@
 
   <section grid-container="9" widget="hotels" id="hotels">
     <header class="hotels__header">
-      <h1>Our <strong>Hotels</strong></h1>
+      <h1 ng-bind-html="'_hotels_page_title_' | mainHeaderStyle"></h1>
       <!--<p>{{(hotels | filter : hotelFilter).length | pluralization: {'0': 'No hotel available', '1': '{} hotel available', 'plural': '{} hotels available'} }}</p>-->
     </header>
     <div class="hotels__controls">
@@ -26,7 +26,7 @@
         </select>
       </div>
     </div>
-    <div ng-if="!isUserLoggedIn()" class="msg-box">Save up to 20% by <a href ng-click="sso.login()">signing</a> in or <a ng-click="sso.register()">registering</a>!</div>
+    <div ng-if="!isUserLoggedIn()" class="msg-box">_hotels_page_login_prompt_desc_</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
@@ -52,19 +52,19 @@
             <h2 ng-if="preference.get('hotels-view-mode') === 'tiles'" ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
               <p class="price available left" ng-if="hotel.available">
-                from <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> per night
+                _price_from_ <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> _per_night_
                 <span ng-if="hotel.available && isUserLoggedIn()">
-                  <br />or <span class="value">{{hotel.minPointsRequired}}</span> points
+                  <br />_or_ <span class="value">{{hotel.minPointsRequired}}</span> _points_
                 </span>
               </p>
               <p class="price unavailable" ng-if="!hasDates()">
-                Please select your dates to see latest prices
+                _select_dates_for_prices_title_
               </p>
 
               <p class="price unavailable" ng-if="!hotel.available && hasDates()">
-                Not Available On Selected Dates
+                _not_available_on_dates_title_
               </p>
-              <button-submit role="button" tabindex="0" ng-click="navigateToHotel(hotel.meta.slug)">View More</button-submit>
+              <button-submit role="button" tabindex="0" ng-click="navigateToHotel(hotel.meta.slug)">_view_more_</button-submit>
             </pricing-info>
 
             <p class="description">{{hotel.descriptionShort}}</p>
@@ -73,8 +73,8 @@
         <li class="item filter-no-matches" ng-if="hotels">
           <div class="products-not-available">
             <div>
-              <h3>No hotels match your filter!</h3>
-              <p>Please adjust your filter options on the right to view available hotels <br>to view available hotels</p>
+              <h3>_hotels_filter_no_result_title_</h3>
+              <p>_hotels_filter_no_result_desc_</p>
             </div>
           </div>
         </li>
@@ -84,21 +84,21 @@
 
   <aside grid-container="3" class="hotels__filter">
     <div class="view-switch">
-      <h2>View</h2>
+      <h2>_filter_view_label_</h2>
       <ul>
         <li ng-class="{'is-active': preference.get('hotels-view-mode') === 'list'}" ng-click="preference.set('hotels-view-mode', 'list')">
-          <i class="fa fa-th-list"  title="Show as list" /> List
+          <i class="fa fa-th-list"  title="Show as list" /> _filter_list_label_
         </li>
         <li ng-class="{'is-active': preference.get('hotels-view-mode') === 'tiles'}" ng-click="preference.set('hotels-view-mode', 'tiles')">
-          <i class="fa fa-th-large" title="Show as tiles" /> Grid
+          <i class="fa fa-th-large" title="Show as tiles" /> _filter_grid_label_
         </li>
       </ul>
     </div>
     <div class="filters-bar">
     
       <div ng-show="hasDates()">
-        <h2>Filter</h2>
-        <h3>Price per night</h3>
+        <h2>_filter_label_</h2>
+        <h3>_filter_price_per_night_label_</h3>
         <div
           range-slider
           min="minPrice"
@@ -113,12 +113,12 @@
       </div>
 
       <div ng-show="showFilter('stars')">
-        <h3>Star Rating</h3>
+        <h3>_filter_star_rating_label_</h3>
         <div class="stars">
           <ul class="stars-left">
             <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}"></li>
           </ul>
-          to
+          _filter_range_separator_
           <ul class="stars-right">
             <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
           </ul>
@@ -128,12 +128,12 @@
 
 
       <div ng-show="showFilter('tripAdvisor')">
-        <h3><i class="logo-trip-advisor"></i> Rating</h3>
+        <h3><i class="logo-trip-advisor"></i> _filter_rating_label_</h3>
         <div class="stars rating-trip-advisor">
           <ul class="stars-left">
             <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMinRating(rating)" ng-class="{included: rating <= minRating}"></li>
           </ul>
-          to
+          _filter_range_separator_
           <ul class="stars-right">
             <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMaxRating(rating)" ng-class="{included: rating <= maxRating}"></li>
           </ul>
@@ -142,7 +142,7 @@
       </div>
 
       <div ng-show="showFilter('rates')">
-        <h3>Rates</h3>
+        <h3>_filter_rates_label_</h3>
         <select name="rate"
           required ng-model="rates.selectedRate"
           disable-search="true"
@@ -162,7 +162,7 @@
         <option></option> --> <!-- workaround for a bug in angular-chosen -->
       <!-- </select> -->
       <div class="reset-filters">
-        <a href ng-click="resetFilters()">Reset Filters</a>
+        <a href ng-click="resetFilters()">_reset_filters_</a>
       </div>
     </div>
   </aside>

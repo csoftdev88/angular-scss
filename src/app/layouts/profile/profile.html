@@ -9,18 +9,18 @@
   <profile-page grid-row>
 
     <header grid="12">
-      <h1>You <strong>Profile</strong></h1>
-      <p>We will not share your details with any third parties. Please check our Privacy Policy for further details Check your <a ui-sref="reservations">reservations</a></p>
+      <h1 ng-bind-html="'_profile_page_title_' | mainHeaderStyle"></h1>
+      <p>_profile_page_desc_</p>
     </header>
 
     <form name="form" grid="8">
 
-      <h2>CHANGE YOUR PASSWORD</h2>
+      <h2>_profile_page_password_title_</h2>
 
       <fieldset>
 
         <form-element>
-          <label for="newPassword">New Password</label>
+          <label for="newPassword">_new_password_label_</label>
           <input 
             type="password" 
             id="newPassword"
@@ -30,7 +30,7 @@
         </form-element>
 
         <form-element>
-          <label for="newPasswordConf">Confirm Password</label>
+          <label for="newPasswordConf">_confirm_password_label_</label>
           <input 
             type="password" 
             id="newPasswordConf"
@@ -38,17 +38,17 @@
             ng-model="profileData.passwordConf"
             equals="profileData.password"
             ng-class="{'ng-submitted': form.$submitted && (form.newPasswordConf.$error.required || form.newPasswordConf.$error.equals)}"/>
-            <span class="error" ng-if="form.$submitted && form.newPasswordConf.$error.equals">The passwords do not match</span>
+            <span class="error" ng-if="form.$submitted && form.newPasswordConf.$error.equals">_password_match_error_message_</span>
         </form-element>
 
       </fieldset>
 
-      <h2>ABOUT YOU</h2>
+      <h2>_profile_page_about_title_</h2>
 
       <fieldset>
 
         <form-element>
-          <label for="profileTitle">Title</label>
+          <label for="profileTitle">_title_label_</label>
           <select name="profileTitle" required chosen
                   disable-search="true"
                   data-placeholder=""
@@ -59,7 +59,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileFname">First Name</label>
+          <label for="profileFname">_first_name_label_</label>
           <input 
             type="text" 
             id="profileFname"
@@ -69,7 +69,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileLname">Last Name</label>
+          <label for="profileLname">_last_name_label_</label>
           <input 
             type="text" 
             id="profileLname"
@@ -80,12 +80,12 @@
 
       </fieldset>
 
-      <h2>CONTACT INFORMATION</h2>
+      <h2>_profile_page_contact_title_</h2>
 
       <fieldset>
 
         <form-element>
-          <label for="profileEmail">Email Address</label>
+          <label for="profileEmail">_email_label_</label>
           <input 
             type="email" 
             id="profileEmail"
@@ -96,7 +96,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileAddress1">Address Line 1</label>
+          <label for="profileAddress1">_address1_label_</label>
           <input 
             type="text" 
             id="profileAddress1"
@@ -106,7 +106,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileAddress2">Address Line 2</label>
+          <label for="profileAddress2">_address2_label_</label>
           <input 
             type="text" 
             id="profileAddress2"
@@ -116,7 +116,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileCity">City</label>
+          <label for="profileCity">_city_label_</label>
           <input 
             type="text" 
             id="profileCity"
@@ -126,7 +126,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileState">County/State/Province</label>
+          <label for="profileState">_state_label_</label>
           <input 
             type="text" 
             id="profileState"
@@ -136,7 +136,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileCountry">Country</label>
+          <label for="profileCountry">_country_label_</label>
           <select name="profileCountry" chosen
                   disable-search="true"
                   data-placeholder=""
@@ -147,7 +147,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileZip">Postcode/Zipcode</label>
+          <label for="profileZip">_postcode_label_</label>
           <input 
             type="text" 
             id="profileZip"
@@ -157,7 +157,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileTel">Phone Number</label>
+          <label for="profileTel">_phone_label_</label>
           <input 
             type="text" 
             id="profileTel"
@@ -167,7 +167,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileContact">Prefered Contact</label>
+          <label for="profileContact">_prefered_contact_label_</label>
           <select name="profileContact" required chosen
                   disable-search="true"
                   data-placeholder=""
@@ -179,14 +179,14 @@
 
       </fieldset>
 
-      <h2>NEWSLETTER PREFERENCES</h2>
+      <h2>_profile_page_newletter_title_</h2>
 
       <fieldset>
 
         <form-element>
           <label for="profileOptedIn" class="input-checkbox">
             <input type="checkbox" id="profileOptedIn" ng-model="profileData.optedIn"/>
-            Subscribed to the La Val Newsletter
+            _subscribe_label_
           </label>
         </form-element>
 
@@ -195,7 +195,7 @@
       <p class="feedback-msg error" ng-if="errorMsg">{{errorMsg}}</p>
       <p class="feedback-msg" ng-if="successMsg">{{successMsg}}</p>
 
-      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)">Save</button-submit>
+      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)">_save_</button-submit>
 
     </form>
 

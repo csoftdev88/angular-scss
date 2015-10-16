@@ -21,7 +21,7 @@
             <div class="profile">
               <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
               <div class="message" ng-if="config.viewsSettings.userProfile.hasWelcomeMessage">
-                <span>Welcome Back</span>
+                <span>_user_profile_message_</span>
               </div>
               <div class="user">
                 <div class="name">{{user.getUser().firstName}} {{user.getUser().lastName}}</div>
@@ -36,17 +36,17 @@
 
           <ul class="dropdown-menu submenu">
             <li>
-              <a ui-sref="reservations">Reservations</a>
+              <a ui-sref="reservations">_reservations_</a>
             </li>
             <li>
-              <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">Profile</a>
-              <a ng-if="!sso.isInfiniti()" href ui-sref="profile">Profile</a>
+              <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
+              <a ng-if="!sso.isInfiniti()" href ui-sref="profile">_profile_</a>
             </li>
             <li class="mobile-rewards">
-              <a href ui-sref="rewards">Rewards</a>
+              <a href ui-sref="rewards">_rewards_</a>
             </li>
             <li>
-              <a href ng-click="sso.logout()">Logout</a>
+              <a href ng-click="sso.logout()">_logout_</a>
             </li>
           </ul>
         </div>
@@ -79,10 +79,10 @@
       <li has-dropdown="click" language-list></li>
 
       <li ng-show="!isUserLoggedIn()" profile>
-        <a class="button button-login" ng-click="sso.login()">Login</a>
+        <a class="button button-login" ng-click="sso.login()">_login_</a>
       </li>
       <li ng-show="isUserLoggedIn()" profile class="mobile-logout">
-        <a class="button button-login" ng-click="sso.logout()">Logout</a>
+        <a class="button button-login" ng-click="sso.logout()">_logout_</a>
       </li>
 
       <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
@@ -90,7 +90,7 @@
           <a href>
             <div class="profile">
               <div class="message" ng-if="config.viewsSettings.userProfile.hasWelcomeMessage">
-                <span>Welcome Back</span>
+                <span>_user_profile_message_</span>
               </div>
               <div class="user">
                 <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
@@ -108,14 +108,14 @@
 
           <ul class="dropdown-menu submenu">
             <li>
-              <a ui-sref="reservations">Reservations</a>
+              <a ui-sref="reservations">_reservations_</a>
             </li>
             <li>
-              <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">Profile</a>
-              <a ng-if="!sso.isInfiniti()" href ui-sref="profile">Profile</a>
+              <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
+              <a ng-if="!sso.isInfiniti()" href ui-sref="profile">_profile_</a>
             </li>
             <li>
-              <a href ng-click="sso.logout()">Logout</a>
+              <a href ng-click="sso.logout()">_logout_</a>
             </li>
           </ul>
         </div>
@@ -124,7 +124,7 @@
     <div class="login-dialog" ng-if="!sso.isInfiniti() && showLoginDialog" ng-class="'form-step' + loginFormStep">
 
       <header>
-        <a href="" ng-click="loginFormStep = 1; sso.clearErrors();" ng-show="loginFormStep == 2" class="back-btn">Back</a>
+        <a href="" ng-click="loginFormStep = 1; sso.clearErrors();" ng-show="loginFormStep == 2" class="back-btn">_back_</a>
         <a href="" ng-click="sso.clearErrors(); sso.login();" class="close-btn"></a>
         <figure class="logo">
           <img src="/static/images/v4/logo-login.png" alt="logo">
@@ -137,7 +137,7 @@
         <form name="loginForm" class="login-form" novalidate>
           <fieldset>
             <form-element>
-              <label for="loginEmail">Email Address</label>
+              <label for="loginEmail">_email_label_</label>
               <input 
                 type="email" 
                 id="loginEmail"
@@ -149,7 +149,7 @@
             </form-element>
 
             <form-element>
-              <label for="loginPassword">Password</label>
+              <label for="loginPassword">_password_label_</label>
               <input 
                 type="password" 
                 id="loginPassword"
@@ -162,17 +162,17 @@
           </fieldset>
 
           <ul class="options">
-            <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors();">Forgot password</a></li>
-            <li><a href="" ui-sref="register" ng-click="sso.clearErrors(); sso.login();">Register Now</a></li>
+            <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors();">_forgot_password_label_</a></li>
+            <li><a href="" ui-sref="register" ng-click="sso.clearErrors(); sso.login();">_register_now_</a></li>
           </ul>
 
-          <button-submit role="button" tabindex="0" ng-click="sso.doLogin(loginForm, loginData)">Log-in</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="sso.doLogin(loginForm, loginData)">_login_</button-submit>
         </form>
 
         <form name="resetForm" class="reset-form" novalidate>
           <fieldset>
             <form-element>
-              <label for="resetEmail">Email Address</label>
+              <label for="resetEmail">_email_label_</label>
               <input 
                 type="email" 
                 id="resetEmail"
@@ -185,7 +185,7 @@
 
           </fieldset>
 
-          <button-submit role="button" tabindex="0" ng-click="sso.reset(resetForm, resetData)">Reset Password</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="sso.reset(resetForm, resetData)">_reset_password_</button-submit>
         </form>
 
       </div>

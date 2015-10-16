@@ -31,31 +31,7 @@
 
     <div ng-repeat-start="partial in partials" ng-include="partial" include-replace ng-repeat-end></div>
 
-    <div class="back-to-top" ng-click="scrollToBreadcrumbs()" scroll-position="scroll" ng-class="{visible: scroll > 500}"><span>Back to top</span></div>
+    <div class="back-to-top" ng-click="scrollToBreadcrumbs()" scroll-position="scroll" ng-class="{visible: scroll > 500}"><span>_back_to_top_</span></div>
 
-    <!-- this is a leftover from Mobius v2 - didn't deleted it yet
-         in case it's needed. There is no such section in v4 designs
-    <aside grid-container="3">
-      <div grid="3">
-        <search>
-          <h4>Search</h4>
-          <input type="search" placeholder="Search...">
-        </search>
-        <hr>
-        <contact>
-          <h4>Contact us</h4>
-          <dl>
-            <dt ng-if="details.tel1"><span>Phone</span><i class="icon-mobile"></i></dt>
-            <dd ng-if="details.tel1"><i rwd="mobile">Call hotel on </i><span>{{details.tel1}}</span></dd>
-            <dt ng-if="details.email"><span>Email</span><i class="icon-mail"></i></dt>
-            <dd ng-if="details.email"><i rwd="mobile">Email on </i>{{details.email}}</dd>
-          </dl>
-        </contact>
-        <advert>
-          <img src="//placehold.it/208x395" alt="Advertising Banner">
-        </advert>
-      </div>
-    </aside>
-    -->
   </hotel-detail>
 </main>

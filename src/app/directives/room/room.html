@@ -8,9 +8,9 @@
     <!-- <hr class="dividerWithoutImage"/> -->
     <list-items ng-if="products.length">
       <pricing-switch>
-        <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">Per Night</a>
+        <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a>
         |
-        <a href ng-class="{'is-active': pricePer === PP_STAY}" ng-click="days && setPricePer(PP_STAY)">Per Stay</a>
+        <a href ng-class="{'is-active': pricePer === PP_STAY}" ng-click="days && setPricePer(PP_STAY)">_per_stay_</a>
       </pricing-switch>
       <list-item
         ng-repeat="product in products | orderBy : setRoomsSorting()"
@@ -20,35 +20,35 @@
           <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
 
           <pricing-info>
-            <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
-            <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
+            <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">_members_only_rate_</highlight-item>
+            <highlight-item ng-show="product.highlighted">_most_booked_package_</highlight-item>
 
             <p>
               <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
-              <span ng-if="pricePer === PP_NIGHT">per night</span>
-              <span ng-if="pricePer === PP_STAY">per stay</span>
+              <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
+              <span ng-if="pricePer === PP_STAY">_per_stay_</span>
 
               <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled">
-                <br />or <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> points
+                <br />_or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> _points_
               </span>
             </p>
           </pricing-info>
 
-          <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled">Earn
+          <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled">_earn_
             <ng-pluralize count="product.price.pointsEarned"
                           when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
           </earned-points>
         </div>
 
         <pricing-info>
-          <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">Members Only Rate</highlight-item>
-          <highlight-item ng-show="product.highlighted">Most Booked Package</highlight-item>
+          <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">_members_only_rate_</highlight-item>
+          <highlight-item ng-show="product.highlighted">_most_booked_package_</highlight-item>
 
           <p>
             <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
-            <span ng-if="pricePer === PP_NIGHT">per night</span><span ng-if="pricePer === PP_STAY">per stay</span>
+            <span ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
             <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled">
-              <br />or <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> points
+              <br />_or_ <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> _points_
             </span>
           </p>
 
@@ -56,10 +56,10 @@
             role="button" tabindex="0"
             ng-click="selectProduct(product)"
             ng-hide="product.memberOnly && !isUserLoggedIn()">
-            Book Now
+            _book_now_
           </button-submit>
 
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">_login_</a>
         </pricing-info>
 
         <description-info>
@@ -69,10 +69,10 @@
             <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
 
             <p class="action-links">
-              <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">View Price Breakdown</a> &nbsp;&nbsp; | &nbsp;&nbsp;
-              <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies">View Policies</a>
+              <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">_view_price_breakdown_</a> &nbsp;&nbsp; | &nbsp;&nbsp;
+              <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies">_view_policies_</a>
                &nbsp;&nbsp; | &nbsp;&nbsp;
-              <a href ng-click="openRoomDetailsDialog(product)" ng-if="openRoomDetailsDialog">Read More</a>
+              <a href ng-click="openRoomDetailsDialog(product)" ng-if="openRoomDetailsDialog">_read_more_</a>
             </p>
           </div>
         </description-info>
@@ -81,7 +81,7 @@
             role="button" tabindex="0"
             ng-click="selectProduct(product)"
             ng-hide="product.memberOnly && !isUserLoggedIn()">
-            Book Now
+            _book_now_
           </button-submit>
           <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
         </div>
@@ -91,21 +91,21 @@
     <div ng-if="!products.length" class="products-not-available" ng-switch="isOverAdultsCapacity()">
       <div ng-if="$stateParams.dates">
         <div ng-switch-when="false">
-          <h3>Sorry, this room is not available for the dates<br> you have selected</h3>
-          <p>Try selecting new dates or choosing a new room.</p>
+          <h3>_room_not_available_on_dates_title_</h3>
+          <p>_room_not_available_on_dates_desc_</p>
         </div>
         <div ng-switch-when="true">
-          <h3>Not available on these dates.<br></h3>
-          <p> Please call the hotel on <span itemprop="telephone"><a href="tel:{{property.tel1}}">{{property.tel1}}</a></span> for availability options or book using <a href ng-click="switchToMRBMode()">multiroom</a> booking.</p>
+          <h3>_not_available_on_dates_title_<br></h3>
+          <p> _not_available_on_dates_desc_</p>
         </div>
       </div>
 
       <div ng-if="!$stateParams.dates">
-        <h3>Please select your stay dates to see available rates!</h3>
-        <p>Enter your dates on the bar below and hit search<br> to see all the rates you can book</p>
+        <h3>_select_dates_for_availability_title_ !</h3>
+        <p>_select_dates_for_availability_desc_</p>
 
         <!-- USER SPECIFIES DATES -->
-        <button-submit ng-click="selectDates()">Select Dates</button-submit>
+        <button-submit ng-click="selectDates()">_select_dates_</button-submit>
       </div>
     </div>
 
@@ -114,7 +114,7 @@
 
 
   <section class="room-description">
-    <h2>Room <strong>Description</strong></h2>
+    <h2 ng-bind-html="'_room_description_title_' | mainHeaderStyle"></h2>
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
 
     <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
@@ -129,7 +129,7 @@
   </section>
 
   <section ng-if="roomDetails.amenities.length">
-    <h2>Room <strong>Amenities</strong></h2>
+    <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
 
     <amenities-list>
       <amenity-item ng-repeat="amenity in roomDetails.amenities">
@@ -141,7 +141,7 @@
   </section>
 
   <section ng-show="property.available && otherRooms.length > 1">
-    <h2>Other <strong>Rooms at {{property.nameLong}}</strong></h2>
+    <h2 ng-bind-html="'_other_rooms_title_ {{property.nameLong}}' | mainHeaderStyle"></h2>
 
     <list-items class="grid-view">
       <list-item
@@ -155,8 +155,8 @@
         <h2>{{otherRoom.name}}</h2>
 
         <pricing-info>
-          <p ng-if="otherRoom.priceFrom"> from <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
-          <p ng-if="!otherRoom.priceFrom" class="select-dates">Please select dates to see the latest prices</p>
+          <p ng-if="otherRoom.priceFrom"> _price_from_ <span class="value">{{otherRoom.priceFrom | i18nCurrency: currencyCode}}</span></p>
+          <p ng-if="!otherRoom.priceFrom" class="select-dates">_select_dates_for_prices_title_</p>
         </pricing-info>
       </list-item>
     </list-items>

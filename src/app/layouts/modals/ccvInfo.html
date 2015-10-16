@@ -1,12 +1,12 @@
 <div class="ui-info">
   <header>
-  	<h1>CVV <strong>Number</strong></h1>
+  	<h1 ng-bind-html="'_cvv_modal_title_' | mainHeaderStyle"></h1>
     <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
   </header>
 
   <main>
-    <p>The CVV Number ("Card Verification Value") on your credit card or debit card is a 3 digit number on VISA®, MasterCard® and Discover® branded credit and debit cards. On your American Express® branded credit or debit card it is a 4 digit numeric code.</p>
+    <p>_cvv_modal_desc_</p>
 
-    <p>It is found on the signature strip on the back of the card for  VISA®, MasterCard® and Discover® branded credit and debit cards. and the 4 digits above the card number on the front of American Express® branded credit or debit card.</p>
+    <p>_cvv_modal_subdesc_</p>
   </main>
 </div>

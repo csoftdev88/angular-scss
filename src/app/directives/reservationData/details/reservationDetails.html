@@ -4,14 +4,14 @@
       <h1>{{property.nameLong}}</h1>
 
       <div class="reference" ng-class="{'reference-visible': displayConfirmationNumber}">
-        <p>Your reference:</p>
+        <p>_booking_reference_:</p>
         <!-- TODO: reservation.IRI is string in format "/reservations/ABB-EF-01435",
         should we cut the reservation code from this field? -->
         <p><strong>{{reservation.reservationCode}}</strong></p>
       </div>
 
       <div class="booked">
-        Booked: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
+        _booked_: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
       </div>
     </header>
 
@@ -29,15 +29,15 @@
         <table class="data">
           <tbody>
             <tr>
-              <th>Check in:</th>
+              <th>_check_in_:</th>
               <td>{{reservation.arrivalDate | dateTime}}</td>
-              <th>Adults:</th>
+              <th>_adults_:</th>
               <td>{{getAdultsCount()}}</td>
             </tr>
             <tr>
-              <th>Check out:</th>
+              <th>_check_out_:</th>
               <td>{{reservation.departureDate | dateTime}}</td>
-              <th>Children:</th>
+              <th>_children_:</th>
               <td>{{getChildrenCount()}}</td>
             </tr>
           </tbody>
@@ -48,9 +48,9 @@
             <tr>
               <!-- Do we know the payment method? -->
               <!-- <th>Room Charges: {{reservation.paymentMethod}}</th> -->
-              <th>Room Charges: </th>
+              <th>_room_charges_: </th>
               <td>{{getPrice() | i18nCurrency: $root.currencyCode}}</td>
-              <th rowspan="3" class="total">Total:</th>
+              <th rowspan="3" class="total">_total_:</th>
 
               <td rowspan="3" class="total-value">
                 {{getPriceAfterTax() | i18nCurrency: $root.currencyCode}}
@@ -59,22 +59,22 @@
 
             <!-- Additional taxes -->
             <tr>
-              <th>Taxes:</th>
+              <th>_taxes_:</th>
               <td>{{getTax() | i18nCurrency: $root.currencyCode}}</td>
             </tr>
 
             <!-- Discount -->
             <tr>
-              <th>Discount:</th>
+              <th>_discount_:</th>
               <td>{{reservation.discount | i18nCurrency: $root.currencyCode}}</td>
             </tr>
           </tbody>
 
           <tbody ng-switch-when="true">
             <tr>
-              <th rowspan="3" class="total">Total:</th>
+              <th rowspan="3" class="total">_total_:</th>
               <td rowspan="3" class="total-value">
-                <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+                <ng-pluralize count="reservation.pointValue" when="{'1': '{} _point_', 'other': '{} _points_'}"> </ng-pluralize>
               </td>
             </tr>
           </tbody>

@@ -17,8 +17,8 @@
   </main>
 
   <footer>
-    <p class="alert-points" ng-if="data._isAffordable === false">This reward requires <strong><ng-pluralize count="data.pointCost" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize></strong> and your current balance is only <strong>{{data._customerTotalPoints}}</strong></p>
+    <p class="alert-points" ng-if="data._isAffordable === false">_rewards_modal_points_required_ <strong><ng-pluralize count="data.pointCost" when="{'1': '{} _point_', 'other': '{} _points_'}"></ng-pluralize></strong> _rewards_modal_points_balance_ <strong>{{data._customerTotalPoints}}</strong></p>
 
-    <button class="button" ng-if="!data.earned" ng-click="ok()" ng-disabled="data._isAffordable === false">Buy for <ng-pluralize count="data.pointCost" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize></button>
+    <button class="button" ng-if="!data.earned" ng-click="ok()" ng-disabled="data._isAffordable === false">_buy_for_ <ng-pluralize count="data.pointCost" when="{'1': '{} _point_', 'other': '{} _points_'}"></ng-pluralize></button>
   </footer>
 </div>

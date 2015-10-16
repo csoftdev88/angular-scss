@@ -3,7 +3,7 @@
            element just like it is on some of other modals -->
 <div class="ui-info modal-policies">
   <header>
-    <h1>Policies and <strong>Conditions</strong></h1>
+    <h1 ng-bind-html="'_policies_modal_title_' | mainHeaderStyle"></h1>
     <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
   </header>
 
