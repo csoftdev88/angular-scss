@@ -13,6 +13,7 @@ hero-slider {
 
     .pages {
       opacity: 1;
+      bottom: 0px;
       span {
         height: 11px;
         width: 11px;
@@ -79,9 +80,35 @@ hero-slider {
 @media only screen and @small-mobile-max {
   hero-slider {
     height: 300px;
+    .slider-controls {
+      .pages {
+        bottom: 0px;
+        span {
+          height: 7px;
+          width: 7px;
+        }
+      }
+    }
     .slider-content{
-      .content-inner {
-        display: none;
+      .hero-slide {
+        .content-inner {
+          padding: 10px 10px 25px 20px;
+          box-sizing: border-box;
+          h1, h2 {
+            display: inline;
+          }
+          h1 {
+            .fs-18;
+            line-height: 22px;
+            margin-bottom: 5px;
+          }
+
+          h2 {
+            .fs-16;
+            margin-bottom: 10px;
+            line-height: 18px;
+          }
+        }
       }
     }
   }
@@ -93,7 +120,7 @@ hero-slider {
 
     .slider-controls {
       .pages {
-        bottom: 13%;
+        bottom: 0px;
       }
     }
 
@@ -101,7 +128,7 @@ hero-slider {
       .hero-slide {
         .content-inner {
           margin-left: 0px;
-          padding: 5px 15px 15px;
+          padding: 5px 15px 25px;
 
           h1 {
             .fs-18;
@@ -109,6 +136,7 @@ hero-slider {
 
           h2 {
             .fs-16;
+            margin-bottom: 10px;
           }
         }
       }

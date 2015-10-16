@@ -129,9 +129,7 @@ angular.module('mobiusApp.config', [])
     },
     // Social links
     'socialLinks': [
-      {'network': 'twitter', 'link': 'https://twitter.com/SuttonPlaceHtl'},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/thesuttonplacehotels'},
-      {'network': 'instagram', 'link': 'https://instagram.com/suttonplacehotels/'}
+      {'network': 'facebook', 'link': 'https://www.facebook.com/Privathotel.Lindtner.Hamburg'}
     ],
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
