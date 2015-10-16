@@ -63,6 +63,8 @@
     }
   }
 
+
+
   ul {
     .noSpaces;
 
@@ -276,8 +278,21 @@
     display: block;
     float: right;
     position: relative;
+    .mobile-logo{
+      display: none;
+    }
     .viewport-mobile &{
       top: 6px;
+      float: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      .mobile-logo{
+        display: block;
+      }
+      .desktop-logo{
+        display: none;
+      }
       img{
         height: 45px;
       }

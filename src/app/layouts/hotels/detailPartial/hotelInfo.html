@@ -7,7 +7,7 @@
         <a ng-if="details.images.length" href class="gallery-link" ng-click="openGallery()">_view_more_images_</a>
         <hero-slider data-has-notification-bar="false" on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
 
-        <read-more>
+        <read-more ng-if="details.content.length && details.content[0].title">
           <p>_find_out_more_</p>
           <ul>
             <li ng-repeat="item in details.content"><a href="" ui-sref="hotelInfo({propertySlug: details.meta.slug, infoSlug: item.meta.slug})">{{item.title}}</a></li>
