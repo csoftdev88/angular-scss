@@ -132,9 +132,9 @@ angular.module('mobiusApp.config', [])
     // Social links
     'socialLinks': [
       {'network': 'pinterest', 'link': 'https://pinterest.com/'},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/thesuttonplacehotels'},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/docohotel'},
       {'network': 'google', 'link': 'https://www.google.com'},
-      {'network': 'twitter', 'link': 'https://twitter.com/SuttonPlaceHtl'},
+      {'network': 'twitter', 'link': 'https://twitter.com/docohotelvienna'},
       {'network': 'yelp', 'link': 'https://yelp.com'},
       {'network': 'flickr', 'link': 'https://flickr.com'}
     ],
