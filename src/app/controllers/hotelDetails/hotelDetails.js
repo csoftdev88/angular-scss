@@ -70,7 +70,6 @@ angular.module('mobius.controllers.hotel.details', [
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
-
         metaInformationService.setMetaDescription($scope.details.meta.description);
         metaInformationService.setMetaKeywords($scope.details.meta.keywords);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);

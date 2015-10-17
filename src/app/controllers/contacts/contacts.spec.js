@@ -3,7 +3,7 @@
 describe('mobius.controllers.contacts', function() {
   describe('ContactsCtrl', function() {
     var _scope, _breadcrumbsService, _chainService, _$location, _metaInformationService,
-      _formsService;
+      _formsService, _propertyService;
 
     var CHAIN_DATA = {
       images: [1,2],
@@ -13,6 +13,27 @@ describe('mobius.controllers.contacts', function() {
         keywords: 'kw',
         microdata: {
           og: 'og-microdata'
+        }
+      }
+    };
+
+    var HOTEL_DETAILS = {
+      nameShort: 'Mobius hotel',
+      images: [
+        {
+          uri: 'http://testimage',
+          includeInSlider: true
+        }
+      ],
+      long: 'testLong',
+      lat: 'testLat',
+      meta: {
+        description: 'meta description',
+        pagetitle: 'Hotel',
+        keywords: 'hotel, rooms',
+        microdata: {
+          schemaOrg: [],
+          og: []
         }
       }
     };
@@ -37,6 +58,16 @@ describe('mobius.controllers.contacts', function() {
         $provide.value('chainService', {
           getChain: sinon.stub()
         });
+
+        $provide.value('propertyService', {
+            getPropertyDetails: function(){
+              return {
+                then: function(c){
+                  c(HOTEL_DETAILS);
+                }
+              };
+            }
+          });
 
         $provide.value('Settings', {
           API: {
@@ -80,7 +111,7 @@ describe('mobius.controllers.contacts', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, $q, $location, formsService,
-        breadcrumbsService, chainService, metaInformationService) {
+        breadcrumbsService, chainService, metaInformationService, propertyService) {
 
       _scope = $rootScope.$new();
       _breadcrumbsService = breadcrumbsService;
@@ -88,6 +119,8 @@ describe('mobius.controllers.contacts', function() {
       _breadcrumbsService.clear.returns({
         addBreadCrumb: sinon.stub().returns(_breadcrumbsService)
       });
+
+      _propertyService = propertyService;
 
       _chainService = chainService;
       _chainService.getChain.returns($q.when(CHAIN_DATA));

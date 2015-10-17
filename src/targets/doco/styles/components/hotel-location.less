@@ -4,8 +4,10 @@ hotel-location {
 	transportation-list{
 		strong {
 	    	color: @c-dark-brown;
+	    	contacts-page &,
 	    	hotel-detail & {
 				color: @c-grey;
+				font-size: @size-0;
 			}
 		}
 		contact-item{
@@ -31,9 +33,18 @@ hotel-location {
 	    width: auto;
 	    margin-right: @baseline * 2;
 	}
-	i{
+	h2 {
+		margin-bottom: @baseline;
+    margin-top: 0;
+    font-family: @ff-bold;
+    font-size: @size-2;
+    line-height: 1.2;
+	}
+	.fa {
 		color: @c-dark-brown;
+		font-size: @size-0;
 
+		contacts-page &,
 		hotel-detail & {
 			color: #9f936b;
 			font-size: @size-1
@@ -45,5 +56,8 @@ hotel-location {
 
 	.view-map-link {
 		display: none;
+	}
+	map {
+		margin-bottom: @baseline;
 	}
 }

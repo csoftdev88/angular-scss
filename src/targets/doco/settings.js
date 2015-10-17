@@ -366,7 +366,7 @@ angular.module('mobiusApp.config', [])
       'hotels': '<hotels></hotels>',
       'room': '<room></room>',
       'room-aside': '<room-aside></room-aside>',
-      'hotel-location': '<hotel-location></hotel-location>'
+      'hotel-location': '<hotel-location hotel-details="details"></hotel-location>'
     },
 
     // Responsive design breakpoints
