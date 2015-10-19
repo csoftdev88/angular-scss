@@ -104,7 +104,7 @@
     "reload_rates": "Reload Rates",
     "reset_filters": "Reset Filters",
     "COMPONENTS": "//////////////////////////////////////////////////////",
-    "mapLocationHeader": "The Sutton Place Hotel Edmonton Location",
+    "mapLocationHeader": "The {chainPrefix} {nameShort} Location",
     "offers_title": "Offers and Promotions",
     "more_offers_title": "You may also be interested in:",
     "rooms_title": "Our Rooms",
