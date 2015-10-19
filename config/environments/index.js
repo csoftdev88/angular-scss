@@ -22,7 +22,6 @@ module.exports = function(app) {
   app.use('/static/targets', express.static(path.join(app.directory, '/' + directory + '/targets/')));
 
   app.set('port', process.env.PORT || 9000);
-  app.set('target', process.env.TARGET || 'sutton');
   app.set('views', path.join(app.directory, '/' + directory));
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
