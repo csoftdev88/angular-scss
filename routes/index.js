@@ -1,10 +1,10 @@
 var glob = require('glob');
 var target = 'sutton';
 var argv = require('yargs').argv;
-var target = argv.target || 'sutton';
+var tenant = argv.tenant || 'sutton';
 
 module.exports = function(app) {
-  var basePath = './src/targets/' + target + '/locales/';
+  var basePath = './src/targets/' + tenant + '/locales/';
   glob(basePath + '*.json', function(er, files) {
     var baseConfig = null;
     files.forEach(function(file) {

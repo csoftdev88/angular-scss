@@ -82,18 +82,18 @@ learn more:
   * `npm install`
   * `bower install`
   * `grunt build --target=sutton` to build the app using "sutton" as target.
-  * Run server `NODE_ENV=development node server.js --target=sutton`
+  * Run server `NODE_ENV=development node server.js --tenant=sutton`
   * Finally, open `localhost:9000` in your browser
 
 ### Local development
 1. Follow installation steps 1-3 described above.
 2. Run `grunt development --target=sutton` to build the app using "sutton" as target.
-3. Run server `NODE_ENV=development node server.js --target=sutton`.
+3. Run server `NODE_ENV=development node server.js --tenant=sutton`.
 
 ### Production
 1. Follow instalation steps 1-4 described above.
 2. Run `grunt build --target=sutton` to build the app using "sutton" as target.
-3. Run `NODE_ENV=production node server.js --target=sutton`
+3. Run `NODE_ENV=production node server.js --tenant=sutton`
 
 ### The Build System
 
