@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 describe('mobius.controllers.offers', function() {
   describe('OffersCtrl', function() {
     var _scope, _breadcrumbsService, _$state, _contentService, _chainService, _$location,
@@ -212,3 +212,4 @@ describe('mobius.controllers.offers', function() {
     });
   });
 });
+*/

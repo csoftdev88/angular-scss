@@ -44,7 +44,7 @@
                 <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
                 <a ng-if="!sso.isInfiniti()" href ui-sref="profile">_profile_</a>
               </li>
-              <li class="mobile-rewards">
+              <li class="mobile-rewards" ng-if="loyaltyProgramEnabled">
                 <a href ui-sref="rewards">_rewards_</a>
               </li>
               <li>
