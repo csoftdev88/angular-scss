@@ -1,5 +1,5 @@
 <header>
-  <h2 ng-bind-html="'_mapLocationHeader_' | mainHeaderStyle"></h2>
+  <h2 ng-bind-html="'_mapLocationHeader_' | stringLocaleReplace:nameShort | mainHeaderStyle"></h2>
   <p class="view-map-link">
     <a target="_blank"
        ng-if="position"

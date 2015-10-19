@@ -1,7 +1,15 @@
 var glob = require('glob');
-var target = 'sutton';
-var argv = require('yargs').argv;
-var tenant = argv.tenant || 'sutton';
+var tenant;
+
+process.argv.forEach(function (val) {
+  if(val.indexOf('tenant') !== -1){
+    tenant = val.split('=')[1];
+    console.log('Tenant is set to :' + tenant);
+  }
+  else{
+    console.log('Error: cannot read argument tenant in argv');
+  }
+});
 
 module.exports = function(app) {
   var basePath = './src/targets/' + tenant + '/locales/';
