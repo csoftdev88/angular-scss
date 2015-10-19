@@ -11,7 +11,7 @@ angular.module('mobius.controllers.contacts', [])
     breadcrumbsService.addBreadCrumb('Contact And Feedback');
 
     $scope.subjectOptions = Settings.UI.forms.contactSubjects;
-    $scope.viewsSettings = Settings.UI.viewsSettings.contacts;
+    $scope.viewSettings = Settings.UI.viewsSettings.contacts;
     $scope.hotelDetails = Settings.UI.hotelDetails;
     var formDataCopy = {
       'code': 'contact',
@@ -21,11 +21,13 @@ angular.module('mobius.controllers.contacts', [])
 
     var chainCode = Settings.API.chainCode;
     // Get Map data
-    propertyService.getPropertyDetails(chainCode)
+    if($scope.viewSettings.hasMap){
+      propertyService.getPropertyDetails(chainCode)
       .then(function(details){
         $scope.details = details;
       });
-
+    }
+    
     //get contact information
     chainService.getChain(chainCode).then(function(chain) {
       $scope.chain = chain;

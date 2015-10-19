@@ -113,7 +113,7 @@ contacts-page {
   form {
     display: flex;
     flex-flow: wrap;
-    margin-bottom: @baseline;
+    margin-bottom: @baseline*2;
 
     // MOBILE SPECIFIC STYLES
     @media only screen and @large-mobile-max {
@@ -190,13 +190,11 @@ contacts-page {
 
   //- List of Contact
   contact-list{
-
     float: left;
 
     contact-item {
       display: block;
       margin-bottom: @baseline;
-
       font-size: @size--1;
 
       // Name of place
@@ -234,6 +232,24 @@ contacts-page {
       }
     }
 
+  }
+
+  hotel-location{
+    header {
+      h2{
+        display: inline;
+        font-size: @size-2;
+      }
+      p{
+        margin: 0;
+      }
+    }
+    contact-list{
+      float: none;
+      contact-item {
+        font-size: @size-0;
+      }
+    }
   }
 
 

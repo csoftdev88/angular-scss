@@ -91,7 +91,7 @@
     </div>
 
 
-    <contact-list grid="4" ng-if="viewSettings.hasMap">
+    <contact-list grid="4" ng-if="viewSettings.hasContactDetails">
       <contact-item ng-repeat="contact in chain.contacts">
         <h2>{{contact.name}}</h2>
         <p><a href="tel:{{contact.tel}}">{{contact.tel}}</a></p>
@@ -99,7 +99,12 @@
       </contact-item>
     </contact-list>
 
-    <section dynamic-layout></section>
+    <section ng-if="details && viewSettings.hasMap">
+        <div grid="12">
+            <hotel-location id="jsLocation" hotel-details="details"></hotel-location>
+        </div>
+    </section>
+
   </contacts-page>
 </main>
 

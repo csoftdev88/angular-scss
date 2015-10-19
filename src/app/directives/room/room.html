@@ -141,7 +141,7 @@
   </section>
 
   <section ng-show="property.available && otherRooms.length > 1">
-    <h2 ng-bind-html="'_other_rooms_title_ {{property.nameLong}}' | mainHeaderStyle"></h2>
+    <h2 ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
 
     <list-items class="grid-view">
       <list-item

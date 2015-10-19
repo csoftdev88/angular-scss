@@ -375,6 +375,7 @@ angular.module('mobiusApp.config', [])
     'viewsSettings':{
       'contacts': {
         'formGrid': 12,
+        'hasContactDetails': false,
         'hasMap': true
       },
       'hotelDetails':{

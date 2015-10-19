@@ -382,7 +382,7 @@
 
     "room_amenities_title": "Zimmer-Ausstattung",
 
-    "other_rooms_title": "Andere Zimmer in",
+    "other_rooms_title": "Andere Zimmer in  {nameShort}",
 
     "select_dates_for_prices_title": "Bitte Daten selektieren, um die Preise zu sehen",
 
