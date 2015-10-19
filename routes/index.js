@@ -6,9 +6,6 @@ process.argv.forEach(function (val) {
     tenant = val.split('=')[1];
     console.log('Tenant is set to :' + tenant);
   }
-  else{
-    console.log('Error: cannot read argument tenant in argv');
-  }
 });
 
 module.exports = function(app) {
