@@ -1,0 +1,59 @@
+////////////////////////
+//// LIST OF OFFERS AND REWARDS////
+////////////////////////
+
+offers-list,
+rewards-list {
+
+  offer-item,
+  reward-item {
+    border-radius: 0;
+    height: 250px;
+    border: 1px solid @c-light-grey;
+    box-shadow: none;
+
+    // if it's clickable
+    &[ng-click] {
+      cursor: pointer;
+      &:hover img { opacity: .8; }
+    }
+
+    //- Image
+    img {
+      max-height: 126px;
+    }
+
+    //- Content - Title + Description
+    section {
+      max-height: 100px;
+      h2{
+        margin-bottom: 5px;
+      }
+    }
+
+    //- Title
+    h2, h3 {
+      color: @c-primary;
+      font-size: @size-1;
+      font-weight: normal !important;
+      text-transform: uppercase;
+    }
+
+    //- Description
+    div {
+      color: @c-grey;
+    }
+
+    //- Read More
+    span {
+      color: @c-link;
+      font-weight: normal;
+    }
+
+    //- Advert Offer
+    &.advert {
+      height: 250px;
+      position: relative;
+    }
+  }
+}

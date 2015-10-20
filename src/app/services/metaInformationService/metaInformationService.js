@@ -6,7 +6,7 @@ angular.module('mobiusApp.services.metaInformation', [])
     var defaultMetaInformation = {
       description : '',
       keywords : '',
-      pagetitle: 'Welcome to The Sutton Place Hotels',
+      pagetitle: 'Welcome',
       ogTitle : '',
       ogDescription : '',
       ogType : '',
@@ -17,7 +17,7 @@ angular.module('mobiusApp.services.metaInformation', [])
 
     $rootScope.metaInformation = {
       description : '',
-      pagetitle: 'Welcome to The Sutton Place Hotels'
+      pagetitle: 'Welcome'
     };
 
     // TODO - Remove hardcoded codes!

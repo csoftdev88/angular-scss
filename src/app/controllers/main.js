@@ -8,6 +8,8 @@ angular.module('mobius.controllers.main', [])
     function($scope, $state, $modal, orderByFilter, modalService,
       contentService, Settings, user, $controller, _) {
 
+      var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+
       // Application settings
       $scope.config = Settings.UI;
       $scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
@@ -103,6 +105,15 @@ angular.module('mobius.controllers.main', [])
       });
       contentService.getContactMethods().then(function(data) {
         $scope.registerContacts = data;
+      });
+      
+      $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+        if(viewport.isMobile){
+          $('.login-dialog-overlay').appendTo($('#main-header-inner'));
+        }
+        else{
+          $('.login-dialog-overlay').appendTo($('.main-nav'));
+        }
       });
 
       // Inheriting the following controllers

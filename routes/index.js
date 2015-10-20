@@ -1,5 +1,5 @@
 var glob = require('glob');
-var tenant;
+var tenant = null;
 
 process.argv.forEach(function (val) {
   if(val.indexOf('tenant') !== -1){
@@ -7,6 +7,10 @@ process.argv.forEach(function (val) {
     console.log('Tenant is set to :' + tenant);
   }
 });
+
+if(!tenant){
+  throw new Error("node commandline-param 'tenant' is required");
+}
 
 module.exports = function(app) {
   var basePath = './src/targets/' + tenant + '/locales/';

@@ -1,0 +1,682 @@
+{
+
+  "locale": "de",
+
+  "language": "German",
+
+  "description": "German version",
+
+  "data": {
+
+    "base_href": "/de/",
+
+    "language": "german",
+
+    "language_code": "de",
+
+    "page_title": "Privathotel Lindtner Hamburg",
+
+    "footer_copyright_text": "&copy; 2015 Privathotel Lindtner Hamburg. All Rights Reserved.",
+
+    "HEADER": "//////////////////////////////////////////////////////",
+
+    "home": "Home",
+
+    "hotels": "Hotels",
+
+    "hotel": "Hotel",
+
+    "offers_deals": "Angebote & Deals",
+
+    "about_us": "Über uns",
+
+    "news": "News",
+
+    "contact": "Kontakt",
+
+    "reservations": "Reservierungen",
+
+    "profile": "Profil",
+
+    "rewards": "Preise",
+
+    "login": "Login",
+
+    "logout": "Logout",
+
+    "user_profile_message": "Willkommen zurück",
+
+    "register_now": "Registriere dich jetzt",
+
+    "BUTTONS": "//////////////////////////////////////////////////////",
+
+    "login_register": "Log In / Registrierung",
+
+    "continue_as_guest": "Weiterfahren als Gast",
+
+    "reset_password": "Passwort zurücksetzen",
+
+    "continue": "Weiterfahren",
+
+    "view_more": "Mehr Details",
+
+    "view_room": "Zimmer ansehen",
+
+    "read_more": "Mehr",
+
+    "see_more": "Mehr",
+
+    "confirmation": "Bestätigung",
+
+    "confirm": "Bestätigen",
+
+    "back": "zurück",
+
+    "view_more_images": "Mehr bilder anschauen",
+
+    "send": "senden",
+
+    "back_to_top": "zurück nach oben",
+
+    "view_all_rooms": "Alle Zimmer anschauen",
+
+    "view_more_rooms": "Weiter Zimmer anschauen",
+
+    "find_reservation": "Reservierung finden",
+
+    "buy_for": "Kaufe für",
+
+    "cancel": "löschen",
+
+    "cancel_reservation": "Reservierung löschen",
+
+    "close": "schliessen",
+
+    "or": "oder",
+
+    "view_hotels": "Hotels anschauen",
+
+    "book_now": "Buche jetzt",
+
+    "select_dates": "Daten auswählen",
+
+    "save": "Speichern",
+
+    "create_account": "Account anlegen",
+
+    "modify": "ändern",
+
+    "view_policies": "Policies anschauen",
+
+    "lookup_booking": "Buchung anschauen",
+
+    "MESSAGES": "//////////////////////////////////////////////////////",
+
+    "no_room_found": "Kein Zimmer gefunden",
+
+    "no_hotels_found": "Kein Hotel gefunden",
+
+    "no_room_available": "Kein Zimmer verfügbar, bitte ändern Sie Ihre Buchungskriterien",
+
+    "BOOKING BAR": "///////////////////////////////////////////////////",
+
+    "make_your_booking": "Buchung tätigen",
+
+    "advanced_booking": "Erweiterte Buchung",
+
+    "my_account": "Mein Account",
+
+    "loyalty_card": "Loyaliätskarte",
+
+    "card": "Karte",
+
+    "stamps": "Stempel",
+
+    "rewards": "Preise",
+
+    "tier": "Tier",
+
+    "point": "Punkt",
+
+    "points": "Punkte",
+
+    "no_rewards_desc": "Du hast bisher keine Preise",
+
+    "loyalty_progam_title": "Sutton Prestige",
+
+    "loyalty_progam_link": "Registriere dich jetzt",
+
+    "loyalty_progam_desc": "sichere dir grossartige Preise und bezahle mit deinen Punkten!",
+
+    "last_badge_earned": "Letzter Badge bekommen",
+
+    "last_reward_bought": "Letzter Preis gekauft",
+
+    "no_badges_earned": "Du hast bisher keine Badges bekommen",
+
+    "book_now": "Buche jetzt",
+
+    "single_booking": "Einezelbuchung",
+
+    "multiroom_booking": "Multi-Zimmer-Buchung",
+
+    "region_hotel": "Region / Hotel",
+
+    "find_your_hotel": "Finden Sie Ihr Hotel",
+
+    "dates": "Daten",
+
+    "enter_your_dates": "Date eingeben",
+
+    "number_of_adults": "Anzahl Erwachsene",
+
+    "number_of_children": "Anzahl Kinder",
+
+    "apply_code": "Code verwenden",
+
+    "promo_code": "Promo Code",
+
+    "corp_code": "Corp Code",
+
+    "group_code": "Group Code",
+
+    "adult": "Erwachsener",
+
+    "adults": "Erwachsene",
+
+    "child": "Kinder",
+
+    "children": "Kinder",
+
+    "room": "Zimmer",
+
+    "rooms": "Zimmer",
+
+    "add_room": "Zimmer hinzufügen",
+
+    "remove_room": "Zimmer löschen",
+
+    "search_now": "Jetzt suchen",
+
+    "go": "Go",
+
+    "submit": "übermitteln",
+
+    "view_details": "Details anschauen",
+
+    "reload_rates": "Raten neu laden",
+
+    "reset_filters": "Filter neu setzen",
+
+    "COMPONENTS": "//////////////////////////////////////////////////////",
+
+    "mapLocationHeader": "The {chainPrefix} {nameShort} Location",
+
+    "offers_title": "Angebote und Promotionen",
+
+    "more_offers_title": "Das könnte Sie zudem interessieren:",
+
+    "rooms_title": "Unsere Zimmer",
+
+    "amenities_title": "Hotelausstattung",
+
+    "find_out_more": "Mehr über:",
+
+    "car": "Auto",
+
+    "bus": "Bus",
+
+    "train": "Zug",
+
+    "plane": "Flugzeug",
+
+    "boat": "Boot",
+
+    "other": "Weiter",
+
+    "more": "zusätzlich",
+
+    "room_found": "Zimmer gefunden",
+
+    "rooms_found": "Zimmer gefunden",
+
+    "per_night": "Pro Nacht",
+
+    "per_stay": "Pro Aufenthalt",
+
+    "price_from": "von",
+
+    "view_rates": "Preise anschauen",
+
+    "our_rates": "Unsere Preise",
+
+    "room_type": "Zimmer Typ",
+
+    "rate_type": "Preis-Typ",
+
+    "total_rate": "Total Preis",
+
+    "room_rate": "Zimmer Preis",
+
+    "total": "Total",
+
+    "night": "Nacht",
+
+    "tax": "Steuern",
+
+    "taxes": "Steuern",
+
+    "additional_taxes": "zusätzliche Steuern",
+
+    "fees": "Gebühren",
+
+    "additional_fees": "zusätzliche Gebühren",
+
+    "discount": "Rabatt",
+
+    "description": "Beschreibung",
+
+    "price_breakdown": "Preis Auflistung",
+
+    "terms_conditions": "Allgemeine Geschäftsbedingungen",
+
+    "current_points": "Aktuelle Punkte:",
+
+    "points_required_booking": "Notwendige Punkte, um zu buchen:",
+
+    "points_earned_booking": "Erhaltene Punkte für die Buchung:",
+
+    "balance_after_booking": "Dein Punktestand nach dieser Buchung:",
+
+    "feature_available_registered": "Diese Option ist nur für Registrierte-Benutzer sichtbar.",
+
+    "click_here_to": "Klicken Sie hier um",
+
+    "not_enough_points_to_purchase": "Entschuldigen Sie, sie haben nicht genügend Punkte, um diesen Einkauf zu tätigen",
+
+    "payment_not_authorized": "Wir Entschuldigen uns, ihre Zahlung konnte nicht autorisiert werden, bitte überprüfen sie ihre details und versuchen Sie es nochmals",
+
+    "check_in": "Check in",
+
+    "check_out": "Check out",
+
+    "room_charges": "Zimmer Gebühren",
+
+    "i_agree_to": "Ich bin einverstanden mit",
+
+    "share_via": "Share via",
+
+    "print": "Drucken",
+
+    "add_to_passbook": "Zum Passbook hinzufügen",
+
+    "booking_reference": "Deine Referenz",
+
+    "booked": "Gebucht",
+
+    "reservation_enhance_title": "Werte deinen Aufenthalt auf",
+
+    "add_reservation_enhance_to_booking_desc": "Füge deiner Buchung mit einem klick hinzu",
+
+    "reservation_enhance_summary_title": "Deine Aufwertungen",
+
+    "reservation_list_empty": "Deine Reservierungsliste ist leer",
+
+    "please_make_reservation": "Bitte mache eine <a ui-sref='hotels'>Reservierung</a>",
+
+    "my_rewards": "Meine Preise",
+
+    "all_rewards": "Alle Preise",
+
+    "no_rewards_title": "Du hast momentan keine Preise",
+
+    "no_rewards_desc": "Du kannst Preise in der <a href ng-click='toogleFullListMode()''>All Rewards</a> Sektion kaufen, falls du genügend Punkte hast.",
+
+    "no_rewards_available": "Entschuldigung - es sind keine Preiset verfügbar",
+
+    "check_back_soon": "Bitte kommen Sie bald zurück",
+
+    "hotel_map_external_link": "Google Maps anschauen",
+
+    "hotel_map_email_label": "Email",
+
+    "hotel_map_phone_label": "Telefon",
+
+    "hotel_map_address_label": "Adresse",
+
+    "local_time": "Lokale Zeit",
+
+    "local_weather": "Lokales Wetter",
+
+    "view_price_breakdown": "Preis-Auflistung anschauen",
+
+    "policies": "Policies",
+
+    "show_more": "Mehr anzeigen",
+
+    "show_less": "Weniger anzeigen",
+
+    "see_all": "Alles anzeigen",
+
+    "cancelled": "Storniert",
+
+    "members_only_rate": "Members Only Preise",
+
+    "most_booked_package": "Meist gebuchtes Package",
+
+    "earn": "bekomme",
+
+    "room_not_available_on_dates_title": "Entschuldigen Sie, dieses Zimmer ist für die ausgewählten Daten nicht verfügbar",
+
+    "room_not_available_on_dates_desc": "Wähle andere Daten oder ein anderes Zimmer.",
+
+    "not_available_on_dates_title": "An den gewählten Daten nicht verfügbar.",
+
+    "not_available_on_dates_desc": "Bitte rufen Sie das Hotel an unter <span itemprop='telephone'><a href='tel:{{property.tel1}}''>{{property.tel1}}</a></span> um die Verfügbarkeit zu prüfen <a href ng-click='switchToMRBMode()''>multiroom</a> booking.",
+
+    "select_dates_for_availability_title": "Bitte wählen Sie ihre Daten, um die entsprechende Preise zu sehen",
+
+    "select_dates_for_availability_desc": "Bitte selektieren Sie ihre Daten unterstehend, um die entsprechenden Preise zu sehen",
+
+    "room_description_title": "Zimmer-Beschreibung",
+
+    "room_amenities_title": "Zimmer-Ausstattung",
+
+    "other_rooms_title": "Andere Zimmer in  {nameShort}",
+
+    "select_dates_for_prices_title": "Bitte Daten selektieren, um die Preise zu sehen",
+
+    "earn_at_least": "Bekomme mindestens",
+
+    "room_rates_load_error": "Leider können die Preise für dieses Zimmer nicht geladen werden",
+
+    "room_rates_reload_desc": "Klicken Sie auf den Button, um die Preise nochmals zu laden",
+
+    "learn_more_about": "Lerne mehr über",
+
+    "hotels_filter_no_result_title": "Kein Hotel erfüllt die Kriterien!",
+
+    "hotels_filter_no_result_desc": "Bitte ändern Sie die Filterkriterien, um verfügbare Hotels zu sehen",
+
+    "filter_view_label": "Ansehen",
+
+    "filter_list_label": "List",
+
+    "filter_grid_label": "Raster",
+
+    "filter_label": "Filter",
+
+    "filter_price_per_night_label": "Preis pro Nacht",
+
+    "filter_star_rating_label": "Sterne Rating",
+
+    "filter_rating_label": "Rating",
+
+    "filter_rates_label": "Preise",
+
+    "filter_range_separator": "bis",
+
+    "FORMS": "////////////////////////////////////////////////////////////",
+
+    "name_label": "Name",
+
+    "name_placeholder": "Name eingeben",
+
+    "email_label": "Email Adresse",
+
+    "confirm_email_label": "Email bestätigen",
+
+    "email_placeholder": "Email eingeben",
+
+    "invalid_email_message": "Bitte geben Sie eine gültige Email-Adresse ein",
+
+    "email_match_error_message": "Die Email-Adressen passen nicht zusammen",
+
+    "subject_label": "Betreff",
+
+    "subject_placeholder": "Dein Betreff",
+
+    "message_label": "Enter Text",
+
+    "message_placeholder": "Text",
+
+    "comments_label": "Kommentare",
+
+    "comments_placeholder": "Kommentare",
+
+    "missing_fields_message": "Bitte füllen Sie alle die markierten Felder aus",
+
+    "form_send_error": "Das senden der Nachricht ist fehlgeschlagen",
+
+    "form_send_success": "Das Feedback wurde erfolgreich gesendet!",
+
+    "form_send_success_desc": "Vielen Dank für Ihr Feedback. Gerne wird sich die zuständige Person bei Ihnen melden.",
+
+    "sorting_filter_placeholder": "Sortieren",
+
+    "reservation_number_label": "Reservierungs-Nummer",
+
+    "reservation_number_placeholder": "Reservierungs-Nummer",
+
+    "reservation_number_error": "Anzeigen der Reservierungs-Nummer fehlgeschlagen",
+
+    "password_label": "Passwort",
+
+    "new_password_label": "Neues Passwort",
+
+    "forgot_password_label": "Passwort vergessen",
+
+    "confirm_password_label": "Passwort bestätigen",
+
+    "password_match_error_message": "Die Passwörter passen nicht zusammen",
+
+    "title_label": "Titel",
+
+    "first_name_label": "Vorname",
+
+    "last_name_label": "Nachname",
+
+    "address_label": "Adresse",
+
+    "address_placeholder": "Adresse",
+
+    "address1_label": "Adresse Linie 1",
+
+    "address2_label": "Adresse Linee 2",
+
+    "city_label": "Stadt",
+
+    "city_placeholder": "Stadt",
+
+    "state_label": "Stadt/Kanton",
+
+    "state_placeholder": "Ort/Kanton",
+
+    "country_label": "Land",
+
+    "country_placeholder": "Land",
+
+    "postcode_label": "Postzleitzahl",
+
+    "postcode_placeholder": "Postleitzahl",
+
+    "phone_label": "Teleonnummer",
+
+    "phone_placeholder": "Telefonnummer",
+
+    "primary_phone_label": "Haupt-Telefonnummer",
+
+    "secondary_phone_number": "Zweit-Telefonnummer",
+
+    "prefered_contact_label": "Bevorzugte Kontaktierung",
+
+    "subscribe_label": "Für den La Val Newsletter einschreiben",
+
+    "card_number_label": "Karten-Nummer",
+
+    "card_number_error": "Bitte geben Sie eine gültige Kartennummer ein",
+
+    "card_name_label": "Name auf der Karte",
+
+    "card_name_placeholder": "Name auf der Karte",
+
+    "card_expiry_label": "Ablaufdatum",
+
+    "card_expiry_month_label": "Monat",
+
+    "card_expiry_year_label": "Jahr",
+
+    "card_expiry_error": "Bitte geben Sie ein gültiges Ablaufdatum ein",
+
+    "card_cvv_label": "CVV",
+
+    "card_cvv_placeholder": "CVV",
+
+    "card_cvv_error": "Bitte geben Sie ein gültiges Ablaufdatum ein",
+
+    "use_guest_address_label": "Benutze Gäste-Adresse",
+
+    "arrival_time_label": "Ankunftszeit",
+
+    "arrival_time_placeholder": "Ankunftszeit",
+
+    "arrical_method_label": "Anreise-Methode",
+
+    "arrical_method_placeholder": "Anreise-Methode",
+
+    "departure_time_label": "Abreisezeit",
+
+    "departure_time_placeholder": "Abreisezeit",
+
+    "letters_pattern_error": "Bitte nur Buchstaben in dieses Feld eingeben",
+
+    "phone_pattern_error": "Bitte geben Sie ein gültige Telefonnummer ein",
+
+    "receive_offer_label": "Gerne bekomme ich Angebote via Email",
+
+    "email_optin_label": "Ich bestätige, dass ich Emails des Sutton Place Hotels bekommen möchte",
+
+    "MODALS": "///////////////////////////////////////////////////////////",
+
+    "badges_modal_title": "Meine Badges",
+
+    "rewards_modal_points_required": "Dieser Preis braucht",
+
+    "rewards_modal_points_balance": "und du hast momentan nur",
+
+    "tiers_modal_title": "Tiers",
+
+    "tiers_modal_gold_title": "Gold Tier",
+
+    "tiers_modal_platinum_title": "Platinum Tier",
+
+    "addon_modal_tagline": "Mit einem klick deiner Buchung hinzufügen!",
+
+    "addon_modal_confirm_desc": "Bitte bestätige, dass due diesen Zusatz deiner Buchung hinzufügen möchtest:",
+
+    "addon_modal_charge_desc": "Wir werden deine Karte belasten, mit der du die Buchung getätigt hast. Dieser Zusatz unterliegt den selben allgemeinen Geschäftsbedingungen wie deine Buchung.",
+
+    "addon_modal_charge_confirm": "Du kannst diesen Zusatz deiner Buchung hinzufügen mit einem klick auf die Bestätigung. Die Bezahlung erfolgt im Hotel. Dieser Zusatz unterliegt den selben allgemeinen Geschäftsbedingungen wie deine Buchung.",
+
+    "cancel_reservation_modal_title": "Bist du sicher, dass du diese Buchung stornieren möchtest?",
+
+    "cancel_reservation_modal_number": "Reservierungs-Nummer:",
+
+    "cancel_reservation_modal_error_title": "Sorry!...",
+
+    "cancel_reservation_modal_error_desc": "Diese Buchung kann nicht storniert werden",
+
+    "modify_reservation_modal_title": "Modifizieren - ",
+
+    "modify_reservation_modal_desc_short": "Du kannst deine Buchung nun modifizieren.",
+
+    "modify_reservation_modal_desc_long": "Update deine Daten und die Anzahl Gäste",
+
+    "modify_reservation_modal_error_title": "Sorry!...",
+
+    "modify_reservation_modal_error_desc": "Diese Buchung kann nicht modifiziert werden",
+
+    "modify_reservation_modal_abort_desc": "Deine Änderungen werden nicht gespeichert, wenn du die Seite verlässt, ohne den Buchungsprozess abzuschliessen.",
+
+    "rooms_modal_title": "Zimmer für deine Buchung.",
+
+    "reservation_lookup_modal_error": "Entschuldigung, es konnte keine Reservierung mit deinen Details gefunden werden - überprüfen Sie bitte die Eingabe.",
+
+    "reservation_lookup_modal_login": "Deine Reservierung wurde gemacht, während du ausgeloggt warst, bitte logge dich ein ums die Reservierung zu machen",
+
+    "terms_modal_agree": "Bitte akzeptieren Sie die allgemeinen Geschäftsbedingungen, um die Reservierung zu machen.",
+
+    "cvv_modal_title": "CVV Nummerr",
+
+    "cvv_modal_desc": "Die CVV Nummer ('Card Verification Value') auf deiner Kreditkarte hat 3 Zeichen auf VISA® oder MasterCard®.  Und auf deiner AmericanExpress 4 Ziffern",
+
+    "cvv_modal_subdesc": "Sie steht auf der Rückseite deiner VISA® oder MasterCard® und auf der American Express® auf der Vorderseite",
+
+    "login_prompt_modal_title": "SUTTON PRESTIGE",
+
+    "login_prompt_modal_subtitle": "Registriere dich, um deine Punkte zu erhalten",
+
+    "login_prompt_modal_desc": "Eröffne einen Account um an Sutton Prestige teilzunehmen. Bekomme für jeden ausgegeben Dollar Punkte, die du für grossartige Preise einlösen kannst",
+
+    "policies_modal_title": "Allgemeine Bedingungen",
+
+    "price_breakdown_modal_title": "Preis-Auflistung",
+
+    "PAGES": "////////////////////////////////////////////////////////////",
+
+    "contact_page_title": "Kontakt und Feedback",
+
+    "contact_page_desc": "Wie war dein Aufenthalt bei uns?",
+
+    "reservation_lookup_page_title": "Reservierung finden",
+
+    "reservation_lookup_page_desc": "Du kannst deine Reservierung finden, indem du deine Email-Adressse oder deine Reservierungsnummer eingibst. De Reservierungsnummer steht auf deiner Bestätigungsemail",
+
+    "news_page_title": "Unsere News",
+
+    "news_page_desc": "Bitte klicke auf den Titel für weitere Details.",
+
+    "offers_page_no_offers_title": "Entschuldigen Sie momentan sind keine Angebote verfügbar.",
+
+    "offers_page_no_offers_desc": "Wähle ein Hotel um die Angebote zu sehen, oder komme später wieder",
+
+    "profile_page_title": "Dein Profil",
+
+    "profile_page_desc": "Wir werden deine Details nicht mit Drittprovidern teilen - bitte überprüfe die Privacy Policy, um mehr Details zu erhalten. <a ui-sref='reservations'>reservations</a>",
+
+    "profile_page_password_title": "PASSWORT ÄNDERN",
+
+    "profile_page_about_title": "ÜBER DICH",
+
+    "profile_page_contact_title": "KONTAKT INFORMATIONEN",
+
+    "profile_page_newletter_title": "NEWSLETTER PRÄFERENZEN",
+
+    "register_page_title": "Dein Profil erstellen",
+
+    "reservation_page_billing_title": "Bitte fülle deine Rechnungsinformationen aus",
+
+    "reservation_page_details_title": "Fülle deine Details aus",
+
+    "reservation_page_loginprompt_title": "Bereits registriert",
+
+    "reservation_page_nextstay_title": "Dein nächster Aufenthalt",
+
+    "reservation_page_futurestays_title": "Deine nächsten Aufenthalte",
+
+    "reservation_page_paststays_title": "Deine bisherigen Aufenthalte",
+
+    "page_not_found_title": "404",
+
+    "page_not_found_desc": "Sorry diese Seite existiert nicht!",
+
+    "page_not_found_cta": "Klicke hier um auf <a href='/'>homepage</a> zurück zu kehren",
+
+    "hotels_page_title": "Unsere Hotels",
+
+    "hotels_page_login_prompt_desc": "Spare bis zu 20% indem du <a href ng-click='sso.login()''>signing</a> in or <a ng-click='sso.register()''>registering</a>!"
+
+  }
+
+}
+
