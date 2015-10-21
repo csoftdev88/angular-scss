@@ -17,6 +17,10 @@ describe('mobius.controllers.contacts', function() {
       }
     };
 
+    var PROPERTY_DETAILS = [{
+      code: 'LBH'
+    }];
+
     var HOTEL_DETAILS = {
       nameShort: 'Mobius hotel',
       images: [
@@ -60,6 +64,13 @@ describe('mobius.controllers.contacts', function() {
         });
 
         $provide.value('propertyService', {
+            getAll: function(){
+              return {
+                then: function(c){
+                  c(PROPERTY_DETAILS);
+                }
+              };
+            },
             getPropertyDetails: function(){
               return {
                 then: function(c){

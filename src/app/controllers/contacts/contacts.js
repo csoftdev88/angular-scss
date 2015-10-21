@@ -20,11 +20,14 @@ angular.module('mobius.controllers.contacts', [])
     $scope.formData = angular.copy(formDataCopy);
 
     var chainCode = Settings.API.chainCode;
+
+
     // Get Map data
     if($scope.viewSettings.hasMap){
-      propertyService.getPropertyDetails(chainCode)
-      .then(function(details){
-        $scope.details = details;
+      propertyService.getAll().then(function(properties){
+        propertyService.getPropertyDetails(properties[0].code).then(function(details){
+          $scope.details = details;
+        });
       });
     }
     

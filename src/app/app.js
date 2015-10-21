@@ -393,11 +393,14 @@ angular
           $state.go('hotel', {propertySlug: Settings.API.propertySlug});
         }
         else{
-          propertyService.getPropertyDetails(Settings.API.chainCode).then(function(details){
-            var slug = details.meta.slug;
-            $state.go('hotel', {propertySlug: slug});
-            Settings.API.propertySlug = slug;
-            $rootScope.propertySlug = slug;
+          propertyService.getAll().then(function(properties){
+            var code = properties[0].code;
+            propertyService.getPropertyDetails(code).then(function(details){
+              var slug = details.meta.slug;
+              $state.go('hotel', {propertySlug: slug});
+              Settings.API.propertySlug = slug;
+              $rootScope.propertySlug = slug;
+            });
           });
         }
       }
