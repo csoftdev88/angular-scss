@@ -129,7 +129,8 @@ angular.module('mobiusApp.config', [])
     },
     // Social links
     'socialLinks': [
-      {'network': 'facebook', 'link': 'https://www.facebook.com/Privathotel.Lindtner.Hamburg'}
+      {'network': 'facebook', 'link': 'https://www.facebook.com/LaValHotel/',},
+      {'network': 'google', 'link': 'https://plus.google.com/108804943223603854860/posts'}
     ],
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
@@ -174,7 +175,7 @@ angular.module('mobiusApp.config', [])
     'reservations': {
       // Confirmation number display settings per hotel(code)
       'confirmationNumber': {
-        'REV': {
+        'LBH': {
           displayOnListView: true,
           displayOnDetailsView: true
         }
@@ -211,7 +212,12 @@ angular.module('mobiusApp.config', [])
     },
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'EUR',
+      'default': 'CHF',
+
+      'CHF': {
+        'symbol': 'CHF',
+        'format': '{{amount}}{{symbol}}'
+      },
 
       'GBP': {
         'symbol': '£',
@@ -232,6 +238,7 @@ angular.module('mobiusApp.config', [])
         'symbol': '$',
         'format': '{{symbol}}{{amount}}'
       }
+
     },
 
     'languages': {

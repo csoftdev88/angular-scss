@@ -97,7 +97,7 @@ reservation-widget {
     }
 
     h3 {
-      font-weight: normal;
+      font-weight: 600;
     }
 
     h4{
@@ -106,9 +106,9 @@ reservation-widget {
 
     .desc,
     .price{
-      color: @c-grey;
+      color: @c-dark-grey;
       strong{
-        font-weight: normal;
+        font-weight: 700;
       }
     }
   }
@@ -790,11 +790,21 @@ reservation-hotel-details {
     .reference {
       box-sizing: border-box;
       padding: 0 @spacing;
-      color: @c-gray;
+      color: @c-primary;
       text-align: center;
       line-height: @baseline;
       text-transform: uppercase;
       visibility: hidden;
+      font-size: @size-2;
+
+      p{
+        color: @c-primary;
+        font-weight: 300;
+      }
+
+      p + p{
+        margin-top: 0px;
+      }
 
       strong {
         font-size: @size-2;
@@ -815,9 +825,9 @@ reservation-hotel-details {
     }
 
     .booked {
-      color: @c-grey;
+      color: @c-primary;
       font-size: @size-2;
-      font-weight: normal;
+      font-weight: 300;
     }
   }
 
@@ -867,7 +877,7 @@ reservation-hotel-details {
     h3 {
       font-size: @size-1;
       line-height: @baseline;
-      font-weight: normal;
+      font-weight: 600;
       color: @c-primary;
       text-transform: uppercase;
     }
@@ -897,7 +907,7 @@ reservation-hotel-details {
     }
 
     td {
-      font-weight: normal;
+      font-weight: 600;
       text-align: right;
     }
 

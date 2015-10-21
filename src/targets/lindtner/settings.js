@@ -174,7 +174,7 @@ angular.module('mobiusApp.config', [])
     'reservations': {
       // Confirmation number display settings per hotel(code)
       'confirmationNumber': {
-        'REV': {
+        'LINDTNER': {
           displayOnListView: true,
           displayOnDetailsView: true
         }

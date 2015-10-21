@@ -66,7 +66,7 @@
             <div class="pricing-info">
               <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom">
                 <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-                  _price_from_ <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: currencyCode}}</span>
+                  _price_from_ <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: $root.currencyCode}}</span>
                 </p>
               </div>
 
