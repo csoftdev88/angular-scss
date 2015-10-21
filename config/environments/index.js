@@ -5,7 +5,8 @@ var express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
-  errorhandler = require('errorhandler');
+  errorhandler = require('errorhandler'),
+  argv = require('yargs').argv;
 
 module.exports = function(app) {
   app.use(function staticsPlaceholder(req, res, next) {
@@ -21,7 +22,11 @@ module.exports = function(app) {
   app.use('/static/bower_components', express.static(path.join(app.directory, '/bower_components')));
   app.use('/static/targets', express.static(path.join(app.directory, '/' + directory + '/targets/')));
 
-  app.set('port', process.env.PORT || 9000);
+var port = argv.port || '9000';
+
+console.log( "Port:"+port );
+
+  app.set('port', port || 9000);
   app.set('views', path.join(app.directory, '/' + directory));
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
