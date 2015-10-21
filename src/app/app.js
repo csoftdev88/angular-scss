@@ -344,7 +344,7 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings) {
+  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
 
     function encodeQueryData(data) {
       var ret = [];
@@ -375,6 +375,20 @@ angular
     });
     // TODO - Move into settings
     $rootScope.facebookAppId = '954663594591416';
+
+    //Let's get property slug if single property and save it to settings for future use
+    if(Settings.UI.generics.singleProperty){
+      if(!Settings.API.propertySlug){
+        propertyService.getAll().then(function(properties){
+          var code = properties[0].code;
+          propertyService.getPropertyDetails(code).then(function(details){
+            var slug = details.meta.slug;
+            Settings.API.propertySlug = slug;
+            $rootScope.propertySlug = slug;
+          });
+        });
+      }
+    }
   })
 
   .controller('BaseCtrl', function($scope, $rootScope, $controller,$state, scrollService,

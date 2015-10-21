@@ -16,7 +16,6 @@ angular.module('mobius.controllers.main', [])
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;
-
         $scope.updateHeroContent();
       });
 
