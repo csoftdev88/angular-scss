@@ -28,8 +28,6 @@ process.argv.forEach(function (val) {
   }
 });
 
-console.log( "Port:"+port );
-
   app.set('port', port || 9000);
   app.set('views', path.join(app.directory, '/' + directory));
   app.engine('html', require('ejs').renderFile);
