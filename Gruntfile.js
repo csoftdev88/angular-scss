@@ -18,7 +18,7 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   // Get grunt target
-  var target = grunt.option('target') || 'sutton';
+  var target = grunt.option('tenant') || 'sutton';
 
   /**
   * Load in our build configuration file.
