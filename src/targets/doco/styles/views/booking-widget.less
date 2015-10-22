@@ -33,7 +33,35 @@ booking-widget-search {
 	form-element {
 		&.dates{
 			input-value{
-				width: calc(100% - 71px);
+				width: calc(~"100% - 71px");
+			}
+		}
+
+
+		&.code-input {
+			select {
+				display: none
+			}
+
+			&.code {
+				&:before {
+					.viewport-mobile & {
+						display: inline-block;
+					}
+				}
+
+				remove-code {
+					top: 0;
+					right: 18px;
+				}
+			}
+		}
+
+		&.code {
+			remove-code {
+				.viewport-mobile & {
+					top: 10px
+				}
 			}
 		}
 	}
