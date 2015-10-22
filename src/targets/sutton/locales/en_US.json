@@ -1,11 +1,11 @@
 {
-  "locale": "en_CA",
+  "locale": "en_US",
   "language": "English",
-  "description": "English Canadian version",
+  "description": "English US version",
   "data": {
     "base_href": "/",
     "language": "english",
-    "language_code": "en-ca",
+    "language_code": "en-us",
     "page_title": "The Sutton Place Hotels in British Columbia and Alberta Canada.",
     "footer_copyright_text": "&copy; 2015 The Sutton Place Hotel Company. All Rights Reserved.",
     "HEADER": "//////////////////////////////////////////////////////",
