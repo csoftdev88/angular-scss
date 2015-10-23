@@ -319,6 +319,9 @@ angular.module('mobius.controllers.reservation', [])
         $state.go('reservation.billing');
         $scope.autofillSync();
       }
+      else{
+        scrollToDetails('form-errors');
+      }
 
       break;
     case 'reservation.billing':
@@ -332,6 +335,9 @@ angular.module('mobius.controllers.reservation', [])
 
       if($scope.isValid()){
         $state.go('reservation.confirmation');
+      }
+      else{
+        scrollToDetails('form-errors');
       }
       break;
     case 'reservation.confirmation':

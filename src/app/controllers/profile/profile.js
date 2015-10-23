@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.profile', [])
 
-  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user){
+  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout){
 
     breadcrumbsService.addBreadCrumb('Profile');
 
@@ -18,7 +18,9 @@ angular.module('mobius.controllers.profile', [])
 
 		$controller('ISOCountriesCtrl', {$scope: $scope});
 
-		$scope.profileData = userObject;
+		$timeout(function(){
+	      $scope.profileData = userObject;
+	    }, 2000);
 
 		$scope.update = function(form, profileData){
 			form.$submitted = true;

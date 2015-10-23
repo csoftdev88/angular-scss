@@ -2,6 +2,10 @@
   <div>
     <h3 ng-bind-html="'_reservation_page_details_title_' | mainHeaderStyle"></h3>
 
+    <label id="form-errors" class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
+      _missing_fields_message_
+    </label>
+
     <form name="forms.details" novalidate ng-submit="continue()" ng-class="{'ng-submitted': forms.details.$submitted}">
       <label for="first-name" class="input-left">
         <input type="text" id="first-name" required
@@ -94,11 +98,6 @@
         </select>
         <span>_country_label_</span>
       </label>
-
-      <label class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
-        _missing_fields_message_
-      </label>
-
       <input type="submit" id="submit" value="_submit_" ng-hide="true" />
     </form>
   </div>
