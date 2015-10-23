@@ -21,6 +21,8 @@ angular.module('mobiusApp.directives.language', [])
       // Widget logic goes here
       link: function(scope) {
 
+        var defaultLanguage = Settings.UI.languages.default;
+
         contentService.getLanguages().then(function(data) {
           
           var languages = {};
@@ -30,10 +32,13 @@ angular.module('mobiusApp.directives.language', [])
             } else {
               languageData = _.assign(languageData, Settings.UI.languages[languageData.code]);
               languages[languageData.code] = languageData;
+              languages[languageData.code].default = languageData.code === defaultLanguage ? true : false;
+              
             }
           });
 
           scope.languages = _.values(languages);
+
         });
 
         scope.changeLanguage = function(language) {

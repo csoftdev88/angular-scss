@@ -237,6 +237,7 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
+      'default': 'en-us',
       'en-us': {
         'shortName': 'EN',
         'name': 'English (US)',
