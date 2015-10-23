@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.common.sso', [])
 
-.controller( 'SSOCtrl', function($scope, $timeout, $window, $state, Settings, apiService, userObject, _, user) {
+.controller( 'SSOCtrl', function($scope, $rootScope, $timeout, $window, $state, Settings, apiService, userObject, _, user) {
 
   function isSSOReady(){
     return $window.infiniti && $window.infiniti.api;
@@ -23,7 +23,7 @@ angular.module('mobius.controllers.common.sso', [])
   }
 
   $scope.loginDialogError = null;
-  $scope.showLoginDialog = false;
+  $rootScope.showLoginDialog = false;
 
   $scope.sso = {
     // NOTE: INFINITI SSO doesnt expose the API methods right away
@@ -35,7 +35,7 @@ angular.module('mobius.controllers.common.sso', [])
         $window.infiniti.api.login();
       }
       else{
-        $scope.showLoginDialog = !$scope.showLoginDialog;
+        $rootScope.showLoginDialog = !$rootScope.showLoginDialog;
       }
     },
     doLogin: function(loginForm, loginData){
