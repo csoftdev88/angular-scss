@@ -39,7 +39,9 @@ angular.module('mobius.controllers.about', [])
     $scope.showDetail = $stateParams.code ? true : false;
 
     contentService.getAbout().then(function(response) {
+      console.log('getAbout: ' + angular.toJson(response));
       $scope.aboutList = _.sortBy(response, 'prio').reverse();
+      console.log('$stateParams.code: ' + $stateParams.code);
       if ($stateParams.code) {
         selectAbout($stateParams.code);
       }
@@ -60,6 +62,7 @@ angular.module('mobius.controllers.about', [])
 
     function selectAbout(code) {
       code = bookingService.getCodeFromSlug(code);
+      console.log('getCodeFromSlug: ' + angular.toJson(code));
       selectedAboutIndex = _.findIndex($scope.aboutList, {code: code});
       if (selectedAboutIndex < 0) {
         return $state.go('aboutUs', {code: null});
