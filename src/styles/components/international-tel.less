@@ -87,8 +87,17 @@
   border: 1px solid #CCC;
   white-space: nowrap;
   max-height: 200px;
+  min-width: 420px;
   overflow-y: scroll;
+
 }
+
+@media screen and (max-width: 479px) {
+  .intl-tel-input .country-list {
+    min-width: 260px;
+  }
+}
+
 .intl-tel-input .country-list .flag {
   display: inline-block;
   width: 20px;
