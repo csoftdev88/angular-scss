@@ -104,7 +104,7 @@ angular.module('mobiusApp.config', [])
     'generics': {
       'singleProperty': false,
       'sentryID': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504',
-      'facebookAppId': '954663594591416'
+      'facebookAppId': '954663594591416',
       'disableMainHeaderStyle': false
     },
     'adverts' : {
