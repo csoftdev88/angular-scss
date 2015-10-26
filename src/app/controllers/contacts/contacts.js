@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.contacts', [])
 
   .controller('ContactsCtrl', function($scope, $controller, chainService, Settings,
-   breadcrumbsService, formsService, metaInformationService, $location, $timeout, $rootScope, scrollService){
+   breadcrumbsService, formsService, metaInformationService, $location, $timeout, $rootScope, scrollService, propertyService){
 
     $timeout(function(){
       $rootScope.$broadcast('floatingBarEvent', {

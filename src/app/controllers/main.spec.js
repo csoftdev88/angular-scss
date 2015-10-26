@@ -39,13 +39,13 @@ describe('mobius.controllers.main', function() {
 
         $provide.value('contentService', {
           getAdverts: sinon.stub(),
-          getOffers: sinon.stub()
+          getOffers: sinon.stub(),
+          getTitles: sinon.stub(),
+          getContactMethods: sinon.stub()
         });
 
         $provide.value('propertyService', {
           getAll: sinon.stub()
-          getTitles: sinon.stub(),
-          getContactMethods: sinon.stub()
         });
 
         $provide.value('Settings', {
@@ -89,12 +89,11 @@ describe('mobius.controllers.main', function() {
       _contentService = contentService;
       _contentService.getAdverts.returns($q.when(ADVERTS_DATA));
       _contentService.getOffers.returns($q.when(OFFERS_DATA));
+      _contentService.getTitles.returns($q.when(TITLES_DATA));
+      _contentService.getContactMethods.returns($q.when(CONTACT_DATA));
 
       _propertyService = propertyService;
       _propertyService.getAll.returns($q.when(PROPERTIES_DATA));
-
-      _contentService.getTitles.returns($q.when(TITLES_DATA));
-      _contentService.getContactMethods.returns($q.when(CONTACT_DATA));
 
       $controller('MainCtrl', { $scope: _scope });
     }));
