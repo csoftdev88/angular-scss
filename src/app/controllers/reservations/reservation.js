@@ -339,9 +339,13 @@ angular.module('mobius.controllers.reservation', [])
   $scope.continue = function() {
     switch ($state.current.name) {
     case 'reservation.details':
+
+
       if($scope.forms.details && !$scope.forms.details.$submitted){
         $scope.forms.details.$submitted = true;
       }
+
+      console.log('$scope.isValid(): ' +  $scope.isValid());
 
       if($scope.isValid()){
         $state.go('reservation.billing');
