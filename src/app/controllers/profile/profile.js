@@ -24,7 +24,10 @@ angular.module('mobius.controllers.profile', [])
 
 		$scope.update = function(form, profileData){
 			form.$submitted = true;
-		  if (form.$valid) {
+		  if(form.$valid){
+				//delete profileData.id;
+				//delete profileData.token;
+				//TODO: strip all null values from payload as well as id/token
 		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), profileData).then(function(response){
 		      clearErrorMsg();
 		      user.updateUser(response);
