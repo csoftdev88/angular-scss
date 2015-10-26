@@ -1,6 +1,6 @@
 <div class="ui-info">
   <header>
-    <h1>Rooms for your booking</h1>
+    <h1>_rooms_modal_title_</h1>
     <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
   </header>
 
@@ -10,13 +10,12 @@
         <img ng-src="{{room.images[0].uri | cloudinaryImage : 180 : 110: 'fill'}}" alt="{{room.name}}"/>
         <div class="details">
           <p class="desc"><strong>{{room._selectedProduct.name}}</strong></p>
-          <p class="price"><strong>{{room._selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>per
-            night</em></p>
+          <p class="price"><strong>{{room._selectedProduct.price.totalBase | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
 
           <h3>{{room.name}}</h3>
 
           <span class="guests">
-            <ng-pluralize count="room._adults" when="{'0': '{} adults', '1': '{} adult', 'other': '{} adults'}"></ng-pluralize>, {{room._children}} children</span>
+            <ng-pluralize count="room._adults" when="{'0': '{} _adults_', '1': '{} _adult_', 'other': '{} _adults_'}"></ng-pluralize>, {{room._children}} _children_</span>
         </div>
       </li>
     </ul>

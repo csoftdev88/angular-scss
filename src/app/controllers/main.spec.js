@@ -7,6 +7,12 @@ describe('mobius.controllers.main', function() {
     var ADVERTS_DATA = [{
       images: [{a: 123}, {b: 123}]
     }];
+    var TITLES_DATA = [{
+      titles: [{a: 123}, {b: 123}]
+    }];
+    var CONTACT_DATA = [{
+      contacts: [{a: 123}, {b: 123}]
+    }];
 
     var PROPERTIES_DATA = [{
       properties: [{a: 123}, {b: 123}]
@@ -38,6 +44,8 @@ describe('mobius.controllers.main', function() {
 
         $provide.value('propertyService', {
           getAll: sinon.stub()
+          getTitles: sinon.stub(),
+          getContactMethods: sinon.stub()
         });
 
         $provide.value('Settings', {
@@ -52,6 +60,22 @@ describe('mobius.controllers.main', function() {
         });
         $provide.value('user', {});
         $provide.value('$stateParams', {});
+
+        var apiService = {
+          get: function(){
+            return {
+              then: function(c){
+                c();
+              }
+            };
+          },
+
+          getFullURL: function(p){
+            return p;
+          }
+        };
+
+        $provide.value('apiService', apiService);
       });
     });
 
@@ -69,12 +93,19 @@ describe('mobius.controllers.main', function() {
       _propertyService = propertyService;
       _propertyService.getAll.returns($q.when(PROPERTIES_DATA));
 
+      _contentService.getTitles.returns($q.when(TITLES_DATA));
+      _contentService.getContactMethods.returns($q.when(CONTACT_DATA));
+
       $controller('MainCtrl', { $scope: _scope });
     }));
 
     describe('when controller initialized', function() {
       it('should check if modals should be opened for current state', function(){
         expect(_modalService.openDialogIfPresent.calledOnce).equal(true);
+      });
+      it('should get titles and contact methods content from the server', function(){
+        expect(_contentService.getTitles.calledOnce).equal(true);
+        expect(_contentService.getContactMethods.calledOnce).equal(true);
       });
     });
 

@@ -18,14 +18,28 @@ angular.module('mobius.controllers.contacts', [])
     breadcrumbsService.addBreadCrumb('Contact And Feedback');
 
     $scope.subjectOptions = Settings.UI.forms.contactSubjects;
+    $scope.viewSettings = Settings.UI.viewsSettings.contacts;
+    $scope.hotelDetails = Settings.UI.hotelDetails;
     var formDataCopy = {
       'code': 'contact',
       'fields': {}
     };
     $scope.formData = angular.copy(formDataCopy);
+
+    var chainCode = Settings.API.chainCode;
+
+
+    // Get Map data
+    if($scope.viewSettings.hasMap){
+      propertyService.getAll().then(function(properties){
+        propertyService.getPropertyDetails(properties[0].code).then(function(details){
+          $scope.details = details;
+        });
+      });
+    }
     
     //get contact information
-    chainService.getChain(Settings.API.chainCode).then(function(chain) {
+    chainService.getChain(chainCode).then(function(chain) {
       $scope.chain = chain;
 
       $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];

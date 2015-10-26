@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.language', [])
 
-  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', function($window, Settings, stateService, contentService, _, $location) {
+  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', 'user', function($window, Settings, stateService, contentService, _, $location, user) {
     function encodeQueryData(data) {
       var ret = [];
       for (var d in data) {
@@ -21,7 +21,10 @@ angular.module('mobiusApp.directives.language', [])
       // Widget logic goes here
       link: function(scope) {
 
+        var defaultLanguage = Settings.UI.languages.default;
+
         contentService.getLanguages().then(function(data) {
+          
           var languages = {};
           _.each(data, function(languageData) {
             if (!Settings.UI.languages[languageData.code]) {
@@ -29,10 +32,13 @@ angular.module('mobiusApp.directives.language', [])
             } else {
               languageData = _.assign(languageData, Settings.UI.languages[languageData.code]);
               languages[languageData.code] = languageData;
+              languages[languageData.code].default = languageData.code === defaultLanguage ? true : false;
+              
             }
           });
 
           scope.languages = _.values(languages);
+
         });
 
         scope.changeLanguage = function(language) {
@@ -40,6 +46,8 @@ angular.module('mobiusApp.directives.language', [])
           var path = $location.path();
           var search = encodeQueryData($location.search());
           var hash = $location.hash();
+
+          user.storeUserLanguage(language.code);
 
           $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
         };

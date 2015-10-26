@@ -8,7 +8,8 @@ input[type=text],
 input[type=number],
 input[type=date],
 input[type=email],
-input[type=password] {
+input[type=password],
+input[type=tel] {
   border-radius: 4px;
   box-sizing: border-box;
   display: block;
@@ -132,7 +133,7 @@ form-element {
 //- This needs to be refactor
 
 input[type="text"][datepicker-popup] {
-  background: transparent url('../images/calendar.svg') no-repeat scroll right center;
+  background: transparent url('@{img-prefix}/calendar.svg') no-repeat scroll right center;
   background-size: 25px 25px;
   padding-right: 25px;
 }

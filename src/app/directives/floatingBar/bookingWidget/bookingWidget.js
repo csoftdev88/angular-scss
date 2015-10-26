@@ -488,7 +488,15 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           stateParams.propertyCode = null;
           stateParams.fromSearch = '1';
           stateParams.scrollTo = 'hotels';
-          $state.go('hotels', stateParams, {reload: true});
+          if(Settings.UI.generics.singleProperty && $rootScope.propertySlug){
+            stateParams.propertySlug = $rootScope.propertySlug;
+            stateParams.scrollTo = 'jsRooms';
+            $state.go('hotel', stateParams, {reload: true});
+          }
+          else{
+            $state.go('hotels', stateParams, {reload: true});
+          }
+          
         } else if (scope.selected.property && scope.selected.property.code &&
                   scope.selected.dates && $stateParams.roomSlug) {
           //Redirect to Room Details to show rates

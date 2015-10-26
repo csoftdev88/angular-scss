@@ -14,6 +14,10 @@ angular.module('mobius.controllers.hotel.details', [
   // Used for rate notification message
   $controller('RatesCtrl', {$scope: $scope});
 
+  // Set grid based on settings:
+  $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
+  $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasAmenities;
+
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;
   var bookingParams = bookingService.getAPIParams();
@@ -37,6 +41,7 @@ angular.module('mobius.controllers.hotel.details', [
   ];
 
   $scope.currentOrder = $scope.sortingOptions[0];
+  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
 
   $scope.partials = [
       'layouts/hotels/detailPartial/hotelInfo.html',
@@ -68,7 +73,6 @@ angular.module('mobius.controllers.hotel.details', [
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
-
         metaInformationService.setMetaDescription($scope.details.meta.description);
         metaInformationService.setMetaKeywords($scope.details.meta.keywords);
         metaInformationService.setPageTitle($scope.details.meta.pagetitle);

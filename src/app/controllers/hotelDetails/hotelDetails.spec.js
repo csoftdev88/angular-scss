@@ -114,6 +114,12 @@ describe('mobius.controllers.hotel.details', function() {
             hotelDetails: {
               defaultNumberOfRooms: 2,
               rooms: {}
+            },
+            viewsSettings: {
+              hotelDetails:{
+                hasViewMore: false,
+                hasAmenities: true
+              }
             }
           }
         });

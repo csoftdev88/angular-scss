@@ -18,7 +18,7 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   // Get grunt target
-  var target = grunt.option('target') || 'sutton';
+  var target = grunt.option('tenant') || 'sutton';
 
   /**
   * Load in our build configuration file.
@@ -52,7 +52,10 @@ module.exports = function(grunt) {
       default: {
         expand: true,
         cwd: '<%= config.client %>',
-        src: '**/*.js',
+        src: [
+          'app/**/*.js',
+          'targets/' + target + '/**/*.js'
+        ],
         dest: '<%= config.build %>'
       }
     },
@@ -92,7 +95,7 @@ module.exports = function(grunt) {
         expand: true,
         sourceMap: true,
         cwd: '<%= config.client %>/',
-        src: ['styles/style.less', 'targets/' + target + '/styles/style.less'],
+        src: 'targets/' + target + '/styles/style.less',
         dest: '<%= config.build %>/',
         ext: '.css'
       },
@@ -105,7 +108,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         cwd: '<%= config.client %>/',
-        src: ['styles/style.less', 'targets/' + target + '/styles/style.less'],
+        src: 'targets/' + target + '/styles/style.less',
         dest: '<%= config.compile %>/',
         ext: '_<%= pkg.name %>-<%= pkg.version %>.css'
       }
@@ -172,7 +175,15 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: '<%= config.client %>',
-          src: ['images/<%= config.images %>', 'targets/' + target + '/images/<%= config.images %>'],
+          src: ['images/<%= config.images %>'],
+          dest: '<%= config.build %>'
+        }]
+      },
+      imagestarget: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.client %>/targets/' + target,
+          src: ['images/<%= config.images %>'],
           dest: '<%= config.build %>'
         }]
       },
@@ -235,7 +246,7 @@ module.exports = function(grunt) {
       },
       images: {
         files: ['<%= config.client %>/<%= config.images %>'],
-        tasks: ['copy:images'],
+        tasks: ['copy:images', 'copy:imagestarget' ],
         options: { livereload: true }
       }
     },
@@ -255,7 +266,7 @@ module.exports = function(grunt) {
 
     localisation: {
       options: {
-        locales: 'src/locales',
+        locales: 'src/targets/' + target + '/locales',
         //pattern: /_(.+)_/
         pattern: /_([a-zA-Z_]+)_/
         //pattern: /[^a-zA-Z](_([a-zA-Z_]+)_)[^a-zA-Z]/
@@ -321,6 +332,7 @@ module.exports = function(grunt) {
     'autoprefixer:development',
     'index:build',
     'copy:images',
+    'copy:imagestarget',
     'copy:fonts',
     'copy:404'
   ]);
@@ -379,7 +391,7 @@ module.exports = function(grunt) {
       return file.replace( dirRE, '' );
     });
 
-    var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
+    var supportedLanguages = getSupportedLanguages('src/targets/' + target + '/locales');
 
     for(var i = 0; i < supportedLanguages.length; i++){
       var localeCode = supportedLanguages[i];
@@ -416,7 +428,7 @@ module.exports = function(grunt) {
   * Creating template cache for each available locale
   */
   grunt.registerMultiTask( 'templateCache', 'Process localized templates', function () {
-    var supportedLanguages = getSupportedLanguages(grunt.config('config.locales'));
+    var supportedLanguages = getSupportedLanguages('src/targets/' + target + '/locales');
 
     for(var i = 0; i < supportedLanguages.length; i++){
       var localeCode = supportedLanguages[i];

@@ -15,8 +15,11 @@ angular.module('mobius.controllers.reservation', [])
   $scope.additionalInfo = {};
 
   $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
+  $scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
 
   $scope.isMultiRoomMode = bookingService.isMultiRoomBooking();
+
+
 
   var multiRoomData;
   var previousState = {
@@ -344,6 +347,9 @@ angular.module('mobius.controllers.reservation', [])
         $state.go('reservation.billing');
         $scope.autofillSync();
       }
+      else{
+        scrollToDetails('form-errors');
+      }
 
       break;
     case 'reservation.billing':
@@ -357,6 +363,9 @@ angular.module('mobius.controllers.reservation', [])
 
       if($scope.isValid()){
         $state.go('reservation.confirmation');
+      }
+      else{
+        scrollToDetails('form-errors');
       }
       break;
     case 'reservation.confirmation':
@@ -482,6 +491,8 @@ angular.module('mobius.controllers.reservation', [])
     userData.firstName = user.getUser().firstName;
     userData.lastName = user.getUser().lastName;
 
+
+
     var promises = [];
     if($stateParams.reservation){
       // Updating existing reservation
@@ -492,10 +503,11 @@ angular.module('mobius.controllers.reservation', [])
       // Creating a new reservation
       promises.push(reservationService.createReservation(reservationData));
     }
-    if(reservationData.customer){
+    //Hidding this for now but it's wrong, will be removed
+    //if(reservationData.customer){
       // Updating user profile when
-      promises.push(user.updateUser(userData));
-    }
+      //promises.push(user.updateUser(userData));
+    //}
 
     var reservationPromise = $q.all(promises).then(function(data) {
       console.log('reservationPromise: ' + angular.toJson(data));

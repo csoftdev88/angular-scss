@@ -84,6 +84,11 @@ describe('mobius.controllers.offers', function() {
         });
 
         $provide.value('Settings', {
+          UI: {
+            generics:{
+              singleProperty: true
+            }
+          },
           API: {
             chainCode: 'TESTCHAIN'
           }
@@ -168,13 +173,14 @@ describe('mobius.controllers.offers', function() {
 
       it('should contain offers available to all the properties and define then on scope', function(){
         _scope.$digest();
-        expect(_scope.offersList.length).equal(OFFERS_DATA.length - 1);
+        expect(_scope.offersList.length).equal(OFFERS_DATA.length);
       });
 
       it('should sort offers list by priorities', function(){
         _scope.$digest();
         expect(_scope.offersList[0].code).equal(OFFERS_DATA[2].code);
-        expect(_scope.offersList[1].code).equal(OFFERS_DATA[0].code);
+        expect(_scope.offersList[1].code).equal(OFFERS_DATA[1].code);
+        expect(_scope.offersList[2].code).equal(OFFERS_DATA[0].code);
       });
     });
 
@@ -199,9 +205,9 @@ describe('mobius.controllers.offers', function() {
         expect(_scope.getRelevant(null, 0)).equal(true);
       });
 
-      it('should return false when viewing other offers details', function(){
+      it('should return true when viewing other offers details', function(){
         _scope.$digest();
-        expect(_scope.getRelevant(null, 1)).equal(false);
+        expect(_scope.getRelevant(null, 1)).equal(true);
       });
     });
 
@@ -212,3 +218,4 @@ describe('mobius.controllers.offers', function() {
     });
   });
 });
+

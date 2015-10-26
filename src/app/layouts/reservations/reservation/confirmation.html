@@ -4,39 +4,39 @@
       <table>
         <tbody>
           <tr>
-            <th>First name:</th>
+            <th>_first_name_label_:</th>
             <td>{{userDetails.firstName}}</td>
           </tr>
           <tr>
-            <th>Last name:</th>
+            <th>_last_name_label_:</th>
             <td>{{userDetails.lastName}}</td>
           </tr>
           <tr>
-            <th>Email:</th>
+            <th>_email_label_:</th>
             <td>{{userDetails.email}}</td>
           </tr>
           <tr>
-            <th>Primary Telephone:</th>
+            <th>_primary_phone_label_:</th>
             <td>{{userDetails.phone}}</td>
           </tr>
           <tr>
-            <th>Address:</th>
+            <th>_address_label_:</th>
             <td>{{userDetails.address}}</td>
           </tr>
           <tr>
-            <th>City:</th>
+            <th>_city_label_:</th>
             <td>{{userDetails.city}}</td>
           </tr>
           <tr>
-            <th>Province / State:</th>
+            <th>_state_label_:</th>
             <td>{{userDetails.stateProvince}}</td>
           </tr>
           <tr>
-            <th>Country:</th>
+            <th>_country_label_:</th>
             <td>{{userDetails.country}}</td>
           </tr>
           <tr>
-            <th>Postal Code / Zip Code:</th>
+            <th>_postcode_label_:</th>
             <td>{{userDetails.zip}}</td>
           </tr>
         </tbody>
@@ -48,22 +48,22 @@
       <table>
         <tbody>
           <tr>
-            <th>Card number:</th>
+            <th>_card_number_label_:</th>
             <td>
               <i ng-class="getCreditCardDetails(billingDetails.card.number).icon"></i>
               {{getCreditCardPreviewNumber(billingDetails.card.number)}}
             </td>
           </tr>
           <tr>
-            <th>Expires:</th>
+            <th>_card_expiry_label_:</th>
             <td>{{getCardExpirationDate() | dateTime:'MM/YYYY'}}</td>
           </tr>
           <tr>
-            <th>CVV:</th>
+            <th>_card_cvv_label_:</th>
             <td>{{billingDetails.card.securityCode}}</td>
           </tr>
           <tr>
-            <th>Name on Card:</th>
+            <th>_card_name_label_:</th>
             <td>{{billingDetails.card.holderName}}</td>
           </tr>
         </tbody>
@@ -71,27 +71,27 @@
       <table ng-if="!billingDetails.useGuestAddress">
         <tbody>
           <tr>
-            <th>Address:</th>
+            <th>_address_label_:</th>
             <td>{{billingDetails.address}}</td>
           </tr>
           <tr>
-            <th>City:</th>
+            <th>_city_label_:</th>
             <td>{{billingDetails.city}}</td>
           </tr>
           <tr>
-            <th>Province / State:</th>
+            <th>_state_label_:</th>
             <td>{{billingDetails.stateProvince}}</td>
           </tr>
           <tr>
-            <th>Country:</th>
+            <th>_country_label_:</th>
             <td>{{billingDetails.country}}</td>
           </tr>
           <tr>
-            <th>Postal Code / Zip Code:</th>
+            <th>_postcode_label_:</th>
             <td>{{billingDetails.zip}}</td>
           </tr>
           <tr>
-            <th>Primary Telephone:</th>
+            <th>_primary_phone_label_:</th>
             <td>{{billingDetails.phone}}</td>
           </tr>
         </tbody>
@@ -103,21 +103,21 @@
       <table class="points-balance">
         <tbody>
           <tr>
-            <th>Current points:</th>
+            <th>_current_points_:</th>
             <td>
               {{pointsData.currentPoints}}
             </td>
           </tr>
           <tr>
-            <th>Points required for booking:</th>
+            <th>_points_required_booking_:</th>
             <td>{{pointsData.pointsRequired}}</td>
           </tr>
           <tr>
-            <th>Points earned for booking:</th>
+            <th>_points_earned_booking_:</th>
             <td class="earned">+{{pointsData.pointsEarned}}</td>
           </tr>
           <tr>
-            <th>Your balance after this booking:</th>
+            <th>_balance_after_booking_:</th>
             <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
           </tr>
         </tbody>
@@ -128,7 +128,7 @@
       <form name="forms.additionalInfo" class="additional-details" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
           <label for="form-arrival-time" class="input-left">
             <select id="form-arrival-time" ng-model="additionalInfo.arrivalTime">
-              <option value="">Arrival Time</option>
+              <option value="">_arrival_time_placeholder_</option>
               <option value="5 AM">5 AM</option>
               <option value="6 AM">6 AM</option>
               <option value="7 AM">7 AM</option>
@@ -150,21 +150,21 @@
               <option value="11 PM">11 PM</option>
               <option value="12 AM">12 PM</option>
             </select>
-            <span>Arrival Time</span>
+            <span>_arrival_time_label_</span>
           </label>
 
           <label for="arrival-method" class="input-right">
             <select id="arrival-method"
               ng-model="additionalInfo.arrivalMethod"
               ng-options="item.apiValue as item.apiValue for item in possibleArrivalMethods">
-              <option value="">Arrival Method</option>
+              <option value="">_arrical_method_placeholder_</option>
             </select>
-            <span>Arrival Method</span>
+            <span>_arrical_method_label_</span>
           </label>
 
           <label for="form-departure-time">
             <select id="form-departure-time" ng-model="additionalInfo.departureTime" placeholder="Departure Time">
-              <option value="">Departure Time</option>
+              <option value="">_departure_time_placeholder_</option>
               <option value="1 AM">1 AM</option>
               <option value="2 AM">2 AM</option>
               <option value="3 AM">3 AM</option>
@@ -190,22 +190,22 @@
               <option value="11 PM">11 PM</option>
               <option value="12 AM">12 PM</option>
             </select>
-            <span>Departure Time</span>
+            <span>_departure_time_label_</span>
           </label>
 
           <label for="form-name-on-card">
             <input type="text" id="form-name-on-card"
-              placeholder="2nd Phone Number"
+              placeholder="_secondary_phone_number_"
               ng-model="additionalInfo.secondPhoneNumber"/>
-            <span>2nd Phone Number</span>
+            <span>_secondary_phone_number_</span>
           </label>
 
           <label for="comments">
-            <textarea id="comments" placeholder="Comments" ng-model="additionalInfo.comments"></textarea>
-            <span>Comments</span>
+            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
+            <span>_comments_label_</span>
           </label>
 
-        <input type="submit" id="submit" value="Submit" ng-hide="true" />
+        <input type="submit" id="submit" value="_submit_" ng-hide="true" />
         </form>
     </tab>
   </tabset>

@@ -24,7 +24,9 @@ describe('contentService', function() {
           },
           'generics': {
             'currencies': 'generics/currencies',
-            'languages': 'generics/languages'
+            'languages': 'generics/languages',
+            'titles': 'generics/titles',
+            'contactmethods': 'generics/contactmethods'
           }
         }
       };
@@ -112,6 +114,26 @@ describe('contentService', function() {
       env.contentService.getLanguages();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
       expect(env.apiGetFullURLSpy.calledWith('generics.languages')).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+    });
+  });
+
+  describe('getTitles', function() {
+    it('should fire a GET request to generics/titles API', function() {
+      env.contentService.getTitles();
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('generics.titles')).equal(true);
+
+      expect(env.apiGetSpy.calledOnce).equal(true);
+    });
+  });
+
+  describe('getContactMethods', function() {
+    it('should fire a GET request to generics/contactmethods API', function() {
+      env.contentService.getContactMethods();
+      expect(env.apiGetFullURLSpy.calledOnce).equal(true);
+      expect(env.apiGetFullURLSpy.calledWith('generics.contactmethods')).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
     });

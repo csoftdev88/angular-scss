@@ -1,41 +1,45 @@
 <reservation-details-form id="reservationDetailsForm">
   <div>
-    <h3>Fill <strong>out your details</strong></h3>
+    <h3 ng-bind-html="'_reservation_page_details_title_' | mainHeaderStyle"></h3>
+
+    <label id="form-errors" class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
+      _missing_fields_message_
+    </label>
 
     <form name="forms.details" novalidate ng-submit="continue()" ng-class="{'ng-submitted': forms.details.$submitted}">
       <label for="first-name" class="input-left">
         <input type="text" id="first-name" required
-          placeholder="First Name"
+          placeholder="_first_name_label_"
           ng-model="userDetails.firstName"
           name="firstName"
           ng-pattern="/^[a-zA-Z]+$/"/>
         <span>
-          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">First name</span>
-          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">Please only enter letters in this field</span>
+          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">_first_name_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">_letters_pattern_error_</span>
         </span>
       </label>
 
       <label for="last-name" class="input-right">
         <input type="text" id="last-name" required
-          placeholder="Last Name"
+          placeholder="_last_name_label_"
           ng-model="userDetails.lastName"
           name="lastName"
           ng-pattern="/^[a-zA-Z]+$/"/>
         <span>
-          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">Last name</span>
-          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">Please only enter letters in this field</span>
+          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">_last_name_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">_letters_pattern_error_</span>
         </span>
       </label>
 
       <label for="email" class="input-left">
         <input type="email" id="email" required
-          placeholder="Email"
+          placeholder="_email_label_"
           ng-model="userDetails.email"
           ng-disabled="userDetails.emailFromApi"
           name="email" email-check/>
         <span>
-          <span ng-hide="forms.details.$submitted && forms.details.email.$error.emailCheck">Email</span>
-          <span ng-show="forms.details.$submitted && forms.details.email.$error.emailCheck">Please enter a valid email address</span>
+          <span ng-hide="forms.details.$submitted && forms.details.email.$error.emailCheck">_email_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.email.$error.emailCheck">_invalid_email_message_</span>
         </span>
       </label>
 
@@ -44,62 +48,57 @@
           preferred-countries="ca, us, gb"
           ng-model="userDetails.phone"
           name="phone"
-          placeholder="Phone"/>
+          placeholder="_phone_label_"/>
         <span>
-          <span ng-hide="forms.details.$submitted && forms.details.phone.$error.pattern">Phone</span>
-          <span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">Please enter a valid phone number</span>
+          <span ng-hide="forms.details.$submitted && forms.details.phone.$error.pattern">_phone_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">_phone_pattern_error_</span>
         </span>
       </label>
 
       <label for="address">
         <input type="text" id="address" required
-          placeholder="Address"
+          placeholder="_address_label_"
           ng-model="userDetails.address"
           name="address"/>
-        <span>Address</span>
+        <span>_address_label_</span>
       </label>
 
       <label for="city" class="input-left">
         <input type="text" id="city" required
-          placeholder="City"
+          placeholder="_city_label_"
           ng-model="userDetails.city"
           name="city"/>
-        <span>City</span>
+        <span>_city_label_</span>
       </label>
 
       <label for="state" class="input-right">
         <input type="text" id="state"
-          placeholder="Province / State"
+          placeholder="_state_label_"
           ng-model="userDetails.stateProvince"
           name="stateProvince"/>
-        <span>Province / State</span>
+        <span>_state_label_</span>
       </label>
 
       <label for="postal-code" class="input-left">
         <input type="text" id="postal-code" required
-          placeholder="Postal Code / Zip Code"
+          placeholder="_postcode_label_"
           ng-model="userDetails.zip"
           name="zip"/>
-        <span>Postal Code / Zip Code</span>
+        <span>_postcode_label_</span>
       </label>
 
       <label for="country" class="input-right">
         <select type="text" id="country" required
-          placeholder="Country"
-          data-placeholder="Country"
+          placeholder="_country_label_"
+          data-placeholder="_country_label_"
           chosen ng-options="country.title as country.title for country in iso.countries"
           ng-model="userDetails.country"
           name="country"
           chosen>
         </select>
-        <span>Country</span>
+        <span>_country_label_</span>
       </label>
-
-      <label class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
-        Please fill out all the fields indicated
-      </label>
-
-      <input type="submit" id="submit" value="Submit" ng-hide="true" />
+      <input type="submit" id="submit" value="_submit_" ng-hide="true" />
     </form>
   </div>
 </reservation-details-form>

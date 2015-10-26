@@ -8,13 +8,14 @@ angular.module('mobius.controllers.main', [])
     function($scope, $state, $modal, orderByFilter, modalService,
       contentService, Settings, user, $controller, _, propertyService, $stateParams) {
 
+      var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+
       // Application settings
       $scope.config = Settings.UI;
-      $scope.loyaltyProgramEnabled = $scope.config.generics.loyaltyProgramEnabled;
+      $scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;
-
         $scope.updateHeroContent();
       });
 
@@ -124,13 +125,41 @@ angular.module('mobius.controllers.main', [])
         modalService.openTiersListDialog();
       };
 
+
       // TODO Seems like this function is used in roomDetails controller as well
       //$scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
 
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
 
+      if(Settings.authType === 'mobius'){
+        user.loadProfile();
+      }
+
+      $scope.$on('USER_LOGIN_EVENT', function(){
+        $scope.isUserLoggedIn = user.isLoggedIn;
+      });
+
       modalService.openDialogIfPresent();
+
+
+      //Login dialog
+      $scope.loginFormStep = 1;
+      contentService.getTitles().then(function(data) {
+        $scope.registerTitles = data;
+      });
+      contentService.getContactMethods().then(function(data) {
+        $scope.registerContacts = data;
+      });
+      
+      $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+        if(viewport.isMobile){
+          $('.login-dialog-overlay').appendTo($('#main-header-inner'));
+        }
+        else{
+          $('.login-dialog-overlay').appendTo($('.main-nav'));
+        }
+      });
 
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});

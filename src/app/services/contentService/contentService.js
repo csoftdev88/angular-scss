@@ -63,6 +63,14 @@ angular.module('mobiusApp.services.content', [])
     return apiService.get(apiService.getFullURL('generics.languages'));
   }
 
+  function getTitles(){
+    return apiService.get(apiService.getFullURL('generics.titles'));
+  }
+
+  function getContactMethods(){
+    return apiService.get(apiService.getFullURL('generics.contactmethods'));
+  }
+
   function getLightBoxContent(images, width, height, fill){
     var isFormatingRequred = width && height && fill;
 
@@ -86,6 +94,8 @@ angular.module('mobiusApp.services.content', [])
     // Generics
     getCurrencies: getCurrencies,
     getLanguages: getLanguages,
+    getTitles: getTitles,
+    getContactMethods: getContactMethods,
     getLightBoxContent: getLightBoxContent
   };
 });

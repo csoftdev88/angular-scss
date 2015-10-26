@@ -5,8 +5,14 @@ describe('mobius.controllers.common.sso', function() {
     var _scope, _spyInfinitiLogin, _spyInfinitiRegister,
       _spyInfinitiLogout, _spyInfinitiProfile;
 
+    var TEST_USER = {id: 123};
+
     beforeEach(function() {
+      module('underscore');
       module('mobius.controllers.common.sso', function($provide) {
+
+        $provide.value('userObject', TEST_USER);
+
         $provide.value('$window', {
             infiniti: {
               api: {
@@ -17,6 +23,32 @@ describe('mobius.controllers.common.sso', function() {
               }
             }
           });
+
+        $provide.value('Settings', {
+          authType: 'infiniti'
+        });
+
+        $provide.value('user', {});
+
+        var apiService = {
+          get: function(){
+            return {
+              then: function(c){
+                c();
+              }
+            };
+          },
+
+          getFullURL: function(p){
+            return p;
+          }
+        };
+
+        $provide.value('apiService', apiService);
+        $provide.value('$state', {
+          go: sinon.spy()
+        });
+
       });
     });
 

@@ -1,0 +1,134 @@
+#main-header {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.84) 0%,  rgba(0, 0, 0, 0) 100%);
+}
+
+.main-nav {
+	height: 69px;
+
+	ul{
+    &[dropdown-group]{
+      li {
+        font-family: @ff-bold;
+        font-size: @size-0+1;
+        text-transform: uppercase;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        &[language-list] {
+          font-size: @size--3;
+
+          .viewport-mobile &{
+            font-size: @size-0+1;
+            .dropdown-menu li {
+              font-size: @size-0+1;
+            }
+          }
+
+          .dropdown-menu li {
+            font-size: @size--3;
+          }
+        }
+      }
+    }
+    li[currency-list],
+    li[language-list] {
+       > div > a:after{
+        background: none;
+        content: '▼';
+        font-size: 5px
+      }
+    }
+  }
+	.button-login{
+		border-radius: 2px;
+		text-transform: initial;
+	}
+	.brand {
+    margin-right: 50%;
+    right: -44px;
+    .viewport-mobile &{
+      top: 16px;
+      right: auto;
+      img{
+        height: 53px;
+      }
+    }
+  }
+
+  .menu-opener{
+  	background-size: 22px 17px
+  }
+}
+
+
+// MOBILE SPECIFIC STYLES
+@media only screen and @large-mobile-max {
+	.main-nav {
+		.open& {
+        .menu-opener,
+        .brand {
+        	opacity: 0;
+        }
+        .button-login{
+					text-transform: uppercase;
+          padding-bottom: 88px
+				}
+      }
+      .menu-opener,
+      .brand {
+      	opacity: 1;
+      	transition: opacity 0.2s linear 0.2s;
+      }
+
+    > .app-menu {
+    	background: rgba(0,0,0,0.5);
+    	ul {
+        li[language-list],
+        li[menu-content] {
+          .dropdown {
+            > a:after{
+              content: '>';
+              font-size: 14px;
+              }
+            }
+        }
+        > li {
+        	background: transparent;
+        	border-top: 2px solid #979797;
+
+        	&.mobile-header {
+        		height: 83px;
+        		padding-top: 10px;
+        		img {
+        		  height: 35px;
+        		}
+        	}
+        	&.mobile-header{
+            .close{
+              &:after {
+                content: 'X';
+                font: normal normal 700 14px/1 'Open Sans', Helvetica, Arial, sans-serif;
+                top: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// DESKTOP STYLES
+@media only screen and @tablet-portrait-min {
+	.main-nav {
+		.brand {
+    	margin: @baseline+4 0 0;
+  	}
+	}
+}
+
+@media only screen and @tablet-landscape-min {
+  #main-header-inner {
+    margin: 0 auto;
+    position: relative;
+    width: 960px;
+  }
+}

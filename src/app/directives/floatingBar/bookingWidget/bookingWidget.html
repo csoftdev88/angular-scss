@@ -5,14 +5,14 @@
   <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty">
     <select name="regionHotels" required chosen
             disable-search="false"
-            data-placeholder="Region / Hotel"
+            data-placeholder="_region_hotel_"
             ng-model="regionPropertySelected"
             chosen-options-class="{ 'region': type === 'region', 'property': type === 'property' }"
             ng-options="option.name for option in propertyRegionList"
             ng-change="propertyRegionChanged(); checkAvailability()">
       <option></option> <!-- workaround for a bug in angular-chosen  -->
     </select>
-    <form-label>Find Your Hotel</form-label>
+    <form-label>_find_your_hotel_</form-label>
   </form-element>
 
   <form-element class="hotel disabled-hotel" ng-show="!hasPropertySelection && !singleProperty">
@@ -28,7 +28,7 @@
   <form-element class="dates">
     <input type="text"
             id="booking-widget-date-range"
-            placeholder="Dates"
+            placeholder="_dates_"
             range-datepicker
             ng-model="selected.dates"
             data-range-selection="1"
@@ -41,7 +41,7 @@
             data-counter-pluralization="{'0': 'No dates selected', '1': '{} night', 'plural': '{} nights'}"
             input-text="inputDateText"
             ng-change="checkAvailability()">
-    <form-label>Enter Your Dates</form-label>
+    <form-label>_enter_your_dates_</form-label>
     <input-value>{{inputDateText || 'Dates'}}</input-value>
   </form-element>
 
@@ -51,11 +51,11 @@
             required ng-model="selected.adults"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.adults"
-            data-placeholder="Adults"
+            data-placeholder="_adults_"
             ng-change="checkAvailability()">
     <option></option> <!-- workaround for a bug in angular-chosen -->
     </select>
-    <form-label>Number of Adult(s)</form-label>
+    <form-label>_number_of_adults_</form-label>
   </form-element>
 
   <!-- NUMBER OF CHILDREN -->
@@ -64,11 +64,11 @@
             required ng-model="selected.children"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.children"
-            data-placeholder="Children"
+            data-placeholder="_children_"
             ng-change="checkAvailability()">
     <option></option> <!-- tworkaround for a bug in angular-chosen -->
     </select>
-    <form-label>Number of Children</form-label>
+    <form-label>_number_of_children_</form-label>
   </form-element>
 
   <!-- ENTER YOUR CODE -->
@@ -78,15 +78,15 @@
         disable-search="true"
         chosen ng-options="code as code.title for code in codeTypes"
         ng-change="onCodeTypeChanged()"
-        data-placeholder="Apply code">
+        data-placeholder="_apply_code_">
       <option></option>
     </select>
 
-    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'promoCode'" placeholder="Promo Code" ng-model="selected.promoCode">
+    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'promoCode'" placeholder="_promo_code_" ng-model="selected.promoCode">
 
-    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'corpCode'" placeholder="Corp Code" ng-model="selected.corpCode">
+    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'corpCode'" placeholder="_corp_code_" ng-model="selected.corpCode">
 
-    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'groupCode'" placeholder="Group Code" ng-model="selected.groupCode">
+    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'groupCode'" placeholder="_group_code_" ng-model="selected.groupCode">
     <form-label>{{selected.codeType.title}}</form-label>
 
     <remove-code role="button" class="remove" ng-click="removeCode()"></remove-code>
@@ -95,7 +95,7 @@
 
 <booking-widget-add-room ng-if="advanced">
   <booking-widget-room ng-repeat="room in selected.rooms">
-    <h3>Room {{$index + 1}}</h3>
+    <h3>_room_ {{$index + 1}}</h3>
 
     <form-element class="persons">
       <select name="adults"
@@ -105,7 +105,7 @@
               chosen ng-options="option.title for option in guestsOptions.adults">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
-      <form-label>Number of Adult(s)</form-label>
+      <form-label>_number_of_adults_</form-label>
     </form-element>
 
     <form-element class="persons">
@@ -116,14 +116,14 @@
               chosen ng-options="option.title for option in guestsOptions.children">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
-      <form-label>Number of Children</form-label>
+      <form-label>_number_of_children_</form-label>
     </form-element>
 
-    <button-text ng-if="$index > 1" role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove Room">Remove Room</button-text>
+    <button-text ng-if="$index > 1" role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove Room">_remove_room_</button-text>
   </booking-widget-room>
 
   <div>
-    <button-text role="button" tabindex="0" ng-click="addRoom()" ng-show="canAddRoom">+ Add a room</button-text>
+    <button-text role="button" tabindex="0" ng-click="addRoom()" ng-show="canAddRoom">+ _add_room_</button-text>
   </div>
 
 </booking-widget-add-room>
@@ -133,5 +133,5 @@
   role="button" tabindex="0"
   ng-click="isSearchable() && onSearch()"
   ng-disabled="!isSearchable()">
-  {{hasMultiroomTab? 'Search Now':'Go'}}
+  {{hasMultiroomTab? '_search_now_':'_go_'}}
 </button-submit>

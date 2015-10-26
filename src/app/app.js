@@ -48,6 +48,8 @@ angular
     'mobius.controllers.hotel.subpage',
     'mobius.controllers.room.details',
     'mobius.controllers.reservationMultiRoom',
+    'mobius.controllers.profile',
+    'mobius.controllers.register',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -114,6 +116,7 @@ angular
     'mobiusApp.directives.emailCheck',
     'mobiusApp.directives.notifications',
     'mobiusApp.directives.markdownTextParser',
+    'mobiusApp.directives.socialLinks',
     // Common controllers
     'mobius.controllers.reservation.directive',
     'mobiusApp.directives.embeddedForm',
@@ -153,6 +156,7 @@ angular
     'mobiusApp.filters.truncate',
     'mobiusApp.filters.wrapword',
     'mobiusApp.filters.mainHeaderStyle',
+    'mobiusApp.filters.stringLocaleReplace',
     'mobiusApp.filters.content'
   ])
 
@@ -316,6 +320,25 @@ angular
         templateUrl: 'layouts/404.html',
         url: '/404'
       })
+
+      // Profile page
+      .state('profile', {
+        parent: 'root',
+        templateUrl: 'layouts/profile/profile.html',
+        url: '/profile',
+        controller: 'ProfileCtrl',
+        data: {
+          authProtected: true
+        }
+      })
+
+      // Profile page
+      .state('register', {
+        parent: 'root',
+        templateUrl: 'layouts/register/register.html',
+        url: '/register',
+        controller: 'RegisterCtrl'
+      })
     ;
 
     $urlRouterProvider.otherwise(function($injector) {
@@ -323,7 +346,8 @@ angular
     });
   })
 
-  .run(function(user, $rootScope, $state, breadcrumbsService, Settings, $window) {
+  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
+
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       $state.fromState = fromState;
       $state.fromParams = fromParams;
@@ -335,25 +359,87 @@ angular
     if($window.Raven){
       Raven.config(Settings.UI.generics.sentryID).install();
     }
+
+    function encodeQueryData(data) {
+      var ret = [];
+      for (var d in data) {
+        if(data.hasOwnProperty(d)) {
+          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+        }
+      }
+      return ret.join(' ');
+    }
+
+    var userLang = user.getUserLanguage();
+
+    if(userLang && userLang !== stateService.getAppLanguageCode() && Settings.UI.languages[userLang]){
+      var language_code = userLang;
+      var path = $location.path();
+      var search = encodeQueryData($location.search());
+      var hash = $location.hash();
+      $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+    }
+
+    var langObj = {};
+    langObj['mobius-languagecode'] = stateService.getAppLanguageCode();
+    apiService.setHeaders(langObj);
+
+    $rootScope.$on('$stateChangeSuccess', function() {
+      breadcrumbsService.clear();
+    });
+
+    //Let's get property slug if single property and save it to settings for future use
+    if(Settings.UI.generics.singleProperty){
+      if(!Settings.API.propertySlug){
+        propertyService.getAll().then(function(properties){
+          var code = properties[0].code;
+          propertyService.getPropertyDetails(code).then(function(details){
+            var slug = details.meta.slug;
+            Settings.API.propertySlug = slug;
+            $rootScope.propertySlug = slug;
+          });
+        });
+      }
+    }
   })
 
-  .controller('BaseCtrl', function($scope, $controller, scrollService,
-    metaInformationService){
+  .controller('BaseCtrl', function($scope, $rootScope, $controller,$state, scrollService,
+    metaInformationService, Settings, propertyService){
 
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
     $controller('ReservationMultiRoomCtrl', {$scope: $scope});
 
-    // TODO: FIX THIS - scrolling should be done differently
-    //$controller('HotelDetailsCtrl', {$scope: $scope});
+    $scope.$on('$stateChangeStart', function(e, toState) {
 
-    $scope.$on('$stateChangeStart', function() {
-      $scope.sso.trackPageLeave();
+      //if single property redirect home state to hotel page
+      if(Settings.UI.generics.singleProperty && toState.name === 'home'){
+        e.preventDefault();
+        if(Settings.API.propertySlug){
+          $state.go('hotel', {propertySlug: Settings.API.propertySlug});
+        }
+        else{
+          propertyService.getAll().then(function(properties){
+            var code = properties[0].code;
+            propertyService.getPropertyDetails(code).then(function(details){
+              var slug = details.meta.slug;
+              $state.go('hotel', {propertySlug: slug});
+              Settings.API.propertySlug = slug;
+              $rootScope.propertySlug = slug;
+            });
+          });
+        }
+      }
+      if(Settings.authType === 'infiniti'){
+        $scope.sso.trackPageLeave();
+      }
       metaInformationService.reset();
     });
 
     $scope.$on('$stateChangeSuccess', function() {
-      $scope.sso.trackPageView();
+      if(Settings.authType === 'infiniti'){
+        $scope.sso.trackPageView();
+      }
       $scope.$on('$viewContentLoaded', function() {
         scrollService.scrollTo();
       });

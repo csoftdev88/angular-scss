@@ -7,11 +7,12 @@
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <contacts-page grid-row>
-    <h1 grid="12" id="jsForm">Contact <strong>and Feedback</strong></h1>
-Contact
-    <form name="form" ng-submit="form.$valid" grid="8" ng-show="!isSent">
+
+    <h1 grid="12" ng-bind-html="'_contact_page_title_' | mainHeaderStyle"></h1>
+
+    <form name="form" ng-submit="form.$valid" grid="{{viewSettings.formGrid}}" ng-show="!isSent">
       <div>
-        <p>How was your stay with us? Did we meet all your expectations? We want your stays at our hotels to be the best they can be. You talk, we listen.</p>
+        <p>_contact_page_desc_</p>
         <hr>
       </div>
 
@@ -19,24 +20,24 @@ Contact
         <form-element>
           <label for="name" class="input-left">
             <input type="text" id="name" required
-              placeholder="Enter Your Name"
+              placeholder="_name_placeholder_"
               ng-model="formData.fields.name" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
               name="name"
               ng-class="{'ng-submitted': form.$submitted && (form.name.$error.required || form.name.$error.pattern)}"/>
-            <span>Name</span>
+            <span>_name_label_</span>
           </label>
         </form-element>
 
         <form-element>
           <label for="email" class="input-left">
             <input type="email" id="email" required
-              placeholder="Enter Your Email"
+              placeholder="_email_placeholder_"
               ng-model="formData.fields.email" email-check
               name="email"
               ng-class="{'ng-submitted': form.$submitted && form.email.$error.required}"/>
             <span>
-              <span ng-hide="form.$submitted && form.email.$error.emailCheck">Email</span>
-              <span ng-show="form.$submitted && form.email.$error.emailCheck">Please enter a valid email address</span>
+              <span ng-hide="form.$submitted && form.email.$error.emailCheck">_email_label_</span>
+              <span ng-show="form.$submitted && form.email.$error.emailCheck">_invalid_email_message_</span>
             </span>
           </label>
         </form-element>
@@ -48,10 +49,10 @@ Contact
                       required ng-model="formData.fields.subject"
                       disable-search="true"
                       chosen ng-options="option.key for option in subjectOptions"
-                      data-placeholder="Your Subject">
-                <option></option> <!-- workaround for a bug in angular-chosen -->
+                      data-placeholder="_subject_placeholder_">
+                <option value="">_subject_placeholder_</option> <!-- workaround for a bug in angular-chosen -->
               </select>
-            <span>Subject</span>
+            <span>_subject_label_</span>
           </label>
         </form-element>
       </fieldset>
@@ -59,41 +60,50 @@ Contact
       <fieldset>
         <form-element>
           <label for="message" class="input-left">
-            <textarea id="message" ng-model="formData.fields.message" placeholder="How can we help?"
+
+            <textarea id="message" ng-model="formData.fields.message" placeholder="_message_placeholder_"
               required name="message"
               ng-class="{'ng-submitted': form.$submitted && form.message.$error.required}"
               ></textarea>
-            <span>Enter Text</span>
+            <span>_message_label_</span>
           </label>
         </form-element>
       </fieldset>
 
       <div>
         <label class="form-errors" ng-if="form.$invalid && form.$submitted">
-          Please fill out all the fields indicated
+          _missing_fields_message_
         </label>
       </div>
 
       <div>
-        <button-submit role="button" tabindex="0" ng-click="sendForm()">Send</button-submit>
+        <button-submit role="button" tabindex="0" ng-click="sendForm()">_send_</button-submit>
       </div>
-      <div ng-show="showErrorMsg">Sending of message failed</div>
+      <div ng-show="showErrorMsg">_form_send_error_</div>
     </form>
 
-    <div grid="8" class="message-sent" ng-if="isSent">
-      <h1>Your Feedback has been successfully sent!</h1>
-      <p>Many thanks for your request the relevant party will review and respond as required.</p>
+    <div grid="{{viewSettings.formGrid}}" class="message-sent" ng-if="isSent">
+      <h1>_form_send_success_</h1>
+      <p>_form_send_success_desc_</p>
     </div>
 
 
-    <contact-list grid="4">
+    <contact-list grid="4" ng-if="viewSettings.hasContactDetails">
       <contact-item ng-repeat="contact in chain.contacts">
         <h2>{{contact.name}}</h2>
         <p><a href="tel:{{contact.tel}}">{{contact.tel}}</a></p>
         <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
       </contact-item>
     </contact-list>
-  </contacts-page>
 
+    <section ng-if="details && viewSettings.hasMap">
+        <div grid="12">
+            <hotel-location id="jsLocation" hotel-details="details"></hotel-location>
+        </div>
+    </section>
+
+  </contacts-page>
 </main>
+
+
 <div ng-include="'layouts/siteMap.html'" class="site-map"></div>

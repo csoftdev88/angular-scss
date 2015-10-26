@@ -7,9 +7,9 @@
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <news-list ng-if="!showDetail" grid="12">
-    <h1>Our <strong>News</strong></h1>
+    <h1 ng-bind-html="'_news_page_title_' | mainHeaderStyle"></h1>
 
-    <p>An on-line reference for news, press releases, promotions and current events. Please click on articles for details.</p>
+    <p>_news_page_desc_</p>
 
     <hr>
 
@@ -26,12 +26,12 @@
   <news-detail ng-if="showDetail" grid="12">
     <h1 ng-bind-html="selectedNews.title | mainHeaderStyle"></h1>
     <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedNews.image.alt}}"/>
-    <div ng-bind-html="selectedNews.text" markdown-text-parser></div>
-    <button-back role="button" tabindex="0" ng-click="goToNewsList()" class="pull-left">Back</button-back>
+    <div ng-bind-html="selectedNews.text"></div>
+    <button-back role="button" tabindex="0" ng-click="goToNewsList()" class="pull-left">_back_</button-back>
     <div class="clearfix"></div>
     <hr>
 
-    <h2 ng-if="newsList.length > 1">You may also be <strong>interested in:</strong></h2>
+    <h2 ng-if="newsList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
 
     <offers-list grid-row>
       <offer-item ng-repeat="news in newsList | filter:getRelevant track by $index" ng-click="goToDetail(news.meta.slug)">
@@ -40,7 +40,7 @@
           <h3>{{news.title}}</h3>
           <div ng-bind-html="news.subtitle"></div>
         </section>
-        <span>Read more</span>
+        <span>_read_more_</span>
       </offer-item>
     </offers-list>
 

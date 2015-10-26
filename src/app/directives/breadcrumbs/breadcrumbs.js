@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.breadcrumbs', [])
 
   .directive('breadcrumbs', function( $state, $window, breadcrumbsService, _,
-      modalService, scrollService, contentService) {
+      modalService, scrollService, contentService, Settings) {
     return {
       restrict: 'E',
       scope: true,
@@ -11,6 +11,9 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
 
       // Widget logic goes here
       link: function(scope) {
+        // Show/Hide Alt nav
+        scope.showAltNav = angular.isUndefined(Settings.UI.generics.showAltNav)?true:Settings.UI.generics.showAltNav;
+
         var EVENTS_SCROLL_RESIZE = 'scroll resize';
 
         var unWatchData = scope.$watch(function(){

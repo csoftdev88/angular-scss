@@ -80,6 +80,14 @@ describe('mobius.controllers.reservationDetail', function() {
           setOgGraph: function() {}
         });
 
+        $provide.value('Settings', {
+          UI: {
+            generics: {
+              loyaltyProgramEnabled: true
+            }
+          }
+        });
+
         $provide.service('reservationService', function() {
           return {
             getReservation: function() {

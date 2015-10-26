@@ -1,0 +1,205 @@
+<hero-slider content="heroContent"></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <profile-page grid-row>
+
+    <header grid="12">
+      <h1 ng-bind-html="'_profile_page_title_' | mainHeaderStyle"></h1>
+      <p>_profile_page_desc_</p>
+    </header>
+
+    <form name="form" grid="8">
+
+      <h2>_profile_page_password_title_</h2>
+
+      <fieldset>
+
+        <form-element>
+          <label for="newPassword">_new_password_label_</label>
+          <input 
+            type="password" 
+            id="newPassword"
+            name="newPassword"
+            ng-model="profileData.password"
+            ng-class="{'ng-submitted': form.$submitted && form.newPassword.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="newPasswordConf">_confirm_password_label_</label>
+          <input 
+            type="password" 
+            id="newPasswordConf"
+            name="newPasswordConf"
+            ng-model="profileData.passwordConf"
+            equals="profileData.password"
+            ng-class="{'ng-submitted': form.$submitted && (form.newPasswordConf.$error.required || form.newPasswordConf.$error.equals)}"/>
+            <span class="error" ng-if="form.$submitted && form.newPasswordConf.$error.equals">_password_match_error_message_</span>
+        </form-element>
+
+      </fieldset>
+
+      <h2>_profile_page_about_title_</h2>
+
+      <fieldset>
+
+        <form-element>
+          <label for="profileTitle">_title_label_</label>
+          <select name="profileTitle" required chosen
+                  disable-search="true"
+                  data-placeholder=""
+                  ng-model="profileData.title"
+                  ng-options="title.name as title.code for title in profileTitles">
+            <option></option> <!-- workaround for a bug in angular-chosen  -->
+          </select>
+        </form-element>
+
+        <form-element>
+          <label for="profileFname">_first_name_label_</label>
+          <input 
+            type="text" 
+            id="profileFname"
+            name="profileFname"
+            ng-model="profileData.firstName" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileLname">_last_name_label_</label>
+          <input 
+            type="text" 
+            id="profileLname"
+            name="profileLname"
+            ng-model="profileData.lastName" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"/>
+        </form-element>
+
+      </fieldset>
+
+      <h2>_profile_page_contact_title_</h2>
+
+      <fieldset>
+
+        <form-element>
+          <label for="profileEmail">_email_label_</label>
+          <input 
+            type="email" 
+            id="profileEmail"
+            name="profileEmail"
+            ng-model="profileData.email" 
+            email-check
+            ng-class="{'ng-submitted': form.$submitted && form.profileEmail.$error.emailCheck}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileAddress1">_address_one_label_</label>
+          <input 
+            type="text" 
+            id="profileAddress1"
+            name="profileAddress1"
+            ng-model="profileData.address1" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileAddress2">_address_two_label_</label>
+          <input 
+            type="text" 
+            id="profileAddress2"
+            name="profileAddress2"
+            ng-model="profileData.address2" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileCity">_city_label_</label>
+          <input 
+            type="text" 
+            id="profileCity"
+            name="profileCity"
+            ng-model="profileData.city" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileState">_state_label_</label>
+          <input 
+            type="text" 
+            id="profileState"
+            name="profileState"
+            ng-model="profileData.state" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileCountry">_country_label_</label>
+          <select name="profileCountry" chosen
+                  disable-search="true"
+                  data-placeholder=""
+                  ng-model="profileData.country"
+                  ng-options="country.title as country.title for country in iso.countries">
+            <option></option> <!-- workaround for a bug in angular-chosen  -->
+          </select>
+        </form-element>
+
+        <form-element>
+          <label for="profileZip">_postcode_label_</label>
+          <input 
+            type="text" 
+            id="profileZip"
+            name="profileZip"
+            ng-model="profileData.zip" 
+            ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileTel">_phone_label_</label>
+          <input 
+            type="text" 
+            id="profileTel"
+            name="profileTel"
+            ng-model="profileData.tel1"
+            ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"/>
+        </form-element>
+
+        <form-element>
+          <label for="profileContact">_prefered_contact_label_</label>
+          <select name="profileContact" required chosen
+                  disable-search="true"
+                  data-placeholder=""
+                  ng-model="profileData.preferredContactMethodCode"
+                  ng-options="contact.name as contact.code for contact in profileContacts">
+            <option></option> <!-- workaround for a bug in angular-chosen  -->
+          </select>
+        </form-element>
+
+      </fieldset>
+
+      <h2>_profile_page_newletter_title_</h2>
+
+      <fieldset>
+
+        <form-element>
+          <label for="profileOptedIn" class="input-checkbox">
+            <input type="checkbox" id="profileOptedIn" ng-model="profileData.optedIn"/>
+            _subscribe_label_
+          </label>
+        </form-element>
+
+      </fieldset>
+
+      <p class="feedback-msg error" ng-if="errorMsg">{{errorMsg}}</p>
+      <p class="feedback-msg" ng-if="successMsg">{{successMsg}}</p>
+
+      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)">_save_</button-submit>
+
+    </form>
+
+  </profile-page>
+
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map"></div>

@@ -1,9 +1,9 @@
 <ul>
   <li class="floating-bar--tab-booking main-mobile-toggle" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
-    <a href ng-click="setActive(BOOKING)" ng-class="{'with-search-params' : hasSearchParams()}">
-      <div class="desktop">Make Your <strong>Booking</strong></div>
+    <a href="" ng-click="setActive(BOOKING, true);" ng-class="{'with-search-params' : hasSearchParams()}">
+      <div class="desktop" ng-bind-html="'_make_your_booking_' | mainHeaderStyle"></div>
       <div class="mobile">
-        <div ng-hide="hasSearchParams()" class="book-now-button">Book now</div>
+        <div ng-hide="hasSearchParams()" class="book-now-button" ng-bind-html="'_book_now_' | mainHeaderStyle"></div>
         <div ng-hide="!hasSearchParams()" ng-class="{'in-line' : inLine()}" class="search-params-bar">
           <div class="cell dates">
             <div class="date-cell">{{getCheckIn()}}</div>
@@ -11,10 +11,10 @@
           </div>
           <div class="cell separator-cell"> | </div>
           <div class="cell people">
-            <div ng-show="adults == 1">1 Adult</div>
-            <div ng-show="adults > 1">{{adults}} Adults</div>
-            <div ng-show="children == 1">1 Child</div>
-            <div ng-show="children > 1">{{children}} Children</div>
+            <div ng-show="adults == 1">1 _adult_</div>
+            <div ng-show="adults > 1">{{adults}} _adults_</div>
+            <div ng-show="children == 1">1 _child_</div>
+            <div ng-show="children > 1">{{children}} _children_</div>
           </div>
         </div>
         <span class="mobile-close" ng-click="isCollapsed === true" ng-show="!isCollapsed"></span></div>
@@ -22,17 +22,14 @@
   </li>
   <li class="floating-bar--tab-booking mobile-single-booking" ng-class="{'is-active': active === BOOKING}">
     <a href="" ng-click="setActive(BOOKING)">
-      <span class="desktop">Single <strong>Booking</strong></span>
+      <span class="desktop" ng-bind-html="'_single_booking_' | mainHeaderStyle"></span>
     </a>
   </li>
   <li class="floating-bar--tab-advanced-booking" ng-if="hasMutiroomTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
-    <a href="" ng-click="setActive(ADVANCED_BOOKING)">
-      Multiroom <strong>Booking</strong>
-    </a>
+    <a href="" ng-click="setActive(ADVANCED_BOOKING)" ng-bind-html="'_multiroom_booking_' | mainHeaderStyle"></a>
   </li>
   <li class="floating-bar--tab-my-accounts" ng-show="loyaltyProgramEnabled" ng-class="{'is-active': active === MY_ACCOUNT}">
-    <a href="" ng-click="setActive(MY_ACCOUNT)">
-      Sutton <strong>Prestige</strong>
+    <a href="" ng-click="setActive(MY_ACCOUNT)" ng-bind-html="'_loyalty_progam_title_' | mainHeaderStyle">
     </a>
   </li>
 </ul>

@@ -26,6 +26,10 @@ describe('userService', function() {
         }
       });
 
+      $provide.value('Settings', {
+        authType: 'infiniti'
+      });
+
       $provide.value('dataLayerService', {});
 
       $provide.value('rewardsService', {

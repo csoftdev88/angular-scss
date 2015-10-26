@@ -5,6 +5,7 @@ describe('apiService', function() {
   var TEST_URL = 'http://testurl';
   var TEST_RESPONSE = {'data': 'OK'};
   var TEST_DATA = {'some': 'testValue'};
+  var TEST_USER = {id: 123};
 
   beforeEach(function() {
     env = {};
@@ -28,6 +29,7 @@ describe('apiService', function() {
       };
 
       $provide.value('Settings', Settings);
+      $provide.value('userObject', TEST_USER);
     });
   });
 

@@ -15,13 +15,13 @@
         <div ng-bind-html="offer.subtitle"></div>
       </section>
 
-      <span>Read more</span>
+      <span>_read_more_</span>
     </offer-item>
 
     <div ng-if="offersList.length === 0" class="products-not-available">
-      <h3>Sorry! There are no chain wide offers available at the moment</h3>
-      <p>Try selecting a hotel to see offers for that hotel or check back later</p>
-      <a class="button" ui-sref="hotels({property: null})">View Hotels</a>
+      <h3>_offers_page_no_offers_title_</h3>
+      <p>_offers_page_no_offers_desc_</p>
+      <a class="button" ui-sref="hotels({property: null})">_view_hotels_</a>
     </div>
   </offers-list>
 
@@ -32,17 +32,17 @@
       <div class="offer-content" btf-markdown="selectedOffer.text"></div>
 
       <!-- DATES ARE SELECTED -->
-      <button-submit ng-switch-when="false" ng-click="goToHotels(selectedOffer)">Book Now</button-submit>
+      <button-submit ng-switch-when="false" ng-click="goToHotels(selectedOffer)">_book_now_</button-submit>
 
       <!-- USER SPECIFIES DATES -->
-      <button-submit ng-switch-when="true" ng-click="selectDates()">Select Dates</button-submit>
+      <button-submit ng-switch-when="true" ng-click="selectDates()">_select_dates_</button-submit>
 
-      <button-back role="button" tabindex="0" ng-click="goToOffersList()" class="pull-left">Back</button-back>
+      <button-back role="button" tabindex="0" ng-click="goToOffersList()" class="pull-left">_back_</button-back>
     </div>
     <div grid="12">
       <hr>
 
-      <h2 ng-if="offersList.length > 1">You may also be <strong>interested in:</strong></h2>
+      <h2 ng-if="offersList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
       <offers-list ng-if="offersList.length > 1">
         <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index"  ng-click="goToDetail(offer.meta.slug)">
           <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.uri}}"/>
@@ -52,7 +52,7 @@
             <div ng-bind-html="offer.subtitle"></div>
           </section>
 
-          <span>Read more</span>
+          <span>_read_more_</span>
         </offer-item>
       </offers-list>
     </div>

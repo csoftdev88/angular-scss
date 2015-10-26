@@ -13,6 +13,11 @@ describe('metaInformationService', function() {
 
   beforeEach(function() {
     module('mobiusApp.services.metaInformation', function($provide){
+      $provide.value('Settings', {
+        API: {
+          chainCode: 'TESTCHAIN'
+        }
+      });
       $provide.value('chainService', {
         getChain: function(){
           return {

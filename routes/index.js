@@ -1,7 +1,19 @@
 var glob = require('glob');
+var tenant = null;
+
+process.argv.forEach(function (val) {
+  if(val.indexOf('tenant') !== -1){
+    tenant = val.split('=')[1];
+    console.log('Tenant is set to :' + tenant);
+  }
+});
+
+if(!tenant){
+  throw new Error("node commandline-param 'tenant' is required");
+}
 
 module.exports = function(app) {
-  var basePath = './src/locales/';
+  var basePath = './src/targets/' + tenant + '/locales/';
   glob(basePath + '*.json', function(er, files) {
     var baseConfig = null;
     files.forEach(function(file) {

@@ -2,9 +2,20 @@
 
 describe('mainHeaderStyle', function() {
   var _mainHeaderStyleFilter;
+  var TEST_SETTINGS = {
+    'disableMainHeaderStyle': false
+  };
+
 
   beforeEach(function() {
-    module('mobiusApp.filters.mainHeaderStyle');
+    module('mobiusApp.filters.mainHeaderStyle', function ($provide) {
+      // Mocking the services
+      $provide.value('Settings', {
+        UI: {
+          generics: TEST_SETTINGS
+        }
+      });
+    });
   });
 
   beforeEach(inject(function($filter) {
@@ -16,9 +27,15 @@ describe('mainHeaderStyle', function() {
     expect(_mainHeaderStyleFilter()).equal('');
   });
 
-  it('should return properly formatted title and wrap last word into a strong tag', function() {
-    expect(_mainHeaderStyleFilter('Title')).equal('Title');
-    expect(_mainHeaderStyleFilter('Title Strong')).equal('Title <strong>Strong</strong>');
-    expect(_mainHeaderStyleFilter('Title Strong Stronger')).equal('Title Strong <strong>Stronger</strong>');
+  it('should wrap the string in a strong tag if there is only 1 word', function() {
+    expect(_mainHeaderStyleFilter('Title')).equal('<strong>Title</strong>');
+  });
+
+  it('should wrap the 2nd word of the string in a strong tag if there are 2 words', function() {
+    expect(_mainHeaderStyleFilter('Page Title')).equal('Page <strong>Title</strong>');
+  });
+
+  it('should leave the first 2 words as is and wrap the remaining words in a strong tag if more than 2 words', function() {
+    expect(_mainHeaderStyleFilter('This is a Page Title')).equal('This is <strong>a Page Title</strong>');
   });
 });

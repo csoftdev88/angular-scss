@@ -1,118 +1,205 @@
-<nav class="main-nav wrapper" dropdown>
-  <a class="brand" ui-sref="home({property:null})">
-    <img src="/static/images/v4/logo.png" alt="Mobius logo">
-  </a>
+<div id="main-header-inner">
+  <nav class="main-nav wrapper" dropdown>
+    <a class="brand" ui-sref="home({property:null})">
+      <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
+      <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+    </a>
 
-  <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown"></a>
+    <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown"></a>
 
-  <div class="app-menu">
-    <ul dropdown-group>
+    <div class="app-menu">
+      <ul dropdown-group>
 
-      <li class="mobile-header">
-        <a ui-sref="home({property:null})">
-          <img src="/static/images/v4/logo.png" alt="Mobius logo">
-        </a>
-        <span class="close"></span>
-      </li>
+        <li class="mobile-header">
+          <a ui-sref="home({property:null})">
+            <img src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+          </a>
+          <span class="close"></span>
+        </li>
 
-      <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="mobile-profile">
-        <div class="dropdown">
-          <a href>
-            <div class="profile">
-              <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
-
-              <div class="user">
-                <div class="name">{{user.getUser().firstName}} {{user.getUser().lastName}}</div>
-                <div class="points" ng-if="config.generics.loyaltyProgramEnabled">
-                  <span>{{user.getUser().loyalties.amount}} _points_</span>
-                  <span class="vr">|</span>
-                  <span ng-click="openTiersListDialog($event)">{{user.getUser().loyalties.tier}} _tier_</span>
+        <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="mobile-profile">
+          <div class="dropdown">
+            <a href>
+              <div class="profile">
+                <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
+                <div class="message" ng-if="config.viewsSettings.userProfile.hasWelcomeMessage">
+                  <span>_user_profile_message_</span>
+                </div>
+                <div class="user">
+                  <div class="name">{{user.getUser().firstName}} {{user.getUser().lastName}}</div>
+                  <div class="points" ng-if="loyaltyProgramEnabled">
+                    <span>{{user.getUser().loyalties.amount}} _points_</span>
+                    <span class="vr" ng-if="user.getUser().loyalties.tier">|</span>
+                    <span ng-click="openTiersListDialog($event)" ng-if="user.getUser().loyalties.tier">{{user.getUser().loyalties.tier}} _tier_</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
+            </a>
 
-          <ul class="dropdown-menu submenu">
-            <li>
-              <a ui-sref="reservations">Reservations</a>
-            </li>
-            <li>
-              <a href ng-click="sso.profile()">Profile</a>
-            </li>
-            <li class="mobile-rewards">
-              <a href ui-sref="rewards">Rewards</a>
-            </li>
-            <li>
-              <a href ng-click="sso.logout()">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </li>
+            <ul class="dropdown-menu submenu">
+              <li>
+                <a ui-sref="reservations">_reservations_</a>
+              </li>
+              <li>
+                <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
+                <a ng-if="!sso.isInfiniti()" href ui-sref="profile">_profile_</a>
+              </li>
+              <li class="mobile-rewards" ng-if="loyaltyProgramEnabled">
+                <a href ui-sref="rewards">_rewards_</a>
+              </li>
+              <li>
+                <a href ng-click="sso.logout()">_logout_</a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-      <li has-dropdown="hover" ng-hide="config.generics.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
+        <li has-dropdown="hover" ng-hide="config.generics.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
 
-      <li ng-show="config.generics.singleProperty">
-          <a
-                  ui-sref="hotel({property: null})"
-                  ui-sref-opts="{reload: true}"
-                  ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
-      </li>
+        <li ng-show="config.generics.singleProperty">
+            <a
+                    ui-sref="hotel({propertySlug: $root.propertySlug})"
+                    ui-sref-opts="{reload: true}"
+                    ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
+        </li>
 
-      <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
+        <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 
-      <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
+        <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
 
-      <li has-dropdown="hover" ng-show="config.menu.showNews" menu-content="news" data-title="_news_"></li>
+        <li has-dropdown="hover" ng-show="config.menu.showNews" menu-content="news" data-title="_news_"></li>
 
-      <li ng-show="config.menu.showContact">
-          <a
-                  ui-sref="contacts({property: null})"
-                  ui-sref-opts="{reload: true}"
-                  ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
-      </li>
+        <li ng-show="config.menu.showContact">
+            <a
+                    ui-sref="contacts({property: null})"
+                    ui-sref-opts="{reload: true}"
+                    ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
+        </li>
 
-      <li has-dropdown="click" currency-list ng-show="languages.length > 1"></li>
+        <li has-dropdown="click" currency-list></li>
 
-      <li has-dropdown="click" language-list ng-show="languages.length > 1"></li>
+        <li has-dropdown="click" language-list></li>
 
-      <li ng-show="!isUserLoggedIn()" profile>
-        <a class="button button-login" ng-click="sso.login()">Login</a>
-      </li>
-      <li ng-show="isUserLoggedIn()" profile class="mobile-logout">
-        <a class="button button-login" ng-click="sso.logout()">Logout</a>
-      </li>
+        <li ng-show="!isUserLoggedIn()" profile>
+          <a class="button button-login" ng-click="sso.login()">_login_</a>
+        </li>
+        <li ng-show="isUserLoggedIn()" profile class="mobile-logout">
+          <a class="button button-login" ng-click="sso.logout()">_logout_</a>
+        </li>
 
-      <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
-        <div class="dropdown">
-          <a href>
-            <div class="profile">
-              <div class="user">
-                <img err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
-                <span>{{user.getUser().firstName}}</span>
-                <span>{{user.getUser().lastName}}</span>
+        <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
+          <div class="dropdown">
+            <a href>
+              <div class="profile">
+                <div class="message" ng-if="config.viewsSettings.userProfile.hasWelcomeMessage">
+                  <span>_user_profile_message_</span>
+                </div>
+                <div class="user">
+                  <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
+                  <span>{{user.getUser().firstName}}</span>
+                  <span>{{user.getUser().lastName}}</span>
+                </div>
+
+                <div class="points" ng-if="loyaltyProgramEnabled">
+                  <span>{{user.getUser().loyalties.amount}} _points_</span>
+                  <span class="vr" ng-if="user.getUser().loyalties.tier">|</span>
+                  <span ng-click="openTiersListDialog($event)" ng-if="user.getUser().loyalties.tier">{{user.getUser().loyalties.tier}} _tier_</span>
+                </div>
               </div>
+            </a>
 
-              <div class="points" ng-if="config.generics.loyaltyProgramEnabled">
-                <span>{{user.getUser().loyalties.amount}} _points_</span>
-                <span class="vr">|</span>
-                <span ng-click="openTiersListDialog($event)">{{user.getUser().loyalties.tier}} _tier_</span>
-              </div>
-            </div>
-          </a>
+            <ul class="dropdown-menu submenu">
+              <li>
+                <a ui-sref="reservations">_reservations_</a>
+              </li>
+              <li>
+                <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
+                <a ng-if="!sso.isInfiniti()" href ui-sref="profile">_profile_</a>
+              </li>
+              <li>
+                <a href ng-click="sso.logout()">_logout_</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
 
-          <ul class="dropdown-menu submenu">
-            <li>
-              <a ui-sref="reservations">Reservations</a>
-            </li>
-            <li>
-              <a href ng-click="sso.profile()">Profile</a>
-            </li>
-            <li>
-              <a href ng-click="sso.logout()">Logout</a>
-            </li>
+
+    </div>
+  </nav>
+
+
+  <div class="login-dialog-overlay" ng-show="!sso.isInfiniti() && showLoginDialog" >
+    <div class="login-dialog" ng-class="'form-step' + loginFormStep">
+
+      <header>
+        <a href="" ng-click="loginFormStep = 1; sso.clearErrors();" ng-show="loginFormStep == 2" class="back-btn">_back_</a>
+        <a href="" ng-click="sso.clearErrors(); sso.login();" class="close-btn"></a>
+        <figure class="logo">
+          <img src="/static/images/v4/logo-login.png" alt="logo">
+        </figure>
+        <p class="error-msg" ng-if="loginDialogError">{{loginDialogError}}</p>
+      </header>
+
+      <div class="form-wrapper">
+
+        <form name="loginForm" class="login-form" novalidate>
+          <fieldset>
+            <form-element>
+              <label for="loginEmail">_email_label_</label>
+              <input
+                type="email"
+                id="loginEmail"
+                name="loginEmail"
+                ng-model="loginData.email"
+                required
+                email-check
+                ng-class="{'ng-submitted': loginForm.$submitted && (loginForm.loginEmail.$error.required || loginForm.loginEmail.$error.emailCheck)}"/>
+            </form-element>
+
+            <form-element>
+              <label for="loginPassword">_password_label_</label>
+              <input
+                type="password"
+                id="loginPassword"
+                name="loginPassword"
+                ng-model="loginData.password"
+                required
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"/>
+            </form-element>
+
+          </fieldset>
+
+          <ul class="options">
+            <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors();">_forgot_password_label_</a></li>
+            <li><a href="" ui-sref="register" ng-click="sso.clearErrors(); sso.login();">_register_now_</a></li>
           </ul>
-        </div>
-      </li>
-    </ul>
+
+          <button-submit role="button" tabindex="0" ng-click="sso.doLogin(loginForm, loginData)">_login_</button-submit>
+        </form>
+
+        <form name="resetForm" class="reset-form" novalidate>
+          <fieldset>
+            <form-element>
+              <label for="resetEmail">_email_label_</label>
+              <input
+                type="email"
+                id="resetEmail"
+                name="resetEmail"
+                ng-model="resetData.email"
+                required
+                email-check
+                ng-class="{'ng-submitted': resetForm.$submitted && resetForm.resetEmail.$error.required}"/>
+            </form-element>
+
+          </fieldset>
+
+          <button-submit role="button" tabindex="0" ng-click="sso.reset(resetForm, resetData)">_reset_password_</button-submit>
+        </form>
+
+      </div>
+
+
+    </div>
   </div>
-</nav>
+</div><!-- #main-header-inner -->

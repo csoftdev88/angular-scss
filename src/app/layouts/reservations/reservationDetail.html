@@ -7,15 +7,15 @@
 
       <div class="actions">
         <div class="share">
-          Share via:
+          _share_via_:
           <a href="" title="Share on Facebook" target="_blank" class="icon-fb" fb-like="facebookShare.url"></a>
           <a href="" ng-href="https://twitter.com/intent/tweet?source={{shareURL}}&text={{shareURL}}&via=SuttonPlaceHtl" title="Tweet" target="_blank" class="icon-twitter"></a>
           <a href="" ng-href="https://plus.google.com/share?url={{shareURL}}" title="Share on Google+" target="_blank" class="icon-gplus"></a>
           <a href="" ng-href="mailto:?body={{shareURL}}" title="Email" target="_blank" class="icon-email"></a>
         </div>
         <div class="passbook">
-          <a href="" class="button-print" ng-click="printPage()"><span>Print</span></a>
-          <a href ng-click="sendToPassbook()"class="button-passbook"><span>Add to Passbook</span></a>
+          <a href="" class="button-print" ng-click="printPage()"><span>_print_</span></a>
+          <a href ng-click="sendToPassbook()"class="button-passbook"><span>_add_to_passbook_</span></a>
         </div>
       </div>
 
@@ -23,12 +23,12 @@
         <h1>{{property.nameLong}}</h1>
 
         <div class="reference" ng-class="{'reference-visible': displayConfirmationNumber}">
-          <p>Your reference:</p>
+          <p>_booking_reference_:</p>
           <p><strong>{{reservationCode}}</strong></p>
         </div>
 
         <div class="booked">
-          Booked: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
+          _booked_: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
         </div>
       </header>
 
@@ -36,8 +36,8 @@
         <figure ng-switch="isEditable">
           <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           <!-- TODO: Add actions to buttons -->
-          <button ng-switch-when="true" class="button" ng-click="modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false}" ng-if="!reservation.isInThePast && reservation.status.toLowerCase() !== 'cancelled'">Modify</button>
-          <button ng-switch-when="true" class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}" ng-if="!reservation.isInThePast && reservation.status.toLowerCase() !== 'cancelled'">Cancel</button>
+          <button ng-switch-when="true" class="button" ng-click="modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false}" ng-if="!reservation.isInThePast">_modify_</button>
+          <button ng-switch-when="true" class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}" ng-if="!reservation.isInThePast">_cancel_</button>
         </figure>
 
         <div>
@@ -49,15 +49,15 @@
           <table class="data">
             <tbody>
               <tr>
-                <th>Check in:</th>
+                <th>_check_in_:</th>
                 <td>{{reservation.arrivalDate | dateTime}}</td>
-                <th>Adults:</th>
+                <th>_adults_:</th>
                 <td>{{getCount('adults')}}</td>
               </tr>
               <tr>
-                <th>Check out:</th>
+                <th>_check_out_:</th>
                 <td>{{reservation.departureDate | dateTime}}</td>
-                <th>Children:</th>
+                <th>_children_:</th>
                 <td>{{getCount('children')}}</td>
               </tr>
             </tbody>
@@ -66,7 +66,7 @@
           <table class="charges" ng-switch="!!reservation.pointValue">
             <tbody ng-switch-when="false">
               <tr>
-                <th>Room Charges: {{billingDetails.paymentMethod}}</th>
+                <th>_room_charges_: {{billingDetails.paymentMethod}}</th>
                 <td>{{getCount('price') | i18nCurrency: currencyCode}}</td>
                 <th rowspan="3" class="total">Total:</th>
                 <td rowspan="3" class="total-value">
@@ -77,20 +77,20 @@
 
               <!-- Additional taxes -->
               <tr ng-if="reservation.rooms[0].tax">
-                <th>Taxes:</th>
+                <th>_taxes_:</th>
                 <td>{{getCount('tax') | i18nCurrency: $root.currencyCode}}</td>
               </tr>
 
               <!-- Discount -->
               <tr ng-if="reservation.rooms[0].priceBreakdown.discount">
-                <th>Discount:</th>
+                <th>_discount_:</th>
                 <td>{{reservation.rooms[0].priceBreakdown.discount | i18nCurrency: $root.currencyCode}}</td>
               </tr>
             </tbody>
 
             <tbody ng-switch-when="true">
               <tr>
-                <th rowspan="3" class="total">Total:</th>
+                <th rowspan="3" class="total">_total_:</th>
                 <td rowspan="3" class="total-value">
                   <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
                 </td>
@@ -99,7 +99,7 @@
           </table>
         </div>
         <footer>
-          <a href ng-click="openPoliciesInfo()">View Policies</a>
+          <a href ng-click="openPoliciesInfo()">_view_policies_</a>
         </footer>
       </div>
     </section>
@@ -108,7 +108,7 @@
 
     <!-- AVAILABLE ADDONS -->
     <section grid-row class="reservation-enhance" ng-if="availableAddons.length">
-      <h3>Enhance Your <strong>Stay With</strong></h3>
+      <h3 ng-bind-html="'_reservation_enhance_title_' | mainHeaderStyle"></h3>
       <ul>
         <li class="{{ availableAddons < 3 ? 'half' : 'third' }}"
             ng-repeat="addon in availableAddons"
@@ -131,10 +131,10 @@
               </a>
             </p>
 
-            <i>Add to your booking with one click:</i>
+            <i>_add_reservation_enhance_to_booking_desc_:</i>
 
             <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: currencyCode}}</a>
-            <a class="button"ng-if="addon.pointsRequired" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>points</small></a>
+            <a class="button"ng-if="addon.pointsRequired && loyaltyProgramEnabled" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>_points_</small></a>
           </div>
         </li>
       </ul>
@@ -150,7 +150,7 @@
 
     <!-- RESERVATION ADDONS -->
     <section grid-row class="reservation-enhancements" ng-if="reservationAddons.length">
-      <h3>Your Enhancements</h3>
+      <h3>_reservation_enhance_summary_title_</h3>
       <list-items>
         <list-item ng-repeat="addon in reservationAddons">
 
@@ -168,8 +168,8 @@
               </span>
 
               <!-- Paid with points -->
-              <span class="value" ng-if="addon.points">
-                <ng-pluralize count="addon.points" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize>
+              <span class="value" ng-if="addon.points && loyaltyProgramEnabled">
+                <ng-pluralize count="addon.points" when="{'1': '{} _point_', 'other': '{} _points_'}"> </ng-pluralize>
               </span>
             </p>
           </pricing-info>
@@ -180,7 +180,7 @@
               <a href
                 ng-if="addon.hasViewMore"
                 ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
-                  {{ addon._expanded ? 'Show Less' : 'Show More' }}
+                  {{ addon._expanded ? '_show_less_' : '_show_more_' }}
               </a>
             </p>
           </description-info>
@@ -188,9 +188,9 @@
         </list-item>
       </list-items>
       <!-- PAID WITH CARD -->
-      <p class="total" ng-if="getAddonsTotalPrice()">Total: {{getAddonsTotalPrice() | i18nCurrency: currencyCode}}</p>
+      <p class="total" ng-if="getAddonsTotalPrice()">_total_: {{getAddonsTotalPrice() | i18nCurrency: currencyCode}}</p>
       <!-- PAID WITH POINTS -->
-      <p class="total" ng-if="getAddonsTotalPoints()">{{getAddonsTotalPrice()?'':'Total: '}}<ng-pluralize count="getAddonsTotalPoints()" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize></p>
+      <p class="total" ng-if="getAddonsTotalPoints() && loyaltyProgramEnabled">{{getAddonsTotalPrice()?'':'_total_: '}}<ng-pluralize count="getAddonsTotalPoints()" when="{'1': '{} _point_', 'other': '{} _points_'}"> </ng-pluralize></p>
     </section>
   </reservation-finished>
 </main>

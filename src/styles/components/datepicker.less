@@ -1,8 +1,5 @@
 //- DATEPICKER -//
 
-//- Config
-@c-datepicker: @c-brown;
-
 .ui-datepicker {
   z-index: 1050 !important;
   display: none;
@@ -24,6 +21,8 @@
     margin-left: 0;
     width: 100%;
     left: 0!important;
+    max-height: 100%;
+    overflow-y: auto;
   }
 
   &:after {

@@ -10,13 +10,13 @@
     <nav>
       <ul>
         <li ng-class="{active: viewMode === 'consumed'}">
-          <a href ng-click="viewMode = 'consumed'">My Rewards</a>
+          <a href ng-click="viewMode = 'consumed'">_my_rewards_</a>
         </li>
         <li>
           <span class="vr"/>
         </li>
         <li ng-class="{active: viewMode !== 'consumed'}">
-          <a href ng-click="toogleFullListMode()">All Rewards</a>
+          <a href ng-click="toogleFullListMode()">_all_rewards_</a>
         </li>
       </ul>
     </nav>
@@ -29,14 +29,14 @@
         <h2>{{reward.name}}</h2>
         <div ng-bind-html="sanitize(reward.descriptionShort)"></div>
       </section>
-      <span>Read more</span>
+      <span>_read_more_</span>
     </reward-item>
 
     <!-- NO REWARDS CONSUMED -->
     <div ng-if="viewMode === 'consumed' && consumedRewards && !consumedRewards.length" class="products-not-available ng-scope">
       <div>
-        <h3>You do not have any rewards at the moment</h3>
-        <p>You can buy rewards in the <a href ng-click="toogleFullListMode()">All Rewards</a> section if you have enough points.</p>
+        <h3>_no_rewards_title_</h3>
+        <p>_no_rewards_desc_</p>
       </div>
     </div>
 
@@ -48,13 +48,13 @@
         <h2>{{reward.name}}</h2>
         <div ng-bind-html="sanitize(reward.descriptionShort)"></div>
       </section>
-      <span>Read more</span>
+      <span>_read_more_</span>
     </reward-item>
     <!-- NO REWARDS AVAILABLE FOR CONSUMPTION -->
     <div ng-if="viewMode !== 'consumed' && consumableRewards && !consumableRewards.length" class="products-not-available ng-scope">
       <div>
-        <h3>Sorry, there are no rewards available</h3>
-        <p>Please check back soon</p>
+        <h3>_no_rewards_available_</h3>
+        <p>_check_back_soon_</p>
       </div>
     </div>
   </rewards-list>

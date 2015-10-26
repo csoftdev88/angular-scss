@@ -55,7 +55,7 @@ hero-slider {
     }
 
     .slide-left {
-      background: url('../images/slider-left.png') no-repeat;
+      background: url('@{img-prefix}/slider-left.png') no-repeat;
       left: 20px;
 
       &:hover{
@@ -64,7 +64,7 @@ hero-slider {
     }
 
     .slide-right {
-      background: url('../images/slider-right.png') no-repeat;
+      background: url('@{img-prefix}/slider-right.png') no-repeat;
       right: 10px;
 
       &:hover{
@@ -138,7 +138,6 @@ hero-slider {
         top: 65%;
 
         h1, h2 {
-          &:extend(.open-sans);
           position: absolute;
           padding-right: @baseline*1.2;
           color: @white;

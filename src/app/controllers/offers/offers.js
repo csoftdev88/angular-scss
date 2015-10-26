@@ -28,6 +28,12 @@ angular.module('mobius.controllers.offers', [])
     });
 
     contentService.getOffers().then(function(offers) {
+
+      if(Settings.UI.generics.singleProperty){
+        $scope.offersList = _.sortBy(offers, 'prio').reverse();
+        return;
+      }
+
       if($stateParams.property){
         offers = _.filter(offers, function(f){
           return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length;

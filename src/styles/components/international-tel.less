@@ -87,8 +87,17 @@
   border: 1px solid #CCC;
   white-space: nowrap;
   max-height: 200px;
+  min-width: 420px;
   overflow-y: scroll;
+
 }
+
+@media screen and (max-width: 479px) {
+  .intl-tel-input .country-list {
+    min-width: 260px;
+  }
+}
+
 .intl-tel-input .country-list .flag {
   display: inline-block;
   width: 20px;
@@ -1200,7 +1209,7 @@ only screen and (min-resolution: 2dppx) {
   width: 20px;
   height: 15px;
   box-shadow: 0px 0px 1px 0px #888;
-  background-image: url("../images/flags.png");
+  background-image: url("@{img-prefix}/flags.png");
   background-color: #DBDBDB;
   background-position: 100% 100%;
 }
@@ -1211,7 +1220,7 @@ only screen and (min-device-pixel-ratio: 2),
 only screen and (min-resolution: 192dpi),
 only screen and (min-resolution: 2dppx) {
   .iti-flag {
-    background-image: url("../images/flags@2x.png")
+    background-image: url("@{img-prefix}/flags@2x.png")
   };
 }
 .iti-flag.np {

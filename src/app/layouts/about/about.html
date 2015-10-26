@@ -14,7 +14,7 @@
       <p grid="8" ng-bind-html="sanitize(chain.description)"></p>
 
       <view-more-images grid="4">
-        <a ng-if="chain.images.length" href class="gallery-link" ng-click="openGallery()">View more images</a>
+        <a ng-if="chain.images.length" href class="gallery-link" ng-click="openGallery()">_view_more_images_</a>
         <hero-slider data-has-notification-bar="false" data-on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
       </view-more-images>
     </section>
@@ -42,7 +42,7 @@
           <div ng-bind-html="about.subtitle"></div>
         </section>
 
-        <span>Read More</span>
+        <span>_read_more_</span>
       </offer-item>
     </offers-list>
 
@@ -53,12 +53,12 @@
     <h1 ng-bind-html="selectedAbout.title | mainHeaderStyle"></h1>
     <img ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedAbout.image.alt}}"/>
 
-    <div ng-bind-html="selectedAbout.text" markdown-text-parser></div>
-    <button-back role="button" tabindex="0" ng-click="goToAboutList()" class="pull-left">Back</button-back>
+    <div bind-unsafe="selectedAbout.text" markdown-text-parser></div>
+    <button-back role="button" tabindex="0" ng-click="goToAboutList()" class="pull-left">_back_</button-back>
 
     <hr>
 
-    <h2 ng-if="aboutList.length > 1">You may also be <strong>interested in:</strong></h2>
+    <h2 ng-if="aboutList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
 
     <offers-list ng-if="aboutList.length > 1">
       <offer-item ng-repeat="about in aboutList | filter:getRelevant track by $index" ng-click="goToDetail(about.meta.slug)">
@@ -69,7 +69,7 @@
           <div ng-bind-html="about.subtitle"></div>
         </section>
 
-        <span>Read More</span>
+        <span>_read_more_</span>
       </offer-item>
     </offers-list>
 

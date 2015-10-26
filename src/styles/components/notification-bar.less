@@ -16,6 +16,10 @@ notification-bar {
       color: @c-white;
       top: 30px;
       cursor: pointer;
+      .viewport-mobile &{
+        top: 5px;
+        right: 10px;
+      }
     }
 
     > p {
@@ -50,6 +54,10 @@ notification-bar {
     display: block;
     overflow: auto;
 
+    .viewport-mobile &{
+      width: 100%;
+    }
+
     .rooms,
     .details {
       width: 50%;
@@ -77,6 +85,10 @@ notification-bar {
       &:before {
         content: @fa-var-bed;
       }
+
+      .viewport-mobile &{
+        padding: 5px 10px 5px 0;
+      }
     }
 
     .details {
@@ -84,6 +96,10 @@ notification-bar {
 
       &:before {
         content: @fa-var-users;
+      }
+
+      .viewport-mobile &{
+        padding: 5px 0 5px 10px;
       }
     }
   }

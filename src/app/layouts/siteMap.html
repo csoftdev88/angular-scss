@@ -8,24 +8,24 @@
   <article grid="1" ng-show="config.menu.showNews" site-map-content="news" data-title="_news_" limit="3"></article>
 
   <article grid="1" ng-if="!user.isLoggedIn()">
-    <h3><a ui-sref="contacts">Contact</a></h3>
-    <h3 class="login"><a href ng-click="sso.login()">Login</a></h3>
-    <h3><a ui-sref="lookup">Look up a Booking</a></h3>
+    <h3><a ui-sref="contacts">_contact_</a></h3>
+    <h3 class="login"><a href ng-click="sso.login()">_login_</a></h3>
+    <h3><a ui-sref="lookup">_lookup_booking_</a></h3>
   </article>
 
   <article grid="1" ng-if="user.isLoggedIn()">
-    <h3><a href ng-click="sso.profile()">Profile</a></h3>
+    <h3><a href ng-click="sso.profile()">_profile_</a></h3>
     <ul>
       <li>
-        <a ui-sref="reservations">Reservations</a>
+        <a ui-sref="reservations">_reservations_</a>
       </li>
       <li>
-        <a ui-sref="rewards">Rewards</a>
+        <a ui-sref="rewards">_rewards_</a>
       </li>
       <li>
-        <a href ng-click="sso.logout()">Logout</a>
+        <a href ng-click="sso.logout()">_logout_</a>
       </li>
     </ul>
-    <h3><a ui-sref="contacts">Contact</a></h3>
+    <h3><a ui-sref="contacts">_contact_</a></h3>
   </article>
 </section>

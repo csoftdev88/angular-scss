@@ -8,46 +8,46 @@
 
   <contacts-page grid-row class="reservation-lookup">
     <div grid="8">
-      <h1>Find a <strong>Reservation</strong></h1>
+      <h1 ng-bind-html="'_reservation_lookup_page_title_' | mainHeaderStyle"></h1>
 
       <form name="form" ng-submit="form.$valid" ng-show="!isSent">
         <div>
-          <p>You can look up a reservation you made by entering your email address and reservation number below. You can find your reservation number on the email you recieved when you make the booking.</p>
+          <p>_reservation_lookup_page_desc_</p>
           <hr>
         </div>
 
         <form-element ng-if="!user.isLoggedIn()">
           <label for="email">
             <input type="email" id="email" required
-              placeholder="Email address"
+              placeholder="_email_placeholder_"
               ng-model="formData.fields.email" email-check
               name="email"
               ng-class="{'ng-submitted': form.$submitted && form.email.$error.required}"/>
-            <span>Email address</span>
+            <span>_email_label_</span>
           </label>
         </form-element>
 
         <form-element>
           <label for="reservation-number">
             <input type="text" id="reservation-number" required
-              placeholder="Reservation number"
+              placeholder="_reservation_number_placeholder_"
               ng-model="formData.fields.subject" ng-minlength="3"
               name="subject"
               ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>
-            <span>Reservation Number</span>
+            <span>_reservation_number_label_</span>
           </label>
         </form-element>
 
         <div>
           <label class="form-errors" ng-if="form.$invalid && form.$submitted">
-            Please fill out all the fields indicated
+            _missing_fields_message_
           </label>
         </div>
 
         <div>
-          <button-submit role="button" tabindex="0" ng-click="find()">Find Reservation</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="find()">_find_reservation_</button-submit>
         </div>
-        <div ng-show="showErrorMsg">Look up of provided reservation number failed.</div>
+        <div ng-show="showErrorMsg">_reservation_number_error_</div>
       </form>
     </div>
 

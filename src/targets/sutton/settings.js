@@ -3,6 +3,10 @@
 angular.module('mobiusApp.config', [])
 
 .constant('Settings', {
+  'currencyParamName': 'currency',
+  'defaultProductRateCode': 'Leisure Rates',
+  'defaultProductRateId': 1,
+  'authType': 'infiniti',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -29,7 +33,9 @@ angular.module('mobiusApp.config', [])
     },
     'generics': {
       'currencies': 'generics/currencies',
-      'languages': 'generics/languages'
+      'languages': 'generics/languages',
+      'titles': 'generics/titles',
+      'contactmethods': 'generics/contactmethods'
     },
     'filters': {
       'products': 'filters/products',
@@ -59,7 +65,12 @@ angular.module('mobiusApp.config', [])
       'location': 'locations/:locationCode'
     },
     'customers': {
-      'customer': 'customers/:customerId'
+      'customer': 'customers/:customerId',
+      'login':  'customers/actions/login',
+      'logout':  'customers/actions/logout',
+      'forgotPassword':  'customers/actions/forgotPassword',
+      'changePassword':  'customers/actions/changePassword',
+      'register':  'customers/'
     },
     // NOTE: Loyalties API will change - check apiary specs
     'loyalties': {
@@ -89,17 +100,12 @@ angular.module('mobiusApp.config', [])
       'my': 'customers/:customerId/rewards'
     }
   },
-
-  'currencyParamName': 'currency',
-  'defaultProductRateCode': 'Leisure Rates',
-  'defaultProductRateId': 1,
-
   'UI': {
     'generics': {
       'singleProperty': false,
-      'loyaltyProgramEnabled': true,
       'sentryID': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504',
       'facebookAppId': '954663594591416'
+      'disableMainHeaderStyle': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
@@ -118,13 +124,19 @@ angular.module('mobiusApp.config', [])
     'menu': {
       'showOffers': true,
       'showAbout': true,
-      'showNews': true,
+      'showNews': false,
       'showContact': true,
       'offerSpecificToSelectedProperty': true,
       'maxOffersCount': 7,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false
     },
+    // Social links
+    'socialLinks': [
+      {'network': 'twitter', 'link': 'https://twitter.com/SuttonPlaceHtl'},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/thesuttonplacehotels'},
+      {'network': 'instagram', 'link': 'https://instagram.com/suttonplacehotels/'}
+    ],
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
     'heroStaticContent': {
@@ -137,6 +149,7 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'hotelDetails': {
+      'chainPrefix': 'Sutton Place Hotel',
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
@@ -156,7 +169,8 @@ angular.module('mobiusApp.config', [])
 
       },
       // Cache timeout in seconds
-      'ratesCacheTimeout': 30 * 60
+      'ratesCacheTimeout': 30 * 60,
+      'showLocalInfo': true
     },
 
     'roomDetails': {
@@ -217,7 +231,7 @@ angular.module('mobiusApp.config', [])
 
       'EUR': {
         'symbol': '€',
-        'format': '{{amount}}{{symbol}}'
+        'format': '{{symbol}}{{amount}}'
       },
 
       'CAD': {
@@ -227,6 +241,7 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
+      'default': 'en-us',
       'en-us': {
         'shortName': 'EN',
         'name': 'English (US)',
@@ -246,6 +261,14 @@ angular.module('mobiusApp.config', [])
       'cs-cz': {
         'shortName': 'CZ',
         'name': 'Čeština',
+        'decimalSeparator': ',',
+        'groupSeparator': '\u00a0',
+        'groupSize': 3,
+        'neg': '-'
+      },
+      'de': {
+        'shortName': 'DE',
+        'name': 'German',
         'decimalSeparator': ',',
         'groupSeparator': '\u00a0',
         'groupSize': 3,
@@ -349,6 +372,22 @@ angular.module('mobiusApp.config', [])
       },
       'mobile': {
         'maxWidth': 768
+      }
+    },
+
+    'viewsSettings':{
+      'contacts': {
+        'formGrid': 8,
+        'hasContactDetails': true,
+        'hasMap': false
+      },
+      'hotelDetails':{
+        'hasViewMore': true,
+        'hasAmenities': true
+      },
+      'userProfile':{
+        'hasAvatar': true,
+        'hasWelcomeMessage': false
       }
     },
 

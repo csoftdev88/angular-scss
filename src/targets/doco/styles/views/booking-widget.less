@@ -1,0 +1,90 @@
+booking-widget {
+	button-submit{
+		border-radius: 2px;
+		min-width: inherit;
+		width: 15%;
+		margin-top: 33px;
+
+		.viewport-mobile & {
+			font-size: 16px;
+			height: 48px;
+    		line-height: 48px;
+    		margin-top: 2px
+		}
+	}
+}
+
+booking-widget-search,
+booking-widget-add-room {
+	form-element{
+		&:before {
+			color: #bbb
+		}
+		.viewport-mobile & {
+		  margin-bottom: 38px;
+		}
+	}
+}
+
+booking-widget-search {
+	h3:after {
+		color: #fff
+	}
+	form-element {
+		&.dates{
+			input-value{
+				width: calc(~"100% - 71px");
+			}
+		}
+
+
+		&.code-input {
+			select {
+				display: none
+			}
+
+			&.code {
+				&:before {
+					.viewport-mobile & {
+						display: inline-block;
+					}
+				}
+
+				remove-code {
+					top: 0;
+					right: 18px;
+				}
+			}
+		}
+
+		&.code {
+			remove-code {
+				.viewport-mobile & {
+					top: 10px
+				}
+			}
+		}
+	}
+}
+
+booking-widget-search form-element input,
+booking-widget-add-room form-element input,
+booking-widget-search form-element .chosen-container,
+booking-widget-add-room form-element .chosen-container,
+booking-widget-search form-element .chosen-single,
+booking-widget-add-room form-element .chosen-single,
+booking-widget-search form-element input[type=text],
+booking-widget-add-room form-element input[type=text],
+booking-widget-search form-element select,
+booking-widget-add-room form-element select,
+booking-widget-search form-element .chosen-container-single .chosen-single,
+booking-widget-add-room form-element .chosen-container-single .chosen-single {
+	border-radius: 0;
+	line-height: 26px;
+	height: 26px;
+	.viewport-mobile & {
+		//border: 1px solid #979797;
+		line-height: 48px;
+    	height: 48px;
+	}
+}

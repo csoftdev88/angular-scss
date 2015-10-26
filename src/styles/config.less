@@ -41,6 +41,8 @@
 @c-disabled:          @c-gray;
 
 @c-navbar-background: rgba(0,0,0,0.85);
+@c-navbar-content: #eee;
+
 
 //// LAYOUT ////
 ////////////////
@@ -86,6 +88,8 @@
 @tablet-portrait-max:  ~"(max-width: 999px)";
 @tablet-landscape-min: ~"(min-width: 1000px)";
 
+@small-desktop-max:  ~"(max-width: 1280px)";
+
 //// DIMENSIONS ////
 ////////////////////
 
@@ -96,6 +100,7 @@
 @radius:             4px;
 
 @headerHeight:    88px;
+@mobileHeaderHeight: floor(@headerHeight / 1.5);
 
 
 // BORDERS
@@ -116,6 +121,20 @@
 /////////////////////
 
 @fa-font-path: '../font';
+
+//// IMG PREFIX ////
+////////////////////
+@img-prefix:  '../../../images';
+
+///// Components /////
+//////////////////////
+
+// Booking widget
+@c-booking-widget: @c-brown;
+@c-booking-widget-my-account: #ebaa3d;
+
+// Date Picker
+@c-datepicker: @c-brown;
 
 
 // TODO update legacy code

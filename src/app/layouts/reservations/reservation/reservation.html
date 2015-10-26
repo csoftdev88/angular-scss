@@ -8,7 +8,9 @@
 
   <reservation-widget grid-row>
 
-    <span id="error-msg" class="alert-warning" ng-if="invalidFormData.error">{{invalidFormData.msg}}</span>
+    <span class="alert-warning" ng-if="invalidFormData">
+      _payment_not_authorized_
+    </span>
 
     <div grid-row>
       <!-- RESERVATION DETAILS -->
@@ -19,15 +21,15 @@
       </div>
       <aside grid="5">
         <section class="detail-links">
-          <a href ng-click="openPriceBreakdownInfo()">View Price Breakdown</a> | <a href ng-click="readPolicies()">Policies</a>
+          <a href ng-click="openPriceBreakdownInfo()">_view_price_breakdown_</a> | <a href ng-click="readPolicies()">_policies_</a>
         </section>
 
         <section class="room-data">
           <h4>{{property.nameLong}}</h4>
 
           <p class="desc"><strong>{{allRooms[0]._selectedProduct.name}}</strong></p>
-          <p class="price"><strong>{{getProductPricePerNight(getTotal('totalBase')) | i18nCurrency: currencyCode}}</strong> <em>per night</em></p>
-          <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} other <ng-pluralize count="allRooms.length" when="{'2': 'room', 'other': 'rooms'}"> </ng-pluralize></a></h3>
+          <p class="price"><strong>{{getProductPricePerNight(getTotal('totalBase')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+          <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} _more_ <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"> </ng-pluralize></a></h3>
 
           <div class="image-wrapper">
             <img ng-src="{{allRooms[0].images[0].uri}}" alt="{{allRooms[0].name}}">
@@ -39,15 +41,15 @@
             <table>
               <tbody>
                 <tr>
-                  <th>Check in:</th>
+                  <th>_check_in_:</th>
                   <td>{{bookingDetails.from | dateTime}}</td>
-                  <th>Adults:</th>
+                  <th>_adults_:</th>
                   <td>{{getGuestsCount('adults') || 0}}</td>
                 </tr>
                 <tr>
-                  <th>Check out:</th>
+                  <th>_check_out_:</th>
                   <td>{{bookingDetails.to | dateTime}}</td>
-                  <th>Children:</th>
+                  <th>_children_:</th>
                   <td>{{getGuestsCount('children') || 0}}</td>
                 </tr>
               </tbody>
@@ -57,29 +59,29 @@
           <div class="charges">
             <table>
               <thead ng-switch="billingDetails.paymentMethod">
-              <th>Room Charges:</th>
+              <th>_room_charges_:</th>
               <td>{{getTotal('totalBase') | i18nCurrency: currencyCode}}</td>
-              <th rowspan="3">Total:</th>
+              <th rowspan="3">_total_:</th>
               <td rowspan="3" ng-switch-when="cc">{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
-              <td rowspan="3" ng-switch-when="point">{{getTotal('pointsRequired')}} points</td>
-              <td rowspan="3" ng-switch-default>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}} or {{getTotal('pointsRequired')}} points</td>
+              <td rowspan="3" ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
+              <td rowspan="3" ng-switch-default>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
               </thead>
               <tbody>
                 <!-- Additional taxes -->
                 <tr ng-if="getTotal('totalAdditionalTaxes')">
-                  <th>Taxes:</th>
+                  <th>_taxes_:</th>
                   <td>{{getTotal('totalAfterTax') - getTotal('totalBase') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
                 <!-- Additional fees -->
                 <tr ng-if="getTotal('totalAdditionalFees')">
-                  <th>Fees:</th>
+                  <th>_fees_:</th>
                   <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
                 <!-- Discount -->
                 <tr ng-if="getTotal('totalDiscount')">
-                  <th>Discount:</th>
+                  <th>_discount_:</th>
                   <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
@@ -90,12 +92,12 @@
         <div ng-if="state.includes('reservation.confirmation')">
           <label for="agreement1" class="input-checkbox">
             <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
-            I agree to the <a href ng-click="readPolicies()">Terms and Conditions</a>
+            _i_agree_to_ <a href ng-click="readPolicies()">_terms_conditions_</a>
           </label>
 
           <label for="agreement2" class="input-checkbox">
             <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
-            I am happy to receive offer via emails
+            _receive_offer_label_
           </label>
         </diV>
         </section>
@@ -104,15 +106,15 @@
 
     <label for="agreement3" class="input-checkbox" ng-if="state.includes('reservation.details') || state.includes('reservation.billing')">
       <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
-      I agree that I am happy for the The Sutton Place Hotels to send me emails
+      _email_optin_label_
     </label>
 
     <div class="reservation-controls" grid-row>
-      <button class="back" ng-click="goBack()">Back</button>
+      <button class="back" ng-click="goBack()">_back_</button>
       <button class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">{{continueName}}</button>
       <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous()">
-        <h4>Already <strong>Registered?</strong></h4>
-        <p>Click here to <a href ng-click="sso.login()">log in or register</a>.</p>
+        <h4 ng-bind-html="'_reservation_page_loginprompt_title_' | mainHeaderStyle"></h4>
+        <p>_click_here_to_ <a href ng-click="sso.login()">_login_register_</a>.</p>
       </registration-call>
     </div>
   </reservation-widget>
