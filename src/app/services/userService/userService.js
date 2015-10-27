@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.user', [])
   .service('user', function($rootScope, $q, $window, $state,
-    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout) {
+    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout, stateService) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = Settings.authType === 'mobius' ? 'mobius-authentication' : 'MobiusID';
@@ -76,6 +76,7 @@ angular.module('mobiusApp.services.user', [])
 
     function storeUserLanguage(lang) {
       localStorage.mobiusLanguagecode = lang;
+      userObject.languageCode = lang;
     }
 
     function getUserLanguage() {
@@ -115,6 +116,7 @@ angular.module('mobiusApp.services.user', [])
 
           userObject = _.extend(userObject, userData);
           userObject.avatarUrl = userObject.avatarUrl || '/static/images/v4/img-profile.png';
+          userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
 
           $timeout(function(){
             $rootScope.$broadcast('USER_LOGIN_EVENT');

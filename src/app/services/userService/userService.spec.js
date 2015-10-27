@@ -26,6 +26,16 @@ describe('userService', function() {
         }
       });
 
+      $provide.value('stateService', {
+        getAppLanguageCode: function(){
+          return {
+            then: function(c){
+              c();
+            }
+          };
+        }
+      });
+
       $provide.value('Settings', {
         authType: 'infiniti'
       });

@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.profile', [])
 
-  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout){
+  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _){
 
     breadcrumbsService.addBreadCrumb('Profile');
 
@@ -25,13 +25,13 @@ angular.module('mobius.controllers.profile', [])
 		$scope.update = function(form, profileData){
 			form.$submitted = true;
 		  if(form.$valid){
-				//delete profileData.id;
-				//delete profileData.token;
-				//TODO: strip all null values from payload as well as id/token
-		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), profileData).then(function(response){
+				var data = _.omit(profileData, _.isNull);
+				data = _.omit(data, ['id','token','email']);
+				
+		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
 		      clearErrorMsg();
-		      user.updateUser(response);
-		      setErrorMsg('Thanks you, your profile has been updated', 'success');
+		      userObject = _.extend(userObject, data);
+		      setErrorMsg('Thank you, your profile has been updated', 'success');
 		    }, function(){
 		      //TODO: Move into locale
 		      setErrorMsg('Sorry, there was an error, please try again', 'error');
