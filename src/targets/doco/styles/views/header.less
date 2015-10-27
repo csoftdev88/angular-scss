@@ -36,6 +36,39 @@
         font-size: 5px
       }
     }
+    li{
+      &.desktop-profile {
+        .profile {
+          margin-top: 29px;
+          .message {
+            span {
+              font-size: @size--3;
+              text-transform: none;
+            }
+          }
+          .user {
+            margin-top: -5px;
+            &:after{
+              content: '▼';
+              color: #fff;
+              background: none;
+              font-size: 5px;
+              margin: 0;
+              position: absolute;
+              right: 25px;
+              top: -4px;
+            }
+            span{
+              display: inline;
+              font-family: @ff-default;
+              font-size: @size--2;
+              text-transform: none;
+            }
+          }
+        }
+      }
+    }
+
   }
 	.button-login{
 		border-radius: 2px;
