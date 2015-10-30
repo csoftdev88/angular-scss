@@ -274,6 +274,13 @@ angular
         controller: 'OffersCtrl'
       })
 
+      .state('propertyOffers', {
+        parent: 'root',
+        templateUrl: 'layouts/offers/offers.html',
+        url: '/hotels/:propertySlug/offers/:code',
+        controller: 'OffersCtrl'
+      })
+
       // Rewards page
       .state('rewards', {
         parent: 'root',

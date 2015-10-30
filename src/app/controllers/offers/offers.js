@@ -35,15 +35,25 @@ angular.module('mobius.controllers.offers', [])
       }
 
       if($stateParams.property){
-        offers = _.filter(offers, function(f){
-          return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length;
-        });
 
-        $scope.offersList = _.sortBy(offers, 'prio').reverse();
-
-        if ($stateParams.code) {
-          selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+        if($state.current.name !== 'propertyOffers'){
+          propertyService.getAll().then(function(properties){
+            var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+            $state.go('propertyOffers', {propertySlug: property.meta.slug, code: $stateParams.code});
+          });
         }
+        else{
+          offers = _.filter(offers, function(f){
+            return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length;
+          });
+
+          $scope.offersList = _.sortBy(offers, 'prio').reverse();
+
+          if ($stateParams.code) {
+            selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+          }
+        }
+
       }else{
         // Displaying the offers available on all the properties
         propertyService.getAll().then(function(properties){
