@@ -135,7 +135,7 @@ module.exports = function(grunt) {
     concat: {
       compileJS: {
         src: buildConfig.config.vendor_files.js.concat([
-          'build/app/**/*.js', '!build/app/**/*.spec.js'
+          'build/app/**/*.js', 'build/targets/**/*.js', '!build/app/**/*.spec.js'
         ]),
         dest: '<%= config.compile %>/app/<%= pkg.name %>-<%= pkg.version %>.js'
       }

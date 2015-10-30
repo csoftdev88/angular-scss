@@ -92,7 +92,7 @@ learn more:
 
 ### Production
 1. Follow instalation steps 1-4 described above.
-2. Run `grunt build --tenant=sutton` to build the app using "sutton" as target.
+2. Run `grunt production --tenant=sutton` to build the app using "sutton" as target.
 3. Run `NODE_ENV=production node server.js --tenant=sutton`
 
 In case the application needs to run on a different port append `port=xxxx` eg `port=9090` to the start command.
