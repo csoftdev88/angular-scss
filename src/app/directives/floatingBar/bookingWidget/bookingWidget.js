@@ -339,6 +339,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             code: region.code
           });
         }
+        else{
+          scope.regionPropertySelected = scope.propertyRegionList[0];
+        }
       }
 
       scope.checkAvailability = function() {
