@@ -1,6 +1,6 @@
 <section grid-row>
     <div grid="{{(hasViewMore)?8:12}}">
-        <p ng-bind-html="sanitize(details.description)" markdown-text-parser></p>
+        <p ng-bind-html="details.description" markdown-text-parser></p>
     </div>
 
     <view-more-images grid="4" ng-if="hasViewMore">
