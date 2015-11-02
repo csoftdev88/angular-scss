@@ -26,8 +26,10 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
         });
         //add target blank to links if not linking to current host
         var host = $location.host();
+        console.log('host: ' + host);
         angular.element($element).find('a').each(function(){
           var href = angular.element(this).attr('href');
+          console.log('href: ' + href);
           if(href.indexOf(host) === -1 && href.indexOf('http') !== -1){
             angular.element(this).attr('target', '_blank');
           }
