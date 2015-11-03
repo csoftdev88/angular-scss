@@ -340,12 +340,9 @@ angular.module('mobius.controllers.reservation', [])
     switch ($state.current.name) {
     case 'reservation.details':
 
-
       if($scope.forms.details && !$scope.forms.details.$submitted){
         $scope.forms.details.$submitted = true;
       }
-
-      console.log('$scope.isValid(): ' +  $scope.isValid());
 
       if($scope.isValid()){
         $state.go('reservation.billing');
@@ -671,6 +668,12 @@ angular.module('mobius.controllers.reservation', [])
     if($scope.allRooms && $scope.allRooms.length){
       modalService.openPriceBreakdownInfo($scope.allRooms);
     }
+  };
+
+  $scope.countryPhoneChanged = function(){
+    var countryCode = $('#telephone').intlTelInput('getSelectedCountryData').iso2;
+    $scope.defaultCountryCode = countryCode;
+    console.log($scope.defaultCountryCode);
   };
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');

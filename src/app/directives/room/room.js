@@ -187,12 +187,16 @@ angular.module('mobiusApp.directives.room', [])
       // Checking if user have selected dates
       if(!bookingParams.from || !bookingParams.to){
         // Dates are not yet selected
+        scope.hasDates = false;
         scope.selectDates = function(){
           $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
             openDatePicker: true,
             promoCode: $stateParams.code
           });
         };
+      }
+      else{
+        scope.hasDates = true;
       }
 
       scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;

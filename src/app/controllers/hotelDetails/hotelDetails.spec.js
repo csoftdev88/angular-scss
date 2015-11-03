@@ -181,7 +181,8 @@ describe('mobius.controllers.hotel.details', function() {
       });
 
       it('should download hotel details from the server with BAR id', function() {
-        expect(_spyPropertyServiceGetPropertyDetails).to.be.calledOnce;
+        expect(_spyPropertyServiceGetPropertyDetails).to.be.calledTwice;
+        expect(_spyPropertyServiceGetPropertyDetails.calledWith('123')).equal(true);
         expect(_spyPropertyServiceGetPropertyDetails
             .calledWith('123', {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertySlug: 'hotel-123'})
         ).equal(true);

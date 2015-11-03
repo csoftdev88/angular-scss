@@ -66,6 +66,12 @@ angular.module('mobius.controllers.hotel.details', [
     }, 0);
   };
 
+  //Getting raw property details to display property desc etc...fast
+  //TODO: oragnise some sort of cache system
+  propertyService.getPropertyDetails(propertyCode).then(function(details){
+    $scope.details = details;
+  });
+
   function getHotelDetails(propertyCode, params){
     // NOTE: In case when productGroupId is not presented in
     // bookingParams - property details are returned without

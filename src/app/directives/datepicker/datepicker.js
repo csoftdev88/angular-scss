@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function($window, $filter) {
+.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -111,6 +111,11 @@ angular.module('mobiusApp.directives.datepicker', [])
               !isSelected(date),
               getDateClass( date )
             ];
+          },
+          onChangeMonthYear:function(y, m, i){                    
+            $timeout(function(){
+              $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
+            });
           },
 
           beforeShow: beforeShow,
