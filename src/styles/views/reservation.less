@@ -696,19 +696,36 @@ reservation-confirmation {
   }
 
   // Tables containing recapitulation of filled data
-  th, td {
-    padding: 5px;
-    vertical-align: top;
-  }
+  table{
+    tr{
+      th, td {
+        padding: 5px;
+        vertical-align: top;
+      }
 
-  th {
-    width: 33%;
-    text-align: left;
-    font-weight: 400;
-  }
+      th {
+        width: 33%;
+        text-align: left;
+        font-weight: 400;
+      }
 
-  td {
-    font-weight: 600;
+      td {
+        font-weight: 600;
+      }
+
+      @media only screen and @small-mobile-max {
+        display: block;
+        margin-bottom: 10px;
+        th,
+        td{
+          padding: 0;
+        }
+        th{
+          width: 100%;
+          display: block;
+        }
+      }
+    }
   }
 }
 

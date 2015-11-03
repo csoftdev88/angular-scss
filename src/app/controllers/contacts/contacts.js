@@ -62,9 +62,17 @@ angular.module('mobius.controllers.contacts', [])
           $scope.form.$setPristine();
           $scope.showErrorMsg = false;
           $scope.isSent = true;
+          scrollToDetails('message-sent');
         }, function () {
           $scope.showErrorMsg = true;
         });
       }
     };
+
+    function scrollToDetails(target) {
+      $timeout(function(){
+        scrollService.scrollTo(target, 20);
+      }, 100);
+    }
+
   });
