@@ -63,6 +63,8 @@ describe('mobius.controllers.contacts', function() {
           getChain: sinon.stub()
         });
 
+        $provide.value('scrollService', {scrollTo: function(){}});
+
         $provide.value('propertyService', {
             getAll: function(){
               return {
@@ -114,8 +116,6 @@ describe('mobius.controllers.contacts', function() {
         $provide.value('$location', {
           absUrl: sinon.stub()
         });
-
-        $provide.value('scrollService', {});
 
         $controllerProvider.register('MainCtrl', function($scope){
           $scope._mainCtrlInherited = true;

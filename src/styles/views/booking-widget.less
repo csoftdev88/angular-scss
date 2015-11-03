@@ -73,31 +73,30 @@ booking-widget-add-room form-element {
   }
 
   // icons
-  &:before {
+  .chosen-single:before,
+  &.dates:before {
     .fa;
 
     position: absolute;
     top: 50%;
+    left: 0;
     z-index: 10;
-
     width: @baseline * 1.5;
-
     color: darken(@c-booking-widget, 25%);
-
     font-size: @size-2;
     text-align: center;
-
     transform: translateY(-50%);
     -webkit-transform:translateY(-50%);
     vertical-align:top;
+    text-indent: 0;
   }
 
-    &.hotel:before   { content: @fa-var-map-marker; }
-    &.persons:before { content: @fa-var-user; }
-    &.children:before { content: @fa-var-child; }
+    &.hotel .chosen-single:before   { content: @fa-var-map-marker; }
+    &.persons .chosen-single:before { content: @fa-var-user; }
+    &.children .chosen-single:before { content: @fa-var-child; }
     &.dates:before   { content: @fa-var-calendar-o; }
-    &.rate:before    { content: @fa-var-suitcase; }
-    &.code:before    { content: @fa-var-tag; }
+    &.rate .chosen-single:before    { content: @fa-var-suitcase; }
+    &.code .chosen-single:before    { content: @fa-var-tag; }
 
   &.disabled-hotel:before {
     color: #999;
