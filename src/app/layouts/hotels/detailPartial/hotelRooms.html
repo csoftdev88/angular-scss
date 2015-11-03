@@ -81,11 +81,18 @@
               <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom">{{viewRatesButtonText}}</button>
               -->
 
-              <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates">_view_rates_</button>
+              <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates && (!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom)">_view_rates_</button>
+              <div class="not-available" ng-if="!room._displayRates && (availableRooms || availableRooms.indexOf(room.code) == -1 && !room.priceFrom)">
+                <p>_not_available_on_dates_title_</p>
+              </div>
             </div>
 
             <p class="our-rates">_our_rates_</p>
           </room-details>
+
+          <div class="not-available" ng-if="!room._displayRates && (availableRooms || availableRooms.indexOf(room.code) == -1 && !room.priceFrom)">
+            <p>_not_available_on_dates_title_</p>
+          </div>
 
 
           <room-products ng-if="details && room._displayRates">
