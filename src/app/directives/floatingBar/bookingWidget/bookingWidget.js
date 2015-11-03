@@ -38,6 +38,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
+      scope.curDatePickerMonthDates = null;
 
       // URL parameters and their settings
       var PARAM_TYPES = {
@@ -344,15 +345,27 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       }
 
+      $rootScope.$on('DATE_PICKER_MONTH_CHANGED', function(e, data){
+        var year = data.selectedYear;
+        var month = (parseInt(data.selectedMonth, 10) + 1).toString();
+        month = month.length === 1 ? '0' + month : month;
+        var fromDay = '01';
+        var toDay = '02';
+        var from = year + '-' + month + '-' + fromDay;
+        var to = year + '-' + month + '-' + toDay;
+        scope.curDatePickerMonthDates = from + ' ' + to;
+        scope.checkAvailability();
+      });
+
       scope.checkAvailability = function() {
-        var dates = bookingService.datesFromString(scope.selected.dates);
+        var dates = bookingService.datesFromString(scope.curDatePickerMonthDates || scope.selected.dates);
         if (!scope.selected.property || !dates || !scope.selected.adults) {
           scope.availability = null;
           return;
         }
 
         var code = scope.selected.property.code || scope.selected.property;
-
+        
         var params = {
           from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
           to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
