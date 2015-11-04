@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout) {
 
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
 
@@ -160,6 +160,12 @@ angular.module('mobius.controllers.main', [])
           $('.login-dialog-overlay').appendTo($('.main-nav'));
         }
       });
+      
+      $scope.openMobileMenu = function(){
+        $timeout(function(){
+          document.body.classList.add('mobile-menu-active');
+        }, 500);
+      };
 
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
