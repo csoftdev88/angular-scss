@@ -190,6 +190,7 @@ angular.module('mobiusApp.directives.room', [])
         scope.hasDates = false;
         scope.selectDates = function(){
           $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+            openBookingTab: true,
             openDatePicker: true,
             promoCode: $stateParams.code
           });
