@@ -29,7 +29,8 @@ floating-bar {
 					.viewport-mobile & {
 						border-bottom: 1px solid #2d8e3a;
 						margin: 20px 20px 0;
-				    padding: 0;
+				    	padding: 0;
+				    	height: auto;
 					}
 
 					.mobile div.book-now-button {
@@ -37,6 +38,16 @@ floating-bar {
 							font-size:16px;
 							border-radius: 2px;
 							line-height: 48px;
+						}
+					}
+					.mobile div.search-params-bar {
+						width: 100%
+					}
+					.mobile div {
+						.viewport-mobile & {
+							line-height: 48px;
+							vertical-align: inherit;
+							display: inline-block;
 						}
 					}
 				}
