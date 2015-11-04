@@ -20,10 +20,56 @@ booking-widget-add-room {
 		&:before {
 			color: #bbb
 		}
+
+		input,
+		.chosen-container,
+		.chosen-single,
+		input[type=text],
+		select,
+		 .chosen-container-single .chosen-single {
+		 	border-radius: 0;
+			line-height: 26px;
+			height: 26px;
+			.viewport-mobile & {
+				//border: 1px solid #979797;
+				line-height: 48px;
+		    	height: 48px;
+			}
+		 }
+
+
 		.viewport-mobile & {
 		  margin-bottom: 38px;
 		}
+		// icons
+		&.hotel:before,
+    	&.persons:before,
+    	&.children:before,
+    	&.rate:before,
+    	&.code:before {
+			.fa;
+
+			position: absolute;
+			top: 50%;
+			left: 0;
+			z-index: 10;
+			width: @baseline * 1.5;
+			color: darken(@c-booking-widget, 25%);
+			font-size: @size-2;
+			text-align: center;
+			transform: translateY(-50%);
+			-webkit-transform:translateY(-50%);
+			vertical-align:top;
+			text-indent: 0;
+		}
+
+		&.hotel:before   { content: @fa-var-map-marker; }
+		&.persons:before { content: @fa-var-user; }
+		&.children:before { content: @fa-var-child; }
+		&.rate:before    { content: @fa-var-suitcase; }
+		&.code:before    { content: @fa-var-tag; }
 	}
+
 }
 
 booking-widget-search {
@@ -64,27 +110,5 @@ booking-widget-search {
 				}
 			}
 		}
-	}
-}
-
-booking-widget-search form-element input,
-booking-widget-add-room form-element input,
-booking-widget-search form-element .chosen-container,
-booking-widget-add-room form-element .chosen-container,
-booking-widget-search form-element .chosen-single,
-booking-widget-add-room form-element .chosen-single,
-booking-widget-search form-element input[type=text],
-booking-widget-add-room form-element input[type=text],
-booking-widget-search form-element select,
-booking-widget-add-room form-element select,
-booking-widget-search form-element .chosen-container-single .chosen-single,
-booking-widget-add-room form-element .chosen-container-single .chosen-single {
-	border-radius: 0;
-	line-height: 26px;
-	height: 26px;
-	.viewport-mobile & {
-		//border: 1px solid #979797;
-		line-height: 48px;
-    	height: 48px;
 	}
 }
