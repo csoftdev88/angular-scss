@@ -144,10 +144,5 @@ describe('myAccount', function() {
     });
   });
 
-  describe('when destroyed', function(){
-    it('should not throw errors', function(){
-      _scope.$broadcast('$destroy');
-      _scope.$digest();
-    });
-  });
+  
 });
