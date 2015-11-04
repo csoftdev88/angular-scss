@@ -90,6 +90,7 @@ angular.module('mobiusApp.directives.menu', [])
       items = elem.find('li').map(bindHandlers);
 
       function closeAll(){
+        console.log('closeAll');
         document.body.classList.remove('mobile-menu-active');
         items.each(function(i, $item){ $item.close(); });
       }

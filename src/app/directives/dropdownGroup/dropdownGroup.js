@@ -83,6 +83,8 @@ angular.module('mobiusApp.directives.dropdown.group', [])
       items = elem.children().map(bindHandlers);
 
       function closeAll(){
+        console.log('dropdownGroup');
+        document.body.classList.remove('mobile-menu-active');
         items.each(function(i, $item){ $item.close(); });
       }
 
