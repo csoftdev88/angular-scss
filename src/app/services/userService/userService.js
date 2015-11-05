@@ -72,6 +72,7 @@ angular.module('mobiusApp.services.user', [])
     function clearStoredUser() {
       localStorage.removeItem('mobiusId');
       localStorage.removeItem('mobiusToken');
+      console.log(localStorage.mobiusToken);
     }
 
     function storeUserLanguage(lang) {
@@ -187,7 +188,7 @@ angular.module('mobiusApp.services.user', [])
       clearStoredUser();
 
       authPromise = $q.defer().promise;
-      
+
       $timeout(function(){
         $rootScope.$broadcast('USER_LOGIN_EVENT');
       });
