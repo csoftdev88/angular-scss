@@ -5,7 +5,7 @@ angular.module('mobiusApp.config', [])
 .constant('Settings', {
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
-  'defaultProductRateId': 1,
+  'defaultProductRateId': 9,
   'authType': 'mobius',
   'API': {
     'defaultThrottleTimeout': 30,
@@ -218,7 +218,7 @@ angular.module('mobiusApp.config', [])
     },
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'GBP',
+      'default': 'EUR',
 
       'GBP': {
         'symbol': '£',
