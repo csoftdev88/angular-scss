@@ -46,7 +46,7 @@ angular.module('mobius.controllers.common.sso', [])
           headersObj['mobius-authentication'] = undefined;
           apiService.setHeaders(headersObj);
           apiService.post(apiService.getFullURL('customers.login'), loginData).then(function(data){
-            $scope.showLoginDialog = false;
+            $rootScope.showLoginDialog = false;
             clearErrorMsg();
             userObject.id = data.id;
             user.storeUserId(data.id);
