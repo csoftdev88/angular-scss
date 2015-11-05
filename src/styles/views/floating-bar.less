@@ -29,6 +29,17 @@ floating-bar {
    display: none;
   }
 
+  &.active {
+    > ul li {
+      &.floating-bar--tab-booking.mobile-single-booking,
+      &.floating-bar--tab-advanced-booking {
+        .viewport-mobile & {
+          display: block;
+        }
+      }
+    }
+  }
+
   &.my-account {
     background: #ebaa3d;
     .sign-up{
