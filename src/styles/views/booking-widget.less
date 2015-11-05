@@ -74,9 +74,9 @@ booking-widget-add-room form-element {
 
   // icons
   .chosen-single:before,
-  &.dates:before {
+  &:before {
     .fa;
-
+    content: none;
     position: absolute;
     top: 50%;
     left: 0;
@@ -91,12 +91,26 @@ booking-widget-add-room form-element {
     text-indent: 0;
   }
 
-    &.hotel .chosen-single:before   { content: @fa-var-map-marker; }
-    &.persons .chosen-single:before { content: @fa-var-user; }
-    &.children .chosen-single:before { content: @fa-var-child; }
-    &.dates:before   { content: @fa-var-calendar-o; }
-    &.rate .chosen-single:before    { content: @fa-var-suitcase; }
-    &.code .chosen-single:before    { content: @fa-var-tag; }
+  &.hotel .chosen-single:before   { content: @fa-var-map-marker; }
+  &.persons .chosen-single:before { content: @fa-var-user; }
+  &.children .chosen-single:before { content: @fa-var-child; }
+  &.dates:before   { content: @fa-var-calendar-o; }
+  &.rate .chosen-single:before    { content: @fa-var-suitcase; }
+  &.code .chosen-single:before    { content: @fa-var-tag; }
+
+  .viewport-mobile &{
+    &.hotel .chosen-single:before   { content: none; }
+    &.persons .chosen-single:before { content: none; }
+    &.children .chosen-single:before { content: none; }
+    &.rate .chosen-single:before    { content: none; }
+    &.code .chosen-single:before    { content: none; }
+
+    &.hotel:before   { content: @fa-var-map-marker; }
+    &.persons:before { content: @fa-var-user; }
+    &.children:before { content: @fa-var-child; }
+    &.rate:before    { content: @fa-var-suitcase; }
+    &.code:before    { content: @fa-var-tag; }
+  }
 
   &.disabled-hotel:before {
     color: #999;
