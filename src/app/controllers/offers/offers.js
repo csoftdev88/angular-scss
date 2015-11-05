@@ -29,10 +29,7 @@ angular.module('mobius.controllers.offers', [])
 
     contentService.getOffers().then(function(offers) {
 
-      if(Settings.UI.generics.singleProperty){
-        $scope.offersList = _.sortBy(offers, 'prio').reverse();
-        return;
-      }
+
 
       if($stateParams.property){
 
@@ -55,6 +52,15 @@ angular.module('mobius.controllers.offers', [])
         }
 
       }else{
+
+        if(Settings.UI.generics.singleProperty){
+          $scope.offersList = _.sortBy(offers, 'prio').reverse();
+          if ($stateParams.code) {
+            selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+          }
+          return;
+        }
+
         // Displaying the offers available on all the properties
         propertyService.getAll().then(function(properties){
           var propertyCodes = _.pluck(properties, 'code');
