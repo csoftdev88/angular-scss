@@ -89,6 +89,10 @@ angular.module('mobiusApp.services.user', [])
 
       //We need token to load mobius profile
       if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
+        // Logged in as anonymous
+        if(authPromise){
+          authPromise.resolve(false);
+        }
         return;
       }
 
