@@ -186,15 +186,11 @@ angular.module('mobiusApp.services.user', [])
 
       clearStoredUser();
 
-      apiService.get(apiService.getFullURL('customers.logout')).then(function(){
-      }, function(){
-      });
-
+      authPromise = $q.defer().promise;
+      
       $timeout(function(){
         $rootScope.$broadcast('USER_LOGIN_EVENT');
       });
-
-      authPromise = $q.defer().promise;
     }
 
     function initSSOListeners(){
