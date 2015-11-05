@@ -72,10 +72,11 @@ angular.module('mobius.controllers.reservation', [])
 
     // Updating users data
     prefillUserDetails(isMobiusUser ? user.getUser():{email:$stateParams.email});
+    scrollToDetails('reservationDetailsForm');
 
     // Showing login/register dialog when user making reservation as not logged in
-    // user. This doesn't apply for modifications
-    if(!isMobiusUser && !$scope.isModifyingAsAnonymous()){
+    // user. This doesn't apply for modifications or if loyalty program is disbaled
+    if(!isMobiusUser && !$scope.isModifyingAsAnonymous() && Settings.authType === 'infiniti'){
       modalService.openLoginDialog();
     }else if($scope.isModifyingAsAnonymous()){
       var reservationParams = {
