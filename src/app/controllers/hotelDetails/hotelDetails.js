@@ -17,6 +17,7 @@ angular.module('mobius.controllers.hotel.details', [
   // Set grid based on settings:
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasAmenities;
+  $scope.ratesLoaded = false;
 
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;
@@ -135,6 +136,7 @@ angular.module('mobius.controllers.hotel.details', [
                 $scope.availableRooms.push(room.code);
               }
             });
+            $scope.ratesLoaded = true;
           });
         }
 
