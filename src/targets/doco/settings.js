@@ -487,10 +487,6 @@ angular.module('mobiusApp.config', [])
     'forms': {
       'contactSubjects': [
         {
-          key: 'Prestige and Loyalty',
-          value: 'Prestige and Loyalty'
-        },
-        {
           key: 'My Reservation',
           value: 'My Reservation'
         },
