@@ -577,9 +577,9 @@ angular.module('mobius.controllers.reservation', [])
       else{
         $state.go('reservationDetail', reservationDetailsParams);
       }
-      
 
-      
+
+
     }, function(data) {
       // TODO: Whaat request has failed
       //Apparently soap reason is not reliable so checking against msg
