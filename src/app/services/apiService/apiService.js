@@ -2,26 +2,53 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject) {
+.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory) {
   var headers = Settings.API.headers;
+  var appCache = $cacheFactory('appCache');
 
   function get(url, params) {
     var q = $q.defer();
-    $http({
-      method: 'GET',
-      url: url,
-      headers: headers,
-      params: params
-    }).success(function(res, status, headers) {
-      if(Settings.authType === 'mobius' && headers('mobius-authentication')){
-        updateMobiusAuthHeader(headers('mobius-authentication'));
-      }
-      q.resolve(res);
+    var canCache = !params || Object.keys(params).length === 0;
+    
+    if (canCache && angular.isUndefined(appCache.get(url))) {
+      //console.log('canCache and not cached: ' + url);
+      $http({
+        method: 'GET',
+        url: url,
+        headers: headers,
+        params: params
+      }).success(function(res, status, headers) {
+        if(Settings.authType === 'mobius' && headers('mobius-authentication')){
+          updateMobiusAuthHeader(headers('mobius-authentication'));
+        }
+        appCache.put(url, res);
+        q.resolve(res);
 
-    }).error(function(err) {
-      q.reject(err);
-    });
+      }).error(function(err) {
+        q.reject(err);
+      });
+    }
+    else if(canCache && angular.isDefined(appCache.get(url))){
+      //console.log('canCache: ' + url + ' and cached: ' + angular.toJson(appCache.get(url)));
+      q.resolve(appCache.get(url));
+    }
+    else{
+      //console.log('cannot cache: ' + url);
+      $http({
+        method: 'GET',
+        url: url,
+        headers: headers,
+        params: params
+      }).success(function(res, status, headers) {
+        if(Settings.authType === 'mobius' && headers('mobius-authentication')){
+          updateMobiusAuthHeader(headers('mobius-authentication'));
+        }
+        q.resolve(res);
 
+      }).error(function(err) {
+        q.reject(err);
+      });
+    }
     return q.promise;
   }
 
