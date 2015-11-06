@@ -30,6 +30,7 @@ angular.module('mobiusApp.services.api', [])
     }
     else if(canCache && angular.isDefined(appCache.get(url))){
       //console.log('canCache: ' + url + ' and cached: ' + angular.toJson(appCache.get(url)));
+      //console.log('cached: ' + url);
       q.resolve(appCache.get(url));
     }
     else{
