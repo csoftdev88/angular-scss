@@ -26,7 +26,6 @@ angular.module('mobius.controllers.reservation', [])
     state: $state.fromState,
     params: $state.fromParams
   };
-
   function onAuthorized(isMobiusUser){
     // Getting room/products data
     //

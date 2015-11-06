@@ -37,6 +37,13 @@ hotel-room {
         &:last-of-type {
           border-bottom: none;
         }
+        @media only screen and @tablet-portrait-min {
+          float: none;
+          display: inline-block;
+          box-sizing: border-box;
+          width: 50%;
+          padding: 10px;
+        }
       }
     }
   }
