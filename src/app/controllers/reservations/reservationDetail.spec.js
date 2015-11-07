@@ -54,6 +54,8 @@ describe('mobius.controllers.reservationDetail', function() {
       }
     ];
 
+    var TEST_USER = {id: 123};
+
     beforeEach(function() {
       module('mobius.controllers.room.details');
       module('mobiusApp.factories.preloader');
@@ -63,6 +65,8 @@ describe('mobius.controllers.reservationDetail', function() {
           reservationCode: TEST_RESERVATION_CODE,
           view: 'summary'
         });
+
+        $provide.value('userObject', TEST_USER);
 
         $provide.value('modalService', {
           openPoliciesInfo: function() {

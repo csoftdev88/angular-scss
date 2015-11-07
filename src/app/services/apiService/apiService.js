@@ -86,7 +86,7 @@ angular.module('mobiusApp.services.api', [])
       data: data,
       params: params
     }).success(function(res, status, headers) {
-      if(Settings.authType === 'mobius' && headers('mobius-authentication')){
+      if(Settings.authType === 'mobius' && headers('mobius-authentication') && userObject.id){
         updateMobiusAuthHeader(headers('mobius-authentication'));
       }
       q.resolve(res);
@@ -129,7 +129,6 @@ angular.module('mobiusApp.services.api', [])
     headersObj['mobius-authentication'] = val;
     setHeaders(headersObj);
     userObject.token = val;
-    //localStorage.mobiusToken = val;
   }
 
   var cache = {};

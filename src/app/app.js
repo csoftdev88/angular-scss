@@ -356,7 +356,7 @@ angular
   .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
 
 
-    //temporary to clear local storage items
+    //temporary to clear local storage items set by previous functionality
     localStorage.removeItem('mobiusId');
     localStorage.removeItem('mobiusToken');
 
@@ -401,6 +401,7 @@ angular
     });
 
     //Let's get property slug if single property and save it to settings for future use
+    //TODO: this may not be needed as http://laval.mobiuswebservices.com/api/4.0/properties?propertySlug=slug-lbh doesn't actually need the propertySlug param, needs to be removed from requests
     if(Settings.UI.generics.singleProperty){
       if(!Settings.API.propertySlug){
         propertyService.getAll().then(function(properties){

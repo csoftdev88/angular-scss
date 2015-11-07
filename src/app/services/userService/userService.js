@@ -112,6 +112,7 @@ angular.module('mobiusApp.services.user', [])
           });
 
           // Logged in as mobius user
+          console.log('profile loaded: ' + angular.toJson(authPromise));
           if(authPromise){
             authPromise.resolve(true);
           }
@@ -198,8 +199,13 @@ angular.module('mobiusApp.services.user', [])
       });
     }
 
-    initSSOListeners();
-
+    if(Settings.authType === 'infiniti'){
+      initSSOListeners();
+    }
+    else{
+      loadProfile();
+    }
+    
     return {
       isLoggedIn: function() {
         return hasSSOCookies() && isProfileLoaded();

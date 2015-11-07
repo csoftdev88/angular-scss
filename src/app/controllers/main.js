@@ -132,9 +132,12 @@ angular.module('mobius.controllers.main', [])
       $scope.user = user;
       $scope.isUserLoggedIn = user.isLoggedIn;
 
+      //this should be no longer needed as we don't storae user token to localStorage anymore
+      /*
       if(Settings.authType === 'mobius'){
         user.loadProfile();
       }
+      */
 
       $scope.$on('USER_LOGIN_EVENT', function(){
         $scope.isUserLoggedIn = user.isLoggedIn;

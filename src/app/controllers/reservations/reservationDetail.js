@@ -10,7 +10,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-    metaInformationService, dataLayerService, Settings){
+    metaInformationService, dataLayerService, Settings, userObject){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -32,7 +32,7 @@ angular.module('mobius.controllers.reservationDetail', [])
     function onAuthorized(isMobiusUser) {
       var params;
 
-      if(!isMobiusUser){
+      if(!isMobiusUser && !userObject.token){
         // Logged in as anonymous user - checking if there is an email flag in URL
         if(!$stateParams.email){
           // Email is not defined in the URL - redirecting back to home page

@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject){
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
@@ -33,6 +33,7 @@ angular.module('mobius.controllers.reservation', [])
   };
   
   function onAuthorized(isMobiusUser){
+    console.log('onAuthorized: ' + isMobiusUser);
     // Getting room/products data
     //
     var roomsPromises = [];
@@ -76,7 +77,7 @@ angular.module('mobius.controllers.reservation', [])
     }, goToRoom));
 
     // Updating users data
-    prefillUserDetails(isMobiusUser ? user.getUser():{email:$stateParams.email});
+    prefillUserDetails(isMobiusUser || userObject.token ? user.getUser():{email:$stateParams.email});
     scrollToDetails('reservationDetailsForm');
 
     // Showing login/register dialog when user making reservation as not logged in
@@ -529,7 +530,6 @@ angular.module('mobius.controllers.reservation', [])
       userMessagesService.addMessage('' +
         '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
         '<div class="small">A confirmation email will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>');
-
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
         // Removing reservation code when booking modification is complete
@@ -559,12 +559,10 @@ angular.module('mobius.controllers.reservation', [])
           price: p.price.totalBase
         };
       });
-
       dataLayerService.trackProductsPurchase(products, {
         // Transaction ID
         id: reservationDetailsParams.reservationCode
       });
-
       $state.go('reservationDetail', reservationDetailsParams);
 
       //creating anon user account
