@@ -129,7 +129,7 @@ angular.module('mobiusApp.services.api', [])
     headersObj['mobius-authentication'] = val;
     setHeaders(headersObj);
     userObject.token = val;
-    localStorage.mobiusToken = val;
+    //localStorage.mobiusToken = val;
   }
 
   var cache = {};

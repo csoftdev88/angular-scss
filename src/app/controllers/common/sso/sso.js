@@ -49,7 +49,7 @@ angular.module('mobius.controllers.common.sso', [])
             $rootScope.showLoginDialog = false;
             clearErrorMsg();
             userObject.id = data.id;
-            user.storeUserId(data.id);
+            //user.storeUserId(data.id);
             user.loadProfile();
           }, function(){
             //TODO: Move into locale

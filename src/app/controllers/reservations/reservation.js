@@ -551,7 +551,12 @@ angular.module('mobius.controllers.reservation', [])
         id: reservationDetailsParams.reservationCode
       });
 
+      $state.go('reservationDetail', reservationDetailsParams);
+
       //creating anon user account
+      //NOTE: removing that for now as REST returning 500, part of reservation refactoring anyway
+      //TODO: Generally we want to save every aspect of the reservation data including guest/billing/user details so these can be prefilled when modifying
+      /*
       if(!user.isLoggedIn()){
         var anonUserData = {
           firstName: $scope.userDetails.firstName,
@@ -577,6 +582,7 @@ angular.module('mobius.controllers.reservation', [])
       else{
         $state.go('reservationDetail', reservationDetailsParams);
       }
+      */
 
 
 

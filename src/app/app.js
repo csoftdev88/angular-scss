@@ -355,6 +355,11 @@ angular
 
   .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
 
+
+    //temporary to clear local storage items
+    localStorage.removeItem('mobiusId');
+    localStorage.removeItem('mobiusToken');
+
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       $state.fromState = fromState;
       $state.fromParams = fromParams;

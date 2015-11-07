@@ -35,7 +35,7 @@ angular.module('mobiusApp.services.user', [])
       }
 
       if(Settings.authType === 'mobius'){
-        return userObject.id || getStoredUser().id;
+        return userObject.id;
       }
       else{
         return userObject.id || cookieFactory(KEY_CUSTOMER_ID);
@@ -57,24 +57,6 @@ angular.module('mobiusApp.services.user', [])
       }
     }
 
-    function storeUserId(id) {
-      localStorage.mobiusId = id;
-    }
-
-    function getStoredUser() {
-      var data = {
-        id: localStorage.mobiusId,
-        token: localStorage.mobiusToken
-      };
-      return data;
-    }
-
-    function clearStoredUser() {
-      localStorage.removeItem('mobiusId');
-      localStorage.removeItem('mobiusToken');
-      console.log(localStorage.mobiusToken);
-    }
-
     function storeUserLanguage(lang) {
       localStorage.mobiusLanguagecode = lang;
       userObject.languageCode = lang;
@@ -91,7 +73,7 @@ angular.module('mobiusApp.services.user', [])
       var customerId = getCustomerId();
 
       //We need token to load mobius profile
-      if(Settings.authType === 'mobius' && (!userObject.token || !getStoredUser().token)){
+      if(Settings.authType === 'mobius' && !userObject.token){
         // Logged in as anonymous
         if(authPromise){
           authPromise.resolve(false);
@@ -102,7 +84,7 @@ angular.module('mobiusApp.services.user', [])
       if(customerId){
         // Setting up the headers for a future requests
         var headers = {};
-        headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token || getStoredUser().token : cookieFactory(KEY_CUSTOMER_PROFILE);
+        headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token : cookieFactory(KEY_CUSTOMER_PROFILE);
         apiService.setHeaders(headers);
 
         // Loading profile data and users loyelties
@@ -134,9 +116,7 @@ angular.module('mobiusApp.services.user', [])
             authPromise.resolve(true);
           }
         }, function(){
-          if(Settings.authType === 'mobius'){
-            clearStoredUser();
-          }
+
         });
       } else {
         return $q.reject({});
@@ -186,8 +166,6 @@ angular.module('mobiusApp.services.user', [])
       var headers = {};
       headers[HEADER_INFINITI_SSO] = undefined;
       apiService.setHeaders(headers);
-
-      clearStoredUser();
 
       authPromise = $q.defer().promise;
 
@@ -239,9 +217,6 @@ angular.module('mobiusApp.services.user', [])
       updateUser: updateUser,
       logout: logout,
       authPromise: authPromise.promise,
-      storeUserId: storeUserId,
-      getStoredUser: getStoredUser,
-      clearStoredUser: clearStoredUser,
       storeUserLanguage: storeUserLanguage,
       getUserLanguage: getUserLanguage
     };
