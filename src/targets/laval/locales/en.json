@@ -147,6 +147,7 @@
     "click_here_to": "Click here to",
     "not_enough_points_to_purchase": "Sorry, you don't have enough points to perform this purchase.",
     "payment_not_authorized": "We are sorry, your payment was not authorized. Please check the policies, your details and try again.",
+    "user_already_registered": "We are sorry, the email you used is already registered. Please login or use a different email address.",
     "check_in": "Check in",
     "check_out": "Check out",
     "room_charges": "Room Charges",

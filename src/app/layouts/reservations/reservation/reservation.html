@@ -8,8 +8,12 @@
 
   <reservation-widget grid-row>
 
-    <span class="alert-warning" ng-if="invalidFormData.error">
+    <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.payment">
       _payment_not_authorized_
+    </span>
+
+    <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.email">
+      _user_already_registered_
     </span>
 
     <div grid-row>

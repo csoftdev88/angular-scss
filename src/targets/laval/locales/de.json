@@ -294,6 +294,7 @@
     "not_enough_points_to_purchase": "Entschuldigen Sie, sie haben nicht genügend Punkte, um diesen Einkauf zu tätigen",
 
     "payment_not_authorized": "Wir Entschuldigen uns, ihre Zahlung konnte nicht autorisiert werden, bitte überprüfen sie ihre details und versuchen Sie es nochmals",
+    "user_already_registered": "We are sorry, the email you used is already registered. Please login or use a different email address.",
 
     "check_in": "Check in",
 

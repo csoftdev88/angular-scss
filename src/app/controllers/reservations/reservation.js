@@ -19,13 +19,19 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.isMultiRoomMode = bookingService.isMultiRoomBooking();
 
-
+  $scope.invalidFormData = {
+    error: false,
+    msg: null,
+    email: false,
+    payment: false
+  };
 
   var multiRoomData;
   var previousState = {
     state: $state.fromState,
     params: $state.fromParams
   };
+  
   function onAuthorized(isMobiusUser){
     // Getting room/products data
     //
@@ -209,7 +215,12 @@ angular.module('mobius.controllers.reservation', [])
     case 'reservation.details':
       setBreadCrumbs(GUEST_DETAILS);
       $scope.continueName = 'Continue';
-      scrollToDetails('reservationDetailsForm');
+      if($scope.invalidFormData.error){
+        scrollToDetails('alert-warning');
+      }
+      else{
+        scrollToDetails('reservationDetailsForm');
+      }
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.billing':
@@ -477,9 +488,12 @@ angular.module('mobius.controllers.reservation', [])
       return modalService.openTermsAgreeDialog();
     }
 
+    //Reset errors
     $scope.invalidFormData = {
       error: false,
-      msg: null
+      msg: null,
+      email: false,
+      payment: false
     };
 
     var reservationData = createReservationData();
@@ -589,12 +603,12 @@ angular.module('mobius.controllers.reservation', [])
     }, function(data) {
       // TODO: Whaat request has failed
       //Apparently soap reason is not reliable so checking against msg
-      if(data.error.msg === 'User already registered'){
-        $scope.invalidFormData.msg = 'The email already exists. Either login under ' + $scope.userDetails.email + ' or try to select other email address.';
-      }else{
-        $scope.invalidFormData.msg = 'We are sorry, your payment was not authorized. Please check the policies, your details and try again.';
-      }
       $scope.invalidFormData.error = true;
+      if(data.error && data.error.msg === 'User already registered'){
+        $scope.invalidFormData.email = true;
+      }else{
+        $scope.invalidFormData.payment = true;
+      }
       $state.go('reservation.details');
     });
 
