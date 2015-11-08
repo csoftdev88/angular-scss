@@ -68,8 +68,6 @@ angular.module('mobiusApp.services.user', [])
 
     function loadProfile() {
 
-      console.log('loadProfile');
-
       var customerId = getCustomerId();
 
       //We need token to load mobius profile
@@ -107,15 +105,15 @@ angular.module('mobiusApp.services.user', [])
           userObject.avatarUrl = userObject.avatarUrl || '/static/images/v4/img-profile.png';
           userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
 
+          // Logged in as mobius user
           $timeout(function(){
             $rootScope.$broadcast('USER_LOGIN_EVENT');
           });
 
-          // Logged in as mobius user
-          console.log('profile loaded: ' + angular.toJson(authPromise));
           if(authPromise){
             authPromise.resolve(true);
           }
+
         }, function(){
 
         });

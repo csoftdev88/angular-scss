@@ -31,9 +31,12 @@ angular.module('mobius.controllers.reservation', [])
     state: $state.fromState,
     params: $state.fromParams
   };
+
+  $scope.$on('USER_LOGIN_EVENT', function(){
+    prefillUserDetails(user.isLoggedIn ? user.getUser() : {email:$stateParams.email}, true);
+  });
   
   function onAuthorized(isMobiusUser){
-    console.log('onAuthorized: ' + isMobiusUser);
     // Getting room/products data
     //
     var roomsPromises = [];
@@ -139,12 +142,12 @@ angular.module('mobius.controllers.reservation', [])
     });
   }
 
-  function prefillUserDetails(userData){
+  function prefillUserDetails(userData, isMobius){
     if(!userData){
       return;
     }
 
-    if (!Object.keys($scope.userDetails).length) {
+    if (!Object.keys($scope.userDetails).length || isMobius) {
       // No fields are touched yet, prefiling
       _.extend($scope.userDetails, {
         title: userData.title || '',
@@ -161,7 +164,7 @@ angular.module('mobius.controllers.reservation', [])
       $scope.userDetails.emailFromApi = !!userData.email;
     }
 
-    if (!Object.keys($scope.additionalInfo).length) {
+    if (!Object.keys($scope.additionalInfo).length || isMobius) {
       // No fields are touched yet, prefiling
       _.extend($scope.additionalInfo, {
         arrivalTime: '',
@@ -691,7 +694,6 @@ angular.module('mobius.controllers.reservation', [])
   $scope.countryPhoneChanged = function(){
     var countryCode = $('#telephone').intlTelInput('getSelectedCountryData').iso2;
     $scope.defaultCountryCode = countryCode;
-    console.log($scope.defaultCountryCode);
   };
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
