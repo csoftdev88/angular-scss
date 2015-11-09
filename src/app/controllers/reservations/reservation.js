@@ -566,6 +566,7 @@ angular.module('mobius.controllers.reservation', [])
         // Transaction ID
         id: reservationDetailsParams.reservationCode
       });
+
       $state.go('reservationDetail', reservationDetailsParams);
 
       //creating anon user account
@@ -573,6 +574,7 @@ angular.module('mobius.controllers.reservation', [])
       //TODO: Generally we want to save every aspect of the reservation data including guest/billing/user details so these can be prefilled when modifying
       /*
       if(!user.isLoggedIn()){
+        
         var anonUserData = {
           firstName: $scope.userDetails.firstName,
           lastName: $scope.userDetails.lastName,
@@ -584,11 +586,13 @@ angular.module('mobius.controllers.reservation', [])
           tel2: $scope.additionalInfo.secondPhoneNumber,
           optedIn: $scope.additionalInfo.optedIn
         };
+        
         var params = {
           email: $scope.userDetails.email
         };
         reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
           console.log('make res getReservation: ' + angular.toJson(reservation));
+          $state.go('reservationDetail', reservationDetailsParams);
           reservationService.updateAnonUserProfile(reservation.customer.id, params.email, anonUserData).then(function() {
             $state.go('reservationDetail', reservationDetailsParams);
           });
@@ -598,9 +602,7 @@ angular.module('mobius.controllers.reservation', [])
         $state.go('reservationDetail', reservationDetailsParams);
       }
       */
-
-
-
+      
     }, function(data) {
       // TODO: Whaat request has failed
       //Apparently soap reason is not reliable so checking against msg
