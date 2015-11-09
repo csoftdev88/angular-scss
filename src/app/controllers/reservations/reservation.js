@@ -453,7 +453,7 @@ angular.module('mobius.controllers.reservation', [])
       // NOTE: Originally implemented using getCodeParamName as
       // reservationData[bookingService.getCodeParamName($scope.bookingDetails.corpCode)] = $scope.bookingDetails.corpCode;
       // Keep this for the future
-      reservationData.promoCode = $scope.bookingDetails.promoCode;
+      reservationData[Settings.API.promoCodes.promoCode] = $scope.bookingDetails.promoCode;
     }else if($scope.bookingDetails.groupCode){
       reservationData.groupCode = $scope.bookingDetails.groupCode;
     }else if($scope.bookingDetails.corpCode){

@@ -98,6 +98,11 @@ angular.module('mobiusApp.config', [])
       'all': 'rewards',
       // + BUY(post)
       'my': 'customers/:customerId/rewards'
+    },
+    'promoCodes': {
+      'promoCode': 'promoCode',
+      'groupCode': 'groupCode',
+      'corpCode': 'corpCode'
     }
   },
   'UI': {
