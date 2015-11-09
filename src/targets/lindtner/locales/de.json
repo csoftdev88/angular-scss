@@ -555,7 +555,7 @@
 
     "receive_offer_label": "Gerne bekomme ich Angebote via Email",
 
-    "email_optin_label": "Ich bestätige, dass ich Emails des Sutton Place Hotels bekommen möchte",
+    "email_optin_label": "Ich bestätige, dass ich Emails des {nameShort} bekommen möchte",
 
     "MODALS": "///////////////////////////////////////////////////////////",
 
