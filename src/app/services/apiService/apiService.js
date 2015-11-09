@@ -4,13 +4,13 @@ angular.module('mobiusApp.services.api', [])
 
 .service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory) {
   var headers = Settings.API.headers;
-  var appCache = $cacheFactory('appCache');
+  var apiCache = $cacheFactory('apiCache');
 
   function get(url, params) {
     var q = $q.defer();
     var canCache = !params || Object.keys(params).length === 0;
     
-    if (canCache && angular.isUndefined(appCache.get(url))) {
+    if (canCache && angular.isUndefined(apiCache.get(url))) {
       //console.log('canCache and not cached: ' + url);
       $http({
         method: 'GET',
@@ -18,18 +18,19 @@ angular.module('mobiusApp.services.api', [])
         headers: headers,
         params: params
       }).success(function(res, status, resHeaders) {
+        //console.log('GET url 1: ' + url + ' The request headers are: ' + angular.toJson(headers) + ' and the response headers are: ' + angular.toJson(resHeaders()));
         if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
         }
-        appCache.put(url, res);
+        apiCache.put(url, res);
         q.resolve(res);
 
       }).error(function(err) {
         q.reject(err);
       });
     }
-    else if(canCache && angular.isDefined(appCache.get(url))){
-      q.resolve(appCache.get(url));
+    else if(canCache && angular.isDefined(apiCache.get(url))){
+      q.resolve(apiCache.get(url));
     }
     else{
       //console.log('cannot cache: ' + url);
@@ -39,7 +40,7 @@ angular.module('mobiusApp.services.api', [])
         headers: headers,
         params: params
       }).success(function(res, status, resHeaders) {
-        //console.log('GET url: ' + url + ' The request headers are: ' + angular.toJson(headers) + 'and the response headers are: ' + angular.toJson(resHeaders()));
+        //console.log('GET url 2: ' + url + ' with params: ' + params + ' The request headers are: ' + angular.toJson(headers) + ' and the response headers are: ' + angular.toJson(resHeaders()) + ' and the response status is: ' + status);
         if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
         }
