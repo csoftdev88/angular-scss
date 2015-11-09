@@ -382,12 +382,25 @@ list-item {
 //  it overrides styles ^^
 list-items.grid-view {
 
+  &.other-rooms{
+    list-item {
+      @media only screen and @small-mobile-max {
+        float: none;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 50%;
+        padding: 10px;
+        border: none;
+        margin: 0;
+      }
+    }
+  }
+
   list-item {
     float: left;
     margin: @baseline/2 @baseline/2 0 @baseline/2;
     padding: 0;
     width: 150px;
-
     border: 0;
 
     //- Image
@@ -426,3 +439,5 @@ list-items.grid-view {
     }
   }
 }
+
+

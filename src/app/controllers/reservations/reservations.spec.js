@@ -26,6 +26,8 @@ describe('mobius.controllers.reservations', function() {
       }
     ];
 
+    var TEST_USER = {id: 123};
+
     var TEST_PROPERTY_ABB = {id: 123};
 
     beforeEach(function() {
@@ -35,6 +37,7 @@ describe('mobius.controllers.reservations', function() {
       module('mobius.controllers.reservations', function($provide, $controllerProvider) {
         $provide.value('modalService', {});
         $provide.value('creditCardTypeService', {});
+        $provide.value('userObject', TEST_USER);
 
         $provide.value('reservationService', {
           getAll: function(){

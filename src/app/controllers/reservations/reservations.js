@@ -6,12 +6,13 @@ angular.module('mobius.controllers.reservations', [])
 
 .controller('ReservationsCtrl', function($scope, $controller, $q,
   $state, modalService, creditCardTypeService, reservationService,
-  preloaderFactory, propertyService, $window, _, breadcrumbsService){
+  preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject){
 
   breadcrumbsService.addBreadCrumb('My Stays');
 
   function onAuthorized(isMobiusUser){
-    if(isMobiusUser){
+    
+    if(isMobiusUser || userObject.token){
       var reservationsPromise = $q.all([
         reservationService.getAll(),
         reservationService.getCancelledReservations()
