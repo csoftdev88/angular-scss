@@ -123,11 +123,11 @@ angular.module('mobiusApp.services.api', [])
   }
 
   function updateMobiusAuthHeader(val) {
-    console.log('updateMobiusAuthHeader: ' + val);
     var headersObj = {};
     headersObj['mobius-authentication'] = val;
     setHeaders(headersObj);
     userObject.token = val;
+    localStorage.mobiusToken = val;
   }
 
   var cache = {};
