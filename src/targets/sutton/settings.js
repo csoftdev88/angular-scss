@@ -262,22 +262,6 @@ angular.module('mobiusApp.config', [])
         'groupSeparator': ',',
         'groupSize': 3,
         'neg': '-'
-      },
-      'cs-cz': {
-        'shortName': 'CZ',
-        'name': 'Čeština',
-        'decimalSeparator': ',',
-        'groupSeparator': '\u00a0',
-        'groupSize': 3,
-        'neg': '-'
-      },
-      'de': {
-        'shortName': 'DE',
-        'name': 'German',
-        'decimalSeparator': ',',
-        'groupSeparator': '\u00a0',
-        'groupSize': 3,
-        'neg': '-'
       }
     },
 

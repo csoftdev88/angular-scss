@@ -87,9 +87,6 @@ angular.module('mobiusApp.services.user', [])
 
       var customerId = getCustomerId();
 
-      console.log('getStoredUser().token: ' + getStoredUser().token);
-
-
       //We need token to load mobius profile
       if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
         // Logged in as anonymous
@@ -98,8 +95,6 @@ angular.module('mobiusApp.services.user', [])
         }
         return;
       }
-
-      console.log('getCustomerId(): ' + getCustomerId());
 
       if(customerId){
         // Setting up the headers for a future requests
