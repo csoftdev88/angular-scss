@@ -9,6 +9,11 @@ describe('bookingService', function() {
       // Mocking $stateParams service
       $provide.value('$stateParams', _stateParams);
       $provide.value('Settings', {
+        API: {
+          promoCodes: {
+            promoCode: 'promoCode'
+          }
+        },
         UI: {
           bookingWidget: {
             maxAdultsForSingleRoomBooking: 5

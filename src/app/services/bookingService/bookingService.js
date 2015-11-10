@@ -124,7 +124,7 @@ angular.module('mobiusApp.services.booking', [])
     } else if(/^[0-9]/.test(code)) {
       return 'corpCode';
     } else {
-      return 'promoCode';
+      return Settings.API.promoCodes.promoCode;
     }
   }
 
