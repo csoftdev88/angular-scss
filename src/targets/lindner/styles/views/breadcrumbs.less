@@ -1,0 +1,26 @@
+/////////////////////
+//// BREADCRUMBS ////
+/////////////////////
+
+
+.breadcrumbs {
+  background: rgba(255, 255, 255, 0.85);
+  .crumbs {
+
+    li {
+      a {
+        &:hover {
+          color: darken(@c-brand, 10%);
+        }
+      }
+      span,
+      a {
+        color: @c-brand;
+        &:after{
+          color: @c-brand;
+        }
+      }
+  	}
+  }
+
+}

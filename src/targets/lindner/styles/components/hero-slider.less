@@ -1,0 +1,67 @@
+/////////////////////
+//// HERO SLIDER ////
+/////////////////////
+
+hero-slider {
+	.slider-controls {
+		.pages {
+			span {
+				background-color: #fff;
+				border: 0;
+        height: 11px;
+        margin: 6px;
+        width: 11px;
+        opacity: 1;
+        &:hover,
+        &.active {
+          background-color: @c-brand;
+        }
+      }
+		}
+	}
+	.slider-content {
+		.hero-slide {
+			.content-inner {
+				h1,
+				h2 {
+					border-radius: 0;
+					font-size: 22px;
+					height: 35px;
+					left: auto;
+					line-height: 35px;
+					padding-right: 0;
+					padding-left: @baseline*1.2;
+					right: 0;
+				    width: 50%;
+				    text-align: right;
+
+					span {
+						padding: 0
+					}
+				}
+				h2 {
+					background: rgba(104, 169, 29, 0.75);
+					color: #fff;
+					font-weight: 300;
+					text-transform: initial;
+					top: 35px;
+					&:before {
+						right: -9999px;
+						left: 100%
+					}
+				}
+				h1{
+					background: rgba(255, 255, 255, 0.85);
+					color: #000;
+					font-weight: 600;
+					text-transform: uppercase;
+
+						&:before {
+							right: -9999px;
+							left: 100%
+						}
+				}
+			}
+		}
+	}
+}

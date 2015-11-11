@@ -1,0 +1,23 @@
+//////////////////////
+//// FLOATING BAR ////
+//////////////////////
+
+floating-bar {
+	//- Tabs
+  > ul {
+  	li {
+  		background: #3f6214;
+  		//- Filling
+      &:first-of-type:before{
+        background: #3f6214;
+      }
+      //- Skew effect
+      &:after {
+      	border-bottom-color: #3f6214;
+      }
+      &.floating-bar--tab-my-accounts {
+				display: none
+			}
+  	}
+  }
+}
