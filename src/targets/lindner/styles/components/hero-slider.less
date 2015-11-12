@@ -24,11 +24,11 @@ hero-slider {
 			.content-inner {
 				h1,
 				h2 {
-					border-radius: 0;
 					font-size: 22px;
 					height: 35px;
-					left: auto;
 					line-height: 35px;
+					border-radius: 0;
+					left: auto;
 					padding-right: 0;
 					padding-left: @baseline*1.2;
 					right: 0;
@@ -64,4 +64,31 @@ hero-slider {
 			}
 		}
 	}
+}
+
+
+// DESKTOP STYLES
+@media only screen and @large-mobile-min and @tablet-portrait-max{
+  hero-slider {
+  	.slider-content {
+			.hero-slide {
+				.content-inner {
+					h1,
+					h2 {
+						font-size: @size-0;
+						height: 22px;
+						line-height: 22px;
+						padding-right: 24px;
+						width: 66%;
+					}
+					h1 {
+						top: 80px;
+					}
+					h2 {
+						 top: 102px;
+					}
+				}
+			}
+		}
+  }
 }

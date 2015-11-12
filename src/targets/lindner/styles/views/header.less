@@ -4,6 +4,11 @@
 
 .main-nav {
   height: 95px;
+  .menu-opener {
+    width: 21px;
+    background-size: 21px auto;
+    background-position: center 33px;
+  }
   ul {
     li {
       a {
@@ -17,5 +22,16 @@
   }
   .brand {
     margin-top: 26px
+  }
+
+  .viewport-mobile & {
+    height: 75px;
+
+    .brand {
+      margin-top: 16px;
+      img{
+        height: 39px
+      }
+    }
   }
 }

@@ -27,7 +27,7 @@ angular.module('mobiusApp.filters.mainHeaderStyle', [])
       words[2] = '<strong>' + words[2];
       words[words.length-1] = words[words.length-1] + '</strong>';
     }
-    
+
     return words.join(' ');
   }
 
