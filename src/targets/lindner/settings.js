@@ -16,8 +16,8 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true
     },
-    'chainCode': 'SAN',
-    'baseURL': 'http://52.3.22.21:3010/api/4.0/',
+    'chainCode': 'LIND',
+    'baseURL': 'http://52.31.0.99:3010/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -90,7 +90,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-chainId': '355',
       'Mobius-channelId': '6'
     },
     'rewards': {
