@@ -5,7 +5,7 @@ button {
   display: inline-block;
   box-sizing: border-box;
   border: none;
-  border-radius: 4px;
+  border-radius: @radius;
   font-weight: 600;
   font-size: @size-0;
   line-height: @baseline * 1.75;
@@ -25,7 +25,7 @@ button {
 //- Button Submit
 .button,
 button-submit {
-  border-radius: 4px;
+  border-radius: @radius;
   display: inline-block;
   padding: 0 @baseline;
   min-width: 6*@baseline;

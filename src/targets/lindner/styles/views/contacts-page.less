@@ -1,0 +1,40 @@
+///////////////////////
+//// CONTACTS PAGE ////
+///////////////////////
+
+contacts-page {
+	contact-list {
+		contact-item {
+			p {
+				&:before{
+					color: @c-brand
+				}
+			}
+			a {
+				color: @c-brand
+			}
+		}
+	}
+	.chosen-container {
+		height: 36px;
+		line-height: 36px;
+	}
+	form {
+		form-element {
+			input {
+				&[type=text],
+				&[type=email] {
+					height: 36px;
+	  			line-height: 36px;
+				}
+			}
+		}
+		> div {
+			button-submit{
+				height: 35px;
+				line-height: 35px;
+				min-width: 156px
+			}
+		}
+	}
+}
