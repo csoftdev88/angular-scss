@@ -458,8 +458,8 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/v1444820062/Mobius/DOCO/properties_amenities/',
-      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/v1444820062/Mobius/DOCO/room_amenities/',
+      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/Mobius/DOCO/properties_amenities/',
+      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/Mobius/DOCO/room_amenities/',
       'suffix': '.png'
     },
     // See: http://openweathermap.org/wiki/API/Weather_Condition_Codes
