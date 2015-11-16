@@ -254,11 +254,11 @@ angular.module('mobiusApp.config', [])
         'groupSize': 3,
         'neg': '-'
       },
-      'en-ca': {
-        'shortName': 'EN',
-        'name': 'English (CAN)',
-        'decimalSeparator': '.',
-        'groupSeparator': ',',
+      'de': {
+        'shortName': 'DE',
+        'name': 'German',
+        'decimalSeparator': ',',
+        'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
       }
