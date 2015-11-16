@@ -23,6 +23,47 @@
         }
       }
     }
+    li[currency-list],
+    li[language-list] {
+       > div > a:after{
+        background: none;
+        content: '▼';
+        font-size: 5px
+      }
+    }
+    li{
+      &.desktop-profile {
+        .profile {
+          margin-top: 29px;
+          .message {
+            span {
+              font-size: @size--3;
+              text-transform: none;
+            }
+          }
+          .user {
+            margin-top: -5px;
+            position: relative;
+            &:after{
+              content: '▼';
+              color: #fff;
+              background: none;
+              font-size: 5px;
+              margin: 0;
+              position: absolute;
+              right: 25px;
+              top: -4px;
+            }
+            span{
+              display: inline;
+              font-family: @ff-default;
+              font-size: @size--2;
+              text-transform: none;
+            }
+          }
+        }
+      }
+    }
   }
   .brand {
     margin-top: 26px
@@ -42,7 +83,7 @@
 
 @media only screen and @large-mobile-max {
   .main-nav {
-    .app-menu {
+    > .app-menu {
       background-color: #fff;
       ul {
         li {
@@ -50,8 +91,15 @@
           border-color: #e9e9e9
         }
       }
-      li[menu-content] .dropdown > a:after, li[currency-list] .dropdown > a:after, li[language-list] .dropdown > a:after {
-        content: '>';
+      li[language-list],
+      li[menu-content],
+      li[currency-list],
+      li[language-list] {
+        .dropdown {
+          > a:after {
+            content: '>' !important;
+          }
+        }
       }
     }
   }
