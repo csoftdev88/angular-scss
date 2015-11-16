@@ -4,6 +4,7 @@
 
 .main-nav {
   height: 95px;
+
   .menu-opener {
     width: 21px;
     background-size: 21px auto;
@@ -12,10 +13,13 @@
   ul {
     li {
       a {
-        color: #000;
+        color: #585858;
         font-size: @size--1;
         &.button {
-          color: #fff
+          color: #fff;
+          .viewport-mobile & {
+            color: #585858;
+          }
         }
       }
     }
@@ -31,6 +35,23 @@
       margin-top: 16px;
       img{
         height: 39px
+      }
+    }
+  }
+}
+
+@media only screen and @large-mobile-max {
+  .main-nav {
+    .app-menu {
+      background-color: #fff;
+      ul {
+        li {
+          background-color: #fff;
+          border-color: #e9e9e9
+        }
+      }
+      li[menu-content] .dropdown > a:after, li[currency-list] .dropdown > a:after, li[language-list] .dropdown > a:after {
+        content: '>';
       }
     }
   }
