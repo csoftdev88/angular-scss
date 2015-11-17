@@ -8,6 +8,7 @@ angular.module('mobiusApp.directives.aboutHotel', [])
     templateUrl: 'directives/aboutHotel/aboutHotel.html',
     link: function(scope){
       scope.isCollapsed = true;
+      scope.showBenefits = Settings.UI.aboutHotel.showBenefits;
       scope.benefits = Settings.UI.aboutHotel.benefits;
       scope.randomAdverts = [];
 

@@ -1,17 +1,14 @@
 <header grid-row>
   <div grid="12">
-    <h1>Welcome to <strong>The Sutton Place Hotels</strong></h1>
-    <p>The Sutton Place Hotels are a sophisticated 5-star collection of properties in North America. Each hotel is distinctly different in style while offering timeless elegance and exceptional service.
-    As a select group of stylish properties with a distinct European flair, each Sutton Place Hotel is carefully selected for proximity to the business, financial, and entertainment centres in each city or destination that we are located within.</p>
-
-    <p> With hotels in Edmonton, Revelstoke Mountain Resort, and Vancouver, The Sutton Place Hotels represent the height of luxury accommodations with tasteful elegance, classically refined décor, and warm and inviting staff. From hand crafted furnishings, silk tapestries, and premium bedding, every detail at The Sutton Place Hotels represents a history of refined style and polished perfection that is both inviting and impressive. Offering a sophisticated appeal, each outstanding location offers world-class amenities ensuring exceptional comfort and ambiance for every occasion.</p>
+    <h1 ng-bind-html="'_home_page_title_' | mainHeaderStyle"></h1>
+    <div>_home_page_desc_</div>
 
   </div>
 </header>
 
-<hr class="dividerWithoutImage"/>
+<hr class="dividerWithoutImage"/ ng-if="showBenefits">
 
-<section grid-row class="benefits">
+<section grid-row class="benefits" ng-if="showBenefits">
   <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">
     <a ui-sref="{{icon.state}}">
       <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">

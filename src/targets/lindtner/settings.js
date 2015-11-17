@@ -188,6 +188,7 @@ angular.module('mobiusApp.config', [])
     },
 
     'aboutHotel': {
+      'showBenefits': false,
       'benefits' : [
         {
           'name': 'Great <strong>Offers</strong>',
