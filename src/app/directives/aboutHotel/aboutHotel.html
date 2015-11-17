@@ -9,9 +9,9 @@
   </div>
 </header>
 
-<hr class="dividerWithoutImage"/>
+<hr class="dividerWithoutImage"/ ng-if="showBenefits">
 
-<section grid-row class="benefits">
+<section grid-row class="benefits" ng-if="showBenefits">
   <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">
     <a ui-sref="{{icon.state}}">
       <img class="grid-img" ng-src="{{icon.pictureUrl}}" alt="{{icon.name}}">
