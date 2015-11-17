@@ -17,7 +17,7 @@ angular.module('mobiusApp.config', [])
       'trackUserId': true
     },
     'chainCode': 'LIND',
-    'baseURL': 'http://52.31.0.99:3010/api/4.0/',
+    'baseURL': 'http://lindner.mobiuswebservices.com/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
