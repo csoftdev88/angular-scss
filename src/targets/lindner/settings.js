@@ -137,9 +137,12 @@ angular.module('mobiusApp.config', [])
     },
     // Social links
     'socialLinks': [
-      {'network': 'twitter', 'link': 'https://twitter.com/SuttonPlaceHtl'},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/thesuttonplacehotels'},
-      {'network': 'instagram', 'link': 'https://instagram.com/suttonplacehotels/'}
+      {'network': 'twitter', 'link': 'https://twitter.com/Lindner_Hotels'},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/LindnerHotels'},
+      {'network': 'instagram', 'link': 'https://instagram.com/lindnerhotels/'},
+      {'network': 'google', 'link': 'https://plus.google.com/+lindnerhotels/posts'},
+      {'network': 'linkedin', 'link': 'https://www.linkedin.com/company/lindner-hotels-&-resorts'},
+      {'network': 'xing', 'link': 'https://www.xing.com/company/lindnerhotels'}
     ],
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
