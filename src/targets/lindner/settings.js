@@ -109,7 +109,8 @@ angular.module('mobiusApp.config', [])
     'generics': {
       'singleProperty': false,
       'loyaltyProgramEnabled': false,
-      'disableMainHeaderStyle': true
+      'disableMainHeaderStyle': true,
+      'showAltNav': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
