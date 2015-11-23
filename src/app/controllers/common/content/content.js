@@ -79,10 +79,11 @@ angular.module('mobius.controllers.common.content', [])
   $scope.settings = contentTypes[$scope.item];
 
   // Getting the details from booking widget
-  var bookingParams = bookingService.getAPIParams(true);
+  //var bookingParams = bookingService.getAPIParams(true);
 
   // Loading hotels
-  var hotelsPromise = services.propertyService.getAll(bookingParams).then(function(hotels){
+  //var hotelsPromise = services.propertyService.getAll(bookingParams).then(function(hotels){
+  var hotelsPromise = services.propertyService.getAll().then(function(hotels){
     $scope.hotels = hotels || [];
     $scope.city = getCityOfContent();
   });

@@ -75,6 +75,7 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.maxRating = scope.MAX_RATING;
 
       function getProperties(params){
+
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
