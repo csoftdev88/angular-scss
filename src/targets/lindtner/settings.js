@@ -214,7 +214,8 @@ angular.module('mobiusApp.config', [])
     'hotelFilters': {
       'stars': true,
       'tripAdvisor': true,
-      'rates': true
+      'rates': true,
+      'price': true
     },
     // List of currencies and their display symbols
     'currencies': {

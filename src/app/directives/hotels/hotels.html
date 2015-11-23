@@ -96,7 +96,7 @@
     </div>
     <div class="filters-bar">
     
-      <div ng-show="hasDates()">
+      <div ng-show="hasDates() && showFilter('price') && hotelAvailable()">
         <h2>_filter_label_</h2>
         <h3>_filter_price_per_night_label_</h3>
         <div
