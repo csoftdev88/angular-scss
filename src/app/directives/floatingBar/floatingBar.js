@@ -48,7 +48,7 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         scope.setActive = function(newActive, isMobileToggle) {
           //scope.active === newActive && !scope.isMobile || isMobileToggle && !scope.isCollapsed && scope.isMobile
-          if(scope.active === newActive || isMobileToggle){
+          if(scope.active === newActive || isMobileToggle && scope.isMobile){
             scope.isCollapsed = !scope.isCollapsed;
           }else if(scope.active && scope.isCollapsed){
             // Expanding when clicked on another tab
