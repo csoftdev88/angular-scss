@@ -375,6 +375,9 @@ angular.module('mobiusApp.config', [])
         'hasContactDetails': true,
         'hasMap': false
       },
+      'hotels': {
+        'showRegionDescription': true
+      },
       'hotelDetails':{
         'hasViewMore': true,
         'hasAmenities': true

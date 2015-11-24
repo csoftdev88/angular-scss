@@ -13,6 +13,21 @@
   </view-more-images>
 </section>
 
+<header grid-row ng-if="regionDetails">
+  <h1 grid="6">{{regionDetails.nameShort}}</h1>
+</header>
+
+<section grid-row ng-if="regionDetails">
+  <div grid="8">
+    <p>{{regionDetails.description}}</p>
+  </div>
+  <view-more-images grid="4">
+    <a ng-if="regionDetails.images.length > 1" href class="gallery-link" ng-click="openGallery()">_view_more_images_</a>
+    <hero-slider data-has-notification-bar="false" data-on-slide-click="openGallery" data-counter-type="counter" content="regionDetails.images"></hero-slider>
+  </view-more-images>
+  <hr>
+</section>
+
 
   <section grid-container="9" widget="hotels" id="hotels">
     <header class="hotels__header">

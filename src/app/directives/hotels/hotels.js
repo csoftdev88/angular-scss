@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings){
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService){
 
   return {
     restrict: 'E',
@@ -73,6 +73,14 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.maxStars = scope.MAX_STARS;
       scope.minRating = scope.MIN_RATING;
       scope.maxRating = scope.MAX_RATING;
+
+      //Handle region/location description
+      if($stateParams.region && Settings.UI.viewsSettings.hotels.showRegionDescription){
+        locationService.getRegion($stateParams.region).then(function(region){
+          scope.regionDetails = region;
+        });
+      }
+
 
       function getProperties(params){
 
@@ -171,6 +179,13 @@ angular.module('mobiusApp.directives.hotels', [])
         notificationService.show('You are filtering by: ' + rate.name, 'notification-rate-filter-removed');
       }
 */
+
+      scope.openGallery = function(slideIndex){
+        modalService.openGallery(
+          contentService.getLightBoxContent(scope.regionDetails.images),
+          slideIndex);
+      };
+
       // This function invoked from RatesCtrl
       scope.onRateChanged = function(rate){
         var bookingParams = bookingService.getAPIParams(true);

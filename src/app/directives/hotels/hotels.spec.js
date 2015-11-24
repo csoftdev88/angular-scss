@@ -72,6 +72,9 @@ describe('hotels directive', function() {
       $provide.value('contentService', {
       });
 
+      $provide.value('locationService', {
+      });
+
       $provide.value('Settings', {
         UI: {
           generics:{
@@ -79,6 +82,11 @@ describe('hotels directive', function() {
           },
           hotelFilters: {
             rates: true
+          },
+          viewsSettings: {
+            hotels: {
+              showRegionDescription: true
+            }
           }
         }
       });
