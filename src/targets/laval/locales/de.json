@@ -559,6 +559,17 @@
 
     "email_optin_label": "Ich bestätige, dass ich Emails des {nameShort} bekommen möchte",
 
+    "RESETPASSWORDFORM": "///////////////////////////////////////////////////////////",
+    "reset_password_page_title": "Kennwort vergessen",
+    "reset_password_page_sub_title": "Bitte geben Sie ihr neues Kennwort ein:",
+    "reset_password_button": "Kennwort zurücksetzten",
+    "reset_password_error_code_ten": "Es tut uns Leid, aber bei der App ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "reset_password_error_code_eleven": "Es tut uns Leid, aber Ihr Code ist anscheinend ungültig. Bitte prüfen Sie diesen und versuchen Sie es erneut.",
+    "reset_password_error_code_twelve": "Es tut uns Leid, aber der Link für die Zurücksetzung Ihres Kennworts ist abgelaufen. Bitte fordern Sie einen neuen an.",
+    "reset_password_error_code_thirteen": "Dieser Link wurde bereits dazu benutzt, um Ihr Kennwort zurückzusetzen. Bitte fordern Sie einen neuen an.",
+    "reset_password_error_code_thirtyfour": "Vielen Dank für Ihre Anfrage. Wenn Ihr Profil gefunden wurde, werden Sie innerhalb weniger Stunden eine E-Mail mit einem Zurücksetzungscode erhalten.",
+    "reset_password_success": "Ihr Kennwort wurde geändert und Sie können sich jetzt anmelden.",
+
     "MODALS": "///////////////////////////////////////////////////////////",
 
     "badges_modal_title": "Meine Badges",

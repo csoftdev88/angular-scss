@@ -50,6 +50,7 @@ angular
     'mobius.controllers.reservationMultiRoom',
     'mobius.controllers.profile',
     'mobius.controllers.register',
+    'mobius.controllers.resetPassword',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -345,6 +346,14 @@ angular
         templateUrl: 'layouts/register/register.html',
         url: '/register',
         controller: 'RegisterCtrl'
+      })
+
+      // Reset password page
+      .state('resetPassword', {
+        parent: 'root',
+        templateUrl: 'layouts/resetPassword/resetPassword.html',
+        url: '/reset-password',
+        controller: 'ResetPasswordCtrl'
       })
     ;
 
