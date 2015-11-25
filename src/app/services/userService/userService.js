@@ -127,7 +127,7 @@ angular.module('mobiusApp.services.user', [])
             $rootScope.$broadcast('USER_LOGIN_EVENT');
           });
 
-          if(authPromise){
+          if(authPromise && authPromise.resolve){
             authPromise.resolve(true);
           }
 
