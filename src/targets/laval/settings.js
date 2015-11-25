@@ -401,7 +401,8 @@ angular.module('mobiusApp.config', [])
       'noShow': 'No Show',
       'pet': 'Pet'
     },
-    'defaultCountryCode': 'ca',
+    'defaultCountryCode': 'ch',
+    'preferredCountryCodes': 'ch,ca,us,gb',
     'arrivalMethods': [
       {
         apiValue: 'Car',

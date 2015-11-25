@@ -45,7 +45,7 @@
 
       <label for="telephone" class="input-right">
         <input type="text" id="telephone" national-mode="false" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number required
-          preferred-countries="ca, us, gb"
+          preferred-countries="{{preferredCountryCodes || 'ca'}}"
           ng-model="userDetails.phone"
           ng-change="countryPhoneChanged()"
           name="phone"

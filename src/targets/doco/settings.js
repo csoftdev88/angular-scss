@@ -402,6 +402,7 @@ angular.module('mobiusApp.config', [])
       'pet': 'Pet'
     },
     'defaultCountryCode': 'ca',
+    'preferredCountryCodes': 'ca,us,gb',
     'arrivalMethods': [
       {
         apiValue: 'Car',
