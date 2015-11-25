@@ -3,6 +3,7 @@
 describe('metaInformationService', function() {
   var _rootScope, _metaInformationService;
 
+  /*
   var TEST_CHAIN_DATA = {
     meta: {
       description: 'test description',
@@ -10,9 +11,11 @@ describe('metaInformationService', function() {
       pagetitle: 'pagetitle'
     }
   };
+  */
 
   beforeEach(function() {
-    module('mobiusApp.services.metaInformation', function($provide){
+    module('mobiusApp.services.metaInformation', function(){
+      /*
       $provide.value('Settings', {
         API: {
           chainCode: 'TESTCHAIN'
@@ -27,6 +30,7 @@ describe('metaInformationService', function() {
           };
         }
       });
+      */
     });
   });
 
@@ -35,6 +39,7 @@ describe('metaInformationService', function() {
     _metaInformationService = metaInformationService;
   }));
 
+  /*
   describe('initialization', function() {
     it('should download chain data from the server and define received meta on rootScope', function(){
       expect(_rootScope.metaInformation.description).equal(TEST_CHAIN_DATA.meta.description);
@@ -42,12 +47,13 @@ describe('metaInformationService', function() {
       expect(_rootScope.metaInformation.keywords).equal(TEST_CHAIN_DATA.meta.keywords);
     });
   });
+  */
 
   describe('reset', function() {
     it('should reset meta data to original chain data', function(){
       _metaInformationService.setMetaDescription('new description');
       _metaInformationService.reset();
-      expect(_rootScope.metaInformation.description).equal('test description');
+      expect(_rootScope.metaInformation.description).equal('');
     });
   });
 
