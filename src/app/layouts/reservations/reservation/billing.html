@@ -168,13 +168,6 @@
           </label>
         </div>
 
-        <label class="form-errors" ng-if="forms.billing.$invalid  && forms.billing.$submitted">
-          <div>_missing_fields_message_</div>
-          <div ng-if="!forms.billing.creditcard.$valid">_card_number_error_</div>
-          <div ng-if="forms.billing.$submitted && !getCardExpirationDate()">_card_expiry_error_</div>
-          <div ng-if="!forms.billing.cvv.$valid || forms.billing.cvv.$error.pattern">_card_cvv_error_</div>
-        </label>
-
         <input type="submit" id="submit" value="_submit_" ng-hide="true" />
       </form>
     </section>
