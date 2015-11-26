@@ -106,6 +106,9 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'markdown':{
+      'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
+    },
     'generics': {
       'singleProperty': false,
       'sentryID': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504',

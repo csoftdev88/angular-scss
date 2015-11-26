@@ -106,6 +106,9 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'markdown':{
+      'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
+    },
     'generics': {
       'singleProperty': true,
       'loyaltyProgramEnabled': false,
