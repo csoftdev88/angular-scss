@@ -280,12 +280,23 @@ module.exports = function(grunt) {
     },
 
     templateCache: {
-      app:{
-        options: {
-          src: 'build/templates/{locale}/**/*.html',
-          dest: '<%= config.build %>/app/mobius-templates-{locale}.js'
+      development: {
+        app:{
+          options: {
+            src: 'build/templates/{locale}/**/*.html',
+            dest: '<%= config.build %>/app/mobius-templates-{locale}.js'
+          }
+        }
+      },
+      production: {
+        app:{
+          options: {
+            src: 'build/templates/{locale}/**/*.html',
+            dest: '<%= config.compile %>/app/mobius-templates-{locale}.js'
+          }
         }
       }
+      
     }
   };
 
@@ -301,11 +312,19 @@ module.exports = function(grunt) {
   ]);
 
   //Prebuild
-  grunt.registerTask('prebuild', [
+  grunt.registerTask('prebuild:development', [
     'jshint',
     'test',
     'localisation',
-    'templateCache',
+    'templateCache:development',
+    'ngmin'
+  ]);
+
+  grunt.registerTask('prebuild:production', [
+    'jshint',
+    'test',
+    'localisation',
+    'templateCache:production',
     'ngmin'
   ]);
 
@@ -327,7 +346,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build:development', [
     'clean',
-    'prebuild',
+    'prebuild:development',
     'less:development',
     'autoprefixer:development',
     'index:build',
@@ -348,7 +367,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build:production', [
     'clean',
-    'prebuild',
+    'prebuild:production',
     'less:production',
     'autoprefixer:production',
     'concat',
@@ -414,7 +433,7 @@ module.exports = function(grunt) {
           data: grunt.util._.extend({
             scripts: jsFiles,
             styles: cssFiles,
-            templates: jsFiles.length === 1 ? [] : [templateCache],
+            templates: [templateCache],
             vendor_js: jsFiles.length === 1 ? [] : grunt.config('config.vendor_files.js'),
             vendor_styles: grunt.config('config.vendor_files.styles'),
             version: grunt.config( 'pkg.version' )
@@ -433,14 +452,16 @@ module.exports = function(grunt) {
     for(var i = 0; i < supportedLanguages.length; i++){
       var localeCode = supportedLanguages[i];
 
+      var src = this.data.app.options.src.replace('{locale}', localeCode);
+      var dest = this.data.app.options.dest.replace('{locale}', localeCode);
       var basePath = 'build/templates/' + localeCode;
 
       // Creating multiple
       var taskName = 'html2js.' + localeCode;
       grunt.config.set(taskName + '.options.base', basePath);
       grunt.config.set(taskName + '.options.module', 'templates-main');
-      grunt.config.set(taskName + '.src', basePath + '/' + grunt.config('config.markup'));
-      grunt.config.set(taskName + '.dest', grunt.config('config.build') + '/' + 'app/mobius-templates-' + localeCode + '.js');
+      grunt.config.set(taskName + '.src', src);
+      grunt.config.set(taskName + '.dest', dest);
 
       grunt.task.run('html2js:' + localeCode);
     }
