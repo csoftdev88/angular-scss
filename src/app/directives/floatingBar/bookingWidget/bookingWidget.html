@@ -42,7 +42,7 @@
             input-text="inputDateText"
             ng-change="checkAvailability()">
     <form-label>_enter_your_dates_</form-label>
-    <input-value>{{inputDateText || 'Dates'}}</input-value>
+    <input-value>{{inputDateText || '_dates_'}}</input-value>
   </form-element>
 
   <!-- NUMBER OF ADULTS -->
@@ -100,9 +100,9 @@
     <form-element class="persons">
       <select name="adults"
               required ng-model="room.adults"
-              data-placeholder="Adults"
+              data-placeholder="_adults_"
               disable-search="true"
-              chosen ng-options="option.title for option in guestsOptions.adults">
+              chosen ng-options="option.title for option in option in guestsOptions.adults">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>_number_of_adults_</form-label>
@@ -111,7 +111,7 @@
     <form-element class="persons">
       <select name="children"
               required ng-model="room.children"
-              data-placeholder="Children"
+              data-placeholder="_children_"
               disable-search="true"
               chosen ng-options="option.title for option in guestsOptions.children">
         <option></option> <!-- workaround for a bug in angular-chosen -->

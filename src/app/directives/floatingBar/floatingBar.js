@@ -123,6 +123,50 @@ angular.module('mobiusApp.directives.floatingBar', [
     var numberToListFilter = $filter('numberToList');
     var settings = Settings.UI.bookingWidget;
 
+    /*
+    var adultOptions = [];
+    var childrenOptions = [];
+
+    $scope.createAdultOptions = function(singular, plurial){
+      if(!adultOptions.length){
+        adultOptions =  numberToListFilter([], settings.adults.min, settings.adults.max,
+          // TODO: Localize
+          {
+            '1': '{} ' + singular,
+            'plural': '{} ' + plurial
+          });
+        $scope.guestsOptions.adults = adultOptions;
+        $scope.selected = {'adults':{'value':2,'title':'2 Erwachsene'}};
+        return adultOptions;
+      }
+      else{
+        $scope.guestsOptions.adults = adultOptions;
+        $scope.selected = {'adults':{'value':2,'title':'2 Erwachsene'}};
+        return adultOptions;
+      }
+
+    };
+
+    $scope.createChildrenOptions = function(singular, plurial){
+      if(!childrenOptions.length){
+        childrenOptions =  numberToListFilter([], settings.children.min, settings.children.max,
+          // TODO: Localize
+          {
+            '1': '{} ' + singular,
+            'plural': '{} ' + plurial
+          });
+        $scope.guestsOptions.children = childrenOptions;
+        return childrenOptions;
+      }
+      else{
+        $scope.guestsOptions.children = childrenOptions;
+        return childrenOptions;
+      }
+      
+    };
+    */
+    
+    
     $scope.guestsOptions = {
       adults: numberToListFilter([], settings.adults.min, settings.adults.max,
         // TODO: Localize
@@ -138,4 +182,5 @@ angular.module('mobiusApp.directives.floatingBar', [
             'plural': '{} Children'
           })
         };
+        
   });
