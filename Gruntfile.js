@@ -192,13 +192,25 @@ module.exports = function(grunt) {
           expand: true,
           cwd: '<%= config.font_awesome %>',
           src: ['<%= config.fonts %>'],
-          dest: '<%= config.build %>/font/'
+          dest: '<%= config.build %>/targets/' + target + '/font/'
         },
         {
           expand: true,
           cwd: '<%= config.client %>/targets/' + target,
           src: ['<%= config.fonts %>'],
           dest: '<%= config.build %>/targets/' + target
+        },
+        {
+          expand: true,
+          cwd: '<%= config.font_awesome %>',
+          src: ['<%= config.fonts %>'],
+          dest: '<%= config.compile %>/targets/' + target + '/font/'
+        },
+        {
+          expand: true,
+          cwd: '<%= config.client %>/targets/' + target,
+          src: ['<%= config.fonts %>'],
+          dest: '<%= config.compile %>/targets/' + target
         }]
       },
       404: {
