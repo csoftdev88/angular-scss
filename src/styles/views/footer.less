@@ -2,6 +2,22 @@
 //// FOOTER ////
 ////////////////
 
+.floating-bar-active footer {
+  margin-bottom: 130px;
+  .viewport-mobile & {
+    margin-bottom: 0;
+  }
+}
+
+/*
+.floating-bar-active footer {
+  margin-bottom: 170px;
+  .viewport-mobile & {
+    margin-bottom: 0;
+  }
+}
+*/
+
 footer {
   padding-top: @baseline;
   color: #999;
@@ -13,20 +29,6 @@ footer {
 
   @media print {
    display: none;
-  }
-
-  floating-bar.active  ~ & {
-    margin-bottom: 130px;
-    .viewport-mobile & {
-      margin-bottom: 0;
-    }
-  }
-
-  floating-bar.active.advancedBooking ~ & {
-    margin-bottom: 170px;
-    .viewport-mobile & {
-      margin-bottom: 0;
-    }
   }
 
   //- Wrapper
@@ -186,7 +188,7 @@ footer {
   &.special-footer {
     background-color: #efefef;
     border-top: 1px solid #ccc;
-    margin: 10px 0 0 0;
+    //margin: 10px 0 0 0;
     height: 70px;
     width: 100%;
     .viewport-mobile &{
