@@ -2,9 +2,11 @@
   <div>
     <h3 ng-bind-html="'_reservation_page_details_title_' | mainHeaderStyle"></h3>
 
-    <label id="form-errors" class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
-      _missing_fields_message_
-    </label>
+    <div id="form-errors" class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
+      <div>_missing_fields_message_</div>
+      <div ng-if="forms.details.firstName.$error.pattern || forms.details.lastName.$error.pattern">_letters_pattern_error_</div>
+      <div ng-if="forms.details.email.$error.emailCheck">_invalid_email_message_</div>
+    </div>
 
     <form name="forms.details" novalidate ng-submit="continue()" ng-class="{'ng-submitted': forms.details.$submitted}">
       <label for="first-name" class="input-left">
@@ -14,8 +16,8 @@
           name="firstName"
           ng-pattern="/^[a-zA-Z]+$/"/>
         <span>
-          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">_first_name_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">_letters_pattern_error_</span>
+          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error">_first_name_label_</span>
+          <!--<span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">_letters_pattern_error_</span>-->
         </span>
       </label>
 
@@ -26,8 +28,8 @@
           name="lastName"
           ng-pattern="/^[a-zA-Z]+$/"/>
         <span>
-          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error.pattern">_last_name_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">_letters_pattern_error_</span>
+          <span ng-hide="forms.details.$submitted && forms.details.lastName.$error">_last_name_label_</span>
+          <!--<span ng-show="forms.details.$submitted && forms.details.lastName.$error.pattern">_letters_pattern_error_</span>-->
         </span>
       </label>
 
@@ -38,8 +40,8 @@
           ng-disabled="userDetails.emailFromApi"
           name="email" email-check/>
         <span>
-          <span ng-hide="forms.details.$submitted && forms.details.email.$error.emailCheck">_email_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.email.$error.emailCheck">_invalid_email_message_</span>
+          <span ng-hide="forms.details.$submitted && forms.details.email.$error">_email_label_</span>
+          <!--<span ng-show="forms.details.$submitted && forms.details.email.$error.emailCheck">_invalid_email_message_</span>-->
         </span>
       </label>
 
@@ -51,8 +53,8 @@
           name="phone"
           placeholder="_phone_label_"/>
         <span>
-          <span ng-hide="forms.details.$submitted && forms.details.phone.$error.pattern">_phone_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">_phone_pattern_error_</span>
+          <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_phone_label_</span>
+          <!--<span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">_phone_pattern_error_</span>-->
         </span>
       </label>
 
@@ -61,7 +63,7 @@
           placeholder="_address_label_"
           ng-model="userDetails.address"
           name="address"/>
-        <span>_address_label_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_address_label_</span>
       </label>
 
       <label for="city" class="input-left">
@@ -69,7 +71,7 @@
           placeholder="_city_label_"
           ng-model="userDetails.city"
           name="city"/>
-        <span>_city_label_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_city_label_</span>
       </label>
 
       <label for="state" class="input-right">
@@ -77,7 +79,7 @@
           placeholder="_state_label_"
           ng-model="userDetails.stateProvince"
           name="stateProvince"/>
-        <span>_state_label_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_state_label_</span>
       </label>
 
       <label for="postal-code" class="input-left">
@@ -85,7 +87,7 @@
           placeholder="_postcode_label_"
           ng-model="userDetails.zip"
           name="zip"/>
-        <span>_postcode_label_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_postcode_label_</span>
       </label>
 
       <label for="country" class="input-right">
@@ -97,7 +99,7 @@
           name="country"
           chosen>
         </select>
-        <span>_country_label_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_country_label_</span>
       </label>
       <input type="submit" id="submit" value="_submit_" ng-hide="true" />
     </form>
