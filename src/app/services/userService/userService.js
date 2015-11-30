@@ -123,9 +123,12 @@ angular.module('mobiusApp.services.user', [])
           userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
 
           // Logged in as mobius user
-          $timeout(function(){
-            $rootScope.$broadcast('USER_LOGIN_EVENT');
-          });
+          if(Settings.authType === 'mobius'){
+            $timeout(function(){
+              $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
+            });
+          }
+          
 
           if(authPromise && authPromise.resolve){
             authPromise.resolve(true);
@@ -188,9 +191,11 @@ angular.module('mobiusApp.services.user', [])
 
       authPromise = $q.defer().promise;
 
-      $timeout(function(){
-        $rootScope.$broadcast('USER_LOGIN_EVENT');
-      });
+      if(Settings.authType === 'mobius'){
+        $timeout(function(){
+          $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
+        });
+      }
     }
 
     function initSSOListeners(){
