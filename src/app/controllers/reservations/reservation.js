@@ -24,7 +24,8 @@ angular.module('mobius.controllers.reservation', [])
     error: false,
     msg: null,
     email: false,
-    payment: false
+    payment: false,
+    generic: false
   };
 
   var multiRoomData;
@@ -498,7 +499,8 @@ angular.module('mobius.controllers.reservation', [])
       error: false,
       msg: null,
       email: false,
-      payment: false
+      payment: false,
+      generic: false
     };
 
     var reservationData = createReservationData();
@@ -610,8 +612,11 @@ angular.module('mobius.controllers.reservation', [])
       $scope.invalidFormData.error = true;
       if(data.error && data.error.msg === 'User already registered'){
         $scope.invalidFormData.email = true;
-      }else{
+      }else if(data.error && data.error.msg === 'Payment not authorized'){
         $scope.invalidFormData.payment = true;
+      }
+      else{
+        $scope.invalidFormData.generic = true;
       }
       $state.go('reservation.details');
     });

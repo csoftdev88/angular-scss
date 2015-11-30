@@ -298,6 +298,7 @@
 
     "payment_not_authorized": "Wir Entschuldigen uns, ihre Zahlung konnte nicht autorisiert werden, bitte überprüfen sie ihre details und versuchen Sie es nochmals",
     "user_already_registered": "We are sorry, the email you used is already registered. Please login or use a different email address.",
+    "generic_reservation_error": "Wir sind nicht in der Lage Ihre Buchung zur Zeit zu verarbeiten. Bitte versuchen Sie es erneut, oder kontaktieren Sie direkt das Hotel.",
 
     "check_in": "Check in",
 
