@@ -625,8 +625,9 @@ angular.module('mobius.controllers.reservation', [])
 
       if(data.error && data.error.msg === 'User already registered'){
         $scope.invalidFormData.email = true;
+        $state.go('reservation.details');
       }
-      else if(data.error && (data.error.code === 53 || data.error.code === 54)){
+      else if(data.error && (data.error.reason === 53 || data.error.reason === 54)){
         if(data.error.msg === 'Cardholder Name is invalid'){
           $scope.invalidFormData.cardName = true;
         }
@@ -646,11 +647,13 @@ angular.module('mobius.controllers.reservation', [])
           $scope.invalidFormData.ccNumberInvalid = true;
         }
         $scope.invalidFormData.payment = true;
+        $state.go('reservation.billing');
       }
       else{
         $scope.invalidFormData.generic = true;
+        $state.go('reservation.details');
       }
-      $state.go('reservation.details');
+      
     });
 
     preloaderFactory(reservationPromise);
