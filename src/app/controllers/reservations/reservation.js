@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService){
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
@@ -81,8 +81,13 @@ angular.module('mobius.controllers.reservation', [])
       return property;
     });
 
+    var titlesPromise = contentService.getTitles().then(function(data) {
+      $scope.profileTitles = data;
+      console.log('titlesPromise: ' + angular.toJson($scope.profileTitles));
+    });
+
     // Showing loading mask
-    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise]).then(function(){
+    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise, titlesPromise]).then(function(){
       $rootScope.showHomeBreadCrumb = false;
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
@@ -151,6 +156,7 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   function prefillUserDetails(userData, isMobius){
+    console.log('prefillUserDetails: ' + angular.toJson(userData));
     if(!userData){
       return;
     }
@@ -409,7 +415,7 @@ angular.module('mobius.controllers.reservation', [])
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
       },
-
+      guestTitle: $scope.userDetails.title,
       guestFirstName: $scope.userDetails.firstName,
       guestLastName: $scope.userDetails.lastName
     };

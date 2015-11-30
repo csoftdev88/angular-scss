@@ -24,6 +24,9 @@ describe('mobius.controllers.reservation', function() {
       icon: 'visa',
       code: 'VI'
     };
+    var TITLES_DATA = [{
+      titles: [{a: 123}, {b: 123}]
+    }];
 
     beforeEach(function() {
       module('mobiusApp.services.content',  function($provide){
@@ -97,6 +100,16 @@ describe('mobius.controllers.reservation', function() {
                 c({
                   id: 123
                 });
+              }
+            };
+          }
+        });
+
+        $provide.value('contentService', {
+          getTitles: function(){
+            return {
+              then: function(c){
+                c(TITLES_DATA);
               }
             };
           }
