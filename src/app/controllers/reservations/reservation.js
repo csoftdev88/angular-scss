@@ -25,6 +25,12 @@ angular.module('mobius.controllers.reservation', [])
     msg: null,
     email: false,
     payment: false,
+    cardName: false,
+    paymentType: false,
+    expiryDate: false,
+    ccExpired: false,
+    ccvInvalid: false,
+    ccNumberInvalid: false,
     generic: false
   };
 
@@ -500,6 +506,12 @@ angular.module('mobius.controllers.reservation', [])
       msg: null,
       email: false,
       payment: false,
+      cardName: false,
+      paymentType: false,
+      expiryDate: false,
+      ccExpired: false,
+      ccvInvalid: false,
+      ccNumberInvalid: false,
       generic: false
     };
 
@@ -610,9 +622,29 @@ angular.module('mobius.controllers.reservation', [])
       // TODO: Whaat request has failed
       //Apparently soap reason is not reliable so checking against msg
       $scope.invalidFormData.error = true;
+
       if(data.error && data.error.msg === 'User already registered'){
         $scope.invalidFormData.email = true;
-      }else if(data.error && data.error.msg === 'Payment not authorized'){
+      }
+      else if(data.error && (data.error.code === 53 || data.error.code === 54)){
+        if(data.error.msg === 'Cardholder Name is invalid'){
+          $scope.invalidFormData.cardName = true;
+        }
+        else if(data.error.msg === 'Payment Type is invalid'){
+          $scope.invalidFormData.paymentType = true;
+        }
+        else if(data.error.msg === 'Expiry Date is invalid'){
+          $scope.invalidFormData.expiryDate = true;
+        }
+        else if(data.error.msg === 'Credit card will be expired'){
+          $scope.invalidFormData.ccExpired = true;
+        }
+        else if(data.error.msg === 'CCV is invalid'){
+          $scope.invalidFormData.ccvInvalid = true;
+        }
+        else if(data.error.msg === 'Card Number is invalid'){
+          $scope.invalidFormData.ccNumberInvalid = true;
+        }
         $scope.invalidFormData.payment = true;
       }
       else{

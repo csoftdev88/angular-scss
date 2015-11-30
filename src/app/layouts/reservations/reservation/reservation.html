@@ -9,7 +9,13 @@
   <reservation-widget grid-row>
 
     <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.payment">
-      _payment_not_authorized_
+      <span>_payment_not_authorized_: </span>
+      <span ng-if="invalidFormData.cardName">_payment_not_authorized_card_name_</span>
+      <span ng-if="invalidFormData.paymentType">_payment_not_authorized_payment_type_</span>
+      <span ng-if="invalidFormData.expiryDate">_payment_not_authorized_expiry_date_</span>
+      <span ng-if="invalidFormData.ccExpired">_payment_not_authorized_cc_expired_</span>
+      <span ng-if="invalidFormData.ccvInvalid">_payment_not_authorized_ccv_invalid_</span>
+      <span ng-if="invalidFormData.ccNumberInvalid">_payment_not_authorized_cc_number_invalid_</span>
     </span>
 
     <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.email">
