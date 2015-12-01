@@ -222,7 +222,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       }
 
       modalService.openCancelReservationDialog($stateParams.reservationCode).then(function(){
-        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode)
+        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, $stateParams.email)
         .then(function(){
 
           // Reservation is removed, notifying user
@@ -232,8 +232,10 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Tracking refund
           dataLayerService.trackReservationRefund($stateParams.reservationCode);
 
-          $state.go('reservations');
-
+          if(!$stateParams.email){
+            $state.go('reservations');
+          }
+          
         }, function(error){
           if (error && error.error && error.error.msg) {
             userMessagesService.addMessage('<p>' + error.error.msg + '</p>');

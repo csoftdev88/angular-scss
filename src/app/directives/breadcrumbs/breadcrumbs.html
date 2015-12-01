@@ -3,7 +3,19 @@
     <ul class="crumbs">
       <li ng-if="showHomeBreadCrumb"><a ui-sref="home">_home_</a></li>
       <li ng-repeat="link in breadcrumbs">
-        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">{{link.name}}</a>
+        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">
+          <!--{{link.name}}-->
+          <span ng-if="link.name.toLowerCase() === 'offers'">_offers_deals_</span>
+          <span ng-if="link.name.toLowerCase() === 'about us'">_about_us_</span>
+          <span ng-if="link.name.toLowerCase() === 'hotels'">_hotels_</span>
+          <span ng-if="link.name.toLowerCase() === 'rewards'">_rewards_</span>
+          <span ng-if="link.name.toLowerCase() === 'profile'">_profile_</span>
+          <span ng-if="link.name.toLowerCase() === 'news'">_news_</span>
+          <span ng-if="link.name.toLowerCase() === 'contact'">_contact_</span>
+          <span ng-if="link.name.toLowerCase() === 'reservations'">_reservations_</span>
+          <span ng-if="link.name.toLowerCase() === 'register'">_register_</span>
+          <span ng-if="link.name.toLowerCase() === 'hotel search'">_hotel_search_</span>
+        </a>
         <span ng-if="!link.state && !$last">{{link.name}}</span>
         <span ng-if="!link.state && $last">{{link.name}}</span>
       </li>

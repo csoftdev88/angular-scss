@@ -13,8 +13,8 @@ angular.module('mobiusApp.services.reservation', [])
     return apiService.put(apiService.getFullURL('reservations.modify', {reservationCode: reservationCode}), data, email?{email:email}:null);
   }
 
-  function cancelReservation(reservationCode) {
-    return apiService.put(apiService.getFullURL('reservations.cancel', {reservationCode: reservationCode}));
+  function cancelReservation(reservationCode, reservationEmail) {
+    return reservationEmail ? apiService.put(apiService.getFullURL('reservations.cancelAnon', {reservationCode: reservationCode, reservationEmail: reservationEmail})) : apiService.put(apiService.getFullURL('reservations.cancel', {reservationCode: reservationCode}));
   }
 
   function getReservation(reservationCode, params) {
