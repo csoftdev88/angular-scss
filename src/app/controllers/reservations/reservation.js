@@ -83,7 +83,6 @@ angular.module('mobius.controllers.reservation', [])
 
     var titlesPromise = contentService.getTitles().then(function(data) {
       $scope.profileTitles = data;
-      console.log('titlesPromise: ' + angular.toJson($scope.profileTitles));
     });
 
     // Showing loading mask
@@ -156,7 +155,6 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   function prefillUserDetails(userData, isMobius){
-    console.log('prefillUserDetails: ' + angular.toJson(userData));
     if(!userData){
       return;
     }
@@ -482,7 +480,7 @@ angular.module('mobius.controllers.reservation', [])
     // Returning a total price of all products
     return _.reduce(
       _.map($scope.allRooms, function(room){
-        return room._selectedProduct.price[prop];
+        return room._selectedProduct.priceOriginal[prop];
       }), function(t, n){
         return t + n;
       });

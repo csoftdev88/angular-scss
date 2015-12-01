@@ -286,6 +286,9 @@ describe('mobius.controllers.reservation', function() {
               productPropertyRoomTypeId: TEST_ROOM_ID,
               price: {
                 totalBase: 555
+              },
+              priceOriginal: {
+                totalBase: 555
               }
             }
           }
