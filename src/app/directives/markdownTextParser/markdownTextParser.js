@@ -55,6 +55,13 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
         parse();
       });
 
+      $scope.$watch($attrs.bindUnsafe, function(html) {
+        if(!html){
+          return;
+        }
+        parse();
+      });
+
     }
   };
 });
