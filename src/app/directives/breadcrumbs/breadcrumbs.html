@@ -4,32 +4,68 @@
       <li ng-if="showHomeBreadCrumb"><a ui-sref="home">_home_</a></li>
       <li ng-repeat="link in breadcrumbs">
         <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">
-          <!--{{link.name}}-->
-          <span ng-if="link.name.toLowerCase() === 'offers'">_offers_deals_</span>
-          <span ng-if="link.name.toLowerCase() === 'about us'">_about_us_</span>
-          <span ng-if="link.name.toLowerCase() === 'hotels'">_hotels_</span>
-          <span ng-if="link.name.toLowerCase() === 'rewards'">_rewards_</span>
-          <span ng-if="link.name.toLowerCase() === 'profile'">_profile_</span>
-          <span ng-if="link.name.toLowerCase() === 'news'">_news_</span>
-          <span ng-if="link.name.toLowerCase() === 'contact'">_contact_</span>
-          <span ng-if="link.name.toLowerCase() === 'reservations'">_reservations_</span>
-          <span ng-if="link.name.toLowerCase() === 'register'">_register_</span>
-          <span ng-if="link.name.toLowerCase() === 'hotel search'">_hotel_search_</span>
+          <span ng-switch="link.name.toLowerCase()">
+            <span ng-switch-when="offers">_offers_deals_</span>
+            <span ng-switch-when="about us">_about_us_</span>
+            <span ng-switch-when="hotels">_hotels_</span>
+            <span ng-switch-when="rewards">_rewards_</span>
+            <span ng-switch-when="profile">_profile_</span>
+            <span ng-switch-when="news">_news_</span>
+            <span ng-switch-when="contact">_contact_</span>
+            <span ng-switch-when="reservations">_reservations_</span>
+            <span ng-switch-when="register">_register_</span>
+            <span ng-switch-when="hotel search">_hotel_search_</span>
+            <span ng-switch-when="rooms">_rooms_</span>
+            <span ng-switch-when="my stays">_my_stays_</span>
+            <span ng-switch-default>{{link.name}}</span>
+          </span>
         </a>
-        <span ng-if="!link.state && !$last">{{link.name}}</span>
-        <span ng-if="!link.state && $last">{{link.name}}</span>
+        <span ng-switch="link.name.toLowerCase()" ng-if="!link.state">
+          <span ng-switch-when="offers">_offers_deals_</span>
+          <span ng-switch-when="about us">_about_us_</span>
+          <span ng-switch-when="hotels">_hotels_</span>
+          <span ng-switch-when="rewards">_rewards_</span>
+          <span ng-switch-when="profile">_profile_</span>
+          <span ng-switch-when="news">_news_</span>
+          <span ng-switch-when="contact">_contact_</span>
+          <span ng-switch-when="reservations">_reservations_</span>
+          <span ng-switch-when="register">_register_</span>
+          <span ng-switch-when="hotel search">_hotel_search_</span>
+          <span ng-switch-when="rooms">_rooms_</span>
+          <span ng-switch-when="my stays">_my_stays_</span>
+          <span ng-switch-default>{{link.name}}</span>
+        </span>
       </li>
     </ul>
     <ul ng-if="hrefs.length > 0 && showAltNav" class="alt-nav">
       <li ng-repeat="href in hrefs" ng-class="{selected: scrollActiveHref.id === href.id}">
-        <a href ng-if="href.id" ng-click="scrollTo(href.id)">{{href.name}}</a>
-        <span ng-if="!href.id">{{href.name}}</span>
+        <a href ng-if="href.id && href.name.toLowerCase() === 'about'" ng-click="scrollTo(href.id)">_about_</a>
+        <a href ng-if="href.id && href.name.toLowerCase() === 'rooms'" ng-click="scrollTo(href.id)">_rooms_</a>
+        <a href ng-if="href.id && href.name.toLowerCase() === 'location'" ng-click="scrollTo(href.id)">_location_</a>
+        <a href ng-if="href.id && href.name.toLowerCase() === 'offers'" ng-click="scrollTo(href.id)">_offers_</a>
+        <a href ng-if="href.id && href.name.toLowerCase() === 'gallery'" ng-click="scrollTo(href.id)">_gallery_</a>
+
+        <span ng-if="!href.id && href.name.toLowerCase() === 'about'">_about_</span>
+        <span ng-if="!href.id && href.name.toLowerCase() === 'rooms'">_rooms_</span>
+        <span ng-if="!href.id && href.name.toLowerCase() === 'location'">_location_</span>
+        <span ng-if="!href.id && href.name.toLowerCase() === 'offers'">_offers_</span>
+        <span ng-if="!href.id && href.name.toLowerCase() === 'gallery'">_gallery_</span>
       </li>
     </ul>
     <ul ng-if="absHrefs.length && showAltNav" class="alt-nav">
       <li ng-repeat="link in absHrefs">
-        <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params)}}">{{link.name}}</a>
-        <span ng-if="!link.state">{{link.name}}</span>
+
+        <a ng-if="link.state && link.name.toLowerCase() === 'about'" ng-href="{{$state.href(link.state, link.params)}}">_about_</a>
+        <a ng-if="link.state && link.name.toLowerCase() === 'rooms'" ng-href="{{$state.href(link.state, link.params)}}">_rooms_</a>
+        <a ng-if="link.state && link.name.toLowerCase() === 'location'" ng-href="{{$state.href(link.state, link.params)}}">_location_</a>
+        <a ng-if="link.state && link.name.toLowerCase() === 'offers'" ng-href="{{$state.href(link.state, link.params)}}">_offers_</a>
+        <a ng-if="link.state && link.name.toLowerCase() === 'gallery'" ng-href="{{$state.href(link.state, link.params)}}">_gallery_</a>
+
+        <span ng-if="!link.state && link.name.toLowerCase() === 'about'">_about_</span>
+        <span ng-if="!link.state && link.name.toLowerCase() === 'rooms'">_rooms_</span>
+        <span ng-if="!link.state && link.name.toLowerCase() === 'location'">_location_</span>
+        <span ng-if="!link.state && link.name.toLowerCase() === 'offers'">_offers_</span>
+        <span ng-if="!link.state && link.name.toLowerCase() === 'gallery'">_gallery_</span>
       </li>
     </ul>
   </div>

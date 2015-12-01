@@ -155,9 +155,9 @@ describe('mobius.controllers.contacts', function() {
         expect(_scope._mainCtrlInherited).equal(true);
       });
 
-      it('should add Contact And Feedback breadcrumb', function(){
+      it('should add Contact breadcrumb', function(){
         expect(_breadcrumbsService.addBreadCrumb.calledOnce).equal(true);
-        expect(_breadcrumbsService.addBreadCrumb.calledWith('Contact And Feedback')).equal(true);
+        expect(_breadcrumbsService.addBreadCrumb.calledWith('Contact')).equal(true);
       });
 
       it('should download chain data from the server and define it on scope', function(){

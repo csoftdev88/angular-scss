@@ -15,7 +15,7 @@ angular.module('mobius.controllers.contacts', [])
     }, 500);
 
     $controller('MainCtrl', {$scope: $scope});
-    breadcrumbsService.addBreadCrumb('Contact And Feedback');
+    breadcrumbsService.addBreadCrumb('Contact');
 
     $scope.subjectOptions = Settings.UI.forms.contactSubjects;
     $scope.viewSettings = Settings.UI.viewsSettings.contacts;
