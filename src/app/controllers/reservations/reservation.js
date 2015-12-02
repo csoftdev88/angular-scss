@@ -144,7 +144,7 @@ angular.module('mobius.controllers.reservation', [])
         dataLayerService.trackProductsCheckout([{
           name: product.name,
           code: product.code,
-          price: product.price.totalBase
+          price: product.price.totalAfterTax
         }]);
       }
 
@@ -459,7 +459,7 @@ angular.module('mobius.controllers.reservation', [])
 
     // Product basePrice
     // NOTE - Pay with points requires price as well
-    reservationData.price = $scope.getTotal('totalBase');
+    reservationData.price = $scope.getTotal('totalAfterTax');
 
     if($scope.bookingDetails.promoCode){
       // NOTE: Originally implemented using getCodeParamName as
@@ -578,7 +578,7 @@ angular.module('mobius.controllers.reservation', [])
         return {
           name: p.name,
           code: p.code,
-          price: p.price.totalBase
+          price: p.price.totalAfterTax
         };
       });
       dataLayerService.trackProductsPurchase(products, {
