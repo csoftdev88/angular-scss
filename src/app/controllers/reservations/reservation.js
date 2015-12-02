@@ -91,21 +91,59 @@ angular.module('mobius.controllers.reservation', [])
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
 
-    // Updating users data
-    prefillUserDetails(isMobiusUser || userObject.token ? user.getUser():{email:$stateParams.email});
-    scrollToDetails('reservationDetailsForm');
 
     // Showing login/register dialog when user making reservation as not logged in
     // user. This doesn't apply for modifications or if loyalty program is disbaled
     if(!isMobiusUser && !$scope.isModifyingAsAnonymous() && Settings.authType === 'infiniti'){
       modalService.openLoginDialog();
-    }else if($scope.isModifyingAsAnonymous()){
+    }
+
+    //If modifying as logged in user
+    if($stateParams.reservation && !$scope.isModifyingAsAnonymous()){
+
+      reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
+        console.log('modify as logged in reservation data: ' + angular.toJson(reservation));
+
+        $scope.userDetails.title = reservation.guestTitle;
+        $scope.userDetails.firstName = reservation.guestFirstName;
+        $scope.userDetails.lastName = reservation.guestLastName;
+        $scope.userDetails.address = reservation.guestAddress;
+        $scope.userDetails.city = reservation.guestCity;
+        $scope.userDetails.zip = reservation.guestZip;
+        $scope.userDetails.stateProvince = reservation.guestStateProvince;
+        $scope.userDetails.country = reservation.guestCountry;
+        $scope.userDetails.phone = reservation.guestPhone;
+
+        $scope.billingDetails.useGuestAddress = reservation.billingDetailsUseGuestAddress;
+        $scope.billingDetails.paymentMethod = reservation.paymentInfo.paymentMethod;
+
+        $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
+        $scope.additionalInfo.arrivalMethod = reservation.arrivalMethod;
+        $scope.additionalInfo.departureTime = reservation.departureTime;
+        $scope.additionalInfo.comments = reservation.comments;
+        $scope.additionalInfo.secondPhoneNumber = reservation.secondPhoneNumber;
+        $scope.additionalInfo.optedIn = reservation.optedIn;
+
+        if(!reservation.billingDetailsUseGuestAddress){
+          $scope.billingDetails.address = reservation.billingAddress;
+          $scope.billingDetails.city = reservation.billingCity;
+          $scope.billingDetails.zip = reservation.billingZip;
+          $scope.billingDetails.stateProvince = reservation.billingStateProvince;
+          $scope.billingDetails.phone = reservation.billingPhone;
+          $scope.billingDetails.country = reservation.billingCountry;
+        }
+        
+      });
+
+    }
+    //If modifying as anonymous user
+    else if($scope.isModifyingAsAnonymous()){
       var reservationParams = {
         email: $stateParams.email
       };
 
       reservationService.getReservation($stateParams.reservation, reservationParams).then(function(reservation) {
-        console.log('modify get reservation: ' + angular.toJson(reservation));
+        console.log('modify as anon reservation data: ' + angular.toJson(reservation));
 
         $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
         $scope.additionalInfo.arrivalMethod = reservation.arrivalMethod;
@@ -113,19 +151,27 @@ angular.module('mobius.controllers.reservation', [])
         $scope.additionalInfo.comments = reservation.comments;
 
         reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(data) {
-          console.log('modify getAnonUserProfile: ' + angular.toJson(data));
+          console.log('modify as anon getAnonUserProfile: ' + angular.toJson(data));
+          $scope.userDetails.title = data.title;
           $scope.userDetails.firstName = data.firstName;
           $scope.userDetails.lastName = data.lastName;
           $scope.userDetails.address = data.address1;
           $scope.userDetails.city = data.city;
           $scope.userDetails.zip = data.zip;
           $scope.userDetails.stateProvince = data.state;
+          $scope.userDetails.country = data.country;
           $scope.userDetails.phone = data.tel1;
           $scope.additionalInfo.secondPhoneNumber = data.tel2;
           $scope.additionalInfo.optedIn = data.optedIn;
         });
       });
     }
+    //If new reservation
+    else{
+      prefillUserDetails(isMobiusUser || userObject.token ? user.getUser() : {email : $stateParams.email});
+    }
+    
+    scrollToDetails('reservationDetailsForm');
 
   }
 
@@ -272,9 +318,7 @@ angular.module('mobius.controllers.reservation', [])
   });
 
   $scope.state = $state;
-
   $scope.forms = {};
-
   $scope.billingDetails = {
     card: {
       number: '',
@@ -405,17 +449,30 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function createReservationData() {
+
     var reservationData = {
+      guestTitle: $scope.userDetails.title,
+      guestFirstName: $scope.userDetails.firstName,
+      guestLastName: $scope.userDetails.lastName,
+      guestEmail: $scope.userDetails.email,
+      guestPhone: $scope.userDetails.phone,
+      guestAddress: $scope.userDetails.address,
+      guestCity: $scope.userDetails.city,
+      guestZip: $scope.userDetails.zip,
+      guestStateProvince: $scope.userDetails.stateProvince,
+      guestCountry: $scope.userDetails.country,
+
+      billingDetailsUseGuestAddress: $scope.billingDetails.useGuestAddress,
+      optedIn: $scope.additionalInfo.optedIn,
+
       arrivalDate: $scope.bookingDetails.from,
       departureDate: $scope.bookingDetails.to,
       hasReadRatePolicies: true,
       rooms: getRooms(),
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
-      },
-      guestTitle: $scope.userDetails.title,
-      guestFirstName: $scope.userDetails.firstName,
-      guestLastName: $scope.userDetails.lastName
+      }
+      
     };
 
     // Adding customerID when logged in
@@ -429,6 +486,7 @@ angular.module('mobius.controllers.reservation', [])
       reservationData.customerEmail = $scope.userDetails.email;
     }
 
+    //Additional info
     if($scope.additionalInfo.arrivalTime) {
       reservationData.arrivalTime = $scope.additionalInfo.arrivalTime;
     }
@@ -445,6 +503,13 @@ angular.module('mobius.controllers.reservation', [])
       reservationData.comments = $scope.additionalInfo.comments;
     }
 
+    if($scope.additionalInfo.secondPhoneNumber) {
+      reservationData.secondPhoneNumber = $scope.additionalInfo.secondPhoneNumber;
+    }
+
+    
+
+    //Payment details
     if (reservationData.paymentInfo.paymentMethod === 'cc') {
       reservationData.paymentInfo.ccPayment = {
         holderName: $scope.billingDetails.card.holderName,
@@ -455,6 +520,16 @@ angular.module('mobius.controllers.reservation', [])
         securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
         typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code
       };
+    }
+
+    //Billing details if different than guest details
+    if(!$scope.billingDetails.useGuestAddress){
+      reservationData.billingAddress = $scope.billingDetails.address;
+      reservationData.billingCity = $scope.billingDetails.city;
+      reservationData.billingZip = $scope.billingDetails.zip;
+      reservationData.billingStateProvince = $scope.billingDetails.stateProvince;
+      reservationData.billingPhone = $scope.billingDetails.phone;
+      reservationData.billingCountry = $scope.billingDetails.country;
     }
 
     // Product basePrice
@@ -521,31 +596,19 @@ angular.module('mobius.controllers.reservation', [])
 
     var reservationData = createReservationData();
     console.log('reservationData: ' + angular.toJson(reservationData));
-    // TODO: Check if phone number has changed before saving
-    var userData = {
-      tel2: $scope.additionalInfo.secondPhoneNumber,
-      optedIn: $scope.additionalInfo.optedIn
-    };
-    userData.firstName = user.getUser().firstName;
-    userData.lastName = user.getUser().lastName;
-
-
+    
 
     var promises = [];
     if($stateParams.reservation){
       // Updating existing reservation
       promises.push(reservationService.modifyReservation($stateParams.reservation, reservationData,
         // Email parameter when user modifying as anonymous.
-        $scope.isModifyingAsAnonymous()?$stateParams.email:null));
+        $scope.isModifyingAsAnonymous() ? $stateParams.email : null));
     }else{
       // Creating a new reservation
       promises.push(reservationService.createReservation(reservationData));
     }
-    //Hidding this for now but it's wrong, will be removed
-    //if(reservationData.customer){
-      // Updating user profile when
-      //promises.push(user.updateUser(userData));
-    //}
+
 
     var reservationPromise = $q.all(promises).then(function(data) {
       console.log('reservationPromise: ' + angular.toJson(data));
@@ -586,21 +649,20 @@ angular.module('mobius.controllers.reservation', [])
         id: reservationDetailsParams.reservationCode
       });
 
-      $state.go('reservationDetail', reservationDetailsParams);
+      //$state.go('reservationDetail', reservationDetailsParams);
 
       //creating anon user account
-      //NOTE: removing that for now as REST returning 500, part of reservation refactoring anyway
-      //TODO: Generally we want to save every aspect of the reservation data including guest/billing/user details so these can be prefilled when modifying
-      /*
       if(!user.isLoggedIn()){
         
         var anonUserData = {
+          title: $scope.userDetails.title,
           firstName: $scope.userDetails.firstName,
           lastName: $scope.userDetails.lastName,
           address1: $scope.userDetails.address,
           city: $scope.userDetails.city,
           zip: $scope.userDetails.zip,
           state: $scope.userDetails.stateProvince,
+          country: $scope.userDetails.country,
           tel1: $scope.userDetails.phone,
           tel2: $scope.additionalInfo.secondPhoneNumber,
           optedIn: $scope.additionalInfo.optedIn
@@ -609,6 +671,7 @@ angular.module('mobius.controllers.reservation', [])
         var params = {
           email: $scope.userDetails.email
         };
+
         reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
           console.log('make res getReservation: ' + angular.toJson(reservation));
           $state.go('reservationDetail', reservationDetailsParams);
@@ -620,7 +683,7 @@ angular.module('mobius.controllers.reservation', [])
       else{
         $state.go('reservationDetail', reservationDetailsParams);
       }
-      */
+      
       
     }, function(data) {
       // TODO: Whaat request has failed
