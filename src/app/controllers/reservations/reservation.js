@@ -107,6 +107,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.userDetails.title = reservation.guestTitle;
         $scope.userDetails.firstName = reservation.guestFirstName;
         $scope.userDetails.lastName = reservation.guestLastName;
+        $scope.userDetails.email = reservation.email;
         $scope.userDetails.address = reservation.guestAddress;
         $scope.userDetails.city = reservation.guestCity;
         $scope.userDetails.zip = reservation.guestZip;
@@ -155,6 +156,7 @@ angular.module('mobius.controllers.reservation', [])
           $scope.userDetails.title = data.title;
           $scope.userDetails.firstName = data.firstName;
           $scope.userDetails.lastName = data.lastName;
+          $scope.userDetails.email = data.email;
           $scope.userDetails.address = data.address1;
           $scope.userDetails.city = data.city;
           $scope.userDetails.zip = data.zip;
