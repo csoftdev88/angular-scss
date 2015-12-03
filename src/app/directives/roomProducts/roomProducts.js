@@ -16,6 +16,7 @@ angular.module('mobiusApp.directives.room.products', [])
       bookingParams.roomCode = bookingService.getCodeFromSlug(scope.room.meta.slug);
 
       scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
+      scope.productsSortByField = Settings.UI.hotelDetails.rooms.rates.sortByField;
 
       scope.init = function(){
         scope.products = undefined;

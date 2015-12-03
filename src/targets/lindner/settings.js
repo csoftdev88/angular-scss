@@ -175,7 +175,8 @@ angular.module('mobiusApp.config', [])
           'bookNowButtonText': 'Book Now',
           'ratesPerRoomOnDesktop': 20,
           'ratesPerRoomOnMobile': 2,
-          'showDescription': true
+          'showDescription': true,
+          'sortByField': 'weighting'
         }
 
       },
