@@ -26,6 +26,7 @@ angular.module('mobius.controllers.hotel.details', [
   bookingParams.includes = 'amenities';
 
   // Sorting options
+  //TODO add to settings/locales
   $scope.sortingOptions = [
     {
       name: 'Price - Low to High',
@@ -40,6 +41,16 @@ angular.module('mobius.controllers.hotel.details', [
       }
     }
   ];
+
+  if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+    $scope.sortingOptions.splice(0, 0, {
+      name: 'Relevance',
+      sort: function(room){
+        return room.weighting;
+      }
+    });
+  }
+
 
   $scope.currentOrder = $scope.sortingOptions[0];
   $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;

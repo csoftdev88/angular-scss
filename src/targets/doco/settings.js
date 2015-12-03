@@ -164,6 +164,7 @@ angular.module('mobiusApp.config', [])
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
       'rooms': {
+        'sortRoomsByWeighting': false,
         'defaultNumberOfAmenities': 3,
         'viewRatesButtonText': 'View Rates',
         // Loading rates when hovering over the room
@@ -174,8 +175,7 @@ angular.module('mobiusApp.config', [])
           'bookNowButtonText': 'Book Now',
           'ratesPerRoomOnDesktop': 20,
           'ratesPerRoomOnMobile': 2,
-          'showDescription': true,
-          'sortByField': 'weighting'
+          'showDescription': true
         }
 
       },
