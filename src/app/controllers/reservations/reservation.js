@@ -104,19 +104,16 @@ angular.module('mobius.controllers.reservation', [])
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
         console.log('modify as logged in reservation data: ' + angular.toJson(reservation));
 
-        $scope.userDetails.title = reservation.guestTitle;
-        $scope.userDetails.firstName = reservation.guestFirstName;
-        $scope.userDetails.lastName = reservation.guestLastName;
-        $scope.userDetails.email = reservation.email;
-        $scope.userDetails.address = reservation.guestAddress;
-        $scope.userDetails.city = reservation.guestCity;
-        $scope.userDetails.zip = reservation.guestZip;
-        $scope.userDetails.stateProvince = reservation.guestStateProvince;
-        $scope.userDetails.country = reservation.guestCountry;
-        $scope.userDetails.phone = reservation.guestPhone;
-
-        $scope.billingDetails.useGuestAddress = reservation.billingDetailsUseGuestAddress;
-        $scope.billingDetails.paymentMethod = reservation.paymentInfo.paymentMethod;
+        $scope.userDetails.title = reservation.rooms[0].guestTitle;
+        $scope.userDetails.firstName = reservation.rooms[0].firstName;
+        $scope.userDetails.lastName = reservation.rooms[0].lastName;
+        $scope.userDetails.email = reservation.rooms[0].guestEmail;
+        $scope.userDetails.address = reservation.rooms[0].guestAddress;
+        $scope.userDetails.city = reservation.rooms[0].guestCity;
+        $scope.userDetails.zip = reservation.rooms[0].guestZip;
+        $scope.userDetails.stateProvince = reservation.rooms[0].guestState;
+        $scope.userDetails.country = reservation.rooms[0].guestCountry;
+        $scope.userDetails.phone = reservation.rooms[0].guestPhone;
 
         $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
         $scope.additionalInfo.arrivalMethod = reservation.arrivalMethod;
@@ -125,14 +122,14 @@ angular.module('mobius.controllers.reservation', [])
         $scope.additionalInfo.secondPhoneNumber = reservation.secondPhoneNumber;
         $scope.additionalInfo.optedIn = reservation.optedIn;
 
-        if(!reservation.billingDetailsUseGuestAddress){
-          $scope.billingDetails.address = reservation.billingAddress;
-          $scope.billingDetails.city = reservation.billingCity;
-          $scope.billingDetails.zip = reservation.billingZip;
-          $scope.billingDetails.stateProvince = reservation.billingStateProvince;
-          $scope.billingDetails.phone = reservation.billingPhone;
-          $scope.billingDetails.country = reservation.billingCountry;
-        }
+        $scope.billingDetails.useGuestAddress = reservation.rooms[0].billingAddress ? false : true;
+
+        $scope.billingDetails.address = reservation.rooms[0].billingAddress;
+        $scope.billingDetails.city = reservation.rooms[0].billingCity;
+        $scope.billingDetails.zip = reservation.rooms[0].billingZip;
+        $scope.billingDetails.stateProvince = reservation.rooms[0].billingState;
+        $scope.billingDetails.phone = reservation.rooms[0].billingPhone;
+        $scope.billingDetails.country = reservation.rooms[0].billingCountry;
         
       });
 
@@ -150,6 +147,17 @@ angular.module('mobius.controllers.reservation', [])
         $scope.additionalInfo.arrivalMethod = reservation.arrivalMethod;
         $scope.additionalInfo.departureTime = reservation.departureTime;
         $scope.additionalInfo.comments = reservation.comments;
+        $scope.additionalInfo.secondPhoneNumber = reservation.secondPhoneNumber;
+        $scope.additionalInfo.optedIn = reservation.optedIn;
+
+        $scope.billingDetails.useGuestAddress = reservation.rooms[0].billingAddress ? false : true;
+
+        $scope.billingDetails.address = reservation.rooms[0].billingAddress;
+        $scope.billingDetails.city = reservation.rooms[0].billingCity;
+        $scope.billingDetails.zip = reservation.rooms[0].billingZip;
+        $scope.billingDetails.stateProvince = reservation.rooms[0].billingState;
+        $scope.billingDetails.phone = reservation.rooms[0].billingPhone;
+        $scope.billingDetails.country = reservation.rooms[0].billingCountry;
 
         reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(data) {
           console.log('modify as anon getAnonUserProfile: ' + angular.toJson(data));
