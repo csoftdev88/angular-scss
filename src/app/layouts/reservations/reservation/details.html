@@ -59,7 +59,7 @@
       </label>
 
       <label for="telephone" class="input-right">
-        <input type="text" id="telephone" national-mode="false" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number required
+        <input type="text" id="telephone" national-mode="false" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number
           preferred-countries="{{preferredCountryCodes || 'ca'}}"
           ng-model="userDetails.phone"
           ng-change="countryPhoneChanged()"
