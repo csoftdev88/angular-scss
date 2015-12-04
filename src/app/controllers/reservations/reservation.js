@@ -102,7 +102,7 @@ angular.module('mobius.controllers.reservation', [])
     if($stateParams.reservation && !$scope.isModifyingAsAnonymous()){
 
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
-        console.log('modify as logged in reservation data: ' + angular.toJson(reservation));
+        //console.log('modify as logged in reservation data: ' + angular.toJson(reservation));
 
         $scope.userDetails.title = reservation.rooms[0].guestTitle;
         $scope.userDetails.firstName = reservation.rooms[0].firstName;
@@ -141,7 +141,7 @@ angular.module('mobius.controllers.reservation', [])
       };
 
       reservationService.getReservation($stateParams.reservation, reservationParams).then(function(reservation) {
-        console.log('modify as anon reservation data: ' + angular.toJson(reservation));
+        //console.log('modify as anon reservation data: ' + angular.toJson(reservation));
 
         $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
         $scope.additionalInfo.arrivalMethod = reservation.arrivalMethod;
@@ -160,7 +160,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.billingDetails.country = reservation.rooms[0].billingCountry;
 
         reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(data) {
-          console.log('modify as anon getAnonUserProfile: ' + angular.toJson(data));
+          //console.log('modify as anon getAnonUserProfile: ' + angular.toJson(data));
           $scope.userDetails.title = data.title;
           $scope.userDetails.firstName = data.firstName;
           $scope.userDetails.lastName = data.lastName;
@@ -605,7 +605,7 @@ angular.module('mobius.controllers.reservation', [])
     };
 
     var reservationData = createReservationData();
-    console.log('reservationData: ' + angular.toJson(reservationData));
+    //console.log('reservationData: ' + angular.toJson(reservationData));
     
 
     var promises = [];
@@ -621,7 +621,7 @@ angular.module('mobius.controllers.reservation', [])
 
 
     var reservationPromise = $q.all(promises).then(function(data) {
-      console.log('reservationPromise: ' + angular.toJson(data));
+      //console.log('reservationPromise: ' + angular.toJson(data));
       userMessagesService.addMessage('' +
         '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
         '<div class="small">A confirmation email will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>');
@@ -683,7 +683,7 @@ angular.module('mobius.controllers.reservation', [])
         };
 
         reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
-          console.log('make res getReservation: ' + angular.toJson(reservation));
+          //console.log('make res getReservation: ' + angular.toJson(reservation));
           $state.go('reservationDetail', reservationDetailsParams);
           reservationService.updateAnonUserProfile(reservation.customer.id, params.email, anonUserData).then(function() {
             $state.go('reservationDetail', reservationDetailsParams);
