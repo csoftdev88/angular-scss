@@ -29,7 +29,11 @@ angular.module('mobius.controllers.offers', [])
 
     contentService.getOffers().then(function(offers) {
 
-
+      //Remove offers that have expired
+      var today = new Date();
+      offers = _.reject(offers, function(offer){
+        return offer.expirationDate < today; 
+      });
 
       if($stateParams.property){
 
