@@ -2,7 +2,7 @@
 
 angular.module('mobius.controllers.common.content', [])
 
-.controller('ContentCtr', function($scope, $rootScope, preloaderFactory, propertyService, contentService,
+.controller('ContentCtr', function($scope, $rootScope, propertyService, contentService,
  locationService, bookingService, $q, $state, $timeout, _, Settings) {
 
   // We are using different methods for getting the data
@@ -93,13 +93,11 @@ angular.module('mobius.controllers.common.content', [])
     $scope.offers = offers || [];
   });
 
-  var allPromises = $q.all([hotelsPromise, offers]).then(function(){
+  $q.all([hotelsPromise, offers]).then(function(){
     if($scope.settings){
       processSettings();
     }
   });
-
-  preloaderFactory(allPromises);
 
   function findPropertyBySlug(value) {
     var obj;
