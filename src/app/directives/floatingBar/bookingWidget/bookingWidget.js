@@ -321,7 +321,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
         }
         $window._.forEach(regionsProperties, function(region) {
-          scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
+          if(regionsProperties.length > 1){
+            scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
+          }
           //$window._.forEach(region.locations, function(location) {
           //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
           $window._.forEach(region.properties, function(property) {
