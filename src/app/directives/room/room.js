@@ -43,9 +43,14 @@ angular.module('mobiusApp.directives.room', [])
       qBookingParam.promise.then(function(bookingParams) {
         var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
           setRoomProductDetails(data.roomProductDetails);
+          scope.roomDetails = data.roomDetails;
+          setRoomData(data.roomDetails);
+          return data;
+          /*
           return setRoomData(data.roomDetails).then(function() {
             return data;
           });
+          */
         }, function() {
           $state.go('hotel', {
             propertyCode: propertyCode
@@ -102,7 +107,7 @@ angular.module('mobiusApp.directives.room', [])
         /* Getting other rooms. We should show those that are closest in price but have a price that is
            greater than the currently viewed room. If there are not enough of them we can show the cheaper
            ones as well. */
-
+        /*
         return propertyPromise.then(function(property) {
           return propertyService.getRooms(propertyCode)
             .then(function(hotelRooms){
@@ -124,6 +129,7 @@ angular.module('mobiusApp.directives.room', [])
               });
             });
         });
+*/
       }
 
       // Room product details
@@ -136,6 +142,34 @@ angular.module('mobiusApp.directives.room', [])
             })
         );
       }
+
+      scope.loadMoreRooms = function(){
+        scope.otherRoomsLoading = true;
+        return propertyPromise.then(function(property) {
+          return propertyService.getRooms(propertyCode)
+            .then(function(hotelRooms){
+
+              var data = scope.roomDetails;
+              var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
+              var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
+
+              var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
+
+              // sortedCheaperRooms is sorted by price in descending order
+              var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
+
+              scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
+              scope.otherRoomsLoading = false;
+
+              $window._.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
+                var room = $window._.find(scope.otherRooms, {code: availableRoom.code});
+                if(room) {
+                  $window._.extend(room, availableRoom);
+                }
+              });
+            });
+        });
+      };
 
       scope.setRoomsSorting = function() {
         return user.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
