@@ -27,11 +27,11 @@
       <div ng-switch-when="true">
         <div class="price-details">
           <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-            <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
+            <span class="value">{{getValuePer(product.price.totalAfterTax, false) | i18nCurrency: currencyCode}}</span>
           </p>
 
           <p class="price-form" ng-if="room.priceFrom && product.price.pointsRequired && isUserLoggedIn() && loyaltyProgramEnabled">
-            <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> _points_
+            <span class="value">{{getValuePer(product.price.pointsRequired, false)}}</span> _points_
           </p>
         </div>
 
