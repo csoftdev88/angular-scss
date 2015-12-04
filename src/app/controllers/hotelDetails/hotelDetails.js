@@ -82,6 +82,25 @@ angular.module('mobius.controllers.hotel.details', [
   //TODO: oragnise some sort of cache system
   propertyService.getPropertyDetails(propertyCode).then(function(details){
     $scope.details = details;
+    // Updating Hero content images
+    if(details.images){
+      $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));
+
+      // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
+      // Current version of PhantomJS is missing not supporting .bind
+      // https://github.com/ariya/phantomjs/issues/10522
+      // TODO: Update PhantomJS
+      $scope.openGallery = function(slideIndex){
+        modalService.openGallery(
+          contentService.getLightBoxContent(details.images),
+          slideIndex
+        );
+      };
+
+      // Preview content
+      $scope.previewImages = contentService.getLightBoxContent(
+        details.images, 300, 150, 'fill');
+    }
   });
 
   function getHotelDetails(propertyCode, params){
@@ -116,26 +135,6 @@ angular.module('mobius.controllers.hotel.details', [
           .addHref('Location', 'jsLocation')
           .addHref('Offers', 'jsOffers')
           .addHref('Gallery', 'fnOpenHotelLightBox');
-
-        // Updating Hero content images
-        if(details.images){
-          $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));
-
-          // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
-          // Current version of PhantomJS is missing not supporting .bind
-          // https://github.com/ariya/phantomjs/issues/10522
-          // TODO: Update PhantomJS
-          $scope.openGallery = function(slideIndex){
-            modalService.openGallery(
-              contentService.getLightBoxContent(details.images),
-              slideIndex
-            );
-          };
-
-          // Preview content
-          $scope.previewImages = contentService.getLightBoxContent(
-            details.images, 300, 150, 'fill');
-        }
 
         if(details.hasOwnProperty('available')) {
           roomsPromise.then(function() {
