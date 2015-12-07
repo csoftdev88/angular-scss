@@ -4,7 +4,7 @@
 describe('mobius.controllers.reservation', function() {
   describe('ReservationCtrl', function() {
     var _scope, _spyOpenPoliciesInfo, _spyStateGo, _spyCreateReservation,
-    _clock, _spyGetPropertyDetails, _spyUpdateUser, _spyGetReservation;
+    _clock, _spyGetPropertyDetails, _spyUpdateUser, _spyGetReservation, _chainService;
 
     var TEST_PROPERTY_ID = 987654321;
     var TEST_ROOM_ID = 918273645;
@@ -27,6 +27,18 @@ describe('mobius.controllers.reservation', function() {
     var TITLES_DATA = [{
       titles: [{a: 123}, {b: 123}]
     }];
+
+    var CHAIN_DATA = {
+      images: [1,2],
+      meta: {
+        description: 'desc',
+        pagetitle: 'title',
+        keywords: 'kw',
+        microdata: {
+          og: 'og-microdata'
+        }
+      }
+    };
 
     beforeEach(function() {
       module('mobiusApp.services.content',  function($provide){
@@ -171,7 +183,20 @@ describe('mobius.controllers.reservation', function() {
                 'visa': TEST_VISA
               }
             }
+          },
+          API: {
+            chainCode: 'TESTCHAIN'
           }
+        });
+
+        $provide.value('chainService', {
+          getChain: sinon.stub()
+        });
+        $provide.value('metaInformationService', {
+          setMetaDescription: sinon.spy(),
+          setMetaKeywords: sinon.spy(),
+          setPageTitle: sinon.spy(),
+          setOgGraph: sinon.spy()
         });
 
         $provide.value('creditCardTypeService', {
@@ -223,7 +248,7 @@ describe('mobius.controllers.reservation', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, $state,
-      reservationService, modalService, propertyService, user) {
+      reservationService, modalService, propertyService, user, chainService, $q) {
       _scope = $rootScope.$new();
 
       _scope.updateHeroContent = function(){};
@@ -240,6 +265,9 @@ describe('mobius.controllers.reservation', function() {
       _spyGetReservation  = sinon.spy(reservationService, 'getReservation');
       _spyUpdateUser  = sinon.spy(user, 'updateUser');
 
+      _chainService = chainService;
+      _chainService.getChain.returns($q.when(CHAIN_DATA));
+
       $controller('ReservationCtrl', { $scope: _scope });
       _scope.$digest();
     }));
@@ -255,6 +283,12 @@ describe('mobius.controllers.reservation', function() {
     });
 
     describe('when controller initialized', function() {
+
+      it('should download chain data from the server and define it on scope', function(){
+        _scope.$digest();
+        expect(_chainService.getChain.calledOnce).equal(true);
+        expect(_chainService.getChain.calledWith('TESTCHAIN')).equal(true);
+      });
       
       it('should download property details from the server and store them', function(){
         expect(_spyGetPropertyDetails).calledOnce;

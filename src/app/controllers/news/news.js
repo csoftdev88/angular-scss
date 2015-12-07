@@ -32,6 +32,11 @@ angular.module('mobius.controllers.news', [])
       chainData.meta.microdata.og['og:title'] = 'News: ' + chainData.meta.microdata.og['og:title'];
       chainData.meta.microdata.og['og:description'] = 'News: ' + chainData.meta.microdata.og['og:description'];
       metaInformationService.setOgGraph(chainData.meta.microdata.og);
+
+      metaInformationService.setOgGraph(chainData.meta.microdata.og);
+      metaInformationService.setPageTitle(chain.meta.pagetitle);
+      metaInformationService.setMetaDescription(chain.meta.description);
+      metaInformationService.setMetaKeywords(chain.meta.keywords);
     });
 
     $scope.getRelevant = function(news, index) {

@@ -10,10 +10,19 @@ angular.module('mobius.controllers.reservationDetail', [])
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-    metaInformationService, dataLayerService, Settings, userObject){
+    metaInformationService, dataLayerService, Settings, userObject, chainService){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
+
+    //get meta information
+    chainService.getChain(Settings.API.chainCode).then(function(chain) {
+      metaInformationService.setPageTitle(chain.meta.pagetitle);
+      metaInformationService.setMetaDescription(chain.meta.description);
+      metaInformationService.setMetaKeywords(chain.meta.keywords);
+      metaInformationService.setOgGraph(chain.meta.microdata.og);
+    });
+
 
     var SHORT_DESCRIPTION_LENGTH = 100;
 

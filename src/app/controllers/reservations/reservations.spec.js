@@ -3,7 +3,19 @@
 describe('mobius.controllers.reservations', function() {
   describe('ReservationsCtrl', function() {
     var _scope, _clock, _spyReservationServiceGetAll,
-      _spyPropertyServiceGetPropertyDetails;
+      _spyPropertyServiceGetPropertyDetails, _chainService;
+
+    var CHAIN_DATA = {
+      images: [1,2],
+      meta: {
+        description: 'desc',
+        pagetitle: 'title',
+        keywords: 'kw',
+        microdata: {
+          og: 'og-microdata'
+        }
+      }
+    };
 
     var TEST_RESERVATIONS = [
       {
@@ -54,6 +66,21 @@ describe('mobius.controllers.reservations', function() {
 
         $provide.value('$state', {});
 
+        $provide.value('chainService', {
+          getChain: sinon.stub()
+        });
+        $provide.value('metaInformationService', {
+          setMetaDescription: sinon.spy(),
+          setMetaKeywords: sinon.spy(),
+          setPageTitle: sinon.spy(),
+          setOgGraph: sinon.spy()
+        });
+        $provide.value('Settings', {
+          API: {
+            chainCode: 'TESTCHAIN'
+          }
+        });
+
         $provide.value('propertyService', {
           getPropertyDetails: function(){
             return {
@@ -77,7 +104,7 @@ describe('mobius.controllers.reservations', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, reservationService,
-      propertyService) {
+      propertyService, chainService, $q) {
       _scope = $rootScope.$new();
 
       _clock = sinon.useFakeTimers(0 , 'Date');
@@ -85,6 +112,9 @@ describe('mobius.controllers.reservations', function() {
 
       _spyReservationServiceGetAll = sinon.spy(reservationService, 'getAll');
       _spyPropertyServiceGetPropertyDetails = sinon.spy(propertyService, 'getPropertyDetails');
+
+      _chainService = chainService;
+      _chainService.getChain.returns($q.when(CHAIN_DATA));
 
       $controller('ReservationsCtrl', { $scope: _scope });
       _scope.$digest();
@@ -97,6 +127,12 @@ describe('mobius.controllers.reservations', function() {
     });
 
     describe('when controller initialized', function() {
+      it('should download chain data from the server and define it on scope', function(){
+        _scope.$digest();
+        expect(_chainService.getChain.calledOnce).equal(true);
+        expect(_chainService.getChain.calledWith('TESTCHAIN')).equal(true);
+      });
+
       it('should download all reservations from the server', function(){
         expect(_spyReservationServiceGetAll.calledOnce).equal(true);
       });

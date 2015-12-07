@@ -92,7 +92,12 @@ angular.module('mobius.controllers.offers', [])
       chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
       chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
+
       metaInformationService.setOgGraph(chainData.meta.microdata.og);
+      metaInformationService.setPageTitle(chain.meta.pagetitle);
+      metaInformationService.setMetaDescription(chain.meta.description);
+      metaInformationService.setMetaKeywords(chain.meta.keywords);
+      
     });
 
     $scope.getRelevant = function(offer, index) {

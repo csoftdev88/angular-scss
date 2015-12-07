@@ -6,9 +6,24 @@ angular.module('mobius.controllers.reservations', [])
 
 .controller('ReservationsCtrl', function($scope, $controller, $q,
   $state, modalService, creditCardTypeService, reservationService,
-  preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject){
+  preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject, chainService, metaInformationService, $location, Settings){
 
   breadcrumbsService.addBreadCrumb('My Stays');
+
+  //get meta information
+  chainService.getChain(Settings.API.chainCode).then(function(chain) {
+    $scope.chain = chain;
+
+    $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+    $scope.chain.meta.microdata.og['og:title'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:title'];
+    $scope.chain.meta.microdata.og['og:description'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:description'];
+
+    metaInformationService.setPageTitle(chain.meta.pagetitle);
+    metaInformationService.setMetaDescription(chain.meta.description);
+    metaInformationService.setMetaKeywords(chain.meta.keywords);
+    metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+
+  });
 
   function onAuthorized(isMobiusUser){
     

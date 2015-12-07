@@ -45,7 +45,12 @@ angular.module('mobius.controllers.contacts', [])
       $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       $scope.chain.meta.microdata.og['og:title'] = 'Contact: ' + $scope.chain.meta.microdata.og['og:title'];
       $scope.chain.meta.microdata.og['og:description'] = 'Contact: ' + $scope.chain.meta.microdata.og['og:description'];
+
+      metaInformationService.setPageTitle(chain.meta.pagetitle);
+      metaInformationService.setMetaDescription(chain.meta.description);
+      metaInformationService.setMetaKeywords(chain.meta.keywords);
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+
     });
     //get form structure and default field values
     formsService.getContactForm().then(function(response) {

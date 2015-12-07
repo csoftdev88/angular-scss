@@ -8,7 +8,31 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location){
+
+  $scope.chain = {};
+
+  //get meta information
+  chainService.getChain(Settings.API.chainCode).then(function(chain) {
+    $scope.chain = chain;
+
+    $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+    $scope.chain.meta.microdata.og['og:title'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:title'];
+    $scope.chain.meta.microdata.og['og:description'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:description'];
+
+    setMetaInformation();
+
+  });
+
+  function setMetaInformation(){
+    if(!$scope.chain.meta){
+      return;
+    }
+    metaInformationService.setPageTitle($scope.chain.meta.pagetitle);
+    metaInformationService.setMetaDescription($scope.chain.meta.description);
+    metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
+    metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+  }
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
@@ -262,6 +286,7 @@ angular.module('mobius.controllers.reservation', [])
   // Redirecting to details page
   if($state.current.name === 'reservation'){
     $state.go('reservation.details');
+    setMetaInformation();
   }
 
   var GUEST_DETAILS = 'Guest details';
@@ -356,6 +381,7 @@ angular.module('mobius.controllers.reservation', [])
     case 'reservation.confirmation':
       return $state.go('reservation.billing');
     }
+    setMetaInformation();
   };
 
   $scope.selectPaymentMethod = function(paymentMethod) {
@@ -456,6 +482,7 @@ angular.module('mobius.controllers.reservation', [])
       }
       break;
     }
+    setMetaInformation();
   };
 
   function createReservationData() {

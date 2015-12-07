@@ -4,9 +4,24 @@
  */
 angular.module('mobius.controllers.profile', [])
 
-  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _){
+  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings){
 
     breadcrumbsService.addBreadCrumb('Profile');
+
+    //get meta information
+    chainService.getChain(Settings.API.chainCode).then(function(chain) {
+      $scope.chain = chain;
+
+      $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+      $scope.chain.meta.microdata.og['og:title'] = 'Profile: ' + $scope.chain.meta.microdata.og['og:title'];
+      $scope.chain.meta.microdata.og['og:description'] = 'Profile: ' + $scope.chain.meta.microdata.og['og:description'];
+
+      metaInformationService.setPageTitle(chain.meta.pagetitle);
+      metaInformationService.setMetaDescription(chain.meta.description);
+      metaInformationService.setMetaKeywords(chain.meta.keywords);
+      metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+
+    });
 
 		contentService.getTitles().then(function(data) {
 			$scope.profileTitles = data;
