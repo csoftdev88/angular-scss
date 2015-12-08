@@ -106,7 +106,7 @@ angular.module('mobius.controllers.hotel.details', [
     if (scrollToValue && scrollToValue === 'jsRooms') {
       $timeout(function(){
         scrollService.scrollTo(scrollToValue, 20);
-      }, 500);
+      }, 1500);
     }
   });
 
