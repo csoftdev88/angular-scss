@@ -10,8 +10,10 @@ angular.module('mobius.controllers.common.cardExpiration', [])
     selectedYear: null
   };
 
-  function generateExpirationOptions(startFromMonth){
+  function generateExpirationOptions(startFromMonth,startFromYear){
+
     $scope.cardExpiration.months = [];
+    $scope.cardExpiration.years = [];
 
     // Generating new month list
     while (startFromMonth < 12) {
@@ -22,6 +24,8 @@ angular.module('mobius.controllers.common.cardExpiration', [])
 
       startFromMonth++;
     }
+
+    //Select month is it was selected before
     if($scope.cardExpiration.selectedMonth){
       // Finding same month
       $scope.cardExpiration.selectedMonth = _.findWhere($scope.cardExpiration.months,
@@ -29,22 +33,30 @@ angular.module('mobius.controllers.common.cardExpiration', [])
       );
     }
 
-    if(!$scope.cardExpiration.years){
-      $scope.cardExpiration.years = [];
-      var currentYear = $window.moment().year();
-      var extraYears = 0;
-      while(extraYears < 10){
-        $scope.cardExpiration.years.push(currentYear+extraYears);
-        extraYears++;
-      }
+    //create years
+    var currentYear = $window.moment().year()+startFromYear;
+    var extraYears = 0;
+    var maxYears = 10-startFromYear;
+    while(extraYears < maxYears){
+      $scope.cardExpiration.years.push(currentYear+extraYears);
+      extraYears++;
     }
+    
   }
 
   $scope.onExpirationYearChange = function(){
     if(!$scope.cardExpiration.selectedYear || $scope.cardExpiration.selectedYear === $window.moment().year()){
-      generateExpirationOptions($window.moment().month());
+      generateExpirationOptions($window.moment().month(),0);
     }else{
-      generateExpirationOptions(0);
+      generateExpirationOptions(0,0);
+    }
+  };
+
+  $scope.onExpirationMonthChange = function(){
+    if(!$scope.cardExpiration.selectedMonth || $scope.cardExpiration.selectedMonth.id < $window.moment().month()){
+      generateExpirationOptions(0,1);
+    }else{
+      generateExpirationOptions(0,0);
     }
   };
 
@@ -63,6 +75,6 @@ angular.module('mobius.controllers.common.cardExpiration', [])
       .format('YYYY-MM-DD');
   };
 
-  // Generating options starting from the current month
-  generateExpirationOptions($window.moment().month());
+  // Generating options
+  generateExpirationOptions(0,0);
 });

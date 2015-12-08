@@ -78,7 +78,7 @@
             <label for="form-expires-month" class="input-left">
               <select id="form-expires-month" name="form-expires-month"
                 required ng-model="cardExpiration.selectedMonth"
-                disable-search="true"
+                disable-search="true" ng-change="onExpirationMonthChange()"
                 chosen ng-options="month.name for month in cardExpiration.months"
                 data-placeholder="_card_expiry_month_label_">
                 <option></option>
