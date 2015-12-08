@@ -384,6 +384,7 @@
     "earn": "bekomme",
 
     "room_not_available_on_dates_title": "Entschuldigen Sie, dieses Zimmer ist für die ausgewählten Daten nicht verfügbar",
+    "rooms_not_available_on_dates_title": "Keine Verfügbarkeit für den ausgewählten Zeitraum, wählen Sie bitte neue Termine",
 
     "room_not_available_on_dates_desc": "Wähle andere Daten oder ein anderes Zimmer.",
 

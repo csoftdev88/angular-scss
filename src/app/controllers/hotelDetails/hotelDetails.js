@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -237,6 +237,14 @@ angular.module('mobius.controllers.hotel.details', [
       $state.go('room', {propertySlug: pSlug, roomSlug: rSlug});
     }
 
+  };
+
+  $scope.selectDates = function(){
+    $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+      openBookingTab: true,
+      openDatePicker: true,
+      promoCode: $stateParams.code
+    });
   };
 
   $scope.getAbsUrl = function(){
