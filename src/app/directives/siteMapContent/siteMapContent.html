@@ -1,6 +1,6 @@
 <h3><a ng-href="{{getStateHref()}}" ng-click="goToState($event)">{{title}}</a></h3>
 <ul ng-show="content.length">
   <li ng-repeat="item in content | limitTo: (limit ? limit : content.length)">
-    <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)">{{item.title | truncateString:17}}</a>
+    <a ng-href="{{getStateHref(item.code)}}" ng-click="goToState($event, item.code)">{{item.title | truncateString:33}}</a>
   </li>
 </ul>
