@@ -126,6 +126,12 @@
 
     <tab heading="Additional Details">
       <form name="forms.additionalInfo" class="additional-details" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
+
+          <label for="comments">
+            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
+            <span>_comments_label_</span>
+          </label>
+
           <label for="form-arrival-time" class="input-left">
             <select id="form-arrival-time" ng-model="additionalInfo.arrivalTime">
               <option value="">_arrival_time_placeholder_</option>
@@ -198,11 +204,6 @@
               placeholder="_secondary_phone_number_"
               ng-model="additionalInfo.secondPhoneNumber"/>
             <span>_secondary_phone_number_</span>
-          </label>
-
-          <label for="comments">
-            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
-            <span>_comments_label_</span>
           </label>
 
         <input type="submit" id="submit" value="_submit_" ng-hide="true" />
