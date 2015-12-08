@@ -101,6 +101,14 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.previewImages = contentService.getLightBoxContent(
         details.images, 300, 150, 'fill');
     }
+
+    var scrollToValue = $location.search().scrollTo || null;
+    if (scrollToValue && scrollToValue === 'jsRooms') {
+      console.log(scrollToValue);
+      $timeout(function(){
+        scrollService.scrollTo(scrollToValue, 20);
+      }, 500);
+    }
   });
 
   function getHotelDetails(propertyCode, params){
@@ -170,7 +178,7 @@ angular.module('mobius.controllers.hotel.details', [
 
         });
 
-        $scope.scrollToBreadcrumbs();
+        //$scope.scrollToBreadcrumbs();
 
       }, function() {
         $state.go('hotels');
@@ -196,7 +204,7 @@ angular.module('mobius.controllers.hotel.details', [
     preloaderFactory($q.all([detailPromise, roomsPromise]).then(function() {
       //scroll to element if set in url scrollTo param
       var scrollToValue = $location.search().scrollTo || null;
-      if (scrollToValue && scrollToValue !== 'jsOffers' && scrollToValue !== 'fnOpenLightBox') {
+      if (scrollToValue && scrollToValue !== 'jsOffers' && scrollToValue !== 'fnOpenLightBox' && scrollToValue !== 'jsRooms') {
         $timeout(function(){
           scrollService.scrollTo(scrollToValue, 20);
         }, 500);
