@@ -14,7 +14,7 @@
 
       <!--<p ng-if="availableRooms && availableRooms.length === 0">_no_room_available_</p>-->
 
-      <order-switch>
+      <order-switch ng-if="hasDates() && availableRooms && availableRooms.length">
         <select name="sorting" ng-model="currentOrder" disable-search="true"
  chosen ng-options="option.name for option in sortingOptions" data-placeholder="_sorting_filter_placeholder_">
           <option></option> <!-- workaround for a bug in angular-chosen -->
