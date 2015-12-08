@@ -308,21 +308,25 @@ angular.module('mobiusApp.config', [])
       // Card types and validation expressions
       'cardTypes': {
         'visa': {
+          'name': 'Visa',
           'code': 'VI',
           'icon': 'visa',
           'regex': /^4[0-9]{12}(?:[0-9]{3})?$/
         },
         'master': {
+          'name': 'MasterCard',
           'code': 'MC',
           'icon': 'master',
           'regex': /^5[1-5][0-9]{14}$/
         },
         'amex': {
+          'name': 'American Express',
           'code': 'AX',
           'icon': 'amex',
           'regex': /^3[47][0-9]{13}$/
         },
         'discover': {
+          'name': 'Discover',
           'code': 'DS',
           'icon': 'discover',
           'regex': /^6(?:011|5[0-9]{2})[0-9]{3,}$/

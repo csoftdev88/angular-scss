@@ -11,6 +11,7 @@ describe('creditCardTypeService', function() {
             cardTypes: {
               'visa': {
                 regex: /^4[0-9]{12}(?:[0-9]{3})?$/,
+                name: 'Visa',
                 icon: 'visa',
                 code: 'VI'
               }
@@ -38,6 +39,7 @@ describe('creditCardTypeService', function() {
   describe('getCreditCardDetails', function() {
     it('should return correct type for Visa', function() {
       expect(_creditCardTypeService.getCreditCardDetails('4222222222222')).deep.equal({
+        name: 'Visa',
         icon: 'visa',
         code: 'VI'
       });

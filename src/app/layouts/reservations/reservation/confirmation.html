@@ -55,6 +55,12 @@
             </td>
           </tr>
           <tr>
+            <th>_card_type_label_:</th>
+            <td>
+              {{getCreditCardDetails(billingDetails.card.number).name}}
+            </td>
+          </tr>
+          <tr>
             <th>_card_expiry_label_:</th>
             <td>{{getCardExpirationDate() | dateTime:'MM/YYYY'}}</td>
           </tr>

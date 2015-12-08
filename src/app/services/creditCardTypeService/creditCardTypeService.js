@@ -16,7 +16,8 @@ angular.module('mobiusApp.services.creditCardType', [])
             if (regexObj.test(creditCardNumber)) {
               return {
                 icon: cardDetails.icon,
-                code: cardDetails.code
+                code: cardDetails.code,
+                name: cardDetails.name
               };
             }
           }

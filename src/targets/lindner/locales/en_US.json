@@ -275,6 +275,7 @@
     "prefered_contact_label": "Prefered Contact",
     "subscribe_label": "Subscribe to the La Val Newsletter",
     "card_number_label": "Card number",
+    "card_type_label": "Card type",
     "card_number_error": "Please enter a valid card number",
     "card_name_label": "Name on Card",
     "card_name_placeholder": "Name on Card",
