@@ -108,9 +108,11 @@ angular.module('mobius.controllers.hotel.details', [
         scrollService.scrollTo(scrollToValue, 20);
       }, 1500).then(function(){
         //Set scrollTo value to null so page doesn't scroll to rooms if user doesn't come from booking bar
-        $timeout(function(){
-          $location.search('scrollTo', null);
-        }, 1500);
+        if(Settings.UI.hotelDetails.removeScrollToRoomsOnFinish){
+          $timeout(function(){
+            $location.search('scrollTo', null);
+          }, 1500);
+        }
       });
     }
   });

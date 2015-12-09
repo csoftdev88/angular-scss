@@ -180,7 +180,8 @@ angular.module('mobiusApp.config', [])
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
-      'showLocalInfo': true
+      'showLocalInfo': true,
+      'removeScrollToRoomsOnFinish': true
     },
 
     'roomDetails': {
