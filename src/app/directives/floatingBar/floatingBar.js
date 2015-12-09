@@ -43,7 +43,6 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.adults = bookingParams.adults;
         scope.children = bookingParams.children;
 
-        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
         scope.setActive = function(newActive, isMobileToggle) {
@@ -104,6 +103,12 @@ angular.module('mobiusApp.directives.floatingBar', [
           return isTheSameMonth() && (!scope.children || parseInt(scope.children, 10) === 0);
         };
 
+        //Android soft keyboard triggers window resize event, thus closing the booking bar when it opens which is unwanted behaviour
+        //Keeping below code as not sure why it was added in the first place
+        //Possible workaround: check if focus is on an input field before closing
+        //if($(document.activeElement).attr('type') === 'text') {
+        /*
+        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
         scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
           scope.isMobile = viewport.isMobile;
           if(viewport.isMobile){
@@ -112,6 +117,7 @@ angular.module('mobiusApp.directives.floatingBar', [
             document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
           }
         });
+        */
         scope.$on(EVENT_FLOATING_BAR, function(event, floatingBar){
           scope.isCollapsed = floatingBar.isCollapsed;
           document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
