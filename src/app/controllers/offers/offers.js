@@ -16,6 +16,7 @@ angular.module('mobius.controllers.offers', [])
     var selectedOfferIndex;
 
     $scope.showDetail = $stateParams.code ? true : false;
+    $scope.property = {};
 
     $scope.$watch(function(){
       return $scope.showDetail;
@@ -40,6 +41,7 @@ angular.module('mobius.controllers.offers', [])
         if($state.current.name !== 'propertyOffers'){
           propertyService.getAll().then(function(properties){
             var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+            $scope.property = property;
             $state.go('propertyOffers', {propertySlug: property.meta.slug, code: $stateParams.code});
           });
         }
@@ -146,9 +148,23 @@ angular.module('mobius.controllers.offers', [])
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
       $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
-      breadcrumbsService.clear()
-        .addBreadCrumb('Offers', 'offers', {code: null})
-        .addBreadCrumb($scope.selectedOffer.title);
+
+      if($stateParams.property){
+        propertyService.getAll().then(function(properties){
+            var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+            breadcrumbsService.clear()
+              .addBreadCrumb('Hotels', 'hotels')
+              .addBreadCrumb(property.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
+              .addBreadCrumb('Offers', 'offers', {code: null})
+              .addBreadCrumb($scope.selectedOffer.title);
+          });
+      }
+      else{
+        breadcrumbsService.clear()
+          .addBreadCrumb('Offers', 'offers', {code: null})
+          .addBreadCrumb($scope.selectedOffer.title);
+      }
+
     }
 
     $scope.goToHotels = function(offer) {
