@@ -79,7 +79,6 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   //Getting raw property details to display property desc etc...fast
-  //TODO: oragnise some sort of cache system
   propertyService.getPropertyDetails(propertyCode).then(function(details){
     $scope.details = details;
     // Updating Hero content images
@@ -102,11 +101,17 @@ angular.module('mobius.controllers.hotel.details', [
         details.images, 300, 150, 'fill');
     }
 
+    //Scroll to rooms straight away if user comes from booking bar
     var scrollToValue = $location.search().scrollTo || null;
     if (scrollToValue && scrollToValue === 'jsRooms') {
       $timeout(function(){
         scrollService.scrollTo(scrollToValue, 20);
-      }, 1500);
+      }, 1500).then(function(){
+        //Set scrollTo value to null so page doesn't scroll to rooms if user doesn't come from booking bar
+        $timeout(function(){
+          $location.search('scrollTo', null);
+        }, 1500);
+      });
     }
   });
 

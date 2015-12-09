@@ -196,6 +196,7 @@ angular
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
         url: '/hotels/:propertySlug',
+        reloadOnSearch: false,
         data: {
           // Route is also used for reservation updates
           supportsEditMode: true,
