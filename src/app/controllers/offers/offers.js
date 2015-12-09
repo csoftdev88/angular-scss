@@ -52,17 +52,25 @@ angular.module('mobius.controllers.offers', [])
 
           $scope.offersList = _.sortBy(offers, 'prio').reverse();
 
+          propertyService.getAll().then(function(properties){
+            var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+            breadcrumbsService.clear()
+              .addBreadCrumb('Hotels', 'hotels')
+              .addBreadCrumb(property.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
+              .addBreadCrumb('Offers')
+              .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
+              .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
+              .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
+              .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
+              .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
+          });
+
           if ($stateParams.code) {
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
         }
 
-        breadcrumbsService
-          .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
-          .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
-          .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
-          .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
-          .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
+
 
       }else{
 
@@ -150,13 +158,19 @@ angular.module('mobius.controllers.offers', [])
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
 
       if($stateParams.property){
+
         propertyService.getAll().then(function(properties){
             var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
             breadcrumbsService.clear()
               .addBreadCrumb('Hotels', 'hotels')
               .addBreadCrumb(property.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
               .addBreadCrumb('Offers', 'offers', {code: null})
-              .addBreadCrumb($scope.selectedOffer.title);
+              .addBreadCrumb($scope.selectedOffer.title)
+              .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
+              .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
+              .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
+              .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
+              .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
           });
       }
       else{
