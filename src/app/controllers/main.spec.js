@@ -30,7 +30,9 @@ describe('mobius.controllers.main', function() {
       module('mobius.controllers.common.sanitize');
 
       module('mobius.controllers.main', function($provide) {
-        $provide.value('$state', {});
+        $provide.value('$state', {
+          includes: function(){}
+        });
 
         $provide.value('$modal', {});
         $provide.value('modalService', {

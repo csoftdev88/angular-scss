@@ -26,13 +26,16 @@ angular.module('mobius.controllers.main', [])
           return;
         }
 
-        if(heroSliderData) {
-          $scope.heroContent = filterHeroContent(heroSliderData);
-        }
-        else {
-          loadHighlights().then(function() {
+        //Hotel specific hero slider content is handled from within the controllers so don't update on stateChangeSuccess
+        if(!$state.includes('hotel') && !$state.includes('propertyOffers')){
+          if(heroSliderData) {
             $scope.heroContent = filterHeroContent(heroSliderData);
-          });
+          }
+          else {
+            loadHighlights().then(function() {
+              $scope.heroContent = filterHeroContent(heroSliderData);
+            });
+          }
         }
 
         /* this is hidden in case they will decide keep hero slider only on some pages
