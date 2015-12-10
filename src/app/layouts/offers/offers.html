@@ -32,9 +32,11 @@
       <div class="offer-content" ng-bind-html="selectedOffer.text" markdown-text-parser></div>
 
       <!-- DATES ARE SELECTED -->
+      <!--<button-submit ng-if="selectedOffer.isRoomOffer" ng-switch-when="false" ng-click="goToHotels(selectedOffer)">_book_now_</button-submit>-->
       <button-submit ng-switch-when="false" ng-click="goToHotels(selectedOffer)">_book_now_</button-submit>
 
       <!-- USER SPECIFIES DATES -->
+      <!--<button-submit ng-if="selectedOffer.isRoomOffer" ng-switch-when="true" ng-click="selectDates()">_select_dates_</button-submit>-->
       <button-submit ng-switch-when="true" ng-click="selectDates()">_select_dates_</button-submit>
 
       <button-back role="button" tabindex="0" ng-click="goToOffersList()" class="pull-left">_back_</button-back>
