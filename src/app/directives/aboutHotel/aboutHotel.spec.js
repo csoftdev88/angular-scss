@@ -24,6 +24,8 @@ describe('aboutHotels', function() {
   ];
 
   beforeEach(function() {
+    module('underscore');
+    
     module('mobiusApp.directives.aboutHotel', function($provide){
       $provide.value('Settings', {
         API: {

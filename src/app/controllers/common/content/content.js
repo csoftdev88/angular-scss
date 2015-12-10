@@ -90,6 +90,9 @@ angular.module('mobius.controllers.common.content', [])
 
   // Loading offers
   var offers = services.contentService.getOffers().then(function(offers){
+    offers = _.reject(offers, function(offer){
+      return !offer.showOnMenu;
+    });
     $scope.offers = offers || [];
   });
 

@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.aboutHotel', [])
 
-.directive('aboutHotel', function(Settings, contentService, $state, advertsService, chainService, metaInformationService, $location){
+.directive('aboutHotel', function(Settings, contentService, $state, advertsService, chainService, metaInformationService, $location, _){
   return {
     restrict: 'E',
     templateUrl: 'directives/aboutHotel/aboutHotel.html',
@@ -34,6 +34,9 @@ angular.module('mobiusApp.directives.aboutHotel', [])
       //load offers
       var NUMBER_OF_OFFERS = 2;
       contentService.getOffers({scope: 'homepage'}).then(function(response) {
+        response = _.reject(response, function(item){
+          return !item.showOnHomePage;
+        });
         scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
         for(var i = 0; i < (NUMBER_OF_OFFERS - scope.offersList.length); i++) {
           //load other adverts if we don't have enough of offers for main page

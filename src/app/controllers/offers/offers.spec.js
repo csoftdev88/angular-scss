@@ -22,6 +22,7 @@ describe('mobius.controllers.offers', function() {
         code: 'TEST-CODE',
         prio: 5,
         limitToPropertyCodes: ['VAN', 'REV'],
+        showOnOffersPage: true,
         meta: {
           description: 'desc',
           microdata: {
@@ -33,6 +34,7 @@ describe('mobius.controllers.offers', function() {
         code: 'TEST-UNAVAILABLE',
         prio: 5,
         limitToPropertyCodes: ['VAN'],
+        showOnOffersPage: true,
         meta: {
           description: 'desc',
           microdata: {
@@ -44,6 +46,7 @@ describe('mobius.controllers.offers', function() {
         code: 'TEST-CODE-1',
         prio: 10,
         limitToPropertyCodes: ['REV', 'VAN'],
+        showOnOffersPage: true,
         meta: {
           description: 'desc',
           microdata: {
