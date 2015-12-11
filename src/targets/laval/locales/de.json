@@ -612,7 +612,7 @@
 
     "cancel_reservation_modal_number": "Reservierungs-Nummer:",
 
-    "cancel_reservation_modal_error_title": "Sorry!...",
+    "cancel_reservation_modal_error_title": "Ihre Buchung",
 
     "cancel_reservation_modal_error_desc": "Diese Buchung kann nicht storniert werden",
 
@@ -622,9 +622,10 @@
 
     "modify_reservation_modal_desc_long": "Update deine Daten und die Anzahl Gäste",
 
-    "modify_reservation_modal_error_title": "Sorry!...",
+    "modify_reservation_modal_error_title": "Ihre Buchung",
 
     "modify_reservation_modal_error_desc": "Diese Buchung kann nicht modifiziert werden",
+    "modify_points_reservation_modal_error_desc": "Wie Ihre Buchung mit Punkten vorgenommen, rufen Sie uns zu stornieren / ändern Aufenthalt",
 
     "modify_reservation_modal_abort_desc": "Deine Änderungen werden nicht gespeichert, wenn du die Seite verlässt, ohne den Buchungsprozess abzuschliessen.",
 

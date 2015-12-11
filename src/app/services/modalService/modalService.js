@@ -56,6 +56,12 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openModifyingCancelingPointsReservationDialogue(){
+    return openDialog('reservation-modification', 'layouts/modals/reservation/cannotModifyPoints.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details reservation-modification'
+    });
+  }
+
   function openReservationModifyingDisabledDialogue(){
     return openDialog('reservation-modification', 'layouts/modals/reservation/cannotModify.html', CONTROLLER_DEFAULT, {
       windowClass: 'details reservation-modification'
@@ -340,6 +346,7 @@ angular.module('mobiusApp.services.modal', [])
     openCancelReservationDialog: openCancelReservationDialog,
     openReservationModifyingDisabledDialogue: openReservationModifyingDisabledDialogue,
     openReservationCancelingDisabledDialogue: openReservationCancelingDisabledDialogue,
+    openModifyingCancelingPointsReservationDialogue: openModifyingCancelingPointsReservationDialogue,
     openReservationModificationCanceledDialogue: openReservationModificationCanceledDialogue,
     openReservationLookupFailedDialog: openReservationLookupFailedDialog,
     openReservationLookupLoginDialog: openReservationLookupLoginDialog,

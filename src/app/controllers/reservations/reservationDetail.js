@@ -183,6 +183,14 @@ angular.module('mobius.controllers.reservationDetail', [])
     // Choose either one of these two lines
     $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
+    $scope.modifyCancelPointsReservation = function(){
+      var reservation = $scope.reservation;
+      var phoneNumber = $scope.property.tel1;
+
+      // Opening modification confirmation dialogue
+      modalService.openModifyingCancelingPointsReservationDialogue(reservation.reservationCode, phoneNumber);
+    };
+
     // TODO: Unify with modifyReservation
     $scope.modifyCurrentReservation = function(){
       var reservation = $scope.reservation;
