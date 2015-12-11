@@ -22,6 +22,9 @@ describe('aboutHotels', function() {
   var TEST_OFFERS = [
     {offer: 'testOffer'}
   ];
+  var TEST_RANDOM = {
+    code: 'testCode'
+  };
 
   beforeEach(function() {
     module('underscore');
@@ -45,7 +48,7 @@ describe('aboutHotels', function() {
         getRandomAdvert: function(){
           return {
             then: function(c){
-              c();
+              c(TEST_RANDOM);
             }
           };
         },
