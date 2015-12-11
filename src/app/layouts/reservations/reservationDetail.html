@@ -37,7 +37,7 @@
           <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           <!-- TODO: Add actions to buttons -->
           <button ng-switch-when="true" class="button" ng-click="modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false}" ng-if="!reservation.isInThePast">_modify_</button>
-          <button ng-switch-when="true" class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canModify === false}" ng-if="!reservation.isInThePast">_cancel_</button>
+          <button ng-switch-when="true" class="button-gray" ng-click="openCancelReservationDialog()" ng-class="{disabled: reservation.canCancel === false}" ng-if="!reservation.isInThePast">_cancel_</button>
         </figure>
 
         <div>
