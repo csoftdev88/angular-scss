@@ -170,7 +170,7 @@ angular.module('mobius.controllers.hotel.details', [
         delete offersParams.groupCode;
         contentService.getOffers(offersParams).then(function(response) {
           response = _.reject(response, function(item){
-            return !item.showOnHotelPage;
+            return item.showOnHotelPage === false;
           });
           $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
           if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
