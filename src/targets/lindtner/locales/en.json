@@ -348,6 +348,7 @@
     "news_page_title": "Our News",
     "news_page_desc": "An on-line reference for news, press releases, promotions and current events. Please click on articles for details.",
     "offers_page_no_offers_title": "Sorry! There are no chain wide offers available at the moment",
+    "offers_page_no_property_offers_title": "Sorry! There are no offers available at the moment for this property",
     "offers_page_no_offers_desc": "Try selecting a hotel to see offers for that hotel or check back later",
     "profile_page_title": "Your Profile",
     "profile_page_desc": "We will not share your details with any third parties. Please check our Privacy Policy for further details Check your <a ui-sref='reservations'>reservations</a>",

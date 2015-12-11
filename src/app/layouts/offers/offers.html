@@ -18,11 +18,18 @@
       <span>_read_more_</span>
     </offer-item>
 
-    <div ng-if="offersList.length === 0" class="products-not-available">
+    <div ng-if="offersList.length === 0 && !property" class="products-not-available">
       <h3>_offers_page_no_offers_title_</h3>
       <p>_offers_page_no_offers_desc_</p>
       <a class="button" ui-sref="hotels({property: null})">_view_hotels_</a>
     </div>
+
+    <div ng-if="offersList.length === 0 && property" class="products-not-available">
+      <h3>_offers_page_no_property_offers_title_</h3>
+      <p>_offers_page_no_offers_desc_</p>
+    </div>
+
+
   </offers-list>
 
   <offer-detail id="offer-detail" grid-row ng-if="showDetail" ng-switch="!!selectDates">

@@ -90,9 +90,6 @@ angular.module('mobius.controllers.common.content', [])
 
   // Loading offers
   var offers = services.contentService.getOffers().then(function(offers){
-    offers = _.reject(offers, function(offer){
-      return !offer.showOnMenu;
-    });
     $scope.offers = offers || [];
   });
 
@@ -175,6 +172,9 @@ angular.module('mobius.controllers.common.content', [])
 
   function processSettings() {
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
+      data = _.reject(data, function(item){
+        return item.showOnMenu === false;
+      });
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
         $scope.settings = $scope.settings.fallback;

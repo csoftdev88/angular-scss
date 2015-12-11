@@ -54,6 +54,7 @@ angular.module('mobius.controllers.offers', [])
 
           propertyService.getAll().then(function(properties){
             var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+            $scope.property = property;
             $scope.updateHeroContent(_.filter(property.images, {includeInSlider: true}));
             breadcrumbsService.clear()
               .addBreadCrumb('Hotels', 'hotels')
