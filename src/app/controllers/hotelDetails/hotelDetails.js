@@ -78,6 +78,18 @@ angular.module('mobius.controllers.hotel.details', [
     }, 0);
   };
 
+  //rooom loading testimonials
+  var propertyTestimonials = _.reject(Settings.UI.hotelDetailsTestimonials, function(testimonial){ 
+    return testimonial.property !== propertyCode;
+  });
+  $scope.testimonial = propertyTestimonials[_.random(0, propertyTestimonials.length-1)];
+  $scope.getNumberOfReviewStars = function(num) {
+    return new Array(num);   
+  };
+  $scope.getNumberOfEmptyReviewStars = function(num) {
+    return new Array(5-num);   
+  };
+
   //Getting raw property details to display property desc etc...fast
   propertyService.getPropertyDetails(propertyCode).then(function(details){
     $scope.details = details;

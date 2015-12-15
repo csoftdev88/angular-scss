@@ -184,6 +184,59 @@ angular.module('mobiusApp.config', [])
       'removeScrollToRoomsOnFinish': true
     },
 
+    'hotelDetailsTestimonials': [
+      {
+        "property": "VAN", 
+        "review": "“My new favourite in Vancouver“",
+        "reviewer": {
+          "name": "Denise K",
+          "avatar": "http://res.cloudinary.com/dmh2cjswj/image/upload/v1450183019/SAN/rateLoading/denisek.jpg",
+          "location": "Toronto, Canada"
+        },
+        "stars": 5
+      } ,
+      {
+        "property": "VAN", 
+        "review": "“Perfect in every way...service, location, comfort!!”",
+        "reviewer": {
+          "name": "Karikins",
+          "avatar": "http://res.cloudinary.com/dmh2cjswj/image/upload/v1450183317/SAN/rateLoading/karinkins.jpg",
+          "location": "Kamloops, Canada"
+        },
+        "stars": 5
+      } ,
+      {
+        "property": "VAN", 
+        "review": "“A high point of our two week trip”",
+        "reviewer": {
+          "name": "Magnolia13",
+          "avatar": "http://res.cloudinary.com/dmh2cjswj/image/upload/v1450183173/SAN/rateLoading/magnolia13.jpg",
+          "location": "Thomasville, Georgia"
+        },
+        "stars": 5
+      } ,
+      {
+        "property": "VAN", 
+        "review": "“A Lovely Downtown Hotel that shines with elegance and professionalism.”",
+        "reviewer": {
+          "name": "CdnTrekkie",
+          "avatar": "http://res.cloudinary.com/dmh2cjswj/image/upload/v1450183317/SAN/rateLoading/cdntrekkie.jpg",
+          "location": "Vancouver, BC"
+        },
+        "stars": 5
+      } ,
+      {
+        "property": "VAN", 
+        "review": "“Pretty smart! We don't like being too posh but felt quite comfortable here.”",
+        "reviewer": {
+          "name": "John C",
+          "avatar": "http://res.cloudinary.com/dmh2cjswj/image/upload/v1450183317/SAN/rateLoading/johnc.jpg",
+          "location": "Jasper, Canada"
+        },
+        "stars": 4
+      }
+      ],
+
     'roomDetails': {
       'hasReadMore': true
     },
