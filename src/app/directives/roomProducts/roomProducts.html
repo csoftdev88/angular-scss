@@ -67,6 +67,11 @@
   </li>
 </ul>
 
+<!-- VIEW MORE RATES -->
+<div class="view-more-rates">
+  <a ng-if="products.length > getRatesLimit()" ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">_show_more_</a>
+</div>
+
 <!-- FAILED TO DOWNLOAD PRODUCTS -->
 <div class="loading-failed" ng-if="products === null">
   <h3>_room_rates_load_error_</h3>

@@ -172,7 +172,7 @@ angular.module('mobiusApp.config', [])
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Book Now',
-          'ratesPerRoomOnDesktop': 20,
+          'ratesPerRoomOnDesktop': 3,
           'ratesPerRoomOnMobile': 2,
           'showDescription': true
         }
