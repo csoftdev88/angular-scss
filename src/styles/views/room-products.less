@@ -3,7 +3,7 @@ room-products {
   width: 63%;
   float: right;
   display: block;
-  border: 1px solid @c-light-grey;
+  //border: 1px solid @c-light-grey;
   border-top: none;
   box-sizing: border-box;
 
@@ -20,9 +20,9 @@ room-products {
 
   > ul {
     > li {
-      border-top: none;
       overflow: auto;
-      border-bottom: 1px solid @c-light-grey;
+      border: 1px solid @c-light-grey;
+      border-top: none;
 
       padding: 0px 10px;
 
@@ -189,9 +189,10 @@ room-products {
     }
   }
 
-  .loading-failed,
-  .view-more-rates {
+  .loading-failed {
     text-align: center;
+    border: 1px solid @c-light-grey;
+    border-top: none;
 
     > * {
       margin: @baseline;
@@ -203,6 +204,14 @@ room-products {
 
     p {
       color: @c-grey;
+    }
+  }
+
+  .view-more-rates{
+    //padding: 0 0 3px 10px;
+    a{
+      font-size: 12px;
+      text-decoration: underline;
     }
   }
 
