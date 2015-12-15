@@ -84,9 +84,15 @@ angular.module('mobius.controllers.hotel.details', [
   });
   $scope.testimonial = propertyTestimonials[_.random(0, propertyTestimonials.length-1)];
   $scope.getNumberOfReviewStars = function(num) {
+    if(!num){
+      return;
+    }
     return new Array(num);   
   };
   $scope.getNumberOfEmptyReviewStars = function(num) {
+    if(!num){
+      return;
+    }
     return new Array(5-num);   
   };
 
