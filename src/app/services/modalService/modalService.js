@@ -319,6 +319,21 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openEmailRegisteredLoginDialog(){
+    return openDialog('login-prompt', 'layouts/modals/loginRegisteredPrompt.html', CONTROLLER_DATA, {
+      windowClass: 'login-prompt',
+      resolve: {
+        data: function(){
+          return {
+            login: function(){
+              $window.infiniti.api.login();
+            }
+          };
+        }
+      }
+    });
+  }
+
   function openTiersListDialog(){
     return openDialog('tiers-list', 'layouts/modals/loyalties/tiersList.html', CONTROLLER_DEFAULT, {
       windowClass: 'details tiers-list'
@@ -371,6 +386,7 @@ angular.module('mobiusApp.services.modal', [])
     openRoomDetailsDialog: openRoomDetailsDialog,
     openOtherRoomsDialog: openOtherRoomsDialog,
     openLoginDialog: openLoginDialog,
+    openEmailRegisteredLoginDialog: openEmailRegisteredLoginDialog,
     openProductDetailsDialog: openProductDetailsDialog
   };
 });

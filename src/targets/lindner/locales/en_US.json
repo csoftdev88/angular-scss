@@ -340,6 +340,8 @@
     "login_prompt_modal_title": "SUTTON PRESTIGE",
     "login_prompt_modal_subtitle": "Sign up with us To Claim Your Points and join",
     "login_prompt_modal_desc": "Create an account to join Sutton Prestige. Accumulate points for each dollar spent. Redeem them for unique gifts & rewards",
+    "login_registered_prompt_modal_subtitle": "Your email address is associated with an existing Sutton Prestige Account",
+    "login_registered_prompt_modal_desc": "Please sign in to continue your booking and earn points and great rewards, or continue your booking with a different email address.",
     "policies_modal_title": "Policies and Conditions",
     "price_breakdown_modal_title": "Price Breakdown",
     "PAGES": "////////////////////////////////////////////////////////////",

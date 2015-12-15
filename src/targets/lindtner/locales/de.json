@@ -648,6 +648,8 @@
     "login_prompt_modal_subtitle": "Registriere dich, um deine Punkte zu erhalten",
 
     "login_prompt_modal_desc": "Eröffne einen Account um an Sutton Prestige teilzunehmen. Bekomme für jeden ausgegeben Dollar Punkte, die du für grossartige Preise einlösen kannst",
+    "login_registered_prompt_modal_subtitle": "Ihre Email-Adresse wird mit einem bestehenden Sutton Prestige-Konto verknüpft",
+    "login_registered_prompt_modal_desc": "Bitte loggen Sie sich für Ihre Buchung fortsetzen und Punkte sammeln und tolle Prämien, oder fahren Sie mit einer anderen E-Mail-Adresse Ihre Buchung.",
 
     "policies_modal_title": "Allgemeine Bedingungen",
 

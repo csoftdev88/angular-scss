@@ -732,6 +732,7 @@ angular.module('mobius.controllers.reservation', [])
       if(data.error && data.error.msg === 'User already registered'){
         $scope.invalidFormData.email = true;
         $state.go('reservation.details');
+        modalService.openEmailRegisteredLoginDialog();
       }
       else if(data.error && (data.error.reason === 53 || data.error.reason === 54)){
         if(data.error.msg === 'Cardholder Name is invalid'){
