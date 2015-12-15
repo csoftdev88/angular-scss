@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -153,6 +153,12 @@ angular.module('mobius.controllers.offers', [])
       }
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+
+      if($scope.selectedOffer.discountCode){
+        var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;
+        $window.document.cookie = 'discountCode=' + cookieValue;
+      }
+
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);

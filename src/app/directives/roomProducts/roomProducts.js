@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
   Settings, filtersService, bookingService, propertyService, modalService,
-  stateService, dataLayerService){
+  stateService, dataLayerService, cookieFactory){
 
   return {
     restrict: 'E',
@@ -36,6 +36,15 @@ angular.module('mobiusApp.directives.room.products', [])
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params,
           getRatesCacheTimeout()).then(function(data){
+          var discountCookie = cookieFactory('discountCode');
+          data.products  = _.reject(data.products, function(product){
+            if(discountCookie){
+              return product.hidden === true && discountCookie.indexOf(product.code) === -1;
+            }
+            else{
+              return product.hidden === true;
+            }
+          });
           scope.products = data.products || [];
 
           // Tracking product impressions

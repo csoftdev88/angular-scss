@@ -82,6 +82,10 @@ describe('mobius.controllers.offers', function() {
           go: sinon.spy()
         });
 
+        $provide.value('cookieFactory', {
+          setCookie: function(){}
+        });
+
         $provide.value('$stateParams', {
           code: 'TEST-CODE'
         });
