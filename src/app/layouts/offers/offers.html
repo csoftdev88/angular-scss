@@ -36,7 +36,7 @@
     <div grid="12">
       <h1 ng-bind-html="selectedOffer.title | mainHeaderStyle"></h1>
       <img ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
-      <div class="offer-content" ng-bind-html="selectedOffer.text" markdown-text-parser></div>
+      <div class="offer-content" bind-unsafe="selectedOffer.text" markdown-text-parser></div>
 
       <!-- DATES ARE SELECTED -->
       <button-submit ng-if="selectedOffer.includeBookingButton" ng-switch-when="false" ng-click="goToHotels(selectedOffer)">_book_now_</button-submit>
