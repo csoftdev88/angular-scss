@@ -11,6 +11,7 @@ angular.module('mobius.controllers.reservation', [])
   creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location){
 
   $scope.chain = {};
+  $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -597,6 +598,7 @@ angular.module('mobius.controllers.reservation', [])
         return t + n;
       });
   };
+
 
   $scope.getGuestsCount = function(type){
     if($scope.isMultiRoomMode){

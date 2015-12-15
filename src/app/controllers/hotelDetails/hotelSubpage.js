@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
 .controller( 'HotelSubpageCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService, $location) {
+  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService, $location, _) {
 
   $scope.scroll = 0;
   $scope.moreInfo = [];
@@ -69,6 +69,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
       .then(function(details){
 
         $scope.details = details;
+        $scope.updateHeroContent(_.filter(details.images, {includeInSlider: true}));
 
 
         metaInformationService.setMetaDescription($scope.details.meta.description);

@@ -182,6 +182,9 @@ describe('mobius.controllers.reservation', function() {
               cardTypes: {
                 'visa': TEST_VISA
               }
+            },
+            'hotelDetails':{
+              chainPrefix: 'testChain'
             }
           },
           API: {

@@ -74,12 +74,20 @@
           <div class="charges">
             <table>
               <thead ng-switch="billingDetails.paymentMethod">
-              <th>_room_charges_:</th>
-              <td>{{getTotal('totalBase') | i18nCurrency: currencyCode}}</td>
-              <th rowspan="3">_total_:</th>
-              <td rowspan="3" ng-switch-when="cc">{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
-              <td rowspan="3" ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
-              <td rowspan="3" ng-switch-default>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
+              <tr>
+                <th>_room_charges_:</th>
+                <td>{{getTotal('totalBase') | i18nCurrency: currencyCode}}</td>
+              </tr>
+              <tr ng-if="getTotal('totalAfterTax') > getTotal('totalBase')">
+                <th>_taxes_:</th>
+                <td>{{getTotal('totalAfterTax') - getTotal('totalBase') | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+              <tr>
+                <th>_total_:</th>
+                <td ng-switch-when="cc">{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
+                <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
+                <td ng-switch-default>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
+              </tr>
               </thead>
               <tbody>
                 <!-- Additional taxes -->
@@ -121,7 +129,7 @@
 
     <label for="agreement3" class="input-checkbox" ng-if="state.includes('reservation.details') || state.includes('reservation.billing')">
       <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
-      <i ng-bind-html="'_email_optin_label_' | stringLocaleReplace:property.nameLong"></i>
+      <i ng-bind-html="'_email_optin_label_' | stringLocaleReplace:chainName"></i>
     </label>
 
     <div class="reservation-controls" grid-row>
