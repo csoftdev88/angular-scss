@@ -158,6 +158,7 @@ angular.module('mobiusApp.services.user', [])
         }
 
         userObject.loyalties = loyalties;
+        console.log('loadLoyalties: ' + angular.toJson(userObject.loyalties));
 
         return loyalties;
       });

@@ -721,6 +721,9 @@ angular.module('mobius.controllers.reservation', [])
       }
       else{
         $state.go('reservationDetail', reservationDetailsParams);
+        if (reservationData.paymentInfo.paymentMethod === 'point' && user.isLoggedIn) {
+          user.loadLoyalties(user.getUser().id);
+        }
       }
       
       
