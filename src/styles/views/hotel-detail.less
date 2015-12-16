@@ -200,21 +200,21 @@ hotel-detail {
         }
 
         .testimonial{
-            position: relative;
-            float: left;
-            color: #00659b;
-            font-family: Georgia,Times,Times New Roman,serif;
-            font-style: italic;
-            font-size: 18px;
-            line-height: 30px;
-            padding: 20px;
-            box-sizing: border-box;
-            width: 600px;
-            margin-left: 50px;
-            text-align: left;
-            background: #FFFFFF;
-            border: 5px solid #F1F1F1;
-            outline: 1px solid #E3E3E3;
+          position: relative;
+          float: left;
+          color: #00659b;
+          font-family: Georgia,Times,Times New Roman,serif;
+          font-style: italic;
+          font-size: 18px;
+          line-height: 30px;
+          padding: 4px;
+          box-sizing: border-box;
+          width: 660px;
+          margin-left: 30px;
+          text-align: left;
+          background: #F1F1F1;
+          border-radius: 4px;
+          //outline: 1px solid #E3E3E3;
           .viewport-tablet &{
             width: 70%;
             margin-left: 10%;
@@ -223,43 +223,69 @@ hotel-detail {
             float: none;
             width: 100%;
             margin-left: 0;
-            margin-top: 50px;
+            margin-top: 20px;
             font-size: 28px;
             line-height: 34px;
           }
-          .desc{
-            margin-bottom: 10px;
-          }
-          .rating{
-            .testimonialStar,
-            .testimonialStarEmpty{
-              background: transparent url('@{img-prefix}/v4/tripadvisor-rating-dot.png') no-repeat;
-              width: 20px;
-              height: 21px;
-              float: left;            }
-            .testimonialStarEmpty{
-              background: transparent url('@{img-prefix}/v4/tripadvisor-rating-dot.png') no-repeat;
+          .testimonial-inner{
+            background: #fff;
+            border: 1px solid #E3E3E3;
+            padding: 20px 20px 40px;
+            .desc{
+              margin-bottom: 10px;
+            }
+            .rating{
+              .testimonialStar,
+              .testimonialStarEmpty{
+                background: transparent url('@{img-prefix}/v4/tripadvisor-rating-dot.png') no-repeat;
+                width: 20px;
+                height: 21px;
+                float: left;            }
+              .testimonialStarEmpty{
+                background: transparent url('@{img-prefix}/v4/tripadvisor-rating-dot.png') no-repeat;
+              }
             }
           }
           &:before{
-              position: absolute;
-              content: '';
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 13px 15px 13px 0;
+            border-color: transparent #e3e3e3 transparent;
+            left: -11px;
+            top: 24px;
+            .viewport-mobile &{
               width: 0;
               height: 0;
               border-style: solid;
-              border-width: 14px 43px 14px 0;
-              border-color: transparent #fff transparent;
-              left: -34px;
-              top: 24px;
-              .viewport-mobile &{
+              border-width: 0 13px 15px 13px;
+              border-color: transparent transparent #e3e3e3;
+              left: 50%;
+              margin-left: -13px;
+              top: -11px;
+            }
+          }
+          &:after{
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 13px 15px 13px 0;
+            border-color: transparent #fff transparent;
+            left: -10px;
+            top: 24px;
+            .viewport-mobile &{
               width: 0;
               height: 0;
               border-style: solid;
-              border-width: 0 40px 40px 40px;
+              border-width: 0 13px 15px 13px;
               border-color: transparent transparent #fff;
               left: 50%;
-              margin-left: -40px;
-              top: -40px;
+              margin-left: -13px;
+              top: -10px;
             }
           }
         }

@@ -27,7 +27,7 @@
       </div>
     </header>
 
-    <div class="rooms-preloading-container" ng-if="!ratesLoaded">
+    <div class="rooms-preloading-container">
       <h4 class="rooms-preloading-container-title">_rates_loading_title_</h4>
 
       <div class="testimonial-container">
@@ -39,11 +39,13 @@
         </div>
 
         <div class="testimonial">
-          <div class="desc">{{testimonial.review}}</div>
-          <ul class="rating">
-            <li ng-repeat="i in getNumberOfReviewStars(testimonial.stars) track by $index" class="testimonialStar"></li>
-            <li ng-repeat="i in getNumberOfEmptyReviewStars(testimonial.stars) track by $index" class="testimonialStarEmpty"></li>
-          </ul>
+          <div class="testimonial-inner">
+            <div class="desc">{{testimonial.review}}</div>
+            <ul class="rating">
+              <li ng-repeat="i in getNumberOfReviewStars(testimonial.stars) track by $index" class="testimonialStar"></li>
+              <li ng-repeat="i in getNumberOfEmptyReviewStars(testimonial.stars) track by $index" class="testimonialStarEmpty"></li>
+            </ul>
+          </div>
         </div>
 
       </div>
