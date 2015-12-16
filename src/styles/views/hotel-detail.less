@@ -138,17 +138,16 @@ hotel-detail {
       text-align: center;
       box-sizing: border-box;
       margin-bottom: 40px;
+
       .viewport-mobile &{
-        padding: 20px;
-        padding-bottom: 60px;
+        padding: 20px 20px 60px;
       }
 
-      h2{
-        font-size: 28px;
-        line-height: 32px;
-        color: @c-grey;
-        margin-bottom: 40px;
-        font-weight: 600;
+      .rooms-preloading-container-title {
+        font-size: 17px;
+        line-height: 30px;
+        color: #898989;
+        margin-bottom: 20px;
       }
       
       .testimonial-container{
@@ -156,7 +155,6 @@ hotel-detail {
         width: 100%;
         .author{
           float: left;
-          //text-align: left;
           .viewport-tablet &{
             width: 20%;
           }
@@ -214,11 +212,12 @@ hotel-detail {
           text-align: left;
           background: #F1F1F1;
           border-radius: 4px;
-          //outline: 1px solid #E3E3E3;
+
           .viewport-tablet &{
             width: 70%;
             margin-left: 10%;
           }
+
           .viewport-mobile &{
             float: none;
             width: 100%;
@@ -227,6 +226,7 @@ hotel-detail {
             font-size: 28px;
             line-height: 34px;
           }
+
           .testimonial-inner{
             background: #fff;
             border: 1px solid #E3E3E3;
@@ -246,6 +246,7 @@ hotel-detail {
               }
             }
           }
+
           &:before{
             position: absolute;
             content: '';
@@ -267,6 +268,7 @@ hotel-detail {
               top: -11px;
             }
           }
+          
           &:after{
             position: absolute;
             content: '';
@@ -309,14 +311,6 @@ hotel-detail {
         height: 32px;
         background: transparent url('@{img-prefix}/v4/preloader-brown.gif') no-repeat;
       }
-    }
-
-    .rooms-preloading-container-title {
-      padding-bottom: 20px;
-      font-family: OpenSans;
-      font-size: 17px;
-      color: #898989;
-      line-height: 30px;
     }
 
     .section-header{
