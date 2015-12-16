@@ -4,7 +4,7 @@
 describe('mobius.controllers.reservationDetail', function() {
   describe('ReservationDetailCtrl', function() {
     var _scope, _spyGetReservation, _spyGetPropertyDetails, _spyGetReservationAddOns,
-      _spySendToPassBook, _spyAddMessage, _chainService;
+      _spySendToPassBook, _spyAddMessage, _chainService, _user;
 
     var TEST_RESERVATION_CODE = 95234134;
     var TEST_RESERVATION = {
@@ -54,7 +54,12 @@ describe('mobius.controllers.reservationDetail', function() {
       }
     ];
 
-    var TEST_USER = {id: 123};
+    var TEST_USER = {
+      id: 123,
+      loyalties: {
+        amount: 1000
+      }
+    };
 
     var CHAIN_DATA = {
       images: [1,2],
@@ -65,6 +70,14 @@ describe('mobius.controllers.reservationDetail', function() {
         microdata: {
           og: 'og-microdata'
         }
+      }
+    };
+
+    var LOYALTIES_DATA = {
+      badges: [{badge: 1, earned: '2015-01-01'}, {badge: 2, earned: '2016-01-01'}],
+      loyaltyCard: {
+        name: 'testName',
+        stamps: [{stamp: 'stamp', startPosition: 1, endPosition: 3}, {stamp: 'stamp2', startPosition: 3}]
       }
     };
 
@@ -194,7 +207,8 @@ describe('mobius.controllers.reservationDetail', function() {
         });
 
         $provide.value('user', {
-          isLoggedIn: function(){}
+          isLoggedIn: function(){},
+          loadLoyalties: sinon.stub()
         });
 
         $controllerProvider.register('AuthCtrl', function($scope, config){
@@ -206,7 +220,7 @@ describe('mobius.controllers.reservationDetail', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, reservationService, modalService, propertyService,
-        userMessagesService, chainService, $q) {
+        userMessagesService, chainService, $q, user) {
       _scope = $rootScope.$new();
 
       _spyGetReservation = sinon.spy(reservationService, 'getReservation');
@@ -217,6 +231,9 @@ describe('mobius.controllers.reservationDetail', function() {
 
       _chainService = chainService;
       _chainService.getChain.returns($q.when(CHAIN_DATA));
+
+      _user = user;
+      _user.loadLoyalties.returns($q.when(LOYALTIES_DATA));
 
       $controller('ReservationDetailCtrl', {$scope: _scope});
       _scope.$digest();

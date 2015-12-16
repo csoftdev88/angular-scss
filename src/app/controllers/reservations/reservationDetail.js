@@ -128,7 +128,6 @@ angular.module('mobius.controllers.reservationDetail', [])
         });
 
         // Getting available addons and reservation addons
-
         var availablePoints;
 
         if(user.isLoggedIn() && user.getUser().loyalties){
