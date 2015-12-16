@@ -15,6 +15,7 @@ angular.module('mobiusApp.directives.room', [])
       $controller('PriceCtr', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
 
+      scope.ratesLoaded = false;
       scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
@@ -27,6 +28,25 @@ angular.module('mobiusApp.directives.room', [])
 
       var propertyPromise;
       var qBookingParam = $q.defer();
+
+      //rooom loading testimonials
+      var maxNumOfTestimonialsStars = Settings.UI.hotelDetailsTestimonialsMaxNumStars;
+      var propertyTestimonials = _.reject(Settings.UI.hotelDetailsTestimonials, function(testimonial){ 
+        return testimonial.property !== propertyCode;
+      });
+      scope.testimonial = propertyTestimonials[_.random(0, propertyTestimonials.length-1)];
+      scope.getNumberOfReviewStars = function(num) {
+        if(!num){
+          return;
+        }
+        return new Array(num);   
+      };
+      scope.getNumberOfEmptyReviewStars = function(num) {
+        if(!num){
+          return;
+        }
+        return new Array(maxNumOfTestimonialsStars-num);  
+      };
 
       // Using PGID from the booking params
       if(bookingParams.productGroupId){
@@ -66,7 +86,8 @@ angular.module('mobiusApp.directives.room', [])
           return property;
         });
 
-        preloaderFactory($q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
+        $q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
+          scope.ratesLoaded = true;
           breadcrumbsService.clear()
             .addBreadCrumb('Hotels', 'hotels')
             .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
@@ -75,7 +96,7 @@ angular.module('mobiusApp.directives.room', [])
 
           scrollManager();
 
-        }));
+        });
       });
 
       //Handle scrolling

@@ -113,7 +113,7 @@
   </section>
 
 
-  <section class="room-description">
+  <section class="room-description" ng-show="roomDetails.description">
     <h2 ng-bind-html="'_room_description_title_' | mainHeaderStyle"></h2>
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
 
