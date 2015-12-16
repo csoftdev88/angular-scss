@@ -12,6 +12,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
+  $scope.isMakingReservation = false;
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -436,6 +437,10 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isContinueDisabled = function(){
+    //disbale when making reservation
+    if($state.is('reservation.confirmation') && $scope.isMakingReservation) {
+      return true;
+    }
     // TODO: Do this better - might work via ng-class instead of disabled
     if($state.is('reservation.billing') && $scope.billingDetails.paymentMethod === 'point') {
       return !$scope.isValid();
@@ -479,6 +484,7 @@ angular.module('mobius.controllers.reservation', [])
       break;
     case 'reservation.confirmation':
       if($scope.isValid()){
+        $scope.isMakingReservation = true;
         $scope.makeReservation();
       }
       break;
@@ -721,7 +727,7 @@ angular.module('mobius.controllers.reservation', [])
       }
       else{
         if (reservationData.paymentInfo.paymentMethod === 'point' && user.isLoggedIn) {
-          userObject.loyalties.amount = $scope.pointsData.pointsAfterBooking;
+          userObject.loyalties.amount = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
         }
         $state.go('reservationDetail', reservationDetailsParams);
       }
@@ -730,6 +736,7 @@ angular.module('mobius.controllers.reservation', [])
     }, function(data) {
       // TODO: Whaat request has failed
       //Apparently soap reason is not reliable so checking against msg
+      $scope.isMakingReservation = false;
       $scope.invalidFormData.error = true;
 
       if(data.error && data.error.msg === 'User already registered'){
