@@ -69,6 +69,8 @@ describe('mobius.controllers.offers', function() {
       module('underscore');
 
       module('mobius.controllers.offers', function($provide, $controllerProvider) {
+        $provide.value('cookieFactory', function(a){return {}[a];});
+        
         $provide.value('breadcrumbsService', {
           clear: sinon.stub().returns(this),
           addBreadCrumb: sinon.stub().returns(this)
@@ -80,10 +82,6 @@ describe('mobius.controllers.offers', function() {
 
         $provide.value('$state', {
           go: sinon.spy()
-        });
-
-        $provide.value('cookieFactory', {
-          setCookie: function(){}
         });
 
         $provide.value('$stateParams', {

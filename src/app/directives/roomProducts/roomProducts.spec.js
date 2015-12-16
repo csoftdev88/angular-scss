@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 describe('RoomProducts', function() {
   var TEMPLATE = '<room-products></room-products>';
   var TEMPLATE_URL = 'directives/roomProducts/roomProducts.html';
@@ -41,7 +41,7 @@ describe('RoomProducts', function() {
         }
       });
 
-      $provide.value('cookieFactory', function(a){return (cookies || {})[a];});
+      $provide.value('cookieFactory', function(a){return {}[a];});
 
       $provide.value('propertyService', {
         getRoomProducts: function(){
@@ -181,4 +181,3 @@ describe('RoomProducts', function() {
     });
   });
 });
-*/

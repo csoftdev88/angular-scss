@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 describe('cookieFactory', function() {
   var _cookieFactory;
 
@@ -29,4 +29,4 @@ describe('cookieFactory', function() {
     expect(_cookieFactory('test5')).equal(null);
   });
 });
-*/
+
