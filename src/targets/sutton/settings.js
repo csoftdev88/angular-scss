@@ -184,6 +184,8 @@ angular.module('mobiusApp.config', [])
       'removeScrollToRoomsOnFinish': true
     },
     //rate lookup teasers
+    'showHotelDetailsTestimonials': true,
+    'hotelDetailsTestimonialsMaxNumStars': 5,
     'hotelDetailsTestimonials': 
     [{
       'property': 'VAN',

@@ -114,6 +114,7 @@
     "view_details": "View Details",
     "reload_rates": "Reload Rates",
     "reset_filters": "Reset Filters",
+    "rates_loading_title": "Loading the best rate for you...",
     "COMPONENTS": "//////////////////////////////////////////////////////",
     "mapLocationHeader": "The {chainPrefix} {nameShort} Location",
     "offers_title": "Offers and Promotions",

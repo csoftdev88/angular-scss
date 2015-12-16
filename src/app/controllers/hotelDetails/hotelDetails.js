@@ -79,6 +79,7 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   //rooom loading testimonials
+  var maxNumOfTestimonialsStars = Settings.UI.hotelDetailsTestimonialsMaxNumStars;
   var propertyTestimonials = _.reject(Settings.UI.hotelDetailsTestimonials, function(testimonial){ 
     return testimonial.property !== propertyCode;
   });
@@ -93,7 +94,7 @@ angular.module('mobius.controllers.hotel.details', [
     if(!num){
       return;
     }
-    return new Array(5-num);   
+    return new Array(maxNumOfTestimonialsStars-num);  
   };
 
   //Getting raw property details to display property desc etc...fast
