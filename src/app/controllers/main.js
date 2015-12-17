@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService) {
 
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
 
@@ -18,6 +18,14 @@ angular.module('mobius.controllers.main', [])
         $scope.$state = $state;
         $scope.updateHeroContent();
       });
+
+      //ScrollToTop btn
+      $scope.scrollTopTrigger = 400;
+      $scope.scrollToTop = function(){
+        $timeout(function(){
+          scrollService.scrollTo('top');
+        }, 0);
+      };
 
       var heroSliderData;
       $scope.updateHeroContent = function(data){

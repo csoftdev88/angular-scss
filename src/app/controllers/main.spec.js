@@ -34,6 +34,8 @@ describe('mobius.controllers.main', function() {
           includes: function(){}
         });
 
+        $provide.value('scrollService', {});
+
         $provide.value('$modal', {});
         $provide.value('modalService', {
           openDialogIfPresent: sinon.spy()

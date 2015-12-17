@@ -143,6 +143,7 @@ angular
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
     'mobiusApp.directives.hoverTrigger',
+    'mobiusApp.directives.scrollToTop',
 
     'internationalPhoneNumber',
 
@@ -459,7 +460,7 @@ angular
       }
       $scope.$on('$viewContentLoaded', function() {
         //we will handle scrolling in controller for some pages
-        if(!$state.includes('offers') && !$state.includes('aboutUs') && !$state.includes('news') && !$state.includes('contacts')){
+        if(!$state.includes('offers') && !$state.includes('propertyOffers') && !$state.includes('aboutUs') && !$state.includes('news') && !$state.includes('contacts')){
           scrollService.scrollTo();
         }
       });
