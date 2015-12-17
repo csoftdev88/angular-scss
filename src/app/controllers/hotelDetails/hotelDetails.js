@@ -265,12 +265,14 @@ angular.module('mobius.controllers.hotel.details', [
     }, 0);
   };
 
-  $scope.goToRoom = function(pSlug, rSlug) {
+  $scope.goToRoom = function(pSlug, rSlug, viewAllRates) {
+    viewAllRates = viewAllRates ? '1' : null;
+    console.log('viewAllRates: ' + viewAllRates);
     if($stateParams.promoCode){
-      $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode});
+      $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode, viewAllRates: viewAllRates});
     }
     else{
-      $state.go('room', {propertySlug: pSlug, roomSlug: rSlug});
+      $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, viewAllRates: viewAllRates});
     }
 
   };

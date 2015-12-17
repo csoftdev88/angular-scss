@@ -139,7 +139,13 @@ angular.module('mobiusApp.directives.room', [])
               return product.memberOnly || product.highlighted;
             })
         );
-        scope.showViewMoreRates = scope.products.length > scope.roomRatesLimit;
+        if($stateParams.viewAllRates && $stateParams.viewAllRates === '1'){
+          scope.roomRatesLimit = scope.products.length;
+        }
+        else{
+          scope.showViewMoreRates = scope.products.length > scope.roomRatesLimit;
+        }
+        $stateParams.viewAllRates = null;
       }
 
       scope.showAllRates = function(){

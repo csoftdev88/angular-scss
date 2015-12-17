@@ -175,7 +175,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&children&adults&dates&rate&rooms&room&promoCode&corpCode&groupCode&reservation&fromSearch&email&scrollTo'
+        url: '?property&location&region&children&adults&dates&rate&rooms&room&promoCode&corpCode&groupCode&reservation&fromSearch&email&scrollTo&viewAllRates'
       })
 
       // Home page
@@ -218,6 +218,7 @@ angular
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
         url: '/hotels/:propertySlug/rooms/:roomSlug',
+        reloadOnSearch: false,
         data: {
           supportsEditMode: true,
           supportsMultiRoom: true,
