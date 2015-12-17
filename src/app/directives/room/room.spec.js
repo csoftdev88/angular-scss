@@ -43,6 +43,7 @@ describe('room', function() {
         }
       });
       $provide.value('scrollService', {});
+      $provide.value('cookieFactory', function(a){return {}[a];});
 
       $provide.value('dataLayerService', {
         trackProductsDetailsView: sinon.spy()

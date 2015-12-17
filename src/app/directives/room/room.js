@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location,$rootScope,scrollService,$timeout, dataLayerService) {
+  $controller,$location,$rootScope,scrollService,$timeout, dataLayerService, cookieFactory) {
 
   return {
     restrict: 'E',
@@ -132,11 +132,17 @@ angular.module('mobiusApp.directives.room', [])
 
       // Room product details
       function setRoomProductDetails(data) {
+        var discountCookie = cookieFactory('discountCode');
         scope.products = [].concat(
             _.where(data.products, {memberOnly: true}),
             _.where(data.products, {highlighted: true}),
             _.reject(data.products, function(product) {
-              return product.memberOnly || product.highlighted;
+              if(discountCookie){
+                return product.memberOnly || product.highlighted || product.hidden === true && discountCookie.indexOf(product.code) === -1;
+              }
+              else{
+                return product.memberOnly || product.highlighted || product.hidden;
+              }
             })
         );
         if($stateParams.viewAllRates && $stateParams.viewAllRates === '1'){
