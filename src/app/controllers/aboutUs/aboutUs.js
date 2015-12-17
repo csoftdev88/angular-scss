@@ -6,7 +6,7 @@ angular.module('mobius.controllers.about', [])
 
   .controller('AboutUsCtrl', function($scope, $controller, contentService, chainService,
          $state, $stateParams, _, Settings, modalService, breadcrumbsService,
-         metaInformationService, $location, bookingService) {
+         metaInformationService, $location, bookingService, scrollService, $timeout) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -37,6 +37,15 @@ angular.module('mobius.controllers.about', [])
     var selectedAboutIndex;
 
     $scope.showDetail = $stateParams.code ? true : false;
+    $scope.$watch(function(){
+      return $scope.showDetail;
+    }, function(){
+      if($scope.showDetail) {
+        $timeout(function () {
+          scrollService.scrollTo('about-detail', 20);
+        });
+      }
+    });
 
     contentService.getAbout().then(function(response) {
       $scope.aboutList = _.sortBy(response, 'prio').reverse();

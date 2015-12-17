@@ -49,6 +49,10 @@ describe('mobius.controllers.about', function() {
           addBreadCrumb: sinon.stub().returns(this)
         });
 
+        $provide.value('scrollService', {
+          scrollTo: sinon.spy()
+        });
+
         $provide.value('chainService', {
           getChain: sinon.stub()
         });

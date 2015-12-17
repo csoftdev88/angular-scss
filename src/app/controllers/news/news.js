@@ -6,7 +6,7 @@ angular.module('mobius.controllers.news', [])
 
   .controller('NewsCtrl', function($scope, $controller, contentService,
       $state, $stateParams, _, breadcrumbsService, metaInformationService, $location,
-      bookingService, chainService, Settings) {
+      bookingService, chainService, Settings, scrollService, $timeout) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -17,6 +17,15 @@ angular.module('mobius.controllers.news', [])
     var selectedNewsIndex;
 
     $scope.showDetail = $stateParams.code ? true : false;
+    $scope.$watch(function(){
+      return $scope.showDetail;
+    }, function(){
+      if($scope.showDetail) {
+        $timeout(function () {
+          scrollService.scrollTo('about-detail', 20);
+        });
+      }
+    });
 
     contentService.getNews().then(function(response) {
       $scope.newsList = _.sortBy(response, 'prio').reverse();

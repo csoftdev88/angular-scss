@@ -458,7 +458,10 @@ angular
         $scope.sso.trackPageView();
       }
       $scope.$on('$viewContentLoaded', function() {
-        scrollService.scrollTo();
+        //we will handle scrolling in controller for some pages
+        if(!$state.includes('offers') && !$state.includes('aboutUs') && !$state.includes('news') && !$state.includes('contacts')){
+          scrollService.scrollTo();
+        }
       });
     });
   });

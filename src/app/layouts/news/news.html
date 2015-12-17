@@ -23,7 +23,7 @@
 
   </news-list>
 
-  <news-detail ng-if="showDetail" grid="12">
+  <news-detail id="news-detail" ng-if="showDetail" grid="12">
     <h1 ng-bind-html="selectedNews.title | mainHeaderStyle"></h1>
     <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedNews.image.alt}}"/>
     <div ng-bind-html="selectedNews.text"></div>

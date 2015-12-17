@@ -49,7 +49,7 @@
 
   </about-us>
 
-  <about-detail ng-if="showDetail" grid="12">
+  <about-detail id="about-detail" ng-if="showDetail" grid="12">
     <h1 ng-bind-html="selectedAbout.title | mainHeaderStyle"></h1>
     <img ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedAbout.image.alt}}"/>
 
