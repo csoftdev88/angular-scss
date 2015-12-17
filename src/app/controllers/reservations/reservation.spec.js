@@ -323,10 +323,10 @@ describe('mobius.controllers.reservation', function() {
             _selectedProduct: {
               productPropertyRoomTypeId: TEST_ROOM_ID,
               price: {
-                totalAfterTax: 555
+                totalBase: 555
               },
               priceOriginal: {
-                totalAfterTax: 555
+                totalBase: 555
               }
             }
           }
