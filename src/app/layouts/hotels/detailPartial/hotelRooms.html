@@ -27,7 +27,7 @@
       </div>
     </header>
 
-    <div class="rates-preloading-container" ng-if="!ratesLoaded">
+    <div class="rates-preloading-container" ng-if="!ratesLoaded && isFromSearch">
       <h4 class="rates-preloading-container-title">_rates_loading_title_</h4>
 
       <div class="testimonial-container">
@@ -54,7 +54,7 @@
       <div class="rates-preloader"></div>
     </div>
 
-    <list-items class="rooms-list" ng-if="ratesLoaded">
+    <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
       <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay">
         <header class="item-header desktop">
           <h3>

@@ -6,7 +6,7 @@
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
-  <div class="rates-preloading-container" ng-if="!ratesLoaded">
+  <div class="rates-preloading-container" ng-if="!ratesLoaded && isFromSearch">
     <h4 class="rates-preloading-container-title">_rates_loading_title_</h4>
 
     <div class="testimonial-container">
@@ -33,5 +33,5 @@
     <div class="rates-preloader"></div>
   </div>
 
-  <room ng-show="ratesLoaded"></room>
+  <room ng-show="ratesLoaded || !isFromSearch"></room>
 </main>

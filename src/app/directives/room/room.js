@@ -16,6 +16,7 @@ angular.module('mobiusApp.directives.room', [])
       $controller('RatesCtrl', {$scope: scope});
 
       scope.ratesLoaded = false;
+      scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
       scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;

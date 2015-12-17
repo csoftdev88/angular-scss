@@ -18,6 +18,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasAmenities;
   $scope.ratesLoaded = false;
+  $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
 
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;
