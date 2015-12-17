@@ -14,6 +14,13 @@ angular.module('mobiusApp.services.scroll', [])
       var chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
       var toAnimate = safari || chrome ? angular.element('body') : angular.element('html, body');
 
+      if(target === 'top'){
+        toAnimate.stop().animate({
+          scrollTop: 0
+        }, 500);
+        return;
+      }
+
       //No scroll if home
       //If url has scrollTo and target is not set let controller handle scrolling when content has loaded
       if($state.current.name === 'home' || $location.search().scrollTo && !ignoreScrollTo && !target && ($state.current.name === 'hotel' || $state.current.name === 'room')){

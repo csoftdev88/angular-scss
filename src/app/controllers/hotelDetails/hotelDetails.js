@@ -78,6 +78,11 @@ angular.module('mobius.controllers.hotel.details', [
       scrollService.scrollTo();
     }, 0);
   };
+  $scope.scrollToTop = function(){
+    $timeout(function(){
+      scrollService.scrollTo('top');
+    }, 0);
+  };
 
   //rooom loading testimonials
   var maxNumOfTestimonialsStars = Settings.UI.hotelDetailsTestimonialsMaxNumStars;
