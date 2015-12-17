@@ -17,6 +17,7 @@ angular.module('mobiusApp.directives.room', [])
 
       scope.ratesLoaded = false;
       scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
+      scope.roomRatesLimit = Settings.UI.roomDetails.numberOfRatesToShow;
       scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
       var bookingParams = bookingService.getAPIParams();
       scope.$stateParams = $stateParams;
@@ -138,7 +139,13 @@ angular.module('mobiusApp.directives.room', [])
               return product.memberOnly || product.highlighted;
             })
         );
+        scope.showViewMoreRates = scope.products.length > scope.roomRatesLimit;
       }
+
+      scope.showAllRates = function(){
+        scope.showViewMoreRates = false;
+        scope.roomRatesLimit = scope.products.length;
+      };
 
       scope.loadMoreRooms = function(){
         scope.otherRoomsLoading = true;

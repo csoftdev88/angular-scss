@@ -266,6 +266,7 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.goToRoom = function(pSlug, rSlug) {
+    console.log('goToRoom: ' + pSlug + ' : ' + rSlug);
     if($stateParams.promoCode){
       $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode});
     }

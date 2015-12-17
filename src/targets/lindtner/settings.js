@@ -322,7 +322,8 @@ angular.module('mobiusApp.config', [])
     ],
 
     'roomDetails': {
-      'hasReadMore': true
+      'hasReadMore': true,
+      'numberOfRatesToShow': 5
     },
 
     'reservations': {
