@@ -719,8 +719,9 @@ angular.module('mobius.controllers.reservation', [])
 
         reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
           //console.log('make res getReservation: ' + angular.toJson(reservation));
-          $state.go('reservationDetail', reservationDetailsParams);
+          //$state.go('reservationDetail', reservationDetailsParams);
           reservationService.updateAnonUserProfile(reservation.customer.id, params.email, anonUserData).then(function() {
+            bookingService.clearParams();
             $state.go('reservationDetail', reservationDetailsParams);
           });
         });
@@ -729,6 +730,7 @@ angular.module('mobius.controllers.reservation', [])
         if (reservationData.paymentInfo.paymentMethod === 'point' && user.isLoggedIn) {
           userObject.loyalties.amount = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
         }
+        bookingService.clearParams();
         $state.go('reservationDetail', reservationDetailsParams);
       }
       

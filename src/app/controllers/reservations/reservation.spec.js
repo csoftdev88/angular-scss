@@ -70,7 +70,8 @@ describe('mobius.controllers.reservation', function() {
               productGroupId: '123'
             };
           },
-          isMultiRoomBooking: function(){}
+          isMultiRoomBooking: function(){},
+          clearParams: function(){}
         });
         $provide.value('$stateParams', {
           property: TEST_PROPERTY_ID,

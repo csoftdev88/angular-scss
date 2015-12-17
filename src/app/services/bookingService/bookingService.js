@@ -57,6 +57,23 @@ angular.module('mobiusApp.services.booking', [])
     return params;
   }
 
+  function clearParams(){
+    $stateParams.adults = null;
+    $stateParams.children = null;
+    $stateParams.region = null;
+    $stateParams.location = null;
+    $stateParams.dates = null;
+    $stateParams.rate = null;
+    $stateParams.rooms = null;
+    $stateParams.property = null;
+    $stateParams.propertySlug = null;
+    $stateParams.roomSlug = null;
+    $stateParams.promoCode = null;
+    $stateParams.corpCode = null;
+    $stateParams.groupCode = null;
+    $stateParams.fromSearch = null;
+  }
+
   function datesFromString(str){
     if(!str || str === ''){
       return null;
@@ -161,6 +178,7 @@ angular.module('mobiusApp.services.booking', [])
   // Public methods
   return {
     getParams: getParams,
+    clearParams: clearParams,
     getAPIParams: getAPIParams,
     datesFromString: datesFromString,
     APIParamsHasDates: APIParamsHasDates,
