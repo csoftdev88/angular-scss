@@ -315,7 +315,7 @@ angular.module('mobius.controllers.reservation', [])
       setBreadCrumbs(GUEST_DETAILS);
       $scope.continueName = 'Continue';
       if($scope.invalidFormData.error){
-        scrollToDetails('alert-warning');
+        //scrollToDetails('alert-warning');
       }
       else{
         scrollToDetails('reservationDetailsForm');
@@ -462,7 +462,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.autofillSync();
       }
       else{
-        scrollToDetails('form-errors');
+        //scrollToDetails('form-errors');
       }
 
       break;
@@ -479,7 +479,7 @@ angular.module('mobius.controllers.reservation', [])
         $state.go('reservation.confirmation');
       }
       else{
-        scrollToDetails('form-errors');
+        //scrollToDetails('form-errors');
       }
       break;
     case 'reservation.confirmation':
