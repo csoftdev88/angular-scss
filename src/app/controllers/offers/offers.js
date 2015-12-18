@@ -153,7 +153,6 @@ angular.module('mobius.controllers.offers', [])
       }
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
-
       if($scope.selectedOffer.discountCode){
         var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;
         $window.document.cookie = 'discountCode=' + cookieValue;

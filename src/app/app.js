@@ -461,8 +461,9 @@ angular
       }
       $scope.$on('$viewContentLoaded', function() {
         //we will handle scrolling in controller for some pages
+        //TODO: remove below once confirm, no more scrolling to half the hero
         if(!$state.includes('offers') && !$state.includes('propertyOffers') && !$state.includes('aboutUs') && !$state.includes('news') && !$state.includes('contacts')){
-          scrollService.scrollTo();
+          //scrollService.scrollTo();
         }
       });
     });

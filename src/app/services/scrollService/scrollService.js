@@ -5,6 +5,8 @@
 angular.module('mobiusApp.services.scroll', [])
   .service( 'scrollService',  function($window, $document, $location, $state) {
 
+    //TODO: remove half hero scroll when confirmed
+
     // scrollTo() with no params will default to top of content
     function scrollTo(target, offset, ignoreScrollTo) {
       ignoreScrollTo = ignoreScrollTo || null;
