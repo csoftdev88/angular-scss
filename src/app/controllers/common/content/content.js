@@ -182,15 +182,16 @@ angular.module('mobius.controllers.common.content', [])
       } else {
 
         if($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property){
+          /*
           var limitedContent = [];
-
           _.each(content, function(c){
             if(c.limitToPropertyCodes && c.limitToPropertyCodes.length === $scope.hotels.length){
               limitedContent.push(c);
             }
           });
-
           content = limitedContent;
+          */
+          content = _.where(content, {showAtChainLevel: true});
         }
 
         $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {

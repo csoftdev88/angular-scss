@@ -16,7 +16,7 @@ angular.module('mobius.controllers.offers', [])
     var selectedOfferIndex;
 
     $scope.showDetail = $stateParams.code ? true : false;
-    $scope.property = {};
+    $scope.property = null;
 
     $scope.$watch(function(){
       return $scope.showDetail;
@@ -76,15 +76,21 @@ angular.module('mobius.controllers.offers', [])
 
       }else{
 
+        //show all offers if single property
         if(Settings.UI.generics.singleProperty){
           $scope.offersList = _.sortBy(offers, 'prio').reverse();
           if ($stateParams.code) {
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
-          return;
+        }
+        //Only show offers that have showAtChainLevel true if multiple properties
+        else{
+          $scope.offersList = _.where(offers, {showAtChainLevel: true});
         }
 
         // Displaying the offers available on all the properties
+        //TODO: delete below when confirmed
+        /*
         propertyService.getAll().then(function(properties){
           var propertyCodes = _.pluck(properties, 'code');
 
@@ -102,6 +108,7 @@ angular.module('mobius.controllers.offers', [])
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
         });
+        */
       }
     });
 
