@@ -131,6 +131,7 @@ angular.module('mobiusApp.directives.room', [])
       }
 
       // Room product details
+      //TODO check about product.memberOnly || product.highlighted
       function setRoomProductDetails(data) {
         var discountCookie = cookieFactory('discountCode');
         scope.products = [].concat(
@@ -138,10 +139,10 @@ angular.module('mobiusApp.directives.room', [])
             _.where(data.products, {highlighted: true}),
             _.reject(data.products, function(product) {
               if(discountCookie){
-                return product.memberOnly || product.highlighted || product.hidden === true && discountCookie.indexOf(product.code) === -1;
+                return product.productHidden && discountCookie.indexOf(product.code) === -1;
               }
               else{
-                return product.memberOnly || product.highlighted || product.hidden;
+                return product.productHidden;
               }
             })
         );

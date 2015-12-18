@@ -39,10 +39,10 @@ angular.module('mobiusApp.directives.room.products', [])
           var discountCookie = cookieFactory('discountCode');
           data.products  = _.reject(data.products, function(product){
             if(discountCookie){
-              return product.hidden === true && discountCookie.indexOf(product.code) === -1;
+              return product.productHidden && discountCookie.indexOf(product.code) === -1;
             }
             else{
-              return product.hidden === true;
+              return product.productHidden;
             }
           });
           scope.products = data.products || [];
