@@ -34,9 +34,9 @@
       <h1 ng-bind-html="'_hotels_page_title_' | mainHeaderStyle"></h1>
       <!--<p>{{(hotels | filter : hotelFilter).length | pluralization: {'0': 'No hotel available', '1': '{} hotel available', 'plural': '{} hotels available'} }}</p>-->
     </header>
-    <div class="hotels__controls" ng-if="hasDates() && hotelAvailable()">
+    <div class="hotels__controls" ng-show="hasDates() && hotelAvailable()">
       <div class="order-switch">
-        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting">
+        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" disable-search="true">
           <option></option> <!-- workaround for a bug in angular-chosen -->
         </select>
       </div>
@@ -45,7 +45,7 @@
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{preference.get('hotels-view-mode')}}">
-        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.prop: currentOrder.value" grid="{{preference.get('hotels-view-mode') === 'list' ? 3 : 1}}">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.sort" grid="{{preference.get('hotels-view-mode') === 'list' ? 3 : 1}}">
             <div class="item-image" ng-click="navigateToHotel(hotel.meta.slug)">
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
@@ -156,7 +156,7 @@
         <hr/>
       </div>
 
-      <div ng-show="showFilter('rates') && hasDates() && hotelAvailable()">
+      <div ng-show="showFilter('rates') && hasDates()">
         <h3>_filter_rates_label_</h3>
         <select name="rate"
           required ng-model="rates.selectedRate"

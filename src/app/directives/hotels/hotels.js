@@ -27,38 +27,45 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.sortingOptions = [
         {
           name: 'Availability',
-          prop: 'available',
-          value: true
+          sort: function(hotel){
+            return hotel.available;
+          }
         },
         {
           name: 'Price Low to High',
-          prop: 'priceFrom',
-          value: false
+          sort: function(hotel){
+            return hotel.priceFrom;
+          }
         },
         {
           name: 'Price High to Low',
-          prop: 'priceFrom',
-          value: true
+          sort: function(hotel){
+            return 0 - hotel.priceFrom;
+          }
         },
         {
           name: 'Star Rating Low to High',
-          prop: 'rating',
-          value: false
+          sort: function(hotel){
+            return hotel.rating;
+          }
         },
         {
           name: 'Star Rating High to Low',
-          prop: 'rating',
-          value: true
+          sort: function(hotel){
+            return 0 - hotel.rating;
+          }
         },
         {
           name: 'A - Z',
-          prop: 'nameShort',
-          value: false
+          sort: function(hotel){
+            return hotel.nameShort;
+          }
         },
         {
           name: 'Z - A',
-          prop: 'nameShort',
-          value: true
+          sort: function(hotel){
+            return -hotel.nameShort;
+          }
         }
       ];
 
