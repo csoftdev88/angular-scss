@@ -29,6 +29,8 @@
       <local-info ng-if="showLocalInfo" local-info="details.localInfo" grid="6"></local-info>
     </header>
 
+    <ta-teaser></ta-teaser>
+
     <div ng-repeat-start="partial in partials" ng-include="partial" include-replace ng-repeat-end></div>
 
     <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>

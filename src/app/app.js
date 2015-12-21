@@ -118,6 +118,7 @@ angular
     'mobiusApp.directives.notifications',
     'mobiusApp.directives.markdownTextParser',
     'mobiusApp.directives.socialLinks',
+    'mobiusApp.directives.taTeaser',
     // Common controllers
     'mobius.controllers.reservation.directive',
     'mobiusApp.directives.embeddedForm',

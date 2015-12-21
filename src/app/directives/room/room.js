@@ -57,25 +57,6 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
-      //rooom loading testimonials
-      var maxNumOfTestimonialsStars = Settings.UI.hotelDetailsTestimonialsMaxNumStars;
-      var propertyTestimonials = _.reject(Settings.UI.hotelDetailsTestimonials, function(testimonial){ 
-        return testimonial.property !== propertyCode;
-      });
-      scope.testimonial = propertyTestimonials[_.random(0, propertyTestimonials.length-1)];
-      scope.getNumberOfReviewStars = function(num) {
-        if(!num){
-          return;
-        }
-        return new Array(num);   
-      };
-      scope.getNumberOfEmptyReviewStars = function(num) {
-        if(!num){
-          return;
-        }
-        return new Array(maxNumOfTestimonialsStars-num);  
-      };
-
       // Using PGID from the booking params
       if(bookingParams.productGroupId){
         qBookingParam.resolve(bookingParams);

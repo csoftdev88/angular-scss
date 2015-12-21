@@ -6,32 +6,7 @@
 
   <div class="preloader" ng-show="preloader.visible && !isFromSearch"></div>
 
-  <div class="rates-preloading-container" ng-if="!ratesLoaded && isFromSearch">
-    <h4 class="rates-preloading-container-title">_rates_loading_title_</h4>
-
-    <div class="testimonial-container">
-
-      <div class="author">
-        <div class="thumbnail"><img ng-src="{{testimonial.reviewer.avatar}}" alt="review avatar"></div>
-        <div class="name">{{testimonial.reviewer.name}}</div>
-        <div class="city">{{testimonial.reviewer.location}}</div>
-      </div>
-
-      <div class="testimonial">
-        <div class="testimonial-inner">
-          <div class="desc">{{testimonial.review}}</div>
-          <ul class="rating">
-            <li ng-repeat="i in getNumberOfReviewStars(testimonial.stars) track by $index" class="testimonialStar"></li>
-            <li ng-repeat="i in getNumberOfEmptyReviewStars(testimonial.stars) track by $index" class="testimonialStarEmpty"></li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="logo"></div>
-    <div class="rates-preloader"></div>
-  </div>
+  <ta-teaser ng-show="!ratesLoaded && isFromSearch"></ta-teaser>
 
   <room ng-show="ratesLoaded || !isFromSearch"></room>
 
