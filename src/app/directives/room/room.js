@@ -88,6 +88,10 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
+      propertyService.getRoomDetails(propertyCode, roomCode).then(function(data) {
+        scope.roomDetails = data.roomDetails;
+      });
+
       qBookingParam.promise.then(function(bookingParams) {
         var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
           setRoomProductDetails(data.roomProductDetails);

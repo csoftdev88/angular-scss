@@ -86,7 +86,8 @@ describe('room', function() {
       });
       $provide.value('propertyService', {
         getPropertyDetails: sinon.stub(),
-        getRooms: sinon.stub()
+        getRooms: sinon.stub(),
+        getRoomDetails: sinon.stub()
       });
 
       $provide.value('filtersService', {
@@ -122,6 +123,7 @@ describe('room', function() {
     _propertyService = propertyService;
     _propertyService.getPropertyDetails.returns($q.when(PROPERTY_DATA));
     _propertyService.getRooms.returns($q.when([]));
+    _propertyService.getRoomDetails.returns($q.when([]));
 
     _breadcrumbsService = breadcrumbsService;
     _breadcrumbsService.clear.returns(_breadcrumbsService);
