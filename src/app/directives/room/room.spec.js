@@ -39,6 +39,11 @@ describe('room', function() {
           },
           'roomDetails': {
             'hasReadMore': true
+          },
+          'hotelDetails': {
+            'rooms':{
+              'sortRoomsByWeighting': true
+            }
           }
         }
       });

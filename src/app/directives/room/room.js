@@ -31,6 +31,32 @@ angular.module('mobiusApp.directives.room', [])
       var propertyPromise;
       var qBookingParam = $q.defer();
 
+      // Sorting options
+      //TODO add to settings/locales
+      scope.sortingOptions = [
+        {
+          name: 'Price - Low to High',
+          sort: function(product){
+            return product.priceFrom;
+          }
+        },
+        {
+          name: 'Price - High to Low',
+          sort: function(product){
+            return 0 - product.priceFrom;
+          }
+        }
+      ];
+
+      if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+        scope.sortingOptions.splice(0, 0, {
+          name: 'Relevance',
+          sort: function(product){
+            return -product.weighting;
+          }
+        });
+      }
+
       //rooom loading testimonials
       var maxNumOfTestimonialsStars = Settings.UI.hotelDetailsTestimonialsMaxNumStars;
       var propertyTestimonials = _.reject(Settings.UI.hotelDetailsTestimonials, function(testimonial){ 
