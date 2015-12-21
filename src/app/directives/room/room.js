@@ -31,6 +31,12 @@ angular.module('mobiusApp.directives.room', [])
       var propertyPromise;
       var qBookingParam = $q.defer();
 
+      //Get room details
+      propertyService.getRoomDetails(propertyCode, roomCode).then(function(data) {
+        console.log('scope.roomDetails: ' + angular.toJson(data));
+        scope.roomDetails = data;
+      });
+
       // Sorting options
       //TODO add to settings/locales
       scope.sortingOptions = [
@@ -71,15 +77,10 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
-      propertyService.getRoomDetails(propertyCode, roomCode).then(function(data) {
-        console.log('scope.roomDetails: ' + angular.toJson(data));
-        scope.roomDetails = data;
-      });
-
       qBookingParam.promise.then(function(bookingParams) {
         var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
           setRoomProductDetails(data.roomProductDetails);
-          scope.roomDetails = data.roomDetails;
+          //scope.roomDetails = data.roomDetails;
           setRoomData(data.roomDetails);
           return data;
           /*
