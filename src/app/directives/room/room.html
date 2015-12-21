@@ -8,18 +8,22 @@
     <!-- <hr class="dividerWithoutImage"/> -->
     <list-items ng-if="products.length">
 
-      <order-switch ng-if="hasDates()">
-        <select name="sorting" ng-model="currentOrder" disable-search="true"
- chosen ng-options="option.name for option in sortingOptions" data-placeholder="_sorting_filter_placeholder_">
-          <option></option> <!-- workaround for a bug in angular-chosen -->
-        </select>
-      </order-switch>
+      <div class="controls">
+        <order-switch ng-if="hasDates">
+          <select name="sorting" ng-model="currentOrder" disable-search="true"
+   chosen ng-options="option.name for option in sortingOptions" data-placeholder="_sorting_filter_placeholder_">
+            <option></option> <!-- workaround for a bug in angular-chosen -->
+          </select>
+        </order-switch>
 
-      <pricing-switch>
-        <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a>
-        |
-        <a href ng-class="{'is-active': pricePer === PP_STAY}" ng-click="days && setPricePer(PP_STAY)">_per_stay_</a>
-      </pricing-switch>
+        <pricing-switch>
+          <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a>
+          |
+          <a href ng-class="{'is-active': pricePer === PP_STAY}" ng-click="days && setPricePer(PP_STAY)">_per_stay_</a>
+        </pricing-switch>
+      </div>
+
+
       <list-item
         ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit"
         ng-class="{'is-highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}"

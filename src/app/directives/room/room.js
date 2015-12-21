@@ -52,10 +52,12 @@ angular.module('mobiusApp.directives.room', [])
         scope.sortingOptions.splice(0, 0, {
           name: 'Relevance',
           sort: function(product){
-            return -product.weighting;
+            return 0 - product.weighting;
           }
         });
       }
+
+      scope.currentOrder = scope.sortingOptions[0];
 
       // Using PGID from the booking params
       if(bookingParams.productGroupId){
@@ -70,7 +72,8 @@ angular.module('mobiusApp.directives.room', [])
       }
 
       propertyService.getRoomDetails(propertyCode, roomCode).then(function(data) {
-        scope.roomDetails = data.roomDetails;
+        console.log('scope.roomDetails: ' + angular.toJson(data));
+        scope.roomDetails = data;
       });
 
       qBookingParam.promise.then(function(bookingParams) {

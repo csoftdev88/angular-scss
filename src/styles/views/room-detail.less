@@ -4,6 +4,41 @@
 
 hotel-room {
 
+  .controls{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 14px;
+
+    order-switch {
+      float: left;
+
+      .chosen-container {
+        width: 150px !important;
+      }
+
+      .viewport-mobile & {
+        width: 100%;
+        margin: 10px 0px;
+
+        .chosen-container {
+          width: 100% !important;
+        }
+      }
+
+      .viewport-mobile &{
+        display: none;
+      }
+    }
+
+    pricing-switch{
+      float: right;
+      top: 6px;
+      position: relative;
+    }
+
+  }
+  
+
   .header {
     h1 {
       margin-bottom: @baseline;

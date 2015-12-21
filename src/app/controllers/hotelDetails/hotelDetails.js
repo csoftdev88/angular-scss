@@ -47,7 +47,7 @@ angular.module('mobius.controllers.hotel.details', [
     $scope.sortingOptions.splice(0, 0, {
       name: 'Relevance',
       sort: function(room){
-        return -room.weighting;
+        return 0 - room.weighting;
       }
     });
   }
@@ -148,6 +148,8 @@ angular.module('mobius.controllers.hotel.details', [
           .addHref('Location', 'jsLocation')
           .addHref('Offers', 'jsOffers')
           .addHref('Gallery', 'fnOpenHotelLightBox');
+
+        console.log(details.hasOwnProperty('available'));
 
         if(details.hasOwnProperty('available')) {
           roomsPromise.then(function() {
