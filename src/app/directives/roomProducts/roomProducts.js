@@ -37,15 +37,18 @@ angular.module('mobiusApp.directives.room.products', [])
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params,
           getRatesCacheTimeout()).then(function(data){
           var discountCookie = cookieFactory('discountCode');
-          data.products  = _.reject(data.products, function(product){
-            if(discountCookie){
-              return product.productHidden && discountCookie.indexOf(product.code) === -1;
-            }
-            else{
-              return product.productHidden;
-            }
-          });
-          scope.products = data.products || [];
+          scope.products = _.uniq([].concat(
+              _.where(data.products, {memberOnly: true}),
+              _.where(data.products, {highlighted: true}),
+              _.reject(data.products, function(product) {
+                if(discountCookie){
+                  return product.productHidden && discountCookie.indexOf(product.code) === -1;
+                }
+                else{
+                  return product.productHidden;
+                }
+              })
+          ));
 
           // Tracking product impressions
           dataLayerService.trackProductsImpressions(scope.products.map(function(p){

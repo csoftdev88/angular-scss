@@ -33,7 +33,6 @@ angular.module('mobiusApp.directives.room', [])
 
       //Get room details
       propertyService.getRoomDetails(propertyCode, roomCode).then(function(data) {
-        console.log('scope.roomDetails: ' + angular.toJson(data));
         scope.roomDetails = data;
       });
 
@@ -80,7 +79,7 @@ angular.module('mobiusApp.directives.room', [])
       qBookingParam.promise.then(function(bookingParams) {
         var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
           setRoomProductDetails(data.roomProductDetails);
-          //scope.roomDetails = data.roomDetails;
+          scope.roomDetails = data.roomDetails;
           setRoomData(data.roomDetails);
           return data;
           /*
@@ -149,7 +148,7 @@ angular.module('mobiusApp.directives.room', [])
       //TODO check about product.memberOnly || product.highlighted
       function setRoomProductDetails(data) {
         var discountCookie = cookieFactory('discountCode');
-        scope.products = [].concat(
+        scope.products = _.uniq([].concat(
             _.where(data.products, {memberOnly: true}),
             _.where(data.products, {highlighted: true}),
             _.reject(data.products, function(product) {
@@ -160,7 +159,8 @@ angular.module('mobiusApp.directives.room', [])
                 return product.productHidden;
               }
             })
-        );
+        ));
+        
         if($stateParams.viewAllRates && $stateParams.viewAllRates === '1'){
           scope.roomRatesLimit = scope.products.length;
         }

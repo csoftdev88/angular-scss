@@ -2,7 +2,7 @@
 
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
-  <li ng-class="{'highlighted': product.highlighted, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | orderBy : 'weighting'" ng-if="product.highlighted || product.memberOnly">
+  <li ng-class="{'is-highlighted': product.highlighted || product.memberOnly, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | orderBy : 'weighting'" ng-if="product.highlighted || product.memberOnly">
     <!-- ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)" -->
 
     <div class="rate-description">

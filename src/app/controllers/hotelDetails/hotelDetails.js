@@ -149,8 +149,6 @@ angular.module('mobius.controllers.hotel.details', [
           .addHref('Offers', 'jsOffers')
           .addHref('Gallery', 'fnOpenHotelLightBox');
 
-        console.log(details.hasOwnProperty('available'));
-
         if(details.hasOwnProperty('available')) {
           roomsPromise.then(function() {
             $scope.availableRooms = [];
