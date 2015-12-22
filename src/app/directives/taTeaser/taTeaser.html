@@ -22,7 +22,7 @@
 
   <!-- testimonial carousel -->
   <div class="testimonial-carousel-wrapper" ng-show="isCarousel">
-    <div class="testimonial-container carousel-item" ng-repeat="testimonial in testimonials">
+    <div class="testimonial-container carousel-item" ng-repeat="testimonial in testimonials" ng-class="{'in': $index == 0}">
       <div class="author">
         <div class="thumbnail"><img ng-src="{{testimonial.reviewer.avatar}}" alt="review avatar"></div>
         <div class="name">{{testimonial.reviewer.name}}</div>

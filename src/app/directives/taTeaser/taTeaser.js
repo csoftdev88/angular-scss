@@ -28,19 +28,15 @@ angular.module('mobiusApp.directives.taTeaser', [])
         //Carousel
         if(scope.isCarousel){
 
-          //Show first testimonial
-          var curTestimonial = 0;
-          var carouselItem = $('.testimonial-container.carousel-item');
-          carouselItem.eq(curTestimonial).addClass('in');
-
           scope.testimonials = propertyTestimonials;
           var numTestimonials = scope.testimonials.length - 1;
+          var curTestimonial = 0;
 
           //carousel interval
           $interval.cancel(interval);
           interval = $interval(function () {
               //hide current
-              carouselItem.eq(curTestimonial).removeClass('in');
+              $('.testimonial-container.carousel-item').eq(curTestimonial).removeClass('in');
               if (curTestimonial === numTestimonials) {
                 curTestimonial = 0;
               } 
@@ -48,9 +44,10 @@ angular.module('mobiusApp.directives.taTeaser', [])
                 curTestimonial++;
               }
               //show next
-              carouselItem.eq(curTestimonial).addClass('in');
+              $('.testimonial-container.carousel-item').eq(curTestimonial).addClass('in');
 
             }, carouselInterval);
+            
         }
         //If not carousel apply random testimonial
         else{
