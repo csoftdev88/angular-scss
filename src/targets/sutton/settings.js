@@ -186,6 +186,8 @@ angular.module('mobiusApp.config', [])
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
     'hotelDetailsTestimonialsMaxNumStars': 5,
+    'hotelDetailsTestimonialsCarousel': true,
+    'hotelDetailsTestimonialsCarouselDelay': 4000,
     'hotelDetailsTestimonials': 
     [{
       'property': 'VAN',

@@ -21,23 +21,26 @@
   </div>
 
   <!-- testimonial carousel -->
-  <div class="testimonial-container carousel-item" ng-show="isCarousel" ng-repeat="testimonial in testimonials">
-    <div class="author">
-      <div class="thumbnail"><img ng-src="{{testimonial.reviewer.avatar}}" alt="review avatar"></div>
-      <div class="name">{{testimonial.reviewer.name}}</div>
-      <div class="city">{{testimonial.reviewer.location}}</div>
-    </div>
+  <div class="testimonial-carousel-wrapper" ng-show="isCarousel">
+    <div class="testimonial-container carousel-item" ng-repeat="testimonial in testimonials">
+      <div class="author">
+        <div class="thumbnail"><img ng-src="{{testimonial.reviewer.avatar}}" alt="review avatar"></div>
+        <div class="name">{{testimonial.reviewer.name}}</div>
+        <div class="city">{{testimonial.reviewer.location}}</div>
+      </div>
 
-    <div class="testimonial">
-      <div class="testimonial-inner">
-        <div class="desc">{{testimonial.review}}</div>
-        <ul class="rating">
-          <li ng-repeat="i in getNumberOfReviewStars(testimonial.stars) track by $index" class="testimonialStar"></li>
-          <li ng-repeat="i in getNumberOfEmptyReviewStars(testimonial.stars) track by $index" class="testimonialStarEmpty"></li>
-        </ul>
+      <div class="testimonial">
+        <div class="testimonial-inner">
+          <div class="desc">{{testimonial.review}}</div>
+          <ul class="rating">
+            <li ng-repeat="i in getNumberOfReviewStars(testimonial.stars) track by $index" class="testimonialStar"></li>
+            <li ng-repeat="i in getNumberOfEmptyReviewStars(testimonial.stars) track by $index" class="testimonialStarEmpty"></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
+  
 
   <div class="logo"></div>
   <div class="rates-preloader"></div>

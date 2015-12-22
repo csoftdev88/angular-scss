@@ -4,6 +4,8 @@
 
 <main class="grid-wrapper">
 
+<ta-teaser></ta-teaser>
+
   <div class="preloader" ng-show="preloader.visible && !isFromSearch"></div>
 
   <hotel-detail itemscope itemtype="http://schema.org/Hotel">
@@ -32,6 +34,8 @@
     <div ng-repeat-start="partial in partials" ng-include="partial" include-replace ng-repeat-end></div>
 
     <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+
+
 
   </hotel-detail>
 </main>

@@ -13,6 +13,11 @@
   box-sizing: border-box;
   margin-bottom: 40px;
 
+  .viewport-mobile &,
+  .viewport-tablet &{
+    width: 100%;
+  }
+
   .viewport-mobile &{
     padding: 20px 20px 60px;
   }
@@ -23,14 +28,14 @@
     color: #898989;
     margin-bottom: 20px;
   }
-  
+
   .testimonial-container{
     display: inline-block;
     width: 100%;
     .author{
       float: left;
       .viewport-tablet &{
-        width: 20%;
+        width: 15%;
       }
       .viewport-mobile &{
         float: none;
@@ -61,13 +66,14 @@
       }
       .name{
         font-size: 12px;
-        line-height: 30px;
         color: #888;
       }
       .city{
         font-size: 10px;
-        line-height: 2px;
+        line-height: 12px;
         color: #333;
+        max-width: 80px;
+        display: inline-block;
       } 
     }
 
@@ -88,8 +94,8 @@
       border-radius: 4px;
 
       .viewport-tablet &{
-        width: 70%;
-        margin-left: 10%;
+        width: 80%;
+        margin-left: 5%;
       }
 
       .viewport-mobile &{
@@ -166,6 +172,30 @@
       }
     }
 
+  }
+
+  .testimonial-carousel-wrapper{
+    position: relative;
+    display: inline-block;
+    width: 810px;
+    height: 150px;
+    .viewport-mobile &,
+    .viewport-tablet &{
+      width: 100%;
+    }
+    .viewport-mobile &{
+      height: 350px;
+    }
+    .testimonial-container{
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+      &.in{
+        opacity: 1;
+      }
+    }
   }
   
   .logo{

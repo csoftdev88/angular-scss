@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.taTeaser', [])
 
-  .directive('taTeaser', ['Settings', 'bookingService', '_', function(Settings, bookingService, _) {
+  .directive('taTeaser', ['Settings', 'bookingService', '_', '$interval', function(Settings, bookingService, _, $interval) {
     return {
       restrict: 'E',
       templateUrl: 'directives/taTeaser/taTeaser.html',
@@ -11,13 +11,13 @@ angular.module('mobiusApp.directives.taTeaser', [])
       link: function(scope) {
 
         //TODO: move into settings
-        scope.isCarousel = false;
+        scope.isCarousel = Settings.UI.hotelDetailsTestimonialsCarousel;
 
         var maxNumOfTestimonialsStars = Settings.UI.hotelDetailsTestimonialsMaxNumStars;
         var bookingParams = bookingService.getAPIParams();
         var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
-        //var interval;
-        //var carouselInterval = 3000;
+        var interval;
+        var carouselInterval = Settings.UI.hotelDetailsTestimonialsCarouselDelay;
         
 
         //Get property specific testiomonials
@@ -25,29 +25,34 @@ angular.module('mobiusApp.directives.taTeaser', [])
           return testimonial.property !== propertyCode;
         });
 
-        //appply random testimonial
+        //Carousel
         if(scope.isCarousel){
-          /*
-          $('.rates-preloading-container > .carousel-item').hide();
-          scope.testimonials = propertyTestimonials;
-          var numTestimonials = scope.testimonials.length;
+
+          //Show first testimonial
           var curTestimonial = 0;
+          var carouselItem = $('.testimonial-container.carousel-item');
+          carouselItem.eq(curTestimonial).addClass('in');
+
+          scope.testimonials = propertyTestimonials;
+          var numTestimonials = scope.testimonials.length - 1;
+
+          //carousel interval
+          $interval.cancel(interval);
           interval = $interval(function () {
-              if (index === numTestimonials) {
-
-                $interval.cancel(interval);
-                textAnim = $timeout(function () {
-                    $scope.text = 'done!';
-                }, 1000);
-
+              //hide current
+              carouselItem.eq(curTestimonial).removeClass('in');
+              if (curTestimonial === numTestimonials) {
+                curTestimonial = 0;
               } 
               else {
-                $scope.text += extra_text[index++];
+                curTestimonial++;
               }
-          }, carouselInterval);
-          */
+              //show next
+              carouselItem.eq(curTestimonial).addClass('in');
 
+            }, carouselInterval);
         }
+        //If not carousel apply random testimonial
         else{
           scope.testimonial = propertyTestimonials[_.random(0, propertyTestimonials.length-1)];
         }
@@ -58,12 +63,17 @@ angular.module('mobiusApp.directives.taTeaser', [])
           }
           return new Array(num);   
         };
+
         scope.getNumberOfEmptyReviewStars = function(num) {
           if(!num){
             return;
           }
           return new Array(maxNumOfTestimonialsStars-num);  
         };
+
+        scope.$on('$destroy', function() {
+          $interval.cancel(interval);
+        });
 
       }
     };
