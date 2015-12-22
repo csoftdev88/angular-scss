@@ -530,7 +530,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           $state.go('hotel', stateParams, {reload: true});
         }
 
-        scope.hideBar();
+        //scope.hideBar();
       };
 
       // Search is enabled only when required fields contain data
