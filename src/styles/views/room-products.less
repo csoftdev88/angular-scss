@@ -20,10 +20,12 @@ room-products {
 
   > ul {
     > li {
-      overflow: auto;
+      //overflow: auto;
       border: 1px solid @c-light-grey;
       border-top: none;
-
+      float: left;
+      width: 100%;
+      box-sizing: border-box;
       padding: 0px 10px;
 
       .viewport-mobile & {
@@ -36,6 +38,49 @@ room-products {
 
       &.is-highlighted {
         background: @c-highlight-bg;
+        border-top: 0;
+        pricing-info {
+          border-left: 1px solid #d0cfcc;
+        }
+      }
+
+      &.is-member-only {
+        background: @c-highlight-bg;
+        background: #f7f4f4;
+        padding-top: 10px;
+        &.is-member-only-disabled{
+          background: #f7f4f4;
+          .list-item-highlight-label{
+            color: #898989;
+          }
+          button-submit,
+          .button{
+            background-color: #ccc;
+            box-shadow: 0 1px 0 0 #898989;
+            min-width: 91px;
+          }
+        }
+      }
+
+      &.is-highlighted,
+      &.is-member-only{
+        padding-top: 0;
+        .list-item-highlight-label{
+          text-transform: uppercase;
+          font-weight: 700;
+          color: @c-dark-brown;
+          border-right: 1px solid @c-light-grey;
+          width: 60%;
+          box-sizing: border-box;
+          padding-top: 5px;
+          .viewport-mobile &{
+            border: none;
+          }
+        }
+        pricing-details{
+          top: -20px;
+          padding-top: 0px;
+        }
       }
 
       .rate-description {

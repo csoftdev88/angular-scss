@@ -2,9 +2,10 @@
 
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
-  <li ng-class="{'is-highlighted': product.highlighted || product.memberOnly, 'is-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | orderBy : 'weighting'" ng-if="product.highlighted || product.memberOnly">
+  <li ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | orderBy : 'weighting'" ng-if="product.highlighted || product.memberOnly">
     <!-- ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)" -->
-
+    <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
+    <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
     <div class="rate-description">
       <h4>
         <span ng-bind-html="product.name | mainHeaderStyle"></span>
@@ -38,6 +39,7 @@
         <div class="action-buttons">
           <a ng-if="!room.priceFrom" ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">_view_details_</a>
           <a ng-if="room.priceFrom" ng-hide="product.memberOnly && !isUserLoggedIn()" ng-click="selectProduct(room.code, product.code, null, null, $event)" class="button">_book_now_</a>
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">_login_</a>
         </div>
       </div>
 

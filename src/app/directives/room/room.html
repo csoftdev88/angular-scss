@@ -26,15 +26,14 @@
 
       <list-item
         ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit"
-        ng-class="{'is-highlighted': product.highlighted || product.memberOnly, 'is-disabled': product.memberOnly && !isUserLoggedIn()}"
+        ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn()}"
         class="without-image">
+        <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
+        <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
         <div class="list-item-header">
           <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
 
           <pricing-info>
-            <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">_members_only_rate_</highlight-item>
-            <highlight-item ng-show="product.highlighted">_most_booked_package_</highlight-item>
-
             <p>
               <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
               <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
@@ -53,9 +52,6 @@
         </div>
 
         <pricing-info>
-          <highlight-item ng-show="product.memberOnly && !isUserLoggedIn()">_members_only_rate_</highlight-item>
-          <highlight-item ng-show="product.highlighted">_most_booked_package_</highlight-item>
-
           <p>
             <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
             <span ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
@@ -71,7 +67,7 @@
             _book_now_
           </button-submit>
 
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">_login_</a>
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">_login_to_book_</a>
         </pricing-info>
 
         <description-info>

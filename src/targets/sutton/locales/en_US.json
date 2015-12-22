@@ -35,6 +35,7 @@
     "gallery": "Gallery",
     "BUTTONS": "//////////////////////////////////////////////////////",
     "login_register": "Log In / Register",
+    "login_to_book": "Login to Book",
     "continue_as_guest": "Continue as Guest",
     "reset_password": "Reset Password",
     "continue": "Continue",

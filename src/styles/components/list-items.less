@@ -130,9 +130,34 @@ list-item {
   &.is-highlighted {
     background: @c-highlight-bg;
     border-top: 0;
-
+    .list-item-highlight-label{
+      text-transform: uppercase;
+      font-weight: 700;
+      color: @c-dark-brown;
+    }
     pricing-info {
       border-left: 1px solid #d0cfcc;
+    }
+  }
+
+  &.is-member-only {
+    background: #f7f4f4;
+    .list-item-highlight-label{
+      text-transform: uppercase;
+      font-weight: 700;
+      color: @c-dark-brown;
+    }
+    &.is-member-only-disabled{
+      .list-item-highlight-label{
+        color: #898989;
+      }
+      button-submit,
+      .button{
+        background-color: #ccc;
+        box-shadow: 0 2px 0 0 #898989;
+        line-height: 38.5px;
+        height: 38.5px;
+      }
     }
   }
 
