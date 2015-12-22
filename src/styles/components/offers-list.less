@@ -47,16 +47,41 @@ rewards-list {
     }
 
     //- Image
-    img {
-      display: block;
-      margin-bottom: @baseline;
-      max-height: 160px;
-      min-height: 160px;
-      width: 100%;
-
-      object-fit: cover;
-      opacity: 1;
+    figure{
+      position: relative;
+      img {
+        display: block;
+        margin-bottom: @baseline;
+        max-height: 160px;
+        min-height: 160px;
+        width: 100%;
+        object-fit: cover;
+        opacity: 1;
+      }
+      figcaption{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: @c-brown;
+        padding: 10px;
+        text-align: center;
+        width: 100%;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 600;
+        display: none;
+      }
     }
+
+    &.redeemed{
+      figure{
+        figcaption{
+          display: block;
+        }
+      }
+    }
+    
 
     //- Content - Title + Description
     section {
