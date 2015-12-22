@@ -47,7 +47,7 @@ angular.module('mobius.controllers.hotel.details', [
     $scope.sortingOptions.splice(0, 0, {
       name: 'Relevance',
       sort: function(room){
-        return 0 - room.weighting;
+        return [-room.priceFrom, -room.weighting];
       }
     });
   }
