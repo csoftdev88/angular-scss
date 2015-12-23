@@ -256,14 +256,6 @@ angular.module('mobius.controllers.hotel.details', [
 
   };
 
-  $scope.selectDates = function(){
-    $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-      openBookingTab: true,
-      openDatePicker: true,
-      promoCode: $stateParams.code
-    });
-  };
-
   $scope.getAbsUrl = function(){
     return $location.absUrl().split('?')[0];
   };
@@ -291,5 +283,15 @@ angular.module('mobius.controllers.hotel.details', [
 
   $scope.hasDates = function(){
     return bookingService.APIParamsHasDates();
+  };
+
+  $scope.selectDates = function(){
+    $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+      openBookingTab: true,
+      openDatePicker: true,
+      promoCode: $stateParams.promoCode || null,
+      corpCode: $stateParams.corpCode || null,
+      groupCode: $stateParams.groupCode || null
+    });
   };
 });

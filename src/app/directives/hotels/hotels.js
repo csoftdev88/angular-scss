@@ -333,6 +333,16 @@ angular.module('mobiusApp.directives.hotels', [])
         return Settings.UI.hotelFilters[filter];
       };
 
+      scope.selectDates = function(){
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+          openBookingTab: true,
+          openDatePicker: true,
+          promoCode: $stateParams.promoCode || null,
+          corpCode: $stateParams.corpCode || null,
+          groupCode: $stateParams.groupCode || null
+        });
+      };
+
       scope.openLocationDetail = modalService.openLocationDetail;
     }
   };

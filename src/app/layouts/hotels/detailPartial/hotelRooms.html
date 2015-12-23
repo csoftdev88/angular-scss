@@ -84,7 +84,7 @@
               </div>
 
               <div class="not-available" ng-if="!hasDates()">
-                _select_dates_for_availability_title_
+                <button-submit ng-click="selectDates()">_select_dates_</button-submit>
               </div>
 
               <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom">_view_rates_</button>
