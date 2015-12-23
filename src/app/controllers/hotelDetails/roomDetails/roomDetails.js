@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.room.details', [])
 
 .controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
-  propertyService, filtersService, bookingService, $window, contentService, dataLayerService) {
+  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams) {
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
@@ -20,14 +20,23 @@ angular.module('mobius.controllers.room.details', [])
 
   $scope.openPoliciesInfo = function(products){
     // Tracking product view
-    dataLayerService.trackProductsDetailsView(
-      products.map(function(p){
-        return {
-          name: p.name,
-          code: p.code,
-          price: p.price.totalBase
-        };
-      }));
+    chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+      propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+        dataLayerService.trackProductsDetailsView(
+          products.map(function(p){
+            return {
+              name: p.name,
+              code: p.code,
+              price: p.price.totalBase,
+              overarchingBrand: chainData.nameShort,
+              brand: propertyData.nameLong,
+              location: propertyData.nameShort,
+              list: 'Room',
+              category: $scope.roomDetails.name
+            };
+          }));
+      });
+    });
 
     modalService.openPoliciesInfo(products);
   };
@@ -37,11 +46,20 @@ angular.module('mobius.controllers.room.details', [])
     room._selectedProduct = product;
 
     // Tracking product view
-    dataLayerService.trackProductsDetailsView([{
-      name: product.name,
-      code: product.code,
-      price: product.price.totalBase
-    }]);
+    chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+      propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+        dataLayerService.trackProductsDetailsView([{
+          name: product.name,
+          code: product.code,
+          price: product.price.totalBase,
+          overarchingBrand: chainData.nameShort,
+          brand: propertyData.nameLong,
+          location: propertyData.nameShort,
+          list: 'Room',
+          category: $scope.roomDetails.name
+        }]);
+      });
+    });
 
     return modalService.openPriceBreakdownInfo([room]);
   };
@@ -68,15 +86,25 @@ angular.module('mobius.controllers.room.details', [])
       getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
         $scope.updateHeroContent($window._.filter(data[0].images, {includeInSlider: true}));
         // Tracking products impressions
-        if(data[1].products){
-          dataLayerService.trackProductsImpressions(data[1].products.map(function(p){
-            return {
-              name: p.name,
-              code: p.code,
-              price: p.price.totalBase
-            };
-          }));
-        }
+        chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+          propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
+            if(data[1].products){
+              dataLayerService.trackProductsImpressions(data[1].products.map(function(p){
+                return {
+                  name: p.name,
+                  code: p.code,
+                  price: p.price.totalBase,
+                  overarchingBrand: chainData.nameShort,
+                  brand: propertyData.nameLong,
+                  location: propertyData.nameShort,
+                  list: 'Room',
+                  category: data[0].name
+                };
+              }));
+            }
+          });
+        });
+        
 
         qRoomData.resolve({
           roomDetails: data[0],

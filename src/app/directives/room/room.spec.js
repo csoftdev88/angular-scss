@@ -48,6 +48,7 @@ describe('room', function() {
         }
       });
       $provide.value('scrollService', {});
+      $provide.value('chainService', {});
       $provide.value('cookieFactory', function(a){return {}[a];});
 
       $provide.value('dataLayerService', {

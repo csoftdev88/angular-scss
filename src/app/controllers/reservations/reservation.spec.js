@@ -291,12 +291,12 @@ describe('mobius.controllers.reservation', function() {
 
       it('should download chain data from the server and define it on scope', function(){
         _scope.$digest();
-        expect(_chainService.getChain.calledOnce).equal(true);
+        expect(_chainService.getChain.calledTwice).equal(true);
         expect(_chainService.getChain.calledWith('TESTCHAIN')).equal(true);
       });
       
       it('should download property details from the server and store them', function(){
-        expect(_spyGetPropertyDetails).calledOnce;
+        expect(_spyGetPropertyDetails).calledTwice;
         expect(_spyGetPropertyDetails.calledWith(TEST_PROPERTY_ID)).equal(true);
         expect(_scope.property).equal(TEST_PROPERTY);
       });

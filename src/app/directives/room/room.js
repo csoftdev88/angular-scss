@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location,$rootScope,scrollService,$timeout, dataLayerService, cookieFactory) {
+  $controller,$location,$rootScope,scrollService,$timeout, dataLayerService, cookieFactory, chainService) {
 
   return {
     restrict: 'E',
@@ -209,10 +209,19 @@ angular.module('mobiusApp.directives.room', [])
 
       scope.selectProduct = function(product) {
         // Tracking product click
-        dataLayerService.trackProductClick({
-          name: product.name,
-          code: product.code,
-          price: product.price.totalBase
+        chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+          propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+            dataLayerService.trackProductClick({
+              name: product.name,
+              code: product.code,
+              price: product.price.totalBase,
+              overarchingBrand: chainData.nameShort,
+              brand: propertyData.nameLong,
+              location: propertyData.nameShort,
+              list: 'Room',
+              category: scope.roomDetails.name
+            });
+          });
         });
 
         if($stateParams.promoCode){
@@ -240,11 +249,20 @@ angular.module('mobiusApp.directives.room', [])
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
         scope.openRoomDetailsDialog = function(product){
           // Tracking product view
-          dataLayerService.trackProductsDetailsView([{
-            name: product.name,
-            code: product.code,
-            price: product.price.totalBase
-          }]);
+          chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+            propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+              dataLayerService.trackProductsDetailsView([{
+                name: product.name,
+                code: product.code,
+                price: product.price.totalBase,
+                overarchingBrand: chainData.nameShort,
+                brand: propertyData.nameLong,
+                location: propertyData.nameShort,
+                list: 'Room',
+                category: scope.roomDetails.name
+              }]);
+            });
+          });
 
           modalService.openRoomDetailsDialog(product.description);
         };

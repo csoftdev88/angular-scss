@@ -223,11 +223,21 @@ angular.module('mobius.controllers.reservation', [])
       // TODO if !product - redirect
       if(product){
         // Tracking checkout
-        dataLayerService.trackProductsCheckout([{
-          name: product.name,
-          code: product.code,
-          price: product.price.totalAfterTax
-        }]);
+        //TODO: need actionField so needs to be moved further into booking flow
+        chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+          propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+            dataLayerService.trackProductsCheckout([{
+              name: product.name,
+              code: product.code,
+              price: product.price.totalAfterTax,
+              overarchingBrand: chainData.nameShort,
+              brand: propertyData.nameLong,
+              location: propertyData.nameShort,
+              list: 'Room',
+              category: roomData.name
+            }]);
+          });
+        });
       }
 
       roomData._selectedProduct = product;
@@ -687,12 +697,19 @@ angular.module('mobius.controllers.reservation', [])
         return {
           name: p.name,
           code: p.code,
+          tax: p.price.totalAfterTax - p.price.totalBase,
           price: p.price.totalAfterTax
         };
       });
+
       dataLayerService.trackProductsPurchase(products, {
         // Transaction ID
-        id: reservationDetailsParams.reservationCode
+        id: reservationDetailsParams.reservationCode,
+        'affiliation': 'Hotel',
+        'revenue': products[0].price,
+        'tax': products[0].tax,
+        'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
+
       });
 
       //$state.go('reservationDetail', reservationDetailsParams);
