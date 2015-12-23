@@ -621,6 +621,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.makeReservation = function(){
     if(!$scope.additionalInfo.agree) {
+      $scope.isMakingReservation = false;
       return modalService.openTermsAgreeDialog();
     }
 
