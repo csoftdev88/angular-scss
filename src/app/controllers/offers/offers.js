@@ -47,7 +47,7 @@ angular.module('mobius.controllers.offers', [])
         }
         else{
           offers = _.filter(offers, function(f){
-            return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length;
+            return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length || f.showAtChainLevel;
           });
 
           $scope.offersList = _.sortBy(offers, 'prio').reverse();
