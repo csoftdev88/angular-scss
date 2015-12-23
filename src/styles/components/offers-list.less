@@ -46,18 +46,19 @@ rewards-list {
       &:hover img { opacity: .8; }
     }
 
+    img {
+      display: block;
+      margin-bottom: @baseline;
+      max-height: 160px;
+      min-height: 160px;
+      width: 100%;
+      object-fit: cover;
+      opacity: 1;
+    }
+
     //- Image
     figure{
       position: relative;
-      img {
-        display: block;
-        margin-bottom: @baseline;
-        max-height: 160px;
-        min-height: 160px;
-        width: 100%;
-        object-fit: cover;
-        opacity: 1;
-      }
       figcaption{
         position: absolute;
         top: 0;
