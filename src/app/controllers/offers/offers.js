@@ -165,7 +165,13 @@ angular.module('mobius.controllers.offers', [])
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       if($scope.selectedOffer.discountCode){
         var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;
-        $window.document.cookie = 'discountCode=' + cookieValue;
+
+        var cookieExpiryDate = null;
+        if(Settings.UI.offers.discountCodeCookieExpiryDays && Settings.UI.offers.discountCodeCookieExpiryDays !== 0){
+          cookieExpiryDate = new Date();
+          cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.offers.discountCodeCookieExpiryDays); 
+        }
+        $window.document.cookie = 'discountCode=' + cookieValue + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString());
       }
 
       metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);

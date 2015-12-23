@@ -391,6 +391,10 @@ angular.module('mobiusApp.config', [])
       }
     },
 
+    'offers':{
+      'discountCodeCookieExpiryDays': 5
+    },
+
     'languages': {
       'default': 'en',
       'en': {

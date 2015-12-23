@@ -92,6 +92,9 @@ describe('mobius.controllers.offers', function() {
           UI: {
             generics:{
               singleProperty: true
+            },
+            offers:{
+              discountCodeCookieExpiryDays: 5
             }
           },
           API: {
