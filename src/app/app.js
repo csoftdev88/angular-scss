@@ -10,6 +10,7 @@ angular
     'ngMap',
     'ngSanitize',
     'btford.markdown',
+    'ngAnimate',
     // Template cache
     'templates-main',
 
