@@ -42,13 +42,13 @@ angular.module('mobiusApp.directives.room', [])
         {
           name: 'Price - Low to High',
           sort: function(product){
-            return product.priceFrom;
+            return product.price.totalAfterTax;
           }
         },
         {
           name: 'Price - High to Low',
           sort: function(product){
-            return 0 - product.priceFrom;
+            return 0 - product.price.totalAfterTax;
           }
         }
       ];
