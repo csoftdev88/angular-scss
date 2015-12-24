@@ -87,15 +87,6 @@ angular.module('mobiusApp.services.dataLayer', [])
       return;
     }
 
-    console.log('trackProductsPurchase: ' + angular.toJson({
-      'ecommerce': {
-        'purchase': {
-          'actionField': actionField
-        },
-        'products': products
-      }
-    }));
-
     getDataLayer().push({
       'ecommerce': {
         'purchase': {
