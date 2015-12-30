@@ -202,6 +202,10 @@ angular.module('mobiusApp.directives.room', [])
             });
         });
       };
+      $timeout(function(){
+        scope.loadMoreRooms();
+      }, 0);
+      
 
       scope.setRoomsSorting = function() {
         return user.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
