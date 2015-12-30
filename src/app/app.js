@@ -91,6 +91,7 @@ angular
     'mobiusApp.services.metaInformation',
     'mobiusApp.services.dataLayer',
     'mobiusApp.services.exceptionHandler',
+    'mobiusApp.services.userCookie',
 
     // Factories
     'mobiusApp.factories.template',

@@ -36,7 +36,7 @@
     </header>
     <div class="hotels__controls" ng-show="hasDates() && hotelAvailable()">
       <div class="order-switch">
-        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" disable-search="true">
+        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" disable-search="true" ng-change="orderSwitchChange(currentOrder)">
           <option></option> <!-- workaround for a bug in angular-chosen -->
         </select>
       </div>

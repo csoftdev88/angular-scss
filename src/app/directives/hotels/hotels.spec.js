@@ -36,6 +36,12 @@ describe('hotels directive', function() {
         }
       });
 
+
+      $provide.value('userCookieService', {
+        getCookie: function(){},
+        setCookie: function(){}
+      });
+
       $provide.value('propertyService', {
         getAll: function(){
           return {
@@ -149,6 +155,7 @@ describe('hotels directive', function() {
   });
 
   describe('when component is initialized', function() {
+
     it('should download widget template from template cache', function() {
       expect(_spyTemplateCacheGet.calledOnce).equal(true);
       expect(_spyTemplateCacheGet.calledWith(TEMPLATE_URL)).equal(true);

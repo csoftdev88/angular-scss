@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userCookieService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService){
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userCookieService){
 
   return {
     restrict: 'E',
@@ -23,6 +23,10 @@ angular.module('mobiusApp.directives.hotels', [])
       $controller('MainCtrl', {$scope: scope});
       $controller('PreferenceCtrl', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
+
+      var mobiusUserPreferences = userCookieService.getCookie();
+
+      console.log('hotels mobiusUserPreferences: ' + angular.toJson(mobiusUserPreferences));
 
       scope.sortingOptions = [
         {
@@ -69,6 +73,27 @@ angular.module('mobiusApp.directives.hotels', [])
         }
       ];
 
+      //order switch default value
+      if(mobiusUserPreferences && mobiusUserPreferences.hotelsCurrentOrder){
+        var index = _.findIndex(scope.sortingOptions, function(option) {
+          return option.name === mobiusUserPreferences.hotelsCurrentOrder;
+        });
+        $timeout(function(){
+          scope.currentOrder = scope.sortingOptions[index];
+        }, 0);
+      }
+      else{
+        $timeout(function(){
+          scope.currentOrder = scope.sortingOptions[0];
+        }, 0);
+      }
+
+      //save order switch value to cookies when changed
+      scope.orderSwitchChange = function(selected){
+        userCookieService.setCookie('hotelsCurrentOrder', selected.name);
+      };
+
+      //hotel view default value
       scope.preference.setDefault('hotels-view-mode', 'tiles');
 
       scope.MIN_STARS = Settings.UI.hotelFilters.minStars;
