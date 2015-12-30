@@ -45,7 +45,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
     $scope.sortingOptions.splice(0, 0, {
-      name: 'Relevance',
+      name: 'Recommended',
       sort: function(room){
         return [-room.priceFrom, -room.weighting];
       }
