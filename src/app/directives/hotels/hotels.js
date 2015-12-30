@@ -71,10 +71,10 @@ angular.module('mobiusApp.directives.hotels', [])
 
       scope.preference.setDefault('hotels-view-mode', 'tiles');
 
-      scope.MIN_STARS = 0;
-      scope.MAX_STARS = 5;
-      scope.MIN_RATING = 0;
-      scope.MAX_RATING = 5;
+      scope.MIN_STARS = Settings.UI.hotelFilters.minStars;
+      scope.MAX_STARS = Settings.UI.hotelFilters.maxStars;
+      scope.MIN_RATING = Settings.UI.hotelFilters.minTaRating;
+      scope.MAX_RATING = Settings.UI.hotelFilters.maxTaRating;
 
       scope.minStars = scope.MIN_STARS;
       scope.maxStars = scope.MAX_STARS;
