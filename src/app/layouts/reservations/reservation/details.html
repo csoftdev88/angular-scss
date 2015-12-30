@@ -12,7 +12,7 @@
 
     <form name="forms.details" novalidate ng-submit="continue()" ng-class="{'ng-submitted': forms.details.$submitted}">
 
-      <label for="title" class="input-left">
+      <label for="title" class="input-left small">
         <select type="text" id="title" required
           placeholder="_title_label_"
           data-placeholder="_title_label_"
@@ -25,7 +25,7 @@
         <span ng-show="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
       </label>
 
-      <label for="first-name" class="input-right">
+      <label for="first-name" class="input-center medium">
         <input type="text" id="first-name" required
           placeholder="_first_name_label_"
           ng-model="userDetails.firstName"
@@ -38,7 +38,7 @@
         </span>
       </label>
 
-      <label for="last-name">
+      <label for="last-name" class="input-right medium">
         <input type="text" id="last-name" required
           placeholder="_last_name_label_"
           ng-model="userDetails.lastName"

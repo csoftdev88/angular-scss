@@ -54,6 +54,7 @@ reservation-widget {
     padding-top: @size--2 + 4px; // 15px
     padding-bottom: 10px;
     color: darken(@c-gray-reservation, 20%);
+    line-height: 1;
 
     > span {
       position: absolute;
@@ -365,13 +366,23 @@ reservation-widget {
   reservation-widget {
 
     .input-left,
-    .input-right {
+    .input-right,
+    .input-center {
       box-sizing: border-box;
       clear: none;
       width: 50%;
 
-      &.wide {    width: 75%; }
+      &.small {  width: 20%; }
       &.narrow {  width: 25%; }
+      &.medium {  width: 40%; }
+      &.wide {    width: 75%; }
+      
+    }
+
+    .input-center {
+      float: left;
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
     .input-left {
