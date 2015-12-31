@@ -25,11 +25,17 @@ describe('mobius.controllers.rewards', function() {
       }
     ];
 
+    var TEST_USER_ID = 123456789;
+    var TEST_USER = {id: TEST_USER_ID, loyalties: { amount: 999}};
+
     beforeEach(function() {
       module('underscore');
       module('mobiusApp.factories.preloader');
 
       module('mobius.controllers.rewards', function($provide, $controllerProvider) {
+
+        $provide.value('userObject', TEST_USER);
+
         $provide.value('breadcrumbsService', {
           clear: sinon.stub().returns(this),
           addBreadCrumb: sinon.stub().returns(this)
@@ -44,6 +50,8 @@ describe('mobius.controllers.rewards', function() {
         $provide.value('$state', {
 
         });
+
+        $provide.value('scrollService', {});
 
         $provide.value('user', {
           getCustomerId: sinon.stub(),

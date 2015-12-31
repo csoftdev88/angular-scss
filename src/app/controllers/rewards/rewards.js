@@ -6,7 +6,7 @@ angular.module('mobius.controllers.rewards', [])
 
   .controller('RewardsCtrl', function($scope, $controller, rewardsService,
     $q, preloaderFactory, $state, user, $stateParams, modalService, breadcrumbsService,
-    userMessagesService, _) {
+    userMessagesService, _, userObject, scrollService, $timeout) {
 
     //$controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Rewards');
@@ -50,6 +50,7 @@ angular.module('mobius.controllers.rewards', [])
       }
 
       modalService.openRewardDetailsDialog(reward).then(function(){
+
         // Buying a new reward
         var buyPromise = rewardsService.buyReward(user.getCustomerId(), reward.id).then(function(){
           // Consumed a new reward
@@ -57,17 +58,24 @@ angular.module('mobius.controllers.rewards', [])
             reward.name + '</div>');
 
           // Reloading user loyalties data
+          userObject.loyalties.amount = userObject.loyalties.amount - reward.pointCost;
+          init();
+          $timeout(function(){
+            scrollService.scrollTo('top');
+          }, 0);
+
+          //Hiding this as backend doesn't update points quickly enough
+          /*
           user.loadLoyalties().then(function(){
             init();
-
-            // Scrolling to the top of the page so user sees notification message
-            angular.element('html, body').animate({
-              scrollTop: 0
-            }, 1000);
           });
+          */
         }, function(){
           // Something went wrong
           userMessagesService.addMessage('<div>Sorry, we could not complete the transaction, please try again.</div>');
+          $timeout(function(){
+            scrollService.scrollTo('top');
+          }, 0);
         });
         preloaderFactory(buyPromise);
       });
