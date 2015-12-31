@@ -7,8 +7,8 @@
 dialog {
   &.details {
     main {
-      @image-size: 400px;
-      width: @image-size * 2;
+      @image-size: 350px;
+      width: 800px;
 
       image-carousel {
         display: block;
@@ -22,12 +22,14 @@ dialog {
 
         .image-wrapper {
           width: @image-size;
-          //height: @image-size;
+          margin-top: 10px;
+          border: 2px solid @c-mid-grey;
 
           img {
             width: @image-size;
             height: auto;
             background-size: cover;
+            display: inherit;
           }
         }
 
@@ -44,7 +46,8 @@ dialog {
             float: left;
             width: @thumbnail-size;
             height: @thumbnail-size;
-            margin: 0 3px;
+            margin: 10px 3px;
+            border: 2px solid @c-mid-grey;
 
             &:first-of-type {
               margin-left: 0px;
@@ -98,7 +101,7 @@ dialog {
         .description {
           height: @image-size;
           overflow-y: auto;
-          padding: 10px;
+          padding: 10px 5px 0 5px;
 
           em{
             font-weight: 700;
@@ -107,7 +110,7 @@ dialog {
 
           p,
           div {
-            padding: 20px 10px 10px 10px;
+            //padding: 20px 10px 10px 10px;
             color: @c-grey;
           }
 
@@ -118,7 +121,7 @@ dialog {
         }
 
         .extra {
-          margin: 20px 0 30px;
+          margin: 39px 0 30px;
 
           .price {
             color: @c-grey;
@@ -129,9 +132,12 @@ dialog {
             }
           }
 
-          .view-more {
+          .button {
             float: right;
-            padding-left: 20px;
+
+            &.view-more{
+              padding-left: 20px;
+            }
 
             i {
               .fa;
