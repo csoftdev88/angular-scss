@@ -1,6 +1,6 @@
 <div class="ui-info">
   <header>
-    <h1>{{data.roomDetails.name}}</h1>
+    <h1 ng-bind-html="data.roomDetails.name | mainHeaderStyle"></h1>
     <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
   </header>
 
@@ -12,7 +12,7 @@
         <span class="price" ng-if="data.roomDetails.priceFrom">
           _price_from_ <span class="value">{{data.roomDetails.priceFrom | i18nCurrency: $root.currencyCode}}</span>
         </span>
-        <a ng-click="cancel()" class="button view-more" ui-sref="room({propertySlug: data.propertySlug, roomSlug: data.roomDetails.meta.slug})"><i></i>_view_room_</a>
+        <a ng-click="cancel()" class="button" ui-sref="room({propertySlug: data.propertySlug, roomSlug: data.roomDetails.meta.slug})">_view_room_</a>
       </div>
     </div>
   </main>

@@ -17,6 +17,15 @@ dialog .ui-info.modal-policies {
           }
         }
       }
+      &.single{
+        .panel-group{
+          .panel{
+            .panel-heading{
+              display: none;
+            }
+          }
+        }
+      }
     }
 
     ul {
@@ -28,13 +37,14 @@ dialog .ui-info.modal-policies {
     }
 
     li {
-      border-bottom: 1px solid @c-light-grey;
+      border-bottom: 1px solid #F2F2F2;
       padding: @baseline/2 0;
 
       h3 {
         font-size: @size-0;
-        font-weight: bold;
-        text-transform: uppercase;
+        font-weight: 400;
+        text-transform: none;
+        color: #000;
       }
 
       p {
@@ -44,6 +54,10 @@ dialog .ui-info.modal-policies {
       ul {
         margin: @baseline 0 @baseline @baseline / 2;
         list-style-type: disc;
+        border: none;
+        padding: 0px;
+        margin: 0;
+        max-height: none;
       }
 
       li {
