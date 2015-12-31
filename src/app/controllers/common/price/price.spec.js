@@ -13,6 +13,10 @@ describe('mobius.controllers.common.price', function() {
         $provide.value('bookingService',{
           getAPIParams: sinon.stub()
         });
+        $provide.value('userPreferenceService', {
+          getCookie: function(){},
+          setCookie: function(){}
+        });
       });
     });
 

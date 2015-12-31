@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location,$rootScope,scrollService,$timeout, dataLayerService, cookieFactory, chainService) {
+  $controller,$location,$rootScope,scrollService,$timeout, dataLayerService, cookieFactory, chainService, userPreferenceService) {
 
   return {
     restrict: 'E',
@@ -62,7 +62,30 @@ angular.module('mobiusApp.directives.room', [])
         });
       }
 
-      scope.currentOrder = scope.sortingOptions[0];
+      /*
+      USER PREFERENCE SETTINGS
+      */
+      var mobiusUserPreferences = userPreferenceService.getCookie();
+
+      //order switch default value
+      if(mobiusUserPreferences && mobiusUserPreferences.hotelCurrentOrder){
+        var index = _.findIndex(scope.sortingOptions, function(option) {
+          return option.name === mobiusUserPreferences.hotelCurrentOrder;
+        });
+        $timeout(function(){
+          scope.currentOrder = scope.sortingOptions[index];
+        }, 0);
+      }
+      else{
+        $timeout(function(){
+          scope.currentOrder = scope.sortingOptions[0];
+        }, 0);
+      }
+
+      //save order switch value to cookies when changed
+      scope.orderSwitchChange = function(selected){
+        userPreferenceService.setCookie('hotelCurrentOrder', selected.name);
+      };
 
       // Using PGID from the booking params
       if(bookingParams.productGroupId){

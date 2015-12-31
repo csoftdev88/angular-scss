@@ -11,7 +11,7 @@
       <div class="controls">
         <order-switch ng-show="hasDates">
           <select name="sorting" ng-model="currentOrder" disable-search="true"
-   chosen ng-options="option.name for option in sortingOptions" data-placeholder="_sorting_filter_placeholder_">
+   chosen ng-options="option.name for option in sortingOptions" data-placeholder="_sorting_filter_placeholder_" ng-change="orderSwitchChange(currentOrder)">
             <option></option> <!-- workaround for a bug in angular-chosen -->
           </select>
         </order-switch>

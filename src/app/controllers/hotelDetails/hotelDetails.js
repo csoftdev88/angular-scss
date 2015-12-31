@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -19,10 +19,19 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasAmenities;
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
+  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
+  $scope.partials = [
+      'layouts/hotels/detailPartial/hotelInfo.html',
+      'layouts/hotels/detailPartial/hotelRooms.html',
+      'layouts/hotels/detailPartial/hotelServices.html',
+      'layouts/hotels/detailPartial/hotelLocation.html',
+      'layouts/hotels/detailPartial/hotelOffers.html'
+    ];
 
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;
   var bookingParams = bookingService.getAPIParams();
+  var mobiusUserPreferences = userPreferenceService.getCookie();
   // Include the amenities
   bookingParams.includes = 'amenities';
 
@@ -52,17 +61,29 @@ angular.module('mobius.controllers.hotel.details', [
     });
   }
 
+  /*
+  USER PREFERENCE SETTINGS
+  */
 
-  $scope.currentOrder = $scope.sortingOptions[0];
-  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
+  //order switch default value
+  if(mobiusUserPreferences && mobiusUserPreferences.hotelCurrentOrder){
+    var index = _.findIndex($scope.sortingOptions, function(option) {
+      return option.name === mobiusUserPreferences.hotelCurrentOrder;
+    });
+    $timeout(function(){
+      $scope.currentOrder = $scope.sortingOptions[index];
+    }, 0);
+  }
+  else{
+    $timeout(function(){
+      $scope.currentOrder = $scope.sortingOptions[0];
+    }, 0);
+  }
 
-  $scope.partials = [
-      'layouts/hotels/detailPartial/hotelInfo.html',
-      'layouts/hotels/detailPartial/hotelRooms.html',
-      'layouts/hotels/detailPartial/hotelServices.html',
-      'layouts/hotels/detailPartial/hotelLocation.html',
-      'layouts/hotels/detailPartial/hotelOffers.html'
-    ];
+  //save order switch value to cookies when changed
+  $scope.orderSwitchChange = function(selected){
+    userPreferenceService.setCookie('hotelCurrentOrder', selected.name);
+  };
 
   var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
 

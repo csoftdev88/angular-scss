@@ -106,6 +106,9 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'user': {
+      'userPreferencesCookieExpiryDays': 30
+    },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },

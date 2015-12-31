@@ -51,6 +51,11 @@ describe('room', function() {
       $provide.value('chainService', {});
       $provide.value('cookieFactory', function(a){return {}[a];});
 
+      $provide.value('userPreferenceService', {
+        getCookie: function(){},
+        setCookie: function(){}
+      });
+
       $provide.value('dataLayerService', {
         trackProductsDetailsView: sinon.spy()
       });

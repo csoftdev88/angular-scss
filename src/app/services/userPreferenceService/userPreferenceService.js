@@ -11,8 +11,6 @@ angular.module('mobiusApp.services.userPreferenceService', [])
       cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
     }
 
-    console.log('userPreferenceService cookie is : ' + angular.fromJson(cookieFactory('mobiusUserPreferences')) || {});
-
     function setCookie(key, value){
       var cookie = angular.fromJson(cookieFactory('mobiusUserPreferences')) || {};
       cookie[key] = value;

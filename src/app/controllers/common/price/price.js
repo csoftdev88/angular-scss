@@ -5,7 +5,7 @@ angular.module('mobius.controllers.common.price', [])
   // TODO - Refactor, add unit tests
   // In templates - use ng-switch instead of multiple ng-if's
   .controller('PriceCtr', function($scope, bookingService, $window,
-      preferenceService, perStay) {
+      preferenceService, perStay, userPreferenceService) {
     var PP_NIGHT = 'night';
     var PP_STAY = 'stay';
     var PRICE_PER_PREFERENCE_KEY = 'booking_price_per';
@@ -18,9 +18,7 @@ angular.module('mobius.controllers.common.price', [])
         pricePer = PP_NIGHT;
       }
       $scope.pricePer = pricePer;
-      preferenceService.set(PRICE_PER_PREFERENCE_KEY, pricePer);
-
-      perStay.value = pricePer;
+      userPreferenceService.setCookie(PRICE_PER_PREFERENCE_KEY, pricePer);
     };
 
     $scope.getValuePer = function(value, isProductValue){
@@ -46,7 +44,13 @@ angular.module('mobius.controllers.common.price', [])
 
     $scope.days = (bookingParams.to && bookingParams.from) ? $window.moment(bookingParams.to).diff(bookingParams.from, 'days') : 0;
 
-    preferenceService.setDefault(PRICE_PER_PREFERENCE_KEY, PP_NIGHT);
-    $scope.setPricePer($scope.days > 0 ? perStay.value : PP_NIGHT);
+    var mobiusUserPreferences = userPreferenceService.getCookie();
+    if(mobiusUserPreferences && mobiusUserPreferences[PRICE_PER_PREFERENCE_KEY]){
+      $scope.setPricePer($scope.days > 0 && mobiusUserPreferences[PRICE_PER_PREFERENCE_KEY] === PP_STAY ? PP_STAY : PP_NIGHT);
+    }
+    else{
+      $scope.setPricePer(PP_NIGHT);
+    }
+    
 
   }).constant('perStay', {});
