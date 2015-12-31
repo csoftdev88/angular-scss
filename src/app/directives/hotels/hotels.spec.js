@@ -37,7 +37,7 @@ describe('hotels directive', function() {
       });
 
 
-      $provide.value('userCookieService', {
+      $provide.value('userPreferenceService', {
         getCookie: function(){},
         setCookie: function(){}
       });

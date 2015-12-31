@@ -2,14 +2,16 @@
 /*
  * This service stores user preferences
  */
-angular.module('mobiusApp.services.userCookie', [])
-  .service( 'userCookieService',  function($window, cookieFactory, Settings) {
+angular.module('mobiusApp.services.userPreferenceService', [])
+  .service( 'userPreferenceService',  function($window, cookieFactory, Settings) {
 
     var cookieExpiryDate = null;
     if(Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0){
       cookieExpiryDate = new Date();
       cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
     }
+
+    console.log('userPreferenceService cookie is : ' + angular.fromJson(cookieFactory('mobiusUserPreferences')) || {});
 
     function setCookie(key, value){
       var cookie = angular.fromJson(cookieFactory('mobiusUserPreferences')) || {};
