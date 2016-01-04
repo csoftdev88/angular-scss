@@ -46,6 +46,10 @@ angular.module('mobiusApp.directives.floatingBar', [
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
         scope.setActive = function(newActive, isMobileToggle) {
+          //remove css transition end classes
+          $('booking-widget').removeClass('transEnd');
+          $('my-account').removeClass('transEnd');
+
           //scope.active === newActive && !scope.isMobile || isMobileToggle && !scope.isCollapsed && scope.isMobile
           if(scope.active === newActive || isMobileToggle && scope.isMobile){
             scope.isCollapsed = !scope.isCollapsed;
@@ -122,6 +126,17 @@ angular.module('mobiusApp.directives.floatingBar', [
           scope.isCollapsed = floatingBar.isCollapsed;
           document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
         });
+
+        //Toggle css trasition classes
+        $('booking-widget').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
+          console.log('addClass');
+          $('booking-widget').addClass('transEnd');
+        });
+
+        $('my-account').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
+          $('my-account').addClass('transEnd');
+        });
+
       }
     };
   // Generic controller for booking tabs - defines numbers of guests

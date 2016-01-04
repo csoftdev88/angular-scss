@@ -11,6 +11,11 @@ floating-bar {
   width: 100%;
   background: @c-booking-widget;
   color: #fff;
+  transition: bottom 1s ease-out;
+
+  &.hide{
+    bottom: -200px;
+  }
 
   .viewport-mobile &{
     height: 70px;

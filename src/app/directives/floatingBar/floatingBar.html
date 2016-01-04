@@ -33,16 +33,15 @@
     </a>
   </li>
 </ul>
-<div ng-show="active">
+<div>
   <booking-widget
-    ng-class="{'multiroom-mode': active === ADVANCED_BOOKING}"
+    ng-class="{'multiroom-mode': active === ADVANCED_BOOKING, 'is-open': !isCollapsed && (active === BOOKING || active === ADVANCED_BOOKING)}"
     open-booking-tab="openBookingTab"
     hide-bar="setActive(active)"
-    ng-show="!isCollapsed && (active === BOOKING || active === ADVANCED_BOOKING)"
     advanced="active === ADVANCED_BOOKING">
   </booking-widget>
 
   <my-account
-    ng-if="!isCollapsed && active === MY_ACCOUNT">
+    ng-class="{'is-open': !isCollapsed && active === MY_ACCOUNT}">
   </my-account>
 </div>

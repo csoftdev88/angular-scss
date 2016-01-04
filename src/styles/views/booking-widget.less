@@ -6,23 +6,26 @@ booking-widget {
   display: block;
   max-width: 960px;
   margin: 0 auto;
+  max-height: 0px; 
+  transition: max-height .6s ease-out;
+  overflow: hidden;
 
-  /*
-  opacity: 1;
-  visibility: visible;
-  height: auto; 
-  overflow: visible;
-  transition: all 5s ease-out;
-
-
-  &.ng-hide-animate.ng-hide {
-    visibility: hidden;
-    height: 0; 
-    overflow: hidden;
-    opacity: 0;
+  &.is-open {
+    max-height: 80px;
+    &.multiroom-mode{
+      max-height: 300px; 
+    }
+    &.transEnd{
+      overflow: visible;
+    }
   }
-  */
 
+  .viewport-mobile &{
+    max-height: auto;
+    transition: none;
+    overflow: visible;
+  }
+  
   // Chosen dropdown - open up not down
   .chosen-container .chosen-drop {
     bottom: 100%;
@@ -455,15 +458,21 @@ booking-widget-add-room {
 //- My Account
 my-account {
   display: block;
-  padding: @baseline;
-
   background: #ebaa3d;
+  max-height: 0px; 
+  transition: max-height .6s ease-out;
+  overflow: hidden;
+
+  &.is-open {
+    max-height: 110px; 
+  }
 
   // Wrapper to center content
   > div {
     display: flex;
     margin: 0 auto;
     width: 960px;
+    padding: @baseline;
   }
 
 
