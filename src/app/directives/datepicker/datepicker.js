@@ -18,7 +18,7 @@ angular.module('mobiusApp.directives.datepicker', [])
     },
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
-      var DATES_SEPARATOR = ' ';
+      var DATES_SEPARATOR = '_';
       var CLASS_DATE_SELECTED = 'date-range-selected';
       var CLASS_RANGE_START = 'date-range-start';
       var CLASS_RANGE_END = 'date-range-end';

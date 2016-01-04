@@ -112,6 +112,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       };
 
+      var DATES_SEPARATOR = '_';
+
       function getDefaultAdultCount() {
         return $window._.find(scope.guestsOptions.adults, {
           value: bookingService.getAPIParams(true).adults || scope.settings.defaultAdultCount
@@ -355,7 +357,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         var toDay = '02';
         var from = year + '-' + month + '-' + fromDay;
         var to = year + '-' + month + '-' + toDay;
-        scope.curDatePickerMonthDates = from + ' ' + to;
+        scope.curDatePickerMonthDates = from + DATES_SEPARATOR + to;
         scope.checkAvailability();
       });
 

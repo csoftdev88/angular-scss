@@ -129,7 +129,6 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         //Toggle css trasition classes
         $('booking-widget').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
-          console.log('addClass');
           $('booking-widget').addClass('transEnd');
         });
 

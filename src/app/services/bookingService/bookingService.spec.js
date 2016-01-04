@@ -39,7 +39,7 @@ describe('bookingService', function() {
       _stateParams.adults = 5;
       _stateParams.children = 2;
       _stateParams.promoCode = 'BCD';
-      _stateParams.dates = '2014-01-01 2015-01-01';
+      _stateParams.dates = '2014-01-01_2015-01-01';
       _stateParams.propertySlug = 'hotel-123';
       _stateParams.roomSlug = 'room-123';
     });
@@ -54,7 +54,7 @@ describe('bookingService', function() {
       expect(params.adults).equal(5);
       expect(params.children).equal(2);
       expect(params.promoCode).equal('BCD');
-      expect(params.dates).equal('2014-01-01 2015-01-01');
+      expect(params.dates).equal('2014-01-01_2015-01-01');
       expect(params.propertySlug).equal('hotel-123');
       expect(params.roomSlug).equal('room-123');
     });
@@ -65,7 +65,7 @@ describe('bookingService', function() {
       expect(params.adults).equal(5);
       expect(params.children).equal(2);
       expect(params.promoCode).equal('BCD');
-      expect(params.dates).equal('2014-01-01 2015-01-01');
+      expect(params.dates).equal('2014-01-01_2015-01-01');
       expect(params.propertySlug).equal('hotel-123');
       expect(params.roomSlug).equal('room-123');
     });

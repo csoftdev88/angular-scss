@@ -26,7 +26,7 @@ angular.module('mobiusApp.services.booking', [])
   var API_PARAM_TO = 'to';
   var ROOMS_PARAM_SETTINGS = {type: 'object'};
 
-  var DATES_SEPARATOR = ' ';
+  var DATES_SEPARATOR = '_';
 
   function getParams(excludePropertyId){
     var params = {
