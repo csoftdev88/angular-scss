@@ -46,11 +46,12 @@ angular.module('mobius.controllers.offers', [])
           });
         }
         else{
+
           offers = _.filter(offers, function(offer){
-            offer.offerAvailability  = _.filter(offer.offerAvailability, function(availability){
-              return _.contains(availability, $stateParams.property);
+            var availability = _.find(offer.offerAvailability, function(availability){
+              return availability.property === $stateParams.property;
             });
-            return offer.offerAvailability.length && offer.offerAvailability[0].showOnOffersPage;
+            return availability && availability.showOnOffersPage;
           });
 
           $scope.offersList = _.sortBy(offers, 'prio').reverse();
@@ -143,6 +144,11 @@ angular.module('mobius.controllers.offers', [])
         return $state.go('offers', {code: null});
       }
 
+      var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
+        return availability.property === $stateParams.property;
+      });
+      $scope.offersList[selectedOfferIndex].includeBookingButton = availability && availability.includeBookingButton ? availability.includeBookingButton : false;
+
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
       $state.go('offers', {code: slug});
@@ -163,7 +169,13 @@ angular.module('mobius.controllers.offers', [])
         return $state.go('offers', {code: null});
       }
 
+      var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
+        return availability.property === $stateParams.property;
+      });
+      $scope.offersList[selectedOfferIndex].includeBookingButton = availability && availability.includeBookingButton ? availability.includeBookingButton : false;
+
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+
       if($scope.selectedOffer.discountCode){
         var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;
 

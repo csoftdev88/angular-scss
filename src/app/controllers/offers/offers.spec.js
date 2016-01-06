@@ -23,6 +23,7 @@ describe('mobius.controllers.offers', function() {
         prio: 5,
         limitToPropertyCodes: ['VAN', 'REV'],
         showOnOffersPage: true,
+        includeBookingButton: true,
         meta: {
           description: 'desc',
           microdata: {
@@ -35,6 +36,7 @@ describe('mobius.controllers.offers', function() {
         prio: 5,
         limitToPropertyCodes: ['VAN'],
         showOnOffersPage: true,
+        includeBookingButton: true,
         meta: {
           description: 'desc',
           microdata: {
@@ -47,6 +49,7 @@ describe('mobius.controllers.offers', function() {
         prio: 10,
         limitToPropertyCodes: ['REV', 'VAN'],
         showOnOffersPage: true,
+        includeBookingButton: true,
         meta: {
           description: 'desc',
           microdata: {
