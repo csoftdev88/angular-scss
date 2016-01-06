@@ -30,10 +30,10 @@ angular.module('mobius.controllers.offers', [])
 
     contentService.getOffers().then(function(offers) {
 
-      //Remove offers that have expired or that have showOnOffersPage set to false
+      //Remove offers that have expired
       var today = new Date();
       offers = _.reject(offers, function(offer){
-        return new Date(offer.expirationDate) < today || offer.showOnOffersPage === false;
+        return new Date(offer.expirationDate) < today;
       });
 
       if($stateParams.property){
@@ -46,8 +46,11 @@ angular.module('mobius.controllers.offers', [])
           });
         }
         else{
-          offers = _.filter(offers, function(f){
-            return _.contains(f.limitToPropertyCodes, $stateParams.property) || !f.limitToPropertyCodes.length || f.showAtChainLevel;
+          offers = _.filter(offers, function(offer){
+            offer.offerAvailability  = _.filter(offer.offerAvailability, function(availability){
+              return _.contains(availability, $stateParams.property);
+            });
+            return offer.offerAvailability.length && offer.offerAvailability[0].showOnOffersPage;
           });
 
           $scope.offersList = _.sortBy(offers, 'prio').reverse();
@@ -71,8 +74,6 @@ angular.module('mobius.controllers.offers', [])
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
         }
-
-
 
       }else{
 
