@@ -54,7 +54,6 @@ angular.module('mobius.controllers.common.content', [])
       'reverseSort': true,
       'keepProperty': true,
       'limitToPropertyCodes': true,
-      'offerAvailability': true,
       'maxItemsCount': Settings.UI.menu.maxOffersCount,
       'slug': true
     },
@@ -175,18 +174,20 @@ angular.module('mobius.controllers.common.content', [])
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
 
       data = _.reject(data, function(item){
+
+        if(item.showAtChainLevel){
+          return item.showOnMenu === false;
+        }
+
         var availability = _.find(item.offerAvailability, function(availability){
           return availability.property === $state.params.property;
         });
 
         if(availability){
-          item.showOnMenu = availability.showOnMenu || false;
+          return availability.showOnMenu === false;
         }
-
-        return item.showOnMenu === false;
-     
+        
       });
-      
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
         $scope.settings = $scope.settings.fallback;
@@ -194,15 +195,6 @@ angular.module('mobius.controllers.common.content', [])
       } else {
 
         if($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property){
-          /*
-          var limitedContent = [];
-          _.each(content, function(c){
-            if(c.limitToPropertyCodes && c.limitToPropertyCodes.length === $scope.hotels.length){
-              limitedContent.push(c);
-            }
-          });
-          content = limitedContent;
-          */
           content = _.where(content, {showAtChainLevel: true});
         }
 
@@ -232,11 +224,10 @@ angular.module('mobius.controllers.common.content', [])
 
   function isFiltered(item) {
     if (needFilter()) {
-      var codes = item.limitToPropertyCodes;
-      var element = _.find(codes, function (code) {
-        return code === $state.params.property;
+      var availability = _.find(item.offerAvailability, function(availability){
+        return availability.property === $state.params.property;
       });
-      return element !== undefined;
+      return availability !== undefined;
     } else {
       return true;
     }

@@ -36,7 +36,6 @@ angular.module('mobiusApp.directives.aboutHotel', [])
       var NUMBER_OF_OFFERS = 2;
       contentService.getOffers({scope: 'homepage'}).then(function(response) {
         response = _.reject(response, function(item){
-          console.log(item.showAtChainLevel);
           return item.showAtChainLevel === true && item.showOnHomePage === false || !item.showAtChainLevel;
         });
         scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
