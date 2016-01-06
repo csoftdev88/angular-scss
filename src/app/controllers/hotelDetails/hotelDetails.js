@@ -188,9 +188,12 @@ angular.module('mobius.controllers.hotel.details', [
         delete offersParams.promoCode;
         delete offersParams.corpCode;
         delete offersParams.groupCode;
-        contentService.getOffers(offersParams).then(function(response) {
-          response = _.reject(response, function(item){
-            return item.showOnHotelPage === false;
+        contentService.getOffers().then(function(response) {
+          response = _.filter(response, function(offer){
+            var availability = _.find(offer.offerAvailability, function(availability){
+              return availability.property === propertyCode;
+            });
+            return availability && availability.showOnHotelPage;
           });
           $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
           if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
