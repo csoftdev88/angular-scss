@@ -147,7 +147,7 @@ angular.module('mobius.controllers.offers', [])
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
-      $scope.offersList[selectedOfferIndex].includeBookingButton = availability && availability.includeBookingButton ? availability.includeBookingButton : false;
+      $scope.offersList[selectedOfferIndex].includeBookingButton = !$scope.offersList[selectedOfferIndex].showAtChainLevel && availability && availability.includeBookingButton ? availability.includeBookingButton : $scope.offersList[selectedOfferIndex].includeBookingButton;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
@@ -172,7 +172,7 @@ angular.module('mobius.controllers.offers', [])
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
-      $scope.offersList[selectedOfferIndex].includeBookingButton = availability && availability.includeBookingButton ? availability.includeBookingButton : false;
+      $scope.offersList[selectedOfferIndex].includeBookingButton = !$scope.offersList[selectedOfferIndex].showAtChainLevel && availability && availability.includeBookingButton ? availability.includeBookingButton : $scope.offersList[selectedOfferIndex].includeBookingButton;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 

@@ -54,6 +54,7 @@ angular.module('mobius.controllers.common.content', [])
       'reverseSort': true,
       'keepProperty': true,
       'limitToPropertyCodes': true,
+      'offerAvailability': true,
       'maxItemsCount': Settings.UI.menu.maxOffersCount,
       'slug': true
     },
@@ -178,12 +179,11 @@ angular.module('mobius.controllers.common.content', [])
           return availability.property === $state.params.property;
         });
 
-        if(item.showAtChainLevel){
-          return item.showOnMenu === false;
+        if(availability){
+          item.showOnMenu = availability.showOnMenu || false;
         }
-        else{
-          return availability && availability.showOnMenu === false || !availability;
-        }
+
+        return item.showOnMenu === false;
      
       });
       
