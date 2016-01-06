@@ -172,9 +172,21 @@ angular.module('mobius.controllers.common.content', [])
 
   function processSettings() {
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
+
       data = _.reject(data, function(item){
-        return item.showOnMenu === false;
+        var availability = _.find(item.offerAvailability, function(availability){
+          return availability.property === $state.params.property;
+        });
+
+        if(item.showAtChainLevel){
+          return item.showOnMenu === false;
+        }
+        else{
+          return availability && availability.showOnMenu === false || !availability;
+        }
+     
       });
+      
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
         $scope.settings = $scope.settings.fallback;

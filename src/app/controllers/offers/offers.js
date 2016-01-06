@@ -87,7 +87,7 @@ angular.module('mobius.controllers.offers', [])
         }
         //Only show offers that have showAtChainLevel true if multiple properties
         else{
-          $scope.offersList = _.where(offers, {showAtChainLevel: true});
+          $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
           if ($stateParams.code) {
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
