@@ -7,7 +7,8 @@ booking-widget {
   max-width: 960px;
   margin: 0 auto;
   max-height: 0px; 
-  transition: max-height .6s ease-out;
+  //transition: max-height 1s ease-out;
+  .transition(max-height, 1s, ease-in-out);
   overflow: hidden;
 
   &.is-open {
@@ -460,7 +461,8 @@ my-account {
   display: block;
   background: #ebaa3d;
   max-height: 0px; 
-  transition: max-height .6s ease-out;
+  //transition: max-height .6s ease-out;
+  .transition(max-height, 1s, ease-in-out);
   overflow: hidden;
 
   &.is-open {
