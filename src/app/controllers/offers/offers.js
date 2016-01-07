@@ -92,28 +92,6 @@ angular.module('mobius.controllers.offers', [])
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
         }
-
-        // Displaying the offers available on all the properties
-        //TODO: delete below when confirmed
-        /*
-        propertyService.getAll().then(function(properties){
-          var propertyCodes = _.pluck(properties, 'code');
-
-          $scope.offersList = [];
-
-          _.each(offers, function(offer){
-            if(offer.limitToPropertyCodes && offer.limitToPropertyCodes.length === propertyCodes.length){
-              $scope.offersList.push(offer);
-            }
-          });
-
-          $scope.offersList = _.sortBy($scope.offersList, 'prio').reverse();
-
-          if ($stateParams.code) {
-            selectOffer(bookingService.getCodeFromSlug($stateParams.code));
-          }
-        });
-        */
       }
     });
 
@@ -147,7 +125,17 @@ angular.module('mobius.controllers.offers', [])
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
+
+      //override default includeBookingButton with availabilty includeBookingButton if any
       $scope.offersList[selectedOfferIndex].includeBookingButton = !$scope.offersList[selectedOfferIndex].showAtChainLevel && availability && availability.includeBookingButton ? availability.includeBookingButton : $scope.offersList[selectedOfferIndex].includeBookingButton;
+
+      //override default includeBookingButton with availabilty includeBookingButton if any
+      $scope.offersList[selectedOfferIndex].text = availability && availability.text ? availability.text : $scope.offersList[selectedOfferIndex].text;
+
+      //override default promoCode,corpCode,groupCode with availabilty ones if any
+      $scope.offersList[selectedOfferIndex].promoCode = availability && availability.promoCode ? availability.promoCode : $scope.offersList[selectedOfferIndex].promoCode;
+      $scope.offersList[selectedOfferIndex].corpCode = availability && availability.corpCode ? availability.corpCode : $scope.offersList[selectedOfferIndex].corpCode;
+      $scope.offersList[selectedOfferIndex].groupCode = availability && availability.groupCode ? availability.groupCode : $scope.offersList[selectedOfferIndex].groupCode;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
@@ -172,7 +160,17 @@ angular.module('mobius.controllers.offers', [])
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
+
+      //override default includeBookingButton with availabilty includeBookingButton if any
       $scope.offersList[selectedOfferIndex].includeBookingButton = !$scope.offersList[selectedOfferIndex].showAtChainLevel && availability && availability.includeBookingButton ? availability.includeBookingButton : $scope.offersList[selectedOfferIndex].includeBookingButton;
+
+      //override default includeBookingButton with availabilty includeBookingButton if any
+      $scope.offersList[selectedOfferIndex].text = availability && availability.text ? availability.text : $scope.offersList[selectedOfferIndex].text;
+
+      //override default promoCode,corpCode,groupCode with availabilty ones if any
+      $scope.offersList[selectedOfferIndex].promoCode = availability && availability.promoCode ? availability.promoCode : $scope.offersList[selectedOfferIndex].promoCode;
+      $scope.offersList[selectedOfferIndex].corpCode = availability && availability.corpCode ? availability.corpCode : $scope.offersList[selectedOfferIndex].corpCode;
+      $scope.offersList[selectedOfferIndex].groupCode = availability && availability.groupCode ? availability.groupCode : $scope.offersList[selectedOfferIndex].groupCode;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
