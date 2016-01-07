@@ -162,7 +162,8 @@ angular
     'mobiusApp.filters.wrapword',
     'mobiusApp.filters.mainHeaderStyle',
     'mobiusApp.filters.stringLocaleReplace',
-    'mobiusApp.filters.content'
+    'mobiusApp.filters.content',
+    'mobiusApp.filters.trustAsHtml'
   ])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider) {

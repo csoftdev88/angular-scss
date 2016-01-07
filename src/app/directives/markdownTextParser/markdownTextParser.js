@@ -45,6 +45,21 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
             }
           }
         });
+
+        //Replace [[SIGNUP]] string with signup button
+        if(angular.element($element).html().indexOf('[[SIGNUP]]') !== -1){
+          angular.element($element).html(angular.element($element).html().replace(/\[\[SIGNUP\]\]/gi, '<div class="signup-replace"></div>'));
+          var toReplace = angular.element($element).find('.signup-replace');
+          var replaceWith = angular.element($element).parent().find('.login');
+          toReplace.replaceWith(replaceWith);
+          replaceWith.removeClass('hide');
+        }
+
+        //Replace [[CLEAR]] with a div with class clear
+        if(angular.element($element).html().indexOf('[[CLEAR]]') !== -1){
+          angular.element($element).html(angular.element($element).html().replace(/\[\[CLEAR\]\]/gi, '<div class="clear"></div>'));
+        }
+        
         
       };
 
