@@ -140,7 +140,6 @@ angular.module('mobiusApp.directives.hotels', [])
             scope.navigateToHotel(scope.hotels[0].meta.slug);
           }
 
-
           //check if offer is limited to only one property and if so navigate to it
           if($stateParams.promoCode){
             var offerLimitedToOneProperty = [];

@@ -76,12 +76,15 @@ angular.module('mobius.controllers.main', [])
 
             if($stateParams.property){
               filteredOffers = _.filter(offers, function(offer){
-                return _.contains(offer.limitToPropertyCodes, $stateParams.property) || !offer.limitToPropertyCodes.length;
+                var availability = _.find(offer.offerAvailability, function(availability){
+                  return availability.property === $stateParams.property;
+                });
+                return availability;
               });
             }
             else{
               _.each(offers, function(offer){
-                if(offer.limitToPropertyCodes && offer.limitToPropertyCodes.length === propertyCodes.length){
+                if(offer.showAtChainLevel){
                   filteredOffers.push(offer);
                 }
               });
