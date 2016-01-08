@@ -101,6 +101,7 @@ angular.module('mobiusApp.directives.room', [])
 
       qBookingParam.promise.then(function(bookingParams) {
         var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
+          scope.ratesLoaded = true;
           setRoomProductDetails(data.roomProductDetails);
           scope.roomDetails = data.roomDetails;
           setRoomData(data.roomDetails);
@@ -126,15 +127,17 @@ angular.module('mobiusApp.directives.room', [])
         });
 
         $q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
-          scope.ratesLoaded = true;
-          breadcrumbsService.clear()
-            .addBreadCrumb('Hotels', 'hotels')
-            .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
-            .addBreadCrumb('Rooms', 'hotel', {propertySlug: bookingParams.propertySlug}, 'jsRooms')
-            .addBreadCrumb(data[0].roomDetails.name);
+          
+          if(data && data.length > 1){
+            breadcrumbsService.clear()
+              .addBreadCrumb('Hotels', 'hotels')
+              .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
+              .addBreadCrumb('Rooms', 'hotel', {propertySlug: bookingParams.propertySlug}, 'jsRooms')
+              .addBreadCrumb(data[0].roomDetails.name);
 
-          scrollManager();
-
+            scrollManager();
+          }
+          
         });
       });
 

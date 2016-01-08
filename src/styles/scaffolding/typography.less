@@ -108,12 +108,62 @@ hotel-info{
   ol{
     position: relative;
     left: 20px;
+    margin-bottom: 20px;
   }
   ul{
     list-style: disc;
   }
   ol{
-    list-style: number;
+    list-style: decimal;
   }
+  blockquote {
+    background: rgba(175, 143, 98, 0.05);
+    border-left: 3px solid #af8f62;
+    margin: 25px;
+    padding: 15px 25px;
+    quotes: "\201C""\201D""\2018""\2019";
+    position: relative;
+
+    &:before,
+    &:after {
+      font-family: "Times New Roman", Times, serif;
+      color: rgba(176, 144, 95, 0.1);
+      content: open-quote;
+      font-size: 120px;
+      line-height: 0px;
+      position: absolute;
+      top: 55px;
+      left: 10px;
+      z-index: 0;
+    }
+
+    &:after {
+      content: close-quote;
+      top: auto;
+      left: auto;
+      right: 10px;
+      bottom: 0px;
+    }
+
+    p {
+      position: relative;
+      display: inline;
+      z-index: 1;
+    }
+
+    //nested blockquotes
+    blockquote {
+      padding: 0 10px;
+      background: none;
+      margin: 20px;
+      margin-bottom: 5px;
+      &:before,
+      &:after {
+        content: none;
+      }
+    }
+  }
+  
 }
+
 
