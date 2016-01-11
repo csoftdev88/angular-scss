@@ -84,6 +84,7 @@ angular.module('mobius.controllers.main', [])
             }
             else{
               _.each(offers, function(offer){
+
                 if(offer.showAtChainLevel){
                   filteredOffers.push(offer);
                 }
@@ -93,8 +94,13 @@ angular.module('mobius.controllers.main', [])
             filteredOffers = _.pluck(filteredOffers, 'code');
 
             data = _.filter(data, function(item){
+
               if(item.link){
-                return _.contains(filteredOffers, item.link.code) || item.link.type !== 'offers';
+                
+                //offers adverts now have a CHAIN or PROPERTY CODE flag
+                var linkCode = item.link.type === 'offers' ? item.link.code.split('-')[0] : item.link.code;
+
+                return _.contains(filteredOffers, linkCode) || item.link.type !== 'offers';
               }
               else{
                 return item;

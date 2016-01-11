@@ -14,11 +14,15 @@ angular.module('mobiusApp.services.adverts', [])
         break;
       case 'offers':
         contentService.getOffers().then(function (offers) {
-          var code = bookingService.getCodeFromSlug(link.code);
+
+          var offerCode = link.code.split('-')[0];
+          var offerProperty = link.code.split('-')[1] && link.code.split('-')[1] !== 'CHAIN' ? link.code.split('-')[1] : null;
+
+          var code = bookingService.getCodeFromSlug(offerCode);
           // TODO Use findWhere
           var selectedOfferIndex = _.findIndex(offers, {code: code});
           var offer = offers[selectedOfferIndex];
-          navigateToState('offers',link.code);
+          navigateToState('offers',offerCode, offerProperty);
 
           if (offer) {
             $timeout(function () {
@@ -38,14 +42,15 @@ angular.module('mobiusApp.services.adverts', [])
       }
     }
 
-    function navigateToState(stateName, code){
+    function navigateToState(stateName, code, propertyCode){
       // Checking if user is already on that state
       if($state.current.name === stateName && $state.params.code === code){
         return;
       }
 
       $state.go(stateName, {
-        code: code
+        code: code,
+        property: propertyCode
       });
     }
 
