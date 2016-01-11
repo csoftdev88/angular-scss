@@ -450,12 +450,12 @@ angular.module('mobiusApp.config', [])
         // Date range modification rules
         'from': {
           // Extra day/month added to a date
-          'value': -3,
+          'value': -1,
           'type': 'month'
         },
         'to': {
           // Extra day/month added to a date
-          'value': 3,
+          'value': 1,
           'type': 'month'
         }
       }
