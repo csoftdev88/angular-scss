@@ -30,7 +30,13 @@ angular.module('mobiusApp.directives.floatingBar', [
         isCollapsed = isCollapsed || scope.isMobile;
         scope.isCollapsed = isCollapsed;
         scope.active = active;
-        document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
+        if(scope.isCollapsed){
+          document.body.classList.remove('floating-bar-active');
+        }
+        else{
+          document.body.classList.add('floating-bar-active');
+        }
+
 
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
@@ -63,7 +69,12 @@ angular.module('mobiusApp.directives.floatingBar', [
           scope.active = newActive;
           active = scope.active; // preserve between pages
           isCollapsed = scope.isCollapsed;
-          document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
+          if(isCollapsed){
+            document.body.classList.remove('floating-bar-active');
+          }
+          else{
+            document.body.classList.add('floating-bar-active');
+          }
         };
 
         // This will be invoked from child bookingWidget directive
@@ -124,7 +135,12 @@ angular.module('mobiusApp.directives.floatingBar', [
         */
         scope.$on(EVENT_FLOATING_BAR, function(event, floatingBar){
           scope.isCollapsed = floatingBar.isCollapsed;
-          document.body.classList.toggle('floating-bar-active', !scope.isCollapsed);
+          if(scope.isCollapsed){
+            document.body.classList.remove('floating-bar-active');
+          }
+          else{
+            document.body.classList.add('floating-bar-active');
+          }
         });
 
         //Toggle css trasition classes
