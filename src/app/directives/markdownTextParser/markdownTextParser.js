@@ -52,7 +52,9 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
           var toReplace = angular.element($element).find('.signup-replace');
           var replaceWith = angular.element($element).parent().find('.login');
           toReplace.replaceWith(replaceWith);
+          //$compile(replaceWith)($scope);
           replaceWith.removeClass('hide');
+
         }
 
         //Replace [[CLEAR]] with a div with class clear

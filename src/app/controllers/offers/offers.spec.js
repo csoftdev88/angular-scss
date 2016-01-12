@@ -139,6 +139,7 @@ describe('mobius.controllers.offers', function() {
         $controllerProvider.register('MainCtrl', function($scope){
           $scope._mainCtrlInherited = true;
         });
+        $controllerProvider.register('SSOCtrl', function(){});
       });
     });
 

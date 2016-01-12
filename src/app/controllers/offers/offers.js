@@ -8,6 +8,7 @@ angular.module('mobius.controllers.offers', [])
       $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window) {
 
     $controller('MainCtrl', {$scope: $scope});
+    $controller('SSOCtrl', {$scope: $scope});
 
     breadcrumbsService.addBreadCrumb('Offers');
 
@@ -256,4 +257,11 @@ angular.module('mobius.controllers.offers', [])
         });
       };
     }
+
+    $scope.bindHtmlClick = function(event){
+      if(event.target.attributes['ng-click'] && event.target.attributes['ng-click'].value === 'login()'){
+        $scope.sso.login();
+      }
+    };
+
   });
