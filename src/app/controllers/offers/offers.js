@@ -127,23 +127,14 @@ angular.module('mobius.controllers.offers', [])
         return availability.property === $stateParams.property;
       });
 
-      //override default includeBookingButton with availabilty includeBookingButton if any
-      $scope.offersList[selectedOfferIndex].includeBookingButton = !$scope.offersList[selectedOfferIndex].showAtChainLevel && availability && availability.includeBookingButton ? availability.includeBookingButton : $scope.offersList[selectedOfferIndex].includeBookingButton;
-
-      //override default includeBookingButton with availabilty includeBookingButton if any
-      $scope.offersList[selectedOfferIndex].text = availability && availability.text ? availability.text : $scope.offersList[selectedOfferIndex].text;
-
-      //override default promoCode,corpCode,groupCode with availabilty ones if any
-      $scope.offersList[selectedOfferIndex].promoCode = availability && availability.promoCode ? availability.promoCode : $scope.offersList[selectedOfferIndex].promoCode;
-      $scope.offersList[selectedOfferIndex].corpCode = availability && availability.corpCode ? availability.corpCode : $scope.offersList[selectedOfferIndex].corpCode;
-      $scope.offersList[selectedOfferIndex].groupCode = availability && availability.groupCode ? availability.groupCode : $scope.offersList[selectedOfferIndex].groupCode;
+      $scope.offersList[selectedOfferIndex].availability = availability;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
       $state.go('offers', {code: slug});
       $timeout(function () {
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-          promoCode: $scope.selectedOffer.promoCode
+          promoCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.promoCode ? $scope.selectedOffer.availability.promoCode : $scope.selectedOffer.promoCode
         });
       });
     };
@@ -162,16 +153,7 @@ angular.module('mobius.controllers.offers', [])
         return availability.property === $stateParams.property;
       });
 
-      //override default includeBookingButton with availabilty includeBookingButton if any
-      $scope.offersList[selectedOfferIndex].includeBookingButton = !$scope.offersList[selectedOfferIndex].showAtChainLevel && availability && availability.includeBookingButton ? availability.includeBookingButton : $scope.offersList[selectedOfferIndex].includeBookingButton;
-
-      //override default includeBookingButton with availabilty includeBookingButton if any
-      $scope.offersList[selectedOfferIndex].text = availability && availability.text ? availability.text : $scope.offersList[selectedOfferIndex].text;
-
-      //override default promoCode,corpCode,groupCode with availabilty ones if any
-      $scope.offersList[selectedOfferIndex].promoCode = availability && availability.promoCode ? availability.promoCode : $scope.offersList[selectedOfferIndex].promoCode;
-      $scope.offersList[selectedOfferIndex].corpCode = availability && availability.corpCode ? availability.corpCode : $scope.offersList[selectedOfferIndex].corpCode;
-      $scope.offersList[selectedOfferIndex].groupCode = availability && availability.groupCode ? availability.groupCode : $scope.offersList[selectedOfferIndex].groupCode;
+      $scope.offersList[selectedOfferIndex].availability = availability;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
@@ -223,7 +205,7 @@ angular.module('mobius.controllers.offers', [])
       var stateParams = {};
       stateParams.adults = bookingParams.adults;
       stateParams.children = bookingParams.children;
-      stateParams.promoCode = offer.promoCode;
+      stateParams.promoCode = offer.availability && offer.availability.promoCode ? offer.availability.promoCode : offer.promoCode;
       if (bookingParams.from && bookingParams.to) {
         stateParams.dates = bookingParams.from + ' ' + bookingParams.to;
       }
@@ -251,9 +233,9 @@ angular.module('mobius.controllers.offers', [])
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           openBookingTab: true,
           openDatePicker: true,
-          promoCode: $scope.selectedOffer.promoCode || null,
-          corpCode: $scope.selectedOffer.corpCode || null,
-          groupCode: $scope.selectedOffer.groupCode || null
+          promoCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.promoCode ? $scope.selectedOffer.availability.promoCode : $scope.selectedOffer.promoCode || null,
+          corpCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.corpCode ? $scope.selectedOffer.availability.corpCode : $scope.selectedOffer.corpCode || null,
+          groupCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.groupCode ? $scope.selectedOffer.availability.groupCode : $scope.selectedOffer.groupCode || null
         });
       };
     }
