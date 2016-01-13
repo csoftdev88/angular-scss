@@ -13,6 +13,7 @@ angular.module('mobius.controllers.offers', [])
     breadcrumbsService.addBreadCrumb('Offers');
 
     var NUMBER_OF_RELEVANT_OFFERS = 3;
+    var DATES_SEPARATOR = '_';
 
     var selectedOfferIndex;
 
@@ -212,7 +213,7 @@ angular.module('mobius.controllers.offers', [])
       stateParams.children = bookingParams.children;
       stateParams.promoCode = offer.availability && offer.availability.promoCode ? offer.availability.promoCode : offer.promoCode;
       if (bookingParams.from && bookingParams.to) {
-        stateParams.dates = bookingParams.from + ' ' + bookingParams.to;
+        stateParams.dates = bookingParams.from + DATES_SEPARATOR + bookingParams.to;
       }
 
       if(bookingParams.propertyCode){
