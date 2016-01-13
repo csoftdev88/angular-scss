@@ -22,7 +22,7 @@ angular.module('mobiusApp.services.adverts', [])
           // TODO Use findWhere
           var selectedOfferIndex = _.findIndex(offers, {code: code});
           var offer = offers[selectedOfferIndex];
-          navigateToState('offers',offerCode, offerProperty);
+          navigateToState('offers', offer.meta.slug, offerProperty);
 
           if (offer) {
             $timeout(function () {
