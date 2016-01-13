@@ -199,12 +199,17 @@ angular.module('mobius.controllers.common.content', [])
         }
 
         $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
+          var availability = _.find(item.offerAvailability, function(availability){
+            return availability.property === $state.params.property;
+          });
+
           return {
             code: $scope.settings.slug? item.meta.slug : item.code,
-            title: item[$scope.settings.title],
-            subtitle: item[$scope.settings.subtitle],
+            title: availability && availability[$scope.settings.title] && availability[$scope.settings.title] !== '' ? availability[$scope.settings.title] : item[$scope.settings.title],
+            subtitle: availability && availability[$scope.settings.subtitle] && availability[$scope.settings.subtitle] !== '' ? availability[$scope.settings.subtitle] : item[$scope.settings.subtitle],
             filtered: isFiltered(item)
           };
+
         }).value();
         if ($scope.settings.reverseSort) {
           $scope.content = $scope.content.reverse();
