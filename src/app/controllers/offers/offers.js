@@ -95,20 +95,23 @@ angular.module('mobius.controllers.offers', [])
         }
       }
     });
+  
+    //If not a specific offer, load chain data to apply meta data
+    if(!$stateParams.code){
+      chainService.getChain(Settings.API.chainCode).then(function(chain) {
+        var chainData = chain;
 
-    chainService.getChain(Settings.API.chainCode).then(function(chain) {
-      var chainData = chain;
+        chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+        chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
+        chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
 
-      chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-      chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
-      chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
-
-      metaInformationService.setOgGraph(chainData.meta.microdata.og);
-      metaInformationService.setPageTitle(chain.meta.pagetitle);
-      metaInformationService.setMetaDescription(chain.meta.description);
-      metaInformationService.setMetaKeywords(chain.meta.keywords);
-      
-    });
+        metaInformationService.setOgGraph(chainData.meta.microdata.og);
+        metaInformationService.setPageTitle(chain.meta.pagetitle);
+        metaInformationService.setMetaDescription(chain.meta.description);
+        metaInformationService.setMetaKeywords(chain.meta.keywords);
+        
+      });
+    }
 
     $scope.getRelevant = function(offer, index) {
       var offset = selectedOfferIndex < NUMBER_OF_RELEVANT_OFFERS ? 1 : 0;
@@ -170,7 +173,7 @@ angular.module('mobius.controllers.offers', [])
         $window.document.cookie = 'discountCode=' + cookieValue + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString());
       }
 
-      metaInformationService.setMetaDescription($scope.selectedOffer.meta.description);
+      metaInformationService.setMetaDescription(availability && availability.metaDescription && availability.metaDescription !== '' ? availability.metaDescription : $scope.selectedOffer.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedOffer.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedOffer.meta.pagetitle);
       $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
