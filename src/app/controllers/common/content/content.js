@@ -203,8 +203,10 @@ angular.module('mobius.controllers.common.content', [])
             return availability.property === $state.params.property;
           });
 
+          var availabilitySlug = availability && availability.slug && availability.slug !== '' ? availability.slug : null;
+
           return {
-            code: $scope.settings.slug? item.meta.slug : item.code,
+            code: $scope.settings.slug ? availabilitySlug || item.meta.slug : item.code,
             title: availability && availability[$scope.settings.title] && availability[$scope.settings.title] !== '' ? availability[$scope.settings.title] : item[$scope.settings.title],
             subtitle: availability && availability[$scope.settings.subtitle] && availability[$scope.settings.subtitle] !== '' ? availability[$scope.settings.subtitle] : item[$scope.settings.subtitle],
             filtered: isFiltered(item)
