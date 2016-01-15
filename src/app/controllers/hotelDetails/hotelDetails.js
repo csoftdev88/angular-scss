@@ -284,7 +284,9 @@ angular.module('mobius.controllers.hotel.details', [
     return $location.absUrl().split('?')[0];
   };
 
-  $scope.advertClick = advertsService.advertClick;
+  $scope.advertClick = function(link){
+    $state.go(link.type, {code: link.code});
+  };
 
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
