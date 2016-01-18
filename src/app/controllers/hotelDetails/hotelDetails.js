@@ -189,10 +189,11 @@ angular.module('mobius.controllers.hotel.details', [
         delete offersParams.corpCode;
         delete offersParams.groupCode;
         contentService.getOffers().then(function(response) {
-          response = _.filter(response, function(offer){
+          response = _.filter(response, function(offer, index){
             var availability = _.find(offer.offerAvailability, function(availability){
               return availability.property === propertyCode;
             });
+            response[index].availability =  availability && availability.showOnHotelPage ? availability : null;
             return availability && availability.showOnHotelPage;
           });
           $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
