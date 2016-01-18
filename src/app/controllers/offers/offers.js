@@ -49,10 +49,11 @@ angular.module('mobius.controllers.offers', [])
         }
         else{
 
-          offers = _.filter(offers, function(offer){
+          offers = _.filter(offers, function(offer, index){
             var availability = _.find(offer.offerAvailability, function(availability){
               return availability.property === $stateParams.property;
             });
+            offers[index].availability = availability && availability.showOnOffersPage ? availability : null;
             return availability && availability.showOnOffersPage;
           });
 
