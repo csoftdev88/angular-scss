@@ -100,6 +100,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   //Getting raw property details to display property desc etc...fast
   propertyService.getPropertyDetails(propertyCode).then(function(details){
+    $scope.localInfo = details.localInfo;
     $scope.details = details;
     // Updating Hero content images
     if(details.images){
