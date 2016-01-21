@@ -14,6 +14,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
+    var DATES_SEPARATOR = '_';
 
     //get meta information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -216,7 +217,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         property: reservation.property.code,
         adults: $scope.getCount('adults'),
         children: $scope.getCount('children'),
-        dates: reservation.arrivalDate + ' ' + reservation.departureDate,
+        dates: reservation.arrivalDate + DATES_SEPARATOR + reservation.departureDate,
         // NOTE: Check corp/group codes
         promoCode: reservation.promoCode,
         // NOTE: This will enable editing
