@@ -28,8 +28,14 @@
                 });
                 return;
               } else {
-                element.html('<div class="fb-share-button"' + (!!scope.fbLike ? ' data-href="' + scope.fbLike + '"' : '') + ' data-layout="icon" data-width="32" data-height="32"></div>');
-                $window.FB.XFBML.parse(element.parent()[0]);
+                //element.html('<div class="fb-share-button"' + (!!scope.fbLike ? ' data-href="' + scope.fbLike + '"' : '') + ' data-layout="icon" data-width="32" data-height="32"></div>');
+                //$window.FB.XFBML.parse(element.parent()[0]);
+                element.click(function() {
+                  $window.FB.ui({
+                    method: 'share',
+                    href: scope.fbLike,
+                  }, function(){});
+                });
               }
             }
             if (!$window.FB) {

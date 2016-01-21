@@ -11,6 +11,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #999 !important;
 }
 
+
 ////////////////////////////////////////////////////
 // Global namespace for whole reservation process //
 ////////////////////////////////////////////////////
@@ -866,7 +867,7 @@ reservation-finished {
             .fa;
           }
 
-          &.icon-fb {             background: #3b579d;}
+          /*
           .fb-share-button{
             width: 22px;
             height: 22px;
@@ -875,7 +876,10 @@ reservation-finished {
               vertical-align: middle!important;
             }
           }
-          //&.icon-fb:before {      content: @fa-var-facebook; }
+          */
+
+          &.icon-fb { background: #3b579d;}
+          &.icon-fb:before {      content: @fa-var-facebook; }
 
           &.icon-twitter {        background: #31aae1;}
           &.icon-twitter:before { content: @fa-var-twitter; }
