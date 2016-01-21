@@ -184,6 +184,9 @@ angular.module('mobius.controllers.hotel.details', [
             $scope.ratesLoaded = true;
           });
         }
+        else{
+          $scope.ratesLoaded = true;
+        }
 
         var offersParams = $window._.extend({}, bookingParams);
         delete offersParams.promoCode;
