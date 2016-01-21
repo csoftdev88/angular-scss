@@ -64,6 +64,8 @@ angular.module('mobiusApp.directives.datepicker', [])
             var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
             startDate = $window.moment(dates[0], 'YYYY MM DD').valueOf();
             endDate = dates.length === 2 ? $window.moment(dates[1], 'YYYY MM DD').valueOf() : startDate;
+            var parsedDate = $.datepicker.parseDate(DATE_FORMAT, dates[0]);
+            $(element).datepicker('setDate', parsedDate);
           }
         }
 
