@@ -32,7 +32,7 @@ angular.module('mobius.controllers.room.details', [])
               brand: propertyData.nameLong,
               location: propertyData.nameShort,
               list: 'Room',
-              category: $scope.roomDetails.name
+              category: $scope.roomDetails && $scope.roomDetails.name ? $scope.roomDetails.name : null
             };
           }));
       });
