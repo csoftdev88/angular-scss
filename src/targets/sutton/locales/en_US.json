@@ -117,6 +117,7 @@
     "reset_filters": "Reset Filters",
     "rates_loading_title": "Loading the best rate for you...",
     "COMPONENTS": "//////////////////////////////////////////////////////",
+    "no_points_rate_desc": "This rate does not award points",
     "mapLocationHeader": "The {chainPrefix} {nameShort} Location",
     "offers_title": "Offers and Promotions",
     "more_offers_title": "You may also be interested in:",
