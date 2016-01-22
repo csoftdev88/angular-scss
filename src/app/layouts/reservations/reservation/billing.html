@@ -31,7 +31,7 @@
         </tr>
         <tr>
           <th>_points_earned_booking_</th>
-          <td class="earned">+{{pointsData.pointsEarned}}</td>
+          <td ng-class="{'earned': pointsData.pointsEarned > 0, 'not-earned': pointsData.pointsEarned <= 0}"><span ng-if="pointsData.pointsEarned > 0">+</span>{{pointsData.pointsEarned}}</td>
         </tr>
         <tr class="balance">
           <th>_balance_after_booking_</th>
