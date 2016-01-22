@@ -24,8 +24,8 @@ angular.module('mobiusApp.config', [])
       'news': 'contents/news',
       'offers': 'contents/offers',
       'adverts': {
-        'adverts': 'contents/adverts',
-        'random': 'contents/adverts/random'
+        'adverts': 'contents/teasers',
+        'random': 'contents/teasers/random'
       }
     },
     'chain': {
