@@ -19,7 +19,7 @@
   }
 
   .viewport-mobile &{
-    padding: 20px 20px 60px;
+    padding: 10px 10px 70px;
   }
 
   .rates-preloading-container-title {
@@ -27,6 +27,11 @@
     line-height: 30px;
     color: #898989;
     margin-bottom: 20px;
+    .viewport-mobile &{
+      font-size: 14px;
+      line-height: 30px;
+      margin-bottom: 10px;
+    }
   }
 
   .testimonial-container{
@@ -34,6 +39,7 @@
     width: 100%;
     .author{
       float: left;
+      text-align: center;
       .viewport-tablet &{
         width: 15%;
       }
@@ -42,6 +48,7 @@
         display: inline-block;
       }
       .thumbnail{
+        display: inline-block;
         width: 100px;
         height: 100px;
         background: #fff;
@@ -54,6 +61,13 @@
         .viewport-tablet &{
           width: 100%;
           height: auto;
+        }
+
+        .viewport-mobile &{
+          //display: none;
+          width: 50px;
+          height: 50px;
+          padding: 1px;
         }
 
         img{
@@ -103,8 +117,8 @@
         width: 100%;
         margin-left: 0;
         margin-top: 20px;
-        font-size: 28px;
-        line-height: 34px;
+        line-height: 21px;
+        font-size: 14px;
       }
 
       .testimonial-inner{
@@ -183,8 +197,11 @@
     .viewport-tablet &{
       width: 100%;
     }
+    .viewport-tablet &{
+      height: 320px;
+    }
     .viewport-mobile &{
-      height: 350px;
+      height: 200px;
     }
     .testimonial-container{
       position: absolute;
@@ -205,6 +222,11 @@
     left: 20px;
     bottom: 10px;
     background: transparent url('@{img-prefix}/v4/icon-tripadvisor-large.png') no-repeat;
+    .viewport-mobile &{
+      max-width: 50%;
+      height: auto;
+      background-size: 100%;
+    }
   }
 
   .rates-preloader{
