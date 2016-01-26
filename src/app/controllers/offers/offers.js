@@ -138,6 +138,7 @@ angular.module('mobius.controllers.offers', [])
 
       $state.go('offers', {code: slug});
       $timeout(function () {
+        bookingService.setBookingOffer($scope.selectedOffer);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           promoCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.promoCode ? $scope.selectedOffer.availability.promoCode : $scope.selectedOffer.promoCode,
           corpCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.corpCode ? $scope.selectedOffer.availability.corpCode : $scope.selectedOffer.corpCode || null,
@@ -238,6 +239,7 @@ angular.module('mobius.controllers.offers', [])
     if(!bookingParams.from || !bookingParams.to){
       // Dates are not yet selected
       $scope.selectDates = function(){
+        bookingService.setBookingOffer($scope.selectedOffer);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           openBookingTab: true,
           openDatePicker: true,

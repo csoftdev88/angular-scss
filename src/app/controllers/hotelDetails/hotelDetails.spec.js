@@ -6,7 +6,7 @@ describe('mobius.controllers.hotel.details', function() {
     var _scope, _spyBookingServiceGetAPIParams,
       _spyPropertyServiceGetPropertyDetails, _spyFiltersServiceGetBestRateProduct,
       _spyUpdateHeroContent, _spyPropertyServiceGetRooms,
-      _spyModalServiceOpenGallery;
+      _spyModalServiceOpenGallery, _spyBookingServiceUpdateOfferCode;
 
     var HOTEL_DETAILS = {
       nameShort: 'Mobius hotel',
@@ -46,6 +46,13 @@ describe('mobius.controllers.hotel.details', function() {
             },
             getCodeFromSlug: function(){
               return '123';
+            },
+            updateOfferCode: function(){
+              return {
+                'test': 'testValue',
+                'propertySlug': 'hotel-123',
+                'promoCode': 'TESTCODE'
+              };
             }
           });
 
@@ -154,6 +161,7 @@ describe('mobius.controllers.hotel.details', function() {
       _scope = $rootScope.$new();
       // Spy's
       _spyBookingServiceGetAPIParams = sinon.spy(bookingService, 'getAPIParams');
+      _spyBookingServiceUpdateOfferCode = sinon.spy(bookingService, 'updateOfferCode');
       _spyPropertyServiceGetPropertyDetails = sinon.spy(
         propertyService, 'getPropertyDetails');
       _spyPropertyServiceGetRooms = sinon.spy(
@@ -179,6 +187,7 @@ describe('mobius.controllers.hotel.details', function() {
     describe('when controller is initialized', function() {
       it('should get settings from bookingService', function() {
         expect(_spyBookingServiceGetAPIParams.calledOnce).equal(true);
+        expect(_spyBookingServiceUpdateOfferCode.calledOnce).equal(true);
       });
 
       it('should get best available rate details from filtersService', function() {
@@ -189,7 +198,8 @@ describe('mobius.controllers.hotel.details', function() {
         expect(_spyPropertyServiceGetPropertyDetails).to.be.calledTwice;
         expect(_spyPropertyServiceGetPropertyDetails.calledWith('123')).equal(true);
         expect(_spyPropertyServiceGetPropertyDetails
-            .calledWith('123', {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertySlug: 'hotel-123'})
+            .calledWith('123', {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertySlug: 'hotel-123',
+                promoCode: 'TESTCODE'})
         ).equal(true);
         expect(_spyPropertyServiceGetRooms).to.be.calledOnce;
         expect(_spyPropertyServiceGetRooms

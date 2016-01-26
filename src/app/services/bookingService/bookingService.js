@@ -6,7 +6,7 @@
 angular.module('mobiusApp.services.booking', [])
 
 .service( 'bookingService',  function($stateParams, $window, $rootScope,
-  validationService, Settings) {
+  validationService, Settings, _) {
 
   var QUERY_TO_API_PARAMS = {
     'property': 'propertyCode',
@@ -27,6 +27,8 @@ angular.module('mobiusApp.services.booking', [])
   var ROOMS_PARAM_SETTINGS = {type: 'object'};
 
   var DATES_SEPARATOR = '_';
+
+  var bookingOffer = null;
 
   function getParams(excludePropertyId){
     var params = {
@@ -175,6 +177,43 @@ angular.module('mobiusApp.services.booking', [])
     $rootScope.$broadcast('BOOKING_BAR_OPEN_MRB_TAB');
   }
 
+  function setBookingOffer(offer){
+    if(offer){
+      bookingOffer = offer;
+    }
+  }
+
+  function getBookingOffer(){
+    return bookingOffer;
+  }
+
+  function clearBookingOffer(){
+    bookingOffer = null;
+  }
+
+  function updateOfferCode(params){
+    if(!bookingOffer){
+      return params;
+    }
+    if(params.promoCode || params.corpCode || params.groupCode){
+      var availability = _.find(bookingOffer.offerAvailability, function(availability){
+        return availability.property === params.propertyCode;
+      });
+      if(availability){
+        //params.promoCode = params.promoCode && availability.promoCode ? availability.promoCode : params.promoCode;
+        //params.corpCode = params.corpCode && availability.corpCode ? availability.corpCode : params.corpCode;
+        //params.groupCode = params.groupCode && availability.groupCode ? availability.groupCode : params.groupCode;
+        $stateParams.promoCode = $stateParams.promoCode && availability.promoCode ? availability.promoCode : $stateParams.promoCode;
+        $stateParams.corpCode = $stateParams.corpCode && availability.corpCode ? availability.corpCode : $stateParams.corpCode;
+        $stateParams.groupCode = $stateParams.groupCode && availability.groupCode ? availability.groupCode : $stateParams.groupCode;
+      }
+      return getAPIParams();
+    }
+    else{
+      return params;
+    }
+  }
+
   // Public methods
   return {
     getParams: getParams,
@@ -188,6 +227,11 @@ angular.module('mobiusApp.services.booking', [])
     getMultiRoomData: getMultiRoomData,
     isOverAdultsCapacity: isOverAdultsCapacity,
     isDateRangeSelected: isDateRangeSelected,
-    switchToMRBMode: switchToMRBMode
+    switchToMRBMode: switchToMRBMode,
+    setBookingOffer: setBookingOffer,
+    getBookingOffer: getBookingOffer,
+    clearBookingOffer: clearBookingOffer,
+    updateOfferCode: updateOfferCode
   };
+  
 });

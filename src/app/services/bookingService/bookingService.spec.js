@@ -4,6 +4,7 @@ describe('bookingService', function() {
   var _rootScope, _bookingService, _spyBroadcast, _stateParams = {};
 
   beforeEach(function() {
+    module('underscore');
     module('mobiusApp.services.validation');
     module('mobiusApp.services.booking', function($provide) {
       // Mocking $stateParams service
