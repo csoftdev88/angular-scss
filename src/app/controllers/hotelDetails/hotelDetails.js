@@ -32,7 +32,6 @@ angular.module('mobius.controllers.hotel.details', [
   var NUMBER_OF_OFFERS = 3;
   var bookingParams = bookingService.getAPIParams();
   bookingParams = bookingService.updateOfferCode(bookingParams);
-  console.log('bookingParams: ' + angular.toJson(bookingParams));
   var mobiusUserPreferences = userPreferenceService.getCookie();
   // Include the amenities
   bookingParams.includes = 'amenities';

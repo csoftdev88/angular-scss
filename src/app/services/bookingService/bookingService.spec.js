@@ -9,6 +9,7 @@ describe('bookingService', function() {
     module('mobiusApp.services.booking', function($provide) {
       // Mocking $stateParams service
       $provide.value('$stateParams', _stateParams);
+      $provide.value('$state', {});
       $provide.value('Settings', {
         API: {
           promoCodes: {

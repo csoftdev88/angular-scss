@@ -165,6 +165,7 @@ angular.module('mobius.controllers.offers', [])
       $scope.offersList[selectedOfferIndex].availability = availability;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+      bookingService.setBookingOffer($scope.selectedOffer);
 
       if($scope.selectedOffer.discountCode){
         var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;

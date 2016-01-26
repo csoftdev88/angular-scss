@@ -138,7 +138,10 @@ angular.module('mobius.controllers.common.content', [])
       code = bookingService.getCodeFromSlug(code);
       var selectedOfferIndex = _.findIndex($scope.offers, {code: code});
       if (selectedOfferIndex >= 0) {
-        stateParams.promoCode = $scope.offers[selectedOfferIndex].promoCode;
+        var availability = _.find($scope.offers[selectedOfferIndex].offerAvailability, function(availability){
+          return availability.property === $state.params.property;
+        });
+        stateParams.promoCode = availability && availability.promoCode ? availability.promoCode : $scope.offers[selectedOfferIndex].promoCode;
       }
     }
 

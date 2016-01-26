@@ -129,7 +129,8 @@ describe('mobius.controllers.offers', function() {
           getCodeFromSlug: function(s){return s;},
           getAPIParams: function(){
             return {};
-          }
+          },
+          setBookingOffer: function(){}
         });
 
         $provide.value('contentService', {

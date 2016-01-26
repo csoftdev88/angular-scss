@@ -6,7 +6,7 @@
 angular.module('mobiusApp.services.booking', [])
 
 .service( 'bookingService',  function($stateParams, $window, $rootScope,
-  validationService, Settings, _) {
+  validationService, Settings, _, $state) {
 
   var QUERY_TO_API_PARAMS = {
     'property': 'propertyCode',
@@ -200,13 +200,11 @@ angular.module('mobiusApp.services.booking', [])
         return availability.property === params.propertyCode;
       });
       if(availability){
-        //params.promoCode = params.promoCode && availability.promoCode ? availability.promoCode : params.promoCode;
-        //params.corpCode = params.corpCode && availability.corpCode ? availability.corpCode : params.corpCode;
-        //params.groupCode = params.groupCode && availability.groupCode ? availability.groupCode : params.groupCode;
         $stateParams.promoCode = $stateParams.promoCode && availability.promoCode ? availability.promoCode : $stateParams.promoCode;
         $stateParams.corpCode = $stateParams.corpCode && availability.corpCode ? availability.corpCode : $stateParams.corpCode;
         $stateParams.groupCode = $stateParams.groupCode && availability.groupCode ? availability.groupCode : $stateParams.groupCode;
       }
+      $state.transitionTo($state.current.name, $stateParams, { location: true, inherit: true, relative: $state.$current, notify: false });
       return getAPIParams();
     }
     else{
