@@ -124,7 +124,7 @@ angular.module('mobiusApp.directives.room.products', [])
           });
         }
 
-        $state.go('reservation.details', params);
+        $state.go('reservation.details', params, {reload: true});
       };
 
       scope.isDateRangeSelected = bookingService.isDateRangeSelected;

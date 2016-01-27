@@ -42,11 +42,12 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
               toParams.productCode = null;
               toParams.rooms = validationService.convertValue(rooms, {type: 'object'});
               toParams.room = currentRoomIndex + 2;
+              toParams.scrollTo = 'jsRooms';
               // Updating number of adults/children for next room
               toParams.adults = rooms[currentRoomIndex].adults;
               toParams.children = rooms[currentRoomIndex].children;
               toParams.propertySlug = fromParams.propertySlug;
-              $state.go('hotel', toParams);
+              $state.go('hotel', toParams, {reload: true});
             }else if(currentRoomIndex === rooms.length-1){
               // Removing room index
               toParams.room = null;

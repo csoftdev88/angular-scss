@@ -42,7 +42,7 @@
         <section class="room-data">
           <h4>{{property.nameLong}}</h4>
 
-          <p class="desc"><strong>{{allRooms[0]._selectedProduct.name}}</strong></p>
+          <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
           <p class="price"><strong>{{getProductPricePerNight(getTotal('totalAfterTax')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
           <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} _more_ <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"> </ng-pluralize></a></h3>
 
