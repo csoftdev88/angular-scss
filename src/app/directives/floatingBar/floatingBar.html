@@ -3,8 +3,8 @@
     <a href="" ng-click="setActive(BOOKING, true);" ng-class="{'with-search-params' : hasSearchParams()}">
       <div class="desktop" ng-bind-html="'_make_your_booking_' | mainHeaderStyle"></div>
       <div class="mobile">
-        <div ng-hide="hasSearchParams()" class="book-now-button" ng-bind-html="'_book_now_' | mainHeaderStyle"></div>
-        <div ng-hide="!hasSearchParams()" ng-class="{'in-line' : inLine()}" class="search-params-bar">
+        <div ng-hide="hasSearchParams() && isCollapsed" class="book-now-button" ng-bind-html="'_book_now_' | mainHeaderStyle"></div>
+        <div ng-hide="!hasSearchParams() || !isCollapsed" ng-class="{'in-line' : inLine()}" class="search-params-bar">
           <div class="cell dates">
             <div class="date-cell">{{getCheckIn()}}</div>
             <div class="date-cell">{{getCheckOut()}}</div>
