@@ -655,7 +655,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       function onPrefill(settings){
         if(settings.openBookingTab){
-          scope.openBookingTab();
+          var isMRB = $stateParams.rooms ? true : false;
+          scope.openBookingTab(isMRB);
         }
 
         // TODO: Set code type from offers
