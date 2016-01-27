@@ -47,7 +47,9 @@ angular.module('mobius.controllers.common.content', [])
       'method': 'getOffers',
       'detailState': 'offers',
       'listState': 'offers',
+      'propertyState': 'propertyOffers',
       'paramName': 'code',
+      'propertyParamName': 'propertySlug',
       'title': 'title',
       'subtitle': 'subtitle',
       'sort': 'prio',
@@ -170,7 +172,14 @@ angular.module('mobius.controllers.common.content', [])
 
     broadcast(code);
 
-    $state.go(code?$scope.settings.detailState:$scope.settings.listState, params, {reload: true});
+    var toState = code ? $scope.settings.detailState : $scope.settings.listState;
+
+    if($state.params.property && $scope.settings.propertyState){
+      params[$scope.settings.propertyParamName] = $state.params.propertySlug;
+      toState = $scope.settings.propertyState;
+    }
+
+    $state.go(toState, params, {reload: true});
   };
 
   function processSettings() {

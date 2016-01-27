@@ -30,6 +30,11 @@ angular.module('mobius.controllers.offers', [])
       }
     });
 
+    var previousState = {
+      state: $state.fromState,
+      params: $state.fromParams
+    };
+
     contentService.getOffers().then(function(offers) {
 
       //Remove offers that have expired
@@ -136,7 +141,15 @@ angular.module('mobius.controllers.offers', [])
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
-      $state.go('offers', {code: slug});
+      if($stateParams.propertySlug){
+        $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
+      }
+      else{
+        $state.go('offers', {code: slug});
+      }
+      
+
+
       $timeout(function () {
         bookingService.setBookingOffer($scope.selectedOffer);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
@@ -148,7 +161,13 @@ angular.module('mobius.controllers.offers', [])
     };
 
     $scope.goToOffersList = function() {
-      $state.go('offers', {code: ''}, {reload: true});
+      //$state.go('offers', {code: ''}, {reload: true});
+      if(previousState && previousState.state && previousState.state.name !== ''){
+        $state.go(previousState.state, previousState.params);
+      }
+      else{
+        $state.go('offers', {code: ''}, {reload: true});
+      }
     };
 
     function selectOffer(code) {

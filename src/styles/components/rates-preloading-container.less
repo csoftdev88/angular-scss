@@ -45,7 +45,6 @@
       .viewport-mobile &{
         float: none;
         display: inline-block;
-        width: 100%;
         text-align: left;
       }
       .thumbnail{
@@ -128,6 +127,7 @@
         margin-top: 10px;
         line-height: 21px;
         font-size: 14px;
+        text-align: center;
       }
 
       .testimonial-inner{
@@ -143,9 +143,16 @@
             background: transparent url('@{img-prefix}/v4/tripadvisor-rating-dot.png') no-repeat;
             width: 20px;
             height: 21px;
-            float: left;            }
+            float: left;            
+          }
           .testimonialStarEmpty{
             background: transparent url('@{img-prefix}/v4/tripadvisor-rating-dot.png') no-repeat;
+          }
+        }
+        .viewport-mobile &{
+          padding: 20px 20px 10px;
+          .rating{
+            display: inline-block;
           }
         }
       }
@@ -207,7 +214,7 @@
       width: 100%;
     }
     .viewport-tablet &{
-      height: 320px;
+      //height: 320px;
     }
     .viewport-mobile &{
       height: 200px;

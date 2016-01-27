@@ -6,7 +6,7 @@
 
 
   <offers-list grid-row>
-    <offer-item ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'offers', 'code': offer.availability && offer.availability.slug && offer.availability.slug != '' ? offer.availability.slug : offer.meta.slug})">
+    <offer-item ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': 'propertyOffers', 'code': offer.availability && offer.availability.slug && offer.availability.slug != '' ? offer.availability.slug : offer.meta.slug})">
       <img class="grid-img" ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}"  alt="{{offer.image.alt}}">
 
       <section>

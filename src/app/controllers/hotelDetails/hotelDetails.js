@@ -127,7 +127,8 @@ angular.module('mobius.controllers.hotel.details', [
     var scrollToValue = $location.search().scrollTo || null;
     if (scrollToValue && scrollToValue === 'jsRooms') {
       $timeout(function(){
-        scrollService.scrollTo(scrollToValue, 20);
+        var offset = stateService.isMobile() ? -50 : 20;
+        scrollService.scrollTo(scrollToValue, offset);
       }, 1500).then(function(){
         //Set scrollTo value to null so page doesn't scroll to rooms if user doesn't come from booking bar
         if(Settings.UI.hotelDetails.removeScrollToRoomsOnFinish){
@@ -291,7 +292,7 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.advertClick = function(link){
-    $state.go(link.type, {code: link.code});
+    $state.go(link.type, {code: link.code, propertySlug: bookingParams.propertySlug});
   };
 
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
