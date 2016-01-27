@@ -261,6 +261,12 @@ floating-bar {
 
                   .people {
                     text-align: left;
+                    > div{
+                      float: left;
+                      & + div{
+                        margin-left: 10px;
+                      }
+                    }
                   }
                 }
               }
@@ -269,8 +275,8 @@ floating-bar {
                 &:after {
                   .fa;
                   position: absolute;
-                  right: 20px;
-                  top: 20px;
+                  right: 10px;
+                  top: 15px;
                   color: #fff;
                   font-size: 21px;
                   transform: translateY(-50%);
