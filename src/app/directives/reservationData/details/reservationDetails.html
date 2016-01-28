@@ -23,7 +23,7 @@
       <div>
         <div class="room-types">
           <h3>{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': 'room', 'other': 'rooms'}"></ng-pluralize></a></h3>
-          <h4>{{reservation.rooms[0].productName}}</h4>
+          <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
         </div>
 
         <table class="data">

@@ -342,6 +342,14 @@ angular.module('mobiusApp.config', [])
         'REV': {
           'displayOnListView': true,
           'displayOnDetailsView': true
+        },
+        'EDM': {
+          'displayOnListView': true,
+          'displayOnDetailsView': true
+        },
+        'VAN': {
+          'displayOnListView': true,
+          'displayOnDetailsView': true
         }
       }
     },

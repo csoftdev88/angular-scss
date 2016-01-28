@@ -635,6 +635,12 @@ angular.module('mobius.controllers.reservation', [])
     return $scope.bookingDetails[type];
   };
 
+  function addReservationConfirmationMessage(reservationNumber){
+    userMessagesService.addMessage('' +
+        '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
+        '<div class="small">Your web booking code is <strong>' + reservationNumber + '</strong>. You will receive an email shorty that contains your reservation reference number.</div>');
+  }
+
   $scope.makeReservation = function(){
     if(!$scope.additionalInfo.agree) {
       $scope.isMakingReservation = false;
@@ -674,9 +680,6 @@ angular.module('mobius.controllers.reservation', [])
 
     var reservationPromise = $q.all(promises).then(function(data) {
       //console.log('reservationPromise: ' + angular.toJson(data));
-      userMessagesService.addMessage('' +
-        '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
-        '<div class="small">A confirmation email will be sent to: <strong>' + $scope.userDetails.email + '</strong></div>');
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
         // Removing reservation code when booking modification is complete
@@ -742,11 +745,12 @@ angular.module('mobius.controllers.reservation', [])
         };
 
         reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
-          //console.log('make res getReservation: ' + angular.toJson(reservation));
+          console.log('make res getReservation: ' + angular.toJson(reservation));
           //$state.go('reservationDetail', reservationDetailsParams);
           reservationService.updateAnonUserProfile(reservation.customer.id, params.email, anonUserData).then(function() {
             bookingService.clearParams();
             $state.go('reservationDetail', reservationDetailsParams);
+            addReservationConfirmationMessage(data[0].reservationCode);
           });
         });
       }
@@ -756,6 +760,7 @@ angular.module('mobius.controllers.reservation', [])
         }
         bookingService.clearParams();
         $state.go('reservationDetail', reservationDetailsParams);
+        addReservationConfirmationMessage(data[0].reservationCode);
       }
       
       

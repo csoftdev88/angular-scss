@@ -43,7 +43,7 @@
         <div>
           <div>
             <h3>{{roomDetails.name}} <a href ng-click="openOtherRoomsDialog()" ng-if="reservation.rooms.length > 1">+ {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': 'room', 'other': 'rooms'}"> </ng-pluralize></a></h3>
-            <h4>{{reservation.rooms[0].productName}}</h4>
+            <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
           </div>
 
           <table class="data">

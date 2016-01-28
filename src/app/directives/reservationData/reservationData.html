@@ -32,7 +32,7 @@
         <span class="value" ng-switch-when="true">
           <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
         </span>
-        <!--<span class="reservation-number">{{reservation.reservationCode}}</span>-->
+        <span class="reservation-number">_booking_reference_: {{reservation.reservationCode}}</span>
       </div>
 
       <div class="guests">
@@ -48,7 +48,7 @@
 
       <div class="desc">
         <p class="value">{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': '_room_', 'other': '_rooms_'}"></ng-pluralize></a></p>
-        <p class="value">{{reservation.rooms[0].productName}}</p>
+        <p class="value" ng-bind-html="reservation.rooms[0].productName"></p>
       </div>
     </div>
   </div>
