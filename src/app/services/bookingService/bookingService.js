@@ -100,7 +100,6 @@ angular.module('mobiusApp.services.booking', [])
       }
 
       if (key === 'dates') {
-        console.log(value);
         var dates = datesFromString(value);
         if (dates) {
           queryParams[API_PARAM_FROM] = dates.from;

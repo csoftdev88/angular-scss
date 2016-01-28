@@ -609,7 +609,6 @@ angular.module('mobius.controllers.reservation', [])
     // Returning a total price of all products
     return _.reduce(
       _.map($scope.allRooms, function(room){
-        console.log(angular.toJson(room));
         if(prop ==='pointsEarned'){
           return room._selectedProduct.productAwardPoints ? room._selectedProduct.priceOriginal[prop] : 0;
         }
