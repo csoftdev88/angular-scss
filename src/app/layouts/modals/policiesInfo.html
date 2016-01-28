@@ -11,9 +11,7 @@
       <accordion close-others="true" ng-class="{'single': data.length === 1}">
         <accordion-group is-open="$first" ng-repeat="product in data">
           <accordion-heading ng-hide="data.length === 1">
-            <div>
-              {{product.name}}
-            </div>
+            <div ng-bind-html="product.name"></div>
           </accordion-heading>
           <ul>
             <li ng-repeat="(policyCode, value) in product.policies" ng-if="value && value !== ''">

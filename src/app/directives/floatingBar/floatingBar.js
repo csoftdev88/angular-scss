@@ -5,8 +5,8 @@ angular.module('mobiusApp.directives.floatingBar', [
   'mobiusApp.directives.floatingBar.myAccount'
 ])
 
-  .directive('floatingBar', ['Settings', 'bookingService', '$window', function(
-      Settings, bookingService, $window) {
+  .directive('floatingBar', ['Settings', 'bookingService', '$window', '$rootScope', function(
+      Settings, bookingService, $window, $rootScope) {
     var BOOKING = 'booking',
         ADVANCED_BOOKING = 'advancedBooking',
         MY_ACCOUNT = 'myAccount';
@@ -44,10 +44,12 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         var bookingParams = bookingService.getAPIParams();
 
-        scope.from = $window.moment.utc(bookingParams.from, INPUT_DATE_FORMAT)._d;
+        scope.from = bookingParams.from ? $window.moment.utc(bookingParams.from, INPUT_DATE_FORMAT)._d : null;
         scope.to = $window.moment.utc(bookingParams.to, INPUT_DATE_FORMAT)._d;
         scope.adults = bookingParams.adults;
         scope.children = bookingParams.children;
+
+        
 
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
@@ -96,6 +98,9 @@ angular.module('mobiusApp.directives.floatingBar', [
         }
 
         function isTheSameMonth() {
+          if(!scope.from){
+            return false;
+          }
           return scope.from.getFullYear() === scope.to.getFullYear() &&
             scope.from.getMonth() === scope.to.getMonth();
         }
@@ -110,12 +115,22 @@ angular.module('mobiusApp.directives.floatingBar', [
           return getFormattedDate(OUTPUT_DATE_FORMAT_FULL, scope.to);
         };
 
+        scope.hasDates = function() {
+          return scope.from && scope.to;
+        };
+
         scope.hasSearchParams = function() {
-          return scope.from && scope.to && scope.adults && !isNaN(scope.from.getTime()) && !isNaN(scope.to.getTime());
+          return scope.from && scope.to && !isNaN(scope.from.getTime()) && !isNaN(scope.to.getTime()) || scope.adults;
         };
 
         scope.inLine = function() {
           return isTheSameMonth() && (!scope.children || parseInt(scope.children, 10) === 0);
+        };
+
+        scope.openDatePicker = function(){
+          $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+              openDatePicker: true
+            });
         };
 
         //Android soft keyboard triggers window resize event, thus closing the booking bar when it opens which is unwanted behaviour
