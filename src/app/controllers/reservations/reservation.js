@@ -8,11 +8,12 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location, stateService){
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
   $scope.isMakingReservation = false;
+  $scope.isMobile = stateService.isMobile();
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -254,7 +255,7 @@ angular.module('mobius.controllers.reservation', [])
     if (!Object.keys($scope.userDetails).length || isMobius) {
       // No fields are touched yet, prefiling
       _.extend($scope.userDetails, {
-        title: userData.title || null,
+        title: userData.title || '',
         firstName: userData.firstName || '',
         lastName: userData.lastName || '',
         email: userData.email || '',

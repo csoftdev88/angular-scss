@@ -16,7 +16,8 @@
         <select type="text" id="title" required
           placeholder="_title_label_"
           data-placeholder="_title_label_"
-          chosen ng-options="title.name as title.code for title in profileTitles"
+          ng-options="title.name as title.code for title in profileTitles"
+          ng-attr-chosen="!isMobile"
           ng-model="userDetails.title"
           name="title">
           <option value="">_title_label_</option>

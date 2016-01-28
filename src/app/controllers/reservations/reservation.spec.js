@@ -88,6 +88,10 @@ describe('mobius.controllers.reservation', function() {
         });
 
         $provide.value('validationService', {});
+        $provide.value('stateService', {
+          isMobile: sinon.stub()
+        });
+
 
         $provide.value('modalService', {
           openPoliciesInfo: function(){},
