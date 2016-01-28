@@ -20,6 +20,7 @@
           ng-model="userDetails.title"
           name="title"
           chosen>
+          <option value="">_title_label_</option>
         </select>
         <span ng-hide="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
         <span ng-show="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
@@ -120,6 +121,7 @@
           ng-model="userDetails.country"
           name="country"
           chosen>
+          <option value="">_country_label_</option>
         </select>
         <span ng-hide="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
         <span ng-show="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
