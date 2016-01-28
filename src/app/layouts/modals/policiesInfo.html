@@ -9,7 +9,7 @@
 
   <main>
       <accordion close-others="true" ng-class="{'single': data.length === 1}">
-        <accordion-group is-open="$first" ng-repeat="product in data">
+        <accordion-group is-open="$first" ng-repeat="product in data track by $index">
           <accordion-heading ng-hide="data.length === 1">
             <div ng-bind-html="product.name"></div>
           </accordion-heading>

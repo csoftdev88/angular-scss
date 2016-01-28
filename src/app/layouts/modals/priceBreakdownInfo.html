@@ -9,7 +9,7 @@
 
   <main>
     <ul>
-      <li ng-repeat="room in data.rooms">
+      <li ng-repeat="room in data.rooms track by $index">
         <table>
           <tr>
             <th>_room_type_</th>
