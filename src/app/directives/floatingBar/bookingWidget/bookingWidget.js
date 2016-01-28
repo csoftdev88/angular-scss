@@ -362,6 +362,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       });
 
       scope.checkAvailability = function() {
+        if(!scope.settings.checkAvailabilityOnChange){
+          return;
+        }
         var dates = bookingService.datesFromString(scope.curDatePickerMonthDates || scope.selected.dates);
         if (!scope.selected.property || !dates || !scope.selected.adults) {
           scope.availability = null;
