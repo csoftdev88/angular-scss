@@ -745,8 +745,7 @@ angular.module('mobius.controllers.reservation', [])
         };
 
         reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
-          console.log('make res getReservation: ' + angular.toJson(reservation));
-          //$state.go('reservationDetail', reservationDetailsParams);
+          //console.log('make res getReservation: ' + angular.toJson(reservation));
           reservationService.updateAnonUserProfile(reservation.customer.id, params.email, anonUserData).then(function() {
             bookingService.clearParams();
             $state.go('reservationDetail', reservationDetailsParams);
