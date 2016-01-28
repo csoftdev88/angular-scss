@@ -16,6 +16,11 @@ angular.module('mobius.controllers.hotel.subpage', [])
     $state.go('hotel', {property: propertyCode, propertySlug: $stateParams.propertySlug});
   }
 
+  var previousState = {
+    state: $state.fromState,
+    params: $state.fromParams
+  };
+
   // TODO: Change to a classic selectors . #
   function scrollTo(hash, speed, offset) {
     $window._.defer(function () {
@@ -129,6 +134,11 @@ angular.module('mobius.controllers.hotel.subpage', [])
     $state.go('hotelInfo', {propertySlug: $stateParams.propertySlug, infoSlug: info.meta.slug});
   };
   $scope.goBack = function() {
-    $state.go('hotel', {propertySlug: $stateParams.propertySlug});
+    if(previousState && previousState.state && previousState.state.name !== ''){
+      $state.go(previousState.state, previousState.params);
+    }
+    else{
+      $state.go('hotel', {propertySlug: $stateParams.propertySlug});
+    }
   };
 });

@@ -161,7 +161,6 @@ angular.module('mobius.controllers.offers', [])
     };
 
     $scope.goToOffersList = function() {
-      //$state.go('offers', {code: ''}, {reload: true});
       if(previousState && previousState.state && previousState.state.name !== ''){
         $state.go(previousState.state, previousState.params);
       }
