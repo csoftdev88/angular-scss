@@ -255,7 +255,7 @@ angular.module('mobius.controllers.reservation', [])
     if (!Object.keys($scope.userDetails).length || isMobius) {
       // No fields are touched yet, prefiling
       _.extend($scope.userDetails, {
-        title: userData.title || '',
+        title: userData.title || null,
         firstName: userData.firstName || '',
         lastName: userData.lastName || '',
         email: userData.email || '',
