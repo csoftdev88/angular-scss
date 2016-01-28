@@ -17,7 +17,17 @@
           placeholder="_title_label_"
           data-placeholder="_title_label_"
           ng-options="title.name as title.code for title in profileTitles"
-          ng-attr-chosen="!isMobile"
+          ng-if="!isMobile"
+          ng-model="userDetails.title"
+          name="title"
+          chosen>
+          <option value="">_title_label_</option>
+        </select>
+        <select type="text" id="title" required
+          placeholder="_title_label_"
+          data-placeholder="_title_label_"
+          ng-options="title.name as title.code for title in profileTitles"
+          ng-if="isMobile"
           ng-model="userDetails.title"
           name="title">
           <option value="">_title_label_</option>
