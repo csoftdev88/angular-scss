@@ -78,9 +78,13 @@
                 <th>_room_charges_:</th>
                 <td>{{getTotal('totalBase') | i18nCurrency: currencyCode}}</td>
               </tr>
-              <tr ng-if="getTotal('totalAfterTax') > getTotal('totalBase')">
+              <tr>
                 <th>_taxes_:</th>
-                <td>{{getTotal('totalAfterTax') - getTotal('totalBase') | i18nCurrency: $root.currencyCode}}</td>
+                <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+              <tr>
+                <th>_applicable_fees_:</th>
+                <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
               </tr>
               <tr>
                 <th>_total_:</th>
@@ -90,23 +94,26 @@
               </tr>
               </thead>
               <tbody>
-                <!-- Additional taxes -->
+                <!-- Additional taxes 
                 <tr ng-if="getTotal('totalAdditionalTaxes')">
                   <th>_taxes_:</th>
                   <td>{{getTotal('totalAfterTax') - getTotal('totalBase') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
+                -->
 
-                <!-- Additional fees -->
+                <!-- Additional fees 
                 <tr ng-if="getTotal('totalAdditionalFees')">
                   <th>_fees_:</th>
                   <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
+                -->
 
-                <!-- Discount -->
+                <!-- Discount 
                 <tr ng-if="getTotal('totalDiscount')">
                   <th>_discount_:</th>
                   <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
+                -->
 
               </tbody>
             </table>

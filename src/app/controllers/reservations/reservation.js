@@ -622,6 +622,16 @@ angular.module('mobius.controllers.reservation', [])
       });
   };
 
+  $scope.getBreakdown = function(prop){
+    // Returning a total price of all products
+    return _.reduce(
+      _.map($scope.allRooms, function(room){
+        return room._selectedProduct.priceOriginal.breakdowns[0][prop];
+      }), function(t, n){
+        return t + n;
+      });
+  };
+
 
   $scope.getGuestsCount = function(type){
     if($scope.isMultiRoomMode){
