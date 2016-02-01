@@ -31,7 +31,8 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      'currencyCode': stateService.getCurrentCurrency().symbol,
+      'currencyCode': stateService.getCurrentCurrency().code,
+      'event': 'productImpressions',
       'ecommerce': {
         'impressions': products
       }
@@ -67,7 +68,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackProductsCheckout(products){
+  function trackProductsCheckout(products, stepNum){
     if(!isDataLayerActive()){
       return;
     }
@@ -76,6 +77,7 @@ angular.module('mobiusApp.services.dataLayer', [])
       'event': 'checkout',
       'ecommerce': {
         'checkout': {
+          'actionField': {'step': stepNum},
           'products': products
         }
       }

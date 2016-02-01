@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
   Settings, filtersService, bookingService, propertyService, modalService,
-  stateService, dataLayerService, cookieFactory, chainService){
+  stateService, dataLayerService, cookieFactory, chainService, $window){
 
   return {
     restrict: 'E',
@@ -14,6 +14,8 @@ angular.module('mobiusApp.directives.room.products', [])
       var bookingParams = bookingService.getAPIParams();
       bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.details.meta.slug);
       bookingParams.roomCode = bookingService.getCodeFromSlug(scope.room.meta.slug);
+
+      var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
 
       scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
 
@@ -56,11 +58,12 @@ angular.module('mobiusApp.directives.room.products', [])
               dataLayerService.trackProductsImpressions(scope.products.map(function(p){
                 return {
                   name: p.name,
-                  code: p.code,
-                  price: p.price.totalBase,
-                  overarchingBrand: chainData.nameShort,
+                  id: p.code,
+                  price: (p.price.totalBase/numNights).toFixed(2),
+                  quantity: numNights,
+                  dimension2: chainData.nameShort,
                   brand: propertyData.nameLong,
-                  location: propertyData.nameShort,
+                  dimension1: propertyData.nameShort,
                   list: 'Rooms',
                   category: scope.room.name
                 };
@@ -112,11 +115,12 @@ angular.module('mobiusApp.directives.room.products', [])
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
               dataLayerService.trackProductClick({
                 name: selectedProduct.name,
-                code: selectedProduct.code,
-                price: selectedProduct.price.totalBase,
-                overarchingBrand: chainData.nameShort,
+                id: selectedProduct.code,
+                price: (selectedProduct.price.totalBase/numNights).toFixed(2),
+                quantity: numNights,
+                dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,
-                location: propertyData.nameShort,
+                dimension1: propertyData.nameShort,
                 list: 'Rooms',
                 category: scope.room.name
               });
@@ -135,11 +139,12 @@ angular.module('mobiusApp.directives.room.products', [])
           propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
             dataLayerService.trackProductsDetailsView([{
               name: product.name,
-              code: product.code,
-              price: product.price.totalBase,
-              overarchingBrand: chainData.nameShort,
+              id: product.code,
+              price: (product.price.totalBase/numNights).toFixed(2),
+              quantity: numNights,
+              dimension2: chainData.nameShort,
               brand: propertyData.nameLong,
-              location: propertyData.nameShort,
+              dimension1: propertyData.nameShort,
               list: 'Rooms',
               category: scope.room.name
             }]);

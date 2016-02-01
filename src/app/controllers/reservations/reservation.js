@@ -62,6 +62,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   var multiRoomData;
+  var multiRoomDataLoaded = 0;
   var previousState = {
     state: $state.fromState,
     params: $state.fromParams
@@ -129,7 +130,6 @@ angular.module('mobius.controllers.reservation', [])
     if($stateParams.reservation && !$scope.isModifyingAsAnonymous()){
 
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
-        //console.log('modify as logged in reservation data: ' + angular.toJson(reservation));
 
         $scope.userDetails.title = reservation.rooms[0].guestTitle;
         $scope.userDetails.firstName = reservation.rooms[0].firstName;
@@ -168,7 +168,6 @@ angular.module('mobius.controllers.reservation', [])
       };
 
       reservationService.getReservation($stateParams.reservation, reservationParams).then(function(reservation) {
-        //console.log('modify as anon reservation data: ' + angular.toJson(reservation));
 
         $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
         $scope.additionalInfo.arrivalMethod = reservation.arrivalMethod;
@@ -187,7 +186,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.billingDetails.country = reservation.rooms[0].billingCountry;
 
         reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(data) {
-          //console.log('modify as anon getAnonUserProfile: ' + angular.toJson(data));
+
           $scope.userDetails.title = data.title;
           $scope.userDetails.firstName = data.firstName;
           $scope.userDetails.lastName = data.lastName;
@@ -223,27 +222,20 @@ angular.module('mobius.controllers.reservation', [])
 
       // TODO if !product - redirect
       if(product){
-        // Tracking checkout
-        //TODO: need actionField so needs to be moved further into booking flow
-        chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-          propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-            dataLayerService.trackProductsCheckout([{
-              name: product.name,
-              code: product.code,
-              price: product.price.totalAfterTax,
-              overarchingBrand: chainData.nameShort,
-              brand: propertyData.nameLong,
-              location: propertyData.nameShort,
-              list: 'Room',
-              category: roomData.name
-            }]);
-          });
-        });
+        roomData._selectedProduct = product;
+        $scope.allRooms.push(roomData);
+
+        //if multiroom, wait for all rooms data to be loaded before tracking products checkout
+        if(!$scope.isMultiRoomMode){
+          trackProductCheckout(1);
+        } else {
+          multiRoomDataLoaded++;
+          if(multiRoomDataLoaded === multiRoomData.length){
+            trackProductCheckout(1);
+          }
+        }
       }
 
-      roomData._selectedProduct = product;
-
-      $scope.allRooms.push(roomData);
     });
   }
 
@@ -308,6 +300,7 @@ angular.module('mobius.controllers.reservation', [])
 
   // This data is used in view
   $scope.bookingDetails = bookingService.getAPIParams();
+  var numNights = $window.moment($scope.bookingDetails.to).diff($scope.bookingDetails.from, 'days');
 
   var lastBreadCrumbName = '';
   var setBreadCrumbs = function(name) {
@@ -471,6 +464,7 @@ angular.module('mobius.controllers.reservation', [])
       if($scope.isValid()){
         $state.go('reservation.billing');
         $scope.autofillSync();
+        trackProductCheckout(2);
       }
       else{
         //scrollToDetails('form-errors');
@@ -488,6 +482,7 @@ angular.module('mobius.controllers.reservation', [])
 
       if($scope.isValid()){
         $state.go('reservation.confirmation');
+        trackProductCheckout(3);
       }
       else{
         //scrollToDetails('form-errors');
@@ -502,6 +497,38 @@ angular.module('mobius.controllers.reservation', [])
     }
     setMetaInformation();
   };
+
+  function trackProductCheckout(stepNum){
+
+    if(!$scope.allRooms || !$scope.allRooms.length){
+      return;
+    }
+    // Tracking checkout
+    //TODO: need actionField so needs to be moved further into booking flow
+    chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+      propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+        var products = [];
+
+        _.each($scope.allRooms, function(room){
+          var product = {
+            name: room._selectedProduct.name,
+            id: room._selectedProduct.code,
+            price: (room._selectedProduct.price.totalBase/numNights).toFixed(2),
+            quantity: numNights,
+            dimension2: chainData.nameShort,
+            brand: propertyData.nameLong,
+            dimension1: propertyData.nameShort,
+            list: 'Room',
+            category: room.name
+          };
+          products.push(product);
+        });
+
+        dataLayerService.trackProductsCheckout(products, stepNum);
+        
+      });
+    });
+  }
 
   function createReservationData() {
 
@@ -674,7 +701,6 @@ angular.module('mobius.controllers.reservation', [])
     };
 
     var reservationData = createReservationData();
-    //console.log('reservationData: ' + angular.toJson(reservationData));
     
 
     var promises = [];
@@ -690,7 +716,6 @@ angular.module('mobius.controllers.reservation', [])
 
 
     var reservationPromise = $q.all(promises).then(function(data) {
-      //console.log('reservationPromise: ' + angular.toJson(data));
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
         // Removing reservation code when booking modification is complete
@@ -726,7 +751,8 @@ angular.module('mobius.controllers.reservation', [])
         // Transaction ID
         id: reservationDetailsParams.reservationCode,
         'affiliation': 'Hotel',
-        'revenue': products[0].price,
+        'revenue': (products[0].price/numNights).toFixed(2),
+        'quantity': numNights,
         'tax': products[0].tax,
         'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
 
@@ -756,7 +782,6 @@ angular.module('mobius.controllers.reservation', [])
         };
 
         reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
-          //console.log('make res getReservation: ' + angular.toJson(reservation));
           reservationService.updateAnonUserProfile(reservation.customer.id, params.email, anonUserData).then(function() {
             bookingService.clearParams();
             $state.go('reservationDetail', reservationDetailsParams);

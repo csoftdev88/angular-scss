@@ -20,6 +20,7 @@ angular.module('mobiusApp.directives.room', [])
       scope.roomRatesLimit = Settings.UI.roomDetails.numberOfRatesToShow;
       scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
       var bookingParams = bookingService.getAPIParams();
+      var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
       scope.$stateParams = $stateParams;
       var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
       scope.propertyCode = propertyCode;
@@ -243,11 +244,12 @@ angular.module('mobiusApp.directives.room', [])
           propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
             dataLayerService.trackProductClick({
               name: product.name,
-              code: product.code,
-              price: product.price.totalBase,
-              overarchingBrand: chainData.nameShort,
+              id: product.code,
+              price: (product.price.totalBase/numNights).toFixed(2),
+              quantity: numNights,
+              dimension2: chainData.nameShort,
               brand: propertyData.nameLong,
-              location: propertyData.nameShort,
+              dimension1: propertyData.nameShort,
               list: 'Room',
               category: scope.roomDetails.name
             });
@@ -283,11 +285,12 @@ angular.module('mobiusApp.directives.room', [])
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
               dataLayerService.trackProductsDetailsView([{
                 name: product.name,
-                code: product.code,
-                price: product.price.totalBase,
-                overarchingBrand: chainData.nameShort,
+                id: product.code,
+                price: (product.price.totalBase).toFixed(2),
+                quantity: numNights,
+                dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,
-                location: propertyData.nameShort,
+                dimension1: propertyData.nameShort,
                 list: 'Room',
                 category: scope.roomDetails.name
               }]);

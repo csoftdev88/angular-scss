@@ -386,21 +386,25 @@ angular.module('mobiusApp.config', [])
       'default': 'GBP',
 
       'GBP': {
+        'code': 'GBP',
         'symbol': '£',
         'format': '{{symbol}} {{amount}}'
       },
 
       'USD': {
+        'code': 'USD',
         'symbol': '$',
         'format': '{{symbol}}{{amount}}'
       },
 
       'EUR': {
+        'code': 'EUR',
         'symbol': '€',
         'format': '{{symbol}}{{amount}}'
       },
 
       'CAD': {
+        'code': 'CAD',
         'symbol': '$',
         'format': '{{symbol}}{{amount}}'
       }

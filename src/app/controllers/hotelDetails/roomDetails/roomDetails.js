@@ -7,6 +7,8 @@ angular.module('mobius.controllers.room.details', [])
 .controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
   propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams) {
 
+  var numNights = 1;
+
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
 
@@ -26,11 +28,12 @@ angular.module('mobius.controllers.room.details', [])
           products.map(function(p){
             return {
               name: p.name,
-              code: p.code,
-              price: p.price.totalBase,
-              overarchingBrand: chainData.nameShort,
+              id: p.code,
+              price: (p.price.totalBase/numNights).toFixed(2),
+              quantity: numNights,
+              dimension2: chainData.nameShort,
               brand: propertyData.nameLong,
-              location: propertyData.nameShort,
+              dimension1: propertyData.nameShort,
               list: 'Room',
               category: $scope.roomDetails && $scope.roomDetails.name ? $scope.roomDetails.name : null
             };
@@ -50,11 +53,12 @@ angular.module('mobius.controllers.room.details', [])
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
         dataLayerService.trackProductsDetailsView([{
           name: product.name,
-          code: product.code,
-          price: product.price.totalBase,
-          overarchingBrand: chainData.nameShort,
+          id: product.code,
+          price: (product.price.totalBase/numNights).toFixed(2),
+          quantity: numNights,
+          dimension2: chainData.nameShort,
           brand: propertyData.nameLong,
-          location: propertyData.nameShort,
+          dimension1: propertyData.nameShort,
           list: 'Room',
           category: $scope.roomDetails.name
         }]);
@@ -69,6 +73,7 @@ angular.module('mobius.controllers.room.details', [])
     var qRoomData = $q.defer();
 
     var bookingParams = bookingService.getAPIParams(true);
+    numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
 
     // Using PGID from the booking params
     if(bookingParams.productGroupId){
@@ -92,11 +97,12 @@ angular.module('mobius.controllers.room.details', [])
               dataLayerService.trackProductsImpressions(data[1].products.map(function(p){
                 return {
                   name: p.name,
-                  code: p.code,
-                  price: p.price.totalBase,
-                  overarchingBrand: chainData.nameShort,
+                  id: p.code,
+                  price: (p.price.totalBase/numNights).toFixed(2),
+                  quantity: numNights,
+                  dimension2: chainData.nameShort,
                   brand: propertyData.nameLong,
-                  location: propertyData.nameShort,
+                  dimension1: propertyData.nameShort,
                   list: 'Room',
                   category: data[0].name
                 };
