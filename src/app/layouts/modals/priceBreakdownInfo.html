@@ -27,6 +27,7 @@
               <th>_night_</th>
               <th>_rooms_</th>
               <th>_tax_</th>
+              <th>_fees_</th>
               <th>_total_rate_</th>
             </tr>
           </thead>
@@ -35,12 +36,13 @@
               <td>{{item.date}}</td>
               <td>{{item.totalBase | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
+              <td>{{item.totalFees | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalAfterTax | i18nCurrency: currencyCode}}</td>
             </tr>
           </tbody>
           <tfoot ng-if="$last">
             <tr>
-              <th colspan="3">_total_</th>
+              <th colspan="4">_total_</th>
               <th>{{data.totalAfterTax | i18nCurrency: currencyCode}}</th>
             </tr>
           </tfoot>
