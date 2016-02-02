@@ -22,7 +22,7 @@
     </nav>
 
     <!-- MY REWARDS -->
-    <reward-item ng-if="viewMode === 'consumed'" ng-repeat="reward in consumedRewards" ng-click="openRewardDetails(reward)" ng-class="{'redeemed': reward.redeemed}">
+    <reward-item ng-if="viewMode === 'consumed'" ng-repeat="reward in consumedRewards" ng-click="openRewardDetails(reward)" ng-class="{'redeemed': reward.consumed}">
 
       <figure>
         <img ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}" err-source="http://lorempixel.com/300/160/">

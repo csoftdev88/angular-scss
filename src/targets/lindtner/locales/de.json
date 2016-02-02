@@ -344,7 +344,7 @@
 
     "reservation_list_empty": "Deine Reservierungsliste ist leer",
 
-    "please_make_reservation": "Bitte mache eine <a ui-sref='hotels'>Reservierung</a>",
+    "please_make_reservation": "Wählen Sie Daten zu Verfügbarkeit in unseren Hotels finden und buchen Sie Ihren Aufenthalt!",
 
     "my_rewards": "Meine Preise",
 
