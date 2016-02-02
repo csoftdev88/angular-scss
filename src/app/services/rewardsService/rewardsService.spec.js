@@ -67,7 +67,7 @@ describe('rewardsService', function() {
       expect(env.apiGetFullURLSpy.calledWith('rewards.my', {customerId: 123})).equal(true);
 
       expect(env.apiGetSpy.calledOnce).equal(true);
-      expect(env.apiGetSpy.calledWith('rewards.my', {scope:'consumable'})).equal(true);
+      expect(env.apiGetSpy.calledWith('rewards.my')).equal(true);
     });
   });
 

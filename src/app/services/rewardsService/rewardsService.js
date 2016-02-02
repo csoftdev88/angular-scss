@@ -13,8 +13,7 @@ angular.module('mobiusApp.services.rewards', [])
 
   function getMy(customerId){
     return apiService.get(apiService.getFullURL(
-      'rewards.my', {customerId: customerId}),
-      {scope:'consumable'}
+      'rewards.my', {customerId: customerId})
     );
   }
 
