@@ -408,8 +408,9 @@ angular.module('mobius.controllers.reservation', [])
         }
 
         $scope.pointsData.pointsEarned = $scope.getTotal('pointsEarned');
-        $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints +
-          $scope.getTotal('pointsEarned') - $scope.getTotal('pointsRequired');
+        //$scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints +
+          //$scope.getTotal('pointsEarned') - $scope.getTotal('pointsRequired');
+        $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
       }
 
       break;

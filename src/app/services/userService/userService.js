@@ -181,7 +181,7 @@ angular.module('mobiusApp.services.user', [])
     function logout() {
       $rootScope.$evalAsync(function(){
         userObject = {};
-        $state.go('home');
+        $state.go('home', {}, {reload: true});
       });
       // Removing auth headers
       var headers = {};
@@ -189,7 +189,7 @@ angular.module('mobiusApp.services.user', [])
       apiService.setHeaders(headers);
       clearStoredUser();
 
-      authPromise = $q.defer().promise;
+      authPromise = $q.defer();
 
       if(Settings.authType === 'mobius'){
         $timeout(function(){
