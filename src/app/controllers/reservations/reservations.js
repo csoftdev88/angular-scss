@@ -6,7 +6,7 @@ angular.module('mobius.controllers.reservations', [])
 
 .controller('ReservationsCtrl', function($scope, $controller, $q,
   $state, modalService, creditCardTypeService, reservationService,
-  preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject, chainService, metaInformationService, $location, Settings){
+  preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject, chainService, metaInformationService, $location, Settings, $rootScope){
 
   breadcrumbsService.addBreadCrumb('My Stays');
 
@@ -106,4 +106,13 @@ angular.module('mobius.controllers.reservations', [])
       return $window.moment(reservation.arrivalDate).valueOf() >= today;
     });
   }
+
+  $scope.selectDates = function(){
+    $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+      openBookingTab: true,
+      openDatePicker: true
+    });
+  };
+
+
 });
