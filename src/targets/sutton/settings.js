@@ -367,7 +367,7 @@ angular.module('mobiusApp.config', [])
           'name': 'Sutton <strong>Prestige</strong>',
           'state': 'aboutUs({code: "prestige"})',
           'pictureUrl': '/static/images/v4/icon-discounts.png',
-          'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program'
+          'text': 'Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts & rewards with our reward program.'
         },
         {
           'name': 'Exciting <strong>News</strong>',
