@@ -109,21 +109,23 @@
       <table class="points-balance">
         <tbody>
           <tr>
-            <th>_current_points_:</th>
+            <th>_current_points_</th>
             <td>
               {{pointsData.currentPoints}}
             </td>
           </tr>
           <tr>
-            <th>_points_required_booking_:</th>
+            <th>_points_required_booking_</th>
             <td>{{pointsData.pointsRequired}}</td>
           </tr>
+          <!--
           <tr>
             <th>_points_earned_booking_:</th>
             <td class="earned">+{{pointsData.pointsEarned}}</td>
           </tr>
+          -->
           <tr>
-            <th>_balance_after_booking_:</th>
+            <th>_balance_after_booking_</th>
             <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
           </tr>
         </tbody>
