@@ -208,6 +208,7 @@ describe('mobius.controllers.reservationDetail', function() {
 
         $provide.value('user', {
           isLoggedIn: function(){},
+          getUser: function(){ return TEST_USER; },
           loadLoyalties: sinon.stub()
         });
 

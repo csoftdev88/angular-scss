@@ -182,6 +182,7 @@ angular.module('mobiusApp.services.user', [])
       $rootScope.$evalAsync(function(){
         userObject = {};
         $state.go('home', {}, {reload: true});
+        
       });
       // Removing auth headers
       var headers = {};

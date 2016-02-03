@@ -39,10 +39,10 @@ angular.module('mobius.controllers.reservationDetail', [])
       });
     });
 
-    function onAuthorized(isMobiusUser) {
+    function onAuthorized() {
       var params;
 
-      if(!isMobiusUser && !userObject.token){
+      if(!user.getUser().id && !userObject.token){
         // Logged in as anonymous user - checking if there is an email flag in URL
         if(!$stateParams.email){
           // Email is not defined in the URL - redirecting back to home page
@@ -141,7 +141,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Available addons
           reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode}),
           // Reservation addons
-          reservationService.getReservationAddOns($stateParams.reservationCode, isMobiusUser?null:$stateParams.email)
+          reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : $stateParams.email)
         ]).then(function(addons){
           // addons[0] - available addons
           // Available addons should only contain those which not in reservationAddons
