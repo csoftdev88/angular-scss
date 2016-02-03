@@ -19,6 +19,7 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.showDetail = $stateParams.code ? true : false;
     $scope.property = null;
+    $scope.allOffers = null;
 
     $scope.$watch(function(){
       return $scope.showDetail;
@@ -36,6 +37,8 @@ angular.module('mobius.controllers.offers', [])
     };
 
     contentService.getOffers().then(function(offers) {
+
+      $scope.allOffers = offers;
 
       //Remove offers that have expired
       var today = new Date();
@@ -171,18 +174,18 @@ angular.module('mobius.controllers.offers', [])
 
     function selectOffer(code) {
       
-      selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
+      selectedOfferIndex = _.findIndex($scope.allOffers, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go('offers', {code: null});
       }
 
-      var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
+      var availability = _.find($scope.allOffers[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
 
-      $scope.offersList[selectedOfferIndex].availability = availability;
+      $scope.allOffers[selectedOfferIndex].availability = availability;
 
-      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+      $scope.selectedOffer = $scope.allOffers[selectedOfferIndex];
       bookingService.setBookingOffer($scope.selectedOffer);
 
       if($scope.selectedOffer.discountCode){
