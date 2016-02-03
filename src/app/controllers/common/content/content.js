@@ -196,7 +196,7 @@ angular.module('mobius.controllers.common.content', [])
         });
 
         if(availability){
-          return availability.showOnMenu === false;
+          return availability.showOnMenu === false || availability.showOnOffersPage === false;
         }
         
       });

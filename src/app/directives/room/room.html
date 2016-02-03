@@ -48,7 +48,7 @@
           <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled && product.productAwardPoints">_earn_
             <ng-pluralize count="product.price.pointsEarned" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
           </earned-points>
-          <p class="noPointsAwarded" ng-if="!product.productAwardPoints">_no_points_rate_desc_</p>
+          <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints">_no_points_rate_desc_</p>
         </div>
 
         <pricing-info>
