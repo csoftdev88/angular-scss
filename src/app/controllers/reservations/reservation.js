@@ -14,6 +14,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
   $scope.isMakingReservation = false;
   $scope.isMobile = stateService.isMobile();
+  $scope.canPayWithPoints = true;
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -223,6 +224,9 @@ angular.module('mobius.controllers.reservation', [])
       // TODO if !product - redirect
       if(product){
         roomData._selectedProduct = product;
+        if(!product.allowPointsBooking){
+          $scope.canPayWithPoints = false;
+        }
         $scope.allRooms.push(roomData);
 
         //if multiroom, wait for all rooms data to be loaded before tracking products checkout

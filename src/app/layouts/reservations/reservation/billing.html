@@ -13,8 +13,8 @@
       <li ng-repeat="cardIcon in creditCardsIcons" ng-click="selectPaymentMethod('cc')">
         <i class="{{cardIcon}}" ng-class="{selected: getCreditCardDetails(billingDetails.card.number).icon === cardIcon}"></i>
       </li>
-      <li class="divider" ng-if="loyaltyProgramEnabled"></li>
-      <li ng-click="selectPaymentMethod('point')" ng-if="loyaltyProgramEnabled">
+      <li class="divider" ng-if="loyaltyProgramEnabled && canPayWithPoints"></li>
+      <li ng-click="selectPaymentMethod('point')" ng-if="loyaltyProgramEnabled && canPayWithPoints">
         <i class="points" ng-class="{selected: billingDetails.paymentMethod == 'point'}"></i>
       </li>
     </ul>
