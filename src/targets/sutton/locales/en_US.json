@@ -333,7 +333,7 @@
     "modify_reservation_modal_desc_long": "Update your dates and number of occupants on the booking bar to search again",
     "modify_reservation_modal_error_title": "Your Booking",
     "modify_reservation_modal_error_desc": "To modify your booking please call our reservation team on 1.8663.SUTTON",
-    "modify_points_reservation_modal_error_desc": "As your booking was made with points, please call us to cancel / modify your stay",
+    "modify_points_reservation_modal_error_desc": "As your booking was confirmed using pay with points, please call us direct to modify or cancel your stay. Toll Free Reservations 1.866.378.8866 (1.8663.SUTTON) or Sutton Prestige Loyalty 1.877.777.5122",
     "modify_reservation_modal_abort_desc": "Your changes will not be saved if you navigate away from this page in order to update your booking you need to finish the reservation process",
     "rooms_modal_title": "Rooms for your booking",
     "reservation_lookup_modal_error": "Sorry, we cannot find a reservation that matches your details, please check them and try again.",
