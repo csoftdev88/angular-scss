@@ -72,8 +72,12 @@ reservation-widget {
                   color 0.15s linear;
     }
 
-    &.input-right span {
+    &.input-right span,
+    &.input-center span {
       left: 10px;
+      .viewport-mobile &{
+        left: 0;
+      }
     }
 
     input:focus ~ span,
