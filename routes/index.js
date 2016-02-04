@@ -43,8 +43,18 @@ module.exports = function(app) {
         redirectItem=redirects.filter(function(item) {
           return item.from == req.path;
         });
-        if (redirectItem[0].to){
+
+        if (redirectItem[0] && redirectItem[0].to){
          return res.redirect(redirectItem[0].to);
+        } else {
+          //didn't find it. test for just slashes...
+          redirectItem=redirects.filter(function(item) {
+            var result;   
+              var searchFor=req.path.substring(0,req.path.lastIndexOf("/"));
+              result = searchFor;
+            return item.id == result
+          });  
+          return res.redirect(redirectItem[0].to);
         }
       });        
     }    
