@@ -37,7 +37,7 @@ module.exports = function(app) {
     var content = fs.readFileSync(routesPath);
     var redirects=JSON.parse(content);
     for (var p in redirects){
-
+//      console.log("build redirect for "+redirects[p].from);
       app.get(redirects[p].from,function(req, res) {
         //search for redirect URL in the redirects array
         redirectItem=redirects.filter(function(item) {
@@ -54,7 +54,12 @@ module.exports = function(app) {
               result = searchFor;
             return item.id == result
           });  
-          return res.redirect(redirectItem[0].to);
+          if (redirectItem[0] && redirectItem[0].to){
+            return res.redirect(redirectItem[0].to);            
+          } else {
+            return;
+          }
+
         }
       });        
     }    
