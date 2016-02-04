@@ -89,12 +89,12 @@ angular.module('mobiusApp.services.dataLayer', [])
       return;
     }
 
-      getDataLayer().push({
-        'ecommerce': {
-          'purchase': { 'actionField': actionField },
-          'products': products
-        }
-      });
+    getDataLayer().push({
+      'ecommerce': {
+        'purchase': { 'actionField': actionField },
+        'products': products
+      }
+    });
   }
 
   function trackReservationRefund(reservationCode){
