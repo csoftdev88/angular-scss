@@ -40,8 +40,7 @@
         <input type="text" id="first-name" required
           placeholder="_first_name_label_"
           ng-model="userDetails.firstName"
-          name="firstName"
-          ng-pattern="/^[a-zA-Z]+$/"/>
+          name="firstName"/>
         <span>
           <span ng-hide="forms.details.$submitted && forms.details.firstName.$error">_first_name_label_</span>
           <span ng-show="forms.details.$submitted && forms.details.firstName.$error && !forms.details.firstName.$error.pattern">_first_name_label_</span>
@@ -53,8 +52,7 @@
         <input type="text" id="last-name" required
           placeholder="_last_name_label_"
           ng-model="userDetails.lastName"
-          name="lastName"
-          ng-pattern="/^[a-zA-Z]+$/"/>
+          name="lastName"/>
         <span>
           <span ng-hide="forms.details.$submitted && forms.details.lastName.$error">_last_name_label_</span>
           <span ng-show="forms.details.$submitted && forms.details.lastName.$error && !forms.details.firstName.$error.pattern">_last_name_label_</span>
