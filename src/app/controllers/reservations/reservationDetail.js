@@ -149,7 +149,8 @@ angular.module('mobius.controllers.reservationDetail', [])
 
           $scope.availableAddons = [];
           _.each(addons[0], function(addon){
-            var addedAddon = _.findWhere(addons[1], function(a){
+
+            var addedAddon = _.find(addons[1], function(a){
               return a.code === addon.code;
             });
 
@@ -158,7 +159,6 @@ angular.module('mobius.controllers.reservationDetail', [])
               if(addon.pointsRequired && availablePoints < addon.pointsRequired){
                 addon.pointsRequired = 0;
               }
-
               $scope.availableAddons.push(addon);
             }
           });
