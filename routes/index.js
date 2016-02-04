@@ -30,7 +30,31 @@ module.exports = function(app) {
       }
     });
 
+  //load redirect array from src/targets/<tenant>/redirects.json
+  try{
+    var routesPath = './src/targets/' + tenant + '/redirects.json';
+    var fs = require('fs');
+    var content = fs.readFileSync(routesPath);
+    var redirects=JSON.parse(content);
+    for (var p in redirects){
+
+      app.get(redirects[p].from,function(req, res) {
+        //search for redirect URL in the redirects array
+        redirectItem=redirects.filter(function(item) {
+          return item.from == req.path;
+        });
+        if (redirectItem[0].to){
+         return res.redirect(redirectItem[0].to);
+        }
+      });        
+    }    
+  } catch(e){
+    //file doesn't exist. We dont care
+  }
+
+
     app.route('/:url(static)/*').get(function(req, res) {
+      console.log("here!")
       res.status(404).end();
     });
 
