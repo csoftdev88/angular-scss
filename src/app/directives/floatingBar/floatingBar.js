@@ -107,8 +107,8 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         scope.getCheckIn = function() {
           return (isTheSameMonth()) ?
-            getFormattedDate(OUTPUT_DATE_FORMAT_DAY, scope.from) + ' - ' :
-            getFormattedDate(OUTPUT_DATE_FORMAT_FULL, scope.from);
+            getFormattedDate(OUTPUT_DATE_FORMAT_DAY, scope.from) + ' -&nbsp;' :
+            getFormattedDate(OUTPUT_DATE_FORMAT_FULL, scope.from) + ' -&nbsp;';
         };
 
         scope.getCheckOut = function() {

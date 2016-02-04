@@ -7,7 +7,7 @@
         <div ng-show="!hasSearchParams() && !hasDates() || hasSearchParams() && hasDates() && !isCollapsed" class="book-now-button" ng-bind-html="'_book_now_' | mainHeaderStyle"></div>
         <div ng-show="hasSearchParams() && hasDates() && isCollapsed" ng-class="{'in-line' : inLine()}" class="search-params-bar">
           <div class="cell dates">
-            <div class="date-cell">{{getCheckIn()}}</div>
+            <div class="date-cell" ng-bind-html="getCheckIn()"></div>
             <div class="date-cell">{{getCheckOut()}}</div>
           </div>
           <div class="cell separator-cell"> | </div>
