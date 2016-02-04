@@ -6,19 +6,18 @@ angular.module('mobiusApp.services.api', [])
   var headers = Settings.API.headers;
   var apiCache = $cacheFactory('apiCache');
 
-  function get(url, params) {
+  function get(url, params, cacheParam) {
     var q = $q.defer();
     var canCache = !params || Object.keys(params).length === 0;
+    canCache = cacheParam === false ? false : canCache;
     
     if (canCache && angular.isUndefined(apiCache.get(url))) {
-      //console.log('canCache and not cached: ' + url);
       $http({
         method: 'GET',
         url: url,
         headers: headers,
         params: params
       }).success(function(res, status, resHeaders) {
-        //console.log('GET url 1: ' + url + ' The request headers are: ' + angular.toJson(headers) + ' and the response headers are: ' + angular.toJson(resHeaders()));
         if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
         }
@@ -33,14 +32,12 @@ angular.module('mobiusApp.services.api', [])
       q.resolve(apiCache.get(url));
     }
     else{
-      //console.log('cannot cache: ' + url);
       $http({
         method: 'GET',
         url: url,
         headers: headers,
         params: params
       }).success(function(res, status, resHeaders) {
-        //console.log('GET url 2: ' + url + ' with params: ' + params + ' The request headers are: ' + angular.toJson(headers) + ' and the response headers are: ' + angular.toJson(resHeaders()) + ' and the response status is: ' + status);
         if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
         }

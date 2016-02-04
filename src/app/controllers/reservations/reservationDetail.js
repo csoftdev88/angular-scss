@@ -149,7 +149,8 @@ angular.module('mobius.controllers.reservationDetail', [])
 
           $scope.availableAddons = [];
           _.each(addons[0], function(addon){
-            var addedAddon = _.findWhere(addons[1], function(a){
+
+            var addedAddon = _.find(addons[1], function(a){
               return a.code === addon.code;
             });
 
@@ -158,7 +159,6 @@ angular.module('mobius.controllers.reservationDetail', [])
               if(addon.pointsRequired && availablePoints < addon.pointsRequired){
                 addon.pointsRequired = 0;
               }
-
               $scope.availableAddons.push(addon);
             }
           });
@@ -317,7 +317,12 @@ angular.module('mobius.controllers.reservationDetail', [])
           addon,
           user.isLoggedIn()?null:$stateParams.email).then(function(){
           // Removing from available addons
-          $scope.availableAddons.splice($scope.availableAddons.indexOf(addon.code), 1);
+          //$scope.availableAddons.splice($scope.availableAddons.indexOf(addon.code), 1);
+          console.log('$scope.availableAddons before: ' + angular.toJson($scope.availableAddons));
+          $scope.availableAddons = _.reject($scope.availableAddons, function(a){
+            return a.code === addon.code;
+          });
+          console.log('$scope.availableAddons after: ' + angular.toJson($scope.availableAddons));
           // Adding to reservation addons
           // NOTE: When getting addons from the API points will be reflected in another
           // property as in original object `points` instead of `pointsRequired`
