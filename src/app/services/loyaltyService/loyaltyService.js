@@ -10,7 +10,7 @@ angular.module('mobiusApp.services.loyalty', [])
 
     apiService.get(apiService.getFullURL('loyalties.all', {
       customerId: userId
-    })).then(function(data){
+    }), {}, false).then(function(data){
       q.resolve(data);
     }, function(error){
       q.reject(error);
