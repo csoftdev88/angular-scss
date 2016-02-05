@@ -1,8 +1,11 @@
 
 [
 {"id":"/prestige","from":"/prestige/*","to":"http://prestige.suttonplace.com"},
+{"id":"/edm","from":"/edm","to":"/hotels/sutton-place-hotel-edmonton-edm?property=EDM"},
 {"id":"/edm","from":"/edm/*","to":"/hotels/sutton-place-hotel-edmonton-edm?property=EDM"},
+{"id":"/van","from":"/van","to":"/hotels/sutton-place-hotel-vancouver-van?property=VAN"},
 {"id":"/van","from":"/van/*","to":"/hotels/sutton-place-hotel-vancouver-van?property=VAN"},
+{"id":"/rev","from":"/rev","to":"sutton-place-hotel-revelstoke-rev?property=REV"},
 {"id":"/rev","from":"/rev/*","to":"sutton-place-hotel-revelstoke-rev?property=REV"},
 {"from":"/edmonton","to":"/hotels/sutton-place-hotel-edmonton-edm?property=EDM"},
 {"from":"/revelstoke","to":"/hotels/sutton-place-hotel-revelstoke-rev?property=REV"},

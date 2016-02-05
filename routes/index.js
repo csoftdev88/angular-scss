@@ -41,7 +41,8 @@ module.exports = function(app) {
       app.get(redirects[p].from,function(req, res) {
         //search for redirect URL in the redirects array
         redirectItem=redirects.filter(function(item) {
-          return item.from == req.path;
+//          console.log(item.from == req.path +" or "+ item.from == req.path+"/")
+          return item.from == req.path || item.from == req.path+"/";
         });
 
         if (redirectItem[0] && redirectItem[0].to){
@@ -49,10 +50,20 @@ module.exports = function(app) {
         } else {
           //didn't find it. test for just slashes...
           redirectItem=redirects.filter(function(item) {
+            var searchFor=req.path.substring(0,req.path.lastIndexOf("/"));
+            if (item.id){
+//              console.log("checkForSubstring")
+              if (searchFor.toLowerCase().indexOf(item.from) > -1){
+ //              console.log("yay!");
+               return true;
+              }
+            }
+          
+
             var result;   
               var searchFor=req.path.substring(0,req.path.lastIndexOf("/"));
               result = searchFor;
-            return item.id == result
+            return item.id == result || item.from == req.path+"/";
           });  
           if (redirectItem[0] && redirectItem[0].to){
             return res.redirect(redirectItem[0].to);            
