@@ -31,7 +31,7 @@ angular.module('mobiusApp.directives.hotels', [])
         {
           name: 'Availability',
           sort: function(hotel){
-            return hotel.available;
+            return -hotel.available;
           }
         },
         {
