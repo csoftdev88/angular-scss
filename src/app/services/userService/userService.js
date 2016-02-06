@@ -40,7 +40,7 @@ angular.module('mobiusApp.services.user', [])
       else{
         return userObject.id || cookieFactory(KEY_CUSTOMER_ID);
       }
-      
+
     }
 
     function updateUser(data) {
@@ -128,7 +128,7 @@ angular.module('mobiusApp.services.user', [])
               $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
             });
           }
-          
+
 
           if(authPromise && authPromise.resolve){
             authPromise.resolve(true);
@@ -168,7 +168,7 @@ angular.module('mobiusApp.services.user', [])
       if(Settings.authType !== 'infiniti'){
         return;
       }
-      
+
       customerId = customerId || getCustomerId();
 
       return rewardsService.getMy(customerId).then(function(rewards){
@@ -182,7 +182,7 @@ angular.module('mobiusApp.services.user', [])
       $rootScope.$evalAsync(function(){
         userObject = {};
         $state.go('home', {}, {reload: true});
-        
+
       });
       // Removing auth headers
       var headers = {};
@@ -229,7 +229,7 @@ angular.module('mobiusApp.services.user', [])
     else{
       loadProfile();
     }
-    
+
     return {
       isLoggedIn: function() {
         return hasSSOCookies() && isProfileLoaded();
