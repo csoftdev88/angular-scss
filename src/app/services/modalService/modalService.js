@@ -128,6 +128,15 @@ angular.module('mobiusApp.services.modal', [])
         return t + n;
       });
 
+    _.forEach(rooms, function(room) {
+      var i;
+      var nights = room._selectedProduct.price.breakdowns.length;
+      for (i = 0; i < nights; i++) {
+        room._selectedProduct.price.breakdowns[i].totalAfterTax = room._selectedProduct.price.totalAfterTax / nights;
+        room._selectedProduct.price.breakdowns[i].totalFees = room._selectedProduct.price.totalAdditionalFees / nights;
+      }
+    });
+
     return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DATA, {
       windowClass: 'is-wide',
       resolve: {
