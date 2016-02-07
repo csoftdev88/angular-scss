@@ -32,7 +32,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="item in room._selectedProduct.price.breakdowns">
+            <tr ng-repeat="item in room._selectedProduct.price.breakdowns track by $index">
               <td>{{item.date}}</td>
               <td>{{item.totalBase | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>

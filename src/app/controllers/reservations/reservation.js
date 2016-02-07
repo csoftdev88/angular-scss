@@ -15,6 +15,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMakingReservation = false;
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
+  $scope.iso = {countries: []};
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -72,7 +73,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.$on('USER_LOGIN_EVENT', function(){
     prefillUserDetails(user.isLoggedIn ? user.getUser() : {email:$stateParams.email}, true);
   });
-  
+
   function onAuthorized(isMobiusUser){
     // Getting room/products data
     //
@@ -158,7 +159,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.billingDetails.stateProvince = reservation.rooms[0].billingState;
         $scope.billingDetails.phone = reservation.rooms[0].billingPhone;
         $scope.billingDetails.country = reservation.rooms[0].billingCountry;
-        
+
       });
 
     }
@@ -207,7 +208,7 @@ angular.module('mobius.controllers.reservation', [])
     else{
       prefillUserDetails(isMobiusUser || userObject.token ? user.getUser() : {email : $stateParams.email});
     }
-    
+
     scrollToDetails('reservationDetailsForm');
 
   }
@@ -258,9 +259,9 @@ angular.module('mobius.controllers.reservation', [])
         address: userData.address1 || '',
         city: userData.city || '',
         stateProvince: userData.state,
-        country: userData.iso3,
+        country: _.result(_.find($scope.iso.countries, 'title', userData.iso3 || userData.country), 'code'),
         zip: userData.zip || '',
-        phone: userData.tel1 || ''
+        phone: userData.tel1 || userData.tel2 || ''
       });
       $scope.userDetails.emailFromApi = !!userData.email;
     }
@@ -530,7 +531,7 @@ angular.module('mobius.controllers.reservation', [])
         });
 
         dataLayerService.trackProductsCheckout(products, stepNum);
-        
+
       });
     });
   }
@@ -559,7 +560,7 @@ angular.module('mobius.controllers.reservation', [])
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
       }
-      
+
     };
 
     // Adding customerID when logged in
@@ -594,7 +595,7 @@ angular.module('mobius.controllers.reservation', [])
       reservationData.secondPhoneNumber = $scope.additionalInfo.secondPhoneNumber;
     }
 
-    
+
 
     //Payment details
     if (reservationData.paymentInfo.paymentMethod === 'cc') {
@@ -648,7 +649,7 @@ angular.module('mobius.controllers.reservation', [])
         else{
           return room._selectedProduct.priceOriginal[prop];
         }
-        
+
       }), function(t, n){
         return t + n;
       });
@@ -706,7 +707,7 @@ angular.module('mobius.controllers.reservation', [])
     };
 
     var reservationData = createReservationData();
-    
+
 
     var promises = [];
     if($stateParams.reservation){
@@ -767,7 +768,7 @@ angular.module('mobius.controllers.reservation', [])
 
       //creating anon user account
       if(!user.isLoggedIn()){
-        
+
         var anonUserData = {
           title: $scope.userDetails.title,
           firstName: $scope.userDetails.firstName,
@@ -781,7 +782,7 @@ angular.module('mobius.controllers.reservation', [])
           tel2: $scope.additionalInfo.secondPhoneNumber,
           optedIn: $scope.additionalInfo.optedIn
         };
-        
+
         var params = {
           email: $scope.userDetails.email
         };
@@ -802,8 +803,8 @@ angular.module('mobius.controllers.reservation', [])
         $state.go('reservationDetail', reservationDetailsParams);
         addReservationConfirmationMessage(data[0].reservationCode);
       }
-      
-      
+
+
     }, function(data) {
       // TODO: Whaat request has failed
       //Apparently soap reason is not reliable so checking against msg
@@ -841,7 +842,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.invalidFormData.generic = true;
         $state.go('reservation.details');
       }
-      
+
     });
 
     preloaderFactory(reservationPromise);
@@ -915,7 +916,6 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $controller('ISOCountriesCtrl', {$scope: $scope});
-
   $scope.openPriceBreakdownInfo = function(){
     if($scope.allRooms && $scope.allRooms.length){
       modalService.openPriceBreakdownInfo($scope.allRooms);

@@ -81,10 +81,10 @@
           name="phone"
           placeholder="_phone_label_"/>
           -->
-        <input type="tel" id="telephone"
-          ng-model="userDetails.phone"
-          name="phone"
-          placeholder="_phone_label_"/>
+          <input type="tel" id="telephone"
+            ng-model="userDetails.phone"
+            name="phone"
+            placeholder="_phone_label_"/>
         <span>
           <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_phone_label_</span>
           <span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">_phone_pattern_error_</span>
@@ -131,7 +131,7 @@
         <select type="text" id="country" required
           placeholder="_country_label_"
           data-placeholder="_country_label_"
-          chosen ng-options="country.code as country.title for country in iso.countries"
+          ng-options="country.code as country.title for country in iso.countries"
           ng-model="userDetails.country"
           name="country"
           chosen>
