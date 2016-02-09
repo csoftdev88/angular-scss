@@ -80,7 +80,10 @@
               </tr>
               <tr>
                 <th>_taxes_:</th>
+                <!-- old tax number
                 <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
+                -->
+                <td>{{getTotal('totalAfterTax') - getTotal('totalBase') - getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
               </tr>
               <tr>
                 <th>_applicable_fees_:</th>
