@@ -32,7 +32,7 @@
           </p>
 
           <p class="price-form" ng-if="room.priceFrom && product.price.pointsRequired && isUserLoggedIn() && loyaltyProgramEnabled && product.allowPointsBooking">
-            <span class="value">{{parseInt(getValuePer(parseIntproduct.price.pointsRequired, true))}}</span> _points_
+            <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> _points_
           </p>
         </div>
 
@@ -84,7 +84,7 @@
           </p>
 
           <p class="price-form" ng-if="room.priceFrom && product.price.pointsRequired && isUserLoggedIn() && loyaltyProgramEnabled && product.allowPointsBooking">
-            <span class="value">{{parseInt(getValuePer(product.price.pointsRequired, true))}}</span> _points_
+            <span class="value">{{getValuePer(product.price.pointsRequired, true)}}</span> _points_
           </p>
         </div>
 

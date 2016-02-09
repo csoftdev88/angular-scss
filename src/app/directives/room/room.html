@@ -40,7 +40,7 @@
               <span ng-if="pricePer === PP_STAY">_per_stay_</span>
 
               <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
-                <br />_or_ <span class="value">{{parseInt(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> _points_
+                <br />_or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1))}}</span> _points_
               </span>
             </p>
           </pricing-info>
@@ -165,7 +165,7 @@
 
 
   <section ng-show="property.available && otherRooms && otherRooms.length > 1">
-
+    
     <list-items class="grid-view other-rooms">
       <list-item
         ng-repeat="otherRoom in otherRooms | orderBy:'priceFrom'"
