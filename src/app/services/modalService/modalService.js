@@ -37,6 +37,17 @@ angular.module('mobiusApp.services.modal', [])
     return q.promise;
   }
 
+  function setRoomTaxAndFees(price) {
+    var i;
+    var nights = price.breakdowns.length;
+    for (i = 0; i < nights; i++) {
+      price.breakdowns[i].totalAfterTax = price.totalAfterTax / nights;
+      price.breakdowns[i].totalFees = price.totalAdditionalFees / nights;
+    }
+
+    return price;
+  }
+
   function openCancelReservationDialog(reservationCode){
     // Accepting reservation data to be rendered in modal window
     return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelReservationDialog.html', CONTROLLER_DATA, {
@@ -126,15 +137,11 @@ angular.module('mobiusApp.services.modal', [])
         return room._selectedProduct.price.totalAfterTax;
       }), function(t, n){
         return t + n;
-      });
+      }
+    );
 
     _.forEach(rooms, function(room) {
-      var i;
-      var nights = room._selectedProduct.price.breakdowns.length;
-      for (i = 0; i < nights; i++) {
-        room._selectedProduct.price.breakdowns[i].totalAfterTax = room._selectedProduct.price.totalAfterTax / nights;
-        room._selectedProduct.price.breakdowns[i].totalFees = room._selectedProduct.price.totalAdditionalFees / nights;
-      }
+      room._selectedProduct.price = setRoomTaxAndFees(room._selectedProduct.price);
     });
 
     return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DATA, {
@@ -353,7 +360,9 @@ angular.module('mobiusApp.services.modal', [])
     return openDialog('product-details', 'layouts/modals/productDetails.html', CONTROLLER_POLICY, {
       windowClass: 'dialog-product-details',
       resolve: {
-        data: function(){
+        data: function() {
+          product.price = setRoomTaxAndFees(product.price);
+
           return {
             room: room,
             product: product
