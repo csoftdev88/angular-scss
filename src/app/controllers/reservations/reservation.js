@@ -259,7 +259,15 @@ angular.module('mobius.controllers.reservation', [])
         address: userData.address1 || '',
         city: userData.city || '',
         stateProvince: userData.state,
-        country: _.result(_.find($scope.iso.countries, 'title', userData.iso3 || userData.country), 'code'),
+        country: _.result(
+          _.find(
+            $scope.iso.countries, 
+            function(country){
+              return country.code===userData.iso3;
+            },
+            userData.iso3), 
+          'code'
+        ),
         zip: userData.zip || '',
         phone: userData.tel1 || userData.tel2 || ''
       });
