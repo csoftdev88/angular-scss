@@ -11,7 +11,27 @@ angular.module('mobius.controllers.modals.policy', [])
     $controller('SanitizeCtrl', {$scope: $scope});
 
     $scope.getPolicyTitle = function(policyCode){
-      return Settings.UI.policies[policyCode] || policyCode;
-    };
+        var policyCodes={
+            'cancel':'Cancellation',
+            'cancellation':'Cancellation',
+            'checkinout':'Check-In-Out',
+            'commission':'Commission',
+            'extraguests':'Extra Guest',
+            'extraguest':'Extra Guest',
+            'noshow':'No Show',
+            'family':'Family',
+            'guarantee':'Guarantee',
+            'pet':'Pet'
+          };
+        var result;
+        if (Settings.UI.policies[policyCode]){
+          result=Settings.UI.policies[policyCode];
+        } else if (policyCodes[policyCode]){
+          result=policyCodes[policyCode];
+        } else {
+          result=policyCode;
+        }
+        return result;
+      };
   }
 );
