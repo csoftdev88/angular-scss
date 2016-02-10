@@ -64,7 +64,7 @@
             </tr>
 
             <!-- Discount -->
-            <tr>
+            <tr ng-if="reservation.discount">
               <th>_discount_:</th>
               <td>{{reservation.discount | i18nCurrency: $root.currencyCode}}</td>
             </tr>
