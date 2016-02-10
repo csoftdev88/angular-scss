@@ -4,9 +4,25 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location) {
+
+      try{
+
+        chainService.getChain(Settings.API.chainCode).then(function (chain) {
+          $scope.chain = chain;
+          metaInformationService.setMetaDescription($scope.chain.meta.description);
+          metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
+          metaInformationService.setPageTitle($scope.chain.meta.pagetitle);
+          $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+          metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+        });
+
+      } catch(err){
+
+      }
+
 
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
 

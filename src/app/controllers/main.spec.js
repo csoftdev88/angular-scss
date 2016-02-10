@@ -2,7 +2,7 @@
 
 describe('mobius.controllers.main', function() {
   describe('MainCtrl', function() {
-    var _scope, _modalService, _contentService, _propertyService;
+    var _scope, _modalService, _contentService, _propertyService, _metaInformationService, _chainService;
 
     var ADVERTS_DATA = [{
       images: [{a: 123}, {b: 123}]
@@ -52,6 +52,17 @@ describe('mobius.controllers.main', function() {
           getAll: sinon.stub()
         });
 
+        $provide.value('metaInformationService', {
+          setMetaDescription: sinon.spy(),
+          setMetaKeywords: sinon.spy(),
+          setPageTitle: sinon.spy(),
+          setOgGraph: sinon.spy()
+        });
+
+        $provide.value('chainService', {
+          getChain: sinon.stub()
+        });
+
         $provide.value('Settings', {
           UI: {
             generics: {
@@ -84,7 +95,7 @@ describe('mobius.controllers.main', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, $q, modalService,
-        contentService, propertyService) {
+        contentService, propertyService, metaInformationService, chainService) {
 
       _scope = $rootScope.$new();
 
@@ -97,6 +108,8 @@ describe('mobius.controllers.main', function() {
       _contentService.getContactMethods.returns($q.when(CONTACT_DATA));
 
       _propertyService = propertyService;
+      _metaInformationService = metaInformationService;
+      _chainService = chainService;
       _propertyService.getAll.returns($q.when(PROPERTIES_DATA));
 
       $controller('MainCtrl', { $scope: _scope });
