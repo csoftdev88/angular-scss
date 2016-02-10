@@ -15,8 +15,8 @@
 {"from":"/meeting-professional-points/mpp-rewards","to":"https://www.suttonplace.com/about/meetings-events-banquets"},
 {"from":"/meeting-professional-points/mpp-terms","to":"https://www.suttonplace.com/about/meetings-events-banquets"},
 {"from":"/group-request-form","to":"https://www.suttonplace.com/about/meetings-events-banquets"},
-{"from":"/exclusive-offers","to":"https://www.suttonplace.com/offers"},
-{"from":"/advanced-booking","to":"https://www.suttonplace.com/offers"},
+{"from":"/exclusive-offers","to":"https://www.suttonplace.com/offers/"},
+{"from":"/advanced-booking","to":"https://www.suttonplace.com/offers/"},
 {"from":"/sutton-prestige","to":"https://www.suttonplace.com/about/sutton-prestige-guest-rewards-program-prestige"},
 {"from":"/sutton-prestige/sutton-prestige-terms-conditions","to":"https://www.suttonplace.com/about/sutton-prestige-guest-rewards-program-prestige"},
 {"from":"/sutton-prestige/sutton-prestige-frequently-asked-questions","to":"https://www.suttonplace.com/about/sutton-prestige-guest-rewards-program-prestige"},
@@ -132,7 +132,7 @@
 {"from":"/careers","to":"https://www.suttonplace.com/about/careers-opportunities"},
 {"from":"/sutton-green-plan","to":"https://www.suttonplace.com/about/sutton-green-plan"},
 {"from":"/privacy-policy","to":"https://www.suttonplace.com/about/privacy-policy-privacy"},
-{"from":"/air-canada-corp","to":"https://www.suttonplace.com/offers/air-canada-corp-aircanada"}
+{"from":"/air-canada-corp","to":"https://www.suttonplace.com/offers/air-canada-corp-aircanada"},
 ]
 
 
