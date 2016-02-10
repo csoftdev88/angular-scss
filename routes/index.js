@@ -46,7 +46,7 @@ module.exports = function(app) {
         });
 
         if (redirectItem[0] && redirectItem[0].to){
-         return res.redirect(redirectItem[0].to);
+         return res.redirect(301,redirectItem[0].to);
         } else {
           //didn't find it. test for just slashes...
           redirectItem=redirects.filter(function(item) {
@@ -66,7 +66,7 @@ module.exports = function(app) {
             return item.id == result || item.from == req.path+"/";
           });  
           if (redirectItem[0] && redirectItem[0].to){
-            return res.redirect(redirectItem[0].to);            
+            return res.redirect(301,redirectItem[0].to);            
           } else {
             return;
           }
