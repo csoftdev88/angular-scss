@@ -245,6 +245,7 @@ angular
         templateUrl: 'layouts/reservations/reservationDetail.html',
         url: '/reservation/:reservationCode?view',
         controller: 'ReservationDetailCtrl',
+        reloadOnSearch: false,
         data: {
           authProtected: true
         }

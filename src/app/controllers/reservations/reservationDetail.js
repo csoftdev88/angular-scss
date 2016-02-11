@@ -252,7 +252,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           if(!$stateParams.email){
             $state.go('reservations');
           }
-          
+
         }, function(error){
           if (error && error.error && error.error.msg) {
             userMessagesService.addMessage('<p>' + error.error.msg + '</p>');
@@ -412,4 +412,6 @@ angular.module('mobius.controllers.reservationDetail', [])
     $scope.printPage = function(){
       $window.print();
     };
+
+    $location.search({});
   });
