@@ -29,6 +29,10 @@ angular.module('mobiusApp.services.dataLayer', [])
     if(!isDataLayerActive()){
       return;
     }
+    //add position value to all product objects
+    for (var p in products){
+      products[p].position=(p*1+1);
+    }
 
     getDataLayer().push({
       'currencyCode': stateService.getCurrentCurrency().code,
@@ -43,7 +47,6 @@ angular.module('mobiusApp.services.dataLayer', [])
     if(!isDataLayerActive()){
       return;
     }
-
     getDataLayer().push({
       'event': 'productClick',
       'ecommerce': {
@@ -58,8 +61,8 @@ angular.module('mobiusApp.services.dataLayer', [])
     if(!isDataLayerActive()){
       return;
     }
-
     getDataLayer().push({
+      'event': 'productDetailsView',
       'ecommerce': {
         'detail': {
           'products': products
@@ -72,7 +75,6 @@ angular.module('mobiusApp.services.dataLayer', [])
     if(!isDataLayerActive()){
       return;
     }
-
     getDataLayer().push({
       'event': 'checkout',
       'ecommerce': {
@@ -89,7 +91,16 @@ angular.module('mobiusApp.services.dataLayer', [])
       return;
     }
 
+    // delete tax property from products array if present as not required at this step but used in 
+    for (var p in products){
+      if(products[p].tax){
+        delete products[p].tax;        
+      }
+    }
+
+
     getDataLayer().push({
+      'event': 'purchaseConfirmation',
       'ecommerce': {
         'purchase': { 'actionField': actionField },
         'products': products

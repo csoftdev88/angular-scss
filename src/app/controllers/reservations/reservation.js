@@ -750,17 +750,46 @@ angular.module('mobius.controllers.reservation', [])
       reservationDetailsParams.view = 'summary';
 
       // Tracking purchase
-      var products = $scope.allRooms.map(function(room){
-        var p = room._selectedProduct;
 
-        return {
-          name: p.name,
-          code: p.code,
-          tax: p.price.totalAfterTax - p.price.totalBase,
-          price: p.price.totalAfterTax
-        };
+
+
+      chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+        propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+          var products = [];
+          _.each($scope.allRooms, function(room){
+            var p = room._selectedProduct;
+            var product = {
+              name: p.name,
+              code: p.code,
+              tax: p.price.totalAfterTax - p.price.totalBase,
+              price: p.price.totalBase,
+              id: room._selectedProduct.code,
+              quantity: numNights,
+              dimension2: chainData.nameShort,
+              brand: propertyData.nameLong,
+              dimension1: propertyData.nameShort,
+              list: 'Room',
+              category: room.name
+            };
+            products.push(product);
+          });
+          dataLayerService.trackProductsPurchase(products, {
+            // Transaction ID
+            id: reservationDetailsParams.reservationCode,
+            'affiliation': 'Hotel',
+            'revenue': (products[0].price/numNights).toFixed(2),
+            'quantity': numNights,
+            'tax': products[0].tax,
+            'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
+          });
+
+        });
+
       });
 
+
+
+/**
       dataLayerService.trackProductsPurchase(products, {
         // Transaction ID
         id: reservationDetailsParams.reservationCode,
@@ -771,7 +800,7 @@ angular.module('mobius.controllers.reservation', [])
         'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
 
       });
-
+**/
       //$state.go('reservationDetail', reservationDetailsParams);
 
       //creating anon user account
