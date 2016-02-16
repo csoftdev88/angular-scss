@@ -87,7 +87,7 @@ module.exports = function(app) {
     //robots block crawling
     app.get('/robots.txt', function (req, res) {
         res.type('text/plain');
-        res.send('User-agent: *\nDisallow: /\n\nUser-agent: Twitterbot\nAllow: /');
+        res.send('User-agent: *\nDisallow: /about\nDisallow: /about/\nDisallow: /hotels\nDisallow: /hotels/\nDisallow: /offers\nDisallow: /offers/\n\nUser-agent: Twitterbot\nUser-agent: googlebot\nUser-agent: Googlebot-Image\nUser-agent: Bingbot\nUser-agent: Facebot\nAllow: /');
     });
 
     app.get('/404', function(req, res, next) {
