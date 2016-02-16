@@ -99,12 +99,15 @@ angular.module('mobius.controllers.main', [])
               });
             }
             else{
+              filteredOffers = offers;
+              /*
               _.each(offers, function(offer){
 
                 if(offer.showAtChainLevel){
                   filteredOffers.push(offer);
                 }
               });
+              */
             }
 
             filteredOffers = _.pluck(filteredOffers, 'code');
