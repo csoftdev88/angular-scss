@@ -15,10 +15,21 @@ rewards-list {
       li {
         display: inline-block;
 
+        a{
+          color: @c-mid-grey;
+          padding-bottom: 4px;
+          &:hover{
+            color: @c-brown;
+          }
+
+        }
+
         &.active {
           a {
-            color: @c-grey;
+            color: @c-brown;
             cursor: default;
+            border-bottom: 2px solid @c-brown;
+            font-weight: 600;
           }
         }
       }
