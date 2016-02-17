@@ -78,8 +78,6 @@ angular.module('mobius.controllers.reservationDetail', [])
             };
           });
 
-
-
           modalService.openPoliciesInfo(products);
         };
 

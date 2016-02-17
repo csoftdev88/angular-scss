@@ -750,9 +750,6 @@ angular.module('mobius.controllers.reservation', [])
       reservationDetailsParams.view = 'summary';
 
       // Tracking purchase
-
-
-
       chainService.getChain(Settings.API.chainCode).then(function(chainData) {
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
           var products = [];
@@ -786,22 +783,6 @@ angular.module('mobius.controllers.reservation', [])
         });
 
       });
-
-
-
-/**
-      dataLayerService.trackProductsPurchase(products, {
-        // Transaction ID
-        id: reservationDetailsParams.reservationCode,
-        'affiliation': 'Hotel',
-        'revenue': (products[0].price/numNights).toFixed(2),
-        'quantity': numNights,
-        'tax': products[0].tax,
-        'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
-
-      });
-**/
-      //$state.go('reservationDetail', reservationDetailsParams);
 
       //creating anon user account
       if(!user.isLoggedIn()){
