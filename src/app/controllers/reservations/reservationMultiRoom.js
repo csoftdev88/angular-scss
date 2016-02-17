@@ -65,7 +65,7 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
       // NOTE: LEAVING RESERVATION UPDATE MODE
       if(isMultiRoomMode &&
         ((fromParams.room && fromParams.rooms && (!toState.data || !toState.data.supportsMultiRoom)) ||
-        (!toParams.room && !toParams.rooms))) {
+        (!toParams.room && !toParams.rooms && toState.name !== 'reservationDetail'))) {
         // Leaving reservation edit mode
         e.preventDefault();
         e.noUpdate = true;
