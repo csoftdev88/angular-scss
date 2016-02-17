@@ -107,6 +107,7 @@ angular.module('mobiusApp.services.user', [])
           apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
           loadLoyalties(customerId), loadRewards(customerId)
         ]).then(function(data){
+          console.log('userData: ' + angular.toJson(data));
           var userData = data[0];
 
           // NOTE: data[0] is userProfile data
@@ -119,7 +120,7 @@ angular.module('mobiusApp.services.user', [])
           }
 
           userObject = _.extend(userObject, userData);
-          userObject.avatarUrl = userObject.avatarUrl || '/static/images/v4/img-profile.png';
+          userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
           userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
 
           // Logged in as mobius user
