@@ -14,7 +14,7 @@ angular.module('mobiusApp.services.userPreferenceService', [])
     function setCookie(key, value){
       var cookie = angular.fromJson(cookieFactory('mobiusUserPreferences')) || {};
       cookie[key] = value;
-      $window.document.cookie = 'mobiusUserPreferences=' + angular.toJson(cookie) + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString());
+      $window.document.cookie = 'mobiusUserPreferences=' + angular.toJson(cookie) + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
     }
 
     function getCookie(){
