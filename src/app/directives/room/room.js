@@ -58,7 +58,7 @@ angular.module('mobiusApp.directives.room', [])
         scope.sortingOptions.splice(0, 0, {
           name: 'Recommended',
           sort: function(product){
-            return 0 - product.weighting;
+            return [0 - product.productHidden, 0 - product.weighting];
           }
         });
       }

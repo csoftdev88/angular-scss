@@ -54,7 +54,7 @@
   </li>
 
   <!-- REGULAR PRODUCTS -->
-  <li ng-repeat="product in products | orderBy : '-weighting' | limitTo: getRatesLimit()" ng-if="!product.highlighted && !product.memberOnly">
+  <li ng-repeat="product in products | orderBy : ['-productHidden', '-weighting'] | limitTo: getRatesLimit()" ng-if="!product.highlighted && !product.memberOnly">
     <!-- ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)" -->
 
     <div class="rate-description">
