@@ -45,7 +45,7 @@
     </div>
 
     <!-- ALL REWARDS -->
-    <reward-item ng-if="viewMode !== 'consumed'" ng-repeat="reward in consumableRewards" ng-click="openRewardDetails(reward)">
+    <reward-item ng-if="viewMode !== 'consumed'" ng-repeat="reward in consumableRewards | orderBy: '-weighting'" ng-click="openRewardDetails(reward)">
       <img ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}" err-source="http://lorempixel.com/300/160/">
 
       <section>
