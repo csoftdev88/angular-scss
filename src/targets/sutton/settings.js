@@ -17,7 +17,7 @@ angular.module('mobiusApp.config', [])
       'trackUserId': true
     },
     'chainCode': 'SAN',
-    'baseURL': 'http://52.3.22.21:3010/api/4.0/',
+    'baseURL': 'https://api.suttonplace.com/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
