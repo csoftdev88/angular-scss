@@ -107,7 +107,6 @@ angular.module('mobiusApp.services.user', [])
           apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
           loadLoyalties(customerId), loadRewards(customerId)
         ]).then(function(data){
-          console.log('userData: ' + angular.toJson(data));
           var userData = data[0];
 
           // NOTE: data[0] is userProfile data
