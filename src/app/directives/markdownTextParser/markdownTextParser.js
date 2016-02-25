@@ -61,6 +61,17 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
         if(angular.element($element).html().indexOf('[[CLEAR]]') !== -1){
           angular.element($element).html(angular.element($element).html().replace(/\[\[CLEAR\]\]/gi, '<div class="clear"></div>'));
         }
+
+        //add custom class to images with cloudinary size settings to override default css
+        //var testImg  = '<img src="http://res.cloudinary.com/demo/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/lady.jpg"/>';
+        //angular.element($element).html(angular.element($element).html() + testImg);
+        angular.element($element).find('img').each(function(){
+          var img = angular.element(this);
+          var src = img.attr('src');
+          if(src.indexOf('w_') !== -1 || src.indexOf('h_') !== -1){
+            img.addClass('custom');
+          }
+        });
         
         
       };

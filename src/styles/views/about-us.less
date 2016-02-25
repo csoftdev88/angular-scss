@@ -71,13 +71,15 @@ about-detail {
   }
 
   //- Image
-  img{
+  img:not(.custom){
     float: left;
     margin: 0 20px 10px 0;
     border: 1px solid @c-light-grey;
-    max-width: 100%;
+    max-width: 50%;
     @media only screen and @large-mobile-max {
       width: 100%;
+      max-width: 100%;
+      float: none;
     }
   }
 
