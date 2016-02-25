@@ -35,7 +35,7 @@ mobius/
   |  |- styles/
   |  |  |- <core less files>
   |  |-targets
-  |  |  |-sutton
+  |  |  |-suttonLive
   |  |  |  |- <target specific files>
   |- bower_components/
   |- node_modules/
@@ -81,26 +81,26 @@ learn more:
 4. `cd mobius`:
   * `npm install`
   * `bower install`
-  * `grunt build --tenant=sutton` to build the app using "sutton" as target.
-  * Run server `NODE_ENV=development node server.js --tenant=sutton`
+  * `grunt build --tenant=suttonLive` to build the app using "sutton" as target.
+  * Run server `NODE_ENV=development node server.js --tenant=suttonLive`
   * Finally, open `localhost:9000` in your browser
 
 ### Local development
 1. Follow installation steps 1-3 described above.
-2. Run `grunt development --tenant=sutton` to build the app using "sutton" as target.
-3. Run server `NODE_ENV=development node server.js --tenant=sutton`.
+2. Run `grunt development --tenant=suttonLive` to build the app using "sutton" as target.
+3. Run server `NODE_ENV=development node server.js --tenant=suttonLive`.
 
 ### Production
 1. Follow instalation steps 1-4 described above.
-2. Run `grunt production --tenant=sutton` to build the app using "sutton" as target.
-3. Run `NODE_ENV=production node server.js --tenant=sutton`
+2. Run `grunt production --tenant=suttonLive` to build the app using "sutton" as target.
+3. Run `NODE_ENV=production node server.js --tenant=suttonLive`
 
 In case the application needs to run on a different port append `port=xxxx` eg `port=9090` to the start command.
 -> eg full: `pm2 start server.js -- tenant=laval port=9090`
 
 Running production with PM2.
 export NODE_ENV=production
-pm2 start server.js -- tenant=sutton
+pm2 start server.js -- tenant=suttonLive
 
 ### The Build System
 
