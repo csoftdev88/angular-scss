@@ -1,5 +1,10 @@
 <div id="main-header-inner">
   <nav class="main-nav wrapper" dropdown>
+
+    <ul dropdown-group class="left">
+      <li ng-show="config.languages.headerAlignment === 'left'" language-list></li>
+    </ul>
+
     <a class="brand" ui-sref="home({property:null})">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
       <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
@@ -54,13 +59,13 @@
           </div>
         </li>
 
-        <li has-dropdown="hover" ng-hide="config.generics.singleProperty" menu-content="hotels" data-title="_hotels_"></li>
+        <li has-dropdown="hover" ng-hide="config.generics.singleProperty || !config.menu.showHotels" menu-content="hotels" data-title="_hotels_"></li>
 
-        <li ng-show="config.generics.singleProperty">
+        <li ng-show="config.generics.singleProperty && config.menu.showHotels">
             <a
-                    ui-sref="hotel({propertySlug: $root.propertySlug})"
-                    ui-sref-opts="{reload: true}"
-                    ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
+            ui-sref="hotel({propertySlug: $root.propertySlug})"
+            ui-sref-opts="{reload: true}"
+            ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
         </li>
 
         <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
@@ -71,14 +76,14 @@
 
         <li ng-show="config.menu.showContact">
             <a
-                    ui-sref="contacts({property: null})"
-                    ui-sref-opts="{reload: true}"
-                    ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
+            ui-sref="contacts({property: null})"
+            ui-sref-opts="{reload: true}"
+            ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
         </li>
 
         <li has-dropdown="click" currency-list></li>
 
-        <li has-dropdown="click" language-list></li>
+        <li ng-show="config.languages.headerAlignment === 'right'" has-dropdown="click" language-list></li>
 
         <li ng-show="!isUserLoggedIn()" profile>
           <a class="button button-login" ng-click="sso.login()">_login_</a>

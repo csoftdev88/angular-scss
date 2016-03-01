@@ -22,6 +22,7 @@ angular.module('mobiusApp.directives.language', [])
       link: function(scope) {
 
         var defaultLanguage = Settings.UI.languages.default;
+        scope.config = Settings.UI.languages;
 
         contentService.getLanguages().then(function(data) {
           

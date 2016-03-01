@@ -1,7 +1,6 @@
 #main-header {
   background: #fff;
-  height: 96px;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+  height: 120px;
   .viewport-mobile &{
     height: auto;
   }
@@ -9,7 +8,7 @@
 
 // GENERIC STYLES
 .main-nav {
-  height: 96px;
+  height: 120px;
   .viewport-mobile &{
     height: 60px;
   }
@@ -116,12 +115,13 @@
       li {
 
         position: relative;
-        line-height: 96px;
+        line-height: 120px;
 
         a {
           color: @c-dark-grey;
           box-shadow: none;
           text-transform: uppercase;
+          transition: all 0.3s ease-out;
 
           &:hover,
           &:focus,
@@ -157,8 +157,8 @@
         }
 
         &.desktop-profile{
-          height: 96px;
-          line-height: 96px;
+          height: 120px;
+          line-height: 120px;
           text-transform: none;
           a{
             text-transform: none;
@@ -195,10 +195,19 @@
 
       li[currency-list],
       li[language-list] {
-        line-height: 94px;
+        line-height: 120px;
+        padding: 0 10px;
         a{
-          color: @c-dark-grey;
-          font-size: @size--3;
+          color: @c-light-grey;
+          font-size: @size-0;
+          &:hover{
+            color: @c-dark-grey;
+          }
+        }
+        ul{
+          li{
+            padding: 0 10px;
+          }
         }
       }
     }
@@ -206,7 +215,11 @@
     .brand {
       display: block;
       float: left;
-      margin: @baseline/2 0;
+      margin: 0;
+      margin-top: 10px;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
     }
   }
 }

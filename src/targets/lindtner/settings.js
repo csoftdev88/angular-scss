@@ -131,6 +131,7 @@ angular.module('mobiusApp.config', [])
     },
     // Menu settings - showing/hidding menu items
     'menu': {
+      'showHotels': true,
       'showOffers': true,
       'showAbout': true,
       'showNews': false,
@@ -407,6 +408,8 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
+      'headerAlignment': 'right',
+      'dropdown': true,
       'default': 'en',
       'en': {
         'shortName': 'EN',

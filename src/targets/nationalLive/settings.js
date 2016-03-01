@@ -134,19 +134,20 @@ angular.module('mobiusApp.config', [])
     },
     // Menu settings - showing/hidding menu items
     'menu': {
-      'showOffers': true,
-      'showAbout': true,
+      'showHotels': false,
+      'showOffers': false,
+      'showAbout': false,
       'showNews': false,
-      'showContact': true,
+      'showContact': false,
       'offerSpecificToSelectedProperty': false,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false
     },
     // Social links
-    //'socialLinks': [
-    //  {'network': 'facebook', 'link': 'https://www.facebook.com/LaValHotel/',},
-    //  {'network': 'google', 'link': 'https://plus.google.com/108804943223603854860/posts'}
-    //],
+    'socialLinks': [
+      {'network': 'facebook', 'link': 'https://www.facebook.com/LaValHotel/',},
+      {'network': 'google', 'link': 'https://plus.google.com/108804943223603854860/posts'}
+    ],
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
     'heroStaticContent': {
@@ -292,6 +293,8 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
+      'headerAlignment': 'left',
+      'dropdown': false,
       'default': 'en',
       'en': {
         'shortName': 'EN',

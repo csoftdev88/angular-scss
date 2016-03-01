@@ -1,4 +1,11 @@
-<div ng-class="{'dropdown': languages.length > 1}" ng-show="languages.length > 1">
+<ul class="" ng-show="languages.length > 1 && !config.dropdown">
+    <li ng-repeat="language in languages">
+        <a class="language" ng-class="{'selected': language.code === currentLanguage}" href title="{{language.name}}" ng-click="changeLanguage(language)">{{getShortName(language.code)}}
+        </a>
+    </li>
+</ul>
+
+<div ng-class="{'dropdown': languages.length > 1}" ng-show="languages.length > 1 && config.dropdown">
   <a href title="Language">
     <span>{{getShortName(currentLanguage)}}</span>
   </a>
