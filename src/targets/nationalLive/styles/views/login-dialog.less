@@ -15,12 +15,14 @@
   height: auto;
   border-radius: @radius;
   background: #fff;
+  padding-bottom: 60px;
 
   -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
 
   header {
+    border-radius: @radius;
     .logo {
       margin: 10px 0;
       img {
@@ -46,24 +48,31 @@
   .options{
     float: left;
     width: auto;
-    margin: 0 0 5px 20px;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 0);
+    margin-bottom: 25px;
     li{
       display: inline;
       float: left;
-      font-size: @size--3;
+      font-size: @size-2;
       height: auto;
-      line-height: 1;
+      line-height: 23px;
       padding: 0;
       background: transparent;
       a{
         position: relative;
-        color: @c-brown;
-        padding: 0 5px;
+        color: @c-text;
+        padding: 0 10px;
+        text-transform: none;
+        font-family: @ff-bold;
         &:before{
           content: '|';
           position: absolute;
-          left: -2px;
-          top: 0;
+          left: -3px;
+          top: 1px;
         }
       }
       &:first-child a:before{
@@ -78,6 +87,7 @@
     top: 8px;
     font-size: @size-2;
     color: @c-black;
+    font-family: @ff-bold;
     &:before {
       .fa;
       font-size: @size-2;
@@ -102,6 +112,7 @@
             line-height: 21px;
             padding: 0;
             margin-bottom: 5px;
+            text-transform: uppercase;
           }
           .chosen-container{
             font-size: @size-0;
@@ -180,6 +191,10 @@
         width: auto;
         border: 0;
         float: right;
+        margin: 0 20px 20px 0;
+        border-radius: @radius;
+        font-size: 18px;
+        line-height: 37px;
       }
     }
   }
