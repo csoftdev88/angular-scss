@@ -9,6 +9,9 @@
 // GENERIC STYLES
 .main-nav {
   height: 120px;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
   .viewport-mobile &{
     height: 60px;
   }
@@ -134,17 +137,6 @@
             color: #fff;
             border-radius: 2px;
             text-shadow: none;
-            &:after {
-              position: absolute;
-              content: '';
-              display: inline-block;
-              width: 4px;
-              height: 4px;
-              bottom: 20px;
-              left: 50%;
-              margin-left: 6px;
-              background: url('@{img-prefix}/v4/icon-arrow.png') no-repeat center center;
-            }
           }
         }
 

@@ -7,9 +7,48 @@
     Font Families
     ========================================== */
 
-.questrial {
-  font-family: 'Questrial', Helvetica, Arial, sans-serif;
+@font-face {
+    font-family: 'DINPro-Regular';
+    src: url('@{din-font-path}/DINPro-Regular.eot');
+    src: url('@{din-font-path}/DINPro-Regular.eot?#iefix') format('embedded-opentype'),
+        url('@{din-font-path}/DINPro-Regular.woff') format('woff'),
+        url('@{din-font-path}/DINPro-Regular.ttf') format('truetype'),
+        url('@{din-font-path}/DINPro-Regular.svg#PFDinTextProLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DINPro-Light';
+    src: url('@{din-font-path}/DINPro-Light.eot');
+    src: url('@{din-font-path}/DINPro-Light.eot?#iefix') format('embedded-opentype'),
+        url('@{din-font-path}/DINPro-Light.woff') format('woff'),
+        url('@{din-font-path}/DINPro-Light.ttf') format('truetype'),
+        url('@{din-font-path}/DINPro-Light.svg#PFDinTextProLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DINPro-Bold';
+    src: url('@{din-font-path}/DINPro-Bold.eot');
+    src: url('@{din-font-path}/DINPro-Bold.eot?#iefix') format('embedded-opentype'),
+        url('@{din-font-path}/DINPro-Bold.woff') format('woff'),
+        url('@{din-font-path}/DINPro-Bold.ttf') format('truetype'),
+        url('@{din-font-path}/DINPro-Bold.svg#PFDinTextProLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: 'GoudyTrajan-Regular';
+  src: url('@{@goudytrajan-font-path}/GoudyTrajan-Regular.eot?#iefix') format('embedded-opentype'),  
+      url('@{@goudytrajan-font-path}/GoudyTrajan-Regular.otf')  format('opentype'),
+      url('@{@goudytrajan-font-path}/GoudyTrajan-Regular.woff') format('woff'), 
+      url('@{@goudytrajan-font-path}/GoudyTrajan-Regular.ttf')  format('truetype'), 
+      url('@{@goudytrajan-font-path}/GoudyTrajan-Regular.svg#GoudyTrajan-Regular') format('svg');
   font-weight: normal;
+  font-style: normal;
 }
 
 // typography defaults
@@ -22,11 +61,6 @@ body {
 
 h1,
 h2{
-	color: @c-primary;
 	text-transform: uppercase;
-  &:extend(.open-sans-semi-bold);
-  font-weight: 600 !important;
-  strong{
-    font-weight: normal;
-  }
+  font-family: @ff-heading;
 }

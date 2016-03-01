@@ -123,6 +123,9 @@ angular.module('mobiusApp.config', [])
       'randomMainPageAdvertSize' : 'homepage-advert',
       'heroAdverts': 'hero-advert'
     },
+    'loginDialog' : {
+      'showLoginTitle' : true
+    },
     'heroSlider': {
       // All timing settings (autoplayDelay, animationDuration)
       // are specified in ms.

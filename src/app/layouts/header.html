@@ -147,6 +147,10 @@
           <img src="/static/images/v4/logo-login.png" alt="logo">
         </figure>
         <p class="error-msg" ng-if="loginDialogError">{{loginDialogError}}</p>
+        <div class="title" ng-show="config.loginDialog.showLoginTitle">
+          <h2>_log_in_</h2>
+          <hr>
+        </div>
       </header>
 
       <div class="form-wrapper">
