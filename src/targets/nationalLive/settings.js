@@ -16,8 +16,10 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true
     },
-    'chainCode': 'NAT',
-    'baseURL': 'http://national.api.mobiuswebservices.com/api/4.0/',
+    //'chainCode': 'NAT',
+    //'baseURL': 'http://national.api.mobiuswebservices.com/api/4.0/',
+    'chainCode': 'LAVAL',
+    'baseURL': 'http://laval.mobiuswebservices.com/api/4.0/',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -90,7 +92,8 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      //'Mobius-chainId': '1',
+      'Mobius-chainId': '355',
       'Mobius-channelId': '6'
     },
     'rewards': {
