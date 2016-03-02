@@ -1,5 +1,6 @@
 <nav class="breadcrumbs">
-  <div class="wrapper">
+  <!-- Start breadcrumbs -->
+  <div class="wrapper" ng-show="config.displayBreadcrumbs">
     <ul class="crumbs">
       <li ng-if="showHomeBreadCrumb"><a ui-sref="home">_home_</a></li>
       <li ng-repeat="link in breadcrumbs">
@@ -69,4 +70,8 @@
       </li>
     </ul>
   </div>
+  <!-- End breadcrumbs -->
+  <!-- Start static content -->
+  <p ng-show="config.displayStaticContent">_breadcrumbs_static_content_</p>
+  <!-- End static content -->
 </nav>

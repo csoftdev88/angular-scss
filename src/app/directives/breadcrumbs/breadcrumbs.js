@@ -12,7 +12,8 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
       // Widget logic goes here
       link: function(scope) {
         // Show/Hide Alt nav
-        scope.showAltNav = angular.isUndefined(Settings.UI.generics.showAltNav)?true:Settings.UI.generics.showAltNav;
+        scope.showAltNav = angular.isUndefined(Settings.UI.generics.showAltNav) ? true : Settings.UI.generics.showAltNav;
+        scope.config = Settings.UI.viewsSettings.breadcrumbsBar;
 
         var EVENTS_SCROLL_RESIZE = 'scroll resize';
 

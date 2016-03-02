@@ -59,6 +59,12 @@ describe('breadcrumbs', function() {
         UI: {
           generics: {
             showAltNav: true
+          },
+          viewsSettings:{
+            breadcrumbsBar:{
+              displayBreadcrumbs: true,
+              displayStaticContent: false
+            }
           }
         }
       });

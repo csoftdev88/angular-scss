@@ -560,6 +560,10 @@ angular.module('mobiusApp.config', [])
       'userProfile':{
         'hasAvatar': true,
         'hasWelcomeMessage': false
+      },
+      'breadcrumbsBar':{
+        'displayBreadcrumbs': true,
+        'displayStaticContent': false
       }
     },
 
