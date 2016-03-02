@@ -187,7 +187,15 @@ angular.module('mobiusApp.config', [])
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': false,
       'removeScrollToRoomsOnFinish': false,
+      'headerPartial':{
+        'logo':{
+          'src': '/static/images/hotelHeaderLogo.png',
+          'alt': 'Worldhotels deluxe'
+        }
+      },
       'partials':{
+        'hotelHeader': true,
+        'hotelDatesSelected': true,
         'hotelInfo': false,
         'hotelRooms': true,
         'hotelServices': false,
@@ -442,7 +450,6 @@ angular.module('mobiusApp.config', [])
       },
       'hotelDetails':{
         'hasViewMore': false,
-        'hasAmenities': true,
         'hasTitle': false
       },
       'userProfile':{

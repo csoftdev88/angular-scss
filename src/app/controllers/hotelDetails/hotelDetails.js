@@ -20,6 +20,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
   $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
+  $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
 
   _.map(Settings.UI.hotelDetails.partials, function(value, key){

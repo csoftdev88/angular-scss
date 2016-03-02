@@ -224,6 +224,8 @@
     "rates_loading_title": "Lädt den günstigsten Preis für Sie...",
 
     "COMPONENTS": "//////////////////////////////////////////////////////",
+    "hotel_detail_header_main_title": "New Reservation",
+    "hotel_detail_header_contact_title": "Contact the Hotel",
     "no_points_rate_desc": "diese Rate vergibt keine Punkte",
     "mapLocationHeader": "The {chainPrefix} {nameShort} Location",
 
