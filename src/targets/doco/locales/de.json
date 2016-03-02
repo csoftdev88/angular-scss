@@ -112,6 +112,9 @@
     "book_now": "Buche jetzt",
 
     "select_dates": "Datum auswählen",
+    "change_dates": "Change Dates",
+    "no_dates_selected": "You do not have any dates selected",
+    "dates_selected": "Dates selected",
     "select_new_dates": "wählen neues Datum",
 
     "save": "Speichern",

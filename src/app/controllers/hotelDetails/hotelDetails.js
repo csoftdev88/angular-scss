@@ -322,6 +322,14 @@ angular.module('mobius.controllers.hotel.details', [
     return bookingService.APIParamsHasDates();
   };
 
+  $scope.getCheckinDate = function(){
+    return $window.moment(bookingService.getAPIParams().from).format('Do MMM YYYY');
+  };
+
+  $scope.getCheckoutDate = function(){
+    return $window.moment(bookingService.getAPIParams().to).format('Do MMM YYYY');
+  };
+
   $scope.selectDates = function(){
     $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
       openBookingTab: true,

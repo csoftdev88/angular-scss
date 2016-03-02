@@ -14,13 +14,13 @@ hotel-detail {
 
   // Page Heading
   h1{
-    color: @c-mid-grey;
+    color: @c-grey;
     text-transform: uppercase;
     font-weight: inherit;
   }
 
   h2 {
-    color: @c-mid-grey;
+    color: @c-grey;
     text-transform: uppercase;
     font-weight: inherit;
     margin-bottom: 16px;
@@ -78,6 +78,99 @@ hotel-detail {
             font-size: 18px;
           }
         }
+      }
+    }
+
+  }
+
+  .hotel-detail__dates{
+
+    margin-bottom: 70px;
+    padding: 10px 0px;
+
+    .background{
+      width: 500%;
+      height: 84px;
+      position: absolute;
+      z-index: -1;
+      margin-left: -200%;
+      margin-top: -10px;
+
+      .color{
+        height: 60px;
+        background: @c-very-light-grey;
+        -webkit-box-shadow: 0px 2px 4px 0px rgba(167, 167, 167, 0.5);
+        -moz-box-shadow: 0px 2px 4px 0px rgba(167, 167, 167, 0.5);
+        box-shadow: 0px 2px 4px 0px rgba(167, 167, 167, 0.5);
+        z-index: 2;
+        position: relative;
+      }
+
+      .pattern{
+        height: 24px;
+        width: 100%;
+        background: url("@{img-prefix}/background-pattern.gif") repeat-x left top;
+      }
+
+    }
+
+    .title-wrapper,
+    .no-dates-wrapper,
+    .dates-wrapper,
+    nav{
+      float: left;
+      width: 25%;
+    }
+
+    .title-wrapper{
+      .title{
+        font-size: 18px;
+        line-height: 40px;
+        margin: 0;
+      }
+    }
+
+    .no-dates-wrapper{
+      width: 50%;
+      text-align: center;
+      p{
+        font-size: 18px;
+        line-height: 40px;
+        color: @c-dark-grey;
+      }
+    }
+
+    .dates-wrapper{
+      width: 50%;
+      text-align: center;
+      .inner{
+        display: inline-block;
+        .date-item{
+          float: left;
+          margin-left: 5px;
+          line-height: 40px;
+          &:first-child{
+            margin-left: 0;
+          }
+          .title{
+            float: left;
+            text-transform: uppercase;
+          }
+          .date{
+            float: left;
+            font-family: @ff-bold;
+            margin-left: 5px;
+          }
+        }
+      }
+      
+    }
+
+    nav{
+      text-align: center;
+      button-submit{
+        float: right;
+        margin-right: 20px;
       }
     }
 
