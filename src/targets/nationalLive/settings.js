@@ -165,7 +165,7 @@ angular.module('mobiusApp.config', [])
     'hotelDetails': {
       'chainPrefix': 'Hotel',
       //List of rooms and their products
-      'defaultNumberOfRooms': 2,
+      'defaultNumberOfRooms': 999,
       'numberOfRoomsAddedOnMobile': 2,
       'rooms': {
         'sortRoomsByWeighting': false,
@@ -186,9 +186,15 @@ angular.module('mobiusApp.config', [])
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': false,
-      'removeScrollToRoomsOnFinish': false
+      'removeScrollToRoomsOnFinish': false,
+      'partials':{
+        'hotelInfo': false,
+        'hotelRooms': true,
+        'hotelServices': false,
+        'hotelLocation': false,
+        'hotelOffers': false
+      }
     },
-
     //rate lookup teasers
     'showHotelDetailsTestimonials': false,
     'hotelDetailsTestimonialsMaxNumStars': 5,
@@ -436,7 +442,8 @@ angular.module('mobiusApp.config', [])
       },
       'hotelDetails':{
         'hasViewMore': false,
-        'hasAmenities': true
+        'hasAmenities': true,
+        'hasTitle': false
       },
       'userProfile':{
         'hasAvatar': false,

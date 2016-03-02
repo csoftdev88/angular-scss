@@ -16,17 +16,20 @@ angular.module('mobius.controllers.hotel.details', [
 
   // Set grid based on settings:
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
-  $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasAmenities;
+  $scope.hasTitle = Settings.UI.viewsSettings.hotelDetails.hasTitle;
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
   $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
-  $scope.partials = [
-      'layouts/hotels/detailPartial/hotelInfo.html',
-      'layouts/hotels/detailPartial/hotelRooms.html',
-      'layouts/hotels/detailPartial/hotelServices.html',
-      'layouts/hotels/detailPartial/hotelLocation.html',
-      'layouts/hotels/detailPartial/hotelOffers.html'
-    ];
+  $scope.partials = [];
+
+  _.map(Settings.UI.hotelDetails.partials, function(value, key){
+    if(value === true){
+      var partial = 'layouts/hotels/detailPartial/' + key + '.html';
+      $scope.partials.push(partial);
+    }
+
+  });
+
 
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 3;

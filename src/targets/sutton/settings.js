@@ -188,7 +188,14 @@ angular.module('mobiusApp.config', [])
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': true,
-      'removeScrollToRoomsOnFinish': true
+      'removeScrollToRoomsOnFinish': true,
+      'partials':{
+        'hotelInfo': true,
+        'hotelRooms': true,
+        'hotelServices': true,
+        'hotelLocation': true,
+        'hotelOffers': true
+      }
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
@@ -562,7 +569,7 @@ angular.module('mobiusApp.config', [])
       },
       'hotelDetails':{
         'hasViewMore': true,
-        'hasAmenities': true
+        'hasTitle': true
       },
       'userProfile':{
         'hasAvatar': true,
