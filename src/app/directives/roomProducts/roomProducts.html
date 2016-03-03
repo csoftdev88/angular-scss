@@ -9,7 +9,7 @@
     <div class="rate-description">
       <h4>
         <span ng-bind-html="product.name | mainHeaderStyle"></span>
-        <a class="info" href ng-click="openProductDetailsDialog(product)"></a>
+        <a class="info" href ng-click="openProductDetailsDialog(product)" ng-if="settings.showInfoIcon"></a>
 
         <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled && product.productAwardPoints">_earn_at_least_
           <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
@@ -21,7 +21,7 @@
 
       <p ng-if="settings.showDescription" class="tag-line">{{product.tagline}}</p>
 
-      <a class="info mobile" href ng-click="openProductDetailsDialog(product)">_view_details_</a>
+      <a class="info mobile" href ng-click="openProductDetailsDialog(product)" ng-if="settings.showInfoIcon">_view_details_</a>
     </div>
 
     <pricing-details ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
@@ -54,11 +54,12 @@
   </li>
 
   <!-- REGULAR PRODUCTS -->
-  <li ng-repeat="product in products | orderBy : ['-productHidden', '-weighting'] | limitTo: getRatesLimit()" ng-if="!product.highlighted && !product.memberOnly">
+  <li ng-repeat="product in products | orderBy : ['-productHidden', '-weighting'] | limitTo: getRatesLimit()" ng-if="!product.highlighted && !product.memberOnly" ng-init="product.fullDescOpen = false">
     <!-- ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)" -->
 
-    <div class="rate-description">
+    <div class="rate-description" ng-class="{'open': product.fullDescOpen}">
       <h4>
+        <a class="description-toggle" href ng-click="product.fullDescOpen = !product.fullDescOpen" ng-if="settings.showDescriptionToggle"></a>
         <span ng-bind-html="product.name | mainHeaderStyle"></span>
         <a class="info" href ng-click="openProductDetailsDialog(product)"></a>
 
@@ -73,7 +74,7 @@
 
       <p ng-if="settings.showDescription" class="tag-line">{{product.tagline}}</p>
 
-      <a class="info mobile" href ng-click="openProductDetailsDialog(product)">_view_details_</a>
+      <a class="info mobile" href ng-click="openProductDetailsDialog(product)" ng-if="settings.showInfoIcon">_view_details_</a>
     </div>
 
     <pricing-details ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
@@ -106,11 +107,12 @@
 
   <!-- NO PRODUCTS AVAILABLE -->
   <li ng-if="products.length === 0">
-    <p class="unavailable error no-products">
+    <p class="unavailable error no-products" ng-class="{'with-dates': isDateRangeSelected()}">
       <span ng-if="!isOverAdultsCapacity()">
         <span ng-if="isDateRangeSelected()" class="desc">_not_available_on_dates_title_</span>
         <span ng-if="!isDateRangeSelected()" class="desc">_select_dates_for_prices_title_</span>
-        <button-submit ng-click="selectDates()" ng-class="{'alt': !hasDates()}">
+        <span ng-if="isDateRangeSelected()" class="sub-desc" ng-if="settings.showNoRatesSubDescription">_not_available_on_dates_sub_title_</span>
+        <button-submit ng-click="selectDates()" class="alt">
           <span ng-if="hasDates()">_select_new_dates_</span>
           <span ng-if="!hasDates()">_select_dates_</span>
         </button-submit>
