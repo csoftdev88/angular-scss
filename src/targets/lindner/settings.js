@@ -186,6 +186,7 @@ angular.module('mobiusApp.config', [])
           'width': 150,
           'height': 150
         },
+        'includeSlider': false,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Book Now',

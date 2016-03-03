@@ -298,6 +298,124 @@ hotel-detail {
             padding-top: 0px;
             border-bottom: none;
           }
+
+          hero-slider {
+            overflow: visible;
+            width: auto;
+            height: 150px;
+            margin-top: 0;
+
+            .slider-content {
+              overflow: hidden;
+              height: 150px;
+              position: relative;
+
+              .hero-slide {
+                overflow: visible;
+                height: 150px;
+
+                .content-inner {
+                  top: 180px;
+
+                  h1 {
+                    font-size: @size--1;
+                    color: @c-grey;
+                    background: none;
+                    line-height: initial;
+                    text-align: center;
+                    text-transform: none;
+                    width: 100%;
+                    padding: 0px;
+
+                    &:before {
+                      display: none;
+                    }
+
+                  }
+
+                  h2 {
+                    display: none;
+                  }
+                }
+              }
+            }
+
+            .slider-controls {
+              position: relative;
+              height: auto;
+
+
+              &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                right: 3px;
+                bottom: 2px;
+                z-index: 1;
+                height: 150px;
+                color: @c-white;
+                width: 29px;
+                height: 29px;
+                text-align: center;
+                cursor: pointer;
+                background: url('@{img-prefix}/magnifier.png') no-repeat center;
+
+                .viewport-mobile & {
+                  display: none;
+                }
+              }
+
+              &:hover {
+                &:before {
+                  opacity: 1;
+                }
+              }
+
+              > div {
+                background: none;
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                bottom: 0px;
+                top: -150px;
+              }
+
+              .pages {
+                display: none;
+              }
+
+              .slide-button {
+                background: none;
+                width: 18px;
+                height: 18px;
+                opacity: 1;
+                margin-top: -9px;
+                padding: 0;
+
+
+                &.slide-left {
+                  background: url('@{img-prefix}/slider-left.png') no-repeat;
+                  background-size: 18px;
+                  left: 7px;
+                  &:before {
+                    content: none;
+                  }
+                }
+
+                &.slide-right {
+                  background: url('@{img-prefix}/slider-right.png') no-repeat;
+                  background-size: 18px;
+                  right: 7px;
+                  &:before {
+                    content: none;
+                  }
+                }
+
+
+
+              }
+            }
+          }
         }
 
       }
