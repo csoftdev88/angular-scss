@@ -228,9 +228,16 @@ hotel-detail {
 
           h3{
             a{
-              color: @c-primary;
+              font-family: @ff-heading;
+              color: @c-grey;
               text-transform: uppercase;
-              font-weight: 600;
+              font-weight: normal;
+              &:after {
+                color: @c-primary;
+                font-size: 28px;
+                position: relative;
+                top: 3px;
+              }
             }
 
             .viewport-mobile & {

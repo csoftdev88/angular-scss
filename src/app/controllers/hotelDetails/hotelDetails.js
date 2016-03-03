@@ -230,7 +230,7 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
-        if(stateService.isMobile()){
+        if(stateService.isMobile() || (Settings.UI.hotelDetails.rooms.displayRatesOnLoad && $scope.hasDates())){
           // Marking rates as displayed by default
           _.each(rooms, function(room){
             $scope.displayRoomRates(room);
