@@ -20,7 +20,7 @@ module.exports = {
     locales: 'src/locales',
 
     images:  '**/*.{png,jpg,jpeg,gif,webp,svg}',
-    fonts:   '**/*.{eot,svg,ttf,woff,woff2}',
+    fonts:   '**/*.{eot,svg,ttf,woff,woff2,otf}',
     font_awesome: 'bower_components/font-awesome/fonts/',
     404: '404.html',
 
