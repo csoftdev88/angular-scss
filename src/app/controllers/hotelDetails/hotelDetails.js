@@ -17,7 +17,7 @@ angular.module('mobius.controllers.hotel.details', [
   //Apply config:
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
   $scope.hasTitle = Settings.UI.viewsSettings.hotelDetails.hasTitle;
-  $scope.roomsConfig = Settings.UI.viewsSettings.hotelDetails.rooms;
+  $scope.roomsConfig = Settings.UI.hotelDetails.rooms;
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
   $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;

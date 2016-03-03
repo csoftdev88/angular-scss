@@ -59,7 +59,7 @@
               </h3>
             </header>
 
-            <ul class="amenities">
+            <ul class="amenities" ng-if="roomsConfig.displayAmenities">
               <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:numberOfAmenities">
                 <slug-img slug="amenity.slug" type="room" width="15"></slug-img>
                 <span class="amenity-caption">{{amenity.name}}</span>
@@ -68,7 +68,7 @@
             <!--<a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>-->
           </div>
 
-          <room-details>
+          <room-details ng-if="roomsConfig.displayRoomDetails">
             <div class="description" ng-bind-html="sanitize(room.description)"></div>
 
             <div class="pricing-info">
