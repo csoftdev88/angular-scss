@@ -14,21 +14,22 @@ angular.module('mobius.controllers.hotel.details', [
   // Used for rate notification message
   $controller('RatesCtrl', {$scope: $scope});
 
-  // Set grid based on settings:
+  //Apply config:
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
   $scope.hasTitle = Settings.UI.viewsSettings.hotelDetails.hasTitle;
+  $scope.roomsConfig = Settings.UI.viewsSettings.hotelDetails.rooms;
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
   $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
   $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
 
+  //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key){
     if(value === true){
       var partial = 'layouts/hotels/detailPartial/' + key + '.html';
       $scope.partials.push(partial);
     }
-
   });
 
 

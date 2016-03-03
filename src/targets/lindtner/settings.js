@@ -170,6 +170,7 @@ angular.module('mobiusApp.config', [])
         // Loading rates when hovering over the room
         // in ms.
         'hoverTriggerDelay': 2000,
+        'showRoomCount': true,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Book Now',
