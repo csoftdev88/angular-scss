@@ -54,7 +54,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-            propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+            propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property || bookingParams.propertyCode).then(function(propertyData){
               dataLayerService.trackProductsImpressions(scope.products.map(function(p){
                 return {
                   name: p.name,
