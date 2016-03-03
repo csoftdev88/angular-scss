@@ -178,6 +178,8 @@ hotel-detail {
 
   .hotel-detail__rooms {
 
+    margin-bottom: 70px;
+
     hr{
       display: none;
     }
@@ -225,6 +227,7 @@ hotel-detail {
         }
 
         .item-header{
+          margin-bottom: 16px;
 
           h3{
             a{
@@ -254,6 +257,49 @@ hotel-detail {
             }
           }
         }
+
+        .list-item-container {
+          display: inline-block;
+          width: 100%;
+          border-top: none;
+
+          .viewport-mobile &{
+            border-bottom: none;
+            padding-top: 16px;
+
+            &:fist-of-type {
+              border-top: none;
+              padding-top: 0px;
+            }
+          }
+
+          > div{
+
+            &.list-item-info {
+              box-sizing: border-box;
+              width: 30%;
+              padding: 0;
+
+              .viewport-mobile &{
+                width: 100%;
+                padding: 0;
+              }
+
+              .room-image{
+                width: 266px;
+                max-width: 100%;
+              }
+
+            }
+          }
+
+          .viewport-mobile & {
+            border-top: none;
+            padding-top: 0px;
+            border-bottom: none;
+          }
+        }
+
       }
     }
   }

@@ -1,6 +1,21 @@
 room-products {
+	width: 65%;
 	> ul {
 		> li {
+			border: 1px solid @c-light-grey;
+			border-left: none;
+			border-right: none;
+			&:last-of-type{
+				border-radius: 0;
+			}
+			.no-products{
+				padding: 37px 22px;
+				.desc{
+					font-size: 18px;
+					font-family: @ff-bold;
+					margin-bottom: 10px;
+				}
+			}
 			.rate-description {
 				h4{
 					> span{
