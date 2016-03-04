@@ -21,7 +21,7 @@
 
       <p ng-if="settings.showDescription" class="tag-line">{{product.tagline}}</p>
 
-      <a class="info mobile" href ng-click="openProductDetailsDialog(product)" ng-if="settings.showRateInfoIcon">_view_details_</a>
+      <a class="info mobile" href ng-click="openProductDetailsDialog(product)">_view_details_</a>
     </div>
 
     <pricing-details ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
@@ -78,7 +78,7 @@
         <a class="info link" href ng-click="openProductDetailsDialog(product)" ng-if="settings.showRateInfoLink">View Price Breakdown & Policies</a>
       </div>
 
-      <a class="info mobile" href ng-click="openProductDetailsDialog(product)" ng-if="settings.showRateInfoIcon">_view_details_</a>
+      <a class="info mobile" href ng-click="openProductDetailsDialog(product)">_view_details_</a>
     </div>
 
     <pricing-details ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">

@@ -14,12 +14,20 @@ room-products {
 				border-radius: 0;
 			}
 
+      .viewport-mobile & {
+        padding: 0;
+      }
+
 			.no-products{
 				padding: 37px 22px;
         &.with-dates{
           text-align: right;
           padding: 20px 22px;
           padding-right: 0px;
+          .viewport-mobile & {
+            padding: 20px 0px;
+            text-align: center;
+          }
         }
 				.desc{
 					font-size: 18px;
@@ -75,10 +83,10 @@ room-products {
               content: @fa-var-plus;
               color: @c-very-dark-grey;
             }
-
-            .viewport-mobile & {
+            .viewport-mobile &{
               display: none;
             }
+
           }
 				}
 
@@ -97,12 +105,10 @@ room-products {
         }
 				
         &.open{
-
           .description-wrapper{
             max-height: 999px;
             transition: max-height 1s ease-out;
           }
-
           h4{
             a.description-toggle {
               &:after {
@@ -110,7 +116,16 @@ room-products {
             }
             }
           }
-          
+        }
+
+        .full-description {
+          .viewport-mobile & {
+            display: block;
+          }
+        }
+
+        .info.mobile {
+          color: @c-primary;
         }
 			}
 
