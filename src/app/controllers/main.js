@@ -195,6 +195,7 @@ angular.module('mobius.controllers.main', [])
       });
       
       $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+        $scope.isMobile = viewport.isMobile;
         if(viewport.isMobile){
           $('.login-dialog-overlay').appendTo($('#main-header-inner'));
         }

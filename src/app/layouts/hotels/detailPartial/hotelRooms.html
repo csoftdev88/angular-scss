@@ -27,7 +27,7 @@
       </div>
     </header>
 
-    <ta-teaser ng-show="!ratesLoaded && isFromSearch"></ta-teaser>
+    <ta-teaser ng-show="!ratesLoaded && isFromSearch" ng-if="roomsConfig.includeTripAdvisorPreloader"></ta-teaser>
 
     <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
       <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay">

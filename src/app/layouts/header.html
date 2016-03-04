@@ -2,7 +2,7 @@
   <nav class="main-nav wrapper" dropdown>
 
     <ul dropdown-group class="left">
-      <li ng-show="config.languages.headerAlignment === 'left'" language-list></li>
+      <li ng-show="config.languages.headerAlignment === 'left' && !isMobile" language-list></li>
     </ul>
 
     <a class="brand" ui-sref="home({property:null})">
@@ -83,7 +83,7 @@
 
         <li has-dropdown="click" currency-list></li>
 
-        <li ng-show="config.languages.headerAlignment === 'right'" has-dropdown="click" language-list></li>
+        <li ng-show="config.languages.headerAlignment === 'right' || isMobile" has-dropdown="click" language-list></li>
 
         <li ng-show="!isUserLoggedIn()" profile>
           <a class="button button-login" ng-click="sso.login()">_login_</a>

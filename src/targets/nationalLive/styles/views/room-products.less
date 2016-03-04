@@ -35,6 +35,18 @@ room-products {
 
 			.rate-description {
 				border: none;
+
+        a.info.link{
+          font-size: @size--2;
+          line-height: @size-1;
+          color: @c-dark-grey;
+          &:hover{
+            color: @c-dark-grey;
+            text-decoration: underline;
+          }
+
+        }
+
 				h4{
 					position: relative;
 					top: 5px;
@@ -69,17 +81,24 @@ room-products {
             }
           }
 				}
-				> p{
-          font-size: 12px;
-          line-height: 18px;
-          padding-left: 42px;
-					max-height: 0;
-          transition: max-height .3s ease-out;
-					
-				}
 
-        &.open{
+        .description-wrapper{
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height .3s ease-out;
+          padding-top: 10px;
           > p{
+            font-size: 12px;
+            line-height: 18px;
+            margin-bottom: 10px;
+            max-height: none;
+            margin-top: 0px;
+          }
+        }
+				
+        &.open{
+
+          .description-wrapper{
             max-height: 999px;
             transition: max-height 1s ease-out;
           }

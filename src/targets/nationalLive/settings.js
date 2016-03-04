@@ -184,6 +184,7 @@ angular.module('mobiusApp.config', [])
           'height': 156
         },
         'includeSlider': true,
+        'includeTripAdvisorPreloader': false,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Book Now',
@@ -191,7 +192,9 @@ angular.module('mobiusApp.config', [])
           'ratesPerRoomOnMobile': 2,
           'showDescription': true,
           'showDescriptionToggle': true,
-          'showNoRatesSubDescription': true
+          'showNoRatesSubDescription': true,
+          'showRateInfoIcon': false,
+          'showRateInfoLink': true
         }
 
       },
