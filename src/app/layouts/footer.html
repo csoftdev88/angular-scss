@@ -1,14 +1,31 @@
 <div class="wrapper">
-  <p>_footer_copyright_text_</p>
 
-  <social-links></social-links>
+  <div ng-if="footerConfig.type == 'simple'">
+    <p>_footer_copyright_text_</p>
 
-  <nav>
-    <ul>
-      <li><a href="" ui-sref="home">_home_</a></li>
-      <li><a href="" ui-sref="hotels">_hotels_</a></li>
-      <li><a href="" ui-sref="aboutUs">_about_us_</a></li>
-      <li><a href="" ui-sref="contacts">_contact_</a></li>
-    </ul>
-  </nav>
+    <social-links></social-links>
+
+    <nav>
+      <ul>
+        <li><a href="" ui-sref="home">_home_</a></li>
+        <li><a href="" ui-sref="hotels">_hotels_</a></li>
+        <li><a href="" ui-sref="aboutUs">_about_us_</a></li>
+        <li><a href="" ui-sref="contacts">_contact_</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div ng-if="footerConfig.type == 'advanced'">
+    <p>_footer_static_content_</p>
+    <nav>
+      <ul>
+        <li ng-repeat="link in footerConfig.advanced.links">
+          <a href="link.href" target="_blank" ng-if="link.target === 'blank'">{{link.value}}</a>
+          <a href="" ui-sref="link.href" ng-if="link.target === 'self'">{{link.value}}</a>
+        </li>
+      </ul>
+    </nav>
+    <img ng-src="{{footerConfig.advanced.logo.src}}" alt="{{footerConfig.advanced.logo.alt}}">
+  </div>
+
 </div>

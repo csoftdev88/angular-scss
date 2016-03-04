@@ -70,6 +70,9 @@ describe('mobius.controllers.main', function() {
             },
             adverts: {
               heroAdverts: 'test-size'
+            },
+            footer:{
+              type: 'simple'
             }
           }
         });

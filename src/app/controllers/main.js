@@ -209,6 +209,9 @@ angular.module('mobius.controllers.main', [])
         }, 500);
       };
 
+      //Footer
+      $scope.footerConfig = Settings.UI.footer;
+
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
       $controller('SanitizeCtrl', {$scope: $scope});

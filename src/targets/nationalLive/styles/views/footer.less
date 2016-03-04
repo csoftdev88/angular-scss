@@ -1,0 +1,132 @@
+////////////////
+//// FOOTER ////
+////////////////
+
+.floating-bar-active footer {
+  margin-bottom: 85px;
+  .viewport-mobile & {
+    margin-bottom: 0;
+  }
+}
+
+/*
+.floating-bar-active footer {
+  margin-bottom: 170px;
+  .viewport-mobile & {
+    margin-bottom: 0;
+  }
+}
+*/
+
+footer {
+  padding-top: @baseline;
+  color: @c-dark-grey;
+  font-size: @size-0;
+  line-height: @baseline * 2;
+  text-align: center;
+
+  .viewport-mobile & {
+    display: inline-block;
+    margin-bottom: 40px;
+  }
+
+  @media print {
+   display: none;
+  }
+
+  //- Wrapper
+  .wrapper {
+    display: flex;
+    margin-bottom: 50px;
+    padding-left: 5px;
+    .viewport-mobile & {
+      display: block;
+      padding-left: 10px;
+    }
+    > div {
+      display: block;
+    }
+  }
+
+  //- Static text
+  p {
+    flex: none;
+    color: #fff;
+    line-height: 21px;
+    margin-bottom: 5px;
+    a{
+      color: #fff;
+      &:hover{
+        color: #fff;
+        text-decoration: underline;
+        opacity: 1;
+      }
+    }
+    .viewport-mobile & {
+     
+    }
+  }
+
+  //- Navigation
+  nav {
+    flex: none;
+    text-align: center;
+    margin-bottom: 10px;
+
+    ul{
+      line-height: 21px;
+
+      li {
+        display: inline-block;
+        padding: 0 @baseline/2;
+
+        &:first-of-type {
+          padding-left: 0;
+        }
+
+        &:last-of-type {
+          padding-right: 0;
+        }
+
+        a{
+          font-size: @size--1;
+          color: @c-dark-grey;
+          text-transform: uppercase;
+          &:hover{
+            color: @c-dark-grey;
+            text-decoration: underline;
+          }
+
+        }
+      }
+    }
+
+    
+  }
+
+  // MOBILE SPECIFIC STYLES
+  @media only screen and @large-mobile-max {
+
+    //- Navigation
+    nav{
+      display: none;
+    }
+
+    //- Copyright
+    p {
+      line-height: 16px;
+      padding-right: 16px;
+    }
+
+  }
+
+  &.special-footer {
+    background-color: @c-primary;
+    border-top: none;
+    height: 200px;
+    width: 100%;
+    .viewport-mobile &{
+      height: auto;
+    }
+  }
+}

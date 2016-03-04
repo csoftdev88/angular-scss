@@ -8,6 +8,9 @@ angular.module('mobiusApp.directives.socialLinks', [])
     templateUrl: 'directives/socialLinks/socialLinks.html',
     // Widget logic goes here
     link: function(scope){
+      if(!Settings.UI.displaySocialLinks){
+        return;
+      }
       scope.socialLinks = Settings.UI.socialLinks;
     }
   };
