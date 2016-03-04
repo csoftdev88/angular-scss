@@ -6,6 +6,9 @@ booking-widget {
   display: block;
   max-width: 960px;
   margin: 0 auto;
+  button-submit {
+    margin-top: 28px;
+  }
 
   // Chosen dropdown - open up not down
   .chosen-container .chosen-drop {
@@ -55,6 +58,7 @@ booking-widget-add-room form-element {
   }
 
   // icons
+  .chosen-single:before,
   &:before {
     .fa;
 
@@ -64,7 +68,7 @@ booking-widget-add-room form-element {
 
     width: @baseline * 1.5;
 
-    color: @c-primary;
+    color: @c-secondary;
 
     font-size: @size-2;
     text-align: center;
@@ -226,10 +230,14 @@ booking-widget-search {
   h3 {
     position: relative;
     flex: 0 0 auto;
-    padding-right: @baseline * 2;
+    padding-right: 35px;
     text-transform: uppercase;
+    font-size: 20px;
+    font-family: @ff-light;
 
     strong {
+      font-family: @ff-bold;
+      font-weight: normal;
       display: block;
     }
 
@@ -256,7 +264,7 @@ booking-widget-search {
     &:after {
       .fa;
       position: absolute;
-      right: @baseline / 2;
+      right: 9px;
       top: 50%;
       color: #ddd;
       font-size: 21px;

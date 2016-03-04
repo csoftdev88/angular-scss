@@ -17,9 +17,13 @@ floating-bar {
 
   //- Tabs
   > ul {
+    left: 59%;
+    top: -25px;
 
     li {
       background: @c-booking-widget-active;
+      padding-right: 0px;
+      line-height: 25px;
       a {
         color: #fff;
         &:focus,
@@ -56,6 +60,8 @@ floating-bar {
       }
 
       &.floating-bar--tab-booking {
+
+        font-weight: 600;
 
         .viewport-mobile &.main-mobile-toggle {
 
