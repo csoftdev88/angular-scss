@@ -62,6 +62,11 @@ angular.module('mobiusApp.directives.language', [])
         };
 
         scope.currentLanguage = stateService.getAppLanguageCode();
+
+        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+        scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+          scope.isMobile = viewport.isMobile;
+        });
       }
     };
   }]);
