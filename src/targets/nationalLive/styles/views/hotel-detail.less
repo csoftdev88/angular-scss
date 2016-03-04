@@ -28,15 +28,30 @@ hotel-detail {
 
   .hotel-detail__header{
 
+    .viewport-mobile &{
+      text-align: center;
+      margin-bottom: 20px;
+      hr{
+        display: none;
+      }
+    }
+
     .logo,
     .title-wrapper,
     .contact-info{
       float: left;
       width: 25%;
+      .viewport-mobile &{
+        width: 100%;
+        float: none;
+      }
     }
 
     .logo{
       margin-top: 15px;
+      .viewport-mobile &{
+        display: none;
+      }
     }
 
     .title-wrapper{
@@ -46,6 +61,11 @@ hotel-detail {
         color: @c-dark-grey;
         font-size: 36px;
         line-height: 50px;
+        .viewport-mobile &{
+          font-size: 24px;
+          line-height: 26px;
+          margin-bottom: 14px;
+        }
       }
     }
 
@@ -53,6 +73,10 @@ hotel-detail {
       margin-top: 7px;
       .inner{
         float: right;
+        .viewport-mobile &{
+          float: none;
+          display: inline-block;
+        }
         .icon{
           float: left;
           width: 31px;
@@ -60,7 +84,7 @@ hotel-detail {
           background: @c-primary;
           text-align: center;
           line-height: 31px;
-          margin: 7px 10px 0;
+          margin: 7px 10px 0 0;
           .fa{
             color: #fff;
             font-size: 28px;
@@ -76,6 +100,9 @@ hotel-detail {
           }
           .info{
             font-size: 18px;
+            .viewport-mobile &{
+              font-size: 16px;
+            }
           }
         }
       }
