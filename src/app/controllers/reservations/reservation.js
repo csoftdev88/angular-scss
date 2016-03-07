@@ -12,6 +12,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
+  $scope.bookingConfig = Settings.UI.booking;
   $scope.isMakingReservation = false;
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;

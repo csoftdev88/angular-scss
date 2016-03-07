@@ -36,7 +36,7 @@
       </div>
       <aside grid="5">
         <section class="detail-links">
-          <a href ng-click="openPriceBreakdownInfo()">_view_price_breakdown_</a> | <a href ng-click="readPolicies()">_policies_</a>
+          <span ng-if="!bookingConfig.priceBreakdownExtended"><a href ng-click="openPriceBreakdownInfo()">_view_price_breakdown_</a> | </span><a href ng-click="readPolicies()">_policies_</a>
         </section>
 
         <section class="room-data">
@@ -71,30 +71,64 @@
             </table>
           </div>
 
-          <div class="charges">
+          <div class="charges" ng-class="{'extended': breakdownExtended}" ng-init="breakdownExtended = false">
             <table>
               <thead ng-switch="billingDetails.paymentMethod">
-              <tr>
-                <th>_room_charges_:</th>
-                <td>{{getTotal('totalBase') | i18nCurrency: currencyCode}}</td>
-              </tr>
-              <tr>
-                <th>_taxes_:</th>
-                <!-- old tax number
-                <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
-                -->
-                <td>{{getTotal('totalAfterTax') - getTotal('totalBase') - getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
-              </tr>
-              <tr>
-                <th>_applicable_fees_:</th>
-                <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
-              </tr>
-              <tr>
-                <th>_total_:</th>
-                <td ng-switch-when="cc">{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
-                <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
-                <td ng-switch-default>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
-              </tr>
+                <tr class="main">
+                  <th>_room_charges_:</th>
+                  <td>{{getTotal('totalBase') | i18nCurrency: currencyCode}}</td>
+                </tr>
+
+                <tr class="breakdown">
+                  <th>23 Mar 2016:</th>
+                  <td>$219</td>
+                </tr>
+                <tr class="breakdown last">
+                  <th>24 Mar 2016:</th>
+                  <td>$219</td>
+                </tr>
+
+                <tr class="main">
+                  <th>_taxes_:</th>
+                  <!-- old tax number
+                  <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
+                  -->
+                  <td>{{getTotal('totalAfterTax') - getTotal('totalBase') - getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
+                </tr>
+
+                <tr class="breakdown">
+                  <th>City:</th>
+                  <td>$21</td>
+                </tr>
+                <tr class="breakdown last">
+                  <th>Province:</th>
+                  <td>$9</td>
+                </tr>
+
+                <tr class="main">
+                  <th>_applicable_fees_:</th>
+                  <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
+                </tr>
+
+                <tr class="breakdown">
+                  <th>DMR:<span class="info">?</span></th>
+                  <td>$15</td>
+                </tr>
+                <tr class="breakdown last">
+                  <th>HSRT:</th>
+                  <td>$29</td>
+                </tr>
+
+                <tr class="main">
+                  <th>_total_:</th>
+                  <td ng-switch-when="cc">{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
+                  <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
+                  <td ng-switch-default>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
+                </tr>
+                <tr>
+                  <th></th>
+                  <td><a class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended" href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
+                </tr>
               </thead>
               <tbody>
                 <!-- Additional taxes 

@@ -539,7 +539,9 @@ angular.module('mobiusApp.config', [])
           'icon': 'discover',
           'regex': /^6(?:011|5[0-9]{2})[0-9]{3,}$/
         }
-      }
+      },
+      //price breakdown
+      'priceBreakdownExtended': false
     },
     'myAccount' : {
       'displaySettings' : {

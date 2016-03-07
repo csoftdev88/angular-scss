@@ -290,10 +290,55 @@ reservation-widget {
       padding: 10px;
       border: 1px solid @c-gray-reservation;
       border-radius: 6px;
+
+      .breakdown-toggle{
+        font-weight: normal;
+        font-size: 12px;
+      }
+
+      .breakdown{
+        position: relative;
+        color: @c-mid-grey;
+        display: none;
+        td,
+        th{
+          font-weight: normal;
+          position: relative;
+        }
+        &.last{
+          border-bottom: 1px solid #dfdfdf;
+          td{
+            padding-bottom: 5px;
+          }
+        }
+        .info{
+          font-size: 12px;
+          font-weight: bold;
+          color: @c-brown;
+          position: absolute;
+          right: -5px;
+          padding: 0 2px;
+          cursor: pointer;
+        }
+      }
       .viewport-mobile &{
-        table, thead, tbody, th, td, tr {
+        table, thead, tbody, th, td, tr:not(.breakdown) {
           display: block;
           text-align: right;
+        }
+      }
+
+      &.extended{
+        .breakdown{
+          display: table-row;
+          .viewport-mobile &{
+            display: block;
+          }
+        }
+        .main{
+          th{
+            padding-top: 5px;
+          }
         }
       }
     }
