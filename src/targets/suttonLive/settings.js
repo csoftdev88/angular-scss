@@ -556,7 +556,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       //price breakdown
-      'priceBreakdownExtended': true
+      'priceBreakdownExtended': false
     },
     'myAccount' : {
       'displaySettings' : {

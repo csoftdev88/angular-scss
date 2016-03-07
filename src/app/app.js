@@ -11,6 +11,7 @@ angular
     'ngSanitize',
     'btford.markdown',
     'ngAnimate',
+    '720kb.tooltips',
     // Template cache
     'templates-main',
 
