@@ -6,7 +6,7 @@
 
   <div class="preloader" ng-show="preloader.visible && !isFromSearch"></div>
 
-  <ta-teaser ng-show="!ratesLoaded && isFromSearch"></ta-teaser>
+  <ta-teaser ng-show="!ratesLoaded && isFromSearch && config.includeTripAdvisorPreloader"></ta-teaser>
 
   <room></room>
 

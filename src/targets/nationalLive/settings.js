@@ -237,7 +237,24 @@ angular.module('mobiusApp.config', [])
 
     'roomDetails': {
       'hasReadMore': true,
-      'numberOfRatesToShow': 5
+      'numberOfRatesToShow': 5,
+      'showDescription': false,
+      'includeTripAdvisorPreloader': false,
+      'headerPartial':{
+        'display': true,
+        'logo':{
+          'src': '/static/images/hotelHeaderLogo.png',
+          'alt': 'Worldhotels deluxe'
+        }
+      },
+      'otherRooms':{
+        'thumbnails':{
+          'width': 264,
+          'height': 183
+        },
+        //displayPrice can be button or text
+        'displayPrice': 'button'
+      }
     },
 
     'reservations': {

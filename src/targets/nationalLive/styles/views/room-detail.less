@@ -10,8 +10,21 @@ hotel-room {
     }
   }
 
+  .other-rooms-title{
+    text-align: center;
+    font-size: 36px;
+    line-height: 48px;
+    .viewport-mobile &{
+      font-size: 24px;
+      line-height: 32px;
+      margin-bottom: 20px;
+    }
+  }
+
   list-items {
     margin: 0;
+    margin-bottom: 36px;
+
     list-item {
 
       &.without-image {
@@ -20,7 +33,8 @@ hotel-room {
 
       h2,
       h3 {
-        color: @c-secondary;
+        color: @c-very-dark-grey;
+        font-family: @ff-bold;
         font-weight: normal;
       }
 
@@ -33,15 +47,44 @@ hotel-room {
       }
 
       pricing-info{
+        border-left: none;
         p{
           .value{
             color: @c-dark-grey;
             font-weight: 700;
           }
-          
+        }
+      }
+
+      description-info{
+        .action-links{
+          a{
+            color: @c-dark-grey;
+            font-size: 11px;
+          }
         }
       }
     }
+
+    &.other-rooms{
+      list-item {
+        width: auto;
+        figure{
+          max-height: none;
+        }
+        h2{
+          font-family: @ff-heading;
+          color: @c-dark-grey;
+          font-size: @size-2;
+        }
+        pricing-info{
+          button-submit{
+            margin-top: 14px;
+          }
+        }
+      }
+    }
+
   }
 
   section.room-description {
@@ -105,11 +148,11 @@ hotel-room {
 //- If there are no available products
 .products-not-available,
 .reservations-not-available {
+
   padding: @baseline * 2;
-
   background: #f6f3ee;
-
   text-align: center;
+  margin-bottom: 36px;
 
   h3 {
     margin-bottom: @baseline;

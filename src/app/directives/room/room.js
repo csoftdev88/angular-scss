@@ -19,6 +19,7 @@ angular.module('mobiusApp.directives.room', [])
       scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
       scope.roomRatesLimit = Settings.UI.roomDetails.numberOfRatesToShow;
       scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
+      scope.config = Settings.UI.roomDetails;
       var bookingParams = bookingService.getAPIParams();
       var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
       scope.$stateParams = $stateParams;
@@ -208,6 +209,9 @@ angular.module('mobiusApp.directives.room', [])
           return propertyService.getRooms(propertyCode)
             .then(function(hotelRooms){
 
+              //remove current room
+              hotelRooms = _.reject(hotelRooms, function(room){ return room.code === scope.roomDetails.code;});
+
               var data = scope.roomDetails;
               var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
               var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
@@ -275,6 +279,7 @@ angular.module('mobiusApp.directives.room', [])
       };
 
       scope.onClickOnAssociatedRoom = function(roomDetails){
+        roomDetails.config = scope.config;
         modalService.openAssociatedRoomDetail({roomDetails: roomDetails, propertySlug: bookingParams.propertySlug});
       };
 
