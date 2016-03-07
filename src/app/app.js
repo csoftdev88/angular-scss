@@ -53,6 +53,7 @@ angular
     'mobius.controllers.profile',
     'mobius.controllers.register',
     'mobius.controllers.resetPassword',
+    'mobius.controllers.prestige',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -297,6 +298,14 @@ angular
         templateUrl: 'layouts/rewards/rewards.html',
         url: '/rewards',
         controller: 'RewardsCtrl'
+      })
+
+      // Rewards page
+      .state('prestige', {
+        parent: 'root',
+        templateUrl: 'layouts/prestige/prestige.html',
+        url: '/prestige',
+        controller: 'PrestigeCtrl'
       })
 
       // News page

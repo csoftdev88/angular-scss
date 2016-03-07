@@ -608,7 +608,8 @@ angular.module('mobiusApp.config', [])
       },
       'userProfile':{
         'hasAvatar': true,
-        'hasWelcomeMessage': false
+        'hasWelcomeMessage': false,
+        'hasPrestigeAccount': false
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
