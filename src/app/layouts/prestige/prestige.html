@@ -11,7 +11,8 @@
     <div grid="12">
 
       <header>
-        <h1 ng-bind-html="'_your_balance_:' | mainHeaderStyle"></h1>
+        <div class="bg"></div>
+        <h1 ng-bind-html="'_your_balance_:&nbsp;' | mainHeaderStyle"></h1>
         <p class="points">560 points</p>
       </header>
 
@@ -23,24 +24,25 @@
             <span ng-if="viewMode === 'pending'"><span ng-bind-html="'_pending_transactions_' | mainHeaderStyle"></span><em>_prestige_account_pending_desc_</em></span>
           </h2>
           <ul>
-            <li><a href="" ng-click="viewMode = 'recent'" ng-class="{'active': viewMode === 'recent'}">_recent_</a></li>
-            <li><a href="" ng-click="viewMode = 'pending'" ng-class="{'active': viewMode === 'pending'}">_pending_</a></li>
+            <li><a href="" ng-click="viewMode = 'recent'" ng-class="{'active': viewMode === 'recent'}"><span ng-if="!isMobile()">_recent_</span><span ng-if="isMobile()">_recent_transactions_</span></a></li>
+            <li><a href="" ng-click="viewMode = 'pending'" ng-class="{'active': viewMode === 'pending'}"><span ng-if="!isMobile()">_pending_</span><span ng-if="isMobile()">_pending_transactions_</span></a></li>
           </ul>
         </nav>
 
         <ul class="transaction-items" ng-if="viewMode === 'recent'">
 
-          <li>
+          <li dir-paginate="item in fakeRecent | itemsPerPage: 10" pagination-id="recent" ng-init="item.showComments = false">
 
             <div class="date">
               <div class="label">_date_added_</div>
-              <div class="value">11 Nov 2015</div>
+              <div class="value">{{item.date}}</div>
             </div>
 
             <div class="description">
               <div class="label">_manual_entry_</div>
               <h4 class="value">Manually Added Points</h4>
-              <p class="detail">Points added for previous stays at The Sutton Place Hotel Revelstoke Mountain Resort on 14 August 2015 to stay on the 30th of September 2015</p>
+              <p class="detail" ng-class="{'open': item.showComments}">Points added for previous stays at The Sutton Place Hotel Revelstoke Mountain Resort on 14 August 2015 to stay on the 30th of September 2015</p>
+              <a href="" class="comments-toggle" ng-click="item.showComments = !item.showComments"><span ng-if="!item.showComments">_show_comments_</span><span ng-if="item.showComments">_hide_comments_</span></a>
             </div>
 
             <div class="transaction-value">
@@ -55,6 +57,7 @@
 
           </li>
 
+          <!--
           <li>
 
             <div class="date">
@@ -134,16 +137,19 @@
             </div>
 
           </li>
+          -->
 
         </ul>
 
+        <dir-pagination-controls pagination-id="recent" ng-if="viewMode === 'recent'" on-page-change="onPageChange()"></dir-pagination-controls>
+
         <ul class="transaction-items pending" ng-if="viewMode === 'pending'">
 
-          <li>
+          <li dir-paginate="item in fakeRecent | itemsPerPage: 10" pagination-id="pending">
 
             <div class="date">
               <div class="label">_date_booked_</div>
-              <div class="value">13 Sep 2015</div>
+              <div class="value">{{item.date}}</div>
             </div>
 
             <div class="booking-ref">
@@ -151,12 +157,12 @@
               <h4 class="value">EDM-EE-03213</h4>
             </div>
 
-            <div class="booking-ref">
+            <div class="booking-ref desktop">
               <div class="label">_check_in_</div>
               <h4 class="value">13 Nov 2015</h4>
             </div>
 
-            <div class="booking-ref">
+            <div class="booking-ref desktop">
               <div class="label">_check_out_</div>
               <h4 class="value">13 Nov 2015</h4>
             </div>
@@ -168,6 +174,7 @@
 
           </li>
 
+          <!--
           <li>
 
             <div class="date">
@@ -196,8 +203,11 @@
             </div>
 
           </li>
+          -->
 
         </ul>
+
+        <dir-pagination-controls pagination-id="pending" ng-if="viewMode === 'pending'" on-page-change="onPageChange()"></dir-pagination-controls>
 
       </div>
       

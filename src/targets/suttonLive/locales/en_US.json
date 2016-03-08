@@ -144,7 +144,8 @@
     "reward_name": "Reward Name",
     "prestige_account_opened_desc": "Sutton Prestige Guest Rewards Program Account Opened",
     "prestige_account_pending_desc": "Points will be awarded after check out",
-
+    "show_comments": "Show comments",
+    "hide_comments": "Hide comments",
 
     "hotel_detail_header_main_title": "New Reservation",
     "hotel_detail_header_contact_title": "Contact the Hotel",

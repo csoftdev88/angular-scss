@@ -3,6 +3,7 @@ prestige-account{
   //Page header
   header{
     margin-bottom: 90px;
+    position: relative;
     h1{
       font-size: @size-2;
       line-height: @size-4;
@@ -13,6 +14,26 @@ prestige-account{
       line-height: @fs-8;
       color: @c-brown;
       font-weight: 700;
+    }
+    .viewport-mobile &{
+      margin-top: -22px;
+      margin-bottom: 40px;
+      text-align: right;
+      h1,
+      .points{
+        font-size: @size-2;
+        line-height: 38px;
+        color: #fff;
+        display: inline;
+      }
+      .bg{
+        background: @c-brown;
+        height: 38px;
+        width: 200%;
+        margin-left: -50%;
+        position: absolute;
+        z-index: -1;
+      }
     }
   }
 
@@ -27,6 +48,9 @@ prestige-account{
       display: inline-block;
       width: 100%;
       border-bottom: 2px solid @c-mid-grey;
+      .viewport-mobile &{
+        border: none;
+      }
 
       .title{
         float: left;
@@ -40,9 +64,15 @@ prestige-account{
           margin-left: 10px;
           color: #898989;
         }
+        .viewport-mobile &{
+          display: none;
+        }
       }
       ul{
         float: right;
+        .viewport-mobile &{
+          float: left;
+        }
         li{
           position: relative;
           display: inline;
@@ -50,6 +80,12 @@ prestige-account{
           font-size: @size-2;
           line-height: @size-4;
           padding: 0 10px;
+          .viewport-mobile &{
+            font-size: @size--1;
+            &:first-child{
+              padding-left: 0;
+            }
+          }
           &:before{
             content: '|';
             position: absolute;
@@ -116,12 +152,21 @@ prestige-account{
           .detail{
             font-weight: 300;
             margin-top: 10px;
+            .viewport-mobile &{
+              display: none;
+              &.open{
+                display: block;
+              }
+            }
           }
         }
 
         .date{
           width: 18%;
           padding-left: 0;
+          .viewport-mobile &{
+            width: 33.3%;
+          }
         }
 
         .description{
@@ -130,6 +175,27 @@ prestige-account{
             .booking-item{
               width: 33.3%;
               float: left;
+            }
+          }
+          .comments-toggle{
+            display: none;
+            font-size: @size--0;
+            line-height: @size-1;
+            font-weight: 600;
+          }
+          .viewport-mobile &{
+            width: 33.3%;
+            &.booking{
+              .booking-item{
+                width: 100%;
+                display: none;
+                &:first-child{
+                  display: block;
+                }
+              }
+            }
+            .comments-toggle{
+              display: block;
             }
           }
         }
@@ -145,6 +211,10 @@ prestige-account{
               color: @c-red;
             }
           }
+          .viewport-mobile &{
+            width: 33.3%;
+            text-align: right;
+          }
         }
 
         .balance{
@@ -153,10 +223,14 @@ prestige-account{
           .value{
             color: @c-brown;
           }
+          .viewport-mobile &{
+            display: none;
+          }
         }
 
       }
 
+      //pending transaction items
       &.pending{
         li{
 
@@ -165,6 +239,12 @@ prestige-account{
           .transaction-value,
           .booking-ref{
             width: 23%;
+            .viewport-mobile &{
+              width: 33.3%;
+              &.booking-ref.desktop{
+                display: none;
+              }
+            }
           }
 
           .transaction-value{

@@ -11,7 +11,6 @@ angular
     'ngSanitize',
     'btford.markdown',
     'ngAnimate',
-    '720kb.tooltips',
     // Template cache
     'templates-main',
 
@@ -21,6 +20,8 @@ angular
     'validation.match',
     'ui-rangeSlider',
     'angulike',
+    '720kb.tooltips',
+    'angularUtils.directives.dirPagination',
 
     // Controllers
     'mobius.controllers.common.sanitize',

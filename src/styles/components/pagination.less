@@ -1,0 +1,88 @@
+dir-pagination-controls{
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 13px;
+  
+  ul.pagination{
+    display: inline-block;
+    height: 44px;
+    line-height: 44px;
+
+    li{
+      display: inline;
+      float: left;
+      &:first-child,
+      &:last-child{
+        position: absolute;
+        a{
+          display: block;
+          width: 34px;
+          height: 44px;
+          line-height: 40px;
+          background: @c-brown;
+          color: @c-brown;
+          text-align: center;
+          border-radius: 3px;
+          text-indent: -4px;
+          transition: all 0.25s ease-out;
+          &:after{
+            position: relative;
+            font-size: @size-1;
+            font-weight: 600;
+            color: #fff;
+            transition: all 0.25s ease-out;
+          }
+        }
+        &.disabled{
+          a{
+            background: #9b9b9b;
+            &:hover:after{
+              left: 0;
+            }
+          }
+        }
+      }
+      &:first-child{
+        left: 0;
+        a:after{
+          content: '‹‹';
+        }
+        a:hover:after{
+          left: -2px;
+        }
+      }
+
+      &:last-child{
+        right: 0;
+        a:after{
+          content: '››';
+        }
+        a:hover:after{
+          left: 2px;
+        }
+      }
+
+      a{
+        font-size: @size--0;
+        font-weight: 700;
+        color: #9b9b9b;
+        padding: 4px;
+      }
+
+      &.active{
+        a{
+          color: @c-brown;
+          cursor: default;
+        }
+      }
+      &.disabled{
+        a{
+          cursor: default;
+        }
+      }
+    }
+  }
+
+}

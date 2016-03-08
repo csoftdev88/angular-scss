@@ -113,7 +113,8 @@ module.exports = {
         'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js',
         'bower_components/showdown/compressed/Showdown.min.js',
         'bower_components/angular-markdown-directive/markdown.js',
-        'bower_components/angular-tooltips/dist/angular-tooltips.min.js'
+        'bower_components/angular-tooltips/dist/angular-tooltips.min.js',
+        'bower_components/angularUtils-pagination/dirPagination.js'
       ],
       styles: [
         'bower_components/font-awesome/css/font-awesome.min.css'
