@@ -187,6 +187,11 @@ angular.module('mobius.controllers.offers', [])
 
       $scope.selectedOffer = $scope.allOffers[selectedOfferIndex];
       bookingService.setBookingOffer($scope.selectedOffer);
+      $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+        promoCode: $scope.allOffers[selectedOfferIndex].availability && $scope.allOffers[selectedOfferIndex].availability.promoCode ? $scope.allOffers[selectedOfferIndex].availability.promoCode : $scope.allOffers[selectedOfferIndex].promoCode,
+        corpCode: $scope.allOffers[selectedOfferIndex].availability && $scope.allOffers[selectedOfferIndex].availability.corpCode ? $scope.allOffers[selectedOfferIndex].availability.corpCode : $scope.allOffers[selectedOfferIndex].corpCode || null,
+        groupCode: $scope.allOffers[selectedOfferIndex].availability && $scope.allOffers[selectedOfferIndex].availability.groupCode ? $scope.allOffers[selectedOfferIndex].availability.groupCode : $scope.allOffers[selectedOfferIndex].groupCode || null
+      });
 
       if($scope.selectedOffer.discountCode){
         var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;
