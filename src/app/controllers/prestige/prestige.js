@@ -4,13 +4,14 @@
  */
 angular.module('mobius.controllers.prestige', [])
 
-  .controller('PrestigeCtrl', function($scope, breadcrumbsService) {
+  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout) {
 
-    console.log('PrestigeCtrl');
-
-    
     breadcrumbsService.addBreadCrumb('Sutton Prestige');
 
     $scope.viewMode = 'recent';
+
+    $timeout(function () {
+      scrollService.scrollTo('prestige-account', 20);
+    });
 
   });

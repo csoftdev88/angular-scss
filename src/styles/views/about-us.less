@@ -70,18 +70,21 @@ about-detail {
     margin-top: 0;
   }
 
-  //- Image
-  img:not(.custom){
-    float: left;
-    margin: 0 20px 10px 0;
-    border: 1px solid @c-light-grey;
-    max-width: 50%;
-    @media only screen and @large-mobile-max {
-      width: 100%;
-      max-width: 100%;
-      float: none;
+  .about-content{
+    //- Image
+    img:not(.custom){
+      float: left;
+      margin: 0 20px 10px 0;
+      border: 1px solid @c-light-grey;
+      max-width: 50%;
+      @media only screen and @large-mobile-max {
+        width: 100%;
+        max-width: 100%;
+        float: none;
+      }
     }
   }
+  
 
   p{
     a{

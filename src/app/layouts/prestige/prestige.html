@@ -6,15 +6,54 @@
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
-  <section grid-row>
+  <prestige-account id="prestige-account" grid-row>
 
     <div grid="12">
 
-      <h1>Prestige</h1>
+      <header>
+        <h1 ng-bind-html="'_your_balance_ :' | mainHeaderStyle"></h1>
+        <p class="points">560 points</p>
+      </header>
+
+      <div class="transactions">
+
+        <nav>
+          <h2 class="title">
+            <span ng-bind-html="'_recent_transactions_' | mainHeaderStyle" ng-if="viewMode === 'recent'"></span>
+            <span ng-bind-html="'_pending_transactions_' | mainHeaderStyle" ng-if="viewMode === 'pending'"></span>
+          </h2>
+          <ul>
+            <li><a href="" ng-click="viewMode === 'recent'" ng-class="{'active': viewMode === 'recent'}">_recent_</a></li>
+            <li><a href="" ng-click="viewMode === 'pending'" ng-class="{'active': viewMode === 'pending'}">_pending_</a></li>
+          </ul>
+        </nav>
+
+        <ul class="transaction-items">
+
+          <li>
+
+            <div class="date">
+              <div class="label">_date_added_</div>
+              <div class="value">11 Nov 2015</div>
+            </div>
+
+            <div class="description">
+              <div class="label">_manual_entry_</div>
+              <h4 class="title">Manually Added Points</h4>
+              <p class="detail">Points added for previous stays at The Sutton Place Hotel Revelstoke Mountain Resort on 14 August 2015 to stay on the 30th of September 2015</p>
+            </div>
+
+
+          </li>
+
+        </ul>
+
+      </div>
+      
 
     </div>
 
-  </div>
+  </prestige-account>
 
   <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
 
