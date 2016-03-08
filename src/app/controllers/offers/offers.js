@@ -237,6 +237,8 @@ angular.module('mobius.controllers.offers', [])
       stateParams.adults = bookingParams.adults;
       stateParams.children = bookingParams.children;
       stateParams.promoCode = offer.availability && offer.availability.promoCode ? offer.availability.promoCode : offer.promoCode;
+      stateParams.groupCode = offer.availability && offer.availability.groupCode ? offer.availability.groupCode : offer.groupCode;
+      stateParams.corpCode = offer.availability && offer.availability.corpCode ? offer.availability.corpCode : offer.corpCode;
       if (bookingParams.from && bookingParams.to) {
         stateParams.dates = bookingParams.from + DATES_SEPARATOR + bookingParams.to;
       }

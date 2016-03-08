@@ -664,9 +664,20 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         // TODO: Set code type from offers
         function prefillPromoCode() {
-          scope.selected.promoCode = settings.promoCode;
+          
           // TODO: Offers should have code types - needs API
-          scope.selected.codeType = $window._.findWhere(scope.codeTypes, {param: 'promoCode'});
+          var codeTypeParam;
+          if(settings.promoCode){
+            codeTypeParam = 'promoCode';
+          }
+          else if(settings.corpCode){
+            codeTypeParam = 'corpCode';
+          }
+          else if(settings.groupCode){
+            codeTypeParam = 'groupCode';
+          }
+          scope.selected[codeTypeParam] = settings.promoCode || settings.corpCode || settings.groupCode;
+          scope.selected.codeType = $window._.findWhere(scope.codeTypes, {param: codeTypeParam});
 
           var promoInput = angular.element('.booking-widget-promo-code');
           if (promoInput.length) {
@@ -686,7 +697,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         $timeout(function () {
-          if (settings.promoCode) {
+          if (settings.promoCode || settings.corpCode || settings.groupCode) {
             prefillPromoCode();
           } else {
             removePromoCode();
