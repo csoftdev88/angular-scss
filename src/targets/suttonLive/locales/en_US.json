@@ -127,10 +127,12 @@
     "rates_loading_title": "Loading the best rate for you...",
     "COMPONENTS": "//////////////////////////////////////////////////////",
     "your_balance": "Your Balance",
+    "balance": "balance",
     "recent_transactions": "Recent Transactions",
     "pending_transactions": "Pending Transactions",
     "recent": "Recent",
     "pending": "Pending",
+    "transaction": "transaction",
     "date_added": "Date Added",
     "date_booked": "Date Booked",
     "date_opened": "Date Opened",
@@ -138,6 +140,10 @@
     "date_cancelled": "Date Cancelled",
     "date_redeemed": "Date Redeemed",
     "manual_entry": "Manual Entry",
+    "manual_reduction": "Manual Reduction",
+    "reward_name": "Reward Name",
+    "prestige_account_opened_desc": "Sutton Prestige Guest Rewards Program Account Opened",
+    "prestige_account_pending_desc": "Points will be awarded after check out",
 
 
     "hotel_detail_header_main_title": "New Reservation",

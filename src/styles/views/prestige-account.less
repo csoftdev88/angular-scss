@@ -2,7 +2,7 @@ prestige-account{
 
   //Page header
   header{
-    margin-bottom: 80px;
+    margin-bottom: 90px;
     h1{
       font-size: @size-2;
       line-height: @size-4;
@@ -32,7 +32,14 @@ prestige-account{
         float: left;
         font-size: @size-2;
         line-height: @size-4;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
+        em{
+          font-size: @size--0;
+          font-weight: 300;
+          font-style: italic;
+          margin-left: 10px;
+          color: #898989;
+        }
       }
       ul{
         float: right;
@@ -53,6 +60,9 @@ prestige-account{
           &:first-child:before{
             content: none;
           }
+          &:last-child{
+            padding-right: 0;
+          }
           a{
             color: @c-grey;
             font-weight: 300;
@@ -67,6 +77,103 @@ prestige-account{
     }
 
     //transactions items
+    ul.transaction-items{
+      border-bottom: 2px solid @c-mid-grey;
+      li{
+        display: inline-block;
+        width: 100%;
+        padding: 18px 0;
+        border-top: 1px solid #eee;
+        &:first-child{
+          border: none;
+        }
+
+        .date,
+        .description,
+        .transaction-value,
+        .balance,
+        .booking-ref{
+          float: left;
+          padding-left: 10px;
+          box-sizing: border-box;
+          min-height: 1px;
+          .label{
+            color: #9b9b9b;
+            font-size: @size--3;
+            line-height: @size-0;
+            text-transform: uppercase;
+            font-weight: 600;
+            min-height: 7px;
+            margin-bottom: 6px;
+          }
+          .value,
+          .detail{
+            color: #4a4a4a;
+            font-size: @size-1;
+            line-height: @size-3;
+            font-weight: 600;
+          }
+          .detail{
+            font-weight: 300;
+            margin-top: 10px;
+          }
+        }
+
+        .date{
+          width: 18%;
+          padding-left: 0;
+        }
+
+        .description{
+          width: 57%;
+          &.booking{
+            .booking-item{
+              width: 33.3%;
+              float: left;
+            }
+          }
+        }
+
+        .transaction-value{
+          width: 15%;
+          .value{
+            color: #9b9b9b;
+            &.positive{
+              color: @c-green;
+            }
+            &.negative{
+              color: @c-red;
+            }
+          }
+        }
+
+        .balance{
+          width: 10%;
+          text-align: right;
+          .value{
+            color: @c-brown;
+          }
+        }
+
+      }
+
+      &.pending{
+        li{
+
+          .date,
+          .description,
+          .transaction-value,
+          .booking-ref{
+            width: 23%;
+          }
+
+          .transaction-value{
+            width: 8%;
+            text-align: right;
+          }
+        }
+      }
+    }
 
   }
 }
