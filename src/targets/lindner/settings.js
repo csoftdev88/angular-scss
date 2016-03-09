@@ -93,6 +93,19 @@ angular.module('mobiusApp.config', [])
       'Mobius-chainId': '355',
       'Mobius-channelId': '6'
     },
+    'sessionData': {
+      'includeInApiCalls': false,
+      'cookieName': 'mobiusSessionData',
+      'httpHeaderFieldName': 'sessionData',
+      //cookie expiry in minutes
+      'expiry': 15,
+      'data':{
+        'infinitiSessionId': null,
+        'customerId': null,
+        'channel': null,
+        'sessionId': null
+      }
+    },
     'rewards': {
       // NOTE: Inconsistent API
       'all': 'rewards',

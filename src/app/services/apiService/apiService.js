@@ -2,7 +2,8 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory) {
+.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService) {
+
   var headers = Settings.API.headers;
   var apiCache = $cacheFactory('apiCache');
 
@@ -10,6 +11,9 @@ angular.module('mobiusApp.services.api', [])
     var q = $q.defer();
     var canCache = !params || Object.keys(params).length === 0;
     canCache = cacheParam === false ? false : canCache;
+
+    //sessionData
+    handleSessionDataHeaders();
     
     if (canCache && angular.isUndefined(apiCache.get(url))) {
       $http({
@@ -53,6 +57,9 @@ angular.module('mobiusApp.services.api', [])
   function post(url, data, params) {
     var q = $q.defer();
 
+    //sessionData
+    handleSessionDataHeaders();
+
     $http({
       method: 'POST',
       url: url,
@@ -73,6 +80,9 @@ angular.module('mobiusApp.services.api', [])
 
   function put(url, data, params) {
     var q = $q.defer();
+
+    //sessionData
+    handleSessionDataHeaders();
 
     $http({
       method: 'PUT',
@@ -117,6 +127,12 @@ angular.module('mobiusApp.services.api', [])
 
   function setHeaders(obj) {
     _.extend(headers, obj);
+  }
+
+  function handleSessionDataHeaders(){
+    if(Settings.API.sessionData.includeInApiCalls && sessionDataService.getCookie()){
+      setHeaders(sessionDataService.getCookie());
+    }
   }
 
   function updateMobiusAuthHeader(val) {

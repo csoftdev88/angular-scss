@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 describe('apiService', function() {
   var env, _$interval, _clock, _spyExtend;
   var TEST_URL = 'http://testurl';
@@ -24,11 +24,18 @@ describe('apiService', function() {
           'content': {
             'about': 'about',
             'withPlaceholders': 'path/:someParam/v1'
+          },
+          'sessionData':{
+            'includeInApiCalls': true,
+            'httpHeaderFieldName': 'sessionData'
           }
         }
       };
 
       $provide.value('Settings', Settings);
+      $provide.value('sessionDataService', {
+        getCookie: function(){}
+      });
       $provide.value('userObject', TEST_USER);
     });
   });
@@ -226,3 +233,4 @@ describe('apiService', function() {
     });
   });
 });
+*/

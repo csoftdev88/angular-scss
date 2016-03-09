@@ -95,6 +95,7 @@ angular
     'mobiusApp.services.dataLayer',
     'mobiusApp.services.exceptionHandler',
     'mobiusApp.services.userPreferenceService',
+    'mobiusApp.services.sessionDataService',
 
     // Factories
     'mobiusApp.factories.template',
