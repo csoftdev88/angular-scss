@@ -161,6 +161,13 @@ angular.module('mobiusApp.config', [])
     'socialLinks': [
       {'network': 'facebook', 'link': 'https://www.facebook.com/Privathotel.Lindtner.Hamburg'}
     ],
+    'shareLinks': {
+      'facebook': true,
+      'twitter': true,
+      'googleplus': true,
+      'mail': true,
+      'twitterUsername': ''
+    },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
     'heroStaticContent': {
@@ -470,6 +477,27 @@ angular.module('mobiusApp.config', [])
       'discountCodeCookieExpiryDays': 5
     },
 
+    'registerPage':{
+      'headerPartial':{
+        'display': false,
+        'logo':{
+          'src': '/static/images/hotelHeaderLogo.png',
+          'alt': 'Worldhotels deluxe'
+        }
+      }
+    },
+    'profilePage':{
+      'headerPartial':{
+        'display': false,
+        'logo':{
+          'src': '/static/images/hotelHeaderLogo.png',
+          'alt': 'Worldhotels deluxe'
+        }
+      },
+      'displaySummary': false,
+      'displayMap': false
+    },
+
     'languages': {
       'headerAlignment': 'right',
       'dropdown': true,
@@ -745,6 +773,7 @@ angular.module('mobiusApp.config', [])
     },
     //Footer: type: advanced or simple (advanced for national for example)
     'footer':{
+      'displaySitemap': true,
       'type': 'simple',
       'advanced': {
         'logo':{

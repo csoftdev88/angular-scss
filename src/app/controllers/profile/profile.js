@@ -4,9 +4,16 @@
  */
 angular.module('mobius.controllers.profile', [])
 
-  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings){
+  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings, propertyService){
 
     breadcrumbsService.addBreadCrumb('Profile');
+
+    $scope.config = Settings.UI.profilePage;
+    if($scope.config.displaySummary){
+      $scope.showSummary = true;
+    }
+    $scope.shareURL = $location.protocol() + '://' + $location.host();
+    $scope.shareConfig = Settings.UI.shareLinks;
 
     //get meta information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -31,6 +38,16 @@ angular.module('mobius.controllers.profile', [])
 			$scope.profileContacts = data;
 		});
 
+    //Get property details for map
+    if($scope.config.displayMap){
+      propertyService.getAll().then(function(properties){
+        var code = properties[0].code;
+        propertyService.getPropertyDetails(code).then(function(details){
+          $scope.propertyDetails = details;
+        });
+      });
+    }
+    
 		$controller('ISOCountriesCtrl', {$scope: $scope});
 
 		$timeout(function(){
@@ -47,6 +64,9 @@ angular.module('mobius.controllers.profile', [])
 		      clearErrorMsg();
 		      userObject = _.extend(userObject, data);
 		      setErrorMsg('Thank you, your profile has been updated', 'success');
+          if($scope.config.displaySummary){
+            $scope.showSummary = true;
+          }
 		    }, function(){
 		      //TODO: Move into locale
 		      setErrorMsg('Sorry, there was an error, please try again', 'error');

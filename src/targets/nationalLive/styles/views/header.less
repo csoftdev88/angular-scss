@@ -158,21 +158,29 @@
             text-transform: none;
           }
           .profile {
-            margin-top: 33px;
+            margin-top: 39px;
             min-width: 0;
             .message{
-              color: @c-secondary;
-              font-weight: 700;
+              color: @c-primary;
+              font-weight: 400;
+              font-size: @size--0;
+              line-height: @size--0;
+              padding-right: 13px;
+              text-align: right;
             }
 
             .user {
               color: @c-grey;
-              font-size: @size--2;
-              line-height: @size--2;
+              font-size: @size-0;
+              line-height: 24px;
+              font-family: @ff-heading;
+              text-transform: uppercase;
 
               span {
                 display: inline;
                 font-weight: normal;
+                font-size: @size-0;
+                line-height: @size-0;
 
                 // Surname
                 &:last-of-type {
@@ -181,6 +189,15 @@
               }
               &:after {
                 height: 7px;
+                margin-left: 0;
+                top: -5px;
+                position: relative;
+                background: none;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 8px 4px 0 4px;
+                border-color: @c-primary transparent transparent;
               }
             }
           }

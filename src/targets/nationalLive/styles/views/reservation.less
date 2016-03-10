@@ -474,13 +474,12 @@ reservation-finished {
        display: none;
       }
 
-      a {
-        display: block;
-        margin-left: @spacing / 2;
-      }
-
       .passbook{
         float: right;
+        a {
+          display: block;
+          margin-left: @spacing / 2;
+        }
         .button-passbook {
           background: url('@{img-prefix}/v4/btn-passbook.png');
           width: 108px;
@@ -501,64 +500,6 @@ reservation-finished {
           .button-print {
             margin-left: 0;
           }
-        }
-      }
-
-
-
-      // Block w/ share buttons under the header
-      .share {
-        position: relative;
-        float: left;
-        line-height: @baseline * 1.6;
-        .viewport-mobile &{
-          margin-bottom: 10px;
-        }
-
-        a {
-          display: inline-block;
-          height: 22px;
-          width: 22px;
-          margin-left: 0;
-          border-radius: 100%;
-          color: #fff;
-          font-size: @size--1;
-          line-height: 22px;
-          text-align: center;
-
-          &:first-child{
-            margin-left: 5px;
-          }
-
-          &:focus,
-          &:hover {
-            background: @c-link;
-            color: #fff;
-          }
-
-          &:before {
-            .fa;
-          }
-
-          &.icon-fb {             background: #3b579d;}
-          .fb-share-button{
-            width: 22px;
-            height: 22px;
-            border-radius: 100%;
-            span{
-              vertical-align: middle!important;
-            }
-          }
-          //&.icon-fb:before {      content: @fa-var-facebook; }
-
-          &.icon-twitter {        background: #31aae1;}
-          &.icon-twitter:before { content: @fa-var-twitter; }
-
-          &.icon-gplus {          background: #da4b39;}
-          &.icon-gplus:before {   content: @fa-var-google-plus; }
-
-          &.icon-email {          background: #999;}
-          &.icon-email:before {   content: @fa-var-envelope-o; }
         }
       }
 

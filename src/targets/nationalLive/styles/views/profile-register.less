@@ -13,6 +13,92 @@ register-page {
     }
   }
 
+  .profile-summary{
+
+    margin-bottom: 40px;
+
+    .summary-wrapper{
+      border: 1px solid #979797;
+      padding: 23px 45px 17px;
+      margin-bottom: 20px;
+      display: inline-block;
+      width: 100%;
+      box-sizing: border-box;
+
+      .name,
+      .address,
+      .contact{
+        float: left;
+        box-sizing: border-box;
+        .item{
+          font-size: 18px;
+          line-height: 24px;
+          .label{
+            float: left;
+            box-sizing: border-box;
+            width: 50%;
+            padding-right: 20px;
+            font-family: @ff-bold;
+          }
+          .value{
+            padding-left: 50%;
+          }
+        }
+      }
+
+      .name{
+        font-family: @ff-heading;
+        font-size: 26px;
+        line-height: 34px;
+        width: 25%;
+        span{
+          display: block;
+          font-size: 18px;
+          line-height: 27px;
+        }
+      }
+
+      .address{
+        width: 40%;
+        .item{
+          .label{
+            width: 30%;
+          }
+          .value{
+            padding-left: 30%;
+          }
+        }
+      }
+
+      .contact{
+        width: 35%;
+      }
+
+      .footer{
+        display: inline-block;
+        width: 100%;
+        margin-top: 20px;
+        .share{
+          width: 34%;
+          line-height: 26px;
+        }
+        label{
+          clear: none;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 26px;
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    button-submit{
+      float: right;
+    }
+    
+
+  }
+
   //- Form
   form {
     h2{

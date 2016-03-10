@@ -8,12 +8,97 @@
 
   <profile-page grid-row>
 
-    <header grid="12">
+    <header grid="12" ng-if="!config.headerPartial.display">
       <h1 ng-bind-html="'_profile_page_title_' | mainHeaderStyle"></h1>
       <p>_profile_page_desc_</p>
     </header>
 
-    <form name="form" grid="8">
+    <section grid="12" class="hotel-detail__header" ng-if="config.headerPartial.display">
+
+      <figure class="logo">
+        <img ng-src="{{config.headerPartial.logo.src}}" alt="{{config.headerPartial.logo.alt}}">
+      </figure>
+
+      <div class="title-wrapper">
+        <h1 class="title" ng-bind-html="'_profile_page_title_' | mainHeaderStyle"></h1>
+      </div>
+      
+      <div class="contact-info">
+        <div class="inner">
+          <div class="icon">
+            <i class="fa fa-phone"></i>
+          </div>
+          <div class="details">
+            <div class="desc">_hotel_detail_header_contact_title_:</div>
+            <div class="info">{{chain.contacts[0].tel}}</div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <p class="description">_profile_page_desc_</p>
+    </section>
+
+    <section grid="12" class="profile-summary" ng-show="config.displaySummary && showSummary">
+
+      <div class="summary-wrapper">
+
+        <div class="name">
+          <span>{{profileData.firstName}}</span>{{profileData.lastName}}
+        </div>
+
+        <div class="address">
+          <div class="item">
+            <div class="label">_address_label_:</div>
+            <div class="value">
+              <ul>
+                <li>{{profileData.address1}} {{profileData.address2}}</li>
+                <li>{{profileData.city}}</li>
+                <li>{{profileData.state}}</li>
+                <li>{{profileData.zip}}</li>
+                <li>{{profileData.country}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact">
+          <div class="item">
+            <div class="label">_phone_label_:</div>
+            <div class="value">{{profileData.tel1}}</div>
+          </div>
+          <div class="item">
+            <div class="label">_email_label_:</div>
+            <div class="value">{{profileData.email}}</div>
+          </div>
+        </div>
+
+        <div class="footer">
+
+          <div class="share">
+            _share_via_:
+            <a ng-if="shareConfig.facebook" href="" title="Share on Facebook" target="_blank" class="icon-fb" fb-like="shareURL"></a>
+            <a ng-if="shareConfig.twitter" href="" ng-href="https://twitter.com/intent/tweet?source={{shareURL}}&text={{shareURL}}&via={{shareConfig.twitterUsername}}" title="Tweet" target="_blank" class="icon-twitter"></a>
+            <a ng-if="shareConfig.googleplus" href="" ng-href="https://plus.google.com/share?url={{shareURL}}" title="Share on Google+" target="_blank" class="icon-gplus"></a>
+            <a ng-if="shareConfig.mail" href="" ng-href="mailto:?body={{shareURL}}" title="Email" target="_blank" class="icon-email"></a>
+          </div>
+
+          <label for="profileOptedIn" class="input-checkbox">
+            <input type="checkbox" id="profileOptedIn" ng-model="profileData.optedIn"/>
+            _subscribe_label_
+          </label>
+
+        </div>
+
+      </div>
+
+      <button-submit ng-click="showSummary = false">_edit_</button-submit>
+
+    </section>
+
+
+    <form name="form" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
 
       <h2>_profile_page_password_title_</h2>
 
@@ -202,9 +287,13 @@
 
     </form>
 
+    <div grid="12" ng-show="config.displayMap">
+      <hotel-location id="jsLocation" hotel-details="propertyDetails"></hotel-location>
+    </div>
+
   </profile-page>
 
   <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
 
 </main>
-<div ng-include="'layouts/siteMap.html'" class="site-map"></div>
+<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>

@@ -165,6 +165,13 @@ angular.module('mobiusApp.config', [])
       {'network': 'facebook', 'link': 'https://www.facebook.com/LaValHotel/',},
       {'network': 'google', 'link': 'https://plus.google.com/108804943223603854860/posts'}
     ],
+    'shareLinks': {
+      'facebook': true,
+      'twitter': true,
+      'googleplus': false,
+      'mail': false,
+      'twitterUsername': 'HotelNationalLU'
+    },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
     'heroStaticContent': {
@@ -352,6 +359,27 @@ angular.module('mobiusApp.config', [])
 
     'offers':{
       'discountCodeCookieExpiryDays': 5
+    },
+
+    'registerPage':{
+      'headerPartial':{
+        'display': true,
+        'logo':{
+          'src': '/static/images/hotelHeaderLogo.png',
+          'alt': 'Worldhotels deluxe'
+        }
+      }
+    },
+    'profilePage':{
+      'headerPartial':{
+        'display': true,
+        'logo':{
+          'src': '/static/images/hotelHeaderLogo.png',
+          'alt': 'Worldhotels deluxe'
+        }
+      },
+      'displaySummary': true,
+      'displayMap': true
     },
 
     'languages': {
@@ -629,6 +657,7 @@ angular.module('mobiusApp.config', [])
     },
     //Footer: type: advanced or simple (advanced for national for example)
     'footer':{
+      'displaySitemap': false,
       'type': 'advanced',
       'advanced': {
         'logo':{
