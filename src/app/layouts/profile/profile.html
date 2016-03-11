@@ -98,7 +98,7 @@
     </section>
 
 
-    <form name="form" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
+    <form name="passwordForm" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
 
       <h2>_profile_page_password_title_</h2>
 
@@ -110,7 +110,7 @@
             type="password" 
             id="newPassword"
             name="newPassword"
-            ng-model="profileData.password"
+            ng-model="passwordData.password"
             ng-class="{'ng-submitted': form.$submitted && form.newPassword.$error.required}"/>
         </form-element>
 
@@ -120,13 +120,29 @@
             type="password" 
             id="newPasswordConf"
             name="newPasswordConf"
-            ng-model="profileData.passwordConf"
-            equals="profileData.password"
+            ng-model="passwordData.passwordConf"
+            equals="passwordData.password"
             ng-class="{'ng-submitted': form.$submitted && (form.newPasswordConf.$error.required || form.newPasswordConf.$error.equals)}"/>
             <span class="error" ng-if="form.$submitted && form.newPasswordConf.$error.equals">_password_match_error_message_</span>
         </form-element>
 
       </fieldset>
+
+      <p class="feedback-msg error" ng-if="passwordResetError">
+        <span ng-if="errorCode === 10">_reset_password_error_code_ten_</span>
+        <span ng-if="errorCode === 11">_reset_password_error_code_eleven_</span>
+        <span ng-if="errorCode === 12">_reset_password_error_code_twelve_</span>
+        <span ng-if="errorCode === 13">_reset_password_error_code_thirteen_</span>
+        <span ng-if="errorCode === 34">_reset_password_error_code_thirtyfour_</span>
+        <span ng-if="passwordFormError">_missing_fields_message_</span>
+      </p>
+      <p class="feedback-msg" ng-if="passwordResetSuccess">_reset_password_success_</p>
+
+      <button-submit role="button" tabindex="0" ng-click="savePassword(passwordForm, passwordData)">_save_password_</button-submit>
+
+    </form>
+
+    <form name="form" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
 
       <h2>_profile_page_about_title_</h2>
 
@@ -288,6 +304,7 @@
     </form>
 
     <div grid="12" ng-show="config.displayMap">
+      <hr class="small">
       <hotel-location id="jsLocation" hotel-details="propertyDetails"></hotel-location>
     </div>
 

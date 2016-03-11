@@ -655,6 +655,15 @@ angular.module('mobiusApp.config', [])
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
         'displayStaticContent': false
+      },
+      'locationMap':{
+        'displayMainTitle': false,
+        'displayGoogleMapsLink': true,
+        'displayIcons': true,
+        'directionsLink':{
+          'display': false,
+          'link': ''
+        }
       }
     },
 

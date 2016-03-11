@@ -72,7 +72,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.$on('USER_LOGIN_EVENT', function(){
-    prefillUserDetails(user.isLoggedIn ? user.getUser() : {email:$stateParams.email}, true);
+    prefillUserDetails(user.isLoggedIn() ? user.getUser() : {email:$stateParams.email}, true);
   });
 
   function onAuthorized(isMobiusUser){

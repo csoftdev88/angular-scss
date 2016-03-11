@@ -14,8 +14,12 @@ register-page {
   }
 
   .profile-summary{
-
+    display: inline-block;
+    width: 100%;
     margin-bottom: 40px;
+    .viewport-mobile &{
+      margin-bottom: 20px;
+    }
 
     .summary-wrapper{
       border: 1px solid #979797;
@@ -24,6 +28,9 @@ register-page {
       display: inline-block;
       width: 100%;
       box-sizing: border-box;
+      .viewport-mobile &{
+        padding: 20px;
+      }
 
       .name,
       .address,
@@ -33,6 +40,8 @@ register-page {
         .item{
           font-size: 18px;
           line-height: 24px;
+          display: inline-block;
+          width: 100%;
           .label{
             float: left;
             box-sizing: border-box;
@@ -42,6 +51,23 @@ register-page {
           }
           .value{
             padding-left: 50%;
+          }
+        }
+        .viewport-mobile &{
+          width: 100%;
+          &.name{
+            margin-bottom: 20px;
+          }
+          .item{
+            margin-bottom: 20px;
+            
+            font-size: 16px;
+            .label{
+              width: 40%;
+            }
+            .value{
+              padding-left: 40%;
+            }
           }
         }
       }
@@ -78,6 +104,9 @@ register-page {
         display: inline-block;
         width: 100%;
         margin-top: 20px;
+        .viewport-mobile &{
+          margin-top: 0px;
+        }
         .share{
           width: 34%;
           line-height: 26px;
@@ -88,7 +117,18 @@ register-page {
           font-weight: 400;
           line-height: 26px;
           padding-bottom: 0;
+          .viewport-mobile &{
+            font-size: 14px;
+            line-height: 21px;
+          }
         }
+        .viewport-mobile &{
+          .share,
+          label{
+            width: 100%;
+          }
+        }
+
       }
     }
 

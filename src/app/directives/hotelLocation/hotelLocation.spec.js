@@ -28,6 +28,11 @@ describe('hotelLocation', function() {
       $provide.value('Settings', {
         API: {
           chainCode: 'TESTCHAIN'
+        },
+        UI: {
+          viewsSettings:{
+            locationMap:{}
+          }
         }
       });
     });

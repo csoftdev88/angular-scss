@@ -13,6 +13,7 @@ angular.module('mobiusApp.directives.hotelLocation', [])
 
       // Widget logic goes here
       link: function(scope) {
+        scope.config = Settings.UI.viewsSettings.locationMap;
         chainService.getChain(Settings.API.chainCode).then(function(chain){
           scope.nameShort = chain.nameShort;
         });

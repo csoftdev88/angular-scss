@@ -6,8 +6,18 @@ angular.module('mobius.controllers.profile', [])
 
   .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings, propertyService){
 
+    //check if user is logged in
+    function onAuthorized(){
+      if(!user.isLoggedIn()){
+        $state.go('home');
+      }
+    }
+    $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
+
+    //Add breadcrumb
     breadcrumbsService.addBreadCrumb('Profile');
 
+    //Config
     $scope.config = Settings.UI.profilePage;
     if($scope.config.displaySummary){
       $scope.showSummary = true;
@@ -76,6 +86,31 @@ angular.module('mobius.controllers.profile', [])
 		    setErrorMsg('Please fill out all the fields indicated', 'error');
 		  }
 		};
+
+    $scope.savePassword = function(form, passwordData){
+      form.$submitted = true;
+      if(form.$valid){
+        var data = {
+          'token': userObject.token,
+          'password': passwordData.password
+        };
+        apiService.post(apiService.getFullURL('customers.changePassword', {customerId: userObject.id}), data).then(function(){
+          clearErrorMsg();
+          userObject = _.extend(userObject, data);
+          $scope.passwordResetSuccess = true;
+          if($scope.config.displaySummary){
+            $scope.showSummary = true;
+          }
+        }, function(err){
+          $scope.errorCode = err.error.reason;
+          $scope.passwordResetError = true;
+        });
+      }
+      else{
+        $scope.passwordResetError = true;
+        $scope.passwordFormError = true;
+      }
+    };
 
 		function setErrorMsg(msg, type){
 			if(type === 'error'){

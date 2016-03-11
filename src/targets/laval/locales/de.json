@@ -69,6 +69,7 @@
     "continue_as_guest": "Weiterfahren als Gast",
 
     "reset_password": "Passwort zurücksetzen",
+    "save_password": "Save Password",
 
     "continue": "Weiterfahren",
 
@@ -398,6 +399,8 @@
     "hotel_map_phone_label": "Telefon",
 
     "hotel_map_address_label": "Adresse",
+    "hotel_map_directions_label": "Directions",
+    "hotel_map_directions_value": "Hotel Directions PDF",
 
     "local_time": "Lokale Zeit",
 

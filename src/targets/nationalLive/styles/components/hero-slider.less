@@ -118,27 +118,35 @@ hero-slider {
 
 @media only screen and @large-mobile-min and @tablet-portrait-max{
   hero-slider {
-    height: 400px;
-
+    height: 158px;
+    margin-top: 60px;
     .slider-controls {
       .pages {
         bottom: 0px;
+        span {
+          height: 7px;
+          width: 7px;
+        }
       }
     }
-
     .slider-content{
       .hero-slide {
         .content-inner {
-          margin-left: 0px;
-          padding: 5px 15px 25px;
-
+          padding: 10px 10px 25px 20px;
+          box-sizing: border-box;
+          h1, h2 {
+            display: inline;
+          }
           h1 {
             .fs-18;
+            line-height: 22px;
+            margin-bottom: 5px;
           }
 
           h2 {
             .fs-16;
             margin-bottom: 10px;
+            line-height: 18px;
           }
         }
       }

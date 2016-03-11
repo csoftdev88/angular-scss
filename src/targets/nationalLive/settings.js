@@ -535,6 +535,15 @@ angular.module('mobiusApp.config', [])
       'breadcrumbsBar':{
         'displayBreadcrumbs': false,
         'displayStaticContent': true
+      },
+      'locationMap':{
+        'displayMainTitle': true,
+        'displayGoogleMapsLink': false,
+        'displayIcons': false,
+        'directionsLink':{
+          'display': true,
+          'link': 'http://www.grandhotel-national.com/media/39232/route-map.pdf'
+        }
       }
     },
 
