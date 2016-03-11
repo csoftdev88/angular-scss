@@ -468,7 +468,15 @@ angular.module('mobiusApp.config', [])
       //price breakdown
       'priceBreakdownExtended': false,
       //display hero slider on booking page
-      'displayHeroSlider': true
+      'displayHeroSlider': true,
+      //display advanced header
+      'headerPartial':{
+        'display': true,
+        'logo':{
+          'src': '/static/images/hotelHeaderLogo.png',
+          'alt': 'Worldhotels deluxe'
+        }
+      }
     },
     'myAccount' : {
       'displaySettings' : {

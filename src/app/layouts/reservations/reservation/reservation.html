@@ -5,6 +5,31 @@
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
+  <section grid="12" class="hotel-detail__header" ng-if="bookingConfig.headerPartial.display">
+
+    <figure class="logo">
+      <img ng-src="{{bookingConfig.headerPartial.logo.src}}" alt="{{bookingConfig.headerPartial.logo.alt}}">
+    </figure>
+
+    <div class="title-wrapper">
+      <h1 class="title" ng-bind-html="'_your_booking_' | mainHeaderStyle"></h1>
+    </div>
+    
+    <div class="contact-info">
+      <div class="inner">
+        <div class="icon">
+          <i class="fa fa-phone"></i>
+        </div>
+        <div class="details">
+          <div class="desc">_hotel_detail_header_contact_title_:</div>
+          <div class="info">{{chain.contacts[0].tel}}</div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+  </section>
+
   <reservation-widget grid-row>
 
     <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.payment">
