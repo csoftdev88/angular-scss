@@ -1,8 +1,7 @@
-<!--
-<hero-slider content="heroContent"></hero-slider>
-<breadcrumbs stickable="main-header"></breadcrumbs>-->
+<hero-slider content="heroContent" ng-if="bookingConfig.displayHeroSlider"></hero-slider>
+<!--<breadcrumbs stickable="main-header"></breadcrumbs>-->
 
-<main class="grid-wrapper no-hero">
+<main class="grid-wrapper" ng-class="{'no-hero': !bookingConfig.displayHeroSlider}">
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
