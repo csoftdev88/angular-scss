@@ -29,7 +29,7 @@ register-page {
       width: 100%;
       box-sizing: border-box;
       .viewport-mobile &{
-        padding: 20px;
+        padding: 36px 20px 10px;
       }
 
       .name,
@@ -56,17 +56,16 @@ register-page {
         .viewport-mobile &{
           width: 100%;
           &.name{
-            margin-bottom: 20px;
+            margin-bottom: 14px;
           }
           .item{
-            margin-bottom: 20px;
-            
+            margin-bottom: 14px;
             font-size: 16px;
             .label{
-              width: 40%;
+              width: 100%;
             }
             .value{
-              padding-left: 40%;
+              padding-left: 0%;
             }
           }
         }
@@ -117,15 +116,25 @@ register-page {
           font-weight: 400;
           line-height: 26px;
           padding-bottom: 0;
+          width: 66%;
+          float: right;
           .viewport-mobile &{
-            font-size: 14px;
-            line-height: 21px;
+            font-size: 16px;
+            line-height: 24px;
+            float: none;
           }
         }
         .viewport-mobile &{
+          margin-top: 0;
+          text-align: center;
           .share,
           label{
             width: 100%;
+          }
+
+          label{
+            margin-bottom: 20px;
+            text-align: left;
           }
         }
 

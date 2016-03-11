@@ -76,18 +76,17 @@
 
         <div class="footer">
 
+          <label for="profileOptedIn" class="input-checkbox">
+            <input type="checkbox" id="profileOptedIn" ng-model="profileData.optedIn"/>
+            _subscribe_label_
+          </label>
+
           <div class="share">
-            _share_via_:
             <a ng-if="shareConfig.facebook" href="" title="Share on Facebook" target="_blank" class="icon-fb" fb-like="shareURL"></a>
             <a ng-if="shareConfig.twitter" href="" ng-href="https://twitter.com/intent/tweet?source={{shareURL}}&text={{shareURL}}&via={{shareConfig.twitterUsername}}" title="Tweet" target="_blank" class="icon-twitter"></a>
             <a ng-if="shareConfig.googleplus" href="" ng-href="https://plus.google.com/share?url={{shareURL}}" title="Share on Google+" target="_blank" class="icon-gplus"></a>
             <a ng-if="shareConfig.mail" href="" ng-href="mailto:?body={{shareURL}}" title="Email" target="_blank" class="icon-email"></a>
           </div>
-
-          <label for="profileOptedIn" class="input-checkbox">
-            <input type="checkbox" id="profileOptedIn" ng-model="profileData.optedIn"/>
-            _subscribe_label_
-          </label>
 
         </div>
 

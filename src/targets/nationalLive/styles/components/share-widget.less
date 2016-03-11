@@ -1,0 +1,28 @@
+// Block w/ share buttons
+.share {
+  position: relative;
+  float: left;
+  line-height: @baseline * 1.6;
+  .viewport-mobile &{
+    margin-bottom: 10px;
+  }
+
+  a {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    margin-left: 5px;
+    border-radius: 0px;
+
+    &:before {
+
+    }
+
+    &.icon-fb { background: transparent url('@{img-prefix}/facebook-icon.png') no-repeat center;}
+    &.icon-fb:before {      content: none; }
+
+    &.icon-twitter { background: transparent url('@{img-prefix}/twitter-icon.png') no-repeat center;}
+    &.icon-twitter:before { content: none; }
+
+  }
+}
