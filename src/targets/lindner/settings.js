@@ -11,9 +11,10 @@ angular.module('mobiusApp.config', [])
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
 
-    'GoogleAnalyticsID': 'UA-44368729-3',
+    'GoogleAnalyticsID': '',
+    'appendGoogleAnalyticsScriptToPage': false,
     'ecommerceDataLayer': {
-      'active': true,
+      'active': false,
       'trackUserId': true
     },
     'chainCode': 'LIND',

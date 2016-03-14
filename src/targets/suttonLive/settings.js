@@ -12,6 +12,7 @@ angular.module('mobiusApp.config', [])
     'cacheFlushInterval': 60,
 
     'GoogleAnalyticsID': 'UA-44368729-3',
+    'appendGoogleAnalyticsScriptToPage': true,
     'ecommerceDataLayer': {
       'active': true,
       'trackUserId': true
