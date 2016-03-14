@@ -128,6 +128,8 @@ angular.module('mobiusApp.config', [])
     },
     'generics': {
       'singleProperty': true,
+      'sentryID': '',
+      'facebookAppId': '',
       'disableMainHeaderStyle': true
     },
     'adverts' : {
