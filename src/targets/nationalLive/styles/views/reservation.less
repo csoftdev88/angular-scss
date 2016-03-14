@@ -13,6 +13,18 @@
 ////////////////////////////////////////////////////
 reservation-widget {
 
+  margin-bottom: 70px;
+
+  reservation-details-form{
+    form{
+      padding: 20px 25px;
+      border: 1px solid #d7d7d7;
+      border-radius: 3px;
+      background-color: #f9f9f9;
+      margin-top: 25px;
+    }
+  }
+  
   h3{
     strong{
       font-weight: normal;
@@ -65,8 +77,10 @@ reservation-widget {
     font-weight: normal;
   }
 
-  .detail-links {
-    color: @c-primary;
+  .detail-links,
+  .detail-links a {
+    font-size: 12px;
+    color: @c-dark-grey;
   }
 
   aside {
@@ -97,23 +111,28 @@ reservation-widget {
     }
 
     h3 {
-      font-weight: 600;
+      font-family: @ff-light;
+      color: @c-grey;
+      font-weight: normal;
     }
 
     h4{
-      color: @c-primary;
+      font-size: 14px;
+      color: #262626;
+      text-transform: uppercase;
+      font-weight: 700;
     }
 
     .desc,
     .price{
       color: @c-dark-grey;
-      strong{
-        font-weight: 700;
-      }
+      display: none;
     }
   }
 
   .reservation-data {
+    color: #242424;
+
     table {
       width: 100%;
     }
@@ -125,7 +144,7 @@ reservation-widget {
     }
 
     td {
-      font-weight: bold;
+      font-weight: 400;
       padding: 0 5px;
     }
 
@@ -137,6 +156,9 @@ reservation-widget {
       padding: 10px;
       border: 1px solid @c-gray-reservation;
       border-radius: 6px;
+      th {
+        font-weight: 700;
+      }
       .viewport-mobile &{
         table, thead, tbody, th, td, tr {
           display: block;
@@ -152,6 +174,7 @@ reservation-widget {
     padding: 0px;
     line-height: 20px;
     margin-bottom: 20px;
+    text-align: right;
     .viewport-mobile &{
       margin-left: 0;
     }
@@ -446,7 +469,7 @@ reservation-confirmation {
   .nav-tabs {
 
     .active a {
-      color: @c-secondary;
+      color: @c-primary;
       font-weight: normal;
     }
   }

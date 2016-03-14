@@ -213,7 +213,7 @@
     <div class="reservation-controls" grid-row>
       <button class="back" ng-click="goBack()">_back_</button>
       <button class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">{{continueName}}</button>
-      <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous()">
+      <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCta.display">
         <h4 ng-bind-html="'_reservation_page_loginprompt_title_' | mainHeaderStyle"></h4>
         <p>_click_here_to_ <a href ng-click="sso.login()">_login_register_</a>.</p>
       </registration-call>
