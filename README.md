@@ -198,7 +198,7 @@ Front-end configuration is located in the following places:
 
 #### `Settings.js` - main configuration file which contais customer related settings.
 Main sections are:
-- `API` - backend endpoints and their URL's.
+- `API` - backend endpoints and their URL's. Make sure google analytics settings are turned off until the client codes are confirmed, this is especially true when creating a new target from an existing one.
 - `heroSlider` - slider related settings such as animation duration, autoplay delay, autopreload etc.
 - `menu` - visibility settings for  main menu items in application header. Some of the settings can be overridden by the server.
 - `languages` - list of available languages.  This section is used to provide additional language data such as short name which is missing on the server.

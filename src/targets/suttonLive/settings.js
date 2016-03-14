@@ -10,7 +10,7 @@ angular.module('mobiusApp.config', [])
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-
+    //NOTE: GA must be turned off until client codes are confirmed especially if creating a new target from an existing one
     'GoogleAnalyticsID': 'UA-44368729-3',
     'appendGoogleAnalyticsScriptToPage': true,
     'ecommerceDataLayer': {
