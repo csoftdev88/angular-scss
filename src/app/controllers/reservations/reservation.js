@@ -946,6 +946,47 @@ angular.module('mobius.controllers.reservation', [])
     $scope.defaultCountryCode = countryCode;
   };
 
+
+  //Reservation steps navigation
+  $scope.isCurrentBookingStep = function(value) {
+    return value === $state.current.name;
+  };
+
+  $scope.isBookingStepDisabled = function(value) {
+    switch (value) {
+    case 'reservation.billing':
+      return $state.current.name === 'reservation.details';
+    case 'reservation.confirmation':
+      return $state.current.name === 'reservation.details' || $state.current.name === 'reservation.billing';
+    }
+  };
+
+  $scope.goToBookingStep = function(event, state) {
+
+    var target = angular.element(event.target);
+    if(target.hasClass('current') || target.attr('disabled') === 'disabled'){
+      return;
+    }
+
+    switch (state) {
+    case 'reservation.details':
+        $state.go('reservation.details');
+        $scope.autofillSync();
+        trackProductCheckout(1);
+      break;
+    case 'reservation.billing':
+      $state.go('reservation.billing');
+      trackProductCheckout(2);
+      break;
+    case 'reservation.confirmation':
+      $state.go('reservation.confirmation');
+      trackProductCheckout(3);
+      break;
+    }
+  };
+
+  
+
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;

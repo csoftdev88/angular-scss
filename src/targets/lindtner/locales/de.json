@@ -61,6 +61,11 @@
     "location": "Lage",
     "gallery": "Galerie",
     "BUTTONS": "//////////////////////////////////////////////////////",
+    "your_booking_progress": "Your Booking <span>Progress</span>",
+    "choose_your_room": "Choose Your Room",
+    "guest_details": "Guest Details",
+    "billing_information": "Billing Information",
+    "confirm_your_reservation": "Confirm Your Reservation",
 
     "login_register": "Log In / Registrierung",
     "login_to_book": "Login dich Buchen",

@@ -608,6 +608,10 @@ angular.module('mobiusApp.config', [])
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
+      },
+      //Booking steps navigation
+      'bookingStepsNav':{
+        'display': false
       }
     },
     'myAccount' : {

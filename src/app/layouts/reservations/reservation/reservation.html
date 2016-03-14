@@ -5,7 +5,7 @@
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
-  <section grid="12" class="hotel-detail__header" ng-if="bookingConfig.headerPartial.display">
+  <section grid-row class="hotel-detail__header" ng-if="bookingConfig.headerPartial.display">
 
     <figure class="logo">
       <img ng-src="{{bookingConfig.headerPartial.logo.src}}" alt="{{bookingConfig.headerPartial.logo.alt}}">
@@ -29,6 +29,16 @@
 
     <hr />
   </section>
+
+  <nav grid-row class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display">
+    <h4 class="label">_your_booking_progress_</h4>
+    <ul>
+      <li><a class="button" href="" ui-sref="hotels">1. _choose_your_room_</a></li>
+      <li><a class="button" href="" ng-class="{'current': isCurrentBookingStep('reservation.details')}" ng-click="goToBookingStep($event, 'reservation.details')">2. _guest_details_</a></li>
+      <li><a class="button" href="" ng-class="{'current': isCurrentBookingStep('reservation.billing')}" ng-disabled="isBookingStepDisabled('reservation.billing')" ng-click="goToBookingStep($event, 'reservation.billing')">3. _billing_information_</a></li>
+      <li><a class="button" href="" ng-class="{'current': isCurrentBookingStep('reservation.confirmation')}" ng-disabled="isBookingStepDisabled('reservation.confirmation')" ng-click="goToBookingStep($event, 'reservation.confirmation')">4. _confirm_your_reservation_</a></li>
+    </ul>
+  </nav>
 
   <reservation-widget grid-row>
 
