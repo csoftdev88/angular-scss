@@ -15,9 +15,11 @@ angular.module('mobius.controllers.reservationDetail', [])
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
     var DATES_SEPARATOR = '_';
+    $scope.config = Settings.UI.reservations;
 
     //get meta information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
+      $scope.chain = chain;
       metaInformationService.setPageTitle(chain.meta.pagetitle);
       metaInformationService.setMetaDescription(chain.meta.description);
       metaInformationService.setMetaKeywords(chain.meta.keywords);

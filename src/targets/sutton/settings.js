@@ -423,6 +423,13 @@ angular.module('mobiusApp.config', [])
           'displayOnListView': true,
           'displayOnDetailsView': true
         }
+      },
+      'headerPartial':{
+        'display': false,
+        'logo':{
+          'src': '/static/images/hotelHeaderLogo.png',
+          'alt': 'Worldhotels deluxe'
+        }
       }
     },
 

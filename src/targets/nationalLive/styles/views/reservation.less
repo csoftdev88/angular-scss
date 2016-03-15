@@ -507,6 +507,8 @@ reservation-confirmation {
 ////////////////////////////////
 reservation-finished {
 
+  margin-top: 120px;
+
 
   // This part is specific for RESERVATION DETAIL page only
   .reservation-summary {
@@ -559,6 +561,12 @@ reservation-finished {
 
     footer {
       text-align: right;
+      a{
+        color: @c-dark-grey;
+        &:hover{
+          color: @c-dark-grey;
+        }
+      }
     }
   }
 
@@ -749,6 +757,8 @@ reservation-hotel-details {
 
   .reservation-summary {
 
+    padding-top: 0;
+
     header {
       .clearfix;
       margin: 0 0 2 * @spacing 0;
@@ -767,9 +777,9 @@ reservation-hotel-details {
     }
 
     h1 {
-      color: @c-primary;
+      color: @c-dark-grey;
       font-size: @size-3;
-      font-weight: 600;
+      font-weight: 400;
       line-height: 1.5 * @baseline;
       .viewport-mobile & {
         margin-bottom: 10px;
@@ -787,17 +797,18 @@ reservation-hotel-details {
       font-size: @size-2;
 
       p{
-        color: @c-primary;
-        font-weight: 300;
+        color: @c-dark-grey;
+        font-weight: 700;
       }
 
       p + p{
         margin-top: 0px;
+        font-weight: 400;
       }
 
       strong {
         font-size: @size-2;
-        font-weight: 600;
+        font-weight: 400;
       }
 
       &.reference-visible {
@@ -814,9 +825,9 @@ reservation-hotel-details {
     }
 
     .booked {
-      color: @c-primary;
+      color: @c-dark-grey;
       font-size: @size-2;
-      font-weight: 300;
+      font-weight: 700;
     }
   }
 
@@ -864,22 +875,26 @@ reservation-hotel-details {
     }
 
     h3 {
-      font-size: @size-1;
+      font-family: @ff-light;
+      font-size: @size-2;
       line-height: @baseline;
-      font-weight: 600;
-      color: @c-primary;
+      font-weight: normal;
+      color: @c-dark-grey;
       text-transform: uppercase;
     }
 
     h4 {
-      font-size: @size-0;
+      font-size: @size-1;
       line-height: 1.5 * @baseline;
       text-transform: uppercase;
+      font-weight: 700;
     }
 
     table {
       margin-top: @baseline;
       width: 100%;
+      color: @c-dark-grey;
+      font-size: @size-1;
     }
 
     th, td {
@@ -891,12 +906,12 @@ reservation-hotel-details {
     }
 
     th {
-      font-weight: normal;
+      font-weight: 700;
       text-align: left;
     }
 
     td {
-      font-weight: 600;
+      font-weight: 400;
       text-align: right;
     }
 
@@ -905,11 +920,11 @@ reservation-hotel-details {
     }
 
     .total {
-      font-weight: normal;
+      font-weight: 700;
     }
 
-    .total-value a {
-      font-size: @size-2;
+    .total-value {
+      font-size: @size-3;
       font-weight: 700;
     }
   }
