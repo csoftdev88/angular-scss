@@ -88,7 +88,7 @@
         <li ng-show="!isUserLoggedIn()" profile>
           <a class="button button-login" ng-click="sso.login()">_login_</a>
         </li>
-        <li ng-show="isUserLoggedIn()" profile class="mobile-logout">
+        <li ng-show="isUserLoggedIn()" profile class="mobile-logout" ng-class="{'is-desktop': !config.menu.isLogoutInDropdown}">
           <a class="button button-login" ng-click="sso.logout()">_logout_</a>
         </li>
 

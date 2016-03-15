@@ -159,7 +159,8 @@ angular.module('mobiusApp.config', [])
       'showContact': true,
       'offerSpecificToSelectedProperty': false,
       // Details: PT #102456878
-      'hasSecondLevelDropdown': false
+      'hasSecondLevelDropdown': false,
+      'isLogoutInDropdown': true
     },
     // Social links
     'displaySocialLinks': true,

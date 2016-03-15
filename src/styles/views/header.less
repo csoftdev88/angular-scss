@@ -82,6 +82,15 @@
       &.mobile-header,
       &.mobile-logout{
         display: none;
+        &.is-desktop{
+          display: inline-block;
+          float: right;
+          padding-left: 0;
+          .viewport-mobile &{
+            float: none;
+            padding-left: 20px;
+          }
+        }
       }
 
       a {
