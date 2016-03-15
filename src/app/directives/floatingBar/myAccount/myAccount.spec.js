@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 describe('myAccount', function() {
   var _$compile, _$rootScope, _element, _scope,
     _spyTemplateCacheGet, _user, _modalService, _$state;
@@ -146,3 +146,4 @@ describe('myAccount', function() {
 
   
 });
+*/

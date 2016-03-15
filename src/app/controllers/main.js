@@ -90,7 +90,7 @@ angular.module('mobius.controllers.main', [])
 
           contentService.getOffers().then(function(offers) {
 
-            if($stateParams.property){
+            if($stateParams.property && !Settings.UI.generics.singleProperty){
               filteredOffers = _.filter(offers, function(offer){
                 var availability = _.find(offer.offerAvailability, function(availability){
                   return availability.property === $stateParams.property;

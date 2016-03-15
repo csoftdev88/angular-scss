@@ -12,6 +12,10 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
       // Widget logic goes here
       link: function(scope) {
 
+        if(Settings.authType !== 'infiniti'){
+          return;
+        }
+
         var badges = [];
         var loyaltyCard = {};
 
