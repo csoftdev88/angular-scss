@@ -210,7 +210,8 @@ angular.module('mobius.controllers.reservation', [])
       prefillUserDetails(isMobiusUser || userObject.token ? user.getUser() : {email : $stateParams.email});
     }
 
-    scrollToDetails('reservationDetailsForm');
+    //scrollToDetails('reservationDetailsForm');
+    scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationDetailsForm');
 
   }
 
@@ -336,20 +337,22 @@ angular.module('mobius.controllers.reservation', [])
         //scrollToDetails('alert-warning');
       }
       else{
-        scrollToDetails('reservationDetailsForm');
+        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationDetailsForm');
       }
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
       $scope.continueName = 'Continue';
-      scrollToDetails('reservationBillingForm');
+      //scrollToDetails('reservationBillingForm');
+      scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationBillingForm');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.confirmation':
       setBreadCrumbs(CONFIRMATION);
       $scope.continueName = 'Confirm';
-      scrollToDetails('reservationConfirmation');
+      //scrollToDetails('reservationConfirmation');
+      scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationConfirmation');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.after':

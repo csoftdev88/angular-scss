@@ -14,6 +14,7 @@
 reservation-widget {
 
   margin-bottom: 70px;
+  width: 100%;
 
   reservation-details-form{
     form{
@@ -28,6 +29,17 @@ reservation-widget {
   h3{
     strong{
       font-weight: normal;
+    }
+  }
+
+  label {
+    color: @c-form-border-grey;
+    a{
+      color: @c-form-border-grey;
+      text-decoration: underline;
+      &:hover{
+        text-decoration: none;
+      }
     }
   }
 
@@ -471,6 +483,19 @@ reservation-confirmation {
     .active a {
       color: @c-primary;
       font-weight: normal;
+    }
+  }
+
+  table{
+    color: #242424;;
+    tr{
+      th {
+        font-weight: 700;
+      }
+
+      td {
+        font-weight: 400;
+      }
     }
   }
 }

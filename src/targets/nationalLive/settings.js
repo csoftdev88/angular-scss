@@ -487,6 +487,19 @@ angular.module('mobiusApp.config', [])
       //Prompt to ask user to login
       'loginCta':{
         'display': false
+      },
+      //Additional details screen
+      'additionalDetails':{
+        'departureTime': {
+          'display': false
+        },
+        'tel2': {
+          'display': false
+        },
+        'comments':{
+          'display': true,
+          'position': 'bottom'
+        }
       }
     },
     'myAccount' : {

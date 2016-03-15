@@ -187,6 +187,9 @@ describe('mobius.controllers.reservation', function() {
             'booking': {
               cardTypes: {
                 'visa': TEST_VISA
+              },
+              bookingStepsNav:{
+                display: true
               }
             },
             'hotelDetails':{

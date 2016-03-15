@@ -12,7 +12,8 @@
     </figure>
 
     <div class="title-wrapper">
-      <h1 class="title" ng-bind-html="'_your_booking_' | mainHeaderStyle"></h1>
+      <h1 class="title" ng-bind-html="'_your_booking_' | mainHeaderStyle" ng-if="!isCurrentBookingStep('reservation.confirmation')"></h1>
+      <h1 class="title" ng-bind-html="'_your_confirmation_' | mainHeaderStyle" ng-if="isCurrentBookingStep('reservation.confirmation')"></h1>
     </div>
     
     <div class="contact-info">
@@ -30,7 +31,7 @@
     <hr />
   </section>
 
-  <nav grid-row class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display">
+  <nav grid-row id="reservation-steps" class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display">
     <h4 class="label">_your_booking_progress_</h4>
     <ul>
       <li><a class="button" href="" ui-sref="hotels">1. <span class="text">_choose_your_room_</span></a></li>

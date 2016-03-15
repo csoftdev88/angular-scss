@@ -135,7 +135,7 @@
     <tab heading="Additional Details">
       <form name="forms.additionalInfo" class="additional-details" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
 
-          <label for="comments">
+          <label for="comments" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'top'">
             <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
             <span>_comments_label_</span>
           </label>
@@ -176,7 +176,12 @@
             <span>_arrical_method_label_</span>
           </label>
 
-          <label for="form-departure-time">
+          <label for="comments" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'bottom'">
+            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
+            <span>_comments_label_</span>
+          </label>
+
+          <label for="form-departure-time" ng-if="bookingConfig.additionalDetails.departureTime.display">
             <select id="form-departure-time" ng-model="additionalInfo.departureTime" placeholder="Departure Time">
               <option value="">_departure_time_placeholder_</option>
               <option value="1 AM">1 AM</option>
@@ -207,7 +212,7 @@
             <span>_departure_time_label_</span>
           </label>
 
-          <label for="form-name-on-card">
+          <label for="form-name-on-card" ng-if="bookingConfig.additionalDetails.tel2.display">
             <input type="text" id="form-name-on-card"
               placeholder="_secondary_phone_number_"
               ng-model="additionalInfo.secondPhoneNumber"/>
