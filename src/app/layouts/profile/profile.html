@@ -92,12 +92,12 @@
 
       </div>
 
-      <button-submit ng-click="showSummary = false">_edit_</button-submit>
+      <button-submit ng-click="showSummary = false; scrollToForm();">_edit_</button-submit>
 
     </section>
 
 
-    <form name="passwordForm" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
+    <form id="profile-form" name="passwordForm" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
 
       <h2>_profile_page_password_title_</h2>
 

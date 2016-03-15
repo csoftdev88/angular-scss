@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.profile', [])
 
-  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings, propertyService){
+  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings, propertyService, scrollService){
 
     //check if user is logged in
     function onAuthorized(){
@@ -125,5 +125,9 @@ angular.module('mobius.controllers.profile', [])
 	    $scope.errorMsg = null;
 	    $scope.successMsg = null;
 	  }
+
+    $scope.scrollToForm = function(){
+      scrollService.scrollTo('profile-form', 20);
+    };
 
   });
