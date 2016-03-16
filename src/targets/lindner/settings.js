@@ -17,6 +17,10 @@ angular.module('mobiusApp.config', [])
       'active': false,
       'trackUserId': true
     },
+    'evolutionAnalytics':{
+      'enable': false,
+      'id': ''
+    },
     'chainCode': 'LIND',
     'baseURL': 'http://lindner.mobiuswebservices.com/api/4.0/',
     'contents': {

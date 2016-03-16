@@ -17,6 +17,10 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true
     },
+    'evolutionAnalytics':{
+      'enable': true,
+      'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb'
+    },
     'chainCode': 'SAN',
     'baseURL': 'https://api.suttonplace.com/api/4.0/',
     'contents': {

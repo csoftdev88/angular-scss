@@ -17,6 +17,10 @@ angular.module('mobiusApp.config', [])
       'active': false,
       'trackUserId': true
     },
+    'evolutionAnalytics':{
+      'enable': false,
+      'id': ''
+    },
     //'chainCode': 'NAT',
     //'baseURL': 'http://national.api.mobiuswebservices.com/api/4.0/',
     'chainCode': 'LAVAL',

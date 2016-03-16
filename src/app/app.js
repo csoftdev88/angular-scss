@@ -147,6 +147,7 @@ angular
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
+    'mobiusApp.directives.evolutionAnalyticsScript',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
     'mobiusApp.directives.hoverTrigger',
@@ -440,7 +441,7 @@ angular
   })
 
   .controller('BaseCtrl', function($scope, $rootScope, $controller,$state, scrollService,
-    metaInformationService, Settings, propertyService){
+    metaInformationService, Settings, propertyService, $window){
 
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
@@ -475,6 +476,10 @@ angular
     $scope.$on('$stateChangeSuccess', function() {
       if(Settings.authType === 'infiniti'){
         $scope.sso.trackPageView();
+        //Evolution
+        if($window.evolution){
+          $window.evolution('track', 'pageview');
+        }
       }
     });
   });
