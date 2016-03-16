@@ -52,6 +52,7 @@ angular.module('mobiusApp.services.sessionDataService', [])
       //update expiry
       setCookieExpiry();
       cookie[Settings.API.sessionData.httpHeaderFieldName].customerId = userObject && userObject.id ? userObject.id : null;
+      cookie[Settings.API.sessionData.httpHeaderFieldName].profile = userObject && userObject.id ? userObject : null;
       cookie[Settings.API.sessionData.httpHeaderFieldName].infinitiSessionId = userObject && userObject.id && cookieFactory('INFSSID') ? cookieFactory('INFSSID') : null;
       $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
     }
