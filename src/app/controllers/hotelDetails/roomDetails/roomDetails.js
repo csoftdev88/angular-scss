@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.room.details', [])
 
 .controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
-  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams) {
+  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService) {
 
   var numNights = 1;
 
@@ -94,6 +94,7 @@ angular.module('mobius.controllers.room.details', [])
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
             if(data[1].products){
+              //google analytics
               dataLayerService.trackProductsImpressions(data[1].products.map(function(p){
                 return {
                   name: p.name,
@@ -107,6 +108,8 @@ angular.module('mobius.controllers.room.details', [])
                   category: data[0].name
                 };
               }));
+              //Mobius tracking
+              mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, data[1].products, data[0]);
             }
           });
         });

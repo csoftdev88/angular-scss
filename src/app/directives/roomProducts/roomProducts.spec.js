@@ -93,6 +93,10 @@ describe('RoomProducts', function() {
         }
       });
 
+      $provide.value('mobiusTrackingService', {
+        trackSearch: function(){}
+      });
+
       $provide.value('$state', {
         go: function(){}
       });

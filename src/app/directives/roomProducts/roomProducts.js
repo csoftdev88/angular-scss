@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
   Settings, filtersService, bookingService, propertyService, modalService,
-  stateService, dataLayerService, cookieFactory, chainService, $window){
+  stateService, dataLayerService, cookieFactory, chainService, $window, mobiusTrackingService){
 
   return {
     restrict: 'E',
@@ -55,6 +55,7 @@ angular.module('mobiusApp.directives.room.products', [])
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property || bookingParams.propertyCode).then(function(propertyData){
+              //Google analytics
               dataLayerService.trackProductsImpressions(scope.products.map(function(p){
                 return {
                   name: p.name,
@@ -68,6 +69,8 @@ angular.module('mobiusApp.directives.room.products', [])
                   category: scope.room.name
                 };
               }));
+              //Mobius tracking
+              mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room);
             });
           });
           

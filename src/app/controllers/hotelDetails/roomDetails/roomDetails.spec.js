@@ -21,6 +21,10 @@ describe('mobius.controllers.room.details', function() {
         $provide.value('chainService', {});
         $provide.value('$stateParams', {});
 
+        $provide.value('mobiusTrackingService', {
+          trackSearch: sinon.spy()
+        });
+
         $provide.value('dataLayerService', {
           trackProductsDetailsView: sinon.spy(),
           trackProductsImpressions: sinon.spy()

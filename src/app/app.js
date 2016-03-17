@@ -96,6 +96,7 @@ angular
     'mobiusApp.services.exceptionHandler',
     'mobiusApp.services.userPreferenceService',
     'mobiusApp.services.sessionDataService',
+    'mobiusApp.services.mobiusTrackingService',
 
     // Factories
     'mobiusApp.factories.template',
