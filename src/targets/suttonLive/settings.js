@@ -28,7 +28,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': 'https://api.suttonplace.com/api/4.0/',
     'devBaseURL': 'https://54.200.84.76/',
     'mobiusTracking': {
-      'enable': false,
+      'enable': true,
       'search': 'properties/track/search',
       'purchase': 'properties/track/purchase'
     },
