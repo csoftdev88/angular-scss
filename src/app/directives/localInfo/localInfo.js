@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.localInfo', [])
 
-  .directive('localInfo', ['locationService', '$interval', '$window', 'Settings', function(locationService, $interval, $window, Settings) {
+  .directive('localInfo', ['locationService', '$interval', '$window', 'Settings', '_', function(locationService, $interval, $window, Settings, _) {
     return {
       restrict: 'E',
       scope: {
@@ -12,7 +12,6 @@ angular.module('mobiusApp.directives.localInfo', [])
 
       // Widget logic goes here
       link: function(scope) {
-        var _ = $window._;
 
         var localTimeUpdates = Settings.UI.localTimeUpdates;
         var localTimeIntervalPromise;

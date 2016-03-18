@@ -109,7 +109,6 @@ angular.module('mobius.controllers.room.details', [])
                 };
               }));
               //Mobius tracking
-              console.log('room: ' + angular.toJson($scope.currentOrder));
               mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, data[1].products, data[0], $scope.currentOrder);
             }
           });

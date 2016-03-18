@@ -188,6 +188,7 @@ describe('bookingWidget', function() {
 
   describe('without all properties option', function(){
     beforeEach(function() {
+      module('underscore');
       setUp();
     });
 

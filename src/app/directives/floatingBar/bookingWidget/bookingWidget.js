@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings){
+  propertyService, locationService, filtersService, Settings, _){
   return {
     restrict: 'E',
     scope: {
@@ -275,11 +275,11 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       }
 
       function findRegion(regionCode) {
-        return $window._.find(regionsProperties, {code: regionCode});
+        return _.find(regionsProperties, {code: regionCode});
       }
 
       function findProperty(propertyCode) {
-        return $window._.chain(regionsProperties).pluck('properties').flatten().find({code: propertyCode}).value();
+        return _.chain(regionsProperties).pluck('properties').flatten().find({code: propertyCode}).value();
       }
 
       function validatePropertyRegion() {
