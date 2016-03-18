@@ -3,7 +3,7 @@
  * This service handles mobius rate search and product purchase tracking
  */
 angular.module('mobiusApp.services.mobiusTrackingService', [])
-  .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, _, $rootScope, apiService) {
+  .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, _, $rootScope, apiService, $state) {
 
     var defaultData = {
         'channel': {
@@ -16,12 +16,12 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         },
         'customer': {
             'corporateCustomer': false,
-            'email': null,
+            'email': '',
             'firstName': 'Anonymous',
-            'gender': null,
+            'gender': '',
             'lastName': 'Anonymous',
             'loyaltyMember': false,
-            'phone': null,
+            'phone': '',
             'uuid': null,
             'country': {
                 'code': 'ZZ',
@@ -77,7 +77,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
 
     function trackSearch(bookingParams, chainData, propertyData, products, room, rateSorting){
 
-      if(!Settings.API.mobiusTracking.enable){
+      if(!Settings.API.mobiusTracking.enable || $state.includes('reservation')){
         return;
       }
 
@@ -149,6 +149,16 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       //property star rating
       postData.starRating = propertyData.rating;
 
+      //Policies
+      var policies = [];
+      _.each(rooms[0]._selectedProduct.policies, function(val, key) {
+        var policy = {
+          'type': key,
+          'value': val
+        };
+        policies.push(policy);
+      });
+
       //product
       postData.checkIn = bookingParams.from;
       postData.checkOut = bookingParams.to;
@@ -156,7 +166,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         'code': products[0].code,
         'name': products[0].name,
         'rateType': products[0].category,
-        'policies': rooms[0]._selectedProduct.policies
+        'policies': policies
       };
 
       //payment details
