@@ -26,7 +26,7 @@ angular.module('mobiusApp.config', [])
     },
     'chainCode': 'SAN',
     'baseURL': 'https://api.suttonplace.com/api/4.0/',
-    'devBaseURL': 'https://54.200.84.76/',
+    'devBaseURL': 'http://54.200.84.76:3010/api/4.0/',
     'mobiusTracking': {
       'enable': true,
       'search': 'properties/track/search',
