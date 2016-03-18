@@ -26,6 +26,7 @@ angular.module('mobiusApp.config', [])
     },
     'chainCode': 'LINDTNER',
     'baseURL': 'http://lindtner.mobiuswebservices.com/api/4.0/',
+    'devBaseURL': '',
     'mobiusTracking': {
       'enable': false,
       'search': 'properties/track/search',

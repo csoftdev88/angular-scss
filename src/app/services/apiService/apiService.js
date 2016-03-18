@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService) {
+.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, $location) {
 
   var headers = Settings.API.headers;
   var apiCache = $cacheFactory('apiCache');
@@ -109,7 +109,9 @@ angular.module('mobiusApp.services.api', [])
       URL = URL.replace(':' + key, value);
     });
 
-    return Settings.API.baseURL + URL;
+    var baseUrl = $location.host() === Settings.productionHost ? Settings.API.baseURL : (Settings.API.devBaseURL !== '' ? Settings.API.devBaseURL : Settings.API.baseURL);
+
+    return baseUrl + URL;
   }
 
   function getValue(obj, path) {

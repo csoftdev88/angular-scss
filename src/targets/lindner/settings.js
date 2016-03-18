@@ -26,6 +26,7 @@ angular.module('mobiusApp.config', [])
     },
     'chainCode': 'LIND',
     'baseURL': 'http://lindner.mobiuswebservices.com/api/4.0/',
+    'devBaseURL': '',
     'mobiusTracking': {
       'enable': false,
       'search': 'properties/track/search',
