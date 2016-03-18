@@ -7,6 +7,7 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
   'authType': 'mobius',
+  'productionHost': '',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -19,6 +20,8 @@ angular.module('mobiusApp.config', [])
     },
     'evolutionAnalytics':{
       'enable': false,
+      'prodScriptUrl': '',
+      'devScriptUrl': '',
       'id': ''
     },
     'chainCode': 'NAT',

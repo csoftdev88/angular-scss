@@ -7,6 +7,7 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
   'authType': 'infiniti',
+  'productionHost': 'suttonplace.com',
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -19,6 +20,8 @@ angular.module('mobiusApp.config', [])
     },
     'evolutionAnalytics':{
       'enable': true,
+      'prodScriptUrl': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
+      'devScriptUrl': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb'
     },
     'chainCode': 'SAN',
