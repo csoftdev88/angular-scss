@@ -47,7 +47,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         defaultData.customer.email = userObject.email;
         defaultData.customer.firstName = userObject.firstName;
         defaultData.customer.lastName = userObject.lastName;
-        defaultData.customer.gender = userObject.gender || null;
+        defaultData.customer.gender = userObject.gender || '';
         defaultData.customer.loyaltyMember = Settings.authType === 'infiniti';
         defaultData.customer.phone = userObject.tel1;
         defaultData.customer.country.code = userObject.iso3;
