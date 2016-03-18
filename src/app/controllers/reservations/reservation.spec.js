@@ -88,7 +88,8 @@ describe('mobius.controllers.reservation', function() {
         });
 
         $provide.value('mobiusTrackingService', {
-          trackSearch: sinon.spy()
+          trackSearch: sinon.spy(),
+          trackPurchase: sinon.spy()
         });
 
         $provide.value('validationService', {});

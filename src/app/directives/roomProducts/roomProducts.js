@@ -70,7 +70,7 @@ angular.module('mobiusApp.directives.room.products', [])
                 };
               }));
               //Mobius tracking
-              mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room);
+              mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room, scope.currentOrder);
             });
           });
           

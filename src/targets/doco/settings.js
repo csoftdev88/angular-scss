@@ -23,6 +23,11 @@ angular.module('mobiusApp.config', [])
     },
     'chainCode': 'DOCO',
     'baseURL': 'http://doco.mobiuswebservices.com/api/4.0/',
+    'mobiusTracking': {
+      'enable': false,
+      'search': 'properties/track/search',
+      'purchase': 'properties/track/purchase'
+    },
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',

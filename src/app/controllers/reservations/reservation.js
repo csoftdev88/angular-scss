@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location, stateService){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location, stateService, mobiusTrackingService){
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
@@ -774,6 +774,7 @@ angular.module('mobius.controllers.reservation', [])
             };
             products.push(product);
           });
+          //google analytics
           dataLayerService.trackProductsPurchase(products, {
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
@@ -783,6 +784,12 @@ angular.module('mobius.controllers.reservation', [])
             'tax': products[0].tax,
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
           });
+          //mobius tracking
+          var priceData = {
+            'beforeTax': $scope.getTotal('totalBase'),
+            'afterTax': $scope.getTotal('totalAfterTax')
+          };
+          mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, reservationData, priceData);
 
         });
 

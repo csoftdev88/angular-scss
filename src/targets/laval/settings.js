@@ -23,6 +23,11 @@ angular.module('mobiusApp.config', [])
     },
     'chainCode': 'LAVAL',
     'baseURL': 'http://laval.mobiuswebservices.com/api/4.0/',
+    'mobiusTracking': {
+      'enable': false,
+      'search': 'properties/track/search',
+      'purchase': 'properties/track/purchase'
+    },
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
