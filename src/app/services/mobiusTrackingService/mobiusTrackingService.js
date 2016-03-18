@@ -1,6 +1,6 @@
 'use strict';
 /*
- * This service handles session data to be sent in API headers
+ * This service handles mobius rate search and product purchase tracking
  */
 angular.module('mobiusApp.services.mobiusTrackingService', [])
   .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, _, $rootScope, apiService) {
