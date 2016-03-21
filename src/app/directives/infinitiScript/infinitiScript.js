@@ -20,7 +20,6 @@ angular.module('mobiusApp.directives.infinitiScript', [])
         var script = document.createElement( 'script' );
         script.type = 'text/javascript';
         script.src = url;
-        console.log(script);
         document.head.appendChild(script);
 
       }
