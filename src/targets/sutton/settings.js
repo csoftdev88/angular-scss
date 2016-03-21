@@ -8,6 +8,10 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   'authType': 'infiniti',
   'productionHost': '',
+  'infinitiUrl': {
+    'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
+    'production': 'https://prestige.suttonplace.com/track/content/infiniti.js'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,

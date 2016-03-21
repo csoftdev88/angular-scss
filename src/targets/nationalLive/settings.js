@@ -7,6 +7,10 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
   'authType': 'mobius',
+  'infinitiUrl': {
+    'development': '',
+    'production': ''
+  },
   'productionHost': '',
   'API': {
     'defaultThrottleTimeout': 30,
