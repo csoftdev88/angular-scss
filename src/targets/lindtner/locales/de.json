@@ -144,6 +144,7 @@
     "no_room_available": "Kein Zimmer verfügbar, bitte ändern Sie Ihre Buchungskriterien",
 
     "BOOKING BAR": "///////////////////////////////////////////////////",
+    "no_dates_selected_short": "Keine Daten ausgewählt",
     "booking_widget_title": "",
 
     "make_your_booking": "Buchung tätigen",
@@ -314,6 +315,7 @@
     "total": "Total",
 
     "night": "Nacht",
+    "nights": "Nächte",
 
     "tax": "Steuern",
 
