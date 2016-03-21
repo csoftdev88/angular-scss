@@ -619,7 +619,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       //price breakdown
-      'priceBreakdownExtended': false,
+      'priceBreakdownExtended': true,
       //display hero slider on booking page
       'displayHeroSlider': false,
       //display advanced header

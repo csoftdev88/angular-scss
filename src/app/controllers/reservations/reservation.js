@@ -691,6 +691,22 @@ angular.module('mobius.controllers.reservation', [])
     return $scope.bookingDetails[type];
   };
 
+  $scope.getBreakdownTotal = function(code, isFee){
+    // Returning a total price of all products
+    var total = 0;
+    _.map($scope.allRooms, function(room){
+      _.each(room._selectedProduct.priceOriginal.breakdowns, function(breakdown){
+        _.each(breakdown.taxDetails.policyTaxItemDetails, function(detail){
+          //console.log('detail.taxAmount: ' + detail.taxAmount);
+          if(detail.policyTaxItem.policyTaxItemCode === code && detail.policyTaxItem.policyTaxItemIsFee === isFee.toString()){
+            total += detail.taxAmount;
+          }
+        });
+      });
+    });
+    return total;
+  };
+
   function addReservationConfirmationMessage(reservationNumber){
     userMessagesService.addMessage('' +
         '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
@@ -993,6 +1009,11 @@ angular.module('mobius.controllers.reservation', [])
       trackProductCheckout(3);
       break;
     }
+  };
+
+  //format dates
+  $scope.formatDate = function(date, format){
+    return $window.moment(date).format(format);
   };
 
   
