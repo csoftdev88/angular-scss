@@ -151,7 +151,7 @@
           <label for="profileTitle">_title_label_</label>
           <select name="profileTitle" required chosen
                   disable-search="true"
-                  data-placeholder=""
+                  data-placeholder="_title_label_"
                   ng-model="profileData.title"
                   ng-options="title.name as title.code for title in profileTitles">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
@@ -273,7 +273,7 @@
           <label for="profileContact">_prefered_contact_label_</label>
           <select name="profileContact" required chosen
                   disable-search="true"
-                  data-placeholder=""
+                  data-placeholder="_prefered_contact_label_"
                   ng-model="profileData.preferredContactMethodCode"
                   ng-options="contact.name as contact.code for contact in profileContacts">
             <option></option> <!-- workaround for a bug in angular-chosen  -->

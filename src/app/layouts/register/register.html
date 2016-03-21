@@ -46,7 +46,7 @@
           <label for="registerTitle">_title_label_</label>
           <select name="registerTitle" required chosen
                   disable-search="true"
-                  data-placeholder="Title"
+                  data-placeholder="_title_label_"
                   ng-model="registerData.title"
                   ng-options="title.name as title.code for title in registerTitles">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
@@ -142,7 +142,7 @@
           <label for="registerContact">_prefered_contact_label_</label>
           <select name="registerContact" required chosen
                   disable-search="true"
-                  data-placeholder="Prefered Contact"
+                  data-placeholder="_prefered_contact_label_"
                   ng-model="registerData.preferredContactMethodCode"
                   ng-options="contact.name as contact.code for contact in registerContacts">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
