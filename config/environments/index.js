@@ -20,6 +20,7 @@ module.exports = function(app) {
   app.use('/static/images', express.static(path.join(app.directory, '/build/images/')));
   app.use('/static/font', express.static(path.join(app.directory, '/build/font/')));
   app.use('/static/bower_components', express.static(path.join(app.directory, '/bower_components')));
+  app.use('/static/vendors', express.static(path.join(app.directory, '/vendors')));
   app.use('/static/targets', express.static(path.join(app.directory, '/' + directory + '/targets/')));
 
   process.argv.forEach(function (val) {

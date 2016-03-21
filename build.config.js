@@ -114,7 +114,8 @@ module.exports = {
         'bower_components/showdown/compressed/Showdown.min.js',
         'bower_components/angular-markdown-directive/markdown.js',
         'bower_components/angular-tooltips/dist/angular-tooltips.min.js',
-        'bower_components/angularUtils-pagination/dirPagination.js'
+        'bower_components/angularUtils-pagination/dirPagination.js',
+        'vendors/jquery-ui/datepicker-translations/de.js'
       ],
       styles: [
         'bower_components/font-awesome/css/font-awesome.min.css'

@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout) {
+.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, stateService) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -96,7 +96,8 @@ angular.module('mobiusApp.directives.datepicker', [])
 
         bindResizeListener();
 
-        element.datepicker({
+        //NOTE: for languages to work, you must download the corresponding lang file from https://github.com/jquery/jquery-ui/tree/master/ui/i18n and include it in vendors/jquery-ui/datepicker-translations/ - then update the build.config.js accordingly
+        element.datepicker($.extend({}, $.datepicker.regional[stateService.getAppLanguageCode()], {
           dateFormat: DATE_FORMAT,
           showButtonPanel: hasCounter,
           maxDate: maxDate,
@@ -193,7 +194,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             isStartDateSelected = !isStartDateSelected;
 
           }
-        }).datepicker('show');
+        })).datepicker('show');
       });
 
       function getDaysBetween(startDate, endDate) {
