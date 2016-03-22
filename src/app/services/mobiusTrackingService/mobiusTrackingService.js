@@ -123,11 +123,8 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
     
       });
       postData.results = searchData;
-
-      console.log('Mobius search tracking data: ' + angular.toJson(postData));
       
       apiService.post(apiService.getFullURL('mobiusTracking.search'), postData).then(function(data){
-        console.log('Mobius search tracking success: ' + angular.toJson(data));
       }, function(err){
         console.log('Mobius search tracking error: ' + angular.toJson(err));
       });
@@ -198,10 +195,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       });
       postData.nights.push(nightObj);
 
-      console.log('Mobius purchase tracking data: ' + angular.toJson(postData));
-
       apiService.post(apiService.getFullURL('mobiusTracking.purchase'), postData).then(function(data){
-        console.log('Mobius purchase tracking success: ' + angular.toJson(data));
       }, function(err){
         console.log('Mobius purchase tracking error: ' + angular.toJson(err));
       });
