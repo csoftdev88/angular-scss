@@ -90,7 +90,8 @@ angular.module('mobiusApp.config', [])
       'logout':  'customers/actions/logout',
       'forgotPassword':  'customers/actions/forgotPassword',
       'changePassword':  'customers/actions/changePassword',
-      'register':  'customers/'
+      'register':  'customers/',
+      'transactions': 'customers/:customerId/transactions'
     },
     // NOTE: Loyalties API will change - check apiary specs
     'loyalties': {

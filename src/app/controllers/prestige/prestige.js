@@ -4,11 +4,15 @@
  */
 angular.module('mobius.controllers.prestige', [])
 
-  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService) {
+  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService, userObject) {
 
     breadcrumbsService.addBreadCrumb('Sutton Prestige');
 
     $scope.viewMode = 'recent';
+
+    apiService.get(apiService.getFullURL('customers.transactions', {customerId: userObject.id})).then(function(data){
+      $scope.transactions = data;
+    });
 
     $scope.fakeRecent = [
       {'date': '01 Nov 2015'},
