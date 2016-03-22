@@ -13,7 +13,7 @@
       <header>
         <div class="bg"></div>
         <h1 ng-bind-html="'_your_balance_:&nbsp;' | mainHeaderStyle"></h1>
-        <p class="points">560 points</p>
+        <p class="points">{{prestigeData.pointsBalance}} _points_</p>
       </header>
 
       <div class="transactions">
@@ -25,189 +25,198 @@
           </h2>
           <ul>
             <li><a href="" ng-click="viewMode = 'recent'" ng-class="{'active': viewMode === 'recent'}"><span ng-if="!isMobile()">_recent_</span><span ng-if="isMobile()">_recent_transactions_</span></a></li>
-            <li><a href="" ng-click="viewMode = 'pending'" ng-class="{'active': viewMode === 'pending'}"><span ng-if="!isMobile()">_pending_</span><span ng-if="isMobile()">_pending_transactions_</span></a></li>
+            <li ng-if="prestigeData.deferredTransactions.length"><a href="" ng-click="viewMode = 'pending'" ng-class="{'active': viewMode === 'pending'}"><span ng-if="!isMobile()">_pending_</span><span ng-if="isMobile()">_pending_transactions_</span></a></li>
           </ul>
         </nav>
 
+        <!-- Recent transactions -->
         <ul class="transaction-items" ng-if="viewMode === 'recent'">
 
-          <li dir-paginate="item in fakeRecent | itemsPerPage: 10" pagination-id="recent" ng-init="item.showComments = false">
+          <li dir-paginate="item in prestigeData.recentTransactions | itemsPerPage: 10" pagination-id="recent" ng-init="item.showComments = false">
 
-            <div class="date">
-              <div class="label">_date_added_</div>
-              <div class="value">{{item.date}}</div>
-            </div>
-
-            <div class="description">
-              <div class="label">_manual_entry_</div>
-              <h4 class="value">Manually Added Points</h4>
-              <p class="detail" ng-class="{'open': item.showComments}">Points added for previous stays at The Sutton Place Hotel Revelstoke Mountain Resort on 14 August 2015 to stay on the 30th of September 2015</p>
-              <a href="" class="comments-toggle" ng-click="item.showComments = !item.showComments"><span ng-if="!item.showComments">_show_comments_</span><span ng-if="item.showComments">_hide_comments_</span></a>
-            </div>
-
-            <div class="transaction-value">
-              <div class="label">_transaction_</div>
-              <h4 class="value positive">+10,873</h4>
-            </div>
-
-            <div class="balance">
-              <div class="label">_balance_</div>
-              <h4 class="value">11,688</h4>
-            </div>
-
-          </li>
-
-          <!--
-          <li>
-
-            <div class="date">
-              <div class="label">_date_added_</div>
-              <div class="value">21 Sep 2015</div>
-            </div>
-
-            <div class="description">
-              <div class="label">_manual_reduction_</div>
-              <h4 class="value">Manually Removed Points</h4>
-            </div>
-
-            <div class="transaction-value">
-              <div class="label">_transaction_</div>
-              <h4 class="value negative">-200</h4>
-            </div>
-
-            <div class="balance">
-              <div class="label">_balance_</div>
-              <h4 class="value">11,488</h4>
-            </div>
-
-          </li>
-
-          <li>
-
-            <div class="date">
-              <div class="label">_date_added_</div>
-              <div class="value">13 Sep 2015</div>
-            </div>
-
-            <div class="description booking">
-              <div class="booking-item">
-                <div class="label">_booking_reference_</div>
-                <h4 class="value">EDM-EE-03213</h4>
+            <!-- Account creation -->
+            <div ng-if="item.type === 1">
+              <div class="date">
+                <div class="label">_date_opened_</div>
+                <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
               </div>
-              <div class="booking-item">
-                <div class="label">_check_in_</div>
-                <h4 class="value">13 Nov 2015</h4>
+
+              <div class="description">
+                <div class="label"></div>
+                <h4 class="value">_prestige_account_opened_desc_</h4>
               </div>
-              <div class="booking-item">
-                <div class="label">_check_out_</div>
-                <h4 class="value">13 Nov 2015</h4>
+
+              <div class="transaction-value">
+              </div>
+
+              <div class="balance">
+                <div class="label">_balance_</div>
+                <h4 class="value">0</h4>
               </div>
             </div>
+            <!-- End Account creation -->
 
-            <div class="transaction-value">
-              <div class="label">_transaction_</div>
-              <h4 class="value negative">+435</h4>
-            </div>
+            <!-- Booking transaction -->
+            <div ng-if="item.type === 2">
+              <div class="date">
+                <div class="label">_date_booked_</div>
+                <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
+              </div>
 
-            <div class="balance">
-              <div class="label">_balance_</div>
-              <h4 class="value">1015</h4>
+              <div class="description booking">
+                <div class="booking-item">
+                  <div class="label">_booking_reference_</div>
+                  <h4 class="value">{{item.reference}}</h4>
+                </div>
+                <div class="booking-item">
+                  <div class="label">_check_in_</div>
+                  <h4 class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</h4>
+                </div>
+                <div class="booking-item">
+                  <div class="label">_check_out_</div>
+                  <h4 class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</h4>
+                </div>
+              </div>
+
+              <div class="transaction-value">
+                <div class="label">_transaction_</div>
+                <h4 class="value" ng-class="{'negative': item.amount < 0}">{{item.amount}}</h4>
+              </div>
+
+              <div class="balance">
+                <div class="label">_balance_</div>
+                <h4 class="value">{{item.balance}}</h4>
+              </div>
             </div>
+            <!-- End Booking transaction -->
+
+            <!-- Positive manual transaction -->
+            <div ng-if="item.type === 3 && item.amount > 0">
+              <div class="date">
+                <div class="label">_date_added_</div>
+                <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
+              </div>
+
+              <div class="description">
+                <div class="label">_manual_entry_</div>
+                <h4 class="value">_manually_added_points_</h4>
+                <p class="detail" ng-class="{'open': item.showComments}" ng-if="item.comment">{{item.comment}}</p>
+                <a href="" class="comments-toggle" ng-click="item.showComments = !item.showComments" ng-if="item.comment"><span ng-if="!item.showComments">_show_comments_</span><span ng-if="item.showComments">_hide_comments_</span></a>
+              </div>
+
+              <div class="transaction-value">
+                <div class="label">_transaction_</div>
+                <h4 class="value positive">+{{item.amount}}</h4>
+              </div>
+
+              <div class="balance">
+                <div class="label">_balance_</div>
+                <h4 class="value">{{item.balance}}</h4>
+              </div>
+            </div>
+            <!-- End positive manual transaction -->
+
+            <!-- Negative manual transaction -->
+            <div ng-if="item.type === 3 && item.amount < 0">
+              <div class="date">
+                <div class="label">_date_booked_</div>
+                <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
+              </div>
+
+              <div class="description">
+                <div class="label">_manual_reduction_</div>
+                <h4 class="value">_manually_removed_points_</h4>
+              </div>
+
+              <div class="transaction-value">
+                <div class="label">_transaction_</div>
+                <h4 class="value negative">-{{item.amount}}</h4>
+              </div>
+
+              <div class="balance">
+                <div class="label">_balance_</div>
+                <h4 class="value">{{item.balance}}</h4>
+              </div>
+
+            </div>
+            <!-- End Negative manual transaction -->
+
+            <!-- Reward purchased/cancelled/redeemed -->
+            <div ng-if="item.type === 4">
+              <div class="date">
+                <div class="label">
+                  <span ng-if="item.amount < 0">_date_purchased_</span>
+                  <span ng-if="item.amount > 0">_date_cancelled_</span>
+                  <span ng-if="item.amount === 0">_date_redeemed_</span>
+                </div>
+                <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
+              </div>
+
+              <div class="description">
+                <div class="label">_reward_name_</div>
+                <h4 class="value">
+                  <span ng-if="item.amount < 0">_purchased_&nbsp;-&nbsp;</span>
+                  <span ng-if="item.amount > 0">_cancelled_&nbsp;-&nbsp;</span>
+                  <span ng-if="item.amount === 0">_redeemed_&nbsp;-&nbsp;</span>
+                  {{item.reference}}
+                </h4>
+              </div>
+
+              <div class="transaction-value">
+                <div class="label" ng-if="item.amount !== 0">_transaction_</div>
+                <h4 class="value" ng-class="{'positive': item.amount > 0, 'negative': item.amount < 0}" ng-if="item.amount !== 0">{{item.amount}}</h4>
+              </div>
+
+              <div class="balance">
+                <div class="label">_balance_</div>
+                <h4 class="value">{{item.balance}}</h4>
+              </div>
+            </div>
+            <!-- End Reward purchased/cancelled -->
 
           </li>
-
-          <li>
-
-            <div class="date">
-              <div class="label">_date_opened_</div>
-              <div class="value">12 Aug 2015</div>
-            </div>
-
-            <div class="description">
-              <div class="label"></div>
-              <h4 class="value">_prestige_account_opened_desc_</h4>
-            </div>
-
-            <div class="transaction-value">
-            </div>
-
-            <div class="balance">
-              <div class="label">_balance_</div>
-              <h4 class="value">0</h4>
-            </div>
-
-          </li>
-          -->
 
         </ul>
 
         <dir-pagination-controls pagination-id="recent" ng-if="viewMode === 'recent'" on-page-change="onPageChange()"></dir-pagination-controls>
+        <!-- End Recent transactions -->
 
+        <!-- Pending transactions -->
         <ul class="transaction-items pending" ng-if="viewMode === 'pending'">
 
-          <li dir-paginate="item in fakeRecent | itemsPerPage: 10" pagination-id="pending">
+          <li dir-paginate="item in prestigeData.deferredTransactions | itemsPerPage: 10" pagination-id="pending">
 
             <div class="date">
               <div class="label">_date_booked_</div>
-              <div class="value">{{item.date}}</div>
+              <div class="value">formatDate(item.date, 'DD MMM YYYY')</div>
             </div>
 
             <div class="booking-ref">
               <div class="label">_booking_reference_</div>
-              <h4 class="value">EDM-EE-03213</h4>
+              <h4 class="value">{{item.reference}}</h4>
             </div>
 
             <div class="booking-ref desktop">
               <div class="label">_check_in_</div>
-              <h4 class="value">13 Nov 2015</h4>
+              <h4 class="value">{{item.dateFrom}}</h4>
             </div>
 
             <div class="booking-ref desktop">
               <div class="label">_check_out_</div>
-              <h4 class="value">13 Nov 2015</h4>
+              <h4 class="value">{{item.dateTo}}</h4>
             </div>
 
             <div class="transaction-value">
               <div class="label">_transaction_</div>
-              <h4 class="value">435</h4>
+              <h4 class="value">{{item.amount}}</h4>
             </div>
 
           </li>
-
-          <!--
-          <li>
-
-            <div class="date">
-              <div class="label">_date_booked_</div>
-              <div class="value">10 Sep 2015</div>
-            </div>
-
-            <div class="booking-ref">
-              <div class="label">_booking_reference_</div>
-              <h4 class="value">EDM-EE-03213</h4>
-            </div>
-
-            <div class="booking-ref">
-              <div class="label">_check_in_</div>
-              <h4 class="value">13 Nov 2015</h4>
-            </div>
-
-            <div class="booking-ref">
-              <div class="label">_check_out_</div>
-              <h4 class="value">13 Nov 2015</h4>
-            </div>
-
-            <div class="transaction-value">
-              <div class="label">_transaction_</div>
-              <h4 class="value">435</h4>
-            </div>
-
-          </li>
-          -->
-
+          
         </ul>
 
         <dir-pagination-controls pagination-id="pending" ng-if="viewMode === 'pending'" on-page-change="onPageChange()"></dir-pagination-controls>
+        <!-- End pending transactions -->
 
       </div>
       

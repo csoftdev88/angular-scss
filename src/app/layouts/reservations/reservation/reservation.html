@@ -137,7 +137,7 @@
                   <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
-                <tr class="breakdown" ng-repeat="taxItem in allRooms[0]._selectedProduct.price.feeDetails.policyTaxItemDetails" ng-class="{'last': $last}" ng-if="taxItem.policyTaxItemIsFee">
+                <tr class="breakdown" ng-repeat="taxItem in allRooms[0]._selectedProduct.price.feeDetails.policyTaxItemDetails" ng-class="{'last': $last}">
                   <th>{{taxItem.policyTaxItem.policyTaxItemCode}}<span class="info" ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''" tooltips tooltip-side="{{isMobile ? 'left' : 'top'}}" tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span></th>
                   <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemID) | i18nCurrency: $root.currencyCode}}</td>
                 </tr>

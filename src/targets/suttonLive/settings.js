@@ -715,7 +715,7 @@ angular.module('mobiusApp.config', [])
       'userProfile':{
         'hasAvatar': true,
         'hasWelcomeMessage': false,
-        'hasPrestigeAccount': false
+        'hasPrestigeAccount': true
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,

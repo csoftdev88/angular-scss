@@ -4,46 +4,43 @@
  */
 angular.module('mobius.controllers.prestige', [])
 
-  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService, userObject) {
+  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService, userObject, $window, $controller, user, $state) {
 
-    breadcrumbsService.addBreadCrumb('Sutton Prestige');
+    //check if user is logged in
+    function onAuthorized(){
+      if(!user.isLoggedIn()){
+        $state.go('home');
+      }
+      else{
+        breadcrumbsService.addBreadCrumb('Sutton Prestige');
+        $scope.viewMode = 'recent';
+        apiService.get(apiService.getFullURL('customers.transactions', {customerId: userObject.id})).then(function(data){
+          $scope.prestigeData = data;
+        });
+      }
+    }
+    $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
-    $scope.viewMode = 'recent';
+    //Scroll to top of page
+    function scrollToTop(){
+      $timeout(function () {
+        scrollService.scrollTo('prestige-account', 20);
+      });
+    }
+    scrollToTop();
 
-    apiService.get(apiService.getFullURL('customers.transactions', {customerId: userObject.id})).then(function(data){
-      $scope.transactions = data;
-    });
-
-    $scope.fakeRecent = [
-      {'date': '01 Nov 2015'},
-      {'date': '02 Nov 2015'},
-      {'date': '03 Nov 2015'},
-      {'date': '04 Nov 2015'},
-      {'date': '05 Nov 2015'},
-      {'date': '06 Nov 2015'},
-      {'date': '07 Nov 2015'},
-      {'date': '08 Nov 2015'},
-      {'date': '09 Nov 2015'},
-      {'date': '10 Nov 2015'},
-      {'date': '11 Nov 2015'},
-      {'date': '12 Nov 2015'},
-      {'date': '13 Nov 2015'},
-      {'date': '14 Nov 2015'},
-      {'date': '15 Nov 2015'},
-    ];
-
-    $timeout(function () {
-      scrollService.scrollTo('prestige-account', 20);
-    });
-
+    $scope.onPageChange = function(){
+      scrollToTop();
+    };
+    
+    //Detect mobile
     $scope.isMobile = function(){
       return stateService.isMobile();
     };
 
-    $scope.onPageChange = function(){
-      $timeout(function () {
-        scrollService.scrollTo('prestige-account', 20);
-      });
+    //format dates
+    $scope.formatDate = function(date, format){
+      return $window.moment(date).format(format);
     };
 
   });
