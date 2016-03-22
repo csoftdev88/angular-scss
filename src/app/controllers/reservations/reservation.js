@@ -691,17 +691,40 @@ angular.module('mobius.controllers.reservation', [])
     return $scope.bookingDetails[type];
   };
 
-  $scope.getBreakdownTotal = function(code, isFee){
-    // Returning a total price of all products
+  $scope.getBreakdownTotalTax = function(id){
+    // Returning a total price of all taxes per id
     var total = 0;
     _.map($scope.allRooms, function(room){
-      _.each(room._selectedProduct.priceOriginal.breakdowns, function(breakdown){
-        _.each(breakdown.taxDetails.policyTaxItemDetails, function(detail){
-          //console.log('detail.taxAmount: ' + detail.taxAmount);
-          if(detail.policyTaxItem.policyTaxItemCode === code && detail.policyTaxItem.policyTaxItemIsFee === isFee.toString()){
-            total += detail.taxAmount;
-          }
-        });
+      _.each(room._selectedProduct.price.taxDetails.policyTaxItemDetails, function(taxItem){
+        if(taxItem.policyTaxItem.policyTaxItemID === id){
+          total += taxItem.taxAmount;
+        }
+      });
+    });
+    return total;
+  };
+
+  $scope.getBreakdownTotalFee = function(id){
+    // Returning a total price of all fees per id
+    var total = 0;
+    _.map($scope.allRooms, function(room){
+      _.each(room._selectedProduct.price.feeDetails.policyTaxItemDetails, function(feeItem){
+        if(feeItem.policyTaxItem.policyTaxItemID === id){
+          total += feeItem.taxAmount;
+        }
+      });
+    });
+    return total;
+  };
+
+  $scope.getBreakdownTotalDate = function(date){
+    // Returning a total price per date
+    var total = 0;
+    _.map($scope.allRooms, function(room){
+      _.each(room._selectedProduct.price.breakdowns, function(breakdown){
+        if(breakdown.date === date){
+          total += breakdown.totalBase;
+        }
       });
     });
     return total;
