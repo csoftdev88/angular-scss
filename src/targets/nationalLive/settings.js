@@ -29,7 +29,7 @@ angular.module('mobiusApp.config', [])
       'id': ''
     },
     'chainCode': 'NAT',
-    'baseURL': 'http://national.api.mobiuswebservices.com/api/4.0/',
+    'baseURL': 'http://national.api.mobiuswebservices.com:3010/api/4.0/',
     'devBaseURL': '',
     'mobiusTracking': {
       'enable': false,

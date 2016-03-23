@@ -96,8 +96,6 @@ angular.module('mobiusApp.directives.datepicker', [])
 
         bindResizeListener();
 
-        console.log(stateService.getAppLanguageCode());
-
         //NOTE: for languages to work, you must download the corresponding lang file from https://github.com/jquery/jquery-ui/tree/master/ui/i18n and include it in vendors/jquery-ui/datepicker-translations/ - then update the build.config.js accordingly
         element.datepicker($.extend({}, $.datepicker.regional[stateService.getAppLanguageCode().split('-')[0]], {
           dateFormat: DATE_FORMAT,
