@@ -164,7 +164,7 @@
 
               <div class="transaction-value">
                 <div class="label" ng-if="item.amount !== 0">_transaction_</div>
-                <h4 class="value" ng-class="{'positive': item.amount > 0, 'negative': item.amount < 0}" ng-if="item.amount !== 0">{{item.amount}}</h4>
+                <h4 class="value" ng-class="{'positive': item.amount > 0, 'negative': item.amount < 0}" ng-if="item.amount !== 0"><span ng-if="item.amount > 0">-</span>{{item.amount}}</h4>
               </div>
 
               <div class="balance">
