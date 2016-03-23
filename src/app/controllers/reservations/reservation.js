@@ -691,12 +691,12 @@ angular.module('mobius.controllers.reservation', [])
     return $scope.bookingDetails[type];
   };
 
-  $scope.getBreakdownTotalTax = function(id){
+  $scope.getBreakdownTotalTax = function(code){
     // Returning a total price of all taxes per id
     var total = 0;
     _.map($scope.allRooms, function(room){
       _.each(room._selectedProduct.price.taxDetails.policyTaxItemDetails, function(taxItem){
-        if(taxItem.policyTaxItem.policyTaxItemID === id){
+        if(taxItem.policyTaxItem.policyTaxItemCode === code){
           total += taxItem.taxAmount;
         }
       });
@@ -704,12 +704,12 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
-  $scope.getBreakdownTotalFee = function(id){
+  $scope.getBreakdownTotalFee = function(code){
     // Returning a total price of all fees per id
     var total = 0;
     _.map($scope.allRooms, function(room){
       _.each(room._selectedProduct.price.feeDetails.policyTaxItemDetails, function(feeItem){
-        if(feeItem.policyTaxItem.policyTaxItemID === id){
+        if(feeItem.policyTaxItem.policyTaxItemCode === code){
           total += feeItem.taxAmount;
         }
       });
