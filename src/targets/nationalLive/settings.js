@@ -430,6 +430,14 @@ angular.module('mobiusApp.config', [])
         'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
+      },
+      'fr': {
+        'shortName': 'FR',
+        'name': 'Français',
+        'decimalSeparator': '',
+        'groupSeparator': '\u00a0',
+        'groupSize': 3,
+        'neg': '-'
       }
     },
 
