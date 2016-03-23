@@ -45,13 +45,13 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         //update customer data
         defaultData.customer.corporateCustomer = bookingParams.corpCode && bookingParams.corpCode !== '' ? true : false;
         defaultData.customer.email = userObject.email;
-        defaultData.customer.firstName = userObject.firstName;
-        defaultData.customer.lastName = userObject.lastName;
+        defaultData.customer.firstName = userObject.firstName || '';
+        defaultData.customer.lastName = userObject.lastName || '';
         defaultData.customer.gender = userObject.gender || '';
         defaultData.customer.loyaltyMember = Settings.authType === 'infiniti';
-        defaultData.customer.phone = userObject.tel1;
-        defaultData.customer.country.code = userObject.iso3;
-        defaultData.customer.country.name = userObject.country;
+        defaultData.customer.phone = userObject.tel1 || '';
+        defaultData.customer.country.code = userObject.iso3 || '';
+        defaultData.customer.country.name = userObject.country || '';
         defaultData.customer.uuid = Settings.API.chainCode + '_' + userObject.id;
       }
       else{
