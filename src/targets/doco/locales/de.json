@@ -62,11 +62,11 @@
     "gallery": "Galerie",
 
     "BUTTONS": "//////////////////////////////////////////////////////",
-    "your_booking_progress": "Your Booking <span>Progress</span>",
-    "choose_your_room": "Choose Your Room",
-    "guest_details": "Guest Details",
-    "billing_information": "Billing Information",
-    "confirm_your_reservation": "Confirm Your Reservation",
+    "your_booking_progress": "Ihr <span>Buchungsfortschritt</span>",
+    "choose_your_room": "Wählen Sie Ihr Zimmer",
+    "guest_details": "Gast Informationen",
+    "billing_information": "Rechnungsinformationen",
+    "confirm_your_reservation": "Bestätigen Sie Ihre Reservation",
 
     "login_register": "Log In / Registrierung",
     "login_to_book": "Login dich Buchen",
@@ -74,7 +74,7 @@
     "continue_as_guest": "Weiterfahren als Gast",
 
     "reset_password": "Passwort zurücksetzen",
-    "save_password": "Save Password",
+    "save_password": "Passwort speichern",
 
     "continue": "Weiterfahren",
 
@@ -120,9 +120,9 @@
     "book_now": "Buche jetzt",
 
     "select_dates": "Datum auswählen",
-    "change_dates": "Change Dates",
-    "no_dates_selected": "You do not have any dates selected",
-    "dates_selected": "Dates selected",
+    "change_dates": "Datum ändern",
+    "no_dates_selected": "Sie haben keine Daten selektiert",
+    "dates_selected": "Selektiere Daten",
     "select_new_dates": "wählen neues Datum",
 
     "save": "Speichern",
@@ -265,8 +265,8 @@
     "manually_removed_points": "Manually Removed Points",
     "purchased": "Purchased",
     "redeemed": "Redeemed",
-    "hotel_detail_header_main_title": "New Reservation",
-    "hotel_detail_header_contact_title": "Contact the Hotel",
+    "hotel_detail_header_main_title": "Ihre Reservation",
+    "hotel_detail_header_contact_title": "Hotel Informationen",
     "no_points_rate_desc": "diese Rate vergibt keine Punkte",
     "mapLocationHeader": "The {chainPrefix} {nameShort} Location",
 
@@ -356,7 +356,7 @@
     "not_enough_points_to_purchase": "Entschuldigen Sie, sie haben nicht genügend Punkte, um diesen Einkauf zu tätigen",
 
     "payment_not_authorized": "Wir haben ein Problem mit Ihrer Zahlungsinformationen",
-    "user_already_registered": "We are sorry, the email you used is already registered. Please login or use a different email address.",
+    "user_already_registered": "Sorry, leider ist diese Emailadresse bereits registriert. Bitte melden Sie sich direkt an oder benützen Sie eine andere Emailadresse.",
     "generic_reservation_error": "Wir sind nicht in der Lage Ihre Buchung zur Zeit zu verarbeiten. Bitte versuchen Sie es erneut, oder kontaktieren Sie direkt das Hotel.",
     "payment_not_authorized_card_name": "Name des Karteninhabers ist ungŸltig",
     "payment_not_authorized_payment_type": "Zahlungsart ist ungŸltig",
@@ -412,8 +412,8 @@
     "hotel_map_phone_label": "Telefon",
 
     "hotel_map_address_label": "Adresse",
-    "hotel_map_directions_label": "Directions",
-    "hotel_map_directions_value": "Hotel Directions PDF",
+    "hotel_map_directions_label": "Wegbeschreibung",
+    "hotel_map_directions_value": "Wegbeschreibung als pdf",
 
     "local_time": "Lokale Zeit",
 
