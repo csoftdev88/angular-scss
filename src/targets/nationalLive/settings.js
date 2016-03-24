@@ -690,7 +690,7 @@ angular.module('mobiusApp.config', [])
     },
     'cloudinary': {
       'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/Mobius/NAT/properties_amenities/',
-      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/Mobius/NAT/room_amenities/',
+      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/v1458826808/Mobius/NAT/',
       'suffix': '.png'
     },
     // See: http://openweathermap.org/wiki/API/Weather_Condition_Codes

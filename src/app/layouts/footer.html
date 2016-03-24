@@ -20,8 +20,8 @@
     <nav>
       <ul>
         <li ng-repeat="link in footerConfig.advanced.links">
-          <a href="link.href" target="_blank" ng-if="link.target === 'blank'">{{link.value}}</a>
-          <a href="" ui-sref="link.href" ng-if="link.target === 'self'">{{link.value}}</a>
+          <a ng-href="{{link.href}}" target="_blank" ng-if="link.target === 'blank'">{{link.value}}</a>
+          <a href="" ui-sref="{{link.href}}" ng-if="link.target === 'self'">{{link.value}}</a>
         </li>
       </ul>
     </nav>

@@ -109,6 +109,9 @@ angular.module('mobiusApp.directives.room', [])
           setRoomProductDetails(data.roomProductDetails);
           scope.roomDetails = data.roomDetails;
           setRoomData(data.roomDetails);
+          $timeout(function(){
+            scope.loadMoreRooms();
+          }, 0);
           return data;
           /*
           return setRoomData(data.roomDetails).then(function() {
@@ -235,9 +238,6 @@ angular.module('mobiusApp.directives.room', [])
             });
         });
       };
-      $timeout(function(){
-        scope.loadMoreRooms();
-      }, 0);
       
 
       scope.setRoomsSorting = function() {
