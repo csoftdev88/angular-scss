@@ -37,9 +37,20 @@
     <list-items ng-if="products.length">
 
       <div class="controls">
-        <order-switch ng-show="hasDates">
-          <select name="sorting" ng-model="currentOrder" disable-search="true"
-   chosen ng-options="option.name for option in sortingOptions" data-placeholder="_sorting_filter_placeholder_" ng-change="orderSwitchChange(currentOrder)">
+        <order-switch ng-show="hasDates && products.length > 1">
+          <select 
+            name="sorting" 
+            ng-model="currentOrder" 
+            disable-search="true"
+            chosen 
+            ng-options="option.name for option in sortingOptions" 
+            data-placeholder="_sorting_filter_placeholder_" 
+            ng-change="orderSwitchChange(currentOrder)"
+            ng-init="initSortingOptions({
+              'priceLowToHigh': '_price_low_to_high_',
+              'priceHighToLow': '_price_high_to_low_',
+              'recommended': '_recommended_'
+            })">
             <option></option> <!-- workaround for a bug in angular-chosen -->
           </select>
         </order-switch>

@@ -34,9 +34,23 @@
       <h1 ng-bind-html="'_hotels_page_title_' | mainHeaderStyle"></h1>
       <!--<p>{{(hotels | filter : hotelFilter).length | pluralization: {'0': 'No hotel available', '1': '{} hotel available', 'plural': '{} hotels available'} }}</p>-->
     </header>
-    <div class="hotels__controls" ng-show="hasDates() && hotelAvailable()">
+    <div class="hotels__controls" ng-if="hasDates() && hotelAvailable()">
       <div class="order-switch">
-        <select name="sorting" ng-model="currentOrder" chosen ng-options="option.name for option in sortingOptions" data-placeholder="Sorting" disable-search="true" ng-change="orderSwitchChange(currentOrder)">
+        <select 
+          name="sorting" 
+          ng-model="currentOrder" 
+          chosen 
+          ng-options="option.name for option in sortingOptions" 
+          data-placeholder="Sorting" 
+          disable-search="true" 
+          ng-change="orderSwitchChange(currentOrder)"
+          ng-init="initSortingOptions({
+            'priceLowToHigh': '_price_low_to_high_',
+            'priceHighToLow': '_price_high_to_low_',
+            'availability': '_availability_',
+            'starRatingLowToHigh': '_star_rating_low_to_high_',
+            'starRatingHighToLow': '_star_rating_high_to_low_'
+          })">
           <option></option> <!-- workaround for a bug in angular-chosen -->
         </select>
       </div>

@@ -38,55 +38,57 @@ angular.module('mobiusApp.directives.room', [])
         scope.roomDetails = data;
       });
 
+
       // Sorting options
-      //TODO add to settings/locales
-      scope.sortingOptions = [
-        {
-          name: 'Price - Low to High',
-          sort: function(product){
-            return product.price.totalAfterTax;
+      scope.initSortingOptions = function(options){
+        scope.sortingOptions = [
+          {
+            name: options.priceLowToHigh,
+            sort: function(product){
+              return product.price.totalAfterTax;
+            }
+          },
+          {
+            name: options.priceHighToLow,
+            sort: function(product){
+              return 0 - product.price.totalAfterTax;
+            }
           }
-        },
-        {
-          name: 'Price - High to Low',
-          sort: function(product){
-            return 0 - product.price.totalAfterTax;
-          }
+        ];
+
+        if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+          scope.sortingOptions.splice(0, 0, {
+            name: options.recommended,
+            sort: function(product){
+              return [0 - product.productHidden, 0 - product.weighting];
+            }
+          });
         }
-      ];
 
-      if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
-        scope.sortingOptions.splice(0, 0, {
-          name: 'Recommended',
-          sort: function(product){
-            return [0 - product.productHidden, 0 - product.weighting];
-          }
-        });
-      }
+        /*
+        USER PREFERENCE SETTINGS
+        */
+        var mobiusUserPreferences = userPreferenceService.getCookie();
+        //order switch default value
+        if(mobiusUserPreferences && mobiusUserPreferences.hotelCurrentOrder){
+          var index = _.findIndex(scope.sortingOptions, function(option) {
+            return option.name === mobiusUserPreferences.hotelCurrentOrder;
+          });
+          $timeout(function(){
+            scope.currentOrder = scope.sortingOptions[index !== -1 ? index : 0];
+          }, 0);
+        }
+        else{
+          $timeout(function(){
+            scope.currentOrder = scope.sortingOptions[0];
+          }, 0);
+        }
 
-      /*
-      USER PREFERENCE SETTINGS
-      */
-      var mobiusUserPreferences = userPreferenceService.getCookie();
+        //save order switch value to cookies when changed
+        scope.orderSwitchChange = function(selected){
+          userPreferenceService.setCookie('hotelCurrentOrder', selected.name);
+        };
 
-      //order switch default value
-      if(mobiusUserPreferences && mobiusUserPreferences.hotelCurrentOrder){
-        var index = _.findIndex(scope.sortingOptions, function(option) {
-          return option.name === mobiusUserPreferences.hotelCurrentOrder;
-        });
-        $timeout(function(){
-          scope.currentOrder = scope.sortingOptions[index];
-        }, 0);
-      }
-      else{
-        $timeout(function(){
-          scope.currentOrder = scope.sortingOptions[0];
-        }, 0);
-      }
-
-      //save order switch value to cookies when changed
-      scope.orderSwitchChange = function(selected){
-        userPreferenceService.setCookie('hotelCurrentOrder', selected.name);
       };
 
       // Using PGID from the booking params

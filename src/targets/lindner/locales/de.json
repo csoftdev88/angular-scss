@@ -241,6 +241,12 @@
     "rates_loading_title": "Lädt den günstigsten Preis für Sie...",
 
     "COMPONENTS": "//////////////////////////////////////////////////////",
+    "price_low_to_high": "Niedrigster Preis zuerst",
+    "price_high_to_low": "Höchste Pries zuerst",
+    "recommended": "Empfohlen",
+    "availability": "Verfügbare",
+    "star_rating_low_to_high": "Kategorie  5..1 Sterne",
+    "star_rating_high_to_low": "Kategorie  1..5  Sterne",
     "your_balance": "Dein Kontostand",
     "balance": "balance",
     "recent_transactions": "Recent Transactions",

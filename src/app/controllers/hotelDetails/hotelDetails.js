@@ -42,55 +42,57 @@ angular.module('mobius.controllers.hotel.details', [
   bookingParams.includes = 'amenities';
 
   // Sorting options
-  //TODO add to settings/locales
-  $scope.sortingOptions = [
-    {
-      name: 'Price - Low to High',
-      sort: function(room){
-        return room.priceFrom;
+  $scope.initSortingOptions = function(options){
+    $scope.sortingOptions = [
+      {
+        name: options.priceLowToHigh,
+        sort: function(room){
+          return room.priceFrom;
+        }
+      },
+      {
+        name: options.priceHighToLow,
+        sort: function(room){
+          return 0 - room.priceFrom;
+        }
       }
-    },
-    {
-      name: 'Price - High to Low',
-      sort: function(room){
-        return 0 - room.priceFrom;
-      }
+    ];
+
+    if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+      $scope.sortingOptions.splice(0, 0, {
+        name: options.recommended,
+        sort: function(room){
+          return [-room.priceFrom, -room.weighting];
+        }
+      });
     }
-  ];
 
-  if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
-    $scope.sortingOptions.splice(0, 0, {
-      name: 'Recommended',
-      sort: function(room){
-        return [-room.priceFrom, -room.weighting];
-      }
-    });
-  }
+    /*
+    USER PREFERENCE SETTINGS
+    */
+    //order switch default value
+    if(mobiusUserPreferences && mobiusUserPreferences.hotelCurrentOrder){
+      var index = _.findIndex($scope.sortingOptions, function(option) {
+        return option.name === mobiusUserPreferences.hotelCurrentOrder;
+      });
+      $timeout(function(){
+        $scope.currentOrder = $scope.sortingOptions[index !== -1 ? index : 0];
+      }, 0);
+    }
+    else{
+      $timeout(function(){
+        $scope.currentOrder = $scope.sortingOptions[0];
+      }, 0);
+    }
 
-  /*
-  USER PREFERENCE SETTINGS
-  */
+    //save order switch value to cookies when changed
+    $scope.orderSwitchChange = function(selected){
+      userPreferenceService.setCookie('hotelCurrentOrder', selected.name);
+    };
 
-  //order switch default value
-  if(mobiusUserPreferences && mobiusUserPreferences.hotelCurrentOrder){
-    var index = _.findIndex($scope.sortingOptions, function(option) {
-      return option.name === mobiusUserPreferences.hotelCurrentOrder;
-    });
-    $timeout(function(){
-      $scope.currentOrder = $scope.sortingOptions[index];
-    }, 0);
-  }
-  else{
-    $timeout(function(){
-      $scope.currentOrder = $scope.sortingOptions[0];
-    }, 0);
-  }
-
-  //save order switch value to cookies when changed
-  $scope.orderSwitchChange = function(selected){
-    userPreferenceService.setCookie('hotelCurrentOrder', selected.name);
   };
 
+  
   var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
 
   if(!propertyCode){

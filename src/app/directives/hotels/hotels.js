@@ -26,74 +26,81 @@ angular.module('mobiusApp.directives.hotels', [])
       $controller('RatesCtrl', {$scope: scope});
 
       var mobiusUserPreferences = userPreferenceService.getCookie();
+      
+      scope.initSortingOptions = function(options){
 
-      scope.sortingOptions = [
-        {
-          name: 'Availability',
-          sort: function(hotel){
-            return -hotel.available;
+        scope.sortingOptions = [
+          {
+            name: options.availability,
+            sort: function(hotel){
+              return -hotel.available;
+            }
+          },
+          {
+            name: options.priceLowToHigh,
+            sort: function(hotel){
+              return hotel.priceFrom;
+            }
+          },
+          {
+            name: options.priceHighToLow,
+            sort: function(hotel){
+              return 0 - hotel.priceFrom;
+            }
+          },
+          {
+            name: options.starRatingLowToHigh,
+            sort: function(hotel){
+              return hotel.rating;
+            }
+          },
+          {
+            name: options.starRatingHighToLow,
+            sort: function(hotel){
+              return 0 - hotel.rating;
+            }
+          },
+          {
+            name: 'A - Z',
+            sort: function(hotel){
+              return hotel.nameShort;
+            }
+          },
+          {
+            name: 'Z - A',
+            sort: function(hotel){
+              return -hotel.nameShort;
+            }
           }
-        },
-        {
-          name: 'Price Low to High',
-          sort: function(hotel){
-            return hotel.priceFrom;
-          }
-        },
-        {
-          name: 'Price High to Low',
-          sort: function(hotel){
-            return 0 - hotel.priceFrom;
-          }
-        },
-        {
-          name: 'Star Rating Low to High',
-          sort: function(hotel){
-            return hotel.rating;
-          }
-        },
-        {
-          name: 'Star Rating High to Low',
-          sort: function(hotel){
-            return 0 - hotel.rating;
-          }
-        },
-        {
-          name: 'A - Z',
-          sort: function(hotel){
-            return hotel.nameShort;
-          }
-        },
-        {
-          name: 'Z - A',
-          sort: function(hotel){
-            return -hotel.nameShort;
-          }
+        ];
+
+        /*
+        USER PREFERENCE SETTINGS
+        */
+
+        // Default sorting by availability or price
+        var defaultOrder = bookingService.APIParamsHasDates() ? 0 : 1;
+
+        //order switch default value
+        if(mobiusUserPreferences && mobiusUserPreferences.hotelsCurrentOrder){
+          var index = _.findIndex(scope.sortingOptions, function(option) {
+            return option.name === mobiusUserPreferences.hotelsCurrentOrder;
+          });
+          $timeout(function(){
+            scope.currentOrder = scope.sortingOptions[index !== -1 ? index : defaultOrder];
+          }, 0);
         }
-      ];
+        else{
+          $timeout(function(){
+            scope.currentOrder = scope.sortingOptions[defaultOrder];
+          }, 0);
+        }
 
-      /*
-      USER PREFERENCE SETTINGS
-      */
-
-      //order switch default value
-      if(mobiusUserPreferences && mobiusUserPreferences.hotelsCurrentOrder){
-        var index = _.findIndex(scope.sortingOptions, function(option) {
-          return option.name === mobiusUserPreferences.hotelsCurrentOrder;
-        });
-        $timeout(function(){
-          scope.currentOrder = scope.sortingOptions[index];
-        }, 0);
-      }
-      else{
-        $timeout(function(){
-          scope.currentOrder = scope.sortingOptions[0];
-        }, 0);
-      }
-
-      //save order switch value to cookies when changed
-      scope.orderSwitchChange = function(selected){
-        userPreferenceService.setCookie('hotelsCurrentOrder', selected.name);
+        //save order switch value to cookies when changed
+        scope.orderSwitchChange = function(selected){
+          scope.currentOrder = selected;
+          userPreferenceService.setCookie('hotelsCurrentOrder', selected.name);
+        };
       };
 
       //hotel view default value
@@ -293,13 +300,6 @@ angular.module('mobiusApp.directives.hotels', [])
 
       // Getting the details from booking widget
       var bookingParams = bookingService.getAPIParams(true);
-
-      // Default sorting by availability or price
-      if(bookingService.APIParamsHasDates()) {
-        scope.currentOrder = scope.sortingOptions[0];
-      } else {
-        scope.currentOrder = scope.sortingOptions[1];
-      }
 
       if(bookingParams.productGroupId){
         getProperties(bookingParams);

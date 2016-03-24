@@ -805,7 +805,7 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/Mobius/LAVAL/properties_amenities/',
+      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/v1458645334/Mobius/LAVAL/property_amenities/',
       'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/Mobius/LAVAL/room_amenities/',
       'suffix': '.png'
     },
