@@ -114,11 +114,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       var DATES_SEPARATOR = '_';
 
+      
       function getDefaultAdultCount() {
         return $window._.find(scope.guestsOptions.adults, {
           value: bookingService.getAPIParams(true).adults || scope.settings.defaultAdultCount
         });
       }
+      
 
       // NOTE: Hotel is presented in the URL by using property/hotel code
       // Currently selected form values

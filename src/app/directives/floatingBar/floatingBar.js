@@ -170,54 +170,36 @@ angular.module('mobiusApp.directives.floatingBar', [
       }
     };
   // Generic controller for booking tabs - defines numbers of guests
-  }]).controller('GuestsCtrl', function($scope, $filter, Settings){
+  }]).controller('GuestsCtrl', function($scope, $filter, Settings, bookingService, _){
     var numberToListFilter = $filter('numberToList');
     var settings = Settings.UI.bookingWidget;
 
-    /*
-    var adultOptions = [];
-    var childrenOptions = [];
-
-    $scope.createAdultOptions = function(singular, plurial){
-      if(!adultOptions.length){
-        adultOptions =  numberToListFilter([], settings.adults.min, settings.adults.max,
+    $scope.setAdultsOptions = function(options){
+      var adultOptions =  numberToListFilter([], settings.adults.min, settings.adults.max,
           // TODO: Localize
           {
-            '1': '{} ' + singular,
-            'plural': '{} ' + plurial
+            '1': '{} ' + options.adult,
+            'plural': '{} ' + options.adults
           });
-        $scope.guestsOptions.adults = adultOptions;
-        $scope.selected = {'adults':{'value':2,'title':'2 Erwachsene'}};
-        return adultOptions;
-      }
-      else{
-        $scope.guestsOptions.adults = adultOptions;
-        $scope.selected = {'adults':{'value':2,'title':'2 Erwachsene'}};
-        return adultOptions;
-      }
-
+      $scope.guestsOptions.adults = adultOptions;
+      $scope.selected.adults = _.find($scope.guestsOptions.adults, {
+        value: parseInt(bookingService.getAPIParams(true).adults, 10) || settings.defaultAdultCount
+      });
     };
 
-    $scope.createChildrenOptions = function(singular, plurial){
-      if(!childrenOptions.length){
-        childrenOptions =  numberToListFilter([], settings.children.min, settings.children.max,
+    $scope.setChildrenOptions = function(options){
+      var childrenOptions =  numberToListFilter([], settings.children.min, settings.children.max,
           // TODO: Localize
           {
-            '1': '{} ' + singular,
-            'plural': '{} ' + plurial
+            '1': '{} ' + options.child,
+            'plural': '{} ' + options.children
           });
-        $scope.guestsOptions.children = childrenOptions;
-        return childrenOptions;
-      }
-      else{
-        $scope.guestsOptions.children = childrenOptions;
-        return childrenOptions;
-      }
-      
+      $scope.guestsOptions.children = childrenOptions;
+      $scope.selected.children = _.find($scope.guestsOptions.children, {
+        value: parseInt(bookingService.getAPIParams(true).children, 10) || 0
+      });
     };
-    */
-    
-    
+
     $scope.guestsOptions = {
       adults: numberToListFilter([], settings.adults.min, settings.adults.max,
         // TODO: Localize

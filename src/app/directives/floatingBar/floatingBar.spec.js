@@ -95,8 +95,10 @@ describe('bookingWidget', function() {
 
 describe('GuestsCtrl', function() {
   var _scope;
+  var TEST_URL_PARAMS = {testParam: 'testValue'};
 
   beforeEach(function() {
+    module('underscore');
     module('mobiusApp.filters.list');
 
     module('mobiusApp.directives.floatingBar', function($provide) {
@@ -114,6 +116,15 @@ describe('GuestsCtrl', function() {
             }
           }
         });
+
+      $provide.value('bookingService', {
+        getAPIParams: function(){
+          return TEST_URL_PARAMS;
+        },
+        APIParamsHasDates: function(){
+          return true;
+        }
+      });
     });
   });
 
@@ -130,6 +141,7 @@ describe('GuestsCtrl', function() {
   });
 
   describe('adults and children', function(){
+    
     it('should be define on scope.guestsOptions', function() {
       expect(_scope.guestsOptions.adults).to.be.an('array');
       expect(_scope.guestsOptions.children).to.be.an('array');
@@ -147,5 +159,7 @@ describe('GuestsCtrl', function() {
       expect(_scope.guestsOptions.adults[0].title).equal('1 Adult');
       expect(_scope.guestsOptions.children[0].title).equal('Children');
     });
+    
   });
 });
+
