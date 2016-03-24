@@ -272,7 +272,7 @@
     "select_dates_for_availability_desc": "Enter your dates on the bar below and hit search to see all the rates you can book",
     "room_description_title": "Room Description",
     "room_amenities_title": "Room Amenities",
-    "other_rooms_title": "Other Rooms at {nameShort}",
+    "other_rooms_title": "Other Rooms",
     "select_dates_for_prices_title": "Please select dates to see rates for this room",
     "earn_at_least": "Earn at least",
     "room_rates_load_error": "Unfortunately we were unable to load the rates for this room.",
