@@ -135,6 +135,13 @@ describe('mobius.controllers.reservation', function() {
                 c(TITLES_DATA);
               }
             };
+          },
+          getCountries: function(){
+            return {
+              then: function(c){
+                c(TITLES_DATA);
+              }
+            };
           }
         });
 

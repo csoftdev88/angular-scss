@@ -244,7 +244,7 @@
                   disable-search="true"
                   data-placeholder=""
                   ng-model="profileData.country"
-                  ng-options="country.title as country.title for country in iso.countries">
+                  ng-options="country.name as country.name for country in profileCountries | orderBy:'name'">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>

@@ -1,6 +1,7 @@
 'use strict';
 /*
 * List of countries and their codes
+* TODO: delete this controller when confirmed as we are now using /generics/locales endpoint
 */
 angular.module('mobius.controllers.common.isoCountries', [])
 

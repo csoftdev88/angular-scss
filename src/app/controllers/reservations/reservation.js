@@ -16,7 +16,6 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMakingReservation = false;
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
-  $scope.iso = {countries: []};
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -116,8 +115,12 @@ angular.module('mobius.controllers.reservation', [])
       $scope.profileTitles = data;
     });
 
+    var countriesPromise = contentService.getCountries().then(function(data) {
+      $scope.profileCountries = data;
+    });
+
     // Showing loading mask
-    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise, titlesPromise]).then(function(){
+    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise, titlesPromise, countriesPromise]).then(function(){
       $rootScope.showHomeBreadCrumb = false;
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
@@ -263,7 +266,7 @@ angular.module('mobius.controllers.reservation', [])
         stateProvince: userData.state,
         country: _.result(
           _.find(
-            $scope.iso.countries, 
+            $scope.profileCountries, 
             function(country){
               return country.code===userData.iso3;
             },
@@ -983,7 +986,6 @@ angular.module('mobius.controllers.reservation', [])
     }
   };
 
-  $controller('ISOCountriesCtrl', {$scope: $scope});
   $scope.openPriceBreakdownInfo = function(){
     if($scope.allRooms && $scope.allRooms.length){
       modalService.openPriceBreakdownInfo($scope.allRooms);

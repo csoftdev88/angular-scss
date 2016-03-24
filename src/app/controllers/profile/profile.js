@@ -48,6 +48,10 @@ angular.module('mobius.controllers.profile', [])
 			$scope.profileContacts = data;
 		});
 
+    contentService.getCountries().then(function(data) {
+      $scope.profileCountries = data;
+    });
+
     //Get property details for map
     if($scope.config.displayMap){
       propertyService.getAll().then(function(properties){
@@ -57,8 +61,6 @@ angular.module('mobius.controllers.profile', [])
         });
       });
     }
-    
-		$controller('ISOCountriesCtrl', {$scope: $scope});
 
 		$timeout(function(){
       $scope.profileData = user.getUser();

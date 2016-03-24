@@ -23,7 +23,7 @@ angular.module('mobiusApp.config', [])
       'trackUserId': true
     },
     'evolutionAnalytics':{
-      'enable': false,
+      'enable': true,
       'prodScriptUrl': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
       'devScriptUrl': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb'
@@ -53,7 +53,8 @@ angular.module('mobiusApp.config', [])
       'currencies': 'generics/currencies',
       'languages': 'generics/languages',
       'titles': 'generics/titles',
-      'contactmethods': 'generics/contactmethods'
+      'contactmethods': 'generics/contactmethods',
+      'countries': 'generics/locales'
     },
     'filters': {
       'products': 'filters/products',

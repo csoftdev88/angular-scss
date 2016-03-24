@@ -53,7 +53,8 @@ angular.module('mobiusApp.config', [])
       'currencies': 'generics/currencies',
       'languages': 'generics/languages',
       'titles': 'generics/titles',
-      'contactmethods': 'generics/contactmethods'
+      'contactmethods': 'generics/contactmethods',
+      'countries': 'generics/locales'
     },
     'filters': {
       'products': 'filters/products',
