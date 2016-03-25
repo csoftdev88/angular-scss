@@ -34,6 +34,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       var autoplayDelay;
       var timerID;
+      var autoPlay = attrs.autoPlay !== 'false';
 
       // True by default
       scope.hasNotificationBar = attrs.hasNotificationBar !== 'false';
@@ -69,7 +70,7 @@ angular.module('mobiusApp.directives.slider', [])
         if(scope.content.length > 1){
           autoplayDelay = Settings.UI.heroSlider.autoplayDelay;
 
-          if(autoplayDelay){
+          if(autoplayDelay && autoPlay){
             timerID = setInterval(autoSlide, autoplayDelay);
           }
         }
@@ -126,7 +127,8 @@ angular.module('mobiusApp.directives.slider', [])
       }
 
       scope.slideToIndex = function(newSlideIndex, $event, isBackwards){
-        if($event && autoplayDelay){
+
+        if($event && autoplayDelay && autoPlay){
           cancelAutoplay();
         }
 
@@ -233,7 +235,8 @@ angular.module('mobiusApp.directives.slider', [])
       }
 
       function autoSlide(){
-        if(autoplayDelay){
+
+        if(autoplayDelay && autoPlay){
           // Sliding to the next image
           scope.slide(false);
           scope.$digest();
