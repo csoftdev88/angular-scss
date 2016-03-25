@@ -60,7 +60,8 @@ angular.module('mobiusApp.directives.room', [])
           scope.sortingOptions.splice(0, 0, {
             name: options.recommended,
             sort: function(product){
-              return [0 - product.productHidden, 0 - product.weighting];
+              //return [0 - product.productHidden, 0 - product.weighting];
+              return - product.weighting;
             }
           });
         }
@@ -74,14 +75,10 @@ angular.module('mobiusApp.directives.room', [])
           var index = _.findIndex(scope.sortingOptions, function(option) {
             return option.name === mobiusUserPreferences.hotelCurrentOrder;
           });
-          $timeout(function(){
-            scope.currentOrder = scope.sortingOptions[index !== -1 ? index : 0];
-          }, 0);
+          scope.currentOrder = scope.sortingOptions[index !== -1 ? index : 0];
         }
         else{
-          $timeout(function(){
-            scope.currentOrder = scope.sortingOptions[0];
-          }, 0);
+          scope.currentOrder = scope.sortingOptions[0];
         }
 
         //save order switch value to cookies when changed

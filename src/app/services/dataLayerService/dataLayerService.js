@@ -102,8 +102,10 @@ angular.module('mobiusApp.services.dataLayer', [])
     getDataLayer().push({
       'event': 'purchaseConfirmation',
       'ecommerce': {
-        'purchase': { 'actionField': actionField },
-        'products': products
+        'purchase': { 
+          'actionField': actionField,
+          'products': products
+        }
       }
     });
   }

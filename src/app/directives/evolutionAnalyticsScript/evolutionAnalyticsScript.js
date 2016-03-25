@@ -24,7 +24,6 @@ angular.module('mobiusApp.directives.evolutionAnalyticsScript', [])
           "evolution('create', '" + Settings.API.evolutionAnalytics.id + "');" +
           "evolution('sso.api', '" + prestigeUrl + "');";
         document.head.appendChild(s);
-        console.log(s.text);
       }
     };
   });
