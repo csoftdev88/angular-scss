@@ -8,6 +8,7 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   'authType': 'mobius',
   'infinitiUrl': {
+    'enable': false,
     'development': '',
     'production': ''
   },

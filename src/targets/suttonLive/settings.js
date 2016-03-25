@@ -9,6 +9,7 @@ angular.module('mobiusApp.config', [])
   'authType': 'infiniti',
   'productionHost': 'suttonplace.com',
   'infinitiUrl': {
+    'enable': false,
     'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
     'production': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },

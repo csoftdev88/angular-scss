@@ -12,7 +12,7 @@ angular.module('mobiusApp.directives.infinitiScript', [])
       // Widget logic goes here
       link: function() {
 
-        if(Settings.authType !== 'infiniti'){
+        if(Settings.authType !== 'infiniti' || !Settings.infinitiUrl.enable){
           return;
         }
 

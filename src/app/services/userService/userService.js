@@ -21,10 +21,12 @@ angular.module('mobiusApp.services.user', [])
     var authPromise = $q.defer();
 
     function hasSSOCookies(){
+      console.log('hasSSOCookies: ' + cookieFactory(KEY_CUSTOMER_PROFILE));
       return Settings.authType === 'mobius' ? true : !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
     }
 
     function isProfileLoaded(){
+      console.log('isProfileLoaded: ' + angular.toJson(userObject));
       // NOTE: Email data is loaded via customers API
       return !!(userObject.id && userObject.email);
     }
