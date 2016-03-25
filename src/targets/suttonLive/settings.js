@@ -221,7 +221,7 @@ angular.module('mobiusApp.config', [])
         // Loading rates when hovering over the room
         // in ms.
         'hoverTriggerDelay': 2000,
-        'showRoomCount': true,
+        'showRoomCount': false,
         'displayRatesOnLoad': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
