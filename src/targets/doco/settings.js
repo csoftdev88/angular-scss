@@ -27,6 +27,8 @@ angular.module('mobiusApp.config', [])
       'enable': false,
       'prodScriptUrl': '',
       'devScriptUrl': '',
+      'prodPrestigeUrl': '',
+      'devPrestigeUrl': '',
       'id': ''
     },
     'chainCode': 'DOCO',

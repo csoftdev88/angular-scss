@@ -27,6 +27,8 @@ angular.module('mobiusApp.config', [])
       'enable': true,
       'prodScriptUrl': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
       'devScriptUrl': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'prodPrestigeUrl': 'http://prestige.suttonplace.com',
+      'devPrestigeUrl': 'http://prestige-test.suttonplace.com',
       'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb'
     },
     'chainCode': 'SAN',
