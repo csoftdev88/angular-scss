@@ -1,6 +1,6 @@
 'use strict';
 /*jshint -W109 */
-
+//TODO: when confirmed this is needs to be removed as replaced by evolution script, currently this is disabled in Settings.infinitiUrl.enable
 angular.module('mobiusApp.directives.infinitiScript', [])
 
   .directive('infinitiScript', function(Settings, $location) {
