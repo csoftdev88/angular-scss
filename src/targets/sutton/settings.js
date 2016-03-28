@@ -9,7 +9,7 @@ angular.module('mobiusApp.config', [])
   'authType': 'infiniti',
   'productionHost': '',
   'infinitiUrl': {
-    'enable': false,
+    'enable': true,
     'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
     'production': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
@@ -269,7 +269,7 @@ angular.module('mobiusApp.config', [])
     'hotelDetailsTestimonialsMaxNumStars': 5,
     'hotelDetailsTestimonialsCarousel': true,
     'hotelDetailsTestimonialsCarouselDelay': 4000,
-    'hotelDetailsTestimonials': 
+    'hotelDetailsTestimonials':
     [{
       'property': 'VAN',
       'review': '“My new favourite in Vancouver',
@@ -396,11 +396,11 @@ angular.module('mobiusApp.config', [])
         'location': 'Amsterdam'
       },
       'stars': 5
-      }, 
+      },
       {
         'property': 'REV',
         'review': '“Our two night stay turned into three...”',
-        'reviewer': 
+        'reviewer':
         {
           'name': 'MTnLZ',
           'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1450195906/SAN/rateLoading/mtnlz.jpg',
