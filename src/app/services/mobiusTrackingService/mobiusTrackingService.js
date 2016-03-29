@@ -33,11 +33,23 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         'noOfChildren': 0,
         'groupCode': '',
         'corpCode': '',
-        'promoCode': ''
+        'promoCode': '',
+        'region': {
+          'name': '',
+          'code': ''
+        },
+        'property': {
+          'name': '',
+          'code': ''
+        },
+        'province':{
+          'name': '',
+          'code': ''
+        }
     };
 
 
-    function setDefaultData(bookingParams, chainData){
+    function setDefaultData(bookingParams, chainData, propertyData){
 
       var sessionCookie = sessionDataService.getCookie();
 
@@ -72,6 +84,28 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       defaultData.corpCode = bookingParams.corpCode || '';
       defaultData.promoCode = bookingParams.promoCode || '';
 
+      // This works at least for Sutton
+      var localeData = propertyData.locale.split('-');
+      //region
+      defaultData.region = {
+        code: propertyData.regionCode,
+        name: localeData[0].trim()
+      };
+
+      //province
+      //TODO: API needs to return province code, for now we use name toUpperCase as needed by tracking
+      defaultData.province = {
+        code: localeData[1].trim().split(' ').join('').toUpperCase(),
+        name: localeData[1].trim()
+      };
+
+      //property
+      defaultData.property = {
+        code: propertyData.code,
+        name: propertyData.nameShort
+      };
+
+
     }
     
 
@@ -81,19 +115,11 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         return;
       }
 
-      console.log('propertyData: ' + angular.toJson(propertyData));
-
       //set default data
-      setDefaultData(bookingParams, chainData);
+      setDefaultData(bookingParams, chainData, propertyData);
 
       //copy default data
       var postData = angular.copy(defaultData);
-
-      //property code/name
-      postData.property = {
-        'code': propertyData.code,
-        'name': propertyData.nameShort
-      };
 
       //property star rating
       postData.starRating = propertyData.rating;
@@ -102,6 +128,8 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       postData.rateFilter = rateSorting.name || '';
 
       var searchData = [];
+      //TODO: API needs to return province code, for now we use name toUpperCase as needed by tracking
+      var localeData = propertyData.locale.split('-');
       _.each(products, function(product){
         var productData = {
             'city': propertyData.nameShort,
@@ -120,11 +148,11 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
             },
             'region': {
               'code': propertyData.regionCode,
-              'name': ''
+              'name': localeData[0].trim()
             },
             'province': {
-              'code': '',
-              'name': propertyData.locale
+              'code': localeData[1].trim().split(' ').join('').toUpperCase(),
+              'name': localeData[1].trim()
             }
           };
           searchData.push(productData);
@@ -133,7 +161,6 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       postData.results = searchData;
 
       //Loop through each room then each night
-      
       postData.nights = [];
       var nightObj = {};
       _.each(products, function(product){
@@ -154,9 +181,6 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       });
       postData.nights.push(nightObj);
       
-
-      console.log('trackSearch: ' + angular.toJson(postData));
-      
       apiService.post(apiService.getFullURL('mobiusTracking.search'), postData).then(function(){
       }, function(err){
         console.log('Mobius search tracking error: ' + angular.toJson(err));
@@ -171,16 +195,10 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       }
 
       //set default data
-      setDefaultData(bookingParams, chainData);
+      setDefaultData(bookingParams, chainData, propertyData);
 
       //copy default data
       var postData = angular.copy(defaultData);
-
-      //property code/name
-      postData.property = {
-        'code': propertyData.code,
-        'name': propertyData.nameShort
-      };
 
       //property star rating
       postData.starRating = propertyData.rating;
