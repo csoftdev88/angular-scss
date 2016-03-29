@@ -111,7 +111,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
 
     function trackSearch(bookingParams, chainData, propertyData, products, room, rateSorting){
 
-      if(!Settings.API.mobiusTracking.enable || $state.includes('reservation')){
+      if(!Settings.API.mobiusTracking.enable || $state.includes('reservation') || !products.length){
         return;
       }
 
