@@ -81,11 +81,19 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         return;
       }
 
+      console.log('propertyData: ' + angular.toJson(propertyData));
+
       //set default data
       setDefaultData(bookingParams, chainData);
 
       //copy default data
       var postData = angular.copy(defaultData);
+
+      //property code/name
+      postData.property = {
+        'code': propertyData.code,
+        'name': propertyData.nameShort
+      };
 
       //property star rating
       postData.starRating = propertyData.rating;
@@ -116,13 +124,38 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
             },
             'province': {
               'code': '',
-              'name': ''
+              'name': propertyData.locale
             }
           };
           searchData.push(productData);
     
       });
       postData.results = searchData;
+
+      //Loop through each room then each night
+      
+      postData.nights = [];
+      var nightObj = {};
+      _.each(products, function(product){
+
+        _.each(product.price.breakdowns, function(night){
+          nightObj = {
+            'date': night.date,
+            'rate': {
+              'currency': $rootScope.currencyCode,
+              'amount': night.totalAfterTax
+            },
+            'room': {
+              'code': room.code,
+              'type': room.name
+            }
+          };
+        });
+      });
+      postData.nights.push(nightObj);
+      
+
+      console.log('trackSearch: ' + angular.toJson(postData));
       
       apiService.post(apiService.getFullURL('mobiusTracking.search'), postData).then(function(){
       }, function(err){
@@ -142,6 +175,12 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
 
       //copy default data
       var postData = angular.copy(defaultData);
+
+      //property code/name
+      postData.property = {
+        'code': propertyData.code,
+        'name': propertyData.nameShort
+      };
 
       //property star rating
       postData.starRating = propertyData.rating;
