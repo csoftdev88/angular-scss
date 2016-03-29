@@ -412,7 +412,8 @@ angular.module('mobiusApp.config', [])
         }
       },
       'displaySummary': true,
-      'displayMap': true
+      'displayMap': true,
+      'allowPasswordChange': false
     },
 
     'languages': {

@@ -97,7 +97,7 @@
     </section>
 
 
-    <form id="profile-form" name="passwordForm" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
+    <form id="profile-form" name="passwordForm" grid="8" ng-if="!config.displaySummary && config.allowPasswordChange || config.displaySummary && !showSummary && config.allowPasswordChange">
 
       <h2>_profile_page_password_title_</h2>
 
