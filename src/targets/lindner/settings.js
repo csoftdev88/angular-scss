@@ -695,7 +695,7 @@ angular.module('mobiusApp.config', [])
         'maxWidth': 1024
       },
       'mobile': {
-        'maxWidth': 767
+        'maxWidth': 768
       }
     },
 
