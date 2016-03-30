@@ -294,6 +294,13 @@ reservation-widget {
       .breakdown-toggle{
         font-weight: normal;
         font-size: 12px;
+        line-height: 14px;
+        td{
+          font-weight: 400;
+          .viewport-mobile &{
+            padding: 5px;
+          }
+        }
       }
 
       .breakdown{
@@ -324,7 +331,7 @@ reservation-widget {
       }
       .viewport-mobile &{
         table, thead, tbody, th, td, tr:not(.breakdown) {
-          display: block;
+          //display: block;
           text-align: right;
         }
       }
@@ -333,7 +340,7 @@ reservation-widget {
         .breakdown{
           display: table-row;
           .viewport-mobile &{
-            display: block;
+            //display: block;
           }
         }
         .main{

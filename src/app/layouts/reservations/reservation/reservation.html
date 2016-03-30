@@ -148,9 +148,9 @@
                   <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
                   <td ng-switch-default>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
                 </tr>
-                <tr>
+                <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
                   <th></th>
-                  <td><a class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended" href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
+                  <td><a href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
                 </tr>
               </thead>
               <tbody>
