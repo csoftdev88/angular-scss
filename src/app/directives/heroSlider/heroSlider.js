@@ -9,7 +9,8 @@ angular.module('mobiusApp.directives.slider', [])
     scope: {
       content: '=',
       defaultSlideIndex: '=',
-      onSlideClick: '='
+      onSlideClick: '=',
+      onRoomClick: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
@@ -101,6 +102,9 @@ angular.module('mobiusApp.directives.slider', [])
         }else{
           if(scope.onSlideClick){
             scope.onSlideClick(scope.slideIndex);
+          }
+          else if(scope.onRoomClick){
+            scope.onRoomClick(attrs.room, scope.slideIndex);
           }
         }
       };

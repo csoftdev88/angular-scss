@@ -234,7 +234,7 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   // NOTE: images - list of URLs
-  function openGallery(images, slideIndex){
+  function openGallery(images, slideIndex, autoPlay){
     return openDialog('openGallery', 'layouts/modals/lightbox.html', CONTROLLER_DATA, {
       windowClass: 'lightbox',
       backdropClass: 'modal-lightbox',
@@ -242,7 +242,8 @@ angular.module('mobiusApp.services.modal', [])
         data: function(){
           return {
             images: images,
-            slideIndex: slideIndex || 0
+            slideIndex: slideIndex || 0,
+            autoPlay: autoPlay
           };
         }
       }

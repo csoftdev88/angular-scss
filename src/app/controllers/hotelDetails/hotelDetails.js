@@ -246,10 +246,11 @@ angular.module('mobius.controllers.hotel.details', [
         $scope.viewRatesButtonText = Settings.UI.hotelDetails.rooms.viewRatesButtonText;
         $scope.hoverTriggerDelay = Settings.UI.hotelDetails.rooms.hoverTriggerDelay;
 
-        $scope.openRoomGallery = function(slideIndex){
+        $scope.openRoomGallery = function(room, slideIndex){
           modalService.openGallery(
-            contentService.getLightBoxContent($scope.rooms[slideIndex].images),
-            slideIndex
+            contentService.getLightBoxContent(angular.fromJson(room).images),
+            slideIndex,
+            false
           );
         };
       });
