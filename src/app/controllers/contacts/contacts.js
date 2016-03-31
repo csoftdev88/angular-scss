@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.contacts', [])
 
   .controller('ContactsCtrl', function($scope, $controller, chainService, Settings,
-   breadcrumbsService, formsService, metaInformationService, $location, $timeout, $rootScope, scrollService, propertyService){
+   breadcrumbsService, formsService, metaInformationService, $location, $timeout, $rootScope, scrollService, propertyService, _) {
 
     $timeout(function(){
       $rootScope.$broadcast('floatingBarEvent', {
@@ -37,7 +37,7 @@ angular.module('mobius.controllers.contacts', [])
         });
       });
     }
-    
+
     //get contact information
     chainService.getChain(chainCode).then(function(chain) {
       $scope.chain = chain;
@@ -62,6 +62,10 @@ angular.module('mobius.controllers.contacts', [])
     $scope.sendForm = function(){
       $scope.form.$submitted = true;
       if ($scope.form.$valid) {
+        if (_.isObject($scope.formData.fields.subject)) {
+           $scope.formData.fields.subject = $scope.formData.fields.subject.value;
+        }
+
         formsService.sendContactForm($scope.formData).then(function () {
           $scope.formData = angular.copy(formDataCopy);
           $scope.form.$setPristine();
