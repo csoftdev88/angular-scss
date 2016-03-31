@@ -185,11 +185,11 @@ describe('mobius.controllers.contacts', function() {
       });
 
       it('should send form to the server', function(){
-        _scope.formData = {name: 'testName'};
+        _scope.formData = {name: 'testName', fields: {}};
         _scope.sendForm();
         expect(_scope.form.$submitted).equal(true);
         expect(_formsService.sendContactForm.calledOnce).equal(true);
-        expect(_formsService.sendContactForm.calledWith({name: 'testName'})).equal(true);
+        expect(_formsService.sendContactForm.calledWith({name: 'testName', fields: {}})).equal(true);
       });
 
       it('should set isSent flag to true on scope once form is sumbitted', function(){
