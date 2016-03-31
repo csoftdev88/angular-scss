@@ -28,7 +28,7 @@ angular.module('mobiusApp.directives.slugImg', [])
               scope.src = Settings.UI.cloudinary['prefix-' + attrs.type] + slug + Settings.UI.cloudinary.suffix;
               // see http://cloudinary.com/documentation/image_transformations
               if (attrs.width) {
-                var replaceString = 'w_' + attrs.width + ',c_fit';
+                var replaceString = 'w_' + attrs.width + ',c_limit';
                 var inputParts = scope.src.split('/');
                 // insert dimensions after /image/upload/
                 inputParts.splice(6, 0, replaceString);

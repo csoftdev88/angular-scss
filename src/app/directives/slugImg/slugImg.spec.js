@@ -54,7 +54,7 @@ describe('slugImg', function() {
     });
 
     it('should define slug src on scope', function() {
-      expect(_scope.src).equal('prefslugsufix/w_300,c_fit');
+      expect(_scope.src).equal('prefslugsufix/w_300,c_limit');
     });
   });
 });
