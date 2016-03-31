@@ -62,7 +62,7 @@ angular.module('mobius.controllers.contacts', [])
     $scope.sendForm = function(){
       $scope.form.$submitted = true;
       if ($scope.form.$valid) {
-        if (_.isObject($scope.formData.fields.subject)) {
+        if (!_.isEmpty($scope.formData.fields) && _.isObject($scope.formData.fields.subject)) {
            $scope.formData.fields.subject = $scope.formData.fields.subject.value;
         }
 
