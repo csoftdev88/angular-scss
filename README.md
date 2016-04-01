@@ -81,18 +81,18 @@ learn more:
 4. `cd mobius-web`:
   * `npm install`
   * `bower install`
-  * `grunt build --tenant=suttonLive` to build the app using "sutton" as target.
+  * `grunt build --tenant=suttonLive --environment=development` to build the app using "sutton" as target.
   * Run server `NODE_ENV=development node server.js --tenant=suttonLive`
   * Finally, open `localhost:9000` in your browser
 
 ### Local development
 1. Follow installation steps 1-3 described above.
-2. Run `grunt development --tenant=suttonLive` to build the app using "sutton" as target.
+2. Run `grunt development --tenant=suttonLive --environment=development` to build the app using "sutton" as target.
 3. Run server `NODE_ENV=development node server.js --tenant=suttonLive`.
 
 ### Production
 1. Follow instalation steps 1-4 described above.
-2. Run `grunt production --tenant=suttonLive` to build the app using "sutton" as target.
+2. Run `grunt production --tenant=suttonLive --environment=live` to build the app using "sutton" as target.
 3. Run `NODE_ENV=production node server.js --tenant=suttonLive`
 
 In case the application needs to run on a different port append `port=xxxx` eg `port=9090` to the start command.
@@ -219,4 +219,3 @@ All build related settings are located in the following files:
 `build.config.js`
 
 See The Build System.
-

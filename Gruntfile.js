@@ -19,8 +19,11 @@ module.exports = function(grunt) {
 
   // Get grunt target
   var target = grunt.option('tenant') || 'sutton';
-  var env = grunt.option('environment') || 'development';
+  var env = grunt.option('environment');
 
+  if (!env) {
+    grunt.fail.fatal('Missing "environment" argument.');
+  }
   /**
   * Load in our build configuration file.
   */
