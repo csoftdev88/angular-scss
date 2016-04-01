@@ -4,9 +4,9 @@
 
 <main class="grid-wrapper">
 
-  <div class="preloader" ng-show="preloader.visible"></div>
+  <div class="preloader" ng-show="!dataLoaded"></div>
 
-  <prestige-account id="prestige-account" grid-row>
+  <prestige-account id="prestige-account" grid-row ng-show="dataLoaded">
 
     <div grid="12">
 
@@ -25,7 +25,7 @@
           </h2>
           <ul>
             <li><a href="" ng-click="viewMode = 'recent'" ng-class="{'active': viewMode === 'recent'}"><span ng-if="!isMobile()">_recent_</span><span ng-if="isMobile()">_recent_transactions_</span></a></li>
-            <li ng-if="prestigeData.deferredTransactions.length"><a href="" ng-click="viewMode = 'pending'" ng-class="{'active': viewMode === 'pending'}"><span ng-if="!isMobile()">_pending_</span><span ng-if="isMobile()">_pending_transactions_</span></a></li>
+            <li ng-show="prestigeData.deferredTransactions.length"><a href="" ng-click="viewMode = 'pending'" ng-class="{'active': viewMode === 'pending'}"><span ng-if="!isMobile()">_pending_</span><span ng-if="isMobile()">_pending_transactions_</span></a></li>
           </ul>
         </nav>
 
@@ -80,7 +80,7 @@
 
               <div class="transaction-value">
                 <div class="label">_transaction_</div>
-                <h4 class="value" ng-class="{'negative': item.amount < 0}">{{item.amount}}</h4>
+                <h4 class="value" ng-class="{'negative': item.amount < 0, 'positive': item.amount > 0}"><span ng-if="item.amount > 0">+</span>{{item.amount}}</h4>
               </div>
 
               <div class="balance">
@@ -100,8 +100,8 @@
               <div class="description">
                 <div class="label">_manual_entry_</div>
                 <h4 class="value">_manually_added_points_</h4>
-                <p class="detail" ng-class="{'open': item.showComments}" ng-if="item.comment">{{item.comment}}</p>
-                <a href="" class="comments-toggle" ng-click="item.showComments = !item.showComments" ng-if="item.comment"><span ng-if="!item.showComments">_show_comments_</span><span ng-if="item.showComments">_hide_comments_</span></a>
+                <p class="detail" ng-class="{'open': item.showComments}" ng-if="item.comments">{{item.comments}}</p>
+                <a href="" class="comments-toggle" ng-click="item.showComments = !item.showComments" ng-if="item.comments"><span ng-if="!item.showComments">_show_comments_</span><span class="hide" ng-if="item.showComments">_hide_comments_</span></a>
               </div>
 
               <div class="transaction-value">
@@ -188,7 +188,7 @@
 
             <div class="date">
               <div class="label">_date_booked_</div>
-              <div class="value">formatDate(item.date, 'DD MMM YYYY')</div>
+              <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
             </div>
 
             <div class="booking-ref">

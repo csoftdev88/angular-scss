@@ -6,6 +6,8 @@ angular.module('mobius.controllers.prestige', [])
 
   .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService, userObject, $window, $controller, user, $state) {
 
+    $scope.dataLoaded = false;
+
     //check if user is logged in
     function onAuthorized(){
       if(!user.isLoggedIn()){
@@ -13,9 +15,10 @@ angular.module('mobius.controllers.prestige', [])
       }
       else{
         breadcrumbsService.addBreadCrumb('Sutton Prestige');
-        $scope.viewMode = 'recent';
         apiService.get(apiService.getFullURL('customers.transactions', {customerId: userObject.id})).then(function(data){
+          $scope.viewMode = 'recent';
           $scope.prestigeData = data;
+          $scope.dataLoaded = true;
         });
       }
     }
@@ -28,6 +31,12 @@ angular.module('mobius.controllers.prestige', [])
       });
     }
     scrollToTop();
+
+    $scope.switchView = function(view){
+      console.log('view: ' + view);
+      $scope.viewMode = view;
+      console.log('$scope.viewMode: ' + $scope.viewMode);
+    };
 
     $scope.onPageChange = function(){
       scrollToTop();
