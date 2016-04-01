@@ -111,11 +111,7 @@
               required ng-model="room.adults"
               data-placeholder="_adults_"
               disable-search="true"
-              chosen ng-options="option.title for option in guestsOptions.adults"
-              ng-init="setAdultsOptions({
-                'adult': '_adult_',
-                'adults': '_adults_'
-              })">
+              chosen ng-options="option.title for option in guestsOptions.adults">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>_number_of_adults_</form-label>
@@ -126,11 +122,7 @@
               required ng-model="room.children"
               data-placeholder="_children_"
               disable-search="true"
-              chosen ng-options="option.title for option in guestsOptions.children"
-              ng-init="setChildrenOptions({
-                'child': '_child_',
-                'children': '_children_'
-              })">
+              chosen ng-options="option.title for option in guestsOptions.children">
         <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>_number_of_children_</form-label>

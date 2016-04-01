@@ -185,6 +185,11 @@ angular.module('mobiusApp.directives.floatingBar', [
       $scope.selected.adults = _.find($scope.guestsOptions.adults, {
         value: parseInt(bookingService.getAPIParams(true).adults, 10) || settings.defaultAdultCount
       });
+      _.each($scope.selected.rooms, function(room, index){
+        $scope.selected.rooms[index].adults = _.find($scope.guestsOptions.adults, {
+          value: 1
+        });
+      });
     };
 
     $scope.setChildrenOptions = function(options){
