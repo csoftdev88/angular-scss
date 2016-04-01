@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, $location) {
+.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService) {
 
   var headers = Settings.API.headers;
   var apiCache = $cacheFactory('apiCache');
@@ -14,7 +14,7 @@ angular.module('mobiusApp.services.api', [])
 
     //sessionData
     handleSessionDataHeaders();
-    
+
     if (canCache && angular.isUndefined(apiCache.get(url))) {
       $http({
         method: 'GET',
@@ -104,14 +104,14 @@ angular.module('mobiusApp.services.api', [])
 
   function getFullURL(path, params) {
     var URL = getValue(Settings.API, path);
+    var env = document.querySelector('meta[name=environment]').getAttribute('value');
+    var base = Settings.API.baseURL[env] || Settings.API.baseURL[env];
     // NOTE: We might want to throw error in case when path is not found
     $window._.each(params, function(value, key){
       URL = URL.replace(':' + key, value);
     });
 
-    var baseUrl = $location.host() === Settings.productionHost ? Settings.API.baseURL : (Settings.API.devBaseURL !== '' ? Settings.API.devBaseURL : Settings.API.baseURL);
-
-    return baseUrl + URL;
+    return base + URL;
   }
 
   function getValue(obj, path) {
