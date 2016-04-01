@@ -77,7 +77,7 @@ learn more:
 
 1. Install node.js
 2. `npm install -g grunt-cli bower karma phantomjs`
-3. `git clone https://github.com/salsita/mobius.git`
+3. `git clone https://github.com/2PVentures/mobius-web.git`
 4. `cd mobius`:
   * `npm install`
   * `bower install`
