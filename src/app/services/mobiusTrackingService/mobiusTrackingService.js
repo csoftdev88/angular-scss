@@ -164,7 +164,6 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       postData.nights = [];
       var nightObj = {};
       _.each(products, function(product){
-
         _.each(product.price.breakdowns, function(night){
           nightObj = {
             'date': night.date,
@@ -200,28 +199,45 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       //copy default data
       var postData = angular.copy(defaultData);
 
+      //overriding bookingParams num adults/children
+      postData.noOfAdults = 0;
+      postData.noOfChildren = 0;
+      _.each(reservationData.rooms, function(room) {
+        postData.noOfAdults += room.adults;
+        postData.noOfChildren += room.children;
+      });
+
       //property star rating
       postData.starRating = propertyData.rating;
 
       //Policies
       var policies = [];
-      _.each(rooms[0]._selectedProduct.policies, function(val, key) {
-        var policy = {
-          'type': key,
-          'value': val
-        };
-        policies.push(policy);
+      _.each(rooms, function(room) {
+        _.each(room._selectedProduct.policies, function(val, key) {
+          var policy = {
+            'type': key,
+            'value': val
+          };
+          policies.push(policy);
+        });
       });
 
       //product
       postData.checkIn = bookingParams.from;
       postData.checkOut = bookingParams.to;
+
       postData.product = {
-        'code': products[0].code,
-        'name': products[0].name,
-        'rateType': products[0].category,
+        'code': '',
+        'name': '',
+        'rateType': '',
         'policies': policies
       };
+
+      _.each(products, function(product, index){
+        postData.product.code = postData.product.code + (index === 0 ? product.code : ',' + product.code);
+        postData.product.name = postData.product.name + (index === 0 ? product.name : ',' + product.name);
+        postData.product.rateType = postData.product.rateType + (index === 0 ? product.category : ',' + product.category);
+      });
 
       //payment details
       postData.payment = {
@@ -234,8 +250,8 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
       //Loop through each room then each night
       postData.nights = [];
       var nightObj = {};
+      
       _.each(rooms, function(room){
-
         _.each(room._selectedProduct.price.breakdowns, function(night){
           nightObj = {
             'date': night.date,
@@ -248,9 +264,11 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
               'type': room.name
             }
           };
+          postData.nights.push(nightObj);
         });
       });
-      postData.nights.push(nightObj);
+      
+      //console.log('trackPurchase: ' + angular.toJson(postData));
 
       apiService.post(apiService.getFullURL('mobiusTracking.purchase'), postData).then(function(){
       }, function(err){
