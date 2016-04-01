@@ -19,6 +19,7 @@ module.exports = function(grunt) {
 
   // Get grunt target
   var target = grunt.option('tenant') || 'sutton';
+  var env = grunt.option('environment') || 'development';
 
   /**
   * Load in our build configuration file.
@@ -308,7 +309,19 @@ module.exports = function(grunt) {
           }
         }
       }
-      
+
+    },
+
+    environment: {
+      development: {
+        env: 'development'
+      },
+      staging: {
+        env: 'staging'
+      },
+      production: {
+        env: 'production'
+      }
     }
   };
 
@@ -398,6 +411,14 @@ module.exports = function(grunt) {
     process.exit(0);
   });
 
+  function setMetaEnvironment(locale, path) {
+    var html = grunt.file.read(path);
+    html = html.replace('<=?environment=>', env);
+
+    grunt.log.writeln('Setting ' + env + 'as environment value...');
+    grunt.file.write(path, html);
+    grunt.log.writeln('HTML (' + path + ') has been replace').ok();
+  }
 
   /**
    * The index.html template includes the stylesheet and javascript sources
@@ -407,7 +428,6 @@ module.exports = function(grunt) {
    */
   grunt.registerMultiTask( 'index', 'Process index.html template', function () {
     var dirRE = new RegExp( '^('+grunt.config('config.build') + '|' + grunt.config('config.compile')+')\/', 'g' );
-
     // All JS source files without templates prefix
     var FILTER_JS = /^(?!.*\bmobius-templates\b).+.js$/;
     var FILTER_CSS = /\.css$/;
@@ -434,6 +454,7 @@ module.exports = function(grunt) {
       console.log(dest);
 
       processIndex(src, dest, jsFiles, cssFiles, localeCode);
+      setMetaEnvironment(localeCode, dest);
     }
   });
 

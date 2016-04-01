@@ -32,8 +32,11 @@ angular.module('mobiusApp.config', [])
       'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb'
     },
     'chainCode': 'SAN',
-    'baseURL': 'https://api.suttonplace.com/api/4.0/',
-    'devBaseURL': 'http://test-services.suttonplace.com:3010/api/4.0/',
+    'baseURL': {
+      'development': 'http://test-services.suttonplace.com:3010/api/4.0/',
+      'staging': 'http://staging.api.suttonplace.com:3010/api/4.0/',
+      'live':  'https://api.suttonplace.com/api/4.0/'
+    },
     'mobiusTracking': {
       'enable': true,
       'search': 'properties/track/search',
