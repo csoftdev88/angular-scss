@@ -3,7 +3,7 @@
 //TODO: when confirmed this is needs to be removed as replaced by evolution script, currently this is disabled in Settings.infinitiUrl.enable
 angular.module('mobiusApp.directives.infinitiScript', [])
 
-  .directive('infinitiScript', function(Settings, $location) {
+  .directive('infinitiScript', function(Settings) {
     return {
       restrict: 'E',
       scope: {},
@@ -11,15 +11,13 @@ angular.module('mobiusApp.directives.infinitiScript', [])
 
       // Widget logic goes here
       link: function() {
-
         if(Settings.authType !== 'infiniti' || !Settings.infinitiUrl.enable){
           return;
         }
-
-        var url = $location.host() === Settings.productionHost ? Settings.infinitiUrl.production : Settings.infinitiUrl.development;
+        var env = document.querySelector('meta[name=environment]').getAttribute('value');
         var script = document.createElement( 'script' );
         script.type = 'text/javascript';
-        script.src = url;
+        script.src = Settings.infinitiUrl[env];
         document.head.appendChild(script);
 
       }

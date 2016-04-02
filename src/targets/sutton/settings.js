@@ -11,6 +11,8 @@ angular.module('mobiusApp.config', [])
   'infinitiUrl': {
     'enable': true,
     'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
+    'integration': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
+    'staging': 'http://staging-prestige.suttonplace.com/',
     'production': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
   'API': {
