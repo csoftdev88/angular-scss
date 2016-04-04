@@ -14,7 +14,7 @@ angular.module('mobiusApp.directives.infinitiScript', [])
         if(Settings.authType !== 'infiniti' || !Settings.infinitiUrl.enable){
           return;
         }
-        var env = document.querySelector('meta[name=environment]').getAttribute('value');
+        var env = document.querySelector('meta[name=environment]').getAttribute('content');
         var script = document.createElement( 'script' );
         script.type = 'text/javascript';
         script.src = Settings.infinitiUrl[env];
