@@ -17,6 +17,14 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
 
+  //Load generic data
+  contentService.getTitles().then(function(data) {
+    $scope.profileTitles = data;
+  });
+  contentService.getCountries().then(function(data) {
+    $scope.profileCountries = data;
+  });
+
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
     $scope.chain = chain;
@@ -111,16 +119,8 @@ angular.module('mobius.controllers.reservation', [])
       return property;
     });
 
-    var titlesPromise = contentService.getTitles().then(function(data) {
-      $scope.profileTitles = data;
-    });
-
-    var countriesPromise = contentService.getCountries().then(function(data) {
-      $scope.profileCountries = data;
-    });
-
     // Showing loading mask
-    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise, titlesPromise, countriesPromise]).then(function(){
+    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise]).then(function(){
       $rootScope.showHomeBreadCrumb = false;
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
@@ -256,27 +256,30 @@ angular.module('mobius.controllers.reservation', [])
 
     if (!Object.keys($scope.userDetails).length || isMobius) {
       // No fields are touched yet, prefiling
-      _.extend($scope.userDetails, {
-        title: userData.title || null,
-        firstName: userData.firstName || '',
-        lastName: userData.lastName || '',
-        email: userData.email || '',
-        address: userData.address1 || '',
-        city: userData.city || '',
-        stateProvince: userData.state,
-        country: _.result(
-          _.find(
-            $scope.profileCountries, 
-            function(country){
-              return country.code===userData.iso3;
-            },
-            userData.iso3), 
-          'code'
-        ),
-        zip: userData.zip || '',
-        phone: userData.tel1 || userData.tel2 || ''
+      //waiting for countries
+      $scope.$watch('profileCountries', function() {
+        //overriding country name from /locales data using user data iso3 as infiniti country name doesn't match /locales country names
+        var userCountry = null;
+        _.each($scope.profileCountries, function(country){
+          if(country.code === userData.iso3){
+            userCountry = country.name;
+          }
+        });
+        _.extend($scope.userDetails, {
+          title: userData.title || null,
+          firstName: userData.firstName || '',
+          lastName: userData.lastName || '',
+          email: userData.email || '',
+          address: userData.address1 || '',
+          city: userData.city || '',
+          stateProvince: userData.state,
+          country: userCountry || null,
+          zip: userData.zip || '',
+          phone: userData.tel1 || userData.tel2 || ''
+        });
+        $scope.userDetails.emailFromApi = !!userData.email;
       });
-      $scope.userDetails.emailFromApi = !!userData.email;
+
     }
 
     if (!Object.keys($scope.additionalInfo).length || isMobius) {
