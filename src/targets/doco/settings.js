@@ -10,6 +10,8 @@ angular.module('mobiusApp.config', [])
   'infinitiUrl': {
     'enable': false,
     'development': '',
+    'integration': '',
+    'staging': '',
     'production': ''
   },
   'productionHost': '',
@@ -32,8 +34,12 @@ angular.module('mobiusApp.config', [])
       'id': ''
     },
     'chainCode': 'DOCO',
-    'baseURL': 'http://doco.mobiuswebservices.com/api/4.0/',
-    'devBaseURL': '',
+    'baseURL': {
+      'development': 'http://doco.mobiuswebservices.com/api/4.0/',
+      'integration': 'http://doco.mobiuswebservices.com/api/4.0/',
+      'staging': 'http://doco.mobiuswebservices.com/api/4.0/',
+      'live':  'http://doco.mobiuswebservices.com/api/4.0/'
+    },
     'mobiusTracking': {
       'enable': false,
       'search': 'properties/track/search',

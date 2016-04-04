@@ -10,6 +10,8 @@ angular.module('mobiusApp.config', [])
   'infinitiUrl': {
     'enable': false,
     'development': '',
+    'integration': '',
+    'staging': '',
     'production': ''
   },
   'productionHost': '',
@@ -32,8 +34,12 @@ angular.module('mobiusApp.config', [])
       'id': ''
     },
     'chainCode': 'NAT',
-    'baseURL': 'http://national.api.mobiuswebservices.com:3010/api/4.0/',
-    'devBaseURL': '',
+    'baseURL': {
+      'development': 'http://national.api.mobiuswebservices.com:3010/api/4.0/',
+      'integration': 'http://national.api.mobiuswebservices.com:3010/api/4.0/',
+      'staging': 'http://national.api.mobiuswebservices.com:3010/api/4.0/',
+      'live':  'http://national.api.mobiuswebservices.com:3010/api/4.0/'
+    },
     'mobiusTracking': {
       'enable': false,
       'search': 'properties/track/search',

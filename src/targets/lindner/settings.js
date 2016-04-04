@@ -10,6 +10,8 @@ angular.module('mobiusApp.config', [])
   'infinitiUrl': {
     'enable': false,
     'development': '',
+    'integration': '',
+    'staging': '',
     'production': ''
   },
   'productionHost': '',
@@ -32,8 +34,12 @@ angular.module('mobiusApp.config', [])
       'id': ''
     },
     'chainCode': 'LIND',
-    'baseURL': 'http://lindner.mobiuswebservices.com/api/4.0/',
-    'devBaseURL': '',
+    'baseURL': {
+      'development': 'http://lindner.mobiuswebservices.com/api/4.0/',
+      'integration': 'http://lindner.mobiuswebservices.com/api/4.0/',
+      'staging': 'http://lindner.mobiuswebservices.com/api/4.0/',
+      'live':  'http://lindner.mobiuswebservices.com/api/4.0/'
+    },
     'mobiusTracking': {
       'enable': false,
       'search': 'properties/track/search',
