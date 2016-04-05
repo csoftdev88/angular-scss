@@ -859,54 +859,7 @@ angular.module('mobiusApp.config', [])
         'logo':{
           'src': '/static/images/hotelFooterLogo.png',
           'alt': 'Worldhotels deluxe'
-        },
-        'links':[
-          {
-            'target': 'blank',
-            'href': 'http://www.grandhotel-national.com/en/corporate/links',
-            'value': 'Links'
-          },
-          {
-            'target': 'blank',
-            'href': 'http://www.grandhotel-national.com/en/corporate/jobs',
-            'value': 'Jobs'
-          },
-          {
-            'target': 'blank',
-            'href': 'http://www.grandhotel-national.com/en/corporate/newsletter',
-            'value': 'Newsletter'
-          },
-          {
-            'target': 'blank',
-            'href': 'http://www.grandhotel-national.com/en/corporate/media/image-library',
-            'value': 'Media'
-          },
-          {
-            'target': 'blank',
-            'href': 'http://www.grandhotel-national.com/en/corporate/image-gallery',
-            'value': 'Image Gallery'
-          },
-          {
-            'target': 'blank',
-            'href': 'http://www.grandhotel-national.com/en/corporate/brochures-fact-sheets',
-            'value': 'Brochures & fact sheets'
-          },
-          {
-            'target': 'blank',
-            'href': 'http://www.grandhotel-national.com/en/corporate/general-terms-conditions',
-            'value': 'General Terms & Conditions'
-          },
-          {
-            'target': 'blank',
-            'href': 'http://www.grandhotel-national.com/en/corporate/impressum',
-            'value': 'Impressum'
-          },
-          {
-            'target': 'self',
-            'href': 'lookup',
-            'value': 'Cancel/Modify'
-          }
-        ]
+        }
       }
     }
   }
