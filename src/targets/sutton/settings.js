@@ -13,7 +13,7 @@ angular.module('mobiusApp.config', [])
     'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
     'integration': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
     'staging': 'http://staging-prestige.suttonplace.com/track/content/infiniti.js',
-    'production': 'https://prestige.suttonplace.com/track/content/infiniti.js'
+    'live': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
   'API': {
     'defaultThrottleTimeout': 30,

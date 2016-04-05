@@ -12,7 +12,7 @@ angular.module('mobiusApp.config', [])
     'development': '',
     'integration': '',
     'staging': '',
-    'production': ''
+    'live': ''
   },
   'productionHost': '',
   'API': {
