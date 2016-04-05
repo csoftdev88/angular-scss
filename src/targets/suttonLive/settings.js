@@ -8,7 +8,7 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   'authType': 'infiniti',
   'productionHost': 'suttonplace.com',
-  'infinitiUrl': {
+  'infiniti': {
     'enable': true,
     'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
     'integration': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
