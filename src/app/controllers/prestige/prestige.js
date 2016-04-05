@@ -33,9 +33,7 @@ angular.module('mobius.controllers.prestige', [])
     scrollToTop();
 
     $scope.switchView = function(view){
-      console.log('view: ' + view);
       $scope.viewMode = view;
-      console.log('$scope.viewMode: ' + $scope.viewMode);
     };
 
     $scope.onPageChange = function(){

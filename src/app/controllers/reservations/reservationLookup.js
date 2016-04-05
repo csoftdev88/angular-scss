@@ -40,13 +40,5 @@ angular.module('mobius.controllers.reservationLookup', [])
         modalService.openReservationLookupFailedDialog();
       });
 
-      /*
-      if ($scope.form.$valid) {
-        console.log('Reservation Lookup form sent');
-        modalService.openReservationLookupLoginDialog();
-      } else {
-        console.log('Reservation Lookup form was not sent');
-        modalService.openReservationLookupFailedDialog();
-      }*/
     };
   });

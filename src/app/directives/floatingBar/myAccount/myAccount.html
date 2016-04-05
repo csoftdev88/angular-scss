@@ -14,7 +14,7 @@
   <article ng-show="displaySettings.badges" ng-switch="!!lastBadge" ng-click="showBadges()">
     <img ng-src="{{lastBadge.icon}}" err-source="//res.cloudinary.com/dmh2cjswj/image/upload/v1436277065/SAN/LoyaltyCardStamp.png" />
     <h4 ng-bind-html="'_last_badge_earned_' | mainHeaderStyle"></h4>
-    <p ng-switch-when="false" ng-bind-html="'_no_badges_earned_' | mainHeaderStyle"></p>
+    <p ng-switch-when="false" ng-bind-html='"_no_badges_earned_" | mainHeaderStyle'></p>
     <p ng-switch-default>{{lastBadge.name}}</p>
     <p ng-switch-default>{{lastBadge.displayedDate}}</p>
   </article>
