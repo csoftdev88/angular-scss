@@ -13,7 +13,6 @@ angular.module('mobius.controllers.register', [])
     //get meta information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
-      console.log(angular.toJson($scope.chain));
 
       $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       $scope.chain.meta.microdata.og['og:title'] = 'Profile: ' + $scope.chain.meta.microdata.og['og:title'];
