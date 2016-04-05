@@ -14,6 +14,13 @@ angular.module('mobiusApp.config', [])
     'staging': '',
     'live': ''
   },
+  'sentry': {
+    'enable': true,
+    'development': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
+    'integration': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
+    'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
+    'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
+  },
   'productionHost': '',
   'API': {
     'defaultThrottleTimeout': 30,
@@ -156,7 +163,6 @@ angular.module('mobiusApp.config', [])
     },
     'generics': {
       'singleProperty': true,
-      'sentryID': '',
       'facebookAppId': '',
       'disableMainHeaderStyle': true
     },

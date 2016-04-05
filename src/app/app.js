@@ -395,8 +395,9 @@ angular
     //Facebook
     $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
     //Sentry
-    if($window.Raven){
-      Raven.config(Settings.UI.generics.sentryID).install();
+    if($window.Raven && Settings.sentry.enable){
+      var env = document.querySelector('meta[name=environment]').getAttribute('content');
+      Raven.config(Settings.sentry[env]).install();
     }
 
     function encodeQueryData(data) {
