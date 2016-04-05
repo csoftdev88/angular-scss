@@ -64,6 +64,9 @@ describe('mobius.controllers.main', function() {
         });
 
         $provide.value('Settings', {
+          API:{
+            chainCode: 'CODE'
+          },
           UI: {
             generics: {
               loyaltyProgramEnabled: true

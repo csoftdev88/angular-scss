@@ -771,7 +771,17 @@
 
     "hotels_page_title": "Unsere Hotels",
 
-    "hotels_page_login_prompt_desc": "Spare bis zu 20% indem du <a href ng-click='sso.login()''>signing</a> in or <a ng-click='sso.register()''>registering</a>!"
+    "hotels_page_login_prompt_desc": "Spare bis zu 20% indem du <a href ng-click='sso.login()''>signing</a> in or <a ng-click='sso.register()''>registering</a>!",
+    "FOOTER": "////////////////////////////////////////////////////////////",
+    "footer_links_links": "Links",
+    "footer_links_jobs": "Jobs",
+    "footer_links_newsletter": "Newsletter",
+    "footer_links_media": "Presse",
+    "footer_links_gallery": "Bildergalerie",
+    "footer_links_brochures": "Broschüren & fact sheets",
+    "footer_links_terms": "Allgemeine Geschäftsbedingungen",
+    "footer_links_impressum": "Impressum",
+    "footer_links_modify": "Löschen/ändern"
 
   }
 

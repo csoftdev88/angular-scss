@@ -433,6 +433,16 @@
     "page_not_found_desc": "Désolé, cette page n'existe pas!",
     "page_not_found_cta": "Cliquez ici pour retourner a <a href='/'>l'accueil</a>",
     "hotels_page_title": "Nos Hôtels",
-    "hotels_page_login_prompt_desc": "Économisez jusqu’à 20% en <a href ng-click='sso.login()''>vous connectant</a> ou en vous <a ng-click='sso.register()''>inscrivant</a>!"
+    "hotels_page_login_prompt_desc": "Économisez jusqu’à 20% en <a href ng-click='sso.login()''>vous connectant</a> ou en vous <a ng-click='sso.register()''>inscrivant</a>!",
+    "FOOTER": "////////////////////////////////////////////////////////////",
+    "footer_links_links": "Liens",
+    "footer_links_jobs": "Emplois",
+    "footer_links_newsletter": "Bulletin",
+    "footer_links_media": "Médias",
+    "footer_links_gallery": "Galerie",
+    "footer_links_brochures": "Brochures & fiches",
+    "footer_links_terms": "Conditions générales",
+    "footer_links_impressum": "Impressum",
+    "footer_links_modify": "Annuler/Modifier"
   }
 }

@@ -8,9 +8,11 @@ angular.module('mobius.controllers.main', [])
     function($scope, $state, $modal, orderByFilter, modalService,
       contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location) {
 
+      $scope.chainCode = Settings.API.chainCode;
+
       try{
 
-        chainService.getChain(Settings.API.chainCode).then(function (chain) {
+        chainService.getChain($scope.chainCode).then(function (chain) {
           $scope.chain = chain;
           metaInformationService.setMetaDescription($scope.chain.meta.description);
           metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
