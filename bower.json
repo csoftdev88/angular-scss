@@ -5,7 +5,7 @@
     "angular": "",
     "angular-bootstrap": "=0.13.0",
     "angular-ui-router": "~0.2.14",
-    "angular-chosen-localytics": "~1.0.7",
+    "angular-chosen-localytics": "^1.4.0",
     "jquery": "~2.1.4",
     "jquery-ui": "~1.11.4",
     "jquery-datepicker": "https://jquery-datepicker.googlecode.com/files/jquery.datePicker.min-2.1.2.js",
