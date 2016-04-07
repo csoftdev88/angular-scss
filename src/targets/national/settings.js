@@ -42,9 +42,9 @@ angular.module('mobiusApp.config', [])
     },
     'chainCode': 'NAT',
     'baseURL': {
-      'development': 'http://national.api.mobiuswebservices.com:3010/api/4.0/',
-      'integration': 'http://national.api.mobiuswebservices.com:3010/api/4.0/',
-      'staging': 'http://national.api.mobiuswebservices.com:3010/api/4.0/',
+      'development': 'http://development-national-api.mobiuswebservices.com:3010/api/4.0/',
+      'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
+      'staging': 'http://staging-national-api.mobiuswebservices.com:3010/api/4.0/',
       'live':  'http://national.api.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
