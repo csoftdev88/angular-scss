@@ -345,13 +345,6 @@ angular
         controller: 'ReservationLookupCtrl'
       })
 
-      // 404 page
-      .state('unknown', {
-        parent: 'root',
-        templateUrl: 'layouts/404.html',
-        url: '/404'
-      })
-
       // Profile page
       .state('profile', {
         parent: 'root',
@@ -377,6 +370,20 @@ angular
         templateUrl: 'layouts/resetPassword/resetPassword.html',
         url: '/reset-password',
         controller: 'ResetPasswordCtrl'
+      })
+
+      // 404 page
+      .state('unknown', {
+        parent: 'root',
+        templateUrl: 'layouts/404.html',
+        url: '/404'
+      })
+
+      // Error page
+      .state('error', {
+        parent: 'root',
+        templateUrl: 'layouts/error.html',
+        url: '/error'
       })
     ;
 
@@ -467,6 +474,8 @@ angular
               Settings.API.propertySlug = slug;
               $rootScope.propertySlug = slug;
             });
+          }, function(){
+            $state.go('error');
           });
         }
       }
