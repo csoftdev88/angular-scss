@@ -86,8 +86,6 @@ angular.module('mobius.controllers.main', [])
       var filteredOffers = [];
       function filterHeroContent(data){
 
-        console.log('filterHeroContent: ' + angular.toJson(data));
-
         // Displaying the offers available on all the properties
         propertyService.getAll().then(function(properties){
           propertyCodes = _.pluck(properties, 'code');

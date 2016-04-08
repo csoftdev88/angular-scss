@@ -32,8 +32,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="item in room._selectedProduct.price.breakdowns track by $index">
-              <td>{{item.date}}</td>
+            <tr ng-repeat="item in room._selectedProduct.price.breakdowns | orderBy: 'date' track by $index">
+              <td>{{formatDate(item.date, 'DD MMM YYYY')}}</td>
               <td>{{item.totalBase | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalFees | i18nCurrency: currencyCode}}</td>
