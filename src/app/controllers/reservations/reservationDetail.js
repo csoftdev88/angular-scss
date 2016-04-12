@@ -142,7 +142,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Available addons
           reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode}),
           // Reservation addons
-          reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : $stateParams.email)
+          reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : reservation.email)
         ]).then(function(addons){
           // addons[0] - available addons
           // Available addons should only contain those which not in reservationAddons
