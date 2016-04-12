@@ -782,10 +782,10 @@
     "footer_links_impressum": "Impressum",
     "footer_links_modify": "Löschen/ändern",
     "ERROR PAGE": "////////////////////////////////////////////////////////////",
-    "error_page_title": "We’re Sorry!",
-    "error_page_subtitle": "It seems we’re experiencing some technical difficulties",
-    "error_page_copy_one": "We’re fixing the problem right now - please check back soon and it’ll be good as new!",
-    "error_page_copy_two": "If you need immediate assistance you can call us on <a href='tel:+43 1 24188'>+43 1 24188</a> or email us at <a href='mailto:hotel@doco.com'>hotel@doco.com</a>"
+    "error_page_title": "Es tut uns leid!",
+    "error_page_subtitle": "Entschuldigen Sie die Unannehmlichkeiten.",
+    "error_page_copy_one": "Leider haben wir aktuell technische Schwierigkeiten und bitten Sie für einwenig Geduld.",
+    "error_page_copy_two": "Für dringend Fragen bitte kontaktiere uns unter <a href='tel:+41 41 419 09 10'>+41 41 419 09 10</a> oder <a href='mailto:info@grandhotel-national.com'>info@grandhotel-national.com</a>"
 
   }
 
