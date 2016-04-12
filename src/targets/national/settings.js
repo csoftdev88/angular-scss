@@ -166,7 +166,7 @@ angular.module('mobiusApp.config', [])
     },
     'generics': {
       'singleProperty': true,
-      'facebookAppId': '',
+      'facebookAppId': '1694770414076502',
       'disableMainHeaderStyle': true
     },
     'adverts' : {
