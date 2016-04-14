@@ -30,7 +30,8 @@ angular.module('mobiusApp.config', [])
     'appendGoogleAnalyticsScriptToPage': false,
     'ecommerceDataLayer': {
       'active': false,
-      'trackUserId': true
+      'trackUserId': true,
+      'id': ''
     },
     'evolutionAnalytics':{
       'enable': false,
