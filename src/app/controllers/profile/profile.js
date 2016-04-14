@@ -68,24 +68,24 @@ angular.module('mobius.controllers.profile', [])
 
 		$scope.update = function(form, profileData){
 			form.$submitted = true;
+      clearErrorMsg();
 		  if(form.$valid){
 				var data = _.omit(profileData, _.isNull);
 				data = _.omit(data, ['id','token','email']);
 				
 		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
-		      clearErrorMsg();
 		      userObject = _.extend(userObject, data);
-		      setErrorMsg('Thank you, your profile has been updated', 'success');
+		      $scope.success = true;
           if($scope.config.displaySummary){
             $scope.showSummary = true;
           }
 		    }, function(){
-		      //TODO: Move into locale
-		      setErrorMsg('Sorry, there was an error, please try again', 'error');
+		      $scope.error = true;
+          $scope.genericError = true;
 		    });
 		  }
 		  else{
-		    setErrorMsg('Please fill out all the fields indicated', 'error');
+		    $scope.missingFieldsError = true;
 		  }
 		};
 
@@ -114,18 +114,11 @@ angular.module('mobius.controllers.profile', [])
       }
     };
 
-		function setErrorMsg(msg, type){
-			if(type === 'error'){
-				$scope.errorMsg = msg;
-			}
-			else{
-				$scope.successMsg = msg;
-			}
-	  }
-
 	  function clearErrorMsg(){
-	    $scope.errorMsg = null;
-	    $scope.successMsg = null;
+	    $scope.error = false;
+	    $scope.success = false;
+      $scope.genericError = false;
+      $scope.missingFieldsError = false;
 	  }
 
     $scope.scrollToForm = function(){

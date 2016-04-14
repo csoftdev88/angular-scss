@@ -143,6 +143,7 @@
 
     "no_room_available": "Kein Zimmer verfügbar, bitte ändern Sie Ihre Buchungskriterien",
     "generic_error_message": "Sorry, es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut",
+    "profile_updated_success_message": "Vielen Dank, Ihr Profil wurde aktualisiert",
 
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "no_dates_selected_short": "Keine Daten ausgewählt",

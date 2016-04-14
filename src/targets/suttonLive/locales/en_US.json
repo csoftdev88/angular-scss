@@ -86,6 +86,7 @@
     "no_hotels_found": "No Hotels Found",
     "no_room_available": "No room available, please change your search criteria",
     "generic_error_message": "Sorry, there was an error, please try again",
+    "profile_updated_success_message": "Thank you, your profile has been updated",
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "no_dates_selected_short": "No dates selected",
     "booking_widget_title": "",
