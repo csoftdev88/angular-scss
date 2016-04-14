@@ -87,6 +87,8 @@
     "no_room_available": "Aucune chambre disponible, veuillez changer vos critères",
     "generic_error_message": "Désolé, il y eu une erreur, veuillez essayer à nouveau s'il vous plaît",
     "profile_updated_success_message": "Merci, votre profil a été mis à jour",
+    "email_not_registered_error": "L'adresse E-mail que vous avez saisie n'est pas enregistrée",
+    "incorrect_email_password_error": "L'adresse E-mail et/ou le mot de passe que vous avez saisi est incorrect",
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "no_dates_selected_short": "Aucune dates choisies",
     "booking_widget_title": "<strong>Meilleur Prix</strong>Guaranti",

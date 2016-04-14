@@ -14,15 +14,15 @@ angular.module('mobius.controllers.common.sso', [])
     return Settings.authType === 'infiniti';
   }
 
-  function setErrorMsg(msg){
-    $scope.loginDialogError = msg;
-  }
-
   function clearErrorMsg(){
-    $scope.loginDialogError = null;
+    $scope.loginDialogError = false;
+    $scope.missingFieldsError = false;
+    $scope.incorrectEmailPasswordError = false;
+    $scope.notRegisteredEmailError = false;
+    $scope.passwordResetSuccess = false;
   }
+  clearErrorMsg();
 
-  $scope.loginDialogError = null;
   $rootScope.showLoginDialog = false;
 
   $scope.sso = {
@@ -52,12 +52,13 @@ angular.module('mobius.controllers.common.sso', [])
             user.storeUserId(data.id);
             user.loadProfile();
           }, function(){
-            //TODO: Move into locale
-            setErrorMsg('The email and/or password you entered is incorrect');
+            $scope.loginDialogError = true;
+            $scope.incorrectEmailPasswordError = true;
           });
         }
         else{
-          setErrorMsg('Please fill out all the fields indicated');
+          $scope.loginDialogError = true;
+          $scope.missingFieldsError = true;
         }
       }
     },
@@ -70,16 +71,18 @@ angular.module('mobius.controllers.common.sso', [])
       if(!isInfinitiLogin()){
         resetForm.$submitted = true;
         if (resetForm.$valid) {
-          apiService.post(apiService.getFullURL('customers.forgotPassword'), resetData).then(function(data){
+          apiService.post(apiService.getFullURL('customers.forgotPassword'), resetData).then(function(){
             clearErrorMsg();
-            setErrorMsg(data.status);
+            $scope.loginDialogError = true;
+            $scope.passwordResetSuccess = true;
           }, function(){
-            //TODO: Move into locale
-            setErrorMsg('The email you entered is not registered');
+            $scope.loginDialogError = true;
+            $scope.notRegisteredEmailError = true;
           });
         }
         else{
-          setErrorMsg('Please fill out all the fields indicated');
+          $scope.loginDialogError = true;
+          $scope.missingFieldsError = true;
         }
       }
     },

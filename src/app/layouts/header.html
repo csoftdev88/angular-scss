@@ -149,7 +149,13 @@
         <figure class="logo">
           <img src="/static/images/v4/logo-login.png" alt="logo">
         </figure>
-        <p class="error-msg" ng-if="loginDialogError">{{loginDialogError}}</p>
+        <p class="error-msg" ng-if="loginDialogError">
+          <span ng-if="genericError">_generic_error_message_</span>
+          <span ng-if="missingFieldsError">_missing_fields_message_</span>
+          <span ng-if="incorrectEmailPasswordError">_incorrect_email_password_error_</span>
+          <span ng-if="notRegisteredEmailError">_email_not_registered_error_</span>
+          <span ng-if="passwordResetSuccess">_reset_password_error_code_thirtyfour_</span>
+        </p>
         <div class="title" ng-show="config.loginDialog.showLoginTitle">
           <h2>_log_in_</h2>
           <hr>

@@ -87,6 +87,8 @@
     "no_room_available": "No room available, please change your search criteria",
     "generic_error_message": "Sorry, there was an error, please try again",
     "profile_updated_success_message": "Thank you, your profile has been updated",
+    "email_not_registered_error": "The email you entered is not registered",
+    "incorrect_email_password_error": "The email and/or password you entered is incorrect",
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "no_dates_selected_short": "No dates selected",
     "booking_widget_title": "<strong>BEST RATES</strong>GUARANTEE",
