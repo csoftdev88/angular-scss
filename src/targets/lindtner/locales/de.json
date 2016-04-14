@@ -142,6 +142,7 @@
     "no_hotels_found": "Kein Hotel gefunden",
 
     "no_room_available": "Kein Zimmer verfügbar, bitte ändern Sie Ihre Buchungskriterien",
+    "generic_error_message": "Sorry, es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut",
 
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "no_dates_selected_short": "Keine Daten ausgewählt",

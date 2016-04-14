@@ -34,35 +34,35 @@ angular.module('mobius.controllers.register', [])
 		});
 
 		$scope.register = function(form, registerData){
+      clearErrorMsg();
 			form.$submitted = true;
 		  if (form.$valid) {
 		    apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
-		      clearErrorMsg();
 		      userObject.id = response.id;
 		      user.loadProfile();
 		      $state.go('home');
-		    }, function(){
-		      //TODO: Move into locale
-		      setErrorMsg('Sorry, there was an error, please try again', 'error');
+		    }, function(err){
+		      if(err.error.msg === 'User already registered'){
+            $scope.userRegisteredError = true;
+            $scope.error = true;
+          }
+          else{
+            $scope.genericError = true;
+            $scope.error = true;
+          }
 		    });
 		  }
 		  else{
-		    setErrorMsg('Please fill out all the fields indicated', 'error');
+		    $scope.missingFieldsError = true;
+        $scope.error = true;
 		  }
 		};
 
-		function setErrorMsg(msg, type){
-			if(type === 'error'){
-				$scope.errorMsg = msg;
-			}
-			else{
-				$scope.successMsg = msg;
-			}
-	  }
-
 	  function clearErrorMsg(){
-	    $scope.errorMsg = null;
-	    $scope.successMsg = null;
+	    $scope.error = false;
+	    $scope.userRegisteredError = false;
+      $scope.genericError = false;
+      $scope.missingFieldsError = false;
 	  }
 	  
       

@@ -85,6 +85,7 @@
     "no_room_found": "Aucune chambre trouvées",
     "no_hotels_found": "Aucun hôtel trouvés",
     "no_room_available": "Aucune chambre disponible, veuillez changer vos critères",
+    "generic_error_message": "Désolé, il y eu une erreur, veuillez essayer à nouveau s'il vous plaît",
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "no_dates_selected_short": "Aucune dates choisies",
     "booking_widget_title": "<strong>Meilleur Prix</strong>Guaranti",
