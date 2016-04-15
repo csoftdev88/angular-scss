@@ -148,7 +148,7 @@ angular
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
-    'mobiusApp.directives.evolutionAnalyticsScript',
+    'mobiusApp.directives.evolutionInfinitiScript',
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
     'mobiusApp.directives.scrollPosition',

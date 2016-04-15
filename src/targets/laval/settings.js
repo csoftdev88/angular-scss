@@ -21,7 +21,22 @@ angular.module('mobiusApp.config', [])
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
-  'productionHost': '',
+  'evolutionInfiniti': {
+    'enable': false,
+    'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
+    'script': {
+      'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'staging': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
+      'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
+    },
+    'url': {
+      'development': 'http://prestige-test.suttonplace.com',
+      'integration': 'http://prestige-test.suttonplace.com',
+      'staging': 'http://prestige.suttonplace.com',
+      'live': 'http://prestige.suttonplace.com'
+    }
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -31,14 +46,6 @@ angular.module('mobiusApp.config', [])
     'ecommerceDataLayer': {
       'active': false,
       'trackUserId': true,
-      'id': ''
-    },
-    'evolutionAnalytics':{
-      'enable': false,
-      'prodScriptUrl': '',
-      'devScriptUrl': '',
-      'prodPrestigeUrl': '',
-      'devPrestigeUrl': '',
       'id': ''
     },
     'chainCode': 'LAVAL',

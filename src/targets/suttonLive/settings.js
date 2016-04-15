@@ -7,7 +7,6 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
   'authType': 'infiniti',
-  'productionHost': 'suttonplace.com',
   'infiniti': {
     'enable': true,
     'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
@@ -22,6 +21,22 @@ angular.module('mobiusApp.config', [])
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
+  'evolutionInfiniti': {
+    'enable': false,
+    'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
+    'script': {
+      'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'staging': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
+      'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
+    },
+    'url': {
+      'development': 'http://prestige-test.suttonplace.com',
+      'integration': 'http://prestige-test.suttonplace.com',
+      'staging': 'http://prestige.suttonplace.com',
+      'live': 'http://prestige.suttonplace.com'
+    }
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -32,14 +47,6 @@ angular.module('mobiusApp.config', [])
       'active': true,
       'trackUserId': true,
       'id': 'GTM-5Q9BR2'
-    },
-    'evolutionAnalytics':{
-      'enable': false,
-      'prodScriptUrl': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
-      'devScriptUrl': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
-      'prodPrestigeUrl': 'http://prestige.suttonplace.com',
-      'devPrestigeUrl': 'http://prestige-test.suttonplace.com',
-      'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb'
     },
     'chainCode': 'SAN',
     'baseURL': {
