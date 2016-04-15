@@ -42,10 +42,12 @@ angular.module('mobiusApp.config', [])
       'live': 'http://prestige.suttonplace.com'
     }
   },
+  //Google analytics, enable and set id per client's needs
   'googleAnalytics': {
     'enable': false,
     'id': ''
   },
+  //Google Tag Manager, enable and set id per client's needs
   'googleTagManager': {
     'enable': false,
     'trackUserId': true,
@@ -54,20 +56,22 @@ angular.module('mobiusApp.config', [])
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    'chainCode': 'NAT',
+    //Client chainCode, for example "SAN" for Sutton, check with admin for relevant client chainCode
+    'chainCode': '',
+    //API base url, check with WS devs for relevant url and environment variations
     'baseURL': {
-      'development': 'http://development-national-api.mobiuswebservices.com:3010/api/4.0/',
-      'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
-      'staging': 'http://staging-national-api.mobiuswebservices.com:3010/api/4.0/',
-      'live':  'http://national.api.mobiuswebservices.com:3010/api/4.0/'
+      'development': '',
+      'integration': '',
+      'staging': '',
+      'live':  ''
     },
+    //Mobius product search/purchase tracking, check if enabled
     'mobiusTracking': {
       'enable': false,
       'search': 'properties/track/search',
       'purchase': 'properties/track/purchase'
     },
-    //'chainCode': 'LAVAL',
-    //'baseURL': 'http://laval.mobiuswebservices.com/api/4.0/',
+    //All API endpoints, leave as is
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -140,10 +144,10 @@ angular.module('mobiusApp.config', [])
       'action': 'reservations/:reservationCode/actions/:actionType',
       'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true'
     },
+    //API request headers, check with PM for tenant values
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
-      //'Mobius-chainId': '355',
       'Mobius-channelId': '6'
     },
     'sessionData': {
@@ -179,8 +183,11 @@ angular.module('mobiusApp.config', [])
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
     'generics': {
+      //Set to true if only 1 property to bypass hotels overview page
       'singleProperty': true,
-      'facebookAppId': '1694770414076502',
+      //facebook app id required for facebook sharing
+      'facebookAppId': '',
+      //refer to directive for functionality and check with designers for headers styles
       'disableMainHeaderStyle': true
     },
     'adverts' : {
@@ -226,6 +233,7 @@ angular.module('mobiusApp.config', [])
     },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
+    //TODO: remove this
     'heroStaticContent': {
       'default': [
         {
@@ -280,6 +288,7 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       },
+      //hotel detail page partials and their order
       'partials':{
         'hotelHeader': true,
         'hotelDatesSelected': true,
@@ -290,7 +299,7 @@ angular.module('mobiusApp.config', [])
         'hotelOffers': false
       }
     },
-    //rate lookup teasers
+    //rate lookup teasers - used a preloader when loading rates
     'showHotelDetailsTestimonials': false,
     'hotelDetailsTestimonialsMaxNumStars': 5,
     'hotelDetailsTestimonials': 
@@ -380,7 +389,7 @@ angular.module('mobiusApp.config', [])
       'rates': true,
       'price': true
     },
-    // List of currencies and their display symbols
+    // List of currencies and their display symbols - check /generics/currencies/ endpoint for supported currencies
     'currencies': {
       'default': 'CHF',
 

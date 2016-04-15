@@ -228,13 +228,17 @@ The main tenant settings file is located in src/targets/{tenant}/settings.js and
 
 * defaultProductRateId
 * authType - "infiniti" or "mobius"
-* infiniti - if authType = inifiniti this must be enabled and urls updated accordingly
+* infiniti - if authType = infiniti this must be enabled and environment urls updated accordingly
 * sentry - this should always be enabled and urls are not tenant specific so doesn't need to be updated
 * googleAnalytics - check if this should be enabled and get client ID
 * googleTagManager - check if this should be enabled and get client ID
 * chainCode - uppercase code for current tenant
 * Mobius-chainId
 * Mobius-channelId
+* baseURL - API base url with various environments
+* Mobius product search/purchase tracking - enable?
+* singleProperty - true if only one property
+* facebookAppId - required for facebook sharing
 
 ### Locales
 Locales files located in src/targets/{tenant}/locales are processed by grunt/node when building the app into angular template files. These files and some of their settings need to match the "languages" settings in Settings file, you can check what values are required by a tenant by fetching the "generics/languages" endpoint of the current tenant API, then update the locales params such as "base_href", "language_code" accordingly
