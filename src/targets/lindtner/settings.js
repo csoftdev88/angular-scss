@@ -38,13 +38,13 @@ angular.module('mobiusApp.config', [])
     }
   },
   'googleAnalytics': {
-    'enable': true,
-    'id': 'UA-44368729-3'
+    'enable': false,
+    'id': ''
   },
   'googleTagManager': {
-    'enable': true,
+    'enable': false,
     'trackUserId': true,
-    'id': 'GTM-5Q9BR2'
+    'id': ''
   },
   'API': {
     'defaultThrottleTimeout': 30,

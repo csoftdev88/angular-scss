@@ -5,8 +5,11 @@ angular.module('mobiusApp.config', [])
 .constant('Settings', {
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
-  'defaultProductRateId': 6,
+  //check with backend what the defaultProductRateId value is
+  'defaultProductRateId': 1,
+  //authType can be "infiniti" or "mobius", infiniti is used if current tenant has loyalty program
   'authType': 'mobius',
+  //If authType is "infiniti", infiniti must be enabled and environment urls must be set
   'infiniti': {
     'enable': false,
     'development': '',
@@ -14,6 +17,7 @@ angular.module('mobiusApp.config', [])
     'staging': '',
     'live': ''
   },
+  //Sentry error log, should always be enabled and urls remain the same regardless of client so leave as is
   'sentry': {
     'enable': true,
     'development': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
@@ -21,6 +25,7 @@ angular.module('mobiusApp.config', [])
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
+  //temporary as still in development, meant to replace current inifniti
   'evolutionInfiniti': {
     'enable': false,
     'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
