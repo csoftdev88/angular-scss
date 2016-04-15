@@ -37,17 +37,18 @@ angular.module('mobiusApp.config', [])
       'live': 'http://prestige.suttonplace.com'
     }
   },
+  'googleAnalytics': {
+    'enable': true,
+    'id': 'UA-44368729-3'
+  },
+  'googleTagManager': {
+    'enable': true,
+    'trackUserId': true,
+    'id': 'GTM-5Q9BR2'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    //NOTE: GA must be turned off until client codes are confirmed especially if creating a new target from an existing one
-    'GoogleAnalyticsID': 'UA-44368729-3',
-    'appendGoogleAnalyticsScriptToPage': true,
-    'ecommerceDataLayer': {
-      'active': true,
-      'trackUserId': true,
-      'id': 'GTM-5Q9BR2'
-    },
     'chainCode': 'SAN',
     'baseURL': {
       'development': 'http://test-services.suttonplace.com:3010/api/4.0/',
