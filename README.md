@@ -192,9 +192,9 @@ All settings can be categorised into the following categories:
 
 ### UI
 Front-end configuration is located in the following places:
-`src/app/settings.js`
-`src/styles`
-`src/locales`
+`src/targets/{tenant}/settings.js`
+`src/targets/{tenant}/styles`
+`src/targets/{tenant}/locales`
 
 #### `Settings.js` - main configuration file which contais customer related settings.
 Main sections are:
@@ -219,3 +219,19 @@ All build related settings are located in the following files:
 `build.config.js`
 
 See The Build System.
+
+## Creating a new tenant from scratch
+All settings specific to a tenant is located in src/targets/{tenant}/ - a default setup is provided to get you started in src/targets/default/ - when creating a new tenant duplicate the default folder and rename it according to the tenant name, and update as follows:
+
+### Settings
+The main tenant settings file is located in src/targets/{tenant}/settings.js and is commented, many settings such as google analytics, google tag manager can be enabled/disabled depending on tenant needs, this should be evaluated at the start of the project. However some settings are required and must be set at the start of the project, request them to your project manager, those are:
+
+* defaultProductRateId
+* authType - "infiniti" or "mobius"
+* infiniti - if authType = inifiniti this must be enabled and urls updated accordingly
+* sentry - this should always be enabled and urls are not tenant specific so doesn't need to be updated
+* googleAnalytics - check if this should be enabled and get client ID
+* googleTagManager - check if this should be enabled and get client ID
+* chainCode - uppercase code for current tenant
+* Mobius-chainId
+* Mobius-channelId
