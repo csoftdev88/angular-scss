@@ -338,7 +338,7 @@ angular.module('mobius.controllers.reservation', [])
     switch (stateName) {
     case 'reservation.details':
       setBreadCrumbs(GUEST_DETAILS);
-      $scope.continueName = 'Continue';
+      $scope.continueName = 'continue';
       if($scope.invalidFormData.error){
         //scrollToDetails('alert-warning');
       }
@@ -349,14 +349,14 @@ angular.module('mobius.controllers.reservation', [])
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
-      $scope.continueName = 'Continue';
+      $scope.continueName = 'continue';
       //scrollToDetails('reservationBillingForm');
       scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationBillingForm');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.confirmation':
       setBreadCrumbs(CONFIRMATION);
-      $scope.continueName = 'Confirm';
+      $scope.continueName = 'confirm';
       //scrollToDetails('reservationConfirmation');
       scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationConfirmation');
       $rootScope.showHomeBreadCrumb = false;
