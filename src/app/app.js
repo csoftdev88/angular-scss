@@ -419,8 +419,9 @@ angular
     }
 
     var userLang = user.getUserLanguage();
+    var appLang = stateService.getAppLanguageCode();
 
-    if(userLang && userLang !== stateService.getAppLanguageCode() && Settings.UI.languages[userLang]){
+    if(userLang && userLang !== appLang && Settings.UI.languages[userLang]){
       var language_code = userLang;
       var path = $location.path();
       var search = encodeQueryData($location.search());
@@ -429,7 +430,7 @@ angular
     }
 
     var langObj = {};
-    langObj['mobius-languagecode'] = stateService.getAppLanguageCode();
+    langObj['mobius-languagecode'] = appLang;
     apiService.setHeaders(langObj);
 
     $rootScope.$on('$stateChangeSuccess', function() {
