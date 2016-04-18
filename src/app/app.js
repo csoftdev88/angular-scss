@@ -433,6 +433,9 @@ angular
     langObj['mobius-languagecode'] = appLang;
     apiService.setHeaders(langObj);
 
+    //localize moment.js
+    $window.moment.locale(appLang);
+
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();
     });
