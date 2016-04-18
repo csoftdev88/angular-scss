@@ -115,7 +115,8 @@ module.exports = {
         'bower_components/angular-markdown-directive/markdown.js',
         'bower_components/angular-tooltips/dist/angular-tooltips.min.js',
         'bower_components/angularUtils-pagination/dirPagination.js',
-        'vendors/jquery-ui/datepicker-translations/de.js'
+        'vendors/jquery-ui/datepicker-translations/de.js',
+        'vendors/jquery-ui/datepicker-translations/fr.js'
       ],
       styles: [
         'bower_components/font-awesome/css/font-awesome.min.css'
