@@ -115,7 +115,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
         if(selectedProduct){
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-            propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+            propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property || scope.details.code).then(function(propertyData){
               dataLayerService.trackProductClick({
                 name: selectedProduct.name,
                 id: selectedProduct.code,

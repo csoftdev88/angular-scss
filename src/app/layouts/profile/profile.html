@@ -141,7 +141,7 @@
 
     </form>
 
-    <form name="form" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
+    <form name="form" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary" ng-class="{'submitted': submitted}">
 
       <h2>_profile_page_about_title_</h2>
 
