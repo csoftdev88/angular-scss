@@ -15,7 +15,7 @@
       <label for="title" class="input-left small">
         <select type="text" id="title" required
           placeholder="_title_label_"
-          data-placeholder="_title_label_"
+          data-placeholder-text-single="'_title_label_'"
           ng-options="title.name as title.code for title in profileTitles"
           ng-if="!isMobile"
           ng-model="userDetails.title"
@@ -25,7 +25,7 @@
         </select>
         <select type="text" id="title" required
           placeholder="_title_label_"
-          data-placeholder="_title_label_"
+          data-placeholder-text-single="'_title_label_'"
           ng-options="title.name as title.code for title in profileTitles"
           ng-if="isMobile"
           ng-model="userDetails.title"
@@ -130,7 +130,7 @@
       <label for="country" class="input-right">
         <select type="text" id="country" required
           placeholder="_country_label_"
-          data-placeholder="_country_label_"
+          data-placeholder-text-single="'_country_label_'"
           ng-options="country.name as country.name for country in profileCountries | orderBy:'name'"
           ng-model="userDetails.country"
           name="country"

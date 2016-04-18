@@ -49,7 +49,8 @@
                       required ng-model="formData.fields.subject"
                       disable-search="true"
                       chosen ng-options="option.key for option in subjectOptions"
-                      data-placeholder="_subject_placeholder_">
+                      data-placeholder-text-single="'_subject_placeholder_'">
+
                 <option value="">_subject_placeholder_</option> <!-- workaround for a bug in angular-chosen -->
               </select>
             <span>_subject_label_</span>
