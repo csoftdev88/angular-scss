@@ -457,7 +457,7 @@ angular.module('mobiusApp.config', [])
       'fr': {
         'shortName': 'FR',
         'name': 'French',
-        'decimalSeparator': '',
+        'decimalSeparator': '.',
         'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
