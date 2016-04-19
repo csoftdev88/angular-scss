@@ -366,6 +366,7 @@
     "departure_time_label": "Departure Time",
     "departure_time_placeholder": "Departure Time",
     "letters_pattern_error": "Please only enter letters in this field",
+    "password_pattern_error": "The password must contain at least 8 characters",
     "phone_pattern_error": "Please enter a valid phone number",
     "receive_offer_label": "I am happy to receive offer via emails",
     "email_optin_label": "I consent to receiving exclusive promotions and offers from The {nameShort}",
