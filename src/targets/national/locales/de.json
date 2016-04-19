@@ -63,14 +63,14 @@
     "gallery": "Galerie",
 
     "BUTTONS": "//////////////////////////////////////////////////////",
-    "your_booking_progress": "Ihr <span>Buchungsfortschritt</span>",
+    "your_booking_progress": "Ihr Buchungs-<span>fortschritt</span>",
     "choose_your_room": "Wählen Sie Ihr Zimmer",
     "guest_details": "Gast Informationen",
     "billing_details": "Billing Details",
     "points_balance": "Points Balance",
     "additional_details": "Additional Details",
     "billing_information": "Rechnungsinformationen",
-    "confirm_your_reservation": "Bestätigen Sie Ihre Reservation",
+    "confirm_your_reservation": "Buchungsbestätigung",
 
     "login_register": "Log In / Registrierung",
     "login_to_book": "Login dich Buchen",
@@ -80,7 +80,7 @@
     "reset_password": "Passwort zurücksetzen",
     "save_password": "Passwort speichern",
 
-    "continue": "Weiterfahren",
+    "continue": "Weiter",
 
     "view_more": "Mehr Details",
 
@@ -518,7 +518,7 @@
 
     "email_placeholder": "Email eingeben",
 
-    "invalid_email_message": "Bitte geben Sie eine gültige Email-Adresse ein",
+    "invalid_email_message": "Bitte eine gültige E-Mail-Adresse eingeben",
 
     "email_match_error_message": "Die Email-Adressen passen nicht zusammen",
 
