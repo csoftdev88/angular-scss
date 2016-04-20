@@ -42,6 +42,7 @@ floating-bar {
 
         .viewport-mobile &{
           display: none;
+          outline: none;
         }
       }
 
@@ -49,6 +50,10 @@ floating-bar {
       &:first-of-type:before{
         background: @c-booking-widget-active;
         outline: 1px solid @c-booking-widget;
+        .viewport-mobile &{
+          display: none;
+          outline: none;
+        }
 
       }
 
