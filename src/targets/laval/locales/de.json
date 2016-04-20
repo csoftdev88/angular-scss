@@ -640,7 +640,7 @@
     "departure_time_placeholder": "Abreisezeit",
 
     "letters_pattern_error": "Bitte nur Buchstaben in dieses Feld eingeben",
-    "password_pattern_error": "The password must contain at least 8 characters",
+    "password_pattern_error": "Das Passwort muss mindestens 8 Zeichen enthalten",
 
     "phone_pattern_error": "Bitte geben Sie ein gültige Telefonnummer ein",
 

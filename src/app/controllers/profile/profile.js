@@ -73,7 +73,7 @@ angular.module('mobius.controllers.profile', [])
       clearErrorMsg();
 		  if(form.$valid){
 				var data = _.omit(profileData, _.isNull);
-				data = _.omit(data, ['id','token','email']);
+				data = _.omit(data, ['id','token','email', 'languageCode']);
 				
 		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
 		      userObject = _.extend(userObject, data);
