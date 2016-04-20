@@ -491,7 +491,7 @@ angular.module('mobius.controllers.reservation', [])
         trackProductCheckout(2);
       }
       else{
-        //scrollToDetails('form-errors');
+        scrollToDetails('reservationDetailsForm');
       }
 
       break;
@@ -509,7 +509,7 @@ angular.module('mobius.controllers.reservation', [])
         trackProductCheckout(3);
       }
       else{
-        //scrollToDetails('form-errors');
+        scrollToDetails('reservationBillingForm');
       }
       break;
     case 'reservation.confirmation':
