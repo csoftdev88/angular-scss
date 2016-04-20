@@ -85,7 +85,6 @@ angular.module('mobius.controllers.hotel.details', [
       }, 0);
     }
 
-    console.log('$scope.currentOrder: ' + $scope.currentOrder);
 
     //save order switch value to cookies when changed
     $scope.orderSwitchChange = function(selected){

@@ -64,6 +64,7 @@ angular.module('mobiusApp.directives.language', [])
         };
 
         scope.currentLanguage = stateService.getAppLanguageCode();
+        scope.isMobile = stateService.isMobile();
 
         var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
         scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
