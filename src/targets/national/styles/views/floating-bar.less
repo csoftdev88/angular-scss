@@ -31,9 +31,24 @@ floating-bar {
         }
       }
 
+      &:first-of-type:before{
+        position: absolute;
+        right: @baseline * 1.5;
+        height: @baseline * 1.5;
+        width: 1000px;
+        background: lighten(@c-booking-widget, 10%);
+        content: '';
+        outline: 1px solid @c-booking-widget;
+
+        .viewport-mobile &{
+          display: none;
+        }
+      }
+
       //- Filling
       &:first-of-type:before{
         background: @c-booking-widget-active;
+        outline: 1px solid @c-booking-widget;
 
       }
 
@@ -43,6 +58,7 @@ floating-bar {
 
       //- Skew effect
       &:after {
+        top: -2px;
         border-bottom: @baseline*1.5 solid @c-booking-widget-active;
         border-right: @baseline solid transparent;
       }
@@ -55,6 +71,7 @@ floating-bar {
         }
         a{
           color: #fff;
+          outline: 1px solid @c-booking-widget;
         }
       }
 
