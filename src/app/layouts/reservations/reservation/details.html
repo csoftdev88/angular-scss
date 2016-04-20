@@ -131,7 +131,7 @@
         <select type="text" id="country" required
           placeholder="_country_label_"
           data-placeholder-text-single="'_country_label_'"
-          ng-options="country.name as country.name for country in profileCountries | orderBy:'name'"
+          ng-options="country.name as country.name for country in profileCountries"
           ng-model="userDetails.country"
           name="country"
           chosen>

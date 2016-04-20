@@ -737,9 +737,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function addReservationConfirmationMessage(reservationNumber){
-    userMessagesService.addMessage('' +
-        '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
-        '<div class="small">Your web booking code is <strong>' + reservationNumber + '</strong>. You will receive an email shortly that contains your reservation reference number.</div>');
+    userMessagesService.addReservationConfirmationMessage($scope.property.nameLong, reservationNumber);
   }
 
   $scope.makeReservation = function(){

@@ -3,6 +3,7 @@
 angular.module('mobiusApp.services.userMessagesService', [])
   .service('userMessagesService', function($rootScope, $timeout) {
     var TYPE_INFO = 'info-message';
+    var TYPE_RESERVATION_CONFIRMATION = 'info-reservation-confirmation';
     var messages = [];
     var isChangingRoute = false;
 
@@ -31,6 +32,28 @@ angular.module('mobiusApp.services.userMessagesService', [])
       });
     }
 
+    function addReservationConfirmationMessage(property, reservationCode, keepOldMessages, routeIsChanging) {
+      
+      isChangingRoute = routeIsChanging || false;
+
+      if(!keepOldMessages && messages.length){
+        clearMessages();
+      }
+
+      $rootScope.$evalAsync(function(){
+        messages.push({
+          type: TYPE_RESERVATION_CONFIRMATION
+        });
+
+        console.log($('#user-messages .info-reservation-confirmation .title').html());
+        $('#user-messages .info-reservation-confirmation .title').html($('#user-messages .info-reservation-confirmation .title').html().replace('{hotelName}', property).replace('{reservationNumber}', reservationCode));
+
+        $timeout(function () {
+          document.body.style.paddingTop = angular.element('#user-messages').height() + 'px';
+        }, 500);
+      });
+    }
+
     // State change listener
     $rootScope.$on('$stateChangeStart', function() {
       //Remove all messages on route change
@@ -47,6 +70,7 @@ angular.module('mobiusApp.services.userMessagesService', [])
     return {
       messages: messages,
       getMessages: getMessages,
-      addMessage: addMessage
+      addMessage: addMessage,
+      addReservationConfirmationMessage: addReservationConfirmationMessage
     };
   });
