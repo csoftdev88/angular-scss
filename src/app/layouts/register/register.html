@@ -48,7 +48,7 @@
                   disable-search="true"
                   data-placeholder-text-single="'_title_label_'"
                   ng-model="registerData.title"
-                  ng-options="title.name as title.code for title in registerTitles">
+                  ng-options="title.id as title.name for title in registerTitles">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>
