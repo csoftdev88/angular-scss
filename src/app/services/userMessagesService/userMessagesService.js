@@ -42,11 +42,10 @@ angular.module('mobiusApp.services.userMessagesService', [])
 
       $rootScope.$evalAsync(function(){
         messages.push({
-          type: TYPE_RESERVATION_CONFIRMATION
+          type: TYPE_RESERVATION_CONFIRMATION,
+          property: property,
+          reservationCode: reservationCode
         });
-
-        console.log($('#user-messages .info-reservation-confirmation .title').html());
-        $('#user-messages .info-reservation-confirmation .title').html($('#user-messages .info-reservation-confirmation .title').html().replace('{hotelName}', property).replace('{reservationNumber}', reservationCode));
 
         $timeout(function () {
           document.body.style.paddingTop = angular.element('#user-messages').height() + 'px';
