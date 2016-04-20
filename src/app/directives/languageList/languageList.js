@@ -29,7 +29,6 @@ angular.module('mobiusApp.directives.language', [])
 
           scope.getFullName = function(languageCode) {
             var lang = _.find(data, function(item){ return item.code === languageCode; });
-            console.log('getFullName lan: ' + angular.toJson(lang));
             return lang.name;
           };
           

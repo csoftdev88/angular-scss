@@ -275,7 +275,7 @@
                   disable-search="true"
                   data-placeholder-text-single="'_prefered_contact_label_'"
                   ng-model="profileData.preferredContactMethodCode"
-                  ng-options="contact.name as contact.code for contact in profileContacts">
+                  ng-options="contact.id as contact.name for contact in profileContacts">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>
