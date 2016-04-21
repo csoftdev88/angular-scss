@@ -131,8 +131,8 @@
         <select type="text" id="country" required
           placeholder="_country_label_"
           data-placeholder-text-single="'_country_label_'"
-          ng-options="country.name as country.name for country in profileCountries"
-          ng-model="userDetails.country"
+          ng-options="country.id as country.name for country in profileCountries"
+          ng-model="userDetails.localeCode"
           name="country"
           chosen>
           <option value="">_country_label_</option>
