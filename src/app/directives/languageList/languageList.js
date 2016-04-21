@@ -23,12 +23,15 @@ angular.module('mobiusApp.directives.language', [])
 
         var defaultLanguage = Settings.UI.languages.default;
         scope.config = Settings.UI.languages;
-        scope.localeLanguages = null;
+        var localeLanguages = {};
 
         contentService.getLanguages().then(function(data) {
 
+          localeLanguages = angular.copy(data);
           scope.getFullName = function(languageCode) {
-            var lang = _.find(data, function(item){ return item.code === languageCode; });
+            var lang = _.find(localeLanguages, function(item){ 
+              return item.code === languageCode; 
+            });
             return lang.name;
           };
           
