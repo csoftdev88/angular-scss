@@ -474,6 +474,11 @@ angular.module('mobiusApp.config', [])
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
+      },
+      'confirmationPageSharing': {
+        'socialSharing': true,
+        'passbook': true,
+        'print': true
       }
     },
 
