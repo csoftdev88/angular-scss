@@ -89,6 +89,10 @@ describe('bookingWidget', function() {
         go: function(){}
       });
 
+      $provide.value('contentService', {
+        getOffers: function(){}
+      });
+
       $provide.value('validationService', {
         isValueValid: function(value){ return value ? true : false; },
         convertValue: function(value){ return value; }

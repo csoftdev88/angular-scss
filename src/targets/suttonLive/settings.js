@@ -600,6 +600,7 @@ angular.module('mobiusApp.config', [])
     // Settings related to booking process
     'bookingWidget': {
       "checkAvailabilityOnChange": false,
+      "checkOfferAvailabilityOnChange": true,
       'hasMutiroomTab': true,
       // Suggest MRB when number of adults is higher
       // than this value and server returns no products
