@@ -83,7 +83,7 @@
           </div>
 
           <room-details ng-if="roomsConfig.displayRoomDetails">
-            <div class="description" ng-bind-html="sanitize(room.description)"></div>
+            <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? room.roomHighlight : room.description)"></div>
 
             <div class="pricing-info">
               <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom">

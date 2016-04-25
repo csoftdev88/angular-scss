@@ -239,6 +239,8 @@ angular.module('mobiusApp.config', [])
         // in ms.
         'hoverTriggerDelay': 2000,
         'showRoomCount': true,
+        //Show room highlight text instead of description
+        'showRoomHighlight': false,
         'displayRatesOnLoad': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
@@ -429,6 +431,8 @@ angular.module('mobiusApp.config', [])
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
       'showDescription': true,
+      //show room highlight before description
+      'showRoomHighlight': false,
       'includeTripAdvisorPreloader': true,
       'headerPartial':{
         'display': false,

@@ -27,7 +27,6 @@
     </div>
 
     <hr />
-
     <p class="description" ng-bind-html="sanitize(roomDetails.description)"></p>
   </section>
 
@@ -167,6 +166,7 @@
 
   <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescription">
     <h2 ng-bind-html="'_room_description_title_' | mainHeaderStyle"></h2>
+    <p ng-if="config.showRoomHighlight" ng-bind-html="sanitize(roomDetails.roomHighlight)"></p>
     <p ng-bind-html="sanitize(roomDetails.description)"></p>
 
     <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
