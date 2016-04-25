@@ -802,6 +802,7 @@ angular.module('mobius.controllers.reservation', [])
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
           var products = [];
           _.each($scope.allRooms, function(room){
+            console.log('room: ' + angular.toJson(room));
             var p = room._selectedProduct;
             var product = {
               name: p.name,
@@ -819,6 +820,8 @@ angular.module('mobius.controllers.reservation', [])
             products.push(product);
           });
           //google analytics
+          
+          console.log('getTotal: ' + $scope.getTotal('totalAfterTax'));
           dataLayerService.trackProductsPurchase(products, {
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
