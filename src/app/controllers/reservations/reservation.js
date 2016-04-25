@@ -802,13 +802,12 @@ angular.module('mobius.controllers.reservation', [])
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
           var products = [];
           _.each($scope.allRooms, function(room){
-            console.log('room: ' + angular.toJson(room));
             var p = room._selectedProduct;
             var product = {
               name: p.name,
               code: p.code,
-              tax: p.price.totalAfterTax - p.price.totalBase,
-              price: p.price.totalBase,
+              tax: ((p.price.totalAfterTax - p.price.totalBase)/numNights).toFixed(2),
+              price: ($scope.getTotal('totalBase')/numNights).toFixed(2),
               id: room._selectedProduct.code,
               quantity: numNights,
               dimension2: chainData.nameShort,
@@ -820,15 +819,13 @@ angular.module('mobius.controllers.reservation', [])
             products.push(product);
           });
           //google analytics
-          
-          console.log('getTotal: ' + $scope.getTotal('totalAfterTax'));
           dataLayerService.trackProductsPurchase(products, {
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
             'affiliation': 'Hotel',
-            'revenue': (products[0].price/numNights).toFixed(2),
+            'revenue': $scope.getTotal('totalAfterTax'),
             'quantity': numNights,
-            'tax': products[0].tax,
+            'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBase')).toFixed(2),
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
           });
           //mobius tracking

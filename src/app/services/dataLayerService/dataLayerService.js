@@ -91,9 +91,6 @@ angular.module('mobiusApp.services.dataLayer', [])
       return;
     }
 
-    console.log('trackProductsPurchase products: ' + angular.toJson(products));
-    console.log('trackProductsPurchase actionField: ' + angular.toJson(actionField));
-
     // delete tax property from products array if present as not required at this step but used in 
     for (var p in products){
       if(products[p].tax){
