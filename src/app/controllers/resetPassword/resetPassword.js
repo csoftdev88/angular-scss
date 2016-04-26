@@ -14,13 +14,13 @@ angular.module('mobius.controllers.resetPassword', [])
 			form.$submitted = true;
 		  if(form.$valid){
 				var data = {
-					'token': $location.search().code,
+					'token': $location.search().resetcode,
 					'password': resetData.password
 				};
 		    apiService.post(apiService.getFullURL('customers.changePassword'), data).then(function(){
 		      $scope.success = true;
 		    }, function(err){
-					$scope.errorCode = err.error.reason;
+					$scope.errorCode = err && err.error.reason ? err.error.reason : 0;
 					$scope.error = true;
 		    });
 		  }

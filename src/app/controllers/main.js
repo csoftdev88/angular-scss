@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService) {
 
       $scope.chainCode = Settings.API.chainCode;
 
@@ -195,7 +195,9 @@ angular.module('mobius.controllers.main', [])
       contentService.getContactMethods().then(function(data) {
         $scope.registerContacts = data;
       });
-      
+
+
+      $scope.isMobile = stateService.isMobile();
       $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
         $scope.isMobile = viewport.isMobile;
         if(viewport.isMobile){

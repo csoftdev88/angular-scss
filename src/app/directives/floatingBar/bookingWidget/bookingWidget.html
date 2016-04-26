@@ -5,7 +5,7 @@
   <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty">
     <select name="regionHotels" required chosen
             disable-search="false"
-            data-placeholder="_region_hotel_"
+            data-placeholder-text-single="'_region_hotel_'"
             ng-model="regionPropertySelected"
             chosen-options-class="{ 'region': type === 'region', 'property': type === 'property' }"
             ng-options="option.name for option in propertyRegionList"
@@ -52,7 +52,7 @@
             required ng-model="selected.adults"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.adults"
-            data-placeholder="_adults_"
+            data-placeholder-text-single="'_adults_'"
             ng-change="checkAvailability()"
             ng-init="setAdultsOptions({
               'adult': '_adult_',
@@ -69,7 +69,7 @@
             required ng-model="selected.children"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.children"
-            data-placeholder="_children_"
+            data-placeholder-text-single="'_children_'"
             ng-change="checkAvailability()"
             ng-init="setChildrenOptions({
               'child': '_child_',
@@ -87,7 +87,7 @@
         disable-search="true"
         chosen ng-options="code as code.title for code in codeTypes"
         ng-change="onCodeTypeChanged()"
-        data-placeholder="_apply_code_">
+        data-placeholder-text-single="'_apply_code_'">
       <option></option>
     </select>
 
@@ -109,7 +109,7 @@
     <form-element class="persons">
       <select name="adults"
               required ng-model="room.adults"
-              data-placeholder="_adults_"
+              data-placeholder-text-single="'_adults_'"
               disable-search="true"
               chosen ng-options="option.title for option in guestsOptions.adults">
         <option></option> <!-- workaround for a bug in angular-chosen -->
@@ -120,7 +120,7 @@
     <form-element class="persons">
       <select name="children"
               required ng-model="room.children"
-              data-placeholder="_children_"
+              data-placeholder-text-single="'_children_'"
               disable-search="true"
               chosen ng-options="option.title for option in guestsOptions.children">
         <option></option> <!-- workaround for a bug in angular-chosen -->

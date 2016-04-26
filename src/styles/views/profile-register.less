@@ -20,6 +20,9 @@ register-page {
     &.error{
       color: @c-red;
     }
+    span{
+      display: block;
+    }
   }
 
 
@@ -27,6 +30,30 @@ register-page {
   form {
 
     margin-bottom: 40px;
+
+    //Errors
+    &.submitted.ng-invalid{
+      fieldset{
+        form-element {
+          select.ng-invalid + .chosen-container{
+            border-color: @c-red;
+            .chosen-single{
+              border-color: @c-red;
+            }
+          }
+          input[type="text"],
+          input[type="email"],
+          input[type="password"],
+          input[type="tel"],
+          select,
+          textarea{
+            &.ng-invalid {
+              border-color: @c-red;
+            }
+          }
+        }
+      }
+    }
 
     h2{
       .h2;

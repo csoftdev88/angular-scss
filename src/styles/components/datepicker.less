@@ -165,9 +165,12 @@
       // Day is not available
       &.date-not-available {
         background-color: #ed1c24;
+        pointer-events: none;
 
         a {
-          color: #fff;
+          color: lighten(@c-text, 50%);
+          cursor: text;
+          pointer-events: none;
         }
 
         &.date-range-start,

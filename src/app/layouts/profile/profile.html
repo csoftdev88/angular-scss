@@ -141,7 +141,7 @@
 
     </form>
 
-    <form name="form" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary">
+    <form name="form" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary" ng-class="{'submitted': submitted}">
 
       <h2>_profile_page_about_title_</h2>
 
@@ -151,9 +151,9 @@
           <label for="profileTitle">_title_label_</label>
           <select name="profileTitle" required chosen
                   disable-search="true"
-                  data-placeholder="_title_label_"
+                  data-placeholder-text-single="'_title_label_'"
                   ng-model="profileData.title"
-                  ng-options="title.name as title.code for title in profileTitles">
+                  ng-options="title.id as title.name for title in profileTitles">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>
@@ -243,8 +243,8 @@
           <select name="profileCountry" chosen
                   disable-search="true"
                   data-placeholder=""
-                  ng-model="profileData.country"
-                  ng-options="country.name as country.name for country in profileCountries | orderBy:'name'">
+                  ng-model="profileData.localeCode"
+                  ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>
@@ -273,9 +273,9 @@
           <label for="profileContact">_prefered_contact_label_</label>
           <select name="profileContact" required chosen
                   disable-search="true"
-                  data-placeholder="_prefered_contact_label_"
+                  data-placeholder-text-single="'_prefered_contact_label_'"
                   ng-model="profileData.preferredContactMethodCode"
-                  ng-options="contact.name as contact.code for contact in profileContacts">
+                  ng-options="contact.id as contact.name for contact in profileContacts">
             <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>

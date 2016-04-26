@@ -110,6 +110,9 @@ angular.module('mobiusApp.directives.datepicker', [])
           duration: 0,
 
           beforeShowDay: function ( date ) {
+            
+            $rootScope.$broadcast('DATE_PICKER_BEFORE_SHOW_DAY', date);
+            
             return [
               !isSelected(date),
               getDateClass( date )

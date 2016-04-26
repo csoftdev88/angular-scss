@@ -52,6 +52,10 @@ describe('mobius.controllers.main', function() {
           getAll: sinon.stub()
         });
 
+        $provide.value('stateService', {
+          isMobile: sinon.stub()
+        });
+
         $provide.value('metaInformationService', {
           setMetaDescription: sinon.spy(),
           setMetaKeywords: sinon.spy(),

@@ -7,7 +7,6 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
   'authType': 'infiniti',
-  'productionHost': 'suttonplace.com',
   'infiniti': {
     'enable': true,
     'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
@@ -22,25 +21,34 @@ angular.module('mobiusApp.config', [])
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
+  'evolutionInfiniti': {
+    'enable': false,
+    'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
+    'script': {
+      'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'staging': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
+      'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
+    },
+    'url': {
+      'development': 'http://prestige-test.suttonplace.com',
+      'integration': 'http://prestige-test.suttonplace.com',
+      'staging': 'http://prestige.suttonplace.com',
+      'live': 'http://prestige.suttonplace.com'
+    }
+  },
+  'googleAnalytics': {
+    'enable': true,
+    'id': 'UA-44368729-3'
+  },
+  'googleTagManager': {
+    'enable': true,
+    'trackUserId': true,
+    'id': 'GTM-5Q9BR2'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    //NOTE: GA must be turned off until client codes are confirmed especially if creating a new target from an existing one
-    'GoogleAnalyticsID': 'UA-44368729-3',
-    'appendGoogleAnalyticsScriptToPage': true,
-    'ecommerceDataLayer': {
-      'active': true,
-      'trackUserId': true,
-      'id': 'GTM-5Q9BR2'
-    },
-    'evolutionAnalytics':{
-      'enable': false,
-      'prodScriptUrl': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
-      'devScriptUrl': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
-      'prodPrestigeUrl': 'http://prestige.suttonplace.com',
-      'devPrestigeUrl': 'http://prestige-test.suttonplace.com',
-      'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb'
-    },
     'chainCode': 'SAN',
     'baseURL': {
       'development': 'http://test-services.suttonplace.com:3010/api/4.0/',
@@ -235,6 +243,8 @@ angular.module('mobiusApp.config', [])
         // in ms.
         'hoverTriggerDelay': 2000,
         'showRoomCount': false,
+        //Show room highlight text instead of description
+        'showRoomHighlight': true,
         'displayRatesOnLoad': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
@@ -426,6 +436,8 @@ angular.module('mobiusApp.config', [])
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
       'showDescription': true,
+      //show room highlight before description
+      'showRoomHighlight': true,
       'includeTripAdvisorPreloader': true,
       'headerPartial':{
         'display': false,
@@ -466,6 +478,11 @@ angular.module('mobiusApp.config', [])
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
+      },
+      'confirmationPageSharing': {
+        'socialSharing': true,
+        'passbook': true,
+        'print': true
       }
     },
 
@@ -583,6 +600,7 @@ angular.module('mobiusApp.config', [])
     // Settings related to booking process
     'bookingWidget': {
       "checkAvailabilityOnChange": false,
+      "checkOfferAvailabilityOnChange": true,
       'hasMutiroomTab': true,
       // Suggest MRB when number of adults is higher
       // than this value and server returns no products

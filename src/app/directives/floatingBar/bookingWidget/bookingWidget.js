@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, _){
+  propertyService, locationService, filtersService, Settings, _, contentService){
   return {
     restrict: 'E',
     scope: {
@@ -363,53 +363,78 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.checkAvailability();
       });
 
+      $rootScope.$on('DATE_PICKER_BEFORE_SHOW_DAY', function(e, day){
+        if(scope.selectedOffer && scope.settings.checkOfferAvailabilityOnChange && scope.availability){
+          if(!$window.moment(day).isBetween(scope.selectedOffer.availableFrom, scope.selectedOffer.availableTo, null, '[]')){
+            scope.availability[$window.moment(day).format('YYYY-MM-DD')] = CLASS_NOT_AVAILABLE;
+          }
+        }
+      });
+
       scope.checkAvailability = function() {
-        if(!scope.settings.checkAvailabilityOnChange){
-          return;
-        }
-        var dates = bookingService.datesFromString(scope.curDatePickerMonthDates || scope.selected.dates);
-        if (!scope.selected.property || !dates || !scope.selected.adults) {
-          scope.availability = null;
-          return;
-        }
 
-        var code = scope.selected.property.code || scope.selected.property;
-        
-        var params = {
-          from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
-          to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
-          adults: scope.selected.adults.value,
-          children: scope.selected.children ? scope.selected.children.value : 0,
-          productGroupId: scope.selected.rate
-        };
+        //Check property availability on date picker change
+        if(scope.settings.checkAvailabilityOnChange){
+          var dates = bookingService.datesFromString(scope.curDatePickerMonthDates || scope.selected.dates);
+          if (!scope.selected.property || !dates || !scope.selected.adults) {
+            scope.availability = null;
+            return;
+          }
 
-        var qBookingParam = $q.defer();
+          var code = scope.selected.property.code || scope.selected.property;
+          
+          var params = {
+            from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
+            to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
+            adults: scope.selected.adults.value,
+            children: scope.selected.children ? scope.selected.children.value : 0,
+            productGroupId: scope.selected.rate
+          };
 
-        // Using PGID from the booking params
-        if(params.productGroupId){
-          qBookingParam.resolve(params);
-        } else {
-          filtersService.getBestRateProduct().then(function(brp){
-            if(brp){
-              params.productGroupId = brp.id;
-            }
+          var qBookingParam = $q.defer();
+
+          // Using PGID from the booking params
+          if(params.productGroupId){
             qBookingParam.resolve(params);
+          } else {
+            filtersService.getBestRateProduct().then(function(brp){
+              if(brp){
+                params.productGroupId = brp.id;
+              }
+              qBookingParam.resolve(params);
+            });
+          }
+
+          return qBookingParam.promise.then(function(params) {
+            return propertyService.getAvailability(code, params).then(function(data) {
+              scope.availability = {};
+
+              $window._.each(data, function(obj) {
+                if (!obj.isInventory) {
+                  scope.availability[obj.date] = CLASS_NOT_AVAILABLE;
+                }
+              });
+            }, function() {
+              scope.availability = null;
+            });
           });
         }
 
-        return qBookingParam.promise.then(function(params) {
-          return propertyService.getAvailability(code, params).then(function(data) {
-            scope.availability = {};
+        //If offer code is selected, check offer availableFrom/availableTo
+        if(scope.settings.checkOfferAvailabilityOnChange){
+          var offerCode = scope.selected.promoCode || scope.selected.corpCode || scope.selected.groupCode;
 
-            $window._.each(data, function(obj) {
-              if (!obj.isInventory) {
-                scope.availability[obj.date] = CLASS_NOT_AVAILABLE;
+          if(offerCode){
+            contentService.getOffers().then(function(offers) {
+              var index = _.findIndex(offers, {code: offerCode});
+              if(index !== -1){
+                scope.selectedOffer = offers[index];
+                scope.availability = {};
               }
             });
-          }, function() {
-            scope.availability = null;
-          });
-        });
+          }
+        }
+
       };
 
       function getAvailabilityCheckDate(date, modificationRule){
@@ -685,6 +710,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if (promoInput.length) {
             var prefilledClass = 'prefilled';
             promoInput.addClass(prefilledClass);
+            scope.checkAvailability();
 
             // Removing class when animation complete
             $timeout(function () {
@@ -695,6 +721,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         function removePromoCode() {
           scope.selected.promoCode = '';
+          scope.selected.corpCode = '';
+          scope.selected.groupCode = '';
+          scope.selectedOffer = null;
+          scope.availability = {};
           queryService.removeParam(PARAM_TYPES.promoCode.search);
         }
 

@@ -18,11 +18,9 @@ describe('dataLayerService', function() {
       });
 
       $provide.value('Settings', {
-        API: {
-          'ecommerceDataLayer': {
-            'active': true,
-            'trackUserId': true
-          }
+        'googleTagManager': {
+          'enable': true,
+          'trackUserId': true
         }
       });
     });

@@ -9,11 +9,11 @@ angular.module('mobiusApp.services.dataLayer', [])
   }
 
   function isDataLayerActive(){
-    return Settings.API.ecommerceDataLayer.active && $window.dataLayer;
+    return Settings.googleTagManager.enable && $window.dataLayer;
   }
 
   function setUserId(userId){
-    if(!isDataLayerActive() || !Settings.API.ecommerceDataLayer.trackUserId){
+    if(!isDataLayerActive() || !Settings.googleTagManager.trackUserId){
       return;
     }
 
@@ -97,6 +97,16 @@ angular.module('mobiusApp.services.dataLayer', [])
         delete products[p].tax;        
       }
     }
+
+    console.log(angular.toJson({
+      'event': 'purchaseConfirmation',
+      'ecommerce': {
+        'purchase': { 
+          'actionField': actionField,
+          'products': products
+        }
+      }
+    }));
 
 
     getDataLayer().push({

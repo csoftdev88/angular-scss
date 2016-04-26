@@ -117,14 +117,10 @@ floating-bar {
       &:first-of-type:before{
         position: absolute;
         right: @baseline * 1.5;
-
         height: @baseline * 1.5;
         width: 1000px;
-
         background: lighten(@c-booking-widget, 10%);
-
         content: '';
-
         .viewport-mobile &{
           display: none;
         }

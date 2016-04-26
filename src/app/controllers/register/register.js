@@ -9,6 +9,7 @@ angular.module('mobius.controllers.register', [])
     breadcrumbsService.addBreadCrumb('Register');
 
     $scope.config = Settings.UI.registerPage;
+    $scope.submitted = false;
 
     //get meta information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -35,7 +36,7 @@ angular.module('mobius.controllers.register', [])
 
 		$scope.register = function(form, registerData){
       clearErrorMsg();
-			form.$submitted = true;
+			$scope.submitted = true;
 		  if (form.$valid) {
 		    apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
 		      userObject.id = response.id;
@@ -63,6 +64,7 @@ angular.module('mobius.controllers.register', [])
 	    $scope.userRegisteredError = false;
       $scope.genericError = false;
       $scope.missingFieldsError = false;
+      $scope.submitted = false;
 	  }
 	  
       

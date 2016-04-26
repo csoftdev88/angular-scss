@@ -187,16 +187,20 @@ angular.module('mobius.controllers.common.content', [])
 
       data = _.reject(data, function(item){
 
-        if(item.showAtChainLevel){
-          return item.showOnMenu === false;
+        //If on a property, remove items that have showOnMenu = false in offerAvailability
+        if($state.params.property){
+          var availability = _.find(item.offerAvailability, function(availability){
+            return availability.property === $state.params.property;
+          });
+
+          if(availability){
+            return availability.showOnMenu === false;
+          }
         }
-
-        var availability = _.find(item.offerAvailability, function(availability){
-          return availability.property === $state.params.property;
-        });
-
-        if(availability){
-          return availability.showOnMenu === false;
+        
+        //If at chain level, remove items that have showOnMenu = false in main settings
+        if(item.showAtChainLevel && !$state.params.property){
+          return item.showOnMenu === false;
         }
         
       });

@@ -84,7 +84,7 @@
                 required ng-model="cardExpiration.selectedMonth"
                 disable-search="true" ng-change="onExpirationMonthChange()"
                 chosen ng-options="month.name for month in cardExpiration.months"
-                data-placeholder="_card_expiry_month_label_">
+                data-placeholder-text-single="'_card_expiry_month_label_'">
                 <option></option>
               </select>
             </label>
@@ -95,7 +95,7 @@
                 required ng-model="cardExpiration.selectedYear"
                 disable-search="true" ng-change="onExpirationYearChange()"
                 chosen ng-options="year for year in cardExpiration.years"
-                data-placeholder="_card_expiry_year_label_">
+                data-placeholder-text-single="'_card_expiry_year_label_'">
                 <option></option>
               </select>
             </label>
@@ -147,7 +147,7 @@
           <label for="country">
             <select type="text" id="country" required
               placeholder="_country_placeholder_"
-              data-placeholder="_country_placeholder_"
+              data-placeholder-text-single="'_country_placeholder_'"
               ng-model="billingDetails.country"
               chosen ng-options="country.title as country.title for country in iso.countries"
               chosen>

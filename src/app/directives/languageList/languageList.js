@@ -23,8 +23,17 @@ angular.module('mobiusApp.directives.language', [])
 
         var defaultLanguage = Settings.UI.languages.default;
         scope.config = Settings.UI.languages;
+        var localeLanguages = {};
 
         contentService.getLanguages().then(function(data) {
+
+          localeLanguages = angular.copy(data);
+          scope.getFullName = function(languageCode) {
+            var lang = _.find(localeLanguages, function(item){ 
+              return item.code === languageCode; 
+            });
+            return lang.name;
+          };
           
           var languages = {};
           _.each(data, function(languageData) {
@@ -57,11 +66,8 @@ angular.module('mobiusApp.directives.language', [])
           return Settings.UI.languages[languageCode].shortName;
         };
 
-        scope.getFullName = function(languageCode) {
-          return Settings.UI.languages[languageCode].name;
-        };
-
         scope.currentLanguage = stateService.getAppLanguageCode();
+        scope.isMobile = stateService.isMobile();
 
         var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
         scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){

@@ -273,6 +273,7 @@ angular.module('mobius.controllers.reservation', [])
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: userData.state,
+          localeCode: userData.localeCode,
           country: userCountry || null,
           zip: userData.zip || '',
           phone: userData.tel1 || userData.tel2 || ''
@@ -338,7 +339,7 @@ angular.module('mobius.controllers.reservation', [])
     switch (stateName) {
     case 'reservation.details':
       setBreadCrumbs(GUEST_DETAILS);
-      $scope.continueName = 'Continue';
+      $scope.continueName = 'continue';
       if($scope.invalidFormData.error){
         //scrollToDetails('alert-warning');
       }
@@ -349,14 +350,14 @@ angular.module('mobius.controllers.reservation', [])
       break;
     case 'reservation.billing':
       setBreadCrumbs(BILLING_DETAILS);
-      $scope.continueName = 'Continue';
+      $scope.continueName = 'continue';
       //scrollToDetails('reservationBillingForm');
       scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationBillingForm');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.confirmation':
       setBreadCrumbs(CONFIRMATION);
-      $scope.continueName = 'Confirm';
+      $scope.continueName = 'confirm';
       //scrollToDetails('reservationConfirmation');
       scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationConfirmation');
       $rootScope.showHomeBreadCrumb = false;
@@ -491,7 +492,7 @@ angular.module('mobius.controllers.reservation', [])
         trackProductCheckout(2);
       }
       else{
-        //scrollToDetails('form-errors');
+        scrollToDetails('reservationDetailsForm');
       }
 
       break;
@@ -509,7 +510,7 @@ angular.module('mobius.controllers.reservation', [])
         trackProductCheckout(3);
       }
       else{
-        //scrollToDetails('form-errors');
+        scrollToDetails('reservationBillingForm');
       }
       break;
     case 'reservation.confirmation':
@@ -737,9 +738,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function addReservationConfirmationMessage(reservationNumber){
-    userMessagesService.addMessage('' +
-        '<div>Thank you for your reservation at ' + $scope.property.nameLong +'!</div>' +
-        '<div class="small">Your web booking code is <strong>' + reservationNumber + '</strong>. You will receive an email shortly that contains your reservation reference number.</div>');
+    userMessagesService.addReservationConfirmationMessage($scope.property.nameLong, reservationNumber);
   }
 
   $scope.makeReservation = function(){
@@ -807,8 +806,8 @@ angular.module('mobius.controllers.reservation', [])
             var product = {
               name: p.name,
               code: p.code,
-              tax: p.price.totalAfterTax - p.price.totalBase,
-              price: p.price.totalBase,
+              tax: ((p.price.totalAfterTax - p.price.totalBase)/numNights).toFixed(2),
+              price: ($scope.getTotal('totalBase')/numNights).toFixed(2),
               id: room._selectedProduct.code,
               quantity: numNights,
               dimension2: chainData.nameShort,
@@ -824,9 +823,9 @@ angular.module('mobius.controllers.reservation', [])
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
             'affiliation': 'Hotel',
-            'revenue': (products[0].price/numNights).toFixed(2),
+            'revenue': $scope.getTotal('totalAfterTax'),
             'quantity': numNights,
-            'tax': products[0].tax,
+            'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBase')).toFixed(2),
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
           });
           //mobius tracking
@@ -888,7 +887,9 @@ angular.module('mobius.controllers.reservation', [])
       if(data.error && data.error.msg === 'User already registered'){
         $scope.invalidFormData.email = true;
         $state.go('reservation.details');
-        modalService.openEmailRegisteredLoginDialog();
+        if(Settings.authType === 'infiniti'){
+          modalService.openEmailRegisteredLoginDialog();
+        }
       }
       else if(data.error && (data.error.reason === 53 || data.error.reason === 54)){
         if(data.error.msg === 'Cardholder Name is invalid'){

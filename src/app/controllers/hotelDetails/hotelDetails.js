@@ -47,13 +47,13 @@ angular.module('mobius.controllers.hotel.details', [
       {
         name: options.priceLowToHigh,
         sort: function(room){
-          return room.priceFrom;
+          return room.priceFrom ? room.priceFrom : room.name;
         }
       },
       {
         name: options.priceHighToLow,
         sort: function(room){
-          return 0 - room.priceFrom;
+          return room.priceFrom ? 0 - room.priceFrom : room.name;
         }
       }
     ];
@@ -62,7 +62,7 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.sortingOptions.splice(0, 0, {
         name: options.recommended,
         sort: function(room){
-          return [-room.priceFrom, -room.weighting];
+          return room.weighting ? [-room.priceFrom, -room.weighting] : room.name;
         }
       });
     }
@@ -85,6 +85,7 @@ angular.module('mobius.controllers.hotel.details', [
       }, 0);
     }
 
+
     //save order switch value to cookies when changed
     $scope.orderSwitchChange = function(selected){
       userPreferenceService.setCookie('hotelCurrentOrder', selected.name);
@@ -92,7 +93,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   };
 
-  
+
   var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
 
   if(!propertyCode){

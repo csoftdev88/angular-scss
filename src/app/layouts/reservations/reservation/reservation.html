@@ -196,12 +196,15 @@
 
     <label for="agreement3" class="input-checkbox" ng-if="state.includes('reservation.details') || state.includes('reservation.billing')">
       <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
-      <i ng-bind-html="'_email_optin_label_' | stringLocaleReplace:chainName"></i>
+      <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
     </label>
 
     <div class="reservation-controls" grid-row>
       <button class="back" ng-click="goBack()">_back_</button>
-      <button class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">{{continueName}}</button>
+      <button class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">
+        <span ng-if="continueName === 'continue'">_continue_</span>
+        <span ng-if="continueName === 'confirm'">_confirm_</span>
+      </button>
       <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCta.display">
         <h4 ng-bind-html="'_reservation_page_loginprompt_title_' | mainHeaderStyle"></h4>
         <p>_click_here_to_ <a href ng-click="sso.login()">_login_register_</a>.</p>

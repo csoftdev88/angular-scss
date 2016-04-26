@@ -148,7 +148,7 @@ angular
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
-    'mobiusApp.directives.evolutionAnalyticsScript',
+    'mobiusApp.directives.evolutionInfinitiScript',
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
     'mobiusApp.directives.scrollPosition',
@@ -187,7 +187,7 @@ angular
         controller: 'MainCtrl',
         // NOTE: These params are used by booking widget
         // Can be placed into induvidual state later if needed
-        url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&reservation&fromSearch&email&scrollTo&viewAllRates'
+        url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode'
       })
 
       // Home page
@@ -369,7 +369,7 @@ angular
       .state('resetPassword', {
         parent: 'root',
         templateUrl: 'layouts/resetPassword/resetPassword.html',
-        url: '/reset-password',
+        url: '/changePassword',
         controller: 'ResetPasswordCtrl'
       })
 
@@ -419,8 +419,9 @@ angular
     }
 
     var userLang = user.getUserLanguage();
+    var appLang = stateService.getAppLanguageCode();
 
-    if(userLang && userLang !== stateService.getAppLanguageCode() && Settings.UI.languages[userLang]){
+    if(userLang && userLang !== appLang && Settings.UI.languages[userLang]){
       var language_code = userLang;
       var path = $location.path();
       var search = encodeQueryData($location.search());
@@ -429,8 +430,11 @@ angular
     }
 
     var langObj = {};
-    langObj['mobius-languagecode'] = stateService.getAppLanguageCode();
+    langObj['mobius-languagecode'] = appLang;
     apiService.setHeaders(langObj);
+
+    //localize moment.js
+    $window.moment.locale(appLang);
 
     $rootScope.$on('$stateChangeSuccess', function() {
       breadcrumbsService.clear();

@@ -17,6 +17,8 @@ angular.module('mobius.controllers.profile', [])
     //Add breadcrumb
     breadcrumbsService.addBreadCrumb('Profile');
 
+    $scope.submitted = false;
+
     //Config
     $scope.config = Settings.UI.profilePage;
     if($scope.config.displaySummary){
@@ -67,11 +69,11 @@ angular.module('mobius.controllers.profile', [])
     }, 2000);
 
 		$scope.update = function(form, profileData){
-			form.$submitted = true;
+      $scope.submitted = true;
       clearErrorMsg();
 		  if(form.$valid){
 				var data = _.omit(profileData, _.isNull);
-				data = _.omit(data, ['id','token','email']);
+				data = _.omit(data, ['id','token','email', 'languageCode']);
 				
 		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
 		      userObject = _.extend(userObject, data);
@@ -119,6 +121,7 @@ angular.module('mobius.controllers.profile', [])
 	    $scope.success = false;
       $scope.genericError = false;
       $scope.missingFieldsError = false;
+      $scope.submitted = false;
 	  }
 
     $scope.scrollToForm = function(){

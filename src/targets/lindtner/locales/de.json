@@ -53,6 +53,7 @@
     "user_profile_message": "Willkommen zurück",
 
     "register_now": "Registriere dich jetzt",
+    "select_language": "Sprache wechseln",
     "BREADCRUMBS": "//////////////////////////////////////////////////////",
     "hotel_search": "Hotelsuche",
     "my_stays": "Meine Aufenthalte",
@@ -64,6 +65,9 @@
     "your_booking_progress": "Ihr <span>Buchungsfortschritt</span>",
     "choose_your_room": "Wählen Sie Ihr Zimmer",
     "guest_details": "Gast Informationen",
+    "billing_details": "Zahlungsangaben",
+    "points_balance": "Treuepunkteguthaben",
+    "additional_details": "Zusätzliche Angaben",
     "billing_information": "Rechnungsinformationen",
     "confirm_your_reservation": "Bestätigen Sie Ihre Reservation",
 
@@ -144,6 +148,8 @@
     "no_room_available": "Kein Zimmer verfügbar, bitte ändern Sie Ihre Buchungskriterien",
     "generic_error_message": "Sorry, es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut",
     "profile_updated_success_message": "Vielen Dank, Ihr Profil wurde aktualisiert",
+    "email_not_registered_error": "Die E-Mail von Ihnen eingegebene ist nicht registriert",
+    "incorrect_email_password_error": "Die E-Mail und / oder das Passwort falsch eingegeben ist",
 
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "no_dates_selected_short": "Keine Daten ausgewählt",
@@ -431,6 +437,7 @@
     "hide_price_breakdown": "Preis-Auflistung verstecken",
 
     "policies": "Policies",
+    "view_price_breakdown_policies": "Preis-Auflistung und Policies anschauen",
 
     "show_more": "Mehr anzeigen",
 
@@ -632,6 +639,7 @@
     "departure_time_placeholder": "Abreisezeit",
 
     "letters_pattern_error": "Bitte nur Buchstaben in dieses Feld eingeben",
+    "password_pattern_error": "Das Passwort muss mindestens 8 Zeichen enthalten",
 
     "phone_pattern_error": "Bitte geben Sie ein gültige Telefonnummer ein",
 
@@ -773,6 +781,8 @@
     "hotels_page_title": "Unsere Hotels",
 
     "hotels_page_login_prompt_desc": "Spare bis zu 20% indem du <a href ng-click='sso.login()''>signing</a> in or <a ng-click='sso.register()''>registering</a>!",
+    "reservation_confirmation_message_title": "Vielen Dank für Ihre Reservierung bei {hotelName}!",
+    "reservation_confirmation_message_desc": "Ihre Reservierungsnummer lautet {reservationNumber}. Sie werden in Kürze eine E-Mail mit Ihren Buchungsinformationen erhalten.",
     "FOOTER": "////////////////////////////////////////////////////////////",
     "footer_links_links": "Links",
     "footer_links_jobs": "Jobs",

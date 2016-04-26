@@ -42,7 +42,7 @@ module.exports = function(app) {
         //search for redirect URL in the redirects array
         redirectItem=redirects.filter(function(item) {
           //console.log(item.from == req.path +" or "+ item.from == req.path+"/")
-          return item.from == req.path || item.from == req.path+"/" || item.from+"/" == req.path;
+          return item.from == req.path.toLowerCase() || item.from == req.path.toLowerCase()+"/" || item.from+"/" == req.path.toLowerCase();
         });
 
         if (redirectItem[0] && redirectItem[0].to){

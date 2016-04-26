@@ -106,6 +106,8 @@ module.exports = {
         'bower_components/angular-validation-match/dist/angular-input-match.js',
         'bower_components/ngmap/build/scripts/ng-map.min.js',
         'bower_components/moment/min/moment.min.js',
+        'bower_components/moment/locale/de.js',
+        'bower_components/moment/locale/fr.js',
         'bower_components/angular-sanitize/angular-sanitize.min.js',
         'bower_components/angular-rangeslider/angular.rangeSlider.js',
         'bower_components/intl-tel-input/build/js/intlTelInput.min.js',
@@ -115,7 +117,8 @@ module.exports = {
         'bower_components/angular-markdown-directive/markdown.js',
         'bower_components/angular-tooltips/dist/angular-tooltips.min.js',
         'bower_components/angularUtils-pagination/dirPagination.js',
-        'vendors/jquery-ui/datepicker-translations/de.js'
+        'vendors/jquery-ui/datepicker-translations/de.js',
+        'vendors/jquery-ui/datepicker-translations/fr.js'
       ],
       styles: [
         'bower_components/font-awesome/css/font-awesome.min.css'
