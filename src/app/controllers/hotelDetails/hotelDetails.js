@@ -81,7 +81,7 @@ angular.module('mobius.controllers.hotel.details', [
     }
     else{
       $timeout(function(){
-        $scope.currentOrder = $scope.sortingOptions[0];
+        $scope.currentOrder = $scope.sortingOptions[1];
       }, 0);
     }
 
