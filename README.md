@@ -100,7 +100,7 @@ In case the application needs to run on a different port append `port=xxxx` eg `
 
 Running production with PM2.
 export NODE_ENV=production
-pm2 start server.js --name "mobius-web" -- --tenant=suttonLive
+pm2 start server.js --name "WEB" -- --tenant=suttonLive
 
 ### The Build System
 
