@@ -3,7 +3,7 @@
  * This service handles session data to be sent in API headers
  */
 angular.module('mobiusApp.services.sessionDataService', [])
-  .service( 'sessionDataService',  function($window, cookieFactory, Settings, userObject) {
+  .service( 'sessionDataService',  function($window, cookieFactory, Settings, userObject, stateService) {
 
     var cookieExpiryDate = null;
     var expiryMins = Settings.API.sessionData.expiry || 15;
@@ -32,7 +32,7 @@ angular.module('mobiusApp.services.sessionDataService', [])
       //set defaults
       if(!cookieFactory(cookieName)){
         cookie[Settings.API.sessionData.httpHeaderFieldName] = Settings.API.sessionData.data;
-        cookie[Settings.API.sessionData.httpHeaderFieldName].channel = Settings.API.headers['Mobius-channelId'];
+        cookie[Settings.API.sessionData.httpHeaderFieldName].channel = stateService.isMobile() ? Settings.API.headers['Mobius-channelId'].mobile : Settings.API.headers['Mobius-channelId'].web;
         cookie[Settings.API.sessionData.httpHeaderFieldName].sessionId = generateUUID();
         setCookie();
       }

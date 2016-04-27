@@ -136,7 +136,10 @@ angular.module('mobiusApp.config', [])
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
-      'Mobius-channelId': '6'
+      'Mobius-channelId': {
+        'web': '6',
+        'mobile': '23'
+      }
     },
     'sessionData': {
       'includeInApiCalls': false,

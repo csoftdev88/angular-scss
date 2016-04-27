@@ -2,9 +2,13 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService) {
+.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, stateService) {
 
-  var headers = Settings.API.headers;
+  var headers = {
+    'Mobius-chainId': Settings.API.headers['Mobius-chainId'],
+    'Mobius-channelId': stateService.isMobile() ? Settings.API.headers['Mobius-channelId'].mobile : Settings.API.headers['Mobius-channelId'].web
+  };
+
   var apiCache = $cacheFactory('apiCache');
 
   function get(url, params, cacheParam) {
