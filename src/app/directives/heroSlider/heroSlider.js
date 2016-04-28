@@ -92,7 +92,7 @@ angular.module('mobiusApp.directives.slider', [])
 
       // Redirecting to corresponding page
       scope.onContentClick = function(){
-        if(isAnimating){
+        if(isAnimating || !scope.content){
           return;
         }
 
