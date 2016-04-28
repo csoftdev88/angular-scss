@@ -31,7 +31,7 @@ angular.module('mobius.controllers.common.sso', [])
       return isInfinitiLogin();
     },
     login: function(){
-      if(isInfinitiLogin()){
+      if(isInfinitiLogin() && isSSOReady()){
         $window.infiniti.api.login();
       }
       else{
@@ -63,7 +63,7 @@ angular.module('mobius.controllers.common.sso', [])
       }
     },
     register: function(){
-      if(isInfinitiLogin()){
+      if(isInfinitiLogin() && isSSOReady()){
         $window.infiniti.api.register();
       }
     },
@@ -87,13 +87,13 @@ angular.module('mobius.controllers.common.sso', [])
       }
     },
     profile: function(){
-      if(isInfinitiLogin()){
+      if(isInfinitiLogin() && isSSOReady()){
         $window.infiniti.api.profile();
       }
       
     },
     logout: function(){
-      if(isInfinitiLogin()){
+      if(isInfinitiLogin() && isSSOReady()){
         $window.infiniti.api.logout();
       }
       else{
