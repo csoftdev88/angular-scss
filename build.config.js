@@ -91,6 +91,9 @@ module.exports = {
     vendor_files: {
       js: [
         'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/jquery-ui/jquery-ui.min.js',
+        'bower_components/jquery-datepicker/index.js',
+        'bower_components/chosen/chosen.jquery.min.js',
         'bower_components/angular/angular.js',
         'bower_components/angular-resource/angular-resource.js',
         'bower_components/angular-touch/angular-touch.min.js',
@@ -98,9 +101,6 @@ module.exports = {
         'bower_components/angular-chosen-localytics/dist/angular-chosen.min.js',
         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-        'bower_components/jquery-ui/jquery-ui.min.js',
-        'bower_components/jquery-datepicker/index.js',
-        'bower_components/chosen/chosen.jquery.min.js',
         'bower_components/underscore/underscore.js',
         'bower_components/angular-underscore-module/angular-underscore-module.js',
         'bower_components/angular-validation-match/dist/angular-input-match.js',
