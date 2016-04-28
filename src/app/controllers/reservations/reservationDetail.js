@@ -197,7 +197,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       var reservation = $scope.reservation;
       // Checking if reservation can be modifyed
       // NOTE: API not providing the flag yet
-      if(reservation.canModify === false){
+      if(reservation.canModify && reservation.canModify === false){
         modalService.openReservationModifyingDisabledDialogue();
         return;
       }
