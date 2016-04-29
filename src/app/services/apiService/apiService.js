@@ -24,7 +24,8 @@ angular.module('mobiusApp.services.api', [])
         method: 'GET',
         url: url,
         headers: headers,
-        params: params
+        params: params,
+        withCredentials: true
       }).success(function(res, status, resHeaders) {
         if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
@@ -44,7 +45,8 @@ angular.module('mobiusApp.services.api', [])
         method: 'GET',
         url: url,
         headers: headers,
-        params: params
+        params: params,
+        withCredentials: true
       }).success(function(res, status, resHeaders) {
         if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
