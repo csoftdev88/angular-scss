@@ -76,7 +76,7 @@ learn more:
 ### How do I run it locally?
 
 1. Install node.js
-2. `npm install -g grunt-cli bower karma phantomjs`
+2. `npm install -g grunt-cli bower karma phantomjs@1.9.8`
 3. `git clone https://github.com/2PVentures/mobius-web.git`
 4. `cd mobius-web`:
   * `npm install`
