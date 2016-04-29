@@ -200,7 +200,6 @@ angular.module('mobiusApp.services.booking', [])
     }
     else{
       params.discountCode = cookieFactory('discountCode');
-      console.log('updateDiscountCode: ' + angular.toJson(params));
       return params;
     }
   }
