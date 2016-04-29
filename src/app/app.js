@@ -178,6 +178,7 @@ angular
     // Using this settings allows to run current
     // SPA without # in the URL
     $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
 
     $stateProvider
       // Default application layout
