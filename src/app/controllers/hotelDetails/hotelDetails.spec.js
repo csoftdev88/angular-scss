@@ -53,6 +53,14 @@ describe('mobius.controllers.hotel.details', function() {
                 'propertySlug': 'hotel-123',
                 'promoCode': 'TESTCODE'
               };
+            },
+            updateDiscountCode: function(){
+              return {
+                'test': 'testValue',
+                'propertySlug': 'hotel-123',
+                'promoCode': 'TESTCODE',
+                'discountCode': 'TESTCODE'
+              };
             }
           });
 
@@ -198,7 +206,7 @@ describe('mobius.controllers.hotel.details', function() {
         expect(_spyPropertyServiceGetPropertyDetails.calledWith('123')).equal(true);
         expect(_spyPropertyServiceGetPropertyDetails
             .calledWith('123', {'test': 'testValue', productGroupId: 321, includes: 'amenities', propertySlug: 'hotel-123',
-                promoCode: 'TESTCODE'})
+                promoCode: 'TESTCODE', discountCode: 'TESTCODE'})
         ).equal(true);
         expect(_spyPropertyServiceGetRooms).to.be.calledOnce;
         expect(_spyPropertyServiceGetRooms

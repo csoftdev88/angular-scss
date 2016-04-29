@@ -10,6 +10,7 @@ describe('bookingService', function() {
       // Mocking $stateParams service
       $provide.value('$stateParams', _stateParams);
       $provide.value('$state', {});
+      $provide.value('cookieFactory', {});
       $provide.value('Settings', {
         API: {
           promoCodes: {

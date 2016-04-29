@@ -6,7 +6,7 @@
 angular.module('mobiusApp.services.booking', [])
 
 .service( 'bookingService',  function($stateParams, $window, $rootScope,
-  validationService, Settings, _, $state) {
+  validationService, Settings, _, $state, cookieFactory) {
 
   var QUERY_TO_API_PARAMS = {
     'property': 'propertyCode',
@@ -191,6 +191,20 @@ angular.module('mobiusApp.services.booking', [])
     bookingOffer = null;
   }
 
+  function updateDiscountCode(params){
+    if(!cookieFactory('discountCode')){
+      if(params.discountCode){
+        delete params.discountCode;
+      }
+      return params;
+    }
+    else{
+      params.discountCode = cookieFactory('discountCode');
+      console.log('updateDiscountCode: ' + angular.toJson(params));
+      return params;
+    }
+  }
+
   function updateOfferCode(params){
     if(!bookingOffer){
       return params;
@@ -229,7 +243,8 @@ angular.module('mobiusApp.services.booking', [])
     setBookingOffer: setBookingOffer,
     getBookingOffer: getBookingOffer,
     clearBookingOffer: clearBookingOffer,
-    updateOfferCode: updateOfferCode
+    updateOfferCode: updateOfferCode,
+    updateDiscountCode: updateDiscountCode
   };
   
 });
