@@ -1,14 +1,16 @@
 var glob = require('glob');
 var tenant = null;
+var fs = require('fs');
+var http = require('http');
 
-process.argv.forEach(function (val) {
-  if(val.indexOf('tenant') !== -1){
+process.argv.forEach(function(val) {
+  if (val.indexOf('tenant') !== -1) {
     tenant = val.split('=')[1];
     console.log('Tenant is set to :' + tenant);
   }
 });
 
-if(!tenant){
+if (!tenant) {
   throw new Error("node commandline-param 'tenant' is required");
 }
 
@@ -30,53 +32,136 @@ module.exports = function(app) {
       }
     });
 
-  //load redirect array from src/targets/<tenant>/redirects.json
-  try{
-    var routesPath = './src/targets/' + tenant + '/redirects.json';
-    var fs = require('fs');
-    var content = fs.readFileSync(routesPath);
-    var redirects=JSON.parse(content);
-    for (var p in redirects){
-      console.log("build redirect for "+redirects[p].from);
-      app.get(redirects[p].from,function(req, res) {
-        //search for redirect URL in the redirects array
-        redirectItem=redirects.filter(function(item) {
-          //console.log(item.from == req.path +" or "+ item.from == req.path+"/")
-          return item.from == req.path.toLowerCase() || item.from == req.path.toLowerCase()+"/" || item.from+"/" == req.path.toLowerCase();
+    //Catch crawlers and server prerendered content instead of normal route
+    app.use(function crawlerMiddleware(req, res, next) {
+      //Get settings
+      var settingsPath = './src/targets/' + tenant + '/crawlers.json';
+      var settings = fs.readFileSync(settingsPath);
+      settings = JSON.parse(settings);
+
+      if(settings && settings.redirectCrawlers){
+        //TODO: Remove Firefox as for testing
+        var crawlers = ['Googlebot', 'Yahoo! Slurp', 'Bingbot', 'Baiduspider', 'Firefox'];
+        var userAgent = req.headers['user-agent'].toLowerCase();
+        var isCrawler = false;
+
+        console.log('userAgent: ' + userAgent);
+
+        //Check if bot
+        crawlers.forEach(function (crawler) {
+          crawler = crawler.toLowerCase();
+          if(userAgent.indexOf(crawler) !== -1){
+            isCrawler = true;
+            console.log('Hello mister ' + crawler + ', hang on a second!');
+            //Build url
+            var url = req.get('host') + req.url;
+            //fake
+            url = 'www.suttonplace.com/hotels/';
+
+            console.log('fake url: ' + url);
+            
+            //Replace non alphanumeric characters with hyphens
+            url = url.replace(/[\W_]+/g,'-');
+            //Remove trailing hyphen if any
+            var trailingHyphen = url.lastIndexOf('-');
+            if(trailingHyphen !== -1){
+              url = url.substring(0, trailingHyphen);
+            }
+            console.log('settings.redirectBaseUrl: ' + settings.redirectBaseUrl);
+            console.log('processed url: ' + settings.redirectBaseUrl + settings.redirectFolderName + url);
+
+            //Request options
+            var options = {
+              hostname: settings.redirectBaseUrl,
+              path: settings.redirectFolderName + url,
+              method: 'GET'
+            };
+
+            //Request to prerendered endpoint
+            var httpReq = http.get(options, function(httpRes) {
+
+              var chunks = [];
+              httpRes.on('data', function(chunk) {
+                chunks.push(chunk);
+              });
+              httpRes.on('end', function() {
+                var body = Buffer.concat(chunks).toString('utf8');
+                res.send(body);
+                console.log('request to prerendered endpoint successful, sending prerendered content');
+              })
+            });
+
+            httpReq.on('error', function(e) {
+              console.log('problem with prerendered endpoint request: ' + e.message);
+              console.log('continuing to normal route');
+              return next();
+            });
+
+            httpReq.end();
+
+          }
         });
 
-        if (redirectItem[0] && redirectItem[0].to){
-         return res.redirect(301,redirectItem[0].to);
-        } else {
-          //didn't find it. test for just slashes...
-          redirectItem=redirects.filter(function(item) {
-            var searchFor=req.path.substring(0,req.path.lastIndexOf("/"));
-            if (item.id){
-              //console.log("checkForSubstring")
-              if (searchFor.toLowerCase().indexOf(item.from) > -1){
-               //console.log("yay!");
-               return true;
-              }
-            }
-          
-
-            var result;   
-              var searchFor=req.path.substring(0,req.path.lastIndexOf("/"));
-              result = searchFor;
-            return item.id == result || item.from == req.path+"/";
-          });  
-          if (redirectItem[0] && redirectItem[0].to){
-            return res.redirect(301,redirectItem[0].to);            
-          } else {
-            return;
-          }
-
+        if(!isCrawler){
+          //Not a crawler
+          console.log('No crawler here, continuing to normal route');
+          return next();
         }
-      });        
-    }    
-  } catch(e){
-    //file doesn't exist. We dont care
-  }
+        
+      }
+      else{
+        return next();
+      }
+      
+    });
+
+    
+    //load redirect array from src/targets/<tenant>/redirects.json
+    try {
+      var routesPath = './src/targets/' + tenant + '/redirects.json';
+      var content = fs.readFileSync(routesPath);
+      var redirects = JSON.parse(content);
+      for (var p in redirects) {
+        console.log("build redirect for " + redirects[p].from);
+        app.get(redirects[p].from, function(req, res) {
+          //search for redirect URL in the redirects array
+          redirectItem = redirects.filter(function(item) {
+            //console.log(item.from == req.path +" or "+ item.from == req.path+"/")
+            return item.from == req.path.toLowerCase() || item.from == req.path.toLowerCase() + "/" || item.from + "/" == req.path.toLowerCase();
+          });
+
+          if (redirectItem[0] && redirectItem[0].to) {
+            return res.redirect(301, redirectItem[0].to);
+          } else {
+            //didn't find it. test for just slashes...
+            redirectItem = redirects.filter(function(item) {
+              var searchFor = req.path.substring(0, req.path.lastIndexOf("/"));
+              if (item.id) {
+                //console.log("checkForSubstring")
+                if (searchFor.toLowerCase().indexOf(item.from) > -1) {
+                  //console.log("yay!");
+                  return true;
+                }
+              }
+
+
+              var result;
+              var searchFor = req.path.substring(0, req.path.lastIndexOf("/"));
+              result = searchFor;
+              return item.id == result || item.from == req.path + "/";
+            });
+            if (redirectItem[0] && redirectItem[0].to) {
+              return res.redirect(301, redirectItem[0].to);
+            } else {
+              return;
+            }
+
+          }
+        });
+      }
+    } catch (e) {
+      //file doesn't exist. We dont care
+    }
 
 
     app.route('/:url(static)/*').get(function(req, res) {
@@ -85,9 +170,9 @@ module.exports = function(app) {
     });
 
     //robots block crawling
-    app.get('/robots.txt', function (req, res) {
-        res.type('text/plain');
-        res.send('User-agent: *\nDisallow: /reservations\nDisallow: /reservation/');
+    app.get('/robots.txt', function(req, res) {
+      res.type('text/plain');
+      res.send('User-agent: *\nDisallow: /reservations\nDisallow: /reservation/');
     });
 
     app.get('/404', function(req, res, next) {
