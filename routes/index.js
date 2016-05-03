@@ -40,7 +40,7 @@ module.exports = function(app) {
       settings = JSON.parse(settings);
 
       if(settings && settings.redirectCrawlers){
-        var crawlers = ['Googlebot', 'Yahoo! Slurp', 'Bingbot', 'Baiduspider', 'firefox'];
+        var crawlers = ['Googlebot', 'Yahoo! Slurp', 'Bingbot', 'Baiduspider'];
         var userAgent = req.headers['user-agent'].toLowerCase();
         var isCrawler = false;
 
