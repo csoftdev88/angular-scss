@@ -56,9 +56,9 @@ module.exports = function(app) {
             //Build url
             var url = req.get('host') + req.url;
             //fake
-            url = 'www.suttonplace.com/hotels/';
+            //url = 'www.suttonplace.com/hotels/';
 
-            console.log('fake url: ' + url);
+            console.log('url: ' + url);
             
             //Replace non alphanumeric characters with hyphens
             url = url.replace(/[\W_]+/g,'-');
