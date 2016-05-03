@@ -40,7 +40,7 @@ module.exports = function(app) {
       settings = JSON.parse(settings);
 
       if(settings && settings.redirectCrawlers){
-        var crawlers = ['Googlebot', 'Yahoo! Slurp', 'Bingbot', 'Baiduspider'];
+        var crawlers = ['Googlebot', 'Yahoo! Slurp', 'Bingbot', 'Baiduspider', 'firefox'];
         var userAgent = req.headers['user-agent'].toLowerCase();
         var isCrawler = false;
 
@@ -55,7 +55,9 @@ module.exports = function(app) {
             //Build url
             var url = req.get('host') + req.url;
             //fake
-            //url = 'www.suttonplace.com/hotels/';
+            //url = 'www.suttonplace.com/hotels/sutton-place-hotel-edmonton-edm?property=EDM&currency=CAD';
+            //remove params
+            url = url.split('?')[0];
 
             console.log('url: ' + url);
             
@@ -78,6 +80,12 @@ module.exports = function(app) {
 
             //Request to prerendered endpoint
             var httpReq = http.get(options, function(httpRes) {
+
+              if(httpRes.statusCode !== 200){
+                console.log('request to prerendered endpoint error: ' + httpRes.statusCode);
+                console.log('continuing to normal route');
+                return next();
+              }
 
               var chunks = [];
               httpRes.on('data', function(chunk) {
