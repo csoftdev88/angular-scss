@@ -40,8 +40,7 @@ module.exports = function(app) {
       settings = JSON.parse(settings);
 
       if(settings && settings.redirectCrawlers){
-        //TODO: Remove Firefox as for testing
-        var crawlers = ['Googlebot', 'Yahoo! Slurp', 'Bingbot', 'Baiduspider', 'Firefox'];
+        var crawlers = ['Googlebot', 'Yahoo! Slurp', 'Bingbot', 'Baiduspider'];
         var userAgent = req.headers['user-agent'].toLowerCase();
         var isCrawler = false;
 
