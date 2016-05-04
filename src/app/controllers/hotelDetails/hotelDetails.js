@@ -156,21 +156,33 @@ angular.module('mobius.controllers.hotel.details', [
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
         $scope.details = details;
-        metaInformationService.setMetaDescription($scope.details.meta.description);
-        metaInformationService.setMetaKeywords($scope.details.meta.keywords);
-        metaInformationService.setPageTitle($scope.details.meta.pagetitle);
 
-        $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-        metaInformationService.setOgGraph($scope.details.meta.microdata.og);
+        //Gp to error page if response is empty
+        if(_.isEmpty($scope.details)){
+          $state.go('error');
+        }
 
-        $scope.details.description = ('' + $scope.details.description);
-        var firstParaEnd = $scope.details.description.indexOf('</p>');
-        var firstBr = $scope.details.description.indexOf('<br>');
-        firstParaEnd = Math.max(firstParaEnd, 0);
-        firstBr = Math.max(firstBr, 0);
-        var shortDescLength = (firstBr > 0 && firstParaEnd > 0) ? Math.min(firstBr, firstParaEnd) : Math.max(firstBr, firstParaEnd);
-        $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
-        $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
+        //Set meta content
+        if($scope.details && $scope.details.meta){
+          metaInformationService.setMetaDescription($scope.details.meta.description);
+          metaInformationService.setMetaKeywords($scope.details.meta.keywords);
+          metaInformationService.setPageTitle($scope.details.meta.pagetitle);
+
+          $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+          metaInformationService.setOgGraph($scope.details.meta.microdata.og);
+        }
+        
+        if($scope.details && $scope.details.description){
+          $scope.details.description = ('' + $scope.details.description);
+          var firstParaEnd = $scope.details.description.indexOf('</p>');
+          var firstBr = $scope.details.description.indexOf('<br>');
+          firstParaEnd = Math.max(firstParaEnd, 0);
+          firstBr = Math.max(firstBr, 0);
+          var shortDescLength = (firstBr > 0 && firstParaEnd > 0) ? Math.min(firstBr, firstParaEnd) : Math.max(firstBr, firstParaEnd);
+          $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
+          $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
+        }
+        
 
         breadcrumbsService.clear();
         breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort);
