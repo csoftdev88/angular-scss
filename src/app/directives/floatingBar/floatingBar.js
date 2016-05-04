@@ -106,12 +106,14 @@ angular.module('mobiusApp.directives.floatingBar', [
         }
 
         scope.getCheckIn = function() {
+          console.log('getCheckIn: ' + scope.from);
           return (isTheSameMonth()) ?
             getFormattedDate(OUTPUT_DATE_FORMAT_DAY, scope.from) + ' -&nbsp;' :
             getFormattedDate(OUTPUT_DATE_FORMAT_FULL, scope.from) + ' -&nbsp;';
         };
 
         scope.getCheckOut = function() {
+          console.log('getCheckOut: ' + scope.to);
           return getFormattedDate(OUTPUT_DATE_FORMAT_FULL, scope.to);
         };
 

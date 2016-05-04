@@ -179,7 +179,7 @@ module.exports = function(app) {
     //robots block crawling
     app.get('/robots.txt', function(req, res) {
       res.type('text/plain');
-      res.send('User-agent: *\nDisallow: /reservations\nDisallow: /reservation/');
+      res.send('User-agent: *\nDisallow: /');
     });
 
     app.get('/404', function(req, res, next) {
