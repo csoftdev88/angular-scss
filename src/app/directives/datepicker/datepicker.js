@@ -212,8 +212,6 @@ angular.module('mobiusApp.directives.datepicker', [])
         var diff = getDaysBetween(startDate, endDate);
         if(diff) {
           //scope.inputText = window.moment(startDate).format('Do of MMM') + ' (' + $filter('pluralization')(diff, counterPluralizationRules) + ')';
-          console.log('startDate: ' + startDate);
-          console.log('endDate: ' + endDate);
           scope.inputText = window.moment(startDate).format('MMM Do') + ' - ' + window.moment(endDate).format('MMM Do');
         } else {
           scope.inputText = '';
