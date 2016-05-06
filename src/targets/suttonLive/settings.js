@@ -28,8 +28,8 @@ angular.module('mobiusApp.config', [])
     'script': {
       'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
-      'staging': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
-      'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
+      'staging': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'live': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js'
     }
   },
   'googleAnalytics': {
