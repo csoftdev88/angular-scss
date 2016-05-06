@@ -278,7 +278,10 @@ angular.module('mobius.controllers.hotel.details', [
         }, 500);
       }
       else if(scrollToValue && scrollToValue === 'fnOpenLightBox'){
-        $scope.openGallery();
+        modalService.openGallery(
+          contentService.getLightBoxContent($scope.details.images),
+          0
+        );
         $location.search('scrollTo', null);
       }
     }));
