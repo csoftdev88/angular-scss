@@ -67,16 +67,25 @@
     <!-- Google maps -->
     <script src="https://maps.google.com/maps/api/js"></script>
 
+    <!-- Evolution infiniti -->
+    <!-- Note: Infiniti evolution relies on INFINITI LOGIN api, thus should be included first -->
+    <script>
+    !function(n,t,e,i,o,a,s,c,r){n.InfinitiObject=o,n[o]=n[o]||function(){(n[o].q=
+    n[o].q||[]).push(arguments)},n[o].a=c,r=new Date,r=[r.getUTCFullYear(),r.getMonth()
+    ,r.getUTCDay(),r.getHours()%3||3].join(""),a=t.createElement(e),s=
+    t.getElementsByTagName(e)[0],a.async=1,a.src=i+"?ts="+r,s.parentNode.insertBefore(a,s)
+    }(window,document,"script","https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js","evolution");
+    evolution('create', '8a56624d-08ff-4188-bef8-f4d32d95b6fb');
+    evolution('load', 'obsolete_sso');
+    </script>
+    <!-- End Evolution infiniti -->
+
     <!-- INFINITI LOGIN -->
     <infiniti-script></infiniti-script>
 
     <!-- Google Analytics -->
     <google-analytics-script></google-analytics-script>
     <!-- End Google Analytics -->
-
-    <!-- Evolution infiniti -->
-    <evolution-infiniti-script></evolution-infiniti-script>
-    <!-- End Evolution infiniti -->
   </head>
 
   <body resize-watcher ng-controller="BaseCtrl">
