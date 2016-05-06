@@ -98,17 +98,6 @@ angular.module('mobiusApp.services.dataLayer', [])
       }
     }
 
-    console.log(angular.toJson({
-      'event': 'purchaseConfirmation',
-      'ecommerce': {
-        'purchase': { 
-          'actionField': actionField,
-          'products': products
-        }
-      }
-    }));
-
-
     getDataLayer().push({
       'event': 'purchaseConfirmation',
       'ecommerce': {
