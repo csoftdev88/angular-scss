@@ -183,7 +183,7 @@ module.exports = function(app) {
     });
 
     app.get('/404', function(req, res, next) {
-      res.status(404);
+      res.sendStatus(404);
       res.render('404');
     });
 
