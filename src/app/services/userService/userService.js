@@ -20,6 +20,8 @@ angular.module('mobiusApp.services.user', [])
     // or anonymous
     var authPromise = $q.defer();
 
+    var hasLocalStorage = window.localStorage || null;
+
     function hasSSOCookies(){
       //console.log('hasSSOCookies: ' + cookieFactory(KEY_CUSTOMER_PROFILE));
       return Settings.authType === 'mobius' ? true : !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
@@ -60,10 +62,17 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function storeUserId(id) {
+      if(!hasLocalStorage){
+        return;
+      }
       localStorage.mobiusId = id;
+
     }
 
     function getStoredUser() {
+      if(!hasLocalStorage){
+        return;
+      }
       var data = {
         id: localStorage.mobiusId,
         token: localStorage.mobiusToken
@@ -72,16 +81,25 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function clearStoredUser() {
+      if(!hasLocalStorage){
+        return;
+      }
       localStorage.removeItem('mobiusId');
       localStorage.removeItem('mobiusToken');
     }
 
     function storeUserLanguage(lang) {
+      if(!hasLocalStorage){
+        return;
+      }
       localStorage.mobiusLanguagecode = lang;
       userObject.languageCode = lang;
     }
 
     function getUserLanguage() {
+      if(!hasLocalStorage){
+        return;
+      }
       return localStorage.mobiusLanguagecode;
     }
 
