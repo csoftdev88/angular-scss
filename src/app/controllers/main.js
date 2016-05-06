@@ -14,11 +14,13 @@ angular.module('mobius.controllers.main', [])
 
         chainService.getChain($scope.chainCode).then(function (chain) {
           $scope.chain = chain;
-          metaInformationService.setMetaDescription($scope.chain.meta.description);
-          metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
-          metaInformationService.setPageTitle($scope.chain.meta.pagetitle);
-          $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-          metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+          if($scope.chain && $scope.chain.meta){
+            metaInformationService.setMetaDescription($scope.chain.meta.description);
+            metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
+            metaInformationService.setPageTitle($scope.chain.meta.pagetitle);
+            $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+            metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+          }
         });
 
       } catch(err){
