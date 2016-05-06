@@ -73,7 +73,7 @@
 
           <pricing-info>
             <p>
-              <span class="value">{{(product.price.totalBase * (pricePer === PP_STAY ? days : 1)) | i18nCurrency: currencyCode}}</span>
+              <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
               <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
               <span ng-if="pricePer === PP_STAY">_per_stay_</span>
 
