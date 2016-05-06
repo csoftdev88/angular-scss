@@ -19,9 +19,7 @@ angular.module('mobiusApp.directives.evolutionInfinitiScript', [])
         var env = document.querySelector('meta[name=environment]').getAttribute('content');
 
         var s = document.createElement('script'); // use global document since Angular's $document is weak
-        s.text = "!function(n,t,e,i,o,a,s,c,r){n.InfinitiObject=o,n[o]=n[o]||function(){(n[o].q=n[o].q||[]).push(arguments)},n[o].a=c,r=new Date,r=[r.getUTCFullYear(),r.getMonth(),r.getUTCDay(),r.getHours()%3||3].join(''),a=t.createElement(e),s=t.getElementsByTagName(e)[0],a.async=1,a.src=i+'?ts='+r,s.parentNode.insertBefore(a,s)}(window,document,'script','" + Settings.evolutionInfiniti.script[env]  + "','evolution');" +
-          "evolution('create', '" + Settings.evolutionInfiniti.id + "');" +
-          "evolution('sso.api', '" + Settings.evolutionInfiniti.url[env] + "');";
+        s.text = "!function(n,t,e,i,o,a,s,c,r){n.InfinitiObject=o,n[o]=n[o]||function(){(n[o].q=n[o].q||[]).push(arguments)},n[o].a=c,r=new Date,r=[r.getUTCFullYear(),r.getMonth(),r.getUTCDay(),r.getHours()%3||3].join(''),a=t.createElement(e),s=t.getElementsByTagName(e)[0],a.async=1,a.src=i+'?ts='+r,s.parentNode.insertBefore(a,s)}(window,document,'script','" + Settings.evolutionInfiniti.script[env]  + "','evolution');evolution('create', '" + Settings.evolutionInfiniti.id + "');evolution('load', '" + Settings.evolutionInfiniti.bridge + "');";
         document.head.appendChild(s);
       }
     };

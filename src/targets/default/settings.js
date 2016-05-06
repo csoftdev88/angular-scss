@@ -29,17 +29,12 @@ angular.module('mobiusApp.config', [])
   'evolutionInfiniti': {
     'enable': false,
     'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
+    'bridge': 'obsolete_sso',
     'script': {
       'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'staging': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
       'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
-    },
-    'url': {
-      'development': 'http://prestige-test.suttonplace.com',
-      'integration': 'http://prestige-test.suttonplace.com',
-      'staging': 'http://prestige.suttonplace.com',
-      'live': 'http://prestige.suttonplace.com'
     }
   },
   //Google analytics, enable and set id per client's needs
