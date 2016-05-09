@@ -397,6 +397,7 @@ angular
   .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
 
     $rootScope.$on('$stateChangeStart', function(event, next) {
+      $rootScope.prerenderStatusCode = next.name === 'unknown' ? '404' : '200';
     });
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
