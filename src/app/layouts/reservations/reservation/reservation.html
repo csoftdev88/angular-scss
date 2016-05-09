@@ -78,7 +78,7 @@
           <h4>{{property.nameLong}}</h4>
 
           <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
-          <p class="price"><strong>{{getProductPricePerNight(getTotal('totalBase')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+          <p class="price"><strong>{{getProductPricePerNight(getTotal('totalAfterTax')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
           <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} _more_ <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"> </ng-pluralize></a></h3>
 
           <div class="image-wrapper">
@@ -111,7 +111,7 @@
               <thead ng-switch="billingDetails.paymentMethod">
                 <tr class="main">
                   <th>_room_charges_:</th>
-                  <td>{{getTotal('totalBase') | i18nCurrency: currencyCode}}</td>
+                  <td>{{getBreakdownTotalBase() | i18nCurrency: currencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="breakdown in allRooms[0]._selectedProduct.price.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
@@ -124,7 +124,7 @@
                   <!-- old tax number
                   <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
                   -->
-                  <td>{{getTotal('totalAfterTax') - getTotal('totalBase') - getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
+                  <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="taxItem in allRooms[0]._selectedProduct.price.taxDetails.policyTaxItemDetails" ng-class="{'last': $last}" ng-if="!taxItem.policyTaxItemIsFee">
@@ -134,7 +134,7 @@
 
                 <tr class="main">
                   <th>_applicable_fees_:</th>
-                  <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
+                  <td>{{getBreakdownTotalTaxes(true) | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="taxItem in allRooms[0]._selectedProduct.price.feeDetails.policyTaxItemDetails" ng-class="{'last': $last}">

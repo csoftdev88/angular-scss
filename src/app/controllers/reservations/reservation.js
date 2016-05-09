@@ -737,6 +737,30 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
+  $scope.getBreakdownTotalBase = function(){
+    // Returning a total base price
+    var totalTax = 0;
+    var totalFees = 0;
+    var totalAfterTax = 0;
+    _.map($scope.allRooms, function(room){
+      totalTax += room._selectedProduct.price.taxDetails.totalTax;
+      totalFees += room._selectedProduct.price.feeDetails.totalTax;
+      totalAfterTax += room._selectedProduct.price.totalAfterTax;
+    });
+    return totalAfterTax - totalTax - totalFees;
+  };
+
+  $scope.getBreakdownTotalTaxes = function(isFee){
+    // Returning a total for all taxes or fees
+    var total = 0;
+    _.map($scope.allRooms, function(room){
+      total += isFee ? room._selectedProduct.price.feeDetails.totalTax : room._selectedProduct.price.taxDetails.totalTax;
+    });
+    return total;
+  };
+
+
+
   function addReservationConfirmationMessage(reservationNumber){
     userMessagesService.addReservationConfirmationMessage($scope.property.nameLong, reservationNumber);
   }

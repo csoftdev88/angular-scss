@@ -73,7 +73,7 @@
 
           <pricing-info>
             <p>
-              <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
+              <span class="value">{{getValuePer(product.price.totalAfterTax, true) | i18nCurrency: currencyCode}}</span>
               <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
               <span ng-if="pricePer === PP_STAY">_per_stay_</span>
 
@@ -91,7 +91,7 @@
 
         <pricing-info>
           <p>
-            <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
+            <span class="value">{{getValuePer(product.price.totalAfterTax, true) | i18nCurrency: currencyCode}}</span>
             <span ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
             <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
               <br />_or_ <span class="value">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span> _points_
