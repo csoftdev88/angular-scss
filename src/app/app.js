@@ -396,6 +396,9 @@ angular
 
   .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
 
+    $rootScope.$on('$stateChangeStart', function(event, next) {
+    });
+
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       $state.fromState = fromState;
       $state.fromParams = fromParams;
