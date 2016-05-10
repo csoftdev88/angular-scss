@@ -2,16 +2,24 @@ var glob = require('glob');
 var tenant = null;
 var fs = require('fs');
 var http = require('http');
+var environment = null;
 
 process.argv.forEach(function(val) {
   if (val.indexOf('tenant') !== -1) {
     tenant = val.split('=')[1];
     console.log('Tenant is set to :' + tenant);
   }
+  if (val.indexOf('environment') !== -1) {
+    environment = val.split('=')[1];
+    console.log('Environment is set to :' + environment);
+  }
 });
 
 if (!tenant) {
   throw new Error("node commandline-param 'tenant' is required");
+}
+if (!environment) {
+  throw new Error("node commandline-param 'environment' is required");
 }
 
 module.exports = function(app) {
@@ -179,7 +187,14 @@ module.exports = function(app) {
     //robots block crawling
     app.get('/robots.txt', function(req, res) {
       res.type('text/plain');
-      res.send('User-agent: *\nDisallow: /reservations\nDisallow: /reservation/');
+      if(environment === 'live'){
+        res.send('User-agent: *\nDisallow: /reservations\nDisallow: /reservation/');
+      }
+      //disallow all urls if not live
+      else{
+        res.send('User-agent: *\nDisallow: /');
+      }
+      
     });
 
     app.get('/404', function(req, res, next) {
