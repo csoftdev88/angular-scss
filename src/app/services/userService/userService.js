@@ -86,6 +86,7 @@ angular.module('mobiusApp.services.user', [])
       }
       localStorage.removeItem('mobiusId');
       localStorage.removeItem('mobiusToken');
+      localStorage.removeItem('CustomerID');
     }
 
     function storeUserLanguage(lang) {
