@@ -2,6 +2,7 @@
 
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
+  <li ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | limitTo: getRatesLimit()">
     <!-- ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)" -->
     <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
     <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
