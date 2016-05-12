@@ -847,7 +847,7 @@ angular.module('mobius.controllers.reservation', [])
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
             'affiliation': 'Hotel',
-            'revenue': $scope.getTotal('totalAfterTax'),
+            'revenue': $scope.getTotal('totalBase'),
             'quantity': numNights,
             'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBase')).toFixed(2),
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null

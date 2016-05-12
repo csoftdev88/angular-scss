@@ -257,9 +257,45 @@ hotel-detail {
               width: 37%;
               padding: 13px 13px 0 0;
 
+              > .pricing-info {
+                display: none;
+                float: right;
+
+                .price-form {
+                  float: right;
+                  color: @c-gray;
+                  font-style: italic;
+                  font-size: @size--1;
+
+                  .value {
+                    font-style: normal;
+                    font-weight: bold;
+                    color: @c-black;
+                    font-size: @size-1;
+                    padding-left: 5px;
+                  }
+                }
+
+                .not-available{
+                  text-align: center;
+                  padding-left: 20px;
+                  button-submit{
+                    padding: 0 14px;
+                  }
+                }
+
+                button {
+                  float: right;
+                }
+              }
+
               .viewport-mobile &{
                 width: 100%;
                 padding: 0;
+
+                > .pricing-info {
+                  display: block;
+                }
               }
 
               .room-image{
