@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
   Settings, filtersService, bookingService, propertyService, modalService,
-  stateService, dataLayerService, cookieFactory, chainService, $window, mobiusTrackingService){
+  stateService, dataLayerService, cookieFactory, chainService, $window, mobiusTrackingService, $filter){
 
   return {
     restrict: 'E',
@@ -38,19 +38,43 @@ angular.module('mobiusApp.directives.room.products', [])
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params,
           getRatesCacheTimeout()).then(function(data){
-          var discountCookie = cookieFactory('discountCode');
-          scope.products = _.uniq([].concat(
-              _.where(data.products, {memberOnly: true}),
-              _.where(data.products, {highlighted: true}),
-              _.reject(data.products, function(product) {
+
+            //Get discount cookie
+            var discountCookie = cookieFactory('discountCode');
+
+            //reject productHidden if doesn't match discount cookie
+            data.products = _.reject(data.products, function(product) {
                 if(discountCookie){
                   return product.productHidden && discountCookie.indexOf(product.code) === -1;
                 }
                 else{
                   return product.productHidden;
                 }
-              })
-          ));
+              });
+
+            //Logic for ordering products: Display 4 groups: productHidden/memberOnly/highlighted/remaining, each ordered by weighting, highest weighting first
+            
+            //hiddenProducts first
+            var hiddenProducts = _.where(data.products, {productHidden: true});
+            hiddenProducts = $filter('orderBy')(hiddenProducts, '-weighting');
+            //displayedProducts.push(hiddenProducts);
+
+            //memberOnly Products
+            var memberOnlyProducts = _.where(data.products, {memberOnly: true});
+            memberOnlyProducts = $filter('orderBy')(memberOnlyProducts, '-weighting');
+            //displayedProducts.push(memberOnlyProducts);
+
+            //highlighted Products
+            var highlightedProducts = _.where(data.products, {highlighted: true});
+            highlightedProducts = $filter('orderBy')(highlightedProducts, '-weighting');
+
+            //default Products
+            var defaultProducts = _.reject(data.products, function(product) {
+              return product.productHidden === true || product.memberOnly === true || product.highlighted === true;
+            });
+            defaultProducts = $filter('orderBy')(defaultProducts, '-weighting');
+
+            scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
 
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
