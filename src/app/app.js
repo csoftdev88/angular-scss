@@ -97,6 +97,7 @@ angular
     'mobiusApp.services.userPreferenceService',
     'mobiusApp.services.sessionDataService',
     'mobiusApp.services.mobiusTrackingService',
+    'mobiusApp.services.infinitiEcommerceService',
 
     // Factories
     'mobiusApp.factories.template',

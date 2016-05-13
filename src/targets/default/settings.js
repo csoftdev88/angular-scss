@@ -37,6 +37,11 @@ angular.module('mobiusApp.config', [])
       'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
     }
   },
+  //Infiniti e-coomerce tracking - Only if authType === infiniti - get endpoint from PM
+  'infinitiEcommerceTracking': {
+    'enable': false,
+    'endpoint': ''
+  },
   //Google analytics, enable and set id per client's needs
   'googleAnalytics': {
     'enable': false,

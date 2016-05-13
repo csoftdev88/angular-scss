@@ -32,6 +32,10 @@ angular.module('mobiusApp.config', [])
       'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
     }
   },
+  'infinitiEcommerceTracking': {
+    'enable': false,
+    'endpoint': ''
+  },
   'googleAnalytics': {
     'enable': false,
     'id': ''
