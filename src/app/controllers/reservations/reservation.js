@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location, stateService, mobiusTrackingService){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService){
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
@@ -821,7 +821,7 @@ angular.module('mobius.controllers.reservation', [])
       // Newly created reservation
       reservationDetailsParams.view = 'summary';
 
-      // Tracking purchase
+      //Google Tag Manager Tracking purchase
       chainService.getChain(Settings.API.chainCode).then(function(chainData) {
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
           var products = [];
@@ -863,6 +863,47 @@ angular.module('mobius.controllers.reservation', [])
 
       });
 
+      //Infiniti Tracking purchase
+      var infinitiTrackingProducts = [];
+      _.each($scope.allRooms, function(room){
+        var p = room._selectedProduct;
+        var product = {
+          'id': p.code,
+          'variant': 'Nights:' + numNights + '|Type:' + room.name,
+          'quantity': numNights,
+          'amount': (p.price.totalAfterTax/numNights).toFixed(2),
+          'category': 'Room',
+          'currency': $rootScope.currencyCode,
+          'title': room.name,
+          'desc': room.description
+        };
+        infinitiTrackingProducts.push(product);
+      });
+
+      var infinitiTrackingData = {
+        'reservationNumber': data[0].reservationCode,
+        'products': infinitiTrackingProducts
+      };
+
+      var userTitle = _.find($scope.profileTitles, function(title){ return title.id === $scope.userDetails.title; });
+      var userCountry = _.find($scope.profileCountries, function(country){ return country.id === $scope.userDetails.localeCode; });
+
+      if(!user.isLoggedIn()){
+        infinitiTrackingData.customer = {
+          'title': userTitle.name,
+          'fName': $scope.userDetails.firstName,
+          'lName': $scope.userDetails.lastName,
+          'address': $scope.userDetails.address,
+          'city': $scope.userDetails.city,
+          'zip': $scope.userDetails.zip,
+          'country': userCountry.code,
+          'email': $scope.userDetails.email,
+          'phone': $scope.userDetails.phone,
+          'secondPhoneNumber': $scope.additionalInfo.secondPhoneNumber
+        };
+      }
+      infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
+
       //creating anon user account
       if(!user.isLoggedIn()){
 
@@ -874,7 +915,7 @@ angular.module('mobius.controllers.reservation', [])
           city: $scope.userDetails.city,
           zip: $scope.userDetails.zip,
           state: $scope.userDetails.stateProvince,
-          country: $scope.userDetails.country,
+          country: $scope.userDetails.localeCode,
           tel1: $scope.userDetails.phone,
           tel2: $scope.additionalInfo.secondPhoneNumber,
           optedIn: $scope.additionalInfo.optedIn

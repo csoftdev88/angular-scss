@@ -112,6 +112,15 @@ describe('mobius.controllers.reservationDetail', function() {
           setOgGraph: function() {}
         });
 
+        $provide.value('infinitiEcommerceService', {
+          trackPurchase: sinon.spy()
+        });
+
+        $provide.value('contentService', {
+          getTitles: sinon.spy(),
+          getCountries: sinon.spy()
+        });
+
 
         $provide.value('Settings', {
           UI: {

@@ -10,7 +10,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-    metaInformationService, dataLayerService, Settings, userObject, chainService){
+    metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService){
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -318,6 +318,65 @@ angular.module('mobius.controllers.reservationDetail', [])
           $stateParams.reservationCode,
           addon,
           user.isLoggedIn()?null:$stateParams.email).then(function(){
+
+            //Infiniti Tracking purchase
+            var infinitiTrackingProducts = [];
+            var product = {
+              'id': addon.code,
+              'variant': 'Room:' + addon.roomTypeCode + '|Type:' + addon.name,
+              'quantity': 1,
+              'amount': addon.price,
+              'category': 'Add-Ons',
+              'currency': $rootScope.currencyCode,
+              'title': addon.name,
+              'desc': addon.description
+            };
+            infinitiTrackingProducts.push(product);
+
+            var infinitiTrackingData = {
+              'reservationNumber': $stateParams.reservationCode,
+              'products': infinitiTrackingProducts
+            };
+
+            //Getting anon user details
+            if(!user.isLoggedIn()){
+
+              var reservationParams = {
+                email: $stateParams.email
+              };
+
+              reservationService.getReservation($stateParams.reservationCode, reservationParams).then(function(reservation) {
+                reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(anonUserData) {
+                  contentService.getTitles().then(function(titles) {
+                    contentService.getCountries().then(function(countries) {
+
+                      var userTitle = _.find(titles, function(title){ return title.id === anonUserData.title; });
+                      var userCountry = _.find(countries, function(country){ return country.id === anonUserData.country; });
+
+                      infinitiTrackingData.customer = {
+                        'title': userTitle.name,
+                        'fName': anonUserData.firstName,
+                        'lName': anonUserData.lastName,
+                        'address': anonUserData.address1,
+                        'city': anonUserData.city,
+                        'zip': anonUserData.zip,
+                        'country': userCountry.code,
+                        'email': anonUserData.email,
+                        'phone': anonUserData.tel1,
+                        'secondPhoneNumber': anonUserData.tel2
+                      };
+
+                      infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
+
+                    });
+                  });
+                });
+              });
+            }
+            else{
+              infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
+            }
+
           // Removing from available addons
           $scope.availableAddons = _.reject($scope.availableAddons, function(a){
             return a.code === addon.code;

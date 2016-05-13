@@ -34,7 +34,13 @@ angular.module('mobiusApp.config', [])
   },
   'infinitiEcommerceTracking': {
     'enable': false,
-    'endpoint': ''
+    'infinitiId': '',
+    'endpoint': {
+      'development': '',
+      'integration': '',
+      'staging': '',
+      'live': ''
+    }
   },
   'googleAnalytics': {
     'enable': false,

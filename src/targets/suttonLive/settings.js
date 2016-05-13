@@ -34,7 +34,13 @@ angular.module('mobiusApp.config', [])
   },
   'infinitiEcommerceTracking': {
     'enable': true,
-    'endpoint': 'https://infiniti-evolution-test.appspot.com/track'
+    'infinitiId': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
+    'endpoint': {
+      'development': 'https://infiniti-evolution-test.appspot.com/track/purchase',
+      'integration': 'https://infiniti-evolution-test.appspot.com/track/purchase',
+      'staging': 'https://infiniti-evolution-test.appspot.com/track/purchase',
+      'live': 'https://infiniti-evolution-test.appspot.com/track/purchase'
+    }
   },
   'googleAnalytics': {
     'enable': true,

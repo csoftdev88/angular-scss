@@ -40,7 +40,13 @@ angular.module('mobiusApp.config', [])
   //Infiniti e-coomerce tracking - Only if authType === infiniti - get endpoint from PM
   'infinitiEcommerceTracking': {
     'enable': false,
-    'endpoint': ''
+    'infinitiId': '',
+    'endpoint': {
+      'development': '',
+      'integration': '',
+      'staging': '',
+      'live': ''
+    }
   },
   //Google analytics, enable and set id per client's needs
   'googleAnalytics': {
