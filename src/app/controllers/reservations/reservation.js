@@ -871,7 +871,7 @@ angular.module('mobius.controllers.reservation', [])
           'id': p.code,
           'variant': 'Nights:' + numNights + '|Type:' + room.name,
           'quantity': numNights,
-          'amount': (p.price.totalAfterTax/numNights).toFixed(2),
+          'amount': (p.price.totalBase/numNights).toFixed(2),
           'category': 'Room',
           'currency': $rootScope.currencyCode,
           'title': room.name,
