@@ -229,6 +229,8 @@ The main tenant settings file is located in src/targets/{tenant}/settings.js and
 * defaultProductRateId
 * authType - "infiniti" or "mobius"
 * infiniti - if authType = infiniti this must be enabled and environment urls updated accordingly
+* infiniti e-commerce tracking - if authType = infiniti this must be enabled and environment urls updated accordingly
+* evolution infiniti script - if authType = infiniti this must be enabled and script updated accordingly
 * sentry - this should always be enabled and urls are not tenant specific so doesn't need to be updated
 * googleAnalytics - check if this should be enabled and get client ID
 * googleTagManager - check if this should be enabled and get client ID
