@@ -11,8 +11,8 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
     'integration': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
-    'staging': 'http://staging-prestige.suttonplace.com/track/content/infiniti.js',
-    'live': 'https://prestige.suttonplace.com/track/content/infiniti.js'
+    'staging': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
+    'live': 'http://prestige-test.suttonplace.com/track/content/infiniti.js'
   },
   'sentry': {
     'enable': true,
@@ -22,34 +22,34 @@ angular.module('mobiusApp.config', [])
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
   'evolutionInfiniti': {
-    'enable': true,
-    'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
-    'bridge': 'obsolete_sso',
+    'enable': false,
+    'id': '',
+    'bridge': '',
     'script': {
-      'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
-      'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
-      'staging': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
-      'live': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js'
+      'development': '',
+      'integration': '',
+      'staging': '',
+      'live': '',
     }
   },
   'infinitiEcommerceTracking': {
-    'enable': true,
-    'infinitiId': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
+    'enable': false,
+    'infinitiId': '',
     'endpoint': {
-      'development': 'https://infiniti-evolution-test.appspot.com/track/purchase',
-      'integration': 'https://infiniti-evolution-test.appspot.com/track/purchase',
-      'staging': 'https://infiniti-evolution-test.appspot.com/track/purchase',
-      'live': 'https://infiniti-evolution-test.appspot.com/track/purchase'
+      'development': '',
+      'integration': '',
+      'staging': '',
+      'live': ''
     }
   },
   'googleAnalytics': {
-    'enable': true,
-    'id': 'UA-44368729-3'
+    'enable': false,
+    'id': ''
   },
   'googleTagManager': {
-    'enable': true,
+    'enable': false,
     'trackUserId': true,
-    'id': 'GTM-5Q9BR2'
+    'id': ''
   },
   'API': {
     'defaultThrottleTimeout': 30,
