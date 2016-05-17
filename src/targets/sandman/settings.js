@@ -211,7 +211,8 @@ angular.module('mobiusApp.config', [])
       'maxOffersCount': 7,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
-      'isLogoutInDropdown': true
+      'isLogoutInDropdown': true,
+      'standalone': true
     },
     // Social links
     'displaySocialLinks': true,
@@ -759,7 +760,9 @@ angular.module('mobiusApp.config', [])
       'userProfile':{
         'hasAvatar': true,
         'hasWelcomeMessage': false,
-        'hasPrestigeAccount': true
+        'hasPrestigeAccount': true,
+        'hasLoyaltyInfo': false,
+        'displayPointsWithUsername': true
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
