@@ -59,22 +59,22 @@
           </div>
         </li>
 
-        <li has-dropdown="hover" ng-hide="config.generics.singleProperty || !config.menu.showHotels" menu-content="hotels" data-title="_hotels_"></li>
+        <li has-dropdown="hover" ng-hide="config.generics.singleProperty || !config.menu.showHotels || (config.menu.standalone && !isMobile)" menu-content="hotels" data-title="_hotels_"></li>
 
-        <li ng-show="config.generics.singleProperty && config.menu.showHotels">
+        <li ng-show="config.generics.singleProperty && config.menu.showHotels && !config.menu.standalone && !isMobile">
             <a
             ui-sref="hotel({propertySlug: $root.propertySlug})"
             ui-sref-opts="{reload: true}"
             ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
         </li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
+        <li has-dropdown="hover" ng-show="config.menu.showOffers && (!config.menu.standalone && !isMobile)" menu-content="offers" data-title="_offers_deals_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
+        <li has-dropdown="hover" ng-show="config.menu.showAbout && (!config.menu.standalone && !isMobile)" menu-content="about" data-title="_about_us_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showNews" menu-content="news" data-title="_news_"></li>
+        <li has-dropdown="hover" ng-show="config.menu.showNews && (!config.menu.standalone && !isMobile)" menu-content="news" data-title="_news_"></li>
 
-        <li ng-show="config.menu.showContact">
+        <li ng-show="config.menu.showContact && (!config.menu.standalone && !isMobile)">
             <a
             ui-sref="contacts({property: null})"
             ui-sref-opts="{reload: true}"
@@ -101,11 +101,14 @@
                 </div>
                 <div class="user">
                   <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
-                  <span>{{user.getUser().firstName}}</span>
-                  <span>{{user.getUser().lastName}}</span>
+                  <div class="user-details">
+                    <span>{{user.getUser().firstName}}</span>
+                    <span>{{user.getUser().lastName}}</span>
+                    <span class="points" ng-if="config.viewsSettings.userProfile.displayPointsWithUsername">{{user.getUser().loyalties.amount}} _points_</span>
+                  </div>
                 </div>
 
-                <div class="points" ng-if="loyaltyProgramEnabled">
+                <div class="points" ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.hasLoyaltyInfo">
                   <span>{{user.getUser().loyalties.amount}} _points_</span>
                   <span class="vr" ng-if="user.getUser().loyalties.tier">|</span>
                   <span ng-click="openTiersListDialog($event)" ng-if="user.getUser().loyalties.tier">{{user.getUser().loyalties.tier}} _tier_</span>
@@ -138,6 +141,38 @@
 
     </div>
   </nav>
+
+  <div class="sub-nav" ng-if="config.menu.standalone && !isMobile">
+
+    <nav class="wrapper" dropdown>
+
+      <ul dropdown-group>
+
+        <li has-dropdown="hover" ng-hide="config.generics.singleProperty || !config.menu.showHotels" menu-content="hotels" data-title="_hotels_"></li>
+
+        <li ng-show="config.generics.singleProperty && config.menu.showHotels && !config.menu.standalone">
+            <a
+            ui-sref="hotel({propertySlug: $root.propertySlug})"
+            ui-sref-opts="{reload: true}"
+            ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
+        </li>
+
+        <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
+
+        <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
+
+        <li has-dropdown="hover" ng-show="config.menu.showNews" menu-content="news" data-title="_news_"></li>
+
+        <li ng-show="config.menu.showContact">
+            <a
+            ui-sref="contacts({property: null})"
+            ui-sref-opts="{reload: true}"
+            ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
 
 
   <div class="login-dialog-overlay" ng-show="!sso.isInfiniti() && showLoginDialog">

@@ -209,7 +209,8 @@ angular.module('mobiusApp.config', [])
       'offerSpecificToSelectedProperty': false,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
-      'isLogoutInDropdown': false
+      'isLogoutInDropdown': false,
+      'standalone': false
     },
     // Social links
     'displaySocialLinks': false,
@@ -639,7 +640,8 @@ angular.module('mobiusApp.config', [])
       'userProfile':{
         'hasAvatar': false,
         'hasWelcomeMessage': true,
-        'hasPrestigeAccount': false
+        'hasPrestigeAccount': false,
+        'hasTierInfo': true
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': false,

@@ -188,7 +188,7 @@
         .profile {
           line-height: @baseline;
           margin-top: @baseline;
-          min-width: 150px;
+          //min-width: 150px;
           color: @c-white;
 
           .message{
@@ -199,7 +199,8 @@
           }
 
           .user {
-            overflow: auto;
+            //overflow: auto;
+            position: relative;
 
             img {
               float: left;
@@ -210,6 +211,13 @@
 
               border-radius: @baseline * 1.75;
               border: 2px solid @c-link;
+            }
+            
+            .user-details{
+              float: left;
+              .points{
+                font-weight: 300;
+              }
             }
 
             span {
@@ -223,8 +231,13 @@
                 display: inline-block;
               }
             }
+            
+            
 
             &:after {
+              position: absolute;
+              top: 15px;
+              right: -10px;
               content: '';
               display: inline-block;
               width: 7px;
@@ -546,5 +559,45 @@
       right: 0;
     }
   }
+}
+
+/*
+Sub-nav
+*/
+#main-header{
+
+  .sub-nav {
+    background: @c-primary;
+    height: 35px;
+    line-height: 35px;
+    > nav{
+      text-align: center;
+      > ul{
+        display: inline-block;
+        li{
+          display: inline;
+          float: left;
+          a{
+            color: #fff;
+            font-size: 15px;
+            text-transform: uppercase;
+            padding: 0 15px;
+          }
+          ul{
+            li{
+              display: block;
+              float: none;
+              text-align: left;
+              a{
+                padding: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+  }
+
 }
 
