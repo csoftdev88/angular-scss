@@ -33,61 +33,66 @@ about-hotel {
         width: 118px;
         height: 101px;
         background: url('@{img-prefix}/canada-map.png') no-repeat;
+        .viewport-mobile &{
+          content: none;
+        }
       }
     }
+
+    .viewport-mobile &{
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 0;
+      > span{
+        padding-left: 0;
+        span{
+          font-size: 12px;
+        }
+        &:before{
+          content: none;
+        }
+      }
+      
+    }
     
+  }
+
+  h2{
+    font-weight: 400;
+    color: @c-dark-grey;
+    text-transform: uppercase;
   }
 
   .benefits {
 
     article {
-      position: relative;
-      padding-left: 11%;
-      box-sizing: border-box;
 
       h2 {
-        font-size: @size-3;
-        color: @c-black;
+        position: relative;
+        display: inline-block;
+        font-size: @size-2;
+        color: @c-grey;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        &:after{
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -6px;
+          height: 1px;
+          width: 115%;
+          background: @c-light-grey;
+        }
       }
 
       p {
-        color: @c-black;
-        font-size: @size-0;
+        color: @c-grey;
+        font-size: @size--0;
         margin-bottom: 0;
         font-weight: 300;
       }
-
-      a {
-        text-decoration: none;
-      }
-
-      img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: block;
-        width: 30%;
-      }
     }
   }
-
-  // MOBILE SPECIFIC STYLES
-  @media only screen and @large-mobile-max {
-
-    .benefits {
-      article{
-        display: inline-block;
-        padding: 5px 0 0 110px;
-        margin-top: 30px;
-        &:first-child{
-          margin-top: 0;
-        }
-        img{
-          width: 100px;
-        }
-      }
-    }
-
-  }// MOBILE SPECIFIC STYLES
 
 }
