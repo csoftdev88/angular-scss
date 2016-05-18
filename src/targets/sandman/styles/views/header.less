@@ -32,6 +32,15 @@
 
   .main-nav {
 
+    .brand {
+      .viewport-mobile &{
+        top: 22px;
+        img{
+          height: auto;
+        }
+      }
+    }
+
     > .app-menu {
       background-color: @c-white;
 
@@ -43,6 +52,9 @@
           background-color: @c-white;
 
           &.mobile-header{
+            img{
+              height: auto;
+            }
             .close{
               &:after {
                 .fa;
