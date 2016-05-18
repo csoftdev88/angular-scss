@@ -21,6 +21,9 @@
     "HOMEPAGE": "//////////////////////////////////////////////////////",
     "home_page_title": "",
     "home_page_desc": "",
+    "home_page_offer_one": "<a ui-sref='offers'><img src='/static/images/v4/icon-offers.png' class='grid-img' alt='Great Offers'><h2>Great <strong>Offers</strong></h2><p>Take advantage of our great offers and promotions to make your stay even more enjoyable!</p></a>",
+    "home_page_offer_two": "<a ui-sref='aboutUs({code: &quot;prestige&quot;})'><img src='/static/images/v4/icon-discounts.png' class='grid-img' alt='Sutton Prestige'><h2>Sutton <strong>Prestige</strong></h2><p>Accumulate points for each dollar spent and earn bonus points. Redeem them for unique gifts &amp; rewards with our reward program.</p></a>",
+    "home_page_offer_three": "<a ui-sref='news'><img src='/static/images/v4/icon-news.png' class='grid-img' alt='Exciting News'><h2>Exciting <strong>News</strong></h2><p>Keep up to date with our latest news and read our interesting articles!</p></a>",
 
     "HEADER": "//////////////////////////////////////////////////////",
 

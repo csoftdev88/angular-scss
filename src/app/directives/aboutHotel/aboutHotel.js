@@ -9,7 +9,6 @@ angular.module('mobiusApp.directives.aboutHotel', [])
     link: function(scope){
       scope.isCollapsed = true;
       scope.showBenefits = Settings.UI.aboutHotel.showBenefits;
-      scope.benefits = Settings.UI.aboutHotel.benefits;
       scope.randomAdverts = [];
 
       var getRandomAdvert = function (index) {
