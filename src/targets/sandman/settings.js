@@ -203,10 +203,12 @@ angular.module('mobiusApp.config', [])
     // Menu settings - showing/hidding menu items
     'menu': {
       'showHotels': true,
+      'showHotDeals': true,
+      'showMeetingsBanquets': true,
       'showOffers': true,
       'showAbout': true,
       'showNews': false,
-      'showContact': true,
+      'showContact': false,
       'offerSpecificToSelectedProperty': true,
       'maxOffersCount': 7,
       // Details: PT #102456878

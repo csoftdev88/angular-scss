@@ -68,6 +68,10 @@
             ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
         </li>
 
+        <li has-dropdown="hover" ng-show="config.menu.showHotDeals && (!config.menu.standalone && !isMobile)" menu-content="deals" data-title="_hot_deals_"></li>
+
+        <li has-dropdown="hover" ng-show="config.menu.showMeetingsBanquets && (!config.menu.standalone && !isMobile)" menu-content="meetings" data-title="_meetings_banquets_"></li>
+
         <li has-dropdown="hover" ng-show="config.menu.showOffers && (!config.menu.standalone && !isMobile)" menu-content="offers" data-title="_offers_deals_"></li>
 
         <li has-dropdown="hover" ng-show="config.menu.showAbout && (!config.menu.standalone && !isMobile)" menu-content="about" data-title="_about_us_"></li>
@@ -156,6 +160,10 @@
             ui-sref-opts="{reload: true}"
             ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
         </li>
+
+        <li has-dropdown="hover" ng-show="config.menu.showHotDeals" menu-content="deals" data-title="_hot_deals_"></li>
+
+        <li has-dropdown="hover" ng-show="config.menu.showMeetingsBanquets" menu-content="meetings" data-title="_meetings_banquets_"></li>
 
         <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 
