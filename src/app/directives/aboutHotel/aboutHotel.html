@@ -1,12 +1,13 @@
 <header grid-row>
   <div grid="12">
     <h1 ng-bind-html="'_home_page_title_' | mainHeaderStyle"></h1>
+    <hr/>
     <div>_home_page_desc_</div>
 
   </div>
 </header>
 
-<hr class="dividerWithoutImage"/ ng-if="showBenefits">
+<hr class="dividerWithoutImage" ng-if="showBenefits"/>
 
 <section grid-row class="benefits" ng-if="showBenefits">
   <article grid="4" ng-repeat="icon in benefits" ng-switch="isUserLoggedIn()">

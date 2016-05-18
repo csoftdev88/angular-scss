@@ -2,20 +2,40 @@ about-hotel {
 
   header{
     hr{
-      display: none;
+      display: inline-block;
+      margin: 40px auto;
     }
   }
 
   //- Page Heading
-  h1, h2 {
-    .h1;
+  h1{
+    position: relative;
+    text-align: center;
+    font-size: 36px;
+    line-height: 42px;
 
-    font-weight: 300;
-  }
-
-  p {
-    color: @c-black;
-    margin-bottom: @baseline;
+    > span{
+      display: inline-block;
+      position: relative;
+      padding-left: 85px;
+      span{
+        font-size: 16px;
+        line-height: 21px;
+        font-weight: 400;
+        display: block;
+        color: @c-brown;
+      }
+      &:before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 118px;
+        height: 101px;
+        background: url('@{img-prefix}/canada-map.png') no-repeat;
+      }
+    }
+    
   }
 
   .benefits {
