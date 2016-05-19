@@ -99,6 +99,8 @@
     "email_not_registered_error": "The email you entered is not registered",
     "incorrect_email_password_error": "The email and/or password you entered is incorrect",
     "BOOKING BAR": "///////////////////////////////////////////////////",
+    "arrival": "Arrival",
+    "departure": "Departure",
     "no_dates_selected_short": "No dates selected",
     "booking_widget_title": "",
     "make_your_booking": "Make Your Booking",

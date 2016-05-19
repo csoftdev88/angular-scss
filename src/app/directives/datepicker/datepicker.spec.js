@@ -11,7 +11,17 @@ describe('datepicker', function() {
       $provide.value('ngModelCtrl', {});
       $provide.value('$filter', {});
       $provide.value('stateService', {
-        getAppLanguageCode: function(){}
+        getAppLanguageCode: function(){},
+        isMobile: function(){}
+      });
+      $provide.value('Settings', {
+        'UI': {
+          'bookingWidget': {
+            'datePickerNumberOfMonths': 1,
+            'datePickerHasCounter': true,
+            'datePickerCounterIncludeDates': false
+          }
+        }
       });
     });
   });

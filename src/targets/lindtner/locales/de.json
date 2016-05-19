@@ -157,6 +157,8 @@
     "incorrect_email_password_error": "Die E-Mail und / oder das Passwort falsch eingegeben ist",
 
     "BOOKING BAR": "///////////////////////////////////////////////////",
+    "arrival": "Arrival",
+    "departure": "Departure",
     "no_dates_selected_short": "Keine Daten ausgewählt",
     "booking_widget_title": "",
 

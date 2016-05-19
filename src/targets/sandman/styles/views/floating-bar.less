@@ -1,0 +1,56 @@
+//////////////////////
+//// FLOATING BAR ////
+//////////////////////
+
+floating-bar {
+
+  //- Tabs
+  > ul {
+
+    li {
+      background: @c-booking-widget-active;
+
+      //- Filling
+      &:first-of-type:before{
+        background: @c-booking-widget-active;
+        //outline: 1px solid @c-booking-widget;
+        .viewport-mobile &{
+          display: none;
+          //outline: none;
+        }
+
+      }
+
+      &.is-active:first-of-type:before {
+        background: @c-booking-widget;
+      }
+
+      //- Skew effect
+      &:after {
+        border-bottom: @baseline*1.5 solid @c-booking-widget-active;
+      }
+
+
+      &.floating-bar--tab-booking {
+
+        .viewport-mobile &.main-mobile-toggle {
+
+          &.mobile-is-open a{
+            background: @c-booking-widget;
+          }
+
+          a{
+
+            &.with-search-params {
+              background: @c-booking-widget;
+            }
+
+            .mobile{
+
+            }
+          }
+        }
+      }
+    }
+  }
+}

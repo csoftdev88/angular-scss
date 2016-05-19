@@ -99,6 +99,8 @@
     "email_not_registered_error": "L'adresse E-mail que vous avez saisie n'est pas enregistrée",
     "incorrect_email_password_error": "L'adresse E-mail et/ou le mot de passe que vous avez saisi est incorrect",
     "BOOKING BAR": "///////////////////////////////////////////////////",
+    "arrival": "Arrivée",
+    "departure": "Départ",
     "no_dates_selected_short": "Aucune dates choisies",
     "booking_widget_title": "<strong>Meilleur Prix</strong>Guaranti",
     "make_your_booking": "Faites Votre Réservation",

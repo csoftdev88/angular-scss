@@ -98,7 +98,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'field': ''
         },
         'rate': {
-          'search': 'rate',
+          'search': 'productGroupId',
           'type': 'integer',
           'required': false,
           'field': ''
@@ -113,6 +113,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       };
 
       var DATES_SEPARATOR = '_';
+
+      //Get rates
+      if(scope.settings.hasRatesSelection){
+        filtersService.getProducts(true).then(function(data) {
+          scope.rates = data || [];
+        });
+      }
 
       
       function getDefaultAdultCount() {

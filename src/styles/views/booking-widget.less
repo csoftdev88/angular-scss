@@ -115,7 +115,7 @@ booking-widget-add-room form-element {
   &.persons .chosen-single:before { content: @fa-var-user; }
   &.children .chosen-single:before { content: @fa-var-child; }
   &.dates:before   { content: @fa-var-calendar-o; }
-  &.rate .chosen-single:before    { content: @fa-var-suitcase; }
+  &.rate .chosen-single:before    { content: @fa-var-signal; }
   &.code .chosen-single:before    { content: @fa-var-tag; }
 
   .viewport-mobile &{
@@ -464,7 +464,7 @@ booking-widget-add-room {
 //- My Account
 my-account {
   display: block;
-  background: #ebaa3d;
+  background: @c-booking-widget-my-account;
   max-height: 0px; 
   //transition: max-height .6s ease-out;
   .transition(max-height, 1s, ease-in-out);

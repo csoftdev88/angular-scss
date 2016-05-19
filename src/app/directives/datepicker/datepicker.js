@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, stateService) {
+.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, stateService, Settings) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -30,14 +30,19 @@ angular.module('mobiusApp.directives.datepicker', [])
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
       var maxDate = attrs.maxDate || null;
-      var hasCounter = attrs.includeCounter === '1';
+      var hasCounter = Settings.UI.bookingWidget.datePickerHasCounter;
+      var counterHasDates = Settings.UI.bookingWidget.datePickerCounterIncludeDates;
       var editDateRangeInProgress = false;
 
       var counterPluralizationRules;
       var isStartDateSelected;
+      var counterDatesRules;
 
       if(hasCounter){
         counterPluralizationRules = scope.$eval(attrs.counterPluralization) || {};
+      }
+      if(counterHasDates){
+        counterDatesRules = scope.$eval(attrs.counterDates) || {};
       }
 
       /**
@@ -101,7 +106,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           dateFormat: DATE_FORMAT,
           showButtonPanel: hasCounter,
           maxDate: maxDate,
-          numberOfMonths: 1,
+          numberOfMonths: stateService.isMobile() ? 1 : Settings.UI.bookingWidget.datePickerNumberOfMonths,
           showOtherMonths: true,
           selectOtherMonths: true,
           minDate: 0,
@@ -177,6 +182,9 @@ angular.module('mobiusApp.directives.datepicker', [])
               // Selecting endDate;
               if(selectedDate > startDate){
                 endDate = selectedDate;
+                if(Settings.UI.bookingWidget.datePickerCloseOnDatesSelected){
+                  element.datepicker('hide');
+                }
               }else{
                 // Reversing the selection back
                 endDate = startDate;
@@ -229,8 +237,19 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       function getCounterText(){
+        //days
         var diff = getDaysBetween(startDate, endDate);
-        return $filter('pluralization')(diff, counterPluralizationRules);
+
+        //dates
+        if(counterHasDates && diff > 0){
+          var dateStr = '';
+          dateStr += counterDatesRules['0'].replace('{date}', window.moment(startDate).format('DD MMM YYYY'));
+          dateStr += ' | ' + counterDatesRules['1'].replace('{date}', window.moment(endDate).format('DD MMM YYYY')) + ' | ';
+          return dateStr + $filter('pluralization')(diff, counterPluralizationRules);
+        }
+        else{
+          return $filter('pluralization')(diff, counterPluralizationRules);
+        }
       }
 
       // Checking if date is already selected (start date only)

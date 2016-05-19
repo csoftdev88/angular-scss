@@ -1,0 +1,46 @@
+////////////////////////
+//// BOOKING WIDGET ////
+////////////////////////
+
+booking-widget {
+
+  //- Search button
+  button-submit {
+    background: @c-green;
+    color: #fff;
+    text-transform: uppercase;
+    height: 26px;
+    line-height: 26px;
+    border-radius: 2px;
+    min-width: 0px;
+  }
+
+  .chosen-container,
+  input[type="text"],
+  .chosen-container-single .chosen-single{
+    height: 26px;
+    line-height: 26px;
+  }
+
+}
+
+//- Search
+booking-widget-search {
+  width: 90%;
+  //- Make your booking
+  h3 {
+    display: none
+  }
+}
+
+booking-widget-search form-element,
+booking-widget-add-room form-element {
+
+  // icons
+  .chosen-single:before,
+  &:before {
+    color: @c-grey;
+  }
+
+  &.hotel .chosen-single:before   { content: @fa-var-building; }
+}

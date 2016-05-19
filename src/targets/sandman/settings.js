@@ -590,9 +590,14 @@ angular.module('mobiusApp.config', [])
 
     // Settings related to booking process
     'bookingWidget': {
+      "datePickerNumberOfMonths": 2,
+      "datePickerHasCounter": true,
+      "datePickerCounterIncludeDates": true,
+      "datePickerCloseOnDatesSelected": true,
       "checkAvailabilityOnChange": false,
-      "checkOfferAvailabilityOnChange": true,
+      "checkOfferAvailabilityOnChange": false,
       'hasMutiroomTab': true,
+      'hasRatesSelection': true,
       // Suggest MRB when number of adults is higher
       // than this value and server returns no products
       'maxAdultsForSingleRoomBooking': 3,

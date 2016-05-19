@@ -37,9 +37,9 @@
             readonly="true"
             show-button-bar="false"
             highlights="availability"
-            data-include-counter="1"
             pane-title="getCurrentRate()"
             data-counter-pluralization="{'0': '_no_dates_selected_short_', '1': '{} _night_', 'plural': '{} _nights_'}"
+            data-counter-dates="{'0': '_arrival_ {date}', '1': '_departure_ {date}'}"
             input-text="inputDateText"
             ng-change="checkAvailability()">
     <form-label>_enter_your_dates_</form-label>
@@ -100,6 +100,19 @@
 
     <remove-code role="button" class="remove" ng-click="removeCode()"></remove-code>
   </form-element>
+
+  <!-- PRODUCTS RATES -->
+  <form-element class="rate" ng-if="!advanced && settings.hasRatesSelection">
+    <select name="rates"
+            required ng-model="selected.rate"
+            disable-search="true"
+            chosen ng-options="rate.id as rate.name for rate in rates"
+            data-placeholder-text-single="'_filter_rates_label_'">
+    <option></option> <!-- tworkaround for a bug in angular-chosen -->
+    </select>
+    <form-label>_filter_rates_label_</form-label>
+  </form-element>
+
 </booking-widget-search>
 
 <booking-widget-add-room ng-if="advanced">
