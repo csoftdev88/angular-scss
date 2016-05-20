@@ -182,7 +182,7 @@ angular.module('mobiusApp.directives.datepicker', [])
               // Selecting endDate;
               if(selectedDate > startDate){
                 endDate = selectedDate;
-                if(Settings.UI.bookingWidget.datePickerCloseOnDatesSelected){
+                if(Settings.UI.bookingWidget.datePickerCloseOnDatesSelected && !stateService.isMobile()){
                   element.datepicker('hide');
                 }
               }else{
@@ -241,7 +241,7 @@ angular.module('mobiusApp.directives.datepicker', [])
         var diff = getDaysBetween(startDate, endDate);
 
         //dates
-        if(counterHasDates && diff > 0){
+        if(counterHasDates && diff > 0 && !stateService.isMobile()){
           var dateStr = '';
           dateStr += counterDatesRules['0'].replace('{date}', window.moment(startDate).format('DD MMM YYYY'));
           dateStr += ' | ' + counterDatesRules['1'].replace('{date}', window.moment(endDate).format('DD MMM YYYY')) + ' | ';

@@ -22,6 +22,10 @@
     color: @c-datepicker;
     left: 130px;
   }
+
+  .viewport-mobile &{
+    width: 100% !important;
+  }
 }
 
 //- Header
@@ -208,6 +212,17 @@
 
   .ui-datepicker-close {
     display: none !important;
+    background: @c-green !important;
+    font-size: 14px !important;
+    color: #fff !important;
+    text-transform: uppercase !important;
+    height: 35px !important;
+    line-height: 30px !important;
+    border-radius: 2px !important;
+    min-width: 0px !important;
+    .viewport-mobile &{
+      display: inline-block !important;
+    }
   }
 
   // Hide today button

@@ -124,7 +124,7 @@
     "last_reward_bought": "Last reward bought",
     "no_badges_earned": "You have not earned any badges yet",
     "book_now": "Book Now",
-    "single_booking": "Single Booking",
+    "single_booking": "<strong>Single</strong> Booking",
     "multiroom_booking": "<strong>Multiroom</strong> Booking",
     "region_hotel": "Region / Hotel",
     "find_your_hotel": "Find Your Hotel",
