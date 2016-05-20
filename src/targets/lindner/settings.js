@@ -57,7 +57,7 @@ angular.module('mobiusApp.config', [])
     'chainCode': 'LIND',
     'baseURL': {
       'development': 'http://lindner.mobiuswebservices.com/api/4.0/',
-      'integration': 'http://lindner.mobiuswebservices.com/api/4.0/',
+      'integration': 'http://integration-lindner-www.mobiuswebservices.com:3010/api/4.0/',
       'staging': 'http://lindner.mobiuswebservices.com/api/4.0/',
       'live':  'http://lindner.mobiuswebservices.com/api/4.0/'
     },
