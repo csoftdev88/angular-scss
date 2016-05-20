@@ -22,9 +22,15 @@ hero-slider {
         opacity: 1;
         &.active {
           background-color: @c-secondary;
+          .chain-sign &{
+            background: @c-secondary-sign;
+          }
         }
         &:hover{
           background-color: @c-secondary;
+          .chain-sign &{
+            background: @c-secondary-sign;
+          }
         }
       }
     }
@@ -48,6 +54,9 @@ hero-slider {
           position: relative;
           padding: 0;
           color: @c-primary;
+          .chain-sign &{
+            background: @c-primary-sign;
+          }
           width: 960px;
           margin: 0 auto;
           left: 0;

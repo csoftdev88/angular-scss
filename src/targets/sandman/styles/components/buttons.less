@@ -6,12 +6,26 @@
 .typeform-share.button,
 .button,
 button-submit {
-  background: @c-secondary;
-  border-radius: 8px;
 
+  background: @c-secondary;
+  &:active,
+  &:focus,
+  &:hover {
+    background: @c-secondary;
+  }
+
+  .chain-sign &{
+    background: @c-secondary-sign;
+    &:active,
+    &:focus,
+    &:hover {
+      background: @c-secondary-sign;
+    }
+  }
+
+  border-radius: 8px;
   border: none;
   color: #fff;
-
   cursor: pointer;
   font-weight: 700;
   font-size: 12px;
@@ -19,12 +33,6 @@ button-submit {
   height: 38px;
   text-shadow: none;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-
-  &:active,
-  &:focus,
-  &:hover {
-    background: @c-secondary;
-  }
 
   &.hide{
     display: none;

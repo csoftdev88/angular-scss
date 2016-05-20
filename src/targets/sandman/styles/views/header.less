@@ -149,7 +149,7 @@
 
           &.button-login{
             color: #fff;
-            border-radius: @radius;
+            border-radius: 8px;
             text-shadow: none;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
           }
@@ -268,5 +268,50 @@
       right: 0;
     }
   }
+}
+
+/*
+Sub-nav
+*/
+#main-header{
+
+  .sub-nav {
+    background: @c-primary;
+    .chain-sign &{
+      background: @c-primary-sign;
+    }
+
+
+    height: 35px;
+    line-height: 35px;
+    > nav{
+      text-align: center;
+      > ul{
+        display: inline-block;
+        li{
+          display: inline;
+          float: left;
+          a{
+            color: #fff;
+            font-size: 15px;
+            text-transform: uppercase;
+            padding: 0 15px;
+          }
+          ul{
+            li{
+              display: block;
+              float: none;
+              text-align: left;
+              a{
+                padding: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+  }
+
 }
 

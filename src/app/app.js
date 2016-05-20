@@ -468,7 +468,22 @@ angular
     $controller('SSOCtrl', {$scope: $scope});
     $controller('ReservationMultiRoomCtrl', {$scope: $scope});
 
-    $scope.$on('$stateChangeStart', function(e, toState) {
+    $scope.$on('$stateChangeStart', function(e, toState, toParams) {
+
+      //if applyPropertyChainClassToBody, get property details and add its chain as body class for styling
+      if(Settings.UI.generics.applyPropertyChainClassToBody){
+        var propertyCode = toParams.propertyCode || toParams.property;
+        if(propertyCode){
+          propertyService.getPropertyDetails(propertyCode).then(function(details){
+            //faking chainCode not yet available
+            details.chainCode = 'SIGN';
+            propertyService.applyPropertyChainClass(details.chainCode);
+          });
+        }
+        else{
+          propertyService.removePropertyChainClass();
+        }
+      }
 
       //if single property redirect home state to hotel page
       if(Settings.UI.generics.singleProperty && toState.name === 'home'){
