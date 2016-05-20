@@ -219,9 +219,11 @@ angular.module('mobiusApp.config', [])
     // Social links
     'displaySocialLinks': true,
     'socialLinks': [
-      {'network': 'twitter', 'link': 'https://twitter.com/SuttonPlaceHtl'},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/thesuttonplacehotels'},
-      {'network': 'instagram', 'link': 'https://instagram.com/suttonplacehotels/'}
+      {'network': 'blog', 'link': 'https://sandmanhotelgroup.wordpress.com/'},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/SandmanHotelGroup'},
+      {'network': 'twitter', 'link': 'https://twitter.com/sandmanhotels'},
+      {'network': 'instagram', 'link': 'https://www.instagram.com/sandmanhotels/'},
+      {'network': 'google', 'link': 'https://plus.google.com/+SandmanHotelGroup'}
     ],
     'shareLinks': {
       'facebook': true,
@@ -889,8 +891,8 @@ angular.module('mobiusApp.config', [])
     },
     //Footer: type: advanced or simple (advanced for national for example)
     'footer':{
-      'displaySitemap': true,
-      'type': 'simple',
+      'displaySitemap': false,
+      'type': 'advanced',
       'advanced': {
         'logo':{
           'src': '/static/images/hotelFooterLogo.png',

@@ -7,9 +7,9 @@
     "language": "english",
     "language_code": "en-us",
     "page_title": "The Sutton Place Hotels in British Columbia and Alberta Canada.",
-    "footer_copyright_text": "&copy; 2016 The Sutton Place Hotel Company. All Rights Reserved.",
+    "footer_copyright_text": "Sandman Hotel Group - All Rights Reserved",
     "breadcrumbs_static_content": "Lorem Ipsum",
-    "footer_static_content": "Lorem Ipsum",
+    "footer_static_content": "Head Office - Sandman Hotel Group 310 – 1755 West Broadway, Vancouver, British Columbia, Canada V6J 4S5 | Tel: <a href='tel:(604) 730-6600'>(604) 730-6600</a> | Fax: <a href='tel:(604) 730-4645'>(604) 730-4645</a> | Reservations : <a href='tel:1-800-SANDMAN'>1-800-SANDMAN</a>",
     "HOMEPAGE": "//////////////////////////////////////////////////////",
     "home_page_title": "<span><strong>SANDMAN</strong> HOTEL GROUP<span>WITH MULTIPLE LOCATIONS ACROSS CANADA</span></span>",
     "home_page_desc": "<p>By choosing Sandman, we will provide you with the extra measure of quality, comfort, and personal convenience you are looking for. With over 40 Hotels, Resorts, Inns, and Suites from British Columbia to Quebec the UK, and several more properties under development, Sandman is Canada’s fastest-growing, privately-owned hospitality company. A Canadian success story, we are continually refining our product and expanding our facilities – and definitely on the move!</p><p>In addition to great accommodations, you can enjoy a variety of dining options during your travels. Choose from a casual yet upscale dining experience at CHOP Steakhouse & Bar, to premium casual dining at Moxie’s Grill & Bar. Alternatively, you can choose the convenience of Denny’s Restaurants, Shark Club Bar & Grill, Rockford Wok|Bar|Grill, or get together with friends at one of our popular lounges.</p><p>At Sandman Hotel Group, we understand. For over 40 years, we have made it our business to take care of the details and to ensure your stay with us is enjoyable, comfortable, and affordable.</p>",
@@ -406,8 +406,8 @@
     "modify_reservation_modal_desc_short": "You can now modify your booking",
     "modify_reservation_modal_desc_long": "Update your dates and number of occupants on the booking bar to search again",
     "modify_reservation_modal_error_title": "Your Booking",
-    "modify_reservation_modal_error_desc": "To modify your booking please call our reservation team on 1.8663.SUTTON",
-    "modify_points_reservation_modal_error_desc": "As your booking was confirmed using pay with points, please call us direct to modify or cancel your stay. Toll Free Reservations 1.866.378.8866 (1.8663.SUTTON) or Sutton Prestige Loyalty 1.877.777.5122",
+    "modify_reservation_modal_error_desc": "To modify your booking please call our reservation team on 1-800-SANDMAN",
+    "modify_points_reservation_modal_error_desc": "As your booking was confirmed using pay with points, please call us direct to modify or cancel your stay. Toll Free Reservations 1.866.378.8866 (1-800-SANDMAN) or Status Plus 1.877.777.5122",
     "modify_reservation_modal_abort_desc": "Your changes will not be saved if you navigate away from this page in order to update your booking you need to finish the reservation process",
     "rooms_modal_title": "Rooms for your booking",
     "reservation_lookup_modal_error": "Sorry, we cannot find a reservation that matches your details, please check them and try again.",
@@ -467,6 +467,6 @@
     "error_page_title": "We’re Sorry!",
     "error_page_subtitle": "It seems we’re experiencing some technical difficulties",
     "error_page_copy_one": "We’re fixing the problem right now - please check back soon and it’ll be good as new!",
-    "error_page_copy_two": "If you need immediate assistance you can call us on <a href='tel:1.8663.SUTTON'>1.8663.SUTTON</a> or email us at <a href='mailto:reservations@suttonplace.com'>reservations@suttonplace.com</a>"
+    "error_page_copy_two": "If you need immediate assistance you can call us on <a href='tel:1-800-SANDMAN'>1-800-SANDMAN</a> or email us at <a href='mailto:reservations@suttonplace.com'>reservations@suttonplace.com</a>"
   }
 }

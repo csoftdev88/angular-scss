@@ -33,4 +33,23 @@
     <img ng-src="{{footerConfig.advanced.logo.src}}" alt="{{footerConfig.advanced.logo.alt}}">
   </div>
 
+  <!-- TODO: Update SAND with correct chain code when available -->
+  <div ng-if="footerConfig.type == 'advanced' && chainCode == 'SAND'">
+    <p>_footer_static_content_</p>
+    <nav>
+      <ul>
+        <li><a ui-sref="hotels">_hotels_</a></li>
+        <li><a ui-sref="deals">_hot_deals_</a></li>
+        <li><a ui-sref="meetings">_meetings_banquets_</a></li>
+        <li><a ui-sref="offers">_offers_deals_</a></li>
+        <li><a ui-sref="aboutUs">_about_us_</a></li>
+        <li><a ui-sref="contacts">_contact_</a></li>
+        <li><a href ng-click="sso.login()" ng-show="!isUserLoggedIn()">_login_</a></li>
+        <li><a href="" ui-sref="lookup">_footer_links_modify_</a></li>
+      </ul>
+    </nav>
+    <social-links></social-links>
+    <p class="copyright">_footer_copyright_text_</p>
+  </div>
+
 </div>
