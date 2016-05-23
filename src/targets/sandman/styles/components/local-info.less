@@ -1,0 +1,38 @@
+////////////////////
+//// LOCAL INFO ////
+////////////////////
+
+//- Information About Time & Weather
+
+local-info {
+
+  font-size: @size--0;
+  line-height: 16px;
+  color: @c-mid-grey;
+
+  strong{
+    color: @c-dark-grey;
+  }
+
+  .chain-sign &{
+    font-family: @ff-heading-sign;
+    font-style: italic;
+    strong{
+      font-style: normal;
+    }
+    .viewport-mobile &{
+      font-family: @ff-default;
+      font-style: normal;
+      strong{
+        font-weight: 600;
+      }
+    }
+  }
+
+  span[class^="weather-"]{
+    margin-bottom: 0;
+  }
+
+}
+
+

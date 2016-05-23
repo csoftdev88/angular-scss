@@ -18,6 +18,11 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
         var EVENTS_SCROLL_RESIZE = 'scroll resize';
 
         var unWatchData = scope.$watch(function(){
+          
+          scope.isProperty = breadcrumbsService.isProperty();
+          scope.isRoom = breadcrumbsService.isRoom();
+          scope.breadcrumbHeader = breadcrumbsService.getHeader();
+
           var breadcrumbs = breadcrumbsService.getBreadCrumbs() || [];
           if(scope.breadcrumbs !== breadcrumbs){
             scope.breadcrumbs = breadcrumbs;

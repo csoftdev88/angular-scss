@@ -8,6 +8,9 @@ angular.module('mobiusApp.services.breadcrumbs', [])
     var hrefs = [];
     var absHrefs = [];
     var activeHref;
+    var isPropertyPage = false;
+    var isRoomPage = false;
+    var title = '';
 
     function clear() {
       breadcrumbs = [];
@@ -132,6 +135,34 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       return 0;
     }
 
+    //isProperty getter/setter
+    function isProperty(bool){
+      if(bool){
+        isPropertyPage = bool;
+      }
+      else{
+        return isPropertyPage;
+      }
+    }
+
+    //isRoom getter/setter
+    function isRoom(bool){
+      if(bool){
+        isRoomPage = bool;
+      }
+      else{
+        return isRoomPage;
+      }
+    }
+
+    function setHeader(val){
+      title = val;
+    }
+
+    function getHeader(){
+      return title;
+    }
+
     // Public methods
     var object = {
       clear: clear,
@@ -146,7 +177,11 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       removeHref: removeHref,
       setActiveHref: setActiveHref,
       getActiveHref: getActiveHref,
-      getVisibleHref: getVisibleHref
+      getVisibleHref: getVisibleHref,
+      isProperty: isProperty,
+      isRoom: isRoom,
+      setHeader: setHeader,
+      getHeader: getHeader
     };
 
     return object;

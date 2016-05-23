@@ -211,6 +211,14 @@ describe('mobius.controllers.reservation', function() {
             },
             'hotelDetails':{
               chainPrefix: 'testChain'
+            },
+            viewsSettings: {
+              hotelDetails:{
+                hasViewMore: false
+              },
+              breadcrumbsBar: {
+                displayPropertyTitle: false
+              }
             }
           },
           API: {

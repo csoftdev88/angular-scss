@@ -462,7 +462,7 @@ angular
   })
 
   .controller('BaseCtrl', function($scope, $rootScope, $controller,$state, scrollService,
-    metaInformationService, Settings, propertyService, $window){
+    metaInformationService, Settings, propertyService, $window, breadcrumbsService){
 
     $controller('ReservationUpdateCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
@@ -483,6 +483,21 @@ angular
         else{
           propertyService.removePropertyChainClass();
         }
+      }
+
+      //breadcrumbs
+      if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo')){
+        breadcrumbsService.isProperty(true);
+      }
+      else if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo')){
+        breadcrumbsService.isProperty(false);
+      }
+
+      if(Settings.UI.viewsSettings.breadcrumbsBar.displayRoomTitle && toState.name === 'room'){
+        breadcrumbsService.isRoom(true);
+      }
+      else if(Settings.UI.viewsSettings.breadcrumbsBar.displayRoomTitle && toState.name !== 'room'){
+        breadcrumbsService.isRoom(false);
       }
 
       //if single property redirect home state to hotel page

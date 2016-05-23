@@ -138,6 +138,9 @@ describe('mobius.controllers.hotel.details', function() {
             viewsSettings: {
               hotelDetails:{
                 hasViewMore: false
+              },
+              breadcrumbsBar: {
+                displayPropertyTitle: false
               }
             }
           }

@@ -40,6 +40,18 @@ describe('breadcrumbs', function() {
 
         getActiveHref: function(){
           return 'activeHref';
+        },
+
+        isProperty: function(){
+          return false;
+        },
+
+        isRoom: function(){
+          return false;
+        },
+
+        getHeader: function(){
+          return 'Title';
         }
       });
 

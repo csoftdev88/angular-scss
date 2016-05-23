@@ -18,6 +18,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
   $scope.hasTitle = Settings.UI.viewsSettings.hotelDetails.hasTitle;
   $scope.roomsConfig = Settings.UI.hotelDetails.rooms;
+  $scope.viewSettings = Settings.UI.viewsSettings.hotelDetails;
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
   $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
@@ -112,6 +113,9 @@ angular.module('mobius.controllers.hotel.details', [
   propertyService.getPropertyDetails(propertyCode).then(function(details){
     $scope.localInfo = details.localInfo;
     $scope.details = details;
+    if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle){
+      breadcrumbsService.setHeader(details.nameLong);
+    }
     // Updating Hero content images
     if(details.images){
       $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));

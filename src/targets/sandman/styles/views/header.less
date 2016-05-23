@@ -296,6 +296,12 @@ Sub-nav
             font-size: 15px;
             text-transform: uppercase;
             padding: 0 15px;
+            &.is-active {
+              color: @c-menu-active;
+              .chain-sign &{
+                color: @c-menu-active-sign;
+              }
+            }
           }
           ul{
             li{

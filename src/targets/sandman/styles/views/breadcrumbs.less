@@ -1,0 +1,88 @@
+/////////////////////
+//// BREADCRUMBS ////
+/////////////////////
+
+.breadcrumbs {
+  background: @c-light-grey;
+  padding: 14px;
+
+  h1{
+    display: inline;
+    float: left;
+    font-size: 24px;
+    line-height: 33px;
+    color: @c-grey;
+    font-weight: 600;
+    font-family: @ff-heading;
+    .chain-sign &{
+      font-size: 30px;
+      font-family: @ff-heading-sign;
+      font-weight: normal;
+      font-style: italic;
+    }
+  }
+  
+  .crumbs{
+    clear: both;
+    li{
+      color: @c-grey;
+      line-height: 24px;
+      a{
+        color: @c-menu-active;
+        font-size: @size--1;
+        line-height: @size-3;
+        font-weight: 300;
+        &:after{
+          color: @c-dark-grey;
+          font-size: 18px;
+        }
+        .chain-sign &{
+          color: @c-menu-active-sign;
+          font-family: @ff-heading-sign;
+          font-style: italic;
+        }
+        .chain-sand &{
+          color: @c-menu-active-sand;
+        }
+      }
+      span{
+        .chain-sign &{
+          font-family: @ff-heading-sign;
+          font-style: italic;
+        }
+      }
+    }
+  }
+
+  .alt-nav{
+    position: relative;
+    top: -12px;
+    li{
+      border-left-color: @c-menu-active-sign;
+      a{
+        font-weight: 600;
+        &:after{
+          border-color: @c-menu-active;
+        }
+        .chain-sign &{
+          color: @c-menu-active-sign;
+          font-size: 16px;
+          line-height: 14px;
+          text-transform: uppercase;
+          &:after{
+            border-color: @c-menu-active-sign;
+          }
+        }
+        .chain-sand &{
+          font-size: 15px;
+          color: @c-menu-active-sand;
+          &:after{
+            border-color: @c-menu-active-sand;
+          }
+        }
+      }
+    }
+  }
+  
+}
+

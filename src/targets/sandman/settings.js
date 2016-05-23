@@ -745,7 +745,11 @@ angular.module('mobiusApp.config', [])
       },
       'hotelDetails':{
         'hasViewMore': true,
-        'hasTitle': true
+        'hasTitle': true,
+        'hotelInfo': {
+          'descriptionGrid': 7,
+          'sidebarGrid': 5
+        }
       },
       'userProfile':{
         'hasAvatar': true,
@@ -756,6 +760,8 @@ angular.module('mobiusApp.config', [])
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
+        'displayPropertyTitle': true,
+        'displayRoomTitle': true,
         'displayStaticContent': false
       },
       'locationMap':{

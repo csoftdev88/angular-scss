@@ -1,0 +1,88 @@
+//////////////////////////
+//// VIEW MORE IMAGES ////
+//////////////////////////
+
+//- About Us, Hotel Detail, Hotels (location)
+
+view-more-images {
+  margin: 16px 20px 0 !important;
+
+  a{
+    .chain-sign &{
+      color: @c-menu-active-sign;
+    }
+  }
+
+  local-info{
+    display: block;
+    margin: 0;
+    margin-bottom: 10px;
+    .viewport-mobile &{
+      display: none;
+    }
+  }
+
+  hero-slider {
+    box-shadow: none;
+    height: 250px;
+    margin-top: 0;
+    margin-bottom: 40px;
+
+    .slider-content {
+      height: 300px;
+      .hero-slide {
+        overflow: visible;
+        height: 208px;
+
+        .content-inner {
+          display: block;
+          top: 240px;
+          h1{
+            background: none;
+            .chain-sign &{
+              font-family: @ff-heading-sign;
+              font-style: italic;
+            }
+          }
+          
+        }
+      }
+    }
+
+    .slider-controls{
+      > div{
+        top: -300px;
+      }
+      &:before{
+        height: 208px;
+        line-height: 208px;
+        top: -300px;
+      }
+      .slide-button{
+        top: 82px;
+      }
+      .pages{
+        top: 228px;
+        .chain-sign &{
+          font-family: @ff-heading-sign;
+          font-style: italic;
+        }
+      }
+    }
+
+    .chain-sign &{
+      &:after{
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, -50%);
+        content: '';
+        width: 46px;
+        height: 46px;
+        background: url('@{img-prefix}/signature-logo-gallery.png') no-repeat center center;
+        z-index: 9;
+      }
+    }
+
+  }
+}

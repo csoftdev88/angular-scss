@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.room.details', [])
 
 .controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
-  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService) {
+  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService, breadcrumbsService) {
 
   var numNights = 1;
 
@@ -90,6 +90,9 @@ angular.module('mobius.controllers.room.details', [])
     qBookingParam.promise.then(function(bookingParams) {
       getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
         $scope.updateHeroContent($window._.filter(data[0].images, {includeInSlider: true}));
+        if(Settings.UI.viewsSettings.breadcrumbsBar.displayRoomTitle){
+          breadcrumbsService.setHeader(data[0].nameLong);
+        }
         // Tracking products impressions
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails(propertyCode).then(function(propertyData){

@@ -17,9 +17,18 @@ describe('mobius.controllers.room.details', function() {
         $provide.value('propertyService', {});
         $provide.value('filtersService', {});
         $provide.value('bookingService', {});
-        $provide.value('Settings', {});
+        $provide.value('Settings', {
+          UI: {
+            viewsSettings: {
+              breadcrumbsBar: {
+                displayRoomTitle: false
+              }
+            }
+          }
+        });
         $provide.value('chainService', {});
         $provide.value('$stateParams', {});
+        $provide.value('breadcrumbsService', {});
 
         $provide.value('mobiusTrackingService', {
           trackSearch: sinon.spy()
