@@ -6,6 +6,9 @@
 
 view-more-images {
   margin: 16px 20px 0 !important;
+  .viewport-tablet &{
+    margin: 0 !important;
+  }
 
   a{
     .chain-sign &{
@@ -40,7 +43,7 @@ view-more-images {
           h1{
             background: none;
             .chain-sign &{
-              font-family: @ff-heading-sign;
+              font-family: @ff-heading-it-sign;
               font-style: italic;
             }
           }
@@ -64,7 +67,7 @@ view-more-images {
       .pages{
         top: 228px;
         .chain-sign &{
-          font-family: @ff-heading-sign;
+          font-family: @ff-heading-it-sign;
           font-style: italic;
         }
       }
@@ -84,5 +87,48 @@ view-more-images {
       }
     }
 
+  }
+
+  read-more{
+    padding: 14px 20px 6px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    border-bottom: 2px solid @c-light-grey;
+    
+    p{
+      color: @c-mid-grey;
+      margin-bottom: 14px;
+      font-size: 14px;
+      line-height: 24px;
+      border-top: 2px solid @c-light-grey;
+      border-bottom: 1px solid @c-light-grey;
+      height: 40px;
+      line-height: 40px;
+      .chain-sign &{
+        font-family: @ff-heading-it-sign;
+      }
+    }
+
+    ul{
+      li{
+        margin-bottom: 30px;
+        a{
+          cursor: pointer;
+          font-size: 14px;
+          color: @c-dark-grey;
+          .chain-sign &{
+            font-family: @ff-heading-bold-sign;
+            color: @c-dark-grey;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+    
   }
 }
