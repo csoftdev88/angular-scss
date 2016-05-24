@@ -256,7 +256,7 @@ angular.module('mobiusApp.config', [])
         // Loading rates when hovering over the room
         // in ms.
         'hoverTriggerDelay': 2000,
-        'showRoomCount': false,
+        'showRoomCount': true,
         //Show room highlight text instead of description
         'showRoomHighlight': true,
         'displayRatesOnLoad': false,
@@ -266,8 +266,8 @@ angular.module('mobiusApp.config', [])
           'width': 150,
           'height': 150
         },
-        'includeSlider': false,
-        'includeTripAdvisorPreloader': true,
+        'includeSlider': true,
+        'includeTripAdvisorPreloader': false,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Book Now',
@@ -295,8 +295,8 @@ angular.module('mobiusApp.config', [])
         'hotelHeader': false,
         'hotelDatesSelected': false,
         'hotelInfo': true,
-        'hotelRooms': true,
         'hotelServices': true,
+        'hotelRooms': true,
         'hotelLocation': true,
         'hotelOffers': true
       }
