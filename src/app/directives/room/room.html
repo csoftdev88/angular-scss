@@ -201,8 +201,18 @@
 
   <div class="preloader relative" ng-show="otherRoomsLoading"></div>
 
+  <!-- Other rooms nav -->
+  <section ng-show="property.available && previousRoom && nextRoom && !config.otherRooms.useThumbnails">
 
-  <section ng-show="property.available && otherRooms && otherRooms.length > 1">
+    <nav class="other-rooms-nav">
+      <a href="" ng-click="goToRoom(property.meta.slug, previousRoom.meta.slug)"><span ng-bind-html="previousRoom.name | mainHeaderStyle"></span></a>
+      <a href="" ng-click="goToRoom(property.meta.slug, nextRoom.meta.slug)"><span ng-bind-html="nextRoom.name | mainHeaderStyle"></span></a>
+    </nav>
+
+  </section>
+
+  <!-- Other rooms thumbnails -->
+  <section ng-show="property.available && otherRooms && otherRooms.length > 1 && config.otherRooms.useThumbnails">
 
     <list-items class="grid-view other-rooms">
       <list-item

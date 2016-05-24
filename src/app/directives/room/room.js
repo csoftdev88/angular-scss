@@ -235,19 +235,38 @@ angular.module('mobiusApp.directives.room', [])
           return propertyService.getRooms(propertyCode)
             .then(function(hotelRooms){
 
-              //remove current room
-              hotelRooms = _.reject(hotelRooms, function(room){ return room.code === scope.roomDetails.code;});
+              
 
-              var data = scope.roomDetails;
-              var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
-              var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
+              //if using thumbnails
+              if(scope.config.otherRooms.useThumbnails){
+                //remove current room
+                hotelRooms = _.reject(hotelRooms, function(room){ return room.code === scope.roomDetails.code;});
+                var data = scope.roomDetails;
 
-              var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
+                var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
+                var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
 
-              // sortedCheaperRooms is sorted by price in descending order
-              var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
+                var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
 
-              scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
+                // sortedCheaperRooms is sorted by price in descending order
+                var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
+
+                scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
+              }
+              else{
+                var numRooms = hotelRooms.length;
+                var curRoomIndex;
+                _.find(hotelRooms, function(room, index){ 
+                  if(room.code === scope.roomDetails.code){
+                    curRoomIndex = index;
+                  }
+                });
+                var prevIndex = curRoomIndex > 0 ? curRoomIndex - 1 : numRooms - 1;
+                var nextIndex = curRoomIndex < numRooms -1 ? curRoomIndex + 1 : 0;
+                scope.previousRoom = hotelRooms[prevIndex];
+                scope.nextRoom = hotelRooms[nextIndex];
+              }
+              
               scope.otherRoomsLoading = false;
 
               $window._.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
@@ -258,6 +277,16 @@ angular.module('mobiusApp.directives.room', [])
               });
             });
         });
+      };
+
+      scope.goToRoom = function(pSlug, rSlug) {
+        if($stateParams.promoCode){
+          $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode});
+        }
+        else{
+          $state.go('room', {propertySlug: pSlug, roomSlug: rSlug});
+        }
+
       };
       
 

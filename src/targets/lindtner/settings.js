@@ -451,6 +451,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       'otherRooms':{
+        'useThumbnails': true,
         'thumbnails':{
           'width': 150,
           'height': 100

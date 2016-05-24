@@ -452,7 +452,7 @@ angular.module('mobiusApp.config', [])
       'showDescription': true,
       //show room highlight before description
       'showRoomHighlight': true,
-      'includeTripAdvisorPreloader': true,
+      'includeTripAdvisorPreloader': false,
       'headerPartial':{
         'display': false,
         'logo':{
@@ -461,6 +461,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       'otherRooms':{
+        'useThumbnails': false,
         'thumbnails':{
           'width': 150,
           'height': 100

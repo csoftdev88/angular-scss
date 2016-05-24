@@ -344,6 +344,8 @@ angular.module('mobiusApp.config', [])
         }
       },
       'otherRooms':{
+        //if true will display a list of other rooms with thumbnails, else it will show a regular prev/next navigation (sandman for example)
+        'useThumbnails': true,
         'thumbnails':{
           'width': 264,
           'height': 183
