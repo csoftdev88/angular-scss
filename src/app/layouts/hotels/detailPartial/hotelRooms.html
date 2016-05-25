@@ -103,7 +103,7 @@
             <!--<a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>-->
           </div>
 
-          <room-details ng-if="roomsConfig.displayRoomDetails">
+          <room-details ng-if="roomsConfig.displayRoomDetails" ng-class="{'rates-displayed': room._displayRates}">
 
             <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
 

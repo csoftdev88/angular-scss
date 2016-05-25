@@ -39,6 +39,15 @@
           height: auto;
         }
       }
+      .chain-sign &{
+        width: 40px;
+        height: 26px;
+        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat center center;
+        top: 16px;
+        img{
+          display: none !important;
+        }
+      }
     }
 
     > .app-menu {
@@ -54,6 +63,16 @@
           &.mobile-header{
             img{
               height: auto;
+            }
+            .chain-sign &{
+              a{
+                width: 40px;
+                height: 26px;
+                background: url('@{img-prefix}/signature-logo-medium.png') no-repeat center center;
+                img{
+                  display: none !important;
+                }
+              }
             }
             .close{
               &:after {
@@ -256,6 +275,14 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      .chain-sign &{
+        width: 145px;
+        height: 97px;
+        background: url('@{img-prefix}/signature-logo.png') no-repeat center center;
+        img{
+          display: none;
+        }
+      }
     }
   }
 }

@@ -105,9 +105,9 @@ hotel-detail {
 
       .display-all-rooms,
       .display-more-rooms {
-        color: @c-secondary;
-        background: @c-light-grey;
+        color: #fff;
         font-weight: 700;
+        background: @c-primary-sign;
       }
 
       list-item {
@@ -176,6 +176,7 @@ hotel-detail {
         .list-item-container {
           display: inline-block;
           width: 100%;
+          border-color: #c6beb5;
 
           .viewport-mobile &{
             border-bottom: none;
@@ -204,6 +205,117 @@ hotel-detail {
                 max-width: 100%;
               }
 
+              ul.amenities {
+                padding-left: 24px;
+                margin-bottom: 0px;
+                margin-top: 20px;
+
+                li{
+                  margin-bottom: 16px;
+                  span {
+                    min-width: 24px;
+
+                    // Icon
+                    img {
+                      max-height: 24px;
+                    }
+                  }
+                }
+              }
+
+            }
+          }
+
+          room-details {
+            float: left;
+            width: 63%;
+            padding: 15px;
+            border: 1px solid #c6beb5;
+            box-sizing: border-box;
+            border-top: none;
+
+            &.rates-displayed{
+              border-left: none;
+              border-bottom: none;
+            }
+
+            .description {
+              float: left;
+              width: 70%;
+
+              div {
+                p {
+                  display: none;
+
+                  &:nth-child(-n+3){
+                    display: block;
+                  }
+                }
+              }
+            }
+
+            > .pricing-info {
+
+              .price-form {
+
+                .value {
+
+                }
+              }
+
+              .not-available{
+                button-submit{
+                  background: @c-green;
+                  border-radius: 2px;
+                }
+              }
+
+              button {
+                background: @c-green;
+                border-radius: 2px;
+              }
+            }
+
+            .our-rates {
+              display: none;
+              float: left;
+              width: 100%;
+              font-weight: bold;
+              margin-top: 15px;
+              text-align: center;
+              color: @c-link;
+
+              .viewport-mobile & {
+                display: block;
+              }
+            }
+
+            .viewport-mobile & {
+              width: 100%;
+              border: none;
+
+              border-bottom: 1px solid @c-light-grey;
+
+              .description {
+                width: 100%;
+              }
+
+              > .pricing-info {
+                display: none;
+              }
+            }
+
+            + .not-available {
+              display: none;
+
+              .viewport-mobile & {
+                display: block;
+                margin: 20px 0 10px;
+                width: 100%;
+                p {
+                  text-align: center;
+                }
+              }
             }
           }
 
@@ -215,9 +327,10 @@ hotel-detail {
 
           hero-slider {
             overflow: visible;
-            width: auto;
+            width: 40%;
             height: 150px;
             margin-top: 0;
+            float: left;
 
             .viewport-mobile &{
               margin-bottom: 20px;

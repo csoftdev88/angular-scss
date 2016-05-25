@@ -298,8 +298,8 @@ angular.module('mobiusApp.config', [])
         'hotelInfo': true,
         'hotelServices': false,
         'hotelRooms': true,
-        'hotelLocation': true,
-        'hotelOffers': true
+        'hotelOffers': true,
+        'hotelLocation': true
       }
     },
     //rate lookup teasers
@@ -768,7 +768,7 @@ angular.module('mobiusApp.config', [])
       },
       'locationMap':{
         'displayMainTitle': false,
-        'displayGoogleMapsLink': true,
+        'displayGoogleMapsLink': false,
         'displayIcons': true,
         'directionsLink':{
           'display': false,
