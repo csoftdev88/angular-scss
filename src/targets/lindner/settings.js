@@ -266,6 +266,7 @@ angular.module('mobiusApp.config', [])
           'height': 150
         },
         'includeSlider': false,
+        'sliderHasThumbnails': false,
         'includeTripAdvisorPreloader': false,
         // Room Rates
         'rates': {

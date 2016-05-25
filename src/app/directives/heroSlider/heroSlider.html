@@ -16,3 +16,7 @@
 
 <notification-bar ng-if="hasNotificationBar">
 </notification-bar>
+
+<ul class="thumbnail-nav" ng-if="hasThumbnails && content.length > 1">
+  <li ng-repeat="thumb in content | limitTo: 4"><img ng-src="{{thumb.uri}}" ng-click="slideToIndex($index, $event)"></li>
+</ul>

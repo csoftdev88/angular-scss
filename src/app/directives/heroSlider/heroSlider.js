@@ -39,6 +39,8 @@ angular.module('mobiusApp.directives.slider', [])
 
       // True by default
       scope.hasNotificationBar = attrs.hasNotificationBar !== 'false';
+      // False by default
+      scope.hasThumbnails = attrs.hasThumbnails === 'true';
       // Counter types - bullets/counter
       scope.counterType = attrs.counterType || 'bullets';
 

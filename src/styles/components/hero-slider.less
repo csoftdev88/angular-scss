@@ -191,6 +191,28 @@ hero-slider {
       }
     }
   }
+
+  ul.thumbnail-nav{
+    margin-top: 2px;
+    float: left;
+    li{
+      position: relative;
+      float: left;
+      margin-left: 2%;
+      width: 23%;
+      height: 38px;
+      overflow: hidden;
+      cursor: pointer;
+      &:first-child{
+        margin-left: 0;
+      }
+      img{
+        max-height: 100%;
+        width: auto;
+        transform: translateX(-50%);
+      }
+    }
+  }
 }
 
 // MOBILE SPECIFIC STYLES

@@ -206,9 +206,10 @@ hotel-detail {
               }
 
               ul.amenities {
-                padding-left: 24px;
+                padding-left: 16px;
                 margin-bottom: 0px;
                 margin-top: 20px;
+                max-width: 50%;
 
                 li{
                   margin-bottom: 16px;
@@ -237,6 +238,7 @@ hotel-detail {
             &.rates-displayed{
               border-left: none;
               border-bottom: none;
+              height: 190px;
             }
 
             .description {
@@ -327,10 +329,17 @@ hotel-detail {
 
           hero-slider {
             overflow: visible;
-            width: 40%;
-            height: 150px;
+            width: 50%;
+            height: auto;
             margin-top: 0;
             float: left;
+
+            ul.thumbnail-nav{
+              display: none;
+              .chain-sign &{
+                display: inline;
+              }
+            }
 
             .viewport-mobile &{
               margin-bottom: 20px;
@@ -377,23 +386,7 @@ hotel-detail {
 
 
               &:before {
-                content: '';
-                display: block;
-                position: absolute;
-                right: 3px;
-                bottom: 2px;
-                z-index: 1;
-                height: 150px;
-                color: @c-white;
-                width: 29px;
-                height: 29px;
-                text-align: center;
-                cursor: pointer;
-                background: url('@{img-prefix}/magnifier.png') no-repeat center;
-
-                .viewport-mobile & {
-                  display: none;
-                }
+                content: none;
               }
 
               &:hover {
