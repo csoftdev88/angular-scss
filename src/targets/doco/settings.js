@@ -283,6 +283,7 @@ angular.module('mobiusApp.config', [])
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': false,
       'removeScrollToRoomsOnFinish': false,
+      'displayAmenitiesInHotelInfo': false,
       'headerPartial':{
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',

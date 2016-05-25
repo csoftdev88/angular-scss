@@ -21,6 +21,11 @@ amenity-item,
   min-height: 70px;
   font-weight: 500;
 
+  .hotel-info-amenities &{
+    width: 50%;
+    padding: 0 8px;
+  }
+
   .viewport-mobile &{
     width: 100%;
   }
@@ -35,12 +40,11 @@ amenity-item,
     display: table-cell;
     vertical-align: middle;
     text-align: center;
-    min-width: 25px;
+    min-width: 24px;
 
     &.amenity-caption {
       padding-top: 2px;
       text-align: left;
-
     }
 
     // Icon
@@ -48,7 +52,7 @@ amenity-item,
       display: inline-block;
       margin-right: @baseline / 2;
       vertical-align: middle;
-      max-height: 15px;
+      max-height: 24px;
     }
   }
 }

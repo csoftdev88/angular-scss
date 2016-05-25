@@ -285,6 +285,7 @@ angular.module('mobiusApp.config', [])
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': true,
       'removeScrollToRoomsOnFinish': true,
+      'displayAmenitiesInHotelInfo': true,
       'headerPartial':{
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
@@ -295,7 +296,7 @@ angular.module('mobiusApp.config', [])
         'hotelHeader': false,
         'hotelDatesSelected': false,
         'hotelInfo': true,
-        'hotelServices': true,
+        'hotelServices': false,
         'hotelRooms': true,
         'hotelLocation': true,
         'hotelOffers': true

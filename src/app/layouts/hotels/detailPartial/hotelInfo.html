@@ -1,6 +1,17 @@
 <section grid-row>
     <div grid="{{(hasViewMore)? viewSettings.hotelInfo.descriptionGrid : 12}}">
-        <p ng-bind-html="details.description" markdown-text-parser></p>
+      <p ng-bind-html="details.description" markdown-text-parser></p>
+
+      <div ng-if="config.displayAmenitiesInHotelInfo" class="hotel-info-amenities">
+        <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
+        <ul class="amenities-list">
+          <li class="amenity-item" ng-repeat="amenity in details.amenities">
+            <slug-img slug="amenity.slug" type="hotel" width="15"></slug-img>
+            <span class="amenity-caption">{{amenity.name}}</span>
+          </li>
+        </ul>
+      </div>
+
     </div>
 
     <view-more-images grid="{{viewSettings.hotelInfo.sidebarGrid}}" ng-if="hasViewMore">
