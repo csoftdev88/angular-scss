@@ -3,8 +3,9 @@
  * This service handles mobius rate search and product purchase tracking
  */
 angular.module('mobiusApp.services.mobiusTrackingService', [])
-  .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, _, $rootScope, apiService, $state, stateService) {
-
+  .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, $window, $rootScope, apiService, $state, stateService) {
+    // Alias for lodash to get rid of ugly $window._ calls
+    var _ = $window._;
     var defaultData = {
         'channel': {
             'code': stateService.isMobile() ? Settings.API.headers['Mobius-channelId'].mobile : Settings.API.headers['Mobius-channelId'].web,
@@ -49,11 +50,11 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
     };
 
 
-    function setDefaultData(bookingParams, chainData, propertyData){
+    function setDefaultData(bookingParams, chainData, propertyData) {
 
       var sessionCookie = sessionDataService.getCookie();
 
-      if(userObject && userObject.id){
+      if(userObject && userObject.id) {
         //update customer data
         defaultData.customer.corporateCustomer = bookingParams.corpCode && bookingParams.corpCode !== '' ? true : false;
         defaultData.customer.email = userObject.email;
@@ -65,8 +66,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         defaultData.customer.country.code = userObject.iso3 || '';
         defaultData.customer.country.name = userObject.country || '';
         defaultData.customer.uuid = Settings.API.chainCode + '_' + userObject.id;
-      }
-      else{
+      }  else {
         defaultData.customer.uuid = sessionCookie.sessionData.sessionId;
       }
 
@@ -107,9 +107,9 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
 
 
     }
-    
 
-    function trackSearch(bookingParams, chainData, propertyData, products, room, rateSorting){
+
+    function trackSearch(bookingParams, chainData, propertyData, products, room, rateSorting) {
 
       if(!Settings.API.mobiusTracking.enable || $state.includes('reservation') || !products.length){
         return;
@@ -156,7 +156,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
             }
           };
           searchData.push(productData);
-    
+
       });
       postData.results = searchData;
 
@@ -179,19 +179,29 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         });
       });
       postData.nights.push(nightObj);
-      
+
       apiService.post(apiService.getFullURL('mobiusTracking.search'), postData).then(function(){
       }, function(err){
         console.log('Mobius search tracking error: ' + angular.toJson(err));
       });
-      
+
     }
 
-    function trackPurchase(bookingParams, chainData, propertyData, products, rooms, reservationData, priceData){
-      
+    function trackPurchase(bookingParams, chainData, propertyData, products, rooms, reservationData, priceData) {
+
       if(!Settings.API.mobiusTracking.enable){
         return;
       }
+
+      userObject = _.isEmpty(userObject) ? _.merge(_.cloneDeep(userObject), {
+        email: reservationData.guestEmail,
+        firstName: reservationData.guestFirstName,
+        lastName: reservationData.guestLastName,
+        tel1: reservationData.guestPhone,
+        iso3: reservationData.guestCountry.code,
+        country: reservationData.guestCountry.name,
+        id: sessionDataService.getCookie().sessionData.sessionId
+      }) : userObject;
 
       //set default data
       setDefaultData(bookingParams, chainData, propertyData);
@@ -246,11 +256,11 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         'totalPreTax': priceData.beforeTax,
         'totalTax': priceData.afterTax
       };
-      
+
       //Loop through each room then each night
       postData.nights = [];
       var nightObj = {};
-      
+
       _.each(rooms, function(room){
         _.each(room._selectedProduct.price.breakdowns, function(night){
           nightObj = {
@@ -267,15 +277,15 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
           postData.nights.push(nightObj);
         });
       });
-      
+
       //console.log('trackPurchase: ' + angular.toJson(postData));
 
       apiService.post(apiService.getFullURL('mobiusTracking.purchase'), postData).then(function(){
       }, function(err){
         console.log('Mobius purchase tracking error: ' + angular.toJson(err));
       });
-      
-      
+
+
     }
 
     // Public methods

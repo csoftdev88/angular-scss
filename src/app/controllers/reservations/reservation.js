@@ -857,10 +857,10 @@ angular.module('mobius.controllers.reservation', [])
             'beforeTax': $scope.getTotal('totalBase'),
             'afterTax': $scope.getTotal('totalAfterTax')
           };
-          mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, reservationData, priceData);
-
+          var trackingData = angular.copy(reservationData);
+          trackingData.guestCountry = _.find($scope.profileCountries, function(country) { return country.id === $scope.userDetails.localeCode; });
+          mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, priceData);
         });
-
       });
 
       //Infiniti Tracking purchase
@@ -1110,7 +1110,7 @@ angular.module('mobius.controllers.reservation', [])
     return $window.moment(date).format(format);
   };
 
-  
+
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
