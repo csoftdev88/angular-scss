@@ -357,16 +357,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
-  function openProductDetailsDialog(room, product){
+  function openProductDetailsDialog(room, product, isTabbed){
     return openDialog('product-details', 'layouts/modals/productDetails.html', CONTROLLER_POLICY, {
-      windowClass: 'dialog-product-details',
+      windowClass: isTabbed ? 'dialog-product-details tabbed' : 'dialog-product-details',
       resolve: {
         data: function() {
           product.price = setRoomTaxAndFees(product.price);
 
           return {
             room: room,
-            product: product
+            product: product,
+            isTabbed: isTabbed
           };
         }
       }

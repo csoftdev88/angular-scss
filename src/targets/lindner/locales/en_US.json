@@ -223,6 +223,7 @@
     "discount": "Discount",
     "description": "Description",
     "price_breakdown": "Price Breakdown",
+    "rate_details": "Rate Details",
     "terms_conditions": "Terms and Conditions",
     "current_points": "Current points:",
     "points_required_booking": "Points required for booking:",

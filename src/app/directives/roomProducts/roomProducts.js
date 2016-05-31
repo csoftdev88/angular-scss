@@ -18,6 +18,7 @@ angular.module('mobiusApp.directives.room.products', [])
       var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
 
       scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
+      scope.settings = Settings.UI.hotelDetails.rooms.rates;
 
       scope.init = function(){
         scope.products = undefined;
@@ -108,7 +109,7 @@ angular.module('mobiusApp.directives.room.products', [])
           Settings.UI.hotelDetails.ratesCacheTimeout?Settings.UI.hotelDetails.ratesCacheTimeout:0;
       }
 
-      scope.settings = Settings.UI.hotelDetails.rooms.rates;
+      
 
       scope.getRatesLimit = function(){
         return stateService.isMobile() ? scope.settings.ratesPerRoomOnMobile : scope.settings.ratesPerRoomOnDesktop;
@@ -177,8 +178,7 @@ angular.module('mobiusApp.directives.room.products', [])
             }]);
           });
         });
-
-        modalService.openProductDetailsDialog(scope.room, product);
+        modalService.openProductDetailsDialog(scope.room, product, scope.settings.rateInfoIsTabbed);
       };
 
       scope.init();

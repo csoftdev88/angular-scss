@@ -1,4 +1,4 @@
-<div class="ui-info">
+<div class="ui-info" ng-if="!data.isTabbed">
   <header>
     <h3>_description_</h3>
     <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
@@ -65,13 +65,6 @@
       <article>
         <accordion close-others="false">
           <accordion-group is-open="true">
-            <!--
-            <accordion-heading ng-if="data.length !== 1">
-              <div>
-                {{data.product.name}}
-              </div>
-            </accordion-heading>
-            -->
             <ul>
               <li ng-repeat="(policyCode, value) in data.product.policies">
                 <h3>{{getPolicyTitle(policyCode)}}:</h3>
@@ -82,4 +75,91 @@
       </article>
     </section>
   </main>
+</div>
+
+<div class="ui-info" ng-if="data.isTabbed">
+  <main>
+  <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  <tabset>
+    <tab heading="_rate_details_">
+      <section>
+        <article>
+          <p ng-bind-html="sanitize(data.product.description)"></p>
+        </article>
+      </section>
+    </tab>
+
+    <tab heading="_price_breakdown_">
+      <section class="price-breakdown">
+        <article>
+          <table class="price-breakdown-content" ng-if="data.product.price.breakdowns.length">
+            <tbody>
+              <tr class="main">
+                <th>_room_charges_:</th>
+                <td>{{data.product.price.totalBase | i18nCurrency: currencyCode}}</td>
+              </tr>
+
+              <tr class="breakdown" ng-repeat="breakdown in data.product.price.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
+                <th>{{formatDate(breakdown.date, 'DD MMM YYYY')}}:</th>
+                <td>{{breakdown.totalBase | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>_total_</th>
+                <td>{{data.product.price.totalAfterTax | i18nCurrency: currencyCode}}</td>
+              </tr>
+            </tfoot>
+          </table>
+        <!--
+          <table class="price-breakdown-content" ng-if="data.product.price.breakdowns.length">
+            <thead>
+              <tr>
+                <th>_night_</th>
+                <th>_rooms_</th>
+                <th>_tax_</th>
+                <th>_fees_</th>
+                <th>_total_rate_</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in data.product.price.breakdowns | orderBy: 'date'">
+                <td>{{formatDate(item.date, 'DD MMM YYYY')}}</td>
+                <td>{{item.totalBase | i18nCurrency: currencyCode}}</td>
+                <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
+                <td>{{item.totalFees | i18nCurrency: currencyCode}}</td>
+                <td>{{item.totalAfterTax | i18nCurrency: currencyCode}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="4">_total_</th>
+                <th>{{data.product.price.totalAfterTax | i18nCurrency: currencyCode}}</th>
+              </tr>
+            </tfoot>
+          </table>
+        -->
+        </article>
+      </section>
+    </tab>
+
+    <tab heading="_policies_">
+      <section class="terms-and-conditions">
+        <article>
+          <accordion close-others="false">
+            <accordion-group is-open="true">
+              <ul>
+                <li ng-repeat="(policyCode, value) in data.product.policies">
+                  <h3>{{getPolicyTitle(policyCode)}}:</h3>
+                  <p ng-bind-html="sanitize(value)"></p>
+                </li>
+              </ul>
+            </accordion-group>
+          </accordion>
+        </article>
+      </section>
+    </tab>
+
+  </tabset>
 </div>

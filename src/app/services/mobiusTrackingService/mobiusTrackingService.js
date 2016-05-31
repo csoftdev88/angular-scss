@@ -6,6 +6,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
   .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, $window, $rootScope, apiService, $state, stateService) {
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
+
     var defaultData = {
         'channel': {
             'code': stateService.isMobile() ? Settings.API.headers['Mobius-channelId'].mobile : Settings.API.headers['Mobius-channelId'].web,

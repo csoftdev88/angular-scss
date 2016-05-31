@@ -288,7 +288,8 @@ angular.module('mobiusApp.config', [])
           'showDescriptionToggle': true,
           'showNoRatesSubDescription': true,
           'showRateInfoIcon': false,
-          'showRateInfoLink': true
+          'showRateInfoLink': true,
+          'rateInfoIsTabbed': false
         }
 
       },
