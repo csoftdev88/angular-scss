@@ -12,13 +12,17 @@ hr {
     .chain-sand &{
       background: url('@{img-prefix}/hr-sand.jpg') center center no-repeat;
     }
+    .chain-sign &{
+      background: url('@{img-prefix}/hr-sign.jpg') center center no-repeat;
+    }
   }
 
   &:after ,
   &:before {
     border-top: 1px solid #eaeaea;
     z-index: -1;
-    .chain-sand &{
+    .chain-sand &,
+    .chain-sign &{
       width: 50%;
     }
   }

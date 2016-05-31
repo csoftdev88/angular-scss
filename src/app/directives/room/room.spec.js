@@ -44,6 +44,11 @@ describe('room', function() {
             'rooms':{
               'sortRoomsByWeighting': true
             }
+          },
+          'viewsSettings': {
+            'breadcrumbsBar': {
+              'displayRoomTitle': false
+            }
           }
         }
       });
