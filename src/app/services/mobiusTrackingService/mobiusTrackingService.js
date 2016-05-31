@@ -3,9 +3,7 @@
  * This service handles mobius rate search and product purchase tracking
  */
 angular.module('mobiusApp.services.mobiusTrackingService', [])
-  .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, $window, $rootScope, apiService, $state, stateService) {
-    // Alias for lodash to get rid of ugly $window._ calls
-    var _ = $window._;
+  .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, $window, $rootScope, apiService, $state, stateService, _) {
 
     var defaultData = {
         'channel': {
@@ -194,7 +192,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         return;
       }
 
-      userObject = _.isEmpty(userObject) ? _.merge(_.cloneDeep(userObject), {
+      userObject = _.isEmpty(userObject) ? _.extend(_.clone(userObject), {
         email: reservationData.guestEmail,
         firstName: reservationData.guestFirstName,
         lastName: reservationData.guestLastName,
