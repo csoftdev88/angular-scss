@@ -14,6 +14,9 @@ view-more-images {
     .chain-sign &{
       color: @c-menu-active-sign;
     }
+    .chain-sand &{
+      color: @c-menu-active-sand;
+    }
   }
 
   local-info{
@@ -115,6 +118,9 @@ view-more-images {
     ul{
       li{
         margin-bottom: 30px;
+        .chain-sand &{
+          margin-bottom: 20px;
+        }
         a{
           cursor: pointer;
           font-size: 14px;
@@ -124,6 +130,10 @@ view-more-images {
             color: @c-dark-grey;
             font-weight: 700;
             font-size: 12px;
+            text-transform: uppercase;
+          }
+          .chain-sand &{
+            color: @c-dark-grey;
             text-transform: uppercase;
           }
         }

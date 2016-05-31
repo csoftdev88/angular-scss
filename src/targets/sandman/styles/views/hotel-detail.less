@@ -9,8 +9,11 @@ hotel-detail {
   }
 
   h2{
-    .chain-sign &{
-      font-size: 18px;
+    font-size: 18px;
+    .chain-sand &{
+      font-weight: 600;
+      text-transform: uppercase;
+      color: @c-grey;
     }
   }
 
@@ -29,6 +32,11 @@ hotel-detail {
 
   .hotel-info-amenities{
     margin-top: 40px;
+    h2{
+      .chain-sand &{
+        color: @c-grey;
+      }
+    }
   }
   
 
@@ -43,9 +51,10 @@ hotel-detail {
         background: #fff;
         padding-right: 16px;
         line-height: 28px;
+        color: @c-dark-grey;
       }
 
-      &:after{
+      .chain-sign &:after{
         content: '';
         position: absolute;
         left: 0;
@@ -95,9 +104,16 @@ hotel-detail {
     .search-details {
       margin: 0;
       .room-counter {
-        color: @c-light-grey;
-        font-family: @ff-heading-it-sign;
         font-size: 13px;
+        .chain-sign &{
+          color: @c-light-grey;
+          font-family: @ff-heading-it-sign;
+        }
+        .chain-sand &{
+          color: @c-dark-grey;
+          font-weight: 300;
+          font-style: italic;
+        }
       }
     }
 
@@ -108,6 +124,9 @@ hotel-detail {
         color: #fff;
         font-weight: 700;
         background: @c-primary-sign;
+        .chain-sand &{
+          background: @c-primary-sand;
+        }
       }
 
       list-item {
@@ -444,6 +463,14 @@ hotel-detail {
           
         }
 
+      }
+    }
+  }
+
+  .hotel-detail__offers {
+    > h2{
+      .chain-sand &{
+        color: @c-dark-grey;
       }
     }
   }

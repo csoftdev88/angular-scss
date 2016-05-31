@@ -183,7 +183,7 @@ angular.module('mobiusApp.config', [])
       'singleProperty': false,
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
-      'applyPropertyChainClassToBody': true
+      'applyChainClassToBody': true
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',

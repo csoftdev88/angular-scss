@@ -23,6 +23,13 @@
         font-size: 18px;
       }
     }
+    .chain-sand &{
+      font-weight: 700;
+      text-transform: uppercase;
+      .viewport-tablet &{
+        font-size: 18px;
+      }
+    }
   }
   
   .crumbs{
@@ -30,6 +37,11 @@
     li{
       color: @c-grey;
       line-height: 24px;
+
+      .chain-sand &{
+        font-weight: 300;
+      }
+
       a{
         color: @c-menu-active;
         font-size: @size--1;
@@ -60,8 +72,14 @@
   .alt-nav{
     position: relative;
     top: -12px;
+    z-index: 9;
     li{
-      border-left-color: @c-menu-active-sign;
+      .chain-sign &{
+        border-left-color: @c-menu-active-sign;
+      }
+      .chain-sand &{
+        border-left-color: @c-menu-active-sand;
+      }
       a{
         font-weight: 600;
         &:after{

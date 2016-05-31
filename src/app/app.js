@@ -470,13 +470,14 @@ angular
 
     $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
-      //if applyPropertyChainClassToBody, get property details and add its chain as body class for styling
-      if(Settings.UI.generics.applyPropertyChainClassToBody){
+      //if applyChainClassToBody, get property details and add its chain as body class for styling
+      if(Settings.UI.generics.applyChainClassToBody){
         var propertyCode = toParams.propertyCode || toParams.property;
         if(propertyCode){
           propertyService.getPropertyDetails(propertyCode).then(function(details){
             //faking chainCode not yet available
             details.chainCode = 'SAND';
+            //TODO: Move to own service
             propertyService.applyPropertyChainClass(details.chainCode);
           });
         }

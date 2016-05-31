@@ -9,12 +9,18 @@ hr {
   &,
   &.dividerWithoutImage{
     background: url('@{img-prefix}/hr.jpg') center center no-repeat;
+    .chain-sand &{
+      background: url('@{img-prefix}/hr-sand.jpg') center center no-repeat;
+    }
   }
 
   &:after ,
   &:before {
     border-top: 1px solid #eaeaea;
     z-index: -1;
+    .chain-sand &{
+      width: 50%;
+    }
   }
 
 }
