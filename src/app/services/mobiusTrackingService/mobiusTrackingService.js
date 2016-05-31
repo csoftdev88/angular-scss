@@ -3,7 +3,7 @@
  * This service handles mobius rate search and product purchase tracking
  */
 angular.module('mobiusApp.services.mobiusTrackingService', [])
-  .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, $window, $rootScope, apiService, $state, stateService) {
+  .service( 'mobiusTrackingService',  function(Settings, userObject, sessionDataService, $window, $rootScope, apiService, $state, stateService, _) {
     var defaultData = {
         'channel': {
             'code': stateService.isMobile() ? Settings.API.headers['Mobius-channelId'].mobile : Settings.API.headers['Mobius-channelId'].web,
