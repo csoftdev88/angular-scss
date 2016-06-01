@@ -37,48 +37,84 @@ hero-slider {
   }
 
   .slider-content {
-
     .hero-slide {
+      width: 100%;
+      background-color: #FFF;
+      overflow: hidden;
+      position: absolute;
+      background-position: center;
+
+      height: 100%;
+      background-size: cover;
+
+      &.animation-right.sliding-in {
+        .content-inner h1, h2 {
+          .slide-animation-right;
+        }
+      }
+
+      &.animation-left.sliding-in {
+        .content-inner h1, h2 {
+          .slide-animation-left;
+        }
+      }
 
       .content-inner {
-        position: absolute;
-        width: 100%;
-        max-width: none;
-        top: auto;
-        bottom: 0;
-        background: rgba(255, 255, 255, 0.87);
-        padding: 10px 0 30px;
-        display: none;
+        max-width: 960px;
+        margin: 0 auto;
+        position: relative;
+        top: 65%;
 
         h1, h2 {
-          position: relative;
-          padding: 0;
-          color: @c-primary;
-          .chain-sign &{
-            //background: @c-primary-sign;
-          }
-          width: 960px;
-          margin: 0 auto;
-          left: 0;
+          position: absolute;
+          padding-right: 0;
+          padding-left: @baseline*1.2;
+          color: @white;
+          margin: 0;
+          left: auto;
+          right: 0;
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
-          &:before {
-            content: none;
-          }
-          span{
-            padding: 0;
-          }
         }
 
         h1 {
-          background-color: transparent;
-          line-height: 38px;
+          .animated-slow;
+
+          font-size: 28px;
+          line-height: 50px;
+          text-transform: uppercase;
+          background-color: rgba(0, 0, 0, 0.8);
+
+          &:before {
+            content: '';
+            position: absolute;
+            right: -9999px;
+            left: 100%;
+            height: 100%;
+            background-color: inherit;
+          }
         }
 
         h2 {
-          top: 0;
-          font-size: @size-0;
-          background-color: transparent;
+          .animated-slower;
+          top: 58px;
+          font-size: @size-1;
+          text-transform: uppercase;
+          background-color: #b08e5e;
+
+          span {
+            padding: 5px;
+            display: inline-block;
+          }
+
+          &:before {
+            content: '';
+            position: absolute;
+            right: -9999px;
+            left: 100%;
+            height: 100%;
+            background-color: inherit;
+          }
         }
       }
     }
