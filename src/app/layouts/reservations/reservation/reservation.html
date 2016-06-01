@@ -77,8 +77,12 @@
         <section class="room-data">
           <h4>{{property.nameLong}}</h4>
 
-          <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
-          <p class="price"><strong>{{getProductPricePerNight(getTotal('totalBase')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+          <div class="room-data-details">
+            <span class="chain-logo"></span>
+            <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
+            <p class="price"><strong>{{getProductPricePerNight(getTotal('totalBase')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+          </div>
+
           <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} _more_ <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"> </ng-pluralize></a></h3>
 
           <div class="image-wrapper">
@@ -194,7 +198,7 @@
       </aside>
     </div>
 
-    <label for="agreement3" class="input-checkbox" ng-if="state.includes('reservation.details') || state.includes('reservation.billing')">
+    <label for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
       <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
       <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
     </label>

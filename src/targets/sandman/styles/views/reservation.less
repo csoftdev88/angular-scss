@@ -144,13 +144,41 @@ reservation-widget {
       font-weight: 700;
     }
 
+    .room-data-details{
+      display: inline-block;
+      width: 100%;
+      position: relative;
+    }
+
     .desc,
     .price{
+      display: inline;
+      float: left;
+      &.price{
+        clear: left;
+        margin-top: 0;
+      }
       .chain-sand &{
         color: @c-primary-sand;
       }
       .chain-sign &{
         color: @c-primary-sign;
+      }
+    }
+
+    .chain-logo{
+      display: block;
+      top: 3px;
+      .chain-sand &{
+        width: 98px;
+        height: 17px;
+        background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
+        top: 13px;
+      }
+      .chain-sign &{
+        width: 40px;
+        height: 26px;
+        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
       }
     }
 
@@ -219,12 +247,17 @@ reservation-widget {
 
   }
 
+  label[for="agreement2"] {
+    display: none;
+  }
+
   label[for="agreement3"] {
     margin: 0 @spacing @baseline/2 @spacing;
     padding: 0px;
     line-height: 20px;
     margin-bottom: 20px;
     text-align: left;
+    display: block !important;
     .viewport-mobile &{
       margin-left: 0;
     }
@@ -342,6 +375,61 @@ reservation-billing {
     background-color: #f9f9f9;
     .viewport-mobile &{
       padding: 20px;
+    }
+  }
+
+  .payment-methods {
+    cursor: pointer;
+
+    li {
+      display: inline-block;
+      vertical-align: middle;
+      &:last-child{
+        float: right;
+      }
+    }
+
+    li + li {
+      margin-left: 10px;
+    }
+
+    .divider {
+      display: none;
+    }
+
+    i {
+      display: block;
+      opacity: 1;
+      width: 32px;
+      height: 30px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      opacity: 0.5;
+
+      &.selected {
+        opacity: 1;
+      }
+
+      &.visa {
+        background-image: url('@{img-prefix}/card-icons/visa.png');
+      }
+
+      &.master {
+        background-image: url('@{img-prefix}/card-icons/mastercard.png');
+      }
+
+      &.amex {
+        background-image: url('@{img-prefix}/card-icons/amex.png');
+      }
+
+      &.discover {
+        background-image: url('@{img-prefix}/card-icons/discover.png');
+      }
+
+      &.points {
+        width: 80px;
+        background-image: url('@{img-prefix}/card-icons/points.png');
+      }
     }
   }
 
@@ -521,6 +609,12 @@ reservation-confirmation {
     .active a {
       color: @c-primary;
       font-weight: normal;
+      .chain-sign &{
+        color: @c-menu-active-sign;
+      }
+      .chain-sand &{
+        color: @c-menu-active-sand;
+      }
     }
   }
 

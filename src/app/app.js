@@ -476,7 +476,7 @@ angular
         if(propertyCode){
           propertyService.getPropertyDetails(propertyCode).then(function(details){
             //faking chainCode not yet available
-            details.chainCode = 'SIGN';
+            details.chainCode = 'SAND';
             //TODO: Move to own service
             propertyService.applyPropertyChainClass(details.chainCode);
           });
