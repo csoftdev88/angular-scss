@@ -96,7 +96,7 @@
             <tbody>
               <tr class="main">
                 <th>_room_charges_:</th>
-                <td>{{data.product.price.totalBase | i18nCurrency: currencyCode}}</td>
+                <td>{{data.product.price.totalAfterTax - data.product.price.taxDetails.totalTax - data.product.price.feeDetails.totalTax | i18nCurrency: currencyCode}}</td>
               </tr>
 
               <tr class="breakdown" ng-repeat="breakdown in data.product.price.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
@@ -104,9 +104,32 @@
                 <td>{{breakdown.totalBase | i18nCurrency: $root.currencyCode}}</td>
               </tr>
 
+              <tr class="main">
+                <th>_taxes_:</th>
+                <!-- old tax number
+                <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
+                -->
+                <td>{{data.product.price.taxDetails.totalTax | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+              <tr class="breakdown" ng-repeat="taxItem in data.product.price.taxDetails.policyTaxItemDetails" ng-class="{'last': $last}" ng-if="!taxItem.policyTaxItemIsFee">
+                <th>{{taxItem.policyTaxItem.policyTaxItemCode}}<span class="info" ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''" tooltips tooltip-side="right" tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span></th>
+                <td>{{taxItem.taxAmount | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+              <tr class="main">
+                <th>_applicable_fees_:</th>
+                <td>{{data.product.price.feeDetails.totalTax | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
+              <tr class="breakdown" ng-repeat="taxItem in data.product.price.feeDetails.policyTaxItemDetails" ng-class="{'last': $last}">
+                <th>{{taxItem.policyTaxItem.policyTaxItemCode}}<span class="info" ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''" tooltips tooltip-side="right" tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span></th>
+                <td>{{taxItem.taxAmount | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
             </tbody>
             <tfoot>
-              <tr>
+              <tr class="main">
                 <th>_total_</th>
                 <td>{{data.product.price.totalAfterTax | i18nCurrency: currencyCode}}</td>
               </tr>

@@ -209,6 +209,20 @@ tooltip._right tip tip-arrow {
     right: 100%;
     top: 50%;
     width: 0;
+    &:after{
+      content: '';
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid @c-brown;
+      border-top: 6px solid transparent;
+      content: '';
+      height: 0;
+      left: 50%;
+      margin-left: -1px;
+      position: absolute;
+      top: -6px;
+      width: 0;
+      z-index: -1;
+    }
 }
 tooltip._left tip {
     left: -9px;
