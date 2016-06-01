@@ -490,6 +490,9 @@ angular.module('mobiusApp.config', [])
     'aboutHotel': {
       'showBenefits': false
     },
+    'aboutChain': {
+      'offersLimit': 999
+    },
     // toggle filters on hotels page
     'hotelFilters': {
       'stars': true,

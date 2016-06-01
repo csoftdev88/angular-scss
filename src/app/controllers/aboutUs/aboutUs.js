@@ -13,6 +13,8 @@ angular.module('mobius.controllers.about', [])
     breadcrumbsService.clear()
      .addBreadCrumb('About Us');
 
+     $scope.config = Settings.UI.aboutChain;
+
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
       metaInformationService.setMetaDescription($scope.chain.meta.description);

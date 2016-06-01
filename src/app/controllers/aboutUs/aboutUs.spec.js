@@ -68,6 +68,11 @@ describe('mobius.controllers.about', function() {
         $provide.value('Settings', {
           API: {
             chainCode: 'TESTCHAIN'
+          },
+          UI: {
+            aboutChain: {
+              offersLimit: 3
+            }
           }
         });
 

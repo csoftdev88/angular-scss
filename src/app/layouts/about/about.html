@@ -10,7 +10,7 @@
 
     <h1 grid="10" ng-bind-html="chain.nameLong | mainHeaderStyle"></h1>
 
-    <section grid-row>
+    <section grid-row class="description">
       <p grid="8" ng-bind-html="sanitize(chain.description)"></p>
 
       <view-more-images grid="4">
@@ -34,7 +34,7 @@
     <hr>
 
     <offers-list>
-      <offer-item ng-repeat="about in aboutList track by $index" ng-click="goToDetail(about.meta.slug)">
+      <offer-item ng-repeat="about in aboutList | limitTo: config.offersLimit track by $index" ng-click="goToDetail(about.meta.slug)">
         <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
         <section>
@@ -63,7 +63,7 @@
     <h2 ng-if="aboutList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
 
     <offers-list ng-if="aboutList.length > 1">
-      <offer-item ng-repeat="about in aboutList | filter:getRelevant track by $index" ng-click="goToDetail(about.meta.slug)">
+      <offer-item ng-repeat="about in aboutList | filter:getRelevant | limitTo: config.offersLimit track by $index" ng-click="goToDetail(about.meta.slug)">
         <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
         <section>
