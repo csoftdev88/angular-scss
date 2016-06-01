@@ -260,6 +260,7 @@ angular.module('mobiusApp.config', [])
         'displayRatesOnLoad': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
+        'rateInfoIsTabbed': false,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150

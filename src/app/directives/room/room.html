@@ -115,10 +115,10 @@
             <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
 
             <p class="action-links">
-              <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length">_view_price_breakdown_</a> &nbsp;&nbsp; | &nbsp;&nbsp;
-              <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies">_view_policies_</a>
-               &nbsp;&nbsp; | &nbsp;&nbsp;
-              <a href ng-click="openRoomDetailsDialog(product)" ng-if="openRoomDetailsDialog">_read_more_</a>
+              <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">_view_price_breakdown_</a> <span  ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
+              <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies && !config.rateInfoIsTabbed">_view_policies_</a>
+               <span  ng-if="product.policies && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
+              <a href ng-click="openRoomDetailsDialog(product)" ng-if="openRoomDetailsDialog"><span ng-if="!config.rateInfoIsTabbed">_read_more_</span><span ng-if="config.rateInfoIsTabbed">_view_price_breakdown_policies_</span></a>
             </p>
           </div>
         </description-info>

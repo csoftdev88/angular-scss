@@ -356,8 +356,14 @@ angular.module('mobiusApp.directives.room', [])
               }]);
             });
           });
-
-          modalService.openRoomDetailsDialog(product.description);
+          if(scope.config.rateInfoIsTabbed){
+            modalService.openProductDetailsDialog(scope.roomDetails, product, true);
+          }
+          else{
+            modalService.openRoomDetailsDialog(product.description);
+          }
+          
+          
         };
       }
 

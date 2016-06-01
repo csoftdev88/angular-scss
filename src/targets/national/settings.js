@@ -320,6 +320,7 @@ angular.module('mobiusApp.config', [])
       //show room highlight before description
       'showRoomHighlight': false,
       'includeTripAdvisorPreloader': false,
+      'rateInfoIsTabbed': false,
       'headerPartial':{
         'display': true,
         'logo':{
