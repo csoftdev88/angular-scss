@@ -677,7 +677,7 @@ angular.module('mobiusApp.config', [])
       },
       //Booking steps navigation
       'bookingStepsNav':{
-        'display': false
+        'display': true
       },
       //Prompt to ask user to login
       'loginCta':{
