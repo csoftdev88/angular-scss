@@ -9,10 +9,10 @@ angular.module('mobiusApp.config', [])
   'authType': 'infiniti',
   'infiniti': {
     'enable': true,
-    'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
-    'integration': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
-    'staging': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
-    'live': 'http://prestige-test.suttonplace.com/track/content/infiniti.js'
+    'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
+    'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
+    'staging': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
+    'live': 'http://integration-sandman.infiniti.io/track/content/infiniti.js'
   },
   'sentry': {
     'enable': true,
