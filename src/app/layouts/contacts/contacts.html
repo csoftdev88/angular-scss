@@ -89,7 +89,7 @@
     </div>
 
 
-    <contact-list grid="4" ng-if="viewSettings.hasContactDetails">
+    <contact-list grid="{{viewSettings.contactDetailsGrid}}" ng-if="viewSettings.hasContactDetails">
       <contact-item ng-repeat="contact in chain.contacts">
         <h2>{{contact.name}}</h2>
         <p><a href="tel:{{contact.tel}}">{{contact.tel}}</a></p>

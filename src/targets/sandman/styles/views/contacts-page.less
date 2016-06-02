@@ -1,0 +1,104 @@
+///////////////////////
+//// CONTACTS PAGE ////
+///////////////////////
+
+contacts-page {
+
+  //- List of Contact
+  contact-list{
+    float: left;
+
+    contact-item {
+      display: inline;
+      width: 33%;
+      float: left;
+      margin-bottom: @baseline;
+      font-size: @size--1;
+
+      .viewport-mobile &{
+        width: 100%;
+        float: none;
+      }
+
+      // Name of place
+      h2 {
+        font-weight: 700;
+        color: #000;
+      }
+
+      p:before {
+        color: #781818;
+        margin-right: 10px;
+      }
+
+      // Telephone
+      p:nth-of-type(1):before {
+        .fa;
+
+        padding-right: @baseline / 5;
+
+        content: @fa-var-phone;
+      }
+
+      // Email
+      p:nth-of-type(2):before {
+        .fa;
+
+        padding-right: @baseline / 5;
+
+        content: @fa-var-envelope;
+      }
+
+      a {
+        text-decoration: none;
+        color: @c-brown;
+      }
+    }
+
+  }
+
+  hotel-location{
+    header {
+      h2{
+        display: inline;
+        font-size: @size-2;
+        .viewport-mobile & {
+          display: block;
+        }
+      }
+      p{
+        margin: 0;
+      }
+    }
+    contact-list{
+      float: none;
+      contact-item {
+        font-size: @size-0;
+      }
+    }
+  }
+
+
+  .message-sent {
+    margin-top: 2 * @baseline;
+    margin-bottom: 2 * @baseline;
+    color: @c-text-light;
+    text-align: center;
+
+    h1 {
+      font-size: @size-2;
+      font-weight: 300;
+    }
+
+    p {
+      font-size: @size-0;
+    }
+  }
+}
+
+.reservation-lookup {
+
+  form-element {
+    width: 100%;
+  }
+}
