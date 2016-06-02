@@ -54,12 +54,12 @@ angular.module('mobiusApp.config', [])
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    'chainCode': 'SAN',
+    'chainCode': 'SAND',
     'baseURL': {
-      'development': 'http://test-services.suttonplace.com:3010/api/4.0/',
-      'integration': 'http://test-services.suttonplace.com:3010/api/4.0/',
-      'staging': 'http://staging.api.suttonplace.com:3010/api/4.0/',
-      'live':  'https://api.suttonplace.com/api/4.0/'
+      'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
+      'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
+      'staging': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
+      'live':  ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
       'enable': true,
