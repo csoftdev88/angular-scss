@@ -98,9 +98,10 @@ learn more:
 In case the application needs to run on a different port append `port=xxxx` eg `port=9090` to the start command.
 -> eg full: `pm2 start server.js -- tenant=laval port=9090`
 
-Running production with PM2.
-export NODE_ENV=production
-pm2 start server.js --name "WEB" -- --tenant=suttonLive --environment=live
+Running production with PM2, node server needs to be started on mobius-web folder:
+1. cd mobius-web
+2. export NODE_ENV=production
+3. pm2 start server.js --name "WEB" -- --tenant=suttonLive --environment=live
 
 ### The Build System
 
