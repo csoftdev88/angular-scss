@@ -11,7 +11,8 @@
     <h1 grid="12" ng-bind-html="'_contact_page_title_' | mainHeaderStyle"></h1>
 
     <form name="form" ng-submit="form.$valid" grid="{{viewSettings.formGrid}}" ng-show="!isSent">
-      <div>
+
+      <div ng-if="viewSettings.hasDescription">
         <p>_contact_page_desc_</p>
         <hr>
       </div>
@@ -25,6 +26,17 @@
               name="name"
               ng-class="{'ng-submitted': form.$submitted && (form.name.$error.required || form.name.$error.pattern)}"/>
             <span>_name_label_</span>
+          </label>
+        </form-element>
+
+        <form-element ng-if="viewSettings.includePhoneField">
+          <label for="phone" class="input-left">
+            <input type="text" id="name" required
+              placeholder="_phone_placeholder_"
+              ng-model="formData.fields.phone"
+              name="phone"
+              ng-class="{'ng-submitted': form.$submitted && (form.phone.$error.required)}"/>
+            <span>_phone_placeholder_</span>
           </label>
         </form-element>
 

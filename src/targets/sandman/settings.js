@@ -747,7 +747,9 @@ angular.module('mobiusApp.config', [])
         'formGrid': 12,
         'contactDetailsGrid': 12,
         'hasContactDetails': true,
-        'hasMap': false
+        'hasMap': false,
+        'hasDescription': false,
+        'includePhoneField': true
       },
       'hotels': {
         'showRegionDescription': false
