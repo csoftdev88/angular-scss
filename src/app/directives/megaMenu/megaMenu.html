@@ -1,4 +1,4 @@
-<a ui-sref="hotels" ui-sref-opts="{reload: true}" ng-class="{'is-active': $state.includes('hotels')}">{{title}}</a>
+<a class="mega-menu-trigger" href="" ui-sref="regions" ng-class="{'is-active': $state.includes('regions') || $state.includes('hotels')}">{{title}}</a>
 <div class="mega-menu">
 
   <div class="regions">
@@ -18,7 +18,7 @@
       <li ng-repeat="location in locations">
         <a href="">{{location.nameShort}}</a>
         <ul class="properties" ng-if="location.properties.length">
-          <li ng-repeat="property in location.properties"><a href="" ng-class="property.chainCode.toLowerCase()">{{property.nameShort}}</a></li>
+          <li ng-repeat="property in location.properties"><a href="" ui-sref="hotel({propertySlug: property.meta.slug})" ng-class="property.chainCode.toLowerCase()">{{property.nameShort}}</a></li>
         </ul>
       </li>
     </ul>

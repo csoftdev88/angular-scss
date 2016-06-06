@@ -1,0 +1,34 @@
+<hero-slider content="heroContent" hero-slider></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper">
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <regions-list grid-row ng-if="!showDetail">
+
+    <h1 grid="12" ng-bind-html="'_regions_page_title_' | mainHeaderStyle"></h1>
+
+    <region-item ng-repeat="region in allRegions track by $index" ng-click="goToDetail(region)">
+      <img ng-src="{{region.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{region.image.alt}}"/>
+
+      <section>
+        <h2>{{region.nameShort}}</h2>
+        <div ng-bind-html="region.description"></div>
+      </section>
+
+    </region-item>
+    
+  </regions-list>
+
+  <region-detail id="region-detail" grid-row ng-if="showDetail">
+    <div grid="12">
+      <h1 ng-bind-html="selectedOffer.availability && selectedOffer.availability.title !== '' ? selectedOffer.availability.title : selectedOffer.title | mainHeaderStyle"></h1>
+  
+    </div>
+
+  </region-detail>
+
+  <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>

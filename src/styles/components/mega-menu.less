@@ -1,12 +1,22 @@
+li[mega-menu]{
+  &:hover > .mega-menu{
+    display: block;
+    .dropdownAnimation;
+  }
+}
+
 .mega-menu{
   width: 826px;
   height: 317px;
   position: absolute;
   top: 35px;
   left: 50%;
-  transform: translate(-50%,0);
+  margin-left: -413px;
   background: @c-light-grey;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+  .animated;
+  display: none;
 
   .regions{
     position: relative;

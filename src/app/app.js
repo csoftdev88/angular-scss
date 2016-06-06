@@ -38,6 +38,7 @@ angular
     'mobius.controllers.main',
     'mobius.controllers.about',
     'mobius.controllers.offers',
+    'mobius.controllers.regions',
     'mobius.controllers.rewards',
     'mobius.controllers.news',
     'mobius.controllers.contacts',
@@ -198,6 +199,14 @@ angular
         parent: 'root',
         templateUrl: 'layouts/home/home.html',
         url: '/'
+      })
+
+      // Regions
+      .state('regions', {
+        parent: 'root',
+        templateUrl: 'layouts/regions/regions.html',
+        controller: 'RegionsCtrl',
+        url: '/regions/:code'
       })
 
       // Hotels
