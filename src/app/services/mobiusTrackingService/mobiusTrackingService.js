@@ -64,7 +64,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         defaultData.customer.phone = userObject.tel1 || '';
         defaultData.customer.country.code = userObject.iso3 || '';
         defaultData.customer.country.name = userObject.country || '';
-        defaultData.customer.uuid = Settings.API.chainCode + '_' + userObject.id;
+        defaultData.customer.uuid = userObject.id;
       }  else {
         defaultData.customer.uuid = sessionCookie.sessionData.sessionId;
       }
@@ -192,7 +192,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         return;
       }
 
-      userObject = _.isEmpty(userObject) ? _.extend(_.clone(userObject), {
+      userObject = _.extend(_.clone(userObject || {}), {
         email: reservationData.guestEmail,
         firstName: reservationData.guestFirstName,
         lastName: reservationData.guestLastName,
@@ -200,7 +200,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', [])
         iso3: reservationData.guestCountry.code,
         country: reservationData.guestCountry.name,
         id: sessionDataService.getCookie().sessionData.sessionId
-      }) : userObject;
+      });
 
       //set default data
       setDefaultData(bookingParams, chainData, propertyData);
