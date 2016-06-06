@@ -1,0 +1,132 @@
+.mega-menu{
+  width: 826px;
+  height: 317px;
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translate(-50%,0);
+  background: @c-light-grey;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+  .regions{
+    position: relative;
+    float: left;
+    width: 174px;
+    height: 100%;
+    background: @c-dark-grey;
+    ul{
+      padding: 14px 0 14px 18px;
+      li{
+        a{
+          position: relative;
+          text-transform: none !important;
+          color: #fff;
+          font-size: 14px !important;
+          line-height: 31px;
+          display: block;
+          &:after{
+            .fa;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            color: #fff;
+            font-size: 18px;
+            transform: translateY(-50%);
+            -webkit-transform:translateY(-50%);
+            content: @fa-var-angle-right;
+          }
+          &.active,
+          &.active:after{
+            color: @c-secondary !important;
+          }
+        }
+      }
+    }
+  }
+
+  .locations{
+    position: relative;
+    float: left;
+    width: 652px;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px 14px;
+
+    > ul{
+      height: 297px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-flow: column wrap;
+      flex-flow: column wrap;
+
+      > li{
+        height: 20px;
+        > a{
+          font-size: 7px !important;
+          font-weight: 600;
+          color: @c-grey !important;
+          text-transform: uppercase;
+          height: 11px;
+          line-height: 11px;
+          display: block;
+          border-radius: 3px;
+          background: rgba(124, 103, 86, 0.09);
+        }
+
+        ul{
+          height: 297px;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-flex-flow: column wrap;
+          flex-flow: column wrap;
+          li{
+            line-height: 20px;
+            a{
+              position: relative;
+              font-size: 11px !important;
+              line-height: 15px;
+              font-weight: 400;
+              color: @c-grey !important;
+              text-transform: none !important;
+              padding-left: 30px !important;
+              &:before{
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 20px;
+                height: 20px;
+              }
+              &.sand:before{
+                background: url('@{img-prefix}/sandman-logo-small.png') no-repeat center;
+              }
+              &.sign:before{
+                background: url('@{img-prefix}/signature-logo-small.png') no-repeat center;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+
+    .placeholder{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      opacity: 0.31;
+      text-align: center;
+      .title{
+        font-size: 20px;
+        line-height: 22px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: @c-primary;
+        position: relative;
+        top: -10px;
+      }
+    }
+
+  }
+}

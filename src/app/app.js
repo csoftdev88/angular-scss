@@ -134,6 +134,7 @@ angular
 
     // Directive based on content data
     'mobiusApp.directives.menu',
+    'mobiusApp.directives.megaMenu',
     'mobiusApp.directives.siteMap',
 
     // Directives for generic data
