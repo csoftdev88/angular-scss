@@ -554,7 +554,8 @@ angular.module('mobiusApp.config', [])
 
     'offers':{
       'discountCodeCookieExpiryDays': 5,
-      'displayPageHeading': true
+      'displayPageHeading': true,
+      'includeOfferAvailabilityPropertyDropdown': true
     },
 
     'registerPage':{

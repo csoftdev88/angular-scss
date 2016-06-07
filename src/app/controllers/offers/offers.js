@@ -13,6 +13,7 @@ angular.module('mobius.controllers.offers', [])
     $scope.config = Settings.UI.offers;
     $scope.isHotDeals = $state.current.name === 'hotDeals';
     var hasHotDeals = Settings.UI.menu.showHotDeals;
+    $scope.selectedOfferAvailabilityData = {};
 
     breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
 
@@ -78,7 +79,7 @@ angular.module('mobius.controllers.offers', [])
             breadcrumbsService.clear()
               .addBreadCrumb('Hotels', 'hotels')
               .addBreadCrumb(property.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
-              .addBreadCrumb('Offers')
+              .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers')
               .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
               .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
               .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
@@ -161,6 +162,22 @@ angular.module('mobius.controllers.offers', [])
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
 
+      //Creating property availability dropdown
+      $scope.offerAvailabilityProperties = [];
+      if($scope.config.includeOfferAvailabilityPropertyDropdown && !$scope.isHotDeals){
+        propertyService.getAll().then(function(properties){
+          _.each($scope.allOffers[selectedOfferIndex].offerAvailability, function(availability){
+            var property = _.find(properties, function(property){
+              return availability.property === property.code;
+            });
+            $scope.offerAvailabilityProperties.push({
+              'name': property.nameShort,
+              'slug': property.meta.slug
+            });
+          });
+        });
+      }
+
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
@@ -204,6 +221,22 @@ angular.module('mobius.controllers.offers', [])
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
 
+      //Creating property availability dropdown
+      $scope.offerAvailabilityProperties = [];
+      if($scope.config.includeOfferAvailabilityPropertyDropdown && !$scope.isHotDeals){
+        propertyService.getAll().then(function(properties){
+          _.each($scope.allOffers[selectedOfferIndex].offerAvailability, function(availability){
+            var property = _.find(properties, function(property){
+              return availability.property === property.code;
+            });
+            $scope.offerAvailabilityProperties.push({
+              'name': property.nameShort,
+              'slug': property.meta.slug
+            });
+          });
+        });
+      }
+
       var availability = _.find($scope.allOffers[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
@@ -243,7 +276,7 @@ angular.module('mobius.controllers.offers', [])
             breadcrumbsService.clear()
               .addBreadCrumb('Hotels', 'hotels')
               .addBreadCrumb(property.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
-              .addBreadCrumb('Offers', 'offers', {code: null})
+              .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'hotDeals' : 'offers', {code: null})
               .addBreadCrumb($scope.selectedOffer.availability && $scope.selectedOffer.availability.title &&  $scope.selectedOffer.availability.title !== '' ?  $scope.selectedOffer.availability.title : $scope.selectedOffer.title)
               .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
               .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
@@ -254,7 +287,7 @@ angular.module('mobius.controllers.offers', [])
       }
       else{
         breadcrumbsService.clear()
-          .addBreadCrumb('Offers', 'offers', {code: null})
+          .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'hotDeals' : 'offers', {code: null})
           .addBreadCrumb($scope.selectedOffer.title);
       }
 
@@ -280,6 +313,11 @@ angular.module('mobius.controllers.offers', [])
             stateParams.scrollTo = 'jsRooms';
             $state.go('hotel', stateParams, {reload: true});
           });
+      }
+      else if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty && !$scope.isHotDeals){
+        stateParams.propertySlug = $scope.selectedOfferAvailabilityProperty;
+        stateParams.scrollTo = 'jsRooms';
+        $state.go('hotel', stateParams, {reload: true});
       }
       else{
         stateParams.scrollTo = 'hotels';
