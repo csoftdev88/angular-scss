@@ -315,7 +315,7 @@ angular.module('mobius.controllers.offers', [])
           });
       }
       else if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty && !$scope.isHotDeals){
-        stateParams.propertySlug = $scope.selectedOfferAvailabilityProperty;
+        stateParams.propertySlug = $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty;
         stateParams.scrollTo = 'jsRooms';
         $state.go('hotel', stateParams, {reload: true});
       }

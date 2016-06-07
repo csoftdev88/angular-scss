@@ -67,8 +67,6 @@
           </select>
         </div>
 
-        selectedOfferAvailabilityData.selectedOfferAvailabilityProperty: {{selectedOfferAvailabilityData.selectedOfferAvailabilityProperty}}
-
         <!-- DATES ARE SELECTED -->
         <button-submit ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton" ng-switch-when="false" ng-click="goToHotels(selectedOffer)" ng-disabled="config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty">_book_now_ <span ng-if="isHotDeals">at {{selectedOffer.propertyName}}</span></button-submit>
 
