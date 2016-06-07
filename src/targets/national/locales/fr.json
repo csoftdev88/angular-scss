@@ -436,6 +436,7 @@
     "offers_page_no_offers_title": "Désolé! Il n'y a pas d'offres globales pour le moment.",
     "offers_page_no_property_offers_title": "Désolé! Il n'y a pas d'offres disponibles pour cet hôtel en ce moment",
     "offers_page_no_offers_desc": "Essayez de sélectionner un hôtel pour voir des offres pour cet hôtel ou revenir plus tard",
+    "hot_deals_page_description": "Vous cherchez une offre de dernière minute? Visitez régulièrement cette page pour des offres limitées dans le temps sur les chambres tous nos hotels, partout au Canada! Faites défiler vers le bas pour voir toutes nos Offres spéciales!",
     "profile_page_title": "Votre Profil",
     "profile_page_desc": "Nous ne partagerons pas vos informations avec des tiers. Veuillez consulter nos modalités de confidentialité pour plus de détails.<br/>Vérifiez vos <a ui-sref='reservations'>réservations</a>",
     "profile_page_password_title": "CHANGER VOTRE MOT DE PASSE",

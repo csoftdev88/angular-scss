@@ -10,7 +10,11 @@ angular.module('mobius.controllers.offers', [])
     $controller('MainCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
 
-    breadcrumbsService.addBreadCrumb('Offers');
+    $scope.config = Settings.UI.offers;
+    $scope.isHotDeals = $state.current.name === 'hotDeals';
+    var hasHotDeals = Settings.UI.menu.showHotDeals;
+
+    breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
 
     var NUMBER_OF_RELEVANT_OFFERS = 3;
     var DATES_SEPARATOR = '_';
@@ -98,7 +102,28 @@ angular.module('mobius.controllers.offers', [])
         }
         //Only show offers that have showAtChainLevel true if multiple properties
         else{
-          $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+          if($scope.isHotDeals){
+            //Only show offers with a single property availability
+            offers = _.reject(offers, function(offer){
+              return offer.offerAvailability.length > 1;
+            });
+            //We need the property availability name to display
+            propertyService.getAll().then(function(properties){
+              offers = _.each(offers, function(offer){
+                var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property; });
+                offer.propertyName = property.nameShort;
+              });
+              $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+            });
+          }
+          else if(!$scope.isHotDeals && hasHotDeals){
+            offers = _.reject(offers, function(offer){
+              return offer.offerAvailability.length < 2;
+            });
+            $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+          }
+          
+          
           if ($stateParams.code) {
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
@@ -133,7 +158,7 @@ angular.module('mobius.controllers.offers', [])
 
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
-        return $state.go('offers', {code: null});
+        return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
 
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
@@ -148,7 +173,7 @@ angular.module('mobius.controllers.offers', [])
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
       else{
-        $state.go('offers', {code: slug});
+        $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
       
 
@@ -168,7 +193,7 @@ angular.module('mobius.controllers.offers', [])
         $state.go(previousState.state, previousState.params);
       }
       else{
-        $state.go('offers', {code: ''}, {reload: true});
+        $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: ''}, {reload: true});
       }
     };
 
@@ -176,7 +201,7 @@ angular.module('mobius.controllers.offers', [])
       
       selectedOfferIndex = _.findIndex($scope.allOffers, {code: code});
       if (selectedOfferIndex < 0) {
-        return $state.go('offers', {code: null});
+        return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
 
       var availability = _.find($scope.allOffers[selectedOfferIndex].offerAvailability, function(availability){
@@ -248,8 +273,8 @@ angular.module('mobius.controllers.offers', [])
         stateParams.dates = bookingParams.from + DATES_SEPARATOR + bookingParams.to;
       }
 
-      if(bookingParams.propertyCode){
-        propertyService.getPropertyDetails(bookingParams.propertyCode)
+      if(bookingParams.propertyCode || $scope.isHotDeals){
+        propertyService.getPropertyDetails($scope.isHotDeals ? offer.offerAvailability[0].property : bookingParams.propertyCode)
           .then(function(details){
             stateParams.propertySlug = details.meta.slug;
             stateParams.scrollTo = 'jsRooms';

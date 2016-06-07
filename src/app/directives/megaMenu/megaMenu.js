@@ -16,7 +16,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
       scope.activeRegionCode = '';
 
       //megamenu cache
-      var megaMenuCache = $cacheFactory('megaMenuCache');
+      var megaMenuCache = $cacheFactory.get('megaMenuCache') || $cacheFactory('megaMenuCache');
       
       //Get Regions
       locationService.getRegions().then(function(regions){

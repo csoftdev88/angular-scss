@@ -84,6 +84,9 @@ describe('mobius.controllers.offers', function() {
         });
 
         $provide.value('$state', {
+          current: {
+            name: ''
+          },
           go: sinon.spy()
         });
 
@@ -98,6 +101,9 @@ describe('mobius.controllers.offers', function() {
             },
             offers:{
               discountCodeCookieExpiryDays: 5
+            },
+            menu:{
+              showHotDeals: true
             }
           },
           API: {

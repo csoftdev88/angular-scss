@@ -303,6 +303,13 @@ angular
         controller: 'OffersCtrl'
       })
 
+      .state('hotDeals', {
+        parent: 'root',
+        templateUrl: 'layouts/offers/offers.html',
+        url: '/hot-deals/:code',
+        controller: 'OffersCtrl'
+      })
+
       .state('propertyOffers', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',

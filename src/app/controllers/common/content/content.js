@@ -56,6 +56,25 @@ angular.module('mobius.controllers.common.content', [])
       'reverseSort': true,
       'keepProperty': true,
       'limitToPropertyCodes': true,
+      'multiPropertyOnly': Settings.UI.menu.showHotDeals,
+      'maxItemsCount': Settings.UI.menu.maxOffersCount,
+      'slug': true
+    },
+    'deals': {
+      'service': 'contentService',
+      'method': 'getOffers',
+      'detailState': 'hotDeals',
+      'listState': 'hotDeals',
+      'propertyState': 'propertyOffers',
+      'paramName': 'code',
+      'propertyParamName': 'propertySlug',
+      'title': 'title',
+      'subtitle': 'subtitle',
+      'sort': 'prio',
+      'reverseSort': true,
+      'keepProperty': true,
+      'limitToPropertyCodes': true,
+      'singlePropertyOnly': true,
       'maxItemsCount': Settings.UI.menu.maxOffersCount,
       'slug': true
     },
@@ -185,7 +204,15 @@ angular.module('mobius.controllers.common.content', [])
   function processSettings() {
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
 
+
+
       data = _.reject(data, function(item){
+
+        //Hot Deals vs Special Offers - Hot Deals are offers specific to a single property, if enabled Special Offers are only offers that have multiple properties availability
+        if($scope.settings.singlePropertyOnly && item.offerAvailability && item.offerAvailability.length > 1 || $scope.settings.multiPropertyOnly && item.offerAvailability && item.offerAvailability.length < 2){
+          return true;
+        }
+
 
         //If on a property, remove items that have showOnMenu = false in offerAvailability
         if($state.params.property){

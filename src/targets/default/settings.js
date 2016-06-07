@@ -436,7 +436,8 @@ angular.module('mobiusApp.config', [])
     },
 
     'offers':{
-      'discountCodeCookieExpiryDays': 5
+      'discountCodeCookieExpiryDays': 5,
+      'displayPageHeading': false
     },
 
     'registerPage':{

@@ -8,6 +8,7 @@
         <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">
           <span ng-switch="link.name.toLowerCase()">
             <span ng-switch-when="offers">_offers_deals_</span>
+            <span ng-switch-when="hot deals">_hot_deals_</span>
             <span ng-switch-when="about us">_about_us_</span>
             <span ng-switch-when="hotels">_hotels_</span>
             <span ng-switch-when="rewards">_rewards_</span>
@@ -24,6 +25,7 @@
         </a>
         <span ng-switch="link.name.toLowerCase()" ng-if="!link.state">
           <span ng-switch-when="offers">_offers_deals_</span>
+          <span ng-switch-when="hot deals">_hot_deals_</span>
           <span ng-switch-when="about us">_about_us_</span>
           <span ng-switch-when="hotels">_hotels_</span>
           <span ng-switch-when="rewards">_rewards_</span>
