@@ -141,7 +141,23 @@ angular.module('mobiusApp.directives.hotels', [])
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
-          scope.hotels = hotels || [];
+
+          if($stateParams.locationSlug){
+            locationService.getLocations().then(function(locations){
+              var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+              if(Settings.UI.viewsSettings.hotels.showLocationDescription){
+                scope.locationDetails = curLocation;
+                //gallery
+                scope.previewImages = contentService.getLightBoxContent(curLocation.images, 300, 150, 'fill');
+              }
+              //not working yet
+              //scope.hotels = _.where(hotels, {locationCode: curLocation.code});
+              scope.hotels = hotels || [];
+            });
+          }
+          else{
+            scope.hotels = hotels || [];
+          }
 
           if(Settings.UI.generics.singleProperty){
             scope.navigateToHotel(scope.hotels[0].meta.slug);

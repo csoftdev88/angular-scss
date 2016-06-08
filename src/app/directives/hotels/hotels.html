@@ -6,11 +6,18 @@
 <section grid-row ng-if="locationDetails">
   <div grid="8">
     <p>{{locationDetails.description}}</p>
-    <a href ng-click="openLocationDetail(locationDetails)">_learn_more_about_ {{locationDetails.nameShort}}</a>
+    <!--<a href ng-click="openLocationDetail(locationDetails)">_learn_more_about_ {{locationDetails.nameShort}}</a>-->
   </div>
   <view-more-images grid="4" class="has-no-link">
-    <img ng-src="{{locationDetails.images[0].uri}}" alt="{{locationDetails.images[0].alt}}" err-source="http://lorempixel.com/390/110/"/>
-  </view-more-images>
+      <hero-slider data-has-notification-bar="false" on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
+
+      <read-more ng-if="locationDetails.content.length && locationDetails.content[0].title">
+        <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
+        <ul>
+          <li ng-repeat="item in locationDetails.content | orderBy: 'order'"><a href="" ui-sref="hotelInfo({propertySlug: locationDetails.meta.slug, infoSlug: item.meta.slug})">{{item.title}}</a></li>
+        </ul>
+      </read-more>
+    </view-more-images>
 </section>
 
 <header grid-row ng-if="regionDetails">

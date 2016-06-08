@@ -655,7 +655,8 @@ angular.module('mobiusApp.config', [])
         'includePhoneField': false
       },
       'hotels': {
-        'showRegionDescription': false
+        'showRegionDescription': false,
+        'showLocationDescription': false
       },
       'hotelDetails':{
         'hasViewMore': false,
