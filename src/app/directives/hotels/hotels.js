@@ -344,9 +344,9 @@ angular.module('mobiusApp.directives.hotels', [])
 
       scope.hotelFilter = function(hotel) {
         return (
-          (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) &&
-          (scope.minStars <= hotel.rating && hotel.rating < (scope.maxStars + 1)) &&
-          (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating < (scope.maxRating + 1)) &&
+          (Settings.UI.hotelFilters.price ? (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) : true) &&
+          (Settings.UI.hotelFilters.stars ? (scope.minStars <= hotel.rating && hotel.rating < (scope.maxStars + 1)) : true) &&
+          (Settings.UI.hotelFilters.tripAdvisor ? (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating < (scope.maxRating + 1)) : true) &&
           (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode)) &&
           (!bookingParams.regionCode || (bookingParams.regionCode === hotel.regionCode))
         );

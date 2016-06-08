@@ -514,7 +514,7 @@ angular.module('mobiusApp.config', [])
     },
     // toggle filters on hotels page
     'hotelFilters': {
-      'stars': true,
+      'stars': false,
       'minStars': 3,
       'maxStars': 5,
       'tripAdvisor': false,
