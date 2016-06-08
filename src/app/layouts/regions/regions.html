@@ -9,7 +9,7 @@
 
     <h1 grid="12" ng-bind-html="'_regions_page_title_' | mainHeaderStyle"></h1>
 
-    <region-item ng-repeat="region in allRegions track by $index" ng-click="goToDetail(region.code)">
+    <region-item ng-repeat="region in allRegions track by $index" ng-click="goToDetail(region.meta.slug)">
       <div class="banner">9 Hotels AVAILABLE</div>
       <img ng-src="{{region.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{region.images[0].alt}}"/>
 

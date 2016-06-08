@@ -206,14 +206,14 @@ angular
         parent: 'root',
         templateUrl: 'layouts/regions/regions.html',
         controller: 'RegionsCtrl',
-        url: '/locations/:code'
+        url: '/locations/:regionSlug'
       })
 
       // Hotels
       .state('hotels', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
-        url: '/hotels/:locationSlug'
+        url: '/hotels/:regionSlug/:locationSlug'
       })
 
       .state('hotel', {
