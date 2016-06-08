@@ -54,24 +54,25 @@
       </div>
 
       <div class="controls">
-        <div class="property-select">
-          <select
-            ng-show="config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && offerAvailabilityProperties"
-            name="propertySelect" 
-            ng-model="selectedOfferAvailabilityData.selectedOfferAvailabilityProperty"
-            disable-search="true"
-            chosen 
-            ng-options="option.slug as option.name for option in offerAvailabilityProperties" 
-            data-placeholder-text-single="'Choose your hotel'">
-            <option></option> <!-- workaround for a bug in angular-chosen -->
-          </select>
+        <div class="inner" ng-class="{'has-dropdown': config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && offerAvailabilityProperties}">
+          <div class="property-select" ng-show="config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && offerAvailabilityProperties">
+            <select
+              name="propertySelect" 
+              ng-model="selectedOfferAvailabilityData.selectedOfferAvailabilityProperty"
+              disable-search="true"
+              chosen 
+              ng-options="option.slug as option.name for option in offerAvailabilityProperties" 
+              data-placeholder-text-single="'Choose your hotel'">
+              <option></option> <!-- workaround for a bug in angular-chosen -->
+            </select>
+          </div>
+
+          <!-- DATES ARE SELECTED -->
+          <button-submit ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton" ng-switch-when="false" ng-click="goToHotels(selectedOffer)" ng-disabled="config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty">_book_now_ <span ng-if="isHotDeals">at {{selectedOffer.propertyName}}</span></button-submit>
+
+          <!-- USER SPECIFIES DATES -->
+          <button-submit ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton" ng-switch-when="true" ng-click="selectDates()">_select_dates_</button-submit>
         </div>
-
-        <!-- DATES ARE SELECTED -->
-        <button-submit ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton" ng-switch-when="false" ng-click="goToHotels(selectedOffer)" ng-disabled="config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty">_book_now_ <span ng-if="isHotDeals">at {{selectedOffer.propertyName}}</span></button-submit>
-
-        <!-- USER SPECIFIES DATES -->
-        <button-submit ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton" ng-switch-when="true" ng-click="selectDates()">_select_dates_</button-submit>
       </div>
 
       <button-back role="button" tabindex="0" ng-click="goToOffersList()" class="pull-left">_back_</button-back>

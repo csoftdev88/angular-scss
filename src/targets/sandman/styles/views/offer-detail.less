@@ -17,48 +17,57 @@ offer-detail {
     width: 100%;
     text-align: center;
 
-    .property-select {
+    .inner{
 
-      float: left;
-      margin-right: 36px;
-
-      .chosen-container {
-        width: 300px !important;
-        border: none;
+      &.has-dropdown{
+        display: inline-block;
       }
+    
+      .property-select {
 
-      .chosen-container-single {
-        .chosen-single {
-          border-radius: 4px;
-          background: #f2f2f2;
-          background: -moz-linear-gradient(top, #f2f2f2 0%, #d4d4d4 100%);
-          background: -webkit-linear-gradient(top, #f2f2f2 0%,#d4d4d4 100%);
-          background: linear-gradient(to bottom, #f2f2f2 0%,#d4d4d4 100%);
-          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#d4d4d4',GradientType=0 );
-          border: 1px solid @c-light-grey;
-          line-height: 38px;
-          height: 38px;
-          span{
-            color: @c-grey;
-          }
-        }
-      } 
-
-      .viewport-mobile & {
-        width: 100%;
-        margin: 10px 0px;
+        float: left;
+        margin-right: 36px;
 
         .chosen-container {
-          width: 100% !important;
+          width: 300px !important;
+          border: none;
+        }
+
+        .chosen-container-single {
+          .chosen-single {
+            border-radius: 4px;
+            background: #f2f2f2;
+            background: -moz-linear-gradient(top, #f2f2f2 0%, #d4d4d4 100%);
+            background: -webkit-linear-gradient(top, #f2f2f2 0%,#d4d4d4 100%);
+            background: linear-gradient(to bottom, #f2f2f2 0%,#d4d4d4 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#d4d4d4',GradientType=0 );
+            border: 1px solid @c-light-grey;
+            line-height: 38px;
+            height: 38px;
+            span{
+              color: @c-grey;
+            }
+          }
+        } 
+
+        .viewport-mobile & {
+          width: 100%;
+          margin: 10px 0px;
+
+          .chosen-container {
+            width: 100% !important;
+          }
         }
       }
     }
+
   }
   
 
 
   //- Book Now Button
-  button-submit {
+  button-submit,
+  button-submit:hover {
     float: left;
     background: @c-green;
     border-radius: 2px;
