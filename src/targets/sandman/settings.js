@@ -517,7 +517,7 @@ angular.module('mobiusApp.config', [])
       'stars': true,
       'minStars': 3,
       'maxStars': 5,
-      'tripAdvisor': true,
+      'tripAdvisor': false,
       'minTaRating': 3,
       'maxTaRating': 5,
       'rates': true,

@@ -4,31 +4,65 @@
  */
 angular.module('mobius.controllers.regions', [])
 
-  .controller('RegionsCtrl', function($scope, locationService, breadcrumbsService, $stateParams, scrollService, $timeout) {
-
-    breadcrumbsService.addBreadCrumb('Locations');
+  .controller('RegionsCtrl', function($scope, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _) {
 
     $scope.showDetail = $stateParams.code ? true : false;
-    $scope.allRegions = null;
 
-    $scope.$watch(function(){
-      return $scope.showDetail;
-    }, function(){
-      if($scope.showDetail) {
+    //Regions overview
+    function getRegions(){
+      //breadcrumbs
+      breadcrumbsService.clear()
+        .addBreadCrumb('Locations');
+      //Get regions
+      locationService.getRegions().then(function(regions){
+        $scope.allRegions = regions;
+      });
+    }
+
+    //Region Detail
+    function getRegion(regionCode){
+      locationService.getRegion(regionCode).then(function(region){
+
+        //Apply region to scope
+        $scope.region = region;
+
+        //gallery
+        $scope.previewImages = contentService.getLightBoxContent(region.images, 300, 150, 'fill');
+
+        //Locations
+        locationService.getLocations().then(function(locations){
+          $scope.allLocations = _.where(locations, {regionCode: regionCode});
+        });
+
+        //breadcrumbs
+        breadcrumbsService.clear()
+          .addBreadCrumb('Locations', 'regions', {code: null})
+          .addBreadCrumb(region.nameShort);
+
+        //scroll to detail
         $timeout(function () {
           scrollService.scrollTo('region-detail', 20);
         });
-      }
-    });
+      });
+    }
 
-    //Get Regions
-    locationService.getRegions().then(function(regions){
-      $scope.allRegions = regions;
+    //go to region detail
+    $scope.goToDetail = function(regionCode){
+      $state.go('regions', {code: regionCode});
+    };
 
-      if ($stateParams.code) {
-        //selectOffer(bookingService.getCodeFromSlug($stateParams.code));
-      }
-    });
+    //go to location hotels
+    $scope.goToHotels = function(locationSlug){
+      $state.go('hotels', {locationSlug: locationSlug});
+    };
+
+    //Init
+    if($scope.showDetail){
+      getRegion($stateParams.code);
+    }
+    else{
+      getRegions();
+    }
 
 
   });
