@@ -2,6 +2,9 @@ li[mega-menu]{
   &:hover > .mega-menu{
     display: block;
     .dropdownAnimation;
+    &.closed{
+      display: none;
+    }
   }
 }
 
@@ -60,17 +63,25 @@ li[mega-menu]{
     width: 652px;
     height: 100%;
     box-sizing: border-box;
-    padding: 10px 14px;
+    padding: 10px;
 
     > ul{
       height: 297px;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-flex-flow: column wrap;
-      flex-flow: column wrap;
+      -moz-column-count:3;
+      -webkit-column-count:3;
+      column-count:3;
+      -moz-column-fill: auto;
+      -webkit-column-fill: auto;
+      column-fill: auto;
+
+      //display: -webkit-flex;
+      //display: flex;
+      //-webkit-flex-flow: column wrap;
+      //flex-flow: column wrap;
 
       > li{
-        height: 20px;
+        //height: 20px;
+        //padding: 10px;
         > a{
           font-size: 7px !important;
           font-weight: 600;
@@ -84,13 +95,17 @@ li[mega-menu]{
         }
 
         ul{
-          height: 297px;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-flex-flow: column wrap;
-          flex-flow: column wrap;
+          //height: 297px;
+          //display: -webkit-flex;
+          //display: flex;
+          //-webkit-flex-flow: column wrap;
+          //flex-flow: column wrap;
           li{
             line-height: 20px;
+            width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             a{
               position: relative;
               font-size: 11px !important;

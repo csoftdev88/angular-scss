@@ -13,7 +13,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
 
       //Set main menu text
       scope.title = attrs.title;
-      scope.activeRegionCode = '';
+      //scope.activeRegionCode = '';
 
       //megamenu cache
       var megaMenuCache = $cacheFactory.get('megaMenuCache') || $cacheFactory('megaMenuCache');
@@ -27,7 +27,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
 
       scope.getLocations = function(regionIndex){
 
-        scope.activeRegionCode = scope.regions[regionIndex].code;
+        scope.activeRegion = scope.regions[regionIndex];
+        //scope.activeRegionCode = scope.regions[regionIndex].code;
 
         if(megaMenuCache.get('regions')[regionIndex].locations){
           scope.locations = megaMenuCache.get('regions')[regionIndex].locations;
@@ -36,17 +37,13 @@ angular.module('mobiusApp.directives.megaMenu', [])
           locationService.getLocations().then(function(locations){
             //console.log('megaMenuCache locations: ' + angular.toJson(locations));
             //Cache current region's locations
-            megaMenuCache.get('regions')[regionIndex].locations = locations;
+            megaMenuCache.get('regions')[regionIndex].locations = _.where(locations, {regionCode: scope.activeRegion.code});
             //console.log('megaMenuCache regions with locations: ' + angular.toJson(megaMenuCache.get('regions')[regionIndex]));
 
             //Get properties and filter by locationCode
             propertyService.getAll().then(function(properties){
               _.each(megaMenuCache.get('regions')[regionIndex].locations, function(cachedLocation, index){
-                megaMenuCache.get('regions')[regionIndex].locations[index].properties = _.map(properties, function(property){
-                  if(property.locationCode === cachedLocation.code){
-                    return property;
-                  }
-                });
+                megaMenuCache.get('regions')[regionIndex].locations[index].properties = _.where(properties, {locationCode: cachedLocation.code});
               });
               //console.log('megaMenuCache regions with locations with properties: ' + angular.toJson(megaMenuCache.get('regions')[regionIndex]));
             });
@@ -54,6 +51,13 @@ angular.module('mobiusApp.directives.megaMenu', [])
             scope.locations = megaMenuCache.get('regions')[regionIndex].locations;
           });
         }
+      };
+
+      scope.closeMenu = function(){
+        angular.element(elem).find('.mega-menu').addClass('closed');
+      };
+      scope.showMenu = function(){
+        angular.element(elem).find('.mega-menu').removeClass('closed');
       };
     }
   };

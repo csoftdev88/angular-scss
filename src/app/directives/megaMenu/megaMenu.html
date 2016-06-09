@@ -1,9 +1,9 @@
-<a class="mega-menu-trigger" href="" ui-sref="regions({regionSlug: null})" ng-class="{'is-active': $state.includes('regions') || $state.includes('hotels')}">{{title}}</a>
+<a class="mega-menu-trigger" href="" ui-sref="regions({regionSlug: null})" ng-class="{'is-active': $state.includes('regions') || $state.includes('hotels')}" ng-click="closeMenu()" ng-mouseover="showMenu()">{{title}}</a>
 <div class="mega-menu">
 
   <div class="regions">
     <ul>
-      <li ng-repeat="region in regions"><a href="" ng-click="getLocations($index)" ng-class="{'active': region.code === activeRegionCode}">{{region.nameShort}}</a></li>
+      <li ng-repeat="region in regions"><a href="" ng-click="getLocations($index)" ng-class="{'active': region.code === activeRegion.code}">{{region.nameShort}}</a></li>
     </ul>
   </div>
 
@@ -15,10 +15,10 @@
     </div>
 
     <ul ng-if="locations">
-      <li ng-repeat="location in locations">
-        <a href="">{{location.nameShort}}</a>
+      <li ng-repeat="location in locations track by $index">
+        <a href="" ui-sref="hotels({regionSlug: activeRegion.meta.slug, locationSlug: location.meta.slug})" ng-click="closeMenu()">{{location.nameShort}}</a>
         <ul class="properties" ng-if="location.properties.length">
-          <li ng-repeat="property in location.properties"><a href="" ui-sref="hotel({propertySlug: property.meta.slug})" ng-class="property.chainCode.toLowerCase()">{{property.nameShort}}</a></li>
+          <li ng-repeat="property in location.properties track by $index"><a href="" ui-sref="hotel({propertySlug: property.meta.slug})" ng-class="property.chainCode.toLowerCase()" ng-click="closeMenu()">{{property.nameShort}}</a></li>
         </ul>
       </li>
     </ul>
