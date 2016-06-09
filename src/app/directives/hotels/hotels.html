@@ -65,19 +65,21 @@
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{hotelViewMode}}">
-        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.sort" grid="{{hotelViewMode === 'list' ? 3 : 1}}">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.sort" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
             <div class="item-image" ng-click="navigateToHotel(hotel.meta.slug)">
+              <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
 
             <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
 
             <div class="ratings">
-              <div class="stars rating-trip-advisor img">
+              <div class="brand" ng-if="displayPropertyChainBranding"></div>
+              <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor">
                 <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
               </div>
 
-              <div class="rating-default">
+              <div class="rating-default" ng-if="filterConfig.stars">
                 <ul class="star-rating">
                   <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
                 </ul>

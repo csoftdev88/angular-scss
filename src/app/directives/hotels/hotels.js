@@ -26,6 +26,10 @@ angular.module('mobiusApp.directives.hotels', [])
       $controller('RatesCtrl', {$scope: scope});
 
       var mobiusUserPreferences = userPreferenceService.getCookie();
+
+      scope.filterConfig = Settings.UI.hotelFilters;
+      scope.displayPropertyChainBranding = Settings.UI.generics.applyChainClassToBody;
+      scope.Math = window.Math;
       
       scope.initSortingOptions = function(options){
 
@@ -141,6 +145,13 @@ angular.module('mobiusApp.directives.hotels', [])
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
+
+          //Pick random merchandizing banner if any
+          _.each(hotels, function(hotel){
+            if(hotel.merchandisingBanners && hotel.merchandisingBanners.length){
+              hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.random()*hotel.merchandisingBanners.length-1];
+            }
+          });
 
           if($stateParams.locationSlug){
             locationService.getLocations().then(function(locations){

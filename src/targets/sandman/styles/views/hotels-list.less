@@ -85,23 +85,6 @@ hotels {
             bottom: @baseline/6;
             right: @baseline/3;
           }
-
-          .banner{
-            position: absolute;
-            left: 0;
-            top: 4px;
-            width: 100%;
-            height: 23px;
-            line-height: 21px;
-            text-align: center;
-            text-transform: uppercase;
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: 0px;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-            z-index: 9;
-            box-sizing: border-box;
-          }
         }
 
         h2 {
@@ -320,12 +303,21 @@ hotels {
   .ratings {
     min-height: 30px;
 
-    .brand{
-      float: left;
-    }
-
     .rating-default {
       float: right;
+    }
+
+    .brand{
+      .sand &{
+        width: 98px;
+        height: 17px;
+        background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat center;
+      }
+      .sign &{
+        width: 40px;
+        height: 26px;
+        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat center;
+      }
     }
 
     // MOBILE SPECIFIC STYLES
@@ -379,6 +371,8 @@ hotels {
     }
 
     &.rating-trip-advisor {
+
+      float: right;
 
       &.img{
         display: inline;
