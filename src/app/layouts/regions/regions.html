@@ -10,7 +10,7 @@
     <h1 grid="12" ng-bind-html="'_regions_page_title_' | mainHeaderStyle"></h1>
 
     <region-item ng-repeat="region in allRegions track by $index" ng-click="goToDetail(region.meta.slug)">
-      <div class="banner">9 Hotels AVAILABLE</div>
+      <div class="banner" ng-if="region.merchandisingBanner" ng-style="{'background-color': region.merchandisingBanner.bgColor, 'color': region.merchandisingBanner.textColor}">{{region.merchandisingBanner.text}}</div>
       <img ng-src="{{region.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{region.images[0].alt}}"/>
 
       <section>
@@ -42,7 +42,7 @@
     <locations-list grid="12" ng-if="allLocations.length">
 
       <location-item ng-repeat="location in allLocations track by $index" ng-click="goToHotels(location.meta.slug)">
-        <div class="banner">9 Hotels AVAILABLE</div>
+        <div class="banner" ng-if="location.merchandisingBanner" ng-style="{'background-color': location.merchandisingBanner.bgColor, 'color': location.merchandisingBanner.textColor}">{{location.merchandisingBanner.text}}</div>
         <img ng-src="{{location.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{location.images[0].alt}}"/>
 
         <section>

@@ -15,6 +15,12 @@ angular.module('mobius.controllers.regions', [])
         .addBreadCrumb('Locations');
       //Get regions
       locationService.getRegions().then(function(regions){
+        //Pick random merchandizing banner if any
+        _.each(regions, function(region){
+          if(region.merchandisingBanners && region.merchandisingBanners.length){
+            region.merchandisingBanner = region.merchandisingBanners.length === 1 ? region.merchandisingBanners[0] : region.merchandisingBanners[Math.random()*region.merchandisingBanners.length-1];
+          }
+        });
         $scope.allRegions = regions;
       });
     }
@@ -34,7 +40,15 @@ angular.module('mobius.controllers.regions', [])
 
         //Locations
         locationService.getLocations().then(function(locations){
-          $scope.allLocations = _.where(locations, {regionCode: $scope.region.code});
+          //Only show locations that belong to current region
+          locations = _.where(locations, {regionCode: $scope.region.code});
+          //Pick random merchandizing banner if any
+          _.each(locations, function(location){
+            if(location.merchandisingBanners && location.merchandisingBanners.length){
+              location.merchandisingBanner = location.merchandisingBanners.length === 1 ? location.merchandisingBanners[0] : location.merchandisingBanners[Math.random()*location.merchandisingBanners.length-1];
+            }
+          });
+          $scope.allLocations = locations;
         });
 
         //breadcrumbs
