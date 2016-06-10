@@ -12,6 +12,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
     link: function(scope, elem, attrs){
 
       var megaMenu = angular.element(elem).find('.mega-menu');
+      scope.regionsLoading = true;
+      scope.locationsLoading = false;
 
       //Set main menu text
       scope.title = attrs.title;
@@ -39,15 +41,18 @@ angular.module('mobiusApp.directives.megaMenu', [])
       locationService.getRegions().then(function(regions){
         megaMenuCache.put('regions', regions);
         //console.log('megaMenuCache regions: ' + angular.toJson(megaMenuCache.get('regions')));
+        scope.regionsLoading = false;
         scope.regions = regions;
       });
 
       scope.getLocations = function(regionIndex){
 
+        scope.locationsLoading = true;
         scope.activeRegion = scope.regions[regionIndex];
         //scope.activeRegionCode = scope.regions[regionIndex].code;
 
         if(megaMenuCache.get('regions')[regionIndex].locations){
+          scope.locationsLoading = false;
           scope.locations = megaMenuCache.get('regions')[regionIndex].locations;
         }
         else{
@@ -64,7 +69,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
               });
               //console.log('megaMenuCache regions with locations with properties: ' + angular.toJson(megaMenuCache.get('regions')[regionIndex]));
             });
-
+            scope.locationsLoading = false;
             scope.locations = megaMenuCache.get('regions')[regionIndex].locations;
           });
         }
