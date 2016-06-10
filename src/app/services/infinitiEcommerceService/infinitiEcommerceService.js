@@ -5,8 +5,6 @@
 angular.module('mobiusApp.services.infinitiEcommerceService', [])
   .service( 'infinitiEcommerceService',  function(Settings, apiService, cookieFactory, _, $rootScope, userObject) {
 
-    var env = document.querySelector('meta[name=environment]').getAttribute('content');
-
     //Create customer info data if anon
     function getCustomerInfo(purchaseData){
 
@@ -80,11 +78,8 @@ angular.module('mobiusApp.services.infinitiEcommerceService', [])
 
       console.log('Infiniti E-Commerce Tracking Data: ' + angular.toJson(postData));
 
-      apiService.post(Settings.infinitiEcommerceTracking.endpoint[env], postData).then(function(){
-      }, function(err){
-        console.log('Infiniti E-commerce tracking error: ' + angular.toJson(err));
-      });
-
+      /* global evolution */
+      evolution('track', 'purchase', postData);
     }
 
     // Public methods
