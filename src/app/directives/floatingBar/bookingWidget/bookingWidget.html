@@ -2,7 +2,7 @@
   <h3 ng-if="!advanced">_booking_widget_title_</h3>
 
   <!-- FIND YOUR HOTEL -->
-  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty">
+  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && !settings.displayPropertiesMegamenu">
     <select name="regionHotels" required chosen
             disable-search="false"
             data-placeholder-text-single="'_region_hotel_'"
@@ -13,6 +13,18 @@
       <option></option> <!-- workaround for a bug in angular-chosen  -->
     </select>
     <form-label>_find_your_hotel_</form-label>
+  </form-element>
+
+  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && settings.displayPropertiesMegamenu">
+    <div mega-menu data-type="booking-widget"></div>
+    <input type="text"
+            id="booking-widget-property-megamenu"
+            placeholder="_find_your_hotel_"
+            ng-model="regionPropertySelected"
+            ng-required="true"
+            readonly="true">
+    <form-label>_find_your_hotel_</form-label>
+    <input-value>{{regionPropertySelected.name || '_find_your_hotel_'}}</input-value>
   </form-element>
 
   <form-element class="hotel disabled-hotel" ng-show="!hasPropertySelection && !singleProperty">

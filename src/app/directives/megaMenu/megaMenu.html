@@ -1,4 +1,4 @@
-<a class="mega-menu-trigger" href="" ui-sref="regions({regionSlug: null})" ng-class="{'is-active': $state.includes('regions') || $state.includes('hotels')}" ng-click="closeMenu()" ng-mouseover="showMenu()">{{title}}</a>
+<a class="mega-menu-trigger" href="" ui-sref="regions({regionSlug: null})" ng-class="{'is-active': $state.includes('regions') || $state.includes('hotels')}" ng-click="closeMenu()" ng-mouseover="showMenu()" ng-if="!isBookingWidget">{{title}}</a>
 <div class="mega-menu">
 
   <div class="regions">
@@ -15,14 +15,21 @@
     </div>
 
     <ul ng-if="locations">
-      <li ng-repeat="location in locations track by $index">
-        <a href="" ui-sref="hotels({regionSlug: activeRegion.meta.slug, locationSlug: location.meta.slug})" ng-click="closeMenu()">{{location.nameShort}}</a>
-        <ul class="properties" ng-if="location.properties.length">
-          <li ng-repeat="property in location.properties track by $index"><a href="" ui-sref="hotel({propertySlug: property.meta.slug})" ng-class="property.chainCode.toLowerCase()" ng-click="closeMenu()">{{property.nameShort}}</a></li>
+      <li ng-repeat="location in locations | filter: {properties: {nameShort: propertySearch}}"" ng-show="location.properties.length">
+        <a href="" ng-click="locationClick(activeRegion, location)">{{location.nameShort}}</a>
+        <ul class="properties">
+          <li ng-repeat="property in location.properties | filter:propertySearch"><a href="" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick(property)">{{property.nameShort}}</a></li>
         </ul>
       </li>
     </ul>
 
+
+
   </div>
+
+  <footer ng-show="isBookingWidget">
+    <div class="label">_select_hotel_</div>
+    <input type="text" placeholder="_search_" ng-model="propertySearch">
+  </footer>
   
 </div>

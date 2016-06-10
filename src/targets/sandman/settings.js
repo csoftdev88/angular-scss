@@ -610,6 +610,7 @@ angular.module('mobiusApp.config', [])
       "datePickerCloseOnDatesSelected": true,
       "checkAvailabilityOnChange": false,
       "checkOfferAvailabilityOnChange": false,
+      "displayPropertiesMegamenu": true,
       'hasMutiroomTab': true,
       'hasRatesSelection': true,
       // Suggest MRB when number of adults is higher

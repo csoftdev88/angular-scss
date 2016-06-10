@@ -735,6 +735,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           queryService.removeParam(PARAM_TYPES.promoCode.search);
         }
 
+
         $timeout(function () {
           if (settings.promoCode || settings.corpCode || settings.groupCode) {
             prefillPromoCode();
@@ -748,6 +749,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               rangeInput.focus();
             }
           }
+
+          //Prefill property from megamenu
+          if (settings && settings.property) {
+            scope.regionPropertySelected = {name: settings.property.nameShort, type: 'property', code: settings.property.code};
+            scope.selected.property = settings.property;
+          }
+
         }, 0);
       }
 

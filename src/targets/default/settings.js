@@ -505,6 +505,7 @@ angular.module('mobiusApp.config', [])
       "datePickerCloseOnDatesSelected": false,
       "checkAvailabilityOnChange": false,
       "checkOfferAvailabilityOnChange": false,
+      "displayPropertiesMegamenu": false,
       'hasMutiroomTab': false,
       //Adds a rates dropdown in booking widget used to update productGroupId in booking params
       'hasRatesSelection': false,

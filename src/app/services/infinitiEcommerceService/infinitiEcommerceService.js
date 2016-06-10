@@ -59,6 +59,9 @@ angular.module('mobiusApp.services.infinitiEcommerceService', [])
     //Track purchase
     function trackPurchase(isLoggedIn, purchaseData){
 
+      console.log('trackPurchase isLoggedIn: ' + isLoggedIn);
+      console.log('trackPurchase purchaseData: ' + angular.toJson(purchaseData));
+
       if(!Settings.infinitiEcommerceTracking.enable || !purchaseData){
         return;
       }

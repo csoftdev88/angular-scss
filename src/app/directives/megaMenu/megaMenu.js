@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.megaMenu', [])
 
-.directive('megaMenu', function(propertyService, locationService, $cacheFactory, _){
+.directive('megaMenu', function(propertyService, locationService, $cacheFactory, _, $state, $rootScope){
   return {
     restrict: 'EA',
     scope: {},
@@ -11,9 +11,26 @@ angular.module('mobiusApp.directives.megaMenu', [])
     // Widget logic goes here
     link: function(scope, elem, attrs){
 
+      var megaMenu = angular.element(elem).find('.mega-menu');
+
       //Set main menu text
       scope.title = attrs.title;
+      scope.isBookingWidget = attrs.type === 'booking-widget';
       //scope.activeRegionCode = '';
+      if(attrs.type === 'booking-widget'){
+        angular.element(elem).addClass('booking-widget');
+        var input = $('#booking-widget-property-megamenu');
+        //show mega menu on input focus
+        input.focus(function(){
+          megaMenu.addClass('open');
+        });
+        //Hide mega menu on click outside of it
+        $(document).mouseup(function(e){
+          if (!megaMenu.is(e.target) && !input.is(e.target) && megaMenu.has(e.target).length === 0){
+            megaMenu.removeClass('open');
+          }
+        });
+      }
 
       //megamenu cache
       var megaMenuCache = $cacheFactory.get('megaMenuCache') || $cacheFactory('megaMenuCache');
@@ -53,11 +70,40 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
+      //Main menu open/close
       scope.closeMenu = function(){
-        angular.element(elem).find('.mega-menu').addClass('closed');
+        megaMenu.addClass('closed');
       };
       scope.showMenu = function(){
-        angular.element(elem).find('.mega-menu').removeClass('closed');
+        megaMenu.removeClass('closed');
+      };
+
+      scope.locationClick = function(region, location){
+        //main menu
+        if(attrs.type !== 'booking-widget'){
+          scope.closeMenu();
+          $state.go('hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug});
+        }
+        //booking widget
+        else{
+          //nothing on location click
+        }
+      };
+
+      scope.propertyClick = function(property){
+        //main menu
+        if(attrs.type !== 'booking-widget'){
+          scope.closeMenu();
+          $state.go('hotel', {propertySlug: property.meta.slug});
+        }
+        //booking widget
+        else{
+          megaMenu.removeClass('open');
+          $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+            property: property
+          });
+
+        }
       };
     }
   };
