@@ -2,7 +2,7 @@
   <h3 ng-if="!advanced">_booking_widget_title_</h3>
 
   <!-- FIND YOUR HOTEL -->
-  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && !settings.displayPropertiesMegamenu">
+  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && (!settings.displayPropertiesMegamenu || isMobile)">
     <select name="regionHotels" required chosen
             disable-search="false"
             data-placeholder-text-single="'_region_hotel_'"
@@ -15,7 +15,7 @@
     <form-label>_find_your_hotel_</form-label>
   </form-element>
 
-  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && settings.displayPropertiesMegamenu">
+  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && (settings.displayPropertiesMegamenu && !isMobile)">
     <div mega-menu data-type="booking-widget"></div>
     <input type="text"
             id="booking-widget-property-megamenu"

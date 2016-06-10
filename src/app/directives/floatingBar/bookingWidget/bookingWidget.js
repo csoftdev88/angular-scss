@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, _, contentService){
+  propertyService, locationService, filtersService, Settings, _, contentService, stateService){
   return {
     restrict: 'E',
     scope: {
@@ -18,6 +18,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     link: function(scope){
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
+
+      scope.isMobile = stateService.isMobile();
 
       scope.codeTypes = [
         {

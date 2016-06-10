@@ -85,6 +85,10 @@ describe('bookingWidget', function() {
         removeParam: function(){}
       });
 
+      $provide.value('stateService', {
+        isMobile: function(){}
+      });
+
       $provide.value('$state', {
         go: function(){}
       });
