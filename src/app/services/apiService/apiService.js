@@ -5,7 +5,7 @@ angular.module('mobiusApp.services.api', [])
 .service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, stateService) {
 
   var headers = {
-    'Mobius-chainId': Settings.API.headers['Mobius-chainId'],
+    'mobius-tenant': Settings.API.headers['Mobius-chainId'],
     'Mobius-channelId': stateService.isMobile() ? Settings.API.headers['Mobius-channelId'].mobile : Settings.API.headers['Mobius-channelId'].web
   };
 
