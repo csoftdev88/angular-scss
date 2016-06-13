@@ -492,9 +492,6 @@ angular
         var propertyCode = toParams.propertyCode || toParams.property;
         if(propertyCode){
           propertyService.getPropertyDetails(propertyCode).then(function(details){
-            //faking chainCode not yet available
-            details.chainCode = 'SAND';
-            //TODO: Move to own service
             propertyService.applyPropertyChainClass(details.chainCode);
           });
         }
