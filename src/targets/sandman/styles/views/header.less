@@ -262,15 +262,24 @@
         line-height: 138px;
         padding: 0 10px;
         a{
-          color: @c-light-grey;
-          font-size: @size-0;
-          &:hover{
+          color: @c-dark-grey;
+          font-size: 10px;
+          &:hover,
+          &:after{
             color: @c-dark-grey;
           }
         }
         ul{
           li{
             padding: 0 10px;
+            a{
+              color: #fff;
+              font-size: 14px;
+              &:hover,
+              &:after{
+                color: #fff;
+              }
+            }
           }
         }
       }

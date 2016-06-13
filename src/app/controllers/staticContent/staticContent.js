@@ -36,7 +36,6 @@ angular.module('mobius.controllers.staticContent', [])
         $state.go('home');
       }
       
-
     });
 
   });

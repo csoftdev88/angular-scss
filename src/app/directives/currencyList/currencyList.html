@@ -1,6 +1,6 @@
-<div ng-class="{'dropdown has-icons': currencies.length > 1}" ng-show="languages.length > 1">
+<div ng-class="{'dropdown': currencies.length > 1}" ng-show="currencies.length > 1">
   <a href title="Currency">
-    <span>{{getCurrencySymbol($root.currencyCode)}}</span>
+    <span>{{currentCurrency.code}}</span>
   </a>
 
   <ul class="dropdown-menu submenu" ng-show="currencies.length > 1">
