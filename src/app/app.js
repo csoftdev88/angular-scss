@@ -56,6 +56,7 @@ angular
     'mobius.controllers.register',
     'mobius.controllers.resetPassword',
     'mobius.controllers.prestige',
+    'mobius.controllers.staticContent',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -355,6 +356,14 @@ angular
         templateUrl: 'layouts/about/about.html',
         url: '/about/:code',
         controller: 'AboutUsCtrl'
+      })
+
+      // static content for now will be about content but without /about url
+      .state('staticContent', {
+        parent: 'root',
+        templateUrl: 'layouts/staticContent/staticContent.html',
+        url: '/:contentSlug',
+        controller: 'StaticContentCtrl'
       })
 
       // Reservation Lookup page
