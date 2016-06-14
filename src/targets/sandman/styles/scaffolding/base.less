@@ -2,6 +2,30 @@
 //// BASE STYLES ////
 /////////////////////
 
+body{
+  &.chain-sign{
+    position: relative;
+    &:before{
+      content: '';
+      position: absolute;
+      top: 400px;
+      left: 0;
+      width: 741px;
+      height: 834px;
+      background: url("@{img-prefix}/watermark-signature-logo.png") no-repeat;
+      z-index: -1;
+    }
+    &.viewport-mobile{
+      &:before{
+        top: 100px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        margin-left: 50px;
+      }
+    }
+  }
+}
+
 main {
   &.no-hero{
     margin: 173px auto 40px;
