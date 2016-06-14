@@ -39,12 +39,15 @@ view-more-images {
       .hero-slide {
         overflow: visible;
         height: 208px;
+        border: 4px solid @c-light-grey;
+        box-sizing: border-box;
 
         .content-inner {
           display: block;
-          top: 240px;
+          top: 245px;
           h1{
             background: none;
+            color: @c-mid-grey;
             .chain-sign &{
               font-family: @ff-heading-it-sign;
               font-style: italic;
@@ -65,13 +68,16 @@ view-more-images {
         top: -300px;
       }
       .slide-button{
-        top: 82px;
+        top: 100px;
       }
       .pages{
         top: 228px;
         .chain-sign &{
           font-family: @ff-heading-it-sign;
           font-style: italic;
+        }
+        counter{
+          color: @c-mid-grey;
         }
       }
     }
