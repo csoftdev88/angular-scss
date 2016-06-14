@@ -104,6 +104,21 @@ angular.module('mobiusApp.services.user', [])
       return localStorage.mobiusLanguagecode;
     }
 
+    function storeUserCurrency(currency) {
+      if(!hasLocalStorage){
+        return;
+      }
+      localStorage['mobius-currencycode'] = currency;
+      userObject.currencyCode = currency;
+    }
+
+    function getUserCurrency() {
+      if(!hasLocalStorage){
+        return;
+      }
+      return localStorage['mobius-currencycode'];
+    }
+
     function loadProfile() {
 
       var customerId = getCustomerId();
@@ -272,6 +287,8 @@ angular.module('mobiusApp.services.user', [])
       getUserLanguage: getUserLanguage,
       storeUserId: storeUserId,
       getStoredUser: getStoredUser,
-      clearStoredUser: clearStoredUser
+      clearStoredUser: clearStoredUser,
+      storeUserCurrency: storeUserCurrency,
+      getUserCurrency: getUserCurrency
     };
   });

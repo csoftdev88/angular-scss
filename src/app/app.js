@@ -461,9 +461,15 @@ angular
       $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
     }
 
+    //Set default language header
     var langObj = {};
     langObj['mobius-languagecode'] = appLang;
     apiService.setHeaders(langObj);
+
+    //Set default currency header
+    var currencyObj = {};
+    currencyObj['mobius-currencycode'] = stateService.getCurrentCurrency().code;
+    //apiService.setHeaders(currencyObj);
 
     //localize moment.js
     $window.moment.locale(appLang);

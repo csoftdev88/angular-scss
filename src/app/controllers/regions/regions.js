@@ -34,6 +34,9 @@ angular.module('mobius.controllers.regions', [])
         $scope.region = _.find(regions, function(region){ 
           return region.meta.slug === regionSlug; 
         });
+
+        //hero slider
+        $scope.updateHeroContent($scope.region.images);
         
         //gallery
         $scope.previewImages = contentService.getLightBoxContent($scope.region.images, 300, 150, 'fill');

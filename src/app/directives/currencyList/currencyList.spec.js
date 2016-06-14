@@ -32,6 +32,23 @@ describe('currencyList', function() {
         getCurrencies: sinon.stub()
       });
 
+      $provide.value('user', {
+        storeUserCurrency: function(){}
+      });
+
+      $provide.value('apiService', {
+        setHeaders: function(){}
+      });
+
+      $provide.value('$state', {
+        go: function(){},
+        current:{
+          name: 'hotel'
+        }
+      });
+
+      $provide.value('$stateParams', {});
+
       $provide.value('queryService', {
         getValue: sinon.stub(),
         setValue: sinon.stub()

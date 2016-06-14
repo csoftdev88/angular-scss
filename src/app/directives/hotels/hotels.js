@@ -156,6 +156,10 @@ angular.module('mobiusApp.directives.hotels', [])
           if($stateParams.locationSlug){
             locationService.getLocations().then(function(locations){
               var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+              //hero slider
+              console.log(curLocation.images);
+              scope.updateHeroContent(curLocation.images);
+
               if(Settings.UI.viewsSettings.hotels.showLocationDescription){
                 scope.locationDetails = curLocation;
                 //gallery
@@ -207,11 +211,13 @@ angular.module('mobiusApp.directives.hotels', [])
             });
           }
 
-          scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
-          scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
-          scope.minSelectedPrice = scope.minPrice;
-          scope.maxSelectedPrice = scope.maxPrice;
-
+          if(Settings.UI.hotelFilters.price){
+            scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
+            scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
+            scope.minSelectedPrice = scope.minPrice;
+            scope.maxSelectedPrice = scope.maxPrice;
+          }
+          
           //scroll to element if set in url scrollTo param
           var scrollToValue = $location.search().scrollTo || null;
           if (scrollToValue) {
