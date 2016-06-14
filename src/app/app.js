@@ -469,7 +469,7 @@ angular
     //Set default currency header
     var currencyObj = {};
     currencyObj['mobius-currencycode'] = stateService.getCurrentCurrency().code;
-    //apiService.setHeaders(currencyObj);
+    apiService.setHeaders(currencyObj);
 
     //localize moment.js
     $window.moment.locale(appLang);
