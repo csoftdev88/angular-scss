@@ -154,6 +154,7 @@ reservation-widget {
     .price{
       display: inline;
       float: left;
+      max-width: 75%;
       &.price{
         clear: left;
         margin-top: 0;
@@ -169,16 +170,20 @@ reservation-widget {
     .chain-logo{
       display: block;
       top: 3px;
+      max-width: 25%;
+      
       .chain-sand &{
         width: 98px;
         height: 17px;
         background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
+        background-size: 100%;
         top: 13px;
       }
       .chain-sign &{
         width: 40px;
         height: 26px;
         background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
+        background-size: 100%;
       }
     }
 
