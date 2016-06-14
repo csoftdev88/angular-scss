@@ -157,7 +157,6 @@ angular.module('mobiusApp.directives.hotels', [])
             locationService.getLocations().then(function(locations){
               var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
               //hero slider
-              console.log(curLocation.images);
               scope.updateHeroContent(curLocation.images);
 
               if(Settings.UI.viewsSettings.hotels.showLocationDescription){

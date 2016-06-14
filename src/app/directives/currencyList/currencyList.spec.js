@@ -33,7 +33,8 @@ describe('currencyList', function() {
       });
 
       $provide.value('user', {
-        storeUserCurrency: function(){}
+        storeUserCurrency: function(){},
+        getUserCurrency: function(){}
       });
 
       $provide.value('apiService', {

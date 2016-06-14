@@ -525,7 +525,7 @@ angular.module('mobiusApp.config', [])
     },
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'GBP',
+      'default': 'CAD',
 
       'GBP': {
         'code': 'GBP',

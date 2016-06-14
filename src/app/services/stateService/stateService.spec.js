@@ -45,6 +45,12 @@ describe('stateService', function() {
       };
 
       $provide.value('Settings', Settings);
+      $provide.value('queryService', {
+        getValue: function(){}
+      });
+      $provide.value('user', {
+        getUserCurrency: function(){}
+      });
     });
   });
 

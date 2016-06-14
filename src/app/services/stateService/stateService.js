@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.state', [])
-  .service('stateService', ['$window', 'Settings', '$rootScope', function($window, Settings, $rootScope) {
+  .service('stateService', ['$window', 'Settings', '$rootScope', 'queryService', function($window, Settings, $rootScope, queryService) {
 
     function getStateLayout(stateName) {
       var config = Settings.UI.layout[stateName];
@@ -32,7 +32,7 @@ angular.module('mobiusApp.services.state', [])
     }
 
     function getCurrentCurrency() {
-      var currentCurrency = $rootScope.currencyCode || Settings.UI.currencies.default;
+      var currentCurrency = queryService.getValue(Settings.currencyParamName) || $rootScope.currencyCode || Settings.UI.currencies.default;
       return Settings.UI.currencies[currentCurrency] || null;
     }
 

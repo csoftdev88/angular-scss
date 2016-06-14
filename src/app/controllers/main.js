@@ -49,7 +49,6 @@ angular.module('mobius.controllers.main', [])
 
       var heroSliderData;
       $scope.updateHeroContent = function(data){
-        console.log('updateHeroContent: ' + angular.toJson(data));
         if(data && data.length){
           $scope.heroContent = filterHeroContent(data);
           return;
@@ -133,7 +132,6 @@ angular.module('mobius.controllers.main', [])
             });
             
             $scope.heroContent = data;
-            console.log('filterHeroContent: ' + angular.toJson($scope.heroContent));
 
           });
 
