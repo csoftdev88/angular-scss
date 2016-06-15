@@ -26,7 +26,6 @@ angular.module('mobiusApp.directives.slugImg', [])
           },
           function(amenity) {
             if(amenity) {
-              console.log('chain: ' + amenity.chainCode);
               scope.src = Settings.UI.cloudinary['prefix-' + attrs.type].replace('{chainCode}', amenity.chainCode) + amenity.slug + Settings.UI.cloudinary.suffix;
               // see http://cloudinary.com/documentation/image_transformations
               if (attrs.width) {

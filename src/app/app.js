@@ -321,8 +321,18 @@ angular
       .state('hotDeals', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
-        url: '/hot-deals/:code',
-        controller: 'OffersCtrl'
+        url: '/hot-deals/:regionSlug/:locationSlug/:code',
+        controller: 'OffersCtrl',
+        params:  {
+          locationSlug: {
+            value: null,
+            squash: true
+          },
+          regionSlug: {
+            value: null,
+            squash: true
+          }
+        }
       })
 
       .state('propertyOffers', {

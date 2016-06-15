@@ -1,4 +1,5 @@
-<a class="mega-menu-trigger" href="" ui-sref="regions({regionSlug: null})" ng-class="{'is-active': $state.includes('regions') || $state.includes('hotels')}" ng-click="closeMenu()" ng-mouseover="showMenu()" ng-if="!isBookingWidget">{{title}}</a>
+<a class="mega-menu-trigger" href="" ng-class="{'is-active': $state.includes('regions') || $state.includes('hotels')}" ng-click="closeMenu(); menuClick();" ng-mouseover="showMenu()" ng-if="type = 'hotels'">{{title}}</a>
+<!--<a class="mega-menu-trigger" href="" ui-sref="hotDeals({locationSlug: null, code: null})" ng-class="{'is-active': $state.includes('hotDeals')}" ng-click="closeMenu()" ng-mouseover="showMenu()" ng-if="type = 'hot-deals'">{{title}}</a>-->
 <div class="mega-menu">
 
   <div class="regions">

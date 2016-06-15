@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.megaMenu', [])
 
-.directive('megaMenu', function(propertyService, locationService, $cacheFactory, _, $state, $rootScope){
+.directive('megaMenu', function(propertyService, locationService, $cacheFactory, _, $state, $rootScope, contentService){
   return {
     restrict: 'EA',
     scope: {},
@@ -17,8 +17,9 @@ angular.module('mobiusApp.directives.megaMenu', [])
 
       //Set main menu text
       scope.title = attrs.title;
-      scope.isBookingWidget = attrs.type === 'booking-widget';
-      //scope.activeRegionCode = '';
+      scope.type = attrs.type;
+
+      //boooking-widget version style and event listeners
       if(attrs.type === 'booking-widget'){
         angular.element(elem).addClass('booking-widget');
         var input = $('#booking-widget-property-megamenu');
@@ -64,16 +65,61 @@ angular.module('mobiusApp.directives.megaMenu', [])
 
             //Get properties and filter by locationCode
             propertyService.getAll().then(function(properties){
-              _.each(megaMenuCache.get('regions')[regionIndex].locations, function(cachedLocation, index){
-                megaMenuCache.get('regions')[regionIndex].locations[index].properties = _.where(properties, {locationCode: cachedLocation.code});
-              });
-              //console.log('megaMenuCache regions with locations with properties: ' + angular.toJson(megaMenuCache.get('regions')[regionIndex]));
+
+              //if hot deals, remove properties that don't have hot deals
+              if(attrs.type === 'hot-deals'){
+                //get offers
+                contentService.getOffers().then(function(offers) {
+                  //only keep offers that have 1 property in availability
+                  offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length === 1;});
+
+                  //only include properties that have an offer associated with them
+                  properties = _.filter(properties, function(property){
+                    _.each(offers, function(offer){
+                      return property.code === offer.offerAvailability[0].property;
+                    });
+                  });
+
+                  assignPropertiesToLocations(regionIndex, properties);
+
+                  //go through each property and asign its offer code or remove if no offer associated with it
+                  /*
+                  _.each(megaMenuCache.get('regions')[regionIndex].locations[index].properties, function(property, index){
+                    var propertyOffer = _.find(offers, function(offer){ return offer.offerAvailability[0].property === property.code});
+                    if(propertyOffer){
+                      megaMenuCache.get('regions')[regionIndex].locations[index].properties[index]
+                    }
+                    else{
+
+                    }
+                  })
+                  */
+
+
+
+                });
+              }
+              else{
+                assignPropertiesToLocations(regionIndex, properties);
+              }
+
+              
+              
             });
-            scope.locationsLoading = false;
-            scope.locations = megaMenuCache.get('regions')[regionIndex].locations;
+
           });
         }
       };
+
+      function assignPropertiesToLocations(regionIndex, properties){
+        //assign properties to their respective location
+        _.each(megaMenuCache.get('regions')[regionIndex].locations, function(cachedLocation, index){
+          megaMenuCache.get('regions')[regionIndex].locations[index].properties = _.where(properties, {locationCode: cachedLocation.code});
+        });
+
+        scope.locationsLoading = false;
+        scope.locations = megaMenuCache.get('regions')[regionIndex].locations;
+      }
 
       //Main menu open/close
       scope.closeMenu = function(){
@@ -83,31 +129,47 @@ angular.module('mobiusApp.directives.megaMenu', [])
         megaMenu.removeClass('closed');
       };
 
+      scope.menuClick = function(){
+        //hotels menu
+        if(attrs.type === 'hotels'){
+          $state.go('regions', {regionSlug: null});
+        }
+        //hot deals
+        else if(attrs.type === 'hot-deals'){
+          $state.go('hotDeals', {locationSlug: null, code: null});
+        }
+      };
+
       scope.locationClick = function(region, location){
-        //main menu
-        if(attrs.type !== 'booking-widget'){
+        //hotels menu
+        if(attrs.type === 'hotels'){
           scope.closeMenu();
           $state.go('hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug});
         }
-        //booking widget
-        else{
-          //nothing on location click
+        //hot deals
+        else if(attrs.type === 'hot-deals'){
+          scope.closeMenu();
+          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug});
         }
       };
 
       scope.propertyClick = function(property){
-        //main menu
-        if(attrs.type !== 'booking-widget'){
+        //hotels menu
+        if(attrs.type === 'hotels'){
           scope.closeMenu();
           $state.go('hotel', {propertySlug: property.meta.slug});
         }
+        //hot deals
+        else if(attrs.type === 'hot-deals'){
+          scope.closeMenu();
+          $state.go('hotDeals', {code: property.hotDealCode});
+        }
         //booking widget
-        else{
+        else if(attrs.type === 'booking-widget'){
           megaMenu.removeClass('open');
           $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
             property: property
           });
-
         }
       };
     }
