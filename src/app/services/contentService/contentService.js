@@ -12,6 +12,10 @@ angular.module('mobiusApp.services.content', [])
     return apiService.getThrottled(apiService.getFullURL('contents.about'));
   }
 
+  function getStatic(){
+    return apiService.getThrottled(apiService.getFullURL('contents.static'));
+  }
+
   function getOffers(parameters){
     return apiService.getThrottled(apiService.getFullURL('contents.offers'), parameters);
   }
@@ -92,6 +96,7 @@ angular.module('mobiusApp.services.content', [])
   return {
     getNews: getNews,
     getAbout: getAbout,
+    getStatic: getStatic,
     getOffers: getOffers,
     getAdverts: getAdverts,
     getRandomAdvert: getRandomAdvert,

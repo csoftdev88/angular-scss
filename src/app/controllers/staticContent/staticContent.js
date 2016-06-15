@@ -7,11 +7,17 @@ angular.module('mobius.controllers.staticContent', [])
   .controller('StaticContentCtrl', function($scope, contentService, $stateParams, _, breadcrumbsService,
          metaInformationService, scrollService, $timeout, $location, $state) {
 
-    contentService.getAbout().then(function(response) {
+    
+
+    contentService.getStatic().then(function(response) {
 
       //Get current content
       $scope.selectedAbout = _.find(response, function(item){
-        return item.meta.slug === $stateParams.contentSlug;
+        //removing the code
+        var slug = item.meta.slug;
+        var codeStartIndex = slug.lastIndexOf('-');
+        slug = slug.substring(0, codeStartIndex);
+        return slug === $stateParams.contentSlug;
       });
 
       if($scope.selectedAbout){

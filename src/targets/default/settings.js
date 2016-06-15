@@ -81,6 +81,7 @@ angular.module('mobiusApp.config', [])
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
+      'static': 'contents/static',
       'news': 'contents/news',
       'offers': 'contents/offers',
       'adverts': {
