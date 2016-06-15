@@ -18,6 +18,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
       //Set main menu text
       scope.title = attrs.title;
       scope.type = attrs.type;
+      scope.isBookingWidget = attrs.type === 'booking-widget';
+
 
       //boooking-widget version style and event listeners
       if(attrs.type === 'booking-widget'){
@@ -36,12 +38,19 @@ angular.module('mobiusApp.directives.megaMenu', [])
       }
 
       //megamenu cache
-      var megaMenuCache = $cacheFactory.get('megaMenuCache') || $cacheFactory('megaMenuCache');
+      var megaMenuCache = $cacheFactory.get(attrs.type) || $cacheFactory(attrs.type);
+      //var hotdealsMenuCache = $cacheFactory.get('hotdealsMenuCache') || $cacheFactory('hotdealsMenuCache');
+
+      //console.log('type: ' + attrs.type);
+
+      //var megaMenuCache = attrs.type === 'hot-deals' ? hotdealsMenuCache : hotelsMenuCache;
+
+      //console.log('megaMenuCache: ' + megaMenuCache);
       
       //Get Regions
       locationService.getRegions().then(function(regions){
         megaMenuCache.put('regions', regions);
-        //console.log('megaMenuCache regions: ' + angular.toJson(megaMenuCache.get('regions')));
+        //console.log('hotelsMenuCache regions: ' + angular.toJson(hotelsMenuCache.get('regions')));
         scope.regionsLoading = false;
         scope.regions = regions;
       });
@@ -58,7 +67,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
         else{
           locationService.getLocations().then(function(locations){
-            //console.log('megaMenuCache locations: ' + angular.toJson(locations));
+            //console.log('hotelsMenuCache locations: ' + angular.toJson(locations));
             //Cache current region's locations
             megaMenuCache.get('regions')[regionIndex].locations = _.where(locations, {regionCode: scope.activeRegion.code});
             //console.log('megaMenuCache regions with locations: ' + angular.toJson(megaMenuCache.get('regions')[regionIndex]));
@@ -72,22 +81,28 @@ angular.module('mobiusApp.directives.megaMenu', [])
                 contentService.getOffers().then(function(offers) {
                   //only keep offers that have 1 property in availability
                   offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length === 1;});
+                  
 
                   //only include properties that have an offer associated with them
-                  properties = _.filter(properties, function(property){
+                  var filteredProperties = [];
+                  _.each(properties, function(property){
                     _.each(offers, function(offer){
-                      return property.code === offer.offerAvailability[0].property;
+                      if(property.code === offer.offerAvailability[0].property){
+                        filteredProperties.push(property);
+                      }
                     });
                   });
 
-                  assignPropertiesToLocations(regionIndex, properties);
+                  console.log('properties: ' + angular.toJson(filteredProperties));
+
+                  assignPropertiesToLocations(regionIndex, filteredProperties);
 
                   //go through each property and asign its offer code or remove if no offer associated with it
                   /*
-                  _.each(megaMenuCache.get('regions')[regionIndex].locations[index].properties, function(property, index){
+                  _.each(hotelsMenuCache.get('regions')[regionIndex].locations[index].properties, function(property, index){
                     var propertyOffer = _.find(offers, function(offer){ return offer.offerAvailability[0].property === property.code});
                     if(propertyOffer){
-                      megaMenuCache.get('regions')[regionIndex].locations[index].properties[index]
+                      hotelsMenuCache.get('regions')[regionIndex].locations[index].properties[index]
                     }
                     else{
 
