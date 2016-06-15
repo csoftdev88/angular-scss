@@ -358,20 +358,20 @@ angular
         controller: 'AboutUsCtrl'
       })
 
-      // static content for now will be about content but without /about url
-      .state('staticContent', {
-        parent: 'root',
-        templateUrl: 'layouts/staticContent/staticContent.html',
-        url: '/:contentSlug',
-        controller: 'StaticContentCtrl'
-      })
-
       // Reservation Lookup page
       .state('lookup', {
         parent: 'root',
         templateUrl: 'layouts/lookup/lookup.html',
         url: '/lookup',
         controller: 'ReservationLookupCtrl'
+      })
+
+      // static content for now will be about content but without /about url
+      .state('staticContent', {
+        parent: 'root',
+        templateUrl: 'layouts/staticContent/staticContent.html',
+        url: '/:contentSlug',
+        controller: 'StaticContentCtrl'
       })
 
       // Profile page

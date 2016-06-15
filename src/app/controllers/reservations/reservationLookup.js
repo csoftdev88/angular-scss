@@ -7,15 +7,23 @@ angular.module('mobius.controllers.reservationLookup', [])
   .controller('ReservationLookupCtrl', function($scope, $controller, $state,
     chainService, Settings, breadcrumbsService, modalService, reservationService){
 
-    $controller('MainCtrl', {$scope: $scope});
+    console.log('ReservationLookupCtrl');
+
+    //$controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Reservation Lookup');
 
+    console.log('1');
+
     $scope.formData = {};
+
+    console.log('2');
 
     //get contact information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
     });
+
+    console.log('3');
 
     $scope.find = function(){
       $scope.form.$submitted = true;
