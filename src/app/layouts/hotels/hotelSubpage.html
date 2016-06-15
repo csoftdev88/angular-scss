@@ -10,7 +10,7 @@
 
     <header grid-row id="jsAbout">
       <h1 grid="6" ng-bind-html="info.title | mainHeaderStyle"></h1>
-      <local-info local-info="details.localInfo" grid="6"></local-info>
+      <local-info ng-if="details.localInfo" local-info="details.localInfo" grid="6"></local-info>
     </header>
 
     <div grid="12">

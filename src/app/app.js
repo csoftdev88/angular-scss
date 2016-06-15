@@ -39,6 +39,7 @@ angular
     'mobius.controllers.about',
     'mobius.controllers.offers',
     'mobius.controllers.regions',
+    'mobius.controllers.regions.subpage',
     'mobius.controllers.rewards',
     'mobius.controllers.news',
     'mobius.controllers.contacts',
@@ -236,6 +237,19 @@ angular
         templateUrl: 'layouts/hotels/hotelSubpage.html',
         controller: 'HotelSubpageCtrl',
         url: '/hotels/:propertySlug/:infoSlug'
+      })
+
+      .state('locationInfo', {
+        parent: 'root',
+        templateUrl: 'layouts/hotels/hotelSubpage.html',
+        controller: 'RegionsSubpageCtrl',
+        url: '/locations/:regionSlug/:locationSlug/:infoSlug',
+        params:  {
+          locationSlug: {
+            value: null,
+            squash: true
+          }
+        }
       })
 
       .state('room', {

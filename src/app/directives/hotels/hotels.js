@@ -154,6 +154,7 @@ angular.module('mobiusApp.directives.hotels', [])
           });
 
           if($stateParams.locationSlug){
+            scope.regionSlug = $stateParams.regionSlug || null;
             locationService.getLocations().then(function(locations){
               var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
               //hero slider

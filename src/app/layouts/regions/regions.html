@@ -34,7 +34,7 @@
       <read-more ng-if="region.content.length && region.content[0].title">
         <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
         <ul>
-          <li ng-repeat="item in region.content | orderBy: 'order'"><a href="" ui-sref="hotelInfo({propertySlug: region.meta.slug, infoSlug: item.meta.slug})">{{item.title}}</a></li>
+          <li ng-repeat="item in region.content | orderBy: 'order'"><a href="" ui-sref="locationInfo({regionSlug: region.meta.slug, locationSlug: null, infoSlug: item.meta.slug})">{{item.title}}</a></li>
         </ul>
       </read-more>
     </view-more-images>
