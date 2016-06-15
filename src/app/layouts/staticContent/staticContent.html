@@ -6,6 +6,8 @@
 
   <about-detail id="about-detail" grid="12">
 
+    <div class="preloader" ng-show="preloader.visible"></div>
+
     <div class="about-content">
       <h1 ng-bind-html="selectedAbout.title | mainHeaderStyle"></h1>
       <img ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedAbout.image.alt}}"/>

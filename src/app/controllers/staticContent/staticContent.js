@@ -7,7 +7,7 @@ angular.module('mobius.controllers.staticContent', [])
   .controller('StaticContentCtrl', function($scope, contentService, $stateParams, _, breadcrumbsService,
          metaInformationService, scrollService, $timeout, $location, $state) {
 
-    
+    $scope.preloader.visible = true;
 
     contentService.getStatic().then(function(response) {
 
@@ -19,6 +19,8 @@ angular.module('mobius.controllers.staticContent', [])
         slug = slug.substring(0, codeStartIndex);
         return slug === $stateParams.contentSlug;
       });
+
+      $scope.preloader.visible = false;
 
       if($scope.selectedAbout){
         //Set meta info
@@ -47,3 +49,4 @@ angular.module('mobius.controllers.staticContent', [])
     });
 
   });
+
