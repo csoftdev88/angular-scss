@@ -39,14 +39,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
 
       //megamenu cache
       var megaMenuCache = $cacheFactory.get(attrs.type) || $cacheFactory(attrs.type);
-      //var hotdealsMenuCache = $cacheFactory.get('hotdealsMenuCache') || $cacheFactory('hotdealsMenuCache');
 
-      //console.log('type: ' + attrs.type);
-
-      //var megaMenuCache = attrs.type === 'hot-deals' ? hotdealsMenuCache : hotelsMenuCache;
-
-      //console.log('megaMenuCache: ' + megaMenuCache);
-      
       //Get Regions
       locationService.getRegions().then(function(regions){
         megaMenuCache.put('regions', regions);
@@ -82,7 +75,6 @@ angular.module('mobiusApp.directives.megaMenu', [])
                   //only keep offers that have 1 property in availability
                   offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length === 1;});
                   
-
                   //only include properties that have an offer associated with them
                   var filteredProperties = [];
                   _.each(properties, function(property){
@@ -93,24 +85,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
                     });
                   });
 
-                  console.log('properties: ' + angular.toJson(filteredProperties));
-
                   assignPropertiesToLocations(regionIndex, filteredProperties);
-
-                  //go through each property and asign its offer code or remove if no offer associated with it
-                  /*
-                  _.each(hotelsMenuCache.get('regions')[regionIndex].locations[index].properties, function(property, index){
-                    var propertyOffer = _.find(offers, function(offer){ return offer.offerAvailability[0].property === property.code});
-                    if(propertyOffer){
-                      hotelsMenuCache.get('regions')[regionIndex].locations[index].properties[index]
-                    }
-                    else{
-
-                    }
-                  })
-                  */
-
-
 
                 });
               }
@@ -118,8 +93,6 @@ angular.module('mobiusApp.directives.megaMenu', [])
                 assignPropertiesToLocations(regionIndex, properties);
               }
 
-              
-              
             });
 
           });
