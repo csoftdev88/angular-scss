@@ -182,9 +182,9 @@
   <section ng-if="roomDetails.amenities.length">
     <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
 
-    <amenities-list>
-      <amenity-item ng-repeat="amenity in roomDetails.amenities">
-        <slug-img slug="amenity.slug" type="room" width="15"></slug-img>
+    <amenities-list ng-if="property">
+      <amenity-item ng-repeat="amenity in roomDetails.amenities" ng-init="amenity.chainCode = property.chainCode">
+        <slug-img slug="amenity" type="room" width="15"></slug-img>
         <span class="amenity-caption">{{amenity.name}}</span>
       </amenity-item>
     </amenities-list>
