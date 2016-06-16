@@ -166,8 +166,7 @@ angular.module('mobiusApp.directives.hotels', [])
                 scope.previewImages = contentService.getLightBoxContent(curLocation.images, 300, 150, 'fill');
               }
               //not working yet
-              //scope.hotels = _.where(hotels, {locationCode: curLocation.code});
-              scope.hotels = hotels || [];
+              scope.hotels = _.where(hotels, {locationCode: curLocation.code});
             });
           }
           else{

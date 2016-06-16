@@ -186,6 +186,7 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'chains': [],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
@@ -198,7 +199,9 @@ angular.module('mobiusApp.config', [])
       //facebook app id required for facebook sharing
       'facebookAppId': '',
       //refer to directive for functionality and check with designers for headers styles
-      'disableMainHeaderStyle': true
+      'disableMainHeaderStyle': true,
+      'applyChainClassToBody': false,
+      'orderPropertiesByChain': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',

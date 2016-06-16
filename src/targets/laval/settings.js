@@ -173,6 +173,7 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'chains': ['LAVAL'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
@@ -182,7 +183,9 @@ angular.module('mobiusApp.config', [])
     'generics': {
       'singleProperty': true,
       'facebookAppId': '',
-      'disableMainHeaderStyle': true
+      'disableMainHeaderStyle': true,
+      'applyChainClassToBody': false,
+      'orderPropertiesByChain': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',

@@ -14,7 +14,7 @@
         <i class="{{cardIcon}}" ng-class="{selected: getCreditCardDetails(billingDetails.card.number).icon === cardIcon}"></i>
       </li>
       <li class="divider" ng-if="loyaltyProgramEnabled && canPayWithPoints"></li>
-      <li ng-click="selectPaymentMethod('point')" ng-if="loyaltyProgramEnabled && canPayWithPoints">
+      <li ng-click="selectPaymentMethod('point')" ng-if="loyaltyProgramEnabled && canPayWithPoints" class="points">
         <i class="points" ng-class="{selected: billingDetails.paymentMethod == 'point'}"></i>
       </li>
     </ul>

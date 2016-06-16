@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.megaMenu', [])
 
-.directive('megaMenu', function(propertyService, locationService, $cacheFactory, _, $state, $rootScope, contentService){
+.directive('megaMenu', function(propertyService, locationService, $cacheFactory, _, $state, $rootScope, contentService, Settings){
   return {
     restrict: 'EA',
     scope: {},
@@ -68,6 +68,21 @@ angular.module('mobiusApp.directives.megaMenu', [])
             //Get properties and filter by locationCode
             propertyService.getAll().then(function(properties){
 
+              //If enabled, sort properties by their chain code, then alphabetically in each group
+              if(Settings.UI.generics.orderPropertiesByChain && Settings.UI.chains.length > 1){
+                var sortedProperties = [];
+                _.each(Settings.UI.chains, function(chain){
+                  var chainProperties = _.filter(properties, function(property){ return property.chainCode === chain; });
+                  chainProperties = _.sortBy(chainProperties, 'nameShort');
+                  sortedProperties = sortedProperties.concat(chainProperties);
+                });
+                properties = sortedProperties;
+              }
+              //or just alphabetically
+              else{
+                properties = _.sortBy(properties, 'nameShort');
+              }
+              
               //if hot deals, remove properties that don't have hot deals
               if(attrs.type === 'hot-deals'){
                 //get offers

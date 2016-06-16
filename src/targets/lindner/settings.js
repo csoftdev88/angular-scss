@@ -173,6 +173,7 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'chains': ['LIND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
@@ -184,7 +185,9 @@ angular.module('mobiusApp.config', [])
       'facebookAppId': '',
       'loyaltyProgramEnabled': false,
       'disableMainHeaderStyle': true,
-      'showAltNav': false
+      'showAltNav': false,
+      'applyChainClassToBody': false,
+      'orderPropertiesByChain': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',

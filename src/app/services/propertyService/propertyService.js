@@ -70,6 +70,7 @@ angular.module('mobiusApp.services.properties', [])
   var currentChainClass = null;
 
   function applyPropertyChainClass(chainCode){
+    removePropertyChainClass();
     var chainClass = ('chain-' + chainCode).toLowerCase();
     document.body.classList.add(chainClass);
     currentChainClass = chainClass;

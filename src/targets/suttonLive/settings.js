@@ -174,6 +174,7 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'chains': ['SAN'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
@@ -183,7 +184,9 @@ angular.module('mobiusApp.config', [])
     'generics': {
       'singleProperty': false,
       'facebookAppId': '954663594591416',
-      'disableMainHeaderStyle': false
+      'disableMainHeaderStyle': false,
+      'applyChainClassToBody': false,
+      'orderPropertiesByChain': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
