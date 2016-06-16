@@ -74,7 +74,7 @@
             <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
 
             <div class="ratings">
-              <div class="brand" ng-if="displayPropertyChainBranding"></div>
+              <div class="brand" ng-if="displayPropertyChainBranding" ng-class="hotel.chainCode.toLowerCase()"></div>
               <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor">
                 <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
               </div>
