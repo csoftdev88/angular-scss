@@ -141,7 +141,16 @@ angular.module('mobiusApp.directives.room', [])
               .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
               .addBreadCrumb('Rooms', 'hotel', {propertySlug: bookingParams.propertySlug}, 'jsRooms')
               .addBreadCrumb(data[0].roomDetails.name);
-
+              
+            if(scope.config.hasBreadcrumbsSecondaryNav){
+              breadcrumbsService
+              .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
+              .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
+              .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
+              .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
+              .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
+            }
+            
             scrollManager();
           }
           

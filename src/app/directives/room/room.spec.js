@@ -67,7 +67,8 @@ describe('room', function() {
 
       $provide.value('breadcrumbsService', {
         clear: sinon.stub(),
-        addBreadCrumb: sinon.stub()
+        addBreadCrumb: sinon.stub(),
+        addAbsHref: sinon.stub()
       });
 
       $provide.value('user', {
@@ -139,6 +140,7 @@ describe('room', function() {
     _breadcrumbsService = breadcrumbsService;
     _breadcrumbsService.clear.returns(_breadcrumbsService);
     _breadcrumbsService.addBreadCrumb.returns(_breadcrumbsService);
+    _breadcrumbsService.addAbsHref.returns(_breadcrumbsService);
 
     _filtersService = filtersService;
     _filtersService.getBestRateProduct.returns($q.when());

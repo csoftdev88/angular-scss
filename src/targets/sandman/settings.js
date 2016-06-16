@@ -452,6 +452,7 @@ angular.module('mobiusApp.config', [])
       }
     ],
     'roomDetails': {
+      'hasBreadcrumbsSecondaryNav': true,
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
       'showDescription': true,
