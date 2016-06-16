@@ -215,17 +215,7 @@ angular
       .state('hotels', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
-        url: '/hotels/:regionSlug/:locationSlug',
-        params:  {
-          regionSlug: {
-            value: null,
-            squash: true
-          },
-          locationSlug: {
-            value: null,
-            squash: true
-          }
-        }
+        url: '/hotels/:regionSlug/:locationSlug'
       })
 
       .state('hotel', {

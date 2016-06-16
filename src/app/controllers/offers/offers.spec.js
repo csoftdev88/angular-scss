@@ -185,7 +185,6 @@ describe('mobius.controllers.offers', function() {
       });
 
       it('should add Offers breadcrumb', function(){
-        //stupid
         //expect(_breadcrumbsService.addBreadCrumb.calledWith('Offers')).equal(true);
       });
 
