@@ -45,7 +45,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         megaMenuCache.put('regions', regions);
         //console.log('hotelsMenuCache regions: ' + angular.toJson(hotelsMenuCache.get('regions')));
         scope.regionsLoading = false;
-        scope.regions = regions;
+        scope.regions = _.sortBy(regions, 'nameShort');
       });
 
       scope.getLocations = function(regionIndex){

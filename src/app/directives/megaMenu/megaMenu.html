@@ -5,7 +5,7 @@
   <div class="regions">
     <div class="preloader" ng-show="regionsLoading"></div>
     <ul>
-      <li ng-repeat="region in regions"><a href="" ng-click="getLocations($index)" ng-class="{'active': region.code === activeRegion.code}">{{region.nameShort}}</a></li>
+      <li ng-repeat="region in regions | orderBy: 'nameShort'"><a href="" ng-click="getLocations($index)" ng-class="{'active': region.code === activeRegion.code}">{{region.nameShort}}</a></li>
     </ul>
   </div>
 
@@ -19,10 +19,10 @@
     <div class="preloader" ng-show="locationsLoading"></div>
 
     <ul ng-if="locations">
-      <li ng-repeat="location in locations | filter: {properties: {nameShort: propertySearch}}"" ng-show="location.properties.length">
+      <li ng-repeat="location in locations | filter: {properties: {nameShort: propertySearch}} | orderBy: 'nameShort'" ng-show="location.properties.length">
         <a href="" ng-click="locationClick(activeRegion, location)">{{location.nameShort}}</a>
         <ul class="properties">
-          <li ng-repeat="property in location.properties | filter:propertySearch"><a href="" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick(activeRegion, location, property)">{{property.nameShort}}</a></li>
+          <li ng-repeat="property in location.properties | filter:propertySearch | orderBy: 'nameShort'"><a href="" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick(activeRegion, location, property)">{{property.nameShort}}</a></li>
         </ul>
       </li>
     </ul>
