@@ -80,6 +80,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
                   _.each(properties, function(property){
                     _.each(offers, function(offer){
                       if(property.code === offer.offerAvailability[0].property){
+                        property.hotDealCode = offer.offerAvailability[0].slug;
                         filteredProperties.push(property);
                       }
                     });
@@ -137,11 +138,11 @@ angular.module('mobiusApp.directives.megaMenu', [])
         //hot deals
         else if(attrs.type === 'hot-deals'){
           scope.closeMenu();
-          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug});
+          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, code: null});
         }
       };
 
-      scope.propertyClick = function(property){
+      scope.propertyClick = function(region, location, property){
         //hotels menu
         if(attrs.type === 'hotels'){
           scope.closeMenu();
@@ -150,7 +151,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         //hot deals
         else if(attrs.type === 'hot-deals'){
           scope.closeMenu();
-          $state.go('hotDeals', {code: property.hotDealCode});
+          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, code: property.hotDealCode});
         }
         //booking widget
         else if(attrs.type === 'booking-widget'){

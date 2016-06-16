@@ -83,6 +83,10 @@ describe('mobius.controllers.offers', function() {
           getChain: sinon.stub()
         });
 
+        $provide.value('locationService', {
+          getLocations: sinon.stub()
+        });
+
         $provide.value('$state', {
           current: {
             name: ''

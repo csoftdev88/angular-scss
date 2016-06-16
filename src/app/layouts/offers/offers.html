@@ -78,7 +78,7 @@
       <button-back role="button" tabindex="0" ng-click="goToOffersList()" class="pull-left">_back_</button-back>
     </div>
     <div grid="12">
-      <hr>
+      <hr ng-if="offersList.length > 1">
 
       <h2 ng-if="offersList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
       <offers-list ng-if="offersList.length > 1">

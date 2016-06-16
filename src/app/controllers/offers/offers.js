@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService) {
 
     $controller('MainCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
@@ -106,15 +106,27 @@ angular.module('mobius.controllers.offers', [])
           if($scope.isHotDeals){
             //Only show offers with a single property availability
             offers = _.reject(offers, function(offer){
-              return offer.offerAvailability.length > 1;
+              return !offer.offerAvailability || offer.offerAvailability && offer.offerAvailability.length !== 1;
             });
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
               offers = _.each(offers, function(offer){
                 var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property; });
                 offer.propertyName = property.nameShort;
+                offer.locationCode = property.locationCode;
               });
-              $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+              //Filter offers by location if any
+              if($stateParams.locationSlug){
+                locationService.getLocations().then(function(locations){
+                  var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+                  offers = _.filter(offers, function(offer){ return offer.locationCode === curLocation.code; });
+                  $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+                });
+              }
+              else{
+                $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+              }
+              
             });
           }
           else if(!$scope.isHotDeals && hasHotDeals){
