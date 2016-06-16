@@ -121,11 +121,11 @@ angular.module('mobiusApp.directives.megaMenu', [])
       scope.menuClick = function(){
         //hotels menu
         if(attrs.type === 'hotels'){
-          $state.go('regions', {regionSlug: null});
+          $state.go('regions', {regionSlug: null, property: null});
         }
         //hot deals
         else if(attrs.type === 'hot-deals'){
-          $state.go('hotDeals', {locationSlug: null, code: null});
+          $state.go('hotDeals', {locationSlug: null, code: null, property: null});
         }
       };
 
@@ -133,12 +133,12 @@ angular.module('mobiusApp.directives.megaMenu', [])
         //hotels menu
         if(attrs.type === 'hotels'){
           scope.closeMenu();
-          $state.go('hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug});
+          $state.go('hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, property: null});
         }
         //hot deals
         else if(attrs.type === 'hot-deals'){
           scope.closeMenu();
-          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, code: null});
+          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, code: null, property: null});
         }
       };
 
@@ -146,12 +146,12 @@ angular.module('mobiusApp.directives.megaMenu', [])
         //hotels menu
         if(attrs.type === 'hotels'){
           scope.closeMenu();
-          $state.go('hotel', {propertySlug: property.meta.slug});
+          $state.go('hotel', {propertySlug: property.meta.slug, property: property.code});
         }
         //hot deals
         else if(attrs.type === 'hot-deals'){
           scope.closeMenu();
-          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, code: property.hotDealCode});
+          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, code: property.hotDealCode, property: null});
         }
         //booking widget
         else if(attrs.type === 'booking-widget'){

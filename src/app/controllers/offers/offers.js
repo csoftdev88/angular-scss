@@ -15,7 +15,8 @@ angular.module('mobius.controllers.offers', [])
     var hasHotDeals = Settings.UI.menu.showHotDeals;
     $scope.selectedOfferAvailabilityData = {};
 
-    breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+    breadcrumbsService.clear()
+      .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
 
     var NUMBER_OF_RELEVANT_OFFERS = 3;
     var DATES_SEPARATOR = '_';

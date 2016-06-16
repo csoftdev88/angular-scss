@@ -12,7 +12,7 @@ angular.module('mobius.controllers.staticContent', [])
     contentService.getStatic().then(function(response) {
 
       //Get current content
-      $scope.selectedAbout = _.find(response, function(item){
+      $scope.selectedContent = _.find(response, function(item){
         //removing the code
         var slug = item.meta.slug;
         var codeStartIndex = slug.lastIndexOf('-');
@@ -22,18 +22,18 @@ angular.module('mobius.controllers.staticContent', [])
 
       $scope.preloader.visible = false;
 
-      if($scope.selectedAbout){
+      if($scope.selectedContent){
         //Set meta info
-        metaInformationService.setMetaDescription($scope.selectedAbout.meta.description);
-        metaInformationService.setMetaKeywords($scope.selectedAbout.meta.keywords);
-        metaInformationService.setPageTitle($scope.selectedAbout.meta.pagetitle);
+        metaInformationService.setMetaDescription($scope.selectedContent.meta.description);
+        metaInformationService.setMetaKeywords($scope.selectedContent.meta.keywords);
+        metaInformationService.setPageTitle($scope.selectedContent.meta.pagetitle);
 
-        $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-        metaInformationService.setOgGraph($scope.selectedAbout.meta.microdata.og);
+        $scope.selectedContent.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+        metaInformationService.setOgGraph($scope.selectedContent.meta.microdata.og);
 
         //Add breadcrumb
         breadcrumbsService.clear()
-          .addBreadCrumb($scope.content.title);
+          .addBreadCrumb($scope.selectedContent.title);
 
         //Scroll to content
         $timeout(function () {

@@ -215,7 +215,17 @@ angular
       .state('hotels', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
-        url: '/hotels/:regionSlug/:locationSlug'
+        url: '/hotels/:regionSlug/:locationSlug',
+        params:  {
+          regionSlug: {
+            value: null,
+            squash: true
+          },
+          locationSlug: {
+            value: null,
+            squash: true
+          }
+        }
       })
 
       .state('hotel', {
@@ -537,6 +547,11 @@ angular
         else{
           propertyService.removePropertyChainClass();
         }
+      }
+
+      //clear breadcrumb title
+      if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle || Settings.UI.viewsSettings.breadcrumbsBar.displayRoomTitle){
+        breadcrumbsService.setHeader(null);
       }
 
       //breadcrumbs
