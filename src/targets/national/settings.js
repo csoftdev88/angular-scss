@@ -360,7 +360,8 @@ angular.module('mobiusApp.config', [])
         'socialSharing': true,
         'passbook': false,
         'print': true
-      }
+      },
+      'displayNewsletterCtaOnReservationDetail': false
     },
 
     'aboutHotel': {

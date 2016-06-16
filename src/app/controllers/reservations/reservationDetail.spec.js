@@ -86,6 +86,8 @@ describe('mobius.controllers.reservationDetail', function() {
       module('mobiusApp.factories.preloader');
 
       module('mobius.controllers.reservationDetail', function($provide, $controllerProvider) {
+        $controllerProvider.register('SSOCtrl', function(){});
+        
         $provide.value('$stateParams', {
           reservationCode: TEST_RESERVATION_CODE,
           view: 'summary'

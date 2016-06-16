@@ -488,7 +488,8 @@ angular.module('mobiusApp.config', [])
         'socialSharing': true,
         'passbook': true,
         'print': true
-      }
+      },
+      'displayNewsletterCtaOnReservationDetail': false
     },
 
     'aboutHotel': {

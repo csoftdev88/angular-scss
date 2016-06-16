@@ -12,6 +12,8 @@ angular.module('mobius.controllers.reservationDetail', [])
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
     metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService){
 
+    $controller('SSOCtrl', {$scope: $scope});
+
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
     var DATES_SEPARATOR = '_';
@@ -44,6 +46,8 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     function onAuthorized() {
       var params;
+
+      $scope.user = user.getUser();
 
       if(!user.getUser().id && !userObject.token){
         // Logged in as anonymous user - checking if there is an email flag in URL
