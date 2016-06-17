@@ -70,15 +70,18 @@ angular.module('mobiusApp.directives.currency', [])
         function setCurrency(currency, reload) {
           scope.currentCurrency = currency;
           queryService.setValue(Settings.currencyParamName, currency.code);
-          $rootScope.currencyCode = currency.code;
           user.storeUserCurrency(currency.code);
           var currencyObj = {};
           currencyObj['mobius-currencycode'] = currency.code;
           apiService.setHeaders(currencyObj);
           if(reload){
             $timeout(function () {
+              $rootScope.currencyCode = currency.code;
               $state.go($state.current.name, $stateParams, {reload: true});
-            }, 500);
+            }, 50);
+          }
+          else{
+            $rootScope.currencyCode = currency.code;
           }
         }
       }
