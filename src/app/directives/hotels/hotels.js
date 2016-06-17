@@ -157,16 +157,23 @@ angular.module('mobiusApp.directives.hotels', [])
             scope.regionSlug = $stateParams.regionSlug || null;
             locationService.getLocations().then(function(locations){
               var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
-              //hero slider
-              scope.updateHeroContent(curLocation.images);
 
-              if(Settings.UI.viewsSettings.hotels.showLocationDescription){
-                scope.locationDetails = curLocation;
-                //gallery
-                scope.previewImages = contentService.getLightBoxContent(curLocation.images, 300, 150, 'fill');
+              if(curLocation){
+                //hero slider
+                scope.updateHeroContent(curLocation.images);
+
+                if(Settings.UI.viewsSettings.hotels.showLocationDescription){
+                  scope.locationDetails = curLocation;
+                  //gallery
+                  scope.previewImages = contentService.getLightBoxContent(curLocation.images, 300, 150, 'fill');
+                }
+                //not working yet
+                scope.hotels = _.where(hotels, {locationCode: curLocation.code});
               }
-              //not working yet
-              scope.hotels = _.where(hotels, {locationCode: curLocation.code});
+              else{
+                scope.hotels = hotels || [];
+              }
+              
             });
           }
           else{
