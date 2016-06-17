@@ -112,8 +112,13 @@ angular.module('mobius.controllers.hotel.details', [
 
   //Getting raw property details to display property desc etc...fast
   propertyService.getPropertyDetails(propertyCode).then(function(details){
+
+    //response from request with params may be faster, in which case don't overwrite scope.details as response from this call does not include amenities
+    if(angular.isUndefined($scope.details)){
+      $scope.details = details;
+    }
+
     $scope.localInfo = details.localInfo;
-    $scope.details = details;
     if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle){
       breadcrumbsService.setHeader(details.nameLong);
     }
