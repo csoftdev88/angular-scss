@@ -539,24 +539,12 @@ angular
         }
       }
 
-      //clear breadcrumb title
-      if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle || Settings.UI.viewsSettings.breadcrumbsBar.displayRoomTitle){
-        breadcrumbsService.setHeader(null);
-      }
-
       //breadcrumbs
-      if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo')){
+      if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room')){
         breadcrumbsService.isProperty(true);
       }
-      else if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo')){
+      else{
         breadcrumbsService.isProperty(false);
-      }
-
-      if(Settings.UI.viewsSettings.breadcrumbsBar.displayRoomTitle && toState.name === 'room'){
-        breadcrumbsService.isRoom(true);
-      }
-      else if(Settings.UI.viewsSettings.breadcrumbsBar.displayRoomTitle && toState.name !== 'room'){
-        breadcrumbsService.isRoom(false);
       }
 
       //if single property redirect home state to hotel page

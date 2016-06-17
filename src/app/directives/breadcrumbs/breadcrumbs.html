@@ -1,7 +1,7 @@
 <nav class="breadcrumbs">
   <!-- Start breadcrumbs -->
   <div class="wrapper" ng-show="config.displayBreadcrumbs">
-    <h1 ng-if="isProperty && config.displayPropertyTitle || isRoom && config.displayRoomTitle">{{breadcrumbHeader}}</h1>
+    <h1 ng-if="isProperty && config.displayPropertyTitle">{{breadcrumbHeader}}</h1>
     <ul class="crumbs">
       <li ng-if="showHomeBreadCrumb"><a ui-sref="home">_home_</a></li>
       <li ng-repeat="link in breadcrumbs">

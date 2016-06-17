@@ -9,7 +9,6 @@ angular.module('mobiusApp.services.breadcrumbs', [])
     var absHrefs = [];
     var activeHref;
     var isPropertyPage = false;
-    var isRoomPage = false;
     var title = '';
 
     function clear() {
@@ -137,21 +136,11 @@ angular.module('mobiusApp.services.breadcrumbs', [])
 
     //isProperty getter/setter
     function isProperty(bool){
-      if(bool){
+      if(angular.isDefined(bool)){
         isPropertyPage = bool;
       }
       else{
         return isPropertyPage;
-      }
-    }
-
-    //isRoom getter/setter
-    function isRoom(bool){
-      if(bool){
-        isRoomPage = bool;
-      }
-      else{
-        return isRoomPage;
       }
     }
 
@@ -179,7 +168,6 @@ angular.module('mobiusApp.services.breadcrumbs', [])
       getActiveHref: getActiveHref,
       getVisibleHref: getVisibleHref,
       isProperty: isProperty,
-      isRoom: isRoom,
       setHeader: setHeader,
       getHeader: getHeader
     };

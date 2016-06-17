@@ -139,7 +139,6 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
         //hot deals
         else if(attrs.type === 'hot-deals'){
-          console.log($state.includes('hotDeals'));
           return $state.includes('hotDeals');
         }
       };

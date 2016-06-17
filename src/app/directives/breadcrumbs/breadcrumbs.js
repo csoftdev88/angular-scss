@@ -20,7 +20,6 @@ angular.module('mobiusApp.directives.breadcrumbs', [])
         var unWatchData = scope.$watch(function(){
           
           scope.isProperty = breadcrumbsService.isProperty();
-          scope.isRoom = breadcrumbsService.isRoom();
           scope.breadcrumbHeader = breadcrumbsService.getHeader();
 
           var breadcrumbs = breadcrumbsService.getBreadCrumbs() || [];
