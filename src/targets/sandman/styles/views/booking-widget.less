@@ -57,3 +57,93 @@ booking-widget-search form-element.code {
   }
   
 }
+
+//- My Account
+my-account {
+
+  //- Sign Up
+  .sign-up {
+
+    p {
+      position: relative;
+      margin: 0 auto;
+      padding: 5px 0;
+      width: 260px;
+      background: none;
+      font-weight: bold;
+      font-size: 14px;
+      &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 450px;
+        height: 96px;
+        background: url('@{img-prefix}/faded-status-plus.png') center no-repeat;
+        transform: translate3d(-25%, -25%, 0);
+        opacity: .25;
+      }
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      z-index: 9;
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
+
+  //- Cards - rewards, badges
+  article {
+    flex: 1;
+
+    border-right: none;
+
+    &:last-of-type {
+      margin-right: 0;
+      padding-right: 0;
+      border: 0;
+    }
+
+    &.description{
+      position: relative;
+      flex: none;
+      float: right;
+      width: 300px;
+      p{
+        font-size: 14px;
+        font-weight: 700;
+      }
+      &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 450px;
+        height: 96px;
+        background: url('@{img-prefix}/faded-status-plus.png') center no-repeat;
+        transform: translate3d(-25%, -25%, 0);
+        opacity: .25;
+      }
+    }
+
+    h4{
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: none;
+      margin-top: 5px;
+      
+    }
+
+    p{
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+  }
+}

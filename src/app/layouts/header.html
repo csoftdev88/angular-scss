@@ -48,6 +48,10 @@
               <li class="mobile-rewards" ng-if="loyaltyProgramEnabled">
                 <a href ui-sref="rewards">_rewards_</a>
               </li>
+              <li ng-if="config.viewsSettings.userProfile.hasPrestigeAccount">
+                <a ng-if="!config.viewsSettings.userProfile.prestigeIsInfiniti" ui-sref="prestige">_prestige_account_</a>
+                <a ng-if="config.viewsSettings.userProfile.prestigeIsInfiniti" href ng-click="sso.profile()">_prestige_account_</a>
+              </li>
               <li>
                 <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
                 <a ng-if="!sso.isInfiniti()" href ui-sref="profile" ui-sref-opts="{reload:true}">_profile_</a>
@@ -128,7 +132,8 @@
                 <a ui-sref="rewards">_rewards_</a>
               </li>
               <li ng-if="config.viewsSettings.userProfile.hasPrestigeAccount">
-                <a ui-sref="prestige">_prestige_account_</a>
+                <a ng-if="!config.viewsSettings.userProfile.prestigeIsInfiniti" ui-sref="prestige">_prestige_account_</a>
+                <a ng-if="config.viewsSettings.userProfile.prestigeIsInfiniti" href ng-click="sso.profile()">_prestige_account_</a>
               </li>
               <li>
                 <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>

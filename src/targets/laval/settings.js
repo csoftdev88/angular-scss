@@ -704,9 +704,11 @@ angular.module('mobiusApp.config', [])
     'myAccount' : {
       'displaySettings' : {
         'profile': true,
+        'tier': true,
         'badges': false,
         'rewards': true,
-        'loyalities': false
+        'loyalities': false,
+        'description': false
       }
     },
     // States layout
@@ -772,6 +774,7 @@ angular.module('mobiusApp.config', [])
         'hasAvatar': false,
         'hasWelcomeMessage': true,
         'hasPrestigeAccount': false,
+        'prestigeIsInfiniti': false,
         'hasLoyaltyInfo': true,
         'displayPointsWithUsername': false
       },
