@@ -236,7 +236,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelSubpage.html',
         controller: 'HotelSubpageCtrl',
-        url: '/hotels/:propertySlug/:infoSlug'
+        url: '/hotel/:propertySlug/:infoSlug'
       })
 
       .state('locationInfo', {
