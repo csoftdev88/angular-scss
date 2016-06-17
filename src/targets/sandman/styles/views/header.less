@@ -337,6 +337,17 @@ Sub-nav
       text-align: center;
       > ul{
         display: inline-block;
+        li[mega-menu]{
+          &:hover > a{
+            color: @c-menu-active;
+            .chain-sign &{
+              color: @c-menu-active-sign;
+            }
+            .chain-sand &{
+              color: @c-dark-grey;
+            }
+          }
+        }
         li{
           display: inline;
           float: left;
@@ -345,7 +356,8 @@ Sub-nav
             font-size: 15px;
             text-transform: uppercase;
             padding: 0 15px;
-            &.is-active {
+            &.is-active,
+            &:hover {
               color: @c-menu-active;
               .chain-sign &{
                 color: @c-menu-active-sign;

@@ -1,4 +1,4 @@
-<a class="mega-menu-trigger" href="" ng-class="{'is-active': $state.includes('regions') || $state.includes('hotels')}" ng-click="closeMenu(); menuClick();" ng-mouseover="showMenu()">{{title}}</a>
+<a class="mega-menu-trigger" href="" ng-class="{'is-active': isActive()}" ng-click="closeMenu(); menuClick();" ng-mouseover="showMenu()">{{title}}</a>
 <!--<a class="mega-menu-trigger" href="" ui-sref="hotDeals({locationSlug: null, code: null})" ng-class="{'is-active': $state.includes('hotDeals')}" ng-click="closeMenu()" ng-mouseover="showMenu()" ng-if="type = 'hot-deals'">{{title}}</a>-->
 <div class="mega-menu">
 

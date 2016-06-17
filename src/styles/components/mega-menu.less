@@ -100,8 +100,8 @@ div[mega-menu]{
             height: 20px;
             line-height: 20px;
             padding-left: 11px;
-            cursor: default;
-            pointer-events: none;
+            //cursor: default;
+            //pointer-events: none;
           }
 
           ul{
@@ -173,7 +173,9 @@ div[mega-menu]{
             content: @fa-var-angle-right;
           }
           &.active,
-          &.active:after{
+          &.active:after,
+          &:hover,
+          &:hover:after{
             color: @c-secondary !important;
           }
         }
