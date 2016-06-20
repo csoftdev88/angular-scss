@@ -71,7 +71,7 @@
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
 
-            <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
+            <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel.meta.slug)">{{hotel.chainTitle}} <strong>{{hotel.nameShort}}</strong></h2>
 
             <div class="ratings">
               <div class="brand" ng-if="displayPropertyChainBranding" ng-class="hotel.chainCode.toLowerCase()"></div>
@@ -86,7 +86,7 @@
               </div>
             </div>
 
-            <h2 ng-if="hotelViewMode === 'tiles'" ng-click="navigateToHotel(hotel.meta.slug)">The Sutton Place Hotel <strong>{{hotel.nameShort}}</strong></h2>
+            <h2 ng-if="hotelViewMode === 'tiles'" ng-click="navigateToHotel(hotel.meta.slug)">{{hotel.chainTitle}} <strong>{{hotel.nameShort}}</strong></h2>
             <pricing-info>
               <p class="price available left" ng-if="hotel.available">
                 _price_from_ <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> _per_night_

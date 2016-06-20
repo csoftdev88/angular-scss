@@ -90,7 +90,8 @@ angular.module('mobiusApp.config', [])
       }
     },
     'chain': {
-      'get': 'chains/:chainCode/'
+      'get': 'chains/:chainCode/',
+      'all': 'chains'
     },
     'generics': {
       'currencies': 'generics/currencies',
