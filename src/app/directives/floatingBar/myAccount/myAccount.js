@@ -21,6 +21,7 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
         $controller('SSOCtrl', {$scope: scope});
         scope.displaySettings = Settings.UI.myAccount.displaySettings;
+
         function loadLoyalities() {
           // NOTE: Loyalties object should be already loaded
           // However, we are fetching the latest data
@@ -59,6 +60,15 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
         }
 
         scope.user = user;
+
+        scope.goToPrestige = function(){
+          if(Settings.UI.viewsSettings.userProfile.prestigeIsInfiniti){
+            $window.location.href = Settings.UI.viewsSettings.userProfile.infinitiPrestigeUrl;
+          }
+          else{
+            $state.go('prestige');
+          }
+        };
 
         scope.showBadges = function() {
           modalService.openBadgesDialog(badges);

@@ -772,7 +772,8 @@ angular.module('mobiusApp.config', [])
         'hasAvatar': true,
         'hasWelcomeMessage': false,
         'hasPrestigeAccount': true,
-        'prestigeIsInfiniti': true,
+        'prestigeIsInfiniti': false,
+        'infinitiPrestigeUrl': 'https://prestige.suttonplace.com',
         'hasLoyaltyInfo': false,
         'displayPointsWithUsername': true
       },
