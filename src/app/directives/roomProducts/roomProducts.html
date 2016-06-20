@@ -2,7 +2,7 @@
 
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
-  <li ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn()}" ng-repeat="product in products | limitTo: getRatesLimit()">
+  <li ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && product.price.totalBase < product.price.originalPrice}" ng-repeat="product in products | limitTo: getRatesLimit()">
     <!-- ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)" -->
     <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
     <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
@@ -28,6 +28,7 @@
       <div ng-switch-when="true">
         <div class="price-details">
           <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
+            <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && product.price.totalBase < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
             <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
           </p>
 
@@ -37,6 +38,9 @@
         </div>
 
         <div class="action-buttons">
+          <div class="label">
+            <span ng-if="product.price.formatting = 'slashThrough' && product.price.totalBase < product.price.originalPrice">_best_value_</span>
+          </div>
           <a ng-if="!room.priceFrom" ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">_view_details_</a>
           <a ng-if="room.priceFrom" ng-hide="product.memberOnly && !isUserLoggedIn()" ng-click="selectProduct(room.code, product.code, null, null, $event)" class="button">_book_now_</a>
           <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">_login_</a>

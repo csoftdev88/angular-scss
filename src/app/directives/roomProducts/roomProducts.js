@@ -52,6 +52,15 @@ angular.module('mobiusApp.directives.room.products', [])
                 }
               });
 
+            //create price.originalPrice from breakdowns
+            _.each(data.products, function(product) {
+              var originalPrice = 0;
+              _.each(product.price.breakdowns, function(breakdown) {
+                originalPrice += parseInt(breakdown.originalPrice, 10);
+              });
+              product.price.originalPrice = originalPrice;
+            });
+
             //Logic for ordering products: Display 4 groups: productHidden/memberOnly/highlighted/remaining, each ordered by weighting, highest weighting first
             
             //hiddenProducts first
