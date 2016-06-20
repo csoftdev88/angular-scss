@@ -37,8 +37,7 @@ angular.module('mobiusApp.directives.room.products', [])
       };
 
       function getRoomProducts(params){
-        propertyService.getRoomProducts(params.propertyCode, params.roomCode, params,
-          getRatesCacheTimeout()).then(function(data){
+        propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
 
             //Get discount cookie
             var discountCookie = cookieFactory('discountCode');
@@ -104,10 +103,12 @@ angular.module('mobiusApp.directives.room.products', [])
         });
       }
 
+      /*
       function getRatesCacheTimeout(){
         return Settings.UI.hotelDetails &&
           Settings.UI.hotelDetails.ratesCacheTimeout?Settings.UI.hotelDetails.ratesCacheTimeout:0;
       }
+      */
 
       
 
