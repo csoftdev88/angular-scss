@@ -776,7 +776,6 @@ angular.module('mobiusApp.config', [])
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
         'displayPropertyTitle': false,
-        'displayRoomTitle': false,
         'displayStaticContent': false
       },
       'locationMap':{

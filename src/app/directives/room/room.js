@@ -126,7 +126,7 @@ angular.module('mobiusApp.directives.room', [])
           if(!scope.property.hasOwnProperty('available')) {
             scope.property.available = true;
           }
-          if(Settings.UI.viewsSettings.breadcrumbsBar.displayRoomTitle){
+          if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle){
             breadcrumbsService.setHeader(property.nameLong);
           }
 
