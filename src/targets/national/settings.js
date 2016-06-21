@@ -216,7 +216,8 @@ angular.module('mobiusApp.config', [])
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': false,
-      'standalone': false
+      'standalone': false,
+      'externalRegionLinks':[]
     },
     // Social links
     'displaySocialLinks': false,

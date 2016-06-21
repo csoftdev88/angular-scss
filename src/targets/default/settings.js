@@ -233,7 +233,8 @@ angular.module('mobiusApp.config', [])
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': false,
       //standlone means below the main-nav
-      'standalone': false
+      'standalone': false,
+      'externalRegionLinks':[]
     },
     // Social links
     'displaySocialLinks': false,

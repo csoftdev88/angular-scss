@@ -63,7 +63,7 @@
           </div>
         </li>
 
-        <li has-dropdown="hover" ng-hide="config.generics.singleProperty || !config.menu.showHotels || (config.menu.standalone && !isMobile)" menu-content="hotels" data-title="_hotels_"></li>
+        <li has-dropdown="hover" ng-hide="config.generics.singleProperty || (!config.menu.showHotels && !config.menu.standalone && !isMobile) || (config.menu.standalone && !isMobile)" menu-content="hotels" data-title="_hotels_"></li>
 
         <li ng-show="config.generics.singleProperty && config.menu.showHotels && !config.menu.standalone && !isMobile">
             <a

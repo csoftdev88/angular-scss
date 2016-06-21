@@ -69,6 +69,7 @@ div[mega-menu]{
       ul{
         padding: 0 0 0 32px;
         border-right: 1px solid #d9d9d9;
+        height: 100%;
         
         li{
           a{
@@ -151,8 +152,19 @@ div[mega-menu]{
     box-sizing: border-box;
     ul{
       padding: 14px 0 14px 18px;
-      height: 100%;
       overflow: auto;
+
+      &.external-region-links{
+        border-top: 1px solid #343434;
+        li{
+          a{
+            &:after{
+              content: none;
+            }
+          }
+        }
+      }
+
       li{
         a{
           position: relative;
