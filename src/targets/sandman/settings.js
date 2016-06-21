@@ -256,7 +256,7 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'hotelDetails': {
-      'chainPrefix': 'Sutton Place Hotels',
+      'chainPrefix': 'Sandman Hotels',
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
