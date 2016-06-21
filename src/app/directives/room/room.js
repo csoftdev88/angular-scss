@@ -187,7 +187,6 @@ angular.module('mobiusApp.directives.room', [])
       }
 
       // Room product details
-      //TODO check about product.memberOnly || product.highlighted
       function setRoomProductDetails(data) {
         var discountCookie = cookieFactory('discountCode');
 
@@ -200,6 +199,15 @@ angular.module('mobiusApp.directives.room', [])
               return product.productHidden;
             }
           });
+
+        //create price.originalPrice from breakdowns
+        _.each(data.products, function(product) {
+          var originalPrice = 0;
+          _.each(product.price.breakdowns, function(breakdown) {
+            originalPrice += parseInt(breakdown.originalPrice, 10);
+          });
+          product.price.originalPrice = originalPrice;
+        });
 
 
         //Logic for ordering products: Display 4 groups: productHidden/memberOnly/highlighted/remaining, each ordered by weighting, highest weighting first

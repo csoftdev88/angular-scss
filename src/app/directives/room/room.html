@@ -64,7 +64,7 @@
 
       <list-item
         ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit"
-        ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn()}"
+        ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && product.price.totalBase < product.price.originalPrice}"
         class="without-image">
         <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
         <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
@@ -73,6 +73,7 @@
 
           <pricing-info>
             <p>
+              <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && product.price.totalBase < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
               <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
               <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
               <span ng-if="pricePer === PP_STAY">_per_stay_</span>
@@ -91,8 +92,9 @@
 
         <pricing-info>
           <p>
+            <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && product.price.totalBase < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
             <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
-            <span ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
+            <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
             <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
               <br />_or_ <span class="value">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span> _points_
             </span>
