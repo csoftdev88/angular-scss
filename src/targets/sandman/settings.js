@@ -724,7 +724,7 @@ angular.module('mobiusApp.config', [])
           // it shows the numeric date and the month (ie 5 Aug)
           min: 8 * 86400000,
           max: 90 * 86400000,
-          format: 'DD MMM'
+          format: 'Do MMM'
         },
         {
           // If it's 90 days away it shows the month and year
