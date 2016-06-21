@@ -55,6 +55,7 @@ angular.module('mobiusApp.directives.slider', [])
         scope.slideIndex = scope.defaultSlideIndex || 0;
         // Clearing slider placeholder
         sliderContent.empty();
+        console.log('empty');
 
         cancelAutoplay();
 
@@ -128,6 +129,8 @@ angular.module('mobiusApp.directives.slider', [])
 
         $(slide).css('background-image', 'url(' + slideData.uri + ')');
         sliderContent.append(slide);
+
+        console.log(sliderContent.html());
 
         return $(slide);
       }
