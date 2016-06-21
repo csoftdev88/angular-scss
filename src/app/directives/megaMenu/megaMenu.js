@@ -19,6 +19,10 @@ angular.module('mobiusApp.directives.megaMenu', [])
       scope.title = attrs.title;
       scope.type = attrs.type;
       scope.isBookingWidget = attrs.type === 'booking-widget';
+      scope.isHotels = attrs.type === 'hotels';
+
+      //external region links
+      scope.externalRegionLinks = Settings.UI.menu.externalRegionLinks;
 
 
       //boooking-widget version style and event listeners

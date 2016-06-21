@@ -698,10 +698,14 @@ reservation-finished {
 
     footer {
       text-align: right;
+      float: right;
+      padding: 0;
+      line-height: 20px;
       a{
-        color: @c-dark-grey;
+        font-size: 12px;
+        color: @c-secondary;
         &:hover{
-          color: @c-dark-grey;
+          color: @c-secondary;
         }
       }
     }
@@ -926,38 +930,27 @@ reservation-hotel-details {
     }
 
     h1 {
-      color: @c-dark-grey;
-      font-size: @size-3;
-      font-weight: 400;
-      line-height: 1.5 * @baseline;
-      .viewport-mobile & {
-        margin-bottom: 10px;
-      }
+      color: @c-grey;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
     }
 
     .reference {
-      box-sizing: border-box;
-      padding: 0 @spacing;
-      color: @c-primary;
-      text-align: center;
-      line-height: @baseline;
-      text-transform: uppercase;
-      visibility: hidden;
-      font-size: @size-2;
-
+      font-size: 18px;
       p{
-        color: @c-dark-grey;
+        color: @c-grey;
         font-weight: 700;
       }
 
       p + p{
-        margin-top: 0px;
-        font-weight: 400;
+        color: @c-grey;
+        font-weight: 300;
       }
 
       strong {
-        font-size: @size-2;
-        font-weight: 400;
+        font-size: 18px;
+        font-weight: 300;
       }
 
       &.reference-visible {
@@ -974,9 +967,9 @@ reservation-hotel-details {
     }
 
     .booked {
-      color: @c-dark-grey;
-      font-size: @size-2;
-      font-weight: 700;
+      color: @c-grey;
+      font-size: 18px;
+      font-weight: 600;
     }
   }
 
@@ -993,16 +986,38 @@ reservation-hotel-details {
 
       img {
         width: 100%;
-        margin-bottom: @baseline;
+        margin-bottom: 14px;
       }
 
       button,
       button.disabled {
-        height: 30px;
-        line-height: 30px;
-        width: 135px;
+        height: 39px;
+        line-height: 39px;
+        width: 48%;
+        font-size: 14px;
+        text-transform: uppercase;
+
         @media print {
          display: none;
+        }
+      }
+
+      button.disabled {
+        background: @c-grey;
+        &:active,
+        &:focus,
+        &:hover {
+          background: @c-grey;
+        }
+      }
+
+      button:first-of-type{
+        border-radius: 3px;
+        background: @c-green;
+        &:active,
+        &:focus,
+        &:hover {
+          background: @c-green;
         }
       }
 
@@ -1012,38 +1027,50 @@ reservation-hotel-details {
     }
 
     > div {
-      .clearfix;
-      box-sizing: border-box;
-      width: 66.6666%;
-      float: left;
-      padding-left: @spacing;
-      .viewport-mobile & {
-        width: 100%;
-        padding-left: 0;
+      padding-left: 100px;
+    }
+
+    .chain-logo{
+      display: block;
+      max-width: 25%;
+
+      &.sand{
+        width: 98px;
+        height: 17px;
+        background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
+        background-size: 100%;
+      }
+      &.sign{
+        width: 40px;
+        height: 26px;
+        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
+        background-size: 100%;
       }
     }
 
     h3 {
-      font-family: @ff-light;
-      font-size: @size-2;
-      line-height: @baseline;
-      font-weight: normal;
-      color: @c-dark-grey;
+      max-width: 75%;
+      font-family: @ff-default;
+      font-size: 18px;
+      line-height: 24px;
+      color: @c-grey;
       text-transform: uppercase;
     }
 
     h4 {
-      font-size: @size-1;
-      line-height: 1.5 * @baseline;
-      text-transform: uppercase;
-      font-weight: 700;
+      max-width: 75%;
+      font-size: 14px;
+      color: @c-secondary;
+      text-transform: none;
+      font-weight: 300;
+      line-height: 20px;
     }
 
     table {
       margin-top: @baseline;
       width: 100%;
-      color: @c-dark-grey;
-      font-size: @size-1;
+      color: @c-grey;
+      font-size: 14px;
     }
 
     th, td {
@@ -1055,12 +1082,12 @@ reservation-hotel-details {
     }
 
     th {
-      font-weight: 700;
+      font-weight: 300;
       text-align: left;
     }
 
     td {
-      font-weight: 400;
+      font-weight: 700;
       text-align: right;
     }
 
@@ -1069,11 +1096,11 @@ reservation-hotel-details {
     }
 
     .total {
-      font-weight: 700;
+      font-weight: 300;
     }
 
     .total-value {
-      font-size: @size-3;
+      font-size: 18px;
       font-weight: 700;
     }
   }

@@ -256,13 +256,17 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms){
-        if(stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad){
-          // Marking rates as displayed by default
-          _.each(rooms, function(room){
-            $scope.displayRoomRates(room);
-          });
-        }
 
+        //handle displaying of rates
+        _.each(rooms, function(room){
+          if(stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad){
+            $scope.displayRoomRates(room);
+          }
+          else{
+            room._displayRates = false;
+          }
+        });
+        
         $scope.rooms = rooms;
 
         $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;

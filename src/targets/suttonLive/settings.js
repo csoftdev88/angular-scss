@@ -78,7 +78,8 @@ angular.module('mobiusApp.config', [])
       }
     },
     'chain': {
-      'get': 'chains/:chainCode/'
+      'get': 'chains/:chainCode/',
+      'all': 'chains'
     },
     'generics': {
       'currencies': 'generics/currencies',
@@ -217,7 +218,8 @@ angular.module('mobiusApp.config', [])
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': true,
-      'standalone': false
+      'standalone': false,
+      'externalRegionLinks':[]
     },
     // Social links
     'displaySocialLinks': true,
@@ -775,13 +777,13 @@ angular.module('mobiusApp.config', [])
         'hasWelcomeMessage': false,
         'hasPrestigeAccount': true,
         'prestigeIsInfiniti': false,
+        'infinitiPrestigeUrl': 'https://prestige.suttonplace.com',
         'hasLoyaltyInfo': true,
         'displayPointsWithUsername': false
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
         'displayPropertyTitle': false,
-        'displayRoomTitle': false,
         'displayStaticContent': false
       },
       'locationMap':{

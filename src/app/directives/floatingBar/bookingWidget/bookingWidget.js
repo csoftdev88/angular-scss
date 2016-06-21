@@ -590,6 +590,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         } else if (scope.selected.location && scope.selected.location.code) {
           //Redirect to location hotels
+          stateParams.property = null;
+          stateParams.propertySlug = null;
           stateParams.locationSlug = scope.selected.location.meta.slug;
           stateParams.fromSearch = '1';
           $state.go('hotels', stateParams, {reload: true});

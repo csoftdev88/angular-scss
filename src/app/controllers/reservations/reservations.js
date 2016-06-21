@@ -61,6 +61,7 @@ angular.module('mobius.controllers.reservations', [])
       pastStays: pastStays,
       futureStays: futureStays
     };
+
   }
 
   // Sorting by arrivalDate

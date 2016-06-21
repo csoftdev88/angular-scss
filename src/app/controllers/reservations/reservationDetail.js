@@ -94,6 +94,12 @@ angular.module('mobius.controllers.reservationDetail', [])
         // Getting property details
         var propertyPromise = propertyService.getPropertyDetails(reservation.property.code).then(function(property) {
           $scope.property = property;
+
+          //if applyChainClassToBody, get property details and add its chain as body class for styling
+          if(Settings.UI.generics.applyChainClassToBody){
+            propertyService.applyPropertyChainClass(property.chainCode);
+          }
+          
           //sharing
           $scope.shareURL = $location.protocol() + '://' + $location.host() + '/hotels/' + $scope.property.meta.slug;
           $scope.property.meta.microdata.og['og:url'] = $scope.shareURL;

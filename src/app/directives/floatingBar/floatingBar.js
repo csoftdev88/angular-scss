@@ -67,6 +67,7 @@ angular.module('mobiusApp.directives.floatingBar', [
           }
 
           $el.toggleClass('active', !scope.isCollapsed);
+          $el.toggleClass('multi-room', newActive === ADVANCED_BOOKING);
 
           scope.active = newActive;
           active = scope.active; // preserve between pages

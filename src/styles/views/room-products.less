@@ -36,6 +36,42 @@ room-products {
         }
       }
 
+      &.slashthrough {
+        background: @c-highlight-bg;
+        pricing-details{
+          .price-form{
+            display: inline-block;
+            width: 100%;
+            .original-price{
+              display: inline-block;
+              color: @c-red;
+              position: relative;
+              float: right;
+              font-style: normal;
+              &:after{
+                border-top: 1px solid @c-red;
+                position: absolute;
+                content: "";
+                right: 0;
+                top:50%;
+                left: 0;
+              }
+            }
+            .value{
+              float: right;
+              clear: both;
+            }
+          }
+        }
+        .action-buttons{
+          .label{
+            text-transform: uppercase;
+            font-size: 12px;
+          }
+        }
+
+      }
+
       &.is-highlighted {
         background: @c-highlight-bg;
         border-top: 0;

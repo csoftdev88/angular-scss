@@ -9,8 +9,13 @@ angular.module('mobiusApp.services.chains', [])
       return apiService.get(apiService.getFullURL('chain.get', {chainCode: chainCode}));
     }
 
+    function getAll(){
+      return apiService.get(apiService.getFullURL('chain.all'));
+    }
+
     // Public methods
     return {
-      getChain: getChain
+      getChain: getChain,
+      getAll: getAll
     };
   });

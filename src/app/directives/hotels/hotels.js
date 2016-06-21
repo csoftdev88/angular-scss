@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService){
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService){
 
   return {
     restrict: 'E',
@@ -146,91 +146,108 @@ angular.module('mobiusApp.directives.hotels', [])
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
 
-          //Pick random merchandizing banner if any
-          _.each(hotels, function(hotel){
-            if(hotel.merchandisingBanners && hotel.merchandisingBanners.length){
-              hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.random()*hotel.merchandisingBanners.length-1];
-            }
-          });
+          chainService.getAll().then(function(chains){
 
-          if($stateParams.locationSlug){
-            scope.regionSlug = $stateParams.regionSlug || null;
-            locationService.getLocations().then(function(locations){
-              var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+            //Pick random merchandizing banner if any
+            //assign chainTitle to be used on view
+            _.each(hotels, function(hotel){
 
-              if(curLocation){
-                //hero slider
-                scope.updateHeroContent(curLocation.images);
+              //merchandizing banner
+              if(hotel.merchandisingBanners && hotel.merchandisingBanners.length){
+                hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.random()*hotel.merchandisingBanners.length-1];
+              }
 
-                if(Settings.UI.viewsSettings.hotels.showLocationDescription){
-                  scope.locationDetails = curLocation;
-                  //gallery
-                  scope.previewImages = contentService.getLightBoxContent(curLocation.images, 300, 150, 'fill');
+              //chain title
+              _.each(chains, function(chain){
+                if(hotel.chainCode === chain.code){
+                  hotel.chainTitle = chain.title;
                 }
-                //not working yet
-                scope.hotels = _.where(hotels, {locationCode: curLocation.code});
-              }
-              else{
-                scope.hotels = hotels || [];
-              }
-              
-            });
-          }
-          else{
-            scope.hotels = hotels || [];
-          }
-
-          if(Settings.UI.generics.singleProperty){
-            scope.navigateToHotel(scope.hotels[0].meta.slug);
-          }
-
-          //check if offer is limited to only one property and if so navigate to it
-          if($stateParams.promoCode){
-            var offerLimitedToOneProperty = [];
-            var limitedToProperty = [];
-            var limitedToPropertyCode = '';
-            var currentOffer = '';
-
-            contentService.getOffers().then(function(response) {
-              var offersList = _.sortBy(response, 'prio').reverse();
-
-              offerLimitedToOneProperty = _.filter(offersList, function(offer){
-                return offer.meta.slug === $stateParams.promoCode && offer.limitToPropertyCodes.length === 1;
               });
 
-              if(offerLimitedToOneProperty.length){
-                limitedToPropertyCode = offerLimitedToOneProperty[0].limitToPropertyCodes[0];
-              }
-
-              limitedToProperty = _.find(hotels, function(hotel){ return hotel.code === limitedToPropertyCode; });
-
-              if(limitedToProperty){
-                scope.navigateToHotel(limitedToProperty.meta.slug);
-                return;
-              }
-
-              if(currentOffer){
-                scope.hotels = _.filter(scope.hotels, function(hotel){
-                  return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
-                });
-              }
             });
-          }
 
-          if(Settings.UI.hotelFilters.price){
-            scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
-            scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
-            scope.minSelectedPrice = scope.minPrice;
-            scope.maxSelectedPrice = scope.maxPrice;
-          }
+            if($stateParams.locationSlug){
+              scope.regionSlug = $stateParams.regionSlug || null;
+              locationService.getLocations().then(function(locations){
+                var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+
+                if(curLocation){
+                  //hero slider
+                  scope.updateHeroContent(curLocation.images);
+
+                  if(Settings.UI.viewsSettings.hotels.showLocationDescription){
+                    scope.locationDetails = curLocation;
+                    //gallery
+                    scope.previewImages = contentService.getLightBoxContent(curLocation.images, 300, 150, 'fill');
+                  }
+                  //not working yet
+                  scope.hotels = _.where(hotels, {locationCode: curLocation.code});
+                }
+                else{
+                  scope.hotels = hotels || [];
+                }
+                
+              });
+            }
+            else{
+              scope.hotels = hotels || [];
+            }
+
+            if(Settings.UI.generics.singleProperty){
+              scope.navigateToHotel(scope.hotels[0].meta.slug);
+            }
+
+            //check if offer is limited to only one property and if so navigate to it
+            if($stateParams.promoCode){
+              var offerLimitedToOneProperty = [];
+              var limitedToProperty = [];
+              var limitedToPropertyCode = '';
+              var currentOffer = '';
+
+              contentService.getOffers().then(function(response) {
+                var offersList = _.sortBy(response, 'prio').reverse();
+
+                offerLimitedToOneProperty = _.filter(offersList, function(offer){
+                  return offer.meta.slug === $stateParams.promoCode && offer.limitToPropertyCodes.length === 1;
+                });
+
+                if(offerLimitedToOneProperty.length){
+                  limitedToPropertyCode = offerLimitedToOneProperty[0].limitToPropertyCodes[0];
+                }
+
+                limitedToProperty = _.find(hotels, function(hotel){ return hotel.code === limitedToPropertyCode; });
+
+                if(limitedToProperty){
+                  scope.navigateToHotel(limitedToProperty.meta.slug);
+                  return;
+                }
+
+                if(currentOffer){
+                  scope.hotels = _.filter(scope.hotels, function(hotel){
+                    return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
+                  });
+                }
+              });
+            }
+
+            if(Settings.UI.hotelFilters.price){
+              scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
+              scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
+              scope.minSelectedPrice = scope.minPrice;
+              scope.maxSelectedPrice = scope.maxPrice;
+            }
+            
+            //scroll to element if set in url scrollTo param
+            var scrollToValue = $location.search().scrollTo || null;
+            if (scrollToValue) {
+              $timeout(function(){
+                scrollService.scrollTo(scrollToValue, 20);
+              }, 500);
+            }
+
+          });
+
           
-          //scroll to element if set in url scrollTo param
-          var scrollToValue = $location.search().scrollTo || null;
-          if (scrollToValue) {
-            $timeout(function(){
-              scrollService.scrollTo(scrollToValue, 20);
-            }, 500);
-          }
         });
 
         // Loading locations

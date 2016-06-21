@@ -31,6 +31,59 @@ room-products {
         padding: 0;
       }
 
+      &.slashthrough {
+
+        pricing-details{
+          .price-form{
+            font-weight: 700;
+          }
+        }
+        .chain-sand &{
+          background-color: rgba(172, 127, 73, 0.09);
+          pricing-details{
+            .price-form{
+              .original-price{
+              }
+              .value{
+                color: @c-grey;
+              }
+            }
+          }
+          .action-buttons{
+            .label{
+              font-weight: bold;
+              color: @c-light-brown;
+            }
+
+          }
+        }
+        .chain-sign &{
+          background: rgba(236, 230, 223, 0.28) url('@{img-prefix}/watermark-signature-logo-small.png') no-repeat 12px center;
+          background-size: auto 90%;
+          pricing-details{
+            .price-form{
+              .original-price{
+              }
+              .value{
+                color: @c-menu-active-sign;
+              }
+            }
+          }
+          .action-buttons{
+            .label{
+              text-transform: none;
+              font-size: 18px;
+              font-style: italic;
+              font-family: @ff-heading-bold-sign;
+            }
+            .button{
+              font-family: @ff-default;
+            }
+          }
+        }
+        
+      }
+
 			.no-products{
 
         &.with-dates{
@@ -60,11 +113,23 @@ room-products {
 
 				h4{
 
+          font-size: 14;
+          font-weight: 700;
+          color: @c-dark-grey;
+
+          .chain-sign &{
+            font-weight: 400;
+            font-family: @ff-heading-bold-sign;
+          }
+
 					> span{
-
+            font-weight: 700;
 					}
+          a.info{
+            float: left;
+          }
 					a.info::after{
-
+            font-size: 20px;
 					}
           a.description-toggle {
 
@@ -115,6 +180,8 @@ room-products {
 
 
           .price-form {
+            text-align: right;
+            margin-top: 10px;
             .value {
 
             }
