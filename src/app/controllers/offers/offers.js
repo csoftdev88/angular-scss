@@ -179,7 +179,7 @@ angular.module('mobius.controllers.offers', [])
       $scope.offerAvailabilityProperties = [];
       if($scope.config.includeOfferAvailabilityPropertyDropdown && !$scope.isHotDeals){
         propertyService.getAll().then(function(properties){
-          _.each($scope.allOffers[selectedOfferIndex].offerAvailability, function(availability){
+          _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
             var property = _.find(properties, function(property){
               return availability.property === property.code;
             });
@@ -229,7 +229,7 @@ angular.module('mobius.controllers.offers', [])
 
     function selectOffer(code) {
       
-      selectedOfferIndex = _.findIndex($scope.allOffers, {code: code});
+      selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
@@ -238,7 +238,7 @@ angular.module('mobius.controllers.offers', [])
       $scope.offerAvailabilityProperties = [];
       if($scope.config.includeOfferAvailabilityPropertyDropdown && !$scope.isHotDeals){
         propertyService.getAll().then(function(properties){
-          _.each($scope.allOffers[selectedOfferIndex].offerAvailability, function(availability){
+          _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
             var property = _.find(properties, function(property){
               return availability.property === property.code;
             });
@@ -250,18 +250,18 @@ angular.module('mobius.controllers.offers', [])
         });
       }
 
-      var availability = _.find($scope.allOffers[selectedOfferIndex].offerAvailability, function(availability){
+      var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
 
-      $scope.allOffers[selectedOfferIndex].availability = availability;
+      $scope.offersList[selectedOfferIndex].availability = availability;
 
-      $scope.selectedOffer = $scope.allOffers[selectedOfferIndex];
+      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
       bookingService.setBookingOffer($scope.selectedOffer);
       $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-        promoCode: $scope.allOffers[selectedOfferIndex].availability && $scope.allOffers[selectedOfferIndex].availability.promoCode ? $scope.allOffers[selectedOfferIndex].availability.promoCode : $scope.allOffers[selectedOfferIndex].promoCode,
-        corpCode: $scope.allOffers[selectedOfferIndex].availability && $scope.allOffers[selectedOfferIndex].availability.corpCode ? $scope.allOffers[selectedOfferIndex].availability.corpCode : $scope.allOffers[selectedOfferIndex].corpCode || null,
-        groupCode: $scope.allOffers[selectedOfferIndex].availability && $scope.allOffers[selectedOfferIndex].availability.groupCode ? $scope.allOffers[selectedOfferIndex].availability.groupCode : $scope.allOffers[selectedOfferIndex].groupCode || null
+        promoCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.promoCode ? $scope.offersList[selectedOfferIndex].availability.promoCode : $scope.offersList[selectedOfferIndex].promoCode,
+        corpCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.corpCode ? $scope.offersList[selectedOfferIndex].availability.corpCode : $scope.offersList[selectedOfferIndex].corpCode || null,
+        groupCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.groupCode ? $scope.offersList[selectedOfferIndex].availability.groupCode : $scope.offersList[selectedOfferIndex].groupCode || null
       });
 
       if($scope.selectedOffer.discountCode){
