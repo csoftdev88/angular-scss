@@ -2,32 +2,44 @@
 //// FLOATING BAR ////
 //////////////////////
 
+.multiroom-mode booking-widget-add-room{
+  width: 50%!important;
+}
+
 floating-bar {
+
+  &.multi-room{
+    background: @c-booking-widget-active;
+  }
 
   //- Tabs
   > ul {
 
     li {
-      background: @c-booking-widget-active;
-      
-      //- Filling
-      &:first-of-type:before{
-        background: @c-booking-widget-active;
-        //outline: 1px solid @c-booking-widget;
-        .viewport-mobile &{
-          display: none;
-          //outline: none;
-        }
 
+      &.floating-bar--tab-booking,
+      &.floating-bar--tab-booking.is-active,
+      &.floating-bar--tab-booking:before{
+        background: @c-booking-widget;
       }
 
-      &.is-active:first-of-type:before {
-        background: @c-booking-widget;
+      &.floating-bar--tab-booking:after{
+        border-bottom: @baseline*1.5 solid @c-booking-widget!important;
+      }
+
+      &.floating-bar--tab-advanced-booking,
+      &.floating-bar--tab-advanced-booking.is-active,
+      &.floating-bar--tab-advanced-booking:before{
+        background: @c-booking-widget-active;
+      }
+
+      &.floating-bar--tab-advanced-booking:after{
+        border-bottom: @baseline*1.5 solid @c-booking-widget-active;
       }
 
       //- Skew effect
       &:after {
-        border-bottom: @baseline*1.5 solid @c-booking-widget-active;
+       // border-bottom: @baseline*1.5 solid @c-booking-widget-active;
       }
 
 
