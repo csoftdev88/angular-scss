@@ -65,11 +65,8 @@ angular.module('mobiusApp.services.infinitiEcommerceService', [])
       }
 
       var postData = {
-        'customerId': cookieFactory('CustomerID'),
-        'infinitiId': Settings.infinitiEcommerceTracking.infinitiId,
-        'sessionId':cookieFactory('_sid'),
-        'transaction': purchaseData.reservationNumber,
-        'purchase': purchaseData.products
+        'transactionID': purchaseData.reservationNumber,
+        'cartItems': purchaseData.products
       };
 
       if(!isLoggedIn){
