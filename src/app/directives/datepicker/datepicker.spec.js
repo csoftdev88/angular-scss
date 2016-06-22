@@ -19,7 +19,11 @@ describe('datepicker', function() {
           'bookingWidget': {
             'datePickerNumberOfMonths': 1,
             'datePickerHasCounter': true,
-            'datePickerCounterIncludeDates': false
+            'datePickerCounterIncludeDates': false,
+            'searchOffset': {
+              'enable': true,
+              'days': 999
+            }
           }
         }
       });

@@ -29,7 +29,12 @@ angular.module('mobiusApp.directives.datepicker', [])
 
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
-      var maxDate = attrs.maxDate || null;
+      
+      var maxDate = null;
+      if(Settings.UI.bookingWidget.searchOffset.enable){
+        maxDate = Settings.UI.bookingWidget.searchOffset.days;
+      }
+      
       var hasCounter = Settings.UI.bookingWidget.datePickerHasCounter;
       var counterHasDates = Settings.UI.bookingWidget.datePickerCounterIncludeDates;
       var editDateRangeInProgress = false;

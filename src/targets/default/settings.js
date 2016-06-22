@@ -518,6 +518,11 @@ angular.module('mobiusApp.config', [])
       'hasMutiroomTab': false,
       //Adds a rates dropdown in booking widget used to update productGroupId in booking params
       'hasRatesSelection': false,
+      //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
+      'searchOffset' :{
+        'enable': true,
+        'days': 730
+      },
       // Suggest MRB when number of adults is higher
       // than this value and server returns no products
       'maxAdultsForSingleRoomBooking': 3,
