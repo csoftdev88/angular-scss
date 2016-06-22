@@ -255,6 +255,7 @@ angular.module('mobiusApp.config', [])
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
       'rooms': {
+        'hideRoomsWithNoAvailability': true,
         'sortRoomsByWeighting': false,
         'defaultNumberOfAmenities': 3,
         'viewRatesButtonText': 'View Rates',

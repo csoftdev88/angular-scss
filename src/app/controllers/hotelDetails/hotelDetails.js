@@ -381,4 +381,10 @@ angular.module('mobius.controllers.hotel.details', [
       groupCode: $stateParams.groupCode || null
     });
   };
+
+  $scope.roomsDisplayFilter = function(room){
+    return !$scope.roomsConfig.hideRoomsWithNoAvailability || ($scope.roomsConfig.hideRoomsWithNoAvailability && $scope.availableRooms.indexOf(room.code) > -1 && room.priceFrom && $scope.hasDates() && $scope.ratesLoaded);
+  };
+
+
 });
