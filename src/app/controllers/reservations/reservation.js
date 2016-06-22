@@ -824,6 +824,7 @@ angular.module('mobius.controllers.reservation', [])
       //Google Tag Manager Tracking purchase
       chainService.getChain(Settings.API.chainCode).then(function(chainData) {
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+          //GTM ecommerce tracking
           var products = [];
           _.each($scope.allRooms, function(room){
             var p = room._selectedProduct;
@@ -842,7 +843,6 @@ angular.module('mobius.controllers.reservation', [])
             };
             products.push(product);
           });
-          //google analytics
           dataLayerService.trackProductsPurchase(products, {
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
@@ -852,7 +852,8 @@ angular.module('mobius.controllers.reservation', [])
             'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBase')).toFixed(2),
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
           });
-          //mobius tracking
+
+          //mobius ecommerce tracking
           var priceData = {
             'beforeTax': $scope.getTotal('totalBase'),
             'afterTax': $scope.getTotal('totalAfterTax')
@@ -860,49 +861,53 @@ angular.module('mobius.controllers.reservation', [])
           var trackingData = angular.copy(reservationData);
           trackingData.guestCountry = _.find($scope.profileCountries, function(country) { return country.id === $scope.userDetails.localeCode; });
           mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, priceData);
+
+          //Infiniti Tracking purchase
+          var infinitiTrackingProducts = [];
+          _.each($scope.allRooms, function(room){
+            var p = room._selectedProduct;
+            var product = {
+              'id': p.code,
+              'variant': 'Nights:' + numNights + '|Type:' + room.name,
+              'quantity': numNights,
+              'amount': (p.price.totalBase/numNights).toFixed(2),
+              'category': 'Room',
+              'currency': $rootScope.currencyCode,
+              'title': propertyData.nameShort + ' - ' + room.name,
+              'desc': room.description
+            };
+            infinitiTrackingProducts.push(product);
+          });
+
+          var infinitiTrackingData = {
+            'reservationNumber': data[0].reservationCode,
+            'products': infinitiTrackingProducts
+          };
+
+          var userTitle = _.find($scope.profileTitles, function(title){ return title.id === $scope.userDetails.title; });
+          var userCountry = _.find($scope.profileCountries, function(country){ return country.id === $scope.userDetails.localeCode; });
+
+          if(!user.isLoggedIn()){
+            infinitiTrackingData.customer = {
+              'title': userTitle.name,
+              'fName': $scope.userDetails.firstName,
+              'lName': $scope.userDetails.lastName,
+              'address': $scope.userDetails.address,
+              'city': $scope.userDetails.city,
+              'zip': $scope.userDetails.zip,
+              'country': userCountry.code,
+              'email': $scope.userDetails.email,
+              'phone': $scope.userDetails.phone,
+              'secondPhoneNumber': $scope.additionalInfo.secondPhoneNumber
+            };
+          }
+          infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
+
+
         });
       });
 
-      //Infiniti Tracking purchase
-      var infinitiTrackingProducts = [];
-      _.each($scope.allRooms, function(room){
-        var p = room._selectedProduct;
-        var product = {
-          'id': p.code,
-          'variant': 'Nights:' + numNights + '|Type:' + room.name,
-          'quantity': numNights,
-          'amount': (p.price.totalBase/numNights).toFixed(2),
-          'category': 'Room',
-          'currency': $rootScope.currencyCode,
-          'title': room.name,
-          'desc': room.description
-        };
-        infinitiTrackingProducts.push(product);
-      });
-
-      var infinitiTrackingData = {
-        'reservationNumber': data[0].reservationCode,
-        'products': infinitiTrackingProducts
-      };
-
-      var userTitle = _.find($scope.profileTitles, function(title){ return title.id === $scope.userDetails.title; });
-      var userCountry = _.find($scope.profileCountries, function(country){ return country.id === $scope.userDetails.localeCode; });
-
-      if(!user.isLoggedIn()){
-        infinitiTrackingData.customer = {
-          'title': userTitle.name,
-          'fName': $scope.userDetails.firstName,
-          'lName': $scope.userDetails.lastName,
-          'address': $scope.userDetails.address,
-          'city': $scope.userDetails.city,
-          'zip': $scope.userDetails.zip,
-          'country': userCountry.code,
-          'email': $scope.userDetails.email,
-          'phone': $scope.userDetails.phone,
-          'secondPhoneNumber': $scope.additionalInfo.secondPhoneNumber
-        };
-      }
-      infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
+      
 
       //creating anon user account
       if(!user.isLoggedIn()){
