@@ -697,7 +697,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       };
 
       scope.getCurrentRate = function(){
-        if(scope.selected.rate){
+        if(scope.selected.rate && scope.settings.datePickerHasTitle){
           var rate = _.findWhere(scope.rates, {id: parseInt(scope.selected.rate, 10)});
           return rate?rate.name:'';
         }

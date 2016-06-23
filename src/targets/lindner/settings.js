@@ -605,6 +605,7 @@ angular.module('mobiusApp.config', [])
     'bookingWidget': {
       "datePickerNumberOfMonths": 1,
       "datePickerHasCounter": true,
+      "datePickerHasTitle": false,
       "datePickerCounterIncludeDates": false,
       "datePickerCloseOnDatesSelected": false,
       "checkAvailabilityOnChange": false,

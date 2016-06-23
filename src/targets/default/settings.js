@@ -508,6 +508,7 @@ angular.module('mobiusApp.config', [])
       "datePickerNumberOfMonths": 1,
       //Display number of nights selected in date picker
       "datePickerHasCounter": true,
+      "datePickerHasTitle": false,
       //display arrival/departures dates alongside number of nights in date picker
       "datePickerCounterIncludeDates": false,
       //close date picker when departure date is selected

@@ -386,7 +386,7 @@ angular.module('mobius.controllers.hotel.details', [
     if(!$scope.hasDates()){
       return true;
     }
-    return !$scope.roomsConfig.hideRoomsWithNoAvailability || ($scope.roomsConfig.hideRoomsWithNoAvailability && $scope.availableRooms.indexOf(room.code) > -1 && room.priceFrom && $scope.hasDates() && $scope.ratesLoaded);
+    return !$scope.roomsConfig.hideRoomsWithNoAvailability || ($scope.roomsConfig.hideRoomsWithNoAvailability && $scope.availableRooms && $scope.availableRooms.indexOf(room.code) > -1 && room.priceFrom && $scope.hasDates() && $scope.ratesLoaded);
   };
 
 
