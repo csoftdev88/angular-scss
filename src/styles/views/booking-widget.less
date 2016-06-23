@@ -36,6 +36,17 @@ booking-widget {
     border-bottom: 0;
   }
 
+  form-element.hotel{
+    // Chosen dropdown - open down not up for hotels only
+    .chosen-container .chosen-drop {
+      bottom: auto;
+      top: 100%;
+
+      border: 1px solid #ccc;
+      border-bottom: 0;
+    }
+  }
+
   //- Search button
   button-submit {
     width: 10%;

@@ -614,6 +614,8 @@ angular.module('mobiusApp.config', [])
       // than this value and server returns no products
       'maxAdultsForSingleRoomBooking': 3,
       'includeAllPropertyOption': true,
+      'includeRegions': true,
+      'includeLocations': false,
       'adults': {
         'min': 1,
         'max': 8

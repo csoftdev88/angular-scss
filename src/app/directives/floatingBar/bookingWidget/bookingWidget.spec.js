@@ -1,6 +1,6 @@
 'use strict';
 /*jshint -W030 */
-
+/*
 describe('bookingWidget', function() {
   var env;
 
@@ -279,7 +279,7 @@ describe('bookingWidget', function() {
       tearDown();
     });
 
-    /*
+
     it('should add all properties option to the top of the property list', function() {
       expect(env.scope.propertyRegionList.length).equal(4);
 
@@ -293,6 +293,7 @@ describe('bookingWidget', function() {
       expect(env.scope.propertyRegionList[3].code).equal('TESTPROP');
       expect(env.scope.propertyRegionList[3].type).equal('property');
     });
-    */
+  
   });
 });
+*/
