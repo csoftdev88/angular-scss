@@ -19,7 +19,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
 
-      scope.isMobile = stateService.isMobile();
+      scope.isMobile = function(){
+        return stateService.isMobile();
+      };
 
       scope.codeTypes = [
         {
