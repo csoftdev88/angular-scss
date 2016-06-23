@@ -608,6 +608,12 @@ reservation-billing {
 //////////////////////////////////////////////
 reservation-confirmation {
 
+  > div {
+    .viewport-mobile &{
+      margin-top: 10px;
+    }
+  }
+
   // Tab headers (links)
   .nav-tabs {
 
@@ -619,6 +625,12 @@ reservation-confirmation {
       }
       .chain-sand &{
         color: @c-menu-active-sand;
+      }
+    }
+
+    li{
+      .viewport-mobile &{
+        min-height: 90px;
       }
     }
   }

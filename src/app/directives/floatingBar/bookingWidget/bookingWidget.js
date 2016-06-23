@@ -222,9 +222,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           });
         }
 
-        if(!_.isEmpty(regionsProperties)){
+        //Handle regions
+        if(!_.isEmpty(regionsProperties) && scope.settings.includeRegions){
           validatePropertyRegion();
-        }else{
+        }else if(scope.settings.includeRegions){
           // Getting a list of regions and properties
           $q.all([
             locationService.getRegions(),
@@ -246,6 +247,38 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
                   return property.regionCode === region.code;
                 }).sortBy('nameShort').value();
                 regionsProperties.push(region);
+              }
+            });
+            regionsProperties = _.sortBy(regionsProperties, 'nameShort');
+            validatePropertyRegion();
+          });
+        }
+
+        //Handle locations
+        if(!_.isEmpty(regionsProperties) && scope.settings.includeLocations){
+          validatePropertyRegion();
+        }else if(scope.settings.includeLocations){
+          // Getting a list of locations and properties
+          $q.all([
+            locationService.getLocations(),
+            propertyService.getAll()
+          ]).then(function(data) {
+            var locationData = data[0];
+            var propertyData = data[1];
+
+            // available regions of properties
+            var locationsCodes = _.reduce(propertyData, function(result, property){
+              result[property.locationCode] = true;
+              return result;
+            }, {});
+
+            // only regions of properties
+            _.forEach(locationData, function(location) {
+              if (locationsCodes[location.code]) {
+                location.properties = _.chain(propertyData).filter(function(property) {
+                  return property.locationCode === location.code;
+                }).sortBy('nameShort').value();
+                regionsProperties.push(location);
               }
             });
             regionsProperties = _.sortBy(regionsProperties, 'nameShort');
@@ -293,8 +326,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       }
 
-      function findRegion(regionCode) {
-        return _.find(regionsProperties, {code: regionCode});
+      function findRegion(code) {
+        return _.find(regionsProperties, {code: code});
       }
 
       function findProperty(propertyCode) {
@@ -317,6 +350,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         var regionSettings = PARAM_TYPES.region;
         var regionCode = bookingService.getParams()[regionSettings.search];
 
+        var locationSettings = PARAM_TYPES.location;
+        var locationCode = bookingService.getParams()[locationSettings.search];
+
         if(regionCode) {
           if((!scope.selected.property || scope.selected.property.regionCode === regionCode) && (!scope.selected.location || scope.selected.location.regionCode === regionCode)) {
             // Checking whether list of regions has locaiton specified in the URL
@@ -325,6 +361,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(!scope.selected.region) {
             // Region with the same name doesn't exist - URL param is invalid and should be removed.
             queryService.removeParam(regionSettings.search);
+          }
+        }
+
+        if(locationCode) {
+          if(!scope.selected.property || scope.selected.property.locationCode === locationCode) {
+            // Checking whether list of regions has locaiton specified in the URL
+            scope.selected.location = findRegion(locationCode);
+          }
+          if(!scope.selected.location) {
+            // Region with the same name doesn't exist - URL param is invalid and should be removed.
+            queryService.removeParam(locationSettings.search);
           }
         }
 
@@ -342,16 +389,32 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if (scope.settings.includeAllPropertyOption) {
           scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
         }
-        _.forEach(regionsProperties, function(region) {
-          if(regionsProperties.length > 1){
-            scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
-          }
-          //_.forEach(region.locations, function(location) {
-          //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
-          _.forEach(region.properties, function(property) {
-            scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+        //regions
+        if (scope.settings.includeRegions) {
+          _.forEach(regionsProperties, function(region) {
+            if(regionsProperties.length > 1){
+              scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
+            }
+            //_.forEach(region.locations, function(location) {
+            //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
+            _.forEach(region.properties, function(property) {
+              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+            });
           });
-        });
+        }
+        //locations
+        if (scope.settings.includeLocations) {
+          _.forEach(regionsProperties, function(location) {
+            if(regionsProperties.length > 1){
+              scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
+            }
+            //_.forEach(region.locations, function(location) {
+            //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
+            _.forEach(location.properties, function(property) {
+              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+            });
+          });
+        }
 
         if (property) {
           scope.regionPropertySelected = _.find(scope.propertyRegionList, {
@@ -365,12 +428,18 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           });
         }
         else if (location){
+          scope.regionPropertySelected = _.find(scope.propertyRegionList, {
+            type: 'location',
+            code: location.code
+          });
+          /*
           locationService.getLocations().then(function(locations){
             var curLocation = _.find(locations, {
               code: location
             });
             scope.regionPropertySelected = {name: curLocation.nameShort, type: 'location', code: curLocation.code};
           });
+          */
           
         }
         else{
@@ -490,9 +559,16 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.selected.location = undefined;
           scope.selected.property = undefined;
           break;
+        case 'location':
+          scope.selected.location = findRegion(scope.regionPropertySelected.code);
+          scope.selected.region = undefined;
+          scope.selected.property = undefined;
+          break;
 
         case 'property':
           scope.selected.property = findProperty(scope.regionPropertySelected.code);
+          scope.selected.region = undefined;
+          scope.selected.location = undefined;
           $stateParams.property = scope.selected.property.code;
           break;
         default:
@@ -790,12 +866,12 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           //Prefill property from megamenu
           if (settings && settings.property) {
             scope.regionPropertySelected = {name: settings.property.nameShort, type: 'property', code: settings.property.code};
-            scope.selected.property = settings.property;
+            scope.propertyRegionChanged();
           }
           //Prefill location from megamenu
           if (settings && settings.location) {
             scope.regionPropertySelected = {name: settings.location.nameShort, type: 'location', code: settings.location.code};
-            scope.selected.location = settings.location;
+            scope.propertyRegionChanged();
           }
 
         }, 0);
