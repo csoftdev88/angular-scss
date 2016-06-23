@@ -34,7 +34,7 @@
 
       <!-- search details -->
       <div class="search-details" ng-if="roomsConfig.showRoomCount">
-        <ng-pluralize class="room-counter" count="rooms.length" when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}"></ng-pluralize>
+        <ng-pluralize class="room-counter" count="(rooms|filter:roomsDisplayFilter).length" when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}"></ng-pluralize>
       </div>
     </header>
 
