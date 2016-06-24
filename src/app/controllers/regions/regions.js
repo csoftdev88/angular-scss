@@ -18,7 +18,7 @@ angular.module('mobius.controllers.regions', [])
         //Pick random merchandizing banner if any
         _.each(regions, function(region){
           if(region.merchandisingBanners && region.merchandisingBanners.length){
-            region.merchandisingBanner = region.merchandisingBanners.length === 1 ? region.merchandisingBanners[0] : region.merchandisingBanners[Math.floor(location.merchandisingBanners.length * Math.random())];
+            region.merchandisingBanner = region.merchandisingBanners.length === 1 ? region.merchandisingBanners[0] : region.merchandisingBanners[Math.floor(region.merchandisingBanners.length * Math.random())];
           }
         });
         $scope.allRegions = regions;
