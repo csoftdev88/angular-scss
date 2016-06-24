@@ -663,10 +663,10 @@ angular.module('mobius.controllers.reservation', [])
     return _.reduce(
       _.map($scope.allRooms, function(room){
         if(prop ==='pointsEarned'){
-          return room._selectedProduct.productAwardPoints ? room._selectedProduct.priceOriginal[prop] : 0;
+          return room._selectedProduct.productAwardPoints ? room._selectedProduct.price[prop] : 0;
         }
         else{
-          return room._selectedProduct.priceOriginal[prop];
+          return room._selectedProduct.price[prop];
         }
 
       }), function(t, n){
@@ -678,7 +678,7 @@ angular.module('mobius.controllers.reservation', [])
     // Returning a total price of all products
     return _.reduce(
       _.map($scope.allRooms, function(room){
-        return room._selectedProduct.priceOriginal.breakdowns[0][prop];
+        return room._selectedProduct.price.breakdowns[0][prop];
       }), function(t, n){
         return t + n;
       });
