@@ -154,7 +154,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
               //merchandizing banner
               if(hotel.merchandisingBanners && hotel.merchandisingBanners.length){
-                hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.random()*hotel.merchandisingBanners.length-1];
+                hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.floor(hotel.merchandisingBanners.length * Math.random())];
               }
 
               //chain title

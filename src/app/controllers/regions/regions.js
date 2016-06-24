@@ -18,7 +18,7 @@ angular.module('mobius.controllers.regions', [])
         //Pick random merchandizing banner if any
         _.each(regions, function(region){
           if(region.merchandisingBanners && region.merchandisingBanners.length){
-            region.merchandisingBanner = region.merchandisingBanners.length === 1 ? region.merchandisingBanners[0] : region.merchandisingBanners[Math.random()*region.merchandisingBanners.length-1];
+            region.merchandisingBanner = region.merchandisingBanners.length === 1 ? region.merchandisingBanners[0] : region.merchandisingBanners[Math.floor(location.merchandisingBanners.length * Math.random())];
           }
         });
         $scope.allRegions = regions;
@@ -48,7 +48,7 @@ angular.module('mobius.controllers.regions', [])
           //Pick random merchandizing banner if any
           _.each(locations, function(location){
             if(location.merchandisingBanners && location.merchandisingBanners.length){
-              location.merchandisingBanner = location.merchandisingBanners.length === 1 ? location.merchandisingBanners[0] : location.merchandisingBanners[Math.random()*location.merchandisingBanners.length-1];
+              location.merchandisingBanner = location.merchandisingBanners.length === 1 ? location.merchandisingBanners[0] : location.merchandisingBanners[Math.floor(location.merchandisingBanners.length * Math.random())];
             }
           });
           $scope.allLocations = locations;
