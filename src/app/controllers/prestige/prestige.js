@@ -14,7 +14,7 @@ angular.module('mobius.controllers.prestige', [])
         $state.go('home');
       }
       else{
-        breadcrumbsService.addBreadCrumb('Sutton Prestige');
+        breadcrumbsService.addBreadCrumb('Prestige');
         apiService.get(apiService.getFullURL('customers.transactions', {customerId: userObject.id})).then(function(data){
           $scope.viewMode = 'recent';
           $scope.prestigeData = data;
