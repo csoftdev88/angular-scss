@@ -274,6 +274,7 @@ angular.module('mobiusApp.config', [])
         'displayRatesOnLoad': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
+        'displayRoomSubtitle': true,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
@@ -323,6 +324,7 @@ angular.module('mobiusApp.config', [])
     'hotelDetailsTestimonialsCarouselDelay': 4000,
     'hotelDetailsTestimonials':[],
     'roomDetails': {
+      'displayRoomSubtitle': true,
       'hasBreadcrumbsSecondaryNav': true,
       'hasReadMore': true,
       'numberOfRatesToShow': 5,

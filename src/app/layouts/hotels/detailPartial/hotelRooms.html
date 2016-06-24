@@ -45,6 +45,7 @@
         <header class="item-header desktop">
           <h3>
             <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>
+            <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
           </h3>
           <pricing-switch ng-if="$first">
             <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a>
@@ -70,6 +71,7 @@
             <header class="item-header mobile">
               <h3>
                 <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>
+                <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
               </h3>
             </header>
 

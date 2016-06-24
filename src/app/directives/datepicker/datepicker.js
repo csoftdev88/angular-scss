@@ -50,6 +50,11 @@ angular.module('mobiusApp.directives.datepicker', [])
         counterDatesRules = scope.$eval(attrs.counterDates) || {};
       }
 
+      //stop event bubbling from that container to avoid clicks behing the datepicker
+      $('#ui-datepicker-div').click( function(event) {
+        event.stopPropagation();
+      });
+
       /**
        * Don't hide the date picker when changing dates
        */

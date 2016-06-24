@@ -2,6 +2,7 @@
 
   <section class="header" ng-if="!config.headerPartial.display">
     <h1 ng-bind-html="roomDetails.name | mainHeaderStyle"></h1>
+    <span class="sub-title" ng-if="config.displayRoomSubtitle && roomDetails.subTitle">{{roomDetails.subTitle}}</span>
   </section>
 
   <section class="hotel-detail__header" ng-if="config.headerPartial.display">
