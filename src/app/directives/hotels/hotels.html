@@ -14,7 +14,7 @@
       <read-more ng-if="locationDetails.content.length && locationDetails.content[0].title">
         <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
         <ul>
-          <li ng-repeat="item in locationDetails.content | orderBy: 'order'"><a href="" ui-sref="locationInfo({regionSlug: regionSlug, locationSlug: locationDetails.meta.slug, infoSlug: item.meta.slug})">{{item.title}}</a></li>
+          <li ng-repeat="item in locationDetails.content | orderBy: 'order'"><a href="" ui-sref="locationInfo({regionSlug: regionSlug, locationSlug: locationDetails.meta.slug, infoSlug: item.slug})">{{item.title}}</a></li>
         </ul>
       </read-more>
     </view-more-images>

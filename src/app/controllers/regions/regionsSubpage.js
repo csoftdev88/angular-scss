@@ -43,7 +43,7 @@ angular.module('mobius.controllers.regions.subpage', [])
   function sortInfo(data){
 
     _.find(data.content, function(content){
-      if(content.meta.slug === $stateParams.infoSlug){
+      if(content.slug === $stateParams.infoSlug){
         $scope.info = content;
       }
       else{
