@@ -142,9 +142,9 @@
         <!-- //list-item-container -->
       </list-item>
 
-      <a href class="display-all-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < rooms.length" ng-click="displayAllRooms()">_view_all_rooms_</a>
+      <a href class="display-all-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < (rooms|filter:roomsDisplayFilter).length" ng-click="displayAllRooms()">_view_all_rooms_</a>
 
-      <a href class="display-more-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < rooms.length" ng-click="displayMoreRooms()">_view_more_rooms_</a>
+      <a href class="display-more-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < (rooms|filter:roomsDisplayFilter).length" ng-click="displayMoreRooms()">_view_more_rooms_</a>
 
 
     </list-items>
