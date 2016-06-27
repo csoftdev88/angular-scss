@@ -53,7 +53,7 @@
         <a class="button login hide" ng-click="login()">_login_register_</a>
       </div>
 
-      <div class="controls">
+      <div class="controls" ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton">
         <div class="inner" ng-class="{'has-dropdown': config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && offerAvailabilityProperties}">
           <div class="property-select" ng-show="config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && offerAvailabilityProperties">
             <select
@@ -68,7 +68,7 @@
           </div>
 
           <!-- DATES ARE SELECTED -->
-          <button-submit ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton" ng-switch-when="false" ng-click="goToHotels(selectedOffer)" ng-disabled="config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty">_book_now_ <span ng-if="isHotDeals">at {{selectedOffer.propertyName}}</span></button-submit>
+          <button-submit ng-switch-when="false" ng-click="goToHotels(selectedOffer)" ng-disabled="config.includeOfferAvailabilityPropertyDropdown && !isHotDeals && !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty">_book_now_ <span ng-if="isHotDeals">at {{selectedOffer.propertyName}}</span></button-submit>
 
           <!-- USER SPECIFIES DATES -->
           <button-submit ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton" ng-switch-when="true" ng-click="selectDates()">_select_dates_</button-submit>

@@ -865,12 +865,12 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
           //Prefill property from megamenu
           if (settings && settings.property) {
-            scope.regionPropertySelected = {name: settings.property.nameShort, type: 'property', code: settings.property.code};
+            scope.regionPropertySelected = {name: settings.property.nameShort, type: 'property', code: settings.property};
             scope.propertyRegionChanged();
           }
           //Prefill location from megamenu
           if (settings && settings.location) {
-            scope.regionPropertySelected = {name: settings.location.nameShort, type: 'location', code: settings.location.code};
+            scope.regionPropertySelected = {name: settings.location.nameShort, type: 'location', code: settings.location};
             scope.propertyRegionChanged();
           }
 

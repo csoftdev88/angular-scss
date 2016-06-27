@@ -170,9 +170,12 @@
   /*Tabbed*/
   &.tabbed{
     width: 700px;
-    max-width: 80%;
     padding: 0px 20px;
     box-sizing: border-box;
+
+    .viewport-mobile &{
+      padding: 0px;
+    }
 
     button-close{
       position: absolute;
@@ -189,6 +192,9 @@
     }
 
     main{
+      .viewport-mobile &{
+        padding: 0px;
+      }
       section{
         &.price-breakdown{
           table{
