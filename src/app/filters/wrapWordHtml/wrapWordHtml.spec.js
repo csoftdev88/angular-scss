@@ -4,6 +4,7 @@ describe('mobiusApp.filters.wrapword', function() {
   var _filter;
 
   beforeEach(function() {
+    module('underscore');
     module('mobiusApp.filters.wrapword');
   });
 

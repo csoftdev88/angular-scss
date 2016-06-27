@@ -431,7 +431,12 @@ angular.module('mobiusApp.config', [])
     'offers':{
       'discountCodeCookieExpiryDays': 5,
       'displayPageHeading': true,
-      'includeOfferAvailabilityPropertyDropdown': true
+      'includeOfferAvailabilityPropertyDropdown': true,
+      //if number of words greater than [key], wrap the first [value] words in span for styling
+      'offersThumbnailsTitlePattern':{
+        '0': 1,
+        '3': 2
+      }
     },
 
     'registerPage':{

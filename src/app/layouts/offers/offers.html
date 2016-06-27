@@ -22,7 +22,7 @@
 
       <section>
         <span class="offer-property-name" ng-if="isHotDeals && offer.propertyName">{{offer.propertyName}}</span>
-        <h2>{{offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title}}</h2>
+        <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : isHotDeals"></h2>
         <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle != ''  ? offer.availability.subtitle : offer.subtitle"></div>
       </section>
 
@@ -87,7 +87,7 @@
 
           <section>
             <span class="offer-property-name" ng-if="isHotDeals && offer.propertyName">{{offer.propertyName}}</span>
-            <h2>{{offer.availability && offer.availability.title && offer.availability.title !== '' ? offer.availability.title : offer.title}} </h2>
+            <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : isHotDeals"></h2>
             <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle !== '' ? offer.availability.subtitle : offer.subtitle"></div>
           </section>
 
