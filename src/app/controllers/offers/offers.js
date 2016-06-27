@@ -127,6 +127,9 @@ angular.module('mobius.controllers.offers', [])
               else{
                 $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
               }
+              if ($stateParams.code) {
+                selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+              }
               
             });
           }
@@ -135,11 +138,9 @@ angular.module('mobius.controllers.offers', [])
               return offer.offerAvailability.length < 2;
             });
             $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
-          }
-          
-          
-          if ($stateParams.code) {
-            selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+            if ($stateParams.code) {
+              selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+            }
           }
         }
       }
@@ -198,7 +199,7 @@ angular.module('mobius.controllers.offers', [])
       $scope.offersList[selectedOfferIndex].availability = availability;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
-
+      console.log(slug);
       if($stateParams.propertySlug){
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
