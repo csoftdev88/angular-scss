@@ -10,6 +10,10 @@ rewards-list {
   justify-content: left;
   margin: 0 @baseline/4 @baseline 0;
 
+  .viewport-mobile &{
+    display: block;
+  }
+
   .products-not-available {
     width: 100%;
     p {
@@ -171,7 +175,7 @@ rewards-list {
     }
 
     .viewport-mobile &{
-
+      display: block;
       flex: 100%;
       width: 100%;
       padding-bottom: 16px;
