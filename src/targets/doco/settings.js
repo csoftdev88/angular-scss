@@ -631,6 +631,8 @@ angular.module('mobiusApp.config', [])
       'includeAllPropertyOption': true,
       'includeRegions': true,
       'includeLocations': false,
+      'includeRegionsOnMobile': false,
+      'includeLocationsOnMobile': false,
       'adults': {
         'min': 1,
         'max': 8

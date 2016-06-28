@@ -222,10 +222,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           });
         }
 
-        //Handle regions
+        //Handle regions on
         if(!_.isEmpty(regionsProperties) && scope.settings.includeRegions){
           validatePropertyRegion();
-        }else if(scope.settings.includeRegions){
+        }else if(scope.settings.includeRegions && !scope.isMobile() || scope.settings.includeRegionsOnMobile && scope.isMobile()){
           // Getting a list of regions and properties
           $q.all([
             locationService.getRegions(),
@@ -257,7 +257,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         //Handle locations
         if(!_.isEmpty(regionsProperties) && scope.settings.includeLocations){
           validatePropertyRegion();
-        }else if(scope.settings.includeLocations){
+        }else if(scope.settings.includeLocations && !scope.isMobile() || scope.settings.includeLocationsOnMobile && scope.isMobile()){
           // Getting a list of locations and properties
           $q.all([
             locationService.getLocations(),
@@ -282,6 +282,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               }
             });
             regionsProperties = _.sortBy(regionsProperties, 'nameShort');
+            validatePropertyRegion();
+          });
+        }
+
+        //Handle properties only
+        if(!_.isEmpty(regionsProperties) && !scope.settings.includeLocations && !scope.settings.includeRegions){
+          validatePropertyRegion();
+        }else if(!scope.settings.includeLocations && !scope.settings.includeRegions && !scope.isMobile() || !scope.settings.includeLocationsOnMobile && !scope.settings.includeRegionsOnMobile && scope.isMobile()){
+          // Getting a list of properties
+          propertyService.getAll().then(function(data) {
+            regionsProperties = _.sortBy(data, 'nameShort');
             validatePropertyRegion();
           });
         }
@@ -331,7 +342,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       }
 
       function findProperty(propertyCode) {
-        return _.chain(regionsProperties).pluck('properties').flatten().find({code: propertyCode}).value();
+        if ((scope.settings.includeLocations || scope.settings.includeRegions) && !scope.isMobile() || (scope.settings.includeLocationsOnMobile || scope.settings.includeRegionsOnMobile) && scope.isMobile()) {
+          return _.chain(regionsProperties).pluck('properties').flatten().find({code: propertyCode}).value();
+        }
+        else{
+          return _.find(regionsProperties, {code: propertyCode});
+        }
+        
       }
 
       function validatePropertyRegion() {
@@ -390,7 +407,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
         }
         //regions
-        if (scope.settings.includeRegions) {
+        if (scope.settings.includeRegions && !scope.isMobile() || scope.settings.includeRegionsOnMobile && scope.isMobile()) {
           _.forEach(regionsProperties, function(region) {
             if(regionsProperties.length > 1){
               scope.propertyRegionList.push({name: region.nameShort, type: 'region', code: region.code});
@@ -403,7 +420,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           });
         }
         //locations
-        if (scope.settings.includeLocations) {
+        if (scope.settings.includeLocations && !scope.isMobile() || scope.settings.includeLocationsOnMobile && scope.isMobile()) {
           _.forEach(regionsProperties, function(location) {
             if(regionsProperties.length > 1){
               scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
@@ -413,6 +430,15 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             _.forEach(location.properties, function(property) {
               scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
             });
+          });
+        }
+
+        //properties only
+        if (!scope.settings.includeLocations && !scope.settings.includeRegions && !scope.isMobile() || !scope.settings.includeLocationsOnMobile && !scope.settings.includeRegionsOnMobile && scope.isMobile()) {
+          _.forEach(regionsProperties, function(property) {
+            if(regionsProperties.length > 1){
+              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+            }
           });
         }
 
