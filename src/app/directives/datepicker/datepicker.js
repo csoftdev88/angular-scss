@@ -52,21 +52,10 @@ angular.module('mobiusApp.directives.datepicker', [])
 
       //stop event bubbling from that container to avoid clicks behing the datepicker
       angular.element(document).ready(function () {
-        //console.log($('#ui-datepicker-div').length);
         $('#ui-datepicker-div').click( function(event) {
           event.stopPropagation();
         });
-        /*
-        $('#ui-datepicker-div').find('[data-handler]').each(function(){
-
-          $(this).click( function(event) {
-            console.log('clicked');
-            event.stopPropagation();
-          });
-        });
-        */
       });
-      
 
 
       /**
