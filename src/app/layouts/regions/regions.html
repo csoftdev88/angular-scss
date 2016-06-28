@@ -15,7 +15,7 @@
 
       <section>
         <h2>{{region.nameShort}}</h2>
-        <div ng-bind-html="region.description | truncateString:135"></div>
+        <div ng-bind-html="region.highlight && region.highlight !== '' ? region.highlight : region.description | truncateString:135"></div>
       </section>
 
     </region-item>
@@ -52,7 +52,7 @@
               <li ng-repeat="chain in location.chainCode" ng-class="chain.toLowerCase()"></li>
             </ul>
           </header>
-          <div ng-bind-html="location.description | truncateString:125"></div>
+          <div ng-bind-html="location.highlight && location.highlight !== '' ? location.highlight : location.description | truncateString:125"></div>
         </section>
 
       </location-item>
