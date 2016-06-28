@@ -146,7 +146,7 @@ angular.module('mobiusApp.config', [])
       'Mobius-chainId': '1',
       'Mobius-channelId': {
         'web': '6',
-        'mobile': '23'
+        'mobile': '13'
       }
     },
     'sessionData': {
