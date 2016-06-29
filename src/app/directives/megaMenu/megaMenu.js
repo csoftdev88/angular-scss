@@ -93,6 +93,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
                 contentService.getOffers().then(function(offers) {
                   //only keep offers that have 1 property in availability
                   offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length === 1;});
+
+
                   
                   //only include properties that have an offer associated with them
                   var filteredProperties = [];
