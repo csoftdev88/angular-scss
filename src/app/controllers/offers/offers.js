@@ -335,9 +335,7 @@ angular.module('mobius.controllers.offers', [])
         stateParams.propertySlug = $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty;
         stateParams.property = bookingService.getCodeFromSlug($scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty);
         stateParams.scrollTo = 'jsRooms';
-        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-          property: stateParams.property
-        });
+        $scope.prefillBookingWidgetProperty(stateParams.propertySlug);
         $state.go('hotel', stateParams, {reload: true});
       }
       else{
@@ -367,6 +365,12 @@ angular.module('mobius.controllers.offers', [])
       if(event.target.attributes['ng-click'] && event.target.attributes['ng-click'].value === 'login()'){
         $scope.sso.login();
       }
+    };
+
+    $scope.prefillBookingWidgetProperty = function(propertySlug){
+      $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+        property: bookingService.getCodeFromSlug(propertySlug)
+      });
     };
 
   });

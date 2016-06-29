@@ -62,7 +62,8 @@
               disable-search="true"
               chosen 
               ng-options="option.slug as option.name for option in offerAvailabilityProperties" 
-              data-placeholder-text-single="'Choose your hotel'">
+              data-placeholder-text-single="'Choose your hotel'"
+              ng-change="prefillBookingWidgetProperty(selectedOfferAvailabilityData.selectedOfferAvailabilityProperty)">
               <option value="">Choose your hotel</option> <!-- workaround for a bug in angular-chosen -->
             </select>
           </div>
