@@ -137,7 +137,7 @@ angular.module('mobius.controllers.reservation', [])
 
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
 
-        $scope.userDetails.title = reservation.rooms[0].guestTitle;
+        $scope.userDetails.title = reservation.rooms[0].guestTitleId || reservation.rooms[0].guestTitle;
         $scope.userDetails.firstName = reservation.rooms[0].firstName;
         $scope.userDetails.lastName = reservation.rooms[0].lastName;
         $scope.userDetails.email = reservation.rooms[0].guestEmail;
