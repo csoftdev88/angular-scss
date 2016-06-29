@@ -109,27 +109,44 @@ angular.module('mobius.controllers.offers', [])
         //Only show offers that have showAtChainLevel true if multiple properties
         else{
           if($scope.isHotDeals){
-            //Only show offers with a single property availability
+            //remove offers that have no property availability unless they are featured
             offers = _.reject(offers, function(offer){
-              return !offer.offerAvailability || offer.offerAvailability && offer.offerAvailability.length !== 1;
+              return !offer.offerAvailability && !offer.featured;
             });
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
+
+              
+
+              
               offers = _.each(offers, function(offer){
-                var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property; });
-                offer.propertyName = property.nameShort;
-                offer.locationCode = property.locationCode;
+                //If that offer only have 1 property availability, we will display the property name on thumbnail
+                if(offer.offerAvailability.length === 1){
+                  var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                  offer.propertyName = property.nameShort;
+                  //availability.locationCode = property.locationCode;
+                }
+                /*
+                _.each(offer.offerAvailability, function(availability){
+                  var property = _.find(properties, function(prop){ return prop.code === availability.property;});
+                  availability.propertyName = property.nameShort;
+                  availability.locationCode = property.locationCode;
+                });
+                */
               });
+              
               //Filter offers by location if any
               if($stateParams.locationSlug){
                 locationService.getLocations().then(function(locations){
                   var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
                   offers = _.filter(offers, function(offer){ return offer.locationCode === curLocation.code; });
-                  $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+                  //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+                  $scope.offersList = offers;
                 });
               }
               else{
-                $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+                //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+                $scope.offersList = offers;
               }
               if ($stateParams.code) {
                 selectOffer(bookingService.getCodeFromSlug($stateParams.code));
@@ -182,7 +199,7 @@ angular.module('mobius.controllers.offers', [])
 
       //Creating property availability dropdown
       $scope.offerAvailabilityProperties = [];
-      if($scope.config.includeOfferAvailabilityPropertyDropdown && !$scope.isHotDeals){
+      if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.offersList[selectedOfferIndex].offerAvailability.length > 1){
         propertyService.getAll().then(function(properties){
           _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
             var property = _.find(properties, function(property){
@@ -210,8 +227,6 @@ angular.module('mobius.controllers.offers', [])
         $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
       
-
-
       $timeout(function () {
         bookingService.setBookingOffer($scope.selectedOffer);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
@@ -232,7 +247,7 @@ angular.module('mobius.controllers.offers', [])
     };
 
     function selectOffer(code) {
-      
+
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
@@ -240,7 +255,7 @@ angular.module('mobius.controllers.offers', [])
 
       //Creating property availability dropdown
       $scope.offerAvailabilityProperties = [];
-      if($scope.config.includeOfferAvailabilityPropertyDropdown && !$scope.isHotDeals){
+      if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.offersList[selectedOfferIndex].offerAvailability.length > 1){
         propertyService.getAll().then(function(properties){
           _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
             var property = _.find(properties, function(property){
@@ -346,7 +361,7 @@ angular.module('mobius.controllers.offers', [])
 
     // Checking if user have selected dates
     var bookingParams = bookingService.getAPIParams();
-
+    $scope.hasDates = false;
     if(!bookingParams.from || !bookingParams.to){
       // Dates are not yet selected
       $scope.selectDates = function(){
@@ -359,6 +374,9 @@ angular.module('mobius.controllers.offers', [])
           groupCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.groupCode ? $scope.selectedOffer.availability.groupCode : $scope.selectedOffer.groupCode || null
         });
       };
+    }
+    else{
+      $scope.hasDates = true;
     }
 
     $scope.bindHtmlClick = function(event){
