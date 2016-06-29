@@ -107,12 +107,12 @@ angular.module('mobiusApp.directives.megaMenu', [])
                     });
                   });
 
-                  assignPropertiesToLocations(regionIndex, filteredProperties);
+                  assignPropertiesToLocations(regionIndex, _.uniq(filteredProperties));
 
                 });
               }
               else{
-                assignPropertiesToLocations(regionIndex, properties);
+                assignPropertiesToLocations(regionIndex, _.uniq(properties));
               }
 
             });
