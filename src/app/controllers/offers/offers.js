@@ -116,9 +116,6 @@ angular.module('mobius.controllers.offers', [])
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
 
-              
-
-              
               offers = _.each(offers, function(offer){
                 //If that offer only have 1 property availability, we will display the property name on thumbnail
                 if(offer.offerAvailability.length === 1){
@@ -126,20 +123,29 @@ angular.module('mobius.controllers.offers', [])
                   offer.propertyName = property.nameShort;
                   //availability.locationCode = property.locationCode;
                 }
-                /*
+                //assign a locationCode to each availability
                 _.each(offer.offerAvailability, function(availability){
                   var property = _.find(properties, function(prop){ return prop.code === availability.property;});
-                  availability.propertyName = property.nameShort;
                   availability.locationCode = property.locationCode;
                 });
-                */
               });
               
               //Filter offers by location if any
               if($stateParams.locationSlug){
                 locationService.getLocations().then(function(locations){
                   var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
-                  offers = _.filter(offers, function(offer){ return offer.locationCode === curLocation.code; });
+                  //remove any availability associated with a property not part of current location
+                  _.each(offers, function(offer){
+                    offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+                      return availability.locationCode !== curLocation.code;
+                    });
+                  });
+                  //Now remove offers with no availability unless featured
+                  offers = _.reject(offers, function(offer){
+                    return !offer.offerAvailability.length && !offer.featured;
+                  });
+
+                  //offers = _.filter(offers, function(offer){ return offer.locationCode === curLocation.code; });
                   //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
                   $scope.offersList = offers;
                 });
