@@ -91,19 +91,25 @@ angular.module('mobiusApp.directives.megaMenu', [])
               if(attrs.type === 'hot-deals'){
                 //get offers
                 contentService.getOffers().then(function(offers) {
-                  //only keep offers that have 1 property in availability
-                  offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length === 1;});
+                  //only keep offers that have at least 1 property in availability
+                  offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length;});
 
-
-                  
                   //only include properties that have an offer associated with them
                   var filteredProperties = [];
                   _.each(properties, function(property){
                     _.each(offers, function(offer){
+                      _.each(offer.offerAvailability, function(availability){
+                        if(property.code === availability.property){
+                          property.hotDealCode = availability.slug;
+                          filteredProperties.push(property);
+                        }
+                      });
+                      /*
                       if(property.code === offer.offerAvailability[0].property){
                         property.hotDealCode = offer.offerAvailability[0].slug;
                         filteredProperties.push(property);
                       }
+                      */
                     });
                   });
 
