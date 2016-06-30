@@ -54,9 +54,9 @@ angular.module('mobius.controllers.common.content', [])
       'subtitle': 'subtitle',
       'sort': 'prio',
       'reverseSort': true,
-      'keepProperty': true,
+      'keepProperty': Settings.UI.menu.offersKeepProperty,
       'limitToPropertyCodes': true,
-      'multiPropertyOnly': Settings.UI.menu.showHotDeals,
+      'chainWideOnly': Settings.UI.menu.offerlimitedToChainWide,
       'maxItemsCount': Settings.UI.menu.maxOffersCount,
       'slug': true
     },
@@ -193,7 +193,7 @@ angular.module('mobius.controllers.common.content', [])
 
     var toState = code ? $scope.settings.detailState : $scope.settings.listState;
 
-    if($state.params.property && $scope.settings.propertyState){
+    if($state.params.property && $scope.settings.propertyState && $scope.settings.keepProperty){
       params[$scope.settings.propertyParamName] = $state.params.propertySlug;
       toState = $scope.settings.propertyState;
     }
@@ -209,8 +209,14 @@ angular.module('mobius.controllers.common.content', [])
       data = _.reject(data, function(item){
 
         //Hot Deals vs Special Offers - Hot Deals are offers specific to a single property, if enabled Special Offers are only offers that have multiple properties availability
+        /*
         if($scope.settings.singlePropertyOnly && item.offerAvailability && item.offerAvailability.length > 1 || $scope.settings.multiPropertyOnly && item.offerAvailability && item.offerAvailability.length < 2){
           return true;
+        }
+        */
+
+        if($scope.settings.chainWideOnly){
+          return item.showAtChainLevel === false;
         }
 
 

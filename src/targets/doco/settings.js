@@ -214,6 +214,8 @@ angular.module('mobiusApp.config', [])
       'showAbout': true,
       'showNews': false,
       'showContact': true,
+      'offerlimitedToChainWide': false,
+      'offersKeepProperty': true,
       'offerSpecificToSelectedProperty': false,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
