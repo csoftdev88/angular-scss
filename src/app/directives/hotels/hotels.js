@@ -170,19 +170,22 @@ angular.module('mobiusApp.directives.hotels', [])
 
             if($stateParams.locationSlug){
               scope.regionSlug = $stateParams.regionSlug || null;
+              //Get locations
               locationService.getLocations().then(function(locations){
                 var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
-
+                
                 if(curLocation){
-                  //hero slider
-                  scope.updateHeroContent(curLocation.images);
-
                   if(Settings.UI.viewsSettings.hotels.showLocationDescription){
-                    scope.locationDetails = curLocation;
+                    //hero slider
+                    scope.updateHeroContent(curLocation.images);
+                    //details
+                    locationService.getLocation(curLocation.code).then(function(location){
+                      scope.locationDetails = location;
+                    });
                     //gallery
                     scope.previewImages = contentService.getLightBoxContent(curLocation.images, 300, 150, 'fill');
                   }
-                  //not working yet
+                  //filter hotels by location
                   scope.hotels = _.where(hotels, {locationCode: curLocation.code});
                 }
                 else{
@@ -267,7 +270,6 @@ angular.module('mobiusApp.directives.hotels', [])
               var hotelLocation = _.find(locations, function(location){ return location.code === hotel.locationCode; });
               var hotelRegion = _.find(regions, function(region){ return region.code === hotelLocation.regionCode; });
               hotel.regionName = hotelRegion.nameShort;
-              console.log('hotel.regionName: ' + hotel.regionName);
             });
           });
         });
