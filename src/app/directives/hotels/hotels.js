@@ -17,6 +17,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
     // Widget logic goes here
     link: function(scope){
+
       breadcrumbsService.clear().addBreadCrumb('Hotel Search');
 
       $controller('SSOCtrl', {$scope: scope});
@@ -30,6 +31,7 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.filterConfig = Settings.UI.hotelFilters;
       scope.displayPropertyChainBranding = Settings.UI.generics.applyChainClassToBody;
       scope.Math = window.Math;
+      scope.config = Settings.UI.viewsSettings.hotels;
       
       scope.initSortingOptions = function(options){
 
@@ -193,6 +195,11 @@ angular.module('mobiusApp.directives.hotels', [])
               scope.hotels = hotels || [];
             }
 
+            //We need the region name to display
+            if(scope.config.displayHotelRegionName){
+              getHotelRegionName();
+            }
+
             if(Settings.UI.generics.singleProperty){
               scope.navigateToHotel(scope.hotels[0].meta.slug);
             }
@@ -250,20 +257,20 @@ angular.module('mobiusApp.directives.hotels', [])
           
         });
 
-        // Loading locations
-        /* var locationsPromise = locationService.getLocations(bookingParams).then(function(locations){
-          scope.locations = locations || [];
-          scope.locations.unshift({nameShort: 'All Locations'});
-
-          // NOTE: LOCATION FEATURE IS DROPPED
-          /*if(bookingParams.locationCode) {
-            scope.location = _.find(scope.locations, {code: bookingParams.locationCode});
-            if(scope.location) {
-              scope.loadLocation();
-            }
-          }
-        });*/
         preloaderFactory(hotelsPromise);
+      }
+
+      function getHotelRegionName(){
+        locationService.getRegions().then(function(regions){
+          locationService.getLocations().then(function(locations){
+            _.each(scope.hotels, function(hotel){
+              var hotelLocation = _.find(locations, function(location){ return location.code === hotel.locationCode; });
+              var hotelRegion = _.find(regions, function(region){ return region.code === hotelLocation.regionCode; });
+              hotel.regionName = hotelRegion.nameShort;
+              console.log('hotel.regionName: ' + hotel.regionName);
+            });
+          });
+        });
       }
 
 /*

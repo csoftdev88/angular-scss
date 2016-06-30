@@ -88,11 +88,13 @@ hotels {
         }
 
         h2 {
-          font-size: @size-2;
-          font-weight: 300;
-          margin-bottom: @baseline/2;
-          color: @c-base;
-          cursor: pointer;
+          font-size: 18px;
+          font-weight: 600;
+          color: @c-grey;
+          text-transform: uppercase;
+          strong{
+            font-weight: 600;
+          }
         }
 
         pricing-info {
@@ -110,7 +112,11 @@ hotels {
           }
 
           p {
-            color: @c-black;
+            color: @c-dark-grey;
+            .value{
+              font-size: 13px;
+              color: @c-secondary;
+            }
           }
 
           p.price.available {
@@ -146,6 +152,31 @@ hotels {
               height: auto;
               margin-bottom: 10px;
             }
+          }
+        }
+
+        &.sign {
+
+          pricing-info {
+            p {
+              .value{
+                color: @c-menu-active-sign;
+              }
+            }
+          }
+
+          h2 {
+            font-family: @ff-heading-bold-sign;
+            font-weight: normal;
+            color: @c-dark-grey;
+            strong{
+              font-weight: normal;
+            }
+          }
+          .region-name{
+            font-family: @ff-heading-it-sign;
+            font-weight: normal;
+            text-transform: none;
           }
         }
       }

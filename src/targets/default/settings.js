@@ -687,7 +687,8 @@ angular.module('mobiusApp.config', [])
       },
       'hotels': {
         'showRegionDescription': false,
-        'showLocationDescription': false
+        'showLocationDescription': false,
+        'displayHotelRegionName': false
       },
       'hotelDetails':{
         'hasViewMore': false,

@@ -73,6 +73,8 @@
 
             <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel.meta.slug)">{{hotel.chainTitle}} <strong>{{hotel.nameShort}}</strong></h2>
 
+            <h5 class="region-name" ng-if="config.displayHotelRegionName && hotelViewMode === 'list' && hotel.regionName">{{hotel.regionName}}</h5>
+
             <div class="ratings">
               <div class="brand" ng-if="displayPropertyChainBranding" ng-class="hotel.chainCode.toLowerCase()"></div>
               <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor">
@@ -87,6 +89,8 @@
             </div>
 
             <h2 ng-if="hotelViewMode === 'tiles'" ng-click="navigateToHotel(hotel.meta.slug)">{{hotel.chainTitle}} <strong>{{hotel.nameShort}}</strong></h2>
+            <h5 class="region-name" ng-if="config.displayHotelRegionName && hotelViewMode === 'tiles' && hotel.regionName">{{hotel.regionName}}</h5>
+
             <pricing-info>
               <p class="price available left" ng-if="hotel.available">
                 _price_from_ <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> _per_night_
