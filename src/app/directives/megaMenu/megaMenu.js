@@ -47,7 +47,6 @@ angular.module('mobiusApp.directives.megaMenu', [])
       //Get Regions
       locationService.getRegions().then(function(regions){
         megaMenuCache.put('regions', regions);
-        //console.log('hotelsMenuCache regions: ' + angular.toJson(hotelsMenuCache.get('regions')));
         scope.regionsLoading = false;
         scope.regions = _.sortBy(regions, 'nameShort');
       });
@@ -56,7 +55,6 @@ angular.module('mobiusApp.directives.megaMenu', [])
 
         scope.locationsLoading = true;
         scope.activeRegion = scope.regions[regionIndex];
-        //scope.activeRegionCode = scope.regions[regionIndex].code;
 
         if(megaMenuCache.get('regions')[regionIndex].locations){
           scope.locationsLoading = false;
@@ -64,10 +62,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
         else{
           locationService.getLocations().then(function(locations){
-            //console.log('hotelsMenuCache locations: ' + angular.toJson(locations));
             //Cache current region's locations
             megaMenuCache.get('regions')[regionIndex].locations = _.where(locations, {regionCode: scope.activeRegion.code});
-            //console.log('megaMenuCache regions with locations: ' + angular.toJson(megaMenuCache.get('regions')[regionIndex]));
 
             //Get properties and filter by locationCode
             propertyService.getAll().then(function(properties){
@@ -100,16 +96,9 @@ angular.module('mobiusApp.directives.megaMenu', [])
                     _.each(offers, function(offer){
                       _.each(offer.offerAvailability, function(availability){
                         if(property.code === availability.property){
-                          property.hotDealCode = availability.slug;
                           filteredProperties.push(property);
                         }
                       });
-                      /*
-                      if(property.code === offer.offerAvailability[0].property){
-                        property.hotDealCode = offer.offerAvailability[0].slug;
-                        filteredProperties.push(property);
-                      }
-                      */
                     });
                   });
 
@@ -195,7 +184,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         //hot deals
         else if(attrs.type === 'hot-deals'){
           scope.closeMenu();
-          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, code: property.hotDealCode, property: null});
+          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, propertySlug: property.meta.slug, property: null});
         }
         //booking widget
         else if(attrs.type === 'booking-widget'){

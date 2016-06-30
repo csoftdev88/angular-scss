@@ -130,25 +130,38 @@ angular.module('mobius.controllers.offers', [])
                 });
               });
               
-              //Filter offers by location if any
-              if($stateParams.locationSlug){
+              //Filter offers by location if any, not if property is defined
+              if($stateParams.locationSlug && !$stateParams.propertySlug){
                 locationService.getLocations().then(function(locations){
                   var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
                   //remove any availability associated with a property not part of current location
-                  _.each(offers, function(offer){
+                  var filteredOffers = angular.copy(offers);
+                  _.each(filteredOffers, function(offer){
                     offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
                       return availability.locationCode !== curLocation.code;
                     });
                   });
                   //Now remove offers with no availability unless featured
-                  offers = _.reject(offers, function(offer){
+                  filteredOffers = _.reject(filteredOffers, function(offer){
                     return !offer.offerAvailability.length && !offer.featured;
                   });
-
-                  //offers = _.filter(offers, function(offer){ return offer.locationCode === curLocation.code; });
-                  //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
-                  $scope.offersList = offers;
+                  $scope.offersList = filteredOffers;
                 });
+              }
+              else if($stateParams.propertySlug){
+                var curProperty = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug;});
+                //remove any availability associated with a property that is not the current property
+                var filteredOffers = angular.copy(offers);
+                _.each(filteredOffers, function(offer){
+                  offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+                    return availability.property !== curProperty.code;
+                  });
+                });
+                //Now remove offers with no availability unless featured
+                filteredOffers = _.reject(filteredOffers, function(offer){
+                  return !offer.offerAvailability.length && !offer.featured;
+                });
+                $scope.offersList = filteredOffers;
               }
               else{
                 //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
