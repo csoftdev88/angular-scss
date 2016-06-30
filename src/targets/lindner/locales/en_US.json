@@ -206,6 +206,8 @@
     "more": "more",
     "room_found": "Room Found",
     "rooms_found": "Rooms Found",
+    "hotel_found": "Hotel Available",
+    "hotels_found": "Hotels Available",
     "per_night": "Per Night",
     "per_stay": "Per Stay",
     "price_from": "From",
