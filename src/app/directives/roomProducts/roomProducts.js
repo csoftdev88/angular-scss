@@ -65,23 +65,23 @@ angular.module('mobiusApp.directives.room.products', [])
             
             //hiddenProducts first
             var hiddenProducts = _.where(data.products, {productHidden: true});
-            hiddenProducts = $filter('orderBy')(hiddenProducts, '-weighting');
+            hiddenProducts = $filter('orderBy')(hiddenProducts, ['-weighting', 'price.totalBase']);
             //displayedProducts.push(hiddenProducts);
 
             //memberOnly Products
             var memberOnlyProducts = _.where(data.products, {memberOnly: true});
-            memberOnlyProducts = $filter('orderBy')(memberOnlyProducts, '-weighting');
+            memberOnlyProducts = $filter('orderBy')(memberOnlyProducts, ['-weighting', 'price.totalBase']);
             //displayedProducts.push(memberOnlyProducts);
 
             //highlighted Products
             var highlightedProducts = _.where(data.products, {highlighted: true});
-            highlightedProducts = $filter('orderBy')(highlightedProducts, '-weighting');
+            highlightedProducts = $filter('orderBy')(highlightedProducts, ['-weighting', 'price.totalBase']);
 
             //default Products
             var defaultProducts = _.reject(data.products, function(product) {
               return product.productHidden === true || product.memberOnly === true || product.highlighted === true;
             });
-            defaultProducts = $filter('orderBy')(defaultProducts, '-weighting');
+            defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBase']);
 
             scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
 
