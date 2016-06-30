@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.regions', [])
 
-  .controller('RegionsCtrl', function($scope, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _) {
+  .controller('RegionsCtrl', function($scope, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _, modalService) {
 
     $scope.showDetail = $stateParams.regionSlug ? true : false;
 
@@ -40,6 +40,12 @@ angular.module('mobius.controllers.regions', [])
         
         //gallery
         $scope.previewImages = contentService.getLightBoxContent($scope.region.images, 300, 150, 'fill');
+        $scope.openGallery = function(slideIndex){
+          modalService.openGallery(
+            contentService.getLightBoxContent($scope.region.images),
+            slideIndex
+          );
+        };
 
         //Locations
         locationService.getLocations().then(function(locations){

@@ -137,6 +137,11 @@ angular.module('mobiusApp.directives.hotels', [])
       if($stateParams.region && Settings.UI.viewsSettings.hotels.showRegionDescription){
         locationService.getRegion($stateParams.region).then(function(region){
           scope.regionDetails = region;
+          scope.openGallery = function(slideIndex){
+            modalService.openGallery(
+              contentService.getLightBoxContent(scope.regionDetails.images),
+              slideIndex);
+          };
         });
       }
 
@@ -175,15 +180,25 @@ angular.module('mobiusApp.directives.hotels', [])
                 var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
                 
                 if(curLocation){
+
+                  //hero slider
+                  scope.updateHeroContent(curLocation.images);
+
                   if(Settings.UI.viewsSettings.hotels.showLocationDescription){
-                    //hero slider
-                    scope.updateHeroContent(curLocation.images);
-                    //details
+                    
+                    //get current location
                     locationService.getLocation(curLocation.code).then(function(location){
+                      //details
                       scope.locationDetails = location;
+                      //gallery
+                      scope.previewImages = contentService.getLightBoxContent(location.images, 300, 150, 'fill');
+                      //gallery lightbox
+                      scope.openGallery = function(slideIndex){
+                        modalService.openGallery(
+                          contentService.getLightBoxContent(location.images),
+                          slideIndex);
+                      };
                     });
-                    //gallery
-                    scope.previewImages = contentService.getLightBoxContent(curLocation.images, 300, 150, 'fill');
                   }
                   //filter hotels by location
                   scope.hotels = _.where(hotels, {locationCode: curLocation.code});
