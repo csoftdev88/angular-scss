@@ -88,7 +88,28 @@ hotel-detail {
               color: @c-grey;
             }
           }
-        } 
+        }
+
+        //icon
+        .chosen-container-single .chosen-single div b {
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 26px;
+          height: 100%;
+          background: none;
+          &:after {
+            .fa;
+            position: absolute;
+            color: @c-grey;
+            font-size: 14px;
+            content: @fa-var-sort;
+            right: 10px;
+            top: 8px;
+          }
+
+        }
 
         .viewport-mobile & {
           width: 100%;

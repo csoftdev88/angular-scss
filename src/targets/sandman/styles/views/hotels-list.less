@@ -4,6 +4,44 @@
 
 hotels {
 
+  .chosen-container-single {
+    .chosen-single {
+      border-radius: 4px;
+      background: #f2f2f2;
+      background: -moz-linear-gradient(top, #f2f2f2 0%, #d4d4d4 100%);
+      background: -webkit-linear-gradient(top, #f2f2f2 0%,#d4d4d4 100%);
+      background: linear-gradient(to bottom, #f2f2f2 0%,#d4d4d4 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#d4d4d4',GradientType=0 );
+      border: 1px solid @c-light-grey;
+      line-height: 29px;
+      span{
+        color: @c-grey;
+      }
+    }
+  } 
+
+
+  //icon
+  .chosen-container-single .chosen-single div b {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 26px;
+    height: 100%;
+    background: none;
+    &:after {
+      .fa;
+      position: absolute;
+      color: @c-grey;
+      font-size: 14px;
+      content: @fa-var-sort;
+      right: 10px;
+      top: 8px;
+    }
+
+  }
+
   header + section {
     margin: @baseline 0;
   }
@@ -290,7 +328,7 @@ hotels {
         }
 
         &.is-active .fa {
-          color: @c-link;
+          color: @c-secondary;
         }
       }
     }
@@ -318,17 +356,13 @@ hotels {
       }
     }
 
-    h2 {
-      font-weight: 600;
-      font-size: @size--1;
+    h2, h3 {
+      font-weight: 400;
+      font-size: 15px;
       margin-bottom: @baseline/2;
+      color: @c-dark-grey;
     }
 
-    h3 {
-      font-weight: 300;
-      font-size: @size-0;
-      margin-bottom: @baseline/2;
-    }
 
     .logo-trip-advisor {
       display: inline-block;
@@ -337,6 +371,8 @@ hotels {
       height: 20px;
     }
   }
+
+
   .ratings {
     min-height: 30px;
 
@@ -355,6 +391,10 @@ hotels {
         height: 26px;
         background: url('@{img-prefix}/signature-logo-medium.png') no-repeat center;
       }
+    }
+
+    .rating-trip-advisor {
+      float: right;
     }
 
     // MOBILE SPECIFIC STYLES
@@ -408,8 +448,6 @@ hotels {
     }
 
     &.rating-trip-advisor {
-
-      float: right;
 
       &.img{
         display: inline;

@@ -41,7 +41,7 @@
       <h1 ng-bind-html="'_hotels_page_title_' | mainHeaderStyle"></h1>
       <ng-pluralize ng-if="config.displayHotelsCount" class="hotels-counter" count="(hotels|filter:hotelFilter).length" when="{'1': '1 _hotel_found_', 'other': '{} _hotels_found_'}"></ng-pluralize>
     </header>
-    <div class="hotels__controls" ng-if="hasDates() && hotelAvailable()">
+    <div class="hotels__controls" ng-if="hasDates() && hotelAvailable() && showFilter('sort') && !filterConfig.displaySortInSidebar">
       <div class="order-switch">
         <select 
           name="sorting" 
@@ -81,7 +81,7 @@
                 <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
               </div>
 
-              <div class="rating-default" ng-if="filterConfig.stars">
+              <div class="rating-default" ng-if="filterConfig.stars && filterConfig.displayStarsOnHotels">
                 <ul class="star-rating">
                   <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
                 </ul>
@@ -136,9 +136,30 @@
       </ul>
     </div>
     <div class="filters-bar">
+
+      <div ng-show="showFilter('sort') && hasDates() && filterConfig.displaySortInSidebar">
+        <h3>_sorting_filter_placeholder_</h3>
+        <select 
+          name="sorting" 
+          ng-model="currentOrder" 
+          chosen 
+          ng-options="option.name for option in sortingOptions" 
+          disable-search="true" 
+          ng-change="orderSwitchChange(currentOrder)"
+          ng-init="initSortingOptions({
+            'priceLowToHigh': '_price_low_to_high_',
+            'priceHighToLow': '_price_high_to_low_',
+            'availability': '_availability_',
+            'starRatingLowToHigh': '_star_rating_low_to_high_',
+            'starRatingHighToLow': '_star_rating_high_to_low_'
+          })">
+          <option></option> <!-- workaround for a bug in angular-chosen -->
+        </select>
+        <hr>
+      </div>
     
       <div ng-if="hasDates() && showFilter('price') && hotelAvailable()">
-        <h2>_filter_label_</h2>
+        <!--<h2>_filter_label_</h2>-->
         <h3>_filter_price_per_night_label_</h3>
         <div
           range-slider

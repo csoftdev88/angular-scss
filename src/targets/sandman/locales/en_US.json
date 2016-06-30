@@ -331,7 +331,7 @@
     "form_send_error": "Sending of message failed",
     "form_send_success": "Your Feedback has been successfully sent!",
     "form_send_success_desc": "Many thanks for your request, the relevant party will review and respond as required.",
-    "sorting_filter_placeholder": "Sorting",
+    "sorting_filter_placeholder": "Sort",
     "reservation_number_label": "Web Booking Code",
     "reservation_number_placeholder": "Web Booking Code",
     "reservation_number_error": "Look up of provided reservation number failed.",

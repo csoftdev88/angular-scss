@@ -392,14 +392,17 @@ angular.module('mobiusApp.config', [])
     },
     // toggle filters on hotels page
     'hotelFilters': {
-      'stars': false,
+      'sort': true,
+      'displaySortInSidebar': true,
+      'stars': true,
       'minStars': 3,
       'maxStars': 5,
-      'tripAdvisor': false,
+      'displayStarsOnHotels': false,
+      'tripAdvisor': true,
       'minTaRating': 3,
       'maxTaRating': 5,
       'rates': true,
-      'price': false
+      'price': true
     },
     // List of currencies and their display symbols
     'currencies': {
