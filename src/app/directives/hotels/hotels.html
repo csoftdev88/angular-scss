@@ -39,7 +39,7 @@
   <section grid-container="9" widget="hotels" id="hotels">
     <header class="hotels__header">
       <h1 ng-bind-html="'_hotels_page_title_' | mainHeaderStyle"></h1>
-      <ng-pluralize ng-if="config.displayHotelsCount" class="hotels-counter" count="(hotels|filter:hotelFilter).length" when="{'1': '1 _hotel_found_', 'other': '{} _hotels_found_'}"></ng-pluralize>
+      <ng-pluralize ng-if="config.displayHotelsCount" class="hotels-counter" count="(hotels|filter:hotelFilter|filter:filterByTags).length" when="{'1': '1 _hotel_found_', 'other': '{} _hotels_found_'}"></ng-pluralize>
     </header>
     <div class="hotels__controls" ng-if="hasDates() && hotelAvailable() && showFilter('sort') && !filterConfig.displaySortInSidebar">
       <div class="order-switch">
@@ -231,7 +231,7 @@
         <h3>_location_</h3>
         <ul class="check-boxes">
           <li ng-repeat="tag in filterTagOptions">
-            <input type="checkbox" ng-model="tagFilter[tag.tags]"> {{createTagFilterOptionLabel('_filter_tag_options_label_', tag.name)}}
+            <input type="checkbox" ng-model="tag.on" ng-change="tagFilterChange()"> {{createTagFilterOptionLabel('_filter_tag_options_label_', tag.name)}}
           </li>
         </ul>
         <hr/>

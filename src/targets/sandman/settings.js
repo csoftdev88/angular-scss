@@ -408,11 +408,12 @@ angular.module('mobiusApp.config', [])
       'tagFilters': [
         {
           'name': 'airport',
-          'tags': ['airportHotel']
+          'on': false
         },
         {
           'name': 'city',
-          'tags': ['cityHotel']
+          'tags': ['cityHotel'],
+          'on': false
         }
       ],
       'reset': false
