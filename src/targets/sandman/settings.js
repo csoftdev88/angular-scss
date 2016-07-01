@@ -58,7 +58,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': ' http://staging-sandman-www.mobiuswebservices.com:3010/api/4.0/',
+      'staging': ' http://staging-sandman-node.mobiuswebservices.com:3010/api/4.0/',
       'live':  ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {

@@ -43,23 +43,32 @@ angular.module('mobiusApp.directives.hotels', [])
         };
       }
 
-      //chain filter
+      //tags filter
       if(scope.filterConfig.tags){
-        scope.filterTags = scope.filterConfig.tagFilters;
 
+        //model
+        scope.tagFilter = {};
+
+        //options
+        scope.filterTagOptions = scope.filterConfig.tagFilters;
+
+        //create label
         scope.createTagFilterOptionLabel = function(string, tagName){
           return string.replace('{tag}', tagName);
         };
 
-        scope.onFilterTagsChanged = function(value){
-          console.log('onFilterTagsChanged: ' + value);
+        scope.filterByTags = function (hotel) {
+          if(!hotel.tags){
+            return true;
+          }
+          else{
+            console.log('tagFilter:' + angular.toJson(scope.tagFilter));
+          }
+          //console.log('hotel tags:' + angular.toJson(hotel.tags));
+          
+          //return $scope.filter[wine.category] || noFilter($scope.filter);
         };
 
-        scope.filteredTags = [];
-
-        scope.filterTag = function(tag) {
-          console.log(tag);
-        };
       }
 
       

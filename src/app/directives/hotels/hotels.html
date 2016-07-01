@@ -65,7 +65,7 @@
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{hotelViewMode}}">
-        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | orderBy : currentOrder.sort" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | filter: filterByTags | orderBy : currentOrder.sort" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
             <div class="item-image" ng-click="navigateToHotel(hotel.meta.slug)">
               <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
@@ -230,8 +230,8 @@
       <div ng-show="showFilter('tags') && hasDates()">
         <h3>_location_</h3>
         <ul class="check-boxes">
-          <li ng-repeat="tag in filterTags">
-            <input type="checkbox" ng-click="filterTag(tag)"> {{createTagFilterOptionLabel('_filter_tag_options_label_', tag.name)}}
+          <li ng-repeat="tag in filterTagOptions">
+            <input type="checkbox" ng-model="tagFilter[tag.tags]"> {{createTagFilterOptionLabel('_filter_tag_options_label_', tag.name)}}
           </li>
         </ul>
         <hr/>
