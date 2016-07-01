@@ -520,32 +520,38 @@ angular.module('mobiusApp.config', [])
       {
         'type': 'sort',
         'enable': true,
-        'displayInSidebar': false
+        'displayInSidebar': false,
+        'accordion': false
       },
       {
         'type': 'stars',
         'enable': true,
         'minStars': 3,
         'maxStars': 5,
-        'displayStarsOnHotels': true
+        'displayStarsOnHotels': true,
+        'accordion': false
       },
       {
         'type': 'tripAdvisor',
         'enable': true,
         'minTaRating': 3,
-        'maxTaRating': 5
+        'maxTaRating': 5,
+        'accordion': false
       },
       {
         'type': 'rates',
-        'enable': true
+        'enable': true,
+        'accordion': false
       },
       {
         'type': 'price',
-        'enable': true
+        'enable': true,
+        'accordion': false
       },
       {
         'type': 'chain',
-        'enable': false
+        'enable': false,
+        'accordion': false
       },
       {
         'type': 'tags',
@@ -561,11 +567,13 @@ angular.module('mobiusApp.config', [])
             'tags': ['cityHotel'],
             'checked': false
           }
-        ]
+        ],
+        'accordion': false
       },
       {
         'type': 'reset',
-        'enable': true
+        'enable': true,
+        'accordion': false
       }
     ],
     // List of currencies and their display symbols

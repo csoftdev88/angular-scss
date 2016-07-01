@@ -303,6 +303,44 @@ hotels {
       .viewport-mobile &{
         border: none;
       }
+
+      .is-accordion{
+        &.is-closed{
+          .accordion-content{
+            display: none;
+          }
+          h3{
+            .accordion-toggle{
+              &:after {
+                content: @fa-var-plus;
+              }
+            }
+          }
+        }
+        h3{
+          line-height: 20px;
+          .accordion-toggle{
+            display: block;
+            float: right;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            text-align: center;
+            cursor: pointer;
+            &:after {
+              .fa;
+              height: 20px;
+              line-height: 20px;
+              content: @fa-var-minus;
+              position: absolute;
+              font-size: 16px;
+              color: @c-secondary;
+            }
+          }
+        }
+      }
+
+
     }
 
     hr {
@@ -314,6 +352,10 @@ hotels {
       left: 0;
 
       &:after, &:before {
+        display: none;
+      }
+
+      .last &{
         display: none;
       }
     }

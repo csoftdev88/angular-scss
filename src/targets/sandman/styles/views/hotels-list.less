@@ -306,6 +306,9 @@ hotels {
 
     .view-switch {
       margin-bottom: @baseline;
+      border-top: 2px solid @c-light-grey;
+      padding-top: 16px;
+
       .clearfix;
 
       .viewport-mobile &{
@@ -334,9 +337,9 @@ hotels {
     }
 
     .filters-bar {
-      padding: @baseline 0;
-      border-width: 1px 0;
-      border-style: dashed;
+      padding: @baseline 0 5px 0;
+      border-width: 2px 0;
+      border-style: solid;
       border-color: @c-light-grey;
       .viewport-mobile &{
         border: none;
@@ -345,13 +348,19 @@ hotels {
 
     hr {
       border-bottom: 1px solid @c-light-grey;
-      margin: @baseline 0;
+      margin: 22px 0 5px 0;
       background: transparent;
       height: 0;
       width: 100%;
       left: 0;
 
       &:after, &:before {
+        display: none;
+      }
+    }
+
+    .star-filter{
+      hr{
         display: none;
       }
     }
