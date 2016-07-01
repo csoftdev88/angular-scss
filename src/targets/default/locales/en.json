@@ -312,6 +312,8 @@
     "filter_star_rating_label": "Star Rating",
     "filter_rating_label": "Rating",
     "filter_rates_label": "Rates",
+    "filter_chain_label": "Hotel Chain",
+    "filter_tag_options_label": "Show only {tag} hotels",
     "filter_range_separator": "to",
     "FORMS": "////////////////////////////////////////////////////////////",
     "name_label": "Name",

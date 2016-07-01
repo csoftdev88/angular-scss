@@ -137,7 +137,7 @@
     </div>
     <div class="filters-bar">
 
-      <div ng-show="showFilter('sort') && hasDates() && filterConfig.displaySortInSidebar">
+      <div ng-if="showFilter('sort') && hasDates() && filterConfig.displaySortInSidebar">
         <h3>_sorting_filter_placeholder_</h3>
         <select 
           name="sorting" 
@@ -203,6 +203,18 @@
         <hr/>
       </div>
 
+      <div ng-show="showFilter('chain') && hasDates()">
+        <h3>_filter_chain_label_</h3>
+        <select name="rate"
+          required ng-model="chainFilter"
+          disable-search="true"
+          ng-change="onFilterChainChanged(chainFilter)"
+          chosen ng-options="chain.code as chain.nameShort for chain in filterChains">
+          <option value="">_filter_chain_label_</option> <!-- workaround for a bug in angular-chosen -->
+        </select>
+        <hr/>
+      </div>
+
       <div ng-show="showFilter('rates') && hasDates()">
         <h3>_filter_rates_label_</h3>
         <select name="rate"
@@ -212,9 +224,20 @@
           chosen ng-options="rate as rate.name for rate in rates.all">
           <option></option> <!-- workaround for a bug in angular-chosen -->
         </select>
+        <hr/>
       </div>
 
-      <div class="reset-filters">
+      <div ng-show="showFilter('tags') && hasDates()">
+        <h3>_location_</h3>
+        <ul class="check-boxes">
+          <li ng-repeat="tag in filterTags">
+            <input type="checkbox" ng-click="filterTag(tag)"> {{createTagFilterOptionLabel('_filter_tag_options_label_', tag.name)}}
+          </li>
+        </ul>
+        <hr/>
+      </div>
+
+      <div class="reset-filters" ng-show="showFilter('reset')">
         <a href ng-click="resetFilters()">_reset_filters_</a>
       </div>
     </div>

@@ -517,6 +517,8 @@
     "filter_rating_label": "Rating",
 
     "filter_rates_label": "Preise",
+    "filter_chain_label": "Hotel Chain",
+    "filter_tag_options_label": "Show only {tag} hotels",
 
     "filter_range_separator": "bis",
 

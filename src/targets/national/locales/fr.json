@@ -312,6 +312,8 @@
     "filter_star_rating_label": "Évaluation étoilée",
     "filter_rating_label": "Évaluation",
     "filter_rates_label": "Tarifs",
+    "filter_chain_label": "Hotel Chain",
+    "filter_tag_options_label": "Show only {tag} hotels",
     "filter_range_separator": "à",
     "FORMS": "////////////////////////////////////////////////////////////",
     "name_label": "Nom",

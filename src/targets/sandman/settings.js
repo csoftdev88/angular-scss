@@ -11,7 +11,7 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'staging': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
+    'staging': 'http://staging-sandman-infiniti.mobiuswebservices.com/track/content/infiniti.js',
     'live': 'http://integration-sandman.infiniti.io/track/content/infiniti.js'
   },
   'sentry': {
@@ -58,7 +58,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
+      'staging': ' http://staging-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'live':  ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
@@ -394,15 +394,28 @@ angular.module('mobiusApp.config', [])
     'hotelFilters': {
       'sort': true,
       'displaySortInSidebar': true,
-      'stars': true,
+      'stars': false,
       'minStars': 3,
       'maxStars': 5,
       'displayStarsOnHotels': false,
-      'tripAdvisor': true,
+      'tripAdvisor': false,
       'minTaRating': 3,
       'maxTaRating': 5,
       'rates': true,
-      'price': true
+      'price': true,
+      'chain': true,
+      'tags': true,
+      'tagFilters': [
+        {
+          'name': 'airport',
+          'tags': ['airportHotel']
+        },
+        {
+          'name': 'city',
+          'tags': ['cityHotel']
+        }
+      ],
+      'reset': false
     },
     // List of currencies and their display symbols
     'currencies': {
