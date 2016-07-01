@@ -394,7 +394,7 @@ angular.module('mobiusApp.config', [])
     'hotelFilters': {
       'sort': true,
       'displaySortInSidebar': true,
-      'stars': false,
+      'stars': true,
       'minStars': 3,
       'maxStars': 5,
       'displayStarsOnHotels': false,
