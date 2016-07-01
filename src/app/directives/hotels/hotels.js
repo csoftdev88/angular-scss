@@ -32,6 +32,36 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.displayPropertyChainBranding = Settings.UI.generics.applyChainClassToBody;
       scope.Math = window.Math;
       scope.config = Settings.UI.viewsSettings.hotels;
+
+      //chain filter
+      if(scope.filterConfig.chain){
+        chainService.getAll().then(function(chains){
+          scope.filterChains = chains;
+        });
+        scope.onFilterChainChanged = function(value){
+          console.log('onFilterChainChanged: ' + value);
+        };
+      }
+
+      //chain filter
+      if(scope.filterConfig.tags){
+        scope.filterTags = scope.filterConfig.tagFilters;
+
+        scope.createTagFilterOptionLabel = function(string, tagName){
+          return string.replace('{tag}', tagName);
+        };
+
+        scope.onFilterTagsChanged = function(value){
+          console.log('onFilterTagsChanged: ' + value);
+        };
+
+        scope.filteredTags = [];
+
+        scope.filterTag = function(tag) {
+          console.log(tag);
+        };
+      }
+
       
       scope.initSortingOptions = function(options){
 
@@ -428,7 +458,8 @@ angular.module('mobiusApp.directives.hotels', [])
           (Settings.UI.hotelFilters.stars ? (scope.minStars <= hotel.rating && hotel.rating < (scope.maxStars + 1)) : true) &&
           (Settings.UI.hotelFilters.tripAdvisor ? (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating < (scope.maxRating + 1)) : true) &&
           (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode)) &&
-          (!bookingParams.regionCode || (bookingParams.regionCode === hotel.regionCode))
+          (!bookingParams.regionCode || (bookingParams.regionCode === hotel.regionCode)) &&
+          (Settings.UI.hotelFilters.chain && angular.isDefined(scope.chainFilter) ? scope.chainFilter === hotel.chainCode : true)
         );
       };
 
