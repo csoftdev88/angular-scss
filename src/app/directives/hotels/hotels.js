@@ -28,7 +28,12 @@ angular.module('mobiusApp.directives.hotels', [])
 
       var mobiusUserPreferences = userPreferenceService.getCookie();
 
-      scope.filterConfig = Settings.UI.hotelFilters;
+      scope.hotelFilters = Settings.UI.hotelFilters;
+      scope.filterConfig = {};
+      _.each(Settings.UI.hotelFilters, function(filter){
+        scope.filterConfig[filter.type] = filter;
+      });
+
       scope.displayPropertyChainBranding = Settings.UI.generics.applyChainClassToBody;
       scope.Math = window.Math;
       scope.config = Settings.UI.viewsSettings.hotels;
@@ -42,16 +47,13 @@ angular.module('mobiusApp.directives.hotels', [])
           console.log('onFilterChainChanged: ' + value);
         };
       }
-      
+
 
       //tags filter
-      if(scope.filterConfig.tags){
-
-        //model
-        scope.tagFilter = {};
+      if(scope.filterConfig.tags.enable){
 
         //options
-        scope.filterTagOptions = scope.filterConfig.tagFilters;
+        scope.filterTagOptions = scope.filterConfig.tags.filters;
 
         //create label
         scope.createTagFilterOptionLabel = function(string, tagName){
@@ -61,7 +63,7 @@ angular.module('mobiusApp.directives.hotels', [])
         var noTagFilterSelected = true;
         scope.tagFilterChange = function() {
           for(var option in scope.filterTagOptions){
-            if(scope.filterTagOptions[option].on){
+            if(scope.filterTagOptions[option].checked){
               noTagFilterSelected = false;
               return;
             }
@@ -78,7 +80,7 @@ angular.module('mobiusApp.directives.hotels', [])
        
           for(var option in scope.filterTagOptions){
             var filter = scope.filterTagOptions[option];
-            if(filter.on){
+            if(filter.checked){
               //if hotel doesn't have tags, remove it
               if(!hotel.tags || !hotel.tags.length){
                 return false;
@@ -187,12 +189,12 @@ angular.module('mobiusApp.directives.hotels', [])
         userPreferenceService.setCookie('hotelViewMode', mode);
         scope.hotelViewMode = mode;
       };
-      //scope.preference.setDefault('hotels-view-mode', 'tiles');
 
-      scope.MIN_STARS = Settings.UI.hotelFilters.minStars;
-      scope.MAX_STARS = Settings.UI.hotelFilters.maxStars;
-      scope.MIN_RATING = Settings.UI.hotelFilters.minTaRating;
-      scope.MAX_RATING = Settings.UI.hotelFilters.maxTaRating;
+
+      scope.MIN_STARS = scope.filterConfig.stars.minStars;
+      scope.MAX_STARS = scope.filterConfig.stars.maxStars;
+      scope.MIN_RATING = scope.filterConfig.tripAdvisor.minTaRating;
+      scope.MAX_RATING = scope.filterConfig.tripAdvisor.maxTaRating;
 
       scope.minStars = scope.MIN_STARS;
       scope.maxStars = scope.MAX_STARS;
@@ -321,7 +323,7 @@ angular.module('mobiusApp.directives.hotels', [])
               });
             }
 
-            if(Settings.UI.hotelFilters.price){
+            if(scope.filterConfig.price.enable){
               scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
               scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
               scope.minSelectedPrice = scope.minPrice;
@@ -490,12 +492,12 @@ angular.module('mobiusApp.directives.hotels', [])
 
       scope.hotelFilter = function(hotel) {
         return (
-          (Settings.UI.hotelFilters.price ? (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) : true) &&
-          (Settings.UI.hotelFilters.stars ? (scope.minStars <= hotel.rating && hotel.rating < (scope.maxStars + 1)) : true) &&
-          (Settings.UI.hotelFilters.tripAdvisor ? (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating < (scope.maxRating + 1)) : true) &&
+          (scope.filterConfig.price.enable ? (scope.minSelectedPrice <= hotel.priceFrom && hotel.priceFrom <= scope.maxSelectedPrice) : true) &&
+          (scope.filterConfig.stars.enable ? (scope.minStars <= hotel.rating && hotel.rating < (scope.maxStars + 1)) : true) &&
+          (scope.filterConfig.tripAdvisor.enable ? (scope.minRating <= hotel.tripAdvisorRating && hotel.tripAdvisorRating < (scope.maxRating + 1)) : true) &&
           (!scope.location || !scope.location.code || (scope.location.code === hotel.locationCode)) &&
           (!bookingParams.regionCode || (bookingParams.regionCode === hotel.regionCode)) &&
-          (Settings.UI.hotelFilters.chain && angular.isDefined(scope.chainFilter) ? scope.chainFilter === hotel.chainCode : true)
+          (scope.filterConfig.chain.enable && angular.isDefined(scope.chainFilter) ? scope.chainFilter === hotel.chainCode : true)
         );
       };
 
@@ -515,7 +517,7 @@ angular.module('mobiusApp.directives.hotels', [])
       };
 
       scope.showFilter = function(filter){
-        return Settings.UI.hotelFilters[filter];
+        return scope.filterConfig[filter].enable;
       };
 
       scope.selectDates = function(){

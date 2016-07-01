@@ -391,34 +391,58 @@ angular.module('mobiusApp.config', [])
       'offersLimit': 3
     },
     // toggle filters on hotels page
-    'hotelFilters': {
-      'sort': true,
-      'displaySortInSidebar': true,
-      'stars': true,
-      'minStars': 3,
-      'maxStars': 5,
-      'displayStarsOnHotels': false,
-      'tripAdvisor': false,
-      'minTaRating': 3,
-      'maxTaRating': 5,
-      'rates': true,
-      'price': true,
-      'chain': true,
-      'tags': true,
-      'tagFilters': [
-        {
-          'name': 'airport',
-          'tags': ['airportHotel'],
-          'on': false
-        },
-        {
-          'name': 'city',
-          'tags': ['cityHotel'],
-          'on': false
-        }
-      ],
-      'reset': false
-    },
+    'hotelFilters': [
+      {
+        'type': 'sort',
+        'enable': true,
+        'displayInSidebar': true
+      },
+      {
+        'type': 'tripAdvisor',
+        'enable': false,
+        'minTaRating': 3,
+        'maxTaRating': 5
+      },
+      {
+        'type': 'rates',
+        'enable': true
+      },
+      {
+        'type': 'price',
+        'enable': true
+      },
+      {
+        'type': 'chain',
+        'enable': true
+      },
+      {
+        'type': 'tags',
+        'enable': true,
+        'filters': [
+          {
+            'name': 'airport',
+            'tags': ['airportHotel'],
+            'checked': false
+          },
+          {
+            'name': 'city',
+            'tags': ['cityHotel'],
+            'checked': false
+          }
+        ]
+      },
+      {
+        'type': 'stars',
+        'enable': true,
+        'minStars': 3,
+        'maxStars': 5,
+        'displayStarsOnHotels': false
+      },
+      {
+        'type': 'reset',
+        'enable': false
+      }
+    ],
     // List of currencies and their display symbols
     'currencies': {
       'default': 'CAD',

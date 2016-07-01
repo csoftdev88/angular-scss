@@ -508,16 +508,58 @@ angular.module('mobiusApp.config', [])
       'offersLimit': 999
     },
     // toggle filters on hotels page
-    'hotelFilters': {
-      'stars': true,
-      'minStars': 3,
-      'maxStars': 5,
-      'tripAdvisor': true,
-      'minTaRating': 3,
-      'maxTaRating': 5,
-      'rates': true,
-      'price': true
-    },
+    'hotelFilters': [
+      {
+        'type': 'sort',
+        'enable': true,
+        'displayInSidebar': false
+      },
+      {
+        'type': 'stars',
+        'enable': true,
+        'minStars': 3,
+        'maxStars': 5,
+        'displayStarsOnHotels': true
+      },
+      {
+        'type': 'tripAdvisor',
+        'enable': true,
+        'minTaRating': 3,
+        'maxTaRating': 5
+      },
+      {
+        'type': 'rates',
+        'enable': true
+      },
+      {
+        'type': 'price',
+        'enable': true
+      },
+      {
+        'type': 'chain',
+        'enable': false
+      },
+      {
+        'type': 'tags',
+        'enable': false,
+        'filters': [
+          {
+            'name': 'airport',
+            'tags': ['airportHotel'],
+            'checked': false
+          },
+          {
+            'name': 'city',
+            'tags': ['cityHotel'],
+            'checked': false
+          }
+        ]
+      },
+      {
+        'type': 'reset',
+        'enable': true
+      }
+    ],
     // List of currencies and their display symbols
     'currencies': {
       'default': 'EUR',

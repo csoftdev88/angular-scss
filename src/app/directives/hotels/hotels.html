@@ -41,7 +41,7 @@
       <h1 ng-bind-html="'_hotels_page_title_' | mainHeaderStyle"></h1>
       <ng-pluralize ng-if="config.displayHotelsCount" class="hotels-counter" count="(hotels|filter:hotelFilter|filter:filterByTags).length" when="{'1': '1 _hotel_found_', 'other': '{} _hotels_found_'}"></ng-pluralize>
     </header>
-    <div class="hotels__controls" ng-if="hasDates() && hotelAvailable() && showFilter('sort') && !filterConfig.displaySortInSidebar">
+    <div class="hotels__controls" ng-if="hasDates() && hotelAvailable() && showFilter('sort') && !filterConfig.sort.displayInSidebar">
       <div class="order-switch">
         <select 
           name="sorting" 
@@ -77,11 +77,11 @@
 
             <div class="ratings">
               <div class="brand" ng-if="displayPropertyChainBranding" ng-class="hotel.chainCode.toLowerCase()"></div>
-              <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor">
+              <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor.enable">
                 <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
               </div>
 
-              <div class="rating-default" ng-if="filterConfig.stars && filterConfig.displayStarsOnHotels">
+              <div class="rating-default" ng-if="filterConfig.stars.enable && filterConfig.stars.displayStarsOnHotels">
                 <ul class="star-rating">
                   <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
                 </ul>
@@ -137,108 +137,112 @@
     </div>
     <div class="filters-bar">
 
-      <div ng-if="showFilter('sort') && hasDates() && filterConfig.displaySortInSidebar">
-        <h3>_sorting_filter_placeholder_</h3>
-        <select 
-          name="sorting" 
-          ng-model="currentOrder" 
-          chosen 
-          ng-options="option.name for option in sortingOptions" 
-          disable-search="true" 
-          ng-change="orderSwitchChange(currentOrder)"
-          ng-init="initSortingOptions({
-            'priceLowToHigh': '_price_low_to_high_',
-            'priceHighToLow': '_price_high_to_low_',
-            'availability': '_availability_',
-            'starRatingLowToHigh': '_star_rating_low_to_high_',
-            'starRatingHighToLow': '_star_rating_high_to_low_'
-          })">
-          <option></option> <!-- workaround for a bug in angular-chosen -->
-        </select>
-        <hr>
-      </div>
-    
-      <div ng-if="hasDates() && showFilter('price') && hotelAvailable()">
-        <!--<h2>_filter_label_</h2>-->
-        <h3>_filter_price_per_night_label_</h3>
-        <div
-          range-slider
-          min="minPrice"
-          max="maxPrice"
-          model-min="minSelectedPrice"
-          model-max="maxSelectedPrice"
-          show-values="true"
-          filter="i18nCurrency"
-          filter-options="{{$root.currencyCode}}"
-          attach-handle-values="true"></div>
-        <hr>
-      </div>
+      <div ng-repeat="filter in hotelFilters">
 
-      <div ng-show="showFilter('stars')">
-        <h3>_filter_star_rating_label_</h3>
-        <div class="stars">
-          <ul class="stars-left">
-            <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}"></li>
-          </ul>
-          _filter_range_separator_
-          <ul class="stars-right">
-            <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
-          </ul>
+        <div ng-if="filter.type === 'sort' && filter.enable && filter.displayInSidebar && hasDates()">
+          <h3>_sorting_filter_placeholder_</h3>
+          <select 
+            name="sorting" 
+            ng-model="currentOrder" 
+            chosen 
+            ng-options="option.name for option in sortingOptions" 
+            disable-search="true" 
+            ng-change="orderSwitchChange(currentOrder)"
+            ng-init="initSortingOptions({
+              'priceLowToHigh': '_price_low_to_high_',
+              'priceHighToLow': '_price_high_to_low_',
+              'availability': '_availability_',
+              'starRatingLowToHigh': '_star_rating_low_to_high_',
+              'starRatingHighToLow': '_star_rating_high_to_low_'
+            })">
+            <option></option> <!-- workaround for a bug in angular-chosen -->
+          </select>
+          <hr>
         </div>
-        <hr>
-      </div>
-
-
-      <div ng-show="showFilter('tripAdvisor')">
-        <h3><i class="logo-trip-advisor"></i> _filter_rating_label_</h3>
-        <div class="stars rating-trip-advisor">
-          <ul class="stars-left">
-            <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMinRating(rating)" ng-class="{included: rating <= minRating}"></li>
-          </ul>
-          _filter_range_separator_
-          <ul class="stars-right">
-            <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMaxRating(rating)" ng-class="{included: rating <= maxRating}"></li>
-          </ul>
+      
+        <div ng-if="filter.type === 'price' && filter.enable && hotelAvailable() && hasDates()">
+          <!--<h2>_filter_label_</h2>-->
+          <h3>_filter_price_per_night_label_</h3>
+          <div
+            range-slider
+            min="minPrice"
+            max="maxPrice"
+            model-min="minSelectedPrice"
+            model-max="maxSelectedPrice"
+            show-values="true"
+            filter="i18nCurrency"
+            filter-options="{{$root.currencyCode}}"
+            attach-handle-values="true"></div>
+          <hr>
         </div>
-        <hr/>
-      </div>
 
-      <div ng-show="showFilter('chain') && hasDates()">
-        <h3>_filter_chain_label_</h3>
-        <select name="rate"
-          required ng-model="chainFilter"
-          disable-search="true"
-          ng-change="onFilterChainChanged(chainFilter)"
-          chosen ng-options="chain.code as chain.nameShort for chain in filterChains">
-          <option value="">_filter_chain_label_</option> <!-- workaround for a bug in angular-chosen -->
-        </select>
-        <hr/>
-      </div>
+        <div ng-show="filter.type === 'stars' && filter.enable">
+          <h3>_filter_star_rating_label_</h3>
+          <div class="stars">
+            <ul class="stars-left">
+              <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}"></li>
+            </ul>
+            _filter_range_separator_
+            <ul class="stars-right">
+              <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
+            </ul>
+          </div>
+          <hr>
+        </div>
 
-      <div ng-show="showFilter('rates') && hasDates()">
-        <h3>_filter_rates_label_</h3>
-        <select name="rate"
-          required ng-model="rates.selectedRate"
-          disable-search="true"
-          ng-change="rates.onRateChanged()"
-          chosen ng-options="rate as rate.name for rate in rates.all">
-          <option></option> <!-- workaround for a bug in angular-chosen -->
-        </select>
-        <hr/>
-      </div>
 
-      <div ng-show="showFilter('tags') && hasDates()">
-        <h3>_location_</h3>
-        <ul class="check-boxes">
-          <li ng-repeat="tag in filterTagOptions">
-            <input type="checkbox" ng-model="tag.on" ng-change="tagFilterChange()"> {{createTagFilterOptionLabel('_filter_tag_options_label_', tag.name)}}
-          </li>
-        </ul>
-        <hr/>
-      </div>
+        <div ng-show="filter.type === 'tripAdvisor' && filter.enable">
+          <h3><i class="logo-trip-advisor"></i> _filter_rating_label_</h3>
+          <div class="stars rating-trip-advisor">
+            <ul class="stars-left">
+              <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMinRating(rating)" ng-class="{included: rating <= minRating}"></li>
+            </ul>
+            _filter_range_separator_
+            <ul class="stars-right">
+              <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMaxRating(rating)" ng-class="{included: rating <= maxRating}"></li>
+            </ul>
+          </div>
+          <hr/>
+        </div>
 
-      <div class="reset-filters" ng-show="showFilter('reset')">
-        <a href ng-click="resetFilters()">_reset_filters_</a>
+        <div ng-show="filter.type === 'chain' && filter.enable && hasDates()">
+          <h3>_filter_chain_label_</h3>
+          <select name="rate"
+            required ng-model="chainFilter"
+            disable-search="true"
+            ng-change="onFilterChainChanged(chainFilter)"
+            chosen ng-options="chain.code as chain.nameShort for chain in filterChains">
+            <option value="">_filter_chain_label_</option> <!-- workaround for a bug in angular-chosen -->
+          </select>
+          <hr/>
+        </div>
+
+        <div ng-show="filter.type === 'rates' && filter.enable && hasDates()">
+          <h3>_filter_rates_label_</h3>
+          <select name="rate"
+            required ng-model="rates.selectedRate"
+            disable-search="true"
+            ng-change="rates.onRateChanged()"
+            chosen ng-options="rate as rate.name for rate in rates.all">
+            <option></option> <!-- workaround for a bug in angular-chosen -->
+          </select>
+          <hr/>
+        </div>
+
+        <div ng-show="filter.type === 'tags' && filter.enable && hasDates()">
+          <h3>_location_</h3>
+          <ul class="check-boxes">
+            <li ng-repeat="tag in filterTagOptions">
+              <input type="checkbox" ng-model="tag.checked" ng-change="tagFilterChange()"> {{createTagFilterOptionLabel('_filter_tag_options_label_', tag.name)}}
+            </li>
+          </ul>
+          <hr/>
+        </div>
+
+        <div class="reset-filters" ng-show="filter.type === 'reset' && filter.enable">
+          <a href ng-click="resetFilters()">_reset_filters_</a>
+        </div>
+        
       </div>
     </div>
   </aside>
