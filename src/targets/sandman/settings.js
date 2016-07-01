@@ -408,6 +408,7 @@ angular.module('mobiusApp.config', [])
       'tagFilters': [
         {
           'name': 'airport',
+          'tags': ['airportHotel'],
           'on': false
         },
         {
