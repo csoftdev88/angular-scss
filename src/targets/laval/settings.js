@@ -610,6 +610,7 @@ angular.module('mobiusApp.config', [])
       'discountCodeCookieExpiryDays': 5,
       'displayPageHeading': false,
       'includeOfferAvailabilityPropertyDropdown': false,
+      'displayOfferImageInHeroSlider': false,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
         '0': 1,

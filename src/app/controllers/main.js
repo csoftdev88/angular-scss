@@ -130,7 +130,7 @@ angular.module('mobius.controllers.main', [])
               }
               
             });
-            
+            //return data;
             $scope.heroContent = data;
 
           });

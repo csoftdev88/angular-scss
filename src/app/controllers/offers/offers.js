@@ -7,7 +7,7 @@ angular.module('mobius.controllers.offers', [])
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
       $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService) {
 
-    $controller('MainCtrl', {$scope: $scope});
+    //$controller('MainCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
 
     $scope.config = Settings.UI.offers;
@@ -334,6 +334,9 @@ angular.module('mobius.controllers.offers', [])
           });
       }
       else{
+        if($scope.config.displayOfferImageInHeroSlider && !_.isEmpty($scope.selectedOffer.image)){
+          $scope.updateHeroContent([$scope.selectedOffer.image]);
+        }
         breadcrumbsService.clear()
           .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'hotDeals' : 'offers', {code: null})
           .addBreadCrumb($scope.selectedOffer.title);

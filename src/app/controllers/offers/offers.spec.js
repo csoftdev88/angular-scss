@@ -146,10 +146,11 @@ describe('mobius.controllers.offers', function() {
         $provide.value('contentService', {
           getOffers: sinon.stub()
         });
-
+        /*
         $controllerProvider.register('MainCtrl', function($scope){
           $scope._mainCtrlInherited = true;
         });
+        */
         $controllerProvider.register('SSOCtrl', function(){});
       });
     });
@@ -180,9 +181,11 @@ describe('mobius.controllers.offers', function() {
     }));
 
     describe('when controller initialized', function() {
+      /*
       it('should inherit MainCtrl', function(){
         expect(_scope._mainCtrlInherited).equal(true);
       });
+      */
 
       it('should add Offers breadcrumb', function(){
         //expect(_breadcrumbsService.addBreadCrumb.calledWith('Offers')).equal(true);

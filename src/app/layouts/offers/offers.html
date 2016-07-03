@@ -48,7 +48,7 @@
       <h1 ng-bind-html="selectedOffer.availability && selectedOffer.availability.title !== '' ? selectedOffer.availability.title : selectedOffer.title | mainHeaderStyle"></h1>
       
       <div class="offer-content">
-        <img ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
+        <img ng-if="!config.displayOfferImageInHeroSlider" ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedOffer.image.uri}}"/>
         <span ng-bind-html="selectedOffer.availability && selectedOffer.availability.text !== '<div></div>' && selectedOffer.availability.text !== '' ? selectedOffer.availability.text : selectedOffer.text | trustAsHtml" markdown-text-parser ng-click="bindHtmlClick($event)"></span>
         <a class="button login hide" ng-click="login()">_login_register_</a>
       </div>
