@@ -324,7 +324,6 @@ angular.module('mobiusApp.directives.hotels', [])
               scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
               scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
               scope.minSelectedPrice = scope.minPrice;
-              console.log(scope.minSelectedPrice);
               scope.maxSelectedPrice = scope.maxPrice;
             }
             
