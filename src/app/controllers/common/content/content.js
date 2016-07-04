@@ -87,6 +87,7 @@ angular.module('mobius.controllers.common.content', [])
       'title': 'title',
       'sort': 'prio',
       'reverseSort': true,
+      'maxItemsCount': Settings.UI.menu.maxAboutCount,
       'slug': true
     }
   };
@@ -230,12 +231,12 @@ angular.module('mobius.controllers.common.content', [])
             return availability.showOnMenu === false;
           }
         }
-        
+
         //If at chain level, remove items that have showOnMenu = false in main settings
         if(item.showAtChainLevel && !$state.params.property){
           return item.showOnMenu === false;
         }
-        
+
       });
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
