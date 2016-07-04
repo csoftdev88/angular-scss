@@ -20,6 +20,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
       scope.type = attrs.type;
       scope.isBookingWidget = attrs.type === 'booking-widget';
       scope.isHotels = attrs.type === 'hotels';
+      scope.isHotDeals = attrs.type === 'hot-deals';
 
       //external region links
       scope.externalRegionLinks = Settings.UI.menu.externalRegionLinks;
@@ -82,9 +83,9 @@ angular.module('mobiusApp.directives.megaMenu', [])
               else{
                 properties = _.sortBy(properties, 'nameShort');
               }
-              
+
               //if hot deals, remove properties that don't have hot deals
-              if(attrs.type === 'hot-deals'){
+              if(scope.isHotDeals){
                 //get offers
                 contentService.getOffers().then(function(offers) {
                   //only keep offers that have at least 1 property in availability
@@ -95,7 +96,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
                   _.each(properties, function(property){
                     _.each(offers, function(offer){
                       _.each(offer.offerAvailability, function(availability){
-                        if(property.code === availability.property){
+                        if(property.code === availability.property && availability.featured){
                           filteredProperties.push(property);
                         }
                       });
