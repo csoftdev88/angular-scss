@@ -236,7 +236,7 @@ angular.module('mobius.controllers.offers', [])
       $scope.offersList[selectedOfferIndex].availability = availability;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
-      if($stateParams.propertySlug){
+      if($stateParams.propertySlug && !$scope.isHotDeals){
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
       else{
