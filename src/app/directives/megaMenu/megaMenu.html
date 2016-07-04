@@ -5,7 +5,7 @@
   <div class="regions">
     <div class="preloader" ng-show="regionsLoading"></div>
     <ul>
-      <li ng-repeat="region in regions | orderBy: 'nameShort'"><a href="" ng-click="getLocations($index)" ng-class="{'active': region.code === activeRegion.code}">{{region.nameShort}}</a></li>
+      <li ng-repeat="region in regions | orderBy: 'nameShort'"><a href="" ng-mouseover="getLocations($index)" ng-class="{'active': region.code === activeRegion.code}">{{region.nameShort}}</a></li>
     </ul>
     <ul ng-if="externalRegionLinks.length && isHotels" class="external-region-links">
       <li ng-repeat="link in externalRegionLinks | orderBy: 'title'"><a ng-href="{{link.url}}">{{link.title}}</a></li>
@@ -38,5 +38,5 @@
     <div class="label">_select_hotel_</div>
     <input type="text" placeholder="_search_" ng-model="propertySearch" ng-show="locations">
   </footer>
-  
+
 </div>
