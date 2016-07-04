@@ -229,6 +229,7 @@ angular.module('mobiusApp.config', [])
       'offersKeepProperty': false,
       'offerSpecificToSelectedProperty': false,
       'maxOffersCount': 4,
+      'maxAboutCount': 6,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': true,
