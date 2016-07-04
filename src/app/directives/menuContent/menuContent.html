@@ -37,7 +37,7 @@
     <li has-dropdown="hover" class="dropdown-submenu" ng-show="hasFilteredItems(content) && !hasSecondLevelDropdown || settings.maxItemsCount && settings.maxItemsCount < content.length">
       <div class="divider"/>
       <div class="dropdown">
-        <a ng-href="{{getStateHref()}}" ng-click="goToState($event)" class="submenu-link">_see_all_ {{settings.listState}}</a>
+        <a ng-href="{{getStateHref()}}" ng-click="goToState($event)" class="submenu-link">_see_all_ {{title}}</a>
       </div>
     </li>
   </ul>
