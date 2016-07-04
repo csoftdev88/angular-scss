@@ -217,6 +217,11 @@ angular.module('mobiusApp.directives.hotels', [])
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
+          
+          //if dates, sort hotels by price by default
+          if(scope.hasDates()){
+            hotels = _.sortBy(hotels, 'priceFrom');
+          }
 
           chainService.getAll().then(function(chains){
 
