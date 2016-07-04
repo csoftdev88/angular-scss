@@ -96,6 +96,11 @@ describe('mobius.controllers.hotel.details', function() {
           setCookie: function(){}
         });
 
+        $provide.value('locationService', {
+          getLocations: function(){},
+          getRegions: function(){}
+        });
+
         $provide.value('modalService', {
           openGallery: function(){}
         });
@@ -132,6 +137,10 @@ describe('mobius.controllers.hotel.details', function() {
         $provide.value('Settings', {
           UI: {
             hotelDetails: {
+              breadcrumbs:{
+                hotels: false,
+                location: true
+              },
               defaultNumberOfRooms: 2,
               rooms: {}
             },

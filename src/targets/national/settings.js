@@ -247,6 +247,11 @@ angular.module('mobiusApp.config', [])
     },
     'hotelDetails': {
       'chainPrefix': 'Hotel',
+      'includeLocationInUrl': false,
+      'breadcrumbs': {
+        'hotels': true,
+        'location': false
+      },
       //List of rooms and their products
       'defaultNumberOfRooms': 999,
       'numberOfRoomsAddedOnMobile': 2,

@@ -223,13 +223,23 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:propertySlug',
+        url: '/hotels/:regionSlug/:locationSlug/:propertySlug',
         reloadOnSearch: false,
         data: {
           // Route is also used for reservation updates
           supportsEditMode: true,
           supportsMultiRoom: true,
           hasRateNotification: true
+        },
+        params:  {
+          regionSlug: {
+            value: null,
+            squash: true
+          },
+          locationSlug: {
+            value: null,
+            squash: true
+          }
         }
       })
 

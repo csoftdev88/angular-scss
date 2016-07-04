@@ -111,15 +111,18 @@ angular.module('mobiusApp.directives.hotels', [])
                   }
                   //filter hotels by location
                   scope.hotels = _.where(hotels, {locationCode: curLocation.code});
+                  initPriceFilter();
                 }
                 else{
                   scope.hotels = hotels || [];
+                  initPriceFilter();
                 }
                 
               });
             }
             else{
               scope.hotels = hotels || [];
+              initPriceFilter();
             }
 
             //We need the region name to display
@@ -173,17 +176,6 @@ angular.module('mobiusApp.directives.hotels', [])
             }
 
           });
-
-          //price filter
-          scope.$watch(scope.hotels, function() {
-            if(scope.filterConfig.price.enable){
-              scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
-              scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
-              scope.minSelectedPrice = scope.minPrice;
-              scope.maxSelectedPrice = scope.maxPrice;
-            }
-          });
-
           
         });
 
@@ -250,12 +242,32 @@ angular.module('mobiusApp.directives.hotels', [])
           stateParams.scrollTo = 'jsRooms';
         }
 
-        //if hotel details set active booking bar
-        // TODO: Check if this is needed and how same codes should be
-        // broadcasted?
-        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
+        if(Settings.UI.hotelDetails.includeLocationInUrl){
+          locationService.getRegions().then(function(regions){
+            locationService.getLocations().then(function(locations){
 
-        $state.go('hotel', stateParams);
+              var curLocation = _.find(locations, function(location){ return location.code === selectedHotel.locationCode;});
+              stateParams.locationSlug = curLocation.meta.slug;
+
+              var curRegion = _.find(regions, function(region){ return region.code === curLocation.regionCode;});
+              stateParams.regionSlug = curRegion.meta.slug;
+
+              //if hotel details set active booking bar
+              $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
+              $state.go('hotel', stateParams);
+
+            });
+          });
+          
+        }
+        else{
+          //if hotel details set active booking bar
+          $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
+          $state.go('hotel', stateParams);
+        }
+
+        
+
       };
 
       /*
@@ -288,6 +300,16 @@ angular.module('mobiusApp.directives.hotels', [])
       ////////////////
       ///Filters
       ////////////////
+
+      //price filter
+      function initPriceFilter(){
+        if(scope.filterConfig.price.enable){
+          scope.minPrice = Math.floor(_.chain(scope.hotels).pluck('priceFrom').min());
+          scope.maxPrice = Math.ceil(_.chain(scope.hotels).pluck('priceFrom').max());
+          scope.minSelectedPrice = scope.minPrice;
+          scope.maxSelectedPrice = scope.maxPrice;
+        }
+      }
 
       //chain filter
       if(scope.filterConfig.chain){

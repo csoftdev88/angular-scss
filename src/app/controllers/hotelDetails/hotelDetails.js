@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -193,9 +193,32 @@ angular.module('mobius.controllers.hotel.details', [
           $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
         }
         
-
+        //Breadcrumbs
         breadcrumbsService.clear();
-        breadcrumbsService.addBreadCrumb('Hotels', 'hotels').addBreadCrumb(details.nameShort);
+
+        if($scope.config.breadcrumbs.hotels){
+          breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
+        }
+
+        if($scope.config.breadcrumbs.location && $stateParams.regionSlug && $stateParams.locationSlug){
+          locationService.getRegions().then(function(regions){
+            locationService.getLocations().then(function(locations){
+
+              var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug;});
+              breadcrumbsService.addBreadCrumb(curRegion.nameShort, 'regions', {regionSlug: $stateParams.regionSlug, property: null});
+              
+              var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug;});
+              breadcrumbsService.addBreadCrumb(curLocation.nameShort, 'hotels', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, property: null});
+              
+              breadcrumbsService.addBreadCrumb(details.nameShort);
+            });
+          });
+        }
+        else{
+          breadcrumbsService.addBreadCrumb(details.nameShort);
+        }
+        
+        
 
         breadcrumbsService
           .addHref('About', 'jsAbout')
