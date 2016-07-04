@@ -38,8 +38,9 @@ room-products {
             font-weight: 700;
           }
         }
+
         .chain-sand &{
-          background-color: rgba(172, 127, 73, 0.09);
+          //background-color: rgba(172, 127, 73, 0.09);
           pricing-details{
             .price-form{
               .original-price{
@@ -49,17 +50,10 @@ room-products {
               }
             }
           }
-          .action-buttons{
-            .label{
-              font-weight: bold;
-              color: @c-light-brown;
-            }
-
-          }
         }
         .chain-sign &{
-          background: rgba(236, 230, 223, 0.28) url('@{img-prefix}/watermark-signature-logo-small.png') no-repeat 12px center;
-          background-size: auto 90%;
+          //background: rgba(236, 230, 223, 0.28) url('@{img-prefix}/watermark-signature-logo-small.png') no-repeat 12px center;
+          //background-size: auto 90%;
           pricing-details{
             .price-form{
               .original-price{
@@ -82,6 +76,24 @@ room-products {
           }
         }
 
+      }
+
+      .action-buttons{
+        .label{
+          font-weight: bold;
+          color: @c-light-brown;
+        }
+        .chain-sign &{
+          .label{
+            text-transform: none;
+            font-size: 18px;
+            font-style: italic;
+            font-family: @ff-heading-bold-sign;
+          }
+          .button{
+            font-family: @ff-default;
+          }
+        }
       }
 
 			.no-products{
