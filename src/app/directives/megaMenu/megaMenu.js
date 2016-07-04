@@ -159,7 +159,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         //hotels menu
         if(attrs.type === 'hotels'){
           scope.closeMenu();
-          $state.go('hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, property: null});
+          $state.go('hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, property: null, location: location.code});
         }
         //hot deals
         else if(attrs.type === 'hot-deals'){
