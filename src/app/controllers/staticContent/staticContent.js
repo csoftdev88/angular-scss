@@ -5,9 +5,10 @@
 angular.module('mobius.controllers.staticContent', [])
 
   .controller('StaticContentCtrl', function($scope, contentService, $stateParams, _, breadcrumbsService,
-         metaInformationService, scrollService, $timeout, $location, $state) {
+         metaInformationService, scrollService, $timeout, $location, $state, Settings) {
 
     $scope.preloader.visible = true;
+    $scope.config = Settings.UI.contents;
 
     contentService.getStatic().then(function(response) {
 
@@ -30,6 +31,13 @@ angular.module('mobius.controllers.staticContent', [])
 
         $scope.selectedContent.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph($scope.selectedContent.meta.microdata.og);
+
+        if($scope.config.displayContentImageInHeroSlider && !_.isEmpty($scope.selectedContent.image)){
+          $scope.updateHeroContent([$scope.selectedContent.image]);
+        }
+        else{
+          $scope.updateHeroContent(null, true);
+        }
 
         //Add breadcrumb
         breadcrumbsService.clear()

@@ -48,14 +48,14 @@ angular.module('mobius.controllers.main', [])
       };
 
       var heroSliderData;
-      $scope.updateHeroContent = function(data){
+      $scope.updateHeroContent = function(data, forceDefault){
         if(data && data.length){
           $scope.heroContent = filterHeroContent(data);
           return;
         }
 
         //Hotel specific hero slider content is handled from within the controllers so don't update on stateChangeSuccess
-        if(!$state.includes('hotel') && !$state.includes('propertyOffers') && !$state.includes('hotelInfo') && !($state.includes('hotels') && $state.params.locationSlug) && !($state.includes('regions') && $state.params.regionSlug)){
+        if((!$state.includes('hotel') && !$state.includes('propertyOffers') && !$state.includes('hotelInfo') && !($state.includes('hotels') && $state.params.locationSlug) && !($state.includes('regions') && $state.params.regionSlug) && !$state.includes('staticContent') && !$state.includes('aboutUs')) || forceDefault){
           if(heroSliderData) {
             $scope.heroContent = filterHeroContent(heroSliderData);
           }

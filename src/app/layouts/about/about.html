@@ -11,9 +11,9 @@
     <h1 grid="10" ng-bind-html="chain.nameLong | mainHeaderStyle"></h1>
 
     <section grid-row class="description">
-      <p grid="8" ng-bind-html="sanitize(chain.description)"></p>
+      <p grid="{{contentConfig.displayContentImageInHeroSlider ? 12 : 8}}" ng-bind-html="sanitize(chain.description)"></p>
 
-      <view-more-images grid="4">
+      <view-more-images grid="4" ng-if="!contentConfig.displayContentImageInHeroSlider">
         <a ng-if="chain.images.length > 1" href class="gallery-link" ng-click="openGallery()">_view_more_images_</a>
         <hero-slider data-has-notification-bar="false" data-on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
       </view-more-images>
@@ -53,7 +53,7 @@
 
     <div class="about-content">
       <h1 ng-bind-html="selectedAbout.title | mainHeaderStyle"></h1>
-      <img ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedAbout.image.alt}}"/>
+      <img ng-if="!contentConfig.displayContentImageInHeroSlider" ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedAbout.image.alt}}"/>
       <div ng-bind-html="selectedAbout.text | trustAsHtml" markdown-text-parser></div>
     </div>
     <button-back role="button" tabindex="0" ng-click="goToAboutList()" class="pull-left">_back_</button-back>

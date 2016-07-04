@@ -204,6 +204,9 @@ angular.module('mobiusApp.config', [])
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false
     },
+    'contents':{
+      'displayContentImageInHeroSlider': false
+    },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
       'heroAdverts': 'hero-advert'

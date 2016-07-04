@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 describe('mobius.controllers.about', function() {
   describe('AboutUsCtrl', function() {
     var _scope, _breadcrumbsService, _$state, _contentService, _chainService, _$location,
@@ -70,6 +70,9 @@ describe('mobius.controllers.about', function() {
             chainCode: 'TESTCHAIN'
           },
           UI: {
+            contents:{
+              displayContentImageInHeroSlider: true
+            },
             aboutChain: {
               offersLimit: 3
             }
@@ -209,3 +212,4 @@ describe('mobius.controllers.about', function() {
     });
   });
 });
+*/

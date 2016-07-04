@@ -10,7 +10,7 @@
 
     <div class="about-content">
       <h1 ng-bind-html="selectedContent.title | mainHeaderStyle"></h1>
-      <img ng-src="{{selectedContent.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedContent.image.alt}}"/>
+      <img ng-if="!config.displayContentImageInHeroSlider" ng-src="{{selectedContent.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedContent.image.alt}}"/>
       <div ng-bind-html="selectedContent.text | trustAsHtml" markdown-text-parser></div>
     </div>
 

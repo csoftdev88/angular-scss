@@ -13,7 +13,8 @@ angular.module('mobius.controllers.about', [])
     breadcrumbsService.clear()
      .addBreadCrumb('About Us');
 
-     $scope.config = Settings.UI.aboutChain;
+    $scope.config = Settings.UI.aboutChain;
+    $scope.contentConfig = Settings.UI.contents;
 
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
@@ -24,9 +25,15 @@ angular.module('mobius.controllers.about', [])
       $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
 
-      $scope.previewImages = contentService.getLightBoxContent(
+      if($scope.contentConfig.displayContentImageInHeroSlider){
+        $scope.updateHeroContent(chain.images);
+      }
+      else if($stateParams.code){
+        $scope.previewImages = contentService.getLightBoxContent(
         chain.images, 300, 150, 'fill');
-
+        $scope.updateHeroContent(null, true);
+      }
+      
       $scope.openGallery = function(slideIndex){
         modalService.openGallery(
           contentService.getLightBoxContent(chain.images),
@@ -79,6 +86,13 @@ angular.module('mobius.controllers.about', [])
       metaInformationService.setMetaDescription($scope.selectedAbout.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedAbout.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedAbout.meta.pagetitle);
+
+      if($scope.contentConfig.displayContentImageInHeroSlider && !_.isEmpty($scope.selectedAbout.image)){
+        $scope.updateHeroContent([$scope.selectedAbout.image]);
+      }
+      else{
+        $scope.updateHeroContent(null, true);
+      }
 
       $scope.selectedAbout.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedAbout.meta.microdata.og);
