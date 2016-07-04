@@ -10,11 +10,11 @@
       <img class="grid-img" ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}"  alt="{{offer.image.alt}}">
 
       <section>
-      <h2>{{offer.availability && offer.availability.title && offer.availability.title != '' ? offer.availability.title : offer.title}}</h2>
-      <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle != ''  ? offer.availability.subtitle : offer.subtitle"></div>
+        <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != '' ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : false"></h2>
+        <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle != ''  ? offer.availability.subtitle : offer.subtitle"></div>
       </section>
 
-      <span>_read_more_</span>
+      <span class="read-more">_read_more_</span>
     </offer-item>
   </offers-list>
 
