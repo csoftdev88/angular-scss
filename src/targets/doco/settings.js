@@ -301,6 +301,9 @@ angular.module('mobiusApp.config', [])
         }
 
       },
+      'offers': {
+        'toState': 'offers'
+      },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': false,

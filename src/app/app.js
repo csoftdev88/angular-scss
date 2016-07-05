@@ -541,6 +541,9 @@ angular
 
     $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
+      console.log('toState: ' + toState.name);
+      console.log('toParams: ' + angular.toJson(toParams));
+
       //if applyChainClassToBody, get property details and add its chain as body class for styling
       if(Settings.UI.generics.applyChainClassToBody){
         var propertyCode = toParams.propertyCode || toParams.property;

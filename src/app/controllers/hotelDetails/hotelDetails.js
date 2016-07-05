@@ -358,7 +358,7 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.goToOffers = function(){
-      $state.go('hotDeals', {regionSlug: $scope.region.meta.slug, locationSlug: $scope.location.meta.slug, propertySlug: $scope.details.meta.slug, code:null, property: null, location: null}, {reload: true});
+      $state.go($scope.config.offers.toState, {regionSlug: $scope.region.meta.slug || null, locationSlug: $scope.location.meta.slug || null, propertySlug: $scope.details.meta.slug || null, code:null, property: null, location: null}, {reload: true});
   };
 
   $scope.getAbsUrl = function(){
