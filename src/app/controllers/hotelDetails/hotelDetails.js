@@ -181,7 +181,7 @@ angular.module('mobius.controllers.hotel.details', [
           $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
           metaInformationService.setOgGraph($scope.details.meta.microdata.og);
         }
-        
+
         if($scope.details && $scope.details.description){
           $scope.details.description = ('' + $scope.details.description);
           var firstParaEnd = $scope.details.description.indexOf('</p>');
@@ -192,7 +192,7 @@ angular.module('mobius.controllers.hotel.details', [
           $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
           $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
         }
-        
+
         //Breadcrumbs
         breadcrumbsService.clear();
 
@@ -205,11 +205,13 @@ angular.module('mobius.controllers.hotel.details', [
             locationService.getLocations().then(function(locations){
 
               var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug;});
+              $scope.region = curRegion;
               breadcrumbsService.addBreadCrumb(curRegion.nameShort, 'regions', {regionSlug: $stateParams.regionSlug, property: null});
-              
+
               var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug;});
+              $scope.location = curLocation;
               breadcrumbsService.addBreadCrumb(curLocation.nameShort, 'hotels', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, property: null});
-              
+
               breadcrumbsService.addBreadCrumb(details.nameShort);
             });
           });
@@ -217,8 +219,8 @@ angular.module('mobius.controllers.hotel.details', [
         else{
           breadcrumbsService.addBreadCrumb(details.nameShort);
         }
-        
-        
+
+
 
         breadcrumbsService
           .addHref('About', 'jsAbout')
@@ -270,7 +272,6 @@ angular.module('mobius.controllers.hotel.details', [
           }
 
         });
-
         //$scope.scrollToBreadcrumbs();
 
       }, function() {
@@ -289,7 +290,7 @@ angular.module('mobius.controllers.hotel.details', [
             room._displayRates = false;
           }
         });
-        
+
         $scope.rooms = rooms;
 
         $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
@@ -354,6 +355,13 @@ angular.module('mobius.controllers.hotel.details', [
       $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, viewAllRates: viewAllRates});
     }
 
+  };
+
+  $scope.goToOffers = function(){
+      console.log($scope.region.meta.slug);
+      console.log($scope.location.meta.slug);
+      console.log($scope.details.meta.slug);
+      $state.go('hotDeals', {regionSlug: $scope.region.meta.slug, locationSlug: $scope.location.meta.slug, propertySlug: $scope.details.meta.slug, code:null, property: null, location: null});
   };
 
   $scope.getAbsUrl = function(){
