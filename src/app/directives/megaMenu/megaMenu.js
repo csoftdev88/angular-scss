@@ -21,6 +21,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
       scope.isBookingWidget = attrs.type === 'booking-widget';
       scope.isHotels = attrs.type === 'hotels';
       scope.isHotDeals = attrs.type === 'hot-deals';
+      scope.activeRegion = {};
 
       //external region links
       scope.externalRegionLinks = Settings.UI.menu.externalRegionLinks;
@@ -53,68 +54,61 @@ angular.module('mobiusApp.directives.megaMenu', [])
       });
 
       scope.getLocations = function(regionIndex){
-
         scope.locationsLoading = true;
         scope.activeRegion = scope.regions[regionIndex];
 
-        if(megaMenuCache.get('regions')[regionIndex].locations){
-          scope.locationsLoading = false;
-          scope.locations = megaMenuCache.get('regions')[regionIndex].locations;
-        }
-        else{
-          locationService.getLocations().then(function(locations){
-            //Cache current region's locations
-            megaMenuCache.get('regions')[regionIndex].locations = _.where(locations, {regionCode: scope.activeRegion.code});
+        locationService.getLocations().then(function(locations){
+          //Cache current region's locations
+          megaMenuCache.get('regions')[regionIndex].locations = _.where(locations, {regionCode: scope.activeRegion.code});
 
-            //Get properties and filter by locationCode
-            propertyService.getAll().then(function(properties){
+          //Get properties and filter by locationCode
+          propertyService.getAll().then(function(properties){
 
-              //If enabled, sort properties by their chain code, then alphabetically in each group
-              if(Settings.UI.generics.orderPropertiesByChain && Settings.UI.chains.length > 1){
-                var sortedProperties = [];
-                _.each(Settings.UI.chains, function(chain){
-                  var chainProperties = _.filter(properties, function(property){ return property.chainCode === chain; });
-                  chainProperties = _.sortBy(chainProperties, 'nameShort');
-                  sortedProperties = sortedProperties.concat(chainProperties);
-                });
-                properties = sortedProperties;
-              }
-              //or just alphabetically
-              else{
-                properties = _.sortBy(properties, 'nameShort');
-              }
+            //If enabled, sort properties by their chain code, then alphabetically in each group
+            if(Settings.UI.generics.orderPropertiesByChain && Settings.UI.chains.length > 1){
+              var sortedProperties = [];
+              _.each(Settings.UI.chains, function(chain){
+                var chainProperties = _.filter(properties, function(property){ return property.chainCode === chain; });
+                chainProperties = _.sortBy(chainProperties, 'nameShort');
+                sortedProperties = sortedProperties.concat(chainProperties);
+              });
+              properties = sortedProperties;
+            }
+            //or just alphabetically
+            else{
+              properties = _.sortBy(properties, 'nameShort');
+            }
 
-              //if hot deals, remove properties that don't have hot deals
-              if(scope.isHotDeals){
-                //get offers
-                contentService.getOffers().then(function(offers) {
-                  //only keep offers that have at least 1 property in availability
-                  offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length;});
+            //if hot deals, remove properties that don't have hot deals
+            if(scope.isHotDeals){
+              //get offers
+              contentService.getOffers().then(function(offers) {
+                //only keep offers that have at least 1 property in availability
+                offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length;});
 
-                  //only include properties that have an offer associated with them
-                  var filteredProperties = [];
-                  _.each(properties, function(property){
-                    _.each(offers, function(offer){
-                      _.each(offer.offerAvailability, function(availability){
-                        if(property.code === availability.property && availability.featured){
-                          filteredProperties.push(property);
-                        }
-                      });
+                //only include properties that have an offer associated with them
+                var filteredProperties = [];
+                _.each(properties, function(property){
+                  _.each(offers, function(offer){
+                    _.each(offer.offerAvailability, function(availability){
+                      if(property.code === availability.property && availability.featured){
+                        filteredProperties.push(property);
+                      }
                     });
                   });
-
-                  assignPropertiesToLocations(regionIndex, _.uniq(filteredProperties));
-
                 });
-              }
-              else{
-                assignPropertiesToLocations(regionIndex, _.uniq(properties));
-              }
 
-            });
+                assignPropertiesToLocations(regionIndex, _.uniq(filteredProperties));
+
+              });
+            }
+            else{
+              assignPropertiesToLocations(regionIndex, _.uniq(properties));
+            }
 
           });
-        }
+
+        });
       };
 
       function assignPropertiesToLocations(regionIndex, properties){
@@ -132,6 +126,10 @@ angular.module('mobiusApp.directives.megaMenu', [])
         megaMenu.addClass('closed');
       };
       scope.showMenu = function(){
+        if(scope.activeRegion.length > 0)
+        {
+          scope.getLocations(scope.activeRegion);
+        }
         megaMenu.removeClass('closed');
       };
       scope.isActive = function(){
@@ -182,8 +180,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
           scope.closeMenu();
 
           var params = {
-            propertySlug: property.meta.slug, 
-            property: property.code, 
+            propertySlug: property.meta.slug,
+            property: property.code,
             location: null
           };
 
@@ -193,7 +191,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
           }
 
           $state.go('hotel', params);
-          
+
         }
         //hot deals
         else if(attrs.type === 'hot-deals'){
