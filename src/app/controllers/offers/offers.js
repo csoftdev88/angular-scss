@@ -121,7 +121,6 @@ angular.module('mobius.controllers.offers', [])
                 if(offer.offerAvailability.length === 1){
                   var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
                   offer.propertyName = property.nameShort;
-                  //availability.locationCode = property.locationCode;
                 }
                 //assign a locationCode to each availability
                 _.each(offer.offerAvailability, function(availability){
@@ -140,6 +139,10 @@ angular.module('mobius.controllers.offers', [])
                     offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
                       return availability.locationCode !== curLocation.code;
                     });
+                    if(offer.offerAvailability.length === 1){
+                      var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                      offer.propertyName = property.nameShort;
+                    }
                   });
                   //Now remove offers with no availability unless featured
                   filteredOffers = _.reject(filteredOffers, function(offer){
@@ -156,6 +159,10 @@ angular.module('mobius.controllers.offers', [])
                   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
                     return availability.property !== curProperty.code;
                   });
+                  if(offer.offerAvailability.length === 1){
+                    var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                    offer.propertyName = property.nameShort;
+                  }
                 });
                 //Now remove offers with no availability unless featured
                 filteredOffers = _.reject(filteredOffers, function(offer){
@@ -284,6 +291,10 @@ angular.module('mobius.controllers.offers', [])
           });
         });
       }
+      //select current property in dropdown
+      if($scope.config.includeOfferAvailabilityPropertyDropdown && $stateParams.propertySlug){
+        $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
+      }
 
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
@@ -357,7 +368,7 @@ angular.module('mobius.controllers.offers', [])
         stateParams.dates = bookingParams.from + DATES_SEPARATOR + bookingParams.to;
       }
 
-      if(bookingParams.propertyCode && !$scope.config.includeOfferAvailabilityPropertyDropdown || $scope.isHotDeals){
+      if(bookingParams.propertyCode && !$scope.config.includeOfferAvailabilityPropertyDropdown){
         propertyService.getPropertyDetails($scope.isHotDeals ? offer.offerAvailability[0].property : bookingParams.propertyCode)
           .then(function(details){
             stateParams.propertySlug = details.meta.slug;
@@ -365,7 +376,7 @@ angular.module('mobius.controllers.offers', [])
             $state.go('hotel', stateParams, {reload: true});
           });
       }
-      else if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty && !$scope.isHotDeals){
+      else if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty){
         stateParams.propertySlug = $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty;
         stateParams.property = bookingService.getCodeFromSlug($scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty);
         stateParams.scrollTo = 'jsRooms';
@@ -385,6 +396,9 @@ angular.module('mobius.controllers.offers', [])
       // Dates are not yet selected
       $scope.selectDates = function(){
         bookingService.setBookingOffer($scope.selectedOffer);
+        if($scope.config.includeOfferAvailabilityPropertyDropdown && $stateParams.propertySlug){
+          $scope.prefillBookingWidgetProperty($stateParams.propertySlug);
+        }
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           openBookingTab: true,
           openDatePicker: true,
