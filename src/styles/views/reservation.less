@@ -1277,64 +1277,92 @@ reservation-hotel-details {
       font-weight: 700;
     }
 
-    .breakdown-toggle{
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 14px;
-      td{
-        font-weight: 400;
-        .viewport-mobile &{
-          padding: 5px;
-        }
-      }
-    }
-
-    .breakdown{
+    .extended-charges{
       position: relative;
-      color: @c-mid-grey;
-      display: none;
-      td,
-      th{
-        font-weight: normal;
-        position: relative;
-      }
-      &.last{
-        border-bottom: 1px solid #dfdfdf;
-        td{
-          padding-bottom: 5px;
+      table{
+        width: 50%;
+        .viewport-mobile & {
+          width: 100%;
+        }
+        .breakdown-toggle{
+          font-weight: normal;
+          font-size: 12px;
+          line-height: 14px;
+          .viewport-mobile &{
+            display: none;
+          }
+          td{
+            font-weight: 400;
+            .viewport-mobile &{
+              padding: 5px;
+            }
+          }
+        }
+
+        .breakdown{
+          position: relative;
+          color: @c-mid-grey;
+          display: none;
+          td,
+          th{
+            font-weight: normal;
+            position: relative;
+          }
+          &.last{
+            border-bottom: 1px solid #dfdfdf;
+            td{
+              padding-bottom: 5px;
+            }
+          }
+          .info{
+            font-size: 12px;
+            font-weight: bold;
+            color: @c-brown;
+            padding: 0 4px;
+            cursor: pointer;
+          }
+          tooltip{
+            margin-right: -4px;
+          }
+        }
+
+        .viewport-mobile &{
+          table, thead, tbody, th, td, tr:not(.breakdown) {
+            text-align: left;
+          }
+        }
+
+        &.extended{
+          .breakdown{
+            display: table-row;
+          }
+          .main{
+            th{
+              padding-top: 5px;
+            }
+          }
         }
       }
-      .info{
-        font-size: 12px;
-        font-weight: bold;
-        color: @c-brown;
-        padding: 0 4px;
-        cursor: pointer;
+
+      .extended-total{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        .viewport-mobile &{
+          text-align: right;
+        }
+        .viewport-mobile & {
+          position: relative;
+        }
+        a{
+          display: block;
+          text-align: right;
+        }
       }
-      tooltip{
-        margin-right: -4px;
-      }
-    }
-    .viewport-mobile &{
-      table, thead, tbody, th, td, tr:not(.breakdown) {
-        //display: block;
-        text-align: right;
-      }
+      
     }
 
-    .extended{
-      .breakdown{
-        display: table-row;
-        .viewport-mobile &{
-          //display: block;
-        }
-      }
-      .main{
-        th{
-          padding-top: 5px;
-        }
-      }
-    }
+    
   }
 }
 

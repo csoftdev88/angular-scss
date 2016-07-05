@@ -992,6 +992,7 @@ reservation-hotel-details {
 
       .viewport-mobile & {
         width: 100%;
+        margin-bottom: 20px;
       }
 
       img {
@@ -1114,13 +1115,32 @@ reservation-hotel-details {
       font-weight: 700;
     }
 
-    .breakdown-toggle{
-      a{
-        .chain-sand &{
-          color: @c-menu-active-sand;
+    .extended-charges{
+      table{
+        .breakdown-toggle{
+          a{
+            .chain-sand &{
+              color: @c-menu-active-sand;
+            }
+            .chain-sign &{
+              color: @c-menu-active-sign;
+            }
+          }
         }
-        .chain-sign &{
-          color: @c-menu-active-sign;
+
+      }
+
+      .extended-total{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        a{
+          font-size: 12px;
+          line-height: 14px;
+          color: @c-secondary;
+          &:hover{
+            color: @c-secondary;
+          }
         }
       }
     }
