@@ -120,7 +120,6 @@ angular.module('mobiusApp.directives.room', [])
             propertyCode: propertyCode
           });
         });
-
         propertyPromise = propertyService.getPropertyDetails(propertyCode, bookingParams).then(function(property) {
           scope.property = property;
           if(!scope.property.hasOwnProperty('available')) {

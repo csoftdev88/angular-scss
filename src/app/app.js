@@ -267,7 +267,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
-        url: '/hotels/:propertySlug/rooms/:roomSlug',
+        url: '/hotel/:propertySlug/rooms/:roomSlug',
         reloadOnSearch: false,
         data: {
           supportsEditMode: true,
