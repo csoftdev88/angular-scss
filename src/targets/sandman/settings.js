@@ -419,7 +419,7 @@ angular.module('mobiusApp.config', [])
       },
       {
         'type': 'tripAdvisor',
-        'enable': false,
+        'enable': true,
         'minTaRating': 3,
         'maxTaRating': 5,
         'accordion': false
