@@ -49,7 +49,9 @@
           <header>
             <h2>{{location.nameShort}}</h2>
             <ul class="chain-icons">
-              <li ng-repeat="chain in location.chainCode" ng-class="chain.toLowerCase()"></li>
+              <li ng-repeat="icon in location.chain.icon">
+                <img ng-src="{{icon}}"  alt="{{location.chain.nameShort}} logo">
+              </li>
             </ul>
           </header>
           <div ng-bind-html="location.highlight && location.highlight !== '' ? location.highlight : location.description | truncateString:125"></div>
