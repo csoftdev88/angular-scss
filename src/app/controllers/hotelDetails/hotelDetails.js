@@ -361,7 +361,7 @@ angular.module('mobius.controllers.hotel.details', [
       console.log($scope.region.meta.slug);
       console.log($scope.location.meta.slug);
       console.log($scope.details.meta.slug);
-      $state.go('hotDeals', {regionSlug: $scope.region.meta.slug, locationSlug: $scope.location.meta.slug, propertySlug: $scope.details.meta.slug, code:null, property: null, location: null});
+      $state.go('hotDeals', {regionSlug: $scope.region.meta.slug, locationSlug: $scope.location.meta.slug, propertySlug: $scope.details.meta.slug, code:null, property: null, location: null}, {reload: true});
   };
 
   $scope.getAbsUrl = function(){
