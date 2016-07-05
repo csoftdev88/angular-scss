@@ -91,7 +91,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
                 _.each(properties, function(property){
                   _.each(offers, function(offer){
                     _.each(offer.offerAvailability, function(availability){
-                      if(property.code === availability.property && availability.featured){
+                      if(property.code === availability.property){
                         filteredProperties.push(property);
                       }
                     });
