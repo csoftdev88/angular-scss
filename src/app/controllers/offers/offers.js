@@ -43,7 +43,6 @@ angular.module('mobius.controllers.offers', [])
     };
 
     contentService.getOffers().then(function(offers) {
-
       $scope.allOffers = offers;
 
       //Remove offers that have expired
@@ -113,6 +112,7 @@ angular.module('mobius.controllers.offers', [])
             offers = _.reject(offers, function(offer){
               return !offer.offerAvailability && !offer.featured;
             });
+
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
 
@@ -128,7 +128,7 @@ angular.module('mobius.controllers.offers', [])
                   availability.locationCode = property.locationCode;
                 });
               });
-              
+
               //Filter offers by location if any, not if property is defined
               if($stateParams.locationSlug && !$stateParams.propertySlug){
                 locationService.getLocations().then(function(locations){
@@ -172,12 +172,22 @@ angular.module('mobius.controllers.offers', [])
               }
               else{
                 //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
-                $scope.offersList = offers;
+                var hotDealsOffers = angular.copy(offers);
+                _.each(hotDealsOffers, function(offer){
+                  offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+                    return availability.featured !== true && offer.featured !== true;
+                  });
+                });
+                //Now remove offers with no availability unless featured
+                hotDealsOffers = _.reject(hotDealsOffers, function(offer){
+                  return !offer.offerAvailability.length && !offer.featured;
+                });
+                $scope.offersList = hotDealsOffers;
               }
               if ($stateParams.code) {
                 selectOffer(bookingService.getCodeFromSlug($stateParams.code));
               }
-              
+
             });
           }
           else if(!$scope.isHotDeals && hasHotDeals){
@@ -189,7 +199,7 @@ angular.module('mobius.controllers.offers', [])
         }
       }
     });
-  
+
     //If not a specific offer, load chain data to apply meta data
     if(!$stateParams.code){
       chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -203,7 +213,7 @@ angular.module('mobius.controllers.offers', [])
         metaInformationService.setPageTitle(chain.meta.pagetitle);
         metaInformationService.setMetaDescription(chain.meta.description);
         metaInformationService.setMetaKeywords(chain.meta.keywords);
-        
+
       });
     }
 
@@ -249,7 +259,7 @@ angular.module('mobius.controllers.offers', [])
       else{
         $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
-      
+
       $timeout(function () {
         bookingService.setBookingOffer($scope.selectedOffer);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
@@ -316,7 +326,7 @@ angular.module('mobius.controllers.offers', [])
         var cookieExpiryDate = null;
         if(Settings.UI.offers.discountCodeCookieExpiryDays && Settings.UI.offers.discountCodeCookieExpiryDays !== 0){
           cookieExpiryDate = new Date();
-          cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.offers.discountCodeCookieExpiryDays); 
+          cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.offers.discountCodeCookieExpiryDays);
         }
         $window.document.cookie = 'discountCode=' + cookieValue + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
       }
