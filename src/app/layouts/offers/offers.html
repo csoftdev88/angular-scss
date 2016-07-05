@@ -69,7 +69,7 @@
           </div>
 
           <!-- DATES ARE SELECTED -->
-          <button-submit ng-click="goToHotels(selectedOffer)" ng-disabled="config.includeOfferAvailabilityPropertyDropdown && offerAvailabilityProperties.length && !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty" ng-show="hasDates">_book_now_ <span ng-if="isHotDeals">at {{selectedOffer.propertyName}}</span></button-submit>
+          <button-submit ng-click="goToHotels(selectedOffer)" ng-disabled="config.includeOfferAvailabilityPropertyDropdown && offerAvailabilityProperties.length && !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty" ng-show="hasDates">_book_now_ <span ng-if="isHotDeals && selectedOffer.propertyName">at {{selectedOffer.propertyName}}</span></button-submit>
 
           <!-- USER SPECIFIES DATES -->
           <button-submit ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton" ng-click="selectDates()" ng-disabled="config.includeOfferAvailabilityPropertyDropdown && offerAvailabilityProperties.length && !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty" ng-hide="hasDates">_select_dates_</button-submit>

@@ -72,17 +72,6 @@ angular.module('mobius.controllers.regions.subpage', [])
     var regionsPromise = locationService.getRegions();
     var locationsPromise = locationService.getLocations();
 
-    /*
-    var detailPromise = isLocation ? locationService.getLocations() : locationService.getRegions()
-      .then(function(details){
-
-
-      }, function() {
-        $state.go('hotels');
-      });
-      */
-
-
     preloaderFactory($q.all([regionsPromise, locationsPromise]).then(function(data) {
       var regions = data[0];
       var locations = data[1];
@@ -165,7 +154,7 @@ angular.module('mobius.controllers.regions.subpage', [])
   
   
   $scope.goToInfo = function(info) {
-    $state.go('locationInfo', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug || null, infoSlug: info.meta.slug});
+    $state.go('locationInfo', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug || null, infoSlug: info.slug});
   };
 
   $scope.goBack = function() {
