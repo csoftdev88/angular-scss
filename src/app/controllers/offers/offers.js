@@ -53,7 +53,7 @@ angular.module('mobius.controllers.offers', [])
 
       if($stateParams.property){
 
-        if($state.current.name !== 'propertyOffers'){
+        if($state.current.name !== 'propertyOffers' && !$scope.isHotDeals){
           propertyService.getAll().then(function(properties){
             var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
             $scope.property = property;
