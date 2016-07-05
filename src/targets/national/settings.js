@@ -380,7 +380,8 @@ angular.module('mobiusApp.config', [])
         'passbook': false,
         'print': true
       },
-      'displayNewsletterCtaOnReservationDetail': false
+      'displayNewsletterCtaOnReservationDetail': false,
+      'reservationDetailPriceBreakdownExtended': false
     },
 
     'aboutHotel': {

@@ -400,7 +400,8 @@ angular.module('mobiusApp.config', [])
         'passbook': true,
         'print': true
       },
-      'displayNewsletterCtaOnReservationDetail': true
+      'displayNewsletterCtaOnReservationDetail': true,
+      'reservationDetailPriceBreakdownExtended': true
     },
 
     'aboutHotel': {

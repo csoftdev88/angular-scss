@@ -481,5 +481,72 @@ angular.module('mobius.controllers.reservationDetail', [])
       $window.print();
     };
 
+    //Extended breakdown
+    $scope.getBreakdownTotalTax = function(code){
+      // Returning a total price of all taxes per id
+      var total = 0;
+      _.map($scope.reservation.rooms, function(room){
+        _.each(room.priceDetail.taxDetails.policyTaxItemDetails, function(taxItem){
+          if(taxItem.policyTaxItem.policyTaxItemCode === code){
+            total += taxItem.taxAmount;
+          }
+        });
+      });
+      return total;
+    };
+
+    $scope.getBreakdownTotalFee = function(code){
+      // Returning a total price of all fees per id
+      var total = 0;
+      _.map($scope.reservation.rooms, function(room){
+        _.each(room.priceDetail.feeDetails.policyTaxItemDetails, function(feeItem){
+          if(feeItem.policyTaxItem.policyTaxItemCode === code){
+            total += feeItem.taxAmount;
+          }
+        });
+      });
+      return total;
+    };
+
+    $scope.getBreakdownTotalDate = function(date){
+      // Returning a total price per date
+      var total = 0;
+      _.map($scope.reservation.rooms, function(room){
+        _.each(room.priceDetail.breakdowns, function(breakdown){
+          if(breakdown.date === date){
+            total += breakdown.totalBase;
+          }
+        });
+      });
+      return total;
+    };
+
+    $scope.getBreakdownTotalBase = function(){
+      // Returning a total base price
+      var totalTax = 0;
+      var totalFees = 0;
+      var totalAfterTax = 0;
+      _.map($scope.reservation.rooms, function(room){
+        totalTax += room.priceDetail.taxDetails.totalTax;
+        totalFees += room.priceDetail.feeDetails.totalTax;
+        totalAfterTax += room.priceDetail.totalAfterTax;
+      });
+      return totalAfterTax - totalTax - totalFees;
+    };
+
+    $scope.getBreakdownTotalTaxes = function(isFee){
+      // Returning a total for all taxes or fees
+      var total = 0;
+      _.map($scope.reservation.rooms, function(room){
+        total += isFee ? room.priceDetail.feeDetails.totalTax : room.priceDetail.taxDetails.totalTax;
+      });
+      return total;
+    };
+
+    //format dates
+    $scope.formatDate = function(date, format){
+      return $window.moment(date).format(format);
+    };
+
     $location.search({});
   });
