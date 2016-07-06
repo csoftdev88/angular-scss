@@ -216,14 +216,14 @@ angular
       .state('hotels', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
-        url: '/hotels/:regionSlug/:locationSlug'
+        url: '/locations/:regionSlug/:locationSlug'
       })
 
       .state('hotel', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:regionSlug/:locationSlug/:propertySlug',
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug',
         reloadOnSearch: false,
         data: {
           // Route is also used for reservation updates
@@ -247,7 +247,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelSubpage.html',
         controller: 'HotelSubpageCtrl',
-        url: '/hotel/:propertySlug/:infoSlug'
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/:infoSlug'
       })
 
       .state('locationInfo', {
@@ -267,7 +267,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
-        url: '/hotel/:propertySlug/rooms/:roomSlug',
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/rooms/:roomSlug',
         reloadOnSearch: false,
         data: {
           supportsEditMode: true,
