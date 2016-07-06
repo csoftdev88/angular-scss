@@ -57,11 +57,6 @@ angular.module('mobiusApp.directives.hotels', [])
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
 
-          //if dates, sort hotels by price by default
-          if(scope.hasDates()){
-            //hotels = _.sortBy(hotels, 'priceFrom');
-          }
-
           chainService.getAll().then(function(chains){
 
             //Pick random merchandizing banner if any
@@ -403,14 +398,7 @@ angular.module('mobiusApp.directives.hotels', [])
           },
           {
             name: options.starRatingHighToLow,
-            sort: function(hotel){
-              if(scope.hasDates()){
-                return 0 - hotel.rating;
-              }
-              else {
-                return 0 - hotel.rating;
-              }
-            }
+            sort: scope.hasDates ? ['-rating', 'priceFrom', 'nameShort'] : ['-rating', 'nameShort']
           },
           {
             name: 'A - Z',
