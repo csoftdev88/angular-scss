@@ -102,6 +102,7 @@ angular
     'mobiusApp.services.mobiusTrackingService',
     'mobiusApp.services.infinitiEcommerceService',
     'mobiusApp.services.channelService',
+    'mobiusApp.services.router',
 
     // Factories
     'mobiusApp.factories.template',

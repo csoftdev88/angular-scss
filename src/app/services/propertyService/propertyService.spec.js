@@ -8,6 +8,7 @@ describe('propertyService', function() {
   });
 
   beforeEach(function() {
+    module('underscore');
     module('mobiusApp.services.properties', function($provide) {
       var Settings = {
         'API': {
@@ -22,6 +23,10 @@ describe('propertyService', function() {
       };
 
       $provide.value('Settings', Settings);
+      $provide.value('locationService', {
+        getRegions: function(){},
+        getLocations: function(){}
+      });
 
       var apiService = {
         get: function(){},

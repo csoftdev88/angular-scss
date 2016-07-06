@@ -11,6 +11,7 @@ describe('stateService', function() {
   });
 
   beforeEach(function() {
+    module('underscore');
     module('mobiusApp.services.state', function($provide) {
       var Settings = {
         'UI': {
@@ -50,6 +51,9 @@ describe('stateService', function() {
       });
       $provide.value('user', {
         getUserCurrency: function(){}
+      });
+      $provide.value('propertyService', {
+        getPropertyRegionData: function(){}
       });
     });
   });

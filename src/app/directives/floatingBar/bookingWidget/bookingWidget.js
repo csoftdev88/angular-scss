@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, _, contentService, stateService){
+  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService){
   return {
     restrict: 'E',
     scope: {
@@ -662,10 +662,12 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           stateParams.groupCode = null;
         }
 
+        //check if we should go to region/location/property/room
+        stateParams.fromSearch = '1';
+
         if((!scope.selected.property || !scope.selected.property.code) && (!scope.selected.location || !scope.selected.location.code)){
           // 'All properties' is selected, will redirect to hotel list
           stateParams.propertyCode = null;
-          stateParams.fromSearch = '1';
           stateParams.scrollTo = 'hotels';
           if(Settings.UI.generics.singleProperty && $rootScope.propertySlug){
             stateParams.propertySlug = $rootScope.propertySlug;
@@ -680,48 +682,35 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
                   scope.selected.dates && $stateParams.roomSlug) {
           //Redirect to Room Details to show rates
           stateParams.propertySlug = scope.selected.property.meta.slug;
-          stateParams.fromSearch = '1';
           stateParams.roomSlug = $stateParams.roomSlug;
+
+
           $state.go('room', stateParams, {reload: true});
 
         } else if (scope.selected.location && scope.selected.location.code &&
                   scope.selected.dates && $stateParams.roomSlug) {
           //Redirect to Room Details to show rates
           stateParams.locationSlug = scope.selected.location.meta.slug;
-          stateParams.fromSearch = '1';
           stateParams.roomSlug = $stateParams.roomSlug;
           $state.go('room', stateParams, {reload: true});
 
         } else if (scope.selected.location && scope.selected.location.code) {
           //Redirect to location hotels
-          stateParams.property = null;
-          stateParams.propertySlug = null;
-          stateParams.locationSlug = scope.selected.location.meta.slug;
-          stateParams.fromSearch = '1';
-          $state.go('hotels', stateParams, {reload: true});
+          routerService.buildStateParams('hotels', null, scope.selected.location).then(function(params){
+            stateParams = _.extend(stateParams, params);
+            $state.go('hotels', stateParams, {reload: true});
+          });
 
         } else {
           // Specific hotel selected, will redirect to room list
-          stateParams.propertySlug = scope.selected.property.meta.slug;
-          stateParams.fromSearch = '1';
+          //If dates are selected, scroll directly to rooms on property page
           if(scope.selected.dates){
             stateParams.scrollTo = 'jsRooms';
           }
-
-          //Get region/location details
-          locationService.getRegions().then(function(regions){
-            locationService.getLocations().then(function(locations){
-
-              var curLocation = _.find(locations, function(location){ return location.code === scope.selected.property.locationCode;});
-              stateParams.locationSlug = curLocation.meta.slug;
-
-              var curRegion = _.find(regions, function(region){ return region.code === curLocation.regionCode;});
-              stateParams.regionSlug = curRegion.meta.slug;
-
-              $state.go('hotel', stateParams, {reload: true});
-
-            });
-          });  
+          routerService.buildStateParams('hotel', scope.selected.property).then(function(params){
+            stateParams = _.extend(stateParams, params);
+            $state.go('hotel', stateParams, {reload: true});
+          });
         }
 
         scope.hideBar();

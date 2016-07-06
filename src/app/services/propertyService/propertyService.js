@@ -3,7 +3,7 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.properties', [])
-.service( 'propertyService',  function($q, apiService) {
+.service( 'propertyService',  function($q, apiService, locationService, _) {
 
   function correctParams(params) {
     if (params && (!params.from || !params.to || !params.adults || !params.productGroupId)) {
@@ -23,6 +23,28 @@ angular.module('mobiusApp.services.properties', [])
   function getPropertyDetails(propertyCode, params){
     var URL = apiService.getFullURL('properties.details', {propertyCode: propertyCode});
     return apiService.get(URL, correctParams(params));
+  }
+  
+  function getPropertyRegionData(propertyLocationCode){
+    var q = $q.defer();
+
+    var regionData = {};
+
+    locationService.getRegions().then(function(regions){
+      locationService.getLocations().then(function(locations){
+
+        var location = _.find(locations, function(location){ return location.code === propertyLocationCode;});
+        var region = _.find(regions, function(region){ return region.code === location.regionCode;});
+
+        regionData.location = location;
+        regionData.region = region;
+
+        q.resolve(regionData);
+
+      });
+    }); 
+
+    return q.promise;
   }
 
   function getAvailability(propertyCode, params){
@@ -85,6 +107,7 @@ angular.module('mobiusApp.services.properties', [])
   return {
     getAll: getAll,
     getPropertyDetails: getPropertyDetails,
+    getPropertyRegionData: getPropertyRegionData,
     getAvailability: getAvailability,
     getRooms: getRooms,
     getRoomDetails: getRoomDetails,
