@@ -59,7 +59,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
           //if dates, sort hotels by price by default
           if(scope.hasDates()){
-            hotels = _.sortBy(hotels, 'priceFrom');
+            //hotels = _.sortBy(hotels, 'priceFrom');
           }
 
           chainService.getAll().then(function(chains){
@@ -87,14 +87,14 @@ angular.module('mobiusApp.directives.hotels', [])
               //Get locations
               locationService.getLocations().then(function(locations){
                 var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
-                
+
                 if(curLocation){
 
                   //hero slider
                   scope.updateHeroContent(curLocation.images);
 
                   if(Settings.UI.viewsSettings.hotels.showLocationDescription){
-                    
+
                     //get current location
                     locationService.getLocation(curLocation.code).then(function(location){
                       //details
@@ -117,7 +117,7 @@ angular.module('mobiusApp.directives.hotels', [])
                   scope.hotels = hotels || [];
                   initPriceFilter();
                 }
-                
+
               });
             }
             else{
@@ -176,7 +176,7 @@ angular.module('mobiusApp.directives.hotels', [])
             }
 
           });
-          
+
         });
 
         preloaderFactory(hotelsPromise);
@@ -258,7 +258,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
             });
           });
-          
+
         }
         else{
           //if hotel details set active booking bar
@@ -266,7 +266,7 @@ angular.module('mobiusApp.directives.hotels', [])
           $state.go('hotel', stateParams);
         }
 
-        
+
 
       };
 
@@ -346,7 +346,7 @@ angular.module('mobiusApp.directives.hotels', [])
           }
 
           var display = false;
-       
+
           for(var option in scope.filterTagOptions){
             var filter = scope.filterTagOptions[option];
             if(filter.checked){
@@ -362,13 +362,13 @@ angular.module('mobiusApp.directives.hotels', [])
                   }
                 }
               }
-            }           
+            }
           }
 
           return display;
         };
       }
-      
+
       scope.initSortingOptions = function(options){
 
         scope.sortingOptions = [
@@ -393,13 +393,23 @@ angular.module('mobiusApp.directives.hotels', [])
           {
             name: options.starRatingLowToHigh,
             sort: function(hotel){
-              return hotel.rating;
+              if(scope.hasDates()){
+                return [hotel.rating, hotel.priceFrom, hotel.nameShort];
+              }
+              else {
+                return [hotel.rating, hotel.nameShort];
+              }
             }
           },
           {
             name: options.starRatingHighToLow,
             sort: function(hotel){
-              return 0 - hotel.rating;
+              if(scope.hasDates()){
+                return 0 - hotel.rating;
+              }
+              else {
+                return 0 - hotel.rating;
+              }
             }
           },
           {
@@ -452,7 +462,7 @@ angular.module('mobiusApp.directives.hotels', [])
       else{
         scope.hotelViewMode = 'tiles';
       }
-      
+
       scope.setHotelViewMode = function(mode){
         userPreferenceService.setCookie('hotelViewMode', mode);
         scope.hotelViewMode = mode;

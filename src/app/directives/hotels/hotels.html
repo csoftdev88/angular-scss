@@ -43,12 +43,12 @@
     </header>
     <div class="hotels__controls" ng-if="hasDates() && hotelAvailable() && showFilter('sort') && !filterConfig.sort.displayInSidebar">
       <div class="order-switch">
-        <select 
-          name="sorting" 
-          ng-model="currentOrder" 
-          chosen 
-          ng-options="option.name for option in sortingOptions" 
-          disable-search="true" 
+        <select
+          name="sorting"
+          ng-model="currentOrder"
+          chosen
+          ng-options="option.name for option in sortingOptions"
+          disable-search="true"
           ng-change="orderSwitchChange(currentOrder)"
           ng-init="initSortingOptions({
             'priceLowToHigh': '_price_low_to_high_',
@@ -65,7 +65,7 @@
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{hotelViewMode}}">
-        <li class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
+        <li class="item" ng-repeat="hotel in hotels | filter : hotelFilter | filter: filterByTags | orderBy : currentOrder.sort" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
             <div class="item-image" ng-click="navigateToHotel(hotel.meta.slug)">
               <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
@@ -142,12 +142,12 @@
         <div ng-if="filter.type === 'sort' && filter.displayInSidebar && hasDates()">
           <h3>_sorting_filter_placeholder_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
           <div class="accordion-content">
-            <select 
-              name="sorting" 
-              ng-model="currentOrder" 
-              chosen 
-              ng-options="option.name for option in sortingOptions" 
-              disable-search="true" 
+            <select
+              name="sorting"
+              ng-model="currentOrder"
+              chosen
+              ng-options="option.name for option in sortingOptions"
+              disable-search="true"
               ng-change="orderSwitchChange(currentOrder)"
               ng-init="initSortingOptions({
                 'priceLowToHigh': '_price_low_to_high_',
@@ -161,7 +161,7 @@
           </div>
           <hr>
         </div>
-      
+
         <div ng-show="filter.type === 'price' && hotelAvailable() && hasDates()">
           <!--<h2>_filter_label_</h2>-->
           <h3>_filter_price_per_night_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
@@ -259,4 +259,3 @@
       </div>
     </div>
   </aside>
-
