@@ -273,7 +273,6 @@ angular.module('mobiusApp.config', [])
     },
     'hotelDetails': {
       'chainPrefix': 'Sandman Hotels',
-      'includeLocationInUrl': true,
       'breadcrumbs': {
         'hotels': false,
         'location': true

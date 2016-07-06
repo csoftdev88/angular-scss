@@ -249,7 +249,6 @@ angular.module('mobiusApp.config', [])
     },
     'hotelDetails': {
       'chainPrefix': 'Privathotel',
-      'includeLocationInUrl': false,
       'breadcrumbs': {
         'hotels': true,
         'location': false

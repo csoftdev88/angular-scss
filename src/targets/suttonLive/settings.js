@@ -253,7 +253,6 @@ angular.module('mobiusApp.config', [])
     },
     'hotelDetails': {
       'chainPrefix': 'Sutton Place Hotels',
-      'includeLocationInUrl': false,
       'breadcrumbs': {
         'hotels': true,
         'location': false

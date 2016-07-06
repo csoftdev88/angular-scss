@@ -707,26 +707,21 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(scope.selected.dates){
             stateParams.scrollTo = 'jsRooms';
           }
-          if(Settings.UI.hotelDetails.includeLocationInUrl){
-            locationService.getRegions().then(function(regions){
-              locationService.getLocations().then(function(locations){
 
-                var curLocation = _.find(locations, function(location){ return location.code === scope.selected.property.locationCode;});
-                stateParams.locationSlug = curLocation.meta.slug;
+          //Get region/location details
+          locationService.getRegions().then(function(regions){
+            locationService.getLocations().then(function(locations){
 
-                var curRegion = _.find(regions, function(region){ return region.code === curLocation.regionCode;});
-                stateParams.regionSlug = curRegion.meta.slug;
+              var curLocation = _.find(locations, function(location){ return location.code === scope.selected.property.locationCode;});
+              stateParams.locationSlug = curLocation.meta.slug;
 
-                $state.go('hotel', stateParams, {reload: true});
+              var curRegion = _.find(regions, function(region){ return region.code === curLocation.regionCode;});
+              stateParams.regionSlug = curRegion.meta.slug;
 
-              });
+              $state.go('hotel', stateParams, {reload: true});
+
             });
-            
-          }
-          else{
-            $state.go('hotel', stateParams, {reload: true});
-          }
-          
+          });  
         }
 
         scope.hideBar();

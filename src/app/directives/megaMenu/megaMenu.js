@@ -154,6 +154,19 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
+      scope.regionClick = function(region){
+        //hotels menu
+        if(attrs.type === 'hotels'){
+          scope.closeMenu();
+          $state.go('regions', {regionSlug: region.meta.slug, property: null, location: null});
+        }
+        //hot deals
+        else if(attrs.type === 'hot-deals'){
+          scope.closeMenu();
+          $state.go('hotDeals', {regionSlug: region.meta.slug, code: null, property: null, location: null});
+        }
+      };
+
       scope.locationClick = function(region, location){
         //hotels menu
         if(attrs.type === 'hotels'){
@@ -180,17 +193,14 @@ angular.module('mobiusApp.directives.megaMenu', [])
           scope.closeMenu();
 
           var params = {
+            regionSlug: region.meta.slug,
+            locationSlug: location.meta.slug,
             propertySlug: property.meta.slug,
             property: property.code,
             location: null
           };
 
-          if(Settings.UI.hotelDetails.includeLocationInUrl){
-            params.regionSlug = region.meta.slug;
-            params.locationSlug = location.meta.slug;
-          }
-
-          $state.go('hotel', params);
+          $state.go('hotel', params, {reload: true});
 
         }
         //hot deals

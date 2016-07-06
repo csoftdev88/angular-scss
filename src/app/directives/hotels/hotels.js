@@ -242,31 +242,21 @@ angular.module('mobiusApp.directives.hotels', [])
           stateParams.scrollTo = 'jsRooms';
         }
 
-        if(Settings.UI.hotelDetails.includeLocationInUrl){
-          locationService.getRegions().then(function(regions){
-            locationService.getLocations().then(function(locations){
+        locationService.getRegions().then(function(regions){
+          locationService.getLocations().then(function(locations){
 
-              var curLocation = _.find(locations, function(location){ return location.code === selectedHotel.locationCode;});
-              stateParams.locationSlug = curLocation.meta.slug;
+            var curLocation = _.find(locations, function(location){ return location.code === selectedHotel.locationCode;});
+            stateParams.locationSlug = curLocation.meta.slug;
 
-              var curRegion = _.find(regions, function(region){ return region.code === curLocation.regionCode;});
-              stateParams.regionSlug = curRegion.meta.slug;
+            var curRegion = _.find(regions, function(region){ return region.code === curLocation.regionCode;});
+            stateParams.regionSlug = curRegion.meta.slug;
 
-              //if hotel details set active booking bar
-              $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
-              $state.go('hotel', stateParams);
+            //if hotel details set active booking bar
+            $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
+            $state.go('hotel', stateParams);
 
-            });
           });
-          
-        }
-        else{
-          //if hotel details set active booking bar
-          $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
-          $state.go('hotel', stateParams);
-        }
-
-        
+        });
 
       };
 
