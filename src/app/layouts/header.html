@@ -45,7 +45,7 @@
               <li>
                 <a ui-sref="reservations">_reservations_</a>
               </li>
-              <li class="mobile-rewards" ng-if="loyaltyProgramEnabled">
+              <li class="mobile-rewards" ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.hasRewards">
                 <a href ui-sref="rewards">_rewards_</a>
               </li>
               <li ng-if="config.viewsSettings.userProfile.hasPrestigeAccount">
@@ -128,7 +128,7 @@
               <li>
                 <a ui-sref="reservations">_reservations_</a>
               </li>
-              <li ng-if="loyaltyProgramEnabled">
+              <li ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.hasRewards">
                 <a ui-sref="rewards">_rewards_</a>
               </li>
               <li ng-if="config.viewsSettings.userProfile.hasPrestigeAccount">
