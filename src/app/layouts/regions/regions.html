@@ -49,8 +49,8 @@
           <header>
             <h2>{{location.nameShort}}</h2>
             <ul class="chain-icons">
-              <li ng-repeat="icon in location.chain.icon">
-                <img ng-src="{{icon}}"  alt="{{location.chain.nameShort}} logo">
+              <li ng-repeat="chain in location.chain">
+                <img ng-src="{{chain.icon}}"  alt="{{chain.nameShort}} logo">
               </li>
             </ul>
           </header>
