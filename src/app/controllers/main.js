@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope) {
 
       $scope.chainCode = Settings.API.chainCode;
 
@@ -50,38 +50,22 @@ angular.module('mobius.controllers.main', [])
       var heroSliderData;
       $scope.updateHeroContent = function(data, forceDefault){
         if(data && data.length){
-          $scope.heroContent = filterHeroContent(data);
+          $rootScope.heroContent = filterHeroContent(data);
           return;
         }
 
         //Hotel specific hero slider content is handled from within the controllers so don't update on stateChangeSuccess
         if((!$state.includes('hotel') && !$state.includes('propertyOffers') && !$state.includes('hotelInfo') && !($state.includes('hotels') && $state.params.locationSlug) && !($state.includes('regions') && $state.params.regionSlug) && !$state.includes('staticContent') && !$state.includes('aboutUs')) || forceDefault){
           if(heroSliderData) {
-            $scope.heroContent = filterHeroContent(heroSliderData);
+            $rootScope.heroContent = filterHeroContent(heroSliderData);
           }
           else {
             loadHighlights().then(function() {
-              $scope.heroContent = filterHeroContent(heroSliderData);
+              $rootScope.heroContent = filterHeroContent(heroSliderData);
             });
           }
         }
 
-        /* this is hidden in case they will decide keep hero slider only on some pages
-        var stateName = $scope.$state.current.name;
-
-        if (stateName === 'home') {
-          loadHighlights();
-          return;
-        }
-
-        // Images for the rest of the states will be taken
-        // from the configuration.
-        var heroContent = Settings.UI.heroStaticContent[stateName];
-        if (heroContent) {
-          $scope.heroContent = heroContent;
-        } else {
-          $scope.heroContent = Settings.UI.heroStaticContent['default'];
-        }*/
       };
 
       var propertyCodes;
@@ -104,14 +88,6 @@ angular.module('mobius.controllers.main', [])
             }
             else{
               filteredOffers = offers;
-              /*
-              _.each(offers, function(offer){
-
-                if(offer.showAtChainLevel){
-                  filteredOffers.push(offer);
-                }
-              });
-              */
             }
 
             filteredOffers = _.pluck(filteredOffers, 'code');
@@ -130,8 +106,8 @@ angular.module('mobius.controllers.main', [])
               }
               
             });
-            //return data;
-            $scope.heroContent = data;
+            return data;
+            //$rootScope.heroContent = data;
 
           });
 
