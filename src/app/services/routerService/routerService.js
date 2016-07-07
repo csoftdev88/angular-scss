@@ -21,6 +21,7 @@ angular.module('mobiusApp.services.router', [])
           });
           break;
         case 'hotel':
+        case 'room':
           //Get region/location details
           propertyService.getPropertyRegionData(paramsData.property.locationCode).then(function(data){
             params.regionSlug = data.region.meta.slug;

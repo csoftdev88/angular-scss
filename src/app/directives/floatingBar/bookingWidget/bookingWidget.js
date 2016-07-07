@@ -682,18 +682,24 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         } else if (scope.selected.property && scope.selected.property.code &&
                   scope.selected.dates && $stateParams.roomSlug) {
           //Redirect to Room Details to show rates
-          stateParams.propertySlug = scope.selected.property.meta.slug;
           stateParams.roomSlug = $stateParams.roomSlug;
 
-
-          $state.go('room', stateParams, {reload: true});
+          paramsData.property =  scope.selected.property;
+          routerService.buildStateParams('room', paramsData).then(function(params){
+            stateParams = _.extend(stateParams, params);
+            $state.go('room', stateParams, {reload: true});
+          });
 
         } else if (scope.selected.location && scope.selected.location.code &&
                   scope.selected.dates && $stateParams.roomSlug) {
-          //Redirect to Room Details to show rates
-          stateParams.locationSlug = scope.selected.location.meta.slug;
-          stateParams.roomSlug = $stateParams.roomSlug;
-          $state.go('room', stateParams, {reload: true});
+          //Cannot access room without property
+          stateParams.roomSlug = null;
+
+          paramsData.location =  scope.selected.location;
+          routerService.buildStateParams('hotels', paramsData).then(function(params){
+            stateParams = _.extend(stateParams, params);
+            $state.go('hotels', stateParams, {reload: true});
+          });
 
         } else if (scope.selected.location && scope.selected.location.code) {
           //Redirect to location hotels
