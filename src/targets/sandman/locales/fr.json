@@ -94,6 +94,7 @@
     "MESSAGES": "//////////////////////////////////////////////////////",
     "no_room_found": "Aucune chambre trouvées",
     "no_hotels_found": "Aucun hôtel trouvés",
+    "hotel_name":"{{hotel.nameLong}}",
     "no_room_available": "Aucune chambre disponible, veuillez changer vos critères",
     "generic_error_message": "Désolé, il y eu une erreur, veuillez essayer à nouveau s'il vous plaît",
     "profile_updated_success_message": "Merci, votre profil a été mis à jour",

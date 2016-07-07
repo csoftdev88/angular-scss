@@ -71,7 +71,7 @@
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
             </div>
 
-            <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel.meta.slug)">{{hotel.chainTitle}} <strong>{{hotel.nameShort}}</strong></h2>
+            <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel.meta.slug)">_hotel_name_</h2>
 
             <h5 class="region-name" ng-if="config.displayHotelRegionName && hotelViewMode === 'list' && hotel.regionName">{{hotel.regionName}}</h5>
 
@@ -88,7 +88,7 @@
               </div>
             </div>
 
-            <h2 ng-if="hotelViewMode === 'tiles'" ng-click="navigateToHotel(hotel.meta.slug)">{{hotel.chainTitle}} <strong>{{hotel.nameShort}}</strong></h2>
+            <h2 ng-if="hotelViewMode === 'tiles'" ng-click="navigateToHotel(hotel.meta.slug)">_hotel_name_</h2>
             <h5 class="region-name" ng-if="config.displayHotelRegionName && hotelViewMode === 'tiles' && hotel.regionName">{{hotel.regionName}}</h5>
 
             <pricing-info>
