@@ -160,11 +160,6 @@ angular.module('mobiusApp.directives.megaMenu', [])
           scope.closeMenu();
           $state.go('hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, property: null, location: location.code});
         }
-        //hot deals
-        else if(attrs.type === 'hot-deals'){
-          scope.closeMenu();
-          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, code: null, property: null, location: null});
-        }
         //booking widget
         else if(attrs.type === 'booking-widget'){
           megaMenu.removeClass('open');
