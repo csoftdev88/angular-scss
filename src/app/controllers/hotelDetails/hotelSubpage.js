@@ -90,17 +90,25 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         sortInfo(details);
 
-        breadcrumbsService
-          .addBreadCrumb('Hotels', 'hotels')
-          .addBreadCrumb(details.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
-          .addBreadCrumb($stateParams.infoSlug.split('-').join(' '));
+        //Get property region/location data for breadcrumbs
+        propertyService.getPropertyRegionData(details.locationCode).then(function(propertyRegionData){
 
-        breadcrumbsService
-          .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
-          .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
-          .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
-          .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
-          .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
+          //breadcrumbs
+          breadcrumbsService
+            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
+            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
+            .addBreadCrumb(details.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug})
+            .addBreadCrumb($scope.info.title);
+
+          //alt nav
+          breadcrumbsService
+          .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsAbout'})
+          .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsLocation'})
+          .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsOffers'})
+          .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsRooms'})
+          .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'fnOpenLightBox'});
+          
+        });
 
         // Updating Hero content images
         if(details.images){

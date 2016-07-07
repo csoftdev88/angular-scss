@@ -201,19 +201,12 @@ angular.module('mobius.controllers.hotel.details', [
         }
 
         if($scope.config.breadcrumbs.location && $stateParams.regionSlug && $stateParams.locationSlug){
-          locationService.getRegions().then(function(regions){
-            locationService.getLocations().then(function(locations){
-
-              var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug;});
-              $scope.region = curRegion;
-              breadcrumbsService.addBreadCrumb(curRegion.nameShort, 'regions', {regionSlug: $stateParams.regionSlug, property: null});
-
-              var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug;});
-              $scope.location = curLocation;
-              breadcrumbsService.addBreadCrumb(curLocation.nameShort, 'hotels', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, property: null});
-
-              breadcrumbsService.addBreadCrumb(details.nameShort);
-            });
+          //Get property region/location data for breadcrumbs
+          propertyService.getPropertyRegionData(details.locationCode).then(function(data){
+            breadcrumbsService
+              .addBreadCrumb(data.region.nameShort, 'regions', {regionSlug: $stateParams.regionSlug, property: null})
+              .addBreadCrumb(data.location.nameShort, 'hotels', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, property: null})
+              .addBreadCrumb(details.nameShort);
           });
         }
         else{

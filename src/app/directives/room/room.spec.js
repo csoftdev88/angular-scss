@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 describe('room', function() {
   var _$rootScope, _scope, _$compile, _elem,
     _$templateCache, _$q,_templateCacheGet, _filtersService, _propertyService,
@@ -99,7 +99,8 @@ describe('room', function() {
       $provide.value('propertyService', {
         getPropertyDetails: sinon.stub(),
         getRooms: sinon.stub(),
-        getRoomDetails: sinon.stub()
+        getRoomDetails: sinon.stub(),
+        getPropertyRegionData: sinon.stub()
       });
 
       $provide.value('filtersService', {
@@ -180,7 +181,7 @@ describe('room', function() {
       expect(_$rootScope.setRoomDetails.calledOnce).equal(true);
     });
 
-    /*
+    
     it('should inherit PriceCtr', function() {
       expect(_scope._priceCtrlInherited).equal(true);
     });
@@ -188,6 +189,7 @@ describe('room', function() {
     it('should inherit RatesCtrl', function() {
       expect(_scope._ratesCtrlInherited).equal(true);
     });
-    */
+    
   });
 });
+*/
