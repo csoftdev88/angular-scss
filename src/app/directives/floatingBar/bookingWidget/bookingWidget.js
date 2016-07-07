@@ -676,7 +676,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             $state.go('hotel', stateParams, {reload: true});
           }
           else{
-            $state.go('hotels', stateParams, {reload: true});
+            $state.go('allHotels', stateParams, {reload: true});
           }
           
         } else if (scope.selected.property && scope.selected.property.code &&

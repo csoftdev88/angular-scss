@@ -26,6 +26,7 @@ angular.module('mobiusApp.services.router', [])
           propertyService.getPropertyRegionData(paramsData.property.locationCode).then(function(data){
             params.regionSlug = data.region.meta.slug;
             params.locationSlug = data.location.meta.slug;
+            params.property = paramsData.property.code;
             params.propertySlug = paramsData.property.meta.slug;
             q.resolve(params);
           });

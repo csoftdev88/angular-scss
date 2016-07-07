@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService', 'routerService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService){
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService, routerService){
 
   return {
     restrict: 'E',
@@ -131,7 +131,7 @@ angular.module('mobiusApp.directives.hotels', [])
             }
 
             if(Settings.UI.generics.singleProperty){
-              scope.navigateToHotel(scope.hotels[0].meta.slug);
+              scope.navigateToHotel(scope.hotels[0]);
             }
 
             //check if offer is limited to only one property and if so navigate to it
@@ -155,7 +155,7 @@ angular.module('mobiusApp.directives.hotels', [])
                 limitedToProperty = _.find(hotels, function(hotel){ return hotel.code === limitedToPropertyCode; });
 
                 if(limitedToProperty){
-                  scope.navigateToHotel(limitedToProperty.meta.slug);
+                  scope.navigateToHotel(limitedToProperty);
                   return;
                 }
 
@@ -222,16 +222,10 @@ angular.module('mobiusApp.directives.hotels', [])
           slideIndex);
       };
 
-      scope.navigateToHotel = function(propertySlug){
-        // Getting the current hotel
-        var selectedHotel = _.find(scope.hotels, function (item) {
-          return item && item.meta && item.meta.slug === propertySlug;
-        });
+      scope.navigateToHotel = function(property){
 
         // Getting rate details from RateCtrl
         var stateParams = {
-          property: selectedHotel ? selectedHotel.code : null,
-          propertySlug: propertySlug,
           rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null,
           promoCode: $stateParams.promoCode ? $stateParams.promoCode : null,
           corpCode: $stateParams.corpCode ? $stateParams.corpCode : null,
@@ -242,34 +236,14 @@ angular.module('mobiusApp.directives.hotels', [])
           stateParams.scrollTo = 'jsRooms';
         }
 
-        locationService.getRegions().then(function(regions){
-          locationService.getLocations().then(function(locations){
-
-            var curLocation = _.find(locations, function(location){ return location.code === selectedHotel.locationCode;});
-            stateParams.locationSlug = curLocation.meta.slug;
-
-            var curRegion = _.find(regions, function(region){ return region.code === curLocation.regionCode;});
-            stateParams.regionSlug = curRegion.meta.slug;
-
-            //if hotel details set active booking bar
-            $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
-            $state.go('hotel', stateParams);
-
-          });
+        var paramsData = {};
+        paramsData.property =  property;
+        routerService.buildStateParams('hotel', paramsData).then(function(params){
+          stateParams = _.extend(stateParams, params);
+          $state.go('hotel', stateParams, {reload: true});
         });
 
       };
-
-      /*
-      scope.loadLocation = function() {
-        //if(scope.location && scope.location.code) {
-        //  preloaderFactory(locationService.getLocation(scope.location.code).then(function(location) {
-        //    scope.locationDetails = location;
-        //  }));
-        //} else {
-        //  scope.locationDetails = null;
-        //}
-      };*/
 
       // Getting the details from booking widget
       var bookingParams = bookingService.getAPIParams(true);

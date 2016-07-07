@@ -210,14 +210,36 @@ angular
         parent: 'root',
         templateUrl: 'layouts/regions/regions.html',
         controller: 'RegionsCtrl',
-        url: '/locations/:regionSlug'
+        url: '/locations/:regionSlug',
+        params:  {
+          regionSlug: {
+            value: null,
+            squash: true
+          }
+        }
       })
 
       // Hotels
+      .state('allHotels', {
+        parent: 'root',
+        templateUrl: 'layouts/hotels/hotels.html',
+        url: '/hotels'
+      })
+
       .state('hotels', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
-        url: '/locations/:regionSlug/:locationSlug'
+        url: '/locations/:regionSlug/:locationSlug',
+        params:  {
+          regionSlug: {
+            value: null,
+            squash: true
+          },
+          locationSlug: {
+            value: null,
+            squash: true
+          }
+        }
       })
 
       .state('hotel', {
