@@ -112,14 +112,14 @@ angular.module('mobius.controllers.regions.subpage', [])
         .addBreadCrumb('Locations', 'regions', {regionSlug: null})
         .addBreadCrumb(curRegion.nameShort, 'regions', {regionSlug: curRegion.meta.slug})
         .addBreadCrumb(curLocation.nameShort, 'hotels', {regionSlug: curRegion.meta.slug, locationSlug: curLocation.meta.slug})
-        .addBreadCrumb($stateParams.infoSlug.split('-').join(' '));
+        .addBreadCrumb($scope.info.title);
       }
       else{
         breadcrumbsService
         .clear()
         .addBreadCrumb('Locations', 'regions', {regionSlug: null})
         .addBreadCrumb(curRegion.nameShort, 'regions', {regionSlug: curRegion.meta.slug})
-        .addBreadCrumb($stateParams.infoSlug.split('-').join(' '));
+        .addBreadCrumb($scope.info.title);
       }
       
       // Updating Hero content images
