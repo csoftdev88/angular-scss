@@ -203,10 +203,15 @@ angular.module('mobiusApp.directives.megaMenu', [])
             'property': property
           };
 
+          var stateParams = {
+            'code': null
+          };
+
           var toState = attrs.type === 'hotels' ? 'hotel' : 'propertyHotDeals';
 
           routerService.buildStateParams(toState, paramsData).then(function(params){
-            $state.go(toState, params, {reload: true});
+            stateParams = _.extend(stateParams, params);
+            $state.go(toState, stateParams, {reload: true});
           });
 
         }

@@ -5,13 +5,13 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService, routerService) {
 
     //$controller('MainCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
 
     $scope.config = Settings.UI.offers;
-    $scope.isHotDeals = $state.current.name === 'hotDeals';
+    $scope.isHotDeals = $state.current.name === 'hotDeals' || $state.current.name === 'propertyHotDeals';
     var hasHotDeals = Settings.UI.menu.showHotDeals;
     $scope.selectedOfferAvailabilityData = {};
 
@@ -253,10 +253,27 @@ angular.module('mobius.controllers.offers', [])
       $scope.offersList[selectedOfferIndex].availability = availability;
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+
       if($stateParams.propertySlug && !$scope.isHotDeals){
+        console.log('1: ');
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
+      else if($stateParams.propertySlug && $scope.isHotDeals){
+        console.log('2: ');
+        var stateParams = {
+          'code': slug
+        };
+        var paramsData = {};
+        propertyService.getAll().then(function(properties){
+          paramsData.property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
+          routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params){
+            stateParams = _.extend(stateParams, params);
+            $state.go('propertyHotDeals', stateParams, {reload: true});
+          });
+        });
+      }
       else{
+        console.log('$scope.isHotDeals: ' + $scope.isHotDeals);
         $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
 

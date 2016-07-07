@@ -10,6 +10,7 @@ angular.module('mobiusApp.services.router', [])
 
       switch (state) {
         case 'hotels':
+        case 'hotDeals':
           //Get region details
           locationService.getRegions().then(function(regions){
             var region = _.find(regions, function(region){ return region.code === paramsData.location.regionCode;});
@@ -22,6 +23,7 @@ angular.module('mobiusApp.services.router', [])
           break;
         case 'hotel':
         case 'room':
+        case 'propertyHotDeals':
           //Get region/location details
           propertyService.getPropertyRegionData(paramsData.property.locationCode).then(function(data){
             params.regionSlug = data.region.meta.slug;
@@ -30,6 +32,11 @@ angular.module('mobiusApp.services.router', [])
             params.propertySlug = paramsData.property.meta.slug;
             q.resolve(params);
           });
+          break;
+        case 'propertyOffers':
+          //TODO: this is still Sutton logic, not relevant to Sandman atm, might need to change
+          params.propertySlug = null;
+          q.resolve(params);
           break;
         }
 
