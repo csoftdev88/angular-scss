@@ -76,15 +76,9 @@ angular.module('mobius.controllers.offers', [])
             var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
             $scope.property = property;
             $scope.updateHeroContent(_.filter(property.images, {includeInSlider: true}));
-            breadcrumbsService.clear()
-              .addBreadCrumb('Hotels', 'hotels')
-              .addBreadCrumb(property.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
-              .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers')
-              .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
-              .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
-              .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
-              .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
-              .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
+            if(!$stateParams.code) {
+              setBreadCrumbs(null, null, property);
+            }
           });
 
           if ($stateParams.code) {
@@ -129,30 +123,70 @@ angular.module('mobius.controllers.offers', [])
                 });
               });
 
-              //Filter offers by location if any, not if property is defined
-              if($stateParams.locationSlug && !$stateParams.propertySlug){
-                locationService.getLocations().then(function(locations){
-                  var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
-                  //remove any availability associated with a property not part of current location
-                  var filteredOffers = angular.copy(offers);
-                  _.each(filteredOffers, function(offer){
-                    offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                      return availability.locationCode !== curLocation.code;
+              //Filter offers by region if any and if no location or property is defined
+              if($stateParams.regionSlug && !$stateParams.locationSlug && !$stateParams.propertySlug){
+                locationService.getRegions().then(function(regions){
+                  locationService.getLocations().then(function(locations){
+                    var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug; });
+                    var regionLocations = _.where(locations, {regionCode: curRegion.code});
+                    //remove any availability associated with a property not part of current locations
+                    var filteredOffers = angular.copy(offers);
+                    _.each(regionLocations, function(location){
+                      _.each(filteredOffers, function(offer){
+                        offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+                          return availability.locationCode !== location.code;
+                        });
+                        if(offer.offerAvailability.length === 1){
+                          var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                          offer.propertyName = property.nameShort;
+                        }
+                      });
                     });
-                    if(offer.offerAvailability.length === 1){
-                      var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
-                      offer.propertyName = property.nameShort;
+                    
+                    //Now remove offers with no availability unless featured
+                    filteredOffers = _.reject(filteredOffers, function(offer){
+                      return !offer.offerAvailability.length && !offer.featured;
+                    });
+                    $scope.offersList = filteredOffers;
+                    //breadcrumbs
+                    if(!$stateParams.code) {
+                      setBreadCrumbs(curRegion);
                     }
                   });
-                  //Now remove offers with no availability unless featured
-                  filteredOffers = _.reject(filteredOffers, function(offer){
-                    return !offer.offerAvailability.length && !offer.featured;
+                });
+              }
+              //Filter offers by location if any, not if property is defined
+              else if($stateParams.regionSlug && $stateParams.locationSlug && !$stateParams.propertySlug){
+                locationService.getRegions().then(function(regions){
+                  locationService.getLocations().then(function(locations){
+                    var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug; });
+                    var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+                    //remove any availability associated with a property not part of current location
+                    var filteredOffers = angular.copy(offers);
+                    _.each(filteredOffers, function(offer){
+                      offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+                        return availability.locationCode !== curLocation.code;
+                      });
+                      if(offer.offerAvailability.length === 1){
+                        var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                        offer.propertyName = property.nameShort;
+                      }
+                    });
+                    //Now remove offers with no availability unless featured
+                    filteredOffers = _.reject(filteredOffers, function(offer){
+                      return !offer.offerAvailability.length && !offer.featured;
+                    });
+                    $scope.offersList = filteredOffers;
+                    //breadcrumbs
+                    if(!$stateParams.code) {
+                      setBreadCrumbs(curRegion, curLocation);
+                    }
                   });
-                  $scope.offersList = filteredOffers;
                 });
               }
               else if($stateParams.propertySlug){
                 var curProperty = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug;});
+                setBreadCrumbs(curProperty);
                 //remove any availability associated with a property that is not the current property
                 var filteredOffers = angular.copy(offers);
                 _.each(filteredOffers, function(offer){
@@ -169,6 +203,10 @@ angular.module('mobius.controllers.offers', [])
                   return !offer.offerAvailability.length && !offer.featured;
                 });
                 $scope.offersList = filteredOffers;
+                //breadcrumbs
+                if(!$stateParams.code) {
+                  setBreadCrumbs(null, null, curProperty);
+                }
               }
               else{
                 //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
@@ -183,8 +221,13 @@ angular.module('mobius.controllers.offers', [])
                   return !offer.offerAvailability.length && !offer.featured;
                 });
                 $scope.offersList = hotDealsOffers;
+                //breadcrumbs
+                if(!$stateParams.code) {
+                  setBreadCrumbs();
+                }
               }
-              if ($stateParams.code) {
+
+              if($stateParams.code) {
                 selectOffer(bookingService.getCodeFromSlug($stateParams.code));
               }
 
@@ -215,6 +258,69 @@ angular.module('mobius.controllers.offers', [])
         metaInformationService.setMetaKeywords(chain.meta.keywords);
 
       });
+    }
+
+    function setBreadCrumbs(region, location, property, offerTitle){
+
+      if($stateParams.code && !offerTitle) {
+        return;
+      }
+
+      breadcrumbsService.clear();
+
+      if(region && !location && !property){
+        //breadcrumbs
+        breadcrumbsService
+          .addBreadCrumb(region.nameShort, 'regions', {regionSlug: region.meta.slug, property: null})
+          .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+      }
+      else if(region && location && !property){
+        //breadcrumbs
+        breadcrumbsService
+          .addBreadCrumb(region.nameShort, 'regions', {regionSlug: region.meta.slug, property: null})
+          .addBreadCrumb(location.nameShort, 'hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, property: null})
+          .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+      }
+      else if(property){
+        //Get property region/location data for breadcrumbs
+        propertyService.getPropertyRegionData(property.locationCode).then(function(propertyRegionData){
+
+          //breadcrumbs
+          breadcrumbsService
+            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
+            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
+            .addBreadCrumb(property.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug});
+            
+
+          if(offerTitle){
+            breadcrumbsService
+              .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'propertyHotDeals' : 'propertyOffers', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, code: null})
+              .addBreadCrumb(offerTitle);
+          }
+          else{
+            breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+          }
+
+          //alt nav
+          breadcrumbsService
+          .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsAbout'})
+          .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsLocation'})
+          .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsOffers'})
+          .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsRooms'})
+          .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'fnOpenLightBox'});
+
+        });
+      }
+      else{
+        if(offerTitle){
+          breadcrumbsService
+            .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'hotDeals' : 'offers', {code: null})
+            .addBreadCrumb(offerTitle);
+        }
+        else{
+          breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+        }
+      }
     }
 
     $scope.getRelevant = function(offer, index) {
@@ -255,11 +361,9 @@ angular.module('mobius.controllers.offers', [])
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
       if($stateParams.propertySlug && !$scope.isHotDeals){
-        console.log('1: ');
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
       else if($stateParams.propertySlug && $scope.isHotDeals){
-        console.log('2: ');
         var stateParams = {
           'code': slug
         };
@@ -273,7 +377,6 @@ angular.module('mobius.controllers.offers', [])
         });
       }
       else{
-        console.log('$scope.isHotDeals: ' + $scope.isHotDeals);
         $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
 
@@ -354,30 +457,27 @@ angular.module('mobius.controllers.offers', [])
       $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
 
-      if($stateParams.property){
+      //Get offer title
+      var offerTitle = $scope.selectedOffer.availability && $scope.selectedOffer.availability.title &&  $scope.selectedOffer.availability.title !== '' ?  $scope.selectedOffer.availability.title : $scope.selectedOffer.title;
 
+      if($stateParams.property){
         propertyService.getAll().then(function(properties){
-            var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
-            $scope.updateHeroContent(_.filter(property.images, {includeInSlider: true}));
-            breadcrumbsService.clear()
-              .addBreadCrumb('Hotels', 'hotels')
-              .addBreadCrumb(property.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
-              .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'hotDeals' : 'offers', {code: null})
-              .addBreadCrumb($scope.selectedOffer.availability && $scope.selectedOffer.availability.title &&  $scope.selectedOffer.availability.title !== '' ?  $scope.selectedOffer.availability.title : $scope.selectedOffer.title)
-              .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
-              .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
-              .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
-              .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
-              .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
-          });
+          //Get current property
+          var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+          //Breadcrumbs
+          setBreadCrumbs(null, null, property, offerTitle);
+          //hero slider
+          $scope.updateHeroContent(_.filter(property.images, {includeInSlider: true}));
+        });
       }
       else{
+        //Breadcrumbs
+        setBreadCrumbs(null, null, null, offerTitle);
+        //hero slider
         if($scope.config.displayOfferImageInHeroSlider && !_.isEmpty($scope.selectedOffer.image)){
           $scope.updateHeroContent([$scope.selectedOffer.image]);
         }
-        breadcrumbsService.clear()
-          .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'hotDeals' : 'offers', {code: null})
-          .addBreadCrumb($scope.selectedOffer.title);
+        
       }
 
     }
