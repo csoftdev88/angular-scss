@@ -387,14 +387,7 @@ angular.module('mobiusApp.directives.hotels', [])
           },
           {
             name: options.starRatingLowToHigh,
-            sort: function(hotel){
-              if(scope.hasDates()){
-                return [hotel.rating, hotel.priceFrom, hotel.nameShort];
-              }
-              else {
-                return [hotel.rating, hotel.nameShort];
-              }
-            }
+            sort: scope.hasDates ? ['rating', 'priceFrom', 'nameShort'] : ['rating', 'nameShort']
           },
           {
             name: options.starRatingHighToLow,
