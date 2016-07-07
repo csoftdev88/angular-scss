@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -358,7 +358,12 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.goToOffers = function(){
-      $state.go($scope.config.offers.toState, {regionSlug: $scope.region.meta.slug || null, locationSlug: $scope.location.meta.slug || null, propertySlug: $scope.details.meta.slug || null, code:null, property: null, location: null}, {reload: true});
+    var paramsData = {
+      'property': $scope.details
+    };
+    routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params){
+      $state.go($scope.config.offers.toState, params, {reload: true});
+    });
   };
 
   $scope.getAbsUrl = function(){
@@ -366,7 +371,16 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.advertClick = function(link){
-    $state.go(link.type, {code: link.code, propertySlug: bookingParams.propertySlug});
+    var stateParams = {
+      'code': link.code
+    };
+    var paramsData = {
+      'property': $scope.details
+    };
+    routerService.buildStateParams(link.type, paramsData).then(function(params){
+      stateParams = _.extend(stateParams, params);
+      $state.go(link.type, stateParams);
+    });
   };
 
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;

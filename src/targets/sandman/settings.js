@@ -317,7 +317,7 @@ angular.module('mobiusApp.config', [])
 
       },
       'offers': {
-        'toState': 'hotDeals'
+        'toState': 'propertyHotDeals'
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,

@@ -352,10 +352,17 @@ angular
         controller: 'OffersCtrl'
       })
 
+      .state('propertyOffers', {
+        parent: 'root',
+        templateUrl: 'layouts/offers/offers.html',
+        url: '/hotels/:propertySlug/offers/:code',
+        controller: 'OffersCtrl'
+      })
+
       .state('hotDeals', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
-        url: '/hot-deals/:regionSlug/:locationSlug/:propertySlug/:code',
+        url: '/hot-deals/:regionSlug/:locationSlug/:code',
         controller: 'OffersCtrl',
         params:  {
           locationSlug: {
@@ -373,10 +380,10 @@ angular
         }
       })
 
-      .state('propertyOffers', {
+      .state('propertyHotDeals', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
-        url: '/hotels/:propertySlug/offers/:code',
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/hot-deals/:code',
         controller: 'OffersCtrl'
       })
 

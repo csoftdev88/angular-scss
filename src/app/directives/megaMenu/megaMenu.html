@@ -22,9 +22,9 @@
 
     <ul ng-if="locations">
       <li ng-repeat="location in locations | filter: {properties: {nameShort: propertySearch}} | orderBy: 'nameShort'" ng-show="location.properties.length">
-        <a href="" ng-click="locationClick(activeRegion, location)">{{location.nameShort}}</a>
+        <a href="" ng-click="locationClick(location)">{{location.nameShort}}</a>
         <ul class="properties">
-          <li ng-repeat="property in location.properties | filter:propertySearch track by property.nameShort"><a href="" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick(activeRegion, location, property)">{{property.nameShort}}</a></li>
+          <li ng-repeat="property in location.properties | filter:propertySearch track by property.nameShort"><a href="" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick(property)">{{property.nameShort}}</a></li>
         </ul>
       </li>
     </ul>
