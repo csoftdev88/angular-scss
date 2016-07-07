@@ -18,6 +18,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     link: function(scope){
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
+      var ALL_PROPERTIES = 'All Properties';
+      var FIND_YOUR_HOTEL = 'Find Your Hotel';
 
       scope.isMobile = function(){
         return stateService.isMobile();
@@ -403,7 +405,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         scope.propertyRegionList = [];
         if (scope.settings.includeAllPropertyOption) {
-          scope.propertyRegionList.push({name: 'Find Your Hotel', type: 'all'});
+          scope.propertyRegionList.push({name: FIND_YOUR_HOTEL, type: 'all'});
         }
         //regions
         if (scope.settings.includeRegions && !scope.isMobile() || scope.settings.includeRegionsOnMobile && scope.isMobile()) {
@@ -732,9 +734,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.hideBar();
       };
 
-      // Search is enabled only when required fields contain data
+      // Search is enabled only when required fields contain data or if "All properties has been selected"
       scope.isSearchable = function(){
-        return scope.selected.property || scope.selected.location || scope.selected.dates;
+        return scope.selected.property || scope.selected.location || scope.selected.dates || (scope.propertyRegionList && scope.regionPropertySelected === scope.propertyRegionList[0] && scope.selected.allProperties);
       };
 
       scope.removeCode = function(){
@@ -843,8 +845,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       });
 
       var selectAllPropertiesListener = $rootScope.$on('BOOKING_BAR_SELECT_ALL', function(){
-        scope.propertyRegionList[0].name = 'All Properties';
+        scope.propertyRegionList[0].name = ALL_PROPERTIES;
         scope.regionPropertySelected = scope.propertyRegionList[0];
+        scope.selected.allProperties = true;
         scope.selected.region = undefined;
         scope.selected.location = undefined;
         scope.selected.property = undefined;
