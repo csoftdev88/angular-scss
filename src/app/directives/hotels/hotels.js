@@ -18,7 +18,7 @@ angular.module('mobiusApp.directives.hotels', [])
     // Widget logic goes here
     link: function(scope){
 
-      breadcrumbsService.clear().addBreadCrumb('Hotel Search');
+      breadcrumbsService.clear();
 
       $controller('SSOCtrl', {$scope: scope});
       $controller('MainCtrl', {$scope: scope});
@@ -87,6 +87,9 @@ angular.module('mobiusApp.directives.hotels', [])
               //Get locations
               locationService.getLocations().then(function(locations){
                 var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+
+                //breadcrumbs
+                addBreadCrumbs(curLocation);
                 
                 if(curLocation){
 
@@ -123,6 +126,7 @@ angular.module('mobiusApp.directives.hotels', [])
             else{
               scope.hotels = hotels || [];
               initPriceFilter();
+              addBreadCrumbs();
             }
 
             //We need the region name to display
@@ -193,6 +197,23 @@ angular.module('mobiusApp.directives.hotels', [])
           });
         });
       }
+
+      /////////////
+      //Breadcrumbs
+      /////////////
+      function addBreadCrumbs(location){
+        if(location){
+          locationService.getRegions().then(function(regions){
+            var region = _.find(regions, function(region){ return region.code === location.regionCode; });
+            breadcrumbsService.addBreadCrumb(region.nameShort, 'regions', {regionSlug: $stateParams.regionSlug, property: null});
+            breadcrumbsService.addBreadCrumb(location.nameShort);
+          });
+        }
+        else{
+          breadcrumbsService.addBreadCrumb('Hotel Search');
+        }
+      }
+      
 
 /*
       filtersService.getProducts(true).then(function(data) {
