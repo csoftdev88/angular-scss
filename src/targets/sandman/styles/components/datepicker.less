@@ -17,6 +17,10 @@
         padding-right: 35px;
       }
     }
+    //Add to second datepicker, create a border without messing up width dimensions
+    + .ui-datepicker-group {
+      box-shadow: -1px 1px 0px @c-black;
+    }
   }
   &:after {
     color: @c-datepicker;
@@ -128,7 +132,7 @@
           position: absolute;
           right: 0;
           top: 0;
-          
+
           width: 0;
           height: 0;
           border-style: solid;
