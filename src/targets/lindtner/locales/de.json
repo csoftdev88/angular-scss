@@ -159,6 +159,7 @@
 
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "select_hotel": "Select your hotel",
+    "select_all_hotels": "Select all hotels",
     "arrival": "Arrival",
     "departure": "Departure",
     "no_dates_selected_short": "Keine Daten ausgewählt",

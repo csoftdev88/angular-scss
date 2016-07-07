@@ -101,6 +101,7 @@
     "incorrect_email_password_error": "The email and/or password you entered is incorrect",
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "select_hotel": "Select your hotel",
+    "select_all_hotels": "Select all hotels",
     "arrival": "Arrival",
     "departure": "Departure",
     "no_dates_selected_short": "No dates selected",

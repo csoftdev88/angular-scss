@@ -131,13 +131,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         });
       }
 
-      
+
       function getDefaultAdultCount() {
         return _.find(scope.guestsOptions.adults, {
           value: bookingService.getAPIParams(true).adults || scope.settings.defaultAdultCount
         });
       }
-      
+
 
       // NOTE: Hotel is presented in the URL by using property/hotel code
       // Currently selected form values
@@ -348,7 +348,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         else{
           return _.find(regionsProperties, {code: propertyCode});
         }
-        
+
       }
 
       function validatePropertyRegion() {
@@ -397,14 +397,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       }
 
       function setPropertyRegionList() {
-
         var region = scope.selected.region;
         var location = scope.selected.location;
         var property = scope.selected.property;
 
         scope.propertyRegionList = [];
         if (scope.settings.includeAllPropertyOption) {
-          scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
+          scope.propertyRegionList.push({name: 'Find Your Hotel', type: 'all'});
         }
         //regions
         if (scope.settings.includeRegions && !scope.isMobile() || scope.settings.includeRegionsOnMobile && scope.isMobile()) {
@@ -466,7 +465,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             scope.regionPropertySelected = {name: curLocation.nameShort, type: 'location', code: curLocation.code};
           });
           */
-          
+
         }
         else{
           scope.regionPropertySelected = scope.propertyRegionList[0];
@@ -504,7 +503,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           }
 
           var code = scope.selected.property.code || scope.selected.property;
-          
+
           var params = {
             from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
             to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
@@ -613,6 +612,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
        * Updates the url with values from the widget and redirects either to hotel list or a room list
        */
       scope.onSearch = function(){
+        console.log(scope.selected);
         var stateParams = {};
         for (var key in PARAM_TYPES) {
           if (PARAM_TYPES.hasOwnProperty(key)) {
@@ -675,7 +675,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           else{
             $state.go('hotels', stateParams, {reload: true});
           }
-          
+
         } else if (scope.selected.property && scope.selected.property.code &&
                   scope.selected.dates && $stateParams.roomSlug) {
           //Redirect to Room Details to show rates
@@ -721,12 +721,12 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
               });
             });
-            
+
           }
           else{
             $state.go('hotel', stateParams, {reload: true});
           }
-          
+
         }
 
         scope.hideBar();
@@ -842,10 +842,19 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.openBookingTab(true);
       });
 
+      var selectAllPropertiesListener = $rootScope.$on('BOOKING_BAR_SELECT_ALL', function(){
+        scope.propertyRegionList[0].name = 'All Properties';
+        scope.regionPropertySelected = scope.propertyRegionList[0];
+        scope.selected.region = undefined;
+        scope.selected.location = undefined;
+        scope.selected.property = undefined;
+      });
+
       scope.$on('$destroy', function(){
         routeChangeListener();
         prefillListener();
         openMRBTabListener();
+        selectAllPropertiesListener();
       });
 
       function onPrefill(settings){
@@ -856,7 +865,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         // TODO: Set code type from offers
         function prefillPromoCode() {
-          
+
           // TODO: Offers should have code types - needs API
           var codeTypeParam;
           if(settings.promoCode){
