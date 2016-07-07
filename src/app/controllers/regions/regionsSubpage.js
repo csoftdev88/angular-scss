@@ -39,7 +39,7 @@ angular.module('mobius.controllers.regions.subpage', [])
     }, 0);
   };
 
-  
+
   function sortInfo(data){
 
     _.find(data.content, function(content){
@@ -59,7 +59,7 @@ angular.module('mobius.controllers.regions.subpage', [])
         if(elem.parentNode){
           elem.parentNode.removeChild(elem);
         }
-        
+
         $scope.moreInfo.push(content);
       }
     });
@@ -121,10 +121,10 @@ angular.module('mobius.controllers.regions.subpage', [])
         .addBreadCrumb(curRegion.nameShort, 'regions', {regionSlug: curRegion.meta.slug})
         .addBreadCrumb($stateParams.infoSlug.split('-').join(' '));
       }
-      
+
       // Updating Hero content images
       if($scope.details.images){
-        $scope.updateHeroContent(_.filter($scope.details.images, {includeInSlider: true}));
+        $scope.updateHeroContent(_.filter($scope.details.images));
 
         // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
         // Current version of PhantomJS is missing not supporting .bind
@@ -151,8 +151,8 @@ angular.module('mobius.controllers.regions.subpage', [])
 
 
   getDetails();
-  
-  
+
+
   $scope.goToInfo = function(info) {
     $state.go('locationInfo', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug || null, infoSlug: info.slug});
   };
