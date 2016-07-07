@@ -6,7 +6,7 @@ booking-widget {
   display: block;
   max-width: 960px;
   margin: 0 auto;
-  max-height: 0px; 
+  max-height: 0px;
   //transition: max-height 1s ease-out;
   .transition(max-height, 1s, ease-in-out);
   overflow: hidden;
@@ -14,7 +14,7 @@ booking-widget {
   &.is-open {
     max-height: 80px;
     &.multiroom-mode{
-      max-height: 300px; 
+      max-height: 300px;
     }
     &.transEnd{
       overflow: visible;
@@ -26,7 +26,7 @@ booking-widget {
     transition: none;
     overflow: visible;
   }
-  
+
   // Chosen dropdown - open up not down
   .chosen-container .chosen-drop {
     bottom: 100%;
@@ -336,31 +336,8 @@ booking-widget-search {
   }
 }
 
-booking-widget-search form-element.code {
-  input {
-    width: 0px;
-    padding-right: 20px;
-    opacity: 0;
-    .transition(all, .3s, ease-in-out);
-    padding-left: 10px;
-
-    &.prefilled {
-      animation-name: input-prefilled;
-      animation-duration: .5s;
-    }
-  }
-
-  .chosen-container {
-    opacity: 1;
-    .transition(all, .3s, ease-in-out);
-    .chosen-single {
-      b {
-        left: 0px;
-      }
-    }
-  }
-
-  remove-code {
+booking-widget-search {
+  remove-text {
     opacity: 0;
     .transition;
 
@@ -378,42 +355,66 @@ booking-widget-search form-element.code {
       content: @fa-var-times;
     }
   }
-
-  &.code-input {
-
-    &:before {
-      display: none;
-    }
-
-    remove-code {
-      opacity: 1;
-      right: 13px;
-    }
-    .chosen-container {
-      width: 0px !important;
+  form-element.code {
+    input {
+      width: 0px;
+      padding-right: 20px;
       opacity: 0;
-    }
+      .transition(all, .3s, ease-in-out);
+      padding-left: 10px;
 
-    .chosen-container-active {
-      &.chosen-with-drop {
-        width: 75% !important;
-      }
-
-      .chosen-drop {
-        width: 165px;
+      &.prefilled {
+        animation-name: input-prefilled;
+        animation-duration: .5s;
       }
     }
 
-    .chosen-single {
-      padding-left: 15px;
+    .chosen-container {
+      opacity: 1;
+      .transition(all, .3s, ease-in-out);
+      .chosen-single {
+        b {
+          left: 0px;
+        }
+      }
+    }
+
+    &.code-input {
+
       &:before {
         display: none;
       }
-    }
 
-    input {
-      width: 100%;
-      opacity: 1;
+      remove-text {
+        opacity: 1;
+        right: 13px;
+      }
+      .chosen-container {
+        width: 0px !important;
+        opacity: 0;
+      }
+
+      .chosen-container-active {
+        &.chosen-with-drop {
+          width: 75% !important;
+        }
+
+        .chosen-drop {
+          width: 165px;
+        }
+      }
+
+      .chosen-single {
+        padding-left: 15px;
+        &:before {
+          display: none;
+        }
+      }
+
+      input {
+        width: 100%;
+        opacity: 1;
+      }
     }
   }
 }
@@ -463,7 +464,7 @@ booking-widget-add-room {
       width: 35%;
       box-sizing: border-box;
       .viewport-mobile &{
-        width: 100%;      
+        width: 100%;
       }
       button-text{
         margin: 0;
@@ -477,13 +478,13 @@ booking-widget-add-room {
 my-account {
   display: block;
   background: @c-booking-widget-my-account;
-  max-height: 0px; 
+  max-height: 0px;
   //transition: max-height .6s ease-out;
   .transition(max-height, 1s, ease-in-out);
   overflow: hidden;
 
   &.is-open {
-    max-height: 110px; 
+    max-height: 110px;
   }
 
   // Wrapper to center content
