@@ -383,6 +383,19 @@ angular.module('mobius.controllers.hotel.details', [
     });
   };
 
+  $scope.goToInfo = function(property, infoSlug){
+    var paramsData = {
+      'property': property
+    };
+    var stateParams = {
+      'infoSlug': infoSlug
+    };
+    routerService.buildStateParams('hotelInfo', paramsData).then(function(params){
+      stateParams = _.extend(stateParams, params);
+      $state.go('hotelInfo', stateParams, {reload: true});
+    });
+  };
+
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
 
