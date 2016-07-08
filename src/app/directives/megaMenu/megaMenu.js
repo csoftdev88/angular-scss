@@ -22,7 +22,6 @@ angular.module('mobiusApp.directives.megaMenu', [])
       scope.isHotels = attrs.type === 'hotels';
       scope.isHotDeals = attrs.type === 'hot-deals';
       scope.activeRegion = {};
-
       //external region links
       scope.externalRegionLinks = Settings.UI.menu.externalRegionLinks;
 
@@ -80,12 +79,15 @@ angular.module('mobiusApp.directives.megaMenu', [])
             }
 
             //if hot deals, remove properties that don't have hot deals
-            if(scope.isHotDeals){
+            /*if(scope.isHotDeals){
+              console.log('is hot deals');
               //get offers
               contentService.getOffers().then(function(offers) {
                 //only keep offers that have at least 1 property in availability
+                console.log('unfiltered offers' + offers.length);
                 offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length;});
 
+                console.log('filtered offers' + offers.length);
                 //only include properties that have an offer associated with them
                 var filteredProperties = [];
                 _.each(properties, function(property){
@@ -102,9 +104,9 @@ angular.module('mobiusApp.directives.megaMenu', [])
 
               });
             }
-            else{
+            else{*/
               assignPropertiesToLocations(regionIndex, _.uniq(properties));
-            }
+            //}
 
           });
 
@@ -194,7 +196,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
       };
 
       scope.propertyClick = function(property){
-        
+
         //hotels or hot deals
         if(attrs.type === 'hotels' || attrs.type === 'hot-deals'){
           scope.closeMenu();
