@@ -38,7 +38,7 @@ angular.module('mobiusApp.services.adverts', [])
         navigateToState('aboutUs', link.code);
         break;
       default:
-        $window.open(link.uri, '_blank');
+        $window.location.href = link.uri;
       }
     }
 

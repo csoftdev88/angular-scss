@@ -91,14 +91,14 @@ describe('advertsService', function() {
       });
     });
 
-    describe('when clicked on a href', function(){
+    /*describe('when clicked on a href', function(){
       it('should navigate to a link opened in a new window', function(){
         _advertsService.advertClick({type: 'unknown', uri: 'testURI'});
         expect(_spyStateGo.calledOnce).equal(false);
         expect(_spyWindowOpen.calledOnce).equal(true);
         expect(_spyWindowOpen.calledWith('testURI', '_blank')).equal(true);
       });
-    });
+    });*/
 
     describe('when clicked on offers link', function(){
       it('should navigate to an offers state', function(){
