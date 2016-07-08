@@ -96,6 +96,10 @@ describe('mobius.controllers.reservation', function() {
           trackPurchase: sinon.spy()
         });
 
+        $provide.value('routerService', {
+          buildStateParams: sinon.spy()
+        });
+
         $provide.value('validationService', {});
         $provide.value('stateService', {
           isMobile: sinon.stub()

@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, routerService){
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
@@ -307,7 +307,19 @@ angular.module('mobius.controllers.reservation', [])
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
   function goToRoom() {
-    $state.go(previousState.state, previousState.params);
+    if(previousState && previousState.state && previousState.params && previousState.state.parent !== 'reservation'){
+      $state.go(previousState.state, previousState.params);
+    }
+    else{
+      propertyService.getAll().then(function(properties){
+        var paramsData = {};
+        paramsData.property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+        routerService.buildStateParams('hotel', paramsData).then(function(params){
+          params.scrollTo = 'jsRooms';
+          $state.go('hotel', params, {reload: true});
+        });
+      });
+    } 
   }
 
   // Redirecting to details page
