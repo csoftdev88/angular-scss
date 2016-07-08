@@ -452,8 +452,6 @@ angular.module('mobius.controllers.offers', [])
 
     function selectOffer(code) {
 
-      console.log('selectOffer');
-
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
