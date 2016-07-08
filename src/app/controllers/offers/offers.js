@@ -250,33 +250,10 @@ angular.module('mobius.controllers.offers', [])
                 });
                 */
 
-                // Note: We are in the `hot-deal` page (/hot-deals/) and we need only featured offers at any level
-                var offersArr = [];
-                var i = 0;
-
-                for (i = 0; i < offers.length; i++) {
-                  if (offers[i].offerAvailability && offers[i].offerAvailability.length > 0) {
-                    offers[i].offerAvailability = _.reject(offers[i].offerAvailability, function(offer) {
-                      return !offer.featured;
-                    });
-                  } else {
-                    offers.slice(i, 1);
-                  }
-                }
-
-                // Chain level
-                offersArr.push(_.reject(offers, function(offer) {
+                // Note: We are in the `hot-deal` page (/hot-deals/) and we need only featured offers
+                $scope.offersList = _.reject(offers, function(offer) {
                   return !offer.featured;
-                }));
-                // Property level
-                offersArr.push(_.reject(offers, function(offer) {
-                  return offer.offerAvailability && !offer.offerAvailability.length;
-                }).filter(function(o) {
-                  return o.offerAvailability;
-                }));
-
-                $scope.offersList = _.uniq(_.flatten(offersArr));
-
+                });
                 //breadcrumbs
                 if(!$stateParams.code) {
                   setBreadCrumbs();
