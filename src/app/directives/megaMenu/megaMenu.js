@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.megaMenu', [])
 
-.directive('megaMenu', function(propertyService, locationService, $cacheFactory, _, $state, $rootScope, contentService, Settings){
+.directive('megaMenu', function(propertyService, locationService, $cacheFactory, _, $state, $rootScope, contentService, Settings, routerService){
   return {
     restrict: 'EA',
     scope: {},
@@ -154,11 +154,35 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
-      scope.locationClick = function(region, location){
+      scope.regionClick = function(region){
         //hotels menu
         if(attrs.type === 'hotels'){
           scope.closeMenu();
-          $state.go('hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, property: null, location: location.code});
+          $state.go('regions', {regionSlug: region.meta.slug, property: null, location: null});
+        }
+        //hot deals
+        else if(attrs.type === 'hot-deals'){
+          scope.closeMenu();
+          $state.go('hotDeals', {regionSlug: region.meta.slug, code: null, property: null, location: null});
+        }
+      };
+
+      scope.locationClick = function(location){
+
+        //hotels or hot deals
+        if(attrs.type === 'hotels' || attrs.type === 'hot-deals'){
+          scope.closeMenu();
+
+          var paramsData = {
+            'location': location
+          };
+
+          var toState = attrs.type === 'hotels' ? 'hotels' : 'hotDeals';
+
+          routerService.buildStateParams(toState, paramsData).then(function(params){
+            $state.go(toState, params, {reload: true});
+          });
+
         }
         //booking widget
         else if(attrs.type === 'booking-widget'){
@@ -169,29 +193,27 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
-      scope.propertyClick = function(region, location, property){
-        //hotels menu
-        if(attrs.type === 'hotels'){
+      scope.propertyClick = function(property){
+        
+        //hotels or hot deals
+        if(attrs.type === 'hotels' || attrs.type === 'hot-deals'){
           scope.closeMenu();
 
-          var params = {
-            propertySlug: property.meta.slug,
-            property: property.code,
-            location: null
+          var paramsData = {
+            'property': property
           };
 
-          if(Settings.UI.hotelDetails.includeLocationInUrl){
-            params.regionSlug = region.meta.slug;
-            params.locationSlug = location.meta.slug;
-          }
+          var stateParams = {
+            'code': null
+          };
 
-          $state.go('hotel', params);
+          var toState = attrs.type === 'hotels' ? 'hotel' : 'propertyHotDeals';
 
-        }
-        //hot deals
-        else if(attrs.type === 'hot-deals'){
-          scope.closeMenu();
-          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, propertySlug: property.meta.slug, property: null, location: null});
+          routerService.buildStateParams(toState, paramsData).then(function(params){
+            stateParams = _.extend(stateParams, params);
+            $state.go(toState, stateParams, {reload: true});
+          });
+
         }
         //booking widget
         else if(attrs.type === 'booking-widget'){

@@ -273,7 +273,6 @@ angular.module('mobiusApp.config', [])
     },
     'hotelDetails': {
       'chainPrefix': 'Sandman Hotels',
-      'includeLocationInUrl': true,
       'breadcrumbs': {
         'hotels': false,
         'location': true
@@ -318,7 +317,7 @@ angular.module('mobiusApp.config', [])
 
       },
       'offers': {
-        'toState': 'hotDeals'
+        'toState': 'propertyHotDeals'
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,

@@ -135,20 +135,40 @@ angular.module('mobiusApp.directives.room', [])
         $q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
           
           if(data && data.length > 1){
+
+            var roomData = data[0];
+            var propertyData = data[1];
+
+            //Get property region/location data for breadcrumbs
+            propertyService.getPropertyRegionData(propertyData.locationCode).then(function(propertyRegionData){
+
+              //breadcrumbs
+              breadcrumbsService
+                .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
+                .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
+                .addBreadCrumb(propertyData.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug})
+                .addBreadCrumb('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsRooms'})
+                .addBreadCrumb(roomData.roomDetails.name);
+
+              //alt nav
+              if(scope.config.hasBreadcrumbsSecondaryNav){
+                breadcrumbsService
+                .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsAbout'})
+                .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsLocation'})
+                .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsOffers'})
+                .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsRooms'})
+                .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'fnOpenLightBox'});
+              }
+
+            });
+
+            /*
             breadcrumbsService.clear()
               .addBreadCrumb('Hotels', 'hotels')
               .addBreadCrumb(data[1].nameShort, 'hotel', {propertyCode: propertyCode})
               .addBreadCrumb('Rooms', 'hotel', {propertySlug: bookingParams.propertySlug}, 'jsRooms')
               .addBreadCrumb(data[0].roomDetails.name);
-              
-            if(scope.config.hasBreadcrumbsSecondaryNav){
-              breadcrumbsService
-              .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
-              .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
-              .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
-              .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
-              .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
-            }
+              */
             
             scrollManager();
           }

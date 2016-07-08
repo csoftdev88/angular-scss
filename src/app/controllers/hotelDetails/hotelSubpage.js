@@ -6,7 +6,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
 .controller( 'HotelSubpageCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService, $location, _, Settings) {
+  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService, $location, _, Settings, routerService) {
 
   $scope.scroll = 0;
   $scope.moreInfo = [];
@@ -90,17 +90,25 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         sortInfo(details);
 
-        breadcrumbsService
-          .addBreadCrumb('Hotels', 'hotels')
-          .addBreadCrumb(details.nameShort, 'hotel', {propertySlug: $stateParams.propertySlug})
-          .addBreadCrumb($stateParams.infoSlug.split('-').join(' '));
+        //Get property region/location data for breadcrumbs
+        propertyService.getPropertyRegionData(details.locationCode).then(function(propertyRegionData){
 
-        breadcrumbsService
-          .addAbsHref('About', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsAbout'})
-          .addAbsHref('Location', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsLocation'})
-          .addAbsHref('Offers', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsOffers'})
-          .addAbsHref('Rooms', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'jsRooms'})
-          .addAbsHref('Gallery', 'hotel', {propertySlug: $stateParams.propertySlug, scrollTo: 'fnOpenLightBox'});
+          //breadcrumbs
+          breadcrumbsService
+            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
+            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
+            .addBreadCrumb(details.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug})
+            .addBreadCrumb($scope.info.title);
+
+          //alt nav
+          breadcrumbsService
+          .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsAbout'})
+          .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsLocation'})
+          .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsOffers'})
+          .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsRooms'})
+          .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'fnOpenLightBox'});
+          
+        });
 
         // Updating Hero content images
         if(details.images){
@@ -119,6 +127,19 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         $scope.scrollToBreadcrumbs();
 
+        $scope.goToInfo = function(info) {
+          var paramsData = {
+            'property': $scope.details
+          };
+          var stateParams = {
+            'infoSlug': info.meta.slug
+          };
+          routerService.buildStateParams('hotelInfo', paramsData).then(function(params){
+            stateParams = _.extend(stateParams, params);
+            $state.go('hotelInfo', stateParams, {reload: true});
+          });
+        };
+
       }, function() {
         $state.go('hotels');
       });
@@ -134,9 +155,6 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
   getHotelDetails(bookingService.getCodeFromSlug($stateParams.propertySlug));
 
-  $scope.goToInfo = function(info) {
-    $state.go('hotelInfo', {propertySlug: $stateParams.propertySlug, infoSlug: info.meta.slug});
-  };
   $scope.goBack = function() {
     if(previousState && previousState.state && previousState.state.name !== ''){
       $state.go(previousState.state, previousState.params);

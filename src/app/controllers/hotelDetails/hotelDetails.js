@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
 
   $controller('PriceCtr', {$scope: $scope});
   // Used for rate notification message
@@ -201,19 +201,12 @@ angular.module('mobius.controllers.hotel.details', [
         }
 
         if($scope.config.breadcrumbs.location && $stateParams.regionSlug && $stateParams.locationSlug){
-          locationService.getRegions().then(function(regions){
-            locationService.getLocations().then(function(locations){
-
-              var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug;});
-              $scope.region = curRegion;
-              breadcrumbsService.addBreadCrumb(curRegion.nameShort, 'regions', {regionSlug: $stateParams.regionSlug, property: null});
-
-              var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug;});
-              $scope.location = curLocation;
-              breadcrumbsService.addBreadCrumb(curLocation.nameShort, 'hotels', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, property: null});
-
-              breadcrumbsService.addBreadCrumb(details.nameShort);
-            });
+          //Get property region/location data for breadcrumbs
+          propertyService.getPropertyRegionData(details.locationCode).then(function(data){
+            breadcrumbsService
+              .addBreadCrumb(data.region.nameShort, 'regions', {regionSlug: $stateParams.regionSlug, property: null})
+              .addBreadCrumb(data.location.nameShort, 'hotels', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, property: null})
+              .addBreadCrumb(details.nameShort);
           });
         }
         else{
@@ -349,16 +342,21 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.goToRoom = function(pSlug, rSlug, viewAllRates) {
     viewAllRates = viewAllRates ? '1' : null;
     if($stateParams.promoCode){
-      $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode, viewAllRates: viewAllRates});
+      $state.go('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode, viewAllRates: viewAllRates});
     }
     else{
-      $state.go('room', {propertySlug: pSlug, roomSlug: rSlug, viewAllRates: viewAllRates});
+      $state.go('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, viewAllRates: viewAllRates});
     }
 
   };
 
   $scope.goToOffers = function(){
-      $state.go($scope.config.offers.toState, {regionSlug: $scope.region.meta.slug || null, locationSlug: $scope.location.meta.slug || null, propertySlug: $scope.details.meta.slug || null, code:null, property: null, location: null}, {reload: true});
+    var paramsData = {
+      'property': $scope.details
+    };
+    routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params){
+      $state.go($scope.config.offers.toState, params, {reload: true});
+    });
   };
 
   $scope.getAbsUrl = function(){
@@ -366,7 +364,29 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.advertClick = function(link){
-    $state.go(link.type, {code: link.code, propertySlug: bookingParams.propertySlug});
+    var stateParams = {
+      'code': link.code
+    };
+    var paramsData = {
+      'property': $scope.details
+    };
+    routerService.buildStateParams(link.type, paramsData).then(function(params){
+      stateParams = _.extend(stateParams, params);
+      $state.go(link.type, stateParams);
+    });
+  };
+
+  $scope.goToInfo = function(property, infoSlug){
+    var paramsData = {
+      'property': property
+    };
+    var stateParams = {
+      'infoSlug': infoSlug
+    };
+    routerService.buildStateParams('hotelInfo', paramsData).then(function(params){
+      stateParams = _.extend(stateParams, params);
+      $state.go('hotelInfo', stateParams, {reload: true});
+    });
   };
 
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;

@@ -96,6 +96,10 @@ describe('mobius.controllers.hotel.details', function() {
           setCookie: function(){}
         });
 
+        $provide.value('routerService', {
+          buildStateParams: function(){}
+        });
+
         $provide.value('locationService', {
           getLocations: function(){},
           getRegions: function(){}

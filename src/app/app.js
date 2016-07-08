@@ -102,6 +102,7 @@ angular
     'mobiusApp.services.mobiusTrackingService',
     'mobiusApp.services.infinitiEcommerceService',
     'mobiusApp.services.channelService',
+    'mobiusApp.services.router',
 
     // Factories
     'mobiusApp.factories.template',
@@ -209,21 +210,43 @@ angular
         parent: 'root',
         templateUrl: 'layouts/regions/regions.html',
         controller: 'RegionsCtrl',
-        url: '/locations/:regionSlug'
+        url: '/locations/:regionSlug',
+        params:  {
+          regionSlug: {
+            value: null,
+            squash: true
+          }
+        }
       })
 
       // Hotels
+      .state('allHotels', {
+        parent: 'root',
+        templateUrl: 'layouts/hotels/hotels.html',
+        url: '/hotels'
+      })
+
       .state('hotels', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
-        url: '/hotels/:regionSlug/:locationSlug'
+        url: '/locations/:regionSlug/:locationSlug',
+        params:  {
+          regionSlug: {
+            value: null,
+            squash: true
+          },
+          locationSlug: {
+            value: null,
+            squash: true
+          }
+        }
       })
 
       .state('hotel', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelDetails.html',
         controller: 'HotelDetailsCtrl',
-        url: '/hotels/:regionSlug/:locationSlug/:propertySlug',
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug',
         reloadOnSearch: false,
         data: {
           // Route is also used for reservation updates
@@ -247,7 +270,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/hotelSubpage.html',
         controller: 'HotelSubpageCtrl',
-        url: '/hotel/:propertySlug/:infoSlug'
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/:infoSlug'
       })
 
       .state('locationInfo', {
@@ -267,7 +290,7 @@ angular
         parent: 'root',
         templateUrl: 'layouts/hotels/roomDetails.html',
         controller: 'RoomDetailsCtrl',
-        url: '/hotel/:propertySlug/rooms/:roomSlug',
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/rooms/:roomSlug',
         reloadOnSearch: false,
         data: {
           supportsEditMode: true,
@@ -329,10 +352,17 @@ angular
         controller: 'OffersCtrl'
       })
 
+      .state('propertyOffers', {
+        parent: 'root',
+        templateUrl: 'layouts/offers/offers.html',
+        url: '/hotels/:propertySlug/offers/:code',
+        controller: 'OffersCtrl'
+      })
+
       .state('hotDeals', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
-        url: '/hot-deals/:regionSlug/:locationSlug/:propertySlug/:code',
+        url: '/hot-deals/:regionSlug/:locationSlug/:code',
         controller: 'OffersCtrl',
         params:  {
           locationSlug: {
@@ -350,10 +380,10 @@ angular
         }
       })
 
-      .state('propertyOffers', {
+      .state('propertyHotDeals', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
-        url: '/hotels/:propertySlug/offers/:code',
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/hot-deals/:code',
         controller: 'OffersCtrl'
       })
 

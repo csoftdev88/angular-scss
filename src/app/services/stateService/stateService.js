@@ -39,7 +39,7 @@ angular.module('mobiusApp.services.state', [])
     function isMobile(){
       return $window.innerWidth <= Settings.UI.screenTypes.mobile.maxWidth;
     }
-
+    
     // Public methods
     return {
       getStateLayout: getStateLayout,

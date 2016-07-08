@@ -256,7 +256,6 @@ angular.module('mobiusApp.config', [])
     },
     'hotelDetails': {
       'chainPrefix': 'DO & CO Hotel Vienna',
-      'includeLocationInUrl': false,
       'breadcrumbs': {
         'hotels': true,
         'location': false
@@ -302,7 +301,7 @@ angular.module('mobiusApp.config', [])
 
       },
       'offers': {
-        'toState': 'offers'
+        'toState': 'propertyOffers'
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
