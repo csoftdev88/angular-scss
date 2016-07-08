@@ -3,7 +3,9 @@
   "version": "0.13.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "server.sandman": "NODE_ENV=development node server.js --tenant=sandman --environment=integration",
+    "int.sandman": "grunt development --tenant=sandman --environment=integration"
   },
   "engines": {
     "node": "=0.10.22"

@@ -114,18 +114,15 @@ angular.module('mobius.controllers.offers', [])
 
             _.each(offers, function(offer){
               //Remove any availability that isn't featured unless the offer is featured
-              if(offer.offerAvailability){
-                offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                  return !availability.featured && !offer.featured;
-                });
-              }
+              // if(offer.offerAvailability){
+              //   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+              //     return !availability.featured && !offer.featured;
+              //   });
+              // }
               //Remove offers with no availability unless featured
               offers = _.reject(offers, function(offer){
                 if(offer.offerAvailability){
-                  return !offer.offerAvailability.length && !offer.featured;
-                }
-                else{
-                  return !offer.featured;
+                  return !offer.offerAvailability.length;
                 }
               });
               //if not a featured offer, and only one of the property availability is featured, set the property availability content as the offer content
@@ -133,21 +130,23 @@ angular.module('mobius.controllers.offers', [])
                 offer.availability = offer.offerAvailability[0];
               }
             });
-            
+
 
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
 
               offers = _.each(offers, function(offer){
                 //If that offer is not featured and only has 1 property availability, we will display the property name on thumbnail
-                if(offer.offerAvailability.length === 1 && !offer.featured){
+                if (offer.offerAvailability && offer.offerAvailability.length === 1) {
                   var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
                   offer.propertyName = property.nameShort;
                 }
                 //assign a locationCode to each availability
                 _.each(offer.offerAvailability, function(availability){
                   var property = _.find(properties, function(prop){ return prop.code === availability.property;});
-                  availability.locationCode = property.locationCode;
+                  if (property) {
+                    availability.locationCode = property.locationCode;
+                  }
                 });
               });
 
@@ -159,7 +158,7 @@ angular.module('mobius.controllers.offers', [])
                     var regionLocations = _.where(locations, {regionCode: curRegion.code});
                     //remove any availability associated with a property not part of current locations
                     //needs recoding
-                    
+
                     var filteredOffers = angular.copy(offers);
                     _.each(regionLocations, function(location){
                       _.each(filteredOffers, function(offer){
@@ -172,10 +171,10 @@ angular.module('mobius.controllers.offers', [])
                         }
                       });
                     });
-                    
+
                     //Now remove offers with no availability unless featured
                     filteredOffers = _.reject(filteredOffers, function(offer){
-                      return !offer.offerAvailability.length && !offer.featured;
+                      return !offer.offerAvailability.length;
                     });
                     $scope.offersList = filteredOffers;
                     //breadcrumbs
@@ -204,7 +203,7 @@ angular.module('mobius.controllers.offers', [])
                     });
                     //Now remove offers with no availability unless featured
                     filteredOffers = _.reject(filteredOffers, function(offer){
-                      return !offer.offerAvailability.length && !offer.featured;
+                        return !offer.offerAvailability.length;
                     });
                     $scope.offersList = filteredOffers;
                     //breadcrumbs
@@ -230,7 +229,7 @@ angular.module('mobius.controllers.offers', [])
                 });
                 //Now remove offers with no availability unless featured
                 filteredOffers = _.reject(filteredOffers, function(offer){
-                  return !offer.offerAvailability.length && !offer.featured;
+                  return !offer.offerAvailability.length;
                 });
                 $scope.offersList = filteredOffers;
                 //breadcrumbs
@@ -326,7 +325,7 @@ angular.module('mobius.controllers.offers', [])
             .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
             .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
             .addBreadCrumb(property.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug});
-            
+
 
           if(offerTitle){
             breadcrumbsService
@@ -388,7 +387,7 @@ angular.module('mobius.controllers.offers', [])
           });
         });
       }
-      
+
 
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
@@ -481,7 +480,7 @@ angular.module('mobius.controllers.offers', [])
                 'slug': property.meta.slug
               });
             }
-            
+
           });
         });
       }
@@ -498,7 +497,7 @@ angular.module('mobius.controllers.offers', [])
       if(!$scope.isHotDeals){
         $scope.offersList[selectedOfferIndex].availability = availability;
       }
-      
+
 
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
@@ -546,7 +545,7 @@ angular.module('mobius.controllers.offers', [])
         if($scope.config.displayOfferImageInHeroSlider && !_.isEmpty($scope.selectedOffer.image)){
           $scope.updateHeroContent([$scope.selectedOffer.image]);
         }
-        
+
       }
 
     }
