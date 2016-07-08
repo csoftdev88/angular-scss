@@ -33,6 +33,7 @@ view-more-images {
     height: 250px;
     margin-top: 0;
     margin-bottom: 40px;
+    position: relative;
 
     .slider-content {
       height: 300px;
@@ -59,7 +60,7 @@ view-more-images {
               font-style: italic;
             }
           }
-          
+
         }
       }
     }
@@ -74,7 +75,11 @@ view-more-images {
         top: -300px;
       }
       .slide-button{
+        display: none;
         top: 100px;
+        .viewport-mobile & {
+          display:block;
+        }
       }
       .pages{
         top: 235px;
@@ -105,6 +110,17 @@ view-more-images {
       }
     }
 
+    .view-more-images-directions {
+      display:block;
+      position:absolute;
+      top:0px;
+      .viewport-mobile &{
+        display: none;
+      }
+      .slide-button {
+        top:80px;
+      }
+    }
   }
 
   read-more{
@@ -115,7 +131,7 @@ view-more-images {
     border-radius: 0;
     background: transparent;
     border-bottom: 2px solid @c-light-grey;
-    
+
     p{
       color: @c-mid-grey;
       margin-bottom: 14px;
@@ -154,6 +170,6 @@ view-more-images {
         }
       }
     }
-    
+
   }
 }
