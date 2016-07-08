@@ -223,6 +223,13 @@ angular.module('mobiusApp.directives.megaMenu', [])
           });
         }
       };
+
+      scope.selectAllHotelsClick = function(){
+        if(attrs.type === 'booking-widget'){
+          megaMenu.removeClass('open');
+          $rootScope.$broadcast('BOOKING_BAR_SELECT_ALL');
+        }
+      };
     }
   };
 });

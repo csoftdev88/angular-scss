@@ -1,22 +1,19 @@
-
-li[mega-menu]{
-  &:hover > .mega-menu{
+li[mega-menu] {
+  &:hover > .mega-menu {
     display: block;
     .dropdownAnimation;
-    &.closed{
+    &.closed {
       display: none;
     }
   }
 }
-
-div[mega-menu]{
-  .mega-menu.open{
+div[mega-menu] {
+  .mega-menu.open {
     display: block;
     .dropdownAnimation;
   }
 }
-
-.mega-menu{
+.mega-menu {
   width: 826px;
   height: 376px;
   position: absolute;
@@ -25,19 +22,16 @@ div[mega-menu]{
   margin-left: -413px;
   background: @c-light-grey;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-
-  .preloader{
+  .preloader {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
   }
-
   .animated;
   display: none;
-
   /*Booking widget mega-menu*/
-  .booking-widget &{
+  .booking-widget & {
     //display: block;
     width: 558px;
     height: 448px;
@@ -47,8 +41,7 @@ div[mega-menu]{
     margin-left: 0;
     background: #fff;
     box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.5);
-
-    &:before{
+    &:before {
       position: absolute;
       content: '';
       width: 0;
@@ -59,60 +52,52 @@ div[mega-menu]{
       left: 55px;
       bottom: -15px;
     }
-
-    .regions{
+    .regions {
       width: 185px;
       height: 394px;
       background: transparent;
       padding: 14px 0;
-      
-      ul{
+      ul {
         padding: 0 0 0 32px;
         border-right: 1px solid #d9d9d9;
         height: 100%;
-        
-        li{
-          a{
+        li {
+          a {
             color: @c-dark-grey;
-            &:after{
+            &:after {
               color: @c-dark-grey;
             }
           }
         }
       }
     }
-
-    .locations{
+    .locations {
       width: 373px;
       height: 394px;
       padding: 14px 14px 14px 20px;
-
-      > ul{
+      > ul {
         height: 100%;
         overflow: auto;
-        -moz-column-count:auto;
-        -webkit-column-count:auto;
-        column-count:auto;
+        -moz-column-count: auto;
+        -webkit-column-count: auto;
+        column-count: auto;
         padding-right: 14px;
-
-        > li{
-          > a{
+        > li {
+          > a {
             font-size: 11px !important;
             height: 20px;
             line-height: 20px;
             padding-left: 11px;
           }
-
-          ul{
-
-            li{
+          ul {
+            li {
               height: 30px;
               line-height: 30px;
-              a{
+              a {
                 position: relative;
                 font-size: 16px !important;
                 line-height: 21px;
-                &:before{
+                &:before {
                   top: 2px;
                 }
               }
@@ -120,13 +105,12 @@ div[mega-menu]{
           }
         }
       }
-      
-      .placeholder{
+      .placeholder {
         width: 284px;
-        img{
+        img {
           max-width: 100%;
         }
-        .title{
+        .title {
           font-size: 13px;
           line-height: 22px;
           font-weight: 600;
@@ -136,42 +120,37 @@ div[mega-menu]{
           top: -10px;
         }
       }
-
     }
-
   }
-
-  .regions{
+  .regions {
     position: relative;
     float: left;
     width: 174px;
     height: 100%;
     background: @c-dark-grey;
     box-sizing: border-box;
-    ul{
+    ul {
       padding: 14px 0 14px 18px;
       overflow: auto;
-
-      &.external-region-links{
+      &.external-region-links {
         border-top: 1px solid #343434;
-        li{
-          a{
-            &:after{
+        li {
+          a {
+            &:after {
               content: none;
             }
           }
         }
       }
-
-      li{
-        a{
+      li {
+        a {
           position: relative;
           text-transform: none !important;
           color: #fff;
           font-size: 14px !important;
           line-height: 31px;
           display: block;
-          &:after{
+          &:after {
             .fa;
             position: absolute;
             right: 10px;
@@ -179,39 +158,36 @@ div[mega-menu]{
             color: #fff;
             font-size: 18px;
             transform: translateY(-50%);
-            -webkit-transform:translateY(-50%);
+            -webkit-transform: translateY(-50%);
             content: @fa-var-angle-right;
           }
           &.active,
           &.active:after,
           &:hover,
-          &:hover:after{
+          &:hover:after {
             color: @c-secondary !important;
           }
         }
       }
     }
   }
-
-  .locations{
+  .locations {
     position: relative;
     float: left;
     width: 652px;
     height: 100%;
     box-sizing: border-box;
     padding: 10px;
-
-    > ul{
+    > ul {
       height: 370px;
-      -moz-column-count:3;
-      -webkit-column-count:3;
-      column-count:3;
+      -moz-column-count: 3;
+      -webkit-column-count: 3;
+      column-count: 3;
       -moz-column-fill: auto;
       -webkit-column-fill: auto;
       column-fill: auto;
-
-      > li{
-        > a{
+      > li {
+        > a {
           font-size: 7px !important;
           font-weight: 600;
           color: @c-grey !important;
@@ -223,17 +199,15 @@ div[mega-menu]{
           background: rgba(124, 103, 86, 0.09);
           padding-left: 5px;
         }
-
-        ul{
-          li{
+        ul {
+          li {
             height: 24px;
             line-height: 20px;
             //width: 200px;
             //white-space: nowrap;
             //overflow: hidden;
             //text-overflow: ellipsis;
-
-            a{
+            a {
               position: relative;
               font-size: 11px !important;
               line-height: 15px;
@@ -241,7 +215,7 @@ div[mega-menu]{
               color: @c-grey !important;
               text-transform: none !important;
               padding-left: 25px !important;
-              &:before{
+              &:before {
                 content: '';
                 position: absolute;
                 left: 0;
@@ -250,10 +224,10 @@ div[mega-menu]{
                 height: 20px;
                 top: -2px;
               }
-              &.sand:before{
+              &.sand:before {
                 background: url('@{img-prefix}/sandman-logo-small.png') no-repeat center;
               }
-              &.sign:before{
+              &.sign:before {
                 background: url('@{img-prefix}/signature-logo-small.png') no-repeat center;
               }
             }
@@ -261,16 +235,14 @@ div[mega-menu]{
         }
       }
     }
-    
-
-    .placeholder{
+    .placeholder {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate3d(-50%, -50%, 0);
       opacity: 0.31;
       text-align: center;
-      .title{
+      .title {
         font-size: 20px;
         line-height: 22px;
         font-weight: 600;
@@ -280,18 +252,27 @@ div[mega-menu]{
         top: -10px;
       }
     }
-
   }
-
-  footer{
+  &.hotels-mega-menu, &.booking-widget-mega-menu {
+    .locations {
+      > ul {
+        > li {
+          > a {
+            cursor:pointer;
+          }
+        }
+      }
+    }
+  }
+  footer {
     width: 100%;
     background: @c-dark-grey;
     float: left;
     height: 54px;
     padding: 0 13px 0 22px;
+    position:relative;
     box-sizing: border-box;
-
-    .label{
+    .label {
       position: relative;
       display: inline;
       float: left;
@@ -299,9 +280,9 @@ div[mega-menu]{
       color: #fff;
       top: 50%;
       transform: translate3d(0, -50%, 0);
+      text-decoration:underline;
     }
-
-    input{
+    input {
       position: relative;
       height: 36px;
       line-height: 36px;
@@ -318,7 +299,9 @@ div[mega-menu]{
       top: 50%;
       transform: translate3d(0, -50%, 0);
     }
+    remove-text {
+      opacity: 1;
+      right: 15px;
+    }
   }
-
-
 }

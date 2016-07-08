@@ -150,7 +150,7 @@
     "no_room_found": "Kein Zimmer gefunden",
 
     "no_hotels_found": "Kein Hotel gefunden",
-
+    "hotel_name":"{{hotel.chainTitle}} <strong>{{hotel.nameShort}}</strong>",
     "no_room_available": "Kein Zimmer verfügbar, bitte ändern Sie Ihre Buchungskriterien",
     "generic_error_message": "Sorry, es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut",
     "profile_updated_success_message": "Vielen Dank, Ihr Profil wurde aktualisiert",
@@ -159,6 +159,7 @@
 
     "BOOKING BAR": "///////////////////////////////////////////////////",
     "select_hotel": "Select your hotel",
+    "select_all_hotels": "Select all hotels",
     "arrival": "Arrival",
     "departure": "Departure",
     "no_dates_selected_short": "Keine Daten ausgewählt",
@@ -295,7 +296,7 @@
     "no_points_rate_desc": "diese Rate vergibt keine Punkte",
 
     "mapLocationHeader": "The {chainPrefix} {nameShort} Location",
-
+    "mapLocationHeaderNameField": "nameShort",
     "offers_title": "Angebote und Promotionen",
 
     "more_offers_title": "Das könnte Sie zudem interessieren:",
@@ -821,4 +822,3 @@
   }
 
 }
-

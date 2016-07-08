@@ -18,6 +18,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     link: function(scope){
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
+      var ALL_PROPERTIES = 'All Properties';
+      var FIND_YOUR_HOTEL = 'Find Your Hotel';
 
       scope.isMobile = function(){
         return stateService.isMobile();
@@ -131,13 +133,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         });
       }
 
-      
+
       function getDefaultAdultCount() {
         return _.find(scope.guestsOptions.adults, {
           value: bookingService.getAPIParams(true).adults || scope.settings.defaultAdultCount
         });
       }
-      
+
 
       // NOTE: Hotel is presented in the URL by using property/hotel code
       // Currently selected form values
@@ -348,7 +350,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         else{
           return _.find(regionsProperties, {code: propertyCode});
         }
-        
+
       }
 
       function validatePropertyRegion() {
@@ -397,14 +399,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       }
 
       function setPropertyRegionList() {
-
         var region = scope.selected.region;
         var location = scope.selected.location;
         var property = scope.selected.property;
 
         scope.propertyRegionList = [];
         if (scope.settings.includeAllPropertyOption) {
-          scope.propertyRegionList.push({name: 'All Properties', type: 'all'});
+          scope.propertyRegionList.push({name: FIND_YOUR_HOTEL, type: 'all'});
         }
         //regions
         if (scope.settings.includeRegions && !scope.isMobile() || scope.settings.includeRegionsOnMobile && scope.isMobile()) {
@@ -466,7 +467,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             scope.regionPropertySelected = {name: curLocation.nameShort, type: 'location', code: curLocation.code};
           });
           */
-          
+
         }
         else{
           scope.regionPropertySelected = scope.propertyRegionList[0];
@@ -504,7 +505,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           }
 
           var code = scope.selected.property.code || scope.selected.property;
-          
+
           var params = {
             from: getAvailabilityCheckDate(dates.from, scope.settings.availability.from),
             to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
@@ -613,6 +614,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
        * Updates the url with values from the widget and redirects either to hotel list or a room list
        */
       scope.onSearch = function(){
+        console.log(scope.selected);
         var stateParams = {};
         for (var key in PARAM_TYPES) {
           if (PARAM_TYPES.hasOwnProperty(key)) {
@@ -678,7 +680,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           else{
             $state.go('allHotels', stateParams, {reload: true});
           }
-          
+
         } else if (scope.selected.property && scope.selected.property.code &&
                   scope.selected.dates && $stateParams.roomSlug) {
           //Redirect to Room Details to show rates
@@ -725,9 +727,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.hideBar();
       };
 
-      // Search is enabled only when required fields contain data
+      // Search is enabled only when required fields contain data or if "All properties has been selected"
       scope.isSearchable = function(){
-        return scope.selected.property || scope.selected.location || scope.selected.dates;
+        return scope.selected.property || scope.selected.location || scope.selected.dates || (scope.propertyRegionList && scope.regionPropertySelected === scope.propertyRegionList[0] && scope.selected.allProperties);
       };
 
       scope.removeCode = function(){
@@ -835,10 +837,20 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.openBookingTab(true);
       });
 
+      var selectAllPropertiesListener = $rootScope.$on('BOOKING_BAR_SELECT_ALL', function(){
+        scope.propertyRegionList[0].name = ALL_PROPERTIES;
+        scope.regionPropertySelected = scope.propertyRegionList[0];
+        scope.selected.allProperties = true;
+        scope.selected.region = undefined;
+        scope.selected.location = undefined;
+        scope.selected.property = undefined;
+      });
+
       scope.$on('$destroy', function(){
         routeChangeListener();
         prefillListener();
         openMRBTabListener();
+        selectAllPropertiesListener();
       });
 
       function onPrefill(settings){
@@ -849,7 +861,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         // TODO: Set code type from offers
         function prefillPromoCode() {
-          
+
           // TODO: Offers should have code types - needs API
           var codeTypeParam;
           if(settings.promoCode){

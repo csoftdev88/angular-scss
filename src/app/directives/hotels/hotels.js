@@ -57,11 +57,6 @@ angular.module('mobiusApp.directives.hotels', [])
           // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
           // hotels = undefined;
 
-          //if dates, sort hotels by price by default
-          if(scope.hasDates()){
-            hotels = _.sortBy(hotels, 'priceFrom');
-          }
-
           chainService.getAll().then(function(chains){
 
             //Pick random merchandizing banner if any
@@ -97,7 +92,7 @@ angular.module('mobiusApp.directives.hotels', [])
                   scope.updateHeroContent(curLocation.images);
 
                   if(Settings.UI.viewsSettings.hotels.showLocationDescription){
-                    
+
                     //get current location
                     locationService.getLocation(curLocation.code).then(function(location){
                       //details
@@ -120,7 +115,7 @@ angular.module('mobiusApp.directives.hotels', [])
                   scope.hotels = hotels || [];
                   initPriceFilter();
                 }
-                
+
               });
             }
             else{
@@ -180,7 +175,7 @@ angular.module('mobiusApp.directives.hotels', [])
             }
 
           });
-          
+
         });
 
         preloaderFactory(hotelsPromise);
@@ -261,6 +256,7 @@ angular.module('mobiusApp.directives.hotels', [])
         paramsData.property =  property;
         routerService.buildStateParams('hotel', paramsData).then(function(params){
           stateParams = _.extend(stateParams, params);
+          $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
           $state.go('hotel', stateParams, {reload: true});
         });
 
@@ -331,7 +327,7 @@ angular.module('mobiusApp.directives.hotels', [])
           }
 
           var display = false;
-       
+
           for(var option in scope.filterTagOptions){
             var filter = scope.filterTagOptions[option];
             if(filter.checked){
@@ -347,13 +343,13 @@ angular.module('mobiusApp.directives.hotels', [])
                   }
                 }
               }
-            }           
+            }
           }
 
           return display;
         };
       }
-      
+
       scope.initSortingOptions = function(options){
 
         scope.sortingOptions = [
@@ -377,15 +373,11 @@ angular.module('mobiusApp.directives.hotels', [])
           },
           {
             name: options.starRatingLowToHigh,
-            sort: function(hotel){
-              return hotel.rating;
-            }
+            sort: scope.hasDates ? ['rating', 'priceFrom', 'nameShort'] : ['rating', 'nameShort']
           },
           {
             name: options.starRatingHighToLow,
-            sort: function(hotel){
-              return 0 - hotel.rating;
-            }
+            sort: scope.hasDates ? ['-rating', 'priceFrom', 'nameShort'] : ['-rating', 'nameShort']
           },
           {
             name: 'A - Z',
@@ -437,7 +429,7 @@ angular.module('mobiusApp.directives.hotels', [])
       else{
         scope.hotelViewMode = 'tiles';
       }
-      
+
       scope.setHotelViewMode = function(mode){
         userPreferenceService.setCookie('hotelViewMode', mode);
         scope.hotelViewMode = mode;

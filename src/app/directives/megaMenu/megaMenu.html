@@ -1,5 +1,5 @@
 <a class="mega-menu-trigger" href="" ng-class="{'is-active': isActive()}" ng-click="closeMenu(); menuClick();" ng-mouseover="showMenu()">{{title}}</a>
-<div class="mega-menu">
+<div class="mega-menu {{type}}-mega-menu">
 
   <div class="regions">
     <div class="preloader" ng-show="regionsLoading"></div>
@@ -32,8 +32,9 @@
   </div>
 
   <footer ng-show="isBookingWidget">
-    <div class="label">_select_hotel_</div>
+    <a href="" class="label" ng-click="selectAllHotelsClick()">_select_all_hotels_</a>
     <input type="text" placeholder="_search_" ng-model="propertySearch" ng-show="locations">
+    <remove-text role="button" class="remove" ng-click="propertySearch = ''" ng-show="propertySearch"/>
   </footer>
 
 </div>

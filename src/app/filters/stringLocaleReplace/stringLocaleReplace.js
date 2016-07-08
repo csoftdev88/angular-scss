@@ -11,7 +11,7 @@ angular.module('mobiusApp.filters.stringLocaleReplace', [])
       return '';
     }
     var chainPrefix = Settings.UI.hotelDetails.chainPrefix;
-    input = input.replace('{chainPrefix}', chainPrefix).replace('{nameShort}', nameShort).replace('{hotelName}', hotelName).replace('{reservationNumber}', reservationNumber);
+    input = input.replace('{chainPrefix}', chainPrefix).replace('{nameShort}', nameShort).replace('{nameLong}', nameShort).replace('{hotelName}', hotelName).replace('{reservationNumber}', reservationNumber);
     return input;
   }
 
