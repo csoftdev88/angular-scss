@@ -352,24 +352,34 @@ angular.module('mobius.controllers.offers', [])
         });
       }
 
+      console.log(angular.toJson($scope.offersList[selectedOfferIndex].offerAvailability));
+
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
 
       $scope.offersList[selectedOfferIndex].availability = availability;
-
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+      var paramsData = {};
+      var stateParams = {};
 
       if($stateParams.propertySlug && !$scope.isHotDeals){
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
       else if($stateParams.propertySlug && $scope.isHotDeals){
-        var stateParams = {
-          'code': slug
-        };
-        var paramsData = {};
+        stateParams.code = slug;
         propertyService.getAll().then(function(properties){
           paramsData.property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
+          routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params){
+            stateParams = _.extend(stateParams, params);
+            $state.go('propertyHotDeals', stateParams, {reload: true});
+          });
+        });
+      }
+      else if($scope.offersList[selectedOfferIndex].offerAvailability.length === 1 && $scope.isHotDeals){
+        stateParams.code = slug;
+        propertyService.getAll().then(function(properties){
+          paramsData.property = _.find(properties, function(prop){ return prop.code === $scope.offersList[selectedOfferIndex].offerAvailability[0].property; });
           routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
             $state.go('propertyHotDeals', stateParams, {reload: true});
