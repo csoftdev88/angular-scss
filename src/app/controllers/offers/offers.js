@@ -486,6 +486,7 @@ angular.module('mobius.controllers.offers', [])
       bookingParams = bookingService.getAPIParams();
 
       var stateParams = {};
+      var paramsData = {};
       stateParams.adults = bookingParams.adults;
       stateParams.children = bookingParams.children;
       stateParams.promoCode = offer.availability && offer.availability.promoCode ? offer.availability.promoCode : offer.promoCode;
@@ -498,21 +499,46 @@ angular.module('mobius.controllers.offers', [])
       if(bookingParams.propertyCode && !$scope.config.includeOfferAvailabilityPropertyDropdown){
         propertyService.getPropertyDetails($scope.isHotDeals ? offer.offerAvailability[0].property : bookingParams.propertyCode)
           .then(function(details){
-            stateParams.propertySlug = details.meta.slug;
             stateParams.scrollTo = 'jsRooms';
-            $state.go('hotel', stateParams, {reload: true});
+            paramsData.property = details;
+            routerService.buildStateParams('hotel', paramsData).then(function(params){
+              stateParams = _.extend(stateParams, params);
+              $state.go('hotel', stateParams, {reload: true});
+            });
+            //stateParams.propertySlug = details.meta.slug;
+            //stateParams.scrollTo = 'jsRooms';
+            //$state.go('hotel', stateParams, {reload: true});
           });
       }
       else if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty){
-        stateParams.propertySlug = $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty;
-        stateParams.property = bookingService.getCodeFromSlug($scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty);
-        stateParams.scrollTo = 'jsRooms';
-        $scope.prefillBookingWidgetProperty(stateParams.propertySlug);
-        $state.go('hotel', stateParams, {reload: true});
+
+        var propertyCode = bookingService.getCodeFromSlug($scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty);
+
+        propertyService.getPropertyDetails(propertyCode)
+          .then(function(details){
+            stateParams.scrollTo = 'jsRooms';
+            paramsData.property = details;
+            routerService.buildStateParams('hotel', paramsData).then(function(params){
+              stateParams = _.extend(stateParams, params);
+              $scope.prefillBookingWidgetProperty(stateParams.propertySlug);
+              $state.go('hotel', stateParams, {reload: true});
+            });
+            //stateParams.propertySlug = details.meta.slug;
+            //stateParams.scrollTo = 'jsRooms';
+            //$state.go('hotel', stateParams, {reload: true});
+          });
+
+
+
+        //stateParams.propertySlug = $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty;
+        //stateParams.property = bookingService.getCodeFromSlug($scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty);
+        //stateParams.scrollTo = 'jsRooms';
+        //$scope.prefillBookingWidgetProperty(stateParams.propertySlug);
+        //$state.go('hotel', stateParams, {reload: true});
       }
       else{
         stateParams.scrollTo = 'hotels';
-        $state.go('hotels', stateParams);
+        $state.go('allHotels', stateParams);
       }
     };
 
