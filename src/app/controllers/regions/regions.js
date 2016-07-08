@@ -22,6 +22,10 @@ angular.module('mobius.controllers.regions', [])
           }
         });
         $scope.allRegions = regions;
+        //scroll to detail
+        $timeout(function () {
+          scrollService.scrollTo('region-list', 20);
+        });
       });
     }
 
