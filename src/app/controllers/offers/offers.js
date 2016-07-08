@@ -505,9 +505,6 @@ angular.module('mobius.controllers.offers', [])
               stateParams = _.extend(stateParams, params);
               $state.go('hotel', stateParams, {reload: true});
             });
-            //stateParams.propertySlug = details.meta.slug;
-            //stateParams.scrollTo = 'jsRooms';
-            //$state.go('hotel', stateParams, {reload: true});
           });
       }
       else if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty){
@@ -523,18 +520,7 @@ angular.module('mobius.controllers.offers', [])
               $scope.prefillBookingWidgetProperty(stateParams.propertySlug);
               $state.go('hotel', stateParams, {reload: true});
             });
-            //stateParams.propertySlug = details.meta.slug;
-            //stateParams.scrollTo = 'jsRooms';
-            //$state.go('hotel', stateParams, {reload: true});
           });
-
-
-
-        //stateParams.propertySlug = $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty;
-        //stateParams.property = bookingService.getCodeFromSlug($scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty);
-        //stateParams.scrollTo = 'jsRooms';
-        //$scope.prefillBookingWidgetProperty(stateParams.propertySlug);
-        //$state.go('hotel', stateParams, {reload: true});
       }
       else{
         stateParams.scrollTo = 'hotels';
