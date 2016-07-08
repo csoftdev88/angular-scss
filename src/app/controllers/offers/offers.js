@@ -113,12 +113,6 @@ angular.module('mobius.controllers.offers', [])
             // 2) If an offer is not marked as featured, then it is a hot deal only if at least 1 of its property availability is featured, and in this case user can only use that offer for 1 of the properties marked as featured
 
             _.each(offers, function(offer){
-              //Remove any availability that isn't featured unless the offer is featured
-              // if(offer.offerAvailability){
-              //   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-              //     return !availability.featured && !offer.featured;
-              //   });
-              // }
               //Remove offers with no availability unless featured
               offers = _.reject(offers, function(offer){
                 if(offer.offerAvailability){
@@ -237,7 +231,7 @@ angular.module('mobius.controllers.offers', [])
                   setBreadCrumbs(null, null, curProperty);
                 }
               }
-              else{
+              else {
                 //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
                 /*
                 var hotDealsOffers = angular.copy(offers);
@@ -255,7 +249,34 @@ angular.module('mobius.controllers.offers', [])
                   return !offer.offerAvailability.length && !offer.featured;
                 });
                 */
-                $scope.offersList = offers;
+
+                // Note: We are in the `hot-deal` page (/hot-deals/) and we need only featured offers at any level
+                var offersArr = [];
+                var i = 0;
+
+                for (i = 0; i < offers.length; i++) {
+                  if (offers[i].offerAvailability && offers[i].offerAvailability.length > 0) {
+                    offers[i].offerAvailability = _.reject(offers[i].offerAvailability, function(offer) {
+                      return !offer.featured;
+                    });
+                  } else {
+                    offers.slice(i, 1);
+                  }
+                }
+
+                // Chain level
+                offersArr.push(_.reject(offers, function(offer) {
+                  return !offer.featured;
+                }));
+                // Property level
+                offersArr.push(_.reject(offers, function(offer) {
+                  return offer.offerAvailability && !offer.offerAvailability.length;
+                }).filter(function(o) {
+                  return o.offerAvailability;
+                }));
+
+                $scope.offersList = _.uniq(_.flatten(offersArr));
+
                 //breadcrumbs
                 if(!$stateParams.code) {
                   setBreadCrumbs();
