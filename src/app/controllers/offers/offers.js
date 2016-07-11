@@ -153,18 +153,19 @@ angular.module('mobius.controllers.offers', [])
                           }
                         });
 
-                        offer.offerAvailability = filteredAvailabilities;
-
-                        if(offer.offerAvailability.length === 1){
-                          var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
-                          offer.propertyName = property.nameShort;
-                        }
-
-                        if(offer.offerAvailability.length && !_.contains(RegionOffers, offer)){
-                          RegionOffers.push(offer);
-                        }
-
                       });
+
+                      offer.offerAvailability = filteredAvailabilities;
+
+                      if(offer.offerAvailability.length === 1){
+                        var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                        offer.propertyName = property.nameShort;
+                      }
+
+                      if(offer.offerAvailability.length && !_.contains(RegionOffers, offer)){
+                        RegionOffers.push(offer);
+                      }
+                      
                     });
 
                     $scope.offersList = RegionOffers;
