@@ -149,7 +149,7 @@
               placeholder="_country_placeholder_"
               data-placeholder-text-single="'_country_placeholder_'"
               ng-model="billingDetails.country"
-              chosen ng-options="country.title as country.title for country in iso.countries"
+              chosen ng-options="country.id as country.name for country in profileCountries"
               chosen>
             </select>
             <span>_country_label_</span>
