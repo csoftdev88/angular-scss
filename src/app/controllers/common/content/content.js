@@ -249,11 +249,16 @@ angular.module('mobius.controllers.common.content', [])
         }
 
         $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
-          var availability = _.find(item.offerAvailability, function(availability){
-            return availability.property === $state.params.property;
-          });
 
-          var availabilitySlug = availability && availability.slug && availability.slug !== '' ? availability.slug : null;
+          var availability = null;
+          var availabilitySlug = null;
+
+          if(!$scope.settings.chainWideOnly){
+            availability = _.find(item.offerAvailability, function(availability){
+              return availability.property === $state.params.property;
+            });
+            availabilitySlug = availability && availability.slug && availability.slug !== '' ? availability.slug : null;
+          }
 
           return {
             code: $scope.settings.slug ? availabilitySlug || item.meta.slug : item.code,
