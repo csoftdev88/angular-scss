@@ -89,7 +89,7 @@
             ng-class="{'is-active': $state.includes('contacts')}">_contact_</a>
         </li>
 
-        <li has-dropdown="click" currency-list></li>
+        <li has-dropdown="click" currency-list ng-if="!$state.includes('reservation')"></li>
 
         <li ng-show="config.languages.headerAlignment === 'right' || isMobile" has-dropdown="click" language-list></li>
 
