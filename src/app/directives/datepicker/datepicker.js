@@ -29,12 +29,13 @@ angular.module('mobiusApp.directives.datepicker', [])
 
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
-      
+      var forceEndDate = attrs.forceEndDate ? attrs.forceEndDate : false;
+
       var maxDate = null;
       if(Settings.UI.bookingWidget.searchOffset.enable){
         maxDate = Settings.UI.bookingWidget.searchOffset.days;
       }
-      
+
       var hasCounter = Settings.UI.bookingWidget.datePickerHasCounter;
       var counterHasDates = Settings.UI.bookingWidget.datePickerCounterIncludeDates;
       var editDateRangeInProgress = false;
@@ -128,15 +129,15 @@ angular.module('mobiusApp.directives.datepicker', [])
           duration: 0,
 
           beforeShowDay: function ( date ) {
-            
+
             $rootScope.$broadcast('DATE_PICKER_BEFORE_SHOW_DAY', date);
-            
+
             return [
               !isSelected(date),
               getDateClass( date )
             ];
           },
-          onChangeMonthYear:function(y, m, i){                    
+          onChangeMonthYear:function(y, m, i){
             $timeout(function(){
               $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
             });
@@ -194,19 +195,19 @@ angular.module('mobiusApp.directives.datepicker', [])
             if(isStartDateSelected){
               // Selecting endDate;
               if(selectedDate > startDate){
-                endDate = selectedDate;
+                endDate = forceEndDate ? $window.moment(selectedDate).add(1, 'day').valueOf() : selectedDate;
                 if(Settings.UI.bookingWidget.datePickerCloseOnDatesSelected && !stateService.isMobile()){
                   element.datepicker('hide');
                 }
               }else{
                 // Reversing the selection back
-                endDate = startDate;
+                endDate = forceEndDate ? $window.moment(startDate).add(1, 'day').valueOf() : startDate;
                 startDate = selectedDate;
               }
             }else{
               // Selecting start/end date
               startDate = selectedDate;
-              endDate = startDate;
+              endDate = forceEndDate ? $window.moment(startDate).add(1, 'day').valueOf() : startDate;
             }
 
             if(hasCounter){
