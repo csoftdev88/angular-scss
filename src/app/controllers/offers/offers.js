@@ -109,27 +109,13 @@ angular.module('mobius.controllers.offers', [])
           if($scope.isHotDeals){
 
             //Hotdeal offers logic
-            // 1) If an offer is marked as featured, it is a hot deal and user can choose from any of the properties included in offerAvailability regardless of the availability featured status
-            // 2) If an offer is not marked as featured, then it is a hot deal only if at least 1 of its property availability is featured, and in this case user can only use that offer for 1 of the properties marked as featured
-
-            _.each(offers, function(offer){
-              //Remove offers with no availability unless featured
-              offers = _.reject(offers, function(offer){
-                if(offer.offerAvailability){
-                  return !offer.offerAvailability.length;
-                }
-              });
-              //if not a featured offer, and only one of the property availability is featured, set the property availability content as the offer content
-              if(offer.offerAvailability && offer.offerAvailability.length === 1 && !offer.featured){
-                offer.availability = offer.offerAvailability[0];
-              }
-            });
-
+            //https://2pventures.tpondemand.com/entity/12353
+            var filteredOffers = angular.copy(offers);
 
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
 
-              offers = _.each(offers, function(offer){
+              filteredOffers = _.each(filteredOffers, function(offer){
                 //If that offer is not featured and only has 1 property availability, we will display the property name on thumbnail
                 if (offer.offerAvailability && offer.offerAvailability.length === 1) {
                   var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
@@ -146,31 +132,45 @@ angular.module('mobius.controllers.offers', [])
 
               //Filter offers by region if any and if no location or property is defined
               if($stateParams.regionSlug && !$stateParams.locationSlug && !$stateParams.propertySlug){
+
+
                 locationService.getRegions().then(function(regions){
                   locationService.getLocations().then(function(locations){
                     var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug; });
                     var regionLocations = _.where(locations, {regionCode: curRegion.code});
-                    //remove any availability associated with a property not part of current locations
-                    //needs recoding
 
-                    var filteredOffers = angular.copy(offers);
-                    _.each(regionLocations, function(location){
-                      _.each(filteredOffers, function(offer){
-                        offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                          return availability.locationCode !== location.code;
+                    //remove any availability associated with a property not part of current region locations
+                    var RegionOffers = [];
+
+                    _.each(filteredOffers, function(offer){
+
+                      var filteredAvailabilities = [];
+
+                      _.each(regionLocations, function(location){
+
+                        _.each(offer.offerAvailability, function(availability){
+
+                          if(availability.locationCode === location.code && availability.showOnOffersPage){
+                            filteredAvailabilities.push(availability);
+                          }
                         });
+
+                        offer.offerAvailability = filteredAvailabilities;
+
                         if(offer.offerAvailability.length === 1){
                           var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
                           offer.propertyName = property.nameShort;
                         }
+
+                        if(offer.offerAvailability.length && !_.contains(RegionOffers, offer)){
+                          RegionOffers.push(offer);
+                        }
+
                       });
                     });
 
-                    //Now remove offers with no availability unless featured
-                    filteredOffers = _.reject(filteredOffers, function(offer){
-                      return !offer.offerAvailability.length;
-                    });
-                    $scope.offersList = filteredOffers;
+                    $scope.offersList = RegionOffers;
+                    console.log('Hot deals Region page, number of hot-deals shown: ' + $scope.offersList.length);
                     //breadcrumbs
                     if(!$stateParams.code) {
                       setBreadCrumbs(curRegion);
@@ -184,22 +184,35 @@ angular.module('mobius.controllers.offers', [])
                   locationService.getLocations().then(function(locations){
                     var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug; });
                     var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
-                    //remove any availability associated with a property not part of current location
-                    var filteredOffers = angular.copy(offers);
+
+                    //remove any availability associated with a property not part of current region locations
+                    var locationOffers = [];
+
                     _.each(filteredOffers, function(offer){
-                      offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                        return availability.locationCode !== curLocation.code;
+
+                      var filteredAvailabilities = [];
+
+                      _.each(offer.offerAvailability, function(availability){
+
+                        if(availability.locationCode === curLocation.code && availability.showOnOffersPage){
+                          filteredAvailabilities.push(availability);
+                        }
                       });
+
+                      offer.offerAvailability = filteredAvailabilities;
+
                       if(offer.offerAvailability.length === 1){
                         var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
                         offer.propertyName = property.nameShort;
                       }
+
+                      if(offer.offerAvailability.length && !_.contains(locationOffers, offer)){
+                        locationOffers.push(offer);
+                      }
                     });
-                    //Now remove offers with no availability unless featured
-                    filteredOffers = _.reject(filteredOffers, function(offer){
-                        return !offer.offerAvailability.length;
-                    });
-                    $scope.offersList = filteredOffers;
+                    
+                    $scope.offersList = locationOffers;
+                    console.log('Hot deals locations page, number of hot-deals shown: ' + $scope.offersList.length);
                     //breadcrumbs
                     if(!$stateParams.code) {
                       setBreadCrumbs(curRegion, curLocation);
@@ -208,10 +221,9 @@ angular.module('mobius.controllers.offers', [])
                 });
               }
               else if($stateParams.propertySlug){
+                
                 var curProperty = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug;});
-                setBreadCrumbs(curProperty);
                 //remove any availability associated with a property that is not the current property
-                var filteredOffers = angular.copy(offers);
                 _.each(filteredOffers, function(offer){
                   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
                     return availability.property !== curProperty.code;
@@ -226,6 +238,7 @@ angular.module('mobius.controllers.offers', [])
                   return !offer.offerAvailability.length;
                 });
                 $scope.offersList = filteredOffers;
+                console.log('Hot deals property page, number of hot-deals shown: ' + $scope.offersList.length);
                 //breadcrumbs
                 if(!$stateParams.code) {
                   setBreadCrumbs(null, null, curProperty);
@@ -233,27 +246,28 @@ angular.module('mobius.controllers.offers', [])
               }
               else {
                 //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
-                /*
-                var hotDealsOffers = angular.copy(offers);
-                _.each(hotDealsOffers, function(offer){
-                  offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                    return !availability.featured && !offer.featured;
-                  });
-                  if(offer.offerAvailability.length === 1){
-                    offer.availability = offer.offerAvailability[0];
+
+                //If an offer is not featured at chain level, remove any property availability that is not featured
+                _.each(filteredOffers, function(offer){
+                  if(!offer.featured){
+                    offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+                      return !availability.featured || !availability.showOnOffersPage;
+                    });
+                    //if not a featured offer, and only one of the property availability is featured, set the property availability content as the offer content
+                    if(offer.offerAvailability && offer.offerAvailability.length === 1){
+                      offer.availability = offer.offerAvailability[0];
+                    }
                   }
                 });
 
-                //Now remove offers with no availability unless featured
-                hotDealsOffers = _.reject(hotDealsOffers, function(offer){
-                  return !offer.offerAvailability.length && !offer.featured;
+                //Remove offers with no availability
+                filteredOffers = _.reject(filteredOffers, function(offer){
+                  return !offer.offerAvailability || !offer.offerAvailability.length;
                 });
-                */
 
-                // Note: We are in the `hot-deal` page (/hot-deals/) and we need only featured offers
-                $scope.offersList = _.reject(offers, function(offer) {
-                  return !offer.featured;
-                });
+                $scope.offersList = filteredOffers;
+                console.log('Main Hot deals page, number of hot-deals shown: ' + $scope.offersList.length);
+
                 //breadcrumbs
                 if(!$stateParams.code) {
                   setBreadCrumbs();
