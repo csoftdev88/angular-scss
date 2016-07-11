@@ -31,7 +31,7 @@
       }
     }
   }
-  
+
   .crumbs{
     clear: both;
     li{
@@ -71,39 +71,33 @@
 
   .alt-nav{
     position: relative;
-    top: -12px;
+    top:2px;
     z-index: 9;
     li{
+      border-left-color: @c-menu-active-sand;
       .chain-sign &{
         border-left-color: @c-menu-active-sign;
       }
-      .chain-sand &{
-        border-left-color: @c-menu-active-sand;
-      }
       a{
         font-weight: 600;
+        font-size: 15px;
+        color: @c-menu-active-sand;
         &:after{
-          border-color: @c-menu-active;
+          border-color: @c-menu-active-sand;
         }
         .chain-sign &{
-          color: @c-menu-active-sign;
-          font-size: 15px;
           line-height: 14px;
           text-transform: uppercase;
           &:after{
             border-color: @c-menu-active-sign;
           }
         }
-        .chain-sand &{
-          font-size: 15px;
-          color: @c-menu-active-sand;
-          &:after{
-            border-color: @c-menu-active-sand;
-          }
-        }
       }
     }
   }
-  
-}
 
+  h1 + .crumbs + .alt-nav {
+    top:-12px;
+  }
+
+}
