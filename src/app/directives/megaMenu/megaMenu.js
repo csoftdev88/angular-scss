@@ -78,23 +78,23 @@ angular.module('mobiusApp.directives.megaMenu', [])
               properties = _.sortBy(properties, 'nameShort');
             }
 
+            //Hot deals logic found here: https://2pventures.tpondemand.com/entity/12353
             //if hot deals, remove properties that don't have hot deals
-            /*if(scope.isHotDeals){
-              console.log('is hot deals');
+            if(scope.isHotDeals){
               //get offers
               contentService.getOffers().then(function(offers) {
                 //only keep offers that have at least 1 property in availability
-                console.log('unfiltered offers' + offers.length);
                 offers = _.filter(offers, function(offer){ return offer.offerAvailability && offer.offerAvailability.length;});
 
-                console.log('filtered offers' + offers.length);
                 //only include properties that have an offer associated with them
                 var filteredProperties = [];
                 _.each(properties, function(property){
                   _.each(offers, function(offer){
                     _.each(offer.offerAvailability, function(availability){
                       if(property.code === availability.property){
-                        filteredProperties.push(property);
+                        if(!_.contains(filteredProperties, property)){
+                          filteredProperties.push(property);
+                        }
                       }
                     });
                   });
@@ -104,9 +104,9 @@ angular.module('mobiusApp.directives.megaMenu', [])
 
               });
             }
-            else{*/
+            else{
               assignPropertiesToLocations(regionIndex, _.uniq(properties));
-            //}
+            }
 
           });
 
