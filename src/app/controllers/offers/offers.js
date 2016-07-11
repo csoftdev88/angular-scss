@@ -86,12 +86,6 @@ angular.module('mobius.controllers.offers', [])
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
 
-          //select current property in dropdown
-          /*
-          if($scope.config.includeOfferAvailabilityPropertyDropdown && $stateParams.propertySlug){
-            $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
-          }
-          */
         }
 
       }else{
@@ -255,6 +249,8 @@ angular.module('mobius.controllers.offers', [])
                     });
                     //if not a featured offer, and only one of the property availability is featured, set the property availability content as the offer content
                     if(offer.offerAvailability && offer.offerAvailability.length === 1){
+                      var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                      offer.propertyName = property.nameShort;
                       offer.availability = offer.offerAvailability[0];
                     }
                   }
