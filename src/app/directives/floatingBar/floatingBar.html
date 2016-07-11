@@ -39,7 +39,8 @@
     ng-class="{'multiroom-mode': active === ADVANCED_BOOKING, 'is-open': !isCollapsed && (active === BOOKING || active === ADVANCED_BOOKING)}"
     open-booking-tab="openBookingTab"
     hide-bar="setActive(active)"
-    advanced="active === ADVANCED_BOOKING">
+    advanced="active === ADVANCED_BOOKING"
+    all-properties="_booking_widget_all_properties_">
   </booking-widget>
 
   <my-account

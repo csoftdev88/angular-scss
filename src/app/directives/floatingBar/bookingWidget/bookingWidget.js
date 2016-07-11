@@ -15,10 +15,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
     // Widget logic goes here
-    link: function(scope){
+    link: function(scope, elem, attrs){
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
-      var ALL_PROPERTIES = 'All Properties';
+      var ALL_PROPERTIES = attrs.allProperties ? attrs.allProperties : 'All properties';
       var FIND_YOUR_HOTEL = 'Find Your Hotel';
 
       scope.isMobile = function(){
