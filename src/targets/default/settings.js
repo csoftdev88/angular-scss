@@ -156,10 +156,19 @@ angular.module('mobiusApp.config', [])
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '1',
-      'Mobius-channelId': {
-        'web': '6',
-        'mobile': '23'
-      }
+      'Mobius-channelId': [{
+        'name': 'mobileWeb',
+        'channelID': 23,
+        'contentLength': 'short'
+      }, {
+        'name': 'web',
+        'channelID': 6,
+        'contentLength': 'long'
+      }, {
+        'name': 'meta',
+        'channelID': 24,
+        'contentLength': 'long'
+      }]
     },
     'sessionData': {
       'includeInApiCalls': false,
@@ -340,7 +349,7 @@ angular.module('mobiusApp.config', [])
     //rate lookup teasers - used a preloader when loading rates
     'showHotelDetailsTestimonials': false,
     'hotelDetailsTestimonialsMaxNumStars': 5,
-    'hotelDetailsTestimonials': 
+    'hotelDetailsTestimonials':
     [
     //{
     //  'property': 'VAN',

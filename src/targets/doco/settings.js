@@ -143,10 +143,19 @@ angular.module('mobiusApp.config', [])
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-chainId': '354',
-      'Mobius-channelId': {
-        'web': '6',
-        'mobile': '23'
-      }
+      'Mobius-channelId': [{
+        'name': 'mobileWeb',
+        'channelID': 23,
+        'contentLength': 'short'
+      }, {
+        'name': 'web',
+        'channelID': 6,
+        'contentLength': 'long'
+      }, {
+        'name': 'meta',
+        'channelID': 24,
+        'contentLength': 'long'
+      }]
     },
     'sessionData': {
       'includeInApiCalls': false,
@@ -328,7 +337,7 @@ angular.module('mobiusApp.config', [])
     //rate lookup teasers
     'showHotelDetailsTestimonials': false,
     'hotelDetailsTestimonialsMaxNumStars': 5,
-    'hotelDetailsTestimonials': 
+    'hotelDetailsTestimonials':
     [{
       'property': 'VAN',
       'review': '“My new favourite in Vancouver',
@@ -455,11 +464,11 @@ angular.module('mobiusApp.config', [])
         'location': 'Amsterdam'
       },
       'stars': 5
-      }, 
+      },
       {
         'property': 'REV',
         'review': '“Our two night stay turned into three...”',
-        'reviewer': 
+        'reviewer':
         {
           'name': 'MTnLZ',
           'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1450195906/SAN/rateLoading/mtnlz.jpg',
