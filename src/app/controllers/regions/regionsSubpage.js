@@ -124,7 +124,7 @@ angular.module('mobius.controllers.regions.subpage', [])
 
       // Updating Hero content images
       if($scope.details.images){
-        $scope.updateHeroContent(_.filter($scope.details.images));
+        $scope.updateHeroContent($scope.details.images);
 
         // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
         // Current version of PhantomJS is missing not supporting .bind
