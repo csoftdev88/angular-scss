@@ -52,39 +52,43 @@ angular.module('mobius.controllers.offers', [])
         return new Date(offer.expirationDate) < today;
       });
 
-      if($stateParams.property && !$scope.isHotDeals){
+      if($stateParams.propertySlug && !$scope.isHotDeals){
 
         if($state.current.name !== 'propertyOffers'){
           propertyService.getAll().then(function(properties){
-            var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+            var property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
             $scope.property = property;
             $state.go('propertyOffers', {propertySlug: property.meta.slug, code: $stateParams.code});
           });
         }
         else{
-
-          offers = _.filter(offers, function(offer, index){
-            var availability = _.find(offer.offerAvailability, function(availability){
-              return availability.property === $stateParams.property;
-            });
-            offers[index].availability = availability && availability.showOnOffersPage ? availability : null;
-            return availability && availability.showOnOffersPage;
-          });
-
-          $scope.offersList = _.sortBy(offers, 'prio').reverse();
+          
 
           propertyService.getAll().then(function(properties){
-            var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+            //property details
+            var property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
             $scope.property = property;
             $scope.updateHeroContent(_.filter(property.images, {includeInSlider: true}));
+
+            //offers
+            offers = _.filter(offers, function(offer, index){
+              var availability = _.find(offer.offerAvailability, function(availability){
+                return availability.property === property.code;
+              });
+              offers[index].availability = availability && availability.showOnOffersPage ? availability : null;
+              return availability && availability.showOnOffersPage;
+            });
+
+            $scope.offersList = _.sortBy(offers, 'prio').reverse();
+
             if(!$stateParams.code) {
               setBreadCrumbs(null, null, property);
             }
-          });
 
-          if ($stateParams.code) {
-            selectOffer(bookingService.getCodeFromSlug($stateParams.code));
-          }
+            if ($stateParams.code) {
+              selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+            }
+          });
 
         }
 
