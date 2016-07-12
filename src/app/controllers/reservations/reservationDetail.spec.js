@@ -96,15 +96,14 @@ describe('mobius.controllers.reservationDetail', function() {
         $provide.value('userObject', TEST_USER);
 
         $provide.value('modalService', {
-          openPoliciesInfo: function() {
-          },
-          openPriceBreakdownInfo: function() {
+          openPoliciesInfo: function() {},
+          openPriceBreakdownInfo: function() {},
+          openAddonDetailDialog: function() {},
+          openCancelReservationDialog: function() {}
+        });
 
-          },
-          openAddonDetailDialog: function() {
-          },
-          openCancelReservationDialog: function() {
-          }
+        $provide.value('routerService', {
+          buildStateParams: function() {}
         });
 
         $provide.value('metaInformationService', {

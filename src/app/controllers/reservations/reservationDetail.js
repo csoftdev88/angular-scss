@@ -10,7 +10,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-    metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService){
+    metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService){
 
     $controller('SSOCtrl', {$scope: $scope});
 
@@ -223,9 +223,8 @@ angular.module('mobius.controllers.reservationDetail', [])
     function startModification(reservation){
       // Redirecting to hotel detail page with corresponding booking settings
       // and switching to edit mode
-      // TODO: Support multiroom modification once API is ready for modification
+
       var bookingParams = {
-        property: reservation.property.code,
         adults: $scope.getCount('adults'),
         children: $scope.getCount('children'),
         dates: reservation.arrivalDate + DATES_SEPARATOR + reservation.departureDate,
@@ -234,12 +233,19 @@ angular.module('mobius.controllers.reservationDetail', [])
         // NOTE: This will enable editing
         reservation: reservation.reservationCode,
         // Removing email param when user is logged in
-        email: user.isLoggedIn()?null:$stateParams.email,
-        // propertySlug is required
-        propertySlug: $scope.property.meta && $scope.property.meta.slug?$scope.property.meta.slug:reservation.property.code
+        email: user.isLoggedIn()?null:$stateParams.email
       };
 
-      $state.go('hotel', bookingParams);
+      propertyService.getPropertyDetails(reservation.property.code)
+        .then(function(details){
+          var paramsData = {};
+          paramsData.property = details;
+          bookingParams.scrollTo = 'jsRooms';
+          routerService.buildStateParams('hotel', paramsData).then(function(params){
+            bookingParams = _.extend(bookingParams, params);
+            $state.go('hotel', bookingParams);
+          });
+        });
     }
 
     $scope.openCancelReservationDialog = function(){
