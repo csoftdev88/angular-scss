@@ -195,18 +195,19 @@ angular.module('mobiusApp.directives.datepicker', [])
             if(isStartDateSelected){
               // Selecting endDate;
               if(selectedDate > startDate){
-                endDate = forceEndDate ? $window.moment(selectedDate).add(1, 'day').valueOf() : selectedDate;
+                endDate = selectedDate;
                 if(Settings.UI.bookingWidget.datePickerCloseOnDatesSelected && !stateService.isMobile()){
                   element.datepicker('hide');
                 }
               }else{
                 // Reversing the selection back
-                endDate = forceEndDate ? $window.moment(startDate).add(1, 'day').valueOf() : startDate;
+                endDate = startDate;
                 startDate = selectedDate;
               }
             }else{
               // Selecting start/end date
               startDate = selectedDate;
+              //If force end date is set to true in config, force an end date on the calendar
               endDate = forceEndDate ? $window.moment(startDate).add(1, 'day').valueOf() : startDate;
             }
 
