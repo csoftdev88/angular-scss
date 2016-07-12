@@ -12,7 +12,7 @@
 
   <offers-list grid-row ng-if="!showDetail">
 
-    <div grid="12" ng-if="config.displayPageHeading">
+    <div grid="12" ng-if="config.displayPageHeading" class="offers-heading">
       <h1 ng-if="isHotDeals" ng-bind-html="'_hot_deals_' | mainHeaderStyle"></h1>
       <h1 ng-if="!isHotDeals" ng-bind-html="'_offers_deals_' | mainHeaderStyle"></h1>
     </div>

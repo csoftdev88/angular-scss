@@ -7,7 +7,7 @@
 
   <regions-list id="region-list" grid-row ng-if="!showDetail">
 
-    <h1 grid="12" ng-bind-html="'_regions_page_title_' | mainHeaderStyle"></h1>
+    <h1 grid="12" ng-bind-html="'_regions_page_title_' | mainHeaderStyle" class="regions-heading"></h1>
 
     <region-item ng-repeat="region in allRegions | orderBy: 'nameShort'" ng-click="goToDetail(region.meta.slug)">
       <div class="banner" ng-if="region.merchandisingBanner" ng-style="{'background-color': region.merchandisingBanner.bgColor, 'color': region.merchandisingBanner.textColor}">{{region.merchandisingBanner.text}}</div>
@@ -19,7 +19,7 @@
       </section>
 
     </region-item>
-    
+
   </regions-list>
 
   <region-detail id="region-detail" grid-row ng-if="showDetail">
@@ -58,7 +58,7 @@
         </section>
 
       </location-item>
-      
+
     </locations-list>
 
   </region-detail>
