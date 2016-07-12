@@ -49,7 +49,7 @@
         <h1>{{property.nameLong}}</h1>
 
         <div class="reference" ng-class="{'reference-visible': displayConfirmationNumber}">
-          <p>_booking_reference_:</p>
+          <p ng-if="config.displayConfirmationNumberLabel">_booking_reference_:</p>
           <p><strong>{{reservationCode}}</strong></p>
         </div>
 

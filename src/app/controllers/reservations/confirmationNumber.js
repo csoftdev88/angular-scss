@@ -9,13 +9,16 @@ angular.module('mobius.controllers.reservation.confirmationNumber', [])
 
   if(propertyCode && Settings.UI.reservations && Settings.UI.reservations.confirmationNumber){
     var settings = Settings.UI.reservations.confirmationNumber[propertyCode];
-    if(!settings){
+    var displayAll = Settings.UI.reservations.displayConfirmationNumberOnAllHotels;
+    if(!displayAll && !settings){
       return;
     }
 
-    if($state.current.name === 'reservations'){
+    if(displayAll){
+      $scope.displayConfirmationNumber = true;
+    }else if($state.current.name === 'reservations' && !displayAll){
       $scope.displayConfirmationNumber = settings.displayOnListView;
-    }else if($state.current.name === 'reservationDetail'){
+    }else if($state.current.name === 'reservationDetail' && !displayAll){
       $scope.displayConfirmationNumber = settings.displayOnDetailsView;
     }
   }

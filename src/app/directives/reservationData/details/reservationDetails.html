@@ -4,7 +4,7 @@
       <h1>{{property.nameLong}}</h1>
 
       <div class="reference" ng-class="{'reference-visible': displayConfirmationNumber}">
-        <p>_booking_reference_:</p>
+        <p ng-if="config.displayConfirmationNumberLabel">_booking_reference_:</p>
         <!-- TODO: reservation.IRI is string in format "/reservations/ABB-EF-01435",
         should we cut the reservation code from this field? -->
         <p><strong>{{reservation.reservationCode}}</strong></p>
