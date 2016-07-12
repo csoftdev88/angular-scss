@@ -110,6 +110,10 @@ angular.module('mobius.controllers.offers', [])
             //https://2pventures.tpondemand.com/entity/12353
             var filteredOffers = angular.copy(offers);
 
+            filteredOffers = _.reject(filteredOffers, function(offer){
+              return !offer.showOnOffersPage;
+            });
+
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
 
@@ -225,7 +229,7 @@ angular.module('mobius.controllers.offers', [])
                 //remove any availability associated with a property that is not the current property
                 _.each(filteredOffers, function(offer){
                   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                    return availability.property !== curProperty.code;
+                    return availability.property !== curProperty.code || !availability.showOnOffersPage;
                   });
                   if(offer.offerAvailability.length === 1){
                     var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
