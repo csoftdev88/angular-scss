@@ -372,10 +372,6 @@ angular
           regionSlug: {
             value: null,
             squash: true
-          },
-          propertySlug: {
-            value: null,
-            squash: true
           }
         }
       })

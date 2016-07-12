@@ -165,7 +165,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         //hot deals
         else if(attrs.type === 'hot-deals'){
           scope.closeMenu();
-          $state.go('hotDeals', {regionSlug: region.meta.slug, code: null, property: null, location: null});
+          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: null, code: null, property: null, location: null});
         }
       };
 
