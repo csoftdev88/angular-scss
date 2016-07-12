@@ -60,20 +60,12 @@ angular.module('mobiusApp.directives.hotels', [])
           chainService.getAll().then(function(chains){
 
             //Pick random merchandizing banner if any
-            //assign chainTitle to be used on view
             _.each(hotels, function(hotel){
 
               //merchandizing banner
               if(hotel.merchandisingBanners && hotel.merchandisingBanners.length){
                 hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.floor(hotel.merchandisingBanners.length * Math.random())];
               }
-
-              //chain title
-              _.each(chains, function(chain){
-                if(hotel.chainCode === chain.code){
-                  hotel.chainTitle = chain.title;
-                }
-              });
 
             });
 
