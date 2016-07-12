@@ -202,7 +202,6 @@ angular.module('mobius.controllers.common.content', [])
 
     //see all link scroll to
     if($scope.settings.seeAllLinkScrollToAnchor && $scope.hasFilteredItems($scope.content) && !$scope.hasSecondLevelDropdown || $scope.settings.maxItemsCount && $scope.settings.maxItemsCount < $scope.content.length && viewAll){
-      console.log('yes');
       params.scrollTo = $scope.settings.seeAllLinkScrollToAnchor;
     }
     else{
@@ -215,14 +214,18 @@ angular.module('mobius.controllers.common.content', [])
   function processSettings() {
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
 
-
+      //Remove all items with showOnMenu false
+      data = _.reject(data, function(item){
+        return item.showOnMenu === false;
+      });
 
       data = _.reject(data, function(item){
 
-        //Hot Deals vs Special Offers - Hot Deals are offers specific to a single property, if enabled Special Offers are only offers that have multiple properties availability
+        //If at chain level, remove items that have showOnMenu = false in main settings
+        //showOnMenu should override any setting, commenting this for now
         /*
-        if($scope.settings.singlePropertyOnly && item.offerAvailability && item.offerAvailability.length > 1 || $scope.settings.multiPropertyOnly && item.offerAvailability && item.offerAvailability.length < 2){
-          return true;
+        if(item.showAtChainLevel && !$state.params.property){
+          return item.showOnMenu === false;
         }
         */
 
@@ -230,24 +233,18 @@ angular.module('mobius.controllers.common.content', [])
           return item.showAtChainLevel === false;
         }
 
-
         //If on a property, remove items that have showOnMenu = false in offerAvailability
         if($state.params.property){
           var availability = _.find(item.offerAvailability, function(availability){
             return availability.property === $state.params.property;
           });
-
           if(availability){
             return availability.showOnMenu === false;
           }
         }
 
-        //If at chain level, remove items that have showOnMenu = false in main settings
-        if(item.showAtChainLevel && !$state.params.property){
-          return item.showOnMenu === false;
-        }
-
       });
+
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
         $scope.settings = $scope.settings.fallback;
