@@ -614,7 +614,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
        * Updates the url with values from the widget and redirects either to hotel list or a room list
        */
       scope.onSearch = function(){
-        console.log(scope.selected);
         var stateParams = {};
         for (var key in PARAM_TYPES) {
           if (PARAM_TYPES.hasOwnProperty(key)) {
@@ -669,16 +668,27 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         var paramsData = {};
 
         if((!scope.selected.property || !scope.selected.property.code) && (!scope.selected.location || !scope.selected.location.code)){
-          // 'All properties' is selected, will redirect to hotel list
           stateParams.propertyCode = null;
           stateParams.scrollTo = 'hotels';
+          //If a single property or location is selected
           if(Settings.UI.generics.singleProperty && $rootScope.propertySlug){
             stateParams.propertySlug = $rootScope.propertySlug;
             stateParams.scrollTo = 'jsRooms';
             $state.go('hotel', stateParams, {reload: true});
+            scope.hideBar();
           }
+          //Otherwise if "All properties" is selected
           else{
-            $state.go('allHotels', stateParams, {reload: true});
+            //If a date is selected redirect to the hotels page
+            if(scope.selected.dates) {
+              $state.go('allHotels', stateParams, {reload: true});
+              scope.hideBar();
+            }
+            //Otherwise open the date picker
+            else {
+              //Call open date picker function on floating bar directive
+              scope.$parent.openDatePicker();
+            }
           }
 
         } else if (scope.selected.property && scope.selected.property.code &&
@@ -691,6 +701,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams = _.extend(stateParams, params);
             $state.go('room', stateParams, {reload: true});
           });
+          scope.hideBar();
 
         } else if (scope.selected.location && scope.selected.location.code &&
                   scope.selected.dates && $stateParams.roomSlug) {
@@ -702,6 +713,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams = _.extend(stateParams, params);
             $state.go('hotels', stateParams, {reload: true});
           });
+          scope.hideBar();
 
         } else if (scope.selected.location && scope.selected.location.code) {
           //Redirect to location hotels
@@ -710,6 +722,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams = _.extend(stateParams, params);
             $state.go('hotels', stateParams, {reload: true});
           });
+          scope.hideBar();
 
         } else {
           // Specific hotel selected, will redirect to room list
@@ -722,9 +735,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams = _.extend(stateParams, params);
             $state.go('hotel', stateParams, {reload: true});
           });
+          scope.hideBar();
         }
-
-        scope.hideBar();
       };
 
       // Search is enabled only when required fields contain data or if "All properties has been selected"
