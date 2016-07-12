@@ -126,7 +126,7 @@
           </table>
 
           <div class="extended-charges">
-            <table ng-class="{'extended': breakdownExtended}" ng-init="breakdownExtended = false" ng-if="config.reservationDetailPriceBreakdownExtended && reservation">
+            <table ng-class="{'extended': breakdownExtended}" ng-init="breakdownExtended = false" ng-if="config.reservationDetailPriceBreakdownExtended && reservation && !reservation.pointValue">
               <thead ng-switch="billingDetails.paymentMethod">
                 <tr class="main">
                   <th>_room_charges_:</th>
@@ -169,7 +169,7 @@
             <div class="extended-total">
               <span class="total">_total_:</span>
               <span class="total-value" ng-if="!reservation.pointValue">{{getCount('priceAfterTax') | i18nCurrency: $root.currencyCode}}</span>
-              <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{getTotal('pointValue')}} _points_</span>
+              <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
               <a href ng-click="openPoliciesInfo()">_view_policies_</a>
             </div>
           </div>
