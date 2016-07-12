@@ -920,7 +920,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           }
           //Prefill location from megamenu
           if (settings && settings.location) {
-            scope.regionPropertySelected = {name: settings.location.nameShort, type: 'location', code: settings.location};
+            scope.regionPropertySelected = {type: 'location', code: settings.location};
             scope.propertyRegionChanged();
           }
 
