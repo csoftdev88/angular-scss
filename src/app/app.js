@@ -362,7 +362,7 @@ angular
       .state('hotDeals', {
         parent: 'root',
         templateUrl: 'layouts/offers/offers.html',
-        url: '/:regionSlug/:locationSlug/hot-deals',
+        url: '/:regionSlug/:locationSlug/hot-deals/:code',
         controller: 'OffersCtrl',
         params:  {
           locationSlug: {

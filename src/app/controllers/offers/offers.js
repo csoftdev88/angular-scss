@@ -135,7 +135,6 @@ angular.module('mobius.controllers.offers', [])
               //Filter offers by region if any and if no location or property is defined
               if($stateParams.regionSlug && !$stateParams.locationSlug && !$stateParams.propertySlug){
 
-
                 locationService.getRegions().then(function(regions){
                   locationService.getLocations().then(function(locations){
                     var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug; });
@@ -177,6 +176,10 @@ angular.module('mobius.controllers.offers', [])
                     //breadcrumbs
                     if(!$stateParams.code) {
                       setBreadCrumbs(curRegion);
+                    }
+                    //if offer code, go to offer
+                    if($stateParams.code) {
+                      selectOffer(bookingService.getCodeFromSlug($stateParams.code));
                     }
                   });
                 });
@@ -220,11 +223,14 @@ angular.module('mobius.controllers.offers', [])
                     if(!$stateParams.code) {
                       setBreadCrumbs(curRegion, curLocation);
                     }
+                    //if offer code, go to offer
+                    if($stateParams.code) {
+                      selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+                    }
                   });
                 });
               }
               else if($stateParams.propertySlug){
-                
                 var curProperty = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug;});
                 //remove any availability associated with a property that is not the current property
                 _.each(filteredOffers, function(offer){
@@ -246,10 +252,13 @@ angular.module('mobius.controllers.offers', [])
                 if(!$stateParams.code) {
                   setBreadCrumbs(null, null, curProperty);
                 }
+                //if offer code, go to offer
+                if($stateParams.code) {
+                  selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+                }
               }
               else {
                 //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
-
                 //If an offer is not featured at chain level, remove any property availability that is not featured
                 _.each(filteredOffers, function(offer){
                   if(!offer.featured){
@@ -277,10 +286,10 @@ angular.module('mobius.controllers.offers', [])
                 if(!$stateParams.code) {
                   setBreadCrumbs();
                 }
-              }
-
-              if($stateParams.code) {
-                selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+                //if offer code, go to offer
+                if($stateParams.code) {
+                  selectOffer(bookingService.getCodeFromSlug($stateParams.code));
+                }
               }
 
             });

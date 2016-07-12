@@ -182,6 +182,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
           var toState = attrs.type === 'hotels' ? 'hotels' : 'hotDeals';
 
           routerService.buildStateParams(toState, paramsData).then(function(params){
+            params.code = null;
             $state.go(toState, params, {reload: true});
           });
 
