@@ -58,6 +58,13 @@ angular.module('mobius.controllers.about', [])
 
     contentService.getAbout().then(function(response) {
       $scope.aboutList = _.sortBy(response, 'prio').reverse();
+      //Scroll to aboutList if scrollTo value
+      var scrollToValue = $location.search().scrollTo || null;
+      if (scrollToValue) {
+        $timeout(function(){
+          scrollService.scrollTo(scrollToValue, 20);
+        }, 1500);
+      }
       if ($stateParams.code) {
         selectAbout($stateParams.code);
       }

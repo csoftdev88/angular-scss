@@ -410,7 +410,7 @@ angular.module('mobiusApp.config', [])
       'showBenefits': true
     },
     'aboutChain': {
-      'offersLimit': 3
+      'offersLimit': 999
     },
     // toggle filters on hotels page
     'hotelFilters': [

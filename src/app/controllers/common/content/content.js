@@ -88,7 +88,8 @@ angular.module('mobius.controllers.common.content', [])
       'sort': 'prio',
       'reverseSort': true,
       'maxItemsCount': Settings.UI.menu.maxAboutCount,
-      'slug': true
+      'slug': true,
+      'seeAllLinkScrollToAnchor': 'offers-list'
     }
   };
 
@@ -182,7 +183,7 @@ angular.module('mobius.controllers.common.content', [])
     return (link && link.substr(-1) === '/') ? link.slice(0,-1) : link;
   };
 
-  $scope.goToState = function($event, code){
+  $scope.goToState = function($event, code, viewAll){
     if(!$scope.settings){
       return null;
     }
@@ -197,6 +198,15 @@ angular.module('mobius.controllers.common.content', [])
     if($state.params.property && $scope.settings.propertyState && $scope.settings.keepProperty){
       params[$scope.settings.propertyParamName] = $state.params.propertySlug;
       toState = $scope.settings.propertyState;
+    }
+
+    //see all link scroll to
+    if($scope.settings.seeAllLinkScrollToAnchor && $scope.hasFilteredItems($scope.content) && !$scope.hasSecondLevelDropdown || $scope.settings.maxItemsCount && $scope.settings.maxItemsCount < $scope.content.length && viewAll){
+      console.log('yes');
+      params.scrollTo = $scope.settings.seeAllLinkScrollToAnchor;
+    }
+    else{
+      params.scrollTo = null;
     }
 
     $state.go(toState, params, {reload: true});

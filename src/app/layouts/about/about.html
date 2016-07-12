@@ -33,7 +33,7 @@
 
     <hr>
 
-    <offers-list>
+    <offers-list id="offers-list">
       <offer-item ng-repeat="about in aboutList | limitTo: config.offersLimit track by $index" ng-click="goToDetail(about.meta.slug)">
         <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
