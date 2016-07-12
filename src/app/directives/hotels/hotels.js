@@ -85,7 +85,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
                 //breadcrumbs
                 addBreadCrumbs(curLocation);
-                
+
                 if(curLocation){
 
                   //hero slider
@@ -208,7 +208,7 @@ angular.module('mobiusApp.directives.hotels', [])
           breadcrumbsService.addBreadCrumb('Hotel Search');
         }
       }
-      
+
 
 /*
       filtersService.getProducts(true).then(function(data) {
@@ -529,13 +529,14 @@ angular.module('mobiusApp.directives.hotels', [])
         return scope.filterConfig[filter].enable;
       };
 
-      scope.selectDates = function(){
+      scope.selectDates = function(property){
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           openBookingTab: true,
           openDatePicker: true,
           promoCode: $stateParams.promoCode || null,
           corpCode: $stateParams.corpCode || null,
-          groupCode: $stateParams.groupCode || null
+          groupCode: $stateParams.groupCode || null,
+          property: property.code
         });
       };
 

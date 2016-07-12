@@ -99,7 +99,7 @@
                 </span>
               </p>
               <p class="price unavailable" ng-if="!hasDates()">
-                <button-submit ng-click="selectDates()">_select_dates_</button-submit>
+                <button-submit ng-click="selectDates(hotel)">_select_dates_</button-submit>
               </p>
 
               <p class="price unavailable" ng-if="!hotel.available && hasDates()">
