@@ -112,10 +112,68 @@ angular.module('mobiusApp.directives.hotels', [])
             addBreadCrumbs();
           }
 
+
           //We need the region name to display
           if(scope.config.displayHotelRegionName){
             getHotelRegionName();
           }
+
+          /*
+            if($stateParams.locationSlug){
+              scope.regionSlug = $stateParams.regionSlug || null;
+              //Get locations
+              locationService.getLocations().then(function(locations){
+                var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+
+                //breadcrumbs
+                addBreadCrumbs(curLocation);
+
+                if(curLocation){
+
+                  //hero slider
+                  scope.updateHeroContent(curLocation.images);
+
+                  if(Settings.UI.viewsSettings.hotels.showLocationDescription){
+
+                    //get current location
+                    locationService.getLocation(curLocation.code).then(function(location){
+                      //details
+                      scope.locationDetails = location;
+                      //gallery
+                      scope.previewImages = contentService.getLightBoxContent(location.images, 300, 150, 'fill');
+                      //gallery lightbox
+                      scope.openGallery = function(slideIndex){
+                        modalService.openGallery(
+                          contentService.getLightBoxContent(location.images),
+                          slideIndex);
+                      };
+                    });
+                  }
+                  //filter hotels by location
+                  scope.hotels = _.where(hotels, {locationCode: curLocation.code});
+                  initPriceFilter();
+                }
+                else{
+                  scope.hotels = hotels || [];
+                  initPriceFilter();
+                }
+
+              });
+            }
+            else{
+              scope.hotels = hotels || [];
+              initPriceFilter();
+              addBreadCrumbs();
+            }
+
+            //We need the region name to display
+            if(scope.config.displayHotelRegionName){
+              getHotelRegionName();
+            }
+
+            if(Settings.UI.generics.singleProperty){
+              scope.navigateToHotel(scope.hotels[0]);
+            }*/
 
           if(Settings.UI.generics.singleProperty){
             scope.navigateToHotel(scope.hotels[0]);
@@ -194,7 +252,7 @@ angular.module('mobiusApp.directives.hotels', [])
           breadcrumbsService.addBreadCrumb('Hotel Search');
         }
       }
-      
+
 
 /*
       filtersService.getProducts(true).then(function(data) {
@@ -515,13 +573,14 @@ angular.module('mobiusApp.directives.hotels', [])
         return scope.filterConfig[filter].enable;
       };
 
-      scope.selectDates = function(){
+      scope.selectDates = function(property){
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           openBookingTab: true,
           openDatePicker: true,
           promoCode: $stateParams.promoCode || null,
           corpCode: $stateParams.corpCode || null,
-          groupCode: $stateParams.groupCode || null
+          groupCode: $stateParams.groupCode || null,
+          property: property.code
         });
       };
 

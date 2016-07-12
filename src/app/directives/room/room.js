@@ -133,7 +133,7 @@ angular.module('mobiusApp.directives.room', [])
         });
 
         $q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
-          
+
           if(data && data.length > 1){
 
             var roomData = data[0];
@@ -169,10 +169,10 @@ angular.module('mobiusApp.directives.room', [])
               .addBreadCrumb('Rooms', 'hotel', {propertySlug: bookingParams.propertySlug}, 'jsRooms')
               .addBreadCrumb(data[0].roomDetails.name);
               */
-            
+
             scrollManager();
           }
-          
+
         });
       });
 
@@ -230,7 +230,7 @@ angular.module('mobiusApp.directives.room', [])
 
 
         //Logic for ordering products: Display 4 groups: productHidden/memberOnly/highlighted/remaining, each ordered by weighting, highest weighting first
-        
+
         //hiddenProducts first
         var hiddenProducts = _.where(data.products, {productHidden: true});
         hiddenProducts = $filter('orderBy')(hiddenProducts, ['-weighting', 'price.totalBase']);
@@ -253,7 +253,7 @@ angular.module('mobiusApp.directives.room', [])
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
 
-        
+
         if($stateParams.viewAllRates && $stateParams.viewAllRates === '1'){
           scope.roomRatesLimit = scope.products.length;
         }
@@ -274,16 +274,23 @@ angular.module('mobiusApp.directives.room', [])
           return propertyService.getRooms(propertyCode)
             .then(function(hotelRooms){
 
-              
+              var availableRooms = [];
+              _.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
+                var room = _.find(hotelRooms, {code: availableRoom.code});
+                availableRooms.push(room);
+              });
+
+              //filter out duplicates
+              availableRooms = _.uniq(availableRooms);
 
               //if using thumbnails
               if(scope.config.otherRooms.useThumbnails){
                 //remove current room
-                hotelRooms = _.reject(hotelRooms, function(room){ return room.code === scope.roomDetails.code;});
+                availableRooms = _.reject(availableRooms, function(room){ return room.code === scope.roomDetails.code;});
                 var data = scope.roomDetails;
 
-                var moreExpensiveRooms = hotelRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
-                var cheaperOrEqualRooms = hotelRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
+                var moreExpensiveRooms = availableRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
+                var cheaperOrEqualRooms = availableRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
 
                 var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
 
@@ -293,27 +300,20 @@ angular.module('mobiusApp.directives.room', [])
                 scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
               }
               else{
-                var numRooms = hotelRooms.length;
+                var numRooms = availableRooms.length;
                 var curRoomIndex;
-                _.find(hotelRooms, function(room, index){ 
+                _.find(availableRooms, function(room, index){
                   if(room.code === scope.roomDetails.code){
                     curRoomIndex = index;
                   }
                 });
                 var prevIndex = curRoomIndex > 0 ? curRoomIndex - 1 : numRooms - 1;
                 var nextIndex = curRoomIndex < numRooms -1 ? curRoomIndex + 1 : 0;
-                scope.previousRoom = hotelRooms[prevIndex];
-                scope.nextRoom = hotelRooms[nextIndex];
+                scope.previousRoom = availableRooms[prevIndex];
+                scope.nextRoom = availableRooms[nextIndex];
               }
-              
-              scope.otherRoomsLoading = false;
 
-              $window._.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
-                var room = $window._.find(scope.otherRooms, {code: availableRoom.code});
-                if(room) {
-                  $window._.extend(room, availableRoom);
-                }
-              });
+              scope.otherRoomsLoading = false;
             });
         });
       };
@@ -327,7 +327,7 @@ angular.module('mobiusApp.directives.room', [])
         }
 
       };
-      
+
 
       scope.setRoomsSorting = function() {
         return user.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
@@ -398,8 +398,8 @@ angular.module('mobiusApp.directives.room', [])
           else{
             modalService.openRoomDetailsDialog(product.description);
           }
-          
-          
+
+
         };
       }
 

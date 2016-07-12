@@ -26,7 +26,7 @@ reservation-widget {
       box-sizing: border-box;
     }
   }
-  
+
   h3{
     font-size: 14px;
     font-weight: 700;
@@ -171,7 +171,7 @@ reservation-widget {
       display: block;
       top: 3px;
       max-width: 25%;
-      
+
       .chain-sand &{
         width: 98px;
         height: 17px;
@@ -901,6 +901,10 @@ reservation-finished {
 
   .button.disabled {
     .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
+  }
+  
+  @media print {
+    margin-top:0;
   }
 }
 
