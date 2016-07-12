@@ -54,119 +54,113 @@ angular.module('mobiusApp.directives.hotels', [])
 
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
-          // Now API always returns full list of hotels, that will change in the future. Uncomment the line below to test future behaviour
-          // hotels = undefined;
 
-          chainService.getAll().then(function(chains){
+          //Pick random merchandizing banner if any
+          _.each(hotels, function(hotel){
 
-            //Pick random merchandizing banner if any
-            _.each(hotels, function(hotel){
-
-              //merchandizing banner
-              if(hotel.merchandisingBanners && hotel.merchandisingBanners.length){
-                hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.floor(hotel.merchandisingBanners.length * Math.random())];
-              }
-
-            });
-
-            if($stateParams.locationSlug){
-              scope.regionSlug = $stateParams.regionSlug || null;
-              //Get locations
-              locationService.getLocations().then(function(locations){
-                var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
-
-                //breadcrumbs
-                addBreadCrumbs(curLocation);
-                
-                if(curLocation){
-
-                  //hero slider
-                  scope.updateHeroContent(curLocation.images);
-
-                  if(Settings.UI.viewsSettings.hotels.showLocationDescription){
-
-                    //get current location
-                    locationService.getLocation(curLocation.code).then(function(location){
-                      //details
-                      scope.locationDetails = location;
-                      //gallery
-                      scope.previewImages = contentService.getLightBoxContent(location.images, 300, 150, 'fill');
-                      //gallery lightbox
-                      scope.openGallery = function(slideIndex){
-                        modalService.openGallery(
-                          contentService.getLightBoxContent(location.images),
-                          slideIndex);
-                      };
-                    });
-                  }
-                  //filter hotels by location
-                  scope.hotels = _.where(hotels, {locationCode: curLocation.code});
-                  initPriceFilter();
-                }
-                else{
-                  scope.hotels = hotels || [];
-                  initPriceFilter();
-                }
-
-              });
-            }
-            else{
-              scope.hotels = hotels || [];
-              initPriceFilter();
-              addBreadCrumbs();
-            }
-
-            //We need the region name to display
-            if(scope.config.displayHotelRegionName){
-              getHotelRegionName();
-            }
-
-            if(Settings.UI.generics.singleProperty){
-              scope.navigateToHotel(scope.hotels[0]);
-            }
-
-            //check if offer is limited to only one property and if so navigate to it
-            if($stateParams.promoCode){
-              var offerLimitedToOneProperty = [];
-              var limitedToProperty = [];
-              var limitedToPropertyCode = '';
-              var currentOffer = '';
-
-              contentService.getOffers().then(function(response) {
-                var offersList = _.sortBy(response, 'prio').reverse();
-
-                offerLimitedToOneProperty = _.filter(offersList, function(offer){
-                  return offer.meta.slug === $stateParams.promoCode && offer.limitToPropertyCodes.length === 1;
-                });
-
-                if(offerLimitedToOneProperty.length){
-                  limitedToPropertyCode = offerLimitedToOneProperty[0].limitToPropertyCodes[0];
-                }
-
-                limitedToProperty = _.find(hotels, function(hotel){ return hotel.code === limitedToPropertyCode; });
-
-                if(limitedToProperty){
-                  scope.navigateToHotel(limitedToProperty);
-                  return;
-                }
-
-                if(currentOffer){
-                  scope.hotels = _.filter(scope.hotels, function(hotel){
-                    return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
-                  });
-                }
-              });
-            }
-
-            //scroll to element if set in url scrollTo param
-            var scrollToValue = $location.search().scrollTo || null;
-            if (scrollToValue) {
-              $timeout(function(){
-                scrollService.scrollTo(scrollToValue, 20);
-              }, 500);
+            //merchandizing banner
+            if(hotel.merchandisingBanners && hotel.merchandisingBanners.length){
+              hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.floor(hotel.merchandisingBanners.length * Math.random())];
             }
 
           });
+
+          if($stateParams.locationSlug){
+            scope.regionSlug = $stateParams.regionSlug || null;
+            //Get locations
+            locationService.getLocations().then(function(locations){
+              var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
+
+              //breadcrumbs
+              addBreadCrumbs(curLocation);
+              
+              if(curLocation){
+
+                //hero slider
+                scope.updateHeroContent(curLocation.images);
+
+                if(Settings.UI.viewsSettings.hotels.showLocationDescription){
+
+                  //get current location
+                  locationService.getLocation(curLocation.code).then(function(location){
+                    //details
+                    scope.locationDetails = location;
+                    //gallery
+                    scope.previewImages = contentService.getLightBoxContent(location.images, 300, 150, 'fill');
+                    //gallery lightbox
+                    scope.openGallery = function(slideIndex){
+                      modalService.openGallery(
+                        contentService.getLightBoxContent(location.images),
+                        slideIndex);
+                    };
+                  });
+                }
+                //filter hotels by location
+                scope.hotels = _.where(hotels, {locationCode: curLocation.code});
+                initPriceFilter();
+              }
+              else{
+                scope.hotels = hotels || [];
+                initPriceFilter();
+              }
+
+            });
+          }
+          else{
+            scope.hotels = hotels || [];
+            initPriceFilter();
+            addBreadCrumbs();
+          }
+
+          //We need the region name to display
+          if(scope.config.displayHotelRegionName){
+            getHotelRegionName();
+          }
+
+          if(Settings.UI.generics.singleProperty){
+            scope.navigateToHotel(scope.hotels[0]);
+          }
+
+          //check if offer is limited to only one property and if so navigate to it
+          if($stateParams.promoCode){
+            var offerLimitedToOneProperty = [];
+            var limitedToProperty = [];
+            var limitedToPropertyCode = '';
+            var currentOffer = '';
+
+            contentService.getOffers().then(function(response) {
+              var offersList = _.sortBy(response, 'prio').reverse();
+
+              offerLimitedToOneProperty = _.filter(offersList, function(offer){
+                return offer.meta.slug === $stateParams.promoCode && offer.limitToPropertyCodes.length === 1;
+              });
+
+              if(offerLimitedToOneProperty.length){
+                limitedToPropertyCode = offerLimitedToOneProperty[0].limitToPropertyCodes[0];
+              }
+
+              limitedToProperty = _.find(hotels, function(hotel){ return hotel.code === limitedToPropertyCode; });
+
+              if(limitedToProperty){
+                scope.navigateToHotel(limitedToProperty);
+                return;
+              }
+
+              if(currentOffer){
+                scope.hotels = _.filter(scope.hotels, function(hotel){
+                  return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
+                });
+              }
+            });
+          }
+
+          //scroll to element if set in url scrollTo param
+          var scrollToValue = $location.search().scrollTo || null;
+          if (scrollToValue) {
+            $timeout(function(){
+              scrollService.scrollTo(scrollToValue, 20);
+            }, 500);
+          }
 
         });
 
