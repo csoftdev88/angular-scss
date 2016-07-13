@@ -509,13 +509,15 @@ angular.module('mobius.controllers.offers', [])
               return availability.property === property.code;
             });
 
-            if($scope.offersList[selectedOfferIndex].featured){
+            //If is hotdeal and the offer is featured at chain level or if it's a chainwide offer, include all property availability
+            if($scope.isHotDeals && $scope.offersList[selectedOfferIndex].featured || !$scope.isHotDeals){
               $scope.offerAvailabilityProperties.push({
                 'name': property.nameShort,
                 'slug': property.meta.slug
               });
             }
-            else if(availability.featured){
+            //If is hotdeal and the offer is not featured at chain level, include featured property availability
+            else if($scope.isHotDeals && availability.featured){
               $scope.offerAvailabilityProperties.push({
                 'name': property.nameShort,
                 'slug': property.meta.slug
