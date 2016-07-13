@@ -423,7 +423,7 @@ angular.module('mobius.controllers.offers', [])
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
       //if a hotdeal but also a chain level offer, go to offer page to avoid duplicated content, unless offer has featured property availability
-      else if($scope.offersList[selectedOfferIndex].showAtChainLevel && $scope.isHotDeals && !offerHasFeaturedProperties){
+      else if($scope.offersList[selectedOfferIndex].showAtChainLevel && $scope.isHotDeals && !offerHasFeaturedProperties && !$stateParams.propertySlug){
         $state.go('offers', {code: slug});
       }
       else if($stateParams.propertySlug && $scope.isHotDeals){
