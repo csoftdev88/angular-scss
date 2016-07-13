@@ -409,14 +409,21 @@ angular.module('mobius.controllers.offers', [])
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
 
+      var offerHasFeaturedProperties = false;
+      _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
+        if(availability.featured){
+          offerHasFeaturedProperties = true;
+        }
+      });
+
       var paramsData = {};
       var stateParams = {};
 
       if($stateParams.propertySlug && !$scope.isHotDeals){
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
-      //if a hotdeal but also a chain level offer, go to offer page to avoid duplicated content
-      else if($scope.offersList[selectedOfferIndex].showAtChainLevel && $scope.isHotDeals){
+      //if a hotdeal but also a chain level offer, go to offer page to avoid duplicated content, unless offer has featured property availability
+      else if($scope.offersList[selectedOfferIndex].showAtChainLevel && $scope.isHotDeals && !offerHasFeaturedProperties){
         $state.go('offers', {code: slug});
       }
       else if($stateParams.propertySlug && $scope.isHotDeals){
