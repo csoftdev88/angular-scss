@@ -117,10 +117,14 @@ angular.module('mobius.controllers.offers', [])
             //https://2pventures.tpondemand.com/entity/12353
             var filteredOffers = angular.copy(offers);
 
-            filteredOffers = _.reject(filteredOffers, function(offer){
-              return !offer.showOnOffersPage;
-            });
-
+            //If not on a property specific offer, remove all offers with showOnOffersPage = false
+            //otherwise we handle this value at property availability level
+            if(!$stateParams.propertySlug){
+              filteredOffers = _.reject(filteredOffers, function(offer){
+                return !offer.showOnOffersPage;
+              });
+            }
+            
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
 
