@@ -89,6 +89,7 @@ angular.module('mobius.controllers.offers', [])
             $scope.offersList = _.sortBy(offers, 'prio').reverse();
 
             if(!$stateParams.code) {
+              console.log('1');
               setBreadCrumbs(null, null, property);
             }
 
@@ -182,6 +183,7 @@ angular.module('mobius.controllers.offers', [])
                     console.log('Hot deals Region page, number of hot-deals shown: ' + $scope.offersList.length);
                     //breadcrumbs
                     if(!$stateParams.code) {
+                      console.log('2');
                       setBreadCrumbs(curRegion);
                     }
                     //if offer code, go to offer
@@ -228,6 +230,7 @@ angular.module('mobius.controllers.offers', [])
                     console.log('Hot deals locations page, number of hot-deals shown: ' + $scope.offersList.length);
                     //breadcrumbs
                     if(!$stateParams.code) {
+                      console.log('3');
                       setBreadCrumbs(curRegion, curLocation);
                     }
                     //if offer code, go to offer
@@ -257,6 +260,7 @@ angular.module('mobius.controllers.offers', [])
                 console.log('Hot deals property page, number of hot-deals shown: ' + $scope.offersList.length);
                 //breadcrumbs
                 if(!$stateParams.code) {
+                  console.log('4');
                   setBreadCrumbs(null, null, curProperty);
                 }
                 //if offer code, go to offer
@@ -291,6 +295,7 @@ angular.module('mobius.controllers.offers', [])
 
                 //breadcrumbs
                 if(!$stateParams.code) {
+                  console.log('5');
                   setBreadCrumbs();
                 }
                 //if offer code, go to offer
@@ -527,6 +532,8 @@ angular.module('mobius.controllers.offers', [])
       var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
         return availability.property === $stateParams.property;
       });
+
+      
       if(!$scope.isHotDeals){
         $scope.offersList[selectedOfferIndex].availability = availability;
       }
@@ -561,11 +568,12 @@ angular.module('mobius.controllers.offers', [])
       //Get offer title
       var offerTitle = $scope.selectedOffer.availability && $scope.selectedOffer.availability.title &&  $scope.selectedOffer.availability.title !== '' ?  $scope.selectedOffer.availability.title : $scope.selectedOffer.title;
 
-      if($stateParams.property){
+      if($stateParams.propertySlug){
         propertyService.getAll().then(function(properties){
           //Get current property
-          var property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
+          var property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
           //Breadcrumbs
+          console.log('6');
           setBreadCrumbs(null, null, property, offerTitle);
           //hero slider
           $scope.updateHeroContent(_.filter(property.images, {includeInSlider: true}));
@@ -573,6 +581,7 @@ angular.module('mobius.controllers.offers', [])
       }
       else{
         //Breadcrumbs
+        console.log('7');
         setBreadCrumbs(null, null, null, offerTitle);
         //hero slider
         if($scope.config.displayOfferImageInHeroSlider && !_.isEmpty($scope.selectedOffer.image)){
