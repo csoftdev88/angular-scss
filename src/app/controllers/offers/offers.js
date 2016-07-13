@@ -89,7 +89,6 @@ angular.module('mobius.controllers.offers', [])
             $scope.offersList = _.sortBy(offers, 'prio').reverse();
 
             if(!$stateParams.code) {
-              console.log('1');
               setBreadCrumbs(null, null, property);
             }
 
@@ -183,7 +182,6 @@ angular.module('mobius.controllers.offers', [])
                     console.log('Hot deals Region page, number of hot-deals shown: ' + $scope.offersList.length);
                     //breadcrumbs
                     if(!$stateParams.code) {
-                      console.log('2');
                       setBreadCrumbs(curRegion);
                     }
                     //if offer code, go to offer
@@ -230,7 +228,6 @@ angular.module('mobius.controllers.offers', [])
                     console.log('Hot deals locations page, number of hot-deals shown: ' + $scope.offersList.length);
                     //breadcrumbs
                     if(!$stateParams.code) {
-                      console.log('3');
                       setBreadCrumbs(curRegion, curLocation);
                     }
                     //if offer code, go to offer
@@ -260,7 +257,6 @@ angular.module('mobius.controllers.offers', [])
                 console.log('Hot deals property page, number of hot-deals shown: ' + $scope.offersList.length);
                 //breadcrumbs
                 if(!$stateParams.code) {
-                  console.log('4');
                   setBreadCrumbs(null, null, curProperty);
                 }
                 //if offer code, go to offer
@@ -295,7 +291,6 @@ angular.module('mobius.controllers.offers', [])
 
                 //breadcrumbs
                 if(!$stateParams.code) {
-                  console.log('5');
                   setBreadCrumbs();
                 }
                 //if offer code, go to offer
@@ -494,12 +489,20 @@ angular.module('mobius.controllers.offers', [])
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
 
-      //Creating property availability dropdown
-      // 1) if offer is featured, include all property availability
-      // 2) if offer is not featured only include featured availabilities
-      $scope.offerAvailabilityProperties = [];
-      if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.offersList[selectedOfferIndex].offerAvailability.length > 1){
-        propertyService.getAll().then(function(properties){
+      propertyService.getAll().then(function(properties){
+
+        var currentProperty = null;
+        if($stateParams.propertySlug){
+          currentProperty = _.find(properties, function(property){
+            return property.meta.slug === $stateParams.propertySlug;
+          });
+        }
+
+        //Creating property availability dropdown
+        // 1) if offer is featured, include all property availability
+        // 2) if offer is not featured only include featured availabilities
+        $scope.offerAvailabilityProperties = [];
+        if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.offersList[selectedOfferIndex].offerAvailability.length > 1){
           _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
 
             var property = _.find(properties, function(property){
@@ -520,75 +523,76 @@ angular.module('mobius.controllers.offers', [])
             }
 
           });
-        });
-      }
-
-
-      //select current property in dropdown
-      if($scope.config.includeOfferAvailabilityPropertyDropdown && $stateParams.propertySlug){
-        $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
-      }
-
-      var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
-        return availability.property === $stateParams.property;
-      });
-
-      
-      if(!$scope.isHotDeals){
-        $scope.offersList[selectedOfferIndex].availability = availability;
-      }
-
-
-      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
-
-      bookingService.setBookingOffer($scope.selectedOffer);
-      $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-        promoCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.promoCode ? $scope.offersList[selectedOfferIndex].availability.promoCode : $scope.offersList[selectedOfferIndex].promoCode,
-        corpCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.corpCode ? $scope.offersList[selectedOfferIndex].availability.corpCode : $scope.offersList[selectedOfferIndex].corpCode || null,
-        groupCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.groupCode ? $scope.offersList[selectedOfferIndex].availability.groupCode : $scope.offersList[selectedOfferIndex].groupCode || null
-      });
-
-      if($scope.selectedOffer.discountCode){
-        var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;
-
-        var cookieExpiryDate = null;
-        if(Settings.UI.offers.discountCodeCookieExpiryDays && Settings.UI.offers.discountCodeCookieExpiryDays !== 0){
-          cookieExpiryDate = new Date();
-          cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.offers.discountCodeCookieExpiryDays);
         }
-        $window.document.cookie = 'discountCode=' + cookieValue + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
-      }
 
-      metaInformationService.setMetaDescription(availability && availability.metaDescription && availability.metaDescription !== '' ? availability.metaDescription : $scope.selectedOffer.meta.description);
-      metaInformationService.setMetaKeywords(availability && availability.keywords && availability.keywords !== '' ? availability.keywords : $scope.selectedOffer.meta.keywords);
-      metaInformationService.setPageTitle(availability && availability.pagetitle && availability.pagetitle !== '' ? availability.pagetitle : $scope.selectedOffer.meta.pagetitle);
-      $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-      metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
 
-      //Get offer title
-      var offerTitle = $scope.selectedOffer.availability && $scope.selectedOffer.availability.title &&  $scope.selectedOffer.availability.title !== '' ?  $scope.selectedOffer.availability.title : $scope.selectedOffer.title;
+        //select current property in dropdown
+        if($scope.config.includeOfferAvailabilityPropertyDropdown && $stateParams.propertySlug){
+          $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
+        }
 
-      if($stateParams.propertySlug){
-        propertyService.getAll().then(function(properties){
-          //Get current property
-          var property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
+        var availability = null;
+        if(currentProperty){
+          availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
+            return availability.property === currentProperty.code;
+          });
+        }
+        
+        if(!$scope.isHotDeals){
+          $scope.offersList[selectedOfferIndex].availability = availability;
+        }
+
+
+        $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
+
+        bookingService.setBookingOffer($scope.selectedOffer);
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
+          promoCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.promoCode ? $scope.offersList[selectedOfferIndex].availability.promoCode : $scope.offersList[selectedOfferIndex].promoCode,
+          corpCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.corpCode ? $scope.offersList[selectedOfferIndex].availability.corpCode : $scope.offersList[selectedOfferIndex].corpCode || null,
+          groupCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.groupCode ? $scope.offersList[selectedOfferIndex].availability.groupCode : $scope.offersList[selectedOfferIndex].groupCode || null
+        });
+
+        if($scope.selectedOffer.discountCode){
+          var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;
+
+          var cookieExpiryDate = null;
+          if(Settings.UI.offers.discountCodeCookieExpiryDays && Settings.UI.offers.discountCodeCookieExpiryDays !== 0){
+            cookieExpiryDate = new Date();
+            cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.offers.discountCodeCookieExpiryDays);
+          }
+          $window.document.cookie = 'discountCode=' + cookieValue + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
+        }
+
+        metaInformationService.setMetaDescription(availability && availability.metaDescription && availability.metaDescription !== '' ? availability.metaDescription : $scope.selectedOffer.meta.description);
+        metaInformationService.setMetaKeywords(availability && availability.keywords && availability.keywords !== '' ? availability.keywords : $scope.selectedOffer.meta.keywords);
+        metaInformationService.setPageTitle(availability && availability.pagetitle && availability.pagetitle !== '' ? availability.pagetitle : $scope.selectedOffer.meta.pagetitle);
+        $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+        metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
+
+        //Get offer title
+        var offerTitle = $scope.selectedOffer.availability && $scope.selectedOffer.availability.title &&  $scope.selectedOffer.availability.title !== '' ?  $scope.selectedOffer.availability.title : $scope.selectedOffer.title;
+
+        if($stateParams.propertySlug){
+          propertyService.getAll().then(function(properties){
+            //Get current property
+            var property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
+            //Breadcrumbs
+            setBreadCrumbs(null, null, property, offerTitle);
+            //hero slider
+            $scope.updateHeroContent(_.filter(property.images, {includeInSlider: true}));
+          });
+        }
+        else{
           //Breadcrumbs
-          console.log('6');
-          setBreadCrumbs(null, null, property, offerTitle);
+          setBreadCrumbs(null, null, null, offerTitle);
           //hero slider
-          $scope.updateHeroContent(_.filter(property.images, {includeInSlider: true}));
-        });
-      }
-      else{
-        //Breadcrumbs
-        console.log('7');
-        setBreadCrumbs(null, null, null, offerTitle);
-        //hero slider
-        if($scope.config.displayOfferImageInHeroSlider && !_.isEmpty($scope.selectedOffer.image)){
-          $scope.updateHeroContent([$scope.selectedOffer.image]);
+          if($scope.config.displayOfferImageInHeroSlider && !_.isEmpty($scope.selectedOffer.image)){
+            $scope.updateHeroContent([$scope.selectedOffer.image]);
+          }
+
         }
 
-      }
+      });
 
     }
 
