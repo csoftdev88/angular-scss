@@ -36,7 +36,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 
   var SHORT_DESCRIPTION_LENGTH = 200;
-  var NUMBER_OF_OFFERS = 3;
+  var NUMBER_OF_OFFERS = 6;
   var bookingParams = bookingService.getAPIParams();
   bookingParams = bookingService.updateOfferCode(bookingParams);
   bookingParams = bookingService.updateDiscountCode(bookingParams);
