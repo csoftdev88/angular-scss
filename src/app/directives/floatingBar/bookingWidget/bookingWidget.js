@@ -914,7 +914,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         $timeout(function () {
           if (settings.promoCode || settings.corpCode || settings.groupCode) {
             prefillPromoCode();
-          } else {
+          } else if(!settings.keepPromoCode){
             removePromoCode();
           }
 

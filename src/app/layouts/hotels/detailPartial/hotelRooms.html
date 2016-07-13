@@ -96,7 +96,7 @@
               <!--<button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates">_view_rates_</button>-->
             </div>
 
-            <ul class="amenities" ng-if="roomsConfig.displayAmenities">
+            <ul class="amenities" ng-if="roomsConfig.displayAmenities && details">
               <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:numberOfAmenities" ng-init="amenity.chainCode = details.chainCode">
                 <slug-img slug="amenity" type="room" width="15"></slug-img>
                 <span class="amenity-caption">{{amenity.name}}</span>
