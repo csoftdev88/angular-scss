@@ -501,6 +501,7 @@ hotel-detail {
   }
 
   .hotel-detail__offers {
+    margin-bottom:70px;
     > h2{
       .chain-sand &{
         color: @c-dark-grey;
@@ -508,6 +509,25 @@ hotel-detail {
       @media only screen and @tablet-landscape-min {
         margin-left:10px;
         margin-right:10px;
+      }
+    }
+    .more-btn {
+      text-align:center;
+      a {
+        display:inline-block;
+        box-sizing:border-box;
+        width:40%;
+        padding:15px;
+        border-radius:2px;
+        background:@c-primary-sand;
+        color:white;
+        font-weight:700;    
+        .chain-sign & {
+          background:@c-primary-sign;
+        }
+        .viewport-mobile & {
+          width:100%;
+        }
       }
     }
   }
