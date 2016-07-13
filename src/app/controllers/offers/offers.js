@@ -656,7 +656,8 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.prefillBookingWidgetProperty = function(propertySlug){
       $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-        property: bookingService.getCodeFromSlug(propertySlug)
+        property: bookingService.getCodeFromSlug(propertySlug),
+        keepPromoCode: true
       });
     };
 

@@ -191,7 +191,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
         else if(attrs.type === 'booking-widget'){
           megaMenu.removeClass('open');
           $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-            location: location.code
+            location: location.code,
+            keepPromoCode: true
           });
         }
       };
@@ -222,7 +223,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
         else if(attrs.type === 'booking-widget'){
           megaMenu.removeClass('open');
           $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-            property: property.code
+            property: property.code,
+            keepPromoCode: true
           });
         }
       };
