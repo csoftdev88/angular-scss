@@ -247,6 +247,7 @@ angular.module('mobius.controllers.offers', [])
                   if(offer.offerAvailability.length === 1){
                     var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
                     offer.propertyName = property.nameShort;
+                    offer.availability = offer.offerAvailability[0];
                   }
                 });
                 //Now remove offers with no availability unless featured
@@ -404,38 +405,15 @@ angular.module('mobius.controllers.offers', [])
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
 
-      //Creating property availability dropdown
-      /*
-      $scope.offerAvailabilityProperties = [];
-      if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.offersList[selectedOfferIndex].offerAvailability.length > 1){
-        propertyService.getAll().then(function(properties){
-          _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
-            var property = _.find(properties, function(property){
-              return availability.property === property.code;
-            });
-            $scope.offerAvailabilityProperties.push({
-              'name': property.nameShort,
-              'slug': property.meta.slug
-            });
-          });
-        });
-      }
-
-
-      var availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
-        return availability.property === $stateParams.property;
-      });
-
-      $scope.offersList[selectedOfferIndex].availability = availability;
-      $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
-      */
-
-
       var paramsData = {};
       var stateParams = {};
 
       if($stateParams.propertySlug && !$scope.isHotDeals){
         $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
+      }
+      //if a hotdeal but also a chain level offer, go to offer page to avoid duplicated content
+      else if($scope.offersList[selectedOfferIndex].showAtChainLevel && $scope.isHotDeals){
+        $state.go('offers', {code: slug});
       }
       else if($stateParams.propertySlug && $scope.isHotDeals){
         stateParams.code = slug;
@@ -461,16 +439,6 @@ angular.module('mobius.controllers.offers', [])
         $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
 
-      /*
-      $timeout(function () {
-        bookingService.setBookingOffer($scope.selectedOffer);
-        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
-          promoCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.promoCode ? $scope.selectedOffer.availability.promoCode : $scope.selectedOffer.promoCode,
-          corpCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.corpCode ? $scope.selectedOffer.availability.corpCode : $scope.selectedOffer.corpCode || null,
-          groupCode: $scope.selectedOffer.availability && $scope.selectedOffer.availability.groupCode ? $scope.selectedOffer.availability.groupCode : $scope.selectedOffer.groupCode || null
-        });
-      });
-      */
     };
 
     $scope.goToOffersList = function() {
