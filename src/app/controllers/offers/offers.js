@@ -52,6 +52,13 @@ angular.module('mobius.controllers.offers', [])
         return new Date(offer.expirationDate) < today;
       });
 
+      //Pick random merchandizing banner if any
+      _.each(offers, function(offer){
+        if(offer.merchandisingBanners && offer.merchandisingBanners.length){
+          offer.merchandisingBanner = offer.merchandisingBanners.length === 1 ? offer.merchandisingBanners[0] : offer.merchandisingBanners[Math.floor(offer.merchandisingBanners.length * Math.random())];
+        }
+      });
+
       if($stateParams.propertySlug && !$scope.isHotDeals){
 
         if($state.current.name !== 'propertyOffers'){
