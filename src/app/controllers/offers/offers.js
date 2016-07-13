@@ -268,6 +268,8 @@ angular.module('mobius.controllers.offers', [])
                 if($stateParams.code) {
                   selectOffer(bookingService.getCodeFromSlug($stateParams.code));
                 }
+                //hero slider
+                $scope.updateHeroContent(_.filter(curProperty.images, {includeInSlider: true}));
               }
               else {
                 //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
