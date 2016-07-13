@@ -216,7 +216,7 @@ angular.module('mobius.controllers.common.content', [])
 
       //Remove all items with showOnMenu false
       data = _.reject(data, function(item){
-        return item.showOnMenu === false;
+        return !item.showOnMenu;
       });
 
       data = _.reject(data, function(item){
