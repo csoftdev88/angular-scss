@@ -1,6 +1,6 @@
 #main-header {
   background: #fff;
-  height: 173px;
+  height: 123px;
   .viewport-mobile &{
     height: auto;
   }
@@ -8,7 +8,7 @@
 
 // GENERIC STYLES
 .main-nav {
-  height: 138px;
+  height: 88px;
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
@@ -171,7 +171,7 @@
       li {
 
         position: relative;
-        line-height: 138px;
+        line-height: 88px;
 
         a {
           color: @c-dark-grey;
@@ -215,7 +215,7 @@
             text-transform: none;
           }
           .profile {
-            margin-top: 29px;
+            margin-top: 2px;
             min-width: 0;
             color: @c-dark-grey;
 
@@ -233,9 +233,10 @@
               font-size: @size--0;
 
               img {
-                width: 79px;
-                height: 79px;
+                width: 60px;
+                height: 60px;
                 border: 2px solid @c-light-grey;
+                margin-top: 10px;
               }
 
               .user-details{
@@ -274,7 +275,7 @@
 
       li[currency-list],
       li[language-list] {
-        line-height: 138px;
+        line-height: 88px;
         padding: 0 10px;
         a{
           color: @c-dark-grey;
@@ -320,6 +321,12 @@
       .chain-sand &{
         width:400px;
         overflow:hidden;
+      }
+      .viewport-tablet &{
+        max-width: 40%;
+        img{
+          max-width: 100%;
+        }
       }
     }
   }
