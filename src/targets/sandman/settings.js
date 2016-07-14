@@ -666,7 +666,8 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'top'
-        }
+        },
+        'optedInDefault': false
       }
     },
     'myAccount' : {
