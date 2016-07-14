@@ -33,6 +33,29 @@ offer-detail {
           border: none;
         }
 
+        //property dropdown
+        // region/hotel styling in dropdown
+        .chosen-results {
+          li{
+            text-align: left;
+            padding: 11px;
+          }
+          li.location {
+            font-size: 10px;
+            color: #9a9a9a;
+            height: 16px;
+            line-height: 16px;
+            background: #d9d9d9;
+            padding: 0 11px;
+            cursor: default;
+            pointer-events: none;
+          }
+          li.property {
+            font-size: 15px;
+            color: @c-grey;
+          }
+        }
+
         .chosen-container-single {
           .chosen-single {
             border-radius: 4px;
@@ -66,7 +89,7 @@ offer-detail {
             font-size: 14px;
             content: @fa-var-sort;
             right: 10px;
-            top: 8px;
+            top: 11px;
           }
 
         }

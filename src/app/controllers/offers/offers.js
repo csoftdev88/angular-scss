@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.offers', [])
 
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService, routerService) {
+      $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService, routerService, stateService) {
 
     //$controller('MainCtrl', {$scope: $scope});
     $controller('SSOCtrl', {$scope: $scope});
@@ -479,39 +479,8 @@ angular.module('mobius.controllers.offers', [])
           });
         }
 
-        //Creating property availability dropdown
-        // 1) if offer is featured, include all property availability
-        // 2) if offer is not featured only include featured availabilities
-        $scope.offerAvailabilityProperties = [];
-        if($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.offersList[selectedOfferIndex].offerAvailability.length > 1){
-          _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
-
-            var property = _.find(properties, function(property){
-              return availability.property === property.code;
-            });
-
-            //If is hotdeal and the offer is featured at chain level or if it's a chainwide offer, include all property availability
-            if($scope.isHotDeals && $scope.offersList[selectedOfferIndex].featured || !$scope.isHotDeals){
-              $scope.offerAvailabilityProperties.push({
-                'name': property.nameShort,
-                'slug': property.meta.slug
-              });
-            }
-            //If is hotdeal and the offer is not featured at chain level, include featured property availability
-            else if($scope.isHotDeals && availability.featured){
-              $scope.offerAvailabilityProperties.push({
-                'name': property.nameShort,
-                'slug': property.meta.slug
-              });
-            }
-
-          });
-        }
-
-
-        //select current property in dropdown
-        if($scope.config.includeOfferAvailabilityPropertyDropdown && $stateParams.propertySlug){
-          $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
+        if($scope.config.includeOfferAvailabilityPropertyDropdown){
+          setOfferAvailabilityPropertiesDropdown(properties);
         }
 
         var availability = null;
@@ -660,5 +629,106 @@ angular.module('mobius.controllers.offers', [])
         keepPromoCode: true
       });
     };
+
+    function setOfferAvailabilityPropertiesDropdown(properties){
+      //Creating property availability dropdown
+      // 1) if offer is featured, include all property availability
+      // 2) if offer is not featured only include featured property availabilities
+      // 3) Order as per https://2pventures.tpondemand.com/entity/12644
+      $scope.offerAvailabilityProperties = [];
+      $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = null;
+      var filteredProperties = [];
+      if($scope.offersList[selectedOfferIndex].offerAvailability.length > 1){
+        _.each($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
+
+          var property = _.find(properties, function(property){
+            return availability.property === property.code;
+          });
+
+          //If is hotdeal and the offer is featured at chain level or if it's a chainwide offer, include all property availability
+          if($scope.isHotDeals && $scope.offersList[selectedOfferIndex].featured || !$scope.isHotDeals){
+            filteredProperties.push({
+              'name': property.nameShort,
+              'slug': property.meta.slug,
+              'locationCode': property.locationCode,
+              'type': 'property',
+              'chainCode': property.chainCode
+            });
+          }
+          //If is hotdeal and the offer is not featured at chain level, include featured property availability
+          else if($scope.isHotDeals && availability.featured){
+            filteredProperties.push({
+              'name': property.nameShort,
+              'slug': property.meta.slug,
+              'locationCode': property.locationCode,
+              'type': 'property',
+              'chainCode': property.chainCode
+            });
+          }
+
+        });
+
+        if(stateService.isMobile()){
+          $scope.offerAvailabilityProperties = _.sortBy(filteredProperties, 'name');
+          //select current property in dropdown
+          if($stateParams.propertySlug){
+            $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
+          }
+        }
+        else{
+          //sort properties by chain then nameShort
+          var propertiesSortedByChain = [];
+          _.each(Settings.UI.chains, function(chain){
+            var chainProperties = _.filter(filteredProperties, function(property){ return property.chainCode === chain; });
+            chainProperties = _.sortBy(chainProperties, 'nameShort');
+            propertiesSortedByChain = propertiesSortedByChain.concat(chainProperties);
+          });
+          filteredProperties = propertiesSortedByChain;
+
+          //Create location items, then add properties to their location
+          var propertyLocations = _.chain(filteredProperties).pluck('locationCode').unique().value();
+          var filteredLocations = [];
+          locationService.getRegions().then(function(regions){
+            locationService.getLocations().then(function(locations){
+
+              _.each(propertyLocations, function(propertyLocation){
+
+                var curLocation = _.find(locations, function(location){ return location.code === propertyLocation; });
+                var curRegion = _.find(regions, function(region){ return region.code === curLocation.regionCode; });
+
+                filteredLocations.push({
+                  'name': curLocation.nameShort + ', ' + curRegion.nameShort,
+                  'locationCode': propertyLocation,
+                  'type': 'location'
+                });
+
+              });
+              filteredLocations = _.sortBy(filteredLocations, 'name');
+
+              console.log('filteredLocations: ' + angular.toJson(filteredLocations));
+
+              //Assign data to scope
+              _.each(filteredLocations, function(filteredLocation){
+                $scope.offerAvailabilityProperties.push(filteredLocation);
+                _.each(filteredProperties, function(filteredProperty){
+                  if(filteredProperty.locationCode === filteredLocation.locationCode){
+                    $scope.offerAvailabilityProperties.push(filteredProperty);
+                  }
+                });
+              });
+
+              //select current property in dropdown
+              if($stateParams.propertySlug){
+                $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
+              }
+
+              console.log('$scope.offerAvailabilityProperties: ' + angular.toJson($scope.offerAvailabilityProperties));
+
+            });
+          });
+
+        }
+      }
+    }
 
   });

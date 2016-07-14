@@ -91,6 +91,10 @@ describe('mobius.controllers.offers', function() {
           getLocations: sinon.stub()
         });
 
+        $provide.value('stateService', {
+          isMobile: sinon.stub()
+        });
+
         $provide.value('$state', {
           current: {
             name: ''
