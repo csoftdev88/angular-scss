@@ -2,7 +2,10 @@
      it should be presented in the following structure -->
 <section class="hotel-detail__offers" grid-row ng-if="offersList.length">
   <hr />
-  <h2 grid="12" id="jsOffers" ng-bind-html="'_offers_title_' | mainHeaderStyle"></h2>
+
+  <header class="section-header" grid="12" id="jsOffers">
+    <h2 ng-bind-html="'_offers_title_' | mainHeaderStyle"></h2>
+  </header>
 
 
   <offers-list grid-row>
