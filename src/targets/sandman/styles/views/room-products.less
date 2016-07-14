@@ -196,9 +196,23 @@ room-products {
           .price-form {
             text-align: right;
             margin-top: 10px;
-            .value {
-
+            &.points{
+              top: -6px;
+              position: relative;
             }
+            &.points,
+            &.points .value{
+              margin-top: 0px;
+              font-size: 13px;
+              font-style: normal;
+              font-weight: 600;
+              color: @c-brown;
+              .chain-sand &{
+                font-weight: 400;
+                color: @c-light-brown;
+              }
+            }
+            
           }
 
           .viewport-mobile & {
