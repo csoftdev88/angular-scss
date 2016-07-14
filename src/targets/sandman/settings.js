@@ -197,7 +197,8 @@ angular.module('mobiusApp.config', [])
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
-      'orderPropertiesByChain': true
+      'orderPropertiesByChain': true,
+      'longDateFormat': 'Do MMM YYYY'
     },
     'contents':{
       'displayContentImageInHeroSlider': true
