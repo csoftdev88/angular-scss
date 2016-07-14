@@ -229,7 +229,7 @@ angular
       .state('hotels', {
         parent: 'root',
         templateUrl: 'layouts/hotels/hotels.html',
-        url: '/locations/:regionSlug/:locationSlug',
+        url: '/locations/:regionSlug/:locationSlug/hotels',
         params:  {
           regionSlug: {
             value: null,
