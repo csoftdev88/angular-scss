@@ -729,6 +729,11 @@ angular.module('mobius.controllers.offers', [])
 
         }
       }
+      else{
+        if($stateParams.propertySlug){
+          $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
+        }
+      }
     }
 
   });
