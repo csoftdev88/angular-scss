@@ -651,6 +651,8 @@ angular.module('mobiusApp.config', [])
       'bookingStepsNav':{
         'display': true
       },
+      //Default value for newsletter opt-in checkbox
+      'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
         'display': true
@@ -666,8 +668,7 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'top'
-        },
-        'optedInDefault': false
+        }
       }
     },
     'myAccount' : {
