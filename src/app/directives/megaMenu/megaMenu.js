@@ -163,27 +163,27 @@ angular.module('mobiusApp.directives.megaMenu', [])
           $state.go('regions', {regionSlug: region.meta.slug, property: null, location: null});
         }
         //hot deals
+        //Keeping this in case it will be used
+        /*
         else if(attrs.type === 'hot-deals'){
           scope.closeMenu();
           $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: null, code: null, property: null, location: null});
         }
+        */
       };
 
       scope.locationClick = function(location){
 
         //hotels or hot deals
-        if(attrs.type === 'hotels' || attrs.type === 'hot-deals'){
+        if(attrs.type === 'hotels'){
           scope.closeMenu();
 
           var paramsData = {
             'location': location
           };
 
-          var toState = attrs.type === 'hotels' ? 'hotels' : 'hotDeals';
-
-          routerService.buildStateParams(toState, paramsData).then(function(params){
-            params.code = null;
-            $state.go(toState, params, {reload: true});
+          routerService.buildStateParams('hotels', paramsData).then(function(params){
+            $state.go('hotels', params, {reload: true});
           });
 
         }
