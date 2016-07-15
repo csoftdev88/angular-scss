@@ -301,6 +301,7 @@ angular.module('mobiusApp.config', [])
           'bookNowButtonText': 'Book Now',
           'ratesPerRoomOnDesktop': 20,
           'ratesPerRoomOnMobile': 2,
+          'showTagline': false,
           'showDescription': true,
           'showDescriptionToggle': false,
           'showNoRatesSubDescription': false,

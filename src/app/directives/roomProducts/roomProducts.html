@@ -17,6 +17,8 @@
         <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
       </h4>
 
+      <p class="tagline" ng-if="settings.showTagline && product.tagline && product.tagline !== ''">{{product.tagline}}</p>
+
       <p class="full-description" ng-if="settings.showDescription" ng-bind-html="sanitize(product.descriptionShort || product.description)"></p>
 
       <p ng-if="settings.showDescription" class="tag-line">{{product.tagline}}</p>
