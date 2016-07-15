@@ -306,8 +306,9 @@ angular.module('mobius.controllers.reservation', [])
   // NOTE: Waiting for infiniti SSO auth events
   $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
+
   function goToRoom() {
-    if(previousState && previousState.state && previousState.params && previousState.state.parent !== 'reservation'){
+    if(previousState && previousState.state && previousState.params && previousState.state.parent !== 'reservation' && previousState.state.name && previousState.state.name !== '' && !previousState.state.abstract){
       $state.go(previousState.state, previousState.params);
     }
     else{
@@ -321,6 +322,9 @@ angular.module('mobius.controllers.reservation', [])
       });
     } 
   }
+  $scope.goToRoom = function(){
+    goToRoom();
+  };
 
   // Redirecting to details page
   if($state.current.name === 'reservation'){
