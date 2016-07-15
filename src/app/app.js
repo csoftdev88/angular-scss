@@ -477,7 +477,7 @@ angular
       .state('error', {
         parent: 'root',
         templateUrl: 'layouts/error.html',
-        url: '/error'
+        url: '/error/'
       })
     ;
 

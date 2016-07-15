@@ -59,7 +59,7 @@
       </header>
 
       <div class="tables">
-        <figure ng-switch="isEditable">
+        <figure ng-switch="isEditable && !reservation.status = 'Cancelled">
           <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           <!-- TODO: Add actions to buttons -->
           <button ng-switch-when="true" class="button" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}" ng-if="!reservation.isInThePast">_modify_</button>

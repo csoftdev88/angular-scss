@@ -35,6 +35,9 @@ angular.module('mobius.controllers.reservations', [])
         // data[0] - all active reservations
         // data[1] - cancelled reservations
         processReservationsData(data[0], data[1]);
+      },
+      function(){
+        $state.go('error');
       });
       preloaderFactory(reservationsPromise);
     } else {
