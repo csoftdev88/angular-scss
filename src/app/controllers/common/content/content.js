@@ -10,11 +10,11 @@ angular.module('mobius.controllers.common.content', [])
   // items are located under different objects.
   var contentTypes = {
     'hotels': {
-      'service': 'propertyService',
-      'method': 'getAll',
-      'detailState': 'hotel',
-      'listState': 'hotels',
-      'paramName': 'propertySlug',
+      'service': Settings.UI.menu.hotelMenuContent.service,
+      'method': Settings.UI.menu.hotelMenuContent.method,
+      'detailState': Settings.UI.menu.hotelMenuContent.detailState,
+      'listState': Settings.UI.menu.hotelMenuContent.listState,
+      'paramName': Settings.UI.menu.hotelMenuContent.paramName,
       'title': 'nameShort',
       'sort': 'nameShort',
       'reverseSort': false,
@@ -23,9 +23,9 @@ angular.module('mobius.controllers.common.content', [])
         'maxItems': 5,
         'service': 'locationService',
         'method': 'getRegions',
-        'detailState': 'hotels',
-        'listState': 'hotels',
-        'paramName': 'regionCode',
+        'detailState': 'regions',
+        'listState': 'regions',
+        'paramName': 'regionSlug',
         'title': 'nameShort',
         'sort': 'nameShort',
         'reverseSort': false

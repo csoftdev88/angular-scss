@@ -219,6 +219,13 @@ angular.module('mobiusApp.config', [])
     // Menu settings - showing/hidding menu items
     'menu': {
       'showHotels': false,
+      'hotelMenuContent': {
+        'service': 'propertyService',
+        'method': 'getAll',
+        'detailState': 'hotel',
+        'listState': 'hotels',
+        'paramName': 'propertySlug'
+      },
       'showRegionsMegaMenu': false,
       'showOffers': false,
       'showAbout': false,
