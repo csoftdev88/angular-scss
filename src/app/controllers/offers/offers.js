@@ -52,7 +52,9 @@ angular.module('mobius.controllers.offers', [])
 
 
 
-    
+    //////////////////////////
+    ///Main offers filtering logic
+    //////////////////////////
     contentService.getOffers().then(function(offers) {
 
       //Remove offers that have expired
