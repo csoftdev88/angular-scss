@@ -25,7 +25,6 @@ angular.module('mobius.controllers.offers', [])
 
     $scope.showDetail = $stateParams.code ? true : false;
     $scope.property = null;
-    $scope.allOffers = null;
 
     $scope.$watch(function(){
       return $scope.showDetail;
@@ -43,8 +42,6 @@ angular.module('mobius.controllers.offers', [])
     };
 
     contentService.getOffers().then(function(offers) {
-
-      $scope.allOffers = offers;
 
       //Remove offers that have expired
       var today = new Date();
