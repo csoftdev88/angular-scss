@@ -7,40 +7,52 @@ angular.module('mobius.controllers.offers', [])
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
       $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService, routerService, stateService) {
 
-    //$controller('MainCtrl', {$scope: $scope});
+    //////////////////////////
+    ///Scope variables
+    //////////////////////////
+
+    //Inherit SSOCtrl to access infiniti methods
     $controller('SSOCtrl', {$scope: $scope});
 
+    //Assign offers setting as scope config
     $scope.config = Settings.UI.offers;
-    $scope.isHotDeals = $state.current.name === 'hotDeals' || $state.current.name === 'propertyHotDeals';
-    var hasHotDeals = Settings.UI.menu.showHotDeals;
-    $scope.selectedOfferAvailabilityData = {};
 
-    breadcrumbsService.clear()
-      .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
-
-    var NUMBER_OF_RELEVANT_OFFERS = 3;
-    var DATES_SEPARATOR = '_';
-
-    var selectedOfferIndex;
-
+    //Used by view to define whether we are on a specific offer vs overview
     $scope.showDetail = $stateParams.code ? true : false;
+
+    //Used by view to define whether we are on a property specific offer
     $scope.property = null;
 
-    $scope.$watch(function(){
-      return $scope.showDetail;
-    }, function(){
-      if($scope.showDetail) {
-        $timeout(function () {
-          scrollService.scrollTo('offer-detail', 20);
-        });
-      }
-    });
-
+    //Catch previous state data for back button - see goToOffersList
     var previousState = {
       state: $state.fromState,
       params: $state.fromParams
     };
 
+    //Number of offers to display in "You may also be interested in" section when viewing a specific offer
+    var NUMBER_OF_RELEVANT_OFFERS = 3;
+
+    //global date separator string used in booking params
+    var DATES_SEPARATOR = '_';
+
+    //Index of currently selected offer in offerList array
+    var selectedOfferIndex;
+
+    //Hotdeals 
+    var hasHotDeals = Settings.UI.menu.showHotDeals;
+    $scope.isHotDeals = $state.current.name === 'hotDeals' || $state.current.name === 'propertyHotDeals';
+
+    //object to hold offer availability model e.g. properties to include in dropdown
+    $scope.selectedOfferAvailabilityData = {};
+
+    //Initial breadcrumbs
+    breadcrumbsService.clear()
+      .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+
+
+
+
+    
     contentService.getOffers().then(function(offers) {
 
       //Remove offers that have expired
@@ -619,6 +631,22 @@ angular.module('mobius.controllers.offers', [])
     else{
       $scope.hasDates = true;
     }
+
+
+    /////////////////////////
+    //Helper functions
+    /////////////////////////
+
+    //watch for showDetail model and scroll to offer detail when true
+    $scope.$watch(function(){
+      return $scope.showDetail;
+    }, function(){
+      if($scope.showDetail) {
+        $timeout(function () {
+          scrollService.scrollTo('offer-detail', 20);
+        });
+      }
+    });
 
     $scope.bindHtmlClick = function(event){
       if(event.target.attributes['ng-click'] && event.target.attributes['ng-click'].value === 'login()'){
