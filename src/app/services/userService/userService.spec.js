@@ -195,11 +195,13 @@ describe('userService', function() {
           expect(_spyApisServiceGetFullURL.calledOnce).equal(true);
         });
 
+        /*
         it('should fire a GET request to loyalties API with detected customer ID', function() {
           _userService.loadProfile();
           expect(_spyLoyaltiesServiceGetAll.calledOnce).equal(true);
           expect(_spyLoyaltiesServiceGetAll.calledWith(555)).equal(true);
         });
+        */
 
         it('should set infiniti auth header', function(){
           _userService.loadProfile();

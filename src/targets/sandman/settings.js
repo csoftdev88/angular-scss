@@ -7,6 +7,7 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
   'authType': 'infiniti',
+  'loyaltyProgramEnabled': false,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -582,7 +583,6 @@ angular.module('mobiusApp.config', [])
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": true,
       'hasMutiroomTab': true,
-      'hasLoyaltyTab': false,
       'hasRatesSelection': true,
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{

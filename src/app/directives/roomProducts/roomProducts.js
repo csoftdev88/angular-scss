@@ -17,7 +17,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
 
-      scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
+      scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
       scope.settings = Settings.UI.hotelDetails.rooms.rates;
 
       scope.init = function(){

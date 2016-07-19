@@ -53,7 +53,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
   $scope.preferredCountryCodes = Settings.UI.preferredCountryCodes;
-  $scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
+  $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
 
   $scope.isMultiRoomMode = bookingService.isMultiRoomBooking();
 

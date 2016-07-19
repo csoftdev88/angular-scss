@@ -9,6 +9,8 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   //authType can be "infiniti" or "mobius", infiniti is used if current tenant has loyalty program
   'authType': 'mobius',
+  //enable loylaty program
+  'loyaltyProgramEnabled': false,
   //If authType is "infiniti", infiniti must be enabled and environment urls must be set
   'infiniti': {
     'enable': false,
@@ -609,7 +611,6 @@ angular.module('mobiusApp.config', [])
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": false,
       'hasMutiroomTab': false,
-      'hasLoyaltyTab': true,
       //Adds a rates dropdown in booking widget used to update productGroupId in booking params
       'hasRatesSelection': false,
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)

@@ -18,7 +18,7 @@ angular.module('mobiusApp.directives.room', [])
       scope.ratesLoaded = false;
       scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
       scope.roomRatesLimit = Settings.UI.roomDetails.numberOfRatesToShow;
-      scope.loyaltyProgramEnabled = Settings.authType === 'infiniti' ? true : false;
+      scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
       scope.config = Settings.UI.roomDetails;
       var bookingParams = bookingService.getAPIParams();
       var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
