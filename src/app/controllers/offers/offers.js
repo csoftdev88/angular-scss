@@ -260,7 +260,7 @@ angular.module('mobius.controllers.offers', [])
                 //remove any availability associated with a property that is not the current property
                 _.each(filteredOffers, function(offer){
                   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                    return availability.property !== curProperty.code || !availability.showOnOffersPage;
+                    return availability.property !== curProperty.code;
                   });
                   if(offer.offerAvailability.length === 1){
                     var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
