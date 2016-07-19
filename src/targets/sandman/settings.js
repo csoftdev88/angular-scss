@@ -582,6 +582,7 @@ angular.module('mobiusApp.config', [])
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": true,
       'hasMutiroomTab': true,
+      'hasLoyaltyTab': false,
       'hasRatesSelection': true,
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
@@ -749,7 +750,7 @@ angular.module('mobiusApp.config', [])
       'userProfile':{
         'hasAvatar': true,
         'hasWelcomeMessage': false,
-        'hasPrestigeAccount': true,
+        'hasPrestigeAccount': false,
         'hasRewards': false,
         'prestigeIsInfiniti': false,
         'infinitiPrestigeUrl': 'https://prestige.suttonplace.com',

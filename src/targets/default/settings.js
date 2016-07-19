@@ -609,6 +609,7 @@ angular.module('mobiusApp.config', [])
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": false,
       'hasMutiroomTab': false,
+      'hasLoyaltyTab': true,
       //Adds a rates dropdown in booking widget used to update productGroupId in booking params
       'hasRatesSelection': false,
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)

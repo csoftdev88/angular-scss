@@ -29,7 +29,7 @@
   <li class="floating-bar--tab-advanced-booking" ng-if="hasMutiroomTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
     <a href="" ng-click="setActive(ADVANCED_BOOKING)" ng-bind-html="'_multiroom_booking_' | mainHeaderStyle"></a>
   </li>
-  <li class="floating-bar--tab-my-accounts" ng-show="loyaltyProgramEnabled" ng-class="{'is-active': active === MY_ACCOUNT}">
+  <li class="floating-bar--tab-my-accounts" ng-show="loyaltyProgramEnabled && hasLoyaltyTab" ng-class="{'is-active': active === MY_ACCOUNT}">
     <a href="" ng-click="setActive(MY_ACCOUNT)" ng-bind-html="'_loyalty_progam_title_' | mainHeaderStyle">
     </a>
   </li>
@@ -44,7 +44,7 @@
   </booking-widget>
 
   <my-account
-    ng-show="loyaltyProgramEnabled"
+    ng-show="loyaltyProgramEnabled && hasLoyaltyTab"
     ng-class="{'is-open': !isCollapsed && active === MY_ACCOUNT}">
   </my-account>
 </div>
