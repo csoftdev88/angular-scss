@@ -502,6 +502,11 @@ angular.module('mobius.controllers.reservation', [])
         $scope.forms.details.$submitted = true;
       }
 
+      //Clear email error message if any
+      if($scope.invalidFormData.email){
+        $scope.invalidFormData.email = null;
+      }
+
       if($scope.isValid()){
         $state.go('reservation.billing');
         $scope.autofillSync();
@@ -519,6 +524,11 @@ angular.module('mobius.controllers.reservation', [])
       // when paid with points
       if($scope.forms.billing && !$scope.forms.billing.$submitted){
         $scope.forms.billing.$submitted = true;
+      }
+
+      //Clear payment error message if any
+      if($scope.invalidFormData.payment){
+        $scope.invalidFormData.payment = null;
       }
 
       if($scope.isValid()){
