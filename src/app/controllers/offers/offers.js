@@ -259,9 +259,19 @@ angular.module('mobius.controllers.offers', [])
                 var curProperty = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug;});
                 //remove any availability associated with a property that is not the current property
                 _.each(filteredOffers, function(offer){
-                  offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                    return availability.property !== curProperty.code;
-                  });
+
+                  //if specific hotdeal, ignore showOnOffersPage so it can be accessed from elsewhere but won't show on overview page
+                  if($stateParams.code){
+                    offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+                      return availability.property !== curProperty.code;
+                    });
+                  }
+                  else{
+                    offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
+                      return availability.property !== curProperty.code || !availability.showOnOffersPage;
+                    });
+                  }
+                  
                   if(offer.offerAvailability.length === 1){
                     var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
                     offer.propertyName = property.nameShort;
