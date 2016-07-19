@@ -130,11 +130,14 @@ angular.module('mobius.controllers.offers', [])
 
             //If not on a property specific offer, remove all offers with showOnOffersPage = false
             //otherwise we handle this value at property availability level
+            //This has now changed showOnOffersPage at chain level should be ignored if hotdeal
+            /*
             if(!$stateParams.propertySlug){
               filteredOffers = _.reject(filteredOffers, function(offer){
                 return !offer.showOnOffersPage;
               });
             }
+            */
             
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
@@ -288,7 +291,7 @@ angular.module('mobius.controllers.offers', [])
                 _.each(filteredOffers, function(offer){
                   if(!offer.featured){
                     offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
-                      return !availability.featured || !availability.showOnOffersPage;
+                      return !availability.featured;
                     });
                     //if not a featured offer, and only one of the property availability is featured, set the property availability content as the offer content
                     if(offer.offerAvailability && offer.offerAvailability.length === 1){
