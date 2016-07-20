@@ -50,8 +50,6 @@ angular.module('mobius.controllers.offers', [])
       .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
 
 
-
-
     //////////////////////////
     ///Main offers filtering logic
     //////////////////////////
@@ -119,7 +117,6 @@ angular.module('mobius.controllers.offers', [])
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
         }
-        //Only show offers that have showAtChainLevel true if multiple properties
         else{
 
           if($scope.isHotDeals){
@@ -157,7 +154,12 @@ angular.module('mobius.controllers.offers', [])
                 });
               });
 
+              //////////
+              //NOTE: code below is to filter hotdeals by region/location and is commented as currently not needed
+              //////////
+
               //Filter offers by region if any and if no location or property is defined
+              /*
               if($stateParams.regionSlug && !$stateParams.locationSlug && !$stateParams.propertySlug){
 
                 locationService.getRegions().then(function(regions){
@@ -255,7 +257,8 @@ angular.module('mobius.controllers.offers', [])
                   });
                 });
               }
-              else if($stateParams.propertySlug){
+              */
+              if($stateParams.propertySlug){
                 var curProperty = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug;});
                 //remove any availability associated with a property that is not the current property
                 _.each(filteredOffers, function(offer){
@@ -308,6 +311,8 @@ angular.module('mobius.controllers.offers', [])
                       var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
                       offer.propertyName = property.nameShort;
                       offer.availability = offer.offerAvailability[0];
+                      //if only one availability, override main prio value with availability prio value
+                      offer.prio = offer.offerAvailability[0].prio;
                     }
                   }
                 });
@@ -317,8 +322,7 @@ angular.module('mobius.controllers.offers', [])
                   return !offer.offerAvailability || !offer.offerAvailability.length;
                 });
 
-                $scope.offersList = filteredOffers;
-                console.log('Main Hot deals page, number of hot-deals shown: ' + $scope.offersList.length);
+                $scope.offersList = _.sortBy(filteredOffers, 'prio').reverse();
 
                 //breadcrumbs
                 if(!$stateParams.code) {
@@ -339,7 +343,9 @@ angular.module('mobius.controllers.offers', [])
                 delete offer.availability;
               }
             });
+            offers = _.sortBy(offers, 'prio').reverse();
             $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+
             if ($stateParams.code) {
               selectOffer(bookingService.getCodeFromSlug($stateParams.code));
             }
