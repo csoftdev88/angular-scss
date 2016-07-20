@@ -92,14 +92,16 @@ describe('mobius.controllers.offers', function() {
         });
 
         $provide.value('stateService', {
-          isMobile: sinon.stub()
+          isMobile: sinon.stub(),
+          correctStateParam: sinon.stub()
         });
 
         $provide.value('$state', {
           current: {
             name: ''
           },
-          go: sinon.spy()
+          go: sinon.spy(),
+          transitionTo: sinon.spy()
         });
 
         $provide.value('$stateParams', {

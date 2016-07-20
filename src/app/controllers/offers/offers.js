@@ -7,6 +7,7 @@ angular.module('mobius.controllers.offers', [])
   .controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
       $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService, routerService, stateService) {
 
+
     //////////////////////////
     ///Scope variables
     //////////////////////////
@@ -505,6 +506,13 @@ angular.module('mobius.controllers.offers', [])
       if (selectedOfferIndex < 0) {
         return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
+
+      //handle wrong slug
+      //because we use the code part of the slug, using bookingService.getCodeFromSlug, the first part of the slug could technically be anything and still lead to the correct offer, resulting in possible diplicate urls
+      if($stateParams.code !== $scope.offersList[selectedOfferIndex].meta.slug){
+        stateService.correctStateParam('code', $scope.offersList[selectedOfferIndex].meta.slug);
+      }
+
 
       propertyService.getAll().then(function(properties){
 
