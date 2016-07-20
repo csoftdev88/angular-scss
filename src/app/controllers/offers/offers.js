@@ -52,6 +52,27 @@ angular.module('mobius.controllers.offers', [])
 
 
     //////////////////////////
+    ///Meta data
+    //////////////////////////
+    //If not a specific offer, load chain data to apply meta data
+    if(!$stateParams.code){
+      chainService.getChain(Settings.API.chainCode).then(function(chain) {
+        var chainData = chain;
+
+        chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+        chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
+        chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
+
+        metaInformationService.setOgGraph(chainData.meta.microdata.og);
+        metaInformationService.setPageTitle(chain.meta.pagetitle);
+        metaInformationService.setMetaDescription(chain.meta.description);
+        metaInformationService.setMetaKeywords(chain.meta.keywords);
+
+      });
+    }
+
+
+    //////////////////////////
     ///Main offers filtering logic
     //////////////////////////
     contentService.getOffers().then(function(offers) {
@@ -126,17 +147,7 @@ angular.module('mobius.controllers.offers', [])
             //https://2pventures.tpondemand.com/entity/12353
             var filteredOffers = angular.copy(offers);
 
-            //If not on a property specific offer, remove all offers with showOnOffersPage = false
-            //otherwise we handle this value at property availability level
-            //This has now changed showOnOffersPage at chain level should be ignored if hotdeal
-            /*
-            if(!$stateParams.propertySlug){
-              filteredOffers = _.reject(filteredOffers, function(offer){
-                return !offer.showOnOffersPage;
-              });
-            }
-            */
-            
+
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
 
@@ -264,7 +275,7 @@ angular.module('mobius.controllers.offers', [])
                 //remove any availability associated with a property that is not the current property
                 _.each(filteredOffers, function(offer){
 
-                  //if specific hotdeal, ignore showOnOffersPage so it can be accessed from elsewhere but won't show on overview page
+                  //if specific hotdeal, ignore showOnOffersPage so it can be accessed from elsewhere but won't show on overview page, otherwise remove availabilities with showOnOffersPage: false
                   if($stateParams.code){
                     offer.offerAvailability = _.reject(offer.offerAvailability, function(availability){
                       return availability.property !== curProperty.code;
@@ -278,29 +289,37 @@ angular.module('mobius.controllers.offers', [])
                   
                   if(offer.offerAvailability.length === 1){
                     var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                    //assign propertyName to offer for view display
                     offer.propertyName = property.nameShort;
+                    //Assign single availability at top level for view display
                     offer.availability = offer.offerAvailability[0];
+                    //if only one availability, override main prio value with availability prio value
+                    offer.prio = offer.offerAvailability[0].prio;
                   }
                 });
+
                 //Now remove offers with no availability unless featured
                 filteredOffers = _.reject(filteredOffers, function(offer){
                   return !offer.offerAvailability.length;
                 });
+
                 $scope.offersList = filteredOffers;
-                console.log('Hot deals property page, number of hot-deals shown: ' + $scope.offersList.length);
+
                 //breadcrumbs
                 if(!$stateParams.code) {
                   setBreadCrumbs(null, null, curProperty);
                 }
+
                 //if offer code, go to offer
                 if($stateParams.code) {
                   selectOffer(bookingService.getCodeFromSlug($stateParams.code));
                 }
+
                 //hero slider
                 $scope.updateHeroContent(_.filter(curProperty.images, {includeInSlider: true}));
               }
               else {
-                //$scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+
                 //If an offer is not featured at chain level, remove any property availability that is not featured
                 _.each(filteredOffers, function(offer){
                   if(!offer.featured){
@@ -310,7 +329,9 @@ angular.module('mobius.controllers.offers', [])
                     //if not a featured offer, and only one of the property availability is featured, set the property availability content as the offer content
                     if(offer.offerAvailability && offer.offerAvailability.length === 1){
                       var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
+                      //assign propertyName to offer for view display
                       offer.propertyName = property.nameShort;
+                      //Assign single availability at top level for view display
                       offer.availability = offer.offerAvailability[0];
                       //if only one availability, override main prio value with availability prio value
                       offer.prio = offer.offerAvailability[0].prio;
@@ -355,91 +376,10 @@ angular.module('mobius.controllers.offers', [])
       }
     });
 
-    //If not a specific offer, load chain data to apply meta data
-    if(!$stateParams.code){
-      chainService.getChain(Settings.API.chainCode).then(function(chain) {
-        var chainData = chain;
-
-        chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-        chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
-        chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
-
-        metaInformationService.setOgGraph(chainData.meta.microdata.og);
-        metaInformationService.setPageTitle(chain.meta.pagetitle);
-        metaInformationService.setMetaDescription(chain.meta.description);
-        metaInformationService.setMetaKeywords(chain.meta.keywords);
-
-      });
-    }
-
-    function setBreadCrumbs(region, location, property, offerTitle){
-
-      if($stateParams.code && !offerTitle) {
-        return;
-      }
-
-      breadcrumbsService.clear();
-
-      if(region && !location && !property){
-        //breadcrumbs
-        breadcrumbsService
-          .addBreadCrumb(region.nameShort, 'regions', {regionSlug: region.meta.slug, property: null})
-          .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
-      }
-      else if(region && location && !property){
-        //breadcrumbs
-        breadcrumbsService
-          .addBreadCrumb(region.nameShort, 'regions', {regionSlug: region.meta.slug, property: null})
-          .addBreadCrumb(location.nameShort, 'hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, property: null})
-          .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
-      }
-      else if(property){
-        //Get property region/location data for breadcrumbs
-        propertyService.getPropertyRegionData(property.locationCode).then(function(propertyRegionData){
-
-          //breadcrumbs
-          breadcrumbsService
-            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
-            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
-            .addBreadCrumb(property.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug});
-
-
-          if(offerTitle){
-            breadcrumbsService
-              .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'propertyHotDeals' : 'propertyOffers', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, code: null})
-              .addBreadCrumb(offerTitle);
-          }
-          else{
-            breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
-          }
-
-          //alt nav
-          breadcrumbsService
-          .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsAbout'})
-          .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsLocation'})
-          .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsOffers'})
-          .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsRooms'})
-          .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'fnOpenLightBox'});
-
-        });
-      }
-      else{
-        if(offerTitle){
-          breadcrumbsService
-            .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'hotDeals' : 'offers', {code: null})
-            .addBreadCrumb(offerTitle);
-        }
-        else{
-          breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
-        }
-      }
-    }
-
-    $scope.getRelevant = function(offer, index) {
-      var offset = selectedOfferIndex < NUMBER_OF_RELEVANT_OFFERS ? 1 : 0;
-      return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
-    };
-
+    
+    //////////////////////////
+    ///On page offer click event listener
+    //////////////////////////
     $scope.goToDetail = function (slug) {
       var code = bookingService.getCodeFromSlug(slug);
 
@@ -491,15 +431,10 @@ angular.module('mobius.controllers.offers', [])
 
     };
 
-    $scope.goToOffersList = function() {
-      if(previousState && previousState.state && previousState.state.name !== ''){
-        $state.go(previousState.state, previousState.params);
-      }
-      else{
-        $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: ''}, {reload: true});
-      }
-    };
-
+    
+    //////////////////////////
+    ///Main function to handle specific offer selection
+    //////////////////////////
     function selectOffer(code) {
 
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
@@ -516,6 +451,7 @@ angular.module('mobius.controllers.offers', [])
 
       propertyService.getAll().then(function(properties){
 
+        //Get current property data
         var currentProperty = null;
         if($stateParams.propertySlug){
           currentProperty = _.find(properties, function(property){
@@ -523,10 +459,12 @@ angular.module('mobius.controllers.offers', [])
           });
         }
 
+        //create offer property selection select options
         if($scope.config.includeOfferAvailabilityPropertyDropdown){
           setOfferAvailabilityPropertiesDropdown(properties);
         }
 
+        //get current property availability if any
         var availability = null;
         if(currentProperty){
           availability = _.find($scope.offersList[selectedOfferIndex].offerAvailability, function(availability){
@@ -534,13 +472,15 @@ angular.module('mobius.controllers.offers', [])
           });
         }
         
+        //assign current property availability if any
         if(!$scope.isHotDeals){
           $scope.offersList[selectedOfferIndex].availability = availability;
         }
 
-
+        //apply selected offer data to scope
         $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
+        //Add offer code to booking params
         bookingService.setBookingOffer($scope.selectedOffer);
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
           promoCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.promoCode ? $scope.offersList[selectedOfferIndex].availability.promoCode : $scope.offersList[selectedOfferIndex].promoCode,
@@ -548,6 +488,7 @@ angular.module('mobius.controllers.offers', [])
           groupCode: $scope.offersList[selectedOfferIndex].availability && $scope.offersList[selectedOfferIndex].availability.groupCode ? $scope.offersList[selectedOfferIndex].availability.groupCode : $scope.offersList[selectedOfferIndex].groupCode || null
         });
 
+        //Save offer discount code in cookie if any
         if($scope.selectedOffer.discountCode){
           var cookieValue = cookieFactory('discountCode') && cookieFactory('discountCode').indexOf($scope.selectedOffer.discountCode) === -1? cookieFactory('discountCode') + '|' + $scope.selectedOffer.discountCode : $scope.selectedOffer.discountCode;
 
@@ -559,15 +500,17 @@ angular.module('mobius.controllers.offers', [])
           $window.document.cookie = 'discountCode=' + cookieValue + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
         }
 
+        //page meta data
         metaInformationService.setMetaDescription(availability && availability.metaDescription && availability.metaDescription !== '' ? availability.metaDescription : $scope.selectedOffer.meta.description);
         metaInformationService.setMetaKeywords(availability && availability.keywords && availability.keywords !== '' ? availability.keywords : $scope.selectedOffer.meta.keywords);
         metaInformationService.setPageTitle(availability && availability.pagetitle && availability.pagetitle !== '' ? availability.pagetitle : $scope.selectedOffer.meta.pagetitle);
         $scope.selectedOffer.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph($scope.selectedOffer.meta.microdata.og);
 
-        //Get offer title
+        //Get offer title for breadcrumbs
         var offerTitle = $scope.selectedOffer.availability && $scope.selectedOffer.availability.title &&  $scope.selectedOffer.availability.title !== '' ?  $scope.selectedOffer.availability.title : $scope.selectedOffer.title;
 
+        //Update breadcrumbs and hero slider
         if($stateParams.propertySlug){
           propertyService.getAll().then(function(properties){
             //Get current property
@@ -592,6 +535,11 @@ angular.module('mobius.controllers.offers', [])
 
     }
 
+    
+
+    //////////////////////////
+    ///Main function to handle book now button
+    //////////////////////////
     $scope.goToHotels = function(offer) {
       bookingParams = bookingService.getAPIParams();
 
@@ -660,6 +608,17 @@ angular.module('mobius.controllers.offers', [])
     else{
       $scope.hasDates = true;
     }
+
+
+    //back button
+    $scope.goToOffersList = function() {
+      if(previousState && previousState.state && previousState.state.name !== ''){
+        $state.go(previousState.state, previousState.params);
+      }
+      else{
+        $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: ''}, {reload: true});
+      }
+    };
 
 
     /////////////////////////
@@ -795,5 +754,73 @@ angular.module('mobius.controllers.offers', [])
         }
       }
     }
+
+    function setBreadCrumbs(region, location, property, offerTitle){
+
+      if($stateParams.code && !offerTitle) {
+        return;
+      }
+
+      breadcrumbsService.clear();
+
+      if(region && !location && !property){
+        //breadcrumbs
+        breadcrumbsService
+          .addBreadCrumb(region.nameShort, 'regions', {regionSlug: region.meta.slug, property: null})
+          .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+      }
+      else if(region && location && !property){
+        //breadcrumbs
+        breadcrumbsService
+          .addBreadCrumb(region.nameShort, 'regions', {regionSlug: region.meta.slug, property: null})
+          .addBreadCrumb(location.nameShort, 'hotels', {regionSlug: region.meta.slug, locationSlug: location.meta.slug, property: null})
+          .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+      }
+      else if(property){
+        //Get property region/location data for breadcrumbs
+        propertyService.getPropertyRegionData(property.locationCode).then(function(propertyRegionData){
+
+          //breadcrumbs
+          breadcrumbsService
+            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
+            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
+            .addBreadCrumb(property.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug});
+
+
+          if(offerTitle){
+            breadcrumbsService
+              .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'propertyHotDeals' : 'propertyOffers', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, code: null})
+              .addBreadCrumb(offerTitle);
+          }
+          else{
+            breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+          }
+
+          //alt nav
+          breadcrumbsService
+          .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsAbout'})
+          .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsLocation'})
+          .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsOffers'})
+          .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'jsRooms'})
+          .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: property.meta.slug, scrollTo: 'fnOpenLightBox'});
+
+        });
+      }
+      else{
+        if(offerTitle){
+          breadcrumbsService
+            .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers', $scope.isHotDeals ? 'hotDeals' : 'offers', {code: null})
+            .addBreadCrumb(offerTitle);
+        }
+        else{
+          breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+        }
+      }
+    }
+
+    $scope.getRelevant = function(offer, index) {
+      var offset = selectedOfferIndex < NUMBER_OF_RELEVANT_OFFERS ? 1 : 0;
+      return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
+    };
 
   });
