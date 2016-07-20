@@ -17,7 +17,7 @@
       <h1 ng-if="!isHotDeals" ng-bind-html="'_offers_deals_' | mainHeaderStyle"></h1>
     </div>
 
-    <offer-item ng-repeat="offer in offersList | orderBy: 'featured' track by $index" ng-if="offersList.length > 0" ng-click="goToDetail(offer.availability && offer.availability.slug && offer.availability.slug != ''  ? offer.availability.slug : offer.meta.slug)">
+    <offer-item ng-repeat="offer in offersList track by $index" ng-if="offersList.length > 0" ng-click="goToDetail(offer.availability && offer.availability.slug && offer.availability.slug != ''  ? offer.availability.slug : offer.meta.slug)">
       <div class="banner" ng-if="offer.merchandisingBanner" ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">{{offer.merchandisingBanner.text}}</div>
       <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.alt}}"/>
 

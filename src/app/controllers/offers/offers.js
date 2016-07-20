@@ -294,7 +294,7 @@ angular.module('mobius.controllers.offers', [])
                     //Assign single availability at top level for view display
                     offer.availability = offer.offerAvailability[0];
                     //if only one availability, override main prio value with availability prio value
-                    offer.prio = offer.offerAvailability[0].prio;
+                    offer.prio = _.isFinite(offer.offerAvailability[0].prio) ? offer.offerAvailability[0].prio : offer.prio;
                   }
                 });
 
@@ -303,7 +303,7 @@ angular.module('mobius.controllers.offers', [])
                   return !offer.offerAvailability.length;
                 });
 
-                $scope.offersList = filteredOffers;
+                $scope.offersList = _.sortBy(filteredOffers, 'prio').reverse();
 
                 //breadcrumbs
                 if(!$stateParams.code) {
@@ -334,7 +334,7 @@ angular.module('mobius.controllers.offers', [])
                       //Assign single availability at top level for view display
                       offer.availability = offer.offerAvailability[0];
                       //if only one availability, override main prio value with availability prio value
-                      offer.prio = offer.offerAvailability[0].prio;
+                      offer.prio = _.isFinite(offer.offerAvailability[0].prio) ? offer.offerAvailability[0].prio : offer.prio;
                     }
                   }
                 });
