@@ -88,7 +88,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       //region
       defaultData.region = {
         code: propertyData.regionCode,
-        name: localeData[0].trim()
+        name: localeData[1].trim()
       };
       //province
       //TODO: API needs to return province code, for now we use name toUpperCase as needed by tracking
