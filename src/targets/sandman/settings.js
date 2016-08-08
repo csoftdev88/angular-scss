@@ -644,6 +644,8 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      //Is billing state a required field?
+      'billingStateRequired': true,
       //price breakdown
       'priceBreakdownExtended': true,
       //display hero slider on booking page
