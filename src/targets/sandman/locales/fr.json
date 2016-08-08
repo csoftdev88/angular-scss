@@ -213,6 +213,7 @@
     "per_night": "Par Nuit",
     "per_stay": "Par Séjour",
     "price_from": "De",
+    "bookable_from": "Book Now From",
     "view_rates": "Voir les Prix",
     "our_rates": "Nos Prix",
     "room_type": "Type de Chambre",
