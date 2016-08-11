@@ -4,12 +4,12 @@
       <tbody>
         <tr>
           <th>_room_charges_:</th>
-          <td>{{selectedProduct.price.totalBase | i18nCurrency: $root.currencyCode }}</span></td>
+          <td>{{selectedProduct.price.totalBaseAfterPricingRules | i18nCurrency: $root.currencyCode }}</span></td>
         </tr>
         <!-- Tax -->
         <tr>
           <th>_tax_:</th>
-          <td>{{selectedProduct.price.totalAfterTax - selectedProduct.price.totalBase | i18nCurrency: $root.currencyCode}}</span></td>
+          <td>{{selectedProduct.price.totalAfterTax - selectedProduct.price.totalBaseAfterPricingRules | i18nCurrency: $root.currencyCode}}</span></td>
         </tr>
         <!-- Additional Taxes -->
         <tr ng-if="selectedProduct.price.totalAdditionalTaxes">

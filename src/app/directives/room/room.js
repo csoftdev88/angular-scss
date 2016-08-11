@@ -233,23 +233,23 @@ angular.module('mobiusApp.directives.room', [])
 
         //hiddenProducts first
         var hiddenProducts = _.where(data.products, {productHidden: true});
-        hiddenProducts = $filter('orderBy')(hiddenProducts, ['-weighting', 'price.totalBase']);
+        hiddenProducts = $filter('orderBy')(hiddenProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
         //displayedProducts.push(hiddenProducts);
 
         //memberOnly Products
         var memberOnlyProducts = _.where(data.products, {memberOnly: true});
-        memberOnlyProducts = $filter('orderBy')(memberOnlyProducts, ['-weighting', 'price.totalBase']);
+        memberOnlyProducts = $filter('orderBy')(memberOnlyProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
         //displayedProducts.push(memberOnlyProducts);
 
         //highlighted Products
         var highlightedProducts = _.where(data.products, {highlighted: true});
-        highlightedProducts = $filter('orderBy')(highlightedProducts, ['-weighting', 'price.totalBase']);
+        highlightedProducts = $filter('orderBy')(highlightedProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
         //default Products
         var defaultProducts = _.reject(data.products, function(product) {
           return product.productHidden === true || product.memberOnly === true || product.highlighted === true;
         });
-        defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBase']);
+        defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
 
@@ -340,7 +340,7 @@ angular.module('mobiusApp.directives.room', [])
             dataLayerService.trackProductClick({
               name: product.name,
               id: product.code,
-              price: (product.price.totalBase/numNights).toFixed(2),
+              price: (product.price.totalBaseAfterPricingRules/numNights).toFixed(2),
               quantity: numNights,
               dimension2: chainData.nameShort,
               brand: propertyData.nameLong,
@@ -382,7 +382,7 @@ angular.module('mobiusApp.directives.room', [])
               dataLayerService.trackProductsDetailsView([{
                 name: product.name,
                 id: product.code,
-                price: (product.price.totalBase).toFixed(2),
+                price: (product.price.totalBaseAfterPricingRules).toFixed(2),
                 quantity: numNights,
                 dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,

@@ -11,7 +11,7 @@ describe('RoomProducts', function() {
         code: 123,
         name: 'test',
         price: {
-          totalBase: 20
+          totalBaseAfterPricingRules: 20
         }
       }
     ]
@@ -211,7 +211,7 @@ describe('RoomProducts', function() {
         name: 'test',
         code: 123,
         price:{
-          totalBase: 100
+          totalBaseAfterPricingRules: 100
         }
       };
 

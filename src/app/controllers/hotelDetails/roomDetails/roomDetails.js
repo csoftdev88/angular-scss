@@ -29,7 +29,7 @@ angular.module('mobius.controllers.room.details', [])
             return {
               name: p.name,
               id: p.code,
-              price: (p.price.totalBase/numNights).toFixed(2),
+              price: (p.price.totalBaseAfterPricingRulesAfterPricingRules/numNights).toFixed(2),
               quantity: numNights,
               dimension2: chainData.nameShort,
               brand: propertyData.nameLong,
@@ -54,7 +54,7 @@ angular.module('mobius.controllers.room.details', [])
         dataLayerService.trackProductsDetailsView([{
           name: product.name,
           id: product.code,
-          price: (product.price.totalBase/numNights).toFixed(2),
+          price: (product.price.totalBaseAfterPricingRules/numNights).toFixed(2),
           quantity: numNights,
           dimension2: chainData.nameShort,
           brand: propertyData.nameLong,
@@ -99,7 +99,7 @@ angular.module('mobius.controllers.room.details', [])
                 return {
                   name: p.name,
                   id: p.code,
-                  price: (p.price.totalBase/numNights).toFixed(2),
+                  price: (p.price.totalBaseAfterPricingRules/numNights).toFixed(2),
                   quantity: numNights,
                   dimension2: chainData.nameShort,
                   brand: propertyData.nameLong,
@@ -114,11 +114,11 @@ angular.module('mobius.controllers.room.details', [])
                   mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, data[1].products, data[0], order);
                 }
               });
-              
+
             }
           });
         });
-        
+
 
         qRoomData.resolve({
           roomDetails: data[0],

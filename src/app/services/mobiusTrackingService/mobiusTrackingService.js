@@ -130,7 +130,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
             },
             'price': {
               'currency': $rootScope.currencyCode,
-              'totalPreTax': product.price.breakdowns[0].totalBase,
+              'totalPreTax': product.price.breakdowns[0].totalBaseAfterPricingRules,
               'totalTax': product.price.breakdowns[0].totalAfterTax
             },
             'region': {

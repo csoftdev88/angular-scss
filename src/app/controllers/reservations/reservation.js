@@ -320,7 +320,7 @@ angular.module('mobius.controllers.reservation', [])
           $state.go('hotel', params, {reload: true});
         });
       });
-    } 
+    }
   }
   $scope.goToRoom = function(){
     goToRoom();
@@ -564,7 +564,7 @@ angular.module('mobius.controllers.reservation', [])
           var product = {
             name: room._selectedProduct.name,
             id: room._selectedProduct.code,
-            price: (room._selectedProduct.price.totalBase/numNights).toFixed(2),
+            price: (room._selectedProduct.price.totalBaseAfterPricingRules/numNights).toFixed(2),
             quantity: numNights,
             dimension2: chainData.nameShort,
             brand: propertyData.nameLong,
@@ -667,7 +667,7 @@ angular.module('mobius.controllers.reservation', [])
 
     // Product basePrice
     // NOTE - Pay with points requires price as well
-    reservationData.price = $scope.getTotal('totalBase');
+    reservationData.price = $scope.getTotal('totalBaseAfterPricingRules');
 
     if($scope.bookingDetails.promoCode){
       // NOTE: Originally implemented using getCodeParamName as
@@ -756,7 +756,7 @@ angular.module('mobius.controllers.reservation', [])
     _.map($scope.allRooms, function(room){
       _.each(room._selectedProduct.price.breakdowns, function(breakdown){
         if(breakdown.date === date){
-          total += breakdown.totalBase;
+          total += breakdown.totalBaseAfterPricingRules;
         }
       });
     });
@@ -857,8 +857,8 @@ angular.module('mobius.controllers.reservation', [])
             var product = {
               name: p.name,
               code: p.code,
-              tax: ((p.price.totalAfterTax - p.price.totalBase)/numNights).toFixed(2),
-              price: ($scope.getTotal('totalBase')/numNights).toFixed(2),
+              tax: ((p.price.totalAfterTax - p.price.totalBaseAfterPricingRules)/numNights).toFixed(2),
+              price: ($scope.getTotal('totalBaseAfterPricingRules')/numNights).toFixed(2),
               id: room._selectedProduct.code,
               quantity: numNights,
               dimension2: chainData.nameShort,
@@ -873,15 +873,15 @@ angular.module('mobius.controllers.reservation', [])
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
             'affiliation': 'Hotel',
-            'revenue': $scope.getTotal('totalBase'),
+            'revenue': $scope.getTotal('totalBaseAfterPricingRules'),
             'quantity': numNights,
-            'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBase')).toFixed(2),
+            'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBaseAfterPricingRules')).toFixed(2),
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
           });
 
           //mobius ecommerce tracking
           var priceData = {
-            'beforeTax': $scope.getTotal('totalBase'),
+            'beforeTax': $scope.getTotal('totalBaseAfterPricingRules'),
             'afterTax': $scope.getTotal('totalAfterTax')
           };
           var trackingData = angular.copy(reservationData);
@@ -896,7 +896,7 @@ angular.module('mobius.controllers.reservation', [])
               'id': p.code,
               'variant': 'Nights:' + numNights + '|Type:' + room.name,
               'quantity': numNights,
-              'amount': (p.price.totalBase/numNights).toFixed(2),
+              'amount': (p.price.totalBaseAfterPricingRules/numNights).toFixed(2),
               'category': 'Room',
               'currency': $rootScope.currencyCode,
               'title': propertyData.nameShort + ' - ' + room.name,
@@ -933,7 +933,7 @@ angular.module('mobius.controllers.reservation', [])
         });
       });
 
-      
+
 
       //creating anon user account
       if(!user.isLoggedIn()){

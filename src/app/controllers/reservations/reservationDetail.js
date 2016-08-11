@@ -99,7 +99,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           if(Settings.UI.generics.applyChainClassToBody){
             propertyService.applyPropertyChainClass(property.chainCode);
           }
-          
+
           //sharing
           $scope.shareURL = $location.protocol() + '://' + $location.host() + '/hotels/' + $scope.property.meta.slug;
           $scope.property.meta.microdata.og['og:url'] = $scope.shareURL;
@@ -473,7 +473,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           _selectedProduct: {
             name: room.productName,
             price: {
-              totalBase: room.price
+              totalBaseAfterPricingRules: room.price
             }
           }
         };
@@ -520,7 +520,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       _.map($scope.reservation.rooms, function(room){
         _.each(room.priceDetail.breakdowns, function(breakdown){
           if(breakdown.date === date){
-            total += breakdown.totalBase;
+            total += breakdown.totalBaseAfterPricingRules;
           }
         });
       });

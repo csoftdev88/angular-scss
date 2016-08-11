@@ -2,7 +2,7 @@
 
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
-  <li ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && product.price.totalBase < product.price.originalPrice}" ng-repeat="product in products | limitTo: getRatesLimit()">
+  <li ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-repeat="product in products | limitTo: getRatesLimit()">
     <!-- ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)" -->
     <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
     <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
@@ -30,8 +30,8 @@
       <div ng-switch-when="true">
         <div class="price-details">
           <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
-            <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && product.price.totalBase < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
-            <span class="value">{{getValuePer(product.price.totalBase, true) | i18nCurrency: currencyCode}}</span>
+            <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
+            <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
           </p>
 
           <p class="price-form points" ng-if="room.priceFrom && product.price.pointsRequired && isUserLoggedIn() && loyaltyProgramEnabled && product.allowPointsBooking">

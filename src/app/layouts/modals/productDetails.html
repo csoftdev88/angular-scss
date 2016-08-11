@@ -41,7 +41,7 @@
           <tbody>
             <tr ng-repeat="item in data.product.price.breakdowns | orderBy: 'date'">
               <td>{{formatDate(item.date, 'DD MMM YYYY')}}</td>
-              <td>{{item.totalBase | i18nCurrency: currencyCode}}</td>
+              <td>{{item.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalFees | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalAfterTax | i18nCurrency: currencyCode}}</td>
@@ -101,7 +101,7 @@
 
               <tr class="breakdown" ng-repeat="breakdown in data.product.price.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
                 <th>{{formatDate(breakdown.date, 'DD MMM YYYY')}}:</th>
-                <td>{{breakdown.totalBase | i18nCurrency: $root.currencyCode}}</td>
+                <td>{{breakdown.totalBaseAfterPricingRules | i18nCurrency: $root.currencyCode}}</td>
               </tr>
 
               <tr class="main">
@@ -149,7 +149,7 @@
             <tbody>
               <tr ng-repeat="item in data.product.price.breakdowns | orderBy: 'date'">
                 <td>{{formatDate(item.date, 'DD MMM YYYY')}}</td>
-                <td>{{item.totalBase | i18nCurrency: currencyCode}}</td>
+                <td>{{item.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</td>
                 <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
                 <td>{{item.totalFees | i18nCurrency: currencyCode}}</td>
                 <td>{{item.totalAfterTax | i18nCurrency: currencyCode}}</td>
