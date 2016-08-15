@@ -263,7 +263,6 @@ angular.module('mobiusApp.directives.room', [])
 
         //If no products available, show the booking bar
         if(!scope.products || scope.products.length === 0){
-          console.log('no products available');
           $rootScope.$broadcast('floatingBarEvent', {
             isCollapsed: false
           });
