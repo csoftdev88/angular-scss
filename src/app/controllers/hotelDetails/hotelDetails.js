@@ -233,6 +233,11 @@ angular.module('mobius.controllers.hotel.details', [
               }
             });
             $scope.ratesLoaded = true;
+            if($scope.availableRooms.length === 0){
+              $rootScope.$broadcast('floatingBarEvent', {
+                isCollapsed: false
+              });
+            }
           });
         }
         else{
