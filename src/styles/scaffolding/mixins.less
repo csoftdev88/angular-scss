@@ -137,3 +137,7 @@
   transition: @arguments;
 }
 
+.transition-delay(@length: 0s) {
+  transition-delay: @arguments;
+  -webkit-transition-delay: @arguments; /* Safari */
+}

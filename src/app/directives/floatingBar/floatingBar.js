@@ -5,8 +5,8 @@ angular.module('mobiusApp.directives.floatingBar', [
   'mobiusApp.directives.floatingBar.myAccount'
 ])
 
-  .directive('floatingBar', ['Settings', 'bookingService', '$window', '$rootScope', function(
-      Settings, bookingService, $window, $rootScope) {
+  .directive('floatingBar', ['Settings', 'bookingService', '$window', '$rootScope', '$timeout', function(
+      Settings, bookingService, $window, $rootScope, $timeout) {
     var BOOKING = 'booking',
         ADVANCED_BOOKING = 'advancedBooking',
         MY_ACCOUNT = 'myAccount';
@@ -49,7 +49,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.adults = bookingParams.adults;
         scope.children = bookingParams.children;
 
-        
+
 
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
@@ -159,15 +159,20 @@ angular.module('mobiusApp.directives.floatingBar', [
           }
         });
 
-        //Toggle css trasition classes
-        $('booking-widget').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
-          $('booking-widget').addClass('transEnd');
-        });
+        scope.initialShow = function(){
+          //Delay the initial show bar animation by 2 seconds
+          $timeout(function() {
+            scope.showAfterLoad = true;
+            //Toggle css trasition classes
+            $('booking-widget').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
+              $('booking-widget').addClass('transEnd');
+            });
 
-        $('my-account').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
-          $('my-account').addClass('transEnd');
-        });
-
+            $('my-account').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
+              $('my-account').addClass('transEnd');
+            });
+          }, 2000);
+        };
       }
     };
   // Generic controller for booking tabs - defines numbers of guests
@@ -221,5 +226,5 @@ angular.module('mobiusApp.directives.floatingBar', [
             'plural': '{} Children'
           })
         };
-        
+
   });
