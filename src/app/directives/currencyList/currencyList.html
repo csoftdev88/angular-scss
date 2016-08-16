@@ -1,6 +1,7 @@
 <div ng-class="{'dropdown': currencies.length > 1}" ng-show="currencies.length > 1">
   <a href title="Currency">
-    <span>{{currentCurrency.code}}</span>
+    <span class="current-currency">{{currentCurrency.code}}</span>
+    <span class="change-currency">_change_currency_ ({{currentCurrency.code}})</span>
   </a>
 
   <ul class="dropdown-menu submenu" ng-show="currencies.length > 1">
