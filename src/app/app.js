@@ -573,7 +573,7 @@ angular
       //if applyChainClassToBody, get property details and add its chain as body class for styling
       if(Settings.UI.generics.applyChainClassToBody){
         var propertyCode = toParams.propertyCode || toParams.property;
-        if(propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation') || toState.name === 'propertyHotDeals'){
+        if(propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation' || toState.name === 'reservation.details' || toState.name === 'reservation.billing' || toState.name === 'reservation.confirmation') || toState.name === 'propertyHotDeals'){
           propertyService.getPropertyDetails(propertyCode).then(function(details){
             propertyService.applyPropertyChainClass(details.chainCode);
           });
