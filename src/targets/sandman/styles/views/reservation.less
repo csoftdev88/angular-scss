@@ -15,6 +15,12 @@ reservation-widget {
 
   margin-bottom: 70px;
   width: 100%;
+  .chain-sign &{
+    background:white;
+  }
+  .chain-sign.viewport-mobile & {
+    background:transparent;
+  }
 
   reservation-details-form{
     form{
@@ -610,16 +616,17 @@ reservation-confirmation {
 
   // Tab headers (links)
   .nav-tabs {
-
-    .active a {
-      color: @c-primary;
-      font-weight: normal;
+    a:hover {
       .chain-sign &{
         color: @c-menu-active-sign;
       }
       .chain-sand &{
         color: @c-menu-active-sand;
       }
+    }
+    .active a {
+      color: @c-primary;
+      font-weight: normal;
     }
 
     li{
@@ -902,7 +909,7 @@ reservation-finished {
   .button.disabled {
     .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
   }
-  
+
   @media print {
     margin-top:0;
   }

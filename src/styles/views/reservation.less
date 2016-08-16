@@ -23,10 +23,10 @@ reservation-widget {
   float: left;
 
   .viewport-mobile &{
-    padding: 20px;
     width: 100%;
     margin: 0;
     box-sizing: border-box;
+    box-shadow:none;
   }
 
   [grid-row] {
@@ -445,7 +445,7 @@ reservation-widget {
       &.narrow {  width: 25%; }
       &.medium {  width: 40%; }
       &.wide {    width: 75%; }
-      
+
     }
 
     .input-center {
@@ -742,6 +742,7 @@ reservation-confirmation {
       width: 33.3333%;
       text-align: center;
       padding: 0 5px;
+      background:@c-lightest-grey;
     }
 
     li + li {
@@ -755,9 +756,12 @@ reservation-confirmation {
       font-weight: 400;
     }
 
-    .active a {
-      color: @c-brown;
-      font-weight: bold;
+    .active {
+      background:white;
+      a {
+        color: @c-brown;
+        font-weight: bold;
+      }
     }
 
     .viewport-mobile &{
@@ -872,7 +876,7 @@ reservation-finished {
        display: none;
       }
 
-      
+
 
       .passbook{
         float: right;
@@ -1361,10 +1365,10 @@ reservation-hotel-details {
           text-align: right;
         }
       }
-      
+
     }
 
-    
+
   }
 }
 
