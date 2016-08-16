@@ -161,6 +161,19 @@
 
 }
 
+@media only screen and @large-mobile-max {
+  .main-nav {
+    ul {
+      li[currency-list] {
+        > div > a:after {
+          width:auto;
+          height:auto;
+        }
+      }
+    }
+  }
+}
+
 // DESKTOP STYLES
 @media only screen and @tablet-portrait-min {
 
