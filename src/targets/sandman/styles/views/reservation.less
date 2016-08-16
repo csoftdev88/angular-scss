@@ -688,14 +688,14 @@ reservation-finished {
           background: url('@{img-prefix}/v4/btn-passbook.png');
           width: 108px;
           height: 36px;
-          float: left;
+          float: right;
         }
 
         .button-print {
           background: url('@{img-prefix}/v4/btn-print.png');
           width: 37px;
           height: 36px;
-          float: left;
+          float: right;
         }
 
         .viewport-mobile &{
@@ -703,6 +703,11 @@ reservation-finished {
           float: left;
           .button-print {
             margin-left: 0;
+            margin-right: @spacing / 2;
+          }
+          .button-passbook {
+            margin-left: 0;
+            margin-right: @spacing / 2;
           }
         }
       }
@@ -940,7 +945,7 @@ reservation-hotel-details {
       width: 100%;
 
       h1,
-      > div {
+      div > div {
         float: left;
         width: 33.3333%;
         .viewport-mobile & {
@@ -953,15 +958,20 @@ reservation-hotel-details {
     h1 {
       color: @c-grey;
       font-size: 18px;
+      line-height:26px;
       font-weight: 600;
       text-transform: uppercase;
     }
 
     .reference {
       font-size: 18px;
+      padding-left:100px;
+      text-align:left;
       p{
         color: @c-grey;
         font-weight: 700;
+        line-height:26px;
+        margin-top:0;
       }
 
       p + p{
@@ -971,7 +981,7 @@ reservation-hotel-details {
 
       strong {
         font-size: 18px;
-        font-weight: 600;
+        font-weight: 400;
       }
 
       &.reference-visible {
@@ -990,6 +1000,7 @@ reservation-hotel-details {
     .booked {
       color: @c-grey;
       font-size: 18px;
+      line-height:26px;
       font-weight: 600;
     }
   }

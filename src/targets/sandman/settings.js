@@ -388,7 +388,7 @@ angular.module('mobiusApp.config', [])
       //override per hotel confirmation number per hotel
       'displayConfirmationNumberOnAllHotels': true,
       //confirmation label display
-      'displayConfirmationNumberLabel': false,
+      'displayConfirmationNumberLabel': true,
       // Confirmation number display settings per hotel(code)
       'confirmationNumber': {
         'REV': {
