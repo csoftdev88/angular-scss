@@ -52,7 +52,7 @@
 
     </section>
     <section class="payment-card" ng-switch-default>
-      <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()" ng-click="selectPaymentMethod('cc')" ng-class="{'ng-submitted': forms.billing.$submitted}">
+      <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()" ng-class="{'ng-submitted': forms.billing.$submitted}">
 
         <label for="form-card-number">
           <input type="text" id="form-card-number" credit-card-check required
