@@ -417,7 +417,8 @@ angular.module('mobiusApp.config', [])
         'print': true
       },
       'displayNewsletterCtaOnReservationDetail': true,
-      'reservationDetailPriceBreakdownExtended': true
+      'reservationDetailPriceBreakdownExtended': true,
+      'hideHeroSliderOnReservations':true
     },
 
     'aboutHotel': {
