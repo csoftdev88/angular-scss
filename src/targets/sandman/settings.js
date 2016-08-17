@@ -661,7 +661,8 @@ angular.module('mobiusApp.config', [])
       },
       //Booking steps navigation
       'bookingStepsNav':{
-        'display': true
+        'display': true,
+        'showInReservationWidget': true
       },
       //Default value for newsletter opt-in checkbox
       'newsLetterOptedIn': true,

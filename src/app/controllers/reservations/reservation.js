@@ -17,6 +17,9 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
 
+  //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
+  $scope.scrollReservationStepsPosition =  $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
+
   //Load generic data
   contentService.getTitles().then(function(data) {
     $scope.profileTitles = data;
@@ -214,7 +217,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     //scrollToDetails('reservationDetailsForm');
-    scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationDetailsForm');
+    scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
 
   }
 
@@ -360,7 +363,7 @@ angular.module('mobius.controllers.reservation', [])
         //scrollToDetails('alert-warning');
       }
       else{
-        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationDetailsForm');
+        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
       }
       $rootScope.showHomeBreadCrumb = false;
       break;
@@ -368,14 +371,14 @@ angular.module('mobius.controllers.reservation', [])
       setBreadCrumbs(BILLING_DETAILS);
       $scope.continueName = 'continue';
       //scrollToDetails('reservationBillingForm');
-      scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationBillingForm');
+      scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationBillingForm');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.confirmation':
       setBreadCrumbs(CONFIRMATION);
       $scope.continueName = 'confirm';
       //scrollToDetails('reservationConfirmation');
-      scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? 'reservation-steps' : 'reservationConfirmation');
+      scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationConfirmation');
       $rootScope.showHomeBreadCrumb = false;
       break;
     case 'reservation.after':

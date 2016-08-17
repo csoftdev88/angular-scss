@@ -5,8 +5,8 @@
 .reservation-steps{
   display: inline-block;
   width: 100%;
-  margin: 36px 0;
-  text-align: center;
+  margin: 10px;
+  text-align: left;
 
   .label{
     display: none;
@@ -21,9 +21,9 @@
     &:after{
       content: '';
       position: absolute;
-      left: 0;
-      top: 26px;
-      width: 100%;
+      left: 2%;
+      top: 21px;
+      width: 96%;
       height: 2px;
       background: @c-light-grey;
       z-index: -1;
@@ -33,7 +33,7 @@
       display: inline;
       float: left;
       width: auto;
-      margin-left: 70px;
+      margin-left: 50px;
       box-sizing: border-box;
 
       &:first-child{
@@ -45,9 +45,9 @@
         padding: 0;
         min-width: 0;
         border-radius: 0;
-        line-height: 50px;
-        height: 50px;
-        width: 50px;
+        line-height: 40px;
+        height: 40px;
+        width: 40px;
         border: 0;
         box-shadow: none;
         text-shadow: none;
@@ -55,7 +55,7 @@
         background: @c-green;
         font-weight: 700;
         color: #fff;
-        border-radius: 8px;
+        border-radius: 20px;
         font-size: 20px;
 
         &:active,
@@ -97,10 +97,10 @@
 
         .text{
           color: @c-light-grey;
-          font-size: 13px;
+          font-size: 11px;
           line-height: 19px;
           display: block;
-          width: 100px;
+          width: 90px;
           margin-left: -25px;
           padding-top: 5px;
         }
@@ -155,11 +155,11 @@
   }
 
   .viewport-mobile &{
-
+    margin: 10px 0;
     ul{
       li{
-        margin-left: 20px;
-        
+        margin-left: 35px;
+
         &:first-child{
           margin-left: 0;
         }
@@ -173,14 +173,14 @@
             font-size: 11px;
             line-height: 16px;
             width: 80px;
-            margin-left: -15px;
+            margin-left: -20px;
           }
         }
         &.current{
           .button{
             padding: 0;
             .text{
-            
+
             }
           }
         }
