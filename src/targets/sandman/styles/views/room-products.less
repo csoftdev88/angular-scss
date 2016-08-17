@@ -1,257 +1,247 @@
 room-products {
 	width: 80%;
-  .view-more-rates{
-    a{
-      font-size: 18px;
-      font-weight: 300;
-      float: right;
-      color: @c-menu-active;
-      .chain-sign &{
-        color: @c-menu-active-sign;
-      }
-    }
-  }
-
+	.view-more-rates {
+		a {
+			font-size: 18px;
+			font-weight: 300;
+			float: right;
+			color: @c-menu-active;
+			.chain-sign & {
+				color: @c-menu-active-sign;
+			}
+		}
+	}
 	> ul {
-
 		> li {
-      border-color: #c6beb5;
+			border-color: #c6beb5;
+			position:relative;
 			//border: 0;
 			//border-bottom: 1px solid @c-light-grey;
-
-			&:first-child{
+			&:first-child {
 				border-top: 1px solid #c6beb5;
 			}
-
-			&:last-of-type{
+			&:last-of-type {
 				border-radius: 0;
 			}
-
-      .viewport-mobile & {
-        padding: 0;
-      }
-
-      &.slashthrough {
-
-        pricing-details{
-          .price-form{
-            font-weight: 700;
-          }
-        }
-
-        .chain-sand &{
-          //background-color: rgba(172, 127, 73, 0.09);
-          pricing-details{
-            .price-form{
-              .original-price{
-              }
-              .value{
-                color: @c-grey;
-              }
-            }
-          }
-        }
-        .chain-sign &{
-          //background: rgba(236, 230, 223, 0.28) url('@{img-prefix}/watermark-signature-logo-small.png') no-repeat 12px center;
-          //background-size: auto 90%;
-          pricing-details{
-            .price-form{
-              .original-price{
-              }
-              .value{
-                color: @c-menu-active-sign;
-              }
-            }
-          }
-          .action-buttons{
-            .label{
-              text-transform: none;
-              font-size: 18px;
-              font-style: italic;
-              font-family: @ff-heading-bold-sign;
-            }
-            .button{
-              font-family: @ff-default;
-            }
-          }
-        }
-
-      }
-
-      .action-buttons{
-        .label{
-          font-weight: bold;
-          color: @c-light-brown;
-        }
-        .chain-sign &{
-          .label{
-            text-transform: none;
-            font-size: 18px;
-            font-style: italic;
-            font-family: @ff-heading-bold-sign;
-          }
-          .button{
-            font-family: @ff-default;
-            padding: 0 25px;
-          }
-        }
-      }
-
-			.no-products{
-
-        &.with-dates{
-
-          .viewport-mobile & {
-
-          }
-        }
-				.desc{
-
+			&.is-highlighted {
+				background: rgba(229, 119, 26, 0.17);
+				.chain-sign & {
+					background:rgba(253, 125, 13, 0.11);
 				}
-        .sub-desc{
-
-        }
 			}
-
+			&.is-member-only, &.is-member-only-disabled {
+				background-color: rgba(185, 135, 72, 0.15);
+				.chain-sign & {
+					background:rgba(147, 33, 46, 0.08);
+				}
+			}
+			&.is-highlighted, &.is-member-only, &.is-member-only-disabled {
+				pricing-details {
+					top: 0;
+					.viewport-mobile & {
+						padding-top:40px;
+					}
+					.action-buttons {
+						padding-top:47px;
+						.viewport-mobile & {
+							padding-top:0;
+						}
+					}
+				}
+			}
+			&.slashthrough {
+				pricing-details {
+					.price-form {
+						font-weight: 700;
+					}
+				}
+				.chain-sand & {
+					//background-color: rgba(172, 127, 73, 0.09);
+					pricing-details {
+						.price-form {
+							.original-price {}
+							.value {
+								color: @c-grey;
+							}
+						}
+					}
+				}
+				.chain-sign & {
+					//background: rgba(236, 230, 223, 0.28) url('@{img-prefix}/watermark-signature-logo-small.png') no-repeat 12px center;
+					//background-size: auto 90%;
+					pricing-details {
+						.price-form {
+							.original-price {}
+							.value {
+								color: @c-menu-active-sign;
+							}
+						}
+					}
+					.action-buttons {
+						.label {
+							text-transform: none;
+							font-size: 18px;
+							font-style: italic;
+							font-family: @ff-heading-bold-sign;
+						}
+						.button {
+							font-family: @ff-default;
+						}
+					}
+				}
+			}
+			.highlight-ribbon {
+				background: url("@{img-prefix}/orange-ribbon.svg") no-repeat center right;
+				background-size:100% 100%;
+				.chain-sign & {
+					background: url("@{img-prefix}/red-ribbon.svg") no-repeat center right;
+					background-size:100% 100%;
+				}
+			}
+			.member-ribbon {
+				background: url("@{img-prefix}/blue-ribbon.svg") no-repeat center right;
+				background-size:100% 100%;
+				.chain-sign & {
+					background: url("@{img-prefix}/orange-ribbon.svg") no-repeat center right;
+					background-size:100% 100%;
+				}
+			}
+			.highlight-ribbon, .member-ribbon {
+				width: auto !important;
+				position: absolute;
+				top: 5px;
+				right: -8px;
+				padding: 5px 15px 5px 30px;
+				border-right: 0px none !important;
+				text-align: right;
+				color: white !important;
+				text-transform: initial !important;
+				font-weight: 400 !important;
+				text-shadow: 1px 1px 1px rgba(55, 53, 53, 0.65);
+				font-size: 11px;
+				.chain-sign & {
+					font-family:@ff-heading-it-sign;
+					font-size:12px;
+				}
+			}
+			.action-buttons {
+				.label {
+					font-weight: bold;
+					color: @c-light-brown;
+					.highlight-ribbon {
+						right:-16px;
+					}
+				}
+				.chain-sign & {
+					.label {
+						text-transform: none;
+						font-size: 18px;
+						font-style: italic;
+						font-family: @ff-heading-bold-sign;
+					}
+					.button {
+						font-family: @ff-default;
+						padding: 0 25px;
+					}
+				}
+			}
+			.no-products {
+				&.with-dates {
+					.viewport-mobile & {}
+				}
+				.desc {}
+				.sub-desc {}
+			}
 			.rate-description {
-
-
-        a.info.link{
-
-          &:hover{
-
-          }
-
-        }
-
-				h4{
-
-          font-size: 14;
-          font-weight: 700;
-          color: @c-dark-grey;
-
-          .chain-sign &{
-            font-weight: 400;
-            font-family: @ff-heading-bold-sign;
-          }
-
-					> span{
-            font-weight: 700;
+				a.info.link {
+					&:hover {}
+				}
+				h4 {
+					font-size: 14;
+					font-weight: 700;
+					color: @c-dark-grey;
+					.chain-sign & {
+						font-weight: 400;
+						font-family: @ff-heading-bold-sign;
+					}
+					> span {
+						font-weight: 700;
 						text-transform: uppercase;
 					}
-          a.info{
-            float: left;
-          }
-					a.info::after{
-            font-size: 20px;
+					a.info {
+						float: left;
 					}
-          a.description-toggle {
-
-            &:after {
-
-            }
-            .viewport-mobile &{
-
-            }
-
-          }
+					a.info::after {
+						font-size: 20px;
+					}
+					a.description-toggle {
+						&:after {}
+						.viewport-mobile & {}
+					}
 				}
-
-        .description-wrapper{
-
-          > p{
-
-          }
-        }
-
-        &.open{
-          .description-wrapper{
-
-          }
-          h4{
-            a.description-toggle {
-              &:after {
-              }
-            }
-          }
-        }
-
-        .full-description {
-          padding-left: 25px;
-          margin-top: 0;
-          .viewport-mobile & {
-
-          }
-        }
-
-				.tagline{
-          font-style: normal;
-          font-weight: 600;
-					color:@c-light-brown;
-        }
-
-        .info.mobile {
-
-        }
+				.description-wrapper {
+					> p {}
+				}
+				&.open {
+					.description-wrapper {}
+					h4 {
+						a.description-toggle {
+							&:after {}
+						}
+					}
+				}
+				.full-description {
+					padding-left: 25px;
+					margin-top: 0;
+					.viewport-mobile & {}
+				}
+				.tagline {
+					font-style: normal;
+					font-weight: 600;
+					color: @c-light-brown;
+				}
+				.info.mobile {}
 			}
-
 			pricing-details {
-
-
-        .price-details {
-
-
-          .price-form {
-            text-align: right;
-            margin-top: 10px;
-            &.points{
-              top: -6px;
-              position: relative;
-            }
-            &.points,
-            &.points .value{
-              margin-top: 0px;
-              font-size: 13px;
-              font-style: normal;
-              font-weight: 600;
-              color: @c-brown;
-              .chain-sand &{
-                font-weight: 400;
-                color: @c-light-brown;
-              }
-            }
-
-          }
-
-          .viewport-mobile & {
-
-          }
-        }
-
-        .action-buttons {
-
-
-          .button {
-            background: @c-green;
-            border-radius: 2px;
-            font-size: 14px;
-            text-transform: uppercase;
-            line-height: 38px;
-            &:hover{
-              background: @c-green;
-            }
-          }
-
-          .viewport-mobile & {
-
-          }
-        }
-
-        .viewport-mobile & {
-
-        }
-      }
-
+				margin-bottom:10px;
+				.price-details {
+					.price-form {
+						text-align: right;
+						margin-top: 10px;
+						&.points {
+							top: -6px;
+							position: relative;
+						}
+						&.points,
+						&.points .value {
+							margin-top: 0;
+							font-size: 13px;
+							font-style: normal;
+							font-weight: 600;
+							color: @c-brown;
+							.chain-sand & {
+								font-weight: 400;
+								color: @c-light-brown;
+							}
+						}
+					}
+					.viewport-mobile & {}
+				}
+				.action-buttons {
+					.button {
+						background: @c-green;
+						border-radius: 2px;
+						font-size: 14px;
+						text-transform: uppercase;
+						line-height: 38px;
+						&:hover {
+							background: @c-green;
+						}
+					}
+					.viewport-mobile & {}
+				}
+				.viewport-mobile & {}
+			}
 		}
 	}
 }
