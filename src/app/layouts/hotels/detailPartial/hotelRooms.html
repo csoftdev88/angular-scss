@@ -91,7 +91,7 @@
                 <button-submit ng-click="selectDates()">_select_dates_</button-submit>
               </div>
 
-              <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom">_view_rates_</button>
+              <button class="button" ng-click="displayRoomRates(room, 'rates'+$index)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom">_view_rates_</button>
 
               <!--<button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates">_view_rates_</button>-->
             </div>
@@ -125,7 +125,7 @@
                 <button-submit ng-click="selectDates()">_select_dates_</button-submit>
               </div>
 
-              <button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom">_view_rates_</button>
+              <button class="button" ng-click="displayRoomRates(room, 'rates'+$index)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom">_view_rates_</button>
 
               <!--<button class="button" ng-click="displayRoomRates(room)" ng-if="!room._displayRates">_view_rates_</button>-->
             </div>
@@ -136,7 +136,7 @@
 
 
 
-          <room-products ng-if="details && room._displayRates">
+          <room-products ng-if="details && room._displayRates" id="{{'rates'+$index}}">
           </room-products>
         </div>
         <!-- //list-item-container -->

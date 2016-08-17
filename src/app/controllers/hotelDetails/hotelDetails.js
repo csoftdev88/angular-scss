@@ -397,12 +397,16 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
 
-  $scope.displayRoomRates = function(room){
+  $scope.displayRoomRates = function(room, ratesScrollTarget){
     if(!room || room._displayRates || $scope.availableRooms && $scope.availableRooms.indexOf(room.code) === -1){
       return;
     }
-
     room._displayRates = true;
+
+    if(ratesScrollTarget)
+    {
+      scrollToRates(ratesScrollTarget);
+    }
   };
 
   $scope.displayAllRooms = function(){
@@ -442,5 +446,10 @@ angular.module('mobius.controllers.hotel.details', [
     return !$scope.roomsConfig.hideRoomsWithNoAvailability || ($scope.roomsConfig.hideRoomsWithNoAvailability && $scope.availableRooms && $scope.availableRooms.indexOf(room.code) > -1 && room.priceFrom && $scope.hasDates() && $scope.ratesLoaded);
   };
 
+  function scrollToRates(target) {
+    $timeout(function(){
+      scrollService.scrollTo(target, 20);
+    }, 100);
+  }
 
 });
