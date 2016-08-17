@@ -23,13 +23,14 @@ locations-list {
 
   .viewport-mobile &{
     margin-right: 0;
+    display:block;
   }
 
   region-item,
   location-item {
     box-sizing: border-box;
     flex: 0 0 ~"calc(33% - 20px)";
-    height: 270px;
+    min-height: 270px;
     overflow: hidden;
     margin: 0 10px 30px 10px;
     width: ~"calc(33% - 20px)";
@@ -142,10 +143,11 @@ locations-list {
     }
 
     .viewport-mobile &{
-      flex: 100%;
+      display:block;
+      //flex: 100%;
       width: 100%;
       height:auto;
-      padding-bottom: 16px;
+      //padding-bottom: 16px;
       margin: 0 0 @baseline;
     }
 
