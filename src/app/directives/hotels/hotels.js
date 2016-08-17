@@ -73,7 +73,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
               //breadcrumbs
               addBreadCrumbs(curLocation);
-              
+
               if(curLocation){
 
                 //hero slider
@@ -414,7 +414,7 @@ angular.module('mobiusApp.directives.hotels', [])
         scope.hotelViewMode = mobiusUserPreferences.hotelViewMode;
       }
       else{
-        scope.hotelViewMode = 'tiles';
+        scope.hotelViewMode = scope.config.defaultViewMode ? scope.config.defaultViewMode : 'tiles';
       }
 
       scope.setHotelViewMode = function(mode){
