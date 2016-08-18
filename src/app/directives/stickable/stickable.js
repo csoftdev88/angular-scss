@@ -38,10 +38,12 @@ angular.module('mobiusApp.directives.stickable', [])
             elem.css('position', 'fixed');
             elem.css('top', elementToStickHeight);
             elem.css('z-index', STICKABLE_Z_INDEX);
+            elem.addClass('sticky');
           } else {
             elem.css('position', '');
             elem.css('top', '');
             elem.next().css('margin-top','');
+            elem.removeClass('sticky');
           }
 
           scope.$evalAsync(function(){
