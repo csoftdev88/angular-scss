@@ -10,8 +10,8 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': true,
   'infiniti': {
     'enable': true,
-    'development': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
-    'integration': 'http://prestige-test.suttonplace.com/track/content/infiniti.js',
+    'development': 'http://integration-sutton-infiniti.mobiuswebservices.com/track/content/infiniti.js',
+    'integration': 'http://integration-sutton-infiniti.mobiuswebservices.com/track/content/infiniti.js',
     'staging': 'http://staging-prestige.suttonplace.com/track/content/infiniti.js',
     'live': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
@@ -57,8 +57,8 @@ angular.module('mobiusApp.config', [])
     'cacheFlushInterval': 60,
     'chainCode': 'SAN',
     'baseURL': {
-      'development': 'http://test-services.suttonplace.com:3010/api/4.0/',
-      'integration': 'http://test-services.suttonplace.com:3010/api/4.0/',
+      'development': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
+      'integration': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'staging': 'http://staging.api.suttonplace.com:3010/api/4.0/',
       'live':  'https://api.suttonplace.com/api/4.0/'
     },
