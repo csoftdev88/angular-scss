@@ -1,4 +1,4 @@
-<hero-slider content="heroContent"></hero-slider>
+<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
@@ -22,7 +22,7 @@
       <div class="title-wrapper">
         <h1 class="title" ng-bind-html="'_profile_page_title_' | mainHeaderStyle"></h1>
       </div>
-      
+
       <div class="contact-info">
         <div class="inner">
           <div class="icon">
@@ -105,8 +105,8 @@
 
         <form-element>
           <label for="newPassword">_new_password_label_</label>
-          <input 
-            type="password" 
+          <input
+            type="password"
             id="newPassword"
             name="newPassword"
             ng-model="passwordData.password"
@@ -115,8 +115,8 @@
 
         <form-element>
           <label for="newPasswordConf">_confirm_password_label_</label>
-          <input 
-            type="password" 
+          <input
+            type="password"
             id="newPasswordConf"
             name="newPasswordConf"
             ng-model="passwordData.passwordConf"
@@ -160,21 +160,21 @@
 
         <form-element>
           <label for="profileFname">_first_name_label_</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="profileFname"
             name="profileFname"
-            ng-model="profileData.firstName" 
+            ng-model="profileData.firstName"
             ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"/>
         </form-element>
 
         <form-element>
           <label for="profileLname">_last_name_label_</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="profileLname"
             name="profileLname"
-            ng-model="profileData.lastName" 
+            ng-model="profileData.lastName"
             ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"/>
         </form-element>
 
@@ -187,11 +187,11 @@
         <!-- email cannot be changed at present
         <form-element>
           <label for="profileEmail">_email_label_</label>
-          <input 
-            type="email" 
+          <input
+            type="email"
             id="profileEmail"
             name="profileEmail"
-            ng-model="profileData.email" 
+            ng-model="profileData.email"
             email-check
             ng-class="{'ng-submitted': form.$submitted && form.profileEmail.$error.emailCheck}"
             readonly/>
@@ -200,41 +200,41 @@
 
         <form-element>
           <label for="profileAddress1">_address_one_label_</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="profileAddress1"
             name="profileAddress1"
-            ng-model="profileData.address1" 
+            ng-model="profileData.address1"
             ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"/>
         </form-element>
 
         <form-element>
           <label for="profileAddress2">_address_two_label_</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="profileAddress2"
             name="profileAddress2"
-            ng-model="profileData.address2" 
+            ng-model="profileData.address2"
             ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"/>
         </form-element>
 
         <form-element>
           <label for="profileCity">_city_label_</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="profileCity"
             name="profileCity"
-            ng-model="profileData.city" 
+            ng-model="profileData.city"
             ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"/>
         </form-element>
 
         <form-element>
           <label for="profileState">_state_label_</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="profileState"
             name="profileState"
-            ng-model="profileData.state" 
+            ng-model="profileData.state"
             ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"/>
         </form-element>
 
@@ -251,18 +251,18 @@
 
         <form-element>
           <label for="profileZip">_postcode_label_</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="profileZip"
             name="profileZip"
-            ng-model="profileData.zip" 
+            ng-model="profileData.zip"
             ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"/>
         </form-element>
 
         <form-element>
           <label for="profileTel">_phone_label_</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="profileTel"
             name="profileTel"
             ng-model="profileData.tel1"

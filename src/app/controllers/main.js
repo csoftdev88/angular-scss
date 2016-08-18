@@ -32,6 +32,7 @@ angular.module('mobius.controllers.main', [])
 
       // Application settings
       $scope.config = Settings.UI;
+      $scope.uiConfig = Settings.UI;
       $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
 
       $scope.$on('$stateChangeSuccess', function() {
@@ -95,7 +96,7 @@ angular.module('mobius.controllers.main', [])
             data = _.filter(data, function(item){
 
               if(item.link){
-                
+
                 //offers adverts now have a CHAIN or PROPERTY CODE flag
                 var linkCode = item.link.type === 'offers' ? item.link.code.split('-')[0] : item.link.code;
 
@@ -104,7 +105,7 @@ angular.module('mobius.controllers.main', [])
               else{
                 return item;
               }
-              
+
             });
             return data;
             //$rootScope.heroContent = data;
@@ -185,7 +186,7 @@ angular.module('mobius.controllers.main', [])
           $('.login-dialog-overlay').appendTo($('.main-nav'));
         }
       });
-      
+
       $scope.openMobileMenu = function(){
         $timeout(function(){
           document.body.classList.add('mobile-menu-active');

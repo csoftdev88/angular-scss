@@ -1,4 +1,4 @@
-<hero-slider content="heroContent"></hero-slider>
+<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
@@ -212,14 +212,14 @@
             </div>
 
           </li>
-          
+
         </ul>
 
         <dir-pagination-controls pagination-id="pending" ng-if="viewMode === 'pending'" on-page-change="onPageChange()"></dir-pagination-controls>
         <!-- End pending transactions -->
 
       </div>
-      
+
 
     </div>
 

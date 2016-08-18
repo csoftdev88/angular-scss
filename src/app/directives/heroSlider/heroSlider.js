@@ -2,15 +2,18 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', function($timeout, $state, $templateCache, Settings,
-  advertsService, $window){
+.directive('heroSlider', ['$timeout', '$state', '$templateCache', 'Settings',
+  'advertsService', '$window', '$filter', function($timeout, $state, $templateCache, Settings,
+  advertsService, $window, $filter){
   return {
     restrict: 'E',
     scope: {
       content: '=',
       defaultSlideIndex: '=',
       onSlideClick: '=',
-      onRoomClick: '='
+      onRoomClick: '=',
+      slideWidth: '=',
+      slideHeight: '='
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
@@ -125,8 +128,8 @@ angular.module('mobiusApp.directives.slider', [])
         }
 
         var slide = $(template)[0];
-
-        $(slide).css('background-image', 'url(' + slideData.uri + ')');
+        var resizedSlideUri = (scope.slideWidth !== undefined && scope.slideHeight !== undefined) ? $filter('cloudinaryImage')(slideData.uri,scope.slideWidth,scope.slideHeight,'fill') : slideData.uri;
+        $(slide).css('background-image', 'url(' + resizedSlideUri + ')');
         sliderContent.append(slide);
 
         return $(slide);
@@ -272,4 +275,4 @@ angular.module('mobiusApp.directives.slider', [])
       }
     }
   };
-});
+}]);

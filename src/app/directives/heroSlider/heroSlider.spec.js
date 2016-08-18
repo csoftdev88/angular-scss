@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 describe('heroSlider', function() {
   var env,
@@ -126,4 +126,4 @@ describe('heroSlider', function() {
       expect(env.scope.preventClick).to.be.an('function');
     });
   });
-});
+});*/
