@@ -63,7 +63,7 @@
           <!-- Room info -->
           <div class="list-item-info">
 
-            <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}" data-counter-type="none" content="room.images" ng-if="roomsConfig.includeSlider" data-has-thumbnails="{{roomsConfig.sliderHasThumbnails}}" slide-width="400" slide-height="400"></hero-slider>
+            <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}" data-counter-type="none" content="room.images" ng-if="roomsConfig.includeSlider && room.images && room.images.length > 0" data-has-thumbnails="{{roomsConfig.sliderHasThumbnails}}" slide-width="400" slide-height="400"></hero-slider>
 
             <div class="room-image-placeholder" ng-if="room.images.length == 0"></div>
 

@@ -245,10 +245,10 @@ hotel-detail {
                 float:left;
                 margin-bottom:20px;
                 background:url('http://res.cloudinary.com/dmh2cjswj/image/upload/v1471342708/SAND/ui/sandman-placeholder.jpg') no-repeat;
-                background-size:cover;
+                background-size:contain;
                 .chain-sign & {
                   background:url('http://res.cloudinary.com/dmh2cjswj/image/upload/v1471342769/SAND/ui/signature-placeholder.jpg') no-repeat;
-                  background-size:cover;
+                  background-size:contain;
                 }
                 .viewport-mobile & {
                   display:none;
@@ -404,6 +404,14 @@ hotel-detail {
 
             ul.thumbnail-nav{
               display: none;
+              width:100%;
+              li {
+                max-width:45px;
+                  img {
+                  width:100%;
+                  transform: none;
+                }
+              }
               .chain-sign &{
                 display: inline;
               }
