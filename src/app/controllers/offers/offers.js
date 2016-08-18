@@ -39,7 +39,7 @@ angular.module('mobius.controllers.offers', [])
     //Index of currently selected offer in offerList array
     var selectedOfferIndex;
 
-    //Hotdeals 
+    //Hotdeals
     var hasHotDeals = Settings.UI.menu.showHotDeals;
     $scope.isHotDeals = $state.current.name === 'hotDeals' || $state.current.name === 'propertyHotDeals';
 
@@ -100,7 +100,7 @@ angular.module('mobius.controllers.offers', [])
           });
         }
         else{
-          
+
 
           propertyService.getAll().then(function(properties){
             //property details
@@ -207,7 +207,7 @@ angular.module('mobius.controllers.offers', [])
                       if(offer.offerAvailability.length && !_.contains(RegionOffers, offer)){
                         RegionOffers.push(offer);
                       }
-                      
+
                     });
 
                     $scope.offersList = RegionOffers;
@@ -255,7 +255,7 @@ angular.module('mobius.controllers.offers', [])
                         locationOffers.push(offer);
                       }
                     });
-                    
+
                     $scope.offersList = locationOffers;
                     console.log('Hot deals locations page, number of hot-deals shown: ' + $scope.offersList.length);
                     //breadcrumbs
@@ -286,7 +286,7 @@ angular.module('mobius.controllers.offers', [])
                       return availability.property !== curProperty.code || !availability.showOnOffersPage;
                     });
                   }
-                  
+
                   if(offer.offerAvailability.length === 1){
                     var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
                     //assign propertyName to offer for view display
@@ -376,7 +376,7 @@ angular.module('mobius.controllers.offers', [])
       }
     });
 
-    
+
     //////////////////////////
     ///On page offer click event listener
     //////////////////////////
@@ -431,7 +431,7 @@ angular.module('mobius.controllers.offers', [])
 
     };
 
-    
+
     //////////////////////////
     ///Main function to handle specific offer selection
     //////////////////////////
@@ -471,7 +471,7 @@ angular.module('mobius.controllers.offers', [])
             return availability.property === currentProperty.code;
           });
         }
-        
+
         //assign current property availability if any
         if(!$scope.isHotDeals){
           $scope.offersList[selectedOfferIndex].availability = availability;
@@ -535,7 +535,7 @@ angular.module('mobius.controllers.offers', [])
 
     }
 
-    
+
 
     //////////////////////////
     ///Main function to handle book now button
@@ -728,13 +728,23 @@ angular.module('mobius.controllers.offers', [])
 
               //Assign data to scope
               _.each(filteredLocations, function(filteredLocation){
-                $scope.offerAvailabilityProperties.push(filteredLocation);
                 _.each(filteredProperties, function(filteredProperty){
                   if(filteredProperty.locationCode === filteredLocation.locationCode){
-                    $scope.offerAvailabilityProperties.push(filteredProperty);
+                    var availability = _.find($scope.selectedOffer.offerAvailability, function(availability){
+                      return availability.property === filteredProperty.locationCode;
+                    });
+                    //Only display an offer if at least one of the following options is checked
+                    if(availability && (availability.featured || availability.showOnHotelPage || availability.showOnMenu || availability.showOnOffersPage))
+                    {
+                      $scope.offerAvailabilityProperties.push(filteredLocation);
+                      $scope.offerAvailabilityProperties.push(filteredProperty);
+                    }
                   }
                 });
               });
+
+              //Remove duplicate locations
+              $scope.offerAvailabilityProperties = _.uniq($scope.offerAvailabilityProperties);
 
               //select current property in dropdown
               if($stateParams.propertySlug){
