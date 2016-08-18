@@ -1,6 +1,9 @@
 #main-header {
   background: #fff;
   height: 123px;
+  .sticky-bread & {
+    height:118px;
+  }
   .viewport-mobile &{
     height: auto;
   }
@@ -376,6 +379,10 @@ Sub-nav
 
     height: 35px;
     line-height: 35px;
+    .sticky-bread & {
+      height: 30px;
+      line-height: 30px;
+    }
     > nav{
       text-align: center;
       > ul{
@@ -408,6 +415,9 @@ Sub-nav
               .chain-sand &{
                 color: @c-dark-grey;
               }
+            }
+            .sticky-bread & {
+              font-size:13px;
             }
           }
           ul{

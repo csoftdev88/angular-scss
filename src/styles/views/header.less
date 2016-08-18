@@ -580,7 +580,9 @@ Sub-nav
     background: @c-primary;
     height: 35px;
     line-height: 35px;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+    .sticky-bread & {
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+    }
     > nav{
       text-align: center;
       > ul{

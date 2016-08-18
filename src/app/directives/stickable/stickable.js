@@ -39,11 +39,13 @@ angular.module('mobiusApp.directives.stickable', [])
             elem.css('top', elementToStickHeight);
             elem.css('z-index', STICKABLE_Z_INDEX);
             elem.addClass('sticky');
+            $('body').addClass('sticky-bread');
           } else {
             elem.css('position', '');
             elem.css('top', '');
             elem.next().css('margin-top','');
             elem.removeClass('sticky');
+            $('body').removeClass('sticky-bread');
           }
 
           scope.$evalAsync(function(){
