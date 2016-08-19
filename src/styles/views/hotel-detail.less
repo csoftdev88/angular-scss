@@ -171,6 +171,11 @@ hotel-detail {
                 color: @c-link;
                 padding: 0 5px;
               }
+              &.hide-info-icon {
+                &:after {
+                  display:none;
+                }
+              }
             }
 
             .sub-title{
@@ -263,6 +268,7 @@ hotel-detail {
               box-sizing: border-box;
               width: 37%;
               padding: 13px 13px 0 0;
+              position:relative;
 
               > .pricing-info {
                 display: none;
@@ -361,6 +367,15 @@ hotel-detail {
                       max-height: 15px;
                     }
                   }
+                }
+              }
+
+              .room-see-more {
+                position:absolute;
+                left:0;
+                bottom:-15px;
+                .viewport-mobile & {
+                  display:none;
                 }
               }
 

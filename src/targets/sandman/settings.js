@@ -306,6 +306,7 @@ angular.module('mobiusApp.config', [])
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': true,
+        'hideShowInfoIcon': true,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
