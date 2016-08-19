@@ -15,7 +15,10 @@ rewards-list {
     // if it's clickable
     &[ng-click] {
       cursor: pointer;
-      &:hover img { opacity: .8; }
+      &:hover {
+        box-shadow:0px 0px 2px 1px rgba(0, 0, 0, 0.1);
+        img { opacity: .8; }
+      }
     }
 
     //- Image
