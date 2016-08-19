@@ -20,7 +20,6 @@ div[mega-menu] {
   top: 30px;
   left: 50%;
   margin-left: -413px;
-  background: @c-light-grey;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   .preloader {
     position: absolute;
@@ -127,7 +126,7 @@ div[mega-menu] {
     float: left;
     width: 174px;
     height: 100%;
-    background: @c-dark-grey;
+    background: rgba(0, 0, 0, 0.95);
     box-sizing: border-box;
     ul {
       padding: 14px 0 14px 18px;
@@ -178,6 +177,7 @@ div[mega-menu] {
     height: 100%;
     box-sizing: border-box;
     padding: 10px;
+    background: @c-light-grey;
     > ul {
       height: 370px;
       -moz-column-count: 3;
@@ -274,6 +274,10 @@ div[mega-menu] {
           }
         }
       }
+    }
+    .regions {
+      background: url("@{img-prefix}/background-menu-hot-deals@2x.png") no-repeat;
+      background-size:100% 100%;
     }
   }
   footer {
