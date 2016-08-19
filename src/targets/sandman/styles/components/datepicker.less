@@ -3,6 +3,7 @@
 .ui-datepicker {
   width: 750px !important;
   box-shadow: 0 0 1px @c-black;
+  background:@c-black;
   .ui-datepicker-group{
     float: left;
     width: 375px;
@@ -19,8 +20,13 @@
     }
     //Add to second datepicker, create a border without messing up width dimensions
     + .ui-datepicker-group {
-      box-shadow: -1px 1px 0px @c-black;
+      .ui-datepicker-calendar {
+        box-shadow: -1px 1px 0px #363636;
+      }
     }
+  }
+  .ui-datepicker-buttonpane {
+    box-shadow: 0px -1px 0px #363636;
   }
   &:after {
     color: @c-datepicker;
@@ -63,10 +69,18 @@
     width: auto;
     margin: @baseline/2 auto @baseline;
   }
+  thead {
+    tr {
+      th {
+        font-weight: 400;
+        color: white;
+      }
+    }
+  }
 
   tbody {
     tr {
-      border: 20px solid #fefefe;
+      border: 20px solid @c-black;
       border-left: none;
       border-right: none;
     }
@@ -84,8 +98,9 @@
 
       a {
         display: block;
-        color: @c-text; // Today and Future days
+        color: #b3bdc2; // Today and Future days
         text-decoration: none;
+        font-weight:300;
       }
 
       // Highlighting today's day
@@ -93,9 +108,13 @@
         color: @c-text;
       }
 
+      &.ui-state-disabled {
+        color: @c-text;
+      }
+
       // Days from other month
       &.ui-datepicker-other-month a {
-        color: lighten(@c-text, 50%);
+        color: #4a4a4a;
       }
 
       // Selected start and end day
@@ -108,38 +127,29 @@
         a, span {
           position: relative;
           display: block;
-          color: @c-grey !important;
-          background: @c-secondary-transparent;
+          color: white !important;
+          background: #41b1c2;
+          border-radius:18px;
+          width:30px;
+          text-align:center;
+          margin:0 auto;
+          z-index:10;
         }
 
-        &.date-range-start a:after,
-        &.date-range-start span:after{
+        &:after {
+          display: block;
           content: '';
+          width: 25px;
+          height: 30px;
+          background: rgba(62, 177, 194, 0.7);
           position: absolute;
-          left: 0;
+          right: 0px;
           top: 0;
-
-          width: 0;
-          height: 0;
-          border-style: solid;
-          border-width: 15px 0 15px 26px;
-          border-color: transparent transparent transparent @c-secondary-transparent-dark;
         }
-
-        &.date-range-end a:after,
-        &.date-range-end span:after{
-          content: '';
-          position: absolute;
-          right: 0;
-          top: 0;
-
-          width: 0;
-          height: 0;
-          border-style: solid;
-          border-width: 15px 26px 15px 0;
-          border-color: transparent @c-secondary-transparent-dark transparent transparent;
-        }
-
+      }
+      &.date-range-end:after {
+        right:0;
+        left:0px;
       }
 
       &.date-range-edit {
@@ -148,8 +158,8 @@
 
       // Selected dates
       &.date-range-selected a {
-        background: @c-secondary-transparent;
-        color: @c-grey;
+        background: rgba(62, 177, 194, 0.7);
+        color: white;
       }
 
       // Day is not available
