@@ -134,26 +134,33 @@ reservation-widget {
   .room-data {
 
     h3, h4, p {
-      line-height: 1.5;
+      line-height: 1.7em;
     }
 
     h3 {
       color: @c-dark-grey;
-      font-weight: 300;
-      font-size: 16px;
+      font-weight: 400;
+      font-size: 13px;
+      text-transform:initial;
     }
 
     h4{
-      font-size: 13px;
-      color: @c-dark-grey;
+      font-size: 10px;
+      color: #585858;
       text-transform: uppercase;
       font-weight: 700;
     }
 
     .room-data-details{
-      display: inline-block;
+      display: block;
       width: 100%;
       position: relative;
+      .clearfix;
+    }
+
+    .desc {
+      color:@c-primary;
+      font-size:13px;
     }
 
     .desc,
@@ -165,6 +172,9 @@ reservation-widget {
         clear: left;
         margin-top: 0;
       }
+    }
+
+    .price{
       .chain-sand &{
         color: @c-primary-sand;
       }
