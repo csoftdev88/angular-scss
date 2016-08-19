@@ -1,9 +1,6 @@
 #main-header {
   background: #fff;
-  height: 123px;
-  .sticky-bread & {
-    height:118px;
-  }
+  height: 118px;
   .viewport-mobile &{
     height: auto;
   }
@@ -369,20 +366,18 @@ Sub-nav
 
   .sub-nav {
     background: @c-primary;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+    .sticky-bread & {
+      box-shadow:none;
+    }
     .chain-sign &{
       background: @c-primary-sign;
     }
     .chain-sand &{
       background: @c-primary-sand;
     }
-
-
-    height: 35px;
-    line-height: 35px;
-    .sticky-bread & {
-      height: 30px;
-      line-height: 30px;
-    }
+    height: 30px;
+    line-height: 30px;
     > nav{
       text-align: center;
       > ul{
@@ -403,7 +398,7 @@ Sub-nav
           float: left;
           a{
             color: #fff;
-            font-size: 15px;
+            font-size: 13px;
             text-transform: uppercase;
             padding: 0 15px;
             &.is-active,
@@ -415,9 +410,6 @@ Sub-nav
               .chain-sand &{
                 color: @c-dark-grey;
               }
-            }
-            .sticky-bread & {
-              font-size:13px;
             }
           }
           ul{
