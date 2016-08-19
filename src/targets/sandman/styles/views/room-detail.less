@@ -102,7 +102,9 @@ hotel-room {
 
 
     list-item {
-
+      &.without-image {
+        padding-left: 0;
+      }
 
       pricing-info{
 
@@ -125,6 +127,40 @@ hotel-room {
     ul {
       padding-left:17px;
       list-style:disc;
+    }
+  }
+
+  .room-details-left {
+    width:50%;
+    float:left;
+    .viewport-mobile &, .viewport-tablet & {
+      width:100%;
+      float:none;
+    }
+  }
+
+  .room-details-right {
+    width:45%;
+    margin-left:5%;
+    float:left;
+    .viewport-mobile &, .viewport-tablet & {
+      width:100%;
+      margin-left:0;
+      float:none;
+    }
+  }
+
+  section.room-amenities {
+    background-color: #f9f9f9;
+    border: solid 1px #efefef;
+    margin-top: 20px;
+    padding: 20px;
+    amenity-item {
+      width:50%;
+      padding:0 10px;
+      .viewport-mobile &, .viewport-tablet & {
+        width:100%;
+      }
     }
   }
 

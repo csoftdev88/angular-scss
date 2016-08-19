@@ -166,34 +166,36 @@
     <!-- <hr /> -->
   </section>
 
+  <div class="room-details-left">
+    <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescription">
+      <p ng-bind-html="sanitize(roomDetails.description)"></p>
+    </section>
 
-  <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescription">
-    <h2 ng-bind-html="'_room_description_title_' | mainHeaderStyle"></h2>
-    <p ng-bind-html="sanitize(roomDetails.description)"></p>
+    <section class="room-images">
+      <h2 ng-bind-html="'_room_images_title_' | mainHeaderStyle"></h2>
+      <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
+        <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery($index)">
+          <figure>
+            <img ng-src="{{image.uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{image.alt}}" />
+          </figure>
+        </li>
+      </ul>
+    </section>
+  </div>
 
-    <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
-      <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery($index)">
-        <figure>
-          <img ng-src="{{image.uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{image.alt}}" />
-        </figure>
-      </li>
-    </ul>
+  <div class="room-details-right">
+    <section ng-if="roomDetails.amenities.length" class="room-amenities">
+      <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
 
-    <hr />
-  </section>
-
-  <section ng-if="roomDetails.amenities.length">
-    <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
-
-    <amenities-list ng-if="property">
-      <amenity-item ng-repeat="amenity in roomDetails.amenities" ng-init="amenity.chainCode = property.chainCode">
-        <slug-img slug="amenity" type="room" width="15"></slug-img>
-        <span class="amenity-caption">{{amenity.name}}</span>
-      </amenity-item>
-    </amenities-list>
-    <hr/>
-  </section>
-
+      <amenities-list ng-if="property">
+        <amenity-item ng-repeat="amenity in roomDetails.amenities" ng-init="amenity.chainCode = property.chainCode">
+          <slug-img slug="amenity" type="room" width="15"></slug-img>
+          <span class="amenity-caption">{{amenity.name}}</span>
+        </amenity-item>
+      </amenities-list>
+    </section>
+  </div>
+  <hr/>
   <h2 class="other-rooms-title" ng-if="property.nameLong" ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
 
   <!-- Keeping this just in case
