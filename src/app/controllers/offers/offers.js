@@ -669,6 +669,7 @@ angular.module('mobius.controllers.offers', [])
             filteredProperties.push({
               'name': property.nameShort,
               'slug': property.meta.slug,
+              'code': property.code,
               'locationCode': property.locationCode,
               'type': 'property',
               'chainCode': property.chainCode
@@ -679,6 +680,7 @@ angular.module('mobius.controllers.offers', [])
             filteredProperties.push({
               'name': property.nameShort,
               'slug': property.meta.slug,
+              'code': property.code,
               'locationCode': property.locationCode,
               'type': 'property',
               'chainCode': property.chainCode
@@ -717,21 +719,19 @@ angular.module('mobius.controllers.offers', [])
 
                 filteredLocations.push({
                   'name': curLocation.nameShort + ', ' + curRegion.nameShort,
-                  'locationCode': propertyLocation,
+                  'code': propertyLocation,
                   'type': 'location'
                 });
 
               });
               filteredLocations = _.sortBy(filteredLocations, 'name');
 
-              console.log('filteredLocations: ' + angular.toJson(filteredLocations));
-
               //Assign data to scope
               _.each(filteredLocations, function(filteredLocation){
                 _.each(filteredProperties, function(filteredProperty){
-                  if(filteredProperty.locationCode === filteredLocation.locationCode){
+                  if(filteredProperty.locationCode === filteredLocation.code){
                     var availability = _.find($scope.selectedOffer.offerAvailability, function(availability){
-                      return availability.property === filteredProperty.locationCode;
+                      return availability.property === filteredProperty.code;
                     });
                     //Only display an offer if at least one of the following options is checked
                     if(availability && (availability.featured || availability.showOnHotelPage || availability.showOnMenu || availability.showOnOffersPage))
@@ -750,8 +750,6 @@ angular.module('mobius.controllers.offers', [])
               if($stateParams.propertySlug){
                 $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty = $stateParams.propertySlug;
               }
-
-              console.log('$scope.offerAvailabilityProperties: ' + angular.toJson($scope.offerAvailabilityProperties));
 
             });
           });
