@@ -1,22 +1,18 @@
 /////////////////////
 //// HERO SLIDER ////
 /////////////////////
-
-
 // GENERIC STYLES
 hero-slider {
-
   height: 430px;
   box-shadow: none;
   margin-top: 118px;
-
   .slider-controls {
-    .slide-button{
+    .slide-button {
       margin-top: -20px;
     }
     .pages {
       opacity: 1;
-      bottom: 0px;
+      bottom: 0;
       span {
         height: 11px;
         width: 11px;
@@ -24,20 +20,19 @@ hero-slider {
         opacity: 1;
         &.active {
           background-color: @c-secondary;
-          .chain-sign &{
+          .chain-sign & {
             background: @c-secondary-sign;
           }
         }
-        &:hover{
+        &:hover {
           background-color: @c-secondary;
-          .chain-sign &{
+          .chain-sign & {
             background: @c-secondary-sign;
           }
         }
       }
     }
   }
-
   .slider-content {
     .hero-slide {
       width: 100%;
@@ -45,29 +40,27 @@ hero-slider {
       overflow: hidden;
       position: absolute;
       background-position: center;
-
       height: 100%;
       background-size: cover;
-
       &.animation-right.sliding-in {
-        .content-inner h1, h2 {
+        .content-inner h1,
+        h2 {
           .slide-animation-right;
         }
       }
-
       &.animation-left.sliding-in {
-        .content-inner h1, h2 {
+        .content-inner h1,
+        h2 {
           .slide-animation-left;
         }
       }
-
       .content-inner {
         max-width: 100%;
         margin: 0 auto;
         position: relative;
         top: 65%;
-
-        h1, h2 {
+        h1,
+        h2 {
           position: absolute;
           color: @white;
           margin: 0;
@@ -77,16 +70,13 @@ hero-slider {
           border-bottom-right-radius: 0;
           font-weight: 300;
         }
-
         h1 {
           .animated-slow;
-
           font-size: 30px;
           line-height: 50px;
           text-transform: uppercase;
           background-color: @c-dark-grey-transparent;
           padding: 5px 170px 5px 50px;
-
           &:before {
             content: '';
             position: absolute;
@@ -97,7 +87,6 @@ hero-slider {
             top: 0;
           }
         }
-
         h2 {
           .animated-slower;
           top: 67px;
@@ -105,12 +94,10 @@ hero-slider {
           text-transform: none;
           background-color: @c-dark-grey-transparent;
           padding: 10px 170px 10px 50px;
-
           span {
             padding: 0;
             display: inline-block;
           }
-
           &:before {
             content: '';
             position: absolute;
@@ -125,8 +112,58 @@ hero-slider {
     }
   }
 }
-
-
+@media only screen and @tablet-portrait-max {
+  hero-slider {
+    .slider-content {
+      .hero-slide {
+        .content-inner {
+          h1,
+          h2 {
+            position:relative;
+            top:0;
+            left:0;
+            right:0;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and @large-mobile-min and @tablet-portrait-max {
+  hero-slider {
+    height: 300px;
+    //margin-top: 60px;
+    .slider-controls {
+      .pages {
+        bottom: 0;
+        span {
+          height: 7px;
+          width: 7px;
+        }
+      }
+    }
+    .slider-content {
+      .hero-slide {
+        .content-inner {
+          padding: 10px 10px 25px 20px;
+          box-sizing: border-box;
+          top: 60%;
+          h1, h2 {
+            padding:10px
+          }
+          h1 {
+            .fs-18;
+            line-height: 22px;
+          }
+          h2 {
+            .fs-16;
+            line-height: 18px;
+          }
+        }
+      }
+    }
+  }
+}
 // MOBILE SPECIFIC STYLES
 @media only screen and @small-mobile-max {
   hero-slider {
@@ -134,77 +171,36 @@ hero-slider {
     margin-top: 60px;
     .slider-controls {
       .pages {
-        bottom: 0px;
+        bottom: 0;
         span {
           height: 7px;
           width: 7px;
         }
       }
     }
-    .slider-content{
+    .slider-content {
       .hero-slide {
         .content-inner {
           padding: 10px 10px 25px 20px;
           box-sizing: border-box;
-          top: 20%;
+          top: 50%;
           background: none;
-          h1, h2 {
-            display: inline;
+          transform: translateY(-50%);
+          margin: 0;
+          padding: 0 20px;
+          overflow: hidden;
+          border-radius: 0px;
+          h1,
+          h2 {
             padding: 5px 15px;
           }
           h1 {
             font-size: 17px;
             line-height: 22px;
-            margin-bottom: 5px;
           }
-
           h2 {
             font-size: 12px;
-            margin-bottom: 10px;
             line-height: 18px;
-            top: 60px;
-          }
-        }
-      }
-    }
-  }
-}
-
-@media only screen and @large-mobile-min and @tablet-portrait-max{
-  hero-slider {
-    height: 300px;
-    //margin-top: 60px;
-    .slider-controls {
-      .pages {
-        bottom: 0px;
-        span {
-          height: 7px;
-          width: 7px;
-        }
-      }
-    }
-    .slider-content{
-      .hero-slide {
-        .content-inner {
-          padding: 10px 10px 25px 20px;
-          box-sizing: border-box;
-          top: 60%;
-          h1, h2 {
-            display: inline;
-          }
-          h1 {
-            .fs-18;
-            line-height: 22px;
-            margin-bottom: 5px;
-          }
-
-          h2 {
-            .fs-16;
-            margin-bottom: 10px;
-            line-height: 18px;
-            top: 50px;
-            padding: 5px 170px 5px 50px;
-
           }
         }
       }
