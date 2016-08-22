@@ -148,6 +148,12 @@ hotel-detail {
         .chain-sand &{
           background: @c-primary-sand;
         }
+        &:hover {
+          background: darken(@c-primary-sign, 10%);
+          .chain-sand & {
+            background: darken(@c-primary-sand, 10%);
+          }
+        }
       }
 
       list-item {
@@ -348,6 +354,9 @@ hotel-detail {
                 .chain-sign &,
                 .chain-sand &{
                   font-family: @ff-default;
+                }
+                &:hover {
+                  background: darken(@c-green, 10%);
                 }
               }
             }
@@ -572,6 +581,12 @@ hotel-detail {
         font-weight:700;
         .chain-sign & {
           background:@c-primary-sign;
+        }
+        &:hover {
+          background:darken(@c-primary-sand, 10%);
+          .chain-sign & {
+            background:darken(@c-primary-sign, 10%);
+          }
         }
         .viewport-mobile & {
           width:100%;

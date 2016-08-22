@@ -130,6 +130,11 @@ button-cancel {
   box-sizing: initial;
   width: auto;
   padding: 0 10px;
+  &:hover {
+    background: @c-button;
+    color: @c-white;
+    border: 2px solid @c-button;
+  }
 }
 
 //- Button Text
@@ -283,4 +288,3 @@ button-retry {
 .button-gray {
   .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
 }
-

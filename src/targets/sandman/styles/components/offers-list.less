@@ -92,6 +92,12 @@ rewards-list {
       width: 145px;
       left: 50%;
       transform: translate(-50%, 0);
+      &:hover {
+        background:darken(@c-secondary, 10%);
+        .chain-sign &{
+          background: darken(@c-secondary-sign, 10%);
+        }
+      }
       .chain-sign &{
         background: @c-secondary-sign;
         font-family: @ff-heading-bold-sign;
