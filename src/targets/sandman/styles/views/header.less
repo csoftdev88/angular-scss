@@ -1,6 +1,6 @@
 #main-header {
   background: #fff;
-  height: 118px;
+  height: 128px;
   .viewport-mobile &{
     height: auto;
   }
@@ -8,7 +8,7 @@
 
 // GENERIC STYLES
 .main-nav {
-  height: 88px;
+  height: 98px;
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
@@ -184,7 +184,7 @@
       li {
 
         position: relative;
-        line-height: 88px;
+        line-height: 98px;
 
         a {
           color: @c-dark-grey;
@@ -231,7 +231,7 @@
             margin-top: 2px;
             min-width: 0;
             color: @c-dark-grey;
-
+            line-height:17px;
             .message{
               color: @c-primary;
               font-weight: 400;
@@ -246,15 +246,15 @@
               font-size: @size--0;
 
               img {
-                width: 60px;
-                height: 60px;
+                width: 40px;
+                height: 40px;
                 border: 2px solid @c-light-grey;
-                margin-top: 10px;
+                margin-top: 25px;
               }
 
               .user-details{
                 position: relative;
-                top: 21px;
+                top: 30px;
                 &.has-points{
                   top: 13px;
                 }
@@ -277,6 +277,7 @@
                 background: none;
                 width: 0;
                 height: 0;
+                right:-20px;
                 border-style: solid;
                 border-width: 9px 4.5px 0 4.5px;
                 border-color: @c-light-grey transparent transparent;
@@ -291,7 +292,7 @@
 
       li[currency-list],
       li[language-list] {
-        line-height: 88px;
+        line-height: 98px;
         padding: 0 10px;
         a{
           color: @c-dark-grey;
