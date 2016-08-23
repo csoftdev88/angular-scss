@@ -6,6 +6,7 @@ describe('mobius.controllers.room.details', function() {
 
     beforeEach(function() {
       module('underscore');
+      module('angular-growl');
       module('mobius.controllers.room.details', function($provide){
         $provide.value('modalService', {
           openPoliciesInfo: sinon.spy(),

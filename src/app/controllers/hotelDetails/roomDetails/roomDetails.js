@@ -5,12 +5,27 @@
 angular.module('mobius.controllers.room.details', [])
 
 .controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
-  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService) {
+  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService, growl) {
 
   var numNights = 1;
 
   $scope.setRoomDetails = function(roomDetails){
+    roomDetails.statistics = [{
+      type:'booking',
+      unit:'days',
+      value: 30
+    }];
+
     $scope.roomDetails = roomDetails;
+
+    if($scope.roomDetails.statistics)
+    {
+      console.log('DISPLAY NOTIFICATION');
+      var config = {
+        referenceId: 0
+      };
+      growl.success('<b>Im</b> a success message', config);
+    }
 
     $scope.openGallery = function(slideIndex){
       modalService.openGallery(
