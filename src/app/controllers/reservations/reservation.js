@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, userObject, contentService, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, routerService){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, routerService){
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
@@ -264,7 +264,7 @@ angular.module('mobius.controllers.reservation', [])
         //overriding country name from /locales data using user data iso3 as infiniti country name doesn't match /locales country names
         var userCountry = null;
         _.each($scope.profileCountries, function(country){
-          if(country.code === userData.iso3){
+          if(country.id === userData.localeCode){
             userCountry = country.name;
           }
         });
@@ -596,7 +596,7 @@ angular.module('mobius.controllers.reservation', [])
       guestCity: $scope.userDetails.city,
       guestZip: $scope.userDetails.zip,
       guestStateProvince: $scope.userDetails.stateProvince,
-      guestCountry: $scope.userDetails.country,
+      guestCountry: $scope.userDetails.localeCode,
 
       billingDetailsUseGuestAddress: $scope.billingDetails.useGuestAddress,
       optedIn: $scope.additionalInfo.optedIn,
@@ -827,6 +827,28 @@ angular.module('mobius.controllers.reservation', [])
     }else{
       // Creating a new reservation
       promises.push(reservationService.createReservation(reservationData));
+    }
+
+    if(userObject !== null)
+    {
+      var userData = _.omit($scope.userDetails, _.isNull);
+      userData = _.omit(userData, ['id','token','email', 'languageCode']);
+
+      if(userData.countryObj)
+      {
+        userData.country = userData.countryObj.code;
+      }
+
+      console.log('we here');
+      if(userData && userObject.id)
+      {
+        console.log('send please');
+        apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), userData).then(function(){
+        }, function(){
+          $scope.error = true;
+          $scope.genericError = true;
+        });
+      }
     }
 
 
@@ -1143,6 +1165,20 @@ angular.module('mobius.controllers.reservation', [])
   $scope.formatDate = function(date, format){
     return $window.moment(date).format(format);
   };
+
+  $scope.$watch('billingDetails.country', function() {
+    if($scope.billingDetails.country && $scope.profileCountries)
+    {
+      $scope.billingDetails.countryObj = contentService.getCountryByID($scope.billingDetails.country, $scope.profileCountries);
+    }
+  });
+
+  $scope.$watch('userDetails.localeCode', function() {
+    if($scope.userDetails.localeCode && $scope.profileCountries)
+    {
+      $scope.userDetails.countryObj = contentService.getCountryByID($scope.userDetails.localeCode, $scope.profileCountries);
+    }
+  });
 
 
 

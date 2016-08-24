@@ -66,6 +66,7 @@ angular.module('mobius.controllers.profile', [])
 
 		$timeout(function(){
       $scope.profileData = user.getUser();
+      $scope.profileData.userCountry = contentService.getCountryByID($scope.profileData.localeCode, $scope.profileCountries);
     }, 2000);
 
 		$scope.update = function(form, profileData){
@@ -74,7 +75,14 @@ angular.module('mobius.controllers.profile', [])
 		  if(form.$valid){
 				var data = _.omit(profileData, _.isNull);
 				data = _.omit(data, ['id','token','email', 'languageCode']);
-				
+
+        data.userCountry = contentService.getCountryByID(data.localeCode, $scope.profileCountries);
+
+        if(data.userCountry)
+        {
+          data.country = data.userCountry.code;
+        }
+
 		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
 		      userObject = _.extend(userObject, data);
 		      $scope.success = true;

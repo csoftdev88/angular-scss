@@ -71,6 +71,16 @@ angular.module('mobiusApp.services.content', [])
     return apiService.get(apiService.getFullURL('generics.countries'));
   }
 
+  function getCountryByID(countryId, countryList){
+    var countryMatch = null;
+    _.each(countryList, function(country){
+      if(country.id === countryId){
+        countryMatch = country;
+      }
+    });
+    return countryMatch;
+  }
+
   function getTitles(){
     return apiService.get(apiService.getFullURL('generics.titles'));
   }
@@ -106,6 +116,7 @@ angular.module('mobiusApp.services.content', [])
     getTitles: getTitles,
     getContactMethods: getContactMethods,
     getLightBoxContent: getLightBoxContent,
-    getCountries: getCountries
+    getCountries: getCountries,
+    getCountryByID: getCountryByID
   };
 });
