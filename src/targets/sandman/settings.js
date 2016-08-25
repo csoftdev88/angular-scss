@@ -387,7 +387,8 @@ angular.module('mobiusApp.config', [])
       },
       'bookingStatistics':{
         'display':true,
-        'displayDelay':3000
+        'displayDelay':5000,
+        'displayTime':10000 //The length that you wish the alerts to appear for
       }
     },
 

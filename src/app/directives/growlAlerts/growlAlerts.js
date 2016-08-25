@@ -1,21 +1,23 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$timeout', '$rootScope',
-    function(growl, $timeout, $rootScope) {
+  .directive('growlAlerts', ['growl', '$rootScope',
+    function(growl, $rootScope) {
       return {
         restrict: 'E',
         scope: {
           bookingMessage: '=',
           viewsMessage: '=',
           searchesMessage: '=',
-          positionReference: '='
+          positionReference: '=',
+          displayTime: '='
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
         link: function(scope) {
           var config = {
-            referenceId: scope.positionReference ? scope.positionReference : 0
+            referenceId: scope.positionReference ? scope.positionReference : 0,
+            ttl: scope.displayTime ? scope.displayTime : 10000
           };
 
           $rootScope.$on('GROWL_ALERT', function (event, statistic) {
@@ -37,7 +39,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
               default:
                 message = 'No message';
             }
-            
+
             message = message.replace('{numTypes}', statistic.numTypes).replace('{numUnits}', statistic.numUnits).replace('{unit}', statistic.unit);
 
             return message;

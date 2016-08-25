@@ -13,5 +13,5 @@
   <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
 
   <!-- Growl notifications -->
-  <growl-alerts ng-if="config.bookingStatistics.display" booking-message="'_statistics_booking_message_'" views-message="'_statistics_views_message_'" searches-message="'_statistics_searches_message_'" position-reference="1"></growl-alerts>
+  <growl-alerts ng-if="config.bookingStatistics.display" booking-message="'_statistics_booking_message_'" views-message="'_statistics_views_message_'" searches-message="'_statistics_searches_message_'" position-reference="2" display-time="config.bookingStatistics.displayTime"></growl-alerts>
 </main>
