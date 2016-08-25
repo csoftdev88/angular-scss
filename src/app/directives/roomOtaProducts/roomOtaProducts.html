@@ -1,0 +1,17 @@
+<ul ng-if="otaProducts" class="ota-products">
+  <li ng-repeat="otaProduct in otaProducts">
+    <div class="rate-description">
+      <h4><span>{{otaProduct.description}}</span></h4>
+    </div>
+    <pricing-details>
+      <div class="price-details">
+        <p class="price-form">
+          <span class="value">{{otaProduct.price | i18nCurrency: currencyCode }}</span>
+        </p>
+      </div>
+      <div class="action-buttons">
+        <img ng-src="{{otaProduct.logo}}" class="rate-logo" alt="{{otaProduct.type}} logo" />
+      </div>
+    </pricing-details>
+  </li>
+</ul>

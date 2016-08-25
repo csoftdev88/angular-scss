@@ -325,7 +325,8 @@ angular.module('mobiusApp.config', [])
           'showNoRatesSubDescription': false,
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
-          'rateInfoIsTabbed': true
+          'rateInfoIsTabbed': true,
+          'displayOtaRates': true
         }
 
       },
@@ -911,6 +912,14 @@ angular.module('mobiusApp.config', [])
           'src': '/static/images/hotelFooterLogo.png',
           'alt': 'Worldhotels deluxe'
         }
+      }
+    },
+    'otaRates': {
+      'expedia': {
+        'logo': '/static/images/expedia-logo.jpg'
+      },
+      'tripadvisor': {
+        'logo': '/static/images/tripadvisor-logo.jpg'
       }
     }
   }

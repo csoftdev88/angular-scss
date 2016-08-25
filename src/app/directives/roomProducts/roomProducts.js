@@ -22,6 +22,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.init = function(){
         scope.products = undefined;
+        scope.otaProducts = undefined;
 
         // Using PGID from the booking params
         if(bookingParams.productGroupId){
@@ -38,6 +39,17 @@ angular.module('mobiusApp.directives.room.products', [])
 
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
+
+            //Temporary inject
+            data.otaProducts = [
+              {
+                'type':'expedia',
+                'price':239
+              }, {
+                'type':'tripadvisor',
+                'price':200
+              }
+            ];
 
             //Get discount cookie
             var discountCookie = cookieFactory('discountCode');
@@ -84,6 +96,8 @@ angular.module('mobiusApp.directives.room.products', [])
             defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
             scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
+
+            scope.otaProducts = data.otaProducts;
 
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
