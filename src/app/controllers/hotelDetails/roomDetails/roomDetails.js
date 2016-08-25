@@ -4,27 +4,26 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $q, _, modalService,
-  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService, growl) {
+.controller( 'RoomDetailsCtrl', function($scope, $rootScope, $timeout, $q, _, modalService,
+  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService) {
 
   var numNights = 1;
 
   $scope.setRoomDetails = function(roomDetails){
     roomDetails.statistics = [{
-      type:'booking',
+      type:'searches',
       unit:'days',
-      value: 30
+      numTypes: 247,
+      numUnits: 30
     }];
 
     $scope.roomDetails = roomDetails;
 
-    if($scope.roomDetails.statistics)
-    {
-      console.log('DISPLAY NOTIFICATION');
-      var config = {
-        referenceId: 0
-      };
-      growl.success('<b>Im</b> a success message', config);
+    if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics && $scope.roomDetails.statistics.length){
+      $timeout(function(){
+        var statistic = $scope.roomDetails.statistics[0];
+        $rootScope.$broadcast('GROWL_ALERT', statistic);
+      }, $scope.config.bookingStatistics.displayDelay);
     }
 
     $scope.openGallery = function(slideIndex){

@@ -163,6 +163,7 @@ angular
     'mobiusApp.directives.stickable',
     'mobiusApp.directives.hoverTrigger',
     'mobiusApp.directives.scrollToTop',
+    'mobiusApp.directives.growlAlerts',
 
     'internationalPhoneNumber',
 
@@ -189,8 +190,9 @@ angular
   $locationProvider.hashPrefix('!');
 
   //Global config for growl messages
-  growlProvider.globalTimeToLive({success: 100000, error: 2000, warning: 100000, info: 4000});
+  growlProvider.globalTimeToLive(30000);
   growlProvider.onlyUniqueMessages(false);
+  growlProvider.globalPosition('top-center');
   //growlProvider.globalReversedOrder(true);
 
   $stateProvider

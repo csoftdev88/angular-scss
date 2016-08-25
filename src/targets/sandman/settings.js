@@ -384,6 +384,10 @@ angular.module('mobiusApp.config', [])
         },
         //displayPrice can be button or text
         'displayPrice': 'text'
+      },
+      'bookingStatistics':{
+        'display':true,
+        'displayDelay':3000
       }
     },
 

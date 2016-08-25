@@ -1,0 +1,36 @@
+.growl-alerts {
+  //z-index: 9999;
+  &.top-right {
+    position: absolute;
+    top: 128px;
+    right: -285px;
+    max-width: 280px;
+    .sticky-bread & {
+      top:45px;
+    }
+    .viewport-mobile &, .viewport-tablet & {
+      display: none;
+    }
+  }
+  &.right-center {
+    position: absolute;
+    max-width: 280px;
+    top: 50%;
+    right: -300px;
+    transform: translateY(-50%);
+    .viewport-mobile &, .viewport-tablet & {
+      display: none;
+    }
+  }
+  &.top-center {
+    .growl-container {
+      &.top-center {
+        margin: 0;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  .growl-container {
+    .alerts;
+  }
+}
