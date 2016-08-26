@@ -46,7 +46,7 @@ angular.module('mobiusApp.directives.room.products', [])
                 'type':'expedia',
                 'price':239
               }, {
-                'type':'tripadvisor',
+                'type':'bookingcom',
                 'price':200
               }
             ];

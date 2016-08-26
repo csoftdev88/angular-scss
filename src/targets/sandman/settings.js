@@ -916,10 +916,10 @@ angular.module('mobiusApp.config', [])
     },
     'otaRates': {
       'expedia': {
-        'logo': '/static/images/expedia-logo.jpg'
+        'logo': '/static/images/expedia_logo.png'
       },
-      'tripadvisor': {
-        'logo': '/static/images/tripadvisor-logo.jpg'
+      'bookingcom': {
+        'logo': '/static/images/bookingcom_logo.png'
       }
     }
   }

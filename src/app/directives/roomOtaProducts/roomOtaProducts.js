@@ -11,6 +11,7 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
       otaProducts: '=',
       otaExpediaMessage: '=',
       otaTripadvisorMessage: '=',
+      otaBookingComMessage: '=',
       currencyCode: '='
     },
     replace: false,
@@ -26,11 +27,11 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
                   }
                   otaProduct.description = scope.otaExpediaMessage;
                   break;
-                case 'tripadvisor':
-                  if(otaRatesConfig && otaRatesConfig.tripadvisor.logo) {
-                    otaProduct.logo = otaRatesConfig.tripadvisor.logo;
+                case 'bookingcom':
+                  if(otaRatesConfig && otaRatesConfig.bookingcom.logo) {
+                    otaProduct.logo = otaRatesConfig.bookingcom.logo;
                   }
-                  otaProduct.description = scope.otaTripadvisorMessage;
+                  otaProduct.description = scope.otaBookingComMessage;
                   break;
                 default:
                   otaProduct.description = 'Message is not defined';
