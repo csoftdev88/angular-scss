@@ -83,8 +83,7 @@
     </p>
   </li>
 </ul>
-
-<room-ota-products ota-products="otaProducts" ota-expedia-message="'_ota_expedia_message_'" ota-tripadvisor-message="'_ota_tripadvisor_message_'"></room-ota-products>
+<room-ota-products ng-if="roomsConfig.rates.displayOtaRates" ota-products="otaProducts" ota-expedia-message="'_ota_expedia_message_'" ota-tripadvisor-message="'_ota_tripadvisor_message_'" currency-code="currencyCode"></room-ota-products>
 
 <!-- VIEW MORE RATES -->
 <div class="view-more-rates">

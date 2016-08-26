@@ -488,7 +488,7 @@
     "error_page_copy_one": "We’re fixing the problem right now - please check back soon and it’ll be good as new!",
     "error_page_copy_two": "If you need immediate assistance you can call us on <a href='tel:1-800-SANDMAN'>1-800-SANDMAN</a>",
     "change_currency": "Change currency",
-    "ota_expedia_message": "This room is available to book with Expedia at",
-    "ota_tripadvisor_message": "This room is available to book with Tripadvisor at"
+    "ota_expedia_message": "This room is available to book with Expedia",
+    "ota_tripadvisor_message": "This room is available to book with Tripadvisor"
   }
 }

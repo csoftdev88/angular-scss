@@ -1,10 +1,38 @@
 .ota-products {
   > li {
-    .action-buttons {
-      .rate-logo {
-        max-width: 100px;
-        max-height: 40px;
-        text-align: right;
+    &:first-child {
+      border-top:0px none;
+    }
+    .rate-description {
+      min-height:65px;
+      position:relative;
+      h4 {
+        padding-left:25px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    pricing-details {
+      margin:10px 0;
+      padding-top:0;
+      min-height:45px;
+      box-sizing:border-box;
+      .action-buttons {
+        .rate-logo {
+          max-width: 100px;
+          max-height: 40px;
+          position:absolute;
+          top:50%;
+          right:0;
+          transform:translateY(-50%);
+          .viewport-mobile & {
+            position: initial;
+            top: 0;
+            transform: none;
+            margin-top: 10px;
+          }
+        }
       }
     }
   }

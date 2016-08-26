@@ -10,9 +10,10 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
     scope: {
       otaProducts: '=',
       otaExpediaMessage: '=',
-      otaTripadvisorMessage: '='
+      otaTripadvisorMessage: '=',
+      currencyCode: '='
     },
-    replace: true,
+    replace: false,
     link: function(scope){
       var otaRatesConfig = Settings.UI.otaRates;
       scope.$watch('otaProducts', function(newValue) {
