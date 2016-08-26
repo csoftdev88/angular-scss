@@ -4,9 +4,10 @@
  */
 angular.module('mobius.controllers.regions', [])
 
-  .controller('RegionsCtrl', function($scope, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _, modalService) {
+  .controller('RegionsCtrl', function($scope, $rootScope, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _, modalService, Settings) {
 
     $scope.showDetail = $stateParams.regionSlug ? true : false;
+    $scope.regionConfig = Settings.UI.regions;
 
     //Regions overview
     function getRegions(){
@@ -35,13 +36,27 @@ angular.module('mobius.controllers.regions', [])
 
         //Apply region to scope
         //$scope.region = _.where(regions, {meta['slug']: regionSlug});
-        $scope.region = _.find(regions, function(region){ 
-          return region.meta.slug === regionSlug; 
+        $scope.region = _.find(regions, function(region){
+          return region.meta.slug === regionSlug;
         });
+
+        $scope.region.statistics = [{
+          type:'searches',
+          unit:'days',
+          numTypes: 247,
+          numUnits: 30
+        }];
+
+        if($scope.regionConfig .bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region.statistics && $scope.region.statistics.length){
+          $timeout(function(){
+            var statistic = $scope.region.statistics[0];
+            $rootScope.$broadcast('GROWL_ALERT', statistic);
+          }, $scope.regionConfig .bookingStatistics.displayDelay);
+        }
 
         //hero slider
         $scope.updateHeroContent($scope.region.images);
-        
+
         //gallery
         $scope.previewImages = contentService.getLightBoxContent($scope.region.images, 300, 150, 'fill');
         $scope.openGallery = function(slideIndex){
