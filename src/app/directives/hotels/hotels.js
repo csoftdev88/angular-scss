@@ -87,8 +87,8 @@ angular.module('mobiusApp.directives.hotels', [])
                     location.statistics = [{
                       type:'searches',
                       unit:'days',
-                      numTypes: 247,
-                      numUnits: 30
+                      numTypes: 100,
+                      numUnits: 2
                     }];
 
                     //details
@@ -98,7 +98,7 @@ angular.module('mobiusApp.directives.hotels', [])
                       $timeout(function(){
                         var statistic = scope.locationDetails.statistics[0];
                         $rootScope.$broadcast('GROWL_ALERT', statistic);
-                      }, scope.config.bookingStatistics.displayDelay);
+                      });
                     }
 
                     //gallery

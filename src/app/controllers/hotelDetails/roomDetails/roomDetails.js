@@ -11,9 +11,9 @@ angular.module('mobius.controllers.room.details', [])
 
   $scope.setRoomDetails = function(roomDetails){
     roomDetails.statistics = [{
-      type:'searches',
-      unit:'days',
-      numTypes: 247,
+      type:'booking',
+      unit:'minutes',
+      numTypes: 5,
       numUnits: 30
     }];
 
@@ -23,7 +23,7 @@ angular.module('mobius.controllers.room.details', [])
       $timeout(function(){
         var statistic = $scope.roomDetails.statistics[0];
         $rootScope.$broadcast('GROWL_ALERT', statistic);
-      }, $scope.config.bookingStatistics.displayDelay);
+      });
     }
 
     $scope.openGallery = function(slideIndex){

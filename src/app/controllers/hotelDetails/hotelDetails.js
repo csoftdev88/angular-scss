@@ -115,21 +115,7 @@ angular.module('mobius.controllers.hotel.details', [
 
     //response from request with params may be faster, in which case don't overwrite scope.details as response from this call does not include amenities
     if(angular.isUndefined($scope.details)){
-      details.statistics = [{
-        type:'searches',
-        unit:'days',
-        numTypes: 247,
-        numUnits: 30
-      }];
-
       $scope.details = details;
-
-      if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics && $scope.details.statistics.length){
-        $timeout(function(){
-          var statistic = $scope.details.statistics[0];
-          $rootScope.$broadcast('GROWL_ALERT', statistic);
-        }, $scope.config.bookingStatistics.displayDelay);
-      }
     }
 
     $scope.localInfo = details.localInfo;
@@ -193,7 +179,7 @@ angular.module('mobius.controllers.hotel.details', [
           $timeout(function(){
             var statistic = $scope.details.statistics[0];
             $rootScope.$broadcast('GROWL_ALERT', statistic);
-          }, $scope.config.bookingStatistics.displayDelay);
+          });
         }
 
         //Gp to error page if response is empty

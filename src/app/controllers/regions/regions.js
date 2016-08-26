@@ -51,7 +51,7 @@ angular.module('mobius.controllers.regions', [])
           $timeout(function(){
             var statistic = $scope.region.statistics[0];
             $rootScope.$broadcast('GROWL_ALERT', statistic);
-          }, $scope.regionConfig .bookingStatistics.displayDelay);
+          });
         }
 
         //hero slider
