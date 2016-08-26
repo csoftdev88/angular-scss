@@ -40,7 +40,9 @@
 
 //- Header
 .ui-datepicker-header {
-
+  .viewport-mobile & {
+    position:relative;
+  }
 }
 
 // Month title
@@ -48,6 +50,7 @@
   .viewport-mobile & {
     width:100%;
     padding:0 50px;
+    box-sizing:border-box;
     text-align:center;
   }
 }
@@ -57,6 +60,8 @@
 .ui-datepicker-next {
   .viewport-mobile & {
     position:absolute;
+    top:50%;
+    margin-top:-22px;
   }
 }
 
