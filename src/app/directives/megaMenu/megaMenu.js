@@ -134,6 +134,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
         megaMenu.removeClass('closed');
       };
+
       scope.isActive = function(){
         //hotels menu
         if(attrs.type === 'hotels'){
@@ -145,14 +146,12 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
-      scope.menuClick = function(){
-        //hotels menu
+      scope.getMenuUrl = function(){
         if(attrs.type === 'hotels'){
-          $state.go('regions', {regionSlug: null, property: null, location: null});
+          return $state.href('regions', {regionSlug: null, property: null, location: null});
         }
-        //hot deals
         else if(attrs.type === 'hot-deals'){
-          $state.go('hotDeals', {regionSlug: null, locationSlug: null, code: null, property: null, location: null});
+          return $state.href('hotDeals', {regionSlug: null, locationSlug: null, code: null, property: null, location: null});
         }
       };
 
@@ -162,14 +161,6 @@ angular.module('mobiusApp.directives.megaMenu', [])
           scope.closeMenu();
           $state.go('regions', {regionSlug: region.meta.slug, property: null, location: null});
         }
-        //hot deals
-        //Keeping this in case it will be used
-        /*
-        else if(attrs.type === 'hot-deals'){
-          scope.closeMenu();
-          $state.go('hotDeals', {regionSlug: region.meta.slug, locationSlug: null, code: null, property: null, location: null});
-        }
-        */
       };
 
       scope.locationClick = function(location){
