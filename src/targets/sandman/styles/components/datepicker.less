@@ -40,22 +40,35 @@
 
 //- Header
 .ui-datepicker-header {
-
+  .viewport-mobile & {
+    position:relative;
+  }
 }
 
 // Month title
 .ui-datepicker-title {
-
+  .viewport-mobile & {
+    width:100%;
+    padding:0 50px;
+    box-sizing:border-box;
+    text-align:center;
+  }
 }
 
 // Next & prev button
 .ui-datepicker-prev,
 .ui-datepicker-next {
-
+  .viewport-mobile & {
+    position:absolute;
+    top:50%;
+    margin-top:-22px;
+  }
 }
 
 .ui-datepicker-next {
-
+  .viewport-mobile & {
+    right:0;
+  }
 }
 
 
