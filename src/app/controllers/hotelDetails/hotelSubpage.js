@@ -62,7 +62,8 @@ angular.module('mobius.controllers.hotel.subpage', [])
         if(elem.parentNode){
           elem.parentNode.removeChild(elem);
         }
-        
+
+        c.url = getInfoUrl(c);
         $scope.moreInfo.push(c);
       }
     }
@@ -107,7 +108,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
           .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsOffers'})
           .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsRooms'})
           .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'fnOpenLightBox'});
-          
+
         });
 
         // Updating Hero content images
@@ -151,6 +152,17 @@ angular.module('mobius.controllers.hotel.subpage', [])
         scrollTo(hash.substr(1));
       }
     }));
+  }
+
+  function getInfoUrl(info) {
+    var stateParams = {
+      'property': $scope.details.code,
+      'propertySlug': $scope.details.meta.slug,
+      'infoSlug': info.meta.slug,
+      'regionSlug': $stateParams.regionSlug,
+      'locationSlug': $stateParams.locationSlug
+    };
+    return $state.href('hotelInfo', stateParams, {reload: true});
   }
 
   getHotelDetails(bookingService.getCodeFromSlug($stateParams.propertySlug));
