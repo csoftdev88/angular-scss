@@ -20,6 +20,7 @@ angular.module('mobius.controllers.regions', [])
           if(region.merchandisingBanners && region.merchandisingBanners.length){
             region.merchandisingBanner = region.merchandisingBanners.length === 1 ? region.merchandisingBanners[0] : region.merchandisingBanners[Math.floor(region.merchandisingBanners.length * Math.random())];
           }
+          region.url = getRegionUrl(region);
         });
         $scope.allRegions = regions;
         //scroll to detail
@@ -86,6 +87,11 @@ angular.module('mobius.controllers.regions', [])
     $scope.goToHotels = function(locationSlug){
       $state.go('hotels', {regionSlug: $stateParams.regionSlug, locationSlug: locationSlug});
     };
+
+    function getRegionUrl(region){
+      var regionSlug = region.meta.slug;
+      return $state.href('regions', {regionSlug: regionSlug});
+    }
 
     function getLocationUrl(location){
       var locationSlug = location.meta.slug;

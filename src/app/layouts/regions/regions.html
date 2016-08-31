@@ -10,6 +10,7 @@
     <h1 grid="12" ng-bind-html="'_regions_page_title_' | mainHeaderStyle" class="regions-heading"></h1>
 
     <region-item ng-repeat="region in allRegions | orderBy: 'nameShort'" ng-click="goToDetail(region.meta.slug)">
+      <a ng-href="{{region.url}}" style="display:none">{{region.nameShort}}</a>
       <div class="banner" ng-if="region.merchandisingBanner" ng-style="{'background-color': region.merchandisingBanner.bgColor, 'color': region.merchandisingBanner.textColor}">{{region.merchandisingBanner.text}}</div>
       <img ng-src="{{region.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{region.images[0].alt}}"/>
 
