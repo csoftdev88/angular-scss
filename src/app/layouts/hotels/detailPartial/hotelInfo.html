@@ -22,7 +22,7 @@
       <read-more ng-if="details.content.length && details.content[0].title">
         <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
         <ul>
-          <li ng-repeat="item in details.content | orderBy: 'order'"><a href="" ng-click="goToInfo(details, item.meta.slug)">{{item.title}}</a></li>
+          <li ng-repeat="item in details.content | orderBy: 'order'"><a ng-href="{{item.url}}">{{item.title}}</a></li>
         </ul>
       </read-more>
     </view-more-images>

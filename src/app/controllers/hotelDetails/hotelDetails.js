@@ -1,18 +1,22 @@
 'use strict';
 /*
-*  Controller for hotel details page with a list of rooms
-*/
+ *  Controller for hotel details page with a list of rooms
+ */
 angular.module('mobius.controllers.hotel.details', [
   'mobiusApp.filters.cloudinaryImage'
 ])
 
-.controller( 'HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
+.controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
   $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
 
-  $controller('PriceCtr', {$scope: $scope});
+  $controller('PriceCtr', {
+    $scope: $scope
+  });
   // Used for rate notification message
-  $controller('RatesCtrl', {$scope: $scope});
+  $controller('RatesCtrl', {
+    $scope: $scope
+  });
 
   //Apply config:
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;
@@ -27,8 +31,8 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.partials = [];
 
   //define page partials based on settings
-  _.map(Settings.UI.hotelDetails.partials, function(value, key){
-    if(value === true){
+  _.map(Settings.UI.hotelDetails.partials, function(value, key) {
+    if (value === true) {
       var partial = 'layouts/hotels/detailPartial/' + key + '.html';
       $scope.partials.push(partial);
     }
@@ -45,26 +49,23 @@ angular.module('mobius.controllers.hotel.details', [
   bookingParams.includes = 'amenities';
 
   // Sorting options
-  $scope.initSortingOptions = function(options){
-    $scope.sortingOptions = [
-      {
-        name: options.priceLowToHigh,
-        sort: function(room){
-          return room.priceFrom ? room.priceFrom : room.name;
-        }
-      },
-      {
-        name: options.priceHighToLow,
-        sort: function(room){
-          return room.priceFrom ? 0 - room.priceFrom : room.name;
-        }
+  $scope.initSortingOptions = function(options) {
+    $scope.sortingOptions = [{
+      name: options.priceLowToHigh,
+      sort: function(room) {
+        return room.priceFrom ? room.priceFrom : room.name;
       }
-    ];
+    }, {
+      name: options.priceHighToLow,
+      sort: function(room) {
+        return room.priceFrom ? 0 - room.priceFrom : room.name;
+      }
+    }];
 
-    if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+    if (Settings.UI.hotelDetails.rooms.sortRoomsByWeighting) {
       $scope.sortingOptions.splice(0, 0, {
         name: options.recommended,
-        sort: function(room){
+        sort: function(room) {
           return room.weighting ? [-room.priceFrom, -room.weighting] : room.name;
         }
       });
@@ -74,23 +75,22 @@ angular.module('mobius.controllers.hotel.details', [
     USER PREFERENCE SETTINGS
     */
     //order switch default value
-    if(mobiusUserPreferences && mobiusUserPreferences.hotelCurrentOrder){
+    if (mobiusUserPreferences && mobiusUserPreferences.hotelCurrentOrder) {
       var index = _.findIndex($scope.sortingOptions, function(option) {
         return option.name === mobiusUserPreferences.hotelCurrentOrder;
       });
-      $timeout(function(){
+      $timeout(function() {
         $scope.currentOrder = $scope.sortingOptions[index !== -1 ? index : 0];
       }, 0);
-    }
-    else{
-      $timeout(function(){
+    } else {
+      $timeout(function() {
         $scope.currentOrder = $scope.sortingOptions[1];
       }, 0);
     }
 
 
     //save order switch value to cookies when changed
-    $scope.orderSwitchChange = function(selected){
+    $scope.orderSwitchChange = function(selected) {
       userPreferenceService.setCookie('hotelCurrentOrder', selected.name);
     };
 
@@ -99,38 +99,40 @@ angular.module('mobius.controllers.hotel.details', [
 
   var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
 
-  if(!propertyCode){
+  if (!propertyCode) {
     $state.go('hotels');
     return;
   }
 
-  $scope.scrollToBreadcrumbs = function(){
-    $timeout(function(){
+  $scope.scrollToBreadcrumbs = function() {
+    $timeout(function() {
       scrollService.scrollTo();
     }, 0);
   };
 
   //Getting raw property details to display property desc etc...fast
-  propertyService.getPropertyDetails(propertyCode).then(function(details){
+  propertyService.getPropertyDetails(propertyCode).then(function(details) {
 
     //response from request with params may be faster, in which case don't overwrite scope.details as response from this call does not include amenities
-    if(angular.isUndefined($scope.details)){
+    if (angular.isUndefined($scope.details)) {
       $scope.details = details;
     }
 
     $scope.localInfo = details.localInfo;
-    if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle){
+    if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle) {
       breadcrumbsService.setHeader(details.nameLong);
     }
     // Updating Hero content images
-    if(details.images){
-      $scope.updateHeroContent($window._.filter(details.images, {includeInSlider: true}));
+    if (details.images) {
+      $scope.updateHeroContent($window._.filter(details.images, {
+        includeInSlider: true
+      }));
 
       // NOTE: (Alex)Could be done as modalService.openGallery.bind(modalService,...)
       // Current version of PhantomJS is missing not supporting .bind
       // https://github.com/ariya/phantomjs/issues/10522
       // TODO: Update PhantomJS
-      $scope.openGallery = function(slideIndex){
+      $scope.openGallery = function(slideIndex) {
         modalService.openGallery(
           contentService.getLightBoxContent(details.images),
           slideIndex
@@ -145,13 +147,13 @@ angular.module('mobius.controllers.hotel.details', [
     //Scroll to rooms straight away if user comes from booking bar
     var scrollToValue = $location.search().scrollTo || null;
     if (scrollToValue && scrollToValue === 'jsRooms') {
-      $timeout(function(){
+      $timeout(function() {
         var offset = stateService.isMobile() ? -50 : 20;
         scrollService.scrollTo(scrollToValue, offset);
-      }, 1500).then(function(){
+      }, 1500).then(function() {
         //Set scrollTo value to null so page doesn't scroll to rooms if user doesn't come from booking bar
-        if(Settings.UI.hotelDetails.removeScrollToRoomsOnFinish){
-          $timeout(function(){
+        if (Settings.UI.hotelDetails.removeScrollToRoomsOnFinish) {
+          $timeout(function() {
             $location.search('scrollTo', null);
           }, 1500);
         }
@@ -159,21 +161,21 @@ angular.module('mobius.controllers.hotel.details', [
     }
   });
 
-  function getHotelDetails(propertyCode, params){
+  function getHotelDetails(propertyCode, params) {
     // NOTE: In case when productGroupId is not presented in
     // bookingParams - property details are returned without
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
-      .then(function(details){
+      .then(function(details) {
         $scope.details = details;
 
         //Gp to error page if response is empty
-        if(_.isEmpty($scope.details)){
+        if (_.isEmpty($scope.details)) {
           $state.go('error');
         }
 
         //Set meta content
-        if($scope.details && $scope.details.meta){
+        if ($scope.details && $scope.details.meta) {
           metaInformationService.setMetaDescription($scope.details.meta.description);
           metaInformationService.setMetaKeywords($scope.details.meta.keywords);
           metaInformationService.setPageTitle($scope.details.meta.pagetitle);
@@ -182,7 +184,7 @@ angular.module('mobius.controllers.hotel.details', [
           metaInformationService.setOgGraph($scope.details.meta.microdata.og);
         }
 
-        if($scope.details && $scope.details.description){
+        if ($scope.details && $scope.details.description) {
           $scope.details.description = ('' + $scope.details.description);
           var firstParaEnd = $scope.details.description.indexOf('</p>');
           var firstBr = $scope.details.description.indexOf('<br>');
@@ -196,24 +198,34 @@ angular.module('mobius.controllers.hotel.details', [
         //Breadcrumbs
         breadcrumbsService.clear();
 
-        if($scope.config.breadcrumbs.hotels){
+        if ($scope.config.breadcrumbs.hotels) {
           breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
         }
 
-        if($scope.config.breadcrumbs.location && $stateParams.regionSlug && $stateParams.locationSlug){
+        if ($scope.config.breadcrumbs.location && $stateParams.regionSlug && $stateParams.locationSlug) {
           //Get property region/location data for breadcrumbs
-          propertyService.getPropertyRegionData(details.locationCode).then(function(data){
+          propertyService.getPropertyRegionData(details.locationCode).then(function(data) {
             breadcrumbsService
-              .addBreadCrumb(data.region.nameShort, 'regions', {regionSlug: $stateParams.regionSlug, property: null})
-              .addBreadCrumb(data.location.nameShort, 'hotels', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, property: null})
+              .addBreadCrumb(data.region.nameShort, 'regions', {
+                regionSlug: $stateParams.regionSlug,
+                property: null
+              })
+              .addBreadCrumb(data.location.nameShort, 'hotels', {
+                regionSlug: $stateParams.regionSlug,
+                locationSlug: $stateParams.locationSlug,
+                property: null
+              })
               .addBreadCrumb(details.nameShort);
           });
-        }
-        else{
+        } else {
           breadcrumbsService.addBreadCrumb(details.nameShort);
         }
 
-
+        if($scope.details.content){
+          _.each($scope.details.content, function(item){
+            item.url = getContentUrl(item);
+          });
+        }
 
         breadcrumbsService
           .addHref('About', 'jsAbout')
@@ -222,25 +234,26 @@ angular.module('mobius.controllers.hotel.details', [
           .addHref('Offers', 'jsOffers')
           .addHref('Gallery', 'fnOpenHotelLightBox');
 
-        if(details.hasOwnProperty('available')) {
+        if (details.hasOwnProperty('available')) {
           roomsPromise.then(function() {
             $scope.availableRooms = [];
             $window._.forEach((details.availability && details.availability.rooms) || [], function(availableRoom) {
-              var room = $window._.find($scope.rooms, {code: availableRoom.code});
-              if(room) {
+              var room = $window._.find($scope.rooms, {
+                code: availableRoom.code
+              });
+              if (room) {
                 room = $window._.extend(room, availableRoom);
                 $scope.availableRooms.push(room.code);
               }
             });
             $scope.ratesLoaded = true;
-            if($scope.availableRooms.length === 0){
+            if ($scope.availableRooms.length === 0) {
               $rootScope.$broadcast('floatingBarEvent', {
                 isCollapsed: false
               });
             }
           });
-        }
-        else{
+        } else {
           $scope.ratesLoaded = true;
         }
 
@@ -249,24 +262,23 @@ angular.module('mobius.controllers.hotel.details', [
         delete offersParams.corpCode;
         delete offersParams.groupCode;
         contentService.getOffers().then(function(response) {
-          response = _.filter(response, function(offer, index){
-            var availability = _.find(offer.offerAvailability, function(availability){
+          response = _.filter(response, function(offer, index) {
+            var availability = _.find(offer.offerAvailability, function(availability) {
               return availability.property === propertyCode;
             });
-            response[index].availability =  availability && availability.showOnHotelPage ? availability : null;
+            response[index].availability = availability && availability.showOnHotelPage ? availability : null;
             return availability && availability.showOnHotelPage;
           });
           $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
-          _.each($scope.offersList, function(offer){
+          _.each($scope.offersList, function(offer) {
             offer.url = getOfferUrl(offer);
           });
-          if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
+          if (!$scope.offersList || $window._.isEmpty($scope.offersList)) {
             breadcrumbsService.removeHref('Offers');
-          }
-          else{
+          } else {
             var scrollToValue = $location.search().scrollTo || null;
             if (scrollToValue && scrollToValue === 'jsOffers') {
-              $timeout(function(){
+              $timeout(function() {
                 scrollService.scrollTo(scrollToValue, 20);
               }, 500);
             }
@@ -280,14 +292,13 @@ angular.module('mobius.controllers.hotel.details', [
       });
 
     var roomsPromise = propertyService.getRooms(propertyCode)
-      .then(function(rooms){
+      .then(function(rooms) {
 
         //handle displaying of rates
-        _.each(rooms, function(room){
-          if(stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad){
+        _.each(rooms, function(room) {
+          if (stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad) {
             $scope.displayRoomRates(room);
-          }
-          else{
+          } else {
             room._displayRates = false;
           }
         });
@@ -299,7 +310,7 @@ angular.module('mobius.controllers.hotel.details', [
         $scope.viewRatesButtonText = Settings.UI.hotelDetails.rooms.viewRatesButtonText;
         $scope.hoverTriggerDelay = Settings.UI.hotelDetails.rooms.hoverTriggerDelay;
 
-        $scope.openRoomGallery = function(room, slideIndex){
+        $scope.openRoomGallery = function(room, slideIndex) {
           modalService.openGallery(
             contentService.getLightBoxContent(angular.fromJson(room).images),
             slideIndex,
@@ -312,11 +323,10 @@ angular.module('mobius.controllers.hotel.details', [
       //scroll to element if set in url scrollTo param
       var scrollToValue = $location.search().scrollTo || null;
       if (scrollToValue && scrollToValue !== 'jsOffers' && scrollToValue !== 'fnOpenLightBox' && scrollToValue !== 'jsRooms') {
-        $timeout(function(){
+        $timeout(function() {
           scrollService.scrollTo(scrollToValue, 20);
         }, 500);
-      }
-      else if(scrollToValue && scrollToValue === 'fnOpenLightBox'){
+      } else if (scrollToValue && scrollToValue === 'fnOpenLightBox') {
         modalService.openGallery(
           contentService.getLightBoxContent($scope.details.images),
           0
@@ -328,12 +338,12 @@ angular.module('mobius.controllers.hotel.details', [
 
   // In order to get rooms availability we must call the API with productGroupId
   // param which is presented as rate parameter set by a bookingWidget
-  if(bookingParams.productGroupId){
+  if (bookingParams.productGroupId) {
     getHotelDetails(propertyCode, bookingParams);
-  } else{
+  } else {
     // productGroupId is not set by the widget - getting default BAR
-    filtersService.getBestRateProduct().then(function(brp){
-      if(brp){
+    filtersService.getBestRateProduct().then(function(brp) {
+      if (brp) {
         bookingParams.productGroupId = brp.id;
       }
 
@@ -342,93 +352,124 @@ angular.module('mobius.controllers.hotel.details', [
   }
 
   $scope.scrollToRooms = function() {
-    $timeout(function(){
+    $timeout(function() {
       scrollService.scrollTo('#jsRooms', -20);
     }, 0);
   };
 
   $scope.getRoomUrl = function(pSlug, rSlug, viewAllRates) {
     viewAllRates = viewAllRates ? '1' : null;
-    if($stateParams.promoCode){
-      return $state.href('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode, viewAllRates: viewAllRates, scrollTo: 'hotel-room'});
-    }
-    else{
-      return $state.href('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, viewAllRates: viewAllRates, scrollTo: 'hotel-room'});
+    if ($stateParams.promoCode) {
+      return $state.href('room', {
+        regionSlug: $stateParams.regionSlug,
+        locationSlug: $stateParams.locationSlug,
+        propertySlug: pSlug,
+        roomSlug: rSlug,
+        promoCode: $stateParams.promoCode,
+        viewAllRates: viewAllRates,
+        scrollTo: 'hotel-room'
+      });
+    } else {
+      return $state.href('room', {
+        regionSlug: $stateParams.regionSlug,
+        locationSlug: $stateParams.locationSlug,
+        propertySlug: pSlug,
+        roomSlug: rSlug,
+        viewAllRates: viewAllRates,
+        scrollTo: 'hotel-room'
+      });
     }
   };
 
   $scope.goToRoom = function(pSlug, rSlug, viewAllRates) {
     viewAllRates = viewAllRates ? '1' : null;
-    if($stateParams.promoCode){
-      $state.go('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode, viewAllRates: viewAllRates, scrollTo: 'hotel-room'});
-    }
-    else{
-      $state.go('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, viewAllRates: viewAllRates, scrollTo: 'hotel-room'});
+    if ($stateParams.promoCode) {
+      $state.go('room', {
+        regionSlug: $stateParams.regionSlug,
+        locationSlug: $stateParams.locationSlug,
+        propertySlug: pSlug,
+        roomSlug: rSlug,
+        promoCode: $stateParams.promoCode,
+        viewAllRates: viewAllRates,
+        scrollTo: 'hotel-room'
+      });
+    } else {
+      $state.go('room', {
+        regionSlug: $stateParams.regionSlug,
+        locationSlug: $stateParams.locationSlug,
+        propertySlug: pSlug,
+        roomSlug: rSlug,
+        viewAllRates: viewAllRates,
+        scrollTo: 'hotel-room'
+      });
     }
   };
 
-  $scope.goToOffers = function(){
+  $scope.goToOffers = function() {
     var paramsData = {
       'property': $scope.details
     };
-    routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params){
-      $state.go($scope.config.offers.toState, params, {reload: true});
+    routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params) {
+      $state.go($scope.config.offers.toState, params, {
+        reload: true
+      });
     });
   };
 
-  $scope.getAbsUrl = function(){
+  $scope.getAbsUrl = function() {
     return $location.absUrl().split('?')[0];
   };
 
-  $scope.goToInfo = function(property, infoSlug){
+  $scope.goToInfo = function(property, infoSlug) {
     var paramsData = {
       'property': property
     };
     var stateParams = {
       'infoSlug': infoSlug
     };
-    routerService.buildStateParams('hotelInfo', paramsData).then(function(params){
+    routerService.buildStateParams('hotelInfo', paramsData).then(function(params) {
       stateParams = _.extend(stateParams, params);
-      $state.go('hotelInfo', stateParams, {reload: true});
+      $state.go('hotelInfo', stateParams, {
+        reload: true
+      });
     });
   };
 
   $scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
 
-  $scope.displayRoomRates = function(room, ratesScrollTarget){
-    if(!room || room._displayRates || $scope.availableRooms && $scope.availableRooms.indexOf(room.code) === -1){
+  $scope.displayRoomRates = function(room, ratesScrollTarget) {
+    if (!room || room._displayRates || $scope.availableRooms && $scope.availableRooms.indexOf(room.code) === -1) {
       return;
     }
     room._displayRates = true;
 
-    if(ratesScrollTarget)
-    {
+    if (ratesScrollTarget) {
       scrollToRates(ratesScrollTarget);
     }
   };
 
-  $scope.displayAllRooms = function(){
+  $scope.displayAllRooms = function() {
     $scope.numberOfRoomsDisplayed = $scope.rooms.length;
   };
 
-  $scope.displayMoreRooms = function(){
-    $scope.numberOfRoomsDisplayed  += Settings.UI.hotelDetails.numberOfRoomsAddedOnMobile || 1;
+  $scope.displayMoreRooms = function() {
+    $scope.numberOfRoomsDisplayed += Settings.UI.hotelDetails.numberOfRoomsAddedOnMobile || 1;
   };
 
-  $scope.hasDates = function(){
+  $scope.hasDates = function() {
     return bookingService.APIParamsHasDates();
   };
 
-  $scope.getCheckinDate = function(){
+  $scope.getCheckinDate = function() {
     return $window.moment(bookingService.getAPIParams().from).format('Do MMM YYYY');
   };
 
-  $scope.getCheckoutDate = function(){
+  $scope.getCheckoutDate = function() {
     return $window.moment(bookingService.getAPIParams().to).format('Do MMM YYYY');
   };
 
-  $scope.selectDates = function(){
+  $scope.selectDates = function() {
     $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
       openBookingTab: true,
       openDatePicker: true,
@@ -438,17 +479,30 @@ angular.module('mobius.controllers.hotel.details', [
     });
   };
 
-  $scope.roomsDisplayFilter = function(room){
-    if(!$scope.hasDates()){
+  $scope.roomsDisplayFilter = function(room) {
+    if (!$scope.hasDates()) {
       return true;
     }
     return !$scope.roomsConfig.hideRoomsWithNoAvailability || ($scope.roomsConfig.hideRoomsWithNoAvailability && $scope.availableRooms && $scope.availableRooms.indexOf(room.code) > -1 && room.priceFrom && $scope.hasDates() && $scope.ratesLoaded);
   };
 
   function scrollToRates(target) {
-    $timeout(function(){
+    $timeout(function() {
       scrollService.scrollTo(target, 20);
     }, 100);
+  }
+
+  function getContentUrl(item) {
+    var stateParams = {
+      'infoSlug': item.meta.slug,
+      'locationSlug': $stateParams.locationSlug,
+      'property': $scope.details.code,
+      'propertySlug': $scope.details.meta.slug,
+      'regionSlug': $stateParams.regionSlug
+    };
+    return $state.href('hotelInfo', stateParams, {
+      reload: true
+    });
   }
 
   function getOfferUrl(offer) {
