@@ -118,8 +118,7 @@ angular.module('mobius.controllers.offers', [])
             $scope.offersList = _.sortBy(offers, 'prio').reverse();
 
             _.each($scope.offersList, function(offer){
-              var slug = offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug;
-              offer.url = getOfferUrl(slug);
+              setOfferUrl(offer);
             });
 
             if(!$stateParams.code) {
@@ -199,8 +198,7 @@ angular.module('mobius.controllers.offers', [])
                 $scope.offersList = _.sortBy(filteredOffers, 'prio').reverse();
 
                 _.each($scope.offersList, function(offer){
-                  var slug = offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug;
-                  offer.url = getOfferUrl(slug);
+                  setOfferUrl(offer);
                 });
 
                 //breadcrumbs
@@ -245,8 +243,7 @@ angular.module('mobius.controllers.offers', [])
                 $scope.offersList = _.sortBy(filteredOffers, 'prio').reverse();
 
                 _.each($scope.offersList, function(offer){
-                  var slug = offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug;
-                  offer.url = getOfferUrl(slug);
+                  setOfferUrl(offer);
                 });
 
                 //breadcrumbs
@@ -273,8 +270,7 @@ angular.module('mobius.controllers.offers', [])
             $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
 
             _.each($scope.offersList, function(offer){
-              var slug = offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug;
-              offer.url = getOfferUrl(slug);
+              setOfferUrl(offer);
             });
 
             if ($stateParams.code) {
@@ -285,8 +281,10 @@ angular.module('mobius.controllers.offers', [])
       }
     });
 
-    function getOfferUrl(slug){
+    function setOfferUrl(offer){
+      var slug = offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug;
       var code = bookingService.getCodeFromSlug(slug);
+
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
         return $state.href($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
@@ -303,11 +301,11 @@ angular.module('mobius.controllers.offers', [])
       var stateParams = {};
 
       if($stateParams.propertySlug && !$scope.isHotDeals){
-        return $state.href('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
+        offer.url = $state.href('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
       //if a hotdeal but also a chain level offer, go to offer page to avoid duplicated content, unless offer has featured property availability
       else if($scope.offersList[selectedOfferIndex].showAtChainLevel && $scope.isHotDeals && !offerHasFeaturedProperties && !$stateParams.propertySlug){
-        return $state.href('offers', {code: slug});
+        offer.url = $state.href('offers', {code: slug});
       }
       else if($stateParams.propertySlug && $scope.isHotDeals){
         stateParams.code = slug;
@@ -315,7 +313,7 @@ angular.module('mobius.controllers.offers', [])
           paramsData.property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
           routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
-            return $state.href('propertyHotDeals', stateParams, {reload: true});
+            offer.url = $state.href('propertyHotDeals', stateParams, {reload: true});
           });
         });
       }
@@ -325,13 +323,14 @@ angular.module('mobius.controllers.offers', [])
           paramsData.property = _.find(properties, function(prop){ return prop.code === $scope.offersList[selectedOfferIndex].offerAvailability[0].property; });
           routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
-            return $state.href('propertyHotDeals', stateParams, {reload: true});
+            offer.url = $state.href('propertyHotDeals', stateParams, {reload: true});
           });
         });
       }
       else{
-        return $state.href($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
+        offer.url = $state.href($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
+      console.log(offer.url);
     }
 
 

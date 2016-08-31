@@ -257,6 +257,9 @@ angular.module('mobius.controllers.hotel.details', [
             return availability && availability.showOnHotelPage;
           });
           $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
+          _.each($scope.offersList, function(offer){
+            offer.url = getOfferUrl(offer);
+          });
           if(!$scope.offersList || $window._.isEmpty($scope.offersList)) {
             breadcrumbsService.removeHref('Offers');
           }
@@ -368,19 +371,6 @@ angular.module('mobius.controllers.hotel.details', [
     return $location.absUrl().split('?')[0];
   };
 
-  $scope.advertClick = function(link){
-    var stateParams = {
-      'code': link.code
-    };
-    var paramsData = {
-      'property': $scope.details
-    };
-    routerService.buildStateParams(link.type, paramsData).then(function(params){
-      stateParams = _.extend(stateParams, params);
-      $state.go(link.type, stateParams);
-    });
-  };
-
   $scope.goToInfo = function(property, infoSlug){
     var paramsData = {
       'property': property
@@ -450,6 +440,20 @@ angular.module('mobius.controllers.hotel.details', [
     $timeout(function(){
       scrollService.scrollTo(target, 20);
     }, 100);
+  }
+
+  function getOfferUrl(offer) {
+    var stateParams = {
+      'code': offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug,
+      'regionSlug': $stateParams.regionSlug,
+      'locationSlug': $stateParams.locationSlug,
+      'property': $scope.details.code,
+      'propertySlug': $scope.details.meta.slug
+    };
+
+    console.log($state.href($scope.config.offers.toState, stateParams));
+
+    return $state.href($scope.config.offers.toState, stateParams);
   }
 
 });

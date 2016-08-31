@@ -9,15 +9,15 @@
 
 
   <offers-list grid-row>
-    <offer-item ng-repeat="offer in offersList track by $index" ng-click="advertClick({'type': config.offers.toState, 'code': offer.availability && offer.availability.slug && offer.availability.slug != '' ? offer.availability.slug : offer.meta.slug})">
-      <img class="grid-img" ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}"  alt="{{offer.image.alt}}">
-
-      <section>
-        <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != '' ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : false"></h2>
-        <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle != ''  ? offer.availability.subtitle : offer.subtitle"></div>
-      </section>
-
-      <span class="read-more">_read_more_</span>
+    <offer-item ng-repeat="offer in offersList track by $index">
+      <a href="{{offer.url}}">
+        <img class="grid-img" ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}"  alt="{{offer.image.alt}}">
+        <section>
+          <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != '' ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : false"></h2>
+          <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle != ''  ? offer.availability.subtitle : offer.subtitle"></div>
+        </section>
+        <span class="read-more">_read_more_</span>
+      </a>
     </offer-item>
   </offers-list>
 
