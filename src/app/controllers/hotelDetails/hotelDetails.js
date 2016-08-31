@@ -347,6 +347,16 @@ angular.module('mobius.controllers.hotel.details', [
     }, 0);
   };
 
+  $scope.getRoomUrl = function(pSlug, rSlug, viewAllRates) {
+    viewAllRates = viewAllRates ? '1' : null;
+    if($stateParams.promoCode){
+      return $state.href('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, promoCode: $stateParams.promoCode, viewAllRates: viewAllRates, scrollTo: 'hotel-room'});
+    }
+    else{
+      return $state.href('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, viewAllRates: viewAllRates, scrollTo: 'hotel-room'});
+    }
+  };
+
   $scope.goToRoom = function(pSlug, rSlug, viewAllRates) {
     viewAllRates = viewAllRates ? '1' : null;
     if($stateParams.promoCode){
@@ -355,7 +365,6 @@ angular.module('mobius.controllers.hotel.details', [
     else{
       $state.go('room', {regionSlug: $stateParams.regionSlug, locationSlug: $stateParams.locationSlug, propertySlug: pSlug, roomSlug: rSlug, viewAllRates: viewAllRates, scrollTo: 'hotel-room'});
     }
-
   };
 
   $scope.goToOffers = function(){
@@ -450,8 +459,6 @@ angular.module('mobius.controllers.hotel.details', [
       'property': $scope.details.code,
       'propertySlug': $scope.details.meta.slug
     };
-
-    console.log($state.href($scope.config.offers.toState, stateParams));
 
     return $state.href($scope.config.offers.toState, stateParams);
   }
