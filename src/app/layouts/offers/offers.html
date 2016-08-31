@@ -17,17 +17,19 @@
       <h1 ng-if="!isHotDeals" ng-bind-html="'_offers_deals_' | mainHeaderStyle"></h1>
     </div>
 
-    <offer-item ng-repeat="offer in offersList track by $index" ng-if="offersList.length > 0" ng-click="goToDetail(offer.availability && offer.availability.slug && offer.availability.slug != ''  ? offer.availability.slug : offer.meta.slug)">
-      <div class="banner" ng-if="offer.merchandisingBanner" ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">{{offer.merchandisingBanner.text}}</div>
-      <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.alt}}"/>
+    <offer-item ng-repeat="offer in offersList track by $index" ng-if="offersList.length > 0">
+      <a ng-href="{{offer.url}}">
+        <div class="banner" ng-if="offer.merchandisingBanner" ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">{{offer.merchandisingBanner.text}}</div>
+        <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.alt}}"/>
 
-      <section>
-        <span class="offer-property-name" ng-if="isHotDeals && offer.propertyName">{{offer.propertyName}}</span>
-        <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : offer.propertyName"></h2>
-        <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle != ''  ? offer.availability.subtitle : offer.subtitle"></div>
-      </section>
+        <section>
+          <span class="offer-property-name" ng-if="isHotDeals && offer.propertyName">{{offer.propertyName}}</span>
+          <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : offer.propertyName"></h2>
+          <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle != ''  ? offer.availability.subtitle : offer.subtitle"></div>
+        </section>
 
-      <span class="read-more">_read_more_</span>
+        <span class="read-more">_read_more_</span>
+      </a>
     </offer-item>
 
     <div ng-if="offersList.length === 0 && !property" class="products-not-available">
@@ -85,17 +87,19 @@
 
       <h2 ng-if="offersList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
       <offers-list ng-if="offersList.length > 1">
-        <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index"  ng-click="goToDetail(offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug)">
-          <div class="banner" ng-if="offer.merchandisingBanner" ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">{{offer.merchandisingBanner.text}}</div>
-          <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.uri}}"/>
+        <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index">
+          <a ng-href="{{offer.url}}">
+            <div class="banner" ng-if="offer.merchandisingBanner" ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">{{offer.merchandisingBanner.text}}</div>
+            <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.uri}}"/>
 
-          <section>
-            <span class="offer-property-name" ng-if="isHotDeals && offer.propertyName">{{offer.propertyName}}</span>
-            <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : offer.propertyName"></h2>
-            <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle !== '' ? offer.availability.subtitle : offer.subtitle"></div>
-          </section>
+            <section>
+              <span class="offer-property-name" ng-if="isHotDeals && offer.propertyName">{{offer.propertyName}}</span>
+              <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : offer.propertyName"></h2>
+              <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle !== '' ? offer.availability.subtitle : offer.subtitle"></div>
+            </section>
 
-          <span class="read-more">_read_more_</span>
+            <span class="read-more">_read_more_</span>
+          </a>
         </offer-item>
       </offers-list>
     </div>
