@@ -78,11 +78,6 @@ angular.module('mobius.controllers.regions', [])
       });
     }
 
-    //go to region detail
-    $scope.goToDetail = function(regionSlug){
-      $state.go('regions', {regionSlug: regionSlug});
-    };
-
     //go to location hotels
     $scope.goToHotels = function(locationSlug){
       $state.go('hotels', {regionSlug: $stateParams.regionSlug, locationSlug: locationSlug});
