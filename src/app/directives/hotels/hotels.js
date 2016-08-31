@@ -63,6 +63,8 @@ angular.module('mobiusApp.directives.hotels', [])
               hotel.merchandisingBanner = hotel.merchandisingBanners.length === 1 ? hotel.merchandisingBanners[0] : hotel.merchandisingBanners[Math.floor(hotel.merchandisingBanners.length * Math.random())];
             }
 
+            scope.setHotelUrl(hotel);
+
           });
 
           if($stateParams.locationSlug){
@@ -225,8 +227,28 @@ angular.module('mobiusApp.directives.hotels', [])
           slideIndex);
       };
 
-      scope.navigateToHotel = function(property){
+      scope.setHotelUrl = function(property){
+        // Getting rate details from RateCtrl
+        var stateParams = {
+          rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null,
+          promoCode: $stateParams.promoCode ? $stateParams.promoCode : null,
+          corpCode: $stateParams.corpCode ? $stateParams.corpCode : null,
+          groupCode: $stateParams.groupCode ? $stateParams.groupCode : null
+        };
 
+        if($state.params && $state.params.hasOwnProperty('fromSearch') && typeof $state.params.fromSearch !== 'undefined') {
+          stateParams.scrollTo = 'jsRooms';
+        }
+
+        var paramsData = {};
+        paramsData.property =  property;
+        routerService.buildStateParams('hotel', paramsData).then(function(params){
+          stateParams = _.extend(stateParams, params);
+          property.url = $state.href('hotel', stateParams, {reload: true});
+        });
+      };
+
+      scope.navigateToHotel = function(property){
         // Getting rate details from RateCtrl
         var stateParams = {
           rate: (scope.rates && scope.rates.selectedRate)?scope.rates.selectedRate.id:null,
@@ -246,7 +268,6 @@ angular.module('mobiusApp.directives.hotels', [])
           $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
           $state.go('hotel', stateParams, {reload: true});
         });
-
       };
 
       // Getting the details from booking widget
