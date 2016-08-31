@@ -330,7 +330,6 @@ angular.module('mobius.controllers.offers', [])
       else{
         offer.url = $state.href($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
-      console.log(offer.url);
     }
 
 
