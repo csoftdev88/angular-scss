@@ -42,6 +42,7 @@
     <locations-list grid="12" ng-if="allLocations.length">
 
       <location-item ng-repeat="location in allLocations | orderBy: 'nameShort'" ng-click="goToHotels(location.meta.slug)">
+        <a ng-href="{{location.url}}" style="display:none">{{location.nameShort}}</a>
         <div class="banner" ng-if="location.merchandisingBanner" ng-style="{'background-color': location.merchandisingBanner.bgColor, 'color': location.merchandisingBanner.textColor}">{{location.merchandisingBanner.text}}</div>
         <img ng-src="{{location.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{location.images[0].alt}}"/>
 
