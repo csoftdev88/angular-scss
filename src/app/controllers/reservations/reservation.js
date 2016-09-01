@@ -826,7 +826,12 @@ angular.module('mobius.controllers.reservation', [])
         $scope.isModifyingAsAnonymous() ? $stateParams.email : null));
     }else{
       // Creating a new reservation
-      promises.push(reservationService.createReservation($stateParams.property ? $stateParams.property : null, reservationData));
+      var roomCodes = [];
+      _.each($scope.allRooms, function(room){
+        roomCodes.push(room.code);
+      });
+      roomCodes.join();
+      promises.push(reservationService.createReservation($stateParams.property ? $stateParams.property : null, roomCodes, reservationData));
     }
 
     if(userObject !== null)
