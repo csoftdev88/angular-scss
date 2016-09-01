@@ -130,7 +130,7 @@ angular.module('mobiusApp.config', [])
       'all': 'customers/:customerId/loyalty'
     },
     'reservations': {
-      'new': 'reservations',
+      'new': 'reservations?propertyCode=:property&roomCode=:rooms',
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
