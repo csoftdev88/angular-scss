@@ -102,7 +102,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
                   region.locations = _.where(locations, {
                     regionCode: region.code
                   });
-                  scope.assignPropertiesToLocations(region, _.uniq(filteredProperties));
+                  assignPropertiesToLocations(region, _.uniq(filteredProperties));
                 });
               });
             } else {
@@ -110,7 +110,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
                 region.locations = _.where(locations, {
                   regionCode: region.code
                 });
-                scope.assignPropertiesToLocations(region, _.uniq(properties));
+                assignPropertiesToLocations(region, _.uniq(properties));
               });
             }
           });
@@ -140,7 +140,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
-      scope.regionSelect = function(selectedRegion){
+      scope.regionSelect = function(selectedRegion) {
         scope.activeRegion = selectedRegion;
         scope.showLocationsPlaceholder = false;
       };
@@ -190,7 +190,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
-      scope.propertyClick = function($event,property) {
+      scope.propertyClick = function($event, property) {
         //hotels or hot deals
         if (attrs.type === 'hotels' || attrs.type === 'hot-deals') {
           scope.closeMenu();
@@ -213,21 +213,21 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
-      scope.assignPropertiesToLocations = function(region, properties) {
+      function assignPropertiesToLocations(region, properties) {
         //assign properties to their respective location
         _.each(region.locations, function(location) {
-          location.url = scope.getLocationUrl(location, region);
+          location.url = getLocationUrl(location, region);
           location.properties = _.where(properties, {
             locationCode: location.code
           });
           _.each(location.properties, function(property) {
-            scope.setPropertyUrls(property, location, region);
+            setPropertyUrls(property, location, region);
           });
         });
         scope.locationsLoading = false;
-      };
+      }
 
-      scope.getLocationUrl = function(location, region) {
+      function getLocationUrl(location, region) {
         var paramsData = {
           'locationSlug': location.meta.slug,
           'regionSlug': region.meta.slug,
@@ -237,9 +237,9 @@ angular.module('mobiusApp.directives.megaMenu', [])
         return $state.href('hotels', paramsData, {
           reload: true
         });
-      };
+      }
 
-      scope.setPropertyUrls = function(property, location, region) {
+      function setPropertyUrls(property, location, region) {
         var paramsData = {
           'code': null,
           'locationSlug': location.meta.slug,
@@ -248,9 +248,13 @@ angular.module('mobiusApp.directives.megaMenu', [])
           'propertySlug': property.meta.slug
         };
 
-        property.url = $state.href('hotel', paramsData, {reload: true});
-        property.hotDealsUrl = $state.href('propertyHotDeals', paramsData, {reload: true});
-      };
+        property.url = $state.href('hotel', paramsData, {
+          reload: true
+        });
+        property.hotDealsUrl = $state.href('propertyHotDeals', paramsData, {
+          reload: true
+        });
+      }
     }
   };
 });

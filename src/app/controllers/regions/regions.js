@@ -20,6 +20,7 @@ angular.module('mobius.controllers.regions', [])
           if(region.merchandisingBanners && region.merchandisingBanners.length){
             region.merchandisingBanner = region.merchandisingBanners.length === 1 ? region.merchandisingBanners[0] : region.merchandisingBanners[Math.floor(region.merchandisingBanners.length * Math.random())];
           }
+          region.url = getRegionUrl(region);
         });
         $scope.allRegions = regions;
         //scroll to detail
@@ -35,13 +36,13 @@ angular.module('mobius.controllers.regions', [])
 
         //Apply region to scope
         //$scope.region = _.where(regions, {meta['slug']: regionSlug});
-        $scope.region = _.find(regions, function(region){ 
-          return region.meta.slug === regionSlug; 
+        $scope.region = _.find(regions, function(region){
+          return region.meta.slug === regionSlug;
         });
 
         //hero slider
         $scope.updateHeroContent($scope.region.images);
-        
+
         //gallery
         $scope.previewImages = contentService.getLightBoxContent($scope.region.images, 300, 150, 'fill');
         $scope.openGallery = function(slideIndex){
@@ -60,6 +61,7 @@ angular.module('mobius.controllers.regions', [])
             if(location.merchandisingBanners && location.merchandisingBanners.length){
               location.merchandisingBanner = location.merchandisingBanners.length === 1 ? location.merchandisingBanners[0] : location.merchandisingBanners[Math.floor(location.merchandisingBanners.length * Math.random())];
             }
+            location.url = getLocationUrl(location);
           });
           $scope.allLocations = locations;
         });
@@ -76,15 +78,20 @@ angular.module('mobius.controllers.regions', [])
       });
     }
 
-    //go to region detail
-    $scope.goToDetail = function(regionSlug){
-      $state.go('regions', {regionSlug: regionSlug});
-    };
-
     //go to location hotels
     $scope.goToHotels = function(locationSlug){
       $state.go('hotels', {regionSlug: $stateParams.regionSlug, locationSlug: locationSlug});
     };
+
+    function getRegionUrl(region){
+      var regionSlug = region.meta.slug;
+      return $state.href('regions', {regionSlug: regionSlug});
+    }
+
+    function getLocationUrl(location){
+      var locationSlug = location.meta.slug;
+      return $state.href('hotels', {regionSlug: $stateParams.regionSlug, locationSlug: locationSlug});
+    }
 
     //Init
     if($scope.showDetail){

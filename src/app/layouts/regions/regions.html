@@ -9,15 +9,16 @@
 
     <h1 grid="12" ng-bind-html="'_regions_page_title_' | mainHeaderStyle" class="regions-heading"></h1>
 
-    <region-item ng-repeat="region in allRegions | orderBy: 'nameShort'" ng-click="goToDetail(region.meta.slug)">
-      <div class="banner" ng-if="region.merchandisingBanner" ng-style="{'background-color': region.merchandisingBanner.bgColor, 'color': region.merchandisingBanner.textColor}">{{region.merchandisingBanner.text}}</div>
-      <img ng-src="{{region.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{region.images[0].alt}}"/>
+    <region-item ng-repeat="region in allRegions | orderBy: 'nameShort'">
+      <a ng-href="{{region.url}}">
+        <div class="banner" ng-if="region.merchandisingBanner" ng-style="{'background-color': region.merchandisingBanner.bgColor, 'color': region.merchandisingBanner.textColor}">{{region.merchandisingBanner.text}}</div>
+        <img ng-src="{{region.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{region.images[0].alt}}"/>
 
-      <section>
-        <h2>{{region.nameShort}}</h2>
-        <div ng-bind-html="region.highlight && region.highlight !== '' ? region.highlight : region.description | truncateString:135"></div>
-      </section>
-
+        <section>
+          <h2>{{region.nameShort}}</h2>
+          <div ng-bind-html="region.highlight && region.highlight !== '' ? region.highlight : region.description | truncateString:135"></div>
+        </section>
+      </a>
     </region-item>
 
   </regions-list>
@@ -41,21 +42,23 @@
 
     <locations-list grid="12" ng-if="allLocations.length">
 
-      <location-item ng-repeat="location in allLocations | orderBy: 'nameShort'" ng-click="goToHotels(location.meta.slug)">
-        <div class="banner" ng-if="location.merchandisingBanner" ng-style="{'background-color': location.merchandisingBanner.bgColor, 'color': location.merchandisingBanner.textColor}">{{location.merchandisingBanner.text}}</div>
-        <img ng-src="{{location.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{location.images[0].alt}}"/>
+      <location-item ng-repeat="location in allLocations | orderBy: 'nameShort'">
+        <a ng-href="{{location.url}}">
+          <div class="banner" ng-if="location.merchandisingBanner" ng-style="{'background-color': location.merchandisingBanner.bgColor, 'color': location.merchandisingBanner.textColor}">{{location.merchandisingBanner.text}}</div>
+          <img ng-src="{{location.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{location.images[0].alt}}"/>
 
-        <section>
-          <header>
-            <h2>{{location.nameShort}}</h2>
-            <ul class="chain-icons">
-              <li ng-repeat="chain in location.chain">
-                <img ng-src="{{chain.icon}}"  alt="{{chain.nameShort}} logo">
-              </li>
-            </ul>
-          </header>
-          <div ng-bind-html="location.highlight && location.highlight !== '' ? location.highlight : location.description | truncateString:125"></div>
-        </section>
+          <section>
+            <header>
+              <h2>{{location.nameShort}}</h2>
+              <ul class="chain-icons">
+                <li ng-repeat="chain in location.chain">
+                  <img ng-src="{{chain.icon}}"  alt="{{chain.nameShort}} logo">
+                </li>
+              </ul>
+            </header>
+            <div ng-bind-html="location.highlight && location.highlight !== '' ? location.highlight : location.description | truncateString:125"></div>
+          </section>
+        </a>
 
       </location-item>
 

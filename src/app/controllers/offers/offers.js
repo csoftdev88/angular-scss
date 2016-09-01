@@ -100,8 +100,6 @@ angular.module('mobius.controllers.offers', [])
           });
         }
         else{
-
-
           propertyService.getAll().then(function(properties){
             //property details
             var property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
@@ -119,6 +117,10 @@ angular.module('mobius.controllers.offers', [])
 
             $scope.offersList = _.sortBy(offers, 'prio').reverse();
 
+            _.each($scope.offersList, function(offer){
+              setOfferUrl(offer);
+            });
+
             if(!$stateParams.code) {
               setBreadCrumbs(null, null, property);
             }
@@ -127,11 +129,8 @@ angular.module('mobius.controllers.offers', [])
               selectOffer(bookingService.getCodeFromSlug($stateParams.code));
             }
           });
-
         }
-
       }else{
-
         //show all offers if single property
         if(Settings.UI.generics.singleProperty){
           $scope.offersList = _.sortBy(offers, 'prio').reverse();
@@ -140,13 +139,11 @@ angular.module('mobius.controllers.offers', [])
           }
         }
         else{
-
           if($scope.isHotDeals){
 
             //Hotdeal offers logic
             //https://2pventures.tpondemand.com/entity/12353
             var filteredOffers = angular.copy(offers);
-
 
             //We need the property availability name to display
             propertyService.getAll().then(function(properties){
@@ -165,111 +162,6 @@ angular.module('mobius.controllers.offers', [])
                   }
                 });
               });
-
-              //////////
-              //NOTE: code below is to filter hotdeals by region/location and is commented as currently not needed
-              //////////
-
-              //Filter offers by region if any and if no location or property is defined
-              /*
-              if($stateParams.regionSlug && !$stateParams.locationSlug && !$stateParams.propertySlug){
-
-                locationService.getRegions().then(function(regions){
-                  locationService.getLocations().then(function(locations){
-                    var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug; });
-                    var regionLocations = _.where(locations, {regionCode: curRegion.code});
-
-                    //remove any availability associated with a property not part of current region locations
-                    var RegionOffers = [];
-
-                    _.each(filteredOffers, function(offer){
-
-                      var filteredAvailabilities = [];
-
-                      _.each(regionLocations, function(location){
-
-                        _.each(offer.offerAvailability, function(availability){
-
-                          if(availability.locationCode === location.code && availability.showOnOffersPage){
-                            filteredAvailabilities.push(availability);
-                          }
-                        });
-
-                      });
-
-                      offer.offerAvailability = filteredAvailabilities;
-
-                      if(offer.offerAvailability.length === 1){
-                        var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
-                        offer.propertyName = property.nameShort;
-                      }
-
-                      if(offer.offerAvailability.length && !_.contains(RegionOffers, offer)){
-                        RegionOffers.push(offer);
-                      }
-
-                    });
-
-                    $scope.offersList = RegionOffers;
-                    console.log('Hot deals Region page, number of hot-deals shown: ' + $scope.offersList.length);
-                    //breadcrumbs
-                    if(!$stateParams.code) {
-                      setBreadCrumbs(curRegion);
-                    }
-                    //if offer code, go to offer
-                    if($stateParams.code) {
-                      selectOffer(bookingService.getCodeFromSlug($stateParams.code));
-                    }
-                  });
-                });
-              }
-              //Filter offers by location if any, not if property is defined
-              else if($stateParams.regionSlug && $stateParams.locationSlug && !$stateParams.propertySlug){
-                locationService.getRegions().then(function(regions){
-                  locationService.getLocations().then(function(locations){
-                    var curRegion = _.find(regions, function(region){ return region.meta.slug === $stateParams.regionSlug; });
-                    var curLocation = _.find(locations, function(location){ return location.meta.slug === $stateParams.locationSlug; });
-
-                    //remove any availability associated with a property not part of current region locations
-                    var locationOffers = [];
-
-                    _.each(filteredOffers, function(offer){
-
-                      var filteredAvailabilities = [];
-
-                      _.each(offer.offerAvailability, function(availability){
-
-                        if(availability.locationCode === curLocation.code && availability.showOnOffersPage){
-                          filteredAvailabilities.push(availability);
-                        }
-                      });
-
-                      offer.offerAvailability = filteredAvailabilities;
-
-                      if(offer.offerAvailability.length === 1){
-                        var property = _.find(properties, function(prop){ return prop.code === offer.offerAvailability[0].property;});
-                        offer.propertyName = property.nameShort;
-                      }
-
-                      if(offer.offerAvailability.length && !_.contains(locationOffers, offer)){
-                        locationOffers.push(offer);
-                      }
-                    });
-
-                    $scope.offersList = locationOffers;
-                    console.log('Hot deals locations page, number of hot-deals shown: ' + $scope.offersList.length);
-                    //breadcrumbs
-                    if(!$stateParams.code) {
-                      setBreadCrumbs(curRegion, curLocation);
-                    }
-                    //if offer code, go to offer
-                    if($stateParams.code) {
-                      selectOffer(bookingService.getCodeFromSlug($stateParams.code));
-                    }
-                  });
-                });
-              }
-              */
               if($stateParams.propertySlug){
                 var curProperty = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug;});
                 //remove any availability associated with a property that is not the current property
@@ -304,6 +196,10 @@ angular.module('mobius.controllers.offers', [])
                 });
 
                 $scope.offersList = _.sortBy(filteredOffers, 'prio').reverse();
+
+                _.each($scope.offersList, function(offer){
+                  setOfferUrl(offer);
+                });
 
                 //breadcrumbs
                 if(!$stateParams.code) {
@@ -346,6 +242,10 @@ angular.module('mobius.controllers.offers', [])
 
                 $scope.offersList = _.sortBy(filteredOffers, 'prio').reverse();
 
+                _.each($scope.offersList, function(offer){
+                  setOfferUrl(offer);
+                });
+
                 //breadcrumbs
                 if(!$stateParams.code) {
                   setBreadCrumbs();
@@ -366,7 +266,12 @@ angular.module('mobius.controllers.offers', [])
               }
             });
             offers = _.sortBy(offers, 'prio').reverse();
+
             $scope.offersList = _.where(offers, {showAtChainLevel: true, showOnOffersPage: true});
+
+            _.each($scope.offersList, function(offer){
+              setOfferUrl(offer);
+            });
 
             if ($stateParams.code) {
               selectOffer(bookingService.getCodeFromSlug($stateParams.code));
@@ -376,16 +281,13 @@ angular.module('mobius.controllers.offers', [])
       }
     });
 
-
-    //////////////////////////
-    ///On page offer click event listener
-    //////////////////////////
-    $scope.goToDetail = function (slug) {
+    function setOfferUrl(offer){
+      var slug = offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug;
       var code = bookingService.getCodeFromSlug(slug);
 
       selectedOfferIndex = _.findIndex($scope.offersList, {code: code});
       if (selectedOfferIndex < 0) {
-        return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
+        return $state.href($scope.isHotDeals ? 'hotDeals' : 'offers', {code: null});
       }
 
       var offerHasFeaturedProperties = false;
@@ -399,11 +301,11 @@ angular.module('mobius.controllers.offers', [])
       var stateParams = {};
 
       if($stateParams.propertySlug && !$scope.isHotDeals){
-        $state.go('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
+        offer.url = $state.href('propertyOffers', {code: slug, propertySlug: $stateParams.propertySlug});
       }
       //if a hotdeal but also a chain level offer, go to offer page to avoid duplicated content, unless offer has featured property availability
       else if($scope.offersList[selectedOfferIndex].showAtChainLevel && $scope.isHotDeals && !offerHasFeaturedProperties && !$stateParams.propertySlug){
-        $state.go('offers', {code: slug});
+        offer.url = $state.href('offers', {code: slug});
       }
       else if($stateParams.propertySlug && $scope.isHotDeals){
         stateParams.code = slug;
@@ -411,7 +313,7 @@ angular.module('mobius.controllers.offers', [])
           paramsData.property = _.find(properties, function(prop){ return prop.meta.slug === $stateParams.propertySlug; });
           routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
-            $state.go('propertyHotDeals', stateParams, {reload: true});
+            offer.url = $state.href('propertyHotDeals', stateParams, {reload: true});
           });
         });
       }
@@ -421,15 +323,14 @@ angular.module('mobius.controllers.offers', [])
           paramsData.property = _.find(properties, function(prop){ return prop.code === $scope.offersList[selectedOfferIndex].offerAvailability[0].property; });
           routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
-            $state.go('propertyHotDeals', stateParams, {reload: true});
+            offer.url = $state.href('propertyHotDeals', stateParams, {reload: true});
           });
         });
       }
       else{
-        $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
+        offer.url = $state.href($scope.isHotDeals ? 'hotDeals' : 'offers', {code: slug});
       }
-
-    };
+    }
 
 
     //////////////////////////
