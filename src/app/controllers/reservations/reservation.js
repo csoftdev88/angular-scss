@@ -826,7 +826,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.isModifyingAsAnonymous() ? $stateParams.email : null));
     }else{
       // Creating a new reservation
-      promises.push(reservationService.createReservation(reservationData));
+      promises.push(reservationService.createReservation($stateParams.property ? $stateParams.property : null, reservationData));
     }
 
     if(userObject !== null)
@@ -839,10 +839,8 @@ angular.module('mobius.controllers.reservation', [])
         userData.country = userData.countryObj.code;
       }
 
-      console.log('we here');
       if(userData && userObject.id)
       {
-        console.log('send please');
         apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), userData).then(function(){
         }, function(){
           $scope.error = true;
