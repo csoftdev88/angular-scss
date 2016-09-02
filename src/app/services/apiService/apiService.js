@@ -112,7 +112,7 @@ angular.module('mobiusApp.services.api', [])
     var base = Settings.API.baseURL[env] || Settings.API.baseURL[env];
     // NOTE: We might want to throw error in case when path is not found
     $window._.each(params, function(value, key){
-      URL = URL.replace(':' + key, value);
+      URL = URL.replace(':' + key, value).replace(',','%2C');
     });
 
     return base + URL;
