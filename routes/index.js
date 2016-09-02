@@ -68,7 +68,7 @@ module.exports = function(app) {
             url = url.split('?')[0];
 
             console.log('url: ' + url);
-            
+
             //Replace non alphanumeric characters with hyphens
             url = url.replace(/[\W_]+/g,'-');
             //Remove trailing hyphen if any
@@ -122,15 +122,15 @@ module.exports = function(app) {
           console.log('No crawler here, continuing to normal route');
           return next();
         }
-        
+
       }
       else{
         return next();
       }
-      
+
     });
 
-    
+
     //load redirect array from src/targets/<tenant>/redirects.json
     try {
       var routesPath = './src/targets/' + tenant + '/redirects.json';
@@ -185,7 +185,7 @@ module.exports = function(app) {
     });
 
     //robots block crawling
-    app.get('/robots.txt', function(req, res) {
+    /*app.get('/robots.txt', function(req, res) {
       res.type('text/plain');
       if(environment === 'live'){
         res.send('User-agent: *\nDisallow: /reservations\nDisallow: /reservation/');
@@ -194,8 +194,8 @@ module.exports = function(app) {
       else{
         res.send('User-agent: *\nDisallow: /');
       }
-      
-    });
+
+    });*/
 
     app.get('/404', function(req, res, next) {
       res.sendStatus(404);
