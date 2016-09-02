@@ -180,7 +180,7 @@ angular.module('mobius.controllers.common.content', [])
 
     var params = createParamsObject(code);
     var link = $state.href(code?$scope.settings.detailState:$scope.settings.listState, params);
-    return (link && link.substr(-1) === '/') ? link.slice(0,-1) : link;
+    return link;
   };
 
   $scope.goToState = function($event, code, viewAll){
