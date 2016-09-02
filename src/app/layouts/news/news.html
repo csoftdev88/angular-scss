@@ -34,13 +34,15 @@
     <h2 ng-if="newsList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
 
     <offers-list grid-row>
-      <offer-item ng-repeat="news in newsList | filter:getRelevant track by $index" ng-click="goToDetail(news.meta.slug)">
-        <img ng-src="{{news.image.uri | cloudinaryImage : 270 : 140 : 'fill'}}" alt="{{news.image.alt}}">
-        <section>
-          <h3>{{news.title}}</h3>
-          <div ng-bind-html="news.subtitle"></div>
-        </section>
-        <span>_read_more_</span>
+      <offer-item ng-repeat="news in newsList | filter:getRelevant track by $index">
+        <a ui-sref="news({code:news.meta.slug})">
+          <img ng-src="{{news.image.uri | cloudinaryImage : 270 : 140 : 'fill'}}" alt="{{news.image.alt}}">
+          <section>
+            <h3>{{news.title}}</h3>
+            <div ng-bind-html="news.subtitle"></div>
+          </section>
+          <span>_read_more_</span>
+        </a>
       </offer-item>
     </offers-list>
 
