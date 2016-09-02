@@ -44,6 +44,7 @@ module.exports = {
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'bower_components/angular-growl-v2/build/angular-growl.min.js',
         'bower_components/chai/chai.js',
         'bower_components/angular-mocks/angular-mocks.js',
         'bower_components/angular-sanitize/angular-sanitize.min.js',
@@ -102,6 +103,7 @@ module.exports = {
         'bower_components/angular-chosen-localytics/dist/angular-chosen.min.js',
         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+        'bower_components/angular-growl-v2/build/angular-growl.min.js',
         'bower_components/underscore/underscore.js',
         'bower_components/angular-underscore-module/angular-underscore-module.js',
         'bower_components/angular-validation-match/dist/angular-input-match.js',
@@ -122,7 +124,8 @@ module.exports = {
         'vendors/jquery-ui/datepicker-translations/fr.js'
       ],
       styles: [
-        'bower_components/font-awesome/css/font-awesome.min.css'
+        'bower_components/font-awesome/css/font-awesome.min.css',
+        'bower_components/angular-growl-v2/build/angular-growl.min.css'
       ]
     }
   }

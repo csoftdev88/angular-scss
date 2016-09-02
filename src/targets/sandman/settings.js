@@ -327,7 +327,6 @@ angular.module('mobiusApp.config', [])
           'showRateInfoLink': false,
           'rateInfoIsTabbed': true
         }
-
       },
       'offers': {
         'toState': 'propertyHotDeals'
@@ -351,6 +350,12 @@ angular.module('mobiusApp.config', [])
         'hotelRooms': true,
         'hotelOffers': true,
         'hotelLocation': true
+      },
+      'bookingStatistics':{
+        'display':true,
+        'displayDelay':5000,
+        'displayTime':10000, //The length that you wish the alerts to appear for
+        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       }
     },
     //rate lookup teasers
@@ -384,6 +389,12 @@ angular.module('mobiusApp.config', [])
         },
         //displayPrice can be button or text
         'displayPrice': 'text'
+      },
+      'bookingStatistics':{
+        'display':true,
+        'displayDelay':5000,
+        'displayTime':20000, //The length that you wish the alerts to appear for
+        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       }
     },
 
@@ -531,7 +542,14 @@ angular.module('mobiusApp.config', [])
         '3': 2
       }
     },
-
+    'regions':{
+      'bookingStatistics':{
+        'display':true,
+        'displayDelay':5000,
+        'displayTime':10000, //The length that you wish the alerts to appear for
+        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
+      }
+    },
     'registerPage':{
       'headerPartial':{
         'display': false,
@@ -745,7 +763,13 @@ angular.module('mobiusApp.config', [])
         'showLocationDescription': true,
         'displayHotelRegionName': true,
         'displayHotelsCount': true,
-        'defaultViewMode': 'list'
+        'defaultViewMode': 'list',
+        'bookingStatistics':{
+          'display':true,
+          'displayDelay':3000,
+          'displayTime':10000, //The length that you wish the alerts to appear for
+          'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
+        }
       },
       'hotelDetails':{
         'hasViewMore': true,

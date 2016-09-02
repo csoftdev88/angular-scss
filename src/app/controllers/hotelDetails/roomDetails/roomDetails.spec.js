@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 describe('mobius.controllers.room.details', function() {
   describe('RoomDetailsCtrl', function() {
@@ -81,4 +81,4 @@ describe('mobius.controllers.room.details', function() {
       });
     });
   });
-});
+});*/

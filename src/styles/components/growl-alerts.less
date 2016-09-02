@@ -1,0 +1,49 @@
+.growl-alerts-dir {
+  z-index:9999;
+  .growl-alerts {
+    opacity:1;
+    .transition(all, .3s, linear);
+    &.top-right {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      max-width: 280px;
+      .viewport-mobile & {
+        display: none;
+      }
+    }
+    &.top-left {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      max-width: 280px;
+      .viewport-mobile & {
+        display: none;
+      }
+    }
+    &.right-center {
+      position: fixed;
+      max-width: 280px;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      .viewport-mobile & {
+        display: none;
+      }
+    }
+    &.top-center {
+      .growl-container {
+        &.top-center {
+          margin: 0;
+          transform: translateX(-50%);
+        }
+      }
+    }
+    .growl-container {
+      .alerts;
+    }
+  }
+  &.hidden .growl-alerts.right-center {
+    opacity:0;
+  }
+}

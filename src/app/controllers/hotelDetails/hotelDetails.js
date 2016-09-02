@@ -166,8 +166,27 @@ angular.module('mobius.controllers.hotel.details', [
     // bookingParams - property details are returned without
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
+<<<<<<< HEAD
       .then(function(details) {
+=======
+      .then(function(details){
+
+        details.statistics = [{
+          type:'searches',
+          unit:'days',
+          numTypes: 247,
+          numUnits: 30
+        }];
+
+>>>>>>> MAD/13299/Display-booking-activity-to-front-end-users
         $scope.details = details;
+
+        if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics && $scope.details.statistics.length){
+          $timeout(function(){
+            var statistic = $scope.details.statistics[0];
+            $rootScope.$broadcast('GROWL_ALERT', statistic);
+          });
+        }
 
         //Gp to error page if response is empty
         if (_.isEmpty($scope.details)) {

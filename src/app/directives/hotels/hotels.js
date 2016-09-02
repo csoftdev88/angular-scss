@@ -85,8 +85,24 @@ angular.module('mobiusApp.directives.hotels', [])
 
                   //get current location
                   locationService.getLocation(curLocation.code).then(function(location){
+
+                    location.statistics = [{
+                      type:'searches',
+                      unit:'days',
+                      numTypes: 100,
+                      numUnits: 2
+                    }];
+
                     //details
                     scope.locationDetails = location;
+
+                    if(scope.config.bookingStatistics && scope.config.bookingStatistics.display && scope.locationDetails.statistics && scope.locationDetails.statistics.length){
+                      $timeout(function(){
+                        var statistic = scope.locationDetails.statistics[0];
+                        $rootScope.$broadcast('GROWL_ALERT', statistic);
+                      });
+                    }
+
                     //gallery
                     scope.previewImages = contentService.getLightBoxContent(location.images, 300, 150, 'fill');
                     //gallery lightbox
