@@ -185,7 +185,7 @@ module.exports = function(app) {
     });
 
     //robots block crawling
-    /*app.get('/robots.txt', function(req, res) {
+    app.get('/robots.txt', function(req, res) {
       res.type('text/plain');
       if(environment === 'live'){
         res.send('User-agent: *\nDisallow: /reservations\nDisallow: /reservation/');
@@ -195,7 +195,7 @@ module.exports = function(app) {
         res.send('User-agent: *\nDisallow: /');
       }
 
-    });*/
+    });
 
     app.get('/404', function(req, res, next) {
       res.sendStatus(404);
