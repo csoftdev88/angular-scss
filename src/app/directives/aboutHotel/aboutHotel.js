@@ -44,7 +44,10 @@ angular.module('mobiusApp.directives.aboutHotel', [])
         }
       });
 
-      scope.advertClick = advertsService.advertClick;
+      scope.advertClick = function($event, link) {
+        $event.preventDefault();
+        advertsService.advertClick(link);
+      };
     }
   };
 });
