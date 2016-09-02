@@ -166,9 +166,6 @@ angular.module('mobius.controllers.hotel.details', [
     // bookingParams - property details are returned without
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
-<<<<<<< HEAD
-      .then(function(details) {
-=======
       .then(function(details){
 
         details.statistics = [{
@@ -178,7 +175,6 @@ angular.module('mobius.controllers.hotel.details', [
           numUnits: 30
         }];
 
->>>>>>> MAD/13299/Display-booking-activity-to-front-end-users
         $scope.details = details;
 
         if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics && $scope.details.statistics.length){

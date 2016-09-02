@@ -183,12 +183,17 @@ angular
     'mobiusApp.filters.trustAsHtml'
   ])
 
-<<<<<<< HEAD
-  .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $locationProvider, $urlRouterProvider, growlProvider) {
     // Using this settings allows to run current
     // SPA without # in the URL
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
+
+    //Global config for growl messages
+    growlProvider.globalTimeToLive(30000);
+    growlProvider.onlyUniqueMessages(false);
+    growlProvider.globalPosition('top-center');
+    //growlProvider.globalReversedOrder(true);
 
     $stateProvider
       // Default application layout
@@ -487,463 +492,146 @@ angular
     $urlRouterProvider.otherwise(function($injector) {
       $injector.get('$state').go('unknown');
     });
-=======
-.config(function($stateProvider, $locationProvider, $urlRouterProvider, growlProvider) {
-  // Using this settings allows to run current
-  // SPA without # in the URL
-  $locationProvider.html5Mode(true);
-  $locationProvider.hashPrefix('!');
-
-  //Global config for growl messages
-  growlProvider.globalTimeToLive(30000);
-  growlProvider.onlyUniqueMessages(false);
-  growlProvider.globalPosition('top-center');
-  //growlProvider.globalReversedOrder(true);
-
-  $stateProvider
-  // Default application layout
-    .state('root', {
-    abstract: true,
-    templateUrl: 'layouts/index.html',
-    controller: 'MainCtrl',
-    // NOTE: These params are used by booking widget
-    // Can be placed into induvidual state later if needed
-    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode'
->>>>>>> MAD/13299/Display-booking-activity-to-front-end-users
   })
 
-  // Home page
-  .state('home', {
-    parent: 'root',
-    templateUrl: 'layouts/home/home.html',
-    url: '/'
-  })
+  .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
 
-  // Regions
-  .state('regions', {
-    parent: 'root',
-    templateUrl: 'layouts/regions/regions.html',
-    controller: 'RegionsCtrl',
-    url: '/locations/:regionSlug',
-    params: {
-      regionSlug: {
-        value: null,
-        squash: true
+    $rootScope.$on('$stateChangeStart', function(event, next) {
+      $rootScope.prerenderStatusCode = next.name === 'unknown' ? '404' : '200';
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      $state.fromState = fromState;
+      $state.fromParams = fromParams;
+      breadcrumbsService.clear();
+    });
+    //Facebook
+    $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
+    //Sentry
+    if($window.Raven && Settings.sentry.enable){
+      var env = document.querySelector('meta[name=environment]').getAttribute('content');
+      Raven.config(Settings.sentry[env]).install();
+    }
+
+    function encodeQueryData(data) {
+      var ret = [];
+      for (var d in data) {
+        if(data.hasOwnProperty(d)) {
+          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+        }
       }
-    }
-  })
-
-  // Hotels
-  .state('allHotels', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotels.html',
-    url: '/hotels'
-  })
-
-  .state('hotels', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotels.html',
-    url: '/locations/:regionSlug/:locationSlug/hotels',
-    params: {
-      regionSlug: {
-        value: null,
-        squash: true
-      },
-      locationSlug: {
-        value: null,
-        squash: true
-      }
-    }
-  })
-
-  .state('hotel', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotelDetails.html',
-    controller: 'HotelDetailsCtrl',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug',
-    reloadOnSearch: false,
-    data: {
-      // Route is also used for reservation updates
-      supportsEditMode: true,
-      supportsMultiRoom: true,
-      hasRateNotification: true
-    },
-    params: {
-      regionSlug: {
-        value: null,
-        squash: true
-      },
-      locationSlug: {
-        value: null,
-        squash: true
-      }
-    }
-  })
-
-  .state('hotelInfo', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotelSubpage.html',
-    controller: 'HotelSubpageCtrl',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/:infoSlug'
-  })
-
-  .state('locationInfo', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotelSubpage.html',
-    controller: 'RegionsSubpageCtrl',
-    url: '/locations/:regionSlug/:locationSlug/:infoSlug',
-    params: {
-      locationSlug: {
-        value: null,
-        squash: true
-      }
-    }
-  })
-
-  .state('room', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/roomDetails.html',
-    controller: 'RoomDetailsCtrl',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/rooms/:roomSlug',
-    reloadOnSearch: false,
-    data: {
-      supportsEditMode: true,
-      supportsMultiRoom: true,
-      hasRateNotification: true
-    }
-  })
-
-  .state('reservations', {
-    parent: 'root',
-    templateUrl: 'layouts/reservations/reservations.html',
-    url: '/reservations',
-    controller: 'ReservationsCtrl',
-    data: {
-      authProtected: true
-    }
-  })
-
-  .state('reservationDetail', {
-    parent: 'root',
-    templateUrl: 'layouts/reservations/reservationDetail.html',
-    url: '/reservation/:reservationCode?view',
-    controller: 'ReservationDetailCtrl',
-    reloadOnSearch: false,
-    data: {
-      authProtected: true
-    }
-  })
-
-  // Room reservation
-  .state('reservation', {
-    parent: 'root',
-    templateUrl: 'layouts/reservations/reservation/reservation.html',
-    url: '/reservation/:roomID/:productCode',
-    controller: 'ReservationCtrl',
-    data: {
-      supportsEditMode: true,
-      supportsMultiRoom: true
-    }
-  })
-
-  .state('reservation.details', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/details.html'
-    })
-    .state('reservation.billing', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/billing.html'
-    })
-    .state('reservation.confirmation', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/confirmation.html'
-    })
-
-  .state('offers', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/offers/:code',
-    controller: 'OffersCtrl'
-  })
-
-  .state('propertyOffers', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/hotels/:propertySlug/offers/:code',
-    controller: 'OffersCtrl'
-  })
-
-  .state('hotDeals', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/:regionSlug/:locationSlug/hot-deals/:code',
-    controller: 'OffersCtrl',
-    params: {
-      locationSlug: {
-        value: null,
-        squash: true
-      },
-      regionSlug: {
-        value: null,
-        squash: true
-      }
-    }
-  })
-
-  .state('propertyHotDeals', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/hot-deals/:code',
-    controller: 'OffersCtrl'
-  })
-
-  // Rewards page
-  .state('rewards', {
-    parent: 'root',
-    templateUrl: 'layouts/rewards/rewards.html',
-    url: '/rewards',
-    controller: 'RewardsCtrl'
-  })
-
-  // Rewards page
-  .state('prestige', {
-    parent: 'root',
-    templateUrl: 'layouts/prestige/prestige.html',
-    url: '/prestige',
-    controller: 'PrestigeCtrl'
-  })
-
-  // News page
-  .state('news', {
-    parent: 'root',
-    templateUrl: 'layouts/news/news.html',
-    url: '/news/:code',
-    controller: 'NewsCtrl'
-  })
-
-  // Contact page
-  .state('contacts', {
-    parent: 'root',
-    templateUrl: 'layouts/contacts/contacts.html',
-    url: '/contacts',
-    controller: 'ContactsCtrl'
-  })
-
-  // About Us oage
-  .state('aboutUs', {
-    parent: 'root',
-    templateUrl: 'layouts/about/about.html',
-    url: '/about/:code',
-    controller: 'AboutUsCtrl'
-  })
-
-  // Reservation Lookup page
-  .state('lookup', {
-    parent: 'root',
-    templateUrl: 'layouts/lookup/lookup.html',
-    url: '/lookup',
-    controller: 'ReservationLookupCtrl'
-  })
-
-  // static content for now will be about content but without /about url
-  .state('staticContent', {
-    parent: 'root',
-    templateUrl: 'layouts/staticContent/staticContent.html',
-    url: '/:contentSlug',
-    controller: 'StaticContentCtrl'
-  })
-
-  // Profile page
-  .state('profile', {
-    parent: 'root',
-    templateUrl: 'layouts/profile/profile.html',
-    url: '/profile',
-    controller: 'ProfileCtrl',
-    data: {
-      authProtected: true
-    }
-  })
-
-  // Profile page
-  .state('register', {
-    parent: 'root',
-    templateUrl: 'layouts/register/register.html',
-    url: '/register',
-    controller: 'RegisterCtrl'
-  })
-
-  // Reset password page
-  .state('resetPassword', {
-    parent: 'root',
-    templateUrl: 'layouts/resetPassword/resetPassword.html',
-    url: '/changePassword',
-    controller: 'ResetPasswordCtrl'
-  })
-
-  // 404 page
-  .state('unknown', {
-    parent: 'root',
-    templateUrl: 'layouts/404.html',
-    url: '/404'
-  })
-
-  // Error page
-  .state('error', {
-    parent: 'root',
-    templateUrl: 'layouts/error.html',
-    url: '/error/'
-  });
-
-  $urlRouterProvider.otherwise(function($injector) {
-    $injector.get('$state').go('unknown');
-  });
-})
-
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
-
-  $rootScope.$on('$stateChangeStart', function(event, next) {
-    $rootScope.prerenderStatusCode = next.name === 'unknown' ? '404' : '200';
-  });
-
-  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-    $state.fromState = fromState;
-    $state.fromParams = fromParams;
-    breadcrumbsService.clear();
-  });
-  //Facebook
-  $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
-  //Sentry
-  if ($window.Raven && Settings.sentry.enable) {
-    var env = document.querySelector('meta[name=environment]').getAttribute('content');
-    Raven.config(Settings.sentry[env]).install();
-  }
-
-  function encodeQueryData(data) {
-    var ret = [];
-    for (var d in data) {
-      if (data.hasOwnProperty(d)) {
-        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-      }
-    }
-    return ret.join(' ');
-  }
-
-  var userLang = user.getUserLanguage();
-  var appLang = stateService.getAppLanguageCode();
-
-  if (userLang && userLang !== appLang && Settings.UI.languages[userLang]) {
-    var language_code = userLang;
-    var path = $location.path();
-    var search = encodeQueryData($location.search());
-    var hash = $location.hash();
-    $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
-  }
-
-  //Set default language header
-  var langObj = {};
-  langObj['mobius-languagecode'] = appLang;
-  apiService.setHeaders(langObj);
-
-  //Set default currency header
-  var currencyObj = {};
-  currencyObj['mobius-currencycode'] = stateService.getCurrentCurrency().code;
-  apiService.setHeaders(currencyObj);
-
-  //localize moment.js
-  $window.moment.locale(appLang);
-
-  $rootScope.$on('$stateChangeSuccess', function() {
-    breadcrumbsService.clear();
-  });
-
-  //Let's get property slug if single property and save it to settings for future use
-  if (Settings.UI.generics.singleProperty) {
-    if (!Settings.API.propertySlug) {
-      propertyService.getAll().then(function(properties) {
-        var code = properties[0].code;
-        propertyService.getPropertyDetails(code).then(function(details) {
-          var slug = details.meta.slug;
-          Settings.API.propertySlug = slug;
-          $rootScope.propertySlug = slug;
-        });
-      });
-    }
-  }
-})
-
-.controller('BaseCtrl', function($scope, $rootScope, $controller, $state, scrollService,
-  metaInformationService, Settings, propertyService, $window, breadcrumbsService) {
-
-  $controller('ReservationUpdateCtrl', {
-    $scope: $scope
-  });
-  $controller('SSOCtrl', {
-    $scope: $scope
-  });
-  $controller('ReservationMultiRoomCtrl', {
-    $scope: $scope
-  });
-
-  $scope.$on('$stateChangeStart', function(e, toState, toParams) {
-
-    console.log('toState: ' + toState.name);
-    console.log('toParams: ' + angular.toJson(toParams));
-
-    //if applyChainClassToBody, get property details and add its chain as body class for styling
-    if (Settings.UI.generics.applyChainClassToBody) {
-      var propertyCode = toParams.propertyCode || toParams.property;
-      if (propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation' || toState.name === 'reservation.details' || toState.name === 'reservation.billing' || toState.name === 'reservation.confirmation') || toState.name === 'propertyHotDeals') {
-        propertyService.getPropertyDetails(propertyCode).then(function(details) {
-          propertyService.applyPropertyChainClass(details.chainCode);
-        });
-      } else {
-        propertyService.removePropertyChainClass();
-      }
+      return ret.join(' ');
     }
 
-    //breadcrumbs
-    if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room')) {
-      breadcrumbsService.isProperty(true);
-    } else {
-      breadcrumbsService.isProperty(false);
+    var userLang = user.getUserLanguage();
+    var appLang = stateService.getAppLanguageCode();
+
+    if(userLang && userLang !== appLang && Settings.UI.languages[userLang]){
+      var language_code = userLang;
+      var path = $location.path();
+      var search = encodeQueryData($location.search());
+      var hash = $location.hash();
+      $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
     }
 
-    //if single property redirect home state to hotel page
-    if (Settings.UI.generics.singleProperty && toState.name === 'home') {
-      e.preventDefault();
-      if (Settings.API.propertySlug) {
-        $state.go('hotel', {
-          propertySlug: Settings.API.propertySlug
-        });
-      } else {
-        propertyService.getAll().then(function(properties) {
+    //Set default language header
+    var langObj = {};
+    langObj['mobius-languagecode'] = appLang;
+    apiService.setHeaders(langObj);
+
+    //Set default currency header
+    var currencyObj = {};
+    currencyObj['mobius-currencycode'] = stateService.getCurrentCurrency().code;
+    apiService.setHeaders(currencyObj);
+
+    //localize moment.js
+    $window.moment.locale(appLang);
+
+    $rootScope.$on('$stateChangeSuccess', function() {
+      breadcrumbsService.clear();
+    });
+
+    //Let's get property slug if single property and save it to settings for future use
+    if(Settings.UI.generics.singleProperty){
+      if(!Settings.API.propertySlug){
+        propertyService.getAll().then(function(properties){
           var code = properties[0].code;
-          propertyService.getPropertyDetails(code).then(function(details) {
+          propertyService.getPropertyDetails(code).then(function(details){
             var slug = details.meta.slug;
-            $state.go('hotel', {
-              propertySlug: slug
-            });
             Settings.API.propertySlug = slug;
             $rootScope.propertySlug = slug;
           });
-        }, function() {
-          $state.go('error');
         });
       }
     }
-    if (Settings.authType === 'infiniti') {
-      $scope.sso.trackPageLeave();
-    }
-    metaInformationService.reset();
-  });
+  })
 
-  $scope.$on('$stateChangeSuccess', function() {
-    if (Settings.authType === 'infiniti') {
-      $scope.sso.trackPageView();
-      //Evolution
-      if ($window.evolution) {
-        $window.evolution('track', 'pageview');
+  .controller('BaseCtrl', function($scope, $rootScope, $controller,$state, scrollService,
+    metaInformationService, Settings, propertyService, $window, breadcrumbsService){
+
+    $controller('ReservationUpdateCtrl', {$scope: $scope});
+    $controller('SSOCtrl', {$scope: $scope});
+    $controller('ReservationMultiRoomCtrl', {$scope: $scope});
+
+    $scope.$on('$stateChangeStart', function(e, toState, toParams) {
+
+      console.log('toState: ' + toState.name);
+      console.log('toParams: ' + angular.toJson(toParams));
+
+      //if applyChainClassToBody, get property details and add its chain as body class for styling
+      if(Settings.UI.generics.applyChainClassToBody){
+        var propertyCode = toParams.propertyCode || toParams.property;
+        if(propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation' || toState.name === 'reservation.details' || toState.name === 'reservation.billing' || toState.name === 'reservation.confirmation') || toState.name === 'propertyHotDeals'){
+          propertyService.getPropertyDetails(propertyCode).then(function(details){
+            propertyService.applyPropertyChainClass(details.chainCode);
+          });
+        }
+        else{
+          propertyService.removePropertyChainClass();
+        }
       }
-    }
+
+      //breadcrumbs
+      if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room')){
+        breadcrumbsService.isProperty(true);
+      }
+      else{
+        breadcrumbsService.isProperty(false);
+      }
+
+      //if single property redirect home state to hotel page
+      if(Settings.UI.generics.singleProperty && toState.name === 'home'){
+        e.preventDefault();
+        if(Settings.API.propertySlug){
+          $state.go('hotel', {propertySlug: Settings.API.propertySlug});
+        }
+        else{
+          propertyService.getAll().then(function(properties){
+            var code = properties[0].code;
+            propertyService.getPropertyDetails(code).then(function(details){
+              var slug = details.meta.slug;
+              $state.go('hotel', {propertySlug: slug});
+              Settings.API.propertySlug = slug;
+              $rootScope.propertySlug = slug;
+            });
+          }, function(){
+            $state.go('error');
+          });
+        }
+      }
+      if(Settings.authType === 'infiniti'){
+        $scope.sso.trackPageLeave();
+      }
+      metaInformationService.reset();
+    });
+
+    $scope.$on('$stateChangeSuccess', function() {
+      if(Settings.authType === 'infiniti'){
+        $scope.sso.trackPageView();
+        //Evolution
+        if($window.evolution){
+          $window.evolution('track', 'pageview');
+        }
+      }
+    });
   });
-});
