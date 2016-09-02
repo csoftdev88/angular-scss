@@ -435,7 +435,7 @@ angular
       .state('staticContent', {
         parent: 'root',
         templateUrl: 'layouts/staticContent/staticContent.html',
-        url: '/:contentSlug',
+        url: '/:contentSlug/',
         controller: 'StaticContentCtrl'
       })
 
