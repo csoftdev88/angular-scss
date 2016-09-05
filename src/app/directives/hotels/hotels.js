@@ -86,13 +86,6 @@ angular.module('mobiusApp.directives.hotels', [])
                   //get current location
                   locationService.getLocation(curLocation.code).then(function(location){
 
-                    location.statistics = [{
-                      type:'searches',
-                      unit:'days',
-                      numTypes: 100,
-                      numUnits: 2
-                    }];
-
                     //details
                     scope.locationDetails = location;
 

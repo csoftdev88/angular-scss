@@ -10,12 +10,6 @@ angular.module('mobius.controllers.room.details', [])
   var numNights = 1;
 
   $scope.setRoomDetails = function(roomDetails){
-    roomDetails.statistics = [{
-      type:'booking',
-      unit:'minutes',
-      numTypes: 5,
-      numUnits: 30
-    }];
 
     $scope.roomDetails = roomDetails;
 

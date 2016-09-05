@@ -41,13 +41,6 @@ angular.module('mobius.controllers.regions', [])
           return region.meta.slug === regionSlug;
         });
 
-        $scope.region.statistics = [{
-          type:'searches',
-          unit:'days',
-          numTypes: 247,
-          numUnits: 30
-        }];
-
         if($scope.regionConfig .bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region.statistics && $scope.region.statistics.length){
           $timeout(function(){
             var statistic = $scope.region.statistics[0];

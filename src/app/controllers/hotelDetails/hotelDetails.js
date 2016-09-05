@@ -168,13 +168,6 @@ angular.module('mobius.controllers.hotel.details', [
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
 
-        details.statistics = [{
-          type:'searches',
-          unit:'days',
-          numTypes: 247,
-          numUnits: 30
-        }];
-
         $scope.details = details;
 
         if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics && $scope.details.statistics.length){
