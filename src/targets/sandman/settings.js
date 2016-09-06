@@ -8,6 +8,7 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   'authType': 'infiniti',
   'loyaltyProgramEnabled': false,
+  'newUrlStructure': true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
