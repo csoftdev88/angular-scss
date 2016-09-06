@@ -10,8 +10,8 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': true,
   'infiniti': {
     'enable': true,
-    'development': 'http://integration-sutton-infiniti.mobiuswebservices.com/track/content/infiniti.js',
-    'integration': 'http://integration-sutton-infiniti.mobiuswebservices.com/track/content/infiniti.js',
+    'development': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
+    'integration': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
     'staging': 'http://staging-prestige.suttonplace.com/track/content/infiniti.js',
     'live': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
