@@ -41,10 +41,9 @@ angular.module('mobius.controllers.regions', [])
           return region.meta.slug === regionSlug;
         });
 
-        if($scope.regionConfig .bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region.statistics && $scope.region.statistics.length){
+        if($scope.regionConfig .bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region.statistics){
           $timeout(function(){
-            var statistic = $scope.region.statistics[0];
-            $rootScope.$broadcast('GROWL_ALERT', statistic);
+            $rootScope.$broadcast('GROWL_ALERT', $scope.region.statistics);
           });
         }
 

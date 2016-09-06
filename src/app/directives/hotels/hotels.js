@@ -89,10 +89,9 @@ angular.module('mobiusApp.directives.hotels', [])
                     //details
                     scope.locationDetails = location;
 
-                    if(scope.config.bookingStatistics && scope.config.bookingStatistics.display && scope.locationDetails.statistics && scope.locationDetails.statistics.length){
+                    if(scope.config.bookingStatistics && scope.config.bookingStatistics.display && scope.locationDetails.statistics){
                       $timeout(function(){
-                        var statistic = scope.locationDetails.statistics[0];
-                        $rootScope.$broadcast('GROWL_ALERT', statistic);
+                        $rootScope.$broadcast('GROWL_ALERT', scope.locationDetails.statistics);
                       });
                     }
 
