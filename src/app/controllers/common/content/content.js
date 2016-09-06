@@ -101,6 +101,12 @@ angular.module('mobius.controllers.common.content', [])
 
   $scope.settings = contentTypes[$scope.item];
 
+  $scope.hasFilteredItems = function(content) {
+    return _.some(content, function(item) {
+      return !item.filtered;
+    });
+  };
+
   // Getting the details from booking widget
   //var bookingParams = bookingService.getAPIParams(true);
 
