@@ -44,7 +44,7 @@
       <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay">
         <header class="item-header desktop">
           <h3>
-            <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>
+            <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>
             <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
           </h3>
           <pricing-switch ng-if="$first">
@@ -70,11 +70,11 @@
             <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomsConfig.roomDetailThumbnailSize.width : roomsConfig.roomDetailThumbnailSize.height : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
             <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 768 : 384 : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
 
-            <a href class="room-see-more" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-if="roomsConfig.hideShowInfoIcon">_see_more_information_</a>
+            <a class="room-see-more" ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-if="roomsConfig.hideShowInfoIcon">_see_more_information_</a>
 
             <header class="item-header mobile">
               <h3>
-                <a href ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-bind-html="room.name | mainHeaderStyle"></a>
+                <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
                 <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
               </h3>
             </header>

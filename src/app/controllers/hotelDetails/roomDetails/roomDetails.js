@@ -10,19 +10,12 @@ angular.module('mobius.controllers.room.details', [])
   var numNights = 1;
 
   $scope.setRoomDetails = function(roomDetails){
-    roomDetails.statistics = [{
-      type:'booking',
-      unit:'minutes',
-      numTypes: 5,
-      numUnits: 30
-    }];
 
     $scope.roomDetails = roomDetails;
 
-    if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics && $scope.roomDetails.statistics.length){
+    if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics){
       $timeout(function(){
-        var statistic = $scope.roomDetails.statistics[0];
-        $rootScope.$broadcast('GROWL_ALERT', statistic);
+        $rootScope.$broadcast('GROWL_ALERT', $scope.roomDetails.statistics);
       });
     }
 

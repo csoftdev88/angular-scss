@@ -46,7 +46,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
               case 'booking':
                 message = scope.bookingMessage;
                 break;
-              case 'views':
+              case 'view':
                 message = scope.viewsMessage;
                 break;
               case 'searches':

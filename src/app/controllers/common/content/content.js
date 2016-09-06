@@ -101,6 +101,12 @@ angular.module('mobius.controllers.common.content', [])
 
   $scope.settings = contentTypes[$scope.item];
 
+  $scope.hasFilteredItems = function(content) {
+    return _.some(content, function(item) {
+      return !item.filtered;
+    });
+  };
+
   // Getting the details from booking widget
   //var bookingParams = bookingService.getAPIParams(true);
 
@@ -180,7 +186,7 @@ angular.module('mobius.controllers.common.content', [])
 
     var params = createParamsObject(code);
     var link = $state.href(code?$scope.settings.detailState:$scope.settings.listState, params);
-    return (link && link.substr(-1) === '/') ? link.slice(0,-1) : link;
+    return link;
   };
 
   $scope.goToState = function($event, code, viewAll){
@@ -214,10 +220,12 @@ angular.module('mobius.controllers.common.content', [])
   function processSettings() {
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
 
-      //Remove all items with showOnMenu false
-      data = _.reject(data, function(item){
-        return !item.showOnMenu;
-      });
+      if($scope.item !== 'hotels') {
+        //Remove all items with showOnMenu false
+        data = _.reject(data, function(item){
+          return !item.showOnMenu;
+        });
+      }
 
       data = _.reject(data, function(item){
 

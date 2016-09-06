@@ -1,11 +1,11 @@
 <section class="grid-wrapper">
   <article grid="1" ng-hide="config.generics.singleProperty" site-map-content="hotels" data-title="_hotels_"></article>
 
-  <article grid="1" ng-show="config.menu.showOffers" site-map-content="offers" data-title="_offers_deals_" limit="5"></article>
+  <article grid="1" ng-show="uiConfig.menu.showOffers" site-map-content="offers" data-title="_offers_deals_" limit="5"></article>
 
-  <article grid="1" ng-show="config.menu.showAbout" site-map-content="about" data-title="_about_us_" limit="5"></article>
+  <article grid="1" ng-show="uiConfig.menu.showAbout" site-map-content="about" data-title="_about_us_" limit="5"></article>
 
-  <article grid="1" ng-show="config.menu.showNews" site-map-content="news" data-title="_news_" limit="3"></article>
+  <article grid="1" ng-show="uiConfig.menu.showNews" site-map-content="news" data-title="_news_" limit="3"></article>
 
   <article grid="1" ng-if="!user.isLoggedIn()">
     <h3><a ui-sref="contacts">_contact_</a></h3>

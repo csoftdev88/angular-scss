@@ -35,15 +35,17 @@ booking-widget {
     border: 1px solid #ccc;
     border-bottom: 0;
   }
+  
+  .viewport-mobile & {
+    form-element.hotel{
+      // Chosen dropdown - open down not up for hotels only
+      .chosen-container .chosen-drop {
+        bottom: auto;
+        top: 100%;
 
-  form-element.hotel{
-    // Chosen dropdown - open down not up for hotels only
-    .chosen-container .chosen-drop {
-      bottom: auto;
-      top: 100%;
-
-      border: 1px solid #ccc;
-      border-bottom: 0;
+        border: 1px solid #ccc;
+        border-bottom: 0;
+      }
     }
   }
 

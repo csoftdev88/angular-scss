@@ -183,7 +183,7 @@ angular
     'mobiusApp.filters.trustAsHtml'
   ])
 
-.config(function($stateProvider, $locationProvider, $urlRouterProvider, growlProvider) {
+.config(function($stateProvider, $locationProvider, $urlRouterProvider, growlProvider, Settings) {
   // Using this settings allows to run current
   // SPA without # in the URL
   $locationProvider.html5Mode(true);
@@ -213,109 +213,155 @@ angular
     url: '/'
   })
 
-  // Regions
-  .state('regions', {
-    parent: 'root',
-    templateUrl: 'layouts/regions/regions.html',
-    controller: 'RegionsCtrl',
-    url: '/locations/:regionSlug',
-    params: {
-      regionSlug: {
-        value: null,
-        squash: true
-      }
-    }
-  })
-
   // Hotels
   .state('allHotels', {
     parent: 'root',
     templateUrl: 'layouts/hotels/hotels.html',
     url: '/hotels'
-  })
+  });
 
-  .state('hotels', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotels.html',
-    url: '/locations/:regionSlug/:locationSlug/hotels',
-    params: {
-      regionSlug: {
-        value: null,
-        squash: true
+  if (Settings.newUrlStructure) {
+    $stateProvider
+    // Regions
+      .state('regions', {
+      parent: 'root',
+      templateUrl: 'layouts/regions/regions.html',
+      controller: 'RegionsCtrl',
+      url: '/locations/:regionSlug',
+      params: {
+        regionSlug: {
+          value: null,
+          squash: true
+        }
+      }
+    })
+
+    .state('hotels', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/hotels.html',
+      url: '/locations/:regionSlug/:locationSlug/hotels',
+      params: {
+        regionSlug: {
+          value: null,
+          squash: true
+        },
+        locationSlug: {
+          value: null,
+          squash: true
+        }
+      }
+    })
+
+    .state('hotel', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/hotelDetails.html',
+      controller: 'HotelDetailsCtrl',
+      url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug',
+      reloadOnSearch: false,
+      data: {
+        // Route is also used for reservation updates
+        supportsEditMode: true,
+        supportsMultiRoom: true,
+        hasRateNotification: true
       },
-      locationSlug: {
-        value: null,
-        squash: true
+      params: {
+        regionSlug: {
+          value: null,
+          squash: true
+        },
+        locationSlug: {
+          value: null,
+          squash: true
+        }
       }
-    }
-  })
+    })
 
-  .state('hotel', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotelDetails.html',
-    controller: 'HotelDetailsCtrl',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug',
-    reloadOnSearch: false,
-    data: {
-      // Route is also used for reservation updates
-      supportsEditMode: true,
-      supportsMultiRoom: true,
-      hasRateNotification: true
-    },
-    params: {
-      regionSlug: {
-        value: null,
-        squash: true
-      },
-      locationSlug: {
-        value: null,
-        squash: true
+    .state('hotelInfo', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/hotelSubpage.html',
+      controller: 'HotelSubpageCtrl',
+      url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/:infoSlug'
+    })
+
+    .state('locationInfo', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/hotelSubpage.html',
+      controller: 'RegionsSubpageCtrl',
+      url: '/locations/:regionSlug/:locationSlug/:infoSlug',
+      params: {
+        locationSlug: {
+          value: null,
+          squash: true
+        }
       }
-    }
-  })
+    })
 
-  .state('hotelInfo', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotelSubpage.html',
-    controller: 'HotelSubpageCtrl',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/:infoSlug'
-  })
-
-  .state('locationInfo', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/hotelSubpage.html',
-    controller: 'RegionsSubpageCtrl',
-    url: '/locations/:regionSlug/:locationSlug/:infoSlug',
-    params: {
-      locationSlug: {
-        value: null,
-        squash: true
+    .state('room', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/roomDetails.html',
+      controller: 'RoomDetailsCtrl',
+      url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/rooms/:roomSlug',
+      reloadOnSearch: false,
+      data: {
+        supportsEditMode: true,
+        supportsMultiRoom: true,
+        hasRateNotification: true
       }
-    }
-  })
+    });
+  } else {
+    $stateProvider
+    // Hotels
+      .state('hotels', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/hotels.html',
+      url: '/hotels'
+    })
 
-  .state('room', {
-    parent: 'root',
-    templateUrl: 'layouts/hotels/roomDetails.html',
-    controller: 'RoomDetailsCtrl',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/rooms/:roomSlug',
-    reloadOnSearch: false,
-    data: {
-      supportsEditMode: true,
-      supportsMultiRoom: true,
-      hasRateNotification: true
-    }
-  })
+    .state('hotel', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/hotelDetails.html',
+      controller: 'HotelDetailsCtrl',
+      url: '/hotels/:propertySlug',
+      reloadOnSearch: false,
+      data: {
+        // Route is also used for reservation updates
+        supportsEditMode: true,
+        supportsMultiRoom: true,
+        hasRateNotification: true
+      }
+    })
 
-  .state('reservations', {
-    parent: 'root',
-    templateUrl: 'layouts/reservations/reservations.html',
-    url: '/reservations',
-    controller: 'ReservationsCtrl',
-    data: {
-      authProtected: true
-    }
-  })
+    .state('hotelInfo', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/hotelSubpage.html',
+      controller: 'HotelSubpageCtrl',
+      url: '/hotels/:propertySlug/:infoSlug'
+    })
+
+    .state('room', {
+      parent: 'root',
+      templateUrl: 'layouts/hotels/roomDetails.html',
+      controller: 'RoomDetailsCtrl',
+      url: '/hotels/:propertySlug/rooms/:roomSlug',
+      reloadOnSearch: false,
+      data: {
+        supportsEditMode: true,
+        supportsMultiRoom: true,
+        hasRateNotification: true
+      }
+    });
+  }
+
+  $stateProvider
+    .state('reservations', {
+      parent: 'root',
+      templateUrl: 'layouts/reservations/reservations.html',
+      url: '/reservations',
+      controller: 'ReservationsCtrl',
+      data: {
+        authProtected: true
+      }
+    })
 
   .state('reservationDetail', {
     parent: 'root',
@@ -341,17 +387,17 @@ angular
   })
 
   .state('reservation.details', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/details.html'
-    })
-    .state('reservation.billing', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/billing.html'
-    })
-    .state('reservation.confirmation', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/confirmation.html'
-    })
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/details.html'
+  })
+  .state('reservation.billing', {
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/billing.html'
+  })
+  .state('reservation.confirmation', {
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/confirmation.html'
+  })
 
   .state('offers', {
     parent: 'root',
@@ -443,7 +489,7 @@ angular
   .state('staticContent', {
     parent: 'root',
     templateUrl: 'layouts/staticContent/staticContent.html',
-    url: '/:contentSlug',
+    url: '/:contentSlug/',
     controller: 'StaticContentCtrl'
   })
 

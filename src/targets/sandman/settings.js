@@ -8,6 +8,7 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   'authType': 'infiniti',
   'loyaltyProgramEnabled': false,
+  'newUrlStructure': true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -130,7 +131,7 @@ angular.module('mobiusApp.config', [])
       'all': 'customers/:customerId/loyalty'
     },
     'reservations': {
-      'new': 'reservations',
+      'new': 'reservations?propertyCode=:property&roomCode=:rooms',
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
@@ -325,7 +326,8 @@ angular.module('mobiusApp.config', [])
           'showNoRatesSubDescription': false,
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
-          'rateInfoIsTabbed': true
+          'rateInfoIsTabbed': true,
+          'highlightFirstRate': true
         }
       },
       'offers': {
