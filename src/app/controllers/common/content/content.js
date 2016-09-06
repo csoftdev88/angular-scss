@@ -214,10 +214,12 @@ angular.module('mobius.controllers.common.content', [])
   function processSettings() {
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
 
-      //Remove all items with showOnMenu false
-      data = _.reject(data, function(item){
-        return !item.showOnMenu;
-      });
+      if($scope.item !== 'hotels') {
+        //Remove all items with showOnMenu false
+        data = _.reject(data, function(item){
+          return !item.showOnMenu;
+        });
+      }
 
       data = _.reject(data, function(item){
 
