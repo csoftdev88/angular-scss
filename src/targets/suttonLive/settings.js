@@ -310,7 +310,8 @@ angular.module('mobiusApp.config', [])
           'showNoRatesSubDescription': false,
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
-          'rateInfoIsTabbed': false
+          'rateInfoIsTabbed': false,
+          'highlightFirstRate': false
         }
 
       },
