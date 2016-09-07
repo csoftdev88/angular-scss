@@ -266,7 +266,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Tracking refund
           dataLayerService.trackReservationRefund($stateParams.reservationCode);
 
-          if(!$stateParams.email){
+          if(user.isLoggedIn()){
             $state.go('reservations');
           }
 
