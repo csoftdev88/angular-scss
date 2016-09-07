@@ -225,8 +225,7 @@
           </div>
           <hr/>
         </div>
-
-        <div ng-show="filter.type === 'rates' && hasDates()">
+        <div ng-show="filter.type === 'rates' && hasDates() && rates.all.length > 1">
           <h3>_filter_rates_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
           <div class="accordion-content">
             <select name="rate"
