@@ -1,5 +1,5 @@
 .growl-alerts-dir {
-  z-index:9999;
+  z-index:1000;
   .growl-alerts {
     opacity:1;
     .transition(all, .3s, linear);
@@ -26,10 +26,8 @@
       max-width: 200px;
       top: 50%;
       right: 20px;
+      z-index:1000;
       transform: translateY(-50%);
-      .viewport-mobile & {
-        display: none;
-      }
     }
     &.top-center {
       .growl-container {
