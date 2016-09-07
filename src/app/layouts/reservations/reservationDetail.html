@@ -13,7 +13,7 @@
       <div class="title-wrapper">
         <h1 class="title" ng-bind-html="'_your_reservation_' | mainHeaderStyle"></h1>
       </div>
-      
+
       <div class="contact-info">
         <div class="inner">
           <div class="icon">
@@ -158,7 +158,7 @@
                   <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
-                
+
                 <tr class="breakdown-toggle" ng-show="config.reservationDetailPriceBreakdownExtended && reservation">
                   <th></th>
                   <td><a href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
@@ -166,14 +166,14 @@
               </thead>
             </table>
 
-            <div class="extended-total">
+            <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended">
               <span class="total">_total_:</span>
               <span class="total-value" ng-if="!reservation.pointValue">{{getCount('priceAfterTax') | i18nCurrency: $root.currencyCode}}</span>
               <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
               <a href ng-click="openPoliciesInfo()">_view_policies_</a>
             </div>
           </div>
-       
+
         </div>
 
         <footer ng-if="!config.reservationDetailPriceBreakdownExtended">
@@ -236,7 +236,7 @@
       <h3>_reservation_enhance_summary_title_</h3>
       <list-items>
         <list-item ng-repeat="addon in reservationAddons">
-        
+
           <figure>
             <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
           </figure>
