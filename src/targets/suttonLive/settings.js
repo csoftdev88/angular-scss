@@ -136,7 +136,7 @@ angular.module('mobiusApp.config', [])
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
-      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:reservationEmail',
+      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',

@@ -233,7 +233,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         // NOTE: This will enable editing
         reservation: reservation.reservationCode,
         // Removing email param when user is logged in
-        email: user.isLoggedIn()?null:$stateParams.email
+        email: user.isLoggedIn()?null:reservation.email
       };
 
       propertyService.getPropertyDetails(reservation.property.code)
@@ -256,9 +256,8 @@ angular.module('mobius.controllers.reservationDetail', [])
       }
 
       modalService.openCancelReservationDialog($stateParams.reservationCode).then(function(){
-        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, $stateParams.email)
+        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, user.isLoggedIn()?null:$scope.reservation.email)
         .then(function(){
-
           // Reservation is removed, notifying user
           //TODO: move to locales
           userMessagesService.addMessage('<div>Your Reservation <strong>' +
