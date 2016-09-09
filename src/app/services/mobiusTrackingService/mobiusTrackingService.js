@@ -151,7 +151,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       _.each(products, function (product) {
         _.each(product.price.breakdowns, function (night) {
           nightObj = {
-            'date': night.date,
+            'date': _.isNumber(night.date) ? new Date(night.date).toISOString() : night.date,
             'rate': {
               'currency': $rootScope.currencyCode,
               'amount': night.totalAfterTax
@@ -233,7 +233,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       _.each(rooms, function (room) {
         _.each(room._selectedProduct.price.breakdowns, function (night) {
           nightObj = {
-            'date': night.date,
+            'date': _.isNumber(night.date) ? new Date(night.date).toISOString() : night.date,
             'rate': {
               'currency': $rootScope.currencyCode,
               'amount': night.totalAfterTax
