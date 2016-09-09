@@ -23,11 +23,21 @@
     }
     &.right-center {
       position: fixed;
-      max-width: 200px;
+      width: 160px;
       top: 50%;
       right: 20px;
       z-index:1000;
       transform: translateY(-50%);
+      .viewport-mobile & {
+        width:100%;
+        left:10px;
+        top:auto;
+        right:auto;
+        bottom:60px;
+        padding-right:90px;
+        transform:none;
+        box-sizing:border-box;
+      }
     }
     &.top-center {
       .growl-container {
