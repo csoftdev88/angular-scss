@@ -11,14 +11,21 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           searchesMessage: '=',
           positionReference: '=',
           displayTime: '=',
-          displayDelay: '='
+          displayDelay: '=',
+          hour: '=',
+          hours: '=',
+          day: '=',
+          days: '=',
+          week: '=',
+          weeks: '='
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
         link: function(scope) {
           var config = {
             referenceId: scope.positionReference ? scope.positionReference : 0,
-            ttl: scope.displayTime ? scope.displayTime : 10000
+            ttl: scope.displayTime ? scope.displayTime : 10000,
+            disableIcons: true
           };
           var isHandled = false;
 
@@ -31,7 +38,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
               isHandled = true;
               if(scope.displayDelay){
                 $timeout(function(){
-                  growl.info(formatMessage(statistic), config);
+                  growl.info(getIcon(statistic) + '<p>' + formatMessage(statistic) + '</p>', config);
                 }, scope.displayDelay);
               }
               else {
@@ -39,6 +46,58 @@ angular.module('mobiusApp.directives.growlAlerts', [])
               }
             }
           });
+
+          console.log(scope);
+
+          function getIcon(statistic){
+            var iconHtml = '';
+            switch(statistic.type) {
+              case 'booking':
+                iconHtml = '<i class="fa fa-check-circle"></i>';
+                break;
+              case 'search':
+                iconHtml = '<i class="fa fa-search"></i>';
+                break;
+              default:
+                iconHtml = '<i class="fa fa-eye"></i>';
+            }
+            return iconHtml;
+          }
+
+          function getUnit(statistic){
+            var unit = '';
+            if(statistic.numTypes === 1){
+              switch(statistic.unit) {
+                case 'hours':
+                  unit = scope.hour;
+                  break;
+                case 'days':
+                  unit = scope.day;
+                  break;
+                case 'weeks':
+                  unit = scope.week;
+                  break;
+                default:
+                  unit = '';
+              }
+            }
+            else{
+              switch(statistic.unit) {
+                case 'hours':
+                  unit = scope.hours;
+                  break;
+                case 'days':
+                  unit = scope.days;
+                  break;
+                case 'weeks':
+                  unit = scope.weeks;
+                  break;
+                default:
+                  unit = '';
+              }
+            }
+            return unit;
+          }
 
           function formatMessage(statistic){
             var message = '';
@@ -56,7 +115,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 message = 'No message';
             }
 
-            message = message.replace('{numTypes}', statistic.numTypes).replace('{numUnits}', statistic.numUnits).replace('{unit}', statistic.unit);
+            message = message.replace('{numTypes}', statistic.numTypes).replace('{numUnits}', statistic.numUnits).replace('{unit}', getUnit(statistic));
 
             return message;
           }
