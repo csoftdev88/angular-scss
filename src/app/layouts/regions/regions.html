@@ -26,7 +26,7 @@
   <region-detail id="region-detail" grid-row ng-if="showDetail">
     <div grid="7">
       <h1 ng-bind-html="region.nameShort | mainHeaderStyle"></h1>
-      <p ng-bind-html="region.description" markdown-text-parser></p>
+      <p ng-bind-html="region.description" markdown-text-parser class="markdown-content"></p>
     </div>
 
     <view-more-images grid="5">
