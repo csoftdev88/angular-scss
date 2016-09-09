@@ -47,8 +47,6 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             }
           });
 
-          console.log(scope);
-
           function getIcon(statistic){
             var iconHtml = '';
             switch(statistic.type) {
@@ -66,7 +64,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
 
           function getUnit(statistic){
             var unit = '';
-            if(statistic.numTypes === 1){
+            if(statistic.numUnits === 1){
               switch(statistic.unit) {
                 case 'hours':
                   unit = scope.hour;
