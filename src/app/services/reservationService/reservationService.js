@@ -81,11 +81,11 @@ angular.module('mobiusApp.services.reservation', [])
   }
 
   function updateAnonUserProfile(id, email, data) {
-    return apiService.put(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: encodeURI(email)}), data);
+    return apiService.put(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: encodeURIComponent(email)}), data);
   }
 
   function getAnonUserProfile(id, email) {
-    return apiService.get(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: encodeURI(email)}));
+    return apiService.get(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: encodeURIComponent(email)}));
   }
 
   // Public methods
