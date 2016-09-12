@@ -1,5 +1,5 @@
 room-products, room-ota-products {
-	width: 80%;
+	width: 100%;
 	.view-more-rates {
 		a {
 			font-size: 16px;
@@ -18,6 +18,12 @@ room-products, room-ota-products {
 		}
 	}
 	> ul {
+		width:80%;
+		float:left;
+		.viewport-mobile & {
+			width:100%;
+			float:none;
+		}
 		> li {
 			border-color: #c6beb5;
 			position:relative;
@@ -254,4 +260,19 @@ room-products, room-ota-products {
 
 room-ota-products {
 	width:100%;
+}
+
+.preloader + room-ota-products {
+	width:20%;
+	float:left;
+	.viewport-mobile & {
+		display:none;
+	}
+}
+
+ul + room-ota-products {
+	display:none;
+	.viewport-mobile & {
+		display:block;
+	}
 }

@@ -19,8 +19,11 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
       var otaRatesConfig = Settings.UI.otaRates;
       scope.$watch('otaProducts', function(newValue) {
           if (newValue !== undefined) {
+            scope.otaProducts.length = 1;
+            console.log(otaRatesConfig);
             _.each(scope.otaProducts, function(otaProduct) {
-              switch(otaProduct.type) {
+              var otaType = 'expedia';
+              switch(otaType) {
                 case 'expedia':
                   if(otaRatesConfig && otaRatesConfig.expedia.logo) {
                     otaProduct.logo = otaRatesConfig.expedia.logo;
