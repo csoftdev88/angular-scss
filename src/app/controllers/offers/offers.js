@@ -19,6 +19,7 @@ angular.module('mobius.controllers.offers', [])
 
   //Assign offers setting as scope config
   $scope.config = Settings.UI.offers;
+  $scope.viewsSettings = Settings.UI.viewsSettings;
 
   //Used by view to define whether we are on a specific offer vs overview
   $scope.showDetail = $stateParams.code ? true : false;
@@ -745,22 +746,25 @@ angular.module('mobius.controllers.offers', [])
       //Get property region/location data for breadcrumbs
       propertyService.getPropertyRegionData(property.locationCode).then(function(propertyRegionData) {
 
-        //breadcrumbs
-        breadcrumbsService
-          .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            property: null
-          })
-          .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            property: null
-          })
-          .addBreadCrumb(property.nameShort, 'hotel', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            propertySlug: property.meta.slug
-          });
+        if($scope.viewsSettings.breadcrumbsBar.displayRegionLocation)
+        {
+          breadcrumbsService
+            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              property: null
+            })
+            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              locationSlug: propertyRegionData.location.meta.slug,
+              property: null
+            });
+        }
+
+        breadcrumbsService.addBreadCrumb(property.nameShort, 'hotel', {
+          regionSlug: propertyRegionData.region.meta.slug,
+          locationSlug: propertyRegionData.location.meta.slug,
+          propertySlug: property.meta.slug
+        });
 
 
         if (offerTitle) {
