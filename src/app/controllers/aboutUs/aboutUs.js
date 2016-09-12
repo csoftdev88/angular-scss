@@ -28,12 +28,12 @@ angular.module('mobius.controllers.about', [])
       if($scope.contentConfig.displayContentImageInHeroSlider){
         $scope.updateHeroContent(chain.images);
       }
-      else if($stateParams.code){
+      else {
         $scope.previewImages = contentService.getLightBoxContent(
         chain.images, 300, 150, 'fill');
         $scope.updateHeroContent(null, true);
       }
-      
+
       $scope.openGallery = function(slideIndex){
         modalService.openGallery(
           contentService.getLightBoxContent(chain.images),
