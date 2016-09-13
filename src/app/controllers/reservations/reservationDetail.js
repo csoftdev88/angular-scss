@@ -457,7 +457,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         var otherRoom = null;
 
         _.forEach($scope.otherRooms, function(value){
-          if(value.roomTypeCode === room.roomTypeCode)
+          if(value.code === room.roomTypeCode)
           {
             otherRoom = value;
           }
