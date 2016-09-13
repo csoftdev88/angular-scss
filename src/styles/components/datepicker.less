@@ -53,12 +53,21 @@
   font-size: @size-3;
   font-weight: 600;
   line-height: @baseline * 2;
+  .viewport-mobile & {
+    position:relative;
+  }
 }
 
 // Month title
 .ui-datepicker-title {
   order: 2;
   font-size: @size-1;
+  .viewport-mobile & {
+    width:100%;
+    padding:0 50px;
+    box-sizing:border-box;
+    text-align:center;
+  }
 }
 
 // Next & prev button
@@ -88,6 +97,11 @@
   span {
     display: none;
   }
+  .viewport-mobile & {
+    position:absolute;
+    top:50%;
+    margin-top:-22px;
+  }
 }
 
 .ui-datepicker-next {
@@ -95,6 +109,9 @@
 
   &:before {
     content: @fa-var-chevron-right;
+  }
+  .viewport-mobile & {
+    right:0;
   }
 }
 
