@@ -116,6 +116,7 @@ module.exports = {
         'bower_components/intl-tel-input/build/js/intlTelInput.min.js',
         'bower_components/international-phone-number/releases/international-phone-number.min.js',
         'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js',
+        'bower_components/ng-intl-tel-input/dist/ng-intl-tel-input.min.js',
         'bower_components/showdown/compressed/Showdown.min.js',
         'bower_components/angular-markdown-directive/markdown.js',
         'bower_components/angular-tooltips/dist/angular-tooltips.min.js',
