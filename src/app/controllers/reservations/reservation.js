@@ -837,7 +837,7 @@ angular.module('mobius.controllers.reservation', [])
     if(userObject !== null)
     {
       var userData = _.omit($scope.userDetails, _.isNull);
-      userData = _.omit(userData, ['id','token','email', 'languageCode']);
+      userData = _.omit(userData, ['id','token','email','languageCode','countryObj']);
 
       if(userData.countryObj)
       {
