@@ -917,7 +917,7 @@ angular.module('mobiusApp.config', [])
       'family': 'Family',
       'guarantee': 'Guarantee',
       'noShow': 'No Show',
-      'pet': 'Pet'
+      'pet': 'Pets'
     },
     'defaultCountryCode': 'ca',
     'preferredCountryCodes': 'ca,us,gb',
