@@ -166,7 +166,6 @@ angular
     'mobiusApp.directives.growlAlerts',
 
     'internationalPhoneNumber',
-    'ngIntlTelInput',
 
     // Filters
     'mobiusApp.filters.list',
