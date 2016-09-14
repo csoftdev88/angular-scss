@@ -225,9 +225,14 @@
     position: relative;
     left: 0px;
     top: 50%;
+    width:50%;
     max-width: 50%;
     line-height: 18px;
     transform: translateY(-50%);
+    .viewport-mobile & {
+      position:absolute;
+      left:20px;
+    }
   }
 
   // Currently selected rate
