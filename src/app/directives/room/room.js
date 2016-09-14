@@ -284,7 +284,10 @@ angular.module('mobiusApp.directives.room', [])
               var availableRooms = [];
               _.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
                 var room = _.find(hotelRooms, {code: availableRoom.code});
-                availableRooms.push(room);
+                if(room)
+                {
+                  availableRooms.push(room);
+                }
               });
 
               //filter out duplicates
