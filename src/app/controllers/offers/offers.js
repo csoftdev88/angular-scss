@@ -283,9 +283,9 @@ angular.module('mobius.controllers.offers', [])
           });
           offers = _.sortBy(offers, 'prio').reverse();
 
-          $scope.offersList = _.where(offers, {
-            showAtChainLevel: true,
-            showOnOffersPage: true
+          //Filter out offers that aren't showAtChainLevel and showOnOffersPage unless it is the current URL offer
+          $scope.offersList = _.filter(offers, function(offer) {
+            return (offer.showAtChainLevel && offer.showOnOffersPage) || offer.meta.slug === $stateParams.code;
           });
 
           _.each($scope.offersList, function(offer) {
