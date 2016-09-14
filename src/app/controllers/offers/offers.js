@@ -19,7 +19,6 @@ angular.module('mobius.controllers.offers', [])
 
   //Assign offers setting as scope config
   $scope.config = Settings.UI.offers;
-  $scope.viewsSettings = Settings.UI.viewsSettings;
 
   //Used by view to define whether we are on a specific offer vs overview
   $scope.showDetail = $stateParams.code ? true : false;
@@ -746,7 +745,7 @@ angular.module('mobius.controllers.offers', [])
       //Get property region/location data for breadcrumbs
       propertyService.getPropertyRegionData(property.locationCode).then(function(propertyRegionData) {
 
-        if($scope.viewsSettings.breadcrumbsBar.displayRegionLocation)
+        if($stateParams.regionSlug && $stateParams.locationSlug)
         {
           breadcrumbsService
             .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {
@@ -758,6 +757,9 @@ angular.module('mobius.controllers.offers', [])
               locationSlug: propertyRegionData.location.meta.slug,
               property: null
             });
+        }
+        else {
+          breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
         }
 
         breadcrumbsService.addBreadCrumb(property.nameShort, 'hotel', {
