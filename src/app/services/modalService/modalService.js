@@ -377,11 +377,22 @@ angular.module('mobiusApp.services.modal', [])
           return {
             room: room,
             product: product,
-            isTabbed: isTabbed
+            isTabbed: isTabbed,
+            totalDailyFees: getTotalDailyFees(product)
           };
         }
       }
     });
+  }
+
+  function getTotalDailyFees(product){
+    var totalDailyFees = 0;
+
+    _.forEach(product.price.breakdown, function(breakdown){
+      totalDailyFees += breakdown.totalFees;
+    });
+
+    return totalDailyFees;
   }
 
   // Public methods

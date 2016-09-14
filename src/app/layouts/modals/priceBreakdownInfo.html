@@ -42,15 +42,15 @@
           </tbody>
           <tfoot ng-if="$last">
             <tr ng-if="data.totalAdditionalTaxes > 0">
-              <th colspan="{{item.totalFees > 0 ? 4 : 3}}">_additional_taxes_</th>
+              <th colspan="{{data.totalDailyFees > 0 ? 4 : 3}}">_additional_taxes_</th>
               <th>{{data.totalAdditionalTaxes | i18nCurrency: currencyCode}}</th>
             </tr>
             <tr ng-if="data.totalAdditionalFees > 0">
-              <th colspan="{{item.totalFees > 0 ? 4 : 3}}">_additional_fees_</th>
+              <th colspan="{{data.totalDailyFees > 0 ? 4 : 3}}">_additional_fees_</th>
               <th>{{data.totalAdditionalFees | i18nCurrency: currencyCode}}</th>
             </tr>
             <tr>
-              <th colspan="{{item.totalFees > 0 ? 4 : 3}}">_total_</th>
+              <th colspan="{{data.totalDailyFees > 0 ? 4 : 3}}">_total_</th>
               <th>{{data.totalAfterTax | i18nCurrency: currencyCode}}</th>
             </tr>
           </tfoot>
