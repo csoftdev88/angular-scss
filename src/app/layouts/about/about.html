@@ -34,7 +34,7 @@
     <hr>
 
     <offers-list id="offers-list">
-      <offer-item ng-repeat="about in aboutList | limitTo: config.offersLimit track by $index">
+      <offer-item ng-repeat="about in aboutList | filter:{showOnMenu:true} | limitTo: config.offersLimit track by $index">
         <a ui-sref="aboutUs({code:about.meta.slug})">
           <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
