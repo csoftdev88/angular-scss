@@ -148,10 +148,12 @@ angular.module('mobiusApp.services.modal', [])
     var totalDailyFees = 0;
 
     _.forEach(rooms, function(room){
-      _.forEach(room._selectedProduct.price.breakdown, function(breakdown){
+      _.forEach(room._selectedProduct.price.breakdowns, function(breakdown){
         totalDailyFees += breakdown.totalFees;
       });
     });
+
+    console.log(totalDailyFees);
 
     return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DATA, {
       windowClass: 'is-wide',
@@ -388,7 +390,7 @@ angular.module('mobiusApp.services.modal', [])
   function getTotalDailyFees(product){
     var totalDailyFees = 0;
 
-    _.forEach(product.price.breakdown, function(breakdown){
+    _.forEach(product.price.breakdowns, function(breakdown){
       totalDailyFees += breakdown.totalFees;
     });
 
