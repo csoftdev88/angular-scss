@@ -1,0 +1,171 @@
+//////////////////////////
+//// VIEW MORE IMAGES ////
+//////////////////////////
+
+//- About Us, Hotel Detail, Hotels (location)
+
+view-more-images {
+  margin: 16px 20px 0 !important;
+  .viewport-tablet &{
+    margin: 0 !important;
+  }
+
+  a{
+    .chain-sign &{
+      color: @c-menu-active-sign;
+    }
+    .chain-sand &{
+      color: @c-menu-active-sand;
+    }
+  }
+
+  local-info{
+    display: block;
+    margin: 0;
+    margin-bottom: 10px;
+    .viewport-mobile &{
+      display: none;
+    }
+  }
+
+  hero-slider {
+    box-shadow: none;
+    height: 250px;
+    margin-top: 0;
+    margin-bottom: 40px;
+    position: relative;
+
+    .slider-content {
+      height: 300px;
+      .hero-slide {
+        overflow: visible;
+        height: 208px;
+        border: 4px solid @c-light-grey;
+        box-sizing: border-box;
+
+        .content-inner {
+          display: block;
+          top: 215px;
+          .chain-sign &{
+            top: 225px;
+          }
+          .viewport-mobile &{
+            top: 200px;
+          }
+          h1{
+            background: none;
+            color: @c-mid-grey;
+            .chain-sign &{
+              font-family: @ff-heading-it-sign;
+              font-style: italic;
+            }
+          }
+
+        }
+      }
+    }
+
+    .slider-controls{
+      > div{
+        top: -300px;
+      }
+      &:before{
+        height: 208px;
+        line-height: 208px;
+        top: -300px;
+      }
+      .slide-button{
+        display: none;
+        top: 100px;
+        .viewport-mobile & {
+          display:block;
+        }
+      }
+      .pages{
+        top: 235px;
+        .chain-sign &{
+          top: 245px;
+        }
+        .chain-sign &{
+          font-family: @ff-heading-it-sign;
+          font-style: italic;
+        }
+        counter{
+          color: @c-mid-grey;
+        }
+      }
+    }
+
+    .chain-sign &{
+      &:after{
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, -50%);
+        content: '';
+        width: 46px;
+        height: 46px;
+        background: url('@{img-prefix}/signature-logo-gallery.png') no-repeat center center;
+        z-index: 9;
+      }
+    }
+
+    .view-more-images-directions {
+      display:block;
+      position:absolute;
+      top:0px;
+      .viewport-mobile &{
+        display: none;
+      }
+      .slide-button {
+        top:80px;
+      }
+    }
+  }
+
+  read-more{
+    padding: 14px 20px 6px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    border-bottom: 2px solid @c-light-grey;
+
+    p{
+      color: @c-mid-grey;
+      margin-bottom: 14px;
+      font-size: 14px;
+      line-height: 24px;
+      border-top: 2px solid @c-light-grey;
+      border-bottom: 1px solid @c-light-grey;
+      height: 40px;
+      line-height: 40px;
+      .chain-sign &{
+        font-family: @ff-heading-it-sign;
+      }
+    }
+
+    ul{
+      li{
+        margin-bottom: 30px;
+        .chain-sand &{
+          margin-bottom: 20px;
+        }
+        a{
+          cursor: pointer;
+          font-size: 14px;
+          .chain-sign &{
+            font-family: @ff-heading-bold-sign;
+            font-weight: 700;
+            //font-size: 12px;
+          }
+          &:hover {
+            text-decoration:underline;
+          }
+        }
+      }
+    }
+
+  }
+}

@@ -1,0 +1,290 @@
+//- BUTTONS -//
+@c-button: @c-green;
+
+//overriding typeform button styles:
+.typeform-share.button{
+  border-radius: @radius !important;
+  display: inline-block !important;
+  padding: 0 @baseline !important;
+  min-width: 6*@baseline !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+  background-image: none !important;
+  background-color: @c-button !important;
+  border: none !important;
+  border-bottom: 1px solid darken(@c-button, 10%) !important;
+  color: #fff !important;
+
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  font-size: @size-0 !important;
+  line-height: @baseline * 1.75 !important;
+  height: @baseline * 1.75 !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3) !important;
+  float: none !important;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: darken(@c-button, 5%) !important;
+  }
+}
+
+button {
+  display: inline-block;
+  box-sizing: border-box;
+  border: none;
+  border-radius: @radius;
+  font-weight: 600;
+  font-size: @size-0;
+  line-height: @baseline * 1.75;
+  height: @baseline * 1.75;
+  padding: 0 @baseline;
+  text-align: center;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+
+  &:focus {
+    outline: none;
+  }
+
+  &.hide{
+    display: none;
+  }
+}
+
+//- Button Submit
+.typeform-share.button,
+.button,
+button-submit {
+  border-radius: @radius;
+  display: inline-block;
+  padding: 0 @baseline;
+  min-width: 6*@baseline;
+  box-sizing: border-box;
+  text-align: center;
+
+  background: @c-button;
+  border-bottom: 1px solid darken(@c-button, 10%);
+  color: #fff;
+
+  cursor: pointer;
+  font-weight: 600;
+  font-size: @size-0;
+  line-height: @baseline * 1.75;
+  height: @baseline * 1.75;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+
+  transition: 0.2s all;
+
+  box-shadow: 0 1px 0 0 darken(@c-button, 5%);
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: darken(@c-button, 5%);
+  }
+
+  &.hide{
+    display: none;
+  }
+}
+
+.button[disabled="disabled"],
+button-submit[disabled="disabled"] {
+  background: @c-disabled;
+  border-bottom: 1px solid darken(@c-disabled, 10%);
+  box-shadow: 0px 1px 0px 0px @c-grey;
+  cursor: default;
+}
+
+
+//- Close
+button-close {
+  display: inline-block;
+  height: @baseline * 2;
+  width: @baseline * 2;
+
+  cursor: pointer;
+  line-height: @baseline * 2;
+  text-align: center;
+
+  // Cross icon
+  &:before {
+    .fa;
+
+    content: @fa-var-close;
+  }
+}
+
+button-cancel {
+  &:extend(button);
+  background: @c-white;
+  color: @c-button;
+  border: 2px solid @c-button;
+  text-shadow: none;
+  line-height: @baseline * 1.75;
+  height: @baseline * 1.75;
+  box-sizing: initial;
+  width: auto;
+  padding: 0 10px;
+  &:hover {
+    background: @c-button;
+    color: @c-white;
+    border: 2px solid @c-button;
+  }
+}
+
+//- Button Text
+button-text {
+  display: inline-block;
+
+  cursor: pointer;
+}
+
+//- Button Remove
+button-remove {
+  display: inline-block;
+  width: @baseline * 2;
+
+  cursor: pointer;
+  text-align: center;
+
+  &:before {
+    .fa;
+    content: @fa-var-close;
+  }
+}
+
+//- Button Next -> used in Reservation
+button-next,
+button.next {
+  &:extend(button);
+
+  position: relative;
+  height: @baseline * 2;
+  padding: 0 70px 0 30px; // 30px + 40px width of icon
+
+  color: @c-white;
+  background: @c-button;
+
+  font-size: @size-1;
+  line-height: @baseline * 2;
+  box-shadow: 0 2px 0 0 darken(@c-button, 5%);
+  transition: background-color 0.15s linear;
+
+  &:hover {
+    background-color: darken(@c-button, 5%);
+  }
+
+  &:focus {
+    background-color: darken(@c-button, 8%);
+  }
+
+  &:active {
+    box-shadow: 0 1px 0 0 darken(@c-button, 5%);
+    transform: translateY(1px);
+  }
+
+  // Arrow in right part of button
+  &:after {
+    .fa;
+    content: @fa-var-angle-right;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    border-left: 1px solid lighten(@c-button, 10%);
+
+    line-height: 40px;
+    font-size: @size-4;
+    text-align: center;
+
+    box-shadow: -2px 0 0 -1px darken(@c-button, 10%);
+  }
+
+  &[disabled="disabled"]{
+    background: @c-disabled;
+    border-bottom: 1px solid darken(@c-disabled, 10%);
+    box-shadow: none;
+
+    &:after {
+      border-left: none;
+      box-shadow: none;
+    }
+  }
+}
+
+//- Button Back -> used in Reservation
+button-back,
+button.back {
+  &:extend(button);
+
+  &.pull-left{
+    padding-left: 0;
+    width: 100%;
+    text-align: left;
+  }
+
+  text-shadow: none;
+
+  border: none;
+  background: transparent;
+  color: @c-gray;
+
+  font-size: @size--0;
+  font-weight: normal;
+  line-height: @baseline * 2;
+
+  margin-left: 0;
+
+
+  &:hover,
+  &:focus {
+    color: @c-black;
+
+    &:before {
+      border-color: @c-black;
+    }
+  }
+
+  // Arrow on left side
+  &:before {
+    .fa;
+    content: @fa-var-angle-left;
+
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    border: 1px solid @c-gray;
+    border-radius: 50%;
+
+    font-size: @size-0;
+    text-align: center;
+  }
+}
+
+button-retry {
+  &:extend(button);
+  height: @baseline*2;
+
+  border: 2px solid lighten(@c-link, 10%);
+  color: lighten(@c-link, 10%);
+}
+
+/* Legacy code from v2 seems to be used */
+.button {
+  .button-colors(default, @colorButtonDefault, @colorButtonDefaultHover);
+}
+
+.button-blue {
+  .button-colors(blue, @colorButtonBlue, @colorButtonBlueHover);
+}
+
+.button-gray {
+  .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
+}

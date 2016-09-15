@@ -1,0 +1,41 @@
+dialog.other-rooms {
+  ul {
+    li {
+      width: 100%;
+      overflow: auto;
+      margin: @baseline 0px;
+
+      img {
+        float: left;
+        width: 25%;
+        margin-right: 2%;
+        .viewport-mobile &{
+          width: auto;
+        }
+      }
+
+      .details {
+        float: left;
+        width: 73%;
+
+        .desc,
+        .price {
+          color: @c-link;
+        }
+
+        .desc{
+          font-weight: 700;
+        }
+
+        h3 {
+          font-size: @size-2;
+          margin: 10px 0px;
+        }
+
+        .guests {
+          color: @c-grey;
+        }
+      }
+    }
+  }
+}

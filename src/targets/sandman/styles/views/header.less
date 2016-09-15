@@ -1,0 +1,435 @@
+#main-header {
+  background: #fff;
+  height: 128px;
+  .viewport-mobile &{
+    height: auto;
+  }
+}
+
+// GENERIC STYLES
+.main-nav {
+  height: 98px;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  .viewport-mobile &{
+    height: 60px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu-opener{
+    background-size: 21px 16px;
+  }
+}
+
+// MOBILE SPECIFIC STYLES
+@media only screen and @large-mobile-max {
+
+  #main-header {
+    background-color: @c-white;
+  }
+
+  .main-nav {
+
+    .brand {
+      .viewport-mobile &{
+        top: 22px;
+        img{
+          height: auto;
+        }
+      }
+      .chain-sign &{
+        width: 40px;
+        height: 26px;
+        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat center center;
+        top: 16px;
+        img{
+          display: none !important;
+        }
+      }
+      .chain-sand & {
+        width:200px;
+        overflow:hidden;
+      }
+    }
+
+    > .app-menu {
+      background-color: @c-dark-grey-transparent;
+
+      ul {
+        width: 100%;
+
+        > li {
+          border-top: 1px @c-primary solid;
+          background-color: @c-dark-grey-transparent;
+
+          &.mobile-header{
+            img{
+              height: auto;
+            }
+            a{
+              width: 221px;
+              height: 20px;
+              background: url('@{img-prefix}/sandman-logo-light.png') no-repeat center center;
+              img{
+                display: none !important;
+              }
+            }
+            .chain-sign &{
+              a{
+                width: 30px;
+                height: 20px;
+                background: url('@{img-prefix}/signature-logo-light.png') no-repeat center center;
+                img{
+                  display: none !important;
+                }
+              }
+            }
+            .chain-sand & {
+              a {
+                width:200px;
+                background-position:center left;
+              }
+            }
+            .close{
+              &:after {
+                .fa;
+                color: #fff;
+                content: @fa-var-close;
+                top: 22px;
+              }
+            }
+          }
+
+          a{
+            color: @c-secondary;
+            font-size: 16px;
+            font-weight: 700 !important;
+          }
+
+          a.is-active {
+            font-weight: 700;
+            text-shadow: none;
+          }
+
+          &.mobile-header{
+            border-top: 0;
+          }
+
+          &.mobile-profile{
+            height: auto;
+            line-height: 50px;
+            text-transform: none;
+            border-top: 0;
+            a{
+              text-transform: none;
+            }
+            .profile {
+              margin-top: 0;
+              height: 50px;
+              .message{
+                font-size: @size--1;
+                color: @c-primary;
+              }
+
+              .user {
+                color: @c-primary;
+                font-size: @size-0;
+                line-height: @size-0;
+
+                span {
+                  display: inline;
+                  font-weight: normal;
+
+                  // Surname
+                  &:last-of-type {
+                    display: inline;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Tablet styles
+@media only screen and @tablet-portrait-max and @large-mobile-min {
+
+}
+
+@media only screen and @large-mobile-max {
+  .main-nav {
+    ul {
+      li[currency-list] {
+        > div > a:after {
+          width:auto;
+          height:auto;
+        }
+      }
+    }
+  }
+}
+
+// DESKTOP STYLES
+@media only screen and @tablet-portrait-min {
+
+  .main-nav {
+
+    ul {
+
+      li {
+
+        position: relative;
+        line-height: 98px;
+
+        a {
+          color: @c-dark-grey;
+          box-shadow: none;
+          text-transform: uppercase;
+          transition: all 0.3s ease-out;
+
+          &:hover,
+          &:focus,
+          &:active,
+          &.is-active {
+            box-shadow: none;
+          }
+
+          &.button-login{
+            color: #fff;
+            border-radius: 8px;
+            text-shadow: none;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+            font-family: @ff-default;
+            .chain-sign &,
+            .chain-sand &{
+              font-family: @ff-default;
+            }
+          }
+        }
+
+        .open > a {
+            box-shadow: none;
+        }
+
+        .open.has-icons > a {
+            box-shadow: none;
+        }
+
+        &.desktop-profile{
+          //height: 120px;
+          //line-height: 120px;
+          text-transform: none;
+          a{
+            text-transform: none;
+          }
+          .profile {
+            margin-top: 2px;
+            min-width: 0;
+            color: @c-dark-grey;
+            line-height:17px;
+            .message{
+              color: @c-primary;
+              font-weight: 400;
+              font-size: @size--0;
+              line-height: @size--0;
+              padding-right: 13px;
+              text-align: right;
+            }
+
+            .user {
+              color: @c-dark-grey;
+              font-size: @size--0;
+
+              img {
+                width: 40px;
+                height: 40px;
+                border: 2px solid @c-light-grey;
+                margin-top: 25px;
+              }
+
+              .user-details{
+                position: relative;
+                top: 30px;
+                &.has-points{
+                  top: 13px;
+                }
+              }
+
+              span {
+                font-weight: 700;
+                line-height: 17px;
+
+                // Surname
+                &:last-of-type {
+                  font-weight: 700;
+                }
+              }
+
+              &:after {
+                height: 9px;
+                margin-left: 0;
+                top: 35px;
+                background: none;
+                width: 0;
+                height: 0;
+                right:-20px;
+                border-style: solid;
+                border-width: 9px 4.5px 0 4.5px;
+                border-color: @c-light-grey transparent transparent;
+              }
+            }
+          }
+          .points{
+
+          }
+        }
+      }
+
+      li[currency-list],
+      li[language-list] {
+        line-height: 98px;
+        padding: 0 10px;
+        a{
+          color: @c-dark-grey;
+          font-size: 10px;
+          &:hover,
+          &:after{
+            color: @c-dark-grey;
+          }
+        }
+        ul{
+          li{
+            padding: 0 10px;
+            a{
+              color: #fff;
+              font-size: 14px;
+              &:hover,
+              &:after{
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .brand {
+      display: block;
+      float: left;
+      margin: 0;
+      margin-top: 0px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      .chain-sign &{
+        width: 145px;
+        height: 70px;
+        background: url('@{img-prefix}/signature-logo.png') no-repeat center center;
+        background-size: auto 70px;
+        img{
+          display: none;
+        }
+      }
+      .chain-sand &{
+        width:400px;
+        overflow:hidden;
+      }
+      .viewport-tablet &{
+        max-width: 40%;
+        img{
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and @tablet-landscape-min {
+
+  .main-nav {
+
+    .button-login {
+      right: 0;
+    }
+  }
+}
+
+/*
+Sub-nav
+*/
+#main-header{
+
+  .sub-nav {
+    background: @c-primary;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+    .sticky-bread & {
+      box-shadow:none;
+    }
+    .chain-sign &{
+      background: @c-primary-sign;
+    }
+    .chain-sand &{
+      background: @c-primary-sand;
+    }
+    height: 30px;
+    line-height: 30px;
+    > nav{
+      text-align: center;
+      > ul{
+        display: inline-block;
+        li[mega-menu]{
+          &:hover > a{
+            color: @c-menu-active;
+            .chain-sign &{
+              color: @c-menu-active-sign;
+            }
+            .chain-sand &{
+              color: @c-dark-grey;
+            }
+          }
+        }
+        li{
+          display: inline;
+          float: left;
+          a{
+            color: #fff;
+            font-size: 13px;
+            text-transform: uppercase;
+            padding: 0 15px;
+            &.is-active,
+            &:hover {
+              color: @c-menu-active;
+              .chain-sign &{
+                color: @c-menu-active-sign;
+              }
+              .chain-sand &{
+                color: @c-dark-grey;
+              }
+            }
+          }
+          ul{
+            li{
+              display: block;
+              float: none;
+              text-align: left;
+              -webkit-column-break-inside: avoid;
+              page-break-inside: avoid;
+              break-inside: avoid;
+              a{
+                padding: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,45 @@
+/*  ==========================================
+    Others
+    ========================================== */
+
+.vertical-divider {
+  display: none;
+  position: absolute;
+  top: unit((@baseline / @htmlFontSize) * 2, em);
+  bottom: unit((@baseline / @htmlFontSize) * 2, em);
+  width: 1px;
+  background-color: @borderColorDefault;
+
+  @media @moreThenTablet {
+    display: block;
+  }
+}
+
+/*  ==========================================
+    Media Queries helpers
+    ========================================== */
+
+@media only screen and @lessThenTablet {
+  [rwd="desktop"] {
+    display: none !important;
+  }
+}
+
+@media only screen and @moreThenMobile {
+  [rwd="mobile"] {
+    display: none !important;
+  }
+}
+
+/*  ==========================================
+    Fade fx
+    ========================================== */
+
+.fade.in {
+  opacity: 1;
+}
+
+.fade {
+  opacity: 0;
+  .transition(opacity, .15s, linear);
+}

@@ -1,0 +1,264 @@
+////////////////////////////////////////////////
+//RATES PRELOADING CONTAINER WITH TESTIMONIALS//
+////////////////////////////////////////////////
+
+.rates-preloading-container{
+  position: relative;
+  display: inline-block;
+  border: 2px solid #e7ddce;
+  border-radius: 4px;
+  background: #f7f3ee;
+  padding: 20px 70px 60px;
+  text-align: center;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+
+  .viewport-mobile &,
+  .viewport-tablet &{
+    width: 100%;
+  }
+
+  .viewport-mobile &{
+    padding: 10px 10px 70px;
+  }
+
+  .rates-preloading-container-title {
+    font-size: 14px;
+    line-height: 30px;
+    color: #898989;
+    margin-bottom: 20px;
+    .viewport-mobile &{
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .testimonial-container{
+    display: inline-block;
+    width: 100%;
+    .author{
+      float: left;
+      text-align: center;
+      .viewport-tablet &{
+        width: 15%;
+      }
+      .viewport-mobile &{
+        float: none;
+        display: inline-block;
+        text-align: left;
+      }
+      .thumbnail{
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        background: #fff;
+        padding: 4px;
+        border-radius: 100%;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        box-shadow: 0 0 5px 0 rgba(0,0,0,0.75);
+
+        .viewport-tablet &{
+          width: 100%;
+          height: auto;
+        }
+
+        .viewport-mobile &{
+          //display: none;
+          width: 50px;
+          height: 50px;
+          padding: 1px;
+          float: left;
+          margin-right: 16px;
+        }
+
+        img{
+          border-radius: 100%;
+          width: 100%;
+          max-width: 100%;
+          max-height: 100%;
+          display: block;
+        }
+      }
+      .author-details{
+        .viewport-mobile &{
+          float: left;
+        }
+        .name{
+          font-size: 12px;
+          color: #888;
+        }
+        .city{
+          font-size: 10px;
+          line-height: 12px;
+          color: #333;
+          max-width: 80px;
+          display: inline-block;
+        } 
+      }
+      
+    }
+
+    .testimonial{
+      position: relative;
+      float: left;
+      color: #00659b;
+      font-family: Georgia,Times,Times New Roman,serif;
+      font-style: italic;
+      font-size: 16px;
+      line-height: 30px;
+      padding: 4px;
+      box-sizing: border-box;
+      width: 680px;
+      margin-left: 30px;
+      text-align: left;
+      background: #F1F1F1;
+      border-radius: 4px;
+
+      .viewport-tablet &{
+        width: 80%;
+        margin-left: 5%;
+      }
+
+      .viewport-mobile &{
+        float: none;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+        line-height: 21px;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .testimonial-inner{
+        background: #fff;
+        border: 1px solid #E3E3E3;
+        padding: 20px 20px 40px;
+        .desc{
+          margin-bottom: 10px;
+        }
+        .rating{
+          .testimonialStar,
+          .testimonialStarEmpty{
+            background: transparent url('@{img-prefix}/v4/tripadvisor-rating-dot.png') no-repeat;
+            width: 20px;
+            height: 21px;
+            float: left;            
+          }
+          .testimonialStarEmpty{
+            background: transparent url('@{img-prefix}/v4/tripadvisor-rating-dot.png') no-repeat;
+          }
+        }
+        .viewport-mobile &{
+          padding: 20px 20px 10px;
+          .rating{
+            display: inline-block;
+          }
+        }
+      }
+
+      &:before{
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 13px 15px 13px 0;
+        border-color: transparent #e3e3e3 transparent;
+        left: -11px;
+        top: 24px;
+        .viewport-mobile &{
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 13px 15px 13px;
+          border-color: transparent transparent #e3e3e3;
+          left: 50%;
+          margin-left: -13px;
+          top: -11px;
+        }
+      }
+      
+      &:after{
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 13px 15px 13px 0;
+        border-color: transparent #fff transparent;
+        left: -10px;
+        top: 24px;
+        .viewport-mobile &{
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 13px 15px 13px;
+          border-color: transparent transparent #fff;
+          left: 50%;
+          margin-left: -13px;
+          top: -10px;
+        }
+      }
+    }
+
+  }
+
+  .testimonial-carousel-wrapper{
+    position: relative;
+    display: inline-block;
+    width: 810px;
+    height: 150px;
+    .viewport-mobile &,
+    .viewport-tablet &{
+      width: 100%;
+    }
+    .viewport-tablet &{
+      //height: 320px;
+    }
+    .viewport-mobile &{
+      height: 200px;
+    }
+    .testimonial-container{
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+      &.in{
+        opacity: 1;
+      }
+    }
+  }
+  
+  .logo{
+    position: absolute;
+    width: 145px;
+    height: 22px;
+    left: 20px;
+    bottom: 10px;
+    background: transparent url('@{img-prefix}/v4/icon-tripadvisor-large.png') no-repeat;
+    .viewport-mobile &{
+      max-width: 50%;
+      background-size: 100%;
+      left: 10px;
+      bottom: 5px;
+    }
+  }
+
+  .rates-preloader{
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    width: 32px;
+    height: 32px;
+    background: transparent url('@{img-prefix}/v4/preloader-brown.gif') no-repeat;
+    .viewport-mobile &{
+      background-size: 24px;
+      width: 24px;
+      height: 24px;
+      right: 10px;
+      bottom: 5px;
+    }
+  }
+}

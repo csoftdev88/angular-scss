@@ -1,0 +1,72 @@
+////////////////////////
+//// LIST OF OFFERS AND REWARDS////
+////////////////////////
+
+offers-list,
+rewards-list {
+
+
+  offer-item,
+  reward-item {
+    width: 264px;
+    border-radius: 0;
+    height: 247px;
+    margin: auto auto @baseline;
+
+    border: 0;
+    box-shadow: 0 0 5px 0 #222 inset;
+    background: transparent;
+
+
+		section {
+			background: rgba(255, 255, 255, 0.85);
+			margin-top: 124px;
+			height: 123px;
+    	z-index: -1;
+
+			&:after {
+			  background: none
+			}
+
+		}
+
+
+    //- Image
+    img {
+      margin-bottom: @baseline/2;
+      max-height: 100%;
+      min-height: 0px;
+    	width: auto;
+      position: absolute;
+    	z-index: -1;
+    	top: 0;
+    	left: 0
+    }
+
+    //- Title
+    h2, h3 {
+      margin-top: @baseline/2;
+      margin-bottom: @baseline/2;
+      color: @c-brand;
+      text-transform: initial;
+      font-size: @size-1;
+      padding: 0 12px;
+    }
+
+    //- Description
+    div {
+    	font-size: @size--0
+    }
+
+    //- Read More
+    .read-more {
+      color: @c-brand;
+    }
+
+    //- Advert Offer
+    &.advert {
+      height: 290px;
+    }
+
+  }
+}

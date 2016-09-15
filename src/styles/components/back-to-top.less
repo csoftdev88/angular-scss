@@ -1,0 +1,64 @@
+//- BACK TO TOP BUTTON -//
+.back-to-top{
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 4px;
+  background: @c-link;
+  transition: 0.2s all;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: 999;
+  .viewport-mobile &{
+    bottom: 80px;
+    right: 10px;
+  }
+  .floating-bar-active &{
+    bottom: 150px;
+    .viewport-mobile &{
+      bottom: 80px;
+    }
+  }
+  span{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: block;
+    font-size: 10px;
+    line-height: 10px;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    bottom: 2px;
+  }
+  &:after {
+    .fa;
+    content: @fa-var-arrow-up;
+    background: transparent;
+    color: #fff;
+    font-size: 30px;
+    line-height: 27px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 50%;
+    top: 50%;
+    margin-left: -15px;
+    margin-top: -20px;
+    transition: 0.2s all;
+    transform: translateY(0px);
+
+  }
+  &:hover:after{
+    transform: translateY(-2px);
+  }
+  &.visible{
+    height: 60px;
+    overflow: visible;
+    opacity: 1;
+  }
+}

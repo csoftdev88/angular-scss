@@ -1,0 +1,265 @@
+//- DATEPICKER -//
+
+.ui-datepicker {
+  z-index: 1050 !important;
+  display: none;
+  transform: translate3d(0px,0px,0px);
+  -webkit-transform: translate3d(0px,0px,0px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  background: #fff;
+  box-shadow: 0 0 1px @c-link;
+  margin-top: -10px;
+  margin-left: -66px;
+
+  .viewport-mobile &{
+    bottom: 0px;
+    position: fixed;
+    top: inherit !important;
+    margin-left: 0;
+    width: 100%;
+    left: 0!important;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  &:after {
+    .fa;
+
+    content: @fa-var-sort-desc;
+    position: absolute;
+    font-size: 36px;
+    bottom: -14px;
+    color: @c-link;
+    // NOTE: Panels are not equal
+    left: 48%;
+    .viewport-mobile &{
+      display: none;
+    }
+  }
+}
+
+//- Header
+.ui-datepicker-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 4px;
+
+  background: @c-datepicker;
+  color: #fff;
+
+  font-size: @size-3;
+  font-weight: 600;
+  line-height: @baseline * 2;
+  .viewport-mobile & {
+    position:relative;
+  }
+}
+
+// Month title
+.ui-datepicker-title {
+  order: 2;
+  font-size: @size-1;
+  .viewport-mobile & {
+    width:100%;
+    padding:0 50px;
+    box-sizing:border-box;
+    text-align:center;
+  }
+}
+
+// Next & prev button
+.ui-datepicker-prev,
+.ui-datepicker-next {
+  order: 1;
+  width: @baseline * 2;
+
+  color: #fff;
+
+  cursor: pointer;
+  text-align: center;
+  font-size: @size--1;
+
+  &:hover,
+  &:focus {
+    background: darken(@c-datepicker, 10%);
+    color: #fff;
+  }
+
+  &:before {
+    .fa;
+
+    content: @fa-var-chevron-left;
+  }
+
+  span {
+    display: none;
+  }
+  .viewport-mobile & {
+    position:absolute;
+    top:50%;
+    margin-top:-22px;
+  }
+}
+
+.ui-datepicker-next {
+  order: 3;
+
+  &:before {
+    content: @fa-var-chevron-right;
+  }
+  .viewport-mobile & {
+    right:0;
+  }
+}
+
+
+//- Calendar Table
+.ui-datepicker-calendar {
+  margin: @baseline/2 @baseline 0 @baseline;
+  width: 260px;
+  height: 342px;
+
+  .viewport-mobile &{
+    width: auto;
+    margin: @baseline/2 auto @baseline;
+  }
+
+  tbody {
+    tr {
+      border: 8px solid @c-white;
+    }
+
+    td, th {
+      width: @baseline*3;
+      color: lighten(@c-text, 50%); // Past days
+      font-size: @size-2;
+      line-height: @baseline*2;
+      text-align: center;
+    }
+
+    td {
+
+      a {
+        display: block;
+        color: @c-text; // Today and Future days
+        text-decoration: none;
+      }
+
+      // Highlighting today's day
+      &.ui-datepicker-today a {
+        color: @c-text;
+      }
+
+      // Days from other month
+      &.ui-datepicker-other-month a {
+        color: lighten(@c-text, 50%);
+      }
+
+      // Selected start and end day
+      &.date-range-start,
+      &.date-range-end {
+        background: @c-datepicker;
+        color: #fff;
+
+        a {
+          color: #fff !important;
+        }
+      }
+
+      &.date-range-edit {
+        background-color: @c-brown;
+      }
+
+      // Selected dates
+      &.date-range-selected a {
+        background: lighten(@c-datepicker, 5%);
+        color: #fff;
+      }
+
+      // Day is not available
+      &.date-not-available {
+        background-color: #ed1c24;
+        pointer-events: none;
+
+        a {
+          color: lighten(@c-text, 50%);
+          cursor: text;
+          pointer-events: none;
+        }
+
+        &.date-range-start,
+        &.date-range-end {
+          background-color: darken(#ed1c24, 2%);
+        }
+
+        &.date-range-selected a {
+          background-color: lighten(#ed1c24, 2%);
+        }
+      }
+
+    }
+
+  }
+}
+
+//- Bottom Control Panel
+.ui-datepicker-buttonpane {
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  padding: @baseline/2 @baseline;
+  color: @c-white;
+
+  background-color: @c-link;
+  height: 35px;
+  line-height: 35px;
+
+  //- How many days was selected
+  &:before {
+    display: inline-block;
+    content: attr(data-counter);
+    position: relative;
+    left: 0px;
+    top: 50%;
+    width:50%;
+    max-width: 50%;
+    line-height: 18px;
+    transform: translateY(-50%);
+    .viewport-mobile & {
+      position:absolute;
+      left:20px;
+    }
+  }
+
+  // Currently selected rate
+  &:after {
+    display: inline-block;
+    content: attr(data-title);
+    position: absolute;
+    left: @baseline;
+    font-weight: bold;
+    top: 0px;
+    font-size: @size-1;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 30px;
+    white-space: nowrap;
+  }
+
+  .ui-datepicker-close {
+    &:extend(.button);
+    position: absolute;
+    right: @baseline;
+    height: @baseline * 1.5;
+  }
+
+  // Hide today button
+  .ui-datepicker-current {
+    display: none;
+  }
+}

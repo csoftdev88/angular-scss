@@ -1,0 +1,205 @@
+.ui-datepicker {
+  background-color: @white;
+  .box-shadow;
+
+  .ui-datepicker-header {
+    background-color: @colorDatepickerHeader;
+    position: relative;
+
+    .ui-datepicker-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      top: 10px;
+
+      color: @white;
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+      .fs-12;
+    }
+  }
+
+  // Navigation buttons
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    background-size: 46px 38px !important;
+    cursor: pointer;
+
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+    margin-top: 5px;
+    background-size: 46px 38px;
+
+    span {
+      display: none;
+    }
+  }
+
+  .ui-datepicker-prev {
+    background: url('@{img-prefix}/angle-left.svg') no-repeat center center;
+  }
+
+  .ui-datepicker-next {
+    background: url('@{img-prefix}/angle-right.svg') no-repeat center center;
+    float: right;
+  }
+
+  table.ui-datepicker-calendar {
+    width: 100%;
+
+    thead {
+      background-color: @colorDatepickerSubHeader;
+
+      th span {
+        color: @colorLinkDefault;
+        .fs-12;
+        font-weight: normal;
+        padding: 7px 12px;
+      }
+    }
+
+    tbody {
+      td {
+        text-align: center;
+        .fs-12;
+        font-weight: normal;
+        padding: 7px 12px;
+        cursor: pointer;
+
+        a {
+          color: @colorDatepickerDays;
+          text-decoration: none;
+          .transition(background-color, @transitionDurationShort);
+        }
+
+        &:hover {
+          background-color: @colorDatepickerRange;
+
+          a {
+            color: @white;
+          }
+        }
+
+        //&.ui-datepicker-current-day,
+        &.date-range-start,
+        &.date-range-end {
+          background-color: @colorLinkDefault;
+          a, span {
+            color: @white !important;
+          }
+        }
+
+        &.date-range-start {
+          border-radius: 3px 0px 0px 3px;
+        }
+
+        &.date-range-end {
+          border-radius: 0px 3px 3px 0px;
+        }
+
+        &.ui-datepicker-unselectable {
+          color: #ccc;
+        }
+
+        &.date-range-selected {
+          background-color: @colorDatepickerRange;
+          a {
+            color: @white;
+          }
+        }
+
+        &.date-not-available {
+          background-color: #cc0001;
+          border-radius: 0px;
+          a {
+            color: @white;
+          }
+
+          &.date-range-start,
+          &.date-current-day,
+          &.date-range-end {
+            background-color: #E75F5F;
+          }
+
+          &.date-range-selected {
+            background-color: #EA5A5A;
+          }
+        }
+
+        &.ui-datepicker-other-month {
+          color: @colorLightGray;
+
+          &:hover {
+            // TODO: not specifyed in invision yet
+            background-color: #BAD4E6;
+          }
+        }
+      }
+    }
+  }
+
+  .ui-datepicker-buttonpane {
+    &:before {
+      display: inline-block;
+      content: attr(data-counter);
+      float: left;
+    }
+
+    .ui-datepicker-close {
+      float: right;
+      &:extend(.button);
+    }
+
+    .ui-datepicker-current {
+      display: none;
+    }
+  }
+}
+
+@media only screen and @lessThenTablet {
+  .ui-datepicker {
+    table.ui-datepicker-calendar {
+
+      thead th span,
+      tbody td {
+        padding: 2px 4px;
+      }
+    }
+  }
+}
+
+// MONTH PICKER
+.month-picker {
+  .ui-datepicker-header {
+    min-width: 250px;
+
+    .ui-datepicker-prev,
+    .ui-datepicker-next {
+      height: 44px;
+    }
+
+    select {
+      width: 50%;
+      float: left;
+    }
+  }
+
+  table.ui-datepicker-calendar {
+    display: none;
+  }
+
+  .ui-datepicker-buttonpane {
+    padding: 10px;
+    height: 35px;
+
+    .ui-datepicker-close {
+      &:extend(.button);
+      width: 100%;
+    }
+  }
+}

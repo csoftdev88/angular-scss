@@ -1,0 +1,330 @@
+//////////////////////
+//// FLOATING BAR ////
+//////////////////////
+
+floating-bar {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  z-index: 1001;
+  display: block;
+  width: 100%;
+  background: @c-booking-widget;
+  color: #fff;
+  transition: bottom 1s ease-out;
+
+  &.hide{
+    bottom: -200px;
+  }
+
+  .viewport-mobile &{
+    height: 70px;
+    &.active{
+      height: auto;
+      max-height: 100%;
+      overflow-y: auto;
+
+      > ul{
+        background: @c-booking-widget;
+      }
+    }
+  }
+
+  @media print {
+   display: none;
+  }
+
+  &.active {
+    > ul li {
+      &.floating-bar--tab-booking.mobile-single-booking,
+      &.floating-bar--tab-advanced-booking {
+        .viewport-mobile & {
+          display: block;
+          line-height: 25px;
+        }
+      }
+    }
+  }
+
+  &.my-account {
+    background: #ebaa3d;
+    .sign-up{
+      p{
+        color: #fff;
+      }
+    }
+  }
+
+  my-account {
+    .sign-up,
+    article{
+      p{
+        color: #fff;
+      }
+    }
+  }
+
+  //- Tabs
+  > ul {
+    position: absolute;
+    left: 50%;
+    top: -33px;
+    max-width: 960px;
+    width: 100%;
+    transform: translate(-50%, 0);
+
+    .viewport-mobile & {
+      position: relative;
+      left: auto;
+      top: 0;
+      max-width: 100%;
+      transform: translate(0, 0);
+      padding: 0;
+      box-sizing: border-box;
+      background: @c-green;
+    }
+
+    li {
+      position: relative;
+      display: block;
+      float: left;
+      padding: 0 @baseline/2 0 @baseline*1.5;
+      background: lighten(@c-booking-widget, 10%);
+      color: #fff;
+      line-height: @baseline * 1.5;
+      text-transform: uppercase;
+
+      a {
+        position: relative;
+        z-index: 1;
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        padding: 0 10px;
+
+        &:focus,
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      .viewport-mobile &{
+        padding: 0;
+        text-align: center;
+      }
+
+      //- Filling
+      &:first-of-type:before{
+        position: absolute;
+        right: @baseline * 1.5;
+        height: @baseline * 1.5;
+        width: 1000px;
+        background: lighten(@c-booking-widget, 10%);
+        content: '';
+        .viewport-mobile &{
+          display: none;
+        }
+      }
+
+      &.is-active:first-of-type:before {
+        background: @c-booking-widget;
+      }
+
+      &:last-of-type:before {
+        position: absolute;
+        left: @baseline * 1.5;
+
+        height: @baseline * 1.5;
+        width: 1000px;
+
+        background: @c-booking-widget-my-account;
+
+        content: '';
+      }
+
+      //- Skew effect
+      &:after {
+        position: absolute;
+        top: 0;
+        right: -@baseline;
+
+        display: block;
+        height: 0;
+        width: 0;
+
+        border-bottom: @baseline*1.5 solid lighten(@c-booking-widget, 10%);
+        border-right: @baseline solid transparent;
+
+        content: "";
+
+        .viewport-mobile &{
+          content: none;
+        }
+      }
+
+      //- If tab is selected
+      &.is-active {
+        background: @c-booking-widget;
+
+        &:after {
+          border-bottom: @baseline*1.5 solid @c-booking-widget;
+        }
+      }
+
+      &.floating-bar--tab-booking {
+        z-index: 1;
+        padding-left: 0;
+
+        &.is-active {
+          z-index: 2;
+        }
+
+        &.mobile-single-booking{
+          display: none;
+        }
+
+        .mobile{
+          display: none;
+        }
+
+        //Mobile
+        .viewport-mobile &.mobile-single-booking {
+          display: block;
+          width: 50%;
+          margin-bottom: 20px;
+        }
+
+        .viewport-mobile &.main-mobile-toggle {
+          float: none;
+          text-align: center;
+          padding-right: 0;
+
+          &.mobile-is-open a{
+            background: @c-booking-widget;
+          }
+
+          a{
+            background: @c-green;
+            margin-top: auto;
+            margin-bottom: auto;
+            //padding: 20px 0;
+            height: 70px;
+            font-weight: bold;
+            .desktop{
+              display: none;
+            }
+
+            &.with-search-params {
+              background: @c-booking-widget;
+              font-size: 11px;
+            }
+
+            .mobile{
+              display: inline-block;
+
+              div {
+                line-height: 70px;
+                &.book-now-button {
+                  //line-height: 35px;
+                }
+
+                &.search-params-bar {
+                  display: inline-block;
+
+                  &.in-line {
+                    line-height: 30px;
+                  }
+
+                  .cell {
+                    //display: table-cell;
+                    //vertical-align: middle;
+                    display: inline;
+                    float: left;
+                  }
+
+                  .dates {
+                    text-align: right;
+                    //width: 8.6em;
+                  }
+
+                  .date-cell {
+                    //display: inline-block;
+                    float: left;
+                  }
+
+                  .separator-cell {
+                    padding: 0 10px;
+                  }
+
+                  .people {
+                    text-align: left;
+                    > div{
+                      float: left;
+                      &.adult {
+                        margin-right: 10px;
+                      }
+                    }
+                  }
+                }
+              }
+              .mobile-close{
+                cursor: pointer;
+                &:after {
+                  .fa;
+                  position: absolute;
+                  right: 10px;
+                  top: 15px;
+                  color: #fff;
+                  font-size: 21px;
+                  transform: translateY(-50%);
+                  content: @fa-var-close;
+                }
+              }
+            }
+          }
+
+        }
+      }
+
+      &.floating-bar--tab-advanced-booking {
+        z-index: 0;
+
+        &.is-active {
+          z-index: 2;
+        }
+        .viewport-mobile & {
+          width: 50%;
+          margin-bottom: 20px;
+        }
+      }
+
+      &.floating-bar--tab-my-accounts {
+        float: right;
+        padding: 0 0 0 @baseline/2;
+
+        background: @c-booking-widget-my-account;
+
+        &:after {
+          position: absolute;
+          left: -@baseline;
+          right: auto;
+          top: 0;
+
+          border-right: 0;
+          border-left: @baseline solid transparent;
+          border-bottom: @baseline*1.5 solid @c-booking-widget-my-account;
+        }
+
+        //Mobile
+        .viewport-mobile & {
+          display: none;
+        }
+
+      }
+    }
+  }
+
+  p {
+    color: @c-white;
+  }
+}

@@ -1,0 +1,57 @@
+//////////////////////
+//// OFFER DETAIL ////
+//////////////////////
+
+offer-detail {
+  display: inline-block;
+
+  //- Page Heading
+  h1 {
+    .h1;
+    font-weight: 300;
+  }
+
+  h2 {
+    .h2;
+    margin-top: 0;
+  }
+
+  .offer-content {
+    margin: @baseline 0 2 * @baseline 0;
+    color: @c-black;
+    font-weight: 300;
+    //- Image
+    img:not(.custom) {
+      float: left;
+      margin: 0 20px 10px 0;
+      border: 1px solid @c-light-grey;
+      max-width: 50%;
+      .viewport-mobile &{
+        width: 100%;
+      }
+    }
+  }
+
+  
+
+  //- Content
+  > div {
+    margin-bottom: @baseline;
+  }
+
+  //- Book Now Button
+  button-submit {
+    float: right;
+  }
+
+  //- Back button
+  button-back{
+    display: block;
+    clear: both;
+    text-align: left;
+    .viewport-mobile &{
+      clear: none;
+    }
+  }
+
+}

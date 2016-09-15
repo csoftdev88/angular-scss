@@ -1,0 +1,75 @@
+//////////////////////////
+//// MODAL - POLICIES ////
+//////////////////////////
+
+dialog .ui-info.modal-policies {
+
+  main {
+    padding: @baseline/2 @baseline;
+
+    accordion{
+      .panel-group{
+        .panel{
+          .panel-heading{
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border: 1px solid #ccc;
+          }
+        }
+      }
+      &.single{
+        .panel-group{
+          .panel{
+            .panel-heading{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    ul {
+      overflow-y: auto;
+      max-height: 400px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    li {
+      border-bottom: 1px solid #F2F2F2;
+      padding: @baseline/2 0;
+
+      h3 {
+        font-size: @size-0;
+        font-weight: 600;
+        text-transform: none;
+        color: #000;
+      }
+
+      p {
+        color: @c-text-light;
+      }
+
+      ul {
+        margin: @baseline 0 @baseline @baseline / 2;
+        list-style-type: disc;
+        border: none;
+        padding: 0px;
+        margin: 0;
+        max-height: none;
+      }
+
+      li {
+        margin-left: 2em;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}
+
+
+

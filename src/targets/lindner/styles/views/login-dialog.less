@@ -1,0 +1,41 @@
+///////////////////////
+//// LOGIN DIALOG  ////
+///////////////////////
+
+.login-dialog {
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5);
+  border: 1px solid #585858;
+
+  .options {
+  	li {
+  		a {
+  			color: @c-brand;
+  		}
+  	}
+  }
+
+  &:before {
+    content:'▲';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    font-size: 8px;
+    color: #585858;
+    margin-left: -4px;
+    @media only screen and @small-desktop-max {
+      right: 60px;
+      left: inherit;
+    }
+    @media only screen and @large-mobile-max {
+      display: none
+    }
+  }
+}
+
+#main-header-inner {
+	.login-dialog-overlay{
+		.viewport-mobile & {
+			background: rgba(255, 255, 255, 0.95)
+		}
+	}
+}

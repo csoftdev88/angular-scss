@@ -1,0 +1,555 @@
+/*  ==========================================
+    RESERVATIONS widget
+    ========================================== */
+
+reservation-steps {
+  display: none;
+  &:extend(.block);
+  .clearfix;
+  background: #2b5e7f;
+  padding: 10px 0;
+
+  ol {
+    text-align: left;
+    .noSpaces;
+    list-style-type: none;
+    counter-reset: steps;
+  }
+
+  li {
+    counter-increment: steps;
+  }
+
+  a {
+    color: #9eafbd;
+    text-decoration: none;
+    display: block;
+    line-height: @baseline * 2;
+    &:before {
+      content: counters(steps,"") " ";
+      display: inline-block;
+      margin-right: 5px;
+      width: @baseline * 2 - 2;
+      height: @baseline * 2 - 2;
+      line-height: @baseline * 2;
+      border-radius: 50%;
+      border: 2px @white solid;
+      background: @colorLinkLight;
+      color: @white;
+      text-align: center;
+      font-weight: 700;
+      box-shadow: inset 0 0 10px @baseline @colorLinkLight;
+      transition: box-shadow 0.25s linear,
+                  color 0.25s linear;
+    }
+  }
+
+  .is-active a {
+    color: @white;
+
+    &:before {
+      background-color: @white;
+      border-color: @colorLinkLight;
+      color: #2b5e7f;
+      box-shadow: none;
+    }
+  }
+
+  a:hover {
+    color: @white;
+  }
+
+  @media screen and @moreThenMobile {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+
+    ol {
+      float: right;
+      position: relative;
+      left: -50%;
+    }
+    li {
+      position: relative;
+      // display: block;
+      float: left;
+      left: 50%;
+      margin-left: 20px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+reservation-billing {
+  .cards {
+    cursor: pointer;
+
+    li {
+      float: left;
+    }
+
+    i {
+      display: block;
+      opacity: 1;
+      width: 32px;
+      height: 30px;
+
+      &.visa {
+        background: url('@{img-prefix}/card-icons/visa.png') no-repeat center center;
+      }
+
+      &.master {
+        background: url('@{img-prefix}/card-icons/mastercard.png') no-repeat center center;
+      }
+
+      &.amex {
+        background: url('@{img-prefix}/card-icons/amex.png') no-repeat center center;
+      }
+
+      &.discover {
+        background: url('@{img-prefix}/card-icons/discover.png') no-repeat center center;
+      }
+    }
+  }
+
+  .card-details {
+    .card-expiry {
+      float: left;
+      width: 70%;
+    }
+  }
+}
+
+reservation-room-resume {
+  &:extend(.block);
+
+  .room-data {
+    img {
+      float: left;
+      margin-right: 20px;
+      border: 1px #ccc solid;
+      border-radius: 3px;
+    }
+  }
+
+  .room-data {
+    h4, p {
+      margin: 0;
+    }
+
+    @media screen and @moreThenMobile {
+      .desc {
+        min-height: 4.5em;
+      }
+    }
+
+    .price {
+      .fs-16(true);
+      strong {
+        color: #2b5e7f;
+      }
+    }
+  }
+
+  .reservation-data {
+    .margin-top(16, 2);
+    .margin-bottom;
+    padding: @baseline - 1px 10px;
+    border: 1px #ccc solid;
+    border-radius: 10px;
+    .clearfix;
+    background-color: @white;
+
+    table {
+      width: 100%;
+      border-collpase: collapse;
+    }
+
+    th, td {
+      .fs-14(true);
+      padding: 0;
+      vertical-align: bottom;
+    }
+
+    th {
+      text-align: right;
+      color: #2b5e7f;
+    }
+
+    td.currency {
+      width: 1em;
+    }
+
+    td {
+      padding-left: 10px;
+      text-align: left;
+      strong {
+        color: #2b5e7f;
+      }
+    }
+
+    @media screen and @lessThenTabletPortrait {
+      th {
+        width: 50%;
+      }
+    }
+
+    @media screen and @moreThenTabletPortrait {
+      .margin-top-bottom;
+
+      table {
+        width: 50%;
+        border-collpase: collapse;
+      }
+
+      .data {
+        float: left;
+      }
+
+      td {
+        padding-left: 1em;
+      }
+    }
+  }
+
+  .more-details {
+    margin-top: 0;
+    text-align: right;
+    a {
+      margin-left: 1em;
+    }
+  }
+}
+
+registration-call {
+  &:extend(.block);
+  text-align: center;
+
+  h4 {
+    .fs-18(true);
+    .margin-top(18, 1);
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+
+  p {
+    color: @colorHeadingDefault;
+  }
+
+  a {
+    color: @colorLinkLight;
+    &:hover,
+    &:focus {
+      color: @colorLinkDefault;
+    }
+  }
+}
+
+reservation-details-form {
+  &:extend(.block);
+}
+
+reservation-buttons {
+  &:extend(.block);
+  clear: both;
+  height: unit(@baseline / @htmlFontSize * 2, em);
+  .padding-top-bottom;
+
+  .back,
+  .next {
+    .grid-fluid-width(5);
+    width: @width;
+  }
+
+  .to-home {
+    .grid-fluid-width(8);
+    width: @width;
+
+    @media screen and @moreThenTablet {
+      .grid-fluid-width(6);
+      width: @width;
+    }
+  }
+
+  .back {
+    &:before {
+      content: '\00AB';
+      float: left;
+    }
+  }
+
+  .next,
+  .to-home {
+    float: right;
+  }
+
+  .next {
+    &:after {
+      content: '\00BB';
+      float: right;
+    }
+  }
+}
+
+reservation-confirmation {
+  &:extend(.block);
+  .margin-top-bottom;
+  padding: @baseline - 1;
+  border-radius: 10px;
+  // TODO: Decide if colors should be in config.less
+  border: 1px #a7c6de solid;
+  background: #dce5ea;
+  text-align: center;
+
+  .claim {
+    margin-top: 0;
+    .margin-bottom(21, 1);
+    color: #148bd1;
+    .fs-21(true);
+    font-weight: 400;
+  }
+
+  p {
+    margin: 0;
+    // TODO: Decide if color should be in config.less
+    color: #2b5e7f;
+    font-weight: 300;
+    .fs-14(true);
+  }
+
+  strong {
+    white-space: nowrap;
+  }
+}
+
+@media only screen and @moreThenMobile {
+
+}
+
+// DESKTOPS and TABLETS in LANDSCAPE orientation
+@media only screen and @moreThenTabletPortrait {
+
+  reservation-details-form,
+  reservation-billing {
+    .input-left,
+    .input-right {
+      box-sizing: border-box;
+      clear: none;
+      width: 50%;
+    }
+
+    .input-left {
+      float: left;
+      padding-right: 10px;
+    }
+
+    .input-right {
+      float: right;
+      padding-left: 10px;
+    }
+  }
+
+  reservation-buttons {
+    .button {
+      &.back,
+      &.next {
+        .grid-width(2);
+        width: @width;
+      }
+    }
+  }
+}
+
+
+/*  ==========================================
+    Users RESERVATION resume page
+      - List of NEXT STAYS
+      - List of PAST STAYS
+      - Buttons for editing and canceling
+    ========================================== */
+
+reservation-item {
+  &:extend(.block);
+
+  .table-wrap {
+    padding: @baseline - 1;
+    border: 1px @borderColorDefault solid;
+    background: @white;
+    min-height: 120px;
+
+    > p {
+      margin-top: 0;
+      .margin-bottom(14, 1);
+    }
+  }
+
+  p { margin: 0;}
+
+  strong,
+  th { color: @colorLinkLight;}
+
+  reservation-buttons {
+    .clearfix;
+    button + button {
+      float: right;
+    }
+  }
+
+  .viewport-mobile &{
+    table, thead, tbody, th, td, tr { 
+      display: block; 
+    }
+  }
+}
+
+reservation-data {
+  display: table;
+  width: 100%;
+  .clearfix;
+
+  > div { display: table-row;}
+
+  img {
+    width: 70px;
+    float: left;
+    margin: 5px 5px 0 0;
+    border-radius: 3px;
+  }
+
+  th {
+    text-align: right;
+  }
+
+  th, td {
+    padding-left: 10px;
+    white-space: nowrap;
+    vertical-align: top;
+    .fs-14(true);
+  }
+}
+
+.reservation-table-cell {
+  display: table-cell;
+  vertical-align: top;
+}
+
+reservation-hotel {
+  &:extend(.reservation-table-cell);
+  width: 40%;
+
+  p { .fs-14(true);}
+  p + p {
+    .fs-12;
+    line-height: 1.25;
+  }
+}
+
+reservation-check-in {
+  &:extend(.reservation-table-cell);
+}
+
+reservation-charges {
+  &:extend(.reservation-table-cell);
+}
+
+reservation-room {
+  display: table-row;
+
+  > div {
+    display: table-cell;
+    .padding-top(16, 1);
+    vertical-align: top;
+  }
+
+  p { &:extend(reservation-hotel p);}
+  p + p { &:extend(reservation-hotel p + p);}
+
+  .more-details { text-align: right;}
+
+  a {
+    color: @colorLinkDefault;
+    .fs-12;
+  }
+}
+
+// MOBILE styles
+@media screen and @lessThenTablet {
+  reservation-item {
+    reservation-buttons {
+      height: auto;
+
+      button {
+        display: block;
+        width: 100%;
+      }
+      button + .button-gray {
+        float: none;
+        .margin-top;
+      }
+    }
+  }
+
+  reservation-check-in,
+  reservation-charges {
+    table {
+      width: 100%;
+    }
+  }
+}
+
+// MOBILE and TABLET styles
+@media only screen and @lessThenDesktop {
+  reservation-data,
+  reservation-room {
+    display: block;
+
+    > div { display: block;}
+    table th { width: 50%;}
+  }
+
+  reservation-hotel,
+  reservation-check-in,
+  reservation-charges {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+
+  reservation-hotel {
+    width: auto;
+  }
+
+  reservation-check-in,
+  reservation-charges {
+    table { width: 70%;}
+  }
+
+  reservation-room {
+    .more-details {
+      display: none;
+    }
+  }
+}
+
+// TABLET styles
+@media only screen and @moreThenMobile and @lessThenDesktop {
+  reservation-room {
+    clear: both;
+
+    div {
+      float: left;
+      width: 30%;
+    }
+
+    div:first-child {
+      width: 70%;
+    }
+  }
+}
+
+

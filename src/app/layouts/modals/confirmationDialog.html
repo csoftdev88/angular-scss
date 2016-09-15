@@ -1,0 +1,15 @@
+<div class="ui-info">
+  <header>
+    <h1>{{setup.header}}</h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main>
+    <p>{{setup.question}}</p>
+  </main>
+
+  <footer>
+    <button class="button button-blue" ng-click="yesCallback()">{{setup.yes}}</button>
+    <button class="button button-gray" ng-click="noCallback()" ng-hide="!setup.no">{{setup.no}}</button>
+  </footer>
+</div>

@@ -1,0 +1,261 @@
+////////////////
+//// MIXINS ////
+////////////////
+
+// these are the mixins copied from v2 that can be used in v4
+// add more if needed
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+      content: " ";
+      display: table;
+  }
+
+  &:after {
+      clear: both;
+  }
+}
+.noSpaces {
+  margin: 0px;
+  padding: 0px;
+}
+
+.no-select {
+  -webkit-touch-callout:  none;
+  -webkit-user-select:    none;
+  -khtml-user-select:     none;
+  -moz-user-select:       none;
+  -ms-user-select:        none;
+  user-select:            none;
+}
+
+// image replacement
+.ir() {
+  font: ~"0/0";
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.shadow-box(@color: @c-gray){
+  box-shadow: 0 1px 5px 0 @color;
+  border-radius: 4px;
+}
+
+.not-available() {
+  margin-top: @baseline;
+  color: @c-gray;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+  font-size: @size-0;
+}
+
+/**
+ * Fonts mixins
+ **/
+
+// Computing line-height to be @lines times @baseline
+.line-height(@fontSize, @lines: 1) {
+  line-height: unit(round( (@baseline * @lines) / @fontSize , 5));
+}
+// Computing line-height to be specified pixel value based on provided font-size
+.specific-line-height(@fontSize, @height) {
+  line-height: unit(round( @height / @fontSize , 5));
+}
+.include-line-height(@include, @size) when (@include = true) and (@size =< @baseline){
+  line-height: unit(round( (@baseline / @size), 5));
+}
+.include-line-height(@include, @size) when (@include = true) and (@size > @baseline) and (@size =< @baseline * 2) {
+  line-height: unit(round( ( (@baseline * 2) / @size), 5));
+}
+.include-line-height(@include, @size) when (@include = true) and (@size > @baseline * 2) and (@size =< @baseline * 3) {
+  line-height: unit(round( ( (@baseline * 3) / @size), 5));
+}
+
+// Relative font-size computing
+.font-size(@size; @includeLineHeight: false; @base: @htmlFontSize; ) {
+  font-size: unit( round( (@size / @base), 5), em);
+  .include-line-height(@includeLineHeight, @size);
+}
+
+// Font sizes for extending
+.fs-12(@line: false; @base: @htmlFontSize) { .font-size(@size--1; @line; @base); }
+.fs-14(@line: false; @base: @htmlFontSize) { .font-size(@size-0; @line; @base); }
+.fs-16(@line: false; @base: @htmlFontSize) { .font-size(@size-1; @line; @base); }
+.fs-18(@line: false; @base: @htmlFontSize) { .font-size(@size-2; @line; @base); }
+.fs-21(@line: false; @base: @htmlFontSize) { .font-size(@size-3; @line; @base); }
+.fs-24(@line: false; @base: @htmlFontSize) { .font-size(@size-4; @line; @base); }
+.fs-36(@line: false; @base: @htmlFontSize) { .font-size(@fs-7; @line; @base); }
+.fs-48(@line: false; @base: @htmlFontSize) { .font-size(@fs-8; @line; @base); }
+
+
+/**
+ * Buttons
+ */
+.button-colors (@name, @backgroundColor: @colorGray, @backgroundColorHover: @colorGray, @color: @colorButtonTextDefault, @colorHover: @colorButtonTextDefault) {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 34px;
+  line-height: 34px;
+  margin: 0;
+  border: none;
+  background-color: @backgroundColor;
+  color: @color;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: @borderRadiusButtonDefault;
+  text-shadow: 0 1px 0 fadeout(@black, 70%);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: 0 1px 0 0 darken(@backgroundColor, 15%),
+              inset 0px 0px 10px 30px @backgroundColor;
+  transition: box-shadow @transitionDurationDefault linear,
+              backgroundColor @transitionDurationDefault linear;
+
+  .paddingButtonDefault;
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+    animation: btn 0.5s;
+    background-color: @backgroundColorHover;
+    color: @colorHover;
+    box-shadow: 0 1px 0 0 darken(@backgroundColor, 15%),
+                inset 0px 0px 0px 0px fade(@color, 0);
+  }
+}
+
+
+// Transitions
+.transition(@property: all, @length: 0.5s, @easing: ease-in-out) {
+  transition: @arguments;
+}
+
+.transition-delay(@length: 0s) {
+  transition-delay: @arguments;
+  -webkit-transition-delay: @arguments; /* Safari */
+}
+
+.alerts {
+  .alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  .alert h4 {
+    margin-top: 0;
+    color: inherit;
+  }
+  .alert .alert-link {
+    font-weight: bold;
+  }
+  .alert > p,
+  .alert > ul {
+    margin-bottom: 0;
+  }
+  .alert > p + p {
+    margin-top: 5px;
+  }
+  .alert-dismissable .close,
+  .alert-dismissible .close {
+    position: relative;
+    top: -10px;
+    right: -5px;
+    color: inherit;
+  }
+  .alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+  }
+  .alert-success hr {
+    border-top-color: #c9e2b3;
+  }
+  .alert-success .alert-link {
+    color: #2b542c;
+  }
+  .alert-info {
+    background-color: #000;
+    opacity:0.8;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    border: solid 1px #131313;
+    .growl-message {
+      margin:0;
+      position:relative;
+      p {
+        color: #fff;
+        padding-left:25px;
+        line-height:19px;
+      }
+      i {
+        font-size:16px;
+        position:absolute;
+        top:50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        color:#fff;
+        opacity:0.63;
+      }
+    }
+  }
+  .alert-info hr {
+    border-top-color: #a6e1ec;
+  }
+  .alert-info .alert-link {
+    color: #245269;
+  }
+  .alert-warning {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
+  }
+  .alert-warning hr {
+    border-top-color: #f7e1b5;
+  }
+  .alert-warning .alert-link {
+    color: #66512c;
+  }
+  .alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+  }
+  .alert-danger hr {
+    border-top-color: #e4b9c0;
+  }
+  .alert-danger .alert-link {
+    color: #843534;
+  }
+  .alert-dismissable .close,
+  .alert-dismissible .close {
+    position: relative;
+    top: -8px;
+    right: -4px;
+    color: #fff;
+  }
+  button.close {
+    height:auto;
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+  }
+  .close {
+    float: right;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: 0.7;
+  }
+}

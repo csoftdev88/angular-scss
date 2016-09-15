@@ -1,0 +1,12 @@
+/build
+/compile
+/bower_components
+/node_modules
+/coverage
+npm-debug.log
+.tmp
+.sass-cache
+test-results.xml
+*.pyc
+.idea
+.DS_Store

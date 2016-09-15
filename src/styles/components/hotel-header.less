@@ -1,0 +1,94 @@
+/////////////////////
+/// HOTEL HEADER ////
+/////////////////////
+
+
+.hotel-detail__header{
+
+    .viewport-mobile &{
+      text-align: center;
+      margin-bottom: 20px;
+      hr{
+        display: none;
+      }
+    }
+
+    .logo,
+    .title-wrapper,
+    .contact-info{
+      float: left;
+      width: 25%;
+      .viewport-mobile &{
+        width: 100%;
+        float: none;
+      }
+    }
+
+    .logo{
+      margin-top: 15px;
+      .viewport-mobile &{
+        display: none;
+      }
+    }
+
+    .title-wrapper{
+      text-align: center;
+      width: 50%;
+      .title{
+        color: @c-dark-grey;
+        font-size: 36px;
+        line-height: 50px;
+        margin-bottom: 16px;
+        .viewport-mobile &{
+          font-size: 24px;
+          line-height: 26px;
+          margin-bottom: 14px;
+        }
+      }
+    }
+
+    .contact-info{
+      margin-top: 7px;
+      .inner{
+        float: right;
+        .viewport-mobile &{
+          float: none;
+          display: inline-block;
+        }
+        .icon{
+          float: left;
+          width: 31px;
+          height: 31px;
+          background: @c-primary;
+          text-align: center;
+          line-height: 31px;
+          margin: 7px 10px 0 0;
+          .fa{
+            color: #fff;
+            font-size: 28px;
+            top: 2px;
+            position: relative;
+          }
+        }
+        .details{
+          float: left;
+          text-align: right;
+          .desc{
+            font-family: @ff-bold;
+          }
+          .info{
+            font-size: 18px;
+            .viewport-mobile &{
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    .description{
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+  }

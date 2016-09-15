@@ -1,0 +1,226 @@
+<reservation-confirmation id="reservationConfirmation">
+  <tabset>
+    <tab heading="_guest_details_">
+      <table>
+        <tbody>
+          <tr>
+            <th>_first_name_label_:</th>
+            <td>{{userDetails.firstName}}</td>
+          </tr>
+          <tr>
+            <th>_last_name_label_:</th>
+            <td>{{userDetails.lastName}}</td>
+          </tr>
+          <tr>
+            <th>_email_label_:</th>
+            <td>{{userDetails.email}}</td>
+          </tr>
+          <tr>
+            <th>_primary_phone_label_:</th>
+            <td>{{userDetails.phone}}</td>
+          </tr>
+          <tr>
+            <th>_address_label_:</th>
+            <td>{{userDetails.address}}</td>
+          </tr>
+          <tr>
+            <th>_city_label_:</th>
+            <td>{{userDetails.city}}</td>
+          </tr>
+          <tr>
+            <th>_state_label_:</th>
+            <td>{{userDetails.stateProvince}}</td>
+          </tr>
+          <tr>
+            <th>_country_label_:</th>
+            <td>{{userDetails.countryObj.name}}</td>
+          </tr>
+          <tr>
+            <th>_postcode_label_:</th>
+            <td>{{userDetails.zip}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <!-- CREDIT CARD BILLING DETAILS -->
+    <tab heading="_billing_details_" ng-if="billingDetails.paymentMethod === 'cc'">
+      <table>
+        <tbody>
+          <tr>
+            <th>_card_number_label_:</th>
+            <td>
+              <i ng-class="getCreditCardDetails(billingDetails.card.number).icon"></i>
+              {{getCreditCardPreviewNumber(billingDetails.card.number)}}
+            </td>
+          </tr>
+          <tr>
+            <th>_card_type_label_:</th>
+            <td>
+              {{getCreditCardDetails(billingDetails.card.number).name}}
+            </td>
+          </tr>
+          <tr>
+            <th>_card_expiry_label_:</th>
+            <td>{{getCardExpirationDate() | dateTime:'MM/YYYY'}}</td>
+          </tr>
+          <tr>
+            <th>_card_cvv_label_:</th>
+            <td>{{billingDetails.card.securityCode}}</td>
+          </tr>
+          <tr>
+            <th>_card_name_label_:</th>
+            <td>{{billingDetails.card.holderName}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table ng-if="!billingDetails.useGuestAddress">
+        <tbody>
+          <tr>
+            <th>_address_label_:</th>
+            <td>{{billingDetails.address}}</td>
+          </tr>
+          <tr>
+            <th>_city_label_:</th>
+            <td>{{billingDetails.city}}</td>
+          </tr>
+          <tr>
+            <th>_state_label_:</th>
+            <td>{{billingDetails.stateProvince}}</td>
+          </tr>
+          <tr>
+            <th>_country_label_:</th>
+            <td>{{billingDetails.countryObj.name}}</td>
+          </tr>
+          <tr>
+            <th>_postcode_label_:</th>
+            <td>{{billingDetails.zip}}</td>
+          </tr>
+          <tr>
+            <th>_primary_phone_label_:</th>
+            <td>{{billingDetails.phone}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <!-- PAY WITH POINTS DETAILS -->
+    <tab heading="_points_balance_" ng-if="billingDetails.paymentMethod === 'point'">
+      <table class="points-balance">
+        <tbody>
+          <tr>
+            <th>_current_points_</th>
+            <td>
+              {{pointsData.currentPoints}}
+            </td>
+          </tr>
+          <tr>
+            <th>_points_required_booking_</th>
+            <td>{{pointsData.pointsRequired}}</td>
+          </tr>
+          <!--
+          <tr>
+            <th>_points_earned_booking_:</th>
+            <td class="earned">+{{pointsData.pointsEarned}}</td>
+          </tr>
+          -->
+          <tr>
+            <th>_balance_after_booking_</th>
+            <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <tab heading="_additional_details_">
+      <form name="forms.additionalInfo" class="additional-details" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
+
+          <label for="comments" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'top'">
+            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
+            <span>_comments_label_</span>
+          </label>
+
+          <label for="form-arrival-time" class="input-left">
+            <select id="form-arrival-time" ng-model="additionalInfo.arrivalTime">
+              <option value="">_arrival_time_placeholder_</option>
+              <option value="5 AM">5 AM</option>
+              <option value="6 AM">6 AM</option>
+              <option value="7 AM">7 AM</option>
+              <option value="8 AM">8 AM</option>
+              <option value="9 AM">9 AM</option>
+              <option value="10 AM">10 AM</option>
+              <option value="11 AM">11 AM</option>
+              <option value="12 PM">12 PM</option>
+              <option value="1 PM">1 PM</option>
+              <option value="2 PM">2 PM</option>
+              <option value="3 PM">3 PM</option>
+              <option value="4 PM">4 PM</option>
+              <option value="5 PM">5 PM</option>
+              <option value="6 PM">6 PM</option>
+              <option value="7 PM">7 PM</option>
+              <option value="8 PM">8 PM</option>
+              <option value="9 PM">9 PM</option>
+              <option value="10 PM">10 PM</option>
+              <option value="11 PM">11 PM</option>
+              <option value="12 AM">12 PM</option>
+            </select>
+            <span>_arrival_time_label_</span>
+          </label>
+
+          <label for="arrival-method" class="input-right">
+            <select id="arrival-method"
+              ng-model="additionalInfo.arrivalMethod"
+              ng-options="item.apiValue as item.apiValue for item in possibleArrivalMethods">
+              <option value="">_arrical_method_placeholder_</option>
+            </select>
+            <span>_arrical_method_label_</span>
+          </label>
+
+          <label for="comments" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'bottom'">
+            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
+            <span>_comments_label_</span>
+          </label>
+
+          <label for="form-departure-time" ng-if="bookingConfig.additionalDetails.departureTime.display">
+            <select id="form-departure-time" ng-model="additionalInfo.departureTime" placeholder="Departure Time">
+              <option value="">_departure_time_placeholder_</option>
+              <option value="1 AM">1 AM</option>
+              <option value="2 AM">2 AM</option>
+              <option value="3 AM">3 AM</option>
+              <option value="4 AM">4 AM</option>
+              <option value="5 AM">5 AM</option>
+              <option value="6 AM">6 AM</option>
+              <option value="7 AM">7 AM</option>
+              <option value="8 AM">8 AM</option>
+              <option value="9 AM">9 AM</option>
+              <option value="10 AM">10 AM</option>
+              <option value="11 AM">11 AM</option>
+              <option value="12 PM">12 PM</option>
+              <option value="1 PM">1 PM</option>
+              <option value="2 PM">2 PM</option>
+              <option value="3 PM">3 PM</option>
+              <option value="4 PM">4 PM</option>
+              <option value="5 PM">5 PM</option>
+              <option value="6 PM">6 PM</option>
+              <option value="7 PM">7 PM</option>
+              <option value="8 PM">8 PM</option>
+              <option value="9 PM">9 PM</option>
+              <option value="10 PM">10 PM</option>
+              <option value="11 PM">11 PM</option>
+              <option value="12 AM">12 PM</option>
+            </select>
+            <span>_departure_time_label_</span>
+          </label>
+
+          <label for="form-name-on-card" ng-if="bookingConfig.additionalDetails.tel2.display">
+            <input type="text" id="form-name-on-card"
+              placeholder="_secondary_phone_number_"
+              ng-model="additionalInfo.secondPhoneNumber"/>
+            <span>_secondary_phone_number_</span>
+          </label>
+
+        <input type="submit" id="submit" value="_submit_" ng-hide="true" />
+        </form>
+    </tab>
+  </tabset>
+</reservation-confirmation>

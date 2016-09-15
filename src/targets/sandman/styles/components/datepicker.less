@@ -1,0 +1,224 @@
+//- DATEPICKER -//
+
+.ui-datepicker {
+  width: 750px !important;
+  box-shadow: 0 0 1px @c-black;
+  background:@c-black;
+  .ui-datepicker-group{
+    float: left;
+    width: 375px;
+    .ui-datepicker-title {
+      width: 100%;
+      text-align: center;
+      padding-left: 35px;
+    }
+    &:first-child{
+      .ui-datepicker-title {
+        padding-left: 0;
+        padding-right: 35px;
+      }
+    }
+    //Add to second datepicker, create a border without messing up width dimensions
+    + .ui-datepicker-group {
+      .ui-datepicker-calendar {
+        box-shadow: -1px 1px 0px #363636;
+      }
+    }
+  }
+  .ui-datepicker-buttonpane {
+    box-shadow: 0px -1px 0px #363636;
+  }
+  &:after {
+    color: @c-datepicker;
+    left: 130px;
+  }
+
+  .viewport-mobile &{
+    width: 100% !important;
+  }
+}
+
+//- Calendar Table
+.ui-datepicker-calendar {
+  margin: @baseline/2 0 0;
+  width: 100%;
+  height: 275px;
+
+  .viewport-mobile &{
+    width: auto;
+    margin: @baseline/2 auto @baseline;
+  }
+  thead {
+    tr {
+      th {
+        font-weight: 700;
+        color: white;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border: 20px solid @c-black;
+      border-left: none;
+      border-right: none;
+    }
+
+    td, th {
+      width: 40px;
+      height: 30px;
+      line-height: 30px;
+      color: lighten(@c-text, 50%); // Past days
+      font-size: @size-2;
+      text-align: center;
+    }
+
+    td {
+
+      a {
+        display: block;
+        color: #b3bdc2; // Today and Future days
+        text-decoration: none;
+        font-weight:300;
+      }
+
+      // Highlighting today's day
+      &.ui-datepicker-today a {
+        color: @c-text;
+      }
+
+      &.ui-state-disabled {
+        color: @c-text;
+      }
+
+      // Days from other month
+      &.ui-datepicker-other-month a {
+        color: #4a4a4a;
+      }
+
+      // Selected start and end day
+      &.date-range-start,
+      &.date-range-end {
+        position: relative;
+        color: @c-grey;
+        background: none;
+
+        a, span {
+          position: relative;
+          display: block;
+          color: white !important;
+          background: #41b1c2;
+          border-radius:18px;
+          width:30px;
+          text-align:center;
+          margin:0 auto;
+          z-index:10;
+        }
+
+        &:after {
+          display: block;
+          content: '';
+          width: 25px;
+          height: 30px;
+          background: rgba(62, 177, 194, 0.7);
+          position: absolute;
+          right: 0px;
+          top: 0;
+        }
+      }
+      &.date-range-end:after {
+        right:0;
+        left:0px;
+      }
+
+      &.date-range-edit {
+        background-color: @c-brown;
+      }
+
+      // Selected dates
+      &.date-range-selected a {
+        background: rgba(62, 177, 194, 0.7);
+        color: white;
+      }
+
+      // Day is not available
+      &.date-not-available {
+        background-color: #ed1c24;
+        pointer-events: none;
+
+        a {
+          color: lighten(@c-text, 50%);
+          cursor: text;
+          pointer-events: none;
+        }
+
+        &.date-range-start,
+        &.date-range-end {
+          background-color: darken(#ed1c24, 2%);
+        }
+
+        &.date-range-selected a {
+          background-color: lighten(#ed1c24, 2%);
+        }
+      }
+
+    }
+
+  }
+}
+
+//- Bottom Control Panel
+.ui-datepicker-buttonpane {
+  background-color: @c-datepicker;
+  height: 35px;
+  line-height: 35px;
+  clear: left;
+
+  //- How many days was selected
+  &:before {
+    display: inline-block;
+    content: attr(data-counter);
+    position: relative;
+    left: 0px;
+    top: 50%;
+    max-width: 100%;
+    line-height: 35px;
+    transform: translateY(-50%);
+    font-weight: 700;
+  }
+
+  // Currently selected rate
+  &:after {
+    display: inline-block;
+    content: attr(data-title);
+    position: absolute;
+    left: @baseline;
+    font-weight: bold;
+    top: 0px;
+    font-size: @size-1;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 30px;
+    white-space: nowrap;
+  }
+
+  .ui-datepicker-close {
+    background: @c-green !important;
+    font-size: 14px !important;
+    color: #fff !important;
+    text-transform: uppercase !important;
+    height: 35px !important;
+    line-height: 30px !important;
+    border-radius: 2px !important;
+    min-width: 0px !important;
+    .viewport-mobile &{
+      display: inline-block !important;
+    }
+  }
+
+  // Hide today button
+  .ui-datepicker-current {
+    display: none;
+  }
+}

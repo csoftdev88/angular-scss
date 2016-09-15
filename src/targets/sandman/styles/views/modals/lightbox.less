@@ -1,0 +1,71 @@
+//////////////////////////
+//// MODAL - LIGHTBOX ////
+//////////////////////////
+
+// backdrop not so dark as on other modals
+.lightbox {
+
+  .ui-info {
+    header{
+      button-close{
+        font-size: 22px;
+        top: -33px;
+      }
+    }
+  }
+
+  hero-slider {
+    box-shadow: none;
+    margin-top: 0;
+    padding: 10px;
+    background: @c-primary;
+    box-sizing: border-box;
+    .slider-content {
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+      border-radius: 10px;
+
+      .hero-slide {
+        height: 100%;
+        .content-inner {
+          display: block;
+          padding: 0;
+          width: 100%;
+
+          h1 {
+            display: block;
+            font-size: 24px;
+            line-height: 26px;
+            font-family: @ff-heading;
+            background: none;
+            top: 0;
+            padding: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            background: @c-primary;
+            height: 35px;
+            padding-bottom: 7px;
+            .viewport-mobile &{
+              padding: 0;
+            }
+
+            &:before {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    .slider-controls {
+      .pages {
+        text-align: left;
+        counter{
+          text-align: left;
+          font-size: 20px;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

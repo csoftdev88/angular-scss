@@ -1,0 +1,43 @@
+/////////////////
+//// HELPERS ////
+/////////////////
+
+// will only be displayed on desktop
+@media only screen and @tablet-portrait-max {
+  [rwd="desktop"] {
+    display: none !important;
+  }
+}
+
+// will only be displayed on tablets and bigger
+@media only screen and @large-mobile-max {
+  [rwd="tablet"] {
+    display: none !important;
+  }
+}
+
+// will only be displayed on large mobiles and bigger
+@media only screen and @small-mobile-max {
+  [rwd="mobile-large"] {
+    display: none !important;
+  }
+}
+
+
+/*  ==========================================
+    Fade fx
+    ========================================== */
+
+.fade.in {
+  opacity: 1;
+}
+
+.fade {
+  opacity: 0;
+  .transition(opacity, .15s, linear);
+}
+
+
+.clear{
+  clear: both;
+}

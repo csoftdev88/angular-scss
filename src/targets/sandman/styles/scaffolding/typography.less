@@ -1,0 +1,68 @@
+////////////////////
+//// TYPOGRAPHY ////
+////////////////////
+
+
+/*  ==========================================
+    Font Families
+    ========================================== */
+
+@font-face {
+  font-family: 'MinionPro-It';
+  src: url('../font/minion/MinionPro-It.eot?#iefix') format('embedded-opentype'),  
+    url('../font/minion/MinionPro-It.otf')  format('opentype'),
+    url('../font/minion/MinionPro-It.woff') format('woff'), 
+    url('../font/minion/MinionPro-It.ttf')  format('truetype'), 
+    url('../font/minion/MinionPro-It.svg#MinionPro-It') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MinionPro-Bold';
+  src: url('../font/minion/MinionPro-Bold.eot?#iefix') format('embedded-opentype'),  
+    url('../font/minion/MinionPro-Bold.otf')  format('opentype'),
+    url('../font/minion/MinionPro-Bold.woff') format('woff'), 
+    url('../font/minion/MinionPro-Bold.ttf')  format('truetype'), 
+    url('../font/minion/MinionPro-Bold.svg#MinionPro-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MinionPro-Regular';
+  src: url('../font/minion/MinionPro-Regular.eot?#iefix') format('embedded-opentype'),  
+    url('../font/minion/MinionPro-Regular.otf')  format('opentype'),
+    url('../font/minion/MinionPro-Regular.woff') format('woff'), 
+    url('../font/minion/MinionPro-Regular.ttf')  format('truetype'), 
+    url('../font/minion/MinionPro-Regular.svg#MinionPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+
+// typography defaults
+body {
+  font-family: @ff-default;
+  font-size: @size--0;
+  line-height: @baseline;
+  font-weight: normal;
+}
+
+h1,
+h2{
+  font-family: @ff-heading;
+  .chain-sign &{
+    font-family: @ff-heading-sign;
+    color: @c-grey;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+}
+
+.h1, .h2 {
+  text-transform: uppercase;
+  font-weight: 600;
+}

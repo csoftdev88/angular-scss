@@ -1,0 +1,50 @@
+<header grid-row>
+  <div grid="12">
+    <h1 ng-bind-html="'_home_page_title_' | mainHeaderStyle"></h1>
+    <hr/>
+    <div>_home_page_desc_</div>
+
+  </div>
+</header>
+
+<hr class="dividerWithoutImage" ng-if="showBenefits"/>
+
+<section grid-row class="benefits" ng-if="showBenefits">
+  <article grid="4">_home_page_offer_one_</article>
+  <article grid="4">_home_page_offer_two_</article>
+  <article grid="4">_home_page_offer_three_</article>
+</section>
+
+<hr class="dividerWithoutImage"/>
+
+<div grid-row>
+  <div grid="12" class="about-offers-heading">
+    <h2 ng-bind-html="'Selected Offers' | mainHeaderStyle"></h2>
+  </div>
+</div>
+
+<offers-list grid-row>
+  <offer-item
+    ng-repeat="offer in offersList track by $index">
+    <a ui-sref="offers({code:offer.meta.slug})" ng-click="advertClick($event, {'type': 'offers', 'code': offer.code})">
+      <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
+
+      <section>
+        <h2>{{offer.title}}</h2>
+        <div ng-bind-html="offer.subtitle"></div>
+      </section>
+
+      <span class="read-more">Read more</span>
+    </a>
+  </offer-item>
+
+  <offer-item
+    ng-repeat="randomAdvert in randomAdverts track by $index"
+    ng-click="advertClick($event, randomAdvert.link)"
+    ng-show="randomAdverts[$index]"
+    class="advert" >
+    <a ng-href="{{randomAdvert.link.uri}}" ng-click="advertClick($event, randomAdvert.link)">
+      <img ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}"  err-source="http://lorempixel.com/300/160/">
+    </a>
+  </offer-item>
+</offers-list>

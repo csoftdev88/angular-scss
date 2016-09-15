@@ -1,0 +1,100 @@
+////////////////////////
+//// MODAL - LOYALTIES ////
+////////////////////////
+
+.dialog-loyalty {
+  width: 710px;
+
+  bottom: 110px;
+  top: auto;
+
+  &:after {
+    .fa;
+
+    content: @fa-var-sort-desc;
+    position: absolute;
+    bottom: -9px;
+    color: @c-white;
+    font-size: @size-3;
+    // NOTE: Panels are not equal
+    left: 48%;
+  }
+
+  //- Main Content
+
+  main {
+    display: flex;
+    padding: @baseline 0;
+  }
+
+  //- List of Badges
+  loyalty-cards-list {
+    flex: 1;
+    flex-flow: wrap;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 @baseline/2;
+
+    border-right: 1px dashed #ddd;
+  }
+
+    //- Badge icon
+    loyalty-card {
+      flex: 0 0 140px; // width = 140px
+      height: 50px;
+      margin: @baseline / 2;
+      width: 140px;
+
+      img {
+        border-radius: 4px;
+        width: 140px;
+        height: 50px;
+        opacity: 0.5;
+      }
+
+      //- if card was earned
+      &.is-earned img {
+        opacity: 1;
+
+        filter: grayscale(0%);
+      }
+    }
+
+  // if browser support filters
+  @supports (filter: grayscale(100%)) {
+    loyalty-card img {
+      opacity: 1;
+      filter: grayscale(100%);
+    }
+  }
+
+  //- Selected Badge
+  loyalty-card-selected {
+    flex: 1;
+    padding: 0 @baseline;
+
+    text-align: center;
+
+    //- Name
+    h2 {
+      color: @c-brown;
+
+      font-size: @size-3;
+      line-height: @baseline * 2;
+    }
+
+    //- Description
+    p {
+      color: #999;
+    }
+  }
+
+  &.position-3 {
+    transform: translate(-50%, 0);
+    margin-left: 300px;
+  }
+
+  &.position-2 {
+    transform: translate(-50%, 0);
+  }
+}

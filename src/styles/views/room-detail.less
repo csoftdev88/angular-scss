@@ -1,0 +1,216 @@
+/////////////////////
+//// ROOM DETAIL ////
+/////////////////////
+
+hotel-room {
+
+  .controls{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 14px;
+
+    order-switch {
+      float: left;
+      //margin-left: 10px;
+
+      .chosen-container {
+        width: 150px !important;
+      }
+
+      .viewport-mobile & {
+        width: 100%;
+        margin: 10px 0px;
+
+        .chosen-container {
+          width: 100% !important;
+        }
+      }
+
+      .viewport-mobile &{
+        display: none;
+      }
+    }
+
+    pricing-switch{
+      float: right;
+      top: 6px;
+      position: relative;
+    }
+
+  }
+
+
+  .header {
+    margin-bottom: @baseline;
+    h1 {
+
+    }
+    .sub-title{
+      font-size: 12px;
+      font-style: italic;
+      display: block;
+    }
+  }
+
+  //- Page Heading
+  h1 {
+    .h1;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: @size-2;
+  }
+
+  h1 + p {
+    color: #999;
+  }
+
+  p {
+    color: @c-black;
+    margin-top: 15px;
+  }
+
+  section.other-rooms {
+    list-items {
+      list-item {
+        &:last-of-type {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  .view-more-rates{
+    a{
+      font-size: 12px;
+      text-decoration: underline;
+    }
+  }
+
+  list-items {
+    list-item {
+
+      h2,
+      h3 {
+        color: @c-black;
+        font-weight: 300;
+        font-size: 18px;
+        display: inline-block;
+        width: 80%;
+        padding-top: @baseline/2;
+      }
+
+      &:first-of-type {
+        border-top: 2px solid #ccc;
+      }
+
+      &:last-of-type {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+
+    &.other-rooms list-item{
+      border: none;
+    }
+  }
+
+  section.room-description, section.room-images {
+    margin-top: @baseline*2;
+  }
+
+  //room gallery is the ul
+  .room-gallery {
+    margin: @baseline 0px;
+    .clearfix;
+
+    li {
+      float: left;
+      display: block;
+      padding: 0;
+      width: 150px;
+      cursor: pointer;
+      margin: 0 10px 10px 0;
+      .viewport-mobile &{
+        width: 100px;
+      }
+      //- Image
+      figure {
+        position: relative;
+        max-height: @list-item-min-height;
+        overflow: hidden;
+        display: block;
+        border: 1px solid #ccc;
+        img {
+          width: 100%;
+          display: block;
+        }
+      }
+
+      //- Appear eye icon on hover
+      &.with-special-eye-hover {
+        figure:after {
+          position: absolute;
+          left: 0;
+          top: 0;
+
+          height: 100%;
+          width: 100%;
+
+          background: rgba(0, 0, 0, 0.7) url('@{img-prefix}/v4/eye.svg') center center no-repeat;
+          background-size: 50px;
+          opacity: 0;
+
+          transition: 0.2s all;
+
+          content: '';
+        }
+
+        &:hover figure:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+//- If there are no available products
+.products-not-available,
+.reservations-not-available {
+  padding: @baseline * 2;
+  background: #f6f3ee;
+  text-align: center;
+  h3 {
+    margin-bottom: @baseline;
+    color: #555;
+    font-size: @size-3;
+  }
+
+  p {
+    color: #999;
+  }
+
+  button-submit{
+    margin-top: 20px;
+  }
+}
+
+//- If there are no available products
+.load-more-rooms {
+  margin-top: @baseline;
+  padding: @baseline * 2;
+  background: #f6f3ee;
+  text-align: center;
+  h3 {
+    margin-bottom: @baseline;
+    color: #555;
+    font-size: @size-3;
+  }
+
+  p {
+    color: #999;
+  }
+
+}

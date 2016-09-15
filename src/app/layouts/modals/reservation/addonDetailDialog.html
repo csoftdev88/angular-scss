@@ -1,0 +1,44 @@
+<div class="ui-info">
+  <header>
+    <h1>{{addon.name}}</h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main ng-if="!state.confirmed">
+    <image-carousel width="400" height="400" fill="'fill'" images="addon.images"></image-carousel>
+    <div class="details">
+      <div class="description">
+        <p>{{addon.description}}</p>
+      </div>
+
+      <div class="extra">
+        <p class="add-extra">_addon_modal_tagline_</p>
+        <a class="button add-confirm" href ng-click="selectPaymentMethod(false)">{{addon.price | i18nCurrency: currencyCode}}</a>
+        <a class="button add-confirm-points" href ng-click="selectPaymentMethod(true)" ng-if="addon.pointsRequired && addon.allowPointsBooking">{{addon.pointsRequired}} <small>points</small></a>
+      </div>
+    </div>
+  </main>
+
+  <main ng-if="state.confirmed">
+    <image-carousel width="400" height="400" fill="'fill'" images="addon.images"></image-carousel>
+    <div class="details">
+      <div class="description" ng-switch="payWithPoints">
+        <p>_addon_modal_confirm_desc_</p>
+        <p>{{addon.name}}</p>
+        <!-- DEFAULT PAYMENT METHOD -->
+        <p ng-switch-default>{{addon.price | i18nCurrency: currencyCode}}</p>
+        <p ng-switch-default><em>_addon_modal_charge_desc_</em></p>
+
+        <!-- PAYMENT WITH POINST -->
+        <p ng-switch-when="true"><ng-pluralize count="addon.pointsRequired" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize></p>
+        <p ng-switch-when="true"><em>_addon_modal_charge_confirm_</em></p>
+      </div>
+
+      <div class="extra">
+        <p class="add-extra">_addon_modal_tagline_</p>
+        <a class="button add-confirm" href ng-click="state.confirmed = false">_back_</a>
+        <a class="button add-confirm-points" href ng-click="addAddon(addon)">_confirm_</a>
+      </div>
+    </div>
+  </main>
+</div>

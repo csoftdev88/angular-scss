@@ -1,0 +1,34 @@
+.preloader {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 15px;
+  text-align: center;
+  height: 42px;
+  z-index: 990;
+
+  &.relative{
+    position: relative;
+    height: 62px;
+  }
+
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url('@{img-prefix}/v4/preloader.gif') no-repeat center center;
+    background-size: 32px 32px;
+  }
+
+  &:after {
+    display: block;
+    height: 10px;
+    content: 'loading';
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: @c-brown;
+  }
+}

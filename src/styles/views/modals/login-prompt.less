@@ -1,0 +1,30 @@
+.login-prompt {
+  width: 400px;
+  .viewport-mobile &{
+    width: auto;
+  }
+
+  header {
+    border: none;
+  }
+
+  main {
+    margin: 0px 20px 35px;
+    text-align: center;
+    .viewport-mobile &{
+      margin: 0 !important;
+      margin-top: 0 !important;
+      padding-top: 0;
+    }
+
+    h1 {
+      font-size: @size-2;
+      color: @c-link;
+      margin: @baseline;
+    }
+    p {
+      color: @c-gray;
+      margin: @baseline 0px;
+    }
+  }
+}
