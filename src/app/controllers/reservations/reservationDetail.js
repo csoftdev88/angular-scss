@@ -296,6 +296,19 @@ angular.module('mobius.controllers.reservationDetail', [])
         });
     };
 
+    $scope.getCountPriceDetail = function(prop){
+      if(!$scope.reservation || !$scope.reservation.rooms || !$scope.reservation.rooms.length){
+        return null;
+      }
+
+      return _.reduce(
+        _.map($scope.reservation.rooms, function(room){
+          return room.priceDetail[prop];
+        }), function(t, n){
+          return t + n;
+        });
+    };
+
     // TODO: Check if this needed?
     $scope.modifyReservation = function(onError) {
       var reservationPromise = reservationService.modifyReservation($stateParams.reservationCode, $scope.reservation).then(
