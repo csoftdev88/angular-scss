@@ -172,7 +172,7 @@ angular.module('mobius.controllers.hotel.details', [
 
         if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics){
           $timeout(function(){
-            $rootScope.$broadcast('GROWL_ALERT', $scope.details.statistics);
+            $scope.$broadcast('GROWL_ALERT', $scope.details.statistics);
           });
         }
 

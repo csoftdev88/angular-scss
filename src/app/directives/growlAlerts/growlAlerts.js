@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$rootScope', '$timeout',
-    function(growl, $rootScope, $timeout) {
+  .directive('growlAlerts', ['growl', '$timeout',
+    function(growl, $timeout) {
       return {
         restrict: 'E',
         scope: {
@@ -27,23 +27,17 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             ttl: scope.displayTime ? scope.displayTime : 10000,
             disableIcons: true
           };
-          var isHandled = false;
 
-          $rootScope.$on('GROWL_ALERT', function (event, statistic) {
-            if(isHandled)
-            {
-              return;
+          scope.$on('GROWL_ALERT', function (event, statistic) {
+            if(scope.displayDelay){
+              $timeout(function(){
+                growl.info(getIcon(statistic) + '<p>' + formatMessage(statistic) + '</p>', config);
+              }, scope.displayDelay);
             }
             else {
-              isHandled = true;
-              if(scope.displayDelay){
-                $timeout(function(){
-                  growl.info(getIcon(statistic) + '<p>' + formatMessage(statistic) + '</p>', config);
-                }, scope.displayDelay);
-              }
-              else {
+              $timeout(function () {
                 growl.info(formatMessage(statistic), config);
-              }
+              });
             }
           });
 

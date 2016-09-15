@@ -15,7 +15,7 @@ angular.module('mobius.controllers.room.details', [])
 
     if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics){
       $timeout(function(){
-        $rootScope.$broadcast('GROWL_ALERT', $scope.roomDetails.statistics);
+        $scope.$broadcast('GROWL_ALERT', $scope.roomDetails.statistics);
       });
     }
 
