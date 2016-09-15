@@ -91,7 +91,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
                     if(scope.config.bookingStatistics && scope.config.bookingStatistics.display && scope.locationDetails.statistics){
                       $timeout(function(){
-                        $rootScope.$broadcast('GROWL_ALERT', scope.locationDetails.statistics);
+                        $scope.$broadcast('GROWL_ALERT', scope.locationDetails.statistics);
                       });
                     }
 
