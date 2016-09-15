@@ -34,7 +34,7 @@
     <hr>
 
     <offers-list id="offers-list">
-      <offer-item ng-repeat="about in aboutList | limitTo: config.offersLimit track by $index">
+      <offer-item ng-repeat="about in aboutList | filter:{showOnMenu:true} | limitTo: config.offersLimit track by $index">
         <a ui-sref="aboutUs({code:about.meta.slug})">
           <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
@@ -56,7 +56,7 @@
     <div class="about-content">
       <h1 ng-bind-html="selectedAbout.title | mainHeaderStyle"></h1>
       <img ng-if="!contentConfig.displayContentImageInHeroSlider" ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedAbout.image.alt}}"/>
-      <div ng-bind-html="selectedAbout.text | trustAsHtml" markdown-text-parser></div>
+      <div ng-bind-html="selectedAbout.text | trustAsHtml" markdown-text-parser class="markdown-content"></div>
     </div>
     <button-back role="button" tabindex="0" ng-click="goToAboutList()" class="pull-left">_back_</button-back>
 

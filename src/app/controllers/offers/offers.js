@@ -282,9 +282,9 @@ angular.module('mobius.controllers.offers', [])
           });
           offers = _.sortBy(offers, 'prio').reverse();
 
-          $scope.offersList = _.where(offers, {
-            showAtChainLevel: true,
-            showOnOffersPage: true
+          //Filter out offers that aren't showAtChainLevel and showOnOffersPage unless it is the current URL offer
+          $scope.offersList = _.filter(offers, function(offer) {
+            return (offer.showAtChainLevel && offer.showOnOffersPage) || offer.meta.slug === $stateParams.code;
           });
 
           _.each($scope.offersList, function(offer) {
@@ -745,22 +745,28 @@ angular.module('mobius.controllers.offers', [])
       //Get property region/location data for breadcrumbs
       propertyService.getPropertyRegionData(property.locationCode).then(function(propertyRegionData) {
 
-        //breadcrumbs
-        breadcrumbsService
-          .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            property: null
-          })
-          .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            property: null
-          })
-          .addBreadCrumb(property.nameShort, 'hotel', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            propertySlug: property.meta.slug
-          });
+        if($stateParams.regionSlug && $stateParams.locationSlug)
+        {
+          breadcrumbsService
+            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              property: null
+            })
+            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              locationSlug: propertyRegionData.location.meta.slug,
+              property: null
+            });
+        }
+        else {
+          breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
+        }
+
+        breadcrumbsService.addBreadCrumb(property.nameShort, 'hotel', {
+          regionSlug: propertyRegionData.region.meta.slug,
+          locationSlug: propertyRegionData.location.meta.slug,
+          propertySlug: property.meta.slug
+        });
 
 
         if (offerTitle) {

@@ -163,11 +163,15 @@
           </label>
 
           <label for="telephone" class="input-right">
-            <input type="text" international-phone-number id="telephone"
-              placeholder="_phone_placeholder_" default-country="{{defaultCountryCode || 'ca'}}"
-              preferred-countries="ca, us, gb"
+            <!--<input type="text" ng-intl-tel-input id="telephone"
+              placeholder="_phone_placeholder_"
+              data-default-country="ca"
+              data-preferred-countries="ca, us, gb"
               ng-model="billingDetails.phone"
-              placeholder="Phone"/>
+              placeholder="Phone"/>-->
+              <input type="tel" id="telephone"
+                placeholder="_phone_placeholder_"
+                ng-model="billingDetails.phone"/>
             <span>_phone_label_</span>
           </label>
         </div>

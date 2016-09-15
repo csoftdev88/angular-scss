@@ -205,6 +205,7 @@ angular.module('mobius.controllers.reservation', [])
           $scope.userDetails.zip = data.zip;
           $scope.userDetails.stateProvince = data.state;
           $scope.userDetails.country = data.country;
+          $scope.userDetails.localeCode = data.localeCode;
           $scope.userDetails.phone = data.tel1;
           $scope.additionalInfo.secondPhoneNumber = data.tel2;
           $scope.additionalInfo.optedIn = data.optedIn;
@@ -837,12 +838,11 @@ angular.module('mobius.controllers.reservation', [])
     if(userObject !== null)
     {
       var userData = _.omit($scope.userDetails, _.isNull);
-      userData = _.omit(userData, ['id','token','email', 'languageCode']);
-
       if(userData.countryObj)
       {
         userData.country = userData.countryObj.code;
       }
+      userData = _.omit(userData, ['id','token','email','languageCode','countryObj']);
 
       if(userData && userObject.id)
       {
@@ -975,6 +975,7 @@ angular.module('mobius.controllers.reservation', [])
           zip: $scope.userDetails.zip,
           state: $scope.userDetails.stateProvince,
           country: $scope.userDetails.localeCode,
+          localeCode: $scope.userDetails.localeCode,
           tel1: $scope.userDetails.phone,
           tel2: $scope.additionalInfo.secondPhoneNumber,
           optedIn: $scope.additionalInfo.optedIn

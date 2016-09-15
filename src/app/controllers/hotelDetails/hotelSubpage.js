@@ -93,11 +93,18 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         //Get property region/location data for breadcrumbs
         propertyService.getPropertyRegionData(details.locationCode).then(function(propertyRegionData){
-
+          if($stateParams.regionSlug && $stateParams.locationSlug)
+          {
+            //breadcrumbs
+            breadcrumbsService
+              .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
+              .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null});
+          }
+          else {
+            breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
+          }
           //breadcrumbs
           breadcrumbsService
-            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
-            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
             .addBreadCrumb(details.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug})
             .addBreadCrumb($scope.info.title);
 

@@ -454,8 +454,14 @@ angular.module('mobius.controllers.reservationDetail', [])
       var rooms = $scope.reservation.rooms.map(function(room){
         // Finding corresponding images
         var images;
+        var otherRoom = null;
 
-        var otherRoom = _.findWhere($scope.otherRooms, {code: room.roomTypeCode});
+        _.forEach($scope.otherRooms, function(value){
+          if(value.code === room.roomTypeCode)
+          {
+            otherRoom = value;
+          }
+        });
 
         if(otherRoom){
           images = otherRoom.images;

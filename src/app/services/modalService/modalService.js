@@ -37,17 +37,6 @@ angular.module('mobiusApp.services.modal', [])
     return q.promise;
   }
 
-  function setRoomTaxAndFees(price) {
-    var i;
-    var nights = price.breakdowns.length;
-    for (i = 0; i < nights; i++) {
-      price.breakdowns[i].totalAfterTax = price.totalAfterTax / nights;
-      price.breakdowns[i].totalFees = price.totalAdditionalFees / nights;
-    }
-
-    return price;
-  }
-
   function openCancelReservationDialog(reservationCode){
     // Accepting reservation data to be rendered in modal window
     return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelReservationDialog.html', CONTROLLER_DATA, {
@@ -140,8 +129,28 @@ angular.module('mobiusApp.services.modal', [])
       }
     );
 
-    _.forEach(rooms, function(room) {
-      room._selectedProduct.price = setRoomTaxAndFees(room._selectedProduct.price);
+    var totalAdditionalFees = _.reduce(
+      _.map(rooms, function(room){
+        return room._selectedProduct.price.totalAdditionalFees;
+      }), function(t, n){
+        return t + n;
+      }
+    );
+
+    var totalAdditionalTaxes = _.reduce(
+      _.map(rooms, function(room){
+        return room._selectedProduct.price.totalAdditionalTaxes;
+      }), function(t, n){
+        return t + n;
+      }
+    );
+
+    var totalDailyFees = 0;
+
+    _.forEach(rooms, function(room){
+      _.forEach(room._selectedProduct.price.breakdown, function(breakdown){
+        totalDailyFees += breakdown.totalFees;
+      });
     });
 
     return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DATA, {
@@ -150,7 +159,10 @@ angular.module('mobiusApp.services.modal', [])
         data: function(){
           return {
             rooms: rooms,
-            totalAfterTax: totalAfterTax
+            totalAfterTax: totalAfterTax,
+            totalAdditionalFees: totalAdditionalFees,
+            totalAdditionalTaxes: totalAdditionalTaxes,
+            totalDailyFees: totalDailyFees
           };
         }
       }
@@ -362,16 +374,25 @@ angular.module('mobiusApp.services.modal', [])
       windowClass: isTabbed ? 'dialog-product-details tabbed' : 'dialog-product-details',
       resolve: {
         data: function() {
-          product.price = setRoomTaxAndFees(product.price);
-
           return {
             room: room,
             product: product,
-            isTabbed: isTabbed
+            isTabbed: isTabbed,
+            totalDailyFees: getTotalDailyFees(product)
           };
         }
       }
     });
+  }
+
+  function getTotalDailyFees(product){
+    var totalDailyFees = 0;
+
+    _.forEach(product.price.breakdown, function(breakdown){
+      totalDailyFees += breakdown.totalFees;
+    });
+
+    return totalDailyFees;
   }
 
   // Public methods

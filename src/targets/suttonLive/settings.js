@@ -311,7 +311,8 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': false,
-          'highlightFirstRate': false
+          'highlightFirstRate': false,
+          'showSlashThrough': false
         }
 
       },
@@ -915,7 +916,7 @@ angular.module('mobiusApp.config', [])
       'family': 'Family',
       'guarantee': 'Guarantee',
       'noShow': 'No Show',
-      'pet': 'Pet'
+      'pet': 'Pets'
     },
     'defaultCountryCode': 'ca',
     'preferredCountryCodes': 'ca,us,gb',

@@ -85,7 +85,7 @@ angular.module('mobiusApp.services.reservation', [])
   }
 
   function getAnonUserProfile(id, email) {
-    return apiService.get(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: email}));
+    return apiService.get(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: encodeURIComponent(email)}));
   }
 
   // Public methods
