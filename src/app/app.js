@@ -584,8 +584,6 @@ angular
   langObj['mobius-languagecode'] = appLang;
   apiService.setHeaders(langObj);
 
-  $rootScope.languagePromptDisplayed = false;
-
   //Set default currency header
   var currencyObj = {};
   currencyObj['mobius-currencycode'] = stateService.getCurrentCurrency().code;
@@ -680,10 +678,9 @@ angular
     var currentURL = $state.href($state.current.name, {}, {absolute: true});
     var userLang = user.getUserLanguage();
 
-    if(!$rootScope.languagePromptDisplayed && currentURL.indexOf('/locations/quebec') !== -1)
+    if(currentURL.indexOf('/locations/quebec') !== -1)
     {
       $timeout(function(){
-        $rootScope.languagePromptDisplayed = true;
         $scope.$broadcast('LANGUAGE_GROWL_ALERT');
       }, 2000);
     }
