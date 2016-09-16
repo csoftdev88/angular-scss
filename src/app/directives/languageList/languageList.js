@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.language', [])
 
-  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', 'user', '$state', function($window, Settings, stateService, contentService, _, $location, user, $state) {
+  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', 'user', function($window, Settings, stateService, contentService, _, $location, user) {
     function encodeQueryData(data) {
       var ret = [];
       for (var d in data) {
@@ -24,9 +24,6 @@ angular.module('mobiusApp.directives.language', [])
         var defaultLanguage = Settings.UI.languages.default;
         scope.config = Settings.UI.languages;
         var localeLanguages = {};
-
-        var currentURL = $state.href($state.current.name, {}, {absolute: true});
-        scope.showLanguages = currentURL.indexOf('/locations/quebec') > -1 ? true : false;
 
         contentService.getLanguages().then(function(data) {
 

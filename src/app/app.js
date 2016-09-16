@@ -678,13 +678,6 @@ angular
     var currentURL = $state.href($state.current.name, {}, {absolute: true});
     var userLang = user.getUserLanguage();
 
-    if(currentURL.indexOf('/locations/quebec') !== -1)
-    {
-      $timeout(function(){
-        $scope.$broadcast('LANGUAGE_GROWL_ALERT');
-      }, 2000);
-    }
-
     if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
       var language_code = userLang;
       var path = $location.path();
@@ -695,6 +688,17 @@ angular
         user.storeUserLanguage('en-us');
         $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
       }
+    }
+
+    if(currentURL.indexOf('/locations/quebec') !== -1)
+    {
+      $rootScope.showLanguages = true;
+      $timeout(function(){
+        $scope.$broadcast('LANGUAGE_GROWL_ALERT');
+      }, 2000);
+    }
+    else {
+      $rootScope.showLanguages = false;
     }
 
     if (Settings.authType === 'infiniti') {
