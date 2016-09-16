@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$timeout',
-    function(growl, $timeout) {
+  .directive('growlAlerts', ['growl', '$timeout', '$location',
+    function(growl, $timeout, $location) {
       return {
         restrict: 'E',
         scope: {
@@ -10,6 +10,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           viewsMessage: '=',
           searchesMessage: '=',
           positionReference: '=',
+          languageMessage: '=',
           displayTime: '=',
           displayDelay: '=',
           hour: '=',
@@ -17,29 +18,45 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           day: '=',
           days: '=',
           week: '=',
-          weeks: '='
+          weeks: '=',
+          languagesMessage: '='
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
         link: function(scope) {
-          var config = {
+          var bookingStatsConfig = {
             referenceId: scope.positionReference ? scope.positionReference : 0,
             ttl: scope.displayTime ? scope.displayTime : 10000,
             disableIcons: true
           };
 
-          scope.$on('GROWL_ALERT', function (event, statistic) {
+          var languagePromptConfig = {
+            referenceId:3,
+            ttl: 1000000,
+            disableIcons: true
+          };
+
+          scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
             if(scope.displayDelay){
               $timeout(function(){
-                growl.info(getIcon(statistic) + '<p>' + formatMessage(statistic) + '</p>', config);
+                growl.info(getIcon(statistic) + '<p>' + formatMessage(statistic) + '</p>', bookingStatsConfig);
               }, scope.displayDelay);
             }
             else {
               $timeout(function () {
-                growl.info(formatMessage(statistic), config);
+                growl.info(formatMessage(statistic), bookingStatsConfig);
               });
             }
           });
+
+          var currentURL = $location.path();
+          if(currentURL.indexOf('/locations/quebec') !== -1) {
+            scope.$on('LANGUAGE_GROWL_ALERT', function () {
+              $timeout(function(){
+                growl.info('<i class="fa fa-check-circle"></i>' + '<p>' + scope.languagesMessage + '</p>', languagePromptConfig);
+              });
+            });
+          }
 
           function getIcon(statistic){
             var iconHtml = '';

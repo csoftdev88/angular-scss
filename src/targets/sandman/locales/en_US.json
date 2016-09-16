@@ -496,6 +496,7 @@
     "day": "day",
     "days": "days",
     "week": "week",
-    "weeks": "weeks"
+    "weeks": "weeks",
+    "languages_message": "This page is available in both french and english"
   }
 }
