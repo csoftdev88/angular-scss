@@ -692,13 +692,13 @@ angular
 
     if(currentURL.indexOf('/locations/quebec') !== -1)
     {
-      $rootScope.showLanguages = true;
+      //$rootScope.showLanguages = true;
       $timeout(function(){
-        $scope.$broadcast('LANGUAGE_GROWL_ALERT');
+        //$scope.$broadcast('LANGUAGE_GROWL_ALERT');
       }, 2000);
     }
     else {
-      $rootScope.showLanguages = false;
+      //$rootScope.showLanguages = false;
     }
 
     if (Settings.authType === 'infiniti') {
