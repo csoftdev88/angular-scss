@@ -98,20 +98,26 @@
                 <th rowspan="3" class="total">Total:</th>
                 <td rowspan="3" class="total-value">
                     <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}</a>-->
-                    {{getCount('priceAfterTax') | i18nCurrency: $root.currencyCode}}
+                    {{getCountPriceDetail('totalAfterTax') | i18nCurrency: $root.currencyCode}}
                 </td>
               </tr>
 
               <!-- Additional taxes -->
               <tr ng-if="reservation.rooms[0].tax">
-                <th>_taxes_and_fees_:</th>
+                <th>_tax_:</th>
                 <td>{{getCount('tax') | i18nCurrency: $root.currencyCode}}</td>
               </tr>
 
+              <!-- Additional fees -->
+              <tr ng-if="reservation.rooms[0].priceDetail.totalAdditionalFees">
+                <th>_additional_fees_:</th>
+                <td>{{reservation.rooms[0].priceDetail.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
+              </tr>
+
               <!-- Discount -->
-              <tr ng-if="reservation.rooms[0].priceBreakdown.discount">
+              <tr ng-if="reservation.rooms[0].priceDetail.discount">
                 <th>_discount_:</th>
-                <td>{{reservation.rooms[0].priceBreakdown.discount | i18nCurrency: $root.currencyCode}}</td>
+                <td>{{reservation.rooms[0].priceDetail.discount | i18nCurrency: $root.currencyCode}}</td>
               </tr>
             </tbody>
 
@@ -168,7 +174,7 @@
 
             <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended">
               <span class="total">_total_:</span>
-              <span class="total-value" ng-if="!reservation.pointValue">{{getCount('priceAfterTax') | i18nCurrency: $root.currencyCode}}</span>
+              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') | i18nCurrency: $root.currencyCode}}</span>
               <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
               <a href ng-click="openPoliciesInfo()">_view_policies_</a>
             </div>
