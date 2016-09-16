@@ -584,6 +584,8 @@ angular
   langObj['mobius-languagecode'] = appLang;
   apiService.setHeaders(langObj);
 
+  $rootScope.languagePromptDisplayed = false;
+
   //Set default currency header
   var currencyObj = {};
   currencyObj['mobius-currencycode'] = stateService.getCurrentCurrency().code;
@@ -611,8 +613,8 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $rootScope, $controller, $state, scrollService,
-  metaInformationService, Settings, propertyService, $window, breadcrumbsService) {
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, scrollService,
+  metaInformationService, Settings, propertyService, $window, breadcrumbsService,  user) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -625,9 +627,6 @@ angular
   });
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
-
-    console.log('toState: ' + toState.name);
-    console.log('toParams: ' + angular.toJson(toParams));
 
     //if applyChainClassToBody, get property details and add its chain as body class for styling
     if (Settings.UI.generics.applyChainClassToBody) {
@@ -678,6 +677,30 @@ angular
   });
 
   $scope.$on('$stateChangeSuccess', function() {
+    var currentURL = $state.href($state.current.name, {}, {absolute: true});
+    var userLang = user.getUserLanguage();
+
+    if(!$rootScope.languagePromptDisplayed && currentURL.indexOf('/locations/quebec') !== -1)
+    {
+      $timeout(function(){
+        $rootScope.languagePromptDisplayed = true;
+        console.log('call alert');
+        $scope.$broadcast('LANGUAGE_GROWL_ALERT');
+      });
+    }
+
+    if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
+      var language_code = userLang;
+      var path = $location.path();
+      var search = encodeQueryData($location.search());
+      var hash = $location.hash();
+      if(language_code === 'fr')
+      {
+        user.storeUserLanguage('en-us');
+        $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+      }
+    }
+
     if (Settings.authType === 'infiniti') {
       $scope.sso.trackPageView();
       //Evolution
@@ -686,4 +709,15 @@ angular
       }
     }
   });
+  function encodeQueryData(data) {
+    var ret = [];
+    for (var d in data) {
+      if (data.hasOwnProperty(d)) {
+        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+      }
+    }
+    return ret.join(' ');
+  }
+
+
 });

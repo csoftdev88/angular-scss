@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.language', [])
 
-  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', 'user', function($window, Settings, stateService, contentService, _, $location, user) {
+  .directive('languageList', ['$window', 'Settings', 'stateService', 'contentService', '_', '$location', 'user', '$state', function($window, Settings, stateService, contentService, _, $location, user, $state) {
     function encodeQueryData(data) {
       var ret = [];
       for (var d in data) {
@@ -25,16 +25,29 @@ angular.module('mobiusApp.directives.language', [])
         scope.config = Settings.UI.languages;
         var localeLanguages = {};
 
+        var currentURL = $state.href($state.current.name, {}, {absolute: true});
+        scope.showLanguages = currentURL.indexOf('/locations/quebec') > -1 ? true : false;
+
         contentService.getLanguages().then(function(data) {
 
+          //SANDMAN HACK
+          if($location.path().indexOf('/locations/quebec') !== -1){
+            var fr = {
+              'code': 'fr',
+              'name': 'French'
+            };
+            data.push(fr);
+          }
+
           localeLanguages = angular.copy(data);
+
           scope.getFullName = function(languageCode) {
-            var lang = _.find(localeLanguages, function(item){ 
-              return item.code === languageCode; 
+            var lang = _.find(localeLanguages, function(item){
+              return item.code === languageCode;
             });
             return lang.name;
           };
-          
+
           var languages = {};
           _.each(data, function(languageData) {
             if (!Settings.UI.languages[languageData.code]) {
@@ -43,12 +56,11 @@ angular.module('mobiusApp.directives.language', [])
               languageData = _.assign(languageData, Settings.UI.languages[languageData.code]);
               languages[languageData.code] = languageData;
               languages[languageData.code].default = languageData.code === defaultLanguage ? true : false;
-              
+
             }
           });
 
           scope.languages = _.values(languages);
-
         });
 
         scope.changeLanguage = function(language) {

@@ -577,8 +577,8 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
-      'headerAlignment': 'right',
-      'dropdown': true,
+      'headerAlignment': 'left',
+      'dropdown': false,
       'default': 'en-us',
       'en-us': {
         'shortName': 'EN',
@@ -593,6 +593,14 @@ angular.module('mobiusApp.config', [])
         'name': 'English (CAN)',
         'decimalSeparator': '.',
         'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
+      },
+      'fr': {
+        'shortName': 'FR',
+        'name': 'French',
+        'decimalSeparator': '.',
+        'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
       }
