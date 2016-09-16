@@ -684,9 +684,8 @@ angular
     {
       $timeout(function(){
         $rootScope.languagePromptDisplayed = true;
-        console.log('call alert');
         $scope.$broadcast('LANGUAGE_GROWL_ALERT');
-      });
+      }, 2000);
     }
 
     if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
