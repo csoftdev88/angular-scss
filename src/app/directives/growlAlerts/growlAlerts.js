@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$timeout', '$location',
-    function(growl, $timeout, $location) {
+  .directive('growlAlerts', ['growl', '$timeout', '$location', 'Settings',
+    function(growl, $timeout, $location, Settings) {
       return {
         restrict: 'E',
         scope: {
@@ -49,13 +49,15 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             }
           });
 
-          var currentURL = $location.path();
-          if(currentURL.indexOf('/locations/quebec') !== -1) {
-            scope.$on('LANGUAGE_GROWL_ALERT', function () {
-              $timeout(function(){
-                growl.info('<i class="fa fa-check-circle"></i>' + '<p>' + scope.languagesMessage + '</p>', languagePromptConfig);
+          if(Settings.sandmanFrenchOverride) {
+            var currentURL = $location.path();
+            if(currentURL.indexOf('/locations/quebec') !== -1) {
+              scope.$on('LANGUAGE_GROWL_ALERT', function () {
+                $timeout(function(){
+                  growl.info('<i class="fa fa-check-circle"></i>' + '<p>' + scope.languagesMessage + '</p>', languagePromptConfig);
+                });
               });
-            });
+            }
           }
 
           function getStatsIcon(statistic){

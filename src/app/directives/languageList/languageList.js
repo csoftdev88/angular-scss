@@ -28,12 +28,14 @@ angular.module('mobiusApp.directives.language', [])
         contentService.getLanguages().then(function(data) {
 
           //SANDMAN HACK, FORCING FRENCH IF QUEBEC
-          if($location.path().indexOf('/locations/quebec') !== -1){
-            var fr = {
-              'code': 'fr',
-              'name': 'French'
-            };
-            data.push(fr);
+          if(Settings.sandmanFrenchOverride) {
+            if($location.path().indexOf('/locations/quebec') !== -1){
+              var fr = {
+                'code': 'fr',
+                'name': 'French'
+              };
+              data.push(fr);
+            }
           }
 
           localeLanguages = angular.copy(data);
