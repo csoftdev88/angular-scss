@@ -136,11 +136,7 @@
 
             <p class="our-rates">_our_rates_</p>
           </room-details>
-
-
-
-
-          <room-products ng-if="details && room._displayRates" id="{{'rates'+$index}}"></room-products>
+          <room-products ng-if="details && room._displayRates" ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts}" id="{{'rates'+$index}}"></room-products>
         </div>
         <!-- //list-item-container -->
       </list-item>

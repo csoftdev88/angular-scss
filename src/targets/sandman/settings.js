@@ -326,7 +326,7 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': true,
-          'displayOtaRates': true
+          'displayOtaRates': false
         }
 
       },
@@ -914,13 +914,17 @@ angular.module('mobiusApp.config', [])
         }
       }
     },
-    'otaRates': {
-      'expedia': {
-        'logo': '/static/images/expedia_logo.png'
+    'otaRates': [
+      {
+        'name': 'expedia',
+        'logo': '/static/images/expedia_logo.png',
+        'link': 'http://www.google.com'
       },
-      'bookingcom': {
-        'logo': '/static/images/bookingcom_logo.png'
+      {
+        'name': 'bookingcom',
+        'logo': '/static/images/bookingcom_logo.png',
+        'link': 'http://www.amazon.co.uk'
       }
-    }
+    ]
   }
 });

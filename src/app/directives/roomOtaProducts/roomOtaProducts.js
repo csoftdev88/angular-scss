@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.room.otaProducts', [])
 
-.directive('roomOtaProducts', function(_, Settings){
+.directive('roomOtaProducts', function(_, Settings, $timeout) {
 
   return {
     restrict: 'E',
@@ -15,25 +15,29 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
       currencyCode: '='
     },
     replace: false,
-    link: function(scope){
+    link: function(scope) {
       var otaRatesConfig = Settings.UI.otaRates;
-      scope.$watch('otaProducts', function(newValue) {
+      scope.otaLoading = true;
+
+      if (otaRatesConfig) {
+        scope.$watch('otaProducts', function(newValue) {
           if (newValue !== undefined) {
+            //Creating false load effect
+            $timeout(function(){
+              scope.otaLoading = false;
+            }, 2000);
+
+            var randomIndex = Math.floor(Math.random() * otaRatesConfig.length);
+            var otaConfig = otaRatesConfig[randomIndex];
             scope.otaProducts.length = 1;
-            console.log(otaRatesConfig);
             _.each(scope.otaProducts, function(otaProduct) {
-              var otaType = 'expedia';
-              switch(otaType) {
+              otaProduct.logo = otaConfig.logo;
+              otaProduct.link = otaConfig.link;
+              switch (otaConfig.name) {
                 case 'expedia':
-                  if(otaRatesConfig && otaRatesConfig.expedia.logo) {
-                    otaProduct.logo = otaRatesConfig.expedia.logo;
-                  }
                   otaProduct.description = scope.otaExpediaMessage;
                   break;
                 case 'bookingcom':
-                  if(otaRatesConfig && otaRatesConfig.bookingcom.logo) {
-                    otaProduct.logo = otaRatesConfig.bookingcom.logo;
-                  }
                   otaProduct.description = scope.otaBookingComMessage;
                   break;
                 default:
@@ -41,7 +45,8 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
               }
             });
           }
-      });
+        });
+      }
     }
   };
 });

@@ -22,7 +22,6 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.init = function(){
         scope.products = undefined;
-        scope.otaProducts = undefined;
 
         // Using PGID from the booking params
         if(bookingParams.productGroupId){
@@ -85,7 +84,18 @@ angular.module('mobiusApp.directives.room.products', [])
 
             scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
 
-            scope.otaProducts = data.otaProducts;
+            //scope.otaProducts = data.otaProducts;
+            scope.otaProducts = [
+              {
+                'price':289
+              },
+              {
+                'price':250
+              },
+              {
+                'price':800
+              }
+            ];
 
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
