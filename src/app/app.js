@@ -613,7 +613,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, scrollService,
-  metaInformationService, Settings, propertyService, $window, breadcrumbsService, user) {
+  metaInformationService, Settings, propertyService, $window, breadcrumbsService, user, cookieFactory) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -677,6 +677,7 @@ angular
 
   $scope.$on('$stateChangeSuccess', function() {
     var currentURL = $state.href($state.current.name, {}, {absolute: true});
+    console.log(currentURL);
     var userLang = user.getUserLanguage();
 
     if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
@@ -693,11 +694,14 @@ angular
 
     if(currentURL.indexOf('/locations/quebec') !== -1)
     {
-      $window.document.cookie = 'username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/';
       $rootScope.showLanguages = true;
-      $timeout(function(){
-        $scope.$broadcast('LANGUAGE_GROWL_ALERT');
-      }, 2000);
+      if(!cookieFactory('languageAlertDisplay'))
+      {
+        $timeout(function(){
+          $scope.$broadcast('LANGUAGE_GROWL_ALERT');
+          $window.document.cookie = 'languageAlertDisplay=true; path=/';
+        }, 2000);
+      }
     }
     else {
       $rootScope.showLanguages = false;

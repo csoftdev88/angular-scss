@@ -51,7 +51,6 @@ angular.module('mobiusApp.directives.growlAlerts', [])
 
           var currentURL = $location.path();
           if(currentURL.indexOf('/locations/quebec') !== -1) {
-            console.log('add handler');
             scope.$on('LANGUAGE_GROWL_ALERT', function () {
               $timeout(function(){
                 growl.info('<i class="fa fa-check-circle"></i>' + '<p>' + scope.languagesMessage + '</p>', languagePromptConfig);
