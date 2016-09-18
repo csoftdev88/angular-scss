@@ -27,13 +27,13 @@ angular.module('mobiusApp.directives.language', [])
 
         contentService.getLanguages().then(function(data) {
 
-          //SANDMAN HACK
+          //SANDMAN HACK, FORCING FRENCH IF QUEBEC
           if($location.path().indexOf('/locations/quebec') !== -1){
-            /*var fr = {
+            var fr = {
               'code': 'fr',
               'name': 'French'
-            };*/
-            //data.push(fr);
+            };
+            data.push(fr);
           }
 
           localeLanguages = angular.copy(data);

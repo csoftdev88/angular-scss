@@ -613,7 +613,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, scrollService,
-  metaInformationService, Settings, propertyService, $window, breadcrumbsService,  user) {
+  metaInformationService, Settings, propertyService, $window, breadcrumbsService, user) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -693,13 +693,14 @@ angular
 
     if(currentURL.indexOf('/locations/quebec') !== -1)
     {
-      //$rootScope.showLanguages = true;
+      $window.document.cookie = 'username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/';
+      $rootScope.showLanguages = true;
       $timeout(function(){
-        //$scope.$broadcast('LANGUAGE_GROWL_ALERT');
+        $scope.$broadcast('LANGUAGE_GROWL_ALERT');
       }, 2000);
     }
     else {
-      //$rootScope.showLanguages = false;
+      $rootScope.showLanguages = false;
     }
 
     if (Settings.authType === 'infiniti') {

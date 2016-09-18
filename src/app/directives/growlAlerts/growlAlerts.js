@@ -39,18 +39,19 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
             if(scope.displayDelay){
               $timeout(function(){
-                growl.info(getIcon(statistic) + '<p>' + formatMessage(statistic) + '</p>', bookingStatsConfig);
+                growl.info(getStatsIcon(statistic) + '<p>' + formatStatsMessage(statistic) + '</p>', bookingStatsConfig);
               }, scope.displayDelay);
             }
             else {
               $timeout(function () {
-                growl.info(formatMessage(statistic), bookingStatsConfig);
+                growl.info(formatStatsMessage(statistic), bookingStatsConfig);
               });
             }
           });
 
           var currentURL = $location.path();
           if(currentURL.indexOf('/locations/quebec') !== -1) {
+            console.log('add handler');
             scope.$on('LANGUAGE_GROWL_ALERT', function () {
               $timeout(function(){
                 growl.info('<i class="fa fa-check-circle"></i>' + '<p>' + scope.languagesMessage + '</p>', languagePromptConfig);
@@ -58,7 +59,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             });
           }
 
-          function getIcon(statistic){
+          function getStatsIcon(statistic){
             var iconHtml = '';
             switch(statistic.type) {
               case 'booking':
@@ -73,7 +74,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             return iconHtml;
           }
 
-          function getUnit(statistic){
+          function getStatsUnit(statistic){
             var unit = '';
             if(statistic.numUnits === 1){
               switch(statistic.unit) {
@@ -108,7 +109,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             return unit;
           }
 
-          function formatMessage(statistic){
+          function formatStatsMessage(statistic){
             var message = '';
             switch(statistic.type) {
               case 'booking':
@@ -124,7 +125,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 message = 'No message';
             }
 
-            message = message.replace('{numTypes}', statistic.numTypes).replace('{numUnits}', statistic.numUnits).replace('{unit}', getUnit(statistic));
+            message = message.replace('{numTypes}', statistic.numTypes).replace('{numUnits}', statistic.numUnits).replace('{unit}', getStatsUnit(statistic));
 
             return message;
           }
