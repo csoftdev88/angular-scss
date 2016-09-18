@@ -88,6 +88,10 @@ angular.module('mobiusApp.services.reservation', [])
     return apiService.get(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: encodeURIComponent(email)}));
   }
 
+  function checkVoucher(code) {
+    return apiService.get(apiService.getFullURL('reservations.checkVoucher', {code: code}));
+  }
+
   // Public methods
   return {
     createReservation: createReservation,
@@ -104,6 +108,7 @@ angular.module('mobiusApp.services.reservation', [])
     getCancelledReservations: getCancelledReservations,
     find: find,
     updateAnonUserProfile: updateAnonUserProfile,
-    getAnonUserProfile: getAnonUserProfile
+    getAnonUserProfile: getAnonUserProfile,
+    checkVoucher: checkVoucher
   };
 });
