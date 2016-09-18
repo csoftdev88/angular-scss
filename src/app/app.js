@@ -682,7 +682,6 @@ angular
       var currentURL = $state.href($state.current.name, {}, {
         absolute: true
       });
-      console.log(currentURL);
       var userLang = user.getUserLanguage();
 
       //If user language is french and URL does not contain quebec, switch back to english
