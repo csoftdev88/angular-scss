@@ -13,7 +13,7 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'staging': 'http://staging-sandman-infiniti.mobiuswebservices.com/track/content/infiniti.js',
+    'staging': 'http://staging-us-sandman-infiniti.mobiuswebservices.com/track/content/infiniti.js',
     'live': 'http://integration-sandman.infiniti.io/track/content/infiniti.js'
   },
   'sentry': {
@@ -63,7 +63,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': ' http://staging-sandman-node.mobiuswebservices.com:3010/api/4.0/',
+      'staging': ' http://staging-us-node-sandman.mobiuswebservices.com:3010/api/4.0/',
       'live':  ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
