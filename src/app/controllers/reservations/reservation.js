@@ -1187,12 +1187,15 @@ angular.module('mobius.controllers.reservation', [])
   $scope.redeemVoucher = function(){
     if($scope.additionalInfo.voucher.code)
     {
+      $scope.additionalInfo.voucher.verifying = true;
+      $scope.additionalInfo.voucher.submitted = true;
       reservationService.checkVoucher($scope.additionalInfo.voucher.code).then(function(){
         console.log('voucher valid');
+        $scope.additionalInfo.voucher.verifying = false;
         $scope.additionalInfo.voucher.valid = true;
-        $scope.additionalInfo.voucher.disabled = true;
       }, function(){
         console.log('voucher invalid');
+        $scope.additionalInfo.voucher.verifying = false;
         $scope.additionalInfo.voucher.valid = false;
       });
     }

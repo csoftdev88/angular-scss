@@ -45,12 +45,12 @@
 
     <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.payment">
       <span>_payment_not_authorized_: </span>
-      <span ng-if="invalidFormData.cardName">_payment_not_authorized_card_name_</span>
-      <span ng-if="invalidFormData.paymentType">_payment_not_authorized_payment_type_</span>
-      <span ng-if="invalidFormData.expiryDate">_payment_not_authorized_expiry_date_</span>
-      <span ng-if="invalidFormData.ccExpired">_payment_not_authorized_cc_expired_</span>
-      <span ng-if="invalidFormData.ccvInvalid">_payment_not_authorized_ccv_invalid_</span>
-      <span ng-if="invalidFormData.ccNumberInvalid">_payment_not_authorized_cc_number_invalid_</span>
+    <span ng-if="invalidFormData.cardName">_payment_not_authorized_card_name_</span>
+    <span ng-if="invalidFormData.paymentType">_payment_not_authorized_payment_type_</span>
+    <span ng-if="invalidFormData.expiryDate">_payment_not_authorized_expiry_date_</span>
+    <span ng-if="invalidFormData.ccExpired">_payment_not_authorized_cc_expired_</span>
+    <span ng-if="invalidFormData.ccvInvalid">_payment_not_authorized_ccv_invalid_</span>
+    <span ng-if="invalidFormData.ccNumberInvalid">_payment_not_authorized_cc_number_invalid_</span>
     </span>
 
     <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.email">
@@ -192,28 +192,32 @@
             </table>
           </div>
 
-        <div ng-if="state.includes('reservation.confirmation')">
-          <label for="agreement1" class="input-checkbox">
+          <div ng-if="state.includes('reservation.confirmation')">
+            <label for="agreement1" class="input-checkbox">
             <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
             _i_agree_to_ <a href ng-click="readPolicies()">_terms_conditions_</a>
           </label>
 
-          <label for="agreement2" class="input-checkbox">
+            <label for="agreement2" class="input-checkbox">
             <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
             _receive_offer_label_
           </label>
-        </div>
+          </div>
 
-        <div ng-if="bookingConfig.vouchers.enable">
-          <h4>_redeem_voucher_message_</h4>
-          <label for="voucher" class=" medium">
-            <input type="text" id="voucher"
-              placeholder="_enter_voucher_label_"
-              ng-model="additionalInfo.voucher.code"
-              name="voucher"/>
-          </label>
-          <button class="button" ng-click="redeemVoucher()" ng-disabled="!additionalInfo.voucher.code">_voucher_button_text_</button>
-        </div>
+          <div ng-if="bookingConfig.vouchers.enable">
+            <h4>_redeem_voucher_message_</h4>
+            <label for="voucher" class=" medium">
+              <input type="text" id="voucher"
+                placeholder="_enter_voucher_label_"
+                ng-model="additionalInfo.voucher.code"
+                ng-disabled="additionalInfo.voucher.valid"
+                name="voucher"/>
+            </label>
+            <button class="button" ng-click="redeemVoucher()" ng-disabled="!additionalInfo.voucher.code || additionalInfo.voucher.valid">_voucher_button_text_</button>
+            <img src="/static/images/preloader.gif" ng-hide="!additionalInfo.voucher.verifying" />
+            <i class="fa fa-check" ng-if="additionalInfo.voucher.valid && additionalInfo.voucher.submitted" />
+            <i class="fa fa-close" ng-if="!additionalInfo.voucher.valid && additionalInfo.voucher.submitted" />
+          </div>
         </section>
       </aside>
     </div>
