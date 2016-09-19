@@ -22,6 +22,17 @@ angular.module('mobiusApp.services.user', [])
 
     var hasLocalStorage = window.localStorage || null;
 
+    //Extra check for Apple Private Browsing
+    var isLocalStorageAvailable = (function() {
+      try {
+        $window.localStorage.world = 'hello';
+        delete $window.localStorage.world;
+        return true;
+      } catch (ex) {
+        return false;
+      }
+    })();
+
     function hasSSOCookies(){
       //console.log('hasSSOCookies: ' + cookieFactory(KEY_CUSTOMER_PROFILE));
       return Settings.authType === 'mobius' ? true : !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
@@ -62,7 +73,7 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function storeUserId(id) {
-      if(!hasLocalStorage){
+      if(!hasLocalStorage || !isLocalStorageAvailable){
         return;
       }
       localStorage.mobiusId = id;
@@ -70,7 +81,7 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function getStoredUser() {
-      if(!hasLocalStorage){
+      if(!hasLocalStorage || !isLocalStorageAvailable){
         return;
       }
       var data = {
@@ -81,7 +92,7 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function clearStoredUser() {
-      if(!hasLocalStorage){
+      if(!hasLocalStorage || !isLocalStorageAvailable){
         return;
       }
       localStorage.removeItem('mobiusId');
@@ -90,7 +101,7 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function storeUserLanguage(lang) {
-      if(!hasLocalStorage){
+      if(!hasLocalStorage || !isLocalStorageAvailable){
         return;
       }
       localStorage.mobiusLanguagecode = lang;
@@ -98,14 +109,14 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function getUserLanguage() {
-      if(!hasLocalStorage){
+      if(!hasLocalStorage || !isLocalStorageAvailable){
         return;
       }
       return localStorage.mobiusLanguagecode;
     }
 
     function storeUserCurrency(currency) {
-      if(!hasLocalStorage){
+      if(!hasLocalStorage || !isLocalStorageAvailable){
         return;
       }
       localStorage['mobius-currencycode'] = currency;
@@ -113,7 +124,7 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function getUserCurrency() {
-      if(!hasLocalStorage){
+      if(!hasLocalStorage || !isLocalStorageAvailable){
         return;
       }
       return localStorage['mobius-currencycode'];

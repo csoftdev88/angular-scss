@@ -148,7 +148,19 @@ angular.module('mobiusApp.services.api', [])
     userObject.token = val;
 
     var hasLocalStorage = window.localStorage || null;
-    if(hasLocalStorage){
+
+    //Extra check for Apple Private Browsing
+    var isLocalStorageAvailable = (function() {
+      try {
+        $window.localStorage.world = 'hello';
+        delete $window.localStorage.world;
+        return true;
+      } catch (ex) {
+        return false;
+      }
+    })();
+
+    if(hasLocalStorage && isLocalStorageAvailable){
       localStorage.mobiusToken = val;
     }
   }
