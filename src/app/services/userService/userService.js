@@ -16,22 +16,15 @@ angular.module('mobiusApp.services.user', [])
     // TODO Implement this with AuthCtrl
     var EVENT_ANONYMOUS_LOADED = 'infiniti.anonymous.loaded';
 
+    var cookieExpiryDate = null;
+    var expiryMins = Settings.API.sessionData.expiry || 15;
+
+    cookieExpiryDate = new Date();
+    cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
+
     // Promise is fullfiled when user logged in as mobius customer
     // or anonymous
     var authPromise = $q.defer();
-
-    var hasLocalStorage = window.localStorage || null;
-
-    //Extra check for Apple Private Browsing
-    var isLocalStorageAvailable = (function() {
-      try {
-        $window.localStorage.world = 'hello';
-        delete $window.localStorage.world;
-        return true;
-      } catch (ex) {
-        return false;
-      }
-    })();
 
     function hasSSOCookies(){
       //console.log('hasSSOCookies: ' + cookieFactory(KEY_CUSTOMER_PROFILE));
@@ -73,61 +66,39 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function storeUserId(id) {
-      if(!hasLocalStorage || !isLocalStorageAvailable){
-        return;
-      }
-      localStorage.mobiusId = id;
-
+      $window.document.cookie = 'MobiusId' + '=' + id + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
     }
 
     function getStoredUser() {
-      if(!hasLocalStorage || !isLocalStorageAvailable){
-        return;
-      }
       var data = {
-        id: localStorage.mobiusId,
-        token: localStorage.mobiusToken
+        id: cookieFactory('MobiusId'),
+        token: cookieFactory('MobiusToken')
       };
       return data;
     }
 
     function clearStoredUser() {
-      if(!hasLocalStorage || !isLocalStorageAvailable){
-        return;
-      }
-      localStorage.removeItem('mobiusId');
-      localStorage.removeItem('mobiusToken');
-      localStorage.removeItem('CustomerID');
+      $window.document.cookie = 'MobiusId' + '=; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
+      $window.document.cookie = 'MobiusToken' + '=; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
+      $window.document.cookie = 'CustomerID' + '=; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
     }
 
     function storeUserLanguage(lang) {
-      if(!hasLocalStorage || !isLocalStorageAvailable){
-        return;
-      }
-      localStorage.mobiusLanguagecode = lang;
+      $window.document.cookie = 'MobiusLanguageCode' + '=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.languageCode = lang;
     }
 
     function getUserLanguage() {
-      if(!hasLocalStorage || !isLocalStorageAvailable){
-        return;
-      }
-      return localStorage.mobiusLanguagecode;
+      return cookieFactory('MobiusLanguageCode');
     }
 
     function storeUserCurrency(currency) {
-      if(!hasLocalStorage || !isLocalStorageAvailable){
-        return;
-      }
-      localStorage['mobius-currencycode'] = currency;
+      $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
     }
 
     function getUserCurrency() {
-      if(!hasLocalStorage || !isLocalStorageAvailable){
-        return;
-      }
-      return localStorage['mobius-currencycode'];
+      return cookieFactory('MobiusCurrencyCode');
     }
 
     function loadProfile() {

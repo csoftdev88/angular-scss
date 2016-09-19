@@ -11,6 +11,12 @@ angular.module('mobiusApp.services.api', [])
 
   var apiCache = $cacheFactory('apiCache');
 
+  var cookieExpiryDate = null;
+  var expiryMins = Settings.API.sessionData.expiry || 15;
+
+  cookieExpiryDate = new Date();
+  cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
+
   function get(url, params, cacheParam) {
     var q = $q.defer();
     var canCache = !params || Object.keys(params).length === 0;
@@ -146,23 +152,7 @@ angular.module('mobiusApp.services.api', [])
     headersObj['mobius-authentication'] = val;
     setHeaders(headersObj);
     userObject.token = val;
-
-    var hasLocalStorage = window.localStorage || null;
-
-    //Extra check for Apple Private Browsing
-    var isLocalStorageAvailable = (function() {
-      try {
-        $window.localStorage.world = 'hello';
-        delete $window.localStorage.world;
-        return true;
-      } catch (ex) {
-        return false;
-      }
-    })();
-
-    if(hasLocalStorage && isLocalStorageAvailable){
-      localStorage.mobiusToken = val;
-    }
+    $window.document.cookie = 'MobiusToken' + '=' + val + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
   }
 
   var cache = {};
