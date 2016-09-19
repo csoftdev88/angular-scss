@@ -641,7 +641,6 @@ angular
       }
     }
 
-    console.log(toState.name);
     //breadcrumbs
     if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'propertyHotDeals')) {
       breadcrumbsService.isProperty(true);
