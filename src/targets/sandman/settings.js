@@ -60,7 +60,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': ' http://staging-sandman-node.mobiuswebservices.com:3010/api/4.0/',
+      'staging': 'http://staging-us-node-sandman.mobiuswebservices.com:3010/api/4.0/',
       'live':  ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
@@ -355,7 +355,7 @@ angular.module('mobiusApp.config', [])
         'hotelLocation': true
       },
       'bookingStatistics':{
-        'display':true,
+        'display':false,
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -394,7 +394,7 @@ angular.module('mobiusApp.config', [])
         'displayPrice': 'text'
       },
       'bookingStatistics':{
-        'display':true,
+        'display':false,
         'displayDelay':5000,
         'displayTime':20000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -548,7 +548,7 @@ angular.module('mobiusApp.config', [])
     },
     'regions':{
       'bookingStatistics':{
-        'display':true,
+        'display':false,
         'displayDelay':5000,
         'displayTime':10000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -769,7 +769,7 @@ angular.module('mobiusApp.config', [])
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
         'bookingStatistics':{
-          'display':true,
+          'display':false,
           'displayDelay':3000,
           'displayTime':10000, //The length that you wish the alerts to appear for
           'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
