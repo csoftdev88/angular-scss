@@ -24,7 +24,7 @@ angular.module('mobiusApp.services.properties', [])
     var URL = apiService.getFullURL('properties.details', {propertyCode: propertyCode});
     return apiService.get(URL, correctParams(params));
   }
-  
+
   function getPropertyRegionData(propertyLocationCode){
     var q = $q.defer();
 
@@ -42,7 +42,7 @@ angular.module('mobiusApp.services.properties', [])
         q.resolve(regionData);
 
       });
-    }); 
+    });
 
     return q.promise;
   }
@@ -90,6 +90,7 @@ angular.module('mobiusApp.services.properties', [])
 
   //Applying/Removing property chain class to body tag
   var currentChainClass = null;
+  var currentPropertyClass = null;
 
   function applyPropertyChainClass(chainCode){
     removePropertyChainClass();
@@ -103,6 +104,18 @@ angular.module('mobiusApp.services.properties', [])
     currentChainClass = null;
   }
 
+  function applyPropertyClass(propertyCode){
+    removePropertyClass();
+    var propertyClass = ('property-' + propertyCode).toLowerCase();
+    document.body.classList.add(propertyClass);
+    currentPropertyClass = propertyClass;
+  }
+
+  function removePropertyClass(){
+    document.body.classList.remove(currentPropertyClass);
+    currentPropertyClass = null;
+  }
+
   // Public methods
   return {
     getAll: getAll,
@@ -113,6 +126,8 @@ angular.module('mobiusApp.services.properties', [])
     getRoomDetails: getRoomDetails,
     getRoomProducts: getRoomProducts,
     applyPropertyChainClass: applyPropertyChainClass,
-    removePropertyChainClass: removePropertyChainClass
+    removePropertyChainClass: removePropertyChainClass,
+    applyPropertyClass: applyPropertyClass,
+    removePropertyClass: removePropertyClass
   };
 });

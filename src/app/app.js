@@ -633,9 +633,11 @@ angular
       if (propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation' || toState.name === 'reservation.details' || toState.name === 'reservation.billing' || toState.name === 'reservation.confirmation') || toState.name === 'propertyHotDeals') {
         propertyService.getPropertyDetails(propertyCode).then(function(details) {
           propertyService.applyPropertyChainClass(details.chainCode);
+          propertyService.applyPropertyClass(propertyCode);
         });
       } else {
         propertyService.removePropertyChainClass();
+        propertyService.removePropertyClass();
       }
     }
 
