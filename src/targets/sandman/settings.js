@@ -14,7 +14,7 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'staging': 'http://staging-us-sandman-infiniti.mobiuswebservices.com/track/content/infiniti.js',
+    'staging': 'http://staging-us-infiniti-sandman.mobiuswebservices.com/track/content/infiniti.js',
     'live': 'http://integration-sandman.infiniti.io/track/content/infiniti.js'
   },
   'sentry': {
