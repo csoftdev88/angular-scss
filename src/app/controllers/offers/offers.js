@@ -768,6 +768,10 @@ angular.module('mobius.controllers.offers', [])
           propertySlug: property.meta.slug
         });
 
+        if(Settings.UI.viewsSettings.breadcrumbsBar.propertyHotDealsShowTitle)
+        {
+          breadcrumbsService.setHeader(property.nameLong);
+        }
 
         if (offerTitle) {
           breadcrumbsService
