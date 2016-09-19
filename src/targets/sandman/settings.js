@@ -9,6 +9,7 @@ angular.module('mobiusApp.config', [])
   'authType': 'infiniti',
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
+  'sandmanFrenchOverride': true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -54,7 +55,7 @@ angular.module('mobiusApp.config', [])
     'id': ''
   },
   'hotjar': {
-    'enable': false,
+    'enable': false
   },
   'API': {
     'defaultThrottleTimeout': 30,

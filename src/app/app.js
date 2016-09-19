@@ -388,17 +388,17 @@ angular
   })
 
   .state('reservation.details', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/details.html'
-  })
-  .state('reservation.billing', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/billing.html'
-  })
-  .state('reservation.confirmation', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/confirmation.html'
-  })
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/details.html'
+    })
+    .state('reservation.billing', {
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/billing.html'
+    })
+    .state('reservation.confirmation', {
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/confirmation.html'
+    })
 
   .state('offers', {
     parent: 'root',
@@ -613,7 +613,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, scrollService,
-  metaInformationService, Settings, propertyService, $window, breadcrumbsService,  user) {
+  metaInformationService, Settings, propertyService, $window, breadcrumbsService, user, cookieFactory) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -678,30 +678,41 @@ angular
   });
 
   $scope.$on('$stateChangeSuccess', function() {
-    var currentURL = $state.href($state.current.name, {}, {absolute: true});
-    var userLang = user.getUserLanguage();
 
-    if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
-      var language_code = userLang;
-      var path = $location.path();
-      var search = encodeQueryData($location.search());
-      var hash = $location.hash();
-      if(language_code === 'fr')
-      {
-        user.storeUserLanguage('en-us');
-        $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+    //Sandman specific HACK to display french on quebec pages
+    if (Settings.sandmanFrenchOverride) {
+      var currentURL = $state.href($state.current.name, {}, {
+        absolute: true
+      });
+      var userLang = user.getUserLanguage();
+
+      //If user language is french and URL does not contain quebec, switch back to english
+      if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
+        var language_code = userLang;
+        var path = $location.path();
+        var search = encodeQueryData($location.search());
+        var hash = $location.hash();
+        if (language_code === 'fr') {
+          user.storeUserLanguage('en-us');
+          $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+        }
+      }
+
+      //If current URL contains /locations/quebec show language options and display alert if not already shown
+      if (currentURL.indexOf('/locations/quebec') !== -1) {
+        $rootScope.showLanguages = true;
+        if (!cookieFactory('languageAlertDisplay')) {
+          $timeout(function() {
+            $scope.$broadcast('LANGUAGE_GROWL_ALERT');
+            $window.document.cookie = 'languageAlertDisplay=true; path=/';
+          }, 2000);
+        }
+      } else {
+        $rootScope.showLanguages = false;
       }
     }
-
-    if(currentURL.indexOf('/locations/quebec') !== -1)
-    {
-      //$rootScope.showLanguages = true;
-      $timeout(function(){
-        //$scope.$broadcast('LANGUAGE_GROWL_ALERT');
-      }, 2000);
-    }
     else {
-      //$rootScope.showLanguages = false;
+      $rootScope.showLanguages = true;
     }
 
     if (Settings.authType === 'infiniti') {
@@ -712,6 +723,7 @@ angular
       }
     }
   });
+
   function encodeQueryData(data) {
     var ret = [];
     for (var d in data) {

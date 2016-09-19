@@ -20,20 +20,18 @@ angular.module('mobiusApp.directives.language', [])
 
       // Widget logic goes here
       link: function(scope) {
-
         var defaultLanguage = Settings.UI.languages.default;
         scope.config = Settings.UI.languages;
         var localeLanguages = {};
 
         contentService.getLanguages().then(function(data) {
-
-          //SANDMAN HACK
-          if($location.path().indexOf('/locations/quebec') !== -1){
-            /*var fr = {
+          //SANDMAN HACK, FORCING FRENCH IF QUEBEC
+          if(Settings.sandmanFrenchOverride) {
+            var fr = {
               'code': 'fr',
               'name': 'French'
-            };*/
-            //data.push(fr);
+            };
+            data.push(fr);
           }
 
           localeLanguages = angular.copy(data);
