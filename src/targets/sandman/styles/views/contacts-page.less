@@ -225,6 +225,53 @@ contacts-page {
     }
   }
 
+  &.contact-page{
+    contact-list {
+      display: flex;
+      flex-flow: wrap;
+      text-align: center;
+      margin-bottom:22px;
+    }
+    contact-item {
+      position: relative;
+      padding-left:20px;
+      box-sizing: border-box;
+      -webkit-box-flex: 1;
+      -ms-flex: 1 0 33%;
+      flex: 1 0 33%;
+      display: block;
+      width: 33%;
+      text-align:left;
+      font-size:13px;
+      .viewport-mobile & {
+        width:100%;
+        -ms-flex: 1 0 100%;
+        flex: 1 0 100%;
+      }
+      i {
+        color:@c-secondary;
+      }
+      strong, a {
+        font-size:13px;
+        color:@c-primary;
+      }
+      a {
+        color:@c-secondary;
+      }
+      address {
+        font-size:13px;
+      }
+      span {
+        padding-left:15px;
+      }
+    }
+    // Email
+    contact-item:nth-of-type(1) div {
+      padding-left: 0 !important;
+      text-align: left !important;
+    }
+
+  }
 
   .message-sent {
     margin-top: 2 * @baseline;

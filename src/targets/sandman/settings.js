@@ -772,7 +772,8 @@ angular.module('mobiusApp.config', [])
         'hasContactDetails': true,
         'hasMap': false,
         'hasDescription': false,
-        'includePhoneField': true
+        'includePhoneField': true,
+        'showStaticContactInfo': true
       },
       'hotels': {
         'showRegionDescription': false,
