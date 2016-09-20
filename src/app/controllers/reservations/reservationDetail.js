@@ -303,7 +303,9 @@ angular.module('mobius.controllers.reservationDetail', [])
 
       return _.reduce(
         _.map($scope.reservation.rooms, function(room){
+          if(room.priceDetail) {
           return room.priceDetail[prop];
+        }
         }), function(t, n){
           return t + n;
         });
@@ -551,9 +553,11 @@ angular.module('mobius.controllers.reservationDetail', [])
       var totalFees = 0;
       var totalAfterTax = 0;
       _.map($scope.reservation.rooms, function(room){
-        totalTax += room.priceDetail.taxDetails.totalTax;
-        totalFees += room.priceDetail.feeDetails.totalTax;
-        totalAfterTax += room.priceDetail.totalAfterTax;
+        if(room.priceDetail){
+          totalTax += room.priceDetail.taxDetails.totalTax;
+          totalFees += room.priceDetail.feeDetails.totalTax;
+          totalAfterTax += room.priceDetail.totalAfterTax;
+        }
       });
       return totalAfterTax - totalTax - totalFees;
     };
