@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 describe('mobius.controllers.reservations', function() {
   describe('ReservationsCtrl', function() {
@@ -159,4 +159,4 @@ describe('mobius.controllers.reservations', function() {
       });
     });
   });
-});
+});*/

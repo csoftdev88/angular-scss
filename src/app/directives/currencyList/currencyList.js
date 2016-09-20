@@ -11,7 +11,6 @@ angular.module('mobiusApp.directives.currency', [])
 
       // Widget logic goes here
       link: function(scope) {
-
         contentService.getCurrencies().then(function(data) {
           var currencies = {};
           _.each(data, function(currencyData) {
@@ -26,25 +25,29 @@ angular.module('mobiusApp.directives.currency', [])
           var searchCurrency = queryService.getValue(Settings.currencyParamName);
           var userCurrency = user.getUserCurrency();
 
-          if(userCurrency && currencies.hasOwnProperty(userCurrency)){
-            // stored by user
-            setCurrency(currencies[userCurrency]);
-          }
-          else if (searchCurrency && currencies.hasOwnProperty(searchCurrency)) {
-            // set by user
-            setCurrency(currencies[searchCurrency]);
-          } else if (scope.currentCurrency) {
-            // do nothing
-          } else if (currencies.hasOwnProperty(Settings.UI.currencies.default)) {
-            // default if nothing is set
-            setCurrency(currencies[Settings.UI.currencies.default]);
-          } else {
-            var codes = Object.keys(currencies);
-            if (codes.length) {
-              // some if default not exists
-              setCurrency(currencies[codes[0]]);
+          //If viewing past reservations or reservation detail
+          if($state.current.name !== 'reservationDetail' && $state.current.name !== 'reservations')
+          {
+            if(userCurrency && currencies.hasOwnProperty(userCurrency)){
+              // stored by user
+              setCurrency(currencies[userCurrency]);
+            }
+            else if (searchCurrency && currencies.hasOwnProperty(searchCurrency)) {
+              // set by user
+              setCurrency(currencies[searchCurrency]);
+            } else if (scope.currentCurrency) {
+              // do nothing
+            } else if (currencies.hasOwnProperty(Settings.UI.currencies.default)) {
+              // default if nothing is set
+              setCurrency(currencies[Settings.UI.currencies.default]);
             } else {
-              throw new Error('Currency not defined');
+              var codes = Object.keys(currencies);
+              if (codes.length) {
+                // some if default not exists
+                setCurrency(currencies[codes[0]]);
+              } else {
+                throw new Error('Currency not defined');
+              }
             }
           }
 
