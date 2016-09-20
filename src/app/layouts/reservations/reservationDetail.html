@@ -132,7 +132,7 @@
           </table>
 
           <div class="extended-charges">
-            <table ng-class="{'extended': breakdownExtended}" ng-init="breakdownExtended = false" ng-if="config.reservationDetailPriceBreakdownExtended && reservation && !reservation.pointValue">
+            <table ng-class="{'extended': breakdownExtended}" ng-init="breakdownExtended = false" ng-if="config.reservationDetailPriceBreakdownExtended && reservation && reservation.rooms[0].priceDetail && !reservation.pointValue">
               <thead ng-switch="billingDetails.paymentMethod">
                 <tr class="main">
                   <th>_room_charges_:</th>
@@ -171,6 +171,10 @@
                 </tr>
               </thead>
             </table>
+
+            <div class="past-booking-message" ng-if="!reservation || !reservation.rooms[0].priceDetail">
+              <p>_reservaion_in_past_message_</p>
+            </div>
 
             <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended">
               <span class="total">_total_:</span>

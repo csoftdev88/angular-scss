@@ -551,9 +551,11 @@ angular.module('mobius.controllers.reservationDetail', [])
       var totalFees = 0;
       var totalAfterTax = 0;
       _.map($scope.reservation.rooms, function(room){
-        totalTax += room.priceDetail.taxDetails.totalTax;
-        totalFees += room.priceDetail.feeDetails.totalTax;
-        totalAfterTax += room.priceDetail.totalAfterTax;
+        if(room.priceDetail){
+          totalTax += room.priceDetail.taxDetails.totalTax;
+          totalFees += room.priceDetail.feeDetails.totalTax;
+          totalAfterTax += room.priceDetail.totalAfterTax;
+        }
       });
       return totalAfterTax - totalTax - totalFees;
     };
