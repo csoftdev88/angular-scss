@@ -303,7 +303,9 @@ angular.module('mobius.controllers.reservationDetail', [])
 
       return _.reduce(
         _.map($scope.reservation.rooms, function(room){
+          if(room.priceDetail) {
           return room.priceDetail[prop];
+        }
         }), function(t, n){
           return t + n;
         });

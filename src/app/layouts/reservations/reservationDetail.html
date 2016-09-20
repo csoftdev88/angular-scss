@@ -176,7 +176,7 @@
               <p>_reservaion_in_past_message_</p>
             </div>
 
-            <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended">
+            <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
               <span class="total">_total_:</span>
               <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') | i18nCurrency: $root.currencyCode}}</span>
               <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
