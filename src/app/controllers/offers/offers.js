@@ -146,7 +146,6 @@ angular.module('mobius.controllers.offers', [])
         }
       } else {
         if ($scope.isHotDeals) {
-
           //Hotdeal offers logic
           //https://2pventures.tpondemand.com/entity/12353
           var filteredOffers = angular.copy(offers);
@@ -181,9 +180,23 @@ angular.module('mobius.controllers.offers', [])
 
                 //if specific hotdeal, ignore showOnOffersPage so it can be accessed from elsewhere but won't show on overview page, otherwise remove availabilities with showOnOffersPage: false
                 if ($stateParams.code) {
+                  //console.log('this one');
                   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability) {
                     return availability.property !== curProperty.code;
                   });
+                  //console.log(offer.offerAvailability);
+                  if(offer.offerAvailability[0])
+                  {
+                    if(offer.meta.slug === $stateParams.code){
+                      offer.hideFromExtraOffers = true;
+                    }
+                    else{
+                      offer.hideFromExtraOffers = !offer.offerAvailability[0].showOnOffersPage;
+                    }
+                  }
+                  else {
+                    offer.hideFromExtraOffers = true;
+                  }
                 } else {
                   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability) {
                     return availability.property !== curProperty.code || !availability.showOnOffersPage;
