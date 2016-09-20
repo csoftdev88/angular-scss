@@ -150,7 +150,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
         var addonsPromise = $q.all([
           // Available addons
-          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode}),
+          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode, productCode:reservation.rooms[0].productCode}),
           // Reservation addons
           reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : reservation.email)
         ]).then(function(addons){
