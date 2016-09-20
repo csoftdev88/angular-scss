@@ -347,7 +347,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         var addAddonPromise = reservationService.addAddon(
           $stateParams.reservationCode,
           addon,
-          user.isLoggedIn()?null:$stateParams.email).then(function(){
+          user.isLoggedIn()?null:$scope.reservation.email).then(function(){
 
             //Infiniti Tracking purchase
             var infinitiTrackingProducts = [];
@@ -372,11 +372,11 @@ angular.module('mobius.controllers.reservationDetail', [])
             if(!user.isLoggedIn()){
 
               var reservationParams = {
-                email: $stateParams.email
+                email: $scope.reservation.email
               };
 
               reservationService.getReservation($stateParams.reservationCode, reservationParams).then(function(reservation) {
-                reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(anonUserData) {
+                reservationService.getAnonUserProfile(reservation.customer.id, $scope.reservation.email).then(function(anonUserData) {
                   contentService.getTitles().then(function(titles) {
                     contentService.getCountries().then(function(countries) {
 
