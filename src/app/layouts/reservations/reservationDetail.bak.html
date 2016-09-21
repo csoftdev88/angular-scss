@@ -255,6 +255,15 @@
 
           <pricing-info>
             <p>
+              <!-- When paid with cash -->
+              <!--<span class="value" ng-if="addon.price">
+                {{addon.price | i18nCurrency: defaultCurrencyCode}}
+              </span>-->
+
+              <!-- Paid with points -->
+              <!--<span class="value" ng-if="addon.points && loyaltyProgramEnabled">
+                <ng-pluralize count="addon.points" when="{'1': '{} _point_', 'other': '{} _points_'}"> </ng-pluralize>
+              </span>-->
             </p>
           </pricing-info>
 
@@ -271,6 +280,10 @@
 
         </list-item>
       </list-items>
+      <!-- PAID WITH CARD -->
+      <!--<p class="total" ng-if="getAddonsTotalPrice()">_total_: {{getAddonsTotalPrice() | i18nCurrency: defaultCurrencyCode}}</p>-->
+      <!-- PAID WITH POINTS -->
+      <!--<p class="total" ng-if="getAddonsTotalPoints() && loyaltyProgramEnabled">{{getAddonsTotalPrice()?'':'_total_: '}}<ng-pluralize count="getAddonsTotalPoints()" when="{'1': '{} _point_', 'other': '{} _points_'}"> </ng-pluralize></p>-->
     </section>
   </reservation-finished>
 

@@ -25,26 +25,28 @@ angular.module('mobiusApp.directives.currency', [])
           var searchCurrency = queryService.getValue(Settings.currencyParamName);
           var userCurrency = user.getUserCurrency();
 
-
-          if(userCurrency && currencies.hasOwnProperty(userCurrency)){
-            // stored by user
-            setCurrency(currencies[userCurrency]);
-          }
-          else if (searchCurrency && currencies.hasOwnProperty(searchCurrency)) {
-            // set by user
-            setCurrency(currencies[searchCurrency]);
-          } else if (scope.currentCurrency) {
-            // do nothing
-          } else if (currencies.hasOwnProperty(Settings.UI.currencies.default)) {
-            // default if nothing is set
-            setCurrency(currencies[Settings.UI.currencies.default]);
-          } else {
-            var codes = Object.keys(currencies);
-            if (codes.length) {
-              // some if default not exists
-              setCurrency(currencies[codes[0]]);
+          if($state.current.name !== 'reservationDetail')
+          {
+            if(userCurrency && currencies.hasOwnProperty(userCurrency)){
+              // stored by user
+              setCurrency(currencies[userCurrency]);
+            }
+            else if (searchCurrency && currencies.hasOwnProperty(searchCurrency)) {
+              // set by user
+              setCurrency(currencies[searchCurrency]);
+            } else if (scope.currentCurrency) {
+              // do nothing
+            } else if (currencies.hasOwnProperty(Settings.UI.currencies.default)) {
+              // default if nothing is set
+              setCurrency(currencies[Settings.UI.currencies.default]);
             } else {
-              throw new Error('Currency not defined');
+              var codes = Object.keys(currencies);
+              if (codes.length) {
+                // some if default not exists
+                setCurrency(currencies[codes[0]]);
+              } else {
+                throw new Error('Currency not defined');
+              }
             }
           }
 
@@ -68,6 +70,7 @@ angular.module('mobiusApp.directives.currency', [])
         };
 
         function setCurrency(currency, reload) {
+          console.log('set currency from directive');
           scope.currentCurrency = currency;
           queryService.setValue(Settings.currencyParamName, currency.code);
           user.storeUserCurrency(currency.code);
