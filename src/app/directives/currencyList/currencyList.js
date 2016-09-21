@@ -11,7 +11,6 @@ angular.module('mobiusApp.directives.currency', [])
 
       // Widget logic goes here
       link: function(scope) {
-
         contentService.getCurrencies().then(function(data) {
           var currencies = {};
           _.each(data, function(currencyData) {

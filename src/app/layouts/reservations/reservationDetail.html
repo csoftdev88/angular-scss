@@ -136,32 +136,32 @@
               <thead ng-switch="billingDetails.paymentMethod">
                 <tr class="main">
                   <th>_room_charges_:</th>
-                  <td>{{getBreakdownTotalBase() | i18nCurrency: currencyCode}}</td>
+                  <td>{{getBreakdownTotalBase() | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="breakdown in reservation.rooms[0].priceDetail.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
                   <th>{{formatDate(breakdown.date, 'DD MMM YYYY')}}:</th>
-                  <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: $root.currencyCode}}</td>
+                  <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
                 <tr class="main">
                   <th>_taxes_:</th>
-                  <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: $root.currencyCode}}</td>
+                  <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="taxItem in reservation.rooms[0].priceDetail.taxDetails.policyTaxItemDetails" ng-class="{'last': $last}" ng-if="!taxItem.policyTaxItemIsFee">
                   <th>{{taxItem.policyTaxItem.policyTaxItemCode}}<span class="info" ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''" tooltips tooltip-side="top" tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span></th>
-                  <td>{{getBreakdownTotalTax(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
+                  <td>{{getBreakdownTotalTax(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
                 <tr class="main">
                   <th>_applicable_fees_:</th>
-                  <td>{{getBreakdownTotalTaxes(true) | i18nCurrency: $root.currencyCode}}</td>
+                  <td>{{getBreakdownTotalTaxes(true) | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="taxItem in reservation.rooms[0].priceDetail.feeDetails.policyTaxItemDetails" ng-class="{'last': $last}">
                   <th>{{taxItem.policyTaxItem.policyTaxItemCode}}<span class="info" ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''" tooltips tooltip-side="top" tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span></th>
-                  <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
+                  <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
 
@@ -178,7 +178,7 @@
 
             <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
               <span class="total">_total_:</span>
-              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') | i18nCurrency: $root.currencyCode}}</span>
+              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') | i18nCurrency: defaultCurrencyCode}}</span>
               <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
               <a href ng-click="openPoliciesInfo()">_view_policies_</a>
             </div>

@@ -4,11 +4,15 @@
  */
 angular.module('mobius.controllers.reservations', [])
 
-.controller('ReservationsCtrl', function($scope, $controller, $q,
+.controller('ReservationsCtrl', function($scope, $timeout, $controller, $q,
   $state, modalService, creditCardTypeService, reservationService,
   preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject, chainService, metaInformationService, $location, Settings, $rootScope){
 
   breadcrumbsService.addBreadCrumb('My Stays');
+
+  if (Settings.UI.currencies.default) {
+    $scope.defaultCurrencyCode = Settings.UI.currencies.default;
+  }
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -26,7 +30,7 @@ angular.module('mobius.controllers.reservations', [])
   });
 
   function onAuthorized(isMobiusUser){
-    
+
     if(isMobiusUser || userObject.token){
       var reservationsPromise = $q.all([
         reservationService.getAll(),
@@ -117,6 +121,4 @@ angular.module('mobius.controllers.reservations', [])
       openDatePicker: true
     });
   };
-
-
 });
