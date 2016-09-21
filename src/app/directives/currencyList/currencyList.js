@@ -70,7 +70,6 @@ angular.module('mobiusApp.directives.currency', [])
         };
 
         function setCurrency(currency, reload) {
-          console.log('set currency from directive');
           scope.currentCurrency = currency;
           queryService.setValue(Settings.currencyParamName, currency.code);
           user.storeUserCurrency(currency.code);
