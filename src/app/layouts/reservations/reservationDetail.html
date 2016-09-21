@@ -97,27 +97,27 @@
                 <td>{{getCount('price') | i18nCurrency: currencyCode}}</td>
                 <th rowspan="3" class="total">Total:</th>
                 <td rowspan="3" class="total-value">
-                    <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: defaultCurrencyCode}}</a>-->
-                    {{getCountPriceDetail('totalAfterTax') | i18nCurrency: defaultCurrencyCode}}
+                    <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}</a>-->
+                    {{getCountPriceDetail('totalAfterTax') | i18nCurrency: $root.currencyCode}}
                 </td>
               </tr>
 
               <!-- Additional taxes -->
               <tr ng-if="reservation.rooms[0].tax">
                 <th>_tax_:</th>
-                <td>{{getCount('tax') | i18nCurrency: defaultCurrencyCode}}</td>
+                <td>{{getCount('tax') | i18nCurrency: $root.currencyCode}}</td>
               </tr>
 
               <!-- Additional fees -->
               <tr ng-if="reservation.rooms[0].priceDetail.totalAdditionalFees">
                 <th>_additional_fees_:</th>
-                <td>{{reservation.rooms[0].priceDetail.totalAdditionalFees | i18nCurrency: defaultCurrencyCode}}</td>
+                <td>{{reservation.rooms[0].priceDetail.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
               </tr>
 
               <!-- Discount -->
               <tr ng-if="reservation.rooms[0].priceDetail.discount">
                 <th>_discount_:</th>
-                <td>{{reservation.rooms[0].priceDetail.discount | i18nCurrency: defaultCurrencyCode}}</td>
+                <td>{{reservation.rooms[0].priceDetail.discount | i18nCurrency: $root.currencyCode}}</td>
               </tr>
             </tbody>
 
@@ -136,7 +136,7 @@
               <thead ng-switch="billingDetails.paymentMethod">
                 <tr class="main">
                   <th>_room_charges_:</th>
-                  <td>{{getBreakdownTotalBase() | i18nCurrency: currencyCode}}</td>
+                  <td>{{getBreakdownTotalBase() | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="breakdown in reservation.rooms[0].priceDetail.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
