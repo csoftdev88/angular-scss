@@ -17,8 +17,6 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     if (Settings.UI.currencies.default) {
       $scope.defaultCurrencyCode = Settings.UI.currencies.default;
-
-      console.log('set currency from controller');
       $scope.currentCurrency = $scope.defaultCurrencyCode;
       queryService.setValue(Settings.currencyParamName, $scope.defaultCurrencyCode.code);
       user.storeUserCurrency($scope.defaultCurrencyCode.code);
