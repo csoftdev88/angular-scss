@@ -94,7 +94,7 @@
             <tbody ng-switch-when="false">
               <tr>
                 <th>_room_charges_: {{billingDetails.paymentMethod}}</th>
-                <td>{{getCount('price') | i18nCurrency: currencyCode}}</td>
+                <td>{{getCount('price') | i18nCurrency: defaultCurrencyCode}}</td>
                 <th rowspan="3" class="total">Total:</th>
                 <td rowspan="3" class="total-value">
                     <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: defaultCurrencyCode}}</a>-->
@@ -221,7 +221,7 @@
 
             <i>_add_reservation_enhance_to_booking_desc_:</i>
 
-            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: currencyCode}}</a>
+            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: defaultCurrencyCode}}</a>
             <a class="button"ng-if="addon.pointsRequired && loyaltyProgramEnabled && addon.allowPointsBooking" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>_points_</small></a>
           </div>
         </li>
