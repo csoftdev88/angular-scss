@@ -7,7 +7,7 @@ angular.module('mobius.controllers.modals.addonDetail', [
 ])
 
   .controller( 'AddonDetailCtrl', function($scope, $modalInstance, $controller, addon, addAddon,
-      payWithPoints) {
+      payWithPoints, Settings) {
 
     $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
     $scope.addon = addon;
@@ -15,6 +15,9 @@ angular.module('mobius.controllers.modals.addonDetail', [
     $scope.state = {
       confirmed: $scope.payWithPoints !== undefined
     };
+    if (Settings.UI.currencies.default) {
+      $scope.defaultCurrencyCode = Settings.UI.currencies.default;
+    }
     // Confirmation is not displayed when paying with points/money
     // - once clicked on payment buttons instead of the whole container
     $scope.addon._confirmation =

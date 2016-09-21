@@ -10,12 +10,22 @@ angular.module('mobius.controllers.reservationDetail', [])
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-    metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService){
+    metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService,
+    apiService, queryService){
 
     $controller('SSOCtrl', {$scope: $scope});
 
     if (Settings.UI.currencies.default) {
       $scope.defaultCurrencyCode = Settings.UI.currencies.default;
+
+      console.log('set currency from controller');
+      $scope.currentCurrency = $scope.defaultCurrencyCode;
+      queryService.setValue(Settings.currencyParamName, $scope.defaultCurrencyCode.code);
+      user.storeUserCurrency($scope.defaultCurrencyCode.code);
+      var currencyObj = {};
+      currencyObj['mobius-currencycode'] = $scope.defaultCurrencyCode.code;
+      apiService.setHeaders(currencyObj);
+      $rootScope.currencyCode = $scope.defaultCurrencyCode.code;
     }
 
     // Alias for lodash to get rid of ugly $window._ calls
