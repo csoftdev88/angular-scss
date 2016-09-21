@@ -97,27 +97,27 @@
                 <td>{{getCount('price') | i18nCurrency: currencyCode}}</td>
                 <th rowspan="3" class="total">Total:</th>
                 <td rowspan="3" class="total-value">
-                    <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: $root.currencyCode}}</a>-->
-                    {{getCountPriceDetail('totalAfterTax') | i18nCurrency: $root.currencyCode}}
+                    <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: defaultCurrencyCode}}</a>-->
+                    {{getCountPriceDetail('totalAfterTax') | i18nCurrency: defaultCurrencyCode}}
                 </td>
               </tr>
 
               <!-- Additional taxes -->
               <tr ng-if="reservation.rooms[0].tax">
                 <th>_tax_:</th>
-                <td>{{getCount('tax') | i18nCurrency: $root.currencyCode}}</td>
+                <td>{{getCount('tax') | i18nCurrency: defaultCurrencyCode}}</td>
               </tr>
 
               <!-- Additional fees -->
               <tr ng-if="reservation.rooms[0].priceDetail.totalAdditionalFees">
                 <th>_additional_fees_:</th>
-                <td>{{reservation.rooms[0].priceDetail.totalAdditionalFees | i18nCurrency: $root.currencyCode}}</td>
+                <td>{{reservation.rooms[0].priceDetail.totalAdditionalFees | i18nCurrency: defaultCurrencyCode}}</td>
               </tr>
 
               <!-- Discount -->
               <tr ng-if="reservation.rooms[0].priceDetail.discount">
                 <th>_discount_:</th>
-                <td>{{reservation.rooms[0].priceDetail.discount | i18nCurrency: $root.currencyCode}}</td>
+                <td>{{reservation.rooms[0].priceDetail.discount | i18nCurrency: defaultCurrencyCode}}</td>
               </tr>
             </tbody>
 
@@ -257,7 +257,7 @@
             <p>
               <!-- When paid with cash -->
               <span class="value" ng-if="addon.price">
-                {{addon.price | i18nCurrency: currencyCode}}
+                {{addon.price | i18nCurrency: defaultCurrencyCode}}
               </span>
 
               <!-- Paid with points -->
@@ -281,7 +281,7 @@
         </list-item>
       </list-items>
       <!-- PAID WITH CARD -->
-      <p class="total" ng-if="getAddonsTotalPrice()">_total_: {{getAddonsTotalPrice() | i18nCurrency: currencyCode}}</p>
+      <p class="total" ng-if="getAddonsTotalPrice()">_total_: {{getAddonsTotalPrice() | i18nCurrency: defaultCurrencyCode}}</p>
       <!-- PAID WITH POINTS -->
       <p class="total" ng-if="getAddonsTotalPoints() && loyaltyProgramEnabled">{{getAddonsTotalPrice()?'':'_total_: '}}<ng-pluralize count="getAddonsTotalPoints()" when="{'1': '{} _point_', 'other': '{} _points_'}"> </ng-pluralize></p>
     </section>
