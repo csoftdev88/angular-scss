@@ -1,4 +1,4 @@
-/*'use strict';
+'use strict';
 
 describe('mobius.controllers.reservations', function() {
   describe('ReservationsCtrl', function() {
@@ -78,6 +78,11 @@ describe('mobius.controllers.reservations', function() {
         $provide.value('Settings', {
           API: {
             chainCode: 'TESTCHAIN'
+          },
+          UI: {
+            currencies: {
+              default:'CAD'
+            }
           }
         });
 
@@ -159,4 +164,4 @@ describe('mobius.controllers.reservations', function() {
       });
     });
   });
-});*/
+});
