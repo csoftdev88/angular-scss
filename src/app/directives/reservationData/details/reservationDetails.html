@@ -50,24 +50,24 @@
               <!-- Do we know the payment method? -->
               <!-- <th>Room Charges: {{reservation.paymentMethod}}</th> -->
               <th>_room_charges_: </th>
-              <td>{{getPrice() | i18nCurrency: $root.currencyCode}}</td>
+              <td>{{getPrice() | i18nCurrency: currencyCode}}</td>
               <th rowspan="3" class="total">_total_:</th>
 
               <td rowspan="3" class="total-value">
-                {{getPriceAfterTax() | i18nCurrency: $root.currencyCode}}
+                {{getPriceAfterTax() | i18nCurrency: currencyCode}}
               </td>
             </tr>
 
             <!-- Additional taxes -->
             <tr>
               <th>_taxes_:</th>
-              <td>{{getTax() | i18nCurrency: $root.currencyCode}}</td>
+              <td>{{getTax() | i18nCurrency: currencyCode}}</td>
             </tr>
 
             <!-- Discount -->
             <tr ng-if="reservation.discount">
               <th>_discount_:</th>
-              <td>{{reservation.discount | i18nCurrency: $root.currencyCode}}</td>
+              <td>{{reservation.discount | i18nCurrency: currencyCode}}</td>
             </tr>
           </tbody>
 

@@ -11,7 +11,7 @@ angular.module('mobius.controllers.reservations', [])
   breadcrumbsService.addBreadCrumb('My Stays');
 
   if (Settings.UI.currencies.default) {
-    $rootScope.currencyCode = Settings.UI.currencies.default;
+    $scope.defaultCurrencyCode = Settings.UI.currencies.default;
   }
 
   //get meta information

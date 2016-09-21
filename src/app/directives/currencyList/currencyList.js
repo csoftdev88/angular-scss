@@ -25,7 +25,7 @@ angular.module('mobiusApp.directives.currency', [])
           var searchCurrency = queryService.getValue(Settings.currencyParamName);
           var userCurrency = user.getUserCurrency();
 
-          //If viewing past reservations or reservation detail
+          //Only set currency if not on the reservations or reservation page as we override and display as default local currency on these pages
           if($state.current.name !== 'reservationDetail' && $state.current.name !== 'reservations')
           {
             if(userCurrency && currencies.hasOwnProperty(userCurrency)){

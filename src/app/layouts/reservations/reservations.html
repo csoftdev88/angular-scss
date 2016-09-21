@@ -21,7 +21,7 @@
         <h1 ng-bind-html="'_reservation_page_nextstay_title_' | mainHeaderStyle"></h1>
         <reservation-item>
           <div class="table-wrap">
-            <reservation-details reservation="reservations.nextStay" property="properties[reservations.nextStay.property.code]"></reservation-details>
+            <reservation-details currency-code="defaultCurrencyCode" reservation="reservations.nextStay" property="properties[reservations.nextStay.property.code]"></reservation-details>
           </div>
         </reservation-item>
         <hr/>
@@ -31,7 +31,7 @@
         <h1 ng-bind-html="'_reservation_page_futurestays_title_' | mainHeaderStyle"></h1>
         <reservation-item ng-repeat="reservation in reservations.futureStays">
           <div class="table-wrap">
-            <reservation-data reservation="reservation" property="properties[reservation.property.code]"></reservation-data>
+            <reservation-data currency-code="defaultCurrencyCode" reservation="reservation" property="properties[reservation.property.code]"></reservation-data>
           </div>
           <hr class="dividerWithoutImage"/>
         </reservation-item>
@@ -41,7 +41,7 @@
         <h1 ng-bind-html="'_reservation_page_paststays_title_' | mainHeaderStyle"></h1>
         <reservation-item ng-repeat="reservation in reservations.pastStays">
           <div class="table-wrap inactive">
-            <reservation-data reservation="reservation" property="properties[reservation.property.code]" class="inactive"></reservation-data>
+            <reservation-data currency-code="defaultCurrencyCode" reservation="reservation" property="properties[reservation.property.code]" class="inactive"></reservation-data>
           </div>
           <hr/>
         </reservation-item>

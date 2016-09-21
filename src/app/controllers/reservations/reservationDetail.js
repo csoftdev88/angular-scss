@@ -15,7 +15,7 @@ angular.module('mobius.controllers.reservationDetail', [])
     $controller('SSOCtrl', {$scope: $scope});
 
     if (Settings.UI.currencies.default) {
-      $rootScope.currencyCode = Settings.UI.currencies.default;
+      $scope.defaultCurrencyCode = Settings.UI.currencies.default;
     }
 
     // Alias for lodash to get rid of ugly $window._ calls
