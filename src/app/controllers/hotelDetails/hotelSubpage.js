@@ -49,18 +49,26 @@ angular.module('mobius.controllers.hotel.subpage', [])
         $scope.info = c;
       }
       else{
-
-        //Pull first image of description to use in moreInfo thumbnails
-        var elem = document.createElement('div');
-        elem.innerHTML = c.description;
-        var images = elem.getElementsByTagName('img');
-        if(images.length){
+        if(c.thumbnail && c.thumbnail.uri)
+        {
           c.image = {};
-          c.image.uri = images[0].src;
-          c.image.alt = images[0].alt;
+          c.image.uri = c.thumbnail.uri;
+          c.image.alt = c.thumbnail.alt;
         }
-        if(elem.parentNode){
-          elem.parentNode.removeChild(elem);
+        else
+        {
+          //Pull first image of description to use in moreInfo thumbnails
+          var elem = document.createElement('div');
+          elem.innerHTML = c.description;
+          var images = elem.getElementsByTagName('img');
+          if(images.length){
+            c.image = {};
+            c.image.uri = images[0].src;
+            c.image.alt = images[0].alt;
+          }
+          if(elem.parentNode){
+            elem.parentNode.removeChild(elem);
+          }
         }
 
         c.url = getInfoUrl(c);
@@ -78,7 +86,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
         $scope.updateHeroContent(_.filter(details.images, {includeInSlider: true}));
 
         if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle){
-          breadcrumbsService.setHeader(details.nameShort);
+          breadcrumbsService.setHeader(details.nameLong);
         }
 
 

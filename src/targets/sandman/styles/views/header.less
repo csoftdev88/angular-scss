@@ -40,10 +40,12 @@
         }
       }
       .chain-sign &{
-        width: 40px;
-        height: 26px;
-        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat center center;
-        top: 16px;
+        width: 135px;
+        height: 40px;
+        background: url('@{img-prefix}/signature-logo.png') no-repeat center center;
+        top: 12px;
+        background-size: 125px;
+        background-position: 0;
         img{
           display: none !important;
         }
@@ -51,6 +53,41 @@
       .chain-sand & {
         width:200px;
         overflow:hidden;
+      }
+      .property-zkam & {
+        top:10px;
+        background: url('@{img-prefix}/SIG_Kamloops.png') no-repeat center center;
+        background-size: 125px;
+      }
+      .property-zeds & {
+        top:10px;
+        background: url('@{img-prefix}/SIG_Edmonton_South.png') no-repeat center center;
+        background-size: auto 55px;
+      }
+      .property-zlan & {
+        top:10px;
+        background: url('@{img-prefix}/SIG_Langley.png') no-repeat center center;
+        background-size: auto 55px;
+      }
+      .property-zprg & {
+        top:10px;
+        background: url('@{img-prefix}/SIG_Prince_George.png') no-repeat center center;
+        background-size: auto 55px;
+      }
+      .property-zyvr & {
+        top:10px;
+        background: url('@{img-prefix}/SIG_Vancouver_Airport.png') no-repeat center center;
+        background-size: auto 55px;
+      }
+      .property-zmis & {
+        top:10px;
+        background: url('@{img-prefix}/SIG_Mississauga.png') no-repeat center center;
+        background-size: auto 55px;
+      }
+      .property-zyyz & {
+        top:10px;
+        background: url('@{img-prefix}/SIG_Toronto_Airport.png') no-repeat center center;
+        background-size: auto 55px;
       }
     }
 
@@ -180,6 +217,7 @@
   .main-nav {
 
     ul {
+      padding-right:20px;
 
       li {
 
@@ -316,6 +354,20 @@
           }
         }
       }
+      li[language-list] {
+        ul li {
+          a{
+            color: @c-primary;
+            &:after{
+              color: @c-primary;
+            }
+            &:hover {
+              color: @c-primary;
+              text-decoration:underline;
+            }
+          }
+        }
+      }
     }
 
     .brand {
@@ -329,9 +381,9 @@
       transform: translate(-50%, -50%);
       .chain-sign &{
         width: 145px;
-        height: 70px;
+        height: 66px;
         background: url('@{img-prefix}/signature-logo.png') no-repeat center center;
-        background-size: auto 70px;
+        background-size: auto 66px;
         img{
           display: none;
         }
@@ -339,6 +391,34 @@
       .chain-sand &{
         width:400px;
         overflow:hidden;
+      }
+      .property-zkam & {
+        background: url('@{img-prefix}/SIG_Kamloops.png') no-repeat center center;
+        background-size: auto 66px;
+      }
+      .property-zeds & {
+        background: url('@{img-prefix}/SIG_Edmonton_South.png') no-repeat center center;
+        background-size: auto 66px;
+      }
+      .property-zlan & {
+        background: url('@{img-prefix}/SIG_Langley.png') no-repeat center center;
+        background-size: auto 66px;
+      }
+      .property-zprg & {
+        background: url('@{img-prefix}/SIG_Prince_George.png') no-repeat center center;
+        background-size: auto 66px;
+      }
+      .property-zyvr & {
+        background: url('@{img-prefix}/SIG_Vancouver_Airport.png') no-repeat center center;
+        background-size: auto 66px;
+      }
+      .property-zmis & {
+        background: url('@{img-prefix}/SIG_Mississauga.png') no-repeat center center;
+        background-size: auto 66px;
+      }
+      .property-zyyz & {
+        background: url('@{img-prefix}/SIG_Toronto_Airport.png') no-repeat center center;
+        background-size: auto 66px;
       }
       .viewport-tablet &{
         max-width: 40%;

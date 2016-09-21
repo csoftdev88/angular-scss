@@ -20,21 +20,29 @@ angular.module('mobiusApp.directives.language', [])
 
       // Widget logic goes here
       link: function(scope) {
-
         var defaultLanguage = Settings.UI.languages.default;
         scope.config = Settings.UI.languages;
         var localeLanguages = {};
 
         contentService.getLanguages().then(function(data) {
+          //SANDMAN HACK, FORCING FRENCH IF QUEBEC
+          if(Settings.sandmanFrenchOverride) {
+            var fr = {
+              'code': 'fr',
+              'name': 'French'
+            };
+            data.push(fr);
+          }
 
           localeLanguages = angular.copy(data);
+
           scope.getFullName = function(languageCode) {
-            var lang = _.find(localeLanguages, function(item){ 
-              return item.code === languageCode; 
+            var lang = _.find(localeLanguages, function(item){
+              return item.code === languageCode;
             });
             return lang.name;
           };
-          
+
           var languages = {};
           _.each(data, function(languageData) {
             if (!Settings.UI.languages[languageData.code]) {
@@ -43,12 +51,11 @@ angular.module('mobiusApp.directives.language', [])
               languageData = _.assign(languageData, Settings.UI.languages[languageData.code]);
               languages[languageData.code] = languageData;
               languages[languageData.code].default = languageData.code === defaultLanguage ? true : false;
-              
+
             }
           });
 
           scope.languages = _.values(languages);
-
         });
 
         scope.changeLanguage = function(language) {

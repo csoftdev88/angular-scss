@@ -9,11 +9,12 @@ angular.module('mobiusApp.config', [])
   'authType': 'infiniti',
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
+  'sandmanFrenchOverride': true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'staging': 'http://staging-sandman-infiniti.mobiuswebservices.com/track/content/infiniti.js',
+    'staging': 'http://staging-us-infiniti-sandman.mobiuswebservices.com/track/content/infiniti.js',
     'live': 'http://integration-sandman.infiniti.io/track/content/infiniti.js'
   },
   'sentry': {
@@ -53,6 +54,9 @@ angular.module('mobiusApp.config', [])
     'trackUserId': true,
     'id': ''
   },
+  'hotjar': {
+    'enable': false
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -60,7 +64,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': 'http://staging-us-node-sandman.mobiuswebservices.com:3010/api/4.0/',
+      'staging': ' http://staging-us-node-sandman.mobiuswebservices.com:3010/api/4.0/',
       'live':  ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
@@ -577,8 +581,8 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
-      'headerAlignment': 'right',
-      'dropdown': true,
+      'headerAlignment': 'left',
+      'dropdown': false,
       'default': 'en-us',
       'en-us': {
         'shortName': 'EN',
@@ -593,6 +597,14 @@ angular.module('mobiusApp.config', [])
         'name': 'English (CAN)',
         'decimalSeparator': '.',
         'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
+      },
+      'fr': {
+        'shortName': 'FR',
+        'name': 'French',
+        'decimalSeparator': '.',
+        'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
       }
@@ -760,7 +772,8 @@ angular.module('mobiusApp.config', [])
         'hasContactDetails': true,
         'hasMap': false,
         'hasDescription': false,
-        'includePhoneField': true
+        'includePhoneField': true,
+        'showStaticContactInfo': true
       },
       'hotels': {
         'showRegionDescription': false,
@@ -796,7 +809,8 @@ angular.module('mobiusApp.config', [])
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
         'displayPropertyTitle': true,
-        'displayStaticContent': false
+        'displayStaticContent': false,
+        'propertyHotDealsShowTitle': true
       },
       'locationMap':{
         'displayMainTitle': false,

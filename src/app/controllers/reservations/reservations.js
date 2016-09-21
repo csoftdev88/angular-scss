@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.reservations', [])
 
-.controller('ReservationsCtrl', function($scope, $timeout, $controller, $q,
+.controller('ReservationsCtrl', function($scope, $controller, $q,
   $state, modalService, creditCardTypeService, reservationService,
   preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject, chainService, metaInformationService, $location, Settings, $rootScope){
 

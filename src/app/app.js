@@ -156,6 +156,7 @@ angular
     'mobiusApp.directives.breadcrumbs',
     'mobiusApp.directives.slugImg',
     'mobiusApp.directives.googleAnalyticsScript',
+    'mobiusApp.directives.hotjarScript',
     'mobiusApp.directives.evolutionInfinitiScript',
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
@@ -387,17 +388,17 @@ angular
   })
 
   .state('reservation.details', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/details.html'
-  })
-  .state('reservation.billing', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/billing.html'
-  })
-  .state('reservation.confirmation', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/confirmation.html'
-  })
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/details.html'
+    })
+    .state('reservation.billing', {
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/billing.html'
+    })
+    .state('reservation.confirmation', {
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/confirmation.html'
+    })
 
   .state('offers', {
     parent: 'root',
@@ -611,8 +612,8 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $rootScope, $controller, $state, scrollService,
-  metaInformationService, Settings, propertyService, $window, breadcrumbsService) {
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, scrollService,
+  metaInformationService, Settings, propertyService, $window, breadcrumbsService, user, cookieFactory) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -626,23 +627,22 @@ angular
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
-    console.log('toState: ' + toState.name);
-    console.log('toParams: ' + angular.toJson(toParams));
-
     //if applyChainClassToBody, get property details and add its chain as body class for styling
     if (Settings.UI.generics.applyChainClassToBody) {
       var propertyCode = toParams.propertyCode || toParams.property;
       if (propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation' || toState.name === 'reservation.details' || toState.name === 'reservation.billing' || toState.name === 'reservation.confirmation') || toState.name === 'propertyHotDeals') {
         propertyService.getPropertyDetails(propertyCode).then(function(details) {
           propertyService.applyPropertyChainClass(details.chainCode);
+          propertyService.applyPropertyClass(propertyCode);
         });
       } else {
         propertyService.removePropertyChainClass();
+        propertyService.removePropertyClass();
       }
     }
 
     //breadcrumbs
-    if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room')) {
+    if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'propertyHotDeals')) {
       breadcrumbsService.isProperty(true);
     } else {
       breadcrumbsService.isProperty(false);
@@ -678,6 +678,43 @@ angular
   });
 
   $scope.$on('$stateChangeSuccess', function() {
+
+    //Sandman specific HACK to display french on quebec pages
+    if (Settings.sandmanFrenchOverride) {
+      var currentURL = $state.href($state.current.name, {}, {
+        absolute: true
+      });
+      var userLang = user.getUserLanguage();
+
+      //If user language is french and URL does not contain quebec, switch back to english
+      if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
+        var language_code = userLang;
+        var path = $location.path();
+        var search = encodeQueryData($location.search());
+        var hash = $location.hash();
+        if (language_code === 'fr') {
+          user.storeUserLanguage('en-us');
+          $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+        }
+      }
+
+      //If current URL contains /locations/quebec show language options and display alert if not already shown
+      if (currentURL.indexOf('/locations/quebec') !== -1) {
+        $rootScope.showLanguages = true;
+        if (!cookieFactory('languageAlertDisplay')) {
+          $timeout(function() {
+            $scope.$broadcast('LANGUAGE_GROWL_ALERT');
+            $window.document.cookie = 'languageAlertDisplay=true; path=/';
+          }, 2000);
+        }
+      } else {
+        $rootScope.showLanguages = false;
+      }
+    }
+    else {
+      $rootScope.showLanguages = true;
+    }
+
     if (Settings.authType === 'infiniti') {
       $scope.sso.trackPageView();
       //Evolution
@@ -686,4 +723,16 @@ angular
       }
     }
   });
+
+  function encodeQueryData(data) {
+    var ret = [];
+    for (var d in data) {
+      if (data.hasOwnProperty(d)) {
+        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+      }
+    }
+    return ret.join(' ');
+  }
+
+
 });
