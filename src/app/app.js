@@ -104,6 +104,7 @@ angular
     'mobiusApp.services.infinitiEcommerceService',
     'mobiusApp.services.channelService',
     'mobiusApp.services.router',
+    'mobiusApp.services.track404s',
 
     // Factories
     'mobiusApp.factories.template',
@@ -540,9 +541,14 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
+    //This segment tracks any 404s and sends to our 404 tracking service
+    if(Settings.API.track404s && Settings.API.track404s.enable && next.name === 'unknown')
+    {
+      track404sService.track($location.host(), $location.path());
+    }
     $rootScope.prerenderStatusCode = next.name === 'unknown' ? '404' : '200';
   });
 

@@ -64,20 +64,23 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-  function post(url, data, params) {
+  function post(url, data, params, ignoreHeaders) {
     var q = $q.defer();
 
-    //sessionData
-    handleSessionDataHeaders();
+    if(!ignoreHeaders)
+    {
+      //sessionData
+      handleSessionDataHeaders();
+    }
 
     $http({
       method: 'POST',
       url: url,
-      headers: headers,
+      headers: !ignoreHeaders ? headers : null,
       data: data,
-      params: params
+      params: params ? params : null
     }).success(function(res, status, resHeaders) {
-      if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
+      if(!ignoreHeaders && (Settings.authType === 'mobius' && resHeaders('mobius-authentication'))){
         updateMobiusAuthHeader(resHeaders('mobius-authentication'));
       }
       q.resolve(res);
