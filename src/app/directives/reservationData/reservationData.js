@@ -7,7 +7,8 @@ angular.module('mobiusApp.directives.reservation.data', [])
     restrict: 'E',
     scope: {
       reservation: '=',
-      property: '='
+      property: '=',
+      currencyCode: '='
     },
     templateUrl: 'directives/reservationData/reservationData.html',
 

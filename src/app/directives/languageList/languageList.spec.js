@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 describe('languageList', function() {
   var _$compile, _$rootScope, _element, _scope,
@@ -151,3 +151,4 @@ describe('languageList', function() {
     });
   });
 });
+*/

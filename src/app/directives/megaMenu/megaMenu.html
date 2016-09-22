@@ -13,7 +13,6 @@
 
   <div class="locations">
     <div class="placeholder" ng-if="showLocationsPlaceholder">
-      <img src="/static/images/v4/logo.png" alt="Mobius logo">
       <h4 class="title">_megamenu_placeholder_text_</h4>
     </div>
 
@@ -23,7 +22,7 @@
       <li ng-repeat="location in region.locations | filter: {properties: {nameShort: propertySearch}} | orderBy: 'nameShort'" ng-show="location.properties.length">
         <a ng-click="locationClick(location)" ng-href="{{location.url}}">{{location.nameShort}}</a>
         <ul class="properties">
-          <li ng-repeat="property in location.properties | filter:propertySearch track by property.nameShort"><a ng-href="{{type === 'hot-deals' ? property.hotDealsUrl : property.url}}" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick($event,property)">{{property.nameShort}}</a></li>
+          <li ng-repeat="property in location.properties | filter:propertySearch | orderBy:'chainCode':true"><a ng-href="{{type === 'hot-deals' ? property.hotDealsUrl : property.url}}" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick($event,property)">{{property.nameShort}}</a></li>
         </ul>
       </li>
     </ul>

@@ -43,7 +43,7 @@ angular.module('mobius.controllers.regions', [])
 
         if($scope.regionConfig .bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region.statistics){
           $timeout(function(){
-            $scope.$broadcast('GROWL_ALERT', $scope.region.statistics);
+            $scope.$broadcast('STATS_GROWL_ALERT', $scope.region.statistics);
           });
         }
 

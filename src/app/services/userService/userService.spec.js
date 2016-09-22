@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 describe('userService', function() {
   var _userService, _rootScope, _spyApiServiceGet,
@@ -195,14 +195,6 @@ describe('userService', function() {
           expect(_spyApisServiceGetFullURL.calledOnce).equal(true);
         });
 
-        /*
-        it('should fire a GET request to loyalties API with detected customer ID', function() {
-          _userService.loadProfile();
-          expect(_spyLoyaltiesServiceGetAll.calledOnce).equal(true);
-          expect(_spyLoyaltiesServiceGetAll.calledWith(555)).equal(true);
-        });
-        */
-
         it('should set infiniti auth header', function(){
           _userService.loadProfile();
           expect(_spySetHeaders.calledOnce).equal(true);
@@ -242,4 +234,4 @@ describe('userService', function() {
   afterEach(function() {
     tearDown();
   });
-});
+});*/

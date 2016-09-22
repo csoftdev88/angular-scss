@@ -11,6 +11,12 @@ angular.module('mobiusApp.services.api', [])
 
   var apiCache = $cacheFactory('apiCache');
 
+  var cookieExpiryDate = null;
+  var expiryMins = Settings.API.sessionData.expiry || 15;
+
+  cookieExpiryDate = new Date();
+  cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
+
   function get(url, params, cacheParam) {
     var q = $q.defer();
     var canCache = !params || Object.keys(params).length === 0;
@@ -58,20 +64,23 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-  function post(url, data, params) {
+  function post(url, data, params, ignoreHeaders) {
     var q = $q.defer();
 
-    //sessionData
-    handleSessionDataHeaders();
+    if(!ignoreHeaders)
+    {
+      //sessionData
+      handleSessionDataHeaders();
+    }
 
     $http({
       method: 'POST',
       url: url,
-      headers: headers,
+      headers: !ignoreHeaders ? headers : null,
       data: data,
-      params: params
+      params: params ? params : null
     }).success(function(res, status, resHeaders) {
-      if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
+      if(!ignoreHeaders && (Settings.authType === 'mobius' && resHeaders('mobius-authentication'))){
         updateMobiusAuthHeader(resHeaders('mobius-authentication'));
       }
       q.resolve(res);
@@ -146,11 +155,7 @@ angular.module('mobiusApp.services.api', [])
     headersObj['mobius-authentication'] = val;
     setHeaders(headersObj);
     userObject.token = val;
-
-    var hasLocalStorage = window.localStorage || null;
-    if(hasLocalStorage){
-      localStorage.mobiusToken = val;
-    }
+    $window.document.cookie = 'MobiusToken' + '=' + val + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
   }
 
   var cache = {};

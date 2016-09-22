@@ -216,6 +216,10 @@ div[mega-menu] {
               color: @c-grey !important;
               text-transform: none !important;
               padding-left: 25px !important;
+              display:block;
+              width:100%;
+              box-sizing:border-box;
+              padding-top:3px !important;
               &:before {
                 content: '';
                 position: absolute;
@@ -223,7 +227,7 @@ div[mega-menu] {
                 top: 0;
                 width: 20px;
                 height: 20px;
-                top: -2px;
+                top: 1px;
               }
               &.sand:before {
                 background: url('@{img-prefix}/sandman-logo-small.png') no-repeat center;
