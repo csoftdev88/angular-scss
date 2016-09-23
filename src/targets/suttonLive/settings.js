@@ -71,6 +71,10 @@ angular.module('mobiusApp.config', [])
       'search': 'properties/track/search',
       'purchase': 'properties/track/purchase'
     },
+    'track404s': {
+      'enable':true,
+      'url':'https://errors.2pvservices.com:3051/status'
+    },
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
