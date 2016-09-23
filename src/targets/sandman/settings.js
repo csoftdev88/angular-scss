@@ -50,9 +50,9 @@ angular.module('mobiusApp.config', [])
     'id': ''
   },
   'googleTagManager': {
-    'enable': false,
+    'enable': true,
     'trackUserId': true,
-    'id': ''
+    'id': 'GTM-56G27K'
   },
   'hotjar': {
     'enable': false

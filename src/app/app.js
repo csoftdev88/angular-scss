@@ -547,7 +547,11 @@ angular
     //This segment tracks any 404s and sends to our 404 tracking service
     if(Settings.API.track404s && Settings.API.track404s.enable && next.name === 'unknown')
     {
-      track404sService.track($location.host(), $location.path());
+      var fromPath = null;
+      if($location.search() && $location.search().fromDomain){
+        fromPath = $location.search().fromDomain;
+      }
+      track404sService.track($location.host(), $location.path(), fromPath ? fromPath : null);
     }
     $rootScope.prerenderStatusCode = next.name === 'unknown' ? '404' : '200';
   });
