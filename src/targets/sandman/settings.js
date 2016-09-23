@@ -55,7 +55,8 @@ angular.module('mobiusApp.config', [])
     'id': 'GTM-56G27K'
   },
   'hotjar': {
-    'enable': false
+    'enable': true,
+    'id': '294639'
   },
   'API': {
     'defaultThrottleTimeout': 30,

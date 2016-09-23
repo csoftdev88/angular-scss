@@ -54,7 +54,7 @@ angular.module('mobiusApp.config', [])
   },
   'hotjar': {
     'enable': true,
-    'id': '289916'
+    'id': '289179'
   },
   'API': {
     'defaultThrottleTimeout': 30,
