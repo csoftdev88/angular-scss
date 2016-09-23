@@ -5,7 +5,7 @@
 
 angular.module('mobiusApp.services.track404s', [])
 .service('track404sService',  function(Settings, apiService) {
-  function track(host, path) {
+  function track(host, path, from) {
     var todaysDate = new Date();
     var dd = todaysDate.getDate();
     var mm = todaysDate.getMonth()+1; //January is 0!
@@ -23,9 +23,10 @@ angular.module('mobiusApp.services.track404s', [])
       'path':path
     };
 
-    var safePath = path.split('/').join('|');
-    var url = Settings.API.track404s.url + '/' + host + '/404/' +  safePath + '/' + todaysDate;
-    return apiService.post(url, data, null, true);
+    var fromPath = from !== null ? from : host;
+    var safeFromPath = fromPath.split('/').join('|');
+    var url = Settings.API.track404s.url + '/' + host + '/404/' +  safeFromPath + '/' + todaysDate;
+    return apiService.post(url, JSON.stringify(data), null, true);
   }
 
   // Public methods
