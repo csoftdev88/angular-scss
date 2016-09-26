@@ -23,6 +23,7 @@ angular
     '720kb.tooltips',
     'angularUtils.directives.dirPagination',
     'angular-growl',
+    'ng.deviceDetector',
 
     // Controllers
     'mobius.controllers.common.sanitize',
