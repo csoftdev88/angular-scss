@@ -24,7 +24,7 @@ angular.module('mobiusApp.services.channelService', [])
         });
       }
       //If not and if we are in mobile view, return the id for mobile
-      else if (stateService.isMobile()) {
+      else if (stateService.isMobileDevice()) {
         return _.find(Settings.API.headers['Mobius-channelId'], function(channel) {
           return channel.name === 'mobileWeb';
         });

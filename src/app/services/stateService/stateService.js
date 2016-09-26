@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.state', [])
-  .service('stateService', ['$window', 'Settings', '$rootScope', 'queryService', '$state', '$stateParams', function($window, Settings, $rootScope, queryService, $state, $stateParams) {
+  .service('stateService', ['$window', 'Settings', '$rootScope', 'queryService', '$state', '$stateParams', 'deviceDetector', function($window, Settings, $rootScope, queryService, $state, $stateParams, deviceDetector) {
 
     function getStateLayout(stateName) {
       var config = Settings.UI.layout[stateName];
@@ -40,18 +40,23 @@ angular.module('mobiusApp.services.state', [])
       return $window.innerWidth <= Settings.UI.screenTypes.mobile.maxWidth;
     }
 
+    function isMobileDevice(){
+      return deviceDetector ? deviceDetector.isMobile() : false;
+    }
+
     function correctStateParam(key, value){
       var params = angular.copy($stateParams);
       params[key] = value;
       $state.transitionTo($state.current, params, {reload: false, inherit: false, notify: false});
     }
-    
+
     // Public methods
     return {
       getStateLayout: getStateLayout,
       getAppLanguageCode: getAppLanguageCode,
       getCurrentCurrency: getCurrentCurrency,
       isMobile: isMobile,
+      isMobileDevice: isMobileDevice,
       correctStateParam: correctStateParam
     };
   }]);
