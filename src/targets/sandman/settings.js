@@ -69,7 +69,7 @@ angular.module('mobiusApp.config', [])
       'live':  ' https://api.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': true,
+      'enable': false,
       'search': 'properties/track/search',
       'purchase': 'properties/track/purchase'
     },
