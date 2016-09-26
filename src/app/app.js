@@ -131,6 +131,7 @@ angular
     'mobiusApp.directives.hotelLocation',
     'mobiusApp.directives.emailCheck',
     'mobiusApp.directives.notifications',
+    'mobiusApp.directives.markdownTextParser',
     'mobiusApp.directives.socialLinks',
     'mobiusApp.directives.taTeaser',
     // Common controllers
