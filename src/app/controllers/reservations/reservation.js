@@ -139,7 +139,6 @@ angular.module('mobius.controllers.reservation', [])
     if($stateParams.reservation && !$scope.isModifyingAsAnonymous()){
 
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
-
         $scope.userDetails.title = reservation.rooms[0].guestTitleId || reservation.rooms[0].guestTitle;
         $scope.userDetails.firstName = reservation.rooms[0].firstName;
         $scope.userDetails.lastName = reservation.rooms[0].lastName;
@@ -149,6 +148,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.userDetails.zip = reservation.rooms[0].guestZip;
         $scope.userDetails.stateProvince = reservation.rooms[0].guestState;
         $scope.userDetails.country = reservation.rooms[0].guestCountry;
+        $scope.userDetails.localeCode = parseInt(reservation.rooms[0].guestCountry);
         $scope.userDetails.phone = reservation.rooms[0].guestPhone;
 
         $scope.additionalInfo.arrivalTime = reservation.arrivalTime;

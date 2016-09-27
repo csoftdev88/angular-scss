@@ -86,7 +86,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
         $scope.updateHeroContent(_.filter(details.images, {includeInSlider: true}));
 
         if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle){
-          breadcrumbsService.setHeader(details.nameShort);
+          breadcrumbsService.setHeader(details.nameLong);
         }
 
 

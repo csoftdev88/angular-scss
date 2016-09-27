@@ -87,7 +87,7 @@
 
       <h2 ng-if="offersList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
       <offers-list ng-if="offersList.length > 1">
-        <offer-item ng-repeat="offer in offersList | filter:getRelevant track by $index">
+        <offer-item ng-repeat="offer in offersList | filter:{hideFromExtraOffers:false} | filter:getRelevant track by $index">
           <a ng-href="{{offer.url}}">
             <div class="banner" ng-if="offer.merchandisingBanner" ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">{{offer.merchandisingBanner.text}}</div>
             <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.uri}}"/>

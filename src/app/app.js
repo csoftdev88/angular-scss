@@ -23,6 +23,7 @@ angular
     '720kb.tooltips',
     'angularUtils.directives.dirPagination',
     'angular-growl',
+    'ng.deviceDetector',
 
     // Controllers
     'mobius.controllers.common.sanitize',
@@ -104,6 +105,7 @@ angular
     'mobiusApp.services.infinitiEcommerceService',
     'mobiusApp.services.channelService',
     'mobiusApp.services.router',
+    'mobiusApp.services.track404s',
 
     // Factories
     'mobiusApp.factories.template',
@@ -388,17 +390,17 @@ angular
   })
 
   .state('reservation.details', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/details.html'
-  })
-  .state('reservation.billing', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/billing.html'
-  })
-  .state('reservation.confirmation', {
-    parent: 'reservation',
-    templateUrl: 'layouts/reservations/reservation/confirmation.html'
-  })
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/details.html'
+    })
+    .state('reservation.billing', {
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/billing.html'
+    })
+    .state('reservation.confirmation', {
+      parent: 'reservation',
+      templateUrl: 'layouts/reservations/reservation/confirmation.html'
+    })
 
   .state('offers', {
     parent: 'root',
@@ -540,9 +542,18 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
+    //This segment tracks any 404s and sends to our 404 tracking service
+    if(Settings.API.track404s && Settings.API.track404s.enable && next.name === 'unknown')
+    {
+      var fromPath = null;
+      if($location.search() && $location.search().fromDomain){
+        fromPath = $location.search().fromDomain;
+      }
+      track404sService.track($location.host(), $location.path(), fromPath ? fromPath : null);
+    }
     $rootScope.prerenderStatusCode = next.name === 'unknown' ? '404' : '200';
   });
 
@@ -613,7 +624,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, scrollService,
-  metaInformationService, Settings, propertyService, $window, breadcrumbsService,  user) {
+  metaInformationService, Settings, propertyService, $window, breadcrumbsService, user, cookieFactory) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -633,14 +644,16 @@ angular
       if (propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation' || toState.name === 'reservation.details' || toState.name === 'reservation.billing' || toState.name === 'reservation.confirmation') || toState.name === 'propertyHotDeals') {
         propertyService.getPropertyDetails(propertyCode).then(function(details) {
           propertyService.applyPropertyChainClass(details.chainCode);
+          propertyService.applyPropertyClass(propertyCode);
         });
       } else {
         propertyService.removePropertyChainClass();
+        propertyService.removePropertyClass();
       }
     }
 
     //breadcrumbs
-    if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room')) {
+    if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'propertyHotDeals')) {
       breadcrumbsService.isProperty(true);
     } else {
       breadcrumbsService.isProperty(false);
@@ -676,30 +689,41 @@ angular
   });
 
   $scope.$on('$stateChangeSuccess', function() {
-    var currentURL = $state.href($state.current.name, {}, {absolute: true});
-    var userLang = user.getUserLanguage();
 
-    if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
-      var language_code = userLang;
-      var path = $location.path();
-      var search = encodeQueryData($location.search());
-      var hash = $location.hash();
-      if(language_code === 'fr')
-      {
-        user.storeUserLanguage('en-us');
-        $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+    //Sandman specific HACK to display french on quebec pages
+    if (Settings.sandmanFrenchOverride) {
+      var currentURL = $state.href($state.current.name, {}, {
+        absolute: true
+      });
+      var userLang = user.getUserLanguage();
+
+      //If user language is french and URL does not contain quebec, switch back to english
+      if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
+        var language_code = userLang;
+        var path = $location.path();
+        var search = encodeQueryData($location.search());
+        var hash = $location.hash();
+        if (language_code === 'fr') {
+          user.storeUserLanguage('en-us');
+          $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+        }
+      }
+
+      //If current URL contains /locations/quebec show language options and display alert if not already shown
+      if (currentURL.indexOf('/locations/quebec') !== -1) {
+        $rootScope.showLanguages = true;
+        if (!cookieFactory('languageAlertDisplay')) {
+          $timeout(function() {
+            $scope.$broadcast('LANGUAGE_GROWL_ALERT');
+            $window.document.cookie = 'languageAlertDisplay=true; path=/';
+          }, 2000);
+        }
+      } else {
+        $rootScope.showLanguages = false;
       }
     }
-
-    if(currentURL.indexOf('/locations/quebec') !== -1)
-    {
-      //$rootScope.showLanguages = true;
-      $timeout(function(){
-        //$scope.$broadcast('LANGUAGE_GROWL_ALERT');
-      }, 2000);
-    }
     else {
-      //$rootScope.showLanguages = false;
+      $rootScope.showLanguages = true;
     }
 
     if (Settings.authType === 'infiniti') {
@@ -710,6 +734,7 @@ angular
       }
     }
   });
+
   function encodeQueryData(data) {
     var ret = [];
     for (var d in data) {
