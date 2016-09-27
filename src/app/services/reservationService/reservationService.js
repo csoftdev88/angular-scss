@@ -89,7 +89,7 @@ angular.module('mobiusApp.services.reservation', [])
   }
 
   function checkVoucher(code) {
-    return apiService.get(apiService.getFullURL('reservations.checkVoucher', {code: code}));
+    return apiService.get(apiService.getFullURL('reservations.checkVoucher', {voucherCode: code}));
   }
 
   // Public methods
