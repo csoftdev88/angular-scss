@@ -139,7 +139,6 @@ angular.module('mobius.controllers.reservation', [])
     if($stateParams.reservation && !$scope.isModifyingAsAnonymous()){
 
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
-
         $scope.userDetails.title = reservation.rooms[0].guestTitleId || reservation.rooms[0].guestTitle;
         $scope.userDetails.firstName = reservation.rooms[0].firstName;
         $scope.userDetails.lastName = reservation.rooms[0].lastName;
@@ -149,6 +148,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.userDetails.zip = reservation.rooms[0].guestZip;
         $scope.userDetails.stateProvince = reservation.rooms[0].guestState;
         $scope.userDetails.country = reservation.rooms[0].guestCountry;
+        $scope.userDetails.localeCode = parseInt(reservation.rooms[0].guestCountry);
         $scope.userDetails.phone = reservation.rooms[0].guestPhone;
 
         $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
@@ -205,6 +205,7 @@ angular.module('mobius.controllers.reservation', [])
           $scope.userDetails.zip = data.zip;
           $scope.userDetails.stateProvince = data.state;
           $scope.userDetails.country = data.country;
+          $scope.userDetails.localeCode = data.localeCode;
           $scope.userDetails.phone = data.tel1;
           $scope.additionalInfo.secondPhoneNumber = data.tel2;
           $scope.additionalInfo.optedIn = data.optedIn;
@@ -826,23 +827,25 @@ angular.module('mobius.controllers.reservation', [])
         $scope.isModifyingAsAnonymous() ? $stateParams.email : null));
     }else{
       // Creating a new reservation
-      promises.push(reservationService.createReservation(reservationData));
+      var roomCodes = [];
+      _.each($scope.allRooms, function(room){
+        roomCodes.push(room.code);
+      });
+      roomCodes.join();
+      promises.push(reservationService.createReservation($stateParams.property ? $stateParams.property : null, roomCodes, reservationData));
     }
 
     if(userObject !== null)
     {
       var userData = _.omit($scope.userDetails, _.isNull);
-      userData = _.omit(userData, ['id','token','email', 'languageCode']);
-
       if(userData.countryObj)
       {
         userData.country = userData.countryObj.code;
       }
+      userData = _.omit(userData, ['id','token','email','languageCode','countryObj']);
 
-      console.log('we here');
       if(userData && userObject.id)
       {
-        console.log('send please');
         apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), userData).then(function(){
         }, function(){
           $scope.error = true;
@@ -972,6 +975,7 @@ angular.module('mobius.controllers.reservation', [])
           zip: $scope.userDetails.zip,
           state: $scope.userDetails.stateProvince,
           country: $scope.userDetails.localeCode,
+          localeCode: $scope.userDetails.localeCode,
           tel1: $scope.userDetails.phone,
           tel2: $scope.additionalInfo.secondPhoneNumber,
           optedIn: $scope.additionalInfo.optedIn

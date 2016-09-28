@@ -1,5 +1,4 @@
 <hotel-room grid="12" id="hotel-room">
-
   <section class="header" ng-if="!config.headerPartial.display">
     <h1 ng-bind-html="roomDetails.name | mainHeaderStyle"></h1>
     <span class="sub-title" ng-if="config.displayRoomSubtitle && roomDetails.subTitle">{{roomDetails.subTitle}}</span>
@@ -65,7 +64,7 @@
 
       <list-item
         ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit"
-        ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && product.price.totalBaseAfterPricingRules < product.price.originalPrice}"
+        ng-class="{'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}"
         class="without-image">
         <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
         <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
@@ -74,7 +73,7 @@
 
           <pricing-info>
             <p>
-              <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
+              <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
               <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
               <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
               <span ng-if="pricePer === PP_STAY">_per_stay_</span>
@@ -86,14 +85,14 @@
           </pricing-info>
 
           <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled && product.productAwardPoints">_earn_
-            <ng-pluralize count="product.price.pointsEarned" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
+            <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
           </earned-points>
           <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
         </div>
 
         <pricing-info>
           <p>
-            <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
+            <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
             <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
             <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
             <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">

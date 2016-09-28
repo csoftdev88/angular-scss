@@ -5,16 +5,16 @@
 
 angular.module('mobiusApp.services.reservation', [])
 .service( 'reservationService',  function(apiService, user) {
-  function createReservation(data) {
-    return apiService.post(apiService.getFullURL('reservations.new'), data);
+  function createReservation(property, rooms, data) {
+    return apiService.post(apiService.getFullURL('reservations.new', {property:property, rooms:rooms}), data);
   }
 
   function modifyReservation(reservationCode, data, email) {
     return apiService.put(apiService.getFullURL('reservations.modify', {reservationCode: reservationCode}), data, email?{email:email}:null);
   }
 
-  function cancelReservation(reservationCode, reservationEmail) {
-    return reservationEmail ? apiService.put(apiService.getFullURL('reservations.cancelAnon', {reservationCode: reservationCode, reservationEmail: reservationEmail})) : apiService.put(apiService.getFullURL('reservations.cancel', {reservationCode: reservationCode}));
+  function cancelReservation(reservationCode, email) {
+    return email ? apiService.put(apiService.getFullURL('reservations.cancelAnon', {reservationCode: reservationCode, email: encodeURIComponent(email)})) : apiService.put(apiService.getFullURL('reservations.cancel', {reservationCode: reservationCode}));
   }
 
   function getReservation(reservationCode, params) {
@@ -85,7 +85,7 @@ angular.module('mobiusApp.services.reservation', [])
   }
 
   function getAnonUserProfile(id, email) {
-    return apiService.get(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: email}));
+    return apiService.get(apiService.getFullURL('reservations.anonCustomerProfile', {customerId: id, customerEmail: encodeURIComponent(email)}));
   }
 
   // Public methods

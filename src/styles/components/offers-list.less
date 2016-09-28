@@ -39,6 +39,7 @@ rewards-list {
 
   offer-item,
   reward-item {
+    display:block;
     border-radius: @radius*2;
     box-sizing: border-box;
     flex: 0 0 ~"calc(33% - 20px)";
@@ -56,6 +57,12 @@ rewards-list {
     text-align: center;
 
     z-index: 1;
+
+    > a {
+      display:block;
+      width:100%;
+      height:100%;
+    }
 
     // if it's clickable
     &[ng-click] {

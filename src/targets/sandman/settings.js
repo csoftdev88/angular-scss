@@ -8,12 +8,14 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   'authType': 'infiniti',
   'loyaltyProgramEnabled': false,
+  'newUrlStructure': true,
+  'sandmanFrenchOverride': true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'staging': 'http://staging-sandman-infiniti.mobiuswebservices.com/track/content/infiniti.js',
-    'live': 'http://integration-sandman.infiniti.io/track/content/infiniti.js'
+    'staging': 'http://staging-us-infiniti-sandman.mobiuswebservices.com/track/content/infiniti.js',
+    'live': '//infiniti.sandmanhotels.com/track/content/infiniti.js'
   },
   'sentry': {
     'enable': true,
@@ -48,9 +50,13 @@ angular.module('mobiusApp.config', [])
     'id': ''
   },
   'googleTagManager': {
-    'enable': false,
+    'enable': true,
     'trackUserId': true,
-    'id': ''
+    'id': 'GTM-56G27K'
+  },
+  'hotjar': {
+    'enable': true,
+    'id': '294639'
   },
   'API': {
     'defaultThrottleTimeout': 30,
@@ -59,13 +65,17 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': ' http://staging-sandman-node.mobiuswebservices.com:3010/api/4.0/',
-      'live':  ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/'
+      'staging': ' http://staging-us-node-sandman.mobiuswebservices.com:3010/api/4.0/',
+      'live':  ' https://api.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': true,
+      'enable': false,
       'search': 'properties/track/search',
       'purchase': 'properties/track/purchase'
+    },
+    'track404s': {
+      'enable':true,
+      'url':'https://errors.2pvservices.com/status'
     },
     'contents': {
       'contents': 'contents',
@@ -130,13 +140,13 @@ angular.module('mobiusApp.config', [])
       'all': 'customers/:customerId/loyalty'
     },
     'reservations': {
-      'new': 'reservations',
+      'new': 'reservations?propertyCode=:property&roomCode=:rooms',
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
-      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:reservationEmail',
+      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
@@ -326,9 +336,10 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': true,
-          'displayOtaRates': false
+          'displayOtaRates': false,
+          'highlightFirstRate': true,
+          'showSlashThrough': true
         }
-
       },
       'offers': {
         'toState': 'propertyHotDeals'
@@ -352,6 +363,12 @@ angular.module('mobiusApp.config', [])
         'hotelRooms': true,
         'hotelOffers': true,
         'hotelLocation': true
+      },
+      'bookingStatistics':{
+        'display':false,
+        'displayDelay':5000,
+        'displayTime':2000000, //The length that you wish the alerts to appear for
+        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       }
     },
     //rate lookup teasers
@@ -385,7 +402,14 @@ angular.module('mobiusApp.config', [])
         },
         //displayPrice can be button or text
         'displayPrice': 'text'
-      }
+      },
+      'bookingStatistics':{
+        'display':false,
+        'displayDelay':5000,
+        'displayTime':20000, //The length that you wish the alerts to appear for
+        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
+      },
+      'showSlashThrough': false
     },
 
     'reservations': {
@@ -532,7 +556,14 @@ angular.module('mobiusApp.config', [])
         '3': 2
       }
     },
-
+    'regions':{
+      'bookingStatistics':{
+        'display':false,
+        'displayDelay':5000,
+        'displayTime':10000, //The length that you wish the alerts to appear for
+        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
+      }
+    },
     'registerPage':{
       'headerPartial':{
         'display': false,
@@ -556,8 +587,8 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
-      'headerAlignment': 'right',
-      'dropdown': true,
+      'headerAlignment': 'left',
+      'dropdown': false,
       'default': 'en-us',
       'en-us': {
         'shortName': 'EN',
@@ -572,6 +603,14 @@ angular.module('mobiusApp.config', [])
         'name': 'English (CAN)',
         'decimalSeparator': '.',
         'groupSeparator': ',',
+        'groupSize': 3,
+        'neg': '-'
+      },
+      'fr': {
+        'shortName': 'FR',
+        'name': 'French',
+        'decimalSeparator': '.',
+        'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
       }
@@ -739,14 +778,21 @@ angular.module('mobiusApp.config', [])
         'hasContactDetails': true,
         'hasMap': false,
         'hasDescription': false,
-        'includePhoneField': true
+        'includePhoneField': true,
+        'showStaticContactInfo': true
       },
       'hotels': {
         'showRegionDescription': false,
         'showLocationDescription': true,
         'displayHotelRegionName': true,
         'displayHotelsCount': true,
-        'defaultViewMode': 'list'
+        'defaultViewMode': 'list',
+        'bookingStatistics':{
+          'display':false,
+          'displayDelay':3000,
+          'displayTime':10000, //The length that you wish the alerts to appear for
+          'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
+        }
       },
       'hotelDetails':{
         'hasViewMore': true,
@@ -769,7 +815,8 @@ angular.module('mobiusApp.config', [])
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
         'displayPropertyTitle': true,
-        'displayStaticContent': false
+        'displayStaticContent': false,
+        'propertyHotDealsShowTitle': true
       },
       'locationMap':{
         'displayMainTitle': false,

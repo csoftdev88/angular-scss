@@ -1,0 +1,13 @@
+{
+  "name": "jquery-datepicker",
+  "_cacheHeaders": {
+    "Last-Modified": "Wed, 17 Dec 2008 04:59:32 GMT",
+    "Content-Length": "13254",
+    "Content-Type": "text/plain; charset=us-ascii",
+    "Content-Disposition": "attachment; filename=\"jquery.datePicker.min-2.1.2.js\""
+  },
+  "main": "index.js",
+  "_source": "https://jquery-datepicker.googlecode.com/files/jquery.datePicker.min-2.1.2.js",
+  "_target": "*",
+  "_originalSource": "https://jquery-datepicker.googlecode.com/files/jquery.datePicker.min-2.1.2.js"
+}

@@ -66,10 +66,10 @@
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
       <ul class="entries entries--{{hotelViewMode}}">
         <li class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
-            <div class="item-image" ng-click="navigateToHotel(hotel)">
+            <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)">
               <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
-            </div>
+            </a>
 
             <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
 
@@ -225,8 +225,7 @@
           </div>
           <hr/>
         </div>
-
-        <div ng-show="filter.type === 'rates' && hasDates()">
+        <div ng-show="filter.type === 'rates' && hasDates() && rates.all.length > 1">
           <h3>_filter_rates_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
           <div class="accordion-content">
             <select name="rate"
@@ -259,3 +258,6 @@
       </div>
     </div>
   </aside>
+
+  <!-- Growl notifications -->
+  <growl-alerts class="growl-alerts-dir" booking-message="'_statistics_booking_message_'" views-message="'_statistics_views_message_'" searches-message="'_statistics_searches_message_'" languages-message="'_languages_message_'" hour="'_hour_'" hours="'_hours_'" day="'_day_'" days="'_days_'" week="'_week_'" weeks="'_weeks_'" position-reference="config.bookingStatistics.positionReference" display-time="config.bookingStatistics.displayTime" display-delay="config.bookingStatistics.displayDelay"></growl-alerts>

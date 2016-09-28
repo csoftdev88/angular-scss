@@ -143,9 +143,17 @@ angular.module('mobiusApp.directives.room', [])
             propertyService.getPropertyRegionData(propertyData.locationCode).then(function(propertyRegionData){
 
               //breadcrumbs
+              if($stateParams.regionSlug && $stateParams.locationSlug)
+              {
+                breadcrumbsService
+                  .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
+                  .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null});
+              }
+              else {
+                breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
+              }
+
               breadcrumbsService
-                .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
-                .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
                 .addBreadCrumb(propertyData.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug})
                 .addBreadCrumb('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsRooms'})
                 .addBreadCrumb(roomData.roomDetails.name);
@@ -284,7 +292,10 @@ angular.module('mobiusApp.directives.room', [])
               var availableRooms = [];
               _.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
                 var room = _.find(hotelRooms, {code: availableRoom.code});
-                availableRooms.push(room);
+                if(room)
+                {
+                  availableRooms.push(room);
+                }
               });
 
               //filter out duplicates

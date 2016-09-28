@@ -33,6 +33,8 @@ angular.module('mobiusApp.directives.stickable', [])
 
           var elementToStick = $('#' + attr.stickable);
           var elementToStickHeight = elementToStick.height();
+          var growlAlerts = $('growl-alerts');
+
           if (elementToStickHeight && (elementOffset - scrollTop < elementToStickHeight)) {
             elem.next().css('margin-top', elem.height() * 2);
             elem.css('position', 'fixed');
@@ -40,12 +42,20 @@ angular.module('mobiusApp.directives.stickable', [])
             elem.css('z-index', STICKABLE_Z_INDEX);
             elem.addClass('sticky');
             $('body').addClass('sticky-bread');
+            if(growlAlerts.length)
+            {
+              growlAlerts.removeClass('hidden');
+            }
           } else {
             elem.css('position', '');
             elem.css('top', '');
             elem.next().css('margin-top','');
             elem.removeClass('sticky');
             $('body').removeClass('sticky-bread');
+            if(growlAlerts.length)
+            {
+              growlAlerts.addClass('hidden');
+            }
           }
 
           scope.$evalAsync(function(){

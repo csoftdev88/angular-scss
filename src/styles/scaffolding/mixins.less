@@ -141,3 +141,123 @@
   transition-delay: @arguments;
   -webkit-transition-delay: @arguments; /* Safari */
 }
+
+.alerts {
+  .alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  .alert h4 {
+    margin-top: 0;
+    color: inherit;
+  }
+  .alert .alert-link {
+    font-weight: bold;
+  }
+  .alert > p,
+  .alert > ul {
+    margin-bottom: 0;
+  }
+  .alert > p + p {
+    margin-top: 5px;
+  }
+  .alert-dismissable .close,
+  .alert-dismissible .close {
+    position: relative;
+    top: -10px;
+    right: -5px;
+    color: inherit;
+  }
+  .alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+  }
+  .alert-success hr {
+    border-top-color: #c9e2b3;
+  }
+  .alert-success .alert-link {
+    color: #2b542c;
+  }
+  .alert-info {
+    background-color: #000;
+    opacity:0.8;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    border: solid 1px #131313;
+    .growl-message {
+      margin:0;
+      position:relative;
+      p {
+        color: #fff;
+        padding-left:25px;
+        line-height:19px;
+        margin-bottom:0;
+      }
+      i {
+        font-size:16px;
+        position:absolute;
+        top:50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        color:#fff;
+        opacity:0.63;
+      }
+    }
+  }
+  .alert-info hr {
+    border-top-color: #a6e1ec;
+  }
+  .alert-info .alert-link {
+    color: #245269;
+  }
+  .alert-warning {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
+  }
+  .alert-warning hr {
+    border-top-color: #f7e1b5;
+  }
+  .alert-warning .alert-link {
+    color: #66512c;
+  }
+  .alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+  }
+  .alert-danger hr {
+    border-top-color: #e4b9c0;
+  }
+  .alert-danger .alert-link {
+    color: #843534;
+  }
+  .alert-dismissable .close,
+  .alert-dismissible .close {
+    position: relative;
+    top: -8px;
+    right: -4px;
+    color: #fff;
+  }
+  button.close {
+    height:auto;
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    z-index:1500;
+  }
+  .close {
+    float: right;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: 0.7;
+  }
+}

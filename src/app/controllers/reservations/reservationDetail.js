@@ -10,9 +10,21 @@ angular.module('mobius.controllers.reservationDetail', [])
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
     $controller, $q, reservationService, preloaderFactory, modalService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-    metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService){
+    metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService,
+    apiService, queryService){
 
     $controller('SSOCtrl', {$scope: $scope});
+
+    if (Settings.UI.currencies.default) {
+      $scope.defaultCurrencyCode = Settings.UI.currencies.default;
+      $scope.currentCurrency = $scope.defaultCurrencyCode;
+      queryService.setValue(Settings.currencyParamName, $scope.defaultCurrencyCode.code);
+      user.storeUserCurrency($scope.defaultCurrencyCode.code);
+      var currencyObj = {};
+      currencyObj['mobius-currencycode'] = $scope.defaultCurrencyCode.code;
+      apiService.setHeaders(currencyObj);
+      $rootScope.currencyCode = $scope.defaultCurrencyCode.code;
+    }
 
     // Alias for lodash to get rid of ugly $window._ calls
     var _ = $window._;
@@ -150,7 +162,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
         var addonsPromise = $q.all([
           // Available addons
-          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode}),
+          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode, productCode:reservation.rooms[0].productCode}),
           // Reservation addons
           reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : reservation.email)
         ]).then(function(addons){
@@ -233,7 +245,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         // NOTE: This will enable editing
         reservation: reservation.reservationCode,
         // Removing email param when user is logged in
-        email: user.isLoggedIn()?null:$stateParams.email
+        email: user.isLoggedIn()?null:reservation.email
       };
 
       propertyService.getPropertyDetails(reservation.property.code)
@@ -256,9 +268,8 @@ angular.module('mobius.controllers.reservationDetail', [])
       }
 
       modalService.openCancelReservationDialog($stateParams.reservationCode).then(function(){
-        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, $stateParams.email)
+        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, user.isLoggedIn()?null:$scope.reservation.email)
         .then(function(){
-
           // Reservation is removed, notifying user
           //TODO: move to locales
           userMessagesService.addMessage('<div>Your Reservation <strong>' +
@@ -267,7 +278,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           // Tracking refund
           dataLayerService.trackReservationRefund($stateParams.reservationCode);
 
-          if(!$stateParams.email){
+          if(user.isLoggedIn()){
             $state.go('reservations');
           }
 
@@ -292,6 +303,21 @@ angular.module('mobius.controllers.reservationDetail', [])
       return _.reduce(
         _.map($scope.reservation.rooms, function(room){
           return room[prop];
+        }), function(t, n){
+          return t + n;
+        });
+    };
+
+    $scope.getCountPriceDetail = function(prop){
+      if(!$scope.reservation || !$scope.reservation.rooms || !$scope.reservation.rooms.length){
+        return null;
+      }
+
+      return _.reduce(
+        _.map($scope.reservation.rooms, function(room){
+          if(room.priceDetail) {
+          return room.priceDetail[prop];
+        }
         }), function(t, n){
           return t + n;
         });
@@ -333,7 +359,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         var addAddonPromise = reservationService.addAddon(
           $stateParams.reservationCode,
           addon,
-          user.isLoggedIn()?null:$stateParams.email).then(function(){
+          user.isLoggedIn()?null:$scope.reservation.email).then(function(){
 
             //Infiniti Tracking purchase
             var infinitiTrackingProducts = [];
@@ -358,11 +384,11 @@ angular.module('mobius.controllers.reservationDetail', [])
             if(!user.isLoggedIn()){
 
               var reservationParams = {
-                email: $stateParams.email
+                email: $scope.reservation.email
               };
 
               reservationService.getReservation($stateParams.reservationCode, reservationParams).then(function(reservation) {
-                reservationService.getAnonUserProfile(reservation.customer.id, $stateParams.email).then(function(anonUserData) {
+                reservationService.getAnonUserProfile(reservation.customer.id, $scope.reservation.email).then(function(anonUserData) {
                   contentService.getTitles().then(function(titles) {
                     contentService.getCountries().then(function(countries) {
 
@@ -455,8 +481,14 @@ angular.module('mobius.controllers.reservationDetail', [])
       var rooms = $scope.reservation.rooms.map(function(room){
         // Finding corresponding images
         var images;
+        var otherRoom = null;
 
-        var otherRoom = _.findWhere($scope.otherRooms, {code: room.roomTypeCode});
+        _.forEach($scope.otherRooms, function(value){
+          if(value.code === room.roomTypeCode)
+          {
+            otherRoom = value;
+          }
+        });
 
         if(otherRoom){
           images = otherRoom.images;
@@ -533,9 +565,11 @@ angular.module('mobius.controllers.reservationDetail', [])
       var totalFees = 0;
       var totalAfterTax = 0;
       _.map($scope.reservation.rooms, function(room){
-        totalTax += room.priceDetail.taxDetails.totalTax;
-        totalFees += room.priceDetail.feeDetails.totalTax;
-        totalAfterTax += room.priceDetail.totalAfterTax;
+        if(room.priceDetail){
+          totalTax += room.priceDetail.taxDetails.totalTax;
+          totalFees += room.priceDetail.feeDetails.totalTax;
+          totalAfterTax += room.priceDetail.totalAfterTax;
+        }
       });
       return totalAfterTax - totalTax - totalFees;
     };

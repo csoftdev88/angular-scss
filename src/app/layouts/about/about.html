@@ -34,15 +34,17 @@
     <hr>
 
     <offers-list id="offers-list">
-      <offer-item ng-repeat="about in aboutList | limitTo: config.offersLimit track by $index" ng-click="goToDetail(about.meta.slug)">
-        <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
+      <offer-item ng-repeat="about in aboutList | filter:{showOnMenu:true} | limitTo: config.offersLimit track by $index">
+        <a ui-sref="aboutUs({code:about.meta.slug})">
+          <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
-        <section>
-          <h2>{{about.title}}</h2>
-          <div ng-bind-html="about.subtitle"></div>
-        </section>
+          <section>
+            <h2>{{about.title}}</h2>
+            <div ng-bind-html="about.subtitle"></div>
+          </section>
 
-        <span class="read-more">_read_more_</span>
+          <span class="read-more">_read_more_</span>
+        </a>
       </offer-item>
     </offers-list>
 
@@ -54,7 +56,7 @@
     <div class="about-content">
       <h1 ng-bind-html="selectedAbout.title | mainHeaderStyle"></h1>
       <img ng-if="!contentConfig.displayContentImageInHeroSlider" ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedAbout.image.alt}}"/>
-      <div ng-bind-html="selectedAbout.text | trustAsHtml" markdown-text-parser></div>
+      <div ng-bind-html="selectedAbout.text | trustAsHtml" markdown-text-parser class="markdown-content"></div>
     </div>
     <button-back role="button" tabindex="0" ng-click="goToAboutList()" class="pull-left">_back_</button-back>
 
@@ -63,15 +65,17 @@
     <h2 ng-if="aboutList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
 
     <offers-list ng-if="aboutList.length > 1">
-      <offer-item ng-repeat="about in aboutList | filter:getRelevant | limitTo: config.offersLimit track by $index" ng-click="goToDetail(about.meta.slug)">
-        <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
+      <offer-item ng-repeat="about in aboutList | filter:getRelevant | limitTo: config.offersLimit track by $index">
+        <a ui-sref="aboutUs({code:about.meta.slug})">
+          <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
 
-        <section>
-          <h2>{{about.title}} </h2>
-          <div ng-bind-html="about.subtitle"></div>
-        </section>
+          <section>
+            <h2>{{about.title}} </h2>
+            <div ng-bind-html="about.subtitle"></div>
+          </section>
 
-        <span class="read-more">_read_more_</span>
+          <span class="read-more">_read_more_</span>
+        </a>
       </offer-item>
     </offers-list>
 

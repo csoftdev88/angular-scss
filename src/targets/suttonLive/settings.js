@@ -10,8 +10,8 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': true,
   'infiniti': {
     'enable': true,
-    'development': 'http://integration-sutton-infiniti.mobiuswebservices.com/track/content/infiniti.js',
-    'integration': 'http://integration-sutton-infiniti.mobiuswebservices.com/track/content/infiniti.js',
+    'development': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
+    'integration': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
     'staging': 'http://staging-prestige.suttonplace.com/track/content/infiniti.js',
     'live': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
@@ -52,6 +52,10 @@ angular.module('mobiusApp.config', [])
     'trackUserId': true,
     'id': 'GTM-5Q9BR2'
   },
+  'hotjar': {
+    'enable': true,
+    'id': '289179'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -59,13 +63,17 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
-      'staging': 'http://staging.api.suttonplace.com:3010/api/4.0/',
+      'staging': 'http://staging-api.suttonplace.com:3010/api/4.0/',
       'live':  'https://api.suttonplace.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': true,
+      'enable': false,
       'search': 'properties/track/search',
       'purchase': 'properties/track/purchase'
+    },
+    'track404s': {
+      'enable':true,
+      'url':'https://errors.2pvservices.com/status'
     },
     'contents': {
       'contents': 'contents',
@@ -136,7 +144,7 @@ angular.module('mobiusApp.config', [])
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
-      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:reservationEmail',
+      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
@@ -310,7 +318,9 @@ angular.module('mobiusApp.config', [])
           'showNoRatesSubDescription': false,
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
-          'rateInfoIsTabbed': false
+          'rateInfoIsTabbed': false,
+          'highlightFirstRate': false,
+          'showSlashThrough': false
         }
 
       },
@@ -616,7 +626,7 @@ angular.module('mobiusApp.config', [])
     ],
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'GBP',
+      'default': 'CAD',
 
       'GBP': {
         'code': 'GBP',
@@ -914,7 +924,7 @@ angular.module('mobiusApp.config', [])
       'family': 'Family',
       'guarantee': 'Guarantee',
       'noShow': 'No Show',
-      'pet': 'Pet'
+      'pet': 'Pets'
     },
     'defaultCountryCode': 'ca',
     'preferredCountryCodes': 'ca,us,gb',

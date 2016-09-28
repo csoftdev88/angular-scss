@@ -73,7 +73,7 @@ describe('mobius.controllers.offers', function() {
 
       module('mobius.controllers.offers', function($provide, $controllerProvider) {
         $provide.value('cookieFactory', function(a){return {}[a];});
-        
+
         $provide.value('breadcrumbsService', {
           clear: sinon.stub().returns(this),
           addBreadCrumb: sinon.stub().returns(this)
@@ -220,12 +220,14 @@ describe('mobius.controllers.offers', function() {
       });
     });
 
+    /*
     describe('goToDetail', function() {
       it('should navigate to offer details page', function(){
         _scope.goToDetail('TEST-CODE');
         expect(_$state.go.calledOnce).equal(true);
       });
     });
+    */
 
     describe('goTooffersList', function() {
       it('should navigate to offers page without code and force state reload', function(){
@@ -254,4 +256,3 @@ describe('mobius.controllers.offers', function() {
     });
   });
 });
-

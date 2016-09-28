@@ -49,20 +49,29 @@ angular.module('mobius.controllers.hotel.subpage', [])
         $scope.info = c;
       }
       else{
-
-        //Pull first image of description to use in moreInfo thumbnails
-        var elem = document.createElement('div');
-        elem.innerHTML = c.description;
-        var images = elem.getElementsByTagName('img');
-        if(images.length){
+        if(c.thumbnail && c.thumbnail.uri)
+        {
           c.image = {};
-          c.image.uri = images[0].src;
-          c.image.alt = images[0].alt;
+          c.image.uri = c.thumbnail.uri;
+          c.image.alt = c.thumbnail.alt;
         }
-        if(elem.parentNode){
-          elem.parentNode.removeChild(elem);
+        else
+        {
+          //Pull first image of description to use in moreInfo thumbnails
+          var elem = document.createElement('div');
+          elem.innerHTML = c.description;
+          var images = elem.getElementsByTagName('img');
+          if(images.length){
+            c.image = {};
+            c.image.uri = images[0].src;
+            c.image.alt = images[0].alt;
+          }
+          if(elem.parentNode){
+            elem.parentNode.removeChild(elem);
+          }
         }
-        
+
+        c.url = getInfoUrl(c);
         $scope.moreInfo.push(c);
       }
     }
@@ -77,7 +86,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
         $scope.updateHeroContent(_.filter(details.images, {includeInSlider: true}));
 
         if(Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle){
-          breadcrumbsService.setHeader(details.nameShort);
+          breadcrumbsService.setHeader(details.nameLong);
         }
 
 
@@ -92,11 +101,18 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         //Get property region/location data for breadcrumbs
         propertyService.getPropertyRegionData(details.locationCode).then(function(propertyRegionData){
-
+          if($stateParams.regionSlug && $stateParams.locationSlug)
+          {
+            //breadcrumbs
+            breadcrumbsService
+              .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
+              .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null});
+          }
+          else {
+            breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
+          }
           //breadcrumbs
           breadcrumbsService
-            .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
-            .addBreadCrumb(propertyRegionData.location.nameShort, 'hotels', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, property: null})
             .addBreadCrumb(details.nameShort, 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug})
             .addBreadCrumb($scope.info.title);
 
@@ -107,7 +123,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
           .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsOffers'})
           .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'jsRooms'})
           .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: details.meta.slug, scrollTo: 'fnOpenLightBox'});
-          
+
         });
 
         // Updating Hero content images
@@ -151,6 +167,17 @@ angular.module('mobius.controllers.hotel.subpage', [])
         scrollTo(hash.substr(1));
       }
     }));
+  }
+
+  function getInfoUrl(info) {
+    var stateParams = {
+      'property': $scope.details.code,
+      'propertySlug': $scope.details.meta.slug,
+      'infoSlug': info.meta.slug,
+      'regionSlug': $stateParams.regionSlug,
+      'locationSlug': $stateParams.locationSlug
+    };
+    return $state.href('hotelInfo', stateParams, {reload: true});
   }
 
   getHotelDetails(bookingService.getCodeFromSlug($stateParams.propertySlug));
