@@ -83,7 +83,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   //If voucher code in query string
-  if($stateParams.voucherCode)
+  if($stateParams.voucherCode && $scope.bookingConfig.vouchers.enable)
   {
     $scope.voucher.verifying = true;
     $scope.voucher.submitted = true;
@@ -628,7 +628,7 @@ angular.module('mobius.controllers.reservation', [])
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
       },
-      voucherCode: $scope.voucher.valid ? $scope.voucher.code.toUpperCase() : null
+      voucherCode: $scope.voucher.valid && $scope.bookingConfig.vouchers.enable ? $scope.voucher.code.toUpperCase() : null
     };
 
     // Adding customerID when logged in
@@ -1204,7 +1204,7 @@ angular.module('mobius.controllers.reservation', [])
   });
 
   $scope.redeemVoucher = function(){
-    if($scope.voucher.code)
+    if($scope.voucher.code && $scope.bookingConfig.vouchers.enable)
     {
       $scope.voucher.verifying = true;
       $scope.voucher.submitted = true;
