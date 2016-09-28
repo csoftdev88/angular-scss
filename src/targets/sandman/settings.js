@@ -336,6 +336,7 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': true,
+          'displayOtaRates': false,
           'highlightFirstRate': true,
           'showSlashThrough': true
         }
@@ -959,6 +960,18 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       }
-    }
+    },
+    'otaRates': [
+      {
+        'name': 'expedia',
+        'logo': '/static/images/expedia_logo.png',
+        'link': 'http://www.google.com'
+      },
+      {
+        'name': 'bookingcom',
+        'logo': '/static/images/bookingcom_logo.png',
+        'link': 'http://www.amazon.co.uk'
+      }
+    ]
   }
 });
