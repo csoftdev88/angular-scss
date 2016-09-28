@@ -86,8 +86,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
             scope.otaProducts = data.otaProducts;
             //stub stubadubdub
-            /*
-            scope.otaProducts = [
+            /*scope.otaProducts = [
               {
                 'price':289
               },
