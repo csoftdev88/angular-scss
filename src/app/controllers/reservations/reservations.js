@@ -59,7 +59,7 @@ angular.module('mobius.controllers.reservations', [])
     );
 
     activeReservations = sortByArrivalDate(activeReservations);
-    fetchProperties(activeReservations);
+    fetchProperties(activeReservations.concat(cancelledReservations));
 
     var futureStays = getFutureStays(activeReservations);
 
