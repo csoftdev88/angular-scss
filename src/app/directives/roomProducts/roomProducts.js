@@ -84,7 +84,9 @@ angular.module('mobiusApp.directives.room.products', [])
 
             scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
 
-            //scope.otaProducts = data.otaProducts;
+            scope.otaProducts = data.otaProducts;
+            //stub stubadubdub
+            /*
             scope.otaProducts = [
               {
                 'price':289
@@ -95,7 +97,7 @@ angular.module('mobiusApp.directives.room.products', [])
               {
                 'price':800
               }
-            ];
+            ];*/
 
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
