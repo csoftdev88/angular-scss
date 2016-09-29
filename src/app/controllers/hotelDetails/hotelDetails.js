@@ -417,11 +417,18 @@ angular.module('mobius.controllers.hotel.details', [
     var paramsData = {
       'property': $scope.details
     };
-    routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params) {
-      $state.go($scope.config.offers.toState, params, {
+    if(Settings.newUrlStructure){
+      routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params) {
+        $state.go($scope.config.offers.toState, params, {
+          reload: true
+        });
+      });
+    }
+    else {
+      $state.go($scope.config.offers.toState, {'propertySlug':$stateParams.propertySlug}, {
         reload: true
       });
-    });
+    }
   };
 
   $scope.getAbsUrl = function() {
