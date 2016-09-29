@@ -76,13 +76,13 @@ module.exports = {
         'bower_components/sinon/lib/sinon/util/timers_ie.js',
         'bower_components/sinon/lib/sinon/util/fake_server.js',
         'bower_components/sinon/lib/sinon/util/fake_server_with_clock.js',
-
         'bower_components/sinon-chai/lib/sinon-chai.js',
-
         'bower_components/angular-underscore-module/angular-underscore-module.js',
         'bower_components/underscore/underscore.js',
         'bower_components/ngmap/build/scripts/ng-map.min.js',
         'bower_components/moment/min/moment.min.js',
+        'bower_components/re-tree/re-tree.min.js',
+        'bower_components/ng-device-detector/ng-device-detector.min.js',
         'karma/init.js',
         'src/app/**/*.js'
       ]
@@ -121,7 +121,9 @@ module.exports = {
         'bower_components/angular-tooltips/dist/angular-tooltips.min.js',
         'bower_components/angularUtils-pagination/dirPagination.js',
         'vendors/jquery-ui/datepicker-translations/de.js',
-        'vendors/jquery-ui/datepicker-translations/fr.js'
+        'vendors/jquery-ui/datepicker-translations/fr.js',
+        'bower_components/re-tree/re-tree.min.js',
+        'bower_components/ng-device-detector/ng-device-detector.min.js',
       ],
       styles: [
         'bower_components/font-awesome/css/font-awesome.min.css',

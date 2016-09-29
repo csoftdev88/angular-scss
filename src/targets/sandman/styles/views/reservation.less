@@ -1043,6 +1043,22 @@ reservation-hotel-details {
         margin-bottom: 14px;
       }
 
+      .room-image-placeholder {
+        width: 100%;
+        height:210px;
+        margin-bottom: 14px;
+        .chain-sand & {
+          background:url('@{img-prefix}/sandman-placeholder-large.jpg') no-repeat;
+          background-size: cover;
+          background-position: center;
+        }
+        .chain-sign & {
+          background:url('@{img-prefix}/signature-placeholder-large.jpg') no-repeat;
+          background-size: cover;
+          background-position: center;
+        }
+      }
+
       button,
       button.disabled {
         height: 39px;

@@ -65,8 +65,8 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': ' http://staging-us-node-sandman.mobiuswebservices.com:3010/api/4.0/',
-      'live':  ' https://api.sandmanhotels.com/api/4.0/'
+      'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
+      'live':  'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
       'enable': false,
@@ -150,7 +150,8 @@ angular.module('mobiusApp.config', [])
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
-      'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true'
+      'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true',
+      'checkVoucher': 'voucher?code=:voucherCode'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
@@ -336,6 +337,7 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': true,
+          'displayOtaRates': false,
           'highlightFirstRate': true,
           'showSlashThrough': true
         }
@@ -724,6 +726,9 @@ angular.module('mobiusApp.config', [])
           'display': true,
           'position': 'top'
         }
+      },
+      'vouchers' : {
+        'enable':false
       }
     },
     'myAccount' : {
@@ -959,6 +964,18 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       }
-    }
+    },
+    'otaRates': [
+      {
+        'name': 'expedia',
+        'logo': '/static/images/expedia_logo.png',
+        'link': 'http://www.google.com'
+      },
+      {
+        'name': 'bookingcom',
+        'logo': '/static/images/bookingcom_logo.png',
+        'link': 'http://www.amazon.co.uk'
+      }
+    ]
   }
 });

@@ -23,6 +23,7 @@ angular
     '720kb.tooltips',
     'angularUtils.directives.dirPagination',
     'angular-growl',
+    'ng.deviceDetector',
 
     // Controllers
     'mobius.controllers.common.sanitize',
@@ -120,6 +121,7 @@ angular
     'mobiusApp.directives.room',
     'mobiusApp.directives.room.aside',
     'mobiusApp.directives.room.products',
+    'mobiusApp.directives.room.otaProducts',
     'mobiusApp.directives.reservation.data',
     'mobiusApp.directives.reservation.details',
     'mobiusApp.directives.equals',
@@ -205,7 +207,7 @@ angular
     controller: 'MainCtrl',
     // NOTE: These params are used by booking widget
     // Can be placed into induvidual state later if needed
-    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode'
+    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucherCode&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode'
   })
 
   // Home page

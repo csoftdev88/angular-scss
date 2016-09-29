@@ -53,6 +53,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
   $scope.additionalInfo = {};
+  $scope.voucher = {};
 
   $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
   $scope.preferredCountryCodes = Settings.UI.preferredCountryCodes;
@@ -80,6 +81,25 @@ angular.module('mobius.controllers.reservation', [])
     state: $state.fromState,
     params: $state.fromParams
   };
+
+  //If voucher code in query string
+  if($stateParams.voucherCode && $scope.bookingConfig.vouchers.enable)
+  {
+    $scope.voucher.verifying = true;
+    $scope.voucher.submitted = true;
+    $scope.voucher.code = $stateParams.voucherCode.toUpperCase();
+
+    //Validate our voucher code
+    reservationService.checkVoucher($scope.voucher.code).then(function(){
+      //If successful display success message
+      $scope.voucher.verifying = false;
+      $scope.voucher.valid = true;
+    }, function(){
+      //If unsuccessful display invalid message
+      $scope.voucher.verifying = false;
+      $scope.voucher.valid = false;
+    });
+  }
 
   $scope.$on('USER_LOGIN_EVENT', function(){
     prefillUserDetails(user.isLoggedIn() ? user.getUser() : {email:$stateParams.email}, true);
@@ -586,7 +606,6 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   function createReservationData() {
-
     var reservationData = {
       guestTitle: $scope.userDetails.title,
       guestFirstName: $scope.userDetails.firstName,
@@ -608,8 +627,8 @@ angular.module('mobius.controllers.reservation', [])
       rooms: getRooms(),
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
-      }
-
+      },
+      voucherCode: $scope.voucher.valid && $scope.bookingConfig.vouchers.enable ? $scope.voucher.code.toUpperCase() : null
     };
 
     // Adding customerID when logged in
@@ -1184,7 +1203,27 @@ angular.module('mobius.controllers.reservation', [])
     }
   });
 
+  $scope.redeemVoucher = function(){
+    if($scope.voucher.code && $scope.bookingConfig.vouchers.enable)
+    {
+      $scope.voucher.verifying = true;
+      $scope.voucher.submitted = true;
 
+      //Validate our voucher code
+      reservationService.checkVoucher($scope.voucher.code.toUpperCase()).then(function(){
+        //If successful display success message and reload state with voucherCode param
+        $scope.voucher.verifying = false;
+        $scope.voucher.valid = true;
+        $stateParams.voucherCode = $scope.voucher.code.toUpperCase();
+        $state.go($state.current, $stateParams, {reload: true});
+      }, function(){
+        //If unsuccessful display invalid message
+        $scope.voucher.verifying = false;
+        $scope.voucher.valid = false;
+        $stateParams.voucherCode = null;
+      });
+    }
+  };
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;
