@@ -627,9 +627,13 @@ angular.module('mobius.controllers.reservation', [])
       rooms: getRooms(),
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
-      },
-      voucherCode: $scope.voucher.valid && $scope.bookingConfig.vouchers.enable ? $scope.voucher.code.toUpperCase() : null
+      }
     };
+
+    if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable)
+    {
+      reservationData.voucherCode = $scope.voucher.code.toUpperCase();
+    }
 
     // Adding customerID when logged in
     if(user.isLoggedIn()){
