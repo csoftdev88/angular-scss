@@ -87,7 +87,8 @@
 {"from":"/revelstoke","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev?property=REV"},
 {"from":"/revelstoke/restaurant-and-lounge","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/rockford-wok-bar-grill?property=REV"},
 {"from":"/revelstoke/pool-fitness","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/pool-and-fitness-centre?property=REV"},
-{"from":"/revelstoke/refinery-day-spa-salon","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/refinery-day-spa?property=REV"},
+{"from":"/revelstoke/refinery-day-spa-salon","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/feather-stone-day-spa?property=REV"},
+{"from":"/hotels/sutton-place-hotel-revelstoke-rev/refinery-day-spa","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/feather-stone-day-spa?property=REV"},
 {"from":"/revelstoke/meetings-events","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/meetings-events-banquets?property=REV"},
 {"from":"/revelstoke/meetings-events/weddings","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/weddings?property=REV"},
 {"from":"/revelstoke/banquet-rooms","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/meetings-events-banquets?property=REV"},
@@ -191,7 +192,3 @@
 {"from":"/prestige/availability.asp","to":"https://prestige.suttonplace.com"},
 {"from":"/prestige/booked.asp","to":"https://prestige.suttonplace.com"}
 ]
-
-
-
-
