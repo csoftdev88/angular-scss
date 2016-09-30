@@ -412,15 +412,24 @@ angular.module('mobius.controllers.hotel.details', [
     }
   };
 
-  $scope.goToOffers = function() {
+  $scope.getOffersHref = function() {
     var paramsData = {
       'property': $scope.details
     };
-    routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params) {
-      $state.go($scope.config.offers.toState, params, {
+    var link = '';
+    if(Settings.newUrlStructure){
+      routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params) {
+        link = $state.href($scope.config.offers.toState, params, {
+          reload: true
+        });
+      });
+    }
+    else {
+      link = $state.href($scope.config.offers.toState, {'propertySlug':$stateParams.propertySlug}, {
         reload: true
       });
-    });
+    }
+    return link;
   };
 
   $scope.getAbsUrl = function() {
