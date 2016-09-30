@@ -151,7 +151,7 @@ angular.module('mobiusApp.config', [])
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
       'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true',
-      'checkVoucher': 'voucher?code=:voucherCode'
+      'checkVoucher': 'voucher?voucher=:voucherCode'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
