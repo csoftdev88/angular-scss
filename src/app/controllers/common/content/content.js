@@ -183,9 +183,16 @@ angular.module('mobius.controllers.common.content', [])
     if(!$scope.settings){
       return null;
     }
-
     var params = createParamsObject(code);
-    var link = $state.href(code?$scope.settings.detailState:$scope.settings.listState, params);
+
+    var toState = code ? $scope.settings.detailState : $scope.settings.listState;
+
+    if($state.params.property && $scope.settings.propertyState && $scope.settings.keepProperty){
+      params[$scope.settings.propertyParamName] = $state.params.propertySlug;
+      toState = $scope.settings.propertyState;
+    }
+
+    var link = $state.href(toState, params, {reload: true});
     return link;
   };
 
