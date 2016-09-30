@@ -174,6 +174,12 @@ angular.module('mobius.controllers.common.content', [])
       }
     }
 
+    //If clicking on a property, updated the property code accordingly before broadcasting
+    if($scope.settings.paramName === 'propertySlug')
+    {
+      stateParams.property = bookingService.getCodeFromSlug(code);
+    }
+
     $timeout(function(){
       $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
     });
