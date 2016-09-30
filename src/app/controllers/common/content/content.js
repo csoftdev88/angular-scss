@@ -220,7 +220,7 @@ angular.module('mobius.controllers.common.content', [])
   function processSettings() {
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
 
-      if($scope.item !== 'hotels') {
+      if($scope.item !== 'hotels' && $scope.item !== 'offers') {
         //Remove all items with showOnMenu false
         data = _.reject(data, function(item){
           return !item.showOnMenu;
@@ -231,11 +231,11 @@ angular.module('mobius.controllers.common.content', [])
 
         //If at chain level, remove items that have showOnMenu = false in main settings
         //showOnMenu should override any setting, commenting this for now
-        /*
+
         if(item.showAtChainLevel && !$state.params.property){
           return item.showOnMenu === false;
         }
-        */
+
 
         if($scope.settings.chainWideOnly){
           return item.showAtChainLevel === false;
