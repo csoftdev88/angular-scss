@@ -165,6 +165,11 @@
                   <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
+                <!-- Discount -->
+                <tr class="main" ng-if="getCountPriceDetail('totalDiscount') != 0">
+                  <th>_discount_:</th>
+                  <td>{{getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</td>
+                </tr>
 
                 <tr class="breakdown-toggle" ng-show="config.reservationDetailPriceBreakdownExtended && reservation">
                   <th></th>
@@ -179,7 +184,7 @@
 
             <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
               <span class="total">_total_:</span>
-              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') | i18nCurrency: defaultCurrencyCode}}</span>
+              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') + getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</span>
               <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
               <a href ng-click="openPoliciesInfo()">_view_policies_</a>
             </div>
