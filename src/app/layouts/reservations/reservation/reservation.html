@@ -155,11 +155,16 @@
                   <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
+                <tr ng-if="getTotal('totalDiscount')">
+                  <th>_discount_:</th>
+                  <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
+                </tr>
+
                 <tr class="main">
                   <th>_total_:</th>
-                  <td ng-switch-when="cc">{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
+                  <td ng-switch-when="cc">{{getTotal('totalAfterTax') + getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
                   <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
-                  <td ng-switch-default>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
+                  <td ng-switch-default>{{getTotal('totalAfterTax') + getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
                 </tr>
                 <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
                   <th></th>
@@ -178,13 +183,6 @@
                 <tr ng-if="getTotal('totalAdditionalFees')">
                   <th>_fees_:</th>
                   <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
-                </tr>
-                -->
-
-                <!-- Discount
-                <tr ng-if="getTotal('totalDiscount')">
-                  <th>_discount_:</th>
-                  <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
                 -->
 
