@@ -258,17 +258,19 @@ angular.module('mobius.controllers.reservation', [])
           var params = getCheckVoucherParams();
 
           //Validate our voucher code
-          reservationService.checkVoucher(params).then(function(){
-            //If successful display success message
-            $scope.voucher.verifying = false;
-            $scope.voucher.valid = true;
-            $scope.voucher.submitted = true;
-            $scope.voucher.code = $stateParams.voucher.toUpperCase();
+          reservationService.checkVoucher(params).then(function(voucherData){
+            if(voucherData.valid)
+            {
+              $scope.voucher.verifying = false;
+              $scope.voucher.valid = true;
+              $scope.voucher.submitted = true;
+              $scope.voucher.code = $stateParams.voucher.toUpperCase();
+            }
+            else {
+              invalidVoucher();
+            }
           }, function(){
-            //If unsuccessful display invalid message
-            $scope.voucher.verifying = false;
-            $scope.voucher.valid = false;
-            $scope.voucher.submitted = false;
+            invalidVoucher();
           });
         }
       }
@@ -1218,20 +1220,29 @@ angular.module('mobius.controllers.reservation', [])
 
       var params = getCheckVoucherParams();
 
-      reservationService.checkVoucher(params).then(function(){
-        //If successful display success message and reload state with voucher param
-        $scope.voucher.verifying = false;
-        $scope.voucher.valid = true;
-        $stateParams.voucher = $scope.voucher.code.toUpperCase();
-        $state.go($state.current, $stateParams, {reload: true});
+      reservationService.checkVoucher(params).then(function(voucherData){
+        if(voucherData.valid)
+        {
+          //If successful display success message and reload state with voucher param
+          $scope.voucher.verifying = false;
+          $scope.voucher.valid = true;
+          $stateParams.voucher = $scope.voucher.code.toUpperCase();
+          $state.go($state.current, $stateParams, {reload: true});
+        }
+        else {
+          invalidVoucher();
+        }
       }, function(){
-        //If unsuccessful display invalid message
-        $scope.voucher.verifying = false;
-        $scope.voucher.valid = false;
-        $stateParams.voucher = null;
+        invalidVoucher();
       });
     }
   };
+
+  function invalidVoucher(){
+    $scope.voucher.verifying = false;
+    $scope.voucher.valid = false;
+    $stateParams.voucher = null;
+  }
 
   function getCheckVoucherParams(){
     var params = {};
