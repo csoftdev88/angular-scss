@@ -264,6 +264,8 @@ angular.module('mobius.controllers.hotel.details', [
           $scope.ratesLoaded = true;
         }
 
+        setPropertyOffersUrl();
+
         var offersParams = $window._.extend({}, bookingParams);
         delete offersParams.promoCode;
         delete offersParams.corpCode;
@@ -412,26 +414,6 @@ angular.module('mobius.controllers.hotel.details', [
     }
   };
 
-  $scope.getOffersHref = function() {
-    var paramsData = {
-      'property': $scope.details
-    };
-    var link = '';
-    if(Settings.newUrlStructure){
-      routerService.buildStateParams($scope.config.offers.toState, paramsData).then(function(params) {
-        link = $state.href($scope.config.offers.toState, params, {
-          reload: true
-        });
-      });
-    }
-    else {
-      link = $state.href($scope.config.offers.toState, {'propertySlug':$stateParams.propertySlug}, {
-        reload: true
-      });
-    }
-    return link;
-  };
-
   $scope.getAbsUrl = function() {
     return $location.absUrl().split('?')[0];
   };
@@ -506,6 +488,26 @@ angular.module('mobius.controllers.hotel.details', [
     $timeout(function() {
       scrollService.scrollTo(target, 20);
     }, 100);
+  }
+
+  function setPropertyOffersUrl() {
+    var paramsData = {
+      'property': $scope.details
+    };
+    var toState = $scope.config.offers.toState;
+
+    if(Settings.newUrlStructure){
+      routerService.buildStateParams(toState, paramsData).then(function(params) {
+        $scope.propertyOffersHref = $state.href(toState, params, {
+          reload: true
+        });
+      });
+    }
+    else {
+      $scope.propertyOffersHref = $state.href(toState, {'propertySlug':$stateParams.propertySlug}, {
+        reload: true
+      });
+    }
   }
 
   function getContentUrl(item) {
