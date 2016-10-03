@@ -82,25 +82,6 @@ angular.module('mobius.controllers.reservation', [])
     params: $state.fromParams
   };
 
-  //If voucher code in query string
-  if($stateParams.voucherCode && $scope.bookingConfig.vouchers.enable)
-  {
-    $scope.voucher.verifying = true;
-    $scope.voucher.submitted = true;
-    $scope.voucher.code = $stateParams.voucherCode.toUpperCase();
-
-    //Validate our voucher code
-    reservationService.checkVoucher($scope.voucher.code).then(function(){
-      //If successful display success message
-      $scope.voucher.verifying = false;
-      $scope.voucher.valid = true;
-    }, function(){
-      //If unsuccessful display invalid message
-      $scope.voucher.verifying = false;
-      $scope.voucher.valid = false;
-    });
-  }
-
   $scope.$on('USER_LOGIN_EVENT', function(){
     prefillUserDetails(user.isLoggedIn() ? user.getUser() : {email:$stateParams.email}, true);
   });
@@ -244,6 +225,7 @@ angular.module('mobius.controllers.reservation', [])
 
   function getRoomPromise(room){
     return $scope.getRoomData($stateParams.property, room.roomID).then(function(data){
+
       var roomData = data.roomDetails;
       var product = _.findWhere(data.roomProductDetails.products,
         {
@@ -267,6 +249,29 @@ angular.module('mobius.controllers.reservation', [])
           if(multiRoomDataLoaded === multiRoomData.length){
             trackProductCheckout(1);
           }
+        }
+
+        //If voucher code in query string
+        if($stateParams.voucher && $scope.bookingConfig.vouchers.enable)
+        {
+          $scope.voucher.verifying = true;
+          var params = getCheckVoucherParams();
+
+          //Validate our voucher code
+          reservationService.checkVoucher(params).then(function(voucherData){
+            if(voucherData.valid)
+            {
+              $scope.voucher.verifying = false;
+              $scope.voucher.valid = true;
+              $scope.voucher.submitted = true;
+              $scope.voucher.code = $stateParams.voucher.toUpperCase();
+            }
+            else {
+              invalidVoucher();
+            }
+          }, function(){
+            invalidVoucher();
+          });
         }
       }
 
@@ -627,9 +632,13 @@ angular.module('mobius.controllers.reservation', [])
       rooms: getRooms(),
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
-      },
-      voucherCode: $scope.voucher.valid && $scope.bookingConfig.vouchers.enable ? $scope.voucher.code.toUpperCase() : null
+      }
     };
+
+    if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable)
+    {
+      reservationData.voucher = $scope.voucher.code.toUpperCase();
+    }
 
     // Adding customerID when logged in
     if(user.isLoggedIn()){
@@ -1209,21 +1218,68 @@ angular.module('mobius.controllers.reservation', [])
       $scope.voucher.verifying = true;
       $scope.voucher.submitted = true;
 
-      //Validate our voucher code
-      reservationService.checkVoucher($scope.voucher.code.toUpperCase()).then(function(){
-        //If successful display success message and reload state with voucherCode param
-        $scope.voucher.verifying = false;
-        $scope.voucher.valid = true;
-        $stateParams.voucherCode = $scope.voucher.code.toUpperCase();
-        $state.go($state.current, $stateParams, {reload: true});
+      var params = getCheckVoucherParams();
+
+      reservationService.checkVoucher(params).then(function(voucherData){
+        if(voucherData.valid)
+        {
+          //If successful display success message and reload state with voucher param
+          $scope.voucher.verifying = false;
+          $scope.voucher.valid = true;
+          $stateParams.voucher = $scope.voucher.code.toUpperCase();
+          $state.go($state.current, $stateParams, {reload: true});
+        }
+        else {
+          invalidVoucher();
+        }
       }, function(){
-        //If unsuccessful display invalid message
-        $scope.voucher.verifying = false;
-        $scope.voucher.valid = false;
-        $stateParams.voucherCode = null;
+        invalidVoucher();
       });
     }
   };
+
+  function invalidVoucher(){
+    $scope.voucher.verifying = false;
+    $scope.voucher.valid = false;
+    $stateParams.voucher = null;
+  }
+
+  function getCheckVoucherParams(){
+    var params = {};
+    var date = $stateParams.dates.split('_');
+
+    if(date.length){
+      var fromDate = date[0];
+      var toDate = date[1];
+
+      params.voucher = $scope.voucher.code;
+      params.from = fromDate;
+      params.to = toDate;
+      params.adults = $stateParams.adults;
+      params.children = $stateParams.children;
+
+      if($scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId)
+      {
+        params.productPropertyRoomType = $scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId;
+      }
+      if($stateParams.promoCode !== null)
+      {
+        params.promoCode = $stateParams.promoCode;
+      }
+      if($stateParams.corpCode !== null)
+      {
+        params.corpCode = $stateParams.corpCode;
+      }
+      if($stateParams.groupCode !== null)
+      {
+        params.groupCode = $stateParams.groupCode;
+      }
+      if(userObject){
+        params.customerId = userObject.id;
+      }
+    }
+    return params;
+  }
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;

@@ -64,7 +64,7 @@ angular.module('mobiusApp.config', [])
       'development': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'staging': '//staging.suttonplace.com/api/4.0/',
-      'live':  'https://www.suttonplace.com/api/4.0/'    
+      'live':  'https://www.suttonplace.com/api/4.0/'
     },
     'mobiusTracking': {
       'enable': false,
@@ -245,7 +245,7 @@ angular.module('mobiusApp.config', [])
       'offerlimitedToChainWide': false,
       'offersKeepProperty': true,
       'offerSpecificToSelectedProperty': true,
-      'maxOffersCount': 7,
+      'maxOffersCount': 6,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': true,

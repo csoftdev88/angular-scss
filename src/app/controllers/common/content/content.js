@@ -174,6 +174,12 @@ angular.module('mobius.controllers.common.content', [])
       }
     }
 
+    //If clicking on a property, updated the property code accordingly before broadcasting
+    if($scope.settings.paramName === 'propertySlug')
+    {
+      stateParams.property = bookingService.getCodeFromSlug(code);
+    }
+
     $timeout(function(){
       $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
     });
@@ -183,9 +189,16 @@ angular.module('mobius.controllers.common.content', [])
     if(!$scope.settings){
       return null;
     }
-
     var params = createParamsObject(code);
-    var link = $state.href(code?$scope.settings.detailState:$scope.settings.listState, params);
+
+    var toState = code ? $scope.settings.detailState : $scope.settings.listState;
+
+    if($state.params.property && $scope.settings.propertyState && $scope.settings.keepProperty){
+      params[$scope.settings.propertyParamName] = $state.params.propertySlug;
+      toState = $scope.settings.propertyState;
+    }
+
+    var link = $state.href(toState, params, {reload: true});
     return link;
   };
 
@@ -220,7 +233,7 @@ angular.module('mobius.controllers.common.content', [])
   function processSettings() {
     services[$scope.settings.service][$scope.settings.method]().then(function(data) {
 
-      if($scope.item !== 'hotels') {
+      if($scope.item !== 'hotels' && $scope.item !== 'offers') {
         //Remove all items with showOnMenu false
         data = _.reject(data, function(item){
           return !item.showOnMenu;
@@ -231,11 +244,11 @@ angular.module('mobius.controllers.common.content', [])
 
         //If at chain level, remove items that have showOnMenu = false in main settings
         //showOnMenu should override any setting, commenting this for now
-        /*
+
         if(item.showAtChainLevel && !$state.params.property){
           return item.showOnMenu === false;
         }
-        */
+
 
         if($scope.settings.chainWideOnly){
           return item.showAtChainLevel === false;
