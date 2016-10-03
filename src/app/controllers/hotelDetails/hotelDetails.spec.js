@@ -118,7 +118,8 @@ describe('mobius.controllers.hotel.details', function() {
         $provide.value('scrollService', {scrollTo: function(){}});
 
         $provide.value('$state', {
-          go: function(){}
+          go: function(){},
+          href: function(){}
         });
 
         $provide.value('contentService', {
@@ -136,7 +137,9 @@ describe('mobius.controllers.hotel.details', function() {
           }
         });
 
-        $provide.value('$stateParams', {});
+        $provide.value('$stateParams', {
+          propertySlug: 'vancouver'
+        });
 
         $provide.value('Settings', {
           UI: {
@@ -146,7 +149,10 @@ describe('mobius.controllers.hotel.details', function() {
                 location: true
               },
               defaultNumberOfRooms: 2,
-              rooms: {}
+              rooms: {},
+              offers: {
+                toState: 'propertyHotDeals'
+              }
             },
             viewsSettings: {
               hotelDetails:{
