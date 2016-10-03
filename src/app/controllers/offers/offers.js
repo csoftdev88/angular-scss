@@ -104,6 +104,7 @@ angular.module('mobius.controllers.offers', [])
         });
       } else {
         propertyService.getAll().then(function(properties) {
+
           //property details
           var property = _.find(properties, function(prop) {
             return prop.meta.slug === $stateParams.propertySlug;
@@ -118,13 +119,25 @@ angular.module('mobius.controllers.offers', [])
             var availability = _.find(offer.offerAvailability, function(availability) {
               return availability.property === property.code;
             });
-            offers[index].availability = availability && availability.showOnOffersPage ? availability : null;
-            return availability && availability.showOnOffersPage;
+            offers[index].availability = availability && (availability.showOnOffersPage || offer.meta.slug === $stateParams.code) ? availability : null;
+            return availability && (availability.showOnOffersPage || offer.meta.slug === $stateParams.code);
           });
 
           $scope.offersList = _.sortBy(offers, 'prio').reverse();
 
           _.each($scope.offersList, function(offer) {
+            if(offer.offerAvailability[0])
+            {
+              if(offer.meta.slug === $stateParams.code){
+                offer.hideFromExtraOffers = true;
+              }
+              else{
+                offer.hideFromExtraOffers = !offer.offerAvailability[0].showOnOffersPage;
+              }
+            }
+            else {
+              offer.hideFromExtraOffers = true;
+            }
             setOfferUrl(offer);
           });
 
@@ -180,11 +193,9 @@ angular.module('mobius.controllers.offers', [])
 
                 //if specific hotdeal, ignore showOnOffersPage so it can be accessed from elsewhere but won't show on overview page, otherwise remove availabilities with showOnOffersPage: false
                 if ($stateParams.code) {
-                  //console.log('this one');
                   offer.offerAvailability = _.reject(offer.offerAvailability, function(availability) {
                     return availability.property !== curProperty.code;
                   });
-                  //console.log(offer.offerAvailability);
                   if(offer.offerAvailability[0])
                   {
                     if(offer.meta.slug === $stateParams.code){
@@ -388,6 +399,7 @@ angular.module('mobius.controllers.offers', [])
     selectedOfferIndex = _.findIndex($scope.offersList, {
       code: code
     });
+
     if (selectedOfferIndex < 0) {
       return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {
         code: null

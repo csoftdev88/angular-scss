@@ -281,6 +281,9 @@ angular.module('mobius.controllers.reservationDetail', [])
           if(user.isLoggedIn()){
             $state.go('reservations');
           }
+          else {
+            $state.go('home');
+          }
 
         }, function(error){
           if (error && error.error && error.error.msg) {

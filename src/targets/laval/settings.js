@@ -169,7 +169,8 @@ angular.module('mobiusApp.config', [])
         'customerId': null,
         'channel': null,
         'sessionId': null
-      }
+      },
+      'channelIdCookie' : 'ChannelID'
     },
     'rewards': {
       // NOTE: Inconsistent API
