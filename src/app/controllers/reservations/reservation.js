@@ -53,6 +53,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
   $scope.additionalInfo = {};
+  $scope.voucher = {};
 
   $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
   $scope.preferredCountryCodes = Settings.UI.preferredCountryCodes;
@@ -224,6 +225,7 @@ angular.module('mobius.controllers.reservation', [])
 
   function getRoomPromise(room){
     return $scope.getRoomData($stateParams.property, room.roomID).then(function(data){
+
       var roomData = data.roomDetails;
       var product = _.findWhere(data.roomProductDetails.products,
         {
@@ -247,6 +249,29 @@ angular.module('mobius.controllers.reservation', [])
           if(multiRoomDataLoaded === multiRoomData.length){
             trackProductCheckout(1);
           }
+        }
+
+        //If voucher code in query string
+        if($stateParams.voucher && $scope.bookingConfig.vouchers.enable)
+        {
+          $scope.voucher.verifying = true;
+          var params = getCheckVoucherParams();
+
+          //Validate our voucher code
+          reservationService.checkVoucher(params).then(function(voucherData){
+            if(voucherData.valid)
+            {
+              $scope.voucher.verifying = false;
+              $scope.voucher.valid = true;
+              $scope.voucher.submitted = true;
+              $scope.voucher.code = $stateParams.voucher.toUpperCase();
+            }
+            else {
+              invalidVoucher();
+            }
+          }, function(){
+            invalidVoucher();
+          });
         }
       }
 
@@ -486,6 +511,11 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isContinueDisabled = function(){
+    //disable when validating voucher
+    if($scope.voucher.verifying)
+    {
+      return true;
+    }
     //disbale when making reservation
     if($state.is('reservation.confirmation') && $scope.isMakingReservation) {
       return true;
@@ -586,7 +616,6 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   function createReservationData() {
-
     var reservationData = {
       guestTitle: $scope.userDetails.title,
       guestFirstName: $scope.userDetails.firstName,
@@ -609,8 +638,12 @@ angular.module('mobius.controllers.reservation', [])
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
       }
-
     };
+
+    if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable)
+    {
+      reservationData.voucher = $scope.voucher.code.toUpperCase();
+    }
 
     // Adding customerID when logged in
     if(user.isLoggedIn()){
@@ -1184,7 +1217,75 @@ angular.module('mobius.controllers.reservation', [])
     }
   });
 
+  $scope.redeemVoucher = function(){
+    if($scope.voucher.code && $scope.bookingConfig.vouchers.enable)
+    {
+      $scope.voucher.verifying = true;
 
+      var params = getCheckVoucherParams();
+
+      reservationService.checkVoucher(params).then(function(voucherData){
+        if(voucherData.valid)
+        {
+          //If successful display success message and reload state with voucher param
+          $scope.voucher.verifying = false;
+          $scope.voucher.valid = true;
+          $scope.voucher.submitted = true;
+          $stateParams.voucher = $scope.voucher.code.toUpperCase();
+          $state.go($state.current, $stateParams, {reload: true});
+        }
+        else {
+          invalidVoucher();
+        }
+      }, function(){
+        invalidVoucher();
+      });
+    }
+  };
+
+  function invalidVoucher(){
+    $scope.voucher.verifying = false;
+    $scope.voucher.valid = false;
+    $stateParams.voucher = null;
+    $scope.voucher.submitted = true;
+  }
+
+  function getCheckVoucherParams(){
+    var params = {};
+    var date = $stateParams.dates.split('_');
+
+    if(date.length){
+      var fromDate = date[0];
+      var toDate = date[1];
+
+      params.voucher = $scope.voucher.code ? $scope.voucher.code : $stateParams.voucher;
+      params.from = fromDate;
+      params.to = toDate;
+      params.adults = $stateParams.adults;
+      params.children = $stateParams.children;
+
+      if($scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId)
+      {
+        params.productPropertyRoomType = $scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId;
+      }
+      if($stateParams.promoCode !== null)
+      {
+        params.promoCode = $stateParams.promoCode;
+      }
+      if($stateParams.corpCode !== null)
+      {
+        params.corpCode = $stateParams.corpCode;
+      }
+      if($stateParams.groupCode !== null)
+      {
+        params.groupCode = $stateParams.groupCode;
+      }
+      if(userObject){
+        params.customerId = userObject.id;
+      }
+    }
+    return params;
+  }
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');
   $scope.getCreditCardDetails = creditCardTypeService.getCreditCardDetails;

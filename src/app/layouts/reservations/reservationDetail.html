@@ -60,7 +60,8 @@
 
       <div class="tables">
         <figure ng-switch="isEditable && reservation.status !== 'Cancelled'">
-          <img ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+          <img ng-if="roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+          <div ng-if="!roomDetails.images[0].uri" class="room-image-placeholder"></div>
           <!-- TODO: Add actions to buttons -->
           <button ng-switch-when="true" class="button" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}" ng-if="!reservation.isInThePast">_modify_</button>
           <button ng-switch-when="true" class="button-gray" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()" ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}" ng-if="!reservation.isInThePast">_cancel_</button>
@@ -164,6 +165,11 @@
                   <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
+                <!-- Discount -->
+                <tr class="main" ng-if="getCountPriceDetail('totalDiscount') != 0">
+                  <th>_discount_:</th>
+                  <td>{{getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</td>
+                </tr>
 
                 <tr class="breakdown-toggle" ng-show="config.reservationDetailPriceBreakdownExtended && reservation">
                   <th></th>
@@ -178,7 +184,7 @@
 
             <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
               <span class="total">_total_:</span>
-              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') | i18nCurrency: defaultCurrencyCode}}</span>
+              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') + getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</span>
               <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
               <a href ng-click="openPoliciesInfo()">_view_policies_</a>
             </div>

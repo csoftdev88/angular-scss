@@ -110,7 +110,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           'field': ''
         },
         'rate': {
-          'search': 'productGroupId',
+          'search': 'rate',
           'type': 'integer',
           'required': false,
           'field': ''
@@ -333,8 +333,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           if(!rate) {
             // Property with the same name doesn't exist - URL param is invalid and should be removed.
             queryService.removeParam(rateSettings.search);
-          } else {
-            scope.selected.rate = rateId;
           }
         }
       }
@@ -511,18 +509,18 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             to: getAvailabilityCheckDate(dates.to, scope.settings.availability.to),
             adults: scope.selected.adults.value,
             children: scope.selected.children ? scope.selected.children.value : 0,
-            productGroupId: scope.selected.rate
+            rate: scope.selected.rate.id
           };
 
           var qBookingParam = $q.defer();
 
           // Using PGID from the booking params
-          if(params.productGroupId){
+          if(params.rate){
             qBookingParam.resolve(params);
           } else {
             filtersService.getBestRateProduct().then(function(brp){
               if(brp){
-                params.productGroupId = brp.id;
+                params.rate = brp.id;
               }
               qBookingParam.resolve(params);
             });

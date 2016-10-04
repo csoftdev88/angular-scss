@@ -19,7 +19,8 @@ angular.module('mobiusApp.services.booking', [])
     'roomSlug': 'roomSlug',
     'promoCode': 'promoCode',
     'corpCode': 'corpCode',
-    'groupCode': 'groupCode'
+    'groupCode': 'groupCode',
+    'voucher': 'voucher'
   };
 
   var API_PARAM_FROM = 'from';
@@ -56,6 +57,8 @@ angular.module('mobiusApp.services.booking', [])
       params.groupCode = $stateParams.groupCode;
     }
 
+    params.voucher = $stateParams.voucher;
+
     return params;
   }
 
@@ -74,6 +77,7 @@ angular.module('mobiusApp.services.booking', [])
     $stateParams.corpCode = null;
     $stateParams.groupCode = null;
     $stateParams.fromSearch = null;
+    $stateParams.voucher = null;
   }
 
   function datesFromString(str){
@@ -245,5 +249,5 @@ angular.module('mobiusApp.services.booking', [])
     updateOfferCode: updateOfferCode,
     updateDiscountCode: updateDiscountCode
   };
-  
+
 });
