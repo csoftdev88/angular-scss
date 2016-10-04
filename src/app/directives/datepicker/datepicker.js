@@ -27,6 +27,8 @@ angular.module('mobiusApp.directives.datepicker', [])
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
       var resizeUnbindHandler;
 
+      var originalWidth = $window.innerWidth;
+
       var startDate, endDate;
       var rangeSelection = attrs.rangeSelection === '1';
       var forceEndDate = attrs.forceEndDate ? attrs.forceEndDate : false;
@@ -330,7 +332,11 @@ angular.module('mobiusApp.directives.datepicker', [])
 
         resizeUnbindHandler = scope.$on(EVENT_VIEWPORT_RESIZE, function(){
           if(resizeUnbindHandler){
-            element.datepicker('hide');
+            var width = $window.innerWidth;
+            if(originalWidth !== width)
+            {
+              element.datepicker('hide');
+            }
           }
         });
       }
