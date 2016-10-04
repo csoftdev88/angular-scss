@@ -968,13 +968,11 @@ angular.module('mobiusApp.config', [])
     'otaRates': [
       {
         'name': 'expedia',
-        'logo': '/static/images/expedia_logo.png',
-        'link': 'http://www.google.com'
+        'logo': '/static/images/expedia_logo.png'
       },
       {
         'name': 'bookingcom',
-        'logo': '/static/images/bookingcom_logo.png',
-        'link': 'http://www.amazon.co.uk'
+        'logo': '/static/images/bookingcom_logo.png'
       }
     ]
   }
