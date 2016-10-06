@@ -242,7 +242,7 @@ angular.module('mobius.controllers.common.content', [])
         //If at chain level, remove items that have showOnMenu = false in main settings
         //showOnMenu should override any setting, commenting this for now
 
-        if(item.showAtChainLevel && !$state.params.propertySlug){
+        if(item.showAtChainLevel && !$state.params.property){
           return item.showOnMenu === false;
         }
 
@@ -252,7 +252,7 @@ angular.module('mobius.controllers.common.content', [])
         }
 
         //If on a property, remove items that have showOnMenu = false in offerAvailability
-        if($state.params.property && $state.params.propertySlug){
+        if($state.params.property){
           var availability = _.find(item.offerAvailability, function(availability){
             return availability.property === $state.params.property;
           });
