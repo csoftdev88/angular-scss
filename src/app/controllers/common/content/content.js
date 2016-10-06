@@ -190,16 +190,13 @@ angular.module('mobius.controllers.common.content', [])
       return null;
     }
     var params = createParamsObject(code);
-
     var toState = code ? $scope.settings.detailState : $scope.settings.listState;
 
-    if($state.params.property && $scope.settings.propertyState && $scope.settings.keepProperty){
+    if($state.params.propertySlug && $scope.settings.propertyState && $scope.settings.keepProperty){
       params[$scope.settings.propertyParamName] = $state.params.propertySlug;
       toState = $scope.settings.propertyState;
     }
-
-    var link = $state.href(toState, params, {reload: true});
-    return link;
+    return $state.href(toState, params, {reload: true});
   };
 
   $scope.goToState = function($event, code, viewAll){
@@ -281,7 +278,8 @@ angular.module('mobius.controllers.common.content', [])
           var availability = null;
           var availabilitySlug = null;
 
-          if(!$scope.settings.chainWideOnly){
+          //Only filter by property if there is a property slug in the current URL
+          if(!$scope.settings.chainWideOnly && $state.params.propertySlug){
             availability = _.find(item.offerAvailability, function(availability){
               return availability.property === $state.params.property;
             });
