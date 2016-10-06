@@ -196,35 +196,15 @@ angular.module('mobius.controllers.common.content', [])
       params[$scope.settings.propertyParamName] = $state.params.propertySlug;
       toState = $scope.settings.propertyState;
     }
+
     return $state.href(toState, params, {reload: true});
   };
 
-  $scope.goToState = function($event, code, viewAll){
+  $scope.bookingBarBroadcast = function(code){
     if(!$scope.settings){
       return null;
     }
-    var params = createParamsObject(code);
-    $event.preventDefault();
-    $event.stopPropagation();
-
     broadcast(code);
-
-    var toState = code ? $scope.settings.detailState : $scope.settings.listState;
-
-    if($state.params.property && $scope.settings.propertyState && $scope.settings.keepProperty){
-      params[$scope.settings.propertyParamName] = $state.params.propertySlug;
-      toState = $scope.settings.propertyState;
-    }
-
-    //see all link scroll to
-    if($scope.settings.seeAllLinkScrollToAnchor && $scope.hasFilteredItems($scope.content) && !$scope.hasSecondLevelDropdown || $scope.settings.maxItemsCount && $scope.settings.maxItemsCount < $scope.content.length && viewAll){
-      params.scrollTo = $scope.settings.seeAllLinkScrollToAnchor;
-    }
-    else{
-      params.scrollTo = null;
-    }
-
-    $state.go(toState, params, {reload: true});
   };
 
   function processSettings() {
