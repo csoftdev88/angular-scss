@@ -12,7 +12,7 @@
     -->
     <!-- visible when filtered flag for item is set with true -->
     <li ng-repeat="item in content | filteredContent | limitTo: (settings.maxItemsCount ? settings.maxItemsCount : content.length)">
-      <a ng-href="{{getStateHref(item.code)}}" ng-click="bookingBarBroadcast(item.code)">
+      <a ng-href="{{getStateHref(item)}}" ng-click="bookingBarBroadcast(item.code)">
         {{item.title}}
         <span>{{item.subtitle}}</span>
       </a>
@@ -26,7 +26,7 @@
         <a ng-href class="submenu-link">_see_all_ {{settings.listState}}</a>
         <ul class="dropdown-menu submenu">
           <li ng-repeat="item in content | limitTo: (settings.maxItemsCount ? settings.maxItemsCount : content.length)">
-            <a ng-href="{{getStateHref(item.code)}}" ng-click="bookingBarBroadcast(item.code)">
+            <a ng-href="{{getStateHref(item)}}" ng-click="bookingBarBroadcast(item.code)">
               {{item.title}}
               <span>{{item.subtitle}}</span></a>
           </li>

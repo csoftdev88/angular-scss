@@ -185,7 +185,8 @@ angular.module('mobius.controllers.common.content', [])
     });
   }
 
-  $scope.getStateHref = function(code){
+  $scope.getStateHref = function(item){
+    var code = item ? item.code : null;
     if(!$scope.settings){
       return null;
     }
@@ -195,6 +196,12 @@ angular.module('mobius.controllers.common.content', [])
     if($state.params.propertySlug && $scope.settings.propertyState && $scope.settings.keepProperty){
       params[$scope.settings.propertyParamName] = $state.params.propertySlug;
       toState = $scope.settings.propertyState;
+    }
+
+    if(item && toState === 'regions')
+    {
+      params.regionSlug = item.title.toLowerCase().replace(' ', '-');
+      console.log(params);
     }
 
     return $state.href(toState, params, {reload: true});
