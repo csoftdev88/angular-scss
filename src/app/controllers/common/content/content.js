@@ -198,10 +198,9 @@ angular.module('mobius.controllers.common.content', [])
       toState = $scope.settings.propertyState;
     }
 
-    if(item && toState === 'regions')
+    if(item && item.meta && toState === 'regions')
     {
-      params.regionSlug = item.title.toLowerCase().replace(' ', '-');
-      console.log(params);
+      params.regionSlug = item.meta.slug;
     }
 
     return $state.href(toState, params, {reload: true});
@@ -277,7 +276,8 @@ angular.module('mobius.controllers.common.content', [])
             code: $scope.settings.slug ? availabilitySlug || item.meta.slug : item.code,
             title: availability && availability[$scope.settings.title] && availability[$scope.settings.title] !== '' ? availability[$scope.settings.title] : item[$scope.settings.title],
             subtitle: availability && availability[$scope.settings.subtitle] && availability[$scope.settings.subtitle] !== '' ? availability[$scope.settings.subtitle] : item[$scope.settings.subtitle],
-            filtered: isFiltered(item)
+            filtered: isFiltered(item),
+            meta: item.meta
           };
 
         }).value();
