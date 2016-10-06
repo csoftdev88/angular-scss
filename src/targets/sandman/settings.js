@@ -824,7 +824,7 @@ angular.module('mobiusApp.config', [])
       },
       'locationMap':{
         'displayMainTitle': false,
-        'displayGoogleMapsLink': false,
+        'displayGoogleMapsLink': true,
         'displayIcons': true,
         'directionsLink':{
           'display': false,
