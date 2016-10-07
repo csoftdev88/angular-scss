@@ -578,7 +578,7 @@ angular
         ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
       }
     }
-    return ret.join(' ');
+    return ret.join('&');
   }
 
   var userLang = user.getUserLanguage();
@@ -624,7 +624,7 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, scrollService,
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, stateService, scrollService,
   metaInformationService, Settings, propertyService, $window, breadcrumbsService, user, cookieFactory) {
 
   $controller('ReservationUpdateCtrl', {
@@ -638,6 +638,20 @@ angular
   });
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
+
+    //Sandman specific HACK to intercept French if NOT on a quebec page
+    if (Settings.sandmanFrenchOverride) {
+
+      var userLang = user.getUserLanguage();
+      var appLang = stateService.getAppLanguageCode();
+
+      //If user language is french and URL does not contain quebec, switch back to english
+      if ((appLang === 'fr' || userLang === 'fr') && toParams.regionSlug !== 'quebec') {
+        user.storeUserLanguage('en-us');
+        var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
+        $window.location.replace(nonFrenchUrl);
+      }
+    }
 
     //if applyChainClassToBody, get property details and add its chain as body class for styling
     if (Settings.UI.generics.applyChainClassToBody) {
@@ -687,31 +701,16 @@ angular
       $scope.sso.trackPageLeave();
     }
     metaInformationService.reset();
+
+
   });
 
   $scope.$on('$stateChangeSuccess', function() {
-
     //Sandman specific HACK to display french on quebec pages
     if (Settings.sandmanFrenchOverride) {
-      var currentURL = $state.href($state.current.name, {}, {
-        absolute: true
-      });
-      var userLang = user.getUserLanguage();
-
-      //If user language is french and URL does not contain quebec, switch back to english
-      if (userLang && userLang === 'fr' && currentURL.indexOf('/locations/quebec') === -1) {
-        var language_code = userLang;
-        var path = $location.path();
-        var search = encodeQueryData($location.search());
-        var hash = $location.hash();
-        if (language_code === 'fr') {
-          user.storeUserLanguage('en-us');
-          $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
-        }
-      }
 
       //If current URL contains /locations/quebec show language options and display alert if not already shown
-      if (currentURL.indexOf('/locations/quebec') !== -1) {
+      if ($state.params && $state.params.regionSlug === 'quebec') {
         $rootScope.showLanguages = true;
         if (!cookieFactory('languageAlertDisplay')) {
           $timeout(function() {
@@ -735,16 +734,4 @@ angular
       }
     }
   });
-
-  function encodeQueryData(data) {
-    var ret = [];
-    for (var d in data) {
-      if (data.hasOwnProperty(d)) {
-        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-      }
-    }
-    return ret.join(' ');
-  }
-
-
 });
