@@ -4,7 +4,7 @@
     <div class="inner">
       <h1 ng-if="isProperty && config.displayPropertyTitle">{{breadcrumbHeader}}</h1>
       <ul class="crumbs">
-        <li ng-if="showHomeBreadCrumb"><a ui-sref="home">_home_</a></li>
+        <li ng-if="showHomeBreadCrumb"><a ui-sref="home" ui-sref-opts="{reload:true}">_home_</a></li>
         <li ng-repeat="link in breadcrumbs">
           <a ng-if="link.state" ng-href="{{$state.href(link.state, link.params) + (link.hash ? '#' + link.hash : '')}}">
             <span ng-switch="link.name.toLowerCase()">

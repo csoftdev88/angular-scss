@@ -185,49 +185,32 @@ angular.module('mobius.controllers.common.content', [])
     });
   }
 
-  $scope.getStateHref = function(code){
+  $scope.getStateHref = function(item){
+    var code = item ? item.code : null;
     if(!$scope.settings){
       return null;
     }
     var params = createParamsObject(code);
-
     var toState = code ? $scope.settings.detailState : $scope.settings.listState;
 
-    if($state.params.property && $scope.settings.propertyState && $scope.settings.keepProperty){
+    if($state.params.propertySlug && $scope.settings.propertyState && $scope.settings.keepProperty){
       params[$scope.settings.propertyParamName] = $state.params.propertySlug;
       toState = $scope.settings.propertyState;
     }
 
-    var link = $state.href(toState, params, {reload: true});
-    return link;
+    if(item && item.meta && toState === 'regions')
+    {
+      params.regionSlug = item.meta.slug;
+    }
+
+    return $state.href(toState, params, {reload: true});
   };
 
-  $scope.goToState = function($event, code, viewAll){
+  $scope.bookingBarBroadcast = function(code){
     if(!$scope.settings){
       return null;
     }
-    var params = createParamsObject(code);
-    $event.preventDefault();
-    $event.stopPropagation();
-
     broadcast(code);
-
-    var toState = code ? $scope.settings.detailState : $scope.settings.listState;
-
-    if($state.params.property && $scope.settings.propertyState && $scope.settings.keepProperty){
-      params[$scope.settings.propertyParamName] = $state.params.propertySlug;
-      toState = $scope.settings.propertyState;
-    }
-
-    //see all link scroll to
-    if($scope.settings.seeAllLinkScrollToAnchor && $scope.hasFilteredItems($scope.content) && !$scope.hasSecondLevelDropdown || $scope.settings.maxItemsCount && $scope.settings.maxItemsCount < $scope.content.length && viewAll){
-      params.scrollTo = $scope.settings.seeAllLinkScrollToAnchor;
-    }
-    else{
-      params.scrollTo = null;
-    }
-
-    $state.go(toState, params, {reload: true});
   };
 
   function processSettings() {
@@ -255,7 +238,7 @@ angular.module('mobius.controllers.common.content', [])
         }
 
         //If on a property, remove items that have showOnMenu = false in offerAvailability
-        if($state.params.property){
+        if($state.params.propertySlug){
           var availability = _.find(item.offerAvailability, function(availability){
             return availability.property === $state.params.property;
           });
@@ -265,14 +248,13 @@ angular.module('mobius.controllers.common.content', [])
         }
 
       });
-
+      
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
         $scope.settings = $scope.settings.fallback;
         processSettings();
       } else {
-
-        if($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property){
+        if(($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property) || ($scope.item === 'offers' && !$state.params.propertySlug)){
           content = _.where(content, {showAtChainLevel: true});
         }
 
@@ -281,7 +263,8 @@ angular.module('mobius.controllers.common.content', [])
           var availability = null;
           var availabilitySlug = null;
 
-          if(!$scope.settings.chainWideOnly){
+          //Only filter by property if there is a property slug in the current URL
+          if(!$scope.settings.chainWideOnly && $state.params.propertySlug){
             availability = _.find(item.offerAvailability, function(availability){
               return availability.property === $state.params.property;
             });
@@ -292,7 +275,8 @@ angular.module('mobius.controllers.common.content', [])
             code: $scope.settings.slug ? availabilitySlug || item.meta.slug : item.code,
             title: availability && availability[$scope.settings.title] && availability[$scope.settings.title] !== '' ? availability[$scope.settings.title] : item[$scope.settings.title],
             subtitle: availability && availability[$scope.settings.subtitle] && availability[$scope.settings.subtitle] !== '' ? availability[$scope.settings.subtitle] : item[$scope.settings.subtitle],
-            filtered: isFiltered(item)
+            filtered: isFiltered(item),
+            meta: item.meta
           };
 
         }).value();

@@ -639,6 +639,20 @@ angular
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
+    //Sandman specific HACK to intercept French if NOT on a quebec page
+    if (Settings.sandmanFrenchOverride) {
+
+      var userLang = user.getUserLanguage();
+      var appLang = stateService.getAppLanguageCode();
+
+      //If user language is french and URL does not contain quebec, switch back to english
+      if ((appLang === 'fr' || userLang === 'fr') && toParams.regionSlug !== 'quebec') {
+        user.storeUserLanguage('en-us');
+        var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
+        $window.location.replace(nonFrenchUrl);
+      }
+    }
+
     //if applyChainClassToBody, get property details and add its chain as body class for styling
     if (Settings.UI.generics.applyChainClassToBody) {
       var propertyCode = toParams.propertyCode || toParams.property;
@@ -687,34 +701,13 @@ angular
       $scope.sso.trackPageLeave();
     }
     metaInformationService.reset();
+
+
   });
 
   $scope.$on('$stateChangeSuccess', function() {
-
-    function encodeQueryData(data) {
-      var ret = [];
-      for (var d in data) {
-        if (data.hasOwnProperty(d)) {
-          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-        }
-      }
-      return ret.join('&');
-    }
-
     //Sandman specific HACK to display french on quebec pages
     if (Settings.sandmanFrenchOverride) {
-
-      var userLang = user.getUserLanguage();
-      var appLang = stateService.getAppLanguageCode();
-
-      //If user language is french and URL does not contain quebec, switch back to english
-      if ((appLang === 'fr' || userLang === 'fr') && (!$state.params || ($state.params && $state.params.regionSlug !== 'quebec'))) {
-        var path = $location.path();
-        var search = encodeQueryData($location.search());
-        var hash = $location.hash();
-        user.storeUserLanguage('en-us');
-        $window.location.replace(path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
-      }
 
       //If current URL contains /locations/quebec show language options and display alert if not already shown
       if ($state.params && $state.params.regionSlug === 'quebec') {
