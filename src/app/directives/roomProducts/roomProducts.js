@@ -3,8 +3,8 @@
 angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
-  Settings, filtersService, bookingService, propertyService, modalService,
-  stateService, dataLayerService, cookieFactory, chainService, $window, mobiusTrackingService, $filter){
+  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService,
+  stateService, dataLayerService, cookieFactory, chainService, $window, $log, mobiusTrackingService, $filter){
 
   return {
     restrict: 'E',
@@ -38,6 +38,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       function getRoomProducts(params){
         propertyService.getRoomProducts(params.propertyCode, params.roomCode, params).then(function(data){
+
             //Get discount cookie
             var discountCookie = cookieFactory('discountCode');
 
@@ -50,6 +51,23 @@ angular.module('mobiusApp.directives.room.products', [])
                   return product.productHidden;
                 }
               });
+
+            //Hide products with a price of 0 and throw sentry error
+            data.products = _.reject(data.products, function(product) {
+                if(product.price.totalBaseAfterPricingRules > 0) {
+                  return false;
+                }
+                else {
+                  //Send the API request details to Sentry
+                  var propertyRequestURL = apiService.getFullURL('properties.room.product.all', {
+                    propertyCode: params.propertyCode,
+                    roomTypeCode: params.roomCode
+                  });
+                  propertyRequestURL += '?' + apiService.objectToQueryParams(params);
+                  $window.Raven.captureException('Rate returned as 0 - Product:' + product.code + ', Mobius Channel ID: ' + channelService.getChannel().channelID + ', Currency Code:' + stateService.getCurrentCurrency().code + ', Language code:' + stateService.getAppLanguageCode() + ', Api Request:' + propertyRequestURL);
+                  return true;
+                }
+            });
 
             //create price.originalPrice from breakdowns
             _.each(data.products, function(product) {

@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService){
+  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService, deviceDetector){
   return {
     restrict: 'E',
     scope: {
@@ -221,8 +221,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if (rangeInput.length) {
           rangeInput.focus(function(){
             $(this).blur();
+            //Fix to stop ipad scrolling to bottom of page and breaking datepicker
+            if(!scope.isMobile() && deviceDetector.device === 'ipad')
+            {
+              $window.scrollTo(0, 0);
+            }
           });
         }
+
 
         //Handle regions on
         if(!_.isEmpty(regionsProperties) && scope.settings.includeRegions){

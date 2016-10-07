@@ -623,7 +623,7 @@ angular.module('mobiusApp.config', [])
       "datePickerHasCounter": true,
       "datePickerHasTitle": false,
       "datePickerCounterIncludeDates": true,
-      "datePickerCloseOnDatesSelected": true,
+      "datePickerCloseOnDatesSelected": false,
       "checkAvailabilityOnChange": false,
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": true,
@@ -824,7 +824,7 @@ angular.module('mobiusApp.config', [])
       },
       'locationMap':{
         'displayMainTitle': false,
-        'displayGoogleMapsLink': false,
+        'displayGoogleMapsLink': true,
         'displayIcons': true,
         'directionsLink':{
           'display': false,

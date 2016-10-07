@@ -1,6 +1,6 @@
 <header grid-row ng-if="locationDetails">
   <h1 grid="6">{{locationDetails.nameShort}}</h1>
-  <local-info local-info="locationDetails.localInfo" grid="6"></local-info>
+  <local-info ng-if="locationDetails.localInfo && locationDetails.localInfo.time" local-info="locationDetails.localInfo" grid="6"></local-info>
 </header>
 
 <section grid-row ng-if="locationDetails">

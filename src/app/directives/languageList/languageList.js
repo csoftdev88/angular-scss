@@ -10,7 +10,7 @@ angular.module('mobiusApp.directives.language', [])
           ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
         }
       }
-      return ret.join(' ');
+      return ret.join('&');
     }
 
     return {
@@ -65,7 +65,6 @@ angular.module('mobiusApp.directives.language', [])
           var hash = $location.hash();
 
           user.storeUserLanguage(language.code);
-
           $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
         };
 

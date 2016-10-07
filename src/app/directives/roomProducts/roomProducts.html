@@ -5,7 +5,6 @@
   <li ng-class="{'is-highlighted': product.highlighted || ($first && !product.memberOnly && settings.highlightFirstRate), 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && settings.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-repeat="product in products | limitTo: getRatesLimit()">
     <!-- ng-click="selectProduct(room.code, product.code, product.memberOnly, room.priceFrom)" -->
     <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
-    <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
     <div class="list-item-highlight-label highlight-ribbon" ng-if="product.highlighted">_most_booked_package_</div>
     <div class="rate-description">
       <h4>
