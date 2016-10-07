@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
   Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService,
-  stateService, dataLayerService, cookieFactory, chainService, $window, $log, mobiusTrackingService, $filter){
+  stateService, dataLayerService, cookieFactory, chainService, $window, $log, mobiusTrackingService, $filter, user){
 
   return {
     restrict: 'E',
@@ -197,7 +197,17 @@ angular.module('mobiusApp.directives.room.products', [])
           });
         }
 
-        $state.go('reservation.details', params, {reload: true});
+        var userLang = user.getUserLanguage();
+        var appLang = stateService.getAppLanguageCode();
+
+        if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
+          user.storeUserLanguage('en-us');
+          var nonFrenchUrl = $state.href('reservation.details', params, {reload: true}).replace('/fr/','/');
+          $window.location.replace(nonFrenchUrl);
+        }
+        else {
+          $state.go('reservation.details', params, {reload: true});
+        }
       };
 
       scope.isDateRangeSelected = bookingService.isDateRangeSelected;
