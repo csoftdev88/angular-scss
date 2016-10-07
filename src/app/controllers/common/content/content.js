@@ -238,7 +238,7 @@ angular.module('mobius.controllers.common.content', [])
         }
 
         //If on a property, remove items that have showOnMenu = false in offerAvailability
-        if($state.params.property){
+        if($state.params.propertySlug){
           var availability = _.find(item.offerAvailability, function(availability){
             return availability.property === $state.params.property;
           });
@@ -248,14 +248,13 @@ angular.module('mobius.controllers.common.content', [])
         }
 
       });
-
+      
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
         $scope.settings = $scope.settings.fallback;
         processSettings();
       } else {
-
-        if($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property){
+        if(($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property) || ($scope.item === 'offers' && !$state.params.propertySlug)){
           content = _.where(content, {showAtChainLevel: true});
         }
 
