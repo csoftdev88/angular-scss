@@ -396,7 +396,7 @@ angular.module('mobius.controllers.reservationDetail', [])
                     contentService.getCountries().then(function(countries) {
 
                       var userTitle = _.find(titles, function(title){ return title.id === anonUserData.title; });
-                      var userCountry = _.find(countries, function(country){ return country.id === anonUserData.country; });
+                      var userCountry = _.find(countries, function(country){ return country.id === anonUserData.localeCode; });
 
                       infinitiTrackingData.customer = {
                         'title': userTitle.name,
