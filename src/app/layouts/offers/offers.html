@@ -58,7 +58,7 @@
 
       <div class="controls" ng-if="selectedOffer.availability ? selectedOffer.availability.includeBookingButton : selectedOffer.includeBookingButton">
         <div class="inner" ng-class="{'has-dropdown': config.includeOfferAvailabilityPropertyDropdown && offerAvailabilityProperties.length}">
-          <div class="property-select" ng-show="config.includeOfferAvailabilityPropertyDropdown && offerAvailabilityProperties.length">
+          <div class="property-select" ng-if="config.includeOfferAvailabilityPropertyDropdown && offerAvailabilityProperties.length">
             <select
               name="propertySelect"
               ng-model="selectedOfferAvailabilityData.selectedOfferAvailabilityProperty"
@@ -66,9 +66,8 @@
               chosen
               chosen-options-class="{ 'location': type === 'location'}"
               ng-options="option.slug as option.name for option in offerAvailabilityProperties"
-              data-placeholder-text-single="'Choose your hotel'"
+              placeholder-text-single="Choose your hotel"
               ng-change="prefillBookingWidgetProperty(selectedOfferAvailabilityData.selectedOfferAvailabilityProperty)">
-              <option value="">Choose your hotel</option> <!-- workaround for a bug in angular-chosen -->
             </select>
           </div>
 
