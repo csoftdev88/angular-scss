@@ -425,6 +425,7 @@
     "modify_reservation_modal_title": "Modification - ",
     "modify_reservation_modal_desc_short": "Vous pouvez désormais modifier votre réservation",
     "modify_reservation_modal_desc_long": "Veuillez changer les dates et le nombre d'occupants dans la barre de réservation pour chercher à nouveau",
+    "modify_reservation_voucher_remove_warning": "Any vouchers applied to this booking will be removed",
     "modify_reservation_modal_error_title": "Votre Réservation",
     "modify_reservation_modal_error_desc": "Vous ne pouvez pas modifier cette réservation",
     "modify_points_reservation_modal_error_desc": "Puisque que votre réservation a été effectuée avec des points, veuillez nous appeler  pour annuler / modifier votre séjour s'il vous plaît",

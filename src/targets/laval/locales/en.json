@@ -419,6 +419,7 @@
     "modify_reservation_modal_title": "Modifying - ",
     "modify_reservation_modal_desc_short": "You can now modify your booking",
     "modify_reservation_modal_desc_long": "Update your dates and number of occupants on the booking bar to search again",
+    "modify_reservation_voucher_remove_warning": "Any vouchers applied to this booking will be removed",
     "modify_reservation_modal_error_title": "Your Booking",
     "modify_reservation_modal_error_desc": "You are unable to modify this booking",
     "modify_points_reservation_modal_error_desc": "As your booking was made with points, please call us to cancel / modify your stay",

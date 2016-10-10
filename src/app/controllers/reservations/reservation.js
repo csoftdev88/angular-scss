@@ -225,7 +225,7 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   function getRoomPromise(room){
-    return $scope.getRoomData($stateParams.property, room.roomID).then(function(data){
+    return $scope.getRoomData($stateParams.property, room.roomID, $scope.voucher.code).then(function(data){
 
       var roomData = data.roomDetails;
       var product = _.findWhere(data.roomProductDetails.products,
@@ -251,31 +251,7 @@ angular.module('mobius.controllers.reservation', [])
             trackProductCheckout(1);
           }
         }
-
-        //If voucher code in query string
-        if($stateParams.voucher && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
-        {
-          $scope.voucher.verifying = true;
-          var params = getCheckVoucherParams();
-
-          //Validate our voucher code
-          reservationService.checkVoucher(params).then(function(voucherData){
-            if(voucherData.valid)
-            {
-              $scope.voucher.verifying = false;
-              $scope.voucher.valid = true;
-              $scope.voucher.submitted = true;
-              $scope.voucher.code = $stateParams.voucher.toUpperCase();
-            }
-            else {
-              invalidVoucher();
-            }
-          }, function(){
-            invalidVoucher();
-          });
-        }
       }
-
     });
   }
 
@@ -1228,12 +1204,46 @@ angular.module('mobius.controllers.reservation', [])
       reservationService.checkVoucher(params).then(function(voucherData){
         if(voucherData.valid)
         {
-          //If successful display success message and reload state with voucher param
+          //If successful display success message and price details with voucher param
           $scope.voucher.verifying = false;
           $scope.voucher.valid = true;
           $scope.voucher.submitted = true;
-          $stateParams.voucher = $scope.voucher.code.toUpperCase();
-          $state.go($state.current, $stateParams, {reload: true});
+
+          var roomsPromises = [];
+          var rooms;
+          $scope.allRooms = [];
+
+          if(!$scope.isMultiRoomMode){
+            // Getting single room details
+            // One room booking
+            rooms = [];
+            rooms.push({
+              property: $stateParams.property,
+              roomID: $stateParams.roomID,
+              productCode: $stateParams.productCode
+            });
+          } else {
+            multiRoomData = bookingService.getMultiRoomData();
+            rooms = multiRoomData.map(function(room){
+              return {
+                property: $stateParams.property,
+                roomID: room.roomID,
+                productCode: room.productCode
+              };
+            });
+          }
+
+          // Loading all the rooms;
+          roomsPromises = rooms.map(function(room){
+            return getRoomPromise(room);
+          });
+
+          //When new room pricing is there update views
+          preloaderFactory($q.all(roomsPromises).then(function(){
+            $scope.voucher.verifying = false;
+            $scope.voucher.valid = true;
+            $scope.voucher.submitted = true;
+          }, goToRoom));
         }
         else {
           invalidVoucher();
