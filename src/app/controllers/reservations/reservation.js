@@ -225,7 +225,7 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   function getRoomPromise(room){
-    return $scope.getRoomData($stateParams.property, room.roomID, $scope.voucher.code).then(function(data){
+    return $scope.getRoomData($stateParams.property, room.roomID, null, $scope.voucher.code).then(function(data){
 
       var roomData = data.roomDetails;
       var product = _.findWhere(data.roomProductDetails.products,
