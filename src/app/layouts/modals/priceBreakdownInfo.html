@@ -37,7 +37,7 @@
               <td>{{item.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
               <td ng-if="item.totalFees > 0">{{item.totalFees | i18nCurrency: currencyCode}}</td>
-              <td>{{item.totalAfterTax | i18nCurrency: currencyCode}}</td>
+              <td>{{item.totalAfterTaxAfterPricingRules | i18nCurrency: currencyCode}}</td>
             </tr>
           </tbody>
           <tfoot ng-if="$last">
@@ -51,7 +51,7 @@
             </tr>
             <tr>
               <th colspan="{{data.totalDailyFees > 0 ? 4 : 3}}">_total_</th>
-              <th>{{data.totalAfterTax | i18nCurrency: currencyCode}}</th>
+              <th>{{data.totalAfterTaxAfterPricingRules | i18nCurrency: currencyCode}}</th>
             </tr>
           </tfoot>
         </table>

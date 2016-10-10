@@ -123,7 +123,7 @@ angular.module('mobiusApp.services.modal', [])
   function openPriceBreakdownInfo(rooms){
     var totalAfterTax = _.reduce(
       _.map(rooms, function(room){
-        return room._selectedProduct.price.totalAfterTax;
+        return room._selectedProduct.price.totalAfterTaxAfterPricingRules;
       }), function(t, n){
         return t + n;
       }

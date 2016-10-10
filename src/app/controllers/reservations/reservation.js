@@ -795,17 +795,13 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
-  $scope.getBreakdownTotalBase = function(){
+  $scope.getBreakdownTotalBaseAfterPricingRules = function(){
     // Returning a total base price
-    var totalTax = 0;
-    var totalFees = 0;
-    var totalAfterTax = 0;
+    var totalBaseAfterPricingRules = 0;
     _.map($scope.allRooms, function(room){
-      totalTax += room._selectedProduct.price.taxDetails.totalTax;
-      totalFees += room._selectedProduct.price.feeDetails.totalTax;
-      totalAfterTax += room._selectedProduct.price.totalAfterTax;
+      totalBaseAfterPricingRules += room._selectedProduct.price.totalBaseAfterPricingRules;
     });
-    return totalAfterTax - totalTax - totalFees;
+    return totalBaseAfterPricingRules;
   };
 
   $scope.getBreakdownTotalTaxes = function(isFee){
