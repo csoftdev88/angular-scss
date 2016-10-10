@@ -16,6 +16,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMakingReservation = false;
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
+  $scope.$stateParams = $stateParams;
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition =  $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
@@ -252,7 +253,7 @@ angular.module('mobius.controllers.reservation', [])
         }
 
         //If voucher code in query string
-        if($stateParams.voucher && $scope.bookingConfig.vouchers.enable)
+        if($stateParams.voucher && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
         {
           $scope.voucher.verifying = true;
           var params = getCheckVoucherParams();
@@ -640,7 +641,7 @@ angular.module('mobius.controllers.reservation', [])
       }
     };
 
-    if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable)
+    if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
     {
       reservationData.voucher = $scope.voucher.code.toUpperCase();
     }
@@ -1218,7 +1219,7 @@ angular.module('mobius.controllers.reservation', [])
   });
 
   $scope.redeemVoucher = function(){
-    if($scope.voucher.code && $scope.bookingConfig.vouchers.enable)
+    if($scope.voucher.code && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
     {
       $scope.voucher.verifying = true;
 

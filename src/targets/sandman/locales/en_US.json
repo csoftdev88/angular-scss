@@ -398,7 +398,7 @@
     "redeem_voucher_message": "Voucher code",
     "voucher_button_text": "Apply",
     "voucher_code_valid": "Your voucher code has been added",
-    "voucher_code_invalid": "The voucher code you entered is not valid",
+    "voucher_code_invalid": "The voucher code you entered has already been used or is not valid",
     "RESETPASSWORDFORM": "///////////////////////////////////////////////////////////",
     "reset_password_page_title": "Reset your password",
     "reset_password_page_sub_title": "Please enter a new password below:",
