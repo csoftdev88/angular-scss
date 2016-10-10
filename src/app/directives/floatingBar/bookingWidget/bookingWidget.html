@@ -5,12 +5,11 @@
   <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && (!settings.displayPropertiesMegamenu || isMobile())">
     <select name="regionHotels" required chosen
             disable-search="false"
-            data-placeholder-text-single="'_region_hotel_'"
+            placeholder-text-single="_region_hotel_"
             ng-model="regionPropertySelected"
             chosen-options-class="{ 'location': type === 'location', 'property': type === 'property' }"
             ng-options="option.name for option in propertyRegionList"
             ng-change="propertyRegionChanged(); checkAvailability()">
-      <option></option> <!-- workaround for a bug in angular-chosen  -->
     </select>
     <form-label>_find_your_hotel_</form-label>
   </form-element>
@@ -66,13 +65,12 @@
             required ng-model="selected.adults"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.adults"
-            data-placeholder-text-single="'_adults_'"
+            placeholder-text-single="_adults_"
             ng-change="checkAvailability()"
             ng-init="setAdultsOptions({
               'adult': '_adult_',
               'adults': '_adults_'
             })">
-    <option></option> <!-- workaround for a bug in angular-chosen -->
     </select>
     <form-label>_number_of_adults_</form-label>
   </form-element>
@@ -83,13 +81,12 @@
             required ng-model="selected.children"
             disable-search="true"
             chosen ng-options="option.title for option in guestsOptions.children"
-            data-placeholder-text-single="'_children_'"
+            placeholder-text-single="_children_"
             ng-change="checkAvailability()"
             ng-init="setChildrenOptions({
               'child': '_child_',
               'children': '_children_'
             })">
-    <option></option> <!-- tworkaround for a bug in angular-chosen -->
     </select>
     <form-label>_number_of_children_</form-label>
   </form-element>
@@ -101,7 +98,7 @@
         disable-search="true"
         chosen ng-options="code as code.title for code in codeTypes"
         ng-change="onCodeTypeChanged()"
-        data-placeholder-text-single="'_apply_code_'">
+        placeholder-text-single="_apply_code_">
       <option></option>
     </select>
 
@@ -116,13 +113,13 @@
   </form-element>
 
   <!-- PRODUCTS RATES -->
-  <form-element class="rate" ng-if="!advanced && settings.hasRatesSelection">
+  <form-element class="rate" ng-if="!advanced && settings.hasRatesSelection && rates">
     <select name="rates"
             required ng-model="selected.rate"
             disable-search="true"
+            on-ready="alert('yo')"
             chosen ng-options="rate.id as rate.name for rate in rates"
-            data-placeholder-text-single="'_filter_rates_label_'">
-    <option></option> <!-- tworkaround for a bug in angular-chosen -->
+            placeholder-text-single="_filter_rates_label_">
     </select>
     <form-label>_filter_rates_label_</form-label>
   </form-element>
@@ -136,10 +133,9 @@
     <form-element class="persons">
       <select name="adults"
               required ng-model="room.adults"
-              data-placeholder-text-single="'_adults_'"
+              placeholder-text-single="_adults_"
               disable-search="true"
               chosen ng-options="option.title for option in guestsOptions.adults">
-        <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>_number_of_adults_</form-label>
     </form-element>
@@ -147,10 +143,9 @@
     <form-element class="persons">
       <select name="children"
               required ng-model="room.children"
-              data-placeholder-text-single="'_children_'"
+              placeholder-text-single="_children_"
               disable-search="true"
               chosen ng-options="option.title for option in guestsOptions.children">
-        <option></option> <!-- workaround for a bug in angular-chosen -->
       </select>
       <form-label>_number_of_children_</form-label>
     </form-element>

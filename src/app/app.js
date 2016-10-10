@@ -15,7 +15,7 @@ angular
     'templates-main',
 
     // 3rd party components
-    'localytics.directives',
+    'angular.chosen',
     'underscore',
     'validation.match',
     'ui-rangeSlider',
