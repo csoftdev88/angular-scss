@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.room', [])
 
-.directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window,
+.directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window, stateService,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
   $controller,$location,$rootScope,scrollService,$timeout, dataLayerService, cookieFactory, chainService, userPreferenceService, $filter) {
 
@@ -368,20 +368,34 @@ angular.module('mobiusApp.directives.room', [])
           });
         });
 
+        var params = {};
+
         if($stateParams.promoCode){
-          $state.go('reservation.details', {
+          params = {
             property: propertyCode,
             roomID: roomCode,
             productCode: product.code,
             promoCode: $stateParams.promoCode
-          });
+          };
         }
         else{
-          $state.go('reservation.details', {
+          params = {
             property: propertyCode,
             roomID: roomCode,
             productCode: product.code
-          });
+          };
+        }
+
+        var userLang = user.getUserLanguage();
+        var appLang = stateService.getAppLanguageCode();
+
+        if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
+          user.storeUserLanguage('en-us');
+          var nonFrenchUrl = $state.href('reservation.details', params).replace('/fr/','/');
+          $window.location.replace(nonFrenchUrl);
+        }
+        else {
+          $state.go('reservation.details', params);
         }
 
       };
