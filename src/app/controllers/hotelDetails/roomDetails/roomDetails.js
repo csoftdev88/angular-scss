@@ -75,12 +75,17 @@ angular.module('mobius.controllers.room.details', [])
     return modalService.openPriceBreakdownInfo([room]);
   };
 
-  $scope.getRoomData = function(propertyCode, roomCode){
+  $scope.getRoomData = function(propertyCode, roomCode, voucherCode){
     var qBookingParam = $q.defer();
     var qRoomData = $q.defer();
 
     var bookingParams = bookingService.getAPIParams(true);
     numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
+
+    if(voucherCode)
+    {
+      bookingParams.voucher = voucherCode;
+    }
 
     // Using PGID from the booking params
     if(bookingParams.productGroupId){

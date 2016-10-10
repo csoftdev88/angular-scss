@@ -714,6 +714,8 @@
 
     "modify_reservation_modal_desc_long": "Update deine Daten und die Anzahl Gäste",
 
+    "modify_reservation_voucher_remove_warning": "Any vouchers applied to this booking will be removed",
+
     "modify_reservation_modal_error_title": "Ihre Buchung",
 
     "modify_reservation_modal_error_desc": "Diese Buchung kann nicht modifiziert werden",
