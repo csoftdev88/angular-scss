@@ -511,6 +511,11 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isContinueDisabled = function(){
+    //disable when validating voucher
+    if($scope.voucher.verifying)
+    {
+      return true;
+    }
     //disbale when making reservation
     if($state.is('reservation.confirmation') && $scope.isMakingReservation) {
       return true;
@@ -1216,7 +1221,6 @@ angular.module('mobius.controllers.reservation', [])
     if($scope.voucher.code && $scope.bookingConfig.vouchers.enable)
     {
       $scope.voucher.verifying = true;
-      $scope.voucher.submitted = true;
 
       var params = getCheckVoucherParams();
 
@@ -1226,6 +1230,7 @@ angular.module('mobius.controllers.reservation', [])
           //If successful display success message and reload state with voucher param
           $scope.voucher.verifying = false;
           $scope.voucher.valid = true;
+          $scope.voucher.submitted = true;
           $stateParams.voucher = $scope.voucher.code.toUpperCase();
           $state.go($state.current, $stateParams, {reload: true});
         }
@@ -1242,6 +1247,7 @@ angular.module('mobius.controllers.reservation', [])
     $scope.voucher.verifying = false;
     $scope.voucher.valid = false;
     $stateParams.voucher = null;
+    $scope.voucher.submitted = true;
   }
 
   function getCheckVoucherParams(){
@@ -1252,7 +1258,7 @@ angular.module('mobius.controllers.reservation', [])
       var fromDate = date[0];
       var toDate = date[1];
 
-      params.voucher = $scope.voucher.code;
+      params.voucher = $scope.voucher.code ? $scope.voucher.code : $stateParams.voucher;
       params.from = fromDate;
       params.to = toDate;
       params.adults = $stateParams.adults;
