@@ -124,7 +124,7 @@
               <thead ng-switch="billingDetails.paymentMethod">
                 <tr class="main">
                   <th>_room_charges_:</th>
-                  <td>{{getBreakdownTotalBase() | i18nCurrency: currencyCode}}</td>
+                  <td ng-show="allRooms.length">{{getBreakdownTotalBase() | i18nCurrency: currencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="breakdown in allRooms[0]._selectedProduct.price.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
@@ -137,7 +137,7 @@
                   <!-- old tax number
                   <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
                   -->
-                  <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: $root.currencyCode}}</td>
+                  <td ng-show="allRooms.length">{{getBreakdownTotalTaxes(false) | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="taxItem in allRooms[0]._selectedProduct.price.taxDetails.policyTaxItemDetails" ng-class="{'last': $last}" ng-if="!taxItem.policyTaxItemIsFee">
@@ -147,7 +147,7 @@
 
                 <tr class="main">
                   <th>_applicable_fees_:</th>
-                  <td>{{getBreakdownTotalTaxes(true) | i18nCurrency: $root.currencyCode}}</td>
+                  <td ng-show="allRooms.length">{{getBreakdownTotalTaxes(true) | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="taxItem in allRooms[0]._selectedProduct.price.feeDetails.policyTaxItemDetails" ng-class="{'last': $last}">
@@ -202,7 +202,7 @@
           </label>
           </div>
 
-          <div ng-if="bookingConfig.vouchers.enable && allRooms.length > 0 && !$stateParams.reservation" class="voucher-entry">
+          <div ng-if="bookingConfig.vouchers.enable && allRooms.length && !$stateParams.reservation" class="voucher-entry">
             <h4>_redeem_voucher_message_</h4>
             <label for="voucher" class=" medium">
               <input type="text" id="voucher"
