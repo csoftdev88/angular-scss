@@ -126,7 +126,7 @@
               <thead ng-switch="billingDetails.paymentMethod">
                 <tr class="main">
                   <th>_room_charges_:</th>
-                  <td ng-show="allRooms.length">{{getBreakdownTotalBase() | i18nCurrency: currencyCode}}</td>
+                  <td ng-show="allRooms.length">{{getBreakdownTotalBaseAfterPricingRules() | i18nCurrency: currencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="breakdown in allRooms[0]._selectedProduct.price.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
@@ -164,9 +164,9 @@
 
                 <tr class="main">
                   <th>_total_:</th>
-                  <td ng-switch-when="cc">{{getTotal('totalAfterTax') + getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
+                  <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') + getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
                   <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
-                  <td ng-switch-default>{{getTotal('totalAfterTax') + getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
+                  <td ng-switch-default>{{getTotal('totalAfterTaxAfterPricingRules') + getTotal('totalDiscount')| i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
                 </tr>
                 <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
                   <th></th>
