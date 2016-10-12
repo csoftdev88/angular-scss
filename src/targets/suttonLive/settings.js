@@ -44,7 +44,7 @@ angular.module('mobiusApp.config', [])
     }
   },
   'googleAnalytics': {
-    'enable': true,
+    'enable': false,
     'id': 'UA-44368729-3'
   },
   'googleTagManager': {
