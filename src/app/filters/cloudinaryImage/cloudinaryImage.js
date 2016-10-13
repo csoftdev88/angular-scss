@@ -24,6 +24,8 @@ angular.module('mobiusApp.filters.cloudinaryImage', [])
           } else {
             inputParts.splice(6, 0, replaceString.join(',')); // insert
           }
+          //Add q_auto and f_auto segments
+          inputParts.splice(7, 0, 'q_auto,f_auto');
           input = inputParts.join('/');
         }
       }

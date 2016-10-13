@@ -346,7 +346,7 @@ angular.module('mobiusApp.config', [])
     //  'review': '“My new favourite in Vancouver',
     //  'reviewer': {
     //    'name': 'Denise K',
-    //    'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1450183019/SAN/rateLoading/denisek.jpg',
+    //    'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183019/SAN/rateLoading/denisek.jpg',
     //    'location': 'Toronto, Canada'
     //  },
     //  'stars': 5
@@ -859,8 +859,8 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/Mobius/NAT/properties_amenities/',
-      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/v1458826808/Mobius/NAT/',
+      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/Mobius/NAT/properties_amenities/',
+      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1458826808/Mobius/NAT/',
       'suffix': '.png'
     },
     // See: http://openweathermap.org/wiki/API/Weather_Condition_Codes
