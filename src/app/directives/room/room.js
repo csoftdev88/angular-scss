@@ -181,6 +181,7 @@ angular.module('mobiusApp.directives.room', [])
               else if(scope.config.hasBreadcrumbsSecondaryNav && scope.fromMeta){
                 breadcrumbsService.addHref('About', 'jsAbout');
                 breadcrumbsService.addHref('Rates', 'jsProducts');
+                breadcrumbsService.addHref('The-Property', 'jsAboutProperty');
                 /*breadcrumbsService
                 .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsAbout'})
                 .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsLocation'})

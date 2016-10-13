@@ -51,6 +51,7 @@
           <a href ng-if="href.id && href.name.toLowerCase() === 'rooms'" ng-click="scrollTo(href.id)">_rooms_</a>
           <a href ng-if="href.id && href.name.toLowerCase() === 'location'" ng-click="scrollTo(href.id)">_location_</a>
           <a href ng-if="href.id && href.name.toLowerCase() === 'offers'" ng-click="scrollTo(href.id)">_offers_</a>
+          <a href ng-if="href.id && href.name.toLowerCase() === 'the-property'" ng-click="scrollTo(href.id)">_the_property_</a>
           <a href ng-if="href.id && href.name.toLowerCase() === 'gallery'" ng-click="scrollTo(href.id)">_gallery_</a>
 
           <span ng-if="!href.id && href.name.toLowerCase() === 'about'">_about_</span>
@@ -58,6 +59,7 @@
           <span ng-if="!href.id && href.name.toLowerCase() === 'rooms'">_rooms_</span>
           <span ng-if="!href.id && href.name.toLowerCase() === 'location'">_location_</span>
           <span ng-if="!href.id && href.name.toLowerCase() === 'offers'">_offers_</span>
+          <span ng-if="!href.id && href.name.toLowerCase() === 'the-property'">_the_property_</span>
           <span ng-if="!href.id && href.name.toLowerCase() === 'gallery'">_gallery_</span>
         </li>
       </ul>
