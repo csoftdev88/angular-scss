@@ -1,10 +1,10 @@
 <hotel-room grid="12" id="hotel-room" class="meta-room">
-  <section class="header" ng-if="!config.headerPartial.display">
+  <section class="header" ng-if="!config.headerPartial.display" id="jsAbout">
     <h1 ng-bind-html="roomDetails.name | mainHeaderStyle"></h1>
     <span class="sub-title" ng-if="config.displayRoomSubtitle && roomDetails.subTitle">{{roomDetails.subTitle}}</span>
   </section>
 
-  <section class="hotel-detail__header" ng-if="config.headerPartial.display">
+  <section class="hotel-detail__header" ng-if="config.headerPartial.display" id="jsAbout">
     <figure class="logo">
       <img ng-src="{{config.headerPartial.logo.src}}" alt="{{config.headerPartial.logo.alt}}">
     </figure>
@@ -29,7 +29,7 @@
     <p class="description" ng-bind-html="sanitize(roomDetails.description)"></p>
   </section>
 
-  <section class="room-overview" grid-row id="jsAbout">
+  <section class="room-overview" grid-row>
     <div grid="{{(hasViewMore)? viewSettings.roomInfo.descriptionGrid : 12}}">
       <p ng-bind-html="roomDetails.description | trustAsHtml" markdown-text-parser class="markdown-content"></p>
     </div>
