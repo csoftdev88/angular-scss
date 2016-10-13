@@ -13,7 +13,7 @@ angular.module('mobiusApp.config', [])
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
+    'integration': 'http://fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
     'staging': 'http://staging-us-infiniti-sandman.mobiuswebservices.com/track/content/infiniti.js',
     'live': '//infiniti.sandmanhotels.com/track/content/infiniti.js'
   },
@@ -388,6 +388,7 @@ angular.module('mobiusApp.config', [])
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,
       'rateInfoIsTabbed': true,
+      'showLocalInfo': true,
       'headerPartial':{
         'display': false,
         'logo':{
@@ -410,7 +411,8 @@ angular.module('mobiusApp.config', [])
         'displayTime':20000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
-      'showSlashThrough': false
+      'showSlashThrough': false,
+      'showMetaView': true
     },
 
     'reservations': {
@@ -806,6 +808,13 @@ angular.module('mobiusApp.config', [])
           'sidebarGrid': 5
         }
       },
+      'roomDetails':{
+        'hasViewMore': true,
+        'roomInfo': {
+          'descriptionGrid': 7,
+          'sidebarGrid': 5
+        }
+      },
       'userProfile':{
         'hasAvatar': true,
         'hasWelcomeMessage': false,
@@ -906,8 +915,8 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/{chainCode}/properties_amenities/',
-      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/{chainCode}/room_amenities/',
+      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/{chainCode}/properties_amenities/',
+      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/{chainCode}/room_amenities/',
       'suffix': '.png'
     },
     // See: http://openweathermap.org/wiki/API/Weather_Condition_Codes

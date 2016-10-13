@@ -360,7 +360,7 @@ angular.module('mobiusApp.config', [])
       'review': '“My new favourite in Vancouver',
       'reviewer': {
         'name': 'Denise K',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450183019/SAN/rateLoading/denisek.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183019/SAN/rateLoading/denisek.jpg',
         'location': 'Toronto, Canada'
       },
       'stars': 5
@@ -369,7 +369,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Perfect in every way...service, location, comfort!!”',
       'reviewer': {
         'name': 'Karikins',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450183317/SAN/rateLoading/karinkins.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183317/SAN/rateLoading/karinkins.jpg',
         'location': 'Kamloops, Canada'
       },
       'stars': 5
@@ -378,7 +378,7 @@ angular.module('mobiusApp.config', [])
       'review': '“A high point of our two week trip”',
       'reviewer': {
         'name': 'Magnolia13',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450183173/SAN/rateLoading/magnolia13.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183173/SAN/rateLoading/magnolia13.jpg',
         'location': 'Thomasville, Georgia'
       },
       'stars': 5
@@ -387,7 +387,7 @@ angular.module('mobiusApp.config', [])
       'review': '“A Lovely Downtown Hotel that shines with elegance and professionalism.”',
       'reviewer': {
         'name': 'CdnTrekkie',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450183317/SAN/rateLoading/cdntrekkie.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183317/SAN/rateLoading/cdntrekkie.jpg',
         'location': 'Vancouver, BC'
       },
       'stars': 5
@@ -396,7 +396,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Pretty smart! We dont like being too posh but felt quite comfortable here.”',
       'reviewer': {
         'name': 'John C',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450183317/SAN/rateLoading/johnc.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183317/SAN/rateLoading/johnc.jpg',
         'location': 'Jasper, Canada'
       },
       'stars': 4
@@ -405,7 +405,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Great Hotel - Friendly, Helpful Staff”',
       'reviewer': {
         'name': 'Judy B',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450184767/SAN/rateLoading/judyb.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450184767/SAN/rateLoading/judyb.jpg',
         'location': 'Penticton, Canada'
       },
       'stars': 4
@@ -414,7 +414,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Wonderful Hotel!”',
       'reviewer': {
         'name': 'Melissa P',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450194394/SAN/rateLoading/Melissa_P.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450194394/SAN/rateLoading/Melissa_P.jpg',
         'location': 'Grande Prairie, Canada'
       },
       'stars': 5
@@ -423,7 +423,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Lovely place ”',
       'reviewer': {
         'name': 'Dan468',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450194584/SAN/rateLoading/dan468.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450194584/SAN/rateLoading/dan468.jpg',
         'location': 'Vancouver, Canada'
       },
       'stars': 4
@@ -432,7 +432,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Fabulous hotel!”',
       'reviewer': {
         'name': 'LaraKitty',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450194963/SAN/rateLoading/LaraKitty.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450194963/SAN/rateLoading/LaraKitty.jpg',
         'location': 'N/A'
       },
       'stars': 5
@@ -441,7 +441,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Just like coming home”',
       'reviewer': {
         'name': 'Timothy S',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450195156/SAN/rateLoading/Timothy_S.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195156/SAN/rateLoading/Timothy_S.jpg',
         'location': 'Whitecourt, Canada'
       },
       'stars': 5
@@ -450,7 +450,7 @@ angular.module('mobiusApp.config', [])
       'review': '“A Perfect stay”',
       'reviewer': {
         'name': 'SammyT819',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450195367/SAN/rateLoading/SammyT819.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195367/SAN/rateLoading/SammyT819.jpg',
         'location': 'Kelowna, Canada'
       },
       'stars': 5
@@ -459,7 +459,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Awesome room and great location”',
       'reviewer': {
         'name': 'David G',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450195480/SAN/rateLoading/David_G.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195480/SAN/rateLoading/David_G.jpg',
         'location': 'Orlando, Florida'
       },
       'stars': 5
@@ -468,7 +468,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Exquisite Suites”',
       'reviewer': {
         'name': 'andyg_Can',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450195582/SAN/rateLoading/andyg_Can.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195582/SAN/rateLoading/andyg_Can.jpg',
         'location': 'Calgary, Canada'
       },
       'stars': 5
@@ -477,7 +477,7 @@ angular.module('mobiusApp.config', [])
       'review': '“Surreal”',
       'reviewer': {
         'name': 'PIYUSH J',
-        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450195804/SAN/rateLoading/PIYSH_J.jpg',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195804/SAN/rateLoading/PIYSH_J.jpg',
         'location': 'Amsterdam'
       },
       'stars': 5
@@ -488,7 +488,7 @@ angular.module('mobiusApp.config', [])
         'reviewer':
         {
           'name': 'MTnLZ',
-          'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/v1450195906/SAN/rateLoading/mtnlz.jpg',
+          'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195906/SAN/rateLoading/mtnlz.jpg',
           'location': 'NW Subs of IL'
         },
         'stars': 5
@@ -990,8 +990,8 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/properties_amenities/',
-      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/SAN/rooms_amenities/',
+      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/SAN/properties_amenities/',
+      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/SAN/rooms_amenities/',
       'suffix': '.png'
     },
     // See: http://openweathermap.org/wiki/API/Weather_Condition_Codes
