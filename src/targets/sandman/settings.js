@@ -11,9 +11,9 @@ angular.module('mobiusApp.config', [])
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
   'infiniti': {
-    'enable': true,
+    'enable': false,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'integration': 'http://fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+    'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'staging': 'http://staging-us-infiniti-sandman.mobiuswebservices.com/track/content/infiniti.js',
     'live': '//infiniti.sandmanhotels.com/track/content/infiniti.js'
   },
