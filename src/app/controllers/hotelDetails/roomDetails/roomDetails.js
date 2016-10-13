@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $state, $rootScope, $timeout, $q, _, modalService,
+.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService,
   propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService) {
 
   var numNights = 1;
@@ -12,7 +12,6 @@ angular.module('mobius.controllers.room.details', [])
   $scope.fromMeta = channelService.getChannel().name === 'meta' && Settings.UI.roomDetails.showMetaView ? true : false;
 
   $scope.setRoomDetails = function(roomDetails){
-
     $scope.roomDetails = roomDetails;
 
     if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics){

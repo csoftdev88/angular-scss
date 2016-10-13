@@ -170,13 +170,23 @@ angular.module('mobiusApp.directives.room', [])
                 .addBreadCrumb(roomData.roomDetails.name);
 
               //alt nav
-              if(scope.config.hasBreadcrumbsSecondaryNav){
+              if(scope.config.hasBreadcrumbsSecondaryNav && !scope.fromMeta){
                 breadcrumbsService
                 .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsAbout'})
                 .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsLocation'})
                 .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsOffers'})
                 .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsRooms'})
                 .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'fnOpenLightBox'});
+              }
+              else if(scope.config.hasBreadcrumbsSecondaryNav && scope.fromMeta){
+                breadcrumbsService.addHref('About', 'jsAbout');
+                breadcrumbsService.addHref('Rates', 'jsProducts');
+                /*breadcrumbsService
+                .addAbsHref('About', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsAbout'})
+                .addAbsHref('Location', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsLocation'})
+                .addAbsHref('Offers', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsOffers'})
+                .addAbsHref('Rooms', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'jsRooms'})
+                .addAbsHref('Gallery', 'hotel', {regionSlug: propertyRegionData.region.meta.slug, locationSlug: propertyRegionData.location.meta.slug, propertySlug: propertyData.meta.slug, scrollTo: 'fnOpenLightBox'});*/
               }
 
             });
@@ -205,6 +215,13 @@ angular.module('mobiusApp.directives.room', [])
         }
         var scrollOffset = scrollToValue ? 20 : 0;
         var ignoreScrollTo = scrollToValue ? false : true;
+
+        //If from meta scroll to products
+        if(scope.fromMeta)
+        {
+          ignoreScrollTo = false;
+          scrollToValue = 'jsProducts';
+        }
 
         $timeout(function(){
           scrollService.scrollTo(scrollToValue, scrollOffset, ignoreScrollTo);
