@@ -388,6 +388,7 @@ angular.module('mobiusApp.config', [])
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,
       'rateInfoIsTabbed': true,
+      'showLocalInfo': true,
       'headerPartial':{
         'display': false,
         'logo':{
@@ -410,7 +411,8 @@ angular.module('mobiusApp.config', [])
         'displayTime':20000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
-      'showSlashThrough': false
+      'showSlashThrough': false,
+      'showMetaView': true
     },
 
     'reservations': {
@@ -802,6 +804,13 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': true,
         'hasTitle': true,
         'hotelInfo': {
+          'descriptionGrid': 7,
+          'sidebarGrid': 5
+        }
+      },
+      'roomDetails':{
+        'hasViewMore': true,
+        'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
         }
