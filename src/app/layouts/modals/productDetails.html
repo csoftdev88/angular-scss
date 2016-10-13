@@ -44,7 +44,7 @@
               <td>{{item.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
               <td ng-if="item.totalFees > 0">{{item.totalFees | i18nCurrency: currencyCode}}</td>
-              <td>{{item.totalAfterTax | i18nCurrency: currencyCode}}</td>
+              <td>{{item.totalAfterTaxAfterPricingRules | i18nCurrency: currencyCode}}</td>
             </tr>
           </tbody>
           <tfoot>
@@ -58,7 +58,7 @@
             </tr>
             <tr>
               <th colspan="{{data.totalDailyFees > 0 ? 4 : 3}}">_total_</th>
-              <th>{{data.product.price.totalAfterTax | i18nCurrency: currencyCode}}</th>
+              <th>{{data.product.price.totalAfterTaxAfterPricingRules | i18nCurrency: currencyCode}}</th>
             </tr>
           </tfoot>
         </table>
@@ -104,7 +104,7 @@
             <tbody>
               <tr class="main">
                 <th>_room_charges_:</th>
-                <td>{{data.product.price.totalAfterTax - data.product.price.taxDetails.totalTax - data.product.price.feeDetails.totalTax | i18nCurrency: currencyCode}}</td>
+                <td>{{data.product.price.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</td>
               </tr>
 
               <tr class="breakdown" ng-repeat="breakdown in data.product.price.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
@@ -139,7 +139,7 @@
             <tfoot>
               <tr class="main">
                 <th>_total_</th>
-                <td>{{data.product.price.totalAfterTax | i18nCurrency: currencyCode}}</td>
+                <td>{{data.product.price.totalAfterTaxAfterPricingRules | i18nCurrency: currencyCode}}</td>
               </tr>
             </tfoot>
           </table>

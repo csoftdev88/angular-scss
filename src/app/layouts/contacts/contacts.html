@@ -54,16 +54,15 @@
           </label>
         </form-element>
 
-        <form-element>
+        <form-element ng-if="subjectOptions">
           <label for="subject" class="input-left">
 
               <select name="subject"
                       required ng-model="formData.fields.subject"
                       disable-search="true"
                       chosen ng-options="option.key for option in subjectOptions"
-                      data-placeholder-text-single="'_subject_placeholder_'">
+                      placeholder-text-single="_subject_placeholder_">
 
-                <option value="">_subject_placeholder_</option> <!-- workaround for a bug in angular-chosen -->
               </select>
             <span>_subject_label_</span>
           </label>

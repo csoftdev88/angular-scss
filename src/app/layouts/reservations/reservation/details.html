@@ -15,9 +15,9 @@
       <label for="title" class="input-left small">
         <select type="text" id="title" required
           placeholder="_title_label_"
-          data-placeholder-text-single="'_title_label_'"
+          placeholder-text-single="_title_label_"
           ng-options="title.id as title.name for title in profileTitles"
-          ng-if="!isMobile"
+          ng-if="!isMobile && profileTitles"
           ng-model="userDetails.title"
           name="title"
           chosen>
@@ -25,7 +25,7 @@
         </select>
         <select type="text" id="title" required
           placeholder="_title_label_"
-          data-placeholder-text-single="'_title_label_'"
+          placeholder-text-single="_title_label_"
           ng-options="title.id as title.name for title in profileTitles"
           ng-if="isMobile"
           ng-model="userDetails.title"
@@ -127,10 +127,10 @@
         <span ng-show="forms.details.$submitted && forms.details.phone.$error">_postcode_label_</span>
       </label>
 
-      <label for="country" class="input-right">
+      <label for="country" class="input-right" ng-if="profileCountries">
         <select type="text" id="country" required
           placeholder="_country_label_"
-          data-placeholder-text-single="'_country_label_'"
+          placeholder-text-single="_country_label_"
           ng-options="country.id as country.name for country in profileCountries"
           ng-model="userDetails.localeCode"
           name="country"

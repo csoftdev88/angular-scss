@@ -109,8 +109,6 @@ angular.module('mobiusApp.services.booking', [])
           queryParams[API_PARAM_FROM] = dates.from;
           queryParams[API_PARAM_TO] = dates.to;
         }
-      } else if (key === 'promoCode') {
-        queryParams[getCodeParamName(value)] = value;
       } else if (QUERY_TO_API_PARAMS[key]) {
         queryParams[QUERY_TO_API_PARAMS[key]] = value;
       }

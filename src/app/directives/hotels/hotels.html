@@ -57,7 +57,6 @@
             'starRatingLowToHigh': '_star_rating_low_to_high_',
             'starRatingHighToLow': '_star_rating_high_to_low_'
           })">
-          <option></option> <!-- workaround for a bug in angular-chosen -->
         </select>
       </div>
     </div>
@@ -156,7 +155,6 @@
                 'starRatingLowToHigh': '_star_rating_low_to_high_',
                 'starRatingHighToLow': '_star_rating_high_to_low_'
               })">
-              <option></option> <!-- workaround for a bug in angular-chosen -->
             </select>
           </div>
           <hr>
@@ -213,19 +211,18 @@
           <hr/>
         </div>
 
-        <div ng-show="filter.type === 'chain' && hasDates()">
+        <div ng-if="filter.type === 'chain' && hasDates() && filterChains">
           <h3>_filter_chain_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
           <div class="accordion-content">
             <select name="rate"
               required ng-model="$parent.chainFilter"
               disable-search="true"
               chosen ng-options="chain.code as chain.nameShort for chain in filterChains">
-              <option value="">_filter_chain_label_</option> <!-- workaround for a bug in angular-chosen -->
             </select>
           </div>
           <hr/>
         </div>
-        <div ng-show="filter.type === 'rates' && hasDates() && rates.all.length > 1">
+        <div ng-if="filter.type === 'rates' && hasDates() && rates.all.length > 1">
           <h3>_filter_rates_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
           <div class="accordion-content">
             <select name="rate"
@@ -233,7 +230,6 @@
               disable-search="true"
               ng-change="rates.onRateChanged()"
               chosen ng-options="rate as rate.name for rate in rates.all">
-              <option></option> <!-- workaround for a bug in angular-chosen -->
             </select>
           </div>
           <hr/>

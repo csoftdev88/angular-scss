@@ -99,7 +99,7 @@
                 <th rowspan="3" class="total">Total:</th>
                 <td rowspan="3" class="total-value">
                     <!--<a href ng-click="openPriceBreakdownInfo()">{{reservation.rooms[0].priceAfterTax | i18nCurrency: defaultCurrencyCode}}</a>-->
-                    {{getCountPriceDetail('totalAfterTax') | i18nCurrency: defaultCurrencyCode}}
+                    {{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}
                 </td>
               </tr>
 
@@ -137,7 +137,7 @@
               <thead ng-switch="billingDetails.paymentMethod">
                 <tr class="main">
                   <th>_room_charges_:</th>
-                  <td>{{getBreakdownTotalBase() | i18nCurrency: defaultCurrencyCode}}</td>
+                  <td>{{getBreakdownTotalBaseAfterPricingRules() | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
 
                 <tr class="breakdown" ng-repeat="breakdown in reservation.rooms[0].priceDetail.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
@@ -184,7 +184,7 @@
 
             <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
               <span class="total">_total_:</span>
-              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTax') + getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</span>
+              <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTaxAfterPricingRules') + getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</span>
               <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
               <a href ng-click="openPoliciesInfo()">_view_policies_</a>
             </div>
