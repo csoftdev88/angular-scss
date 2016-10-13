@@ -13,7 +13,7 @@ angular.module('mobiusApp.config', [])
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
+    'integration': 'http://fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
     'staging': 'http://staging-us-infiniti-sandman.mobiuswebservices.com/track/content/infiniti.js',
     'live': '//infiniti.sandmanhotels.com/track/content/infiniti.js'
   },
