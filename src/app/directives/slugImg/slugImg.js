@@ -31,7 +31,7 @@ angular.module('mobiusApp.directives.slugImg', [])
               if (attrs.width) {
                 var replaceString = 'w_' + attrs.width + ',c_limit';
                 var inputParts = scope.src.split('/');
-                // insert dimensions after /image/upload/
+                // insert dimensions after /image/upload/q_auto,f_auto/
                 inputParts.splice(6, 0, replaceString);
                 scope.src = inputParts.join('/');
               }

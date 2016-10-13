@@ -63,7 +63,7 @@ angular.module('mobiusApp.directives.markdownTextParser', [])
         }
 
         //add custom class to images with cloudinary size settings to override default css
-        //var testImg  = '<img src="http://res.cloudinary.com/demo/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/lady.jpg"/>';
+        //var testImg  = '<img src="http://res.cloudinary.com/demo/image/upload/q_auto,f_auto/w_400,h_400,c_crop,g_face,r_max/w_200/lady.jpg"/>';
         //angular.element($element).html(angular.element($element).html() + testImg);
         angular.element($element).find('img').each(function(){
           var img = angular.element(this);
