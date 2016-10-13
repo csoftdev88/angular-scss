@@ -4,10 +4,12 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $rootScope, $timeout, $q, _, modalService,
-  propertyService, filtersService, bookingService, $window, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService) {
+.controller( 'RoomDetailsCtrl', function($scope, $state, $rootScope, $timeout, $q, _, modalService,
+  propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams, mobiusTrackingService) {
 
   var numNights = 1;
+
+  $scope.fromMeta = channelService.getChannel().name === 'meta' && Settings.UI.roomDetails.showMetaView ? true : false;
 
   $scope.setRoomDetails = function(roomDetails){
 
@@ -101,10 +103,16 @@ angular.module('mobius.controllers.room.details', [])
 
     qBookingParam.promise.then(function(bookingParams) {
       getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
-        $scope.updateHeroContent($window._.filter(data[0].images, {includeInSlider: true}));
+        //If not from meta, use room images in hero
+        if(!$scope.fromMeta){
+          $scope.updateHeroContent($window._.filter(data[0].images, {includeInSlider: true}));
+        }
         // Tracking products impressions
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
+            if($scope.fromMeta){
+              $scope.updateHeroContent($window._.filter(propertyData.images, {includeInSlider: true}));
+            }
             if(data[1].products){
               //google analytics
               dataLayerService.trackProductsImpressions(data[1].products.map(function(p){

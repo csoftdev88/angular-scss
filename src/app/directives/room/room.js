@@ -4,11 +4,11 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window, stateService,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location,$rootScope,scrollService,$timeout, dataLayerService, cookieFactory, chainService, userPreferenceService, $filter) {
+  $controller,$location,$rootScope,scrollService,$timeout, contentService, dataLayerService, cookieFactory, chainService, channelService, userPreferenceService, $filter) {
 
   return {
     restrict: 'E',
-    templateUrl: 'directives/room/room.html',
+    templateUrl: channelService.getChannel().name === 'meta' && Settings.UI.roomDetails.showMetaView ? 'directives/room/roomMeta.html' : 'directives/room/room.html',
     // Widget logic goes here
     link: function(scope){
 
@@ -21,11 +21,15 @@ angular.module('mobiusApp.directives.room', [])
       scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
       scope.config = Settings.UI.roomDetails;
       var bookingParams = bookingService.getAPIParams();
+      bookingParams.includes = 'amenities';
       var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
       scope.$stateParams = $stateParams;
       var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
       scope.propertyCode = propertyCode;
       bookingParams.propertyCode = propertyCode;
+      scope.viewSettings = Settings.UI.viewsSettings.roomDetails;
+      scope.hasViewMore = Settings.UI.viewsSettings.roomDetails.hasViewMore;
+      scope.showLocalInfo = Settings.UI.roomDetails.showLocalInfo;
 
       var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;
@@ -37,7 +41,6 @@ angular.module('mobiusApp.directives.room', [])
       propertyService.getRoomDetails(propertyCode, roomCode).then(function(data) {
         scope.roomDetails = data;
       });
-
 
       // Sorting options
       scope.initSortingOptions = function(options){
@@ -105,6 +108,13 @@ angular.module('mobiusApp.directives.room', [])
           scope.ratesLoaded = true;
           setRoomProductDetails(data.roomProductDetails);
           scope.roomDetails = data.roomDetails;
+
+          // Preview content
+          if(scope.fromMeta)
+          {
+            scope.previewImages = contentService.getLightBoxContent(scope.roomDetails.images, 300, 150, 'fill');
+          }
+
           setRoomData(data.roomDetails);
           $timeout(function(){
             scope.loadMoreRooms();
@@ -122,6 +132,7 @@ angular.module('mobiusApp.directives.room', [])
         });
         propertyPromise = propertyService.getPropertyDetails(propertyCode, bookingParams).then(function(property) {
           scope.property = property;
+          console.log(scope.property);
           if(!scope.property.hasOwnProperty('available')) {
             scope.property.available = true;
           }

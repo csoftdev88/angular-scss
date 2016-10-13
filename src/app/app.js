@@ -207,7 +207,7 @@ angular
     controller: 'MainCtrl',
     // NOTE: These params are used by booking widget
     // Can be placed into induvidual state later if needed
-    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucher&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode'
+    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucher&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode&ch'
   })
 
   // Home page
@@ -625,7 +625,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, stateService, scrollService,
-  metaInformationService, Settings, propertyService, $window, breadcrumbsService, user, cookieFactory) {
+  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
