@@ -28,7 +28,7 @@ angular.module('mobiusApp.directives.room', [])
       scope.propertyCode = propertyCode;
       bookingParams.propertyCode = propertyCode;
       scope.viewSettings = Settings.UI.viewsSettings.roomDetails;
-      scope.hasViewMore = Settings.UI.viewsSettings.roomDetails.hasViewMore;
+      scope.hasViewMore = scope.viewSettings && scope.viewSettings.hasViewMore;
       scope.showLocalInfo = Settings.UI.roomDetails.showLocalInfo;
 
       var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
@@ -132,7 +132,6 @@ angular.module('mobiusApp.directives.room', [])
         });
         propertyPromise = propertyService.getPropertyDetails(propertyCode, bookingParams).then(function(property) {
           scope.property = property;
-          console.log(scope.property);
           if(!scope.property.hasOwnProperty('available')) {
             scope.property.available = true;
           }
