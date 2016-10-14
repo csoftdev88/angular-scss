@@ -125,10 +125,7 @@ module.exports = {
         'bower_components/re-tree/re-tree.min.js',
         'bower_components/ng-device-detector/ng-device-detector.min.js',
       ],
-      styles: [
-        'bower_components/font-awesome/css/font-awesome.min.css',
-        'bower_components/angular-growl-v2/build/angular-growl.min.css'
-      ]
+      styles: []
     }
   }
 };
