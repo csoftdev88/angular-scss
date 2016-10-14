@@ -891,6 +891,13 @@ angular.module('mobiusApp.config', [])
           'sidebarGrid': 4
         }
       },
+      'roomDetails':{
+        'hasViewMore': true,
+        'roomInfo': {
+          'descriptionGrid': 7,
+          'sidebarGrid': 5
+        }
+      },
       'userProfile':{
         'hasAvatar': true,
         'hasWelcomeMessage': false,
