@@ -233,4 +233,17 @@
   .viewport-mobile & {
     margin: @baseline/2 auto 2px;
   }
+  @media screen and (max-height: 420px) {
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+    height:auto;
+    tbody {
+      tr {
+        border:0px none;
+        td {
+          font-size:15px;
+        }
+      }
+    }
+  }
 }
