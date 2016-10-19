@@ -914,6 +914,16 @@ angular.module('mobius.controllers.reservation', [])
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
           };
 
+          var stayLength = null;
+          var bookingWindow = null;
+
+          if($stateParams.dates)
+          {
+            var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
+            var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
+            stayLength = checkOutDate.diff(checkInDate, 'days');
+            bookingWindow = checkInDate.diff($window.moment(), 'days') + 1;
+          }
           var derbysoftInfo = null;
 
           if(Settings.derbysoftTracking && Settings.derbysoftTracking.enable)
@@ -957,7 +967,7 @@ angular.module('mobius.controllers.reservation', [])
             };
           }
 
-          dataLayerService.trackProductsPurchase(products, actionField, derbysoftInfo ? derbysoftInfo : null);
+          dataLayerService.trackProductsPurchase(products, actionField, derbysoftInfo ? derbysoftInfo : null, stayLength ? stayLength : null, bookingWindow ? bookingWindow : null);
 
           //mobius ecommerce tracking
           var priceData = {

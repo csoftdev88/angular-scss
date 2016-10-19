@@ -86,7 +86,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackProductsPurchase(products, actionField, derbysoftInfo){
+  function trackProductsPurchase(products, actionField, derbysoftInfo, stayLength, bookingWindow){
     if(!isDataLayerActive()){
       return;
     }
@@ -103,7 +103,9 @@ angular.module('mobiusApp.services.dataLayer', [])
       'ecommerce': {
         'purchase': {
           'actionField': actionField,
-          'products': products
+          'products': products,
+          'stayLength': stayLength ? stayLength : null,
+          'bookingWindow': bookingWindow ? bookingWindow : null
         }
       }
     };
