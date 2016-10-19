@@ -903,7 +903,8 @@ angular.module('mobius.controllers.reservation', [])
             };
             products.push(product);
           });
-          dataLayerService.trackProductsPurchase(products, {
+
+          var actionField = {
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
             'affiliation': 'Hotel',
@@ -911,7 +912,52 @@ angular.module('mobius.controllers.reservation', [])
             'quantity': numNights,
             'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBaseAfterPricingRules')).toFixed(2),
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
-          });
+          };
+
+          var derbysoftInfo = null;
+
+          if(Settings.derbysoftTracking && Settings.derbysoftTracking.enable)
+          {
+            var metaParam = $location.search().meta;
+            var metaDevice = null;
+            var metaChannelCode = null;
+
+            if(metaParam){
+              var metaData = metaParam.split('|');
+
+              metaDevice = _.find(metaData, function(metaItem) {
+                return metaItem.indexOf('device') !== -1;
+              });
+              metaChannelCode = _.find(metaData, function(metaItem) {
+                return metaItem.indexOf('source') !== -1;
+              });
+
+              metaDevice = metaDevice.split(':')[1];
+              metaChannelCode = metaChannelCode.split(':')[1];
+            }
+
+            derbysoftInfo = {
+              accountCode: Settings.derbysoftTracking.accountCode,
+              bookingNo:data[0].reservationCode,
+              channelCode: metaChannelCode ? metaChannelCode : null,
+              hotelCode:propertyData.code,
+              roomTypeName: $scope.allRooms[0].name,
+              roomTypeCode: $scope.allRooms[0].code,
+              ratePlanName: $scope.allRooms[0]._selectedProduct.name,
+              discount: $scope.getTotal('totalDiscount'),
+              ratePlanCode: $scope.allRooms[0]._selectedProduct.code,
+              checkInDate: $stateParams.dates.split('_')[0],
+              checkOutDate: $stateParams.dates.split('_')[1],
+              guests:parseInt($scope.getGuestsCount('adults')) + parseInt($scope.getGuestsCount('children')),
+              rooms:$scope.allRooms.length,
+              pureAmount:$scope.getTotal('totalBaseAfterPricingRules'),
+              totalAmount:$scope.getTotal('totalAfterTax'),
+              currency:$rootScope.currencyCode,
+              device: metaDevice ? metaDevice : null
+            };
+          }
+
+          dataLayerService.trackProductsPurchase(products, actionField, derbysoftInfo ? derbysoftInfo : null);
 
           //mobius ecommerce tracking
           var priceData = {
