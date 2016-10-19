@@ -172,7 +172,10 @@ angular.module('mobius.controllers.offers', [])
                 var property = _.find(properties, function(prop) {
                   return prop.code === offer.offerAvailability[0].property;
                 });
-                offer.propertyName = property.nameShort;
+                if(property)
+                {
+                  offer.propertyName = property.nameShort;
+                }
               }
               //assign a locationCode to each availability
               _.each(offer.offerAvailability, function(availability) {
