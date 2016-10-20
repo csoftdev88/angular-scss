@@ -140,6 +140,7 @@ angular.module('mobiusApp.config', [])
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
+      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
@@ -200,6 +201,7 @@ angular.module('mobiusApp.config', [])
       'singleProperty': true,
       'facebookAppId': '1694770414076502',
       'disableMainHeaderStyle': true,
+      'longDateFormat': 'D. MMMM YYYY',
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false
     },
@@ -409,6 +411,7 @@ angular.module('mobiusApp.config', [])
         'passbook': false,
         'print': true
       },
+      'showGuestName': true,
       'displayNewsletterCtaOnReservationDetail': false,
       'reservationDetailPriceBreakdownExtended': false
     },
@@ -487,7 +490,7 @@ angular.module('mobiusApp.config', [])
       'CHF': {
         'code': 'CHF',
         'symbol': 'CHF',
-        'format': '{{amount}}{{symbol}}'
+        'format': '{{amount}} {{symbol}}'
       },
 
       'GBP': {
@@ -565,8 +568,8 @@ angular.module('mobiusApp.config', [])
       'de': {
         'shortName': 'DE',
         'name': 'German',
-        'decimalSeparator': ',',
-        'groupSeparator': '\u00a0',
+        'decimalSeparator': '.',
+        'groupSeparator': ',',
         'groupSize': 3,
         'neg': '-'
       },
@@ -574,7 +577,7 @@ angular.module('mobiusApp.config', [])
         'shortName': 'FR',
         'name': 'French',
         'decimalSeparator': '.',
-        'groupSeparator': '\u00a0',
+        'groupSeparator': ',',
         'groupSize': 3,
         'neg': '-'
       }
@@ -650,12 +653,6 @@ angular.module('mobiusApp.config', [])
           'code': 'AX',
           'icon': 'amex',
           'regex': /^3[47][0-9]{13}$/
-        },
-        'discover': {
-          'name': 'Discover',
-          'code': 'DS',
-          'icon': 'discover',
-          'regex': /^6(?:011|5[0-9]{2})[0-9]{3,}$/
         }
       },
       //Is billing state a required field?
@@ -676,9 +673,18 @@ angular.module('mobiusApp.config', [])
       'bookingStepsNav':{
         'display': true
       },
+      //Default value for newsletter opt-in checkbox
+      'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
         'display': false
+      },
+      'loginCtaTop':{
+        'display': true
+      },
+      //Reverse the same address checkbox logic
+      'billingAddress': {
+        'reverseCheckboxLogic':true
       },
       //Additional details screen
       'additionalDetails':{
@@ -691,7 +697,8 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'bottom'
-        }
+        },
+        'optedInDefault': true
       }
     },
     'myAccount' : {
