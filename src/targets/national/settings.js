@@ -52,6 +52,10 @@ angular.module('mobiusApp.config', [])
     'trackUserId': true,
     'id': ''
   },
+  'hotjar': {
+    'enable': false,
+    'id': '0'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
