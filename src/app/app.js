@@ -640,7 +640,7 @@ angular
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
     //If date is in past, remove from params and reload page
-    if(toParams.dates)
+    /*if(toParams.dates)
     {
       var dates = toParams.dates.split('_');
 
@@ -655,7 +655,7 @@ angular
           toParams.dates = undefined;
         }
       }
-    }
+    }*/
 
     //Sandman specific HACK to intercept French if NOT on a quebec page
     if (Settings.sandmanFrenchOverride) {
