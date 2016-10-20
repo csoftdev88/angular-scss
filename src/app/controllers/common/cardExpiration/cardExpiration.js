@@ -41,7 +41,7 @@ angular.module('mobius.controllers.common.cardExpiration', [])
       $scope.cardExpiration.years.push(currentYear+extraYears);
       extraYears++;
     }
-    
+
   }
 
   $scope.onExpirationYearChange = function(){
@@ -54,7 +54,7 @@ angular.module('mobius.controllers.common.cardExpiration', [])
 
   $scope.onExpirationMonthChange = function(){
     if(!$scope.cardExpiration.selectedMonth || $scope.cardExpiration.selectedMonth.id < $window.moment().month()){
-      generateExpirationOptions(0,1);
+      generateExpirationOptions(0,0);
     }else{
       generateExpirationOptions(0,0);
     }
