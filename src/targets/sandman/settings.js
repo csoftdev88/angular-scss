@@ -45,6 +45,10 @@ angular.module('mobiusApp.config', [])
       'live': ''
     }
   },
+  'derbysoftTracking' : {
+    'enable': true,
+    'accountCode':'2p'
+  },
   'googleAnalytics': {
     'enable': false,
     'id': ''

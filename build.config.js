@@ -40,7 +40,7 @@ module.exports = {
         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
         'bower_components/angular-touch/angular-touch.min.js',
         'bower_components/angular-animate/angular-animate.js',
-        'bower_components/angular-chosen-localytics/dist/angular-chosen.min.js',
+        'bower_components/angular-chosen-js/angular-chosen.min.js',
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
@@ -91,16 +91,12 @@ module.exports = {
     /* List of vendor files used in application */
     vendor_files: {
       js: [
-        'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/jquery-ui/jquery-ui.min.js',
-        //'bower_components/jquery-datepicker/index.js',
         'vendors/jquery-datepicker/index.js',
         'vendors/chosen/chosen.jquery.min.js',
-        'bower_components/angular/angular.js',
         'bower_components/angular-resource/angular-resource.js',
         'bower_components/angular-touch/angular-touch.min.js',
         'bower_components/angular-animate/angular-animate.js',
-        'bower_components/angular-chosen-localytics/dist/angular-chosen.min.js',
+        'bower_components/angular-chosen-js/angular-chosen.min.js',
         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
         'bower_components/angular-growl-v2/build/angular-growl.min.js',
@@ -125,10 +121,7 @@ module.exports = {
         'bower_components/re-tree/re-tree.min.js',
         'bower_components/ng-device-detector/ng-device-detector.min.js',
       ],
-      styles: [
-        'bower_components/font-awesome/css/font-awesome.min.css',
-        'bower_components/angular-growl-v2/build/angular-growl.min.css'
-      ]
+      styles: []
     }
   }
 };

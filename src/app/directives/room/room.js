@@ -104,7 +104,7 @@ angular.module('mobiusApp.directives.room', [])
       }
 
       qBookingParam.promise.then(function(bookingParams) {
-        var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams).then(function(data) {
+        var roomDetailsPromise = scope.getRoomData(propertyCode, roomCode, bookingParams, null).then(function(data) {
           scope.ratesLoaded = true;
           setRoomProductDetails(data.roomProductDetails);
           scope.roomDetails = data.roomDetails;

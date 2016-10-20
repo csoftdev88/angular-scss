@@ -29,6 +29,10 @@ describe('RoomProducts', function() {
     }
   };
 
+  var CHANNEL_DATA = {
+    channelID:6
+  };
+
   var HOTEL_DETAILS = {
     nameShort: 'Mobius hotel',
     images: [
@@ -99,8 +103,41 @@ describe('RoomProducts', function() {
         }
       });
 
+      $provide.value('channelService', {
+        getChannel: function(){
+          return {
+            then: function(c){
+              return c(CHANNEL_DATA);
+            }
+          };
+        }
+      });
+
+      var apiService = {
+        get: function(){
+          return {
+            then: function(c){
+              c();
+            }
+          };
+        },
+
+        getFullURL: function(p){
+          return p;
+        }
+      };
+
+      $provide.value('apiService', apiService);
+
       $provide.value('mobiusTrackingService', {
         trackSearch: function(){}
+      });
+
+      $provide.value('$window', {
+        Raven : {
+          captureException: function(){}
+        },
+        moment: window.moment
       });
 
       $provide.value('$state', {

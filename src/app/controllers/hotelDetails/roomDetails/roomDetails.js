@@ -12,7 +12,6 @@ angular.module('mobius.controllers.room.details', [])
   $scope.fromMeta = channelService.getChannel().name === 'meta' && Settings.UI.roomDetails.showMetaView ? true : false;
 
   $scope.setRoomDetails = function(roomDetails){
-
     $scope.roomDetails = roomDetails;
 
     if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics){
@@ -77,12 +76,17 @@ angular.module('mobius.controllers.room.details', [])
     return modalService.openPriceBreakdownInfo([room]);
   };
 
-  $scope.getRoomData = function(propertyCode, roomCode){
+  $scope.getRoomData = function(propertyCode, roomCode, bookingParams, voucherCode){
     var qBookingParam = $q.defer();
     var qRoomData = $q.defer();
 
-    var bookingParams = bookingService.getAPIParams(true);
+    bookingParams = bookingService.getAPIParams(true);
     numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
+
+    if(voucherCode)
+    {
+      bookingParams.voucher = voucherCode;
+    }
 
     // Using PGID from the booking params
     if(bookingParams.productGroupId){

@@ -121,9 +121,9 @@ angular.module('mobiusApp.services.modal', [])
   // rooms is an array of rooms and each room has _selectedProduct object with corresponding
   // product
   function openPriceBreakdownInfo(rooms){
-    var totalAfterTax = _.reduce(
+    var totalAfterTaxAfterPricingRules = _.reduce(
       _.map(rooms, function(room){
-        return room._selectedProduct.price.totalAfterTax;
+        return room._selectedProduct.price.totalAfterTaxAfterPricingRules;
       }), function(t, n){
         return t + n;
       }
@@ -153,15 +153,13 @@ angular.module('mobiusApp.services.modal', [])
       });
     });
 
-    console.log(totalDailyFees);
-
     return openDialog('PriceBreakdownInfo', 'layouts/modals/priceBreakdownInfo.html', CONTROLLER_DATA, {
       windowClass: 'is-wide',
       resolve: {
         data: function(){
           return {
             rooms: rooms,
-            totalAfterTax: totalAfterTax,
+            totalAfterTaxAfterPricingRules: totalAfterTaxAfterPricingRules,
             totalAdditionalFees: totalAdditionalFees,
             totalAdditionalTaxes: totalAdditionalTaxes,
             totalDailyFees: totalDailyFees

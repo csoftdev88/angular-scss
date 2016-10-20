@@ -7,7 +7,7 @@ angular.module('mobius.controllers.hotel.details', [
 ])
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
-  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService,
+  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService,
   $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
 
   $controller('PriceCtr', {
@@ -29,6 +29,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
   $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
+  $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -264,36 +265,42 @@ angular.module('mobius.controllers.hotel.details', [
           $scope.ratesLoaded = true;
         }
 
-        setPropertyOffersUrl();
-
         var offersParams = $window._.extend({}, bookingParams);
         delete offersParams.promoCode;
         delete offersParams.corpCode;
         delete offersParams.groupCode;
-        contentService.getOffers().then(function(response) {
-          response = _.filter(response, function(offer, index) {
-            var availability = _.find(offer.offerAvailability, function(availability) {
-              return availability.property === propertyCode;
-            });
-            response[index].availability = availability && availability.showOnHotelPage ? availability : null;
-            return availability && availability.showOnHotelPage;
-          });
-          $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
-          _.each($scope.offersList, function(offer) {
-            offer.url = getOfferUrl(offer);
-          });
-          if (!$scope.offersList || $window._.isEmpty($scope.offersList)) {
-            breadcrumbsService.removeHref('Offers');
-          } else {
-            var scrollToValue = $location.search().scrollTo || null;
-            if (scrollToValue && scrollToValue === 'jsOffers') {
-              $timeout(function() {
-                scrollService.scrollTo(scrollToValue, 20);
-              }, 500);
-            }
-          }
 
-        });
+        if(!$scope.fromMeta)
+        {
+          setPropertyOffersUrl();
+          contentService.getOffers().then(function(response) {
+            response = _.filter(response, function(offer, index) {
+              var availability = _.find(offer.offerAvailability, function(availability) {
+                return availability.property === propertyCode;
+              });
+              response[index].availability = availability && availability.showOnHotelPage ? availability : null;
+              return availability && availability.showOnHotelPage;
+            });
+            $scope.offersList = response.splice(0, NUMBER_OF_OFFERS);
+            _.each($scope.offersList, function(offer) {
+              offer.url = getOfferUrl(offer);
+            });
+            if (!$scope.offersList || $window._.isEmpty($scope.offersList)) {
+              breadcrumbsService.removeHref('Offers');
+            } else {
+              var scrollToValue = $location.search().scrollTo || null;
+              if (scrollToValue && scrollToValue === 'jsOffers') {
+                $timeout(function() {
+                  scrollService.scrollTo(scrollToValue, 20);
+                }, 500);
+              }
+            }
+
+          });
+        }
+        else {
+          breadcrumbsService.removeHref('Offers');
+        }
         //$scope.scrollToBreadcrumbs();
 
       }, function() {

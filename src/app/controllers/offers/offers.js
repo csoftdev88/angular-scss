@@ -172,7 +172,10 @@ angular.module('mobius.controllers.offers', [])
                 var property = _.find(properties, function(prop) {
                   return prop.code === offer.offerAvailability[0].property;
                 });
-                offer.propertyName = property.nameShort;
+                if(property)
+                {
+                  offer.propertyName = property.nameShort;
+                }
               }
               //assign a locationCode to each availability
               _.each(offer.offerAvailability, function(availability) {
@@ -635,27 +638,29 @@ angular.module('mobius.controllers.offers', [])
           return availability.property === property.code;
         });
 
-        //If is hotdeal and the offer is featured at chain level or if it's a chainwide offer, include all property availability
-        if ($scope.isHotDeals && $scope.offersList[selectedOfferIndex].featured || !$scope.isHotDeals) {
-          filteredProperties.push({
-            'name': property.nameShort,
-            'slug': property.meta.slug,
-            'code': property.code,
-            'locationCode': property.locationCode,
-            'type': 'property',
-            'chainCode': property.chainCode
-          });
-        }
-        //If is hotdeal and the offer is not featured at chain level, include featured property availability
-        else if ($scope.isHotDeals && availability.featured) {
-          filteredProperties.push({
-            'name': property.nameShort,
-            'slug': property.meta.slug,
-            'code': property.code,
-            'locationCode': property.locationCode,
-            'type': 'property',
-            'chainCode': property.chainCode
-          });
+        if(property){
+          //If is hotdeal and the offer is featured at chain level or if it's a chainwide offer, include all property availability
+          if ($scope.isHotDeals && $scope.offersList[selectedOfferIndex].featured || !$scope.isHotDeals) {
+            filteredProperties.push({
+              'name': property.nameShort,
+              'slug': property.meta.slug,
+              'code': property.code,
+              'locationCode': property.locationCode,
+              'type': 'property',
+              'chainCode': property.chainCode
+            });
+          }
+          //If is hotdeal and the offer is not featured at chain level, include featured property availability
+          else if ($scope.isHotDeals && availability.featured) {
+            filteredProperties.push({
+              'name': property.nameShort,
+              'slug': property.meta.slug,
+              'code': property.code,
+              'locationCode': property.locationCode,
+              'type': 'property',
+              'chainCode': property.chainCode
+            });
+          }
         }
 
       });

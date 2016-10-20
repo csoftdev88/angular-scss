@@ -147,14 +147,13 @@
 
       <fieldset>
 
-        <form-element>
+        <form-element ng-if="profileTitles">
           <label for="profileTitle">_title_label_</label>
           <select name="profileTitle" required chosen
                   disable-search="true"
-                  data-placeholder-text-single="'_title_label_'"
+                  placeholder-text-single="_title_label_"
                   ng-model="profileData.title"
                   ng-options="title.id as title.name for title in profileTitles">
-            <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>
 
@@ -238,14 +237,13 @@
             ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"/>
         </form-element>
 
-        <form-element>
+        <form-element ng-if="profileCountries">
           <label for="profileCountry">_country_label_</label>
           <select name="profileCountry" chosen
                   disable-search="true"
                   data-placeholder=""
                   ng-model="profileData.localeCode"
                   ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
-            <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>
 
@@ -269,14 +267,13 @@
             ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"/>
         </form-element>
 
-        <form-element>
+        <form-element ng-if="profileContacts">
           <label for="profileContact">_prefered_contact_label_</label>
           <select name="profileContact" required chosen
                   disable-search="true"
-                  data-placeholder-text-single="'_prefered_contact_label_'"
+                  placeholder-text-single="_prefered_contact_label_"
                   ng-model="profileData.preferredContactMethodCode"
                   ng-options="contact.id as contact.name for contact in profileContacts">
-            <option></option> <!-- workaround for a bug in angular-chosen  -->
           </select>
         </form-element>
 

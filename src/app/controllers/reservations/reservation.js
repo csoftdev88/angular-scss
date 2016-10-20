@@ -16,6 +16,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMakingReservation = false;
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
+  $scope.$stateParams = $stateParams;
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition =  $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
@@ -224,7 +225,7 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   function getRoomPromise(room){
-    return $scope.getRoomData($stateParams.property, room.roomID).then(function(data){
+    return $scope.getRoomData($stateParams.property, room.roomID, null, $scope.voucher.code).then(function(data){
 
       var roomData = data.roomDetails;
       var product = _.findWhere(data.roomProductDetails.products,
@@ -250,31 +251,7 @@ angular.module('mobius.controllers.reservation', [])
             trackProductCheckout(1);
           }
         }
-
-        //If voucher code in query string
-        if($stateParams.voucher && $scope.bookingConfig.vouchers.enable)
-        {
-          $scope.voucher.verifying = true;
-          var params = getCheckVoucherParams();
-
-          //Validate our voucher code
-          reservationService.checkVoucher(params).then(function(voucherData){
-            if(voucherData.valid)
-            {
-              $scope.voucher.verifying = false;
-              $scope.voucher.valid = true;
-              $scope.voucher.submitted = true;
-              $scope.voucher.code = $stateParams.voucher.toUpperCase();
-            }
-            else {
-              invalidVoucher();
-            }
-          }, function(){
-            invalidVoucher();
-          });
-        }
       }
-
     });
   }
 
@@ -640,7 +617,7 @@ angular.module('mobius.controllers.reservation', [])
       }
     };
 
-    if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable)
+    if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
     {
       reservationData.voucher = $scope.voucher.code.toUpperCase();
     }
@@ -800,17 +777,13 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
-  $scope.getBreakdownTotalBase = function(){
+  $scope.getBreakdownTotalBaseAfterPricingRules = function(){
     // Returning a total base price
-    var totalTax = 0;
-    var totalFees = 0;
-    var totalAfterTax = 0;
+    var totalBaseAfterPricingRules = 0;
     _.map($scope.allRooms, function(room){
-      totalTax += room._selectedProduct.price.taxDetails.totalTax;
-      totalFees += room._selectedProduct.price.feeDetails.totalTax;
-      totalAfterTax += room._selectedProduct.price.totalAfterTax;
+      totalBaseAfterPricingRules += room._selectedProduct.price.totalBaseAfterPricingRules;
     });
-    return totalAfterTax - totalTax - totalFees;
+    return totalBaseAfterPricingRules;
   };
 
   $scope.getBreakdownTotalTaxes = function(isFee){
@@ -930,7 +903,8 @@ angular.module('mobius.controllers.reservation', [])
             };
             products.push(product);
           });
-          dataLayerService.trackProductsPurchase(products, {
+
+          var actionField = {
             // Transaction ID
             id: reservationDetailsParams.reservationCode,
             'affiliation': 'Hotel',
@@ -938,7 +912,62 @@ angular.module('mobius.controllers.reservation', [])
             'quantity': numNights,
             'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBaseAfterPricingRules')).toFixed(2),
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
-          });
+          };
+
+          var stayLength = null;
+          var bookingWindow = null;
+
+          if($stateParams.dates)
+          {
+            var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
+            var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
+            stayLength = checkOutDate.diff(checkInDate, 'days');
+            bookingWindow = checkInDate.diff($window.moment(), 'days') + 1;
+          }
+          var derbysoftInfo = null;
+
+          if(Settings.derbysoftTracking && Settings.derbysoftTracking.enable)
+          {
+            var metaParam = $location.search().meta;
+            var metaDevice = null;
+            var metaChannelCode = null;
+
+            if(metaParam){
+              var metaData = metaParam.split('|');
+
+              metaDevice = _.find(metaData, function(metaItem) {
+                return metaItem.indexOf('device') !== -1;
+              });
+              metaChannelCode = _.find(metaData, function(metaItem) {
+                return metaItem.indexOf('source') !== -1;
+              });
+
+              metaDevice = metaDevice.split(':')[1];
+              metaChannelCode = metaChannelCode.split(':')[1];
+            }
+
+            derbysoftInfo = {
+              accountCode: Settings.derbysoftTracking.accountCode,
+              bookingNo:data[0].reservationCode,
+              channelCode: metaChannelCode ? metaChannelCode : null,
+              hotelCode:propertyData.code,
+              roomTypeName: $scope.allRooms[0].name,
+              roomTypeCode: $scope.allRooms[0].code,
+              ratePlanName: $scope.allRooms[0]._selectedProduct.name,
+              discount: $scope.getTotal('totalDiscount'),
+              ratePlanCode: $scope.allRooms[0]._selectedProduct.code,
+              checkInDate: $stateParams.dates.split('_')[0],
+              checkOutDate: $stateParams.dates.split('_')[1],
+              guests:parseInt($scope.getGuestsCount('adults')) + parseInt($scope.getGuestsCount('children')),
+              rooms:$scope.allRooms.length,
+              pureAmount:$scope.getTotal('totalBaseAfterPricingRules'),
+              totalAmount:$scope.getTotal('totalAfterTax'),
+              currency:$rootScope.currencyCode,
+              device: metaDevice ? metaDevice : null
+            };
+          }
+
+          dataLayerService.trackProductsPurchase(products, actionField, derbysoftInfo ? derbysoftInfo : null, stayLength ? stayLength : null, bookingWindow ? bookingWindow : null);
 
           //mobius ecommerce tracking
           var priceData = {
@@ -1218,7 +1247,7 @@ angular.module('mobius.controllers.reservation', [])
   });
 
   $scope.redeemVoucher = function(){
-    if($scope.voucher.code && $scope.bookingConfig.vouchers.enable)
+    if($scope.voucher.code && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
     {
       $scope.voucher.verifying = true;
 
@@ -1227,12 +1256,46 @@ angular.module('mobius.controllers.reservation', [])
       reservationService.checkVoucher(params).then(function(voucherData){
         if(voucherData.valid)
         {
-          //If successful display success message and reload state with voucher param
+          //If successful display success message and price details with voucher param
           $scope.voucher.verifying = false;
           $scope.voucher.valid = true;
           $scope.voucher.submitted = true;
-          $stateParams.voucher = $scope.voucher.code.toUpperCase();
-          $state.go($state.current, $stateParams, {reload: true});
+
+          var roomsPromises = [];
+          var rooms;
+          $scope.allRooms = [];
+
+          if(!$scope.isMultiRoomMode){
+            // Getting single room details
+            // One room booking
+            rooms = [];
+            rooms.push({
+              property: $stateParams.property,
+              roomID: $stateParams.roomID,
+              productCode: $stateParams.productCode
+            });
+          } else {
+            multiRoomData = bookingService.getMultiRoomData();
+            rooms = multiRoomData.map(function(room){
+              return {
+                property: $stateParams.property,
+                roomID: room.roomID,
+                productCode: room.productCode
+              };
+            });
+          }
+
+          // Loading all the rooms;
+          roomsPromises = rooms.map(function(room){
+            return getRoomPromise(room);
+          });
+
+          //When new room pricing is there update views
+          preloaderFactory($q.all(roomsPromises).then(function(){
+            $scope.voucher.verifying = false;
+            $scope.voucher.valid = true;
+            $scope.voucher.submitted = true;
+          }, goToRoom));
         }
         else {
           invalidVoucher();

@@ -86,27 +86,37 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackProductsPurchase(products, actionField){
+  function trackProductsPurchase(products, actionField, derbysoftInfo, stayLength, bookingWindow){
     if(!isDataLayerActive()){
       return;
     }
 
-    // delete tax property from products array if present as not required at this step but used in 
+    // delete tax property from products array if present as not required at this step but used in
     for (var p in products){
       if(products[p].tax){
-        delete products[p].tax;        
+        delete products[p].tax;
       }
     }
 
-    getDataLayer().push({
+    var dataLayerInfo = {
       'event': 'purchaseConfirmation',
       'ecommerce': {
-        'purchase': { 
+        'purchase': {
           'actionField': actionField,
-          'products': products
+          'products': products,
+          'stayLength': stayLength ? stayLength : null,
+          'bookingWindow': bookingWindow ? bookingWindow : null
         }
       }
-    });
+    };
+
+    if(derbysoftInfo){
+      dataLayerInfo.ecommerce.purchase.derbysoftInfo = derbysoftInfo;
+    }
+
+    console.log(dataLayerInfo);
+
+    getDataLayer().push(dataLayerInfo);
   }
 
   function trackReservationRefund(reservationCode){
