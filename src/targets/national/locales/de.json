@@ -16,7 +16,7 @@
 
     "page_title": "Grand Hotel National Lucerne",
     "footer_copyright_text": "&copy; 2016 Grand Hotel National Lucerne. All Rights Reserved.",
-    "breadcrumbs_static_content": "Grand Hotel National AG, Haldenstrasse 4, 6006 Luzern, Switzerland, <a href='mailto:info@grandhotel-national.com'>info@grandhotel-national.com</a>",
+    "breadcrumbs_static_content": "Grand Hotel National AG, Haldenstrasse 4, 6006 Luzern, Switzerland, T +41 41 419 09 09, F +41 41 419 09 10, <a href='mailto:info@grandhotel-national.com'>info@grandhotel-national.com</a>",
     "footer_static_content": "Grand Hotel National AG, Haldenstrasse 4, 6006 Luzern, Switzerland, T +41 41 419 09 09, F +41 41 419 09 10, <a href='mailto:info@grandhotel-national.com'>info@grandhotel-national.com</a>",
     "HOMEPAGE": "//////////////////////////////////////////////////////",
     "home_page_title": "",
@@ -71,15 +71,16 @@
     "BUTTONS": "//////////////////////////////////////////////////////",
     "your_booking_progress": "Ihr Buchungs-<span>fortschritt</span>",
     "choose_your_room": "Wählen Sie Ihr Zimmer",
-    "guest_details": "Gast Informationen",
+    "guest_details": "Gästeinformationen",
     "billing_details": "Zahlungsangaben",
     "points_balance": "Treuepunkteguthaben",
     "additional_details": "Zusätzliche Angaben",
-    "billing_information": "Rechnungsinformationen",
+    "billing_information": "Zahlungsangaben",
     "confirm_your_reservation": "Buchungsbestätigung",
 
     "login_register": "Log In / Registrierung",
     "login_to_book": "Login dich Buchen",
+    "user_has_account_login": "Wenn Sie bereits bei uns registriert sind, dann loggen Sie sich bitte jetzt ein.",
 
     "continue_as_guest": "Weiterfahren als Gast",
 
@@ -89,6 +90,8 @@
     "continue": "Weiter",
 
     "view_more": "Mehr Details",
+
+    "view_full_details": "Alle Details anzeigen",
 
     "view_room": "Zimmer ansehen",
 
@@ -127,13 +130,13 @@
 
     "view_hotels": "Hotels anschauen",
 
-    "book_now": "Buche jetzt",
+    "book_now": "Buchen",
 
     "select_dates": "Datum auswählen",
     "change_dates": "Datum ändern",
     "no_dates_selected": "Sie haben keine Daten selektiert",
-    "dates_selected": "Selektiere Daten",
-    "select_new_dates": "wählen neues Datum",
+    "dates_selected": "Ihre Auswahl",
+    "select_new_dates": "Datum ändern",
 
     "save": "Speichern",
 
@@ -141,7 +144,7 @@
 
     "modify": "ändern",
 
-    "view_policies": "Policies anschauen",
+    "view_policies": "Regelungen",
 
     "lookup_booking": "Buchung anschauen",
     "edit": "Edit",
@@ -204,7 +207,7 @@
 
     "no_badges_earned": "Du hast bisher keine Badges bekommen",
 
-    "book_now": "Buche jetzt",
+    "book_now": "Buchen",
 
     "single_booking": "Einezelbuchung",
 
@@ -263,7 +266,7 @@
     "COMPONENTS": "//////////////////////////////////////////////////////",
     "best_value": "Best Value",
     "price_low_to_high": "Niedrigster Preis zuerst",
-    "price_high_to_low": "Höchste Pries zuerst",
+    "price_high_to_low": "Höchste Preis zuerst",
     "recommended": "Empfohlen",
     "availability": "Verfügbare",
     "star_rating_low_to_high": "Kategorie  5..1 Sterne",
@@ -296,7 +299,7 @@
     "hotel_detail_header_contact_title": "Hotel Informationen",
     "no_points_rate_desc": "diese Rate vergibt keine Punkte",
 
-    "mapLocationHeader": "The {chainPrefix} {nameShort} Location",
+    "mapLocationHeader": "Location of {hotelName}",
     "mapLocationHeaderNameField": "nameShort",
     "offers_title": "Angebote und Promotionen",
 
@@ -312,13 +315,13 @@
 
     "bus": "Bus",
 
-    "train": "Zug",
+    "train": "Bahn",
 
     "plane": "Flugzeug",
 
     "boat": "Boot",
 
-    "other": "Weiter",
+    "other": "Andere",
 
     "more": "zusätzlich",
 
@@ -328,11 +331,13 @@
     "hotel_found": "Hotel Available",
     "hotels_found": "Hotels Available",
 
-    "per_night": "Pro Nacht",
+    "per_night": "pro Nacht",
 
-    "per_stay": "Pro Aufenthalt",
+    "per_stay": "pro Aufenthalt",
 
     "price_from": "von",
+
+    "bookable_from": "Buchbar ab",
 
     "view_rates": "Preise anschauen",
 
@@ -340,7 +345,7 @@
 
     "room_type": "Zimmer Typ",
 
-    "rate_type": "Preis-Typ",
+    "rate_type": "Preis Typ",
 
     "total_rate": "Total Preis",
 
@@ -353,7 +358,7 @@
 
     "tax": "Steuern",
 
-    "taxes": "Steuern",
+    "taxes": "Resort Fee",
     "taxes_and_fees": "Steuern und anfallende Gebühren",
 
     "additional_taxes": "zusätzliche Steuern",
@@ -361,7 +366,7 @@
     "fees": "Gebühren",
 
     "additional_fees": "zusätzliche Gebühren",
-    "applicable_fees": "anfallende Gebühren",
+    "applicable_fees": "Anfallende Gebühren",
 
     "discount": "Rabatt",
 
@@ -387,7 +392,7 @@
     "not_enough_points_to_purchase": "Entschuldigen Sie, sie haben nicht genügend Punkte, um diesen Einkauf zu tätigen",
 
     "payment_not_authorized": "Wir haben ein Problem mit Ihrer Zahlungsinformationen",
-    "user_already_registered": "Sorry, leider ist diese Emailadresse bereits registriert. Bitte melden Sie sich direkt an oder benützen Sie eine andere Emailadresse.",
+    "user_already_registered": "Sorry, leider ist diese E-mail-adresse bereits registriert. Bitte melden Sie sich direkt an oder benützen Sie eine andere E-mail-adresse.",
     "generic_reservation_error": "Wir sind nicht in der Lage Ihre Buchung zur Zeit zu verarbeiten. Bitte versuchen Sie es erneut, oder kontaktieren Sie direkt das Hotel.",
     "payment_not_authorized_card_name": "Name des Karteninhabers ist ungŸltig",
     "payment_not_authorized_payment_type": "Zahlungsart ist ungŸltig",
@@ -396,13 +401,13 @@
     "payment_not_authorized_ccv_invalid": "CVV ist ungŸltig",
     "payment_not_authorized_cc_number_invalid": "Kartennummer ist ungŸltig",
 
-    "check_in": "Check in",
+    "check_in": "Anreise",
 
-    "check_out": "Check out",
+    "check_out": "Abreise",
 
-    "room_charges": "Zimmer Gebühren",
+    "room_charges": "Zimmer insgesamt",
 
-    "i_agree_to": "Ich bin einverstanden mit",
+    "i_agree_to": "Ich akzeptiere die",
 
     "share_via": "Share via",
 
@@ -410,7 +415,7 @@
 
     "add_to_passbook": "Zum Passbook hinzufügen",
 
-    "booking_reference": "Deine Referenz",
+    "booking_reference": "Ihre Referenz",
 
     "booked": "Gebucht",
 
@@ -438,7 +443,7 @@
 
     "hotel_map_external_link": "Google Maps anschauen",
 
-    "hotel_map_email_label": "Email",
+    "hotel_map_email_label": "E-mail",
 
     "hotel_map_phone_label": "Telefon",
 
@@ -454,7 +459,7 @@
     "hide_price_breakdown": "Preis-Auflistung verstecken",
 
     "policies": "Policies",
-    "view_price_breakdown_policies": "Preis-Auflistung und Policies anschauen",
+    "view_price_breakdown_policies": "Preis-Auflistung und Regelungen",
 
     "show_more": "Mehr anzeigen",
 
@@ -475,7 +480,7 @@
 
     "room_not_available_on_dates_desc": "Wähle andere Daten oder ein anderes Zimmer.",
 
-    "not_available_on_dates_title": "An den gewählten Daten nicht verfügbar.",
+    "not_available_on_dates_title": "Leider ist diese Zimmerkategorie an Ihrem Wunschdatum nicht verfügbar.",
     "not_available_on_dates_sub_title": "Please change your dates to view rates for this room.",
 
     "not_available_on_dates_desc": "Bitte rufen Sie das Hotel an unter <span itemprop='telephone'><a href='tel:{{property.tel1}}''>{{property.tel1}}</a></span> um die Verfügbarkeit zu prüfen <a href ng-click='switchToMRBMode()''>multiroom</a> booking.",
@@ -490,7 +495,7 @@
 
     "other_rooms_title": "Andere Zimmer",
 
-    "select_dates_for_prices_title": "Bitte Daten selektieren, um die Preise zu sehen",
+    "select_dates_for_prices_title": "Bitte wählen Sie Ihr Reisedatum",
 
     "earn_at_least": "Bekomme mindestens",
 
@@ -530,15 +535,15 @@
 
     "name_placeholder": "Name eingeben",
 
-    "email_label": "Email Adresse",
+    "email_label": "E-mail",
 
-    "confirm_email_label": "Email bestätigen",
+    "confirm_email_label": "E-mail bestätigen",
 
-    "email_placeholder": "Email eingeben",
+    "email_placeholder": "E-mail eingeben",
 
     "invalid_email_message": "Bitte eine gültige E-Mail-Adresse eingeben",
 
-    "email_match_error_message": "Die Email-Adressen passen nicht zusammen",
+    "email_match_error_message": "Die E-mail-Adressen passen nicht zusammen",
 
     "subject_label": "Betreff",
 
@@ -582,7 +587,7 @@
 
     "first_name_label": "Vorname",
 
-    "last_name_label": "Nachname",
+    "last_name_label": "Name",
 
     "address_label": "Adresse",
 
@@ -604,15 +609,15 @@
 
     "country_placeholder": "Land",
 
-    "postcode_label": "Postzleitzahl",
+    "postcode_label": "PLZ",
 
     "postcode_placeholder": "Postleitzahl",
 
-    "phone_label": "Teleonnummer",
+    "phone_label": "Telefonnummer",
 
     "phone_placeholder": "Telefonnummer",
 
-    "primary_phone_label": "Haupt-Telefonnummer",
+    "primary_phone_label": "Telefonnummer",
 
     "secondary_phone_number": "Zweit-Telefonnummer",
 
@@ -643,7 +648,7 @@
 
     "card_cvv_error": "Bitte geben Sie ein gültiges Ablaufdatum ein",
 
-    "use_guest_address_label": "Benutze Gäste-Adresse",
+    "use_guest_address_label": "Rechnungsadresse ändern",
 
     "arrival_time_label": "Ankunftszeit",
 
@@ -662,9 +667,9 @@
 
     "phone_pattern_error": "Bitte geben Sie ein gültige Telefonnummer ein",
 
-    "receive_offer_label": "Gerne bekomme ich Angebote via Email",
+    "receive_offer_label": "Bitte senden Sie mir in Zukunft Ihren Newsletter",
 
-    "email_optin_label": "Ich bestätige, dass ich Emails des {nameShort} bekommen möchte",
+    "email_optin_label": "Bitte senden Sie mir in Zukunft Ihren Newsletter",
 
     "RESETPASSWORDFORM": "///////////////////////////////////////////////////////////",
     "reset_password_page_title": "Kennwort vergessen",
@@ -741,7 +746,7 @@
     "login_prompt_modal_subtitle": "Registriere dich, um deine Punkte zu erhalten",
 
     "login_prompt_modal_desc": "Eröffne einen Account um an Sutton Prestige teilzunehmen. Bekomme für jeden ausgegeben Dollar Punkte, die du für grossartige Preise einlösen kannst",
-    "login_registered_prompt_modal_subtitle": "Ihre Email-Adresse wird mit einem bestehenden Sutton Prestige-Konto verknüpft",
+    "login_registered_prompt_modal_subtitle": "Ihre E-mail-Adresse wird mit einem bestehenden Sutton Prestige-Konto verknüpft",
     "login_registered_prompt_modal_desc": "Bitte loggen Sie sich für Ihre Buchung fortsetzen und Punkte sammeln und tolle Prämien, oder fahren Sie mit einer anderen E-Mail-Adresse Ihre Buchung.",
 
     "policies_modal_title": "Allgemeine Bedingungen",
@@ -757,7 +762,7 @@
 
     "reservation_lookup_page_title": "Reservierung finden",
 
-    "reservation_lookup_page_desc": "Du kannst deine Reservierung finden, indem du deine Email-Adressse oder deine Reservierungsnummer eingibst. De Reservierungsnummer steht auf deiner Bestätigungsemail",
+    "reservation_lookup_page_desc": "Du kannst deine Reservierung finden, indem du deine E-mail-Adressse oder deine Reservierungsnummer eingibst. Die Reservierungsnummer steht auf deiner Bestätigung-E-mail",
 
     "news_page_title": "Unsere News",
 
@@ -794,6 +799,8 @@
     "reservation_page_futurestays_title": "Deine nächsten Aufenthalte",
 
     "reservation_page_paststays_title": "Deine bisherigen Aufenthalte",
+
+    "guest_name": "Gast Name",
 
     "page_not_found_title": "404",
 
