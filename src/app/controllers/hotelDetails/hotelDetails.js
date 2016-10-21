@@ -231,7 +231,9 @@ angular.module('mobius.controllers.hotel.details', [
 
         if($scope.details.content){
           _.each($scope.details.content, function(item){
-            item.url = getContentUrl(item);
+            if(item.meta){
+              item.url = getContentUrl(item);
+            }
           });
         }
 
