@@ -54,7 +54,7 @@
         </div>
 
         <div class="booked">
-          _booked_: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
+          _booked_: {{reservation.bookingDate | dateTime}}
         </div>
       </header>
 
@@ -76,6 +76,10 @@
 
           <table class="data">
             <tbody>
+              <tr ng-if="config.showGuestName" class="guest-name">
+                <th>_guest_name_:</th>
+                <td>{{reservation.rooms[0].firstName}} {{reservation.rooms[0].lastName}}</td>
+              </tr>
               <tr>
                 <th>_check_in_:</th>
                 <td>{{reservation.arrivalDate | dateTime}}</td>
