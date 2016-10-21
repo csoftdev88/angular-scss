@@ -640,22 +640,28 @@ angular
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
     //If date is in past, remove from params and reload page
-    /*if(toParams.dates)
+    if(toParams.dates)
     {
       var dates = toParams.dates.split('_');
 
       if(dates.length){
-        var today = parseInt($window.moment(new Date()).valueOf());
+
+        var todayUtc = new Date().toJSON().slice(0,10);
+
+        var today = parseInt($window.moment(todayUtc).valueOf());
         var fromDate = parseInt($window.moment(dates[0]).valueOf());
         var toDate = parseInt($window.moment(dates[1]).valueOf());
 
         if(fromDate < today || toDate < today)
         {
           console.log('This date is in the past, removed from booking parameters');
+          console.log('From Date: ' + dates[0]);
+          console.log('To Date: ' + dates[1]);
+          console.log('Today: ' + todayUtc);
           toParams.dates = undefined;
         }
       }
-    }*/
+    }
 
     //Sandman specific HACK to intercept French if NOT on a quebec page
     if (Settings.sandmanFrenchOverride) {
