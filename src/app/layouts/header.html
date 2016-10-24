@@ -1,7 +1,7 @@
 <div id="main-header-inner">
   <nav class="main-nav wrapper" dropdown>
 
-    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && !isMobile">
+    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && !isMobile && $state.$current.self.name.indexOf('reservation') === -1">
       <li language-list></li>
     </ul>
 
