@@ -300,7 +300,7 @@
     "no_points_rate_desc": "diese Rate vergibt keine Punkte",
 
     "mapLocationHeader": "Location of {hotelName}",
-    "mapLocationHeaderNameField": "nameShort",
+    "mapLocationHeaderNameField": "nameLong",
     "offers_title": "Angebote und Promotionen",
 
     "more_offers_title": "Das könnte Sie zudem interessieren:",
