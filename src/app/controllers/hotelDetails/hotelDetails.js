@@ -469,11 +469,11 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.getCheckinDate = function() {
-    return $window.moment(bookingService.getAPIParams().from).format('Do MMM YYYY');
+    return $window.moment(bookingService.getAPIParams().from).format(Settings.UI.generics.longDateFormat ? Settings.UI.generics.longDateFormat : 'Do MMM YYYY');
   };
 
   $scope.getCheckoutDate = function() {
-    return $window.moment(bookingService.getAPIParams().to).format('Do MMM YYYY');
+    return $window.moment(bookingService.getAPIParams().to).format(Settings.UI.generics.longDateFormat ? Settings.UI.generics.longDateFormat : 'Do MMM YYYY');
   };
 
   $scope.selectDates = function() {
