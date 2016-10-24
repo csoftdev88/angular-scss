@@ -194,7 +194,7 @@
     "hotel_detail_header_main_title": "New Reservation",
     "hotel_detail_header_contact_title": "Contact the Hotel",
     "no_points_rate_desc": "this rate does not award points",
-    "mapLocationHeader": "Location of {hotelName}",
+    "mapLocationHeader": "Location of {nameLong}",
     "mapLocationHeaderNameField": "nameLong",
     "offers_title": "Offers and Promotions",
     "more_offers_title": "You may also be interested in:",
