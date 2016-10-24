@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, routerService){
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, routerService, channelService){
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
@@ -926,7 +926,7 @@ angular.module('mobius.controllers.reservation', [])
           }
           var derbysoftInfo = null;
 
-          if(Settings.derbysoftTracking && Settings.derbysoftTracking.enable)
+          if(channelService.getChannel().name === 'meta' && Settings.derbysoftTracking && Settings.derbysoftTracking.enable)
           {
             var metaParam = $location.search().meta;
             var metaDevice = null;
