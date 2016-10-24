@@ -167,11 +167,17 @@
             <span>_arrival_time_label_</span>
           </label>
 
+          <!--ng-options="item.display as item.display for item in possibleArrivalMethods"-->
           <label for="arrival-method" class="input-right">
             <select id="arrival-method"
-              ng-model="additionalInfo.arrivalMethod"
-              ng-options="item.apiValue as item.apiValue for item in possibleArrivalMethods">
+              ng-model="additionalInfo.arrivalMethod">
               <option value="">_arrical_method_placeholder_</option>
+              <option value="Car">_car_</option>
+              <option value="Bus">_bus_</option>
+              <option value="Train">_train_</option>
+              <option value="Plane">_plane_</option>
+              <option value="Boat">_boat_</option>
+              <option value="Other">_other_</option>
             </select>
             <span>_arrical_method_label_</span>
           </label>
