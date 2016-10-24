@@ -698,7 +698,8 @@ angular.module('mobiusApp.config', [])
           'display': true,
           'position': 'bottom'
         },
-        'optedInDefault': true
+        'optedInDefault': true,
+        'timeFormat': 'HH:mm'
       }
     },
     'myAccount' : {
