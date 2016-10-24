@@ -53,7 +53,9 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
-  $scope.additionalInfo = {};
+  $scope.additionalInfo = {
+    'optedIn': $scope.bookingConfig.newsLetterOptedIn
+  };
   $scope.voucher = {};
 
   $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
