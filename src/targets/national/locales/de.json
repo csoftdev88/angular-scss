@@ -601,9 +601,9 @@
 
     "city_placeholder": "Stadt",
 
-    "state_label": "Stadt/Kanton",
+    "state_label": "Stadt / Kanton",
 
-    "state_placeholder": "Ort/Kanton",
+    "state_placeholder": "Ort / Kanton",
 
     "country_label": "Land",
 
@@ -822,7 +822,7 @@
     "footer_links_brochures": "Broschüren & fact sheets",
     "footer_links_terms": "Allgemeine Geschäftsbedingungen",
     "footer_links_impressum": "Impressum",
-    "footer_links_modify": "Löschen/ändern",
+    "footer_links_modify": "Löschen / ändern",
     "ERROR PAGE": "////////////////////////////////////////////////////////////",
     "error_page_title": "Es tut uns leid!",
     "error_page_subtitle": "Entschuldigen Sie die Unannehmlichkeiten.",
