@@ -43,7 +43,7 @@
 
     "contact": "Kontakt",
 
-    "reservations": "Reservierungen",
+    "reservations": "Reservations",
 
     "profile": "Profil",
 
@@ -116,13 +116,13 @@
 
     "view_more_rooms": "Weiter Zimmer anschauen",
 
-    "find_reservation": "Reservierung finden",
+    "find_reservation": "Reservation finden",
 
     "buy_for": "Kaufe für",
 
     "cancel": "löschen",
 
-    "cancel_reservation": "Reservierung löschen",
+    "cancel_reservation": "Reservation löschen",
 
     "close": "schliessen",
 
@@ -171,7 +171,7 @@
     "make_your_booking": "Buchung tätigen",
     "your_booking": "Ihre Buchung",
     "your_confirmation": "Ihre Bestätigung",
-    "your_reservation": "Ihre Reservierung",
+    "your_reservation": "Ihre Reservation",
 
 
     "advanced_booking": "Erweiterte Buchung",
@@ -425,7 +425,7 @@
 
     "reservation_enhance_summary_title": "Deine Aufwertungen",
 
-    "reservation_list_empty": "Deine Reservierungsliste ist leer",
+    "reservation_list_empty": "Deine Reservationsliste ist leer",
 
     "please_make_reservation": "Wählen Sie Daten zu Verfügbarkeit in unseren Hotels finden und buchen Sie Ihren Aufenthalt!",
 
@@ -567,11 +567,11 @@
 
     "sorting_filter_placeholder": "Sortieren",
 
-    "reservation_number_label": "Reservierungs-Nummer",
+    "reservation_number_label": "Reservations-Nummer",
 
-    "reservation_number_placeholder": "Reservierungs-Nummer",
+    "reservation_number_placeholder": "Reservations-Nummer",
 
-    "reservation_number_error": "Anzeigen der Reservierungs-Nummer fehlgeschlagen",
+    "reservation_number_error": "Anzeigen der Reservations-Nummer fehlgeschlagen",
 
     "password_label": "Passwort",
 
@@ -706,7 +706,7 @@
 
     "cancel_reservation_modal_title": "Bist du sicher, dass du diese Buchung stornieren möchtest?",
 
-    "cancel_reservation_modal_number": "Reservierungs-Nummer:",
+    "cancel_reservation_modal_number": "Reservations-Nummer:",
 
     "cancel_reservation_modal_error_title": "Ihre Buchung",
 
@@ -729,11 +729,11 @@
 
     "rooms_modal_title": "Zimmer für deine Buchung.",
 
-    "reservation_lookup_modal_error": "Entschuldigung, es konnte keine Reservierung mit deinen Details gefunden werden - überprüfen Sie bitte die Eingabe.",
+    "reservation_lookup_modal_error": "Entschuldigung, es konnte keine Reservation mit deinen Details gefunden werden - überprüfen Sie bitte die Eingabe.",
 
-    "reservation_lookup_modal_login": "Deine Reservierung wurde gemacht, während du ausgeloggt warst, bitte logge dich ein ums die Reservierung zu machen",
+    "reservation_lookup_modal_login": "Deine Reservation wurde gemacht, während du ausgeloggt warst, bitte logge dich ein ums die Reservation zu machen",
 
-    "terms_modal_agree": "Bitte akzeptieren Sie die allgemeinen Geschäftsbedingungen, um die Reservierung zu machen.",
+    "terms_modal_agree": "Bitte akzeptieren Sie die allgemeinen Geschäftsbedingungen, um die Reservation zu machen.",
 
     "cvv_modal_title": "CVV Nummerr",
 
@@ -760,9 +760,9 @@
 
     "contact_page_desc": "Wie war dein Aufenthalt bei uns?",
 
-    "reservation_lookup_page_title": "Reservierung finden",
+    "reservation_lookup_page_title": "Reservation finden",
 
-    "reservation_lookup_page_desc": "Du kannst deine Reservierung finden, indem du deine E-mail-Adressse oder deine Reservierungsnummer eingibst. Die Reservierungsnummer steht auf deiner Bestätigung-E-mail",
+    "reservation_lookup_page_desc": "Du kannst deine Reservation finden, indem du deine E-mail-Adressse oder deine Reservationsnummer eingibst. Die Reservationsnummer steht auf deiner Bestätigung-E-mail",
 
     "news_page_title": "Unsere News",
 
@@ -811,8 +811,8 @@
     "hotels_page_title": "Unsere Hotels",
 
     "hotels_page_login_prompt_desc": "Spare bis zu 20% indem du <a href ng-click='sso.login()''>signing</a> in or <a ng-click='sso.register()''>registering</a>!",
-    "reservation_confirmation_message_title": "Vielen Dank für Ihre Reservierung bei {hotelName}!",
-    "reservation_confirmation_message_desc": "Ihre Reservierungsnummer lautet {reservationNumber}. Sie werden in Kürze eine E-Mail mit Ihren Buchungsinformationen erhalten.",
+    "reservation_confirmation_message_title": "Vielen Dank für Ihre Reservation bei {hotelName}!",
+    "reservation_confirmation_message_desc": "Ihre Reservationsnummer lautet {reservationNumber}. Sie werden in Kürze eine E-Mail mit Ihren Buchungsinformationen erhalten.",
     "FOOTER": "////////////////////////////////////////////////////////////",
     "footer_links_links": "Links",
     "footer_links_jobs": "Jobs",
