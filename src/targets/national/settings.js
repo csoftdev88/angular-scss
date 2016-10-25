@@ -569,7 +569,7 @@ angular.module('mobiusApp.config', [])
         'shortName': 'DE',
         'name': 'German',
         'decimalSeparator': '.',
-        'groupSeparator': ',',
+        'groupSeparator': "'",
         'groupSize': 3,
         'neg': '-'
       },
