@@ -490,13 +490,13 @@ angular.module('mobiusApp.config', [])
       'CHF': {
         'code': 'CHF',
         'symbol': 'CHF',
-        'format': '{{amount}} {{symbol}}'
+        'format': '{{symbol}} {{amount}}'
       },
 
       'GBP': {
         'code': 'GBP',
         'symbol': '£',
-        'format': '{{symbol}} {{amount}}'
+        'format': '{{symbol}}{{amount}}'
       },
 
       'USD': {
