@@ -625,14 +625,14 @@
 
     "subscribe_label": "Für den La Val Newsletter einschreiben",
 
-    "card_number_label": "Karten-Nummer",
+    "card_number_label": "Karten-nummer",
     "card_type_label": "Kartentyp",
 
     "card_number_error": "Bitte geben Sie eine gültige Kartennummer ein",
 
-    "card_name_label": "Name auf der Karte",
+    "card_name_label": "Name auf der karte",
 
-    "card_name_placeholder": "Name auf der Karte",
+    "card_name_placeholder": "Name auf der karte",
 
     "card_expiry_label": "Ablaufdatum",
 
