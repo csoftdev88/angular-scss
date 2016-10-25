@@ -272,8 +272,15 @@ angular.module('mobius.controllers.reservationDetail', [])
         .then(function(){
           // Reservation is removed, notifying user
           //TODO: move to locales
-          userMessagesService.addMessage('<div>Your Reservation <strong>' +
-          $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true);
+
+          if($scope.config.displayCancelConfirmedModal)
+          {
+            modalService.openReservationCancelConfirmedDialog($stateParams.reservationCode);
+          }
+          else{
+            userMessagesService.addMessage('<div>Your Reservation <strong>' +
+            $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true);
+          }
 
           // Tracking refund
           dataLayerService.trackReservationRefund($stateParams.reservationCode);

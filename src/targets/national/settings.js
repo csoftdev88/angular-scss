@@ -413,7 +413,8 @@ angular.module('mobiusApp.config', [])
       },
       'showGuestName': true,
       'displayNewsletterCtaOnReservationDetail': false,
-      'reservationDetailPriceBreakdownExtended': false
+      'reservationDetailPriceBreakdownExtended': false,
+      'displayCancelConfirmedModal': true
     },
 
     'aboutHotel': {

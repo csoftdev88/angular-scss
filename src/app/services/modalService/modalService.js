@@ -74,6 +74,14 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openReservationCancelConfirmedDialog(reservationCode){
+    // Accepting reservation data to be rendered in modal window
+    return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelConfirmed.html', CONTROLLER_DATA, {
+      windowClass: 'details confirmation-dialog',
+      resolve: {data: function(){return reservationCode;}}
+    });
+  }
+
   function openReservationModificationCanceledDialogue(reservationCode){
     return openDialog('reservation-modification', 'layouts/modals/reservation/modificationCanceled.html', CONTROLLER_DATA, {
       windowClass: 'details reservation-modification',
@@ -406,7 +414,7 @@ angular.module('mobiusApp.services.modal', [])
     openReservationModificationCanceledDialogue: openReservationModificationCanceledDialogue,
     openReservationLookupFailedDialog: openReservationLookupFailedDialog,
     openReservationLookupLoginDialog: openReservationLookupLoginDialog,
-
+    openReservationCancelConfirmedDialog: openReservationCancelConfirmedDialog,
     openConfirmationDialog: openConfirmationDialog,
     openAddonDetailDialog: openAddonDetailDialog,
     openCCVInfo: openCCVInfo,
