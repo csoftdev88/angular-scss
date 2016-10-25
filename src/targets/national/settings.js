@@ -590,6 +590,7 @@ angular.module('mobiusApp.config', [])
       "datePickerHasTitle": false,
       "datePickerCounterIncludeDates": false,
       "datePickerCloseOnDatesSelected": false,
+      "datePickerDefaultToToday": true,
       "checkAvailabilityOnChange": false,
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": false,
