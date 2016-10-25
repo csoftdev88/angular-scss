@@ -391,7 +391,7 @@
     "letters_pattern_error": "Please only enter letters in this field",
     "password_pattern_error": "The password must contain at least 8 characters",
     "phone_pattern_error": "Please enter a valid phone number",
-    "receive_offer_label": "I am happy to receive offers via e-mails",
+    "receive_offer_label": "Please send me your newsletter in the future",
     "email_optin_label": "Please send me your newsletter in the future",
     "RESETPASSWORDFORM": "///////////////////////////////////////////////////////////",
     "reset_password_page_title": "Reset your password",
