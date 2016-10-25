@@ -34,6 +34,10 @@ angular.module('mobius.controllers.register', [])
 			$scope.registerContacts = data;
 		});
 
+    contentService.getCountries().then(function(data) {
+      $scope.registerCountries = data;
+    });
+
 		$scope.register = function(form, registerData){
       clearErrorMsg();
 			$scope.submitted = true;
@@ -66,6 +70,6 @@ angular.module('mobius.controllers.register', [])
       $scope.missingFieldsError = false;
       $scope.submitted = false;
 	  }
-	  
-      
+
+
   });
