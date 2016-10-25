@@ -144,16 +144,6 @@
             <span>_state_label_</span>
           </label>
 
-          <label for="country" ng-if="profileCountries">
-            <select type="text" id="country" required
-              placeholder="_country_label_"
-              placeholder-text-single="_country_label_"
-              ng-model="billingDetails.country"
-              chosen ng-options="country.id as country.name for country in profileCountries">
-            </select>
-            <span>_country_label_</span>
-          </label>
-
           <label for="postal-code" class="input-left">
             <input type="text" id="postal-code" required
               placeholder="_postcode_placeholder_"
@@ -172,6 +162,16 @@
                 placeholder="_phone_placeholder_"
                 ng-model="billingDetails.phone"/>
             <span>_phone_label_</span>
+          </label>
+
+          <label for="country" ng-if="profileCountries">
+            <select type="text" id="country" required
+              placeholder="_country_label_"
+              placeholder-text-single="_country_label_"
+              ng-model="billingDetails.country"
+              chosen ng-options="country.id as country.name for country in profileCountries">
+            </select>
+            <span>_country_label_</span>
           </label>
         </div>
 
