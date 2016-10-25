@@ -201,7 +201,7 @@ angular.module('mobiusApp.config', [])
       'singleProperty': true,
       'facebookAppId': '1694770414076502',
       'disableMainHeaderStyle': true,
-      'longDateFormat': 'D. MMMM YYYY',
+      'longDateFormat': 'Do MMMM YYYY',
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false
     },
