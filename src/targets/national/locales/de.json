@@ -567,11 +567,11 @@
 
     "sorting_filter_placeholder": "Sortieren",
 
-    "reservation_number_label": "Reservations-Nummer",
+    "reservation_number_label": "Reservationsnummer",
 
-    "reservation_number_placeholder": "Reservations-Nummer",
+    "reservation_number_placeholder": "Reservationsnummer",
 
-    "reservation_number_error": "Anzeigen der Reservations-Nummer fehlgeschlagen",
+    "reservation_number_error": "Anzeigen der Reservationsnummer fehlgeschlagen",
 
     "password_label": "Passwort",
 
@@ -706,7 +706,7 @@
 
     "cancel_reservation_modal_title": "Bist du sicher, dass du diese Buchung stornieren möchtest?",
 
-    "cancel_reservation_modal_number": "Reservations-Nummer:",
+    "cancel_reservation_modal_number": "Reservationsnummer:",
 
     "cancel_reservation_modal_error_title": "Ihre Buchung",
 
@@ -760,7 +760,7 @@
 
     "contact_page_desc": "Wie war dein Aufenthalt bei uns?",
 
-    "reservation_lookup_page_title": "Reservation finden",
+    "reservation_lookup_page_title": "Reservation",
 
     "reservation_lookup_page_desc": "Du kannst deine Reservation finden, indem du deine E-mail-Adressse oder deine Reservationsnummer eingibst. Die Reservationsnummer steht auf deiner Bestätigung-E-mail",
 
