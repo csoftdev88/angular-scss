@@ -734,6 +734,10 @@
 
     "reservation_lookup_modal_login": "Deine Reservation wurde gemacht, während du ausgeloggt warst, bitte logge dich ein ums die Reservation zu machen",
 
+    "reservation_cancelled": "Reservation annulliert",
+
+    "your_reservation_has_been_cancelled": "Ihre Reservation <strong>{{data}}</strong> wurde erfolgreich annulliert.",
+
     "terms_modal_agree": "Bitte akzeptieren Sie die allgemeinen Geschäftsbedingungen, um die Reservation zu machen.",
 
     "cvv_modal_title": "CVV Nummerr",

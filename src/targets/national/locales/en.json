@@ -430,6 +430,8 @@
     "rooms_modal_title": "Rooms for your booking",
     "reservation_lookup_modal_error": "Sorry, we cannot find a reservation that matches your details, please check them and try again.",
     "reservation_lookup_modal_login": "Your reservation was made while you were logged in, please log in to view it.",
+    "reservation_cancelled": "Reservation Cancelled",
+    "your_reservation_has_been_cancelled": "Your reservation <strong>{{data}}</strong> was successfully cancelled.",
     "terms_modal_agree": "Please accept the Terms and Conditions to confirm this registration",
     "cvv_modal_title": "CVV Number",
     "cvv_modal_desc": "The CVV Number ('Card Verification Value') on your credit card or debit card is a 3 digit number on VISA®, MasterCard® and Discover® branded credit and debit cards. On your American Express® branded credit or debit card it is a 4 digit numeric code.",
