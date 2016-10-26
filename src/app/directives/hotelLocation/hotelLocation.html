@@ -32,7 +32,7 @@
 
 <p>{{hotelDetails.locationDescription}}</p>
 
-<contact-list>
+<contact-list ng-if="!config.hideContactDetails">
 
   <contact-item ng-if="hotelDetails.email">
     <div>

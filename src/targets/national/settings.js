@@ -796,7 +796,8 @@ angular.module('mobiusApp.config', [])
         'directionsLink':{
           'display': true,
           'link': 'http://www.grandhotel-national.com/media/39232/route-map.pdf'
-        }
+        },
+        'hideContactDetails': true
       }
     },
 
