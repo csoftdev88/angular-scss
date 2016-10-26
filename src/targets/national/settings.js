@@ -369,6 +369,7 @@ angular.module('mobiusApp.config', [])
       'showRoomHighlight': false,
       'includeTripAdvisorPreloader': false,
       'rateInfoIsTabbed': false,
+      'hideProductsNotAvailable': true,
       'headerPartial':{
         'display': true,
         'logo':{
@@ -776,6 +777,9 @@ angular.module('mobiusApp.config', [])
           'descriptionGrid': 8,
           'sidebarGrid': 4
         }
+      },
+      'roomDetails':{
+        'showAmenitiesTop': true
       },
       'userProfile':{
         'hasAvatar': false,
