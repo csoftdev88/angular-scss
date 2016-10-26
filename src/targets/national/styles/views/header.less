@@ -1,6 +1,7 @@
 #main-header {
   background: #fff;
-  height: 120px;
+  height: auto;
+  padding:1% 0;
 
   .viewport-mobile & {
     height: auto;
@@ -8,7 +9,7 @@
 }
 // GENERIC STYLES
 .main-nav {
-  height: 120px;
+  height: auto;
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
@@ -21,7 +22,13 @@
 
   .brand {
     img.desktop-logo {
-      height: 97px;
+      height: 112px;
+    }
+    img.mobile-logo {
+      height:60px
+    }
+    .viewport-mobile & {
+      top:0;
     }
   }
 
@@ -32,6 +39,7 @@
 // MOBILE SPECIFIC STYLES
 @media only screen and @large-mobile-max {
   #main-header {
+    padding:4% 0;
     background-color: @c-white;
   }
 
@@ -52,7 +60,8 @@
                 .fa;
                 color: @c-primary;
                 content: @fa-var-close;
-                top: 22px;
+                top: 35px;
+                right:18px;
               }
             }
           }
@@ -68,6 +77,12 @@
 
           &.mobile-header {
             border-top: 0;
+            text-align:center;
+            padding:4% 7px;
+            height:60px;
+            img {
+              height:60px;
+            }
           }
 
           &.mobile-profile {
@@ -255,7 +270,7 @@
     .brand {
       display: block;
       float: left;
-      margin: 10px 0 0;
+      margin: 0;
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
