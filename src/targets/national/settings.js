@@ -315,8 +315,8 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': false,
           'showRateInfoLink': true,
           'rateInfoIsTabbed': false
-        }
-
+        },
+        'hideSelectDatesMessage': true
       },
       'offers': {
         'toState': 'propertyOffers'
