@@ -703,7 +703,8 @@ angular.module('mobiusApp.config', [])
         'optedInDefault': true,
         'timeFormat': 'HH:mm'
       },
-      'termsAndConditionsLink':'http://www.grandhotel-national.com/en/corporate/general-terms-conditions'
+      'termsAndConditionsLink':'http://www.grandhotel-national.com/en/corporate/general-terms-conditions',
+      'displayStaticFeesTooltip': true
     },
     'myAccount' : {
       'displaySettings' : {

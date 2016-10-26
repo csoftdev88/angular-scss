@@ -232,6 +232,7 @@
     "fees": "Fees",
     "additional_fees": "Additional Fees",
     "applicable_fees": "Fees",
+    "fees_tooltip": "Fees tooltip here, content required",
     "discount": "Discount",
     "description": "Description",
     "price_breakdown": "Price Breakdown",
