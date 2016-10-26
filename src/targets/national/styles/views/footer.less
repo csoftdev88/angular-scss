@@ -23,10 +23,14 @@ footer {
   font-size: @size-0;
   line-height: @baseline * 2;
   text-align: center;
+  box-sizing:border-box;
+  padding-left:2%;
+  padding-right:2%;
 
   .viewport-mobile & {
     display: inline-block;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
+    padding:0;
   }
   @media print {
     display: none;
@@ -35,13 +39,29 @@ footer {
   .wrapper {
     display: flex;
     margin-bottom: 0;
+    width:100%;
+    padding-left:0;
+    padding-right: 165px;
+    box-sizing: border-box;
 
     .viewport-mobile & {
       display: block;
+      padding:4%;
+      margin-left:0;
     }
 
     > div {
       display: block;
+      > img {
+        position:absolute;
+        top:5px;
+        right:0;
+        .viewport-mobile & {
+          position:relative;
+          top:auto;
+          right:auto;
+        }
+      }
     }
   }
   //- Static text
@@ -51,6 +71,10 @@ footer {
     line-height: 21px;
     margin-bottom: 5px;
     text-align: left;
+    .viewport-mobile & {
+      padding-right:0;
+      text-align: center;
+    }
 
     a {
       color: #fff;
@@ -76,6 +100,11 @@ footer {
       li {
         display: inline-block;
         padding: 0 5px;
+        .viewport-mobile & {
+          padding:0;
+          width:100%;
+          text-align:center;
+        }
 
         &:first-of-type {
           padding-left: 0;
@@ -102,7 +131,7 @@ footer {
   @media only screen and @large-mobile-max {
     //- Navigation
     nav {
-      display: none;
+      display: block;
     }
     //- Copyright
     p {
