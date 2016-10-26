@@ -1170,7 +1170,7 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.readPolicies = function(){
-    if($scope.allRooms && $scope.allRooms.length){
+    if(!$scope.bookingConfig.termsAndConditionsLink && $scope.allRooms && $scope.allRooms.length){
       var products = $scope.allRooms.map(function(room){
         return room._selectedProduct;
       });
