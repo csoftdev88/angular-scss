@@ -3,6 +3,9 @@
 /////////////////////
 
 hotel-room {
+  p {
+    font-size:14px;
+  }
   .header {
     h1 {
       margin-bottom: @baseline;
@@ -11,9 +14,10 @@ hotel-room {
 
   .other-rooms-title {
     text-align: center;
-    font-size: 36px;
-    line-height: 48px;
     text-transform: initial;
+    color: @c-main-site-grey;
+    font-size: 34px;
+    margin-bottom:22px;
 
     .viewport-mobile & {
       font-size: 24px;
@@ -32,9 +36,10 @@ hotel-room {
 
       h2,
       h3 {
-        color: @c-very-dark-grey;
+        color: @c-black;
         font-family: @ff-bold;
         font-weight: normal;
+        text-transform: initial;
       }
 
       &:first-of-type {
@@ -50,8 +55,10 @@ hotel-room {
         right:0;
         p {
           .value {
-            color: @c-dark-grey;
-            font-weight: 700;
+            color: @c-black;
+            font-family: @ff-bold;
+            font-weight: normal;
+            text-transform: initial;
           }
         }
       }
@@ -59,8 +66,7 @@ hotel-room {
       description-info {
         .action-links {
           a {
-            color: @c-dark-grey;
-            font-size: 11px;
+            font-size: 13px;
           }
         }
       }
@@ -84,8 +90,8 @@ hotel-room {
         h2 {
           width: 100%;
           font-family: @ff-heading;
-          color: @c-dark-grey;
-          font-size: @size-2;
+          color: @c-main-site-grey;
+          font-size: 18px;
         }
 
         pricing-info {
@@ -148,6 +154,8 @@ hotel-room {
   section.room-amenities {
     h2 {
       text-align:center;
+      font-size: 18px;
+      color: @c-main-site-grey;
     }
   }
 }
