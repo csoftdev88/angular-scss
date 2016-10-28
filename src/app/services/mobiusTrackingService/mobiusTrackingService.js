@@ -200,8 +200,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       _.each(rooms, function (room) {
         _.each(room._selectedProduct.policies, function (val, key) {
           var policy = {
-              'type': key,
-              'value': val
+              'type': key
             };
           policies.push(policy);
         });
