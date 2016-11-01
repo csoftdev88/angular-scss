@@ -54,7 +54,7 @@
               </li>
               <li>
                 <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
-                <a ng-if="!sso.isInfiniti()" href ui-sref="profile" ui-sref-opts="{reload:true}">_profile_</a>
+                <a ng-if="!sso.isInfiniti()" ui-sref="profile">_profile_</a>
               </li>
               <li>
                 <a href ng-click="sso.logout()">_logout_</a>
@@ -137,7 +137,7 @@
               </li>
               <li>
                 <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
-                <a ng-if="!sso.isInfiniti()" href ui-sref="profile" ui-sref-opts="{reload:true}">_profile_</a>
+                <a ng-if="!sso.isInfiniti()" href ui-sref="profile">_profile_</a>
               </li>
               <li>
                 <a href ng-click="sso.logout()">_logout_</a>
