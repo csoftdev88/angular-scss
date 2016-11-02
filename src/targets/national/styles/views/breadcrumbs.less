@@ -18,8 +18,6 @@
       }
     }
   }
-
-
 }
 
 breadcrumbs{
@@ -34,6 +32,12 @@ breadcrumbs{
   @media only screen and @large-mobile-max {
     margin-bottom: 20px;
     display: block;
+  }
+
+  &:first-child {
+    .viewport-mobile & {
+      display:none;
+    }
   }
 
 }
