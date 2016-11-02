@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   // Price breakdown and policies seems to have different format then expected
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
-    $controller, $q, reservationService, preloaderFactory, modalService,
+    $controller, $q, reservationService, preloaderFactory, modalService, scrollService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
     metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService,
     apiService, queryService){
@@ -38,6 +38,10 @@ angular.module('mobius.controllers.reservationDetail', [])
       metaInformationService.setMetaDescription(chain.meta.description);
       metaInformationService.setMetaKeywords(chain.meta.keywords);
       metaInformationService.setOgGraph(chain.meta.microdata.og);
+
+      $timeout(function() {
+        scrollService.scrollTo('top');
+      }, 0);
     });
 
 

@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.register', [])
 
-  .controller('RegisterCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, chainService, metaInformationService, $location, Settings){
+  .controller('RegisterCtrl', function($scope, $controller, $timeout, $state, scrollService, breadcrumbsService, contentService, apiService, userObject, user, chainService, metaInformationService, $location, Settings){
 
     breadcrumbsService.addBreadCrumb('Register');
 
@@ -23,6 +23,10 @@ angular.module('mobius.controllers.register', [])
       metaInformationService.setMetaDescription(chain.meta.description);
       metaInformationService.setMetaKeywords(chain.meta.keywords);
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+
+      $timeout(function(){
+        scrollService.scrollTo('jsRegister');
+      }, 500);
 
     });
 

@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.reservations', [])
 
 .controller('ReservationsCtrl', function($scope, $controller, $q,
-  $state, modalService, creditCardTypeService, reservationService,
+  $state, $timeout, modalService, creditCardTypeService, reservationService, scrollService,
   preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject, chainService, metaInformationService, $location, Settings, $rootScope){
 
   breadcrumbsService.addBreadCrumb('My Stays');
@@ -26,6 +26,11 @@ angular.module('mobius.controllers.reservations', [])
     metaInformationService.setMetaDescription(chain.meta.description);
     metaInformationService.setMetaKeywords(chain.meta.keywords);
     metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+
+    $timeout(function(){
+      scrollService.scrollTo('jsReservations');
+    });
+
 
   });
 
@@ -68,6 +73,10 @@ angular.module('mobius.controllers.reservations', [])
       pastStays: pastStays,
       futureStays: futureStays
     };
+
+    $timeout(function(){
+      scrollService.scrollTo('jsReservations');
+    }, 500);
 
   }
 

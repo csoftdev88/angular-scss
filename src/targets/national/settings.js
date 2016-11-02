@@ -415,7 +415,7 @@ angular.module('mobiusApp.config', [])
       'showGuestName': true,
       'displayNewsletterCtaOnReservationDetail': false,
       'reservationDetailPriceBreakdownExtended': false,
-      'hideHeroSliderOnReservations':true,
+      'hideHeroSliderOnReservations': true,
       'displayCancelConfirmedModal': true
     },
 

@@ -160,6 +160,11 @@ angular.module('mobius.controllers.hotel.details', [
         }
       });
     }
+    else {
+      $timeout(function() {
+        scrollService.scrollTo('top');
+      }, 0);
+    }
   });
 
   function getHotelDetails(propertyCode, params) {
