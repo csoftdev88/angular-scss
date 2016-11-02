@@ -416,6 +416,7 @@ angular.module('mobiusApp.config', [])
       'displayNewsletterCtaOnReservationDetail': false,
       'reservationDetailPriceBreakdownExtended': false,
       'hideHeroSliderOnReservations': true,
+      'displayBreadcrumbsOnReservationDetail': true,
       'displayCancelConfirmedModal': true
     },
 

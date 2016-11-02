@@ -355,7 +355,8 @@ angular.module('mobius.controllers.reservation', [])
 
   function scrollToDetails(target) {
     $timeout(function(){
-      scrollService.scrollTo(target, 20);
+      console.log(target);
+      scrollService.scrollTo(target, 30);
     }, 100);
   }
 
