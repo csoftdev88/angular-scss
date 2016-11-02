@@ -13,7 +13,10 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       if(endpoint)
       {
         console.log(postData);
-        apiService.post('scooobydoo', postData).then(function () {
+        var username = Settings.infinitiApeironTracking[env].username;
+        var password = Settings.infinitiApeironTracking[env].password;
+        console.log(btoa(username + ':' + password));
+        apiService.infinitiApeironPost(endpoint, postData, username, password).then(function () {
         }, function (err) {
           console.log('Infiniti apeiron purchase tracking error: ' + angular.toJson(err));
         });

@@ -48,25 +48,33 @@ angular.module('mobiusApp.config', [])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
-      'id':'sutton-development'
+      'id':'sutton-development',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'integration': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
-      'id':'sutton-integration'
+      'id':'sutton-integration',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'staging': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
-      'id':'sutton-staging'
+      'id':'sutton-staging',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'live': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
-      'id':'sutton-live'
+      'id':'sutton-live',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     }
   },
   'googleAnalytics': {

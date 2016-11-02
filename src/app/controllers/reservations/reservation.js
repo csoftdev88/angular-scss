@@ -629,6 +629,8 @@ angular.module('mobius.controllers.reservation', [])
       }
     };
 
+    $scope.moreRoomData = reservationData.rooms;
+
     if ($scope.voucher.valid && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation) {
       reservationData.voucher = $scope.voucher.code.toUpperCase();
     }
@@ -837,7 +839,6 @@ angular.module('mobius.controllers.reservation', [])
 
     var reservationData = createReservationData();
 
-
     var promises = [];
     if ($stateParams.reservation) {
       // Updating existing reservation
@@ -1011,22 +1012,15 @@ angular.module('mobius.controllers.reservation', [])
             'products': infinitiTrackingProducts
           };
 
-          var userTitle = _.find($scope.profileTitles, function(title) {
-            return title.id === $scope.userDetails.title;
-          });
-          var userCountry = _.find($scope.profileCountries, function(country) {
-            return country.id === $scope.userDetails.localeCode;
-          });
-
           if (!user.isLoggedIn()) {
             infinitiTrackingData.customer = {
-              'title': userTitle.name,
+              'title': getUserTitle().name,
               'fName': $scope.userDetails.firstName,
               'lName': $scope.userDetails.lastName,
               'address': $scope.userDetails.address,
               'city': $scope.userDetails.city,
               'zip': $scope.userDetails.zip,
-              'country': userCountry.code,
+              'country': getUserCountry().code,
               'email': $scope.userDetails.email,
               'phone': $scope.userDetails.phone,
               'secondPhoneNumber': $scope.additionalInfo.secondPhoneNumber
@@ -1332,61 +1326,110 @@ angular.module('mobius.controllers.reservation', [])
     var anonymousId = cookieFactory('ajs_anonymous_id');
     anonymousId = anonymousId ? anonymousId.split('%22').join('') : null;
 
-    console.log(reservationData);
-    console.log(chainData);
-    console.log(propertyData);
+    var discountCode = $stateParams.promoCode ? $stateParams.promoCode : null;
+    discountCode = $stateParams.groupCode ? $stateParams.groupCode : null;
+    discountCode = $stateParams.corpCode ? $stateParams.corpCode : null;
+
+    var bookedDate = $stateParams.dates.split('_');
+    if (bookedDate.length) {
+      var fromDate = bookedDate[0];
+      var toDate = bookedDate[1];
+    }
+
+    var customerObject = {
+      'infinitiId': '',
+      'id': '',
+      'title': getUserTitle().name,
+      'firstName': $scope.userDetails.firstName,
+      'lastName': $scope.userDetails.lastName,
+      'email': $scope.userDetails.email,
+      'telephone': $scope.userDetails.phone,
+      'address1': $scope.userDetails.address,
+      'address2': '',
+      'address3': '',
+      'town': $scope.userDetails.city,
+      'state': $scope.userDetails.stateProvince,
+      'postcode': $scope.userDetails.zip,
+      'country': getUserCountry().code
+    };
+
+    if(user.isLoggedIn())
+    {
+      customerObject.infinitiId = userObject.id;
+      customerObject.id = userObject.id;
+    }
+
+    var rooms = [];
+    _.each($scope.allRooms, function(roomData,index) {
+      var room = {
+        'id': roomData._selectedProduct.productPropertyRoomTypeId,
+        'transaction' : {
+          'id': reservationData[0].reservationCode
+        },
+        'quantity':1,
+        'discountAmount':0,
+        'discountPercent':0,
+        'totalPrice':0,
+        'totalTax':0,
+        'dateFrom': $window.moment(fromDate).toISOString(),
+        'dateTo': $window.moment(toDate).toISOString(),
+        'isPreorder':false,
+        'location': propertyData.city,
+        'metaData': {
+          'adults':$scope.moreRoomData[index].adults,
+          'children':$scope.moreRoomData[index].children,
+          'rate':roomData._selectedProduct.code
+        }
+      };
+
+      var product = {
+        'id': roomData._selectedProduct.code,
+        'name': roomData._selectedProduct.name,
+        'category': roomData.name,
+        'sku': roomData._selectedProduct.productPropertyRoomTypeId,
+        'price': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
+        'priceBeforeTax': roomData._selectedProduct.price.totalBaseAfterPricingRules,
+        'tax':'',
+        'revenue':'',
+      };
+
+      room.product = product;
+      rooms.push(room);
+    });
 
     //TODO: WHAT ABOUT FEES?
+    //TODO: DISCOUNT TYPE E.G. FLAT
+    //TODO: CONFIRM REVENUE AND TAX
+
+    var totalDiscount = $scope.getTotal('totalDiscount') * -1; //Discounts come through as negative values
+    var totalPrice = $scope.getBreakdownTotalBaseAfterPricingRules();
 
     var infinitiApeironData = {
       'installationId': apeironSettings.id,
       'utcTimestamp': $window.moment.utc(trackingDate).toISOString().valueOf(), //'2016-10-06T09:12:34Z'
       'userTimestamp': trackingDate, //2016-10-06T09:12:34+0200
       'anonymousId': anonymousId, // '57ebdc7d-1f0b-4b9b-8fdc-1c1b1d234b1a' ajs_anonyomous_id cookie removing encoded quotes
-
       'transaction': {
-        'id': reservationData.reservationCode,
-        'totalRevenue': $scope.getBreakdownTotalBaseAfterPricingRules(),
-        'totalPrice': $scope.getTotal('totalAfterTaxAfterPricingRules') + $scope.getTotal('totalDiscount'),
+        'id': reservationData[0].reservationCode,
+        'totalRevenue': totalPrice,
+        'totalPrice': $scope.getTotal('totalAfterTaxAfterPricingRules'),
         'totalTax': $scope.getBreakdownTotalTaxes(false),
-
         'shipping': null,
         'shippingDuration': null,
         'shippingOption': null,
         'shippingIsSplit': null,
-
         'currencyCode': Settings.UI.currencies.default.code,
         'totalItems': $scope.allRooms.length,
-        'discountAmount': $scope.getTotal('totalDiscount'),
-        'discountPercent': 0,
-        'discountCode': 'rhein',
+        'discountAmount': totalDiscount,
+        'discountPercent': (totalDiscount / totalPrice) * 100,
+        'discountCode': discountCode,
         'discountCampaign': null,
         'discountType': ['flat'], //look into this
-
         'isGift': false,
-
         'source': 'Online',
         'subsource': ''
       },
-
-      'customer': {
-        'infinitiId': '512042',
-
-        'id': '512042',
-        'title': 'Frau',
-        'firstName': 'Simone',
-        'lastName': 'Sutter',
-        'email': 'simone@sutter.ch',
-        'telephone': '+41627759907',
-        'address1': 'Aarweg 15',
-        'address2': '',
-        'address3': '',
-        'town': 'Olten',
-        'state': '',
-        'postcode': '4600',
-        'country': 'CH'
-      },
-
+      'customer': customerObject,
       'shipTo': {
         'title': '',
         'firstName': '',
@@ -1401,49 +1444,25 @@ angular.module('mobius.controllers.reservation', [])
         'postcode': '',
         'country': ''
       },
-
       'metaData': {
-
       },
-
-      'items': [{
-        'id': 34,
-        'transaction': {
-          'id': 39183
-        },
-        'product': {
-          'id': 1204,
-          'name': 'King Suite',
-          'category': 'Suite',
-          'subCategory': 'King',
-          'sku': '52398-5375-S-K', //room code
-          'price': 1660,
-          'priceBeforeTax': 1527.2,
-          'tax': 132.8,
-          'revenue': 1400
-        },
-        'quantity': 1,
-        'discountAmount': 0,
-        'discountPercent': 0,
-
-        'totalPrice': 124,
-        'totalRevenue': 100,
-        'totalTax': 0,
-
-        'dateFrom': '2016-10-26T12:00:00+0200', //toIsoString()
-        'dateTo': '2016-10-30T09:00:00+0100', //toIsoString()
-        'isPreorder': false,
-        'location': 'Basel',
-
-        'metaData': {
-          'Adults': 2,
-          'Children': 2,
-          'Rate': 'FCB-EARLY-BIRD'
-        }
-      }]
+      'items': rooms
     };
-
     return infinitiApeironData;
+  }
+
+  function getUserTitle(){
+    var userTitle = _.find($scope.profileTitles, function(title) {
+      return title.id === $scope.userDetails.title;
+    });
+    return userTitle;
+  }
+
+  function getUserCountry(){
+    var userCountry = _.find($scope.profileCountries, function(country) {
+      return country.id === $scope.userDetails.localeCode;
+    });
+    return userCountry;
   }
 
   function getCheckVoucherParams() {
