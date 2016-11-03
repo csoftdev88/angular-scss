@@ -1380,21 +1380,18 @@ angular.module('mobius.controllers.reservation', [])
           'adults':$scope.moreRoomData[index].adults,
           'children':$scope.moreRoomData[index].children,
           'rate':roomData._selectedProduct.code
+        },
+        'product': {
+          'id': roomData._selectedProduct.code,
+          'name': roomData._selectedProduct.name,
+          'category': roomData.name,
+          'sku': roomData._selectedProduct.productPropertyRoomTypeId,
+          'price': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
+          'priceBeforeTax': roomData._selectedProduct.price.totalBaseAfterPricingRules,
+          'tax':'',
+          'revenue':'',
         }
       };
-
-      var product = {
-        'id': roomData._selectedProduct.code,
-        'name': roomData._selectedProduct.name,
-        'category': roomData.name,
-        'sku': roomData._selectedProduct.productPropertyRoomTypeId,
-        'price': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
-        'priceBeforeTax': roomData._selectedProduct.price.totalBaseAfterPricingRules,
-        'tax':'',
-        'revenue':'',
-      };
-
-      room.product = product;
       rooms.push(room);
     });
 
