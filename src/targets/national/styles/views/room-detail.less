@@ -28,6 +28,7 @@ hotel-room {
 
   list-items {
     margin: 0 0 36px;
+    .clearfix;
 
     list-item {
       &.without-image {
@@ -73,11 +74,20 @@ hotel-room {
     }
 
     &.other-rooms {
-      display: inline-block;
-      width: 100%;
+      margin-left:-15px;
+      margin-right:-15px;
 
       list-item {
-        width: auto;
+        width: 33.33333333%;
+        padding: 0 15px;
+        box-sizing:border-box;
+        margin-left: 0;
+        margin-right: 0;
+
+        .viewport-mobile & {
+          width:100%;
+          margin-bottom:15px;
+        }
 
         &:first-of-type {
           border: none;
@@ -157,6 +167,9 @@ hotel-room {
       font-size: 18px;
       color: @c-main-site-grey;
     }
+  }
+  .room-details-right + hr {
+    display:none;
   }
 }
 //- If there are no available products

@@ -180,8 +180,8 @@
       <p ng-bind-html="sanitize(roomDetails.description)"></p>
     </section>
 
-    <section class="room-images">
-      <h2 ng-if="roomDetails.images.length > 1" ng-bind-html="'_room_images_title_' | mainHeaderStyle"></h2>
+    <section class="room-images" ng-if="roomDetails.images.length > 1">
+      <h2 ng-bind-html="'_room_images_title_' | mainHeaderStyle"></h2>
       <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
         <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery($index)">
           <figure>
