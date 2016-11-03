@@ -163,7 +163,6 @@ angular.module('mobius.controllers.main', [])
         $scope.isUserLoggedIn = user.isLoggedIn;
         if($state.current.name === 'reservation.details')
         {
-          console.log('reload state');
           $state.reload();
         }
       });
