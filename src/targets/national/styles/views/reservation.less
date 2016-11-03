@@ -494,6 +494,18 @@ reservation-confirmation {
       color: @c-primary;
       font-weight: normal;
     }
+    li {
+      .viewport-mobile & {
+        width:100%;
+        border-top:1px solid #d7d7d7;
+        border-left:0px none;
+      }
+      &:first-child {
+        .viewport-mobile & {
+          border-top:0px none;
+        }
+      }
+    }
   }
 
   table {
