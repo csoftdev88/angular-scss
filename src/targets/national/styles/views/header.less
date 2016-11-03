@@ -42,14 +42,15 @@
   #main-header {
     background-color: @c-white;
   }
-
   .main-nav {
     > .app-menu {
       background-color: @c-white;
 
       ul {
         width: 100%;
-
+        > li[language-list] .dropdown-menu.submenu li:last-child {
+          display:none;
+        }
         > li {
           border-top: 1px @c-primary solid;
           background-color: @c-white;
