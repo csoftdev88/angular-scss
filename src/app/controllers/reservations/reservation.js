@@ -1370,6 +1370,7 @@ angular.module('mobius.controllers.reservation', [])
         'discountAmount':0,
         'discountPercent':0,
         'totalPrice':0,
+        'totalRevenue':0,
         'totalTax':0,
         'dateFrom': $window.moment(fromDate).toISOString(),
         'dateTo': $window.moment(toDate).toISOString(),
@@ -1400,6 +1401,7 @@ angular.module('mobius.controllers.reservation', [])
     //TODO: WHAT ABOUT FEES?
     //TODO: DISCOUNT TYPE E.G. FLAT
     //TODO: CONFIRM REVENUE AND TAX
+    //TODO: CURRENCY CODE, USERS? OR SITE DEFAULT?
 
     var totalDiscount = $scope.getTotal('totalDiscount') * -1; //Discounts come through as negative values
     var totalPrice = $scope.getBreakdownTotalBaseAfterPricingRules();
@@ -1418,7 +1420,7 @@ angular.module('mobius.controllers.reservation', [])
         'shippingDuration': null,
         'shippingOption': null,
         'shippingIsSplit': null,
-        'currencyCode': Settings.UI.currencies.default.code,
+        'currencyCode': Settings.UI.currencies.default,
         'totalItems': $scope.allRooms.length,
         'discountAmount': totalDiscount,
         'discountPercent': (totalDiscount / totalPrice) * 100,
