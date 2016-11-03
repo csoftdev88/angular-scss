@@ -509,6 +509,11 @@ reservation-confirmation {
       }
     }
   }
+  > div {
+    .viewport-mobile & {
+      margin-top:0;
+    }
+  }
 }
 ////////////////////////////////
 // Reservation Finished page  //
@@ -516,12 +521,33 @@ reservation-confirmation {
 ////////////////////////////////
 
 reservation-finished {
+  .tables h3 {
+    .viewport-mobile & {
+      margin-top:20px;
+    }
+  }
   margin-top: 110px;
   .viewport-mobile & {
     margin-top:80px;
   }
   // This part is specific for RESERVATION DETAIL page only
   .reservation-summary {
+    .tables {
+      .charges {
+        .total {
+          .viewport-mobile & {
+            padding-left:0;
+            width:20%;
+            text-align:right;
+          }
+        }
+        .total-value {
+          .viewport-mobile & {
+            width:30%;
+          }
+        }
+      }
+    }
     // Block w/ PRINT and ADD TO PASSBOOK and SHARE buttons
     .actions {
       position: relative;
@@ -555,8 +581,8 @@ reservation-finished {
         }
 
         .viewport-mobile & {
-          clear: both;
-          float: left;
+          clear: none;
+          float: right;
 
           .button-print {
             margin-left: 0;
@@ -930,17 +956,26 @@ reservation-hotel-details {
 
       &[rowspan] {
         vertical-align: bottom;
+        .viewport-mobile & {
+          vertical-align: top;
+        }
       }
     }
 
     th {
       font-weight: 700;
       text-align: left;
+      .viewport-mobile & {
+        font-size:14px;
+      }
     }
 
     td {
       font-weight: 400;
       text-align: right;
+      .viewport-mobile & {
+        font-size:14px;
+      }
     }
 
     tr.guest-name {
@@ -956,6 +991,11 @@ reservation-hotel-details {
 
     th:not(:first-child) {
       padding-left: 2 * @spacing;
+      .viewport-mobile & {
+        padding-left:20px;
+        text-align:left;
+        font-weight:normal;
+      }
     }
 
     .total {
@@ -965,6 +1005,9 @@ reservation-hotel-details {
     .total-value {
       font-size: @size-3;
       font-weight: 700;
+      .viewport-mobile & {
+        font-size:14px;
+      }
     }
   }
 }
