@@ -1351,8 +1351,8 @@ angular.module('mobius.controllers.reservation', [])
       'country': getUserCountry().code
     };
 
-    customerObject.id = cookieFactory('CustomerID') ? parseInt(cookieFactory('CustomerID')) : 0;
-    customerObject.infinitiId = user.isLoggedIn() ? user.getCustomerId() : '';
+    customerObject.id = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+    customerObject.infinitiId = user.isLoggedIn() ? user.getCustomerId().toString() : '';
 
     var rooms = [];
     _.each($scope.allRooms, function(roomData,index) {
