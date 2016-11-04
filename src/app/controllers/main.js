@@ -38,6 +38,12 @@ angular.module('mobius.controllers.main', [])
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;
         $scope.updateHeroContent();
+        if($state.current.name === 'home')
+        {
+          $timeout(function(){
+            scrollService.scrollTo('top');
+          }, 0);
+        }
       });
 
       //ScrollToTop btn

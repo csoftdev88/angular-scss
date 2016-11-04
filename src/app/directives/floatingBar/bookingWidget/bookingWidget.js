@@ -646,9 +646,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             }
           }
         }
-        if($window.ga)
+        if($window.dataLayer)
         {
-          $window.ga('send', 'event', 'searchForm', 'go', 'Booking bar "go" has been clicked');
+          $window.dataLayer.push({'bookingBarSearch': 'Booking bar search fired'});
         }
 
         // Changing application state
