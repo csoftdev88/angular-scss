@@ -10,6 +10,7 @@ angular.module('mobius.controllers.register', [])
 
     $scope.config = Settings.UI.registerPage;
     $scope.submitted = false;
+    $scope.registerData = {};
 
     //get meta information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
