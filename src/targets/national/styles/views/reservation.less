@@ -801,8 +801,16 @@ reservation-finished {
     }
   }
 
-  .button.disabled {
+  .button.disabled, .button-gray.disabled {
     .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
+    border-radius:0px;
+    text-shadow:none;
+    border:0px none;
+    font-weight: 400;
+    font-size: @size-0;
+    line-height: 40px;
+    height:38px;
+    box-shadow:none;
   }
   section > h3 {
     color:@c-black;
