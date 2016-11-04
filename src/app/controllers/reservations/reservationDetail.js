@@ -15,15 +15,17 @@ angular.module('mobius.controllers.reservationDetail', [])
 
     $controller('SSOCtrl', {$scope: $scope});
 
+    $scope.previousCurrency = $rootScope.currencyCode;
+
     if (Settings.UI.currencies.default) {
       $scope.defaultCurrencyCode = Settings.UI.currencies.default;
       $scope.currentCurrency = $scope.defaultCurrencyCode;
-      queryService.setValue(Settings.currencyParamName, $scope.defaultCurrencyCode.code);
-      user.storeUserCurrency($scope.defaultCurrencyCode.code);
+      queryService.setValue(Settings.currencyParamName, $scope.defaultCurrencyCode);
+      user.storeUserCurrency($scope.defaultCurrencyCode);
       var currencyObj = {};
-      currencyObj['mobius-currencycode'] = $scope.defaultCurrencyCode.code;
+      currencyObj['mobius-currencycode'] = $scope.defaultCurrencyCode;
       apiService.setHeaders(currencyObj);
-      $rootScope.currencyCode = $scope.defaultCurrencyCode.code;
+      $rootScope.currencyCode = $scope.defaultCurrencyCode;
     }
 
     // Alias for lodash to get rid of ugly $window._ calls
@@ -199,6 +201,14 @@ angular.module('mobius.controllers.reservationDetail', [])
             }
             return addon;
           });
+
+          $rootScope.currencyCode = $scope.previousCurrency;
+          $scope.currentCurrency = $rootScope.currencyCode;
+          queryService.setValue(Settings.currencyParamName, $rootScope.currencyCode);
+          user.storeUserCurrency($rootScope.currencyCode);
+          var currencyObj = {};
+          currencyObj['mobius-currencycode'] = $rootScope.currencyCode;
+          apiService.setHeaders(currencyObj);
         });
 
         preloaderFactory($q.all([propertyPromise, roomDataPromise, addonsPromise]));
