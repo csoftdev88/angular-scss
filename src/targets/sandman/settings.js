@@ -78,6 +78,7 @@ angular.module('mobiusApp.config', [])
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     }
+  },
   'derbysoftTracking' : {
     'enable': true,
     'accountCode':'2p'
