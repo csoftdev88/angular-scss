@@ -7,8 +7,8 @@ angular.module('mobius.controllers.reservation', [])
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
-  $rootScope, userMessagesService, propertyService, $q,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, routerService){
+  $rootScope, userMessagesService, propertyService, $q, cookieFactory,
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService) {
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
@@ -19,7 +19,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.$stateParams = $stateParams;
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
-  $scope.scrollReservationStepsPosition =  $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
+  $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
 
   //Load generic data
   contentService.getTitles().then(function(data) {
@@ -41,8 +41,8 @@ angular.module('mobius.controllers.reservation', [])
 
   });
 
-  function setMetaInformation(){
-    if(!$scope.chain.meta){
+  function setMetaInformation() {
+    if (!$scope.chain.meta) {
       return;
     }
     metaInformationService.setPageTitle($scope.chain.meta.pagetitle);
@@ -83,18 +83,20 @@ angular.module('mobius.controllers.reservation', [])
     params: $state.fromParams
   };
 
-  $scope.$on('USER_LOGIN_EVENT', function(){
-    prefillUserDetails(user.isLoggedIn() ? user.getUser() : {email:$stateParams.email}, true);
+  $scope.$on('USER_LOGIN_EVENT', function() {
+    prefillUserDetails(user.isLoggedIn() ? user.getUser() : {
+      email: $stateParams.email
+    }, true);
   });
 
-  function onAuthorized(isMobiusUser){
+  function onAuthorized(isMobiusUser) {
     // Getting room/products data
     //
     var roomsPromises = [];
     var rooms;
     $scope.allRooms = [];
 
-    if(!$scope.isMultiRoomMode){
+    if (!$scope.isMultiRoomMode) {
       // Getting single room details
       // One room booking
       rooms = [];
@@ -105,7 +107,7 @@ angular.module('mobius.controllers.reservation', [])
       });
     } else {
       multiRoomData = bookingService.getMultiRoomData();
-      rooms = multiRoomData.map(function(room){
+      rooms = multiRoomData.map(function(room) {
         return {
           property: $stateParams.property,
           roomID: room.roomID,
@@ -115,7 +117,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     // Loading all the rooms;
-    roomsPromises = rooms.map(function(room){
+    roomsPromises = rooms.map(function(room) {
       return getRoomPromise(room);
     });
 
@@ -125,7 +127,7 @@ angular.module('mobius.controllers.reservation', [])
     });
 
     // Showing loading mask
-    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise]).then(function(){
+    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise]).then(function() {
       $rootScope.showHomeBreadCrumb = false;
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
@@ -133,12 +135,12 @@ angular.module('mobius.controllers.reservation', [])
 
     // Showing login/register dialog when user making reservation as not logged in
     // user. This doesn't apply for modifications or if loyalty program is disbaled
-    if(!isMobiusUser && !$scope.isModifyingAsAnonymous() && Settings.authType === 'infiniti'){
+    if (!isMobiusUser && !$scope.isModifyingAsAnonymous() && Settings.authType === 'infiniti') {
       modalService.openLoginDialog();
     }
 
     //If modifying as logged in user
-    if($stateParams.reservation && !$scope.isModifyingAsAnonymous()){
+    if ($stateParams.reservation && !$scope.isModifyingAsAnonymous()) {
 
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
         $scope.userDetails.title = reservation.rooms[0].guestTitleId || reservation.rooms[0].guestTitle;
@@ -173,7 +175,7 @@ angular.module('mobius.controllers.reservation', [])
 
     }
     //If modifying as anonymous user
-    else if($scope.isModifyingAsAnonymous()){
+    else if ($scope.isModifyingAsAnonymous()) {
       var reservationParams = {
         email: $stateParams.email
       };
@@ -215,8 +217,10 @@ angular.module('mobius.controllers.reservation', [])
       });
     }
     //If new reservation
-    else{
-      prefillUserDetails(isMobiusUser || userObject.token ? user.getUser() : {email : $stateParams.email});
+    else {
+      prefillUserDetails(isMobiusUser || userObject.token ? user.getUser() : {
+        email: $stateParams.email
+      });
     }
 
     //scrollToDetails('reservationDetailsForm');
@@ -224,30 +228,28 @@ angular.module('mobius.controllers.reservation', [])
 
   }
 
-  function getRoomPromise(room){
-    return $scope.getRoomData($stateParams.property, room.roomID, null, $scope.voucher.code).then(function(data){
+  function getRoomPromise(room) {
+    return $scope.getRoomData($stateParams.property, room.roomID, null, $scope.voucher.code).then(function(data) {
 
       var roomData = data.roomDetails;
-      var product = _.findWhere(data.roomProductDetails.products,
-        {
-          code: room.productCode
-        }
-      );
+      var product = _.findWhere(data.roomProductDetails.products, {
+        code: room.productCode
+      });
 
       // TODO if !product - redirect
-      if(product){
+      if (product) {
         roomData._selectedProduct = product;
-        if(!product.allowPointsBooking){
+        if (!product.allowPointsBooking) {
           $scope.canPayWithPoints = false;
         }
         $scope.allRooms.push(roomData);
 
         //if multiroom, wait for all rooms data to be loaded before tracking products checkout
-        if(!$scope.isMultiRoomMode){
+        if (!$scope.isMultiRoomMode) {
           trackProductCheckout(1);
         } else {
           multiRoomDataLoaded++;
-          if(multiRoomDataLoaded === multiRoomData.length){
+          if (multiRoomDataLoaded === multiRoomData.length) {
             trackProductCheckout(1);
           }
         }
@@ -255,8 +257,8 @@ angular.module('mobius.controllers.reservation', [])
     });
   }
 
-  function prefillUserDetails(userData, isMobius){
-    if(!userData){
+  function prefillUserDetails(userData, isMobius) {
+    if (!userData) {
       return;
     }
 
@@ -266,8 +268,8 @@ angular.module('mobius.controllers.reservation', [])
       $scope.$watch('profileCountries', function() {
         //overriding country name from /locales data using user data iso3 as infiniti country name doesn't match /locales country names
         var userCountry = null;
-        _.each($scope.profileCountries, function(country){
-          if(country.id === userData.localeCode){
+        _.each($scope.profileCountries, function(country) {
+          if (country.id === userData.localeCode) {
             userCountry = country.name;
           }
         });
@@ -306,34 +308,48 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   // Inheriting the login from RoomDetails controller
-  $controller('RoomDetailsCtrl', {$scope: $scope});
-  $controller('SSOCtrl', {$scope: $scope});
-  $controller('CardExpirationCtrl', {$scope: $scope});
+  $controller('RoomDetailsCtrl', {
+    $scope: $scope
+  });
+  $controller('SSOCtrl', {
+    $scope: $scope
+  });
+  $controller('CardExpirationCtrl', {
+    $scope: $scope
+  });
   // NOTE: Waiting for infiniti SSO auth events
-  $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
+  $controller('AuthCtrl', {
+    $scope: $scope,
+    config: {
+      onAuthorized: onAuthorized
+    }
+  });
 
 
   function goToRoom() {
-    if(previousState && previousState.state && previousState.params && previousState.state.parent !== 'reservation' && previousState.state.name && previousState.state.name !== '' && !previousState.state.abstract){
+    if (previousState && previousState.state && previousState.params && previousState.state.parent !== 'reservation' && previousState.state.name && previousState.state.name !== '' && !previousState.state.abstract) {
       $state.go(previousState.state, previousState.params);
-    }
-    else{
-      propertyService.getAll().then(function(properties){
+    } else {
+      propertyService.getAll().then(function(properties) {
         var paramsData = {};
-        paramsData.property = _.find(properties, function(prop){ return prop.code === $stateParams.property; });
-        routerService.buildStateParams('hotel', paramsData).then(function(params){
+        paramsData.property = _.find(properties, function(prop) {
+          return prop.code === $stateParams.property;
+        });
+        routerService.buildStateParams('hotel', paramsData).then(function(params) {
           params.scrollTo = 'jsRooms';
-          $state.go('hotel', params, {reload: true});
+          $state.go('hotel', params, {
+            reload: true
+          });
         });
       });
     }
   }
-  $scope.goToRoom = function(){
+  $scope.goToRoom = function() {
     goToRoom();
   };
 
   // Redirecting to details page
-  if($state.current.name === 'reservation'){
+  if ($state.current.name === 'reservation') {
     $state.go('reservation.details');
     setMetaInformation();
   }
@@ -352,44 +368,43 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function scrollToDetails(target) {
-    $timeout(function(){
+    $timeout(function() {
       scrollService.scrollTo(target, 20);
     }, 100);
   }
 
   function setContinueName(stateName) {
     switch (stateName) {
-    case 'reservation.details':
-      setBreadCrumbs(GUEST_DETAILS);
-      $scope.continueName = 'continue';
-      if($scope.invalidFormData.error){
-        //scrollToDetails('alert-warning');
-      }
-      else{
-        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
-      }
-      $rootScope.showHomeBreadCrumb = false;
-      break;
-    case 'reservation.billing':
-      setBreadCrumbs(BILLING_DETAILS);
-      $scope.continueName = 'continue';
-      //scrollToDetails('reservationBillingForm');
-      scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationBillingForm');
-      $rootScope.showHomeBreadCrumb = false;
-      break;
-    case 'reservation.confirmation':
-      setBreadCrumbs(CONFIRMATION);
-      $scope.continueName = 'confirm';
-      //scrollToDetails('reservationConfirmation');
-      scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationConfirmation');
-      $rootScope.showHomeBreadCrumb = false;
-      break;
-    case 'reservation.after':
-      breadcrumbsService.clear()
-        .addBreadCrumb('My stays', 'reservations')
-        .addBreadCrumb($scope.reservation.reservationCode);
-      $rootScope.showHomeBreadCrumb = false;
-      break;
+      case 'reservation.details':
+        setBreadCrumbs(GUEST_DETAILS);
+        $scope.continueName = 'continue';
+        if ($scope.invalidFormData.error) {
+          //scrollToDetails('alert-warning');
+        } else {
+          scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
+        }
+        $rootScope.showHomeBreadCrumb = false;
+        break;
+      case 'reservation.billing':
+        setBreadCrumbs(BILLING_DETAILS);
+        $scope.continueName = 'continue';
+        //scrollToDetails('reservationBillingForm');
+        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationBillingForm');
+        $rootScope.showHomeBreadCrumb = false;
+        break;
+      case 'reservation.confirmation':
+        setBreadCrumbs(CONFIRMATION);
+        $scope.continueName = 'confirm';
+        //scrollToDetails('reservationConfirmation');
+        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationConfirmation');
+        $rootScope.showHomeBreadCrumb = false;
+        break;
+      case 'reservation.after':
+        breadcrumbsService.clear()
+          .addBreadCrumb('My stays', 'reservations')
+          .addBreadCrumb($scope.reservation.reservationCode);
+        $rootScope.showHomeBreadCrumb = false;
+        break;
     }
   }
 
@@ -416,89 +431,88 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
-  if(!user.isLoggedIn()){
+  if (!user.isLoggedIn()) {
     $scope.billingDetails.paymentMethod = 'cc';
   }
 
   $scope.goBack = function() {
     switch ($state.current.name) {
-    case 'reservation.details':
-      goToRoom();
-      $scope.autofillSync();
-      break;
-    case 'reservation.billing':
-      $state.go('reservation.details');
-      $scope.autofillSync();
-      break;
-    case 'reservation.confirmation':
-      return $state.go('reservation.billing');
+      case 'reservation.details':
+        goToRoom();
+        $scope.autofillSync();
+        break;
+      case 'reservation.billing':
+        $state.go('reservation.details');
+        $scope.autofillSync();
+        break;
+      case 'reservation.confirmation':
+        return $state.go('reservation.billing');
     }
     setMetaInformation();
   };
 
   $scope.selectPaymentMethod = function(paymentMethod) {
     switch (paymentMethod) {
-    case 'cc':
-      $scope.billingDetails.paymentMethod = 'cc';
-      break;
-    case 'point':
-      $scope.billingDetails.paymentMethod = 'point';
-      // NOTE: Pay with points is only available for logged in users
-      $scope.pointsData = {
-        pointsRequired: $scope.getTotal('pointsRequired')
-      };
+      case 'cc':
+        $scope.billingDetails.paymentMethod = 'cc';
+        break;
+      case 'point':
+        $scope.billingDetails.paymentMethod = 'point';
+        // NOTE: Pay with points is only available for logged in users
+        $scope.pointsData = {
+          pointsRequired: $scope.getTotal('pointsRequired')
+        };
 
-      if(user.isLoggedIn()){
-        if(user.getUser().loyalties){
-          $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
+        if (user.isLoggedIn()) {
+          if (user.getUser().loyalties) {
+            $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
+          }
+
+          $scope.pointsData.pointsEarned = $scope.getTotal('pointsEarned');
+          //$scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints +
+          //$scope.getTotal('pointsEarned') - $scope.getTotal('pointsRequired');
+          $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
         }
 
-        $scope.pointsData.pointsEarned = $scope.getTotal('pointsEarned');
-        //$scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints +
-          //$scope.getTotal('pointsEarned') - $scope.getTotal('pointsRequired');
-        $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
-      }
-
-      break;
-    default:
-      $scope.billingDetails.paymentMethod = 'cc';
+        break;
+      default:
+        $scope.billingDetails.paymentMethod = 'cc';
     }
   };
 
   $scope.isValid = function() {
-    if($scope.allRooms && $scope.allRooms.length){
-      switch($state.current.name){
-      case 'reservation.details':
-        return $scope.forms.details && !$scope.forms.details.$invalid;
-      case 'reservation.billing':
-        switch ($scope.billingDetails.paymentMethod) {
-        case 'point':
-          if(user.isLoggedIn() && $scope.getTotal('pointsRequired')){
-            return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
+    if ($scope.allRooms && $scope.allRooms.length) {
+      switch ($state.current.name) {
+        case 'reservation.details':
+          return $scope.forms.details && !$scope.forms.details.$invalid;
+        case 'reservation.billing':
+          switch ($scope.billingDetails.paymentMethod) {
+            case 'point':
+              if (user.isLoggedIn() && $scope.getTotal('pointsRequired')) {
+                return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
+              }
+              break;
           }
-          break;
-        }
-        return $scope.forms.billing && !$scope.forms.billing.$invalid;
-      case 'reservation.confirmation':
-        return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
+          return $scope.forms.billing && !$scope.forms.billing.$invalid;
+        case 'reservation.confirmation':
+          return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
       }
     }
 
     return false;
   };
 
-  $scope.isContinueDisabled = function(){
+  $scope.isContinueDisabled = function() {
     //disable when validating voucher
-    if($scope.voucher.verifying)
-    {
+    if ($scope.voucher.verifying) {
       return true;
     }
     //disbale when making reservation
-    if($state.is('reservation.confirmation') && $scope.isMakingReservation) {
+    if ($state.is('reservation.confirmation') && $scope.isMakingReservation) {
       return true;
     }
     // TODO: Do this better - might work via ng-class instead of disabled
-    if($state.is('reservation.billing') && $scope.billingDetails.paymentMethod === 'point') {
+    if ($state.is('reservation.billing') && $scope.billingDetails.paymentMethod === 'point') {
       return !$scope.isValid();
     }
 
@@ -507,75 +521,73 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.continue = function() {
     switch ($state.current.name) {
-    case 'reservation.details':
+      case 'reservation.details':
 
-      if($scope.forms.details && !$scope.forms.details.$submitted){
-        $scope.forms.details.$submitted = true;
-      }
+        if ($scope.forms.details && !$scope.forms.details.$submitted) {
+          $scope.forms.details.$submitted = true;
+        }
 
-      //Clear email error message if any
-      if($scope.invalidFormData.email){
-        $scope.invalidFormData.email = null;
-      }
+        //Clear email error message if any
+        if ($scope.invalidFormData.email) {
+          $scope.invalidFormData.email = null;
+        }
 
-      if($scope.isValid()){
-        $state.go('reservation.billing');
-        $scope.autofillSync();
-        trackProductCheckout(2);
-      }
-      else{
-        scrollToDetails('reservationDetailsForm');
-      }
+        if ($scope.isValid()) {
+          $state.go('reservation.billing');
+          $scope.autofillSync();
+          trackProductCheckout(2);
+        } else {
+          scrollToDetails('reservationDetailsForm');
+        }
 
-      break;
-    case 'reservation.billing':
-      // TODO: Fix submited logic when paying with points billing form is
-      // not required
-      // TODO: Billing details on confirmation page should be removed
-      // when paid with points
-      if($scope.forms.billing && !$scope.forms.billing.$submitted){
-        $scope.forms.billing.$submitted = true;
-      }
+        break;
+      case 'reservation.billing':
+        // TODO: Fix submited logic when paying with points billing form is
+        // not required
+        // TODO: Billing details on confirmation page should be removed
+        // when paid with points
+        if ($scope.forms.billing && !$scope.forms.billing.$submitted) {
+          $scope.forms.billing.$submitted = true;
+        }
 
-      //Clear payment error message if any
-      if($scope.invalidFormData.payment){
-        $scope.invalidFormData.payment = null;
-      }
+        //Clear payment error message if any
+        if ($scope.invalidFormData.payment) {
+          $scope.invalidFormData.payment = null;
+        }
 
-      if($scope.isValid()){
-        $state.go('reservation.confirmation');
-        trackProductCheckout(3);
-      }
-      else{
-        scrollToDetails('reservationBillingForm');
-      }
-      break;
-    case 'reservation.confirmation':
-      if($scope.isValid()){
-        $scope.isMakingReservation = true;
-        $scope.makeReservation();
-      }
-      break;
+        if ($scope.isValid()) {
+          $state.go('reservation.confirmation');
+          trackProductCheckout(3);
+        } else {
+          scrollToDetails('reservationBillingForm');
+        }
+        break;
+      case 'reservation.confirmation':
+        if ($scope.isValid()) {
+          $scope.isMakingReservation = true;
+          $scope.makeReservation();
+        }
+        break;
     }
     setMetaInformation();
   };
 
-  function trackProductCheckout(stepNum){
+  function trackProductCheckout(stepNum) {
 
-    if(!$scope.allRooms || !$scope.allRooms.length){
+    if (!$scope.allRooms || !$scope.allRooms.length) {
       return;
     }
     // Tracking checkout
     //TODO: need actionField so needs to be moved further into booking flow
     chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-      propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+      propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
         var products = [];
 
-        _.each($scope.allRooms, function(room){
+        _.each($scope.allRooms, function(room) {
           var product = {
             name: room._selectedProduct.name,
             id: room._selectedProduct.code,
-            price: (room._selectedProduct.price.totalBaseAfterPricingRules/numNights).toFixed(2),
+            price: (room._selectedProduct.price.totalBaseAfterPricingRules / numNights).toFixed(2),
             quantity: numNights,
             dimension2: chainData.nameShort,
             brand: propertyData.nameLong,
@@ -617,15 +629,16 @@ angular.module('mobius.controllers.reservation', [])
       }
     };
 
-    if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
-    {
+    $scope.moreRoomData = reservationData.rooms;
+
+    if ($scope.voucher.valid && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation) {
       reservationData.voucher = $scope.voucher.code.toUpperCase();
     }
 
     // Adding customerID when logged in
-    if(user.isLoggedIn()){
+    if (user.isLoggedIn()) {
       reservationData.customer = user.getUser().id;
-    }else{
+    } else {
       // TODO: Anonymous reservation working but fails on getting
       // the data about created reservation back (API auth issue)
       reservationData.customerFirstName = $scope.userDetails.firstName;
@@ -634,23 +647,23 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     //Additional info
-    if($scope.additionalInfo.arrivalTime) {
+    if ($scope.additionalInfo.arrivalTime) {
       reservationData.arrivalTime = $scope.additionalInfo.arrivalTime;
     }
 
-    if($scope.additionalInfo.arrivalMethod) {
+    if ($scope.additionalInfo.arrivalMethod) {
       reservationData.arrivalMethod = $scope.additionalInfo.arrivalMethod;
     }
 
-    if($scope.additionalInfo.departureTime) {
+    if ($scope.additionalInfo.departureTime) {
       reservationData.departureTime = $scope.additionalInfo.departureTime;
     }
 
-    if($scope.additionalInfo.comments) {
+    if ($scope.additionalInfo.comments) {
       reservationData.comments = $scope.additionalInfo.comments;
     }
 
-    if($scope.additionalInfo.secondPhoneNumber) {
+    if ($scope.additionalInfo.secondPhoneNumber) {
       reservationData.secondPhoneNumber = $scope.additionalInfo.secondPhoneNumber;
     }
 
@@ -670,7 +683,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     //Billing details if different than guest details
-    if(!$scope.billingDetails.useGuestAddress){
+    if (!$scope.billingDetails.useGuestAddress) {
       reservationData.billingAddress = $scope.billingDetails.address;
       reservationData.billingCity = $scope.billingDetails.city;
       reservationData.billingZip = $scope.billingDetails.zip;
@@ -683,14 +696,14 @@ angular.module('mobius.controllers.reservation', [])
     // NOTE - Pay with points requires price as well
     reservationData.price = $scope.getTotal('totalBaseAfterPricingRules');
 
-    if($scope.bookingDetails.promoCode){
+    if ($scope.bookingDetails.promoCode) {
       // NOTE: Originally implemented using getCodeParamName as
       // reservationData[bookingService.getCodeParamName($scope.bookingDetails.corpCode)] = $scope.bookingDetails.corpCode;
       // Keep this for the future
       reservationData[Settings.API.promoCodes.promoCode] = $scope.bookingDetails.promoCode;
-    }else if($scope.bookingDetails.groupCode){
+    } else if ($scope.bookingDetails.groupCode) {
       reservationData.groupCode = $scope.bookingDetails.groupCode;
-    }else if($scope.bookingDetails.corpCode){
+    } else if ($scope.bookingDetails.corpCode) {
       reservationData.corpCode = $scope.bookingDetails.corpCode;
     }
 
@@ -698,52 +711,54 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   // TODO - move to common CTRL or service
-  $scope.getTotal = function(prop){
+  $scope.getTotal = function(prop) {
     // Returning a total price of all products
     return _.reduce(
-      _.map($scope.allRooms, function(room){
-        if(prop ==='pointsEarned'){
+      _.map($scope.allRooms, function(room) {
+        if (prop === 'pointsEarned') {
           return room._selectedProduct.productAwardPoints ? room._selectedProduct.price[prop] : 0;
-        }
-        else{
+        } else {
           return room._selectedProduct.price[prop];
         }
 
-      }), function(t, n){
+      }),
+      function(t, n) {
         return t + n;
       });
   };
 
-  $scope.getBreakdown = function(prop){
+  $scope.getBreakdown = function(prop) {
     // Returning a total price of all products
     return _.reduce(
-      _.map($scope.allRooms, function(room){
+      _.map($scope.allRooms, function(room) {
         return room._selectedProduct.price.breakdowns[0][prop];
-      }), function(t, n){
+      }),
+      function(t, n) {
         return t + n;
       });
   };
 
 
-  $scope.getGuestsCount = function(type){
-    if($scope.isMultiRoomMode){
+  $scope.getGuestsCount = function(type) {
+    if ($scope.isMultiRoomMode) {
       return _.reduce(
-      _.map(multiRoomData, function(room){
-        return room[type];
-      }), function(t, n){
-        return t + n;
-      });
+        _.map(multiRoomData, function(room) {
+          return room[type];
+        }),
+        function(t, n) {
+          return t + n;
+        });
     }
 
     return $scope.bookingDetails[type];
   };
 
-  $scope.getBreakdownTotalTax = function(code){
+  $scope.getBreakdownTotalTax = function(code) {
     // Returning a total price of all taxes per id
     var total = 0;
-    _.map($scope.allRooms, function(room){
-      _.each(room._selectedProduct.price.taxDetails.policyTaxItemDetails, function(taxItem){
-        if(taxItem.policyTaxItem.policyTaxItemCode === code){
+    _.map($scope.allRooms, function(room) {
+      _.each(room._selectedProduct.price.taxDetails.policyTaxItemDetails, function(taxItem) {
+        if (taxItem.policyTaxItem.policyTaxItemCode === code) {
           total += taxItem.taxAmount;
         }
       });
@@ -751,12 +766,12 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
-  $scope.getBreakdownTotalFee = function(code){
+  $scope.getBreakdownTotalFee = function(code) {
     // Returning a total price of all fees per id
     var total = 0;
-    _.map($scope.allRooms, function(room){
-      _.each(room._selectedProduct.price.feeDetails.policyTaxItemDetails, function(feeItem){
-        if(feeItem.policyTaxItem.policyTaxItemCode === code){
+    _.map($scope.allRooms, function(room) {
+      _.each(room._selectedProduct.price.feeDetails.policyTaxItemDetails, function(feeItem) {
+        if (feeItem.policyTaxItem.policyTaxItemCode === code) {
           total += feeItem.taxAmount;
         }
       });
@@ -764,12 +779,12 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
-  $scope.getBreakdownTotalDate = function(date){
+  $scope.getBreakdownTotalDate = function(date) {
     // Returning a total price per date
     var total = 0;
-    _.map($scope.allRooms, function(room){
-      _.each(room._selectedProduct.price.breakdowns, function(breakdown){
-        if(breakdown.date === date){
+    _.map($scope.allRooms, function(room) {
+      _.each(room._selectedProduct.price.breakdowns, function(breakdown) {
+        if (breakdown.date === date) {
           total += breakdown.totalBaseAfterPricingRules;
         }
       });
@@ -777,19 +792,19 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
-  $scope.getBreakdownTotalBaseAfterPricingRules = function(){
+  $scope.getBreakdownTotalBaseAfterPricingRules = function() {
     // Returning a total base price
     var totalBaseAfterPricingRules = 0;
-    _.map($scope.allRooms, function(room){
+    _.map($scope.allRooms, function(room) {
       totalBaseAfterPricingRules += room._selectedProduct.price.totalBaseAfterPricingRules;
     });
     return totalBaseAfterPricingRules;
   };
 
-  $scope.getBreakdownTotalTaxes = function(isFee){
+  $scope.getBreakdownTotalTaxes = function(isFee) {
     // Returning a total for all taxes or fees
     var total = 0;
-    _.map($scope.allRooms, function(room){
+    _.map($scope.allRooms, function(room) {
       total += isFee ? room._selectedProduct.price.feeDetails.totalTax : room._selectedProduct.price.taxDetails.totalTax;
     });
     return total;
@@ -797,12 +812,12 @@ angular.module('mobius.controllers.reservation', [])
 
 
 
-  function addReservationConfirmationMessage(reservationNumber){
+  function addReservationConfirmationMessage(reservationNumber) {
     userMessagesService.addReservationConfirmationMessage($scope.property.nameLong, reservationNumber);
   }
 
-  $scope.makeReservation = function(){
-    if(!$scope.additionalInfo.agree) {
+  $scope.makeReservation = function() {
+    if (!$scope.additionalInfo.agree) {
       $scope.isMakingReservation = false;
       return modalService.openTermsAgreeDialog();
     }
@@ -824,36 +839,33 @@ angular.module('mobius.controllers.reservation', [])
 
     var reservationData = createReservationData();
 
-
     var promises = [];
-    if($stateParams.reservation){
+    if ($stateParams.reservation) {
       // Updating existing reservation
       promises.push(reservationService.modifyReservation($stateParams.reservation, reservationData,
         // Email parameter when user modifying as anonymous.
         $scope.isModifyingAsAnonymous() ? $stateParams.email : null));
-    }else{
+    } else {
       // Creating a new reservation
       var roomCodes = [];
-      _.each($scope.allRooms, function(room){
+      _.each($scope.allRooms, function(room) {
         roomCodes.push(room.code);
       });
       roomCodes.join();
       promises.push(reservationService.createReservation($stateParams.property ? $stateParams.property : null, roomCodes, reservationData));
     }
 
-    if(userObject !== null)
-    {
+    if (userObject !== null) {
       var userData = _.omit($scope.userDetails, _.isNull);
-      if(userData.countryObj)
-      {
+      if (userData.countryObj) {
         userData.country = userData.countryObj.code;
       }
-      userData = _.omit(userData, ['id','token','email','languageCode','countryObj']);
+      userData = _.omit(userData, ['id', 'token', 'email', 'languageCode', 'countryObj']);
 
-      if(userData && userObject.id)
-      {
-        apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), userData).then(function(){
-        }, function(){
+      if (userData && userObject.id) {
+        apiService.put(apiService.getFullURL('customers.customer', {
+          customerId: userObject.id
+        }), userData).then(function() {}, function() {
           $scope.error = true;
           $scope.genericError = true;
         });
@@ -870,7 +882,7 @@ angular.module('mobius.controllers.reservation', [])
 
       // When booked as anonymous we are adding customer email to the next route
       // so booking data can be fetched from the API
-      if(!user.isLoggedIn()){
+      if (!user.isLoggedIn()) {
         reservationDetailsParams.email = reservationData.customerEmail;
       }
 
@@ -883,16 +895,16 @@ angular.module('mobius.controllers.reservation', [])
 
       //Google Tag Manager Tracking purchase
       chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-        propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+        propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
           //GTM ecommerce tracking
           var products = [];
-          _.each($scope.allRooms, function(room){
+          _.each($scope.allRooms, function(room) {
             var p = room._selectedProduct;
             var product = {
               name: p.name,
               code: p.code,
-              tax: ((p.price.totalAfterTax - p.price.totalBaseAfterPricingRules)/numNights).toFixed(2),
-              price: ($scope.getTotal('totalBaseAfterPricingRules')/numNights).toFixed(2),
+              tax: ((p.price.totalAfterTax - p.price.totalBaseAfterPricingRules) / numNights).toFixed(2),
+              price: ($scope.getTotal('totalBaseAfterPricingRules') / numNights).toFixed(2),
               id: room._selectedProduct.code,
               quantity: numNights,
               dimension2: chainData.nameShort,
@@ -917,8 +929,7 @@ angular.module('mobius.controllers.reservation', [])
           var stayLength = null;
           var bookingWindow = null;
 
-          if($stateParams.dates)
-          {
+          if ($stateParams.dates) {
             var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
             var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
             stayLength = checkOutDate.diff(checkInDate, 'days');
@@ -926,13 +937,12 @@ angular.module('mobius.controllers.reservation', [])
           }
           var derbysoftInfo = null;
 
-          if(Settings.derbysoftTracking && Settings.derbysoftTracking.enable)
-          {
+          if (channelService.getChannel().name === 'meta' && Settings.derbysoftTracking && Settings.derbysoftTracking.enable) {
             var metaParam = $location.search().meta;
             var metaDevice = null;
             var metaChannelCode = null;
 
-            if(metaParam){
+            if (metaParam) {
               var metaData = metaParam.split('|');
 
               metaDevice = _.find(metaData, function(metaItem) {
@@ -948,9 +958,9 @@ angular.module('mobius.controllers.reservation', [])
 
             derbysoftInfo = {
               accountCode: Settings.derbysoftTracking.accountCode,
-              bookingNo:data[0].reservationCode,
+              bookingNo: data[0].reservationCode,
               channelCode: metaChannelCode ? metaChannelCode : null,
-              hotelCode:propertyData.code,
+              hotelCode: propertyData.code,
               roomTypeName: $scope.allRooms[0].name,
               roomTypeCode: $scope.allRooms[0].code,
               ratePlanName: $scope.allRooms[0]._selectedProduct.name,
@@ -958,11 +968,11 @@ angular.module('mobius.controllers.reservation', [])
               ratePlanCode: $scope.allRooms[0]._selectedProduct.code,
               checkInDate: $stateParams.dates.split('_')[0],
               checkOutDate: $stateParams.dates.split('_')[1],
-              guests:parseInt($scope.getGuestsCount('adults')) + parseInt($scope.getGuestsCount('children')),
-              rooms:$scope.allRooms.length,
-              pureAmount:$scope.getTotal('totalBaseAfterPricingRules'),
-              totalAmount:$scope.getTotal('totalAfterTax'),
-              currency:$rootScope.currencyCode,
+              guests: parseInt($scope.getGuestsCount('adults')) + parseInt($scope.getGuestsCount('children')),
+              rooms: $scope.allRooms.length,
+              pureAmount: $scope.getTotal('totalBaseAfterPricingRules'),
+              totalAmount: $scope.getTotal('totalAfterTax'),
+              currency: $rootScope.currencyCode,
               device: metaDevice ? metaDevice : null
             };
           }
@@ -975,18 +985,20 @@ angular.module('mobius.controllers.reservation', [])
             'afterTax': $scope.getTotal('totalAfterTax')
           };
           var trackingData = angular.copy(reservationData);
-          trackingData.guestCountry = _.find($scope.profileCountries, function(country) { return country.id === $scope.userDetails.localeCode; });
+          trackingData.guestCountry = _.find($scope.profileCountries, function(country) {
+            return country.id === $scope.userDetails.localeCode;
+          });
           mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, priceData);
 
           //Infiniti Tracking purchase
           var infinitiTrackingProducts = [];
-          _.each($scope.allRooms, function(room){
+          _.each($scope.allRooms, function(room) {
             var p = room._selectedProduct;
             var product = {
               'id': p.code,
               'variant': 'Nights:' + numNights + '|Type:' + room.name,
               'quantity': numNights,
-              'amount': (p.price.totalBaseAfterPricingRules/numNights).toFixed(2),
+              'amount': (p.price.totalBaseAfterPricingRules / numNights).toFixed(2),
               'category': 'Room',
               'currency': $rootScope.currencyCode,
               'title': propertyData.nameShort + ' - ' + room.name,
@@ -1000,18 +1012,15 @@ angular.module('mobius.controllers.reservation', [])
             'products': infinitiTrackingProducts
           };
 
-          var userTitle = _.find($scope.profileTitles, function(title){ return title.id === $scope.userDetails.title; });
-          var userCountry = _.find($scope.profileCountries, function(country){ return country.id === $scope.userDetails.localeCode; });
-
-          if(!user.isLoggedIn()){
+          if (!user.isLoggedIn()) {
             infinitiTrackingData.customer = {
-              'title': userTitle.name,
+              'title': getUserTitle().name,
               'fName': $scope.userDetails.firstName,
               'lName': $scope.userDetails.lastName,
               'address': $scope.userDetails.address,
               'city': $scope.userDetails.city,
               'zip': $scope.userDetails.zip,
-              'country': userCountry.code,
+              'country': getUserCountry().code,
               'email': $scope.userDetails.email,
               'phone': $scope.userDetails.phone,
               'secondPhoneNumber': $scope.additionalInfo.secondPhoneNumber
@@ -1019,14 +1028,17 @@ angular.module('mobius.controllers.reservation', [])
           }
           infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
 
-
+          var env = document.querySelector('meta[name=environment]').getAttribute('content');
+          if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
+            infinitiApeironService.trackPurchase(buildApeironData(Settings.infinitiApeironTracking[env], data, chainData, propertyData));
+          }
         });
       });
 
 
 
       //creating anon user account
-      if(!user.isLoggedIn()){
+      if (!user.isLoggedIn()) {
 
         var anonUserData = {
           title: $scope.userDetails.title,
@@ -1054,8 +1066,7 @@ angular.module('mobius.controllers.reservation', [])
             addReservationConfirmationMessage(data[0].reservationCode);
           });
         });
-      }
-      else{
+      } else {
         if (reservationData.paymentInfo.paymentMethod === 'point' && user.isLoggedIn) {
           userObject.loyalties.amount = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
         }
@@ -1071,36 +1082,29 @@ angular.module('mobius.controllers.reservation', [])
       $scope.isMakingReservation = false;
       $scope.invalidFormData.error = true;
 
-      if(data.error && data.error.msg === 'User already registered'){
+      if (data.error && data.error.msg === 'User already registered') {
         $scope.invalidFormData.email = true;
         $state.go('reservation.details');
-        if(Settings.authType === 'infiniti'){
+        if (Settings.authType === 'infiniti') {
           modalService.openEmailRegisteredLoginDialog();
         }
-      }
-      else if(data.error && (data.error.reason === 53 || data.error.reason === 54)){
-        if(data.error.msg === 'Cardholder Name is invalid'){
+      } else if (data.error && (data.error.reason === 53 || data.error.reason === 54)) {
+        if (data.error.msg === 'Cardholder Name is invalid') {
           $scope.invalidFormData.cardName = true;
-        }
-        else if(data.error.msg === 'Payment Type is invalid'){
+        } else if (data.error.msg === 'Payment Type is invalid') {
           $scope.invalidFormData.paymentType = true;
-        }
-        else if(data.error.msg === 'Expiry Date is invalid'){
+        } else if (data.error.msg === 'Expiry Date is invalid') {
           $scope.invalidFormData.expiryDate = true;
-        }
-        else if(data.error.msg === 'Credit card will be expired'){
+        } else if (data.error.msg === 'Credit card will be expired') {
           $scope.invalidFormData.ccExpired = true;
-        }
-        else if(data.error.msg === 'CCV is invalid'){
+        } else if (data.error.msg === 'CCV is invalid') {
           $scope.invalidFormData.ccvInvalid = true;
-        }
-        else if(data.error.msg === 'Card Number is invalid'){
+        } else if (data.error.msg === 'Card Number is invalid') {
           $scope.invalidFormData.ccNumberInvalid = true;
         }
         $scope.invalidFormData.payment = true;
         $state.go('reservation.billing');
-      }
-      else{
+      } else {
         $scope.invalidFormData.generic = true;
         $state.go('reservation.details');
       }
@@ -1110,18 +1114,22 @@ angular.module('mobius.controllers.reservation', [])
     preloaderFactory(reservationPromise);
   };
 
-  $scope.openOtherRoomsDialog = function(){
+  $scope.openOtherRoomsDialog = function() {
     // Getting rooms settings
     var roomsSettings = bookingService.getMultiRoomData();
 
-    var allRooms = $scope.allRooms.map(function(room){return room;});
+    var allRooms = $scope.allRooms.map(function(room) {
+      return room;
+    });
 
     var rooms = [];
-    for(var i=0; i < roomsSettings.length; i++){
+    for (var i = 0; i < roomsSettings.length; i++) {
       var roomSettings = roomsSettings[i];
 
-      var roomData = _.findWhere(allRooms, {code: roomSettings.roomID});
-      if(roomData){
+      var roomData = _.findWhere(allRooms, {
+        code: roomSettings.roomID
+      });
+      if (roomData) {
         var room = roomData;
         allRooms.splice(allRooms.indexOf(room), 1);
 
@@ -1135,27 +1143,29 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   // List of rooms for booking
-  function getRooms(){
+  function getRooms() {
     var rooms;
 
-    if($scope.isMultiRoomMode){
+    if ($scope.isMultiRoomMode) {
       var multiRoomData = bookingService.getMultiRoomData();
 
-      rooms = multiRoomData.map(function(roomSettings){
+      rooms = multiRoomData.map(function(roomSettings) {
         // Finding corresponding room and product
-        var room = _.findWhere($scope.allRooms, {code: roomSettings.roomID});
-        if(room){
+        var room = _.findWhere($scope.allRooms, {
+          code: roomSettings.roomID
+        });
+        if (room) {
           return {
             roomId: room._selectedProduct.productPropertyRoomTypeId,
             adults: roomSettings.adults,
             children: roomSettings.children
           };
-        }else{
-          $log.info('Cant find room with code:"'+ roomSettings.roomID + '"' );
+        } else {
+          $log.info('Cant find room with code:"' + roomSettings.roomID + '"');
         }
       });
 
-    }else{
+    } else {
       // Single room booking
       rooms = [{
         roomId: $scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId,
@@ -1167,9 +1177,9 @@ angular.module('mobius.controllers.reservation', [])
     return rooms;
   }
 
-  $scope.readPolicies = function(){
-    if($scope.allRooms && $scope.allRooms.length){
-      var products = $scope.allRooms.map(function(room){
+  $scope.readPolicies = function() {
+    if ($scope.allRooms && $scope.allRooms.length) {
+      var products = $scope.allRooms.map(function(room) {
         return room._selectedProduct;
       });
 
@@ -1177,13 +1187,13 @@ angular.module('mobius.controllers.reservation', [])
     }
   };
 
-  $scope.openPriceBreakdownInfo = function(){
-    if($scope.allRooms && $scope.allRooms.length){
+  $scope.openPriceBreakdownInfo = function() {
+    if ($scope.allRooms && $scope.allRooms.length) {
       modalService.openPriceBreakdownInfo($scope.allRooms);
     }
   };
 
-  $scope.countryPhoneChanged = function(){
+  $scope.countryPhoneChanged = function() {
     var countryCode = $('#telephone').intlTelInput('getSelectedCountryData').iso2;
     $scope.defaultCountryCode = countryCode;
   };
@@ -1196,66 +1206,62 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.isBookingStepDisabled = function(value) {
     switch (value) {
-    case 'reservation.billing':
-      return $state.current.name === 'reservation.details';
-    case 'reservation.confirmation':
-      return $state.current.name === 'reservation.details' || $state.current.name === 'reservation.billing';
+      case 'reservation.billing':
+        return $state.current.name === 'reservation.details';
+      case 'reservation.confirmation':
+        return $state.current.name === 'reservation.details' || $state.current.name === 'reservation.billing';
     }
   };
 
   $scope.goToBookingStep = function(event, state) {
 
     var target = angular.element(event.target);
-    if(target.hasClass('current') || target.attr('disabled') === 'disabled'){
+    if (target.hasClass('current') || target.attr('disabled') === 'disabled') {
       return;
     }
 
     switch (state) {
-    case 'reservation.details':
+      case 'reservation.details':
         $state.go('reservation.details');
         $scope.autofillSync();
         trackProductCheckout(1);
-      break;
-    case 'reservation.billing':
-      $state.go('reservation.billing');
-      trackProductCheckout(2);
-      break;
-    case 'reservation.confirmation':
-      $state.go('reservation.confirmation');
-      trackProductCheckout(3);
-      break;
+        break;
+      case 'reservation.billing':
+        $state.go('reservation.billing');
+        trackProductCheckout(2);
+        break;
+      case 'reservation.confirmation':
+        $state.go('reservation.confirmation');
+        trackProductCheckout(3);
+        break;
     }
   };
 
   //format dates
-  $scope.formatDate = function(date, format){
+  $scope.formatDate = function(date, format) {
     return $window.moment(date).format(format);
   };
 
   $scope.$watch('billingDetails.country', function() {
-    if($scope.billingDetails.country && $scope.profileCountries)
-    {
+    if ($scope.billingDetails.country && $scope.profileCountries) {
       $scope.billingDetails.countryObj = contentService.getCountryByID($scope.billingDetails.country, $scope.profileCountries);
     }
   });
 
   $scope.$watch('userDetails.localeCode', function() {
-    if($scope.userDetails.localeCode && $scope.profileCountries)
-    {
+    if ($scope.userDetails.localeCode && $scope.profileCountries) {
       $scope.userDetails.countryObj = contentService.getCountryByID($scope.userDetails.localeCode, $scope.profileCountries);
     }
   });
 
-  $scope.redeemVoucher = function(){
-    if($scope.voucher.code && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
-    {
+  $scope.redeemVoucher = function() {
+    if ($scope.voucher.code && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation) {
       $scope.voucher.verifying = true;
 
       var params = getCheckVoucherParams();
 
-      reservationService.checkVoucher(params).then(function(voucherData){
-        if(voucherData.valid)
-        {
+      reservationService.checkVoucher(params).then(function(voucherData) {
+        if (voucherData.valid) {
           //If successful display success message and price details with voucher param
           $scope.voucher.verifying = false;
           $scope.voucher.valid = true;
@@ -1265,7 +1271,7 @@ angular.module('mobius.controllers.reservation', [])
           var rooms;
           $scope.allRooms = [];
 
-          if(!$scope.isMultiRoomMode){
+          if (!$scope.isMultiRoomMode) {
             // Getting single room details
             // One room booking
             rooms = [];
@@ -1276,7 +1282,7 @@ angular.module('mobius.controllers.reservation', [])
             });
           } else {
             multiRoomData = bookingService.getMultiRoomData();
-            rooms = multiRoomData.map(function(room){
+            rooms = multiRoomData.map(function(room) {
               return {
                 property: $stateParams.property,
                 roomID: room.roomID,
@@ -1286,38 +1292,178 @@ angular.module('mobius.controllers.reservation', [])
           }
 
           // Loading all the rooms;
-          roomsPromises = rooms.map(function(room){
+          roomsPromises = rooms.map(function(room) {
             return getRoomPromise(room);
           });
 
           //When new room pricing is there update views
-          preloaderFactory($q.all(roomsPromises).then(function(){
+          preloaderFactory($q.all(roomsPromises).then(function() {
             $scope.voucher.verifying = false;
             $scope.voucher.valid = true;
             $scope.voucher.submitted = true;
           }, goToRoom));
-        }
-        else {
+        } else {
           invalidVoucher();
         }
-      }, function(){
+      }, function() {
         invalidVoucher();
       });
     }
   };
 
-  function invalidVoucher(){
+  function invalidVoucher() {
     $scope.voucher.verifying = false;
     $scope.voucher.valid = false;
     $stateParams.voucher = null;
     $scope.voucher.submitted = true;
   }
 
-  function getCheckVoucherParams(){
+
+
+  function buildApeironData(apeironSettings, reservationData, chainData, propertyData){
+    var dateNow = new Date();
+    var trackingDate = dateNow.toISOString();
+    var anonymousId = cookieFactory('ajs_anonymous_id');
+    anonymousId = anonymousId ? anonymousId.split('%22').join('') : null;
+
+    var discountCode = $stateParams.promoCode ? $stateParams.promoCode : null;
+    discountCode = $stateParams.groupCode ? $stateParams.groupCode : null;
+    discountCode = $stateParams.corpCode ? $stateParams.corpCode : null;
+
+    var bookedDate = $stateParams.dates.split('_');
+    if (bookedDate.length) {
+      var fromDate = bookedDate[0];
+      var toDate = bookedDate[1];
+    }
+
+    var customerObject = {
+      'title': getUserTitle().name,
+      'firstName': $scope.userDetails.firstName,
+      'lastName': $scope.userDetails.lastName,
+      'email': $scope.userDetails.email,
+      'telephone': $scope.userDetails.phone,
+      'address1': $scope.userDetails.address,
+      'address2': '',
+      'address3': '',
+      'town': $scope.userDetails.city,
+      'state': $scope.userDetails.stateProvince,
+      'postcode': $scope.userDetails.zip,
+      'country': getUserCountry().code
+    };
+
+    customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+    customerObject.id = user.getCustomerId().toString();
+
+    var rooms = [];
+    _.each($scope.allRooms, function(roomData,index) {
+      var room = {
+        'id': roomData._selectedProduct.productPropertyRoomTypeId,
+        'transaction' : {
+          'id': reservationData[0].reservationCode
+        },
+        'quantity':1,
+        'discountAmount':0,
+        'discountPercent':0,
+        'totalPrice':0,
+        'totalRevenue':0,
+        'totalTax':0,
+        'dateFrom': $window.moment(fromDate).toISOString(),
+        'dateTo': $window.moment(toDate).toISOString(),
+        'isPreorder':false,
+        'location': propertyData.city,
+        'metaData': {
+          'adults':$scope.moreRoomData[index].adults,
+          'children':$scope.moreRoomData[index].children,
+          'rate':roomData._selectedProduct.code
+        },
+        'product': {
+          'id': roomData._selectedProduct.code,
+          'name': roomData._selectedProduct.name,
+          'category': roomData.name,
+          'sku': roomData._selectedProduct.productPropertyRoomTypeId,
+          'price': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
+          'priceBeforeTax': roomData._selectedProduct.price.totalBaseAfterPricingRules,
+          'tax':'',
+          'revenue':'',
+        }
+      };
+      rooms.push(room);
+    });
+
+    //TODO: WHAT ABOUT FEES?
+    //TODO: DISCOUNT TYPE E.G. FLAT
+    //TODO: CONFIRM REVENUE AND TAX
+    //TODO: CURRENCY CODE, USERS? OR SITE DEFAULT?
+
+    var totalDiscount = $scope.getTotal('totalDiscount') * -1; //Discounts come through as negative values
+    var totalPrice = $scope.getBreakdownTotalBaseAfterPricingRules();
+
+    var infinitiApeironData = {
+      'installationId': apeironSettings.id,
+      'utcTimestamp': $window.moment.utc(trackingDate).toISOString().valueOf(), //'2016-10-06T09:12:34Z'
+      'userTimestamp': trackingDate, //2016-10-06T09:12:34+0200
+      'anonymousId': anonymousId, // '57ebdc7d-1f0b-4b9b-8fdc-1c1b1d234b1a' ajs_anonyomous_id cookie removing encoded quotes
+      'transaction': {
+        'id': reservationData[0].reservationCode,
+        'totalRevenue': totalPrice,
+        'totalPrice': $scope.getTotal('totalAfterTaxAfterPricingRules'),
+        'totalTax': $scope.getBreakdownTotalTaxes(false),
+        'shipping': null,
+        'shippingDuration': null,
+        'shippingOption': null,
+        'shippingIsSplit': null,
+        'currencyCode': Settings.UI.currencies.default,
+        'totalItems': $scope.allRooms.length,
+        'discountAmount': totalDiscount,
+        'discountPercent': (totalDiscount / totalPrice) * 100,
+        'discountCode': discountCode,
+        'discountCampaign': null,
+        'discountType': ['flat'], //look into this
+        'isGift': false,
+        'source': 'Online',
+        'subsource': ''
+      },
+      'customer': customerObject,
+      'shipTo': {
+        'title': '',
+        'firstName': '',
+        'lastName': '',
+        'email': '',
+        'telephone': '',
+        'address1': '',
+        'address2': '',
+        'address3': '',
+        'town': '',
+        'state': '',
+        'postcode': '',
+        'country': ''
+      },
+      'metaData': {
+      },
+      'items': rooms
+    };
+    return infinitiApeironData;
+  }
+
+  function getUserTitle(){
+    var userTitle = _.find($scope.profileTitles, function(title) {
+      return title.id === $scope.userDetails.title;
+    });
+    return userTitle;
+  }
+
+  function getUserCountry(){
+    var userCountry = _.find($scope.profileCountries, function(country) {
+      return country.id === $scope.userDetails.localeCode;
+    });
+    return userCountry;
+  }
+
+  function getCheckVoucherParams() {
     var params = {};
     var date = $stateParams.dates.split('_');
 
-    if(date.length){
+    if (date.length) {
       var fromDate = date[0];
       var toDate = date[1];
 
@@ -1327,23 +1473,19 @@ angular.module('mobius.controllers.reservation', [])
       params.adults = $stateParams.adults;
       params.children = $stateParams.children;
 
-      if($scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId)
-      {
+      if ($scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId) {
         params.productPropertyRoomType = $scope.allRooms[0]._selectedProduct.productPropertyRoomTypeId;
       }
-      if($stateParams.promoCode !== null)
-      {
+      if ($stateParams.promoCode !== null) {
         params.promoCode = $stateParams.promoCode;
       }
-      if($stateParams.corpCode !== null)
-      {
+      if ($stateParams.corpCode !== null) {
         params.corpCode = $stateParams.corpCode;
       }
-      if($stateParams.groupCode !== null)
-      {
+      if ($stateParams.groupCode !== null) {
         params.groupCode = $stateParams.groupCode;
       }
-      if(userObject){
+      if (userObject) {
         params.customerId = userObject.id;
       }
     }
@@ -1355,6 +1497,10 @@ angular.module('mobius.controllers.reservation', [])
   $scope.getCreditCardPreviewNumber = creditCardTypeService.getCreditCardPreviewNumber;
   //Set initial payment method as cc
   $scope.selectPaymentMethod('cc');
-  $controller('PriceCtr', {$scope: $scope});
-  $controller('AutofillSyncCtrl', {$scope: $scope});
+  $controller('PriceCtr', {
+    $scope: $scope
+  });
+  $controller('AutofillSyncCtrl', {
+    $scope: $scope
+  });
 });

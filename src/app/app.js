@@ -69,6 +69,7 @@ angular
     'mobius.controllers.modals.locationDetail',
     'mobius.controllers.modals.confirmation',
     'mobius.controllers.common.cardExpiration',
+    'mobius.controllers.modals.upsells',
 
     // Application modules
     'mobiusApp.config',
@@ -103,6 +104,7 @@ angular
     'mobiusApp.services.sessionDataService',
     'mobiusApp.services.mobiusTrackingService',
     'mobiusApp.services.infinitiEcommerceService',
+    'mobiusApp.services.infinitiApeironService',
     'mobiusApp.services.channelService',
     'mobiusApp.services.router',
     'mobiusApp.services.track404s',
@@ -163,6 +165,7 @@ angular
     'mobiusApp.directives.evolutionInfinitiScript',
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
+    'mobiusApp.directives.infinitiApeironScript',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
     'mobiusApp.directives.hoverTrigger',
