@@ -346,7 +346,7 @@ angular.module('mobiusApp.config', [])
           'showSlashThrough': true
         },
         'upsells': {
-          'display': true
+          'display': false
         }
       },
       'offers': {

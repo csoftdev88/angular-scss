@@ -77,6 +77,21 @@ angular.module('mobiusApp.directives.room.products', [])
                 originalPrice += parseInt(breakdown.originalPrice, 10);
               });
               product.price.originalPrice = originalPrice;
+
+              //UPSELL STUB
+              product.upsell = {
+                roomCode:'JCSN',
+                roomPriceDifferential:'30'
+              };
+
+              if(product.upsell)
+              {
+                var upsellRoom = _.findWhere(scope.rooms, {code: product.upsell.roomCode});
+                if(upsellRoom){
+                  product.upsell.description = upsellRoom.roomHighlight;
+                  product.upsell.images = upsellRoom.image;
+                }
+              }
             });
 
             //Logic for ordering products: Display 4 groups: productHidden/memberOnly/highlighted/remaining, each ordered by weighting, highest weighting first
@@ -157,7 +172,7 @@ angular.module('mobiusApp.directives.room.products', [])
         return stateService.isMobile() ? scope.settings.ratesPerRoomOnMobile : scope.settings.ratesPerRoomOnDesktop;
       };
 
-      scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, event){
+      scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, upsell, event){
         if(isMemberOnly === null && roomPriceFrom === null && !event){
           return;
         }
@@ -198,26 +213,25 @@ angular.module('mobiusApp.directives.room.products', [])
           });
         }
 
-        var userLang = user.getUserLanguage();
-        var appLang = stateService.getAppLanguageCode();
-
-        if(scope.displayUpsells) {
-          var upsell = {
-            priceDifferential:29,
-            title:'Penthouse Studio Jacuzzi Queen - City View',
-            description:'Studio Suite-City View (432-500 sq ft) located Main Tower (Penthouse Top Floor 24) featuring 1 Queen Bed, Large Two-Person Jetted Jacuzzi, Kitchen with Fridge-Freezer, Microwave, Cook-Top, Oven, Dishwasher, Private Balcony with Panoramic Views, Flat Screen TV (32-inch), Free Wi-Fi, Maximum 2 People.'
-          };
-          modalService.openUpsellsDialog(upsell);
+        if(scope.displayUpsells && upsell) {
+          modalService.openUpsellsDialog(upsell, params, scope.goToReservationDetails);
         }
         else {
-          if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
-            user.storeUserLanguage('en-us');
-            var nonFrenchUrl = $state.href('reservation.details', params, {reload: true}).replace('/fr/','/');
-            $window.location.replace(nonFrenchUrl);
-          }
-          else {
-            $state.go('reservation.details', params, {reload: true});
-          }
+          scope.goToReservationDetails(params);
+        }
+      };
+
+      scope.goToReservationDetails = function(params){
+        console.log('called');
+        var userLang = user.getUserLanguage();
+        var appLang = stateService.getAppLanguageCode();
+        if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
+          user.storeUserLanguage('en-us');
+          var nonFrenchUrl = $state.href('reservation.details', params, {reload: true}).replace('/fr/','/');
+          $window.location.replace(nonFrenchUrl);
+        }
+        else {
+          $state.go('reservation.details', params, {reload: true});
         }
       };
 

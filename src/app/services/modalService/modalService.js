@@ -12,7 +12,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_ADDON = 'AddonDetailCtrl',
       CONTROLLER_LOCATION = 'LocationDetailCtrl',
       CONTROLLER_CONFIRMATION = 'ConfirmationCtrl',
-
+      CONTROLLER_UPSELLS = 'UpsellsCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -395,15 +395,17 @@ angular.module('mobiusApp.services.modal', [])
     return totalDailyFees;
   }
 
-  function openUpsellsDialog(upsell){
-    return openDialog('openUpsellsDialog', 'layouts/modals/upsellsDialog.html', CONTROLLER_DATA, {
+  function openUpsellsDialog(upsell, params, goToReservationDetails){
+    return openDialog('openUpsellsDialog', 'layouts/modals/upsellsDialog.html', CONTROLLER_UPSELLS, {
       windowClass: 'upsells-dialog',
       resolve: {
         data: function() {
           return {
-            upsell:upsell
+            upsell:upsell,
+            params:params
           };
-        }
+        },
+        goToReservationDetails: function(){return goToReservationDetails;}
       }
     });
   }
