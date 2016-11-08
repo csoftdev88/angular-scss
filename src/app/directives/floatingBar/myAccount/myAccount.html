@@ -32,7 +32,7 @@
     <div ng-if="lastReward && lastReward.earned">
       <h4 ng-bind-html="'_last_reward_bought_' | mainHeaderStyle"></h4>
       <p>{{lastReward.name}}</p>
-      <p>{{lastReward.earned | dateTime:'D MMM YYYY'}}</p>
+      <p>{{lastReward.earned | dateTime}}</p>
     </div>
 
     <div ng-if="lastReward && !lastReward.earned">

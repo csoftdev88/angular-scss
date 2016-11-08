@@ -33,7 +33,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="item in room._selectedProduct.price.breakdowns | orderBy: 'date' track by $index">
-              <td>{{formatDate(item.date, 'DD MMM YYYY')}}</td>
+              <td>{{item.date | dateTime}}</td>
               <td>{{item.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</td>
               <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
               <td ng-if="item.totalFees > 0">{{item.totalFees | i18nCurrency: currencyCode}}</td>

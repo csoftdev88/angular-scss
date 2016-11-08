@@ -53,7 +53,9 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.userDetails = {};
   $scope.possibleArrivalMethods = Settings.UI.arrivalMethods;
-  $scope.additionalInfo = {};
+  $scope.additionalInfo = {
+    'optedIn': $scope.bookingConfig.newsLetterOptedIn
+  };
   $scope.voucher = {};
 
   $scope.defaultCountryCode = Settings.UI.defaultCountryCode;
@@ -368,8 +370,8 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function scrollToDetails(target) {
-    $timeout(function() {
-      scrollService.scrollTo(target, 20);
+    $timeout(function(){
+      scrollService.scrollTo(target, 30);
     }, 100);
   }
 
@@ -1177,9 +1179,9 @@ angular.module('mobius.controllers.reservation', [])
     return rooms;
   }
 
-  $scope.readPolicies = function() {
-    if ($scope.allRooms && $scope.allRooms.length) {
-      var products = $scope.allRooms.map(function(room) {
+  $scope.readPolicies = function(){
+    if(!$scope.bookingConfig.termsAndConditionsLink && $scope.allRooms && $scope.allRooms.length){
+      var products = $scope.allRooms.map(function(room){
         return room._selectedProduct;
       });
 

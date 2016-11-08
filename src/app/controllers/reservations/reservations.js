@@ -5,7 +5,7 @@
 angular.module('mobius.controllers.reservations', [])
 
 .controller('ReservationsCtrl', function($scope, $controller, $q,
-  $state, modalService, creditCardTypeService, reservationService,
+  $state, $timeout, modalService, creditCardTypeService, reservationService, scrollService,
   preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject, chainService, metaInformationService, $location, Settings, $rootScope){
 
   breadcrumbsService.addBreadCrumb('My Stays');
@@ -26,6 +26,11 @@ angular.module('mobius.controllers.reservations', [])
     metaInformationService.setMetaDescription(chain.meta.description);
     metaInformationService.setMetaKeywords(chain.meta.keywords);
     metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+
+    $timeout(function(){
+      scrollService.scrollTo('jsReservations');
+    });
+
 
   });
 
@@ -69,6 +74,10 @@ angular.module('mobius.controllers.reservations', [])
       futureStays: futureStays
     };
 
+    $timeout(function(){
+      scrollService.scrollTo('jsReservations');
+    }, 500);
+
   }
 
   // Sorting by arrivalDate
@@ -109,7 +118,8 @@ angular.module('mobius.controllers.reservations', [])
 
   // TODO: Check whats is a future stay(tomorrow/today?)
   function getFutureStays(data){
-    var today = $window.moment().valueOf();
+    var todayUtc = new Date().toJSON().slice(0,10);
+    var today = parseInt($window.moment(todayUtc).valueOf());
     return _.filter(data, function(reservation){
       return $window.moment(reservation.arrivalDate).valueOf() >= today;
     });
