@@ -1,180 +1,196 @@
 room-products {
 	width: 65%;
-	> ul {
 
+	> ul {
 		> li {
+			padding:0;
 			border: 0;
 			border-bottom: 1px solid @c-light-grey;
 
-			&:first-child{
+			&:first-child {
 				border-top: 1px solid @c-light-grey;
 			}
 
-			&:last-of-type{
+			&:last-of-type {
 				border-radius: 0;
 			}
 
-      .viewport-mobile & {
-        padding: 0;
-      }
+			.viewport-mobile & {
+				padding: 0;
+			}
 
-			.no-products{
+			.no-products {
 				padding: 37px 22px;
-        &.with-dates{
-          text-align: right;
-          padding: 20px 22px;
-          padding-right: 0px;
-          .viewport-mobile & {
-            padding: 20px 0px;
-            text-align: center;
-          }
-        }
-				.desc{
+
+				&.with-dates {
+					text-align: right;
+					padding: 20px 0 20px 22px;
+
+					.viewport-mobile & {
+						padding: 20px 0;
+						text-align: center;
+					}
+				}
+
+				.desc {
 					font-size: 18px;
 					font-family: @ff-bold;
 					margin-bottom: 3px;
 				}
-        .sub-desc{
-          font-size: 12px;
-          line-height: 16px;
-          margin-bottom: 10px;
-        }
+
+				.sub-desc {
+					font-size: 12px;
+					line-height: 16px;
+					margin-bottom: 10px;
+				}
 			}
 
 			.rate-description {
 				border: none;
 
-        a.info.link{
-          font-size: @size--2;
-          line-height: @size-1;
-          color: @c-dark-grey;
-          &:hover{
-            color: @c-dark-grey;
-            text-decoration: underline;
-          }
+				a.info.link {
+					font-size: @size--2;
+					line-height: @size-1;
+					color: @c-dark-grey;
 
-        }
-
-				h4{
-					position: relative;
-					top: 5px;
-					> span{
-						color: @c-very-dark-grey;
-						font-weight: normal;
-						font-family: @ff-bold;
-						font-size: 18px;
+					&:hover {
+						color: @c-dark-grey;
+						text-decoration: underline;
 					}
-					a.info::after{
-						color: @c-primary;
-					}
-          a.description-toggle {
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
-            text-align: center;
-            background: #dfdfdf;
-            margin-right: 17px;
-            display: block;
-            float: left;
-            border-radius: 4px;
-            &:after {
-              .fa;
-              display: inline-block;
-              content: @fa-var-plus;
-              color: @c-very-dark-grey;
-            }
-            .viewport-mobile &{
-              display: none;
-            }
-
-          }
 				}
 
-        .description-wrapper{
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height .3s ease-out;
-          padding-top: 10px;
-          > p{
-            font-size: 12px;
-            line-height: 18px;
-            margin-bottom: 10px;
-            max-height: none;
-            margin-top: 0px;
-          }
-        }
-				
-        &.open{
-          .description-wrapper{
-            max-height: 999px;
-            transition: max-height 1s ease-out;
-          }
-          h4{
-            a.description-toggle {
-              &:after {
-                content: @fa-var-minus;
-            }
-            }
-          }
-        }
+				h4 {
+					position: relative;
+					top: 5px;
 
-        .full-description {
-          .viewport-mobile & {
-            display: block;
-          }
-        }
+					> span {
+						color: @c-black;
+						font-weight: normal;
+						font-size: 18px;
+					}
 
-        .info.mobile {
-          color: @c-primary;
-        }
+					a.info::after {
+						color: @c-primary;
+					}
+
+					a.description-toggle {
+						width: 25px;
+						height: 25px;
+						line-height: 25px;
+						text-align: center;
+						background: #dfdfdf;
+						margin-right: 17px;
+						display: block;
+						float: left;
+						border-radius: 4px;
+
+						&:after {
+							.fa;
+							display: inline-block;
+							content: @fa-var-plus;
+							color: @c-very-dark-grey;
+						}
+
+						.viewport-mobile & {
+							display: none;
+						}
+					}
+				}
+
+				.description-wrapper {
+					max-height: 0;
+					overflow: hidden;
+					transition: max-height 0.3s ease-out;
+					padding-top: 10px;
+
+					> p {
+						font-size: 12px;
+						line-height: 18px;
+						margin-bottom: 10px;
+						max-height: none;
+						margin-top: 0;
+
+						> p {
+							white-space: initial;
+							text-overflow: initial;
+						}
+					}
+				}
+
+				&.open {
+					.description-wrapper {
+						max-height: 999px;
+						transition: max-height 1s ease-out;
+					}
+
+					h4 {
+						a.description-toggle {
+							&:after {
+								content: @fa-var-minus;
+							}
+						}
+					}
+				}
+
+				.full-description {
+					.viewport-mobile & {
+						display: block;
+					}
+				}
+
+				.info.mobile {
+					color: @c-primary;
+				}
 			}
 
 			pricing-details {
-        padding-top: 3px;
+				padding-top: 3px;
 
-        .price-details {
-          padding-top: 14px;
+				.price-details {
+					padding-top: 14px;
 
-          .price-form {
-            .value {
-              font-size: @size-2;
-              color: @c-very-dark-grey;
+					.price-form {
+						.value {
+              color: @c-black;
+              font-family: @ff-bold;
               font-weight: normal;
-              font-style: normal;
-              font-family: @ff-heading;
-            }
-          }
+              text-transform: initial;
+              font-size:18px;
+						}
+					}
 
-          .viewport-mobile & {
-            width: 100%;
-            text-align: right;
-          }
-        }
+					.viewport-mobile & {
+						width: 100%;
+						text-align: right;
+					}
+				}
 
-        .action-buttons {
-          width: 50%;
-          float: left;
-          padding: 0px 5px;
-          box-sizing: border-box;
-          text-align: right;
+				.action-buttons {
+					width: 50%;
+					float: left;
+					padding: 0 0 0 5px;
+					box-sizing: border-box;
+					text-align: right;
 
-          .button {
-            min-width: 0;
-            padding: 0px 10px;
-            margin: 5px 0px;
-          }
+					.button {
+						min-width: 0;
+						padding: 0 10px;
+						margin: 5px 0;
+						padding:0 30px;
+					  font-weight:bold;
+					  font-family:@ff-default;
+					}
 
-          .viewport-mobile & {
-            width: 100%;
-            padding: 0px;
-          }
-        }
+					.viewport-mobile & {
+						width: 100%;
+						padding: 0;
+					}
+				}
 
-        .viewport-mobile & {
-          display: none;
-        }
-      }
-
+				.viewport-mobile & {
+					display: none;
+				}
+			}
 		}
 	}
 }

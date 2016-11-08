@@ -4,12 +4,13 @@
  */
 angular.module('mobius.controllers.register', [])
 
-  .controller('RegisterCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, chainService, metaInformationService, $location, Settings){
+  .controller('RegisterCtrl', function($scope, $controller, $timeout, $state, scrollService, breadcrumbsService, contentService, apiService, userObject, user, chainService, metaInformationService, $location, Settings){
 
     breadcrumbsService.addBreadCrumb('Register');
 
     $scope.config = Settings.UI.registerPage;
     $scope.submitted = false;
+    $scope.registerData = {};
 
     //get meta information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -24,6 +25,10 @@ angular.module('mobius.controllers.register', [])
       metaInformationService.setMetaKeywords(chain.meta.keywords);
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
 
+      $timeout(function(){
+        scrollService.scrollTo('jsRegister');
+      }, 500);
+
     });
 
 		contentService.getTitles().then(function(data) {
@@ -33,6 +38,10 @@ angular.module('mobius.controllers.register', [])
 		contentService.getContactMethods().then(function(data) {
 			$scope.registerContacts = data;
 		});
+
+    contentService.getCountries().then(function(data) {
+      $scope.registerCountries = data;
+    });
 
 		$scope.register = function(form, registerData){
       clearErrorMsg();
@@ -66,6 +75,6 @@ angular.module('mobius.controllers.register', [])
       $scope.missingFieldsError = false;
       $scope.submitted = false;
 	  }
-	  
-      
+
+
   });

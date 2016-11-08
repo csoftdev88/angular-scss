@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.stickable', [])
 
-  .directive('stickable', function ($window) {
+  .directive('stickable', function ($window, stateService) {
     var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
     var EVENT_SCROLL = 'scroll';
 
@@ -15,10 +15,10 @@ angular.module('mobiusApp.directives.stickable', [])
         var $$window = angular.element($window);
         var elementOffset = elem.offset().top;
 
-        var isMobile = false;
+        var isMobile = stateService.isMobile();
 
-        scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
-          isMobile = viewport.isMobile;
+        scope.$on(EVENT_VIEWPORT_RESIZE, function(){
+          isMobile = stateService.isMobile();
         });
 
         function onScroll(){
