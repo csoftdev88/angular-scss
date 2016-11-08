@@ -18,7 +18,7 @@
         {{property.nameLong}} <!-- TODO: hotel name already in property.nameLong so duplicates, flag needs to be added to config file<strong>{{property.city}}</strong>-->
         <span ng-if="reservation.status === 'Cancelled'">&nbsp;- _cancelled_</span>
       </h2>
-      <span>_booked_: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
+      <span>_booked_: {{reservation.bookingDate | dateTime }}</span>
     </div>
 
     <div class="rating">

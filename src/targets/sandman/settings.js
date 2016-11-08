@@ -45,6 +45,40 @@ angular.module('mobiusApp.config', [])
       'live': ''
     }
   },
+  'infinitiApeironTracking': {
+    'development': {
+      'enable':false,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sandman-development',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    },
+    'integration': {
+      'enable':false,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sandman-integration',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    },
+    'staging': {
+      'enable':true,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sandman-staging',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    },
+    'live': {
+      'enable':false,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sandman-live',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    }
+  },
   'derbysoftTracking' : {
     'enable': true,
     'accountCode':'2p'
@@ -73,7 +107,7 @@ angular.module('mobiusApp.config', [])
       'live':  'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': true,
+      'enable': false,
       'search': 'properties/track/search',
       'purchase': 'properties/track/purchase'
     },
