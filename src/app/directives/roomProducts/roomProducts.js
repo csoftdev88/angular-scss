@@ -19,6 +19,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
       scope.settings = Settings.UI.hotelDetails.rooms.rates;
+      scope.displayUpsells = Settings.UI.hotelDetails.rooms.upsells ? Settings.UI.hotelDetails.rooms.upsells.display : false;
 
       scope.init = function(){
         scope.products = undefined;
@@ -200,13 +201,23 @@ angular.module('mobiusApp.directives.room.products', [])
         var userLang = user.getUserLanguage();
         var appLang = stateService.getAppLanguageCode();
 
-        if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
-          user.storeUserLanguage('en-us');
-          var nonFrenchUrl = $state.href('reservation.details', params, {reload: true}).replace('/fr/','/');
-          $window.location.replace(nonFrenchUrl);
+        if(scope.displayUpsells) {
+          var upsell = {
+            priceDifferential:29,
+            title:'Penthouse Studio Jacuzzi Queen - City View',
+            description:'Studio Suite-City View (432-500 sq ft) located Main Tower (Penthouse Top Floor 24) featuring 1 Queen Bed, Large Two-Person Jetted Jacuzzi, Kitchen with Fridge-Freezer, Microwave, Cook-Top, Oven, Dishwasher, Private Balcony with Panoramic Views, Flat Screen TV (32-inch), Free Wi-Fi, Maximum 2 People.'
+          };
+          modalService.openUpsellsDialog(upsell);
         }
         else {
-          $state.go('reservation.details', params, {reload: true});
+          if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
+            user.storeUserLanguage('en-us');
+            var nonFrenchUrl = $state.href('reservation.details', params, {reload: true}).replace('/fr/','/');
+            $window.location.replace(nonFrenchUrl);
+          }
+          else {
+            $state.go('reservation.details', params, {reload: true});
+          }
         }
       };
 

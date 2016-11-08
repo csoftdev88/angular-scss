@@ -344,6 +344,9 @@ angular.module('mobiusApp.config', [])
           'displayOtaRates': false,
           'highlightFirstRate': true,
           'showSlashThrough': true
+        },
+        'upsells': {
+          'display': true
         }
       },
       'offers': {

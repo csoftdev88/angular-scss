@@ -395,6 +395,19 @@ angular.module('mobiusApp.services.modal', [])
     return totalDailyFees;
   }
 
+  function openUpsellsDialog(upsell){
+    return openDialog('openUpsellsDialog', 'layouts/modals/upsellsDialog.html', CONTROLLER_DATA, {
+      windowClass: 'upsells-dialog',
+      resolve: {
+        data: function() {
+          return {
+            upsell:upsell
+          };
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -428,6 +441,7 @@ angular.module('mobiusApp.services.modal', [])
     openOtherRoomsDialog: openOtherRoomsDialog,
     openLoginDialog: openLoginDialog,
     openEmailRegisteredLoginDialog: openEmailRegisteredLoginDialog,
-    openProductDetailsDialog: openProductDetailsDialog
+    openProductDetailsDialog: openProductDetailsDialog,
+    openUpsellsDialog: openUpsellsDialog
   };
 });
