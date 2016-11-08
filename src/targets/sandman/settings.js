@@ -380,7 +380,7 @@ angular.module('mobiusApp.config', [])
           'showSlashThrough': true
         },
         'upsells': {
-          'display': false
+          'display': true
         }
       },
       'offers': {
