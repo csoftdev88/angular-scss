@@ -101,7 +101,7 @@
           name="address"
           ng-pattern="$root.generalValidationPattern"/>
         <span ng-hide="forms.details.$submitted && forms.details.address.$error">_address_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.address.$error">_address_pattern_error_</span>
+        <span ng-show="forms.details.$submitted && forms.details.address.$error.pattern">_address_pattern_error_</span>
       </label>
 
       <label for="city" class="input-left">
@@ -110,8 +110,8 @@
           ng-model="userDetails.city"
           name="city"
           ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_city_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.phone.$error">_city_pattern_error_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.city.$error">_city_label_</span>
+        <span ng-show="forms.details.$submitted && forms.details.city.$error.pattern">_city_pattern_error_</span>
       </label>
 
       <label for="state" class="input-right">
@@ -120,8 +120,8 @@
           ng-model="userDetails.stateProvince"
           name="stateProvince"
           ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_state_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.phone.$error">_state_pattern_error_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.stateProvince.$error">_state_label_</span>
+        <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error.pattern">_state_pattern_error_</span>
       </label>
 
       <label for="postal-code" class="input-left">
@@ -130,8 +130,8 @@
           ng-model="userDetails.zip"
           name="zip"
           ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_postcode_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.phone.$error">_postcode_pattern_error_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.zip.$error">_postcode_label_</span>
+        <span ng-show="forms.details.$submitted && forms.details.zip.$error.pattern">_postcode_pattern_error_</span>
       </label>
 
       <label for="country" class="input-right" ng-if="profileCountries">
