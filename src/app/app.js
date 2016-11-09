@@ -571,6 +571,8 @@ angular
     Raven.config(Settings.sentry[env]).install();
   }
 
+  $rootScope.validationPattern = /[\u0020-\u02AF]+/g;
+
   function encodeQueryData(data) {
     var ret = [];
     for (var d in data) {
