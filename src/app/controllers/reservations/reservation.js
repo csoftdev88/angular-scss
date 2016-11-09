@@ -1360,7 +1360,7 @@ angular.module('mobius.controllers.reservation', [])
     };
 
     customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
-    customerObject.id = user.getCustomerId().toString();
+    customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
     var rooms = [];
     _.each($scope.allRooms, function(roomData,index) {
@@ -1430,11 +1430,6 @@ angular.module('mobius.controllers.reservation', [])
       rooms.push(room);
     });
 
-    //TODO: WHAT ABOUT FEES?
-    //TODO: DISCOUNT TYPE E.G. FLAT
-    //TODO: CONFIRM REVENUE AND TAX
-    //TODO: CURRENCY CODE, USERS? OR SITE DEFAULT?
-
     var totalDiscount = $scope.getTotal('totalDiscount') * -1; //Discounts come through as negative values
     var totalPrice = $scope.getBreakdownTotalBaseAfterPricingRules();
 
@@ -1447,9 +1442,9 @@ angular.module('mobius.controllers.reservation', [])
         'transactionType':'purchase',
         'id': reservationData[0].reservationCode,
         'uuid': sessionCookie.sessionData.sessionId,
-        'totalRevenue': totalPrice,
+        'totalRevenue': totalPrice, // ADD FEES
         'totalPrice': $scope.getTotal('totalAfterTaxAfterPricingRules'),
-        'totalTax': $scope.getBreakdownTotalTaxes(false),
+        'totalTax': $scope.getBreakdownTotalTaxes(false) + $scope.getTotal('totalAdditionalFees'), //ADD FEES TO THIS
         'shipping': null,
         'shippingDuration': null,
         'shippingOption': null,
