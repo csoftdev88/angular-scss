@@ -110,7 +110,8 @@
             id="newPassword"
             name="newPassword"
             ng-model="passwordData.password"
-            ng-class="{'ng-submitted': form.$submitted && form.newPassword.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.newPassword.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -164,7 +165,8 @@
             id="profileFname"
             name="profileFname"
             ng-model="profileData.firstName"
-            ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -174,7 +176,8 @@
             id="profileLname"
             name="profileLname"
             ng-model="profileData.lastName"
-            ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
       </fieldset>
@@ -204,7 +207,8 @@
             id="profileAddress1"
             name="profileAddress1"
             ng-model="profileData.address1"
-            ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -214,7 +218,8 @@
             id="profileAddress2"
             name="profileAddress2"
             ng-model="profileData.address2"
-            ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -224,7 +229,8 @@
             id="profileCity"
             name="profileCity"
             ng-model="profileData.city"
-            ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -234,7 +240,8 @@
             id="profileState"
             name="profileState"
             ng-model="profileData.state"
-            ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element ng-if="profileCountries">
@@ -254,7 +261,8 @@
             id="profileZip"
             name="profileZip"
             ng-model="profileData.zip"
-            ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -264,7 +272,8 @@
             id="profileTel"
             name="profileTel"
             ng-model="profileData.tel1"
-            ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element ng-if="profileContacts">
