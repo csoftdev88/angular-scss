@@ -1377,6 +1377,7 @@ angular.module('mobius.controllers.reservation', [])
 
       var room = {
         'id': roomData._selectedProduct.productPropertyRoomTypeId,
+        'code': roomData.code,
         'transaction' : {
           'id': reservationData[0].reservationCode
         },
@@ -1389,7 +1390,6 @@ angular.module('mobius.controllers.reservation', [])
         'dateFrom': $window.moment(fromDate).toISOString(),
         'dateTo': $window.moment(toDate).toISOString(),
         'isPreorder':false,
-        'location': propertyData.city,
         'metaData': {
           'adults':$scope.moreRoomData[index].adults,
           'children':$scope.moreRoomData[index].children,
@@ -1402,6 +1402,10 @@ angular.module('mobius.controllers.reservation', [])
           'region': {
             'code': propertyData.regionCode,
             'name': localeData[1].trim()
+          },
+          'location':{
+            'code':propertyData.locationCode,
+            'name':propertyData.city
           },
           'province': {
             'code': localeData[1].trim().split(' ').join('').toUpperCase(),
