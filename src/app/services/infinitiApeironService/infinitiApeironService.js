@@ -15,7 +15,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         console.log(postData);
         var username = Settings.infinitiApeironTracking[env].username;
         var password = Settings.infinitiApeironTracking[env].password;
-        console.log(btoa(username + ':' + password));
         apiService.infinitiApeironPost(endpoint, postData, username, password).then(function () {
         }, function (err) {
           console.log('Infiniti apeiron purchase tracking error: ' + angular.toJson(err));
