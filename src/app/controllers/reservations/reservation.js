@@ -7,7 +7,7 @@ angular.module('mobius.controllers.reservation', [])
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
-  $rootScope, userMessagesService, propertyService, $q, cookieFactory,
+  $rootScope, userMessagesService, propertyService, $q, cookieFactory, sessionDataService,
   creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService) {
 
   $scope.chain = {};
@@ -1338,6 +1338,8 @@ angular.module('mobius.controllers.reservation', [])
       var toDate = bookedDate[1];
     }
 
+    var sessionCookie = sessionDataService.getCookie();
+
     var customerObject = {
       'title': getUserTitle().name,
       'firstName': trackingData.guestFirstName,
@@ -1353,7 +1355,8 @@ angular.module('mobius.controllers.reservation', [])
       'country': getUserCountry().code,
       'gender':userObject.gender || '',
       'isCorporateCustomer': $stateParams.corpCode && $stateParams.corpCode !== '' ? true : false,
-      'isLoyaltyMember': Settings.authType === 'infiniti'
+      'isLoyaltyMember': Settings.authType === 'infiniti',
+      'uuid': sessionCookie.sessionData.sessionId
     };
 
     customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
@@ -1439,6 +1442,7 @@ angular.module('mobius.controllers.reservation', [])
       'transaction': {
         'transactionType':'purchase',
         'id': reservationData[0].reservationCode,
+        'uuid': sessionCookie.sessionData.sessionId,
         'totalRevenue': totalPrice,
         'totalPrice': $scope.getTotal('totalAfterTaxAfterPricingRules'),
         'totalTax': $scope.getBreakdownTotalTaxes(false),
