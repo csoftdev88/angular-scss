@@ -236,7 +236,8 @@
                 name="loginPassword"
                 ng-model="loginData.password"
                 required
-                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"/>
+                ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
             </form-element>
 
           </fieldset>
