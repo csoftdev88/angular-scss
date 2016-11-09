@@ -136,8 +136,12 @@
       <form name="forms.additionalInfo" class="additional-details" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
 
           <label for="comments" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'top'">
-            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
-            <span>_comments_label_</span>
+            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments" name="comments" ng-pattern="$root.generalValidationPattern"></textarea>
+            <span>
+              <span ng-hide="forms.additionalInfo.$submitted && forms.additionalInfo.comments.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.$submitted && forms.additionalInfo.comments.$error && !forms.additionalInfo.comments.$error.pattern">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.$submitted && forms.additionalInfo.comments.$error.pattern">_letters_pattern_error_</span>
+            </span>
           </label>
 
           <label for="form-arrival-time" class="input-left">

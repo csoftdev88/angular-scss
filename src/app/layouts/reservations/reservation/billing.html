@@ -68,8 +68,14 @@
         <label for="form-name-on-card">
           <input type="text" id="form-name-on-card" required
             placeholder="_card_name_placeholder_"
-            ng-model="billingDetails.card.holderName" />
-          <span>_card_name_label_</span>
+            ng-model="billingDetails.card.holderName"
+            name="holderName"
+            ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="forms.billing.$submitted && forms.billing.holderName.$error">_card_name_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.holderName.$error && !forms.billing.holderName.$error.pattern">_card_name_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.holderName.$error.pattern">_letters_pattern_error_</span>
+            </span>
         </label>
 
         <div class="card-details" ng-class="{invalid: forms.billing.$submitted && !getCardExpirationDate()}">
