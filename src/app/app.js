@@ -573,7 +573,10 @@ angular
 
   //Using http://jrgraphix.net/research/unicode_blocks.php
   //Allowed characters from Basic Latin to IPA Extensions
-  $rootScope.generalValidationPattern = /^[\u0020-\u02AF]+$/i;
+  if(Settings.inputValidationPattern)
+  {
+    $rootScope.generalValidationPattern = Settings.inputValidationPattern;
+  }
 
   function encodeQueryData(data) {
     var ret = [];

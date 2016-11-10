@@ -10,6 +10,7 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
+  'inputValidationPattern':'/^[\u0020-\u02AF]+$/i',
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
