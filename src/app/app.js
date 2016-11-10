@@ -571,8 +571,6 @@ angular
     Raven.config(Settings.sentry[env]).install();
   }
 
-  //Using http://jrgraphix.net/research/unicode_blocks.php
-  //Allowed characters from Basic Latin to IPA Extensions
   if(Settings.inputValidationPattern)
   {
     $rootScope.generalValidationPattern = Settings.inputValidationPattern;
