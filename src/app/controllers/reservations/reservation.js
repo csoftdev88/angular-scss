@@ -617,6 +617,8 @@ angular.module('mobius.controllers.reservation', [])
       }
     };
 
+    $scope.moreRoomData = reservationData.rooms;
+
     if($scope.voucher.valid && $scope.bookingConfig.vouchers.enable && !$stateParams.reservation)
     {
       reservationData.voucher = $scope.voucher.code.toUpperCase();
