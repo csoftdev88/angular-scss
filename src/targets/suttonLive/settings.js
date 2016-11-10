@@ -69,7 +69,7 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'live': {
-      'enable':false,
+      'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sutton-live',
