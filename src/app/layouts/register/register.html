@@ -60,7 +60,8 @@
             name="registerFname"
             ng-model="registerData.firstName"
             required
-            ng-class="{'ng-submitted': form.$submitted && form.registerFname.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.registerFname.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -71,7 +72,8 @@
             name="registerLname"
             ng-model="registerData.lastName"
             required
-            ng-class="{'ng-submitted': form.$submitted && form.registerLname.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.registerLname.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -111,7 +113,8 @@
             ng-model="registerData.password"
             ng-pattern="/^(?=.*[a-zA-Z\d].*)[a-zA-Z\d!@#$%&£^*_()+=-]{8,}$/"
             required
-            ng-class="{'ng-submitted': form.$submitted && (form.registerPassword.$error.required || form.registerPassword.$error.pattern)}"/>
+            ng-class="{'ng-submitted': form.$submitted && (form.registerPassword.$error.required || form.registerPassword.$error.pattern)}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element>
@@ -135,7 +138,8 @@
             name="registerPhone"
             ng-model="registerData.tel1"
             required
-            ng-class="{'ng-submitted': form.$submitted && form.registerPhone.$error.required}"/>
+            ng-class="{'ng-submitted': form.$submitted && form.registerPhone.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element ng-if="registerCountries">

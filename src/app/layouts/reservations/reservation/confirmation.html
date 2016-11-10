@@ -135,9 +135,12 @@
     <tab heading="_additional_details_">
       <form name="forms.additionalInfo" class="additional-details" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
 
-          <label for="comments" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'top'">
-            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
-            <span>_comments_label_</span>
+          <label for="commentsTop" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'top'">
+            <textarea id="commentsTop" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments" name="commentsTop" ng-pattern="$root.generalValidationPattern"></textarea>
+            <span>
+              <span ng-hide="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.commentsTop.$error.pattern">_letters_pattern_error_</span>
+            </span>
           </label>
 
           <label for="form-arrival-time" class="input-left">
@@ -182,9 +185,12 @@
             <span>_arrical_method_label_</span>
           </label>
 
-          <label for="comments" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'bottom'">
-            <textarea id="comments" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
-            <span>_comments_label_</span>
+          <label for="commentsBottom" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'bottom'">
+            <textarea id="commentsBottom" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
+            <span>
+              <span ng-hide="forms.additionalInfo.commentsBottom.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.commentsBottom.$error.pattern">_letters_pattern_error_</span>
+            </span>
           </label>
 
           <label for="form-departure-time" ng-if="bookingConfig.additionalDetails.departureTime.display">
@@ -218,11 +224,16 @@
             <span>_departure_time_label_</span>
           </label>
 
-          <label for="form-name-on-card" ng-if="bookingConfig.additionalDetails.tel2.display">
-            <input type="text" id="form-name-on-card"
+          <label for="secondTelephone" ng-if="bookingConfig.additionalDetails.tel2.display">
+            <input type="text" id="second-telephone"
               placeholder="_secondary_phone_number_"
-              ng-model="additionalInfo.secondPhoneNumber"/>
-            <span>_secondary_phone_number_</span>
+              ng-model="additionalInfo.secondPhoneNumber"
+              name="secondTelephone"
+              ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="forms.additionalInfo.secondTelephone.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.secondTelephone.$error.pattern">_letters_pattern_error_</span>
+            </span>
           </label>
 
         <input type="submit" id="submit" value="_submit_" ng-hide="true" />
