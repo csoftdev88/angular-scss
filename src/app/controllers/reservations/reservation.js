@@ -7,7 +7,7 @@ angular.module('mobius.controllers.reservation', [])
 .controller('ReservationCtrl', function($scope, $stateParams,
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
-  $rootScope, userMessagesService, propertyService, $q, cookieFactory,
+  $rootScope, userMessagesService, propertyService, $q, cookieFactory, sessionDataService,
   creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService) {
 
   $scope.chain = {};
@@ -1032,7 +1032,7 @@ angular.module('mobius.controllers.reservation', [])
 
           var env = document.querySelector('meta[name=environment]').getAttribute('content');
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
-            infinitiApeironService.trackPurchase(buildApeironData(Settings.infinitiApeironTracking[env], data, chainData, propertyData));
+            infinitiApeironService.trackPurchase(buildApeironData(Settings.infinitiApeironTracking[env], data, chainData, propertyData, trackingData));
           }
         });
       });
@@ -1322,7 +1322,7 @@ angular.module('mobius.controllers.reservation', [])
 
 
 
-  function buildApeironData(apeironSettings, reservationData, chainData, propertyData){
+  function buildApeironData(apeironSettings, reservationData, chainData, propertyData, trackingData){
     var dateNow = new Date();
     var trackingDate = dateNow.toISOString();
     var anonymousId = cookieFactory('ajs_anonymous_id');
@@ -1338,45 +1338,83 @@ angular.module('mobius.controllers.reservation', [])
       var toDate = bookedDate[1];
     }
 
+    var sessionCookie = sessionDataService.getCookie();
+
     var customerObject = {
       'title': getUserTitle().name,
-      'firstName': $scope.userDetails.firstName,
-      'lastName': $scope.userDetails.lastName,
-      'email': $scope.userDetails.email,
-      'telephone': $scope.userDetails.phone,
-      'address1': $scope.userDetails.address,
+      'firstName': trackingData.guestFirstName,
+      'lastName': trackingData.guestLastName,
+      'email': trackingData.guestEmail,
+      'telephone': trackingData.guestPhone,
+      'address1': trackingData.guestAddress,
       'address2': '',
       'address3': '',
-      'town': $scope.userDetails.city,
-      'state': $scope.userDetails.stateProvince,
-      'postcode': $scope.userDetails.zip,
-      'country': getUserCountry().code
+      'town': trackingData.guestCity,
+      'state': trackingData.guestStateProvince,
+      'postcode': trackingData.guestZip,
+      'country': getUserCountry().code,
+      'gender':userObject.gender || '',
+      'isCorporateCustomer': $stateParams.corpCode && $stateParams.corpCode !== '' ? true : false,
+      'isLoyaltyMember': Settings.authType === 'infiniti',
+      'uuid': sessionCookie.sessionData.sessionId
     };
 
     customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
-    customerObject.id = user.getCustomerId().toString();
+    customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
     var rooms = [];
     _.each($scope.allRooms, function(roomData,index) {
+
+      var roomPolicies = [];
+      _.each(roomData._selectedProduct.policies, function (val, key) {
+        var policy = {
+            'type': key
+          };
+        roomPolicies.push(policy);
+      });
+
+      var localeData = propertyData.locale.split('-');
+
       var room = {
         'id': roomData._selectedProduct.productPropertyRoomTypeId,
+        'code': roomData.code,
         'transaction' : {
           'id': reservationData[0].reservationCode
         },
         'quantity':1,
         'discountAmount':0,
         'discountPercent':0,
-        'totalPrice':0,
-        'totalRevenue':0,
-        'totalTax':0,
+        'totalRevenue':roomData._selectedProduct.price.totalBaseAfterPricingRules,
+        'totalPrice':roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
+        'totalTax':roomData._selectedProduct.price.taxDetails.totalTax + roomData._selectedProduct.price.totalAdditionalFees,
         'dateFrom': $window.moment(fromDate).toISOString(),
         'dateTo': $window.moment(toDate).toISOString(),
         'isPreorder':false,
-        'location': propertyData.city,
         'metaData': {
           'adults':$scope.moreRoomData[index].adults,
           'children':$scope.moreRoomData[index].children,
-          'rate':roomData._selectedProduct.code
+          'rate':roomData._selectedProduct.code,
+          'starRating':propertyData.rating,
+          'groupCode':$stateParams.groupCode ? $stateParams.groupCode : null,
+          'promoCode':$stateParams.promoCode ? $stateParams.promoCode : null,
+          'corpCode':$stateParams.corpCode ? $stateParams.corpCode : null,
+          'policies':roomPolicies,
+          'region': {
+            'code': propertyData.regionCode,
+            'name': localeData[1].trim()
+          },
+          'location':{
+            'code':propertyData.locationCode,
+            'name':propertyData.city
+          },
+          'province': {
+            'code': localeData[1].trim().split(' ').join('').toUpperCase(),
+            'name': localeData[1].trim()
+          },
+          'property': {
+            'code': propertyData.code,
+            'name': propertyData.nameShort
+          }
         },
         'product': {
           'id': roomData._selectedProduct.code,
@@ -1392,11 +1430,6 @@ angular.module('mobius.controllers.reservation', [])
       rooms.push(room);
     });
 
-    //TODO: WHAT ABOUT FEES?
-    //TODO: DISCOUNT TYPE E.G. FLAT
-    //TODO: CONFIRM REVENUE AND TAX
-    //TODO: CURRENCY CODE, USERS? OR SITE DEFAULT?
-
     var totalDiscount = $scope.getTotal('totalDiscount') * -1; //Discounts come through as negative values
     var totalPrice = $scope.getBreakdownTotalBaseAfterPricingRules();
 
@@ -1406,10 +1439,12 @@ angular.module('mobius.controllers.reservation', [])
       'userTimestamp': trackingDate, //2016-10-06T09:12:34+0200
       'anonymousId': anonymousId, // '57ebdc7d-1f0b-4b9b-8fdc-1c1b1d234b1a' ajs_anonyomous_id cookie removing encoded quotes
       'transaction': {
+        'transactionType':'purchase',
         'id': reservationData[0].reservationCode,
-        'totalRevenue': totalPrice,
+        'uuid': sessionCookie.sessionData.sessionId,
+        'totalRevenue': totalPrice, // ADD FEES
         'totalPrice': $scope.getTotal('totalAfterTaxAfterPricingRules'),
-        'totalTax': $scope.getBreakdownTotalTaxes(false),
+        'totalTax': $scope.getBreakdownTotalTaxes(false) + $scope.getTotal('totalAdditionalFees'), //ADD FEES TO THIS
         'shipping': null,
         'shippingDuration': null,
         'shippingOption': null,
@@ -1423,7 +1458,8 @@ angular.module('mobius.controllers.reservation', [])
         'discountType': ['flat'], //look into this
         'isGift': false,
         'source': 'Online',
-        'subsource': ''
+        'subsource': '',
+        'paymentType': trackingData.paymentInfo.paymentMethod === 'cc' ? trackingData.paymentInfo.ccPayment.typeCode : trackingData.paymentInfo.paymentMethod
       },
       'customer': customerObject,
       'shipTo': {
@@ -1441,6 +1477,14 @@ angular.module('mobius.controllers.reservation', [])
         'country': ''
       },
       'metaData': {
+        'channel': {
+          'code': _.isString(channelService.getChannel().channelID) ? channelService.getChannel().channelID : channelService.getChannel().channelID.toString(),
+          'name': 'Channel_' + channelService.getChannel().name
+        },
+        'chain': {
+          'code': chainData.code,
+          'name': chainData.nameShort
+        }
       },
       'items': rooms
     };

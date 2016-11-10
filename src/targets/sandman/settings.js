@@ -10,6 +10,7 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
+  'inputValidationPattern':'/^[\u0020-\u02AF]+$/i',//Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -71,7 +72,7 @@ angular.module('mobiusApp.config', [])
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
     'live': {
-      'enable':false,
+      'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sandman-live',
@@ -107,9 +108,14 @@ angular.module('mobiusApp.config', [])
       'live':  'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': false,
-      'search': 'properties/track/search',
-      'purchase': 'properties/track/purchase'
+      'search': {
+        'enable':false,
+        'url':'properties/track/search'
+      },
+      'purchase': {
+        'enable':false,
+        'url':'properties/track/purchase'
+      }
     },
     'track404s': {
       'enable':true,

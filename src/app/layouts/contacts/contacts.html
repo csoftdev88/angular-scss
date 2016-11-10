@@ -31,12 +31,16 @@
 
         <form-element ng-if="viewSettings.includePhoneField">
           <label for="phone" class="input-left">
-            <input type="text" id="name" required
+            <input type="text" id="phone" required
               placeholder="_phone_placeholder_"
               ng-model="formData.fields.phone"
               name="phone"
-              ng-class="{'ng-submitted': form.$submitted && (form.phone.$error.required)}"/>
-            <span>_phone_placeholder_</span>
+              ng-class="{'ng-submitted': form.$submitted && (form.phone.$error.required)}"
+              ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="form.phone.$error">_phone_placeholder_</span>
+              <span ng-show="form.phone.$error.pattern">_letters_pattern_error_</span>
+            </span>
           </label>
         </form-element>
 
@@ -76,8 +80,12 @@
             <textarea id="message" ng-model="formData.fields.message" placeholder="_message_placeholder_"
               required name="message"
               ng-class="{'ng-submitted': form.$submitted && form.message.$error.required}"
+              ng-pattern="$root.generalValidationPattern"
               ></textarea>
-            <span>_message_label_</span>
+              <span>
+                <span ng-hide="form.message.$error">_message_label_</span>
+                <span ng-show="form.message.$error.pattern">_letters_pattern_error_</span>
+              </span>
           </label>
         </form-element>
       </fieldset>

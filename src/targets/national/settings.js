@@ -67,9 +67,14 @@ angular.module('mobiusApp.config', [])
       'live':  'http://national.api.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': false,
-      'search': 'properties/track/search',
-      'purchase': 'properties/track/purchase'
+      'search': {
+        'enable':false,
+        'url':'properties/track/search'
+      },
+      'purchase': {
+        'enable':false,
+        'url':'properties/track/purchase'
+      }
     },
     'contents': {
       'contents': 'contents',
