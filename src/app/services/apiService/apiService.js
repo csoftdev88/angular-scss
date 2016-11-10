@@ -91,6 +91,23 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
+  function infinitiApeironPost(url, data, username, password) {
+    var q = $q.defer();
+
+    $http({
+      method: 'POST',
+      url: url,
+      headers: {'Authorization':'Basic ' + btoa(username + ':' + password)},
+      data: data
+    }).success(function(res) {
+      q.resolve(res);
+    }).error(function(err) {
+      q.reject(err);
+    });
+
+    return q.promise;
+  }
+
   function put(url, data, params) {
     var q = $q.defer();
 
@@ -208,7 +225,8 @@ angular.module('mobiusApp.services.api', [])
     put: put,
     getFullURL: getFullURL,
     setHeaders: setHeaders,
-    objectToQueryParams: objectToQueryParams
+    objectToQueryParams: objectToQueryParams,
+    infinitiApeironPost: infinitiApeironPost
   };
   return api;
 });
