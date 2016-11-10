@@ -102,7 +102,7 @@ angular.module('mobiusApp.config', [])
     },
     'mobiusTracking': {
       'search': {
-        'enable':true,
+        'enable':false,
         'url':'properties/track/search'
       },
       'purchase': {
