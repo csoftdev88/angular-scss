@@ -43,6 +43,40 @@ angular.module('mobiusApp.config', [])
       'live': 'https://infiniti-evolution-test.appspot.com/track/purchase'
     }
   },
+  'infinitiApeironTracking': {
+    'development': {
+      'enable':false,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sutton-development',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
+    },
+    'integration': {
+      'enable':false,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sutton-integration',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
+    },
+    'staging': {
+      'enable':true,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sutton-staging',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
+    },
+    'live': {
+      'enable':true,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sutton-live',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
+    }
+  },
   'googleAnalytics': {
     'enable': false,
     'id': 'UA-44368729-3'
@@ -67,9 +101,14 @@ angular.module('mobiusApp.config', [])
       'live':  'https://www.suttonplace.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': true,
-      'search': 'properties/track/search',
-      'purchase': 'properties/track/purchase'
+      'search': {
+        'enable':false,
+        'url':'properties/track/search'
+      },
+      'purchase': {
+        'enable':false,
+        'url':'properties/track/purchase'
+      }
     },
     'track404s': {
       'enable':true,
