@@ -63,9 +63,14 @@ angular.module('mobiusApp.config', [])
       'live':  'http://lindtner.mobiuswebservices.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': false,
-      'search': 'properties/track/search',
-      'purchase': 'properties/track/purchase'
+      'search': {
+        'enable':false,
+        'url':'properties/track/search'
+      },
+      'purchase': {
+        'enable':false,
+        'url':'properties/track/purchase'
+      }
     },
     'contents': {
       'contents': 'contents',
@@ -196,6 +201,7 @@ angular.module('mobiusApp.config', [])
       'singleProperty': true,
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
+      'longDateFormat': 'Do MMM YYYY',
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false
     },
@@ -787,6 +793,12 @@ angular.module('mobiusApp.config', [])
       'loginCta':{
         'display': true
       },
+      //Reverse the same address checkbox logic
+      'billingAddress': {
+        'reverseCheckboxLogic':true
+      },
+      //Default value for newsletter opt-in checkbox
+      'newsLetterOptedIn': true,
       //Additional details screen
       'additionalDetails':{
         'departureTime': {
@@ -798,7 +810,8 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'top'
-        }
+        },
+        'optedInDefault': true
       }
     },
     'myAccount' : {

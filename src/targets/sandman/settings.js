@@ -45,6 +45,40 @@ angular.module('mobiusApp.config', [])
       'live': ''
     }
   },
+  'infinitiApeironTracking': {
+    'development': {
+      'enable':false,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sandman-development',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    },
+    'integration': {
+      'enable':false,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sandman-integration',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    },
+    'staging': {
+      'enable':true,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sandman-staging',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    },
+    'live': {
+      'enable':true,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sandman-live',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    }
+  },
   'derbysoftTracking' : {
     'enable': true,
     'accountCode':'2p'
@@ -73,9 +107,14 @@ angular.module('mobiusApp.config', [])
       'live':  'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': true,
-      'search': 'properties/track/search',
-      'purchase': 'properties/track/purchase'
+      'search': {
+        'enable':false,
+        'url':'properties/track/search'
+      },
+      'purchase': {
+        'enable':false,
+        'url':'properties/track/purchase'
+      }
     },
     'track404s': {
       'enable':true,
@@ -344,6 +383,9 @@ angular.module('mobiusApp.config', [])
           'displayOtaRates': false,
           'highlightFirstRate': true,
           'showSlashThrough': true
+        },
+        'upsells': {
+          'display': false
         }
       },
       'offers': {

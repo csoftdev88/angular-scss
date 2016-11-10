@@ -2,79 +2,63 @@ hotel-location {
   margin-bottom: 70px;
   display: inline-block;
   width: 100%;
-  .viewport-mobile &{
+
+  .viewport-mobile & {
     margin-bottom: 30px;
   }
 
-  header{
+  header {
     text-align: center;
     margin-bottom: 30px;
-    h1{
-      font-size: 36px;
-      line-height: 48px;
-      color: @c-dark-grey;
+
+    h1 {
+      color: @c-main-site-grey;
+      font-size: 34px;
+      line-height:40px;
+      text-transform: initial;
       margin-bottom: 0;
     }
-    h2{
-      font-size: 20px;
+
+    h2 {
+      font-size: 18px;
       line-height: 32px;
-      color: @c-dark-grey;
+      color: @c-main-site-grey;
     }
   }
 
-  .map-wrapper{
-    map{
+  .map-wrapper {
+    map {
       height: 200px;
     }
   }
 
   contact-list {
     margin-bottom: @baseline;
-
     // Address
-    contact-item:nth-of-type(1) div {
-      padding-left: 20px !important;
-      text-align: left !important;
-      .viewport-mobile &{
-        padding-left: 0px !important;
+    contact-item {
+      div {
+        padding-left: 20px !important;
         text-align: left !important;
-      }
-    }
 
-    // Address
-    contact-item:nth-of-type(2) div {
-      padding-left: 0px !important;
-      text-align: left !important;
-      .viewport-mobile &{
-        padding-left: 0px !important;
-        text-align: left !important;
+        .viewport-mobile & {
+          padding-left: 0 !important;
+          text-align: left !important;
+        }
       }
-    }
 
-    // Address
-    contact-item:nth-of-type(3) div {
-      padding-left: 20px !important;
-      text-align: left !important;
-      .viewport-mobile &{
-        padding-left: 0px !important;
+      &:nth-of-type(3) div {
+        padding-left: 20px !important;
         text-align: left !important;
-      }
-    }
-    // Directions
-    contact-item:nth-of-type(4) div {
-      padding-left: 0 !important;
-      padding-right: 20px !important;
-      text-align: right !important;
-      .viewport-mobile &{
-        padding-left: 0px !important;
-        text-align: left !important;
+
+        .viewport-mobile & {
+          padding-left: 0 !important;
+        }
       }
     }
   }
 
   contact-list,
   transportation-list {
-
     strong {
       color: @c-very-dark-grey;
     }
@@ -93,7 +77,7 @@ hotel-location {
     left: 40px;
   }
 
-  h2{
+  h2 {
     font-size: @size-3;
   }
 
@@ -107,21 +91,22 @@ hotel-location {
     color: @c-primary;
   }
 
-  transportation-item,
-  contact-item {
+  contact-item,
+  transportation-item {
     position: relative;
     box-sizing: border-box;
     flex: 1 0 25%;
     display: block;
     width: 25%;
 
-    .viewport-mobile &{
+    .viewport-mobile & {
       flex: 1 0 100%;
       width: 100%;
       text-align: left;
       margin-bottom: 5px;
-      div{
-        padding-left: 0!important;
+
+      div {
+        padding-left: 0 !important;
       }
     }
 
@@ -131,18 +116,16 @@ hotel-location {
     }
   }
 
-  contact-item{
-    div{
-      a{
+  contact-item {
+    div {
+      a {
         color: @c-grey;
       }
     }
   }
-
   // Address
   address {
     display: inline-block;
     vertical-align: top;
   }
-
 }
