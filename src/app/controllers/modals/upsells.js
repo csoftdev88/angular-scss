@@ -12,6 +12,18 @@ angular.module('mobius.controllers.modals.upsells', [
   $controller('SanitizeCtrl', {$scope: $scope});
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
+  if($scope.data.upsell.description)
+  {
+    $scope.data.upsell.displayDescription = $scope.data.upsell.description;
+  }
+  else if($scope.data.upsell.roomHighlight)
+  {
+    $scope.data.upsell.displayDescription = $scope.data.upsell.roomHighlight;
+  }
+  else {
+    $scope.data.upsell.displayDescription = $scope.data.upsell.roomDescription;
+  }
+
   $scope.goToReservationDetails = function(roomCode){
     if(roomCode)
     {

@@ -77,21 +77,6 @@ angular.module('mobiusApp.directives.room.products', [])
                 originalPrice += parseInt(breakdown.originalPrice, 10);
               });
               product.price.originalPrice = originalPrice;
-
-              //UPSELL STUB
-              product.upsell = {
-                roomCode:'JCSN',
-                roomPriceDifferential:'30'
-              };
-
-              if(product.upsell)
-              {
-                var upsellRoom = _.findWhere(scope.rooms, {code: product.upsell.roomCode});
-                if(upsellRoom){
-                  product.upsell.description = upsellRoom.roomHighlight;
-                  product.upsell.images = upsellRoom.image;
-                }
-              }
             });
 
             //Logic for ordering products: Display 4 groups: productHidden/memberOnly/highlighted/remaining, each ordered by weighting, highest weighting first
