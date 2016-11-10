@@ -46,18 +46,11 @@ angular.module('mobius.controllers.common.sso', [])
           headersObj['mobius-authentication'] = undefined;
           apiService.setHeaders(headersObj);
           apiService.post(apiService.getFullURL('customers.login'), loginData).then(function(data){
-            if(data.id !== null)
-            {
-              $rootScope.showLoginDialog = false;
-              clearErrorMsg();
-              userObject.id = data.id;
-              user.storeUserId(data.id);
-              user.loadProfile();
-            }
-            else {
-              $scope.loginDialogError = true;
-              $scope.incorrectEmailPasswordError = true;
-            }
+            $rootScope.showLoginDialog = false;
+            clearErrorMsg();
+            userObject.id = data.id;
+            user.storeUserId(data.id);
+            user.loadProfile();
           }, function(){
             $scope.loginDialogError = true;
             $scope.incorrectEmailPasswordError = true;
@@ -97,7 +90,7 @@ angular.module('mobius.controllers.common.sso', [])
       if(isInfinitiLogin() && isSSOReady()){
         $window.infiniti.api.profile();
       }
-
+      
     },
     logout: function(){
       if(isInfinitiLogin() && isSSOReady()){

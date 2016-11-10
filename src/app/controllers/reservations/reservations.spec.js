@@ -86,8 +86,6 @@ describe('mobius.controllers.reservations', function() {
           }
         });
 
-        $provide.value('scrollService', {scrollTo: function(){}});
-
         $provide.value('propertyService', {
           getPropertyDetails: function(){
             return {

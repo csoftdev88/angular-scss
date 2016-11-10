@@ -8,24 +8,22 @@ angular.module('mobius.controllers.reservationDetail', [])
   // Price breakdown and policies seems to have different format then expected
 
   .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
-    $controller, $q, reservationService, preloaderFactory, modalService, scrollService,
+    $controller, $q, reservationService, preloaderFactory, modalService,
     userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
     metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService,
     apiService, queryService){
 
     $controller('SSOCtrl', {$scope: $scope});
 
-    $scope.previousCurrency = $rootScope.currencyCode;
-
     if (Settings.UI.currencies.default) {
       $scope.defaultCurrencyCode = Settings.UI.currencies.default;
       $scope.currentCurrency = $scope.defaultCurrencyCode;
-      queryService.setValue(Settings.currencyParamName, $scope.defaultCurrencyCode);
-      user.storeUserCurrency($scope.defaultCurrencyCode);
+      queryService.setValue(Settings.currencyParamName, $scope.defaultCurrencyCode.code);
+      user.storeUserCurrency($scope.defaultCurrencyCode.code);
       var currencyObj = {};
-      currencyObj['mobius-currencycode'] = $scope.defaultCurrencyCode;
+      currencyObj['mobius-currencycode'] = $scope.defaultCurrencyCode.code;
       apiService.setHeaders(currencyObj);
-      $rootScope.currencyCode = $scope.defaultCurrencyCode;
+      $rootScope.currencyCode = $scope.defaultCurrencyCode.code;
     }
 
     // Alias for lodash to get rid of ugly $window._ calls
@@ -40,10 +38,6 @@ angular.module('mobius.controllers.reservationDetail', [])
       metaInformationService.setMetaDescription(chain.meta.description);
       metaInformationService.setMetaKeywords(chain.meta.keywords);
       metaInformationService.setOgGraph(chain.meta.microdata.og);
-
-      $timeout(function() {
-        scrollService.scrollTo('top');
-      }, 0);
     });
 
 
@@ -201,14 +195,6 @@ angular.module('mobius.controllers.reservationDetail', [])
             }
             return addon;
           });
-
-          $rootScope.currencyCode = $scope.previousCurrency;
-          $scope.currentCurrency = $rootScope.currencyCode;
-          queryService.setValue(Settings.currencyParamName, $rootScope.currencyCode);
-          user.storeUserCurrency($rootScope.currencyCode);
-          var currencyObj = {};
-          currencyObj['mobius-currencycode'] = $rootScope.currencyCode;
-          apiService.setHeaders(currencyObj);
         });
 
         preloaderFactory($q.all([propertyPromise, roomDataPromise, addonsPromise]));
@@ -286,15 +272,8 @@ angular.module('mobius.controllers.reservationDetail', [])
         .then(function(){
           // Reservation is removed, notifying user
           //TODO: move to locales
-
-          if($scope.config.displayCancelConfirmedModal)
-          {
-            modalService.openReservationCancelConfirmedDialog($stateParams.reservationCode);
-          }
-          else{
-            userMessagesService.addMessage('<div>Your Reservation <strong>' +
-            $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true);
-          }
+          userMessagesService.addMessage('<div>Your Reservation <strong>' +
+          $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true);
 
           // Tracking refund
           dataLayerService.trackReservationRefund($stateParams.reservationCode);

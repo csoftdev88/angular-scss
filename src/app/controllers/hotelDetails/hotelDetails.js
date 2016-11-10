@@ -160,11 +160,6 @@ angular.module('mobius.controllers.hotel.details', [
         }
       });
     }
-    else {
-      $timeout(function() {
-        scrollService.scrollTo('top');
-      }, 0);
-    }
   });
 
   function getHotelDetails(propertyCode, params) {
@@ -236,9 +231,7 @@ angular.module('mobius.controllers.hotel.details', [
 
         if($scope.details.content){
           _.each($scope.details.content, function(item){
-            if(item.meta){
-              item.url = getContentUrl(item);
-            }
+            item.url = getContentUrl(item);
           });
         }
 
@@ -474,11 +467,11 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.getCheckinDate = function() {
-    return $window.moment(bookingService.getAPIParams().from).format(Settings.UI.generics.longDateFormat ? Settings.UI.generics.longDateFormat : 'Do MMM YYYY');
+    return $window.moment(bookingService.getAPIParams().from).format('Do MMM YYYY');
   };
 
   $scope.getCheckoutDate = function() {
-    return $window.moment(bookingService.getAPIParams().to).format(Settings.UI.generics.longDateFormat ? Settings.UI.generics.longDateFormat : 'Do MMM YYYY');
+    return $window.moment(bookingService.getAPIParams().to).format('Do MMM YYYY');
   };
 
   $scope.selectDates = function() {

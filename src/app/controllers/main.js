@@ -167,10 +167,6 @@ angular.module('mobius.controllers.main', [])
 
       $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
         $scope.isUserLoggedIn = user.isLoggedIn;
-        if($state.current.name === 'reservation.details')
-        {
-          $state.reload();
-        }
       });
 
       modalService.openDialogIfPresent();
