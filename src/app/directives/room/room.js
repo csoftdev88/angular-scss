@@ -30,6 +30,7 @@ angular.module('mobiusApp.directives.room', [])
       scope.viewSettings = Settings.UI.viewsSettings.roomDetails;
       scope.hasViewMore = scope.viewSettings && scope.viewSettings.hasViewMore;
       scope.showLocalInfo = Settings.UI.roomDetails.showLocalInfo;
+      scope.displayUpsells = Settings.UI.roomDetails.upsells ? Settings.UI.roomDetails.upsells.display : false;
 
       var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;
@@ -408,9 +409,17 @@ angular.module('mobiusApp.directives.room', [])
           };
         }
 
+        if(scope.displayUpsells && product.upSell) {
+          modalService.openUpsellsDialog(product.upSell, params, scope.goToReservationDetails);
+        }
+        else {
+          scope.goToReservationDetails(params);
+        }
+      };
+
+      scope.goToReservationDetails = function(params){
         var userLang = user.getUserLanguage();
         var appLang = stateService.getAppLanguageCode();
-
         if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
           user.storeUserLanguage('en-us');
           var nonFrenchUrl = $state.href('reservation.details', params).replace('/fr/','/');
@@ -419,7 +428,6 @@ angular.module('mobiusApp.directives.room', [])
         else {
           $state.go('reservation.details', params);
         }
-
       };
 
       scope.onClickOnAssociatedRoom = function(roomDetails){
