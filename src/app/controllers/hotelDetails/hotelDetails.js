@@ -491,6 +491,10 @@ angular.module('mobius.controllers.hotel.details', [
     return !$scope.roomsConfig.hideRoomsWithNoAvailability || ($scope.roomsConfig.hideRoomsWithNoAvailability && $scope.availableRooms && $scope.availableRooms.indexOf(room.code) > -1 && room.priceFrom && $scope.hasDates() && $scope.ratesLoaded);
   };
 
+  $scope.setRoomsViewMode = function(mode){
+    $scope.roomsViewMode = mode;
+  };
+
   function scrollToRates(target) {
     $timeout(function() {
       scrollService.scrollTo(target, 20);

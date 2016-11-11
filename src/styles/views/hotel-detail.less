@@ -510,4 +510,135 @@ hotel-detail {
       }
     }
   }
+
+  .hotel-detail__rooms-compare {
+    .section-header {
+      h2 {
+        margin:0;
+      }
+      .search-details {
+        font-style:italic;
+        margin-bottom:20px;
+      }
+      .filter-bar {
+        background: #F9F9F9;
+        padding: 20px 80px;
+        margin-bottom: 40px;
+        .viewport-mobile & {
+          padding:20px;
+        }
+        .clearfix;
+        > * {
+          display:inline-block;
+          float:left;
+          width:33%;
+          padding:0 10px;
+          box-sizing:border-box;
+          position:relative;
+          line-height:36px;
+          .viewport-mobile & {
+            float:none;
+            width:100%;
+            padding:0;
+          }
+        }
+        .order-switch-container {
+          padding-left:63px;
+          .filter-label {
+            position:absolute;
+            left:0;
+          }
+        }
+        .pricing-switch-container {
+          text-align:center;
+        }
+        pricing-switch {
+          display:inline-block;
+          margin:0;
+          font-size:13px;
+        }
+        .view-switch {
+          font-size:14px;
+          ul {
+            display:inline-block;
+            li {
+              display:inline-block;
+              color:@c-light-grey;
+              cursor:pointer;
+              &:first-child {
+                margin-right:10px;
+              }
+              i {
+                margin-right:10px;
+              }
+              &.is-active {
+                color:@c-primary;
+                i {
+                  color:@c-secondary;
+                }
+              }
+            }
+          }
+        }
+        .filter-label {
+          display:inline-block;
+          font-size:14px;
+          color:@c-primary;
+          padding-right:10px;
+        }
+      }
+    }
+    .room-list-compare-container {
+      room-products {
+        display:none;
+      }
+      .rooms-list {
+        padding:0 20px;
+        .clearfix;
+        list-item {
+          width:33%;
+          padding:0 20px;
+          margin:0;
+          border-left:1px solid #F9F9F9;
+          box-sizing:border-box;
+          float:left;
+          border-top:0px none;
+          &:first-child {
+            border-left:0px none;
+          }
+          hero-slider {
+            height:175px;
+            margin:0;
+            .slider-controls {
+              .pages {
+                display:none;
+              }
+              .slide-button {
+                width:18px;
+                height:18px;
+                padding: 0;
+                background-size: cover;
+              }
+            }
+          }
+          .list-item-info {
+            .item-header {
+              h3 {
+                text-transform: uppercase;
+                font-weight: normal;
+                a {
+                  color: #606060;
+                }
+              }
+            }
+            .description {
+              p > strong {
+                display:none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
