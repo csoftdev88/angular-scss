@@ -540,6 +540,10 @@ hotel-detail {
             float:none;
             width:100%;
             padding:0;
+            margin-top:10px;
+            &:first-child {
+              margin-top:0;
+            }
           }
         }
         .order-switch-container {
@@ -550,7 +554,7 @@ hotel-detail {
           }
         }
         .pricing-switch-container {
-          text-align:center;
+          text-align:left;
         }
         pricing-switch {
           display:inline-block;
@@ -595,6 +599,9 @@ hotel-detail {
       .rooms-list {
         padding:0 20px;
         .clearfix;
+        .viewport-mobile & {
+          padding:0;
+        }
         list-item {
           width:33%;
           padding:0 20px;
@@ -606,34 +613,118 @@ hotel-detail {
           &:first-child {
             border-left:0px none;
           }
+          .viewport-mobile & {
+            width:100%;
+            padding:0;
+            float:none;
+          }
           hero-slider {
             height:175px;
-            margin:0;
+            margin:0 0 50px 0;
+            overflow:visible;
+            .thumbnail-nav {
+              width:100%;
+              margin-top:10px;
+              li {
+                width:auto;
+                margin-left:0;
+                margin-right:2%;
+                margin-bottom:10px;
+                img {
+                  transform:none;
+                }
+              }
+            }
             .slider-controls {
               .pages {
                 display:none;
               }
               .slide-button {
-                width:18px;
-                height:18px;
+                width:25px;
+                height:25px;
+                margin-top:-12px;
                 padding: 0;
                 background-size: cover;
+              }
+              .slide-right {
+                right:5px;
+              }
+              .slide-left {
+                left:5px;
+              }
+            }
+          }
+          .pricing-info {
+            .price-form {
+              text-align:center;
+            }
+            a.button {
+              background:@c-button;
+              border-radius:2px;
+              width:100%;
+              max-width:200px;
+              &:hover {
+                background:darken(@c-button, 10%);
               }
             }
           }
           .list-item-info {
             .item-header {
               h3 {
+                display:block;
+                width:100%;
+                margin:10px 0;
                 text-transform: uppercase;
                 font-weight: normal;
+                min-height:46px;
+                .viewport-mobile & {
+                  min-height:auto;
+                }
                 a {
                   color: #606060;
                 }
               }
             }
             .description {
-              p > strong {
-                display:none;
+              height:140px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              .viewport-mobile & {
+                height:auto;
+              }
+              p {
+                font-size:14px;
+                line-height:20px;
+              }
+            }
+            .read-more {
+              color:@c-secondary;
+              text-decoration:none;
+              display:block;
+              margin-top:10px;
+              &:hover {
+                text-decoration:underline;
+              }
+            }
+            .amenities {
+              background:#f9f9f9;
+              padding:20px 25px;
+              margin:20px 0;
+              li {
+                margin-top:20px;
+                display:table;
+                color:#606060;
+                font-weight:300;
+                &:first-child {
+                  margin-top:0;
+                }
+                > span {
+                  display:table-cell;
+                  vertical-align:middle;
+                  &.amenity-caption {
+                    padding-left:20px;
+                  }
+                }
               }
             }
           }

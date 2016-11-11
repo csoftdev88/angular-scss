@@ -200,9 +200,11 @@
 
               <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
 
+              <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="read-more">_read_more_</a>
+
               <ul class="amenities" ng-if="roomsConfig.displayAmenities && details">
                 <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:numberOfAmenities" ng-init="amenity.chainCode = details.chainCode">
-                  <slug-img slug="amenity" type="room" width="15"></slug-img>
+                  <slug-img slug="amenity" type="room" width="19"></slug-img>
                   <span class="amenity-caption">{{amenity.name}}</span>
                 </li>
               </ul>
