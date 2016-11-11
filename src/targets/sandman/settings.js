@@ -455,7 +455,7 @@ angular.module('mobiusApp.config', [])
       'showSlashThrough': false,
       'showMetaView': true,
       'upsells': {
-        'display': true
+        'display': false
       }
     },
 
