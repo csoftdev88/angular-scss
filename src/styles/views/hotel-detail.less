@@ -614,6 +614,9 @@ hotel-detail {
         text-indent:-9999px;
         background: transparent url('@{img-prefix}/prev-arrow@2x.png') no-repeat center;
         background-size: cover;
+        &:disabled {
+          opacity:0.2;
+        }
       }
       .compare-direction-btn + .compare-direction-btn {
         left:auto;
@@ -646,7 +649,7 @@ hotel-detail {
 
           .viewport-mobile & {
             width: 100%;
-            padding: 0;
+            padding: 0 35px;
             float: none;
           }
 
