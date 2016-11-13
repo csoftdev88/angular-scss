@@ -178,10 +178,11 @@
     </div>
 
     <div class="room-list-compare-container" ng-if="roomsViewMode === 'compare'">
-      <button>Prev</button>
-      <button>Next</button>
+      <button ng-click="comparisonIndex = comparisonIndex - 1" ng-show="comparisonIndex > 1">Prev</button>
+      <button ng-click="comparisonIndex = comparisonIndex + 1" ng-show="comparisonIndex < ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length)">Next</button>
+      <span>Index - {{comparisonIndex}} : Compare rooms length - {{(compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length}}</span>
       <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
-        <list-item ng-repeat="room in compareRooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | filter:{userHidden:false} | limitTo: compareRoomLimit">
+        <list-item ng-repeat="room in compareRooms | filter:{userHidden:false} | filter: roomsDisplayFilter | orderBy : currentOrder.sort | limitTo:(comparisonIndex - compareRooms.length)">
           <div class="list-item-container">
             <!-- Room info -->
             <div class="list-item-info">
