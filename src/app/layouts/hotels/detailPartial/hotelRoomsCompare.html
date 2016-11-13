@@ -229,8 +229,8 @@
           <!-- //list-item-container -->
         </list-item>
       </list-items>
-      <button class="compare-direction-btn" ng-click="comparisonIndex = comparisonIndex - 1" ng-show="comparisonIndex > 0">Prev</button>
-      <button class="compare-direction-btn" ng-click="comparisonIndex = comparisonIndex + 1" ng-show="comparisonIndex < ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length - compareRoomLimit)">Next</button>
+      <button class="compare-direction-btn" ng-click="comparisonIndex = comparisonIndex - 1" ng-disabled="!(comparisonIndex > 0)">Prev</button>
+      <button class="compare-direction-btn" ng-click="comparisonIndex = comparisonIndex + 1" ng-disabled="!(comparisonIndex < ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length - compareRoomLimit))">Next</button>
       <h2 ng-if="!compareRooms.length">_no_room_found_</h2>
     </div>
   </div>
