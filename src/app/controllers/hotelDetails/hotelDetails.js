@@ -30,6 +30,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
+  $scope.compareRoomLimit = stateService.isMobile() ? -1 : -3;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -312,6 +313,7 @@ angular.module('mobius.controllers.hotel.details', [
 
         //handle displaying of rates
         _.each(rooms, function(room) {
+          room.userHidden = false;
           if (stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad) {
             $scope.displayRoomRates(room);
           } else {
@@ -320,6 +322,7 @@ angular.module('mobius.controllers.hotel.details', [
         });
 
         $scope.rooms = rooms;
+        $scope.compareRooms = $scope.rooms;
 
         $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
         $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;

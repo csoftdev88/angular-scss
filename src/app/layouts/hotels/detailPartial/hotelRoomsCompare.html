@@ -178,12 +178,13 @@
     </div>
 
     <div class="room-list-compare-container" ng-if="roomsViewMode === 'compare'">
+      <button>Prev</button>
+      <button>Next</button>
       <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
-        <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter">
+        <list-item ng-repeat="room in compareRooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | filter:{userHidden:false} | limitTo: compareRoomLimit">
           <div class="list-item-container">
             <!-- Room info -->
             <div class="list-item-info">
-
               <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}" data-counter-type="none" content="room.images" ng-if="roomsConfig.includeSlider && room.images && room.images.length > 0" data-has-thumbnails="{{roomsConfig.sliderHasThumbnails}}" slide-width="262" slide-height="150"></hero-slider>
 
               <div class="room-image-placeholder" ng-if="room.images.length == 0"></div>
@@ -225,11 +226,12 @@
               </div>
             </div>
             <room-products ng-if="details && room._displayRates" ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}" id="{{'rates'+$index}}"></room-products>
+            <button class="room-hide-btn" ng-click="room.userHidden = true">Hide</button>
           </div>
           <!-- //list-item-container -->
         </list-item>
       </list-items>
-      <h2 ng-if="!rooms.length">_no_room_found_</h2>
+      <h2 ng-if="!compareRooms.length">_no_room_found_</h2>
     </div>
   </div>
 </section>
