@@ -189,19 +189,20 @@
 
               <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomsConfig.roomDetailThumbnailSize.width : roomsConfig.roomDetailThumbnailSize.height : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
               <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 768 : 384 : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
+              <div class="room-content">
+                <header class="item-header">
+                  <h3>
+                    <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
+                    <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
+                  </h3>
+                </header>
 
-              <header class="item-header">
-                <h3>
-                  <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
-                  <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
-                </h3>
-              </header>
-
-              <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
+                <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
+              </div>
 
               <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="read-more">_read_more_</a>
 
-              <ul class="amenities" ng-if="roomsConfig.displayAmenities && details">
+              <ul class="amenities" ng-if="roomsConfig.displayAmenities && details && room.amenities">
                 <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:numberOfAmenities" ng-init="amenity.chainCode = details.chainCode">
                   <slug-img slug="amenity" type="room" width="19"></slug-img>
                   <span class="amenity-caption">{{amenity.name}}</span>

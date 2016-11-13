@@ -612,7 +612,7 @@ hotel-detail {
         height:20px;
         padding:0;
         text-indent:-9999px;
-        background: transparent url('@{img-prefix}/close-icon@2x.png') no-repeat center;
+        background: transparent url('@{img-prefix}/prev-arrow@2x.png') no-repeat center;
         background-size: cover;
       }
       .compare-direction-btn + .compare-direction-btn {
@@ -753,8 +753,7 @@ hotel-detail {
                 margin: 10px 0;
                 text-transform: uppercase;
                 font-weight: normal;
-                min-height: 46px;
-
+                min-height:50px;
                 .viewport-mobile & {
                   min-height: auto;
                 }
@@ -765,8 +764,33 @@ hotel-detail {
               }
             }
 
+            .room-content {
+              position:relative;
+              height: 225px;
+              overflow: hidden;
+              &:after {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+
+                display: block;
+                height: 24px;
+
+                background: url('@{img-prefix}/v4/text-overlay.png');
+                background-size: 100% 30px;
+
+                content: '';
+              }
+              .viewport-mobile & {
+                height:auto;
+                &:after{
+                  display:none;
+                }
+              }
+            }
+
             .description {
-              height: 140px;
               overflow: hidden;
               text-overflow: ellipsis;
 
@@ -785,6 +809,7 @@ hotel-detail {
               text-decoration: none;
               display: block;
               margin-top: 10px;
+              font-size:11px;
 
               &:hover {
                 text-decoration: underline;
