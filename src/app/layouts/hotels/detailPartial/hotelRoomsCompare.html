@@ -178,8 +178,6 @@
     </div>
 
     <div class="room-list-compare-container" ng-if="roomsViewMode === 'compare'">
-      <button ng-click="comparisonIndex = comparisonIndex - 1" ng-show="comparisonIndex > 0">Prev</button>
-      <button ng-click="comparisonIndex = comparisonIndex + 1" ng-show="comparisonIndex < ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length - compareRoomLimit)">Next</button>
       <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
         <list-item ng-repeat="room in compareRooms | filter:{userHidden:false} | filter: roomsDisplayFilter | orderBy : currentOrder.sort | limitTo:(comparisonIndex - ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length)) | limitTo:compareRoomLimit">
           <div class="list-item-container">
@@ -231,6 +229,8 @@
           <!-- //list-item-container -->
         </list-item>
       </list-items>
+      <button class="compare-direction-btn" ng-click="comparisonIndex = comparisonIndex - 1" ng-show="comparisonIndex > 0">Prev</button>
+      <button class="compare-direction-btn" ng-click="comparisonIndex = comparisonIndex + 1" ng-show="comparisonIndex < ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length - compareRoomLimit)">Next</button>
       <h2 ng-if="!compareRooms.length">_no_room_found_</h2>
     </div>
   </div>

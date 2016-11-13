@@ -602,6 +602,23 @@ hotel-detail {
     }
 
     .room-list-compare-container {
+      position:relative;
+      .compare-direction-btn {
+        position:absolute;
+        top:50%;
+        left:0;
+        margin-top:-10px;
+        width:20px;
+        height:20px;
+        padding:0;
+        text-indent:-9999px;
+        background: transparent url('@{img-prefix}/close-icon@2x.png') no-repeat center;
+        background-size: cover;
+      }
+      .compare-direction-btn + .compare-direction-btn {
+        left:auto;
+        right:0;
+      }
       room-products {
         display: none;
       }
