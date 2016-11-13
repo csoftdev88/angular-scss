@@ -31,7 +31,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.partials = [];
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
   $scope.compareRoomLimit = stateService.isMobile() ? 1 : 3;
-  $scope.comparisonIndex = 1;
+  $scope.comparisonIndex = 0;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
