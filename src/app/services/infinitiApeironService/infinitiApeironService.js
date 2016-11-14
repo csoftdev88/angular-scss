@@ -51,11 +51,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var endpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].endpoint : null;
     var username = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].username : null;
     var password = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].password : null;
+    var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
 
-    function trackPurchase(apeironSettings, reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams){
+    function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams){
       if(endpoint)
       {
-        var postData = buildPurchaseData(apeironSettings, reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams);
+        var postData = buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams);
         apiService.infinitiApeironPost(endpoint, postData, username, password).then(function () {
         }, function (err) {
           console.log('Infiniti apeiron purchase tracking error: ' + angular.toJson(err));
@@ -63,11 +64,10 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       }
     }
 
-    function trackSearch(bookingParams, chainData, propertyData, products, room, rateSorting) {
-      console.log('apeiron search called');
+    function trackSearch(chainData, propertyData, trackingData, scopeData, stateParams) {
       if(endpoint)
       {
-        var postData = buildSearchData(bookingParams, chainData, propertyData, products, room, rateSorting);
+        var postData = buildSearchData(chainData, propertyData, trackingData, scopeData, stateParams);
         console.log(postData);
         /*apiService.infinitiApeironPost(endpoint, postData, username, password).then(function () {
         }, function (err) {
@@ -76,7 +76,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       }
     }
 
-    function buildGenericData(apeironSettings, reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams){
+    function buildGenericData(chainData, propertyData, trackingData, scopeData, stateParams){
       var dateNow = new Date();
       var trackingDate = dateNow.toISOString();
       var anonymousId = cookieFactory('ajs_anonymous_id');
@@ -107,7 +107,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
       var genericInfinitiApeironData = {
-        'installationId': apeironSettings.id,
+        'installationId': apeironId,
         'utcTimestamp': $window.moment.utc(trackingDate).toISOString().valueOf(), //'2016-10-06T09:12:34Z'
         'userTimestamp': trackingDate, //2016-10-06T09:12:34+0200
         'anonymousId': anonymousId, // '57ebdc7d-1f0b-4b9b-8fdc-1c1b1d234b1a' ajs_anonyomous_id cookie removing encoded quotes
@@ -141,8 +141,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       return genericInfinitiApeironData;
     }
 
-    function buildPurchaseData(apeironSettings, reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams){
-      var infinitiApeironData = buildGenericData(apeironSettings, reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams);
+    function buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams){
+      var infinitiApeironData = buildGenericData(chainData, propertyData, trackingData, priceData, scopeData, stateParams);
       var sessionCookie = sessionDataService.getCookie();
       var bookedDate = stateParams.dates.split('_');
       var fromDate = null;
@@ -151,6 +151,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         fromDate = bookedDate[0];
         toDate = bookedDate[1];
       }
+
       var rooms = [];
       _.each(scopeData.allRooms, function(roomData,index) {
 
@@ -255,8 +256,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       return infinitiApeironData;
     }
 
-    function buildSearchData(){
-      var infinitiApeironData = buildGenericData(apeironSettings, reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams);
+    function buildSearchData(chainData, propertyData, trackingData, scopeData, stateParams){
+      var infinitiApeironData = buildGenericData(chainData, propertyData, trackingData, scopeData, stateParams);
       return infinitiApeironData;
     }
 

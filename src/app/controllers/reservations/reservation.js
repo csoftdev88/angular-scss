@@ -1036,7 +1036,7 @@ angular.module('mobius.controllers.reservation', [])
 
           var env = document.querySelector('meta[name=environment]').getAttribute('content');
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
-            infinitiApeironService.trackPurchase(Settings.infinitiApeironTracking[env], data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams);
+            infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams);
           }
         });
       });
