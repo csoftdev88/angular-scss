@@ -133,6 +133,10 @@ describe('RoomProducts', function() {
         trackSearch: function(){}
       });
 
+      $provide.value('infinitiApeironService', {
+        trackSearch: function(){}
+      });
+
       $provide.value('$window', {
         Raven : {
           captureException: function(){}
