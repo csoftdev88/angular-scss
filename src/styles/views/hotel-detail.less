@@ -516,6 +516,7 @@ hotel-detail {
         background: #F9F9F9;
         padding: 20px 80px;
         margin-bottom: 40px;
+        text-align:center;
 
         .viewport-mobile & {
           padding: 20px;
@@ -524,9 +525,8 @@ hotel-detail {
 
         > * {
           display: inline-block;
-          float: left;
-          width: 33%;
-          padding: 0 10px;
+          width: auto;
+          padding: 0 2%;
           box-sizing: border-box;
           position: relative;
           line-height: 36px;
@@ -564,6 +564,9 @@ hotel-detail {
 
         .view-switch {
           font-size: 14px;
+          .viewport-mobile & {
+            text-align:left;
+          }
 
           ul {
             display: inline-block;
