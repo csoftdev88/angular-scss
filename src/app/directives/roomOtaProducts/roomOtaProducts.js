@@ -12,8 +12,7 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
       otaExpediaMessage: '=',
       otaTripadvisorMessage: '=',
       otaBookingComMessage: '=',
-      currencyCode: '=',
-      roomCode:'='
+      currencyCode: '='
     },
     replace: false,
     link: function(scope) {
@@ -34,11 +33,6 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
             _.each(scope.otaProducts, function(otaProduct) {
               otaProduct.logo = otaConfig.logo;
               otaProduct.link = otaConfig.link;
-              var roomOtaProduct = _.where(otaProduct.productRooms, {code: scope.roomCode});
-              if(roomOtaProduct)
-              {
-                otaProduct.price = roomOtaProduct.price;
-              }
               switch (otaConfig.name) {
                 case 'expedia':
                   otaProduct.description = scope.otaExpediaMessage;
