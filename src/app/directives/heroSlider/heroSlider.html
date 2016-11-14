@@ -23,5 +23,5 @@
 </notification-bar>
 
 <ul class="thumbnail-nav" ng-if="hasThumbnails && content.length > 1">
-  <li ng-repeat="thumb in content | limitTo: 4"><img ng-src="{{thumb.uri | cloudinaryImage : 40 : 40 : 'fill'}}" ng-click="slideToIndex($index, $event)"></li>
+  <li ng-repeat="thumb in content | limitTo: 4"><img ng-src="{{thumb.uri | cloudinaryImage : thumbWidth : thumbHeight : 'fill'}}" ng-click="slideToIndex($index, $event)"></li>
 </ul>

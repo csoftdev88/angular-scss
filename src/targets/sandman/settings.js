@@ -409,6 +409,7 @@ angular.module('mobiusApp.config', [])
         'hotelInfo': true,
         'hotelServices': false,
         'hotelRooms': true,
+        'hotelRoomsCompare': false,
         'hotelOffers': true,
         'hotelLocation': true
       },
