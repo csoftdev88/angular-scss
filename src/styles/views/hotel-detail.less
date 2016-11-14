@@ -572,13 +572,20 @@ hotel-detail {
               display: inline-block;
               color: @c-light-grey;
               cursor: pointer;
+              position:relative;
+              padding-left:40px;
+              &.compare-view {
+                padding-left:35px;
+              }
 
               &:first-child {
                 margin-right: 10px;
               }
 
               i {
-                margin-right: 10px;
+                position:absolute;
+                top:5px;
+                left:0;
               }
 
               &.is-active {
@@ -621,6 +628,12 @@ hotel-detail {
       .compare-direction-btn + .compare-direction-btn {
         left:auto;
         right:0;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
       }
       room-products {
         display: none;
@@ -732,6 +745,7 @@ hotel-detail {
           }
 
           .pricing-info {
+            margin-top:20px;
             .price-form, .not-available {
               text-align: center;
             }
@@ -822,7 +836,7 @@ hotel-detail {
             .amenities {
               background: #f9f9f9;
               padding: 20px 25px;
-              margin: 20px 0;
+              margin: 20px 0 0 0;
 
               li {
                 margin-top: 20px;
