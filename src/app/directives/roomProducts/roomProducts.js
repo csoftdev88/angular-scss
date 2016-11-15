@@ -3,8 +3,8 @@
 angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
-  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService,
-  stateService, dataLayerService, cookieFactory, chainService, $window, $log, mobiusTrackingService, $filter, user){
+  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService, infinitiApeironService,
+  stateService, dataLayerService, cookieFactory, chainService, $window, $log, $filter, user){
 
   return {
     restrict: 'E',
@@ -123,7 +123,7 @@ angular.module('mobiusApp.directives.room.products', [])
                 };
               }));
               //Mobius tracking
-              mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room, scope.currentOrder);
+              infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room);
             });
           });
 
