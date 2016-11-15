@@ -5,48 +5,7 @@
 angular.module('mobiusApp.services.infinitiApeironService', []).service('infinitiApeironService', [
   'Settings', 'apiService','$state','_','$rootScope','channelService','sessionDataService','userObject', '$window', 'user', 'cookieFactory',
   function (Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window, user, cookieFactory) {
-    /*var defaultData = {
-      'channel': {
-        'code': _.isString(channelService.getChannel().channelID) ? channelService.getChannel().channelID : channelService.getChannel().channelID.toString(),
-        'name': 'Channel_' + channelService.getChannel().name
-      },
-      'chain': {
-        'code': Settings.API.chainCode,
-        'name': ''
-      },
-      'customer': {
-        'corporateCustomer': false,
-        'email': '',
-        'firstName': 'Anonymous',
-        'gender': '',
-        'lastName': 'Anonymous',
-        'loyaltyMember': false,
-        'phone': '',
-        'uuid': null,
-        'country': {
-          'code': 'ZZ',
-          'name': 'Unknown territory'
-        }
-      },
-      'uuid': '',
-      'noOfAdults': 0,
-      'noOfChildren': 0,
-      'groupCode': '',
-      'corpCode': '',
-      'promoCode': '',
-      'region': {
-        'name': '',
-        'code': ''
-      },
-      'property': {
-        'name': '',
-        'code': ''
-      },
-      'province': {
-        'name': '',
-        'code': ''
-      }
-    };*/
+
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var endpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].endpoint : null;
     var username = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].username : null;
@@ -64,54 +23,28 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       }
     }
 
-    function trackSearch(chainData, propertyData, trackingData, scopeData, stateParams) {
+    function trackSearch(chainData, propertyData, stateParams, order, products, room) {
       if(endpoint)
       {
-        var postData = buildSearchData(chainData, propertyData, trackingData, scopeData, stateParams);
-        console.log(postData);
-        /*apiService.infinitiApeironPost(endpoint, postData, username, password).then(function () {
+        var postData = buildSearchData(chainData, propertyData, stateParams, order, products, room);
+        apiService.infinitiApeironPost(endpoint, postData, username, password).then(function () {
         }, function (err) {
           console.log('Infiniti apeiron search tracking error: ' + angular.toJson(err));
-        });*/
+        });
       }
     }
 
-    function buildGenericData(chainData, propertyData, trackingData, scopeData, stateParams){
+    function buildGenericData(chainData){
       var dateNow = new Date();
       var trackingDate = dateNow.toISOString();
       var anonymousId = cookieFactory('ajs_anonymous_id');
       anonymousId = anonymousId ? anonymousId.split('%22').join('') : null;
-
-      var sessionCookie = sessionDataService.getCookie();
-
-      var customerObject = {
-        'title': getUserTitle(scopeData).name,
-        'firstName': trackingData.guestFirstName,
-        'lastName': trackingData.guestLastName,
-        'email': trackingData.guestEmail,
-        'telephone': trackingData.guestPhone,
-        'address1': trackingData.guestAddress,
-        'address2': '',
-        'address3': '',
-        'town': trackingData.guestCity,
-        'state': trackingData.guestStateProvince,
-        'postcode': trackingData.guestZip,
-        'country': getUserCountry(scopeData).code,
-        'gender':userObject.gender || '',
-        'isCorporateCustomer': stateParams.corpCode && stateParams.corpCode !== '' ? true : false,
-        'isLoyaltyMember': Settings.authType === 'infiniti',
-        'uuid': sessionCookie.sessionData.sessionId
-      };
-
-      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
-      customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
       var genericInfinitiApeironData = {
         'installationId': apeironId,
         'utcTimestamp': $window.moment.utc(trackingDate).toISOString().valueOf(), //'2016-10-06T09:12:34Z'
         'userTimestamp': trackingDate, //2016-10-06T09:12:34+0200
         'anonymousId': anonymousId, // '57ebdc7d-1f0b-4b9b-8fdc-1c1b1d234b1a' ajs_anonyomous_id cookie removing encoded quotes
-        'customer': customerObject,
         'shipTo': {
           'title': '',
           'firstName': '',
@@ -142,7 +75,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams){
-      var infinitiApeironData = buildGenericData(chainData, propertyData, trackingData, priceData, scopeData, stateParams);
+      var infinitiApeironData = buildGenericData(chainData);
       var sessionCookie = sessionDataService.getCookie();
       var bookedDate = stateParams.dates.split('_');
       var fromDate = null;
@@ -151,6 +84,30 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         fromDate = bookedDate[0];
         toDate = bookedDate[1];
       }
+
+      var customerObject = {
+        'title': getUserTitle(scopeData).name,
+        'firstName': trackingData.guestFirstName,
+        'lastName': trackingData.guestLastName,
+        'email': trackingData.guestEmail,
+        'telephone': trackingData.guestPhone,
+        'address1': trackingData.guestAddress,
+        'address2': '',
+        'address3': '',
+        'town': trackingData.guestCity,
+        'state': trackingData.guestStateProvince,
+        'postcode': trackingData.guestZip,
+        'country': getUserCountry(scopeData).code,
+        'gender':userObject.gender || '',
+        'isCorporateCustomer': stateParams.corpCode && stateParams.corpCode !== '' ? true : false,
+        'isLoyaltyMember': Settings.authType === 'infiniti',
+        'uuid': sessionCookie.sessionData.sessionId
+      };
+
+      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+      customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
+
+      infinitiApeironData.customer = customerObject;
 
       var rooms = [];
       _.each(scopeData.allRooms, function(roomData,index) {
@@ -256,8 +213,145 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       return infinitiApeironData;
     }
 
-    function buildSearchData(chainData, propertyData, trackingData, scopeData, stateParams){
-      var infinitiApeironData = buildGenericData(chainData, propertyData, trackingData, scopeData, stateParams);
+    function buildSearchData(chainData, propertyData, stateParams, order, products, room){
+      var bookedDate = stateParams.dates.split('_');
+      var fromDate = null;
+      var toDate = null;
+      if (bookedDate.length) {
+        fromDate = bookedDate[0];
+        toDate = bookedDate[1];
+      }
+      var infinitiApeironData = buildGenericData(chainData);
+      infinitiApeironData.metaData.rateFilter = order.name || '';
+      infinitiApeironData.metaData.starRating = propertyData.rating || '';
+
+      var sessionCookie = sessionDataService.getCookie();
+
+      var customerObject = {};
+
+      if (userObject && userObject.id) {
+        customerObject = {
+          'firstName': userObject.firstName,
+          'lastName': userObject.lastName,
+          'email': userObject.email,
+          'telephone': userObject.tel1,
+          'address1': userObject.address1,
+          'address2': userObject.address2,
+          'address3': userObject.address3,
+          'town': userObject.city,
+          'state': userObject.state,
+          'postcode': userObject.zip,
+          'country': userObject.country,
+          'gender':userObject.gender || '',
+          'isCorporateCustomer': stateParams.corpCode && stateParams.corpCode !== '' ? true : false,
+          'isLoyaltyMember': Settings.authType === 'infiniti',
+          'uuid': sessionCookie.sessionData.sessionId
+        };
+      }
+
+      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+      customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
+
+      infinitiApeironData.customer = customerObject;
+
+      var results = [];
+      _.each(products, function(product) {
+
+        var productPolicies = [];
+        _.each(product.policies, function (val, key) {
+          var policy = {
+              'type': key
+            };
+          productPolicies.push(policy);
+        });
+
+        var localeData = propertyData.locale.split('-');
+
+        var result = {
+          'id': product.productPropertyRoomTypeId,
+          'transaction' : {
+            'id': null
+          },
+          'code': room.code,
+          'quantity':1,
+          'discountAmount':0,
+          'discountPercent':0,
+          'totalRevenue':product.price.totalBaseAfterPricingRules,
+          'totalPrice':product.price.totalAfterTaxAfterPricingRules,
+          'totalTax':product.price.taxDetails.totalTax + product.price.totalAdditionalFees,
+          'dateFrom': $window.moment(fromDate).toISOString(),
+          'dateTo': $window.moment(toDate).toISOString(),
+          'isPreorder':false,
+          'metaData': {
+            'adults':stateParams.adults,
+            'children':stateParams.children,
+            'rate':product.code,
+            'starRating':propertyData.rating,
+            'groupCode':stateParams.groupCode ? stateParams.groupCode : null,
+            'promoCode':stateParams.promoCode ? stateParams.promoCode : null,
+            'corpCode':stateParams.corpCode ? stateParams.corpCode : null,
+            'policies':productPolicies,
+            'region': {
+              'code': propertyData.regionCode,
+              'name': localeData[1].trim()
+            },
+            'location':{
+              'code':propertyData.locationCode,
+              'name':propertyData.city
+            },
+            'province': {
+              'code': localeData[1].trim().split(' ').join('').toUpperCase(),
+              'name': localeData[1].trim()
+            },
+            'property': {
+              'code': propertyData.code,
+              'name': propertyData.nameShort
+            }
+          },
+          'product': {
+            'id': product.code,
+            'name': product.name,
+            'category': room.name,
+            'sku': product.productPropertyRoomTypeId,
+            'price': product.price.totalAfterTaxAfterPricingRules,
+            'priceBeforeTax': product.price.totalBaseAfterPricingRules,
+            'tax':'',
+            'revenue':'',
+          }
+        };
+        results.push(result);
+      });
+
+      var discountCode = stateParams.promoCode ? stateParams.promoCode : null;
+      discountCode = stateParams.groupCode ? stateParams.groupCode : null;
+      discountCode = stateParams.corpCode ? stateParams.corpCode : null;
+
+      infinitiApeironData.transaction = {
+          'transactionType':'search',
+          'id': null,
+          'uuid': sessionCookie.sessionData.sessionId,
+          'totalRevenue': null,
+          'totalPrice': null,
+          'totalTax': null,
+          'shipping': null,
+          'shippingDuration': null,
+          'shippingOption': null,
+          'shippingIsSplit': null,
+          'currencyCode': Settings.UI.currencies.default,
+          'totalItems': 1,
+          'discountAmount': null,
+          'discountPercent': null,
+          'discountCode': discountCode,
+          'discountCampaign': null,
+          'discountType': ['flat'], //look into this
+          'isGift': false,
+          'source': 'Online',
+          'subsource': '',
+          'paymentType': null
+      };
+
+      infinitiApeironData.items = results;
+
       return infinitiApeironData;
     }
 
@@ -274,120 +368,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       });
       return userCountry;
     }
-
-    /*function buildOldSearchData(bookingParams, chainData, propertyData, products, room, rateSorting) {
-      if ($state.includes('reservation') || !products.length) {
-        return;
-      }
-      //set default data
-      setDefaultData(bookingParams, chainData, propertyData);
-      //copy default data
-      var postData = angular.copy(defaultData);
-      //property star rating
-      postData.starRating = propertyData.rating;
-      //rate filter
-      postData.rateFilter = rateSorting.name || '';
-      var searchData = [];
-      //TODO: API needs to return province code, for now we use name toUpperCase as needed by tracking
-      var localeData = propertyData.locale.split('-');
-      _.each(products, function (product) {
-        var productData = {
-            'city': propertyData.nameShort,
-            'product': {
-              'code': product.code,
-              'name': product.name
-            },
-            'room': {
-              'code': room.code,
-              'type': room.name
-            },
-            'price': {
-              'currency': $rootScope.currencyCode,
-              'totalPreTax': product.price.breakdowns[0].totalBaseAfterPricingRules,
-              'totalTax': product.price.breakdowns[0].totalAfterTax
-            },
-            'region': {
-              'code': propertyData.regionCode,
-              'name': localeData[0].trim()
-            },
-            'province': {
-              'code': localeData[1].trim().split(' ').join('').toUpperCase(),
-              'name': localeData[1].trim()
-            }
-          };
-        searchData.push(productData);
-      });
-      postData.results = searchData;
-      //Loop through each room then each night
-      postData.nights = [];
-      var nightObj = {};
-      _.each(products, function (product) {
-        _.each(product.price.breakdowns, function (night) {
-          nightObj = {
-            'date': _.isNumber(night.date) ? new Date(night.date).toISOString() : night.date,
-            'rate': {
-              'currency': $rootScope.currencyCode,
-              'amount': night.totalAfterTax
-            },
-            'room': {
-              'code': room.code,
-              'type': room.name
-            }
-          };
-        });
-      });
-      postData.nights.push(nightObj);
-
-      return postData;
-    }
-
-    function setDefaultData(bookingParams, chainData, propertyData) {
-      var sessionCookie = sessionDataService.getCookie();
-      if (userObject && userObject.id) {
-        //update customer data
-        defaultData.customer.corporateCustomer = bookingParams.corpCode && bookingParams.corpCode !== '' ? true : false;
-        defaultData.customer.email = userObject.email;
-        defaultData.customer.firstName = userObject.firstName || '';
-        defaultData.customer.lastName = userObject.lastName || '';
-        defaultData.customer.gender = userObject.gender || '';
-        defaultData.customer.loyaltyMember = Settings.authType === 'infiniti';
-        defaultData.customer.phone = userObject.tel1 || '';
-        defaultData.customer.country.code = userObject.iso3 || '';
-        defaultData.customer.country.name = userObject.country || '';
-        defaultData.customer.uuid = _.isString(userObject.id) ? userObject.id : userObject.id.toString();
-      } else {
-        defaultData.customer.uuid = sessionCookie.sessionData.sessionId;
-      }
-      //uuid
-      defaultData.uuid = sessionCookie.sessionData.sessionId;
-      //chain
-      defaultData.chain.code = chainData.code;
-      defaultData.chain.name = chainData.nameShort;
-      //booking params
-      defaultData.noOfAdults = parseInt(bookingParams.adults, 10);
-      defaultData.noOfChildren = parseInt(bookingParams.children, 10);
-      defaultData.groupCode = bookingParams.groupCode || '';
-      defaultData.corpCode = bookingParams.corpCode || '';
-      defaultData.promoCode = bookingParams.promoCode || '';
-      // This works at least for Sutton
-      var localeData = propertyData.locale.split('-');
-      //region
-      defaultData.region = {
-        code: propertyData.regionCode,
-        name: localeData[1].trim()
-      };
-      //province
-      //TODO: API needs to return province code, for now we use name toUpperCase as needed by tracking
-      defaultData.province = {
-        code: localeData[1].trim().split(' ').join('').toUpperCase(),
-        name: localeData[1].trim()
-      };
-      //property
-      defaultData.property = {
-        code: propertyData.code,
-        name: propertyData.nameShort
-      };
-    }*/
 
     return {
       trackPurchase: trackPurchase,

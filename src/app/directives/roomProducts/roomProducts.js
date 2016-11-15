@@ -133,8 +133,7 @@ angular.module('mobiusApp.directives.room.products', [])
                   category: scope.room.name
                 };
               }));
-              //Mobius tracking
-              infinitiApeironService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room, scope.currentOrder);
+              infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room);
             });
           });
 
