@@ -272,6 +272,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         var nights = [];
         _.each(product.price.breakdowns, function(breakdown) {
           var night = {
+            'date':$window.moment(breakdown.date).toISOString(),
             'totalRevenue': breakdown.totalBaseAfterPricingRules,
             'totalPrice': breakdown.totalAfterTaxAfterPricingRules,
             'totalTax': breakdown.totalTax + breakdown.totalFees,
