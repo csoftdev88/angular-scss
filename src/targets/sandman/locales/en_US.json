@@ -94,6 +94,7 @@
     "edit": "Edit",
     "MESSAGES": "//////////////////////////////////////////////////////",
     "no_room_found": "No Room Found",
+    "no_rooms_found": "No Rooms Found",
     "no_hotels_found": "No Hotels Found",
     "hotel_name":"{{hotel.nameLong}}",
     "no_room_available": "No room available, please change your search criteria",

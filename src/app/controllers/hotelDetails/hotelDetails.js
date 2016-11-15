@@ -521,6 +521,15 @@ angular.module('mobius.controllers.hotel.details', [
     $scope.showCompareRoomsReset = false;
   };
 
+  $scope.shiftRoomCarousel = function(forward){
+    if(forward){
+      $scope.comparisonIndex++;
+    }
+    else {
+      $scope.comparisonIndex--;
+    }
+  };
+
   function scrollToRates(target) {
     $timeout(function() {
       scrollService.scrollTo(target, 20);
