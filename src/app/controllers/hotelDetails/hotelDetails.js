@@ -91,6 +91,10 @@ angular.module('mobius.controllers.hotel.details', [
       }, 0);
     }
 
+    if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
+      $scope.setRoomsViewMode(mobiusUserPreferences.roomsViewMode);
+    }
+
 
     //save order switch value to cookies when changed
     $scope.orderSwitchChange = function(selected) {
@@ -497,6 +501,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   $scope.setRoomsViewMode = function(mode){
     $scope.roomsViewMode = mode;
+    userPreferenceService.setCookie('roomsViewMode', mode);
   };
 
   function scrollToRates(target) {
