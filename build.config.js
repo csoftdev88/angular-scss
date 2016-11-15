@@ -83,6 +83,7 @@ module.exports = {
         'bower_components/moment/min/moment.min.js',
         'bower_components/re-tree/re-tree.min.js',
         'bower_components/ng-device-detector/ng-device-detector.min.js',
+        'bower_components/angular-vertilize/angular-vertilize.min.js',
         'karma/init.js',
         'src/app/**/*.js'
       ]
@@ -120,6 +121,7 @@ module.exports = {
         'vendors/jquery-ui/datepicker-translations/fr.js',
         'bower_components/re-tree/re-tree.min.js',
         'bower_components/ng-device-detector/ng-device-detector.min.js',
+        'bower_components/angular-vertilize/angular-vertilize.min.js',
       ],
       styles: []
     }
