@@ -30,7 +30,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
-  $scope.compareRoomLimit = stateService.isMobile() ? 1 : 3;
+  $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
 
   //define page partials based on settings
@@ -91,9 +91,6 @@ angular.module('mobius.controllers.hotel.details', [
       }, 0);
     }
 
-    if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
-      $scope.setRoomsViewMode(mobiusUserPreferences.roomsViewMode);
-    }
 
 
     //save order switch value to cookies when changed
@@ -502,6 +499,26 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.setRoomsViewMode = function(mode){
     $scope.roomsViewMode = mode;
     userPreferenceService.setCookie('roomsViewMode', mode);
+  };
+
+  if(stateService.isMobile())
+  {
+    $scope.setRoomsViewMode('list');
+  }
+  else if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
+    $scope.setRoomsViewMode(mobiusUserPreferences.roomsViewMode);
+  }
+
+  $scope.hideRoom = function(room){
+    room.userHidden = true;
+    $scope.showCompareRoomsReset = true;
+  };
+
+  $scope.resetCompareRooms = function(){
+    _.each($scope.compareRooms, function(room) {
+      room.userHidden = false;
+    });
+    $scope.showCompareRoomsReset = false;
   };
 
   function scrollToRates(target) {

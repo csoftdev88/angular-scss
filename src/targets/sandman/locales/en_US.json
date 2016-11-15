@@ -328,6 +328,7 @@
     "filter_chain_label": "Hotel Chain",
     "filter_tag_options_label": "Show only {tag} hotels",
     "filter_range_separator": "to",
+    "show_all_rooms": "Show all rooms",
     "FORMS": "////////////////////////////////////////////////////////////",
     "name_label": "Name",
     "name_placeholder": "Name",

@@ -326,6 +326,7 @@
     "filter_chain_label": "Hotel Chain",
     "filter_tag_options_label": "Show only {tag} hotels",
     "filter_range_separator": "à",
+    "show_all_rooms": "Show all rooms",
     "FORMS": "////////////////////////////////////////////////////////////",
     "name_label": "Nom",
     "name_placeholder": "Saisissez votre Nom",

@@ -514,7 +514,7 @@ hotel-detail {
 
       .filter-bar {
         background: #F9F9F9;
-        padding: 20px 80px;
+        padding: 20px 55px;
         margin-bottom: 40px;
         text-align: center;
 
@@ -556,6 +556,12 @@ hotel-detail {
           text-align: left;
         }
 
+        .reset-container {
+          a {
+            color: @c-secondary;
+          }
+        }
+
         pricing-switch {
           display: inline-block;
           margin: 0;
@@ -566,7 +572,7 @@ hotel-detail {
           font-size: 14px;
 
           .viewport-mobile & {
-            text-align: left;
+            display: none;
           }
 
           ul {
@@ -615,6 +621,14 @@ hotel-detail {
 
     .room-list-compare-container {
       position: relative;
+
+      .compare-no-rooms {
+        text-align: center;
+
+        a {
+          color: @c-secondary;
+        }
+      }
 
       .compare-direction-btn {
         position: absolute;
