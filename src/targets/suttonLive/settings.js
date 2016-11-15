@@ -77,6 +77,10 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     }
   },
+  'derbysoftTracking' : {
+    'enable': true,
+    'accountCode':'2p'
+  },
   'googleAnalytics': {
     'enable': false,
     'id': 'UA-44368729-3'
