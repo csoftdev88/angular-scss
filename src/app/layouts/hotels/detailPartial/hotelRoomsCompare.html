@@ -178,7 +178,7 @@
     </div>
 
     <div class="room-list-compare-container" ng-if="roomsViewMode === 'compare'">
-      <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
+      <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch" vertilize-container>
         <list-item ng-repeat="room in compareRooms | filter:{userHidden:false} | filter: roomsDisplayFilter | orderBy : currentOrder.sort | limitTo:(comparisonIndex - ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length)) | limitTo:compareRoomLimit">
           <div class="list-item-container">
             <!-- Room info -->
@@ -189,7 +189,7 @@
 
               <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomsConfig.roomDetailThumbnailSize.width : roomsConfig.roomDetailThumbnailSize.height : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
               <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 768 : 384 : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
-              <div class="room-content">
+              <div class="room-content" vertilize>
                 <header class="item-header">
                   <h3>
                     <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>

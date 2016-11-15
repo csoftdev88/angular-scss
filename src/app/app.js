@@ -24,6 +24,7 @@ angular
     'angularUtils.directives.dirPagination',
     'angular-growl',
     'ng.deviceDetector',
+    'angular.vertilize',
 
     // Controllers
     'mobius.controllers.common.sanitize',
