@@ -3,8 +3,8 @@
  * This service sends tracking events to infiniti apeiron
  */
 angular.module('mobiusApp.services.infinitiApeironService', []).service('infinitiApeironService', [
-  'Settings', 'apiService','$state','_','$rootScope','channelService','sessionDataService','userObject', '$window', 'user', 'cookieFactory',
-  function (Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window, user, cookieFactory) {
+  'Settings', 'apiService', '$state', '_', '$rootScope', 'channelService', 'sessionDataService', 'userObject', '$window', 'user', 'cookieFactory', 'contentService',
+  function(Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window, user, cookieFactory, contentService) {
 
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var endpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].endpoint : null;
@@ -12,29 +12,29 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var password = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].password : null;
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
 
-    function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams){
-      if(endpoint)
-      {
+    function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams) {
+      if (endpoint) {
         var postData = buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams);
-        apiService.infinitiApeironPost(endpoint, postData, username, password).then(function () {
-        }, function (err) {
+        apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
           console.log('Infiniti apeiron purchase tracking error: ' + angular.toJson(err));
         });
       }
     }
 
     function trackSearch(chainData, propertyData, stateParams, order, products, room) {
-      if(endpoint)
-      {
-        var postData = buildSearchData(chainData, propertyData, stateParams, order, products, room);
-        apiService.infinitiApeironPost(endpoint, postData, username, password).then(function () {
-        }, function (err) {
-          console.log('Infiniti apeiron search tracking error: ' + angular.toJson(err));
+      if (endpoint) {
+        contentService.getCountries().then(function(countries) {
+          contentService.getTitles().then(function(titles) {
+            var postData = buildSearchData(chainData, propertyData, stateParams, order, products, room, countries, titles);
+            apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
+              console.log('Infiniti apeiron search tracking error: ' + angular.toJson(err));
+            });
+          });
         });
       }
     }
 
-    function buildGenericData(chainData){
+    function buildGenericData(chainData) {
       var dateNow = new Date();
       var trackingDate = dateNow.toISOString();
       var anonymousId = cookieFactory('ajs_anonymous_id');
@@ -74,7 +74,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       return genericInfinitiApeironData;
     }
 
-    function buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams){
+    function buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams) {
       var infinitiApeironData = buildGenericData(chainData);
       var sessionCookie = sessionDataService.getCookie();
       var bookedDate = stateParams.dates.split('_');
@@ -86,7 +86,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       }
 
       var customerObject = {
-        'title': getUserTitle(scopeData).name,
+        'title': getUserTitle(scopeData.profileTitles, scopeData.userDetails.title).name,
         'firstName': trackingData.guestFirstName,
         'lastName': trackingData.guestLastName,
         'email': trackingData.guestEmail,
@@ -97,8 +97,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'town': trackingData.guestCity,
         'state': trackingData.guestStateProvince,
         'postcode': trackingData.guestZip,
-        'country': getUserCountry(scopeData).code,
-        'gender':userObject.gender || '',
+        'country': getUserCountry(scopeData.profileCountries, scopeData.userDetails.localeCode).code,
+        'gender': userObject.gender || '',
         'isCorporateCustomer': stateParams.corpCode && stateParams.corpCode !== '' ? true : false,
         'isLoyaltyMember': Settings.authType === 'infiniti',
         'uuid': sessionCookie.sessionData.sessionId
@@ -110,13 +110,13 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       infinitiApeironData.customer = customerObject;
 
       var rooms = [];
-      _.each(scopeData.allRooms, function(roomData,index) {
+      _.each(scopeData.allRooms, function(roomData, index) {
 
         var roomPolicies = [];
-        _.each(roomData._selectedProduct.policies, function (val, key) {
+        _.each(roomData._selectedProduct.policies, function(val, key) {
           var policy = {
-              'type': key
-            };
+            'type': key
+          };
           roomPolicies.push(policy);
         });
 
@@ -125,34 +125,34 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         var room = {
           'id': roomData._selectedProduct.productPropertyRoomTypeId,
           'code': roomData.code,
-          'transaction' : {
+          'transaction': {
             'id': reservationData[0].reservationCode
           },
-          'quantity':1,
-          'discountAmount':0,
-          'discountPercent':0,
-          'totalRevenue':roomData._selectedProduct.price.totalBaseAfterPricingRules,
-          'totalPrice':roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
-          'totalTax':roomData._selectedProduct.price.taxDetails.totalTax + roomData._selectedProduct.price.totalAdditionalFees,
+          'quantity': 1,
+          'discountAmount': 0,
+          'discountPercent': 0,
+          'totalRevenue': roomData._selectedProduct.price.totalBaseAfterPricingRules,
+          'totalPrice': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
+          'totalTax': roomData._selectedProduct.price.taxDetails.totalTax + roomData._selectedProduct.price.totalAdditionalFees,
           'dateFrom': $window.moment(fromDate).toISOString(),
           'dateTo': $window.moment(toDate).toISOString(),
-          'isPreorder':false,
+          'isPreorder': false,
           'metaData': {
-            'adults':scopeData.moreRoomData[index].adults,
-            'children':scopeData.moreRoomData[index].children,
-            'rate':roomData._selectedProduct.code,
-            'starRating':propertyData.rating,
-            'groupCode':stateParams.groupCode ? stateParams.groupCode : null,
-            'promoCode':stateParams.promoCode ? stateParams.promoCode : null,
-            'corpCode':stateParams.corpCode ? stateParams.corpCode : null,
-            'policies':roomPolicies,
+            'adults': scopeData.moreRoomData[index].adults,
+            'children': scopeData.moreRoomData[index].children,
+            'rate': roomData._selectedProduct.code,
+            'starRating': propertyData.rating,
+            'groupCode': stateParams.groupCode ? stateParams.groupCode : null,
+            'promoCode': stateParams.promoCode ? stateParams.promoCode : null,
+            'corpCode': stateParams.corpCode ? stateParams.corpCode : null,
+            'policies': roomPolicies,
             'region': {
               'code': propertyData.regionCode,
               'name': localeData[1].trim()
             },
-            'location':{
-              'code':propertyData.locationCode,
-              'name':propertyData.city
+            'location': {
+              'code': propertyData.locationCode,
+              'name': propertyData.city
             },
             'province': {
               'code': localeData[1].trim().split(' ').join('').toUpperCase(),
@@ -170,8 +170,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             'sku': roomData._selectedProduct.productPropertyRoomTypeId,
             'price': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
             'priceBeforeTax': roomData._selectedProduct.price.totalBaseAfterPricingRules,
-            'tax':'',
-            'revenue':'',
+            'tax': '',
+            'revenue': '',
           }
         };
         rooms.push(room);
@@ -187,33 +187,33 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       discountCode = stateParams.corpCode ? stateParams.corpCode : null;
 
       infinitiApeironData.transaction = {
-          'transactionType':'purchase',
-          'id': reservationData[0].reservationCode,
-          'uuid': sessionCookie.sessionData.sessionId,
-          'totalRevenue': totalPrice, // ADD FEES
-          'totalPrice': priceData.totalAfterTaxAfterPricingRules,
-          'totalTax': priceData.totalTax, //ADD FEES TO THIS
-          'shipping': null,
-          'shippingDuration': null,
-          'shippingOption': null,
-          'shippingIsSplit': null,
-          'currencyCode': Settings.UI.currencies.default,
-          'totalItems': scopeData.allRooms.length,
-          'discountAmount': totalDiscount,
-          'discountPercent': (totalDiscount / totalPrice) * 100,
-          'discountCode': discountCode,
-          'discountCampaign': null,
-          'discountType': ['flat'], //look into this
-          'isGift': false,
-          'source': 'Online',
-          'subsource': '',
-          'paymentType': trackingData.paymentInfo.paymentMethod === 'cc' ? trackingData.paymentInfo.ccPayment.typeCode : trackingData.paymentInfo.paymentMethod
+        'transactionType': 'purchase',
+        'id': reservationData[0].reservationCode,
+        'uuid': sessionCookie.sessionData.sessionId,
+        'totalRevenue': totalPrice, // ADD FEES
+        'totalPrice': priceData.totalAfterTaxAfterPricingRules,
+        'totalTax': priceData.totalTax, //ADD FEES TO THIS
+        'shipping': null,
+        'shippingDuration': null,
+        'shippingOption': null,
+        'shippingIsSplit': null,
+        'currencyCode': Settings.UI.currencies.default,
+        'totalItems': scopeData.allRooms.length,
+        'discountAmount': totalDiscount,
+        'discountPercent': (totalDiscount / totalPrice) * 100,
+        'discountCode': discountCode,
+        'discountCampaign': null,
+        'discountType': ['flat'], //look into this
+        'isGift': false,
+        'source': 'Online',
+        'subsource': '',
+        'paymentType': trackingData.paymentInfo.paymentMethod === 'cc' ? trackingData.paymentInfo.ccPayment.typeCode : trackingData.paymentInfo.paymentMethod
       };
 
       return infinitiApeironData;
     }
 
-    function buildSearchData(chainData, propertyData, stateParams, order, products, room){
+    function buildSearchData(chainData, propertyData, stateParams, order, products, room, countries, titles) {
       var bookedDate = stateParams.dates.split('_');
       var fromDate = null;
       var toDate = null;
@@ -230,9 +230,13 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       var customerObject = {};
 
       if (userObject && userObject.id) {
+        var userCountry = getUserCountry(countries, userObject.localeCode);
+        var userTitle = getUserTitle(titles, userObject.title);
+
         customerObject = {
           'firstName': userObject.firstName,
           'lastName': userObject.lastName,
+          'title': userTitle ? userTitle.name : null,
           'email': userObject.email,
           'telephone': userObject.tel1,
           'address1': userObject.address1,
@@ -241,8 +245,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
           'town': userObject.city,
           'state': userObject.state,
           'postcode': userObject.zip,
-          'country': userObject.country,
-          'gender':userObject.gender || '',
+          'country': userCountry ? userCountry.code : null,
+          'gender': userObject.gender || '',
           'isCorporateCustomer': stateParams.corpCode && stateParams.corpCode !== '' ? true : false,
           'isLoyaltyMember': Settings.authType === 'infiniti',
           'uuid': sessionCookie.sessionData.sessionId
@@ -258,10 +262,10 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       _.each(products, function(product) {
 
         var productPolicies = [];
-        _.each(product.policies, function (val, key) {
+        _.each(product.policies, function(val, key) {
           var policy = {
-              'type': key
-            };
+            'type': key
+          };
           productPolicies.push(policy);
         });
 
@@ -269,35 +273,35 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
         var result = {
           'id': product.productPropertyRoomTypeId,
-          'transaction' : {
+          'transaction': {
             'id': null
           },
           'code': room.code,
-          'quantity':1,
-          'discountAmount':0,
-          'discountPercent':0,
-          'totalRevenue':product.price.totalBaseAfterPricingRules,
-          'totalPrice':product.price.totalAfterTaxAfterPricingRules,
-          'totalTax':product.price.taxDetails.totalTax + product.price.totalAdditionalFees,
+          'quantity': 1,
+          'discountAmount': 0,
+          'discountPercent': 0,
+          'totalRevenue': product.price.totalBaseAfterPricingRules,
+          'totalPrice': product.price.totalAfterTaxAfterPricingRules,
+          'totalTax': product.price.taxDetails.totalTax + product.price.totalAdditionalFees,
           'dateFrom': $window.moment(fromDate).toISOString(),
           'dateTo': $window.moment(toDate).toISOString(),
-          'isPreorder':false,
+          'isPreorder': false,
           'metaData': {
-            'adults':stateParams.adults,
-            'children':stateParams.children,
-            'rate':product.code,
-            'starRating':propertyData.rating,
-            'groupCode':stateParams.groupCode ? stateParams.groupCode : null,
-            'promoCode':stateParams.promoCode ? stateParams.promoCode : null,
-            'corpCode':stateParams.corpCode ? stateParams.corpCode : null,
-            'policies':productPolicies,
+            'adults': stateParams.adults,
+            'children': stateParams.children,
+            'rate': product.code,
+            'starRating': propertyData.rating,
+            'groupCode': stateParams.groupCode ? stateParams.groupCode : null,
+            'promoCode': stateParams.promoCode ? stateParams.promoCode : null,
+            'corpCode': stateParams.corpCode ? stateParams.corpCode : null,
+            'policies': productPolicies,
             'region': {
               'code': propertyData.regionCode,
               'name': localeData[1].trim()
             },
-            'location':{
-              'code':propertyData.locationCode,
-              'name':propertyData.city
+            'location': {
+              'code': propertyData.locationCode,
+              'name': propertyData.city
             },
             'province': {
               'code': localeData[1].trim().split(' ').join('').toUpperCase(),
@@ -315,8 +319,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             'sku': product.productPropertyRoomTypeId,
             'price': product.price.totalAfterTaxAfterPricingRules,
             'priceBeforeTax': product.price.totalBaseAfterPricingRules,
-            'tax':'',
-            'revenue':'',
+            'tax': '',
+            'revenue': '',
           }
         };
         results.push(result);
@@ -327,27 +331,27 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       discountCode = stateParams.corpCode ? stateParams.corpCode : null;
 
       infinitiApeironData.transaction = {
-          'transactionType':'search',
-          'id': null,
-          'uuid': sessionCookie.sessionData.sessionId,
-          'totalRevenue': null,
-          'totalPrice': null,
-          'totalTax': null,
-          'shipping': null,
-          'shippingDuration': null,
-          'shippingOption': null,
-          'shippingIsSplit': null,
-          'currencyCode': Settings.UI.currencies.default,
-          'totalItems': 1,
-          'discountAmount': null,
-          'discountPercent': null,
-          'discountCode': discountCode,
-          'discountCampaign': null,
-          'discountType': ['flat'], //look into this
-          'isGift': false,
-          'source': 'Online',
-          'subsource': '',
-          'paymentType': null
+        'transactionType': 'search',
+        'id': null,
+        'uuid': sessionCookie.sessionData.sessionId,
+        'totalRevenue': null,
+        'totalPrice': null,
+        'totalTax': null,
+        'shipping': null,
+        'shippingDuration': null,
+        'shippingOption': null,
+        'shippingIsSplit': null,
+        'currencyCode': Settings.UI.currencies.default,
+        'totalItems': 1,
+        'discountAmount': null,
+        'discountPercent': null,
+        'discountCode': discountCode,
+        'discountCampaign': null,
+        'discountType': ['flat'], //look into this
+        'isGift': false,
+        'source': 'Online',
+        'subsource': '',
+        'paymentType': null
       };
 
       infinitiApeironData.items = results;
@@ -355,16 +359,16 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       return infinitiApeironData;
     }
 
-    function getUserTitle(scopeData){
-      var userTitle = _.find(scopeData.profileTitles, function(title) {
-        return title.id === scopeData.userDetails.title;
+    function getUserTitle(titles, titleCode) {
+      var userTitle = _.find(titles, function(title) {
+        return title.id === titleCode;
       });
       return userTitle;
     }
 
-    function getUserCountry(scopeData){
-      var userCountry = _.find(scopeData.profileCountries, function(country) {
-        return country.id === scopeData.userDetails.localeCode;
+    function getUserCountry(countries, countryCode) {
+      var userCountry = _.find(countries, function(country) {
+        return country.id === countryCode;
       });
       return userCountry;
     }
