@@ -94,6 +94,7 @@
     "edit": "Modifier",
     "MESSAGES": "//////////////////////////////////////////////////////",
     "no_room_found": "Aucune chambre trouvées",
+    "no_rooms_found": "No Rooms Found",
     "no_hotels_found": "Aucun hôtel trouvés",
     "hotel_name":"{{hotel.nameLong}}",
     "no_room_available": "Aucune chambre disponible, veuillez changer vos critères",
