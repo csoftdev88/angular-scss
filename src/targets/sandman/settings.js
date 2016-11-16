@@ -10,6 +10,7 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
+  //'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -405,6 +406,7 @@ angular.module('mobiusApp.config', [])
         'hotelInfo': true,
         'hotelServices': false,
         'hotelRooms': true,
+        'hotelRoomsCompare': false,
         'hotelOffers': true,
         'hotelLocation': true
       },
@@ -455,7 +457,10 @@ angular.module('mobiusApp.config', [])
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
       'showSlashThrough': false,
-      'showMetaView': true
+      'showMetaView': true,
+      'upsells': {
+        'display': false
+      }
     },
 
     'reservations': {

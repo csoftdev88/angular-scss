@@ -13,7 +13,9 @@ angular.module('mobiusApp.directives.slider', [])
       onSlideClick: '=',
       onRoomClick: '=',
       slideWidth: '=',
-      slideHeight: '='
+      slideHeight: '=',
+      thumbWidth: '=?',
+      thumbHeight: '=?'
     },
     templateUrl: 'directives/heroSlider/heroSlider.html',
 
@@ -46,6 +48,9 @@ angular.module('mobiusApp.directives.slider', [])
       scope.hasThumbnails = attrs.hasThumbnails === 'true';
       // Counter types - bullets/counter
       scope.counterType = attrs.counterType || 'bullets';
+
+      scope.thumbWidth = scope.thumbWidth || 40;
+      scope.thumbHeight = scope.thumbHeight  || 40;
 
       // Custom easing function
       $.extend($.easing,{
