@@ -19,6 +19,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
       scope.settings = Settings.UI.hotelDetails.rooms.rates;
+      scope.displayUpsells = Settings.UI.hotelDetails.rooms.upsells ? Settings.UI.hotelDetails.rooms.upsells.display : false;
 
       scope.init = function(){
         scope.products = undefined;
@@ -155,7 +156,7 @@ angular.module('mobiusApp.directives.room.products', [])
         return stateService.isMobile() ? scope.settings.ratesPerRoomOnMobile : scope.settings.ratesPerRoomOnDesktop;
       };
 
-      scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, event){
+      scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, upsell, event){
         if(isMemberOnly === null && roomPriceFrom === null && !event){
           return;
         }
@@ -196,9 +197,17 @@ angular.module('mobiusApp.directives.room.products', [])
           });
         }
 
+        if(scope.displayUpsells && upsell) {
+          modalService.openUpsellsDialog(upsell, params, scope.goToReservationDetails);
+        }
+        else {
+          scope.goToReservationDetails(params);
+        }
+      };
+
+      scope.goToReservationDetails = function(params){
         var userLang = user.getUserLanguage();
         var appLang = stateService.getAppLanguageCode();
-
         if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
           user.storeUserLanguage('en-us');
           var nonFrenchUrl = $state.href('reservation.details', params, {reload: true}).replace('/fr/','/');
