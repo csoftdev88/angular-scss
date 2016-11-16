@@ -70,6 +70,7 @@ angular
     'mobius.controllers.modals.locationDetail',
     'mobius.controllers.modals.confirmation',
     'mobius.controllers.common.cardExpiration',
+    'mobius.controllers.modals.upsells',
 
     // Application modules
     'mobiusApp.config',
