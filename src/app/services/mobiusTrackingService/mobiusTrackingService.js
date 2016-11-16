@@ -103,7 +103,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       };
     }
     function trackSearch(bookingParams, chainData, propertyData, products, room, rateSorting) {
-      if (!Settings.API.mobiusTracking.enable || $state.includes('reservation') || !products.length) {
+      if (!Settings.API.mobiusTracking.search.enable || $state.includes('reservation') || !products.length) {
         return;
       }
       //set default data
@@ -164,13 +164,13 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
         });
       });
       postData.nights.push(nightObj);
-      apiService.post(apiService.getFullURL('mobiusTracking.search'), postData).then(function () {
+      apiService.post(apiService.getFullURL('mobiusTracking.search.url'), postData).then(function () {
       }, function (err) {
         console.log('Mobius search tracking error: ' + angular.toJson(err));
       });
     }
     function trackPurchase(bookingParams, chainData, propertyData, products, rooms, reservationData, priceData) {
-      if (!Settings.API.mobiusTracking.enable) {
+      if (!Settings.API.mobiusTracking.purchase.enable) {
         return;
       }
       userObject = _.extend(_.clone(userObject || {}), {
@@ -246,7 +246,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
         });
       });
       //console.log('trackPurchase: ' + angular.toJson(postData));
-      apiService.post(apiService.getFullURL('mobiusTracking.purchase'), postData).then(function () {
+      apiService.post(apiService.getFullURL('mobiusTracking.purchase.url'), postData).then(function () {
       }, function (err) {
         console.log('Mobius purchase tracking error: ' + angular.toJson(err));
       });

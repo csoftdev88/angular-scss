@@ -30,7 +30,7 @@
     <div class="details">
       <div class="total" ng-switch="!!reservation.pointValue">
         <span class="title">_total_:</span>
-        <span class="value" ng-switch-when="false">{{getTotal('totalAfterTax') + getTotal('totalDiscount') | i18nCurrency: currencyCode}}</span>
+        <span class="value" ng-switch-when="false">{{getTotal('totalAfterTax') | i18nCurrency: currencyCode}}</span>
         <span class="value" ng-switch-when="true">
           <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
         </span>

@@ -75,9 +75,14 @@ angular.module('mobiusApp.config', [])
     },
     //Mobius product search/purchase tracking, check if enabled
     'mobiusTracking': {
-      'enable': false,
-      'search': 'properties/track/search',
-      'purchase': 'properties/track/purchase'
+      'search': {
+        'enable':false,
+        'url':'properties/track/search'
+      },
+      'purchase': {
+        'enable':false,
+        'url':'properties/track/purchase'
+      }
     },
     //All API endpoints, leave as is
     'contents': {

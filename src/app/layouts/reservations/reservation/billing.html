@@ -68,8 +68,14 @@
         <label for="form-name-on-card">
           <input type="text" id="form-name-on-card" required
             placeholder="_card_name_placeholder_"
-            ng-model="billingDetails.card.holderName" />
-          <span>_card_name_label_</span>
+            ng-model="billingDetails.card.holderName"
+            name="holderName"
+            ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="forms.billing.$submitted && forms.billing.holderName.$error">_card_name_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.holderName.$error && !forms.billing.holderName.$error.pattern">_card_name_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.holderName.$error.pattern">_letters_pattern_error_</span>
+            </span>
         </label>
 
         <div class="card-details" ng-class="{invalid: forms.billing.$submitted && !getCardExpirationDate()}">
@@ -126,29 +132,49 @@
           <label for="address">
             <input type="text" id="address" required
               placeholder="_address_placeholder_"
-              ng-model="billingDetails.address" />
-            <span>_address_label_</span>
+              ng-model="billingDetails.address"
+              ng-pattern="$root.generalValidationPattern"
+              name="address"/>
+              <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.address.$error">_address_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.address.$error.pattern">_address_pattern_error_</span>
+              </span>
           </label>
 
           <label for="city" class="input-left">
             <input type="text" id="city" required
               placeholder="_city_placeholder_"
-              ng-model="billingDetails.city" />
-            <span>_city_label_</span>
+              ng-model="billingDetails.city"
+              ng-pattern="$root.generalValidationPattern"
+              name="city"/>
+              <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.city.$error">_city_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.city.$error.pattern">_city_pattern_error_</span>
+              </span>
           </label>
 
           <label for="state" class="input-right">
             <input type="text" id="state" ng-required="bookingConfig.billingStateRequired"
               placeholder="_state_placeholder_"
-              ng-model="billingDetails.stateProvince" />
-            <span>_state_label_</span>
+              ng-model="billingDetails.stateProvince"
+              ng-pattern="$root.generalValidationPattern"
+              name="state"/>
+              <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.state.$error">_state_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.state.$error.pattern">_state_pattern_error_</span>
+              </span>
           </label>
 
           <label for="postal-code" class="input-left">
             <input type="text" id="postal-code" required
               placeholder="_postcode_placeholder_"
-              ng-model="billingDetails.zip" />
-            <span>_postcode_label_</span>
+              ng-model="billingDetails.zip"
+              ng-pattern="$root.generalValidationPattern"
+              name="zip"/>
+            <span>
+              <span ng-hide="forms.billing.$submitted && forms.billing.zip.$error">_postcode_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.zip.$error.pattern">_postcode_pattern_error_</span>
+            </span>
           </label>
 
           <label for="telephone" class="input-right">
@@ -160,7 +186,9 @@
               placeholder="Phone"/>-->
               <input type="tel" id="telephone"
                 placeholder="_phone_placeholder_"
-                ng-model="billingDetails.phone"/>
+                ng-model="billingDetails.phone"
+                ng-pattern="$root.generalValidationPattern"
+                name="zip"/>
             <span>_phone_label_</span>
           </label>
 

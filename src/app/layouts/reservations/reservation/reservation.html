@@ -165,9 +165,9 @@
 
                 <tr class="main">
                   <th>_total_:</th>
-                  <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') + getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
+                  <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
                   <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
-                  <td ng-switch-default>{{getTotal('totalAfterTaxAfterPricingRules') + getTotal('totalDiscount')| i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
+                  <td ng-switch-default>{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
                 </tr>
                 <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
                   <th></th>
@@ -213,7 +213,8 @@
                 ng-model="voucher.code"
                 ng-disabled="voucher.valid || voucher.verifying"
                 ng-keypress="($event.which === 13)?redeemVoucher():0"
-                name="voucher"/>
+                name="voucher"
+                ng-pattern="$root.generalValidationPattern"/>
               <img src="/static/images/preloader.gif" ng-hide="!voucher.verifying" />
               <button class="button" ng-click="redeemVoucher()" ng-disabled="!voucher.code || voucher.valid || voucher.verifying">_voucher_button_text_</button>
             </label>

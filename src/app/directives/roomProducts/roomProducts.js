@@ -3,8 +3,8 @@
 angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
-  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService,
-  stateService, dataLayerService, cookieFactory, chainService, $window, $log, mobiusTrackingService, $filter, user){
+  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService, infinitiApeironService,
+  stateService, dataLayerService, cookieFactory, chainService, $window, $log, $filter, user){
 
   return {
     restrict: 'E',
@@ -19,6 +19,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
       scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
       scope.settings = Settings.UI.hotelDetails.rooms.rates;
+      scope.displayUpsells = Settings.UI.hotelDetails.rooms.upsells ? Settings.UI.hotelDetails.rooms.upsells.display : false;
 
       scope.init = function(){
         scope.products = undefined;
@@ -122,7 +123,7 @@ angular.module('mobiusApp.directives.room.products', [])
                 };
               }));
               //Mobius tracking
-              mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room, scope.currentOrder);
+              infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room);
             });
           });
 
@@ -144,7 +145,7 @@ angular.module('mobiusApp.directives.room.products', [])
         return stateService.isMobile() ? scope.settings.ratesPerRoomOnMobile : scope.settings.ratesPerRoomOnDesktop;
       };
 
-      scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, event){
+      scope.selectProduct = function(roomCode, productCode, isMemberOnly, roomPriceFrom, upsell, event){
         if(isMemberOnly === null && roomPriceFrom === null && !event){
           return;
         }
@@ -185,9 +186,18 @@ angular.module('mobiusApp.directives.room.products', [])
           });
         }
 
+        if(scope.displayUpsells && upsell) {
+          modalService.openUpsellsDialog(upsell, params, scope.goToReservationDetails);
+        }
+        else {
+          scope.goToReservationDetails(params);
+        }
+      };
+
+      scope.goToReservationDetails = function(params){
+        console.log('called');
         var userLang = user.getUserLanguage();
         var appLang = stateService.getAppLanguageCode();
-
         if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
           user.storeUserLanguage('en-us');
           var nonFrenchUrl = $state.href('reservation.details', params, {reload: true}).replace('/fr/','/');

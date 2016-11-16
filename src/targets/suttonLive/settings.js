@@ -53,7 +53,7 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'integration': {
-      'enable':false,
+      'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sutton-integration',
@@ -69,13 +69,17 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'live': {
-      'enable':false,
+      'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sutton-live',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     }
+  },
+  'derbysoftTracking' : {
+    'enable': true,
+    'accountCode':'2p'
   },
   'googleAnalytics': {
     'enable': false,
@@ -101,9 +105,14 @@ angular.module('mobiusApp.config', [])
       'live':  'https://www.suttonplace.com/api/4.0/'
     },
     'mobiusTracking': {
-      'enable': false,
-      'search': 'properties/track/search',
-      'purchase': 'properties/track/purchase'
+      'search': {
+        'enable':false,
+        'url':'properties/track/search'
+      },
+      'purchase': {
+        'enable':false,
+        'url':'properties/track/purchase'
+      }
     },
     'track404s': {
       'enable':true,

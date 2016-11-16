@@ -24,6 +24,7 @@ angular
     'angularUtils.directives.dirPagination',
     'angular-growl',
     'ng.deviceDetector',
+    'angular.vertilize',
 
     // Controllers
     'mobius.controllers.common.sanitize',
@@ -69,6 +70,7 @@ angular
     'mobius.controllers.modals.locationDetail',
     'mobius.controllers.modals.confirmation',
     'mobius.controllers.common.cardExpiration',
+    'mobius.controllers.modals.upsells',
 
     // Application modules
     'mobiusApp.config',
@@ -571,6 +573,11 @@ angular
   if ($window.Raven && Settings.sentry.enable) {
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     Raven.config(Settings.sentry[env]).install();
+  }
+
+  if(Settings.inputValidationPattern)
+  {
+    $rootScope.generalValidationPattern = Settings.inputValidationPattern;
   }
 
   function encodeQueryData(data) {

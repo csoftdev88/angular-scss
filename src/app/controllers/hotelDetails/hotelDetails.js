@@ -30,6 +30,8 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
+  $scope.compareRoomLimit = 3;
+  $scope.comparisonIndex = 0;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -88,6 +90,7 @@ angular.module('mobius.controllers.hotel.details', [
         $scope.currentOrder = $scope.sortingOptions[1];
       }, 0);
     }
+
 
 
     //save order switch value to cookies when changed
@@ -319,6 +322,7 @@ angular.module('mobius.controllers.hotel.details', [
 
         //handle displaying of rates
         _.each(rooms, function(room) {
+          room.userHidden = false;
           if (stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad) {
             $scope.displayRoomRates(room);
           } else {
@@ -327,6 +331,7 @@ angular.module('mobius.controllers.hotel.details', [
         });
 
         $scope.rooms = rooms;
+        $scope.compareRooms = $scope.rooms;
 
         $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
         $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;
@@ -496,6 +501,40 @@ angular.module('mobius.controllers.hotel.details', [
       return true;
     }
     return !$scope.roomsConfig.hideRoomsWithNoAvailability || ($scope.roomsConfig.hideRoomsWithNoAvailability && $scope.availableRooms && $scope.availableRooms.indexOf(room.code) > -1 && room.priceFrom && $scope.hasDates() && $scope.ratesLoaded);
+  };
+
+  $scope.setRoomsViewMode = function(mode){
+    $scope.roomsViewMode = mode;
+    userPreferenceService.setCookie('roomsViewMode', mode);
+  };
+
+  if(stateService.isMobile())
+  {
+    $scope.setRoomsViewMode('list');
+  }
+  else if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
+    $scope.setRoomsViewMode(mobiusUserPreferences.roomsViewMode);
+  }
+
+  $scope.hideRoom = function(room){
+    room.userHidden = true;
+    $scope.showCompareRoomsReset = true;
+  };
+
+  $scope.resetCompareRooms = function(){
+    _.each($scope.compareRooms, function(room) {
+      room.userHidden = false;
+    });
+    $scope.showCompareRoomsReset = false;
+  };
+
+  $scope.shiftRoomCarousel = function(forward){
+    if(forward){
+      $scope.comparisonIndex++;
+    }
+    else {
+      $scope.comparisonIndex--;
+    }
   };
 
   function scrollToRates(target) {
