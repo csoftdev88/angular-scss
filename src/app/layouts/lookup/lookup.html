@@ -32,9 +32,13 @@
             <input type="text" id="reservation-number" required
               placeholder="_reservation_number_placeholder_"
               ng-model="formData.fields.subject" ng-minlength="3"
-              name="subject"
-              ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"/>
-            <span>_reservation_number_label_</span>
+              name="reservationNumber"
+              ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"
+              ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="form.reservationNumber.$error">_reservation_number_label_</span>
+              <span ng-show="form.reservationNumber.$error.pattern">_letters_pattern_error_</span>
+            </span>
           </label>
         </form-element>
 

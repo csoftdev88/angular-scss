@@ -212,7 +212,8 @@
                 ng-model="voucher.code"
                 ng-disabled="voucher.valid || voucher.verifying"
                 ng-keypress="($event.which === 13)?redeemVoucher():0"
-                name="voucher"/>
+                name="voucher"
+                ng-pattern="$root.generalValidationPattern"/>
               <img src="/static/images/preloader.gif" ng-hide="!voucher.verifying" />
               <button class="button" ng-click="redeemVoucher()" ng-disabled="!voucher.code || voucher.valid || voucher.verifying">_voucher_button_text_</button>
             </label>

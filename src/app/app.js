@@ -573,6 +573,11 @@ angular
     Raven.config(Settings.sentry[env]).install();
   }
 
+  if(Settings.inputValidationPattern)
+  {
+    $rootScope.generalValidationPattern = Settings.inputValidationPattern;
+  }
+
   function encodeQueryData(data) {
     var ret = [];
     for (var d in data) {
