@@ -456,7 +456,10 @@ angular.module('mobiusApp.config', [])
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
       'showSlashThrough': false,
-      'showMetaView': true
+      'showMetaView': true,
+      'upsells': {
+        'display': false
+      }
     },
 
     'reservations': {
