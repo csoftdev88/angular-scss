@@ -562,6 +562,9 @@ angular.module('mobiusApp.config', [])
         },
         //displayPrice can be button or text
         'displayPrice': 'text'
+      },
+      'upsells': {
+        'display': false
       }
     },
 
