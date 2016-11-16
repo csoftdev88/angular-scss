@@ -101,7 +101,8 @@ angular.module('mobius.controllers.reservations', [])
   }
 
   function getPastStays(data){
-    var today = $window.moment().valueOf();
+    var todayUtc = new Date().toJSON().slice(0,10);
+    var today = parseInt($window.moment(todayUtc).valueOf());
     return _.filter(data, function(reservation){
       return $window.moment(reservation.arrivalDate).valueOf() < today;
     });
@@ -109,7 +110,8 @@ angular.module('mobius.controllers.reservations', [])
 
   // TODO: Check whats is a future stay(tomorrow/today?)
   function getFutureStays(data){
-    var today = $window.moment().valueOf();
+    var todayUtc = new Date().toJSON().slice(0,10);
+    var today = parseInt($window.moment(todayUtc).valueOf());
     return _.filter(data, function(reservation){
       return $window.moment(reservation.arrivalDate).valueOf() >= today;
     });
