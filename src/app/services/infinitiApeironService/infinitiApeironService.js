@@ -269,6 +269,17 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
           productPolicies.push(policy);
         });
 
+        var nights = [];
+        _.each(product.price.breakdowns, function(breakdown) {
+          var night = {
+            'date':$window.moment(breakdown.date).toISOString(),
+            'totalRevenue': breakdown.totalBaseAfterPricingRules,
+            'totalPrice': breakdown.totalAfterTaxAfterPricingRules,
+            'totalTax': breakdown.totalTax + breakdown.totalFees,
+          };
+          nights.push(night);
+        });
+
         var localeData = propertyData.locale.split('-');
 
         var result = {
@@ -310,7 +321,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             'property': {
               'code': propertyData.code,
               'name': propertyData.nameShort
-            }
+            },
+            'nights': nights
           },
           'product': {
             'id': product.code,

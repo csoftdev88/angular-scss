@@ -37,6 +37,16 @@
         </reservation-item>
       </div>
 
+      <div ng-if="reservations.pastStays.length">
+        <h1 ng-bind-html="'_reservation_page_paststays_title_' | mainHeaderStyle"></h1>
+        <reservation-item ng-repeat="reservation in reservations.pastStays | orderBy:'bookingDate' : true">
+          <div class="table-wrap inactive">
+            <reservation-data currency-code="defaultCurrencyCode" reservation="reservation" property="properties[reservation.property.code]" class="inactive"></reservation-data>
+          </div>
+          <hr/>
+        </reservation-item>
+      </div>
+
     </div>
   </div>
 

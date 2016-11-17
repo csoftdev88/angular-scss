@@ -77,8 +77,8 @@ angular.module('mobiusApp.directives.growlAlerts', [])
 
           function getStatsUnit(statistic){
             var unit = '';
-            if(statistic.numUnits === 1){
-              switch(statistic.unit) {
+            if(statistic.time.period === 1){
+              switch(statistic.time.unit) {
                 case 'hours':
                   unit = scope.hour;
                   break;
@@ -93,7 +93,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
               }
             }
             else{
-              switch(statistic.unit) {
+              switch(statistic.time.unit) {
                 case 'hours':
                   unit = scope.hours;
                   break;
@@ -126,7 +126,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 message = 'No message';
             }
 
-            message = message.replace('{numTypes}', statistic.numTypes).replace('{numUnits}', statistic.numUnits).replace('{unit}', getStatsUnit(statistic));
+            message = message.replace('{numTypes}', statistic.count).replace('{numUnits}', statistic.time.period).replace('{unit}', getStatsUnit(statistic));
 
             return message;
           }
