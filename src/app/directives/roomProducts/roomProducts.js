@@ -122,8 +122,13 @@ angular.module('mobiusApp.directives.room.products', [])
                   category: scope.room.name
                 };
               }));
-              //Mobius tracking
-              infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room);
+
+              var selectedRate = null;
+              if(scope.rates && scope.rates.selectedRate)
+              {
+                selectedRate = scope.rates.selectedRate;
+              }
+              infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room, selectedRate);
             });
           });
 
