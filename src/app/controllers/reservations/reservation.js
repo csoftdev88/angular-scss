@@ -10,6 +10,10 @@ angular.module('mobius.controllers.reservation', [])
   $rootScope, userMessagesService, propertyService, $q, cookieFactory, sessionDataService,
   creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService){
 
+  $controller('RatesCtrl', {
+    $scope: $scope
+  });
+
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
   $scope.bookingConfig = Settings.UI.booking;
@@ -1036,7 +1040,7 @@ angular.module('mobius.controllers.reservation', [])
 
           var env = document.querySelector('meta[name=environment]').getAttribute('content');
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
-            infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams);
+            infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams, $scope.rates.selectedRate);
           }
         });
       });
