@@ -1,7 +1,7 @@
 <ul class="ota-products">
-  <li ng-repeat="otaProduct in otaProducts">
-    <span class="ota-rate" ng-hide="otaLoading">
-      <h4>{{otaProduct.description}}</h4>
+  <h4 ng-hide="otaLoading">_this_room_available_on_</h4>
+  <li ng-repeat="otaProduct in otaProductsList" ng-hide="otaLoading">
+    <span class="ota-rate">
       <a href="{{otaProduct.link}}" class="ota-rate-text" target="_blank" ng-if="otaProduct.link">
         <img ng-src="{{otaProduct.logo}}" class="rate-logo" alt="{{otaProduct.type}} logo" />
         <span class="value">{{otaProduct.price | i18nCurrency: currencyCode }}</span>
@@ -11,9 +11,9 @@
         <span class="value">{{otaProduct.price | i18nCurrency: currencyCode }}</span>
       </span>
     </span>
-    <span class="ota-preloader" ng-hide="!otaLoading">
-      <span class="ota-loader"></span>
-      <span class="ota-loader-text">_ota_loading_</span>
-    </span>
   </li>
+  <span class="ota-preloader" ng-hide="!otaLoading">
+    <span class="ota-loader"></span>
+    <span class="ota-loader-text">_ota_loading_</span>
+  </span>
 </ul>
