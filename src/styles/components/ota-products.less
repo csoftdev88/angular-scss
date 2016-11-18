@@ -4,7 +4,6 @@
     padding:10px;
     color: @c-primary;
     .viewport-mobile & {
-      padding-bottom:0;
       font-size:16px;
       text-align:center;
       color:#606060;
@@ -18,8 +17,9 @@
     float: none;
     position: relative;
     .viewport-mobile & {
+      border-bottom:1px solid #c7c7c7 !important;
       background:transparent;
-      padding:10px 0;
+      padding:0;
     }
     .ota-rate-text {
       display: table;
