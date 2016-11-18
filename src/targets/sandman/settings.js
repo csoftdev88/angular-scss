@@ -381,7 +381,7 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': true,
-          'displayOtaRates': true,
+          'displayOtaRates': false,
           'highlightFirstRate': true,
           'showSlashThrough': true
         }
