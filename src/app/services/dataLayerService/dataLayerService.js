@@ -35,9 +35,9 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      'currencyCode': stateService.getCurrentCurrency().code,
       'event': 'productImpressions',
       'ecommerce': {
+        'currencyCode': stateService.getCurrentCurrency().code,
         'impressions': products
       }
     });
@@ -51,6 +51,21 @@ angular.module('mobiusApp.services.dataLayer', [])
       'event': 'productClick',
       'ecommerce': {
         'click': {
+          'products': [product]
+        }
+      }
+    });
+  }
+
+  function trackAddToCart(product){
+    if(!isDataLayerActive()){
+      return;
+    }
+    getDataLayer().push({
+      'event': 'addToCart',
+      'ecommerce': {
+        'currencyCode': stateService.getCurrentCurrency().code,
+        'add': {
           'products': [product]
         }
       }
@@ -140,6 +155,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     setUserId: setUserId,
     trackProductsImpressions: trackProductsImpressions,
     trackProductClick: trackProductClick,
+    trackAddToCart: trackAddToCart,
     trackProductsDetailsView: trackProductsDetailsView,
     trackProductsCheckout: trackProductsCheckout,
     trackProductsPurchase: trackProductsPurchase,

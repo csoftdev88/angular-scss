@@ -571,7 +571,15 @@ angular.module('mobius.controllers.reservation', [])
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
         var products = [];
 
+        var localeData = propertyData.locale.split('-')[1].trim();
+        var variant = '';
+        if($stateParams.adults && $stateParams.children)
+        {
+          variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+        }
+
         _.each($scope.allRooms, function(room){
+          var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
           var product = {
             name: room._selectedProduct.name,
             id: room._selectedProduct.code,
@@ -581,7 +589,7 @@ angular.module('mobius.controllers.reservation', [])
             brand: propertyData.nameLong,
             dimension1: propertyData.nameShort,
             list: 'Room',
-            category: room.name
+            category: category
           };
           products.push(product);
         });
