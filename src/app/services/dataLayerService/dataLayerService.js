@@ -35,9 +35,8 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      'currencyCode': stateService.getCurrentCurrency().code,
-      'event': 'productImpressions',
       'ecommerce': {
+        'currencyCode': stateService.getCurrentCurrency().code,
         'impressions': products
       }
     });
@@ -57,12 +56,26 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
+  function trackAddToCart(product){
+    if(!isDataLayerActive()){
+      return;
+    }
+    getDataLayer().push({
+      'event': 'addToCart',
+      'ecommerce': {
+        'currencyCode': stateService.getCurrentCurrency().code,
+        'add': {
+          'products': [product]
+        }
+      }
+    });
+  }
+
   function trackProductsDetailsView(products){
     if(!isDataLayerActive()){
       return;
     }
     getDataLayer().push({
-      'event': 'productDetailsView',
       'ecommerce': {
         'detail': {
           'products': products
@@ -71,15 +84,14 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackProductsCheckout(products, stepNum){
+  function trackProductsCheckout(products, actionField){
     if(!isDataLayerActive()){
       return;
     }
     getDataLayer().push({
-      'event': 'checkout',
       'ecommerce': {
         'checkout': {
-          'actionField': {'step': stepNum},
+          'actionField': actionField,
           'products': products
         }
       }
@@ -99,7 +111,6 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     var dataLayerInfo = {
-      'event': 'purchaseConfirmation',
       'ecommerce': {
         'purchase': {
           'actionField': actionField,
@@ -140,6 +151,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     setUserId: setUserId,
     trackProductsImpressions: trackProductsImpressions,
     trackProductClick: trackProductClick,
+    trackAddToCart: trackAddToCart,
     trackProductsDetailsView: trackProductsDetailsView,
     trackProductsCheckout: trackProductsCheckout,
     trackProductsPurchase: trackProductsPurchase,

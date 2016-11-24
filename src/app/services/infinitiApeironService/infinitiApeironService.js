@@ -235,6 +235,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       {
         infinitiApeironData.metaData.rateFilter = {
           'code':selectedRate.code,
+          'id':selectedRate.id,
           'name':selectedRate.name
         };
       }
