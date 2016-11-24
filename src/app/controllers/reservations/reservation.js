@@ -594,7 +594,30 @@ angular.module('mobius.controllers.reservation', [])
           products.push(product);
         });
 
-        dataLayerService.trackProductsCheckout(products, stepNum);
+        var actionField = {
+          'step': stepNum
+        };
+
+        if(stepNum === 3)
+        {
+          var paymentInfo = $scope.billingDetails.paymentMethod;
+          if(paymentInfo) {
+            if(paymentInfo === 'cc')
+            {
+              var typeCode = $scope.getCreditCardDetails($scope.billingDetails.card.number).name;
+              if(typeCode){
+                actionField.option = typeCode;
+              }
+              else {
+                actionField.option = 'cc';
+              }
+            }
+            else {
+              actionField.option = paymentInfo.paymentMethod;
+            }
+          }
+        }
+        dataLayerService.trackProductsCheckout(products, actionField);
 
       });
     });
@@ -895,8 +918,15 @@ angular.module('mobius.controllers.reservation', [])
       chainService.getChain(Settings.API.chainCode).then(function(chainData) {
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
           //GTM ecommerce tracking
+          var localeData = propertyData.locale.split('-')[1].trim();
+          var variant = '';
+          if($stateParams.adults && $stateParams.children)
+          {
+            variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+          }
           var products = [];
           _.each($scope.allRooms, function(room){
+            var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
             var p = room._selectedProduct;
             var product = {
               name: p.name,
@@ -909,7 +939,8 @@ angular.module('mobius.controllers.reservation', [])
               brand: propertyData.nameLong,
               dimension1: propertyData.nameShort,
               list: 'Room',
-              category: room.name
+              category: category,
+              variant: variant,
             };
             products.push(product);
           });
@@ -921,7 +952,8 @@ angular.module('mobius.controllers.reservation', [])
             'revenue': $scope.getTotal('totalBaseAfterPricingRules'),
             'quantity': numNights,
             'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBaseAfterPricingRules')).toFixed(2),
-            'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null
+            'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null,
+            'shipping': '0'
           };
 
           var stayLength = null;
