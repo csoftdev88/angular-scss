@@ -230,7 +230,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         toDate = bookedDate[1];
       }
       var infinitiApeironData = buildGenericData(chainData);
-      infinitiApeironData.metaData.rateOrder = order.name || '';
+      infinitiApeironData.metaData.rateOrder = order.name || 'default';
       if(selectedRate && selectedRate.code && selectedRate.name)
       {
         infinitiApeironData.metaData.rateFilter = {
@@ -240,7 +240,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         };
       }
       else {
-        infinitiApeironData.metaData.rateFilter = null;
+        infinitiApeironData.metaData.rateFilter = 'default';
       }
       infinitiApeironData.metaData.starRating = propertyData.rating || '';
 
