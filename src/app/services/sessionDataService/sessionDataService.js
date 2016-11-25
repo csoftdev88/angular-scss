@@ -68,6 +68,7 @@ angular.module('mobiusApp.services.sessionDataService', [])
 
     // Public methods
     return {
-      getCookie: getCookie
+      getCookie: getCookie,
+      generateUUID: generateUUID
     };
   });
