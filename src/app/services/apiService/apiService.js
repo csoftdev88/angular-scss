@@ -167,7 +167,7 @@ angular.module('mobiusApp.services.api', [])
 
   function trackUsage(url, params, status, requestStats, requestPayload) {
     if(params){
-      url = '?' + serializeParams(params);
+      url = url + '?' + serializeParams(params);
     }
 
     var usagePayload = {
