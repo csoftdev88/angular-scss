@@ -98,6 +98,7 @@ angular.module('mobiusApp.config', [])
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
     'chainCode': 'SAN',
+    'trackUsage': true,
     'baseURL': {
       'development': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
