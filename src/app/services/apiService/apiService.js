@@ -166,29 +166,31 @@ angular.module('mobiusApp.services.api', [])
   }
 
   function trackUsage(url, params, status, requestStats, requestPayload) {
-    if(params){
-      url = url + '?' + serializeParams(params);
+    if(Settings.API.trackUsage){
+      if(params){
+        url = url + '?' + serializeParams(params);
+      }
+
+      var usagePayload = {
+        'metric':'performance',
+        'elapsedTime':requestStats.time,
+        'system':'mobius-web',
+        'environment':env,
+        'endpoint':url,
+        'host':$location.host(),
+        'requestID':requestStats.requestId,
+        'sessionID':requestStats.sessionId,
+        'status':'200',
+        'type':'request',
+        'data': requestPayload ? requestPayload : null
+      };
+
+      $http({
+        method: 'POST',
+        url: 'https://webservice.mobiuswebservices.com/monitor/record',
+        data: usagePayload
+      }).success(function() {}).error(function(err) {console.log(err);});
     }
-
-    var usagePayload = {
-      'metric':'performance',
-      'elapsedTime':requestStats.time,
-      'system':'mobius-web',
-      'environment':env,
-      'endpoint':url,
-      'host':$location.host(),
-      'requestID':requestStats.requestId,
-      'sessionID':requestStats.sessionId,
-      'status':'200',
-      'type':'request',
-      'data': requestPayload ? requestPayload : null
-    };
-
-    $http({
-      method: 'POST',
-      url: 'https://webservice.mobiuswebservices.com/monitor/record',
-      data: usagePayload
-    }).success(function() {}).error(function(err) {console.log(err);});
   }
 
   function infinitiApeironPost(url, data, username, password) {
