@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService) {
+.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService) {
 
   var sessionCookie = sessionDataService.getCookie();
   var sessionId = sessionCookie.sessionData.sessionId;
@@ -26,18 +26,11 @@ angular.module('mobiusApp.services.api', [])
     var canCache = !params || Object.keys(params).length === 0;
     canCache = cacheParam === false ? false : canCache;
 
-    var requestId = sessionDataService.generateUUID();
-    headers['mobius-requestId'] = requestId;
 
-    var requestStats = {
-      requestId:requestId,
-      sessionId:sessionId
-    };
+    headers['mobius-requestId'] = $rootScope.requestId;
 
     //sessionData
     handleSessionDataHeaders();
-
-    var requestStartTime = new Date().getTime();
 
     if (canCache && angular.isUndefined(apiCache.get(url))) {
       $http({
@@ -51,13 +44,9 @@ angular.module('mobiusApp.services.api', [])
         }
         apiCache.put(url, res);
         q.resolve(res);
-        requestStats.time = new Date().getTime() - requestStartTime;
-        trackUsage(url, params, status, requestStats);
 
-      }).error(function(err, status) {
+      }).error(function(err) {
         q.reject(err);
-        requestStats.time = new Date().getTime() - requestStartTime;
-        trackUsage(url, params, status, requestStats);
       });
     }
     else if(canCache && angular.isDefined(apiCache.get(url))){
@@ -74,13 +63,9 @@ angular.module('mobiusApp.services.api', [])
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
         }
         q.resolve(res);
-        requestStats.time = new Date().getTime() - requestStartTime;
-        trackUsage(url, params, status, requestStats);
 
-      }).error(function(err, status) {
+      }).error(function(err) {
         q.reject(err);
-        requestStats.time = new Date().getTime() - requestStartTime;
-        trackUsage(url, params, status, requestStats);
       });
     }
     return q.promise;
@@ -95,15 +80,7 @@ angular.module('mobiusApp.services.api', [])
       handleSessionDataHeaders();
     }
 
-    var requestId = sessionDataService.generateUUID();
-    headers['mobius-requestId'] = requestId;
-
-    var requestStats = {
-      requestId:requestId,
-      sessionId:sessionId
-    };
-
-    var requestStartTime = new Date().getTime();
+    headers['mobius-requestId'] = $rootScope.requestId;
 
     $http({
       method: 'POST',
@@ -116,12 +93,8 @@ angular.module('mobiusApp.services.api', [])
         updateMobiusAuthHeader(resHeaders('mobius-authentication'));
       }
       q.resolve(res);
-      requestStats.time = new Date().getTime() - requestStartTime;
-      trackUsage(url, params, status, requestStats, data);
     }).error(function(err) {
       q.reject(err);
-      requestStats.time = new Date().getTime() - requestStartTime;
-      trackUsage(url, params, status, requestStats, data);
     });
 
     return q.promise;
@@ -133,15 +106,7 @@ angular.module('mobiusApp.services.api', [])
     //sessionData
     handleSessionDataHeaders();
 
-    var requestId = sessionDataService.generateUUID();
-    headers['mobius-requestId'] = requestId;
-
-    var requestStats = {
-      requestId:requestId,
-      sessionId:sessionId
-    };
-
-    var requestStartTime = new Date().getTime();
+    headers['mobius-requestId'] = $rootScope.requestId;
 
     $http({
       method: 'PUT',
@@ -154,35 +119,24 @@ angular.module('mobiusApp.services.api', [])
         updateMobiusAuthHeader(resHeaders('mobius-authentication'));
       }
       q.resolve(res);
-      requestStats.time = new Date().getTime() - requestStartTime;
-      trackUsage(url, params, status, requestStats, data);
     }).error(function(err) {
       q.reject(err);
-      requestStats.time = new Date().getTime() - requestStartTime;
-      trackUsage(url, params, status, requestStats, data);
     });
 
     return q.promise;
   }
 
-  function trackUsage(url, params, status, requestStats, requestPayload) {
+  function trackUsage(url, requestId) {
     if(Settings.API.trackUsage){
-      if(params){
-        url = url + '?' + serializeParams(params);
-      }
-
       var usagePayload = {
         'metric':'performance',
-        'elapsedTime':requestStats.time,
         'system':'mobius-web',
         'environment':env,
         'endpoint':url,
         'host':$location.host(),
-        'requestID':requestStats.requestId,
-        'sessionID':requestStats.sessionId,
-        'status':'200',
-        'type':'request',
-        'data': requestPayload ? requestPayload : null
+        'requestID':requestId,
+        'sessionID':sessionId,
+        'type':'page load',
       };
 
       $http({
@@ -210,7 +164,7 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-  function serializeParams(obj, prefix) {
+  /*function serializeParams(obj, prefix) {
     var str = [], p;
     for(p in obj) {
       if (obj.hasOwnProperty(p)) {
@@ -221,7 +175,7 @@ angular.module('mobiusApp.services.api', [])
       }
     }
     return str.join('&');
-  }
+  }*/
 
   function getFullURL(path, params) {
     var URL = getValue(Settings.API, path);
@@ -317,7 +271,8 @@ angular.module('mobiusApp.services.api', [])
     getFullURL: getFullURL,
     setHeaders: setHeaders,
     objectToQueryParams: objectToQueryParams,
-    infinitiApeironPost: infinitiApeironPost
+    infinitiApeironPost: infinitiApeironPost,
+    trackUsage: trackUsage
   };
   return api;
 });
