@@ -547,7 +547,7 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
     //This segment tracks any 404s and sends to our 404 tracking service
@@ -566,6 +566,10 @@ angular
     $state.fromState = fromState;
     $state.fromParams = fromParams;
     breadcrumbsService.clear();
+
+    $rootScope.requestId = sessionDataService.generateUUID();
+    apiService.trackUsage($location.absUrl(), $rootScope.requestId);
+    console.log($rootScope.requestId);
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
