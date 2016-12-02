@@ -129,8 +129,8 @@ angular.module('mobiusApp.directives.datepicker', [])
 
         bindResizeListener();
 
-        var today = new Date();
-        console.log(today);
+        var thistoday = new Date();
+        console.log(thistoday);
         var minDate = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').add(1, 'day').toDate();
         console.log(minDate);
 
