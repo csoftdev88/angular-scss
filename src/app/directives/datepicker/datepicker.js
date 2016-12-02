@@ -129,10 +129,7 @@ angular.module('mobiusApp.directives.datepicker', [])
 
         bindResizeListener();
 
-        var thistoday = new Date();
-        console.log(thistoday);
-        var minDate = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').add(1, 'day').toDate();
-        console.log(minDate);
+        var minDate = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').toDate();
 
         //NOTE: for languages to work, you must download the corresponding lang file from https://github.com/jquery/jquery-ui/tree/master/ui/i18n and include it in vendors/jquery-ui/datepicker-translations/ - then update the build.config.js accordingly
         element.datepicker($.extend({}, $.datepicker.regional[stateService.getAppLanguageCode().split('-')[0]], {
