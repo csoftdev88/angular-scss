@@ -605,6 +605,7 @@ angular.module('mobiusApp.config', [])
       "displayPropertiesMegamenu": false,
       'hasMutiroomTab': false,
       'hasRatesSelection': false,
+      'timezone':'Europe/Zurich',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
         'enable': true,
