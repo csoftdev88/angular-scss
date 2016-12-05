@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, stateService, Settings) {
+.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, stateService, Settings, _) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -23,6 +23,8 @@ angular.module('mobiusApp.directives.datepicker', [])
       var CLASS_RANGE_START = 'date-range-start';
       var CLASS_RANGE_END = 'date-range-end';
       var CLASS_EDIT_RANGE = 'date-range-edit';
+      var CLASS_DATE_UNAVAILABLE = 'date-unavailable';
+      var CLASS_DATE_PARTIALLY_AVAILABLE = 'date-partially-available';
 
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
       var resizeUnbindHandler;
@@ -59,6 +61,436 @@ angular.module('mobiusApp.directives.datepicker', [])
           event.stopPropagation();
         });
       });
+
+      scope.availabilityOverview = [
+        {
+          'date': '2016-11-01',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-02',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-03',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-04',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-05',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-06',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-07',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-08',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-09',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-10',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-11',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-12',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-13',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-14',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-15',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-16',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-17',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-18',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-19',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-20',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 173.75,
+          'description': ''
+        },
+        {
+          'date': '2016-11-21',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-22',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-23',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-24',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-25',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-26',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-27',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-28',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-29',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-11-30',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-12-01',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-12-02',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-12-03',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-12-04',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-12-05',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-12-06',
+          'available': false,
+          'fullyAvailable': false,
+          'priceFrom': null,
+          'description': ''
+        },
+        {
+          'date': '2016-12-07',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-08',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-09',
+          'available': true,
+          'fullyAvailable': false,
+          'priceFrom': 121.63,
+          'description': 'Minimum 3 Night stay if arriving on this day'
+        },
+        {
+          'date': '2016-12-10',
+          'available': true,
+          'fullyAvailable': false,
+          'priceFrom': 121.63,
+          'description': 'Minimum 3 Night stay if arriving on this day'
+        },
+        {
+          'date': '2016-12-11',
+          'available': true,
+          'fullyAvailable': false,
+          'priceFrom': 121.63,
+          'description': 'Minimum 3 Night stay if arriving on this day'
+        },
+        {
+          'date': '2016-12-12',
+          'available': true,
+          'fullyAvailable': false,
+          'priceFrom': 121.63,
+          'description': 'Minimum 3 Night stay if arriving on this day'
+        },
+        {
+          'date': '2016-12-13',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-14',
+          'available': true,
+          'fullyAvailable': false,
+          'priceFrom': 121.63,
+          'description': 'Number of occupants must be exactly 5'
+        },
+        {
+          'date': '2016-12-15',
+          'available': true,
+          'fullyAvailable': false,
+          'priceFrom': 121.63,
+          'description': 'Number of occupants must be exactly 5'
+        },
+        {
+          'date': '2016-12-16',
+          'available': true,
+          'fullyAvailable': false,
+          'priceFrom': 121.63,
+          'description': 'Number of occupants must be exactly 5'
+        },
+        {
+          'date': '2016-12-17',
+          'available': true,
+          'fullyAvailable': false,
+          'priceFrom': 121.63,
+          'description': 'Number of occupants must be exactly 5'
+        },
+        {
+          'date': '2016-12-18',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-19',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-20',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-21',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-22',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-23',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-24',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-25',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-26',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-27',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-28',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-29',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-30',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 121.63,
+          'description': ''
+        },
+        {
+          'date': '2016-12-31',
+          'available': true,
+          'fullyAvailable': true,
+          'priceFrom': 169.76,
+          'description': ''
+        }
+      ];
 
 
       /**
@@ -131,16 +563,31 @@ angular.module('mobiusApp.directives.datepicker', [])
           duration: 0,
 
           beforeShowDay: function ( date ) {
+            var formattedDate = $window.moment(date).format('YYYY-MM-DD');
+            var dayAvailability = _.find(scope.availabilityOverview, function(availability){
+              return availability.date === formattedDate;
+            });
 
             $rootScope.$broadcast('DATE_PICKER_BEFORE_SHOW_DAY', date);
 
-            return [
-              !isSelected(date),
-              getDateClass( date )
-            ];
+            if(dayAvailability)
+            {
+              return [
+                !isSelected(date),
+                getDateClass(date, dayAvailability),
+                $filter('i18nCurrency')(dayAvailability.priceFrom, $rootScope.currencyCode)
+              ];
+            }
+            else {
+              return [
+                !isSelected(date),
+                getDateClass(date)
+              ];
+            }
           },
           onChangeMonthYear:function(y, m, i){
             $timeout(function(){
+              console.log('month changed');
               $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
             });
           },
@@ -292,11 +739,21 @@ angular.module('mobiusApp.directives.datepicker', [])
         return true;
       }
 
-      function getDateClass( date ) {
+      function getDateClass(date, dayAvailability) {
         var dateTime = date.getTime();
 
         // Classes to be appended to an element which represents the date
         var highlightClasses = '';
+        var availabilityClasses = '';
+
+        if(dayAvailability) {
+          if(!dayAvailability.available) {
+            availabilityClasses = ' ' + CLASS_DATE_UNAVAILABLE;
+          }
+          else if(!dayAvailability.fullyAvailable) {
+            availabilityClasses = ' ' + CLASS_DATE_PARTIALLY_AVAILABLE;
+          }
+        }
 
         if(scope.highlights){
           // Formating the date so we can find it in highlights object
@@ -307,13 +764,13 @@ angular.module('mobiusApp.directives.datepicker', [])
         }
 
         if(dateTime === startDate) {
-          return CLASS_RANGE_START + highlightClasses;
+          return CLASS_RANGE_START + highlightClasses + availabilityClasses;
         }else if(dateTime === endDate) {
-          return CLASS_RANGE_END + highlightClasses + (editDateRangeInProgress ? ' ' + CLASS_EDIT_RANGE : '');
+          return CLASS_RANGE_END + highlightClasses + availabilityClasses + (editDateRangeInProgress ? ' ' + CLASS_EDIT_RANGE : '');
         }
 
         return ((dateTime > Math.min(startDate, endDate) &&
-           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED + highlightClasses: highlightClasses);
+           dateTime < Math.max(startDate, endDate))?CLASS_DATE_SELECTED + highlightClasses + availabilityClasses: highlightClasses + availabilityClasses);
       }
 
       var unWatchHiglights = scope.$watch('highlights', function(){
