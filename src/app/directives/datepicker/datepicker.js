@@ -588,7 +588,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
           onChangeMonthYear:function(y, m, i){
             $timeout(function(){
-              //addHoverContent();
+              addHoverContent();
               $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
             });
           },
