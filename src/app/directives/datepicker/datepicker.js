@@ -41,6 +41,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       var hasCounter = Settings.UI.bookingWidget.datePickerHasCounter;
       var counterHasDates = Settings.UI.bookingWidget.datePickerCounterIncludeDates;
       var editDateRangeInProgress = false;
+      var datePickerDefaultToToday = Settings.UI.bookingWidget.datePickerDefaultToToday;
 
       var counterPluralizationRules;
       var isStartDateSelected;
@@ -100,6 +101,17 @@ angular.module('mobiusApp.directives.datepicker', [])
 
       // Multi input fields support
       element.bind('focus', function(){
+
+        //If datepicker defaults to today's date and no dates are selected then pre-populate with today's date
+        if(datePickerDefaultToToday && (ngModelCtrl.$modelValue === undefined || ngModelCtrl.$modelValue === ''))
+        {
+          var currentDate = new Date();
+          var today = $window.moment(currentDate).format('YYYY-MM-DD');
+          var tomorrow = $window.moment(currentDate.setDate(currentDate.getDate() + 1)).format('YYYY-MM-DD');
+          var dateString = today + '_' + tomorrow;
+          ngModelCtrl.$modelValue = dateString;
+        }
+
         // For some reason extend widget factory doesnt work for datepicker
         // so I'm overriding the method directly
         if(rangeSelection) {
@@ -117,6 +129,8 @@ angular.module('mobiusApp.directives.datepicker', [])
 
         bindResizeListener();
 
+        var minDate = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').toDate();
+
         //NOTE: for languages to work, you must download the corresponding lang file from https://github.com/jquery/jquery-ui/tree/master/ui/i18n and include it in vendors/jquery-ui/datepicker-translations/ - then update the build.config.js accordingly
         element.datepicker($.extend({}, $.datepicker.regional[stateService.getAppLanguageCode().split('-')[0]], {
           dateFormat: DATE_FORMAT,
@@ -125,7 +139,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           numberOfMonths: stateService.isMobile() ? 1 : Settings.UI.bookingWidget.datePickerNumberOfMonths,
           showOtherMonths: true,
           selectOtherMonths: true,
-          minDate: 0,
+          minDate: minDate,
           closeText: attrs.closeButtonText,
           showAnim: '',
           duration: 0,
