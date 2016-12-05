@@ -306,14 +306,14 @@ angular.module('mobiusApp.directives.datepicker', [])
           'available': false,
           'fullyAvailable': false,
           'priceFrom': null,
-          'description': ''
+          'description': 'Not available on this date'
         },
         {
           'date': '2016-12-06',
           'available': false,
           'fullyAvailable': false,
           'priceFrom': null,
-          'description': ''
+          'description': 'Not available on this date'
         },
         {
           'date': '2016-12-07',
@@ -563,6 +563,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           duration: 0,
 
           beforeShowDay: function ( date ) {
+            console.log('do this');
             var formattedDate = $window.moment(date).format('YYYY-MM-DD');
             var dayAvailability = _.find(scope.availabilityOverview, function(availability){
               return availability.date === formattedDate;
@@ -575,7 +576,7 @@ angular.module('mobiusApp.directives.datepicker', [])
               return [
                 !isSelected(date),
                 getDateClass(date, dayAvailability),
-                $filter('i18nCurrency')(dayAvailability.priceFrom, $rootScope.currencyCode)
+                $filter('i18nCurrency')(dayAvailability.priceFrom, $rootScope.currencyCode, undefined, true)
               ];
             }
             else {
@@ -587,7 +588,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
           onChangeMonthYear:function(y, m, i){
             $timeout(function(){
-              console.log('month changed');
+              addHoverContent();
               $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
             });
           },
@@ -783,6 +784,34 @@ angular.module('mobiusApp.directives.datepicker', [])
         beforeShow();
         setInputText();
       });
+
+      function addHoverContent(){
+        //Add the availability description as an attribute to the calender elements
+        $('.ui-datepicker-calendar tbody tr td > *').each(function(){
+          var el = $(this);
+
+          if(el.parent().attr('data-year') && el.parent().attr('data-month'))
+          {
+            var year = el.parent().attr('data-year');
+            var month = parseInt(el.parent().attr('data-month')) + 1;
+            var day = el.context.textContent;
+
+            if(day.length === 1)
+            {
+              day = '0' + day;
+            }
+
+            var formattedDate = year + '-' + month + '-' + day;
+            var dayAvailability = _.find(scope.availabilityOverview, function(availability){
+              return availability.date === formattedDate;
+            });
+
+            if(dayAvailability && dayAvailability.description) {
+              el.attr('data-tooltip', dayAvailability.description);
+            }
+          }
+        });
+      }
 
       function bindResizeListener(){
         unbindResizeListener();

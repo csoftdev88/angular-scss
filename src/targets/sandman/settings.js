@@ -592,7 +592,9 @@ angular.module('mobiusApp.config', [])
       'CAD': {
         'code': 'CAD',
         'symbol': 'CAD',
-        'format': '{{amount}} {{symbol}}'
+        'format': '{{amount}} {{symbol}}',
+        'shortSymbol': '$',
+        'shortFormat': '{{symbol}}{{amount}}',
       }
     },
 

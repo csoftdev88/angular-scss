@@ -87,6 +87,51 @@
         text-decoration: none;
         font-weight: 300;
       }
+
+      a[data-tooltip] {
+      	position: relative;
+      	text-decoration: none;
+      }
+      a[data-tooltip]:after {
+      	content: attr(data-tooltip);
+      	position: absolute;
+      	bottom: 105%;
+      	left: -70px;
+      	background: #f4b458;
+        box-sizing:border-box;
+      	padding: 10px 15px;
+      	color: white;
+        font-size:14px;
+        line-height:18px;
+      	-webkit-border-radius: 5px;
+      	-moz-border-radius: 5px;
+      	-ms-border-radius: 5px;
+      	-o-border-radius: 5px;
+      	border-radius: 5px;
+      	opacity: 0;
+        z-index:9999;
+      }
+      a[data-tooltip]:before {
+      	content: "";
+      	position: absolute;
+      	width: 0;
+      	height: 0;
+      	border-top: 20px solid #f4b458;
+      	border-left: 20px solid transparent;
+      	border-right: 20px solid transparent;
+      	opacity: 0;
+      	left: -10px;
+      	bottom: 85%;
+        z-index:9999;
+      }
+      &:hover a[data-tooltip]:after {
+        width:160px;
+      }
+      &:hover a[data-tooltip]:after,
+      &:hover a[data-tooltip]:before {
+      	opacity: 1;
+      }
+
       // Highlighting today's day
       &.ui-datepicker-today a {
         font-weight:600;
