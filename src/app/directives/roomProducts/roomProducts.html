@@ -1,5 +1,5 @@
 <div class="preloader" ng-show="products === undefined"></div>
-<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" ota-expedia-message="'_ota_expedia_message_'" ota-tripadvisor-message="'_ota_tripadvisor_message_'" ota-booking-com-message="'_ota_booking_com_message_'" currency-code="currencyCode"></room-ota-products>
+<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" currency-code="currencyCode"></room-ota-products>
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
   <li ng-class="{'is-highlighted': product.highlighted || ($first && !product.memberOnly && settings.highlightFirstRate), 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && settings.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-repeat="product in products | limitTo: getRatesLimit()">
@@ -81,7 +81,7 @@
     </p>
   </li>
 </ul>
-<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" ota-expedia-message="'_ota_expedia_message_'" ota-tripadvisor-message="'_ota_tripadvisor_message_'" ota-booking-com-message="'_ota_booking_com_message_'" currency-code="currencyCode"></room-ota-products>
+<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" currency-code="currencyCode"></room-ota-products>
 
 <!-- VIEW MORE RATES -->
 <div class="view-more-rates">

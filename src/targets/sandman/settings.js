@@ -1032,6 +1032,10 @@ angular.module('mobiusApp.config', [])
       {
         'name': 'bookingcom',
         'logo': '/static/images/bookingcom_logo.png'
+      },
+      {
+        'name': 'priceline',
+        'logo': '/static/images/priceline_logo.png'
       }
     ]
   }
