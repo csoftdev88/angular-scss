@@ -94,7 +94,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           }
         }
         else {
-          getAvailability('2016', '12', null);
+          getAvailability();
         }
 
         if (hasCounter) {
@@ -164,11 +164,9 @@ angular.module('mobiusApp.directives.datepicker', [])
             console.log('change month');
             $timeout(function(){
               if(scope.barData.property && scope.barData.property.code){
-                getAvailability(y, m, i);
+                getAvailability(y, m);
               }
-              else {
-                $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
-              }
+              $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
             });
           },
 
@@ -391,15 +389,24 @@ angular.module('mobiusApp.directives.datepicker', [])
         });
       }
 
-      function getAvailability(y, m, i){
+      function getAvailability(y, m){
         //var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
         //var fromDate = $window.moment(dates[0]).format('YYYY-MM-DD');
         //var toDate = dates.length === 2 ? $window.moment(dates[1]).format('YYYY-MM-DD') : fromDate;
         console.log('get availability');
+        var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').format('YYYY-MM-DD');
+
+        if(y === null || m === null)
+        {
+          y = today.format('YYYY');
+          m = today.format('MM');
+        }
+
         var startDate = $window.moment([y, m]).add(-1,'month').format('YYYY-MM-DD');
         var endDate = $window.moment(startDate).endOf('month').format('YYYY-MM-DD');
         console.log(startDate);
         console.log(endDate);
+        console.log(today);
 
         var bookingParams = {
           from:startDate,
@@ -423,7 +430,6 @@ angular.module('mobiusApp.directives.datepicker', [])
           scope.availabilityOverview = data;
           element.datepicker('refresh');
           addHoverContent();
-          $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
         });
       }
 
