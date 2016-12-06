@@ -563,7 +563,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           duration: 0,
 
           beforeShowDay: function ( date ) {
-            console.log('do this');
+            console.log('before showing day');
             var formattedDate = $window.moment(date).format('YYYY-MM-DD');
             var dayAvailability = _.find(scope.availabilityOverview, function(availability){
               return availability.date === formattedDate;
@@ -588,7 +588,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
           onChangeMonthYear:function(y, m, i){
             $timeout(function(){
-              addHoverContent();
+              //addHoverContent();
               $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
             });
           },
@@ -668,7 +668,6 @@ angular.module('mobiusApp.directives.datepicker', [])
             updateButtonPane('data-title', scope.paneTitle);
 
             isStartDateSelected = !isStartDateSelected;
-
           }
         })).datepicker('show');
       });
