@@ -156,6 +156,7 @@ angular.module('mobiusApp.config', [])
       'all': 'properties',
       'details': 'properties/:propertyCode',
       'availability': 'properties/:propertyCode/availabilities',
+      'availabilityOverview': 'properties/:propertyCode/availabilityOverview',
       'room': {
         'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
@@ -596,7 +597,9 @@ angular.module('mobiusApp.config', [])
       'CAD': {
         'code': 'CAD',
         'symbol': 'CAD',
-        'format': '{{amount}} {{symbol}}'
+        'format': '{{amount}} {{symbol}}',
+        'shortSymbol': '$',
+        'shortFormat': '{{symbol}}{{amount}}',
       }
     },
 
@@ -707,6 +710,9 @@ angular.module('mobiusApp.config', [])
       },
       'defaultAdultCount': 2,
       'maxRooms': 4,
+      'availabilityOverview': {
+        'display':false
+      },
       'availability': {
         // Date range modification rules
         'from': {
