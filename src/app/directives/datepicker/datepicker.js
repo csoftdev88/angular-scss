@@ -80,6 +80,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       function beforeShow() {
         // NOTE: using setHours(0) is safe for different timezones. By default
         // jquery date picker returns dates at 00 hour
+        console.log('before show');
 
         if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
           // TODO: use $parsers/$formates in case when dates should be presented not
@@ -91,6 +92,9 @@ angular.module('mobiusApp.directives.datepicker', [])
             var parsedDate = $.datepicker.parseDate(DATE_FORMAT, dates[0]);
             $(element).datepicker('setDate', parsedDate);
           }
+        }
+        else {
+          getAvailability('2016', '12', null);
         }
 
         if (hasCounter) {
