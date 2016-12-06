@@ -16,7 +16,8 @@ angular.module('mobiusApp.directives.datepicker', [])
       inputText: '=',
       paneTitle: '=',
       selected: '=',
-      barData:'='
+      barData:'=',
+      notAvailableDescription:'='
     },
     link: function(scope, element, attrs, ngModelCtrl) {
       var DATE_FORMAT = 'yy-mm-dd';
@@ -406,7 +407,8 @@ angular.module('mobiusApp.directives.datepicker', [])
             }
           }
           else if(el.parent().hasClass('ui-datepicker-unselectable') && !el.parent().hasClass('ui-datepicker-current-day') && !el.parent().hasClass('date-partially-available')){
-            el.attr('data-tooltip', 'Sorry not available');
+            console.log(scope.notAvailableDescription);
+            el.attr('data-tooltip', scope.notAvailableDescription);
           }
         });
       }
