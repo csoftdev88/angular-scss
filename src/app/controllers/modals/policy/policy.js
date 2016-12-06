@@ -29,7 +29,7 @@ angular.module('mobius.controllers.modals.policy', [])
           };
         var result;
         if (Settings.UI.policies[policyCode]){
-          result=Settings.UI.policies[policyCode];
+          result=Settings.UI.policies[policyCode].title;
         } else if (policyCodes[policyCode]){
           result=policyCodes[policyCode];
         } else {

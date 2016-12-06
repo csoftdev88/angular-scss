@@ -113,11 +113,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       _.each(scopeData.allRooms, function(roomData, index) {
 
         var roomPolicies = [];
-        _.each(roomData._selectedProduct.policies, function(val, key) {
-          var policy = {
-            'type': key
+        _.each(roomData._selectedProduct.policies, function(policy) {
+          var policyObj = {
+            'type':policy.type,
+            'value':policy.value
           };
-          roomPolicies.push(policy);
+          roomPolicies.push(policyObj);
         });
 
         var localeData = propertyData.locale.split('-');
@@ -222,7 +223,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function buildSearchData(chainData, propertyData, stateParams, order, products, room, selectedRate, countries, titles) {
-      var bookedDate = stateParams.dates.split('_');
+      var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
       var fromDate = null;
       var toDate = null;
       if (bookedDate.length) {
@@ -281,11 +282,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       _.each(products, function(product) {
 
         var productPolicies = [];
-        _.each(product.policies, function(val, key) {
-          var policy = {
-            'type': key
+        _.each(product.policies, function(policy) {
+          var policyObj = {
+            'type':policy.type,
+            'value':policy.value
           };
-          productPolicies.push(policy);
+          productPolicies.push(policyObj);
         });
 
         var nights = [];
