@@ -81,7 +81,6 @@ angular.module('mobiusApp.directives.datepicker', [])
       function beforeShow() {
         // NOTE: using setHours(0) is safe for different timezones. By default
         // jquery date picker returns dates at 00 hour
-        console.log('before show');
 
         if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
           // TODO: use $parsers/$formates in case when dates should be presented not
@@ -162,7 +161,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             if(dayAvailability)
             {
               return [
-                !isSelected(date),
+                !isSelected(date) && dayAvailability.available,
                 getDateClass(date, dayAvailability),
                 $filter('i18nCurrency')(dayAvailability.priceFrom, $rootScope.currencyCode, undefined, true)
               ];
@@ -175,7 +174,6 @@ angular.module('mobiusApp.directives.datepicker', [])
             }
           },
           onChangeMonthYear:function(y, m, i){
-            console.log('change month');
             $timeout(function(){
               if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
                 getAvailability(y, m);
@@ -404,10 +402,11 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       function getAvailability(y, m){
-        //var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
-        //var fromDate = $window.moment(dates[0]).format('YYYY-MM-DD');
-        //var toDate = dates.length === 2 ? $window.moment(dates[1]).format('YYYY-MM-DD') : fromDate;
-        console.log('get availability');
+        if (hasCounter) {
+          updateButtonPane('data-counter', getCounterText());
+        }
+        updateButtonPane('data-title', scope.paneTitle);
+
         var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
 
         if(!y || !m)
@@ -423,9 +422,6 @@ angular.module('mobiusApp.directives.datepicker', [])
         }
         startDate = startDate.format('YYYY-MM-DD');
         var endDate = $window.moment(startDate).add(stateService.isMobile() ? 2 : 3,'month').endOf('month').format('YYYY-MM-DD');
-
-        console.log(startDate);
-        console.log(endDate);
 
         var bookingParams = {
           from:startDate,
@@ -445,10 +441,16 @@ angular.module('mobiusApp.directives.datepicker', [])
         if(scope.barData.corpCode){
           bookingParams.corpCode= scope.barData.corpCode;
         }
+        $('#ui-datepicker-div').addClass('dates-loading');
         propertyService.getAvailabilityOverview(scope.barData.property.code, bookingParams).then(function(data){
           scope.availabilityOverview = data;
+          $('#ui-datepicker-div').removeClass('dates-loading');
           element.datepicker('refresh');
           addHoverContent();
+          if (hasCounter) {
+            updateButtonPane('data-counter', getCounterText());
+          }
+          updateButtonPane('data-title', scope.paneTitle);
         });
       }
 

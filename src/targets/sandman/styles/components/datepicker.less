@@ -24,7 +24,7 @@
     //Add to second datepicker, create a border without messing up width dimensions
     + .ui-datepicker-group {
       .ui-datepicker-calendar {
-        box-shadow: -1px 1px 0 #363636;
+        box-shadow: -1px 0 0 #363636;
       }
     }
   }
@@ -41,13 +41,20 @@
   .viewport-mobile & {
     width: 100% !important;
   }
+  &.dates-loading {
+    background-image: url('@{img-prefix}/ota-preloader.gif');
+    background-repeat:no-repeat;
+    background-size:20px 20px;
+    background-position:bottom 17px left 16px
+
+  }
 }
 //- Calendar Table
 
 .ui-datepicker-calendar {
   margin: @baseline/2 0 0;
   width: 100%;
-  height: 275px;
+  height: 342px;
 
   .viewport-mobile & {
     width: auto;
@@ -200,6 +207,9 @@
           color: white;
         }
       }
+      &.ui-datepicker-unselectable {
+        color: @c-datepicker-unavailable;
+      }
       // Day is not available
       &.date-not-available {
         background-color: #ed1c24;
@@ -291,7 +301,7 @@
 //- Bottom Control Panel
 
 .ui-datepicker-buttonpane {
-  background-color: @c-datepicker;
+  background:transparent;
   height: 35px;
   line-height: 35px;
   clear: left;
@@ -341,6 +351,9 @@
   // Hide today button
   .ui-datepicker-current {
     display: none;
+  }
+  .dates-loading & {
+    padding-left:48px;
   }
 }
 
