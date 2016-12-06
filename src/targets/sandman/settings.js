@@ -101,6 +101,7 @@ angular.module('mobiusApp.config', [])
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
     'chainCode': 'SAND',
+    'trackUsage': true,
     'baseURL': {
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
@@ -682,6 +683,7 @@ angular.module('mobiusApp.config', [])
       "displayPropertiesMegamenu": true,
       'hasMutiroomTab': true,
       'hasRatesSelection': true,
+      'timezone':'America/Vancouver',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
         'enable': true,
@@ -1033,6 +1035,10 @@ angular.module('mobiusApp.config', [])
       {
         'name': 'bookingcom',
         'logo': '/static/images/bookingcom_logo.png'
+      },
+      {
+        'name': 'priceline',
+        'logo': '/static/images/priceline_logo.png'
       }
     ]
   }
