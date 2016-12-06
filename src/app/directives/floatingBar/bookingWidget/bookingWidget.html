@@ -55,7 +55,8 @@
             data-counter-dates="{'0': '_arrival_: {date}', '1': '_departure_: {date}'}"
             data-force-end-date="true"
             input-text="inputDateText"
-            ng-change="checkAvailability()">
+            ng-change="checkAvailability()"
+            bar-data="selected">
     <form-label>_enter_your_dates_</form-label>
     <input-value>{{inputDateText || '_dates_'}}</input-value>
   </form-element>
