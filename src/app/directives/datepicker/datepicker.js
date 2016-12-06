@@ -157,34 +157,10 @@ angular.module('mobiusApp.directives.datepicker', [])
             }
           },
           onChangeMonthYear:function(y, m, i){
+            console.log('change month');
             $timeout(function(){
               if(scope.barData.property && scope.barData.property.code){
-                var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
-                var fromDate = $window.moment(dates[0]).format('YYYY-MM-DD');
-                var toDate = dates.length === 2 ? $window.moment(dates[1]).format('YYYY-MM-DD') : fromDate;
-                var bookingParams = {
-                  from:fromDate,
-                  to:toDate,
-                  adults:scope.barData.adults.value,
-                  children:scope.barData.children.value
-                };
-                if(scope.barData.rate){
-                  bookingParams.productGroupId = scope.barData.rate;
-                }
-                if(scope.barData.promoCode){
-                  bookingParams.promoCode= scope.barData.promoCode;
-                }
-                if(scope.barData.groupCode){
-                  bookingParams.groupCode= scope.barData.groupCode;
-                }
-                if(scope.barData.corpCode){
-                  bookingParams.corpCode= scope.barData.corpCode;
-                }
-                propertyService.getAvailabilityOverview(scope.barData.property.code, bookingParams).then(function(data){
-                  scope.availabilityOverview = data;
-                  addHoverContent();
-                  $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
-                });
+                getAvailability(y, m, i);
               }
               else {
                 $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
@@ -408,6 +384,42 @@ angular.module('mobiusApp.directives.datepicker', [])
               el.attr('data-tooltip', dayAvailability.description);
             }
           }
+        });
+      }
+
+      function getAvailability(y, m, i){
+        //var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
+        //var fromDate = $window.moment(dates[0]).format('YYYY-MM-DD');
+        //var toDate = dates.length === 2 ? $window.moment(dates[1]).format('YYYY-MM-DD') : fromDate;
+        console.log('get availability');
+        var startDate = $window.moment([y, m]).add(-1,'month').format('YYYY-MM-DD');
+        var endDate = $window.moment(startDate).endOf('month').format('YYYY-MM-DD');
+        console.log(startDate);
+        console.log(endDate);
+
+        var bookingParams = {
+          from:startDate,
+          to:endDate,
+          adults:scope.barData.adults.value,
+          children:scope.barData.children.value
+        };
+        if(scope.barData.rate){
+          bookingParams.productGroupId = scope.barData.rate;
+        }
+        if(scope.barData.promoCode){
+          bookingParams.promoCode= scope.barData.promoCode;
+        }
+        if(scope.barData.groupCode){
+          bookingParams.groupCode= scope.barData.groupCode;
+        }
+        if(scope.barData.corpCode){
+          bookingParams.corpCode= scope.barData.corpCode;
+        }
+        propertyService.getAvailabilityOverview(scope.barData.property.code, bookingParams).then(function(data){
+          scope.availabilityOverview = data;
+          element.datepicker('refresh');
+          addHoverContent();
+          $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
         });
       }
 
