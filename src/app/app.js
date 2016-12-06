@@ -659,9 +659,7 @@ angular
 
       if(dates.length){
 
-        var todayUtc = new Date().toJSON().slice(0,10);
-
-        var today = parseInt($window.moment(todayUtc).valueOf());
+        var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
         var fromDate = parseInt($window.moment(dates[0]).valueOf());
         var toDate = parseInt($window.moment(dates[1]).valueOf());
 
@@ -670,7 +668,7 @@ angular
           console.log('This date is in the past, removed from booking parameters');
           console.log('From Date: ' + dates[0]);
           console.log('To Date: ' + dates[1]);
-          console.log('Today: ' + todayUtc);
+          console.log('Today: ' + today);
           toParams.dates = undefined;
         }
       }
