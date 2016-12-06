@@ -257,6 +257,13 @@ angular.module('mobiusApp.directives.datepicker', [])
             updateButtonPane('data-title', scope.paneTitle);
 
             isStartDateSelected = !isStartDateSelected;
+            if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
+              $timeout(function(){
+                if(!stateService.isMobile()) {
+                  addHoverContent();
+                }
+              });
+            }
           }
         })).datepicker('show');
       });
@@ -398,6 +405,9 @@ angular.module('mobiusApp.directives.datepicker', [])
               el.attr('data-tooltip', dayAvailability.description);
             }
           }
+          else if(el.parent().hasClass('ui-datepicker-unselectable') && !el.parent().hasClass('ui-datepicker-current-day')){
+            el.attr('data-tooltip', 'Sorry not available');
+          }
         });
       }
 
@@ -446,7 +456,9 @@ angular.module('mobiusApp.directives.datepicker', [])
           scope.availabilityOverview = data;
           $('#ui-datepicker-div').removeClass('dates-loading');
           element.datepicker('refresh');
-          addHoverContent();
+          if(!stateService.isMobile()) {
+            addHoverContent();
+          }
           if (hasCounter) {
             updateButtonPane('data-counter', getCounterText());
           }

@@ -95,12 +95,13 @@
         font-weight: 300;
       }
 
-      a[data-tooltip] {
+      > *[data-tooltip] {
       	//display: inline-block;/*bug fix*/
+        display:block;
       	position: relative;
       	text-decoration: none;
       }
-      a[data-tooltip]:after {
+      > *[data-tooltip]:after {
       	content: attr(data-tooltip);
       	position: absolute;
       	bottom: 105%;
@@ -118,8 +119,11 @@
       	border-radius: 5px;
       	opacity: 0;
         z-index:9999;
+        .viewport-mobile & {
+          display:none;
+        }
       }
-      a[data-tooltip]:before {
+      > *[data-tooltip]:before {
       	content: "";
       	position: absolute;
       	width: 0;
@@ -131,13 +135,22 @@
       	left: 7px;
       	bottom: 85%;
         z-index:9999;
+        .viewport-mobile & {
+          display:none;
+        }
       }
-      &:hover a[data-tooltip]:after {
+      &.ui-datepicker-unselectable > *[data-tooltip]:after {
+        background:#cb0338;
+      }
+      &.ui-datepicker-unselectable > *[data-tooltip]:before {
+        border-top-color:#cb0338;
+      }
+      &:hover > *[data-tooltip]:after {
         width:160px;
         left: -54px;
       }
-      &:hover a[data-tooltip]:after,
-      &:hover a[data-tooltip]:before {
+      &:hover > *[data-tooltip]:after,
+      &:hover > *[data-tooltip]:before {
       	opacity: 1;
       }
 
@@ -295,6 +308,9 @@
         margin: 0 auto;
         width: 100%;
         bottom: -21px;
+        .viewport-mobile & {
+          font-size:9px;
+        }
       }
     }
   }
@@ -355,6 +371,11 @@
   }
   .dates-loading & {
     padding-left:48px;
+    .viewport-mobile & {
+      &:before {
+        left:45px;
+      }
+    }
   }
 }
 
