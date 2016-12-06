@@ -94,7 +94,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             $(element).datepicker('setDate', parsedDate);
           }
         }
-        else {
+        else if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
           getAvailability();
         }
 
@@ -177,7 +177,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           onChangeMonthYear:function(y, m, i){
             console.log('change month');
             $timeout(function(){
-              if(scope.barData.property && scope.barData.property.code){
+              if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
                 getAvailability(y, m);
               }
               $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
@@ -408,19 +408,24 @@ angular.module('mobiusApp.directives.datepicker', [])
         //var fromDate = $window.moment(dates[0]).format('YYYY-MM-DD');
         //var toDate = dates.length === 2 ? $window.moment(dates[1]).format('YYYY-MM-DD') : fromDate;
         console.log('get availability');
-        var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').format('YYYY-MM-DD');
+        var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
 
-        if(y === null || m === null)
+        if(!y || !m)
         {
           y = today.format('YYYY');
           m = today.format('MM');
         }
 
-        var startDate = $window.moment([y, m]).add(-1,'month').format('YYYY-MM-DD');
-        var endDate = $window.moment(startDate).endOf('month').format('YYYY-MM-DD');
+        var startDate = $window.moment([y, m]).add(-1,'month');
+        if(startDate.valueOf() < today.valueOf())
+        {
+          startDate = today;
+        }
+        startDate = startDate.format('YYYY-MM-DD');
+        var endDate = $window.moment(startDate).add(2,'month').endOf('month').format('YYYY-MM-DD');
+
         console.log(startDate);
         console.log(endDate);
-        console.log(today);
 
         var bookingParams = {
           from:startDate,
