@@ -158,32 +158,37 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
           onChangeMonthYear:function(y, m, i){
             $timeout(function(){
-              var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
-              var fromDate = $window.moment(dates[0]).format('YYYY-MM-DD');
-              var toDate = dates.length === 2 ? $window.moment(dates[1]).format('YYYY-MM-DD') : fromDate;
-              var bookingParams = {
-                from:fromDate,
-                to:toDate,
-                adults:scope.barData.adults.value,
-                children:scope.barData.children.value
-              };
-              if(scope.barData.rate){
-                bookingParams.productGroupId = scope.barData.rate;
+              if(scope.barData.property && scope.barData.property.code){
+                var dates = ngModelCtrl.$modelValue.split(DATES_SEPARATOR);
+                var fromDate = $window.moment(dates[0]).format('YYYY-MM-DD');
+                var toDate = dates.length === 2 ? $window.moment(dates[1]).format('YYYY-MM-DD') : fromDate;
+                var bookingParams = {
+                  from:fromDate,
+                  to:toDate,
+                  adults:scope.barData.adults.value,
+                  children:scope.barData.children.value
+                };
+                if(scope.barData.rate){
+                  bookingParams.productGroupId = scope.barData.rate;
+                }
+                if(scope.barData.promoCode){
+                  bookingParams.promoCode= scope.barData.promoCode;
+                }
+                if(scope.barData.groupCode){
+                  bookingParams.groupCode= scope.barData.groupCode;
+                }
+                if(scope.barData.corpCode){
+                  bookingParams.corpCode= scope.barData.corpCode;
+                }
+                propertyService.getAvailabilityOverview(scope.barData.property.code, bookingParams).then(function(data){
+                  scope.availabilityOverview = data;
+                  addHoverContent();
+                  $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
+                });
               }
-              if(scope.barData.promoCode){
-                bookingParams.promoCode= scope.barData.promoCode;
-              }
-              if(scope.barData.groupCode){
-                bookingParams.groupCode= scope.barData.groupCode;
-              }
-              if(scope.barData.corpCode){
-                bookingParams.corpCode= scope.barData.corpCode;
-              }
-              propertyService.getAvailabilityOverview($stateParams.property, bookingParams).then(function(data){
-                scope.availabilityOverview = data;
-                addHoverContent();
+              else {
                 $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
-              });
+              }
             });
           },
 
