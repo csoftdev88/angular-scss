@@ -416,13 +416,13 @@ angular.module('mobiusApp.directives.datepicker', [])
           m = today.format('MM');
         }
 
-        var startDate = $window.moment([y, m]).add(-1,'month');
+        var startDate = $window.moment([y, m]).add(-2,'month');
         if(startDate.valueOf() < today.valueOf())
         {
           startDate = today;
         }
         startDate = startDate.format('YYYY-MM-DD');
-        var endDate = $window.moment(startDate).add(2,'month').endOf('month').format('YYYY-MM-DD');
+        var endDate = $window.moment(startDate).add(stateService.isMobile() ? 2 : 3,'month').endOf('month').format('YYYY-MM-DD');
 
         console.log(startDate);
         console.log(endDate);
