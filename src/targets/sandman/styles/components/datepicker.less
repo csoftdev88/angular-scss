@@ -132,7 +132,7 @@
       	border-left: 20px solid transparent;
       	border-right: 20px solid transparent;
       	opacity: 0;
-      	left: 7px;
+      	left: -5000px;
       	bottom: 85%;
         z-index:9999;
         .viewport-mobile & {
@@ -145,6 +145,9 @@
       &.ui-datepicker-unselectable > *[data-tooltip]:before {
         border-top-color:#cb0338;
       }
+      &:hover > *[data-tooltip]:before{
+        left: 7px;
+      }
       &:hover > *[data-tooltip]:after {
         width:160px;
         left: -54px;
@@ -152,6 +155,16 @@
       &:hover > *[data-tooltip]:after,
       &:hover > *[data-tooltip]:before {
       	opacity: 1;
+      }
+      &.date-range-start, &.date-range-end {
+        &:hover > *[data-tooltip] {
+          &:before  {
+            left:-4px;
+          }
+          &:after {
+            left:-68px;
+          }
+        }
       }
 
       // Highlighting today's day
