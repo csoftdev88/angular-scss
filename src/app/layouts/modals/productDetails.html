@@ -74,9 +74,10 @@
         <accordion close-others="false">
           <accordion-group is-open="true">
             <ul>
-              <li ng-repeat="(policyCode, value) in data.product.policies">
-                <h3>{{getPolicyTitle(policyCode)}}:</h3>
-                <p ng-bind-html="sanitize(value)"></p>
+              <li ng-repeat="policy in data.product.policies">
+                <h3>{{getPolicyTitle(policy.type)}}:</h3>
+                <p ng-bind-html="sanitize(policy.description)"></p>
+              </li>
             </ul>
           </accordion-group>
         </accordion>
@@ -181,9 +182,9 @@
           <accordion close-others="false">
             <accordion-group is-open="true">
               <ul>
-                <li ng-repeat="(policyCode, value) in data.product.policies">
-                  <h3>{{getPolicyTitle(policyCode)}}:</h3>
-                  <p ng-bind-html="sanitize(value)"></p>
+                <li ng-repeat="policy in data.product.policies">
+                  <h3>{{getPolicyTitle(policy.type)}}:</h3>
+                  <p ng-bind-html="sanitize(policy.description)"></p>
                 </li>
               </ul>
             </accordion-group>
