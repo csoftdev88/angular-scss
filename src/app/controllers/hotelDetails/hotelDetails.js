@@ -33,6 +33,9 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
 
+  $rootScope.flexibleDates = !$rootScope.flexibleDates ? 3 : $rootScope.flexibleDates;
+  $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable ? true : false;
+
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
     if (value === true) {
@@ -91,7 +94,20 @@ angular.module('mobius.controllers.hotel.details', [
       }, 0);
     }
 
-
+    /*<select
+      name="sorting"
+      ng-model="currentOrder"
+      disable-search="true"
+      chosen
+      ng-options="option.name for option in sortingOptions"
+      placeholder-text-single="_sorting_filter_placeholder_"
+      ng-change="orderSwitchChange(currentOrder)"
+      ng-init="initSortingOptions({
+        'priceLowToHigh': '_price_low_to_high_',
+        'priceHighToLow': '_price_high_to_low_',
+        'recommended': '_recommended_'
+      })">
+    </select>*/
 
     //save order switch value to cookies when changed
     $scope.orderSwitchChange = function(selected) {
@@ -100,6 +116,43 @@ angular.module('mobius.controllers.hotel.details', [
 
   };
 
+  if($scope.showFlexibleDates){
+
+    $scope.flexibleDates = [];
+
+    var dates = $stateParams.dates.split('_');
+    var fromDate = dates[0];
+    var toDate = dates[1];
+
+    var startFromDate = $window.moment(fromDate).add((-1 * $rootScope.flexibleDates), 'day');
+    var startToDate = $window.moment(toDate).add((-1 * $rootScope.flexibleDates), 'day');
+
+    for(var i = 0; i < (($rootScope.flexibleDates * 2) + 1); i++)
+    {
+      var flexiDate = {
+        'value':startFromDate.format('YYYY-MM-DD') + '_' + startToDate.format('YYYY-MM-DD'),
+        'name':startFromDate.format('DD MMM YYYY') + ' - ' + startToDate.format('DD MMM YYYY')
+      };
+      $scope.flexibleDates.push(flexiDate);
+      startFromDate = $window.moment(startFromDate).add(1, 'day');
+      startToDate = $window.moment(startToDate).add(1, 'day');
+    }
+
+    $scope.flexibleDate = $scope.flexibleDates[$rootScope.flexibleDates];
+
+    $scope.flexibleDatesChange = function(flexibleDate){
+      $scope.flexibleDate = flexibleDate;
+      var params = $state.params;
+      params.dates = flexibleDate.value;
+      $state.go($state.current.name, params, {reload: false});
+      bookingParams.from = params.dates.split('_')[0];
+      bookingParams.to = params.dates.split('_')[1];
+      getHotelDetails($state.params.property, bookingParams);
+      $timeout(function() {
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', bookingParams);
+      });
+    };
+  }
 
   var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
 

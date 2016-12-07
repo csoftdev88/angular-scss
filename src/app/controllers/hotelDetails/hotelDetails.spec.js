@@ -164,6 +164,11 @@ describe('mobius.controllers.hotel.details', function() {
                 toState: 'propertyHotDeals'
               }
             },
+            bookingWidget: {
+              flexibleDates: {
+                enable:true
+              }
+            },
             viewsSettings: {
               hotelDetails: {
                 hasViewMore: false
