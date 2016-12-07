@@ -98,6 +98,7 @@ angular.module('mobiusApp.config', [])
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
     'chainCode': 'SAN',
+    'trackUsage': true,
     'baseURL': {
       'development': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
@@ -766,6 +767,7 @@ angular.module('mobiusApp.config', [])
       "displayPropertiesMegamenu": false,
       'hasMutiroomTab': true,
       'hasRatesSelection': false,
+      'timezone':'America/Vancouver',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
         'enable': true,
@@ -977,13 +979,34 @@ angular.module('mobiusApp.config', [])
 
     // Policy codes from the API and their title translates
     'policies': {
-      'cancellation': 'Cancellation',
-      'checkInOut': 'Check-In-Out',
-      'extraGuest': 'Extra Guest',
-      'family': 'Family',
-      'guarantee': 'Guarantee',
-      'noShow': 'No Show',
-      'pet': 'Pets'
+      'cancellation': {
+        'title':'Cancellation',
+        'code':'24HR'
+      },
+      'checkInOut': {
+        'title':'Check-In-Out',
+        'code':'10AM4PM'
+      },
+      'extraGuest': {
+        'title':'Extra Guest',
+        'code':'20CADMORE'
+      },
+      'family': {
+        'title':'Family',
+        'code':'DEFAULT'
+      },
+      'guarantee': {
+        'title':'Guarantee',
+        'code':'CCGOVID'
+      },
+      'noShow': {
+        'title':'No Show',
+        'code':'DEFAULT'
+      },
+      'pet': {
+        'title':'Pet',
+        'code':'DEFAULT'
+      }
     },
     'defaultCountryCode': 'ca',
     'preferredCountryCodes': 'ca,us,gb',

@@ -30,7 +30,7 @@ angular.module('mobius.controllers.room.details', [])
 
   $scope.openPoliciesInfo = function(products){
     // Tracking product view
-    chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+    /*chainService.getChain(Settings.API.chainCode).then(function(chainData) {
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
         dataLayerService.trackProductsDetailsView(
           products.map(function(p){
@@ -47,7 +47,7 @@ angular.module('mobius.controllers.room.details', [])
             };
           }));
       });
-    });
+    });*/
 
     modalService.openPoliciesInfo(products);
   };
@@ -59,6 +59,14 @@ angular.module('mobius.controllers.room.details', [])
     // Tracking product view
     chainService.getChain(Settings.API.chainCode).then(function(chainData) {
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+        var localeData = propertyData.locale.split('-')[1].trim();
+        var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + $scope.roomDetails.name;
+        var variant = '';
+        if($stateParams.adults && $stateParams.children)
+        {
+          variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+        }
+
         dataLayerService.trackProductsDetailsView([{
           name: product.name,
           id: product.code,
@@ -68,7 +76,8 @@ angular.module('mobius.controllers.room.details', [])
           brand: propertyData.nameLong,
           dimension1: propertyData.nameShort,
           list: 'Room',
-          category: $scope.roomDetails.name
+          category: category,
+          variant: variant
         }]);
       });
     });
@@ -106,6 +115,7 @@ angular.module('mobius.controllers.room.details', [])
         if(!$scope.fromMeta){
           $scope.updateHeroContent($window._.filter(data[0].images, {includeInSlider: true}));
         }
+
         // Tracking products impressions
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
@@ -114,24 +124,36 @@ angular.module('mobius.controllers.room.details', [])
             }
             if(data[1].products){
               //google analytics
-              dataLayerService.trackProductsImpressions(data[1].products.map(function(p){
-                return {
-                  name: p.name,
-                  id: p.code,
-                  price: (p.price.totalBaseAfterPricingRules/numNights).toFixed(2),
-                  quantity: numNights,
-                  dimension2: chainData.nameShort,
-                  brand: propertyData.nameLong,
-                  dimension1: propertyData.nameShort,
-                  list: 'Room',
-                  category: data[0].name
-                };
-              }));
+              var localeData = propertyData.locale.split('-')[1].trim();
+              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + data[0].name;
+              var variant = '';
+              if($stateParams.adults && $stateParams.children)
+              {
+                variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+              }
+
+              if($state.current.name !== 'reservation.details')
+              {
+                dataLayerService.trackProductsDetailsView(data[1].products.map(function(p){
+                  return {
+                    name: p.name,
+                    id: p.code,
+                    price: (p.price.totalBaseAfterPricingRules/numNights).toFixed(2),
+                    quantity: numNights,
+                    dimension2: chainData.nameShort,
+                    brand: propertyData.nameLong,
+                    dimension1: propertyData.nameShort,
+                    list: 'Room',
+                    category: category,
+                    variant: variant
+                  };
+                }));
+              }
               //Mobius tracking
               $scope.$watch('currentOrder', function(order) {
                 if(order && angular.isDefined(order)){
                   //trackSearch(chainData, propertyData, trackingData, scopeData, stateParams, order)
-                  infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0]);
+                  infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0], $scope.rates.selectedRate);
                 }
               });
 

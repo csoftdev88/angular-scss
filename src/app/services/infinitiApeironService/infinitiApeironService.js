@@ -12,20 +12,20 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var password = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].password : null;
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
 
-    function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams) {
+    function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate) {
       if (endpoint) {
-        var postData = buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams);
+        var postData = buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate);
         apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
           console.log('Infiniti apeiron purchase tracking error: ' + angular.toJson(err));
         });
       }
     }
 
-    function trackSearch(chainData, propertyData, stateParams, order, products, room) {
+    function trackSearch(chainData, propertyData, stateParams, order, products, room, selectedRate) {
       if (endpoint) {
         contentService.getCountries().then(function(countries) {
           contentService.getTitles().then(function(titles) {
-            var postData = buildSearchData(chainData, propertyData, stateParams, order, products, room, countries, titles);
+            var postData = buildSearchData(chainData, propertyData, stateParams, order, products, room, selectedRate, countries, titles);
             apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
               console.log('Infiniti apeiron search tracking error: ' + angular.toJson(err));
             });
@@ -74,7 +74,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       return genericInfinitiApeironData;
     }
 
-    function buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams) {
+    function buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate) {
       var infinitiApeironData = buildGenericData(chainData);
       var sessionCookie = sessionDataService.getCookie();
       var bookedDate = stateParams.dates.split('_');
@@ -113,11 +113,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       _.each(scopeData.allRooms, function(roomData, index) {
 
         var roomPolicies = [];
-        _.each(roomData._selectedProduct.policies, function(val, key) {
-          var policy = {
-            'type': key
+        _.each(roomData._selectedProduct.policies, function(policy) {
+          var policyObj = {
+            'type':policy.type,
+            'value':policy.value
           };
-          roomPolicies.push(policy);
+          roomPolicies.push(policyObj);
         });
 
         var localeData = propertyData.locale.split('-');
@@ -210,11 +211,19 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'paymentType': trackingData.paymentInfo.paymentMethod === 'cc' ? trackingData.paymentInfo.ccPayment.typeCode : trackingData.paymentInfo.paymentMethod
       };
 
+      if(selectedRate && selectedRate.code && selectedRate.name)
+      {
+        infinitiApeironData.metaData.rateFilter = {
+          'code':selectedRate.code,
+          'name':selectedRate.name
+        };
+      }
+
       return infinitiApeironData;
     }
 
-    function buildSearchData(chainData, propertyData, stateParams, order, products, room, countries, titles) {
-      var bookedDate = stateParams.dates.split('_');
+    function buildSearchData(chainData, propertyData, stateParams, order, products, room, selectedRate, countries, titles) {
+      var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
       var fromDate = null;
       var toDate = null;
       if (bookedDate.length) {
@@ -222,7 +231,18 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         toDate = bookedDate[1];
       }
       var infinitiApeironData = buildGenericData(chainData);
-      infinitiApeironData.metaData.rateFilter = order.name || '';
+      infinitiApeironData.metaData.rateOrder = order.name || 'default';
+      if(selectedRate && selectedRate.code && selectedRate.name)
+      {
+        infinitiApeironData.metaData.rateFilter = {
+          'code':selectedRate.code,
+          'id':selectedRate.id,
+          'name':selectedRate.name
+        };
+      }
+      else {
+        infinitiApeironData.metaData.rateFilter = 'default';
+      }
       infinitiApeironData.metaData.starRating = propertyData.rating || '';
 
       var sessionCookie = sessionDataService.getCookie();
@@ -262,11 +282,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       _.each(products, function(product) {
 
         var productPolicies = [];
-        _.each(product.policies, function(val, key) {
-          var policy = {
-            'type': key
+        _.each(product.policies, function(policy) {
+          var policyObj = {
+            'type':policy.type,
+            'value':policy.value
           };
-          productPolicies.push(policy);
+          productPolicies.push(policyObj);
         });
 
         var nights = [];

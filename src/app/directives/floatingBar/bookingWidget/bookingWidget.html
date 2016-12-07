@@ -55,7 +55,9 @@
             data-counter-dates="{'0': '_arrival_: {date}', '1': '_departure_: {date}'}"
             data-force-end-date="true"
             input-text="inputDateText"
-            ng-change="checkAvailability()">
+            ng-change="checkAvailability()"
+            bar-data="selected"
+            not-available-description="'_not_available_description_'">
     <form-label>_enter_your_dates_</form-label>
     <input-value>{{inputDateText || '_dates_'}}</input-value>
   </form-element>
@@ -118,7 +120,7 @@
     <select name="rates"
             required ng-model="selected.rate"
             disable-search="true"
-            on-ready="alert('yo')"
+            on-ready=""
             chosen ng-options="rate.id as rate.name for rate in rates"
             placeholder-text-single="_filter_rates_label_">
     </select>

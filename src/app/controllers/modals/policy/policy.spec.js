@@ -17,7 +17,10 @@ describe('mobius.controllers.modals.policy', function() {
         $provide.value('Settings', {
           UI: {
             'policies': {
-              'cancellation': 'Cancellation'
+              'cancellation': {
+                'title':'Cancellation',
+                'code':'24HR'
+              }
             }
           }
         });

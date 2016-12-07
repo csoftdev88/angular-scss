@@ -828,13 +828,34 @@ angular.module('mobiusApp.config', [])
 
     // Policy codes from the API and their title translates
     'policies': {
-      'cancellation': 'Cancellation',
-      'checkInOut': 'Check-In-Out',
-      'extraGuest': 'Extra Guest',
-      'family': 'Family',
-      'guarantee': 'Guarantee',
-      'noShow': 'No Show',
-      'pet': 'Pet'
+      'cancellation': {
+        'title':'Cancellation',
+        'code':'24HR'
+      },
+      'checkInOut': {
+        'title':'Check-In-Out',
+        'code':'10AM4PM'
+      },
+      'extraGuest': {
+        'title':'Extra Guest',
+        'code':'20CADMORE'
+      },
+      'family': {
+        'title':'Family',
+        'code':'DEFAULT'
+      },
+      'guarantee': {
+        'title':'Guarantee',
+        'code':'CCGOVID'
+      },
+      'noShow': {
+        'title':'No Show',
+        'code':'DEFAULT'
+      },
+      'pet': {
+        'title':'Pet',
+        'code':'DEFAULT'
+      }
     },
     'defaultCountryCode': 'ch',
     'preferredCountryCodes': 'ch,ca,us,gb',
