@@ -406,7 +406,7 @@ angular.module('mobiusApp.directives.datepicker', [])
               el.attr('data-tooltip', dayAvailability.description);
             }
           }
-          else if(el.parent().hasClass('ui-datepicker-unselectable') && !el.parent().hasClass('ui-datepicker-current-day') && !el.parent().hasClass('date-partially-available')){
+          else if(el.parent().hasClass('ui-datepicker-unselectable') && !el.parent().hasClass('ui-datepicker-current-day') && !el.parent().hasClass('date-range-end') && !el.parent().hasClass('date-partially-available')){
             el.attr('data-tooltip', scope.notAvailableDescription);
           }
         });
