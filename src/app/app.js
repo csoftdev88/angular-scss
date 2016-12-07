@@ -659,8 +659,8 @@ angular
       if(dates.length){
 
         var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
-        var fromDate = parseInt($window.moment(dates[0]).valueOf());
-        var toDate = parseInt($window.moment(dates[1]).valueOf());
+        var fromDate = parseInt($window.moment.tz(dates[0],Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+        var toDate = parseInt($window.moment.tz(dates[1],Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
 
         if(fromDate < today || toDate < today)
         {
