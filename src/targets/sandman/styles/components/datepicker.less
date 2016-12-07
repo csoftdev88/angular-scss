@@ -66,6 +66,7 @@
       th {
         font-weight: 700;
         color: white;
+        height:22px;
       }
     }
   }
@@ -364,6 +365,22 @@
     white-space: nowrap;
   }
 
+  .flexible-dates-control {
+    margin-right: 120px;
+    font-size: 11px;
+    display: block;
+    font-weight: normal;
+    .viewport-mobile & {
+      display:none;
+    }
+    > span {
+      cursor:pointer;
+      &.selected {
+        color:@c-secondary;
+      }
+    }
+  }
+
   .ui-datepicker-close {
     background: @c-green !important;
     font-size: 14px !important;
@@ -416,5 +433,14 @@
         }
       }
     }
+  }
+}
+
+@-moz-document url-prefix() {
+  .ui-datepicker-calendar tbody td.date-range-end::before, .ui-datepicker-calendar tbody td.date-range-start::before {
+    top:10px;
+  }
+  .ui-datepicker-calendar tbody td[title]::after {
+    bottom:-29px;
   }
 }

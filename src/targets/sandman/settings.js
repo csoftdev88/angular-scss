@@ -713,6 +713,9 @@ angular.module('mobiusApp.config', [])
       'availabilityOverview': {
         'display':true
       },
+      'flexibleDates': {
+        'enable':false
+      },
       'availability': {
         // Date range modification rules
         'from': {
