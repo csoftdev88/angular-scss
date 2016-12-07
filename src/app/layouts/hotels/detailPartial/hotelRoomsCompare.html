@@ -64,13 +64,43 @@
           <a href ng-click="resetCompareRooms()">_show_all_rooms_</a>
         </div>
       </div>
+      <div class="flexible-dates-bar" ng-if="showFlexibleDates">
+        <div class="overview-container">
+          <span class="filter-label">Lowest Price:</span>
+          <div class="overview">
+            <div ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: 1" ng-if="room.priceFrom">
+              {{room.priceFrom | i18nCurrency: $root.currencyCode}}
+            </div>
+            <div>{{flexibleDate.name}}</div>
+          </div>
+        </div>
+        <div class="dates-dropdown-container">
+          <span class="filter-label">Dates:</span>
+          <div class="dates-switch">
+            <select
+              name="flexibleDates"
+              ng-model="flexibleDate"
+              disable-search="true"
+              chosen
+              ng-options="date.name for date in flexibleDates"
+              ng-change="flexibleDatesChange(flexibleDate)">
+            </select>
+          </div>
+        </div>
+        <div class="change-dates-container">
+          <button-submit ng-click="selectDates()">
+            <span ng-if="!hasDates()">_select_dates_</span>
+            <span ng-if="hasDates()">_change_dates_</span>
+          </button-submit>
+        </div>
+      </div>
 
     </header>
 
     <ta-teaser ng-show="!ratesLoaded && isFromSearch && roomsConfig.includeTripAdvisorPreloader"></ta-teaser>
 
     <div class="hotel-detail__rooms" ng-if="roomsViewMode !== 'compare'">
-      <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
+      <list-items class="rooms-list" ng-if="(ratesLoaded || !isFromSearch) && !preloader.visible">
         <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay">
           <header class="item-header desktop">
             <h3>
@@ -169,8 +199,8 @@
       </list-items>
       <h2 ng-if="!rooms.length">_no_room_found_</h2>
     </div>
-
-    <div class="room-list-compare-container" ng-if="roomsViewMode === 'compare'">
+    <div class="preloader" ng-show="preloader.visible"></div>
+    <div class="room-list-compare-container" ng-if="roomsViewMode === 'compare' && !preloader.visible">
       <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch" vertilize-container>
         <list-item ng-repeat="room in compareRooms | filter:{userHidden:false} | filter: roomsDisplayFilter | orderBy : currentOrder.sort | limitTo:(comparisonIndex - ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length)) | limitTo:compareRoomLimit">
           <div class="list-item-container">
