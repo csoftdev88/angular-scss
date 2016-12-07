@@ -66,6 +66,7 @@
       th {
         font-weight: 700;
         color: white;
+        height:22px;
       }
     }
   }
@@ -416,5 +417,14 @@
         }
       }
     }
+  }
+}
+
+@-moz-document url-prefix() {
+  .ui-datepicker-calendar tbody td.date-range-end::before, .ui-datepicker-calendar tbody td.date-range-start::before {
+    top:10px;
+  }
+  .ui-datepicker-calendar tbody td[title]::after {
+    bottom:-29px;
   }
 }
