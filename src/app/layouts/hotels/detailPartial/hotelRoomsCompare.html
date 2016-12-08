@@ -82,8 +82,9 @@
               ng-model="flexibleDate"
               disable-search="true"
               chosen
+              ng-change="flexibleDatesChange(flexibleDate)"
               ng-options="date.name for date in flexibleDates"
-              ng-change="flexibleDatesChange(flexibleDate)">
+              options-disabled="date.disabled for date in flexibleDates">
             </select>
           </div>
         </div>

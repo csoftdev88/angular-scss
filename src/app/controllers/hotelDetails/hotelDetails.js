@@ -143,6 +143,39 @@ angular.module('mobius.controllers.hotel.details', [
     var lengthDifference = datesLength - $scope.flexibleDates.length;
     $scope.flexibleDate = $scope.flexibleDates[$rootScope.flexibleDates - lengthDifference];
 
+    _.each($scope.flexibleDates, function(flexibleDate){
+      var datesArray = flexibleDate.value.split('_');
+      var params = {
+        'from':datesArray[0],
+        'to':datesArray[1],
+        'adults':bookingParams.adults,
+        'children':bookingParams.children
+      };
+      if(bookingParams.rate){
+        params = bookingParams.rate;
+      }
+      if(bookingParams.promoCode){
+        params = bookingParams.promoCode;
+      }
+      if(bookingParams.groupCode){
+        params = bookingParams.groupCode;
+      }
+      if(bookingParams.corpCode){
+        params = bookingParams.corpCode;
+      }
+
+      propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+        var flexiDateAvailable = true;
+        _.each(availabilities, function(availability){
+          if(availability.available === false){
+            flexiDateAvailable = false;
+          }
+        });
+        flexibleDate.disabled = !flexiDateAvailable;
+        $('.dates-dropdown-container .dates-switch select').trigger('chosen:updated');
+      });
+    });
+
     $scope.flexibleDatesChange = function(flexibleDate){
       $scope.flexibleDate = flexibleDate;
       var params = $state.params;
