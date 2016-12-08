@@ -366,8 +366,10 @@
   }
   &.button-added {
     &:before {
-      left: 22px;
-      top: 33%;
+      .viewport-mobile & {
+        left: 22px;
+        top: 33%;
+      }
     }
   }
 

@@ -94,7 +94,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             $(element).datepicker('setDate', parsedDate);
           }
         }
-        else if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
+        if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
           getAvailability();
         }
 
@@ -293,7 +293,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             .datepicker( 'widget' )
             .find( '.ui-datepicker-buttonpane' );
           buttonPane.attr( attribute, value );
-          if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && scope.barData.property.code && !buttonPane.hasClass('button-added'))
+          if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && scope.barData.property && scope.barData.property.code && !buttonPane.hasClass('button-added'))
           {
             buttonPane.append('<span class="flexible-dates-control">Exact Dates | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
             buttonPane.addClass('button-added');
@@ -499,10 +499,6 @@ angular.module('mobiusApp.directives.datepicker', [])
           resizeUnbindHandler = null;
         }
       }
-
-      scope.testClick = function(){
-        console.log('click');
-      };
 
       scope.$on('$destroy', function(){
         unWatchHiglights();
