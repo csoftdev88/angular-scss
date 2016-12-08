@@ -32,7 +32,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
-  $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable ? true : false;
+  $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && $rootScope.flexibleDates ? true : false;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -122,21 +122,26 @@ angular.module('mobius.controllers.hotel.details', [
     var fromDate = dates[0];
     var toDate = dates[1];
 
-    var startFromDate = $window.moment(fromDate).add((-1 * $rootScope.flexibleDates), 'day');
-    var startToDate = $window.moment(toDate).add((-1 * $rootScope.flexibleDates), 'day');
+    var startFromDate = $window.moment.tz(fromDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
+    var startToDate = $window.moment.tz(toDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
+    var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+    var datesLength = ($rootScope.flexibleDates * 2) + 1;
 
-    for(var i = 0; i < (($rootScope.flexibleDates * 2) + 1); i++)
+    for(var i = 0; i < datesLength; i++)
     {
-      var flexiDate = {
-        'value':startFromDate.format('YYYY-MM-DD') + '_' + startToDate.format('YYYY-MM-DD'),
-        'name':startFromDate.format('DD MMM YYYY') + ' - ' + startToDate.format('DD MMM YYYY')
-      };
-      $scope.flexibleDates.push(flexiDate);
+      if(startFromDate >= today && startToDate >= today){
+        var flexiDate = {
+          'value':startFromDate.format('YYYY-MM-DD') + '_' + startToDate.format('YYYY-MM-DD'),
+          'name':startFromDate.format('DD MMM YYYY') + ' - ' + startToDate.format('DD MMM YYYY')
+        };
+        $scope.flexibleDates.push(flexiDate);
+      }
       startFromDate = $window.moment(startFromDate).add(1, 'day');
       startToDate = $window.moment(startToDate).add(1, 'day');
     }
 
-    $scope.flexibleDate = $scope.flexibleDates[$rootScope.flexibleDates];
+    var lengthDifference = datesLength - $scope.flexibleDates.length;
+    $scope.flexibleDate = $scope.flexibleDates[$rootScope.flexibleDates - lengthDifference];
 
     $scope.flexibleDatesChange = function(flexibleDate){
       $scope.flexibleDate = flexibleDate;
