@@ -168,9 +168,17 @@ angular.module('mobius.controllers.hotel.details', [
       propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
         var flexiDateAvailable = true;
         flexibleDate.price = 0;
+        var priceCount = 0;
         _.each(availabilities, function(availability){
           if(availability.priceFrom){
-            flexibleDate.price += availability.priceFrom;
+            if(priceCount === 0)
+            {
+              flexibleDate.price = availability.priceFrom;
+            }
+            else if(availability.priceFrom < flexibleDate.price){
+              flexibleDate.price = availability.priceFrom;
+            }
+            priceCount++;
           }
           if(availability.available === false){
             flexiDateAvailable = false;
