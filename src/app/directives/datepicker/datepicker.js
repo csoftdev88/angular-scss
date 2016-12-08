@@ -295,13 +295,13 @@ angular.module('mobiusApp.directives.datepicker', [])
           buttonPane.attr( attribute, value );
           if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && scope.barData.property && scope.barData.property.code && !buttonPane.hasClass('button-added'))
           {
-            buttonPane.append('<span class="flexible-dates-control">Exact Dates | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
+            buttonPane.append('<span class="flexible-dates-control"><span class="selected">Exact Dates</span> | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
             buttonPane.addClass('button-added');
 
             $('.flexible-dates-control span').click(function(){
+              $('.flexible-dates-control span').removeClass('selected');
+              $(this).addClass('selected');
               if($(this).attr('data-flexi-days')){
-                $('.flexible-dates-control span').removeClass('selected');
-                $(this).addClass('selected');
                 $rootScope.flexibleDates = parseInt($(this).attr('data-flexi-days'));
               }
             });
