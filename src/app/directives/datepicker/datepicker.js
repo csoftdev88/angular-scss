@@ -82,6 +82,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       function beforeShow() {
         // NOTE: using setHours(0) is safe for different timezones. By default
         // jquery date picker returns dates at 00 hour
+        $rootScope.flexibleDates = null;
 
         if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
           // TODO: use $parsers/$formates in case when dates should be presented not
@@ -176,6 +177,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
           onChangeMonthYear:function(y, m, i){
             $timeout(function(){
+              $rootScope.flexibleDates = null;
               if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
                 getAvailability(y, m);
               }
