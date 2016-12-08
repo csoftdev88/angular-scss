@@ -222,7 +222,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function buildSearchData(chainData, propertyData, stateParams, order, products, room, selectedRate, countries, titles) {
-      var bookedDate = stateParams.dates.split('_');
+      var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
       var fromDate = null;
       var toDate = null;
       if (bookedDate.length) {
