@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, $stateParams, stateService, Settings, propertyService, _) {
+.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, $stateParams, stateService, Settings, propertyService, _, userPreferenceService) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -82,7 +82,6 @@ angular.module('mobiusApp.directives.datepicker', [])
       function beforeShow() {
         // NOTE: using setHours(0) is safe for different timezones. By default
         // jquery date picker returns dates at 00 hour
-        $rootScope.flexibleDates = null;
 
         if (ngModelCtrl.$modelValue !== undefined && ngModelCtrl.$modelValue !== '') {
           // TODO: use $parsers/$formates in case when dates should be presented not
@@ -177,7 +176,6 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
           onChangeMonthYear:function(y, m, i){
             $timeout(function(){
-              $rootScope.flexibleDates = null;
               if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
                 getAvailability(y, m);
               }
@@ -297,18 +295,38 @@ angular.module('mobiusApp.directives.datepicker', [])
           buttonPane.attr( attribute, value );
           if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && scope.barData.property && scope.barData.property.code && !buttonPane.hasClass('button-added'))
           {
-            buttonPane.append('<span class="flexible-dates-control"><span class="selected">Exact Dates</span> | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
+            buttonPane.append('<span class="flexible-dates-control"><span>Exact Dates</span> | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
             buttonPane.addClass('button-added');
+
+            var mobiusUserPreferences = userPreferenceService.getCookie();
+            var currentFlexibleDates = mobiusUserPreferences && mobiusUserPreferences.flexibleDates ? mobiusUserPreferences.flexibleDates : null;
+
+            $rootScope.flexibleDates = currentFlexibleDates;
+
+            if($rootScope.flexibleDates === null){
+              $('.flexible-dates-control span').first().addClass('selected');
+            }
+
+            $('.flexible-dates-control span').each(function(){
+              if($rootScope.flexibleDates && $(this).attr('data-flexi-days') === $rootScope.flexibleDates.toString()){
+                $('.flexible-dates-control span').removeClass('selected');
+                $(this).addClass('selected');
+              }
+            });
+
 
             $('.flexible-dates-control span').click(function(){
               $('.flexible-dates-control span').removeClass('selected');
               $(this).addClass('selected');
+
               if($(this).attr('data-flexi-days')){
                 $rootScope.flexibleDates = parseInt($(this).attr('data-flexi-days'));
               }
               else {
+                console.log('on update buttonpane set flexi dates to null');
                 $rootScope.flexibleDates = null;
               }
+              userPreferenceService.setCookie('flexibleDates', $rootScope.flexibleDates);
             });
           }
         });
