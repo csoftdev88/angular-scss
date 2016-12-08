@@ -30,6 +30,17 @@
     <p class="description" ng-bind-html="sanitize(roomDetails.description)"></p>
   </section>
 
+  <section ng-if="roomDetails.amenities.length && viewSettings.showAmenitiesTop" class="room-amenities">
+    <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
+
+    <amenities-list ng-if="property">
+      <amenity-item ng-repeat="amenity in roomDetails.amenities" ng-init="amenity.chainCode = property.chainCode">
+        <slug-img slug="amenity" type="room" width="15"></slug-img>
+        <span class="amenity-caption">{{amenity.name}}</span>
+      </amenity-item>
+    </amenities-list>
+  </section>
+
 
   <section ng-if="products">
     <!-- <hr class="dividerWithoutImage"/> -->
@@ -140,7 +151,7 @@
       <a href="" ng-click="showAllRates()" class="">_view_all_rates_</a>
     </div>
 
-    <div ng-if="!products.length" class="products-not-available" ng-switch="isOverAdultsCapacity()">
+    <div ng-if="!products.length && !config.hideProductsNotAvailable" class="products-not-available" ng-switch="isOverAdultsCapacity()">
       <div ng-if="$stateParams.dates">
         <div ng-switch-when="false">
           <h3>_room_not_available_on_dates_title_</h3>
@@ -169,8 +180,8 @@
       <p ng-bind-html="sanitize(roomDetails.description)"></p>
     </section>
 
-    <section class="room-images">
-      <h2 ng-if="roomDetails.images.length > 1" ng-bind-html="'_room_images_title_' | mainHeaderStyle"></h2>
+    <section class="room-images" ng-if="roomDetails.images.length > 1">
+      <h2 ng-bind-html="'_room_images_title_' | mainHeaderStyle"></h2>
       <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
         <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery($index)">
           <figure>
@@ -182,7 +193,7 @@
   </div>
 
   <div class="room-details-right">
-    <section ng-if="roomDetails.amenities.length" class="room-amenities">
+    <section ng-if="roomDetails.amenities.length && !viewSettings.showAmenitiesTop" class="room-amenities">
       <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
 
       <amenities-list ng-if="property">
@@ -194,7 +205,7 @@
     </section>
   </div>
   <hr/>
-  <h2 class="other-rooms-title" ng-if="property.nameLong" ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
+  <h2 class="other-rooms-title" ng-if="property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) " ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:null : property.nameLong | mainHeaderStyle"></h2>
 
   <!-- Keeping this just in case
   <div ng-if="!otherRooms && roomDetails && !otherRoomsLoading" class="load-more-rooms">

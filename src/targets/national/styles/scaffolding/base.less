@@ -29,6 +29,23 @@ body {
 main {
   margin-top: 2*@baseline;
   position: relative;
+  &.reservations-no-hero {
+    margin-top:150px !important;
+    padding-top:35px;
+    .viewport-mobile & {
+      margin-top:50px !important;
+    }
+  }
+  &.grid-wrapper {
+    .sticky-bread & {
+      margin-top:100px !important;
+    }
+  }
+  &.grid-wrapper.reservations-no-hero {
+    .sticky-bread & {
+      margin-top:150px !important;
+    }
+  }
   .viewport-mobile & {
     margin-top: @baseline!important;
   }
@@ -65,4 +82,3 @@ p{
     height: auto;
   }
 }
-

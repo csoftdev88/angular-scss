@@ -52,6 +52,10 @@ angular.module('mobiusApp.config', [])
     'trackUserId': true,
     'id': ''
   },
+  'hotjar': {
+    'enable': false,
+    'id': '0'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -59,7 +63,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': 'http://development-national-api.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
-      'staging': 'http://staging-national-api.mobiuswebservices.com:3010/api/4.0/',
+      'staging': '//staging-us-www-national.mobiuswebservices.com/api/4.0/',
       'live':  'http://national.api.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
@@ -141,6 +145,7 @@ angular.module('mobiusApp.config', [])
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
       'cancel': 'reservations/:reservationCode/actions/cancel',
+      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
@@ -201,6 +206,7 @@ angular.module('mobiusApp.config', [])
       'singleProperty': true,
       'facebookAppId': '1694770414076502',
       'disableMainHeaderStyle': true,
+      'longDateFormat': 'Do MMMM YYYY',
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false
     },
@@ -314,8 +320,8 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': false,
           'showRateInfoLink': true,
           'rateInfoIsTabbed': false
-        }
-
+        },
+        'hideSelectDatesMessage': true
       },
       'offers': {
         'toState': 'propertyOffers'
@@ -368,6 +374,7 @@ angular.module('mobiusApp.config', [])
       'showRoomHighlight': false,
       'includeTripAdvisorPreloader': false,
       'rateInfoIsTabbed': false,
+      'hideProductsNotAvailable': true,
       'headerPartial':{
         'display': true,
         'logo':{
@@ -410,8 +417,12 @@ angular.module('mobiusApp.config', [])
         'passbook': false,
         'print': true
       },
+      'showGuestName': true,
       'displayNewsletterCtaOnReservationDetail': false,
-      'reservationDetailPriceBreakdownExtended': false
+      'reservationDetailPriceBreakdownExtended': false,
+      'hideHeroSliderOnReservations': true,
+      'displayBreadcrumbsOnReservationDetail': true,
+      'displayCancelConfirmedModal': true
     },
 
     'aboutHotel': {
@@ -488,13 +499,13 @@ angular.module('mobiusApp.config', [])
       'CHF': {
         'code': 'CHF',
         'symbol': 'CHF',
-        'format': '{{amount}}{{symbol}}'
+        'format': '{{symbol}} {{amount}}'
       },
 
       'GBP': {
         'code': 'GBP',
         'symbol': '£',
-        'format': '{{symbol}} {{amount}}'
+        'format': '{{symbol}}{{amount}}'
       },
 
       'USD': {
@@ -566,8 +577,8 @@ angular.module('mobiusApp.config', [])
       'de': {
         'shortName': 'DE',
         'name': 'German',
-        'decimalSeparator': ',',
-        'groupSeparator': '\u00a0',
+        'decimalSeparator': '.',
+        'groupSeparator': "'",
         'groupSize': 3,
         'neg': '-'
       },
@@ -575,7 +586,7 @@ angular.module('mobiusApp.config', [])
         'shortName': 'FR',
         'name': 'French',
         'decimalSeparator': '.',
-        'groupSeparator': '\u00a0',
+        'groupSeparator': ',',
         'groupSize': 3,
         'neg': '-'
       }
@@ -588,6 +599,7 @@ angular.module('mobiusApp.config', [])
       "datePickerHasTitle": false,
       "datePickerCounterIncludeDates": false,
       "datePickerCloseOnDatesSelected": false,
+      "datePickerDefaultToToday": true,
       "checkAvailabilityOnChange": false,
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": false,
@@ -652,12 +664,6 @@ angular.module('mobiusApp.config', [])
           'code': 'AX',
           'icon': 'amex',
           'regex': /^3[47][0-9]{13}$/
-        },
-        'discover': {
-          'name': 'Discover',
-          'code': 'DS',
-          'icon': 'discover',
-          'regex': /^6(?:011|5[0-9]{2})[0-9]{3,}$/
         }
       },
       //Is billing state a required field?
@@ -678,9 +684,18 @@ angular.module('mobiusApp.config', [])
       'bookingStepsNav':{
         'display': true
       },
+      //Default value for newsletter opt-in checkbox
+      'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
         'display': false
+      },
+      'loginCtaTop':{
+        'display': true
+      },
+      //Reverse the same address checkbox logic
+      'billingAddress': {
+        'reverseCheckboxLogic':true
       },
       //Additional details screen
       'additionalDetails':{
@@ -693,8 +708,12 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'bottom'
-        }
-      }
+        },
+        'optedInDefault': true,
+        'timeFormat': 'HH:mm'
+      },
+      'termsAndConditionsLink':'http://www.grandhotel-national.com/en/corporate/general-terms-conditions',
+      'displayStaticFeesTooltip': false
     },
     'myAccount' : {
       'displaySettings' : {
@@ -767,6 +786,9 @@ angular.module('mobiusApp.config', [])
           'sidebarGrid': 4
         }
       },
+      'roomDetails':{
+        'showAmenitiesTop': true
+      },
       'userProfile':{
         'hasAvatar': false,
         'hasWelcomeMessage': true,
@@ -788,19 +810,41 @@ angular.module('mobiusApp.config', [])
         'directionsLink':{
           'display': true,
           'link': 'http://www.grandhotel-national.com/media/39232/route-map.pdf'
-        }
+        },
+        'hideContactDetails': true
       }
     },
 
     // Policy codes from the API and their title translates
     'policies': {
-      'cancellation': 'Cancellation',
-      'checkInOut': 'Check-In-Out',
-      'extraGuest': 'Extra Guest',
-      'family': 'Family',
-      'guarantee': 'Guarantee',
-      'noShow': 'No Show',
-      'pet': 'Pet'
+      'cancellation': {
+        'title':'Cancellation',
+        'code':'24HR'
+      },
+      'checkInOut': {
+        'title':'Check-In-Out',
+        'code':'10AM4PM'
+      },
+      'extraGuest': {
+        'title':'Extra Guest',
+        'code':'20CADMORE'
+      },
+      'family': {
+        'title':'Family',
+        'code':'DEFAULT'
+      },
+      'guarantee': {
+        'title':'Guarantee',
+        'code':'CCGOVID'
+      },
+      'noShow': {
+        'title':'No Show',
+        'code':'DEFAULT'
+      },
+      'pet': {
+        'title':'Pet',
+        'code':'DEFAULT'
+      }
     },
     'defaultCountryCode': 'ch',
     'preferredCountryCodes': 'ch,ca,us,gb',

@@ -10,7 +10,7 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
-  //'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -386,6 +386,9 @@ angular.module('mobiusApp.config', [])
           'displayOtaRates': false,
           'highlightFirstRate': true,
           'showSlashThrough': true
+        },
+        'upsells': {
+          'display': false
         }
       },
       'offers': {
@@ -903,13 +906,34 @@ angular.module('mobiusApp.config', [])
 
     // Policy codes from the API and their title translates
     'policies': {
-      'cancellation': 'Cancellation',
-      'checkInOut': 'Check-In-Out',
-      'extraGuest': 'Extra Guest',
-      'family': 'Family',
-      'guarantee': 'Guarantee',
-      'noShow': 'No Show',
-      'pet': 'Pet'
+      'cancellation': {
+        'title':'Cancellation',
+        'code':'24HR'
+      },
+      'checkInOut': {
+        'title':'Check-In-Out',
+        'code':'10AM4PM'
+      },
+      'extraGuest': {
+        'title':'Extra Guest',
+        'code':'20CADMORE'
+      },
+      'family': {
+        'title':'Family',
+        'code':'DEFAULT'
+      },
+      'guarantee': {
+        'title':'Guarantee',
+        'code':'CCGOVID'
+      },
+      'noShow': {
+        'title':'No Show',
+        'code':'DEFAULT'
+      },
+      'pet': {
+        'title':'Pet',
+        'code':'DEFAULT'
+      }
     },
     'defaultCountryCode': 'ca',
     'preferredCountryCodes': 'ca,us,gb',

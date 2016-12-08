@@ -1,4 +1,4 @@
-<h3 id="reservationBillingForm" ng-bind-html="'_reservation_page_billing_title_' | mainHeaderStyle"></h3>
+<h3 id="reservationBillingForm" class="reservation-billing-form" ng-bind-html="'_reservation_page_billing_title_' | mainHeaderStyle"></h3>
 <!--
 <label id="form-errors" class="form-errors" ng-if="forms.billing.$invalid  && forms.billing.$submitted">
   <div>_missing_fields_message_</div>
@@ -124,7 +124,7 @@
 
         <label for="form-guest-address" class="input-checkbox">
           <input type="checkbox" id="form-guest-address"
-            ng-model="billingDetails.useGuestAddress" />
+            ng-model="billingDetails.useGuestAddress" ng-true-value="{{bookingConfig.billingAddress.reverseCheckboxLogic ? 'false' : 'true'}}" ng-false-value="{{bookingConfig.billingAddress.reverseCheckboxLogic ? 'true' : 'false'}}"/>
           _use_guest_address_label_
         </label>
 
@@ -165,16 +165,6 @@
               </span>
           </label>
 
-          <label for="country" ng-if="profileCountries">
-            <select type="text" id="country" required
-              placeholder="_country_placeholder_"
-              placeholder-text-single="_country_placeholder_"
-              ng-model="billingDetails.country"
-              chosen ng-options="country.id as country.name for country in profileCountries">
-            </select>
-            <span>_country_label_</span>
-          </label>
-
           <label for="postal-code" class="input-left">
             <input type="text" id="postal-code" required
               placeholder="_postcode_placeholder_"
@@ -200,6 +190,16 @@
                 ng-pattern="$root.generalValidationPattern"
                 name="zip"/>
             <span>_phone_label_</span>
+          </label>
+
+          <label for="country" ng-if="profileCountries">
+            <select type="text" id="country" required
+              placeholder="_country_label_"
+              placeholder-text-single="_country_label_"
+              ng-model="billingDetails.country"
+              chosen ng-options="country.id as country.name for country in profileCountries">
+            </select>
+            <span>_country_label_</span>
           </label>
         </div>
 

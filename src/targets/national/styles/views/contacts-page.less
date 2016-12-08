@@ -3,140 +3,17 @@
 ///////////////////////
 
 contacts-page {
-  // SAME STYLE AS ON RESERVATION PAGE
-  label {
-    color: @c-grey;
-
-    > span {
-      text-transform: none;
-      opacity: 0;
-    }
-
-    &.input-right span {
-      left: 10px;
-    }
-  }
-
-  .chosen-container{
-    font-weight: normal;
-    height: 54px;
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-    .chosen-single{
-      height: 54px;
-      line-height: 52px;
-    }
-    .chosen-results{
-      li{
-        color: @c-grey;
+  contact-list {
+    contact-item {
+      p:before {
+        display:none !important;
       }
     }
   }
-
-  input[type="text"],
-  input[type="email"],
-  select,
-  textarea {
-    height: 54px;
-    line-height: 54px;
-    border-color: @c-light-grey;
-    color: @c-grey;
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5) !important;
-
-    &:focus {
-      box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-    }
-  }
-
-  textarea {
-    min-height: 240px;
-    height: auto;
-    line-height: 1;
-  }
-
-
-  //- Page Heading
   h1 {
-    font-size: @size-2;
-    color: @c-primary;
+    color:@c-main-site-grey;
+    font-size:34px;
+    line-height:40px;
+    text-transform:initial;
   }
-
-  //- Form
-  form {
-    display: flex;
-    flex-flow: wrap;
-
-    // MOBILE SPECIFIC STYLES
-    @media only screen and @large-mobile-max {
-      width: 100%;
-      display: inline-block;
-    }
-
-    // Columns
-    fieldset {
-      box-sizing: border-box;
-      flex: 1;
-      width: 50%;
-
-      &:first-of-type {
-        padding-right: @baseline / 2;
-      }
-
-      &:last-of-type {
-        padding-left: @baseline / 2;
-      }
-
-      // MOBILE SPECIFIC STYLES
-      .viewport-mobile & {
-        width: 100%;
-        float: left;
-        &:first-of-type,
-        &:last-of-type {
-          padding: 0;
-        }
-      }
-    }
-
-    > div {
-      flex: 2 0 100%;
-      width: 100%;
-
-
-      // Submit button
-      button-submit {
-        float: right;
-      }
-    }
-
-    // Inputs adjustment
-    form-element {
-      margin-bottom: 15px;
-      .viewport-mobile & {
-        margin-bottom: 0;
-      }
-
-      form-label {
-        font-size: @size-0;
-        line-height: @baseline;
-      }
-
-      input[type=text],
-      input[type=email] {
-        height: 54px;
-        line-height: 54px;
-      }
-
-      textarea {
-        height: 200px;
-        box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-      }
-
-      error-message {
-        position: absolute;
-
-        color: @c-error;
-      }
-    }
-  }
-
 }
-
