@@ -126,6 +126,7 @@ angular.module('mobius.controllers.hotel.details', [
     var startToDate = $window.moment.tz(toDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
     var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
     var datesLength = ($rootScope.flexibleDates * 2) + 1;
+    var origStartFromDate = startFromDate;
 
     for(var i = 0; i < datesLength; i++)
     {
@@ -144,44 +145,50 @@ angular.module('mobius.controllers.hotel.details', [
     var lengthDifference = datesLength - $scope.flexibleDates.length;
     $scope.flexibleDate = $scope.flexibleDates[$rootScope.flexibleDates - lengthDifference];
 
-    _.each($scope.flexibleDates, function(flexibleDate){
-      var datesArray = flexibleDate.value.split('_');
-      var params = {
-        'from':datesArray[0],
-        'to':datesArray[1],
-        'adults':bookingParams.adults,
-        'children':bookingParams.children
-      };
-      if(bookingParams.rate){
-        params = bookingParams.rate;
-      }
-      if(bookingParams.promoCode){
-        params = bookingParams.promoCode;
-      }
-      if(bookingParams.groupCode){
-        params = bookingParams.groupCode;
-      }
-      if(bookingParams.corpCode){
-        params = bookingParams.corpCode;
-      }
+    var params = {
+      'from':origStartFromDate.format('YYYY-MM-DD'),
+      'to':startToDate.add(-1, 'day').format('YYYY-MM-DD'),
+      'adults':bookingParams.adults,
+      'children':bookingParams.children
+    };
 
-      propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+    if(bookingParams.rate){
+      params = bookingParams.rate;
+    }
+    if(bookingParams.promoCode){
+      params = bookingParams.promoCode;
+    }
+    if(bookingParams.groupCode){
+      params = bookingParams.groupCode;
+    }
+    if(bookingParams.corpCode){
+      params = bookingParams.corpCode;
+    }
+
+    propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+      _.each($scope.flexibleDates, function(flexibleDate){
+        var datesArray = flexibleDate.value.split('_');
+        var flexibleFrom = $window.moment.tz(datesArray[0], Settings.UI.bookingWidget.timezone).valueOf();
+        var flexibleTo = $window.moment.tz(datesArray[1], Settings.UI.bookingWidget.timezone).valueOf();
         var flexiDateAvailable = true;
         flexibleDate.price = 0;
         var priceCount = 0;
         _.each(availabilities, function(availability){
-          if(availability.priceFrom){
-            if(priceCount === 0)
-            {
-              flexibleDate.price = availability.priceFrom;
+          var availabilityDate = $window.moment.tz(availability.date, Settings.UI.bookingWidget.timezone).valueOf();
+          if(availabilityDate >= flexibleFrom && availabilityDate <= flexibleTo) {
+            if(availability.priceFrom){
+              if(priceCount === 0)
+              {
+                flexibleDate.price = availability.priceFrom;
+              }
+              else if(availability.priceFrom < flexibleDate.price){
+                flexibleDate.price = availability.priceFrom;
+              }
+              priceCount++;
             }
-            else if(availability.priceFrom < flexibleDate.price){
-              flexibleDate.price = availability.priceFrom;
+            if(availability.available === false || availability.fullyAvailable === false){
+              flexiDateAvailable = false;
             }
-            priceCount++;
-          }
-          if(availability.available === false){
-            flexiDateAvailable = false;
           }
         });
         flexibleDate.disabled = !flexiDateAvailable;
@@ -192,6 +199,11 @@ angular.module('mobius.controllers.hotel.details', [
         {
           flexibleDate.name = flexibleDate.name += ' (from $' + $filter('i18nCurrency')(flexibleDate.price, $rootScope.currencyCode, undefined) + ')';
         }
+        $timeout(function() {
+          $('.dates-dropdown-container .dates-switch select').trigger('chosen:updated');
+        });
+      });
+      $timeout(function() {
         $('.dates-dropdown-container .dates-switch select').trigger('chosen:updated');
       });
     });
