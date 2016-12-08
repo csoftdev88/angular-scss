@@ -32,8 +32,6 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
-
-  $rootScope.flexibleDates = !$rootScope.flexibleDates ? 3 : $rootScope.flexibleDates;
   $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable ? true : false;
 
   //define page partials based on settings

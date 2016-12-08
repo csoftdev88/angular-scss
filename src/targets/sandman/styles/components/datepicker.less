@@ -364,6 +364,12 @@
     height: 30px;
     white-space: nowrap;
   }
+  &.button-added {
+    &:before {
+      left: 22px;
+      top: 33%;
+    }
+  }
 
   .flexible-dates-control {
     margin-right: 120px;
@@ -371,7 +377,11 @@
     display: block;
     font-weight: normal;
     .viewport-mobile & {
-      display:none;
+      margin: 0;
+      position: absolute;
+      bottom: 0;
+      font-size: 9px;
+      display: block;
     }
     > span {
       cursor:pointer;
