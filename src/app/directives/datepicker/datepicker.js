@@ -304,6 +304,9 @@ angular.module('mobiusApp.directives.datepicker', [])
               if($(this).attr('data-flexi-days')){
                 $rootScope.flexibleDates = parseInt($(this).attr('data-flexi-days'));
               }
+              else {
+                $rootScope.flexibleDates = null;
+              }
             });
           }
         });
