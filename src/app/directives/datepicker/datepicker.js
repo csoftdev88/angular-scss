@@ -59,6 +59,8 @@ angular.module('mobiusApp.directives.datepicker', [])
         counterDatesRules = scope.$eval(attrs.counterDates) || {};
       }
 
+      scope.lengthOfStay = 1;
+
       //stop event bubbling from that container to avoid clicks behing the datepicker
       angular.element(document).ready(function () {
         $('#ui-datepicker-div').click( function(event) {
@@ -256,6 +258,9 @@ angular.module('mobiusApp.directives.datepicker', [])
             }
 
             updateButtonPane('data-title', scope.paneTitle);
+
+            scope.lengthOfStay = getDaysBetween(startDate, endDate);
+            getAvailability();
 
             isStartDateSelected = !isStartDateSelected;
             if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
@@ -473,7 +478,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           to:endDate,
           adults:scope.barData.adults.value,
           children:scope.barData.children.value,
-          lengthOfStay:1
+          lengthOfStay:scope.lengthOfStay
         };
         if(scope.barData.rate){
           bookingParams.productGroupId = scope.barData.rate;
