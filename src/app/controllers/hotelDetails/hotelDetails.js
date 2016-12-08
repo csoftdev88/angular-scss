@@ -32,7 +32,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
-  $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && $rootScope.flexibleDates ? true : false;
+
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -49,6 +49,10 @@ angular.module('mobius.controllers.hotel.details', [
   bookingParams = bookingService.updateOfferCode(bookingParams);
   bookingParams = bookingService.updateDiscountCode(bookingParams);
   var mobiusUserPreferences = userPreferenceService.getCookie();
+
+  $rootScope.flexibleDates = mobiusUserPreferences && mobiusUserPreferences.flexibleDates ? mobiusUserPreferences.flexibleDates : null;
+  $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && $rootScope.flexibleDates ? true : false;
+
   // Include the amenities
   bookingParams.includes = 'amenities';
 
@@ -122,6 +126,8 @@ angular.module('mobius.controllers.hotel.details', [
     var fromDate = dates[0];
     var toDate = dates[1];
 
+    var lengthOfStay = $window.moment(dates[1]).diff($window.moment(dates[0]), 'days');
+
     var startFromDate = $window.moment.tz(fromDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
     var startToDate = $window.moment.tz(toDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
     var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
@@ -147,9 +153,10 @@ angular.module('mobius.controllers.hotel.details', [
 
     var params = {
       'from':origStartFromDate.format('YYYY-MM-DD'),
-      'to':startToDate.add(-1, 'day').format('YYYY-MM-DD'),
+      'to':startFromDate.add(-1,'day').format('YYYY-MM-DD'),
       'adults':bookingParams.adults,
-      'children':bookingParams.children
+      'children':bookingParams.children,
+      'lengthOfStay':lengthOfStay
     };
 
     if(bookingParams.rate){
@@ -168,37 +175,22 @@ angular.module('mobius.controllers.hotel.details', [
     propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
       _.each($scope.flexibleDates, function(flexibleDate){
         var datesArray = flexibleDate.value.split('_');
-        var flexibleFrom = $window.moment.tz(datesArray[0], Settings.UI.bookingWidget.timezone).valueOf();
-        var flexibleTo = $window.moment.tz(datesArray[1], Settings.UI.bookingWidget.timezone).valueOf();
-        var flexiDateAvailable = true;
-        flexibleDate.price = 0;
-        var priceCount = 0;
+        var flexibleFrom = $window.moment.tz(datesArray[0], Settings.UI.bookingWidget.timezone);
         _.each(availabilities, function(availability){
-          var availabilityDate = $window.moment.tz(availability.date, Settings.UI.bookingWidget.timezone).valueOf();
-          if(availabilityDate >= flexibleFrom && availabilityDate <= flexibleTo) {
-            if(availability.priceFrom){
-              if(priceCount === 0)
-              {
-                flexibleDate.price = availability.priceFrom;
-              }
-              else if(availability.priceFrom < flexibleDate.price){
-                flexibleDate.price = availability.priceFrom;
-              }
-              priceCount++;
+          if(flexibleFrom.format('YYYY-MM-DD') === availability.date)
+          {
+            flexibleDate.available = availability.available && availability.fullyAvailable;
+            if(flexibleDate.available && availability.priceFrom){
+              //var thisPrice = $filter('i18nCurrency')(availability.priceFrom, $rootScope.currencyCode, undefined, false);
+              flexibleDate.name += ' (from $' + availability.priceFrom + ')';
             }
-            if(availability.available === false || availability.fullyAvailable === false){
-              flexiDateAvailable = false;
+            else
+            {
+              flexibleDate.disabled = true;
+              flexibleDate.name += ' (unavailable)';
             }
           }
         });
-        flexibleDate.disabled = !flexiDateAvailable;
-        if(flexibleDate.disabled){
-          flexibleDate.name = flexibleDate.name += ' (unavailable)';
-        }
-        else if(flexibleDate.price > 0)
-        {
-          flexibleDate.name = flexibleDate.name += ' (from $' + $filter('i18nCurrency')(flexibleDate.price, $rootScope.currencyCode, undefined) + ')';
-        }
         $timeout(function() {
           $('.dates-dropdown-container .dates-switch select').trigger('chosen:updated');
         });
