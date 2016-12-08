@@ -134,6 +134,7 @@ angular.module('mobius.controllers.hotel.details', [
           'value':startFromDate.format('YYYY-MM-DD') + '_' + startToDate.format('YYYY-MM-DD'),
           'name':startFromDate.format('DD MMM YYYY') + ' - ' + startToDate.format('DD MMM YYYY')
         };
+        flexiDate.shortName = flexiDate.name;
         $scope.flexibleDates.push(flexiDate);
       }
       startFromDate = $window.moment(startFromDate).add(1, 'day');
@@ -166,12 +167,23 @@ angular.module('mobius.controllers.hotel.details', [
 
       propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
         var flexiDateAvailable = true;
+        flexibleDate.price = 0;
         _.each(availabilities, function(availability){
+          if(availability.priceFrom){
+            flexibleDate.price += availability.priceFrom;
+          }
           if(availability.available === false){
             flexiDateAvailable = false;
           }
         });
         flexibleDate.disabled = !flexiDateAvailable;
+        if(flexibleDate.disabled){
+          flexibleDate.name = flexibleDate.name += ' (unavailable)';
+        }
+        else if(flexibleDate.price > 0)
+        {
+          flexibleDate.name = flexibleDate.name += ' (from $' + $filter('i18nCurrency')(flexibleDate.price, $rootScope.currencyCode, undefined) + ')';
+        }
         $('.dates-dropdown-container .dates-switch select').trigger('chosen:updated');
       });
     });

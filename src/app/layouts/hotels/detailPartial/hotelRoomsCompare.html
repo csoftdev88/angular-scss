@@ -71,7 +71,7 @@
             <div ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: 1" ng-if="room.priceFrom">
               {{room.priceFrom | i18nCurrency: $root.currencyCode}}
             </div>
-            <div>{{flexibleDate.name}}</div>
+            <div>{{flexibleDate.shortName}}</div>
           </div>
         </div>
         <div class="dates-dropdown-container">
