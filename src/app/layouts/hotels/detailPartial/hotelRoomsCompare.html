@@ -10,13 +10,13 @@
         <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
       </div>
 
-      <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle"></h2>
+      <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle" ng-if="!(availableRooms && availableRooms.length === 0)"></h2>
       <!-- search details -->
-      <div class="search-details" ng-if="roomsConfig.showRoomCount">
+      <div class="search-details" ng-if="roomsConfig.showRoomCount && !(availableRooms && availableRooms.length === 0)">
         <ng-pluralize class="room-counter" count="(rooms|filter:roomsDisplayFilter).length" when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}"></ng-pluralize>
       </div>
 
-      <div class="filter-bar">
+      <div class="filter-bar" ng-if="!(availableRooms && availableRooms.length === 0)">
         <div class="order-switch-container" ng-show="hasDates() && availableRooms && availableRooms.length">
           <span class="filter-label">_filter_sortby_label_:</span>
           <order-switch>
@@ -64,7 +64,7 @@
           <a href ng-click="resetCompareRooms()">_show_all_rooms_</a>
         </div>
       </div>
-      <div class="flexible-dates-bar" ng-if="showFlexibleDates">
+      <div class="flexible-dates-bar" ng-if="showFlexibleDates && !(availableRooms && availableRooms.length === 0)">
         <div class="overview-container">
           <span class="filter-label">Lowest Price:</span>
           <div class="overview">
@@ -82,15 +82,15 @@
               ng-model="flexibleDate"
               disable-search="true"
               chosen
+              ng-change="flexibleDatesChange(flexibleDate)"
               ng-options="date.name for date in flexibleDates"
-              ng-change="flexibleDatesChange(flexibleDate)">
+              options-disabled="date.disabled for date in flexibleDates">
             </select>
           </div>
         </div>
         <div class="change-dates-container">
           <button-submit ng-click="selectDates()">
-            <span ng-if="!hasDates()">_select_dates_</span>
-            <span ng-if="hasDates()">_change_dates_</span>
+            <span>_new_search_</span>
           </button-submit>
         </div>
       </div>
