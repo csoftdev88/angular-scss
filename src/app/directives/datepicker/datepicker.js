@@ -323,7 +323,6 @@ angular.module('mobiusApp.directives.datepicker', [])
                 $rootScope.flexibleDates = parseInt($(this).attr('data-flexi-days'));
               }
               else {
-                console.log('on update buttonpane set flexi dates to null');
                 $rootScope.flexibleDates = null;
               }
               userPreferenceService.setCookie('flexibleDates', $rootScope.flexibleDates);
@@ -473,7 +472,8 @@ angular.module('mobiusApp.directives.datepicker', [])
           from:startDate,
           to:endDate,
           adults:scope.barData.adults.value,
-          children:scope.barData.children.value
+          children:scope.barData.children.value,
+          lengthOfStay:1
         };
         if(scope.barData.rate){
           bookingParams.productGroupId = scope.barData.rate;
