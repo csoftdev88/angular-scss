@@ -22,7 +22,7 @@ angular.module('mobiusApp.directives.reservation.data', [])
       scope.getTotal = function(prop) {
         return _.reduce(
           _.map(scope.reservation.rooms, function(room) {
-            return room.priceDetail[prop];
+            return room.priceDetail ? room.priceDetail[prop] : null;
           }),
           function(t, n) {
             return t + n;
