@@ -16,7 +16,7 @@ angular.module('mobiusApp.config', [])
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'staging': 'http://staging-us-infiniti-sandman.mobiuswebservices.com/track/content/infiniti.js',
-    'uat': 'http://infiniti.2pv/infiniti/track/content/infiniti.js',
+    'uat': '/infiniti/track/content/infiniti.js',
     'live': '//infiniti.sandmanhotels.com/track/content/infiniti.js'
   },
   'sentry': {
@@ -118,7 +118,7 @@ angular.module('mobiusApp.config', [])
       'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
-      'uat': 'http://air.2pv/api/4.0/',
+      'uat': '/api/4.0/',
       'live':  'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {

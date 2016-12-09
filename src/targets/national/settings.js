@@ -67,7 +67,7 @@ angular.module('mobiusApp.config', [])
       'development': 'http://development-national-api.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
       'staging': '//staging-us-www-national.mobiuswebservices.com/api/4.0/',
-      'uat': 'http://air.2pv/api/4.0/',
+      'uat': '/api/4.0/',
       'live':  'http://national.api.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
