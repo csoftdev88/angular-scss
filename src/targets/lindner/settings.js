@@ -63,7 +63,7 @@ angular.module('mobiusApp.config', [])
       'development': 'http://lindner.mobiuswebservices.com/api/4.0/',
       'integration': 'http://integration-lindner-www.mobiuswebservices.com:3010/api/4.0/',
       'staging': 'http://staging-lindner-node.mobiuswebservices.com/api/4.0/',
-      'uat': 'http://air.2pv/api/4.0/',
+      'uat': '/api/4.0/',
       'live':  'http://lindner.mobiuswebservices.com/api/4.0/'
     },
     'mobiusTracking': {
