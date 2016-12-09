@@ -406,7 +406,7 @@ angular.module('mobiusApp.config', [])
         'hotelDatesSelected': false,
         'hotelInfo': true,
         'hotelServices': false,
-        'hotelRooms': true,
+        'hotelRooms': false,
         'hotelRoomsCompare': false,
         'hotelOffers': true,
         'hotelLocation': true
@@ -843,6 +843,7 @@ angular.module('mobiusApp.config', [])
         'displayHotelRegionName': true,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
+        'displayCompare': false,
         'bookingStatistics':{
           'display':false,
           'displayDelay':3000,

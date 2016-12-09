@@ -27,6 +27,7 @@ angular.module('mobiusApp.directives.hotels', [])
       $controller('RatesCtrl', {$scope: scope});
 
       var mobiusUserPreferences = userPreferenceService.getCookie();
+      var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
 
       scope.hotelFilters = Settings.UI.hotelFilters;
       scope.filterConfig = {};
@@ -37,9 +38,15 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.displayPropertyChainBranding = Settings.UI.generics.applyChainClassToBody;
       scope.Math = window.Math;
       scope.config = Settings.UI.viewsSettings.hotels;
-      scope.compareEnabled = !stateService.isMobile() && scope.config.displayCompare;
+      scope.isMobile = stateService.isMobile();
+      scope.compareEnabled = !scope.isMobile && scope.config.displayCompare;
       scope.compareHotelLimit = 3;
       scope.comparisonIndex = 0;
+
+      scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+        scope.isMobile = viewport.isMobile;
+        scope.compareEnabled = !scope.isMobile && scope.config.displayCompare;
+      });
 
       //Handle region/location description
       if($stateParams.region && Settings.UI.viewsSettings.hotels.showRegionDescription){
