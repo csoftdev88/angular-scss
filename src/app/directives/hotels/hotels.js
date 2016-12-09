@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService', 'routerService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService', 'routerService', 'stateService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService, routerService){
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService, routerService, stateService){
 
   return {
     restrict: 'E',
@@ -37,6 +37,9 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.displayPropertyChainBranding = Settings.UI.generics.applyChainClassToBody;
       scope.Math = window.Math;
       scope.config = Settings.UI.viewsSettings.hotels;
+      scope.compareEnabled = !stateService.isMobile() && scope.config.displayCompare;
+      scope.compareHotelLimit = 3;
+      scope.comparisonIndex = 0;
 
       //Handle region/location description
       if($stateParams.region && Settings.UI.viewsSettings.hotels.showRegionDescription){
@@ -57,6 +60,8 @@ angular.module('mobiusApp.directives.hotels', [])
 
           //Pick random merchandizing banner if any
           _.each(hotels, function(hotel){
+
+            hotel.userHidden = false;
 
             //merchandizing banner
             if(hotel.merchandisingBanners && hotel.merchandisingBanners.length){
@@ -107,10 +112,12 @@ angular.module('mobiusApp.directives.hotels', [])
                 }
                 //filter hotels by location
                 scope.hotels = _.where(hotels, {locationCode: curLocation.code});
+                scope.compareHotels = scope.hotels;
                 initPriceFilter();
               }
               else{
                 scope.hotels = hotels || [];
+                scope.compareHotels = scope.hotels;
                 initPriceFilter();
               }
 
@@ -118,6 +125,7 @@ angular.module('mobiusApp.directives.hotels', [])
           }
           else{
             scope.hotels = hotels || [];
+            scope.compareHotels = scope.hotels;
             initPriceFilter();
             addBreadCrumbs();
           }
@@ -161,6 +169,7 @@ angular.module('mobiusApp.directives.hotels', [])
                 scope.hotels = _.filter(scope.hotels, function(hotel){
                   return _.contains(currentOffer.limitToPropertyCodes, hotel.code);
                 });
+                scope.compareHotels = scope.hotels;
               }
             });
           }
@@ -557,6 +566,28 @@ angular.module('mobiusApp.directives.hotels', [])
       };
 
       scope.openLocationDetail = modalService.openLocationDetail;
+
+      scope.hideHotel = function(hotel){
+        hotel.userHidden = true;
+        scope.showCompareHotelsReset = true;
+      };
+
+      scope.resetCompareHotels = function(){
+        _.each(scope.compareHotels, function(hotel) {
+          hotel.userHidden = false;
+        });
+        scope.showCompareHotelsReset = false;
+      };
+
+      scope.shiftHotelCarousel = function(forward){
+        if(forward){
+          scope.comparisonIndex++;
+        }
+        else {
+          scope.comparisonIndex--;
+        }
+        console.log(scope.comparisonIndex);
+      };
     }
   };
 }]);
