@@ -260,7 +260,10 @@ angular.module('mobiusApp.directives.datepicker', [])
             updateButtonPane('data-title', scope.paneTitle);
 
             scope.lengthOfStay = getDaysBetween(startDate, endDate);
-            getAvailability();
+
+            if(scope.barData.property && scope.barData.property.code){
+              getAvailability();
+            }
 
             isStartDateSelected = !isStartDateSelected;
             if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
