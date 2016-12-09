@@ -586,7 +586,6 @@ angular.module('mobiusApp.directives.hotels', [])
         else {
           scope.comparisonIndex--;
         }
-        console.log(scope.comparisonIndex);
       };
     }
   };

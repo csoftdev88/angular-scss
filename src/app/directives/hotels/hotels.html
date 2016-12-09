@@ -129,8 +129,13 @@
               </div>
             </div>
 
-            <h2 ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
-            <h5 class="region-name">{{hotel.regionName}}</h5>
+            <div class="hotel-content">
+              <h2 ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
+              <h5 class="region-name">{{hotel.regionName}}</h5>
+              <div class="description" ng-bind-html="sanitize(hotel.description)"></div>
+            </div>
+
+            <a ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)" class="read-more">_read_more_</a>
 
             <pricing-info>
               <p class="price available left" ng-if="hotel.available">
@@ -149,7 +154,6 @@
               <button-submit role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_view_more_</button-submit>
             </pricing-info>
 
-            <p class="description">{{hotel.descriptionShort}}</p>
             <button class="hotel-hide-btn" ng-click="hideHotel(hotel)">Hide</button>
         </li>
 
@@ -158,9 +162,6 @@
             <div>
               <h3>_hotels_filter_no_result_title_</h3>
               <p>_hotels_filter_no_result_desc_</p>
-              <div class="reset-container" ng-if="showCompareHotelsReset && hotelViewMode === 'compare'">
-                <a href ng-click="resetCompareHotels()">Reset compare</a>
-              </div>
             </div>
           </div>
         </li>
