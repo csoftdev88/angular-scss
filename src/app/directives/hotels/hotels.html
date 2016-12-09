@@ -173,8 +173,8 @@
           </div>
         </li>
       </ul>
-      <button class="compare-direction-btn" ng-click="shiftHotelCarousel(false)" ng-disabled="!(comparisonIndex > 0)" ng-if="hotelViewMode === 'compare' && (compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length">Prev</button>
-      <button class="compare-direction-btn" ng-click="shiftHotelCarousel(true)" ng-disabled="!(comparisonIndex < ((compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length - compareHotelLimit))" ng-if="hotelViewMode === 'compare' && (compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length">Next</button>
+      <button class="compare-direction-btn" ng-click="shiftHotelCarousel(false)" ng-disabled="!(comparisonIndex > 0)" ng-if="hotelViewMode === 'compare' && !isMobile && (compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length">Prev</button>
+      <button class="compare-direction-btn" ng-click="shiftHotelCarousel(true)" ng-disabled="!(comparisonIndex < ((compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length - compareHotelLimit))" ng-if="hotelViewMode === 'compare' && !isMobile && (compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length">Next</button>
     </div>
   </section>
 
