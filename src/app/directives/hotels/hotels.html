@@ -132,7 +132,7 @@
             <div class="hotel-content" vertilize>
               <h2 ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
               <h5 class="region-name">{{hotel.regionName}}</h5>
-              <div class="description" ng-bind-html="sanitize(hotel.descriptionShort)"></div>
+              <div class="description" ng-bind-html="sanitize(hotel.descriptionShort ? hotel.descriptionShort : hotel.description)"></div>
             </div>
 
             <a ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)" class="read-more">_read_more_</a>
