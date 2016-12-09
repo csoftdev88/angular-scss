@@ -62,6 +62,9 @@ angular.module('mobiusApp.directives.hotels', [])
 
       function getProperties(params){
 
+        //force request for amenities
+        params.include = 'amenities';
+
         // Loading hotels
         var hotelsPromise = propertyService.getAll(params).then(function(hotels){
 
@@ -76,7 +79,6 @@ angular.module('mobiusApp.directives.hotels', [])
             }
 
             scope.setHotelUrl(hotel);
-
           });
 
           if($stateParams.locationSlug){
@@ -119,6 +121,7 @@ angular.module('mobiusApp.directives.hotels', [])
                 }
                 //filter hotels by location
                 scope.hotels = _.where(hotels, {locationCode: curLocation.code});
+
                 scope.compareHotels = scope.hotels;
                 initPriceFilter();
               }
