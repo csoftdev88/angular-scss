@@ -159,6 +159,7 @@
     "view_details": "View Details",
     "reload_rates": "Reload Rates",
     "reset_filters": "Reset Filters",
+    "reset_compare": "Reset compare",
     "rates_loading_title": "Loading the best rate for you...",
     "COMPONENTS": "//////////////////////////////////////////////////////",
     "best_value": "Best Value",

@@ -158,6 +158,7 @@
     "view_details": "Voir les Détails",
     "reload_rates": "Recharger les Prix",
     "reset_filters": "Réinitialiser les Filtres",
+    "reset_compare": "Reset compare",
     "rates_loading_title": "En train de chercher le meilleur prix pour vous...",
     "COMPONENTS": "//////////////////////////////////////////////////////",
     "best_value": "Meilleur Prix",
