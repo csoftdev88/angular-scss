@@ -150,15 +150,12 @@
                   <br />_or_ <span class="value">{{hotel.minPointsRequired}}</span> _points_
                 </span>
               </p>
-              <p class="price unavailable" ng-if="!hasDates()">
-                <button-submit ng-click="selectDates(hotel)">_select_dates_</button-submit>
-              </p>
-
               <p class="price unavailable" ng-if="!hotel.available && hasDates()">
                 _not_available_on_dates_title_
               </p>
               <button-submit ng-if="hotel.available" role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_price_from_ {{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</button-submit>
-              <button-submit ng-if="!hotel.available" role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_view_more_</button-submit>
+              <button-submit ng-if="!hotel.available && hasDates()" role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_view_more_</button-submit>
+              <button-submit ng-if="!hasDates()" ng-click="selectDates(hotel)">_select_dates_</button-submit>
             </pricing-info>
 
             <button class="hotel-hide-btn" ng-click="hideHotel(hotel)">Hide</button>
