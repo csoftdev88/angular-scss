@@ -65,7 +65,7 @@
     <p class="unavailable error no-products" ng-class="{'with-dates': isDateRangeSelected()}">
       <span ng-if="!isOverAdultsCapacity()">
         <span ng-if="isDateRangeSelected()" class="desc">_not_available_on_dates_title_</span>
-      <span ng-if="!isDateRangeSelected()" class="desc">_select_dates_for_prices_title_</span>
+      <span ng-if="!isDateRangeSelected() && !roomsConfig.hideSelectDatesMessage" class="desc">_select_dates_for_prices_title_</span>
       <span ng-if="isDateRangeSelected()" class="sub-desc" ng-if="settings.showNoRatesSubDescription">_not_available_on_dates_sub_title_</span>
       <button-submit ng-click="selectDates()" class="alt">
         <span ng-if="hasDates()">_select_new_dates_</span>

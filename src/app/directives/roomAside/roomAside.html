@@ -9,7 +9,7 @@
         <!-- Tax -->
         <tr>
           <th>_tax_:</th>
-          <td>{{selectedProduct.price.totalAfterTax - selectedProduct.price.totalBaseAfterPricingRules | i18nCurrency: $root.currencyCode}}</span></td>
+          <td>{{selectedProduct.price.totalAfterTaxAfterPricingRules - selectedProduct.price.totalBaseAfterPricingRules | i18nCurrency: $root.currencyCode}}</span></td>
         </tr>
         <!-- Additional Taxes -->
         <tr ng-if="selectedProduct.price.totalAdditionalTaxes">
@@ -28,7 +28,7 @@
         </tr>
         <tr>
           <th>_total_:</th>
-          <td>{{selectedProduct.price.totalAfterTax | i18nCurrency: $root.currencyCode}}</span></td>
+          <td>{{selectedProduct.price.totalAfterTaxAfterPricingRules | i18nCurrency: $root.currencyCode}}</span></td>
         </tr>
       </tbody>
     </table>

@@ -1,6 +1,6 @@
 <header>
   <h1 ng-if="config.displayMainTitle">_location_</h1>
-  <h2 ng-bind-html="'_mapLocationHeader_' | stringLocaleReplace: hotelDetails._mapLocationHeaderNameField_ | mainHeaderStyle"></h2>
+  <h2 ng-bind-html="'_mapLocationHeader_' | stringLocaleReplace: hotelDetails.nameShort : hotelDetails.nameLong | mainHeaderStyle"></h2>
   <p class="view-map-link" ng-if="config.displayGoogleMapsLink">
     <a target="_blank"
        ng-if="position"
@@ -32,7 +32,7 @@
 
 <p>{{hotelDetails.locationDescription}}</p>
 
-<contact-list>
+<contact-list ng-if="!config.hideContactDetails">
 
   <contact-item ng-if="hotelDetails.email">
     <div>

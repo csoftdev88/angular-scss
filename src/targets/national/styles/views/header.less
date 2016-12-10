@@ -1,59 +1,73 @@
 #main-header {
   background: #fff;
-  height: 120px;
-  .viewport-mobile &{
+  height: 150px;
+  padding:15px 0;
+  box-sizing:border-box;
+
+  .viewport-mobile & {
     height: auto;
   }
 }
-
 // GENERIC STYLES
 .main-nav {
-  height: 120px;
+  height: auto;
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
-  .viewport-mobile &{
+
+  .viewport-mobile & {
     height: 60px;
     padding: 0;
     margin: 0;
   }
 
-  .menu-opener{
+  .brand {
+    img.desktop-logo {
+      height: 112px;
+    }
+    img.mobile-logo {
+      height:60px
+    }
+    .viewport-mobile & {
+      top:0;
+    }
+  }
+
+  .menu-opener {
     background-size: 21px 16px;
   }
 }
-
 // MOBILE SPECIFIC STYLES
 @media only screen and @large-mobile-max {
-
   #main-header {
     background-color: @c-white;
   }
-
   .main-nav {
-
     > .app-menu {
       background-color: @c-white;
 
       ul {
         width: 100%;
-
+        > li[language-list] .dropdown-menu.submenu li:last-child {
+          display:none;
+        }
         > li {
           border-top: 1px @c-primary solid;
           background-color: @c-white;
 
-          &.mobile-header{
-            .close{
+          &.mobile-header {
+            .close {
               &:after {
                 .fa;
                 color: @c-primary;
                 content: @fa-var-close;
-                top: 22px;
+                top: 35px;
+                right:18px;
               }
             }
           }
 
-          a{
+          a {
             color: @c-primary;
           }
 
@@ -62,22 +76,31 @@
             text-shadow: none;
           }
 
-          &.mobile-header{
+          &.mobile-header {
             border-top: 0;
+            text-align:center;
+            padding:4% 7px;
+            height:60px;
+            img {
+              height:60px;
+            }
           }
 
-          &.mobile-profile{
+          &.mobile-profile {
             height: auto;
             line-height: 50px;
             text-transform: none;
             border-top: 0;
-            a{
+
+            a {
               text-transform: none;
             }
+
             .profile {
               margin-top: 0;
               height: 50px;
-              .message{
+
+              .message {
                 font-size: @size--1;
                 color: @c-primary;
               }
@@ -90,7 +113,6 @@
                 span {
                   display: inline;
                   font-weight: normal;
-
                   // Surname
                   &:last-of-type {
                     display: inline;
@@ -104,21 +126,13 @@
     }
   }
 }
-
 // Tablet styles
-@media only screen and @tablet-portrait-max and @large-mobile-min {
-
-}
-
+@media only screen and @tablet-portrait-max and @large-mobile-min {}
 // DESKTOP STYLES
 @media only screen and @tablet-portrait-min {
-
   .main-nav {
-
     ul {
-
       li {
-
         position: relative;
         line-height: 120px;
 
@@ -128,40 +142,62 @@
           text-transform: uppercase;
           transition: all 0.3s ease-out;
 
-          &:hover,
-          &:focus,
+          &.is-active,
           &:active,
-          &.is-active {
+          &:focus,
+          &:hover {
             box-shadow: none;
           }
 
-          &.button-login{
-            color: #fff;
+          &.button-login {
+            background: #f3efe6;
+            background: -moz-linear-gradient(top, #f3efe6 0%, #c2c1bd 100%);
+            background: -webkit-linear-gradient(top, #f3efe6 0%,#c2c1bd 100%);
+            background: linear-gradient(to bottom, #f3efe6 0%,#c2c1bd 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#f3efe6', endColorstr='#c2c1bd',GradientType=0 );
+            border-bottom: 1px solid #959595;
+            color: @c-dark-grey;
+            -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+            -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
             border-radius: 2px;
-            text-shadow: none;
-            text-transform: none;
+            text-transform: uppercase;
+            font-family: DINPro-Regular, Helvetica, Arial, sans-serif;
+
+            &.is-active,
+            &:active,
+            &:focus,
+            &:hover {
+              -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+              -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+              box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+            }
           }
         }
 
         .open > a {
-            box-shadow: none;
+          box-shadow: none;
         }
 
         .open.has-icons > a {
-            box-shadow: none;
+          box-shadow: none;
         }
 
-        &.desktop-profile{
+        &.desktop-profile {
           height: 120px;
+          padding-right: 30px;
           line-height: 120px;
           text-transform: none;
-          a{
+
+          a {
             text-transform: none;
           }
+
           .profile {
             margin-top: 39px;
             min-width: 0;
-            .message{
+
+            .message {
               color: @c-primary;
               font-weight: 400;
               font-size: @size--0;
@@ -183,12 +219,12 @@
                 font-weight: normal;
                 font-size: @size-0;
                 line-height: @size-0;
-
                 // Surname
                 &:last-of-type {
                   display: inline;
                 }
               }
+
               &:after {
                 height: 7px;
                 margin-left: 0;
@@ -210,15 +246,22 @@
       li[language-list] {
         line-height: 120px;
         padding: 0 10px;
-        a{
+
+        a {
           color: @c-light-grey;
           font-size: @size-0;
-          &:hover{
+
+          &:hover {
             color: @c-dark-grey;
           }
         }
-        ul{
-          li{
+        //Temporarily hiding french option
+        a[title="French"] {
+          display: none;
+        }
+
+        ul {
+          li {
             padding: 0 10px;
           }
         }
@@ -229,21 +272,16 @@
       display: block;
       float: left;
       margin: 0;
-      margin-top: 10px;
       position: absolute;
       left: 50%;
-      transform: translate(-50%, 0);
+      margin-left:-63px;
     }
   }
 }
-
 @media only screen and @tablet-landscape-min {
-
   .main-nav {
-
     .button-login {
       right: 0;
     }
   }
 }
-

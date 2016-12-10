@@ -52,8 +52,14 @@ hotel-detail {
       top: 9;
     }
   }
-
+  ta-teaser + .hotel-detail__rooms {
+    margin-top:40px;
+  }
   .hotel-detail__rooms {
+    > .preloader {
+      position: relative;
+    }
+
     .section-header {
       margin-bottom: 30px;
 
@@ -164,6 +170,9 @@ hotel-detail {
                 &:after {
                   display: none;
                 }
+              }
+              &.view-more {
+                display:none;
               }
             }
 
@@ -502,6 +511,11 @@ hotel-detail {
   }
 
   .hotel-detail__rooms-compare {
+    .preloader {
+      position: relative;
+      padding-bottom: 45px;
+    }
+
     .section-header {
       h2 {
         margin: 0;
@@ -512,10 +526,101 @@ hotel-detail {
         margin-bottom: 20px;
       }
 
+      .flexible-dates-bar {
+        background: rgba(62, 177, 194, 0.2);
+        padding: 20px;
+        margin-bottom: 40px;
+        text-align: center;
+
+        .viewport-mobile & {
+          padding: 20px;
+          text-align:left;
+        }
+        .clearfix;
+
+        > * {
+          display: inline-block;
+          width: auto;
+          padding: 0 2%;
+          box-sizing: border-box;
+          position: relative;
+          line-height: 36px;
+          .viewport-mobile &{
+            padding:0;
+          }
+        }
+
+        .filter-label {
+          display: inline-block;
+          font-size: 14px;
+          color: @c-primary;
+          padding-right: 10px;
+        }
+
+        .dates-dropdown-container {
+          padding-left: 53px;
+          margin-left:6%;
+          .viewport-mobile & {
+            padding-left: 53px;
+            margin-top:13px;
+            display:block;
+          }
+          .filter-label {
+            position: absolute;
+            left: 0;
+          }
+
+          .dates-switch {
+            min-width: 210px;
+            text-align: left;
+            .viewport-mobile & {
+              min-width:auto;
+            }
+          }
+        }
+
+        .overview-container {
+          .overview {
+            display: inline-block;
+            line-height: 20px;
+            text-align: left;
+            font-size: 14px;
+            -webkit-transform: translateY(25%);
+            -ms-transform: translateY(25%);
+            transform: translateY(25%);
+            .viewport-mobile & {
+              -webkit-transform: translateY(0);
+              -ms-transform: translateY(0);
+              transform: translateY(0);
+              display:block;
+            }
+
+            div {
+              &:first-child {
+                font-weight: bold;
+                color: @c-secondary;
+              }
+            }
+          }
+        }
+
+        .change-dates-container {
+          .viewport-mobile & {
+            margin-top:13px;
+            display:block;
+          }
+          button-submit {
+            font-weight: normal;
+            font-size: 14px;
+            border-radius: 2px;
+          }
+        }
+      }
+
       .filter-bar {
         background: #F9F9F9;
         padding: 20px 55px;
-        margin-bottom: 40px;
+        margin-bottom: 10px;
         text-align: center;
 
         .viewport-mobile & {
@@ -617,6 +722,10 @@ hotel-detail {
           padding-right: 10px;
         }
       }
+    }
+
+    ta-teaser + .preloader + .room-list-compare-container {
+      margin-top:40px;
     }
 
     .room-list-compare-container {

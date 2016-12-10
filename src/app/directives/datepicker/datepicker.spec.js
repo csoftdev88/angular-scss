@@ -10,6 +10,13 @@ describe('datepicker', function() {
     module('mobiusApp.directives.datepicker', function($provide) {
       $provide.value('ngModelCtrl', {});
       $provide.value('$filter', {});
+      $provide.value('$stateParams', {});
+      $provide.value('propertyService', {});
+      $provide.value('userPreferenceService', {
+        getCookie: function(){},
+        setCookie: function(){}
+      });
+      $provide.value('_', {});
       $provide.value('stateService', {
         getAppLanguageCode: function(){},
         isMobile: function(){}
