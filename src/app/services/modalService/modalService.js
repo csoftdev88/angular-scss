@@ -12,7 +12,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_ADDON = 'AddonDetailCtrl',
       CONTROLLER_LOCATION = 'LocationDetailCtrl',
       CONTROLLER_CONFIRMATION = 'ConfirmationCtrl',
-
+      CONTROLLER_UPSELLS = 'UpsellsCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -71,6 +71,14 @@ angular.module('mobiusApp.services.modal', [])
   function openReservationCancelingDisabledDialogue(){
     return openDialog('reservation-modification', 'layouts/modals/reservation/cannotCancel.html', CONTROLLER_DEFAULT, {
       windowClass: 'details reservation-modification'
+    });
+  }
+
+  function openReservationCancelConfirmedDialog(reservationCode){
+    // Accepting reservation data to be rendered in modal window
+    return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelConfirmed.html', CONTROLLER_DATA, {
+      windowClass: 'details confirmation-dialog',
+      resolve: {data: function(){return reservationCode;}}
     });
   }
 
@@ -395,6 +403,21 @@ angular.module('mobiusApp.services.modal', [])
     return totalDailyFees;
   }
 
+  function openUpsellsDialog(upsell, params, goToReservationDetails){
+    return openDialog('openUpsellsDialog', 'layouts/modals/upsellsDialog.html', CONTROLLER_UPSELLS, {
+      windowClass: 'upsells-dialog',
+      resolve: {
+        data: function() {
+          return {
+            upsell:upsell,
+            params:params
+          };
+        },
+        goToReservationDetails: function(){return goToReservationDetails;}
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -406,7 +429,7 @@ angular.module('mobiusApp.services.modal', [])
     openReservationModificationCanceledDialogue: openReservationModificationCanceledDialogue,
     openReservationLookupFailedDialog: openReservationLookupFailedDialog,
     openReservationLookupLoginDialog: openReservationLookupLoginDialog,
-
+    openReservationCancelConfirmedDialog: openReservationCancelConfirmedDialog,
     openConfirmationDialog: openConfirmationDialog,
     openAddonDetailDialog: openAddonDetailDialog,
     openCCVInfo: openCCVInfo,
@@ -428,6 +451,7 @@ angular.module('mobiusApp.services.modal', [])
     openOtherRoomsDialog: openOtherRoomsDialog,
     openLoginDialog: openLoginDialog,
     openEmailRegisteredLoginDialog: openEmailRegisteredLoginDialog,
-    openProductDetailsDialog: openProductDetailsDialog
+    openProductDetailsDialog: openProductDetailsDialog,
+    openUpsellsDialog: openUpsellsDialog
   };
 });

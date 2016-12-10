@@ -3,18 +3,24 @@
 /////////////////////
 
 hotel-room {
-
+  p {
+    font-size:14px;
+  }
   .header {
     h1 {
       margin-bottom: @baseline;
     }
   }
 
-  .other-rooms-title{
+  .other-rooms-title {
     text-align: center;
-    font-size: 36px;
-    line-height: 48px;
-    .viewport-mobile &{
+    text-transform: initial;
+    color: @c-main-site-grey;
+    font-size: 34px;
+    margin-bottom:22px;
+    line-height:50px;
+
+    .viewport-mobile & {
       font-size: 24px;
       line-height: 32px;
       margin-bottom: 20px;
@@ -22,20 +28,20 @@ hotel-room {
   }
 
   list-items {
-    margin: 0;
-    margin-bottom: 36px;
+    margin: 0 0 36px;
+    .clearfix;
 
     list-item {
-
       &.without-image {
         padding-left: 0;
       }
 
       h2,
       h3 {
-        color: @c-very-dark-grey;
-        font-family: @ff-bold;
+        color: @c-black;
+        font-family: @ff-default;
         font-weight: normal;
+        text-transform: initial;
       }
 
       &:first-of-type {
@@ -46,56 +52,73 @@ hotel-room {
         border-bottom: 1px solid @c-border-grey;
       }
 
-      pricing-info{
+      pricing-info {
         border-left: none;
-        p{
-          .value{
-            color: @c-dark-grey;
-            font-weight: 700;
+        right:0;
+        p {
+          .value {
+            color: @c-black;
+            font-family: @ff-bold;
+            font-weight: normal;
+            text-transform: initial;
           }
         }
       }
 
-      description-info{
-        .action-links{
-          a{
-            color: @c-dark-grey;
-            font-size: 11px;
+      description-info {
+        .action-links {
+          a {
+            font-size: 13px;
           }
         }
       }
     }
 
-    &.other-rooms{
-      display: inline-block;
-      width: 100%;
+    &.other-rooms {
+      margin-left:-15px;
+      margin-right:-15px;
+
       list-item {
-        width: auto;
-        figure{
+        width: 33.33333333%;
+        padding: 0 15px;
+        box-sizing:border-box;
+        margin-left: 0;
+        margin-right: 0;
+
+        .viewport-mobile & {
+          width:100%;
+          margin-bottom:15px;
+        }
+
+        &:first-of-type {
+          border: none;
+        }
+
+        figure {
           max-height: none;
         }
-        h2{
-          font-family: @ff-heading;
-          color: @c-dark-grey;
-          font-size: @size-2;
+
+        h2 {
+          width: 100%;
+          color: #000;
+          font-size: 18px;
         }
-        pricing-info{
-          button-submit{
+
+        pricing-info {
+          button-submit {
             margin-top: 14px;
           }
         }
       }
     }
-
   }
 
   section.room-description {
     margin-top: @baseline*2;
   }
-
   //room gallery is the ul
   .room-gallery {
-    margin: @baseline 0px;
+    margin: @baseline 0;
     .clearfix;
 
     li {
@@ -103,12 +126,10 @@ hotel-room {
       display: block;
       padding: 0;
       width: 150px;
-
       cursor: pointer;
       //- Image
       figure {
         position: relative;
-
         max-height: @list-item-min-height;
         overflow: hidden;
         display: block;
@@ -119,23 +140,18 @@ hotel-room {
           display: block;
         }
       }
-
       //- Appear eye icon on hover
       &.with-special-eye-hover {
         figure:after {
           position: absolute;
           left: 0;
           top: 0;
-
           height: 100%;
           width: 100%;
-
           background: rgba(0, 0, 0, 0.7) url('@{img-prefix}/v4/eye.svg') center center no-repeat;
           background-size: 50px;
           opacity: 0;
-
           transition: 0.2s all;
-
           content: '';
         }
 
@@ -145,22 +161,31 @@ hotel-room {
       }
     }
   }
+  section.room-amenities {
+    h2 {
+      text-align:center;
+      font-size: 18px;
+      color: #000000;
+      font-weight: normal;
+      font-family: @ff-default;
+    }
+  }
+  .room-details-right + hr {
+    display:none;
+  }
 }
-
 //- If there are no available products
 .products-not-available,
 .reservations-not-available {
-
   padding: @baseline * 2;
   background: #f6f3ee;
   text-align: center;
   margin-bottom: 36px;
+  margin-top:36px;
 
   h3 {
     margin-bottom: @baseline;
-
     color: #555;
-
     font-size: @size-3;
   }
 
@@ -168,7 +193,7 @@ hotel-room {
     color: #999;
   }
 
-  button-submit{
+  button-submit {
     margin-top: 20px;
   }
 }

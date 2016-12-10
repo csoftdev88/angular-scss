@@ -18,7 +18,7 @@
         {{property.nameLong}} <!-- TODO: hotel name already in property.nameLong so duplicates, flag needs to be added to config file<strong>{{property.city}}</strong>-->
         <span ng-if="reservation.status === 'Cancelled'">&nbsp;- _cancelled_</span>
       </h2>
-      <span>_booked_: {{reservation.bookingDate | dateTime:'DD MMM YYYY' }}</span>
+      <span>_booked_: {{reservation.bookingDate | dateTime }}</span>
     </div>
 
     <div class="rating">
@@ -30,7 +30,7 @@
     <div class="details">
       <div class="total" ng-switch="!!reservation.pointValue">
         <span class="title">_total_:</span>
-        <span class="value" ng-switch-when="false">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: currencyCode}}</span>
+        <span class="value" ng-switch-when="false">{{getTotal('totalAfterTax') | i18nCurrency: currencyCode}}</span>
         <span class="value" ng-switch-when="true">
           <ng-pluralize count="reservation.pointValue" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
         </span>

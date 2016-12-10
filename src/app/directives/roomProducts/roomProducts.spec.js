@@ -129,10 +129,6 @@ describe('RoomProducts', function() {
 
       $provide.value('apiService', apiService);
 
-      $provide.value('mobiusTrackingService', {
-        trackSearch: function(){}
-      });
-
       $provide.value('infinitiApeironService', {
         trackSearch: function(){}
       });

@@ -2,7 +2,7 @@
 
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
-<main class="grid-wrapper">
+<main class="grid-wrapper" id="jsRegister">
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
@@ -140,6 +140,19 @@
             required
             ng-class="{'ng-submitted': form.$submitted && form.registerPhone.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
+        </form-element>
+
+        <form-element ng-if="registerCountries">
+          <label for="country">_country_label_</label>
+          <select type="text" id="country" required
+            placeholder="_country_label_"
+            placeholder-text-single="_country_label_"
+            ng-options="country.id as country.name for country in registerCountries"
+            ng-model="registerData.localeCode"
+            name="country"
+            chosen>
+            <option value="">_country_label_</option>
+          </select>
         </form-element>
 
         <form-element ng-if="registerContacts">

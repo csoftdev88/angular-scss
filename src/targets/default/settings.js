@@ -73,6 +73,7 @@ angular.module('mobiusApp.config', [])
       'staging': '',
       'live':  ''
     },
+    //Mobius product search/purchase tracking, check if enabled
     'mobiusTracking': {
       'search': {
         'enable':false,
@@ -217,6 +218,7 @@ angular.module('mobiusApp.config', [])
       'facebookAppId': '',
       //refer to directive for functionality and check with designers for headers styles
       'disableMainHeaderStyle': true,
+      'longDateFormat': 'Do MMM YYYY',
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false
     },
@@ -702,9 +704,15 @@ angular.module('mobiusApp.config', [])
       'bookingStepsNav':{
         'display': true
       },
+      //Default value for newsletter opt-in checkbox
+      'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
         'display': false
+      },
+      //Reverse the same address checkbox logic
+      'billingAddress': {
+        'reverseCheckboxLogic':true
       },
       //Additional details screen
       'additionalDetails':{
@@ -717,7 +725,8 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'bottom'
-        }
+        },
+        'optedInDefault': true
       }
     },
     'myAccount' : {
