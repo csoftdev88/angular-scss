@@ -172,6 +172,7 @@ angular
     'mobiusApp.directives.hoverTrigger',
     'mobiusApp.directives.scrollToTop',
     'mobiusApp.directives.growlAlerts',
+    'mobiusApp.directives.optionsDisabled',
 
     'internationalPhoneNumber',
 

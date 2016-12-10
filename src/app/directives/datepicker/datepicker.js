@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, $stateParams, stateService, Settings, propertyService, _) {
+.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, $stateParams, stateService, Settings, propertyService, _, userPreferenceService) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -59,6 +59,8 @@ angular.module('mobiusApp.directives.datepicker', [])
         counterDatesRules = scope.$eval(attrs.counterDates) || {};
       }
 
+      scope.lengthOfStay = 1;
+
       //stop event bubbling from that container to avoid clicks behing the datepicker
       angular.element(document).ready(function () {
         $('#ui-datepicker-div').click( function(event) {
@@ -94,7 +96,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             $(element).datepicker('setDate', parsedDate);
           }
         }
-        else if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
+        if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
           getAvailability();
         }
 
@@ -257,6 +259,12 @@ angular.module('mobiusApp.directives.datepicker', [])
 
             updateButtonPane('data-title', scope.paneTitle);
 
+            scope.lengthOfStay = getDaysBetween(startDate, endDate);
+
+            if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
+              getAvailability();
+            }
+
             isStartDateSelected = !isStartDateSelected;
             if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
               $timeout(function(){
@@ -293,17 +301,39 @@ angular.module('mobiusApp.directives.datepicker', [])
             .datepicker( 'widget' )
             .find( '.ui-datepicker-buttonpane' );
           buttonPane.attr( attribute, value );
-          if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && !stateService.isMobile() && !buttonPane.hasClass('button-added'))
+          if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && scope.barData.property && scope.barData.property.code && !buttonPane.hasClass('button-added'))
           {
-            buttonPane.append('<span class="flexible-dates-control">Exact Dates | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
+            buttonPane.append('<span class="flexible-dates-control"><span>Exact Dates</span> | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
             buttonPane.addClass('button-added');
 
-            $('.flexible-dates-control span').click(function(){
-              if($(this).attr('data-flexi-days')){
+            var mobiusUserPreferences = userPreferenceService.getCookie();
+            var currentFlexibleDates = mobiusUserPreferences && mobiusUserPreferences.flexibleDates ? mobiusUserPreferences.flexibleDates : null;
+
+            $rootScope.flexibleDates = currentFlexibleDates;
+
+            if($rootScope.flexibleDates === null){
+              $('.flexible-dates-control span').first().addClass('selected');
+            }
+
+            $('.flexible-dates-control span').each(function(){
+              if($rootScope.flexibleDates && $(this).attr('data-flexi-days') === $rootScope.flexibleDates.toString()){
                 $('.flexible-dates-control span').removeClass('selected');
                 $(this).addClass('selected');
+              }
+            });
+
+
+            $('.flexible-dates-control span').click(function(){
+              $('.flexible-dates-control span').removeClass('selected');
+              $(this).addClass('selected');
+
+              if($(this).attr('data-flexi-days')){
                 $rootScope.flexibleDates = parseInt($(this).attr('data-flexi-days'));
               }
+              else {
+                $rootScope.flexibleDates = null;
+              }
+              userPreferenceService.setCookie('flexibleDates', $rootScope.flexibleDates);
             });
           }
         });
@@ -450,7 +480,8 @@ angular.module('mobiusApp.directives.datepicker', [])
           from:startDate,
           to:endDate,
           adults:scope.barData.adults.value,
-          children:scope.barData.children.value
+          children:scope.barData.children.value,
+          lengthOfStay:scope.lengthOfStay
         };
         if(scope.barData.rate){
           bookingParams.productGroupId = scope.barData.rate;
@@ -499,10 +530,6 @@ angular.module('mobiusApp.directives.datepicker', [])
           resizeUnbindHandler = null;
         }
       }
-
-      scope.testClick = function(){
-        console.log('click');
-      };
 
       scope.$on('$destroy', function(){
         unWatchHiglights();

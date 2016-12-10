@@ -13,6 +13,7 @@ angular.module('mobiusApp.config', [])
     'development': '',
     'integration': '',
     'staging': '',
+    'uat':'',
     'live': ''
   },
   'sentry': {
@@ -20,6 +21,7 @@ angular.module('mobiusApp.config', [])
     'development': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'integration': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
+    'uat': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
   'evolutionInfiniti': {
@@ -40,6 +42,7 @@ angular.module('mobiusApp.config', [])
       'development': '',
       'integration': '',
       'staging': '',
+      'uat': '',
       'live': ''
     }
   },
@@ -65,7 +68,8 @@ angular.module('mobiusApp.config', [])
       'development': 'http://development-national-api.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
       'staging': 'https://staging-us-www-national.mobiuswebservices.com/api/4.0/',
-      'live':  'http://national.api.mobiuswebservices.com:3010/api/4.0/'
+      'uat': '/api/4.0/',
+      'live': 'https://national.api.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
       'search': {

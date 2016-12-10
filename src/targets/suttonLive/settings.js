@@ -13,6 +13,7 @@ angular.module('mobiusApp.config', [])
     'development': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
     'integration': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
     'staging': 'http://staging-prestige.suttonplace.com/track/content/infiniti.js',
+    'uat': '/infiniti/track/content/infiniti.js',
     'live': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
   'sentry': {
@@ -20,6 +21,7 @@ angular.module('mobiusApp.config', [])
     'development': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'integration': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
+    'uat': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
   'evolutionInfiniti': {
@@ -30,6 +32,7 @@ angular.module('mobiusApp.config', [])
       'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'staging': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'uat': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'live': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js'
     }
   },
@@ -40,6 +43,7 @@ angular.module('mobiusApp.config', [])
       'development': 'https://infiniti-evolution-test.appspot.com/track/purchase',
       'integration': 'https://infiniti-evolution-test.appspot.com/track/purchase',
       'staging': 'https://infiniti-evolution-test.appspot.com/track/purchase',
+      'uat': 'https://infiniti-evolution-test.appspot.com/track/purchase',
       'live': 'https://infiniti-evolution-test.appspot.com/track/purchase'
     }
   },
@@ -61,6 +65,14 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'staging': {
+      'enable':true,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'id':'sutton-staging',
+      'username': 'sutton',
+      'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
+    },
+    'uat': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
@@ -103,6 +115,7 @@ angular.module('mobiusApp.config', [])
       'development': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'staging': '//staging.suttonplace.com/api/4.0/',
+      'uat': '/api/4.0/',
       'live':  'https://www.suttonplace.com/api/4.0/'
     },
     'mobiusTracking': {
