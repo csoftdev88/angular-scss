@@ -39,13 +39,13 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.Math = window.Math;
       scope.config = Settings.UI.viewsSettings.hotels;
       scope.isMobile = stateService.isMobile();
-      scope.compareEnabled = !scope.isMobile && scope.config.displayCompare;
+      scope.compareEnabled = !scope.isMobile && scope.config.displayCompare && $stateParams.locationSlug;
       scope.compareHotelLimit = 3;
       scope.comparisonIndex = 0;
 
       scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
         scope.isMobile = viewport.isMobile;
-        scope.compareEnabled = !scope.isMobile && scope.config.displayCompare;
+        scope.compareEnabled = !scope.isMobile && scope.config.displayCompare && $stateParams.locationSlug;
       });
 
       //Handle region/location description
@@ -457,9 +457,18 @@ angular.module('mobiusApp.directives.hotels', [])
         };
       };
 
-      //hotel view default value
       if(mobiusUserPreferences && mobiusUserPreferences.hotelViewMode){
-        scope.hotelViewMode = mobiusUserPreferences.hotelViewMode;
+        if(!$stateParams.locationSlug){
+          if(mobiusUserPreferences.hotelViewMode !== 'compare') {
+            scope.hotelViewMode = mobiusUserPreferences.hotelViewMode;
+          }
+          else {
+            scope.hotelViewMode = scope.config.defaultViewMode ? scope.config.defaultViewMode : 'tiles';
+          }
+        }
+        else{
+          scope.hotelViewMode = mobiusUserPreferences.hotelViewMode;
+        }
       }
       else{
         scope.hotelViewMode = scope.config.defaultViewMode ? scope.config.defaultViewMode : 'tiles';
