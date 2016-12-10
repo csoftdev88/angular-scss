@@ -60,6 +60,7 @@ angular.module('mobiusApp.config', [])
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
     'chainCode': 'NAT',
+    'trackUsage': true,
     'baseURL': {
       'development': 'http://development-national-api.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
@@ -169,7 +170,7 @@ angular.module('mobiusApp.config', [])
       }]
     },
     'sessionData': {
-      'includeInApiCalls': false,
+      'includeInApiCalls': true,
       'cookieName': 'mobiusSessionData',
       'httpHeaderFieldName': 'sessionData',
       //cookie expiry in minutes

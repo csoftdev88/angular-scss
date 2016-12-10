@@ -4,9 +4,8 @@ angular.module('mobiusApp.services.api', [])
 
 .service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService) {
 
-  //var sessionCookie = sessionDataService.getCookie();
-  //var sessionId = sessionCookie.sessionData.sessionId;
-  var sessionId = 0;
+  var sessionCookie = sessionDataService.getCookie();
+  var sessionId = sessionCookie.sessionData.sessionId;
   var env = document.querySelector('meta[name=environment]').getAttribute('content');
   var headers = {
     'mobius-tenant': Settings.API.headers['Mobius-chainId'],
@@ -208,8 +207,8 @@ angular.module('mobiusApp.services.api', [])
   }
 
   function handleSessionDataHeaders(){
-    if(Settings.API.sessionData.includeInApiCalls && sessionDataService.getCookie()){
-      setHeaders(sessionDataService.getCookie());
+    if(Settings.API.sessionData.includeInApiCalls && sessionCookie){
+      setHeaders(sessionCookie);
     }
   }
 
