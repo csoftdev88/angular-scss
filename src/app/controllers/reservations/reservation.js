@@ -948,7 +948,7 @@ angular.module('mobius.controllers.reservation', [])
             var product = {
               name: p.name,
               code: p.code,
-              tax: ((p.price.totalAfterTax - p.price.totalBaseAfterPricingRules) / numNights).toFixed(2),
+              tax: ((p.price.totalAfterTaxAfterPricingRules - p.price.totalBaseAfterPricingRules) / numNights).toFixed(2),
               price: ($scope.getTotal('totalBaseAfterPricingRules') / numNights).toFixed(2),
               id: room._selectedProduct.code,
               quantity: numNights,
@@ -968,7 +968,7 @@ angular.module('mobius.controllers.reservation', [])
             'affiliation': 'Hotel',
             'revenue': $scope.getTotal('totalBaseAfterPricingRules'),
             'quantity': numNights,
-            'tax': ($scope.getTotal('totalAfterTax') - $scope.getTotal('totalBaseAfterPricingRules')).toFixed(2),
+            'tax': ($scope.getTotal('totalAfterTaxAfterPricingRules') - $scope.getTotal('totalBaseAfterPricingRules')).toFixed(2),
             'coupon': $scope.bookingDetails.promoCode || $scope.bookingDetails.groupCode || $scope.bookingDetails.corpCode || null,
             'shipping': '0'
           };
@@ -1018,7 +1018,7 @@ angular.module('mobius.controllers.reservation', [])
               guests: parseInt($scope.getGuestsCount('adults')) + parseInt($scope.getGuestsCount('children')),
               rooms: $scope.allRooms.length,
               pureAmount: $scope.getTotal('totalBaseAfterPricingRules'),
-              totalAmount: $scope.getTotal('totalAfterTax'),
+              totalAmount: $scope.getTotal('totalAfterTaxAfterPricingRules'),
               currency: $rootScope.currencyCode,
               device: metaDevice ? metaDevice : null
             };
@@ -1029,7 +1029,7 @@ angular.module('mobius.controllers.reservation', [])
           //mobius ecommerce tracking
           var priceData = {
             'beforeTax': $scope.getTotal('totalBaseAfterPricingRules'),
-            'afterTax': $scope.getTotal('totalAfterTax'),
+            'afterTax': $scope.getTotal('totalAfterTaxAfterPricingRules'),
             'totalDiscount': $scope.getTotal('totalDiscount'),
             'totalAfterTaxAfterPricingRules': $scope.getTotal('totalAfterTaxAfterPricingRules'),
             'totalTax':$scope.getBreakdownTotalTaxes(false) + $scope.getTotal('totalAdditionalFees'),
