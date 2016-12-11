@@ -36,7 +36,7 @@
 </section>
 
 
-  <section grid-container="9" widget="hotels" id="hotels">
+  <section grid-container="9" widget="hotels" id="hotels" ng-class="{'compare-enabled': compareEnabled}">
     <header class="hotels__header">
       <h1 ng-bind-html="'_hotels_page_title_' | mainHeaderStyle"></h1>
       <ng-pluralize ng-if="config.displayHotelsCount" class="hotels-counter" count="(hotels|filter:hotelFilter|filter:filterByTags).length" when="{'1': '1 _hotel_found_', 'other': '{} _hotels_found_'}"></ng-pluralize>
@@ -63,8 +63,8 @@
     <div ng-if="!isUserLoggedIn()" class="msg-box">_hotels_page_login_prompt_desc_</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
-      <ul class="entries entries--{{hotelViewMode}}">
-        <li class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
+      <ul class="entries entries--{{hotelViewMode}}" vertilize-container>
+        <li ng-if="(hotelViewMode === 'list' || hotelViewMode === 'tiles') || isMobile" class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
             <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)">
               <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
@@ -110,6 +110,57 @@
             <p class="description">{{hotel.descriptionShort}}</p>
         </li>
 
+        <li ng-if="hotelViewMode === 'compare' && !isMobile" class="item" ng-repeat="hotel in compareHotels | filter:{userHidden:false} | filter : hotelFilter | filter: filterByTags | orderBy : currentOrder.sort  | limitTo:(comparisonIndex - ((compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length)) | limitTo:compareHotelLimit" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
+            <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)">
+              <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
+              <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
+            </a>
+
+            <div class="ratings">
+              <div class="brand" ng-if="displayPropertyChainBranding" ng-class="hotel.chainCode.toLowerCase()"></div>
+              <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor.enable">
+                <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
+              </div>
+
+              <div class="rating-default" ng-if="filterConfig.stars.enable && filterConfig.stars.displayStarsOnHotels">
+                <ul class="star-rating">
+                  <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="hotel-content" vertilize>
+              <h2 ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
+              <h5 class="region-name">{{hotel.regionName}}</h5>
+              <div class="description" ng-bind-html="sanitize(hotel.descriptionShort ? hotel.descriptionShort : hotel.description)"></div>
+            </div>
+
+            <a ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)" class="read-more">_read_more_</a>
+
+            <ul class="amenities" ng-if="hotel.amenities.length > 0">
+              <li class="amenity" ng-repeat="amenity in hotel.amenities | limitTo:3" ng-init="amenity.chainCode = hotel.chainCode">
+                <slug-img slug="amenity" type="hotel" width="19"></slug-img>
+                <span class="amenity-caption">{{amenity.name}}</span>
+              </li>
+            </ul>
+
+            <pricing-info>
+              <p class="price available left" ng-if="hotel.available">
+                <span ng-if="hotel.available && isUserLoggedIn() && hotel.minPointsRequired">
+                  <br />_or_ <span class="value">{{hotel.minPointsRequired}}</span> _points_
+                </span>
+              </p>
+              <p class="price unavailable" ng-if="!hotel.available && hasDates()">
+                _not_available_on_dates_title_
+              </p>
+              <button-submit ng-if="hotel.available" role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_price_from_ {{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</button-submit>
+              <button-submit ng-if="!hotel.available && hasDates()" role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_view_more_</button-submit>
+              <button-submit ng-if="!hasDates()" ng-click="selectDates(hotel)">_select_dates_</button-submit>
+            </pricing-info>
+
+            <button class="hotel-hide-btn" ng-click="hideHotel(hotel)">Hide</button>
+        </li>
+
         <li class="item filter-no-matches" ng-if="hotels">
           <div class="products-not-available">
             <div>
@@ -119,10 +170,12 @@
           </div>
         </li>
       </ul>
+      <button class="compare-direction-btn" ng-click="shiftHotelCarousel(false)" ng-disabled="!(comparisonIndex > 0)" ng-if="hotelViewMode === 'compare' && !isMobile && (compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length">Prev</button>
+      <button class="compare-direction-btn" ng-click="shiftHotelCarousel(true)" ng-disabled="!(comparisonIndex < ((compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length - compareHotelLimit))" ng-if="hotelViewMode === 'compare' && !isMobile && (compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length">Next</button>
     </div>
   </section>
 
-  <aside grid-container="3" class="hotels__filter">
+  <aside grid-container="3" class="hotels__filter" ng-class="{'compare-enabled': compareEnabled}">
     <div class="view-switch">
       <h2>_filter_view_label_</h2>
       <ul>
@@ -132,7 +185,13 @@
         <li ng-class="{'is-active': hotelViewMode === 'tiles'}" ng-click="setHotelViewMode('tiles')">
           <i class="fa fa-th-large" title="Show as tiles" /> _filter_grid_label_
         </li>
+        <li ng-if="compareEnabled" ng-class="{'is-active': hotelViewMode === 'compare'}" ng-click="setHotelViewMode('compare')">
+          <i class="fa fa-th" title="Show as compare" /> _filter_compare_label_
+        </li>
       </ul>
+    </div>
+    <div class="reset-container" ng-if="showCompareHotelsReset && hotelViewMode === 'compare' && !isMobile">
+      <a href ng-click="resetCompareHotels()">_reset_compare_</a>
     </div>
     <div class="filters-bar">
 

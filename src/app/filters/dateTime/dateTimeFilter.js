@@ -7,14 +7,14 @@
 
 angular.module('mobiusApp.filters.dateTime', [])
 
-.filter('dateTime', function($window) {
+.filter('dateTime', function($window, Settings) {
   return function(input, outputFormat, inputFormat) {
     if(!input){
       return '';
     }
 
     if(!outputFormat){
-      outputFormat = 'DD MMM YY';
+      outputFormat = Settings.UI.generics.longDateFormat;
     }
 
     if(!inputFormat){

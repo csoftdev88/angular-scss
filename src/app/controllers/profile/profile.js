@@ -40,6 +40,10 @@ angular.module('mobius.controllers.profile', [])
       metaInformationService.setMetaKeywords(chain.meta.keywords);
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
 
+      $timeout(function(){
+        scrollService.scrollTo('jsProfile');
+      }, 500);
+
     });
 
 		contentService.getTitles().then(function(data) {

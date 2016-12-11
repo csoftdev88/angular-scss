@@ -4,179 +4,181 @@
 
 profile-page,
 register-page {
-
   //- Page Heading
-  header{
+  header {
     h1 {
       color: @c-primary;
       font-weight: inherit;
     }
   }
 
-  .profile-summary{
+  .profile-summary {
     display: inline-block;
     margin-bottom: 40px;
-    .viewport-mobile &{
+
+    .viewport-mobile & {
       margin-bottom: 20px;
     }
 
-    .summary-wrapper{
+    .summary-wrapper {
       border: 1px solid #979797;
       padding: 23px 45px 17px;
       margin-bottom: 20px;
       display: inline-block;
       width: 100%;
       box-sizing: border-box;
-      .viewport-mobile &{
+
+      .viewport-mobile & {
         padding: 36px 20px 10px;
       }
 
-      .name,
       .address,
-      .contact{
+      .contact,
+      .name {
         float: left;
         box-sizing: border-box;
-        .item{
+
+        .item {
           font-size: 18px;
           line-height: 24px;
           display: inline-block;
           width: 100%;
-          .label{
-            float: left;
+          margin-bottom: 14px;
+
+          .label {
             box-sizing: border-box;
-            width: 50%;
-            padding-right: 20px;
             font-family: @ff-bold;
           }
-          .value{
-            padding-left: 50%;
+
+          .value {
+            word-break: break-all;
           }
         }
-        .viewport-mobile &{
+
+        .viewport-mobile & {
           width: 100%;
-          &.name{
+
+          &.name {
             margin-bottom: 14px;
           }
-          .item{
+
+          .item {
             margin-bottom: 14px;
             font-size: 16px;
-            .label{
+
+            .label {
               width: 100%;
             }
-            .value{
-              padding-left: 0%;
+
+            .value {
+              padding-left: 0;
             }
           }
         }
       }
 
-      .name{
+      .name {
         font-family: @ff-heading;
         font-size: 26px;
         line-height: 34px;
         width: 25%;
-        span{
+
+        span {
           display: block;
           font-size: 18px;
           line-height: 27px;
         }
       }
 
-      .address{
+      .address {
         width: 40%;
-        .item{
-          .label{
-            width: 30%;
-          }
-          .value{
-            padding-left: 30%;
-          }
-        }
       }
 
-      .contact{
+      .contact {
         width: 35%;
       }
 
-      .footer{
+      .footer {
         display: inline-block;
         width: 100%;
         margin-top: 20px;
-        .viewport-mobile &{
-          margin-top: 0px;
+
+        .viewport-mobile & {
+          margin-top: 0;
         }
-        .share{
-          width: 34%;
+
+        .share {
+          width: 24%;
           line-height: 26px;
         }
-        label{
+
+        label {
           clear: none;
           font-size: 18px;
           font-weight: 400;
           line-height: 26px;
           padding-bottom: 0;
-          width: 66%;
+          width: 76%;
           float: right;
-          .viewport-mobile &{
+
+          .viewport-mobile & {
             font-size: 16px;
             line-height: 24px;
             float: none;
           }
         }
-        .viewport-mobile &{
+
+        .viewport-mobile & {
           margin-top: 0;
           text-align: center;
+
           .share,
-          label{
+          label {
             width: 100%;
           }
 
-          label{
+          label {
             margin-bottom: 20px;
             text-align: left;
           }
         }
-
       }
     }
 
-    button-submit{
+    button-submit {
       float: right;
     }
-    
-
   }
-
   //- Form
   form {
-    h2{
+    h2 {
       color: @c-primary;
     }
 
-    fieldset{
-
+    fieldset {
       form-element {
-
         label {
           color: @c-grey;
         }
 
-        .chosen-container{
+        .chosen-container {
           color: @c-mid-grey;
-          .chosen-single{
+
+          .chosen-single {
             color: @c-mid-grey;
           }
-          .chosen-results{
-            li{
+
+          .chosen-results {
+            li {
               color: @c-mid-grey;
             }
           }
         }
 
-        input[type="text"],
         input[type="email"],
         input[type="password"],
         input[type="tel"],
+        input[type="text"],
         select,
         textarea {
           border-color: @c-form-border-grey;
@@ -191,4 +193,3 @@ register-page {
     }
   }
 }
-

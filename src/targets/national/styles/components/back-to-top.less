@@ -1,7 +1,10 @@
 //- BACK TO TOP BUTTON -//
 .back-to-top{
   bottom: 50px;
-  background: rgba(172, 160, 152, 0.5);
+  height:50px;
+  width:50px;
+  background: rgba(133, 124, 114, 0.4);
+  border-radius:0px;
   .viewport-mobile &{
     bottom: 80px;
   }
@@ -10,5 +13,21 @@
     .viewport-mobile &{
       bottom: 80px;
     }
+  }
+  &.visible {
+    height:50px;
+  }
+  span {
+    display:none;
+  }
+  &:after {
+    font-family:sans-serif;
+    content:"↑";
+    font-weight: bold;
+    font-size: 26px;
+    height: auto;
+    width: auto;
+    margin-left: -10px;
+    margin-top: -14px;
   }
 }
