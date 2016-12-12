@@ -208,9 +208,12 @@ angular.module('mobius.controllers.main', [])
 
       var campaign = {
         backgroundColor:'#96adbf',
-        fullScreen:false,
+        fullScreen:true,
         transparentBackground:true,
-        image:'/static/images/takeover-content@2x.png'
+        image:'/static/images/takeover-content@2x.png',
+        callToAction:'BOOK NOW',
+        primaryColor:'#f76b1c',
+        secondaryColor:'#fbda61'
       };
 
       modalService.openCampaignDialog(campaign);

@@ -14,14 +14,10 @@ angular.module('mobius.controllers.modals.campaign', [
   $controller('SanitizeCtrl', {$scope: $scope});
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
-  $scope.ok = function() {
-    $modalInstance.close();
-  };
-
   $scope.cancel = function() {
-    console.log('cancel this');
     $modalInstance.dismiss('cancel');
   };
+
   console.log('show the data');
-  console.log($scope.data);
+  console.log($scope.campaign);
 });
