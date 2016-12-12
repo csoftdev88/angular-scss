@@ -1,0 +1,9 @@
+<div ng-show="showCampaignBar" class="campaign-items" ng-style="{'background-color': $root.campaign.backgroundColor}">
+  <div class="campaign-bar">
+    <div class="text-content">
+      <h2>$75 OFF YOUR VANCOUVER STAY</h2>
+      <p>*Between 5th November 2016 and 31st December 2016</p>
+    </div>
+    <button class="campaign-cta" ng-if="$root.campaign.callToAction" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.secondaryColor +', '+$root.campaign.primaryColor+')'}">{{$root.campaign.callToAction ? $root.campaign.callToAction : '_book_now_'}}</button>
+  </div>
+</div>

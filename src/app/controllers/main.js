@@ -206,17 +206,18 @@ angular.module('mobius.controllers.main', [])
       //Footer
       $scope.footerConfig = Settings.UI.footer;
 
-      var campaign = {
+      $rootScope.campaign = {
         backgroundColor:'#96adbf',
         fullScreen:true,
         transparentBackground:true,
         image:'/static/images/takeover-content@2x.png',
-        callToAction:'BOOK NOW',
+        callToAction:'BOOK NOW!',
         primaryColor:'#f76b1c',
-        secondaryColor:'#fbda61'
+        secondaryColor:'#fbda61',
+        title:'<strong>$75 OFF</strong>&nbsp;YOUR STAY'
       };
 
-      modalService.openCampaignDialog(campaign);
+      //modalService.openCampaignDialog($rootScope.campaign);
 
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});

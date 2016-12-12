@@ -9,7 +9,8 @@ angular.module('mobiusApp.directives.floatingBar', [
       Settings, bookingService, $window, $rootScope, $timeout) {
     var BOOKING = 'booking',
         ADVANCED_BOOKING = 'advancedBooking',
-        MY_ACCOUNT = 'myAccount';
+        MY_ACCOUNT = 'myAccount',
+        CAMPAIGN = 'campaign';
 
     var active = BOOKING;
     var isCollapsed = false;
@@ -41,6 +42,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
+        scope.CAMPAIGN = CAMPAIGN;
 
         var bookingParams = bookingService.getAPIParams();
 

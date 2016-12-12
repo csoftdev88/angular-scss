@@ -256,6 +256,9 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'campaigns': {
+      display:true
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30

@@ -137,7 +137,7 @@ floating-bar {
         height: @baseline * 1.5;
         width: 1000px;
 
-        background: @c-booking-widget-my-account;
+        background: inherit;
 
         content: '';
       }
@@ -298,7 +298,7 @@ floating-bar {
         }
       }
 
-      &.floating-bar--tab-my-accounts {
+      &.floating-bar--tab-my-accounts, &.floating-bar--tab-campaign {
         float: right;
         padding: 0 0 0 @baseline/2;
 
@@ -319,7 +319,22 @@ floating-bar {
         .viewport-mobile & {
           display: none;
         }
+      }
+      &.floating-bar--tab-campaign {
+        position:relative;
+        &:after {
+          display:none;
+        }
+        .campaign-end-piece {
+          position: absolute;
+          left: -@baseline;
+          right: auto;
+          top: 0;
 
+          border-right: 0;
+          border-left: @baseline solid transparent;
+          border-bottom: @baseline*1.5 solid @c-booking-widget-my-account;
+        }
       }
     }
   }

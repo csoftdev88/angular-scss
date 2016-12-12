@@ -33,6 +33,11 @@
     <a href="" ng-click="setActive(MY_ACCOUNT)" ng-bind-html="'_loyalty_progam_title_' | mainHeaderStyle">
     </a>
   </li>
+  <li class="floating-bar--tab-campaign" ng-show="$root.campaign" ng-class="{'is-active': active === CAMPAIGN}" ng-style="{'background-color': $root.campaign.backgroundColor}">
+    <a href="" ng-click="setActive(CAMPAIGN)" ng-bind-html="$root.campaign.title | mainHeaderStyle">
+    </a>
+    <span class="campaign-end-piece" ng-style="{'border-bottom-color':$root.campaign.backgroundColor}"></span>
+  </li>
 </ul>
 <div>
   <booking-widget
@@ -48,4 +53,17 @@
     ng-show="loyaltyProgramEnabled"
     ng-class="{'is-open': !isCollapsed && active === MY_ACCOUNT}">
   </my-account>
+
+  <campaign-bar
+    ng-show="$root.campaign"
+    ng-style="{'background-color': $root.campaign.backgroundColor}"
+    ng-class="{'is-open': !isCollapsed && active === CAMPAIGN}">
+    <div class="campaign-bar">
+      <div class="text-content">
+        <h2>$75 OFF YOUR VANCOUVER STAY</h2>
+        <p>*Between 5th November 2016 and 31st December 2016</p>
+      </div>
+      <button class="campaign-cta" ng-if="$root.campaign.callToAction" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.secondaryColor +', '+$root.campaign.primaryColor+')'}">{{$root.campaign.callToAction ? $root.campaign.callToAction : '_book_now_'}}</button>
+    </div>
+  </campaign-bar>
 </div>

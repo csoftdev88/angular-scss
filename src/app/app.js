@@ -174,6 +174,7 @@ angular
     'mobiusApp.directives.scrollToTop',
     'mobiusApp.directives.growlAlerts',
     'mobiusApp.directives.optionsDisabled',
+    'mobiusApp.directives.slidedownNotifications',
 
     'internationalPhoneNumber',
 
