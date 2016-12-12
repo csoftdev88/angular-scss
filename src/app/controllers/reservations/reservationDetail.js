@@ -138,7 +138,7 @@ angular.module('mobius.controllers.reservationDetail', [])
             // TODO: Check if this data is enough
             room._selectedProduct = {
               name: defaultRoom.productName,
-              totalAfterTax: defaultRoom.price,
+              totalAfterTaxAfterPricingRules: defaultRoom.price,
               breakdowns: []
             };
 
