@@ -206,6 +206,15 @@ angular.module('mobius.controllers.main', [])
       //Footer
       $scope.footerConfig = Settings.UI.footer;
 
+      var campaign = {
+        backgroundColor:'#96adbf',
+        fullScreen:false,
+        transparentBackground:true,
+        image:'/static/images/takeover-content@2x.png'
+      };
+
+      modalService.openCampaignDialog(campaign);
+
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
       $controller('SanitizeCtrl', {$scope: $scope});

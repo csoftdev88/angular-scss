@@ -13,6 +13,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_LOCATION = 'LocationDetailCtrl',
       CONTROLLER_CONFIRMATION = 'ConfirmationCtrl',
       CONTROLLER_UPSELLS = 'UpsellsCtrl',
+      CONTROLLER_CAMPAIGN = 'CampaignCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -418,6 +419,19 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openCampaignDialog(campaign){
+    return openDialog('campaignDialog', 'layouts/modals/campaign.html', CONTROLLER_CAMPAIGN, {
+      windowClass: !campaign.fullScreen ? 'dialog-campaign' : 'dialog-campaign fullscreen',
+      resolve: {
+        data: function() {
+          return {
+            campaign: campaign
+          };
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -452,6 +466,7 @@ angular.module('mobiusApp.services.modal', [])
     openLoginDialog: openLoginDialog,
     openEmailRegisteredLoginDialog: openEmailRegisteredLoginDialog,
     openProductDetailsDialog: openProductDetailsDialog,
-    openUpsellsDialog: openUpsellsDialog
+    openUpsellsDialog: openUpsellsDialog,
+    openCampaignDialog: openCampaignDialog
   };
 });
