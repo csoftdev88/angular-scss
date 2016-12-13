@@ -1,21 +1,31 @@
 .campaign-bar {
   text-align:center;
-  padding:10px 0;
+  padding:10px;
   .clearfix;
   .text-content {
     display:inline-block;
     float:left;
     color:white;
+    .viewport-mobile & {
+      float:none;
+    }
     h2 {
       font-size:35px;
       line-height:40px;
       font-weight:900;
       text-shadow:0px 0px 3px rgba(0, 0, 0, 0.6);
+      .viewport-mobile & {
+        font-size:20px;
+        line-height:26px;
+      }
     }
     p {
       color:white;
       font-size:10px;
       line-height:12px;
+      .viewport-mobile & {
+        margin-top:10px;
+      }
     }
   }
   button.campaign-cta {
@@ -26,5 +36,12 @@
     height: 45px;
     box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.5);
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    .viewport-mobile & {
+      float:none;
+      margin:10px 0 0 0;
+      font-size: 13px;
+      height: 35px;
+      line-height: 35px;
+    }
   }
 }

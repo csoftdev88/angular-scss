@@ -208,6 +208,7 @@ angular.module('mobius.controllers.main', [])
 
       $rootScope.campaign = {
         backgroundColor:'#96adbf',
+        backgroundImage:'/static/images/rails.jpg',
         fullScreen:true,
         transparentBackground:true,
         image:'/static/images/takeover-content@2x.png',
@@ -217,7 +218,9 @@ angular.module('mobius.controllers.main', [])
         title:'<strong>$75 OFF</strong>&nbsp;YOUR STAY'
       };
 
-      //modalService.openCampaignDialog($rootScope.campaign);
+      $('body').addClass('campaign-rails-active');
+
+      modalService.openCampaignDialog($rootScope.campaign);
 
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
