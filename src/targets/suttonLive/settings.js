@@ -363,8 +363,8 @@ angular.module('mobiusApp.config', [])
           'width': 150,
           'height': 150
         },
-        'includeSlider': false,
-        'sliderHasThumbnails': false,
+        'includeSlider': true,
+        'sliderHasThumbnails': true,
         'includeTripAdvisorPreloader': true,
         // Room Rates
         'rates': {
@@ -401,10 +401,17 @@ angular.module('mobiusApp.config', [])
         'hotelHeader': false,
         'hotelDatesSelected': false,
         'hotelInfo': true,
-        'hotelRooms': true,
+        'hotelRooms': false,
+        'hotelRoomsCompare': true,
         'hotelServices': true,
         'hotelLocation': true,
         'hotelOffers': true
+      },
+      'bookingStatistics':{
+        'display':true,
+        'displayDelay':5000,
+        'displayTime':2000000, //The length that you wish the alerts to appear for
+        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       }
     },
     //rate lookup teasers
@@ -947,7 +954,8 @@ angular.module('mobiusApp.config', [])
         'showRegionDescription': false,
         'showLocationDescription': false,
         'displayHotelRegionName': false,
-        'displayHotelsCount': false
+        'displayHotelsCount': false,
+        'displayCompare': true,
       },
       'hotelDetails':{
         'hasViewMore': true,
