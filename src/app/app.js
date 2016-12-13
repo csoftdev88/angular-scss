@@ -110,6 +110,7 @@ angular
     'mobiusApp.services.channelService',
     'mobiusApp.services.router',
     'mobiusApp.services.track404s',
+    'mobiusApp.services.campaigns',
 
     // Factories
     'mobiusApp.factories.template',

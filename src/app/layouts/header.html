@@ -1,4 +1,5 @@
 <slidedown-notifications></slidedown-notifications>
+
 <div id="main-header-inner">
   <nav class="main-nav wrapper" dropdown>
 
@@ -275,4 +276,11 @@
 
     </div>
   </div>
+  <div class="curl rightcorner" ng-if="$root.campaign && $root.campaign.adverts.pageCurl.images">
+	   <div class="curl-content">
+       <a ng-href="{{$root.campaign.uri}}"><img src="{{$root.campaign.adverts.pageCurl.images.uri}}"/></a>
+	    </div>
+    </div>
+  </div>
+
 </div><!-- #main-header-inner -->

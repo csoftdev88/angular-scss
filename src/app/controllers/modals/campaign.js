@@ -7,7 +7,7 @@ angular.module('mobius.controllers.modals.campaign', [
   'mobius.controllers.common.sanitize'
 ])
 
-.controller('CampaignCtrl', function($scope, $modalInstance, $controller, data) {
+.controller('CampaignCtrl', function($scope, $rootScope, $location, $modalInstance, $controller, data) {
   if(data && data.campaign){
     $scope.campaign = data.campaign;
   }
@@ -15,6 +15,11 @@ angular.module('mobius.controllers.modals.campaign', [
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
   $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+
+  $scope.goToCampaign = function() {
+    $location.path($rootScope.campaign.uri);
     $modalInstance.dismiss('cancel');
   };
 

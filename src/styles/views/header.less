@@ -21,6 +21,7 @@
 }
 
 #main-header-inner {
+  position:relative;
   .login-dialog-overlay {
     .viewport-mobile & {
       position: fixed;
@@ -64,6 +65,13 @@
             only screen and (-webkit-min-device-pixel-ratio: 2.5),
             only screen and (min-device-pixel-ratio: 2.5) {
       background-image: url("@{img-prefix}/menu-opener@3x.png");
+    }
+  }
+
+  .app-menu > ul{
+    .viewport-desktop.campaign-folded-corner-active & {
+      position: absolute;
+      right: 100px;
     }
   }
 

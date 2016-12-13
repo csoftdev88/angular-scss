@@ -135,6 +135,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'url':'https://errors.2pvservices.com/status'
     },
+    'campaigns':'campaigns',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',

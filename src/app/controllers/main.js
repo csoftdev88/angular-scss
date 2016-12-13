@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'campaignsService',
     function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope,campaignsService) {
 
       $scope.chainCode = Settings.API.chainCode;
 
@@ -206,21 +206,19 @@ angular.module('mobius.controllers.main', [])
       //Footer
       $scope.footerConfig = Settings.UI.footer;
 
-      $rootScope.campaign = {
-        backgroundColor:'#96adbf',
-        backgroundImage:'/static/images/rails.jpg',
-        fullScreen:true,
-        transparentBackground:true,
-        image:'/static/images/takeover-content@2x.png',
-        callToAction:'BOOK NOW!',
-        primaryColor:'#f76b1c',
-        secondaryColor:'#fbda61',
-        title:'<strong>$75 OFF</strong>&nbsp;YOUR STAY'
-      };
 
-      $('body').addClass('campaign-rails-active');
+      //check if user is logged in and then get campaigns
+      function onAuthorized(){
+        if(Settings.UI.campaigns && Settings.UI.campaigns.display){
+          var loggedIn = user ? user.isLoggedIn() : false;
+          campaignsService.getCampaigns(loggedIn).then(function(data){
+            $rootScope.campaign = data;
+            campaignsService.renderCampaign();
+          });
+        }
+      }
 
-      modalService.openCampaignDialog($rootScope.campaign);
+      $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
