@@ -1,4 +1,4 @@
-<div ng-show="$root.campaign" class="campaign-items" ng-style="{'background-color': $root.campaign.style.backgroundColor}" ng-click="goToCampaign()">
+<a ng-show="$root.campaign" class="campaign-items" ng-style="{'background-color': $root.campaign.style.backgroundColor}" ng-href="{{$root.campaign.uri}}">
   <div class="campaign-bar">
     <div class="text-content">
       <h2>{{$root.campaign.header.headerText}}</h2>
