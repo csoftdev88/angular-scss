@@ -112,7 +112,7 @@
     <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'groupCode'" placeholder="_group_code_" ng-model="selected.groupCode" ng-pattern="$root.generalValidationPattern">
     <form-label>{{selected.codeType.title}}</form-label>
 
-    <remove-text role="button" class="remove" ng-click="removeCode()"></remove-text>
+    <remove-text ng-show="canRemoveCodes" role="button" class="remove" ng-click="removeCode()"></remove-text>
   </form-element>
 
   <!-- PRODUCTS RATES -->
