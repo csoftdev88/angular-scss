@@ -234,7 +234,7 @@ angular
   // 3rd Parties
   .state('thirdParties', {
     parent: 'root',
-    templateUrl: 'layouts/thirdParties/thirdParties.html',
+    templateUrl: 'layouts/home/home.html',
     controller: 'ThirdPartiesCtrl',
     url: '/corp/:code',
     params: {
