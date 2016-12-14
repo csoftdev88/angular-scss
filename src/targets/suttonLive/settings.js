@@ -1148,6 +1148,7 @@ angular.module('mobiusApp.config', [])
     }
   },
   'thirdparties': {
+    'enable': false,
     'menu': {
       'showHotels': false,
       'showRegionsMegaMenu': true,

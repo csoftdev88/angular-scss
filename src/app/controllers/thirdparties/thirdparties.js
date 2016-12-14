@@ -11,11 +11,8 @@ angular.module('mobius.controllers.thirdParties', [])
       gourp: 'groupCode'
     };
 
-    vm.code = {};
-    $rootScope.thirdparty = {
-      config: Settings.UI.thirdparties,
-      heroContent: []
-    };
+
+
 
     function setCode() {
       var settings = {
@@ -53,5 +50,16 @@ angular.module('mobius.controllers.thirdParties', [])
         });
     }
 
-    getThirdParties();
+    if (Settings.UI.thirdparties.enable) {
+      vm.code = {};
+      $rootScope.thirdparty = {
+        config: Settings.UI.thirdparties,
+        heroContent: []
+      };
+
+      getThirdParties();
+    } else {
+      // Redirect to Home.
+      $state.go('home');
+    }
   });
