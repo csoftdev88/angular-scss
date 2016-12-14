@@ -3,9 +3,9 @@
 angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
-  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
+  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
     'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'campaignsService',
-    function($scope, $state, $modal, orderByFilter, modalService,
+    function($scope, $state, $modal, orderByFilter, modalService, $window,
       contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope,campaignsService) {
 
       $scope.chainCode = Settings.API.chainCode;
@@ -212,9 +212,62 @@ angular.module('mobius.controllers.main', [])
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){
           var loggedIn = user ? user.isLoggedIn() : false;
           campaignsService.getCampaigns(loggedIn).then(function(data){
+            /*var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+            var fromDate = parseInt($window.moment.tz(data.active.from, Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+            var toDate = parseInt($window.moment.tz(data.active.to, Settings.UI.bookingWidget.timezone).startOf('day').valueOf());*/
             $rootScope.campaign = data;
             campaignsService.renderCampaign();
           });
+          $rootScope.campaign = {
+            'active': {
+              'from': '2016-12-01T00:00:00.000Z',
+              'to': '2016-12-31T00:00:00.000Z'
+            },
+            'adverts': {
+              'backgroundColor': '#b89561',
+              'bookingBar': {
+                'tabColor': '#cf15bc',
+                'tabText': 'Text',
+                'tabTitle': 'Tite'
+              },
+              'modal': {
+                'images': {
+                  'alt': 'fff_logo3in_500wd',
+                  'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1479989495/czlybjtjcttrdnssz8nl.jpg'
+                },
+                'text': 'Text',
+                'title': 'Title'
+              },
+              'primaryColor': '#7d1572',
+              'secondaryColor': '#616ab8',
+              'tertiaryColor': '#61b86f'
+            },
+            'association': {
+              'contentCode': 'SMC',
+              'offerCode': 'F1GP',
+              'propertyCode': 'YVR'
+            },
+            'code': 'VAL',
+            'criteria': {
+              'bookingsFrom': '2017-01-01T00:00:00.000Z',
+              'bookingsUntil': '2017-02-28T00:00:00.000Z',
+              'memberOnly': true,
+              'properties': [
+                'ABB',
+                'CAC'
+              ]
+            },
+            'id': 'a0200c1e-4729-4097-bc0f-0a485d712839',
+            'name': 'Little valentine',
+            'passive': false,
+            'priority': true,
+            'reMarketing': {
+              'facebookID': 'FID',
+              'googleID': 'GID'
+            },
+            'tenantId': 2
+          };
+          campaignsService.renderCampaign();
         }
       }
 

@@ -34,7 +34,7 @@
     </a>
   </li>
   <li class="floating-bar--tab-campaign" ng-show="$root.campaign && $root.campaign.adverts.bookingBar" ng-class="{'is-active': active === CAMPAIGN}" ng-style="{'background-color': $root.campaign.adverts.bookingBar.tabColor}">
-    <a href="" ng-click="setActive(CAMPAIGN)" ng-bind-html="$root.campaign.adverts.bookingBar.tabTitle | mainHeaderStyle">
+    <a href="" ng-click="setActive(CAMPAIGN)" ng-bind-html="$root.campaign.name | mainHeaderStyle">
     </a>
     <span class="campaign-end-piece" ng-style="{'border-bottom-color':$root.campaign.adverts.bookingBar.tabColor}"></span>
   </li>
@@ -60,8 +60,11 @@
     ng-class="{'is-open': !isCollapsed && active === CAMPAIGN}"
     ng-click="goToCampaign()">
     <div class="campaign-bar">
-      <div class="text-content" ng-bind-html="$root.campaign.adverts.bookingBar.tabText"></div>
-      <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.style.secondaryColor +', '+$root.campaign.style.primaryColor+')'}">{{$root.campaign.callToAction ? $root.campaign.callToAction : '_book_now_'}}</button>
+      <div class="text-content">
+        <h2>{{$root.campaign.adverts.bookingBar.tabTitle}}</h2>
+        <p>{{$root.campaign.adverts.bookingBar.tabText}}</p>
+      </div>
+      <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.style.secondaryColor +', '+$root.campaign.style.primaryColor+')'}">{{$root.campaign.adverts.bookingBar.callToAction ? $root.campaign.adverts.bookingBar.callToAction : '_book_now_'}}</button>
     </div>
   </campaign-bar>
 </div>

@@ -27,9 +27,9 @@ angular.module('mobiusApp.services.campaigns', [])
     addCampaignUrl();
 
     //STUB
-    $rootScope.campaign.adverts.sideRails.railImage.images.uri = null;
-    $rootScope.campaign.adverts.pageCurl.images.uri = '/static/images/page-curl-bg.jpg';
-    $rootScope.campaign.adverts.interstitial.images.uri = '/static/images/takeover-content@2x.png';
+    //$rootScope.campaign.adverts.sideRails.railImage.images.uri = '/static/images/rails.jpg';
+    //$rootScope.campaign.adverts.pageCurl.images.uri = '/static/images/page-curl-bg@2x.jpg';
+    //$rootScope.campaign.adverts.interstitial.images.uri = '/static/images/takeover-content@2x.jpg';
 
     if($rootScope.campaign.adverts.pageCurl) {
       $('body').addClass('campaign-folded-corner-active');
@@ -52,11 +52,6 @@ angular.module('mobiusApp.services.campaigns', [])
     var offerCode = $rootScope.campaign.association.offerCode;
     var propertyCode = $rootScope.campaign.association.propertyCode;
     var contentCode = $rootScope.campaign.association.contentCode;
-
-    //STUB
-    offerCode = 'DREAM';
-    propertyCode = null;
-    contentCode = null;
 
     if(offerCode && propertyCode) {
       propertyService.getPropertyDetails(propertyCode).then(function(details) {
