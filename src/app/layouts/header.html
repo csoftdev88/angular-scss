@@ -7,6 +7,7 @@
 
     <a class="brand" ui-sref="home({property:null})">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
+      <img class="desktop-logo" ng-show="thirdparty" src="{{thirdparty.logo.uri}}" alt="{{thirdparty.logo.alt}}" height="40">
       <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
     </a>
 
@@ -166,17 +167,17 @@
             ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
         </li>
 
-        <li ng-show="config.menu.showRegionsMegaMenu" mega-menu data-title="_hotels_" data-type="hotels"></li>
+        <li ng-show="thirdparty ? thirdparty.config.menu.showRegionsMegaMenu : config.menu.showRegionsMegaMenu" mega-menu data-title="_hotels_" data-type="hotels"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showHotDeals" mega-menu data-title="_hot_deals_" data-type="hot-deals"></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals" mega-menu data-title="_hot_deals_" data-type="hot-deals"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showMeetingsBanquets"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="is-active">_meetings_banquets_</a></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="is-active">_meetings_banquets_</a></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showOffers : config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showAbout : config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showNews" menu-content="news" data-title="_news_"></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showNews : config.menu.showNews" menu-content="news" data-title="_news_"></li>
 
         <li ng-show="config.menu.showContact">
             <a

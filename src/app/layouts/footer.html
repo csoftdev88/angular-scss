@@ -38,12 +38,12 @@
     <p>_footer_static_content_</p>
     <nav>
       <ul>
-        <li><a ui-sref="hotels">_hotels_</a></li>
-        <li><a ui-sref="hotDeals">_hot_deals_</a></li>
-        <li><a ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})">_meetings_banquets_</a></li>
-        <li><a ui-sref="offers">_offers_deals_</a></li>
-        <li><a ui-sref="aboutUs">_about_us_</a></li>
-        <li><a ui-sref="contacts">_contact_</a></li>
+        <li><a ng-show="thirdparty ? thirdparty.config.menu.showRegionsMegaMenu : true" ui-sref="hotels">_hotels_</a></li>
+        <li><a ng-show="thirdparty ? thirdparty.config.menu.showHotDeals : true" ui-sref="hotDeals">_hot_deals_</a></li>
+        <li><a ng-show="thirdparty ? thirdparty.config.menu.showMeetingsBanquets : true" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})">_meetings_banquets_</a></li>
+        <li><a ng-show="thirdparty ? thirdparty.config.menu.showOffers : true" ui-sref="offers">_offers_deals_</a></li>
+        <li><a ng-show="thirdparty ? thirdparty.config.menu.showAbout : true" ui-sref="aboutUs">_about_us_</a></li>
+        <li><a ng-show="thirdparty ? thirdparty.config.menu.showContact : true" ui-sref="contacts">_contact_</a></li>
         <li><a href ng-click="sso.login()" ng-show="!isUserLoggedIn()">_login_</a></li>
         <li><a ui-sref="lookup">_footer_links_modify_</a></li>
       </ul>
