@@ -7,6 +7,11 @@ hero-slider {
   box-shadow: none;
   margin-top: 128px;
   .campaign-bar-active & {
+    -webkit-transition: margin-top 0.5s;
+    -moz-transition: margin-top 0.5s;
+    transition: margin-top 0.5s;
+    -webkit-transition-delay: 1s; /* Safari */
+    transition-delay: 1s;
     margin-top:206px;
   }
   .slider-controls {

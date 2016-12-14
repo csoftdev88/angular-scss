@@ -1,9 +1,9 @@
-<a class="campaign-items" ng-style="{'background-color': $root.campaign.adverts.backgroundColor}" ng-href="{{$root.campaign.uri}}">
+<a class="campaign-items" ng-class="{active: $root.campaign && $root.campaign.adverts.headerText}" ng-style="{'background-color': $root.campaign.adverts.backgroundColor}" ng-href="{{$root.campaign.uri}}">
   <div class="campaign-bar">
     <div class="text-content">
-      <h2>{{$root.campaign.header.headerText}}</h2>
-      <p>{{$root.campaign.header.headerSubText}}</p>
+      <h2>{{$root.campaign.adverts.headerText.headerText}}</h2>
+      <p>{{$root.campaign.adverts.headerText.headerSubText}}</p>
     </div>
-    <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.adverts.secondaryColor +', '+$root.campaign.adverts.primaryColor+')'}">{{$root.campaign.header.callToAction ? $root.campaign.header.callToAction : '_book_now_'}}</button>
+    <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.adverts.secondaryColor +', '+$root.campaign.adverts.primaryColor+')'}">{{$root.campaign.adverts.headerText.callToAction ? $root.campaign.adverts.headerText.callToAction : '_book_now_'}}</button>
   </div>
 </div>
