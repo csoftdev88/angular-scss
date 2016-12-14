@@ -180,7 +180,7 @@ angular.module('mobiusApp.services.api', [])
   function getFullURL(path, params) {
     var URL = getValue(Settings.API, path);
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
-    var base = Settings.API.baseURL[env] || Settings.API.baseURL[env];
+    var base = Settings.API.baseURL[env];
     // NOTE: We might want to throw error in case when path is not found
     $window._.each(params, function(value, key){
       URL = URL.replace(':' + key, value).replace(',','%2C');
