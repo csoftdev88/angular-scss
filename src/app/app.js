@@ -61,6 +61,7 @@ angular
     'mobius.controllers.resetPassword',
     'mobius.controllers.prestige',
     'mobius.controllers.staticContent',
+    'mobius.controllers.thirdParties',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -109,6 +110,7 @@ angular
     'mobiusApp.services.channelService',
     'mobiusApp.services.router',
     'mobiusApp.services.track404s',
+    'mobiusApp.services.thirdPartiesService',
 
     // Factories
     'mobiusApp.factories.template',
@@ -227,6 +229,20 @@ angular
     parent: 'root',
     templateUrl: 'layouts/hotels/hotels.html',
     url: '/hotels'
+  })
+
+  // 3rd Parties
+  .state('thirdParties', {
+    parent: 'root',
+    templateUrl: 'layouts/thirdParties/thirdParties.html',
+    controller: 'ThirdPartiesCtrl',
+    url: '/corp/:code',
+    params: {
+      code: {
+        value: null,
+        squash: true
+      }
+    }
   });
 
   if (Settings.newUrlStructure) {
