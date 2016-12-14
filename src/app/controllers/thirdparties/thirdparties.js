@@ -11,9 +11,6 @@ angular.module('mobius.controllers.thirdParties', [])
       gourp: 'groupCode'
     };
 
-
-
-
     function setCode() {
       var settings = {
         fixedCodes: true
@@ -36,7 +33,7 @@ angular.module('mobius.controllers.thirdParties', [])
             $rootScope.thirdparty.logo = res.logo;
             setCode();
           } else {
-            $log.warn(code + 'is invalid');
+            $log.warn($stateParams.code + 'is invalid');
             delete $rootScope.thirdparty;
           }
           // Redirect to Home.
