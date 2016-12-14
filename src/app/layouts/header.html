@@ -7,8 +7,11 @@
 
     <a class="brand" ui-sref="home({property:null})">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
-      <img class="desktop-logo" ng-show="thirdparty" src="{{thirdparty.logo.uri}}" alt="{{thirdparty.logo.alt}}" height="40">
       <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+    </a>
+    <a class="brand">
+      <img ng-show="!isMobile" class="corp-logo desktop-logo" ng-show="thirdparty" src="{{thirdparty.logo.uri}}" alt="{{thirdparty.logo.alt}}" height="40">
+      <img ng-show="isMobile" class="corp-logo mobile-logo" ng-show="thirdparty" src="{{thirdparty.logo.uri}}" alt="{{thirdparty.logo.alt}}" height="20">
     </a>
 
     <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu()"></a>
@@ -73,15 +76,15 @@
             ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
         </li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showHotDeals && (!config.menu.standalone || isMobile)" menu-content="deals" data-title="_hot_deals_"></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals) && (!config.menu.standalone || isMobile)" menu-content="deals" data-title="_hot_deals_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showMeetingsBanquets && (!config.menu.standalone || isMobile)"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="active">_meetings_banquets_</a></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets) && (!config.menu.standalone || isMobile)"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="active">_meetings_banquets_</a></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showOffers && (!config.menu.standalone || isMobile)" menu-content="offers" data-title="_offers_deals_"></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showOffers : config.menu.showOffers) && (!config.menu.standalone || isMobile)" menu-content="offers" data-title="_offers_deals_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showAbout && (!config.menu.standalone || isMobile)" menu-content="about" data-title="_about_us_"></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showAbout : config.menu.showAbout) && (!config.menu.standalone || isMobile)" menu-content="about" data-title="_about_us_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showNews && (!config.menu.standalone || isMobile)" menu-content="news" data-title="_news_"></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showNews : config.menu.showNews) && (!config.menu.standalone || isMobile)" menu-content="news" data-title="_news_"></li>
 
         <li ng-show="config.menu.showContact && (!config.menu.standalone || isMobile)">
             <a
