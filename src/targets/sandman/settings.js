@@ -115,8 +115,8 @@ angular.module('mobiusApp.config', [])
     'chainCode': 'SAND',
     'trackUsage': true,
     'baseURL': {
-      'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
+      'development': ' http://localhost:3010/api/4.0/',
+      'integration': ' http://localhost:3010/api/4.0/',
       'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
       'uat': '/api/4.0/',
       'live':  'https://www.sandmanhotels.com/api/4.0/'
@@ -253,6 +253,9 @@ angular.module('mobiusApp.config', [])
       'promoCode': 'promoCode',
       'groupCode': 'groupCode',
       'corpCode': 'corpCode'
+    },
+    'thirdparties': {
+      'get': 'thirdparties/:code'
     }
   },
   'UI': {
@@ -1084,6 +1087,18 @@ angular.module('mobiusApp.config', [])
         'name': 'priceline',
         'logo': '/static/images/priceline_logo.png'
       }
-    ]
+    ],
+    'thirdparties': {
+      'menu': {
+        'showHotels': false,
+        'showRegionsMegaMenu': true,
+        'showHotDeals': false,
+        'showMeetingsBanquets': false,
+        'showOffers': false,
+        'showAbout': true,
+        'showNews': false,
+        'showContact': false
+      }
+    }
   }
 });

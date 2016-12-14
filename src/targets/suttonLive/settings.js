@@ -248,6 +248,9 @@ angular.module('mobiusApp.config', [])
       'promoCode': 'corpCode',
       'groupCode': 'groupCode',
       'corpCode': 'corpCode'
+    },
+    'thirdparties': {
+      'get': 'thirdparties/:code'
     }
   },
   'UI': {
@@ -1142,6 +1145,18 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       }
+    }
+  },
+  'thirdparties': {
+    'menu': {
+      'showHotels': false,
+      'showRegionsMegaMenu': true,
+      'showHotDeals': false,
+      'showMeetingsBanquets': false,
+      'showOffers': false,
+      'showAbout': true,
+      'showNews': false,
+      'showContact': false
     }
   }
 });
