@@ -55,7 +55,12 @@ angular.module('mobius.controllers.main', [])
       };
 
       var heroSliderData;
-      $scope.updateHeroContent = function(data, forceDefault){
+      $scope.updateHeroContent = function(data, forceDefault) {
+        if ($rootScope.thirdparty) {
+          $rootScope.heroContent = $rootScope.thirdparty.heroContent;
+          return;
+        }
+
         if(data && data.length){
           $rootScope.heroContent = filterHeroContent(data);
           return;

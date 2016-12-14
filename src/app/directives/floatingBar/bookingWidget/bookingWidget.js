@@ -45,6 +45,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
       scope.curDatePickerMonthDates = null;
+      scope.canRemoveCodes = true;
 
       // URL parameters and their settings
       var PARAM_TYPES = {
@@ -921,6 +922,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             $timeout(function () {
               promoInput.removeClass(prefilledClass);
             }, 1000);
+          }
+
+          if (settings.fixedCodes) {
+            scope.canRemoveCodes = !settings.fixedCodes;
           }
         }
 
