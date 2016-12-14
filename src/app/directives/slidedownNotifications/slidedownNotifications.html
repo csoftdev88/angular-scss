@@ -1,0 +1,9 @@
+<a class="campaign-items" ng-class="{active: $root.campaign && $root.campaign.headerBar}" ng-style="{'background-color': $root.campaign.campaignStyle.backgroundColor}" ng-href="{{$root.campaign.uri}}">
+  <div class="campaign-bar">
+    <div class="text-content">
+      <h2>{{$root.campaign.headerBar.headerText}}</h2>
+      <p>{{$root.campaign.headerBar.headerSubText}}</p>
+    </div>
+    <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.campaignStyle.secondaryColor +', '+$root.campaign.campaignStyle.primaryColor+')'}">{{$root.campaign.headerBar.callToAction ? $root.campaign.headerBar.callToAction : '_book_now_'}}</button>
+  </div>
+</div>
