@@ -80,7 +80,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       var bookedDate = stateParams.dates.split('_');
       var fromDate = null;
       var toDate = null;
-      if (bookedDate.length) {
+      if (bookedDate && bookedDate.length) {
         fromDate = bookedDate[0];
         toDate = bookedDate[1];
       }
@@ -226,7 +226,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
       var fromDate = null;
       var toDate = null;
-      if (bookedDate.length) {
+      if (bookedDate && bookedDate.length) {
         fromDate = bookedDate[0];
         toDate = bookedDate[1];
       }
