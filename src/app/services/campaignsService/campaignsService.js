@@ -3,7 +3,7 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.campaigns', [])
-.service('campaignsService',  function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, _) {
+.service('campaignsService',  function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, _) {
 
 
   function getCampaigns(loggedIn){
@@ -22,14 +22,22 @@ angular.module('mobiusApp.services.campaigns', [])
     return apiService.getThrottled(apiService.getFullURL('campaigns'), params);
   }
 
-  function renderCampaign(data){
-    $rootScope.campaign = data ? data : $rootScope.campaign;
-    addCampaignUrl();
+  function validateCampaign(data){
+    var newCampaign = data;
 
-    //STUB
-    //$rootScope.campaign.adverts.sideRails.railImage.images.uri = '/static/images/rails.jpg';
-    //$rootScope.campaign.adverts.pageCurl.images.uri = '/static/images/page-curl-bg@2x.jpg';
-    //$rootScope.campaign.adverts.interstitial.images.uri = '/static/images/takeover-content@2x.jpg';
+    //var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+    //var fromDate = parseInt($window.moment.tz(newCampaign.active.from, Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+    //var toDate = parseInt($window.moment.tz(newCampaign.active.to, Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+
+    renderCampaign(newCampaign);
+  }
+
+  function renderCampaign(data){
+
+    $rootScope.campaign = data ? data : $rootScope.campaign;
+
+    addCampaignCookie($rootScope.campaign);
+    addCampaignUrl();
 
     if($rootScope.campaign.adverts.pageCurl) {
       $('body').addClass('campaign-folded-corner-active');
@@ -45,7 +53,6 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     console.log($rootScope.campaign);
-
   }
 
   function addCampaignUrl(){
@@ -105,13 +112,21 @@ angular.module('mobiusApp.services.campaigns', [])
           $rootScope.campaign.uri = $state.href('staticContent', {contentSlug: slug});
         }
       });
-
     }
+  }
+
+  function addCampaignCookie(campaign){
+    var campaignCookie = {
+      'id':campaign.id,
+      'code':campaign.code,
+      'interstitialDismissed':false
+    };
+    $window.document.cookie = 'ActiveCampaign' + '=' + angular.toJson(campaignCookie) + '; path=/';
   }
 
   // Public methods
   return {
     getCampaigns: getCampaigns,
-    renderCampaign: renderCampaign
+    validateCampaign: validateCampaign
   };
 });
