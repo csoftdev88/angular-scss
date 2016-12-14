@@ -7,7 +7,7 @@ angular.module('mobius.controllers.modals.campaign', [
   'mobius.controllers.common.sanitize'
 ])
 
-.controller('CampaignCtrl', function($scope, $rootScope, $location, $modalInstance, $controller, data) {
+.controller('CampaignCtrl', function($scope, $rootScope, $location, $modalInstance, $controller, data, cookieFactory, $window) {
   if(data && data.campaign){
     $scope.campaign = data.campaign;
   }
@@ -15,14 +15,22 @@ angular.module('mobius.controllers.modals.campaign', [
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
   $scope.cancel = function() {
+    updateCookie();
     $modalInstance.dismiss('cancel');
   };
 
   $scope.goToCampaign = function() {
+    updateCookie();
     $location.path($rootScope.campaign.uri);
     $modalInstance.dismiss('cancel');
   };
 
-  console.log('show the data');
-  console.log($scope.campaign);
+  function updateCookie(){
+    var activeCampaign = cookieFactory('ActiveCampaign');
+    var savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
+    if(savedCampaign){
+      savedCampaign.interstitialDismissed = true;
+      $window.document.cookie = 'ActiveCampaign' + '=' + angular.toJson(savedCampaign) + '; path=/';
+    }
+  }
 });

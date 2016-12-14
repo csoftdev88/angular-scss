@@ -1,7 +1,7 @@
-<div class="ui-info" ng-style="{'background-color': campaign.adverts.backgroundColor}">
+<div class="ui-info" ng-style="{'background-color': campaign.campaignStyle.backgroundColor}">
   <main ng-click="goToCampaign()">
-    <img ng-if="campaign.adverts.interstitial.images.uri" ng-src="{{campaign.adverts.interstitial.images.uri}}" alt="{{campaign.adverts.interstitial.images.alt}}"/>
-    <button class="campaign-cta" ng-if="campaign.callToAction" ng-style="{'background-image': 'linear-gradient(to bottom, '+ campaign.secondaryColor +', '+campaign.primaryColor+')'}">{{campaign.callToAction ? campaign.callToAction : '_book_now_'}}</button>
+    <img ng-if="campaign.interstitialAdvert.images.uri" ng-src="{{campaign.interstitialAdvert.images.uri}}" alt="{{campaign.interstitialAdvert.images.alt}}"/>
+    <button class="campaign-cta" ng-if="campaign.callToAction" ng-style="{'background-image': 'linear-gradient(to bottom, '+ campaign.campaignStyle.secondaryColor +', '+campaign.campaignStyle.primaryColor+')'}">{{campaign.callToAction ? campaign.callToAction : '_book_now_'}}</button>
   </main>
   <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
 </div>

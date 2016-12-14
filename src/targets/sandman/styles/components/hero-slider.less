@@ -6,14 +6,6 @@ hero-slider {
   height: 430px;
   box-shadow: none;
   margin-top: 128px;
-  .campaign-bar-active & {
-    -webkit-transition: margin-top 0.5s;
-    -moz-transition: margin-top 0.5s;
-    transition: margin-top 0.5s;
-    -webkit-transition-delay: 1s; /* Safari */
-    transition-delay: 1s;
-    margin-top:206px;
-  }
   .slider-controls {
     .slide-button {
       margin-top: -20px;
@@ -213,5 +205,16 @@ hero-slider {
         }
       }
     }
+  }
+}
+
+#main-contaner > div > hero-slider {
+  .campaign-bar-active & {
+    -webkit-transition: margin-top 0.5s;
+    -moz-transition: margin-top 0.5s;
+    transition: margin-top 0.5s;
+    -webkit-transition-delay: 1s; /* Safari */
+    transition-delay: 1s;
+    margin-top:206px;
   }
 }

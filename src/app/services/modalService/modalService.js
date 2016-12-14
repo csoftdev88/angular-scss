@@ -421,7 +421,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openCampaignDialog(campaign){
     return openDialog('campaignDialog', 'layouts/modals/campaign.html', CONTROLLER_CAMPAIGN, {
-      windowClass: !campaign.adverts.interstitial.stretchToFill ? 'dialog-campaign' : 'dialog-campaign fullscreen',
+      windowClass: !campaign.interstitialAdvert.stretchToFill ? 'dialog-campaign' : 'dialog-campaign fullscreen',
       resolve: {
         data: function() {
           return {
