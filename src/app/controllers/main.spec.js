@@ -22,7 +22,7 @@ describe('mobius.controllers.main', function() {
       offers: [{a: 123}, {b: 123}]
     }];
 
-  
+
     beforeEach(function() {
       module('underscore');
 
@@ -40,6 +40,8 @@ describe('mobius.controllers.main', function() {
         $provide.value('modalService', {
           openDialogIfPresent: sinon.spy()
         });
+
+        $provide.value('cookieFactory', function(a){return {}[a];});
 
         $provide.value('contentService', {
           getAdverts: sinon.stub(),
