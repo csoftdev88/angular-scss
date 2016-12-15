@@ -17,13 +17,13 @@
 
 <hr class="dividerWithoutImage"/>
 
-<div grid-row>
+<div grid-row ng-if="!$root.thirdparty">
   <div grid="12" class="about-offers-heading">
     <h2 ng-bind-html="'Selected Offers' | mainHeaderStyle"></h2>
   </div>
 </div>
 
-<offers-list grid-row>
+<offers-list grid-row ng-if="!$root.thirdparty">
   <offer-item
     ng-repeat="offer in offersList track by $index">
     <a ui-sref="offers({code:offer.meta.slug})" ng-click="advertClick($event, {'type': 'offers', 'code': offer.code})">

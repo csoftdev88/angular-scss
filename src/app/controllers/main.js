@@ -216,7 +216,9 @@ angular.module('mobius.controllers.main', [])
       function onAuthorized(){
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){
           var loggedIn = user ? user.isLoggedIn() : false;
-          campaignsService.setCampaigns(loggedIn);
+          if(!$rootScope.thirdparty && cookieFactory('ActiveThirdParty') === null){
+            campaignsService.setCampaigns(loggedIn);
+          }
         }
       }
       $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
