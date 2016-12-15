@@ -3,7 +3,7 @@
  * This module controlls 3rd Parties page
  */
 angular.module('mobius.controllers.thirdParties', [])
-  .controller('ThirdPartiesCtrl', function($controller, $log, $scope, $state, $stateParams, $rootScope, Settings, thirdPartiesService, _) {
+  .controller('ThirdPartiesCtrl', function($controller, $log, $scope, $state, $stateParams, $rootScope, $window, Settings, thirdPartiesService, _) {
     var vm = $scope;
     var codeTypesMap = {
       corp: 'corpCode',
@@ -11,15 +11,17 @@ angular.module('mobius.controllers.thirdParties', [])
       gourp: 'groupCode'
     };
 
-
-
-
     function setCode() {
       var settings = {
         fixedCodes: true
       };
       settings[vm.code.type] = vm.code.value;
       $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', settings);
+    }
+
+    function setInSession() {
+      var cookie = angular.copy($rootScope.thirdparty);
+      $window.document.cookie = 'ActiveThirdParty' + '=' + angular.toJson(cookie) + '; path=/';
     }
 
     function getThirdParties() {
@@ -35,8 +37,9 @@ angular.module('mobius.controllers.thirdParties', [])
             $rootScope.thirdparty.heroContent = res.images;
             $rootScope.thirdparty.logo = res.logo;
             setCode();
+            setInSession();
           } else {
-            $log.warn(code + 'is invalid');
+            $log.warn($stateParams.code + 'is invalid');
             delete $rootScope.thirdparty;
           }
           // Redirect to Home.
