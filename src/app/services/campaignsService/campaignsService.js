@@ -1,6 +1,6 @@
 'use strict';
 /*
- * This service gets content for application main menu
+ * This service sets applicable adverts and campaign visuals
  */
 angular.module('mobiusApp.services.campaigns', [])
   .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, _) {

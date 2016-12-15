@@ -33,7 +33,7 @@
     <a href="" ng-click="setActive(MY_ACCOUNT)" ng-bind-html="'_loyalty_progam_title_' | mainHeaderStyle">
     </a>
   </li>
-  <li class="floating-bar--tab-campaign" ng-show="$root.campaign && $root.campaign.bookingBar.display" ng-class="{'is-active': active === CAMPAIGN}" ng-style="{'background-color': $root.campaign.bookingBar.tabColor}">
+  <li class="floating-bar--tab-campaign" ng-if="$root.campaign && $root.campaign.bookingBar.display" ng-class="{'is-active': active === CAMPAIGN}" ng-style="{'background-color': $root.campaign.bookingBar.tabColor}">
     <a href="" ng-click="setActive(CAMPAIGN)" ng-bind-html="$root.campaign.name | mainHeaderStyle">
     </a>
     <span class="campaign-end-piece" ng-style="{'border-bottom-color':$root.campaign.bookingBar.tabColor}"></span>
@@ -55,7 +55,7 @@
   </my-account>
 
   <campaign-bar
-    ng-show="$root.campaign && $root.campaign.bookingBar.display"
+    ng-if="$root.campaign && $root.campaign.bookingBar.display"
     ng-style="{'background-color': $root.campaign.bookingBar.tabColor}"
     ng-class="{'is-open': !isCollapsed && active === CAMPAIGN}"
     ng-click="goToCampaign()">
