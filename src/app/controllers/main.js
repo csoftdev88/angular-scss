@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService', 'locationService',
     function($scope, $state, $modal, orderByFilter, modalService, $window,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService, locationService) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
 
@@ -222,7 +222,9 @@ angular.module('mobius.controllers.main', [])
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){
           var loggedIn = user ? user.isLoggedIn() : false;
           if(!$rootScope.thirdparty && _.isEmpty(activeThirdParty)){
-            campaignsService.setCampaigns(loggedIn);
+            locationService.getLocations().then(function(locations){
+              campaignsService.setCampaigns(loggedIn, locations);
+            });
           }
         }
       }
