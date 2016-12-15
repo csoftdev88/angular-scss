@@ -221,7 +221,7 @@ angular.module('mobius.controllers.main', [])
       function onAuthorized(){
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){
           var loggedIn = user ? user.isLoggedIn() : false;
-          if(!$rootScope.thirdparty && !_.isEmpty(activeThirdParty)){
+          if(!$rootScope.thirdparty && _.isEmpty(activeThirdParty)){
             campaignsService.setCampaigns(loggedIn);
           }
         }
