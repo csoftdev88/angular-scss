@@ -8,7 +8,7 @@ angular.module('mobius.controllers.thirdParties', [])
     var codeTypesMap = {
       corp: 'corpCode',
       promo: 'promoCode',
-      gourp: 'groupCode'
+      group: 'groupCode'
     };
 
     function setCode() {
@@ -17,9 +17,11 @@ angular.module('mobius.controllers.thirdParties', [])
       };
       settings[vm.code.type] = vm.code.value;
       $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', settings);
+      $stateParams.corpCode = vm.code.value;
     }
 
     function setInSession() {
+      $rootScope.thirdparty.code = vm.code;
       var cookie = angular.copy($rootScope.thirdparty);
       $window.document.cookie = 'ActiveThirdParty' + '=' + angular.toJson(cookie) + '; path=/';
     }
@@ -43,13 +45,13 @@ angular.module('mobius.controllers.thirdParties', [])
             delete $rootScope.thirdparty;
           }
           // Redirect to Home.
-          $state.go('home');
+          $state.go('home',$stateParams);
         })
         .catch(function(error) {
           $log.warn('There was an error while trying to fetch thirdparties', error);
           delete $rootScope.thirdparty;
           // Redirect to Home.
-          $state.go('home');
+          $state.go('home',$stateParams);
         });
     }
 
@@ -63,6 +65,6 @@ angular.module('mobius.controllers.thirdParties', [])
       getThirdParties();
     } else {
       // Redirect to Home.
-      $state.go('home');
+      $state.go('home',$stateParams);
     }
   });
