@@ -7,8 +7,11 @@ booking-widget {
   max-width: 960px;
   margin: 0 auto;
   max-height: 0px;
+  .clearfix;
   //transition: max-height 1s ease-out;
   .transition(max-height, 1s, ease-in-out);
+  //Fix for chrome leaving line trace artifact after animation
+  -webkit-transform: translate3d(0,0,0);
   overflow: hidden;
 
   &.is-open {
@@ -17,7 +20,9 @@ booking-widget {
       max-height: 300px;
     }
     &.transEnd{
-      overflow: visible;
+      .viewport-mobile &{
+        overflow: visible;
+      }
     }
   }
 
@@ -578,6 +583,8 @@ campaign-bar {
   background: @c-booking-widget-my-account;
   max-height: 0px;
   text-align:center;
+  //Fix for chrome leaving line trace artifact after animation
+  -webkit-transform: translate3d(0,0,0);
   //transition: max-height .6s ease-out;
   .transition(max-height, 1s, ease-in-out);
   overflow: hidden;
