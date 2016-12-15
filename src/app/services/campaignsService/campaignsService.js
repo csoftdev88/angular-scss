@@ -54,9 +54,8 @@ angular.module('mobiusApp.services.campaigns', [])
           });
           //If the saved campaign matches a current campaign
           if(retrievedCampaign){
-            //Retrieve a priority campaign
             console.log('retain previous campaign do not display new');
-            renderCampaign(campaign);
+            renderCampaign(retrievedCampaign);
           }
           else {
             //Render the request campaign
@@ -75,20 +74,32 @@ angular.module('mobiusApp.services.campaigns', [])
   function criteriaCheck(campaign, loggedIn){
     var criteriaPass = checkActiveDates(campaign);
     if(criteriaPass){
-      console.log('active dates ok');
+      console.log('active dates check pass');
       criteriaPass = checkMemberOnly(campaign, loggedIn);
     }
+    else {
+      console.log('active dates check fail');
+    }
     if(criteriaPass) {
-      console.log('member ok');
+      console.log('member only check pass');
       criteriaPass = checkDateRestrictions(campaign);
     }
-    if(criteriaPass){
-      console.log('bookign date restrictions ok');
-      criteriaPass = checkPropertyRestrictions(campaign);
+    else {
+      console.log('member only check fail');
     }
     if(criteriaPass){
-      console.log('property restrictions ok');
+      console.log('booking date restrictions pass');
+      criteriaPass = checkPropertyRestrictions(campaign);
+    }
+    else {
+      console.log('booking date restrictions fail');
+    }
+    if(criteriaPass){
+      console.log('property restrictions check pass');
       renderCampaign(campaign);
+    }
+    else {
+      console.log('property restrictions check fail');
     }
   }
 
