@@ -430,7 +430,7 @@ angular.module('mobiusApp.config', [])
         'hotelDatesSelected': false,
         'hotelInfo': true,
         'hotelServices': false,
-        'hotelRooms': true,
+        'hotelRooms': false,
         'hotelRoomsCompare': true,
         'hotelOffers': true,
         'hotelLocation': true
