@@ -213,7 +213,7 @@ angular.module('mobiusApp.services.campaigns', [])
       //Build the campaign URL and add to scope
       addCampaignUrl();
 
-      if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage.uri)
+      if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage && $rootScope.campaign.sideRails.railImage.uri)
       {
         $rootScope.campaign.sideRails.display = true;
       }
