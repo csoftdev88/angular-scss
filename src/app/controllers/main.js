@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'campaignsService',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'campaignsService', 'locationService',
     function($scope, $state, $modal, orderByFilter, modalService, $window,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope,campaignsService) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope,campaignsService, locationService) {
 
       $scope.chainCode = Settings.API.chainCode;
 
@@ -211,7 +211,9 @@ angular.module('mobius.controllers.main', [])
       function onAuthorized(){
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){
           var loggedIn = user ? user.isLoggedIn() : false;
-          campaignsService.setCampaigns(loggedIn);
+          locationService.getLocations().then(function(locations){
+            campaignsService.setCampaigns(loggedIn, locations);
+          });
         }
       }
       $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
