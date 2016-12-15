@@ -211,24 +211,24 @@ angular.module('mobius.controllers.main', [])
       //Footer
       $scope.footerConfig = Settings.UI.footer;
 
+      activeThirdParty = cookieFactory('ActiveThirdParty');
+      if (!_.isEmpty(activeThirdParty)) {
+        $rootScope.thirdparty = JSON.parse(activeThirdParty);
+        $stateParams[$rootScope.thirdparty.code.type] = $rootScope.thirdparty.code.value;
+      }
 
       //check if user is logged in and then get campaigns
       function onAuthorized(){
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){
           var loggedIn = user ? user.isLoggedIn() : false;
-          if(!$rootScope.thirdparty && cookieFactory('ActiveThirdParty') === null){
+          if(!$rootScope.thirdparty && !_.isEmpty(activeThirdParty)){
             campaignsService.setCampaigns(loggedIn);
           }
         }
       }
-      $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
       // Inheriting the following controllers
+      $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
       $controller('PreloaderCtrl', {$scope: $scope});
       $controller('SanitizeCtrl', {$scope: $scope});
-
-      activeThirdParty = cookieFactory('ActiveThirdParty');
-      if (!_.isEmpty(activeThirdParty)) {
-        $rootScope.thirdparty = JSON.parse(activeThirdParty);
-      }
     }]);
