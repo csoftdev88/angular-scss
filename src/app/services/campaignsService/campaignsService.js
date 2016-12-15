@@ -301,7 +301,6 @@ angular.module('mobiusApp.services.campaigns', [])
 
     // Public methods
     return {
-      setCampaigns: setCampaigns,
-      validateCampaign: validateCampaign
+      setCampaigns: setCampaigns
     };
   });
