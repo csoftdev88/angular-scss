@@ -214,7 +214,9 @@ angular.module('mobius.controllers.main', [])
       activeThirdParty = cookieFactory('ActiveThirdParty');
       if (!_.isEmpty(activeThirdParty)) {
         $rootScope.thirdparty = JSON.parse(activeThirdParty);
-        $stateParams[$rootScope.thirdparty.code.type] = $rootScope.thirdparty.code.value;
+        if($rootScope.thirdparty.code){
+          $stateParams[$rootScope.thirdparty.code.type] = $rootScope.thirdparty.code.value;
+        }
       }
 
       //check if user is logged in and then get campaigns
