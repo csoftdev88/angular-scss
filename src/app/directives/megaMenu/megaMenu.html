@@ -19,10 +19,10 @@
     <div class="preloader" ng-show="locationsLoading"></div>
 
     <ul ng-repeat="region in regions" ng-if="region.locations" ng-show="region.code === activeRegion.code">
-      <li ng-repeat="location in region.locations | filter: {properties: {nameShort: propertySearch}} | orderBy: 'nameShort'" ng-show="location.properties.length">
+      <li ng-repeat="location in region.locations | orderBy: 'nameShort'" ng-show="filteredProperties.length">
         <a ng-click="locationClick(location)" ng-href="{{location.url}}">{{location.nameShort}}</a>
         <ul class="properties">
-          <li ng-repeat="property in location.properties | filter:propertySearch | orderBy:'chainCode':true"><a ng-href="{{type === 'hot-deals' ? property.hotDealsUrl : property.url}}" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick($event,property)">{{property.nameShort}}</a></li>
+          <li ng-repeat="property in location.properties | byNameOrZip:propertySearch:false | orderBy:'chainCode':true as filteredProperties"><a ng-href="{{type === 'hot-deals' ? property.hotDealsUrl : property.url}}" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick($event,property)">{{property.nameShort}}</a></li>
         </ul>
       </li>
     </ul>
