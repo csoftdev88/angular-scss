@@ -6,8 +6,15 @@ angular.module('mobiusApp.services.campaigns', [])
   .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, _) {
     var activeCampaign = cookieFactory('ActiveCampaign');
     var savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
+    var savedLocations = null;
+    var locationCode = null;
 
-    function setCampaigns(loggedIn) {
+    function setCampaigns(loggedIn, locations) {
+      savedLocations = locations;
+      var locationMatch = _.find(savedLocations, function(location){
+        return $stateParams.locationSlug === location.meta.slug;
+      });
+      locationCode = locationMatch ? locationMatch.code : null;
       getCampaigns(loggedIn, false).then(function(data) {
         if (data.criteria) {
           validateCampaign(data, loggedIn);
@@ -19,7 +26,6 @@ angular.module('mobiusApp.services.campaigns', [])
 
     function getCampaigns(loggedIn, getAll) {
       var params = {};
-
       if (!getAll) {
         if ($stateParams.dates) {
           var dates = $stateParams.dates.split('_');
@@ -28,6 +34,9 @@ angular.module('mobiusApp.services.campaigns', [])
         }
         if ($stateParams.propertySlug) {
           params.property = bookingService.getCodeFromSlug($stateParams.propertySlug);
+        }
+        if($stateParams.locationSlug && locationCode) {
+          params.location = locationCode;
         }
         params.loggedIn = loggedIn !== null ? loggedIn : user.isLoggedIn();
       }
@@ -85,9 +94,41 @@ angular.module('mobiusApp.services.campaigns', [])
       }
       if (criteriaPass) {
         console.log('property restrictions check pass');
-        renderCampaign(campaign);
+        criteriaPass = checkLocationRestrictions(campaign);
       } else {
         console.log('property restrictions check fail');
+      }
+      if (criteriaPass) {
+        console.log('location restrictions check pass');
+        renderCampaign(campaign);
+      } else {
+        console.log('location restrictions check fail');
+      }
+    }
+
+    function checkLocationRestrictions(campaign) {
+      if (campaign.criteria.locations) {
+        if ($stateParams.locationSlug) {
+          var criteriaLocations = campaign.criteria.locations;
+          var criteriaLocationsArray = [];
+          if (_.isArray(criteriaLocations)) {
+            criteriaLocationsArray = criteriaLocations;
+          } else {
+            criteriaLocationsArray = criteriaLocations.split(',');
+          }
+          var locationMatch = _.find(criteriaLocationsArray, function(location) {
+            return location === locationCode;
+          });
+          if (locationMatch) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return true;
       }
     }
 
@@ -172,9 +213,13 @@ angular.module('mobiusApp.services.campaigns', [])
       //Build the campaign URL and add to scope
       addCampaignUrl();
 
-      if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage.uri)
+      if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage && $rootScope.campaign.sideRails.railImage.uri)
       {
         $rootScope.campaign.sideRails.display = true;
+      }
+      else{
+        $rootScope.campaign.sideRails = {};
+        $rootScope.campaign.sideRails.display = false;
       }
 
       //If not on an offer page show the rest of the campaign material
@@ -185,11 +230,11 @@ angular.module('mobiusApp.services.campaigns', [])
           $('body').addClass('campaign-folded-corner-active');
         }
 
-        if($rootScope.campaign.interstitialAdvert && $rootScope.campaign.interstitialAdvert.images.uri) {
+        if($rootScope.campaign.interstitialAdvert && $rootScope.campaign.interstitialAdvert.images && $rootScope.campaign.interstitialAdvert.images.uri) {
           $rootScope.campaign.interstitialAdvert.display = true;
         }
 
-        if($rootScope.campaign.headerBar){
+        if($rootScope.campaign.headerBar && $rootScope.campaign.headerBar.headerText){
           $rootScope.campaign.headerBar.display = true;
         }
 
