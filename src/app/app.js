@@ -72,6 +72,7 @@ angular
     'mobius.controllers.modals.confirmation',
     'mobius.controllers.common.cardExpiration',
     'mobius.controllers.modals.upsells',
+    'mobius.controllers.modals.campaign',
 
     // Application modules
     'mobiusApp.config',
@@ -110,6 +111,7 @@ angular
     'mobiusApp.services.channelService',
     'mobiusApp.services.router',
     'mobiusApp.services.track404s',
+    'mobiusApp.services.campaigns',
     'mobiusApp.services.thirdPartiesService',
 
     // Factories
@@ -175,6 +177,7 @@ angular
     'mobiusApp.directives.scrollToTop',
     'mobiusApp.directives.growlAlerts',
     'mobiusApp.directives.optionsDisabled',
+    'mobiusApp.directives.slidedownNotifications',
 
     'internationalPhoneNumber',
 

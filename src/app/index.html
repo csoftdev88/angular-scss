@@ -92,12 +92,15 @@
     <!-- End Hotjar Script -->
   </head>
 
-  <body resize-watcher ng-controller="BaseCtrl">
+  <body resize-watcher ng-controller="BaseCtrl" ng-style="{'background-image': 'url(' + $root.campaign.sideRails.display + ')'}" ng-class="{'campaign-rails-active': $root.campaign.sideRails.display, 'campaign-bar-active':$root.campaign.headerBar.display}" >
     <!-- Google Tag Manager -->
     <google-tag-manager-script></google-tag-manager-script>
     <!-- End Google Tag Manager -->
 
+    <!-- Click handler for campaign rails -->
+    <a ng-if="$root.campaign.uri" ng-href="{{$root.campaign.uri}}" id="campaign-rails-handler"></a>
+
     <!-- Add your site or application content here -->
-    <div ui-view></div>
+    <div ui-view id="main-container"></div>
   </body>
 </html>

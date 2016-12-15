@@ -3,10 +3,10 @@
 angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
-  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory',
-    function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory) {
+  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
+    function($scope, $state, $modal, orderByFilter, modalService, $window,
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
 
@@ -210,6 +210,16 @@ angular.module('mobius.controllers.main', [])
 
       //Footer
       $scope.footerConfig = Settings.UI.footer;
+
+
+      //check if user is logged in and then get campaigns
+      function onAuthorized(){
+        if(Settings.UI.campaigns && Settings.UI.campaigns.display){
+          var loggedIn = user ? user.isLoggedIn() : false;
+          campaignsService.setCampaigns(loggedIn);
+        }
+      }
+      $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});

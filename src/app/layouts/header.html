@@ -1,3 +1,5 @@
+<slidedown-notifications ng-if="$root.campaign && $root.campaign.headerBar.display"></slidedown-notifications>
+
 <div id="main-header-inner">
   <nav class="main-nav wrapper" dropdown>
 
@@ -282,4 +284,12 @@
 
     </div>
   </div>
+  <!-- Only display page curl if there are no active side rails and page curl image is set -->
+  <div class="curl rightcorner" ng-if="$root.campaign && !$root.campaign.sideRails.display && $root.campaign.pageCurl.display">
+	   <div class="curl-content">
+       <a ng-href="{{$root.campaign.uri}}"><img src="{{$root.campaign.pageCurl.images.uri}}"/></a>
+	    </div>
+    </div>
+  </div>
+
 </div><!-- #main-header-inner -->
