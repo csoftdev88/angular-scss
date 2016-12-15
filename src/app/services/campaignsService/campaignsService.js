@@ -1,9 +1,11 @@
 'use strict';
 /*
- * This service gets content for application main menu
+ * This service sets applicable adverts and campaign visuals
  */
 angular.module('mobiusApp.services.campaigns', [])
   .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, _) {
+    var activeCampaign = cookieFactory('ActiveCampaign');
+    var savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
 
     function setCampaigns(loggedIn) {
       getCampaigns(loggedIn, false).then(function(data) {
@@ -34,9 +36,6 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function validateCampaign(campaign, loggedIn) {
-      var activeCampaign = cookieFactory('ActiveCampaign');
-      var savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
-
       if (savedCampaign) {
         //Always show previous campaign unless the old is not priority and the new one is
         if (!savedCampaign.priority && campaign.criteria.bookingsUntil && campaign.criteria.bookingsFrom) {
@@ -168,12 +167,48 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function renderCampaign(campaign) {
-
       $rootScope.campaign = campaign ? campaign : $rootScope.campaign;
 
-      var activeCampaign = cookieFactory('ActiveCampaign');
-      var savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
+      //Build the campaign URL and add to scope
+      addCampaignUrl();
 
+      if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage.uri)
+      {
+        $rootScope.campaign.sideRails.display = true;
+      }
+
+      //If a campaign isn't saved or if it is but we aren't on an offer page, display the campaign items
+      if(!savedCampaign || (savedCampaign && !$stateParams.code))
+      {
+        if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images.uri) {
+          $rootScope.campaign.pageCurl.display = true;
+          $('body').addClass('campaign-folded-corner-active');
+        }
+
+        if($rootScope.campaign.interstitialAdvert && $rootScope.campaign.interstitialAdvert.images.uri) {
+          $rootScope.campaign.interstitialAdvert.display = true;
+        }
+
+        if($rootScope.campaign.headerBar){
+          $rootScope.campaign.headerBar.display = true;
+        }
+
+        if($rootScope.campaign.bookingBar) {
+          $rootScope.campaign.bookingBar.display = true;
+        }
+
+        if ($rootScope.campaign.interstitialAdvert.display) {
+          if (savedCampaign) {
+            if (!savedCampaign.interstitialDismissed) {
+              modalService.openCampaignDialog($rootScope.campaign);
+            }
+          } else {
+            modalService.openCampaignDialog($rootScope.campaign);
+          }
+        }
+      }
+
+      //Add new campaign cookie
       if (savedCampaign) {
         if (savedCampaign.code !== campaign.code) {
           addCampaignCookie($rootScope.campaign);
@@ -182,26 +217,12 @@ angular.module('mobiusApp.services.campaigns', [])
         addCampaignCookie($rootScope.campaign);
       }
 
-      addCampaignUrl();
-
-      if (!$rootScope.campaign.sideRails && $rootScope.campaign.pageCurl) {
-        $('body').addClass('campaign-folded-corner-active');
-      }
-
+      //Update booking bar with params
       $timeout(function() {
         // TODO: Check other code types
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', $stateParams);
       }, 0);
 
-      if ($rootScope.campaign.interstitialAdvert) {
-        if (savedCampaign) {
-          if (!savedCampaign.interstitialDismissed) {
-            modalService.openCampaignDialog($rootScope.campaign);
-          }
-        } else {
-          modalService.openCampaignDialog($rootScope.campaign);
-        }
-      }
     }
 
     function addCampaignUrl() {
@@ -280,7 +301,6 @@ angular.module('mobiusApp.services.campaigns', [])
 
     // Public methods
     return {
-      setCampaigns: setCampaigns,
-      validateCampaign: validateCampaign
+      setCampaigns: setCampaigns
     };
   });
