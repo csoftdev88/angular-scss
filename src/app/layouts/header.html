@@ -5,14 +5,18 @@
       <li language-list></li>
     </ul>
 
-    <a class="brand" ui-sref="home({property:null})">
+    <a ng-if="!isMobile" class="brand" ui-sref="home({property:null})">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
-      <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+      <img class="corp-logo desktop-logo" ng-show="thirdparty" src="{{thirdparty.logo.uri}}" alt="{{thirdparty.logo.alt}}" height="40">
     </a>
-    <a class="brand">
-      <img ng-show="!isMobile" class="corp-logo desktop-logo" ng-show="thirdparty" src="{{thirdparty.logo.uri}}" alt="{{thirdparty.logo.alt}}" height="40">
-      <img ng-show="isMobile" class="corp-logo mobile-logo" ng-show="thirdparty" src="{{thirdparty.logo.uri}}" alt="{{thirdparty.logo.alt}}" height="20">
-    </a>
+    <div ng-if="isMobile" class="mobile-brand">
+      <a class="center-logo" ui-sref="home({property:null})">
+        <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+      </a>
+      <a class="center-logo">
+        <img class="mobile-logo" ng-show="thirdparty" src="{{thirdparty.logo.uri}}" alt="{{thirdparty.logo.alt}}" height="20">
+      </a>
+    </div>
 
     <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu()"></a>
 
