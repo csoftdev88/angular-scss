@@ -4,10 +4,10 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'campaignsService',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
     function($scope, $state, $modal, orderByFilter, modalService, $window,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope,campaignsService) {
-
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService) {
+      var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
 
       try{
@@ -224,4 +224,9 @@ angular.module('mobius.controllers.main', [])
       // Inheriting the following controllers
       $controller('PreloaderCtrl', {$scope: $scope});
       $controller('SanitizeCtrl', {$scope: $scope});
+
+      activeThirdParty = cookieFactory('ActiveThirdParty');
+      if (!_.isEmpty(activeThirdParty)) {
+        $rootScope.thirdparty = JSON.parse(activeThirdParty);
+      }
     }]);

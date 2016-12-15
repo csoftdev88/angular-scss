@@ -403,12 +403,12 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': true,
-          'displayOtaRates': true,
+          'displayOtaRates': false,
           'highlightFirstRate': true,
           'showSlashThrough': true
         },
         'upsells': {
-          'display': true
+          'display': false
         }
       },
       'offers': {
@@ -430,13 +430,13 @@ angular.module('mobiusApp.config', [])
         'hotelDatesSelected': false,
         'hotelInfo': true,
         'hotelServices': false,
-        'hotelRooms': false,
-        'hotelRoomsCompare': true,
+        'hotelRooms': true,
+        'hotelRoomsCompare': false,
         'hotelOffers': true,
         'hotelLocation': true
       },
       'bookingStatistics':{
-        'display':true,
+        'display':false,
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -484,7 +484,7 @@ angular.module('mobiusApp.config', [])
       'showSlashThrough': false,
       'showMetaView': true,
       'upsells': {
-        'display': true
+        'display': false
       }
     },
 
@@ -731,10 +731,10 @@ angular.module('mobiusApp.config', [])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display':true
+        'display':false
       },
       'flexibleDates': {
-        'enable':true
+        'enable':false
       },
       'availability': {
         // Date range modification rules
@@ -812,7 +812,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       'vouchers' : {
-        'enable':true
+        'enable':false
       }
     },
     'myAccount' : {
@@ -875,7 +875,7 @@ angular.module('mobiusApp.config', [])
         'displayHotelRegionName': true,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
-        'displayCompare': true,
+        'displayCompare': false,
         'bookingStatistics':{
           'display':false,
           'displayDelay':3000,
@@ -1093,7 +1093,7 @@ angular.module('mobiusApp.config', [])
       }
     ],
     'thirdparties': {
-      'enable': true,
+      'enable': false,
       'menu': {
         'showHotels': false,
         'showRegionsMegaMenu': true,
