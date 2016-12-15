@@ -176,12 +176,10 @@ angular.module('mobiusApp.services.campaigns', [])
       {
         $rootScope.campaign.sideRails.display = true;
       }
-      console.log('here');
 
       //If not on an offer page show the rest of the campaign material
       if(!$stateParams.code)
       {
-        console.log('yo');
         if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images.uri) {
           $rootScope.campaign.pageCurl.display = true;
           $('body').addClass('campaign-folded-corner-active');
