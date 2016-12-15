@@ -135,6 +135,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'url':'https://errors.2pvservices.com/status'
     },
+    'campaigns':'campaigns',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -259,6 +260,9 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'campaigns': {
+      display:false
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30

@@ -5,11 +5,12 @@ angular.module('mobiusApp.directives.floatingBar', [
   'mobiusApp.directives.floatingBar.myAccount'
 ])
 
-  .directive('floatingBar', ['Settings', 'bookingService', '$window', '$rootScope', '$timeout', function(
-      Settings, bookingService, $window, $rootScope, $timeout) {
+  .directive('floatingBar', ['Settings', 'bookingService', '$window', '$rootScope', '$timeout', '$location', function(
+      Settings, bookingService, $window, $rootScope, $timeout, $location) {
     var BOOKING = 'booking',
         ADVANCED_BOOKING = 'advancedBooking',
-        MY_ACCOUNT = 'myAccount';
+        MY_ACCOUNT = 'myAccount',
+        CAMPAIGN = 'campaign';
 
     var active = BOOKING;
     var isCollapsed = false;
@@ -41,6 +42,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         scope.BOOKING = BOOKING;
         scope.ADVANCED_BOOKING = ADVANCED_BOOKING;
         scope.MY_ACCOUNT = MY_ACCOUNT;
+        scope.CAMPAIGN = CAMPAIGN;
 
         var bookingParams = bookingService.getAPIParams();
 
@@ -172,6 +174,10 @@ angular.module('mobiusApp.directives.floatingBar', [
               $('my-account').addClass('transEnd');
             });
           }, 2000);
+        };
+
+        scope.goToCampaign = function() {
+          $location.path($rootScope.campaign.uri);
         };
       }
     };
