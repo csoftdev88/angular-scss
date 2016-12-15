@@ -177,8 +177,8 @@ angular.module('mobiusApp.services.campaigns', [])
         $rootScope.campaign.sideRails.display = true;
       }
 
-      //If a campaign isn't saved or if it is but we aren't on an offer page, display the campaign items
-      if(!savedCampaign || (savedCampaign && !$stateParams.code))
+      //If not on an offer page show the rest of the campaign material
+      if(!$stateParams.code)
       {
         if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images.uri) {
           $rootScope.campaign.pageCurl.display = true;
@@ -206,6 +206,12 @@ angular.module('mobiusApp.services.campaigns', [])
             modalService.openCampaignDialog($rootScope.campaign);
           }
         }
+      }
+      else{
+        $rootScope.campaign.pageCurl.display = false;
+        $rootScope.campaign.bookingBar.display = false;
+        $rootScope.campaign.headerBar.display = false;
+        $rootScope.campaign.interstitialAdvert.display = false;
       }
 
       //Add new campaign cookie
