@@ -261,7 +261,7 @@ angular.module('mobiusApp.config', [])
   },
   'UI': {
     'campaigns': {
-      display:false
+      display:true
     },
     'chains': ['SIGN', 'SAND'],
     'user': {
