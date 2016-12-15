@@ -45,7 +45,7 @@
         </li>
       </ul>
       <ul ng-if="hrefs.length > 0 && showAltNav" class="alt-nav">
-        <li ng-repeat="href in hrefs" ng-class="{selected: scrollActiveHref.id === href.id}">
+        <li ng-repeat="href in hrefs" ng-class="{selected: scrollActiveHref.id === href.id}" ng-if="!$root.thirdparty || ($root.thirdparty && href.id && href.name.toLowerCase() !== 'offers')">
           <a href ng-if="href.id && href.name.toLowerCase() === 'about'" ng-click="scrollTo(href.id)">_about_</a>
           <a href ng-if="href.id && href.name.toLowerCase() === 'rates'" ng-click="scrollTo(href.id)">_rates_</a>
           <a href ng-if="href.id && href.name.toLowerCase() === 'rooms'" ng-click="scrollTo(href.id)">_rooms_</a>
@@ -64,7 +64,7 @@
         </li>
       </ul>
       <ul ng-if="absHrefs.length && showAltNav" class="alt-nav">
-        <li ng-repeat="link in absHrefs">
+        <li ng-repeat="link in absHrefs" ng-if="!$root.thirdparty || ($root.thirdparty && href.id && href.name.toLowerCase() !== 'offers')">
 
           <a ng-if="link.state && link.name.toLowerCase() === 'about'" ng-href="{{$state.href(link.state, link.params)}}">_about_</a>
           <a ng-if="link.state && link.name.toLowerCase() === 'rooms'" ng-href="{{$state.href(link.state, link.params)}}">_rooms_</a>
