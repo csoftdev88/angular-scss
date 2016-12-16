@@ -253,9 +253,13 @@ angular.module('mobiusApp.services.campaigns', [])
         }
       }
       else{
+        $rootScope.campaign.pageCurl = {};
         $rootScope.campaign.pageCurl.display = false;
+        $rootScope.campaign.bookingBar = {};
         $rootScope.campaign.bookingBar.display = false;
+        $rootScope.campaign.headerBar = {};
         $rootScope.campaign.headerBar.display = false;
+        $rootScope.campaign.interstitialAdvert = {};
         $rootScope.campaign.interstitialAdvert.display = false;
       }
 
@@ -281,6 +285,11 @@ angular.module('mobiusApp.services.campaigns', [])
         var offerCode = $rootScope.campaign.association.offerCode;
         var propertyCode = $rootScope.campaign.association.propertyCode;
         var contentCode = $rootScope.campaign.association.contentCode;
+
+        //If there is an offer code but no property code from admin, use property code from URL
+        if(offerCode && !propertyCode && $stateParams && $stateParams.property) {
+          propertyCode = $stateParams.property;
+        }
 
         if (offerCode && propertyCode) {
           propertyService.getPropertyDetails(propertyCode).then(function(details) {
