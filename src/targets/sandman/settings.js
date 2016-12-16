@@ -809,6 +809,12 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'top'
+        },
+        'email2':{
+          'display': true
+        },
+        'email3':{
+          'display': true
         }
       },
       'vouchers' : {
