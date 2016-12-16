@@ -4,7 +4,7 @@
 */
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log, $window, $modalStack,
-    Settings, queryService, _) {
+    Settings, queryService, thirdPartiesService, _) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
@@ -14,6 +14,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_CONFIRMATION = 'ConfirmationCtrl',
       CONTROLLER_UPSELLS = 'UpsellsCtrl',
       CONTROLLER_CAMPAIGN = 'CampaignCtrl',
+      CONTROLLER_PASSWORD = 'PasswordCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -432,6 +433,24 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openPasswordDialog(thirdparty){
+    return openDialog('passwordDialog', 'layouts/modals/password.html', CONTROLLER_PASSWORD, {
+      windowClass: 'password-dialog',
+      resolve: {
+        data: function() {
+          return {
+            thirdparty: thirdparty
+          };
+        }
+      }
+    }).then(function(data){
+      if(!data.thirdparty.passwordInvalid){
+        console.log('password ok');
+        thirdPartiesService.set(data);
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -467,6 +486,7 @@ angular.module('mobiusApp.services.modal', [])
     openEmailRegisteredLoginDialog: openEmailRegisteredLoginDialog,
     openProductDetailsDialog: openProductDetailsDialog,
     openUpsellsDialog: openUpsellsDialog,
-    openCampaignDialog: openCampaignDialog
+    openCampaignDialog: openCampaignDialog,
+    openPasswordDialog: openPasswordDialog
   };
 });
