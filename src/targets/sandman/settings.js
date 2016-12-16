@@ -409,7 +409,7 @@ angular.module('mobiusApp.config', [])
           'showInclusions': true
         },
         'upsells': {
-          'display': false
+          'display': true
         }
       },
       'offers': {
