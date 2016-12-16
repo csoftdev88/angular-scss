@@ -63,8 +63,11 @@
     <div ng-if="!isUserLoggedIn()" class="msg-box">_hotels_page_login_prompt_desc_</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
+      <map default-style="true" center="{{filteredHotels[0].lat}}, {{filteredHotels[0].long}}" zoom="7" ng-if="isLocationPage && config.displayMap && hotelViewMode === 'tiles' && filteredHotels.length" style="display:block; margin:20px 0 40px 0;">
+        <marker ng-repeat="hotel in filteredHotels" id="{{'marker' + $index}}" position="{{hotel.lat}} , {{hotel.long}}"></marker>
+      </map>
       <ul class="entries entries--{{hotelViewMode}}" vertilize-container>
-        <li ng-if="(hotelViewMode === 'list' || hotelViewMode === 'tiles') || isMobile" class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
+        <li ng-if="(hotelViewMode === 'list' || hotelViewMode === 'tiles') || isMobile" class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags as filteredHotels" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
             <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)">
               <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
               <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
