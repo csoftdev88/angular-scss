@@ -11,7 +11,6 @@ angular.module('mobius.controllers.thirdParties', [])
         .get($stateParams.code)
         .then(function(res) {
           if (!_.isEmpty(res)) {
-            res.key = 'MUMBOJUMBO';
             if(res.key){
               modalService.openPasswordDialog(res);
             }
