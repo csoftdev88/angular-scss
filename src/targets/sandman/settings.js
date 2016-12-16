@@ -406,7 +406,7 @@ angular.module('mobiusApp.config', [])
           'displayOtaRates': true,
           'highlightFirstRate': true,
           'showSlashThrough': true,
-          'showInclusions': false
+          'showInclusions': true
         },
         'upsells': {
           'display': false
@@ -900,7 +900,7 @@ angular.module('mobiusApp.config', [])
       },
       'roomDetails':{
         'hasViewMore': true,
-        'showInclusions': false,
+        'showInclusions': true,
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
