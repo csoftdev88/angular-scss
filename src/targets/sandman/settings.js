@@ -880,6 +880,7 @@ angular.module('mobiusApp.config', [])
         'showRegionDescription': false,
         'showLocationDescription': true,
         'displayHotelRegionName': true,
+        'displayMap': false,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
         'displayCompare': true,
