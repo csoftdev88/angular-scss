@@ -2,21 +2,25 @@
   border:0px none;
   .ui-info {
     main {
-      padding:45px;
-      text-align:center;
-      cursor:pointer;
-      .viewport-mobile & {
-        padding:20px;
-        margin:0 !important;
-      }
-      img {
-        max-width:445px;
-        -webkit-backface-visibility: hidden;
-        -ms-transform: translateZ(0); /* IE 9 */
-        -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
-        transform: translateZ(0);
+      padding:0;
+      a {
+        display:block;
+        padding:45px;
+        text-align:center;
+        cursor:pointer;
         .viewport-mobile & {
-          max-width:100%;
+          padding:20px;
+          margin:0 !important;
+        }
+        img {
+          max-width:445px;
+          -webkit-backface-visibility: hidden;
+          -ms-transform: translateZ(0); /* IE 9 */
+          -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
+          transform: translateZ(0);
+          .viewport-mobile & {
+            max-width:100%;
+          }
         }
       }
     }
