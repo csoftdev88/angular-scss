@@ -166,9 +166,11 @@ angular.module('mobius.controllers.reservationDetail', [])
           availablePoints = 0;
         }
 
+        console.log(reservation);
+
         var addonsPromise = $q.all([
           // Available addons
-          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode, productCode:reservation.rooms[0].productCode}),
+          reservationService.getAvailableAddons({propertyCode: reservation.property.code,roomTypeCode: defaultRoom.roomTypeCode, productCode:reservation.rooms[0].productCode, reservationID: reservation.reservationCode}),
           // Reservation addons
           reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : reservation.email)
         ]).then(function(addons){
