@@ -73,6 +73,7 @@ angular
     'mobius.controllers.common.cardExpiration',
     'mobius.controllers.modals.upsells',
     'mobius.controllers.modals.campaign',
+    'mobius.controllers.modals.password',
 
     // Application modules
     'mobiusApp.config',
