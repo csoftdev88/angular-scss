@@ -40,6 +40,7 @@ angular.module('mobiusApp.directives.hotels', [])
       scope.config = Settings.UI.viewsSettings.hotels;
       scope.isMobile = stateService.isMobile();
       scope.compareEnabled = !scope.isMobile && scope.config.displayCompare && $stateParams.locationSlug;
+      scope.isLocationPage = $stateParams.locationSlug ? true : false;
       scope.compareHotelLimit = 3;
       scope.comparisonIndex = 0;
 
