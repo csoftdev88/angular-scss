@@ -9,8 +9,8 @@
 
 <hr class="dividerWithoutImage" ng-if="showBenefits"/>
 
-<section grid-row class="benefits" ng-if="showBenefits">
-  <article grid="4">_home_page_offer_one_</article>
+<section grid-row class="benefits" ng-if="showBenefits" ng-class="{'benefits-centered': $root.thirdparty}">
+  <article grid="4" ng-if="!$root.thirdparty">_home_page_offer_one_</article>
   <article grid="4">_home_page_offer_two_</article>
   <article grid="4">_home_page_offer_three_</article>
 </section>
