@@ -26,6 +26,8 @@ describe('mobiusApp.services.modal', function() {
         setValue: function(){}
       });
 
+      $provide.value('thirdPartiesService', {});
+
       $provide.value('preloaderFactory', {});
 
       $provide.value('Settings', {
