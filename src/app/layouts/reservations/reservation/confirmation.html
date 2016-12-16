@@ -236,6 +236,30 @@
             </span>
           </label>
 
+          <label for="secondEmail" ng-if="bookingConfig.additionalDetails.email2.display">
+            <input type="text" id="second-email"
+              placeholder="_additional_email_label_"
+              ng-model="additionalInfo.secondEmail"
+              name="secondEmail"
+              ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="forms.additionalInfo.secondEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.secondEmail.$error.pattern">_invalid_email_message_</span>
+            </span>
+          </label>
+
+          <label for="thirdEmail" ng-if="bookingConfig.additionalDetails.email3.display">
+            <input type="text" id="third-email"
+              placeholder="_additional_email_label_"
+              ng-model="additionalInfo.thirdEmail"
+              name="thirdEmail"
+              ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="forms.additionalInfo.thirdEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.thirdEmail.$error.pattern">_invalid_email_message_</span>
+            </span>
+          </label>
+
         <input type="submit" id="submit" value="_submit_" ng-hide="true" />
         </form>
     </tab>

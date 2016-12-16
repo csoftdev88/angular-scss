@@ -704,6 +704,19 @@ angular.module('mobius.controllers.reservation', [])
       reservationData.secondPhoneNumber = $scope.additionalInfo.secondPhoneNumber;
     }
 
+    if($scope.additionalInfo.secondEmail){
+      reservationData.additionalConfirmationEmails = $scope.additionalInfo.secondEmail;
+    }
+
+    if($scope.additionalInfo.thirdEmail){
+      if(reservationData.additionalConfirmationEmails) {
+        reservationData.additionalConfirmationEmails += ';' + $scope.additionalInfo.thirdEmail;
+      }
+      else {
+        reservationData.additionalConfirmationEmails = $scope.additionalInfo.thirdEmail;
+      }
+    }
+
 
 
     //Payment details
