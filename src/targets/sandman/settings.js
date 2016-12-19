@@ -812,10 +812,10 @@ angular.module('mobiusApp.config', [])
           'position': 'top'
         },
         'email2':{
-          'display': false
+          'display': true
         },
         'email3':{
-          'display': false
+          'display': true
         }
       },
       'vouchers' : {
