@@ -118,54 +118,60 @@ angular.module('mobius.controllers.reservationDetail', [])
       $scope.redeemVoucher = function() {
         $scope.voucher.verifying = true;
         $scope.voucher.submitted = true;
-        console.log($scope.voucher.code);
         if($scope.voucher.code){
-          reservationService.addAddon($stateParams.reservationCode, null, user.isLoggedIn() ? null : $scope.reservation.email, $scope.voucher.code).then(function() {
-            $q.all([
-              // Available addons
-              reservationService.getAvailableAddons({
-                propertyCode: reservation.property.code,
-                roomTypeCode: defaultRoom.roomTypeCode,
-                productCode: reservation.rooms[0].productCode,
-                reservationID: reservation.id
-              }),
-              // Reservation addons
-              reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : reservation.email)
-            ]).then(function(addons) {
-              // addons[0] - available addons
-              // Available addons should only contain those which not in reservationAddons
-              //$scope.availableAddons = addons[0];
+          //Validate voucher which returns an addon
+          reservationService.addAddon($stateParams.reservationCode, null, user.isLoggedIn() ? null : $scope.reservation.email, $scope.voucher.code).then(function(addon) {
+            //If addon is returned add this to reservation
+            reservationService.addAddon($stateParams.reservationCode, addon, user.isLoggedIn() ? null : $scope.reservation.email).then(function(){
+              $q.all([
+                // Available addons
+                reservationService.getAvailableAddons({
+                  propertyCode: reservation.property.code,
+                  roomTypeCode: defaultRoom.roomTypeCode,
+                  productCode: reservation.rooms[0].productCode,
+                  reservationID: reservation.id
+                }),
+                // Reservation addons
+                reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : reservation.email)
+              ]).then(function(addons) {
+                // addons[0] - available addons
+                // Available addons should only contain those which not in reservationAddons
+                //$scope.availableAddons = addons[0];
 
-              $scope.availableAddons = [];
-              _.each(addons[0], function(addon) {
+                $scope.availableAddons = [];
+                _.each(addons[0], function(addon) {
 
-                var addedAddon = _.find(addons[1], function(a) {
-                  return a.code === addon.code;
+                  var addedAddon = _.find(addons[1], function(a) {
+                    return a.code === addon.code;
+                  });
+
+                  if (!addedAddon) {
+                    // Checking if user has enought points to buy the addon
+                    if (addon.pointsRequired && availablePoints < addon.pointsRequired) {
+                      addon.pointsRequired = 0;
+                    }
+                    $scope.availableAddons.push(addon);
+                  }
                 });
 
-                if (!addedAddon) {
-                  // Checking if user has enought points to buy the addon
-                  if (addon.pointsRequired && availablePoints < addon.pointsRequired) {
-                    addon.pointsRequired = 0;
+                // addons[1] - reservation addons
+                $scope.reservationAddons = _.map(addons[1], function(addon) {
+                  addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+                  addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
+                  if (addon.hasViewMore) {
+                    addon.descriptionShort += '…';
                   }
-                  $scope.availableAddons.push(addon);
-                }
+                  return addon;
+                });
+
+                $scope.voucher.verifying = false;
+                $scope.voucher.valid = true;
               });
 
-              // addons[1] - reservation addons
-              $scope.reservationAddons = _.map(addons[1], function(addon) {
-                addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
-                addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
-                if (addon.hasViewMore) {
-                  addon.descriptionShort += '…';
-                }
-                return addon;
-              });
-
-              $scope.voucher.verifying = false;
-              $scope.voucher.valid = true;
+            }, function() {
+              console.log('invalid voucher');
+              invalidVoucher();
             });
-
           }, function() {
             console.log('invalid voucher');
             invalidVoucher();
