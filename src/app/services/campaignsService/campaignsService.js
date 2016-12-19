@@ -4,8 +4,8 @@
  */
 angular.module('mobiusApp.services.campaigns', [])
   .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, _) {
-    var activeCampaign = cookieFactory('ActiveCampaign');
-    var savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
+    var activeCampaign = null;
+    var savedCampaign = null;
     var savedLocations = null;
     var locationCode = null;
 
@@ -15,6 +15,8 @@ angular.module('mobiusApp.services.campaigns', [])
         return $stateParams.locationSlug === location.meta.slug;
       });
       locationCode = locationMatch ? locationMatch.code : null;
+      activeCampaign = cookieFactory('ActiveCampaign');
+      savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
       getCampaigns(loggedIn, false).then(function(data) {
         if (data.criteria) {
           validateCampaign(data, loggedIn);
