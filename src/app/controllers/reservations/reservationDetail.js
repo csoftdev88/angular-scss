@@ -455,6 +455,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   };
 
   $scope.addAddon = function(addon) {
+    console.log('do this!!');
     // Checking if same addone is already there
     if ($scope.reservationAddons.indexOf(addon.code) === -1) {
       // Adding the addon to current reservation

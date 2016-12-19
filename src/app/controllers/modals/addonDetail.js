@@ -31,24 +31,35 @@ angular.module('mobius.controllers.modals.addonDetail', [
       // NOTE: Price/pointsRequired should be used according to the payment
       // method - only corresponding prop should be sent back to the server
 
-      if($scope.addon.voucherDescription) {
-        var thisAddon = addon;
-        if($scope.payWithPoints){
-          delete thisAddon.price;
-        } else {
-          delete thisAddon.pointsRequired;
+      if(addon.furtherInfoRequired){
+        if($scope.addon.voucherComment) {
+          var thisAddon = addon;
+          if($scope.payWithPoints){
+            delete thisAddon.price;
+          } else {
+            delete thisAddon.pointsRequired;
+          }
+          delete thisAddon.$$hashKey;
+          delete thisAddon._expanded;
+          delete thisAddon._confirmation;
+          thisAddon.price = addon.price.totalAfterTax;
+          console.log(thisAddon);
+          addAddon(thisAddon);
+          $scope.cancel();
         }
-        delete thisAddon.$$hashKey;
-        delete thisAddon._expanded;
-        delete thisAddon._confirmation;
-        thisAddon.price = addon.price.totalAfterTax;
-        console.log(thisAddon);
-        addAddon(thisAddon);
-        $scope.cancel();
+        else {
+          $scope.descriptionInvalid = true;
+          console.log('enter a description');
+        }
       }
       else {
-        $scope.descriptionInvalid = true;
-        console.log('enter a description');
+        if($scope.payWithPoints){
+          delete addon.price;
+        } else {
+          delete addon.pointsRequired;
+        }
+        addAddon(addon);
+        $scope.cancel();
       }
     };
   });

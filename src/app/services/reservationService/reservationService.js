@@ -31,11 +31,10 @@ angular.module('mobiusApp.services.reservation', [])
       {reservationCode: reservationCode, actionType: 'sendToPassbook'}));
   }
 
-  function addAddon(reservationCode, addon, email, voucherCode) {
+  function addAddon(reservationCode, addon, email) {
     return apiService.post(apiService.getFullURL('reservations.addons',
       {reservationCode: reservationCode}),
-      voucherCode?{voucherCode:voucherCode} : null,
-      addon?addon : null,
+      addon,
       email?{email:email}:null
     );
   }
