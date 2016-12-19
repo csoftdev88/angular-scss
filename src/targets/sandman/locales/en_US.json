@@ -417,7 +417,7 @@
     "email_optin_label": "I agree that I am happy for the Sandman Hotel Group to send me emails",
     "enter_voucher_label": "Enter code",
     "redeem_voucher_message": "Voucher code",
-    "redeem_addon_voucher_message": "Addon voucher code",
+    "redeem_addon_voucher_message": "Addon voucher code:",
     "voucher_button_text": "Apply",
     "voucher_code_valid": "Your voucher code has been added",
     "voucher_code_invalid": "The voucher code you entered is not valid or has already been used",

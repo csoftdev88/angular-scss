@@ -34,9 +34,9 @@
         <p ng-switch-when="true"><em>_addon_modal_charge_confirm_</em></p>
       </div>
 
-      <div ng-if="addon.furtherInfoRequired">
+      <div ng-if="addon.furtherInfoRequired && config.displayAddonComments">
         <label>{{addon.furtherInfoTitle}}</label>
-        <input type="text" ng-model="addon.voucherComment"/>
+        <input type="text" ng-model="addon.voucherComment" ng-pattern="$root.generalValidationPattern"/>
         <span ng-if="descriptionInvalid && !addon.voucherComment" style="color:red">You must enter a value</span>
       </div>
 
