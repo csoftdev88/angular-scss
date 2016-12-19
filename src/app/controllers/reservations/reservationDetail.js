@@ -166,8 +166,8 @@ angular.module('mobius.controllers.reservationDetail', [])
               $scope.voucher.valid = true;
             });
 
-          }, function(error) {
-            console.log(error);
+          }, function() {
+            console.log('invalid voucher');
             invalidVoucher();
           });
         }
