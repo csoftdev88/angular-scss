@@ -410,6 +410,7 @@
     "email_optin_label": "J&apos;accepte de recevoir des e-mails du Sandman Hotel Group",
     "enter_voucher_label": "Enter code",
     "redeem_voucher_message": "Voucher code",
+    "redeem_addon_voucher_message": "Addon voucher code:",
     "voucher_button_text": "Apply",
     "voucher_code_valid": "Your voucher code has been added",
     "voucher_code_invalid": "The voucher code you entered is not valid or has already been used",
