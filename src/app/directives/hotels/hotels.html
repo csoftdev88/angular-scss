@@ -63,9 +63,45 @@
     <div ng-if="!isUserLoggedIn()" class="msg-box">_hotels_page_login_prompt_desc_</div>
     <div class="hotels__list">
       <section ng-show="hotels.length === 0">_no_hotels_found_</section>
-      <map default-style="true" center="{{filteredHotels[0].lat}}, {{filteredHotels[0].long}}" zoom="7" ng-if="isLocationPage && config.displayMap && hotelViewMode === 'tiles' && filteredHotels.length" style="display:block; margin:20px 0 40px 0;">
-        <marker ng-repeat="hotel in filteredHotels" id="{{'marker' + $index}}" position="{{hotel.lat}} , {{hotel.long}}"></marker>
-      </map>
+      <ng-map default-style="true" center="-25,131" zoom="7" max-zoom="13" scrollwheel="false" ng-if="isLocationPage && config.displayMap && hotelViewMode === 'tiles' && filteredHotels.length" style="display:block; margin:20px 0 40px 0;">
+        <info-window id="foo" max-width="400">
+          <div ng-non-bindable>
+            <div class="hotel-content clearfix">
+              <div class="ratings">
+                <div class="brand" ng-if="displayPropertyChainBranding" ng-class="marker.hotel.chainCode.toLowerCase()"></div>
+                <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor.enable">
+                  <a ng-href="{{marker.hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{marker.hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
+                </div>
+
+                <div class="rating-default" ng-if="filterConfig.stars.enable && filterConfig.stars.displayStarsOnHotels">
+                  <ul class="star-rating">
+                    <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= marker.hotel.rating}"></li>
+                  </ul>
+                </div>
+              </div>
+              <h2 ng-click="navigateToHotel(marker.hotel)"><strong>{{marker.hotel.nameShort}}</strong></h2>
+              <div class="description" ng-if="marker.hotel.descriptionShort" ng-bind-html="sanitize(marker.hotel.descriptionShort)"></div>
+              <pricing-info>
+                <p class="price available left" ng-if="marker.hotel.available">
+                  _price_from_ <span class="value">{{marker.hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> _per_night_
+                  <span ng-if="hotel.available && isUserLoggedIn() && hotel.minPointsRequired">
+                    <br />_or_ <span class="value">{{marker.hotel.minPointsRequired}}</span> _points_
+                  </span>
+                </p>
+
+                <p class="price unavailable" ng-if="!marker.hotel.available && hasDates()">
+                  _not_available_on_dates_title_
+                </p>
+                <button-submit role="button" tabindex="0" ng-click="navigateToHotel(marker.hotel)">_view_more_</button-submit>
+              </pricing-info>
+            </div>
+          </div>
+        </info-window>
+
+        <marker ng-repeat="(id, marker) in markers" id="{{id}}"
+          position="{{marker.position}}"
+          on-click="showMarker(event, id)"></marker>
+      </ng-map>
       <ul class="entries entries--{{hotelViewMode}}" vertilize-container>
         <li ng-if="(hotelViewMode === 'list' || hotelViewMode === 'tiles') || isMobile" class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags as filteredHotels" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
             <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)">

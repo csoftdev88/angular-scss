@@ -16,7 +16,8 @@ angular.module('mobiusApp.services.thirdPartiesService', [])
   }
 
   function setThirdParty(response){
-    var res = response.thirdparty;
+    console.log(response);
+    var res = response.thirdparty ? response.thirdparty : response;
     var vm = {};
     vm.code = {
       type: codeTypesMap[res.type],

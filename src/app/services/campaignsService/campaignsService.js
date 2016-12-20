@@ -4,8 +4,8 @@
  */
 angular.module('mobiusApp.services.campaigns', [])
   .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, _) {
-    var activeCampaign = cookieFactory('ActiveCampaign');
-    var savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
+    var activeCampaign = null;
+    var savedCampaign = null;
     var savedLocations = null;
     var locationCode = null;
 
@@ -15,6 +15,8 @@ angular.module('mobiusApp.services.campaigns', [])
         return $stateParams.locationSlug === location.meta.slug;
       });
       locationCode = locationMatch ? locationMatch.code : null;
+      activeCampaign = cookieFactory('ActiveCampaign');
+      savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
       getCampaigns(loggedIn, false).then(function(data) {
         if (data.criteria) {
           validateCampaign(data, loggedIn);
@@ -89,14 +91,15 @@ angular.module('mobiusApp.services.campaigns', [])
       if (criteriaPass) {
         console.log('booking date restrictions pass');
         criteriaPass = checkPropertyRestrictions(campaign);
+        if(criteriaPass){
+          console.log('property restrictions check pass');
+        }
+        else {
+          console.log('property restrictions check fail');
+          criteriaPass = checkLocationRestrictions(campaign);
+        }
       } else {
         console.log('booking date restrictions fail');
-      }
-      if (criteriaPass) {
-        console.log('property restrictions check pass');
-        criteriaPass = checkLocationRestrictions(campaign);
-      } else {
-        console.log('property restrictions check fail');
       }
       if (criteriaPass) {
         console.log('location restrictions check pass');
@@ -225,7 +228,7 @@ angular.module('mobiusApp.services.campaigns', [])
       //If not on an offer page show the rest of the campaign material
       if(!$stateParams.code)
       {
-        if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images.uri) {
+        if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images && $rootScope.campaign.pageCurl.images.uri) {
           $rootScope.campaign.pageCurl.display = true;
           $('body').addClass('campaign-folded-corner-active');
         }
