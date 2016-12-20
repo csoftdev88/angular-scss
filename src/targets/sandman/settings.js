@@ -523,8 +523,8 @@ angular.module('mobiusApp.config', [])
       },
       'displayNewsletterCtaOnReservationDetail': true,
       'reservationDetailPriceBreakdownExtended': true,
-      'displayAddonVoucherEntry': false,
-      'displayAddonComments': false,
+      'displayAddonVoucherEntry': true,
+      'displayAddonComments': true,
       'hideHeroSliderOnReservations':true
     },
 
