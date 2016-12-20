@@ -91,14 +91,15 @@ angular.module('mobiusApp.services.campaigns', [])
       if (criteriaPass) {
         console.log('booking date restrictions pass');
         criteriaPass = checkPropertyRestrictions(campaign);
+        if(criteriaPass){
+          console.log('property restrictions check pass');
+        }
+        else {
+          console.log('property restrictions check fail');
+          criteriaPass = checkLocationRestrictions(campaign);
+        }
       } else {
         console.log('booking date restrictions fail');
-      }
-      if (criteriaPass) {
-        console.log('property restrictions check pass');
-        criteriaPass = checkLocationRestrictions(campaign);
-      } else {
-        console.log('property restrictions check fail');
       }
       if (criteriaPass) {
         console.log('location restrictions check pass');
