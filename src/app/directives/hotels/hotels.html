@@ -80,7 +80,6 @@
                 </div>
               </div>
               <h2 ng-click="navigateToHotel(marker.hotel)"><strong>{{marker.hotel.nameShort}}</strong></h2>
-              <h5 class="region-name">{{marker.hotel.regionName}}</h5>
               <div class="description" ng-if="marker.hotel.descriptionShort" ng-bind-html="sanitize(marker.hotel.descriptionShort)"></div>
               <pricing-info>
                 <p class="price available left" ng-if="marker.hotel.available">
