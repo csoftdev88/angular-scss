@@ -648,7 +648,7 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.markersArray = [];
           _.each(scope.filteredHotels, function(hotel) {
             var marker = {
-              position: [hotel.long, hotel.lat],
+              position: [hotel.lat, hotel.long],
               hotel: hotel
             };
             scope.markersArray.push(marker);
