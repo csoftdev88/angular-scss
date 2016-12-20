@@ -117,7 +117,6 @@ angular.module('mobius.controllers.reservationDetail', [])
 
       $scope.redeemVoucher = function() {
         $scope.voucher.verifying = true;
-        $scope.voucher.submitted = true;
         if($scope.voucher.code){
           //Validate voucher which returns an addon
           reservationService.addAddon($stateParams.reservationCode, null, user.isLoggedIn() ? null : $scope.reservation.email, $scope.voucher.code).then(function() {
@@ -137,6 +136,7 @@ angular.module('mobius.controllers.reservationDetail', [])
               //$scope.availableAddons = addons[0];
 
               $scope.availableAddons = [];
+              $scope.reservationAddons = [];
               _.each(addons[0], function(addon) {
 
                 var addedAddon = _.find(addons[1], function(a) {
@@ -161,7 +161,7 @@ angular.module('mobius.controllers.reservationDetail', [])
                 }
                 return addon;
               });
-
+              $scope.voucher.submitted = true;
               $scope.voucher.verifying = false;
               $scope.voucher.valid = true;
             });

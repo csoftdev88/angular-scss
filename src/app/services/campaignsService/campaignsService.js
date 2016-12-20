@@ -241,7 +241,7 @@ angular.module('mobiusApp.services.campaigns', [])
           $rootScope.campaign.headerBar.display = true;
         }
 
-        if($rootScope.campaign.bookingBar) {
+        if($rootScope.campaign.bookingBar && $rootScope.campaign.bookingBar.tabTitle) {
           $rootScope.campaign.bookingBar.display = true;
         }
 
@@ -292,6 +292,7 @@ angular.module('mobiusApp.services.campaigns', [])
         //If there is an offer code but no property code from admin, use property code from URL
         if(offerCode && !propertyCode && $stateParams && $stateParams.property) {
           propertyCode = $stateParams.property;
+          $rootScope.campaign.association.propertyCode = propertyCode;
         }
 
         if (offerCode && propertyCode) {
@@ -309,7 +310,7 @@ angular.module('mobiusApp.services.campaigns', [])
 
             routerService.buildStateParams('hotel', paramsData).then(function(params) {
               $stateParams = _.extend($stateParams, params);
-              $stateParams.property = null;
+              //$stateParams.property = null;
               var stateName = Settings.newUrlStructure ? 'propertyHotDeals' : 'propertyOffers';
               $rootScope.campaign.uri = $state.href(stateName, $stateParams, {
                 reload: true
