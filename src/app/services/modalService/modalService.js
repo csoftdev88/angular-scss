@@ -444,8 +444,7 @@ angular.module('mobiusApp.services.modal', [])
         }
       }
     }).then(function(data){
-      if(!data.thirdparty.passwordInvalid){
-        console.log('password ok');
+      if (!data.thirdparty.passwordInvalid) {
         thirdPartiesService.set(data);
       }
     });
