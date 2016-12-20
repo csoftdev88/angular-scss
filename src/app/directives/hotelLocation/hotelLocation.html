@@ -14,7 +14,7 @@
   <div class="map-overlay">
     <a target="_blank" ng-if="position" href="http://maps.google.com/maps?q={{position[0]}}+{{position[1]}}&z=15&t=m"></a>
   </div>
-  <map
+  <ng-map
     ng-if="position"
     zoom="15"
     max-zoom="18"
