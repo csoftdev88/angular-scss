@@ -136,6 +136,7 @@ angular.module('mobius.controllers.reservationDetail', [])
               //$scope.availableAddons = addons[0];
 
               $scope.availableAddons = [];
+              $scope.reservationAddons = [];
               _.each(addons[0], function(addon) {
 
                 var addedAddon = _.find(addons[1], function(a) {
