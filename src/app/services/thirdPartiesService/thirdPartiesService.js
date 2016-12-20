@@ -3,7 +3,7 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.thirdPartiesService', [])
-.service( 'thirdPartiesService',  function(apiService, $rootScope, $stateParams, $window, $state) {
+.service( 'thirdPartiesService',  function(apiService, $rootScope, $stateParams, $window, $state, Settings) {
   var codeTypesMap = {
     corp: 'corpCode',
     promo: 'promoCode',
@@ -15,19 +15,22 @@ angular.module('mobiusApp.services.thirdPartiesService', [])
     return apiService.get(apiService.getFullURL('thirdparties.get', {code: code}));
   }
 
-  function setThirdParty(response){
-    console.log(response);
+  function setThirdParty(response) {
     var res = response.thirdparty ? response.thirdparty : response;
     var vm = {};
     vm.code = {
       type: codeTypesMap[res.type],
       value: res.code
     };
+    $rootScope.thirdparty = {
+      config: Settings.UI.thirdparties,
+      heroContent: res.images,
+      logo: res.logo
+    };
 
-    $rootScope.thirdparty.heroContent = res.images;
-    $rootScope.thirdparty.logo = res.logo;
     setCode(vm);
     setInSession(vm);
+    $stateParams[vm.code.type] = vm.code.value;
     $state.go('home',$stateParams);
   }
 
@@ -37,7 +40,6 @@ angular.module('mobiusApp.services.thirdPartiesService', [])
     };
     settings[vm.code.type] = vm.code.value;
     $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', settings);
-    $stateParams.corpCode = vm.code.value;
   }
 
   function setInSession(vm) {
