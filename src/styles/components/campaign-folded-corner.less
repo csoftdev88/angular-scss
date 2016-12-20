@@ -10,9 +10,7 @@
   overflow: hidden;
   background: white;
   box-shadow: 0px 2px 5px #3a3a3a;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
+  .transition(all, 0.5s, cubic-bezier(0.68, -0.55, 0.27, 1.55));
   .viewport-mobile & {
     display:none;
   }
@@ -25,7 +23,8 @@
   top: 15px;
   /* top position of curl content to show */
   img {
-    width:170px;
+    width:600px;
+    height:600px;
   }
 }
 
@@ -40,21 +39,27 @@
   top: 0;
   transform: rotate(45deg) translateX(70%) scale(1.4);
   background: #afafaf;
-  background: -moz-linear-gradient(left, #afafaf 0%, #ffffff 29%);
-  background: -webkit-linear-gradient(left, #afafaf 0%,#ffffff 29%);
-  background: linear-gradient(to right, #afafaf 0%,#ffffff 29%);
+  background: -moz-linear-gradient(left, #b3adad 0%, #ffffff 10%);
+  background: -webkit-linear-gradient(left, #b3adad 0%,#ffffff 10%);
+  background: linear-gradient(to right, #b3adad 0%,#ffffff 10%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#afafaf', endColorstr='#ffffff',GradientType=1 );
 }
 
 .curl:hover {
-  width: 400px;
+  width: 600px;
   /* width of page curl when mouse over */
-  height: 400px;
+  height: 600px;
   /* height of page curl when mouse over */
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-  box-shadow: 10px 10px 50px gray;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  box-shadow:-6px 6px 10px rgba(0, 0, 0, 0.3);
+  &:after{
+    background: -moz-linear-gradient(left, #b3adad 0%, #ffffff 6%);
+    background: -webkit-linear-gradient(left, #b3adad 0%,#ffffff 6%);
+    background: linear-gradient(to right, #b3adad 0%,#ffffff 6%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#afafaf', endColorstr='#ffffff',GradientType=1 );
+  }
 }
 /* #### Right corner curl specific CSS (instead of default left corner) ### */
 .curl.rightcorner {
