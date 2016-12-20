@@ -7,14 +7,14 @@ angular.module('mobius.controllers.modals.password', [
   'mobius.controllers.common.sanitize'
 ])
 
-.controller('PasswordCtrl', function($scope, $modalInstance, $controller, data, $state) {
+.controller('PasswordCtrl', function($scope, $rootScope, $modalInstance, $controller, $stateParams, data, $state) {
   $scope.data = data;
   $controller('SanitizeCtrl', {$scope: $scope});
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
 
   $scope.ok = function() {
     var decodedPassword = atob($scope.data.thirdparty.key);
-    if($scope.password && $scope.password === decodedPassword){
+    if($scope.password && $scope.password === decodedPassword) {
       data.passwordInvalid = false;
       $modalInstance.close($scope.data);
     }
@@ -24,7 +24,8 @@ angular.module('mobius.controllers.modals.password', [
   };
 
   $scope.cancel = function() {
-    $state.go('home');
+    delete $rootScope.thirdparty;
     $modalInstance.dismiss('cancel');
+    $state.go('home', $stateParams, {reload: true});
   };
 });
