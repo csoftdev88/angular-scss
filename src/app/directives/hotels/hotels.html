@@ -106,7 +106,6 @@
           position="{{marker.position}}"
           on-click="showMarker(event, id)"></marker>
       </ng-map>
-      <div>Short name - {{marker.hotel.code}}</div>
       <ul class="entries entries--{{hotelViewMode}}" vertilize-container>
         <li ng-if="(hotelViewMode === 'list' || hotelViewMode === 'tiles') || isMobile" class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags as filteredHotels" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
             <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)">
