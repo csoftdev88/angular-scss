@@ -224,7 +224,6 @@ angular.module('mobiusApp.services.campaigns', [])
         $rootScope.campaign.sideRails = {};
         $rootScope.campaign.sideRails.display = false;
       }
-
       //If not on an offer page show the rest of the campaign material
       if(!$stateParams.code)
       {
@@ -318,8 +317,8 @@ angular.module('mobiusApp.services.campaigns', [])
             });
           });
         } else if (offerCode) {
-          $rootScope.campaign.uri = $state.href('offers', {
-            code: offerCode
+          $rootScope.campaign.uri = $state.href('offers', {code: offerCode}, {
+            reload: true
           });
         } else if (propertyCode) {
           propertyService.getPropertyDetails(propertyCode).then(function(details) {
