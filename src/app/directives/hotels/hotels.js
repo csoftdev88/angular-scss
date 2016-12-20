@@ -625,15 +625,21 @@ angular.module('mobiusApp.directives.hotels', [])
         scope.mapSettings.zoom = 7;
 
         $rootScope.$on('mapInitialized', function(evt,map) {
-          scope.map = map;
-          scope.$apply();
-          generateMarkers();
+          if(scope.isLocationPage && scope.config.displayMap && scope.hotelViewMode === 'tiles' && scope.filteredHotels.length){
+            initMap(evt,map);
+          }
         });
 
         scope.showMarker = function(evt, markerId) {
           scope.marker = scope.markers[markerId];
           scope.map.showInfoWindow('foo', this);
         };
+
+        function initMap(evt,map){
+          scope.map = map;
+          scope.$apply();
+          generateMarkers();
+        }
 
         function centerMap() {
           scope.mapSettings.bounds = new google.maps.LatLngBounds();
@@ -648,7 +654,7 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.markersArray = [];
           _.each(scope.filteredHotels, function(hotel) {
             var marker = {
-              position: [hotel.long, hotel.lat],
+              position: [hotel.lat, hotel.long],
               hotel: hotel
             };
             scope.markersArray.push(marker);
