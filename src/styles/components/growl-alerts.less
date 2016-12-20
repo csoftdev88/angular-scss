@@ -1,5 +1,14 @@
 .growl-alerts-dir {
   z-index:1000;
+  .viewport-desktop.campaign-rails-active & {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 1045px;
+    /* margin-left: 235px; */
+    left: 50%;
+    transform: translateX(-50%);
+  }
   .growl-alerts {
     opacity:1;
     .transition(all, .3s, linear);
@@ -19,9 +28,9 @@
       left: 120px;
       max-width: 200px;
       z-index:1000;
-      .campaign-rails-active & {
-        left:10px;
-        top:140px;
+      .campaign-rails-active.viewport-desktop & {
+        left: 110px;
+        top: 15px;
       }
       .viewport-mobile & {
         left:auto;
