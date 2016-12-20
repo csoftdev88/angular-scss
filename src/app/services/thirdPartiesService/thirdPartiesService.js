@@ -30,6 +30,7 @@ angular.module('mobiusApp.services.thirdPartiesService', [])
 
     setCode(vm);
     setInSession(vm);
+    $stateParams[vm.code.type] = vm.code.value;
     $state.go('home',$stateParams);
   }
 
@@ -39,7 +40,6 @@ angular.module('mobiusApp.services.thirdPartiesService', [])
     };
     settings[vm.code.type] = vm.code.value;
     $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', settings);
-    $stateParams.corpCode = vm.code.value;
   }
 
   function setInSession(vm) {

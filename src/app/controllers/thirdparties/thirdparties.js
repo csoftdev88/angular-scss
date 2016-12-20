@@ -8,8 +8,7 @@ angular.module('mobius.controllers.thirdParties', [])
 
     function getThirdParties() {
       thirdPartiesService
-        .get($stateParams.code)
-        .then(function(res) {
+        .get($stateParams.code).then(function(res) {
           if (!_.isEmpty(res)) {
             if(res.key) {
               modalService.openPasswordDialog(res);
@@ -21,8 +20,6 @@ angular.module('mobius.controllers.thirdParties', [])
             $log.warn($stateParams.code + 'is invalid');
             delete $rootScope.thirdparty;
           }
-          // Redirect to Home.
-          $state.go('home',$stateParams);
         })
         .catch(function(error) {
           $log.warn('There was an error while trying to fetch thirdparties', error);
