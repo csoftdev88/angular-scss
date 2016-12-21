@@ -41,7 +41,11 @@
 // GENERIC STYLES
 .main-nav {
   height: @mobileHeaderHeight;
-
+  &.has-corp-logo {
+    .viewport-mobile & {
+      height:95px;
+    }
+  }
   .menu-opener {
     float: left;
     display: block;
@@ -313,26 +317,11 @@
     }
   }
 
-  .mobile-brand {
-    position: absolute;
-    left: 50%;
-    top: 33%;
-
-    .center-logo {
-      position: relative;
-      left: -50%;
-    }
-  }
-
   .brand {
     display: block;
     float: right;
     position: relative;
-
-    &.corp-logo {
-      left: 70%;
-      width: initial !important;
-    }
+    text-align:center;
     .mobile-logo{
       display: none;
     }
@@ -350,6 +339,16 @@
       }
       img{
         height: 45px;
+      }
+    }
+    img{
+      &.corp-logo {
+        max-width:125px;
+        max-height:22px;
+        margin:0px auto;
+        .viewport-mobile &{
+          margin-top:7px;
+        }
       }
     }
   }
@@ -513,13 +512,6 @@
         }
       }
     }
-
-    .mobile-brand {
-      width: 100%;
-      .center-logo {
-        left: -28%;
-      }
-    }
   }
 }
 
@@ -593,12 +585,6 @@
         padding: 0px @paddingHeaderDefault / 2;
       }
     }
-
-    .mobile-brand {
-      .center-logo {
-        left: -16%;
-      }
-    }
   }
 }
 
@@ -608,10 +594,6 @@
 
     .button-login {
       right: 0;
-    }
-
-    .brand {
-      max-width: 50%;
     }
   }
 }
