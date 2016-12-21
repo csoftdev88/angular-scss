@@ -1,24 +1,17 @@
 <slidedown-notifications ng-if="$root.campaign && $root.campaign.headerBar.display"></slidedown-notifications>
 
 <div id="main-header-inner">
-  <nav class="main-nav wrapper" dropdown>
+  <nav class="main-nav wrapper" dropdown ng-class="{'has-corp-logo': thirdparty.logo.images.uri}">
 
     <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && !isMobile && $state.$current.self.name.indexOf('reservation') === -1">
       <li language-list></li>
     </ul>
 
-    <a ng-if="!isMobile" class="brand" ui-sref="home({property:null})">
+    <a class="brand" ui-sref="home({property:null})">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
-      <img class="corp-logo desktop-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="40">
+      <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+      <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
     </a>
-    <div ng-if="isMobile" class="mobile-brand">
-      <a class="center-logo" ui-sref="home({property:null})">
-        <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
-      </a>
-      <a class="center-logo">
-        <img class="mobile-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
-      </a>
-    </div>
 
     <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu()"></a>
 
