@@ -262,7 +262,9 @@ angular.module('mobiusApp.directives.datepicker', [])
             scope.lengthOfStay = getDaysBetween(startDate, endDate);
 
             if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
-              getAvailability();
+              var y = inst ? inst.drawYear : null;
+              var m = inst ? inst.drawMonth + 1 : null;
+              getAvailability(y, m);
             }
 
             isStartDateSelected = !isStartDateSelected;
@@ -454,7 +456,7 @@ angular.module('mobiusApp.directives.datepicker', [])
         });
       }
 
-      function getAvailability(y, m){
+      function getAvailability(y, m, keepOriginalStart){
         if (hasCounter) {
           updateButtonPane('data-counter', getCounterText());
         }
@@ -468,7 +470,11 @@ angular.module('mobiusApp.directives.datepicker', [])
           m = today.format('MM');
         }
 
-        var startDate = $window.moment([y, m]).add(-2,'month');
+        var startDate = $window.moment([y, m]);
+        if(!keepOriginalStart)
+        {
+          startDate = $window.moment(startDate).add(-2,'month');
+        }
         if(startDate.valueOf() < today.valueOf())
         {
           startDate = today;
