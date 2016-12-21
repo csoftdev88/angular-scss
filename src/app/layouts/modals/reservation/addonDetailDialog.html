@@ -36,8 +36,8 @@
 
       <div ng-if="addon.furtherInfoRequired && config.displayAddonComments">
         <label>{{addon.furtherInfoTitle}}</label>
-        <input type="text" ng-model="addon.voucherComment" ng-pattern="$root.generalValidationPattern"/>
-        <span ng-if="descriptionInvalid && !addon.voucherComment" style="color:red">You must enter a value</span>
+        <input type="text" ng-model="addon.comment" ng-pattern="$root.generalValidationPattern"/>
+        <span ng-if="descriptionInvalid && !addon.comment" style="color:red">You must enter a value</span>
       </div>
 
       <div class="extra">
