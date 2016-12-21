@@ -589,7 +589,12 @@ angular.module('mobius.controllers.reservation', [])
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
         var products = [];
 
-        var localeData = propertyData.locale.split('-')[1].trim();
+        var localeData = propertyData.locale;
+        var localeArray = localeData ? propertyData.locale.split('-') : null;
+        if(localeArray && localeArray.length > 1)
+        {
+          localeData = localeArray[1].trim();
+        }
         var variant = '';
         if($stateParams.adults && $stateParams.children)
         {
@@ -947,7 +952,12 @@ angular.module('mobius.controllers.reservation', [])
       chainService.getChain(Settings.API.chainCode).then(function(chainData) {
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
           //GTM ecommerce tracking
-          var localeData = propertyData.locale.split('-')[1].trim();
+          var localeData = propertyData.locale;
+          var localeArray = localeData ? propertyData.locale.split('-') : null;
+          if(localeArray && localeArray.length > 1)
+          {
+            localeData = localeArray[1].trim();
+          }
           var variant = '';
           if($stateParams.adults && $stateParams.children)
           {
