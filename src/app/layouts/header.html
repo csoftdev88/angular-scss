@@ -10,6 +10,7 @@
     <a class="brand" ui-sref="home({property:null})" ng-if="!config.generics.headerLogoLink">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
       <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+      <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
     </a>
 
     <a class="brand" ng-href="{{config.generics.headerLogoLink}}" ng-if="config.generics.headerLogoLink">
