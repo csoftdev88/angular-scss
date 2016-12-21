@@ -33,7 +33,7 @@ angular.module('mobius.controllers.modals.addonDetail', [
       // method - only corresponding prop should be sent back to the server
 
       if(addon.furtherInfoRequired && $scope.config.displayAddonComments){
-        if($scope.addon.voucherComment) {
+        if($scope.addon.comment) {
           if($scope.payWithPoints){
             delete addon.price;
           } else {
