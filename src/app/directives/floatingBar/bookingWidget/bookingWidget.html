@@ -101,6 +101,7 @@
         disable-search="true"
         chosen ng-options="code as code.title for code in codeTypes"
         ng-change="onCodeTypeChanged()"
+        ng-disabled="$root.thirdparty"
         placeholder-text-single="_apply_code_">
       <option></option>
     </select>
