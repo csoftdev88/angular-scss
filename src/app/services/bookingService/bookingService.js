@@ -62,7 +62,7 @@ angular.module('mobiusApp.services.booking', [])
     return params;
   }
 
-  function clearParams(){
+  function clearParams(retainDiscountCodes){
     $stateParams.adults = null;
     $stateParams.children = null;
     $stateParams.region = null;
@@ -73,11 +73,13 @@ angular.module('mobiusApp.services.booking', [])
     $stateParams.property = null;
     $stateParams.propertySlug = null;
     $stateParams.roomSlug = null;
-    $stateParams.promoCode = null;
-    $stateParams.corpCode = null;
-    $stateParams.groupCode = null;
     $stateParams.fromSearch = null;
     $stateParams.voucher = null;
+    if(!retainDiscountCodes){
+      $stateParams.corpCode = null;
+      $stateParams.promoCode = null;
+      $stateParams.groupCode = null;
+    }
   }
 
   function datesFromString(str){
