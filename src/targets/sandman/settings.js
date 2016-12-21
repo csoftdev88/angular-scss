@@ -1104,7 +1104,7 @@ angular.module('mobiusApp.config', [])
       }
     ],
     'thirdparties': {
-      'enable': true,
+      'enable': false,
       'menu': {
         'showHotels': false,
         'showRegionsMegaMenu': true,
