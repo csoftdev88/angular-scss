@@ -570,7 +570,6 @@ angular
 
     $rootScope.requestId = sessionDataService.generateUUID();
     apiService.trackUsage($location.absUrl(), $rootScope.requestId);
-    console.log($rootScope.requestId);
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;

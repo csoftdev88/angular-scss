@@ -63,12 +63,13 @@ angular.module('mobiusApp.config', [])
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
     'chainCode': 'NAT',
+    'trackUsage': true,
     'baseURL': {
       'development': 'http://development-national-api.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
-      'staging': '//staging-us-www-national.mobiuswebservices.com/api/4.0/',
+      'staging': 'https://staging-us-www-national.mobiuswebservices.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live':  'http://national.api.mobiuswebservices.com:3010/api/4.0/'
+      'live': 'https://national.api.mobiuswebservices.com:3010/api/4.0/'
     },
     'mobiusTracking': {
       'search': {
@@ -173,7 +174,7 @@ angular.module('mobiusApp.config', [])
       }]
     },
     'sessionData': {
-      'includeInApiCalls': false,
+      'includeInApiCalls': true,
       'cookieName': 'mobiusSessionData',
       'httpHeaderFieldName': 'sessionData',
       //cookie expiry in minutes
@@ -212,7 +213,8 @@ angular.module('mobiusApp.config', [])
       'disableMainHeaderStyle': true,
       'longDateFormat': 'Do MMMM YYYY',
       'applyChainClassToBody': false,
-      'orderPropertiesByChain': false
+      'orderPropertiesByChain': false,
+      'headerLogoLink': 'http://www.grandhotel-national.com'
     },
     'contents':{
       'displayContentImageInHeroSlider': false

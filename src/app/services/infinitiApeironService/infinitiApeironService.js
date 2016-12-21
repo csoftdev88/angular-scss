@@ -121,7 +121,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
           roomPolicies.push(policyObj);
         });
 
-        var localeData = propertyData.locale.split('-');
+        var localeData = propertyData.locale;
+        var localeArray = localeData ? propertyData.locale.split('-') : null;
+        if(localeArray && localeArray.length > 1)
+        {
+          localeData = localeArray[1].trim();
+        }
 
         var room = {
           'id': roomData._selectedProduct.productPropertyRoomTypeId,
@@ -149,15 +154,15 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             'policies': roomPolicies,
             'region': {
               'code': propertyData.regionCode,
-              'name': localeData[1].trim()
+              'name': localeData
             },
             'location': {
               'code': propertyData.locationCode,
               'name': propertyData.city
             },
             'province': {
-              'code': localeData[1].trim().split(' ').join('').toUpperCase(),
-              'name': localeData[1].trim()
+              'code': localeData.split(' ').join('').toUpperCase(),
+              'name': localeData
             },
             'property': {
               'code': propertyData.code,
@@ -301,7 +306,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
           nights.push(night);
         });
 
-        var localeData = propertyData.locale.split('-');
+        var localeData = propertyData.locale;
+        var localeArray = localeData ? propertyData.locale.split('-') : null;
+        if(localeArray && localeArray.length > 1)
+        {
+          localeData = localeArray[1].trim();
+        }
 
         var result = {
           'id': product.productPropertyRoomTypeId,
@@ -329,15 +339,15 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             'policies': productPolicies,
             'region': {
               'code': propertyData.regionCode,
-              'name': localeData[1].trim()
+              'name': localeData
             },
             'location': {
               'code': propertyData.locationCode,
               'name': propertyData.city
             },
             'province': {
-              'code': localeData[1].trim().split(' ').join('').toUpperCase(),
-              'name': localeData[1].trim()
+              'code': localeData,
+              'name': localeData
             },
             'property': {
               'code': propertyData.code,
