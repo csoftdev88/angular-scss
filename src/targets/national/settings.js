@@ -294,7 +294,7 @@ angular.module('mobiusApp.config', [])
       'numberOfRoomsAddedOnMobile': 2,
       'rooms': {
         'hideRoomsWithNoAvailability': true,
-        'sortRoomsByWeighting': false,
+        'sortRoomsByWeighting': true,
         'defaultNumberOfAmenities': 3,
         'viewRatesButtonText': 'View Rates',
         // Loading rates when hovering over the room
