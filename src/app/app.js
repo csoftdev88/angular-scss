@@ -172,7 +172,6 @@ angular
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
     'mobiusApp.directives.infinitiApeironScript',
-    'mobiusApp.directives.segmentScript',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
     'mobiusApp.directives.hoverTrigger',
