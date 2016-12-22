@@ -3,7 +3,7 @@
  * This service sets applicable adverts and campaign visuals
  */
 angular.module('mobiusApp.services.campaigns', [])
-  .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, _) {
+  .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, infinitiApeironService, _) {
     var activeCampaign = null;
     var savedCampaign = null;
     var savedLocations = null;
@@ -212,6 +212,9 @@ angular.module('mobiusApp.services.campaigns', [])
 
     function renderCampaign(campaign) {
       $rootScope.campaign = campaign ? campaign : $rootScope.campaign;
+
+      //Track our campaign display
+      infinitiApeironService.trackCampaignDisplay(campaign.id);
 
       //Build the campaign URL and add to scope
       addCampaignUrl();

@@ -34,6 +34,30 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       }
     }
 
+    function trackCampaignDisplay(id){
+      console.log('apeiron track campaign display event');
+      trackEvent('campaign.display', {'campaignId': id.toString()});
+    }
+
+    function trackCampaignPurchase(id){
+      console.log('apeiron track campaign purchase event');
+      trackEvent('campaign.purchase', {'campaignId': id.toString()});
+    }
+
+    function trackEvent(eventName, properties){
+      var eventDetails = {
+        'bubbles': true,
+        'cancelable': true,
+        'detail':{}
+      };
+      eventDetails.detail.eventName = eventName;
+      eventDetails.detail.properties = properties;
+      var event = new CustomEvent('infiniti.event.track', eventDetails);
+      console.log('apeiron track event');
+      console.log(event);
+      document.dispatchEvent(event);
+    }
+
     function buildGenericData(chainData) {
       var dateNow = new Date();
       var trackingDate = dateNow.toISOString();
@@ -418,7 +442,9 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
     return {
       trackPurchase: trackPurchase,
-      trackSearch: trackSearch
+      trackSearch: trackSearch,
+      trackCampaignDisplay: trackCampaignDisplay,
+      trackCampaignPurchase: trackCampaignPurchase
     };
   }
 ]);

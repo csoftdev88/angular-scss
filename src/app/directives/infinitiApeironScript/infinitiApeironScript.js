@@ -17,11 +17,17 @@ angular.module('mobiusApp.directives.infinitiApeironScript', [])
         if(apeironSettings && apeironSettings.enable)
         {
           var trackingIdScript = document.createElement('script');
-          var trackingIdScriptText = document.createTextNode('window.infinitiTrack2InstallationId="'+ apeironSettings.id +'";');
+          var trackingScriptTextString = 'window.infinitiTrack2InstallationId="'+ apeironSettings.id +'";';
+          if(apeironSettings.segmentWriteId){
+            trackingScriptTextString += '\n' + 'window.segmentWriteId="'+ apeironSettings.segmentWriteId +'";';
+          }
+          if(apeironSettings.singlePageApp){
+            trackingScriptTextString += '\n' + 'window.infinitiSinglePageApp=true;';
+          }
+          var trackingScriptText = document.createTextNode(trackingScriptTextString);
           trackingIdScript.type = 'text/javascript';
-          trackingIdScript.appendChild(trackingIdScriptText);
+          trackingIdScript.appendChild(trackingScriptText);
           document.head.appendChild(trackingIdScript);
-
 
           var trackingRemoteScript = document.createElement('script');
           trackingRemoteScript.type = 'text/javascript';
