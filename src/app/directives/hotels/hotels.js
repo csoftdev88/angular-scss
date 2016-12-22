@@ -625,8 +625,9 @@ angular.module('mobiusApp.directives.hotels', [])
         scope.mapSettings.zoom = 7;
 
         $rootScope.$on('mapInitialized', function(evt,map) {
-          if(scope.isLocationPage && scope.config.displayMap && scope.hotelViewMode === 'tiles' && scope.filteredHotels.length){
+          if(scope.isLocationPage && scope.config.displayMap && scope.hotelViewMode === 'tiles' && scope.filteredHotels && scope.filteredHotels.length){
             initMap(evt,map);
+            addEventListeners();
           }
         });
 
@@ -634,6 +635,18 @@ angular.module('mobiusApp.directives.hotels', [])
           scope.marker = scope.markers[markerId];
           scope.map.showInfoWindow('foo', this);
         };
+
+        function addEventListeners(){
+          google.maps.event.addDomListener(window, 'resize', function() {
+            centerMap();
+          });
+
+          scope.$watch('filteredHotels', function(newValue, oldValue) {
+            if (newValue !== oldValue) {
+              generateMarkers();
+            }
+          });
+        }
 
         function initMap(evt,map){
           scope.map = map;
@@ -667,16 +680,6 @@ angular.module('mobiusApp.directives.hotels', [])
           var markerLatLng = new google.maps.LatLng(latitude, longitude, true);
           scope.mapSettings.bounds.extend(markerLatLng);
         }
-
-        google.maps.event.addDomListener(window, 'resize', function() {
-          centerMap();
-        });
-
-        scope.$watch('filteredHotels', function(newValue, oldValue) {
-          if (newValue !== oldValue && scope.map && scope.mapSettings.bounds) {
-            generateMarkers();
-          }
-        });
       }
     };
   }
