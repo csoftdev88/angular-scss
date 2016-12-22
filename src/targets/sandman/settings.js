@@ -109,6 +109,10 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'id': '294639'
   },
+  'segment': {
+    'enable': true,
+    'id': 'ri9KCYdv603WxGuawPYkInLkdgePsXWU'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
