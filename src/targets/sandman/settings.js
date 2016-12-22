@@ -60,15 +60,16 @@ angular.module('mobiusApp.config', [])
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
     'integration': {
-      'enable':true,
+      'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
+      'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
     },
     'staging': {
-      'enable':true,
+      'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sandman-staging',
@@ -108,10 +109,6 @@ angular.module('mobiusApp.config', [])
   'hotjar': {
     'enable': true,
     'id': '294639'
-  },
-  'segment': {
-    'enable': true,
-    'id': 'ri9KCYdv603WxGuawPYkInLkdgePsXWU'
   },
   'API': {
     'defaultThrottleTimeout': 30,

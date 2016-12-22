@@ -8,7 +8,8 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q, cookieFactory, sessionDataService,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService) {
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService,
+  metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService, campaignsService) {
 
   $controller('RatesCtrl', {
     $scope: $scope
@@ -1117,6 +1118,10 @@ angular.module('mobius.controllers.reservation', [])
 
           var env = document.querySelector('meta[name=environment]').getAttribute('content');
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
+            if($rootScope.campaign && campaignsService.criteriaCheck($rootScope.campaign, user.isLoggedIn()))
+            {
+              infinitiApeironService.trackCampaignPurchase($rootScope.campaign.id);
+            }
             infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams, $scope.rates.selectedRate);
           }
         });

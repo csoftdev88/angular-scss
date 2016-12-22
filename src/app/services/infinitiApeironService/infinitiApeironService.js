@@ -35,12 +35,10 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function trackCampaignDisplay(id){
-      console.log('apeiron track campaign display event');
       trackEvent('campaign.display', {'campaignId': id.toString()});
     }
 
     function trackCampaignPurchase(id){
-      console.log('apeiron track campaign purchase event');
       trackEvent('campaign.purchase', {'campaignId': id.toString()});
     }
 

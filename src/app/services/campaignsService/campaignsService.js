@@ -51,7 +51,10 @@ angular.module('mobiusApp.services.campaigns', [])
         //Always show previous campaign unless the old is not priority and the new one is
         if (!savedCampaign.priority && campaign.criteria.bookingsUntil && campaign.criteria.bookingsFrom) {
           console.log('display new campaign not previous');
-          criteriaCheck(campaign, loggedIn);
+          if(criteriaCheck(campaign, loggedIn))
+          {
+            renderCampaign(campaign);
+          }
         } else {
           getCampaigns(null, true).then(function(data) {
             var retrievedCampaign = _.find(data, function(thisCampaign) {
@@ -64,13 +67,19 @@ angular.module('mobiusApp.services.campaigns', [])
             } else {
               //Render the request campaign
               console.log('previous campaign not found, display new');
-              criteriaCheck(campaign, loggedIn);
+              if(criteriaCheck(campaign, loggedIn))
+              {
+                renderCampaign(campaign);
+              }
             }
           });
         }
       } else {
         console.log('no previous campaign stored, display new campaign');
-        criteriaCheck(campaign, loggedIn);
+        if(criteriaCheck(campaign, loggedIn))
+        {
+          renderCampaign(campaign);
+        }
       }
     }
 
@@ -81,12 +90,14 @@ angular.module('mobiusApp.services.campaigns', [])
         criteriaPass = checkMemberOnly(campaign, loggedIn);
       } else {
         console.log('active dates check fail');
+        return false;
       }
       if (criteriaPass) {
         console.log('member only check pass');
         criteriaPass = checkDateRestrictions(campaign);
       } else {
         console.log('member only check fail');
+        return false;
       }
       if (criteriaPass) {
         console.log('booking date restrictions pass');
@@ -100,12 +111,14 @@ angular.module('mobiusApp.services.campaigns', [])
         }
       } else {
         console.log('booking date restrictions fail');
+        return false;
       }
       if (criteriaPass) {
         console.log('location restrictions check pass');
-        renderCampaign(campaign);
+        return true;
       } else {
         console.log('location restrictions check fail');
+        return false;
       }
     }
 
@@ -367,6 +380,7 @@ angular.module('mobiusApp.services.campaigns', [])
 
     // Public methods
     return {
-      setCampaigns: setCampaigns
+      setCampaigns: setCampaigns,
+      criteriaCheck: criteriaCheck
     };
   });
