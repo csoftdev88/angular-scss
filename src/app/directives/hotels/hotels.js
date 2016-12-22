@@ -638,12 +638,16 @@ angular.module('mobiusApp.directives.hotels', [])
 
         function addEventListeners(){
           google.maps.event.addDomListener(window, 'resize', function() {
-            centerMap();
+            if(scope.hotelViewMode === 'tiles' && scope.filteredHotels && scope.filteredHotels.length){
+              centerMap();
+            }
           });
 
           scope.$watch('filteredHotels', function(newValue, oldValue) {
             if (newValue !== oldValue) {
-              generateMarkers();
+              if(scope.hotelViewMode === 'tiles' && scope.filteredHotels.length){
+                generateMarkers();
+              }
             }
           });
         }
