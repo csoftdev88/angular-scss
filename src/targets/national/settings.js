@@ -69,7 +69,7 @@ angular.module('mobiusApp.config', [])
       'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
       'staging': 'https://staging-us-www-national.mobiuswebservices.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': 'http://national.mobiusbookingengine.com/api/4.0/'
+      'live': 'https://national.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
       'search': {
