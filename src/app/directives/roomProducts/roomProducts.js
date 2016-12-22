@@ -109,7 +109,12 @@ angular.module('mobiusApp.directives.room.products', [])
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property || bookingParams.propertyCode).then(function(propertyData){
               //Google analytics
-              var localeData = propertyData.locale ? propertyData.locale.split('-')[1].trim() : '';
+              var localeData = propertyData.locale;
+              var localeArray = localeData ? propertyData.locale.split('-') : null;
+              if(localeArray && localeArray.length > 1)
+              {
+                localeData = localeArray[1].trim();
+              }
               var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.room.name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)
@@ -185,7 +190,12 @@ angular.module('mobiusApp.directives.room.products', [])
         if(selectedProduct){
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property || scope.details.code).then(function(propertyData){
-              var localeData = propertyData.locale.split('-')[1].trim();
+              var localeData = propertyData.locale;
+              var localeArray = localeData ? propertyData.locale.split('-') : null;
+              if(localeArray && localeArray.length > 1)
+              {
+                localeData = localeArray[1].trim();
+              }
               var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.room.name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)
@@ -217,7 +227,6 @@ angular.module('mobiusApp.directives.room.products', [])
       };
 
       scope.goToReservationDetails = function(params){
-        console.log('called');
         var userLang = user.getUserLanguage();
         var appLang = stateService.getAppLanguageCode();
         if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
@@ -236,7 +245,12 @@ angular.module('mobiusApp.directives.room.products', [])
         // Tracking product view
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-            var localeData = propertyData.locale.split('-')[1].trim();
+            var localeData = propertyData.locale;
+            var localeArray = localeData ? propertyData.locale.split('-') : null;
+            if(localeArray && localeArray.length > 1)
+            {
+              localeData = localeArray[1].trim();
+            }
             var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.room.name;
             var variant = '';
             if($stateParams.adults && $stateParams.children)

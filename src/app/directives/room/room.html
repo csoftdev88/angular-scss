@@ -126,6 +126,13 @@
               room details dialogue -->
             <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
 
+            <div ng-if="viewSettings.showInclusions && product.inclusions" class="product-inclusions">
+              <p>_this_includes_</p>
+              <ul>
+                <li ng-repeat="inclusion in product.inclusions">{{inclusion.inclusionName}}</li>
+              </ul>
+            </div>
+
             <p class="action-links">
               <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">_view_price_breakdown_</a> <span  ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
               <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies && !config.rateInfoIsTabbed">_view_policies_</a>

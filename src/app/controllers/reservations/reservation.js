@@ -589,7 +589,12 @@ angular.module('mobius.controllers.reservation', [])
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
         var products = [];
 
-        var localeData = propertyData.locale.split('-')[1].trim();
+        var localeData = propertyData.locale;
+        var localeArray = localeData ? propertyData.locale.split('-') : null;
+        if(localeArray && localeArray.length > 1)
+        {
+          localeData = localeArray[1].trim();
+        }
         var variant = '';
         if($stateParams.adults && $stateParams.children)
         {
@@ -702,6 +707,19 @@ angular.module('mobius.controllers.reservation', [])
 
     if ($scope.additionalInfo.secondPhoneNumber) {
       reservationData.secondPhoneNumber = $scope.additionalInfo.secondPhoneNumber;
+    }
+
+    if($scope.additionalInfo.secondEmail){
+      reservationData.additionalConfirmationEmails = $scope.additionalInfo.secondEmail;
+    }
+
+    if($scope.additionalInfo.thirdEmail){
+      if(reservationData.additionalConfirmationEmails) {
+        reservationData.additionalConfirmationEmails += ';' + $scope.additionalInfo.thirdEmail;
+      }
+      else {
+        reservationData.additionalConfirmationEmails = $scope.additionalInfo.thirdEmail;
+      }
     }
 
 
@@ -914,7 +932,11 @@ angular.module('mobius.controllers.reservation', [])
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
         // Removing reservation code when booking modification is complete
-        reservation: null
+        reservation: null,
+        //Retain codes in confirmation for thirdparty bookings
+        corpCode:$stateParams.corpCode?$stateParams.corpCode:null,
+        promoCode:$stateParams.promoCode?$stateParams.promoCode:null,
+        groupCode:$stateParams.groupCode?$stateParams.groupCode:null
       };
 
       // When booked as anonymous we are adding customer email to the next route
@@ -934,7 +956,12 @@ angular.module('mobius.controllers.reservation', [])
       chainService.getChain(Settings.API.chainCode).then(function(chainData) {
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
           //GTM ecommerce tracking
-          var localeData = propertyData.locale.split('-')[1].trim();
+          var localeData = propertyData.locale;
+          var localeArray = localeData ? propertyData.locale.split('-') : null;
+          if(localeArray && localeArray.length > 1)
+          {
+            localeData = localeArray[1].trim();
+          }
           var variant = '';
           if($stateParams.adults && $stateParams.children)
           {
@@ -1121,7 +1148,7 @@ angular.module('mobius.controllers.reservation', [])
 
         reservationService.getReservation(reservationDetailsParams.reservationCode, params).then(function(reservation) {
           reservationService.updateAnonUserProfile(reservation.customer.id, encodeURIComponent(params.email), anonUserData).then(function() {
-            bookingService.clearParams();
+            bookingService.clearParams($rootScope.thirdparty ? true : false);
             $state.go('reservationDetail', reservationDetailsParams);
             addReservationConfirmationMessage(data[0].reservationCode);
           });
@@ -1130,7 +1157,7 @@ angular.module('mobius.controllers.reservation', [])
         if (reservationData.paymentInfo.paymentMethod === 'point' && user.isLoggedIn) {
           userObject.loyalties.amount = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
         }
-        bookingService.clearParams();
+        bookingService.clearParams($rootScope.thirdparty ? true : false);
         $state.go('reservationDetail', reservationDetailsParams);
         addReservationConfirmationMessage(data[0].reservationCode);
       }

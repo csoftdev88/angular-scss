@@ -1,0 +1,25 @@
+#campaign-rails-handler {
+  display:none;
+}
+.campaign-rails-active {
+  background-position:top center;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+  #main-container {
+    max-width:1045px;
+    margin:0px auto;
+    background:white;
+    position:relative;
+  }
+  #campaign-rails-handler {
+    display:block;
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    .viewport-mobile & {
+      display:none;
+    }
+  }
+}

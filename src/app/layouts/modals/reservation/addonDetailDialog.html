@@ -13,7 +13,7 @@
 
       <div class="extra">
         <p class="add-extra">_addon_modal_tagline_</p>
-        <a class="button add-confirm" href ng-click="selectPaymentMethod(false)">{{addon.price | i18nCurrency: defaultCurrencyCode}}</a>
+        <a class="button add-confirm" href ng-click="selectPaymentMethod(false)">{{addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode}}</a>
         <a class="button add-confirm-points" href ng-click="selectPaymentMethod(true)" ng-if="addon.pointsRequired && addon.allowPointsBooking">{{addon.pointsRequired}} <small>points</small></a>
       </div>
     </div>
@@ -26,12 +26,18 @@
         <p>_addon_modal_confirm_desc_</p>
         <p>{{addon.name}}</p>
         <!-- DEFAULT PAYMENT METHOD -->
-        <p ng-switch-default>{{addon.price | i18nCurrency: defaultCurrencyCode}}</p>
+        <p ng-switch-default>{{addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode}}</p>
         <p ng-switch-default><em>_addon_modal_charge_desc_</em></p>
 
         <!-- PAYMENT WITH POINST -->
         <p ng-switch-when="true"><ng-pluralize count="addon.pointsRequired" when="{'1': '{} point', 'other': '{} points'}"> </ng-pluralize></p>
         <p ng-switch-when="true"><em>_addon_modal_charge_confirm_</em></p>
+      </div>
+
+      <div ng-if="addon.furtherInfoRequired && config.displayAddonComments">
+        <label>{{addon.furtherInfoTitle}}</label>
+        <input type="text" ng-model="addon.comment" ng-pattern="$root.generalValidationPattern"/>
+        <span ng-if="descriptionInvalid && !addon.comment" style="color:red">You must enter a value</span>
       </div>
 
       <div class="extra">

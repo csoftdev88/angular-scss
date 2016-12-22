@@ -14,9 +14,14 @@
   @media print {
    display: none;
   }
+  .campaign-rails-active & {
+    max-width:1045px;
+    margin:0px auto;
+  }
 }
 
 #main-header-inner {
+  position:relative;
   .login-dialog-overlay {
     .viewport-mobile & {
       position: fixed;
@@ -36,7 +41,11 @@
 // GENERIC STYLES
 .main-nav {
   height: @mobileHeaderHeight;
-
+  &.has-corp-logo {
+    .viewport-mobile & {
+      height:95px;
+    }
+  }
   .menu-opener {
     float: left;
     display: block;
@@ -60,6 +69,13 @@
             only screen and (-webkit-min-device-pixel-ratio: 2.5),
             only screen and (min-device-pixel-ratio: 2.5) {
       background-image: url("@{img-prefix}/menu-opener@3x.png");
+    }
+  }
+
+  .app-menu > ul{
+    .viewport-desktop.campaign-folded-corner-active & {
+      position: absolute;
+      right: 150px;
     }
   }
 
@@ -305,6 +321,7 @@
     display: block;
     float: right;
     position: relative;
+    text-align:center;
     .mobile-logo{
       display: none;
     }
@@ -322,6 +339,16 @@
       }
       img{
         height: 45px;
+      }
+    }
+    img{
+      &.corp-logo {
+        max-width:125px;
+        max-height:22px;
+        margin:0px auto;
+        .viewport-mobile &{
+          margin-top:7px;
+        }
       }
     }
   }

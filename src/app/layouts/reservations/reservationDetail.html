@@ -201,6 +201,26 @@
         <footer ng-if="!config.reservationDetailPriceBreakdownExtended">
           <a href ng-click="openPoliciesInfo()">_view_policies_</a>
         </footer>
+        <div ng-if="config.displayAddonVoucherEntry" class="voucher-entry addon-vouchers">
+          <h5>_redeem_addon_voucher_message_</h5>
+          <label for="voucher">
+            <input type="text" id="voucher"
+              placeholder="_enter_voucher_label_"
+              ng-model="voucher.code"
+              ng-disabled="voucher.valid || voucher.verifying"
+              ng-keypress="($event.which === 13)?redeemVoucher():0"
+              name="voucher"
+              ng-pattern="$root.generalValidationPattern"/>
+            <img src="/static/images/preloader.gif" ng-hide="!voucher.verifying" />
+            <button class="button" ng-click="redeemVoucher()" ng-disabled="!voucher.code || voucher.valid || voucher.verifying">_voucher_button_text_</button>
+          </label>
+          <div class="voucher-valid" ng-if="voucher.valid && voucher.submitted">
+            <i class="fa fa-check"/><span> _voucher_code_valid_</span>
+          </div>
+          <div class="voucher-invalid" ng-if="!voucher.valid && voucher.submitted">
+            <i class="fa fa-close"/><span> _voucher_code_invalid_</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -233,7 +253,7 @@
 
             <i>_add_reservation_enhance_to_booking_desc_:</i>
 
-            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: defaultCurrencyCode}}</a>
+            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode}}</a>
             <a class="button"ng-if="addon.pointsRequired && loyaltyProgramEnabled && addon.allowPointsBooking" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>_points_</small></a>
           </div>
         </li>

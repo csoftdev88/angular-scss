@@ -9,21 +9,21 @@
 
 <hr class="dividerWithoutImage" ng-if="showBenefits"/>
 
-<section grid-row class="benefits" ng-if="showBenefits">
-  <article grid="4">_home_page_offer_one_</article>
+<section grid-row class="benefits" ng-if="showBenefits" ng-class="{'benefits-centered': $root.thirdparty}">
+  <article grid="4" ng-if="!$root.thirdparty">_home_page_offer_one_</article>
   <article grid="4">_home_page_offer_two_</article>
   <article grid="4">_home_page_offer_three_</article>
 </section>
 
 <hr class="dividerWithoutImage"/>
 
-<div grid-row>
+<div grid-row ng-if="!$root.thirdparty">
   <div grid="12" class="about-offers-heading">
     <h2 ng-bind-html="'Selected Offers' | mainHeaderStyle"></h2>
   </div>
 </div>
 
-<offers-list grid-row>
+<offers-list grid-row ng-if="!$root.thirdparty">
   <offer-item
     ng-repeat="offer in offersList track by $index">
     <a ui-sref="offers({code:offer.meta.slug})" ng-click="advertClick($event, {'type': 'offers', 'code': offer.code})">

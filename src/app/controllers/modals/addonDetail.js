@@ -18,6 +18,7 @@ angular.module('mobius.controllers.modals.addonDetail', [
     if (Settings.UI.currencies.default) {
       $scope.defaultCurrencyCode = Settings.UI.currencies.default;
     }
+    $scope.config = Settings.UI.reservations;
     // Confirmation is not displayed when paying with points/money
     // - once clicked on payment buttons instead of the whole container
     $scope.addon._confirmation =
@@ -30,13 +31,33 @@ angular.module('mobius.controllers.modals.addonDetail', [
     $scope.addAddon = function(addon) {
       // NOTE: Price/pointsRequired should be used according to the payment
       // method - only corresponding prop should be sent back to the server
-      if($scope.payWithPoints){
-        delete addon.price;
-      } else {
-        delete addon.pointsRequired;
-      }
 
-      addAddon(addon);
-      $scope.cancel();
+      if(addon.furtherInfoRequired && $scope.config.displayAddonComments){
+        if($scope.addon.comment) {
+          if($scope.payWithPoints){
+            delete addon.price;
+          } else {
+            delete addon.pointsRequired;
+          }
+          delete addon.$$hashKey;
+          delete addon._expanded;
+          delete addon._confirmation;
+          addAddon(addon);
+          $scope.cancel();
+        }
+        else {
+          $scope.descriptionInvalid = true;
+          console.log('enter a description');
+        }
+      }
+      else {
+        if($scope.payWithPoints){
+          delete addon.price;
+        } else {
+          delete addon.pointsRequired;
+        }
+        addAddon(addon);
+        $scope.cancel();
+      }
     };
   });

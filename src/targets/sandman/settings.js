@@ -115,8 +115,8 @@ angular.module('mobiusApp.config', [])
     'chainCode': 'SAND',
     'trackUsage': true,
     'baseURL': {
-      'development': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'integration': ' http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
+      'development': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
+      'integration': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
       'uat': '/api/4.0/',
       'live':  'https://www.sandmanhotels.com/api/4.0/'
@@ -135,6 +135,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'url':'https://errors.2pvservices.com/status'
     },
+    'campaigns':'campaigns',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -253,9 +254,15 @@ angular.module('mobiusApp.config', [])
       'promoCode': 'promoCode',
       'groupCode': 'groupCode',
       'corpCode': 'corpCode'
+    },
+    'thirdparties': {
+      'get': 'thirdparties/:code'
     }
   },
   'UI': {
+    'campaigns': {
+      display:false
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
@@ -398,7 +405,8 @@ angular.module('mobiusApp.config', [])
           'rateInfoIsTabbed': true,
           'displayOtaRates': false,
           'highlightFirstRate': true,
-          'showSlashThrough': true
+          'showSlashThrough': true,
+          'showInclusions': false
         },
         'upsells': {
           'display': false
@@ -515,6 +523,8 @@ angular.module('mobiusApp.config', [])
       },
       'displayNewsletterCtaOnReservationDetail': true,
       'reservationDetailPriceBreakdownExtended': true,
+      'displayAddonVoucherEntry': false,
+      'displayAddonComments': false,
       'hideHeroSliderOnReservations':true
     },
 
@@ -802,6 +812,12 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'top'
+        },
+        'email2':{
+          'display': false
+        },
+        'email3':{
+          'display': false
         }
       },
       'vouchers' : {
@@ -866,9 +882,10 @@ angular.module('mobiusApp.config', [])
         'showRegionDescription': false,
         'showLocationDescription': true,
         'displayHotelRegionName': true,
+        'displayMap': false,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
-        'displayCompare': false,
+        'displayCompare': true,
         'bookingStatistics':{
           'display':false,
           'displayDelay':3000,
@@ -886,6 +903,7 @@ angular.module('mobiusApp.config', [])
       },
       'roomDetails':{
         'hasViewMore': true,
+        'showInclusions': false,
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
@@ -1084,6 +1102,19 @@ angular.module('mobiusApp.config', [])
         'name': 'priceline',
         'logo': '/static/images/priceline_logo.png'
       }
-    ]
+    ],
+    'thirdparties': {
+      'enable': false,
+      'menu': {
+        'showHotels': false,
+        'showRegionsMegaMenu': true,
+        'showHotDeals': false,
+        'showMeetingsBanquets': false,
+        'showOffers': false,
+        'showAbout': true,
+        'showNews': false,
+        'showContact': false
+      }
+    }
   }
 });

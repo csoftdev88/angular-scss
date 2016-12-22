@@ -342,6 +342,7 @@
     "name_label": "Name",
     "name_placeholder": "Name",
     "email_label": "Email Address",
+    "additional_email_label": "Additional Email Addresses",
     "confirm_email_label": "Confirm Email",
     "email_placeholder": "Email Address",
     "invalid_email_message": "Please enter a valid email address",
@@ -416,6 +417,7 @@
     "email_optin_label": "I agree that I am happy for the Sandman Hotel Group to send me emails",
     "enter_voucher_label": "Enter code",
     "redeem_voucher_message": "Voucher code",
+    "redeem_addon_voucher_message": "Addon voucher code:",
     "voucher_button_text": "Apply",
     "voucher_code_valid": "Your voucher code has been added",
     "voucher_code_invalid": "The voucher code you entered is not valid or has already been used",
@@ -526,6 +528,7 @@
     "days": "days",
     "week": "week",
     "weeks": "weeks",
-    "languages_message": "This page is available in both french and english"
+    "languages_message": "This page is available in both french and english",
+    "this_includes": "This includes:"
   }
 }

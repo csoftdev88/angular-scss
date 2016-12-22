@@ -61,6 +61,7 @@ angular
     'mobius.controllers.resetPassword',
     'mobius.controllers.prestige',
     'mobius.controllers.staticContent',
+    'mobius.controllers.thirdParties',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -71,6 +72,8 @@ angular
     'mobius.controllers.modals.confirmation',
     'mobius.controllers.common.cardExpiration',
     'mobius.controllers.modals.upsells',
+    'mobius.controllers.modals.campaign',
+    'mobius.controllers.modals.password',
 
     // Application modules
     'mobiusApp.config',
@@ -109,6 +112,8 @@ angular
     'mobiusApp.services.channelService',
     'mobiusApp.services.router',
     'mobiusApp.services.track404s',
+    'mobiusApp.services.campaigns',
+    'mobiusApp.services.thirdPartiesService',
 
     // Factories
     'mobiusApp.factories.template',
@@ -173,6 +178,7 @@ angular
     'mobiusApp.directives.scrollToTop',
     'mobiusApp.directives.growlAlerts',
     'mobiusApp.directives.optionsDisabled',
+    'mobiusApp.directives.slidedownNotifications',
 
     'internationalPhoneNumber',
 
@@ -189,7 +195,8 @@ angular
     'mobiusApp.filters.mainHeaderStyle',
     'mobiusApp.filters.stringLocaleReplace',
     'mobiusApp.filters.content',
-    'mobiusApp.filters.trustAsHtml'
+    'mobiusApp.filters.trustAsHtml',
+    'mobiusApp.filters.byNameOrZip'
   ])
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider, growlProvider, Settings) {
@@ -227,6 +234,20 @@ angular
     parent: 'root',
     templateUrl: 'layouts/hotels/hotels.html',
     url: '/hotels'
+  })
+
+  // 3rd Parties
+  .state('thirdParties', {
+    parent: 'root',
+    templateUrl: 'layouts/home/home.html',
+    controller: 'ThirdPartiesCtrl',
+    url: '/corp/:code',
+    params: {
+      code: {
+        value: null,
+        squash: true
+      }
+    }
   });
 
   if (Settings.newUrlStructure) {
@@ -570,7 +591,6 @@ angular
 
     $rootScope.requestId = sessionDataService.generateUUID();
     apiService.trackUsage($location.absUrl(), $rootScope.requestId);
-    console.log($rootScope.requestId);
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;

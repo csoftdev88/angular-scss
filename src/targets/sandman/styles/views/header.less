@@ -1,6 +1,6 @@
 #main-header {
   background: #fff;
-  height: 128px;
+  height: auto;
   .viewport-mobile &{
     height: auto;
   }
@@ -421,10 +421,13 @@
         background-size: auto 66px;
       }
       .viewport-tablet &{
-        max-width: 40%;
+        max-width: 50%;
         img{
           max-width: 100%;
         }
+      }
+      img {
+        display:block;
       }
     }
   }
@@ -463,6 +466,8 @@ Sub-nav
       text-align: center;
       > ul{
         display: inline-block;
+        text-align:center;
+        width:100%;
         li[mega-menu]{
           &:hover > a{
             color: @c-menu-active;
@@ -475,8 +480,8 @@ Sub-nav
           }
         }
         li{
-          display: inline;
-          float: left;
+          display: inline-block;
+          float: none;
           a{
             color: #fff;
             font-size: 13px;
