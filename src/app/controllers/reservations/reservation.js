@@ -1118,7 +1118,7 @@ angular.module('mobius.controllers.reservation', [])
 
           var env = document.querySelector('meta[name=environment]').getAttribute('content');
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
-            if($rootScope.campaign && campaignsService.criteriaCheck($rootScope.campaign, user.isLoggedIn(), $stateParams.dates))
+            if($rootScope.campaign && campaignsService.criteriaCheck($rootScope.campaign, user.isLoggedIn(), $stateParams.dates, $stateParams.locationSlug, $stateParams.property))
             {
               infinitiApeironService.trackCampaignPurchase($rootScope.campaign.code);
             }

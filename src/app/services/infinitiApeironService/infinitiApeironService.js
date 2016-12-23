@@ -40,7 +40,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function trackCampaignPurchase(code){
-      trackEvent('campaign_purchase', {'value': code.toString()});
+      trackEvent('campaign_purchase', {'campaignCode': code.toString()});
     }
 
     function trackEvent(eventName, properties){

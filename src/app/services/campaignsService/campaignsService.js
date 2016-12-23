@@ -83,7 +83,7 @@ angular.module('mobiusApp.services.campaigns', [])
       }
     }
 
-    function criteriaCheck(campaign, loggedIn, bookingDates) {
+    function criteriaCheck(campaign, loggedIn, bookingDates, locationSlug, property) {
       var criteriaPass = checkActiveDates(campaign);
       if (criteriaPass) {
         console.log('active dates check pass');
@@ -101,13 +101,13 @@ angular.module('mobiusApp.services.campaigns', [])
       }
       if (criteriaPass) {
         console.log('booking date restrictions pass');
-        criteriaPass = checkPropertyRestrictions(campaign);
+        criteriaPass = checkPropertyRestrictions(campaign, property);
         if(criteriaPass){
           console.log('property restrictions check pass');
         }
         else {
           console.log('property restrictions check fail');
-          criteriaPass = checkLocationRestrictions(campaign);
+          criteriaPass = checkLocationRestrictions(campaign, locationSlug);
         }
       } else {
         console.log('booking date restrictions fail');
@@ -122,7 +122,8 @@ angular.module('mobiusApp.services.campaigns', [])
       }
     }
 
-    function checkLocationRestrictions(campaign) {
+    function checkLocationRestrictions(campaign, urlLocationSlug, property) {
+      urlLocationSlug = urlLocationSlug ? urlLocationSlug : $stateParams.locationSlug;
       if (campaign.criteria.locations) {
         if ($stateParams.locationSlug) {
           var criteriaLocations = campaign.criteria.locations;
@@ -143,14 +144,19 @@ angular.module('mobiusApp.services.campaigns', [])
         } else {
           return false;
         }
-      } else {
+      }
+      else if(property !== null) {
+        return false;
+      }
+      else {
         return true;
       }
     }
 
-    function checkPropertyRestrictions(campaign) {
+    function checkPropertyRestrictions(campaign, urlProperty) {
+      urlProperty = urlProperty ? urlProperty : $stateParams.property;
       if (campaign.criteria.properties) {
-        if ($stateParams.property) {
+        if (urlProperty) {
           var criteriaProperties = campaign.criteria.properties;
           var criteriaPropertiesArray = [];
           if (_.isArray(criteriaProperties)) {
@@ -159,7 +165,7 @@ angular.module('mobiusApp.services.campaigns', [])
             criteriaPropertiesArray = criteriaProperties.split(',');
           }
           var propertyMatch = _.find(criteriaPropertiesArray, function(property) {
-            return property === $stateParams.property;
+            return property === urlProperty;
           });
           if (propertyMatch) {
             return true;
@@ -244,7 +250,7 @@ angular.module('mobiusApp.services.campaigns', [])
         $rootScope.campaign.sideRails.display = false;
       }
       //If not on an offer page show the rest of the campaign material
-      if(!$stateParams.code)
+      if(!$stateParams.code && $state.current.parent !== 'reservation')
       {
         if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images && $rootScope.campaign.pageCurl.images.uri) {
           $rootScope.campaign.pageCurl.display = true;
