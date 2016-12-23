@@ -83,7 +83,7 @@ angular.module('mobiusApp.services.campaigns', [])
       }
     }
 
-    function criteriaCheck(campaign, loggedIn) {
+    function criteriaCheck(campaign, loggedIn, bookingDates) {
       var criteriaPass = checkActiveDates(campaign);
       if (criteriaPass) {
         console.log('active dates check pass');
@@ -94,7 +94,7 @@ angular.module('mobiusApp.services.campaigns', [])
       }
       if (criteriaPass) {
         console.log('member only check pass');
-        criteriaPass = checkDateRestrictions(campaign);
+        criteriaPass = checkDateRestrictions(campaign, bookingDates);
       } else {
         console.log('member only check fail');
         return false;
@@ -174,10 +174,11 @@ angular.module('mobiusApp.services.campaigns', [])
       }
     }
 
-    function checkDateRestrictions(campaign) {
+    function checkDateRestrictions(campaign, bookingDates) {
       if (campaign.criteria.bookingsFrom || campaign.criteria.bookingsUntil) {
-        if ($stateParams.dates) {
-          var bookedDate = $stateParams.dates.split('_');
+        bookingDates = bookingDates ? bookingDates : $stateParams.dates;
+        if (bookingDates) {
+          var bookedDate = bookingDates.split('_');
           if (bookedDate && bookedDate.length) {
             var bookingFromDate = parseInt($window.moment.tz(bookedDate[0], Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
             var bookingToDate = parseInt($window.moment.tz(bookedDate[1], Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
