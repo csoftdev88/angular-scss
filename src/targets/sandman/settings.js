@@ -67,6 +67,7 @@ angular.module('mobiusApp.config', [])
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
+      'singlePageApp': true
     },
     'staging': {
       'enable':false,
