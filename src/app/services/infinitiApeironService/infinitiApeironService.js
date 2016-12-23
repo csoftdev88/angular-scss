@@ -11,6 +11,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var username = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].username : null;
     var password = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].password : null;
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
+    var isSinglePageApp = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].singlePageApp: false;
 
     function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate) {
       if (endpoint) {
@@ -34,12 +35,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       }
     }
 
-    function trackCampaignDisplay(id){
-      trackEvent('campaign_display', {'value': id.toString()});
+    function trackCampaignDisplay(code){
+      trackEvent('campaign_display', {'campaignCode': code.toString()});
     }
 
-    function trackCampaignPurchase(id){
-      trackEvent('campaign_purchase', {'value': id.toString()});
+    function trackCampaignPurchase(code){
+      trackEvent('campaign_purchase', {'value': code.toString()});
     }
 
     function trackEvent(eventName, properties){
@@ -51,8 +52,18 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       eventDetails.detail.eventName = eventName;
       eventDetails.detail.properties = properties;
       var event = new CustomEvent('infiniti.event.track', eventDetails);
-      console.log('apeiron track event');
-      console.log(event);
+      document.dispatchEvent(event);
+    }
+
+    function trackPageView(path){
+      var eventDetails = {
+  			'detail':{},
+  			'bubbles': true,
+  			'cancelable': true
+  		};
+      eventDetails.detail.path = path;
+      eventDetails.detail.url = window.location.origin + path;
+      var event = new CustomEvent('infiniti.page.loaded', eventDetails);
       document.dispatchEvent(event);
     }
 
@@ -442,7 +453,9 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       trackPurchase: trackPurchase,
       trackSearch: trackSearch,
       trackCampaignDisplay: trackCampaignDisplay,
-      trackCampaignPurchase: trackCampaignPurchase
+      trackCampaignPurchase: trackCampaignPurchase,
+      trackPageView: trackPageView,
+      isSinglePageApp: isSinglePageApp
     };
   }
 ]);

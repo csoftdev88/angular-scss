@@ -569,7 +569,7 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
     //This segment tracks any 404s and sends to our 404 tracking service
@@ -591,6 +591,9 @@ angular
 
     $rootScope.requestId = sessionDataService.generateUUID();
     apiService.trackUsage($location.absUrl(), $rootScope.requestId);
+    if(infinitiApeironService.isSinglePageApp){
+      infinitiApeironService.trackPageView($location.path() + $window.location.search);
+    }
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;

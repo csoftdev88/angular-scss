@@ -229,7 +229,7 @@ angular.module('mobiusApp.services.campaigns', [])
 
       //Track our campaign display
       if($state.current.parent !== 'reservation'){
-        infinitiApeironService.trackCampaignDisplay(campaign.id);
+        infinitiApeironService.trackCampaignDisplay(campaign.code);
       }
 
       //Build the campaign URL and add to scope

@@ -1120,7 +1120,7 @@ angular.module('mobius.controllers.reservation', [])
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
             if($rootScope.campaign && campaignsService.criteriaCheck($rootScope.campaign, user.isLoggedIn(), $stateParams.dates))
             {
-              infinitiApeironService.trackCampaignPurchase($rootScope.campaign.id);
+              infinitiApeironService.trackCampaignPurchase($rootScope.campaign.code);
             }
             else {
               console.log('campaign purchase not fulfilled');
