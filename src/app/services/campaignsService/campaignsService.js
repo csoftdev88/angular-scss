@@ -37,7 +37,7 @@ angular.module('mobiusApp.services.campaigns', [])
         if ($stateParams.propertySlug) {
           params.property = bookingService.getCodeFromSlug($stateParams.propertySlug);
         }
-        if($stateParams.locationSlug && locationCode) {
+        if(!$stateParams.propertySlug && $stateParams.locationSlug && locationCode) {
           params.location = locationCode;
         }
         params.loggedIn = loggedIn !== null ? loggedIn : user.isLoggedIn();
