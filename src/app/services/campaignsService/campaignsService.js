@@ -37,7 +37,7 @@ angular.module('mobiusApp.services.campaigns', [])
         if ($stateParams.propertySlug) {
           params.property = bookingService.getCodeFromSlug($stateParams.propertySlug);
         }
-        if($stateParams.locationSlug && $state.current.name === 'hotels' && locationCode) {
+        if($stateParams.locationSlug && locationCode) {
           params.location = locationCode;
         }
         params.loggedIn = loggedIn !== null ? loggedIn : user.isLoggedIn();
@@ -83,7 +83,7 @@ angular.module('mobiusApp.services.campaigns', [])
       }
     }
 
-    function criteriaCheck(campaign, loggedIn, bookingDates, locationSlug, property) {
+    function criteriaCheck(campaign, loggedIn, bookingDates, locationSlug, property, locations) {
       var criteriaPass = checkActiveDates(campaign);
       if (criteriaPass) {
         console.log('active dates check pass');
@@ -104,10 +104,14 @@ angular.module('mobiusApp.services.campaigns', [])
         criteriaPass = checkPropertyRestrictions(campaign, property);
         if(criteriaPass){
           console.log('property restrictions check pass');
+          //If no properties selected in criteria but location is set
+          if(!campaign.criteria.properties && campaign.criteria.locations){
+            criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
+          }
         }
         else {
           console.log('property restrictions check fail');
-          criteriaPass = checkLocationRestrictions(campaign, locationSlug);
+          criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
         }
       } else {
         console.log('booking date restrictions fail');
@@ -122,8 +126,17 @@ angular.module('mobiusApp.services.campaigns', [])
       }
     }
 
-    function checkLocationRestrictions(campaign, urlLocationSlug, property) {
+    function checkLocationRestrictions(campaign, urlLocationSlug, property, locations) {
       urlLocationSlug = urlLocationSlug ? urlLocationSlug : $stateParams.locationSlug;
+
+      if(locations) {
+        savedLocations = locations;
+        var relevantLocation = _.find(savedLocations, function(location){
+          return $stateParams.locationSlug === location.meta.slug;
+        });
+        locationCode = relevantLocation ? relevantLocation.code : null;
+      }
+
       if (campaign.criteria.locations) {
         if ($stateParams.locationSlug) {
           var criteriaLocations = campaign.criteria.locations;
