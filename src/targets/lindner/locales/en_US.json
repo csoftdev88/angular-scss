@@ -487,6 +487,7 @@
     "error_page_copy_one": "We’re fixing the problem right now - please check back soon and it’ll be good as new!",
     "error_page_copy_two": "If you need immediate assistance you can call us on <a href='tel:+49 211 44755-100'>+49 211 44755-100</a> or email us at <a href='mailto:info@lindner.de'>info@lindner.de</a>",
     "change_currency": "Change currency",
-    "fetching_room_rates": "Fetching Room Rates"
+    "fetching_room_rates": "Fetching Room Rates",
+    "you_are_currently_editing": "You are currently editing:"
   }
 }

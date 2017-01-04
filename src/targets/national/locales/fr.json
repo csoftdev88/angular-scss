@@ -485,6 +485,7 @@
     "error_page_copy_one": "Nous réglons le problème en ce moment - veuillez revenir plus tard s'il vous plaît et tout sera comme neuf!",
     "error_page_copy_two": "Si vous avez besoin d'aide immédiate, vous pouvez nous appeler au <a href='tel:+41 41 419 09 10'>+41 41 419 09 10</a> ou par courriel à <a href='mailto:info@grandhotel-national.com'>info@grandhotel-national.com</a>",
     "change_currency": "Change currency",
-    "fetching_room_rates": "Fetching Room Rates"
+    "fetching_room_rates": "Fetching Room Rates",
+    "you_are_currently_editing": "You are currently editing:"
   }
 }
