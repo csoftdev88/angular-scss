@@ -529,6 +529,7 @@
     "week": "week",
     "weeks": "weeks",
     "languages_message": "This page is available in both french and english",
-    "this_includes": "This includes:"
+    "this_includes": "This includes:",
+    "fetching_room_rates": "Fetching Room Rates"
   }
 }
