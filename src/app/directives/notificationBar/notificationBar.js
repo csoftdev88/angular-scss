@@ -26,7 +26,6 @@ angular.module('mobiusApp.directives.notifications', [])
         if(attrs.currentlyEditing){
           message = message.replace('_you_are_currently_editing_', attrs.currentlyEditing);
         }
-        console.log(message);
         scope.message = message;
         notificationCloseEvent = notificationService.getCloseEvent();
       }
