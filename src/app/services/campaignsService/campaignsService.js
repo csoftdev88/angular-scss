@@ -3,7 +3,7 @@
  * This service sets applicable adverts and campaign visuals
  */
 angular.module('mobiusApp.services.campaigns', [])
-  .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, _) {
+  .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, infinitiApeironService, _) {
     var activeCampaign = null;
     var savedCampaign = null;
     var savedLocations = null;
@@ -37,7 +37,7 @@ angular.module('mobiusApp.services.campaigns', [])
         if ($stateParams.propertySlug) {
           params.property = bookingService.getCodeFromSlug($stateParams.propertySlug);
         }
-        if($stateParams.locationSlug && $state.current.name === 'hotels' && locationCode) {
+        if(!$stateParams.propertySlug && $stateParams.locationSlug && locationCode) {
           params.location = locationCode;
         }
         params.loggedIn = loggedIn !== null ? loggedIn : user.isLoggedIn();
@@ -51,7 +51,10 @@ angular.module('mobiusApp.services.campaigns', [])
         //Always show previous campaign unless the old is not priority and the new one is
         if (!savedCampaign.priority && campaign.criteria.bookingsUntil && campaign.criteria.bookingsFrom) {
           console.log('display new campaign not previous');
-          criteriaCheck(campaign, loggedIn);
+          if(criteriaCheck(campaign, loggedIn))
+          {
+            renderCampaign(campaign);
+          }
         } else {
           getCampaigns(null, true).then(function(data) {
             var retrievedCampaign = _.find(data, function(thisCampaign) {
@@ -64,52 +67,76 @@ angular.module('mobiusApp.services.campaigns', [])
             } else {
               //Render the request campaign
               console.log('previous campaign not found, display new');
-              criteriaCheck(campaign, loggedIn);
+              if(criteriaCheck(campaign, loggedIn))
+              {
+                renderCampaign(campaign);
+              }
             }
           });
         }
       } else {
         console.log('no previous campaign stored, display new campaign');
-        criteriaCheck(campaign, loggedIn);
+        if(criteriaCheck(campaign, loggedIn))
+        {
+          renderCampaign(campaign);
+        }
       }
     }
 
-    function criteriaCheck(campaign, loggedIn) {
+    function criteriaCheck(campaign, loggedIn, bookingDates, locationSlug, property, locations) {
       var criteriaPass = checkActiveDates(campaign);
       if (criteriaPass) {
         console.log('active dates check pass');
         criteriaPass = checkMemberOnly(campaign, loggedIn);
       } else {
         console.log('active dates check fail');
+        return false;
       }
       if (criteriaPass) {
         console.log('member only check pass');
-        criteriaPass = checkDateRestrictions(campaign);
+        criteriaPass = checkDateRestrictions(campaign, bookingDates);
       } else {
         console.log('member only check fail');
+        return false;
       }
       if (criteriaPass) {
         console.log('booking date restrictions pass');
-        criteriaPass = checkPropertyRestrictions(campaign);
+        criteriaPass = checkPropertyRestrictions(campaign, property);
         if(criteriaPass){
           console.log('property restrictions check pass');
+          //If no properties selected in criteria but location is set
+          if(!campaign.criteria.properties && campaign.criteria.locations){
+            criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
+          }
         }
         else {
           console.log('property restrictions check fail');
-          criteriaPass = checkLocationRestrictions(campaign);
+          criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
         }
       } else {
         console.log('booking date restrictions fail');
+        return false;
       }
       if (criteriaPass) {
         console.log('location restrictions check pass');
-        renderCampaign(campaign);
+        return true;
       } else {
         console.log('location restrictions check fail');
+        return false;
       }
     }
 
-    function checkLocationRestrictions(campaign) {
+    function checkLocationRestrictions(campaign, urlLocationSlug, property, locations) {
+      urlLocationSlug = urlLocationSlug ? urlLocationSlug : $stateParams.locationSlug;
+
+      if(locations) {
+        savedLocations = locations;
+        var relevantLocation = _.find(savedLocations, function(location){
+          return $stateParams.locationSlug === location.meta.slug;
+        });
+        locationCode = relevantLocation ? relevantLocation.code : null;
+      }
+
       if (campaign.criteria.locations) {
         if ($stateParams.locationSlug) {
           var criteriaLocations = campaign.criteria.locations;
@@ -130,14 +157,19 @@ angular.module('mobiusApp.services.campaigns', [])
         } else {
           return false;
         }
-      } else {
+      }
+      else if(property !== null) {
+        return false;
+      }
+      else {
         return true;
       }
     }
 
-    function checkPropertyRestrictions(campaign) {
+    function checkPropertyRestrictions(campaign, urlProperty) {
+      urlProperty = urlProperty ? urlProperty : $stateParams.property;
       if (campaign.criteria.properties) {
-        if ($stateParams.property) {
+        if (urlProperty) {
           var criteriaProperties = campaign.criteria.properties;
           var criteriaPropertiesArray = [];
           if (_.isArray(criteriaProperties)) {
@@ -146,7 +178,7 @@ angular.module('mobiusApp.services.campaigns', [])
             criteriaPropertiesArray = criteriaProperties.split(',');
           }
           var propertyMatch = _.find(criteriaPropertiesArray, function(property) {
-            return property === $stateParams.property;
+            return property === urlProperty;
           });
           if (propertyMatch) {
             return true;
@@ -161,10 +193,11 @@ angular.module('mobiusApp.services.campaigns', [])
       }
     }
 
-    function checkDateRestrictions(campaign) {
+    function checkDateRestrictions(campaign, bookingDates) {
       if (campaign.criteria.bookingsFrom || campaign.criteria.bookingsUntil) {
-        if ($stateParams.dates) {
-          var bookedDate = $stateParams.dates.split('_');
+        bookingDates = bookingDates ? bookingDates : $stateParams.dates;
+        if (bookingDates) {
+          var bookedDate = bookingDates.split('_');
           if (bookedDate && bookedDate.length) {
             var bookingFromDate = parseInt($window.moment.tz(bookedDate[0], Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
             var bookingToDate = parseInt($window.moment.tz(bookedDate[1], Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
@@ -213,6 +246,11 @@ angular.module('mobiusApp.services.campaigns', [])
     function renderCampaign(campaign) {
       $rootScope.campaign = campaign ? campaign : $rootScope.campaign;
 
+      //Track our campaign display
+      if($state.current.parent !== 'reservation'){
+        infinitiApeironService.trackCampaignDisplay(campaign.code);
+      }
+
       //Build the campaign URL and add to scope
       addCampaignUrl();
 
@@ -225,7 +263,7 @@ angular.module('mobiusApp.services.campaigns', [])
         $rootScope.campaign.sideRails.display = false;
       }
       //If not on an offer page show the rest of the campaign material
-      if(!$stateParams.code)
+      if(!$stateParams.code && $state.current.parent !== 'reservation')
       {
         if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images && $rootScope.campaign.pageCurl.images.uri) {
           $rootScope.campaign.pageCurl.display = true;
@@ -364,6 +402,7 @@ angular.module('mobiusApp.services.campaigns', [])
 
     // Public methods
     return {
-      setCampaigns: setCampaigns
+      setCampaigns: setCampaigns,
+      criteriaCheck: criteriaCheck
     };
   });

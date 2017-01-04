@@ -823,7 +823,9 @@
     "error_page_subtitle": "Entschuldigen Sie die Unannehmlichkeiten.",
     "error_page_copy_one": "Leider haben wir aktuell technische Schwierigkeiten und bitten Sie für einwenig Geduld.",
     "error_page_copy_two": "Für dringend Fragen bitte kontaktiere uns unter <a href='tel:+41 41 419 09 10'>+41 41 419 09 10</a> oder <a href='mailto:info@grandhotel-national.com'>info@grandhotel-national.com</a>",
-    "change_currency": "Währung ändern"
+    "change_currency": "Währung ändern",
+    "fetching_room_rates": "Fetching Room Rates",
+    "you_are_currently_editing": "You are currently editing:"
 
   }
 

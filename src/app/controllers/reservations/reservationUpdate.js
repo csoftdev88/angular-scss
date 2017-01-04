@@ -17,7 +17,8 @@ angular.module('mobius.controllers.reservationUpdate', [])
         // by checking fromState.name (if defined)
         if(!reservationUpdateMode){
           reservationUpdateMode = true;
-          notificationService.show('<span>You are currently editing: <strong>' + toParams.reservation + '</strong></span>');
+          //You are currently editing:
+          notificationService.show('<span>_you_are_currently_editing_ <strong>' + toParams.reservation + '</strong></span>');
         }
 
         return;
