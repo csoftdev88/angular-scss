@@ -371,7 +371,7 @@ angular.module('mobiusApp.config', [])
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
       //Allow subpages to redirect if specified in admin
-      'subPageRedirects': false,
+      'subPageRedirects': true,
       'rooms': {
         'hideRoomsWithNoAvailability': true,
         'sortRoomsByWeighting': true,
