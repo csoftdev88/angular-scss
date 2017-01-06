@@ -811,11 +811,26 @@ angular
       if(isEU){
         $scope.showEUCookieDisclaimer = true;
         $rootScope.euCookieDisclaimerVisible = !CookieLawService.isEnabled();
+
+        if(cookieFactory('cookieDisclaimer')) {
+          console.log('hide cookie disclaimer');
+          $scope.showEUCookieDisclaimer = false;
+          $rootScope.euCookieDisclaimerVisible = false;
+        }
+
         var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
         var heroSliderEl = $('#main-container > div > hero-slider');
 
         $scope.$on('cookieLaw.accept', function() {
           $rootScope.euCookieDisclaimerVisible = false;
+
+          var cookieExpiryDate = null;
+          if(Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0){
+            cookieExpiryDate = new Date();
+            cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
+          }
+          $window.document.cookie = 'cookieDisclaimer=true' + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
+
           //Re-position hero-slider after cookie law accepted on mobile
           if(stateService.isMobile()){
             $timeout(function(){
