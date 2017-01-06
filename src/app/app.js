@@ -444,7 +444,7 @@ angular
     controller: 'OffersCtrl'
   })
 
-  .state('hotDeals', {
+  /*.state('hotDeals', {
     parent: 'root',
     templateUrl: 'layouts/offers/offers.html',
     url: '/:regionSlug/:locationSlug/hot-deals/:code',
@@ -459,6 +459,13 @@ angular
         squash: true
       }
     }
+  })*/
+
+  .state('hotDeals', {
+    parent: 'root',
+    templateUrl: 'layouts/offers/offers.html',
+    url: '/hot-deals/',
+    controller: 'OffersCtrl'
   })
 
   .state('propertyHotDeals', {
