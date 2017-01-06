@@ -531,6 +531,7 @@
     "languages_message": "This page is available in both french and english",
     "this_includes": "This includes:",
     "fetching_room_rates": "Fetching Room Rates",
-    "you_are_currently_editing": "You are currently editing:"
+    "you_are_currently_editing": "You are currently editing:",
+    "cookie_disclaimer_message": "We use cookies to track usage and preferences to ensure that we give you the best experience on our website. If you continue, we'll assume that you are happy to receive all cookies on our website."
   }
 }
