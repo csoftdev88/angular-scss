@@ -110,7 +110,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     function buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate) {
       var infinitiApeironData = buildGenericData(chainData);
       var sessionCookie = sessionDataService.getCookie();
-      var bookedDate = stateParams.dates.split('_');
+      var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
       var fromDate = null;
       var toDate = null;
       if (bookedDate && bookedDate.length) {
