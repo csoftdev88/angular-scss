@@ -3,7 +3,7 @@
  * This service sets applicable adverts and campaign visuals
  */
 angular.module('mobiusApp.services.campaigns', [])
-  .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, infinitiApeironService, _) {
+  .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, infinitiApeironService, stateService, _) {
     var activeCampaign = null;
     var savedCampaign = null;
     var savedLocations = null;
@@ -257,6 +257,13 @@ angular.module('mobiusApp.services.campaigns', [])
       if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage && $rootScope.campaign.sideRails.railImage.uri && $state.current.parent !== 'reservation')
       {
         $rootScope.campaign.sideRails.display = true;
+        if(stateService.isMobile()){
+          $timeout(function(){
+            var heroSliderEl = $('#main-container > div > hero-slider');
+            var mainHeaderHeight = $('#main-header').height();
+            heroSliderEl.css('margin-top', mainHeaderHeight);
+          }, 1500);
+        }
       }
       else{
         $rootScope.campaign.sideRails = {};

@@ -43,6 +43,14 @@ angular.module('mobiusApp.services.api', [])
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
         }
         apiCache.put(url, res);
+
+        //Add the CF-isEU header to denote if user is based in Europe for cookie disclaimer functionality
+        if(Settings.showEUCookieDisclaimer && resHeaders('CF-isEU')){
+          var isEUHeader = resHeaders('CF-isEU');
+          var headersObj = {};
+          headersObj['CF-isEU'] = isEUHeader;
+          setHeaders(headersObj);
+        }
         q.resolve(res);
 
       }).error(function(err) {
@@ -272,7 +280,8 @@ angular.module('mobiusApp.services.api', [])
     setHeaders: setHeaders,
     objectToQueryParams: objectToQueryParams,
     infinitiApeironPost: infinitiApeironPost,
-    trackUsage: trackUsage
+    trackUsage: trackUsage,
+    headers: headers
   };
   return api;
 });
