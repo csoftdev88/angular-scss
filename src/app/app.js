@@ -813,7 +813,6 @@ angular
         $rootScope.euCookieDisclaimerVisible = !CookieLawService.isEnabled();
 
         if(cookieFactory('cookieDisclaimer')) {
-          console.log('hide cookie disclaimer');
           $scope.showEUCookieDisclaimer = false;
           $rootScope.euCookieDisclaimerVisible = false;
         }

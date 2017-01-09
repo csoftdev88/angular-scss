@@ -35,6 +35,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
+      'event': 'productImpressions',
       'ecommerce': {
         'currencyCode': stateService.getCurrentCurrency().code,
         'impressions': products
@@ -56,7 +57,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackAddToCart(product){
+  function trackAddToCart(product, upsellAccepted){
     if(!isDataLayerActive()){
       return;
     }
@@ -65,6 +66,9 @@ angular.module('mobiusApp.services.dataLayer', [])
       'ecommerce': {
         'currencyCode': stateService.getCurrentCurrency().code,
         'add': {
+          'actionField': {
+            'upsellAccepted':upsellAccepted
+          },
           'products': [product]
         }
       }
@@ -76,6 +80,7 @@ angular.module('mobiusApp.services.dataLayer', [])
       return;
     }
     getDataLayer().push({
+      'event': 'productDetails',
       'ecommerce': {
         'detail': {
           'products': products
@@ -89,6 +94,7 @@ angular.module('mobiusApp.services.dataLayer', [])
       return;
     }
     getDataLayer().push({
+      'event': 'checkout',
       'ecommerce': {
         'checkout': {
           'actionField': actionField,
@@ -111,6 +117,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     var dataLayerInfo = {
+      'event':'productPurchase',
       'ecommerce': {
         'purchase': {
           'actionField': actionField,
@@ -136,6 +143,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
+      'event': 'productRefund',
       'ecommerce': {
         'refund': {
           'actionField': {
