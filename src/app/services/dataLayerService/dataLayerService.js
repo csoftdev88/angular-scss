@@ -57,7 +57,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackAddToCart(product){
+  function trackAddToCart(product, upsellAccepted){
     if(!isDataLayerActive()){
       return;
     }
@@ -66,6 +66,9 @@ angular.module('mobiusApp.services.dataLayer', [])
       'ecommerce': {
         'currencyCode': stateService.getCurrentCurrency().code,
         'add': {
+          'actionField': {
+            'upsellAccepted':upsellAccepted
+          },
           'products': [product]
         }
       }

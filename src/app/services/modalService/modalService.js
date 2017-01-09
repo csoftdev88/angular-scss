@@ -405,14 +405,15 @@ angular.module('mobiusApp.services.modal', [])
     return totalDailyFees;
   }
 
-  function openUpsellsDialog(upsell, params, goToReservationDetails){
+  function openUpsellsDialog(upsell, params, goToReservationDetails, product){
     return openDialog('openUpsellsDialog', 'layouts/modals/upsellsDialog.html', CONTROLLER_UPSELLS, {
       windowClass: 'upsells-dialog',
       resolve: {
         data: function() {
           return {
             upsell:upsell,
-            params:params
+            params:params,
+            product:product
           };
         },
         goToReservationDetails: function(){return goToReservationDetails;}

@@ -374,36 +374,6 @@ angular.module('mobiusApp.directives.room', [])
       };
 
       scope.selectProduct = function(product) {
-        // Tracking product click
-        chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-          propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-            var localeData = propertyData.locale;
-            var localeArray = localeData ? propertyData.locale.split('-') : null;
-            if(localeArray && localeArray.length > 1)
-            {
-              localeData = localeArray[1].trim();
-            }
-            var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
-            var variant = '';
-            if($stateParams.adults && $stateParams.children)
-            {
-              variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
-            }
-            dataLayerService.trackAddToCart({
-              name: product.name,
-              id: product.code,
-              price: (product.price.totalBaseAfterPricingRules/numNights).toFixed(2),
-              quantity: numNights,
-              dimension2: chainData.nameShort,
-              brand: propertyData.nameLong,
-              dimension1: propertyData.nameShort,
-              list: 'Room',
-              category: category,
-              variant: variant
-            });
-          });
-        });
-
         var params = {};
 
         if($stateParams.promoCode){
@@ -423,14 +393,46 @@ angular.module('mobiusApp.directives.room', [])
         }
 
         if(scope.displayUpsells && product.upSell) {
-          modalService.openUpsellsDialog(product.upSell, params, scope.goToReservationDetails);
+          modalService.openUpsellsDialog(product.upSell, params, scope.goToReservationDetails, product);
         }
         else {
-          scope.goToReservationDetails(params);
+          scope.goToReservationDetails(product, params, false);
         }
       };
 
-      scope.goToReservationDetails = function(params){
+      scope.goToReservationDetails = function(product, params, upsellAccepted){
+        // GTM Tracking product click
+        if(product){
+          chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+            propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+              var localeData = propertyData.locale;
+              var localeArray = localeData ? propertyData.locale.split('-') : null;
+              if(localeArray && localeArray.length > 1)
+              {
+                localeData = localeArray[1].trim();
+              }
+              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
+              var variant = '';
+              if($stateParams.adults && $stateParams.children)
+              {
+                variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+              }
+              dataLayerService.trackAddToCart({
+                name: product.name,
+                id: product.code,
+                price: (product.price.totalBaseAfterPricingRules/numNights).toFixed(2),
+                quantity: numNights,
+                dimension2: chainData.nameShort,
+                brand: propertyData.nameLong,
+                dimension1: propertyData.nameShort,
+                list: 'Room',
+                category: category,
+                variant: variant
+              }, upsellAccepted);
+            });
+          });
+        }
+
         var userLang = user.getUserLanguage();
         var appLang = stateService.getAppLanguageCode();
         if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
