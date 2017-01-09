@@ -11,7 +11,6 @@ angular.module('mobiusApp.directives.googleTagManagerScript', [])
 
       // Widget logic goes here
       link: function() {
-        var env = document.querySelector('meta[name=environment]').getAttribute('content');
         if(!Settings.googleTagManager.enable){
           return;
         }
