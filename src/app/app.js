@@ -61,6 +61,7 @@ angular
     'mobius.controllers.resetPassword',
     'mobius.controllers.prestige',
     'mobius.controllers.staticContent',
+    'mobius.controllers.thirdParties',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -71,6 +72,8 @@ angular
     'mobius.controllers.modals.confirmation',
     'mobius.controllers.common.cardExpiration',
     'mobius.controllers.modals.upsells',
+    'mobius.controllers.modals.campaign',
+    'mobius.controllers.modals.password',
 
     // Application modules
     'mobiusApp.config',
@@ -109,6 +112,8 @@ angular
     'mobiusApp.services.channelService',
     'mobiusApp.services.router',
     'mobiusApp.services.track404s',
+    'mobiusApp.services.campaigns',
+    'mobiusApp.services.thirdPartiesService',
 
     // Factories
     'mobiusApp.factories.template',
@@ -172,6 +177,8 @@ angular
     'mobiusApp.directives.hoverTrigger',
     'mobiusApp.directives.scrollToTop',
     'mobiusApp.directives.growlAlerts',
+    'mobiusApp.directives.optionsDisabled',
+    'mobiusApp.directives.slidedownNotifications',
 
     'internationalPhoneNumber',
 
@@ -188,7 +195,8 @@ angular
     'mobiusApp.filters.mainHeaderStyle',
     'mobiusApp.filters.stringLocaleReplace',
     'mobiusApp.filters.content',
-    'mobiusApp.filters.trustAsHtml'
+    'mobiusApp.filters.trustAsHtml',
+    'mobiusApp.filters.byNameOrZip'
   ])
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider, growlProvider, Settings) {
@@ -226,6 +234,20 @@ angular
     parent: 'root',
     templateUrl: 'layouts/hotels/hotels.html',
     url: '/hotels'
+  })
+
+  // 3rd Parties
+  .state('thirdParties', {
+    parent: 'root',
+    templateUrl: 'layouts/home/home.html',
+    controller: 'ThirdPartiesCtrl',
+    url: '/corp/:code',
+    params: {
+      code: {
+        value: null,
+        squash: true
+      }
+    }
   });
 
   if (Settings.newUrlStructure) {
@@ -547,7 +569,7 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
     //This segment tracks any 404s and sends to our 404 tracking service
@@ -566,6 +588,9 @@ angular
     $state.fromState = fromState;
     $state.fromParams = fromParams;
     breadcrumbsService.clear();
+
+    $rootScope.requestId = sessionDataService.generateUUID();
+    apiService.trackUsage($location.absUrl(), $rootScope.requestId);
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
@@ -655,18 +680,16 @@ angular
 
       if(dates.length){
 
-        var todayUtc = new Date().toJSON().slice(0,10);
-
-        var today = parseInt($window.moment(todayUtc).valueOf());
-        var fromDate = parseInt($window.moment(dates[0]).valueOf());
-        var toDate = parseInt($window.moment(dates[1]).valueOf());
+        var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+        var fromDate = parseInt($window.moment.tz(dates[0],Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+        var toDate = parseInt($window.moment.tz(dates[1],Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
 
         if(fromDate < today || toDate < today)
         {
           console.log('This date is in the past, removed from booking parameters');
           console.log('From Date: ' + dates[0]);
           console.log('To Date: ' + dates[1]);
-          console.log('Today: ' + todayUtc);
+          console.log('Today: ' + today);
           toParams.dates = undefined;
         }
       }

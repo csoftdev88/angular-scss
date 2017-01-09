@@ -203,6 +203,7 @@ angular.module('mobiusApp.config', [])
       'loyaltyProgramEnabled': false,
       'disableMainHeaderStyle': true,
       'showAltNav': false,
+      'longDateFormat': 'Do MMM YYYY',
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false
     },
@@ -796,9 +797,15 @@ angular.module('mobiusApp.config', [])
       'bookingStepsNav':{
         'display': false
       },
+      //Default value for newsletter opt-in checkbox
+      'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
         'display': true
+      },
+      //Reverse the same address checkbox logic
+      'billingAddress': {
+        'reverseCheckboxLogic':true
       },
       //Additional details screen
       'additionalDetails':{
@@ -811,7 +818,8 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'top'
-        }
+        },
+        'optedInDefault': true
       }
     },
     'myAccount' : {
@@ -913,13 +921,34 @@ angular.module('mobiusApp.config', [])
 
     // Policy codes from the API and their title translates
     'policies': {
-      'cancellation': 'Cancellation',
-      'checkInOut': 'Check-In-Out',
-      'extraGuest': 'Extra Guest',
-      'family': 'Family',
-      'guarantee': 'Guarantee',
-      'noShow': 'No Show',
-      'pet': 'Pet'
+      'cancellation': {
+        'title':'Cancellation',
+        'code':'24HR'
+      },
+      'checkInOut': {
+        'title':'Check-In-Out',
+        'code':'10AM4PM'
+      },
+      'extraGuest': {
+        'title':'Extra Guest',
+        'code':'20CADMORE'
+      },
+      'family': {
+        'title':'Family',
+        'code':'DEFAULT'
+      },
+      'guarantee': {
+        'title':'Guarantee',
+        'code':'CCGOVID'
+      },
+      'noShow': {
+        'title':'No Show',
+        'code':'DEFAULT'
+      },
+      'pet': {
+        'title':'Pet',
+        'code':'DEFAULT'
+      }
     },
     'defaultCountryCode': 'ca',
     'preferredCountryCodes': 'ca,us,gb',

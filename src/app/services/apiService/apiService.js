@@ -2,11 +2,15 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService) {
+.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService) {
 
+  var sessionCookie = sessionDataService.getCookie();
+  var sessionId = sessionCookie.sessionData.sessionId;
+  var env = document.querySelector('meta[name=environment]').getAttribute('content');
   var headers = {
     'mobius-tenant': Settings.API.headers['Mobius-chainId'],
-    'Mobius-channelId': channelService.getChannel().channelID
+    'Mobius-channelId': channelService.getChannel().channelID,
+    'mobius-sessionId': sessionId
   };
 
   var apiCache = $cacheFactory('apiCache');
@@ -21,6 +25,9 @@ angular.module('mobiusApp.services.api', [])
     var q = $q.defer();
     var canCache = !params || Object.keys(params).length === 0;
     canCache = cacheParam === false ? false : canCache;
+
+
+    headers['mobius-requestId'] = $rootScope.requestId;
 
     //sessionData
     handleSessionDataHeaders();
@@ -73,6 +80,8 @@ angular.module('mobiusApp.services.api', [])
       handleSessionDataHeaders();
     }
 
+    headers['mobius-requestId'] = $rootScope.requestId;
+
     $http({
       method: 'POST',
       url: url,
@@ -91,28 +100,13 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
-  function infinitiApeironPost(url, data, username, password) {
-    var q = $q.defer();
-
-    $http({
-      method: 'POST',
-      url: url,
-      headers: {'Authorization':'Basic ' + btoa(username + ':' + password)},
-      data: data
-    }).success(function(res) {
-      q.resolve(res);
-    }).error(function(err) {
-      q.reject(err);
-    });
-
-    return q.promise;
-  }
-
   function put(url, data, params) {
     var q = $q.defer();
 
     //sessionData
     handleSessionDataHeaders();
+
+    headers['mobius-requestId'] = $rootScope.requestId;
 
     $http({
       method: 'PUT',
@@ -132,10 +126,61 @@ angular.module('mobiusApp.services.api', [])
     return q.promise;
   }
 
+  function trackUsage(url, requestId) {
+    if(Settings.API.trackUsage){
+      var usagePayload = {
+        'metric':'performance',
+        'system':'mobius-web',
+        'environment':env,
+        'endpoint':url,
+        'host':$location.host(),
+        'requestID':requestId,
+        'sessionID':sessionId,
+        'type':'page load',
+      };
+
+      $http({
+        method: 'POST',
+        url: 'https://webservice.mobiuswebservices.com/monitor/record',
+        data: usagePayload
+      }).success(function() {}).error(function(err) {console.log(err);});
+    }
+  }
+
+  function infinitiApeironPost(url, data, username, password) {
+    var q = $q.defer();
+
+    $http({
+      method: 'POST',
+      url: url,
+      headers: {'Authorization':'Basic ' + btoa(username + ':' + password)},
+      data: data
+    }).success(function(res) {
+      q.resolve(res);
+    }).error(function(err) {
+      q.reject(err);
+    });
+
+    return q.promise;
+  }
+
+  /*function serializeParams(obj, prefix) {
+    var str = [], p;
+    for(p in obj) {
+      if (obj.hasOwnProperty(p)) {
+        var k = prefix ? prefix + '[' + p + ']' : p, v = obj[p];
+        str.push((v !== null && typeof v === 'object') ?
+          serializeParams(v, k) :
+          encodeURIComponent(k) + '=' + encodeURIComponent(v));
+      }
+    }
+    return str.join('&');
+  }*/
+
   function getFullURL(path, params) {
     var URL = getValue(Settings.API, path);
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
-    var base = Settings.API.baseURL[env] || Settings.API.baseURL[env];
+    var base = Settings.API.baseURL[env];
     // NOTE: We might want to throw error in case when path is not found
     $window._.each(params, function(value, key){
       URL = URL.replace(':' + key, value).replace(',','%2C');
@@ -162,8 +207,8 @@ angular.module('mobiusApp.services.api', [])
   }
 
   function handleSessionDataHeaders(){
-    if(Settings.API.sessionData.includeInApiCalls && sessionDataService.getCookie()){
-      setHeaders(sessionDataService.getCookie());
+    if(Settings.API.sessionData.includeInApiCalls && sessionCookie){
+      setHeaders(sessionCookie);
     }
   }
 
@@ -226,7 +271,8 @@ angular.module('mobiusApp.services.api', [])
     getFullURL: getFullURL,
     setHeaders: setHeaders,
     objectToQueryParams: objectToQueryParams,
-    infinitiApeironPost: infinitiApeironPost
+    infinitiApeironPost: infinitiApeironPost,
+    trackUsage: trackUsage
   };
   return api;
 });

@@ -49,13 +49,13 @@ angular.module('mobiusApp.directives.room', [])
           {
             name: options.priceLowToHigh,
             sort: function(product){
-              return product.price.totalAfterTax;
+              return product.price.totalAfterTaxAfterPricingRules;
             }
           },
           {
             name: options.priceHighToLow,
             sort: function(product){
-              return 0 - product.price.totalAfterTax;
+              return 0 - product.price.totalAfterTaxAfterPricingRules;
             }
           }
         ];
@@ -377,7 +377,12 @@ angular.module('mobiusApp.directives.room', [])
         // Tracking product click
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-            var localeData = propertyData.locale.split('-')[1].trim();
+            var localeData = propertyData.locale;
+            var localeArray = localeData ? propertyData.locale.split('-') : null;
+            if(localeArray && localeArray.length > 1)
+            {
+              localeData = localeArray[1].trim();
+            }
             var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
             var variant = '';
             if($stateParams.adults && $stateParams.children)
@@ -448,7 +453,12 @@ angular.module('mobiusApp.directives.room', [])
           // Tracking product view
           /*chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-              var localeData = propertyData.locale.split('-')[1].trim();
+            var localeData = propertyData.locale;
+            var localeArray = localeData ? propertyData.locale.split('-') : null;
+            if(localeArray && localeArray.length > 1)
+            {
+              localeData = localeArray[1].trim();
+            }
               var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)

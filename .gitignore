@@ -10,3 +10,10 @@ test-results.xml
 *.pyc
 .idea
 .DS_Store
+
+# VSCode
+.vscode
+jsconfig.json
+typings/
+typings.json
+yarn.lock

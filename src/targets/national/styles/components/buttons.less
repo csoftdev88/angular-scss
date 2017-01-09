@@ -1,64 +1,54 @@
 //- BUTTONS -//
-@c-button: @c-green;
+@c-button: @c-secondary;
 
 
 //- Button Submit
 .typeform-share.button,
 .button,
+.button-gray,
 button-submit {
-  border-radius: @radius;
   display: inline-block;
   padding: 0 @baseline;
   min-width: 6*@baseline;
   box-sizing: border-box;
   text-align: center;
-
-  background: #b3ec50;
-  background: -moz-linear-gradient(top,  #b3ec50 0%, #419224 100%);
-  background: -webkit-linear-gradient(top,  #b3ec50 0%,#419224 100%);
-  background: linear-gradient(to bottom,  #b3ec50 0%,#419224 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3ec50', endColorstr='#419224',GradientType=0 );
-  border-bottom: 1px solid #247733;
+  text-transform:uppercase;
+  background: @c-button;
   color: #fff;
-
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 400;
   font-size: @size-0;
-  line-height: 35px;
+  line-height: 40px;
   height: 38px;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  text-shadow:none;
   box-shadow: none;
+  border-radius:0px;
+  border-bottom:0px none;
 
   &:active,
   &:focus,
   &:hover {
-    background: #b3ec50;
-    background: -moz-linear-gradient(top,  #b3ec50 0%, #419224 100%);
-    background: -webkit-linear-gradient(top,  #b3ec50 0%,#419224 100%);
-    background: linear-gradient(to bottom,  #b3ec50 0%,#419224 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3ec50', endColorstr='#419224',GradientType=0 );
+    background: lighten(@c-button, 5%);
+    box-shadow: none;
   }
 
   &.hide{
     display: none;
   }
-
-  &.alt,
-  &.alt:active,
-  &.alt:focus,
-  &.alt:hover,
-  &[disabled="disabled"] {
-    background: #f3efe6;
-    background: -moz-linear-gradient(top,  #f3efe6 0%, #c2c1bd 100%);
-    background: -webkit-linear-gradient(top,  #f3efe6 0%,#c2c1bd 100%);
-    background: linear-gradient(to bottom,  #f3efe6 0%,#c2c1bd 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3efe6', endColorstr='#c2c1bd',GradientType=0 );
-    border-bottom: 1px solid #959595;
-    color: @c-dark-grey;
-    -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-
-  }
 }
 
+//- Button Next -> used in Reservation
+button-next,
+button.next {
+  padding:0 30px;
+  font-size:14px;
+  font-weight:bold;
+  border-radius:0px;
+  font-family:@ff-default;
+  text-transform:uppercase;
+  box-shadow:none;
+  // Arrow in right part of button
+  &:after {
+    display:none;
+  }
+}

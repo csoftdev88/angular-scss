@@ -120,7 +120,7 @@ describe('reservationService', function() {
     });
   });
 
-  describe('addAddon', function() {
+  /*describe('addAddon', function() {
     beforeEach(function(){
       setUp();
     });
@@ -141,7 +141,7 @@ describe('reservationService', function() {
       expect(_apiPostSpy.calledOnce).equal(true);
       expect(_apiPostSpy.args[0][2].email).equal('test@test');
     });
-  });
+  });*/
 
 
   describe('getReservationAddOns', function() {

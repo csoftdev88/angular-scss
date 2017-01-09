@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="196px" height="42px" viewBox="0 0 196 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
+    <!-- Generator: sketchtool 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>AC2809B3-CAC8-4D5A-97C3-4FDD49D9C4AB</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <polyline id="path-1" points="0.0480390126 0 18.9746259 17.6896552 3.23274836 35.3793103 189.821192 35.3793103 189.821192 0 12.1196711 0"></polyline>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-3" points="27.5923262 18.3448276 14.1759407 31.4482759 186.353536 31.4482759 186.353536 3.93103448 11.1945217 3.93103448"></polygon>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feMorphology radius="0.325000018" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+            <feOffset dx="0" dy="1" in="shadowInner" result="shadowInner"></feOffset>
+            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0829087409 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="4-Hotel-Details" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="5.6-Upsell" transform="translate(-382.000000, -398.000000)">
+            <g id="Modal" transform="translate(365.000000, 325.000000)">
+                <g id="banner" transform="translate(20.000000, 75.000000)">
+                    <g id="banner-bg" transform="translate(95.000000, 19.000000) scale(-1, 1) translate(-95.000000, -19.000000) ">
+                        <polygon id="Path-2" fill="#B45B13" points="189.501344 35.3793103 184.101267 38 184.101267 35.3793103"></polygon>
+                        <g id="Fill-40">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#CC0C39" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="Fill-40">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                            <use stroke="#FFFFFF" stroke-width="0.650000036" stroke-linecap="round" stroke-dasharray="1.300000071525574" xlink:href="#path-3"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

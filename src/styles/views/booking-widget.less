@@ -7,8 +7,11 @@ booking-widget {
   max-width: 960px;
   margin: 0 auto;
   max-height: 0px;
+  .clearfix;
   //transition: max-height 1s ease-out;
   .transition(max-height, 1s, ease-in-out);
+  //Fix for chrome leaving line trace artifact after animation
+  -webkit-transform: translate3d(0,0,0);
   overflow: hidden;
 
   &.is-open {
@@ -35,7 +38,7 @@ booking-widget {
     border: 1px solid #ccc;
     border-bottom: 0;
   }
-  
+
   .viewport-mobile & {
     form-element.hotel{
       // Chosen dropdown - open down not up for hotels only
@@ -288,7 +291,7 @@ booking-widget-search {
       padding-left: 1em;
     }
     li.property {
-      padding-left: 2em;
+      //padding-left: 2em;
     }
   }
 
@@ -569,5 +572,29 @@ my-account {
       font-size: @size--2;
       line-height: @baseline - 5px;
     }
+  }
+}
+
+//- My Account
+campaign-bar {
+  display: block;
+  background: @c-booking-widget-my-account;
+  max-height: 0px;
+  text-align:center;
+  //Fix for chrome leaving line trace artifact after animation
+  -webkit-transform: translate3d(0,0,0);
+  //transition: max-height .6s ease-out;
+  .transition(max-height, 1s, ease-in-out);
+  overflow: hidden;
+
+  &.is-open {
+    max-height: 110px;
+  }
+
+  // Wrapper to center content
+  .campaign-bar {
+    display: inline-block;
+    padding:15px 0;
+    margin: 0 auto;
   }
 }

@@ -13,6 +13,7 @@ angular.module('mobiusApp.config', [])
     'development': '',
     'integration': '',
     'staging': '',
+    'uat': '',
     'live': ''
   },
   'sentry': {
@@ -20,6 +21,7 @@ angular.module('mobiusApp.config', [])
     'development': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'integration': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
+    'uat': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
   'evolutionInfiniti': {
@@ -30,6 +32,7 @@ angular.module('mobiusApp.config', [])
       'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
       'staging': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
+      'uat': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
       'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
     }
   },
@@ -60,6 +63,7 @@ angular.module('mobiusApp.config', [])
       'development': 'http://lindner.mobiuswebservices.com/api/4.0/',
       'integration': 'http://integration-lindner-www.mobiuswebservices.com:3010/api/4.0/',
       'staging': 'http://staging-lindner-node.mobiuswebservices.com/api/4.0/',
+      'uat': '/api/4.0/',
       'live':  'http://lindner.mobiuswebservices.com/api/4.0/'
     },
     'mobiusTracking': {
@@ -202,6 +206,7 @@ angular.module('mobiusApp.config', [])
       'facebookAppId': '',
       'loyaltyProgramEnabled': false,
       'disableMainHeaderStyle': true,
+      'longDateFormat': 'Do MMM YYYY',
       'showAltNav': false,
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false
@@ -796,9 +801,15 @@ angular.module('mobiusApp.config', [])
       'bookingStepsNav':{
         'display': false
       },
+      //Default value for newsletter opt-in checkbox
+      'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
         'display': true
+      },
+      //Reverse the same address checkbox logic
+      'billingAddress': {
+        'reverseCheckboxLogic':true
       },
       //Additional details screen
       'additionalDetails':{
@@ -811,7 +822,8 @@ angular.module('mobiusApp.config', [])
         'comments':{
           'display': true,
           'position': 'top'
-        }
+        },
+        'optedInDefault': true
       }
     },
     'myAccount' : {
@@ -909,13 +921,34 @@ angular.module('mobiusApp.config', [])
 
     // Policy codes from the API and their title translates
     'policies': {
-      'cancellation': 'Cancellation',
-      'checkInOut': 'Check-In-Out',
-      'extraGuest': 'Extra Guest',
-      'family': 'Family',
-      'guarantee': 'Guarantee',
-      'noShow': 'No Show',
-      'pet': 'Pet'
+      'cancellation': {
+        'title':'Cancellation',
+        'code':'24HR'
+      },
+      'checkInOut': {
+        'title':'Check-In-Out',
+        'code':'10AM4PM'
+      },
+      'extraGuest': {
+        'title':'Extra Guest',
+        'code':'20CADMORE'
+      },
+      'family': {
+        'title':'Family',
+        'code':'DEFAULT'
+      },
+      'guarantee': {
+        'title':'Guarantee',
+        'code':'CCGOVID'
+      },
+      'noShow': {
+        'title':'No Show',
+        'code':'DEFAULT'
+      },
+      'pet': {
+        'title':'Pet',
+        'code':'DEFAULT'
+      }
     },
     'defaultCountryCode': 'ca',
     'preferredCountryCodes': 'ca,us,gb',

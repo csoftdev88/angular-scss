@@ -33,6 +33,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
 
+
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
     if (value === true) {
@@ -48,6 +49,10 @@ angular.module('mobius.controllers.hotel.details', [
   bookingParams = bookingService.updateOfferCode(bookingParams);
   bookingParams = bookingService.updateDiscountCode(bookingParams);
   var mobiusUserPreferences = userPreferenceService.getCookie();
+
+  $rootScope.flexibleDates = mobiusUserPreferences && mobiusUserPreferences.flexibleDates ? mobiusUserPreferences.flexibleDates : null;
+  $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && $rootScope.flexibleDates ? true : false;
+
   // Include the amenities
   bookingParams.includes = 'amenities';
 
@@ -91,7 +96,20 @@ angular.module('mobius.controllers.hotel.details', [
       }, 0);
     }
 
-
+    /*<select
+      name="sorting"
+      ng-model="currentOrder"
+      disable-search="true"
+      chosen
+      ng-options="option.name for option in sortingOptions"
+      placeholder-text-single="_sorting_filter_placeholder_"
+      ng-change="orderSwitchChange(currentOrder)"
+      ng-init="initSortingOptions({
+        'priceLowToHigh': '_price_low_to_high_',
+        'priceHighToLow': '_price_high_to_low_',
+        'recommended': '_recommended_'
+      })">
+    </select>*/
 
     //save order switch value to cookies when changed
     $scope.orderSwitchChange = function(selected) {
@@ -100,6 +118,101 @@ angular.module('mobius.controllers.hotel.details', [
 
   };
 
+  if($scope.showFlexibleDates && $stateParams.dates){
+
+    $scope.flexibleDates = [];
+
+    var dates = $stateParams.dates.split('_');
+    var fromDate = dates[0];
+    var toDate = dates[1];
+
+    var lengthOfStay = $window.moment(dates[1]).diff($window.moment(dates[0]), 'days');
+
+    var startFromDate = $window.moment.tz(fromDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
+    var startToDate = $window.moment.tz(toDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
+    var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+    var datesLength = ($rootScope.flexibleDates * 2) + 1;
+    var origStartFromDate = startFromDate;
+
+    for(var i = 0; i < datesLength; i++)
+    {
+      if(startFromDate >= today && startToDate >= today){
+        var flexiDate = {
+          'value':startFromDate.format('YYYY-MM-DD') + '_' + startToDate.format('YYYY-MM-DD'),
+          'name':startFromDate.format('DD MMM YYYY') + ' - ' + startToDate.format('DD MMM YYYY')
+        };
+        flexiDate.shortName = flexiDate.name;
+        $scope.flexibleDates.push(flexiDate);
+      }
+      startFromDate = $window.moment(startFromDate).add(1, 'day');
+      startToDate = $window.moment(startToDate).add(1, 'day');
+    }
+
+    var lengthDifference = datesLength - $scope.flexibleDates.length;
+    $scope.flexibleDate = $scope.flexibleDates[$rootScope.flexibleDates - lengthDifference];
+
+    var params = {
+      'from':origStartFromDate.format('YYYY-MM-DD'),
+      'to':startFromDate.add(-1,'day').format('YYYY-MM-DD'),
+      'adults':bookingParams.adults,
+      'children':bookingParams.children,
+      'lengthOfStay':lengthOfStay
+    };
+
+    if(bookingParams.rate){
+      params = bookingParams.rate;
+    }
+    if(bookingParams.promoCode){
+      params = bookingParams.promoCode;
+    }
+    if(bookingParams.groupCode){
+      params = bookingParams.groupCode;
+    }
+    if(bookingParams.corpCode){
+      params = bookingParams.corpCode;
+    }
+
+    propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+      _.each($scope.flexibleDates, function(flexibleDate){
+        var datesArray = flexibleDate.value.split('_');
+        var flexibleFrom = $window.moment.tz(datesArray[0], Settings.UI.bookingWidget.timezone);
+        _.each(availabilities, function(availability){
+          if(flexibleFrom.format('YYYY-MM-DD') === availability.date)
+          {
+            flexibleDate.available = availability.available && availability.fullyAvailable;
+            if(flexibleDate.available && availability.priceFrom){
+              //var thisPrice = $filter('i18nCurrency')(availability.priceFrom, $rootScope.currencyCode, undefined, false);
+              flexibleDate.name += ' (from $' + availability.priceFrom + ')';
+            }
+            else
+            {
+              flexibleDate.disabled = true;
+              flexibleDate.name += ' (unavailable)';
+            }
+          }
+        });
+        $timeout(function() {
+          $('.dates-dropdown-container .dates-switch select').trigger('chosen:updated');
+        });
+      });
+      $timeout(function() {
+        $('.dates-dropdown-container .dates-switch select').trigger('chosen:updated');
+      });
+    });
+
+    $scope.flexibleDatesChange = function(flexibleDate){
+      $scope.flexibleDate = flexibleDate;
+      var params = $state.params;
+      params.dates = flexibleDate.value;
+      $state.go($state.current.name, params, {reload: false});
+      bookingParams.from = params.dates.split('_')[0];
+      bookingParams.to = params.dates.split('_')[1];
+      getHotelDetails($state.params.property, bookingParams);
+      $timeout(function() {
+        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', bookingParams);
+      });
+    };
+  }
 
   var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
 
@@ -162,6 +275,11 @@ angular.module('mobius.controllers.hotel.details', [
           }, 1500);
         }
       });
+    }
+    else {
+      $timeout(function() {
+        scrollService.scrollTo('top');
+      }, 0);
     }
   });
 
@@ -234,7 +352,9 @@ angular.module('mobius.controllers.hotel.details', [
 
         if($scope.details.content){
           _.each($scope.details.content, function(item){
-            item.url = getContentUrl(item);
+            if(item.meta){
+              item.url = getContentUrl(item);
+            }
           });
         }
 
@@ -472,11 +592,11 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.getCheckinDate = function() {
-    return $window.moment(bookingService.getAPIParams().from).format('Do MMM YYYY');
+    return $window.moment(bookingService.getAPIParams().from).format(Settings.UI.generics.longDateFormat ? Settings.UI.generics.longDateFormat : 'Do MMM YYYY');
   };
 
   $scope.getCheckoutDate = function() {
-    return $window.moment(bookingService.getAPIParams().to).format('Do MMM YYYY');
+    return $window.moment(bookingService.getAPIParams().to).format(Settings.UI.generics.longDateFormat ? Settings.UI.generics.longDateFormat : 'Do MMM YYYY');
   };
 
   $scope.selectDates = function() {

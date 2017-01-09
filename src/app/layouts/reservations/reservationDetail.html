@@ -1,3 +1,5 @@
+<breadcrumbs ng-if="config.displayBreadcrumbsOnReservationDetail" stickable="main-header"></breadcrumbs>
+
 <main class="grid-wrapper">
 
   <div class="preloader" ng-show="preloader.visible"></div>
@@ -54,7 +56,7 @@
         </div>
 
         <div class="booked">
-          _booked_: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
+          _booked_: {{reservation.bookingDate | dateTime}}
         </div>
       </header>
 
@@ -63,8 +65,8 @@
           <img ng-if="roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
           <div ng-if="!roomDetails.images[0].uri" class="room-image-placeholder"></div>
           <!-- TODO: Add actions to buttons -->
-          <button ng-switch-when="true" class="button" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}" ng-if="!reservation.isInThePast">_modify_</button>
-          <button ng-switch-when="true" class="button-gray" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()" ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}" ng-if="!reservation.isInThePast">_cancel_</button>
+          <button ng-switch-when="true" class="button" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()" ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}" ng-if="!reservation.isInThePast" ng-disabled="!reservation.canModify">_modify_</button>
+          <button ng-switch-when="true" class="button-gray" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()" ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}" ng-if="!reservation.isInThePast" ng-disabled="!reservation.canCancel">_cancel_</button>
         </figure>
 
         <div>
@@ -76,6 +78,10 @@
 
           <table class="data">
             <tbody>
+              <tr ng-if="config.showGuestName" class="guest-name">
+                <th>_guest_name_:</th>
+                <td>{{reservation.rooms[0].firstName}} {{reservation.rooms[0].lastName}}</td>
+              </tr>
               <tr>
                 <th>_check_in_:</th>
                 <td>{{reservation.arrivalDate | dateTime}}</td>
@@ -195,6 +201,26 @@
         <footer ng-if="!config.reservationDetailPriceBreakdownExtended">
           <a href ng-click="openPoliciesInfo()">_view_policies_</a>
         </footer>
+        <div ng-if="config.displayAddonVoucherEntry" class="voucher-entry addon-vouchers">
+          <h5>_redeem_addon_voucher_message_</h5>
+          <label for="voucher">
+            <input type="text" id="voucher"
+              placeholder="_enter_voucher_label_"
+              ng-model="voucher.code"
+              ng-disabled="voucher.valid || voucher.verifying"
+              ng-keypress="($event.which === 13)?redeemVoucher():0"
+              name="voucher"
+              ng-pattern="$root.generalValidationPattern"/>
+            <img src="/static/images/preloader.gif" ng-hide="!voucher.verifying" />
+            <button class="button" ng-click="redeemVoucher()" ng-disabled="!voucher.code || voucher.valid || voucher.verifying">_voucher_button_text_</button>
+          </label>
+          <div class="voucher-valid" ng-if="voucher.valid && voucher.submitted">
+            <i class="fa fa-check"/><span> _voucher_code_valid_</span>
+          </div>
+          <div class="voucher-invalid" ng-if="!voucher.valid && voucher.submitted">
+            <i class="fa fa-close"/><span> _voucher_code_invalid_</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -227,7 +253,7 @@
 
             <i>_add_reservation_enhance_to_booking_desc_:</i>
 
-            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: defaultCurrencyCode}}</a>
+            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode}}</a>
             <a class="button"ng-if="addon.pointsRequired && loyaltyProgramEnabled && addon.allowPointsBooking" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>_points_</small></a>
           </div>
         </li>

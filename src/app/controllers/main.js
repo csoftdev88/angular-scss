@@ -3,11 +3,11 @@
 angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
-  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope',
-    function($scope, $state, $modal, orderByFilter, modalService,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope) {
-
+  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService', 'locationService',
+    function($scope, $state, $modal, orderByFilter, modalService, $window,
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService, locationService) {
+      var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
 
       try{
@@ -55,7 +55,12 @@ angular.module('mobius.controllers.main', [])
       };
 
       var heroSliderData;
-      $scope.updateHeroContent = function(data, forceDefault){
+      $scope.updateHeroContent = function(data, forceDefault) {
+        if ($rootScope.thirdparty) {
+          $rootScope.heroContent = $rootScope.thirdparty.heroContent;
+          return;
+        }
+
         if(data && data.length){
           $rootScope.heroContent = filterHeroContent(data);
           return;
@@ -167,6 +172,10 @@ angular.module('mobius.controllers.main', [])
 
       $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
         $scope.isUserLoggedIn = user.isLoggedIn;
+        if($state.current.name === 'reservation.details')
+        {
+          $state.reload();
+        }
       });
 
       modalService.openDialogIfPresent();
@@ -202,7 +211,28 @@ angular.module('mobius.controllers.main', [])
       //Footer
       $scope.footerConfig = Settings.UI.footer;
 
+      activeThirdParty = cookieFactory('ActiveThirdParty');
+      if (!_.isEmpty(activeThirdParty)) {
+        $rootScope.thirdparty = JSON.parse(activeThirdParty);
+        if($rootScope.thirdparty.code){
+          $stateParams[$rootScope.thirdparty.code.type] = $rootScope.thirdparty.code.value;
+        }
+      }
+
+      //check if user is logged in and then get campaigns
+      function onAuthorized(){
+        if(Settings.UI.campaigns && Settings.UI.campaigns.display){
+          var loggedIn = user ? user.isLoggedIn() : false;
+          if(!$rootScope.thirdparty && _.isEmpty(activeThirdParty)){
+            locationService.getLocations().then(function(locations){
+              campaignsService.setCampaigns(loggedIn, locations);
+            });
+          }
+        }
+      }
+
       // Inheriting the following controllers
+      $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
       $controller('PreloaderCtrl', {$scope: $scope});
       $controller('SanitizeCtrl', {$scope: $scope});
     }]);

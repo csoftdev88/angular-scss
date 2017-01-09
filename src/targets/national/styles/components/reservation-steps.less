@@ -1,0 +1,58 @@
+.reservation-steps {
+  .viewport-mobile & {
+    margin:0;
+  }
+  .reservation-login-banner {
+    padding: 30px;
+    display: block;
+    margin-bottom: 72px;
+    background: @c-primary;
+    font-family: @ff-heading;
+    font-size: 21px;
+    line-height: 28px;
+    color: @c-white;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+
+    .viewport-mobile & {
+      padding: 20px;
+      font-size: 15px;
+      line-height: 24px;
+    }
+  }
+
+  h4 {
+    display: none;
+  }
+
+  ul {
+    width: 100%;
+
+    li {
+      &:first-child {
+        width: 25%;
+        margin-left: 0;
+
+        .viewport-mobile &,
+        .viewport-tablet & {
+          width: auto;
+        }
+      }
+
+      .viewport-tablet & {
+        margin: 0 1% 5px 0;
+      }
+
+      .button {
+        background: @c-white;
+        color: @c-dark-grey;
+        line-height:30px;
+
+        &:after {
+          color: @c-dark-grey;
+        }
+      }
+    }
+  }
+}

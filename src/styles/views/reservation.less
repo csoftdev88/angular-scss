@@ -356,42 +356,7 @@ reservation-widget {
         }
       }
     }
-    .voucher-entry {
-      margin-top:20px;
-      label {
-        position:relative;
-        padding-right:142px;
-        padding-top:10px;
-        button {
-          position: absolute;
-          right: 0;
-          top: 13px;
-        }
-        input {
-          padding-right:40px;
-          line-height: 40px;
-          height: 40px;
-          margin-top: 3px;
-          &[disabled="disabled"] {
-            color:#ddd;
-          }
-        }
-        img {
-          position: absolute;
-          top: 20px;
-          right: 150px;
-          width: 25px;
-        }
-      }
-      .voucher-valid {
-        color:@c-green;
-      }
-      .voucher-invalid {
-        color: @c-red;
-      }
-    }
   }
-
   label[for="agreement3"] {
     margin: 0 @spacing @baseline/2 @spacing;
     padding: 0px;
@@ -453,6 +418,41 @@ reservation-widget {
   @media screen and @tablet-portrait-min {
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+.voucher-entry {
+  margin-top:20px;
+  label {
+    position:relative;
+    padding-right:142px;
+    padding-top:10px;
+    button {
+      position: absolute;
+      right: 0;
+      top: 13px;
+    }
+    input {
+      padding-right:40px;
+      line-height: 40px;
+      height: 40px;
+      margin-top: 3px;
+      &[disabled="disabled"] {
+        color:#ddd;
+      }
+    }
+    img {
+      position: absolute;
+      top: 20px;
+      right: 150px;
+      width: 25px;
+    }
+  }
+  .voucher-valid {
+    color:@c-green;
+  }
+  .voucher-invalid {
+    color: @c-red;
   }
 }
 

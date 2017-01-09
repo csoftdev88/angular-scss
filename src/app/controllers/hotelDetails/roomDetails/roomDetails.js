@@ -59,7 +59,12 @@ angular.module('mobius.controllers.room.details', [])
     // Tracking product view
     chainService.getChain(Settings.API.chainCode).then(function(chainData) {
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-        var localeData = propertyData.locale.split('-')[1].trim();
+        var localeData = propertyData.locale;
+        var localeArray = localeData ? propertyData.locale.split('-') : null;
+        if(localeArray && localeArray.length > 1)
+        {
+          localeData = localeArray[1].trim();
+        }
         var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + $scope.roomDetails.name;
         var variant = '';
         if($stateParams.adults && $stateParams.children)
@@ -124,7 +129,12 @@ angular.module('mobius.controllers.room.details', [])
             }
             if(data[1].products){
               //google analytics
-              var localeData = propertyData.locale.split('-')[1].trim();
+              var localeData = propertyData.locale;
+              var localeArray = localeData ? propertyData.locale.split('-') : null;
+              if(localeArray && localeArray.length > 1)
+              {
+                localeData = localeArray[1].trim();
+              }
               var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + data[0].name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)
@@ -153,7 +163,7 @@ angular.module('mobius.controllers.room.details', [])
               $scope.$watch('currentOrder', function(order) {
                 if(order && angular.isDefined(order)){
                   //trackSearch(chainData, propertyData, trackingData, scopeData, stateParams, order)
-                  infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0]);
+                  infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0], $scope.rates.selectedRate);
                 }
               });
 

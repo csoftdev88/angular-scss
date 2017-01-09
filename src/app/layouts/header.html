@@ -1,13 +1,22 @@
-<div id="main-header-inner">
-  <nav class="main-nav wrapper" dropdown>
+<slidedown-notifications ng-if="$root.campaign && $root.campaign.headerBar.display"></slidedown-notifications>
 
-    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && !isMobile">
+<div id="main-header-inner">
+  <nav class="main-nav wrapper" dropdown ng-class="{'has-corp-logo': thirdparty.logo.images.uri}">
+
+    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && !isMobile && $state.$current.self.name.indexOf('reservation') === -1">
       <li language-list></li>
     </ul>
 
-    <a class="brand" ui-sref="home({property:null})">
+    <a class="brand" ui-sref="home({property:null})" ng-if="!config.generics.headerLogoLink">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
       <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+      <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
+    </a>
+
+    <a class="brand" ng-href="{{config.generics.headerLogoLink}}" ng-if="config.generics.headerLogoLink">
+      <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
+      <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
+      <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
     </a>
 
     <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu()"></a>
@@ -54,7 +63,7 @@
               </li>
               <li>
                 <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
-                <a ng-if="!sso.isInfiniti()" href ui-sref="profile" ui-sref-opts="{reload:true}">_profile_</a>
+                <a ng-if="!sso.isInfiniti()" ui-sref="profile">_profile_</a>
               </li>
               <li>
                 <a href ng-click="sso.logout()">_logout_</a>
@@ -72,15 +81,15 @@
             ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
         </li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showHotDeals && (!config.menu.standalone || isMobile)" menu-content="deals" data-title="_hot_deals_"></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals) && (!config.menu.standalone || isMobile)" menu-content="deals" data-title="_hot_deals_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showMeetingsBanquets && (!config.menu.standalone || isMobile)"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="active">_meetings_banquets_</a></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets) && (!config.menu.standalone || isMobile)"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="active">_meetings_banquets_</a></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showOffers && (!config.menu.standalone || isMobile)" menu-content="offers" data-title="_offers_deals_"></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showOffers : config.menu.showOffers) && (!config.menu.standalone || isMobile)" menu-content="offers" data-title="_offers_deals_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showAbout && (!config.menu.standalone || isMobile)" menu-content="about" data-title="_about_us_"></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showAbout : config.menu.showAbout) && (!config.menu.standalone || isMobile)" menu-content="about" data-title="_about_us_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showNews && (!config.menu.standalone || isMobile)" menu-content="news" data-title="_news_"></li>
+        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showNews : config.menu.showNews) && (!config.menu.standalone || isMobile)" menu-content="news" data-title="_news_"></li>
 
         <li ng-show="config.menu.showContact && (!config.menu.standalone || isMobile)">
             <a
@@ -137,7 +146,7 @@
               </li>
               <li>
                 <a ng-if="sso.isInfiniti()" href ng-click="sso.profile()">_profile_</a>
-                <a ng-if="!sso.isInfiniti()" href ui-sref="profile" ui-sref-opts="{reload:true}">_profile_</a>
+                <a ng-if="!sso.isInfiniti()" href ui-sref="profile">_profile_</a>
               </li>
               <li>
                 <a href ng-click="sso.logout()">_logout_</a>
@@ -166,17 +175,17 @@
             ng-class="{'is-active': $state.includes('hotel')}">_hotel_</a>
         </li>
 
-        <li ng-show="config.menu.showRegionsMegaMenu" mega-menu data-title="_hotels_" data-type="hotels"></li>
+        <li ng-show="thirdparty ? thirdparty.config.menu.showRegionsMegaMenu : config.menu.showRegionsMegaMenu" mega-menu data-title="_hotels_" data-type="hotels"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showHotDeals" mega-menu data-title="_hot_deals_" data-type="hot-deals"></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals" mega-menu data-title="_hot_deals_" data-type="hot-deals"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showMeetingsBanquets"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="is-active">_meetings_banquets_</a></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="is-active">_meetings_banquets_</a></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showOffers : config.menu.showOffers" menu-content="offers" data-title="_offers_deals_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showAbout : config.menu.showAbout" menu-content="about" data-title="_about_us_"></li>
 
-        <li has-dropdown="hover" ng-show="config.menu.showNews" menu-content="news" data-title="_news_"></li>
+        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showNews : config.menu.showNews" menu-content="news" data-title="_news_"></li>
 
         <li ng-show="config.menu.showContact">
             <a
@@ -274,4 +283,12 @@
 
     </div>
   </div>
+  <!-- Only display page curl if there are no active side rails and page curl image is set -->
+  <div class="curl rightcorner" ng-if="$root.campaign && !$root.campaign.sideRails.display && $root.campaign.pageCurl.display">
+	   <div class="curl-content">
+       <a ng-href="{{$root.campaign.uri}}"><img src="{{$root.campaign.pageCurl.images.uri}}"/></a>
+	    </div>
+    </div>
+  </div>
+
 </div><!-- #main-header-inner -->

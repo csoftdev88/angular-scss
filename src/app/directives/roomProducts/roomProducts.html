@@ -1,5 +1,5 @@
 <div class="preloader" ng-show="products === undefined"></div>
-<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" ota-expedia-message="'_ota_expedia_message_'" ota-tripadvisor-message="'_ota_tripadvisor_message_'" ota-booking-com-message="'_ota_booking_com_message_'" currency-code="currencyCode"></room-ota-products>
+<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" currency-code="currencyCode"></room-ota-products>
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
   <li ng-class="{'is-highlighted': product.highlighted || ($first && !product.memberOnly && settings.highlightFirstRate), 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && settings.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-repeat="product in products | limitTo: getRatesLimit()">
@@ -22,6 +22,13 @@
       <p class="full-description" ng-if="settings.showDescription" ng-bind-html="sanitize(product.descriptionShort || product.description)"></p>
 
       <p ng-if="settings.showDescription" class="tag-line">{{product.tagline}}</p>
+
+      <div ng-if="settings.showInclusions && product.inclusions" class="product-inclusions">
+        <p>_this_includes_</p>
+        <ul>
+          <li ng-repeat="inclusion in product.inclusions">{{inclusion.inclusionName}}</li>
+        </ul>
+      </div>
 
       <a class="info mobile" href ng-click="openProductDetailsDialog(product)">_view_details_</a>
     </div>
@@ -65,7 +72,7 @@
     <p class="unavailable error no-products" ng-class="{'with-dates': isDateRangeSelected()}">
       <span ng-if="!isOverAdultsCapacity()">
         <span ng-if="isDateRangeSelected()" class="desc">_not_available_on_dates_title_</span>
-      <span ng-if="!isDateRangeSelected()" class="desc">_select_dates_for_prices_title_</span>
+      <span ng-if="!isDateRangeSelected() && !roomsConfig.hideSelectDatesMessage" class="desc">_select_dates_for_prices_title_</span>
       <span ng-if="isDateRangeSelected()" class="sub-desc" ng-if="settings.showNoRatesSubDescription">_not_available_on_dates_sub_title_</span>
       <button-submit ng-click="selectDates()" class="alt">
         <span ng-if="hasDates()">_select_new_dates_</span>
@@ -81,7 +88,7 @@
     </p>
   </li>
 </ul>
-<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" ota-expedia-message="'_ota_expedia_message_'" ota-tripadvisor-message="'_ota_tripadvisor_message_'" ota-booking-com-message="'_ota_booking_com_message_'" currency-code="currencyCode"></room-ota-products>
+<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" currency-code="currencyCode"></room-ota-products>
 
 <!-- VIEW MORE RATES -->
 <div class="view-more-rates">

@@ -1,58 +1,26 @@
 .ota-products {
+  border: 1px solid @c-border-grey;
+  h4 {
+    padding:10px;
+    color: @c-primary;
+    .viewport-mobile & {
+      font-size:16px;
+      text-align:center;
+      color:#606060;
+      border:none;
+    }
+  }
   > li {
     padding: 10px;
-    border: 1px solid @c-border-grey;
-    border-top: 0 none;
+    border:0px none;
+    border-top: 1px solid @c-border-grey;
     float: none;
     position: relative;
-
-    &:first-child {
-      border: 1px solid @c-border-grey;
-    }
     .viewport-mobile & {
+      border-bottom:1px solid #c7c7c7 !important;
       background:transparent;
-      padding:10px 0;
-      border:0px none;
-      border-top:1px solid #d9d9d9;
+      padding:0;
     }
-
-    .ota-preloader {
-      background: #eee;
-      padding: 20px;
-      box-sizing: border-box;
-      display:block;
-      .ota-loader {
-        display: block;
-        width: 20px;
-        height: 20px;
-        background: url('@{img-prefix}/ota-preloader.gif') no-repeat center center;
-        background-size:cover;
-        margin:0px auto;
-      }
-      .ota-loader-text {
-        text-align: center;
-        display: block;
-        margin-top: 10px;
-        font-size:10px;
-        font-weight:300;
-        color: @c-primary;
-      }
-    }
-
-    h4 {
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid @c-border-grey;
-      color: @c-primary;
-      .viewport-mobile & {
-        padding-bottom:0;
-        font-size:16px;
-        text-align:center;
-        color:#606060;
-        border:none;
-      }
-    }
-
     .ota-rate-text {
       display: table;
       width:100%;
@@ -88,6 +56,28 @@
       span {
         text-decoration:underline;
       }
+    }
+  }
+  .ota-preloader {
+    background: #eee;
+    padding: 20px;
+    box-sizing: border-box;
+    display:block;
+    .ota-loader {
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: url('@{img-prefix}/ota-preloader.gif') no-repeat center center;
+      background-size:cover;
+      margin:0px auto;
+    }
+    .ota-loader-text {
+      text-align: center;
+      display: block;
+      margin-top: 10px;
+      font-size:10px;
+      font-weight:300;
+      color: @c-primary;
     }
   }
 }

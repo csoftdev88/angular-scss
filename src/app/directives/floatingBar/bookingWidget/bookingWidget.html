@@ -55,7 +55,9 @@
             data-counter-dates="{'0': '_arrival_: {date}', '1': '_departure_: {date}'}"
             data-force-end-date="true"
             input-text="inputDateText"
-            ng-change="checkAvailability()">
+            ng-change="checkAvailability()"
+            bar-data="selected"
+            not-available-description="'_not_available_description_'">
     <form-label>_enter_your_dates_</form-label>
     <input-value>{{inputDateText || '_dates_'}}</input-value>
   </form-element>
@@ -99,18 +101,19 @@
         disable-search="true"
         chosen ng-options="code as code.title for code in codeTypes"
         ng-change="onCodeTypeChanged()"
+        ng-disabled="$root.thirdparty"
         placeholder-text-single="_apply_code_">
       <option></option>
     </select>
 
-    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'promoCode'" placeholder="_promo_code_" ng-model="selected.promoCode" ng-pattern="$root.generalValidationPattern">
+    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'promoCode'" placeholder="_promo_code_" ng-model="selected.promoCode" ng-pattern="$root.generalValidationPattern">
 
-    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'corpCode'" placeholder="_corp_code_" ng-model="selected.corpCode" ng-pattern="$root.generalValidationPattern">
+    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'corpCode'" placeholder="_corp_code_" ng-model="selected.corpCode" ng-pattern="$root.generalValidationPattern">
 
-    <input type="text" class="booking-widget-promo-code" ng-show="selected.codeType.param === 'groupCode'" placeholder="_group_code_" ng-model="selected.groupCode" ng-pattern="$root.generalValidationPattern">
+    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'groupCode'" placeholder="_group_code_" ng-model="selected.groupCode" ng-pattern="$root.generalValidationPattern">
     <form-label>{{selected.codeType.title}}</form-label>
 
-    <remove-text role="button" class="remove" ng-click="removeCode()"></remove-text>
+    <remove-text ng-show="canRemoveCodes && !$root.thirdparty" role="button" class="remove" ng-click="removeCode()"></remove-text>
   </form-element>
 
   <!-- PRODUCTS RATES -->
@@ -118,7 +121,7 @@
     <select name="rates"
             required ng-model="selected.rate"
             disable-search="true"
-            on-ready="alert('yo')"
+            on-ready=""
             chosen ng-options="rate.id as rate.name for rate in rates"
             placeholder-text-single="_filter_rates_label_">
     </select>

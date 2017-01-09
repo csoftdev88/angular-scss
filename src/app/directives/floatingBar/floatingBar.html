@@ -33,6 +33,11 @@
     <a href="" ng-click="setActive(MY_ACCOUNT)" ng-bind-html="'_loyalty_progam_title_' | mainHeaderStyle">
     </a>
   </li>
+  <li class="floating-bar--tab-campaign" ng-if="$root.campaign && $root.campaign.bookingBar.display" ng-class="{'is-active': active === CAMPAIGN}" ng-style="{'background-color': $root.campaign.bookingBar.tabColor}">
+    <a href="" ng-click="setActive(CAMPAIGN)" ng-bind-html="$root.campaign.name | mainHeaderStyle">
+    </a>
+    <span class="campaign-end-piece" ng-style="{'border-bottom-color':$root.campaign.bookingBar.tabColor}"></span>
+  </li>
 </ul>
 <div>
   <booking-widget
@@ -48,4 +53,19 @@
     ng-show="loyaltyProgramEnabled"
     ng-class="{'is-open': !isCollapsed && active === MY_ACCOUNT}">
   </my-account>
+
+  <campaign-bar
+    ng-if="$root.campaign && $root.campaign.bookingBar.display"
+    ng-style="{'background-color': $root.campaign.bookingBar.tabColor}"
+    ng-class="{'is-open': !isCollapsed && active === CAMPAIGN}">
+    <a ng-href="{{$root.campaign.uri}}">
+      <div class="campaign-bar">
+        <div class="text-content">
+          <h2>{{$root.campaign.bookingBar.tabTitle}}</h2>
+          <p>{{$root.campaign.bookingBar.tabText}}</p>
+        </div>
+        <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.campaignStyle.secondaryColor +', '+$root.campaign.campaignStyle.primaryColor+')'}">{{$root.campaign.bookingBar.callToAction ? $root.campaign.bookingBar.callToAction : '_book_now_'}}</button>
+      </div>
+    </a>
+  </campaign-bar>
 </div>
