@@ -55,6 +55,9 @@ angular.module('mobiusApp.config', [])
     'trackUserId': true,
     'id': ''
   },
+  'hotjar': {
+    'enable': false,
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -168,7 +171,7 @@ angular.module('mobiusApp.config', [])
       }]
     },
     'sessionData': {
-      'includeInApiCalls': false,
+      'includeInApiCalls': true,
       'cookieName': 'mobiusSessionData',
       'httpHeaderFieldName': 'sessionData',
       //cookie expiry in minutes
