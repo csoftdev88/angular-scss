@@ -414,7 +414,7 @@
     "state_pattern_error": "Please enter a valid county, state or province",
     "postcode_pattern_error": "Please enter a valid post code or zip code",
     "receive_offer_label": "I am happy to receive offer via emails",
-    "email_optin_label": "I agree that I am happy for the Sandman Hotel Group to send me emails",
+    "email_optin_label": "I consent to receiving exclusive promotions and offers from Sandman Hotel Group",
     "enter_voucher_label": "Enter code",
     "redeem_voucher_message": "Voucher code",
     "redeem_addon_voucher_message": "Addon voucher code:",
