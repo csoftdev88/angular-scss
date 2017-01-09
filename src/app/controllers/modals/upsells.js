@@ -29,11 +29,11 @@ angular.module('mobius.controllers.modals.upsells', [
     {
       $scope.cancel();
       data.params.roomID = data.upsell.roomCode;
-      goToReservationDetails(data.params);
+      goToReservationDetails(data.product, data.params, true);
     }
     else {
       $scope.cancel();
-      goToReservationDetails(data.params);
+      goToReservationDetails(data.product, data.params, false);
     }
   };
 });

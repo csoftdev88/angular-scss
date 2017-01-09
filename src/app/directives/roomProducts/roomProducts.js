@@ -188,7 +188,19 @@ angular.module('mobiusApp.directives.room.products', [])
 
         var selectedProduct = _.findWhere(scope.products, {code: productCode});
 
-        if(selectedProduct){
+        //If upsells enabled and available display upsell modal
+        if(scope.displayUpsells && upsell) {
+          modalService.openUpsellsDialog(upsell, params, scope.goToReservationDetails, selectedProduct);
+        }
+        //Otherwise advance to checkout
+        else {
+          scope.goToReservationDetails(selectedProduct, params, false);
+        }
+      };
+
+      scope.goToReservationDetails = function(product, params, upsellAccepted){
+        // GTM Tracking product click
+        if(product){
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property || scope.details.code).then(function(propertyData){
               var localeData = propertyData.locale;
@@ -204,9 +216,9 @@ angular.module('mobiusApp.directives.room.products', [])
                 variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
               }
               dataLayerService.trackAddToCart({
-                name: selectedProduct.name,
-                id: selectedProduct.code,
-                price: (selectedProduct.price.totalBaseAfterPricingRules/numNights).toFixed(2),
+                name: product.name,
+                id: product.code,
+                price: (product.price.totalBaseAfterPricingRules/numNights).toFixed(2),
                 quantity: numNights,
                 dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,
@@ -214,20 +226,11 @@ angular.module('mobiusApp.directives.room.products', [])
                 list: 'Rooms',
                 category: category,
                 variant: variant
-              });
+              }, upsellAccepted);
             });
           });
         }
 
-        if(scope.displayUpsells && upsell) {
-          modalService.openUpsellsDialog(upsell, params, scope.goToReservationDetails);
-        }
-        else {
-          scope.goToReservationDetails(params);
-        }
-      };
-
-      scope.goToReservationDetails = function(params){
         var userLang = user.getUserLanguage();
         var appLang = stateService.getAppLanguageCode();
         if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
