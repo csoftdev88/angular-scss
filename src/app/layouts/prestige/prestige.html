@@ -126,11 +126,13 @@
               <div class="description">
                 <div class="label">_manual_reduction_</div>
                 <h4 class="value">_manually_removed_points_</h4>
+                <p class="detail" ng-class="{'open': item.showComments}" ng-if="item.comments">{{item.comments}}</p>
+                <a href="" class="comments-toggle" ng-click="item.showComments = !item.showComments" ng-if="item.comments"><span ng-if="!item.showComments">_show_comments_</span><span class="hide" ng-if="item.showComments">_hide_comments_</span></a>
               </div>
 
               <div class="transaction-value">
                 <div class="label">_transaction_</div>
-                <h4 class="value negative">-{{item.amount}}</h4>
+                <h4 class="value negative">{{item.amount}}</h4>
               </div>
 
               <div class="balance">
