@@ -355,7 +355,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         else{
           return _.find(regionsProperties, {code: propertyCode});
         }
-
       }
 
       function validatePropertyRegion() {
@@ -601,7 +600,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.selected.property = findProperty(scope.regionPropertySelected.code);
           scope.selected.region = undefined;
           scope.selected.location = undefined;
-          $stateParams.property = scope.selected.property.code;
+          $stateParams.property = scope.regionPropertySelected.code;
           break;
         default:
           throw new Error('Undefined type: "' + scope.regionPropertySelected.type + '"');
