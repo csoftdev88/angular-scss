@@ -25,7 +25,7 @@ booking-widget {
   }
 
   .viewport-mobile &{
-    max-height: auto;
+    max-height: 0 !important;
     transition: none;
     overflow: visible;
   }
@@ -97,6 +97,14 @@ booking-widget-add-room form-element {
     .chosen-single{
       height: 40px;
       line-height: 40px;
+    }
+  }
+
+  &.code.code-input {
+    select {
+      .viewport-mobile & {
+        display:none;
+      }
     }
   }
 
