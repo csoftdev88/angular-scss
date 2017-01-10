@@ -349,7 +349,9 @@ angular.module('mobiusApp.services.campaigns', [])
                 code: offerCode
               });
               var offer = offers[selectedOfferIndex];
-              $stateParams.code = offer.meta.slug;
+              if(offer && offer.meta && offer.meta.slug){
+                $stateParams.code = offer.meta.slug;
+              }
             });
 
             routerService.buildStateParams('hotel', paramsData).then(function(params) {
