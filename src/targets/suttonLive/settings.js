@@ -51,7 +51,7 @@ angular.module('mobiusApp.config', [])
     'development': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sutton-development',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -59,7 +59,7 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sutton-integration',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -67,7 +67,7 @@ angular.module('mobiusApp.config', [])
     'staging': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sutton-staging',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -75,7 +75,7 @@ angular.module('mobiusApp.config', [])
     'uat': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sutton-staging',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -83,7 +83,7 @@ angular.module('mobiusApp.config', [])
     'live': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
       'id':'sutton-live',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
