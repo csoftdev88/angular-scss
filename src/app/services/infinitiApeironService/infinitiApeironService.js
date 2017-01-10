@@ -236,7 +236,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         toDate = bookedDate[1];
       }
       var infinitiApeironData = buildGenericData(chainData);
-      infinitiApeironData.metaData.rateOrder = order.name || 'default';
+      infinitiApeironData.metaData.rateOrder = order && order.name ? order.name : 'default';
       if(selectedRate && selectedRate.code && selectedRate.name)
       {
         infinitiApeironData.metaData.rateFilter = {
