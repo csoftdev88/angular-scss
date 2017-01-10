@@ -404,9 +404,24 @@ angular.module('mobius.controllers.offers', [])
     });
 
     if (selectedOfferIndex < 0) {
-      return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {
-        code: null
-      });
+      //If on a location hotDeal page, take user back to location hotDeals page
+      if($stateParams && $stateParams.locationSlug && $stateParams.regionSlug && $stateParams.propertySlug){
+        var paramsData = {
+          'code': null,
+          'locationSlug': $stateParams.locationSlug,
+          'regionSlug': $stateParams.regionSlug,
+          'property': $stateParams.property,
+          'propertySlug': $stateParams.propertySlug
+        };
+        return $state.go('propertyHotDeals', paramsData, {
+          reload: true
+        });
+      }
+      else {
+        return $state.go($scope.isHotDeals ? 'hotDeals' : 'offers', {
+          code: null
+        });
+      }
     }
 
     //handle wrong slug
