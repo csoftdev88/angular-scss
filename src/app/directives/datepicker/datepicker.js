@@ -532,7 +532,6 @@ angular.module('mobiusApp.directives.datepicker', [])
         }
 
         $q.all(monthPromises).then(function(){
-          console.log('all complete');
           $('#ui-datepicker-div').removeClass('dates-loading');
         });
       }
