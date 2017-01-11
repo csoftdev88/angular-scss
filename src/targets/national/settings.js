@@ -428,7 +428,8 @@ angular.module('mobiusApp.config', [])
       'reservationDetailPriceBreakdownExtended': false,
       'hideHeroSliderOnReservations': true,
       'displayBreadcrumbsOnReservationDetail': true,
-      'displayCancelConfirmedModal': true
+      'displayCancelConfirmedModal': true,
+      'disableAddons': true
     },
 
     'aboutHotel': {
