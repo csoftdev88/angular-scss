@@ -234,7 +234,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         availablePoints = 0;
       }
 
-      var reservationPromise = [propertyPromise, roomDataPromise];
+      var reservationDataPromise = [propertyPromise, roomDataPromise];
 
       if(!$scope.config.disableAddons){
         var addonsPromise = $q.all([
@@ -286,9 +286,9 @@ angular.module('mobius.controllers.reservationDetail', [])
           currencyObj['mobius-currencycode'] = $rootScope.currencyCode;
           apiService.setHeaders(currencyObj);
         });
-        reservationPromise.push(addonsPromise);
+        reservationDataPromise.push(addonsPromise);
       }
-      preloaderFactory($q.all(reservationPromise));
+      preloaderFactory($q.all(reservationDataPromise));
     });
 
     preloaderFactory(reservationPromise);
