@@ -496,15 +496,13 @@ angular.module('mobiusApp.directives.datepicker', [])
           m = today.format('MM');
         }
 
-        var startDate = $window.moment([y, m]).add(-1,'month');
+        var startDate = $window.moment.tz([y, m], Settings.UI.bookingWidget.timezone).add(-1,'month');
         if(startDate.valueOf() < today.valueOf())
         {
           startDate = today;
           loadPreviousMonth = false;
         }
-        console.log(startDate);
-        startDate = startDate.format('YYYY-MM-DD');
-        console.log(startDate);
+        startDate = $window.moment.tz(new Date(startDate),Settings.UI.bookingWidget.timezone).format('YYYY-MM-DD');
         var endDate = $window.moment(startDate).endOf('month').format('YYYY-MM-DD');
 
 
