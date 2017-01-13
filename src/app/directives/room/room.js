@@ -400,24 +400,12 @@ angular.module('mobiusApp.directives.room', [])
         }
       };
 
-      scope.goToReservationDetails = function(product, params, upsellAccepted){
+      scope.goToReservationDetails = function(product, params){
         // GTM Tracking product click
         if(product){
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-              var localeData = propertyData.locale;
-              var localeArray = localeData ? propertyData.locale.split('-') : null;
-              if(localeArray && localeArray.length > 1)
-              {
-                localeData = localeArray[1].trim();
-              }
-              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
-              var variant = '';
-              if($stateParams.adults && $stateParams.children)
-              {
-                variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
-              }
-              dataLayerService.trackAddToCart({
+              dataLayerService.trackProductClick({
                 name: product.name,
                 id: product.code,
                 price: (product.price.totalBaseAfterPricingRules/numNights).toFixed(2),
@@ -426,9 +414,8 @@ angular.module('mobiusApp.directives.room', [])
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
                 list: 'Room',
-                category: category,
-                variant: variant
-              }, upsellAccepted);
+                category: scope.roomDetails.name
+              });
             });
           });
         }
@@ -453,20 +440,8 @@ angular.module('mobiusApp.directives.room', [])
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
         scope.openRoomDetailsDialog = function(product){
           // Tracking product view
-          /*chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+          chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-            var localeData = propertyData.locale;
-            var localeArray = localeData ? propertyData.locale.split('-') : null;
-            if(localeArray && localeArray.length > 1)
-            {
-              localeData = localeArray[1].trim();
-            }
-              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
-              var variant = '';
-              if($stateParams.adults && $stateParams.children)
-              {
-                variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
-              }
               dataLayerService.trackProductsDetailsView([{
                 name: product.name,
                 id: product.code,
@@ -476,19 +451,16 @@ angular.module('mobiusApp.directives.room', [])
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
                 list: 'Room',
-                category: category,
-                variant: variant
+                category: scope.roomDetails.name
               }]);
             });
-          });*/
+          });
           if(scope.config.rateInfoIsTabbed){
             modalService.openProductDetailsDialog(scope.roomDetails, product, true);
           }
           else{
             modalService.openRoomDetailsDialog(product.description);
           }
-
-
         };
       }
 
