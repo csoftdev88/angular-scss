@@ -1,0 +1,31 @@
+.cl-banner {
+  background: @c-primary;
+  min-height: 25px;
+  text-align: center;
+  padding: 5px;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  .viewport-mobile &, .viewport-tablet &, .campaign-rails-active & {
+    padding:10px;
+  }
+  br {
+    display:none;
+    .viewport-mobile &, .viewport-tablet & {
+      display:initial;
+    }
+  }
+  p {
+    color:#fff;
+    font-size: 11px;
+    line-height: 20px;
+    a {
+      height: 28px;
+      line-height: 28px;
+      margin: 10px 0 5px 20px;
+      font-size: 12px;
+    }
+  }
+}

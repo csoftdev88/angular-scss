@@ -168,7 +168,8 @@ angular.module('mobiusApp.directives.room.products', [])
           property: scope.details.code,
           roomID: roomCode,
           productCode: productCode,
-          promoCode: $stateParams.promoCode || null
+          promoCode: $stateParams.promoCode || null,
+          locationSlug: $stateParams.locationSlug
         };
 
         var selectedProduct = _.findWhere(scope.products, {code: productCode});
