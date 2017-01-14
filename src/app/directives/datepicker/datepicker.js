@@ -121,9 +121,8 @@ angular.module('mobiusApp.directives.datepicker', [])
         //If datepicker defaults to today's date and no dates are selected then pre-populate with today's date
         if(datePickerDefaultToToday && (ngModelCtrl.$modelValue === undefined || ngModelCtrl.$modelValue === ''))
         {
-          var currentDate = new Date();
-          var today = $window.moment(currentDate).format('YYYY-MM-DD');
-          var tomorrow = $window.moment(currentDate.setDate(currentDate.getDate() + 1)).format('YYYY-MM-DD');
+          var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').format('YYYY-MM-DD');
+          var tomorrow = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').add(1,'day').format('YYYY-MM-DD');
           var dateString = today + '_' + tomorrow;
           ngModelCtrl.$modelValue = dateString;
         }
@@ -145,7 +144,7 @@ angular.module('mobiusApp.directives.datepicker', [])
 
         bindResizeListener();
 
-        var minDate = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').toDate();
+        var minDate = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').format('YYYY-MM-DD');
 
         //NOTE: for languages to work, you must download the corresponding lang file from https://github.com/jquery/jquery-ui/tree/master/ui/i18n and include it in vendors/jquery-ui/datepicker-translations/ - then update the build.config.js accordingly
         element.datepicker($.extend({}, $.datepicker.regional[stateService.getAppLanguageCode().split('-')[0]], {
