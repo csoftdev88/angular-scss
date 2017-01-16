@@ -1068,6 +1068,9 @@ angular.module('mobius.controllers.reservation', [])
           var env = document.querySelector('meta[name=environment]').getAttribute('content');
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
             infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams, $scope.rates.selectedRate);
+
+            //Sending alerts to https://webservice.mobiuswebservices.com/alerting/alert
+            apiService.sendAlert('reporting', env, $stateParams, data, priceData);
           }
         });
       });
