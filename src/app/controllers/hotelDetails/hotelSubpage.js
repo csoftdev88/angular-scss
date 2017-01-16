@@ -99,6 +99,13 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         sortInfo(details);
 
+        if(Settings.UI.hotelDetails.subPageRedirects){
+          var redirectUrl = $scope.info && $scope.info.meta && $scope.info.meta.redirectUrl ? $scope.info.meta.redirectUrl : null;
+          if(redirectUrl){
+            $window.location.href = redirectUrl;
+          }
+        }
+
         //Get property region/location data for breadcrumbs
         propertyService.getPropertyRegionData(details.locationCode).then(function(propertyRegionData){
           if($stateParams.regionSlug && $stateParams.locationSlug)

@@ -486,6 +486,8 @@
     "error_page_subtitle": "It seems we’re experiencing some technical difficulties",
     "error_page_copy_one": "We’re fixing the problem right now - please check back soon and it’ll be good as new!",
     "error_page_copy_two": "If you need immediate assistance you can call us on <a href='tel:+41 41 419 09 10'>+41 41 419 09 10</a> or email us at <a href='mailto:info@grandhotel-national.com'>info@grandhotel-national.com</a>",
-    "change_currency": "Change currency"
+    "change_currency": "Change currency",
+    "fetching_room_rates": "Fetching Room Rates",
+    "you_are_currently_editing": "You are currently editing:"
   }
 }

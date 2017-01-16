@@ -25,6 +25,7 @@ angular
     'angular-growl',
     'ng.deviceDetector',
     'angular.vertilize',
+    'angular-cookie-law',
 
     // Controllers
     'mobius.controllers.common.sanitize',
@@ -219,7 +220,7 @@ angular
     controller: 'MainCtrl',
     // NOTE: These params are used by booking widget
     // Can be placed into induvidual state later if needed
-    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucher&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode&ch&meta'
+    url: '?property&location&region&locationSlug&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucher&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode&ch&meta'
   })
 
   // Home page
@@ -443,7 +444,7 @@ angular
     controller: 'OffersCtrl'
   })
 
-  .state('hotDeals', {
+  /*.state('hotDeals', {
     parent: 'root',
     templateUrl: 'layouts/offers/offers.html',
     url: '/:regionSlug/:locationSlug/hot-deals/:code',
@@ -458,6 +459,13 @@ angular
         squash: true
       }
     }
+  })*/
+
+  .state('hotDeals', {
+    parent: 'root',
+    templateUrl: 'layouts/offers/offers.html',
+    url: '/hot-deals/',
+    controller: 'OffersCtrl'
   })
 
   .state('propertyHotDeals', {
@@ -569,7 +577,7 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
     //This segment tracks any 404s and sends to our 404 tracking service
@@ -591,6 +599,9 @@ angular
 
     $rootScope.requestId = sessionDataService.generateUUID();
     apiService.trackUsage($location.absUrl(), $rootScope.requestId);
+    if(infinitiApeironService.isSinglePageApp){
+      infinitiApeironService.trackPageView($location.path() + $window.location.search);
+    }
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
@@ -659,7 +670,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, stateService, scrollService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory) {
+  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -790,4 +801,78 @@ angular
       }
     }
   });
+
+  //If EU cookie disclaimer enabled
+  if(Settings.showEUCookieDisclaimer) {
+    apiService.get('layouts/index.html').then(function(){
+      var isEUHeader = apiService.headers ? apiService.headers['CF-isEU'] : null;
+      var isEU = isEUHeader === false ? false : true;
+
+      if(isEU){
+        $scope.showEUCookieDisclaimer = true;
+        $rootScope.euCookieDisclaimerVisible = !CookieLawService.isEnabled();
+
+        if(cookieFactory('cookieDisclaimer')) {
+          $scope.showEUCookieDisclaimer = false;
+          $rootScope.euCookieDisclaimerVisible = false;
+        }
+
+        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+        var heroSliderEl = $('#main-container > div > hero-slider');
+
+        $scope.$on('cookieLaw.accept', function() {
+          $rootScope.euCookieDisclaimerVisible = false;
+
+          var cookieExpiryDate = null;
+          if(Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0){
+            cookieExpiryDate = new Date();
+            cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
+          }
+          $window.document.cookie = 'cookieDisclaimer=true' + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
+
+          //Re-position hero-slider after cookie law accepted on mobile
+          if(stateService.isMobile()){
+            $timeout(function(){
+              repositionHeroSlider(heroSliderEl);
+            },500);
+          }
+        });
+
+        if($rootScope.euCookieDisclaimerVisible){
+          if(stateService.isMobile()){
+            $timeout(function(){
+              repositionHeroSlider(heroSliderEl);
+            },500);
+          }
+          $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+            if(viewport.isMobile && $rootScope.euCookieDisclaimerVisible){
+              repositionHeroSlider(heroSliderEl);
+            }
+            else {
+              heroSliderEl.css('margin-top', '');
+            }
+          });
+        }
+      }
+    });
+  }
+
+  function repositionHeroSlider(heroSliderEl){
+    var mainHeaderHeight = $('#main-header').height();
+    heroSliderEl.css('margin-top', mainHeaderHeight);
+  }
 });
+
+
+//IE11 Custom Event Polyfill
+(function () {
+  if ( typeof window.CustomEvent === 'function' ) {return false;}
+  function CustomEvent ( event, params ) {
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent( 'CustomEvent' );
+    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    return evt;
+   }
+  CustomEvent.prototype = window.Event.prototype;
+  window.CustomEvent = CustomEvent;
+})();

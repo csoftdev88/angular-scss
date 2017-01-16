@@ -92,7 +92,7 @@
     <!-- End Hotjar Script -->
   </head>
 
-  <body resize-watcher ng-controller="BaseCtrl" ng-style="{'background-image': 'url(' + $root.campaign.sideRails.railImage.uri + ')'}" ng-class="{'campaign-rails-active': $root.campaign.sideRails.display, 'campaign-bar-active':$root.campaign.headerBar.display, 'thirdparty-active':$root.thirdparty}" >
+  <body resize-watcher ng-controller="BaseCtrl" ng-style="{'background-image': 'url(' + $root.campaign.sideRails.railImage.uri + ')'}" ng-class="{'campaign-rails-active': $root.campaign.sideRails.display, 'campaign-bar-active':$root.campaign.headerBar.display, 'thirdparty-active':$root.thirdparty, 'cookie-disclaimer-visible':$root.euCookieDisclaimerVisible}" >
     <!-- Google Tag Manager -->
     <google-tag-manager-script></google-tag-manager-script>
     <!-- End Google Tag Manager -->
@@ -102,5 +102,6 @@
 
     <!-- Add your site or application content here -->
     <div ui-view id="main-container"></div>
+
   </body>
 </html>

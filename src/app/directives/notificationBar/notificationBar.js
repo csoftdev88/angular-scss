@@ -16,13 +16,17 @@ angular.module('mobiusApp.directives.notifications', [])
     scope: true,
     templateUrl: 'directives/notificationBar/notificationBar.html',
     // Widget logic goes here
-    link: function(scope){
+    link: function(scope, elem, attrs){
       var notificationCloseEvent;
 
       $controller('SanitizeCtrl', {$scope: scope});
 
       function init(){
-        scope.message = notificationService.getMessage();
+        var message = notificationService.getMessage();
+        if(attrs.currentlyEditing && message){
+          message = message.replace('_you_are_currently_editing_', attrs.currentlyEditing);
+        }
+        scope.message = message;
         notificationCloseEvent = notificationService.getCloseEvent();
       }
 

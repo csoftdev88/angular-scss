@@ -154,7 +154,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
               // addons[1] - reservation addons
               $scope.reservationAddons = _.map(addons[1], function(addon) {
-                addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
+                addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : null;
                 addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
                 if (addon.hasViewMore) {
                   addon.descriptionShort += '…';
@@ -234,57 +234,61 @@ angular.module('mobius.controllers.reservationDetail', [])
         availablePoints = 0;
       }
 
-      var addonsPromise = $q.all([
-        // Available addons
-        reservationService.getAvailableAddons({
-          propertyCode: reservation.property.code,
-          roomTypeCode: defaultRoom.roomTypeCode,
-          productCode: reservation.rooms[0].productCode,
-          reservationID: reservation.id
-        }),
-        // Reservation addons
-        reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : reservation.email)
-      ]).then(function(addons) {
-        // addons[0] - available addons
-        // Available addons should only contain those which not in reservationAddons
-        //$scope.availableAddons = addons[0];
+      var reservationDataPromise = [propertyPromise, roomDataPromise];
 
-        $scope.availableAddons = [];
-        _.each(addons[0], function(addon) {
+      if(!$scope.config.disableAddons){
+        var addonsPromise = $q.all([
+          // Available addons
+          reservationService.getAvailableAddons({
+            propertyCode: reservation.property.code,
+            roomTypeCode: defaultRoom.roomTypeCode,
+            productCode: reservation.rooms[0].productCode,
+            reservationID: reservation.id
+          }),
+          // Reservation addons
+          reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : reservation.email)
+        ]).then(function(addons) {
+          // addons[0] - available addons
+          // Available addons should only contain those which not in reservationAddons
+          //$scope.availableAddons = addons[0];
 
-          var addedAddon = _.find(addons[1], function(a) {
-            return a.code === addon.code;
+          $scope.availableAddons = [];
+          _.each(addons[0], function(addon) {
+
+            var addedAddon = _.find(addons[1], function(a) {
+              return a.code === addon.code;
+            });
+
+            if (!addedAddon) {
+              // Checking if user has enought points to buy the addon
+              if (addon.pointsRequired && availablePoints < addon.pointsRequired) {
+                addon.pointsRequired = 0;
+              }
+              $scope.availableAddons.push(addon);
+            }
           });
 
-          if (!addedAddon) {
-            // Checking if user has enought points to buy the addon
-            if (addon.pointsRequired && availablePoints < addon.pointsRequired) {
-              addon.pointsRequired = 0;
+          // addons[1] - reservation addons
+          $scope.reservationAddons = _.map(addons[1], function(addon) {
+            addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : null;
+            addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
+            if (addon.hasViewMore) {
+              addon.descriptionShort += '…';
             }
-            $scope.availableAddons.push(addon);
-          }
+            return addon;
+          });
+
+          $rootScope.currencyCode = $scope.previousCurrency;
+          $scope.currentCurrency = $rootScope.currencyCode;
+          queryService.setValue(Settings.currencyParamName, $rootScope.currencyCode);
+          user.storeUserCurrency($rootScope.currencyCode);
+          var currencyObj = {};
+          currencyObj['mobius-currencycode'] = $rootScope.currencyCode;
+          apiService.setHeaders(currencyObj);
         });
-
-        // addons[1] - reservation addons
-        $scope.reservationAddons = _.map(addons[1], function(addon) {
-          addon.descriptionShort = addon.description.substr(0, SHORT_DESCRIPTION_LENGTH);
-          addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
-          if (addon.hasViewMore) {
-            addon.descriptionShort += '…';
-          }
-          return addon;
-        });
-
-        $rootScope.currencyCode = $scope.previousCurrency;
-        $scope.currentCurrency = $rootScope.currencyCode;
-        queryService.setValue(Settings.currencyParamName, $rootScope.currencyCode);
-        user.storeUserCurrency($rootScope.currencyCode);
-        var currencyObj = {};
-        currencyObj['mobius-currencycode'] = $rootScope.currencyCode;
-        apiService.setHeaders(currencyObj);
-      });
-
-      preloaderFactory($q.all([propertyPromise, roomDataPromise, addonsPromise]));
+        reservationDataPromise.push(addonsPromise);
+      }
+      preloaderFactory($q.all(reservationDataPromise));
     });
 
     preloaderFactory(reservationPromise);

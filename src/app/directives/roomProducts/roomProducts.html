@@ -1,4 +1,4 @@
-<div class="preloader" ng-show="products === undefined"></div>
+<div class="preloader" ng-show="products === undefined"><span>_fetching_room_rates_</span></div>
 <room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" currency-code="currencyCode"></room-ota-products>
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
