@@ -648,7 +648,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
         if($window.dataLayer)
         {
-          $window.dataLayer.push({'event': 'bookingBarSearch'});
+          $window.dataLayer.push({'bookingBarSearch': 'Booking bar search fired'});
         }
 
         // Changing application state
