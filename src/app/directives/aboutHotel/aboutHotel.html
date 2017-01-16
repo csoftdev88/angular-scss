@@ -1,8 +1,8 @@
 <header grid-row>
   <div grid="12">
-    <h1 ng-bind-html="'_home_page_title_' | mainHeaderStyle"></h1>
+    <h1 ng-bind-html="$root.thirdparty && $root.thirdparty.title ? $root.thirdparty.title : '_home_page_title_' | mainHeaderStyle"></h1>
     <hr/>
-    <div>_home_page_desc_</div>
+    <div ng-bind-html="$root.thirdparty && $root.thirdparty.description ? $root.thirdparty.description : '_home_page_title_'"></div>
 
   </div>
 </header>
