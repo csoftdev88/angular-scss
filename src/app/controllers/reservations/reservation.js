@@ -1081,6 +1081,9 @@ angular.module('mobius.controllers.reservation', [])
               });
             }
             infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams, $scope.rates.selectedRate);
+
+            //Sending alerts to https://webservice.mobiuswebservices.com/alerting/alert
+            apiService.sendAlert('reporting', env, $stateParams, data, priceData);
           }
         });
       });
