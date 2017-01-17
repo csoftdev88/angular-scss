@@ -115,6 +115,7 @@ angular
     'mobiusApp.services.track404s',
     'mobiusApp.services.campaigns',
     'mobiusApp.services.thirdPartiesService',
+    'mobiusApp.services.previousSearches',
 
     // Factories
     'mobiusApp.factories.template',
