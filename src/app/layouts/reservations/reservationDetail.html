@@ -253,7 +253,7 @@
 
             <i>_add_reservation_enhance_to_booking_desc_:</i>
 
-            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price | i18nCurrency: defaultCurrencyCode}}</a>
+            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode}}</a>
             <a class="button"ng-if="addon.pointsRequired && loyaltyProgramEnabled && addon.allowPointsBooking" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>_points_</small></a>
           </div>
         </li>
