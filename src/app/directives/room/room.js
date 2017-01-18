@@ -381,14 +381,16 @@ angular.module('mobiusApp.directives.room', [])
             property: propertyCode,
             roomID: roomCode,
             productCode: product.code,
-            promoCode: $stateParams.promoCode
+            promoCode: $stateParams.promoCode,
+            locationSlug: $stateParams.locationSlug
           };
         }
         else{
           params = {
             property: propertyCode,
             roomID: roomCode,
-            productCode: product.code
+            productCode: product.code,
+            locationSlug: $stateParams.locationSlug
           };
         }
 

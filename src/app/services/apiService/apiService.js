@@ -43,6 +43,14 @@ angular.module('mobiusApp.services.api', [])
           updateMobiusAuthHeader(resHeaders('mobius-authentication'));
         }
         apiCache.put(url, res);
+
+        //Add the CF-isEU header to denote if user is based in Europe for cookie disclaimer functionality
+        if(Settings.showEUCookieDisclaimer && resHeaders('CF-isEU')){
+          var isEUHeader = resHeaders('CF-isEU');
+          var headersObj = {};
+          headersObj['CF-isEU'] = isEUHeader;
+          setHeaders(headersObj);
+        }
         q.resolve(res);
 
       }).error(function(err) {
@@ -145,6 +153,36 @@ angular.module('mobiusApp.services.api', [])
         data: usagePayload
       }).success(function() {}).error(function(err) {console.log(err);});
     }
+  }
+
+  function sendAlert(component, env, stateParams, reservationData, priceData){
+    var numberOfOccupants = 0;
+    if(stateParams.adults){
+      numberOfOccupants += parseInt(stateParams.adults);
+    }
+    if(stateParams.children){
+      numberOfOccupants += parseInt(stateParams.children);
+    }
+    var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
+    var fromDate = null;
+    if (bookedDate && bookedDate.length) {
+      fromDate = bookedDate[0];
+    }
+    var alertData = {
+      'client': Settings.infinitiApeironTracking[env].username,
+      'id': Settings.infinitiApeironTracking[env].id,
+      'component': component,
+      'description': 'Booking sent to Apeiron from Mobius-web',
+      'meta': {
+          'reference number': reservationData && reservationData.length ? reservationData[0].reservationCode : null,
+          'bookDate': $window.moment.utc(new Date()).format('YYYY-MM-DD'),
+          'stayDate': fromDate,
+          'noOfOccupants': numberOfOccupants,
+          'totalRate': priceData.totalAfterTaxAfterPricingRules,
+      },
+      'severity': 5
+    };
+    post('https://webservice.mobiuswebservices.com/alerting/alert', alertData, null, true);
   }
 
   function infinitiApeironPost(url, data, username, password) {
@@ -272,7 +310,9 @@ angular.module('mobiusApp.services.api', [])
     setHeaders: setHeaders,
     objectToQueryParams: objectToQueryParams,
     infinitiApeironPost: infinitiApeironPost,
-    trackUsage: trackUsage
+    trackUsage: trackUsage,
+    headers: headers,
+    sendAlert: sendAlert
   };
   return api;
 });

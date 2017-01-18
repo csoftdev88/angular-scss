@@ -11,6 +11,7 @@ angular.module('mobiusApp.config', [])
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
   'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'showEUCookieDisclaimer':false,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -54,7 +55,7 @@ angular.module('mobiusApp.config', [])
     'development': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-development',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -62,23 +63,27 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
+      'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
+      'singlePageApp': true
     },
     'staging': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
+      'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
+      'singlePageApp': true
     },
     'uat': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -86,7 +91,7 @@ angular.module('mobiusApp.config', [])
     'live': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//fcbloyalty.infiniti.io/apeiron/1.01/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-live',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -368,6 +373,8 @@ angular.module('mobiusApp.config', [])
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
+      //Allow subpages to redirect if specified in admin
+      'subPageRedirects': false,
       'rooms': {
         'hideRoomsWithNoAvailability': true,
         'sortRoomsByWeighting': true,
