@@ -3,12 +3,17 @@
 angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
-  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
+  .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window', 'previousSearchesService',
     'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService', 'locationService',
-    function($scope, $state, $modal, orderByFilter, modalService, $window,
+    function($scope, $state, $modal, orderByFilter, modalService, $window, previousSearchesService,
       contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService, locationService) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
+
+      if($state.current.name === 'hotel'){
+        console.log('call previousSearchesService.addSearch()');
+        previousSearchesService.addSearch($stateParams);
+      }
 
       try{
 

@@ -3,7 +3,7 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.properties', [])
-.service( 'propertyService',  function($q, apiService, locationService, previousSearchesService, _) {
+.service( 'propertyService',  function($q, apiService, locationService, _) {
 
   function correctParams(params) {
     if (params && (!params.from || !params.to || !params.adults || !params.productGroupId)) {
@@ -17,16 +17,10 @@ angular.module('mobiusApp.services.properties', [])
   }
 
   function getAll(params){
-    if(params){
-      previousSearchesService.addSearch(params);
-    }
     return apiService.getThrottled(apiService.getFullURL('properties.all'), correctParams(params));
   }
 
   function getPropertyDetails(propertyCode, params){
-    if(params){
-      previousSearchesService.addSearch(params);
-    }
     var URL = apiService.getFullURL('properties.details', {propertyCode: propertyCode});
     return apiService.get(URL, correctParams(params));
   }

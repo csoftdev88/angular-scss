@@ -3,7 +3,7 @@
  * This service for dataLayer/Google tag manager
  */
 angular.module('mobiusApp.services.previousSearches', [])
-  .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, $stateParams, _) {
+  .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, _) {
 
     function isPreviousSearchesActive() {
       return Settings.UI.previousSearches && Settings.UI.previousSearches.enable;
@@ -33,14 +33,14 @@ angular.module('mobiusApp.services.previousSearches', [])
     function buildSearchObject(searchParams) {
       var search = null;
       if (sessionDataService.getCookie() && sessionDataService.getCookie().sessionData) {
-        search = correctParams(searchParams);
-        search.state = $state.current.name;
-        search.locationSlug = $state.params.locationSlug;
-        search.regionSlug = $state.params.locationSlug;
+        search = {};
+        search.params = angular.copy(searchParams);
         search.state = $state.current.name;
         search.guid = sessionDataService.generateUUID(); //Specific GUID generated for each search that can be referenced for deletion
         search.sessionId = sessionDataService.getCookie().sessionData.sessionId; //Specific GUID for each session so that we can remove all searches from a session once booking is complete
       }
+      console.log('search object');
+      console.log(search);
       return search;
     }
 
@@ -73,15 +73,6 @@ angular.module('mobiusApp.services.previousSearches', [])
           generateSearchCookie(cookie);
         }
       }
-    }
-
-    //Remove any unnecessary params
-    function correctParams(searchParams) {
-      var params = angular.copy(searchParams);
-      params.rate = params.productGroupId;
-      delete params.include;
-      delete params.productGroupId;
-      return params;
     }
 
     //Remove a specific search from the cookie
