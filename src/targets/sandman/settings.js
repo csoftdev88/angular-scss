@@ -268,6 +268,11 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:false
     },
+    'previousSearches': {
+      'enable':false,
+      'cookieName':'MobiusPreviousSearches',
+      'maxSearches':10
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
@@ -275,6 +280,7 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
+
     'generics': {
       'singleProperty': false,
       'facebookAppId': '',
