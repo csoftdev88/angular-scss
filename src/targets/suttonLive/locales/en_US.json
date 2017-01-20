@@ -491,6 +491,9 @@
     "error_page_copy_two": "If you need immediate assistance you can call us on <a href='tel:1.8663.SUTTON'>1.8663.SUTTON</a> or email us at <a href='mailto:reservations@suttonplace.com'>reservations@suttonplace.com</a>",
     "change_currency": "Change currency",
     "fetching_room_rates": "Fetching Room Rates",
-    "you_are_currently_editing": "You are currently editing:"
+    "you_are_currently_editing": "You are currently editing:",
+    "cookie_disclaimer_message": "We use cookies to track usage and preferences to ensure that we give you the best experience on our website. If you continue, we'll assume that you are happy to receive all cookies on our website.",
+    "continue_your_search": "Continue your search?",
+    "would_you_like_to_continue": "Would you like to continue one of your last searches? You were looking at:"
   }
 }

@@ -15,6 +15,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_UPSELLS = 'UpsellsCtrl',
       CONTROLLER_CAMPAIGN = 'CampaignCtrl',
       CONTROLLER_PASSWORD = 'PasswordCtrl',
+      CONTROLLER_PREVIOUS_SEARCHES = 'PreviousSearchesCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -451,6 +452,20 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openPreviousSearchesDialog(searches, removeSearch){
+    return openDialog('openPreviousSearchesDialog', 'layouts/modals/previousSearches.html', CONTROLLER_PREVIOUS_SEARCHES, {
+      windowClass: 'previous-searches-dialog',
+      resolve: {
+        data: function() {
+          return {
+            searches:searches
+          };
+        },
+        removeSearch: function(){return removeSearch;}
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -487,6 +502,7 @@ angular.module('mobiusApp.services.modal', [])
     openProductDetailsDialog: openProductDetailsDialog,
     openUpsellsDialog: openUpsellsDialog,
     openCampaignDialog: openCampaignDialog,
-    openPasswordDialog: openPasswordDialog
+    openPasswordDialog: openPasswordDialog,
+    openPreviousSearchesDialog: openPreviousSearchesDialog
   };
 });

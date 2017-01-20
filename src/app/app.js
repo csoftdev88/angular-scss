@@ -75,6 +75,7 @@ angular
     'mobius.controllers.modals.upsells',
     'mobius.controllers.modals.campaign',
     'mobius.controllers.modals.password',
+    'mobius.controllers.modals.previousSearches',
 
     // Application modules
     'mobiusApp.config',
@@ -115,6 +116,7 @@ angular
     'mobiusApp.services.track404s',
     'mobiusApp.services.campaigns',
     'mobiusApp.services.thirdPartiesService',
+    'mobiusApp.services.previousSearches',
 
     // Factories
     'mobiusApp.factories.template',
@@ -669,7 +671,7 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, stateService, scrollService,
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService,
   metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService) {
 
   $controller('ReservationUpdateCtrl', {
@@ -800,6 +802,11 @@ angular
         $window.evolution('track', 'pageview');
       }
     }
+
+    //If on the allHotels page, store the search
+    if($state.current.name === 'allHotels'){
+      previousSearchesService.addSearch($stateParams);
+    }
   });
 
   //If EU cookie disclaimer enabled
@@ -856,6 +863,9 @@ angular
       }
     });
   }
+
+  //Display our previous searches
+  previousSearchesService.displaySearches();
 
   function repositionHeroSlider(heroSliderEl){
     var mainHeaderHeight = $('#main-header').height();

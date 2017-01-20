@@ -5,10 +5,10 @@ angular.module('mobiusApp.directives.hotels', [])
 
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
-  'propertyService', 'preloaderFactory', '_', 'user', 'NgMap',
+  'propertyService', 'preloaderFactory', '_', 'user', 'NgMap', 'previousSearchesService',
   '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService', 'routerService', 'stateService',
   function($state, filtersService, bookingService, propertyService,
-    preloaderFactory, _, user, NgMap, $q, modalService, $controller,
+    preloaderFactory, _, user, NgMap, previousSearchesService, $q, modalService, $controller,
     breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService, routerService, stateService) {
 
     return {
@@ -103,6 +103,8 @@ angular.module('mobiusApp.directives.hotels', [])
                 addBreadCrumbs(curLocation);
 
                 if (curLocation) {
+                  //Store this location search
+                  previousSearchesService.addSearch($stateParams, curLocation.nameShort);
 
                   //hero slider
                   scope.updateHeroContent(curLocation.images);
