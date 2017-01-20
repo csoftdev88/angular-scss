@@ -35,6 +35,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   var _ = $window._;
   var DATES_SEPARATOR = '_';
   $scope.config = Settings.UI.reservations;
+  $scope.inclusionsAsAddons = Settings.API.reservations.inclusionsAsAddons;
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -472,7 +473,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           'id': addon.code,
           'variant': 'Room:' + addon.roomTypeCode + '|Type:' + addon.name,
           'quantity': 1,
-          'amount': addon.price,
+          'amount': $scope.inclusionsAsAddons ? addon.price.totalAfterTax : addon.price,
           'category': 'Add-Ons',
           'currency': $rootScope.currencyCode,
           'title': addon.name,
@@ -551,7 +552,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   // Returns a total price of addons added to current reservation
   $scope.getAddonsTotalPrice = function() {
     return _.reduce($scope.reservationAddons, function(acc, addon) {
-      return acc + addon.price;
+      return acc + ($scope.inclusionsAsAddons ? addon.price.totalAfterTax : addon.price);
     }, 0);
   };
 
