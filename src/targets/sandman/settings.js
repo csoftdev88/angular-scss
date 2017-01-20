@@ -276,6 +276,11 @@ angular.module('mobiusApp.config', [])
       'maxSearches':10,
       'cookieExpiryDays':180
     },
+    'funnelRetention':{
+      'enable':false,
+      'inactivityPeriod':600,
+      'displayExitModal':false
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
