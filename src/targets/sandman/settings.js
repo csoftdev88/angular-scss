@@ -269,7 +269,7 @@ angular.module('mobiusApp.config', [])
       display:true
     },
     'previousSearches': {
-      'enable':false,
+      'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
       'maxSearches':10,
