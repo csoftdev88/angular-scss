@@ -28,6 +28,16 @@ describe('propertyService', function() {
         getLocations: function(){}
       });
 
+      $provide.value('previousSearchesService', {
+        addSearch: function(){}
+      });
+
+      $provide.value('$state', {
+        current: {
+          name: 'testState',
+        }
+      });
+
       var apiService = {
         get: function(){},
         getThrottled: function(){},

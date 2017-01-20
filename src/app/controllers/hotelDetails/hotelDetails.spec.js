@@ -99,6 +99,10 @@ describe('mobius.controllers.hotel.details', function() {
           }
         });
 
+        $provide.value('previousSearchesService', {
+          addSearch: function(){}
+        });
+
         $provide.value('userPreferenceService', {
           getCookie: function() {},
           setCookie: function() {}
