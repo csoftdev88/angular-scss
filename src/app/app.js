@@ -670,7 +670,7 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, stateService, scrollService,
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService,
   metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService) {
 
   $controller('ReservationUpdateCtrl', {
@@ -800,6 +800,11 @@ angular
       if ($window.evolution) {
         $window.evolution('track', 'pageview');
       }
+    }
+
+    //Store search
+    if($state.current.name === 'allHotels' || $state.current.name === 'hotel' || $state.current.name === 'hotels' || $state.current.name === 'room'){
+      previousSearchesService.addSearch($stateParams);
     }
   });
 

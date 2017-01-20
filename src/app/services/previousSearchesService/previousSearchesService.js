@@ -46,8 +46,6 @@ angular.module('mobiusApp.services.previousSearches', [])
 
     //Add a search to the cookie
     function addSearchToCookie(search) {
-      console.log('add this search');
-      console.log(search);
       var cookie = null;
 
       //If cookie doesn't exist create one
@@ -85,11 +83,52 @@ angular.module('mobiusApp.services.previousSearches', [])
       if (isPreviousSearchesActive() && sessionDataService.getCookie() && sessionDataService.getCookie().sessionData) {
         var currentSessionId = sessionDataService.getCookie().sessionData.sessionId;
         var previousSearches = getSearches();
+        var changedCookie = false;
         if (previousSearches && previousSearches.length) {
           var filteredPreviousSearches = _.reject(previousSearches, function(search) {
-            return search.sessionId === currentSessionId;
+            if(search.sessionId === currentSessionId){
+              changedCookie = true;
+              return true;
+            }
+            else {
+              return false;
+            }
           });
-          var cookie = {
+          if(changedCookie){
+            var cookie = {
+              searches: filteredPreviousSearches
+            };
+            generateSearchCookie(cookie);
+          }
+        }
+      }
+    }
+
+    //Check all previous searches and remove any that are in the past
+    function removePastSearches() {
+      var changedCookie = false;
+      var cookie = angular.fromJson(cookieFactory(cookieName)) || null;
+      var previousSearches = cookie ? cookie.searches : null;
+      if (previousSearches && previousSearches.length) {
+        var today = $window.moment().format('YYYY-MM-DD');
+        var filteredPreviousSearches = _.reject(previousSearches, function(search) {
+          if(search.params && search.params.dates){
+            var datesArray = search.params.dates.split('_');
+            if(datesArray.length){
+              var from = datesArray[0];
+              var to = datesArray[1];
+              if($window.moment(from).isBefore(today, 'day') || $window.moment(to).isBefore(today, 'day')){
+                changedCookie = true;
+                return true;
+              }
+              else {
+                return false;
+              }
+            }
+          }
+        });
+        if(changedCookie){
+          cookie = {
             searches: filteredPreviousSearches
           };
           generateSearchCookie(cookie);
@@ -97,24 +136,10 @@ angular.module('mobiusApp.services.previousSearches', [])
       }
     }
 
-    //Check all previous searches and remove any that are in the past
-    function removePastSearches() {
-      var cookie = angular.fromJson(cookieFactory(cookieName)) || null;
-      var previousSearches = cookie ? cookie.searches : null;
-      if (previousSearches && previousSearches.length) {
-        var today = $window.moment().format('YYYY-MM-DD');
-        var filteredPreviousSearches = _.reject(previousSearches, function(search) {
-          return $window.moment(search.from).isBefore(today, 'day') || $window.moment(search.to).isBefore(today, 'day');
-        });
-        cookie = {
-          searches: filteredPreviousSearches
-        };
-        generateSearchCookie(cookie);
-      }
-    }
-
     //Generate the cookie to store searches in
     function generateSearchCookie(cookie) {
+      console.log('new cookie obj');
+      console.log(cookie);
       var cookieExpiryDate = null;
       if (Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0) {
         cookieExpiryDate = new Date();
