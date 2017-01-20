@@ -270,8 +270,10 @@ angular.module('mobiusApp.config', [])
     },
     'previousSearches': {
       'enable':false,
-      'cookieName':'MobiusPreviousSearches',
-      'maxSearches':10
+      'searchDataCookieName':'MobiusPreviousSearchData',
+      'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
+      'maxSearches':10,
+      'cookieExpiryDays':180
     },
     'chains': ['SIGN', 'SAND'],
     'user': {

@@ -7,7 +7,7 @@ angular.module('mobius.controllers.hotel.details', [
 ])
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
-  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService,
+  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService, previousSearchesService,
   $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
 
   $controller('PriceCtr', {
@@ -234,6 +234,9 @@ angular.module('mobius.controllers.hotel.details', [
     if (angular.isUndefined($scope.details)) {
       $scope.details = details;
     }
+
+    //Store this location search
+    previousSearchesService.addSearch($stateParams, details.nameLong);
 
     $scope.localInfo = details.localInfo;
     if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle) {

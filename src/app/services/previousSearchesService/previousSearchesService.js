@@ -3,26 +3,34 @@
  * This service for dataLayer/Google tag manager
  */
 angular.module('mobiusApp.services.previousSearches', [])
-  .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, _) {
+  .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, modalService, _) {
 
     function isPreviousSearchesActive() {
       return Settings.UI.previousSearches && Settings.UI.previousSearches.enable;
     }
 
+    function getCookie(cookieName){
+      return angular.fromJson(cookieFactory(cookieName)) || null;
+    }
+
+    function getSearchDataCookie(){
+      return getCookie(searchDataCookieName);
+    }
+
     function getSearches() {
       removePastSearches();
-      var cookie = angular.fromJson(cookieFactory(cookieName)) || null;
+      var cookie = getSearchDataCookie();
       var searches = cookie ? cookie.searches : null;
       return searches;
     }
 
-    function addSearch(searchParams) {
+    function addSearch(searchParams, searchName) {
       if (isPreviousSearchesActive()) {
-        //If there are no region or loation slug data, do not add a search
-        if(($state.current.name === 'hotel' || $state.current.name === 'room') && (!$state.params.regionSlug || !$state.params.locationSlug)){
-          return;
-        }
-        var search = buildSearchObject(searchParams);
+
+        //Prevent modal from displaying in this session
+        saveSearchDisplayCookie();
+
+        var search = buildSearchObject(searchParams, searchName);
         if (search) {
           addSearchToCookie(search);
         }
@@ -30,30 +38,26 @@ angular.module('mobiusApp.services.previousSearches', [])
     }
 
     //Create your search object
-    function buildSearchObject(searchParams) {
+    function buildSearchObject(searchParams, searchName) {
       var search = null;
       if (sessionDataService.getCookie() && sessionDataService.getCookie().sessionData) {
         search = {};
         search.params = angular.copy(searchParams);
         search.state = $state.current.name;
+        search.name = searchName ? searchName : 'All hotels';
         search.guid = sessionDataService.generateUUID(); //Specific GUID generated for each search that can be referenced for deletion
         search.sessionId = sessionDataService.getCookie().sessionData.sessionId; //Specific GUID for each session so that we can remove all searches from a session once booking is complete
       }
-      console.log('search object');
-      console.log(search);
       return search;
     }
 
     //Add a search to the cookie
     function addSearchToCookie(search) {
-      var cookie = null;
+      var cookie = getSearchDataCookie();
 
       //If cookie doesn't exist create one
-      if (!cookieFactory(cookieName)) {
-        cookie = {
-          searches: [search]
-        };
-        generateSearchCookie(cookie);
+      if (!cookie) {
+        saveSearchDataCookie({'searches':[search]});
       }
 
       //Otherwise add to our existing cookie
@@ -64,18 +68,30 @@ angular.module('mobiusApp.services.previousSearches', [])
           if (maxSearches && previousSearches.length >= maxSearches) {
             previousSearches.shift();
           }
-          cookie = {
-            searches: previousSearches
-          };
+          cookie.searches = previousSearches;
           cookie.searches.push(search);
-          generateSearchCookie(cookie);
+          saveSearchDataCookie(cookie);
         }
       }
     }
 
     //Remove a specific search from the cookie
-    function removeSearch() {
-
+    function removeSearch(search) {
+      var previousSearches = getSearches();
+      var filteredSearches = _.reject(previousSearches, function(savedSearch) {
+        return savedSearch.guid === search.guid && !search.display;
+      });
+      if(filteredSearches.length){
+        var cookie = getSearchDataCookie();
+        if(cookie){
+          cookie.searches = filteredSearches;
+          saveSearchDataCookie(cookie);
+        }
+      }
+      else {
+        //Delete searchDataCookie as it is now empty
+        $window.document.cookie = searchDataCookieName+ '=' + 'clear' + ';expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      }
     }
 
     //Remove all searches related to a specific session
@@ -95,10 +111,9 @@ angular.module('mobiusApp.services.previousSearches', [])
             }
           });
           if(changedCookie){
-            var cookie = {
-              searches: filteredPreviousSearches
-            };
-            generateSearchCookie(cookie);
+            var cookie = getSearchDataCookie();
+            cookie.searches = filteredPreviousSearches;
+            saveSearchDataCookie(cookie);
           }
         }
       }
@@ -107,7 +122,7 @@ angular.module('mobiusApp.services.previousSearches', [])
     //Check all previous searches and remove any that are in the past
     function removePastSearches() {
       var changedCookie = false;
-      var cookie = angular.fromJson(cookieFactory(cookieName)) || null;
+      var cookie = getSearchDataCookie();
       var previousSearches = cookie ? cookie.searches : null;
       if (previousSearches && previousSearches.length) {
         var today = $window.moment().format('YYYY-MM-DD');
@@ -128,33 +143,59 @@ angular.module('mobiusApp.services.previousSearches', [])
           }
         });
         if(changedCookie){
-          cookie = {
-            searches: filteredPreviousSearches
-          };
-          generateSearchCookie(cookie);
+          cookie.searches = filteredPreviousSearches;
+          saveSearchDataCookie(cookie);
         }
       }
     }
 
     //Generate the cookie to store searches in
-    function generateSearchCookie(cookie) {
-      console.log('new cookie obj');
-      console.log(cookie);
+    function saveSearchDataCookie(cookie) {
       var cookieExpiryDate = null;
-      if (Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0) {
+      if (Settings.UI.previousSearches.cookieExpiryDays && Settings.UI.previousSearches.cookieExpiryDays !== 0) {
         cookieExpiryDate = new Date();
-        cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
-        $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
+        cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.previousSearches.cookieExpiryDays);
+        saveCookie(searchDataCookieName, cookie, cookieExpiryDate);
       }
     }
 
-    var cookieName = isPreviousSearchesActive() ? Settings.UI.previousSearches.cookieName : null;
+    function saveSearchDisplayCookie(){
+      if(searchDisplayCookieName) {
+        var cookie = {
+          display:true
+        };
+        saveCookie(searchDisplayCookieName, cookie);
+      }
+    }
+
+    function saveCookie(cookieName, cookie, cookieExpiryDate){
+      var expiry = cookieExpiryDate ? cookieExpiryDate.toUTCString() : '';
+      $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + expiry + '; path=/';
+    }
+
+    //Display searches in the front-end of the app
+    function displaySearches(){
+      if(isPreviousSearchesActive()){
+        if(!getCookie(searchDisplayCookieName)){
+          var previousSearches = getSearches();
+          if(previousSearches && previousSearches.length){
+            saveSearchDisplayCookie();
+            modalService.openPreviousSearchesDialog(previousSearches, removeSearch);
+          }
+        }
+      }
+    }
+
+    var searchDataCookieName = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDataCookieName : null;
+    var searchDisplayCookieName = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDisplayCookieName : null;
     var maxSearches = isPreviousSearchesActive() ? Settings.UI.previousSearches.maxSearches : null;
 
     // Public methods
     return {
+      isPreviousSearchesActive: isPreviousSearchesActive,
       getSearches: getSearches,
       addSearch: addSearch,
+      displaySearches: displaySearches,
       removeSearch: removeSearch,
       removeSessionSearches: removeSessionSearches
     };

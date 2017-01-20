@@ -75,6 +75,7 @@ angular
     'mobius.controllers.modals.upsells',
     'mobius.controllers.modals.campaign',
     'mobius.controllers.modals.password',
+    'mobius.controllers.modals.previousSearches',
 
     // Application modules
     'mobiusApp.config',
@@ -802,8 +803,8 @@ angular
       }
     }
 
-    //Store search
-    if($state.current.name === 'allHotels' || $state.current.name === 'hotel' || $state.current.name === 'hotels' || $state.current.name === 'room'){
+    //If on the allHotels page, store the search
+    if($state.current.name === 'allHotels'){
       previousSearchesService.addSearch($stateParams);
     }
   });
@@ -862,6 +863,9 @@ angular
       }
     });
   }
+
+  //Display our previous searches
+  previousSearchesService.displaySearches();
 
   function repositionHeroSlider(heroSliderEl){
     var mainHeaderHeight = $('#main-header').height();
