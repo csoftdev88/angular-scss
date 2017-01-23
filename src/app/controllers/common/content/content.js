@@ -203,7 +203,7 @@ angular.module('mobius.controllers.common.content', [])
       params.regionSlug = item.meta.slug;
     }
 
-    return $state.href(toState, params, {reload: false});
+    return $state.href(toState, params, {reload: true});
   };
 
   $scope.bookingBarBroadcast = function(code){
