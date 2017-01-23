@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.menu', [])
 
-.directive('menuContent', function($controller, _, $state, $document, Settings){
+.directive('menuContent', function($controller, _, $state, $document, Settings, funnelRetentionService){
   return {
     restrict: 'EA',
     scope: {},
@@ -40,6 +40,10 @@ angular.module('mobiusApp.directives.menu', [])
         return _.some(content, function(item) {
           return !item.filtered;
         });
+      };
+
+      scope.retentionClick = function(){
+        funnelRetentionService.retentionCheck();
       };
 
       scope.hasSecondLevelDropdown = Settings.UI.menu.hasSecondLevelDropdown || false;

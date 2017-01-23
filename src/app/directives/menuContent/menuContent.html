@@ -1,5 +1,5 @@
 <div class="dropdown">
-  <a ng-href="{{getStateHref()}}" ng-click="bookingBarBroadcast(null)" ng-class="{'is-active': isActive()}">{{title}}</a>
+  <a ng-href="{{getStateHref()}}" ng-click="bookingBarBroadcast(null); retentionClick()" ng-class="{'is-active': isActive()}">{{title}}</a>
 
   <ul class="dropdown-menu submenu" ng-show="content.length">
     <!--hide it when the all of ng-repeat items above has filtered flag set with true-->
@@ -12,7 +12,7 @@
     -->
     <!-- visible when filtered flag for item is set with true -->
     <li ng-repeat="item in content | filteredContent | limitTo: (settings.maxItemsCount ? settings.maxItemsCount : content.length)">
-      <a ng-href="{{getStateHref(item)}}" ng-click="bookingBarBroadcast(item.code)">
+      <a ng-href="{{getStateHref(item)}}" ng-click="bookingBarBroadcast(item.code); retentionClick()">
         {{item.title}}
         <span>{{item.subtitle}}</span>
       </a>
@@ -23,10 +23,10 @@
       <div class="divider"/>
       <div class="dropdown">
         <span class="fa fa-angle-right"></span>
-        <a ng-href class="submenu-link">_see_all_ {{settings.listState}}</a>
+        <a ng-href class="submenu-link" ng-click="retentionClick()">_see_all_ {{settings.listState}}</a>
         <ul class="dropdown-menu submenu">
           <li ng-repeat="item in content | limitTo: (settings.maxItemsCount ? settings.maxItemsCount : content.length)">
-            <a ng-href="{{getStateHref(item)}}" ng-click="bookingBarBroadcast(item.code)">
+            <a ng-href="{{getStateHref(item)}}" ng-click="bookingBarBroadcast(item.code); retentionClick()">
               {{item.title}}
               <span>{{item.subtitle}}</span></a>
           </li>
@@ -37,7 +37,7 @@
     <li has-dropdown="hover" class="dropdown-submenu" ng-show="hasFilteredItems(content) && !hasSecondLevelDropdown || settings.maxItemsCount && settings.maxItemsCount < content.length">
       <div class="divider"/>
       <div class="dropdown">
-        <a ng-href="{{getStateHref(null)}}" ng-click="bookingBarBroadcast(null)" class="submenu-link">_see_all_ {{title}}</a>
+        <a ng-href="{{getStateHref(null)}}" ng-click="bookingBarBroadcast(null); retentionClick()" class="submenu-link">_see_all_ {{title}}</a>
       </div>
     </li>
   </ul>

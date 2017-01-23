@@ -808,6 +808,10 @@ angular
     if($state.current.name === 'allHotels'){
       previousSearchesService.addSearch($stateParams);
     }
+
+    $scope.retentionClick = function(){
+      funnelRetentionService.retentionCheck();
+    };
   });
 
   //If EU cookie disclaimer enabled

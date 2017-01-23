@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.megaMenu', [])
 
-.directive('megaMenu', function(propertyService, locationService, _, $state, $rootScope, contentService, Settings) {
+.directive('megaMenu', function(propertyService, locationService, _, $state, $rootScope, contentService, Settings, funnelRetentionService) {
   return {
     restrict: 'EA',
     scope: {},
@@ -211,6 +211,10 @@ angular.module('mobiusApp.directives.megaMenu', [])
           megaMenu.removeClass('open');
           $rootScope.$broadcast('BOOKING_BAR_SELECT_ALL');
         }
+      };
+
+      scope.retentionClick = function(){
+        funnelRetentionService.retentionCheck();
       };
 
       function assignPropertiesToLocations(region, properties) {

@@ -3,7 +3,7 @@
  * This service is for funnel retention
  */
 angular.module('mobiusApp.services.funnelRetention', [])
-  .service('funnelRetentionService', function($window, Settings, cookieFactory, previousSearchesService, apiService) {
+  .service('funnelRetentionService', function($window, Settings, cookieFactory, previousSearchesService, apiService, userObject, _) {
 
     function isFunnelRetentionActive() {
       return Settings.UI.funnelRetention && Settings.UI.funnelRetention.enable;
@@ -17,11 +17,22 @@ angular.module('mobiusApp.services.funnelRetention', [])
       $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; path=/';
     }
 
-    function retention(){
+    function sendRetentionMessage(body){
       console.log('call retention end-point');
-      apiService.post(apiService.getFullURL('retention')).then(function(){
+      apiService.post(apiService.getFullURL('retention'), body).then(function(){
         console.log('retention inactivity message sent');
       });
+    }
+
+    function retentionCheck(){
+      if(isFunnelRetentionActive() && previousSearchesService.isPreviousSearchesActive()){
+        previousSearches = previousSearchesService.getSearches();
+        if(previousSearches && previousSearches.length){
+          var lastSearch = _.last(previousSearches);
+          var searchBody = cleanParams(lastSearch.params);
+          sendRetentionMessage(searchBody);
+        }
+      }
     }
 
     function sessionTimeTracker(firstCall){
@@ -41,7 +52,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
           setTimeout(sessionTimeTracker, inactivityPeriodInterval);
         }
         else {
-          retention();
+          sendRetentionMessage();
         }
       }
     }
@@ -49,6 +60,29 @@ angular.module('mobiusApp.services.funnelRetention', [])
     function getInactivity(){
       var cookie = getCookie(retentionCookieName);
       return cookie && cookie.inactiveTime ? cookie.inactiveTime : 0;
+    }
+
+    function cleanParams(params){
+      if(params.dates){
+        var datesArray = params.dates.split('_');
+        if(datesArray.length){
+          params.from = datesArray[0];
+          params.to = datesArray[1];
+        }
+        delete params.dates;
+      }
+      params.propertyCode = params.property;
+      params.productGroupId = params.rate;
+      params.customer = userObject;
+      delete params.property;
+      delete params.rate;
+      delete params.fromSearch;
+      delete params.propertySlug;
+      delete params.locationSlug;
+      delete params.regionSlug;
+      delete params.scrollTo;
+
+      return params;
     }
 
     var inactivityPeriod = isFunnelRetentionActive() ? Settings.UI.funnelRetention.inactivityPeriod : null;
@@ -66,6 +100,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
     return {
       getCookie: getCookie,
       saveSessionCookie: saveSessionCookie,
-      isFunnelRetentionActive: isFunnelRetentionActive
+      isFunnelRetentionActive: isFunnelRetentionActive,
+      retentionCheck: retentionCheck,
     };
   });

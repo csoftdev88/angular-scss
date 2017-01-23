@@ -203,7 +203,7 @@ angular.module('mobius.controllers.common.content', [])
       params.regionSlug = item.meta.slug;
     }
 
-    return $state.href(toState, params, {reload: true});
+    return $state.href(toState, params, {reload: false});
   };
 
   $scope.bookingBarBroadcast = function(code){
@@ -248,7 +248,7 @@ angular.module('mobius.controllers.common.content', [])
         }
 
       });
-      
+
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
         $scope.settings = $scope.settings.fallback;
