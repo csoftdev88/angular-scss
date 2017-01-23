@@ -3,7 +3,7 @@
 angular.module('mobius.controllers.common.content', [])
 
 .controller('ContentCtr', function($scope, $rootScope, propertyService, contentService,
- locationService, bookingService, $q, $state, $timeout, _, Settings) {
+ locationService, bookingService, $q, $state, $timeout, _, Settings, funnelRetentionService) {
 
   // We are using different methods for getting the data
   // from the server according to content type. Also, menu
@@ -203,7 +203,21 @@ angular.module('mobius.controllers.common.content', [])
       params.regionSlug = item.meta.slug;
     }
 
-    return $state.href(toState, params, {reload: true});
+    if(!item){
+      $scope.itemParams = params;
+      $scope.itemToState = toState;
+    }
+    else{
+      item.params = params;
+      item.toState = toState;
+    }
+    return $state.href(toState, params);
+  };
+
+  $scope.goToState = function($event, toState, params){
+    $event.preventDefault();
+    $state.go(toState,params,{reload:true});
+    $scope.retentionClick();
   };
 
   $scope.bookingBarBroadcast = function(code){
@@ -211,6 +225,10 @@ angular.module('mobius.controllers.common.content', [])
       return null;
     }
     broadcast(code);
+  };
+
+  $scope.retentionClick = function(){
+    funnelRetentionService.retentionCheck();
   };
 
   function processSettings() {
@@ -248,7 +266,7 @@ angular.module('mobius.controllers.common.content', [])
         }
 
       });
-      
+
       var content = data || [];
       if ($scope.settings.fallback && $scope.settings.fallback.maxItems < content.length) {
         $scope.settings = $scope.settings.fallback;

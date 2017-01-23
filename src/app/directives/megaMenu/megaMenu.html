@@ -1,13 +1,13 @@
-<a class="mega-menu-trigger" ng-href="{{getMenuUrl()}}" ng-class="{'is-active': isActive()}" ng-click="closeMenu()" ng-mouseover="showMenu()">{{title}}</a>
+<a class="mega-menu-trigger" ng-href="{{getMenuUrl()}}" ng-class="{'is-active': isActive()}" ng-click="goToMenuUrl($event)" ng-mouseover="showMenu()">{{title}}</a>
 <div class="mega-menu {{type}}-mega-menu">
 
   <div class="regions">
     <div class="preloader" ng-show="regionsLoading"></div>
     <ul>
-      <li ng-repeat="region in regions | orderBy: 'nameShort'"><a ng-mouseover="regionSelect(region)" ui-sref="regions({regionSlug: region.meta.slug, property: null, location: null})" ng-class="{'active': region.code === activeRegion.code}" ng-click="closeMenu()">{{region.nameShort}}</a></li>
+      <li ng-repeat="region in regions | orderBy: 'nameShort'"><a ng-mouseover="regionSelect(region)" ui-sref="regions({regionSlug: region.meta.slug, property: null, location: null})" ng-class="{'active': region.code === activeRegion.code}" ng-click="closeMenu(); retentionClick()">{{region.nameShort}}</a></li>
     </ul>
     <ul ng-if="externalRegionLinks.length && isHotels" class="external-region-links">
-      <li ng-repeat="link in externalRegionLinks | orderBy: 'title'"><a ng-href="{{link.url}}">{{link.title}}</a></li>
+      <li ng-repeat="link in externalRegionLinks | orderBy: 'title'"><a ng-href="{{link.url}}" ng-click="retentionClick()">{{link.title}}</a></li>
     </ul>
   </div>
 
@@ -20,16 +20,16 @@
 
     <ul ng-repeat="region in regions" ng-if="region.locations" ng-show="region.code === activeRegion.code">
       <li ng-repeat="location in region.locations | orderBy: 'nameShort'" ng-show="filteredProperties.length">
-        <a ng-click="locationClick(location)" ng-href="{{location.url}}">{{location.nameShort}}</a>
+        <a ng-click="locationClick(location); retentionClick()" ng-href="{{location.url}}">{{location.nameShort}}</a>
         <ul class="properties">
-          <li ng-repeat="property in location.properties | byNameOrZip:propertySearch:false | orderBy:'chainCode':true as filteredProperties"><a ng-href="{{type === 'hot-deals' ? property.hotDealsUrl : property.url}}" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick($event,property)">{{property.nameShort}}</a></li>
+          <li ng-repeat="property in location.properties | byNameOrZip:propertySearch:false | orderBy:'chainCode':true as filteredProperties"><a ng-href="{{type === 'hot-deals' ? property.hotDealsUrl : property.url}}" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick($event,property); retentionClick()">{{property.nameShort}}</a></li>
         </ul>
       </li>
     </ul>
   </div>
 
   <footer ng-show="isBookingWidget">
-    <a href="" class="label" ng-click="selectAllHotelsClick()">_select_all_hotels_</a>
+    <a href="" class="label" ng-click="selectAllHotelsClick(); retentionClick()">_select_all_hotels_</a>
     <input type="text" placeholder="_search_" ng-model="propertySearch" ng-show="activeRegion.code">
     <remove-text role="button" class="remove" ng-click="propertySearch = ''" ng-show="propertySearch"/>
   </footer>
