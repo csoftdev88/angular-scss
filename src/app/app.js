@@ -117,6 +117,7 @@ angular
     'mobiusApp.services.campaigns',
     'mobiusApp.services.thirdPartiesService',
     'mobiusApp.services.previousSearches',
+    'mobiusApp.services.funnelRetention',
 
     // Factories
     'mobiusApp.factories.template',
@@ -671,7 +672,7 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService,
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
   metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService) {
 
   $controller('ReservationUpdateCtrl', {

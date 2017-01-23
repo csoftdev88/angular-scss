@@ -141,6 +141,7 @@ angular.module('mobiusApp.config', [])
       'url':'https://errors.2pvservices.com/status'
     },
     'campaigns':'campaigns',
+    'retention':'retention',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -278,7 +279,9 @@ angular.module('mobiusApp.config', [])
     },
     'funnelRetention':{
       'enable':false,
-      'inactivityPeriod':600,
+      'cookieName': 'MobiusFunnelRetention',
+      'inactivityPeriod':30000, //The time limit that when reached denotes that a session is inactive (Milliseconds)
+      'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
     'chains': ['SIGN', 'SAND'],
