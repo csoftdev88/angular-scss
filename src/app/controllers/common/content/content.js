@@ -203,12 +203,19 @@ angular.module('mobius.controllers.common.content', [])
       params.regionSlug = item.meta.slug;
     }
 
-    $scope.itemParams = params;
-    $scope.itemToState = toState;
+    if(!item){
+      $scope.itemParams = params;
+      $scope.itemToState = toState;
+    }
+    else{
+      item.params = params;
+      item.toState = toState;
+    }
     return $state.href(toState, params);
   };
 
-  $scope.goToState = function(toState, params){
+  $scope.goToState = function($event, toState, params){
+    $event.preventDefault();
     $state.go(toState,params,{reload:true});
     $scope.retentionClick();
   };

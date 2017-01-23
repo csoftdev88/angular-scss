@@ -1,4 +1,4 @@
-<a class="mega-menu-trigger" ng-href="{{getMenuUrl()}}" ng-class="{'is-active': isActive()}" ng-click="closeMenu(); retentionClick()" ng-mouseover="showMenu()">{{title}}</a>
+<a class="mega-menu-trigger" ng-href="{{getMenuUrl()}}" ng-class="{'is-active': isActive()}" ng-click="goToMenuUrl($event)" ng-mouseover="showMenu()">{{title}}</a>
 <div class="mega-menu {{type}}-mega-menu">
 
   <div class="regions">
