@@ -32,7 +32,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
-
+  $scope.showRoomAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -159,17 +159,17 @@ angular.module('mobius.controllers.hotel.details', [
       'lengthOfStay':lengthOfStay
     };
 
-    if(bookingParams.rate){
-      params = bookingParams.rate;
+    if(bookingParams.productGroupId){
+      params.productPropertyRoomTypeId = bookingParams.productGroupId;
     }
     if(bookingParams.promoCode){
-      params = bookingParams.promoCode;
+      params.promoCode = bookingParams.promoCode;
     }
     if(bookingParams.groupCode){
-      params = bookingParams.groupCode;
+      params.groupCode = bookingParams.groupCode;
     }
     if(bookingParams.corpCode){
-      params = bookingParams.corpCode;
+      params.corpCode = bookingParams.corpCode;
     }
 
     propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
@@ -381,7 +381,29 @@ angular.module('mobius.controllers.hotel.details', [
               }
             });
             $scope.ratesLoaded = true;
+
             if ($scope.availableRooms.length === 0) {
+              //If show alternative dates is enabled
+              if($scope.showRoomAltDates && bookingParams && bookingParams.from && bookingParams.to){
+                var fromDate = bookingParams.from;
+                var toDate = bookingParams.to;
+                var lengthOfStay = $window.moment(toDate).diff($window.moment(fromDate), 'days');
+                var startFromDate = $window.moment(fromDate).subtract(3, 'day');
+                var startToDate = $window.moment(toDate).add(3, 'day');
+
+                var params = angular.copy(bookingParams);
+                params.from = startFromDate.format('YYYY-MM-DD');
+                params.to = startToDate.format('YYYY-MM-DD');
+                params.lengthOfStay = lengthOfStay;
+                delete params.propertySlug;
+                delete params.propertyCode;
+                delete params.includes;
+
+                propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+                  console.log(availabilities);
+                });
+              }
+
               $rootScope.$broadcast('floatingBarEvent', {
                 isCollapsed: false
               });
