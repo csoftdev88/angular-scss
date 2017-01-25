@@ -528,6 +528,10 @@
     "cookie_disclaimer_message": "We use cookies to track usage and preferences to ensure that we give you the best experience on our website. If you continue, we'll assume that you are happy to receive all cookies on our website.",
     "continue_your_search": "Continue your search?",
     "would_you_like_to_continue": "Would you like to continue one of your last searches? You were looking at:",
-    "cookie_disclaimer_message": "We use cookies to track usage and preferences to ensure that we give you the best experience on our website. If you continue, we'll assume that you are happy to receive all cookies on our website."
+    "sorry_no_rooms_on_selected_dates": "Sorry, there are no rooms available on your selected dates",
+    "there_are_rooms_available_for": "There are rooms available for",
+    "nights_starting_from": "{{lengthOfStay}} night stays starting on",
+    "not_available": "Not Available",
+    "your_selected_date": "Your Selected Date"
   }
 }

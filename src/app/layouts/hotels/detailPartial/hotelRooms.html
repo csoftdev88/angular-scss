@@ -4,12 +4,6 @@
   <div grid="12" id="jsRooms">
     <header class="section-header">
 
-      <div class="products-not-available" ng-if="availableRooms && availableRooms.length === 0">
-        <h3>_rooms_not_available_on_dates_title_</h3>
-        <!-- USER SPECIFIES DATES -->
-        <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
-      </div>
-
       <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle"></h2>
 
       <!--<p ng-if="availableRooms && availableRooms.length === 0">_no_room_available_</p>-->
@@ -35,6 +29,14 @@
       <div class="search-details" ng-if="roomsConfig.showRoomCount">
         <ng-pluralize class="room-counter" count="(rooms|filter:roomsDisplayFilter).length" when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}"></ng-pluralize>
       </div>
+
+      <div class="products-not-available" ng-if="(!altRoomDatesAvailable || !altRoomDatesAvailable.length) && availableRooms && availableRooms.length === 0">
+        <h3>_rooms_not_available_on_dates_title_</h3>
+        <!-- USER SPECIFIES DATES -->
+        <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
+      </div>
+
+      <alt-room-dates class="alt-room-dates" ng-if="showRoomAltDates && altRoomDatesAvailable && altRoomDatesAvailable.length" dates="altRoomDates" length-of-stay="lengthOfStay" select-dates="selectDates"></alt-room-dates>
     </header>
 
     <ta-teaser ng-show="!ratesLoaded && isFromSearch && roomsConfig.includeTripAdvisorPreloader"></ta-teaser>

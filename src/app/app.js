@@ -134,6 +134,7 @@ angular
     'mobiusApp.directives.room.aside',
     'mobiusApp.directives.room.products',
     'mobiusApp.directives.room.otaProducts',
+    'mobiusApp.directives.room.altRoomDates',
     'mobiusApp.directives.reservation.data',
     'mobiusApp.directives.reservation.details',
     'mobiusApp.directives.equals',

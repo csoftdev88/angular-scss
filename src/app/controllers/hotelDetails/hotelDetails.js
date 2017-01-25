@@ -292,7 +292,6 @@ angular.module('mobius.controllers.hotel.details', [
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
-
         $scope.details = details;
 
         if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics){
@@ -385,22 +384,25 @@ angular.module('mobius.controllers.hotel.details', [
             if ($scope.availableRooms.length === 0) {
               //If show alternative dates is enabled
               if($scope.showRoomAltDates && bookingParams && bookingParams.from && bookingParams.to){
-                var fromDate = bookingParams.from;
-                var toDate = bookingParams.to;
-                var lengthOfStay = $window.moment(toDate).diff($window.moment(fromDate), 'days');
-                var startFromDate = $window.moment(fromDate).subtract(3, 'day');
-                var startToDate = $window.moment(toDate).add(3, 'day');
+                var flexiRange = $scope.roomsConfig.alternativeDisplays.dates.flexiRange || 3;
+                $scope.lengthOfStay = $window.moment(bookingParams.to).diff($window.moment(bookingParams.from), 'days');
+                var fromDate = $window.moment(bookingParams.from).subtract(flexiRange, 'day');
+                var toDate = $window.moment(bookingParams.from).add(flexiRange, 'day');
 
                 var params = angular.copy(bookingParams);
-                params.from = startFromDate.format('YYYY-MM-DD');
-                params.to = startToDate.format('YYYY-MM-DD');
-                params.lengthOfStay = lengthOfStay;
+                params.from = fromDate.format('YYYY-MM-DD');
+                params.to = toDate.format('YYYY-MM-DD');
+                params.lengthOfStay = $scope.lengthOfStay;
                 delete params.propertySlug;
                 delete params.propertyCode;
                 delete params.includes;
 
+                //Get our flexi alt dates
                 propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
-                  console.log(availabilities);
+                  $scope.altRoomDates = availabilities;
+                  $scope.altRoomDatesAvailable = _.reject(availabilities, function(availability){
+                    return !availability.fullyAvailable;
+                  });
                 });
               }
 

@@ -438,7 +438,7 @@ angular.module('mobiusApp.config', [])
         'alternativeDisplays': {
           'dates':{
             'enable':false,
-            'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after
+            'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
           },
           'properties':{
             'enable':false
