@@ -155,7 +155,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
               // addons[1] - reservation addons
               $scope.reservationAddons = _.map(addons[1], function(addon) {
-                addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : null;
+                addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : '';
                 addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
                 if (addon.hasViewMore) {
                   addon.descriptionShort += '…';
@@ -271,7 +271,7 @@ angular.module('mobius.controllers.reservationDetail', [])
 
           // addons[1] - reservation addons
           $scope.reservationAddons = _.map(addons[1], function(addon) {
-            addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : null;
+            addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : '';
             addon.hasViewMore = addon.descriptionShort.length < addon.description.length;
             if (addon.hasViewMore) {
               addon.descriptionShort += '…';
