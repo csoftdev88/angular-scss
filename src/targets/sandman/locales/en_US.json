@@ -539,6 +539,7 @@
     "there_are_rooms_available_for": "There are rooms available for",
     "nights_starting_from": "{{lengthOfStay}} night stays starting on",
     "not_available": "Not Available",
-    "your_selected_date": "Your Selected Date"
+    "your_selected_date": "Your Selected Date",
+    "rooms_available_at_nearby_hotels": "There are rooms available at these nearby hotels on your dates"
   }
 }
