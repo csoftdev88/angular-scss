@@ -1,6 +1,6 @@
 'use strict';
 /*
- * This service for dataLayer/Google tag manager
+ * This service is for tracking previous searches
  */
 angular.module('mobiusApp.services.previousSearches', [])
   .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, modalService, _) {
@@ -18,10 +18,15 @@ angular.module('mobiusApp.services.previousSearches', [])
     }
 
     function getSearches() {
-      removePastSearches();
-      var cookie = getSearchDataCookie();
-      var searches = cookie ? cookie.searches : null;
-      return searches;
+      if(isPreviousSearchesActive()){
+        removePastSearches();
+        var cookie = getSearchDataCookie();
+        var searches = cookie ? cookie.searches : null;
+        return searches;
+      }
+      else {
+        return false;
+      }
     }
 
     function addSearch(searchParams, searchName) {

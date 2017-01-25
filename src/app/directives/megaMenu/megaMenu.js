@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.megaMenu', [])
 
-.directive('megaMenu', function(propertyService, locationService, _, $state, $rootScope, contentService, Settings) {
+.directive('megaMenu', function(propertyService, locationService, _, $state, $rootScope, contentService, Settings, funnelRetentionService) {
   return {
     restrict: 'EA',
     scope: {},
@@ -163,6 +163,27 @@ angular.module('mobiusApp.directives.megaMenu', [])
         }
       };
 
+      scope.goToMenuUrl = function($event){
+        $event.preventDefault();
+        if (attrs.type === 'hotels') {
+          $state.go('regions', {
+            regionSlug: null,
+            property: null,
+            location: null
+          });
+        } else if (attrs.type === 'hot-deals') {
+          $state.go('hotDeals', {
+            regionSlug: null,
+            locationSlug: null,
+            code: null,
+            property: null,
+            location: null
+          });
+        }
+        scope.closeMenu();
+        scope.retentionClick();
+      };
+
       scope.regionClick = function(region) {
         //hotels menu
         if (attrs.type === 'hotels') {
@@ -211,6 +232,10 @@ angular.module('mobiusApp.directives.megaMenu', [])
           megaMenu.removeClass('open');
           $rootScope.$broadcast('BOOKING_BAR_SELECT_ALL');
         }
+      };
+
+      scope.retentionClick = function(){
+        funnelRetentionService.retentionCheck();
       };
 
       function assignPropertiesToLocations(region, properties) {
