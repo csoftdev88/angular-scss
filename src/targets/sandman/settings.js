@@ -278,7 +278,7 @@ angular.module('mobiusApp.config', [])
       'cookieExpiryDays':180
     },
     'funnelRetention':{
-      'enable':false,
+      'enable':true,
       'cookieName': 'MobiusFunnelRetention',
       'inactivityPeriod':30000, //The time limit that when reached denotes that a session is inactive (Milliseconds)
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
@@ -434,6 +434,15 @@ angular.module('mobiusApp.config', [])
         },
         'upsells': {
           'display': true
+        },
+        'alternativeDisplays': {
+          'dates':{
+            'enable':true,
+            'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
+          },
+          'properties':{
+            'enable':true
+          }
         }
       },
       'offers': {
