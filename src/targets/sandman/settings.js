@@ -269,7 +269,7 @@ angular.module('mobiusApp.config', [])
       display:false
     },
     'previousSearches': {
-      'enable':true,
+      'enable':false,
       'searchDataCookieName':'MobiusPreviousSearchData',
       'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
