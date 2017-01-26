@@ -22,7 +22,7 @@ angular.module('mobiusApp.services.properties', [])
 
       //If thirdparties system is active and properties are restricted, filter the returned property data
       if($rootScope.thirdparty && $rootScope.thirdparty.properties){
-        var thirdPartyPropertyCodes = $rootScope.thirdparty.properties.split(',');
+        var thirdPartyPropertyCodes = $rootScope.thirdparty.properties;
         if(thirdPartyPropertyCodes.length){
           var thirdPartyProperties = [];
           _.each(thirdPartyPropertyCodes, function(thirdPartyPropertyCode){

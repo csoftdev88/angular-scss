@@ -28,7 +28,7 @@ angular.module('mobiusApp.services.thirdPartiesService', [])
     res.description = '<p>Here is the description</p>';
 
     //Stub for thirdparty properties
-    res.properties = 'YYC,OAK';
+    res.properties = ['YYC','OAK'];
 
     $rootScope.thirdparty = {
       config: Settings.UI.thirdparties,
