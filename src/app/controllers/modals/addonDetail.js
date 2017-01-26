@@ -21,7 +21,9 @@ angular.module('mobius.controllers.modals.addonDetail', [
     $scope.config = Settings.UI.reservations;
     // Confirmation is not displayed when paying with points/money
     // - once clicked on payment buttons instead of the whole container
-    $scope.addon._confirmation =
+    $scope.addon._confirmation = null;
+
+    $scope.inclusionsAsAddons = Settings.API.reservations.inclusionsAsAddons;
 
     $scope.selectPaymentMethod = function(withPoints){
       $scope.payWithPoints = withPoints;

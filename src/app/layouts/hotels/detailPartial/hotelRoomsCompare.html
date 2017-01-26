@@ -4,16 +4,17 @@
   <div grid="12" id="jsRooms">
     <header class="section-header">
 
-      <div class="products-not-available" ng-if="availableRooms && availableRooms.length === 0">
+      <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle" ng-if="!(availableRooms && availableRooms.length === 0) || (altRoomDatesAvailable && altRoomDatesAvailable.length) || (altProperties && altProperties.length)"></h2>
+
+      <!-- search details -->
+      <div class="search-details" ng-if="roomsConfig.showRoomCount && !(availableRooms && availableRooms.length === 0) || (altRoomDatesAvailable && altRoomDatesAvailable.length) || (altProperties && altProperties.length)">
+        <ng-pluralize class="room-counter" count="(rooms|filter:roomsDisplayFilter).length" when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}"></ng-pluralize>
+      </div>
+
+      <div class="products-not-available" ng-if="((!altRoomDatesAvailable || !altRoomDatesAvailable.length) || (!altProperties || !altProperties.length)) && availableRooms && availableRooms.length === 0">
         <h3>_rooms_not_available_on_dates_title_</h3>
         <!-- USER SPECIFIES DATES -->
         <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
-      </div>
-
-      <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle" ng-if="!(availableRooms && availableRooms.length === 0)"></h2>
-      <!-- search details -->
-      <div class="search-details" ng-if="roomsConfig.showRoomCount && !(availableRooms && availableRooms.length === 0)">
-        <ng-pluralize class="room-counter" count="(rooms|filter:roomsDisplayFilter).length" when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}"></ng-pluralize>
       </div>
 
       <div class="filter-bar" ng-if="!(availableRooms && availableRooms.length === 0)">
@@ -94,7 +95,8 @@
           </button-submit>
         </div>-->
       </div>
-
+      <alt-room-properties class="alt-room-display alt-room-properties" ng-if="showAltProperties && altProperties && altProperties.length" properties="altProperties"></alt-room-properties>
+      <alt-room-dates class="alt-room-display alt-room-dates" ng-if="showAltDates && (!altProperties || !altProperties.length) && altRoomDatesAvailable && altRoomDatesAvailable.length" dates="altRoomDates" length-of-stay="lengthOfStay" select-dates="selectDates"></alt-room-dates>
     </header>
 
     <ta-teaser ng-show="!ratesLoaded && isFromSearch && roomsConfig.includeTripAdvisorPreloader"></ta-teaser>

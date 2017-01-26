@@ -141,6 +141,7 @@ angular.module('mobiusApp.config', [])
       'url':'https://errors.2pvservices.com/status'
     },
     'campaigns':'campaigns',
+    'retention':'retention',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -210,6 +211,7 @@ angular.module('mobiusApp.config', [])
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
+      'inclusionsAsAddons': false,
       'cancel': 'reservations/:reservationCode/actions/cancel',
       'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
@@ -268,6 +270,20 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:false
     },
+    'previousSearches': {
+      'enable':false,
+      'searchDataCookieName':'MobiusPreviousSearchData',
+      'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
+      'maxSearches':10,
+      'cookieExpiryDays':180
+    },
+    'funnelRetention':{
+      'enable':false,
+      'cookieName': 'MobiusFunnelRetention',
+      'inactivityPeriod':30000, //The time limit that when reached denotes that a session is inactive (Milliseconds)
+      'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
+      'displayExitModal':false
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
@@ -275,6 +291,7 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
+
     'generics': {
       'singleProperty': false,
       'facebookAppId': '',
@@ -417,6 +434,15 @@ angular.module('mobiusApp.config', [])
         },
         'upsells': {
           'display': false
+        },
+        'alternativeDisplays': {
+          'dates':{
+            'enable':false,
+            'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
+          },
+          'properties':{
+            'enable':false
+          }
         }
       },
       'offers': {
