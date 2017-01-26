@@ -273,9 +273,9 @@ angular.module('mobiusApp.config', [])
     'previousSearches': {
       'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
+      'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
-      'maxSearches':10,
-      'cookieExpiryDays':180
+      'maxSearches':10
     },
     'funnelRetention':{
       'enable':true,
