@@ -27,12 +27,16 @@ angular.module('mobiusApp.services.thirdPartiesService', [])
     res.title = '<span><strong>MY</strong> TEST<span>and a strapline here</span></span>';
     res.description = '<p>Here is the description</p>';
 
+    //Stub for thirdparty properties
+    res.properties = 'YYC,OAK';
+
     $rootScope.thirdparty = {
       config: Settings.UI.thirdparties,
       heroContent: res.images,
       logo: res.logo,
       title: res.title,
-      description: res.description
+      description: res.description,
+      properties: res.properties
     };
 
     setCode(vm);
