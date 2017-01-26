@@ -151,21 +151,24 @@ angular.module('mobiusApp.services.previousSearches', [])
 
     //Generate the cookie to store searches in
     function saveSearchDataCookie(cookie) {
-      var cookieExpiryDate = null;
-      if (Settings.UI.previousSearches.cookieExpiryDays && Settings.UI.previousSearches.cookieExpiryDays !== 0) {
+      if (searchDataCookieExpiry && searchDataCookieExpiry !== 0) {
+        var cookieExpiryDate = null;
         cookieExpiryDate = new Date();
-        cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.previousSearches.cookieExpiryDays);
+        cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (searchDataCookieExpiry * 60 * 1000));
         saveCookie(searchDataCookieName, cookie, cookieExpiryDate);
       }
     }
 
     function saveSearchDisplayCookie(){
-      if(searchDisplayCookieName) {
-        var cookie = {
-          display:true
-        };
-        saveCookie(searchDisplayCookieName, cookie);
+      var cookie = {
+        display:true
+      };
+      var cookieExpiryDate = null;
+      if (searchDisplayCookieExpiry && searchDisplayCookieExpiry !== 0) {
+        cookieExpiryDate = new Date();
+        cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (searchDisplayCookieExpiry * 60 * 1000));
       }
+      saveCookie(searchDisplayCookieName, cookie, cookieExpiryDate);
     }
 
     function saveCookie(cookieName, cookie, cookieExpiryDate){
@@ -187,7 +190,9 @@ angular.module('mobiusApp.services.previousSearches', [])
     }
 
     var searchDataCookieName = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDataCookieName : null;
+    var searchDataCookieExpiry = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDataCookieExpiry: null;
     var searchDisplayCookieName = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDisplayCookieName : null;
+    var searchDisplayCookieExpiry = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDisplayCookieExpiry: null;
     var maxSearches = isPreviousSearchesActive() ? Settings.UI.previousSearches.maxSearches : null;
 
     // Public methods

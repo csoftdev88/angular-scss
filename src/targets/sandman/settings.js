@@ -269,11 +269,11 @@ angular.module('mobiusApp.config', [])
       display:false
     },
     'previousSearches': {
-      'enable':false,
+      'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
+      'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
-      'maxSearches':10,
-      'cookieExpiryDays':180
+      'maxSearches':10
     },
     'chains': ['SIGN', 'SAND'],
     'user': {
