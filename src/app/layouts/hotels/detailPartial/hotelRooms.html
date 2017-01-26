@@ -36,8 +36,8 @@
         <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
       </div>
 
-      <alt-room-properties class="alt-room-display alt-room-properties" ng-if="showAltProperties && altProperties && altProperties.length" properties="altProperties"></alt-room-properties>
-      <alt-room-dates class="alt-room-display alt-room-dates" ng-if="showAltDates && (!altProperties || !altProperties.length) && altRoomDatesAvailable && altRoomDatesAvailable.length" dates="altRoomDates" length-of-stay="lengthOfStay" select-dates="selectDates"></alt-room-dates>
+      <alt-room-properties class="alt-room-display alt-room-properties" ng-if="(!availableRooms || availableRooms.length === 0) && showAltProperties && altProperties && altProperties.length" properties="altProperties"></alt-room-properties>
+      <alt-room-dates class="alt-room-display alt-room-dates" ng-if="(!availableRooms || availableRooms.length === 0) && showAltDates && (!altProperties || !altProperties.length) && altRoomDatesAvailable && altRoomDatesAvailable.length" dates="altRoomDates" length-of-stay="lengthOfStay" select-dates="selectDates"></alt-room-dates>
     </header>
 
     <ta-teaser ng-show="!ratesLoaded && isFromSearch && roomsConfig.includeTripAdvisorPreloader"></ta-teaser>
