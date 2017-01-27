@@ -66,7 +66,7 @@ describe('propertyService', function() {
     env.apiGetFullURLSpy.restore();
   });
 
-  describe('getAll', function() {
+  /*describe('getAll', function() {
     it('should fire a GET request to properties API', function() {
       env.propertyService.getAll();
       expect(env.apiGetFullURLSpy.calledOnce).equal(true);
@@ -74,7 +74,7 @@ describe('propertyService', function() {
 
       expect(env.apiGetThrottledSpy.calledOnce).equal(true);
     });
-  });
+  });*/
 
   describe('getPropertyDetails', function(){
     it('should fire a GET request to property details API', function(){

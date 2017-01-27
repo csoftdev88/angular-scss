@@ -28,20 +28,19 @@ dialog {
   position: fixed;
   left: 50%;
   top: 50%;
-  max-width: @grid-width - @grid-gap;
+  max-width: 90%;
   border-radius: 5px;
   background: #fff;
   border: 2px solid #ddd;
   transform: translate(-50%, -50%);
   appearance: none;
+  max-height: 90%;
+  overflow-y: auto;
 
   .viewport-mobile &{
-    width: 90%;
-    max-width: 90%;
-    max-height: 90%;
+    width: 100%;
     left: 5%;
     transform: translate(0, -50%);
-    overflow-y: auto;
   }
 
   &:focus {

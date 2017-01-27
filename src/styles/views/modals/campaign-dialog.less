@@ -1,15 +1,20 @@
 .dialog-campaign {
   border:0px none;
+  background:transparent;
   .ui-info {
     main {
       padding:0;
+      margin-top:0;
+      .viewport-mobile & {
+        margin-top:0 !important
+      }
       a {
         display:block;
         padding:45px;
         text-align:center;
         cursor:pointer;
         .viewport-mobile & {
-          padding:20px;
+          padding:35px;
           margin:0 !important;
         }
         img {
@@ -52,6 +57,7 @@
     width:100%;
     height:100%;
     max-width:initial;
+    max-height:initial;
     border-radius:0px;
     .viewport-mobile & {
       left:auto;
@@ -66,6 +72,11 @@
       main {
         display:table-cell;
         vertical-align:middle;
+        a {
+          .viewport-mobile & {
+            padding:20px;
+          }
+        }
       }
     }
   }

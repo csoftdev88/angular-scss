@@ -3,7 +3,7 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.properties', [])
-.service( 'propertyService',  function($q, apiService, locationService, _) {
+.service( 'propertyService',  function($rootScope, $q, apiService, locationService, _) {
 
   function correctParams(params) {
     if (params && (!params.from || !params.to || !params.adults || !params.productGroupId)) {
@@ -17,7 +17,29 @@ angular.module('mobiusApp.services.properties', [])
   }
 
   function getAll(params){
-    return apiService.getThrottled(apiService.getFullURL('properties.all'), correctParams(params));
+    var q = $q.defer();
+    apiService.getThrottled(apiService.getFullURL('properties.all'), correctParams(params)).then(function(propertyData){
+
+      //If thirdparties system is active and properties are restricted, filter the returned property data
+      if($rootScope.thirdparty && $rootScope.thirdparty.properties){
+        var thirdPartyPropertyCodes = $rootScope.thirdparty.properties;
+        if(thirdPartyPropertyCodes.length){
+          var thirdPartyProperties = [];
+          _.each(thirdPartyPropertyCodes, function(thirdPartyPropertyCode){
+            var property = _.find(propertyData, function(property){
+              return thirdPartyPropertyCode === property.code;
+            });
+            if(property){
+              thirdPartyProperties.push(property);
+            }
+          });
+          propertyData = thirdPartyProperties;
+        }
+      }
+      q.resolve(propertyData);
+    });
+
+    return q.promise;
   }
 
   function getPropertyDetails(propertyCode, params){

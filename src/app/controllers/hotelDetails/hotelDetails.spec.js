@@ -163,7 +163,17 @@ describe('mobius.controllers.hotel.details', function() {
                 location: true
               },
               defaultNumberOfRooms: 2,
-              rooms: {},
+              rooms: {
+                alternativeDisplays: {
+                  dates:{
+                    flexiRange:3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after
+                    enable:true
+                  },
+                  properties:{
+                    enable:true
+                  }
+                }
+              },
               offers: {
                 toState: 'propertyHotDeals'
               }

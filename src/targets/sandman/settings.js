@@ -273,9 +273,9 @@ angular.module('mobiusApp.config', [])
     'previousSearches': {
       'enable':false,
       'searchDataCookieName':'MobiusPreviousSearchData',
+      'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
-      'maxSearches':10,
-      'cookieExpiryDays':180
+      'maxSearches':10
     },
     'funnelRetention':{
       'enable':false,
@@ -434,6 +434,15 @@ angular.module('mobiusApp.config', [])
         },
         'upsells': {
           'display': false
+        },
+        'alternativeDisplays': {
+          'dates':{
+            'enable':false,
+            'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
+          },
+          'properties':{
+            'enable':false
+          }
         }
       },
       'offers': {
@@ -909,7 +918,7 @@ angular.module('mobiusApp.config', [])
         'displayMap': false,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
-        'displayCompare': true,
+        'displayCompare': false,
         'bookingStatistics':{
           'display':false,
           'displayDelay':3000,

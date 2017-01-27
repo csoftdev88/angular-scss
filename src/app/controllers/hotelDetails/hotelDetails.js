@@ -33,6 +33,8 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
 
+  var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
+  var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -159,17 +161,17 @@ angular.module('mobius.controllers.hotel.details', [
       'lengthOfStay':lengthOfStay
     };
 
-    if(bookingParams.rate){
-      params = bookingParams.rate;
+    if(bookingParams.productGroupId){
+      params.productPropertyRoomTypeId = bookingParams.productGroupId;
     }
     if(bookingParams.promoCode){
-      params = bookingParams.promoCode;
+      params.promoCode = bookingParams.promoCode;
     }
     if(bookingParams.groupCode){
-      params = bookingParams.groupCode;
+      params.groupCode = bookingParams.groupCode;
     }
     if(bookingParams.corpCode){
-      params = bookingParams.corpCode;
+      params.corpCode = bookingParams.corpCode;
     }
 
     propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
@@ -292,8 +294,276 @@ angular.module('mobius.controllers.hotel.details', [
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
-
         $scope.details = details;
+
+        //STUB FOR ALTERNATIVE PROPERTIES
+        var availableAlternates = {
+          'properties':[
+            {
+              'meta': {
+                'description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                'keywords': 'abbotsford',
+                'pagetitle': 'Sandman Hotel & Suites Abbotsford | Sandman Hotel Group',
+                'slug': 'abbotsford-abb',
+                'microdata': {
+                  'schemaOrg': {
+                    'parentOrganization': 'Sandman',
+                    'address': '32720 Simon Avenue',
+                    'aggregateRating': '4.5',
+                    'description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                    'image': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+                    'name': 'Sandman Hotel & Suites Abbotsford',
+                    'url': 'SUPPLY BY FRONTEND',
+                    'geo': {
+                      'latitude': 49.0523564,
+                      'longitude': -122.3170684
+                    }
+                  },
+                  'og': {
+                    'og:title': 'Sandman Hotel & Suites Abbotsford | Sandman Hotel Group',
+                    'og:type': 'Sandman:hotel',
+                    'og:image': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+                    'og:url': 'SUPPLY BY FRONTEND',
+                    'og:description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                    'og:locale': 'en_US'
+                  }
+                }
+              },
+              'IRI': '/properties/YXX/',
+              'code': 'YXX',
+              'regionCode': 'BC',
+              'available': true,
+              'locationCode': 'ABB',
+              'nameShort': 'Abbotsford Airport',
+              'nameLong': 'Sandman Hotel Abbotsford Airport',
+              'tripAdvisorRating': '4.5',
+              'tripAdvisorRatingUrl': '//www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.5-27621-5.png',
+              'tripAdvisorUrl': 'https://www.tripadvisor.in/Hotel_Review-g181725-d8871889-Reviews-Sandman_Hotel_Abbotsford_Airport-Abbotsford_British_Columbia.html',
+              'priceFrom': 220,
+              'images': [{
+                      'alt': 'sandman abbotsford air exterior 01',
+                      'includeInSlider': true,
+                      'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469226924/vdrqvbp0qqgciqegm9fm.jpg'
+                  },
+                  {
+                      'alt': 'sandman abbotsford air front desk',
+                      'includeInSlider': true,
+                      'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469226926/brxhxsrbgmp6fvqlyhwo.jpg'
+                  }
+              ],
+              'chainCode': 'SAND',
+              's': [
+                {
+                  'bgColor': '#ffffff',
+                  'endDate': '2018-01-20T16:00:00.000Z',
+                  'startDate': '2017-01-20T16:00:00.000Z',
+                  'text': 'LIMITED TIME OFFER!',
+                  'textColor': '#141313'
+                }
+              ]
+            },
+            {
+              'meta': {
+                'description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                'keywords': 'abbotsford',
+                'pagetitle': 'Sandman Hotel & Suites Abbotsford | Sandman Hotel Group',
+                'slug': 'abbotsford-abb',
+                'microdata': {
+                  'schemaOrg': {
+                    'parentOrganization': 'Sandman',
+                    'address': '32720 Simon Avenue',
+                    'aggregateRating': '4.5',
+                    'description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                    'image': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+                    'name': 'Sandman Hotel & Suites Abbotsford',
+                    'url': 'SUPPLY BY FRONTEND',
+                    'geo': {
+                      'latitude': 49.0523564,
+                      'longitude': -122.3170684
+                    }
+                  },
+                  'og': {
+                    'og:title': 'Sandman Hotel & Suites Abbotsford | Sandman Hotel Group',
+                    'og:type': 'Sandman:hotel',
+                    'og:image': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+                    'og:url': 'SUPPLY BY FRONTEND',
+                    'og:description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                    'og:locale': 'en_US'
+                  }
+                }
+              },
+              'IRI': '/properties/YXX/',
+              'code': 'YXX',
+              'regionCode': 'BC',
+              'available': false,
+              'locationCode': 'ABB',
+              'nameShort': 'Abbotsford Airport',
+              'nameLong': 'Sandman Hotel Abbotsford Airport Test',
+              'tripAdvisorRating': '4.5',
+              'tripAdvisorRatingUrl': '//www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.5-27621-5.png',
+              'tripAdvisorUrl': 'https://www.tripadvisor.in/Hotel_Review-g181725-d8871889-Reviews-Sandman_Hotel_Abbotsford_Airport-Abbotsford_British_Columbia.html',
+              'priceFrom': 220,
+              'images': [{
+                      'alt': 'sandman abbotsford air exterior 01',
+                      'includeInSlider': true,
+                      'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469226924/vdrqvbp0qqgciqegm9fm.jpg'
+                  },
+                  {
+                      'alt': 'sandman abbotsford air front desk',
+                      'includeInSlider': true,
+                      'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469226926/brxhxsrbgmp6fvqlyhwo.jpg'
+                  }
+              ],
+              'chainCode': 'SAND',
+              's': [
+                {
+                  'bgColor': '#ffffff',
+                  'endDate': '2018-01-20T16:00:00.000Z',
+                  'startDate': '2017-01-20T16:00:00.000Z',
+                  'text': 'LIMITED TIME OFFER!',
+                  'textColor': '#141313'
+                }
+              ]
+            },
+            {
+              'meta': {
+                'description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                'keywords': 'abbotsford',
+                'pagetitle': 'Sandman Hotel & Suites Abbotsford | Sandman Hotel Group',
+                'slug': 'abbotsford-abb',
+                'microdata': {
+                  'schemaOrg': {
+                    'parentOrganization': 'Sandman',
+                    'address': '32720 Simon Avenue',
+                    'aggregateRating': '4.5',
+                    'description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                    'image': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+                    'name': 'Sandman Hotel & Suites Abbotsford',
+                    'url': 'SUPPLY BY FRONTEND',
+                    'geo': {
+                      'latitude': 49.0523564,
+                      'longitude': -122.3170684
+                    }
+                  },
+                  'og': {
+                    'og:title': 'Sandman Hotel & Suites Abbotsford | Sandman Hotel Group',
+                    'og:type': 'Sandman:hotel',
+                    'og:image': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+                    'og:url': 'SUPPLY BY FRONTEND',
+                    'og:description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                    'og:locale': 'en_US'
+                  }
+                }
+              },
+              'IRI': '/properties/YXX/',
+              'code': 'YXX',
+              'regionCode': 'BC',
+              'available': true,
+              'locationCode': 'ABB',
+              'nameShort': 'Abbotsford Airport',
+              'nameLong': 'Sandman Hotel Abbotsford Airport Test',
+              'tripAdvisorRating': '4.5',
+              'tripAdvisorRatingUrl': '//www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.5-27621-5.png',
+              'tripAdvisorUrl': 'https://www.tripadvisor.in/Hotel_Review-g181725-d8871889-Reviews-Sandman_Hotel_Abbotsford_Airport-Abbotsford_British_Columbia.html',
+              'priceFrom': 220,
+              'images': [{
+                      'alt': 'sandman abbotsford air exterior 01',
+                      'includeInSlider': true,
+                      'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469226924/vdrqvbp0qqgciqegm9fm.jpg'
+                  },
+                  {
+                      'alt': 'sandman abbotsford air front desk',
+                      'includeInSlider': true,
+                      'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469226926/brxhxsrbgmp6fvqlyhwo.jpg'
+                  }
+              ],
+              'chainCode': 'SAND',
+              's': [
+                {
+                  'bgColor': '#ffffff',
+                  'endDate': '2018-01-20T16:00:00.000Z',
+                  'startDate': '2017-01-20T16:00:00.000Z',
+                  'text': 'LIMITED TIME OFFER!',
+                  'textColor': '#141313'
+                }
+              ]
+            },
+            {
+              'meta': {
+                'description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                'keywords': 'abbotsford',
+                'pagetitle': 'Sandman Hotel & Suites Abbotsford | Sandman Hotel Group',
+                'slug': 'abbotsford-abb',
+                'microdata': {
+                  'schemaOrg': {
+                    'parentOrganization': 'Sandman',
+                    'address': '32720 Simon Avenue',
+                    'aggregateRating': '4.5',
+                    'description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                    'image': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+                    'name': 'Sandman Hotel & Suites Abbotsford',
+                    'url': 'SUPPLY BY FRONTEND',
+                    'geo': {
+                      'latitude': 49.0523564,
+                      'longitude': -122.3170684
+                    }
+                  },
+                  'og': {
+                    'og:title': 'Sandman Hotel & Suites Abbotsford | Sandman Hotel Group',
+                    'og:type': 'Sandman:hotel',
+                    'og:image': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+                    'og:url': 'SUPPLY BY FRONTEND',
+                    'og:description': 'Ideally located, this Sandman is just steps away from the city center’s most popular malls, businesses and local attractions.',
+                    'og:locale': 'en_US'
+                  }
+                }
+              },
+              'IRI': '/properties/YXX/',
+              'code': 'YXX',
+              'regionCode': 'BC',
+              'available': true,
+              'locationCode': 'ABB',
+              'nameShort': 'Abbotsford Airport',
+              'nameLong': 'Sandman Hotel Abbotsford',
+              'tripAdvisorRating': '4.5',
+              'tripAdvisorRatingUrl': '//www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.5-27621-5.png',
+              'tripAdvisorUrl': 'https://www.tripadvisor.in/Hotel_Review-g181725-d8871889-Reviews-Sandman_Hotel_Abbotsford_Airport-Abbotsford_British_Columbia.html',
+              'priceFrom': 220,
+              'images': [{
+                      'alt': 'sandman abbotsford air exterior 01',
+                      'includeInSlider': true,
+                      'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469226924/vdrqvbp0qqgciqegm9fm.jpg'
+                  },
+                  {
+                      'alt': 'sandman abbotsford air front desk',
+                      'includeInSlider': true,
+                      'uri': '//res.cloudinary.com/dmh2cjswj/image/upload/v1469226926/brxhxsrbgmp6fvqlyhwo.jpg'
+                  }
+              ],
+              'chainCode': 'SIGN',
+              'merchandisingBanners': [
+                {
+                  'bgColor': '#ffffff',
+                  'endDate': '2018-01-20T16:00:00.000Z',
+                  'startDate': '2017-01-20T16:00:00.000Z',
+                  'text': 'LIMITED TIME OFFER!',
+                  'textColor': '#141313'
+                }
+              ]
+            }
+          ]
+        };
+        $scope.details.availableAlternates = availableAlternates;
+        //END STUB
+
+        //If dates are selected
+        if(showAltProperties && bookingParams && bookingParams.from && bookingParams.to){
+          var allAltProperties = $scope.details.availableAlternates && $scope.details.availableAlternates.properties ? $scope.details.availableAlternates.properties : null;
+
+          $scope.altProperties = _.reject(allAltProperties, function(altProperty){
+            return altProperty.available === false;
+          });
+        }
 
         if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics){
           $timeout(function(){
@@ -381,7 +651,32 @@ angular.module('mobius.controllers.hotel.details', [
               }
             });
             $scope.ratesLoaded = true;
+
             if ($scope.availableRooms.length === 0) {
+              //If show alternative dates is enabled
+              if((!$scope.altProperties || !$scope.altProperties.length) && showAltDates && bookingParams && bookingParams.from && bookingParams.to){
+                var flexiRange = $scope.roomsConfig.alternativeDisplays.dates.flexiRange || 3;
+                $scope.lengthOfStay = $window.moment(bookingParams.to).diff($window.moment(bookingParams.from), 'days');
+                var fromDate = $window.moment(bookingParams.from).subtract(flexiRange, 'day');
+                var toDate = $window.moment(bookingParams.from).add(flexiRange, 'day');
+
+                var params = angular.copy(bookingParams);
+                params.from = fromDate.format('YYYY-MM-DD');
+                params.to = toDate.format('YYYY-MM-DD');
+                params.lengthOfStay = $scope.lengthOfStay;
+                delete params.propertySlug;
+                delete params.propertyCode;
+                delete params.includes;
+
+                //Get our flexi alt dates
+                propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+                  $scope.altRoomDates = availabilities;
+                  $scope.altRoomDatesAvailable = _.reject(availabilities, function(availability){
+                    return !availability.fullyAvailable;
+                  });
+                });
+              }
+
               $rootScope.$broadcast('floatingBarEvent', {
                 isCollapsed: false
               });
