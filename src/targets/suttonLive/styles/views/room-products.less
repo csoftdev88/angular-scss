@@ -1,0 +1,45 @@
+room-products {
+	width:80%;
+	&.has-ota-products {
+		width:100%;
+    margin-top:15px;
+    .viewport-mobile & {
+      margin-top:0;
+    }
+		> ul {
+			width:80%;
+			float:left;
+			.viewport-mobile & {
+				width:100%;
+				float:none;
+			}
+      li:first-child {
+        border-top:1px solid @c-border-grey;
+        .viewport-mobile & {
+          border-top:0px none;
+        }
+      }
+		}
+	}
+}
+
+room-products + room-ota-products {
+	width:100%;
+}
+
+.preloader + room-ota-products {
+	background:#EEE;
+	width:19%;
+	margin-right:1%;
+	float:left;
+	.viewport-mobile & {
+		display:none;
+	}
+}
+
+ul + room-ota-products {
+	display:none;
+	.viewport-mobile & {
+		display:block;
+	}
+}
