@@ -20,8 +20,10 @@
             </ul>
           </div>
         </div>
-        <h2 ng-click="navigateToHotel(hotel)" vertilize><strong>{{hotel.nameLong}}</strong></h2>
-        <h5 class="region-name" ng-if="config.displayHotelRegionName && hotel.regionName">{{hotel.regionName}}</h5>
+        <div vertilize>
+          <h2 ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameLong}}</strong></h2>
+          <h5 class="region-name" ng-if="config.displayHotelRegionName && hotel.regionName">{{hotel.regionName}}</h5>
+        </div>
         <pricing-info>
           <button-submit role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_price_from_ {{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</button-submit>
         </pricing-info>
