@@ -72,6 +72,17 @@ angular.module('mobius.controllers.room.details', [])
           variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
         }
 
+        var stayLength = null;
+        var bookingWindow = null;
+
+        if ($stateParams.dates) {
+          var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+          var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+          var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+          stayLength = checkOutDate.diff(checkInDate, 'days');
+          bookingWindow = checkInDate.diff(today, 'days');
+        }
+
         dataLayerService.trackProductsDetailsView([{
           name: product.name,
           id: product.code,
@@ -83,7 +94,7 @@ angular.module('mobius.controllers.room.details', [])
           list: 'Room',
           category: category,
           variant: variant
-        }]);
+        }], stayLength, bookingWindow);
       });
     });
 
@@ -150,6 +161,17 @@ angular.module('mobius.controllers.room.details', [])
                 variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
               }
 
+              var stayLength = null;
+              var bookingWindow = null;
+
+              if ($stateParams.dates) {
+                var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+                var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+                var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+                stayLength = checkOutDate.diff(checkInDate, 'days');
+                bookingWindow = checkInDate.diff(today, 'days');
+              }
+
               if($state.current.name !== 'reservation.details')
               {
                 dataLayerService.trackProductsDetailsView(data[1].products.map(function(p){
@@ -165,7 +187,7 @@ angular.module('mobius.controllers.room.details', [])
                     category: category,
                     variant: variant
                   };
-                }));
+                }), stayLength, bookingWindow);
               }
               //Mobius tracking
               $scope.$watch('currentOrder', function(order) {

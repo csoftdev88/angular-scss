@@ -122,6 +122,17 @@ angular.module('mobiusApp.directives.room.products', [])
                 variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
               }
 
+              var stayLength = null;
+              var bookingWindow = null;
+
+              if ($stateParams.dates) {
+                var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+                var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+                var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+                stayLength = checkOutDate.diff(checkInDate, 'days');
+                bookingWindow = checkInDate.diff(today, 'days');
+              }
+
               dataLayerService.trackProductsImpressions(scope.products.map(function(p){
                 return {
                   name: p.name,
@@ -135,7 +146,7 @@ angular.module('mobiusApp.directives.room.products', [])
                   category: category,
                   variant: variant
                 };
-              }));
+              }), stayLength, bookingWindow);
 
               var selectedRate = null;
               if(scope.rates && scope.rates.selectedRate)
@@ -215,6 +226,16 @@ angular.module('mobiusApp.directives.room.products', [])
               {
                 variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
               }
+              var stayLength = null;
+              var bookingWindow = null;
+
+              if ($stateParams.dates) {
+                var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+                var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+                var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+                stayLength = checkOutDate.diff(checkInDate, 'days');
+                bookingWindow = checkInDate.diff(today, 'days');
+              }
               dataLayerService.trackAddToCart({
                 name: product.name,
                 id: product.code,
@@ -226,7 +247,7 @@ angular.module('mobiusApp.directives.room.products', [])
                 list: 'Rooms',
                 category: category,
                 variant: variant
-              }, upsellAccepted);
+              }, upsellAccepted, stayLength, bookingWindow);
             });
           });
         }
@@ -261,6 +282,18 @@ angular.module('mobiusApp.directives.room.products', [])
             {
               variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
             }
+
+            var stayLength = null;
+            var bookingWindow = null;
+
+            if ($stateParams.dates) {
+              var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+              var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+              var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+              stayLength = checkOutDate.diff(checkInDate, 'days');
+              bookingWindow = checkInDate.diff(today, 'days');
+            }
+
             dataLayerService.trackProductsDetailsView([{
               name: product.name,
               id: product.code,
@@ -272,7 +305,7 @@ angular.module('mobiusApp.directives.room.products', [])
               list: 'Rooms',
               category: category,
               variant: variant
-            }]);
+            }], stayLength, bookingWindow);
           });
         });
         modalService.openProductDetailsDialog(scope.room, product, scope.settings.rateInfoIsTabbed);
