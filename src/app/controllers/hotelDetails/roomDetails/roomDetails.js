@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, infinitiApeironService,
+.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, infinitiApeironService, previousSearchesService,
   propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams) {
 
   var numNights = 1;
@@ -134,6 +134,14 @@ angular.module('mobius.controllers.room.details', [])
         // Tracking products impressions
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
+
+            if(previousSearchesService.isPreviousSearchesActive())
+            {
+              //Generate search name and store room search
+              var searchName = propertyData.nameLong + ' - ' + data[0].name;
+              previousSearchesService.addSearch($stateParams, searchName);
+            }
+
             if($scope.fromMeta){
               $scope.updateHeroContent($window._.filter(propertyData.images, {includeInSlider: true}));
             }
@@ -186,7 +194,6 @@ angular.module('mobius.controllers.room.details', [])
                   infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0], $scope.rates.selectedRate);
                 }
               });
-
             }
           });
         });
