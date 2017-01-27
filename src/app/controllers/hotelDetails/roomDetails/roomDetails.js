@@ -72,6 +72,16 @@ angular.module('mobius.controllers.room.details', [])
           variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
         }
 
+        var stayLength = null;
+        var bookingWindow = null;
+
+        if ($stateParams.dates) {
+          var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
+          var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
+          stayLength = checkOutDate.diff(checkInDate, 'days');
+          bookingWindow = checkInDate.diff($window.moment(), 'days') + 1;
+        }
+
         dataLayerService.trackProductsDetailsView([{
           name: product.name,
           id: product.code,
@@ -83,7 +93,7 @@ angular.module('mobius.controllers.room.details', [])
           list: 'Room',
           category: category,
           variant: variant
-        }]);
+        }], stayLength, bookingWindow);
       });
     });
 
@@ -142,6 +152,16 @@ angular.module('mobius.controllers.room.details', [])
                 variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
               }
 
+              var stayLength = null;
+              var bookingWindow = null;
+
+              if ($stateParams.dates) {
+                var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
+                var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
+                stayLength = checkOutDate.diff(checkInDate, 'days');
+                bookingWindow = checkInDate.diff($window.moment(), 'days') + 1;
+              }
+
               if($state.current.name !== 'reservation.details')
               {
                 dataLayerService.trackProductsDetailsView(data[1].products.map(function(p){
@@ -157,7 +177,7 @@ angular.module('mobius.controllers.room.details', [])
                     category: category,
                     variant: variant
                   };
-                }));
+                }), stayLength, bookingWindow);
               }
               //Mobius tracking
               $scope.$watch('currentOrder', function(order) {

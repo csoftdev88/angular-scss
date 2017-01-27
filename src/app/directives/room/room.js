@@ -419,6 +419,15 @@ angular.module('mobiusApp.directives.room', [])
               {
                 variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
               }
+              var stayLength = null;
+              var bookingWindow = null;
+
+              if ($stateParams.dates) {
+                var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
+                var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
+                stayLength = checkOutDate.diff(checkInDate, 'days');
+                bookingWindow = checkInDate.diff($window.moment(), 'days') + 1;
+              }
               dataLayerService.trackAddToCart({
                 name: product.name,
                 id: product.code,
@@ -430,7 +439,7 @@ angular.module('mobiusApp.directives.room', [])
                 list: 'Room',
                 category: category,
                 variant: variant
-              }, upsellAccepted);
+              }, upsellAccepted, stayLength, bookingWindow);
             });
           });
         }
