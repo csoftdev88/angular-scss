@@ -919,7 +919,7 @@ angular.module('mobiusApp.config', [])
         'displayMap': true,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
-        'displayCompare': false,
+        'displayCompare': true,
         'bookingStatistics':{
           'display':false,
           'displayDelay':3000,
