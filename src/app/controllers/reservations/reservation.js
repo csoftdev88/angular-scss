@@ -602,6 +602,17 @@ angular.module('mobius.controllers.reservation', [])
           variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
         }
 
+        var stayLength = null;
+        var bookingWindow = null;
+
+        if ($stateParams.dates) {
+          var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+          var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+          var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+          stayLength = checkOutDate.diff(checkInDate, 'days');
+          bookingWindow = checkInDate.diff(today, 'days');
+        }
+
         _.each($scope.allRooms, function(room){
           var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
           var product = {
@@ -641,7 +652,7 @@ angular.module('mobius.controllers.reservation', [])
             }
           }
         }
-        dataLayerService.trackProductsCheckout(products, actionField);
+        dataLayerService.trackProductsCheckout(products, actionField, stayLength, bookingWindow);
 
       });
     });
@@ -995,10 +1006,11 @@ angular.module('mobius.controllers.reservation', [])
           var bookingWindow = null;
 
           if ($stateParams.dates) {
-            var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
-            var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
+            var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+            var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+            var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
             stayLength = checkOutDate.diff(checkInDate, 'days');
-            bookingWindow = checkInDate.diff($window.moment(), 'days') + 1;
+            bookingWindow = checkInDate.diff(today, 'days');
           }
           var derbysoftInfo = null;
 

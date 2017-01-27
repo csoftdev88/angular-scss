@@ -423,10 +423,11 @@ angular.module('mobiusApp.directives.room', [])
               var bookingWindow = null;
 
               if ($stateParams.dates) {
-                var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
-                var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
+                var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+                var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+                var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
                 stayLength = checkOutDate.diff(checkInDate, 'days');
-                bookingWindow = checkInDate.diff($window.moment(), 'days') + 1;
+                bookingWindow = checkInDate.diff(today, 'days');
               }
               dataLayerService.trackAddToCart({
                 name: product.name,

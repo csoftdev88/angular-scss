@@ -37,7 +37,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     getDataLayer().push({
       'event': 'productImpressions',
       'stayLength': stayLength ? stayLength : null,
-      'bookingWindow': bookingWindow ? bookingWindow : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
         'currencyCode': stateService.getCurrentCurrency().code,
         'impressions': products
@@ -66,7 +66,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     getDataLayer().push({
       'event': 'addToCart',
       'stayLength': stayLength ? stayLength : null,
-      'bookingWindow': bookingWindow ? bookingWindow : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
         'currencyCode': stateService.getCurrentCurrency().code,
         'add': {
@@ -86,7 +86,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     getDataLayer().push({
       'event': 'productDetails',
       'stayLength': stayLength ? stayLength : null,
-      'bookingWindow': bookingWindow ? bookingWindow : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
         'detail': {
           'products': products
@@ -95,12 +95,14 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackProductsCheckout(products, actionField){
+  function trackProductsCheckout(products, actionField, stayLength, bookingWindow){
     if(!isDataLayerActive()){
       return;
     }
     getDataLayer().push({
       'event': 'checkout',
+      'stayLength': stayLength ? stayLength : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
         'checkout': {
           'actionField': actionField,
@@ -125,7 +127,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     var dataLayerInfo = {
       'event':'productPurchase',
       'stayLength': stayLength ? stayLength : null,
-      'bookingWindow': bookingWindow ? bookingWindow : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
         'purchase': {
           'actionField': actionField,
