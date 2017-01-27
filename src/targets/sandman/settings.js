@@ -275,6 +275,7 @@ angular.module('mobiusApp.config', [])
       'searchDataCookieName':'MobiusPreviousSearchData',
       'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
+      'searchInSessionCookieName':'MobiusSearchInSession',
       'maxSearches':10
     },
     'funnelRetention':{
@@ -918,7 +919,7 @@ angular.module('mobiusApp.config', [])
         'displayMap': true,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
-        'displayCompare': true,
+        'displayCompare': false,
         'bookingStatistics':{
           'display':false,
           'displayDelay':3000,

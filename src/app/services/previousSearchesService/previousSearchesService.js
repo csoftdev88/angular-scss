@@ -35,6 +35,9 @@ angular.module('mobiusApp.services.previousSearches', [])
         //Prevent modal from displaying in this session
         saveSearchDisplayCookie();
 
+        //Save cookie to denote that user has searched in current session
+        saveSearchInSessionCookie();
+
         var search = buildSearchObject(searchParams, searchName);
         if (search) {
           addSearchToCookie(search);
@@ -176,6 +179,18 @@ angular.module('mobiusApp.services.previousSearches', [])
       saveCookie(searchDisplayCookieName, cookie, cookieExpiryDate);
     }
 
+    function saveSearchInSessionCookie(){
+      var cookie = {
+        searched:true
+      };
+      var cookieExpiryDate = null;
+      if (searchInSessionCookieExpiry && searchInSessionCookieExpiry !== 0) {
+        cookieExpiryDate = new Date();
+        cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (searchInSessionCookieExpiry * 60 * 1000));
+      }
+      saveCookie(searchInSessionCookieName, cookie, cookieExpiryDate);
+    }
+
     function saveCookie(cookieName, cookie, cookieExpiryDate){
       var expiry = cookieExpiryDate ? cookieExpiryDate.toUTCString() : '';
       $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + expiry + '; path=/';
@@ -194,10 +209,21 @@ angular.module('mobiusApp.services.previousSearches', [])
       }
     }
 
+    function hasSearchedInSession(){
+      if(getCookie(searchInSessionCookieName)){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
     var searchDataCookieName = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDataCookieName : null;
     var searchDataCookieExpiry = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDataCookieExpiry: null;
     var searchDisplayCookieName = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDisplayCookieName : null;
     var searchDisplayCookieExpiry = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchDisplayCookieExpiry: null;
+    var searchInSessionCookieName = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchInSessionCookieName: null;
+    var searchInSessionCookieExpiry = isPreviousSearchesActive() ? Settings.UI.previousSearches.searchInSessionCookieExpiry: null;
     var maxSearches = isPreviousSearchesActive() ? Settings.UI.previousSearches.maxSearches : null;
 
     // Public methods
@@ -207,6 +233,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       addSearch: addSearch,
       displaySearches: displaySearches,
       removeSearch: removeSearch,
-      removeSessionSearches: removeSessionSearches
+      removeSessionSearches: removeSessionSearches,
+      hasSearchedInSession: hasSearchedInSession
     };
   });
