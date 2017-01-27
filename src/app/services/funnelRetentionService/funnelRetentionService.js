@@ -25,7 +25,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
     }
 
     function retentionCheck(){
-      if(isFunnelRetentionActive() && previousSearchesService.isPreviousSearchesActive()){
+      if(isFunnelRetentionActive() && previousSearchesService.isPreviousSearchesActive() && previousSearchesService.hasSearchedInSession()){
         previousSearches = previousSearchesService.getSearches();
         if(previousSearches && previousSearches.length){
           var lastSearch = _.last(previousSearches);
@@ -40,10 +40,8 @@ angular.module('mobiusApp.services.funnelRetention', [])
         currentSessionLength += inactivityPeriodInterval;
       }
 
-      previousSearches = previousSearchesService.getSearches();
-
-      //If there are no previous searches make our retention checks
-      if (!previousSearches || !previousSearches.length) {
+      //If there are no previous searches in the current session make our retention checks
+      if (!previousSearchesService.hasSearchedInSession()) {
         //Store the current session inactivity length in a session cookie
         saveSessionCookie(retentionCookieName, {inactiveTime:currentSessionLength});
 
