@@ -32,8 +32,9 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
-  $scope.showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
-  $scope.showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
+
+  var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
+  var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -555,11 +556,14 @@ angular.module('mobius.controllers.hotel.details', [
         $scope.details.availableAlternates = availableAlternates;
         //END STUB
 
-        var allAltProperties = $scope.details.availableAlternates && $scope.details.availableAlternates.properties ? $scope.details.availableAlternates.properties : null;
+        //If dates are selected
+        if(showAltProperties && bookingParams && bookingParams.from && bookingParams.to){
+          var allAltProperties = $scope.details.availableAlternates && $scope.details.availableAlternates.properties ? $scope.details.availableAlternates.properties : null;
 
-        $scope.altProperties = _.reject(allAltProperties, function(altProperty){
-          return altProperty.available === false;
-        });
+          $scope.altProperties = _.reject(allAltProperties, function(altProperty){
+            return altProperty.available === false;
+          });
+        }
 
         if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics){
           $timeout(function(){
@@ -650,7 +654,7 @@ angular.module('mobius.controllers.hotel.details', [
 
             if ($scope.availableRooms.length === 0) {
               //If show alternative dates is enabled
-              if((!$scope.altProperties || !$scope.altProperties.length) && $scope.showAltDates && bookingParams && bookingParams.from && bookingParams.to){
+              if((!$scope.altProperties || !$scope.altProperties.length) && showAltDates && bookingParams && bookingParams.from && bookingParams.to){
                 var flexiRange = $scope.roomsConfig.alternativeDisplays.dates.flexiRange || 3;
                 $scope.lengthOfStay = $window.moment(bookingParams.to).diff($window.moment(bookingParams.from), 'days');
                 var fromDate = $window.moment(bookingParams.from).subtract(flexiRange, 'day');
