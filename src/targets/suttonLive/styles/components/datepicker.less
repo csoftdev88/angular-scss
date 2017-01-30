@@ -83,6 +83,7 @@
     }
 
     td {
+      color:@c-black;
       a {
         display: block;
         text-decoration: none;
@@ -203,7 +204,7 @@
           top: 0;
         }
         &:after {
-          color: @c-black;
+          color: @c-dark-brown;
         }
       }
 
@@ -218,7 +219,7 @@
       // Selected dates
       &.date-range-selected {
         &:after {
-          color:@c-black;
+          color:@c-dark-brown;
         }
 
         a {
@@ -313,6 +314,7 @@
         margin: 0 auto;
         width: 100%;
         bottom: -21px;
+        font-weight:700;
         .viewport-mobile & {
           font-size:9px;
         }
@@ -400,6 +402,10 @@
   }
   .dates-loading & {
     padding-left:48px;
+    background-image: url('@{img-prefix}/ota-preloader.gif');
+    background-repeat:no-repeat;
+    background-size:20px 20px;
+    background-position:bottom 17px left 16px;
     .viewport-mobile & {
       &:before {
         left:45px;
