@@ -208,12 +208,10 @@
           <div class="list-item-container">
             <!-- Room info -->
             <div class="list-item-info">
-              <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}" data-counter-type="none" content="room.images" ng-if="roomsConfig.includeSlider && room.images && room.images.length > 0" data-has-thumbnails="{{roomsConfig.sliderHasThumbnails}}" thumb-width="68" thumb-height="46" slide-width="262" slide-height="150"></hero-slider>
+              <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}" data-counter-type="none" content="room.images" ng-if="room.images && room.images.length > 0" data-has-thumbnails="{{roomsConfig.sliderHasThumbnails}}" thumb-width="68" thumb-height="46" slide-width="262" slide-height="150"></hero-slider>
 
               <div class="room-image-placeholder" ng-if="room.images.length == 0"></div>
 
-              <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomsConfig.roomDetailThumbnailSize.width : roomsConfig.roomDetailThumbnailSize.height : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
-              <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 768 : 384 : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
               <div class="room-content" vertilize>
                 <header class="item-header">
                   <h3>
