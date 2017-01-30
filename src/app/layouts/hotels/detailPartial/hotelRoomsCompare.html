@@ -248,7 +248,7 @@
               </div>
             </div>
             <room-products ng-if="details && room._displayRates" ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}" id="{{'rates'+$index}}"></room-products>
-            <button class="room-hide-btn" ng-click="hideRoom(room)">Hide</button>
+            <button class="fa fa-close room-hide-btn" ng-click="hideRoom(room)"></button>
           </div>
           <!-- //list-item-container -->
         </list-item>
