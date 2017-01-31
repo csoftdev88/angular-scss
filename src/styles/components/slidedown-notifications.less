@@ -6,6 +6,9 @@ slidedown-notifications {
     display:block;
     max-height:0;
     overflow:hidden;
+    .viewport-mobile & {
+      display:none;
+    }
     &.active {
       -webkit-transition: max-height 1.5s;
       -moz-transition: max-height 1.5s;
