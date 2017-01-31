@@ -268,7 +268,7 @@ angular.module('mobiusApp.config', [])
   },
   'UI': {
     'campaigns': {
-      display:true
+      display:false
     },
     'previousSearches': {
       'enable':true,
