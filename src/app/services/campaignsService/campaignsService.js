@@ -254,16 +254,14 @@ angular.module('mobiusApp.services.campaigns', [])
       //Build the campaign URL and add to scope
       addCampaignUrl();
 
-      if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage && $rootScope.campaign.sideRails.railImage.uri && $state.current.parent !== 'reservation')
+      if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage && $rootScope.campaign.sideRails.railImage.uri && $state.current.parent !== 'reservation' && !stateService.isMobile())
       {
         $rootScope.campaign.sideRails.display = true;
-        if(stateService.isMobile()){
-          $timeout(function(){
-            var heroSliderEl = $('#main-container > div > hero-slider');
-            var mainHeaderHeight = $('#main-header').height();
-            heroSliderEl.css('margin-top', mainHeaderHeight);
-          }, 1500);
-        }
+        $timeout(function(){
+          var heroSliderEl = $('#main-container > div > hero-slider');
+          var mainHeaderHeight = $('#main-header').height();
+          heroSliderEl.css('margin-top', mainHeaderHeight);
+        }, 1500);
       }
       else{
         $rootScope.campaign.sideRails = {};
@@ -272,7 +270,7 @@ angular.module('mobiusApp.services.campaigns', [])
       //If not on an offer page show the rest of the campaign material
       if(!$stateParams.code && $state.current.parent !== 'reservation')
       {
-        if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images && $rootScope.campaign.pageCurl.images.uri) {
+        if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images && $rootScope.campaign.pageCurl.images.uri && !stateService.isMobile()) {
           $rootScope.campaign.pageCurl.display = true;
           $('body').addClass('campaign-folded-corner-active');
         }
@@ -281,11 +279,11 @@ angular.module('mobiusApp.services.campaigns', [])
           $rootScope.campaign.interstitialAdvert.display = true;
         }
 
-        if($rootScope.campaign.headerBar && $rootScope.campaign.headerBar.headerText){
+        if($rootScope.campaign.headerBar && $rootScope.campaign.headerBar.headerText && !stateService.isMobile()){
           $rootScope.campaign.headerBar.display = true;
         }
 
-        if($rootScope.campaign.bookingBar && $rootScope.campaign.bookingBar.tabTitle) {
+        if($rootScope.campaign.bookingBar && $rootScope.campaign.bookingBar.tabTitle && !stateService.isMobile()) {
           $rootScope.campaign.bookingBar.display = true;
         }
 
