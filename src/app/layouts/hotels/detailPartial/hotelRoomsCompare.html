@@ -17,7 +17,7 @@
         <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
       </div>
 
-      <div class="filter-bar" ng-if="!(availableRooms && availableRooms.length === 0)">
+      <div class="filter-bar" ng-if="ratesLoaded && !(availableRooms && availableRooms.length === 0)">
         <div class="order-switch-container" ng-show="hasDates() && availableRooms && availableRooms.length">
           <span class="filter-label">_filter_sortby_label_:</span>
           <order-switch>
@@ -65,7 +65,7 @@
           <a href ng-click="resetCompareRooms()">_show_all_rooms_</a>
         </div>
       </div>
-      <div class="flexible-dates-bar" ng-if="showFlexibleDates && !(availableRooms && availableRooms.length === 0)">
+      <div class="flexible-dates-bar" ng-if="showFlexibleDates && ratesLoaded && !(availableRooms && availableRooms.length === 0)">
         <div class="overview-container">
           <span class="filter-label">Lowest Price:</span>
           <div class="overview">
