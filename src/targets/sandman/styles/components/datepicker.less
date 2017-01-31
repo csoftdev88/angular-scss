@@ -1,26 +1,9 @@
 //- DATEPICKER -//
 
 .ui-datepicker {
-  width: 750px !important;
   box-shadow: 0 0 1px @c-black;
   background: @c-black;
-
   .ui-datepicker-group {
-    float: left;
-    width: 375px;
-
-    .ui-datepicker-title {
-      width: 100%;
-      text-align: center;
-      padding-left: 35px;
-    }
-
-    &:first-child {
-      .ui-datepicker-title {
-        padding-left: 0;
-        padding-right: 35px;
-      }
-    }
     //Add to second datepicker, create a border without messing up width dimensions
     + .ui-datepicker-group {
       .ui-datepicker-calendar {
@@ -28,117 +11,46 @@
       }
     }
   }
-
   .ui-datepicker-buttonpane {
     box-shadow: 0 -1px 0 #363636;
   }
-
   &:after {
     color: @c-datepicker;
-    left: 130px;
-  }
-
-  .viewport-mobile & {
-    width: 100% !important;
-  }
-  &.dates-loading {
-    background-image: url('@{img-prefix}/ota-preloader.gif');
-    background-repeat:no-repeat;
-    background-size:20px 20px;
-    background-position:bottom 17px left 16px
-
   }
 }
+
 //- Calendar Table
-
 .ui-datepicker-calendar {
-  margin: @baseline/2 0 0;
-  width: 100%;
-  height: 342px;
-
-  .viewport-mobile & {
-    width: auto;
-    margin: @baseline/2 auto @baseline;
-  }
-
   thead {
     tr {
       th {
-        font-weight: 700;
         color: white;
-        height:22px;
       }
     }
   }
-
   tbody {
     tr {
-      border: 20px solid @c-black;
-      border-left: none;
-      border-right: none;
+      border-color:@c-black;
     }
 
     td,
     th {
-      width: 40px;
-      height: 30px;
-      line-height: 30px;
       color: lighten(@c-text, 50%); // Past days
-      font-size: @size-2;
-      text-align: center;
     }
 
     td {
       a {
-        display: block;
         color: #b3bdc2;; // Today and Future days
-        text-decoration: none;
-        font-weight: 300;
-      }
-
-      > *[data-tooltip] {
-      	//display: inline-block;/*bug fix*/
-        display:block;
-      	position: relative;
-      	text-decoration: none;
+        font-weight:300;
       }
       > *[data-tooltip]:after {
-      	content: attr(data-tooltip);
-      	position: absolute;
-      	bottom: 105%;
-      	left: -5000px;
       	background: #f4b458;
-        box-sizing:border-box;
-      	padding: 10px 15px;
       	color: white;
-        font-size:14px;
-        line-height:18px;
-      	-webkit-border-radius: 5px;
-      	-moz-border-radius: 5px;
-      	-ms-border-radius: 5px;
-      	-o-border-radius: 5px;
-      	border-radius: 5px;
-      	opacity: 0;
-        z-index:9999;
-        .viewport-mobile & {
-          display:none;
-        }
       }
       > *[data-tooltip]:before {
-      	content: "";
-      	position: absolute;
-      	width: 0;
-      	height: 0;
       	border-top: 20px solid #f4b458;
       	border-left: 20px solid transparent;
       	border-right: 20px solid transparent;
-      	opacity: 0;
-      	left: -5000px;
-      	bottom: 85%;
-        z-index:9999;
-        .viewport-mobile & {
-          display:none;
-        }
       }
       &.ui-datepicker-unselectable > *[data-tooltip]:after {
         background:#cb0338;
@@ -146,31 +58,9 @@
       &.ui-datepicker-unselectable > *[data-tooltip]:before {
         border-top-color:#cb0338;
       }
-      &:hover > *[data-tooltip]:before{
-        left: 7px;
-      }
-      &:hover > *[data-tooltip]:after {
-        width:160px;
-        left: -54px;
-      }
-      &:hover > *[data-tooltip]:after,
-      &:hover > *[data-tooltip]:before {
-      	opacity: 1;
-      }
-      &.date-range-start, &.date-range-end {
-        &:hover > *[data-tooltip] {
-          &:before  {
-            left:-4px;
-          }
-          &:after {
-            left:-68px;
-          }
-        }
-      }
 
       // Highlighting today's day
       &.ui-datepicker-today a {
-        font-weight:600;
         color: #b3bdc2;
       }
 
@@ -184,32 +74,16 @@
       // Selected start and end day
       &.date-range-end,
       &.date-range-start {
-        position: relative;
         color: @c-grey;
         background: none;
 
         a,
         span {
-          position: relative;
-          display: block;
           color: white !important;
           background: #41b1c2;
-          border-radius: 18px;
-          width: 30px;
-          text-align: center;
-          margin: 0 auto;
-          z-index: 10;
         }
-
         &:before {
-          display: block;
-          content: '';
-          width: 25px;
-          height: 30px;
           background: rgba(62, 177, 194, 0.7);
-          position: absolute;
-          right: 0;
-          top: 0;
         }
         &:after {
           color: @c-secondary;
@@ -241,12 +115,8 @@
       // Day is not available
       &.date-not-available {
         background-color: #ed1c24;
-        pointer-events: none;
-
         a {
           color: lighten(@c-text, 50%);
-          cursor: text;
-          pointer-events: none;
         }
 
         &.date-range-end,
@@ -310,21 +180,9 @@
         }
       }
     }
-
     td[title] {
-      position: relative;
-
       &:after {
-        content: attr(title);
-        display: block;
-        position: absolute;
-        font-size: 10px;
-        margin: 0 auto;
-        width: 100%;
-        bottom: -21px;
-        .viewport-mobile & {
-          font-size:9px;
-        }
+        font-weight:400;
       }
     }
   }
@@ -333,126 +191,17 @@
 
 .ui-datepicker-buttonpane {
   background:transparent;
-  height: 35px;
-  line-height: 35px;
-  clear: left;
-  //- How many days was selected
-  &:before {
-    display: inline-block;
-    content: attr(data-counter);
-    position: relative;
-    left: 0;
-    top: 50%;
-    max-width: 100%;
-    line-height: 35px;
-    transform: translateY(-50%);
-    font-weight: 700;
-    font-size: 12px;
-  }
-  // Currently selected rate
-  &:after {
-    display: inline-block;
-    content: attr(data-title);
-    position: absolute;
-    left: @baseline;
-    font-weight: bold;
-    top: 0;
-    font-size: @size-1;
-    max-width: 160px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 30px;
-    white-space: nowrap;
-  }
-  &.button-added {
-    &:before {
-      .viewport-mobile & {
-        left: 22px;
-        top: 33%;
-      }
-    }
-  }
-
   .flexible-dates-control {
-    margin-right: 120px;
-    font-size: 11px;
-    display: block;
-    font-weight: normal;
-    .viewport-mobile & {
-      margin: 0;
-      position: absolute;
-      bottom: 0;
-      font-size: 9px;
-      display: block;
-    }
     > span {
-      cursor:pointer;
       &.selected {
         color:@c-secondary;
       }
     }
   }
-
   .ui-datepicker-close {
-    background: @c-green !important;
-    font-size: 14px !important;
-    color: #fff !important;
+    background: @c-green !important;	
+    font-size: 14px !important;			
+    color: #fff !important;			
     text-transform: uppercase !important;
-    height: 35px !important;
-    line-height: 30px !important;
-    border-radius: 2px !important;
-    min-width: 0 !important;
-
-    .viewport-mobile & {
-      display: inline-block !important;
-    }
-  }
-  // Hide today button
-  .ui-datepicker-current {
-    display: none;
-  }
-  .dates-loading & {
-    padding-left:48px;
-    .viewport-mobile & {
-      &:before {
-        left:45px;
-      }
-    }
-  }
-}
-
-.ui-datepicker-header {
-  .viewport-mobile & {
-    padding: 5px 4px;
-  }
-}
-
-.ui-datepicker-calendar {
-  .viewport-mobile & {
-    margin: @baseline/2 auto 2px;
-  }
-  @media screen and (max-height: 420px) {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    height: auto;
-
-    tbody {
-      tr {
-        border: 0 none;
-
-        td {
-          font-size: 15px;
-        }
-      }
-    }
-  }
-}
-
-@-moz-document url-prefix() {
-  .ui-datepicker-calendar tbody td.date-range-end::before, .ui-datepicker-calendar tbody td.date-range-start::before {
-    top:10px;
-  }
-  .ui-datepicker-calendar tbody td[title]::after {
-    bottom:-29px;
   }
 }
