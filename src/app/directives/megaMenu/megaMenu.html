@@ -19,12 +19,16 @@
     <div class="preloader" ng-show="locationsLoading"></div>
 
     <ul ng-repeat="region in regions" ng-if="region.locations" ng-show="region.code === activeRegion.code">
-      <li ng-repeat="location in region.locations | orderBy: 'nameShort'" ng-show="filteredProperties.length">
+      <li ng-repeat="location in region.locations | orderBy: 'nameShort'" ng-show="filteredProperties.length" ng-class="{'has-filtered-properties': filteredProperties.length}">
         <a ng-click="locationClick(location); retentionClick()" ng-href="{{location.url}}">{{location.nameShort}}</a>
         <ul class="properties">
           <li ng-repeat="property in location.properties | byNameOrZip:propertySearch:false | orderBy:'chainCode':true as filteredProperties"><a ng-href="{{type === 'hot-deals' ? property.hotDealsUrl : property.url}}" ng-class="property.chainCode.toLowerCase()" ng-click="propertyClick($event,property); retentionClick()">{{property.nameShort}}</a></li>
         </ul>
       </li>
+      <div ng-repeat="location in region.locations | orderBy: 'nameShort'" ng-show="filteredNoProperties.length === 0" class="placeholder" ng-class="{'no-filtered-properties': filteredNoProperties.length === 0}">
+        <h4 class="title">No properties available matching your selection</h4>
+        <span ng-repeat="property in location.properties | byNameOrZip:propertySearch:false | orderBy:'chainCode':true as filteredNoProperties"></span>
+      </div>
     </ul>
   </div>
 
