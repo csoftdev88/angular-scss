@@ -527,7 +527,7 @@ hotel-detail {
       }
 
       .flexible-dates-bar {
-        background: rgba(62, 177, 194, 0.2);
+        background:rgba(193, 167, 128, 0.2);
         padding: 20px;
         margin-bottom: 40px;
         text-align: center;
@@ -746,10 +746,13 @@ hotel-detail {
         margin-top: -10px;
         width: 20px;
         height: 20px;
-        padding: 0;
-        text-indent: -9999px;
-        background: transparent url('@{img-prefix}/prev-arrow@2x.png') no-repeat center;
-        background-size: cover;
+        font-size:12px;
+        line-height:14px;
+        background-color:@c-secondary;
+        color:@c-white;
+        border-radius:30px;
+        padding:0 1px 0 0;
+        text-shadow:none;
 
         &:disabled {
           opacity: 0.2;
@@ -759,12 +762,7 @@ hotel-detail {
       .compare-direction-btn + .compare-direction-btn {
         left: auto;
         right: 0;
-        -moz-transform: scaleX(-1);
-        -o-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-        filter: FlipH;
-        -ms-filter:  "FlipH";
+        padding:0 0 0 1px;
       }
 
       room-products {
@@ -808,9 +806,13 @@ hotel-detail {
               width: 29px;
               height: 29px;
               padding: 0;
-              text-indent: -9999px;
-              background: transparent url('@{img-prefix}/close-icon@2x.png') no-repeat center;
-              background-size: cover;
+              background-color:@c-secondary;
+              color:@c-white;
+              border-radius:30px;
+              line-height:15px;
+              font-size:16px;
+              text-shadow:none;
+              opacity:1;
             }
           }
 
