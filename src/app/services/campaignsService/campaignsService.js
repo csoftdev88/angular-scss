@@ -97,7 +97,6 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function selectCampaign(campaign, loggedIn) {
-      console.log(campaign);
       if(criteriaCheck(campaign, loggedIn))
       {
         renderCampaign(campaign);
