@@ -89,9 +89,9 @@ angular.module('mobiusApp.services.campaigns', [])
         }
         if(!$stateParams.propertySlug && $stateParams.locationSlug && locationCode) {
           params.location = locationCode;
-        }
-        params.loggedIn = loggedIn !== null ? loggedIn : user.isLoggedIn();
+        }    
       }
+      params.loggedIn = loggedIn !== null ? loggedIn : user.isLoggedIn();
 
       return apiService.getThrottled(apiService.getFullURL('campaigns'), params);
     }
@@ -243,10 +243,10 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function checkMemberOnly(campaign, loggedIn) {
-      if (campaign.criteria.memberOnly === loggedIn) {
-        return true;
-      } else {
+      if (campaign.criteria.memberOnly && !loggedIn) {
         return false;
+      } else {
+        return true;
       }
     }
 
