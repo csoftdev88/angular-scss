@@ -11,7 +11,7 @@ angular.module('mobiusApp.config', [])
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
   'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
-  'showEUCookieDisclaimer':true,
+  'showEUCookieDisclaimer':false,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -211,7 +211,7 @@ angular.module('mobiusApp.config', [])
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
-      'inclusionsAsAddons': true,
+      'inclusionsAsAddons': false,
       'cancel': 'reservations/:reservationCode/actions/cancel',
       'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
@@ -271,7 +271,7 @@ angular.module('mobiusApp.config', [])
       display:false
     },
     'previousSearches': {
-      'enable':true,
+      'enable':false,
       'searchDataCookieName':'MobiusPreviousSearchData',
       'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
@@ -279,7 +279,7 @@ angular.module('mobiusApp.config', [])
       'maxSearches':10
     },
     'funnelRetention':{
-      'enable':true,
+      'enable':false,
       'cookieName': 'MobiusFunnelRetention',
       'inactivityPeriod':30000, //The time limit that when reached denotes that a session is inactive (Milliseconds)
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
@@ -392,7 +392,7 @@ angular.module('mobiusApp.config', [])
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
       //Allow subpages to redirect if specified in admin
-      'subPageRedirects': true,
+      'subPageRedirects': false,
       'rooms': {
         'hideRoomsWithNoAvailability': true,
         'sortRoomsByWeighting': true,
@@ -428,21 +428,21 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': true,
-          'displayOtaRates': true,
+          'displayOtaRates': false,
           'highlightFirstRate': true,
           'showSlashThrough': true,
-          'showInclusions': true
+          'showInclusions': false
         },
         'upsells': {
-          'display': true
+          'display': false
         },
         'alternativeDisplays': {
           'dates':{
-            'enable':true,
+            'enable':false,
             'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
           },
           'properties':{
-            'enable':true
+            'enable':false
           }
         }
       },
@@ -465,13 +465,13 @@ angular.module('mobiusApp.config', [])
         'hotelDatesSelected': false,
         'hotelInfo': true,
         'hotelServices': false,
-        'hotelRooms': false,
-        'hotelRoomsCompare': true,
+        'hotelRooms': true,
+        'hotelRoomsCompare': false,
         'hotelOffers': true,
         'hotelLocation': true
       },
       'bookingStatistics':{
-        'display':true,
+        'display':false,
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -519,7 +519,7 @@ angular.module('mobiusApp.config', [])
       'showSlashThrough': false,
       'showMetaView': true,
       'upsells': {
-        'display': true
+        'display': false
       }
     },
 
@@ -557,8 +557,8 @@ angular.module('mobiusApp.config', [])
       },
       'displayNewsletterCtaOnReservationDetail': true,
       'reservationDetailPriceBreakdownExtended': true,
-      'displayAddonVoucherEntry': true,
-      'displayAddonComments': true,
+      'displayAddonVoucherEntry': false,
+      'displayAddonComments': false,
       'hideHeroSliderOnReservations':true
     },
 
@@ -848,14 +848,14 @@ angular.module('mobiusApp.config', [])
           'position': 'top'
         },
         'email2':{
-          'display': true
+          'display': false
         },
         'email3':{
-          'display': true
+          'display': false
         }
       },
       'vouchers' : {
-        'enable':true
+        'enable':false
       }
     },
     'myAccount' : {
@@ -916,10 +916,10 @@ angular.module('mobiusApp.config', [])
         'showRegionDescription': false,
         'showLocationDescription': true,
         'displayHotelRegionName': true,
-        'displayMap': true,
+        'displayMap': false,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
-        'displayCompare': true,
+        'displayCompare': false,
         'bookingStatistics':{
           'display':false,
           'displayDelay':3000,
@@ -937,7 +937,7 @@ angular.module('mobiusApp.config', [])
       },
       'roomDetails':{
         'hasViewMore': true,
-        'showInclusions': true,
+        'showInclusions': false,
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
@@ -1138,7 +1138,7 @@ angular.module('mobiusApp.config', [])
       }
     ],
     'thirdparties': {
-      'enable': true,
+      'enable': false,
       'menu': {
         'showHotels': false,
         'showRegionsMegaMenu': true,
