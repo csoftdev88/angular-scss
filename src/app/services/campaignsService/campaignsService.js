@@ -17,13 +17,63 @@ angular.module('mobiusApp.services.campaigns', [])
       locationCode = locationMatch ? locationMatch.code : null;
       activeCampaign = cookieFactory('ActiveCampaign');
       savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
-      getCampaigns(loggedIn, false).then(function(data) {
+      
+      //Only request search specific campaigns if on one of the following pages
+      var getAllCampaigns = true;
+      switch($state.current.name){
+        case 'hotel':
+          getAllCampaigns = false;
+          break;
+        case 'hotels':
+          getAllCampaigns = false;
+          break;
+        case 'hotelInfo':
+          getAllCampaigns = false;
+          break;
+        case 'locationInfo':
+          getAllCampaigns = false;
+          break;
+        case 'room':
+          getAllCampaigns = false;
+          break;
+        case 'propertyOffers':
+          getAllCampaigns = false;
+          break;
+        case 'propertyHotDeals':
+          getAllCampaigns = false;
+          break;
+        default:
+          getAllCampaigns = true;
+      }
+      
+      getCampaigns(loggedIn, getAllCampaigns).then(function(data) {
         if (data.criteria) {
-          validateCampaign(data, loggedIn);
+          selectCampaign(data, loggedIn);
         } else {
-          console.log('no campaign returned');
+          //If no campaign returned display previous campaign
+          console.log('no campaign returned');    
+          getSavedCampaign(getAllCampaigns);        
         }
       });
+    }
+
+    function getSavedCampaign(getAllCampaigns){
+      if (savedCampaign) {
+        getCampaigns(null, true).then(function(data) {
+          var retrievedCampaign = _.find(data, function(thisCampaign) {
+            return thisCampaign.code === savedCampaign.code;
+          });
+          //If there is a saved campaign and we are on a non-search based page display the saved campaign
+          if (retrievedCampaign && getAllCampaigns) {
+            console.log('display previous campaign');
+            renderCampaign(retrievedCampaign);
+          }
+          //Otherwise disable the active campaign
+          else {
+            disableActiveCampaign();
+          }
+        });
+      }
     }
 
     function getCampaigns(loggedIn, getAll) {
@@ -46,40 +96,14 @@ angular.module('mobiusApp.services.campaigns', [])
       return apiService.getThrottled(apiService.getFullURL('campaigns'), params);
     }
 
-    function validateCampaign(campaign, loggedIn) {
-      if (savedCampaign) {
-        //Always show previous campaign unless the old is not priority and the new one is
-        if (!savedCampaign.priority && campaign.criteria.bookingsUntil && campaign.criteria.bookingsFrom) {
-          console.log('display new campaign not previous');
-          if(criteriaCheck(campaign, loggedIn))
-          {
-            renderCampaign(campaign);
-          }
-        } else {
-          getCampaigns(null, true).then(function(data) {
-            var retrievedCampaign = _.find(data, function(thisCampaign) {
-              return thisCampaign.code === savedCampaign.code;
-            });
-            //If the saved campaign matches a current campaign
-            if (retrievedCampaign) {
-              console.log('retain previous campaign do not display new');
-              renderCampaign(retrievedCampaign);
-            } else {
-              //Render the request campaign
-              console.log('previous campaign not found, display new');
-              if(criteriaCheck(campaign, loggedIn))
-              {
-                renderCampaign(campaign);
-              }
-            }
-          });
-        }
-      } else {
-        console.log('no previous campaign stored, display new campaign');
-        if(criteriaCheck(campaign, loggedIn))
-        {
-          renderCampaign(campaign);
-        }
+    function selectCampaign(campaign, loggedIn) {
+      console.log(campaign);
+      if(criteriaCheck(campaign, loggedIn))
+      {
+        renderCampaign(campaign);
+      }
+      else {
+        disableActiveCampaign();
       }
     }
 
@@ -298,14 +322,8 @@ angular.module('mobiusApp.services.campaigns', [])
         }
       }
       else{
-        $rootScope.campaign.pageCurl = {};
-        $rootScope.campaign.pageCurl.display = false;
-        $rootScope.campaign.bookingBar = {};
-        $rootScope.campaign.bookingBar.display = false;
-        $rootScope.campaign.headerBar = {};
-        $rootScope.campaign.headerBar.display = false;
-        $rootScope.campaign.interstitialAdvert = {};
-        $rootScope.campaign.interstitialAdvert.display = false;
+        console.log('Disable active campaign');
+        disableActiveCampaign();
       }
 
       //Add new campaign cookie
@@ -323,6 +341,21 @@ angular.module('mobiusApp.services.campaigns', [])
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', $stateParams);
       }, 0);
 
+    }
+
+    function disableActiveCampaign(){
+      if($rootScope.campaign){
+        $rootScope.campaign.pageCurl = {};
+        $rootScope.campaign.pageCurl.display = false;
+        $rootScope.campaign.bookingBar = {};
+        $rootScope.campaign.bookingBar.display = false;
+        $rootScope.campaign.headerBar = {};
+        $rootScope.campaign.headerBar.display = false;
+        $rootScope.campaign.interstitialAdvert = {};
+        $rootScope.campaign.interstitialAdvert.display = false;
+        $rootScope.campaign.sideRails = {};
+        $rootScope.campaign.sideRails.display = false;
+      }
     }
 
     function addCampaignUrl() {
