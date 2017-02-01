@@ -402,12 +402,34 @@ angular.module('mobiusApp.directives.room', [])
         }
       };
 
-      scope.goToReservationDetails = function(product, params){
+      scope.goToReservationDetails = function(product, params, upsellAccepted){
         // GTM Tracking product click
         if(product){
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
-              dataLayerService.trackProductClick({
+              var localeData = propertyData.locale;
+              var localeArray = localeData ? propertyData.locale.split('-') : null;
+              if(localeArray && localeArray.length > 1)
+              {
+                localeData = localeArray[1].trim();
+              }
+              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
+              var variant = '';
+              if($stateParams.adults && $stateParams.children)
+              {
+                variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+              }
+              var stayLength = null;
+              var bookingWindow = null;
+
+              if ($stateParams.dates) {
+                var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+                var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+                var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+                stayLength = checkOutDate.diff(checkInDate, 'days');
+                bookingWindow = checkInDate.diff(today, 'days');
+              }
+              dataLayerService.trackAddToCart({
                 name: product.name,
                 id: product.code,
                 price: (product.price.totalBaseAfterPricingRules/numNights).toFixed(2),
@@ -416,8 +438,9 @@ angular.module('mobiusApp.directives.room', [])
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
                 list: 'Room',
-                category: scope.roomDetails.name
-              });
+                category: category,
+                variant: variant
+              }, upsellAccepted, stayLength, bookingWindow);
             });
           });
         }
@@ -442,8 +465,20 @@ angular.module('mobiusApp.directives.room', [])
       if(Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
         scope.openRoomDetailsDialog = function(product){
           // Tracking product view
-          chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+          /*chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+            var localeData = propertyData.locale;
+            var localeArray = localeData ? propertyData.locale.split('-') : null;
+            if(localeArray && localeArray.length > 1)
+            {
+              localeData = localeArray[1].trim();
+            }
+              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
+              var variant = '';
+              if($stateParams.adults && $stateParams.children)
+              {
+                variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+              }
               dataLayerService.trackProductsDetailsView([{
                 name: product.name,
                 id: product.code,
@@ -453,16 +488,19 @@ angular.module('mobiusApp.directives.room', [])
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
                 list: 'Room',
-                category: scope.roomDetails.name
+                category: category,
+                variant: variant
               }]);
             });
-          });
+          });*/
           if(scope.config.rateInfoIsTabbed){
             modalService.openProductDetailsDialog(scope.roomDetails, product, true);
           }
           else{
             modalService.openRoomDetailsDialog(product.description);
           }
+
+
         };
       }
 

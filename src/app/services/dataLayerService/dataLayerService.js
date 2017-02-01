@@ -25,7 +25,7 @@ angular.module('mobiusApp.services.dataLayer', [])
 
   // Trackers
   // https://developers.google.com/tag-manager/enhanced-ecommerce#product-impressions
-  function trackProductsImpressions(products){
+  function trackProductsImpressions(products, stayLength, bookingWindow){
     if(!isDataLayerActive()){
       return;
     }
@@ -35,9 +35,11 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
-      'currencyCode': stateService.getCurrentCurrency().code,
       'event': 'productImpressions',
+      'stayLength': stayLength ? stayLength : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
+        'currencyCode': stateService.getCurrentCurrency().code,
         'impressions': products
       }
     });
@@ -57,12 +59,34 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackProductsDetailsView(products){
+  function trackAddToCart(product, upsellAccepted, stayLength, bookingWindow){
     if(!isDataLayerActive()){
       return;
     }
     getDataLayer().push({
-      'event': 'productDetailsView',
+      'event': 'addToCart',
+      'stayLength': stayLength ? stayLength : null,
+      'bookingWindow':bookingWindow,
+      'ecommerce': {
+        'currencyCode': stateService.getCurrentCurrency().code,
+        'add': {
+          'actionField': {
+            'upsellAccepted':upsellAccepted
+          },
+          'products': [product]
+        }
+      }
+    });
+  }
+
+  function trackProductsDetailsView(products, stayLength, bookingWindow){
+    if(!isDataLayerActive()){
+      return;
+    }
+    getDataLayer().push({
+      'event': 'productDetails',
+      'stayLength': stayLength ? stayLength : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
         'detail': {
           'products': products
@@ -71,15 +95,17 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackProductsCheckout(products, stepNum){
+  function trackProductsCheckout(products, actionField, stayLength, bookingWindow){
     if(!isDataLayerActive()){
       return;
     }
     getDataLayer().push({
       'event': 'checkout',
+      'stayLength': stayLength ? stayLength : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
         'checkout': {
-          'actionField': {'step': stepNum},
+          'actionField': actionField,
           'products': products
         }
       }
@@ -99,13 +125,13 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     var dataLayerInfo = {
-      'event': 'purchaseConfirmation',
+      'event':'productPurchase',
+      'stayLength': stayLength ? stayLength : null,
+      'bookingWindow':bookingWindow,
       'ecommerce': {
         'purchase': {
           'actionField': actionField,
-          'products': products,
-          'stayLength': stayLength ? stayLength : null,
-          'bookingWindow': bookingWindow ? bookingWindow : null
+          'products': products
         }
       }
     };
@@ -125,6 +151,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     }
 
     getDataLayer().push({
+      'event': 'productRefund',
       'ecommerce': {
         'refund': {
           'actionField': {
@@ -140,6 +167,7 @@ angular.module('mobiusApp.services.dataLayer', [])
     setUserId: setUserId,
     trackProductsImpressions: trackProductsImpressions,
     trackProductClick: trackProductClick,
+    trackAddToCart: trackAddToCart,
     trackProductsDetailsView: trackProductsDetailsView,
     trackProductsCheckout: trackProductsCheckout,
     trackProductsPurchase: trackProductsPurchase,
