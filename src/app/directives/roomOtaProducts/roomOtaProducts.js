@@ -7,10 +7,7 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
   return {
     restrict: 'E',
     templateUrl: 'directives/roomOtaProducts/roomOtaProducts.html',
-    scope: {
-      otaProducts: '=',
-      currencyCode: '='
-    },
+    scope: false,
     replace: false,
     link: function(scope) {
       var otaRatesConfig = Settings.UI.otaRates;
