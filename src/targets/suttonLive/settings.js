@@ -8,6 +8,8 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   'authType': 'infiniti',
   'loyaltyProgramEnabled': true,
+  'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'showEUCookieDisclaimer':true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
@@ -374,7 +376,7 @@ angular.module('mobiusApp.config', [])
           'bookNowButtonText': 'Book Now',
           'ratesPerRoomOnDesktop': 3,
           'ratesPerRoomOnMobile': 2,
-          'showTagline': false,
+          'showTagline': true,
           'showDescription': true,
           'showDescriptionToggle': false,
           'showNoRatesSubDescription': false,
@@ -383,8 +385,10 @@ angular.module('mobiusApp.config', [])
           'rateInfoIsTabbed': false,
           'highlightFirstRate': false,
           'showSlashThrough': false
-        }
-
+        },
+        'upsells': {
+          'display': true
+        },
       },
       'offers': {
         'toState': 'propertyOffers'
@@ -404,7 +408,8 @@ angular.module('mobiusApp.config', [])
         'hotelHeader': false,
         'hotelDatesSelected': false,
         'hotelInfo': true,
-        'hotelRooms': true,
+        'hotelRooms': false,
+        'hotelRoomsCompare': true,
         'hotelServices': true,
         'hotelLocation': true,
         'hotelOffers': true
@@ -580,6 +585,9 @@ angular.module('mobiusApp.config', [])
         },
         //displayPrice can be button or text
         'displayPrice': 'text'
+      },
+      'upsells': {
+        'display': true
       }
     },
 
@@ -890,7 +898,13 @@ angular.module('mobiusApp.config', [])
           'display': true,
           'position': 'top'
         },
-        'optedInDefault': false
+        'optedInDefault': false,
+        'email2':{
+          'display': true
+        },
+        'email3':{
+          'display': true
+        }
       }
     },
     'myAccount' : {
@@ -950,7 +964,9 @@ angular.module('mobiusApp.config', [])
         'showRegionDescription': false,
         'showLocationDescription': false,
         'displayHotelRegionName': false,
-        'displayHotelsCount': false
+        'displayHotelsCount': false,
+        'displayCompare': true,
+        'displayMap': true
       },
       'hotelDetails':{
         'hasViewMore': true,
