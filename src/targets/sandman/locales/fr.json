@@ -340,6 +340,7 @@
     "name_label": "Nom",
     "name_placeholder": "Saisissez votre Nom",
     "email_label": "Adresse Email",
+    "additional_email_label": "Additional Email Addresses",
     "confirm_email_label": "Confirmez Email",
     "email_placeholder": "Saisissez votre Adresse Email",
     "invalid_email_message": "Veuillez saisir une adresse email valide",

@@ -335,6 +335,7 @@
     "name_label": "Name",
     "name_placeholder": "Enter Your Name",
     "email_label": "Email Address",
+    "additional_email_label": "Additional Email Addresses",
     "confirm_email_label": "Confirm Email",
     "email_placeholder": "Enter Your Email",
     "invalid_email_message": "Please enter a valid email address",
