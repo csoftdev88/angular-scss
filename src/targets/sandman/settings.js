@@ -11,7 +11,7 @@ angular.module('mobiusApp.config', [])
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
   'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
-  'showEUCookieDisclaimer':false,
+  'showEUCookieDisclaimer':true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -392,7 +392,7 @@ angular.module('mobiusApp.config', [])
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
       //Allow subpages to redirect if specified in admin
-      'subPageRedirects': false,
+      'subPageRedirects': true,
       'rooms': {
         'hideRoomsWithNoAvailability': true,
         'sortRoomsByWeighting': true,
@@ -434,7 +434,7 @@ angular.module('mobiusApp.config', [])
           'showInclusions': false
         },
         'upsells': {
-          'display': false
+          'display': true
         },
         'alternativeDisplays': {
           'dates':{
@@ -465,8 +465,8 @@ angular.module('mobiusApp.config', [])
         'hotelDatesSelected': false,
         'hotelInfo': true,
         'hotelServices': false,
-        'hotelRooms': true,
-        'hotelRoomsCompare': false,
+        'hotelRooms': false,
+        'hotelRoomsCompare': true,
         'hotelOffers': true,
         'hotelLocation': true
       },
@@ -519,7 +519,7 @@ angular.module('mobiusApp.config', [])
       'showSlashThrough': false,
       'showMetaView': true,
       'upsells': {
-        'display': false
+        'display': true
       }
     },
 
@@ -848,10 +848,10 @@ angular.module('mobiusApp.config', [])
           'position': 'top'
         },
         'email2':{
-          'display': false
+          'display': true
         },
         'email3':{
-          'display': false
+          'display': true
         }
       },
       'vouchers' : {
@@ -916,10 +916,10 @@ angular.module('mobiusApp.config', [])
         'showRegionDescription': false,
         'showLocationDescription': true,
         'displayHotelRegionName': true,
-        'displayMap': false,
+        'displayMap': true,
         'displayHotelsCount': true,
         'defaultViewMode': 'list',
-        'displayCompare': false,
+        'displayCompare': true,
         'bookingStatistics':{
           'display':false,
           'displayDelay':3000,
