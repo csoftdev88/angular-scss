@@ -1,6 +1,6 @@
 {
   "name": "mobius",
-  "version": "4.8.0",
+  "version": "4.8.1",
   "private": true,
   "scripts": {
     "start": "node app.js",
