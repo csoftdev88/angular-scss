@@ -86,7 +86,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         // when booking tab should be opened
         scope.openBookingTab = function(isMRB){
           var tabType = isMRB?ADVANCED_BOOKING:BOOKING;
-
+          isCollapsed = scope.isCollapsed;
           if(isCollapsed || scope.active !== tabType){
             scope.setActive(tabType);
           }

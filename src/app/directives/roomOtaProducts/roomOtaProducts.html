@@ -4,11 +4,11 @@
     <span class="ota-rate">
       <a href="{{otaProduct.link}}" class="ota-rate-text" target="_blank" ng-if="otaProduct.link">
         <img ng-src="{{otaProduct.logo}}" class="rate-logo" alt="{{otaProduct.type}} logo" />
-        <span class="value">{{otaProduct.price | i18nCurrency: currencyCode }}</span>
+        <span class="value">{{getValuePer(otaProduct.price, false) | i18nCurrency: currencyCode }}</span>
       </a>
       <span class="ota-rate-text" ng-if="!otaProduct.link">
         <img ng-src="{{otaProduct.logo}}" class="rate-logo" alt="{{otaProduct.type}} logo" />
-        <span class="value">{{otaProduct.price | i18nCurrency: currencyCode }}</span>
+        <span class="value">{{getValuePer(otaProduct.price, false) | i18nCurrency: currencyCode }}</span>
       </span>
     </span>
   </li>

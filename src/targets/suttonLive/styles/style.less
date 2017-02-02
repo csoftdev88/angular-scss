@@ -27,6 +27,7 @@
 //- Views
 @import '../../../styles/views/footer';
 @import '../../../styles/views/floating-bar'; //- TODO: merging those two
+@import 'views/floating-bar';
 @import '../../../styles/views/booking-widget'; //- ^^
 @import '../../../styles/views/header';
 @import '../../../styles/views/room-detail';
@@ -34,6 +35,7 @@
 @import 'views/hotels-list'; // Target override
 @import '../../../styles/views/hotel-detail';
 @import '../../../styles/views/room-products';
+@import 'views/room-products';
 @import '../../../styles/views/hotel-subpage';
 @import '../../../styles/views/about-hotel';
 @import '../../../styles/views/site-map';
@@ -63,12 +65,16 @@
 @import '../../../styles/views/modals/login-prompt';
 @import '../../../styles/views/modals/other-rooms';
 @import '../../../styles/views/modals/tiers-list';
+@import '../../../styles/views/modals/upsells-dialog';
+@import 'views/modals/upsells-dialog';
+@import '../../../styles/views/modals/campaign-dialog';
+@import '../../../styles/views/modals/previous-searches-dialog';
 @import '../../../styles/views/modals/product-details';
 
 //- Components
+@import '../../../styles/components/growl-alerts';
 @import '../../../styles/components/animations';
 @import '../../../styles/components/datepicker';
-@import 'components/datepicker';
 @import '../../../styles/components/buttons';
 @import '../../../styles/components/dropdowns';
 @import '../../../styles/components/forms';
@@ -99,3 +105,11 @@
 @import '../../../styles/components/share-widget';
 @import '../../../styles/components/reservation-steps';
 @import '../../../styles/components/mega-menu';
+@import '../../../styles/components/ota-products';
+@import 'components/ota-products';
+@import '../../../styles/components/campaign-bar';
+@import '../../../styles/components/slidedown-notifications';
+@import '../../../styles/components/campaign-rails';
+@import '../../../styles/components/campaign-folded-corner';
+@import '../../../styles/components/cookie-disclaimer';
+@import '../../../styles/components/altRoomDisplays';

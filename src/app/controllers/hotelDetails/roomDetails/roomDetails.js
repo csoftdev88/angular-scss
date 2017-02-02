@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, infinitiApeironService,
+.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, infinitiApeironService, previousSearchesService,
   propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams) {
 
   var numNights = 1;
@@ -30,7 +30,7 @@ angular.module('mobius.controllers.room.details', [])
 
   $scope.openPoliciesInfo = function(products){
     // Tracking product view
-    chainService.getChain(Settings.API.chainCode).then(function(chainData) {
+    /*chainService.getChain(Settings.API.chainCode).then(function(chainData) {
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
         dataLayerService.trackProductsDetailsView(
           products.map(function(p){
@@ -47,7 +47,7 @@ angular.module('mobius.controllers.room.details', [])
             };
           }));
       });
-    });
+    });*/
 
     modalService.openPoliciesInfo(products);
   };
@@ -59,6 +59,30 @@ angular.module('mobius.controllers.room.details', [])
     // Tracking product view
     chainService.getChain(Settings.API.chainCode).then(function(chainData) {
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+        var localeData = propertyData.locale;
+        var localeArray = localeData ? propertyData.locale.split('-') : null;
+        if(localeArray && localeArray.length > 1)
+        {
+          localeData = localeArray[1].trim();
+        }
+        var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + $scope.roomDetails.name;
+        var variant = '';
+        if($stateParams.adults && $stateParams.children)
+        {
+          variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+        }
+
+        var stayLength = null;
+        var bookingWindow = null;
+
+        if ($stateParams.dates) {
+          var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+          var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+          var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+          stayLength = checkOutDate.diff(checkInDate, 'days');
+          bookingWindow = checkInDate.diff(today, 'days');
+        }
+
         dataLayerService.trackProductsDetailsView([{
           name: product.name,
           id: product.code,
@@ -68,8 +92,9 @@ angular.module('mobius.controllers.room.details', [])
           brand: propertyData.nameLong,
           dimension1: propertyData.nameShort,
           list: 'Room',
-          category: $scope.roomDetails.name
-        }]);
+          category: category,
+          variant: variant
+        }], stayLength, bookingWindow);
       });
     });
 
@@ -110,24 +135,60 @@ angular.module('mobius.controllers.room.details', [])
         // Tracking products impressions
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
+
+            if(previousSearchesService.isPreviousSearchesActive())
+            {
+              //Generate search name and store room search
+              var searchName = propertyData.nameLong + ' - ' + data[0].name;
+              previousSearchesService.addSearch($stateParams, searchName);
+            }
+
             if($scope.fromMeta){
               $scope.updateHeroContent($window._.filter(propertyData.images, {includeInSlider: true}));
             }
             if(data[1].products){
               //google analytics
-              dataLayerService.trackProductsImpressions(data[1].products.map(function(p){
-                return {
-                  name: p.name,
-                  id: p.code,
-                  price: (p.price.totalBaseAfterPricingRules/numNights).toFixed(2),
-                  quantity: numNights,
-                  dimension2: chainData.nameShort,
-                  brand: propertyData.nameLong,
-                  dimension1: propertyData.nameShort,
-                  list: 'Room',
-                  category: data[0].name
-                };
-              }));
+              var localeData = propertyData.locale;
+              var localeArray = localeData ? propertyData.locale.split('-') : null;
+              if(localeArray && localeArray.length > 1)
+              {
+                localeData = localeArray[1].trim();
+              }
+              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + data[0].name;
+              var variant = '';
+              if($stateParams.adults && $stateParams.children)
+              {
+                variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+              }
+
+              var stayLength = null;
+              var bookingWindow = null;
+
+              if ($stateParams.dates) {
+                var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+                var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+                var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+                stayLength = checkOutDate.diff(checkInDate, 'days');
+                bookingWindow = checkInDate.diff(today, 'days');
+              }
+
+              if($state.current.name !== 'reservation.details')
+              {
+                dataLayerService.trackProductsDetailsView(data[1].products.map(function(p){
+                  return {
+                    name: p.name,
+                    id: p.code,
+                    price: (p.price.totalBaseAfterPricingRules/numNights).toFixed(2),
+                    quantity: numNights,
+                    dimension2: chainData.nameShort,
+                    brand: propertyData.nameLong,
+                    dimension1: propertyData.nameShort,
+                    list: 'Room',
+                    category: category,
+                    variant: variant
+                  };
+                }), stayLength, bookingWindow);
+              }
               //Mobius tracking
               $scope.$watch('currentOrder', function(order) {
                 if(order && angular.isDefined(order)){
@@ -135,7 +196,6 @@ angular.module('mobius.controllers.room.details', [])
                   infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0], $scope.rates.selectedRate);
                 }
               });
-
             }
           });
         });

@@ -7,7 +7,7 @@ angular.module('mobius.controllers.hotel.details', [
 ])
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
-  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService,
+  propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService, previousSearchesService,
   $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
 
   $controller('PriceCtr', {
@@ -33,6 +33,8 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
 
+  var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
+  var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -159,17 +161,17 @@ angular.module('mobius.controllers.hotel.details', [
       'lengthOfStay':lengthOfStay
     };
 
-    if(bookingParams.rate){
-      params = bookingParams.rate;
+    if(bookingParams.productGroupId){
+      params.productPropertyRoomTypeId = bookingParams.productGroupId;
     }
     if(bookingParams.promoCode){
-      params = bookingParams.promoCode;
+      params.promoCode = bookingParams.promoCode;
     }
     if(bookingParams.groupCode){
-      params = bookingParams.groupCode;
+      params.groupCode = bookingParams.groupCode;
     }
     if(bookingParams.corpCode){
-      params = bookingParams.corpCode;
+      params.corpCode = bookingParams.corpCode;
     }
 
     propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
@@ -235,6 +237,9 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.details = details;
     }
 
+    //Store this location search
+    previousSearchesService.addSearch($stateParams, details.nameLong);
+
     $scope.localInfo = details.localInfo;
     if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle) {
       breadcrumbsService.setHeader(details.nameLong);
@@ -289,8 +294,16 @@ angular.module('mobius.controllers.hotel.details', [
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
       .then(function(details){
-
         $scope.details = details;
+
+        //If dates are selected
+        if(showAltProperties && bookingParams && bookingParams.from && bookingParams.to){
+          var allAltProperties = $scope.details.alternateProperties;
+
+          $scope.altProperties = _.reject(allAltProperties, function(altProperty){
+            return altProperty.available === false;
+          });
+        }
 
         if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics){
           $timeout(function(){
@@ -378,7 +391,32 @@ angular.module('mobius.controllers.hotel.details', [
               }
             });
             $scope.ratesLoaded = true;
+
             if ($scope.availableRooms.length === 0) {
+              //If show alternative dates is enabled
+              if((!$scope.altProperties || !$scope.altProperties.length) && showAltDates && bookingParams && bookingParams.from && bookingParams.to){
+                var flexiRange = $scope.roomsConfig.alternativeDisplays.dates.flexiRange || 3;
+                $scope.lengthOfStay = $window.moment(bookingParams.to).diff($window.moment(bookingParams.from), 'days');
+                var fromDate = $window.moment(bookingParams.from).subtract(flexiRange, 'day');
+                var toDate = $window.moment(bookingParams.from).add(flexiRange, 'day');
+
+                var params = angular.copy(bookingParams);
+                params.from = fromDate.format('YYYY-MM-DD');
+                params.to = toDate.format('YYYY-MM-DD');
+                params.lengthOfStay = $scope.lengthOfStay;
+                delete params.propertySlug;
+                delete params.propertyCode;
+                delete params.includes;
+
+                //Get our flexi alt dates
+                propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+                  $scope.altRoomDates = availabilities;
+                  $scope.altRoomDatesAvailable = _.reject(availabilities, function(availability){
+                    return !availability.fullyAvailable;
+                  });
+                });
+              }
+
               $rootScope.$broadcast('floatingBarEvent', {
                 isCollapsed: false
               });

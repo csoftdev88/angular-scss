@@ -22,10 +22,14 @@ angular.module('mobiusApp.services.thirdPartiesService', [])
       type: codeTypesMap[res.type],
       value: res.code
     };
+
     $rootScope.thirdparty = {
       config: Settings.UI.thirdparties,
       heroContent: res.images,
-      logo: res.logo
+      logo: res.logo,
+      title: res.title,
+      description: res.description,
+      properties: res.properties
     };
 
     setCode(vm);

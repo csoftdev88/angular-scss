@@ -8,7 +8,7 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q, cookieFactory, sessionDataService,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService,
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, previousSearchesService,
   metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService, campaignsService, locationService) {
 
   $controller('RatesCtrl', {
@@ -590,7 +590,31 @@ angular.module('mobius.controllers.reservation', [])
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
         var products = [];
 
+        var localeData = propertyData.locale;
+        var localeArray = localeData ? propertyData.locale.split('-') : null;
+        if(localeArray && localeArray.length > 1)
+        {
+          localeData = localeArray[1].trim();
+        }
+        var variant = '';
+        if($stateParams.adults && $stateParams.children)
+        {
+          variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
+        }
+
+        var stayLength = null;
+        var bookingWindow = null;
+
+        if ($stateParams.dates) {
+          var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+          var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+          var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
+          stayLength = checkOutDate.diff(checkInDate, 'days');
+          bookingWindow = checkInDate.diff(today, 'days');
+        }
+
         _.each($scope.allRooms, function(room){
+          var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
           var product = {
             name: room._selectedProduct.name,
             id: room._selectedProduct.code,
@@ -600,12 +624,35 @@ angular.module('mobius.controllers.reservation', [])
             brand: propertyData.nameLong,
             dimension1: propertyData.nameShort,
             list: 'Room',
-            category: room.name
+            category: category
           };
           products.push(product);
         });
 
-        dataLayerService.trackProductsCheckout(products, stepNum);
+        var actionField = {
+          'step': stepNum
+        };
+
+        if(stepNum === 3)
+        {
+          var paymentInfo = $scope.billingDetails.paymentMethod;
+          if(paymentInfo) {
+            if(paymentInfo === 'cc')
+            {
+              var typeCode = $scope.getCreditCardDetails($scope.billingDetails.card.number).name;
+              if(typeCode){
+                actionField.option = typeCode;
+              }
+              else {
+                actionField.option = 'cc';
+              }
+            }
+            else {
+              actionField.option = paymentInfo.paymentMethod;
+            }
+          }
+        }
+        dataLayerService.trackProductsCheckout(products, actionField, stayLength, bookingWindow);
 
       });
     });
@@ -920,6 +967,10 @@ angular.module('mobius.controllers.reservation', [])
       //Google Tag Manager Tracking purchase
       chainService.getChain(Settings.API.chainCode).then(function(chainData) {
         propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
+
+          //Remove any search results that were created in this session
+          previousSearchesService.removeSessionSearches();
+
           //GTM ecommerce tracking
           var products = [];
 
@@ -955,10 +1006,11 @@ angular.module('mobius.controllers.reservation', [])
           var bookingWindow = null;
 
           if ($stateParams.dates) {
-            var checkInDate = $window.moment($stateParams.dates.split('_')[0]);
-            var checkOutDate = $window.moment($stateParams.dates.split('_')[1]);
+            var checkInDate = $window.moment.tz($stateParams.dates.split('_')[0], Settings.UI.bookingWidget.timezone).startOf('day');
+            var checkOutDate = $window.moment.tz($stateParams.dates.split('_')[1], Settings.UI.bookingWidget.timezone).startOf('day');
+            var today = $window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day');
             stayLength = checkOutDate.diff(checkInDate, 'days');
-            bookingWindow = checkInDate.diff($window.moment(), 'days') + 1;
+            bookingWindow = checkInDate.diff(today, 'days');
           }
           var derbysoftInfo = null;
 
