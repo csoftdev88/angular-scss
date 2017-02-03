@@ -234,9 +234,7 @@ angular.module('mobiusApp.directives.slider', [])
       function preloadImages(){
         for(var i=0; i<scope.content.length; i++){
           var imageURL = scope.content[i].uri;
-          var resizedImageUrl = (scope.slideWidth !== undefined && scope.slideHeight !== undefined) ? $filter('cloudinaryImage')(imageURL,scope.slideWidth,scope.slideHeight,'fill') : imageURL;
-
-          preloadImage(resizedImageUrl);
+          preloadImage(imageURL);
         }
       }
 
@@ -245,6 +243,7 @@ angular.module('mobiusApp.directives.slider', [])
           return;
         }
 
+        imageURL = (scope.slideWidth !== undefined && scope.slideHeight !== undefined) ? $filter('cloudinaryImage')(imageURL,scope.slideWidth,scope.slideHeight,'fill') : imageURL;
         var image = new Image();
         image.src = imageURL;
       }
