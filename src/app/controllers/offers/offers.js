@@ -330,7 +330,7 @@ angular.module('mobius.controllers.offers', [])
     var slug = offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug;
     var code = bookingService.getCodeFromSlug(slug);
 
-    selectedOfferIndex = _.findIndex($scope.offersList, {
+    var selectedOfferIndex = _.findIndex($scope.offersList, {
       code: code
     });
     if (selectedOfferIndex < 0) {
