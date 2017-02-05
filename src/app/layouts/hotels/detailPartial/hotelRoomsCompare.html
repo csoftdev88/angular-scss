@@ -17,7 +17,7 @@
         <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
       </div>
 
-      <div class="filter-bar" ng-if="ratesLoaded && !(availableRooms && availableRooms.length === 0)">
+      <div class="filter-bar">
         <div class="order-switch-container" ng-show="hasDates() && availableRooms && availableRooms.length">
           <span class="filter-label">_filter_sortby_label_:</span>
           <order-switch>
