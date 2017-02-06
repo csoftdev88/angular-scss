@@ -83,9 +83,9 @@
             ng-click="retentionClick()">_hotel_</a>
         </li>
 
-        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals) && (!config.menu.standalone || isMobile)" menu-content="deals" data-title="_hot_deals_"></li>
+        <li has-dropdown="hover" ng-if="(thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals) && (!config.menu.standalone || isMobile)" menu-content="deals" data-title="_hot_deals_"></li>
 
-        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets) && (!config.menu.standalone || isMobile)"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="active" ng-click="retentionClick()">_meetings_banquets_</a></li>
+        <li has-dropdown="hover" ng-if="(thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets) && (!config.menu.standalone || isMobile)"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="active" ng-click="retentionClick()">_meetings_banquets_</a></li>
 
         <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showOffers : config.menu.showOffers) && (!config.menu.standalone || isMobile)" menu-content="offers" data-title="_offers_deals_"></li>
 
@@ -181,7 +181,7 @@
 
         <li ng-show="thirdparty ? thirdparty.config.menu.showRegionsMegaMenu : config.menu.showRegionsMegaMenu" mega-menu data-title="_hotels_" data-type="hotels"></li>
 
-        <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals" mega-menu data-title="_hot_deals_" data-type="hot-deals"></li>
+        <li has-dropdown="hover" ng-if="thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals" mega-menu data-title="_hot_deals_" data-type="hot-deals"></li>
 
         <li has-dropdown="hover" ng-show="thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="is-active" ng-click="retentionClick()">_meetings_banquets_</a></li>
 
