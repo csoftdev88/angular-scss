@@ -130,6 +130,7 @@ angular.module('mobiusApp.config', [])
         'url':'properties/track/purchase'
       }
     },
+    'campaigns':'campaigns',
     'track404s': {
       'enable':true,
       'url':'https://errors.2pvservices.com/status'
@@ -256,6 +257,9 @@ angular.module('mobiusApp.config', [])
     }
   },
   'UI': {
+    'campaigns': {
+      display:true
+    },
     'chains': ['SAN'],
     'user': {
       'userPreferencesCookieExpiryDays': 30

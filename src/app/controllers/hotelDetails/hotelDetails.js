@@ -391,6 +391,7 @@ angular.module('mobius.controllers.hotel.details', [
               }
             });
             $scope.ratesLoaded = true;
+            $scope.filterCompareRooms();
 
             if ($scope.availableRooms.length === 0) {
               //If show alternative dates is enabled
@@ -482,7 +483,7 @@ angular.module('mobius.controllers.hotel.details', [
         });
 
         $scope.rooms = rooms;
-        $scope.compareRooms = $scope.rooms;
+        $scope.filteredCompareRooms = rooms;
 
         $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
         $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;
@@ -669,13 +670,23 @@ angular.module('mobius.controllers.hotel.details', [
 
   $scope.hideRoom = function(room){
     room.userHidden = true;
+    $scope.filterCompareRooms();
     $scope.showCompareRoomsReset = true;
+    //If number of filtered rooms is equal to the current carousel index (i.e. we are at the end of the carousel), move carousel back to show previous page
+    if($scope.filteredCompareRooms.length === $scope.comparisonIndex){
+      $scope.comparisonIndex -= 3;
+      if($scope.comparisonIndex < 0){
+        $scope.comparisonIndex = 0;
+      }
+    }
   };
 
   $scope.resetCompareRooms = function(){
-    _.each($scope.compareRooms, function(room) {
+    $scope.filteredCompareRooms = $scope.rooms;
+    _.each($scope.filteredCompareRooms, function(room) {
       room.userHidden = false;
     });
+    $scope.filterCompareRooms();
     $scope.showCompareRoomsReset = false;
   };
 
@@ -686,6 +697,13 @@ angular.module('mobius.controllers.hotel.details', [
     else {
       $scope.comparisonIndex--;
     }
+  };
+
+  $scope.filterCompareRooms = function(){
+    $scope.filteredCompareRooms = $filter('filter')($scope.filteredCompareRooms, {userHidden:false});
+    $scope.filteredCompareRooms = _.filter($scope.filteredCompareRooms, function(room){
+      return $scope.roomsDisplayFilter(room);
+    });
   };
 
   function scrollToRates(target) {
