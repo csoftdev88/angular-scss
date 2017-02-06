@@ -271,7 +271,7 @@ angular.module('mobiusApp.config', [])
       display:true
     },
     'previousSearches': {
-      'enable':false,
+      'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
       'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
@@ -438,11 +438,11 @@ angular.module('mobiusApp.config', [])
         },
         'alternativeDisplays': {
           'dates':{
-            'enable':false,
+            'enable':true,
             'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
           },
           'properties':{
-            'enable':false
+            'enable':true
           }
         }
       },

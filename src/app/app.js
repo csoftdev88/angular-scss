@@ -818,57 +818,62 @@ angular
 
   //If EU cookie disclaimer enabled
   if(Settings.showEUCookieDisclaimer) {
-    apiService.get('layouts/index.html').then(function(){
-      var isEUHeader = apiService.headers ? apiService.headers['CF-isEU'] : null;
-      var isEU = isEUHeader === false ? false : true;
+    //Re-request the HTML so that we can intercept the page headers (this is the only way you can get page headers in js)
+    var client = new XMLHttpRequest();
+    client.open('GET', document.location, true);
+    client.send();
+    client.onreadystatechange = function() {
+      if(this.readyState === this.HEADERS_RECEIVED) {
+        var isEUHeader = client.getResponseHeader('CF-isEU');
+        var isEU = isEUHeader === 'true' ? true : false;
+        if(isEU){
+          $scope.showEUCookieDisclaimer = true;
+          $rootScope.euCookieDisclaimerVisible = !CookieLawService.isEnabled();
 
-      if(isEU){
-        $scope.showEUCookieDisclaimer = true;
-        $rootScope.euCookieDisclaimerVisible = !CookieLawService.isEnabled();
-
-        if(cookieFactory('cookieDisclaimer')) {
-          $scope.showEUCookieDisclaimer = false;
-          $rootScope.euCookieDisclaimerVisible = false;
-        }
-
-        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
-        var heroSliderEl = $('#main-container > div > hero-slider');
-
-        $scope.$on('cookieLaw.accept', function() {
-          $rootScope.euCookieDisclaimerVisible = false;
-
-          var cookieExpiryDate = null;
-          if(Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0){
-            cookieExpiryDate = new Date();
-            cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
+          if(cookieFactory('cookieDisclaimer')) {
+            $scope.showEUCookieDisclaimer = false;
+            $rootScope.euCookieDisclaimerVisible = false;
           }
-          $window.document.cookie = 'cookieDisclaimer=true' + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
 
-          //Re-position hero-slider after cookie law accepted on mobile
-          if(stateService.isMobile()){
-            $timeout(function(){
-              repositionHeroSlider(heroSliderEl);
-            },500);
-          }
-        });
+          var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+          var heroSliderEl = $('#main-container > div > hero-slider');
 
-        if($rootScope.euCookieDisclaimerVisible){
-          if(stateService.isMobile()){
-            $timeout(function(){
-              repositionHeroSlider(heroSliderEl);
-            },500);
-          }
-          $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
-            if(viewport.isMobile && $rootScope.euCookieDisclaimerVisible){
-              repositionHeroSlider(heroSliderEl);
+          $scope.$on('cookieLaw.accept', function() {
+            $rootScope.euCookieDisclaimerVisible = false;
+
+            var cookieExpiryDate = null;
+            if(Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0){
+              cookieExpiryDate = new Date();
+              cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
             }
-            else {
-              heroSliderEl.css('margin-top', '');
+            $window.document.cookie = 'cookieDisclaimer=true' + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
+
+            //Re-position hero-slider after cookie law accepted on mobile
+            if(stateService.isMobile()){
+              $timeout(function(){
+                repositionHeroSlider(heroSliderEl);
+              },500);
             }
           });
+
+          if($rootScope.euCookieDisclaimerVisible){
+            if(stateService.isMobile()){
+              $timeout(function(){
+                repositionHeroSlider(heroSliderEl);
+              },500);
+            }
+            $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+              if(viewport.isMobile && $rootScope.euCookieDisclaimerVisible){
+                repositionHeroSlider(heroSliderEl);
+              }
+              else {
+                heroSliderEl.css('margin-top', '');
+              }
+            });
+          }
         }
       }
-    });
+    };
   }
 
   //Display our previous searches

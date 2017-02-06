@@ -260,6 +260,14 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:true
     },
+    'previousSearches': {
+      'enable':true,
+      'searchDataCookieName':'MobiusPreviousSearchData',
+      'searchDataCookieExpiry':259200, //180 days
+      'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
+      'searchInSessionCookieName':'MobiusSearchInSession',
+      'maxSearches':10
+    },
     'chains': ['SAN'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
@@ -393,6 +401,15 @@ angular.module('mobiusApp.config', [])
         'upsells': {
           'display': true
         },
+        'alternativeDisplays': {
+          'dates':{
+            'enable':true,
+            'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
+          },
+          'properties':{
+            'enable':true
+          }
+        }
       },
       'offers': {
         'toState': 'propertyOffers'
