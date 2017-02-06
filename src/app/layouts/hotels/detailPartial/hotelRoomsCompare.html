@@ -17,7 +17,7 @@
         <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
       </div>
 
-      <div class="filter-bar" ng-if="ratesLoaded && !(availableRooms && availableRooms.length === 0)">
+      <div class="filter-bar">
         <div class="order-switch-container" ng-show="hasDates() && availableRooms && availableRooms.length">
           <span class="filter-label">_filter_sortby_label_:</span>
           <order-switch>
@@ -204,7 +204,7 @@
     <div class="preloader" ng-show="preloader.visible"></div>
     <div class="room-list-compare-container" ng-if="roomsViewMode === 'compare' && !preloader.visible">
       <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch" vertilize-container>
-        <list-item ng-repeat="room in compareRooms | filter:{userHidden:false} | filter: roomsDisplayFilter | orderBy : currentOrder.sort | limitTo:(comparisonIndex - ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length)) | limitTo:compareRoomLimit">
+        <list-item ng-repeat="room in filteredCompareRooms | orderBy : currentOrder.sort | limitTo:(comparisonIndex - (filteredCompareRooms.length)) | limitTo:compareRoomLimit">
           <div class="list-item-container">
             <!-- Room info -->
             <div class="list-item-info">
@@ -216,7 +216,6 @@
                 <header class="item-header">
                   <h3>
                     <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
-                    <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
                   </h3>
                 </header>
 
@@ -253,9 +252,9 @@
           <!-- //list-item-container -->
         </list-item>
       </list-items>
-      <button class="compare-direction-btn" ng-click="shiftRoomCarousel(false)" ng-disabled="!(comparisonIndex > 0)" ng-if="(compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length">&lt;</button>
-      <button class="compare-direction-btn" ng-click="shiftRoomCarousel(true)" ng-disabled="!(comparisonIndex < ((compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length - compareRoomLimit))" ng-if="(compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length">&gt;</button>
-      <div ng-if="!(compareRooms|filter:{userHidden:false}|filter: roomsDisplayFilter).length && ((!altRoomDatesAvailable || !altRoomDatesAvailable.length) && (!altProperties || !altProperties.length))" class="compare-no-rooms">
+      <button class="compare-direction-btn" ng-click="shiftRoomCarousel(false)" ng-disabled="!(comparisonIndex > 0)" ng-if="filteredCompareRooms.length">&lt;</button>
+      <button class="compare-direction-btn" ng-click="shiftRoomCarousel(true)" ng-disabled="!(comparisonIndex < (filteredCompareRooms.length - compareRoomLimit))" ng-if="filteredCompareRooms.length">&gt;</button>
+      <div ng-if="!filteredCompareRooms.length && ((!altRoomDatesAvailable || !altRoomDatesAvailable.length) && (!altProperties || !altProperties.length))" class="compare-no-rooms">
         <h2>_no_rooms_found_</h2>
         <a href ng-click="resetCompareRooms()">_show_all_rooms_</a>
       </div>
