@@ -1182,19 +1182,19 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       }
-    }
-  },
-  'thirdparties': {
-    'enable': false,
-    'menu': {
-      'showHotels': false,
-      'showRegionsMegaMenu': true,
-      'showHotDeals': false,
-      'showMeetingsBanquets': false,
-      'showOffers': false,
-      'showAbout': true,
-      'showNews': false,
-      'showContact': false
+    },
+    'thirdparties': {
+      'enable': true,
+      'menu': {
+        'showHotels': false,
+        'showRegionsMegaMenu': true,
+        'showHotDeals': false,
+        'showMeetingsBanquets': false,
+        'showOffers': false,
+        'showAbout': true,
+        'showNews': false,
+        'showContact': false
+      }
     }
   }
 });
