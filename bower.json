@@ -1,6 +1,6 @@
 {
   "name": "mobius",
-  "version": "4.8.2",
+  "version": "4.8.3",
   "dependencies": {
     "angular": "",
     "angular-bootstrap": "=0.13.0",
