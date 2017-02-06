@@ -63,7 +63,7 @@ angular.module('mobiusApp.services.campaigns', [])
           var retrievedCampaign = _.find(data, function(thisCampaign) {
             return thisCampaign.code === savedCampaign.code;
           });
-          //If there is a saved campaign and we are on a non-search based page display the saved campaign
+          //If there is a saved campaign and we are on a non-search based page, display the saved campaign
           if (retrievedCampaign && getAllCampaigns) {
             console.log('display previous campaign');
             renderCampaign(retrievedCampaign);
@@ -84,9 +84,11 @@ angular.module('mobiusApp.services.campaigns', [])
           params.from = dates[0];
           params.to = dates[1];
         }
+        //if on a property based page add the property to campaign request params
         if ($stateParams.propertySlug) {
           params.property = bookingService.getCodeFromSlug($stateParams.propertySlug);
         }
+        //if on a location page but not a property page add the location to campaign request params
         if(!$stateParams.propertySlug && $stateParams.locationSlug && locationCode) {
           params.location = locationCode;
         }    
@@ -321,7 +323,6 @@ angular.module('mobiusApp.services.campaigns', [])
         }
       }
       else{
-        console.log('Disable active campaign');
         disableActiveCampaign();
       }
 
@@ -343,6 +344,7 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function disableActiveCampaign(){
+      console.log('disable active campaign');
       if($rootScope.campaign){
         $rootScope.campaign.pageCurl = {};
         $rootScope.campaign.pageCurl.display = false;
