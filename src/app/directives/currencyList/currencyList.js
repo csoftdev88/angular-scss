@@ -76,7 +76,8 @@ angular.module('mobiusApp.directives.currency', [])
           if(currency.code !== Settings.UI.currencies.default){
             queryService.setValue(Settings.currencyParamName, currency.code);
           }
-          else {
+          //Otherwise if we already have one set, remove it
+          else if(queryService.getValue('currency')){
             queryService.removeParam('currency');
           }
 
