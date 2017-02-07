@@ -447,41 +447,28 @@ angular
     templateUrl: 'layouts/offers/offers.html',
     url: '/hotels/:propertySlug/offers/:code',
     controller: 'OffersCtrl'
-  })
+  });
 
-  /*.state('hotDeals', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/:regionSlug/:locationSlug/hot-deals/:code',
-    controller: 'OffersCtrl',
-    params: {
-      locationSlug: {
-        value: null,
-        squash: true
-      },
-      regionSlug: {
-        value: null,
-        squash: true
-      }
+  //Only allow hot deals urls if hot deals is enabled
+  if(Settings.enableHotDeals){
+    $stateProvider.state('hotDeals', {
+      parent: 'root',
+      templateUrl: 'layouts/offers/offers.html',
+      url: '/hot-deals/',
+      controller: 'OffersCtrl'
+    });
+    if(Settings.newUrlStructure){
+      $stateProvider.state('propertyHotDeals', {
+        parent: 'root',
+        templateUrl: 'layouts/offers/offers.html',
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/hot-deals/:code',
+        controller: 'OffersCtrl'
+      });
     }
-  })*/
-
-  .state('hotDeals', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/hot-deals/',
-    controller: 'OffersCtrl'
-  })
-
-  .state('propertyHotDeals', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/hot-deals/:code',
-    controller: 'OffersCtrl'
-  })
+  }
 
   // Rewards page
-  .state('rewards', {
+  $stateProvider.state('rewards', {
     parent: 'root',
     templateUrl: 'layouts/rewards/rewards.html',
     url: '/rewards',
