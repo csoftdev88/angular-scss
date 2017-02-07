@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.megaMenu', [])
 
-.directive('megaMenu', function(propertyService, locationService, _, $state, $rootScope, contentService, Settings, funnelRetentionService) {
+.directive('megaMenu', function(propertyService, locationService, _, $state, $rootScope, contentService, Settings, funnelRetentionService, $filter) {
   return {
     restrict: 'EA',
     scope: {},
@@ -238,6 +238,17 @@ angular.module('mobiusApp.directives.megaMenu', [])
         funnelRetentionService.retentionCheck();
       };
 
+      scope.filterProperties = function(regions, propertySearch){
+        console.log('filter properties');
+        _.each(regions, function(region){
+          _.each(region.locations, function(location) {
+            location.filteredProperties = $filter('byNameOrZip')(location.properties, propertySearch, false);
+            console.log(location.filteredProperties);
+            location.show = location.filteredProperties.length ? true : false;
+          });
+        });
+      };
+
       function assignPropertiesToLocations(region, properties) {
         //assign properties to their respective location
         _.each(region.locations, function(location) {
@@ -248,6 +259,8 @@ angular.module('mobiusApp.directives.megaMenu', [])
           _.each(location.properties, function(property) {
             setPropertyUrls(property, location, region);
           });
+          location.filteredProperties = location.properties;
+          location.show = location.filteredProperties.length ? true : false;
         });
         scope.locationsLoading = false;
       }
