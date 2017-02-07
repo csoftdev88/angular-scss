@@ -85,3 +85,26 @@ p{
     height: auto;
   }
 }
+
+//Page transition animations
+#main-container[ui-view] {
+    &.ng-enter,
+    &.ng-leave {
+        -webkit-transition: all .5s ease-in-out;
+        -moz-transition: all .5s ease-in-out;
+        -o-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+    }
+    &.ng-enter {
+        opacity: 0;
+    }
+    &.ng-enter-active {
+        opacity: 1;
+    }
+    &.ng-leave {
+        opacity: 1;
+    }
+    &.ng-leave-active {
+        opacity: 0;
+    }
+}
