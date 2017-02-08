@@ -279,7 +279,7 @@ angular.module('mobiusApp.services.api', [])
 
   function logApiError(type, error, url, params, resHeaders){
     //Send our error log to sentry
-    $window.Raven.captureException('API ERROR - Type:'+ type +' Error:' + JSON.stringify(error) + ' URL:' + url + ' Params:' + params ? JSON.stringify(params) : {} + ' Headers:' + JSON.stringify(resHeaders()));
+    $window.Raven.captureException('API ERROR - Type:'+ type +', Error:' + JSON.stringify(error) + ', URL:' + url + ', Params:' + JSON.stringify(params) + ', Headers:' + JSON.stringify(resHeaders()));
 
     //Send our error to alerts end-endpoint
     sendApiAlert(type, error, url, params, resHeaders);
