@@ -54,7 +54,7 @@ angular.module('mobiusApp.services.api', [])
         q.resolve(res);
 
       }).error(function(err, status, resHeaders) {
-        $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
+        logApiError('GET', err, url, params, resHeaders);
         q.reject(err);
       });
     }
@@ -74,14 +74,14 @@ angular.module('mobiusApp.services.api', [])
         q.resolve(res);
 
       }).error(function(err, status, resHeaders) {
-        $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
+        logApiError('GET', err, url, params, resHeaders);
         q.reject(err);
       });
     }
     return q.promise;
   }
 
-  function post(url, data, params, ignoreHeaders) {
+  function post(url, data, params, ignoreHeaders, ignoreLogging) {
     var q = $q.defer();
 
     if(!ignoreHeaders)
@@ -104,7 +104,9 @@ angular.module('mobiusApp.services.api', [])
       }
       q.resolve(res);
     }).error(function(err, status, resHeaders) {
-      $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
+      if(!ignoreLogging){
+        logApiError('POST', err, url, params, resHeaders);
+      }
       q.reject(err);
     });
 
@@ -131,62 +133,11 @@ angular.module('mobiusApp.services.api', [])
       }
       q.resolve(res);
     }).error(function(err, status, resHeaders) {
-      $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
+      logApiError('PUT', err, url, params, resHeaders);
       q.reject(err);
     });
 
     return q.promise;
-  }
-
-  function trackUsage(url, requestId) {
-    if(Settings.API.trackUsage){
-      var usagePayload = {
-        'metric':'performance',
-        'system':'mobius-web',
-        'environment':env,
-        'endpoint':url,
-        'host':$location.host(),
-        'requestID':requestId,
-        'sessionID':sessionId,
-        'type':'page load',
-      };
-
-      $http({
-        method: 'POST',
-        url: 'https://webservice.mobiuswebservices.com/monitor/record',
-        data: usagePayload
-      }).success(function() {}).error(function(err) {console.log(err);});
-    }
-  }
-
-  function sendAlert(component, env, stateParams, reservationData, priceData){
-    var numberOfOccupants = 0;
-    if(stateParams.adults){
-      numberOfOccupants += parseInt(stateParams.adults);
-    }
-    if(stateParams.children){
-      numberOfOccupants += parseInt(stateParams.children);
-    }
-    var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
-    var fromDate = null;
-    if (bookedDate && bookedDate.length) {
-      fromDate = bookedDate[0];
-    }
-    var alertData = {
-      'client': Settings.infinitiApeironTracking[env].username,
-      'id': Settings.infinitiApeironTracking[env].id,
-      'component': component,
-      'description': 'Booking sent to Apeiron from Mobius-web',
-      'meta': {
-          'reference number': reservationData && reservationData.length ? reservationData[0].reservationCode : null,
-          'bookDate': $window.moment.utc(new Date()).format('YYYY-MM-DD'),
-          'stayDate': fromDate,
-          'noOfOccupants': numberOfOccupants,
-          'totalRate': priceData.totalAfterTaxAfterPricingRules,
-      },
-      'severity': 5
-    };
-    post('https://webservice.mobiuswebservices.com/alerting/alert', alertData, null, true);
   }
 
   function infinitiApeironPost(url, data, username, password) {
@@ -200,7 +151,7 @@ angular.module('mobiusApp.services.api', [])
     }).success(function(res) {
       q.resolve(res);
     }).error(function(err, status, resHeaders) {
-      $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
+      logApiError('POST', err, url, null, resHeaders);
       q.reject(err);
     });
 
@@ -305,6 +256,88 @@ angular.module('mobiusApp.services.api', [])
     return $window.$.param(obj);
   }
 
+  function trackUsage(url, requestId) {
+    if(Settings.API.trackUsage){
+      var usagePayload = {
+        'metric':'performance',
+        'system':'mobius-web',
+        'environment':env,
+        'endpoint':url,
+        'host':$location.host(),
+        'requestID':requestId,
+        'sessionID':sessionId,
+        'type':'page load',
+      };
+
+      $http({
+        method: 'POST',
+        url: 'https://webservice.mobiuswebservices.com/monitor/record',
+        data: usagePayload
+      }).success(function() {}).error(function(err) {console.log(err);});
+    }
+  }
+
+  function logApiError(type, error, url, params, resHeaders){
+    //Send our error log to sentry
+    $window.Raven.captureException('API ERROR - Type:'+ type +' Error:' + JSON.stringify(error) + ' URL:' + url + ' Params:' + params ? JSON.stringify(params) : {} + ' Headers:' + JSON.stringify(resHeaders()));
+
+    //Send our error to alerts end-endpoint
+    sendApiAlert(type, error, url, params, resHeaders);
+  }
+
+  function sendApiAlert(type, error, url, params, resHeaders){
+    //error params url headers
+    var alertData = {
+      'client': Settings.infinitiApeironTracking[env].username,
+      'id': Settings.infinitiApeironTracking[env].id,
+      'component': 'mobius-web',
+      'description': 'Failed api request sent from mobius-web',
+      'meta': {
+        'error': error,
+        'type': type,
+        'url': url,
+        'params': params,
+        'headers': resHeaders
+      },
+      'severity': 5
+    };
+    sendMobiusAlert(alertData);
+  }
+
+  function sendMobiusAlert(alertData){
+    post('https://webservice.mobiuswebservices.com/alerting/alert', alertData, null, true, true);
+  }
+
+  function sendApeironAlert(component, env, stateParams, reservationData, priceData){
+    var numberOfOccupants = 0;
+    if(stateParams.adults){
+      numberOfOccupants += parseInt(stateParams.adults);
+    }
+    if(stateParams.children){
+      numberOfOccupants += parseInt(stateParams.children);
+    }
+    var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
+    var fromDate = null;
+    if (bookedDate && bookedDate.length) {
+      fromDate = bookedDate[0];
+    }
+    var alertData = {
+      'client': Settings.infinitiApeironTracking[env].username,
+      'id': Settings.infinitiApeironTracking[env].id,
+      'component': component,
+      'description': 'Booking sent to Apeiron from Mobius-web',
+      'meta': {
+          'reference number': reservationData && reservationData.length ? reservationData[0].reservationCode : null,
+          'bookDate': $window.moment.utc(new Date()).format('YYYY-MM-DD'),
+          'stayDate': fromDate,
+          'noOfOccupants': numberOfOccupants,
+          'totalRate': priceData.totalAfterTaxAfterPricingRules,
+      },
+      'severity': 5
+    };
+    sendMobiusAlert(alertData);
+  }
+
   // Public methods
   var api = {
     get: get,
@@ -317,7 +350,7 @@ angular.module('mobiusApp.services.api', [])
     infinitiApeironPost: infinitiApeironPost,
     trackUsage: trackUsage,
     headers: headers,
-    sendAlert: sendAlert
+    sendApeironAlert: sendApeironAlert
   };
   return api;
 });
