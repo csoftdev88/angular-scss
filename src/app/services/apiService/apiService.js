@@ -53,7 +53,8 @@ angular.module('mobiusApp.services.api', [])
         }
         q.resolve(res);
 
-      }).error(function(err) {
+      }).error(function(err, status, resHeaders) {
+        $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
         q.reject(err);
       });
     }
@@ -72,7 +73,8 @@ angular.module('mobiusApp.services.api', [])
         }
         q.resolve(res);
 
-      }).error(function(err) {
+      }).error(function(err, status, resHeaders) {
+        $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
         q.reject(err);
       });
     }
@@ -101,7 +103,8 @@ angular.module('mobiusApp.services.api', [])
         updateMobiusAuthHeader(resHeaders('mobius-authentication'));
       }
       q.resolve(res);
-    }).error(function(err) {
+    }).error(function(err, status, resHeaders) {
+      $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
       q.reject(err);
     });
 
@@ -127,7 +130,8 @@ angular.module('mobiusApp.services.api', [])
         updateMobiusAuthHeader(resHeaders('mobius-authentication'));
       }
       q.resolve(res);
-    }).error(function(err) {
+    }).error(function(err, status, resHeaders) {
+      $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
       q.reject(err);
     });
 
@@ -195,7 +199,8 @@ angular.module('mobiusApp.services.api', [])
       data: data
     }).success(function(res) {
       q.resolve(res);
-    }).error(function(err) {
+    }).error(function(err, status, resHeaders) {
+      $window.Raven.captureException('API ERROR - Type:GET Error:' + JSON.stringify(err) + ' URL:' + url + ' Params:' + JSON.stringify(params) + ' Headers:' + JSON.stringify(resHeaders()));
       q.reject(err);
     });
 
