@@ -258,7 +258,7 @@ angular.module('mobiusApp.services.api', [])
         'host':$location.host(),
         'requestID':requestId,
         'sessionID':sessionId,
-        'type':'page load',
+        'type':'page load'
       };
 
       $http({
