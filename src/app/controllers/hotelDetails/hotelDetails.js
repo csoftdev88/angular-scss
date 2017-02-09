@@ -120,7 +120,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   };
 
-  if($scope.showFlexibleDates && $stateParams.dates){
+  if($scope.showFlexibleDates && $stateParams.dates && $rootScope.flexibleDates){
 
     $scope.flexibleDates = [];
 
