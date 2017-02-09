@@ -42,7 +42,6 @@ angular.module('mobius.controllers.modals.previousSearches', [
 
       ///Generate the search url
       search.url = $state.href(search.s, search.params, {reload: true});
-      console.log(search.url);
       search.display = true;
     });
   }
