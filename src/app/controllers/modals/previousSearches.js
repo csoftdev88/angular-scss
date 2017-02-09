@@ -14,7 +14,7 @@ angular.module('mobius.controllers.modals.previousSearches', [
 
   function generateSearchViewData(){
     _.each(data.searches, function(search){
-
+      search.name = search.n;
       //Generate the date string
       if(search.params && search.params.dates){
         var datesArray = search.params.dates.split('_');
@@ -41,7 +41,8 @@ angular.module('mobius.controllers.modals.previousSearches', [
       }
 
       ///Generate the search url
-      search.url = $state.href(search.state, search.params, {reload: true});
+      search.url = $state.href(search.s, search.params, {reload: true});
+      console.log(search.url);
       search.display = true;
     });
   }
@@ -55,7 +56,7 @@ angular.module('mobius.controllers.modals.previousSearches', [
     $scope.cancel();
 
     //Go to this search URL
-    $state.go(search.state, search.params, {reload: true});
+    $state.go(search.s, search.params, {reload: true});
   };
 
   $scope.removeSearch = function(searchToRemove){
