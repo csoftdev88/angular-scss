@@ -323,7 +323,7 @@ angular.module('mobiusApp.services.api', [])
           'bookDate': $window.moment.utc(new Date()).format('YYYY-MM-DD'),
           'stayDate': fromDate,
           'noOfOccupants': numberOfOccupants,
-          'totalRate': priceData.totalAfterTaxAfterPricingRules,
+          'totalRate': priceData.totalAfterTaxAfterPricingRules
       },
       'severity': 5
     };
