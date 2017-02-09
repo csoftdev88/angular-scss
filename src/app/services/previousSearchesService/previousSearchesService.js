@@ -89,16 +89,16 @@ angular.module('mobiusApp.services.previousSearches', [])
       var filteredSearches = _.reject(previousSearches, function(savedSearch) {
         return savedSearch.guid === search.guid && !search.display;
       });
-      if(filteredSearches.length){
-        var cookie = getSearchDataCookie();
-        if(cookie){
+      var cookie = getSearchDataCookie();
+      if(cookie){
+        if(filteredSearches.length){      
           cookie.searches = filteredSearches;
           saveSearchDataCookie(cookie);
         }
-      }
-      else {
-        //Delete searchDataCookie as it is now empty
-        $window.document.cookie = searchDataCookieName+ '=' + 'clear' + ';expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+        else {
+          cookie.searches = [];
+          saveSearchDataCookie(cookie);
+        }
       }
     }
 
@@ -159,11 +159,18 @@ angular.module('mobiusApp.services.previousSearches', [])
 
     //Generate the cookie to store searches in
     function saveSearchDataCookie(cookie) {
-      if (searchDataCookieExpiry && searchDataCookieExpiry !== 0) {
-        var cookieExpiryDate = null;
-        cookieExpiryDate = new Date();
-        cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (searchDataCookieExpiry * 60 * 1000));
-        saveCookie(searchDataCookieName, cookie, cookieExpiryDate);
+      //If we have searches, save the cookie
+      if(cookie.searches.length && cookie.searches.length > 0){
+        if (searchDataCookieExpiry && searchDataCookieExpiry !== 0) {
+          var cookieExpiryDate = null;
+          cookieExpiryDate = new Date();
+          cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (searchDataCookieExpiry * 60 * 1000));
+          saveCookie(searchDataCookieName, cookie, cookieExpiryDate);
+        }
+      }
+      //If we don't have searches, delete the cookie
+      else {
+        deleteCookie(searchDataCookieName);
       }
     }
 
@@ -194,6 +201,10 @@ angular.module('mobiusApp.services.previousSearches', [])
     function saveCookie(cookieName, cookie, cookieExpiryDate){
       var expiry = cookieExpiryDate ? cookieExpiryDate.toUTCString() : '';
       $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + expiry + '; path=/';
+    }
+
+    function deleteCookie(cookieName){
+      $window.document.cookie = cookieName + '=' + 'clear' + ';expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     }
 
     //Display searches in the front-end of the app
