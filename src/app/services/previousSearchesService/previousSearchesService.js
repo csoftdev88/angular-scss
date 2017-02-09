@@ -74,7 +74,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       return params;
     }
 
-    function buildSearchParams(searchParams, propertySlug, locationSlug, regionSlug, roomSlug){
+    function buildSearchParams(searchParams, propertySlug, locationSlug, regionSlug){
       var params = {};
       params.adults = searchParams.a ? searchParams.a : undefined;
       params.children = searchParams.c ? searchParams.c : undefined;
