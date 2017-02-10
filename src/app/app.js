@@ -811,10 +811,15 @@ angular
       previousSearchesService.addSearch($stateParams);
     }
 
-    $scope.retentionClick = function(){
-      funnelRetentionService.retentionCheck();
-    };
+    //Display our previous searches if not in reservation flow
+    if($state.current.name !== 'reservation.details' && $state.current.name !== 'reservation.billing' && $state.current.name !== 'reservation.confirmation') {
+      previousSearchesService.displaySearches();
+    }
   });
+
+  $scope.retentionClick = function(){
+    funnelRetentionService.retentionCheck();
+  };
 
   //If EU cookie disclaimer enabled
   if(Settings.showEUCookieDisclaimer) {
@@ -870,9 +875,6 @@ angular
       }
     });
   }
-
-  //Display our previous searches
-  previousSearchesService.displaySearches();
 
   function repositionHeroSlider(heroSliderEl){
     var mainHeaderHeight = $('#main-header').height();

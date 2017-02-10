@@ -193,7 +193,14 @@ angular.module('mobiusApp.services.previousSearches', [])
 
     function saveCookie(cookieName, cookie, cookieExpiryDate){
       var expiry = cookieExpiryDate ? cookieExpiryDate.toUTCString() : '';
-      $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + expiry + '; path=/';
+      //If expiry defined create a cookie with expiry
+      if(expiry){
+        $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + expiry + '; path=/';
+      }
+      //Otherwise create a session cookie (no expiry)
+      else {
+        $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; path=/';
+      }
     }
 
     //Display searches in the front-end of the app
