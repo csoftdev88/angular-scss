@@ -29,7 +29,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
         previousSearches = previousSearchesService.getSearches();
         if(previousSearches && previousSearches.length){
           var lastSearch = _.last(previousSearches);
-          var searchBody = cleanParams(lastSearch.p);
+          var searchBody = buildParams(lastSearch.p);
           sendRetentionMessage(searchBody);
         }
       }
@@ -60,25 +60,31 @@ angular.module('mobiusApp.services.funnelRetention', [])
       return cookie && cookie.inactiveTime ? cookie.inactiveTime : 0;
     }
 
-    function cleanParams(params){
-      if(params.dates){
-        var datesArray = params.dates.split('_');
+    function buildParams(params){
+      if(params.d){
+        var datesArray = params.d.split('_');
         if(datesArray.length){
           params.from = datesArray[0];
           params.to = datesArray[1];
         }
-        delete params.dates;
+        delete params.d;
       }
-      params.propertyCode = params.property;
-      params.productGroupId = params.rate;
-      params.customer = userObject;
-      delete params.property;
-      delete params.rate;
-      delete params.fromSearch;
-      delete params.propertySlug;
-      delete params.locationSlug;
-      delete params.regionSlug;
-      delete params.scrollTo;
+      params.adults = params.a ? params.a : undefined;
+      params.children = params.c ? params.c : undefined;
+      params.propertyCode = params.p ? params.p : undefined;
+      params.customer = userObject ? userObject : undefined;
+      params.productGroupId = params.ra ? params.ra : undefined; //Selected rate filter
+      params.promoCode = params.pc ? params.pc : undefined;
+      params.groupCode = params.gc ? params.gc : undefined;
+      params.corpCode = params.cc ? params.cc : undefined;
+
+      delete params.a;
+      delete params.c;
+      delete params.p;
+      delete params.ra;
+      delete params.pc;
+      delete params.gc;
+      delete params.cc;
 
       return params;
     }
