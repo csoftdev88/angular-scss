@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$timeout', '$location', 'Settings',
-    function(growl, $timeout, $location, Settings) {
+  .directive('growlAlerts', ['growl', '$rootScope', '$timeout', '$location', 'Settings',
+    function(growl, $rootScope, $timeout, $location, Settings) {
       return {
         restrict: 'E',
         scope: {
@@ -10,7 +10,6 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           viewsMessage: '=',
           searchesMessage: '=',
           positionReference: '=',
-          languageMessage: '=',
           displayTime: '=',
           displayDelay: '=',
           hour: '=',
@@ -19,7 +18,8 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           days: '=',
           week: '=',
           weeks: '=',
-          languagesMessage: '='
+          languagesMessage: '=',
+          retentionMessage: '='
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
@@ -36,6 +36,12 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             disableIcons: true
           };
 
+          var retentionPromptConfig = {
+            referenceId: 2,
+            ttl: scope.displayTime ? scope.displayTime : 10000,
+            disableIcons: true
+          };
+
           scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
             if(scope.displayDelay){
               $timeout(function(){
@@ -47,6 +53,21 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 growl.info(formatStatsMessage(statistic), bookingStatsConfig);
               });
             }
+          });  
+
+          console.log('add growl alert listener');
+          $rootScope.$on('RETENTION_GROWL_ALERT', function (event, retentionTelephone) {
+            if(retentionTelephone){
+              $timeout(function () {
+                console.log('show the growl alert');
+                growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionTelephone + '</p>', retentionPromptConfig);
+              });
+            }
+          });
+
+          scope.$on('$destroy', function() {
+            console.log('remove growl alert listener');
+            $rootScope.$on('RETENTION_GROWL_ALERT', function (){});
           });
 
           if(Settings.sandmanFrenchOverride) {
