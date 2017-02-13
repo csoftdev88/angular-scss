@@ -29,7 +29,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
         previousSearches = previousSearchesService.getSearches();
         if(previousSearches && previousSearches.length){
           var lastSearch = _.last(previousSearches);
-          var searchBody = cleanParams(lastSearch.params);
+          var searchBody = cleanParams(lastSearch.p);
           sendRetentionMessage(searchBody);
         }
       }
