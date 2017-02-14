@@ -42,6 +42,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             disableIcons: true
           };
 
+          //add statistics growl alert listener
           scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
             if(scope.displayDelay){
               $timeout(function(){
@@ -55,21 +56,21 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             }
           });  
 
-          console.log('add growl directive retention listener');
+          //destroy existing retention growl alert listeners
+          scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
+
+          //add retention growl alert listener
           scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (event, retentionMessage) {
             if(retentionMessage && retentionMessage.telephone){
               $timeout(function () {
                 console.log('show the growl alert');
+                scope.retentionMessage = scope.retentionMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's
                 growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone + '</p>', retentionPromptConfig);
               });
             }
           });
 
-          scope.$on('$destroy', function() {
-            console.log('destroygrowl alert listener');
-            scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
-          });
-
+          //If french override enabled and we are on a quebec page add our language growl alert listener
           if(Settings.sandmanFrenchOverride) {
             var currentURL = $location.path();
             if(currentURL.indexOf('/locations/quebec') !== -1) {

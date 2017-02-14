@@ -811,7 +811,7 @@ angular
 
   $scope.$on('RETENTION_GROWL_ALERT_EMIT', function(event, retentionMessage) {
     console.log('retention emit detected');
-    $scope.$broadcast('RETENTION_GROWL_ALERT', retentionMessage);
+    $scope.$broadcast('RETENTION_GROWL_ALERT_BROADCAST', retentionMessage);
   });
 
   //If EU cookie disclaimer enabled

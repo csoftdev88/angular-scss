@@ -37,13 +37,12 @@ angular.module('mobiusApp.services.funnelRetention', [])
       };
       console.log('broadcast alert');
       scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessage);
-      //$rootScope.$emit('RETENTION_GROWL_ALERT', retentionMessage.telephone);
 
       //END STUB
       /*apiService.post(apiService.getFullURL('retention'), body).then(function (retentionMessageData) {
-        if(retentionMessageData.telephone){
+        if(retentionMessageData){
           console.log('broadcast alert');
-          $rootScope.$broadcast('RETENTION_GROWL_ALERT', retentionMessageData.telephone);
+          scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessageData);
         }
       }, function (error) {
         console.log(error);
