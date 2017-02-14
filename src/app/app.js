@@ -807,7 +807,7 @@ angular
   funnelRetentionService.init($scope);
 
   $scope.retentionClick = function(){
-    funnelRetentionService.retentionClickCheck($scope);
+    funnelRetentionService.retentionClickCheck();
   };
 
   $scope.$on('RETENTION_GROWL_ALERT_EMIT', function(event, retentionMessage) {
