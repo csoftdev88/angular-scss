@@ -662,7 +662,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService) {
+  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, modalService) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -804,15 +804,23 @@ angular
     }
   });
 
-  funnelRetentionService.init($scope);
+  if(funnelRetentionService.isFunnelRetentionActive()){
+    funnelRetentionService.init($scope);
+    
+    $window.ouibounce(false, {
+      callback: function() { 
+        modalService.openCCVInfo(); 
+      }
+    });
 
-  $scope.retentionClick = function(){
-    funnelRetentionService.retentionClickCheck();
-  };
+    $scope.retentionClick = function(){
+      funnelRetentionService.retentionClickCheck();
+    };
 
-  $scope.$on('RETENTION_GROWL_ALERT_EMIT', function(event, retentionMessage) {
-    $scope.$broadcast('RETENTION_GROWL_ALERT_BROADCAST', retentionMessage);
-  });
+    $scope.$on('RETENTION_GROWL_ALERT_EMIT', function(event, retentionMessage) {
+      $scope.$broadcast('RETENTION_GROWL_ALERT_BROADCAST', retentionMessage);
+    });
+  }
 
   //If EU cookie disclaimer enabled
   if(Settings.showEUCookieDisclaimer) {
