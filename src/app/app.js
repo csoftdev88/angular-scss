@@ -795,7 +795,7 @@ angular
 
     //If on the allHotels page, store the search
     if($state.current.name === 'allHotels'){
-      previousSearchesService.addSearch($stateParams);
+      previousSearchesService.addSearch($state.current.name, $stateParams);
     }
 
     //Display our previous searches if not in reservation flow

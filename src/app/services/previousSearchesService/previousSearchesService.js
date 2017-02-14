@@ -29,7 +29,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       }
     }
 
-    function addSearch(searchParams, searchName, propertyCode, locationCode, roomCode) {
+    function addSearch(stateName, searchParams, searchName, propertyCode, locationCode, roomCode) {
       if (isPreviousSearchesActive()) {
 
         //Prevent modal from displaying in this session
@@ -38,7 +38,7 @@ angular.module('mobiusApp.services.previousSearches', [])
         //Save cookie to denote that user has searched in current session
         saveSearchInSessionCookie();
 
-        var search = buildSearchObject(searchParams, searchName, propertyCode, locationCode, roomCode);
+        var search = buildSearchObject(stateName, searchParams, searchName, propertyCode, locationCode, roomCode);
         if (search) {
           addSearchToCookie(search);
         }
@@ -46,11 +46,11 @@ angular.module('mobiusApp.services.previousSearches', [])
     }
 
     //Create your search object
-    function buildSearchObject(searchParams, searchName, propertyCode, locationCode, roomCode) {
+    function buildSearchObject(stateName, searchParams, searchName, propertyCode, locationCode, roomCode) {
       var search = null;
       if (sessionDataService.getCookie() && sessionDataService.getCookie().sessionData) {
         search = {};
-        search.s = $state.current.name;
+        search.s = stateName;
         search.n = searchName ? searchName : 'All hotels';
         search.id = sessionDataService.generateUUID(); //Specific GUID generated for each search that can be referenced for deletion
         search.sid = sessionDataService.getCookie().sessionData.sessionId; //Specific GUID for each session so that we can remove all searches from a session once booking is complete

@@ -239,7 +239,7 @@ angular.module('mobius.controllers.hotel.details', [
 
     //If a property param is defined (which denotes a search) store this search
     if($stateParams.property){
-      previousSearchesService.addSearch($stateParams, details.nameLong, details.code);
+      previousSearchesService.addSearch($state.current.name, $stateParams, details.nameLong, details.code);
     }
 
     $scope.localInfo = details.localInfo;
