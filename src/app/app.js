@@ -213,7 +213,7 @@ angular
 
   //Global config for growl messages
   growlProvider.globalTimeToLive(30000);
-  growlProvider.onlyUniqueMessages(false);
+  growlProvider.onlyUniqueMessages(true);
   growlProvider.globalPosition('top-center');
   //growlProvider.globalReversedOrder(true);
 
@@ -804,13 +804,13 @@ angular
     }
   });
 
+  funnelRetentionService.init($scope);
+
   $scope.retentionClick = function(){
-    console.log('app retention click');
-    funnelRetentionService.retentionCheck($scope);
+    funnelRetentionService.retentionClickCheck($scope);
   };
 
   $scope.$on('RETENTION_GROWL_ALERT_EMIT', function(event, retentionMessage) {
-    console.log('retention emit detected');
     $scope.$broadcast('RETENTION_GROWL_ALERT_BROADCAST', retentionMessage);
   });
 

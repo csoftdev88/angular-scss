@@ -235,8 +235,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
       };
 
       scope.retentionClick = function(){
-        console.log('megamenu retention click');
-        funnelRetentionService.retentionCheck(scope);
+        funnelRetentionService.retentionClickCheck();
       };
 
       scope.filterProperties = function(regions, propertySearch){

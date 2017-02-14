@@ -38,7 +38,6 @@ angular.module('mobiusApp.directives.growlAlerts', [])
 
           var retentionPromptConfig = {
             referenceId: 2,
-            ttl: scope.displayTime ? scope.displayTime : 10000,
             disableIcons: true
           };
 

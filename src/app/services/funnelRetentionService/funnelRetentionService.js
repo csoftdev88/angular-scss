@@ -3,7 +3,7 @@
  * This service is for funnel retention
  */
 angular.module('mobiusApp.services.funnelRetention', [])
-  .service('funnelRetentionService', function ($window, $rootScope, Settings, cookieFactory, previousSearchesService, apiService, userObject, _) {
+  .service('funnelRetentionService', function ($window, $q, Settings, cookieFactory, previousSearchesService, apiService, userObject, _) {
 
     function isFunnelRetentionActive() {
       return Settings.UI.funnelRetention && Settings.UI.funnelRetention.enable;
@@ -17,45 +17,65 @@ angular.module('mobiusApp.services.funnelRetention', [])
       $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; path=/';
     }
 
-    function sendRetentionMessage(body, scope) {
-      //STUB FOR RETENTION
-      /*
-      {
-          title: <string>,
-          text: <string>,
-          image: <object>,
-          voucherCode: <string>,
-          newsletter: <boolean>,
-          [telephoneNumber: <string>],
-          [customer: <object>]
-      }
-      */
-      var retentionMessage = {
-        'title': 'My awesome retention title',
-        'text': 'There is some text here and it is probably a bit longer and more stuff tes test',
-        'telephone': '121412425'
-      };
-      console.log('broadcast alert');
-      scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessage);
-
-      //END STUB
-      /*apiService.post(apiService.getFullURL('retention'), body).then(function (retentionMessageData) {
-        if(retentionMessageData){
-          console.log('broadcast alert');
-          scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessageData);
-        }
+    function getRetentionMessage(body) {
+      var q = $q.defer();
+      apiService.post(apiService.getFullURL('retention'), body).then(function (data) {
+        q.resolve(data);
       }, function (error) {
-        console.log(error);
-      });*/
+        q.reject(error);     
+      });
+      return q.promise;
     }
 
-    function retentionCheck(scope) {
+    function displayRetentionMessage(searchBody){
+      //If we have params for a contextual message
+      if(searchBody){
+        getRetentionMessage(searchBody).then(function(retentionMessage){
+          console.log('contextual message broadcast alert');
+          $scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessage);
+        },function(){     
+          //STUB FOR RETENTION
+           var stubRetentionMessage = {
+            'title': 'My awesome retention title',
+            'text': 'There is some text here and it is probably a bit longer and more stuff tes test',
+            'telephone': '121412425'
+          };
+          console.log('failed contextual message broadcast alert');
+          $scope.$emit('RETENTION_GROWL_ALERT_EMIT', stubRetentionMessage);
+          //END STUB
+        }); 
+      }
+      //Otherwise if we already have the generic message stored, display it
+      else if(genericRetentionData){     
+        console.log('generic message broadcast alert');
+        $scope.$emit('RETENTION_GROWL_ALERT_EMIT', genericRetentionData);
+      }
+      //Otherwise if no generic message stored
+      else {
+        getRetentionMessage().then(function(retentionMessage){
+          console.log('new generic message broadcast alert');
+          $scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessage);
+        },function(){       
+          //STUB FOR RETENTION
+           var stubRetentionMessage = {
+            'title': 'My awesome retention title',
+            'text': 'There is some text here and it is probably a bit longer and more stuff tes test',
+            'telephone': '121412425'
+          };
+          console.log('failed new generic message broadcast alert');
+          $scope.$emit('RETENTION_GROWL_ALERT_EMIT', stubRetentionMessage);
+          //END STUB
+        }); 
+      }
+    }
+
+    function retentionClickCheck() {
       if (isFunnelRetentionActive() && previousSearchesService.isPreviousSearchesActive() && previousSearchesService.hasSearchedInSession()) {
         previousSearches = previousSearchesService.getSearches();
         if (previousSearches && previousSearches.length) {
           var lastSearch = _.last(previousSearches);
           var searchBody = buildParams(lastSearch.p);
-          sendRetentionMessage(searchBody, scope);
+          displayRetentionMessage(searchBody);
         }
       }
     }
@@ -75,7 +95,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
           setTimeout(sessionTimeTracker, inactivityPeriodInterval);
         }
         else {
-          sendRetentionMessage();
+          displayRetentionMessage();
         }
       }
     }
@@ -113,7 +133,20 @@ angular.module('mobiusApp.services.funnelRetention', [])
 
       return params;
     }
+    
+    function init(scope){
+      //Bind access to our top level scope
+      $scope = scope;
+      
+      //Set our initial retention data
+      console.log('get generic retention message');
+      getRetentionMessage().then(function(data){
+        genericRetentionData = data;
+      });    
+    }
 
+    var $scope = null;
+    var genericRetentionData = null;
     var inactivityPeriod = isFunnelRetentionActive() ? Settings.UI.funnelRetention.inactivityPeriod : null;
     var inactivityPeriodInterval = isFunnelRetentionActive() ? Settings.UI.funnelRetention.inactivityPeriodInterval : null;
     var retentionCookieName = isFunnelRetentionActive() ? Settings.UI.funnelRetention.cookieName : null;
@@ -127,9 +160,10 @@ angular.module('mobiusApp.services.funnelRetention', [])
 
     // Public methods
     return {
+      init:init,
       getCookie: getCookie,
       saveSessionCookie: saveSessionCookie,
       isFunnelRetentionActive: isFunnelRetentionActive,
-      retentionCheck: retentionCheck,
+      retentionClickCheck: retentionClickCheck,
     };
   });
