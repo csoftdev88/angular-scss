@@ -140,7 +140,7 @@ angular.module('mobius.controllers.room.details', [])
             {
               //Generate search name and store room search
               var searchName = propertyData.nameLong + ' - ' + data[0].name;
-              previousSearchesService.addSearch($stateParams, searchName, propertyData.code, null, roomCode);
+              previousSearchesService.addSearch($state.current.name, $stateParams, searchName, propertyData.code, null, roomCode);
             }
 
             if($scope.fromMeta){
