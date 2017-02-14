@@ -329,8 +329,7 @@ div[mega-menu] {
 
 .no-filtered-properties {
   display:none;
-}
-
-li +.no-filtered-properties {
-  display:block;
+  &:first-child {
+    display:block;
+  }
 }

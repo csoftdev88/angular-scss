@@ -10,8 +10,9 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
-  'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'showEUCookieDisclaimer':true,
+  'enableHotDeals':true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -271,12 +272,12 @@ angular.module('mobiusApp.config', [])
       display:true
     },
     'previousSearches': {
-      'enable':false,
+      'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
       'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
       'searchInSessionCookieName':'MobiusSearchInSession',
-      'maxSearches':10
+      'maxSearches':3
     },
     'funnelRetention':{
       'enable':false,
