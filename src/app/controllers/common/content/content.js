@@ -228,7 +228,8 @@ angular.module('mobius.controllers.common.content', [])
   };
 
   $scope.retentionClick = function(){
-    funnelRetentionService.retentionCheck();
+    console.log('content retention click');
+    funnelRetentionService.retentionCheck($scope);
   };
 
   function processSettings() {

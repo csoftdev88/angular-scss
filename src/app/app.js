@@ -805,8 +805,14 @@ angular
   });
 
   $scope.retentionClick = function(){
-    funnelRetentionService.retentionCheck();
+    console.log('app retention click');
+    funnelRetentionService.retentionCheck($scope);
   };
+
+  $scope.$on('RETENTION_GROWL_ALERT_EMIT', function(event, retentionMessage) {
+    console.log('retention emit detected');
+    $scope.$broadcast('RETENTION_GROWL_ALERT', retentionMessage);
+  });
 
   //If EU cookie disclaimer enabled
   if(Settings.showEUCookieDisclaimer) {

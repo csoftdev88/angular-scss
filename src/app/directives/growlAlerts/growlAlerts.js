@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$rootScope', '$timeout', '$location', 'Settings',
-    function(growl, $rootScope, $timeout, $location, Settings) {
+  .directive('growlAlerts', ['growl', '$timeout', '$location', 'Settings',
+    function(growl, $timeout, $location, Settings) {
       return {
         restrict: 'E',
         scope: {
@@ -55,19 +55,19 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             }
           });  
 
-          console.log('add growl alert listener');
-          $rootScope.$on('RETENTION_GROWL_ALERT', function (event, retentionTelephone) {
-            if(retentionTelephone){
+          console.log('add growl directive retention listener');
+          scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (event, retentionMessage) {
+            if(retentionMessage && retentionMessage.telephone){
               $timeout(function () {
                 console.log('show the growl alert');
-                growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionTelephone + '</p>', retentionPromptConfig);
+                growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone + '</p>', retentionPromptConfig);
               });
             }
           });
 
           scope.$on('$destroy', function() {
-            console.log('remove growl alert listener');
-            $rootScope.$on('RETENTION_GROWL_ALERT', function (){});
+            console.log('destroygrowl alert listener');
+            scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
           });
 
           if(Settings.sandmanFrenchOverride) {

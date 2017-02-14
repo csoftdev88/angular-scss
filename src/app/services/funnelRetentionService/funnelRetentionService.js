@@ -17,7 +17,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
       $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; path=/';
     }
 
-    function sendRetentionMessage(body) {
+    function sendRetentionMessage(body, scope) {
       //STUB FOR RETENTION
       /*
       {
@@ -36,26 +36,27 @@ angular.module('mobiusApp.services.funnelRetention', [])
         'telephone': '121412425'
       };
       console.log('broadcast alert');
-      $rootScope.$broadcast('RETENTION_GROWL_ALERT', retentionMessage.telephone);
+      scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessage);
+      //$rootScope.$emit('RETENTION_GROWL_ALERT', retentionMessage.telephone);
 
       //END STUB
-      apiService.post(apiService.getFullURL('retention'), body).then(function (retentionMessageData) {
+      /*apiService.post(apiService.getFullURL('retention'), body).then(function (retentionMessageData) {
         if(retentionMessageData.telephone){
           console.log('broadcast alert');
           $rootScope.$broadcast('RETENTION_GROWL_ALERT', retentionMessageData.telephone);
         }
       }, function (error) {
         console.log(error);
-      });
+      });*/
     }
 
-    function retentionCheck() {
+    function retentionCheck(scope) {
       if (isFunnelRetentionActive() && previousSearchesService.isPreviousSearchesActive() && previousSearchesService.hasSearchedInSession()) {
         previousSearches = previousSearchesService.getSearches();
         if (previousSearches && previousSearches.length) {
           var lastSearch = _.last(previousSearches);
           var searchBody = buildParams(lastSearch.p);
-          sendRetentionMessage(searchBody);
+          sendRetentionMessage(searchBody, scope);
         }
       }
     }
