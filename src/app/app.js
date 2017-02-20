@@ -76,6 +76,7 @@ angular
     'mobius.controllers.modals.campaign',
     'mobius.controllers.modals.password',
     'mobius.controllers.modals.previousSearches',
+    'mobius.controllers.modals.funnelRetentionExit',
 
     // Application modules
     'mobiusApp.config',
@@ -213,7 +214,7 @@ angular
 
   //Global config for growl messages
   growlProvider.globalTimeToLive(30000);
-  growlProvider.onlyUniqueMessages(false);
+  growlProvider.onlyUniqueMessages(true);
   growlProvider.globalPosition('top-center');
   //growlProvider.globalReversedOrder(true);
 
@@ -804,9 +805,25 @@ angular
     }
   });
 
-  $scope.retentionClick = function(){
-    funnelRetentionService.retentionCheck();
-  };
+  if(funnelRetentionService.isFunnelRetentionActive()){
+    funnelRetentionService.init($scope);
+    
+    //Detect exit intent and display modal
+    $window.ouibounce(false, {
+      cookieName: 'MobiusExitIntent',
+      callback: function() { 
+        funnelRetentionService.displayExitMessage();
+      }
+    });
+
+    $scope.retentionClick = function(){
+      funnelRetentionService.retentionClickCheck();
+    };
+
+    $scope.$on('RETENTION_GROWL_ALERT_EMIT', function(event, retentionMessage) {
+      $scope.$broadcast('RETENTION_GROWL_ALERT_BROADCAST', retentionMessage);
+    });
+  }
 
   //If EU cookie disclaimer enabled
   if(Settings.showEUCookieDisclaimer) {

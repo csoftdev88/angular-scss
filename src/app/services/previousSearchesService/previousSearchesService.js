@@ -54,7 +54,7 @@ angular.module('mobiusApp.services.previousSearches', [])
         search.n = searchName ? searchName : 'All hotels';
         search.id = sessionDataService.generateUUID(); //Specific GUID generated for each search that can be referenced for deletion
         search.sid = sessionDataService.getCookie().sessionData.sessionId; //Specific GUID for each session so that we can remove all searches from a session once booking is complete
-        search.p = cleanSearchParams(searchParams);
+        search.p = buildSearchParamStore(searchParams);
         search.p.r = roomCode ? roomCode : undefined;
         if(propertyCode){
           search.p.p = propertyCode;
@@ -66,15 +66,19 @@ angular.module('mobiusApp.services.previousSearches', [])
       return search;
     }
 
-    function cleanSearchParams(searchParams){
+    function buildSearchParamStore(searchParams){
       var params = {};
       params.a = searchParams.adults ? searchParams.adults : undefined;
       params.c = searchParams.children ? searchParams.children : undefined;
       params.d = searchParams.dates ? searchParams.dates : undefined;
+      params.ra = searchParams.rate ? searchParams.rate : undefined; //The selected rate filter / productGroupId
+      params.pc = searchParams.promoCode ? searchParams.promoCode : undefined;
+      params.gc = searchParams.groupCode ? searchParams.groupCode : undefined;
+      params.cc = searchParams.corpCode ? searchParams.corpCode : undefined;
       return params;
     }
 
-    function buildSearchParams(searchParams, propertySlug, locationSlug, regionSlug){
+    function buildSearchUrlParams(searchParams, propertySlug, locationSlug, regionSlug){
       var params = {};
       params.adults = searchParams.a ? searchParams.a : undefined;
       params.children = searchParams.c ? searchParams.c : undefined;
@@ -89,6 +93,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       return params;
     }
 
+    //Retrieves all required parameters to form a search URL
     function getSearchUrlParams(search){      
       var q = $q.defer();
       if(search.p){
@@ -96,7 +101,7 @@ angular.module('mobiusApp.services.previousSearches', [])
           propertyService.getRoomDetails(search.p.p, search.p.r).then(function(room){
             propertyService.getPropertyDetails(search.p.p).then(function(property){
               propertyService.getPropertyRegionData(property.locationCode).then(function(data){
-                var params = buildSearchParams(search.p, property.meta.slug, data.location.meta.slug, data.region.meta.slug, room.meta.slug);
+                var params = buildSearchUrlParams(search.p, property.meta.slug, data.location.meta.slug, data.region.meta.slug, room.meta.slug);
                 q.resolve(params);
               }, function(error){
                 q.reject(error);
@@ -107,7 +112,7 @@ angular.module('mobiusApp.services.previousSearches', [])
         else if(search.p.p){
           propertyService.getPropertyDetails(search.p.p).then(function(property){
             propertyService.getPropertyRegionData(property.locationCode).then(function(data){
-              var params = buildSearchParams(search.p, property.meta.slug, data.location.meta.slug, data.region.meta.slug);
+              var params = buildSearchUrlParams(search.p, property.meta.slug, data.location.meta.slug, data.region.meta.slug);
               q.resolve(params);
             }, function(error){
               q.reject(error);
@@ -116,7 +121,7 @@ angular.module('mobiusApp.services.previousSearches', [])
         }
         else if(search.p.l){
           propertyService.getPropertyRegionData(search.p.l).then(function(data){
-            var params = buildSearchParams(search.p, null, data.location.meta.slug, data.region.meta.slug);
+            var params = buildSearchUrlParams(search.p, null, data.location.meta.slug, data.region.meta.slug);
             q.resolve(params);
           }, function(error){
             q.reject(error);

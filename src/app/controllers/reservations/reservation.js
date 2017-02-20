@@ -261,6 +261,11 @@ angular.module('mobius.controllers.reservation', [])
           }
         }
       }
+
+      if($stateParams.voucher){
+        $scope.voucher.code = $stateParams.voucher;
+        $scope.redeemVoucher();
+      }
     });
   }
 

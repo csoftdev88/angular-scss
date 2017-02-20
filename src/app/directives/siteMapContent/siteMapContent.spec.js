@@ -12,9 +12,6 @@ describe('siteMapContent', function() {
       $controllerProvider.register('ContentCtr', function($scope){
           $scope._contentCtrlInherited = true;
         });
-      $provide.value('funnelRetentionService', {
-        retentionCheck: function(){}
-      });
     });
   });
 

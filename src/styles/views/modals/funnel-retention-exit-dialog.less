@@ -1,0 +1,93 @@
+.funnel-retention-exit-dialog {
+  max-width:780px;
+  background:none;
+  border:0px none;
+  .viewport-mobile & {
+    width:95%;
+    left:2.5%;
+    padding:10px;
+    box-sizing:border-box;
+    overflow-y:initial;
+  }
+  .ui-info {
+    padding:40px;
+    background:none;
+    text-align:center;
+    .viewport-mobile & {
+      padding:0;
+    }
+    .funnel-container {
+      padding: 80px 125px;
+      background-size: cover;
+      background-position: center;
+      border-radius:5px;
+      .viewport-mobile & {
+        padding:30px 20px;
+      }
+    }
+    main {
+      width:auto;
+      max-width:450px;
+      padding:40px;
+      text-align:center;
+      background-color: rgba(255, 255, 255, 0.85);
+      -webkit-backdrop-filter: blur(4.5px);
+      backdrop-filter: blur(4.5px);
+      .viewport-mobile & {
+        padding:20px;
+        margin:0px auto !important;
+      }
+      h1 {
+        color:@c-grey;
+        font-size:36px;
+        line-height:42px;
+        font-weight:300;
+        margin-bottom:20px;
+      }
+      .funnel-description {
+        font-size:18px;
+        line-height:30px;
+        font-weight:300;
+        margin-bottom:20px;
+      }
+      .retention-cta {
+        display:block;
+        width:100%;
+        max-width:300px;
+        padding:15px;
+        margin:0 auto;
+        box-sizing:border-box;
+        background:#373535;
+        font-size:22px;
+        color:@c-white;
+        font-weight:bold;
+      }
+    }
+    .button {
+      width:100%;
+      max-width:200px;
+      text-transform:uppercase;
+      border-radius:0;
+      font-size: 14px;
+      line-height:14px;
+      padding: 15px;
+      margin-top:30px;
+      height: auto;
+      &:hover, &:focus {
+        box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      }
+    }
+    button-close {
+      font-size:18px;
+      position:absolute;
+      top:0px;
+      right:0px;
+      color:@c-white;
+      .viewport-mobile & {
+        font-size: 28px;
+        top: -55px;
+        right: -10px;
+      }
+    }
+  }
+}

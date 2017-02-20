@@ -10,7 +10,6 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           viewsMessage: '=',
           searchesMessage: '=',
           positionReference: '=',
-          languageMessage: '=',
           displayTime: '=',
           displayDelay: '=',
           hour: '=',
@@ -19,7 +18,8 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           days: '=',
           week: '=',
           weeks: '=',
-          languagesMessage: '='
+          languagesMessage: '=',
+          retentionMessage: '='
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
@@ -36,6 +36,12 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             disableIcons: true
           };
 
+          var retentionPromptConfig = {
+            referenceId: 2,
+            disableIcons: true
+          };
+
+          //add statistics growl alert listener
           scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
             if(scope.displayDelay){
               $timeout(function(){
@@ -47,8 +53,23 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 growl.info(formatStatsMessage(statistic), bookingStatsConfig);
               });
             }
+          });  
+
+          //destroy existing retention growl alert listeners
+          scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
+
+          //add retention growl alert listener
+          scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (event, retentionMessage) {
+            if(retentionMessage && retentionMessage.telephone){
+              $timeout(function () {
+                console.log('show the growl alert');
+                scope.retentionMessage = scope.retentionMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's
+                growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone + '</p>', retentionPromptConfig);
+              });
+            }
           });
 
+          //If french override enabled and we are on a quebec page add our language growl alert listener
           if(Settings.sandmanFrenchOverride) {
             var currentURL = $location.path();
             if(currentURL.indexOf('/locations/quebec') !== -1) {
