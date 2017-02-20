@@ -76,6 +76,7 @@ angular
     'mobius.controllers.modals.campaign',
     'mobius.controllers.modals.password',
     'mobius.controllers.modals.previousSearches',
+    'mobius.controllers.modals.funnelRetentionExit',
 
     // Application modules
     'mobiusApp.config',
@@ -662,7 +663,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, modalService) {
+  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -811,7 +812,7 @@ angular
     $window.ouibounce(false, {
       cookieName: 'MobiusExitIntent',
       callback: function() { 
-        modalService.openCCVInfo(); 
+        funnelRetentionService.displayExitMessage();
       }
     });
 

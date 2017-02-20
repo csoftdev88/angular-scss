@@ -16,6 +16,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_CAMPAIGN = 'CampaignCtrl',
       CONTROLLER_PASSWORD = 'PasswordCtrl',
       CONTROLLER_PREVIOUS_SEARCHES = 'PreviousSearchesCtrl',
+      CONTROLER_FUNNEL_RETENTION_EXIT = 'FunnelRetentionExitCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -466,6 +467,17 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openFunnelRetentionExitDialog(retentionData){
+    return openDialog('openFunnelRetentionExitDialog', 'layouts/modals/funnelRetentionExit.html', CONTROLER_FUNNEL_RETENTION_EXIT, {
+      windowClass: 'details funnel-retention-exit-dialog',
+      resolve: {
+        data: function(){
+          return {retentionData:retentionData};
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -503,6 +515,7 @@ angular.module('mobiusApp.services.modal', [])
     openUpsellsDialog: openUpsellsDialog,
     openCampaignDialog: openCampaignDialog,
     openPasswordDialog: openPasswordDialog,
-    openPreviousSearchesDialog: openPreviousSearchesDialog
+    openPreviousSearchesDialog: openPreviousSearchesDialog,
+    openFunnelRetentionExitDialog: openFunnelRetentionExitDialog
   };
 });

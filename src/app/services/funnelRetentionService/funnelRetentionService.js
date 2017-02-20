@@ -3,7 +3,7 @@
  * This service is for funnel retention
  */
 angular.module('mobiusApp.services.funnelRetention', [])
-  .service('funnelRetentionService', function ($window, $q, Settings, cookieFactory, previousSearchesService, apiService, userObject, _) {
+  .service('funnelRetentionService', function ($window, $q, Settings, cookieFactory, previousSearchesService, apiService, userObject, modalService, _) {
 
     function isFunnelRetentionActive() {
       return Settings.UI.funnelRetention && Settings.UI.funnelRetention.enable;
@@ -26,8 +26,21 @@ angular.module('mobiusApp.services.funnelRetention', [])
       });
       return q.promise;
     }
+    
+    function displayExitMessage(){
+      if(genericRetentionData){
+        modalService.openFunnelRetentionExitDialog(genericRetentionData);
+      }
+      else {
+        console.log('get generic retention message');
+        getRetentionMessage().then(function(data){
+          genericRetentionData = data;
+          modalService.openFunnelRetentionExitDialog(genericRetentionData);
+        });  
+      }
+    }
 
-    function displayRetentionMessage(searchBody){
+    function displayRetentionAlert(searchBody){
       //If we have params for a contextual message
       if(searchBody){
         getRetentionMessage(searchBody).then(function(retentionMessage){
@@ -75,7 +88,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
         if (previousSearches && previousSearches.length) {
           var lastSearch = _.last(previousSearches);
           var searchBody = buildParams(lastSearch.p);
-          displayRetentionMessage(searchBody);
+          displayRetentionAlert(searchBody);
         }
       }
     }
@@ -95,7 +108,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
           setTimeout(sessionTimeTracker, inactivityPeriodInterval);
         }
         else {
-          displayRetentionMessage();
+          displayRetentionAlert();
         }
       }
     }
@@ -142,6 +155,19 @@ angular.module('mobiusApp.services.funnelRetention', [])
       console.log('get generic retention message');
       getRetentionMessage().then(function(data){
         genericRetentionData = data;
+      }, function(){
+        //STUB FOR RETENTION
+        genericRetentionData = {
+          'title': 'Wait! Don\'t leave yet...',
+          'text': 'Call us on the number below to talk to an advisor',
+          'telephone': '121412425',
+          'image':{
+            'uri':'//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
+            'alt':'This is the image alt'
+          },
+          'voucherCode':'APPLES'
+        };
+        //END STUB
       });    
     }
 
@@ -165,5 +191,6 @@ angular.module('mobiusApp.services.funnelRetention', [])
       saveSessionCookie: saveSessionCookie,
       isFunnelRetentionActive: isFunnelRetentionActive,
       retentionClickCheck: retentionClickCheck,
+      displayExitMessage: displayExitMessage
     };
   });
