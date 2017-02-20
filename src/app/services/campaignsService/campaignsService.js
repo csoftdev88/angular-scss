@@ -15,7 +15,7 @@ angular.module('mobiusApp.services.campaigns', [])
         return $stateParams.locationSlug === location.meta.slug;
       });
       locationCode = locationMatch ? locationMatch.code : null;
-      activeCampaign = cookieFactory('ActiveCampaign');
+      activeCampaign = cookieFactory('MobiusActiveCampaign');
       savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
       
       //Only request search specific campaigns if on one of the following pages
@@ -438,7 +438,7 @@ angular.module('mobiusApp.services.campaigns', [])
         'interstitialDismissed': false,
         'priority': isPriority
       };
-      $window.document.cookie = 'ActiveCampaign' + '=' + angular.toJson(campaignCookie) + '; path=/';
+      $window.document.cookie = 'MobiusActiveCampaign' + '=' + angular.toJson(campaignCookie) + '; path=/';
     }
 
     // Public methods
