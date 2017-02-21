@@ -57,6 +57,13 @@ room-products {
 						}
 					}
 				}
+				.rate-description {
+					h4 {
+						@media only screen and @smallest-mobile-max {
+							max-width:120px;
+						}
+					}
+				}
 			}
 			&.slashthrough {
 				pricing-details {
@@ -134,6 +141,12 @@ room-products {
 					font-family:@ff-heading-it-sign;
 					font-size:12px;
 				}
+				.viewport-mobile & {
+					box-sizing: border-box;
+					width: 160px !important;
+					max-width: initial;
+					padding-left: 27px;
+				}
 			}
 			.action-buttons {
 				.label {
@@ -168,7 +181,6 @@ room-products {
 					&:hover {}
 				}
 				h4 {
-					font-size: 14;
 					font-weight: 700;
 					color: @c-dark-grey;
 					.chain-sign & {
