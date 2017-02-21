@@ -46,16 +46,6 @@ angular.module('mobiusApp.services.funnelRetention', [])
         getRetentionMessage(searchBody).then(function(retentionMessage){
           console.log('contextual message broadcast alert');
           $scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessage);
-        },function(){     
-          //STUB FOR RETENTION
-           var stubRetentionMessage = {
-            'title': 'My awesome retention title',
-            'text': 'There is some text here and it is probably a bit longer and more stuff tes test',
-            'telephone': '121412425'
-          };
-          console.log('failed contextual message broadcast alert');
-          $scope.$emit('RETENTION_GROWL_ALERT_EMIT', stubRetentionMessage);
-          //END STUB
         }); 
       }
       //Otherwise if we already have the generic message stored, display it
@@ -68,16 +58,6 @@ angular.module('mobiusApp.services.funnelRetention', [])
         getRetentionMessage().then(function(retentionMessage){
           console.log('new generic message broadcast alert');
           $scope.$emit('RETENTION_GROWL_ALERT_EMIT', retentionMessage);
-        },function(){       
-          //STUB FOR RETENTION
-           var stubRetentionMessage = {
-            'title': 'My awesome retention title',
-            'text': 'There is some text here and it is probably a bit longer and more stuff tes test',
-            'telephone': '121412425'
-          };
-          console.log('failed new generic message broadcast alert');
-          $scope.$emit('RETENTION_GROWL_ALERT_EMIT', stubRetentionMessage);
-          //END STUB
         }); 
       }
     }
@@ -155,19 +135,6 @@ angular.module('mobiusApp.services.funnelRetention', [])
       console.log('get generic retention message');
       getRetentionMessage().then(function(data){
         genericRetentionData = data;
-      }, function(){
-        //STUB FOR RETENTION
-        genericRetentionData = {
-          'title': 'Wait! Don\'t leave yet...',
-          'text': 'Call us on the number below to talk to an advisor',
-          'telephone': '121412425',
-          'image':{
-            'uri':'//res.cloudinary.com/dmh2cjswj/image/upload/v1469223268/tvsn52ivxzpzmvbtzl2u.jpg',
-            'alt':'This is the image alt'
-          },
-          'voucherCode':'APPLES'
-        };
-        //END STUB
       });    
     }
 
