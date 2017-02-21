@@ -127,9 +127,13 @@
             <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
 
             <div ng-if="viewSettings.showInclusions && product.inclusions" class="product-inclusions">
-              <p>_this_includes_</p>
               <ul>
-                <li ng-repeat="inclusion in product.inclusions">{{inclusion.inclusionName}}</li>
+                <li ng-repeat="inclusion in product.inclusions">
+                  <img ng-src="{{inclusion.image.uri | cloudinaryImage : 20 : 20 : 'fill'}}" alt="inclusion.image.alt" ng-if="inclusion.image && inclusion.image.uri"/>
+                  <i class="fa {{inclusion.icon}}" ng-if="!inclusion.image && inclusion.icon"></i>
+                  <span class="inclusion-letter" ng-if="!inclusion.image && !inclusion.icon">{{inclusion.inclusionName | limitTo:1}}</span>
+                  <span class="tooltiptext">{{inclusion.inclusionName}}</span>
+                </li>
               </ul>
             </div>
 
