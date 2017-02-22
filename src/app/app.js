@@ -77,6 +77,7 @@ angular
     'mobius.controllers.modals.password',
     'mobius.controllers.modals.previousSearches',
     'mobius.controllers.modals.funnelRetentionExit',
+    'mobius.controllers.modals.altProducts',
 
     // Application modules
     'mobiusApp.config',

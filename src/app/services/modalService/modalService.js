@@ -17,6 +17,7 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_PASSWORD = 'PasswordCtrl',
       CONTROLLER_PREVIOUS_SEARCHES = 'PreviousSearchesCtrl',
       CONTROLER_FUNNEL_RETENTION_EXIT = 'FunnelRetentionExitCtrl',
+      CONTROLER_ALT_PRODUCTS = 'AltProductsCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -409,7 +410,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openUpsellsDialog(upsell, params, goToReservationDetails, product){
     return openDialog('openUpsellsDialog', 'layouts/modals/upsellsDialog.html', CONTROLLER_UPSELLS, {
-      windowClass: 'upsells-dialog',
+      windowClass: 'dialog-v2 upsells-dialog',
       resolve: {
         data: function() {
           return {
@@ -478,6 +479,20 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openAltProductDialog(room,product){
+    return openDialog('openAltProductDialog', 'layouts/modals/altProducts.html', CONTROLER_ALT_PRODUCTS, {
+      windowClass: 'dialog-v2 alt-products-dialog',
+      resolve: {
+        data: function(){
+          return {
+            room:room,
+            product:product
+          };
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -516,6 +531,7 @@ angular.module('mobiusApp.services.modal', [])
     openCampaignDialog: openCampaignDialog,
     openPasswordDialog: openPasswordDialog,
     openPreviousSearchesDialog: openPreviousSearchesDialog,
-    openFunnelRetentionExitDialog: openFunnelRetentionExitDialog
+    openFunnelRetentionExitDialog: openFunnelRetentionExitDialog,
+    openAltProductDialog: openAltProductDialog
   };
 });

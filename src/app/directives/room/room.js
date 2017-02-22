@@ -283,7 +283,208 @@ angular.module('mobiusApp.directives.room', [])
         defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
+        scope.altProduct = data.altProduct;
 
+        //STUB ALT PRODUCTS
+        scope.altProduct = {
+          'code': '*CHAIN-EARLY7MO',
+          'image':{
+            'uri':'//res.cloudinary.com/dmh2cjswj/image/upload/w_1680,h_530,c_fill/q_auto,f_auto/v1470350075/biwq9wpo1nduzm2q8qx8.jpg',
+            'alt':'product image'
+          },
+          'productHidden': false,
+          'productAwardPoints': true,
+          'allowPointsBooking': false,
+          'name': 'Members Only Rate',
+          'description': '<p>\n    Early Bird Promotion. Save 30% off Standard Rate. Must book at least 7 days in advance. Subject to availability, taxes, and applicable fees. Cannot be combined with other offers. Blackout dates and other restrictions apply.</p>',
+          'tagline': 'Not a member, not a problem. Quickly join for free while you book.',
+          'icon': null,
+          'marketingMessage': {
+            'enabled': false
+          },
+          'weighting': 951,
+          'package': {
+            'code': 1,
+            'name': 'Standard Package',
+            'description': null,
+            'canCustomise': false
+          },
+          'productPropertyRoomTypeId': 167891,
+          'policies': [
+            {
+              'type': 'cancellation',
+              'value': 'C7',
+              'description': '<p>\n\tReservations cancelled within 7 days of arrival will be charged penalty equal to 1 night room rate, taxes and applicable fees. Important Note: Bitcoin bookings are not confirmed until payment has been received. Once confirmed, Bitcoin bookings are non-refundable.</p>',
+              'showWarning': false
+            }
+          ],
+          'guarantees': {
+            'cc': true,
+            'corp': false,
+            'bitcoin': true
+          },
+          'price': {
+            'averageBasePrice': 182.445,
+            'averageBaseTax': 27.36675,
+            'feeDetails': {
+              'totalTax': 0,
+              'policyTaxItemDetails': []
+            },
+            'formatting': 'slashThrough',
+            'highestDailyRate': 139.8745,
+            'lowestDailyRate': 139.8745,
+            'packagePrice': 0,
+            'taxDetails': {
+              'totalTax': 54.7335,
+              'policyTaxItemDetails': [
+                {
+                  'policyTaxItem': {
+                    'policyTaxItemID': 36,
+                    'policyTaxItemCode': 'GST',
+                    'policyTaxItemAmount': 5,
+                    'policyTaxItemDateFrom': 1364774400000,
+                    'policyTaxItemDateTo': 1924905600000,
+                    'policyTaxItemIsFee': false,
+                    'policyTaxItemDescription': 'Goods & Services Tax'
+                  },
+                  'taxAmount': 18.2445
+                }
+              ]
+            },
+            'totalAdditionalFees': 0,
+            'totalAdditionalTaxes': 0,
+            'totalAfterTax': 419.6235,
+            'totalAfterTaxAfterPricingRules': 419.6235,
+            'totalAfterTaxBeforePricingRules': 419.6235,
+            'totalBase': 364.89,
+            'totalBaseAfterPricingRules': 364.89,
+            'totalBaseBeforePricingRules': 364.89,
+            'totalDiscount': 0,
+            'totalDiscountApplyFirst': 0,
+            'totalDiscountApplyLast': 0,
+            'breakdowns': [
+              {
+                'date': '2017-03-15',
+                'originalPrice': 173.76,
+                'taxDetails': {
+                  'totalTax': 18.2445,
+                  'policyTaxItemDetails': [
+                    {
+                      'policyTaxItem': {
+                        'policyTaxItemID': 36,
+                        'policyTaxItemCode': 'GST',
+                        'policyTaxItemAmount': 5,
+                        'policyTaxItemDateFrom': 1364774400000,
+                        'policyTaxItemDateTo': 1924905600000,
+                        'policyTaxItemIsFee': false,
+                        'policyTaxItemDescription': 'Goods & Services Tax'
+                      },
+                      'taxAmount': 6.0815
+                    }
+                  ]
+                },
+                'totalAfterTax': 139.8745,
+                'totalAfterTaxAfterPricingRules': 139.8745,
+                'totalAfterTaxBeforePricingRules': 139.8745,
+                'totalBase': 121.63,
+                'totalBaseAfterPricingRules': 121.63,
+                'totalBaseBeforePricingRules': 121.63,
+                'totalFees': 0,
+                'totalFeesBeforePricingRules': 0,
+                'totalTax': 18.2445,
+                'totalTaxBeforePricingRules': 18.2445
+              }
+            ],
+            'pointsRequired': null
+          },
+          'minTier': 'member',
+          'memberOnly': true,
+          'highlighted': false,
+          'IRI': '/properties/ABB/rooms/EXKN/products/*CHAIN-EARLY7MO',
+          'inclusions': null,
+          'priceOriginal': {
+            'averageBasePrice': 182.445,
+            'averageBaseTax': 27.36675,
+            'feeDetails': {
+              'totalTax': 0,
+              'policyTaxItemDetails': []
+            },
+            'formatting': 'slashThrough',
+            'highestDailyRate': 139.8745,
+            'lowestDailyRate': 139.8745,
+            'packagePrice': 0,
+            'taxDetails': {
+              'totalTax': 54.7335,
+              'policyTaxItemDetails': [
+                {
+                  'policyTaxItem': {
+                    'policyTaxItemID': 36,
+                    'policyTaxItemCode': 'GST',
+                    'policyTaxItemAmount': 5,
+                    'policyTaxItemDateFrom': 1364774400000,
+                    'policyTaxItemDateTo': 1924905600000,
+                    'policyTaxItemIsFee': false,
+                    'policyTaxItemDescription': 'Goods & Services Tax'
+                  },
+                  'taxAmount': 18.2445
+                }
+              ]
+            },
+            'totalAdditionalFees': 0,
+            'totalAdditionalTaxes': 0,
+            'totalAfterTax': 419.6235,
+            'totalAfterTaxAfterPricingRules': 419.6235,
+            'totalAfterTaxBeforePricingRules': 419.6235,
+            'totalBase': 364.89,
+            'totalBaseAfterPricingRules': 364.89,
+            'totalBaseBeforePricingRules': 364.89,
+            'totalDiscount': 0,
+            'totalDiscountApplyFirst': 0,
+            'totalDiscountApplyLast': 0,
+            'breakdowns': [
+              {
+                'date': '2017-03-16',
+                'originalPrice': 173.76,
+                'taxDetails': {
+                  'totalTax': 18.2445,
+                  'policyTaxItemDetails': [
+                    {
+                      'policyTaxItem': {
+                        'policyTaxItemID': 36,
+                        'policyTaxItemCode': 'GST',
+                        'policyTaxItemAmount': 5,
+                        'policyTaxItemDateFrom': 1364774400000,
+                        'policyTaxItemDateTo': 1924905600000,
+                        'policyTaxItemIsFee': false,
+                        'policyTaxItemDescription': 'Goods & Services Tax'
+                      },
+                      'taxAmount': 6.0815
+                    }
+                  ]
+                },
+                'totalAfterTax': 139.8745,
+                'totalAfterTaxAfterPricingRules': 139.8745,
+                'totalAfterTaxBeforePricingRules': 139.8745,
+                'totalBase': 121.63,
+                'totalBaseAfterPricingRules': 121.63,
+                'totalBaseBeforePricingRules': 121.63,
+                'totalFees': 0,
+                'totalFeesBeforePricingRules': 0,
+                'totalTax': 18.2445,
+                'totalTaxBeforePricingRules': 18.2445
+              }
+            ],
+            'pointsRequired': null
+          }
+        };
+        //END STUB ALT PRODUCTS
+
+        if(scope.config.displayAltProduct && scope.altProduct){
+          console.log('show alt product');
+          $timeout(function(){
+            scope.$broadcast('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', scope.roomDetails, scope.altProduct);
+          });
+        }
 
         if($stateParams.viewAllRates && $stateParams.viewAllRates === '1'){
           scope.roomRatesLimit = scope.products.length;

@@ -1,0 +1,28 @@
+<div class="ui-info">
+  <header>
+    <h1>_would_you_like_to_upgrade_</h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main>
+    <img ng-src="{{data.product.image.uri | cloudinaryImage : 320 : 220 : 'fill'}}" alt="{{data.product.image.alt}}"/>
+    <span class="price-difference">_only_value_more_</span>
+    <div class="details">
+      <h2>{{data.product.name}}</h2>
+      <div class="description" ng-bind-html="data.product.description"></div>
+      <div ng-if="viewSettings.showInclusions && product.inclusions" class="product-inclusions">
+        <ul>
+          <li ng-repeat="inclusion in product.inclusions">
+            <img ng-src="{{inclusion.image.uri | cloudinaryImage : 20 : 20 : 'fill'}}" alt="inclusion.image.alt" ng-if="inclusion.image && inclusion.image.uri"/>
+            <i class="fa {{inclusion.icon}}" ng-if="!inclusion.image && inclusion.icon"></i>
+            <span class="inclusion-letter" ng-if="!inclusion.image && !inclusion.icon">{{inclusion.inclusionName | limitTo:1}}</span>
+            <span class="tooltiptext">{{inclusion.inclusionName}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="button-strip">
+        <a class="button" href ng-click="goToReservationDetails(data.upsell.roomCode)">_upgrade_my_room_</a>
+      </div>
+    </div>
+  </main>
+</div>
