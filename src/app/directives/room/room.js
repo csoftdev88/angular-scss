@@ -401,7 +401,13 @@ angular.module('mobiusApp.directives.room', [])
           'memberOnly': true,
           'highlighted': false,
           'IRI': '/properties/ABB/rooms/EXKN/products/*CHAIN-EARLY7MO',
-          'inclusions': null,
+          'inclusions':[{
+            'inclusionName':'APPLE'
+          },{
+            'inclusionName':'APPLE'
+          },{
+            'inclusionName':'APPLE'
+          }],
           'priceOriginal': {
             'averageBasePrice': 182.445,
             'averageBaseTax': 27.36675,
