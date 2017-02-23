@@ -19,7 +19,8 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           week: '=',
           weeks: '=',
           languagesMessage: '=',
-          retentionMessage: '='
+          retentionMessage: '=',
+          altProductsMessage: '='
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
@@ -84,7 +85,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 altProductsPromptConfig.variables = {};
                 altProductsPromptConfig.variables.room = room;
                 altProductsPromptConfig.variables.product = product;
-                growl.info('<i class="fa fa-check-circle"></i><p>Alternative rates may be available that closely match your search.</p>', altProductsPromptConfig);
+                growl.info('<i class="fa fa-check-circle"></i><p>' + scope.altProductsMessage + '</p>', altProductsPromptConfig);
               });
             }
           });
