@@ -479,14 +479,15 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
-  function openAltProductDialog(room,product){
+  function openAltProductDialog(room,product,products){
     return openDialog('openAltProductDialog', 'layouts/modals/altProducts.html', CONTROLER_ALT_PRODUCTS, {
       windowClass: 'dialog-v2 alt-products-dialog',
       resolve: {
         data: function(){
           return {
             room:room,
-            product:product
+            product:product,
+            products:products
           };
         }
       }

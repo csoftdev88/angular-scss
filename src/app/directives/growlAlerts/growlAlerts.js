@@ -79,12 +79,13 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           scope.$on('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', function (){});
 
           //add alt products growl alert listener
-          scope.$on('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', function(event, room, product) {
+          scope.$on('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', function(event, room, product, products) {
             if(product){
               $timeout(function () {
                 altProductsPromptConfig.variables = {};
                 altProductsPromptConfig.variables.room = room;
                 altProductsPromptConfig.variables.product = product;
+                altProductsPromptConfig.variables.products = products;
                 growl.info('<i class="fa fa-check-circle"></i><p>' + scope.altProductsMessage + '</p>', altProductsPromptConfig);
               });
             }
@@ -93,7 +94,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           //It's not ideal using rootScope for this but it avoids making changes to the bower angular-growl directive as it has an isolated scope
           //Also means this is more likely to be futureproof if angular-growl bower is updated
           $rootScope.showAltProduct = function(data){
-            modalService.openAltProductDialog(data.room, data.product);
+            modalService.openAltProductDialog(data.room, data.product, data.products);
           };
 
           //If french override enabled and we are on a quebec page add our language growl alert listener

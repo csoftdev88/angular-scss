@@ -9,7 +9,7 @@
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="deleteMessage(message)" ng-show="!message.disableCloseButton">&times;</button>
       <h4 class="growl-title" ng-show="message.title" ng-bind="message.title"></h4>
       <div class="growl-message" ng-bind-html="message.text"></div>
-      <a href="#" class="growl-alt-product-link" ng-click="$root.showAltProduct(message.variables); deleteMessage(message)" ng-if="message.variables.product">_see_rates_</a>
+      <a ng-href="#" class="growl-alt-product-link" ng-click="$root.showAltProduct(message.variables); deleteMessage(message)" ng-if="message.variables.product">_see_rates_</a>
     </div>
   </div>
 </script>

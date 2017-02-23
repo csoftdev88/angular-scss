@@ -536,6 +536,9 @@
     "your_selected_date": "Your Selected Date",
     "rooms_available_at_nearby_hotels": "There are rooms available at these nearby hotels on your dates",
     "no_properties_available_matching_your_selection": "No properties available matching your selection",
-    "retention_message": "Can't find what you're looking for? Give us a call: "
+    "retention_message": "Can't find what you're looking for? Give us a call: ",
+    "alt_products_message": "Alternative rates may be available that closely match your search.",
+    "see_rates": "See rates",
+    "change_my_dates": "Change my dates"
   }
 }

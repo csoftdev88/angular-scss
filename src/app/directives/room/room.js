@@ -292,6 +292,11 @@ angular.module('mobiusApp.directives.room', [])
             'uri':'//res.cloudinary.com/dmh2cjswj/image/upload/w_1680,h_530,c_fill/q_auto,f_auto/v1470350075/biwq9wpo1nduzm2q8qx8.jpg',
             'alt':'product image'
           },
+          'partialAvailability':{
+            'code':'mi',
+            'type':'MinLOS (Minimum Length of Stay)',
+            'variable':3
+          },
           'productHidden': false,
           'productAwardPoints': true,
           'allowPointsBooking': false,
@@ -353,9 +358,9 @@ angular.module('mobiusApp.directives.room', [])
             },
             'totalAdditionalFees': 0,
             'totalAdditionalTaxes': 0,
-            'totalAfterTax': 419.6235,
-            'totalAfterTaxAfterPricingRules': 419.6235,
-            'totalAfterTaxBeforePricingRules': 419.6235,
+            'totalAfterTax': 139.8745,
+            'totalAfterTaxAfterPricingRules': 139.8745,
+            'totalAfterTaxBeforePricingRules': 139.8745,
             'totalBase': 364.89,
             'totalBaseAfterPricingRules': 364.89,
             'totalBaseBeforePricingRules': 364.89,
@@ -438,9 +443,9 @@ angular.module('mobiusApp.directives.room', [])
             },
             'totalAdditionalFees': 0,
             'totalAdditionalTaxes': 0,
-            'totalAfterTax': 419.6235,
-            'totalAfterTaxAfterPricingRules': 419.6235,
-            'totalAfterTaxBeforePricingRules': 419.6235,
+            'totalAfterTax': 139.8745,
+            'totalAfterTaxAfterPricingRules': 139.8745,
+            'totalAfterTaxBeforePricingRules': 139.8745,
             'totalBase': 364.89,
             'totalBaseAfterPricingRules': 364.89,
             'totalBaseBeforePricingRules': 364.89,
@@ -486,9 +491,8 @@ angular.module('mobiusApp.directives.room', [])
         //END STUB ALT PRODUCTS
 
         if(scope.config.displayAltProduct && scope.altProduct){
-          console.log('show alt product');
           $timeout(function(){
-            scope.$broadcast('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', scope.roomDetails, scope.altProduct);
+            scope.$broadcast('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', scope.roomDetails, scope.altProduct, scope.products);
           });
         }
 

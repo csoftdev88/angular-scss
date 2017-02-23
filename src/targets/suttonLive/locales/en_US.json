@@ -530,6 +530,7 @@
     "no_properties_available_matching_your_selection": "No properties available matching your selection",
     "retention_message": "Can(singlequote)t find what you(singlequote)re looking for? Give us a call: ",
     "alt_products_message": "Alternative rates may be available that closely match your search.",
-    "see_rates": "See rates"
+    "see_rates": "See rates",
+    "change_my_dates": "Change my dates"
   }
 }

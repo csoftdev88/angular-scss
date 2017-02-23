@@ -1,12 +1,17 @@
 <div class="ui-info">
   <header>
-    <h1>_would_you_like_to_upgrade_</h1>
+    <h1 ng-if="data.product.partialAvailability.code === 'mi'">Extend your stay by {{stayExtension}} nights and you could book</h1>
+    <h1 ng-if="data.product.partialAvailability.code === 'ma'">Reduce your stay by {{stayReduction}} nights and you could book</h1>
     <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
   </header>
 
   <main>
     <img ng-src="{{data.product.image.uri | cloudinaryImage : 320 : 220 : 'fill'}}" alt="{{data.product.image.alt}}"/>
-    <span class="price-difference">_only_value_more_</span>
+    <span class="price-difference">Save
+      <span class="value">{{getValuePer(priceDifference, true) | i18nCurrency:currencyCode:undefined:true}}</span>
+      <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span>
+      <span ng-if="pricePer === PP_STAY">_per_stay_</span>
+    </span>
     <div class="details">
       <h2>{{data.product.name}}</h2>
       <div class="description" ng-bind-html="data.product.description"></div>
@@ -21,7 +26,7 @@
         </ul>
       </div>
       <div class="button-strip">
-        <a class="button" href ng-click="goToReservationDetails(data.upsell.roomCode)">_upgrade_my_room_</a>
+        <a class="button" href ng-click="reloadPageProducts()">_change_my_dates_</a>
       </div>
     </div>
   </main>
