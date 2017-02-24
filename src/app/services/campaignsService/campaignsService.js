@@ -111,42 +111,42 @@ angular.module('mobiusApp.services.campaigns', [])
     function criteriaCheck(campaign, loggedIn, bookingDates, locationSlug, property, locations) {
       var criteriaPass = checkActiveDates(campaign);
       if (criteriaPass) {
-        console.log('active dates check pass');
+        console.log('campaign active dates check pass');
         criteriaPass = checkMemberOnly(campaign, loggedIn);
       } else {
-        console.log('active dates check fail');
+        console.log('campaign active dates check fail');
         return false;
       }
       if (criteriaPass) {
-        console.log('member only check pass');
+        console.log('campaign member only check pass');
         criteriaPass = checkDateRestrictions(campaign, bookingDates);
       } else {
-        console.log('member only check fail');
+        console.log('campaign member only check fail');
         return false;
       }
       if (criteriaPass) {
-        console.log('booking date restrictions pass');
+        console.log('campaign booking date restrictions pass');
         criteriaPass = checkPropertyRestrictions(campaign, property);
         if(criteriaPass){
-          console.log('property restrictions check pass');
+          console.log('campaign property restrictions check pass');
           //If no properties selected in criteria but location is set
           if(!campaign.criteria.properties && campaign.criteria.locations){
             criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
           }
         }
         else {
-          console.log('property restrictions check fail');
+          console.log('campaign property restrictions check fail');
           criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
         }
       } else {
-        console.log('booking date restrictions fail');
+        console.log('campaign booking date restrictions fail');
         return false;
       }
       if (criteriaPass) {
-        console.log('location restrictions check pass');
+        console.log('campaign location restrictions check pass');
         return true;
       } else {
-        console.log('location restrictions check fail');
+        console.log('campaign location restrictions check fail');
         return false;
       }
     }
