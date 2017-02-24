@@ -14,6 +14,7 @@ angular.module('mobius.controllers.modals.altProducts', [
 
   function generateCriteriaContent(partialAvailability){
     console.log(partialAvailability.type);
+    $scope.partialAvailabilityCode = partialAvailability.code;
     switch(partialAvailability.code){
       //Minimum Length of Stay, extend stay length to adhere to rules
       case 'mi':
@@ -34,6 +35,28 @@ angular.module('mobius.controllers.modals.altProducts', [
             bookingParams.dates = $window.moment(bookingDates.from).format('YYYY-MM-DD') + '_' + $window.moment(bookingDates.to).subtract($scope.stayReduction, 'days').format('YYYY-MM-DD');
           }
         }     
+        break;
+      //Stay allowed after (date)
+      case 'dp':
+        if(bookingDates && partialAvailability.date){
+          var allowedFromDate = $window.moment(partialAvailability.date).add(1,'day');
+          $scope.stayReduction = allowedFromDate.diff($window.moment(bookingDates.from), 'days');
+          //Set the 'from' date to the date passed to us in the partialAvailability 
+          bookingParams.dates = allowedFromDate.format('YYYY-MM-DD') + '_' + $window.moment(bookingDates.to).format('YYYY-MM-DD');
+          $scope.fromDate = allowedFromDate.format('YYYY-MM-DD');
+          $scope.toDate = $window.moment(bookingDates.to).format('YYYY-MM-DD');
+        }     
+        break;
+      //Stay allowed before (date)
+      case 'dl':
+        if(bookingDates && partialAvailability.date){
+          var allowedToDate = $window.moment(partialAvailability.date).subtract(1,'day');
+          $scope.stayReduction = allowedToDate.diff($window.moment(bookingDates.to), 'days');
+          //Set the 'to' date to the date passed to us in the partialAvailability 
+          bookingParams.dates = $window.moment(bookingDates.from).format('YYYY-MM-DD') + '_' + allowedToDate.format('YYYY-MM-DD');
+          $scope.fromDate = $window.moment(bookingDates.from).format('YYYY-MM-DD');
+          $scope.toDate = allowedToDate.format('YYYY-MM-DD');
+        }    
         break;
       default:
         console.log('partial availability type not recognised, closing modal');

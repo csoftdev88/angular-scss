@@ -1,14 +1,16 @@
 <div class="ui-info">
   <header>
-    <h1 ng-if="data.product.partialAvailability.code === 'mi'">Extend your stay by {{stayExtension}} nights and you could book</h1>
-    <h1 ng-if="data.product.partialAvailability.code === 'ma'">Reduce your stay by {{stayReduction}} nights and you could book</h1>
+    <h1 ng-if="partialAvailabilityCode === 'mi'">_alt_products_extend_your_stay_</h1>
+    <h1 ng-if="partialAvailabilityCode === 'ma'">_alt_products_reduce_your_stay_</h1>
+    <h1 ng-if="partialAvailabilityCode !== 'mi' && partialAvailabilityCode !== 'ma'">_alt_products_change_dates_to_</h1>
     <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
   </header>
 
   <main>
     <img ng-src="{{data.product.image.uri | cloudinaryImage : 320 : 220 : 'fill'}}" alt="{{data.product.image.alt}}"/>
-    <span class="price-difference">Save
-      <span class="value">{{getValuePer(priceDifference, true) | i18nCurrency:currencyCode:undefined:true}}</span>
+    <span class="price-difference">
+      <span ng-if="priceDifference > 0" class="value">Save {{getValuePer(priceDifference, true) | i18nCurrency:currencyCode:undefined:true}}</span>
+      <span ng-if="priceDifference < 0" class="value">Only {{getValuePer((priceDifference * -1), true) | i18nCurrency:currencyCode:undefined:true}} Extra</span>
       <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span>
       <span ng-if="pricePer === PP_STAY">_per_stay_</span>
     </span>

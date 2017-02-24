@@ -531,6 +531,9 @@
     "retention_message": "Can(singlequote)t find what you(singlequote)re looking for? Give us a call: ",
     "alt_products_message": "Alternative rates may be available that closely match your search.",
     "see_rates": "See rates",
-    "change_my_dates": "Change my dates"
+    "change_my_dates": "Change my dates",
+    "alt_products_reduce_your_stay":"Reduce your stay by {{stayReduction}} night(s) and you could book",
+    "alt_products_extend_your_stay":"Extend your stay by {{stayExtension}} night(s) and you could book",
+    "alt_products_change_dates_to":"Change your stay dates to <strong>{{fromDate | dateTime}} - {{toDate | dateTime}}</strong> and you could book"
   }
 }

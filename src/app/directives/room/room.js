@@ -293,9 +293,10 @@ angular.module('mobiusApp.directives.room', [])
             'alt':'product image'
           },
           'partialAvailability':{
-            'code':'mi',
-            'type':'MinLOS (Minimum Length of Stay)',
-            'variable':3
+            'code':'dl',
+            'type':'Stay allowed before (date)',
+            'variable':3,
+            'date':'2017-04-11'
           },
           'productHidden': false,
           'productAwardPoints': true,
@@ -490,10 +491,13 @@ angular.module('mobiusApp.directives.room', [])
         };
         //END STUB ALT PRODUCTS
 
-        if(scope.config.displayAltProduct && scope.altProduct){
-          $timeout(function(){
-            scope.$broadcast('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', scope.roomDetails, scope.altProduct, scope.products);
-          });
+        if(scope.config.displayAltProduct && scope.altProduct && scope.altProduct.partialAvailability){
+          var partialAvailabilityCode = scope.altProduct.partialAvailability.code;
+          if(partialAvailabilityCode === 'mi' || partialAvailabilityCode === 'ma' || partialAvailabilityCode === 'dp' || partialAvailabilityCode === 'dl'){
+            $timeout(function(){
+              scope.$broadcast('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', scope.roomDetails, scope.altProduct, scope.products);
+            });
+          }
         }
 
         if($stateParams.viewAllRates && $stateParams.viewAllRates === '1'){
