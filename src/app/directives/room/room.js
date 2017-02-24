@@ -283,7 +283,16 @@ angular.module('mobiusApp.directives.room', [])
         defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
+        scope.altProduct = data.altProduct;
 
+        if(scope.config.displayAltProduct && scope.altProduct && scope.altProduct.partialAvailability){
+          var partialAvailabilityCode = scope.altProduct.partialAvailability.code;
+          if(partialAvailabilityCode === 'mi' || partialAvailabilityCode === 'ma' || partialAvailabilityCode === 'dp' || partialAvailabilityCode === 'dl'){
+            $timeout(function(){
+              scope.$broadcast('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', scope.roomDetails, scope.altProduct, scope.products);
+            });
+          }
+        }
 
         if($stateParams.viewAllRates && $stateParams.viewAllRates === '1'){
           scope.roomRatesLimit = scope.products.length;

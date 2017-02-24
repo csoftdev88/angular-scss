@@ -521,7 +521,8 @@ angular.module('mobiusApp.config', [])
       'showMetaView': true,
       'upsells': {
         'display': true
-      }
+      },
+      'displayAltProduct':false
     },
 
     'reservations': {
