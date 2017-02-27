@@ -185,6 +185,7 @@ angular
     'mobiusApp.directives.growlAlerts',
     'mobiusApp.directives.optionsDisabled',
     'mobiusApp.directives.slidedownNotifications',
+    'mobiusApp.directives.inclusions',
 
     'internationalPhoneNumber',
 
