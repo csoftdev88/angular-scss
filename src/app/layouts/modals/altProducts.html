@@ -17,16 +17,7 @@
     <div class="details">
       <h2>{{data.product.name}}</h2>
       <div class="description" ng-bind-html="data.product.description"></div>
-      <div ng-if="data.product.inclusions" class="product-inclusions">
-        <ul>
-          <li ng-repeat="inclusion in data.product.inclusions">
-            <img ng-src="{{inclusion.image.uri | cloudinaryImage : 20 : 20 : 'fill'}}" alt="inclusion.image.alt" ng-if="inclusion.image && inclusion.image.uri"/>
-            <i class="fa {{inclusion.icon}}" ng-if="!inclusion.image && inclusion.icon"></i>
-            <span class="inclusion-letter" ng-if="!inclusion.image && !inclusion.icon">{{inclusion.inclusionName | limitTo:1}}</span>
-            <span class="tooltiptext">{{inclusion.inclusionName}}</span>
-          </li>
-        </ul>
-      </div>
+      <inclusions ng-if="data.product.inclusions" class="product-inclusions" inclusions="data.product.inclusions"></inclusions>
       <div class="button-strip">
         <a class="button" href ng-click="reloadPageProducts()">_change_my_dates_</a>
       </div>
