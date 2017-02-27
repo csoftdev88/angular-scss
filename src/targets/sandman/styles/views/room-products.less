@@ -106,29 +106,12 @@ room-products {
 					}
 				}
 			}
-			.highlight-ribbon {
-				background: url("@{img-prefix}/orange-ribbon.svg") no-repeat center right;
-				background-size:100% 100%;
-				.chain-sign & {
-					background: url("@{img-prefix}/red-ribbon.svg") no-repeat center right;
-					background-size:100% 100%;
-				}
-			}
-			.member-ribbon {
-				background: url("@{img-prefix}/blue-ribbon.svg") no-repeat center right;
-				background-size:100% 100%;
-				.chain-sign & {
-					background: url("@{img-prefix}/orange-ribbon.svg") no-repeat center right;
-					background-size:100% 100%;
-				}
-			}
 			.highlight-ribbon, .member-ribbon {
-				width: auto !important;
+				width: 155px !important;
 				position: absolute;
 				top: 5px;
-				right: -16px;
-				max-width: 115px;
-				padding: 10px 15px 12px 30px;
+				right: -9px;
+				padding: 10px 15px 12px 22px !important;
 				line-height: 14px;
 				border-right: 0px none !important;
 				text-align: right;
@@ -146,6 +129,25 @@ room-products {
 					width: 160px !important;
 					max-width: initial;
 					padding-left: 27px;
+				}
+			}
+			.highlight-ribbon {
+				background: url("@{img-prefix}/orange-ribbon.svg") no-repeat center right;
+				background-size:100% 100%;
+				.chain-sign & {
+					background: url("@{img-prefix}/red-ribbon.svg") no-repeat center right;
+					background-size:100% 100%;
+				}
+			}
+			.member-ribbon {
+				background: url("@{img-prefix}/blue-ribbon.svg") no-repeat center right;
+				background-size:100% 100%;
+				width: 150px !important;
+				right: -6px;
+				padding: 10px 15px 12px 20px !important;
+				.chain-sign & {
+					background: url("@{img-prefix}/orange-ribbon.svg") no-repeat center right;
+					background-size:100% 100%;
 				}
 			}
 			.action-buttons {
