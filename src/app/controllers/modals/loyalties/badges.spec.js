@@ -12,6 +12,14 @@ describe('mobius.controllers.modals.loyalties.badges', function() {
         $provide.value('$modalInstance', {});
 
         $provide.value('data', [{test: 123}]);
+        var settings = {
+          'UI': {
+            'currencies': {
+              'default': 'CAD'
+            }
+          }
+        };
+        $provide.value('Settings', settings);
         $provide.value('_', window._);
       });
     });
