@@ -17,6 +17,18 @@ angular.module('mobiusApp.services.funnelRetention', [])
       $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; path=/';
     }
 
+    function addExitHandler(){
+      if(exitModalEnabled){
+      //Detect exit intent and display modal
+        $window.ouibounce(false, {
+          cookieName: 'MobiusExitIntent',
+          callback: function() { 
+            displayExitMessage();
+          }
+        });
+      }
+    }
+
     function getRetentionMessage(body) {
       var q = $q.defer();
       apiService.post(apiService.getFullURL('retention'), body).then(function (data) {
@@ -145,7 +157,7 @@ angular.module('mobiusApp.services.funnelRetention', [])
     var retentionCookieName = isFunnelRetentionActive() ? Settings.UI.funnelRetention.cookieName : null;
     var currentSessionLength = isFunnelRetentionActive() ? getInactivity() : 0;
     var previousSearches = previousSearchesService.getSearches();
-    //var displayExitModal = isFunnelRetentionActive() ? Settings.UI.funnelRetention.displayExitModal : null;
+    var exitModalEnabled = isFunnelRetentionActive() ? Settings.UI.funnelRetention.displayExitModal : null;
 
     if (inactivityPeriod && inactivityPeriodInterval && retentionCookieName && (currentSessionLength < inactivityPeriod)) {
       sessionTimeTracker(true);
@@ -158,6 +170,6 @@ angular.module('mobiusApp.services.funnelRetention', [])
       saveSessionCookie: saveSessionCookie,
       isFunnelRetentionActive: isFunnelRetentionActive,
       retentionClickCheck: retentionClickCheck,
-      displayExitMessage: displayExitMessage
+      addExitHandler:addExitHandler
     };
   });
