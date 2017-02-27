@@ -13,7 +13,7 @@
 
       <div class="extra">
         <p class="add-extra">_addon_modal_tagline_</p>
-        <a class="button add-confirm" href ng-click="selectPaymentMethod(false)">{{inclusionsAsAddons ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</a>
+        <a class="button add-confirm" href ng-click="selectPaymentMethod(false)">{{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</a>
         <a class="button add-confirm-points" href ng-click="selectPaymentMethod(true)" ng-if="addon.pointsRequired && addon.allowPointsBooking">{{addon.pointsRequired}} <small>points</small></a>
       </div>
     </div>
@@ -26,7 +26,7 @@
         <p>_addon_modal_confirm_desc_</p>
         <p>{{addon.name}}</p>
         <!-- DEFAULT PAYMENT METHOD -->
-        <p ng-switch-default>{{inclusionsAsAddons ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</p>
+        <p ng-switch-default>{{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</p>
         <p ng-switch-default><em>_addon_modal_charge_desc_</em></p>
 
         <!-- PAYMENT WITH POINST -->
