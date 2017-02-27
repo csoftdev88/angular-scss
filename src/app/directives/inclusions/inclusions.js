@@ -12,8 +12,7 @@ angular.module('mobiusApp.directives.inclusions', [])
     replace: false,
 
     // Widget logic goes here
-    link: function(scope){
-      console.log(scope.inclusions);
+    link: function(){
     }
   };
 }]);
