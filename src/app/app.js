@@ -187,6 +187,7 @@ angular
     'mobiusApp.directives.growlAlerts',
     'mobiusApp.directives.optionsDisabled',
     'mobiusApp.directives.slidedownNotifications',
+    'mobiusApp.directives.inclusions',
 
     'internationalPhoneNumber',
 
@@ -809,13 +810,7 @@ angular
   if(funnelRetentionService.isFunnelRetentionActive()){
     funnelRetentionService.init($scope);
     
-    //Detect exit intent and display modal
-    $window.ouibounce(false, {
-      cookieName: 'MobiusExitIntent',
-      callback: function() { 
-        funnelRetentionService.displayExitMessage();
-      }
-    });
+    funnelRetentionService.addExitHandler();
 
     $scope.retentionClick = function(){
       funnelRetentionService.retentionClickCheck();
