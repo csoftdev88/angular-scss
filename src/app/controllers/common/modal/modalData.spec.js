@@ -15,6 +15,13 @@ describe('mobius.controllers.modals.data', function() {
 
       module('mobius.controllers.modals.data', function($provide){
         $provide.value('data',{test: 123});
+        $provide.value('Settings', {
+          UI: {
+            currencies: {
+              default: 'CAD'
+            }
+          }
+        });
       });
     });
 
