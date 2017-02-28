@@ -109,7 +109,7 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function criteriaCheck(campaign, loggedIn, bookingDates, locationSlug, property, locations) {
-      var criteriaPass = checkActiveDates(campaign);
+      var criteriaPass = campaign.active ? checkActiveDates(campaign) : false;
       if (criteriaPass) {
         console.log('active dates check pass');
         criteriaPass = checkMemberOnly(campaign, loggedIn);
