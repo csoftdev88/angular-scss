@@ -60,11 +60,11 @@ angular.module('mobiusApp.directives.growlAlerts', [])
 
           //add retention growl alert listener
           scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (event, retentionMessage) {
-            if(retentionMessage && retentionMessage.telephone){
+            if(retentionMessage && retentionMessage.telephone && retentionMessage.telephone.length && retentionMessage.telephone[0].phone){
               $timeout(function () {
                 console.log('show the growl alert');
                 scope.retentionMessage = scope.retentionMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's
-                growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone + '</p>', retentionPromptConfig);
+                growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone[0].phone + '</p>', retentionPromptConfig);
               });
             }
           });
