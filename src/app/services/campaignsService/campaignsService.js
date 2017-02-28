@@ -47,7 +47,7 @@ angular.module('mobiusApp.services.campaigns', [])
       }
       
       getCampaigns(loggedIn, getAllCampaigns).then(function(data) {
-        if (data[0].criteria) {
+        if (data.length && data[0].criteria) {
           selectCampaign(data[0], loggedIn);
         } else {
           //If no campaign returned display previous campaign
@@ -60,9 +60,12 @@ angular.module('mobiusApp.services.campaigns', [])
     function getSavedCampaign(getAllCampaigns){
       if (savedCampaign) {
         getCampaigns(null, true).then(function(data) {
-          var retrievedCampaign = _.find(data[0], function(thisCampaign) {
-            return thisCampaign.code === savedCampaign.code;
-          });
+          var retrievedCampaign = null;
+          if(data.length){
+            retrievedCampaign = _.find(data[0], function(thisCampaign) {
+              return thisCampaign.code === savedCampaign.code;
+            });
+          }
           //If there is a saved campaign and we are on a non-search based page, display the saved campaign
           if (retrievedCampaign && getAllCampaigns) {
             console.log('display previous campaign');
