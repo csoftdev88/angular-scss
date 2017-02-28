@@ -286,7 +286,7 @@ angular.module('mobiusApp.directives.room', [])
         scope.altProduct = data.altProducts && data.altProducts.length ? data.altProducts[0] : null;
         
         //STUB THIS
-        scope.altProduct = {
+        /*scope.altProduct = {
           'partialAvailability': {
             'code':'nl',
             'type':'No Departure on (day)',
@@ -297,7 +297,7 @@ angular.module('mobiusApp.directives.room', [])
           'price': {
             'totalAfterTaxAfterPricingRules':2000
           }
-        };
+        };*/
         //END STUB
 
         if(scope.config.displayAltProduct && scope.altProduct && scope.altProduct.partialAvailability){
