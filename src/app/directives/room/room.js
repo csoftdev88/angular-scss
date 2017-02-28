@@ -283,11 +283,26 @@ angular.module('mobiusApp.directives.room', [])
         defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
-        scope.altProduct = data.altProduct;
+        scope.altProduct = data.altProducts && data.altProducts.length ? data.altProducts[0] : null;
+        
+        //STUB THIS
+        scope.altProduct = {
+          'partialAvailability': {
+            'code':'nl',
+            'type':'No Departure on (day)',
+            'day':'5'
+          },
+          'name':'Test alt product',
+          'description':'Early Bird Promotion. Save 30% off Standard Rate. Must book at least 7 days in advance. Subject to availability, taxes, and applicable fees. Cannot be combined with other offers. Blackout dates and other restrictions apply.',
+          'price': {
+            'totalAfterTaxAfterPricingRules':2000
+          }
+        };
+        //END STUB
 
         if(scope.config.displayAltProduct && scope.altProduct && scope.altProduct.partialAvailability){
           var partialAvailabilityCode = scope.altProduct.partialAvailability.code;
-          if(partialAvailabilityCode === 'mi' || partialAvailabilityCode === 'ma' || partialAvailabilityCode === 'dp' || partialAvailabilityCode === 'dl'){
+          if(partialAvailabilityCode === 'mi' || partialAvailabilityCode === 'ma' || partialAvailabilityCode === 'dp' || partialAvailabilityCode === 'dl' || partialAvailabilityCode === 'na' || partialAvailabilityCode === 'nl'){
             $timeout(function(){
               scope.$broadcast('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', scope.roomDetails, scope.altProduct, scope.products);
             });

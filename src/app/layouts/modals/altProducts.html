@@ -2,7 +2,7 @@
   <header>
     <h1 ng-if="partialAvailabilityCode === 'mi'">_alt_products_extend_your_stay_</h1>
     <h1 ng-if="partialAvailabilityCode === 'ma'">_alt_products_reduce_your_stay_</h1>
-    <h1 ng-if="partialAvailabilityCode !== 'mi' && partialAvailabilityCode !== 'ma'">_alt_products_change_dates_to_</h1>
+    <h1 ng-if="partialAvailabilityCode === 'dp' || partialAvailabilityCode === 'dl' || partialAvailabilityCode === 'na' || partialAvailabilityCode === 'nl'">_alt_products_change_dates_to_</h1>
     <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
   </header>
 
