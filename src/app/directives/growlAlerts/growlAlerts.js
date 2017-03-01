@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$timeout', '$location', 'Settings',
-    function(growl, $timeout, $location, Settings) {
+  .directive('growlAlerts', ['growl', '$timeout', '$location', '$rootScope', 'Settings',
+    function(growl, $timeout, $location, $rootScope, Settings) {
       return {
         restrict: 'E',
         scope: {
@@ -40,7 +40,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             referenceId: 2,
             disableIcons: true
           };
-
+          
           //add statistics growl alert listener
           scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
             if(scope.displayDelay){
@@ -53,20 +53,29 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 growl.info(formatStatsMessage(statistic), bookingStatsConfig);
               });
             }
-          });  
+          });
 
-          //destroy existing retention growl alert listeners
-          scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
+          $rootScope.retentionAlertFired = false;
 
           //add retention growl alert listener
           scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (event, retentionMessage) {
-            if(retentionMessage && retentionMessage.telephone && retentionMessage.telephone.length && retentionMessage.telephone[0].phone){
-              $timeout(function () {
-                console.log('show the growl alert');
-                scope.retentionMessage = scope.retentionMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's
-                growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone[0].phone + '</p>', retentionPromptConfig);
-              });
+            //Prevent alert displaying twice
+            destroyRetentionGrowlListener();
+
+            if(!$rootScope.retentionAlertFired) {
+              $rootScope.retentionAlertFired = true;
+              if(retentionMessage && retentionMessage.telephone){
+                $timeout(function () {
+                  console.log('show the growl alert');
+                  scope.retentionMessage = scope.retentionMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's
+                  growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone + '</p>', retentionPromptConfig);
+                });
+              }
             }
+          });
+
+          scope.$on('$destroy', function() {
+            destroyRetentionGrowlListener();
           });
 
           //If french override enabled and we are on a quebec page add our language growl alert listener
@@ -79,6 +88,11 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 });
               });
             }
+          }
+
+          function destroyRetentionGrowlListener(){
+            //destroy existing retention growl alert listeners
+            scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
           }
 
           function getStatsIcon(statistic){
