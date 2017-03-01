@@ -7,7 +7,8 @@
   </header>
 
   <main>
-    <img ng-src="{{data.product.image.uri | cloudinaryImage : 320 : 220 : 'fill'}}" alt="{{data.product.image.alt}}"/>
+    <img ng-if="data.product.image && data.product.image.uri" ng-src="{{data.product.image.uri | cloudinaryImage : 320 : 220 : 'fill'}}" alt="{{data.product.image.alt}}"/>
+    <img ng-if="(!data.product.image || !data.product.image.uri) && data.room.images && data.room.images.length" ng-src="{{data.room.images[0].uri | cloudinaryImage : 320 : 220 : 'fill'}}" alt="{{data.room.images[0].alt}}"/>
     <span class="price-difference">
       <span ng-if="priceDifference > 0" class="value">Save {{getValuePer(priceDifference, true) | i18nCurrency:currencyCode:undefined:true}}</span>
       <span ng-if="priceDifference < 0" class="value">Only {{getValuePer((priceDifference * -1), true) | i18nCurrency:currencyCode:undefined:true}} Extra</span>
