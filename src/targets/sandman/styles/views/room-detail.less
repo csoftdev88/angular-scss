@@ -99,15 +99,48 @@ hotel-room {
 
 
   list-items {
-
-
     list-item {
+      padding:30px 210px 30px 19%;
+      border-top:1px solid #ddd;
+      &:first-child {
+        border-top:0px none;
+      }
+      .viewport-mobile & {
+        padding:30px 10px;
+      }
       &.without-image {
-        padding-left: 0;
+        padding-left: 20px;
+        .viewport-mobile & {
+          padding-left:20px;
+        }
+      }
+      .product-image {
+        position: absolute;
+        left: 15px;
+        top: 30px;
+        width: 15%;
+        .viewport-mobile & {
+          display:none;
+        }
+      }
+
+      .list-item-highlight-label {
+        padding-bottom:@baseline / 2;
+      }
+
+      h2 {
+        padding-top:0;
       }
 
       pricing-info{
-
+        right:20px;
+        height:100%;
+        padding-top:15px;
+        box-sizing:border-box;
+        .viewport-mobile & {
+          height:auto;
+          padding-top:0;
+        }
         button-submit {
           font-family: @ff-default;
           .chain-sign &,
@@ -118,9 +151,12 @@ hotel-room {
             background:darken(@c-green, 10%);
           }
         }
-
       }
-
+      @media only screen and @small-mobile-max {
+        .wide-button-room-details {
+          margin-left: 0px;
+        }
+      }
     }
   }
 

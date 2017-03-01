@@ -1,0 +1,26 @@
+<div class="ui-info">
+  <header>
+    <h1 ng-if="partialAvailabilityCode === 'mi'">_alt_products_extend_your_stay_</h1>
+    <h1 ng-if="partialAvailabilityCode === 'ma'">_alt_products_reduce_your_stay_</h1>
+    <h1 ng-if="partialAvailabilityCode === 'dp' || partialAvailabilityCode === 'dl' || partialAvailabilityCode === 'na' || partialAvailabilityCode === 'nl'">_alt_products_change_dates_to_</h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main>
+    <img ng-src="{{data.product.image.uri | cloudinaryImage : 320 : 220 : 'fill'}}" alt="{{data.product.image.alt}}"/>
+    <span class="price-difference">
+      <span ng-if="priceDifference > 0" class="value">Save {{getValuePer(priceDifference, true) | i18nCurrency:currencyCode:undefined:true}}</span>
+      <span ng-if="priceDifference < 0" class="value">Only {{getValuePer((priceDifference * -1), true) | i18nCurrency:currencyCode:undefined:true}} Extra</span>
+      <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span>
+      <span ng-if="pricePer === PP_STAY">_per_stay_</span>
+    </span>
+    <div class="details">
+      <h2>{{data.product.name}}</h2>
+      <div class="description" ng-bind-html="data.product.description"></div>
+      <inclusions ng-if="data.product.inclusions" class="product-inclusions" inclusions="data.product.inclusions"></inclusions>
+      <div class="button-strip">
+        <a class="button" href ng-click="reloadPageProducts()">_change_my_dates_</a>
+      </div>
+    </div>
+  </main>
+</div>

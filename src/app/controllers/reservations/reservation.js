@@ -261,6 +261,11 @@ angular.module('mobius.controllers.reservation', [])
           }
         }
       }
+
+      if($stateParams.voucher){
+        $scope.voucher.code = $stateParams.voucher;
+        $scope.redeemVoucher();
+      }
     });
   }
 
@@ -680,7 +685,8 @@ angular.module('mobius.controllers.reservation', [])
       rooms: getRooms(),
       paymentInfo: {
         paymentMethod: $scope.billingDetails.paymentMethod
-      }
+      },
+      meta: $stateParams.meta ? $stateParams.meta : undefined
     };
 
     $scope.moreRoomData = reservationData.rooms;
