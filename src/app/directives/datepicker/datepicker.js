@@ -447,6 +447,11 @@ angular.module('mobiusApp.directives.datepicker', [])
               day = '0' + day;
             }
 
+            if(month.toString().length === 1)
+            {
+              month = '0' + month;
+            }
+
             var formattedDate = year + '-' + month + '-' + day;
             var dayAvailability = _.find(scope.availabilityOverview, function(availability){
               return availability.date === formattedDate;
