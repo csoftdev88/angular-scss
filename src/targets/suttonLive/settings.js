@@ -131,6 +131,7 @@ angular.module('mobiusApp.config', [])
       }
     },
     'campaigns':'campaigns',
+    'retention':'retention',
     'track404s': {
       'enable':true,
       'url':'https://errors.2pvservices.com/status'

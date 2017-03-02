@@ -34,9 +34,7 @@ angular.module('mobiusApp.filters.byNameOrZip', [])
           var propertyArray = dataArray.properties;
           if (propertyArray) {
             _.each(propertyArray, function(property) {
-              console.log('have array');
               return property.filter(function(item) {
-                console.log(item);
                 var termInShortName = item.nameShort.toLowerCase().indexOf(term) > -1;
                 var termInZip = item.zip.toLowerCase().indexOf(term) > -1;
                 return termInShortName || termInZip;

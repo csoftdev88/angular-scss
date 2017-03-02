@@ -239,11 +239,9 @@ angular.module('mobiusApp.directives.megaMenu', [])
       };
 
       scope.filterProperties = function(regions, propertySearch){
-        console.log('filter properties');
         _.each(regions, function(region){
           _.each(region.locations, function(location) {
             location.filteredProperties = $filter('byNameOrZip')(location.properties, propertySearch, false);
-            console.log(location.filteredProperties);
             location.show = location.filteredProperties.length ? true : false;
           });
         });
