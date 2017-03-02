@@ -21,6 +21,9 @@ describe('mobius.controllers.modals.policy', function() {
                 'title':'Cancellation',
                 'code':'24HR'
               }
+            },
+            'currencies': {
+              'default': 'CAD'
             }
           }
         });

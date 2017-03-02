@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$timeout', '$location', '$rootScope', 'Settings',
-    function(growl, $timeout, $location, $rootScope, Settings) {
+  .directive('growlAlerts', ['growl', '$rootScope', '$timeout', '$location', 'modalService', 'Settings',
+    function(growl, $rootScope, $timeout, $location, modalService, Settings) { 
       return {
         restrict: 'E',
         scope: {
@@ -19,7 +19,8 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           week: '=',
           weeks: '=',
           languagesMessage: '=',
-          retentionMessage: '='
+          retentionMessage: '=',
+          altProductsMessage: '='
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
@@ -40,7 +41,12 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             referenceId: 2,
             disableIcons: true
           };
-          
+
+          var altProductsPromptConfig = {
+            referenceId: 2,
+            disableIcons: true
+          };
+
           //add statistics growl alert listener
           scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
             if(scope.displayDelay){
@@ -77,6 +83,28 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           scope.$on('$destroy', function() {
             destroyRetentionGrowlListener();
           });
+
+          //destroy existing alt products growl alert listeners
+          scope.$on('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', function (){});
+
+          //add alt products growl alert listener
+          scope.$on('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', function(event, room, product, products) {
+            if(product){
+              $timeout(function () {
+                altProductsPromptConfig.variables = {};
+                altProductsPromptConfig.variables.room = room;
+                altProductsPromptConfig.variables.product = product;
+                altProductsPromptConfig.variables.products = products;
+                growl.info('<i class="fa fa-check-circle"></i><p>' + scope.altProductsMessage + '</p>', altProductsPromptConfig);
+              });
+            }
+          });
+
+          //It's not ideal using rootScope for this but it avoids making changes to the bower angular-growl directive as it has an isolated scope
+          //Also means this is more likely to be futureproof if angular-growl bower is updated
+          $rootScope.showAltProduct = function(data){
+            modalService.openAltProductDialog(data.room, data.product, data.products);
+          };
 
           //If french override enabled and we are on a quebec page add our language growl alert listener
           if(Settings.sandmanFrenchOverride) {

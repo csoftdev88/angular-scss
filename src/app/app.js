@@ -77,6 +77,7 @@ angular
     'mobius.controllers.modals.password',
     'mobius.controllers.modals.previousSearches',
     'mobius.controllers.modals.funnelRetentionExit',
+    'mobius.controllers.modals.altProducts',
 
     // Application modules
     'mobiusApp.config',
@@ -186,6 +187,7 @@ angular
     'mobiusApp.directives.growlAlerts',
     'mobiusApp.directives.optionsDisabled',
     'mobiusApp.directives.slidedownNotifications',
+    'mobiusApp.directives.inclusions',
 
     'internationalPhoneNumber',
 
@@ -663,7 +665,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService) {
+  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -715,7 +717,7 @@ angular
 
     //if applyChainClassToBody, get property details and add its chain as body class for styling
     if (Settings.UI.generics.applyChainClassToBody) {
-      var propertyCode = toParams.propertyCode || toParams.property;
+      var propertyCode = toParams.propertyCode || toParams.property || bookingService.getCodeFromSlug(toParams.propertySlug);
       if (propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation' || toState.name === 'reservation.details' || toState.name === 'reservation.billing' || toState.name === 'reservation.confirmation') || toState.name === 'propertyHotDeals') {
         propertyService.getPropertyDetails(propertyCode).then(function(details) {
           propertyService.applyPropertyChainClass(details.chainCode);
@@ -796,7 +798,7 @@ angular
 
     //If on the allHotels page, store the search
     if($state.current.name === 'allHotels'){
-      previousSearchesService.addSearch($stateParams);
+      previousSearchesService.addSearch($state.current.name, $stateParams);
     }
 
     //Display our previous searches if not in reservation flow

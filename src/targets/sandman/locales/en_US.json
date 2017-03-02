@@ -413,7 +413,7 @@
     "city_pattern_error": "Please enter a valid city",
     "state_pattern_error": "Please enter a valid county, state or province",
     "postcode_pattern_error": "Please enter a valid post code or zip code",
-    "receive_offer_label": "I am happy to receive offer via emails",
+    "receive_offer_label": "I am happy to receive offers via emails",
     "email_optin_label": "I consent to receiving exclusive promotions and offers from Sandman Hotel Group",
     "enter_voucher_label": "Enter code",
     "redeem_voucher_message": "Voucher code",
@@ -542,6 +542,12 @@
     "your_selected_date": "Your Selected Date",
     "rooms_available_at_nearby_hotels": "There are rooms available at these nearby hotels on your dates",
     "no_properties_available_matching_your_selection": "No properties available matching your selection",
-    "retention_message": "Can(singlequote)t find what you(singlequote)re looking for? Give us a call: "
+    "retention_message": "Can(singlequote)t find what you(singlequote)re looking for? Give us a call: ",
+    "alt_products_message": "Alternative rates may be available that closely match your search.",
+    "see_rates": "See rates",
+    "change_my_dates": "Change my dates",
+    "alt_products_reduce_your_stay":"Reduce your stay by {{stayReduction}} night(s) and you could book",
+    "alt_products_extend_your_stay":"Extend your stay by {{stayExtension}} night(s) and you could book",
+    "alt_products_change_dates_to":"Change your stay dates to <strong>{{fromDate | dateTime}} - {{toDate | dateTime}}</strong> and you could book"
   }
 }

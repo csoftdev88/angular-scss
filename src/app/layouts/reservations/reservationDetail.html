@@ -110,15 +110,15 @@
               </tr>
 
               <!-- Additional taxes -->
-              <tr ng-if="reservation.rooms[0].tax">
+              <tr ng-if="reservation.rooms[0].priceDetail.taxDetails.totalTax && getBreakdownTotalTaxes(false) > 0">
                 <th>_tax_:</th>
-                <td>{{getCount('tax') | i18nCurrency: defaultCurrencyCode}}</td>
+                <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: defaultCurrencyCode}}</td>
               </tr>
 
               <!-- Additional fees -->
-              <tr ng-if="reservation.rooms[0].priceDetail.totalAdditionalFees">
+              <tr ng-if="reservation.rooms[0].priceDetail.totalAdditionalFees && getBreakdownTotalTaxes(true) > 0">
                 <th>_additional_fees_:</th>
-                <td>{{reservation.rooms[0].priceDetail.totalAdditionalFees | i18nCurrency: defaultCurrencyCode}}</td>
+                <td>{{getBreakdownTotalTaxes(true) | i18nCurrency: defaultCurrencyCode}}</td>
               </tr>
 
               <!-- Discount -->
@@ -253,7 +253,7 @@
 
             <i>_add_reservation_enhance_to_booking_desc_:</i>
 
-            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{inclusionsAsAddons ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</a>
+            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</a>
             <a class="button"ng-if="addon.pointsRequired && loyaltyProgramEnabled && addon.allowPointsBooking" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>_points_</small></a>
           </div>
         </li>

@@ -212,7 +212,7 @@ angular.module('mobiusApp.config', [])
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
-      'inclusionsAsAddons': false,
+      'inclusionsAsAddons': true,
       'cancel': 'reservations/:reservationCode/actions/cancel',
       'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
@@ -521,7 +521,8 @@ angular.module('mobiusApp.config', [])
       'showMetaView': true,
       'upsells': {
         'display': true
-      }
+      },
+      'displayAltProduct':false
     },
 
     'reservations': {
