@@ -10,7 +10,7 @@
         <img ng-src="{{room.images[0].uri | cloudinaryImage : 180 : 110: 'fill'}}" alt="{{room.name}}"/>
         <div class="details">
           <p class="desc" ng-bind-html="room._selectedProduct.name"></p>
-          <p class="price"><strong>{{room._selectedProduct.price.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+          <p class="price"><strong>{{room._selectedProduct.price.totalBaseAfterPricingRules | i18nCurrency: defaultCurrencyCode}}</strong> <em>_per_night_</em></p>
 
           <h3>{{room.name}}</h3>
 

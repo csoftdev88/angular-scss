@@ -99,6 +99,9 @@ angular.module('mobiusApp.services.properties', [])
       return $q.when({});
     }
 
+    //Don't send voucher param to products requests
+    delete params.voucher;
+
     var URL = apiService.getFullURL('properties.room.product.all', {
       propertyCode: propertyCode,
       roomTypeCode: roomTypeCode

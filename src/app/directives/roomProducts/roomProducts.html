@@ -23,12 +23,7 @@
 
       <p ng-if="settings.showDescription" class="tag-line">{{product.tagline}}</p>
 
-      <div ng-if="settings.showInclusions && product.inclusions" class="product-inclusions">
-        <p>_this_includes_</p>
-        <ul>
-          <li ng-repeat="inclusion in product.inclusions">{{inclusion.inclusionName}}</li>
-        </ul>
-      </div>
+      <inclusions ng-if="settings.showInclusions && product.inclusions" class="product-inclusions" inclusions="product.inclusions"></inclusions>
 
       <a class="info mobile" href ng-click="openProductDetailsDialog(product)">_view_details_</a>
     </div>

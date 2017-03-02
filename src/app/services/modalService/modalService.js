@@ -16,6 +16,8 @@ angular.module('mobiusApp.services.modal', [])
       CONTROLLER_CAMPAIGN = 'CampaignCtrl',
       CONTROLLER_PASSWORD = 'PasswordCtrl',
       CONTROLLER_PREVIOUS_SEARCHES = 'PreviousSearchesCtrl',
+      CONTROLER_FUNNEL_RETENTION_EXIT = 'FunnelRetentionExitCtrl',
+      CONTROLER_ALT_PRODUCTS = 'AltProductsCtrl',
       DIALOG_PARAM_NAME = 'dialog';
 
   function openDialog(dialogName, templateUrl, controller, options){
@@ -408,7 +410,7 @@ angular.module('mobiusApp.services.modal', [])
 
   function openUpsellsDialog(upsell, params, goToReservationDetails, product){
     return openDialog('openUpsellsDialog', 'layouts/modals/upsellsDialog.html', CONTROLLER_UPSELLS, {
-      windowClass: 'upsells-dialog',
+      windowClass: 'dialog-v2 upsells-dialog',
       resolve: {
         data: function() {
           return {
@@ -466,6 +468,32 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openFunnelRetentionExitDialog(retentionData){
+    return openDialog('openFunnelRetentionExitDialog', 'layouts/modals/funnelRetentionExit.html', CONTROLER_FUNNEL_RETENTION_EXIT, {
+      windowClass: 'details funnel-retention-exit-dialog',
+      resolve: {
+        data: function(){
+          return {retentionData:retentionData};
+        }
+      }
+    });
+  }
+
+  function openAltProductDialog(room,product,products){
+    return openDialog('openAltProductDialog', 'layouts/modals/altProducts.html', CONTROLER_ALT_PRODUCTS, {
+      windowClass: 'dialog-v2 alt-products-dialog',
+      resolve: {
+        data: function(){
+          return {
+            room:room,
+            product:product,
+            products:products
+          };
+        }
+      }
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -503,6 +531,8 @@ angular.module('mobiusApp.services.modal', [])
     openUpsellsDialog: openUpsellsDialog,
     openCampaignDialog: openCampaignDialog,
     openPasswordDialog: openPasswordDialog,
-    openPreviousSearchesDialog: openPreviousSearchesDialog
+    openPreviousSearchesDialog: openPreviousSearchesDialog,
+    openFunnelRetentionExitDialog: openFunnelRetentionExitDialog,
+    openAltProductDialog: openAltProductDialog
   };
 });
