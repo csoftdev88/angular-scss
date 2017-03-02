@@ -142,7 +142,7 @@ angular.module('mobiusApp.services.api', [])
       data: data
     }).success(function(res) {
       q.resolve(res);
-    }).error(function(err, status, resHeaders) {
+    }).error(function(err) {
       //logApiError('POST', err, url, null, resHeaders);
       q.reject(err);
     });
