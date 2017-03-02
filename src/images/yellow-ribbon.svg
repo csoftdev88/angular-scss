@@ -29,7 +29,7 @@
                             <polygon id="Path-2" fill="#1D5B64" points="161 27 158 29 158 27"></polygon>
                             <g id="Fill-40">
                                 <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                <use fill="#8d6036" fill-rule="evenodd" xlink:href="#path-1"></use>
+                                <use fill="#ebaa3d" fill-rule="evenodd" xlink:href="#path-1"></use>
                             </g>
                             <g id="Fill-40">
                                 <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
