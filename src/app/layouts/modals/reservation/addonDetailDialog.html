@@ -5,7 +5,8 @@
   </header>
 
   <main ng-if="!state.confirmed">
-    <image-carousel width="400" height="400" fill="'fill'" images="addon.images"></image-carousel>
+    <image-carousel ng-if="addon.image" width="400" height="400" fill="'fill'" images="[addon.image]"></image-carousel>
+    <image-carousel ng-if="!addon.image" width="400" height="400" fill="'fill'" images="addon.images"></image-carousel>
     <div class="details">
       <div class="description">
         <p>{{addon.description}}</p>

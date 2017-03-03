@@ -236,7 +236,8 @@
             ng-click="openAddonDetailDialog(null, addon)">
           <div ng-class="{'disabled': !addon.description || addon.description == ''}">
             <a class="eye-icon">
-              <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
+              <img ng-if="addon.image && addon.image.uri" ng-src="{{addon.image.uri}}"/>
+              <img ng-if="!addon.image || !addon.image.uri" ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
             </a>
 
             <h4 ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
@@ -280,7 +281,8 @@
         <list-item ng-repeat="addon in reservationAddons">
 
           <figure>
-            <img ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
+            <img ng-if="addon.image && addon.image.uri" ng-src="{{addon.image.uri}}"/>
+            <img ng-if="!addon.image || !addon.image.uri" ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
           </figure>
 
           <h2>{{addon.name}}</h2>
