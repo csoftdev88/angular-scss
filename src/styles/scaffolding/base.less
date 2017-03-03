@@ -87,24 +87,19 @@ p{
 }
 
 //Page transition animations
-/*#main-container[ui-view] {
-  &.ng-enter,
-  &.ng-leave {
-    -webkit-transition: all .5s ease-in-out;
-    -moz-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
-  }
+#main-container[ui-view] {  
+  /* start 'enter' transition */
   &.ng-enter {
-    opacity: 0;
+      /* transition on enter for .5s */
+      transition: .75s;
+
+      /* start with opacity 0 (invisible) */
+      opacity: 0.25;
   }
+
+  /* end 'enter' transition */
   &.ng-enter-active {
-    opacity: 1;
+      /* end with opacity 1 (fade in) */
+      opacity: 1;
   }
-  &.ng-leave {
-    opacity: 1;
-  }
-  &.ng-leave-active {
-    opacity: 0;
-  }
-}*/
+}
