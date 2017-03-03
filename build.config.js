@@ -86,6 +86,7 @@ module.exports = {
         'bower_components/ng-device-detector/ng-device-detector.min.js',
         'bower_components/angular-vertilize/angular-vertilize.min.js',
         'bower_components/angular-cookie-law/dist/angular-cookie-law.min.js',
+        'bower_components/ouibounce/build/ouibounce.min.js',
         'karma/init.js',
         'src/app/**/*.js'
       ]
@@ -125,7 +126,8 @@ module.exports = {
         'bower_components/re-tree/re-tree.min.js',
         'bower_components/ng-device-detector/ng-device-detector.min.js',
         'bower_components/angular-vertilize/angular-vertilize.min.js',
-        'bower_components/angular-cookie-law/dist/angular-cookie-law.min.js'
+        'bower_components/angular-cookie-law/dist/angular-cookie-law.min.js',
+        'bower_components/ouibounce/build/ouibounce.min.js'
       ],
       styles: []
     }

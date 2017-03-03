@@ -3,7 +3,7 @@
  * This service is for tracking previous searches
  */
 angular.module('mobiusApp.services.previousSearches', [])
-  .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, modalService, _) {
+  .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, modalService, propertyService, locationService, $q, _) {
 
     function isPreviousSearchesActive() {
       return Settings.UI.previousSearches && Settings.UI.previousSearches.enable;
@@ -29,7 +29,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       }
     }
 
-    function addSearch(searchParams, searchName) {
+    function addSearch(stateName, searchParams, searchName, propertyCode, locationCode, roomCode) {
       if (isPreviousSearchesActive()) {
 
         //Prevent modal from displaying in this session
@@ -38,7 +38,7 @@ angular.module('mobiusApp.services.previousSearches', [])
         //Save cookie to denote that user has searched in current session
         saveSearchInSessionCookie();
 
-        var search = buildSearchObject(searchParams, searchName);
+        var search = buildSearchObject(stateName, searchParams, searchName, propertyCode, locationCode, roomCode);
         if (search) {
           addSearchToCookie(search);
         }
@@ -46,17 +46,89 @@ angular.module('mobiusApp.services.previousSearches', [])
     }
 
     //Create your search object
-    function buildSearchObject(searchParams, searchName) {
+    function buildSearchObject(stateName, searchParams, searchName, propertyCode, locationCode, roomCode) {
       var search = null;
       if (sessionDataService.getCookie() && sessionDataService.getCookie().sessionData) {
         search = {};
-        search.params = angular.copy(searchParams);
-        search.state = $state.current.name;
-        search.name = searchName ? searchName : 'All hotels';
-        search.guid = sessionDataService.generateUUID(); //Specific GUID generated for each search that can be referenced for deletion
-        search.sessionId = sessionDataService.getCookie().sessionData.sessionId; //Specific GUID for each session so that we can remove all searches from a session once booking is complete
+        search.s = stateName;
+        search.n = searchName ? searchName : 'All hotels';
+        search.id = sessionDataService.generateUUID(); //Specific GUID generated for each search that can be referenced for deletion
+        search.sid = sessionDataService.getCookie().sessionData.sessionId; //Specific GUID for each session so that we can remove all searches from a session once booking is complete
+        search.p = buildSearchParamStore(searchParams);
+        search.p.r = roomCode ? roomCode : undefined;
+        if(propertyCode){
+          search.p.p = propertyCode;
+        }
+        else if(locationCode){
+          search.p.l = locationCode;
+        }
       }
       return search;
+    }
+
+    function buildSearchParamStore(searchParams){
+      var params = {};
+      params.a = searchParams.adults ? searchParams.adults : undefined;
+      params.c = searchParams.children ? searchParams.children : undefined;
+      params.d = searchParams.dates ? searchParams.dates : undefined;
+      params.ra = searchParams.rate ? searchParams.rate : undefined; //The selected rate filter / productGroupId
+      params.pc = searchParams.promoCode ? searchParams.promoCode : undefined;
+      params.gc = searchParams.groupCode ? searchParams.groupCode : undefined;
+      params.cc = searchParams.corpCode ? searchParams.corpCode : undefined;
+      return params;
+    }
+
+    function buildSearchUrlParams(searchParams, propertySlug, locationSlug, regionSlug){
+      var params = {};
+      params.adults = searchParams.a ? searchParams.a : undefined;
+      params.children = searchParams.c ? searchParams.c : undefined;
+      params.dates = searchParams.d ? searchParams.d : undefined;
+      params.property = searchParams.p ? searchParams.p : undefined;
+      params.roomSlug = searchParams.r ? searchParams.r : undefined;
+      params.propertySlug = propertySlug ? propertySlug : undefined;
+      params.locationSlug = locationSlug ? locationSlug : undefined;
+      params.regionSlug = regionSlug ? regionSlug : undefined;
+      params.scrollTo = undefined;
+      params.fromSearch = undefined;
+      return params;
+    }
+
+    //Retrieves all required parameters to form a search URL
+    function getSearchUrlParams(search){      
+      var q = $q.defer();
+      if(search.p){
+        if(search.p.r && search.p.p){
+          propertyService.getRoomDetails(search.p.p, search.p.r).then(function(room){
+            propertyService.getPropertyDetails(search.p.p).then(function(property){
+              propertyService.getPropertyRegionData(property.locationCode).then(function(data){
+                var params = buildSearchUrlParams(search.p, property.meta.slug, data.location.meta.slug, data.region.meta.slug, room.meta.slug);
+                q.resolve(params);
+              }, function(error){
+                q.reject(error);
+              });
+            });
+          });
+        }
+        else if(search.p.p){
+          propertyService.getPropertyDetails(search.p.p).then(function(property){
+            propertyService.getPropertyRegionData(property.locationCode).then(function(data){
+              var params = buildSearchUrlParams(search.p, property.meta.slug, data.location.meta.slug, data.region.meta.slug);
+              q.resolve(params);
+            }, function(error){
+              q.reject(error);
+            });
+          });
+        }
+        else if(search.p.l){
+          propertyService.getPropertyRegionData(search.p.l).then(function(data){
+            var params = buildSearchUrlParams(search.p, null, data.location.meta.slug, data.region.meta.slug);
+            q.resolve(params);
+          }, function(error){
+            q.reject(error);
+          });
+        }
+      }
+      return q.promise;
     }
 
     //Add a search to the cookie
@@ -87,30 +159,30 @@ angular.module('mobiusApp.services.previousSearches', [])
     function removeSearch(search) {
       var previousSearches = getSearches();
       var filteredSearches = _.reject(previousSearches, function(savedSearch) {
-        return savedSearch.guid === search.guid && !search.display;
+        return savedSearch.id === search.id && !search.display;
       });
-      if(filteredSearches.length){
-        var cookie = getSearchDataCookie();
-        if(cookie){
+      var cookie = getSearchDataCookie();
+      if(cookie){
+        if(filteredSearches.length){      
           cookie.searches = filteredSearches;
           saveSearchDataCookie(cookie);
         }
-      }
-      else {
-        //Delete searchDataCookie as it is now empty
-        $window.document.cookie = searchDataCookieName+ '=' + 'clear' + ';expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+        else {
+          cookie.searches = [];
+          saveSearchDataCookie(cookie);
+        }
       }
     }
 
     //Remove all searches related to a specific session
     function removeSessionSearches() {
       if (isPreviousSearchesActive() && sessionDataService.getCookie() && sessionDataService.getCookie().sessionData) {
-        var currentSessionId = sessionDataService.getCookie().sessionData.sessionId;
+        var currentSessionId = sessionDataService.getCookie().sessionData.sid;
         var previousSearches = getSearches();
         var changedCookie = false;
         if (previousSearches && previousSearches.length) {
           var filteredPreviousSearches = _.reject(previousSearches, function(search) {
-            if(search.sessionId === currentSessionId){
+            if(search.sid === currentSessionId){
               changedCookie = true;
               return true;
             }
@@ -135,8 +207,8 @@ angular.module('mobiusApp.services.previousSearches', [])
       if (previousSearches && previousSearches.length) {
         var today = $window.moment().format('YYYY-MM-DD');
         var filteredPreviousSearches = _.reject(previousSearches, function(search) {
-          if(search.params && search.params.dates){
-            var datesArray = search.params.dates.split('_');
+          if(search.p && search.p.d){
+            var datesArray = search.p.d.split('_');
             if(datesArray.length){
               var from = datesArray[0];
               var to = datesArray[1];
@@ -159,11 +231,18 @@ angular.module('mobiusApp.services.previousSearches', [])
 
     //Generate the cookie to store searches in
     function saveSearchDataCookie(cookie) {
-      if (searchDataCookieExpiry && searchDataCookieExpiry !== 0) {
-        var cookieExpiryDate = null;
-        cookieExpiryDate = new Date();
-        cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (searchDataCookieExpiry * 60 * 1000));
-        saveCookie(searchDataCookieName, cookie, cookieExpiryDate);
+      //If we have searches, save the cookie
+      if(cookie.searches.length && cookie.searches.length > 0){
+        if (searchDataCookieExpiry && searchDataCookieExpiry !== 0) {
+          var cookieExpiryDate = null;
+          cookieExpiryDate = new Date();
+          cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (searchDataCookieExpiry * 60 * 1000));
+          saveCookie(searchDataCookieName, cookie, cookieExpiryDate);
+        }
+      }
+      //If we don't have searches, delete the cookie
+      else {
+        deleteCookie(searchDataCookieName);
       }
     }
 
@@ -193,7 +272,18 @@ angular.module('mobiusApp.services.previousSearches', [])
 
     function saveCookie(cookieName, cookie, cookieExpiryDate){
       var expiry = cookieExpiryDate ? cookieExpiryDate.toUTCString() : '';
-      $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + expiry + '; path=/';
+      //If expiry defined create a cookie with expiry
+      if(expiry){
+        $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; expires=' + expiry + '; path=/';
+      }
+      //Otherwise create a session cookie (no expiry)
+      else {
+        $window.document.cookie = cookieName + '=' + angular.toJson(cookie) + '; path=/';
+      }
+    }
+
+    function deleteCookie(cookieName){
+      $window.document.cookie = cookieName + '=' + 'clear' + ';expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     }
 
     //Display searches in the front-end of the app
@@ -203,7 +293,16 @@ angular.module('mobiusApp.services.previousSearches', [])
           var previousSearches = getSearches();
           if(previousSearches && previousSearches.length){
             saveSearchDisplayCookie();
-            modalService.openPreviousSearchesDialog(previousSearches, removeSearch);
+            var searchPromises = [];
+            _.each(previousSearches, function(search){
+              ///Generate the search url
+              searchPromises.push(getSearchUrlParams(search).then(function(params){
+                search.params = params;
+              }));
+            });
+            $q.all(searchPromises).then(function () {
+              modalService.openPreviousSearchesDialog(previousSearches, removeSearch);
+            });
           }
         }
       }

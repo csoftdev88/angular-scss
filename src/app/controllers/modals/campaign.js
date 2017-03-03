@@ -26,11 +26,11 @@ angular.module('mobius.controllers.modals.campaign', [
   };
 
   function updateCookie(){
-    var activeCampaign = cookieFactory('ActiveCampaign');
+    var activeCampaign = cookieFactory('MobiusActiveCampaign');
     var savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
     if(savedCampaign){
       savedCampaign.interstitialDismissed = true;
-      $window.document.cookie = 'ActiveCampaign' + '=' + angular.toJson(savedCampaign) + '; path=/';
+      $window.document.cookie = 'MobiusActiveCampaign' + '=' + angular.toJson(savedCampaign) + '; path=/';
     }
   }
 });

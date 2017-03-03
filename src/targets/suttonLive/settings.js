@@ -8,7 +8,7 @@ angular.module('mobiusApp.config', [])
   'defaultProductRateId': 1,
   'authType': 'infiniti',
   'loyaltyProgramEnabled': true,
-  'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'showEUCookieDisclaimer':true,
   'infiniti': {
     'enable': true,
@@ -131,6 +131,7 @@ angular.module('mobiusApp.config', [])
       }
     },
     'campaigns':'campaigns',
+    'retention':'retention',
     'track404s': {
       'enable':true,
       'url':'https://errors.2pvservices.com/status'
@@ -169,6 +170,7 @@ angular.module('mobiusApp.config', [])
       'all': 'properties',
       'details': 'properties/:propertyCode',
       'availability': 'properties/:propertyCode/availabilities',
+      'availabilityOverview': 'properties/:propertyCode/availabilityOverview',
       'room': {
         'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
@@ -203,6 +205,7 @@ angular.module('mobiusApp.config', [])
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
+      'inclusionsAsAddons': true,
       'cancel': 'reservations/:reservationCode/actions/cancel',
       'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
@@ -266,7 +269,7 @@ angular.module('mobiusApp.config', [])
       'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
       'searchInSessionCookieName':'MobiusSearchInSession',
-      'maxSearches':10
+      'maxSearches':3
     },
     'chains': ['SAN'],
     'user': {
@@ -609,7 +612,8 @@ angular.module('mobiusApp.config', [])
       },
       'upsells': {
         'display': true
-      }
+      },
+      'displayAltProduct':true
     },
 
     'reservations': {
@@ -1182,19 +1186,19 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       }
-    }
-  },
-  'thirdparties': {
-    'enable': false,
-    'menu': {
-      'showHotels': false,
-      'showRegionsMegaMenu': true,
-      'showHotDeals': false,
-      'showMeetingsBanquets': false,
-      'showOffers': false,
-      'showAbout': true,
-      'showNews': false,
-      'showContact': false
+    },
+    'thirdparties': {
+      'enable': true,
+      'menu': {
+        'showHotels': false,
+        'showRegionsMegaMenu': true,
+        'showHotDeals': false,
+        'showMeetingsBanquets': false,
+        'showOffers': false,
+        'showAbout': true,
+        'showNews': false,
+        'showContact': false
+      }
     }
   }
 });

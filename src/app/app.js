@@ -76,6 +76,8 @@ angular
     'mobius.controllers.modals.campaign',
     'mobius.controllers.modals.password',
     'mobius.controllers.modals.previousSearches',
+    'mobius.controllers.modals.funnelRetentionExit',
+    'mobius.controllers.modals.altProducts',
 
     // Application modules
     'mobiusApp.config',
@@ -185,6 +187,7 @@ angular
     'mobiusApp.directives.growlAlerts',
     'mobiusApp.directives.optionsDisabled',
     'mobiusApp.directives.slidedownNotifications',
+    'mobiusApp.directives.inclusions',
 
     'internationalPhoneNumber',
 
@@ -213,7 +216,7 @@ angular
 
   //Global config for growl messages
   growlProvider.globalTimeToLive(30000);
-  growlProvider.onlyUniqueMessages(false);
+  growlProvider.onlyUniqueMessages(true);
   growlProvider.globalPosition('top-center');
   //growlProvider.globalReversedOrder(true);
 
@@ -225,7 +228,7 @@ angular
     controller: 'MainCtrl',
     // NOTE: These params are used by booking widget
     // Can be placed into induvidual state later if needed
-    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucher&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode&ch&meta'
+    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucher&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode&ch&meta&gclid'
   })
 
   // Home page
@@ -447,41 +450,28 @@ angular
     templateUrl: 'layouts/offers/offers.html',
     url: '/hotels/:propertySlug/offers/:code',
     controller: 'OffersCtrl'
-  })
+  });
 
-  /*.state('hotDeals', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/:regionSlug/:locationSlug/hot-deals/:code',
-    controller: 'OffersCtrl',
-    params: {
-      locationSlug: {
-        value: null,
-        squash: true
-      },
-      regionSlug: {
-        value: null,
-        squash: true
-      }
+  //Only allow hot deals urls if hot deals is enabled
+  if(Settings.enableHotDeals){
+    $stateProvider.state('hotDeals', {
+      parent: 'root',
+      templateUrl: 'layouts/offers/offers.html',
+      url: '/hot-deals/',
+      controller: 'OffersCtrl'
+    });
+    if(Settings.newUrlStructure){
+      $stateProvider.state('propertyHotDeals', {
+        parent: 'root',
+        templateUrl: 'layouts/offers/offers.html',
+        url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/hot-deals/:code',
+        controller: 'OffersCtrl'
+      });
     }
-  })*/
-
-  .state('hotDeals', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/hot-deals/',
-    controller: 'OffersCtrl'
-  })
-
-  .state('propertyHotDeals', {
-    parent: 'root',
-    templateUrl: 'layouts/offers/offers.html',
-    url: '/locations/:regionSlug/:locationSlug/hotels/:propertySlug/hot-deals/:code',
-    controller: 'OffersCtrl'
-  })
+  }
 
   // Rewards page
-  .state('rewards', {
+  $stateProvider.state('rewards', {
     parent: 'root',
     templateUrl: 'layouts/rewards/rewards.html',
     url: '/rewards',
@@ -675,7 +665,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService) {
+  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -727,7 +717,7 @@ angular
 
     //if applyChainClassToBody, get property details and add its chain as body class for styling
     if (Settings.UI.generics.applyChainClassToBody) {
-      var propertyCode = toParams.propertyCode || toParams.property;
+      var propertyCode = toParams.propertyCode || toParams.property || bookingService.getCodeFromSlug(toParams.propertySlug);
       if (propertyCode && (toState.name === 'hotel' || toState.name === 'hotelInfo' || toState.name === 'room' || toState.name === 'reservation' || toState.name === 'reservation.details' || toState.name === 'reservation.billing' || toState.name === 'reservation.confirmation') || toState.name === 'propertyHotDeals') {
         propertyService.getPropertyDetails(propertyCode).then(function(details) {
           propertyService.applyPropertyChainClass(details.chainCode);
@@ -808,71 +798,88 @@ angular
 
     //If on the allHotels page, store the search
     if($state.current.name === 'allHotels'){
-      previousSearchesService.addSearch($stateParams);
+      previousSearchesService.addSearch($state.current.name, $stateParams);
     }
 
-    $scope.retentionClick = function(){
-      funnelRetentionService.retentionCheck();
-    };
+    //Display our previous searches if not in reservation flow
+    if($state.current.name !== 'reservation.details' && $state.current.name !== 'reservation.billing' && $state.current.name !== 'reservation.confirmation') {
+      previousSearchesService.displaySearches();
+    }
   });
 
-  //If EU cookie disclaimer enabled
-  if(Settings.showEUCookieDisclaimer) {
-    apiService.get('layouts/index.html').then(function(){
-      var isEUHeader = apiService.headers ? apiService.headers['CF-isEU'] : null;
-      var isEU = isEUHeader === false ? false : true;
+  if(funnelRetentionService.isFunnelRetentionActive()){
+    funnelRetentionService.init($scope);
+    
+    funnelRetentionService.addExitHandler();
 
-      if(isEU){
-        $scope.showEUCookieDisclaimer = true;
-        $rootScope.euCookieDisclaimerVisible = !CookieLawService.isEnabled();
+    $scope.retentionClick = function(){
+      funnelRetentionService.retentionClickCheck();
+    };
 
-        if(cookieFactory('cookieDisclaimer')) {
-          $scope.showEUCookieDisclaimer = false;
-          $rootScope.euCookieDisclaimerVisible = false;
-        }
-
-        var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
-        var heroSliderEl = $('#main-container > div > hero-slider');
-
-        $scope.$on('cookieLaw.accept', function() {
-          $rootScope.euCookieDisclaimerVisible = false;
-
-          var cookieExpiryDate = null;
-          if(Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0){
-            cookieExpiryDate = new Date();
-            cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
-          }
-          $window.document.cookie = 'cookieDisclaimer=true' + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
-
-          //Re-position hero-slider after cookie law accepted on mobile
-          if(stateService.isMobile()){
-            $timeout(function(){
-              repositionHeroSlider(heroSliderEl);
-            },500);
-          }
-        });
-
-        if($rootScope.euCookieDisclaimerVisible){
-          if(stateService.isMobile()){
-            $timeout(function(){
-              repositionHeroSlider(heroSliderEl);
-            },500);
-          }
-          $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
-            if(viewport.isMobile && $rootScope.euCookieDisclaimerVisible){
-              repositionHeroSlider(heroSliderEl);
-            }
-            else {
-              heroSliderEl.css('margin-top', '');
-            }
-          });
-        }
-      }
+    $scope.$on('RETENTION_GROWL_ALERT_EMIT', function(event, retentionMessage) {
+      $scope.$broadcast('RETENTION_GROWL_ALERT_BROADCAST', retentionMessage);
     });
   }
 
-  //Display our previous searches
-  previousSearchesService.displaySearches();
+  //If EU cookie disclaimer enabled
+  if(Settings.showEUCookieDisclaimer) {
+    //Re-request the HTML so that we can intercept the page headers (this is the only way you can get page headers in js)
+    var client = new XMLHttpRequest();
+    client.open('GET', document.location, true);
+    client.send();
+    client.onreadystatechange = function() {
+      if(this.readyState === this.HEADERS_RECEIVED) {
+        var isEUHeader = client.getResponseHeader('CF-isEU');
+        var isEU = isEUHeader === 'true' ? true : false;
+        if(isEU){
+          $scope.showEUCookieDisclaimer = true;
+          $rootScope.euCookieDisclaimerVisible = !CookieLawService.isEnabled();
+
+          if(cookieFactory('cookieDisclaimer')) {
+            $scope.showEUCookieDisclaimer = false;
+            $rootScope.euCookieDisclaimerVisible = false;
+          }
+
+          var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
+          var heroSliderEl = $('#main-container > div > hero-slider');
+
+          $scope.$on('cookieLaw.accept', function() {
+            $rootScope.euCookieDisclaimerVisible = false;
+
+            var cookieExpiryDate = null;
+            if(Settings.UI.user.userPreferencesCookieExpiryDays && Settings.UI.user.userPreferencesCookieExpiryDays !== 0){
+              cookieExpiryDate = new Date();
+              cookieExpiryDate.setDate(cookieExpiryDate.getDate() + Settings.UI.user.userPreferencesCookieExpiryDays);
+            }
+            $window.document.cookie = 'cookieDisclaimer=true' + (!cookieExpiryDate ? '' : '; expires=' + cookieExpiryDate.toUTCString()) + '; path=/';
+
+            //Re-position hero-slider after cookie law accepted on mobile
+            if(stateService.isMobile()){
+              $timeout(function(){
+                repositionHeroSlider(heroSliderEl);
+              },500);
+            }
+          });
+
+          if($rootScope.euCookieDisclaimerVisible){
+            if(stateService.isMobile()){
+              $timeout(function(){
+                repositionHeroSlider(heroSliderEl);
+              },500);
+            }
+            $scope.$on(EVENT_VIEWPORT_RESIZE, function(event, viewport){
+              if(viewport.isMobile && $rootScope.euCookieDisclaimerVisible){
+                repositionHeroSlider(heroSliderEl);
+              }
+              else {
+                heroSliderEl.css('margin-top', '');
+              }
+            });
+          }
+        }
+      }
+    };
+  }
 
   function repositionHeroSlider(heroSliderEl){
     var mainHeaderHeight = $('#main-header').height();

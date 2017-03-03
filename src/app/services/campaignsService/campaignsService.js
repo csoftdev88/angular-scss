@@ -15,7 +15,7 @@ angular.module('mobiusApp.services.campaigns', [])
         return $stateParams.locationSlug === location.meta.slug;
       });
       locationCode = locationMatch ? locationMatch.code : null;
-      activeCampaign = cookieFactory('ActiveCampaign');
+      activeCampaign = cookieFactory('MobiusActiveCampaign');
       savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
       
       //Only request search specific campaigns if on one of the following pages
@@ -47,8 +47,8 @@ angular.module('mobiusApp.services.campaigns', [])
       }
       
       getCampaigns(loggedIn, getAllCampaigns).then(function(data) {
-        if (data.criteria) {
-          selectCampaign(data, loggedIn);
+        if (data.length && data[0] && data[0].criteria) {
+          selectCampaign(data[0], loggedIn);
         } else {
           //If no campaign returned display previous campaign
           console.log('no campaign returned');    
@@ -60,9 +60,12 @@ angular.module('mobiusApp.services.campaigns', [])
     function getSavedCampaign(getAllCampaigns){
       if (savedCampaign) {
         getCampaigns(null, true).then(function(data) {
-          var retrievedCampaign = _.find(data, function(thisCampaign) {
-            return thisCampaign.code === savedCampaign.code;
-          });
+          var retrievedCampaign = null;
+          if(data.length && data[0]){
+            retrievedCampaign = _.find(data[0], function(thisCampaign) {
+              return thisCampaign.code === savedCampaign.code;
+            });
+          }
           //If there is a saved campaign and we are on a non-search based page, display the saved campaign
           if (retrievedCampaign && getAllCampaigns) {
             console.log('display previous campaign');
@@ -109,44 +112,44 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function criteriaCheck(campaign, loggedIn, bookingDates, locationSlug, property, locations) {
-      var criteriaPass = checkActiveDates(campaign);
+      var criteriaPass = campaign.active ? checkActiveDates(campaign) : false;
       if (criteriaPass) {
-        console.log('active dates check pass');
+        console.log('campaign active dates check pass');
         criteriaPass = checkMemberOnly(campaign, loggedIn);
       } else {
-        console.log('active dates check fail');
+        console.log('campaign active dates check fail');
         return false;
       }
       if (criteriaPass) {
-        console.log('member only check pass');
+        console.log('campaign member only check pass');
         criteriaPass = checkDateRestrictions(campaign, bookingDates);
       } else {
-        console.log('member only check fail');
+        console.log('campaign member only check fail');
         return false;
       }
       if (criteriaPass) {
-        console.log('booking date restrictions pass');
+        console.log('campaign booking date restrictions pass');
         criteriaPass = checkPropertyRestrictions(campaign, property);
         if(criteriaPass){
-          console.log('property restrictions check pass');
+          console.log('campaign property restrictions check pass');
           //If no properties selected in criteria but location is set
           if(!campaign.criteria.properties && campaign.criteria.locations){
             criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
           }
         }
         else {
-          console.log('property restrictions check fail');
+          console.log('campaign property restrictions check fail');
           criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
         }
       } else {
-        console.log('booking date restrictions fail');
+        console.log('campaign booking date restrictions fail');
         return false;
       }
       if (criteriaPass) {
-        console.log('location restrictions check pass');
+        console.log('campaign location restrictions check pass');
         return true;
       } else {
-        console.log('location restrictions check fail');
+        console.log('campaign location restrictions check fail');
         return false;
       }
     }
@@ -438,7 +441,7 @@ angular.module('mobiusApp.services.campaigns', [])
         'interstitialDismissed': false,
         'priority': isPriority
       };
-      $window.document.cookie = 'ActiveCampaign' + '=' + angular.toJson(campaignCookie) + '; path=/';
+      $window.document.cookie = 'MobiusActiveCampaign' + '=' + angular.toJson(campaignCookie) + '; path=/';
     }
 
     // Public methods

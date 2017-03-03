@@ -248,3 +248,13 @@ Locales files located in src/targets/{tenant}/locales are processed by grunt/nod
 
 ### css
 Refer to comments in src/targets/default/styles/style.less
+
+
+## prerender.io
+As mobius-web is an angular application, we rely on prerender.io to index pages for search engines.
+This is implemented through a combination of:
+- ``` meta name="prerender-status-code" content="{{prerenderStatusCode}}" ``` in the head of the page - /src/app/index.html
+- ``` require('prerender-node').set('prerenderToken', 'i5yOvEEIyhpbWHoBfeG2') ``` in the node layer - /server.js
+
+If you want to see how your page looks to the prerender crawler, try this - http://service.prerender.io/http://integration-sandman-www.mobiuswebservices.com/
+(http://service.prerender.io/your-url-here)

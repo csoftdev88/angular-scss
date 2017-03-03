@@ -104,7 +104,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
                 if (curLocation) {
                   //Store this location search
-                  previousSearchesService.addSearch($stateParams, curLocation.nameShort);
+                  previousSearchesService.addSearch($state.current.name, $stateParams, curLocation.nameShort, null, curLocation.code);
 
                   //hero slider
                   scope.updateHeroContent(curLocation.images);

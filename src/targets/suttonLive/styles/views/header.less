@@ -1,0 +1,23 @@
+.main-nav .brand img.corp-logo {
+    .viewport-mobile & {
+        margin-top:11px;
+    }
+}
+
+// DESKTOP STYLES
+@media only screen and @tablet-portrait-min {
+  .main-nav {
+    .brand {
+      width:370px;
+      text-align:left;
+      .corp-logo {
+        position:absolute;
+        right:0;
+        top:50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

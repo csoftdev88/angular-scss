@@ -120,7 +120,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   };
 
-  if($scope.showFlexibleDates && $stateParams.dates){
+  if($scope.showFlexibleDates && $stateParams.dates && $rootScope.flexibleDates){
 
     $scope.flexibleDates = [];
 
@@ -237,8 +237,10 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.details = details;
     }
 
-    //Store this location search
-    previousSearchesService.addSearch($stateParams, details.nameLong);
+    //If a property param is defined (which denotes a search) store this search
+    if($stateParams.property){
+      previousSearchesService.addSearch($state.current.name, $stateParams, details.nameLong, details.code);
+    }
 
     $scope.localInfo = details.localInfo;
     if (Settings.UI.viewsSettings.breadcrumbsBar.displayPropertyTitle) {

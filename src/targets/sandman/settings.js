@@ -10,8 +10,9 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
-  'inputValidationPattern':/^[\u0020-\u02AF]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'showEUCookieDisclaimer':true,
+  'enableHotDeals':true,
   'infiniti': {
     'enable': true,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -211,7 +212,7 @@ angular.module('mobiusApp.config', [])
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
-      'inclusionsAsAddons': false,
+      'inclusionsAsAddons': true,
       'cancel': 'reservations/:reservationCode/actions/cancel',
       'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
@@ -276,7 +277,7 @@ angular.module('mobiusApp.config', [])
       'searchDataCookieExpiry':259200, //180 days
       'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
       'searchInSessionCookieName':'MobiusSearchInSession',
-      'maxSearches':10
+      'maxSearches':3
     },
     'funnelRetention':{
       'enable':false,
@@ -520,7 +521,8 @@ angular.module('mobiusApp.config', [])
       'showMetaView': true,
       'upsells': {
         'display': true
-      }
+      },
+      'displayAltProduct':false
     },
 
     'reservations': {
@@ -733,14 +735,14 @@ angular.module('mobiusApp.config', [])
 
     // Settings related to booking process
     'bookingWidget': {
-      "datePickerNumberOfMonths": 2,
-      "datePickerHasCounter": true,
-      "datePickerHasTitle": false,
-      "datePickerCounterIncludeDates": true,
-      "datePickerCloseOnDatesSelected": false,
-      "checkAvailabilityOnChange": false,
-      "checkOfferAvailabilityOnChange": false,
-      "displayPropertiesMegamenu": true,
+      'datePickerNumberOfMonths': 2,
+      'datePickerHasCounter': true,
+      'datePickerHasTitle': false,
+      'datePickerCounterIncludeDates': true,
+      'datePickerCloseOnDatesSelected': false,
+      'checkAvailabilityOnChange': false,
+      'checkOfferAvailabilityOnChange': false,
+      'displayPropertiesMegamenu': true,
       'hasMutiroomTab': true,
       'hasRatesSelection': true,
       'timezone':'America/Vancouver',
