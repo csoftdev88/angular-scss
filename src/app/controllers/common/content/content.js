@@ -147,7 +147,7 @@ angular.module('mobius.controllers.common.content', [])
   }
 
   function preprocessParams(code, params) {
-    //if hotel slug then need to update property param
+    //if hotel slug and a property param is already set then need to update property param
     if ($state.params.property && contentTypes.hotels.paramName === $scope.settings.paramName && code) {
       var property = findPropertyBySlug(code);
       params.property = property ? property.code : null;
@@ -280,16 +280,20 @@ angular.module('mobius.controllers.common.content', [])
         $scope.settings = $scope.settings.fallback;
         processSettings();
       } else {
-        if(($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property) || ($scope.item === 'offers' && !$state.params.propertySlug)){
+        if(($scope.settings.limitToPropertyCodes && $scope.hotels && !bookingService.getParams().property && !$state.params.propertySlug) || ($scope.item === 'offers' && !$state.params.propertySlug)){
           content = _.where(content, {showAtChainLevel: true});
         }
 
         $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
-
           var availability = null;
           var availabilitySlug = null;
+          var propertySlug = bookingService.getParams().propertySlug;     
           //Only filter by property if there is a property slug in the current URL
+          if(!$scope.settings.chainWideOnly && propertySlug){
+            //Get the property code from the slug and assign to the selected item in the booking bar;
+            var propertyCode = bookingService.getCodeFromSlug(propertySlug);
             availability = _.find(item.offerAvailability, function(availability){
+              return availability.property === propertyCode;
             });
             availabilitySlug = availability && availability.slug && availability.slug !== '' ? availability.slug : null;
           }
@@ -311,6 +315,7 @@ angular.module('mobius.controllers.common.content', [])
   }
 
   function needFilter() {
+    return Settings.UI.menu.offerSpecificToSelectedProperty && $scope.settings.method === contentTypes.offers.method && $state.params.propertySlug;
   }
 
   function getCityOfContent() {
@@ -320,6 +325,17 @@ angular.module('mobius.controllers.common.content', [])
 
   function isFiltered(item) {
     if (needFilter()) {
+      var propertySlug = bookingService.getParams().propertySlug;
+      var availability = null;
+      if(propertySlug){
+        //Get the property code from the slug and assign to the selected item in the booking bar;
+        var propertyCode = bookingService.getCodeFromSlug(propertySlug);
+        availability = _.find(item.offerAvailability, function(availability){
+          return availability.property === propertyCode;
+        });
+      }
+  
+      return availability ? true : false;
     } else {
       return true;
     }
