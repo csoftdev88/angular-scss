@@ -180,6 +180,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             // URL parameter is presented but has no value
             if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
               queryService.removeParam(paramSettings.search);
+              
+              //If there is no property querystring value
+              if(paramSettings.search === 'property'){
+                //Get the property slug
+                var propertySlug = bookingService.getParams().propertySlug;
+                if(propertySlug){
+                  //Get the property code from the slug and assign to the selected item in the booking bar;
+                  var propertyCode = bookingService.getCodeFromSlug(propertySlug);
+                  scope.selected[key] = propertyCode ? propertyCode : null;
+                }
+              }
             }else{
               // Value is valid, we can assign it to the model
               paramValue = validationService.convertValue(paramValue, paramSettings, true);
@@ -360,6 +371,16 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       function validatePropertyRegion() {
         var propertySettings = PARAM_TYPES.property;
         var propertyCode = bookingService.getParams()[propertySettings.search];
+
+        //If no property code in query string
+        if(!propertyCode){
+          //Get the property slug
+          var propertySlug = bookingService.getParams().propertySlug;
+          if(propertySlug){
+            //Get the property code from the slug and set this as propertyCode
+            propertyCode = bookingService.getCodeFromSlug(propertySlug);
+          }
+        }
 
         if(propertyCode) {
           // Checking whether list of properties has property specified in the URL
