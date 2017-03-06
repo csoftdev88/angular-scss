@@ -148,7 +148,7 @@ angular.module('mobius.controllers.common.content', [])
 
   function preprocessParams(code, params) {
     //if hotel slug then need to update property param
-    if (contentTypes.hotels.paramName === $scope.settings.paramName && code) {
+    if ($state.params.property && contentTypes.hotels.paramName === $scope.settings.paramName && code) {
       var property = findPropertyBySlug(code);
       params.property = property ? property.code : null;
     }else if(!$scope.settings.keepProperty){
@@ -166,18 +166,24 @@ angular.module('mobius.controllers.common.content', [])
 
       code = bookingService.getCodeFromSlug(code);
       var selectedOfferIndex = _.findIndex($scope.offers, {code: code});
+      
+      //If we don't have a propery query param set
+      var propertyCode = $state.params.property;
+      if(!propertyCode){
+        //Get the property slug from url
+        var propertySlug = bookingService.getParams().propertySlug;
+        if(propertySlug){
+          //Get the property code from the slug and assign to the selected item in the booking bar;
+          propertyCode = bookingService.getCodeFromSlug(propertySlug);
+        }
+      }
+
       if (selectedOfferIndex >= 0) {
         var availability = _.find($scope.offers[selectedOfferIndex].offerAvailability, function(availability){
-          return availability.property === $state.params.property;
+          return availability.property === propertyCode;
         });
         stateParams.promoCode = availability && availability.promoCode ? availability.promoCode : $scope.offers[selectedOfferIndex].promoCode;
       }
-    }
-
-    //If clicking on a property, updated the property code accordingly before broadcasting
-    if($scope.settings.paramName === 'propertySlug')
-    {
-      stateParams.property = bookingService.getCodeFromSlug(code);
     }
 
     $timeout(function(){
@@ -246,19 +252,21 @@ angular.module('mobius.controllers.common.content', [])
         //If at chain level, remove items that have showOnMenu = false in main settings
         //showOnMenu should override any setting, commenting this for now
 
-        if(item.showAtChainLevel && !$state.params.property){
+        if(item.showAtChainLevel && !$state.params.property && !$state.params.propertySlug){
           return item.showOnMenu === false;
         }
-
 
         if($scope.settings.chainWideOnly){
           return item.showAtChainLevel === false;
         }
 
         //If on a property, remove items that have showOnMenu = false in offerAvailability
-        if($state.params.propertySlug){
+        var propertySlug = bookingService.getParams().propertySlug;
+        if(propertySlug){
+          //Get the property code from the slug and assign to the selected item in the booking bar;
+          var propertyCode = bookingService.getCodeFromSlug(propertySlug);
           var availability = _.find(item.offerAvailability, function(availability){
-            return availability.property === $state.params.property;
+            return availability.property === propertyCode;
           });
           if(availability){
             return availability.showOnMenu === false;
@@ -280,11 +288,8 @@ angular.module('mobius.controllers.common.content', [])
 
           var availability = null;
           var availabilitySlug = null;
-
           //Only filter by property if there is a property slug in the current URL
-          if(!$scope.settings.chainWideOnly && $state.params.propertySlug){
             availability = _.find(item.offerAvailability, function(availability){
-              return availability.property === $state.params.property;
             });
             availabilitySlug = availability && availability.slug && availability.slug !== '' ? availability.slug : null;
           }
@@ -306,7 +311,6 @@ angular.module('mobius.controllers.common.content', [])
   }
 
   function needFilter() {
-    return Settings.UI.menu.offerSpecificToSelectedProperty && $scope.settings.method === contentTypes.offers.method && $state.params.property;
   }
 
   function getCityOfContent() {
@@ -316,10 +320,6 @@ angular.module('mobius.controllers.common.content', [])
 
   function isFiltered(item) {
     if (needFilter()) {
-      var availability = _.find(item.offerAvailability, function(availability){
-        return availability.property === $state.params.property;
-      });
-      return availability !== undefined;
     } else {
       return true;
     }
