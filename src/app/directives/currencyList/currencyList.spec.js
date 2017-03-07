@@ -52,7 +52,8 @@ describe('currencyList', function() {
 
       $provide.value('queryService', {
         getValue: sinon.stub(),
-        setValue: sinon.stub()
+        setValue: sinon.stub(),
+        removeParam: sinon.stub()
       });
     });
   });
