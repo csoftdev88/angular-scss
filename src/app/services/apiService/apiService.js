@@ -274,7 +274,9 @@ angular.module('mobiusApp.services.api', [])
     $window.Raven.captureException('API ERROR - Type:'+ type +', Error:' + JSON.stringify(error) + ', URL:' + url + ', Params:' + JSON.stringify(params) + ', Headers:' + JSON.stringify(resHeaders()));
 
     //Send our error to alerts end-endpoint
-    sendApiAlert(type, error, url, params, resHeaders);
+    if(Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env]){
+      sendApiAlert(type, error, url, params, resHeaders);
+    }
   }
 
   function sendApiAlert(type, error, url, params, resHeaders){

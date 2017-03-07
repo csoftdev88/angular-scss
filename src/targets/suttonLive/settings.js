@@ -118,7 +118,7 @@ angular.module('mobiusApp.config', [])
       'integration': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
       'staging': '//staging.suttonplace.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live':  'https://www.suttonplace.com/api/4.0/'
+      'live': 'https://www.suttonplace.com/api/4.0/'
     },
     'mobiusTracking': {
       'search': {
