@@ -107,7 +107,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-            propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property || bookingParams.propertyCode).then(function(propertyData){
+            propertyService.getPropertyDetails(bookingParams.propertyCode).then(function(propertyData){
               //Google analytics
               var localeData = propertyData.locale;
               var localeArray = localeData ? propertyData.locale.split('-') : null;
@@ -213,7 +213,7 @@ angular.module('mobiusApp.directives.room.products', [])
         // GTM Tracking product click
         if(product){
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-            propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property || scope.details.code).then(function(propertyData){
+            propertyService.getPropertyDetails(bookingParams.propertyCode || scope.details.code).then(function(propertyData){
               var localeData = propertyData.locale;
               var localeArray = localeData ? propertyData.locale.split('-') : null;
               if(localeArray && localeArray.length > 1)
@@ -269,7 +269,7 @@ angular.module('mobiusApp.directives.room.products', [])
       scope.openProductDetailsDialog = function(product){
         // Tracking product view
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-          propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+          propertyService.getPropertyDetails(bookingParams.propertyCode).then(function(propertyData){
             var localeData = propertyData.locale;
             var localeArray = localeData ? propertyData.locale.split('-') : null;
             if(localeArray && localeArray.length > 1)

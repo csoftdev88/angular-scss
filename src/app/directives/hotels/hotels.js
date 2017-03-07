@@ -295,6 +295,7 @@ angular.module('mobiusApp.directives.hotels', [])
           paramsData.property = property;
           routerService.buildStateParams('hotel', paramsData).then(function(params) {
             stateParams = _.extend(stateParams, params);
+            delete stateParams.property;
             property.url = $state.href('hotel', stateParams, {
               reload: true
             });
@@ -318,6 +319,7 @@ angular.module('mobiusApp.directives.hotels', [])
           paramsData.property = property;
           routerService.buildStateParams('hotel', paramsData).then(function(params) {
             stateParams = _.extend(stateParams, params);
+            delete stateParams.property;
             $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
             $state.go('hotel', stateParams, {
               reload: true
