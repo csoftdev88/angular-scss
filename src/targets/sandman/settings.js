@@ -125,7 +125,7 @@ angular.module('mobiusApp.config', [])
       'integration': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': '//52.55.140.43/api/4.0/'
+      'live': 'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
       'search': {
