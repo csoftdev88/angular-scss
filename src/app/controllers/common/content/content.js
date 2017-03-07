@@ -168,14 +168,12 @@ angular.module('mobius.controllers.common.content', [])
       var selectedOfferIndex = _.findIndex($scope.offers, {code: code});
       
       //If we don't have a propery query param set
-      var propertyCode = $state.params.property;
-      if(!propertyCode){
-        //Get the property slug from url
-        var propertySlug = bookingService.getParams().propertySlug;
-        if(propertySlug){
-          //Get the property code from the slug and assign to the selected item in the booking bar;
-          propertyCode = bookingService.getCodeFromSlug(propertySlug);
-        }
+      var propertyCode = null;
+      //Get the property slug from url
+      var propertySlug = bookingService.getParams().propertySlug;
+      if(propertySlug){
+        //Get the property code from the slug and assign to the selected item in the booking bar;
+        propertyCode = bookingService.getCodeFromSlug(propertySlug);
       }
 
       if (selectedOfferIndex >= 0) {
@@ -252,7 +250,7 @@ angular.module('mobius.controllers.common.content', [])
         //If at chain level, remove items that have showOnMenu = false in main settings
         //showOnMenu should override any setting, commenting this for now
 
-        if(item.showAtChainLevel && !$state.params.property && !$state.params.propertySlug){
+        if(item.showAtChainLevel && !$state.params.propertySlug){
           return item.showOnMenu === false;
         }
 

@@ -12,8 +12,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
   $scope.moreInfo = [];
 
   if(!$stateParams.infoSlug || $stateParams.infoSlug === ''){
-    var propertyCode = bookingService.getCodeFromSlug($stateParams.propertySlug);
-    $state.go('hotel', {property: propertyCode, propertySlug: $stateParams.propertySlug});
+    $state.go('hotel', {propertySlug: $stateParams.propertySlug});
   }
 
   var previousState = {
@@ -178,7 +177,6 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
   function getInfoUrl(info) {
     var stateParams = {
-      'property': $scope.details.code,
       'propertySlug': $scope.details.meta.slug,
       'infoSlug': info.meta.slug,
       'regionSlug': $stateParams.regionSlug,
