@@ -280,7 +280,7 @@ angular.module('mobiusApp.directives.megaMenu', [])
           'code': null,
           'locationSlug': location.meta.slug,
           'regionSlug': region.meta.slug,
-          'property': property.code,
+          'property': null,
           'propertySlug': property.meta.slug
         };
 
