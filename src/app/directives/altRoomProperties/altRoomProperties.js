@@ -36,7 +36,7 @@ angular.module('mobiusApp.directives.room.altRoomProperties', [])
           paramsData.property = property;
           routerService.buildStateParams('hotel', paramsData).then(function(params) {
             stateParams = _.extend(stateParams, params);
-            delete stateParams.property;
+            stateParams.property = null;
             $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
             $state.go('hotel', stateParams, {
               reload: true
@@ -61,7 +61,7 @@ angular.module('mobiusApp.directives.room.altRoomProperties', [])
           paramsData.property = property;
           routerService.buildStateParams('hotel', paramsData).then(function(params) {
             stateParams = _.extend(stateParams, params);
-            delete stateParams.property;
+            stateParams.property = null;
             property.url = $state.href('hotel', stateParams, {
               reload: true
             });
