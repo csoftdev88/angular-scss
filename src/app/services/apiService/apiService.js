@@ -270,32 +270,35 @@ angular.module('mobiusApp.services.api', [])
   }
 
   function logApiError(type, error, url, params, resHeaders){
-    //Send our error log to sentry
-    $window.Raven.captureException('API ERROR - Type:'+ type +', Error:' + JSON.stringify(error) + ', URL:' + url + ', Params:' + JSON.stringify(params) + ', Headers:' + JSON.stringify(resHeaders()));
+    //Only send alert if an error is passed
+    if(error){
+      //Send our error log to sentry
+      $window.Raven.captureException('API ERROR - Type:'+ type +', Error:' + JSON.stringify(error) + ', URL:' + url + ', Params:' + JSON.stringify(params) + ', Headers:' + JSON.stringify(resHeaders()));
 
-    //Send our error to alerts end-endpoint
-    if(Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env]){
+      //Send our error to alerts end-endpoint
       sendApiAlert(type, error, url, params, resHeaders);
     }
   }
 
   function sendApiAlert(type, error, url, params, resHeaders){
-    //error params url headers
-    var alertData = {
-      'client': Settings.infinitiApeironTracking[env].username,
-      'id': Settings.infinitiApeironTracking[env].id,
-      'component': 'mobius-web',
-      'description': 'Failed api request sent from mobius-web',
-      'meta': {
-        'error': error,
-        'type': type,
-        'url': url,
-        'params': params,
-        'headers': resHeaders
-      },
-      'severity': 5
-    };
-    sendMobiusAlert(alertData);
+    if(Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env]){
+      //error params url headers
+      var alertData = {
+        'client': Settings.infinitiApeironTracking[env].username,
+        'id': Settings.infinitiApeironTracking[env].id,
+        'component': 'mobius-web',
+        'description': 'Failed api request sent from mobius-web',
+        'meta': {
+          'error': error,
+          'type': type,
+          'url': url,
+          'params': params,
+          'headers': resHeaders
+        },
+        'severity': 5
+      };
+      sendMobiusAlert(alertData);
+    }
   }
 
   function sendMobiusAlert(alertData){
