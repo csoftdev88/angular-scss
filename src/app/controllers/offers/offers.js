@@ -410,7 +410,6 @@ angular.module('mobius.controllers.offers', [])
           'code': null,
           'locationSlug': $stateParams.locationSlug,
           'regionSlug': $stateParams.regionSlug,
-          'property': $stateParams.property,
           'propertySlug': $stateParams.propertySlug
         };
         return $state.go('propertyHotDeals', paramsData, {

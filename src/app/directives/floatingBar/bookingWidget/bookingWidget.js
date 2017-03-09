@@ -180,6 +180,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             // URL parameter is presented but has no value
             if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
               queryService.removeParam(paramSettings.search);
+              
+              //If there is no property querystring value
+              if(paramSettings.search === 'property'){
+                //Get the property slug
+                var propertySlug = bookingService.getParams().propertySlug;
+                if(propertySlug){
+                  //Get the property code from the slug and assign to the selected item in the booking bar;
+                  var propertyCode = bookingService.getCodeFromSlug(propertySlug);
+                  scope.selected[key] = propertyCode ? propertyCode : null;
+                }
+              }
             }else{
               // Value is valid, we can assign it to the model
               paramValue = validationService.convertValue(paramValue, paramSettings, true);
@@ -360,6 +371,16 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       function validatePropertyRegion() {
         var propertySettings = PARAM_TYPES.property;
         var propertyCode = bookingService.getParams()[propertySettings.search];
+
+        //If no property code in query string
+        if(!propertyCode){
+          //Get the property slug
+          var propertySlug = bookingService.getParams().propertySlug;
+          if(propertySlug){
+            //Get the property code from the slug and set this as propertyCode
+            propertyCode = bookingService.getCodeFromSlug(propertySlug);
+          }
+        }
 
         if(propertyCode) {
           // Checking whether list of properties has property specified in the URL
@@ -681,6 +702,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           //If a single property or location is selected
           if(Settings.UI.generics.singleProperty && $rootScope.propertySlug){
             stateParams.propertySlug = $rootScope.propertySlug;
+            stateParams.property = null;
             stateParams.scrollTo = 'jsRooms';
             scope.hideBar();
             $timeout(function () {
@@ -691,6 +713,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           else{
             //If a date is selected redirect to the hotels page
             if(scope.selected.dates) {
+              stateParams.property = null;
               scope.hideBar();
               $timeout(function () {
                 $state.go('allHotels', stateParams, {reload: true});
@@ -707,10 +730,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
                   scope.selected.dates && $stateParams.roomSlug) {
           //Redirect to Room Details to show rates
           stateParams.roomSlug = $stateParams.roomSlug;
-
           paramsData.property =  scope.selected.property;
           routerService.buildStateParams('room', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
+            stateParams.property = null;
             scope.hideBar();
             $timeout(function () {
               $state.go('room', stateParams, {reload: true});
@@ -725,6 +748,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           paramsData.location =  scope.selected.location;
           routerService.buildStateParams('hotels', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
+            stateParams.property = null;
             scope.hideBar();
             $timeout(function () {
               $state.go('hotels', stateParams, {reload: true});
@@ -737,6 +761,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           paramsData.location =  scope.selected.location;
           routerService.buildStateParams('hotels', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
+            stateParams.property = null;
             scope.hideBar();
             $timeout(function () {
               $state.go('hotels', stateParams, {reload: true});
@@ -753,6 +778,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           paramsData.property =  scope.selected.property;
           routerService.buildStateParams('hotel', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
+            stateParams.property = null;
             scope.hideBar();
             $timeout(function () {
               $state.go('hotel', stateParams, {reload: true});

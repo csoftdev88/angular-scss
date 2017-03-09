@@ -83,7 +83,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       params.adults = searchParams.a ? searchParams.a : undefined;
       params.children = searchParams.c ? searchParams.c : undefined;
       params.dates = searchParams.d ? searchParams.d : undefined;
-      params.property = searchParams.p ? searchParams.p : undefined;
+      params.property = null;
       params.roomSlug = searchParams.r ? searchParams.r : undefined;
       params.propertySlug = propertySlug ? propertySlug : undefined;
       params.locationSlug = locationSlug ? locationSlug : undefined;

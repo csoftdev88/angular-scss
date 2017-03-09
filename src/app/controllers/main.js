@@ -4,9 +4,9 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService', 'locationService',
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService', 'locationService', 'bookingService',
     function($scope, $state, $modal, orderByFilter, modalService, $window,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService, locationService) {
+      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
 
@@ -89,11 +89,15 @@ angular.module('mobius.controllers.main', [])
           propertyCodes = _.pluck(properties, 'code');
 
           contentService.getOffers().then(function(offers) {
-
-            if($stateParams.property && !Settings.UI.generics.singleProperty){
+            var propertySlug = bookingService.getParams().propertySlug;
+            var propertyCode = null;
+            if(propertySlug) {
+              propertyCode = bookingService.getCodeFromSlug(propertySlug);
+            }
+            if(propertyCode && !Settings.UI.generics.singleProperty){
               filteredOffers = _.filter(offers, function(offer){
                 var availability = _.find(offer.offerAvailability, function(availability){
-                  return availability.property === $stateParams.property;
+                  return availability.property === propertyCode;
                 });
                 return availability;
               });

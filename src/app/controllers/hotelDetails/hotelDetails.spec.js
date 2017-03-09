@@ -133,7 +133,12 @@ describe('mobius.controllers.hotel.details', function() {
 
         $provide.value('$state', {
           go: function() {},
-          href: function() {}
+          href: function() {},
+          current: function(){
+            return [{
+              name: 'test'
+            }];
+          }
         });
 
         $provide.value('contentService', {
