@@ -121,7 +121,7 @@ describe('currencyList', function() {
       _scope.currentCurrency = 'test';
       _scope.changeCurrency('test');
 
-      expect(_queryService.setValue.calledOnce).equal(true);
+      expect(_queryService.setValue.calledOnce).equal(false);
     });
     /*
     it('should change currency', function(){
