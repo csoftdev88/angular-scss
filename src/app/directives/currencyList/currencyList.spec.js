@@ -52,7 +52,8 @@ describe('currencyList', function() {
 
       $provide.value('queryService', {
         getValue: sinon.stub(),
-        setValue: sinon.stub()
+        setValue: sinon.stub(),
+        removeParam: sinon.stub()
       });
     });
   });
@@ -94,18 +95,8 @@ describe('currencyList', function() {
       expect(_contentService.getCurrencies.calledOnce).equal(true);
     });
 
-    it('should get selected currency from the URL', function(){
-      expect(_queryService.getValue.calledOnce).equal(true);
-      expect(_queryService.getValue.calledWith('currency')).equal(true);
-    });
-
     it('should define current currency code on rootScope', function(){
       //expect(_$rootScope.currencyCode).equal('GBP');
-    });
-
-    it('should update currency code in URL', function(){
-      expect(_queryService.setValue.calledOnce).equal(true);
-      expect(_queryService.setValue.calledWith('currency', 'GBP')).equal(true);
     });
 
     it('should define currency on scope', function(){
@@ -130,7 +121,7 @@ describe('currencyList', function() {
       _scope.currentCurrency = 'test';
       _scope.changeCurrency('test');
 
-      expect(_queryService.setValue.calledOnce).equal(true);
+      expect(_queryService.setValue.calledOnce).equal(false);
     });
     /*
     it('should change currency', function(){
