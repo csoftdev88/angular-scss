@@ -49,7 +49,6 @@ module.exports = function(app) {
 
       
       //detect and return cloudflare country header
-        console.log(JSON.stringify(req.headers));
         var euCountries=["AL", "AD", "AT", "BY", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "EE", "FO", "FI", "FR", "DE", "GI", "GR", "HU", "IS", "IE", "IM", "IT", "RS", "LV", "LI", "LT", "LU", "MK", "MT", "MD", "MC", "ME", "NL", "NO", "PL", "PT", "RO", "RU", "SM", "RS", "SK", "SI", "ES", "SE", "CH", "UA", "GB", "VA", "RS"
 ];
         if (req.headers['cf-ipcountry']){
@@ -195,7 +194,6 @@ module.exports = function(app) {
 
 
     app.route('/:url(static)/*').get(function(req, res) {
-      console.log("here!")
       res.status(404).end();
     });
 
