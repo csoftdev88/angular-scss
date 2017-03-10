@@ -6,7 +6,7 @@
 
   <main>
     <div class="preview">
-      <img ng-src="{{data.images[0].uri}}" alt="{{data.images[0].alt}}" err-source="http://lorempixel.com/300/160/"/>
+      <img ng-src="{{data.images[0].uri}}" alt="{{data.images[0].alt}}" ng-if="data.images && data.images.length && data.images[0].uri"/>
     </div>
 
     <div class="details">

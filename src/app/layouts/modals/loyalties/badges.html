@@ -8,13 +8,13 @@
 
   <badges-list>
     <badge-icon ng-repeat="badge in badges" ng-click="showBadgeDetail(badge)">
-      <img ng-src="{{badge.icon}}" alt="{{badge.name}}" err-source="http://lorempixel.com/71/71"/>
+      <img ng-src="{{badge.icon}}" alt="{{badge.name}}" ng-if="badge.icon"/>
     </badge-icon>
   </badges-list>
 
   <badge-selected>
     <h2>{{selectedBadge.name}}</h2>
-    <img ng-src="{{selectedBadge.icon}}" alt="{{selectedBadge.name}}" err-source="http://lorempixel.com/140/140"/>
+    <img ng-src="{{selectedBadge.icon}}" alt="{{selectedBadge.name}}" ng-if="selectedBadge.icon"/>
     <p>{{selectedBadge.description}}</p>
   </badge-selected>
 </main>
