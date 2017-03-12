@@ -4,10 +4,17 @@
  */
 angular.module('mobius.controllers.regions', [])
 
-  .controller('RegionsCtrl', function($scope, $rootScope, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _, modalService, Settings) {
+  .controller('RegionsCtrl', function($scope, $rootScope, $location, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _, modalService, metaInformationService, Settings) {
 
-    $scope.showDetail = $stateParams.regionSlug ? true : false;
-    $scope.regionConfig = Settings.UI.regions;
+    function getRegionUrl(region){
+      var regionSlug = region.meta.slug;
+      return $state.href('regions', {regionSlug: regionSlug});
+    }
+
+    function getLocationUrl(location){
+      var locationSlug = location.meta.slug;
+      return $state.href('hotels', {regionSlug: $stateParams.regionSlug, locationSlug: locationSlug});
+    }
 
     //Regions overview
     function getRegions(){
@@ -78,6 +85,16 @@ angular.module('mobius.controllers.regions', [])
           .addBreadCrumb('Locations', 'regions', {regionSlug: null})
           .addBreadCrumb($scope.region.nameShort);
 
+        var titleRegionSegment = $scope.region.nameShort + ' | ';
+
+        if ($scope.chain && $scope.chain.meta) {
+          metaInformationService.setMetaDescription($scope.chain.meta.description);
+          metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
+          metaInformationService.setPageTitle(titleRegionSegment + $scope.chain.meta.pagetitle);
+          $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+          metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
+        }
+
         //scroll to detail
         $timeout(function () {
           scrollService.scrollTo('region-detail', 20);
@@ -85,20 +102,13 @@ angular.module('mobius.controllers.regions', [])
       });
     }
 
+    $scope.showDetail = $stateParams.regionSlug ? true : false;
+    $scope.regionConfig = Settings.UI.regions;
+
     //go to location hotels
     $scope.goToHotels = function(locationSlug){
       $state.go('hotels', {regionSlug: $stateParams.regionSlug, locationSlug: locationSlug});
     };
-
-    function getRegionUrl(region){
-      var regionSlug = region.meta.slug;
-      return $state.href('regions', {regionSlug: regionSlug});
-    }
-
-    function getLocationUrl(location){
-      var locationSlug = location.meta.slug;
-      return $state.href('hotels', {regionSlug: $stateParams.regionSlug, locationSlug: locationSlug});
-    }
 
     //Init
     if($scope.showDetail){
