@@ -3,7 +3,6 @@
 describe('metaInformationService', function() {
   var _rootScope, _metaInformationService;
 
-  /*
   var TEST_CHAIN_DATA = {
     meta: {
       description: 'test description',
@@ -11,11 +10,9 @@ describe('metaInformationService', function() {
       pagetitle: 'pagetitle'
     }
   };
-  */
 
   beforeEach(function() {
-    module('mobiusApp.services.metaInformation', function(){
-      /*
+    module('mobiusApp.services.metaInformation', function($provide){    
       $provide.value('Settings', {
         API: {
           chainCode: 'TESTCHAIN'
@@ -30,7 +27,6 @@ describe('metaInformationService', function() {
           };
         }
       });
-      */
     });
   });
 
