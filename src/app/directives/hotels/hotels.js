@@ -6,10 +6,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user', 'NgMap', 'previousSearchesService',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService', 'routerService', 'stateService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService', 'routerService', 'stateService', 'metaInformationService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, NgMap, previousSearchesService, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService, routerService, stateService) {
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService, routerService, stateService, metaInformationService) {
 
     return {
       restrict: 'E',
@@ -101,6 +101,7 @@ angular.module('mobiusApp.directives.hotels', [])
 
                 //breadcrumbs
                 addBreadCrumbs(curLocation);
+                metaInformationService.updateMetaData(curLocation.nameShort + ' | ');
 
                 if (curLocation) {
                   //Store this location search

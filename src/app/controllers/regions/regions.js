@@ -17,14 +17,7 @@ angular.module('mobius.controllers.regions', [])
     }
 
     function updateMetaData(titleSegment){
-      chainService.getChain(Settings.API.chainCode).then(function(chain) {
-        var chainData = chain;
-        metaInformationService.setMetaDescription(chainData.meta.description);
-        metaInformationService.setMetaKeywords(chainData.meta.keywords);
-        metaInformationService.setPageTitle(titleSegment + chainData.meta.pagetitle);
-        chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-        metaInformationService.setOgGraph(chainData.meta.microdata.og);
-      });
+      metaInformationService.updateMetaData(titleSegment);
     }
 
     //Regions overview
