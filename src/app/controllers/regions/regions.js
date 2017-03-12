@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.regions', [])
 
-  .controller('RegionsCtrl', function($scope, $rootScope, $location, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _, modalService, metaInformationService, Settings) {
+  .controller('RegionsCtrl', function($scope, $rootScope, $location, locationService, breadcrumbsService, $stateParams, scrollService, $timeout, $state, contentService, _, modalService, chainService, metaInformationService, Settings) {
 
     function getRegionUrl(region){
       var regionSlug = region.meta.slug;
@@ -16,11 +16,23 @@ angular.module('mobius.controllers.regions', [])
       return $state.href('hotels', {regionSlug: $stateParams.regionSlug, locationSlug: locationSlug});
     }
 
+    function updateMetaData(titleSegment){
+      chainService.getChain(Settings.API.chainCode).then(function(chain) {
+        var chainData = chain;
+        metaInformationService.setMetaDescription(chainData.meta.description);
+        metaInformationService.setMetaKeywords(chainData.meta.keywords);
+        metaInformationService.setPageTitle(titleSegment + chainData.meta.pagetitle);
+        chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+        metaInformationService.setOgGraph(chainData.meta.microdata.og);
+      });
+    }
+
     //Regions overview
     function getRegions(){
       //breadcrumbs
       breadcrumbsService.clear()
         .addBreadCrumb('Locations');
+
       //Get regions
       locationService.getRegions().then(function(regions){
         //Pick random merchandizing banner if any
@@ -31,6 +43,10 @@ angular.module('mobius.controllers.regions', [])
           region.url = getRegionUrl(region);
         });
         $scope.allRegions = regions;
+
+        //Add meta to page
+        updateMetaData('Locations | ');
+
         //scroll to detail
         $timeout(function () {
           scrollService.scrollTo('region-list', 20);
@@ -86,14 +102,7 @@ angular.module('mobius.controllers.regions', [])
           .addBreadCrumb($scope.region.nameShort);
 
         var titleRegionSegment = $scope.region.nameShort + ' | ';
-
-        if ($scope.chain && $scope.chain.meta) {
-          metaInformationService.setMetaDescription($scope.chain.meta.description);
-          metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
-          metaInformationService.setPageTitle(titleRegionSegment + $scope.chain.meta.pagetitle);
-          $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-          metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
-        }
+        updateMetaData(titleRegionSegment);
 
         //scroll to detail
         $timeout(function () {
@@ -101,7 +110,7 @@ angular.module('mobius.controllers.regions', [])
         });
       });
     }
-
+    
     $scope.showDetail = $stateParams.regionSlug ? true : false;
     $scope.regionConfig = Settings.UI.regions;
 
@@ -117,6 +126,4 @@ angular.module('mobius.controllers.regions', [])
     else{
       getRegions();
     }
-
-
   });
