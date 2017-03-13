@@ -25,7 +25,7 @@
     <reward-item ng-if="viewMode === 'consumed'" ng-repeat="reward in consumedRewards" ng-click="openRewardDetails(reward)" ng-class="{'redeemed': reward.consumed}">
 
       <figure>
-        <img ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}" ng-if="reward.images && reward.images.length && reward.images[0].uri">
+        <img ng-if="reward.images && reward.images.length && reward.images[0].uri" ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}">
         <figcaption>Redeemed</figcaption>
       </figure>
 
@@ -46,7 +46,7 @@
 
     <!-- ALL REWARDS -->
     <reward-item ng-if="viewMode !== 'consumed'" ng-repeat="reward in consumableRewards | orderBy: '-weighting'" ng-click="openRewardDetails(reward)">
-      <img ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}" ng-if="reward.images && reward.images.length && reward.images[0].uri">
+      <img ng-if="reward.images && reward.images.length && reward.images[0].uri" ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}">
 
       <section>
         <h2>{{reward.name}}</h2>
