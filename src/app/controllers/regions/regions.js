@@ -95,6 +95,8 @@ angular.module('mobius.controllers.regions', [])
           .addBreadCrumb($scope.region.nameShort);
 
         var titleRegionSegment = $scope.region.nameShort + ' | ';
+        
+        //Add meta data to page
         updateMetaData(titleRegionSegment);
 
         //scroll to detail
