@@ -27,7 +27,7 @@
   <offer-item
     ng-repeat="offer in offersList track by $index">
     <a ui-sref="offers({code:offer.meta.slug})" ng-click="advertClick($event, {'type': 'offers', 'code': offer.code})">
-      <img ng-src="{{offer.image.uri}}"  alt="{{offer.image.alt}}" err-source="http://lorempixel.com/300/160/">
+      <img ng-if="offer.image && offer.image.uri" ng-src="{{offer.image.uri}}" alt="{{offer.image.alt}}">
 
       <section>
         <h2>{{offer.title}}</h2>
@@ -44,7 +44,7 @@
     ng-show="randomAdverts[$index]"
     class="advert" >
     <a ng-href="{{randomAdvert.link.uri}}" ng-click="advertClick($event, randomAdvert.link)">
-      <img ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}"  err-source="http://lorempixel.com/300/160/">
+      <img ng-if="randomAdvert.images && randomAdvert.images.length && randomAdvert.images[0].uri" ng-src="{{randomAdvert.images[0].uri}}" alt="{{randomAdvert.images[0].alt}}">
     </a>
   </offer-item>
 </offers-list>
