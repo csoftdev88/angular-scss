@@ -50,28 +50,6 @@ angular.module('mobius.controllers.offers', [])
   breadcrumbsService.clear()
     .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
 
-
-  //////////////////////////
-  ///Meta data
-  //////////////////////////
-  //If not a specific offer, load chain data to apply meta data
-  if (!$stateParams.code) {
-    chainService.getChain(Settings.API.chainCode).then(function(chain) {
-      var chainData = chain;
-
-      chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-      chainData.meta.microdata.og['og:title'] = 'Offers: ' + chainData.meta.microdata.og['og:title'];
-      chainData.meta.microdata.og['og:description'] = 'Offers: ' + chainData.meta.microdata.og['og:description'];
-
-      metaInformationService.setOgGraph(chainData.meta.microdata.og);
-      metaInformationService.setPageTitle(chain.meta.pagetitle);
-      metaInformationService.setMetaDescription(chain.meta.description);
-      metaInformationService.setMetaKeywords(chain.meta.keywords);
-
-    });
-  }
-
-
   //////////////////////////
   ///Main offers filtering logic
   //////////////////////////
@@ -143,6 +121,9 @@ angular.module('mobius.controllers.offers', [])
 
           if (!$stateParams.code) {
             setBreadCrumbs(null, null, property);
+
+            //Set meta data using info from property
+            updateMetaData(property);
           }
 
           if ($stateParams.code) {
@@ -244,6 +225,9 @@ angular.module('mobius.controllers.offers', [])
               //breadcrumbs
               if (!$stateParams.code) {
                 setBreadCrumbs(null, null, curProperty);
+                
+                //Set meta data using info from property
+                updateMetaData(curProperty);
               }
 
               //if offer code, go to offer
@@ -882,4 +866,31 @@ angular.module('mobius.controllers.offers', [])
     return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
   };
 
+  //Function to update meta tags in page, adding relevant Offers / Hot deals info where required.
+  function updateMetaData(property){
+    if (!$stateParams.code) {
+      chainService.getChain(Settings.API.chainCode).then(function(chain) {
+        var chainData = chain;
+        var offerPageType = $scope.isHotDeals ? 'Hot Deals | ' : 'Offers | ';
+        var propertyName = property ? property.nameLong : null;
+
+        chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+        chainData.meta.microdata.og['og:title'] = formatMetaTitle(propertyName, offerPageType, chainData.meta.microdata.og['og:title']);
+
+        metaInformationService.setOgGraph(chainData.meta.microdata.og);
+        metaInformationService.setPageTitle(formatMetaTitle(propertyName, offerPageType, chain.meta.pagetitle));
+        metaInformationService.setMetaDescription(chain.meta.description);
+        metaInformationService.setMetaKeywords(chain.meta.keywords);
+      });
+    }
+  }
+
+  //Function to format title based on the existence of a property name and the offer type i.e. offers or hot-deals
+  function formatMetaTitle(propertyName, offerPageType, title){
+    //If we have a property name add this to the title along with the offer type, if not just add the offer type to the title
+    return propertyName ? offerPageType + propertyName + ' | ' + title : offerPageType + title;
+  }
+
+  //Set meta data for the page
+  updateMetaData();
 });
