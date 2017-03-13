@@ -867,6 +867,7 @@ angular.module('mobius.controllers.offers', [])
     return selectedOfferIndex !== index && NUMBER_OF_RELEVANT_OFFERS + offset > parseInt(index, 10);
   };
 
+  //Function to update meta tags in page, adding relevant Offers / Hot deals info where required.
   function updateMetaData(property){
     if (!$stateParams.code) {
       chainService.getChain(Settings.API.chainCode).then(function(chain) {
@@ -876,7 +877,6 @@ angular.module('mobius.controllers.offers', [])
 
         chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         chainData.meta.microdata.og['og:title'] = formatMetaTitle(propertyName, offerPageType, chainData.meta.microdata.og['og:title']);
-        chainData.meta.microdata.og['og:description'] = chainData.meta.microdata.og['og:description'];
 
         metaInformationService.setOgGraph(chainData.meta.microdata.og);
         metaInformationService.setPageTitle(formatMetaTitle(propertyName, offerPageType, chain.meta.pagetitle));
@@ -886,7 +886,9 @@ angular.module('mobius.controllers.offers', [])
     }
   }
 
+  //Function to format title based on the existence of a property name and the offer type i.e. offers or hot-deals
   function formatMetaTitle(propertyName, offerPageType, title){
+    //If we have a property name add this to the title along with the offer type, if not just add the offer type to the title
     return propertyName ? offerPageType + propertyName + ' | ' + title : offerPageType + title;
   }
 
