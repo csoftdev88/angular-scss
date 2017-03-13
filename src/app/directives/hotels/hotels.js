@@ -101,6 +101,8 @@ angular.module('mobiusApp.directives.hotels', [])
 
                 //breadcrumbs
                 addBreadCrumbs(curLocation);
+
+                //Add meta data to page
                 metaInformationService.updateMetaData(curLocation.nameShort + ' | ');
 
                 if (curLocation) {
