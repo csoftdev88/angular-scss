@@ -857,7 +857,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       'vouchers' : {
-        'enable':false
+        'enable':true
       }
     },
     'myAccount' : {
