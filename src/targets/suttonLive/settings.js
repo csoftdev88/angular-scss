@@ -398,6 +398,7 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': false,
+          'displayOtaRates': true,
           'highlightFirstRate': false,
           'showSlashThrough': false
         },
@@ -930,6 +931,9 @@ angular.module('mobiusApp.config', [])
         'email3':{
           'display': true
         }
+      },
+      'vouchers' : {
+        'enable':true
       }
     },
     'myAccount' : {
