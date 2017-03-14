@@ -572,7 +572,7 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
     //This segment tracks any 404s and sends to our 404 tracking service
@@ -650,22 +650,26 @@ angular
   });
 
   //Let's get property slug if single property and save it to settings for future use
-  if (Settings.UI.generics.singleProperty) {
+  if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode) {
     if (!Settings.API.propertySlug) {
       propertyService.getAll().then(function(properties) {
-        var code = properties[0].code;
-        propertyService.getPropertyDetails(code).then(function(details) {
-          var slug = details.meta.slug;
-          Settings.API.propertySlug = slug;
-          $rootScope.propertySlug = slug;
+        var singleProperty = _.find(properties, function(property){
+          return property.code === Settings.UI.generics.defaultPropertyCode;
         });
+        if(singleProperty && singleProperty.code){
+          propertyService.getPropertyDetails(singleProperty.code).then(function(details) {
+            var slug = details.meta.slug;
+            Settings.API.propertySlug = slug;
+            $rootScope.propertySlug = slug;
+          });
+        }
       });
     }
   }
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService) {
+  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -737,7 +741,7 @@ angular
     }
 
     //if single property redirect home state to hotel page
-    if (Settings.UI.generics.singleProperty && toState.name === 'home') {
+    if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode && toState.name === 'home') {
       e.preventDefault();
       if (Settings.API.propertySlug) {
         $state.go('hotel', {
@@ -745,8 +749,10 @@ angular
         });
       } else {
         propertyService.getAll().then(function(properties) {
-          var code = properties[0].code;
-          propertyService.getPropertyDetails(code).then(function(details) {
+          var singleProperty = _.find(properties, function(property){
+            return property.code === Settings.UI.generics.defaultPropertyCode;
+          });
+          propertyService.getPropertyDetails(singleProperty.code).then(function(details) {
             var slug = details.meta.slug;
             $state.go('hotel', {
               propertySlug: slug
