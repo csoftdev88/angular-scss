@@ -1,0 +1,58 @@
+////////////////////
+//// TYPOGRAPHY ////
+////////////////////
+
+
+/*  ==========================================
+    Font Families
+    ========================================== */
+
+@font-face {
+  font-family: 'Veneer';
+  src: url('@{veneer-font-path}/Veneer.eot?#iefix') format('embedded-opentype'),
+    url('@{veneer-font-path}/Veneer.otf')  format('opentype'),
+    url('@{veneer-font-path}/Veneer.woff') format('woff'),
+    url('@{veneer-font-path}/Veneer.ttf')  format('truetype'),
+    url('@{veneer-font-path}/Veneer.svg#Veneer') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'VeneerItalic';
+  src: url('@{veneer-font-path}/VeneerItalic.eot?#iefix') format('embedded-opentype'),
+    url('@{veneer-font-path}/VeneerItalic.otf')  format('opentype'),
+    url('@{veneer-font-path}/VeneerItalic.woff') format('woff'),
+    url('@{veneer-font-path}/VeneerItalic.ttf')  format('truetype'),
+    url('@{veneer-font-path}/VeneerItalic.svg#VeneerItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ArialNarrow';
+  src: url('@{arial-narrow-font-path}/ArialNarrow.eot?#iefix') format('embedded-opentype'),
+    url('@{arial-narrow-font-path}/ArialNarrow.otf')  format('opentype'),
+    url('@{arial-narrow-font-path}/ArialNarrow.woff') format('woff'),
+    url('@{arial-narrow-font-path}/ArialNarrow.ttf')  format('truetype'),
+    url('@{arial-narrow-font-path}/ArialNarrow.svg#ArialNarrow') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+// typography defaults
+body {
+  color:@c-base;
+}
+
+p {
+  color:@c-base;
+}
+
+h1,
+h2{
+  font-family: @ff-heading;
+  font-size:54px !important;
+  line-height:1 !important;
+}

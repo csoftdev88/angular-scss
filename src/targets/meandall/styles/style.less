@@ -1,0 +1,106 @@
+////////////////////////
+//// STYLES IMPORTS ////
+////////////////////////
+
+//- VENDORS -//
+@import (less) '../../../styles/vendor/reset.css';
+@import (less) '../../../styles/vendor/mobius-icons.css'; // Font icons - only files necessary for now are linked (should be removed later)
+
+//- V4 STYLES -//
+
+//- Libraries
+@import '../../../../bower_components/font-awesome/less/font-awesome';
+@import (less) '../../../../bower_components/angular-growl-v2/build/angular-growl.min.css';
+
+//- Config
+@import '../../../styles/config';
+@import 'config'; // Override defaults vars with target specific
+
+//- Scaffolding
+@import '../../../styles/scaffolding/base';
+@import '../../../styles/scaffolding/typography';
+@import 'scaffolding/typography';
+@import '../../../styles/scaffolding/containers';
+
+@import (reference) '../../../styles/scaffolding/mixins';
+@import '../../../styles/scaffolding/helpers';
+
+//- Views
+@import '../../../styles/views/footer';
+@import '../../../styles/views/floating-bar'; //- TODO: merging those two
+@import '../../../styles/views/booking-widget'; //- ^^
+@import '../../../styles/views/header';
+@import '../../../styles/views/room-detail';
+@import '../../../styles/views/hotels-list';
+@import '../../../styles/views/hotel-detail';
+@import '../../../styles/views/room-products';
+@import '../../../styles/views/hotel-subpage';
+@import '../../../styles/views/about-hotel';
+@import '../../../styles/views/site-map';
+@import '../../../styles/views/breadcrumbs';
+@import '../../../styles/views/about-us';
+@import '../../../styles/views/news';
+@import '../../../styles/views/contacts-page';
+@import '../../../styles/views/reservation';
+@import '../../../styles/views/reservations';
+@import '../../../styles/views/login-dialog';
+@import '../../../styles/views/profile-register';
+@import '../../../styles/views/404';
+@import '../../../styles/views/error-page';
+@import '../../../styles/views/regions';
+
+//- Modals
+@import '../../../styles/views/modals/badges';
+@import '../../../styles/views/modals/loyalties';
+@import '../../../styles/views/modals/lightbox';
+@import '../../../styles/views/modals/details';
+@import '../../../styles/views/modals/reservation';
+@import '../../../styles/views/modals/rewards';
+@import '../../../styles/views/modals/policies';
+@import '../../../styles/views/modals/price-breakdown';
+@import '../../../styles/views/modals/login-prompt';
+@import '../../../styles/views/modals/other-rooms';
+@import '../../../styles/views/modals/tiers-list';
+@import '../../../styles/views/modals/dialog-v2';
+@import '../../../styles/views/modals/previous-searches-dialog';
+@import '../../../styles/views/modals/product-details';
+@import '../../../styles/views/modals/alt-products-dialog';
+
+//- Components
+@import '../../../styles/components/growl-alerts';
+@import '../../../styles/components/animations';
+@import '../../../styles/components/datepicker';
+@import '../../../styles/components/datepicker2';
+@import '../../../styles/components/buttons';
+@import '../../../styles/components/dropdowns';
+@import '../../../styles/components/forms';
+@import '../../../styles/components/chosen-select';
+@import '../../../styles/components/msg-box';
+@import '../../../styles/components/modal-dialog';
+@import '../../../styles/components/pricing-info';
+@import '../../../styles/components/star-rating';
+@import '../../../styles/components/horizontal-line';
+@import '../../../styles/components/view-more-images';
+@import '../../../styles/components/amenities';
+@import '../../../styles/components/list-items';
+@import '../../../styles/components/hero-slider';
+@import '../../../styles/components/offers-list';
+@import '../../../styles/components/rewards-list';
+@import '../../../styles/components/hotel-location';
+@import '../../../styles/components/range-slider';
+@import '../../../styles/components/user-messages';
+@import '../../../styles/components/preloader';
+@import '../../../styles/components/notification-bar';
+@import '../../../styles/components/international-tel';
+@import '../../../styles/components/local-info';
+@import '../../../styles/components/rates-preloading-container';
+@import '../../../styles/components/back-to-top';
+@import '../../../styles/components/tooltips';
+@import '../../../styles/components/pagination';
+@import '../../../styles/components/share-widget';
+@import '../../../styles/components/reservation-steps';
+@import '../../../styles/components/mega-menu';
+@import '../../../styles/components/ota-products';
+@import '../../../styles/components/slidedown-notifications';
+@import '../../../styles/components/cookie-disclaimer';
+@import '../../../styles/components/altRoomDisplays';
