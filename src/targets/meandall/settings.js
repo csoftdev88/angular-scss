@@ -336,7 +336,7 @@ angular.module('mobiusApp.config', [])
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': true,
-      'standalone': true,
+      'standalone': false,
       'externalRegionLinks':[]
     },
     // Social links
@@ -450,8 +450,8 @@ angular.module('mobiusApp.config', [])
         'hotelServices': false,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
-        'hotelOffers': true,
-        'hotelLocation': true
+        'hotelOffers': false,
+        'hotelLocation': false
       },
       'bookingStatistics':{
         'display':false,
@@ -468,7 +468,7 @@ angular.module('mobiusApp.config', [])
     'hotelDetailsTestimonials':[],
     'roomDetails': {
       'displayRoomSubtitle': true,
-      'hasBreadcrumbsSecondaryNav': true,
+      'hasBreadcrumbsSecondaryNav': false,
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
       'showDescription': true,
@@ -739,7 +739,7 @@ angular.module('mobiusApp.config', [])
         'display':false
       },
       'flexibleDates': {
-        'enable':false
+        'enable':true
       },
       'availability': {
         // Date range modification rules
@@ -896,7 +896,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       'hotelDetails':{
-        'hasViewMore': true,
+        'hasViewMore': false,
         'hasTitle': true,
         'hotelInfo': {
           'descriptionGrid': 7,
@@ -922,10 +922,10 @@ angular.module('mobiusApp.config', [])
         'displayPointsWithUsername': true
       },
       'breadcrumbsBar':{
-        'displayBreadcrumbs': true,
-        'displayPropertyTitle': true,
+        'displayBreadcrumbs': false,
+        'displayPropertyTitle': false,
         'displayStaticContent': false,
-        'propertyHotDealsShowTitle': true
+        'propertyHotDealsShowTitle': false
       },
       'locationMap':{
         'displayMainTitle': false,
