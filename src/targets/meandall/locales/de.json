@@ -8,8 +8,8 @@
     "language_code": "de",
     "page_title": "Meandall Hotels",
     "footer_copyright_text": "Meandall Hotel Group - All Rights Reserved",
-    "breadcrumbs_static_content": "Lorem Ipsum",
-    "footer_static_content": "Head Office - Meandall Hotel Group 310 – 1755 West Broadway, Vancouver, British Columbia, Canada V6J 4S5 | Reservations : <a href='tel:1-800-MEANDALL'>1-800-MEANDALL</a>",
+    "breadcrumbs_static_content": "",
+    "footer_static_content": "",
     "HOMEPAGE": "//////////////////////////////////////////////////////",
     "home_page_title": "<span><strong>MEANDALL</strong> HOTEL GROUP<span>LOCATIONS ACROSS CANADA, THE UK, AND COMING SOON, THE USA</span></span>",
     "home_page_desc": "<p>By choosing Meandall Hotel Group, we will provide you with the extra measure of quality, comfort, and personal convenience you are looking for. With over 45 Hotels, Resorts, Inns, and Suites from British Columbia to Quebec and the UK, and with several properties under development, Meandall is Canada’s fastest-growing, privately-owned hospitality company. A Canadian success story, we are continually refining our product and expanding our facilities – and definitely on the move!</p><p>In addition to great accommodations, you can enjoy a variety of dining options during your travels. Choose from a casual yet upscale dining experience at CHOP Steakhouse & Bar or a stylish, relaxed environment at Moxie’s Grill & Bar. Alternatively, you can choose the convenience of Denny’s Restaurants, Shark Club Sport | Bar | Grill, Rockford Wok|Bar|Grill, or get together with friends at one of our popular lounges.</p><p>At Meandall, we understand. For 50 years, we have made it our business to take care of the details to ensure your stay with us is enjoyable, comfortable, and affordable.</p>",
@@ -548,6 +548,10 @@
     "change_my_dates": "Change my dates",
     "alt_products_reduce_your_stay":"Reduce your stay by {{stayReduction}} night(s) and you could book",
     "alt_products_extend_your_stay":"Extend your stay by {{stayExtension}} night(s) and you could book",
-    "alt_products_change_dates_to":"Change your stay dates to <strong>{{fromDate | dateTime}} - {{toDate | dateTime}}</strong> and you could book"
+    "alt_products_change_dates_to":"Change your stay dates to <strong>{{fromDate | dateTime}} - {{toDate | dateTime}}</strong> and you could book",
+    "lounge":"Lounge",
+    "fitness":"Fitness",
+    "blog":"Blog",
+    "faq":"Faq"
   }
 }

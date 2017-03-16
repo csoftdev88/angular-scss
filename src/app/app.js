@@ -681,6 +681,8 @@ angular
     $scope: $scope
   });
 
+  $scope.uiConfig = Settings.UI;
+
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
     //If date is in past, remove from params and reload page

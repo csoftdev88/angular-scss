@@ -215,7 +215,9 @@ angular.module('mobiusApp.config', [])
       'longDateFormat': 'Do MMMM YYYY',
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false,
-      'headerLogoLink': 'http://www.grandhotel-national.com'
+      'header': {
+        'logoLink': 'http://www.grandhotel-national.com'
+      }  
     },
     'contents':{
       'displayContentImageInHeroSlider': false

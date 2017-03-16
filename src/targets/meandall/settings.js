@@ -6,17 +6,17 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'authType': 'infiniti',
+  'authType': 'mobius',
   'loyaltyProgramEnabled': false,
-  'newUrlStructure': true,
+  'newUrlStructure': false,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'infiniti': {
-    'enable': true,
-    'development': 'http://integration-meandall.infiniti.io/track/content/infiniti.js',
-    'integration': 'http://integration-meandall.infiniti.io/track/content/infiniti.js',
-    'staging': 'http://staging-us-infiniti-meandall.mobiuswebservices.com/track/content/infiniti.js',
-    'uat': '/infiniti/track/content/infiniti.js',
-    'live': '//infiniti.meandallhotels.com/track/content/infiniti.js'
+    'enable': false,
+    'development': '',
+    'integration': '',
+    'staging': '',
+    'uat': '',
+    'live': ''
   },
   'sentry': {
     'enable': true,
@@ -288,7 +288,15 @@ angular.module('mobiusApp.config', [])
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
       'orderPropertiesByChain': true,
-      'longDateFormat': 'Do MMM YYYY'
+      'longDateFormat': 'Do MMM YYYY',
+      'header': {
+        'logoLink': 'https://meandallhotels.com',
+        'logoText': 'me and all hotels',
+        'telephone': 'Tel. +49 211 54259 0',
+        'loginAsLink': true,
+        'hideMobileHeader': true,
+        'mainMenuAsOverlay': true
+      }    
     },
     'contents':{
       'displayContentImageInHeroSlider': true
@@ -337,15 +345,25 @@ angular.module('mobiusApp.config', [])
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': true,
       'standalone': false,
-      'externalRegionLinks':[]
+      'externalRegionLinks':[],
+      'customLinks': {
+        'location':'https://duesseldorf.meandallhotels.com/en/location.html',
+        'lounge':'https://duesseldorf.meandallhotels.com/en/lounge.html',
+        'rooms':'https://duesseldorf.meandallhotels.com/en/rooms.html',
+        'fitness':'https://duesseldorf.meandallhotels.com/en/fitness.html',
+        'blog':'https://duesseldorf.meandallhotels.com/en/blog.html',
+        'faq':'https://duesseldorf.meandallhotels.com/en/faq.html',
+      }
     },
     // Social links
     'displaySocialLinks': true,
     'socialLinks': [
-      {'network': 'blog', 'link': 'https://duesseldorf.meandallhotels.com/en/blog.html'},
       {'network': 'facebook', 'link': 'https://www.facebook.com/meandallhotels/'},
       {'network': 'twitter', 'link': 'https://twitter.com/meandall_hotels'},
-      {'network': 'instagram', 'link': 'https://www.instagram.com/meandallhotels/'}
+      {'network': 'instagram', 'link': 'https://www.instagram.com/meandallhotels/'},
+      {'network': 'linkedin', 'link': 'https://www.linkedin.com/company/me-and-all-hotels-gmbh'},
+      {'network': 'xing', 'link': 'https://www.xing.com/companies/meandallhotels'},
+      {'network': 'youtube', 'link': 'https://www.youtube.com/channel/UCtXeM_SPaiWcLgJtQriX17A'}
     ],
     'shareLinks': {
       'facebook': true,
@@ -678,7 +696,7 @@ angular.module('mobiusApp.config', [])
     },
 
     'languages': {
-      'headerAlignment': 'left',
+      'headerAlignment': 'right',
       'dropdown': false,
       'default': 'en-us',
       'en-us': {
@@ -1083,7 +1101,7 @@ angular.module('mobiusApp.config', [])
     //Footer: type: advanced or simple (advanced for national for example)
     'footer':{
       'displaySitemap': false,
-      'type': 'advanced',
+      'type': 'simple',
       'advanced': {
         'logo':{
           'src': '/static/images/hotelFooterLogo.png',

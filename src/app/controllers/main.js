@@ -212,6 +212,12 @@ angular.module('mobius.controllers.main', [])
         }, 500);
       };
 
+      $scope.openMainMenu = function(){
+        $timeout(function(){
+          $('body').toggleClass('main-menu-active');
+        }, 0);
+      };
+
       //Footer
       $scope.footerConfig = Settings.UI.footer;
 
