@@ -1191,6 +1191,20 @@ angular.module('mobiusApp.config', [])
         }
       }
     },
+    'otaRates': [
+      {
+        'name': 'expedia',
+        'logo': '/static/images/expedia_logo.png'
+      },
+      {
+        'name': 'bookingcom',
+        'logo': '/static/images/bookingcom_logo.png'
+      },
+      {
+        'name': 'priceline',
+        'logo': '/static/images/priceline_logo.png'
+      }
+    ],
     'thirdparties': {
       'enable': true,
       'menu': {
