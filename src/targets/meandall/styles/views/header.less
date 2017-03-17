@@ -1,5 +1,8 @@
 #main-header {
   background: @c-header-background;
+  a {
+    color: @c-white;
+  }
   .header-telephone {
     float: left;
   }
@@ -18,7 +21,7 @@
       color: @c-white;
       font-size: 30px;
       .viewport-mobile & {
-        display:none;
+        display: none;
       }
     }
     .menu-opener {
@@ -66,16 +69,16 @@
       }
     }
     ul {
-      float:right;
+      float: right;
       li {
         font-family: @ff-default;
         line-height: @header-height;
         padding: 0;
-        text-align:center;
-        background:transparent;
+        text-align: center;
+        background: transparent;
         a:hover {
-          text-decoration:underline;
-          box-shadow:none;
+          text-decoration: underline;
+          box-shadow: none;
         }
       }
       li[profile] {
@@ -90,26 +93,26 @@
         }
       }
       li[currency-list] {
-        > div > a:after {
+        >div>a:after {
           background: transparent;
           width: 0;
           height: 0;
           border-left: 4px solid transparent;
           border-right: 4px solid transparent;
           border-top: 4px solid @c-white;
-          top:-6px;
+          top: -6px;
         }
         .dropdown .current-currency {
-          display:inline;
+          display: inline;
         }
         .dropdown .change-currency {
-          display:none;
+          display: none;
         }
       }
     }
     .app-menu {
-      > ul {
-        > li {
+      >ul {
+        >li {
           float: right;
           padding: 0 0 0 15px;
         }
@@ -118,22 +121,23 @@
   }
 }
 
-.viewport-mobile, .viewport-tablet  {
-  .main-nav > .app-menu {
-    position:initial;
-    top:initial;
-    left:initial;
-    height:initial;
-    width:initial;
-    background:transparent;
-    opacity:1;
-    overflow-y:auto;
-    overflow-x:auto;
+.viewport-mobile,
+.viewport-tablet {
+  .main-nav>.app-menu {
+    position: initial;
+    top: initial;
+    left: initial;
+    height: initial;
+    width: initial;
+    background: transparent;
+    opacity: 1;
+    overflow-y: auto;
+    overflow-x: auto;
     -webkit-transform: translateX(0);
     transform: translateX(0);
-    margin:0;
+    margin: 0;
     ul {
-      padding:0;
+      padding: 0;
     }
   }
 }
