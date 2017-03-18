@@ -772,6 +772,16 @@ angular
     }
     metaInformationService.reset();
 
+    $scope.user = user;
+    $scope.isUserLoggedIn = user.isLoggedIn;
+
+    $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
+      $scope.isUserLoggedIn = user.isLoggedIn;
+      if($state.current.name === 'reservation.details')
+      {
+        $state.reload();
+      }
+    });
 
   });
 

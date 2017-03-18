@@ -160,28 +160,6 @@ angular.module('mobius.controllers.main', [])
         modalService.openTiersListDialog();
       };
 
-
-      // TODO Seems like this function is used in roomDetails controller as well
-      //$scope.openPriceBreakdownInfo = modalService.openPriceBreakdownInfo;
-
-      $scope.user = user;
-      $scope.isUserLoggedIn = user.isLoggedIn;
-
-      //this should be no longer needed as we don't storae user token to localStorage anymore (double check)
-      /*
-      if(Settings.authType === 'mobius'){
-        user.loadProfile();
-      }
-      */
-
-      $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
-        $scope.isUserLoggedIn = user.isLoggedIn;
-        if($state.current.name === 'reservation.details')
-        {
-          $state.reload();
-        }
-      });
-
       modalService.openDialogIfPresent();
 
 
@@ -212,7 +190,7 @@ angular.module('mobius.controllers.main', [])
         }, 500);
       };
 
-      $scope.openMainMenu = function(){
+      $scope.toggleMenuOverlay = function(){
         $timeout(function(){
           $('body').toggleClass('main-menu-active');
         }, 0);

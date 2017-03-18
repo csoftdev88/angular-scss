@@ -109,7 +109,7 @@
 
         <li ng-show="config.languages.headerAlignment === 'right' || isMobile" has-dropdown="click" language-list></li>
 
-        <a ng-if="config.generics.header && config.generics.header.mainMenuAsOverlay" href class="main-menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMainMenu(); retentionClick()"></a>
+        <a ng-if="config.generics.header && config.generics.header.mainMenuAsOverlay" href class="main-menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="toggleMenuOverlay(); retentionClick()"></a>
 
         <li ng-show="!isUserLoggedIn()" profile>
           <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="sso.login(); retentionClick()">_login_</a>
