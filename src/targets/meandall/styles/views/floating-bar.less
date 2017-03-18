@@ -1,0 +1,82 @@
+//////////////////////
+//// FLOATING BAR ////
+//////////////////////
+
+.multiroom-mode booking-widget-add-room{
+  width: 50% !important;
+  .viewport-mobile & {
+    width:100% !important;
+  }
+}
+
+floating-bar {
+
+  &.multi-room{
+    background: @c-booking-widget-active;
+  }
+
+  //- Tabs
+  > ul {
+    top:-@baseline;
+    li {
+      a {
+        font-size:0.9em;
+        line-height:@baseline;
+        font-family:@ff-heading;
+        strong {
+            font-weight:normal;
+        }         
+      }
+
+      &:first-of-type:before {
+          height:@baseline;
+      }
+      &.floating-bar--tab-booking,
+      &.floating-bar--tab-booking.is-active,
+      &.floating-bar--tab-booking:before{
+        background: @c-booking-widget;
+      }
+
+      &.floating-bar--tab-booking:after{
+        border-bottom: @baseline solid @c-booking-widget!important;
+      }
+
+      &.floating-bar--tab-advanced-booking,
+      &.floating-bar--tab-advanced-booking.is-active,
+      &.floating-bar--tab-advanced-booking:before{
+        background: @c-booking-widget-active;
+      }
+
+      &.floating-bar--tab-advanced-booking:after{
+        border-bottom: @baseline solid @c-booking-widget-active;
+      }
+
+      //- Skew effect
+      &:after {
+       // border-bottom: @baseline*1.5 solid @c-booking-widget-active;
+      }
+
+
+      &.floating-bar--tab-booking {
+
+        .viewport-mobile &.main-mobile-toggle {
+
+          &.mobile-is-open a{
+            background: @c-booking-widget;
+          }
+
+          a{
+
+            &.with-search-params {
+              background: #a89b85;
+            }
+
+            .mobile{
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
