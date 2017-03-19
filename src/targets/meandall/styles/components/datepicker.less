@@ -1,26 +1,23 @@
 //- DATEPICKER -//
-
 .ui-datepicker {
   box-shadow: 0 0 1px @c-black;
   background: @c-black;
-
   .ui-datepicker-group {
     //Add to second datepicker, create a border without messing up width dimensions
-    + .ui-datepicker-group {
+    +.ui-datepicker-group {
       .ui-datepicker-calendar {
         box-shadow: -1px 0 0 #363636;
       }
     }
   }
-
   .ui-datepicker-buttonpane {
     box-shadow: 0 -1px 0 #363636;
   }
-
   &:after {
     color: @c-datepicker;
   }
 }
+
 //- Calendar Table
 .ui-datepicker-calendar {
   thead {
@@ -30,46 +27,38 @@
       }
     }
   }
-
   tbody {
     tr {
       border-color: @c-black;
     }
-
     td,
     th {
       color: lighten(@c-text, 50%); // Past days
     }
-
     td {
       a {
         color: #b3bdc2; // Today and Future days
         font-weight: 300;
       }
-
-      > *[data-tooltip]:after {
+      >*[data-tooltip]:after {
         background: #f4b458;
         color: @c-white;
       }
-
-      > *[data-tooltip]:before {
+      >*[data-tooltip]:before {
         border-top: 20px solid #f4b458;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
       }
-
-      &.ui-datepicker-unselectable > *[data-tooltip]:after {
+      &.ui-datepicker-unselectable>*[data-tooltip]:after {
         background: #cb0338;
       }
-
-      &.ui-datepicker-unselectable > *[data-tooltip]:before {
+      &.ui-datepicker-unselectable>*[data-tooltip]:before {
         border-top-color: #cb0338;
       }
       // Highlighting today's day
       &.ui-datepicker-today a {
         color: #b3bdc2;
       }
-
       &.ui-state-disabled {
         color: @c-text;
       }
@@ -82,27 +71,22 @@
       &.date-range-start {
         color: @c-grey;
         background: none;
-
         a,
         span {
           color: @c-white !important;
-          background:@c-datepicker-selected;
+          background: @c-datepicker-selected;
         }
-
         &:before {
           background: rgba(63, 114, 155, 0.8);
         }
-
         &:after {
           color: @c-secondary;
         }
       }
-
       &.date-range-end:before {
         right: 0;
         left: 0;
       }
-
       &.date-range-edit {
         background-color: @c-brown;
       }
@@ -111,95 +95,78 @@
         &:after {
           color: @c-secondary;
         }
-
         a {
           background: rgba(63, 114, 155, 0.8);
           color: @c-white;
         }
       }
-
       &.ui-datepicker-unselectable {
         color: @c-datepicker-unavailable;
       }
       // Day is not available
       &.date-not-available {
         background-color: #ed1c24;
-
         a {
           color: lighten(@c-text, 50%);
         }
-
         &.date-range-end,
         &.date-range-start {
           background-color: darken(#ed1c24, 2%);
         }
-
         &.date-range-selected a {
           background-color: lighten(#ed1c24, 2%);
         }
       }
-
       &.date-unavailable {
         a {
           color: @c-datepicker-unavailable;
         }
-
         &.date-range-selected {
           a {
             background: rgba(208, 2, 27, 0.7);
             color: @c-white;
           }
         }
-
         &.date-range-end,
         &.date-range-start {
           a,
           span {
             background: @c-datepicker-unavailable;
           }
-
           &:before {
             background: rgba(208, 2, 27, 0.7);
           }
-
           &:after {}
         }
       }
-
       &.date-partially-available {
         a {
           color: @c-datepicker-partially-available;
         }
-
         &.date-range-selected {
           a {
             background: rgba(207, 154, 77, 0.7);
             color: @c-white;
           }
-
           &:after {
             color: @c-datepicker-partially-available;
           }
         }
-
         &.date-range-end,
         &.date-range-start {
           a,
           span {
             background: @c-datepicker-partially-available;
           }
-
           &:before {
             background: rgba(207, 154, 77, 0.7);
           }
-
           &:after {
             color: @c-datepicker-partially-available;
           }
         }
       }
     }
-
     td[title] {
       &:after {
         font-weight: 400;
@@ -207,19 +174,17 @@
     }
   }
 }
-//- Bottom Control Panel
 
+//- Bottom Control Panel
 .ui-datepicker-buttonpane {
   background: transparent;
-
   .flexible-dates-control {
-    > span {
+    >span {
       &.selected {
         color: @c-link;
       }
     }
   }
-
   .ui-datepicker-close {
     background: @c-green !important;
     font-size: 14px !important;
@@ -229,5 +194,5 @@
 }
 
 .ui-datepicker-header {
-  background:@c-black;
+  background: @c-black;
 }

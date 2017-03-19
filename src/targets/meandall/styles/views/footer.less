@@ -1,0 +1,72 @@
+footer {
+  .viewport-mobile & {
+    margin-bottom: 70px;
+  }
+  .wrapper {
+    width: 100%;
+    margin: 0;
+    >div {
+      .footer-bottom {
+        background: @c-white;
+      }
+    }
+  }
+  .footer-top {
+    padding: 0 20px;
+    .viewport-mobile & {
+      display: none;
+    }
+  }
+  .footer-bottom {
+    padding: 25px 20px;
+    .grid-wrapper {
+      .clearfix;
+      >* {
+        width: 50%;
+        float: left;
+        .viewport-mobile & {
+          float: none;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+    p {
+      color: @c-black;
+    }
+    a {
+      color: @c-black;
+    }
+    nav {
+      .viewport-mobile & {
+        display: none;
+      }
+    }
+  }
+  .copyright {
+    padding: 10px 0;
+    text-align: center;
+  }
+  social-links {
+    padding: 15px 0;
+    li a {
+      background: transparent;
+      color: @c-white;
+      font-size: 41px;
+      padding: 10px;
+      .transition(all, .3s, ease);
+      &:hover {
+        background: @c-white;
+        color: @c-black;
+      }
+    }
+  }
+}
+
+.floating-bar-active footer {
+  margin-bottom: 113px;
+  .viewport-mobile &,
+  &.no-booking-bar {
+    margin-bottom: 0;
+  }
+}
