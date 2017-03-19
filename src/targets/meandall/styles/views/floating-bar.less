@@ -12,15 +12,21 @@ floating-bar {
   &.multi-room {
     background: @c-booking-widget-active;
   }
+  &.active {
+    .viewport-mobile & {
+      height: 100%;
+    }
+  }
   //- Tabs
   >ul {
     top: -@baseline;
-    max-width:@grid-width;
+    max-width: @grid-width;
     li {
       a {
         font-size: 0.9em;
         line-height: @baseline;
         font-family: @ff-heading;
+        font-weight: normal !important;
         strong {
           font-weight: normal;
         }
@@ -55,7 +61,7 @@ floating-bar {
           }
           a {
             &.with-search-params {
-              background: #a89b85;
+              background: @c-blue;
             }
             .mobile {}
           }

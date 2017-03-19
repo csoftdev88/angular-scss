@@ -1,14 +1,42 @@
 booking-widget {
+  max-width:1050px;
   button-submit {
     min-width: 0;
     height: 36px;
     line-height: 36px;
+    border: 0px none;
+    box-shadow: none;
+    margin-top: 23px;
+    background: @c-black;
+    font-family: @ff-heading;
+    font-size: 0.9em;
+    font-weight: normal;
+  }
+  input-value {
+    width: ~"calc(100% - 70px)" !important;
+  }
+  h3 {
+    font-size: @size-0;
+    .viewport-mobile & {
+      margin-bottom:5px;
+    }
   }
   .chosen-container,
   input[type="text"],
+  input-value,
   .chosen-container-single .chosen-single {
     height: 36px;
-    line-height: 36px;
+    line-height: 34px;
+    font-size: @size--2 !important;
+    color: @c-black !important;
+    span {
+      color: @c-black;
+    }
+  }
+  .chosen-container,
+  input[type="text"],
+  .chosen-container-single {
+    border: 2px solid @c-black;
   }
 }
 
@@ -16,8 +44,18 @@ booking-widget {
 booking-widget-search {
   width: 90%;
   padding: 23px 0;
+  font-size: @size--2;
   //- Make your booking
   h3 {
     display: none
+  }
+}
+
+.multiroom-mode {
+  booking-widget-add-room button-text {
+    font-size: @size--2;
+  }
+  button-submit {
+    background:@c-blue;
   }
 }
