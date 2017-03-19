@@ -1101,13 +1101,7 @@ angular.module('mobiusApp.config', [])
     //Footer: type: advanced or simple (advanced for national for example)
     'footer':{
       'displaySitemap': false,
-      'type': 'simple',
-      'advanced': {
-        'logo':{
-          'src': '/static/images/hotelFooterLogo.png',
-          'alt': 'Worldhotels deluxe'
-        }
-      }
+      'type': 'advanced'
     },
     'otaRates': [
       {
