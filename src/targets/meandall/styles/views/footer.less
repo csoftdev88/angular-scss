@@ -18,7 +18,7 @@ footer {
     }
   }
   .footer-bottom {
-    padding: 25px 20px;
+    padding: 40px 20px 70px 20px;
     .grid-wrapper {
       .clearfix;
       >* {
@@ -36,8 +36,18 @@ footer {
     }
     a {
       color: @c-black;
+      &:hover {
+        text-decoration:underline;
+      }
     }
     nav {
+      .clearfix;
+      ul {
+        padding-right:10px;
+        width:50%;
+        box-sizing:border-box;
+        float:left;
+      }
       .viewport-mobile & {
         display: none;
       }
@@ -64,7 +74,7 @@ footer {
 }
 
 .floating-bar-active footer {
-  margin-bottom: 113px;
+  margin-bottom: 82px;
   .viewport-mobile &,
   &.no-booking-bar {
     margin-bottom: 0;
