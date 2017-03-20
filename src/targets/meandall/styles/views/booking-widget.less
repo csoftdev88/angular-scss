@@ -3,7 +3,7 @@ booking-widget {
   button-submit {
     min-width: 0;
     height: 36px;
-    line-height: 36px;
+    line-height: 42px;
     border: 0px none;
     box-shadow: none;
     margin-top: 23px;
@@ -49,6 +49,13 @@ booking-widget {
   .chosen-container-single {
     border: 2px solid @c-black;
   }
+  form-element {
+    input:focus ~ form-label,
+    select:focus ~ form-label,
+    .chosen-with-drop ~ form-label {
+      transform: translateY(15%);
+    }
+  }
   .chosen-container-single .chosen-single {
     div b {
       background:none;
@@ -61,6 +68,11 @@ booking-widget {
       right:5px;
       left:auto !important;
     }
+  }
+  remove-text {
+    top:1px;
+    margin:2px 10px;
+    color:@c-black;
   }
 }
 
