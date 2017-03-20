@@ -13,13 +13,24 @@ booking-widget {
     font-weight: normal;
   }
   input-value {
-    width: ~"calc(100% - 70px)" !important;
+    left:10px !important;
   }
   h3 {
     font-size: @size-0;
     .viewport-mobile & {
       margin-bottom:5px;
     }
+  }
+  // hide icons
+  form-element:before,
+  .chosen-single:before,
+  &:before {
+    display:none !important;
+  }
+  input[type=text],
+  select,
+  .chosen-container-single .chosen-single {
+    padding-left:10px !important;
   }
   .chosen-container,
   input[type="text"],
@@ -37,6 +48,19 @@ booking-widget {
   input[type="text"],
   .chosen-container-single {
     border: 2px solid @c-black;
+  }
+  .chosen-container-single .chosen-single {
+    div b {
+      background:none;
+      width: 0;
+      height: 0;
+      border-top: 6px solid rgb(0, 0, 0);
+      border-right: 6px solid transparent;
+      border-left: 6px solid rgba(0, 0, 0, 0);
+      top:13px;
+      right:5px;
+      left:auto !important;
+    }
   }
 }
 
