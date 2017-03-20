@@ -5,7 +5,7 @@ angular.module('mobiusApp.config', [])
 .constant('Settings', {
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
-  'defaultProductRateId': 1,
+  'defaultProductRateId': 9,
   'authType': 'mobius',
   'loyaltyProgramEnabled': false,
   'newUrlStructure': false,
