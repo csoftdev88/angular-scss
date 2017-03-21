@@ -1,0 +1,53 @@
+//- BUTTONS -//
+@c-button: @c-blue;
+
+
+//- Button Submit
+.typeform-share.button,
+.button,
+button-submit {
+
+  background: @c-button;
+  &:active,
+  &:focus,
+  &:hover {
+    background: darken(@c-button, 15%);
+  }
+
+  border-radius:2px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+  text-shadow: none;
+  box-shadow: none;
+  min-width: 0;
+  height: 36px;
+  line-height: 42px;
+  border: 0px none;
+  font-family: @ff-heading;
+  font-size: 0.9em;
+  font-weight: normal;
+
+  &.hide{
+    display: none;
+  }
+
+  &.alt,
+  &.alt:active,
+  &.alt:focus,
+  &.alt:hover,
+  &[disabled="disabled"] {
+    background: #f3efe6;
+    background: -moz-linear-gradient(top,  #f3efe6 0%, #c2c1bd 100%);
+    background: -webkit-linear-gradient(top,  #f3efe6 0%,#c2c1bd 100%);
+    background: linear-gradient(to bottom,  #f3efe6 0%,#c2c1bd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3efe6', endColorstr='#c2c1bd',GradientType=0 );
+    border-bottom: 1px solid #959595;
+    color: @c-dark-grey;
+    -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+
+  }
+}
