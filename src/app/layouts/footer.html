@@ -61,19 +61,33 @@
     <div class="footer-bottom">
       <div class="grid-wrapper">
         <p>_footer_static_content_</p>
-        <nav>
+        <!-- Different footer links for german and english as per main site -->
+        <nav ng-if="appLang === 'en-us' || userLang === 'en-us'">
           <ul>
-            <li><a href="http://www.grandhotel-national.com/en/corporate/links" target="_blank" ng-click="retentionClick()">_footer_links_links_</a></li>
-            <li><a href="http://www.grandhotel-national.com/en/corporate/jobs" target="_blank" ng-click="retentionClick()">_footer_links_jobs_</a></li>
-            <li><a href="http://www.grandhotel-national.com/en/corporate/newsletter" target="_blank" ng-click="retentionClick()">_footer_links_newsletter_</a></li>
-            <li><a href="http://www.grandhotel-national.com/en/corporate/media/image-library" target="_blank" ng-click="retentionClick()">_footer_links_media_</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/en/presse-medien.html" title="Presse &amp; Medien" ng-click="retentionClick()">Presse &amp; Medien</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/en/imprint.html" title="Imprint | me and all hotels" ng-click="retentionClick()">Imprint</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/en/general-terms-and-conditions.html" title="General terms and conditions | me and all hotels" ng-click="retentionClick()">General terms and conditions</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/en/privacy-policy.html" title="Privacy policy | me and all hotels" ng-click="retentionClick()">Privacy policy</a></li>
           </ul>
           <ul>
-            <li><a href="http://www.grandhotel-national.com/en/corporate/image-gallery" target="_blank" ng-click="retentionClick()">_footer_links_gallery_</a></li>
-            <li><a href="http://www.grandhotel-national.com/en/corporate/brochures-fact-sheets" target="_blank" ng-click="retentionClick()">_footer_links_brochures_</a></li>
-            <li><a href="http://www.grandhotel-national.com/en/corporate/general-terms-conditions" target="_blank" ng-click="retentionClick()">_footer_links_terms_</a></li>
-            <li><a href="http://www.grandhotel-national.com/en/corporate/impressum" target="_blank" ng-click="retentionClick()">_footer_links_impressum_</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/en/loyalty-programme-nights.html" title="Loyalty programme Nights" ng-click="retentionClick()">Loyalty programme Nights</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/en/blog.html" title="Blog | me and all hotels düsseldorf" ng-click="retentionClick()">Blog</a></li>
             <li><a href="" ui-sref="lookup" ng-click="retentionClick()">_footer_links_modify_</a></li>
+          </ul>
+        </nav>
+        <nav ng-if="appLang === 'de' || userLang === 'de'">
+          <ul>
+            <li><a href="//duesseldorf.meandallhotels.com/presse-medien.html" title="Presse &amp; Medien" ng-click="retentionClick()">Presse &amp; Medien</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/impressum.html" title="Impressum | me and all hotels" ng-click="retentionClick()">Impressum</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/agb.html" title="AGB | me and all hotels" ng-click="retentionClick()">AGB</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/datenschutz.html" title="Datenschutz | me and all hotels" ng-click="retentionClick()">Datenschutz</a></li>
+            <li><a href="" ui-sref="lookup" ng-click="retentionClick()">_footer_links_modify_</a></li>
+          </ul>
+          <ul>
+            <li><a href="//duesseldorf.meandallhotels.com/development.html" title="Development" ng-click="retentionClick()">Development</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/arbeite-mit-uns.html" title="Arbeite mit uns" ng-click="retentionClick()">Arbeite mit uns</a></li>
+            <li><a href="//duesseldorf.meandallhotels.com/bonusprogramm-nights.html" title="Bonusprogramm Nights" ng-click="retentionClick()">Bonusprogramm Nights</a></li
+            ><li><a href="//duesseldorf.meandallhotels.com/blog.html" title="Blog &amp; Events | me and all hotels düsseldorf" ng-click="retentionClick()">Blog / Events</a></li>
           </ul>
         </nav>
       </div>

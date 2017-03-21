@@ -33,6 +33,7 @@ footer {
     }
     p {
       color: @c-black;
+      line-height:1.75em;
     }
     a {
       color: @c-black;
@@ -47,6 +48,31 @@ footer {
         width:50%;
         box-sizing:border-box;
         float:left;
+        li {
+          line-height:1.25em;
+          margin:0.25em auto 0.5em 0;
+          position:relative;
+          &:before {
+            font-family: "meandall" !important;
+            font-style: normal !important;
+            font-weight: normal !important;
+            font-variant: normal !important;
+            text-transform: none !important;
+            color:@c-black;
+            speak: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\3e";
+            font-size: .5em;
+            position: absolute;
+            left: 0;
+            top: .85em;
+          }
+          a {
+            padding-left:1em;
+          }
+        }
       }
       .viewport-mobile & {
         display: none;
