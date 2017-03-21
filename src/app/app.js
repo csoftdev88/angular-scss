@@ -644,11 +644,7 @@ angular
 
   //localize moment.js
   $window.moment.locale(appLang);
-
-  $rootScope.$on('$stateChangeSuccess', function() {
-    breadcrumbsService.clear();
-  });
-
+  
   //Let's get property slug if single property and save it to settings for future use
   if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode) {
     if (!Settings.API.propertySlug) {
