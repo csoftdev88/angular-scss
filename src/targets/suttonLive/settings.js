@@ -650,7 +650,8 @@ angular.module('mobiusApp.config', [])
         'print': true
       },
       'displayNewsletterCtaOnReservationDetail': false,
-      'reservationDetailPriceBreakdownExtended': false
+      'reservationDetailPriceBreakdownExtended': false,
+      'displayAddonVoucherEntry': true
     },
 
     'aboutHotel': {
