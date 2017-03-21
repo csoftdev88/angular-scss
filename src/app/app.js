@@ -682,6 +682,8 @@ angular
   });
 
   $scope.uiConfig = Settings.UI;
+  $scope.userLang = user.getUserLanguage();
+  $scope.appLang = stateService.getAppLanguageCode();
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
@@ -710,11 +712,8 @@ angular
     //Sandman specific HACK to intercept French if NOT on a quebec page
     if (Settings.sandmanFrenchOverride) {
 
-      var userLang = user.getUserLanguage();
-      var appLang = stateService.getAppLanguageCode();
-
       //If user language is french and URL does not contain quebec, switch back to english
-      if ((appLang === 'fr' || userLang === 'fr') && toParams.regionSlug !== 'quebec') {
+      if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec') {
         user.storeUserLanguage('en-us');
         var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
         $window.location.replace(nonFrenchUrl);
