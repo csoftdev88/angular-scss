@@ -5,6 +5,10 @@ booking-widget {
     margin-top: 23px;
     height:36px;
     line-height:42px;
+    background:@c-secondary;
+    &:hover {
+      background:lighten(@c-secondary, 10%);
+    }
   }
   input-value {
     left:10px !important;
@@ -86,6 +90,9 @@ booking-widget-search {
     font-size: @size--2;
   }
   button-submit {
-    background:@c-blue;
+    background:@c-button;
+    &:hover {
+      background: lighten(@c-button, 10%);
+    }
   }
 }

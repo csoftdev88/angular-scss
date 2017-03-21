@@ -1,5 +1,5 @@
 //- BUTTONS -//
-@c-button: @c-blue;
+@c-button: @c-tertiary;
 
 
 //- Button Submit
@@ -11,7 +11,7 @@ button-submit {
   &:active,
   &:focus,
   &:hover {
-    background: darken(@c-button, 15%);
+    background: lighten(@c-button, 10%);
   }
 
   border-radius:2px;
@@ -28,6 +28,7 @@ button-submit {
   font-family: @ff-heading;
   font-size: 0.9em;
   font-weight: normal;
+  transition: 0.2s all;
 
   &.hide{
     display: none;
