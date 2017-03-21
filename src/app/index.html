@@ -103,7 +103,7 @@
     <!-- Add your site or application content here -->
     <div ui-view id="main-container"></div>
 
-    <section ng-if="uiConfig.generics.header && uiConfig.generics.header.mainMenuAsOverlay && uiConfig.menu.customLinks" ng-include="'layouts/components/menu-overlay.html'" class="main-menu-overlay"></section>
+    <section ng-if="menuOverlayEnabled && uiConfig.menu.customLinks" ng-include="'layouts/components/menu-overlay.html'" class="main-menu-overlay"></section>
 
   </body>
 </html>

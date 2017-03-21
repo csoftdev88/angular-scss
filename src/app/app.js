@@ -644,7 +644,7 @@ angular
 
   //localize moment.js
   $window.moment.locale(appLang);
-  
+
   //Let's get property slug if single property and save it to settings for future use
   if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode) {
     if (!Settings.API.propertySlug) {
@@ -678,8 +678,24 @@ angular
   });
 
   $scope.uiConfig = Settings.UI;
+  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
   $scope.userLang = user.getUserLanguage();
   $scope.appLang = stateService.getAppLanguageCode();
+
+  //If menu overlay is enabled, add the event handlers to open and close the menu
+  if($scope.menuOverlayEnabled){
+    $scope.toggleMenuOverlay = function(){
+      $timeout(function(){
+        $('body').toggleClass('main-menu-active');
+      }, 0);
+    };
+
+    $scope.hideMenuOverlay = function(){
+      $timeout(function(){
+        $('body').removeClass('main-menu-active');
+      }, 0);
+    };
+  }
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
@@ -777,6 +793,11 @@ angular
         $state.reload();
       }
     });
+    
+    //If menu overlay is enabled, close it before navigating to the next page.
+    if($scope.menuOverlayEnabled){
+      $scope.hideMenuOverlay();
+    }
 
   });
 
