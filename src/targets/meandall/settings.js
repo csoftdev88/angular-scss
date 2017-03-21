@@ -59,7 +59,7 @@ angular.module('mobiusApp.config', [])
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
     'integration': {
-      'enable':true,
+      'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-integration',
@@ -69,7 +69,7 @@ angular.module('mobiusApp.config', [])
       'singlePageApp': true
     },
     'staging': {
-      'enable':true,
+      'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -79,7 +79,7 @@ angular.module('mobiusApp.config', [])
       'singlePageApp': true
     },
     'uat': {
-      'enable':true,
+      'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -87,7 +87,7 @@ angular.module('mobiusApp.config', [])
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
     'live': {
-      'enable':true,
+      'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-live',
