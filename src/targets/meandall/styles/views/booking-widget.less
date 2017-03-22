@@ -1,34 +1,35 @@
 booking-widget {
-  padding:0 20px;
-  max-width:initial;
+  padding: 0 20px;
+  max-width: initial;
   button-submit {
     margin-top: 23px;
-    height:36px;
-    line-height:42px;
-    background:@c-secondary;
+    height: 36px;
+    line-height: 42px;
+    background: @c-secondary;
     &:hover {
-      background:lighten(@c-secondary, 10%);
+      background: lighten(@c-secondary, 10%);
     }
   }
   input-value {
-    left:10px !important;
+    left: 10px !important;
   }
   h3 {
     font-size: @size-0;
+    line-height:@baseline;
     .viewport-mobile & {
-      margin-bottom:5px;
+      margin-bottom: 5px;
     }
   }
   // hide icons
   form-element:before,
   .chosen-single:before,
   &:before {
-    display:none !important;
+    display: none !important;
   }
   input[type=text],
   select,
   .chosen-container-single .chosen-single {
-    padding-left:10px !important;
+    padding-left: 10px !important;
   }
   .chosen-container,
   input[type="text"],
@@ -48,29 +49,29 @@ booking-widget {
     border: 2px solid @c-black;
   }
   form-element {
-    input:focus ~ form-label,
-    select:focus ~ form-label,
-    .chosen-with-drop ~ form-label {
+    input:focus~form-label,
+    select:focus~form-label,
+    .chosen-with-drop~form-label {
       transform: translateY(15%);
     }
   }
   .chosen-container-single .chosen-single {
     div b {
-      background:none;
+      background: none;
       width: 0;
       height: 0;
       border-top: 6px solid rgb(0, 0, 0);
       border-right: 6px solid transparent;
       border-left: 6px solid rgba(0, 0, 0, 0);
-      top:13px;
-      right:5px;
-      left:auto !important;
+      top: 13px;
+      right: 5px;
+      left: auto !important;
     }
   }
   remove-text {
-    top:1px;
-    margin:2px 10px;
-    color:@c-black;
+    top: 1px;
+    margin: 2px 10px;
+    color: @c-black;
   }
 }
 
@@ -86,11 +87,18 @@ booking-widget-search {
 }
 
 .multiroom-mode {
-  booking-widget-add-room button-text {
-    font-size: @size--2;
+  booking-widget-add-room {
+    width: 50%;
+    margin-top: 23px;
+    .viewport-mobile & {
+      width: 100%;
+    }
+    button-text {
+      font-size: @size--2;
+    }
   }
   button-submit {
-    background:@c-button;
+    background: @c-button;
     &:hover {
       background: lighten(@c-button, 10%);
     }
