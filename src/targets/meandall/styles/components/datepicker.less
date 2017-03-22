@@ -2,6 +2,9 @@
 .ui-datepicker {
   box-shadow: 0 0 1px #dadada;
   background: @c-black;
+  .viewport-mobile & {
+    box-shadow:none;
+  }
   .ui-datepicker-group {
     //Add to second datepicker, create a border without messing up width dimensions
     +.ui-datepicker-group {
@@ -17,6 +20,9 @@
   }
   .ui-datepicker-buttonpane {
     box-shadow: 0 -1px 0 #363636;
+  }
+  &.dates-loading {
+    background-position:bottom 22px left 15px;
   }
   &:after {
     color: @c-datepicker;
@@ -196,11 +202,19 @@
     .viewport-mobile & {
       left:20px;
     }
+    .dates-loading & {
+      .viewport-mobile & {
+        left:45px;
+      }
+    }
     >span {
       &.selected {
         color: @c-link;
       }
     }
+  }
+  .dates-loading & {
+      background-position:bottom 22px left 15px;
   }
   .ui-datepicker-close {
     height: 35px !important;
