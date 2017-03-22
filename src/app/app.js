@@ -575,16 +575,29 @@ angular
 .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
-    //This segment tracks any 404s and sends to our 404 tracking service
-    if(Settings.API.track404s && Settings.API.track404s.enable && next.name === 'unknown')
-    {
-      var fromPath = null;
-      if($location.search() && $location.search().fromDomain){
-        fromPath = $location.search().fromDomain;
+    //If the page we are navigating to is not recognised
+    if(next.name === 'unknown'){    
+      //This segment tracks any 404s and sends to our 404 tracking service
+      if(Settings.API.track404s && Settings.API.track404s.enable)
+      {
+        var fromPath = null;
+        if($location.search() && $location.search().fromDomain){
+          fromPath = $location.search().fromDomain;
+        }
+        track404sService.track($location.host(), $location.path(), fromPath ? fromPath : null);
       }
-      track404sService.track($location.host(), $location.path(), fromPath ? fromPath : null);
+      //This variable is used to tell prerender.io that this page is a 404
+      $rootScope.prerenderStatusCode = '404';
     }
-    $rootScope.prerenderStatusCode = next.name === 'unknown' ? '404' : '200';
+    //Otherwise if page is recognised and the page is in the reservation flow or is /reservations, set the status code to 403
+    else if(next.parent === 'reservation' || next.name === 'reservationDetail' || next.name === 'reservations')
+    {
+      $rootScope.prerenderStatusCode = '403';
+    }
+    //Otherwise set as 200 ok
+    else {
+      $rootScope.prerenderStatusCode = '200';
+    }    
   });
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
