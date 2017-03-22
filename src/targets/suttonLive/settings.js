@@ -211,7 +211,8 @@ angular.module('mobiusApp.config', [])
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
-      'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true'
+      'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true',
+      'checkVoucher': 'voucher'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
@@ -398,6 +399,7 @@ angular.module('mobiusApp.config', [])
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
           'rateInfoIsTabbed': false,
+          'displayOtaRates': true,
           'highlightFirstRate': false,
           'showSlashThrough': false
         },
@@ -649,7 +651,8 @@ angular.module('mobiusApp.config', [])
         'print': true
       },
       'displayNewsletterCtaOnReservationDetail': false,
-      'reservationDetailPriceBreakdownExtended': false
+      'reservationDetailPriceBreakdownExtended': false,
+      'displayAddonVoucherEntry': true
     },
 
     'aboutHotel': {
@@ -930,6 +933,9 @@ angular.module('mobiusApp.config', [])
         'email3':{
           'display': true
         }
+      },
+      'vouchers' : {
+        'enable':true
       }
     },
     'myAccount' : {
@@ -1187,6 +1193,20 @@ angular.module('mobiusApp.config', [])
         }
       }
     },
+    'otaRates': [
+      {
+        'name': 'expedia',
+        'logo': '/static/images/expedia_logo.png'
+      },
+      {
+        'name': 'bookingcom',
+        'logo': '/static/images/bookingcom_logo.png'
+      },
+      {
+        'name': 'priceline',
+        'logo': '/static/images/priceline_logo.png'
+      }
+    ],
     'thirdparties': {
       'enable': true,
       'menu': {
