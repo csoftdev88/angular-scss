@@ -192,7 +192,10 @@
     font-weight:normal;
   }
   .flexible-dates-control {
-    font-size:12px;
+    font-size:@size--4;
+    .viewport-mobile & {
+      left:20px;
+    }
     >span {
       &.selected {
         color: @c-link;
