@@ -3,7 +3,26 @@
 ///////////////////////
 
 hotel-detail {
-  h1 {
+  h1, h2 {
     line-height:1;
+    strong {
+      font-weight:normal;
+    }
+  }
+  h1 {
+    font-size:@heading-1-size;
+  }
+  h2 {
+    font-size:@heading-2-size;
+  }
+  .hotel-description {
+    float:left;
+    width:60%;
+  }
+  .hotel-info-amenities {
+    float:left;
+    width:40%;
+    padding-left:100px;
+    box-sizing:border-box;
   }
 }
