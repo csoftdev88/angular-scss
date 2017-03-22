@@ -1,6 +1,6 @@
 <section grid-row id="jsAbout">
     <div grid="{{(hasViewMore)? viewSettings.hotelInfo.descriptionGrid : 12}}">
-      <p ng-bind-html="details.description | trustAsHtml" markdown-text-parser class="markdown-content"></p>
+      <p ng-bind-html="details.description | trustAsHtml" markdown-text-parser class="hotel-description markdown-content"></p>
 
       <div ng-if="config.displayAmenitiesInHotelInfo && details.amenities" class="hotel-info-amenities">
         <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>

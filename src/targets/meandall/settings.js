@@ -299,7 +299,7 @@ angular.module('mobiusApp.config', [])
       }    
     },
     'contents':{
-      'displayContentImageInHeroSlider': true
+      'displayContentImageInHeroSlider': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
@@ -915,7 +915,8 @@ angular.module('mobiusApp.config', [])
       },
       'hotelDetails':{
         'hasViewMore': false,
-        'hasTitle': true,
+        'hasTitle': false,
+        'hideHeroSlider': true,
         'hotelInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
