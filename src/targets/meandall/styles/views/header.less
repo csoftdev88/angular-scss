@@ -7,6 +7,10 @@
       z-index: 1000;
       a {
         color: @c-white;
+        cursor:pointer;
+        &:hover {
+          opacity:0.7;
+        }
       }
       .header-telephone {
         font-family: @ff-bold;
@@ -113,7 +117,6 @@
             text-align: center;
             background: transparent;
             a:hover {
-              text-decoration: underline;
               box-shadow: none;
             }
             .submenu {
