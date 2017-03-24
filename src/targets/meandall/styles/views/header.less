@@ -27,7 +27,7 @@
           margin: 0;
           position: absolute;
           left: 50%;
-          top: initial;
+          top: -2em;
           -ms-transform: translateX(-50%);
           -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -42,6 +42,10 @@
           text-transform: none !important;
           speak: none;
           visibility: hidden;
+          transition: all .5s ease;
+          .scrolled & {
+            top:0em;
+          }
           &:before {
             content: "\f3c0";
             visibility: visible;

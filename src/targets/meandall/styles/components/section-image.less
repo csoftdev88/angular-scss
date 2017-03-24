@@ -1,0 +1,38 @@
+section-image {
+  display:block;
+}
+
+.parallax-image {
+  width: 100%;
+  position:relative;
+  background-position: center center;
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+}
+
+#header-image {
+  a {
+    width:200px;
+    padding:1em;
+    display:block;
+    position:absolute;
+    top:95px;
+    left:0;
+    background:@c-white;
+    -webkit-transition: all .33s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    transition: all .33s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    .viewport-mobile & {
+      display:none;
+    }
+    img {
+      width:100%;
+    }
+  }
+  //This makes the logo disappear from header on scroll
+  .scrolled & {
+    a {
+      left:-22em;
+    }
+  }
+}

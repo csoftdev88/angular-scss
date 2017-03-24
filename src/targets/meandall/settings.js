@@ -476,7 +476,33 @@ angular.module('mobiusApp.config', [])
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
-      }
+      },
+      'sectionImages':[
+        {
+          'desktop':{
+            'height':'530px',
+            'url':'/static/images/parallax-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
+            'position':'center -200px'
+          },
+          'mobile':{
+            'height':'530px',
+            'url':'/static/images/parallax-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
+            'position':'center -200px'
+          }
+        },
+        {
+          'desktop':{
+            'height':'530px',
+            'url':'/static/images/parallax-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
+            'position':'center -200px'
+          },
+          'mobile':{
+            'height':'530px',
+            'url':'/static/images/parallax-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
+            'position':'center -200px'
+          }
+        }
+      ]
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
@@ -754,10 +780,10 @@ angular.module('mobiusApp.config', [])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display':true
+        'display':false
       },
       'flexibleDates': {
-        'enable':true
+        'enable':false
       },
       'availability': {
         // Date range modification rules

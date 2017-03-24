@@ -188,6 +188,7 @@ angular
     'mobiusApp.directives.optionsDisabled',
     'mobiusApp.directives.slidedownNotifications',
     'mobiusApp.directives.inclusions',
+    'mobiusApp.directives.sectionImage',
 
     'internationalPhoneNumber',
 
@@ -681,6 +682,7 @@ angular
   $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
   $scope.userLang = user.getUserLanguage();
   $scope.appLang = stateService.getAppLanguageCode();
+  $scope.scrollService = scrollService;
 
   //If menu overlay is enabled, add the event handlers to open and close the menu
   if($scope.menuOverlayEnabled){
