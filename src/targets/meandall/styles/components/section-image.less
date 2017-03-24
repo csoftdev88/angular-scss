@@ -1,5 +1,8 @@
 section-image {
   display:block;
+  > div {
+    .transition(all, .3s, ease-in-out);
+  }
 }
 
 .parallax-image {
@@ -9,6 +12,9 @@ section-image {
   background-size: cover;
   background-repeat:no-repeat;
   background-attachment: fixed;
+  .viewport-mobile & {
+    background-attachment:initial;
+  }
 }
 
 #header-image {
@@ -17,11 +23,14 @@ section-image {
     padding:1em;
     display:block;
     position:absolute;
-    top:95px;
+    top: 50%;
     left:0;
     background:@c-white;
     -webkit-transition: all .33s cubic-bezier(0.165, 0.840, 0.440, 1.000);
     transition: all .33s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    -webkit-transform:translateY(-50%);
+    -ms-transform:translateY(-50%);
+    transform:translateY(-50%);
     .viewport-mobile & {
       display:none;
     }

@@ -481,24 +481,24 @@ angular.module('mobiusApp.config', [])
         {
           'desktop':{
             'height':'530px',
-            'url':'/static/images/parallax-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
+            'url':'/static/images/section-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
             'position':'center -200px'
           },
           'mobile':{
-            'height':'530px',
-            'url':'/static/images/parallax-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
-            'position':'center -200px'
+            'height':'370px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'position':'center center'
           }
         },
         {
           'desktop':{
             'height':'530px',
-            'url':'/static/images/parallax-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
+            'url':'/static/images/section-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
             'position':'center -200px'
           },
           'mobile':{
             'height':'530px',
-            'url':'/static/images/parallax-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
+            'url':'/static/images/section-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
             'position':'center -200px'
           }
         }
