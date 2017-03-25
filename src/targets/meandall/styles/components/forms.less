@@ -2,13 +2,27 @@ select {
   border: 2px solid @c-black;
 }
 
-.chosen-container,
 input[type="text"],
 input-value,
-.chosen-container-single .chosen-single,
 select {
   font-size: @size--2 !important;
   font-family:@ff-default;
   text-indent:0px !important;
   color:@c-black;
+}
+
+input[type="text"],
+input-value,
+select {
+  height: 36px;
+  line-height: 34px;
+  font-size: @size--2 !important;
+  color: @c-black !important;
+  span {
+    color: @c-black;
+  }
+}
+
+input[type="text"] {
+  border: 2px solid @c-black;
 }
