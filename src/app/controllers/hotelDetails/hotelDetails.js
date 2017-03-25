@@ -33,6 +33,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
 
+  var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
   var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
 
@@ -665,12 +666,13 @@ angular.module('mobius.controllers.hotel.details', [
     userPreferenceService.setCookie('roomsViewMode', mode);
   };
 
-  if(stateService.isMobile())
-  {
-    $scope.setRoomsViewMode('list');
-  }
-  else if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
+  //If room view type is stored in cookie, display this
+  if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
     $scope.setRoomsViewMode(mobiusUserPreferences.roomsViewMode);
+  }
+  //Otherwise display the default type if one is set, if not display as list
+  else {
+    $scope.setRoomsViewMode(defaultRoomsViewMode ? defaultRoomsViewMode : 'list');
   }
 
   $scope.hideRoom = function(room){
