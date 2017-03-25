@@ -101,6 +101,8 @@
 
     <ta-teaser ng-show="!ratesLoaded && isFromSearch && roomsConfig.includeTripAdvisorPreloader"></ta-teaser>
 
+    <section-image ng-if="config.sectionImages && config.sectionImages[1]" section="config.sectionImages[1]" when="'enter'" from=".75" to="0"></section-image>
+
     <div class="hotel-detail__rooms" ng-if="roomsViewMode !== 'compare'">
       <list-items class="rooms-list" ng-if="(ratesLoaded || !isFromSearch) && !preloader.visible">
         <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay">

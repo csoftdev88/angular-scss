@@ -1,47 +1,55 @@
 section-image {
-  display:block;
-  > div {
+  display: block;
+  overflow: visible;
+  position:relative;
+  >div {
     .transition(all, .3s, ease-in-out);
   }
 }
 
 .parallax-image {
-  width: 100%;
-  position:relative;
+  width: 200%;
+  left: -50%;
+  position:absolute;
   background-position: center center;
   background-size: cover;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   .viewport-mobile & {
-    background-attachment:initial;
+    background-attachment: initial;
   }
 }
 
 #header-image {
+  .parallax-image {
+    width: 100%;
+    left: initial;
+    position:relative;
+  }
   a {
-    width:200px;
-    padding:1em;
-    display:block;
-    position:absolute;
+    width: 200px;
+    padding: 1em;
+    display: block;
+    position: absolute;
     top: 50%;
-    left:0;
-    background:@c-white;
+    left: 0;
+    background: @c-white;
     -webkit-transition: all .33s cubic-bezier(0.165, 0.840, 0.440, 1.000);
     transition: all .33s cubic-bezier(0.165, 0.840, 0.440, 1.000);
-    -webkit-transform:translateY(-50%);
-    -ms-transform:translateY(-50%);
-    transform:translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     .viewport-mobile & {
-      display:none;
+      display: none;
     }
     img {
-      width:100%;
+      width: 100%;
     }
   }
   //This makes the logo disappear from header on scroll
   .scrolled & {
     a {
-      left:-22em;
+      left: -22em;
     }
   }
 }

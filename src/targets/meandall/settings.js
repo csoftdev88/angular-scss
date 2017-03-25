@@ -492,13 +492,13 @@ angular.module('mobiusApp.config', [])
         },
         {
           'desktop':{
-            'height':'530px',
-            'url':'/static/images/section-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
-            'position':'center -200px'
+            'height':'335px',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_2000,h_2000,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'position':'center center'
           },
           'mobile':{
-            'height':'530px',
-            'url':'/static/images/section-images/RS14544_DUSIMM_me_and_all_Fahrrad_012-lpr.jpg',
+            'height':'150px',
+            'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
             'position':'center -200px'
           }
         }
@@ -783,7 +783,7 @@ angular.module('mobiusApp.config', [])
         'display':false
       },
       'flexibleDates': {
-        'enable':false
+        'enable':true
       },
       'availability': {
         // Date range modification rules
@@ -943,6 +943,7 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': false,
         'hasTitle': false,
         'hideHeroSlider': true,
+        'defaultViewMode': 'compare',
         'hotelInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
