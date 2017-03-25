@@ -467,7 +467,9 @@ angular.module('mobiusApp.config', [])
         'hotelInfo': true,
         'hotelServices': false,
         'hotelRooms': false,
+        'hotelRoomsMobile': true,
         'hotelRoomsCompare': true,
+        'hotelInfoMobile':true,
         'hotelOffers': false,
         'hotelLocation': false
       },
@@ -500,6 +502,18 @@ angular.module('mobiusApp.config', [])
             'height':'150px',
             'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
             'position':'center -200px'
+          }
+        },
+        {
+          'desktop':{
+            'height':'210px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'position':'center center'
+          },
+          'mobile':{
+            'height':'370px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'position':'center center'
           }
         }
       ]
@@ -664,7 +678,7 @@ angular.module('mobiusApp.config', [])
       'GBP': {
         'code': 'GBP',
         'symbol': '£',
-        'format': '{{symbol}} {{amount}}'
+        'format': '{{symbol}}{{amount}}'
       },
 
       'USD': {
@@ -944,6 +958,15 @@ angular.module('mobiusApp.config', [])
         'hasTitle': false,
         'hideHeroSlider': true,
         'defaultViewMode': 'compare',
+        'compareView':{
+          'headingTop':true,
+          'amenitiesTop':true,
+          'displayHeader':true,
+          'slideWidth':'455',
+          'slideHeight':'175',
+          'thumbWidth':'110',
+          'thumbHeight':'38'
+        },
         'hotelInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5

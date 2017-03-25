@@ -1,6 +1,6 @@
 <hero-slider ng-if="!viewSettings.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 
-<section-image ng-if="config.sectionImages && config.sectionImages[0]" id="header-image" section="config.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="true"></section-image>
+<section-image ng-if="config.sectionImages && config.sectionImages[0]" id="header-image" section="config.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="true" description="details.descriptionShort"></section-image>
 
 <breadcrumbs stickable="main-header" id="breadcrumbs"></breadcrumbs>
 
@@ -38,5 +38,8 @@
     <!-- Growl notifications -->
     <growl-alerts class="growl-alerts-dir" booking-message="'_statistics_booking_message_'" views-message="'_statistics_views_message_'" searches-message="'_statistics_searches_message_'" languages-message="'_languages_message_'" retention-message="'_retention_message_'" hour="'_hour_'" hours="'_hours_'" day="'_day_'" days="'_days_'" week="'_week_'" weeks="'_weeks_'" position-reference="config.bookingStatistics.positionReference" display-time="config.bookingStatistics.displayTime" display-delay="config.bookingStatistics.displayDelay"></growl-alerts>
   </hotel-detail>
-  
 </main>
+
+<section-image ng-if="config.sectionImages && config.sectionImages[2]" id="bottom-image" section="config.sectionImages[2]" when="'enter'" from="0.5" to="0.4" show-logo="false"></section-image>
+
+

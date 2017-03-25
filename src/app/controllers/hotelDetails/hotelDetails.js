@@ -339,8 +339,8 @@ angular.module('mobius.controllers.hotel.details', [
           firstParaEnd = Math.max(firstParaEnd, 0);
           firstBr = Math.max(firstBr, 0);
           var shortDescLength = (firstBr > 0 && firstParaEnd > 0) ? Math.min(firstBr, firstParaEnd) : Math.max(firstBr, firstParaEnd);
-          $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
-          $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
+          $scope.details.shortenedDescription = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
+          $scope.details.hasViewMore = $scope.details.shortenedDescription.length < $scope.details.description.length;
         }
 
         //Breadcrumbs

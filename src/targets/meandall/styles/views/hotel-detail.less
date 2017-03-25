@@ -11,8 +11,12 @@ hotel-detail {
   }
   h1 {
     font-size: @heading-1-size;
+    .viewport-mobile & {
+      font-size: @heading-1-size-mobile;
+    }
   }
-  h2, h3 {
+  h2,
+  h3 {
     font-size: @heading-2-size;
   }
   .hotel-description {
@@ -107,40 +111,106 @@ hotel-detail {
         }
       }
     }
+    .compare-rooms-header {
+      position: relative;
+      padding: 45px 0;
+      h2 {
+        margin: 0;
+        font-size: @heading-1-size;
+        .viewport-mobile & {
+          font-size: @heading-1-size-mobile;
+        }
+      }
+      button-submit {
+        position: absolute;
+        right: 4%;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+    }
     .room-list-compare-container {
-      margin-top:2*@baseline;
       .rooms-list {
         text-align: center;
         list-item {
           background: @c-white;
           color: @c-black;
-          padding: 0;
+          padding: 25px 0 30px 0;
           margin: 0 2%;
-          width: 45%;
+          width: 46%;
           display: inline-block;
-          text-align:left;
+          text-align: left;
+          border: 0px none;
           .room-hide-btn {
-            display:none;
+            display: none;
           }
-          hero-slider .thumbnail-nav li {
-            margin-right:1%;
-            img {
-              width: 100%;
-              max-height: initial;
+          .list-item-info {
+            >div,
+            >header {
+              padding: 0 50px !important;
             }
-          }
-          .room-content {
+            .amenities {
+              padding: 0;
+              margin: 0 0 25px 0;
+              background: none;
+              li {
+                display: inline-block;
+                margin: 0 0 0 2px;
+                &:first-child {
+                  margin-left: 0;
+                }
+                span:first-child {
+                  display: block;
+                  img {
+                    height: 23px;
+                  }
+                }
+                .amenity-caption {
+                  display: none;
+                }
+              }
+            }
             .item-header {
               h3 {
-                color:@c-black;
+                color: @c-black;
                 font-size: @heading-2-size;
+                min-height: initial;
+                margin-bottom: 20px;
                 a {
-                  color:@c-black;
+                  color: @c-black;
+                }
+              }
+            }
+            .room-content {
+              max-height: 270px;
+            }
+            .description p {
+              color: @c-black;
+              font-size: @size-0;
+              line-height: @baseline;
+            }
+            .read-more {
+              display: none;
+            }
+            hero-slider {
+              margin-bottom: 20px;
+              .thumbnail-nav {
+                margin-top: 4px;
+                li {
+                  margin-right: 1%;
+                  img {
+                    width: 100%;
+                    max-height: initial;
+                  }
                 }
               }
             }
           }
         }
+      }
+      .compare-direction-btn {
+        display: none;
       }
     }
   }

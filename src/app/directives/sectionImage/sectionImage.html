@@ -3,5 +3,6 @@
     data-when="{{when}}" data-from="{{from}}" data-to="{{to}}" data-crop="false" data-decolor="100" data-easing="easein"
     ng-style="{'height': section.height, 'background-image': 'url(' + section.url + ')', 'background-position': section.position}">
     <a ng-if="showLogo && section.logoLink" href="{{logoLink}}" class="header-logo"><img src="/static/images/logo.png"></a>
+    <div ng-if="description" class="description" ng-bind-html="description | trustAsHtml"></div>
   </div>
 </div>

@@ -10,7 +10,8 @@ angular.module('mobiusApp.directives.sectionImage', [])
           to: '=',
           when: '=',
           section: '=',
-          showLogo: '='
+          showLogo: '=',
+          description: '='
         },
         templateUrl: 'directives/sectionImage/sectionImage.html',
         link: function(scope) {
