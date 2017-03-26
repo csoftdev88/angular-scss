@@ -714,7 +714,6 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.roomClick = function(room){
-    console.log('list item clicked');
     if($scope.config.rooms.roomsAsLinks && $stateParams.dates){
       $scope.goToRoom($scope.details.meta.slug, room.meta.slug);
     }
