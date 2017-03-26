@@ -721,7 +721,9 @@ angular.module('mobiusApp.config', [])
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
-      }
+      },
+      'hideHeroSlider': true,
+      'hideBreadCrumbs': true
     },
     'profilePage':{
       'headerPartial':{
@@ -731,6 +733,8 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       },
+      'hideHeroSlider': true,
+      'hideBreadCrumbs': true,
       'displaySummary': false,
       'displayMap': false,
       'allowPasswordChange': false

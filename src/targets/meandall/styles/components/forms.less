@@ -3,17 +3,14 @@ select {
 }
 
 input[type="text"],
+input[type="email"],
+input[type="password"],
 input-value,
 select {
   font-size: @size--2 !important;
   font-family:@ff-default;
   text-indent:0px !important;
   color:@c-black;
-}
-
-input[type="text"],
-input-value,
-select {
   height: 36px;
   line-height: 34px;
   font-size: @size--2 !important;
@@ -23,6 +20,9 @@ select {
   }
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
   border: 2px solid @c-black;
+  padding:0 5px !important;
 }
