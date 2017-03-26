@@ -1,6 +1,13 @@
 ///////////////////////
 //// HOTELS DETAIL ////
 ///////////////////////
+main.hotel-detail {
+  .viewport-mobile & {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
 hotel-detail {
   h1,
   h2 {
@@ -19,12 +26,29 @@ hotel-detail {
   h3 {
     font-size: @heading-2-size;
   }
+  h2 {
+    .viewport-mobile & {
+      font-size: @heading-2-size-mobile;
+    }
+  }
+  hr {
+    .viewport-mobile & {
+      display: none;
+    }
+  }
+  .hotel-detail-partials>.hotel-overview {
+    //Hide the first overview section on mobile
+    .viewport-mobile & {
+      display: none;
+    }
+  }
   .hotel-description {
     float: left;
     width: 60%;
     .viewport-mobile & {
       float: none;
       width: 100%;
+      padding-top: 35px;
     }
   }
   .hotel-info-amenities {

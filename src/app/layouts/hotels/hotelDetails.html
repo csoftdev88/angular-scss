@@ -4,7 +4,7 @@
 
 <breadcrumbs stickable="main-header" id="breadcrumbs"></breadcrumbs>
 
-<main class="grid-wrapper">
+<main class="grid-wrapper hotel-detail">
 
   <div class="preloader" ng-show="preloader.visible && !isFromSearch"></div>
 
@@ -31,7 +31,7 @@
       <local-info ng-if="showLocalInfo && localInfo && localInfo.time" local-info="localInfo" grid="6"></local-info>
     </header>
 
-    <div ng-repeat-start="partial in partials" ng-include="partial" include-replace ng-repeat-end></div>
+    <div ng-repeat-start="partial in partials" ng-include="partial" class="hotel-detail-partials" include-replace ng-repeat-end></div>
 
     <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
 
