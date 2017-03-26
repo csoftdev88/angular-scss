@@ -91,6 +91,7 @@
       <room-products ng-if="details && room._displayRates" ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}"
         id="{{'rates'+$index}}"></room-products>
     </div>
+     <i class="fa fa-angle-right" ng-if="config.rooms.roomsAsLinks"/>
     <!-- //list-item-container -->
   </list-item>
 
@@ -99,6 +100,6 @@
 
   <a href class="display-more-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < (rooms|filter:roomsDisplayFilter).length"
     ng-click="displayMoreRooms()">_view_more_rooms_</a>
-
+  
 </list-items>
 <h2 ng-if="!rooms.length">_no_room_found_</h2>
