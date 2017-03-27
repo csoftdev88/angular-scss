@@ -120,7 +120,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
       'integration': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
-      'staging': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
+      'staging': '//staging-api-lindner.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
       'live': '//meandallhotels.com/api/4.0/'
     },
@@ -433,7 +433,7 @@ angular.module('mobiusApp.config', [])
           'displayOtaRates': true,
           'highlightFirstRate': true,
           'showSlashThrough': true,
-          'showInclusions': false
+          'showInclusions': true
         },
         'upsells': {
           'display': true
@@ -563,7 +563,13 @@ angular.module('mobiusApp.config', [])
       'upsells': {
         'display': true
       },
+      'showProductImage':true,
+      'productImages': {
+        'height':160,
+        'width':185
+      },
       'displayAltProduct':false,
+      'tileGallery':true,
       'sectionImages':[
         {
           'desktop':{
@@ -579,8 +585,8 @@ angular.module('mobiusApp.config', [])
         },
         {
           'desktop':{
-            'height':'335px',
-            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_2000,h_2000,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'height':'215px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
             'position':'center center'
           },
           'mobile':{
@@ -596,8 +602,8 @@ angular.module('mobiusApp.config', [])
             'position':'center center'
           },
           'mobile':{
-            'height':'215px',
-            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_750,h_215,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'height':'195px',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_750,h_740,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
             'position':'center center'
           }
         }
@@ -1019,7 +1025,7 @@ angular.module('mobiusApp.config', [])
       },
       'roomDetails':{
         'hasViewMore': false,
-        'showInclusions': false,
+        'showInclusions': true,
         'showAmenitiesTop': false,
         'hideHeroSlider': true,
         'hideBreadcrumbs': true,

@@ -1,9 +1,10 @@
 .room-detail {
-  padding-top:0 !important;
+  padding-top: 0 !important;
 }
+
 hotel-room {
   h1 {
-    display:none;
+    display: none;
   }
   h2 {
     line-height: 1;
@@ -22,37 +23,126 @@ hotel-room {
     color: @c-primary;
   }
   hr {
-    display:none;
+    display: none;
   }
   .products-section {
-    background:@c-primary;
+    background: @c-primary;
+    padding: 10px 0 50px 0;
   }
-  section.header{
-    display:none;
+  section.header {
+    display: none;
+  }
+  .controls {
+    margin-bottom: 0;
   }
   list-items {
     list-item {
-      border-bottom:0px none;
-      border-top:2px solid @c-secondary;
+      border-bottom: 0px none;
+      border-top: 2px solid @c-secondary;
+      padding-top: 35px;
+      margin-top: 10px;
       &:first-of-type {
-        border-top:0px none;
+        border-top: 0px none;
+        padding-top: 10px;
+        margin-top: 0;
+      }
+      &:last-of-type {
+        border-bottom: 0px none;
       }
       h2 {
-        padding-top:0;
-        font-size:@heading-2-size;
-        line-height:1em;
+        padding-top: 0;
+        font-size: @heading-2-size;
+        line-height: 1em;
       }
       pricing-info {
-        border:0px none;
+        border: 0px none;
+        p {
+          span {
+            display: block;
+          }
+          .original-price {
+            color:@c-red;
+            text-decoration: line-through;
+            font-size:16px;
+            font-family:@ff-bold;
+          }
+          .value {
+            font-family:@ff-heading;
+            font-size:@heading-2-size;
+            color:@c-secondary;
+            font-weight:normal;
+          }
+          button-submit {
+            position:absolute;
+            bottom:0;
+            right:0;
+          }
+        }
       }
       description-info {
-        font-size:@size-0;
-        line-height:2em;
+        font-size: @size-0;
+        line-height: 2em;
+        .action-links {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+  pricing-switch a {
+    color: #ccc;
+    &.is-active {
+      color: @c-blue;
+    }
+  }
+  .room-details-right {
+    display:none;
+  }
+  section.room-images {
+    border-bottom:0px none;
+    .viewport-mobile & {
+      display:none;
+    }
+    h2 {
+      display:none;
+    }
+    .room-gallery {
+      margin:0;
+      li {
+        width:auto;
+        padding:8px;
+        margin:0;
+        box-sizing:border-box;
+        &.tile-1 {
+          width:36%;
+        }
+        &.tile-2 {
+          width:64%;
+        }
+        &.tile-3 {
+          width:50%;
+        }
+        &.tile-4 {
+          width:25%;
+        }
+        &.tile-5 {
+          width:25%;
+        }
+        &.tile-6 {
+          width:50%;
+        }
+        figure {
+          border:0px none;
+          max-height:initial;
+          img {
+            width:auto;
+          }
+        }
       }
     }
   }
 }
 
-.products-not-available, .reservations-not-available {
-  background:@c-primary;
+.products-not-available,
+.reservations-not-available {
+  background: @c-primary;
 }

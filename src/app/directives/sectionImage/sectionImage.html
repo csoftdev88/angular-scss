@@ -15,7 +15,7 @@
           <div ng-if="roomOverview.amenities.length" class="room-amenities">
             <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
             <amenities-list>
-              <amenity-item ng-repeat="amenity in roomOverview.amenities">
+              <amenity-item ng-repeat="amenity in roomOverview.amenities" ng-init="amenity.chainCode = property.chainCode">
                 <slug-img slug="amenity" type="room" width="15"></slug-img>
                 <span class="amenity-caption">{{amenity.name}}</span>
               </amenity-item>
