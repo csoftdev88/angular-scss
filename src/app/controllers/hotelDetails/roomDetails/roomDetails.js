@@ -10,6 +10,8 @@ angular.module('mobius.controllers.room.details', [])
   var numNights = 1;
 
   $scope.fromMeta = channelService.getChannel().name === 'meta' && Settings.UI.roomDetails.showMetaView ? true : false;
+  $scope.viewSettings = Settings.UI.viewsSettings.roomDetails;
+  $scope.config = Settings.UI.roomDetails;
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;

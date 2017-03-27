@@ -544,6 +544,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       'otherRooms':{
+        'hide':true,
         'useThumbnails': false,
         'thumbnails':{
           'width': 150,
@@ -558,12 +559,49 @@ angular.module('mobiusApp.config', [])
         'displayTime':20000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
-      'showSlashThrough': false,
-      'showMetaView': true,
+      'showSlashThrough': true,
       'upsells': {
         'display': true
       },
-      'displayAltProduct':false
+      'displayAltProduct':false,
+      'sectionImages':[
+        {
+          'desktop':{
+            'height':'1090px',
+            'url':'/static/images/section-images/RS10634_me_and_all_duesseldorf_musterzimmer_3-lpr.jpg',
+            'position':'center center'
+          },
+          'mobile':{
+            'height':'370px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'position':'center center'
+          }
+        },
+        {
+          'desktop':{
+            'height':'335px',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_2000,h_2000,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'position':'center center'
+          },
+          'mobile':{
+            'height':'150px',
+            'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
+            'position':'center center'
+          }
+        },
+        {
+          'desktop':{
+            'height':'210px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'position':'center center'
+          },
+          'mobile':{
+            'height':'215px',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_750,h_215,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'position':'center center'
+          }
+        }
+      ]
     },
 
     'reservations': {
@@ -858,7 +896,7 @@ angular.module('mobiusApp.config', [])
       //Booking steps navigation
       'bookingStepsNav':{
         'display': true,
-        'showInReservationWidget': true
+        'showInReservationWidget': false
       },
       //Default value for newsletter opt-in checkbox
       'newsLetterOptedIn': true,
@@ -962,6 +1000,7 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': false,
         'hasTitle': false,
         'hideHeroSlider': true,
+        'hideBreadcrumbs': true,
         'defaultViewMode': 'compare',
         'compareView':{
           'hideOnMobile':true,
@@ -979,8 +1018,11 @@ angular.module('mobiusApp.config', [])
         }
       },
       'roomDetails':{
-        'hasViewMore': true,
+        'hasViewMore': false,
         'showInclusions': false,
+        'showAmenitiesTop': false,
+        'hideHeroSlider': true,
+        'hideBreadcrumbs': true,
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5

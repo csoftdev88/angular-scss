@@ -11,7 +11,8 @@ angular.module('mobiusApp.directives.sectionImage', [])
           when: '=',
           section: '=',
           showLogo: '=',
-          description: '='
+          description: '=',
+          roomOverview: '='
         },
         templateUrl: 'directives/sectionImage/sectionImage.html',
         link: function(scope) {

@@ -31,17 +31,47 @@ section-image {
       display: block;
     }
   }
+  .room-heading-overview {
+    background:@c-secondary;
+    position: absolute;
+    top:575px;
+    width:100%;
+    padding:55px 0;
+    .viewport-mobile & {
+      display:none;
+    }
+    .left-content {
+      width:60%;
+      float:left;
+    }
+    .description {
+      display:block;
+      padding:0;
+      position:initial;
+      bottom:initial
+    }
+    .room-amenities {
+      float: left;
+      width: 40%;
+      padding-left: 100px;
+      box-sizing: border-box;
+      amenities-list {
+        margin-bottom:0;
+      }
+    }
+  }
 }
 
-#header-image {
+#hotel-header-image, #room-header-image  {
   .parallax-image {
     width: 100%;
     left: initial;
     position: relative;
   }
-  a {
-    width: 200px;
+  .header-logo {
+    width: 290px;
     padding: 1em;
+    box-sizing:border-box;
     display: block;
     position: absolute;
     top: 50%;
@@ -64,6 +94,13 @@ section-image {
     a {
       left: -22em;
     }
+  }
+}
+
+#room-header-image {
+  .header-logo {
+    top:45px;
+    transform:none;
   }
 }
 

@@ -1,6 +1,8 @@
-<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<hero-slider ng-if="!viewSettings.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 
-<breadcrumbs stickable="main-header"></breadcrumbs>
+<section-image ng-if="config.sectionImages && config.sectionImages[0]" id="room-header-image" section="config.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="true" room-overview="roomDetails"></section-image>
+
+<breadcrumbs ng-if="!viewSettings.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
 
 <main class="grid-wrapper">
 

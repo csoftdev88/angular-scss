@@ -207,7 +207,7 @@
     </section>
   </div>
   <hr/>
-  <h2 class="other-rooms-title" ng-if="property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) " ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
+  <h2 class="other-rooms-title" ng-if="!config.otherRooms.hide && property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) " ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
 
   <!-- Keeping this just in case
   <div ng-if="!otherRooms && roomDetails && !otherRoomsLoading" class="load-more-rooms">
@@ -215,10 +215,10 @@
   </div>
   -->
 
-  <div class="preloader relative" ng-show="otherRoomsLoading"></div>
+  <div class="preloader relative" ng-show="!config.otherRooms.hide && otherRoomsLoading"></div>
 
   <!-- Other rooms nav -->
-  <section ng-show="property.available && previousRoom && nextRoom && !config.otherRooms.useThumbnails">
+  <section ng-show="!config.otherRooms.hide && property.available && previousRoom && nextRoom && !config.otherRooms.useThumbnails">
 
     <nav class="other-rooms-nav">
       <a href="" ng-click="goToRoom(property.meta.slug, previousRoom.meta.slug)"><span ng-bind-html="previousRoom.name | mainHeaderStyle"></span></a>
@@ -228,7 +228,7 @@
   </section>
 
   <!-- Other rooms thumbnails -->
-  <section ng-show="property.available && otherRooms && otherRooms.length > 1 && config.otherRooms.useThumbnails">
+  <section ng-show="!config.otherRooms.hide && property.available && otherRooms && otherRooms.length > 1 && config.otherRooms.useThumbnails">
 
     <list-items class="grid-view other-rooms">
       <list-item
