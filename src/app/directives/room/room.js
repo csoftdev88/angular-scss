@@ -551,6 +551,20 @@ angular.module('mobiusApp.directives.room', [])
 
       scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
       scope.switchToMRBMode = bookingService.switchToMRBMode;
+
+      //Event only used if entire rate is set as link
+      scope.productClick = function(product){
+        if(scope.isMobile && scope.config.ratesAsLinks){
+          if(!product.memberOnly || scope.isUserLoggedIn())
+          {
+            scope.selectProduct(product);
+          }
+          else if(product.memberOnly && !scope.isUserLoggedIn() && !scope.isModifyingAsAnonymous())
+          {
+            scope.sso.login();
+          }
+        }
+      };
     }
   };
 });

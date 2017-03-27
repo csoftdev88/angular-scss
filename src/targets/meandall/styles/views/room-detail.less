@@ -1,5 +1,8 @@
 .room-detail {
   padding-top: 0 !important;
+  .viewport-mobile & {
+    margin-top:0 !important;
+  }
 }
 
 hotel-room {
@@ -36,11 +39,16 @@ hotel-room {
     margin-bottom: 0;
   }
   list-items {
+    .viewport-mobile & {
+      margin-left:0;
+      margin-right:0;
+    }
     list-item {
       border-bottom: 0px none;
       border-top: 2px solid @c-secondary;
       padding-top: 35px;
       margin-top: 10px;
+      cursor:auto !important;
       &:first-of-type {
         border-top: 0px none;
         padding-top: 10px;
@@ -49,13 +57,37 @@ hotel-room {
       &:last-of-type {
         border-bottom: 0px none;
       }
+      .viewport-mobile & {
+        padding:0 20px 0 0;
+        border-top:0px none;
+        cursor:pointer;
+      }
+      .list-item-header {
+        .clearfix;
+      }
       h2 {
         padding-top: 0;
         font-size: @heading-2-size;
         line-height: 1em;
+        .viewport-mobile & {
+          font-size:20px;
+          color:@c-grey;
+          float:left;
+          width:60%;
+        }
       }
       pricing-info {
         border: 0px none;
+        .viewport-mobile & {
+          float:right;
+          margin-top:0 !important;
+          right:0;
+        }
+        button-submit, .button {
+          .viewport-mobile & {
+            display:none;
+          }
+        }
         p {
           span {
             display: block;
@@ -71,6 +103,15 @@ hotel-room {
             font-size:@heading-2-size;
             color:@c-secondary;
             font-weight:normal;
+            .viewport-mobile & {
+              font-size:@size-0;
+              color:@c-grey;
+            }
+            + span {
+              .viewport-mobile & {
+                display:none;
+              }
+            }
           }
           button-submit {
             position:absolute;
@@ -82,8 +123,32 @@ hotel-room {
       description-info {
         font-size: @size-0;
         line-height: 2em;
+        .viewport-mobile & {
+          font-size: 16px;
+          line-height: 20px;
+          width: 100%;
+        }
         .action-links {
           margin-top: 0;
+          .viewport-mobile & {
+            display:none;
+          }
+        }
+      }
+      .wide-button {
+        .viewport-mobile & {
+          display:none;
+        }
+      }
+      > i {
+        .viewport-mobile & {
+          position:absolute;
+          right:0;
+          top:50%;
+          -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          color:@c-secondary;
         }
       }
     }
@@ -96,6 +161,21 @@ hotel-room {
   }
   .room-details-right {
     display:none;
+    .viewport-mobile & {
+      display:block;
+      padding:35px; 
+    }
+  }
+  section.room-description {
+    padding:0;
+    margin:0 0 35px 0;
+    border:0px none;
+    h2 {
+      font-size:28px;
+    }
+    p {
+      margin-top:0;
+    }
   }
   section.room-images {
     border-bottom:0px none;

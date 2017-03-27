@@ -531,6 +531,7 @@ angular.module('mobiusApp.config', [])
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
       'showDescription': false,
+      'showDescriptionBottom': true,
       //show room highlight before description
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,
@@ -570,6 +571,7 @@ angular.module('mobiusApp.config', [])
       },
       'displayAltProduct':false,
       'tileGallery':true,
+      'ratesAsLinks':true,
       'sectionImages':[
         {
           'desktop':{
@@ -591,7 +593,7 @@ angular.module('mobiusApp.config', [])
           },
           'mobile':{
             'height':'150px',
-            'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
+            'url':'/static/images/section-images/RS13126_DUSIMM_Zimmer_813_SUPERIOR_13-lpr.jpg',
             'position':'center center'
           }
         },
@@ -602,7 +604,7 @@ angular.module('mobiusApp.config', [])
             'position':'center center'
           },
           'mobile':{
-            'height':'195px',
+            'height':'215px',
             'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_750,h_740,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
             'position':'center center'
           }
@@ -734,8 +736,8 @@ angular.module('mobiusApp.config', [])
 
       'EUR': {
         'code': 'EUR',
-        'symbol': '€',
-        'format': '{{symbol}}{{amount}}'
+        'symbol': 'EUR',
+        'format': '{{symbol}} {{amount}}'
       }
     },
 

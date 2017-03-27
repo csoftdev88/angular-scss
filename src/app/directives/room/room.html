@@ -65,7 +65,7 @@
         </div>
 
 
-        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}">
+        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-click="productClick(product)">
           <img ng-src="{{product.image.uri | cloudinaryImage : 185 : 160 : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
             ng-if="config.showProductImage && product.image && product.image.uri" />
           <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
@@ -133,6 +133,7 @@
             <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
               ng-click="sso.login()">Login</a>
           </div>
+          <i class="fa fa-angle-right" ng-if="config.ratesAsLinks"/>
         </list-item>
       </list-items>
 
@@ -187,27 +188,27 @@
             <img ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 370 : 180 : 'fill'}}" alt="{{roomDetails.images[0].alt}}" />
           </figure>
         </li>
-        <li ng-if="roomDetails.images[1]" class="tile-2 with-special-eye-hover" ng-click="openGallery(0)">
+        <li ng-if="roomDetails.images[1]" class="tile-2 with-special-eye-hover" ng-click="openGallery(1)">
           <figure>
             <img ng-src="{{roomDetails.images[1].uri | cloudinaryImage : 700 : 180 : 'fill'}}" alt="{{roomDetails.images[1].alt}}" />
           </figure>
         </li>
-        <li ng-if="roomDetails.images[2]" class="tile-3 with-special-eye-hover" ng-click="openGallery(0)">
+        <li ng-if="roomDetails.images[2]" class="tile-3 with-special-eye-hover" ng-click="openGallery(2)">
           <figure>
             <img ng-src="{{roomDetails.images[2].uri | cloudinaryImage : 540 : 375 : 'fill'}}" alt="{{roomDetails.images[2].alt}}" />
           </figure>
         </li>
-        <li ng-if="roomDetails.images[3]" class="tile-4 with-special-eye-hover" ng-click="openGallery(0)">
+        <li ng-if="roomDetails.images[3]" class="tile-4 with-special-eye-hover" ng-click="openGallery(3)">
           <figure>
             <img ng-src="{{roomDetails.images[3].uri | cloudinaryImage : 270 : 180 : 'fill'}}" alt="{{roomDetails.images[3].alt}}" />
           </figure>
         </li>
-        <li ng-if="roomDetails.images[4]" class="tile-5 with-special-eye-hover" ng-click="openGallery(0)">
+        <li ng-if="roomDetails.images[4]" class="tile-5 with-special-eye-hover" ng-click="openGallery(4)">
           <figure>
             <img ng-src="{{roomDetails.images[4].uri | cloudinaryImage : 270 : 180 : 'fill'}}" alt="{{roomDetails.images[4].alt}}" />
           </figure>
         </li>
-        <li ng-if="roomDetails.images[5]" class="tile-6 with-special-eye-hover" ng-click="openGallery(0)">
+        <li ng-if="roomDetails.images[5]" class="tile-6 with-special-eye-hover" ng-click="openGallery(5)">
           <figure>
             <img ng-src="{{roomDetails.images[5].uri | cloudinaryImage : 540 : 180 : 'fill'}}" alt="{{roomDetails.images[5].alt}}" />
           </figure>
@@ -217,6 +218,9 @@
   </div>
 
   <div class="room-details-right" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+    <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescriptionBottom">
+      <p ng-bind-html="sanitize(roomDetails.description)"></p>
+    </section>
     <section ng-if="roomDetails.amenities.length && !viewSettings.showAmenitiesTop" class="room-amenities">
       <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
 
