@@ -1,25 +1,22 @@
+.room-detail {
+  padding-top:0 !important;
+}
 hotel-room {
-  h1,
+  h1 {
+    display:none;
+  }
   h2 {
     line-height: 1;
+    .viewport-mobile & {
+      font-size: @heading-2-size-mobile;
+    }
     strong {
       font-weight: normal;
-    }
-  }
-  h1 {
-    font-size: @heading-1-size;
-    .viewport-mobile & {
-      font-size: @heading-1-size-mobile;
     }
   }
   h2,
   h3 {
     font-size: @heading-2-size;
-  }
-  h2 {
-    .viewport-mobile & {
-      font-size: @heading-2-size-mobile;
-    }
   }
   p {
     color: @c-primary;

@@ -28,6 +28,7 @@ section-image {
       margin-bottom:30px;
     }
     .viewport-mobile & {
+      width:100%;
       display: block;
     }
   }
@@ -38,11 +39,22 @@ section-image {
     width:100%;
     padding:55px 0;
     .viewport-mobile & {
-      display:none;
+      top:initial;
+      bottom:35px;
+      padding:30px 15px;
+    }
+    .grid-wrapper {
+      .viewport-mobile & {
+        padding:0;
+      }
     }
     .left-content {
       width:60%;
       float:left;
+      .viewport-mobile & {
+        float:none;
+        width:100%;
+      }
     }
     .description {
       display:block;
@@ -55,6 +67,9 @@ section-image {
       width: 40%;
       padding-left: 100px;
       box-sizing: border-box;
+      .viewport-mobile & {
+        display:none;
+      }
       amenities-list {
         margin-bottom:0;
       }

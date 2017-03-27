@@ -530,7 +530,7 @@ angular.module('mobiusApp.config', [])
       'hasBreadcrumbsSecondaryNav': false,
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
-      'showDescription': true,
+      'showDescription': false,
       //show room highlight before description
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,
@@ -573,7 +573,7 @@ angular.module('mobiusApp.config', [])
           },
           'mobile':{
             'height':'370px',
-            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_750,h_740,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
             'position':'center center'
           }
         },
@@ -1026,7 +1026,8 @@ angular.module('mobiusApp.config', [])
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
-        }
+        },
+        'fullWidthSections': true
       },
       'userProfile':{
         'hasAvatar': true,
