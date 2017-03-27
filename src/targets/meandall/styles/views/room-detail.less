@@ -24,4 +24,35 @@ hotel-room {
   hr {
     display:none;
   }
+  .products-section {
+    background:@c-primary;
+  }
+  section.header{
+    display:none;
+  }
+  list-items {
+    list-item {
+      border-bottom:0px none;
+      border-top:2px solid @c-secondary;
+      &:first-of-type {
+        border-top:0px none;
+      }
+      h2 {
+        padding-top:0;
+        font-size:@heading-2-size;
+        line-height:1em;
+      }
+      pricing-info {
+        border:0px none;
+      }
+      description-info {
+        font-size:@size-0;
+        line-height:2em;
+      }
+    }
+  }
+}
+
+.products-not-available, .reservations-not-available {
+  background:@c-primary;
 }
