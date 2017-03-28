@@ -906,11 +906,12 @@ angular.module('mobiusApp.config', [])
         'display': true,
         'showInReservationWidget': false
       },
+      'detailsBeforeForm':true,
       //Default value for newsletter opt-in checkbox
       'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
-        'display': true
+        'display': false
       },
       //Additional details screen
       'additionalDetails':{

@@ -1,0 +1,35 @@
+.reservation-page {
+  background: @c-primary;
+  color: @c-secondary;
+  reservation-widget {
+    box-shadow: none;
+    aside[grid="5"],
+    div[grid="7"] {
+      float: right;
+      .viewport-mobile & {
+        float: none;
+      }
+    }
+    form {
+      background: @c-secondary;
+      padding: 10px 25px 18px;
+    }
+    h3 {
+      font-size: @heading-2-size;
+      margin-bottom:30px;
+      .viewport-mobile & {
+        font-size: @heading-2-size-mobile;
+      }
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    .chosen-container,
+    .chosen-container .chosen-single,
+    textarea {
+      height:36px;
+      line-height:34px;
+    }
+  }
+}
