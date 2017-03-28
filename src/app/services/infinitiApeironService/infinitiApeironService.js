@@ -20,6 +20,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
           console.log('Infiniti apeiron purchase tracking error: ' + angular.toJson(err));
         });
+        //POST every purchase event to duplication end-point
         apiService.infinitiApeironPost(duplicationEndpoint, postData, username, password).then(function() {}, function(err) {
           console.log('Infiniti apeiron duplication endpoint purchase tracking error: ' + angular.toJson(err));
         });
@@ -34,6 +35,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
               console.log('Infiniti apeiron search tracking error: ' + angular.toJson(err));
             });
+            //POST every track search event to duplication end-point
             apiService.infinitiApeironPost(duplicationEndpoint, postData, username, password).then(function() {}, function(err) {
               console.log('Infiniti apeiron duplication endpoint search tracking error: ' + angular.toJson(err));
             });
