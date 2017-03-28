@@ -419,7 +419,7 @@ angular.module('mobiusApp.config', [])
         'includeTripAdvisorPreloader': false,
         // Room Rates
         'rates': {
-          'bookNowButtonText': 'Book Now',
+          'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
           'ratesPerRoomOnDesktop': 3,
           'ratesPerRoomOnMobile': 2,
           'showTagline': true,
