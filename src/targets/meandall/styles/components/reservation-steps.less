@@ -10,6 +10,10 @@
   padding: 0;
   background: #1a1919;
   padding: 35px 35px 70px 35px;
+  .viewport-mobile & {
+    width: 100%;
+    top: initial;
+  }
   h4 {
     display: none;
   }
@@ -19,8 +23,11 @@
     li {
       display: inline-block;
       margin: 0 5%;
-      .viewport-tablet &{
-        margin:0 3%;
+      .viewport-tablet & {
+        margin: 0 3%;
+      }
+      .viewport-mobile & {
+        margin: 0 2%;
       }
       .button {
         position: relative;
@@ -33,19 +40,24 @@
         border: 2px solid @c-primary;
         border-radius: 8px;
         line-height: 50px;
+        box-shadow: none;
         &:before {
-          content:"";
-          width:200%;
-          height:3px;
-          background:white;
-          display:block;
-          position:absolute;
-          top:50%;
-          left:-200%;
-          z-index:-1;
+          content: "";
+          width: 200%;
+          height: 3px;
+          background: white;
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: -200%;
+          z-index: -1;
           .viewport-tablet & {
-            width:125%;
-            left:-125%;
+            width: 125%;
+            left: -125%;
+          }
+          .viewport-mobile & {
+            width: 75%;
+            left: -75%;
           }
         }
         .dot {
@@ -53,13 +65,14 @@
         }
         .text {
           display: block;
-          font-family: @ff-default;
+          font-family: @ff-bold;
           color: #9b9b9b;
           font-size: 13px;
           line-height: 1em;
           position: absolute;
           top: 57px;
           left: 50%;
+          width: 140%;
           -webkit-transform: translateX(-50%);
           -ms-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -72,7 +85,7 @@
         }
       }
       &:first-child .button:before {
-        display:none;
+        display: none;
       }
       &.current {
         .button {

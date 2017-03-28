@@ -1,9 +1,16 @@
-.reservation-page {
+main.reservation-page {
   background: @c-primary;
   color: @c-secondary;
+  .viewport-mobile & {
+    margin-top:0 !important;
+    padding-top:0 !important;
+  }
   reservation-widget {
     box-shadow: none;
     padding-top:0;
+    .viewport-mobile & {
+      margin-top:130px;
+    }
     aside[grid="5"],
     div[grid="7"] {
       float: right;

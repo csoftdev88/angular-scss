@@ -1,7 +1,7 @@
 <hero-slider content="heroContent" ng-if="bookingConfig.displayHeroSlider" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 <!--<breadcrumbs stickable="main-header"></breadcrumbs>-->
 
-<section-image ng-if="bookingConfig.sectionImages && bookingConfig.sectionImages[0]" section="bookingConfig.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
+<section-image ng-if="bookingConfig.sectionImages && bookingConfig.sectionImages[0]" id="reservation-header-image" section="bookingConfig.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
 
 <main class="reservation-page" ng-class="{'no-hero': !bookingConfig.displayHeroSlider}">
   <div class="grid-wrapper">
