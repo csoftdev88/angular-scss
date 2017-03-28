@@ -56,6 +56,7 @@ angular.module('mobiusApp.config', [])
     'development': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-development',
       'username': 'sandman',
@@ -64,6 +65,7 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
@@ -74,6 +76,7 @@ angular.module('mobiusApp.config', [])
     'staging': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -84,6 +87,7 @@ angular.module('mobiusApp.config', [])
     'uat': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -92,6 +96,7 @@ angular.module('mobiusApp.config', [])
     'live': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-live',
       'username': 'sandman',
