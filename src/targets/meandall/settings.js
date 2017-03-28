@@ -736,8 +736,8 @@ angular.module('mobiusApp.config', [])
 
       'EUR': {
         'code': 'EUR',
-        'symbol': 'EUR',
-        'format': '{{symbol}} {{amount}}'
+        'symbol': '€',
+        'format': '{{symbol}}{{amount}}'
       }
     },
 
