@@ -8,6 +8,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var endpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].endpoint : null;
+    var duplicationEndpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].duplicationEndpoint : null;
     var username = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].username : null;
     var password = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].password : null;
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
@@ -19,6 +20,9 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
           console.log('Infiniti apeiron purchase tracking error: ' + angular.toJson(err));
         });
+        apiService.infinitiApeironPost(duplicationEndpoint, postData, username, password).then(function() {}, function(err) {
+          console.log('Infiniti apeiron duplication endpoint purchase tracking error: ' + angular.toJson(err));
+        });
       }
     }
 
@@ -29,6 +33,9 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             var postData = buildSearchData(chainData, propertyData, stateParams, order, products, room, selectedRate, countries, titles);
             apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
               console.log('Infiniti apeiron search tracking error: ' + angular.toJson(err));
+            });
+            apiService.infinitiApeironPost(duplicationEndpoint, postData, username, password).then(function() {}, function(err) {
+              console.log('Infiniti apeiron duplication endpoint search tracking error: ' + angular.toJson(err));
             });
           });
         });
