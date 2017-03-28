@@ -4,7 +4,7 @@
 */
 
 angular.module('mobiusApp.services.reservation', [])
-.service( 'reservationService',  function(apiService, user) {
+.service( 'reservationService',  function(apiService, user, $q) {
   function createReservation(property, rooms, data) {
     return apiService.post(apiService.getFullURL('reservations.new', {property:property, rooms:rooms}), data);
   }
@@ -100,6 +100,10 @@ angular.module('mobiusApp.services.reservation', [])
     return apiService.get(apiService.getFullURL('reservations.checkVoucher'), params);
   }
 
+  function getRoomUpgrade(upgradeGuid){
+    return apiService.get(apiService.getFullURL('reservations.upgradeRoom', {upgradeGuid: upgradeGuid}));
+  }
+
   // Public methods
   return {
     createReservation: createReservation,
@@ -117,6 +121,7 @@ angular.module('mobiusApp.services.reservation', [])
     find: find,
     updateAnonUserProfile: updateAnonUserProfile,
     getAnonUserProfile: getAnonUserProfile,
-    checkVoucher: checkVoucher
+    checkVoucher: checkVoucher,
+    getRoomUpgrade: getRoomUpgrade
   };
 });
