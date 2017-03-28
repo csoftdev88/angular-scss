@@ -440,11 +440,11 @@ angular.module('mobiusApp.config', [])
         },
         'alternativeDisplays': {
           'dates':{
-            'enable':true,
+            'enable':false,
             'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
           },
           'properties':{
-            'enable':true
+            'enable':false
           }
         }
       },
@@ -913,6 +913,44 @@ angular.module('mobiusApp.config', [])
       'loginCta':{
         'display': false
       },
+      'sectionImages':[
+        {
+          'desktop':{
+            'height':'215px',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_2000,h_2000,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'position':'center center'
+          },
+          'mobile':{
+            'height':'370px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'position':'center center'
+          }
+        },
+        {
+          'desktop':{
+            'height':'335px',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_2000,h_2000,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'position':'center center'
+          },
+          'mobile':{
+            'height':'150px',
+            'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
+            'position':'center center'
+          }
+        },
+        {
+          'desktop':{
+            'height':'210px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'position':'center center'
+          },
+          'mobile':{
+            'height':'215px',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_750,h_215,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'position':'center center'
+          }
+        }
+      ],
       //Additional details screen
       'additionalDetails':{
         'departureTime': {
