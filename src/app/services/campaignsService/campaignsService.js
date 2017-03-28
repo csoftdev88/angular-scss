@@ -293,7 +293,8 @@ angular.module('mobiusApp.services.campaigns', [])
         $rootScope.campaign.sideRails = {};
         $rootScope.campaign.sideRails.display = false;
       }
-      //If not on an offer page show the rest of the campaign material
+
+      //If not on an offer page or reservation page show the rest of the campaign material
       if (!$stateParams.code && $state.current.parent !== 'reservation') {
         if (!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images && $rootScope.campaign.pageCurl.images.uri && !stateService.isMobile()) {
           $rootScope.campaign.pageCurl.display = true;
@@ -334,13 +335,6 @@ angular.module('mobiusApp.services.campaigns', [])
       } else {
         addCampaignCookie($rootScope.campaign);
       }
-
-      //Update booking bar with params
-      $timeout(function () {
-        // TODO: Check other code types
-        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', $stateParams);
-      }, 0);
-
     }
 
     function disableActiveCampaign() {
