@@ -408,7 +408,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
       infinitiApeironData.transaction = {
         'transactionType': 'search',
-        'id': null,
+        'id': 'search',
         'uuid': sessionCookie.sessionData.sessionId,
         'totalRevenue': null,
         'totalPrice': null,
