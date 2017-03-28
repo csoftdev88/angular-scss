@@ -176,18 +176,21 @@ hotel-detail {
             }
             .amenities {
               padding: 0;
-              margin: 0 0 25px 0;
+              margin: 0 0 20px 0;
               background: none;
               li {
                 display: inline-block;
-                margin: 0 0 0 2px;
+                margin: 0 0 0 7px;
                 &:first-child {
                   margin-left: 0;
                 }
                 span:first-child {
                   display: block;
                   img {
-                    height: 23px;
+                    max-height: 23px;
+                    -webkit-filter: invert(1);
+                    filter: invert(1);
+                    opacity:0.4;
                   }
                 }
                 .amenity-caption {
