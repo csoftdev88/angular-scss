@@ -12,6 +12,16 @@ room-products {
 						}						
 					}
 				}
+				&.is-member-only {
+					&.is-member-only-disabled{
+						button-submit,
+						.button{
+							background-color:@c-button;
+							box-shadow:0 1px 0 0 darken(@c-button, 15%),
+              inset 0px 0px 10px 30px @c-button;
+						}
+					}
+				}
 				.rate-description {
 					.viewport-mobile & {
 						width:50%;
