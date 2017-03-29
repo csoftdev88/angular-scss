@@ -650,6 +650,8 @@ angular.module('mobiusApp.config', [])
       'displayAddonComments': false,
       'hideHeroSliderOnReservations':true,
       'breakdownLinkAfterTotal':true,
+      'displayActionsInDetails':true,
+      'displayPoliciesInDetails':true,
       'sectionImages':[
         {
           'desktop':{
