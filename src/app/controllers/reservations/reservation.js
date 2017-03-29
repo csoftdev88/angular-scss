@@ -231,7 +231,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     //scrollToDetails('reservationDetailsForm');
-    scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
+    scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
 
   }
 
@@ -393,7 +393,7 @@ angular.module('mobius.controllers.reservation', [])
         if ($scope.invalidFormData.error) {
           //scrollToDetails('alert-warning');
         } else {
-          scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
+          scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
         }
         $rootScope.showHomeBreadCrumb = false;
         break;
@@ -401,14 +401,14 @@ angular.module('mobius.controllers.reservation', [])
         setBreadCrumbs(BILLING_DETAILS);
         $scope.continueName = 'continue';
         //scrollToDetails('reservationBillingForm');
-        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationBillingForm');
+        scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationBillingForm');
         $rootScope.showHomeBreadCrumb = false;
         break;
       case 'reservation.confirmation':
         setBreadCrumbs(CONFIRMATION);
         $scope.continueName = 'confirm';
         //scrollToDetails('reservationConfirmation');
-        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationConfirmation');
+        scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationConfirmation');
         $rootScope.showHomeBreadCrumb = false;
         break;
       case 'reservation.after':

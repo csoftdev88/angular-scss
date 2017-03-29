@@ -893,6 +893,8 @@ angular.module('mobiusApp.config', [])
       'priceBreakdownExtended': true,
       //display hero slider on booking page
       'displayHeroSlider': false,
+      //Display the overview items on single line (adults, children, check-in etc)
+      'dataOverviewSingleLine': true,
       //display advanced header
       'headerPartial':{
         'display': false,

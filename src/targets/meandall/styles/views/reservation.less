@@ -18,6 +18,9 @@ main.reservation-page {
         float: none;
       }
     }
+    aside[grid="5"] {
+      font-size:@size--1;
+    }
     form {
       background: @c-secondary;
       box-sizing: border-box;
@@ -93,6 +96,15 @@ main.reservation-page {
           border: 0px none;
           font-size: @size--1;
         }
+      }
+    }
+    .reservation-data {
+      font-size:17px;
+      label {
+        color:@c-secondary;
+      }
+      td {
+        text-align:right;
       }
     }
   }
