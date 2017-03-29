@@ -59,6 +59,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   $scope.isEditable = $stateParams.view !== 'summary';
   $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
   $scope.shareConfig = Settings.UI.shareLinks;
+  $scope.viewSettings = Settings.UI.viewsSettings.reservationDetails;
 
   $timeout(function() {
     $rootScope.$broadcast('floatingBarEvent', {

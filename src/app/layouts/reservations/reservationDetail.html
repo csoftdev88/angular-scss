@@ -63,7 +63,7 @@
             _booked_: {{reservation.bookingDate | dateTime}}
           </div>
         </header>
-
+        
         <div class="tables">
           <figure ng-switch="isEditable && reservation.status !== 'Cancelled'">
             <img ng-if="roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
@@ -93,14 +93,14 @@
                 <tr>
                   <th>_check_in_:</th>
                   <td>{{reservation.arrivalDate | dateTime}}</td>
-                  <th>_adults_:</th>
-                  <td>{{getCount('adults')}}</td>
+                  <th class="adults">_adults_:</th>
+                  <td class="adults">{{getCount('adults')}}</td>
                 </tr>
                 <tr>
-                  <th>_check_out_:</th>
-                  <td>{{reservation.departureDate | dateTime}}</td>
-                  <th>_children_:</th>
-                  <td>{{getCount('children')}}</td>
+                  <th class="check-out">_check_out_:</th>
+                  <td class="check-out">{{reservation.departureDate | dateTime}}</td>
+                  <th class="children">_children_:</th>
+                  <td class="children">{{getCount('children')}}</td>
                 </tr>
               </tbody>
             </table>
@@ -203,7 +203,7 @@
                 <span class="total">_total_:</span>
                 <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}</span>
                 <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
-                <a href ng-click="openPoliciesInfo()">_view_policies_</a>
+                <a href class="reservation-view-policies" ng-click="openPoliciesInfo()">_view_policies_</a>
               </div>
             </div>
 

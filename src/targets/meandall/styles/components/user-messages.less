@@ -1,0 +1,32 @@
+user-messages {
+  background:transparent;
+  box-shadow:none;
+  ul li {
+    display:inline-block;
+    width:60%;
+    text-align:center;
+    background:@c-black;
+    padding:30px;
+    span.title {
+      margin-bottom:45px;
+      font-size:28px;
+    }
+    span.desc {
+      font-family:@ff-heading;
+      font-size:@heading-2-size;
+    }
+  }
+  .message-close {
+    // Cross icon
+    text-indent:-9999px;
+    width: 23px;
+    padding: 0;
+    &:before {
+      .fa;
+      content: @fa-var-close;
+      text-indent:initial;
+      display:block;
+      position:absolute;
+    }
+  }
+}
