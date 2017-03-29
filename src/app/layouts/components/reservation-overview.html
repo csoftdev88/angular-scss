@@ -142,16 +142,15 @@
     </table>
   </div>
 
-  <div ng-if="state.includes('reservation.confirmation')">
+  <div ng-if="!bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
     <label for="agreement1" class="input-checkbox">
-            <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
-            _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
-          </label>
-
+      <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
+      _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
+    </label>
     <label for="agreement2" class="input-checkbox">
-            <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
-            _receive_offer_label_
-          </label>
+      <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
+      _receive_offer_label_
+    </label>
   </div>
 
   <div ng-if="bookingConfig.vouchers.enable && allRooms.length && !$stateParams.reservation" class="voucher-entry">

@@ -52,6 +52,9 @@ main.reservation-page {
     label {
       color: @c-primary;
       font-size: @size--3;
+      .viewport-mobile & {
+        color:@c-secondary;
+      }
     }
     input[type="text"],
     input[type="email"],
@@ -75,6 +78,9 @@ main.reservation-page {
         padding-top: 20px;
         padding-left: 0;
       }
+      label {
+        color:@c-secondary;
+      }
       .newsletter-signup {
         padding-top: 50px;
         margin: 0;
@@ -83,18 +89,29 @@ main.reservation-page {
         color: @c-secondary;
         .viewport-mobile & {
           text-align: left;
-          padding-top: 25px;
+          padding-top: 0;
+          padding-bottom:25px;
         }
       }
       .continue-btn {
         position: absolute;
-        margin-top: 40px;
+        top: 40px;
         left: 0;
         .viewport-mobile & {
           position: initial;
           margin-top: 0;
           left: initial;
           width: 100%;
+        }
+      }
+      > div {
+        padding-top:33px;
+        .viewport-mobile & {
+          padding-top:0;
+          padding-bottom:25px;
+        }
+        label {
+          padding:5px 10px;
         }
       }
     }
