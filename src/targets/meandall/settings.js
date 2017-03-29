@@ -906,7 +906,12 @@ angular.module('mobiusApp.config', [])
         'display': true,
         'showInReservationWidget': false
       },
+      //Display the details section above the form in DOM
       'detailsBeforeForm':true,
+      //Display the continue button inside the form div
+      'continueButtonInForm':true,
+      //Position the newsletter checkbox in the form
+      'newsletterCheckboxInForm':true,
       //Default value for newsletter opt-in checkbox
       'newsLetterOptedIn': true,
       //Prompt to ask user to login
