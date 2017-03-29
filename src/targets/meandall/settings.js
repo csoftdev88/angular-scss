@@ -910,12 +910,10 @@ angular.module('mobiusApp.config', [])
       },
       //Display the details section above the form in DOM
       'detailsBeforeForm':true,
-      //Display the continue button inside the form div
-      'continueButtonInForm':true,
-      //Position the newsletter checkbox in the form
-      'newsletterCheckboxInForm':true,
       //Default value for newsletter opt-in checkbox
       'newsLetterOptedIn': true,
+      //Display the property name after room details in overview panel
+      'propertyNameAfterDetails':true,
       //Prompt to ask user to login
       'loginCta':{
         'display': false

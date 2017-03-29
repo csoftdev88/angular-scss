@@ -81,12 +81,12 @@
           <!-- SUBVIEWS -->
           <ui-view>
           </ui-view>
-          <div ng-if="bookingConfig.continueButtonInForm || bookingConfig.newsletterCheckboxInForm" class="form-bottom">
-            <button-submit ng-if="bookingConfig.continueButtonInForm" class="continue-btn" ng-click="continue()" ng-disabled="isContinueDisabled()">
+          <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom">
+            <button-submit class="continue-btn" ng-click="continue()" ng-disabled="isContinueDisabled()">
               <span ng-if="continueName === 'continue'">_continue_</span>
               <span ng-if="continueName === 'confirm'">_confirm_</span>
             </button-submit>
-            <label ng-if="bookingConfig.newsletterCheckboxInForm" for="agreement3" class="input-checkbox newsletter-signup" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
+            <label for="agreement3" class="input-checkbox newsletter-signup" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
               <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
               <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
             </label>
@@ -95,14 +95,14 @@
         <aside ng-if="!bookingConfig.detailsBeforeForm" grid="5" ng-include="'layouts/components/reservation-overview.html'"></aside>
       </div>
 
-      <label ng-if="!bookingConfig.newsletterCheckboxInForm" for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
+      <label ng-if="!bookingConfig.detailsBeforeForm" for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
         <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
         <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
       </label>
 
       <div class="reservation-controls" grid-row>
         <button class="back" ng-click="goBack()">_back_</button>
-        <button ng-if="!bookingConfig.continueButtonInForm" class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">
+        <button ng-if="!bookingConfig.detailsBeforeForm" class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">
           <span ng-if="continueName === 'continue'">_continue_</span>
           <span ng-if="continueName === 'confirm'">_confirm_</span>
         </button>
