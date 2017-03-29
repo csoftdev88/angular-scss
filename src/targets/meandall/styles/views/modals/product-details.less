@@ -1,0 +1,67 @@
+.dialog-product-details {
+  main {
+    max-height: initial;
+    section {
+      border: 0px none;
+      article {
+        padding: 0;
+      }
+      &.price-breakdown table {
+        font-size: 17px;
+        color: #ccc;
+        margin: 0;
+        td {
+          text-align: right;
+        }
+        th {
+          font-weight: normal;
+        }
+        tr.main {
+          td {
+            color: @c-primary;
+            font-family: @ff-bold;
+          }
+          th {
+            color: #9b9b9b;
+            font-size: 19px;
+          }
+        }
+      }
+    }
+  }
+  &.tabbed {
+    .nav-tabs {
+      li {
+        padding: 15px 0;
+        border: 0px none !important;
+        a {
+          color: #d7d7d7;
+          border-left: 1px solid @c-primary;
+          padding: 0;
+          line-height: 1em;
+        }
+        &:first-child {
+          a {
+            border-left: 0px none;
+          }
+        }
+        &.active {
+          a {
+            color: #636363;
+          }
+        }
+      }
+    }
+    .tab-pane {
+      border-top: 0px none;
+    }
+    button-close {
+      top: 5px;
+      width: 30px;
+      height: 30px;
+      &:before {
+        display: block;
+      }
+    }
+  }
+}
