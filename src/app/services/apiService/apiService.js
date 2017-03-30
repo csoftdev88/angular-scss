@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService) {
+.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService, stateService) {
 
   var sessionCookie = sessionDataService.getCookie();
   var sessionId = sessionCookie.sessionData.sessionId;
@@ -167,6 +167,15 @@ angular.module('mobiusApp.services.api', [])
     var URL = getValue(Settings.API, path);
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var base = Settings.API.baseURL[env];
+
+    if(Settings.API.languageInPath) { //If enabled this statement will add the language code to the URL path to circumvent cloudflare caching issue
+      //Only use the first 2 characters of the language code because the doesn't support localised languages i.e. en-us
+      var languageCode = stateService.getAppLanguageCode() ? stateService.getAppLanguageCode().substring(0, 2) : null;
+      if(languageCode) {
+        base += languageCode + '/';
+      }
+    }
+    
     // NOTE: We might want to throw error in case when path is not found
     $window._.each(params, function(value, key){
       URL = URL.replace(':' + key, value).replace(',','%2C');

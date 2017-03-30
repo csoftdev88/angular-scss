@@ -117,6 +117,7 @@ angular.module('mobiusApp.config', [])
     'cacheFlushInterval': 60,
     'chainCode': 'MEANDALL',
     'trackUsage': true,
+    'languageInPath':true, //Temporary fix for cloudflare language caching issues
     'baseURL': {
       'development': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
       'integration': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
