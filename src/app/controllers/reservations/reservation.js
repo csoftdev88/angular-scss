@@ -22,7 +22,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
-
+  
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
 
@@ -265,7 +265,6 @@ angular.module('mobius.controllers.reservation', [])
                 roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.current.priceRoom * stayLength;
                 roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.current.totalTax * stayLength;
                 roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.current.totalAfterTax * stayLength;
-                $scope.hideBreakdown = true;
               }
             }
           }
@@ -1507,12 +1506,13 @@ angular.module('mobius.controllers.reservation', [])
       roomUpgradesService.notifyUpgrade($scope,'increase');
       $scope.continue();
     }
-    else if(storedUpgrade.decreased){ //price has decreased
+    else if(storedUpgrade.decreased){ //price has decreased   
       roomUpgradesService.notifyUpgrade($scope,'decrease');
       $scope.continue();
     }
     else { //No pricing has changed, continue as normal
        roomUpgradesService.notifyUpgrade($scope,'success');
+       $scope.hideBreakdown = true;
        $scope.continue();
     }
   }

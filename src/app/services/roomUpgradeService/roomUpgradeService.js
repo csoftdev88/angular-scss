@@ -59,7 +59,8 @@ angular.module('mobiusApp.services.roomUpgrades', [])
           adults: reservation.adults,
           children: reservation.children,
           dates: dates,
-          reservation: reservation.reference
+          reservation: reservation.reference,
+          email:reservation.customer ? reservation.customer.email : null
         };
         $state.go('reservation.details', params, { reload: true });
       }
