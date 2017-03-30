@@ -7,13 +7,32 @@ user-messages {
     text-align:center;
     background:@c-black;
     padding:30px;
+    .viewport-mobile & {
+      width:100%;
+      box-sizing:border-box;
+      background:@c-primary;
+      color:@c-secondary;
+      box-sizing: border-box;
+      font-size: 18px;
+      background:@c-primary;
+      color: @c-secondary;
+      padding: 30px 0px 15px 0;
+    }
     span.title {
       margin-bottom:45px;
       font-size:28px;
+      .viewport-mobile & {
+        font-size:18px;
+        line-height:1.3em;
+        margin-bottom:10px;
+      }
     }
     span.desc {
       font-family:@ff-heading;
       font-size:@heading-2-size;
+      .viewport-mobile & {
+        font-size:23px;
+      }
     }
   }
   .message-close {

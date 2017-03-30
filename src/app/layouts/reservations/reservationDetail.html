@@ -52,7 +52,7 @@
         </header>
 
         <div class="tables">
-          <figure ng-switch="isEditable && reservation.status !== 'Cancelled'">
+          <figure ng-switch="!config.isEditable && reservation.status !== 'Cancelled'">
             <img ng-if="!config.resizedRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
             <img ng-if="config.resizedRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
               alt="{{roomDetails.name}}">
@@ -74,7 +74,7 @@
               <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
               <h4 ng-if="config.displayConfirmationNumberInDetails">_booking_reference_: <span>{{reservationCode}}</span></h4>
               <span ng-if="config.displayBookingDateInDetails" class="booking-date">_booked_: <span>{{reservation.bookingDate | dateTime}}</span></span>
-              <a ng-if="config.displayPoliciesInDetails" href ng-click="openPoliciesInfo()">_view_policies_</a>
+              <a ng-if="config.displayPoliciesInDetails && !isMobile" href ng-click="openPoliciesInfo()">_view_policies_</a>
               <div ng-if="config.displayActionsInDetails" class="actions" ng-include="'layouts/components/reservation-actions.html'"></div>
             </div>
 
@@ -197,10 +197,17 @@
                 <span class="total">_total_:</span>
                 <span class="total-value" ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}</span>
                 <span class="total-value" ng-if="reservation.pointValue" ng-if="loyaltyProgramEnabled">{{reservation.pointValue}} _points_</span>
-                <a ng-if="!config.displayPoliciesInDetails" href ng-click="openPoliciesInfo()">_view_policies_</a>
+                <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)" href ng-click="openPoliciesInfo()">_view_policies_</a>
               </div>
             </div>
-
+            <div ng-if="config.modifyButtonsAfterDetails && isMobile" class="modify-buttons" ng-switch="!config.isEditable && reservation.status !== 'Cancelled'">
+              <button ng-switch-when="true" class="button" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
+                ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}" ng-if="!reservation.isInThePast"
+                ng-disabled="!reservation.canModify">_modify_</button>
+              <button ng-switch-when="true" class="button-gray" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
+                ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}" ng-if="!reservation.isInThePast"
+                ng-disabled="!reservation.canCancel">_cancel_</button>
+            </div>
           </div>
 
           <footer ng-if="!config.reservationDetailPriceBreakdownExtended">
@@ -231,6 +238,9 @@
     </section>
 
     <hr>
+
+    <section-image ng-if="isMobile && config.sectionImages && config.sectionImages[1]" section="config.sectionImages[1]" when="'enter'"
+      from="1" to="1.5" show-logo="false"></section-image>
 
     <!-- AVAILABLE ADDONS -->
     <section grid-row class="reservation-enhance" ng-if="availableAddons.length">
@@ -268,8 +278,8 @@
       </div>
     </section>
 
-    <section-image ng-if="config.sectionImages && config.sectionImages[1]" section="config.sectionImages[1]" when="'enter'" from="1"
-      to="1.5" show-logo="false"></section-image>
+    <section-image ng-if="!isMobile && config.sectionImages && config.sectionImages[1]" section="config.sectionImages[1]" when="'enter'"
+      from="1" to="1.5" show-logo="false"></section-image>
 
     <section grid-row="" class="newsletter-cta" ng-if="config.displayNewsletterCtaOnReservationDetail && user && !user.optedIn">
       <hr>
@@ -287,7 +297,7 @@
     <!-- RESERVATION ADDONS -->
     <section grid-row class="reservation-enhancements" ng-if="reservationAddons.length">
       <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
-      <h3>_reservation_enhance_summary_title_</h3>
+        <h3>_reservation_enhance_summary_title_</h3>
         <list-items>
           <list-item ng-repeat="addon in reservationAddons">
 
@@ -319,10 +329,11 @@
     </section>
   </reservation-finished>
 
+  <section-image ng-if="config.sectionImages && config.sectionImages[2]" section="config.sectionImages[2]" when="'enter'" from="1"
+    to="1.5" show-logo="false"></section-image>
+
   <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
   <!-- Growl notifications -->
   <growl-alerts class="growl-alerts-dir" languages-message="'_languages_message_'" retention-message="'_retention_message_'"></growl-alerts>
-</main>
 
-<section-image ng-if="config.sectionImages && config.sectionImages[2]" section="config.sectionImages[2]" when="'enter'" from="1"
-  to="1.5" show-logo="false"></section-image>
+</main>

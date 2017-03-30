@@ -657,6 +657,7 @@ angular.module('mobiusApp.config', [])
       'displayConfirmationNumberInDetails':true,
       'displayBookingDateInDetails': true,
       'addonNameAsDescriptionTitle':true,
+      'modifyButtonsAfterDetails':true,
       'resizedRoomImage': true,
       'sectionImages':[
         {
@@ -666,8 +667,8 @@ angular.module('mobiusApp.config', [])
             'position':'center center'
           },
           'mobile':{
-            'height':'370px',
-            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'height':'90px',
+            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_750,h_215,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
             'position':'center center'
           }
         },
@@ -678,8 +679,8 @@ angular.module('mobiusApp.config', [])
             'position':'center center'
           },
           'mobile':{
-            'height':'150px',
-            'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
+            'height':'90px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
             'position':'center center'
           }
         },
@@ -690,8 +691,8 @@ angular.module('mobiusApp.config', [])
             'position':'center center'
           },
           'mobile':{
-            'height':'215px',
-            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_750,h_215,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'height':'90px',
+            'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
             'position':'center center'
           }
         }
