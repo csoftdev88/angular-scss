@@ -58,13 +58,18 @@ angular.module('mobiusApp.services.roomUpgrades', [])
           roomUpgrade: upgradeGuid,
           adults: reservation.adults,
           children: reservation.children,
-          dates: dates
+          dates: dates,
+          reservation: reservation.reference
         };
         $state.go('reservation.details', params, { reload: true });
       }
       else {
         console.log('Invalid upgrade, property code and product code required');
       }
+    }
+
+    function notifyUpgrade(scope, type){
+      console.log(type);
     }
 
     function getStoredUpgrade(){
@@ -82,5 +87,6 @@ angular.module('mobiusApp.services.roomUpgrades', [])
       actionRoomUpgrade:actionRoomUpgrade,
       invalidateRoomUpgrade:invalidateRoomUpgrade,
       getStoredUpgrade:getStoredUpgrade,
+      notifyUpgrade:notifyUpgrade
     };
   });
