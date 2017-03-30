@@ -555,7 +555,8 @@ angular
     controller: 'ResetPasswordCtrl'
   })
 
-  // Reset password page
+  // Upgrade room page
+  // Page containing a controller that validates room upgrades before sending users to booking flow with upgrade.
   .state('upgradeRoom', {
     parent: 'root',
     url: '/upgrade/:upgradeGuid/:roomID',
