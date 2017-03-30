@@ -8,14 +8,14 @@ angular.module('mobiusApp.services.roomUpgrades', [])
 
     //Function to retrieve room upgrade data from API
     function getRoomUpgrades(upgradeGuid){
-      return apiService.get(apiService.getFullURL('reservations.upgradeRoom', {upgradeGuid: upgradeGuid}));
+      return apiService.get(apiService.getFullURL('reservations.upgradeRoom', {upgradeGuid: upgradeGuid}),null,true);
     }
 
     //Function to validate if an upgrade is available
     function findActiveRoomUpgrade(data, roomCode) {
       var upgrade = _.find(data.upgrades, function (upgrade) { //Find the relevant upgrade for the roomCode specified in the URL
         if (upgrade.room) { //Only return matching upgrades that are available
-          return upgrade.available && upgrade.roomCode === roomCode;
+          return upgrade.available && upgrade.room.code === roomCode;
         }
       });
       return upgrade;
@@ -24,47 +24,63 @@ angular.module('mobiusApp.services.roomUpgrades', [])
     //Function to process and action a valid upgrade
     function actionRoomUpgrade(reservation, upgrade, roomCode, upgradeGuid){
       //Store the upgrade data in our service
-      currentUpgrade.reservation = reservation;
-      currentUpgrade.upgrade = upgrade;
+      var upgradeData = {};
+      upgradeData.reservation = reservation;
+      upgradeData.upgrade = upgrade;
 
-      var propertyCode = null;
-      var productCode = null;
+      //Store the upgrade data in our service
+      setStoredUpgrade(upgradeData);
 
-      if (reservation && reservation.property) {
-        propertyCode = reservation.property.code;
-      }
-
-      if (reservation && reservation.product) {
-        productCode = reservation.product.code;
-      }
-
-      if(propertyCode && productCode){
-        goToReservation(propertyCode, roomCode, productCode, upgradeGuid);
-      }
-      else {
-        console.log('Upgrade processing error: property code or product code could not be retrieved');
-      }
+      //Advance to the reservation flow 
+      goToReservation(reservation, roomCode, upgradeGuid);
     }
 
     function invalidateRoomUpgrade(){
       console.log('upgrade is invalid');
+      $state.go('home');
     }
 
-    function goToReservation(propertyCode, roomCode, productCode, upgradeGuid) {
-      var params = {
-        property: propertyCode,
-        roomID: roomCode,
-        productCode: productCode,
-        upgradeGuid: upgradeGuid
-      };
-      $state.go('reservation.details', params, { reload: true });
+    //Function to format reservation URL and send user to this URL
+    function goToReservation(reservation, roomCode, upgradeGuid) {
+      var propertyCode = reservation.property ? reservation.property.code : null;
+      var productCode = reservation.product ? reservation.product.code : null;
+      var dates = reservation.from && reservation.to ? reservation.from + '_' + reservation.to : null;
+
+      //TODO: REMOVE TEMPORARY REMOVAL OF PROPERTY PREFIX FROM ROOMCODE
+      var propRoomCodeArray = roomCode.split('-');
+      var parsedRoomCode = propRoomCodeArray.length ? propRoomCodeArray[1] : null;
+
+      if(propertyCode && productCode){
+        var params = {
+          property: propertyCode,
+          roomID: parsedRoomCode,
+          productCode: productCode,
+          roomUpgrade: upgradeGuid,
+          adults: reservation.adults,
+          children: reservation.children,
+          dates: dates
+        };
+        $state.go('reservation.details', params, { reload: true });
+      }
+      else {
+        console.log('Invalid upgrade, property code and product code required');
+      }
+    }
+
+    function getStoredUpgrade(){
+      return currentUpgrade;
+    }
+
+    function setStoredUpgrade(upgrade){
+      currentUpgrade = upgrade;
     }
 
     // Public methods
     return {
       getRoomUpgrades:getRoomUpgrades,
-      findRoomUpgrade:findActiveRoomUpgrade,
+      findActiveRoomUpgrade:findActiveRoomUpgrade,
       actionRoomUpgrade:actionRoomUpgrade,
-      invalidateRoomUpgrade:invalidateRoomUpgrade
+      invalidateRoomUpgrade:invalidateRoomUpgrade,
+      getStoredUpgrade:getStoredUpgrade,
     };
   });
