@@ -1156,6 +1156,9 @@ angular.module('mobiusApp.config', [])
       },
       'reservationDetails':{
         'fullWidthSections':true
+      },
+      'reservationsOverview':{
+        'fullWidthSections':true
       }
     },
 

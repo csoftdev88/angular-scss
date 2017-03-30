@@ -14,6 +14,8 @@ angular.module('mobius.controllers.reservations', [])
     $scope.defaultCurrencyCode = Settings.UI.currencies.default;
   }
 
+  $scope.viewSettings = Settings.UI.viewsSettings.reservationsOverview;
+
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
     $scope.chain = chain;

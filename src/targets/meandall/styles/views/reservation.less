@@ -311,7 +311,7 @@ main.reservation-page {
   }
 }
 
-.reservation-detail {
+.reservation-detail, .reservation-overview {
   padding-top: 0px !important;
   margin-top: -675px !important;
   .viewport-mobile & {
@@ -328,6 +328,11 @@ reservation-finished {
   hr {
     display: none;
   }
+}
+
+//STYLES FOR RESERVATION DETAIL OVERVIEW
+reservation-finished,
+reservation-hotel-details {
   .reservation-summary {
     background: @c-primary;
     color: @c-secondary;
@@ -340,13 +345,6 @@ reservation-finished {
       background: @c-secondary;
       color: @c-primary;
     }
-  }
-}
-
-//STYLES FOR RESERVATION DETAIL OVERVIEW
-reservation-finished,
-reservation-hotel-details {
-  .reservation-summary {
     .actions {
       .clearfix;
       .viewport-mobile & {

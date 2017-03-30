@@ -1,13 +1,16 @@
+<section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[0]" id="room-header-image" section="config.reservations.sectionImages[0]"
+  when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
+
 <hero-slider ng-if="!config.reservations.hideHeroSliderOnReservations" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
-<main class="grid-wrapper" id="jsReservations" ng-class="{'reservations-no-hero': config.reservations.hideHeroSliderOnReservations}">
+<main class="reservation-overview" id="jsReservations" ng-class="{'reservations-no-hero': config.reservations.hideHeroSliderOnReservations, 'grid-wrapper':!viewSettings.fullWidthSections}">
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <div ui-view>
-    <div class="reservations" grid="12">
+    <div class="reservations" ng-attr-grid="{{!viewSettings.fullWidthSections ? 12 : undefined}}">
       <div ng-if="!reservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length === 0" class="reservations-not-available">
         <div>
           <h3>_reservation_list_empty_</h3>
@@ -37,6 +40,9 @@
         </reservation-item>
       </div>
 
+      <section-image ng-if="!isMobile && config.reservations.sectionImages && config.reservations.sectionImages[1]" section="config.reservations.sectionImages[1]" when="'enter'"
+      from="1" to="1.5" show-logo="false"></section-image>
+
       <div ng-if="reservations.pastStays.length">
         <h1 ng-bind-html="'_reservation_page_paststays_title_' | mainHeaderStyle"></h1>
         <reservation-item ng-repeat="reservation in reservations.pastStays | orderBy:'bookingDate' : true">
@@ -49,6 +55,9 @@
 
     </div>
   </div>
+
+  <section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[2]" section="config.reservations.sectionImages[2]" when="'enter'" from="1"
+    to="1.5" show-logo="false"></section-image>
 
   <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
   <!-- Growl notifications -->
