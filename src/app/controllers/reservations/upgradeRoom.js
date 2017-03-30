@@ -2,38 +2,22 @@
 /*
  * This controller handles room upgrades when landing on /upgrade-room/:upgradeGuid
  */
-angular.module('mobius.controllers.reservationUpgradeRoom', [])
-  .controller('ReservationUpgradeRoomCtrl', function($scope, $stateParams, $state, reservationService){
+angular.module('mobius.controllers.roomUpgrades', [])
+  .controller('RoomUpgradesCtrl', function ($scope, $stateParams, $state, roomUpgradeService, _) {
     var upgradeGuid = $stateParams.upgradeGuid;
+    var roomCode = $stateParams.roomID;
     
-    reservationService.getRoomUpgrade(upgradeGuid).then(function(data){
-      console.log('got upgrade');
-      processRoomUpgrade(data, upgradeGuid);
-    }, function(){
-      console.log('upgrade could not be retrieved');
-      var data = {
-        'upgrade': {
-          'propertyCode':'ZYYZ',
-          'roomCode':'CPKN',
-          'productCode':'CHAIN-SFP8'
-        }
-      };
-      processRoomUpgrade(data, upgradeGuid);
+    roomUpgradeService.getRoomUpgrades(upgradeGuid).then(function (data) { //Get the room upgrades from our upgrades end-point
+      var upgrade = roomUpgradeService.findActiveRoomUpgrade(data, roomCode); //Find the relevant active room upgrade
+      if(upgrade){ //If a valid upgrade is retrieved, action the room upgrade
+        roomUpgradeService.actionRoomUpgrade(data.reservation, upgrade);
+      }
+      else { //Otherwise invalidate the room upgrade
+        roomUpgradeService.invalidateRoomUpgrade();
+      }
+    }, function (error) {
+      console.log('Error retrieving upgrades');
+      console.log(error);
     });
-
-    function processRoomUpgrade(data, upgradeGuid){
-      var upgrade = data.upgrade;
-      goToReservation(upgrade.propertyCode, upgrade.roomCode, upgrade.productCode, upgradeGuid);
-    }
-
-    function goToReservation(propertyCode, roomCode, productCode, upgradeGuid){
-      var params = {
-        property: propertyCode,
-        roomID: roomCode,
-        productCode: productCode,
-        upgradeGuid: upgradeGuid
-      };
-      $state.go('reservation.details', params, {reload: true});
-    }
   }
-);
+  );
