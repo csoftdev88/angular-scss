@@ -38,6 +38,12 @@ room-products {
 					background:rgba(253, 125, 13, 0.11);
 				}
 			}
+			&.is-member-only.is-member-only-disabled {
+				.button {
+					background:@c-button;
+					box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.5);
+				}
+			}
 			&.is-member-only, &.is-member-only-disabled {
 				background-color: rgba(185, 135, 72, 0.15);
 				.chain-sign & {
@@ -264,6 +270,7 @@ room-products {
 						font-size: 14px;
 						text-transform: uppercase;
 						line-height: 38px;
+						min-width:91px;
 						&:hover {
 							background: darken(@c-green, 10%);
 						}
