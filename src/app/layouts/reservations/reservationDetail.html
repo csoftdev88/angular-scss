@@ -1,4 +1,5 @@
-<section-image ng-if="config.sectionImages && config.sectionImages[0] && property" id="room-header-image" section="config.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
+<section-image ng-if="config.sectionImages && config.sectionImages[0] && property" id="room-header-image" section="config.sectionImages[0]"
+  when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
 
 <breadcrumbs ng-if="config.displayBreadcrumbsOnReservationDetail" stickable="main-header"></breadcrumbs>
 
@@ -37,7 +38,7 @@
       <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
         <div ng-if="!config.displayActionsInDetails" class="actions" ng-include="'layouts/components/reservation-actions.html'"></div>
 
-        <header>
+        <header ng-if="!config.hideHeader">
           <h1>{{property.nameLong}}</h1>
 
           <div class="reference" ng-class="{'reference-visible': displayConfirmationNumber}">
@@ -49,10 +50,12 @@
             _booked_: {{reservation.bookingDate | dateTime}}
           </div>
         </header>
-        
+
         <div class="tables">
           <figure ng-switch="isEditable && reservation.status !== 'Cancelled'">
-            <img ng-if="roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+            <img ng-if="!config.resizedRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+            <img ng-if="config.resizedRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
+              alt="{{roomDetails.name}}">
             <div ng-if="!roomDetails.images[0].uri" class="room-image-placeholder"></div>
             <!-- TODO: Add actions to buttons -->
             <button ng-switch-when="true" class="button" ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
@@ -64,10 +67,13 @@
           </figure>
 
           <div>
-            <div>
+            <div class="booking-details">
               <span class="chain-logo {{property.chainCode.toLowerCase()}}"></span>
+              <h1 ng-if="config.displayPropertyNameInDetails">{{property.nameLong}}</h1>
               <h3>{{roomDetails.name}} <a href ng-click="openOtherRoomsDialog()" ng-if="reservation.rooms.length > 1">+ {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': 'room', 'other': 'rooms'}"> </ng-pluralize></a></h3>
               <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
+              <h4 ng-if="config.displayConfirmationNumberInDetails">_booking_reference_: <span>{{reservationCode}}</span></h4>
+              <span ng-if="config.displayBookingDateInDetails" class="booking-date">_booked_: <span>{{reservation.bookingDate | dateTime}}</span></span>
               <a ng-if="config.displayPoliciesInDetails" href ng-click="openPoliciesInfo()">_view_policies_</a>
               <div ng-if="config.displayActionsInDetails" class="actions" ng-include="'layouts/components/reservation-actions.html'"></div>
             </div>
@@ -228,79 +234,88 @@
 
     <!-- AVAILABLE ADDONS -->
     <section grid-row class="reservation-enhance" ng-if="availableAddons.length">
-      <h3 ng-bind-html="'_reservation_enhance_title_' | mainHeaderStyle"></h3>
-      <ul>
-        <li class="{{ availableAddons < 3 ? 'half' : 'third' }}" ng-repeat="addon in availableAddons" ng-if="reservation.packages.indexOf(addon.code) === -1"
-          ng-click="openAddonDetailDialog(null, addon)">
-          <div ng-class="{'disabled': !addon.description || addon.description == ''}">
-            <a class="eye-icon">
-              <img ng-if="addon.image && addon.image.uri" ng-src="{{addon.image.uri}}" />
-              <img ng-if="(!addon.image || !addon.image.uri) && addon.images && addon.images.length && addon.images[0].uri" ng-src="{{addon.images[0].uri}}"
-              />
-            </a>
+      <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+        <h3 ng-bind-html="'_reservation_enhance_title_' | mainHeaderStyle"></h3>
+        <ul>
+          <li class="{{ availableAddons < 3 ? 'half' : 'third' }}" ng-repeat="addon in availableAddons" ng-if="reservation.packages.indexOf(addon.code) === -1"
+            ng-click="openAddonDetailDialog(null, addon)">
+            <div ng-class="{'disabled': !addon.description || addon.description == ''}">
+              <h4 ng-if="config.addonTitleAboveImage" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
+              <a class="eye-icon">
+                <img ng-if="addon.image && addon.image.uri" ng-src="{{addon.image.uri}}" />
+                <img ng-if="(!addon.image || !addon.image.uri) && addon.images && addon.images.length && addon.images[0].uri" ng-src="{{addon.images[0].uri}}"
+                />
+              </a>
 
-            <h4 ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
+              <h4 ng-if="!config.addonTitleAboveImage" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
 
-            <p>
-              {{ addon._expanded ? addon.description : addon.descriptionShort }}
-              <a ng-init="addon._expanded = false" ng-if="addon.description && addon.description != '' && addon.description !== addon.descriptionShort"
-                ng-click="toggleAddonDescription($event, addon)">
+              <p>
+                {{ addon._expanded ? addon.description : addon.descriptionShort }}
+                <a ng-init="addon._expanded = false" ng-if="addon.description && addon.description != '' && addon.description !== addon.descriptionShort"
+                  ng-click="toggleAddonDescription($event, addon)">
                   {{ addon._expanded ? '[-]' : '[+]'}}
               </a>
-            </p>
+              </p>
 
-            <i>_add_reservation_enhance_to_booking_desc_:</i>
+              <i>_add_reservation_enhance_to_booking_desc_:</i>
 
-            <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</a>
-            <a class="button" ng-if="addon.pointsRequired && loyaltyProgramEnabled && addon.allowPointsBooking" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>_points_</small></a>
-          </div>
-        </li>
-      </ul>
-
-      <hr />
+              <a class="button" ng-click="openAddonDetailDialog($event, addon, false)">{{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</a>
+              <a class="button" ng-if="addon.pointsRequired && loyaltyProgramEnabled && addon.allowPointsBooking" ng-click="openAddonDetailDialog($event, addon, true)">{{addon.pointsRequired}} <small>_points_</small></a>
+            </div>
+          </li>
+        </ul>
+        <hr />
+      </div>
     </section>
+
+    <section-image ng-if="config.sectionImages && config.sectionImages[1]" section="config.sectionImages[1]" when="'enter'" from="1"
+      to="1.5" show-logo="false"></section-image>
 
     <section grid-row="" class="newsletter-cta" ng-if="config.displayNewsletterCtaOnReservationDetail && user && !user.optedIn">
       <hr>
       <a href="" ng-click="sso.profile()"><img src="/static/images/newsletter-banner.jpg" alt="Newsletter signup"></a>
     </section>
 
-    <section grid-row="">
-      <hotel-location hotel-details="property" ng-if="property"></hotel-location>
+    <section grid-row="" class="map-section">
+      <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+        <hotel-location hotel-details="property" ng-if="property"></hotel-location>
+      </div>
     </section>
 
     <hr ng-if="reservationAddons.length">
 
     <!-- RESERVATION ADDONS -->
     <section grid-row class="reservation-enhancements" ng-if="reservationAddons.length">
+      <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
       <h3>_reservation_enhance_summary_title_</h3>
-      <list-items>
-        <list-item ng-repeat="addon in reservationAddons">
+        <list-items>
+          <list-item ng-repeat="addon in reservationAddons">
 
-          <figure>
-            <img ng-if="addon.image && addon.image.uri" ng-src="{{addon.image.uri}}" />
-            <img ng-if="(!addon.image || !addon.image.uri) && addon.images && addon.images.length && addon.images[0].uri" ng-src="{{addon.images[0].uri}}"
-            />
-          </figure>
+            <figure>
+              <img ng-if="addon.image && addon.image.uri" ng-src="{{addon.image.uri}}" />
+              <img ng-if="(!addon.image || !addon.image.uri) && addon.images && addon.images.length && addon.images[0].uri" ng-src="{{addon.images[0].uri}}"
+              />
+            </figure>
 
-          <h2>{{addon.name}}</h2>
+            <h2>{{addon.name}}</h2>
 
-          <pricing-info>
-            <p>
-            </p>
-          </pricing-info>
+            <pricing-info>
+              <p>
+              </p>
+            </pricing-info>
 
-          <description-info>
-            <p>{{ addon._expanded ? addon.description : addon.descriptionShort }}</p>
-            <p>
-              <a href ng-if="addon.hasViewMore" ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
-                  {{ addon._expanded ? '_show_less_' : '_show_more_' }}
-              </a>
-            </p>
-          </description-info>
+            <description-info>
+              <p>{{ addon._expanded ? addon.description : addon.descriptionShort }}</p>
+              <p>
+                <a href ng-if="addon.hasViewMore" ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
+                    {{ addon._expanded ? '_show_less_' : '_show_more_' }}
+                </a>
+              </p>
+            </description-info>
 
-        </list-item>
-      </list-items>
+          </list-item>
+        </list-items>
+      </div>
     </section>
   </reservation-finished>
 
@@ -308,3 +323,6 @@
   <!-- Growl notifications -->
   <growl-alerts class="growl-alerts-dir" languages-message="'_languages_message_'" retention-message="'_retention_message_'"></growl-alerts>
 </main>
+
+<section-image ng-if="config.sectionImages && config.sectionImages[2]" section="config.sectionImages[2]" when="'enter'" from="1"
+  to="1.5" show-logo="false"></section-image>

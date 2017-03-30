@@ -644,14 +644,20 @@ angular.module('mobiusApp.config', [])
         'passbook': true,
         'print': true
       },
-      'displayNewsletterCtaOnReservationDetail': true,
+      'displayNewsletterCtaOnReservationDetail': false,
       'reservationDetailPriceBreakdownExtended': true,
       'displayAddonVoucherEntry': false,
       'displayAddonComments': false,
       'hideHeroSliderOnReservations':true,
+      'hideHeader':true,
       'breakdownLinkAfterTotal':true,
       'displayActionsInDetails':true,
       'displayPoliciesInDetails':true,
+      'displayPropertyNameInDetails':true,
+      'displayConfirmationNumberInDetails':true,
+      'displayBookingDateInDetails': true,
+      'addonNameAsDescriptionTitle':true,
+      'resizedRoomImage': true,
       'sectionImages':[
         {
           'desktop':{
@@ -667,8 +673,8 @@ angular.module('mobiusApp.config', [])
         },
         {
           'desktop':{
-            'height':'335px',
-            'url':'//res.cloudinary.com/dmh2cjswj/image/upload/w_2000,h_2000,c_fill/q_auto,f_auto/v1489397415/fan7xlxabwbgvrnftegi.jpg',
+            'height':'215px',
+            'url':'/static/images/section-images/RS12959_DUSIMM_Zimmer_STANDARD_05-scr.jpg',
             'position':'center center'
           },
           'mobile':{
@@ -679,7 +685,7 @@ angular.module('mobiusApp.config', [])
         },
         {
           'desktop':{
-            'height':'210px',
+            'height':'215px',
             'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
             'position':'center center'
           },
