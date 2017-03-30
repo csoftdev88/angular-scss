@@ -3,7 +3,7 @@
  * This service is for processing and storing room upgrades
  */
 angular.module('mobiusApp.services.roomUpgrades', [])
-  .service('roomUpgradesService', function($state, apiService, _) {
+  .service('roomUpgradesService', function($state, apiService, $timeout, _) {
     var currentUpgrade = {};
 
     //Function to retrieve room upgrade data from API
@@ -37,6 +37,7 @@ angular.module('mobiusApp.services.roomUpgrades', [])
 
     function invalidateRoomUpgrade(){
       console.log('upgrade is invalid');
+      notifyUpgrade('fail');
       $state.go('home');
     }
 
@@ -69,14 +70,19 @@ angular.module('mobiusApp.services.roomUpgrades', [])
       }
     }
 
+    //Function to trigger growl alerts
     function notifyUpgrade(scope, type){
-      console.log(type);
+      $timeout(function(){
+        scope.$broadcast('ROOM_UPGRADE_GROWL_ALERT', type);
+      });
     }
 
+    //Retrieve the upgrade that has been previously stored
     function getStoredUpgrade(){
       return currentUpgrade;
     }
 
+    //Save / Update the current stored upgrade
     function setStoredUpgrade(upgrade){
       currentUpgrade = upgrade;
     }

@@ -20,7 +20,11 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           weeks: '=',
           languagesMessage: '=',
           retentionMessage: '=',
-          altProductsMessage: '='
+          altProductsMessage: '=',
+          roomUpgradeSuccess: '=',
+          roomUpgradeFailure: '=',
+          roomUpgradeIncrease: '=',
+          roomUpgradeDecrease: '='
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
@@ -43,6 +47,11 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           };
 
           var altProductsPromptConfig = {
+            referenceId: 2,
+            disableIcons: true
+          };
+
+          var roomUpgradePromptConfig = {
             referenceId: 2,
             disableIcons: true
           };
@@ -72,14 +81,13 @@ angular.module('mobiusApp.directives.growlAlerts', [])
               $rootScope.retentionAlertFired = true;
               if(retentionMessage && retentionMessage.telephone){
                 $timeout(function () {
-                  console.log('show the growl alert');
                   scope.retentionMessage = scope.retentionMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's
                   growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone + '</p>', retentionPromptConfig);
                 });
               }
             }
           });
-
+          
           scope.$on('$destroy', function() {
             destroyRetentionGrowlListener();
           });
@@ -118,6 +126,35 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             }
           }
 
+          scope.$on('ROOM_UPGRADE_GROWL_ALERT', function (event, type){
+            var upgradeMessage = '';
+            var icon = 'fa-check-circle';
+
+            //Retrieve our upgrade message based on the notification type       
+            switch(type) {
+              case 'success':
+                upgradeMessage = scope.roomUpgradeSuccess;
+                break;
+              case 'failure':
+                icon = 'fa-exclamation-circle';
+                upgradeMessage = scope.roomUpgradeFailure;
+                break;
+              case 'increase':
+                upgradeMessage = scope.roomUpgradeIncrease;
+                break;
+              case 'decrease':
+                upgradeMessage = scope.roomUpgradeDecrease;
+                break;
+              default:
+                upgradeMessage = '';
+            }
+
+            upgradeMessage = upgradeMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's to growl
+            $timeout(function () {
+              growl.info('<i class="fa ' + icon + '"></i><p>' + upgradeMessage + '</p>', roomUpgradePromptConfig);
+            });
+          });
+          
           function destroyRetentionGrowlListener(){
             //destroy existing retention growl alert listeners
             scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
