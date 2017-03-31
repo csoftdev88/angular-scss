@@ -241,7 +241,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'totalRevenue': totalPrice, // ADD FEES
         'totalPrice': priceData.totalAfterTaxAfterPricingRules,
         'totalTax': priceData.totalTax, //ADD FEES TO THIS
-        'shipping': 'NONE', //This must be a string to pass apeiron purachse event validation
+        'shipping': 'NONE', //This must be a string to pass infiniti purchase event validation
         'shippingDuration': null,
         'shippingOption': null,
         'shippingIsSplit': null,
@@ -422,7 +422,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'totalRevenue': null,
         'totalPrice': null,
         'totalTax': null,
-        'shipping': 'NONE', //This must be a string to pass apeiron purachse event validation
+        'shipping': 'NONE', //This must be a string to pass infiniti purchase event validation
         'shippingDuration': null,
         'shippingOption': null,
         'shippingIsSplit': null,
