@@ -13,6 +13,8 @@ describe('reservationData', function() {
     module('mobiusApp.directives.reservation.data', function($provide) {
       // Mocking the services
       $provide.value('$state', {});
+      $provide.value('Settings', {});
+      $provide.value('stateService', {});
     });
   });
 
