@@ -12,7 +12,7 @@ describe('datepicker', function() {
       $provide.value('$filter', {});
       $provide.value('$stateParams', {});
       $provide.value('propertyService', {});
-      $provide.value('bookingService', {}); 
+      $provide.value('bookingService', {});
       $provide.value('userPreferenceService', {
         getCookie: function(){},
         setCookie: function(){}
