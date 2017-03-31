@@ -1,4 +1,4 @@
-<section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[0]" id="room-header-image" section="config.reservations.sectionImages[0]"
+<section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[0] && reservations.nextStay" id="room-header-image" section="config.reservations.sectionImages[0]"
   when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
 
 <hero-slider ng-if="!config.reservations.hideHeroSliderOnReservations" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
@@ -30,7 +30,7 @@
         <hr/>
       </div>
 
-      <section-image ng-if="isMobile && config.reservations.sectionImages && config.reservations.sectionImages[3]" section="config.reservations.sectionImages[3]" when="'enter'"
+      <section-image ng-if="isMobile && config.reservations.sectionImages && config.reservations.sectionImages[3] && reservations.nextStay" section="config.reservations.sectionImages[3]" when="'enter'"
       from="1" to="1.5" show-logo="false"></section-image>
 
       <div ng-if="reservations.futureStays.length" class="future-stays">
@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[1]" section="config.reservations.sectionImages[1]" when="'enter'"
+      <section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[1] && reservations.nextStay" section="config.reservations.sectionImages[1]" when="'enter'"
       from="1" to="1.5" show-logo="false"></section-image>
 
       <div ng-if="reservations.pastStays.length" class="past-stays">
@@ -63,7 +63,7 @@
     </div>
   </div>
 
-  <section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[2]" section="config.reservations.sectionImages[2]" when="'enter'" from="1"
+  <section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[2] && reservations.nextStay" section="config.reservations.sectionImages[2]" when="'enter'" from="1"
     to="1.5" show-logo="false"></section-image>
 
   <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
