@@ -908,7 +908,7 @@ angular.module('mobiusApp.config', [])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display':true
+        'display':false
       },
       'flexibleDates': {
         'enable':true
