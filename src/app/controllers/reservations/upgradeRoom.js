@@ -17,7 +17,7 @@ angular.module('mobius.controllers.roomUpgrades', [])
       }
     }, function (error) {
       console.log('Error retrieving upgrades');
-      console.log(error);
+      roomUpgradesService.invalidateRoomUpgrade();
     });
   }
   );
