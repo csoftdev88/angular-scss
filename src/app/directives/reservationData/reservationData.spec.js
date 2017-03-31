@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 describe('reservationData', function() {
   var _$rootScope, _scope, _$compile, _elem,
@@ -44,10 +44,10 @@ describe('reservationData', function() {
       _scope = _elem.isolateScope();
     });
 
-    /*it('should get directives template form template cache)', function() {
+    it('should get directives template form template cache)', function() {
       expect(_templateCacheGet.calledOnce).equal(true);
       expect(_templateCacheGet.calledWith(TEMPLATE_URL)).equal(true);
-    });*/
+    });
 
     it('should not insert any template into a parent container', function() {
       expect(_elem.html()).equal('');
@@ -58,4 +58,4 @@ describe('reservationData', function() {
       expect(_scope.getChildrenCount).to.be.a('function');
     });
   });
-});
+});*/
