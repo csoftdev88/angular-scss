@@ -47,10 +47,14 @@ angular.module('mobiusApp.services.roomUpgrades', [])
       var productCode = reservation.product ? reservation.product.code : null;
       var dates = reservation.from && reservation.to ? reservation.from + '_' + reservation.to : null;
 
+      //TODO: REMOVE TEMPORARY REMOVAL OF PROPERTY PREFIX FROM ROOMCODE
+      var propRoomCodeArray = roomCode.split('-');
+      var parsedRoomCode = propRoomCodeArray.length ? propRoomCodeArray[1] : null;
+
       if(propertyCode && productCode){
         var params = {
           property: propertyCode,
-          roomID: roomCode,
+          roomID: parsedRoomCode,
           productCode: productCode,
           roomUpgrade: upgradeGuid,
           adults: reservation.adults,
