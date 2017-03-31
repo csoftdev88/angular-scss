@@ -215,6 +215,7 @@ main.reservation-page {
         border: 0px none;
         border-radius: 0px;
         padding: 0;
+        display:block;
         td {
           font-weight: bold;
         }
@@ -316,6 +317,7 @@ main.reservation-page {
   margin-top: -675px !important;
   .viewport-mobile & {
     margin-top: 10px !important;
+    margin-bottom:0;
   }
   .parallax-image {
     width: 100%;
@@ -423,6 +425,7 @@ reservation-hotel-details {
       padding: 5px 20px;
       border: 2px solid @c-secondary;
       border-top: none;
+      display:block;
       .viewport-mobile & {
         width: 100%;
         float: none;
@@ -498,6 +501,37 @@ reservation-hotel-details {
         }
       }
     }
+    .charges {
+      padding-top:30px;
+      tbody, tr, td, th {
+        display:block;
+      }
+      tbody, tr {
+        width:100%;
+      }
+      td, th {
+        width:50%;
+      }
+      th {
+        float:left;
+      }
+      td {
+        float:right;
+      }
+      .total {
+        padding-left:0;
+        text-align:left;
+        font-weight:normal;
+        text-transform:capitalize;
+      }
+      .total, .total-value {
+        position:relative;
+        top:33px;
+      }
+      .tax {
+        margin:-33px 0 33px 0;
+      }
+    }
     .modify-buttons {
       text-align: center;
       margin-top: 20px;
@@ -513,11 +547,14 @@ reservation-hotel-details {
         }
       }
     }
+    .policy-link {
+      display:block;
+      text-align:right;
+    }
     .booking-details,
     .room-types {
       float: left;
       width: 55%;
-      height: 336px;
       padding: 0 20px;
       box-sizing: border-box;
       color: @c-secondary;

@@ -53,8 +53,8 @@
 
         <div class="tables">
           <figure ng-switch="!config.isEditable && reservation.status !== 'Cancelled'">
-            <img ng-if="!config.resizedRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
-            <img ng-if="config.resizedRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
+            <img ng-if="!config.largeRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
+            <img ng-if="config.largeRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
               alt="{{roomDetails.name}}">
             <div ng-if="!roomDetails.images[0].uri" class="room-image-placeholder"></div>
             <!-- TODO: Add actions to buttons -->

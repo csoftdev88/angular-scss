@@ -241,7 +241,7 @@ angular.module('mobiusApp.config', [])
       'cookieName': 'mobiusSessionData',
       'httpHeaderFieldName': 'sessionData',
       //cookie expiry in minutes
-      'expiry': 15,
+      'expiry': 30,
       'data':{
         'infinitiSessionId': null,
         'customerId': null,
@@ -659,7 +659,9 @@ angular.module('mobiusApp.config', [])
       'displayBookingDateInDetails': true,
       'addonNameAsDescriptionTitle':true,
       'modifyButtonsAfterDetails':true,
-      'resizedRoomImage': true,
+      'largeRoomImage': true,
+      'largePropertyImage': true,
+      'descriptionUnderTitle': true,
       'sectionImages':[
         {
           'desktop':{
@@ -696,8 +698,20 @@ angular.module('mobiusApp.config', [])
             'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
             'position':'center center'
           }
+        }, 
+        {
+          'desktop':{
+            'height':'215px',
+            'url':'/static/images/section-images/csm_P1134913_0c41ebe4d0.jpg',
+            'position':'center center'
+          },
+          'mobile':{
+            'height':'90px',
+            'url':'/static/images/section-images/RS12986_DUSIMM_Zimmer_321_SUPERIOR_16-scr.jpg',
+            'position':'center center'
+          }
         }
-      ],
+      ]
     },
 
     'aboutHotel': {
