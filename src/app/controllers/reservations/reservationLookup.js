@@ -11,11 +11,13 @@ angular.module('mobius.controllers.reservationLookup', [])
     breadcrumbsService.addBreadCrumb('Reservation Lookup');
 
     $scope.formData = {};
+    $scope.config = Settings.UI.lookUp;
 
     //get contact information
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
     });
+    
 
     $scope.find = function(){
       $scope.form.$submitted = true;

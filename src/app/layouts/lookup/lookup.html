@@ -1,8 +1,8 @@
-<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<hero-slider ng-if="!config || !config.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
-<main class="grid-wrapper">
+<main class="grid-wrapper lookup-page">
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
