@@ -15,7 +15,7 @@ angular.module('mobius.controllers.roomUpgrades', [])
       else { //Otherwise invalidate the room upgrade
         roomUpgradesService.invalidateRoomUpgrade();
       }
-    }, function (error) {
+    }, function () {
       console.log('Error retrieving upgrades');
       roomUpgradesService.invalidateRoomUpgrade();
     });
