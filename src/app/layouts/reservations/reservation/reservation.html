@@ -171,7 +171,7 @@
                 </tr>
                 <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
                   <th></th>
-                  <td><a href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
+                  <td ng-if="!hideBreakdown"><a href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
                 </tr>
               </thead>
               <tbody>
@@ -246,4 +246,6 @@
       </registration-call>
     </div>
   </reservation-widget>
+  <!-- Growl notifications -->
+  <growl-alerts class="growl-alerts-dir" languages-message="'_languages_message_'" retention-message="'_retention_message_'" room-upgrade-success="'_room_upgrade_success_'" room-upgrade-failure="'_room_upgrade_failure_'" room-upgrade-increase="'_room_upgrade_increase_'" room-upgrade-decrease="'_room_upgrade_decrease_'"></growl-alerts>
 </main>

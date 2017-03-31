@@ -63,6 +63,7 @@ angular
     'mobius.controllers.prestige',
     'mobius.controllers.staticContent',
     'mobius.controllers.thirdParties',
+    'mobius.controllers.roomUpgrades',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -120,6 +121,7 @@ angular
     'mobiusApp.services.thirdPartiesService',
     'mobiusApp.services.previousSearches',
     'mobiusApp.services.funnelRetention',
+    'mobiusApp.services.roomUpgrades',
 
     // Factories
     'mobiusApp.factories.template',
@@ -228,7 +230,7 @@ angular
     controller: 'MainCtrl',
     // NOTE: These params are used by booking widget
     // Can be placed into induvidual state later if needed
-    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucher&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode&ch&meta&gclid'
+    url: '?property&location&region&adults&children&dates&rate&rooms&room&promoCode&corpCode&groupCode&voucher&reservation&fromSearch&email&scrollTo&viewAllRates&resetcode&ch&meta&gclid&roomUpgrade'
   })
 
   // Home page
@@ -551,6 +553,14 @@ angular
     templateUrl: 'layouts/resetPassword/resetPassword.html',
     url: '/changePassword',
     controller: 'ResetPasswordCtrl'
+  })
+
+  // Upgrade room page
+  // Page containing a controller that validates room upgrades before sending users to booking flow with upgrade.
+  .state('upgradeRoom', {
+    parent: 'root',
+    url: '/upgrade/:upgradeGuid/:roomID',
+    controller: 'RoomUpgradesCtrl'
   })
 
   // 404 page
