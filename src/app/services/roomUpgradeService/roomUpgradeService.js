@@ -67,6 +67,7 @@ angular.module('mobiusApp.services.roomUpgrades', [])
       }
       else {
         console.log('Invalid upgrade, property code and product code required');
+        invalidateRoomUpgrade();
       }
     }
 
