@@ -31,10 +31,10 @@ describe('datepicker', function() {
             'searchOffset': {
               'enable': true,
               'days': 999
-            },
-            'generics':{
-              'singleProperty':true
             }
+          },
+          'generics':{
+            'singleProperty':true
           }
         }
       });
