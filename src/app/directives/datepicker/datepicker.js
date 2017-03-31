@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, $stateParams, stateService, Settings, propertyService, _, userPreferenceService, $q) {
+.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, $stateParams, stateService, Settings, propertyService, _, userPreferenceService, bookingService, $q) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -28,6 +28,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       var CLASS_EDIT_RANGE = 'date-range-edit';
       var CLASS_DATE_UNAVAILABLE = 'date-unavailable';
       var CLASS_DATE_PARTIALLY_AVAILABLE = 'date-partially-available';
+      var singleProperty = Settings.UI.generics.singleProperty;
 
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
       var resizeUnbindHandler;
@@ -60,6 +61,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       scope.lengthOfStay = 1;
+      scope.availabilityOverviewEnabled = Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && ((scope.barData && scope.barData.property && scope.barData.property.code) || singleProperty);
 
       //stop event bubbling from that container to avoid clicks behing the datepicker
       angular.element(document).ready(function () {
@@ -98,7 +100,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             $(element).datepicker('setDate', parsedDate);
           }
         }
-        if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
+        if(scope.availabilityOverviewEnabled){
           if(dates && dates.length){
             getAvailability($window.moment(dates[0]).format('YYYY'), $window.moment(dates[0]).format('MM'));
           }
@@ -184,7 +186,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           },
           onChangeMonthYear:function(y, m, i){
             $timeout(function(){
-              if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
+              if(scope.availabilityOverviewEnabled){
                 getAvailability(y, m);
               }
               $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
@@ -267,14 +269,14 @@ angular.module('mobiusApp.directives.datepicker', [])
 
             scope.lengthOfStay = getDaysBetween(startDate, endDate);
 
-            if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
+            if(scope.availabilityOverviewEnabled){
               var y = inst ? inst.drawYear : null;
               var m = inst ? inst.drawMonth + 1 : null;
               getAvailability(y, m);
             }
 
             isStartDateSelected = !isStartDateSelected;
-            if(Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && scope.barData.property && scope.barData.property.code){
+            if(scope.availabilityOverviewEnabled){
               $timeout(function(){
                 if(!stateService.isMobile()) {
                   addHoverContent();
@@ -309,7 +311,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             .datepicker( 'widget' )
             .find( '.ui-datepicker-buttonpane' );
           buttonPane.attr( attribute, value );
-          if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && scope.barData.property && scope.barData.property.code && !buttonPane.hasClass('button-added'))
+          if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && ((scope.barData.property && scope.barData.property.code) || singleProperty) && !buttonPane.hasClass('button-added'))
           {
             buttonPane.append('<span class="flexible-dates-control"><span>Exact Dates</span> | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
             buttonPane.addClass('button-added');
@@ -553,7 +555,11 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       function getMonthAvailability(bookingParams){
-        var month = propertyService.getAvailabilityOverview(scope.barData.property.code, bookingParams).then(function(data){
+        var propertyCode = scope.barData.property.code;
+        if(!propertyCode){
+          propertyCode = bookingService.getCodeFromSlug($stateParams.propertySlug);
+        }
+        var month = propertyService.getAvailabilityOverview(propertyCode, bookingParams).then(function(data){
           scope.availabilityOverview = _.union(scope.availabilityOverview,data);
           element.datepicker('refresh');
           if(!stateService.isMobile()) {
