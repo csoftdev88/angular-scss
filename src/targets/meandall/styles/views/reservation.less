@@ -77,6 +77,11 @@ main.reservation-page {
     textarea {
       padding: 5px 8px;
     }
+    form.ng-submitted input.ng-invalid,
+    form.ng-submitted select.ng-invalid,
+    form.ng-submitted textarea.ng-invalid {
+      border-color: #cc0c39;
+    }
     .form-bottom {
       padding-left: 135px;
       position: relative;
@@ -215,7 +220,7 @@ main.reservation-page {
         border: 0px none;
         border-radius: 0px;
         padding: 0;
-        display:block;
+        display: block;
         td {
           font-weight: bold;
         }
@@ -312,12 +317,13 @@ main.reservation-page {
   }
 }
 
-.reservation-detail, .reservation-overview {
+.reservation-detail,
+.reservation-overview {
   padding-top: 0px !important;
   margin-top: -675px !important;
   .viewport-mobile & {
     margin-top: 10px !important;
-    margin-bottom:0;
+    margin-bottom: 0;
   }
   .parallax-image {
     width: 100%;
@@ -425,7 +431,7 @@ reservation-hotel-details {
       padding: 5px 20px;
       border: 2px solid @c-secondary;
       border-top: none;
-      display:block;
+      display: block;
       .viewport-mobile & {
         width: 100%;
         float: none;
@@ -502,34 +508,40 @@ reservation-hotel-details {
       }
     }
     .charges {
-      padding-top:30px;
-      tbody, tr, td, th {
-        display:block;
+      padding-top: 30px;
+      tbody,
+      tr,
+      td,
+      th {
+        display: block;
       }
-      tbody, tr {
-        width:100%;
+      tbody,
+      tr {
+        width: 100%;
       }
-      td, th {
-        width:50%;
+      td,
+      th {
+        width: 50%;
       }
       th {
-        float:left;
+        float: left;
       }
       td {
-        float:right;
+        float: right;
       }
       .total {
-        padding-left:0;
-        text-align:left;
-        font-weight:normal;
-        text-transform:capitalize;
+        padding-left: 0;
+        text-align: left;
+        font-weight: normal;
+        text-transform: capitalize;
       }
-      .total, .total-value {
-        position:relative;
-        top:33px;
+      .total,
+      .total-value {
+        position: relative;
+        top: 33px;
       }
       .tax {
-        margin:-33px 0 33px 0;
+        margin: -33px 0 33px 0;
       }
     }
     .modify-buttons {
@@ -548,8 +560,8 @@ reservation-hotel-details {
       }
     }
     .policy-link {
-      display:block;
-      text-align:right;
+      display: block;
+      text-align: right;
     }
     .booking-details,
     .room-types {
