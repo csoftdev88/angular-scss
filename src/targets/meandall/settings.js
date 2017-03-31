@@ -1127,6 +1127,7 @@ angular.module('mobiusApp.config', [])
           'thumbWidth':'110',
           'thumbHeight':'38'
         },
+        'scrollToCompare': true, //Scroll to the compare view rather than top of entire container
         'hotelInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
