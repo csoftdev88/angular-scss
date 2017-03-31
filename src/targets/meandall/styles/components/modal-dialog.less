@@ -3,15 +3,16 @@
 }
 
 dialog {
-  border:0px none;
-  border-radius:0px;
+  border: 0px none;
+  border-radius: 0px;
   header button-close {
-    color:@c-primary;
+    color: @c-primary;
   }
-  .ui-info, .ui-dialog {
-    border-radius:0px;
+  .ui-info,
+  .ui-dialog {
+    border-radius: 0px;
     background: @c-secondary;
-    color:@c-primary;
+    color: @c-primary;
     header {
       border: 0px none;
       h1 {
@@ -25,5 +26,12 @@ dialog {
 }
 
 dialog.confirmation-dialog .ui-dialog {
-  padding:0;
+  padding: 0;
+}
+
+dialog .ui-info.modal-policies main li {
+  p,
+  h3 {
+    color: @c-primary;
+  }
 }
