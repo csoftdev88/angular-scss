@@ -7,7 +7,7 @@
         "language": "german",
         "language_code": "de",
         "page_title": "me and all hotels",
-        "footer_static_content": "me and all hotel düsseldorf<br/>Immermannstraße 23<br/>40210 Düsseldorf<br/>Tel. +49 211 54259 0<br/><a href='mailto:booking.duesseldorf@meandallhotels.com'>booking.duesseldorf@meandallhotels.com</a>",
+        "footer_static_content": "me and all hotel düsseldorf<br/>Immermannstraße 23<br/>40210 Düsseldorf<br/><a href='tel:+49211542590'>Tel. +49 211 54259 0</a><br/><a href='mailto:booking.duesseldorf@meandallhotels.com'>booking.duesseldorf@meandallhotels.com</a>",
         "footer_copyright_text": "<strong>me and all hotels</strong> ist eine Marke der Lindner Hotels & Resorts.",
         "HOMEPAGE": "////////////////////////////////////////////////////////////////////////////////////////////////////////////",
         "home_page_offer_two": "<a href ng-click='sso.profile()'><img src='/static/images/status-plus.jpg' class='grid-img' alt='PERSONAL PROFILE'><h2>PERSÖNLICHES PROFIL</h2><p>Rufen Sie Ihre vergangenen Aufenthalte auf und speichern Sie Ihre persönlichen Daten, um schneller zu buchen!</p></a>",
