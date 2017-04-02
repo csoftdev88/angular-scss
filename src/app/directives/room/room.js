@@ -228,12 +228,21 @@ angular.module('mobiusApp.directives.room', [])
       function setRoomData(data){
         // Inherited from RoomDetailsCtrl
         scope.setRoomDetails(data);
-        metaInformationService.setMetaDescription(data.meta.description);
-        metaInformationService.setMetaKeywords(data.meta.keywords);
-        metaInformationService.setPageTitle(data.meta.pagetitle);
-        data.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-        metaInformationService.setOgGraph(data.meta.microdata.og);
+        
+        var propertySlug = bookingService.getParams().propertySlug;
+        var propertyCode = null;
+        if(propertySlug) {
+          propertyCode = bookingService.getCodeFromSlug(propertySlug);
+        }
 
+        //Retrieve property data to append to room meta
+        propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
+          metaInformationService.setMetaDescription(data.meta.description);
+          metaInformationService.setMetaKeywords(data.meta.keywords);
+          metaInformationService.setPageTitle(data.meta.pagetitle + ' | ' + propertyData.meta.pagetitle);
+          data.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+          metaInformationService.setOgGraph(data.meta.microdata.og);
+        });
       }
 
       // Room product details
