@@ -35,6 +35,7 @@
           margin: 0;
           position: absolute;
           left: 50%;
+          top: 0em;
           -ms-transform: translateX(-50%);
           -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -51,10 +52,10 @@
           visibility: hidden;
           transition: all .5s ease;
           &.initial-hidden {
-            top: -2em;
-          }
-          .scrolled & {
-            top: 0em;
+            top: -2em;      
+            .scrolled & {
+              top: 0em;
+            }
           }
           &:before {
             content: "\f3c0";
