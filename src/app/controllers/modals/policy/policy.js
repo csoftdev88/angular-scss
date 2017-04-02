@@ -9,7 +9,7 @@ angular.module('mobius.controllers.modals.policy', [])
 
     //Get our dynamic translations
     var appLang = stateService.getAppLanguageCode();
-    var dynamicMessages = DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
+    var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
     $controller('ModalDataCtrl', {$scope: $scope, $modalInstance: $modalInstance, data: data});
     $controller('SanitizeCtrl', {$scope: $scope});
