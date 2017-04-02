@@ -14,6 +14,16 @@ describe('mobius.controllers.modals.policy', function() {
 
         $provide.value('data', {});
 
+        var stateService = function() {
+          return {
+            getAppLanguageCode: function() {
+              return 'en-us';
+            }
+          };
+        };
+        
+        $provide.service('stateService', stateService);
+
         $provide.value('stateService', {});
 
         $provide.value('DynamicMessages', {});
