@@ -21,8 +21,7 @@
       <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
       <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
     </a>
-
-    <a class="brand" ng-if="config.generics.header && config.generics.header.logoText && config.generics.header.logoLink" ng-href="{{config.generics.header.logoLink}}" ng-click="retentionClick()">{{config.generics.header.logoText}}</a>
+    <a class="brand" ng-if="config.generics.header && config.generics.header.logoText && config.generics.header.logoLink" ng-href="{{config.generics.header.logoLink}}" ng-class="{'initial-hidden': $root.hideHeaderLogo}" ng-click="retentionClick()">{{config.generics.header.logoText}}</a>
 
     <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu(); retentionClick()"></a>
 

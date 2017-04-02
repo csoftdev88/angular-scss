@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.sectionImage', [])
-  .directive('sectionImage', ['Settings', 'stateService',
-    function(Settings, stateService) { 
+  .directive('sectionImage', ['$rootScope', 'Settings', 'stateService',
+    function($rootScope, Settings, stateService) { 
       return {
         restrict: 'E',
         scope: {
@@ -13,7 +13,8 @@ angular.module('mobiusApp.directives.sectionImage', [])
           showLogo: '=',
           description: '=',
           roomOverview: '=',
-          property: '='
+          property: '=',
+          hideHeaderLogo: '='
         },
         templateUrl: 'directives/sectionImage/sectionImage.html',
         link: function(scope) {
@@ -38,6 +39,11 @@ angular.module('mobiusApp.directives.sectionImage', [])
 
           //Link for logo that displays in the section
           scope.section.logoLink = headerConfig ? headerConfig.logoLink : null;
+
+          //Whether the logo should be hidden by default before scroll
+          if(scope.hideHeaderLogo !== undefined){
+            $rootScope.hideHeaderLogo = scope.hideHeaderLogo;
+          }
           
           updateSectionImage();
 
