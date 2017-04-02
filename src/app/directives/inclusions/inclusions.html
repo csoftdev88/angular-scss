@@ -1,15 +1,8 @@
-
 <ul>
-  <li>
-    <i class="fa fa-bath"></i>
-  </li>
-  <li>
-    <i class="fa fa-bath"></i>
-  </li>
-  <li>
-    <i class="fa fa-bath"></i>
-  </li>
-  <li>
-    <i class="fa fa-bath"></i>
+  <li ng-repeat="inclusion in inclusions">
+    <img ng-src="{{inclusion.image.uri | cloudinaryImage : 20 : 20 : 'fill'}}" alt="inclusion.image.alt" ng-if="inclusion.image && inclusion.image.uri"/>
+    <i class="fa fa-{{inclusion.icon}}" ng-if="!inclusion.image && inclusion.icon"></i>
+    <span class="inclusion-letter" ng-if="!inclusion.image && !inclusion.icon">{{inclusion.name | limitTo:1}}</span>
+    <span class="tooltiptext">{{inclusion.name}}</span>
   </li>
 </ul>
