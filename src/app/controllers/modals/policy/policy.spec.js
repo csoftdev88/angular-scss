@@ -22,9 +22,7 @@ describe('mobius.controllers.modals.policy', function() {
           };
         };
         
-        $provide.service('stateService', stateService);
-
-        $provide.value('stateService', {});
+        $provide.value('stateService', stateService);
 
         $provide.value('DynamicMessages', {});
 
