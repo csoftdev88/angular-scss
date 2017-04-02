@@ -16,6 +16,8 @@ describe('mobius.controllers.modals.policy', function() {
 
         $provide.value('stateService', {});
 
+        $provide.value('DynamicMessages', {});
+
         $provide.value('Settings', {
           UI: {
             'policies': {
