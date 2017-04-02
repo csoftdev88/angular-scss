@@ -8,7 +8,7 @@
   transform: translateX(-50%);
   margin: 0;
   padding: 0;
-  background: #1a1919;
+  background: @c-secondary;
   padding: 35px 35px 70px 35px;
   .viewport-mobile & {
     width: 100%;
@@ -31,14 +31,13 @@
       }
       .button {
         position: relative;
-        background: #1a1919 !important;
+        background:@c-secondary;
         width: initial;
         border: 0px none;
         font-size: 25px;
         height: 50px;
         width: 50px;
         border: 2px solid @c-primary;
-        border-radius: 8px;
         line-height: 50px;
         box-shadow: none;
         &:before {
@@ -66,7 +65,7 @@
         .text {
           display: block;
           font-family: @ff-bold;
-          color: #9b9b9b;
+          color: #b9b9b9;
           font-size: 13px;
           line-height: 1em;
           position: absolute;
@@ -91,6 +90,9 @@
         .button {
           background: @c-primary !important;
           color: @c-secondary;
+          .text {
+            color:@c-primary;
+          }
         }
       }
     }
