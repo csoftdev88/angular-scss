@@ -5,7 +5,11 @@
 angular.module('mobius.controllers.modals.policy', [])
 
 .controller( 'PolicyCtrl', function($scope, $controller, $modalInstance,
-  Settings, data, $window) {
+  Settings, data, $window, stateService, DynamicMessages) {
+
+    //Get our dynamic translations
+    var appLang = stateService.getAppLanguageCode();
+    var dynamicMessages = DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
     $controller('ModalDataCtrl', {$scope: $scope, $modalInstance: $modalInstance, data: data});
     $controller('SanitizeCtrl', {$scope: $scope});
@@ -28,7 +32,9 @@ angular.module('mobius.controllers.modals.policy', [])
             'pet':'Pet'
           };
         var result;
-        if (Settings.UI.policies[policyCode]){
+        if(dynamicMessages && dynamicMessages[policyCode]){ //If translation exists for policy code title use this
+          result = dynamicMessages[policyCode];
+        } else if (Settings.UI.policies[policyCode]){
           result=Settings.UI.policies[policyCode].title;
         } else if (policyCodes[policyCode]){
           result=policyCodes[policyCode];
