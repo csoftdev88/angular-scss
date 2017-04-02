@@ -10,12 +10,14 @@ angular.module('mobius.controllers.reservationDetail', [])
 .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
   $controller, $q, reservationService, preloaderFactory, modalService, scrollService,
   userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-  metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService,
+  metaInformationService, dataLayerService, Settings, DynamicMessages, stateService, userObject, chainService, infinitiEcommerceService, contentService, routerService,
   apiService, queryService) {
-
+ 
   $controller('SSOCtrl', {
     $scope: $scope
   });
+
+  var appLang = stateService.getAppLanguageCode();
 
   $scope.previousCurrency = $rootScope.currencyCode;
   $scope.voucher = {};
@@ -373,6 +375,9 @@ angular.module('mobius.controllers.reservationDetail', [])
 
           if ($scope.config.displayCancelConfirmedModal) {
             modalService.openReservationCancelConfirmedDialog($stateParams.reservationCode);
+          } else if(DynamicMessages && DynamicMessages[appLang]) {
+            userMessagesService.addMessage(DynamicMessages[appLang].your_reservation +
+              $stateParams.reservationCode + DynamicMessages[appLang].was_successfully_cancelled, false, true);
           } else {
             userMessagesService.addMessage('<div>Your Reservation <strong>' +
               $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true);
@@ -538,7 +543,13 @@ angular.module('mobius.controllers.reservationDetail', [])
         // property as in original object `points` instead of `pointsRequired`
         addon.points = addon.pointsRequired;
         $scope.reservationAddons.push(addon);
-        userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', true);
+        
+
+        if(DynamicMessages && DynamicMessages[appLang]) {
+          userMessagesService.addMessage(DynamicMessages[appLang].you_have_added + addon.name + DynamicMessages[appLang].to_your_reservation, true);
+        } else {
+          userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', true);
+        }
 
         // Updating user loyalties once payment was done using the points
         if (addon.pointsRequired && user.isLoggedIn()) {
@@ -579,9 +590,19 @@ angular.module('mobius.controllers.reservationDetail', [])
 
   $scope.sendToPassbook = function() {
     reservationService.sendToPassbook($stateParams.reservationCode).then(function() {
-      userMessagesService.addMessage('<div>You have successfully added your reservation to passbook.</div>');
+      if(DynamicMessages && DynamicMessages[appLang]) {
+        userMessagesService.addMessage(DynamicMessages[appLang].you_have_added_passbook);
+      }
+      else {
+        userMessagesService.addMessage('<div>You have successfully added your reservation to passbook.</div>');
+      }    
     }, function() {
-      userMessagesService.addMessage('<div>Sorry, we could not add reservation to passbook, please try again.</div>');
+      if(DynamicMessages && DynamicMessages[appLang]) {
+        userMessagesService.addMessage(DynamicMessages[appLang].sorry_could_not_add_passbook);
+      }
+      else {
+        userMessagesService.addMessage('<div>Sorry, we could not add reservation to passbook, please try again.</div>');
+      }  
     });
   };
 

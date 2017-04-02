@@ -81,6 +81,7 @@ angular
 
     // Application modules
     'mobiusApp.config',
+    'mobiusApp.dynamicMessages',
     'mobiusApp.userobject',
     // Services
     'mobiusApp.services.state',
