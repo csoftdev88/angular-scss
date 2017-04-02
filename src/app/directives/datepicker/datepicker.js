@@ -7,7 +7,7 @@
 
 angular.module('mobiusApp.directives.datepicker', [])
 
-.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, $stateParams, stateService, Settings, propertyService, _, userPreferenceService, bookingService, $q) {
+.directive('rangeDatepicker', function($window, $filter, $rootScope, $timeout, $stateParams, stateService, Settings, DynamicMessages, propertyService, _, userPreferenceService, bookingService, $q) {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -29,6 +29,8 @@ angular.module('mobiusApp.directives.datepicker', [])
       var CLASS_DATE_UNAVAILABLE = 'date-unavailable';
       var CLASS_DATE_PARTIALLY_AVAILABLE = 'date-partially-available';
       var singleProperty = Settings.UI.generics.singleProperty;
+      var appLang = stateService.getAppLanguageCode();
+      var exactDates = DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang].exact_dates : 'Exact Dates';
 
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
       var resizeUnbindHandler;
@@ -313,7 +315,7 @@ angular.module('mobiusApp.directives.datepicker', [])
           buttonPane.attr( attribute, value );
           if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && ((scope.barData.property && scope.barData.property.code) || singleProperty) && !buttonPane.hasClass('button-added'))
           {
-            buttonPane.append('<span class="flexible-dates-control"><span>Exact Dates</span> | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
+            buttonPane.append('<span class="flexible-dates-control"><span>' + exactDates + '</span> | <span data-flexi-days="3">-/+3 days</span> | <span data-flexi-days="7">-/+7 days</span></span>');
             buttonPane.addClass('button-added');
 
             var mobiusUserPreferences = userPreferenceService.getCookie();
