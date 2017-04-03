@@ -85,7 +85,7 @@
           <ui-view>
           </ui-view>
           <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom">          
-            <label for="agreement3" class="input-checkbox newsletter-signup" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
+            <label for="agreement3" class="input-checkbox newsletter-signup" ng-show="state.includes('reservation.details') || (!bookingConfig.hideNewsletterCheckboxIfSelected && state.includes('reservation.billing')) || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn && state.includes('reservation.billing'))">
               <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
               <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
             </label>
@@ -94,7 +94,7 @@
                 <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
                 _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
               </label>
-              <label for="agreement2" class="input-checkbox">
+              <label ng-if="!bookingConfig.hideNewsletterCheckboxIfSelected || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn)" for="agreement2" class="input-checkbox">
                 <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
                 _receive_offer_label_
               </label>
