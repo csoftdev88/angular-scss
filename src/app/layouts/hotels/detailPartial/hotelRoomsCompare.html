@@ -18,7 +18,7 @@
       </div>
 
       <div class="filter-bar" ng-show="ratesLoaded && !(availableRooms && availableRooms.length === 0)">
-        <div class="order-switch-container" ng-show="hasDates() && availableRooms && availableRooms.length">
+        <div class="order-switch-container" ng-show="!roomsConfig.hideOrderSwitch && hasDates() && availableRooms && availableRooms.length">
           <span class="filter-label">_filter_sortby_label_:</span>
           <order-switch>
             <select name="sorting" ng-model="currentOrder" disable-search="true" chosen ng-options="option.name for option in sortingOptions"

@@ -450,7 +450,8 @@ angular.module('mobiusApp.config', [])
           'properties':{
             'enable':false
           }
-        }
+        },
+        'hideOrderSwitch':true
       },
       'offers': {
         'toState': 'propertyHotDeals'
