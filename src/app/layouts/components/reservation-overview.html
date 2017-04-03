@@ -77,6 +77,7 @@
           <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
+        <!-- Only display if value is bigger than 0 -->
         <tr class="main" ng-if="getBreakdownTotalTaxes(false) > 0">
           <th>_taxes_:</th>
           <!-- old tax number
@@ -92,6 +93,7 @@
           <td>{{getBreakdownTotalTax(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
+        <!-- Only display if value is bigger than 0 -->
         <tr class="main" ng-if="getBreakdownTotalTaxes(true) > 0">
           <th>_applicable_fees_:<span class="info" ng-if="bookingConfig.displayStaticFeesTooltip" tooltips tooltip-side="top"
               tooltip-template="{{'_fees_tooltip_'}}">&nbsp;?</span></th>
