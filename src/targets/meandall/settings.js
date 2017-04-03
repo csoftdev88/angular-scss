@@ -856,7 +856,7 @@ angular.module('mobiusApp.config', [])
     'languages': {
       'headerAlignment': 'right',
       'dropdown': false,
-      'default': 'en-us',
+      'default': 'de',
       'en-us': {
         'shortName': 'EN',
         'name': 'English',
@@ -915,7 +915,7 @@ angular.module('mobiusApp.config', [])
         'display':false
       },
       'flexibleDates': {
-        'enable':true
+        'enable':false
       },
       'availability': {
         // Date range modification rules

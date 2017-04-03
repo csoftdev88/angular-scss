@@ -3,7 +3,7 @@
     "language": "German",
     "description": "German version",
     "data": {
-        "base_href": "/de/",
+        "base_href": "/",
         "language": "german",
         "language_code": "de",
         "page_title": "me and all hotels",
