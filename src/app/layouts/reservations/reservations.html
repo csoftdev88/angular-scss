@@ -6,7 +6,7 @@
 
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
-<main class="reservation-overview" id="jsReservations" ng-class="{'reservations-no-hero': config.reservations.hideHeroSliderOnReservations, 'grid-wrapper':!viewSettings.fullWidthSections}">
+<main class="reservation-overview" id="jsReservations" ng-class="{'reservations-no-hero': config.reservations.hideHeroSliderOnReservations, 'grid-wrapper':!viewSettings.fullWidthSections, 'no-reservations':!reservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length === 0}">
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
