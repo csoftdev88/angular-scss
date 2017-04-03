@@ -432,7 +432,8 @@ angular.module('mobiusApp.config', [])
       'hideHeroSliderOnReservations': true,
       'displayBreadcrumbsOnReservationDetail': true,
       'displayCancelConfirmedModal': true,
-      'disableAddons': true
+      'disableAddons': true,
+      'showNotificationsTop':true
     },
 
     'aboutHotel': {
