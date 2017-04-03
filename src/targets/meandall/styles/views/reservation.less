@@ -444,6 +444,11 @@ reservation-hotel-details {
   }
   .tables {
     line-height: 1.6em;
+    > div {
+      @media print {
+        width:100%;
+      }
+    }
     figure {
       button {
         height: 40px !important;
@@ -455,6 +460,11 @@ reservation-hotel-details {
       }
       .viewport-mobile & {
         display: none;
+      }
+      img {
+        @media print {
+          display:none;
+        }
       }
     }
     .data {
@@ -709,6 +719,9 @@ reservation-hotel-details {
   .reservation-enhance {
     padding: 90px 0;
     background: @c-secondary;
+    @media print {
+      display:none;
+    }
     .viewport-mobile & {
       padding-top: 40px;
       background: white;
@@ -797,6 +810,10 @@ reservation-hotel-details {
   .map-section {
     padding: 90px 0;
     background: @c-primary;
+    @media print {
+      padding-top:0;
+      padding-bottom:0;
+    }
     .viewport-mobile & {
       display: none;
     }
@@ -814,6 +831,19 @@ reservation-hotel-details {
       strong {
         color: @c-secondary;
       }
+    }
+  }
+}
+
+reservation-finished {
+  margin-top: 0;
+  hr {
+    display: none;
+  }
+  .reservation-summary {
+    margin-bottom:0;
+    @media print {
+      padding-bottom:0;
     }
   }
 }
