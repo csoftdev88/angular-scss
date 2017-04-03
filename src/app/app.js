@@ -628,10 +628,13 @@ angular
 
   if (userLang && userLang !== appLang && Settings.UI.languages[userLang]) {
     var language_code = userLang;
-    var path = $location.path();
-    var search = encodeQueryData($location.search());
-    var hash = $location.hash();
-    $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+    //Only make this change if the new language code isn't default
+    if(Settings.UI.languages.default !== language_code){
+      var path = $location.path();
+      var search = encodeQueryData($location.search());
+      var hash = $location.hash();
+      $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+    }
   }
 
   //Set default language header
