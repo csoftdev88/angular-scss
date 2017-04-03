@@ -8,6 +8,9 @@ main.reservation-page {
   reservation-widget {
     box-shadow: none;
     padding-top: 0;
+    label {
+      color: @c-secondary !important;
+    }
     .viewport-mobile & {
       margin-top: 130px;
     }
@@ -17,17 +20,18 @@ main.reservation-page {
         font-size: @size--1;
       }
     }
-    aside[grid="5"],
     div[grid="7"] {
-      float: right;
+      padding: 15px 100px 15px 10px;
+      box-sizing: border-box;
       .viewport-mobile & {
-        float: none;
+        padding-right: 10px;
       }
     }
     aside[grid="5"] {
       font-size: @size--1;
     }
     aside {
+      box-sizing: border-box;
       &:before {
         display: none;
       }
@@ -39,13 +43,7 @@ main.reservation-page {
       }
     }
     form {
-      background: @c-secondary;
       box-sizing: border-box;
-      padding: 10px 25px 18px;
-      .viewport-mobile & {
-        background: transparent;
-        padding: 0;
-      }
     }
     h3 {
       font-size: @heading-2-size;
@@ -76,6 +74,7 @@ main.reservation-page {
     }
     textarea {
       padding: 5px 8px;
+      border: 2px solid @c-secondary;
     }
     form.ng-submitted input.ng-invalid,
     form.ng-submitted select.ng-invalid,
@@ -126,14 +125,19 @@ main.reservation-page {
         }
       }
     }
-    .detail-links a {
-      text-decoration: none;
-      cursor:pointer;
-      .viewport-mobile & {
-        font-size: @size--1;
+    .detail-links {
+      border-top: 1px solid @c-secondary;
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        .viewport-mobile & {
+          font-size: @size--1;
+        }
       }
     }
     .room-data {
+      border-left: 1px solid @c-secondary;
+      border-right: 1px solid @c-secondary;
       .room-data-details {
         padding: 0 15px;
         .chain-logo {
@@ -160,22 +164,23 @@ main.reservation-page {
           }
         }
       }
-      >h3,
-      >h4 {
+      >h3 {
         padding: 0 15px;
         margin: 0 0 5px 0;
         line-height: 1em;
         text-transform: initial;
         font-weight: normal;
-      }
-      >h3 {
         font-size: @size-0;
         font-family: @ff-default;
       }
       >h4 {
-        font-size: @size--2;
-        font-family: @ff-bold;
-        margin-bottom: 15px;
+        padding: 15px 15px 0 15px;
+        font-family: @ff-heading;
+        color: @c-secondary;
+        font-size: 24px;
+        font-weight: normal;
+        margin: 0;
+        line-height: 28px;
       }
       .image-wrapper img {
         margin: 0;
@@ -187,15 +192,28 @@ main.reservation-page {
       .viewport-mobile & {
         padding: 0;
       }
-      .back {
-        font-size: @size--2;
-        color: @c-link;
-        margin: 0;
-        padding: 0;
-        &:before {
-          border: 0px none;
-          font-size: @size--1;
+      .tooltiptext {
+        display: none;
+        color: @c-blue;
+        background: rgba(74, 122, 178, 0.25);
+        font-size: 12px;
+        padding: 10px 15px;
+        margin: 0 10px;
+        line-height: 1.4em;
+        .viewport-mobile & {
+          display: block;
         }
+      }
+    }
+    .back {
+      font-size: @size--2;
+      font-family: @ff-default;
+      color: @c-link;
+      margin: 0;
+      padding: 0;
+      &:before {
+        border: 0px none;
+        font-size: @size--1;
       }
     }
     .reservation-data {
@@ -215,7 +233,10 @@ main.reservation-page {
         }
       }
       .data {
-        padding: 0px 10px;
+        border-left: 1px solid @c-secondary;
+        border-right: 1px solid @c-secondary;
+        margin: 0;
+        padding: 20px 10px;
       }
       .charges {
         border: 0px none;
@@ -231,6 +252,15 @@ main.reservation-page {
             font-family: @ff-default;
             .viewport-mobile & {
               padding: 10px 0;
+            }
+            a {
+              cursor: pointer;
+            }
+            span {
+              .viewport-mobile & {
+                display: inline-block;
+                line-height: 1.6em;
+              }
             }
           }
         }
@@ -255,12 +285,11 @@ main.reservation-page {
   reservation-billing {
     >div {
       margin: 0;
-      padding: 35px;
+      padding: 0;
       border: 0px none;
       border-radius: 0px;
-      background-color: @c-secondary;
+      background: transparent;
       .viewport-mobile & {
-        background: transparent;
         padding: 0;
       }
     }
@@ -270,31 +299,65 @@ main.reservation-page {
     }
     .payment-card form .card-details .expiry-title {
       label {
-        background: @c-secondary;
-        .viewport-mobile & {
-          background: @c-primary;
-          color: @c-secondary;
-        }
+        background: @c-primary;
+        color: @c-secondary;
       }
     }
-    .payment-card form .card-details .card-cvv .help {
-      color: @c-primary !important;
-      font-size: 15px !important;
-      line-height: 19px;
-      top: 12px;
-      .viewport-mobile & {
+    .payment-card form .card-details .card-cvv {
+      .help {
         color: @c-secondary !important;
+        font-size: 15px !important;
+        line-height: 19px;
+        top: 12px;
+        &:hover .tooltiptext {
+          visibility: visible;
+        }
+        .tooltiptext {
+          visibility: hidden;
+          bottom: 34px;
+          height: auto;
+          background-color: @c-secondary;
+          box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+          text-align: center;
+          font-size: 13px;
+          line-height: 16px;
+          padding: 10px;
+          border-radius: 4px;
+          box-sizing: border-box;
+          position: absolute;
+          z-index: 1;
+          right: -90px;
+          width: 200px;
+          color: @c-primary;
+          &:after {
+            content: " ";
+            position: absolute;
+            top: 100%;
+            /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: @c-secondary transparent transparent transparent;
+          }
+          .viewport-mobile & {
+            display: none;
+          }
+        }
       }
     }
   }
   reservation-confirmation {
     font-size: @size--2;
+    >div {
+      border: 2px solid @c-secondary;
+    }
     .tab-pane {
-      border-top: 0px none;
       padding: 20px;
+      border-top: 2px solid @c-secondary;
       &.active {
-        background: @c-secondary;
-        color: @c-primary;
+        background: @c-primary;
+        color: @c-secondary;
       }
       form {
         padding: 10px;
@@ -305,11 +368,14 @@ main.reservation-page {
       font-family: @ff-bold;
     }
     .nav-tabs li {
-      background: @c-primary;
+      background: @c-secondary;
+      a {
+        color: @c-primary;
+      }
       &.active {
-        background: @c-secondary;
+        background: @c-primary;
         a {
-          color: @c-primary;
+          color: @c-secondary;
           font-weight: 400;
           font-family: @ff-bold;
         }
@@ -321,7 +387,7 @@ main.reservation-page {
 .reservation-detail,
 .reservation-overview {
   padding-top: 0px !important;
-  margin-top: -675px !important;
+  margin-top: 0px !important;
   .viewport-mobile & {
     margin-top: 10px !important;
     margin-bottom: 0;
@@ -375,9 +441,9 @@ reservation-hotel-details {
       button {
         height: 40px !important;
         line-height: 44px !important;
-        opacity:0.6;
+        opacity: 0.6;
         &:hover {
-          opacity:1
+          opacity: 1
         }
       }
       .viewport-mobile & {

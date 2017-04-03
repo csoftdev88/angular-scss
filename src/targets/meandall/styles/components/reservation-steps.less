@@ -27,7 +27,7 @@
         margin: 0 3%;
       }
       .viewport-mobile & {
-        margin: 0 2%;
+        margin: 0 4%;
       }
       .button {
         position: relative;
@@ -75,6 +75,10 @@
           -webkit-transform: translateX(-50%);
           -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+          .viewport-mobile & {
+            word-break:break-word;
+            max-width:75px;
+          }
         }
         &[disabled="disabled"] {
           border-color: #4a4a4a;

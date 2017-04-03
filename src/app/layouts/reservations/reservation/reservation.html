@@ -114,7 +114,8 @@
       </label>
 
       <div class="reservation-controls" grid-row>
-        <button class="back" ng-click="goBack()">_back_</button>
+        <span class="tooltiptext" ng-if="bookingConfig.ccvAsTooltip && isCurrentBookingStep('reservation.billing')">_cvv_modal_desc_</span>
+        <button ng-if="!bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button>
         <button ng-if="!bookingConfig.detailsBeforeForm" class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">
           <span ng-if="continueName === 'continue'">_continue_</span>
           <span ng-if="continueName === 'confirm'">_confirm_</span>

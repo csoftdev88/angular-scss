@@ -961,6 +961,12 @@ angular.module('mobiusApp.config', [])
       'displayHeroSlider': false,
       //Display the overview items on single line (adults, children, check-in etc)
       'dataOverviewSingleLine': true,
+      //Display policies link at bottom of reservation overview
+      'policiesLinkBottom': true,
+      //display back button in form
+      'backButtonInForm': true,
+      //Display ccv info as a tooltip
+      'ccvAsTooltip': true,
       //display advanced header
       'headerPartial':{
         'display': false,
