@@ -114,7 +114,7 @@
             role="button" tabindex="0"
             ng-click="selectProduct(product)"
             ng-hide="product.memberOnly && !isUserLoggedIn()">
-            _book_now_
+            _login_to_book_
           </button-submit>
 
           <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">_login_to_book_</a>
