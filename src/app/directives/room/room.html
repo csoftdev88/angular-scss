@@ -166,7 +166,7 @@
     </div>
   </section>
 
-  <section-image ng-if="config.sectionImages && config.sectionImages[1]" section="config.sectionImages[1]" when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
+  <section-image ng-if="config.sectionImages && config.sectionImages[1] && isMobile" section="config.sectionImages[1]" when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
 
   <div class="room-details-left" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
     <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescription">
