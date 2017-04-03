@@ -232,7 +232,6 @@ angular.module('mobius.controllers.reservation', [])
 
     //scrollToDetails('reservationDetailsForm');
     scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
-
   }
 
   function getRoomPromise(room) {
@@ -380,9 +379,11 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function scrollToDetails(target) {
-    $timeout(function(){
-      scrollService.scrollTo(target, 30);
-    }, 100);
+    if(!$scope.bookingConfig.checkoutNoScrollingDesktop || ($scope.bookingConfig.checkoutNoScrollingDesktop && $scope.isMobile)){
+      $timeout(function(){
+        scrollService.scrollTo(target, 30);
+      }, 100);
+    }
   }
 
   function setContinueName(stateName) {
