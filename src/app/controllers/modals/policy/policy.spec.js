@@ -14,15 +14,10 @@ describe('mobius.controllers.modals.policy', function() {
 
         $provide.value('data', {});
 
-        var stateService = function() {
-          return {
-            getAppLanguageCode: function() {
-              return 'en-us';
-            }
-          };
-        };
-        
-        $provide.value('stateService', stateService);
+        $provide.value('stateService', {
+          getAppLanguageCode: function(){},
+          isMobile: function(){}
+        });
 
         $provide.value('DynamicMessages', {});
 
