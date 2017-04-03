@@ -41,7 +41,7 @@
             </li>
           </ul>
         </div>
-        <div class="pricing-switch-container">
+        <div class="pricing-switch-container" ng-show="hasDates() && !(availableRooms && availableRooms.length === 0)">
           <span class="filter-label">_filter_pricing_label_:</span>
           <pricing-switch>
             <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a> |
