@@ -7,7 +7,7 @@
     <div class="room-heading-overview" ng-if="roomOverview">
       <div class="grid-wrapper">
         <div grid="12">
-          <div class="left-content">
+          <div class="left-content">         
             <h1 ng-bind-html="roomOverview.name | mainHeaderStyle"></h1>
             <span class="sub-title" ng-if="config.displayRoomSubtitle && roomOverview.subTitle">{{roomOverview.subTitle}}</span>
             <div class="description" ng-bind-html="isMobile ? roomOverview.roomHighlight : roomOverview.description | trustAsHtml"></div>
@@ -21,6 +21,7 @@
               </amenity-item>
             </amenities-list>
           </div>
+          <a ng-href="{{roomOverview.propertyLink}}" class="back-to-hotel">< Back</a>
         </div>
       </div>
     </div>
