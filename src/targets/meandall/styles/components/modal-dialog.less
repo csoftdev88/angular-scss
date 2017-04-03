@@ -29,27 +29,38 @@ dialog.confirmation-dialog .ui-dialog {
   padding: 0;
 }
 
-dialog .ui-info.modal-policies main li {
-  p,
-  h3 {
-    color: @c-primary;
+dialog .ui-info.modal-policies {
+  header h1 {
+    font-family:@ff-bold;
+    color:@c-primary;
+    font-size:@size-0;
+  }
+  main ul {
+    border: 0px none;
+    li {
+      p,
+      h3 {
+        color: @c-primary !important;
+      }
+    }
   }
 }
 
-.dialog-product-details main section.terms-and-conditions li {
-  border-bottom:0px none;
+.dialog-product-details main section.terms-and-conditions li,
+dialog .ui-info.modal-policies main li {
+  border-bottom: 0px none;
   &:first-child {
-    padding-top:0;
+    padding-top: 0;
   }
   p {
     color: @c-primary;
-    padding:0 5px;
+    padding: 0 5px;
   }
   h3 {
     border: 1px solid @c-primary;
     padding: 5px;
     font-family: @ff-bold;
-    margin-bottom:15px;
-    text-transform:capitalize;
+    margin-bottom: 15px;
+    text-transform: capitalize;
   }
 }

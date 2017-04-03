@@ -106,9 +106,13 @@ angular.module('mobius.controllers.reservationDetail', [])
 
           $window._.forEach(room, function(value, key) {
             if (key.indexOf('policy') === 0) {
-              policies[key.substr(6).toLowerCase()] = value;
+              policies[key.substr(6).toLowerCase()] = {};
+              policies[key.substr(6).toLowerCase()].description = value;
+              policies[key.substr(6).toLowerCase()].type = key.substr(6).toLowerCase();
             }
           });
+
+          console.log(policies);
 
           return {
             name: room.productName,
