@@ -54,6 +54,26 @@ booking-widget-search {
   h3 {
     display: none
   }
+  form-element.code {
+    .viewport-mobile & {
+      background:@c-primary;
+      &:before {
+        content: attr(title) !important;
+        display: block !important;
+        font-family:@ff-default;
+        width: 100%;
+        text-align: left;
+        font-size: 15px;
+        padding-left: 15px;
+        color:@c-secondary;
+        z-index:1;
+      }
+      select {
+        background:transparent;
+        z-index:2;
+      }
+    }
+  }
 }
 
 booking-widget-room {
