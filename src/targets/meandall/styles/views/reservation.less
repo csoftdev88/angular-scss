@@ -405,13 +405,6 @@ main.reservation-page {
   }
 }
 
-reservation-finished {
-  margin-top: 0;
-  hr {
-    display: none;
-  }
-}
-
 //STYLES FOR RESERVATION DETAIL OVERVIEW
 reservation-finished,
 reservation-hotel-details {
@@ -731,9 +724,7 @@ reservation-hotel-details {
       border-radius: 0px;
       margin: 0;
       padding: 0;
-      text-align: center;
       li {
-        width: 40% !important;
         padding: 0 15px;
         .viewport-mobile & {
           width: 100% !important;
@@ -815,5 +806,15 @@ reservation-hotel-details {
         color: @c-secondary;
       }
     }
+  }
+}
+
+reservation-finished {
+  margin-top: 0;
+  hr {
+    display: none;
+  }
+  .reservation-summary {
+    margin-bottom:0;
   }
 }
