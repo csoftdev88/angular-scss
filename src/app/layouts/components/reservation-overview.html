@@ -119,7 +119,15 @@
         </tr>
         <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
           <th><button ng-if="bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button></th>
-          <td><span ng-if="bookingConfig.policiesLinkBottom"><a ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a> | </span><a href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
+          <td>
+            <a ng-if="bookingConfig.policiesLinkBottom" ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a>
+            <span ng-hide="noBreakdown">             |
+              <a href ng-click="breakdownExtended = !breakdownExtended">
+                <span ng-if="!breakdownExtended">_view_price_breakdown_</span>
+                <span ng-if="breakdownExtended">_hide_price_breakdown_</span>
+              </a>
+            </span>
+          </td>
         </tr>
       </thead>
       <tbody>

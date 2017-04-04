@@ -261,6 +261,9 @@ angular.module('mobius.controllers.reservation', [])
         }
       }
 
+      //Used to decided if 'view price breakdown' should display (We should have no breakdown if we have more than 1 night, taxes are more than 0 and fees are more than 0)
+      $scope.noBreakdown = $scope.allRooms[0]._selectedProduct.price.breakdowns.length === 1 && $scope.getBreakdownTotalTaxes(false) === 0 && $scope.getBreakdownTotalTaxes(true) === 0;
+
       if($stateParams.voucher){
         $scope.voucher.code = $stateParams.voucher;
         $scope.redeemVoucher();
