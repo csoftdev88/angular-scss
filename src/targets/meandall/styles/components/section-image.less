@@ -2,6 +2,9 @@ section-image {
   display: block;
   overflow: visible;
   position: relative;
+  @media print {
+    display:none;
+  }
   >div {
     .transition(all, .3s, ease-in-out);
   }

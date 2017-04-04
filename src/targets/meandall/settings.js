@@ -912,10 +912,10 @@ angular.module('mobiusApp.config', [])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display':false
+        'display':true
       },
       'flexibleDates': {
-        'enable':false
+        'enable':true
       },
       'availability': {
         // Date range modification rules
@@ -989,6 +989,8 @@ angular.module('mobiusApp.config', [])
       'propertyNameAfterDetails':true,
       //Hide newsletter checkbox if not on first step
       'hideNewsletterCheckboxIfSelected':true,
+      //No scrolling on checkout desktop
+      'checkoutNoScrollingDesktop':true,
       //Prompt to ask user to login
       'loginCta':{
         'display': false
