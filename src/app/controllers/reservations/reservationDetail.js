@@ -393,6 +393,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           if (user.isLoggedIn()) {
             $state.go('reservations');
           } else {
+            console.log('take anonymous user to home');
             $state.go('home', {reload:true}); //https://github.com/angular-ui/ui-router/wiki/Quick-Reference#statereload
           }
 
