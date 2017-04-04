@@ -102,7 +102,6 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function loadProfile() {
-
       var customerId = getCustomerId();
 
       //We need token to load mobius profile
@@ -158,6 +157,8 @@ angular.module('mobiusApp.services.user', [])
           }
         });
       } else {
+        //If for whatever reason we do not have a customerId, clear the stored user and reject the auth
+        clearStoredUser();
         return $q.reject({});
       }
     }
