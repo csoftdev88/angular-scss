@@ -2,7 +2,7 @@
 
 <section-image ng-if="config.sectionImages && config.sectionImages[0]" id="hotel-header-image" section="config.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="true" hide-header-logo="true" description="details.descriptionShort"></section-image>
 
-<notification-bar ng-if="config.sectionImages && config.sectionImages[0]" class="sticky-header" currently-editing="_you_are_currently_editing_"></notification-bar>
+<notification-bar ng-if="config.sectionImages && config.sectionImages[0]" sticky-header="true" currently-editing="_you_are_currently_editing_"></notification-bar>
 
 <breadcrumbs ng-if="!viewSettings.hideBreadcrumbs" stickable="main-header" id="breadcrumbs"></breadcrumbs>
 
