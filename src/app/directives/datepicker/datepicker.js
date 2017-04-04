@@ -558,7 +558,7 @@ angular.module('mobiusApp.directives.datepicker', [])
       }
 
       function getMonthAvailability(bookingParams){
-        var propertyCode = scope.barData.property.code;
+        var propertyCode = scope.barData.property ? scope.barData.property.code : null;
         if(!propertyCode){
           propertyCode = bookingService.getCodeFromSlug($stateParams.propertySlug);
         }
