@@ -369,9 +369,11 @@ main.reservation-page {
       font-family: @ff-bold;
     }
     .nav-tabs li {
-      width:33%;
       line-height:1.4em;
       background: @c-secondary;
+      .viewport-mobile & {
+        width:32%;
+      }
       a {
         color: @c-primary;
       }
