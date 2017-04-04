@@ -2,8 +2,6 @@
 
 <section-image ng-if="config.reservations.sectionImages && config.reservations.sectionImages[0] && reservations.nextStay" id="room-header-image" section="config.reservations.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="false" hide-header-logo="false"></section-image>
 
-<notification-bar ng-if="config.reservations.sectionImages && config.reservations.sectionImages[0] && reservations.nextStay" currently-editing="_you_are_currently_editing_"></notification-bar>
-
 <breadcrumbs stickable="main-header"></breadcrumbs>
 
 <main class="reservation-overview" id="jsReservations" ng-class="{'reservations-no-hero': config.reservations.hideHeroSliderOnReservations, 'grid-wrapper':!viewSettings.fullWidthSections, 'no-reservations':!reservations.nextStay && reservations.futureStays.length === 0 && reservations.pastStays.length === 0}">

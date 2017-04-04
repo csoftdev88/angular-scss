@@ -10,7 +10,10 @@ body {
 
 #main-container {
   background: @c-black;
-  overflow-x:hidden;
+  overflow-x:initial;
+  .viewport-mobile & {
+    overflow-x:hidden;
+  }
 }
 
 main {
