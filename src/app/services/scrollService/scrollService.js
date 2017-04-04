@@ -44,7 +44,7 @@ angular.module('mobiusApp.services.scroll', [])
         if($item.length) {
           //Default offset to half of hero slider
           // TODO: Refactor, fix magic numbers
-          var $offset = offset ? -(angular.element('#main-header').height() + angular.element('breadcrumbs').height() + offset) : -(angular.element('#main-header').height() + angular.element('breadcrumbs').height());
+          var $offset = offset ? -(angular.element('#main-header').height() + angular.element('#main-container > div > notification-bar').height() + angular.element('breadcrumbs').height() + offset) : -(angular.element('#main-header').height() + angular.element('breadcrumbs').height());
           //scroll
           toAnimate.stop().animate({
             scrollTop: $item.offset().top + $offset
