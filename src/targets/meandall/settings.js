@@ -987,6 +987,8 @@ angular.module('mobiusApp.config', [])
       'newsLetterOptedIn': true,
       //Display the property name after room details in overview panel
       'propertyNameAfterDetails':true,
+      //Hide newsletter checkbox if not on first step
+      'hideNewsletterCheckboxIfSelected':true,
       //No scrolling on checkout desktop
       'checkoutNoScrollingDesktop':true,
       //Prompt to ask user to login
