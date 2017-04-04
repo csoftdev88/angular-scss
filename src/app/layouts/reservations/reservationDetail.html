@@ -152,7 +152,7 @@
                     <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
-                  <tr class="main">
+                  <tr class="main" ng-if="getBreakdownTotalTaxes(false) > 0">
                     <th>_taxes_:</th>
                     <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
@@ -164,7 +164,7 @@
                     <td>{{getBreakdownTotalTax(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
-                  <tr class="main">
+                  <tr class="main" ng-if="getBreakdownTotalTaxes(true) > 0">
                     <th>_applicable_fees_:</th>
                     <td>{{getBreakdownTotalTaxes(true) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
