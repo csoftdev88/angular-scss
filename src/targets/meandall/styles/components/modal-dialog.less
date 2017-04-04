@@ -8,6 +8,11 @@ dialog {
   header button-close {
     color: @c-primary;
   }
+  header h1 {
+    font-family:@ff-bold;
+    color:@c-primary;
+    font-size:@size-0;
+  }
   .ui-info,
   .ui-dialog {
     border-radius: 0px;
@@ -15,9 +20,6 @@ dialog {
     color: @c-primary;
     header {
       border: 0px none;
-      h1 {
-        color: @c-primary;
-      }
     }
     main {
       padding-top: 0 !important;
@@ -30,11 +32,6 @@ dialog.confirmation-dialog .ui-dialog {
 }
 
 dialog .ui-info.modal-policies {
-  header h1 {
-    font-family:@ff-bold;
-    color:@c-primary;
-    font-size:@size-0;
-  }
   main ul {
     border: 0px none;
     li {
@@ -72,4 +69,12 @@ dialog .ui-info.modal-policies main li {
 .lightbox .ui-info header button-close {
   color:#606060;
   right:-40px;
+}
+
+dialog.other-rooms .ui-info header {
+  padding-bottom:0;
+}
+
+dialog.other-rooms ul li .details .desc, dialog.other-rooms ul li .details .price {
+  color:@c-primary;
 }
