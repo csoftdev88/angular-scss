@@ -562,18 +562,20 @@ angular.module('mobiusApp.directives.datepicker', [])
         if(!propertyCode){
           propertyCode = bookingService.getCodeFromSlug($stateParams.propertySlug);
         }
-        var month = propertyService.getAvailabilityOverview(propertyCode, bookingParams).then(function(data){
-          scope.availabilityOverview = _.union(scope.availabilityOverview,data);
-          element.datepicker('refresh');
-          if(!stateService.isMobile()) {
-            addHoverContent();
-          }
-          if (hasCounter) {
-            updateButtonPane('data-counter', getCounterText());
-          }
-          updateButtonPane('data-title', scope.paneTitle);
-        });
-        return month;
+        if(propertyCode){
+          var month = propertyService.getAvailabilityOverview(propertyCode, bookingParams).then(function(data){
+            scope.availabilityOverview = _.union(scope.availabilityOverview,data);
+            element.datepicker('refresh');
+            if(!stateService.isMobile()) {
+              addHoverContent();
+            }
+            if (hasCounter) {
+              updateButtonPane('data-counter', getCounterText());
+            }
+            updateButtonPane('data-title', scope.paneTitle);
+          });
+          return month;
+        }
       }
 
       function bindResizeListener(){
