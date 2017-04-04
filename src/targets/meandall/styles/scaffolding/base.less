@@ -5,11 +5,15 @@
 
 body {
   padding-top: @header-height !important;
+  overflow-x:hidden;
 }
 
 #main-container {
   background: @c-black;
   overflow-x:initial;
+  .viewport-mobile & {
+    overflow-x:hidden;
+  }
 }
 
 main {
