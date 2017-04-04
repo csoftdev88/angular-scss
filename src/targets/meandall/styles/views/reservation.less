@@ -351,6 +351,7 @@ main.reservation-page {
     font-size: @size--2;
     >div {
       border: 2px solid @c-secondary;
+      border-radius: 0;
     }
     .tab-pane {
       padding: 20px;
@@ -711,7 +712,44 @@ reservation-hotel-details {
       }
     }
   }
-  //ADDONS SECTION
+  .reservation-enhancements, .reservation-enhance {
+    padding: 90px 0;
+    background: @c-secondary;
+    .viewport-mobile & {
+      padding-top: 40px;
+      background: white;
+      color: black;
+    }
+    h3 {
+      font-size: @heading-1-size;
+      margin-bottom: 45px;
+      .viewport-mobile & {
+        font-size: @heading-2-size;
+        margin-bottom: 15px;
+      }
+    }
+  }
+  //PURCHASED ADDONS SECTION//ADDONS SECTION
+  .reservation-enhancements {
+    @media print {
+      padding:5px 0;
+    }
+    list-item {
+      h2 {
+        font-size:@heading-2-size;
+        color:@c-primary;
+        .viewport-mobile & {
+          color:@c-secondary;
+        }
+      }
+      p {
+        .viewport-mobile & {
+          color:@c-secondary;
+        }
+      }
+    }
+  }
+  //PURCHASABLE ADDONS SECTION
   .reservation-enhance {
     padding: 90px 0;
     background: @c-secondary;

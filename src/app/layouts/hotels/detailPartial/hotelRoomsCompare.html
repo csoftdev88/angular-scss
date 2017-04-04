@@ -2,7 +2,7 @@
 <section class="hotel-detail__rooms-compare" ng-if="rooms.length" grid-row>
   <hr />
   <div grid="12" ng-attr-id="{{!viewSettings.scrollToCompare ? 'jsRooms' : undefined}}">
-    <header class="section-header">
+    <header class="section-header" ng-class="{'flexi-dates-displayed':showFlexibleDates && ratesLoaded && !(availableRooms && availableRooms.length === 0)}">
 
       <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle" ng-if="!(availableRooms && availableRooms.length === 0) || (altRoomDatesAvailable && altRoomDatesAvailable.length) || (altProperties && altProperties.length)"></h2>
 

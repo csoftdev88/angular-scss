@@ -37,7 +37,7 @@
       </div>
 
       <div class="pricing-info">
-        <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom">
+        <div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom && hasDates()">
           <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
             <a class="button" ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom">_price_from_ {{getValuePer(room.priceFrom) | i18nCurrency: $root.currencyCode}}</a>
           </p>
