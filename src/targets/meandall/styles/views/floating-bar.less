@@ -8,9 +8,6 @@ floating-bar {
   }
   &.multi-room {
     background: @c-booking-widget-active;
-    .viewport-mobile & {
-      background: @c-booking-widget;
-    }
   }
   &.active {
     .viewport-mobile & {
@@ -58,6 +55,17 @@ floating-bar {
       }
       &.floating-bar--tab-advanced-booking:after {
         border-bottom: @baseline solid @c-booking-widget-active;
+      }
+      &.floating-bar--tab-booking.is-active,
+      &.floating-bar--tab-advanced-booking.is-active {
+        .viewport-mobile & {
+          background: @c-booking-widget-active !important;
+        }
+      }
+      &.floating-bar--tab-advanced-booking {
+        .viewport-mobile & {
+          background: @c-booking-widget;
+        }
       }
       //- Skew effect
       &:after {
