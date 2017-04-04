@@ -2,10 +2,7 @@
 
 <section-image ng-if="config.sectionImages && config.sectionImages[0] && property" id="room-header-image" section="config.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="true" room-overview="roomDetails" property="property" hide-header-logo="true"></section-image>
 
-<notification-bar ng-if="config.sectionImages && config.sectionImages[0] && property"
-                  sticky-header="true"
-                  currently-editing="_you_are_currently_editing_">
-</notification-bar>
+<notification-bar ng-if="config.sectionImages && config.sectionImages[0] && property" class="sticky-header" currently-editing="_you_are_currently_editing_"></notification-bar>
 
 <breadcrumbs ng-if="!viewSettings.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
 <main class="room-detail" ng-class="{'grid-wrapper':!viewSettings.fullWidthSections}">
