@@ -1,4 +1,7 @@
-<notification-bar ng-if="config.showNofificationTop" currently-editing="_you_are_currently_editing_"></notification-bar>
+<notification-bar ng-if="config.showNofificationTop"
+                  sticky-header="true"
+                  currently-editing="_you_are_currently_editing_">
+</notification-bar>
 
 <breadcrumbs ng-if="config.displayBreadcrumbsOnReservationDetail" stickable="main-header"></breadcrumbs>
 
