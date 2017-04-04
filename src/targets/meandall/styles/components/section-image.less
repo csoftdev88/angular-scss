@@ -2,6 +2,9 @@ section-image {
   display: block;
   overflow: visible;
   position: relative;
+  @media print {
+    display:none;
+  }
   >div {
     .transition(all, .3s, ease-in-out);
   }
@@ -48,6 +51,16 @@ section-image {
     .grid-wrapper {
       .viewport-mobile & {
         padding: 0;
+      }
+    }
+    //Styling for back link 
+    .back-to-hotel {
+      display: block;
+      cursor:pointer;
+      text-transform:uppercase;
+      .viewport-mobile & {
+        margin-top:20px;
+        font-size:18px;
       }
     }
     .left-content {

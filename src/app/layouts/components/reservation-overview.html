@@ -77,7 +77,8 @@
           <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr class="main">
+        <!-- Only display if value is bigger than 0 -->
+        <tr class="main" ng-if="getBreakdownTotalTaxes(false) > 0">
           <th>_taxes_:</th>
           <!-- old tax number
                   <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
@@ -92,7 +93,8 @@
           <td>{{getBreakdownTotalTax(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr class="main">
+        <!-- Only display if value is bigger than 0 -->
+        <tr class="main" ng-if="getBreakdownTotalTaxes(true) > 0">
           <th>_applicable_fees_:<span class="info" ng-if="bookingConfig.displayStaticFeesTooltip" tooltips tooltip-side="top"
               tooltip-template="{{'_fees_tooltip_'}}">&nbsp;?</span></th>
           <td ng-show="allRooms.length">{{getBreakdownTotalTaxes(true) | i18nCurrency: $root.currencyCode}}</td>
@@ -117,7 +119,15 @@
         </tr>
         <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
           <th><button ng-if="bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button></th>
-          <td><span ng-if="bookingConfig.policiesLinkBottom"><a ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a> | </span><a href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
+          <td>
+            <a ng-if="bookingConfig.policiesLinkBottom" ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a>
+            <span ng-hide="noBreakdown">             |
+              <a href ng-click="breakdownExtended = !breakdownExtended">
+                <span ng-if="!breakdownExtended">_view_price_breakdown_</span>
+                <span ng-if="breakdownExtended">_hide_price_breakdown_</span>
+              </a>
+            </span>
+          </td>
         </tr>
       </thead>
       <tbody>

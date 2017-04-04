@@ -240,6 +240,7 @@ angular.module('mobiusApp.directives.room', [])
           metaInformationService.setMetaDescription(data.meta.description);
           metaInformationService.setMetaKeywords(data.meta.keywords);
           metaInformationService.setPageTitle(data.meta.pagetitle + ' | ' + propertyData.meta.pagetitle);
+          data.meta.microdata.og['og:title'] = data.meta.pagetitle + ' | ' + propertyData.meta.pagetitle;
           data.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
           metaInformationService.setOgGraph(data.meta.microdata.og);
         });
