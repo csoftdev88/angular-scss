@@ -2,5 +2,5 @@
 
 describe('stickyHeader', function () {
     // @todo Complete unit test for stickyHeader
-    expect(true).toBe(true);
+    //expect(true).toBe(true);
 });
