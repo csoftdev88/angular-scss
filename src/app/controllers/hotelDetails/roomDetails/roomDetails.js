@@ -15,6 +15,10 @@ angular.module('mobius.controllers.room.details', [])
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
+    
+    //Add property link page to room detail object
+    var propertyLink = $state.href('hotel', $stateParams);
+    $scope.roomDetails.propertyLink = propertyLink ? propertyLink : null;
 
     if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics){
       $timeout(function(){
