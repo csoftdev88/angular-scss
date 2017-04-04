@@ -393,7 +393,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           if (user.isLoggedIn()) {
             $state.go('reservations');
           } else {
-            $state.go('home');
+            $state.go('home', {reload:true});
           }
 
         }, function(error) {
