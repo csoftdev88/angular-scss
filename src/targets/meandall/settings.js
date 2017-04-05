@@ -1185,6 +1185,9 @@ angular.module('mobiusApp.config', [])
           'link': ''
         }
       },
+      'reservations':{
+        'hideFooter':true
+      },
       'reservationDetails':{
         'fullWidthSections':true
       },

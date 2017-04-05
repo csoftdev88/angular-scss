@@ -685,6 +685,8 @@ angular
   });
 
   $scope.uiConfig = Settings.UI;
+  $scope.reservationViewConfig = Settings.UI.viewsSettings.reservations;
+  
   $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
   $scope.userLang = user.getUserLanguage();
   $scope.appLang = stateService.getAppLanguageCode();
