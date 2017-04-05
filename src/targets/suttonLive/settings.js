@@ -114,8 +114,8 @@ angular.module('mobiusApp.config', [])
     'chainCode': 'SAN',
     'trackUsage': true,
     'baseURL': {
-      'development': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
-      'integration': 'http://integration-sutton.mobiuswebservices.com:3010/api/4.0/',
+      'development': '//integration-www-sutton.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-sutton.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging.suttonplace.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.suttonplace.com/api/4.0/'
