@@ -387,7 +387,8 @@ angular.module('mobiusApp.config', [])
     },
     'lookUp':{
       'hideHeroSlider':true,
-      'hideFooter':true
+      'hideFooter':true,
+      'hideFloatingBarOnEntry':true
     },
     'hotelDetails': {
       'chainPrefix': 'meandall Hotels',

@@ -5,10 +5,19 @@
 angular.module('mobius.controllers.reservationLookup', [])
 
   .controller('ReservationLookupCtrl', function($scope, $controller, $state,
-    chainService, Settings, breadcrumbsService, modalService, reservationService){
+    chainService, Settings, breadcrumbsService, modalService, reservationService, $rootScope, $timeout){
 
     //$controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Reservation Lookup');
+      
+    // Hide the floating bar on entry if meandall tenant
+    if (Settings.UI.lookUp.hideFloatingBarOnEntry) {
+        $timeout(function() {
+            $rootScope.$broadcast('floatingBarEvent', {
+                isCollapsed: true
+            });
+        });
+    }  
 
     $scope.formData = {};
     $scope.config = Settings.UI.lookUp;
