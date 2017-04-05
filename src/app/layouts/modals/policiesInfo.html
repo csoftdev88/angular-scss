@@ -14,7 +14,7 @@
             <div ng-bind-html="product.name"></div>
           </accordion-heading>
           <ul>
-            <li ng-repeat="policy in product.policies" ng-if="policy.type !== 'guarantee'">
+            <li ng-repeat="policy in product.policies" ng-if="policy.type !== 'commission'">
               <h3>{{getPolicyTitle(policy.type)}}:</h3>
               <p ng-bind-html="sanitize(policy.description)"></p>
             </li>
