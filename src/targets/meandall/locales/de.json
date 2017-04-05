@@ -548,6 +548,7 @@
         "blog": "Blog",
         "fitness": "Fitness",
         "alt_products_extend_your_stay": "Verlängern Sie Ihren Aufenthalt um {{stayExtension}} Nächte und Sie können buchen",
-        "faq": "Faq"
+        "faq": "Faq",
+        "filter_dates": "Daten"
     }
 }
