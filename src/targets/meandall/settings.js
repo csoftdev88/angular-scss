@@ -386,7 +386,8 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'lookUp':{
-      'hideHeroSlider':true
+      'hideHeroSlider':true,
+      'hideFooter':true
     },
     'hotelDetails': {
       'chainPrefix': 'meandall Hotels',
@@ -667,6 +668,7 @@ angular.module('mobiusApp.config', [])
       'largeRoomImage': true,
       'largePropertyImage': true,
       'descriptionUnderTitle': true,
+      'hideFooter':true,
       'sectionImages':[
         {
           'desktop':{
@@ -1184,9 +1186,6 @@ angular.module('mobiusApp.config', [])
           'display': false,
           'link': ''
         }
-      },
-      'reservations':{
-        'hideFooter':true
       },
       'reservationDetails':{
         'fullWidthSections':true

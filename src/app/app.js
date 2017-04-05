@@ -685,12 +685,20 @@ angular
   });
 
   $scope.uiConfig = Settings.UI;
-  $scope.reservationViewConfig = Settings.UI.viewsSettings.reservations;
-  
   $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
   $scope.userLang = user.getUserLanguage();
   $scope.appLang = stateService.getAppLanguageCode();
   $scope.scrollService = scrollService;
+
+  $scope.hideFooter = false;
+  
+  //If on the reservations page and config says to hide footer, then hide footer
+  console.log($scope.uiConfig);
+  console.log($state.includes('reservation'));
+  if($state.parent !== 'reservation' && $scope.uiConfig.reservations && $scope.uiConfig.reservations.hideFooter){
+    console.log('you');
+    $scope.hideFooter = true;
+  }
 
   //If menu overlay is enabled, add the event handlers to open and close the menu
   if($scope.menuOverlayEnabled){
