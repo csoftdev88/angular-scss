@@ -179,9 +179,15 @@
                     <td>{{getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
-                  <tr class="breakdown-toggle" ng-show="config.reservationDetailPriceBreakdownExtended && reservation">
+                  <tr class="breakdown-toggle"
+                      ng-show="config.reservationDetailPriceBreakdownExtended && reservation && hasPriceBreakdown()">
                     <th></th>
-                    <td><a href ng-click="breakdownExtended = !breakdownExtended"><span ng-if="!breakdownExtended">_view_price_breakdown_</span><span ng-if="breakdownExtended">_hide_price_breakdown_</span></a></td>
+                    <td>
+                      <a href ng-click="breakdownExtended = !breakdownExtended">
+                        <span ng-if="!breakdownExtended">_view_price_breakdown_</span>
+                        <span ng-if="breakdownExtended">_hide_price_breakdown_</span>
+                      </a>
+                    </td>
                   </tr>
                 </thead>
               </table>
