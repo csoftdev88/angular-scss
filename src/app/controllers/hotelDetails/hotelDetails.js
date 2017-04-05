@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService, previousSearchesService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService, DynamicMessages) {
 
   $controller('PriceCtr', {
     $scope: $scope
@@ -36,6 +36,10 @@ angular.module('mobius.controllers.hotel.details', [
   var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
   var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
+
+  //Get our dynamic translations
+  var appLang = stateService.getAppLanguageCode();
+  var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -187,8 +191,8 @@ angular.module('mobius.controllers.hotel.details', [
           {
             flexibleDate.available = availability.available && availability.fullyAvailable;
             if(flexibleDate.available && availability.priceFrom){
-              //var thisPrice = $filter('i18nCurrency')(availability.priceFrom, $rootScope.currencyCode, undefined, false);
-              flexibleDate.name += ' (from $' + availability.priceFrom + ')';
+              var fromString = dynamicMessages && dynamicMessages.from ? dynamicMessages.from : 'from';
+              flexibleDate.name += ' ('+ fromString + ' ' + stateService.getCurrentCurrency().symbol + availability.priceFrom +')';
             }
             else
             {

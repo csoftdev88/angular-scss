@@ -20,7 +20,8 @@ angular.module('mobiusApp.dynamicMessages', [])
     'family':'Family',
     'guarantee':'Guarantee',
     'noShow':'No Show',
-    'pet':'Pet'
+    'pet':'Pet',
+    'from':'From'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
@@ -37,6 +38,7 @@ angular.module('mobiusApp.dynamicMessages', [])
     'family':'Familie',
     'guarantee':'Garantie',
     'noShow':'Keine Show',
-    'pet':'Haustier'
+    'pet':'Haustier',
+    'from':'Von'
   }
 });

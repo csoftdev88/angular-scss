@@ -160,6 +160,8 @@ describe('mobius.controllers.hotel.details', function() {
           propertySlug: 'vancouver'
         });
 
+        $provide.value('DynamicMessages', {});
+
         $provide.value('Settings', {
           UI: {
             hotelDetails: {
