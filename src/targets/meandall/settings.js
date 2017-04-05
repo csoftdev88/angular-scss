@@ -294,7 +294,7 @@ angular.module('mobiusApp.config', [])
       'header': {
         'logoLink': 'https://meandallhotels.com',
         'logoText': 'me and all hotels',
-        'telephone': 'Tel. +49 211 54259 0',
+        'telephone': '+49 211 54259 0',
         'loginAsLink': true,
         'hideMobileHeader': true,
         'mainMenuAsOverlay': true
