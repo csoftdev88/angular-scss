@@ -847,6 +847,18 @@ angular
     if($state.current.name !== 'reservation.details' && $state.current.name !== 'reservation.billing' && $state.current.name !== 'reservation.confirmation') {
       previousSearchesService.displaySearches();
     }
+
+    $scope.hideFooter = false;
+    
+    //If on a reservations page and config says to hide footer, then hide footer
+    if($state.current.parent === 'reservation' && $scope.uiConfig.reservations && $scope.uiConfig.reservations.hideFooter){
+      $scope.hideFooter = true;
+    }
+
+    //If on a lookup page and config says to hide footer, then hide footer
+    if($state.current.name === 'lookup' && $scope.uiConfig.lookUp && $scope.uiConfig.lookUp.hideFooter){
+      $scope.hideFooter = true;
+    }
   });
 
   if(funnelRetentionService.isFunnelRetentionActive()){

@@ -387,6 +387,7 @@ angular.module('mobiusApp.config', [])
     },
     'lookUp':{
       'hideHeroSlider':true,
+      'hideFooter':true,
       'hideFloatingBarOnEntry':true
     },
     'hotelDetails': {
@@ -668,6 +669,7 @@ angular.module('mobiusApp.config', [])
       'largeRoomImage': true,
       'largePropertyImage': true,
       'descriptionUnderTitle': true,
+      'hideFooter':true,
       'sectionImages':[
         {
           'desktop':{
