@@ -70,9 +70,24 @@ h2{
 .markdown-content {
   ul, ol {
     margin-top: 1em;
-    list-style: disc;
     margin-bottom: 20px;
-    position: initial;
-    left: 0;
+    list-style:none;
+    overflow:hidden;
+    padding-left:15px;
+    left:0;
+    li {
+      position:relative;
+      &:before{
+        content:'';
+        position:absolute;
+        display:block;
+        background:black;
+        width:5px;
+        height:5px;
+        border-radius:10px;
+        left:-15px;
+        top:9px;
+      }
+    }
   }
 }
