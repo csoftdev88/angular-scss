@@ -14,14 +14,17 @@ angular.module('mobiusApp.dynamicMessages', [])
     'sorry_could_not_add_passbook':'<div>Sorry, we could not add reservation to passbook, please try again.</div>',
     'exact_dates':'Exact Dates',
     'days':'days',
+    'cancel':'Cancellation',
     'cancellation':'Cancellation',
-    'checkInOut':'Check-In-Out',
-    'extraGuest':'Extra Guest',
+    'checkinout':'Check-In-Out',
+    'extraguest':'Extra Guest',
+    'extraguests':'Extra Guest',
     'family':'Family',
     'guarantee':'Guarantee',
-    'noShow':'No Show',
+    'noshow':'No Show',
     'pet':'Pet',
-    'from':'From'
+    'from':'From',
+    'tax':'tax'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
@@ -32,13 +35,16 @@ angular.module('mobiusApp.dynamicMessages', [])
     'sorry_could_not_add_passbook':'<div>Entschuldigung, wir konnten keine Reservierung zum Sparbuch hinzufügen, bitte versuchen Sie es erneut.</div>',
     'exact_dates':'Genaue Daten',
     'days':'tage',
+    'cancel':'Stornierung',
     'cancellation':'Stornierung',
-    'checkInOut':'Einchecken / Auschecken',
-    'extraGuest':'Extra Gast',
+    'checkinout':'Einchecken / Auschecken',
+    'extraguest':'Extra Gast',
+    'extraguests':'Extra Gasts',
     'family':'Familie',
     'guarantee':'Garantie',
-    'noShow':'Keine Show',
+    'noshow':'Keine Show',
     'pet':'Haustier',
-    'from':'Von'
+    'from':'Von',
+    'tax':'Steuer'
   }
 });

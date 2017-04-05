@@ -18,7 +18,8 @@ angular.module('mobius.controllers.modals.policy', [])
       return $window.moment(date).format(format);
     };
 
-    $scope.getPolicyTitle = function(policyCode){
+    $scope.getPolicyTitle = function(originalPolicyCode){
+        var policyCode = originalPolicyCode.toLowerCase();
         var policyCodes={
             'cancel':'Cancellation',
             'cancellation':'Cancellation',
@@ -32,6 +33,10 @@ angular.module('mobius.controllers.modals.policy', [])
             'pet':'Pet'
           };
         var result;
+        console.log('policy code');
+        console.log(policyCode);
+        console.log(dynamicMessages);
+        console.log(dynamicMessages[policyCode]);
         if(dynamicMessages && dynamicMessages[policyCode]){ //If translation exists for policy code title use this
           result = dynamicMessages[policyCode];
         } else if (Settings.UI.policies[policyCode]){
