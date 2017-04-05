@@ -121,9 +121,9 @@ describe('mobius.controllers.hotel.details', function() {
           openGallery: function() {}
         });
 
-
         $provide.value('stateService', {
-          isMobile: sinon.stub()
+          getAppLanguageCode: function(){},
+          isMobile: function(){}
         });
 
         $provide.value('advertsService', {});
