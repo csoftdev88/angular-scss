@@ -721,5 +721,15 @@ angular.module('mobius.controllers.reservationDetail', [])
     return $window.moment(date).format(format);
   };
 
+  $scope.hasPriceBreakdown = function() {
+    if ($scope.reservation.rooms[0].priceDetail.breakdowns.length > 1) { return true; }
+    if ($scope.getBreakdownTotalTaxes(false) > 0) { return true; }
+    if ($scope.reservation.rooms[0].priceDetail.taxDetails.policyTaxItemDetails.length > 0) { return true; }
+    if ($scope.getBreakdownTotalTaxes(true) > 0) { return true; }
+    if ($scope.reservation.rooms[0].priceDetail.feeDetails.policyTaxItemDetails.length > 0) { return true; }
+    if ($scope.getCountPriceDetail('totalDiscount') !== 0) { return true; }
+    return false;
+  };
+
   $location.search({});
 });
