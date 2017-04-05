@@ -182,7 +182,7 @@
           <accordion close-others="false">
             <accordion-group is-open="true">
               <ul>
-                <li ng-repeat="policy in data.product.policies" ng-if="policy.type !== 'guarantee'">
+                <li ng-repeat="policy in data.product.policies">
                   <h3>{{getPolicyTitle(policy.type)}}:</h3>
                   <p ng-bind-html="sanitize(policy.description)"></p>
                 </li>
