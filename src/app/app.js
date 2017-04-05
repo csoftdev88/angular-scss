@@ -690,16 +690,6 @@ angular
   $scope.appLang = stateService.getAppLanguageCode();
   $scope.scrollService = scrollService;
 
-  $scope.hideFooter = false;
-  
-  //If on the reservations page and config says to hide footer, then hide footer
-  console.log($scope.uiConfig);
-  console.log($state.includes('reservation'));
-  if($state.parent !== 'reservation' && $scope.uiConfig.reservations && $scope.uiConfig.reservations.hideFooter){
-    console.log('you');
-    $scope.hideFooter = true;
-  }
-
   //If menu overlay is enabled, add the event handlers to open and close the menu
   if($scope.menuOverlayEnabled){
     $scope.toggleMenuOverlay = function(){
@@ -856,6 +846,18 @@ angular
     //Display our previous searches if not in reservation flow
     if($state.current.name !== 'reservation.details' && $state.current.name !== 'reservation.billing' && $state.current.name !== 'reservation.confirmation') {
       previousSearchesService.displaySearches();
+    }
+
+    $scope.hideFooter = false;
+    
+    //If on a reservations page and config says to hide footer, then hide footer
+    if($state.current.parent === 'reservation' && $scope.uiConfig.reservations && $scope.uiConfig.reservations.hideFooter){
+      $scope.hideFooter = true;
+    }
+
+    //If on a lookup page and config says to hide footer, then hide footer
+    if($state.current.name === 'lookup' && $scope.uiConfig.lookUp && $scope.uiConfig.lookUp.hideFooter){
+      $scope.hideFooter = true;
     }
   });
 
