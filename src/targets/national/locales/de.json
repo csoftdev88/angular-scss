@@ -130,8 +130,6 @@
 
     "view_hotels": "Hotels anschauen",
 
-    "book_now": "Buchen",
-
     "select_dates": "Datum auswählen",
     "change_dates": "Datum ändern",
     "no_dates_selected": "Sie haben keine Daten selektiert",
@@ -208,6 +206,8 @@
     "no_badges_earned": "Du hast bisher keine Badges bekommen",
 
     "book_now": "Buchen",
+
+    "book_now_floating_bar": "Buchen",
 
     "single_booking": "Einezelbuchung",
 
