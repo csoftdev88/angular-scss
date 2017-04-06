@@ -4,7 +4,7 @@
       <div class="desktop" ng-bind-html="'_make_your_booking_' | mainHeaderStyle"></div>
       <div class="mobile">
         <div ng-show="hasSearchParams() && !hasDates()" class="book-now-button" ng-bind-html="'_select_dates_' | mainHeaderStyle" ng-click="openDatePicker()"></div>
-        <div ng-show="!hasSearchParams() && !hasDates() || hasSearchParams() && hasDates() && !isCollapsed" class="book-now-button" ng-bind-html="'_book_now_' | mainHeaderStyle"></div>
+        <div ng-show="!hasSearchParams() && !hasDates() || hasSearchParams() && hasDates() && !isCollapsed" class="book-now-button" ng-bind-html="'_book_now_floating_bar_' | mainHeaderStyle"></div>
         <div ng-show="hasSearchParams() && hasDates() && isCollapsed" ng-class="{'in-line' : inLine()}" class="search-params-bar">
           <div class="cell dates">
             <div class="date-cell" ng-bind-html="getCheckIn()"></div>
@@ -64,7 +64,7 @@
           <h2>{{$root.campaign.bookingBar.tabTitle}}</h2>
           <p>{{$root.campaign.bookingBar.tabText}}</p>
         </div>
-        <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.campaignStyle.secondaryColor +', '+$root.campaign.campaignStyle.primaryColor+')'}">{{$root.campaign.bookingBar.callToAction ? $root.campaign.bookingBar.callToAction : '_book_now_'}}</button>
+        <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.campaignStyle.secondaryColor +', '+$root.campaign.campaignStyle.primaryColor+')'}">{{$root.campaign.bookingBar.callToAction ? $root.campaign.bookingBar.callToAction : '_book_now_floating_bar_'}}</button>
       </div>
     </a>
   </campaign-bar>

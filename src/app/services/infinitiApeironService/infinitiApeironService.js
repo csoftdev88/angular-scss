@@ -243,7 +243,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'totalTax': priceData.totalTax, //ADD FEES TO THIS
         'shipping': 'NONE', //This must be a string to pass infiniti purchase event validation
         'shippingDuration': null,
-        'shippingOption': null,
+        'shippingOption': 'NONE', //This must be a string to pass infiniti purchase event validation
         'shippingIsSplit': null,
         'currencyCode': Settings.UI.currencies.default,
         'totalItems': scopeData.allRooms.length,
@@ -424,7 +424,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'totalTax': null,
         'shipping': 'NONE', //This must be a string to pass infiniti purchase event validation
         'shippingDuration': null,
-        'shippingOption': null,
+        'shippingOption': 'NONE', //This must be a string to pass infiniti purchase event validation
         'shippingIsSplit': null,
         'currencyCode': Settings.UI.currencies.default,
         'totalItems': 1,
