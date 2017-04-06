@@ -194,7 +194,7 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function checkPropertyRestrictions(campaign, urlProperty) {
-      urlProperty = urlProperty ? urlProperty : $stateParams.property;
+      urlProperty = urlProperty ? urlProperty : bookingService.getCodeFromSlug($stateParams.propertySlug);
       if (campaign.criteria.properties) {
         if (urlProperty) {
           var criteriaProperties = campaign.criteria.properties;
@@ -360,8 +360,8 @@ angular.module('mobiusApp.services.campaigns', [])
         var contentCode = $rootScope.campaign.association.contentCode;
 
         //If there is an offer code but no property code from admin, use property code from URL
-        if (offerCode && !propertyCode && $stateParams && $stateParams.property) {
-          propertyCode = $stateParams.property;
+        if(offerCode && !propertyCode && bookingService.getCodeFromSlug($stateParams.propertySlug)) {
+          propertyCode = bookingService.getCodeFromSlug($stateParams.propertySlug);
           $rootScope.campaign.association.propertyCode = propertyCode;
         }
 

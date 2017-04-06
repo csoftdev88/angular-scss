@@ -2,6 +2,11 @@ room-products {
 	width:63%;
 	> ul {
 		> li {
+				pricing-details{
+					.action-buttons .button {
+						min-width:91px;
+					}						
+				}
 				&.is-highlighted,
 				&.is-member-only{
 					pricing-details{
@@ -10,6 +15,16 @@ room-products {
 						.viewport-mobile & {
 							padding-bottom: 5px;
 						}						
+					}
+				}
+				&.is-member-only {
+					&.is-member-only-disabled{
+						button-submit,
+						.button{
+							background-color:@c-button;
+							box-shadow:0 1px 0 0 darken(@c-button, 15%),
+              inset 0px 0px 10px 30px @c-button;
+						}
 					}
 				}
 				.rate-description {

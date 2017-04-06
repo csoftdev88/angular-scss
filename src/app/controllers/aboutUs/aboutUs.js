@@ -26,7 +26,7 @@ angular.module('mobius.controllers.about', [])
       $scope.chain = chain;
       metaInformationService.setMetaDescription($scope.chain.meta.description);
       metaInformationService.setMetaKeywords($scope.chain.meta.keywords);
-      metaInformationService.setPageTitle($scope.chain.meta.pagetitle);
+      metaInformationService.setPageTitle('About | ' + $scope.chain.meta.pagetitle);
 
       $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);

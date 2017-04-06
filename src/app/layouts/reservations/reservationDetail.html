@@ -237,7 +237,7 @@
           <div ng-class="{'disabled': !addon.description || addon.description == ''}">
             <a class="eye-icon">
               <img ng-if="addon.image && addon.image.uri" ng-src="{{addon.image.uri}}"/>
-              <img ng-if="!addon.image || !addon.image.uri" ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
+              <img ng-if="(!addon.image || !addon.image.uri) && addon.images && addon.images.length && addon.images[0].uri" ng-src="{{addon.images[0].uri}}" />
             </a>
 
             <h4 ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></h4>
@@ -282,7 +282,7 @@
 
           <figure>
             <img ng-if="addon.image && addon.image.uri" ng-src="{{addon.image.uri}}"/>
-            <img ng-if="!addon.image || !addon.image.uri" ng-src="{{addon.images[0].uri}}" err-source="http://lorempixel.com/390/110/" />
+            <img ng-if="(!addon.image || !addon.image.uri) && addon.images && addon.images.length && addon.images[0].uri" ng-src="{{addon.images[0].uri}}" />
           </figure>
 
           <h2>{{addon.name}}</h2>

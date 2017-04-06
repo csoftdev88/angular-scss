@@ -6,10 +6,10 @@ angular.module('mobiusApp.directives.hotels', [])
 // TODO: Start using ng-min
 .directive('hotels', ['$state', 'filtersService', 'bookingService',
   'propertyService', 'preloaderFactory', '_', 'user', 'NgMap', 'previousSearchesService',
-  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService', 'routerService', 'stateService',
+  '$q', 'modalService', '$controller', 'breadcrumbsService', 'scrollService', '$location', '$timeout', '$rootScope', '$stateParams', 'contentService', 'Settings', 'locationService', 'userPreferenceService', 'chainService', 'routerService', 'stateService', 'metaInformationService',
   function($state, filtersService, bookingService, propertyService,
     preloaderFactory, _, user, NgMap, previousSearchesService, $q, modalService, $controller,
-    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService, routerService, stateService) {
+    breadcrumbsService, scrollService, $location, $timeout, $rootScope, $stateParams, contentService, Settings, locationService, userPreferenceService, chainService, routerService, stateService, metaInformationService) {
 
     return {
       restrict: 'E',
@@ -101,6 +101,9 @@ angular.module('mobiusApp.directives.hotels', [])
 
                 //breadcrumbs
                 addBreadCrumbs(curLocation);
+
+                //Add meta data to page
+                metaInformationService.updateMetaData(curLocation.nameShort + ' | ');
 
                 if (curLocation) {
                   //Store this location search
@@ -295,6 +298,7 @@ angular.module('mobiusApp.directives.hotels', [])
           paramsData.property = property;
           routerService.buildStateParams('hotel', paramsData).then(function(params) {
             stateParams = _.extend(stateParams, params);
+            stateParams.property = null;
             property.url = $state.href('hotel', stateParams, {
               reload: true
             });
@@ -318,6 +322,7 @@ angular.module('mobiusApp.directives.hotels', [])
           paramsData.property = property;
           routerService.buildStateParams('hotel', paramsData).then(function(params) {
             stateParams = _.extend(stateParams, params);
+            stateParams.property = null;
             $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', stateParams);
             $state.go('hotel', stateParams, {
               reload: true

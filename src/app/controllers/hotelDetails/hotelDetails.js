@@ -51,6 +51,7 @@ angular.module('mobius.controllers.hotel.details', [
   bookingParams = bookingService.updateOfferCode(bookingParams);
   bookingParams = bookingService.updateDiscountCode(bookingParams);
   var mobiusUserPreferences = userPreferenceService.getCookie();
+  var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
 
   $rootScope.flexibleDates = mobiusUserPreferences && mobiusUserPreferences.flexibleDates ? mobiusUserPreferences.flexibleDates : null;
   $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && $rootScope.flexibleDates ? true : false;
@@ -120,6 +121,8 @@ angular.module('mobius.controllers.hotel.details', [
 
   };
 
+
+  //If flexible dates is enabled and dates are selected
   if($scope.showFlexibleDates && $stateParams.dates && $rootScope.flexibleDates){
 
     $scope.flexibleDates = [];
@@ -174,7 +177,7 @@ angular.module('mobius.controllers.hotel.details', [
       params.corpCode = bookingParams.corpCode;
     }
 
-    propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+    propertyService.getAvailabilityOverview(propertyCode, params).then(function(availabilities){
       _.each($scope.flexibleDates, function(flexibleDate){
         var datesArray = flexibleDate.value.split('_');
         var flexibleFrom = $window.moment.tz(datesArray[0], Settings.UI.bookingWidget.timezone);
@@ -209,14 +212,12 @@ angular.module('mobius.controllers.hotel.details', [
       $state.go($state.current.name, params, {reload: false});
       bookingParams.from = params.dates.split('_')[0];
       bookingParams.to = params.dates.split('_')[1];
-      getHotelDetails($state.params.property, bookingParams);
+      getHotelDetails(propertyCode, bookingParams);
       $timeout(function() {
         $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', bookingParams);
       });
     };
   }
-
-  var propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
 
   if (!propertyCode) {
     $state.go('hotels');
@@ -237,9 +238,11 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.details = details;
     }
 
-    //If a property param is defined (which denotes a search) store this search
-    if($stateParams.property){
-      previousSearchesService.addSearch($state.current.name, $stateParams, details.nameLong, details.code);
+    //If a property is defined (which denotes a search) store this search
+    if(propertyCode){
+      var currentParams = angular.copy($stateParams);
+      currentParams.property = propertyCode;
+      previousSearchesService.addSearch($state.current.name, currentParams, details.nameLong, details.code);
     }
 
     $scope.localInfo = details.localInfo;
@@ -412,7 +415,7 @@ angular.module('mobius.controllers.hotel.details', [
                 delete params.includes;
 
                 //Get our flexi alt dates
-                propertyService.getAvailabilityOverview(bookingParams.propertyCode, params).then(function(availabilities){
+                propertyService.getAvailabilityOverview(propertyCode, params).then(function(availabilities){
                   $scope.altRoomDates = availabilities;
                   $scope.altRoomDatesAvailable = _.reject(availabilities, function(availability){
                     return !availability.fullyAvailable;
@@ -738,7 +741,6 @@ angular.module('mobius.controllers.hotel.details', [
     var stateParams = {
       'infoSlug': item.meta.slug,
       'locationSlug': $stateParams.locationSlug,
-      'property': $scope.details.code,
       'propertySlug': $scope.details.meta.slug,
       'regionSlug': $stateParams.regionSlug
     };
@@ -752,7 +754,6 @@ angular.module('mobius.controllers.hotel.details', [
       'code': offer.availability && offer.availability.slug && offer.availability.slug !== '' ? offer.availability.slug : offer.meta.slug,
       'regionSlug': $stateParams.regionSlug,
       'locationSlug': $stateParams.locationSlug,
-      'property': $scope.details.code,
       'propertySlug': $scope.details.meta.slug
     };
 

@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService) {
+.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService, stateService) {
 
   var sessionCookie = sessionDataService.getCookie();
   var sessionId = sessionCookie.sessionData.sessionId;
@@ -167,7 +167,15 @@ angular.module('mobiusApp.services.api', [])
     var URL = getValue(Settings.API, path);
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var base = Settings.API.baseURL[env];
-    // NOTE: We might want to throw error in case when path is not found
+
+    if(Settings.API.languageInPath) { //If enabled this statement will add the language code to the URL path to circumvent cloudflare caching issue
+      //Only use the first 2 characters of the language code because the doesn't support localised languages i.e. en-us
+      var languageCode = stateService.getAppLanguageCode() ? stateService.getAppLanguageCode().substring(0, 2) : null;
+      if(languageCode) {
+        base += languageCode + '/';
+      }
+    }
+
     $window._.each(params, function(value, key){
       URL = URL.replace(':' + key, value).replace(',','%2C');
     });
@@ -281,22 +289,24 @@ angular.module('mobiusApp.services.api', [])
   }
 
   function sendApiAlert(type, error, url, params, resHeaders){
-    //error params url headers
-    var alertData = {
-      'client': Settings.infinitiApeironTracking[env].username,
-      'id': Settings.infinitiApeironTracking[env].id,
-      'component': 'mobius-web',
-      'description': 'Failed api request sent from mobius-web',
-      'meta': {
-        'error': error,
-        'type': type,
-        'url': url,
-        'params': params,
-        'headers': resHeaders
-      },
-      'severity': 5
-    };
-    sendMobiusAlert(alertData);
+    if(Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env]){
+      //error params url headers
+      var alertData = {
+        'client': Settings.infinitiApeironTracking[env].username,
+        'id': Settings.infinitiApeironTracking[env].id,
+        'component': 'mobius-web',
+        'description': 'Failed api request sent from mobius-web',
+        'meta': {
+          'error': error,
+          'type': type,
+          'url': url,
+          'params': params,
+          'headers': resHeaders
+        },
+        'severity': 5
+      };
+      sendMobiusAlert(alertData);
+    }
   }
 
   function sendMobiusAlert(alertData){

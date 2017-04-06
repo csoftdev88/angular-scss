@@ -71,8 +71,35 @@ h2{
   ul, ol {
     margin-top: 1em;
     list-style: disc;
-    position: relative;
-    left: 20px;
     margin-bottom: 20px;
+    position: initial;
+    left: 0;
+  }
+}
+
+//Default styling for ul's has been overridden due to a chrome rendering issue
+//list bullets were displaying left of an adjacent image floated left 
+.markdown-content {
+  ul {
+    margin-top: 1em;
+    margin-bottom: 20px;
+    list-style:none;
+    overflow:hidden;
+    padding-left:15px;
+    left:0;
+    li {
+      position:relative;
+      &:before{
+        content:'';
+        position:absolute;
+        display:block;
+        background:black;
+        width:5px;
+        height:5px;
+        border-radius:10px;
+        left:-15px;
+        top:9px;
+      }
+    }
   }
 }

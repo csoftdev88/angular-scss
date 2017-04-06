@@ -12,8 +12,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
   $scope.moreInfo = [];
 
   if(!$stateParams.infoSlug || $stateParams.infoSlug === ''){
-    var propertyCode = bookingService.getCodeFromSlug($stateParams.propertySlug);
-    $state.go('hotel', {property: propertyCode, propertySlug: $stateParams.propertySlug});
+    $state.go('hotel', {propertySlug: $stateParams.propertySlug});
   }
 
   var previousState = {
@@ -89,15 +88,15 @@ angular.module('mobius.controllers.hotel.subpage', [])
           breadcrumbsService.setHeader(details.nameLong);
         }
 
+        //Generate content for current hotel subpage
+        sortInfo(details);
 
         metaInformationService.setMetaDescription($scope.details.meta.description);
         metaInformationService.setMetaKeywords($scope.details.meta.keywords);
-        metaInformationService.setPageTitle($scope.details.meta.pagetitle);
+        metaInformationService.setPageTitle($scope.info.title + ' | ' + $scope.details.meta.pagetitle);
 
         $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
         metaInformationService.setOgGraph($scope.details.meta.microdata.og);
-
-        sortInfo(details);
 
         if(Settings.UI.hotelDetails.subPageRedirects){
           var redirectUrl = $scope.info && $scope.info.meta && $scope.info.meta.redirectUrl ? $scope.info.meta.redirectUrl : null;
@@ -178,7 +177,6 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
   function getInfoUrl(info) {
     var stateParams = {
-      'property': $scope.details.code,
       'propertySlug': $scope.details.meta.slug,
       'infoSlug': info.meta.slug,
       'regionSlug': $stateParams.regionSlug,

@@ -1,66 +1,76 @@
 'use strict';
 
 angular.module('mobiusApp.services.metaInformation', [])
-  .service('metaInformationService', ['$rootScope', function($rootScope) {
+  .service('metaInformationService', ['$rootScope', '$location', 'chainService', 'Settings', function ($rootScope, $location, chainService, Settings) {
 
     var defaultMetaInformation = {
-      description : '',
-      keywords : '',
+      description: '',
+      keywords: '',
       pagetitle: '',
-      ogTitle : '',
-      ogDescription : '',
-      ogType : '',
-      ogUrl : '',
-      ogImage : '',
-      ogLocale : ''
+      ogTitle: '',
+      ogDescription: '',
+      ogType: '',
+      ogUrl: '',
+      ogImage: '',
+      ogLocale: ''
     };
 
     $rootScope.metaInformation = {
-      description : '',
+      description: '',
       pagetitle: ''
     };
 
-    //Removing this for now as doesn't seem necessary
-    /*
-    chainService.getChain(Settings.API.chainCode).then(function(data) {
-      defaultMetaInformation.description = data.meta.description;
-      defaultMetaInformation.keywords = data.meta.keywords;
-      defaultMetaInformation.pagetitle = data.meta.pagetitle;
+    function reset() {
+      $rootScope.metaInformation.description = defaultMetaInformation.description;
+      $rootScope.metaInformation.keywords = defaultMetaInformation.keywords;
+      $rootScope.metaInformation.pagetitle = defaultMetaInformation.pagetitle;
+      $rootScope.metaInformation.ogTitle = defaultMetaInformation.ogTitle;
+      $rootScope.metaInformation.ogDescription = defaultMetaInformation.ogDescription;
+      $rootScope.metaInformation.ogType = defaultMetaInformation.ogType;
+      $rootScope.metaInformation.ogUrl = defaultMetaInformation.ogUrl;
+      $rootScope.metaInformation.ogImage = defaultMetaInformation.ogImage;
+      $rootScope.metaInformation.ogLocale = defaultMetaInformation.ogLocale;
+    }
 
-      $rootScope.metaInformation.description = data.meta.description;
-      $rootScope.metaInformation.keywords = data.meta.keywords;
-      $rootScope.metaInformation.pagetitle = data.meta.pagetitle;
-    });
-    */
+    function setMetaDescription(newMetaDescription) {
+      $rootScope.metaInformation.description = newMetaDescription;
+    }
+    
+    function setMetaKeywords(newMetaKeywords) {
+      $rootScope.metaInformation.keywords = newMetaKeywords;
+    }
+
+    function setPageTitle(newPageTitle) {
+      $rootScope.metaInformation.pagetitle = newPageTitle;
+    }
+
+    function setOgGraph(data) {
+      $rootScope.metaInformation.ogTitle = data['og:title'];
+      $rootScope.metaInformation.ogDescription = data['og:description'];
+      $rootScope.metaInformation.ogType = data['og:type'];
+      $rootScope.metaInformation.ogUrl = data['og:url'];
+      $rootScope.metaInformation.ogImage = data['og:image'];
+      $rootScope.metaInformation.ogLocale = data['og:locale'];
+    }
+
+    function updateMetaData(titleSegment) {
+      chainService.getChain(Settings.API.chainCode).then(function (chain) {
+        var chainData = chain;
+        setMetaDescription(chainData.meta.description);
+        setMetaKeywords(chainData.meta.keywords);
+        setPageTitle(titleSegment + chainData.meta.pagetitle);
+        chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+        setOgGraph(chainData.meta.microdata.og);
+      });
+    }
 
     return {
-      reset: function() {
-        $rootScope.metaInformation.description = defaultMetaInformation.description;
-        $rootScope.metaInformation.keywords = defaultMetaInformation.keywords;
-        $rootScope.metaInformation.pagetitle = defaultMetaInformation.pagetitle;
-        $rootScope.metaInformation.ogTitle = defaultMetaInformation.ogTitle;
-        $rootScope.metaInformation.ogDescription = defaultMetaInformation.ogDescription;
-        $rootScope.metaInformation.ogType = defaultMetaInformation.ogType;
-        $rootScope.metaInformation.ogUrl = defaultMetaInformation.ogUrl;
-        $rootScope.metaInformation.ogImage = defaultMetaInformation.ogImage;
-        $rootScope.metaInformation.ogLocale = defaultMetaInformation.ogLocale;
-      },
-      setMetaDescription: function(newMetaDescription) {
-        $rootScope.metaInformation.description = newMetaDescription;
-      },
-      setMetaKeywords: function(newMetaKeywords) {
-        $rootScope.metaInformation.keywords = newMetaKeywords;
-      },
-      setPageTitle: function(newPageTitle) {
-        $rootScope.metaInformation.pagetitle = newPageTitle;
-      },
-      setOgGraph: function(data) {
-        $rootScope.metaInformation.ogTitle = data['og:title'];
-        $rootScope.metaInformation.ogDescription = data['og:description'];
-        $rootScope.metaInformation.ogType = data['og:type'];
-        $rootScope.metaInformation.ogUrl = data['og:url'];
-        $rootScope.metaInformation.ogImage = data['og:image'];
-        $rootScope.metaInformation.ogLocale = data['og:locale'];
-      }
+      reset: reset,
+      setMetaDescription: setMetaDescription,
+      setMetaKeywords: setMetaKeywords,
+      setPageTitle: setPageTitle,
+      setOgGraph: setOgGraph,
+      updateMetaData: updateMetaData
     };
+
   }]);

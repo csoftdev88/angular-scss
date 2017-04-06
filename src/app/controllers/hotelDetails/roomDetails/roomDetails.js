@@ -31,7 +31,9 @@ angular.module('mobius.controllers.room.details', [])
   $scope.openPoliciesInfo = function(products){
     // Tracking product view
     /*chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-      propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+      var propertySlug = bookingService.getParams().propertySlug;
+      var propertyCode = bookingService.getCodeFromSlug(propertySlug);
+      propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
         dataLayerService.trackProductsDetailsView(
           products.map(function(p){
             return {
@@ -58,7 +60,9 @@ angular.module('mobius.controllers.room.details', [])
 
     // Tracking product view
     chainService.getChain(Settings.API.chainCode).then(function(chainData) {
-      propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData){
+      var propertySlug = bookingService.getParams().propertySlug;
+      var propertyCode = bookingService.getCodeFromSlug(propertySlug);
+      propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
         var localeData = propertyData.locale;
         var localeArray = localeData ? propertyData.locale.split('-') : null;
         if(localeArray && localeArray.length > 1)

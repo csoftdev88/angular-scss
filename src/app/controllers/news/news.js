@@ -43,7 +43,7 @@ angular.module('mobius.controllers.news', [])
       metaInformationService.setOgGraph(chainData.meta.microdata.og);
 
       metaInformationService.setOgGraph(chainData.meta.microdata.og);
-      metaInformationService.setPageTitle(chain.meta.pagetitle);
+      metaInformationService.setPageTitle('News | ' + chain.meta.pagetitle);
       metaInformationService.setMetaDescription(chain.meta.description);
       metaInformationService.setMetaKeywords(chain.meta.keywords);
     });

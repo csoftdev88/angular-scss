@@ -54,7 +54,7 @@
     "billing_information": "Billing Information",
     "confirm_your_reservation": "Confirmation",
     "login_register": "Log In / Register",
-    "login_to_book": "Log In to Book",
+    "login_to_book": "Select",
     "continue_as_guest": "Continue as Guest",
     "reset_password": "Reset Password",
     "save_password": "Save Password",
@@ -80,7 +80,6 @@
     "close": "Close",
     "or": "OR",
     "view_hotels": "View Hotels",
-    "book_now": "Book Now",
     "select_dates": "Select Dates",
     "change_dates": "Change Dates",
     "new_search": "New Search",
@@ -133,7 +132,8 @@
     "last_badge_earned": "Last Badge earned",
     "last_reward_bought": "Last reward bought",
     "no_badges_earned": "You have not earned any badges yet",
-    "book_now": "Book Now",
+    "book_now": "Select",
+    "book_now_floating_bar": "Book Now",
     "single_booking": "<strong>Single</strong> Booking",
     "multiroom_booking": "<strong>Multiroom</strong> Booking",
     "region_hotel": "Region / Hotel",
@@ -548,6 +548,10 @@
     "change_my_dates": "Change my dates",
     "alt_products_reduce_your_stay":"Reduce your stay by {{stayReduction}} night(s) and you could book",
     "alt_products_extend_your_stay":"Extend your stay by {{stayExtension}} night(s) and you could book",
-    "alt_products_change_dates_to":"Change your stay dates to <strong>{{fromDate | dateTime}} - {{toDate | dateTime}}</strong> and you could book"
+    "alt_products_change_dates_to":"Change your stay dates to <strong>{{fromDate | dateTime}} - {{toDate | dateTime}}</strong> and you could book",
+    "room_upgrade_failure":"We(singlequote)re sorry but this room upgrade is no longer available.",
+    "room_upgrade_success":"Your room upgrade is ready for purchase.",
+    "room_upgrade_increase":"The price of your room upgrade has increased. However we will honor the price received in your upgrade email.",
+    "room_upgrade_decrease":"The price of your room upgrade has decreased. We will adjust prices accordingly."
   }
 }
