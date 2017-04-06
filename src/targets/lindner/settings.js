@@ -63,8 +63,8 @@ angular.module('mobiusApp.config', [])
     'cacheFlushInterval': 60,
     'chainCode': 'LIND',
     'baseURL': {
-      'development': 'http://lindner.mobiuswebservices.com/api/4.0/',
-      'integration': 'http://integration-lindner-www.mobiuswebservices.com:3010/api/4.0/',
+      'development': '//integration-www-lindner.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-lindner.mobiusbookingengine.com/api/4.0/',
       'staging': 'http://staging-lindner-node.mobiuswebservices.com/api/4.0/',
       'uat': '/api/4.0/',
       'live':  'http://lindner.mobiuswebservices.com/api/4.0/'
