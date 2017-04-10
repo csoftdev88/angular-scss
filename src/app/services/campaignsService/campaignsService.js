@@ -3,7 +3,7 @@
  * This service sets applicable adverts and campaign visuals
  */
 angular.module('mobiusApp.services.campaigns', [])
-  .service('campaignsService', function($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, infinitiApeironService, stateService, _) {
+  .service('campaignsService', function ($q, Settings, apiService, $rootScope, $stateParams, $state, bookingService, propertyService, routerService, contentService, user, $timeout, modalService, $window, cookieFactory, infinitiApeironService, stateService, _) {
     var activeCampaign = null;
     var savedCampaign = null;
     var savedLocations = null;
@@ -11,16 +11,16 @@ angular.module('mobiusApp.services.campaigns', [])
 
     function setCampaigns(loggedIn, locations) {
       savedLocations = locations;
-      var locationMatch = _.find(savedLocations, function(location){
+      var locationMatch = _.find(savedLocations, function (location) {
         return $stateParams.locationSlug === location.meta.slug;
       });
       locationCode = locationMatch ? locationMatch.code : null;
       activeCampaign = cookieFactory('MobiusActiveCampaign');
       savedCampaign = activeCampaign !== null ? angular.fromJson(activeCampaign) : null;
-      
+
       //Only request search specific campaigns if on one of the following pages
       var getAllCampaigns = true;
-      switch($state.current.name){
+      switch ($state.current.name) {
         case 'hotel':
           getAllCampaigns = false;
           break;
@@ -45,24 +45,24 @@ angular.module('mobiusApp.services.campaigns', [])
         default:
           getAllCampaigns = true;
       }
-      
-      getCampaigns(loggedIn, getAllCampaigns).then(function(data) {
+
+      getCampaigns(loggedIn, getAllCampaigns).then(function (data) {
         if (data.length && data[0] && data[0].criteria) {
           selectCampaign(data[0], loggedIn);
         } else {
           //If no campaign returned display previous campaign
-          console.log('no campaign returned');    
-          getSavedCampaign(getAllCampaigns);        
+          console.log('no campaign returned');
+          getSavedCampaign(getAllCampaigns);
         }
       });
     }
 
-    function getSavedCampaign(getAllCampaigns){
+    function getSavedCampaign(getAllCampaigns) {
       if (savedCampaign) {
-        getCampaigns(null, true).then(function(data) {
+        getCampaigns(null, true).then(function (data) {
           var retrievedCampaign = null;
-          if(data.length && data[0]){
-            retrievedCampaign = _.find(data[0], function(thisCampaign) {
+          if (data.length && data[0]) {
+            retrievedCampaign = _.find(data[0], function (thisCampaign) {
               return thisCampaign.code === savedCampaign.code;
             });
           }
@@ -92,9 +92,9 @@ angular.module('mobiusApp.services.campaigns', [])
           params.property = bookingService.getCodeFromSlug($stateParams.propertySlug);
         }
         //if on a location page but not a property page add the location to campaign request params
-        if(!$stateParams.propertySlug && $stateParams.locationSlug && locationCode) {
+        if (!$stateParams.propertySlug && $stateParams.locationSlug && locationCode) {
           params.location = locationCode;
-        }    
+        }
       }
       params.loggedIn = loggedIn !== null ? loggedIn : user.isLoggedIn();
 
@@ -102,8 +102,7 @@ angular.module('mobiusApp.services.campaigns', [])
     }
 
     function selectCampaign(campaign, loggedIn) {
-      if(criteriaCheck(campaign, loggedIn))
-      {
+      if (criteriaCheck(campaign, loggedIn)) {
         renderCampaign(campaign);
       }
       else {
@@ -130,10 +129,10 @@ angular.module('mobiusApp.services.campaigns', [])
       if (criteriaPass) {
         console.log('campaign booking date restrictions pass');
         criteriaPass = checkPropertyRestrictions(campaign, property);
-        if(criteriaPass){
+        if (criteriaPass) {
           console.log('campaign property restrictions check pass');
           //If no properties selected in criteria but location is set
-          if(!campaign.criteria.properties && campaign.criteria.locations){
+          if (!campaign.criteria.properties && campaign.criteria.locations) {
             criteriaPass = checkLocationRestrictions(campaign, locationSlug, property, locations);
           }
         }
@@ -157,9 +156,9 @@ angular.module('mobiusApp.services.campaigns', [])
     function checkLocationRestrictions(campaign, urlLocationSlug, property, locations) {
       urlLocationSlug = urlLocationSlug ? urlLocationSlug : $stateParams.locationSlug;
 
-      if(locations) {
+      if (locations) {
         savedLocations = locations;
-        var relevantLocation = _.find(savedLocations, function(location){
+        var relevantLocation = _.find(savedLocations, function (location) {
           return $stateParams.locationSlug === location.meta.slug;
         });
         locationCode = relevantLocation ? relevantLocation.code : null;
@@ -174,7 +173,7 @@ angular.module('mobiusApp.services.campaigns', [])
           } else {
             criteriaLocationsArray = criteriaLocations.split(',');
           }
-          var locationMatch = _.find(criteriaLocationsArray, function(location) {
+          var locationMatch = _.find(criteriaLocationsArray, function (location) {
             return location === locationCode;
           });
           if (locationMatch) {
@@ -186,7 +185,7 @@ angular.module('mobiusApp.services.campaigns', [])
           return false;
         }
       }
-      else if(property !== null) {
+      else if (property !== null) {
         return false;
       }
       else {
@@ -205,7 +204,7 @@ angular.module('mobiusApp.services.campaigns', [])
           } else {
             criteriaPropertiesArray = criteriaProperties.split(',');
           }
-          var propertyMatch = _.find(criteriaPropertiesArray, function(property) {
+          var propertyMatch = _.find(criteriaPropertiesArray, function (property) {
             return property === urlProperty;
           });
           if (propertyMatch) {
@@ -275,43 +274,42 @@ angular.module('mobiusApp.services.campaigns', [])
       $rootScope.campaign = campaign ? campaign : $rootScope.campaign;
 
       //Track our campaign display
-      if($state.current.parent !== 'reservation'){
+      if ($state.current.parent !== 'reservation') {
         infinitiApeironService.trackCampaignDisplay(campaign.code);
       }
 
       //Build the campaign URL and add to scope
       addCampaignUrl();
 
-      if($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage && $rootScope.campaign.sideRails.railImage.uri && $state.current.parent !== 'reservation' && !stateService.isMobile())
-      {
+      if ($rootScope.campaign.sideRails && $rootScope.campaign.sideRails.railImage && $rootScope.campaign.sideRails.railImage.uri && $state.current.parent !== 'reservation' && !stateService.isMobile()) {
         $rootScope.campaign.sideRails.display = true;
-        $timeout(function(){
+        $timeout(function () {
           var heroSliderEl = $('#main-container > div > hero-slider');
           var mainHeaderHeight = $('#main-header').height();
           heroSliderEl.css('margin-top', mainHeaderHeight);
         }, 1500);
       }
-      else{
+      else {
         $rootScope.campaign.sideRails = {};
         $rootScope.campaign.sideRails.display = false;
       }
-      //If not on an offer page show the rest of the campaign material
-      if(!$stateParams.code && $state.current.parent !== 'reservation')
-      {
-        if(!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images && $rootScope.campaign.pageCurl.images.uri && !stateService.isMobile()) {
+
+      //If not on an offer page or reservation page show the rest of the campaign material
+      if (!$stateParams.code && $state.current.parent !== 'reservation') {
+        if (!$rootScope.campaign.sideRails.display && $rootScope.campaign.pageCurl && $rootScope.campaign.pageCurl.images && $rootScope.campaign.pageCurl.images.uri && !stateService.isMobile()) {
           $rootScope.campaign.pageCurl.display = true;
           $('body').addClass('campaign-folded-corner-active');
         }
 
-        if($rootScope.campaign.interstitialAdvert && $rootScope.campaign.interstitialAdvert.images && $rootScope.campaign.interstitialAdvert.images.uri) {
+        if ($rootScope.campaign.interstitialAdvert && $rootScope.campaign.interstitialAdvert.images && $rootScope.campaign.interstitialAdvert.images.uri) {
           $rootScope.campaign.interstitialAdvert.display = true;
         }
 
-        if($rootScope.campaign.headerBar && $rootScope.campaign.headerBar.headerText && !stateService.isMobile()){
+        if ($rootScope.campaign.headerBar && $rootScope.campaign.headerBar.headerText && !stateService.isMobile()) {
           $rootScope.campaign.headerBar.display = true;
         }
 
-        if($rootScope.campaign.bookingBar && $rootScope.campaign.bookingBar.tabTitle && !stateService.isMobile()) {
+        if ($rootScope.campaign.bookingBar && $rootScope.campaign.bookingBar.tabTitle && !stateService.isMobile()) {
           $rootScope.campaign.bookingBar.display = true;
         }
 
@@ -325,7 +323,7 @@ angular.module('mobiusApp.services.campaigns', [])
           }
         }
       }
-      else{
+      else {
         disableActiveCampaign();
       }
 
@@ -337,18 +335,11 @@ angular.module('mobiusApp.services.campaigns', [])
       } else {
         addCampaignCookie($rootScope.campaign);
       }
-
-      //Update booking bar with params
-      $timeout(function() {
-        // TODO: Check other code types
-        $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', $stateParams);
-      }, 0);
-
     }
 
-    function disableActiveCampaign(){
+    function disableActiveCampaign() {
       console.log('disable active campaign');
-      if($rootScope.campaign){
+      if ($rootScope.campaign) {
         $rootScope.campaign.pageCurl = {};
         $rootScope.campaign.pageCurl.display = false;
         $rootScope.campaign.bookingBar = {};
@@ -375,21 +366,21 @@ angular.module('mobiusApp.services.campaigns', [])
         }
 
         if (offerCode && propertyCode) {
-          propertyService.getPropertyDetails(propertyCode).then(function(details) {
+          propertyService.getPropertyDetails(propertyCode).then(function (details) {
             var paramsData = {};
             paramsData.property = details;
 
-            contentService.getOffers().then(function(offers) {
+            contentService.getOffers().then(function (offers) {
               var selectedOfferIndex = _.findIndex(offers, {
                 code: offerCode
               });
               var offer = offers[selectedOfferIndex];
-              if(offer && offer.meta && offer.meta.slug){
+              if (offer && offer.meta && offer.meta.slug) {
                 $stateParams.code = offer.meta.slug;
               }
             });
 
-            routerService.buildStateParams('hotel', paramsData).then(function(params) {
+            routerService.buildStateParams('hotel', paramsData).then(function (params) {
               $stateParams = _.extend($stateParams, params);
               //$stateParams.property = null;
               var stateName = Settings.newUrlStructure ? 'propertyHotDeals' : 'propertyOffers';
@@ -399,15 +390,15 @@ angular.module('mobiusApp.services.campaigns', [])
             });
           });
         } else if (offerCode) {
-          $rootScope.campaign.uri = $state.href('offers', {code: offerCode}, {
+          $rootScope.campaign.uri = $state.href('offers', { code: offerCode }, {
             reload: true
           });
         } else if (propertyCode) {
-          propertyService.getPropertyDetails(propertyCode).then(function(details) {
+          propertyService.getPropertyDetails(propertyCode).then(function (details) {
             $stateParams.scrollTo = 'jsRooms';
             var paramsData = {};
             paramsData.property = details;
-            routerService.buildStateParams('hotel', paramsData).then(function(params) {
+            routerService.buildStateParams('hotel', paramsData).then(function (params) {
               $stateParams = _.extend($stateParams, params);
               $stateParams.property = null;
               $rootScope.campaign.uri = $state.href('hotel', $stateParams, {
@@ -416,8 +407,8 @@ angular.module('mobiusApp.services.campaigns', [])
             });
           });
         } else if (contentCode) {
-          contentService.getStatic().then(function(response) {
-            var staticContent = _.find(response, function(item) {
+          contentService.getStatic().then(function (response) {
+            var staticContent = _.find(response, function (item) {
               return item.code === contentCode;
             });
             if (staticContent) {

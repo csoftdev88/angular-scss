@@ -56,6 +56,7 @@ angular.module('mobiusApp.config', [])
     'development': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-development',
       'username': 'sandman',
@@ -64,6 +65,7 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
@@ -74,6 +76,7 @@ angular.module('mobiusApp.config', [])
     'staging': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -84,6 +87,7 @@ angular.module('mobiusApp.config', [])
     'uat': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -92,6 +96,7 @@ angular.module('mobiusApp.config', [])
     'live': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'sandman-live',
       'username': 'sandman',
@@ -120,6 +125,7 @@ angular.module('mobiusApp.config', [])
     'cacheFlushInterval': 60,
     'chainCode': 'SAND',
     'trackUsage': true,
+    'languageInPath': false,
     'baseURL': {
       'development': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
@@ -219,7 +225,8 @@ angular.module('mobiusApp.config', [])
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
       'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true',
-      'checkVoucher': 'voucher'
+      'checkVoucher': 'voucher',
+      'upgradeRoom': 'upgrades/:upgradeGuid'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
@@ -419,7 +426,7 @@ angular.module('mobiusApp.config', [])
         'includeTripAdvisorPreloader': false,
         // Room Rates
         'rates': {
-          'bookNowButtonText': 'Book Now',
+          'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
           'ratesPerRoomOnDesktop': 3,
           'ratesPerRoomOnMobile': 2,
           'showTagline': true,

@@ -9,7 +9,7 @@ angular.module('mobius.controllers.reservation', [])
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q, cookieFactory, sessionDataService,
   creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, previousSearchesService,
-  metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService, campaignsService, locationService) {
+  metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService, campaignsService, locationService, roomUpgradesService) {
 
   $controller('RatesCtrl', {
     $scope: $scope
@@ -22,7 +22,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
-
+  
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
 
@@ -248,6 +248,27 @@ angular.module('mobius.controllers.reservation', [])
         if (!product.allowPointsBooking) {
           $scope.canPayWithPoints = false;
         }
+
+        //If we have a stored upgrade with a decreased price, room and pricing
+        if(storedUpgrade && storedUpgrade.decreased && storedUpgrade.room && storedUpgrade.current){
+          if(room.roomID === storedUpgrade.room.code) { //If the current room id matches the stored upgrade                  
+            //Validate the current dates and calculate the stayLength
+            if($stateParams.dates){ 
+              var datesArray = $stateParams.dates.split('_');             
+              if(datesArray.length === 2){
+                var checkInDate = $window.moment.tz(datesArray[0], Settings.UI.bookingWidget.timezone).startOf('day');
+                var checkOutDate = $window.moment.tz(datesArray[1], Settings.UI.bookingWidget.timezone).startOf('day');
+                var stayLength = parseInt(checkOutDate.diff(checkInDate, 'days'));
+
+                console.log('update pricing with upgrade pricing');
+                roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.current.priceRoom * stayLength;
+                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.current.totalTax * stayLength;
+                roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.current.totalAfterTax * stayLength;
+              }
+            }
+          }
+        }
+
         $scope.allRooms.push(roomData);
 
         //if multiroom, wait for all rooms data to be loaded before tracking products checkout
@@ -1479,6 +1500,25 @@ angular.module('mobius.controllers.reservation', [])
       }
     }
     return params;
+  }
+
+  //Retrieve stored upgrade
+  var storedUpgradeData = roomUpgradesService.getStoredUpgrade();  
+  var storedUpgrade = storedUpgradeData.upgrade;
+  if(storedUpgrade){
+    if(storedUpgrade.increased){ //price has increased
+      roomUpgradesService.notifyUpgrade($scope,'increase');
+      $scope.continue();
+    }
+    else if(storedUpgrade.decreased){ //price has decreased   
+      roomUpgradesService.notifyUpgrade($scope,'decrease');
+      $scope.continue();
+    }
+    else { //No pricing has changed, continue as normal
+       roomUpgradesService.notifyUpgrade($scope,'success');
+       $scope.hideBreakdown = true;
+       $scope.continue();
+    }
   }
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');

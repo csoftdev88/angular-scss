@@ -65,8 +65,8 @@ angular.module('mobiusApp.config', [])
     'chainCode': 'NAT',
     'trackUsage': true,
     'baseURL': {
-      'development': 'http://development-national-api.mobiuswebservices.com:3010/api/4.0/',
-      'integration': 'http://integration-national-api.mobiuswebservices.com:3010/api/4.0/',
+      'development': '//integration-www-national.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-national.mobiusbookingengine.com/api/4.0/',
       'staging': 'https://staging-us-www-national.mobiuswebservices.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://national.mobiusbookingengine.com/api/4.0/'

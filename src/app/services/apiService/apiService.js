@@ -8,10 +8,9 @@ angular.module('mobiusApp.services.api', [])
   var sessionId = sessionCookie.sessionData.sessionId;
   var env = document.querySelector('meta[name=environment]').getAttribute('content');
   var headers = {
-    'mobius-tenant': Settings.API.headers['Mobius-tenantId'],
+    'mobius-tenant': Settings.API.headers['Mobius-chainId'],
     'Mobius-channelId': channelService.getChannel().channelID,
-    'mobius-sessionId': sessionId,
-    'mobius-chainId': Settings.API.headers['Mobius-chainId'] ? Settings.API.headers['Mobius-chainId'] : null
+    'mobius-sessionId': sessionId
   };
 
   var apiCache = $cacheFactory('apiCache');
@@ -176,8 +175,7 @@ angular.module('mobiusApp.services.api', [])
         base += languageCode + '/';
       }
     }
-    
-    // NOTE: We might want to throw error in case when path is not found
+
     $window._.each(params, function(value, key){
       URL = URL.replace(':' + key, value).replace(',','%2C');
     });

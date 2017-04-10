@@ -121,7 +121,7 @@
           <th><button ng-if="bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button></th>
           <td>
             <a ng-if="bookingConfig.policiesLinkBottom" ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a>
-            <span ng-hide="noBreakdown">             |
+            <span ng-show="!noBreakdown && hideBreakdown">             |
               <a href ng-click="breakdownExtended = !breakdownExtended">
                 <span ng-if="!breakdownExtended">_view_price_breakdown_</span>
                 <span ng-if="breakdownExtended">_hide_price_breakdown_</span>
