@@ -8,9 +8,10 @@ angular.module('mobiusApp.services.api', [])
   var sessionId = sessionCookie.sessionData.sessionId;
   var env = document.querySelector('meta[name=environment]').getAttribute('content');
   var headers = {
-    'mobius-tenant': Settings.API.headers['Mobius-chainId'],
+    'mobius-tenant': Settings.API.headers['Mobius-tenantId'],
     'Mobius-channelId': channelService.getChannel().channelID,
-    'mobius-sessionId': sessionId
+    'mobius-sessionId': sessionId,
+    'mobius-chainId': Settings.API.headers['Mobius-chainId'] ? Settings.API.headers['Mobius-chainId'] : null
   };
 
   var apiCache = $cacheFactory('apiCache');
