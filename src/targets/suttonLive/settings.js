@@ -116,7 +116,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': '//integration-www-sutton.mobiusbookingengine.com/api/4.0/',
       'integration': '//integration-www-sutton.mobiusbookingengine.com/api/4.0/',
-      'staging': '//staging.suttonplace.com/api/4.0/',
+      'staging': '//staging-www-sutton.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.suttonplace.com/api/4.0/'
     },

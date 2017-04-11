@@ -65,7 +65,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': '//integration-www-lindner.mobiusbookingengine.com/api/4.0/',
       'integration': '//integration-www-lindner.mobiusbookingengine.com/api/4.0/',
-      'staging': 'http://staging-lindner-node.mobiuswebservices.com/api/4.0/',
+      'staging': '//staging-www-lindner.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live':  'http://lindner.mobiuswebservices.com/api/4.0/'
     },
