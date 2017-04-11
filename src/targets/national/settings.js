@@ -67,7 +67,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': '//integration-www-national.mobiusbookingengine.com/api/4.0/',
       'integration': '//integration-www-national.mobiusbookingengine.com/api/4.0/',
-      'staging': 'https://staging-us-www-national.mobiuswebservices.com/api/4.0/',
+      'staging': '//staging-www-national.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://national.mobiusbookingengine.com/api/4.0/'
     },
