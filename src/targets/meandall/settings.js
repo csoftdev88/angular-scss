@@ -121,7 +121,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
       'integration': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
-      'staging': '//staging-api-meandall.mobiusbookingengine.com/api/4.0/',
+      'staging': '//staging-www-meandall.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
       'live': '//meandallhotels.com/api/4.0/'
     },
@@ -298,7 +298,7 @@ angular.module('mobiusApp.config', [])
         'loginAsLink': true,
         'hideMobileHeader': true,
         'mainMenuAsOverlay': true
-      }    
+      }
     },
     'contents':{
       'displayContentImageInHeroSlider': false
@@ -706,7 +706,7 @@ angular.module('mobiusApp.config', [])
             'url':'/static/images/section-images/RS13917_DUSIMM_Lounge_01-lpr.jpg',
             'position':'center center'
           }
-        }, 
+        },
         {
           'desktop':{
             'height':'215px',
