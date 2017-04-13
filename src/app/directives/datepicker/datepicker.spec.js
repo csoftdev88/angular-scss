@@ -1,4 +1,4 @@
-/*'use strict';
+'use strict';
 
 describe('datepicker', function() {
   var _$rootScope, _$compile, _elem;
@@ -55,4 +55,4 @@ describe('datepicker', function() {
       expect(_elem.html()).equal('');
     });
   });
-});*/
+});

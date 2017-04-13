@@ -1,4 +1,4 @@
-/*'use strict';
+'use strict';
 
 describe('reservationDetails', function() {
   var _$rootScope, _scope, _$compile, _elem,
@@ -55,4 +55,4 @@ describe('reservationDetails', function() {
       expect(_scope.getChildrenCount).to.be.a('function');
     });
   });
-});*/
+});
