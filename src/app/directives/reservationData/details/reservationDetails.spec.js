@@ -25,7 +25,10 @@ describe('reservationDetails', function() {
 
       $provide.value('$state', {});
       $provide.value('Settings', Settings);
-      $provide.value('stateService', {});
+      $provide.value('stateService', {
+        getAppLanguageCode: function(){},
+        isMobile: function(){}
+      });
     });
     module('mobiusApp.directives.reservation.details', function($provide){
       $provide.value('$state', {});
