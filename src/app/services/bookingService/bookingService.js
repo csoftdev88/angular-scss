@@ -111,6 +111,9 @@ angular.module('mobiusApp.services.booking', [])
           queryParams[API_PARAM_FROM] = dates.from;
           queryParams[API_PARAM_TO] = dates.to;
         }
+      //Ovveride promoCode param with a configured value, this allows promoCode to be sent as corpCode for tenants such as Sutton
+      } else if (key === 'promoCode' && getCodeParamName(value)) {
+        queryParams[getCodeParamName(value)] = value;
       } else if (QUERY_TO_API_PARAMS[key]) {
         queryParams[QUERY_TO_API_PARAMS[key]] = value;
       }
