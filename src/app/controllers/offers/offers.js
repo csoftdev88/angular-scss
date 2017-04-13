@@ -352,6 +352,7 @@ angular.module('mobius.controllers.offers', [])
         });
         routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params) {
           stateParams = _.extend(stateParams, params);
+          delete stateParams.property; //Remove property parameter as this adds a queryString param that we do not require
           offer.url = $state.href('propertyHotDeals', stateParams, {
             reload: true
           });
@@ -365,6 +366,7 @@ angular.module('mobius.controllers.offers', [])
         });
         routerService.buildStateParams('propertyHotDeals', paramsData).then(function(params) {
           stateParams = _.extend(stateParams, params);
+          delete stateParams.property; //Remove property parameter as this adds a queryString param that we do not require
           offer.url = $state.href('propertyHotDeals', stateParams, {
             reload: true
           });
