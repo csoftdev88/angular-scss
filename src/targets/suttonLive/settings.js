@@ -253,7 +253,7 @@ angular.module('mobiusApp.config', [])
     },
     'promoCodes': {
       'promoCode': 'corpCode',
-      'groupCode': 'groupCode',
+      'groupCode': 'corpCode',
       'corpCode': 'corpCode'
     },
     'thirdparties': {
