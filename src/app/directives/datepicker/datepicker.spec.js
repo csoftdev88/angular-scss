@@ -22,6 +22,7 @@ describe('datepicker', function() {
         getAppLanguageCode: function(){},
         isMobile: function(){}
       });
+      $provide.value('DynamicMessages', {});
       $provide.value('Settings', {
         'UI': {
           'bookingWidget': {
