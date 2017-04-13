@@ -401,7 +401,7 @@ angular.module('mobiusApp.config', [])
           'rateInfoIsTabbed': false,
           'displayOtaRates': true,
           'highlightFirstRate': false,
-          'showSlashThrough': false
+          'showSlashThrough': true
         },
         'upsells': {
           'display': true
