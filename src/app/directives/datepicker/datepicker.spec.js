@@ -1,4 +1,4 @@
-/*'use strict';
+'use strict';
 
 describe('datepicker', function() {
   var _$rootScope, _$compile, _elem;
@@ -22,6 +22,7 @@ describe('datepicker', function() {
         getAppLanguageCode: function(){},
         isMobile: function(){}
       });
+      $provide.value('DynamicMessages', {});
       $provide.value('Settings', {
         'UI': {
           'bookingWidget': {
@@ -55,4 +56,4 @@ describe('datepicker', function() {
       expect(_elem.html()).equal('');
     });
   });
-});*/
+});

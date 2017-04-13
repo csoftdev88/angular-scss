@@ -1,4 +1,4 @@
-/*'use strict';
+'use strict';
 
 describe('reservationData', function() {
   var _$rootScope, _scope, _$compile, _elem,
@@ -14,12 +14,24 @@ describe('reservationData', function() {
       $provide.value('$state', {});
       $provide.value('Settings', {});
       $provide.value('stateService', {});
+      $provide.value('scrollService', {scrollTo: function(){}});
     });
     module('mobiusApp.directives.reservation.data', function($provide) {
       // Mocking the services
       $provide.value('$state', {});
-      $provide.value('Settings', {});
+      var Settings = {
+        'UI': {
+          'reservations':{},
+          'viewsSettings':{
+            'reservationsOverview':{
+              'fullWidthSections':false
+            }
+          }
+        }
+      };
+      $provide.value('Settings', Settings);
       $provide.value('stateService', {});
+      $provide.value('scrollService', {scrollTo: function(){}});
     });
   });
 
@@ -58,4 +70,4 @@ describe('reservationData', function() {
       expect(_scope.getChildrenCount).to.be.a('function');
     });
   });
-});*/
+});
