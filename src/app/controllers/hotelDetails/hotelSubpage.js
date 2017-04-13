@@ -91,11 +91,14 @@ angular.module('mobius.controllers.hotel.subpage', [])
         //Generate content for current hotel subpage
         sortInfo(details);
 
-        metaInformationService.setMetaDescription($scope.details.meta.description);
-        metaInformationService.setMetaKeywords($scope.details.meta.keywords);
-        metaInformationService.setPageTitle($scope.info.title + ' | ' + $scope.details.meta.pagetitle);
+        metaInformationService.setMetaDescription($scope.info.meta.description);
+        metaInformationService.setMetaKeywords($scope.info.meta.keywords);
+        metaInformationService.setPageTitle($scope.info.meta.pagetitle);
 
+        $scope.details.meta.microdata.og['og:title'] = $scope.info.meta.pagetitle;
+        $scope.details.meta.microdata.og['og:description'] = $scope.info.meta.description;
         $scope.details.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+
         metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
         if(Settings.UI.hotelDetails.subPageRedirects){
