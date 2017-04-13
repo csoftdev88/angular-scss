@@ -11,8 +11,20 @@ describe('reservationDetails', function() {
     module('underscore');
     module('mobius.controllers.reservation.directive', function($provide) {
       // Mocking the services
+
+      var Settings = {
+        'UI': {
+          'reservations':{},
+          'viewsSettings':{
+            'reservationsOverview':{
+              'fullWidthSections':false
+            }
+          }
+        }
+      };
+
       $provide.value('$state', {});
-      $provide.value('Settings', {});
+      $provide.value('Settings', Settings);
       $provide.value('stateService', {});
     });
     module('mobiusApp.directives.reservation.details', function($provide){
