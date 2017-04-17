@@ -163,8 +163,13 @@ angular.module('mobiusApp.directives.hotels', [])
               getHotelRegionName();
             }
 
-            if (Settings.UI.generics.singleProperty) {
-              scope.navigateToHotel(scope.hotels[0]);
+            if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode) {
+              var singleProperty = _.find(scope.hotels, function(hotel){
+                return hotel.code === Settings.UI.generics.defaultPropertyCode;
+              });
+              if(singleProperty){
+                scope.navigateToHotel(singleProperty);
+              }
             }
 
             //check if offer is limited to only one property and if so navigate to it

@@ -4,28 +4,31 @@
 <div id="main-header-inner">
   <nav class="main-nav wrapper" dropdown ng-class="{'has-corp-logo': thirdparty.logo.images.uri}">
 
-    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && !isMobile && $state.$current.self.name.indexOf('reservation') === -1">
+    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && $state.$current.self.name.indexOf('reservation') === -1">
       <li language-list></li>
     </ul>
 
-    <a class="brand" ui-sref="home({property:null})" ng-if="!config.generics.headerLogoLink" ng-click="retentionClick()">
+    <a href="tel:{{config.generics.header.telephone.split(' ').join('')}}" ng-if="config.generics.header && config.generics.header.telephone" class="header-telephone">Tel. {{config.generics.header.telephone}}</a>
+
+    <a class="brand" ng-if="!config.generics.header || (!config.generics.header.logoLink && !config.generics.header.logoText)" ui-sref="home({property:null})" ng-click="retentionClick()">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
       <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
       <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
     </a>
 
-    <a class="brand" ng-href="{{config.generics.headerLogoLink}}" ng-if="config.generics.headerLogoLink" ng-click="retentionClick()">
+    <a class="brand" ng-if="config.generics.header && config.generics.header.logoLink && !config.generics.header.logoText" ng-href="{{config.generics.header.logoLink}}" ng-click="retentionClick()">
       <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
       <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
       <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
     </a>
+    <a class="brand" ng-if="config.generics.header && config.generics.header.logoText && config.generics.header.logoLink" ng-href="{{config.generics.header.logoLink}}" ng-class="{'initial-hidden': $root.hideHeaderLogo}" ng-click="retentionClick()">{{config.generics.header.logoText}}</a>
 
     <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu(); retentionClick()"></a>
 
     <div class="app-menu">
       <ul dropdown-group>
 
-        <li class="mobile-header">
+        <li ng-if="!config.generics.header || !config.generics.header.hideMobileHeader" class="mobile-header">
           <a ui-sref="home({property:null})" ng-click="retentionClick()">
             <img src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
           </a>
@@ -105,11 +108,13 @@
 
         <li ng-show="config.languages.headerAlignment === 'right' || isMobile" has-dropdown="click" language-list></li>
 
+        <a ng-if="config.generics.header && config.generics.header.mainMenuAsOverlay" href class="main-menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="toggleMenuOverlay(); retentionClick()"></a>
+
         <li ng-show="!isUserLoggedIn()" profile>
-          <a class="button button-login" ng-click="sso.login(); retentionClick()">_login_</a>
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="sso.login(); retentionClick()">_login_</a>
         </li>
         <li ng-show="isUserLoggedIn()" profile class="mobile-logout" ng-class="{'is-desktop': !config.menu.isLogoutInDropdown}">
-          <a class="button button-login" ng-click="sso.logout(); retentionClick()">_logout_</a>
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="sso.logout(); retentionClick()">_logout_</a>
         </li>
 
         <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
@@ -202,7 +207,6 @@
       </ul>
     </nav>
   </div>
-
 
   <div class="login-dialog-overlay" ng-show="!sso.isInfiniti() && showLoginDialog">
     <div class="login-dialog" ng-class="'form-step' + loginFormStep">

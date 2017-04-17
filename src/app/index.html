@@ -92,7 +92,8 @@
     <!-- End Hotjar Script -->
   </head>
 
-  <body resize-watcher ng-controller="BaseCtrl" ng-style="{'background-image': 'url(' + $root.campaign.sideRails.railImage.uri + ')'}" ng-class="{'campaign-rails-active': $root.campaign.sideRails.display, 'campaign-bar-active':$root.campaign.headerBar.display, 'thirdparty-active':$root.thirdparty, 'cookie-disclaimer-visible':$root.euCookieDisclaimerVisible}" >
+  <body resize-watcher ng-controller="BaseCtrl" ng-style="{'background-image': 'url(' + $root.campaign.sideRails.railImage.uri + ')'}" ng-class="{'campaign-rails-active': $root.campaign.sideRails.display, 'campaign-bar-active':$root.campaign.headerBar.display, 'thirdparty-active':$root.thirdparty, 'cookie-disclaimer-visible':$root.euCookieDisclaimerVisible, 'scrolled':scrollService.scroll > scrollService.headerLogoTrigger}" >
+    <div>{{$root.scroll}}</div>
     <!-- Google Tag Manager -->
     <google-tag-manager-script></google-tag-manager-script>
     <!-- End Google Tag Manager -->
@@ -102,6 +103,8 @@
 
     <!-- Add your site or application content here -->
     <div ui-view id="main-container"></div>
+
+    <section ng-if="menuOverlayEnabled && uiConfig.menu.customLinks" ng-include="'layouts/components/menu-overlay.html'" class="main-menu-overlay"></section>
 
   </body>
 </html>

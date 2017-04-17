@@ -158,7 +158,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-tenantId': '1',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -209,12 +209,15 @@ angular.module('mobiusApp.config', [])
     },
     'generics': {
       'singleProperty': true,
+      'defaultPropertyCode': 'GHNL',
       'facebookAppId': '1694770414076502',
       'disableMainHeaderStyle': true,
       'longDateFormat': 'Do MMMM YYYY',
       'applyChainClassToBody': false,
       'orderPropertiesByChain': false,
-      'headerLogoLink': 'http://www.grandhotel-national.com'
+      'header': {
+        'logoLink': 'http://www.grandhotel-national.com'
+      }  
     },
     'contents':{
       'displayContentImageInHeroSlider': false
@@ -429,7 +432,8 @@ angular.module('mobiusApp.config', [])
       'hideHeroSliderOnReservations': true,
       'displayBreadcrumbsOnReservationDetail': true,
       'displayCancelConfirmedModal': true,
-      'disableAddons': true
+      'disableAddons': true,
+      'showNotificationsTop':true
     },
 
     'aboutHotel': {

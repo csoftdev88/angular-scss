@@ -1,0 +1,96 @@
+.modal-backdrop {
+  background: @c-secondary;
+}
+
+dialog {
+  border: 0px none;
+  border-radius: 0px;
+  max-width: 780px;
+  .viewport-mobile & {
+    max-width: 90%;
+  }
+  header button-close {
+    color: @c-primary;
+  }
+  header h1 {
+    font-family:@ff-bold;
+    color:@c-primary;
+    font-size:@size-0;
+  }
+  .ui-info,
+  .ui-dialog {
+    border-radius: 0px;
+    background: @c-secondary;
+    color: @c-primary;
+    header {
+      border: 0px none;
+    }
+    main {
+      padding-top: 0 !important;
+    }
+  }
+  li p span {
+    font-family:@ff-default !important;
+  }
+}
+
+dialog.confirmation-dialog .ui-dialog {
+  padding: 0;
+}
+
+dialog .ui-info.modal-policies {
+  main ul {
+    border: 0px none;
+    li {
+      p,
+      h3 {
+        color: @c-primary !important;
+      }
+    }
+  }
+}
+
+.dialog-product-details main section.terms-and-conditions li,
+dialog .ui-info.modal-policies main li {
+  border-bottom: 0px none;
+  &:first-child {
+    padding-top: 0;
+  }
+  p {
+    color: @c-primary;
+    padding: 0 5px;
+  }
+  h3 {
+    border: 1px solid @c-primary;
+    padding: 5px;
+    font-family: @ff-bold;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+  }
+}
+
+.lightbox hero-slider .slider-controls .slide-button {
+  color: @c-primary;
+}
+
+.lightbox hero-slider .slider-content .hero-slide {
+  border-radius:10px;
+}
+
+.lightbox .ui-info header button-close {
+  color: @c-primary;
+  right:-40px;
+}
+
+dialog.other-rooms .ui-info header {
+  padding-bottom:0;
+}
+
+dialog.other-rooms ul li .details .desc, dialog.other-rooms ul li .details .price {
+  color:@c-primary;
+}
+
+dialog.addons .ui-info main .details .extra .add-extra {
+  display:block;
+  color:@c-primary;
+}
