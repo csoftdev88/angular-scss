@@ -31,6 +31,11 @@ angular.module('mobiusApp.directives.room', [])
       scope.hasViewMore = scope.viewSettings && scope.viewSettings.hasViewMore;
       scope.showLocalInfo = Settings.UI.roomDetails.showLocalInfo;
       scope.displayUpsells = Settings.UI.roomDetails.upsells ? Settings.UI.roomDetails.upsells.display : false;
+      scope.productImageWidth = scope.config.productImages ? scope.config.productImages.width : '160';
+      scope.productImageHeight = scope.config.productImages ? scope.config.productImages.height : '120';
+
+      console.log(scope.productImageWidth);
+      console.log(scope.productImageHeight);
 
       var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;

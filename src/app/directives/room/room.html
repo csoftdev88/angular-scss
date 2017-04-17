@@ -66,7 +66,7 @@
 
 
         <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-click="productClick(product)">
-          <img ng-src="{{product.image.uri | cloudinaryImage : 185 : 160 : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
+          <img ng-src="{{product.image.uri | cloudinaryImage : productImageWidth : productImageHeight : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
             ng-if="config.showProductImage && product.image && product.image.uri" />
           <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
           <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
