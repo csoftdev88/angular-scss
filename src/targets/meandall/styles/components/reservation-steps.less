@@ -1,0 +1,104 @@
+.reservation-steps {
+  position: absolute;
+  width: 50%;
+  top: -183px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  background: @c-secondary;
+  padding: 35px 35px 70px 35px;
+  .viewport-mobile & {
+    width: 100%;
+    top: initial;
+  }
+  h4 {
+    display: none;
+  }
+  ul {
+    width: 100%;
+    text-align: center;
+    li {
+      display: inline-block;
+      margin: 0 5%;
+      .viewport-tablet & {
+        margin: 0 3%;
+      }
+      .viewport-mobile & {
+        margin: 0 4%;
+      }
+      .button {
+        position: relative;
+        background:@c-secondary;
+        width: initial;
+        border: 0px none;
+        font-size: 25px;
+        height: 50px;
+        width: 50px;
+        border: 2px solid @c-primary;
+        line-height: 50px;
+        box-shadow: none;
+        &:before {
+          content: "";
+          width: 200%;
+          height: 3px;
+          background: white;
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: -200%;
+          z-index: -1;
+          .viewport-tablet & {
+            width: 125%;
+            left: -125%;
+          }
+          .viewport-mobile & {
+            width: 75%;
+            left: -75%;
+          }
+        }
+        .dot {
+          display: none;
+        }
+        .text {
+          display: block;
+          font-family: @ff-bold;
+          color: #b9b9b9;
+          font-size: 13px;
+          line-height: 1em;
+          position: absolute;
+          top: 57px;
+          left: 50%;
+          width: 300%;
+          -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+          .viewport-mobile & {
+            word-break:break-word;
+            max-width:75px;
+          }
+        }
+        &[disabled="disabled"] {
+          border-color: #4a4a4a;
+          .text {
+            color: #4a4a4a;
+          }
+        }
+      }
+      &:first-child .button:before {
+        display: none;
+      }
+      &.current {
+        .button {
+          background: @c-primary !important;
+          color: @c-secondary;
+          .text {
+            color:@c-primary;
+          }
+        }
+      }
+    }
+  }
+}

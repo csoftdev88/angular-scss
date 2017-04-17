@@ -1,0 +1,110 @@
+booking-widget {
+  padding: 0 20px;
+  max-width: initial;
+  button-submit {
+    margin-top: 23px;
+    height: 36px;
+    line-height: 42px;
+    background: @c-black;
+    &:hover {
+      background: lighten(@c-black, 10%);
+    }
+    .viewport-mobile & {
+      background: @c-tertiary;
+      &:hover {
+        background: lighten(@c-tertiary, 10%);
+      }
+    }
+
+  }
+  input-value {
+    left: 10px !important;
+  }
+  h3 {
+    font-size: @size-0;
+    line-height:@baseline;
+    .viewport-mobile & {
+      margin-bottom: 5px;
+    }
+  }
+  // hide icons
+  form-element:before,
+  .chosen-single:before,
+  &:before {
+    display: none !important;
+  }
+  input[type=text],
+  select,
+  .chosen-container-single .chosen-single {
+    padding-left: 10px !important;
+  }
+  form-element {
+    input:focus~form-label,
+    select:focus~form-label,
+    .chosen-with-drop~form-label {
+      transform: translateY(15%);
+    }
+  }
+  remove-text {
+    top: 1px;
+    margin: 2px 10px;
+    color: @c-black;
+  }
+}
+
+//- Search
+booking-widget-search {
+  width: 90%;
+  padding: 23px 0;
+  font-size: @size--2;
+  //- Make your booking
+  h3 {
+    display: none
+  }
+  form-element.code {
+    .viewport-mobile & {
+      background:@c-primary;
+      &:before {
+        content: attr(title) !important;
+        display: block !important;
+        font-family:@ff-default;
+        width: 100%;
+        text-align: left;
+        font-size: 15px;
+        padding-left: 15px;
+        color:@c-secondary;
+        z-index:1;
+      }
+      select {
+        background:transparent;
+        z-index:2;
+      }
+    }
+  }
+}
+
+booking-widget-room {
+  margin-bottom:20px;
+}
+
+.multiroom-mode {
+  booking-widget-add-room {
+    width: 50%;
+    margin-top: 23px;
+    .viewport-mobile & {
+      width: 100%;
+    }
+    button-text {
+      font-size: @size--2;
+      .viewport-mobile & {
+        margin:0;
+      }
+    }
+  }
+  button-submit {
+    background: @c-tertiary;
+    &:hover {
+      background: lighten(@c-tertiary, 10%);
+    }
+  }
+}

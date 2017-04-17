@@ -125,11 +125,11 @@ angular.module('mobiusApp.config', [])
     'cacheFlushInterval': 60,
     'chainCode': 'SAND',
     'trackUsage': true,
-    'languageInPath': false,
+    'languageInPath': true,
     'baseURL': {
       'development': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
+      'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.sandmanhotels.com/api/4.0/'
     },
@@ -230,7 +230,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-tenantId': '1',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -777,10 +777,10 @@ angular.module('mobiusApp.config', [])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display':false
+        'display':true
       },
       'flexibleDates': {
-        'enable':false
+        'enable':true
       },
       'availability': {
         // Date range modification rules
