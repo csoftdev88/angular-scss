@@ -1516,7 +1516,6 @@ angular.module('mobius.controllers.reservation', [])
     }
     else { //No pricing has changed, continue as normal
        roomUpgradesService.notifyUpgrade($scope,'success');
-       $scope.hideBreakdown = true;
        $scope.continue();
     }
   }
