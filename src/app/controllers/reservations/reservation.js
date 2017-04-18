@@ -250,7 +250,7 @@ angular.module('mobius.controllers.reservation', [])
         }
 
         //If we have a stored upgrade with a decreased price, room and pricing
-        if(storedUpgrade && storedUpgrade.decreased && storedUpgrade.room && storedUpgrade.current){
+        if(storedUpgrade && storedUpgrade.increased && storedUpgrade.room && storedUpgrade.email){
           if(room.roomID === storedUpgrade.room.code) { //If the current room id matches the stored upgrade                  
             //Validate the current dates and calculate the stayLength
             if($stateParams.dates){ 
@@ -261,9 +261,9 @@ angular.module('mobius.controllers.reservation', [])
                 var stayLength = parseInt(checkOutDate.diff(checkInDate, 'days'));
 
                 console.log('update pricing with upgrade pricing');
-                roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.current.priceRoom * stayLength;
-                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.current.totalTax * stayLength;
-                roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.current.totalAfterTax * stayLength;
+                roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.email.priceRoom * stayLength;
+                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.email.totalTax * stayLength;
+                roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.email.totalAfterTax * stayLength;
               }
             }
           }
