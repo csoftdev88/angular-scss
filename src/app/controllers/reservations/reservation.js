@@ -250,7 +250,7 @@ angular.module('mobius.controllers.reservation', [])
         }
 
         //If we have a stored upgrade with a decreased price, room and pricing
-        if(storedUpgrade && storedUpgrade.decreased && storedUpgrade.room && storedUpgrade.current){
+        if(storedUpgrade && storedUpgrade.increased && storedUpgrade.room && storedUpgrade.email){
           if(room.roomID === storedUpgrade.room.code) { //If the current room id matches the stored upgrade                  
             //Validate the current dates and calculate the stayLength
             if($stateParams.dates){ 
@@ -261,9 +261,19 @@ angular.module('mobius.controllers.reservation', [])
                 var stayLength = parseInt(checkOutDate.diff(checkInDate, 'days'));
 
                 console.log('update pricing with upgrade pricing');
-                roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.current.priceRoom * stayLength;
-                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.current.totalTax * stayLength;
-                roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.current.totalAfterTax * stayLength;
+
+                roomData._selectedProduct.price = {}; //Clear the existing price object
+
+                //Setting all of our pricing based on the upgrade pricing
+                roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.email.priceRoom * stayLength;
+                roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.email.totalAfterTax;
+                roomData._selectedProduct.price.breakdowns = [];
+                roomData._selectedProduct.price.taxDetails = {};
+                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.email.totalTax;
+                roomData._selectedProduct.price.taxDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.taxDetails.policyTaxItemDetails;
+                roomData._selectedProduct.price.feeDetails = {};
+                roomData._selectedProduct.price.feeDetails.totalTax = storedUpgrade.email.priceDetail.priceOverview.feeDetails.totalTax;
+                roomData._selectedProduct.price.feeDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.feeDetails.policyTaxItemDetails;            
               }
             }
           }
@@ -1516,7 +1526,6 @@ angular.module('mobius.controllers.reservation', [])
     }
     else { //No pricing has changed, continue as normal
        roomUpgradesService.notifyUpgrade($scope,'success');
-       $scope.hideBreakdown = true;
        $scope.continue();
     }
   }
