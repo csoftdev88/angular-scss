@@ -261,12 +261,19 @@ angular.module('mobius.controllers.reservation', [])
                 var stayLength = parseInt(checkOutDate.diff(checkInDate, 'days'));
 
                 console.log('update pricing with upgrade pricing');
+
+                roomData._selectedProduct.price = {}; //Clear the existing price object
+
+                //Setting all of our pricing based on the upgrade pricing
                 roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.email.priceRoom * stayLength;
-                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.email.totalTax;
-                roomData._selectedProduct.price.feeDetails.totalTax = storedUpgrade.email.priceDetail.priceOverview.feeDetails.totalTax;
                 roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.email.totalAfterTax;
+                roomData._selectedProduct.price.breakdowns = [];
+                roomData._selectedProduct.price.taxDetails = {};
+                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.email.totalTax;
                 roomData._selectedProduct.price.taxDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.taxDetails.policyTaxItemDetails;
-                roomData._selectedProduct.price.feeDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.feeDetails.policyTaxItemDetails;
+                roomData._selectedProduct.price.feeDetails = {};
+                roomData._selectedProduct.price.feeDetails.totalTax = storedUpgrade.email.priceDetail.priceOverview.feeDetails.totalTax;
+                roomData._selectedProduct.price.feeDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.feeDetails.policyTaxItemDetails;            
               }
             }
           }
