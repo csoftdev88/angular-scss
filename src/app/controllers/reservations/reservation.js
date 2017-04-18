@@ -249,7 +249,7 @@ angular.module('mobius.controllers.reservation', [])
           $scope.canPayWithPoints = false;
         }
 
-        //If we have a stored upgrade with a decreased price, room and pricing
+        //If we have a stored upgrade with an increased price, and room and pricing are set
         if(storedUpgrade && storedUpgrade.increased && storedUpgrade.room && storedUpgrade.email){
           if(room.roomID === storedUpgrade.room.code) { //If the current room id matches the stored upgrade                  
             //Validate the current dates and calculate the stayLength
@@ -268,6 +268,7 @@ angular.module('mobius.controllers.reservation', [])
                 roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.email.priceRoom * stayLength;
                 roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.email.totalAfterTax;
                 roomData._selectedProduct.price.breakdowns = [];
+                roomData._selectedProduct.price.breakdowns = storedUpgrade.email.priceDetail.priceOverview.breakdowns;
                 roomData._selectedProduct.price.taxDetails = {};
                 roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.email.totalTax;
                 roomData._selectedProduct.price.taxDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.taxDetails.policyTaxItemDetails;
