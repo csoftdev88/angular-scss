@@ -268,6 +268,7 @@ angular.module('mobius.controllers.reservation', [])
                 roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.email.priceRoom * stayLength;
                 roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.email.totalAfterTax;
                 roomData._selectedProduct.price.breakdowns = [];
+                roomData._selectedProduct.price.breakdowns = storedUpgrade.email.priceDetail.priceOverview.breakdowns;
                 roomData._selectedProduct.price.taxDetails = {};
                 roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.email.totalTax;
                 roomData._selectedProduct.price.taxDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.taxDetails.policyTaxItemDetails;
