@@ -264,6 +264,8 @@ angular.module('mobius.controllers.reservation', [])
                 roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.email.priceRoom * stayLength;
                 roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.email.totalTax * stayLength;
                 roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.email.totalAfterTax * stayLength;
+                roomData._selectedProduct.price.taxDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.taxDetails.policyTaxItemDetails;
+                roomData._selectedProduct.price.feeDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.feeDetails.policyTaxItemDetails;
               }
             }
           }
