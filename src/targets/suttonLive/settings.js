@@ -122,7 +122,7 @@ angular.module('mobiusApp.config', [])
     },
     'mobiusTracking': {
       'development': {
-        'id': 'sandman-development',
+        'id': 'sutton-development',
         'search': {
           'enable': true
         },
@@ -132,7 +132,7 @@ angular.module('mobiusApp.config', [])
         'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'integration': {
-        'id': 'sandman-integration',
+        'id': 'sutton-integration',
         'search': {
           'enable': true
         },
@@ -142,7 +142,7 @@ angular.module('mobiusApp.config', [])
         'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
       },
       'staging': {
-        'id': 'sandman-staging',
+        'id': 'sutton-staging',
         'search': {
           'enable': true
         },
@@ -152,7 +152,7 @@ angular.module('mobiusApp.config', [])
         'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
       },
       'uat': {
-        'id': 'sandman-staging',
+        'id': 'sutton-staging',
         'search': {
           'enable': true
         },
@@ -162,7 +162,7 @@ angular.module('mobiusApp.config', [])
         'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'live': {
-        'id': 'sandman-live',
+        'id': 'sutton-live',
         'search': {
           'enable': true
         },
