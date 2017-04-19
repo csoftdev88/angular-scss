@@ -129,7 +129,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
+      'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.sandmanhotels.com/api/4.0/'
     },
