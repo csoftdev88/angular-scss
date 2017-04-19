@@ -78,8 +78,8 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
         defaultData.customer.loyaltyMember = Settings.authType === 'infiniti';
         defaultData.customer.phone = userObject.tel1 || '';
         defaultData.customer.country.code = userObject.iso3 || '';
-        defaultData.customer.country.name = userObject.country || '';
-        if(userObject.id){
+        defaultData.customer.country.name = userObject.country || '';   
+        if(userObject.id){ //If we have a userObject id, set this as the customer infinitiId value
           defaultData.customer.infinitiId = _.isString(userObject.id) ? userObject.id : userObject.id.toString();
         }
       }
