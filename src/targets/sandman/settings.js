@@ -134,13 +134,55 @@ angular.module('mobiusApp.config', [])
       'live': 'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
-      'search': {
-        'enable':false,
-        'url':'properties/track/search'
+      'development': {
+        'id': 'sandman-development',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
-      'purchase': {
-        'enable':false,
-        'url':'properties/track/purchase'
+      'integration': {
+        'id': 'sandman-integration',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
+      },
+      'staging': {
+        'id': 'sandman-staging',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      },
+      'uat': {
+        'id': 'sandman-staging',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      },
+      'live': {
+        'id': 'sandman-live',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       }
     },
     'track404s': {
