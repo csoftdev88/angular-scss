@@ -4,8 +4,7 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, infinitiApeironService, previousSearchesService,
-  propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams) {
+.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, mobiusTrackingService, infinitiApeironService, previousSearchesService, propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams) {
 
   var numNights = 1;
 
@@ -202,7 +201,7 @@ angular.module('mobius.controllers.room.details', [])
               //Mobius tracking
               $scope.$watch('currentOrder', function(order) {
                 if(order && angular.isDefined(order)){
-                  //trackSearch(chainData, propertyData, trackingData, scopeData, stateParams, order)
+                  mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, data[1].products, data[0], order);
                   infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0], $scope.rates.selectedRate);
                 }
               });

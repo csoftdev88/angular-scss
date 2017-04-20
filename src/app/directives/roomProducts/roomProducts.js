@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
-  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService, infinitiApeironService,
+  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService, infinitiApeironService, mobiusTrackingService,
   stateService, dataLayerService, cookieFactory, chainService, $window, $log, $filter, user){
 
   return {
@@ -148,11 +148,10 @@ angular.module('mobiusApp.directives.room.products', [])
                 };
               }), stayLength, bookingWindow);
 
-              var selectedRate = null;
-              if(scope.rates && scope.rates.selectedRate)
-              {
-                selectedRate = scope.rates.selectedRate;
-              }
+              var selectedRate = scope.rates ? scope.rates.selectedRate : null;
+              
+              //Mobius tracking
+              mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room, selectedRate);
               infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room, selectedRate);
             });
           });
@@ -168,8 +167,6 @@ angular.module('mobiusApp.directives.room.products', [])
           Settings.UI.hotelDetails.ratesCacheTimeout?Settings.UI.hotelDetails.ratesCacheTimeout:0;
       }
       */
-
-
 
       scope.getRatesLimit = function(){
         return stateService.isMobile() ? scope.settings.ratesPerRoomOnMobile : scope.settings.ratesPerRoomOnDesktop;

@@ -344,6 +344,23 @@ angular.module('mobiusApp.services.api', [])
     sendMobiusAlert(alertData);
   }
 
+  function mobiusTrackingPost(url, data) {
+    var q = $q.defer();
+
+    $http({
+      method: 'POST',
+      url: url,
+      data: data
+    }).success(function(res) {
+      q.resolve(res);
+    }).error(function(err) {
+      //logApiError('POST', err, url, null, resHeaders);
+      q.reject(err);
+    });
+
+    return q.promise;
+  }
+
   // Public methods
   var api = {
     get: get,
@@ -355,7 +372,8 @@ angular.module('mobiusApp.services.api', [])
     objectToQueryParams: objectToQueryParams,
     infinitiApeironPost: infinitiApeironPost,
     trackUsage: trackUsage,
-    sendApeironAlert: sendApeironAlert
+    sendApeironAlert: sendApeironAlert,
+    mobiusTrackingPost: mobiusTrackingPost
   };
   return api;
 });

@@ -4,7 +4,7 @@
 <div id="main-header-inner">
   <nav class="main-nav wrapper" dropdown ng-class="{'has-corp-logo': thirdparty.logo.images.uri}">
 
-    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && $state.$current.self.name.indexOf('reservation') === -1">
+    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && !isMobile && $state.$current.self.name.indexOf('reservation') === -1">
       <li language-list></li>
     </ul>
 

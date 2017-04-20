@@ -1030,6 +1030,15 @@ angular.module('mobius.controllers.reservation', [])
               dimension1: propertyData.nameShort,
               list: 'Room',
               category: room.name,
+              room: {
+                'code':room.code,
+                'name':room.name
+              },
+              policies:p.policies,
+              priceDetail: {
+                totalBaseAfterPricingRules: p.price.totalBaseAfterPricingRules,
+                totalTax: p.price.taxDetails.totalTax
+              }
             };
             products.push(product);
           });
@@ -1120,7 +1129,7 @@ angular.module('mobius.controllers.reservation', [])
             'profileCountries':$scope.profileCountries,
             'userDetails':$scope.userDetails
           };
-          mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, priceData);
+          mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, $scope.rates.selectedRate);
 
           //Infiniti Tracking purchase
           var infinitiTrackingProducts = [];
