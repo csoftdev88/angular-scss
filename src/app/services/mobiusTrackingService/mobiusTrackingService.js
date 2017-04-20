@@ -68,7 +68,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
 
     function setDefaultData(bookingParams, chainData, propertyData, rateFilter) {
       var sessionCookie = sessionDataService.getCookie();
-      if (userObject && userObject.id) {
+      if (userObject) {
         //update customer data
         defaultData.customer.corporateCustomer = bookingParams.corpCode && bookingParams.corpCode !== '' ? true : false;
         defaultData.customer.email = userObject.email;
@@ -78,8 +78,10 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
         defaultData.customer.loyaltyMember = Settings.authType === 'infiniti';
         defaultData.customer.phone = userObject.tel1 || '';
         defaultData.customer.country.code = userObject.iso3 || '';
-        defaultData.customer.country.name = userObject.country || '';
-        defaultData.customer.infinitiId = _.isString(userObject.id) ? userObject.id : userObject.id.toString();
+        defaultData.customer.country.name = userObject.country || '';   
+        if(userObject.id){ //If we have a userObject id, set this as the customer infinitiId value
+          defaultData.customer.infinitiId = userObject.id.toString();
+        }
       }
       //uuid
       defaultData.customer.uuid = sessionCookie.sessionData.sessionId;
@@ -196,8 +198,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
         lastName: reservationData.guestLastName,
         tel1: reservationData.guestPhone,
         iso3: reservationData.guestCountry.code,
-        country: reservationData.guestCountry.name,
-        id: sessionDataService.getCookie().sessionData.sessionId
+        country: reservationData.guestCountry.name
       });
       //set default data
       setDefaultData(bookingParams, chainData, propertyData, rateFilter);
