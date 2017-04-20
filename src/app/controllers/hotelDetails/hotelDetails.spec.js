@@ -121,9 +121,9 @@ describe('mobius.controllers.hotel.details', function() {
           openGallery: function() {}
         });
 
-
         $provide.value('stateService', {
-          isMobile: sinon.stub()
+          getAppLanguageCode: function(){},
+          isMobile: function(){}
         });
 
         $provide.value('advertsService', {});
@@ -159,6 +159,8 @@ describe('mobius.controllers.hotel.details', function() {
         $provide.value('$stateParams', {
           propertySlug: 'vancouver'
         });
+
+        $provide.value('DynamicMessages', {});
 
         $provide.value('Settings', {
           UI: {

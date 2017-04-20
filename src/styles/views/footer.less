@@ -60,103 +60,6 @@ footer {
     }
   }
 
-  //- Social Links
-  social-links {
-    align-items: center;
-    display: flex;
-    flex: 1;
-    justify-content: center;
-
-    .viewport-mobile & {
-      display: inline;
-      margin-right: 10px;
-      text-align: right;
-    }
-
-    ul {
-      display: flex;
-      justify-content: center;
-      .viewport-mobile & {
-        display: inline-block;
-      }
-    }
-
-    li {
-      margin: 0 @baseline/4;
-      .viewport-mobile & {
-        float: left;
-        margin-left: 2px;
-        &:first-child{
-          margin-left: 0;
-        }
-      }
-    }
-
-    a {
-      border-radius: 100%;
-      display: block;
-      height: @baseline * 1.5;
-      width: @baseline * 1.5;
-
-      background: #d3d3d3;
-      color: #fff;
-
-      font-size: @size-3;
-      line-height: @baseline * 1.5;
-      text-align: center;
-
-      &:focus,
-      &:hover {
-        background: @c-link;
-        color: #fff;
-      }
-
-      &:before {
-        .fa;
-      }
-
-      &.twitter:before {
-        content: @fa-var-twitter;
-      }
-
-      &.facebook:before {
-        content: @fa-var-facebook;
-      }
-
-      &.youtube:before {
-        content: @fa-var-youtube;
-      }
-
-      &.flickr:before {
-        content: @fa-var-flickr;
-      }
-
-      &.pinterest:before {
-        content: @fa-var-pinterest;
-      }
-
-      &.instagram:before {
-        content: @fa-var-instagram;
-      }
-
-      &.yelp:before {
-        content: @fa-var-yelp;
-      }
-
-      &.google:before {
-        content: @fa-var-google-plus;
-      }
-
-      &.linkedin:before {
-        content: @fa-var-linkedin;
-      }
-
-      &.xing:before {
-        content: @fa-var-xing;
-      }
-    }
-  }
-
   //- Navigation
   nav {
     flex: 2 0;
@@ -201,6 +104,103 @@ footer {
     width: 100%;
     .viewport-mobile &{
       height: auto;
+    }
+  }
+}
+
+//- Social Links
+social-links {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+
+  .viewport-mobile & {
+    display: inline;
+    margin-right: 10px;
+    text-align: right;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    .viewport-mobile & {
+      display: inline-block;
+    }
+  }
+
+  li {
+    margin: 0 @baseline/4;
+    .viewport-mobile & {
+      float: left;
+      margin-left: 2px;
+      &:first-child{
+        margin-left: 0;
+      }
+    }
+  }
+
+  a {
+    border-radius: 100%;
+    display: block;
+    height: @baseline * 1.5;
+    width: @baseline * 1.5;
+
+    background: #d3d3d3;
+    color: #fff;
+
+    font-size: @size-3;
+    line-height: @baseline * 1.5;
+    text-align: center;
+
+    &:focus,
+    &:hover {
+      background: @c-link;
+      color: #fff;
+    }
+
+    &:before {
+      .fa;
+    }
+
+    &.twitter:before {
+      content: @fa-var-twitter;
+    }
+
+    &.facebook:before {
+      content: @fa-var-facebook;
+    }
+
+    &.youtube:before {
+      content: @fa-var-youtube;
+    }
+
+    &.flickr:before {
+      content: @fa-var-flickr;
+    }
+
+    &.pinterest:before {
+      content: @fa-var-pinterest;
+    }
+
+    &.instagram:before {
+      content: @fa-var-instagram;
+    }
+
+    &.yelp:before {
+      content: @fa-var-yelp;
+    }
+
+    &.google:before {
+      content: @fa-var-google-plus;
+    }
+
+    &.linkedin:before {
+      content: @fa-var-linkedin;
+    }
+
+    &.xing:before {
+      content: @fa-var-xing;
     }
   }
 }

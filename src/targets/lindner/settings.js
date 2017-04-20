@@ -65,7 +65,7 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': '//integration-www-lindner.mobiusbookingengine.com/api/4.0/',
       'integration': '//integration-www-lindner.mobiusbookingengine.com/api/4.0/',
-      'staging': 'http://staging-lindner-node.mobiuswebservices.com/api/4.0/',
+      'staging': '//staging-www-lindner.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live':  'http://lindner.mobiuswebservices.com/api/4.0/'
     },
@@ -155,7 +155,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '2',
+      'Mobius-tenantId': '2',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,

@@ -1,0 +1,119 @@
+footer {
+  @media print { 
+    display:none;
+  }
+  .viewport-mobile & {
+    margin-bottom: 70px;
+  }
+  .wrapper {
+    width: 100%;
+    margin: 0;
+    >div {
+      .footer-bottom {
+        background: @c-white;
+      }
+    }
+  }
+  .footer-top {
+    padding: 0 20px;
+    .viewport-mobile & {
+      display: none;
+    }
+  }
+  .footer-bottom {
+    padding: 40px 0 70px 0;
+    .grid-wrapper {
+      padding: 0 20px;
+      box-sizing: border-box;
+      .clearfix;
+      >* {
+        width: 50%;
+        float: left;
+        .viewport-mobile & {
+          float: none;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+    p {
+      color: @c-black;
+      line-height:1.75em;
+    }
+    a {
+      display:inline-block;
+      color: @c-black;
+      cursor:pointer;
+      &:hover {
+        text-decoration:underline;
+      }
+    }
+    nav {
+      .clearfix;
+      ul {
+        padding-left:20px;
+        width:50%;
+        box-sizing:border-box;
+        float:left;
+        .viewport-mobile & {
+          padding-left:5px;
+        }
+        li {
+          line-height:1.25em;
+          margin:0.25em auto 0.5em 0;
+          position:relative;
+          &:before {
+            font-family: "meandall" !important;
+            font-style: normal !important;
+            font-weight: normal !important;
+            font-variant: normal !important;
+            text-transform: none !important;
+            color:@c-black;
+            speak: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\3e";
+            font-size: .5em;
+            position: absolute;
+            left: 0;
+            top: .85em;
+          }
+          a {
+            padding-left:1em;
+          }
+        }
+      }
+      .viewport-mobile & {
+        margin-top:30px;
+        text-align:left !important;
+      }
+    }
+  }
+  .copyright {
+    padding: 10px 0;
+    text-align: center;
+  }
+  social-links {
+    padding: 15px 0;
+    li a {
+      background: transparent;
+      color: @c-white;
+      font-size: 41px;
+      padding: 10px;
+      .transition(all, .3s, ease);
+      &:hover {
+        background: @c-white;
+        color: @c-black;
+      }
+    }
+  }
+}
+
+.floating-bar-active footer {
+  margin-bottom: 82px;
+  .viewport-mobile &,
+  &.no-booking-bar {
+    margin-bottom: 0;
+  }
+}

@@ -9,7 +9,27 @@ describe('reservationDetails', function() {
 
   beforeEach(function() {
     module('underscore');
-    module('mobius.controllers.reservation.directive');
+    module('mobius.controllers.reservation.directive', function($provide) {
+      // Mocking the services
+
+      var Settings = {
+        'UI': {
+          'reservations':{},
+          'viewsSettings':{
+            'reservationsOverview':{
+              'fullWidthSections':false
+            }
+          }
+        }
+      };
+
+      $provide.value('$state', {});
+      $provide.value('Settings', Settings);
+      $provide.value('stateService', {
+        getAppLanguageCode: function(){},
+        isMobile: function(){}
+      });
+    });
     module('mobiusApp.directives.reservation.details', function($provide){
       $provide.value('$state', {});
     });

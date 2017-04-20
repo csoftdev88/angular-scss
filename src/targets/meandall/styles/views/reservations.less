@@ -1,0 +1,230 @@
+.reservations {
+  margin-bottom: 0;
+  >div:first-child {
+    >h1 {
+      display: none;
+    }
+  }
+  hr {
+    display: none;
+  }
+  .future-stays,
+  .past-stays {
+    padding: 60px 0;
+    h1 {
+      font-size: @heading-1-size;
+      .viewport-mobile & {
+        font-size: @heading-1-size-mobile;
+      }
+    }
+  }
+  .future-stays {
+    margin-top: 0;
+    .viewport-mobile & {
+      color: @c-secondary;
+      background: @c-primary;
+      padding: 20px 0;
+    }
+  }
+  .past-stays {
+    color: @c-secondary;
+    background: @c-primary;
+    .viewport-mobile & {
+      padding: 20px 0;
+    }
+    h1 {
+      color: @c-light-grey;
+      .viewport-mobile & {
+        font-size: @heading-1-size-mobile;
+      }
+    }
+  }
+  reservation-item {
+    display: block;
+    margin-bottom: 50px;
+    reservation-data {
+      display: block;
+      position: relative;
+      width: 100%;
+      &:before {
+        .viewport-mobile & {
+          .fa;
+          content: @fa-var-chevron-right;
+          position: absolute;
+          right: -10px;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          font-size: 15px;
+        }
+      }
+      .viewport-mobile & {
+        padding: 0 15px;
+        box-sizing: border-box;
+      }
+      check-in-date {
+        border: 2px solid @c-primary;
+        border-radius: 0px;
+        width: 145px;
+        margin-top: 30px;
+        .viewport-mobile & {
+          position: absolute;
+          right: 20px;
+          margin-top: 0;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        }
+        .title {
+          background: @c-secondary;
+          padding: 0;
+          text-transform: uppercase;
+          font-family: 18px;
+          font-family: @ff-bold;
+          .viewport-mobile & {
+            font-size: 11px;
+            line-height: 20px;
+          }
+        }
+        .date {
+          display: block;
+          color: @c-secondary;
+          background: @c-primary;
+          padding: 0;
+          height: 50px;
+          font-size: @heading-2-size;
+          font-family: @ff-heading;
+          font-weight: normal;
+          width: 100%;
+          line-height: 65px;
+          height: initial;
+          .viewport-mobile & {
+            height: 30px;
+            padding: 0;
+            line-height: 30px;
+            font-size: 20px;
+            border: 2px solid black;
+            box-sizing: border-box;
+          }
+        }
+      }
+      .property-preview {
+        width: 170px;
+        height: 150px;
+        overflow: hidden;
+        .viewport-mobile & {
+          display: none;
+        }
+      }
+      .content {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 185px 0 205px;
+        .header {
+          .viewport-mobile & {
+            margin-bottom: 0;
+          }
+          h2 {
+            float: none;
+            font-size: @heading-2-size;
+            .viewport-mobile & {
+              font-size: 20px;
+            }
+            span {
+              float: none;
+            }
+          }
+          >span {
+            display: none;
+          }
+          .desc {
+            h3 {
+              font-size: 28px;
+              margin: 10px 0;
+              .viewport-mobile & {
+                font-size: 18px;
+                margin-bottom: 0;
+              }
+            }
+            p {
+              color: @c-secondary;
+              font-size: 18px;
+              margin-top: 0;
+              .viewport-mobile & {
+                font-size: 17px;
+                line-height: 23px;
+              }
+            }
+          }
+        }
+        .rating {
+          display: none;
+        }
+        .details {
+          >div {
+            .title {
+              text-transform: uppercase;
+              min-width: initial;
+              .viewport-mobile & {
+                font-size: 18px;
+              }
+            }
+          }
+          .total {
+            .viewport-mobile & {
+              margin-top: 0;
+              line-height: 18px;
+            }
+            .value {
+              color: @c-primary;
+              font-size: @size-0;
+              .viewport-mobile & {
+                color: @c-secondary;
+                font-size: 18px;
+              }
+            }
+          }
+          .guests {
+            width: 40%;
+            float: right;
+            margin-top: -60px;
+            .viewport-mobile & {
+              display: none;
+            }
+            .title {
+              text-transform: capitalize;
+            }
+          }
+          .reservation-number {
+            display: none;
+          }
+        }
+      }
+      &.inactive {
+        check-in-date {
+          .title {
+            color: @c-primary;
+          }
+          .date {
+            color: @c-light-grey;
+            .viewport-mobile & {
+              border-color: @c-light-grey;
+            }
+          }
+        }
+        .content {
+          .header .desc p {
+            color: @c-light-grey;
+          }
+          .details .total .value {
+            color: @c-light-grey;
+          }
+        }
+      }
+    }
+  }
+}
