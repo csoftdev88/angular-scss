@@ -116,18 +116,60 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': '//integration-www-sutton.mobiusbookingengine.com/api/4.0/',
       'integration': '//integration-www-sutton.mobiusbookingengine.com/api/4.0/',
-      'staging': '//staging.suttonplace.com/api/4.0/',
+      'staging': '//staging-www-sutton.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.suttonplace.com/api/4.0/'
     },
     'mobiusTracking': {
-      'search': {
-        'enable':false,
-        'url':'properties/track/search'
+      'development': {
+        'id': 'sutton-development',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
-      'purchase': {
-        'enable':false,
-        'url':'properties/track/purchase'
+      'integration': {
+        'id': 'sutton-integration',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
+      },
+      'staging': {
+        'id': 'sutton-staging',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
+      },
+      'uat': {
+        'id': 'sutton-staging',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      },
+      'live': {
+        'id': 'sutton-live',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       }
     },
     'campaigns':'campaigns',
@@ -216,7 +258,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-tenantId': '1',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,

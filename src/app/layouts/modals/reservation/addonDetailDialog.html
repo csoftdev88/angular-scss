@@ -24,8 +24,9 @@
     <image-carousel width="400" height="400" fill="'fill'" images="addon.images"></image-carousel>
     <div class="details">
       <div class="description" ng-switch="payWithPoints">
+        <h2 ng-if="config.addonNameAsDescriptionTitle">{{addon.name}}</h2>
         <p>_addon_modal_confirm_desc_</p>
-        <p>{{addon.name}}</p>
+        <p ng-if="!config.addonNameAsDescriptionTitle">{{addon.name}}</p>
         <!-- DEFAULT PAYMENT METHOD -->
         <p ng-switch-default>{{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}</p>
         <p ng-switch-default><em>_addon_modal_charge_desc_</em></p>

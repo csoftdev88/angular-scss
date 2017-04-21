@@ -1,0 +1,21 @@
+contacts-page {
+  h1 {
+    font-size: @heading-1-size;
+  }
+  contact-list contact-item {
+    font-size:17px;
+    h2 {
+      color: @c-primary;
+    }
+  }
+  contact-list contact-item p:before {
+    color: @c-link;
+  }
+  label {
+    padding:0;
+  }
+  form form-element input[type=text], form form-element input[type=email] {
+    height:45px;
+    line-height:45px;
+  }
+}

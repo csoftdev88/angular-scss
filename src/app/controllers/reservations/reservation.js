@@ -231,8 +231,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     //scrollToDetails('reservationDetailsForm');
-    scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
-
+    scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
   }
 
   function getRoomPromise(room) {
@@ -250,8 +249,8 @@ angular.module('mobius.controllers.reservation', [])
           $scope.canPayWithPoints = false;
         }
 
-        //If we have a stored upgrade with a decreased price, room and pricing
-        if(storedUpgrade && storedUpgrade.decreased && storedUpgrade.room && storedUpgrade.current){
+        //If we have a stored upgrade with an increased price, and room and pricing are set
+        if(storedUpgrade && storedUpgrade.increased && storedUpgrade.room && storedUpgrade.email){
           if(room.roomID === storedUpgrade.room.code) { //If the current room id matches the stored upgrade                  
             //Validate the current dates and calculate the stayLength
             if($stateParams.dates){ 
@@ -262,9 +261,20 @@ angular.module('mobius.controllers.reservation', [])
                 var stayLength = parseInt(checkOutDate.diff(checkInDate, 'days'));
 
                 console.log('update pricing with upgrade pricing');
-                roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.current.priceRoom * stayLength;
-                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.current.totalTax * stayLength;
-                roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.current.totalAfterTax * stayLength;
+
+                roomData._selectedProduct.price = {}; //Clear the existing price object
+
+                //Setting all of our pricing based on the upgrade pricing
+                roomData._selectedProduct.price.totalBaseAfterPricingRules = storedUpgrade.email.priceRoom * stayLength;
+                roomData._selectedProduct.price.totalAfterTaxAfterPricingRules = storedUpgrade.email.totalAfterTax;
+                roomData._selectedProduct.price.breakdowns = [];
+                roomData._selectedProduct.price.breakdowns = storedUpgrade.email.priceDetail.priceOverview.breakdowns;
+                roomData._selectedProduct.price.taxDetails = {};
+                roomData._selectedProduct.price.taxDetails.totalTax = storedUpgrade.email.totalTax;
+                roomData._selectedProduct.price.taxDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.taxDetails.policyTaxItemDetails;
+                roomData._selectedProduct.price.feeDetails = {};
+                roomData._selectedProduct.price.feeDetails.totalTax = storedUpgrade.email.priceDetail.priceOverview.feeDetails.totalTax;
+                roomData._selectedProduct.price.feeDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.feeDetails.policyTaxItemDetails;            
               }
             }
           }
@@ -282,6 +292,9 @@ angular.module('mobius.controllers.reservation', [])
           }
         }
       }
+
+      //Used to decided if 'view price breakdown' should display (We should have no breakdown if we have more than 1 night, taxes are more than 0 and fees are more than 0)
+      $scope.noBreakdown = $scope.allRooms[0]._selectedProduct.price.breakdowns.length === 1 && $scope.getBreakdownTotalTaxes(false) === 0 && $scope.getBreakdownTotalTaxes(true) === 0;
 
       if($stateParams.voucher){
         $scope.voucher.code = $stateParams.voucher;
@@ -401,9 +414,11 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function scrollToDetails(target) {
-    $timeout(function(){
-      scrollService.scrollTo(target, 30);
-    }, 100);
+    if(!$scope.bookingConfig.checkoutNoScrollingDesktop || ($scope.bookingConfig.checkoutNoScrollingDesktop && $scope.isMobile)){
+      $timeout(function(){
+        scrollService.scrollTo(target, 30);
+      }, 100);
+    }
   }
 
   function setContinueName(stateName) {
@@ -414,7 +429,7 @@ angular.module('mobius.controllers.reservation', [])
         if ($scope.invalidFormData.error) {
           //scrollToDetails('alert-warning');
         } else {
-          scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
+          scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
         }
         $rootScope.showHomeBreadCrumb = false;
         break;
@@ -422,14 +437,14 @@ angular.module('mobius.controllers.reservation', [])
         setBreadCrumbs(BILLING_DETAILS);
         $scope.continueName = 'continue';
         //scrollToDetails('reservationBillingForm');
-        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationBillingForm');
+        scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationBillingForm');
         $rootScope.showHomeBreadCrumb = false;
         break;
       case 'reservation.confirmation':
         setBreadCrumbs(CONFIRMATION);
         $scope.continueName = 'confirm';
         //scrollToDetails('reservationConfirmation');
-        scrollToDetails($scope.bookingConfig.bookingStepsNav.display ? $scope.scrollReservationStepsPosition : 'reservationConfirmation');
+        scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationConfirmation');
         $rootScope.showHomeBreadCrumb = false;
         break;
       case 'reservation.after':
@@ -1015,6 +1030,15 @@ angular.module('mobius.controllers.reservation', [])
               dimension1: propertyData.nameShort,
               list: 'Room',
               category: room.name,
+              room: {
+                'code':room.code,
+                'name':room.name
+              },
+              policies:p.policies,
+              priceDetail: {
+                totalBaseAfterPricingRules: p.price.totalBaseAfterPricingRules,
+                totalTax: p.price.taxDetails.totalTax
+              }
             };
             products.push(product);
           });
@@ -1105,7 +1129,7 @@ angular.module('mobius.controllers.reservation', [])
             'profileCountries':$scope.profileCountries,
             'userDetails':$scope.userDetails
           };
-          mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, priceData);
+          mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, $scope.rates.selectedRate);
 
           //Infiniti Tracking purchase
           var infinitiTrackingProducts = [];
@@ -1512,7 +1536,6 @@ angular.module('mobius.controllers.reservation', [])
     }
     else { //No pricing has changed, continue as normal
        roomUpgradesService.notifyUpgrade($scope,'success');
-       $scope.hideBreakdown = true;
        $scope.continue();
     }
   }

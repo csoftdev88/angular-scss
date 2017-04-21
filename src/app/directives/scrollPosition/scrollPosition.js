@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.directives.scrollPosition', [])
-  .directive('scrollPosition', function($window, _) {
+  .directive('scrollPosition', function($rootScope,$window, scrollService, _) {
     var EVENT_SCROLL = 'scroll';
 
     return {
@@ -16,6 +16,7 @@ angular.module('mobiusApp.directives.scrollPosition', [])
           if(scrollTop !== scope.scroll){
             scope.$evalAsync(function(){
               scope.scroll = scrollTop;
+              scrollService.scroll = scrollTop;
             });
           }
         }, 50);

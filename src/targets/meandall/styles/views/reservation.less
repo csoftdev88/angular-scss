@@ -1,0 +1,884 @@
+main.reservation-page {
+  background: @c-primary;
+  color: @c-secondary;
+  margin-bottom:0;
+  .viewport-mobile & {
+    margin-top: 0 !important;
+    margin-bottom:0 !important;
+    padding-top: 0 !important;
+  }
+  reservation-widget {
+    box-shadow: none;
+    padding-top: 0;
+    label {
+      color: @c-secondary !important;
+    }
+    .viewport-mobile & {
+      margin-top: 130px;
+    }
+    .alert-warning {
+      .viewport-mobile & {
+        margin: 40px 0 0 0;
+        font-size: @size--1;
+      }
+    }
+    div[grid="7"] {
+      padding: 0px 100px 15px 10px;
+      box-sizing: border-box;
+      .viewport-mobile & {
+        padding-right: 10px;
+      }
+    }
+    aside[grid="5"] {
+      font-size: @size--1;
+    }
+    aside {
+      box-sizing: border-box;
+      &:before {
+        display: none;
+      }
+      .viewport-mobile & {
+        margin: 35px 0;
+      }
+      section+section {
+        margin: 0;
+      }
+    }
+    form {
+      box-sizing: border-box;
+    }
+    h3 {
+      font-size: @heading-2-size;
+      margin-bottom: 10px;
+      margin-top:15px;
+      .viewport-mobile & {
+        font-size: 24px;
+        margin-bottom: 5px;
+      }
+    }
+    label {
+      color: @c-primary;
+      font-size: @size--3;
+      .viewport-mobile & {
+        color: @c-secondary;
+      }
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    .chosen-container,
+    .chosen-container .chosen-single,
+    textarea {
+      height: 36px;
+      line-height: 34px;
+      border-color: @c-secondary;
+      font-size: 14px;
+    }
+    textarea {
+      padding: 5px 8px;
+      border: 2px solid @c-secondary;
+    }
+    form.ng-submitted input.ng-invalid,
+    form.ng-submitted select.ng-invalid,
+    form.ng-submitted textarea.ng-invalid {
+      border-color: #cc0c39;
+    }
+    .form-bottom {
+      position: relative;
+      .viewport-mobile & {
+        padding-top: 20px;
+        padding-left: 0;
+      }
+      label {
+        color: @c-secondary;
+      }
+      .newsletter-signup {
+        padding-top: 13px;
+        margin: 0 0 15px 0;
+        text-align: left;
+        font-size: 12px;
+        color: @c-secondary;
+        .viewport-mobile & {
+          text-align: left;
+          padding-top: 0;
+        }
+      }
+      .continue-btn {
+        .viewport-mobile & {
+          margin-top: 0;
+          width: 100%;
+        }
+      }
+      >div {
+        padding-top: 0px;
+        .viewport-mobile & {
+          padding-top: 0;
+          padding-bottom: 25px;
+        }
+        label {
+          padding: 0;
+          margin-bottom:15px;
+        }
+      }
+    }
+    .detail-links {
+      border-top: 1px solid @c-secondary;
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        .viewport-mobile & {
+          font-size: @size--1;
+        }
+      }
+    }
+    .room-data {
+      border-left: 1px solid @c-secondary;
+      border-right: 1px solid @c-secondary;
+      .room-data-details {
+        padding: 0 15px;
+        .chain-logo {
+          display: none;
+        }
+        p.desc {
+          font-family: @ff-heading;
+          color: @c-secondary;
+          font-size: 24px;
+          font-weight: normal;
+          margin: 0;
+          line-height: 28px;
+        }
+        p.price {
+          font-size: 18px;
+          color: black;
+          margin-top: 0;
+          margin-bottom: 3px;
+          font-family: @ff-bold;
+          font-weight: normal;
+          em {
+            font-size: @size--3;
+            font-family: @ff-default
+          }
+        }
+      }
+      >h3 {
+        padding: 0 15px;
+        margin: 0 0 5px 0;
+        line-height: 1em;
+        text-transform: initial;
+        font-weight: normal;
+        font-size: @size-0;
+        font-family: @ff-default;
+      }
+      >h4 {
+        padding: 15px 15px 0 15px;
+        font-family: @ff-heading;
+        color: @c-secondary;
+        font-size: 24px;
+        font-weight: normal;
+        margin: 0;
+        line-height: 28px;
+      }
+      .image-wrapper img {
+        margin: 0;
+        border-radius: 0px;
+      }
+    }
+    .reservation-controls {
+      padding: 15px;
+      .viewport-mobile & {
+        padding: 0;
+      }
+      .tooltiptext {
+        display: none;
+        color: @c-blue;
+        background: rgba(74, 122, 178, 0.25);
+        font-size: 12px;
+        padding: 10px 15px;
+        margin: 0 10px;
+        line-height: 1.4em;
+        .viewport-mobile & {
+          display: block;
+        }
+      }
+    }
+    .back {
+      font-size: @size--2;
+      font-family: @ff-default;
+      color: @c-link;
+      margin: 0;
+      padding: 0;
+      height: 21px;
+      line-height: 21px;
+      &:before {
+        border: 0px none;
+        font-size: @size--1;
+      }
+    }
+    .reservation-data {
+      font-size: 17px;
+      label {
+        color: @c-secondary;
+      }
+      td {
+        text-align: right;
+        font-family: @ff-bold;
+        font-weight: normal;
+      }
+      th {
+        text-align: left;
+        .viewport-mobile & {
+          text-align: left;
+        }
+      }
+      .data {
+        border-left: 1px solid @c-secondary;
+        border-right: 1px solid @c-secondary;
+        margin: 0;
+        padding: 20px 10px;
+      }
+      .charges {
+        border: 0px none;
+        border-radius: 0px;
+        padding: 0;
+        display: block;
+        td {
+          font-weight: bold;
+        }
+        .breakdown-toggle {
+          td {
+            font-weight: normal;
+            font-family: @ff-default;
+            padding-top:10px;
+            .viewport-mobile & {
+              padding: 10px 0;
+            }
+            a {
+              cursor: pointer;
+            }
+            span {
+              .viewport-mobile & {
+                display: inline-block;
+                line-height: 1.6em;
+              }
+            }
+          }
+        }
+      }
+      tr.main,
+      tr.last {
+        background: @c-secondary;
+        color: @c-primary;
+        th,
+        td {
+          padding: 5px 15px;
+        }
+      }
+      tr.breakdown-toggle {
+        td {
+          padding: 20px 0 0 0;
+          font-size: @size--1;
+        }
+      }
+    }
+  }
+  reservation-billing {
+    >div {
+      margin: 0;
+      padding: 0;
+      border: 0px none;
+      border-radius: 0px;
+      background: transparent;
+      .viewport-mobile & {
+        padding: 0;
+      }
+    }
+    form {
+      box-sizing: border-box;
+      padding: 0;
+      margin-top:0;
+    }
+    .payment-card form .card-details .expiry-title {
+      label {
+        background: @c-primary;
+        color: @c-secondary;
+      }
+    }
+    .payment-card form .card-details .card-cvv {
+      .help {
+        color: @c-secondary !important;
+        font-size: 15px !important;
+        line-height: 19px;
+        top: 12px;
+        &:hover .tooltiptext {
+          visibility: visible;
+        }
+        .tooltiptext {
+          visibility: hidden;
+          bottom: 34px;
+          height: auto;
+          background-color: @c-secondary;
+          box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+          text-align: center;
+          font-size: 13px;
+          line-height: 16px;
+          padding: 10px;
+          border-radius: 4px;
+          box-sizing: border-box;
+          position: absolute;
+          z-index: 1;
+          right: -90px;
+          width: 200px;
+          color: @c-primary;
+          &:after {
+            content: " ";
+            position: absolute;
+            top: 100%;
+            /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: @c-secondary transparent transparent transparent;
+          }
+          .viewport-mobile & {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  reservation-confirmation {
+    font-size: @size--2;
+    >div {
+      margin-top:0;
+      border: 2px solid @c-secondary;
+      border-radius: 0;
+    }
+    .tab-pane {
+      padding: 20px;
+      border-top: 2px solid @c-secondary;
+      &.active {
+        background: @c-primary;
+        color: @c-secondary;
+      }
+      form {
+        padding: 10px;
+      }
+    }
+    table tr td {
+      font-weight: 400;
+      font-family: @ff-bold;
+    }
+    .nav-tabs li {
+      line-height:1.4em;
+      background: @c-secondary;
+      .viewport-mobile & {
+        padding:0;
+      }
+      a {
+        color: @c-primary;
+      }
+      &.active {
+        background: @c-primary;
+        a {
+          color: @c-secondary;
+          font-weight: 400;
+          font-family: @ff-bold;
+        }
+      }
+    }
+  }
+}
+
+.reservation-detail,
+.reservation-overview {
+  padding-top: 0px !important;
+  margin-top: 0px !important;
+  .viewport-mobile & {
+    margin-top: 10px !important;
+    margin-bottom: 0;
+  }
+  .parallax-image {
+    width: 100%;
+    left: initial;
+  }
+}
+
+.reservation-overview {
+  margin-top: -675px !important;
+  .viewport-mobile & {
+    margin-top: 10px !important;
+  }
+  &.no-reservations {
+    margin-top:30px !important;
+  }
+}
+
+//STYLES FOR RESERVATION DETAIL OVERVIEW
+reservation-finished,
+reservation-hotel-details {
+  .reservation-summary {
+    background: @c-primary;
+    color: @c-secondary;
+    padding: 60px 0;
+    margin-bottom: 80px;
+    .viewport-mobile & {
+      padding-top: 20px;
+      margin-bottom: 0;
+      padding-bottom: 40px;
+      background: @c-secondary;
+      color: @c-primary;
+    }
+    .actions {
+      .clearfix;
+      .viewport-mobile & {
+        display: block;
+      }
+      .passbook {
+        float: left;
+        margin-left: -10px;
+        margin-top: 20px;
+        .viewport-mobile & {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+  .tables {
+    line-height: 1.6em;
+    > div {
+      @media print {
+        width:100%;
+      }
+    }
+    figure {
+      button {
+        height: 40px !important;
+        line-height: 44px !important;
+        opacity: 0.6;
+        &:hover {
+          opacity: 1
+        }
+      }
+      .viewport-mobile & {
+        display: none;
+      }
+      img {
+        @media print {
+          display:none;
+        }
+      }
+    }
+    .data {
+      width: 45%;
+      float: right;
+      margin-top: 0;
+      display: block;
+      border: 2px solid @c-secondary;
+      box-sizing: border-box;
+      padding: 15px 20px 40px 20px;
+      border-bottom: 0px none;
+      .viewport-mobile & {
+        width: 100%;
+        float: none;
+        padding: 0;
+        margin-top: 15px;
+        min-height: 145px;
+      }
+      tbody {
+        display: block;
+        tr {
+          display: block;
+          th,
+          td {
+            display: block;
+            width: 50%;
+            padding: 0;
+            float: left;
+            box-sizing: border-box;
+          }
+          td {
+            font-family: @ff-bold !important;
+            font-weight: normal;
+          }
+          .check-out {
+            margin-top: -30px;
+          }
+          .adults,
+          .children {
+            top: 40px;
+            position: relative;
+          }
+        }
+      }
+    }
+    .extended-charges,
+    .charges {
+      width: 45%;
+      float: right;
+      margin-top: 0;
+      box-sizing: border-box;
+      padding: 5px 20px;
+      border: 2px solid @c-secondary;
+      border-top: none;
+      display: block;
+      .viewport-mobile & {
+        width: 100%;
+        float: none;
+        padding: 0;
+      }
+      table {
+        width: 100%;
+        display: block;
+        padding: 0;
+        box-sizing: border-box;
+        td {
+          .viewport-mobile & {
+            text-align: right;
+          }
+        }
+      }
+      .extended-total {
+        position: relative;
+        right: initial;
+        bottom: initial;
+        padding: 0;
+        .clearfix;
+        .total {
+          font-family: @ff-default;
+          font-weight: normal;
+          .viewport-mobile & {
+            float: left;
+            display: block;
+            width: 50%;
+            text-align: left;
+          }
+        }
+        .total-value {
+          float: right;
+          font-family: @ff-bold;
+          font-weight: normal;
+          .viewport-mobile & {
+            float: right;
+            display: block;
+            width: 50%;
+            text-align: right;
+          }
+        }
+      }
+    }
+    .extended-charges {
+      padding: 5px 20px 55px 20px;
+      table {
+        .breakdown {
+          color: #aaa;
+        }
+      }
+      .breakdown-toggle {
+        display: block;
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        right: 0;
+        padding: 0 20px;
+        box-sizing: border-box;
+        font-size: @size-0 !important;
+        .viewport-mobile & {
+          display: block;
+          bottom: initial;
+          padding: 10px 0;
+        }
+        th {
+          display: none;
+        }
+        td {
+          width: 100%;
+          display: block;
+        }
+      }
+    }
+    .charges {
+      padding-top: 30px;
+      tbody,
+      tr,
+      td,
+      th {
+        display: block;
+      }
+      tbody,
+      tr {
+        width: 100%;
+      }
+      td,
+      th {
+        width: 50%;
+      }
+      th {
+        float: left;
+      }
+      td {
+        float: right;
+      }
+      .total {
+        padding-left: 0;
+        text-align: left;
+        font-weight: normal;
+        text-transform: capitalize;
+      }
+      .total,
+      .total-value {
+        position: relative;
+        top: 33px;
+      }
+      .tax {
+        margin: -33px 0 33px 0;
+      }
+    }
+    .modify-buttons {
+      text-align: center;
+      margin-top: 20px;
+      button {
+        width: 49%;
+        display: inline-block;
+        &.button-gray {
+          background: transparent;
+          color: @c-primary;
+          border: 2px solid @c-primary;
+          height: 40px;
+          line-height: 40px;
+        }
+      }
+    }
+    .policy-link {
+      display: block;
+      text-align: right;
+    }
+    .booking-details,
+    .room-types {
+      float: left;
+      width: 55%;
+      padding: 0 20px;
+      box-sizing: border-box;
+      color: @c-secondary;
+      .viewport-mobile & {
+        width: 100%;
+        float: none;
+        color: @c-primary;
+        padding: 0;
+      }
+      h1 {
+        font-size: @heading-1-size;
+        line-height: 1.2em;
+        font-weight: normal;
+        color: @c-secondary;
+        .viewport-mobile & {
+          font-size: 43px;
+          color: @c-primary;
+        }
+      }
+      h3 {
+        font-size: @heading-2-size;
+        font-weight: normal;
+        margin-bottom: 15px;
+        .viewport-mobile & {
+          font-size: 23px;
+          line-height: 1.2em;
+          margin-bottom: 5px;
+        }
+      }
+      h4 {
+        font-family: @ff-bold;
+        font-size: @size-0;
+        text-transform: uppercase;
+        span {
+          .viewport-mobile & {
+            display: block;
+          }
+        }
+        .viewport-mobile & {
+          line-height: 1.3em;
+          font-family: @ff-default;
+        }
+      }
+      h3+h4 {
+        .viewport-mobile & {
+          font-family: @ff-heading;
+          font-size: 23px;
+          line-height: 1.2em;
+          margin-bottom: 15px;
+        }
+      }
+      p {
+        color: @c-secondary;
+      }
+      .booking-date {
+        display: block;
+        line-height: 46.5px;
+      }
+    }
+  }
+  .reservation-enhancements, .reservation-enhance {
+    padding: 90px 0;
+    background: @c-secondary;
+    .viewport-mobile & {
+      padding-top: 40px;
+      background: white;
+      color: black;
+    }
+    h3 {
+      font-size: @heading-1-size;
+      margin-bottom: 45px;
+      .viewport-mobile & {
+        font-size: @heading-2-size;
+        margin-bottom: 15px;
+      }
+    }
+  }
+  //PURCHASED ADDONS SECTION//ADDONS SECTION
+  .reservation-enhancements {
+    @media print {
+      padding:5px 0;
+    }
+    list-item {
+      h2 {
+        font-size:@heading-2-size;
+        color:@c-primary;
+        .viewport-mobile & {
+          color:@c-secondary;
+        }
+      }
+      p {
+        .viewport-mobile & {
+          color:@c-secondary;
+        }
+      }
+    }
+  }
+  //PURCHASABLE ADDONS SECTION
+  .reservation-enhance {
+    padding: 90px 0;
+    background: @c-secondary;
+    @media print {
+      display:none;
+    }
+    .viewport-mobile & {
+      padding-top: 40px;
+      background: white;
+      color: black;
+    }
+    h3 {
+      font-size: @heading-1-size;
+      margin-bottom: 45px;
+      .viewport-mobile & {
+        font-size: @heading-2-size;
+        margin-bottom: 15px;
+      }
+    }
+    .button {
+      margin: 10px 25px 25px 25px;
+    }
+    ul {
+      background: transparent;
+      border: 0px none;
+      border-radius: 0px;
+      margin: 0;
+      padding: 0;
+      li {
+        padding: 0 15px;
+        .viewport-mobile & {
+          width: 100% !important;
+          padding: 0;
+        }
+        >div {
+          border-radius: 0px;
+          position: relative;
+          text-align: center;
+          color: @c-secondary;
+          .viewport-mobile & {
+            box-shadow: none;
+            padding-left: 100px;
+          }
+          a.eye-icon {
+            .viewport-mobile & {
+              width: 100px;
+              position: absolute;
+              left: 0;
+            }
+          }
+          h4 {
+            font-size: @heading-2-size;
+            font-weight: normal;
+            margin: 0;
+            padding: 20px 0 10px 25px;
+            text-align: left;
+            .viewport-mobile & {
+              padding: 25px 0 0 25px;
+            }
+          }
+          >p {
+            color: @c-secondary;
+            padding: 10px 0 10px 25px;
+            margin: 0;
+            text-align: left;
+            .viewport-mobile & {
+              padding: 5px 0 25px 25px;
+            }
+          }
+          >i {
+            display: none;
+          }
+          .button {
+            display: inline-block;
+            width: 41%;
+            margin: 10px 5px 10px 5px !important;
+            .viewport-mobile & {
+              display: block;
+              margin-left: 25px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  //MAPS
+  .map-section {
+    padding: 90px 0;
+    background: @c-primary;
+    @media print {
+      padding-top:0;
+      padding-bottom:0;
+    }
+    .viewport-mobile & {
+      display: none;
+    }
+    h2 {
+      color: @c-secondary;
+      font-size: @heading-1-size;
+      margin-bottom: 25px;
+    }
+    contact-list {
+      color: @c-secondary;
+      margin: 20px 0 0;
+      i {
+        display: none;
+      }
+      strong {
+        color: @c-secondary;
+      }
+    }
+  }
+}
+
+reservation-finished {
+  margin-top: 0;
+  hr {
+    display: none;
+  }
+  .reservation-summary {
+    margin-bottom:0;
+    @media print {
+      padding-bottom:0;
+    }
+  }
+}

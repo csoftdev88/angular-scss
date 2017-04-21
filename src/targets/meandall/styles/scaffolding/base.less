@@ -1,0 +1,22 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  padding-top: @header-height !important;
+  overflow-x:hidden;
+}
+
+#main-container {
+  background: @c-black;
+  overflow-x:initial;
+  .viewport-mobile & {
+    overflow-x:hidden;
+  }
+}
+
+main {
+  margin-top: 0px !important;
+  padding-top: 70px !important;
+}
