@@ -430,7 +430,7 @@ angular.module('mobiusApp.config', [])
           'ratesPerRoomOnDesktop': 3,
           'ratesPerRoomOnMobile': 2,
           'showTagline': true,
-          'showDescription': true,
+          'showDescription': false,
           'showDescriptionToggle': false,
           'showNoRatesSubDescription': false,
           'showRateInfoIcon': true,
