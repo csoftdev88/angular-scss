@@ -159,7 +159,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'  
       },
       'live': {
         'id': 'sutton-live',

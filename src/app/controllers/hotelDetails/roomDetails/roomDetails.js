@@ -201,7 +201,7 @@ angular.module('mobius.controllers.room.details', [])
               //Mobius tracking
               $scope.$watch('currentOrder', function(order) {
                 if(order && angular.isDefined(order)){
-                  mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, data[1].products, data[0], order);
+                  mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, data[1].products, data[0], $scope.rates.selectedRate);
                   infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0], $scope.rates.selectedRate);
                 }
               });
