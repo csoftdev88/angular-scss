@@ -118,7 +118,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       };
 
       //rate filter
-      defaultData.rateFilter = rateFilter ? rateFilter : {
+      defaultData.rateFilter = rateFilter && rateFilter.name && rateFilter.code ? rateFilter : {
         'code': 'Default',
         'name': 'Default'
       };
