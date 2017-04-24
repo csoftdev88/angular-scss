@@ -1,0 +1,285 @@
+///////////////////////
+//// HOTELS DETAIL ////
+///////////////////////
+main.hotel-detail {
+  min-height:500px;
+  .viewport-mobile & {
+    min-height:initial;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+hotel-detail {
+  h1,
+  h2 {
+    line-height: 1;
+    strong {
+      font-weight: normal;
+    }
+  }
+  h1 {
+    font-size: @heading-1-size;
+    .viewport-mobile & {
+      font-size: @heading-1-size-mobile;
+    }
+  }
+  h2,
+  h3 {
+    font-size: @heading-2-size;
+  }
+  h2 {
+    .viewport-mobile & {
+      font-size: @heading-2-size-mobile;
+    }
+  }
+  hr {
+    .viewport-mobile & {
+      display: none;
+    }
+  }
+  .hotel-detail-partials>.hotel-overview {
+    //Hide the first overview section on mobile
+    .viewport-mobile & {
+      display: none;
+    }
+  }
+  .hotel-description {
+    float: left;
+    width: 60%;
+    .viewport-mobile & {
+      float: none;
+      width: 100%;
+      padding-top: 35px;
+    }
+  }
+  .hotel-info-amenities {
+    float: left;
+    width: 40%;
+    padding-left: 100px;
+    box-sizing: border-box;
+    .viewport-mobile & {
+      margin-top: 30px;
+      float: none;
+      width: 100%;
+      padding: 0;
+    }
+  }
+  .hotel-detail__rooms-compare {
+    hr {
+      display:none;
+    }
+    .section-header {
+      padding-top: 40px;    
+      position: relative;
+      &.flexi-dates-displayed {
+        margin-top:65px;
+      }
+      .viewport-mobile & {
+        display: none;
+      }
+      >h2 {
+        display: none;
+      }
+      .search-details {
+        display: none;
+      }
+      .filter-bar {
+        background: 0;
+        padding: 0;
+        text-align: initial;
+        >* {
+          display: block;
+          line-height: initial;
+        }
+        .view-switch {
+          display: none;
+        }
+        .pricing-switch-container {
+          padding: @size-0 0 @size-0 100px;
+          line-height: @size-0;
+          width: 40%;
+          .filter-label {
+            position: absolute;
+            left: 0;
+          }
+          pricing-switch {
+            color: @c-white;
+            display: block;
+            text-align: left;
+            font-size: @size--2;
+          }
+        }
+        .order-switch-container {
+          padding: 0 0 0 100px;
+          width: 40%;
+          box-sizing: border-box;
+          .filter-label {
+            top: 50%;
+            -ms-transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+          }
+        }
+      }
+      .flexible-dates-bar {
+        background: 0;
+        padding: 0;
+        text-align: initial;
+        margin: 0;
+        .overview-container {
+          display: none;
+        }
+        .dates-dropdown-container {
+          margin: 0;
+          padding: 0 0 0 100px;
+          width: 40%;
+          position: absolute;
+          top: 0;
+          .filter-label {
+            position: absolute;
+            left: 0;
+          }
+        }
+      }
+    }
+    .compare-rooms-header {
+      position: relative;
+      padding: 45px 0;
+      h2 {
+        margin: 0;
+        font-size: @heading-1-size;
+        .viewport-mobile & {
+          font-size: @heading-1-size-mobile;
+        }
+      }
+      button-submit {
+        position: absolute;
+        right: 4%;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+    }
+    .room-list-compare-container {
+      .rooms-list {
+        text-align: center;
+        list-item {
+          background: @c-white;
+          color: @c-black;
+          padding: 25px 0 30px 0;
+          margin: 0 2%;
+          width: 46%;
+          display: inline-block;
+          text-align: left;
+          border: 0px none;
+          .room-hide-btn {
+            display: none;
+          }
+          .list-item-info {
+            >div,
+            >header {
+              padding: 0 50px !important;
+            }
+            .amenities {
+              padding: 0;
+              margin: 0 0 20px 0;
+              background: none;
+              li {
+                display: inline-block;
+                margin: 0 0 0 7px;
+                position:relative;
+                &:first-child {
+                  margin-left: 0;
+                }
+                span:first-child {
+                  display: block;
+                  img {
+                    max-height: 23px;
+                    -webkit-filter: invert(1);
+                    filter: invert(1);
+                    opacity: 0.4;
+                  }
+                  &:hover + .amenity-caption {
+                    visibility:visible;
+                  }
+                }
+                .amenity-caption {
+                  visibility: hidden;
+                  bottom: 34px;
+                  height: auto;
+                  background-color: @c-secondary;
+                  box-shadow: 0px 0px 1px white;
+                  text-align: center;
+                  font-size: 13px;
+                  line-height: 16px;
+                  padding: 10px;
+                  border-radius: 4px;
+                  box-sizing: border-box;
+                  position: absolute;
+                  z-index: 1;
+                  right: -90px;
+                  width: 200px;
+                  color: @c-primary;
+                  &:after {
+                    content: " ";
+                    position: absolute;
+                    top: 100%;
+                    /* At the bottom of the tooltip */
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: @c-secondary transparent transparent transparent;
+                  }
+                }
+              }
+            }
+            .item-header {
+              h3 {
+                color: @c-black;
+                font-size: @heading-2-size;
+                min-height: initial;
+                margin-bottom: 20px;
+                a {
+                  color: @c-black;
+                }
+              }
+            }
+            .room-content {
+              max-height: 270px;
+            }
+            .description {
+              padding-bottom:15px;
+              p {
+                color: @c-black;
+                font-size: @size-0;
+                line-height: @baseline;
+              }
+            }
+            .read-more {
+              display: none;
+            }
+            hero-slider {
+              margin-bottom: 20px;
+              .thumbnail-nav {
+                margin-top: 4px;
+                li {
+                  margin-right: 1%;
+                  img {
+                    width: 100%;
+                    max-height: initial;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .compare-direction-btn {
+        display: none;
+      }
+    }
+  }
+}

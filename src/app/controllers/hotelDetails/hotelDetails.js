@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService, previousSearchesService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService, DynamicMessages) {
 
   $controller('PriceCtr', {
     $scope: $scope
@@ -33,8 +33,13 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
 
+  var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
   var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
+
+  //Get our dynamic translations
+  var appLang = stateService.getAppLanguageCode();
+  var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -186,8 +191,8 @@ angular.module('mobius.controllers.hotel.details', [
           {
             flexibleDate.available = availability.available && availability.fullyAvailable;
             if(flexibleDate.available && availability.priceFrom){
-              //var thisPrice = $filter('i18nCurrency')(availability.priceFrom, $rootScope.currencyCode, undefined, false);
-              flexibleDate.name += ' (from $' + availability.priceFrom + ')';
+              var fromString = dynamicMessages && dynamicMessages.from ? dynamicMessages.from : 'from';
+              flexibleDate.name += ' ('+ fromString + ' ' + stateService.getCurrentCurrency().symbol + availability.priceFrom +')';
             }
             else
             {
@@ -338,8 +343,8 @@ angular.module('mobius.controllers.hotel.details', [
           firstParaEnd = Math.max(firstParaEnd, 0);
           firstBr = Math.max(firstBr, 0);
           var shortDescLength = (firstBr > 0 && firstParaEnd > 0) ? Math.min(firstBr, firstParaEnd) : Math.max(firstBr, firstParaEnd);
-          $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
-          $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
+          $scope.details.shortenedDescription = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
+          $scope.details.hasViewMore = $scope.details.shortenedDescription.length < $scope.details.description.length;
         }
 
         var amenities = $scope.details.amenities;
@@ -671,12 +676,13 @@ angular.module('mobius.controllers.hotel.details', [
     userPreferenceService.setCookie('roomsViewMode', mode);
   };
 
-  if(stateService.isMobile())
-  {
-    $scope.setRoomsViewMode('list');
-  }
-  else if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
+  //If room view type is stored in cookie, display this
+  if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
     $scope.setRoomsViewMode(mobiusUserPreferences.roomsViewMode);
+  }
+  //Otherwise display the default type if one is set, if not display as list
+  else {
+    $scope.setRoomsViewMode(defaultRoomsViewMode ? defaultRoomsViewMode : 'list');
   }
 
   $scope.hideRoom = function(room){
@@ -715,6 +721,12 @@ angular.module('mobius.controllers.hotel.details', [
     $scope.filteredCompareRooms = _.filter($scope.filteredCompareRooms, function(room){
       return $scope.roomsDisplayFilter(room);
     });
+  };
+
+  $scope.roomClick = function(room){
+    if($scope.config.rooms.roomsAsLinks && $stateParams.dates){
+      $scope.goToRoom($scope.details.meta.slug, room.meta.slug);
+    }
   };
 
   function scrollToRates(target) {

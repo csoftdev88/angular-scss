@@ -53,7 +53,7 @@ angular.module('mobiusApp.config', [])
     'development': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-development',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -61,7 +61,7 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-integration',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -69,7 +69,7 @@ angular.module('mobiusApp.config', [])
     'staging': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-staging',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -77,7 +77,7 @@ angular.module('mobiusApp.config', [])
     'uat': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-staging',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -85,7 +85,7 @@ angular.module('mobiusApp.config', [])
     'live': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-live',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -149,7 +149,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'  
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create' 
       },
       'uat': {
         'id': 'sutton-uat',
@@ -258,7 +258,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-tenantId': '1',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
