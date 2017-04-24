@@ -26,7 +26,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.viewSettings = Settings.UI.viewsSettings.hotelDetails;
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
-  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
+  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo && !$scope.isMobile;
   $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
