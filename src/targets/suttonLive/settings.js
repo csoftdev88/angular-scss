@@ -121,13 +121,55 @@ angular.module('mobiusApp.config', [])
       'live': 'https://www.suttonplace.com/api/4.0/'
     },
     'mobiusTracking': {
-      'search': {
-        'enable':false,
-        'url':'properties/track/search'
+      'development': {
+        'id': 'sutton-development',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
-      'purchase': {
-        'enable':false,
-        'url':'properties/track/purchase'
+      'integration': {
+        'id': 'sutton-integration',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
+      },
+      'staging': {
+        'id': 'sutton-staging',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'  
+      },
+      'uat': {
+        'id': 'sutton-uat',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'  
+      },
+      'live': {
+        'id': 'sutton-live',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
       }
     },
     'campaigns':'campaigns',

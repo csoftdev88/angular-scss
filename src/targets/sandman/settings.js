@@ -129,18 +129,60 @@ angular.module('mobiusApp.config', [])
     'baseURL': {
       'development': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
       'integration': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
+      'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
-      'search': {
-        'enable':false,
-        'url':'properties/track/search'
+      'development': {
+        'id': 'sandman-development',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
-      'purchase': {
-        'enable':false,
-        'url':'properties/track/purchase'
+      'integration': {
+        'id': 'sandman-integration',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
+      },
+      'staging': {
+        'id': 'sandman-staging',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      },
+      'uat': {
+        'id': 'sandman-uat',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      },
+      'live': {
+        'id': 'sandman-live',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
       }
     },
     'track404s': {
