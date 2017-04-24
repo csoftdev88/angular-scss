@@ -137,18 +137,6 @@ describe('bookingService', function() {
     it('should be defined as a function', function() {
       expect(_bookingService.getCodeParamName).to.be.an('function');
     });
-
-    it('should return corpCode when code is type of corpCode', function() {
-      expect(_bookingService.getCodeParamName('132')).equal('corpCode');
-    });
-
-    it('should return groupCode when code is type of groupCode', function() {
-      expect(_bookingService.getCodeParamName('#132')).equal('groupCode');
-    });
-
-    it('should return promoCode for others', function() {
-      expect(_bookingService.getCodeParamName('abc')).equal('promoCode');
-    });
   });
 
   describe('getCodeFromSlug', function() {
