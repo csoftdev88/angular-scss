@@ -118,7 +118,7 @@
                 name="cvv"/>
               <span>_card_cvv_label_</span>
             </label>
-            <span class="help" ng-click="openCCVInfo()">?</span>
+            <span class="help" ng-click="!bookingConfig.ccvAsTooltip ? openCCVInfo() : undefined">?<span class="tooltiptext" ng-if="!isMobile && bookingConfig.ccvAsTooltip">_cvv_modal_desc_</span></span>
           </div>
         </div>
 
