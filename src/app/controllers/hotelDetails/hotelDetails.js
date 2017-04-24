@@ -342,6 +342,12 @@ angular.module('mobius.controllers.hotel.details', [
           $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
         }
 
+        var amenities = $scope.details.amenities;
+        if($scope.config.restrictAmenitiesMobile && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
+          amenities = filterAsterixAmenities(amenities); //Only keep amenities with asterix at the beginning of the name
+        }
+        $scope.filteredAmenities = sanitizeAmenities(amenities); //Process our amenities and add to scope.
+
         //Breadcrumbs
         breadcrumbsService.clear();
 
@@ -758,6 +764,25 @@ angular.module('mobius.controllers.hotel.details', [
     };
 
     return $state.href($scope.config.offers.toState, stateParams);
+  }
+
+  //Function to clean amenities by removing asterixes from names and hyphens from the beginning of slugs
+  function sanitizeAmenities(amenities) {
+    amenities = _.each(amenities, function (amenity) {
+      amenity.name = amenity.name.replace('*', ''); //Remove asterix from name for display
+      amenity.name = amenity.name.trim(); //Remove any remaining spaces at the beginning or end of name
+      if (amenity.slug.charAt(0) === '-') { //If the amenity slug begins with a -
+        amenity.slug = amenity.slug.substring(1); //Remove the first character of the slug string
+      }
+    });
+    amenities = _.sortBy(amenities, 'name'); //Order the amenities by name
+    return amenities;
+  }
+
+  function filterAsterixAmenities(amenities) {
+    return _.reject(amenities, function (amenity) {
+      return amenity.name.indexOf('*') === -1; //Remove amenities that do not have asterix in the name
+    });
   }
 
 });

@@ -1,9 +1,9 @@
 <!-- This section is not styled yet since it's hard to test it now. -->
-<section class="hotel-detail__services" ng-if="details.amenities.length" grid="12">
+<section class="hotel-detail__services" ng-if="filteredAmenities.length" grid="12">
   <hr />
   <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
   <ul class="amenities-list" ng-if="details">
-    <li class="amenity-item" ng-repeat="amenity in details.amenities" ng-init="amenity.chainCode = details.chainCode">
+    <li class="amenity-item" ng-repeat="amenity in filteredAmenities" ng-init="amenity.chainCode = details.chainCode">
       <slug-img slug="amenity" type="hotel" width="15"></slug-img>
       <span class="amenity-caption">{{amenity.name}}</span>
     </li>

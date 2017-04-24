@@ -481,7 +481,8 @@ angular.module('mobiusApp.config', [])
         'hotelServices': true,
         'hotelLocation': true,
         'hotelOffers': true
-      }
+      },
+      'restrictAmenitiesMobile':true //On mobile view, only display amenities that's name begins with asterix
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
