@@ -149,10 +149,10 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create' 
       },
       'uat': {
-        'id': 'sutton-staging',
+        'id': 'sutton-uat',
         'search': {
           'enable': true
         },
@@ -169,7 +169,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
       }
     },
     'campaigns':'campaigns',
