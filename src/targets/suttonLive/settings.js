@@ -456,7 +456,8 @@ angular.module('mobiusApp.config', [])
           'properties':{
             'enable':true
           }
-        }
+        },
+        'restrictAmenities':true //Only display amenities with an asterix at the beginning of the name
       },
       'offers': {
         'toState': 'propertyOffers'
@@ -482,7 +483,7 @@ angular.module('mobiusApp.config', [])
         'hotelLocation': true,
         'hotelOffers': true
       },
-      'restrictAmenitiesMobile':true //On mobile view, only display amenities that's name begins with asterix
+      'restrictAmenities':true //Only display amenities that's name begins with asterix
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
