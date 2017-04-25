@@ -112,8 +112,8 @@ angular.module('mobiusApp.services.booking', [])
           queryParams[API_PARAM_TO] = dates.to;
         }
       //Ovveride promoCode param with a configured value, this allows promoCode to be sent as corpCode for tenants such as Sutton
-      } else if ((key === 'promoCode' || key === 'groupCode') && getCodeParamName(value)) {
-        queryParams[getCodeParamName(value)] = value;
+      } else if ((key === 'promoCode') && getCodeParamName()) {
+        queryParams[getCodeParamName()] = value;
       } else if (QUERY_TO_API_PARAMS[key]) {
         queryParams[QUERY_TO_API_PARAMS[key]] = value;
       }
@@ -144,14 +144,8 @@ angular.module('mobiusApp.services.booking', [])
     return !!(queryParams[API_PARAM_FROM] && queryParams[API_PARAM_TO]);
   }
 
-  function getCodeParamName(code) {
-    if(/^#/.test(code)) {
-      return 'groupCode';
-    } else if(/^[0-9]/.test(code)) {
-      return 'corpCode';
-    } else {
-      return Settings.API.promoCodes.promoCode;
-    }
+  function getCodeParamName() {   
+    return Settings.API.promoCodes.promoCode;
   }
 
   function isMultiRoomBooking(roomsStateObject){

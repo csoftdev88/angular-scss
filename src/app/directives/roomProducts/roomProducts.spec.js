@@ -84,6 +84,11 @@ describe('RoomProducts', function() {
         }
       });
 
+      $provide.value('mobiusTrackingService', {
+        trackSearch:function(){},
+        trackPurchase:function(){}
+      });
+
       $provide.value('cookieFactory', function(a){return {}[a];});
 
       $provide.value('propertyService', {
