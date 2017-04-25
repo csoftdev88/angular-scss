@@ -189,12 +189,12 @@ angular.module('mobiusApp.services.dataLayer', [])
     getDataLayer().push({
       'altDisplayType': displayType,
       'altDisplayDate': date ? date : null,
-      'altDisplayProperty': propertyCode,
-      'altDisplayProduct': productCode,
-      'altDisplayPrice': price,
-      'altDisplayPriceDifference': priceDifference,
+      'altDisplayProperty': propertyCode ? propertyCode : null,
+      'altDisplayProduct': productCode ? productCode : null,
+      'altDisplayPrice': price ? price : null,
+      'altDisplayPriceDifference': priceDifference ? priceDifference : null,
       'event': 'Alternative Display Select',
-      'stayLength': stayLength
+      'stayLength': stayLength ? stayLength : null
     });
   }
 
