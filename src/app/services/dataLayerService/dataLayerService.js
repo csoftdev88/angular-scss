@@ -182,13 +182,15 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
-  function trackAltDisplaySelect(displayType, date, propertyCode, productCode, price, priceDifference, stayLength) {
+  function trackAltDisplaySelect(displayType, date, propertyCode, productCode, price, priceDifference, stayLength, dateFrom, dateTo) {
     if (!isDataLayerActive()) {
       return;
     }
     getDataLayer().push({
       'altDisplayType': displayType,
       'altDisplayDate': date ? date : null,
+      'altDisplayDateFrom': dateFrom ? dateFrom : null,
+      'altDisplayDateTo': dateTo ? dateTo : null,
       'altDisplayProperty': propertyCode ? propertyCode : null,
       'altDisplayProduct': productCode ? productCode : null,
       'altDisplayPrice': price ? price : null,

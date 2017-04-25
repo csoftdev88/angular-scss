@@ -7,7 +7,7 @@ angular.module('mobius.controllers.modals.altProducts', [
   'mobius.controllers.common.sanitize'
 ])
 
-.controller('AltProductsCtrl', function($scope, $modalInstance, $controller, $state, $stateParams, $window, $filter, bookingService, Settings, data) {
+.controller('AltProductsCtrl', function($scope, $modalInstance, $controller, $state, $stateParams, $window, $filter, bookingService, Settings, data, dataLayerService) {
   $controller('PriceCtr', {$scope: $scope});
   $controller('SanitizeCtrl', {$scope: $scope});
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
@@ -97,12 +97,15 @@ angular.module('mobius.controllers.modals.altProducts', [
   $scope.data = data;
   var bookingParams = angular.copy($stateParams);
   var bookingDates = bookingParams.dates ? bookingService.datesFromString(bookingParams.dates) : null;
-  var lengthOfStay = bookingDates ? $window.moment.tz(bookingDates.to, Settings.UI.bookingWidget.timezone).diff($window.moment.tz(bookingDates.from, Settings.UI.bookingWidget.timezone), 'days') : null;
+  var dateFrom = $window.moment.tz(bookingDates.from, Settings.UI.bookingWidget.timezone);
+  var dateTo = $window.moment.tz(bookingDates.to, Settings.UI.bookingWidget.timezone);
+  var lengthOfStay = bookingDates ? dateTo.diff(dateFrom, 'days') : null;
   var orderedProducts = $filter('orderBy')(data.products, 'price.totalAfterTaxAfterPricingRules');
   var lowestProductPrice = orderedProducts[0].price.totalAfterTaxAfterPricingRules;
   $scope.priceDifference = lowestProductPrice - data.product.price.totalAfterTaxAfterPricingRules;
   var allowedFromDate = null;
   var allowedToDate = null;
+  var propertyCode = bookingParams && bookingParams.propertySlug ? bookingService.getCodeFromSlug(bookingParams.propertySlug) : null;
   $scope.stayExtension = null;
   $scope.stayReduction = null;
 
@@ -113,6 +116,9 @@ angular.module('mobius.controllers.modals.altProducts', [
 
   
   $scope.reloadPageProducts = function(){
+    //
+    dataLayerService.trackAltDisplaySelect('Rates', null, propertyCode, data.product.code, lowestProductPrice, $scope.priceDifference, lengthOfStay, dateFrom, dateTo);
+
     $stateParams.dates = bookingParams.dates;
     $state.reload();
     $scope.ok();
