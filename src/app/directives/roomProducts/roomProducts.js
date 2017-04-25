@@ -136,7 +136,7 @@ angular.module('mobiusApp.directives.room.products', [])
                   brand: propertyData.nameLong,
                   dimension1: propertyData.nameShort,
                   list: 'Rooms',
-                  category: dataLayerService.getCategoryName(propertyData,scope.room),
+                  category: scope.room ? dataLayerService.getCategoryName(propertyData,scope.room) : null,
                   variant: variant
                 };
               }), stayLength, bookingWindow);
