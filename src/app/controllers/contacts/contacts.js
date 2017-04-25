@@ -42,6 +42,7 @@ angular.module('mobius.controllers.contacts', [])
     chainService.getChain(chainCode).then(function(chain) {
       $scope.chain = chain;
 
+      $scope.chain.meta.microdata.og = {};
       $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       $scope.chain.meta.microdata.og['og:title'] = 'Contact: ' + $scope.chain.meta.microdata.og['og:title'];
       $scope.chain.meta.microdata.og['og:description'] = 'Contact: ' + $scope.chain.meta.microdata.og['og:description'];

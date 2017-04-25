@@ -1,6 +1,6 @@
 {
   "name": "mobius",
-  "version": "4.11.5-2",
+  "version": "4.11.5-3",
   "private": true,
   "scripts": {
     "start": "node app.js",
@@ -63,6 +63,7 @@
     "karma-junit-reporter": "~0.2.2",
     "karma-mocha": "~0.1.4",
     "karma-phantomjs-launcher": "~0.1.4",
+    "karma-phantomjs-launcher": "~1.0.4",
     "load-grunt-tasks": "~0.2.1",
     "lolex": "1.1.0",
     "matchdep": "~0.1.2",
