@@ -62,13 +62,6 @@ angular.module('mobius.controllers.room.details', [])
       var propertySlug = bookingService.getParams().propertySlug;
       var propertyCode = bookingService.getCodeFromSlug(propertySlug);
       propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
-        var localeData = propertyData.locale;
-        var localeArray = localeData ? propertyData.locale.split('-') : null;
-        if(localeArray && localeArray.length > 1)
-        {
-          localeData = localeArray[1].trim();
-        }
-        var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + $scope.roomDetails.name;
         var variant = '';
         if($stateParams.adults && $stateParams.children)
         {
@@ -95,7 +88,7 @@ angular.module('mobius.controllers.room.details', [])
           brand: propertyData.nameLong,
           dimension1: propertyData.nameShort,
           list: 'Room',
-          category: category,
+          category: dataLayerService.getCategoryName(propertyData, room),
           variant: variant
         }], stayLength, bookingWindow);
       });
@@ -151,13 +144,6 @@ angular.module('mobius.controllers.room.details', [])
             }
             if(data[1].products){
               //google analytics
-              var localeData = propertyData.locale;
-              var localeArray = localeData ? propertyData.locale.split('-') : null;
-              if(localeArray && localeArray.length > 1)
-              {
-                localeData = localeArray[1].trim();
-              }
-              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + data[0].name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)
               {
@@ -187,7 +173,7 @@ angular.module('mobius.controllers.room.details', [])
                     brand: propertyData.nameLong,
                     dimension1: propertyData.nameShort,
                     list: 'Room',
-                    category: category,
+                    category: dataLayerService.getCategoryName(propertyData, data[0]),
                     variant: variant
                   };
                 }), stayLength, bookingWindow);
