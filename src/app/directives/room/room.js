@@ -466,6 +466,7 @@ angular.module('mobiusApp.directives.room', [])
                 stayLength = checkOutDate.diff(checkInDate, 'days');
                 bookingWindow = checkInDate.diff(today, 'days');
               }
+              dataLayerService.listType = 'Room';
               dataLayerService.trackAddToCart({
                 name: product.name,
                 id: product.code,
@@ -474,7 +475,7 @@ angular.module('mobiusApp.directives.room', [])
                 dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
-                list: 'Room',
+                list: dataLayerService.listType,
                 category: dataLayerService.getCategoryName(propertyData, scope.roomDetails),
                 variant: variant
               }, upsellAccepted, stayLength, bookingWindow);
@@ -516,6 +517,7 @@ angular.module('mobiusApp.directives.room', [])
               {
                 variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
               }
+              dataLayerService.listType = 'Room';
               dataLayerService.trackProductsDetailsView([{
                 name: product.name,
                 id: product.code,
@@ -524,7 +526,7 @@ angular.module('mobiusApp.directives.room', [])
                 dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
-                list: 'Room',
+                list: dataLayerService.listType,
                 category: category,
                 variant: variant
               }]);

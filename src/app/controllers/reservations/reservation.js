@@ -656,7 +656,7 @@ angular.module('mobius.controllers.reservation', [])
             dimension2: chainData.nameShort,
             brand: propertyData.nameLong,
             dimension1: propertyData.nameShort,
-            list: 'Room',
+            list: dataLayerService.listType,
             category: dataLayerService.getCategoryName(propertyData,room)
           };
           products.push(product);
@@ -1020,7 +1020,7 @@ angular.module('mobius.controllers.reservation', [])
               dimension2: chainData.nameShort,
               brand: propertyData.nameLong,
               dimension1: propertyData.nameShort,
-              list: 'Room',
+              list: dataLayerService.listType,
               category: dataLayerService.getCategoryName(propertyData,room),
               room: {
                 'code':room.code,

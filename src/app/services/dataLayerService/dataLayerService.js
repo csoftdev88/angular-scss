@@ -4,6 +4,8 @@
 */
 angular.module('mobiusApp.services.dataLayer', [])
 .service( 'dataLayerService',  function($window, Settings, stateService) {
+  var listType = null; //Used to store the list type throughout checkout flow and purchase
+  
   function getDataLayer(){
     return $window.dataLayer;
   }
@@ -176,6 +178,7 @@ angular.module('mobiusApp.services.dataLayer', [])
   return {
     setUserId: setUserId,
     getCategoryName: getCategoryName,
+    listType: listType,
     trackProductsImpressions: trackProductsImpressions,
     trackProductClick: trackProductClick,
     trackAddToCart: trackAddToCart,
