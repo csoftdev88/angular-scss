@@ -162,6 +162,42 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
+  function trackAltDisplayNotification(displayType) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'event': 'Alternative Display Notification'
+    });
+  }
+
+  function trackAltDisplayLoad(displayType) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'event': 'Alternative Display Load'
+    });
+  }
+
+  function trackAltDisplaySelect(displayType, date, propertyCode, productCode, price, priceDifference, stayLength) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'altDisplayDate': date ? date : null,
+      'altDisplayProperty': propertyCode,
+      'altDisplayProduct': productCode,
+      'altDisplayPrice': price,
+      'altDisplayPriceDifference': priceDifference,
+      'event': 'Alternative Display Select',
+      'stayLength': stayLength
+    });
+  }
+
   // Public methods
   return {
     setUserId: setUserId,
@@ -171,6 +207,9 @@ angular.module('mobiusApp.services.dataLayer', [])
     trackProductsDetailsView: trackProductsDetailsView,
     trackProductsCheckout: trackProductsCheckout,
     trackProductsPurchase: trackProductsPurchase,
-    trackReservationRefund: trackReservationRefund
+    trackReservationRefund: trackReservationRefund,
+    trackAltDisplayNotification: trackAltDisplayNotification,
+    trackAltDisplayLoad: trackAltDisplayLoad,
+    trackAltDisplaySelect: trackAltDisplaySelect
   };
 });
