@@ -127,8 +127,8 @@ angular.module('mobiusApp.config', [])
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'development': 'http://integration-www-sandman.mobiusbookingengine.com/api/4.0/',
-      'integration': 'http://integration-www-sandman.mobiusbookingengine.com/api/4.0/',
+      'development': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.sandmanhotels.com/api/4.0/'
