@@ -10,12 +10,14 @@ angular.module('mobius.controllers.reservationDetail', [])
 .controller('ReservationDetailCtrl', function($scope, $state, $stateParams, $window,
   $controller, $q, reservationService, preloaderFactory, modalService, scrollService,
   userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
-  metaInformationService, dataLayerService, Settings, userObject, chainService, infinitiEcommerceService, contentService, routerService,
+  metaInformationService, dataLayerService, Settings, DynamicMessages, stateService, userObject, chainService, infinitiEcommerceService, contentService, routerService,
   apiService, queryService) {
-
+ 
   $controller('SSOCtrl', {
     $scope: $scope
   });
+
+  var appLang = stateService.getAppLanguageCode();
 
   $scope.previousCurrency = $rootScope.currencyCode;
   $scope.voucher = {};
@@ -59,6 +61,7 @@ angular.module('mobius.controllers.reservationDetail', [])
   $scope.isEditable = $stateParams.view !== 'summary';
   $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
   $scope.shareConfig = Settings.UI.shareLinks;
+  $scope.viewSettings = Settings.UI.viewsSettings.reservationDetails;
 
   $timeout(function() {
     $rootScope.$broadcast('floatingBarEvent', {
@@ -103,9 +106,13 @@ angular.module('mobius.controllers.reservationDetail', [])
 
           $window._.forEach(room, function(value, key) {
             if (key.indexOf('policy') === 0) {
-              policies[key.substr(6).toLowerCase()] = value;
+              policies[key.substr(6).toLowerCase()] = {};
+              policies[key.substr(6).toLowerCase()].description = value;
+              policies[key.substr(6).toLowerCase()].type = key.substr(6).toLowerCase();
             }
           });
+
+          console.log(policies);
 
           return {
             name: room.productName,
@@ -372,6 +379,9 @@ angular.module('mobius.controllers.reservationDetail', [])
 
           if ($scope.config.displayCancelConfirmedModal) {
             modalService.openReservationCancelConfirmedDialog($stateParams.reservationCode);
+          } else if(DynamicMessages && DynamicMessages[appLang]) {
+            userMessagesService.addMessage(DynamicMessages[appLang].your_reservation +
+              $stateParams.reservationCode + DynamicMessages[appLang].was_successfully_cancelled, false, true);
           } else {
             userMessagesService.addMessage('<div>Your Reservation <strong>' +
               $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true);
@@ -383,7 +393,8 @@ angular.module('mobius.controllers.reservationDetail', [])
           if (user.isLoggedIn()) {
             $state.go('reservations');
           } else {
-            $state.go('home');
+            console.log('take anonymous user to home');
+            $state.go('home', {reload:true}); //https://github.com/angular-ui/ui-router/wiki/Quick-Reference#statereload
           }
 
         }, function(error) {
@@ -537,7 +548,13 @@ angular.module('mobius.controllers.reservationDetail', [])
         // property as in original object `points` instead of `pointsRequired`
         addon.points = addon.pointsRequired;
         $scope.reservationAddons.push(addon);
-        userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', true);
+        
+
+        if(DynamicMessages && DynamicMessages[appLang]) {
+          userMessagesService.addMessage(DynamicMessages[appLang].you_have_added + addon.name + DynamicMessages[appLang].to_your_reservation, true);
+        } else {
+          userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', true);
+        }
 
         // Updating user loyalties once payment was done using the points
         if (addon.pointsRequired && user.isLoggedIn()) {
@@ -578,9 +595,19 @@ angular.module('mobius.controllers.reservationDetail', [])
 
   $scope.sendToPassbook = function() {
     reservationService.sendToPassbook($stateParams.reservationCode).then(function() {
-      userMessagesService.addMessage('<div>You have successfully added your reservation to passbook.</div>');
+      if(DynamicMessages && DynamicMessages[appLang]) {
+        userMessagesService.addMessage(DynamicMessages[appLang].you_have_added_passbook);
+      }
+      else {
+        userMessagesService.addMessage('<div>You have successfully added your reservation to passbook.</div>');
+      }    
     }, function() {
-      userMessagesService.addMessage('<div>Sorry, we could not add reservation to passbook, please try again.</div>');
+      if(DynamicMessages && DynamicMessages[appLang]) {
+        userMessagesService.addMessage(DynamicMessages[appLang].sorry_could_not_add_passbook);
+      }
+      else {
+        userMessagesService.addMessage('<div>Sorry, we could not add reservation to passbook, please try again.</div>');
+      }  
     });
   };
 
@@ -692,6 +719,16 @@ angular.module('mobius.controllers.reservationDetail', [])
   //format dates
   $scope.formatDate = function(date, format) {
     return $window.moment(date).format(format);
+  };
+
+  $scope.hasPriceBreakdown = function() {
+    if ($scope.reservation.rooms[0].priceDetail.breakdowns.length > 1) { return true; }
+    if ($scope.getBreakdownTotalTaxes(false) > 0) { return true; }
+    if ($scope.reservation.rooms[0].priceDetail.taxDetails.policyTaxItemDetails.length > 0) { return true; }
+    if ($scope.getBreakdownTotalTaxes(true) > 0) { return true; }
+    if ($scope.reservation.rooms[0].priceDetail.feeDetails.policyTaxItemDetails.length > 0) { return true; }
+    if ($scope.getCountPriceDetail('totalDiscount') !== 0) { return true; }
+    return false;
   };
 
   $location.search({});

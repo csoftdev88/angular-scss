@@ -1,0 +1,34 @@
+///////////////////
+//// AMENITIES ////
+///////////////////
+
+//- List of Amenities
+amenities-list,
+.amenities-list {
+  margin: @baseline 0;
+}
+
+
+amenity-item,
+.amenity-item {
+  min-height:initial;
+  width:initial;
+  padding:0;
+  float:none;
+  margin-top:10px;
+  &:first-child {
+    margin-top:0;
+  }
+  span {
+    vertical-align: top;
+    img {
+      margin:0;
+      max-width:25px;
+      max-height:initial;
+    }
+  }
+  .amenity-caption {
+    color:@c-white;
+    padding-left:24px;
+  }
+}
