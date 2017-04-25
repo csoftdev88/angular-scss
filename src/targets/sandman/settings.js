@@ -127,8 +127,8 @@ angular.module('mobiusApp.config', [])
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'development': 'http://integration-www-sandman.mobiusbookingengine.com/api/4.0/',
-      'integration': 'http://integration-www-sandman.mobiusbookingengine.com/api/4.0/',
+      'development': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.sandmanhotels.com/api/4.0/'
@@ -162,10 +162,10 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'uat': {
-        'id': 'sandman-staging',
+        'id': 'sandman-uat',
         'search': {
           'enable': true
         },
@@ -182,7 +182,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
       }
     },
     'track404s': {
