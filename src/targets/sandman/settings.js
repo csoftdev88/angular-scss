@@ -504,6 +504,7 @@ angular.module('mobiusApp.config', [])
       'showLocalInfo': true,
       'removeScrollToRoomsOnFinish': true,
       'displayAmenitiesInHotelInfo': true,
+      'findOutMoreLinksBottomMobile':true, //Positions the find out more section to the bottom of the page on mobile
       'headerPartial':{
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
@@ -518,7 +519,8 @@ angular.module('mobiusApp.config', [])
         'hotelRooms': false,
         'hotelRoomsCompare': true,
         'hotelOffers': true,
-        'hotelLocation': true
+        'hotelLocation': true,
+        'hotelReadMoreMobile': true
       },
       'bookingStatistics':{
         'display':false,

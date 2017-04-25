@@ -18,12 +18,6 @@
       <local-info ng-if="showLocalInfo && localInfo && localInfo.time" local-info="localInfo"></local-info>
       <a ng-if="details.images.length > 1" href class="gallery-link" ng-click="openGallery()">_view_more_images_</a>
       <hero-slider data-has-notification-bar="false" on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
-
-      <read-more ng-if="details.content.length && details.content[0].title">
-        <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
-        <ul>
-          <li ng-repeat="item in details.content | orderBy: 'order'"><a ng-href="{{item.url}}">{{item.title}}</a></li>
-        </ul>
-      </read-more>
+      <div ng-if="details.content.length && details.content[0].title && (!isMobile || (isMobile && !config.findOutMoreLinksBottomMobile))" ng-include="'layouts/components/read-more.html'"></div>
     </view-more-images>
 </section>
