@@ -53,7 +53,7 @@ angular.module('mobiusApp.config', [])
     'development': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-development',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -61,7 +61,7 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-integration',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -69,7 +69,7 @@ angular.module('mobiusApp.config', [])
     'staging': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-staging',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -77,7 +77,7 @@ angular.module('mobiusApp.config', [])
     'uat': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-staging',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -85,7 +85,7 @@ angular.module('mobiusApp.config', [])
     'live': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sutton-live',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -149,17 +149,17 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create' 
       },
       'uat': {
-        'id': 'sutton-staging',
+        'id': 'sutton-uat',
         'search': {
           'enable': true
         },
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'  
       },
       'live': {
         'id': 'sutton-live',
@@ -169,7 +169,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
       }
     },
     'campaigns':'campaigns',
@@ -456,7 +456,8 @@ angular.module('mobiusApp.config', [])
           'properties':{
             'enable':true
           }
-        }
+        },
+        'restrictAmenities':true //Only display amenities with an asterix at the beginning of the name
       },
       'offers': {
         'toState': 'propertyOffers'
@@ -481,7 +482,8 @@ angular.module('mobiusApp.config', [])
         'hotelServices': true,
         'hotelLocation': true,
         'hotelOffers': true
-      }
+      },
+      'restrictAmenities':true //Only display amenities that's name begins with asterix
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
