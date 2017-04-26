@@ -1,5 +1,5 @@
 <!-- This section is not styled yet since it's hard to test it now. -->
-<section class="hotel-detail__services" ng-if="filteredAmenities.length" grid="12">
+<section class="hotel-detail__services" ng-if="filteredAmenities && filteredAmenities.length" grid="12">
   <hr />
   <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
   <ul class="amenities-list" ng-if="details">
