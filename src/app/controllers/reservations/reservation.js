@@ -280,6 +280,12 @@ angular.module('mobius.controllers.reservation', [])
           }
         }
 
+        //Store the guarantee policy description for the reservation assurance badges
+        if(product.policies){
+          var guaranteePolicy = _.findWhere(product.policies, {type: 'guarantee'}); //find the guarantee policy
+          $scope.guaranteePolicyDescription = guaranteePolicy ? guaranteePolicy.description : null;
+        }
+
         $scope.allRooms.push(roomData);
 
         //if multiroom, wait for all rooms data to be loaded before tracking products checkout

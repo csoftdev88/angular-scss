@@ -909,7 +909,8 @@ angular.module('mobiusApp.config', [])
       },
       'vouchers' : {
         'enable':true
-      }
+      },
+      'reservationAssurance':true //Displays reservation assurance badges in the checkout flow
     },
     'myAccount' : {
       'displaySettings' : {
