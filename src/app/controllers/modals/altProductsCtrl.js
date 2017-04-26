@@ -97,8 +97,8 @@ angular.module('mobius.controllers.modals.altProducts', [
   $scope.data = data;
   var bookingParams = angular.copy($stateParams);
   var bookingDates = bookingParams.dates ? bookingService.datesFromString(bookingParams.dates) : null;
-  var dateFrom = $window.moment.tz(bookingDates.from, Settings.UI.bookingWidget.timezone);
-  var dateTo = $window.moment.tz(bookingDates.to, Settings.UI.bookingWidget.timezone);
+  var dateFrom = bookingDates && bookingDates.from ? $window.moment.tz(bookingDates.from, Settings.UI.bookingWidget.timezone) : null;
+  var dateTo = bookingDates && bookingDates.to ? $window.moment.tz(bookingDates.to, Settings.UI.bookingWidget.timezone) : null;
   var lengthOfStay = bookingDates ? dateTo.diff(dateFrom, 'days') : null;
   var orderedProducts = $filter('orderBy')(data.products, 'price.totalAfterTaxAfterPricingRules');
   var lowestProductPrice = orderedProducts[0].price.totalAfterTaxAfterPricingRules;
