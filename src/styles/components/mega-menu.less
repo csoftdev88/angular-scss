@@ -168,6 +168,14 @@ div[mega-menu] {
           &:hover:after {
             color: @c-secondary !important;
           }
+          booking-widget-search &{
+            &.active,
+            &.active:after,
+            &:hover,
+            &:hover:after {
+              color: darken(@c-secondary, 5%) !important;
+            }
+          }
         }
       }
     }
