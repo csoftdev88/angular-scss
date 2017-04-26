@@ -34,7 +34,7 @@
   </div>
 
   <footer ng-show="isBookingWidget">
-    <a href="" class="label" ng-click="selectAllHotelsClick(); retentionClick()">_select_all_hotels_</a>
+    <a href="" class="label" ng-click="selectAllHotelsClick(); retentionClick()" ng-if="displaySelectAllHotelsAction">_select_all_hotels_</a>
     <input type="text" placeholder="_search_" ng-model="propertySearch" ng-show="activeRegion.code" ng-change="filterProperties(regions, propertySearch)">
     <remove-text role="button" class="remove" ng-click="propertySearch = ''" ng-show="propertySearch"/>
   </footer>
