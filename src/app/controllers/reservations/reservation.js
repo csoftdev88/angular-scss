@@ -630,13 +630,6 @@ angular.module('mobius.controllers.reservation', [])
     chainService.getChain(Settings.API.chainCode).then(function(chainData) {
       propertyService.getPropertyDetails($stateParams.propertyCode || $stateParams.property).then(function(propertyData) {
         var products = [];
-
-        var localeData = propertyData.locale;
-        var localeArray = localeData ? propertyData.locale.split('-') : null;
-        if(localeArray && localeArray.length > 1)
-        {
-          localeData = localeArray[1].trim();
-        }
         var variant = '';
         if($stateParams.adults && $stateParams.children)
         {
@@ -655,7 +648,6 @@ angular.module('mobius.controllers.reservation', [])
         }
 
         _.each($scope.allRooms, function(room){
-          var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
           var product = {
             name: room._selectedProduct.name,
             id: room._selectedProduct.code,
@@ -664,8 +656,8 @@ angular.module('mobius.controllers.reservation', [])
             dimension2: chainData.nameShort,
             brand: propertyData.nameLong,
             dimension1: propertyData.nameShort,
-            list: 'Room',
-            category: category
+            list: dataLayerService.listType,
+            category: dataLayerService.getCategoryName(propertyData,room)
           };
           products.push(product);
         });
@@ -1028,8 +1020,8 @@ angular.module('mobius.controllers.reservation', [])
               dimension2: chainData.nameShort,
               brand: propertyData.nameLong,
               dimension1: propertyData.nameShort,
-              list: 'Room',
-              category: room.name,
+              list: dataLayerService.listType,
+              category: dataLayerService.getCategoryName(propertyData,room),
               room: {
                 'code':room.code,
                 'name':room.name
