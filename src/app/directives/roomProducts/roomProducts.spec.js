@@ -181,6 +181,7 @@ describe('RoomProducts', function() {
       $provide.value('dataLayerService', {
         trackProductsDetailsView: sinon.spy(),
         trackProductsImpressions: sinon.spy(),
+        getCategoryName: sinon.spy(),
         trackProductClick: sinon.spy()
       });
 
