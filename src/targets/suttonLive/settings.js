@@ -901,7 +901,8 @@ angular.module('mobiusApp.config', [])
           'value': 15,
           'type': 'days'
         }
-      }
+      },
+      'mobileTopRight':true //Displays the booking book now button in top right
     },
 
     'booking': {
