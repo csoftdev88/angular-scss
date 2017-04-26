@@ -61,6 +61,25 @@ floating-bar {
     }
   }
 
+  &.bar-top-right:not(.active) {
+    .viewport-mobile & {
+      top:15px;
+      right:15px;
+      width:95px;
+      height:35px;
+      left:auto;
+      overflow:hidden;
+      transition:none;
+      > ul li.floating-bar--tab-booking.main-mobile-toggle a {
+        background:@c-secondary;
+        height:35px;
+        .mobile div {
+          line-height:30px;
+        }
+      }
+    }
+  }
+
   my-account {
     .sign-up,
     article{
@@ -225,6 +244,7 @@ floating-bar {
             //padding: 20px 0;
             height: 70px;
             font-weight: bold;
+            transition:none;
             .desktop{
               display: none;
             }
