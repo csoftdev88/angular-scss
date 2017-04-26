@@ -8,6 +8,9 @@ amenities-list,
   .clearfix;
   margin: 2 * @baseline 0 0 0;
   display: block;
+  .viewport-mobile & {
+    margin:0;
+  }
 }
 
 //- Amenity
@@ -36,6 +39,11 @@ amenity-item,
 amenity-item,
 .amenity-item {
   color: @c-grey;
+  min-height:45px;
+  .viewport-mobile & {
+    padding:0;
+    min-height:35px;
+  }
 
   span {
     display: table-cell;
