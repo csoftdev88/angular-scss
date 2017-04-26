@@ -116,7 +116,7 @@ angular.module('mobius.controllers.modals.altProducts', [
 
   
   $scope.reloadPageProducts = function(){
-    //
+    //Track the alternate rates interaction in the dataLayer
     dataLayerService.trackAltDisplaySelect('Rates', null, propertyCode, data.product.code, lowestProductPrice, $scope.priceDifference, lengthOfStay, dateFrom, dateTo);
 
     $stateParams.dates = bookingParams.dates;
