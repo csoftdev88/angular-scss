@@ -37,6 +37,7 @@ angular.module('mobius.controllers.news', [])
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       var chainData = chain;
 
+      chainData.meta.microdata.og = {};
       chainData.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       chainData.meta.microdata.og['og:title'] = 'News: ' + chainData.meta.microdata.og['og:title'];
       chainData.meta.microdata.og['og:description'] = 'News: ' + chainData.meta.microdata.og['og:description'];
@@ -71,6 +72,7 @@ angular.module('mobius.controllers.news', [])
       metaInformationService.setMetaDescription($scope.selectedNews.meta.description);
       metaInformationService.setMetaKeywords($scope.selectedNews.meta.keywords);
       metaInformationService.setPageTitle($scope.selectedNews.meta.pagetitle);
+      $scope.selectedNews.meta.microdata.og = {};
       $scope.selectedNews.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       metaInformationService.setOgGraph($scope.selectedNews.meta.microdata.og);
       breadcrumbsService.clear()

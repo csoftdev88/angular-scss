@@ -192,7 +192,9 @@ angular.module('mobius.controllers.hotel.details', [
             flexibleDate.available = availability.available && availability.fullyAvailable;
             if(flexibleDate.available && availability.priceFrom){
               var fromString = dynamicMessages && dynamicMessages.from ? dynamicMessages.from : 'from';
-              flexibleDate.name += ' ('+ fromString + ' ' + stateService.getCurrentCurrency().symbol + availability.priceFrom +')';
+              var currentCurrency = stateService.getCurrentCurrency();
+              var currencySymbol = currentCurrency.shortSymbol ? currentCurrency.shortSymbol : currentCurrency.symbol;
+              flexibleDate.name += ' ('+ fromString + ' ' + currencySymbol + availability.priceFrom +')';
             }
             else
             {
