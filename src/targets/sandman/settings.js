@@ -568,7 +568,7 @@ angular.module('mobiusApp.config', [])
         'displayTime':20000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
-      'showSlashThrough': false,
+      'showSlashThrough': true,
       'showMetaView': true,
       'upsells': {
         'display': true
@@ -839,7 +839,9 @@ angular.module('mobiusApp.config', [])
           'value': 15,
           'type': 'days'
         }
-      }
+      },
+      'prefillGrowlAlert':true, //When enabled will display a growl alert if code field is prefilled
+      'keepPrefillStyle':true //By default prefill style is hidden after 1 second. When enabled this will prevent it from being hidden.
     },
 
     'booking': {

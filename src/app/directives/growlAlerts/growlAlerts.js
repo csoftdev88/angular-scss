@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$rootScope', '$timeout', '$location', 'modalService', 'Settings',
-    function(growl, $rootScope, $timeout, $location, modalService, Settings, dataLayerService) { 
+  .directive('growlAlerts', ['growl', '$rootScope', '$timeout', '$location', 'modalService', 'Settings', 'dataLayerService', 'stateService', 'DynamicMessages',
+    function(growl, $rootScope, $timeout, $location, modalService, Settings, dataLayerService, stateService, DynamicMessages) { 
       return {
         restrict: 'E',
         scope: {
@@ -55,6 +55,16 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             referenceId: 2,
             disableIcons: true
           };
+
+          var bookingCodeAddedPromptConfig = {
+            referenceId: 2,
+            ttl: 5000,
+            disableIcons: true
+          };
+
+          //Get our dynamic translations
+          var appLang = stateService.getAppLanguageCode();
+          var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
           //add statistics growl alert listener
           scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
@@ -156,6 +166,28 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             $timeout(function () {
               growl.info('<i class="fa ' + icon + '"></i><p>' + upgradeMessage + '</p>', roomUpgradePromptConfig);
             });
+          });
+
+          //destroy existing code alert growl alert listeners
+          scope.$on('CODE_ADDED_GROWL_ALERT_BROADCAST', function (){});
+
+          //Growl alert for when promo / corp / group codes are added
+          scope.$on('CODE_ADDED_GROWL_ALERT_BROADCAST', function (event, type){
+            var message = '';
+            if(dynamicMessages){
+              if(type === 'groupCode'){
+                message = dynamicMessages.group_code_applied;
+              }
+              else if(type === 'corpCode'){
+                message = dynamicMessages.corp_code_applied;
+              }
+              else {
+                message = dynamicMessages.promo_code_applied;
+              }
+              $timeout(function () {
+                growl.success('<i class="fa fa-check"></i><p>' + message + '</p>', bookingCodeAddedPromptConfig);
+              });
+            }
           });
           
           function destroyRetentionGrowlListener(){

@@ -659,7 +659,8 @@ angular.module('mobiusApp.config', [])
       'upsells': {
         'display': true
       },
-      'displayAltProduct':true
+      'displayAltProduct': true,
+      'showSlashThrough': true
     },
 
     'reservations': {
@@ -899,7 +900,9 @@ angular.module('mobiusApp.config', [])
           'value': 15,
           'type': 'days'
         }
-      }
+      },
+      'prefillGrowlAlert':true, //When enabled will display a growl alert if code field is prefilled
+      'keepPrefillStyle':true //By default prefill style is hidden after 1 second. When enabled this will prevent it from being hidden.
     },
 
     'booking': {
