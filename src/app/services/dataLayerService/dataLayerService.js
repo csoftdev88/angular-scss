@@ -4,6 +4,8 @@
 */
 angular.module('mobiusApp.services.dataLayer', [])
 .service( 'dataLayerService',  function($window, Settings, stateService) {
+  var listType = null; //Used to store the list type throughout checkout flow and purchase
+  
   function getDataLayer(){
     return $window.dataLayer;
   }
@@ -162,15 +164,67 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
+  function trackAltDisplayNotification(displayType) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'event': 'Alternative Display Notification'
+    });
+  }
+
+  function trackAltDisplayLoad(displayType) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'event': 'Alternative Display Load'
+    });
+  }
+
+  function trackAltDisplaySelect(displayType, date, propertyCode, productCode, price, priceDifference, stayLength, dateFrom, dateTo) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'altDisplayDate': date ? date : null,
+      'altDisplayDateFrom': dateFrom ? dateFrom : null,
+      'altDisplayDateTo': dateTo ? dateTo : null,
+      'altDisplayProperty': propertyCode ? propertyCode : null,
+      'altDisplayProduct': productCode ? productCode : null,
+      'altDisplayPrice': price ? price : null,
+      'altDisplayPriceDifference': priceDifference ? priceDifference : null,
+      'event': 'Alternative Display Select',
+      'stayLength': stayLength ? stayLength : null
+    });
+  }
+
+  function getCategoryName(propertyData, room) {
+    var localeData = propertyData.locale;
+    var localeArray = localeData ? propertyData.locale.split('-') : null;
+    if(localeArray && localeArray.length > 1) {
+      localeData = localeArray[1].trim();
+    }
+    return localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
+  }
+
   // Public methods
   return {
     setUserId: setUserId,
+    getCategoryName: getCategoryName,
+    listType: listType,
     trackProductsImpressions: trackProductsImpressions,
     trackProductClick: trackProductClick,
     trackAddToCart: trackAddToCart,
     trackProductsDetailsView: trackProductsDetailsView,
     trackProductsCheckout: trackProductsCheckout,
     trackProductsPurchase: trackProductsPurchase,
-    trackReservationRefund: trackReservationRefund
+    trackReservationRefund: trackReservationRefund,
+    trackAltDisplayNotification: trackAltDisplayNotification,
+    trackAltDisplayLoad: trackAltDisplayLoad,
+    trackAltDisplaySelect: trackAltDisplaySelect
   };
 });

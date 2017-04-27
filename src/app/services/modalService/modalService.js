@@ -4,7 +4,7 @@
 */
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log, $window, $modalStack,
-    Settings, queryService, thirdPartiesService, _) {
+    Settings, queryService, thirdPartiesService, dataLayerService, _) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
@@ -480,6 +480,9 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openAltProductDialog(room,product,products){
+    //Track the display of alt products modal in dataLayer
+    dataLayerService.trackAltDisplayLoad('Rates');
+
     return openDialog('openAltProductDialog', 'layouts/modals/altProducts.html', CONTROLER_ALT_PRODUCTS, {
       windowClass: 'dialog-v2 alt-products-dialog',
       resolve: {
