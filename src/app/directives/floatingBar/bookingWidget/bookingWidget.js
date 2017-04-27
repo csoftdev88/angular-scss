@@ -889,8 +889,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
         init();
       });
-
-      $rootScope.$on('BOOKING_BAR_PREFILL_DATA', function(){});
       
       var prefillListener = $rootScope.$on('BOOKING_BAR_PREFILL_DATA', function(e, data){
         onPrefill(data);
