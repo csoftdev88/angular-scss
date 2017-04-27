@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.room.altRoomDates', [])
 
-  .directive('altRoomDates', function($rootScope, $timeout, $window, $state, bookingService, _) {
+  .directive('altRoomDates', function($rootScope, $timeout, $window, $state, bookingService, dataLayerService, _) {
     return {
       restrict: 'E',
       templateUrl: 'directives/altRoomDates/altRoomDates.html',
@@ -14,6 +14,8 @@ angular.module('mobiusApp.directives.room.altRoomDates', [])
       replace: false,
       link: function(scope) {
         var bookingParams = bookingService.getAPIParams();
+        var propertyCode = bookingParams && bookingParams.propertySlug ? bookingService.getCodeFromSlug(bookingParams.propertySlug) : null;
+         
         _.each(scope.dates, function(availability){
           if(availability.available && availability.fullyAvailable){
             availability.params = angular.copy(bookingParams);
@@ -30,8 +32,15 @@ angular.module('mobiusApp.directives.room.altRoomDates', [])
           }
         });
 
+        //Track the display of alt dates
+        dataLayerService.trackAltDisplayLoad('Dates');
+
         scope.availabilityClick = function($event, availability){
           $event.preventDefault();
+
+          //Track the select of an alt date
+          dataLayerService.trackAltDisplaySelect('Dates', availability.date, propertyCode, null, availability.priceFrom, null, null);
+
           if(availability.available && availability.fullyAvailable){
             $state.go($state.current.name, availability.params, {reload: true});
             $timeout(function() {
