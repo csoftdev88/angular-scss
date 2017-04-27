@@ -5,7 +5,17 @@ room-products {
 				pricing-details{
 					.action-buttons .button {
 						min-width:91px;
-					}						
+					}
+					.price-details {
+						box-sizing:border-box;
+						padding-right:10px;
+						.viewport-mobile & {
+							padding-right:0px;
+						}
+						.price-form {
+							text-align:right;
+						}		
+					}				
 				}
 				&.is-highlighted,
 				&.is-member-only{
