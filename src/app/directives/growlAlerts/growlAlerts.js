@@ -58,7 +58,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
 
           var bookingCodeAddedPromptConfig = {
             referenceId: 2,
-            ttl: 10000,
+            ttl: 5000,
             disableIcons: true
           };
 
@@ -165,8 +165,11 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             });
           });
 
+          //destroy existing code alert growl alert listeners
+          scope.$on('CODE_ADDED_GROWL_ALERT_BROADCAST', function (){});
+
           //Growl alert for when promo / corp / group codes are added
-          scope.$on('BOOKING_CODE_ADDED_GROWL_ALERT', function (event, type){
+          scope.$on('CODE_ADDED_GROWL_ALERT_BROADCAST', function (event, type){
             var message = '';
             if(dynamicMessages){
               if(type === 'groupCode'){

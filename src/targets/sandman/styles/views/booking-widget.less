@@ -31,6 +31,12 @@ booking-widget {
     line-height: 26px;
   }
 
+  @keyframes input-prefilled {
+    0%   { box-shadow: 0px 0px 0px 2px @c-secondary }
+    50%   { box-shadow: 0px 0px 50px 10px @c-secondary }
+    100% { box-shadow: 0px 0px 0px 50px 20px transparent; }
+  }
+
 }
 
 //- Search
@@ -57,6 +63,9 @@ booking-widget-add-room form-element {
 booking-widget-search form-element.code{
   remove-text {
     top: -1px;
+  }
+  input.prefilled {
+    animation-duration: 3s;
   }
 }
 
