@@ -1,0 +1,43 @@
+dialog.addons {
+  background: @c-secondary;
+  .ui-info {
+    header {
+      padding: 10px;
+      h1 {
+        display: none;
+      }
+      button-close {
+        width: 30px;
+        &:before {
+          display: block;
+        }
+      }
+    }
+    main {
+      image-carousel {
+        .image-wrapper {
+          margin-top: 0;
+          border: 0px none;
+        }
+        ul li {
+          border:0px none;
+        }
+      }
+      .details {
+        .description {
+          padding-top: 0;
+          height: auto;
+          p {
+            color: @c-primary;
+          }
+        }
+        .extra {
+          margin: 20px 0 20px !important;
+          .add-extra {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

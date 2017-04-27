@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.growlAlerts', [])
   .directive('growlAlerts', ['growl', '$rootScope', '$timeout', '$location', 'modalService', 'Settings',
-    function(growl, $rootScope, $timeout, $location, modalService, Settings) { 
+    function(growl, $rootScope, $timeout, $location, modalService, Settings, dataLayerService) { 
       return {
         restrict: 'E',
         scope: {
@@ -104,6 +104,9 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 altProductsPromptConfig.variables.product = product;
                 altProductsPromptConfig.variables.products = products;
                 growl.info('<i class="fa fa-check-circle"></i><p>' + scope.altProductsMessage + '</p>', altProductsPromptConfig);
+                
+                //Track the display of alt products notifcation in dataLayer
+                dataLayerService.trackAltDisplayNotification('Rates');
               });
             }
           });

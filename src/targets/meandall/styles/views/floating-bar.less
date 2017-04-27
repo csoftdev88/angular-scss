@@ -1,0 +1,92 @@
+//////////////////////
+//// FLOATING BAR ////
+//////////////////////
+floating-bar {
+  background: @c-booking-widget;
+  .viewport-mobile & {
+    background: @c-booking-widget-active;
+  }
+  &.multi-room {
+    background: @c-booking-widget-active;
+  }
+  &.active {
+    .viewport-mobile & {
+      height: 100%;
+    }
+  }
+  >div {
+    margin: 0px auto;
+    max-width: @grid-width;
+  }
+  //- Tabs
+  >ul {
+    top: -@baseline;
+    max-width: @grid-width;
+    padding-left:60px;
+    li {
+      a {
+        font-size: 0.9em;
+        line-height: 27px;
+        font-family: @ff-heading;
+        font-weight: normal !important;
+        padding:4px 0 0;
+        .viewport-mobile & {
+          font-size:0.8em;
+        }
+        strong {
+          font-weight: normal;
+        }
+      }
+      &:first-of-type:before {
+        height: @baseline;
+      }
+      &.floating-bar--tab-booking,
+      &.floating-bar--tab-booking.is-active,
+      &.floating-bar--tab-booking:before {
+        background: @c-booking-widget;
+      }
+      &.floating-bar--tab-booking:after {
+        border-bottom: @baseline solid @c-booking-widget!important;
+      }
+      &.floating-bar--tab-advanced-booking,
+      &.floating-bar--tab-advanced-booking.is-active,
+      &.floating-bar--tab-advanced-booking:before {
+        background: @c-booking-widget-active;
+      }
+      &.floating-bar--tab-advanced-booking:after {
+        border-bottom: @baseline solid @c-booking-widget-active;
+      }
+      &.floating-bar--tab-booking.is-active,
+      &.floating-bar--tab-advanced-booking.is-active {
+        .viewport-mobile & {
+          background: @c-booking-widget-active !important;
+        }
+      }
+      &.floating-bar--tab-advanced-booking {
+        .viewport-mobile & {
+          background: @c-booking-widget;
+        }
+      }
+      //- Skew effect
+      &:after {
+        // border-bottom: @baseline*1.5 solid @c-booking-widget-active;
+      }
+      &.floating-bar--tab-booking {
+        .viewport-mobile &.main-mobile-toggle {
+          &.mobile-is-open a {
+            background: @c-booking-widget;
+          }
+          a {
+            background:@c-booking-widget;
+            &.with-search-params {
+              background: @c-tertiary;
+              font-size: 0.9em;
+              line-height: 27px;
+            }
+            .mobile {}
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService, previousSearchesService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService, DynamicMessages) {
 
   $controller('PriceCtr', {
     $scope: $scope
@@ -33,8 +33,13 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
 
+  var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
   var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
+
+  //Get our dynamic translations
+  var appLang = stateService.getAppLanguageCode();
+  var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -186,8 +191,10 @@ angular.module('mobius.controllers.hotel.details', [
           {
             flexibleDate.available = availability.available && availability.fullyAvailable;
             if(flexibleDate.available && availability.priceFrom){
-              //var thisPrice = $filter('i18nCurrency')(availability.priceFrom, $rootScope.currencyCode, undefined, false);
-              flexibleDate.name += ' (from $' + availability.priceFrom + ')';
+              var fromString = dynamicMessages && dynamicMessages.from ? dynamicMessages.from : 'from';
+              var currentCurrency = stateService.getCurrentCurrency();
+              var currencySymbol = currentCurrency.shortSymbol ? currentCurrency.shortSymbol : currentCurrency.symbol;
+              flexibleDate.name += ' ('+ fromString + ' ' + currencySymbol + availability.priceFrom +')';
             }
             else
             {
@@ -338,9 +345,15 @@ angular.module('mobius.controllers.hotel.details', [
           firstParaEnd = Math.max(firstParaEnd, 0);
           firstBr = Math.max(firstBr, 0);
           var shortDescLength = (firstBr > 0 && firstParaEnd > 0) ? Math.min(firstBr, firstParaEnd) : Math.max(firstBr, firstParaEnd);
-          $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
-          $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
+          $scope.details.shortenedDescription = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
+          $scope.details.hasViewMore = $scope.details.shortenedDescription.length < $scope.details.description.length;
         }
+
+        var amenities = $scope.details.amenities;
+        if($scope.config.restrictAmenities && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
+          amenities = filterAsterixAmenities(amenities); //Only keep amenities with asterix at the beginning of the name
+        }
+        $scope.filteredAmenities = sanitizeAmenities(amenities); //Process our amenities and add to scope.
 
         //Breadcrumbs
         breadcrumbsService.clear();
@@ -484,6 +497,10 @@ angular.module('mobius.controllers.hotel.details', [
             $scope.displayRoomRates(room);
           } else {
             room._displayRates = false;
+          }
+          if(room.amenities && $scope.roomsConfig.restrictAmenities){
+            var amenities = filterAsterixAmenities(room.amenities); //Only keep amenities with asterix at the beginning of the name
+            room.amenities = sanitizeAmenities(amenities); //Process our amenities and add to scope.
           }
         });
 
@@ -665,12 +682,13 @@ angular.module('mobius.controllers.hotel.details', [
     userPreferenceService.setCookie('roomsViewMode', mode);
   };
 
-  if(stateService.isMobile())
-  {
-    $scope.setRoomsViewMode('list');
-  }
-  else if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
+  //If room view type is stored in cookie, display this
+  if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
     $scope.setRoomsViewMode(mobiusUserPreferences.roomsViewMode);
+  }
+  //Otherwise display the default type if one is set, if not display as list
+  else {
+    $scope.setRoomsViewMode(defaultRoomsViewMode ? defaultRoomsViewMode : 'list');
   }
 
   $scope.hideRoom = function(room){
@@ -709,6 +727,12 @@ angular.module('mobius.controllers.hotel.details', [
     $scope.filteredCompareRooms = _.filter($scope.filteredCompareRooms, function(room){
       return $scope.roomsDisplayFilter(room);
     });
+  };
+
+  $scope.roomClick = function(room){
+    if($scope.config.rooms.roomsAsLinks && $stateParams.dates){
+      $scope.goToRoom($scope.details.meta.slug, room.meta.slug);
+    }
   };
 
   function scrollToRates(target) {
@@ -758,6 +782,25 @@ angular.module('mobius.controllers.hotel.details', [
     };
 
     return $state.href($scope.config.offers.toState, stateParams);
+  }
+
+  //Function to clean amenities by removing asterixes from names and hyphens from the beginning of slugs
+  function sanitizeAmenities(amenities) {
+    amenities = _.each(amenities, function (amenity) {
+      amenity.name = amenity.name.replace('*', ''); //Remove asterix from name for display
+      amenity.name = amenity.name.trim(); //Remove any remaining spaces at the beginning or end of name
+      if (amenity.slug.charAt(0) === '-') { //If the amenity slug begins with a -
+        amenity.slug = amenity.slug.substring(1); //Remove the first character of the slug string
+      }
+    });
+    amenities = _.sortBy(amenities, 'name'); //Order the amenities by name
+    return amenities;
+  }
+
+  function filterAsterixAmenities(amenities) {
+    return _.reject(amenities, function (amenity) {
+      return amenity.name.indexOf('*') === -1; //Remove amenities that do not have asterix in the name
+    });
   }
 
 });

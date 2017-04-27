@@ -43,7 +43,7 @@
     <ta-teaser ng-show="!ratesLoaded && isFromSearch && roomsConfig.includeTripAdvisorPreloader"></ta-teaser>
 
     <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
-      <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay">
+      <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay" ng-click="listItemClick()">
         <header class="item-header desktop">
           <h3>
             <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>

@@ -1,0 +1,58 @@
+//- BUTTONS -//
+@c-button: @c-tertiary;
+@c-gray-button: #898989;
+.typeform-share.button,
+.button,
+button-submit {
+  background: @c-button;
+}
+
+.button-gray {
+  &:hover {
+    background: lighten(@c-gray-button, 10%) !important;
+  }
+}
+
+//- Button Submit
+.typeform-share.button,
+.button,
+.button-gray,
+button-submit {
+  &:active,
+  &:focus,
+  &:hover {
+    background: lighten(@c-button, 10%);
+    box-shadow: none;
+  }
+  border-radius:2px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+  text-shadow: none;
+  box-shadow: none;
+  min-width: 0;
+  height: 40px;
+  line-height: 44px;
+  border: 0px none;
+  font-family: @ff-heading;
+  font-size: 0.9em;
+  font-weight: normal;
+  transition: 0.2s background-color;
+  &.hide {
+    display: none;
+  }
+  &.alt,
+  &.alt:active,
+  &.alt:focus,
+  &.alt:hover,
+  &[disabled="disabled"] {
+    background: #f3efe6;
+    background: -moz-linear-gradient(top,  #f3efe6 0%, #c2c1bd 100%);
+    background: -webkit-linear-gradient(top,  #f3efe6 0%,#c2c1bd 100%);
+    background: linear-gradient(to bottom,  #f3efe6 0%,#c2c1bd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3efe6', endColorstr='#c2c1bd',GradientType=0 );
+    border-bottom: 1px solid #959595;
+    color: @c-dark-grey;
+  }
+}

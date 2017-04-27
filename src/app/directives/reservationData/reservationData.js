@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.reservation.data', [])
 
-.directive('reservationData', function($controller, $state, _) {
+.directive('reservationData', function($controller, $state, Settings, _) {
   return {
     restrict: 'E',
     scope: {
@@ -18,6 +18,7 @@ angular.module('mobiusApp.directives.reservation.data', [])
         $scope: scope
       });
       scope.$state = $state;
+      scope.config = Settings.UI.reservations;
 
       scope.getTotal = function(prop) {
         return _.reduce(
