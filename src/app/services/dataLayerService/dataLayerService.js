@@ -164,11 +164,48 @@ angular.module('mobiusApp.services.dataLayer', [])
     });
   }
 
+  function trackAltDisplayNotification(displayType) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'event': 'Alternative Display Notification'
+    });
+  }
+
+  function trackAltDisplayLoad(displayType) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'event': 'Alternative Display Load'
+    });
+  }
+
+  function trackAltDisplaySelect(displayType, date, propertyCode, productCode, price, priceDifference, stayLength, dateFrom, dateTo) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'altDisplayType': displayType,
+      'altDisplayDate': date ? date : null,
+      'altDisplayDateFrom': dateFrom ? dateFrom : null,
+      'altDisplayDateTo': dateTo ? dateTo : null,
+      'altDisplayProperty': propertyCode ? propertyCode : null,
+      'altDisplayProduct': productCode ? productCode : null,
+      'altDisplayPrice': price ? price : null,
+      'altDisplayPriceDifference': priceDifference ? priceDifference : null,
+      'event': 'Alternative Display Select',
+      'stayLength': stayLength ? stayLength : null
+    });
+  }
+
   function getCategoryName(propertyData, room) {
     var localeData = propertyData.locale;
     var localeArray = localeData ? propertyData.locale.split('-') : null;
-    if(localeArray && localeArray.length > 1)
-    {
+    if(localeArray && localeArray.length > 1) {
       localeData = localeArray[1].trim();
     }
     return localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
@@ -185,6 +222,9 @@ angular.module('mobiusApp.services.dataLayer', [])
     trackProductsDetailsView: trackProductsDetailsView,
     trackProductsCheckout: trackProductsCheckout,
     trackProductsPurchase: trackProductsPurchase,
-    trackReservationRefund: trackReservationRefund
+    trackReservationRefund: trackReservationRefund,
+    trackAltDisplayNotification: trackAltDisplayNotification,
+    trackAltDisplayLoad: trackAltDisplayLoad,
+    trackAltDisplaySelect: trackAltDisplaySelect
   };
 });
