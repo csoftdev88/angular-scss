@@ -9,4 +9,5 @@
 <!-- BOOKING WIDGET AREA-->
 <floating-bar ng-class="{'hide': $state.includes('reservation') || $state.includes('error')}"></floating-bar>
 
-<footer class="main" ng-class="{'special-footer': $state.includes('hotel') || $state.includes('reservationDetail') || $state.includes('reservation') || $state.includes('reservations'), 'no-booking-bar': $state.includes('reservation') || $state.includes('error')}" ng-include="'layouts/footer.html'"></footer>
+<footer class="main" ng-if="!hideFooter" ng-class="{'special-footer': $state.includes('hotel') || $state.includes('reservationDetail') || $state.includes('reservation') || $state.includes('reservations'), 'no-booking-bar': $state.includes('reservation') || $state.includes('error')}" ng-include="'layouts/footer.html'">
+</footer>

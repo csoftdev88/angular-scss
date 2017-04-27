@@ -12,6 +12,7 @@ describe('datepicker', function() {
       $provide.value('$filter', {});
       $provide.value('$stateParams', {});
       $provide.value('propertyService', {});
+      $provide.value('bookingService', {});
       $provide.value('userPreferenceService', {
         getCookie: function(){},
         setCookie: function(){}
@@ -21,6 +22,7 @@ describe('datepicker', function() {
         getAppLanguageCode: function(){},
         isMobile: function(){}
       });
+      $provide.value('DynamicMessages', {});
       $provide.value('Settings', {
         'UI': {
           'bookingWidget': {
@@ -31,6 +33,9 @@ describe('datepicker', function() {
               'enable': true,
               'days': 999
             }
+          },
+          'generics':{
+            'singleProperty':true
           }
         }
       });
