@@ -351,7 +351,7 @@ angular.module('mobius.controllers.hotel.details', [
 
         var amenities = $scope.details.amenities;
         if($scope.config.restrictAmenities && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
-          amenities = filterAsterixAmenities(amenities); //Only keep amenities with asterix at the beginning of the name
+          highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
         }
         $scope.filteredAmenities = sanitizeAmenities(amenities); //Process our amenities and add to scope.
 
@@ -796,13 +796,19 @@ angular.module('mobius.controllers.hotel.details', [
         amenity.slug = amenity.slug.substring(1); //Remove the first character of the slug string
       }
     });
-    amenities = _.sortBy(amenities, 'name'); //Order the amenities by name
+    //amenities = _.sortBy(amenities, 'name'); //Order the amenities by name
     return amenities;
   }
 
   function filterAsterixAmenities(amenities) {
     return _.reject(amenities, function (amenity) {
       return amenity.name.indexOf('*') === -1; //Remove amenities that do not have asterix in the name
+    });
+  }
+
+  function highlightAsterixAmenities(amenities) {
+    _.each(amenities, function (amenity) {
+      amenity.highlight = amenity.name.indexOf('*') !== -1 ? true : false;
     });
   }
 

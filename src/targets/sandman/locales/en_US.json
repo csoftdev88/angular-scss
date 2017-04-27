@@ -338,6 +338,7 @@
     "filter_range_separator": "to",
     "show_all_rooms": "Show all rooms",
     "show_all_hotels": "Show all hotels",
+    "show_all_facilities": "Show all facilities",
     "FORMS": "////////////////////////////////////////////////////////////",
     "name_label": "Name",
     "name_placeholder": "Name",

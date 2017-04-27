@@ -6,7 +6,7 @@
 amenities-list,
 .amenities-list {
   .clearfix;
-  margin: 2 * @baseline 0 0 0;
+  margin: 2 * @baseline 0;
   display: block;
   .viewport-mobile & {
     margin:@baseline 0;
@@ -63,5 +63,14 @@ amenity-item,
       vertical-align: middle;
       max-height: 24px;
     }
+  }
+}
+
+.amenities-reveal-trigger {
+  font-weight:200;
+  font-size:13px;
+  line-height:13px;
+  .chain-sign & {
+    color:@c-menu-active-sign;
   }
 }

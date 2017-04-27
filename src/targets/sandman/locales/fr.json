@@ -336,6 +336,7 @@
         "filter_chain_label": "Chaîne d'hôtels",
         "show_all_hotels": "Afficher tous les hôtels",
         "show_all_rooms": "Afficher toutes les chambres",
+        "show_all_facilities": "Show all facilities",
         "FORMS": "////////////////////////////////////////////////////////////",
         "name_label": "Nom",
         "name_placeholder": "Nom",

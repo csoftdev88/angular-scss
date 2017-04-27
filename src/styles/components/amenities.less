@@ -8,6 +8,17 @@ amenities-list,
   .clearfix;
   margin: 2 * @baseline 0;
   display: block;
+  &.restricted-amenities {
+    amenity-item,
+    .amenity-item {
+      .viewport-mobile & {
+        display:none;
+        &.amenity-highlight {
+          display:block;
+        }
+      }
+    }
+  }
 }
 
 //- Amenity
@@ -20,16 +31,11 @@ amenity-item,
   box-sizing: border-box;
   min-height: 70px;
   font-weight: 500;
+  color: @c-black;
 
   .viewport-mobile &{
     width: 100%;
   }
-
-}
-
-amenity-item,
-.amenity-item {
-  color: @c-black;
 
   span {
     display: table-cell;
@@ -51,4 +57,30 @@ amenity-item,
       max-height: 15px;
     }
   }
+}
+
+.amenities-reveal-state {
+  display:none;
+}
+
+.amenities-reveal-trigger {
+  display: none;
+  color: @c-secondary;
+  cursor: pointer;
+  padding:0;
+  margin-bottom:30px;
+  .viewport-mobile & {
+    display: block;
+  }
+}
+
+.amenities-reveal-state:checked~.restricted-amenities { 
+  amenity-item,
+  .amenity-item {
+    display:block;
+  }
+}
+
+.amenities-reveal-state:checked~.restricted-amenities~.amenities-reveal-trigger {
+  display:none;
 }
