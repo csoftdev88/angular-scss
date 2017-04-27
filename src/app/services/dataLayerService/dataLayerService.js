@@ -205,8 +205,7 @@ angular.module('mobiusApp.services.dataLayer', [])
   function getCategoryName(propertyData, room) {
     var localeData = propertyData.locale;
     var localeArray = localeData ? propertyData.locale.split('-') : null;
-    if(localeArray && localeArray.length > 1)
-    {
+    if(localeArray && localeArray.length > 1) {
       localeData = localeArray[1].trim();
     }
     return localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
