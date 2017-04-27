@@ -529,7 +529,8 @@ angular.module('mobiusApp.config', [])
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
-      'restrictAmenities':true //Only display amenities that's name begins with asterix
+      'restrictAmenities':true, //Only display amenities that's name begins with asterix
+      'hideViewMoreImagesMobile':true //Hide the view more images on mobile
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,

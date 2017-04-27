@@ -13,8 +13,8 @@
       </div>
 
     </div>
-
-    <view-more-images grid="{{viewSettings.hotelInfo.sidebarGrid}}" ng-if="hasViewMore">
+    <!--Only display if enabled and if desktop, if on mobile check that the hide config setting is disabled-->
+    <view-more-images grid="{{viewSettings.hotelInfo.sidebarGrid}}" ng-if="hasViewMore && (!isMobile || (isMobile && !config.hideViewMoreImagesMobile))">
       <local-info ng-if="showLocalInfo && localInfo && localInfo.time" local-info="localInfo"></local-info>
       <a ng-if="details.images.length > 1" href class="gallery-link" ng-click="openGallery()">_view_more_images_</a>
       <hero-slider data-has-notification-bar="false" on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
