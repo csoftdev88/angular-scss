@@ -659,7 +659,8 @@ angular.module('mobiusApp.config', [])
       'upsells': {
         'display': true
       },
-      'displayAltProduct':true
+      'displayAltProduct': true,
+      'showSlashThrough': true
     },
 
     'reservations': {
