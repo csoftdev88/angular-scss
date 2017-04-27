@@ -493,7 +493,7 @@ angular.module('mobius.controllers.hotel.details', [
         //handle displaying of rates
         _.each(rooms, function(room) {
           room.userHidden = false;
-          if (stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad) {
+          if (stateService.isMobile() || Settings.UI.hotelDetails.rooms.desktopDisplayRatesOnLoad) {
             $scope.displayRoomRates(room);
           } else {
             room._displayRates = false;
@@ -507,7 +507,10 @@ angular.module('mobius.controllers.hotel.details', [
         $scope.rooms = rooms;
         $scope.filteredCompareRooms = rooms;
 
-        $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
+        $scope.numberOfRoomsDisplayedMobile = Settings.UI.hotelDetails.defaultNumberOfRoomsMobile;
+        //If on mobile and mobile number is configured use this, otherwise use the default number
+        $scope.numberOfRoomsDisplayed = $scope.numberOfRoomsDisplayedMobile && $scope.isMobile ? $scope.numberOfRoomsDisplayedMobile : Settings.UI.hotelDetails.defaultNumberOfRooms;   
+
         $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;
         $scope.viewRatesButtonText = Settings.UI.hotelDetails.rooms.viewRatesButtonText;
         $scope.hoverTriggerDelay = Settings.UI.hotelDetails.rooms.hoverTriggerDelay;
