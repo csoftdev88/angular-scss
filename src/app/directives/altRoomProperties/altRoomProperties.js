@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.room.altRoomProperties', [])
 
-  .directive('altRoomProperties', function($rootScope, Settings, locationService, $stateParams, $state, routerService, _) {
+  .directive('altRoomProperties', function($rootScope, Settings, locationService, $stateParams, $state, routerService, dataLayerService, _) {
     return {
       restrict: 'E',
       templateUrl: 'directives/altRoomProperties/altRoomProperties.html',
@@ -19,7 +19,18 @@ angular.module('mobiusApp.directives.room.altRoomProperties', [])
           scope.filterConfig[filter.type] = filter;
         });
 
-        scope.navigateToHotel = function(property) {
+        //Track the display of alt dates
+        dataLayerService.trackAltDisplayLoad('Properties');
+
+        //Click handler for alt property links
+        scope.altPropertyClick = function(property){
+          //Track the select of an alt property
+          dataLayerService.trackAltDisplaySelect('Properties', null, property.code, null, property.priceFrom, null, null);
+          //Go to the alt property page
+          navigateToHotel(property);
+        };
+
+        function navigateToHotel(property) {
           // Getting rate details from RateCtrl
           var stateParams = {
             rate: (scope.rates && scope.rates.selectedRate) ? scope.rates.selectedRate.id : null,
@@ -42,7 +53,7 @@ angular.module('mobiusApp.directives.room.altRoomProperties', [])
               reload: true
             });
           });
-        };
+        }
 
         function setHotelUrl(property) {
           // Getting rate details from RateCtrl
