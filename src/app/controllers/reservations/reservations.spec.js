@@ -82,6 +82,11 @@ describe('mobius.controllers.reservations', function() {
           UI: {
             currencies: {
               default:'CAD'
+            },
+            viewsSettings: {
+              reservationsOverview: {
+                fullWidthSections:false
+              }
             }
           }
         });

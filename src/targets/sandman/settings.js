@@ -57,7 +57,7 @@ angular.module('mobiusApp.config', [])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sandman-development',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -66,7 +66,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
@@ -77,7 +77,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
@@ -88,7 +88,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -97,7 +97,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
       'id':'sandman-live',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -127,20 +127,62 @@ angular.module('mobiusApp.config', [])
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'development': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'integration': 'http://integration-sandman-www.mobiuswebservices.com:3010/api/4.0/',
-      'staging': '//staging-us-www-sandman.mobiuswebservices.com/api/4.0/',
+      'development': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
+      'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
-      'search': {
-        'enable':false,
-        'url':'properties/track/search'
+      'development': {
+        'id': 'sandman-development',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
-      'purchase': {
-        'enable':false,
-        'url':'properties/track/purchase'
+      'integration': {
+        'id': 'sandman-integration',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
+      },
+      'staging': {
+        'id': 'sandman-staging',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      },
+      'uat': {
+        'id': 'sandman-uat',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      },
+      'live': {
+        'id': 'sandman-live',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
       }
     },
     'track404s': {
@@ -230,7 +272,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-tenantId': '1',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -452,7 +494,8 @@ angular.module('mobiusApp.config', [])
           'properties':{
             'enable':true
           }
-        }
+        },
+        'restrictAmenities':true //Only display amenities with an asterix at the beginning of the name
       },
       'offers': {
         'toState': 'propertyHotDeals'
@@ -483,7 +526,8 @@ angular.module('mobiusApp.config', [])
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
-      }
+      },
+      'restrictAmenities':true //Only display amenities that's name begins with asterix
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
@@ -750,6 +794,7 @@ angular.module('mobiusApp.config', [])
       'checkAvailabilityOnChange': false,
       'checkOfferAvailabilityOnChange': false,
       'displayPropertiesMegamenu': true,
+      'displaySelectAllHotelsAction':true,
       'hasMutiroomTab': true,
       'hasRatesSelection': true,
       'timezone':'America/Vancouver',
@@ -777,10 +822,10 @@ angular.module('mobiusApp.config', [])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display':false
+        'display':true
       },
       'flexibleDates': {
-        'enable':false
+        'enable':true
       },
       'availability': {
         // Date range modification rules
@@ -865,7 +910,8 @@ angular.module('mobiusApp.config', [])
       },
       'vouchers' : {
         'enable':true
-      }
+      },
+      'reservationAssurance':true //Displays reservation assurance badges in the checkout flow
     },
     'myAccount' : {
       'displaySettings' : {

@@ -4,15 +4,20 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, infinitiApeironService, previousSearchesService,
-  propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams) {
+.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, mobiusTrackingService, infinitiApeironService, previousSearchesService, propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams) {
 
   var numNights = 1;
 
   $scope.fromMeta = channelService.getChannel().name === 'meta' && Settings.UI.roomDetails.showMetaView ? true : false;
+  $scope.viewSettings = Settings.UI.viewsSettings.roomDetails;
+  $scope.config = Settings.UI.roomDetails;
 
   $scope.setRoomDetails = function(roomDetails){
     $scope.roomDetails = roomDetails;
+    
+    //Add property link page to room detail object
+    var propertyLink = $state.href('hotel', $stateParams);
+    $scope.roomDetails.propertyLink = propertyLink ? propertyLink : null;
 
     if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics){
       $timeout(function(){
@@ -63,13 +68,6 @@ angular.module('mobius.controllers.room.details', [])
       var propertySlug = bookingService.getParams().propertySlug;
       var propertyCode = bookingService.getCodeFromSlug(propertySlug);
       propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
-        var localeData = propertyData.locale;
-        var localeArray = localeData ? propertyData.locale.split('-') : null;
-        if(localeArray && localeArray.length > 1)
-        {
-          localeData = localeArray[1].trim();
-        }
-        var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + $scope.roomDetails.name;
         var variant = '';
         if($stateParams.adults && $stateParams.children)
         {
@@ -87,6 +85,7 @@ angular.module('mobius.controllers.room.details', [])
           bookingWindow = checkInDate.diff(today, 'days');
         }
 
+        dataLayerService.listType = 'Room';
         dataLayerService.trackProductsDetailsView([{
           name: product.name,
           id: product.code,
@@ -95,8 +94,8 @@ angular.module('mobius.controllers.room.details', [])
           dimension2: chainData.nameShort,
           brand: propertyData.nameLong,
           dimension1: propertyData.nameShort,
-          list: 'Room',
-          category: category,
+          list: dataLayerService.listType,
+          category: dataLayerService.getCategoryName(propertyData, room),
           variant: variant
         }], stayLength, bookingWindow);
       });
@@ -152,13 +151,6 @@ angular.module('mobius.controllers.room.details', [])
             }
             if(data[1].products){
               //google analytics
-              var localeData = propertyData.locale;
-              var localeArray = localeData ? propertyData.locale.split('-') : null;
-              if(localeArray && localeArray.length > 1)
-              {
-                localeData = localeArray[1].trim();
-              }
-              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + data[0].name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)
               {
@@ -178,6 +170,7 @@ angular.module('mobius.controllers.room.details', [])
 
               if($state.current.name !== 'reservation.details')
               {
+                dataLayerService.listType = 'Room';
                 dataLayerService.trackProductsDetailsView(data[1].products.map(function(p){
                   return {
                     name: p.name,
@@ -187,8 +180,8 @@ angular.module('mobius.controllers.room.details', [])
                     dimension2: chainData.nameShort,
                     brand: propertyData.nameLong,
                     dimension1: propertyData.nameShort,
-                    list: 'Room',
-                    category: category,
+                    list: dataLayerService.listType,
+                    category: dataLayerService.getCategoryName(propertyData, data[0]),
                     variant: variant
                   };
                 }), stayLength, bookingWindow);
@@ -196,7 +189,7 @@ angular.module('mobius.controllers.room.details', [])
               //Mobius tracking
               $scope.$watch('currentOrder', function(order) {
                 if(order && angular.isDefined(order)){
-                  //trackSearch(chainData, propertyData, trackingData, scopeData, stateParams, order)
+                  mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, data[1].products, data[0], $scope.rates.selectedRate);
                   infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, $scope.currentOrder, data[1].products, data[0], $scope.rates.selectedRate);
                 }
               });

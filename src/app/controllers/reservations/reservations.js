@@ -13,11 +13,13 @@ angular.module('mobius.controllers.reservations', [])
   if (Settings.UI.currencies.default) {
     $scope.defaultCurrencyCode = Settings.UI.currencies.default;
   }
+  $scope.viewSettings = Settings.UI.viewsSettings.reservationsOverview;
 
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
     $scope.chain = chain;
 
+    $scope.chain.meta.microdata.og = {};
     $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
     $scope.chain.meta.microdata.og['og:title'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:title'];
     $scope.chain.meta.microdata.og['og:description'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:description'];

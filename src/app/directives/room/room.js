@@ -31,6 +31,11 @@ angular.module('mobiusApp.directives.room', [])
       scope.hasViewMore = scope.viewSettings && scope.viewSettings.hasViewMore;
       scope.showLocalInfo = Settings.UI.roomDetails.showLocalInfo;
       scope.displayUpsells = Settings.UI.roomDetails.upsells ? Settings.UI.roomDetails.upsells.display : false;
+      scope.productImageWidth = scope.config.productImages ? scope.config.productImages.width : '160';
+      scope.productImageHeight = scope.config.productImages ? scope.config.productImages.height : '120';
+
+      console.log(scope.productImageWidth);
+      console.log(scope.productImageHeight);
 
       var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;
@@ -228,12 +233,22 @@ angular.module('mobiusApp.directives.room', [])
       function setRoomData(data){
         // Inherited from RoomDetailsCtrl
         scope.setRoomDetails(data);
-        metaInformationService.setMetaDescription(data.meta.description);
-        metaInformationService.setMetaKeywords(data.meta.keywords);
-        metaInformationService.setPageTitle(data.meta.pagetitle);
-        data.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
-        metaInformationService.setOgGraph(data.meta.microdata.og);
+        
+        var propertySlug = bookingService.getParams().propertySlug;
+        var propertyCode = null;
+        if(propertySlug) {
+          propertyCode = bookingService.getCodeFromSlug(propertySlug);
+        }
 
+        //Retrieve property data to append to room meta
+        propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
+          metaInformationService.setMetaDescription(data.meta.description);
+          metaInformationService.setMetaKeywords(data.meta.keywords);
+          metaInformationService.setPageTitle(data.meta.pagetitle + ' | ' + propertyData.meta.pagetitle);
+          data.meta.microdata.og['og:title'] = data.meta.pagetitle + ' | ' + propertyData.meta.pagetitle;
+          data.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
+          metaInformationService.setOgGraph(data.meta.microdata.og);
+        });
       }
 
       // Room product details
@@ -436,13 +451,6 @@ angular.module('mobiusApp.directives.room', [])
               propertyCode = bookingService.getCodeFromSlug(propertySlug);
             }
             propertyService.getPropertyDetails(propertyCode).then(function(propertyData){
-              var localeData = propertyData.locale;
-              var localeArray = localeData ? propertyData.locale.split('-') : null;
-              if(localeArray && localeArray.length > 1)
-              {
-                localeData = localeArray[1].trim();
-              }
-              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.roomDetails.name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)
               {
@@ -458,6 +466,7 @@ angular.module('mobiusApp.directives.room', [])
                 stayLength = checkOutDate.diff(checkInDate, 'days');
                 bookingWindow = checkInDate.diff(today, 'days');
               }
+              dataLayerService.listType = 'Room';
               dataLayerService.trackAddToCart({
                 name: product.name,
                 id: product.code,
@@ -466,8 +475,8 @@ angular.module('mobiusApp.directives.room', [])
                 dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
-                list: 'Room',
-                category: category,
+                list: dataLayerService.listType,
+                category: dataLayerService.getCategoryName(propertyData, scope.roomDetails),
                 variant: variant
               }, upsellAccepted, stayLength, bookingWindow);
             });
@@ -508,6 +517,7 @@ angular.module('mobiusApp.directives.room', [])
               {
                 variant = $stateParams.adults + ' Adult ' + $stateParams.children + ' Children';
               }
+              dataLayerService.listType = 'Room';
               dataLayerService.trackProductsDetailsView([{
                 name: product.name,
                 id: product.code,
@@ -516,7 +526,7 @@ angular.module('mobiusApp.directives.room', [])
                 dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
-                list: 'Room',
+                list: dataLayerService.listType,
                 category: category,
                 variant: variant
               }]);
@@ -551,6 +561,20 @@ angular.module('mobiusApp.directives.room', [])
 
       scope.isOverAdultsCapacity = bookingService.isOverAdultsCapacity;
       scope.switchToMRBMode = bookingService.switchToMRBMode;
+
+      //Event only used if entire rate is set as link
+      scope.productClick = function(product){
+        if(scope.isMobile && scope.config.ratesAsLinks){
+          if(!product.memberOnly || scope.isUserLoggedIn())
+          {
+            scope.selectProduct(product);
+          }
+          else if(product.memberOnly && !scope.isUserLoggedIn() && !scope.isModifyingAsAnonymous())
+          {
+            scope.sso.login();
+          }
+        }
+      };
     }
   };
 });

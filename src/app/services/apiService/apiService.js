@@ -8,9 +8,10 @@ angular.module('mobiusApp.services.api', [])
   var sessionId = sessionCookie.sessionData.sessionId;
   var env = document.querySelector('meta[name=environment]').getAttribute('content');
   var headers = {
-    'mobius-tenant': Settings.API.headers['Mobius-chainId'],
+    'mobius-tenant': Settings.API.headers['Mobius-tenantId'],
     'Mobius-channelId': channelService.getChannel().channelID,
-    'mobius-sessionId': sessionId
+    'mobius-sessionId': sessionId,
+    'mobius-chainId': Settings.API.headers['Mobius-chainId'] ? Settings.API.headers['Mobius-chainId'] : null
   };
 
   var apiCache = $cacheFactory('apiCache');
@@ -343,6 +344,23 @@ angular.module('mobiusApp.services.api', [])
     sendMobiusAlert(alertData);
   }
 
+  function mobiusTrackingPost(url, data) {
+    var q = $q.defer();
+
+    $http({
+      method: 'POST',
+      url: url,
+      data: data
+    }).success(function(res) {
+      q.resolve(res);
+    }).error(function(err) {
+      //logApiError('POST', err, url, null, resHeaders);
+      q.reject(err);
+    });
+
+    return q.promise;
+  }
+
   // Public methods
   var api = {
     get: get,
@@ -354,7 +372,8 @@ angular.module('mobiusApp.services.api', [])
     objectToQueryParams: objectToQueryParams,
     infinitiApeironPost: infinitiApeironPost,
     trackUsage: trackUsage,
-    sendApeironAlert: sendApeironAlert
+    sendApeironAlert: sendApeironAlert,
+    mobiusTrackingPost: mobiusTrackingPost
   };
   return api;
 });

@@ -1,6 +1,6 @@
-<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<hero-slider ng-if="!config.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 
-<breadcrumbs stickable="main-header"></breadcrumbs>
+<breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
 
 <main class="grid-wrapper" id="jsProfile">
 

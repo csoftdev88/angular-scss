@@ -84,6 +84,11 @@ describe('RoomProducts', function() {
         }
       });
 
+      $provide.value('mobiusTrackingService', {
+        trackSearch:function(){},
+        trackPurchase:function(){}
+      });
+
       $provide.value('cookieFactory', function(a){return {}[a];});
 
       $provide.value('propertyService', {
@@ -176,6 +181,7 @@ describe('RoomProducts', function() {
       $provide.value('dataLayerService', {
         trackProductsDetailsView: sinon.spy(),
         trackProductsImpressions: sinon.spy(),
+        getCategoryName: sinon.spy(),
         trackProductClick: sinon.spy()
       });
 

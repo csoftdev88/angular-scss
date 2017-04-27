@@ -30,6 +30,8 @@ describe('mobiusApp.services.modal', function() {
 
       $provide.value('preloaderFactory', {});
 
+      $provide.value('dataLayerService', {});
+
       $provide.value('Settings', {
         UI: {
           myAccount: {

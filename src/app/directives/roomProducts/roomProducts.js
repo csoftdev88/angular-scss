@@ -3,7 +3,7 @@
 angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
-  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService, infinitiApeironService,
+  Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService, infinitiApeironService, mobiusTrackingService,
   stateService, dataLayerService, cookieFactory, chainService, $window, $log, $filter, user){
 
   return {
@@ -109,13 +109,6 @@ angular.module('mobiusApp.directives.room.products', [])
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails(bookingParams.propertyCode).then(function(propertyData){
               //Google analytics
-              var localeData = propertyData.locale;
-              var localeArray = localeData ? propertyData.locale.split('-') : null;
-              if(localeArray && localeArray.length > 1)
-              {
-                localeData = localeArray[1].trim();
-              }
-              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.room.name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)
               {
@@ -133,6 +126,7 @@ angular.module('mobiusApp.directives.room.products', [])
                 bookingWindow = checkInDate.diff(today, 'days');
               }
 
+              dataLayerService.listType = 'Rooms';
               dataLayerService.trackProductsImpressions(scope.products.map(function(p){
                 return {
                   name: p.name,
@@ -142,17 +136,16 @@ angular.module('mobiusApp.directives.room.products', [])
                   dimension2: chainData.nameShort,
                   brand: propertyData.nameLong,
                   dimension1: propertyData.nameShort,
-                  list: 'Rooms',
-                  category: category,
+                  list: dataLayerService.listType,
+                  category: scope.room ? dataLayerService.getCategoryName(propertyData,scope.room) : null,
                   variant: variant
                 };
               }), stayLength, bookingWindow);
 
-              var selectedRate = null;
-              if(scope.rates && scope.rates.selectedRate)
-              {
-                selectedRate = scope.rates.selectedRate;
-              }
+              var selectedRate = scope.rates ? scope.rates.selectedRate : null;
+              
+              //Mobius tracking
+              mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room, selectedRate);
               infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room, selectedRate);
             });
           });
@@ -168,8 +161,6 @@ angular.module('mobiusApp.directives.room.products', [])
           Settings.UI.hotelDetails.ratesCacheTimeout?Settings.UI.hotelDetails.ratesCacheTimeout:0;
       }
       */
-
-
 
       scope.getRatesLimit = function(){
         return stateService.isMobile() ? scope.settings.ratesPerRoomOnMobile : scope.settings.ratesPerRoomOnDesktop;
@@ -214,13 +205,6 @@ angular.module('mobiusApp.directives.room.products', [])
         if(product){
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails(bookingParams.propertyCode || scope.details.code).then(function(propertyData){
-              var localeData = propertyData.locale;
-              var localeArray = localeData ? propertyData.locale.split('-') : null;
-              if(localeArray && localeArray.length > 1)
-              {
-                localeData = localeArray[1].trim();
-              }
-              var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.room.name;
               var variant = '';
               if($stateParams.adults && $stateParams.children)
               {
@@ -236,6 +220,7 @@ angular.module('mobiusApp.directives.room.products', [])
                 stayLength = checkOutDate.diff(checkInDate, 'days');
                 bookingWindow = checkInDate.diff(today, 'days');
               }
+              dataLayerService.listType = 'Rooms';
               dataLayerService.trackAddToCart({
                 name: product.name,
                 id: product.code,
@@ -244,8 +229,8 @@ angular.module('mobiusApp.directives.room.products', [])
                 dimension2: chainData.nameShort,
                 brand: propertyData.nameLong,
                 dimension1: propertyData.nameShort,
-                list: 'Rooms',
-                category: category,
+                list: dataLayerService.listType,
+                category: scope.room ? dataLayerService.getCategoryName(propertyData,scope.room) : null,
                 variant: variant
               }, upsellAccepted, stayLength, bookingWindow);
             });
@@ -270,13 +255,6 @@ angular.module('mobiusApp.directives.room.products', [])
         // Tracking product view
         chainService.getChain(Settings.API.chainCode).then(function(chainData) {
           propertyService.getPropertyDetails(bookingParams.propertyCode).then(function(propertyData){
-            var localeData = propertyData.locale;
-            var localeArray = localeData ? propertyData.locale.split('-') : null;
-            if(localeArray && localeArray.length > 1)
-            {
-              localeData = localeArray[1].trim();
-            }
-            var category = localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + scope.room.name;
             var variant = '';
             if($stateParams.adults && $stateParams.children)
             {
@@ -294,6 +272,7 @@ angular.module('mobiusApp.directives.room.products', [])
               bookingWindow = checkInDate.diff(today, 'days');
             }
 
+            dataLayerService.listType = 'Rooms';
             dataLayerService.trackProductsDetailsView([{
               name: product.name,
               id: product.code,
@@ -302,8 +281,8 @@ angular.module('mobiusApp.directives.room.products', [])
               dimension2: chainData.nameShort,
               brand: propertyData.nameLong,
               dimension1: propertyData.nameShort,
-              list: 'Rooms',
-              category: category,
+              list: dataLayerService.listType,
+              category: scope.room ? dataLayerService.getCategoryName(propertyData,scope.room) : null,
               variant: variant
             }], stayLength, bookingWindow);
           });
