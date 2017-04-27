@@ -440,6 +440,7 @@ angular.module('mobiusApp.config', [])
       },
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
+      'defaultNumberOfRoomsMobile':10,
       'numberOfRoomsAddedOnMobile': 2,
       //Allow subpages to redirect if specified in admin
       'subPageRedirects': true,
@@ -454,7 +455,8 @@ angular.module('mobiusApp.config', [])
         'showRoomCount': true,
         //Show room highlight text instead of description
         'showRoomHighlight': true,
-        'displayRatesOnLoad': false,
+        'desktopDisplayRatesOnLoad': false,
+        'mobileHideRates':true,
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': true,

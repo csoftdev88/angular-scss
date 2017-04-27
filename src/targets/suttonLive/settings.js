@@ -418,7 +418,7 @@ angular.module('mobiusApp.config', [])
         'showRoomCount': false,
         //Show room highlight text instead of description
         'showRoomHighlight': true,
-        'displayRatesOnLoad': false,
+        'desktopDisplayRatesOnLoad': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': false,
