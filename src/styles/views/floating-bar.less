@@ -85,6 +85,11 @@ floating-bar {
         }
       }
     }
+    .viewport-mobile.chain-sign:not(.mobile-menu-active) & {
+      > ul li.floating-bar--tab-booking.main-mobile-toggle a {
+        background:@c-secondary-sign;
+      }
+    }
   }
 
   my-account {
@@ -231,6 +236,7 @@ floating-bar {
         .mobile-search-text {
           display:none;
           font-size:13px;
+          line-height:35px;
         }
 
         //Mobile
