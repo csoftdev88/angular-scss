@@ -37,7 +37,41 @@
   .transition(opacity, .15s, linear);
 }
 
-
 .clear{
   clear: both;
+}
+
+//Styling for read more / reveal sections
+.reveal-state {
+  display: none;
+}
+
+.reveal-section {
+  .viewport-mobile & {
+    max-height: 100px;
+    overflow: hidden;
+    .transition(all, .5s, ease-in-out);
+  }
+}
+
+.reveal-trigger {
+  display: none;
+  color: @c-secondary;
+  cursor: pointer;
+  margin-top: 10px;
+  .viewport-mobile & {
+    display: block;
+  }
+}
+
+.reveal-state:checked~.reveal-section {
+  .viewport-mobile & {
+    max-height: 2000px;
+  }
+}
+
+.reveal-state:checked~.reveal-section~.reveal-trigger {
+  .viewport-mobile & {
+    display: none;
+  }
 }

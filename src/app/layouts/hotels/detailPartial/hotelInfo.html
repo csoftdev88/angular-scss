@@ -1,6 +1,10 @@
 <section grid-row id="jsAbout" class="hotel-overview">
     <div grid="{{(hasViewMore)? viewSettings.hotelInfo.descriptionGrid : 12}}">
-      <p ng-bind-html="details.description | trustAsHtml" markdown-text-parser class="hotel-description markdown-content"></p>
+      
+      <input ng-if="config.shortenDescriptionMobile && details.description" type="checkbox" class="reveal-state" id="hotel-description" />
+      <p ng-bind-html="details.description | trustAsHtml" class="hotel-description markdown-content" 
+      ng-class="{'reveal-section': config.shortenDescriptionMobile}" markdown-text-parser></p>
+      <label ng-if="config.shortenDescriptionMobile && details.description" for="hotel-description" class="reveal-trigger">_read_more_</label>
 
       <div ng-if="config.displayAmenitiesInHotelInfo && filteredAmenities && filteredAmenities.length" class="hotel-info-amenities">
         <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>

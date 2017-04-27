@@ -328,6 +328,16 @@ hotel-detail {
                   .viewport-mobile & {
                     font-size:15px;
                     color:@c-secondary;
+                    text-transform:lowercase;
+                    font-style:initial;
+                  }
+                  .value {
+                    .viewport-mobile & {
+                      text-transform:uppercase;
+                      color:@c-secondary;
+                      font-weight:initial;
+                      padding:0;
+                    }
                   }
                 }
               }
@@ -674,5 +684,12 @@ hotel-detail {
     .viewport-mobile & {
       display:none;
     }
+  }
+  .reveal-trigger {
+    padding-bottom: 0;
+    margin-top: 20px;
+    font-weight: 200;
+    font-size: 13px;
+    line-height: 13px;
   }
 }
