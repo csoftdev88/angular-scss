@@ -62,6 +62,7 @@ div[mega-menu] {
         height: 100%;
         li {
           a {
+            -webkit-font-smoothing: antialiased;
             color: @c-dark-grey;
             &:after {
               color: @c-dark-grey;
@@ -166,6 +167,14 @@ div[mega-menu] {
           &:hover,
           &:hover:after {
             color: @c-secondary !important;
+          }
+          booking-widget-search &{
+            &.active,
+            &.active:after,
+            &:hover,
+            &:hover:after {
+              color: darken(@c-secondary, 5%) !important;
+            }
           }
         }
       }

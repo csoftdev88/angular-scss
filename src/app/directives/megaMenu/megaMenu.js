@@ -27,6 +27,9 @@ angular.module('mobiusApp.directives.megaMenu', [])
       scope.externalRegionLinks = Settings.UI.menu.externalRegionLinks;
 
 
+      //Show all hotels
+      scope.displaySelectAllHotelsAction = Settings.UI.bookingWidget.displaySelectAllHotelsAction;
+
       //boooking-widget version style and event listeners
       if (attrs.type === 'booking-widget') {
         angular.element(elem).addClass('booking-widget');
