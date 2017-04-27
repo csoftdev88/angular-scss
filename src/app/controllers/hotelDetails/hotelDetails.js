@@ -78,7 +78,7 @@ angular.module('mobius.controllers.hotel.details', [
       }
     }];
 
-    if (Settings.UI.hotelDetails.rooms.sortRoomsByWeighting) {
+    if ($scope.roomsConfig.sortRoomsByWeighting) {
       $scope.sortingOptions.splice(0, 0, {
         name: options.recommended,
         sort: function(room) {
@@ -493,7 +493,7 @@ angular.module('mobius.controllers.hotel.details', [
         //handle displaying of rates
         _.each(rooms, function(room) {
           room.userHidden = false;
-          if (stateService.isMobile() || Settings.UI.hotelDetails.rooms.desktopDisplayRatesOnLoad) {
+          if (stateService.isMobile() || $scope.roomsConfig.desktopDisplayRatesOnLoad) {
             $scope.displayRoomRates(room);
           } else {
             room._displayRates = false;
@@ -511,9 +511,9 @@ angular.module('mobius.controllers.hotel.details', [
         //If on mobile and mobile number is configured use this, otherwise use the default number
         $scope.numberOfRoomsDisplayed = $scope.numberOfRoomsDisplayedMobile && $scope.isMobile ? $scope.numberOfRoomsDisplayedMobile : Settings.UI.hotelDetails.defaultNumberOfRooms;   
 
-        $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;
-        $scope.viewRatesButtonText = Settings.UI.hotelDetails.rooms.viewRatesButtonText;
-        $scope.hoverTriggerDelay = Settings.UI.hotelDetails.rooms.hoverTriggerDelay;
+        $scope.numberOfAmenities = $scope.roomsConfig.defaultNumberOfAmenities;
+        $scope.viewRatesButtonText = $scope.roomsConfig.viewRatesButtonText;
+        $scope.hoverTriggerDelay = $scope.roomsConfig.hoverTriggerDelay;
 
         $scope.openRoomGallery = function(room, slideIndex) {
           modalService.openGallery(
