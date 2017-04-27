@@ -148,6 +148,25 @@
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 4px;
+    .growl-message {
+      margin:0;
+      position:relative;
+      p {
+        color: #fff;
+        padding-left:25px;
+        line-height:19px;
+        margin-bottom:0;
+      }
+      i {
+        font-size:16px;
+        position:absolute;
+        top:50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        color:#fff;
+        opacity:0.63;
+      }
+    }
   }
   .alert h4 {
     margin-top: 0;
@@ -171,9 +190,10 @@
     color: inherit;
   }
   .alert-success {
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    color: #3c763d;
+    background-color: @growlSuccessBackground;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    color:@c-white;
+    opacity:0.85;
   }
   .alert-success hr {
     border-top-color: #c9e2b3;
@@ -186,25 +206,6 @@
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     border: solid 1px #131313;
-    .growl-message {
-      margin:0;
-      position:relative;
-      p {
-        color: #fff;
-        padding-left:25px;
-        line-height:19px;
-        margin-bottom:0;
-      }
-      i {
-        font-size:16px;
-        position:absolute;
-        top:50%;
-        transform: translateY(-50%);
-        -webkit-transform: translateY(-50%);
-        color:#fff;
-        opacity:0.63;
-      }
-    }
     .growl-alt-product-link {
       padding-left:25px;
       color:@c-secondary;
