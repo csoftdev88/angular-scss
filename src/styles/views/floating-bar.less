@@ -65,16 +65,23 @@ floating-bar {
     .viewport-mobile:not(.mobile-menu-active) & {
       top:13px;
       right:13px;
-      width:95px;
+      width:65px;
       height:35px;
+      line-height:35px;
       left:auto;
       overflow:hidden;
       transition:none;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      border-radius:4px;
+      .mobile-search-text {
+        display:block;
+      }
       > ul li.floating-bar--tab-booking.main-mobile-toggle a {
         background:@c-secondary;
         height:35px;
-        .mobile div {
-          line-height:30px;
+        padding:0;
+        .mobile {
+          display:none;
         }
       }
     }
@@ -219,6 +226,10 @@ floating-bar {
 
         .mobile{
           display: none;
+        }
+
+        .mobile-search-text {
+          display:none;
         }
 
         //Mobile
