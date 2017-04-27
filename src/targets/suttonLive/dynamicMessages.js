@@ -24,7 +24,10 @@ angular.module('mobiusApp.dynamicMessages', [])
     'noshow':'No Show',
     'pet':'Pet',
     'from':'From',
-    'tax':'tax'
+    'tax':'tax',
+    'promo_code_applied':'Promo code applied successfully',
+    'corp_code_applied':'Corp code applied successfully',
+    'group_code_applied':'Group code applied successfully'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
@@ -45,6 +48,9 @@ angular.module('mobiusApp.dynamicMessages', [])
     'noshow':'Keine Show',
     'pet':'Haustier',
     'from':'Von',
-    'tax':'Steuer'
+    'tax':'Steuer',
+    'promo_code_applied':'Promo code applied successfully',
+    'corp_code_applied':'Corp code applied successfully',
+    'group_code_applied':'Group code applied successfully'
   }
 });
