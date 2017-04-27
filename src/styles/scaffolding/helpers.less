@@ -48,9 +48,21 @@
 
 .reveal-section {
   .viewport-mobile & {
-    max-height: 100px;
+    max-height: 125px;
     overflow: hidden;
+    position:relative;
     .transition(all, .5s, ease-in-out);
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: block;
+      height: 24px;
+      background: url('@{img-prefix}/v4/text-overlay.png');
+      background-size: 100% 30px;
+      content: '';
+    }
   }
 }
 
@@ -67,6 +79,9 @@
 .reveal-state:checked~.reveal-section {
   .viewport-mobile & {
     max-height: 2000px;
+    &:after {
+      display:none;
+    }
   }
 }
 
