@@ -982,7 +982,8 @@ angular.module('mobiusApp.config', [])
       },
       'vouchers' : {
         'enable':true
-      }
+      },
+      'reservationAssurance': true
     },
     'myAccount' : {
       'displaySettings' : {

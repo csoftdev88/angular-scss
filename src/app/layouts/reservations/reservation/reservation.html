@@ -45,7 +45,7 @@
       </ul>
     </nav>
 
-    <reservation-widget grid-row>
+    <reservation-widget grid-row ng-class="{'reservation-assurance-active': bookingConfig.reservationAssurance}">
 
       <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.payment">
         <span>_payment_not_authorized_: </span>
@@ -124,6 +124,10 @@
         </registration-call>
       </div>
     </reservation-widget>
+
+    <!--Reservation assurance badges-->
+    <section class="reservation-assurance-badges" ng-if="bookingConfig.reservationAssurance" ng-include="'layouts/components/reservation-assurance-badges.html'"></section>
+
     <growl-alerts class="growl-alerts-dir" languages-message="'_languages_message_'" retention-message="'_retention_message_'" room-upgrade-success="'_room_upgrade_success_'" room-upgrade-failure="'_room_upgrade_failure_'" room-upgrade-increase="'_room_upgrade_increase_'" room-upgrade-decrease="'_room_upgrade_decrease_'"></growl-alerts>
   </div>
 </main>
