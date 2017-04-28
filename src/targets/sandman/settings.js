@@ -501,7 +501,8 @@ angular.module('mobiusApp.config', [])
         'restrictAmenities':true //Only display amenities with an asterix at the beginning of the name
       },
       'offers': {
-        'toState': 'propertyHotDeals'
+        'toState': 'propertyHotDeals',
+        'singleOfferMobile':true //Only display one offer on mobile view
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,

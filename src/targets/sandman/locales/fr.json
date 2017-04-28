@@ -564,6 +564,8 @@
         "noShow": "Non présentation",
         "guarantee": "Garantie",
         "family": "Famille",
-        "pet": "Animal"
+        "pet": "Animal",
+        "selected_offer_for_you":"Selected offer for you",
+        "show_all_offers":"Show All Offers"
   }
 }

@@ -553,6 +553,8 @@
     "room_upgrade_failure":"We(singlequote)re sorry but this room upgrade is no longer available.",
     "room_upgrade_success":"Your room upgrade is ready for purchase.",
     "room_upgrade_increase":"The price of your room upgrade has increased. However we will honor the price received in your upgrade email.",
-    "room_upgrade_decrease":"The price of your room upgrade has decreased. We will adjust prices accordingly."
+    "room_upgrade_decrease":"The price of your room upgrade has decreased. We will adjust prices accordingly.",
+    "selected_offer_for_you":"Selected offer for you",
+    "show_all_offers":"Show All Offers"
   }
 }
