@@ -581,7 +581,13 @@ angular.module('mobiusApp.config', [])
       'upsells': {
         'display': true
       },
-      'displayAltProduct':false
+      'displayAltProduct':false,
+      'showProductImage':true,
+      'ratesAsLinks':true,
+      'productImages': {
+        'height':125,
+        'width':145
+      },
     },
 
     'reservations': {
