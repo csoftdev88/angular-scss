@@ -638,9 +638,15 @@ hotel-detail {
         width:40%;
         padding:15px;
         border-radius:2px;
-        background:@c-secondary;
+        background:@c-primary-sand;
         color:white;
-        font-size:14px;
+        font-weight:700;
+        .viewport-mobile & {
+          width:100%;
+          background:@c-secondary;
+          font-size:14px;
+          font-weight:400;
+        }
         .chain-sign & {
           background:@c-primary-sign;
         }
@@ -649,10 +655,7 @@ hotel-detail {
           .chain-sign & {
             background:darken(@c-primary-sign, 10%);
           }
-        }
-        .viewport-mobile & {
-          width:100%;
-        }
+        }     
       }
     }
   }
