@@ -732,7 +732,7 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.roomClick = function(room){
-    if($scope.config.rooms.roomsAsLinks && $stateParams.dates){
+    if($scope.config.rooms.roomsAsLinks && $scope.isMobile && $stateParams.dates){
       $scope.goToRoom($scope.details.meta.slug, room.meta.slug);
     }
   };

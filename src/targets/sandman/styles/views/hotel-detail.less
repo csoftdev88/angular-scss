@@ -173,8 +173,9 @@ hotel-detail {
 
         .viewport-mobile & {
           border-bottom: 1px solid #dedede;
-          padding-bottom: 10px;
           margin-bottom: 20px;
+          box-sizing:border-box;
+          padding:0 30px 10px 0;
         }
 
         .item-header{
@@ -241,6 +242,21 @@ hotel-detail {
                 }
               }
             }
+          }
+        }
+        .list-item-container + i {
+          display:none;
+          .viewport-mobile & {
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top:-10px;
+            font-size: 37px;
+            color: #dedede;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
           }
         }
 
@@ -323,6 +339,12 @@ hotel-detail {
                 .viewport-mobile & {
                   float:left;
                   margin-left:115px;
+                }
+                .not-available {
+                  .viewport-mobile & {
+                    padding-left:0;
+                    padding-top:10px;
+                  }
                 }
                 .price-form {
                   .viewport-mobile & {

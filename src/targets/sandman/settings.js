@@ -468,6 +468,7 @@ angular.module('mobiusApp.config', [])
         'includeSlider': true,
         'sliderHasThumbnails': true,
         'includeTripAdvisorPreloader': false,
+        'roomsAsLinks': true,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
