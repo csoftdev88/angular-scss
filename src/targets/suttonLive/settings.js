@@ -14,7 +14,7 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'development': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
     'integration': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
-    'staging': 'http://staging-prestige.suttonplace.com/track/content/infiniti.js',
+    'staging': 'http://staging-infiniti-sutton.mobiusbookingengine.com/track/content/infiniti.js',
     'uat': '/infiniti/track/content/infiniti.js',
     'live': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
