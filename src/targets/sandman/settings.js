@@ -810,7 +810,7 @@ angular.module('mobiusApp.config', [])
       'checkAvailabilityOnChange': false,
       'checkOfferAvailabilityOnChange': false,
       'displayPropertiesMegamenu': true,
-      'displaySelectAllHotelsAction':true,
+      'displaySelectAllHotelsAction':false,
       'hasMutiroomTab': true,
       'hasRatesSelection': true,
       'timezone':'America/Vancouver',

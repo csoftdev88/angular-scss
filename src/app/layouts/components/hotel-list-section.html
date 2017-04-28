@@ -54,7 +54,7 @@
       <room-products ng-if="details && room._displayRates" ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}"
         id="{{'rates'+$index}}"></room-products>
     </div>
-    <i class="fa fa-angle-right room-link-icon" ng-if="config.rooms.roomsAsLinks" />
+    <i class="fa fa-angle-right room-link-icon" ng-if="config.rooms.roomsAsLinks && hasDates()" />
     <!-- //list-item-container -->
   </list-item>
 

@@ -474,7 +474,7 @@ angular.module('mobiusApp.config', [])
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': true,
       'removeScrollToRoomsOnFinish': true,
-      'displayAmenitiesInHotelInfo': true,
+      'displayAmenitiesInHotelInfo': false,
       'findOutMoreLinksBottomMobile':true, //Positions the find out more section to the bottom of the page on mobile
       'headerPartial':{
         'logo':{
@@ -488,7 +488,7 @@ angular.module('mobiusApp.config', [])
         'hotelInfo': true,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
-        'hotelServices': false,
+        'hotelServices': true,
         'hotelLocation': true,
         'hotelOffers': true,
         'hotelReadMoreMobile': true
@@ -674,7 +674,7 @@ angular.module('mobiusApp.config', [])
       'displayAltProduct': true,
       'showSlashThrough': true,
       'showProductImage':true,
-      'ratesAsLinks':false,
+      'ratesAsLinks':true,
       'productImages': {
         'height':125,
         'width':145

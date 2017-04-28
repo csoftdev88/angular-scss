@@ -1,4 +1,7 @@
 list-item {
+  .viewport-mobile & {
+    padding-right:25px
+  }
   &.is-member-only {
     &.is-member-only-disabled{
       button-submit,
@@ -9,4 +12,38 @@ list-item {
       }
     }
   }
+  description-info {
+    .viewport-mobile & {
+      width:100%;
+    }
+    .action-links {
+      .viewport-mobile & {
+        display:none;
+      }
+    }
+  }
+  .wide-button {
+    .viewport-mobile & {
+      display:none;
+    }
+  }
+  > pricing-info {
+    .viewport-mobile & {
+      display:none;
+    }
+  }
+  .list-item-header {
+    pricing-info {
+      .viewport-mobile & {
+        margin-top:10px;
+      }
+      p {
+        .viewport-mobile & {
+          margin-top:13px;
+        }
+      }
+    }
+  }
 }
+
+  
