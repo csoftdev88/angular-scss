@@ -416,7 +416,7 @@ angular.module('mobiusApp.config', [])
         // Loading rates when hovering over the room
         // in ms.
         'hoverTriggerDelay': 2000,
-        'showRoomCount': false,
+        'showRoomCount': true,
         //Show room highlight text instead of description
         'showRoomHighlight': true,
         'desktopDisplayRatesOnLoad': false,
@@ -427,6 +427,10 @@ angular.module('mobiusApp.config', [])
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
+        },
+        'roomImageSize':{
+          'width': 100,
+          'height': 100
         },
         'includeSlider': false,
         'sliderHasThumbnails': false,
@@ -470,7 +474,7 @@ angular.module('mobiusApp.config', [])
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': true,
       'removeScrollToRoomsOnFinish': true,
-      'displayAmenitiesInHotelInfo': false,
+      'displayAmenitiesInHotelInfo': true,
       'findOutMoreLinksBottomMobile':true, //Positions the find out more section to the bottom of the page on mobile
       'headerPartial':{
         'logo':{
@@ -484,7 +488,7 @@ angular.module('mobiusApp.config', [])
         'hotelInfo': true,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
-        'hotelServices': true,
+        'hotelServices': false,
         'hotelLocation': true,
         'hotelOffers': true,
         'hotelReadMoreMobile': true
@@ -670,7 +674,7 @@ angular.module('mobiusApp.config', [])
       'displayAltProduct': true,
       'showSlashThrough': true,
       'showProductImage':true,
-      'ratesAsLinks':true,
+      'ratesAsLinks':false,
       'productImages': {
         'height':125,
         'width':145
