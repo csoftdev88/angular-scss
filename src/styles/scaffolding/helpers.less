@@ -37,7 +37,56 @@
   .transition(opacity, .15s, linear);
 }
 
-
 .clear{
   clear: both;
+}
+
+//Styling for read more / reveal sections
+.reveal-state {
+  display: none;
+}
+
+.reveal-section {
+  .viewport-mobile & {
+    max-height: 125px;
+    overflow: hidden;
+    position:relative;
+    .transition(all, .5s, ease-in-out);
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: block;
+      height: 24px;
+      background: url('@{img-prefix}/v4/text-overlay.png');
+      background-size: 100% 30px;
+      content: '';
+    }
+  }
+}
+
+.reveal-trigger {
+  display: none;
+  color: @c-secondary;
+  cursor: pointer;
+  margin-top: 10px;
+  .viewport-mobile & {
+    display: block;
+  }
+}
+
+.reveal-state:checked~.reveal-section {
+  .viewport-mobile & {
+    max-height: 2000px;
+    &:after {
+      display:none;
+    }
+  }
+}
+
+.reveal-state:checked~.reveal-section~.reveal-trigger {
+  .viewport-mobile & {
+    display: none;
+  }
 }

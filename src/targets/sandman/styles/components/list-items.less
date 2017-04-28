@@ -43,6 +43,9 @@ list-item {
 
     pricing-info {
       display: none;
+      .viewport-mobile & {
+        margin-top:10px;
+      }
     }
 
     earned-points,
@@ -94,9 +97,16 @@ list-item {
       p{
         .original-price{
           font-weight: 700;
+          .viewport-mobile & {
+            float:none;
+            margin-right:5px;
+          }
         }
         .value{
           color: @c-grey;
+          .viewport-mobile & {
+            color:@c-secondary;
+          }
           .chain-sign &{
             color: @c-menu-active-sign;
           }

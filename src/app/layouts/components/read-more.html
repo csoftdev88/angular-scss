@@ -1,0 +1,6 @@
+<read-more>
+  <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
+  <ul>
+    <li ng-repeat="item in details.content | orderBy: 'order'"><a ng-href="{{item.url}}">{{item.title}}</a></li>
+  </ul>
+</read-more>

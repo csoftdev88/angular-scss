@@ -406,6 +406,7 @@ angular.module('mobiusApp.config', [])
       },
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
+      'defaultNumberOfRoomsMobile':10,
       'numberOfRoomsAddedOnMobile': 2,
       'rooms': {
         'hideRoomsWithNoAvailability': true,
@@ -418,7 +419,8 @@ angular.module('mobiusApp.config', [])
         'showRoomCount': false,
         //Show room highlight text instead of description
         'showRoomHighlight': true,
-        'displayRatesOnLoad': false,
+        'desktopDisplayRatesOnLoad': false,
+        'mobileHideRates': true,
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': false,
@@ -429,6 +431,7 @@ angular.module('mobiusApp.config', [])
         'includeSlider': false,
         'sliderHasThumbnails': false,
         'includeTripAdvisorPreloader': true,
+        'roomsAsLinks': true,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
@@ -460,13 +463,15 @@ angular.module('mobiusApp.config', [])
         'restrictAmenities':true //Only display amenities with an asterix at the beginning of the name
       },
       'offers': {
-        'toState': 'propertyOffers'
+        'toState': 'propertyOffers',
+        'singleOfferMobile':true //Only display one offer on mobile view
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': true,
       'removeScrollToRoomsOnFinish': true,
       'displayAmenitiesInHotelInfo': false,
+      'findOutMoreLinksBottomMobile':true, //Positions the find out more section to the bottom of the page on mobile
       'headerPartial':{
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
@@ -481,9 +486,12 @@ angular.module('mobiusApp.config', [])
         'hotelRoomsCompare': true,
         'hotelServices': true,
         'hotelLocation': true,
-        'hotelOffers': true
+        'hotelOffers': true,
+        'hotelReadMoreMobile': true
       },
-      'restrictAmenities':true //Only display amenities that's name begins with asterix
+      'restrictAmenities':true, //Only display amenities that's name begins with asterix
+      'hideViewMoreImagesMobile':true, //Hide the view more images on mobile
+      'shortenDescriptionMobile':true //Shorten the description with read more on mobile
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
@@ -660,7 +668,14 @@ angular.module('mobiusApp.config', [])
         'display': true
       },
       'displayAltProduct': true,
-      'showSlashThrough': true
+      'showSlashThrough': true,
+      'showProductImage':true,
+      'ratesAsLinks':true,
+      'productImages': {
+        'height':125,
+        'width':145
+      },
+      'restrictAmenities':true
     },
 
     'reservations': {
@@ -901,6 +916,7 @@ angular.module('mobiusApp.config', [])
           'type': 'days'
         }
       },
+      'mobileTopRight':true, //Displays the booking book now button in top right
       'prefillGrowlAlert':true, //When enabled will display a growl alert if code field is prefilled
       'keepPrefillStyle':true //By default prefill style is hidden after 1 second. When enabled this will prevent it from being hidden.
     },

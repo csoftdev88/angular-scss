@@ -35,7 +35,9 @@
     .brand {
       .viewport-mobile &{
         top: 22px;
+        max-width:195px;
         img{
+          width:100%;
           height: auto;
         }
       }
@@ -188,6 +190,20 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media only screen and @smallest-mobile-max {
+  .main-nav {
+    .brand {
+      .viewport-mobile &{
+        left:52px;
+        max-width:150px;
+        -webkit-transform:none;
+        -ms-transform:none;
+        transform:none;
       }
     }
   }

@@ -6,8 +6,11 @@
 amenities-list,
 .amenities-list {
   .clearfix;
-  margin: 2 * @baseline 0 0 0;
+  margin: 2 * @baseline 0;
   display: block;
+  .viewport-mobile & {
+    margin:@baseline 0;
+  }
 }
 
 //- Amenity
@@ -36,6 +39,11 @@ amenity-item,
 amenity-item,
 .amenity-item {
   color: @c-grey;
+  min-height:45px;
+  .viewport-mobile & {
+    padding:0;
+    min-height:35px;
+  }
 
   span {
     display: table-cell;
@@ -55,5 +63,15 @@ amenity-item,
       vertical-align: middle;
       max-height: 24px;
     }
+  }
+}
+
+.amenities-reveal-trigger {
+  font-weight:200;
+  font-size:13px;
+  line-height:13px;
+  cursor:pointer;
+  .chain-sign & {
+    color:@c-menu-active-sign;
   }
 }

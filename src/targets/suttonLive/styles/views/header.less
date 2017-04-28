@@ -1,19 +1,46 @@
 .main-nav .brand img.corp-logo {
-    .viewport-mobile & {
-        margin-top:11px;
+  .viewport-mobile & {
+    margin-top: 11px;
+  }
+}
+
+// MOBILE SPECIFIC STYLES
+@media only screen and @large-mobile-max {
+  .main-nav {
+    .brand {
+      .viewport-mobile & {
+        max-width: 175px;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
     }
+  }
+}
+
+@media only screen and @smallest-mobile-max {
+  .main-nav {
+    .brand {
+      .viewport-mobile &{
+        max-width: 135px;
+        top: 12px;
+
+      }
+    }
+  }
 }
 
 // DESKTOP STYLES
 @media only screen and @tablet-portrait-min {
   .main-nav {
     .brand {
-      width:370px;
-      text-align:left;
+      width: 370px;
+      text-align: left;
       .corp-logo {
-        position:absolute;
-        right:0;
-        top:50%;
+        position: absolute;
+        right: 0;
+        top: 50%;
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);

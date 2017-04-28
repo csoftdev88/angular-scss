@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.room.details', [])
 
-.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, mobiusTrackingService, infinitiApeironService, previousSearchesService, propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams) {
+.controller( 'RoomDetailsCtrl', function($scope, $state, $location, scrollService, $rootScope, $timeout, $q, _, modalService, mobiusTrackingService, infinitiApeironService, previousSearchesService, propertyService, filtersService, bookingService, $window, channelService, contentService, dataLayerService, Settings, chainService, $stateParams, stateService) {
 
   var numNights = 1;
 
@@ -18,6 +18,12 @@ angular.module('mobius.controllers.room.details', [])
     //Add property link page to room detail object
     var propertyLink = $state.href('hotel', $stateParams);
     $scope.roomDetails.propertyLink = propertyLink ? propertyLink : null;
+
+    var amenities = $scope.roomDetails.amenities;
+    if($scope.config.restrictAmenities && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
+      propertyService.highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
+    }
+    $scope.filteredAmenities = propertyService.sanitizeAmenities(amenities); //Process our amenities and add to scope.
 
     if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.roomDetails.statistics){
       $timeout(function(){

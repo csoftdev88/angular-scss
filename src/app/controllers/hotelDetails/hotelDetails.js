@@ -26,12 +26,13 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.viewSettings = Settings.UI.viewsSettings.hotelDetails;
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
-  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
+  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo && !$scope.isMobile; //If local info is enabled in config and not viewing on mobile
   $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
+  $scope.singleOfferMobile = $scope.config.offers.singleOfferMobile;
 
   var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
@@ -78,7 +79,7 @@ angular.module('mobius.controllers.hotel.details', [
       }
     }];
 
-    if (Settings.UI.hotelDetails.rooms.sortRoomsByWeighting) {
+    if ($scope.roomsConfig.sortRoomsByWeighting) {
       $scope.sortingOptions.splice(0, 0, {
         name: options.recommended,
         sort: function(room) {
@@ -351,9 +352,9 @@ angular.module('mobius.controllers.hotel.details', [
 
         var amenities = $scope.details.amenities;
         if($scope.config.restrictAmenities && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
-          amenities = filterAsterixAmenities(amenities); //Only keep amenities with asterix at the beginning of the name
+          propertyService.highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
         }
-        $scope.filteredAmenities = sanitizeAmenities(amenities); //Process our amenities and add to scope.
+        $scope.filteredAmenities = propertyService.sanitizeAmenities(amenities); //Process our amenities and add to scope.
 
         //Breadcrumbs
         breadcrumbsService.clear();
@@ -493,24 +494,26 @@ angular.module('mobius.controllers.hotel.details', [
         //handle displaying of rates
         _.each(rooms, function(room) {
           room.userHidden = false;
-          if (stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad) {
+          if (stateService.isMobile() || $scope.roomsConfig.desktopDisplayRatesOnLoad) {
             $scope.displayRoomRates(room);
           } else {
             room._displayRates = false;
           }
           if(room.amenities && $scope.roomsConfig.restrictAmenities){
-            var amenities = filterAsterixAmenities(room.amenities); //Only keep amenities with asterix at the beginning of the name
-            room.amenities = sanitizeAmenities(amenities); //Process our amenities and add to scope.
+            room.amenities = propertyService.sanitizeAmenities(room.amenities); //Process our amenities and add to scope.
           }
         });
 
         $scope.rooms = rooms;
         $scope.filteredCompareRooms = rooms;
 
-        $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
-        $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;
-        $scope.viewRatesButtonText = Settings.UI.hotelDetails.rooms.viewRatesButtonText;
-        $scope.hoverTriggerDelay = Settings.UI.hotelDetails.rooms.hoverTriggerDelay;
+        $scope.numberOfRoomsDisplayedMobile = Settings.UI.hotelDetails.defaultNumberOfRoomsMobile;
+        //If on mobile and mobile number is configured use this, otherwise use the default number
+        $scope.numberOfRoomsDisplayed = $scope.numberOfRoomsDisplayedMobile && $scope.isMobile ? $scope.numberOfRoomsDisplayedMobile : Settings.UI.hotelDetails.defaultNumberOfRooms;   
+
+        $scope.numberOfAmenities = $scope.roomsConfig.defaultNumberOfAmenities;
+        $scope.viewRatesButtonText = $scope.roomsConfig.viewRatesButtonText;
+        $scope.hoverTriggerDelay = $scope.roomsConfig.hoverTriggerDelay;
 
         $scope.openRoomGallery = function(room, slideIndex) {
           modalService.openGallery(
@@ -630,7 +633,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
 
   $scope.displayRoomRates = function(room, ratesScrollTarget) {
-    if (!room || room._displayRates || $scope.availableRooms && $scope.availableRooms.indexOf(room.code) === -1) {
+    if ((!room || room._displayRates || $scope.availableRooms && $scope.availableRooms.indexOf(room.code) === -1) || ($scope.isMobile && $scope.roomsConfig.mobileHideRates)) {
       return;
     }
     room._displayRates = true;
@@ -730,7 +733,7 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.roomClick = function(room){
-    if($scope.config.rooms.roomsAsLinks && $stateParams.dates){
+    if($scope.config.rooms.roomsAsLinks && $scope.isMobile && $stateParams.dates){
       $scope.goToRoom($scope.details.meta.slug, room.meta.slug);
     }
   };
@@ -782,25 +785,6 @@ angular.module('mobius.controllers.hotel.details', [
     };
 
     return $state.href($scope.config.offers.toState, stateParams);
-  }
-
-  //Function to clean amenities by removing asterixes from names and hyphens from the beginning of slugs
-  function sanitizeAmenities(amenities) {
-    amenities = _.each(amenities, function (amenity) {
-      amenity.name = amenity.name.replace('*', ''); //Remove asterix from name for display
-      amenity.name = amenity.name.trim(); //Remove any remaining spaces at the beginning or end of name
-      if (amenity.slug.charAt(0) === '-') { //If the amenity slug begins with a -
-        amenity.slug = amenity.slug.substring(1); //Remove the first character of the slug string
-      }
-    });
-    amenities = _.sortBy(amenities, 'name'); //Order the amenities by name
-    return amenities;
-  }
-
-  function filterAsterixAmenities(amenities) {
-    return _.reject(amenities, function (amenity) {
-      return amenity.name.indexOf('*') === -1; //Remove amenities that do not have asterix in the name
-    });
   }
 
 });
