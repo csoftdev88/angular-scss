@@ -806,6 +806,7 @@ angular.module('mobiusApp.config', [])
       'datePickerHasTitle': false,
       'datePickerCounterIncludeDates': true,
       'datePickerCloseOnDatesSelected': false,
+      'defaultRegion':'BC',
       'checkAvailabilityOnChange': false,
       'checkOfferAvailabilityOnChange': false,
       'displayPropertiesMegamenu': true,
