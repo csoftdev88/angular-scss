@@ -33,6 +33,11 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
   $scope.singleOfferMobile = $scope.config.offers.singleOfferMobile;
+  $scope.roomImageHeight = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.height ? $scope.roomsConfig.roomImageSize.height : '384';
+  $scope.roomImageWidth = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.width ? $scope.roomsConfig.roomImageSize.width : '768';
+
+  console.log($scope.roomImageHeight);
+  console.log($scope.roomImageWidth);
 
   var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
