@@ -20,7 +20,7 @@
 
         <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomsConfig.roomDetailThumbnailSize.width : roomsConfig.roomDetailThumbnailSize.height : 'fill'}}"
           alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
-        <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : 768 : 384 : 'fill'}}"
+        <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomImageWidth : roomImageHeight : 'fill'}}"
           alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
 
         <a class="room-see-more" ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-if="roomsConfig.hideShowInfoIcon">_see_more_information_</a>
@@ -54,7 +54,7 @@
       <room-products ng-if="details && room._displayRates" ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}"
         id="{{'rates'+$index}}"></room-products>
     </div>
-    <i class="fa fa-angle-right" ng-if="config.rooms.roomsAsLinks" />
+    <i class="fa fa-angle-right room-link-icon" ng-if="config.rooms.roomsAsLinks" />
     <!-- //list-item-container -->
   </list-item>
 
