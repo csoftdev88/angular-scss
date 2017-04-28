@@ -588,6 +588,7 @@ angular.module('mobiusApp.config', [])
         'height':125,
         'width':145
       },
+      'restrictAmenities':true
     },
 
     'reservations': {

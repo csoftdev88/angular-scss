@@ -146,6 +146,24 @@ angular.module('mobiusApp.services.properties', [])
     currentPropertyClass = null;
   }
 
+  //Function to clean amenities by removing asterixes from names and hyphens from the beginning of slugs
+  function sanitizeAmenities(amenities) {
+    amenities = _.each(amenities, function (amenity) {
+      amenity.name = amenity.name.replace('*', ''); //Remove asterix from name for display
+      amenity.name = amenity.name.trim(); //Remove any remaining spaces at the beginning or end of name
+      if (amenity.slug.charAt(0) === '-') { //If the amenity slug begins with a -
+        amenity.slug = amenity.slug.substring(1); //Remove the first character of the slug string
+      }
+    }); 
+    return amenities;
+  }
+
+  function highlightAsterixAmenities(amenities) {
+    _.each(amenities, function (amenity) {
+      amenity.highlight = amenity.name.indexOf('*') !== -1 ? true : false;
+    });
+  }
+
   // Public methods
   return {
     getAll: getAll,
@@ -159,6 +177,8 @@ angular.module('mobiusApp.services.properties', [])
     applyPropertyChainClass: applyPropertyChainClass,
     removePropertyChainClass: removePropertyChainClass,
     applyPropertyClass: applyPropertyClass,
-    removePropertyClass: removePropertyClass
+    removePropertyClass: removePropertyClass,
+    highlightAsterixAmenities: highlightAsterixAmenities,
+    sanitizeAmenities: sanitizeAmenities
   };
 });

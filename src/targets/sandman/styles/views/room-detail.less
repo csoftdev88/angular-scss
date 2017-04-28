@@ -116,12 +116,16 @@ hotel-room {
         border-top:0px none;
       }
       .viewport-mobile & {
-        padding:20px 30px 20px 120px;
+        padding:20px 30px 20px 120px;       
       }
       &.without-image {
         padding-left: 20px;
         .viewport-mobile & {
           padding-left:0px;
+          &.is-member-only {
+            padding-left:20px;
+            padding-right:30px;
+          }
         }
       }
       .product-image {
@@ -169,6 +173,12 @@ hotel-room {
         }
       }
 
+      > pricing-info {
+        .viewport-mobile & {
+          display:none;
+        }
+      }
+
       pricing-info{
         right:20px;
         height:100%;
@@ -184,6 +194,9 @@ hotel-room {
               font-weight:400;
               font-size:15px;
               color:@c-secondary;
+            }
+            .viewport-mobile.chain-sign & {
+              color:@c-menu-active-sign;
             }
           }
         }
@@ -260,6 +273,11 @@ hotel-room {
     border: solid 1px #efefef;
     margin-top: 20px;
     padding: 20px;
+    .viewport-mobile & {
+      border:0px none;
+      background:none;
+      padding:0;
+    }
     h2 {
       .viewport-mobile & {
         margin-bottom:20px;

@@ -352,9 +352,9 @@ angular.module('mobius.controllers.hotel.details', [
 
         var amenities = $scope.details.amenities;
         if($scope.config.restrictAmenities && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
-          highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
+          propertyService.highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
         }
-        $scope.filteredAmenities = sanitizeAmenities(amenities); //Process our amenities and add to scope.
+        $scope.filteredAmenities = propertyService.sanitizeAmenities(amenities); //Process our amenities and add to scope.
 
         //Breadcrumbs
         breadcrumbsService.clear();
@@ -500,7 +500,7 @@ angular.module('mobius.controllers.hotel.details', [
             room._displayRates = false;
           }
           if(room.amenities && $scope.roomsConfig.restrictAmenities){
-            room.amenities = sanitizeAmenities(room.amenities); //Process our amenities and add to scope.
+            room.amenities = propertyService.sanitizeAmenities(room.amenities); //Process our amenities and add to scope.
           }
         });
 
@@ -785,24 +785,6 @@ angular.module('mobius.controllers.hotel.details', [
     };
 
     return $state.href($scope.config.offers.toState, stateParams);
-  }
-
-  //Function to clean amenities by removing asterixes from names and hyphens from the beginning of slugs
-  function sanitizeAmenities(amenities) {
-    amenities = _.each(amenities, function (amenity) {
-      amenity.name = amenity.name.replace('*', ''); //Remove asterix from name for display
-      amenity.name = amenity.name.trim(); //Remove any remaining spaces at the beginning or end of name
-      if (amenity.slug.charAt(0) === '-') { //If the amenity slug begins with a -
-        amenity.slug = amenity.slug.substring(1); //Remove the first character of the slug string
-      }
-    }); 
-    return amenities;
-  }
-
-  function highlightAsterixAmenities(amenities) {
-    _.each(amenities, function (amenity) {
-      amenity.highlight = amenity.name.indexOf('*') !== -1 ? true : false;
-    });
   }
 
 });

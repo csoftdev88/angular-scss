@@ -76,7 +76,9 @@ describe('mobius.controllers.hotel.details', function() {
                 c(ROOMS);
               }
             };
-          }
+          },
+          sanitizeAmenities: function(){},
+          highlightAsterixAmenities: function(){}
         });
 
         $provide.value('channelService', {
