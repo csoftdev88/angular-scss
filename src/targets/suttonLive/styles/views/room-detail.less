@@ -1,0 +1,27 @@
+hotel-room {
+  p {
+    .viewport-mobile & {
+      margin-top:0;
+    }
+  }
+  list-items list-item>.product-link {
+    .viewport-mobile & {
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      margin-top: -10px;
+      font-size: 50px;
+      color: #dedede;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+  }
+  .controls {
+    order-switch, pricing-switch {
+      .viewport-mobile & {
+        display:block;
+      }
+    }
+  }
+}

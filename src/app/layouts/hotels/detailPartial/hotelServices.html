@@ -2,7 +2,8 @@
 <section class="hotel-detail__services" ng-if="filteredAmenities && filteredAmenities.length" grid="12">
   <hr />
   <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
-  <ul class="amenities-list" ng-if="details">
+  <input ng-if="details && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities" />
+  <ul ng-if="details" class="amenities-list" ng-class="{'restricted-amenities': config.restrictAmenities}">
     <li class="amenity-item" ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
       <slug-img slug="amenity" type="hotel" width="15"></slug-img>
       <span class="amenity-caption">{{amenity.name}}</span>
@@ -11,4 +12,5 @@
     icon-wheelchair, icon-signal, icon-globe, icon-lock, icon-dollar
     -->
   </ul>
+  <label ng-if="details && config.restrictAmenities" for="hotel-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
 </section>
