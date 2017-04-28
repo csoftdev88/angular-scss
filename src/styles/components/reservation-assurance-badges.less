@@ -1,0 +1,68 @@
+.reservation-assurance-badges {
+  text-align: center;
+  .viewport-mobile & {
+    display: none;
+  }
+  .assurance-badge-container {
+    margin: 0px auto;
+    .clearfix;
+    figure {
+      width: 33%;
+      display: inline-block;
+      box-sizing: border-box;
+      border-left: solid 1px @c-gray-reservation;
+      text-align: left;
+      padding: 15px 15px 15px 110px;
+      position: relative;
+      .assurance-badge {
+        width: 80px;
+        position: absolute;
+        left: 15px;
+      }
+      .assurance-content {
+        header {
+          margin-bottom: 5px;
+          h4 {
+            color: @c-grey;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+          }
+          .assurance-logo {
+            width: 75px;
+            display: inline-block;
+            position: relative;
+            top: 4px;
+            margin-left: 5px;
+          }
+        }
+      }
+      &.security-assurance {
+        padding-left: 95px;
+        border-left: 0;
+        .assurance-badge {
+          left: 0;
+        }
+      }
+      &.payment-assurance {
+        border-right: solid 1px @c-gray-reservation;
+        background: @c-secondary-transparent;
+      }
+      &.price-assurance {
+        padding-left: 130px;
+        .assurance-badge {
+          width: 100px;
+        }
+      }
+    }
+    .payment-assurance+.price-assurance {
+      border-left: 0;
+    }
+    &.guarantee-assurance-active {
+      figure {
+        float:left;
+        display:block;
+      }
+    }
+  }
+}

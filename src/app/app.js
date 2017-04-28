@@ -952,6 +952,13 @@ angular
     };
   }
 
+  //Growl alerts for when a promoCode / corpCode / groupCode is prefilled
+  if(Settings.UI.bookingWidget.prefillGrowlAlert){
+    $scope.$on('CODE_ADDED_GROWL_ALERT_EMIT', function(event, type) {
+      $scope.$broadcast('CODE_ADDED_GROWL_ALERT_BROADCAST', type);
+    });
+  }
+
   function repositionHeroSlider(heroSliderEl){
     var mainHeaderHeight = $('#main-header').height();
     heroSliderEl.css('margin-top', mainHeaderHeight);

@@ -1,0 +1,30 @@
+<div class="assurance-badge-container" ng-class="{'guarantee-assurance-active': guaranteePolicyDescription}">
+  <figure class="assurance security-assurance">
+    <img src="/static/images/digicert-badge@2x.png" alt="digicert badge" class="assurance-badge"></img>
+    <div class="assurance-content">
+      <header>
+        <h4>_secured_with_digicert_</h4>
+        <img src="/static/images/digicert-logo@2x.png" alt="digicert logo" class="assurance-logo"></img>
+      </header>
+      <p>_we_value_your_privacy_</p>
+    </div>
+  </figure>
+  <figure class="assurance payment-assurance" ng-if="guaranteePolicyDescription">
+    <img src="/static/images/credit-card@2x.png" alt="credit card badge" class="assurance-badge"></img>
+    <div class="assurance-content">
+      <header>
+        <h4>_when_will_we_charge_your_card_</h4>
+      </header>
+      <div ng-bind-html="guaranteePolicyDescription"></div>
+    </div>
+  </figure>
+  <figure class="assurance price-assurance">
+    <img src="/static/images/best-prix-badge@2x.png" alt="price badge" class="assurance-badge"></img>
+    <div class="assurance-content">
+      <header>
+        <h4>_best_price_guarantee_</h4>
+      </header>
+      <p>_you_wont_find_it_cheaper_</p>
+    </div>
+  </figure>
+</div>

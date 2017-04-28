@@ -661,7 +661,8 @@ angular.module('mobiusApp.config', [])
       'upsells': {
         'display': true
       },
-      'displayAltProduct':true
+      'displayAltProduct': true,
+      'showSlashThrough': true
     },
 
     'reservations': {
@@ -902,7 +903,9 @@ angular.module('mobiusApp.config', [])
           'type': 'days'
         }
       },
-      'mobileTopRight':true //Displays the booking book now button in top right
+      'mobileTopRight':true, //Displays the booking book now button in top right
+      'prefillGrowlAlert':true, //When enabled will display a growl alert if code field is prefilled
+      'keepPrefillStyle':true //By default prefill style is hidden after 1 second. When enabled this will prevent it from being hidden.
     },
 
     'booking': {
@@ -983,7 +986,8 @@ angular.module('mobiusApp.config', [])
       },
       'vouchers' : {
         'enable':true
-      }
+      },
+      'reservationAssurance': true
     },
     'myAccount' : {
       'displaySettings' : {
