@@ -165,6 +165,7 @@
         "rates_loading_title": "Chargement du meilleur tarif pour vous...",
         "price_low_to_high": "Prix - Ordre croissant",
         "COMPONENTS": "//////////////////////////////////////////////////////",
+        "lowest_price": "À partir de:",
         "price_high_to_low": "Prix - Ordre décroissant",
         "recommended": "Recommandé",
         "availability": "Disponibilité",
