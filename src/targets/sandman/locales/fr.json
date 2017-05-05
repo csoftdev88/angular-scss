@@ -515,7 +515,6 @@
         "error_page_copy_one": "Nous corrigeons le problème en ce moment même — veuillez revérifier sous peu et tout sera comme neuf!",
         "error_page_copy_two": "Si vous avez besoin d'une assistance immédiate, vous pouvez nous joindre au <a href='tel:1-800-SANDMAN'></a>",
         "change_currency": "Changer la devise",
-        "this_room_available_on": "Cette chambre est disponible le :",
         "statistics_booking_message": "Il y a eu {numTypes} réservations ces {numUnits} derniers {unit}",
         "ota_loading": "CHARGEMENT DES TARIFS",
         "statistics_views_message": "Il y a eu {numTypes} vues ces {numUnits} dernières {unit}",
@@ -564,13 +563,17 @@
         "guarantee": "Garantie",
         "family": "Famille",
         "pet": "Animal",
-        "show_all_facilities": "Show all facilities",
-        "selected_offer_for_you":"Selected offer for you",
-        "show_all_offers":"Show All Offers",
-        "secured_with_digicert":"Secured with",
-        "we_value_your_privacy":"We value your privacy and take security very seriously. This is an encrypted site using the latest security standards, so your details are always protected.",
-        "when_will_we_charge_your_card":"When will we charge your card?",
-        "best_price_guarantee":"Best Price Guarantee",
-        "you_wont_find_it_cheaper":"You won’t find it cheaper elsewhere, guaranteed! If you find a better price, call us on 1-800-SANDMAN with the details and we promise we'll match it."
+        "this_room_available_on": "Nous co\u00fbtons moins cher que :",
+        "show_all_facilities": "Afficher tous les h\u00e9bergements :",
+        "selected_offer_for_you": "Offre s\u00e9lectionn\u00e9e pour vous",
+        "show_all_offers": "Afficher toutes les offres",
+        "secured_with_digicert": "S\u00e9curis\u00e9 par",
+        "we_value_your_privacy": "Nous respectons votre vie priv\u00e9e et nous prenons la s\u00e9curit\u00e9 tr\u00e8s au s\u00e9rieux. Ce site est encrypt\u00e9 conform\u00e9ment aux normes de s\u00e9curit\u00e9 les plus r\u00e9centes afin que vos donn\u00e9es soient toujours prot\u00e9g\u00e9es.",
+        "when_will_we_charge_your_card": "Quand d\u00e9biterons-nous votre carte?",
+        "best_price_guarantee": "Meilleur prix garanti",
+        "you_wont_find_it_cheaper": "Vous ne trouverez pas plus \u00e9conomique ailleurs, c'est garanti! Si vous trouvez un meilleur prix, contactez-nous au 1-800-SANDMAN avec les d\u00e9tails et nous promettons d'\u00e9galer le prix.",
+        "promo_code_applied": "Code promo appliqu\u00e9 avec succ\u00e8s",
+        "corp_code_applied": "Code Corp appliqu\u00e9 avec succ\u00e8s",
+        "group_code_applied": "Code Group appliqu\u00e9 avec succ\u00e8s"
   }
 }
