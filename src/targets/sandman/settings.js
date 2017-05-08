@@ -369,7 +369,7 @@ angular.module('mobiusApp.config', [])
       'autoplayDelay': 5000,
       'animationDuration': 800,
       'preloadImages': true,
-      'slideWidth': 1680,
+      'slideWidth': 1200,
       'slideHeight': 530
     },
     // Menu settings - showing/hidding menu items
