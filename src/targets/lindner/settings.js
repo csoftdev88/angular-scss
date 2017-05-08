@@ -231,7 +231,8 @@ angular.module('mobiusApp.config', [])
       // Use 0 value to disable automatic slide animation
       'autoplayDelay': 5000,
       'animationDuration': 800,
-      'preloadImages': true
+      'preloadImages': true,
+      'slideWidth': 1200
     },
     // Menu settings - showing/hidding menu items
     'menu': {
