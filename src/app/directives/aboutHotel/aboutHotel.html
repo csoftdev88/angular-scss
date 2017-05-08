@@ -27,7 +27,7 @@
   <offer-item
     ng-repeat="offer in offersList track by $index">
     <a ui-sref="offers({code:offer.meta.slug})" ng-click="advertClick($event, {'type': 'offers', 'code': offer.code})">
-      <img ng-if="offer.image && offer.image.uri" ng-src="{{offer.image.uri}}" alt="{{offer.image.alt}}">
+      <img ng-if="offer.image && offer.image.uri"  ng-src="{{offer.image.uri | cloudinaryImage : offerWidth : offerHeight : 'fill'}}" alt="{{offer.image.alt}}">
 
       <section>
         <h2>{{offer.title}}</h2>
