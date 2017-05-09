@@ -260,6 +260,7 @@
     "rates_loading_title": "Lädt den günstigsten Preis für Sie...",
 
     "COMPONENTS": "//////////////////////////////////////////////////////",
+    "lowest_price": "Lowest Price:",
     "best_value": "Best Value",
     "price_low_to_high": "Niedrigster Preis zuerst",
     "price_high_to_low": "Höchste Pries zuerst",

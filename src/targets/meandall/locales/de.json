@@ -159,6 +159,7 @@
         "reload_rates": "Preise erneut laden",
         "reset_filters": "Filter zurücksetzen",
         "COMPONENTS": "////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+        "lowest_price": "Lowest Price:",
         "rates_loading_title": "Der beste Preis für Sie wird geladen ...",
         "best_value": "Bestes Preis-Leistungsverhältnis",
         "price_low_to_high": "Preis - Niedrig bis hoch",
