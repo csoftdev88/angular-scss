@@ -3,7 +3,7 @@
  * This service contains reusable methods for page scrolling
  */
 angular.module('mobiusApp.services.scroll', [])
-  .service( 'scrollService',  function($window, $document, $location, $state) {
+  .service( 'scrollService',  function($window, $document, $location, $state, $timeout) {
 
     //TODO: remove half hero scroll when confirmed
 
@@ -54,11 +54,17 @@ angular.module('mobiusApp.services.scroll', [])
     }
 
     function getHeaderHeight(hasHeroSlider){
-      return angular.element('#main-header').height() + angular.element('breadcrumbs').height() + hasHeroSlider?angular.element('hero-slider').height():0;
+      return angular.element('#main-header').height() + angular.element('breadcrumbs').height() + hasHeroSlider?angular.element('hero-slider').height() : 0;
     }
 
     function getScrollTop(){
       return ($window.pageYOffset || $document.scrollTop)  - ($document.clientTop || 0) || 0;
+    }
+
+    function scrollToBreadcrumbs () {
+      $timeout(function () {
+        scrollTo(null, angular.element('breadcrumbs').height());
+      }, 0);
     }
 
     // Public methods
@@ -67,6 +73,7 @@ angular.module('mobiusApp.services.scroll', [])
       scrollTo: scrollTo,
       headerLogoTrigger: headerLogoTrigger,
       getScrollTop: getScrollTop,
-      getHeaderHeight: getHeaderHeight
+      getHeaderHeight: getHeaderHeight,
+      scrollToBreadcrumbs: scrollToBreadcrumbs
     };
   });

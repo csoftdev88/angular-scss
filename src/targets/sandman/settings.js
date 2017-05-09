@@ -152,7 +152,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'staging': {
         'id': 'sandman-staging',
@@ -733,6 +733,7 @@ angular.module('mobiusApp.config', [])
       'displayPageHeading': true,
       'includeOfferAvailabilityPropertyDropdown': true,
       'displayOfferImageInHeroSlider': false,
+      'scrollToBreadcrumbs': true,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
         '0': 1,
@@ -767,6 +768,10 @@ angular.module('mobiusApp.config', [])
       'displaySummary': false,
       'displayMap': false,
       'allowPasswordChange': false
+    },
+
+    'aboutUs': {
+      'scrollToBreadcrumbs': true
     },
 
     'languages': {
