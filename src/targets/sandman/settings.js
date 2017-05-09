@@ -120,6 +120,10 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'id': '294639'
   },
+  'rumScript': {
+    'enable': true,
+    'id': '5910613c8a112b33c9d2e6c7'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
