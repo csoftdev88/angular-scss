@@ -50,6 +50,8 @@ angular.module('mobius.controllers.offers', [])
   breadcrumbsService.clear()
     .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
 
+  scrollService.scrollToBreadcrumbs();
+
   //////////////////////////
   ///Main offers filtering logic
   //////////////////////////
@@ -225,7 +227,7 @@ angular.module('mobius.controllers.offers', [])
               //breadcrumbs
               if (!$stateParams.code) {
                 setBreadCrumbs(null, null, curProperty);
-                
+
                 //Set meta data using info from property
                 updateMetaData(curProperty);
               }
