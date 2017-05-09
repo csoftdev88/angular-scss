@@ -4,8 +4,10 @@
  */
 angular.module('mobius.controllers.offers', [])
 
-.controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-  $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService, routerService, stateService) {
+.controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService, $state, $stateParams,
+                                   _, breadcrumbsService, metaInformationService, bookingService, scrollService,
+                                   $timeout, chainService, Settings, propertyService, cookieFactory, $window,
+                                   locationService, routerService, stateService) {
 
 
   //////////////////////////
@@ -50,7 +52,11 @@ angular.module('mobius.controllers.offers', [])
   breadcrumbsService.clear()
     .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
 
-  scrollService.scrollToBreadcrumbs();
+  if (Settings.UI.offers.scrollToBreadcrumbs) {
+    scrollService.scrollToBreadcrumbs();
+  } else {
+    scrollService.scrollTo('top');
+  }
 
   //////////////////////////
   ///Main offers filtering logic

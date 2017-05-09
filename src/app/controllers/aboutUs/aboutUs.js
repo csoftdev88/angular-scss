@@ -16,7 +16,11 @@ angular.module('mobius.controllers.about', [])
     $scope.config = Settings.UI.aboutChain;
     $scope.contentConfig = Settings.UI.contents;
 
-    scrollService.scrollToBreadcrumbs();
+    if (Settings.UI.aboutUs.scrollToBreadcrumbs) {
+      scrollService.scrollToBreadcrumbs();
+    } else {
+      scrollService.scrollTo('top');
+    }
 
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
