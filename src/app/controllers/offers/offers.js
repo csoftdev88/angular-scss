@@ -4,8 +4,10 @@
  */
 angular.module('mobius.controllers.offers', [])
 
-.controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService,
-  $state, $stateParams, _, breadcrumbsService, metaInformationService, bookingService, scrollService, $timeout, chainService, Settings, propertyService, cookieFactory, $window, locationService, routerService, stateService) {
+.controller('OffersCtrl', function($rootScope, $scope, $controller, $location, contentService, $state, $stateParams,
+                                   _, breadcrumbsService, metaInformationService, bookingService, scrollService,
+                                   $timeout, chainService, Settings, propertyService, cookieFactory, $window,
+                                   locationService, routerService, stateService) {
 
 
   //////////////////////////
@@ -49,6 +51,12 @@ angular.module('mobius.controllers.offers', [])
   //Initial breadcrumbs
   breadcrumbsService.clear()
     .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
+
+  if (Settings.UI.offers.scrollToBreadcrumbs) {
+    scrollService.scrollToBreadcrumbs();
+  } else {
+    scrollService.scrollTo('top');
+  }
 
   //////////////////////////
   ///Main offers filtering logic
@@ -225,7 +233,7 @@ angular.module('mobius.controllers.offers', [])
               //breadcrumbs
               if (!$stateParams.code) {
                 setBreadCrumbs(null, null, curProperty);
-                
+
                 //Set meta data using info from property
                 updateMetaData(curProperty);
               }
