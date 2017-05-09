@@ -398,8 +398,8 @@ angular.module('mobius.controllers.hotel.details', [
         breadcrumbsService
           .addHref('About', 'jsAbout')
           .addHref('Rooms', 'jsRooms')
-          .addHref('Location', 'jsLocation')
           .addHref('Offers', 'jsOffers')
+          .addHref('Location', 'jsLocation')
           .addHref('Gallery', 'fnOpenHotelLightBox');
 
         if (details.hasOwnProperty('available')) {
