@@ -57,7 +57,7 @@ angular.module('mobiusApp.config', [])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-development',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -66,7 +66,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
@@ -77,7 +77,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
@@ -88,7 +88,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -97,7 +97,7 @@ angular.module('mobiusApp.config', [])
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.3/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-live',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -119,6 +119,10 @@ angular.module('mobiusApp.config', [])
   'hotjar': {
     'enable': true,
     'id': '294639'
+  },
+  'rumScript': {
+    'enable': true,
+    'id': '5910613c8a112b33c9d2e6c7'
   },
   'API': {
     'defaultThrottleTimeout': 30,
@@ -936,7 +940,12 @@ angular.module('mobiusApp.config', [])
       'vouchers' : {
         'enable':true
       },
-      'reservationAssurance':true //Displays reservation assurance badges in the checkout flow
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
+      }
     },
     'myAccount' : {
       'displaySettings' : {
