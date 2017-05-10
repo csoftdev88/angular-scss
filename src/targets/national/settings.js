@@ -217,7 +217,7 @@ angular.module('mobiusApp.config', [])
       'orderPropertiesByChain': false,
       'header': {
         'logoLink': 'http://www.grandhotel-national.com'
-      }  
+      }
     },
     'contents':{
       'displayContentImageInHeroSlider': false
@@ -722,6 +722,12 @@ angular.module('mobiusApp.config', [])
         },
         'optedInDefault': true,
         'timeFormat': 'HH:mm'
+      },
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
       },
       'termsAndConditionsLink':'http://www.grandhotel-national.com/en/corporate/general-terms-conditions',
       'displayStaticFeesTooltip': false
