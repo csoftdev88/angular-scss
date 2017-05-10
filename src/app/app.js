@@ -156,7 +156,7 @@ angular
     'mobiusApp.directives.socialLinks',
     'mobiusApp.directives.taTeaser',
     'mobiusApp.directives.stickyHeader',
-      
+
     // Common controllers
     'mobius.controllers.reservation.directive',
     'mobiusApp.directives.embeddedForm',
@@ -185,6 +185,7 @@ angular
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
     'mobiusApp.directives.infinitiApeironScript',
+    'mobiusApp.directives.rumScript',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
     'mobiusApp.directives.hoverTrigger',
@@ -589,7 +590,7 @@ angular
 .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
-    if(next.name === 'unknown'){ //If the page we are navigating to is not recognised    
+    if(next.name === 'unknown'){ //If the page we are navigating to is not recognised
       if(Settings.API.track404s && Settings.API.track404s.enable) {  //This segment tracks any 404s and sends to our 404 tracking service
         var fromPath = null;
         if($location.search() && $location.search().fromDomain) {
@@ -604,7 +605,7 @@ angular
       $rootScope.prerenderStatusCode = '403';
     } else { //Otherwise set as 200 ok
       $rootScope.prerenderStatusCode = '200';
-    }    
+    }
   });
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -818,7 +819,7 @@ angular
         $state.reload();
       }
     });
-    
+
     //If menu overlay is enabled, close it before navigating to the next page.
     if($scope.menuOverlayEnabled){
       $scope.hideMenuOverlay();
@@ -866,7 +867,7 @@ angular
     }
 
     $scope.hideFooter = false;
-    
+
     //If on a reservations page and config says to hide footer, then hide footer
     if($state.current.parent === 'reservation' && $scope.uiConfig.reservations && $scope.uiConfig.reservations.hideFooter){
       $scope.hideFooter = true;
@@ -880,7 +881,7 @@ angular
 
   if(funnelRetentionService.isFunnelRetentionActive()){
     funnelRetentionService.init($scope);
-    
+
     funnelRetentionService.addExitHandler();
 
     $scope.retentionClick = function(){
