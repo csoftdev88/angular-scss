@@ -139,7 +139,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'staging': {
         'id': 'sutton-staging',
@@ -149,7 +149,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create' 
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'uat': {
         'id': 'sutton-uat',
@@ -159,7 +159,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'  
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'live': {
         'id': 'sutton-live',
@@ -1004,7 +1004,12 @@ angular.module('mobiusApp.config', [])
       'vouchers' : {
         'enable':true
       },
-      'reservationAssurance': true
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
+      }
     },
     'myAccount' : {
       'displaySettings' : {
