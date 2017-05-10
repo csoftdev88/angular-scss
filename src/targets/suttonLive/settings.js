@@ -1004,7 +1004,12 @@ angular.module('mobiusApp.config', [])
       'vouchers' : {
         'enable':true
       },
-      'reservationAssurance': true
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
+      }
     },
     'myAccount' : {
       'displaySettings' : {
