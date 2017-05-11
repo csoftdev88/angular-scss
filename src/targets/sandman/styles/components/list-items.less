@@ -1,6 +1,9 @@
 ////////////////////
 //// LIST ITEMS ////
 ////////////////////
+
+@import '../components/ribbons';
+
 @list-item-min-height: 187px;
 
 list-items {
@@ -26,6 +29,18 @@ pricing-switch {
 }
 
 list-item {
+
+  // Import ribbon mixin from ../components/ribbons
+  .use-ribbon();
+
+  // Add padding to the top if a ribbon is present in the same container
+  .member-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
+  // @note Why can I not do .member-ribbon, .highlight-ribbon ~ pricing-info ??
+  .highlight-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
 
   h2{
     font-size: 18px !important;
@@ -64,8 +79,9 @@ list-item {
     p{
       display: inline-block;
       span:not(.points){
-        float: right;
-        clear: both;
+        float: none;
+        clear: initial;
+        padding-right: 5px;
       }
     }
     button-submit{
@@ -114,6 +130,10 @@ list-item {
           color: @c-grey;
           font-weight: 300;
           font-style: italic;
+        }
+        .value:not(.points){
+          float: none;
+          clear: initial;
         }
       }
     }
