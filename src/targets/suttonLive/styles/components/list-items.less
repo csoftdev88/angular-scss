@@ -1,4 +1,18 @@
+@import '../components/ribbons';
+
 list-item {
+
+  .use-ribbon();
+
+  // Add padding to the top if a ribbon is present in the same container
+  .member-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
+  // @note Why can I not do .member-ribbon, .highlight-ribbon ~ pricing-info ??
+  .highlight-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
+
   .viewport-mobile & {
     padding-right:25px
   }
@@ -46,4 +60,4 @@ list-item {
   }
 }
 
-  
+
