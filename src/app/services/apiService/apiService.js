@@ -84,6 +84,9 @@ angular.module('mobiusApp.services.api', [])
     }
 
     headers['mobius-requestId'] = $rootScope.requestId;
+    headers['mobius-test-override'] = '#MOB^$32ADjj*';
+    headers['secrettest-customer-figur8'] = '179622';
+    headers['secrettest-customer-mobius'] = '210404';
 
     $http({
       method: 'POST',
