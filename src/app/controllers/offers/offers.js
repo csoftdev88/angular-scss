@@ -52,7 +52,7 @@ angular.module('mobius.controllers.offers', [])
   breadcrumbsService.clear()
     .addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
 
-  if (Settings.UI.offers.scrollToBreadcrumbs) {
+  if (Settings.UI.offers && Settings.UI.offers.scrollToBreadcrumbs) {
     scrollService.scrollToBreadcrumbs();
   } else {
     scrollService.scrollTo('top');
