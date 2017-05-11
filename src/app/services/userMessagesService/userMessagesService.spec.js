@@ -6,6 +6,9 @@ describe('userMessagesService', function() {
   beforeEach(function() {
     module('underscore');
     module('mobiusApp.services.userMessagesService');
+    module('mobiusApp.services.userMessagesService', function($provide) {
+      $provide.value('stateService', { isMobile: function() { return true; } });
+    });
   });
 
   beforeEach(inject(function($rootScope, userMessagesService) {
