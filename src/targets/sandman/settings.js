@@ -941,7 +941,7 @@ angular.module('mobiusApp.config', [])
         'enable':true
       },
       'reservationAssurance': {
-        display: true,
+        display: false,
         payment: true,
         price: true,
         security: true
