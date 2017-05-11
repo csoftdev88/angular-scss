@@ -14,6 +14,13 @@ describe('mobius.controllers.modals.policy', function() {
 
         $provide.value('data', {});
 
+        $provide.value('stateService', {
+          getAppLanguageCode: function(){},
+          isMobile: function(){}
+        });
+
+        $provide.value('DynamicMessages', {});
+
         $provide.value('Settings', {
           UI: {
             'policies': {

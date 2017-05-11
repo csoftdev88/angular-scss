@@ -1,0 +1,149 @@
+section-image {
+  display: block;
+  overflow: visible;
+  position: relative;
+  @media print {
+    display:none;
+  }
+  >div {
+    .transition(all, .3s, ease-in-out);
+  }
+}
+
+.parallax-image {
+  width: 200%;
+  left: -50%;
+  position: absolute;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  .viewport-mobile & {
+    background-attachment: initial;
+  }
+  .description {
+    display: none;
+    padding: 35px 12px;
+    background: @c-black;
+    position: absolute;
+    bottom: 35px;
+    box-sizing:border-box;
+    h1 {
+      margin-bottom: 30px;
+    }
+    .viewport-mobile & {
+      width: 100%;
+      display: block;
+    }
+  }
+  .room-heading-overview {
+    background: @c-secondary;
+    position: absolute;
+    top: 575px;
+    width: 100%;
+    padding: 55px 0;
+    box-sizing:overview;
+    .viewport-mobile & {
+      top: initial;
+      bottom: 35px;
+      padding: 30px 15px;
+    }
+    .grid-wrapper {
+      .viewport-mobile & {
+        padding: 0;
+      }
+    }
+    //Styling for back link 
+    .back-to-hotel {
+      display: block;
+      cursor:pointer;
+      text-transform:uppercase;
+      .viewport-mobile & {
+        margin-top:20px;
+        font-size:18px;
+      }
+    }
+    .left-content {
+      width: 60%;
+      float: left;
+      .viewport-mobile & {
+        float: none;
+        width: 100%;
+      }
+    }
+    .description {
+      display: block;
+      padding: 0;
+      position: initial;
+      bottom: initial
+    }
+    .room-amenities {
+      float: left;
+      width: 40%;
+      padding-left: 100px;
+      box-sizing: border-box;
+      .viewport-mobile & {
+        display: none;
+      }
+      amenities-list {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+#hotel-header-image,
+#room-header-image {
+  .parallax-image {
+    width: 100%;
+    left:auto;
+    position: relative;
+  }
+  .header-logo {
+    width: 290px;
+    padding: 1em;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: @c-white;
+    -webkit-transition: all .33s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    transition: all .33s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    .viewport-mobile & {
+      display: none;
+    }
+    img {
+      width: 100%;
+    }
+  }
+  //This makes the logo disappear from header on scroll
+  .scrolled & {
+    .header-logo {
+      left: -22em;
+    }
+  }
+}
+
+#room-header-image {
+  .header-logo {
+    top: 45px;
+    transform: none;
+  }
+}
+
+#bottom-image {
+  margin: 80px 0 15px 0;
+  .viewport-mobile & {
+    margin: 35px 0 0 0;
+  }
+}
+
+#reservation-header-image {
+  .viewport-mobile & {
+    display: none;
+  }
+}

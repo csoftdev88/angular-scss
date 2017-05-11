@@ -6,6 +6,9 @@ hotel-detail {
 
   .back-to-top{
     background: rgba(172, 160, 152, 0.5);
+    .viewport-mobile & {
+      display:none;
+    }
   }
 
   h2{
@@ -21,6 +24,7 @@ hotel-detail {
     display: none;
     .viewport-mobile &{
       display: block;
+      margin-bottom:10px;
     }
   }
 
@@ -32,9 +36,15 @@ hotel-detail {
 
   .hotel-info-amenities{
     margin-top: 40px;
+    .viewport-mobile & {
+      margin-top:0;
+    }
     h2{
       .chain-sand &{
         color: @c-grey;
+      }
+      .viewport-mobile & {
+        display:none;
       }
     }
   }
@@ -43,6 +53,10 @@ hotel-detail {
   .hotel-detail__rooms {
 
     margin-bottom: 70px;
+    .viewport-mobile & {
+      margin-top:20px;
+      margin-bottom:0px;
+    }
 
     .section-header{
       position: relative;
@@ -159,13 +173,19 @@ hotel-detail {
       list-item {
 
         .viewport-mobile & {
-          border-bottom: 15px solid #dedede;
-          padding-bottom: 10px;
+          border-bottom: 1px solid #dedede;
           margin-bottom: 20px;
+          box-sizing:border-box;
+          padding:0 30px 10px 0;
         }
 
         .item-header{
           margin-bottom: 16px;
+          .viewport-mobile & {
+            padding-left:115px;
+            margin-bottom:5px;
+            box-sizing:border-box;
+          }
 
           h3{
             a{
@@ -184,6 +204,9 @@ hotel-detail {
                 position: relative;
                 top: -1px;
                 left: 5px;
+                .viewport-mobile & {
+                  display:none;
+                }
               }
             }
 
@@ -222,6 +245,24 @@ hotel-detail {
             }
           }
         }
+        .list-item-container + i {
+          display:none;
+          .viewport-mobile & {
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top:-10px;
+            font-size: 50px;
+            color: @c-secondary;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+          }
+          .chain-sign & {
+            color: @c-secondary-sign;
+          }
+        }
 
         .list-item-container {
           display: inline-block;
@@ -245,25 +286,27 @@ hotel-detail {
               width: 37%;
               padding: 0;
 
+              .viewport-mobile &{
+                width: 100%;
+                padding: 0;
+                position:relative;
+                min-height:100px;
+              }
+
               .room-image-placeholder {
                 width:50%;
                 height:150px;
                 float:left;
                 margin-bottom:20px;
-                background:url('http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1471342708/SAND/ui/sandman-placeholder.jpg') no-repeat;
+                background:url('//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1471342708/SAND/ui/sandman-placeholder.jpg') no-repeat;
                 background-size:contain;
                 .chain-sign & {
-                  background:url('http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1471342769/SAND/ui/signature-placeholder.jpg') no-repeat;
+                  background:url('//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1471342769/SAND/ui/signature-placeholder.jpg') no-repeat;
                   background-size:contain;
                 }
                 .viewport-mobile & {
                   display:none;
                 }
-              }
-
-              .viewport-mobile &{
-                width: 100%;
-                padding: 0;
               }
 
               .room-image{
@@ -294,6 +337,40 @@ hotel-detail {
                 color: @c-secondary;
                 .chain-sign &{
                   color: @c-menu-active-sign;
+                }
+              }
+              > .pricing-info {
+                .viewport-mobile & {
+                  float:left;
+                  margin-left:115px;
+                }
+                .not-available {
+                  .viewport-mobile & {
+                    padding-left:0;
+                    padding-top:10px;
+                  }
+                }
+                .price-form {
+                  .viewport-mobile & {
+                    font-size:15px;
+                    color:@c-secondary;
+                    text-transform:lowercase;
+                    font-style:initial;
+                  }
+                  .value {
+                    .viewport-mobile & {
+                      text-transform:uppercase;
+                      color:@c-secondary;
+                      font-weight:initial;
+                      padding:0;
+                    }
+                  }
+                  .chain-sign.viewport-mobile & {
+                    color:@c-menu-active-sign;
+                    .value {
+                      color:@c-menu-active-sign;
+                    }
+                  }
                 }
               }
             }
@@ -328,7 +405,6 @@ hotel-detail {
             }
 
             > .pricing-info {
-
               .price-form {
 
                 .value {
@@ -366,31 +442,10 @@ hotel-detail {
 
             .our-rates {
               display: none;
-              float: left;
-              width: 100%;
-              font-weight: bold;
-              margin-top: 15px;
-              text-align: center;
-              color: @c-link;
-
-              .viewport-mobile & {
-                display: block;
-              }
             }
 
             .viewport-mobile & {
-              width: 100%;
-              border: none;
-
-              border-bottom: 1px solid @c-light-grey;
-
-              .description {
-                width: 100%;
-              }
-
-              > .pricing-info {
-                display: none;
-              }
+              display:none;
             }
 
             + .not-available {
@@ -424,6 +479,9 @@ hotel-detail {
             ul.thumbnail-nav{
               display: inline;
               width:100%;
+              .viewport-mobile & {
+                display:none;
+              }
               li {
                 max-width:45px;
                   img {
@@ -435,16 +493,24 @@ hotel-detail {
 
             .viewport-mobile &{
               margin-bottom: 20px;
+              width:100px;
+              position:absolute;
             }
 
             .slider-content {
               overflow: hidden;
               height: 150px;
               position: relative;
+              .viewport-mobile & {
+                height:100px;
+              }
 
               .hero-slide {
                 overflow: visible;
                 height: 150px;
+                .viewport-mobile & {
+                  height:100px;
+                }
 
                 .content-inner {
                   top: 180px;
@@ -579,6 +645,12 @@ hotel-detail {
         background:@c-primary-sand;
         color:white;
         font-weight:700;
+        .viewport-mobile & {
+          width:100%;
+          background:@c-secondary;
+          font-size:14px;
+          font-weight:400;
+        }
         .chain-sign & {
           background:@c-primary-sign;
         }
@@ -587,9 +659,6 @@ hotel-detail {
           .chain-sign & {
             background:darken(@c-primary-sign, 10%);
           }
-        }
-        .viewport-mobile & {
-          width:100%;
         }
       }
     }
@@ -600,8 +669,18 @@ hotel-detail {
       .flexible-dates-bar {
         background: rgba(62, 177, 194, 0.2);
       }
-      h2 { 
+      .search-details {
+        .viewport-mobile & {
+          margin-bottom:0px;
+          padding:20px 20px 0 20px;
+          background:#F9F9F9;
+        }
+      }
+      h2 {
         margin:0;
+        .viewport-mobile & {
+          display:none;
+        }
       }
     }
   }
@@ -635,6 +714,30 @@ hotel-detail {
         right:0;
         top:0;
       }
+    }
+  }
+  view-more-images {
+    .viewport-mobile & {
+      margin:0 !important;
+      read-more {
+        padding:0;
+        border-bottom:0px none;
+      }
+    }
+  }
+  room-products {
+    .viewport-mobile & {
+      display:none;
+    }
+  }
+  .reveal-trigger {
+    padding-bottom: 0;
+    margin-top: 20px;
+    font-weight: 200;
+    font-size: 13px;
+    line-height: 13px;
+    .chain-sign & {
+      color:@c-menu-active-sign;
     }
   }
 }

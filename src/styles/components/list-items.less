@@ -229,7 +229,9 @@ list-item {
 
   // behave like link
   &[ng-click] {
-    cursor: pointer;
+    .viewport-mobile & {
+      cursor: pointer;
+    }
   }
 
   //- Image

@@ -78,9 +78,9 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function clearStoredUser() {
-      $window.document.cookie = 'MobiusId' + '=; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
-      $window.document.cookie = 'MobiusToken' + '=; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
-      $window.document.cookie = 'CustomerID' + '=; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
+      $window.document.cookie = 'MobiusId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      $window.document.cookie = 'MobiusToken' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      $window.document.cookie = 'CustomerID' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     }
 
     function storeUserLanguage(lang) {
@@ -102,7 +102,6 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function loadProfile() {
-
       var customerId = getCustomerId();
 
       //We need token to load mobius profile
@@ -158,6 +157,8 @@ angular.module('mobiusApp.services.user', [])
           }
         });
       } else {
+        //If for whatever reason we do not have a customerId, clear the stored user and reject the auth
+        clearStoredUser();
         return $q.reject({});
       }
     }

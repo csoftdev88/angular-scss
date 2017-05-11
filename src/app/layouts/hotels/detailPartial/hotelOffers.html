@@ -1,10 +1,11 @@
 <!-- this should be filled with actual data from API
      it should be presented in the following structure -->
-<section class="hotel-detail__offers" grid-row ng-if="offersList.length && !$root.thirdparty">
+<section class="hotel-detail__offers" grid-row ng-if="offersList.length && !$root.thirdparty" ng-class="{'single-offer-mobile': singleOfferMobile}">
   <hr />
 
   <header class="section-header" grid="12" id="jsOffers">
-    <h2 ng-bind-html="'_offers_title_' | mainHeaderStyle"></h2>
+    <h2 ng-if="!singleOfferMobile || !isMobile" ng-bind-html="'_offers_title_' | mainHeaderStyle" class="offer-title"></h2>
+    <h2 ng-if="singleOfferMobile && isMobile" class="single-offer-title">_selected_offer_for_you_</h2>
   </header>
 
 
@@ -23,7 +24,8 @@
 
   <p grid="12" class="more-btn">
     <a ng-href="{{propertyOffersHref}}">
-      _see_more_
+      <span ng-if="!singleOfferMobile || !isMobile">_see_more_</span>
+      <span ng-if="singleOfferMobile && isMobile">_show_all_offers_</span>
     </a>
   </p>
 </section>

@@ -1,6 +1,9 @@
 ////////////////////
 //// LIST ITEMS ////
 ////////////////////
+
+@import '../components/ribbons';
+
 @list-item-min-height: 187px;
 
 list-items {
@@ -26,7 +29,26 @@ pricing-switch {
 }
 
 list-item {
-  min-height: @list-item-min-height;
+
+  // Import ribbon mixin from ../components/ribbons
+  .use-ribbon();
+
+  // Add padding to the top if a ribbon is present in the same container
+  .member-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
+  // @note Why can I not do .member-ribbon, .highlight-ribbon ~ pricing-info ??
+  .highlight-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
+
+  .member-ribbon + .list-item-header {
+    margin-top: 30px;
+  }
+
+  .highlight-ribbon + .list-item-header {
+    margin-top: 30px;
+  }
 
   h2{
     font-size: 18px !important;
@@ -43,6 +65,9 @@ list-item {
 
     pricing-info {
       display: none;
+      .viewport-mobile & {
+        margin-top:10px;
+      }
     }
 
     earned-points,
@@ -62,8 +87,9 @@ list-item {
     p{
       display: inline-block;
       span:not(.points){
-        float: right;
-        clear: both;
+        float: none;
+        clear: initial;
+        padding-right: 5px;
       }
     }
     button-submit{
@@ -94,9 +120,16 @@ list-item {
       p{
         .original-price{
           font-weight: 700;
+          .viewport-mobile & {
+            float:none;
+            margin-right:5px;
+          }
         }
         .value{
           color: @c-grey;
+          .viewport-mobile & {
+            color:@c-secondary;
+          }
           .chain-sign &{
             color: @c-menu-active-sign;
           }
@@ -105,6 +138,10 @@ list-item {
           color: @c-grey;
           font-weight: 300;
           font-style: italic;
+        }
+        .value:not(.points){
+          float: none;
+          clear: initial;
         }
       }
     }

@@ -1,4 +1,4 @@
-<hotel-room grid="12" id="hotel-room">
+<hotel-room ng-attr-grid="{{!viewSettings.fullWidthSections ? 12 : undefined}}" id="hotel-room">
   <section class="header" ng-if="!config.headerPartial.display">
     <h1 ng-bind-html="roomDetails.name | mainHeaderStyle"></h1>
     <span class="sub-title" ng-if="config.displayRoomSubtitle && roomDetails.subTitle">{{roomDetails.subTitle}}</span>
@@ -11,7 +11,7 @@
     </figure>
 
     <div class="title-wrapper">
-      <h1 class="title" ng-bind-html="roomDetails.name | mainHeaderStyle"</h1>
+      <h1 class="title" ng-bind-html="roomDetails.name | mainHeaderStyle" </h1>
     </div>
 
     <div class="contact-info">
@@ -30,184 +30,213 @@
     <p class="description" ng-bind-html="sanitize(roomDetails.description)"></p>
   </section>
 
-  <section ng-if="roomDetails.amenities.length && viewSettings.showAmenitiesTop" class="room-amenities">
+  <section ng-if="filteredAmenities.length && viewSettings.showAmenitiesTop" class="room-amenities">
     <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
-
-    <amenities-list ng-if="property">
-      <amenity-item ng-repeat="amenity in roomDetails.amenities" ng-init="amenity.chainCode = property.chainCode">
+    <input ng-if="roomDetails && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities" />
+    <amenities-list ng-if="property" ng-class="{'restricted-amenities': config.restrictAmenities}">
+      <amenity-item ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = property.chainCode">
         <slug-img slug="amenity" type="room" width="15"></slug-img>
         <span class="amenity-caption">{{amenity.name}}</span>
       </amenity-item>
     </amenities-list>
+    <label ng-if="roomDetails && config.restrictAmenities" for="hotel-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
   </section>
 
 
-  <section ng-if="products">
-    <!-- <hr class="dividerWithoutImage"/> -->
-    <list-items ng-if="products.length">
+  <section ng-if="products" class="products-section">
+    <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+      <!-- <hr class="dividerWithoutImage"/> -->
+      <list-items ng-if="products.length">
 
-      <div class="controls">
-        <order-switch ng-show="hasDates && products.length > 1">
-          <select
-            name="sorting"
-            ng-model="currentOrder"
-            disable-search="true"
-            chosen
-            ng-options="option.name for option in sortingOptions"
-            placeholder-text-single="_sorting_filter_placeholder_"
-            ng-change="orderSwitchChange(currentOrder)"
-            ng-init="initSortingOptions({
-              'priceLowToHigh': '_price_low_to_high_',
-              'priceHighToLow': '_price_high_to_low_',
-              'recommended': '_recommended_'
+        <div class="controls">
+          <order-switch ng-show="hasDates && products.length > 1">
+            <select name="sorting" ng-model="currentOrder" disable-search="true" chosen ng-options="option.name for option in sortingOptions"
+              placeholder-text-single="_sorting_filter_placeholder_" ng-change="orderSwitchChange(currentOrder)" ng-init="initSortingOptions({
+              'priceLowToHigh': '_sort_by_' + ' _price_low_to_high_',
+              'priceHighToLow': '_sort_by_' + ' _price_high_to_low_',
+              'recommended': '_sort_by_' + ' _recommended_'
             })">
           </select>
-        </order-switch>
+          </order-switch>
 
-        <pricing-switch>
-          <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a>
-          |
-          <a href ng-class="{'is-active': pricePer === PP_STAY}" ng-click="days && setPricePer(PP_STAY)">_per_stay_</a>
-        </pricing-switch>
-      </div>
+          <pricing-switch>
+            <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a> |
+            <a href ng-class="{'is-active': pricePer === PP_STAY}" ng-click="days && setPricePer(PP_STAY)">_per_stay_</a>
+          </pricing-switch>
+        </div>
 
 
-      <list-item
-        ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit"
-        ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}">
-        <img ng-src="{{product.image.uri | cloudinaryImage : 160 : 120 : 'fill'}}" alt="{{product.image.alt}}" class="product-image" ng-if="config.showProductImage && product.image && product.image.uri"/>
-        <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
-        <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
-        <div class="list-item-header">
-          <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
+        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-click="productClick(product)">
+          <img ng-src="{{product.image.uri | cloudinaryImage : productImageWidth : productImageHeight : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
+            ng-if="config.showProductImage && product.image && product.image.uri" />
+          <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
+          <div class="list-item-highlight-label highlight-ribbon" ng-if="product.highlighted">_most_booked_package_</div>
+          <div class="list-item-header">
+            <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
+
+            <pricing-info>
+              <p>
+                <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
+                <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
+                <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
+                <span ng-if="pricePer === PP_STAY">_per_stay_</span>
+
+                <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
+                <br />_or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1)).toFixed(0)}}</span>                _points_
+                </span>
+              </p>
+            </pricing-info>
+
+            <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled && product.productAwardPoints">_earn_
+              <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
+            </earned-points>
+            <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
+          </div>
 
           <pricing-info>
             <p>
               <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
               <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
-              <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
-              <span ng-if="pricePer === PP_STAY">_per_stay_</span>
-
+              <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
               <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
-                <br />_or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1)).toFixed(0)}}</span> _points_
+              <br />_or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span>              _points_
               </span>
             </p>
+
+            <button-submit role="button" tabindex="0" ng-click="selectProduct(product)" ng-hide="product.memberOnly && !isUserLoggedIn()">
+              _book_now_
+            </button-submit>
+
+            <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">_login_to_book_</a>
           </pricing-info>
 
-          <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled && product.productAwardPoints">_earn_
-            <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
-          </earned-points>
-          <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
-        </div>
-
-        <pricing-info>
-          <p>
-            <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
-            <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
-            <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
-            <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
-              <br />_or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span> _points_
-            </span>
-          </p>
-
-          <button-submit
-            role="button" tabindex="0"
-            ng-click="selectProduct(product)"
-            ng-hide="product.memberOnly && !isUserLoggedIn()">
-            _book_now_
-          </button-submit>
-
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">_login_to_book_</a>
-        </pricing-info>
-
-        <description-info>
-          <div>
-            <!-- NOTE: API will return descriptionShort prop, full description will be used in
+          <description-info>
+            <div>
+              <!-- NOTE: API will return descriptionShort prop, full description will be used in
               room details dialogue -->
-            <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
+              <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
 
-            <inclusions ng-if="viewSettings.showInclusions && product.inclusions" class="product-inclusions" inclusions="product.inclusions"></inclusions>
+              <inclusions ng-if="viewSettings.showInclusions && product.inclusions" class="product-inclusions" inclusions="product.inclusions"></inclusions>
 
-            <p class="action-links">
-              <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">_view_price_breakdown_</a> <span  ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
-              <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies && !config.rateInfoIsTabbed">_view_policies_</a>
-               <span  ng-if="product.policies && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
-              <a href ng-click="openRoomDetailsDialog(product)" ng-if="openRoomDetailsDialog"><span ng-if="!config.rateInfoIsTabbed">_read_more_</span><span ng-if="config.rateInfoIsTabbed">_view_price_breakdown_policies_</span></a>
-            </p>
+              <p class="action-links">
+                <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">_view_price_breakdown_</a>
+                <span ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
+                <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies && !config.rateInfoIsTabbed">_view_policies_</a>
+                <span ng-if="product.policies && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
+                <a href ng-click="openRoomDetailsDialog(product)" ng-if="openRoomDetailsDialog"><span ng-if="!config.rateInfoIsTabbed">_read_more_</span><span ng-if="config.rateInfoIsTabbed">_view_price_breakdown_policies_</span></a>
+              </p>
+            </div>
+          </description-info>
+          <div class="wide-button">
+            <button-submit class="wide-button-room-details" role="button" tabindex="0" ng-click="selectProduct(product)" ng-hide="product.memberOnly && !isUserLoggedIn()">
+              _book_now_
+            </button-submit>
+            <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
+              ng-click="sso.login()">Login</a>
           </div>
-        </description-info>
-        <div class="wide-button">
-          <button-submit class="wide-button-room-details"
-            role="button" tabindex="0"
-            ng-click="selectProduct(product)"
-            ng-hide="product.memberOnly && !isUserLoggedIn()">
-            _book_now_
-          </button-submit>
-          <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
-        </div>
-      </list-item>
-    </list-items>
+          <i class="fa fa-angle-right product-link" ng-if="config.ratesAsLinks"/>
+        </list-item>
+      </list-items>
 
-    <!-- VIEW MORE RATES -->
-    <div class="view-more-rates" ng-if="products.length > roomRatesLimit && showViewMoreRates">
-      <a href="" ng-click="showAllRates()" class="">_view_all_rates_</a>
-    </div>
+      <!-- VIEW MORE RATES -->
+      <div class="view-more-rates" ng-if="products.length > roomRatesLimit && showViewMoreRates">
+        <a href="" ng-click="showAllRates()" class="">_view_all_rates_</a>
+      </div>
 
-    <div ng-if="!products.length && !config.hideProductsNotAvailable" class="products-not-available" ng-switch="isOverAdultsCapacity()">
-      <div ng-if="$stateParams.dates">
-        <div ng-switch-when="false">
-          <h3>_room_not_available_on_dates_title_</h3>
-          <p>_room_not_available_on_dates_desc_</p>
+      <div ng-if="!products.length && !config.hideProductsNotAvailable" class="products-not-available" ng-switch="isOverAdultsCapacity()">
+        <div ng-if="$stateParams.dates">
+          <div ng-switch-when="false">
+            <h3>_room_not_available_on_dates_title_</h3>
+            <p>_room_not_available_on_dates_desc_</p>
+          </div>
+          <div ng-switch-when="true">
+            <h3>_not_available_on_dates_title_<br></h3>
+            <p> _not_available_on_dates_desc_</p>
+          </div>
         </div>
-        <div ng-switch-when="true">
-          <h3>_not_available_on_dates_title_<br></h3>
-          <p> _not_available_on_dates_desc_</p>
+
+        <div ng-if="!$stateParams.dates">
+          <h3>_select_dates_for_availability_title_ !</h3>
+          <p>_select_dates_for_availability_desc_</p>
+
+          <!-- USER SPECIFIES DATES -->
+          <button-submit ng-click="selectDates()">_select_dates_</button-submit>
         </div>
       </div>
 
-      <div ng-if="!$stateParams.dates">
-        <h3>_select_dates_for_availability_title_ !</h3>
-        <p>_select_dates_for_availability_desc_</p>
-
-        <!-- USER SPECIFIES DATES -->
-        <button-submit ng-click="selectDates()">_select_dates_</button-submit>
-      </div>
     </div>
-
-    <!-- <hr /> -->
   </section>
 
-  <div class="room-details-left">
+  <section-image ng-if="config.sectionImages && config.sectionImages[1] && isMobile" section="config.sectionImages[1]" when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
+
+  <div class="room-details-left" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
     <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescription">
       <p ng-bind-html="sanitize(roomDetails.description)"></p>
     </section>
 
     <section class="room-images" ng-if="roomDetails.images.length > 1">
       <h2 ng-bind-html="'_room_images_title_' | mainHeaderStyle"></h2>
-      <ul ng-if="roomDetails.images.length > 1" class="room-gallery">
+      <ul ng-if="!config.tileGallery && roomDetails.images.length > 1" class="room-gallery">
         <li class="with-special-eye-hover" ng-repeat="image in roomDetails.images" ng-click="openGallery($index)">
           <figure>
             <img ng-src="{{image.uri | cloudinaryImage : 150 : 100 : 'fill'}}" alt="{{image.alt}}" />
           </figure>
         </li>
       </ul>
+      <ul ng-if="config.tileGallery && roomDetails.images.length > 1" class="room-gallery">
+        <li ng-if="roomDetails.images[0]" class="tile-1 with-special-eye-hover" ng-click="openGallery(0)">
+          <figure>
+            <img ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 370 : 180 : 'fill'}}" alt="{{roomDetails.images[0].alt}}" />
+          </figure>
+        </li>
+        <li ng-if="roomDetails.images[1]" class="tile-2 with-special-eye-hover" ng-click="openGallery(1)">
+          <figure>
+            <img ng-src="{{roomDetails.images[1].uri | cloudinaryImage : 700 : 180 : 'fill'}}" alt="{{roomDetails.images[1].alt}}" />
+          </figure>
+        </li>
+        <li ng-if="roomDetails.images[2]" class="tile-3 with-special-eye-hover" ng-click="openGallery(2)">
+          <figure>
+            <img ng-src="{{roomDetails.images[2].uri | cloudinaryImage : 540 : 375 : 'fill'}}" alt="{{roomDetails.images[2].alt}}" />
+          </figure>
+        </li>
+        <li ng-if="roomDetails.images[3]" class="tile-4 with-special-eye-hover" ng-click="openGallery(3)">
+          <figure>
+            <img ng-src="{{roomDetails.images[3].uri | cloudinaryImage : 270 : 180 : 'fill'}}" alt="{{roomDetails.images[3].alt}}" />
+          </figure>
+        </li>
+        <li ng-if="roomDetails.images[4]" class="tile-5 with-special-eye-hover" ng-click="openGallery(4)">
+          <figure>
+            <img ng-src="{{roomDetails.images[4].uri | cloudinaryImage : 270 : 180 : 'fill'}}" alt="{{roomDetails.images[4].alt}}" />
+          </figure>
+        </li>
+        <li ng-if="roomDetails.images[5]" class="tile-6 with-special-eye-hover" ng-click="openGallery(5)">
+          <figure>
+            <img ng-src="{{roomDetails.images[5].uri | cloudinaryImage : 540 : 180 : 'fill'}}" alt="{{roomDetails.images[5].alt}}" />
+          </figure>
+        </li>
+      </ul>
     </section>
   </div>
 
-  <div class="room-details-right">
-    <section ng-if="roomDetails.amenities.length && !viewSettings.showAmenitiesTop" class="room-amenities">
+  <div class="room-details-right" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+    <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescriptionBottom">
+      <p ng-bind-html="sanitize(roomDetails.description)"></p>
+    </section>
+    <section ng-if="filteredAmenities.length && !viewSettings.showAmenitiesTop" class="room-amenities">
       <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
-
-      <amenities-list ng-if="property">
-        <amenity-item ng-repeat="amenity in roomDetails.amenities" ng-init="amenity.chainCode = property.chainCode">
+      <input ng-if="roomDetails && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="room-amenities" />
+      <amenities-list ng-if="property" ng-class="{'restricted-amenities': config.restrictAmenities}">
+        <amenity-item ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = property.chainCode">
           <slug-img slug="amenity" type="room" width="15"></slug-img>
           <span class="amenity-caption">{{amenity.name}}</span>
         </amenity-item>
       </amenities-list>
+      <label ng-if="roomDetails && config.restrictAmenities" for="room-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
     </section>
   </div>
   <hr/>
-  <h2 class="other-rooms-title" ng-if="property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) " ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
+  <h2 class="other-rooms-title" ng-if="!config.otherRooms.hide && property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) "
+    ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
 
   <!-- Keeping this just in case
   <div ng-if="!otherRooms && roomDetails && !otherRoomsLoading" class="load-more-rooms">
@@ -215,10 +244,10 @@
   </div>
   -->
 
-  <div class="preloader relative" ng-show="otherRoomsLoading"></div>
+  <div class="preloader relative" ng-show="!config.otherRooms.hide && otherRoomsLoading"></div>
 
   <!-- Other rooms nav -->
-  <section ng-show="property.available && previousRoom && nextRoom && !config.otherRooms.useThumbnails">
+  <section ng-show="!config.otherRooms.hide && property.available && previousRoom && nextRoom && !config.otherRooms.useThumbnails">
 
     <nav class="other-rooms-nav">
       <a href="" ng-click="goToRoom(property.meta.slug, previousRoom.meta.slug)"><span ng-bind-html="previousRoom.name | mainHeaderStyle"></span></a>
@@ -228,15 +257,13 @@
   </section>
 
   <!-- Other rooms thumbnails -->
-  <section ng-show="property.available && otherRooms && otherRooms.length > 1 && config.otherRooms.useThumbnails">
+  <section ng-show="!config.otherRooms.hide && property.available && otherRooms && otherRooms.length > 1 && config.otherRooms.useThumbnails">
 
     <list-items class="grid-view other-rooms">
-      <list-item
-        ng-repeat="otherRoom in otherRooms | orderBy:'priceFrom'"
-        ng-click="onClickOnAssociatedRoom(otherRoom)"
-        class="with-special-hover">
+      <list-item ng-repeat="otherRoom in otherRooms | orderBy:'priceFrom'" ng-click="onClickOnAssociatedRoom(otherRoom)" class="with-special-hover">
         <figure ng-show="otherRoom.images[0]">
-          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : config.otherRooms.thumbnails.width : config.otherRooms.thumbnails.height : 'fill'}}" alt="{{otherRoom.name}}">
+          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : config.otherRooms.thumbnails.width : config.otherRooms.thumbnails.height : 'fill'}}"
+            alt="{{otherRoom.name}}">
         </figure>
 
         <h2>{{otherRoom.name}}</h2>
@@ -251,4 +278,5 @@
     </list-items>
 
   </section>
+  <section-image ng-if="config.sectionImages && config.sectionImages[2] && isMobile" section="config.sectionImages[2]" when="'enter'" from="1" to="1.5" show-logo="false"></section-image>
 </hotel-room>

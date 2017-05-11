@@ -31,6 +31,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         isCollapsed = isCollapsed || scope.isMobile;
         scope.isCollapsed = isCollapsed;
         scope.active = active;
+        scope.floatingBarTopRight = Settings.UI.bookingWidget.mobileTopRight;
         if(scope.isCollapsed){
           document.body.classList.remove('floating-bar-active');
         }

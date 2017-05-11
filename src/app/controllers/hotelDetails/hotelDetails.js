@@ -8,7 +8,7 @@ angular.module('mobius.controllers.hotel.details', [
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService, metaInformationService, channelService, previousSearchesService,
-  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService) {
+  $window, advertsService, $controller, $timeout, scrollService, $location, $stateParams, Settings, stateService, $rootScope, userPreferenceService, locationService, routerService, DynamicMessages) {
 
   $controller('PriceCtr', {
     $scope: $scope
@@ -26,15 +26,26 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.viewSettings = Settings.UI.viewsSettings.hotelDetails;
   $scope.ratesLoaded = false;
   $scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
-  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo;
+  $scope.showLocalInfo = Settings.UI.hotelDetails.showLocalInfo && !$scope.isMobile; //If local info is enabled in config and not viewing on mobile
   $scope.headerPartial = Settings.UI.hotelDetails.headerPartial;
   $scope.partials = [];
   $scope.fromMeta = channelService.getChannel().name === 'meta' ? true : false;
   $scope.compareRoomLimit = 3;
   $scope.comparisonIndex = 0;
+  $scope.singleOfferMobile = $scope.config.offers.singleOfferMobile;
+  $scope.roomImageHeight = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.height ? $scope.roomsConfig.roomImageSize.height : '384';
+  $scope.roomImageWidth = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.width ? $scope.roomsConfig.roomImageSize.width : '768';
 
+  console.log($scope.roomImageHeight);
+  console.log($scope.roomImageWidth);
+
+  var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
   var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
+
+  //Get our dynamic translations
+  var appLang = stateService.getAppLanguageCode();
+  var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
   //define page partials based on settings
   _.map(Settings.UI.hotelDetails.partials, function(value, key) {
@@ -73,7 +84,7 @@ angular.module('mobius.controllers.hotel.details', [
       }
     }];
 
-    if (Settings.UI.hotelDetails.rooms.sortRoomsByWeighting) {
+    if ($scope.roomsConfig.sortRoomsByWeighting) {
       $scope.sortingOptions.splice(0, 0, {
         name: options.recommended,
         sort: function(room) {
@@ -186,8 +197,10 @@ angular.module('mobius.controllers.hotel.details', [
           {
             flexibleDate.available = availability.available && availability.fullyAvailable;
             if(flexibleDate.available && availability.priceFrom){
-              //var thisPrice = $filter('i18nCurrency')(availability.priceFrom, $rootScope.currencyCode, undefined, false);
-              flexibleDate.name += ' (from $' + availability.priceFrom + ')';
+              var fromString = dynamicMessages && dynamicMessages.from ? dynamicMessages.from : 'from';
+              var currentCurrency = stateService.getCurrentCurrency();
+              var currencySymbol = currentCurrency.shortSymbol ? currentCurrency.shortSymbol : currentCurrency.symbol;
+              flexibleDate.name += ' ('+ fromString + ' ' + currencySymbol + availability.priceFrom +')';
             }
             else
             {
@@ -338,9 +351,15 @@ angular.module('mobius.controllers.hotel.details', [
           firstParaEnd = Math.max(firstParaEnd, 0);
           firstBr = Math.max(firstBr, 0);
           var shortDescLength = (firstBr > 0 && firstParaEnd > 0) ? Math.min(firstBr, firstParaEnd) : Math.max(firstBr, firstParaEnd);
-          $scope.details.descriptionShort = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
-          $scope.details.hasViewMore = $scope.details.descriptionShort.length < $scope.details.description.length;
+          $scope.details.shortenedDescription = $scope.details.description.substr(0, shortDescLength > 0 ? ($scope.details.description.indexOf('>', shortDescLength) + 1) : SHORT_DESCRIPTION_LENGTH);
+          $scope.details.hasViewMore = $scope.details.shortenedDescription.length < $scope.details.description.length;
         }
+
+        var amenities = $scope.details.amenities;
+        if($scope.config.restrictAmenities && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
+          propertyService.highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
+        }
+        $scope.filteredAmenities = propertyService.sanitizeAmenities(amenities); //Process our amenities and add to scope.
 
         //Breadcrumbs
         breadcrumbsService.clear();
@@ -379,8 +398,8 @@ angular.module('mobius.controllers.hotel.details', [
         breadcrumbsService
           .addHref('About', 'jsAbout')
           .addHref('Rooms', 'jsRooms')
-          .addHref('Location', 'jsLocation')
           .addHref('Offers', 'jsOffers')
+          .addHref('Location', 'jsLocation')
           .addHref('Gallery', 'fnOpenHotelLightBox');
 
         if (details.hasOwnProperty('available')) {
@@ -480,20 +499,26 @@ angular.module('mobius.controllers.hotel.details', [
         //handle displaying of rates
         _.each(rooms, function(room) {
           room.userHidden = false;
-          if (stateService.isMobile() || Settings.UI.hotelDetails.rooms.displayRatesOnLoad) {
+          if (stateService.isMobile() || $scope.roomsConfig.desktopDisplayRatesOnLoad) {
             $scope.displayRoomRates(room);
           } else {
             room._displayRates = false;
+          }
+          if(room.amenities && $scope.roomsConfig.restrictAmenities){
+            room.amenities = propertyService.sanitizeAmenities(room.amenities); //Process our amenities and add to scope.
           }
         });
 
         $scope.rooms = rooms;
         $scope.filteredCompareRooms = rooms;
 
-        $scope.numberOfRoomsDisplayed = Settings.UI.hotelDetails.defaultNumberOfRooms;
-        $scope.numberOfAmenities = Settings.UI.hotelDetails.rooms.defaultNumberOfAmenities;
-        $scope.viewRatesButtonText = Settings.UI.hotelDetails.rooms.viewRatesButtonText;
-        $scope.hoverTriggerDelay = Settings.UI.hotelDetails.rooms.hoverTriggerDelay;
+        $scope.numberOfRoomsDisplayedMobile = Settings.UI.hotelDetails.defaultNumberOfRoomsMobile;
+        //If on mobile and mobile number is configured use this, otherwise use the default number
+        $scope.numberOfRoomsDisplayed = $scope.numberOfRoomsDisplayedMobile && $scope.isMobile ? $scope.numberOfRoomsDisplayedMobile : Settings.UI.hotelDetails.defaultNumberOfRooms;   
+
+        $scope.numberOfAmenities = $scope.roomsConfig.defaultNumberOfAmenities;
+        $scope.viewRatesButtonText = $scope.roomsConfig.viewRatesButtonText;
+        $scope.hoverTriggerDelay = $scope.roomsConfig.hoverTriggerDelay;
 
         $scope.openRoomGallery = function(room, slideIndex) {
           modalService.openGallery(
@@ -613,7 +638,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.switchToMRBMode = bookingService.switchToMRBMode;
 
   $scope.displayRoomRates = function(room, ratesScrollTarget) {
-    if (!room || room._displayRates || $scope.availableRooms && $scope.availableRooms.indexOf(room.code) === -1) {
+    if ((!room || room._displayRates || $scope.availableRooms && $scope.availableRooms.indexOf(room.code) === -1) || ($scope.isMobile && $scope.roomsConfig.mobileHideRates)) {
       return;
     }
     room._displayRates = true;
@@ -665,12 +690,13 @@ angular.module('mobius.controllers.hotel.details', [
     userPreferenceService.setCookie('roomsViewMode', mode);
   };
 
-  if(stateService.isMobile())
-  {
-    $scope.setRoomsViewMode('list');
-  }
-  else if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
+  //If room view type is stored in cookie, display this
+  if (mobiusUserPreferences && mobiusUserPreferences.roomsViewMode) {
     $scope.setRoomsViewMode(mobiusUserPreferences.roomsViewMode);
+  }
+  //Otherwise display the default type if one is set, if not display as list
+  else {
+    $scope.setRoomsViewMode(defaultRoomsViewMode ? defaultRoomsViewMode : 'list');
   }
 
   $scope.hideRoom = function(room){
@@ -709,6 +735,12 @@ angular.module('mobius.controllers.hotel.details', [
     $scope.filteredCompareRooms = _.filter($scope.filteredCompareRooms, function(room){
       return $scope.roomsDisplayFilter(room);
     });
+  };
+
+  $scope.roomClick = function(room){
+    if($scope.config.rooms.roomsAsLinks && $scope.isMobile && $stateParams.dates){
+      $scope.goToRoom($scope.details.meta.slug, room.meta.slug);
+    }
   };
 
   function scrollToRates(target) {

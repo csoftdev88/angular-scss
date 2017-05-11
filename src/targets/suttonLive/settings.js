@@ -14,7 +14,7 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'development': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
     'integration': 'http://integration-sutton-infiniti.mobiuswebservices.com:30004/track/content/infiniti.js',
-    'staging': 'http://staging-prestige.suttonplace.com/track/content/infiniti.js',
+    'staging': 'http://staging-infiniti-sutton.mobiusbookingengine.com/track/content/infiniti.js',
     'uat': '/infiniti/track/content/infiniti.js',
     'live': 'https://prestige.suttonplace.com/track/content/infiniti.js'
   },
@@ -53,7 +53,7 @@ angular.module('mobiusApp.config', [])
     'development': {
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-development',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -61,7 +61,7 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-integration',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -69,7 +69,7 @@ angular.module('mobiusApp.config', [])
     'staging': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-staging',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -77,7 +77,7 @@ angular.module('mobiusApp.config', [])
     'uat': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-staging',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -85,7 +85,7 @@ angular.module('mobiusApp.config', [])
     'live': {
       'enable':true,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-live',
       'username': 'sutton',
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
@@ -139,7 +139,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'    
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'staging': {
         'id': 'sutton-staging',
@@ -149,7 +149,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'  
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'uat': {
         'id': 'sutton-uat',
@@ -159,7 +159,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'  
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'live': {
         'id': 'sutton-live',
@@ -258,7 +258,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-tenantId': '1',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -406,6 +406,7 @@ angular.module('mobiusApp.config', [])
       },
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
+      'defaultNumberOfRoomsMobile':10,
       'numberOfRoomsAddedOnMobile': 2,
       'rooms': {
         'hideRoomsWithNoAvailability': true,
@@ -415,10 +416,11 @@ angular.module('mobiusApp.config', [])
         // Loading rates when hovering over the room
         // in ms.
         'hoverTriggerDelay': 2000,
-        'showRoomCount': false,
+        'showRoomCount': true,
         //Show room highlight text instead of description
         'showRoomHighlight': true,
-        'displayRatesOnLoad': false,
+        'desktopDisplayRatesOnLoad': false,
+        'mobileHideRates': true,
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': false,
@@ -426,9 +428,14 @@ angular.module('mobiusApp.config', [])
           'width': 150,
           'height': 150
         },
+        'roomImageSize':{
+          'width': 100,
+          'height': 100
+        },
         'includeSlider': false,
         'sliderHasThumbnails': false,
         'includeTripAdvisorPreloader': true,
+        'roomsAsLinks': true,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
@@ -456,16 +463,19 @@ angular.module('mobiusApp.config', [])
           'properties':{
             'enable':true
           }
-        }
+        },
+        'restrictAmenities':true //Only display amenities with an asterix at the beginning of the name
       },
       'offers': {
-        'toState': 'propertyOffers'
+        'toState': 'propertyOffers',
+        'singleOfferMobile':true //Only display one offer on mobile view
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': true,
       'removeScrollToRoomsOnFinish': true,
       'displayAmenitiesInHotelInfo': false,
+      'findOutMoreLinksBottomMobile':true, //Positions the find out more section to the bottom of the page on mobile
       'headerPartial':{
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
@@ -480,8 +490,12 @@ angular.module('mobiusApp.config', [])
         'hotelRoomsCompare': true,
         'hotelServices': true,
         'hotelLocation': true,
-        'hotelOffers': true
-      }
+        'hotelOffers': true,
+        'hotelReadMoreMobile': true
+      },
+      'restrictAmenities':true, //Only display amenities that's name begins with asterix
+      'hideViewMoreImagesMobile':true, //Hide the view more images on mobile
+      'shortenDescriptionMobile':true //Shorten the description with read more on mobile
     },
     //rate lookup teasers
     'showHotelDetailsTestimonials': true,
@@ -657,7 +671,15 @@ angular.module('mobiusApp.config', [])
       'upsells': {
         'display': true
       },
-      'displayAltProduct':true
+      'displayAltProduct': true,
+      'showSlashThrough': true,
+      'showProductImage':true,
+      'ratesAsLinks':true,
+      'productImages': {
+        'height':125,
+        'width':145
+      },
+      'restrictAmenities':true
     },
 
     'reservations': {
@@ -897,7 +919,10 @@ angular.module('mobiusApp.config', [])
           'value': 15,
           'type': 'days'
         }
-      }
+      },
+      'mobileTopRight':true, //Displays the booking book now button in top right
+      'prefillGrowlAlert':true, //When enabled will display a growl alert if code field is prefilled
+      'keepPrefillStyle':true //By default prefill style is hidden after 1 second. When enabled this will prevent it from being hidden.
     },
 
     'booking': {
@@ -978,6 +1003,12 @@ angular.module('mobiusApp.config', [])
       },
       'vouchers' : {
         'enable':true
+      },
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
       }
     },
     'myAccount' : {

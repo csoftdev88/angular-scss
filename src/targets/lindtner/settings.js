@@ -148,7 +148,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '355',
+      'Mobius-tenantId': '355',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -291,7 +291,7 @@ angular.module('mobiusApp.config', [])
         'showRoomCount': true,
         //Show room highlight text instead of description
         'showRoomHighlight': false,
-        'displayRatesOnLoad': false,
+        'desktopDisplayRatesOnLoad': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': false,
@@ -812,6 +812,12 @@ angular.module('mobiusApp.config', [])
           'position': 'top'
         },
         'optedInDefault': true
+      },
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
       }
     },
     'myAccount' : {

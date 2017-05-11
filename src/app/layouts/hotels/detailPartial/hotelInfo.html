@@ -1,29 +1,29 @@
-<section grid-row id="jsAbout">
+<section grid-row id="jsAbout" class="hotel-overview">
     <div grid="{{(hasViewMore)? viewSettings.hotelInfo.descriptionGrid : 12}}">
-      <p ng-bind-html="details.description | trustAsHtml" markdown-text-parser class="markdown-content"></p>
+      
+      <input ng-if="config.shortenDescriptionMobile && details.description" type="checkbox" class="reveal-state" id="hotel-description" />
+      <p ng-bind-html="details.description | trustAsHtml" class="hotel-description markdown-content" 
+      ng-class="{'reveal-section': config.shortenDescriptionMobile}" markdown-text-parser></p>
+      <label ng-if="config.shortenDescriptionMobile && details.description" for="hotel-description" class="reveal-trigger">_read_more_</label>
 
-      <div ng-if="config.displayAmenitiesInHotelInfo && details.amenities" class="hotel-info-amenities">
+      <div ng-if="config.displayAmenitiesInHotelInfo && filteredAmenities && filteredAmenities.length" class="hotel-info-amenities">
         <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
-        <ul class="amenities-list" ng-if="details">
-          <li class="amenity-item" ng-repeat="amenity in details.amenities" ng-init="amenity.chainCode = details.chainCode">
+        <input ng-if="details && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities" />
+        <ul ng-if="details" ng-class="{'restricted-amenities': config.restrictAmenities}" class="amenities-list">
+          <li class="amenity-item" ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
             <slug-img slug="amenity" type="hotel" width="15"></slug-img>
             <span class="amenity-caption">{{amenity.name}}</span>
           </li>
         </ul>
+        <label ng-if="details && config.restrictAmenities" for="hotel-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
       </div>
 
     </div>
-
-    <view-more-images grid="{{viewSettings.hotelInfo.sidebarGrid}}" ng-if="hasViewMore">
+    <!--Only display if enabled and if desktop, if on mobile check that the hide config setting is disabled-->
+    <view-more-images grid="{{viewSettings.hotelInfo.sidebarGrid}}" ng-if="hasViewMore && (!isMobile || (isMobile && !config.hideViewMoreImagesMobile))">
       <local-info ng-if="showLocalInfo && localInfo && localInfo.time" local-info="localInfo"></local-info>
       <a ng-if="details.images.length > 1" href class="gallery-link" ng-click="openGallery()">_view_more_images_</a>
       <hero-slider data-has-notification-bar="false" on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
-
-      <read-more ng-if="details.content.length && details.content[0].title">
-        <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
-        <ul>
-          <li ng-repeat="item in details.content | orderBy: 'order'"><a ng-href="{{item.url}}">{{item.title}}</a></li>
-        </ul>
-      </read-more>
+      <div ng-if="details.content.length && details.content[0].title && (!isMobile || (isMobile && !config.findOutMoreLinksBottomMobile))" ng-include="'layouts/components/read-more.html'"></div>
     </view-more-images>
 </section>
