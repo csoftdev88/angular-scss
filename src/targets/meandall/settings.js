@@ -1058,6 +1058,12 @@ angular.module('mobiusApp.config', [])
       },
       'vouchers' : {
         'enable':false
+      },
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
       }
     },
     'myAccount' : {

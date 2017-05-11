@@ -1,5 +1,5 @@
 <div class="assurance-badge-container" ng-class="{'guarantee-assurance-active': guaranteePolicyDescription}">
-  <figure class="assurance security-assurance">
+  <figure class="assurance security-assurance" ng-if="bookingConfig.reservationAssurance.security">
     <img src="/static/images/digicert-badge@2x.png" alt="digicert badge" class="assurance-badge"></img>
     <div class="assurance-content">
       <header>
@@ -9,7 +9,8 @@
       <p>_we_value_your_privacy_</p>
     </div>
   </figure>
-  <figure class="assurance payment-assurance" ng-if="guaranteePolicyDescription">
+  <figure class="assurance payment-assurance"
+          ng-if="guaranteePolicyDescription && bookingConfig.reservationAssurance.payment">
     <img src="/static/images/credit-card@2x.png" alt="credit card badge" class="assurance-badge"></img>
     <div class="assurance-content">
       <header>
@@ -18,7 +19,7 @@
       <div ng-bind-html="guaranteePolicyDescription"></div>
     </div>
   </figure>
-  <figure class="assurance price-assurance">
+  <figure class="assurance price-assurance" ng-if="bookingConfig.reservationAssurance.price">
     <img src="/static/images/best-prix-badge@2x.png" alt="price badge" class="assurance-badge"></img>
     <div class="assurance-content">
       <header>
