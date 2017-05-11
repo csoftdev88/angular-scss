@@ -120,6 +120,10 @@ angular.module('mobiusApp.config', [])
     'enable': true,
     'id': '294639'
   },
+  'rumScript': {
+    'enable': true,
+    'id': '5910613c8a112b33c9d2e6c7'
+  },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
@@ -563,6 +567,7 @@ angular.module('mobiusApp.config', [])
       },
       'otherRooms':{
         'useThumbnails': false,
+        'hide': true,
         'thumbnails':{
           'width': 150,
           'height': 100
@@ -935,7 +940,12 @@ angular.module('mobiusApp.config', [])
       'vouchers' : {
         'enable':true
       },
-      'reservationAssurance':true //Displays reservation assurance badges in the checkout flow
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
+      }
     },
     'myAccount' : {
       'displaySettings' : {

@@ -16,7 +16,7 @@ angular.module('mobius.controllers.about', [])
     $scope.config = Settings.UI.aboutChain;
     $scope.contentConfig = Settings.UI.contents;
 
-    if (Settings.UI.aboutUs.scrollToBreadcrumbs) {
+    if (Settings.UI.aboutUs && Settings.UI.aboutUs.scrollToBreadcrumbs) {
       scrollService.scrollToBreadcrumbs();
     } else {
       scrollService.scrollTo('top');
