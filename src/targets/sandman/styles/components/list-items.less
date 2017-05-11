@@ -1,6 +1,9 @@
 ////////////////////
 //// LIST ITEMS ////
 ////////////////////
+
+@import '../components/ribbons';
+
 @list-item-min-height: 187px;
 
 list-items {
@@ -27,6 +30,18 @@ pricing-switch {
 
 list-item {
   min-height: @list-item-min-height;
+
+  // Import ribbon mixin from ../components/ribbons
+  .use-ribbon();
+
+  // Add padding to the top if a ribbon is present in the same container
+  .member-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
+  // @note Why can I not do .member-ribbon, .highlight-ribbon ~ pricing-info ??
+  .highlight-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
 
   h2{
     font-size: 18px !important;
