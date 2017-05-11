@@ -82,7 +82,7 @@
           <!-- SUBVIEWS -->
           <ui-view>
           </ui-view>
-          <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom">          
+          <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom">
             <label for="agreement3" class="input-checkbox newsletter-signup" ng-show="state.includes('reservation.details') || (!bookingConfig.hideNewsletterCheckboxIfSelected && state.includes('reservation.billing')) || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn && state.includes('reservation.billing'))">
               <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
               <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
@@ -126,7 +126,7 @@
     </reservation-widget>
 
     <!--Reservation assurance badges-->
-    <section class="reservation-assurance-badges" ng-if="bookingConfig.reservationAssurance" ng-include="'layouts/components/reservation-assurance-badges.html'"></section>
+    <section class="reservation-assurance-badges" ng-if="bookingConfig.reservationAssurance.display" ng-include="'layouts/components/reservation-assurance-badges.html'"></section>
 
     <growl-alerts class="growl-alerts-dir" languages-message="'_languages_message_'" retention-message="'_retention_message_'" room-upgrade-success="'_room_upgrade_success_'" room-upgrade-failure="'_room_upgrade_failure_'" room-upgrade-increase="'_room_upgrade_increase_'" room-upgrade-decrease="'_room_upgrade_decrease_'"></growl-alerts>
   </div>
