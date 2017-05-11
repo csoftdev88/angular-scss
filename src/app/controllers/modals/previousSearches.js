@@ -7,7 +7,8 @@ angular.module('mobius.controllers.modals.previousSearches', [
   'mobius.controllers.common.sanitize'
 ])
 
-.controller('PreviousSearchesCtrl', function($scope, $modalInstance, $controller, data, $state, $window, $location, _, removeSearch) {
+.controller('PreviousSearchesCtrl', function($scope, $modalInstance, $controller, previousSearchesService,
+                                             data, $state, $window, $location, _, removeSearch) {
 
   $controller('SanitizeCtrl', {$scope: $scope});
   $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
@@ -52,10 +53,18 @@ angular.module('mobius.controllers.modals.previousSearches', [
   $scope.data = data;
 
   $scope.viewSearch = function(search){
-    $scope.cancel();
 
-    //Go to this search URL
-    $state.go(search.s, search.params, {reload: true});
+    previousSearchesService.getSearchUrlParams(search)
+      .then(function(params){
+        search.params = params;
+        $scope.cancel();
+        //Go to this search URL
+        $state.go(search.s, search.params, {reload: true});
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+
   };
 
   $scope.removeSearch = function(searchToRemove){

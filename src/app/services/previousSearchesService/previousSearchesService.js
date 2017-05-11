@@ -3,7 +3,9 @@
  * This service is for tracking previous searches
  */
 angular.module('mobiusApp.services.previousSearches', [])
-  .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, modalService, propertyService, locationService, $q, _) {
+  .service('previousSearchesService', function($window, Settings, sessionDataService,
+                                               cookieFactory, $state, modalService,
+                                               propertyService, locationService, $q, _) {
 
     function isPreviousSearchesActive() {
       return Settings.UI.previousSearches && Settings.UI.previousSearches.enable;
@@ -333,7 +335,7 @@ angular.module('mobiusApp.services.previousSearches', [])
           var previousSearches = getSearches();
           if(previousSearches && previousSearches.length){
             saveSearchDisplayCookie();
-            var searchPromises = [];
+            /*var searchPromises = [];
             _.each(previousSearches, function(search){
               ///Generate the search url
               searchPromises.push(getSearchUrlParams(search).then(function(params){
@@ -342,7 +344,8 @@ angular.module('mobiusApp.services.previousSearches', [])
             });
             $q.all(searchPromises).then(function () {
               modalService.openPreviousSearchesDialog(previousSearches, removeSearch);
-            });
+            });*/
+            modalService.openPreviousSearchesDialog(previousSearches, removeSearch);
           }
         }
       }
@@ -373,6 +376,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       displaySearches: displaySearches,
       removeSearch: removeSearch,
       removeSessionSearches: removeSessionSearches,
-      hasSearchedInSession: hasSearchedInSession
+      hasSearchedInSession: hasSearchedInSession,
+      getSearchUrlParams: getSearchUrlParams
     };
   });

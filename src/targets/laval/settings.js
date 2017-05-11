@@ -821,6 +821,12 @@ angular.module('mobiusApp.config', [])
           'position': 'top'
         },
         'optedInDefault': true
+      },
+      'reservationAssurance': {
+        display: true,
+        payment: true,
+        price: true,
+        security: true
       }
     },
     'myAccount' : {
