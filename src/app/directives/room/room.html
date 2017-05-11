@@ -52,9 +52,9 @@
           <order-switch ng-show="hasDates && products.length > 1">
             <select name="sorting" ng-model="currentOrder" disable-search="true" chosen ng-options="option.name for option in sortingOptions"
               placeholder-text-single="_sorting_filter_placeholder_" ng-change="orderSwitchChange(currentOrder)" ng-init="initSortingOptions({
-              'priceLowToHigh': '_price_low_to_high_',
-              'priceHighToLow': '_price_high_to_low_',
-              'recommended': '_recommended_'
+              'priceLowToHigh': '_sort_by_' + ' _price_low_to_high_',
+              'priceHighToLow': '_sort_by_' + ' _price_high_to_low_',
+              'recommended': '_sort_by_' + ' _recommended_'
             })">
           </select>
           </order-switch>
@@ -69,8 +69,8 @@
         <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-click="productClick(product)">
           <img ng-src="{{product.image.uri | cloudinaryImage : productImageWidth : productImageHeight : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
             ng-if="config.showProductImage && product.image && product.image.uri" />
-          <div class="list-item-highlight-label" ng-if="product.memberOnly">_members_only_rate_</div>
-          <div class="list-item-highlight-label" ng-if="product.highlighted">_most_booked_package_</div>
+          <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
+          <div class="list-item-highlight-label highlight-ribbon" ng-if="product.highlighted">_most_booked_package_</div>
           <div class="list-item-header">
             <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
 

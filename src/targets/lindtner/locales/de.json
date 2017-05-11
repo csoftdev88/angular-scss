@@ -68,6 +68,7 @@
     "location": "Lage",
     "gallery": "Galerie",
     "BUTTONS": "//////////////////////////////////////////////////////",
+    "sort_by": "Sort By :",
     "your_booking_progress": "Ihr <span>Buchungsfortschritt</span>",
     "choose_your_room": "Wählen Sie Ihr Zimmer",
     "guest_details": "Gast Informationen",
@@ -202,7 +203,7 @@
     "no_badges_earned": "Du hast bisher keine Badges bekommen",
 
     "book_now": "Buche jetzt",
-    
+
     "book_now_floating_bar": "Buche jetzt",
 
     "single_booking": "Einezelbuchung",

@@ -1,3 +1,6 @@
+
+@import "../components/ribbons";
+
 room-products {
 	width:63%;
 	.viewport-mobile & {
@@ -17,8 +20,8 @@ room-products {
 						}
 						.price-form {
 							text-align:right;
-						}		
-					}				
+						}
+					}
 				}
 				&.is-highlighted,
 				&.is-member-only{
@@ -27,7 +30,7 @@ room-products {
 						padding-top: 45px;
 						.viewport-mobile & {
 							padding-bottom: 5px;
-						}						
+						}
 					}
 				}
 				&.is-member-only {
@@ -45,37 +48,7 @@ room-products {
 						width:50%;
 					}
 				}
-				.highlight-ribbon, .member-ribbon {
-					width: 155px !important;
-					position: absolute;
-					top: 5px;
-					right: -6px;
-					padding: 10px 15px 12px 22px !important;
-					line-height: 14px;
-					border-right: 0px none !important;
-					text-align: right;
-					color: white !important;
-					text-transform: uppercase !important;
-					font-weight: 400 !important;
-					text-shadow: 1px 1px 1px rgba(55, 53, 53, 0.65);
-					font-size: 11px;
-					.viewport-mobile & {
-						box-sizing: border-box;
-						width: 160px !important;
-						max-width: initial;
-						padding-left: 27px;
-					}
-				}
-				.highlight-ribbon {
-					background: url("@{img-prefix}/brown-ribbon.svg") no-repeat center right;
-					background-size:100% 100%;
-				}
-				.member-ribbon {
-					background: url("@{img-prefix}/yellow-ribbon.svg") no-repeat center right;
-					background-size:100% 100%;
-					width: 150px !important;
-					padding: 10px 15px 12px 20px !important;
-				}
+				.use-ribbon();
 			}
 	}
 	&.has-ota-products {
@@ -91,7 +64,7 @@ room-products {
 				float:none;
 			}
 		}
-		.view-more-rates{ 
+		.view-more-rates{
 			a {
 				font-size: 15px;
 				line-height: 22px;
