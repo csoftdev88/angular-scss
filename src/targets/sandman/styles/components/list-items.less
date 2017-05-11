@@ -64,8 +64,9 @@ list-item {
     p{
       display: inline-block;
       span:not(.points){
-        float: right;
-        clear: both;
+        float: none;
+        clear: initial;
+        padding-right: 5px;
       }
     }
     button-submit{
@@ -114,6 +115,10 @@ list-item {
           color: @c-grey;
           font-weight: 300;
           font-style: italic;
+        }
+        .value:not(.points){
+          float: none;
+          clear: initial;
         }
       }
     }
