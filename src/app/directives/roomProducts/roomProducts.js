@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
 .directive('roomProducts', function($controller, $state, $stateParams, _,
   Settings, filtersService, channelService, bookingService, propertyService, modalService, apiService, infinitiApeironService, mobiusTrackingService,
-  stateService, dataLayerService, cookieFactory, chainService, $window, $log, $filter, user){
+  stateService, dataLayerService, cookieFactory, chainService, $window, $log, $filter){
 
   return {
     restrict: 'E',
@@ -143,7 +143,7 @@ angular.module('mobiusApp.directives.room.products', [])
               }), stayLength, bookingWindow);
 
               var selectedRate = scope.rates ? scope.rates.selectedRate : null;
-              
+
               //Mobius tracking
               mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room, selectedRate);
               infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room, selectedRate);
@@ -190,7 +190,7 @@ angular.module('mobiusApp.directives.room.products', [])
 
         var selectedProduct = _.findWhere(scope.products, {code: productCode});
 
-        //If upsells enabled and available display upsell modal
+        //If up sells enabled and available display up sell modal
         if(scope.displayUpsells && upsell) {
           modalService.openUpsellsDialog(upsell, params, scope.goToReservationDetails, selectedProduct);
         }
@@ -237,16 +237,7 @@ angular.module('mobiusApp.directives.room.products', [])
           });
         }
 
-        var userLang = user.getUserLanguage();
-        var appLang = stateService.getAppLanguageCode();
-        if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
-          user.storeUserLanguage('en-us');
-          var nonFrenchUrl = $state.href('reservation.details', params, {reload: true}).replace('/fr/','/');
-          $window.location.replace(nonFrenchUrl);
-        }
-        else {
-          $state.go('reservation.details', params, {reload: true});
-        }
+        $state.go('reservation.details', params, {reload: true});
       };
 
       scope.isDateRangeSelected = bookingService.isDateRangeSelected;
