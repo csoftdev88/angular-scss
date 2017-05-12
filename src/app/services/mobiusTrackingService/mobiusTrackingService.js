@@ -124,10 +124,15 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       };
     }
 
-    function trackSearch(bookingParams, chainData, propertyData, products, room, rateFilter) {
+    function trackSearch(bookingParams, chainData, propertyData, productData, room, rateFilter) {
+
+      //copy our product data
+      var products = angular.copy(productData);
+      
       if (!searchEnabled || $state.includes('reservation') || !products.length) {
         return;
       }
+
       //set default data
       setDefaultData(bookingParams, chainData, propertyData, rateFilter);
       //copy default data
@@ -140,8 +145,8 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       _.each(products, function (product) {
         //Remove policy description and showWarning as these are not needed
         _.each(product.policies, function (policy) {
-          policy.description = undefined;
-          policy.showWarning = undefined;
+          delete policy.description;
+          delete policy.showWarning;
         });
 
         var productData = {
@@ -187,10 +192,14 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
         console.log('Mobius search tracking error: ' + angular.toJson(err));
       });
     }
-    function trackPurchase(bookingParams, chainData, propertyData, products, rooms, reservationData, rateFilter) {
+
+    function trackPurchase(bookingParams, chainData, propertyData, productData, rooms, reservationData, rateFilter) {
       if (!purchaseEnabled) {
         return;
       }
+
+      //copy the product data
+      var products = angular.copy(productData);
 
       userObject = _.extend(_.clone(userObject || {}), {
         email: reservationData.guestEmail,
@@ -218,8 +227,8 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       _.each(products, function (product) {
         //Remove policy description and showWarning as these are not needed
         _.each(product.policies, function (policy) {
-          policy.description = undefined;
-          policy.showWarning = undefined;
+          delete policy.description;
+          delete policy.showWarning;
         });
 
         var productData = {

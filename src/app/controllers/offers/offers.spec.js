@@ -91,6 +91,11 @@ describe('mobius.controllers.offers', function() {
           getLocations: sinon.stub()
         });
 
+        $provide.value('scrollService', {
+          scrollToBreadcrumbs: sinon.stub(),
+          scrollTo: sinon.stub()
+        });
+
         $provide.value('stateService', {
           isMobile: sinon.stub(),
           correctStateParam: sinon.stub()
@@ -114,7 +119,8 @@ describe('mobius.controllers.offers', function() {
               singleProperty: true
             },
             offers:{
-              discountCodeCookieExpiryDays: 5
+              discountCodeCookieExpiryDays: 5,
+              scrollToBreadcrumbs: true
             },
             menu:{
               showHotDeals: true
@@ -126,7 +132,8 @@ describe('mobius.controllers.offers', function() {
         });
 
         $provide.value('scrollService', {
-          scrollTo: sinon.spy()
+          scrollTo: sinon.spy(),
+          scrollToBreadcrumbs: sinon.spy()
         });
 
         $provide.value('propertyService', {
