@@ -233,7 +233,7 @@ angular.module('mobiusApp.directives.room', [])
       function setRoomData(data){
         // Inherited from RoomDetailsCtrl
         scope.setRoomDetails(data);
-        
+
         var propertySlug = bookingService.getParams().propertySlug;
         var propertyCode = null;
         if(propertySlug) {
@@ -299,7 +299,7 @@ angular.module('mobiusApp.directives.room', [])
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
         scope.altProduct = data.altProducts && data.altProducts.length ? data.altProducts[0] : null;
-        
+
         //STUB THIS
         /*scope.altProduct = {
           'partialAvailability': {
@@ -483,16 +483,7 @@ angular.module('mobiusApp.directives.room', [])
           });
         }
 
-        var userLang = user.getUserLanguage();
-        var appLang = stateService.getAppLanguageCode();
-        if (Settings.sandmanFrenchOverride && (appLang === 'fr' || userLang === 'fr')) {
-          user.storeUserLanguage('en-us');
-          var nonFrenchUrl = $state.href('reservation.details', params).replace('/fr/','/');
-          $window.location.replace(nonFrenchUrl);
-        }
-        else {
-          $state.go('reservation.details', params);
-        }
+        $state.go('reservation.details', params);
       };
 
       scope.onClickOnAssociatedRoom = function(roomDetails){

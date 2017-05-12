@@ -20,6 +20,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var CLASS_NOT_AVAILABLE = 'date-not-available';
       var ALL_PROPERTIES = attrs.allProperties ? attrs.allProperties : 'All properties';
       var FIND_YOUR_HOTEL = 'Find Your Hotel';
+      var floatingBarEl = $('floating-bar');
 
       scope.isMobile = function(){
         return stateService.isMobile();
@@ -976,6 +977,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           }
 
           if (settings && settings.openDatePicker) {
+            //Ensure floating-bar is set to active if datepicker opened
+            if(!floatingBarEl.hasClass('active')){
+              floatingBarEl.addClass('active');
+            }
             var rangeInput = angular.element('#booking-widget-date-range');
             if (rangeInput.length) {
               rangeInput.focus();

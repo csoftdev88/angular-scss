@@ -588,7 +588,7 @@ angular.module('mobiusApp.config', [])
       },
       'displayAltProduct':false,
       'showProductImage':true,
-      'ratesAsLinks':true,
+      'ratesAsLinks':false,
       'productImages': {
         'height':125,
         'width':145
@@ -941,7 +941,7 @@ angular.module('mobiusApp.config', [])
         'enable':true
       },
       'reservationAssurance': {
-        display: true,
+        display: false,
         payment: true,
         price: true,
         security: true
