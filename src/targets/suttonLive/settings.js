@@ -674,7 +674,7 @@ angular.module('mobiusApp.config', [])
       'displayAltProduct': true,
       'showSlashThrough': true,
       'showProductImage':true,
-      'ratesAsLinks':true,
+      'ratesAsLinks': false,
       'productImages': {
         'height':125,
         'width':145
