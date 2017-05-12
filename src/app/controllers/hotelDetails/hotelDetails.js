@@ -398,8 +398,8 @@ angular.module('mobius.controllers.hotel.details', [
         breadcrumbsService
           .addHref('About', 'jsAbout')
           .addHref('Rooms', 'jsRooms')
-          .addHref('Offers', 'jsOffers')
           .addHref('Location', 'jsLocation')
+          .addHref('Offers', 'jsOffers')
           .addHref('Gallery', 'fnOpenHotelLightBox');
 
         if (details.hasOwnProperty('available')) {
@@ -514,7 +514,7 @@ angular.module('mobius.controllers.hotel.details', [
 
         $scope.numberOfRoomsDisplayedMobile = Settings.UI.hotelDetails.defaultNumberOfRoomsMobile;
         //If on mobile and mobile number is configured use this, otherwise use the default number
-        $scope.numberOfRoomsDisplayed = $scope.numberOfRoomsDisplayedMobile && $scope.isMobile ? $scope.numberOfRoomsDisplayedMobile : Settings.UI.hotelDetails.defaultNumberOfRooms;   
+        $scope.numberOfRoomsDisplayed = $scope.numberOfRoomsDisplayedMobile && $scope.isMobile ? $scope.numberOfRoomsDisplayedMobile : Settings.UI.hotelDetails.defaultNumberOfRooms;
 
         $scope.numberOfAmenities = $scope.roomsConfig.defaultNumberOfAmenities;
         $scope.viewRatesButtonText = $scope.roomsConfig.viewRatesButtonText;
