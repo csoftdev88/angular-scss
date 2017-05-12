@@ -433,17 +433,17 @@ angular
   })
 
   .state('reservation.details', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/details.html'
-    })
-    .state('reservation.billing', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/billing.html'
-    })
-    .state('reservation.confirmation', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/confirmation.html'
-    })
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/details.html'
+  })
+  .state('reservation.billing', {
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/billing.html'
+  })
+  .state('reservation.confirmation', {
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/confirmation.html'
+  })
 
   .state('offers', {
     parent: 'root',
@@ -749,12 +749,14 @@ angular
 
     //Sandman specific HACK to intercept French if NOT on a quebec page
     if (Settings.sandmanFrenchOverride) {
-
+      console.log('to name', toState.name);
       //If user language is french and URL does not contain quebec, switch back to english
-      if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec') {
-        user.storeUserLanguage('en-us');
-        var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
-        $window.location.replace(nonFrenchUrl);
+      if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec' && toState.name !== 'reservation') {
+        if (toState.name.indexof('reservation') === -1) {
+          user.storeUserLanguage('en-us');
+          var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
+          $window.location.replace(nonFrenchUrl);
+        }
       }
     }
 
