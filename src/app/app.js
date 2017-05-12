@@ -750,9 +750,10 @@ angular
     //Sandman specific HACK to intercept French if NOT on a quebec page
     if (Settings.sandmanFrenchOverride) {
       console.log('to name', toState.name);
+      // @todo work out why we need to perform check and sometime dont get a name
       //If user language is french and URL does not contain quebec, switch back to english
       if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec' && toState.name !== 'reservation') {
-        if (toState.name.indexof('reservation') === -1) {
+        if (toState.name && toState.name.indexof('reservation') === -1) {
           user.storeUserLanguage('en-us');
           var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
           $window.location.replace(nonFrenchUrl);
