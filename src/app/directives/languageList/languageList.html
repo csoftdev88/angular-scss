@@ -4,7 +4,7 @@
   </li>
 </ul>
 
-<div ng-class="{'dropdown': languages.length > 1}" ng-show="languages.length > 1 && (config.dropdown || isMobile)">
+<div ng-class="{'dropdown': languages.length > 1}" ng-show="languages.length > 1 && (config.dropdown || isMobile)  && $root.showLanguages">
   <a href title="Language">
     <span ng-if="!isMobile">{{getShortName(currentLanguage)}}</span>
     <span ng-if="isMobile"><span>_select_language_ - </span><span>{{getFullName(currentLanguage)}}</span></span>
