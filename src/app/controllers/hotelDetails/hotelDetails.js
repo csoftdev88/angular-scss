@@ -251,6 +251,8 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.details = details;
     }
 
+    $scope.details.meta.slug = $stateParams.propertySlug;
+
     //If a property is defined (which denotes a search) store this search
     if(propertyCode){
       var currentParams = angular.copy($stateParams);
