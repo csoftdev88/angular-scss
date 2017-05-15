@@ -251,6 +251,11 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.details = details;
     }
 
+    if (!details.meta.slug) {
+      $window.Raven.captureException('WARNING : WE DID NOT RECEIVE THE THE PROPERTY SLUG FROM THE API...');
+      console.warn('WARNING : WE DID NOT RECEIVE THE THE PROPERTY SLUG FROM THE API...');
+    }
+
     $scope.details.meta.slug = $stateParams.propertySlug;
 
     //If a property is defined (which denotes a search) store this search
