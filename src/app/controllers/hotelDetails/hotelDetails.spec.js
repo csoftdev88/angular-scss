@@ -81,6 +81,13 @@ describe('mobius.controllers.hotel.details', function() {
           highlightAsterixAmenities: function(){}
         });
 
+        $provide.value('$window', {
+          Raven: {
+            captureException: sinon.stub()
+          },
+          moment: sinon.stub()
+        });
+
         $provide.value('channelService', {
           getChannel: function() {
             return {
