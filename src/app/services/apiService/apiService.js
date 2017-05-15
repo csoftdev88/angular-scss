@@ -14,8 +14,6 @@ angular.module('mobiusApp.services.api', [])
     'mobius-chainId': Settings.API.headers['Mobius-chainId'] ? Settings.API.headers['Mobius-chainId'] : null
   };
 
-  var apiCache = $cacheFactory('apiCache');
-
   var cookieExpiryDate = null;
   var expiryMins = Settings.API.sessionData.expiry || 15;
 
@@ -33,44 +31,28 @@ angular.module('mobiusApp.services.api', [])
     //sessionData
     handleSessionDataHeaders();
 
-    if (canCache && angular.isUndefined(apiCache.get(url))) {
-      $http({
-        method: 'GET',
-        url: url,
-        headers: headers,
-        params: params
-      }).success(function(res, status, resHeaders) {
-        if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
-          updateMobiusAuthHeader(resHeaders('mobius-authentication'));
-        }
-        apiCache.put(url, res);
-        q.resolve(res);
+    var config = {
+      method: 'GET',
+      url: url,
+      headers: headers,
+      params: params
+    };
 
-      }).error(function(err, status, resHeaders) {
-        logApiError('GET', err, url, params, resHeaders);
-        q.reject(err);
-      });
+    if (canCache) {
+      config.cache = true;
     }
-    else if(canCache && angular.isDefined(apiCache.get(url))){
-      q.resolve(apiCache.get(url));
-    }
-    else{
-      $http({
-        method: 'GET',
-        url: url,
-        headers: headers,
-        params: params
-      }).success(function(res, status, resHeaders) {
-        if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
-          updateMobiusAuthHeader(resHeaders('mobius-authentication'));
-        }
-        q.resolve(res);
 
-      }).error(function(err, status, resHeaders) {
-        logApiError('GET', err, url, params, resHeaders);
-        q.reject(err);
-      });
-    }
+    $http(config).success(function(res, status, resHeaders) {
+      if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
+        updateMobiusAuthHeader(resHeaders('mobius-authentication'));
+      }
+      q.resolve(res);
+
+    }).error(function(err, status, resHeaders) {
+      logApiError('GET', err, url, params, resHeaders);
+      q.reject(err);
+    });
+    
     return q.promise;
   }
 
