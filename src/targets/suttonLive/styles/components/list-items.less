@@ -4,6 +4,10 @@ list-item {
 
   .use-ribbon();
 
+  &.slashthrough {
+    padding-bottom: 30px;
+  }
+
   // Add padding to the top if a ribbon is present in the same container
   .member-ribbon ~ pricing-info {
     padding-top: 30px;
@@ -42,6 +46,32 @@ list-item {
   > pricing-info {
     .viewport-mobile & {
       display:none;
+    }
+  }
+  pricing-info {
+    p{
+      display: inline-block;
+      span:not(.points){
+        float: none;
+        clear: initial;
+        padding-right: 5px;
+      }
+    }
+  }
+  &.slashthrough {
+    pricing-info{
+      p{
+        .original-price{
+          .viewport-mobile & {
+            float:none;
+            margin-right:5px;
+          }
+        }
+        .value:not(.points){
+          float: none;
+          clear: initial;
+        }
+      }
     }
   }
   .list-item-header {
