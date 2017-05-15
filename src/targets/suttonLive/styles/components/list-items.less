@@ -44,6 +44,32 @@ list-item {
       display:none;
     }
   }
+  pricing-info {
+    p{
+      display: inline-block;
+      span:not(.points){
+        float: none;
+        clear: initial;
+        padding-right: 5px;
+      }
+    }
+  }
+  &.slashthrough {
+    pricing-info{
+      p{
+        .original-price{
+          .viewport-mobile & {
+            float:none;
+            margin-right:5px;
+          }
+        }
+        .value:not(.points){
+          float: none;
+          clear: initial;
+        }
+      }
+    }
+  }
   .list-item-header {
     pricing-info {
       .viewport-mobile & {
