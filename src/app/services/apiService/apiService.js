@@ -21,16 +21,11 @@ angular.module('mobiusApp.services.api', [])
   cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
 
   function get(url, params, cacheParam) {
-    var q = $q.defer();
-    var canCache = !params || Object.keys(params).length === 0;
-    canCache = cacheParam === false ? false : canCache;
 
+    // Promise to return
+    var defer = $q.defer();
 
-    headers['mobius-requestId'] = $rootScope.requestId;
-
-    //sessionData
-    handleSessionDataHeaders();
-
+    // Http config options
     var config = {
       method: 'GET',
       url: url,
@@ -38,6 +33,16 @@ angular.module('mobiusApp.services.api', [])
       params: params
     };
 
+    // If there are any request parameters or the cacheParam is set to false, do not cache
+    var canCache = !params || Object.keys(params).length === 0;
+    canCache = cacheParam === false ? false : canCache;
+
+    // Create the headers
+    headers['mobius-requestId'] = $rootScope.requestId;
+    handleSessionDataHeaders();
+
+    // If we can cache the response, use angular's http cache
+    // https://docs.angularjs.org/api/ng/service/$http#caching
     if (canCache) {
       config.cache = true;
     }
@@ -46,14 +51,14 @@ angular.module('mobiusApp.services.api', [])
       if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
         updateMobiusAuthHeader(resHeaders('mobius-authentication'));
       }
-      q.resolve(res);
+      defer.resolve(res);
 
     }).error(function(err, status, resHeaders) {
       logApiError('GET', err, url, params, resHeaders);
-      q.reject(err);
+      defer.reject(err);
     });
-    
-    return q.promise;
+
+    return defer.promise;
   }
 
   function post(url, data, params, ignoreHeaders, ignoreLogging) {
