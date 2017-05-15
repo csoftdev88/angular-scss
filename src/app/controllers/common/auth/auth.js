@@ -4,21 +4,32 @@
 */
 angular.module('mobius.controllers.common.auth', [])
 
-.controller( 'AuthCtrl', function($scope, _, user, config) {
+.controller( 'AuthCtrl', function($scope, _, user, config, mobiusAuthStrategy, infinitiAuthStrategy, Settings) {
 
+  // The auth strategy to use, it will be assigned to on of the <type>AuthStrategy services
   var strategy;
 
+  // Function to ensure a strategy has the correct functions. As js does not have interfaces we need
+  // to check at run time if the object is valid, otherwise a type error will be thrown
   var isValidStrategy = function (strategy) {
     return _.isFunction(strategy.login) && _.isFunction(strategy.logout) && _.isFunction(strategy.isLoggedIn);
   };
 
-  // If the config object contains an auth strategy, and one has not been set yet
-  // then assign the strategy to the controller.
-  if (_.isObject(config.strategy) && !strategy) {
-    if (isValidStrategy(config.strategy)) {
-      strategy = config.strategy;
-    } else {
-      console.warn('WARNING : Potentially unexpected behaviour. The auth strategy does not meet the requirments.');
+  // Set the auth strategy if it has not been set yet
+  if (!strategy) {
+    switch (Settings.authType) {
+      case ('mobius'):
+        strategy = mobiusAuthStrategy;
+        break;
+      case ('infiniti'):
+        strategy = infinitiAuthStrategy;
+        break;
+      default:
+        console.warn('The application has been configured without a valid auth type!!');
+        break;
+    }
+    if (isValidStrategy(strategy)) {
+      console.warn('The application has been configured with an invalid auth strategy');
     }
   }
 
@@ -29,23 +40,23 @@ angular.module('mobius.controllers.common.auth', [])
     }
   });
 
-  $scope.login = function() {
+  $scope.login = function (options) {
     if (strategy) {
-      return strategy.login();
+      return strategy.login($scope, options);
     }
     console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
   };
 
-  $scope.logout = function() {
+  $scope.logout = function (options) {
     if (strategy) {
-      return strategy.logout();
+      return strategy.logout($scope, options);
     }
     console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
   };
 
-  $scope.isLoggedIn = function() {
+  $scope.isLoggedIn = function (options) {
     if (strategy) {
-      return strategy.isLoggedIn();
+      return strategy.isLoggedIn($scope, options);
     }
     console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
   };
