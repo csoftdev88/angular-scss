@@ -2,7 +2,8 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService, stateService) {
+.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject,
+                                  $cacheFactory, sessionDataService, channelService, stateService) {
 
   var sessionCookie = sessionDataService.getCookie();
   var sessionId = sessionCookie.sessionData.sessionId;
