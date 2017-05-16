@@ -621,7 +621,7 @@ angular.module('mobius.controllers.offers', [])
 
   $scope.bindHtmlClick = function(event) {
     if (event.target.attributes['ng-click'] && event.target.attributes['ng-click'].value === 'login()') {
-      $scope.sso.login();
+      $scope.auth.login();
     }
   };
 

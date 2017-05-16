@@ -701,6 +701,8 @@ angular
     $scope: $scope
   });
 
+  $controller('AuthCtrl', { $scope: $scope, config: function () { console.log('im in'); } });
+
   $scope.uiConfig = Settings.UI;
   $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
   $scope.userLang = user.getUserLanguage();

@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.common.auth', ['mobiusApp.services.auth.mobius', 'mobiusApp.services.auth.infiniti'])
 
-.controller( 'AuthCtrl', function($scope, _, user, config, mobiusAuthStrategy, infinitiAuthStrategy, Settings) {
+.controller( 'AuthCtrl', function($scope, _, user, mobiusAuthStrategy, infinitiAuthStrategy, Settings) {
 
   // The auth strategy to use, it will be assigned to on of the <type>AuthStrategy services
   var strategy;
@@ -33,10 +33,10 @@ angular.module('mobius.controllers.common.auth', ['mobiusApp.services.auth.mobiu
     }
   }
 
-  // Perform authentication callback passed by the config object
-  user.authPromise.then(function(isMobiusUser){
-    if(_.isFunction(config.onAuthorized)){
-      config.onAuthorized(isMobiusUser);
+  // @todo remove this and use function
+  user.authPromise.then(function (isMobiusUser) {
+    if (_.isFunction(config.onAuthorized)) {
+      return config.onAuthorized(isMobiusUser);
     }
   });
 
@@ -58,6 +58,45 @@ angular.module('mobius.controllers.common.auth', ['mobiusApp.services.auth.mobiu
         return strategy.isLoggedIn($scope, options);
       }
       console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
+    },
+    register: function (options) {
+      if (strategy) {
+        return strategy.register($scope, options);
+      }
+      console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
+    },
+    viewProfile: function (options) {
+      if (strategy) {
+        return strategy.viewProfile($scope, options);
+      }
+      console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
+    },
+    onAuthorized: function (callback) {
+      // Perform authentication callback passed by the config object
+      user.authPromise.then(function (isMobiusUser) {
+        if (_.isFunction(callback)) {
+          return callback(isMobiusUser);
+        }
+      });
+    },
+    getStrategy: function () {
+      return Settings.authType;
+    },
+    isInfiniti: function () {
+      return Settings.authType === 'infiniti';
+    },
+    isMobius: function () {
+      return Settings.authType === 'mobius';
+    },
+    isKeystone: function () {
+      return Settings.authType === 'keystone';
+    },
+    clearErrorMsg: function () {
+      $scope.loginDialogError = false;
+      $scope.missingFieldsError = false;
+      $scope.incorrectEmailPasswordError = false;
+      $scope.notRegisteredEmailError = false;
+      $scope.passwordResetSuccess = false;
     }
   };
 

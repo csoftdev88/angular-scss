@@ -43,7 +43,7 @@
         <li><a ng-show="thirdparty ? thirdparty.config.menu.showOffers : true" ui-sref="offers" ng-click="retentionClick()">_offers_deals_</a></li>
         <li><a ng-show="thirdparty ? thirdparty.config.menu.showAbout : true" ui-sref="aboutUs" ng-click="retentionClick()">_about_us_</a></li>
         <li><a ng-show="thirdparty ? thirdparty.config.menu.showContact : true" ui-sref="contacts" ng-click="retentionClick()">_contact_</a></li>
-        <li><a href ng-click="sso.login(); retentionClick()" ng-show="!isUserLoggedIn()" ng-click="retentionClick()">_login_</a></li>
+        <li><a href ng-click="auth.login(); retentionClick()" ng-show="!isUserLoggedIn()" ng-click="retentionClick()">_login_</a></li>
         <li><a ui-sref="lookup" ng-click="retentionClick()">_footer_links_modify_</a></li>
       </ul>
     </nav>

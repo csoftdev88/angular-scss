@@ -116,7 +116,7 @@
             _book_now_
           </button-submit>
 
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">_login_to_book_</a>
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="auth.login()">_login_to_book_</a>
         </pricing-info>
 
         <description-info>
@@ -142,7 +142,7 @@
             ng-hide="product.memberOnly && !isUserLoggedIn()">
             _book_now_
           </button-submit>
-          <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="sso.login()">Login</a>
+          <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="auth.login()">Login</a>
         </div>
       </list-item>
     </list-items>

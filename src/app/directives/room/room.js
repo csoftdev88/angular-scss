@@ -562,7 +562,7 @@ angular.module('mobiusApp.directives.room', [])
           }
           else if(product.memberOnly && !scope.isUserLoggedIn() && !scope.isModifyingAsAnonymous())
           {
-            scope.sso.login();
+            scope.auth.login();
           }
         }
       };
