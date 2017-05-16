@@ -114,7 +114,7 @@
           <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="sso.login(); retentionClick()">_login_</a>
         </li>
         <li ng-show="isUserLoggedIn()" profile class="mobile-logout" ng-class="{'is-desktop': !config.menu.isLogoutInDropdown}">
-          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="sso.logout(); retentionClick()">_logout_</a>
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="auth.logout(); retentionClick()">_logout_</a>
         </li>
 
         <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
@@ -213,7 +213,7 @@
 
       <header>
         <a href="" ng-click="loginFormStep = 1; sso.clearErrors(); retentionClick()" ng-show="loginFormStep == 2" class="back-btn">_back_</a>
-        <a href="" ng-click="sso.clearErrors(); sso.login(); retentionClick()" class="close-btn"></a>
+        <a href="" ng-click="sso.clearErrors(); auth.login(); retentionClick()" class="close-btn"></a>
         <figure class="logo">
           <img src="/static/images/v4/logo-login.png" alt="logo">
         </figure>
@@ -262,7 +262,7 @@
 
           <ul class="options">
             <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors(); retentionClick()">_forgot_password_label_</a></li>
-            <li><a href="" ui-sref="register" ng-click="sso.clearErrors(); sso.login(); retentionClick()">_register_now_</a></li>
+            <li><a href="" ui-sref="register" ng-click="sso.clearErrors(); auth.login(); retentionClick()">_register_now_</a></li>
           </ul>
 
           <button-submit role="button" tabindex="0" ng-click="sso.doLogin(loginForm, loginData); retentionClick()">_login_</button-submit>
