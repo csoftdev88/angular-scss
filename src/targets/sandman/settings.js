@@ -1027,6 +1027,7 @@ angular.module('mobiusApp.config', [])
       'roomDetails':{
         'hasViewMore': true,
         'showInclusions': false,
+        'showTagline': true,
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
