@@ -250,6 +250,7 @@ angular.module('mobiusApp.services.user', [])
     }
 
     return {
+      // @todo remove this
       isLoggedIn: function() {
         return hasSSOCookies() && isProfileLoaded();
       },
@@ -264,7 +265,7 @@ angular.module('mobiusApp.services.user', [])
       loadLoyalties: loadLoyalties,
       loadRewards: loadRewards,
       updateUser: updateUser,
-      logout: logout,
+      logout: logout, // @todo remove this
       authPromise: authPromise.promise,
       storeUserLanguage: storeUserLanguage,
       getUserLanguage: getUserLanguage,
