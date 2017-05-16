@@ -2,7 +2,7 @@
 /*
 * This a controller for auth-protected routes
 */
-angular.module('mobius.controllers.common.auth', [])
+angular.module('mobius.controllers.common.auth', ['mobiusApp.services.auth.mobius', 'mobiusApp.services.auth.infiniti'])
 
 .controller( 'AuthCtrl', function($scope, _, user, config, mobiusAuthStrategy, infinitiAuthStrategy, Settings) {
 
@@ -28,7 +28,7 @@ angular.module('mobius.controllers.common.auth', [])
         console.warn('The application has been configured without a valid auth type!!');
         break;
     }
-    if (isValidStrategy(strategy)) {
+    if (!isValidStrategy(strategy)) {
       console.warn('The application has been configured with an invalid auth strategy');
     }
   }
@@ -40,25 +40,25 @@ angular.module('mobius.controllers.common.auth', [])
     }
   });
 
-  $scope.login = function (options) {
-    if (strategy) {
-      return strategy.login($scope, options);
+  $scope.auth = {
+    login: function (options) {
+      if (strategy) {
+        return strategy.login($scope, options);
+      }
+      console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
+    },
+    logout: function (options) {
+      if (strategy) {
+        return strategy.logout($scope, options);
+      }
+      console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
+    },
+    isLoggedIn: function (options) {
+      if (strategy) {
+        return strategy.isLoggedIn($scope, options);
+      }
+      console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
     }
-    console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
-  };
-
-  $scope.logout = function (options) {
-    if (strategy) {
-      return strategy.logout($scope, options);
-    }
-    console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
-  };
-
-  $scope.isLoggedIn = function (options) {
-    if (strategy) {
-      return strategy.isLoggedIn($scope, options);
-    }
-    console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
   };
 
   // Invalidate the auth callback when the controller looses scope
