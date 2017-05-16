@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mobiusApp.services.auth.mobius', [])
-
+angular
+  .module('mobiusApp.services.auth.mobius', [])
   .service( 'mobiusAuthStrategy', function($rootScope, $q, $timeout, $state, user, apiService, userObject) {
 
     // The header's attributes name
@@ -18,29 +18,32 @@ angular.module('mobiusApp.services.auth.mobius', [])
     }
 
     var login = function (scope) {
-      scope.loginForm.$submitted = true;
-
-      if (scope.loginForm.$valid) {
-        var headersObj = {};
-        headersObj[KEY_CUSTOMER_ID] = undefined;
-        apiService.setHeaders(headersObj);
-        apiService.post(apiService.getFullURL('customers.login'), scope.loginData).then(function (data) {
-          if (data.id !== null) {
-            $rootScope.showLoginDialog = false;
-            clearErrorMsg(scope);
-            userObject.id = data.id;
-            user.storeUserId(data.id);
-            user.loadProfile();
-          }
-          else {
+      $rootScope.showLoginDialog = !$rootScope.showLoginDialog;
+      // @todo find a way to assign the function without doing it every time login is called
+      scope.doLogin = function () {
+        scope.loginForm.$submitted = true;
+        if (scope.loginForm.$valid) {
+          var headersObj = {};
+          headersObj[KEY_CUSTOMER_ID] = undefined;
+          apiService.setHeaders(headersObj);
+          apiService.post(apiService.getFullURL('customers.login'), scope.loginData).then(function (data) {
+            if (data.id !== null) {
+              $rootScope.showLoginDialog = false;
+              clearErrorMsg(scope);
+              userObject.id = data.id;
+              user.storeUserId(data.id);
+              user.loadProfile();
+            }
+            else {
+              scope.loginDialogError = true;
+              scope.incorrectEmailPasswordError = true;
+            }
+          }, function () {
             scope.loginDialogError = true;
             scope.incorrectEmailPasswordError = true;
-          }
-        }, function () {
-          scope.loginDialogError = true;
-          scope.incorrectEmailPasswordError = true;
-        });
-      }
+          });
+        }
+      };
     };
 
     var logout = function () {
