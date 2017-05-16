@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobiusApp.services.auth', [])
+angular.module('mobiusApp.services.auth.mobius', [])
 
   .service( 'mobiusAuthStrategy', function($rootScope, $q, $timeout, $state, user, apiService, userObject) {
 
@@ -17,7 +17,7 @@ angular.module('mobiusApp.services.auth', [])
       scope.passwordResetSuccess = false;
     }
 
-    var login = function (scope, options) {
+    var login = function (scope) {
       scope.loginForm.$submitted = true;
 
       if (scope.loginForm.$valid) {
@@ -43,7 +43,7 @@ angular.module('mobiusApp.services.auth', [])
       }
     };
 
-    var logout = function (scope, options) {
+    var logout = function () {
       $rootScope.$evalAsync(function(){
         userObject = {};
         $state.go('home', {}, {reload: true});
@@ -62,7 +62,7 @@ angular.module('mobiusApp.services.auth', [])
       });
     };
 
-    var isLoggedIn = function (scope, options) {
+    var isLoggedIn = function () {
       return !!(userObject.id && userObject.email);
     };
 

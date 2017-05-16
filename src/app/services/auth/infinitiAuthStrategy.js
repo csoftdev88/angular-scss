@@ -1,11 +1,9 @@
 'use strict';
 
-angular.module('mobiusApp.services.auth', [])
+angular.module('mobiusApp.services.auth.infiniti', [])
 
   .service( 'infinitiAuthStrategy', function($timeout, $state, $window, userObject, cookieFactory) {
 
-    // The header's attributes name
-    var AUTH_HEADER = 'infinitiAuthN';
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'MobiusID';
     // We are looking for this cookie in order to detect SSO
@@ -23,7 +21,7 @@ angular.module('mobiusApp.services.auth', [])
       return !!(userObject.id && userObject.email);
     }
 
-    var login = function (scope, options) {
+    var login = function () {
       if (isSSOReady()) {
         $window.infiniti.api.login();
       } else {
@@ -31,7 +29,7 @@ angular.module('mobiusApp.services.auth', [])
       }
     };
 
-    var logout = function (scope, options) {
+    var logout = function () {
       if (isSSOReady()) {
         $window.infiniti.api.logout();
       } else {
@@ -39,7 +37,7 @@ angular.module('mobiusApp.services.auth', [])
       }
     };
 
-    var isLoggedIn = function (scope, options) {
+    var isLoggedIn = function () {
       return hasSSOCookies() && isProfileLoaded();
     };
 
