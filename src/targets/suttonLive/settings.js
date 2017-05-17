@@ -821,6 +821,7 @@ angular.module('mobiusApp.config', [])
       'includeOfferAvailabilityPropertyDropdown': false,
       'displayOfferImageInHeroSlider': false,
       'height': 160,
+      'width': 600,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
         '0': 1,
