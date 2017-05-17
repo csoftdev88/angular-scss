@@ -120,7 +120,9 @@ describe('mobius.controllers.offers', function() {
             },
             offers:{
               discountCodeCookieExpiryDays: 5,
-              scrollToBreadcrumbs: true
+              scrollToBreadcrumbs: true,
+              width: 200,
+              height: 600
             },
             menu:{
               showHotDeals: true

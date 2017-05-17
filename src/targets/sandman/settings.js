@@ -373,7 +373,7 @@ angular.module('mobiusApp.config', [])
       'autoplayDelay': 5000,
       'animationDuration': 800,
       'preloadImages': true,
-      'slideWidth': 1680,
+      'slideWidth': 1200,
       'slideHeight': 530
     },
     // Menu settings - showing/hidding menu items
@@ -738,6 +738,8 @@ angular.module('mobiusApp.config', [])
       'displayPageHeading': true,
       'includeOfferAvailabilityPropertyDropdown': true,
       'displayOfferImageInHeroSlider': false,
+      'height': 400,
+      'width': 600,
       'scrollToBreadcrumbs': true,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
