@@ -4,7 +4,7 @@
 */
 
 angular.module('mobiusApp.services.reservation', [])
-.service( 'reservationService',  function(apiService, user, $controller) {
+.service( 'reservationService',  function(apiService, user) {
 
   function createReservation(property, rooms, data) {
     return apiService.post(apiService.getFullURL('reservations.new', {property:property, rooms:rooms}), data);
@@ -47,17 +47,8 @@ angular.module('mobiusApp.services.reservation', [])
     );
   }
 
-  var $scope = {};
-
-  $controller('AuthCtrl', {
-    $scope : $scope,
-    config: {
-      onAuthorized: function () {}
-    }
-  });
-
-  function getAvailableAddons(params){
-    if($scope.auth.isLoggedIn()){
+  function getAvailableAddons(auth, params){
+    if(auth.isLoggedIn()){
       if(!params){
         params = {};
       }

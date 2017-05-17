@@ -4,13 +4,17 @@ describe('reservationService', function() {
 
   var _reservationService, _apiPostSpy, _apiGetSpy, _apiPutSpy, _apiGetFullURLSpy;
 
+  var auth = {
+    isLoggedIn: function () { return true; }
+  };
+
   var userLoggedIn = {
     isLoggedIn: function(){return true;},
     getCustomerId: function(){return 123;}
   };
 
   beforeEach(function() {
-    module('mobiusApp.services.reservation', function($provide, $controllerProvider) {
+    module('mobiusApp.services.reservation', function($provide) {
       var Settings = {
         'API': {
           'baseURL': 'http://domain/',
@@ -32,10 +36,8 @@ describe('reservationService', function() {
         }
       };
 
-      var $scope = {};
-
       $provide.value('apiService', apiService);
-      $controllerProvider('AuthCtrl', { $scope:  })
+
     });
   });
 
@@ -189,7 +191,7 @@ describe('reservationService', function() {
 
     describe('getAvailableAddons', function() {
       it('should fire a GET request to addons API with customerId param', function() {
-        _reservationService.getAvailableAddons();
+        _reservationService.getAvailableAddons(auth);
 
         expect(_apiGetFullURLSpy.calledOnce).equal(true);
         expect(_apiGetFullURLSpy.calledWith('reservations.availableAddons')).equal(true);
