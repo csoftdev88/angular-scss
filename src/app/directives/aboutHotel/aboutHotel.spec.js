@@ -28,7 +28,7 @@ describe('aboutHotels', function() {
 
   beforeEach(function() {
     module('underscore');
-    
+
     module('mobiusApp.directives.aboutHotel', function($provide){
       $provide.value('Settings', {
         API: {
@@ -37,6 +37,9 @@ describe('aboutHotels', function() {
         UI: {
           aboutHotel: {
             benefits: 'testBenefits'
+          },
+          offers: {
+            width: 200
           },
           adverts: {
             randomMainPageAdvertSize: 300
