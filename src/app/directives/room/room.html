@@ -112,6 +112,7 @@
 
           <description-info>
             <div>
+              <a href="" class="tagline" ng-if="viewSettings.showTagline && product.tagline && product.tagline !== ''" ng-click="openRoomDetailsDialog(product)">{{product.tagline}}</a>
               <!-- NOTE: API will return descriptionShort prop, full description will be used in
               room details dialogue -->
               <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
