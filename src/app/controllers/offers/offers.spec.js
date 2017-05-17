@@ -121,7 +121,8 @@ describe('mobius.controllers.offers', function() {
             offers:{
               discountCodeCookieExpiryDays: 5,
               scrollToBreadcrumbs: true,
-              width: 200
+              width: 200,
+              height: 600
             },
             menu:{
               showHotDeals: true

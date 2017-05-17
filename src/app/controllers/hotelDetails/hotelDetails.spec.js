@@ -192,7 +192,8 @@ describe('mobius.controllers.hotel.details', function() {
               },
               offers: {
                 toState: 'propertyHotDeals',
-                width: 200
+                width: 200,
+                height: 600
               }
             },
             bookingWidget: {
