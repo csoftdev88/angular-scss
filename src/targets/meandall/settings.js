@@ -816,19 +816,19 @@ angular.module('mobiusApp.config', [])
       'GBP': {
         'code': 'GBP',
         'symbol': '£',
-        'format': '{{symbol}}{{amount}}'
+        'format': '{{symbol}} {{amount}}'
       },
 
       'USD': {
         'code': 'USD',
         'symbol': '$',
-        'format': '{{symbol}}{{amount}}'
+        'format': '{{symbol}} {{amount}}'
       },
 
       'EUR': {
         'code': 'EUR',
         'symbol': '€',
-        'format': '{{symbol}}{{amount}}'
+        'format': '{{symbol}} {{amount}}'
       }
     },
 
