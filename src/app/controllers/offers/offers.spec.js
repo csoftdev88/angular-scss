@@ -71,7 +71,7 @@ describe('mobius.controllers.offers', function() {
     beforeEach(function() {
       module('underscore');
 
-      module('mobius.controllers.offers', function($provide, $controllerProvider) {
+      module('mobius.controllers.offers', function($provide) {
         $provide.value('cookieFactory', function(a){return {}[a];});
 
         $provide.value('breadcrumbsService', {
@@ -168,7 +168,6 @@ describe('mobius.controllers.offers', function() {
           $scope._mainCtrlInherited = true;
         });
         */
-        $controllerProvider.register('SSOCtrl', function(){});
       });
     });
 
