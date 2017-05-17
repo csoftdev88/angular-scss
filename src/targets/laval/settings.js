@@ -224,7 +224,6 @@ angular.module('mobiusApp.config', [])
       'animationDuration': 800,
       'preloadImages': true,
       'slideWidth': 1200
-      'preloadImages': true
     },
     // Menu settings - showing/hidding menu items
     'menu': {
