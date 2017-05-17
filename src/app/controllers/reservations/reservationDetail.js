@@ -126,7 +126,7 @@ angular.module('mobius.controllers.reservationDetail', [])
           reservationService.addAddon($stateParams.reservationCode, null, $scope.auth.isLoggedIn() ? null : $scope.reservation.email, $scope.voucher.code).then(function() {
             $q.all([
               // Available addons
-              reservationService.getAvailableAddons({
+              reservationService.getAvailableAddons($scope.auth, {
                 propertyCode: reservation.property.code,
                 roomTypeCode: defaultRoom.roomTypeCode,
                 productCode: reservation.rooms[0].productCode,
@@ -243,7 +243,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       if(!$scope.config.disableAddons){
         var addonsPromise = $q.all([
           // Available addons
-          reservationService.getAvailableAddons({
+          reservationService.getAvailableAddons($scope.auth, {
             propertyCode: reservation.property.code,
             roomTypeCode: defaultRoom.roomTypeCode,
             productCode: reservation.rooms[0].productCode,
