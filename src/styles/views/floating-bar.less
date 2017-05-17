@@ -61,6 +61,32 @@ floating-bar {
     }
   }
 
+  &.bar-top-right:not(.active) {
+    .viewport-mobile:not(.mobile-menu-active) & {
+      top:13px;
+      right:13px;
+      width:65px;
+      height:35px;
+      line-height:35px;
+      left:auto;
+      overflow:hidden;
+      transition:none;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      border-radius:4px;
+      .mobile-search-text {
+        display:block;
+      }
+      > ul li.floating-bar--tab-booking.main-mobile-toggle a {
+        background:@c-secondary;
+        height:35px;
+        padding:0;
+        .mobile {
+          display:none;
+        }
+      }
+    }
+  }
+
   my-account {
     .sign-up,
     article{
@@ -202,6 +228,12 @@ floating-bar {
           display: none;
         }
 
+        .mobile-search-text {
+          display:none;
+          font-size:13px;
+          line-height:35px;
+        }
+
         //Mobile
         .viewport-mobile &.mobile-single-booking {
           display: block;
@@ -225,6 +257,7 @@ floating-bar {
             //padding: 20px 0;
             height: 70px;
             font-weight: bold;
+            transition:none;
             .desktop{
               display: none;
             }

@@ -1,0 +1,143 @@
+///////////////////////
+//// HOTELS DETAIL ////
+///////////////////////
+
+hotel-detail {
+  > header {
+    .viewport-mobile & {
+      margin-bottom:10px;
+    }
+  }
+  .hotel-detail__rooms-compare {
+    .section-header {
+      h2 {
+        .viewport-mobile & {
+          display:none;
+        }
+      }
+      .search-details {
+        .viewport-mobile & {
+          margin-bottom: 0;
+          padding: 20px 20px 0 20px;
+          background: #f9f9f9;
+        }
+      }
+    }
+  }
+  .hotel-info-amenities{
+    h2{
+      .viewport-mobile & {
+        display:none;
+      }
+    }
+  }
+  .hotel-detail__offers {
+    offers-list {
+      .viewport-mobile & {
+        margin-bottom:0;
+      }
+    }
+    .more-btn {
+      .viewport-mobile & {
+        margin-top:0;
+        text-decoration:none;
+        a {
+          display:block;
+          background:@c-dark-brown;
+          color:@c-white;
+          text-align:center;
+          padding:15px;
+          font-size: 14px;
+          font-weight: 400;
+          text-decoration:none;
+          margin-bottom:20px;
+        }
+      }
+    }
+  }
+  .hotel-detail__services {
+    > h2 {
+      .viewport-mobile & {
+        display:none;
+      }
+    }
+  }
+  .hotel-detail__rooms {
+    .rooms-list {
+      list-item {
+        .viewport-mobile & {
+          padding-right: 25px;
+          box-sizing: border-box;
+          border-bottom:0px none;
+        }
+        .list-item-container {
+          div.list-item-info {
+            > img {
+              .viewport-mobile & {
+                width:100px;
+                height:100px;
+                position:absolute;
+              }
+            }
+            > .pricing-info {
+              .viewport-mobile & {
+                float:left;
+                margin-left: 115px;
+                .not-available {
+                  padding:0;
+                }
+              }
+            }
+          }
+          room-details {
+            .viewport-mobile & {
+              padding-left:115px;
+              padding-top:5px;
+            }
+            .our-rates {
+              .viewport-mobile & {
+                display:none;
+              }
+            }
+          }
+        }
+        > .room-link-icon {
+          display:none;
+          .viewport-mobile & {
+            display:inline-block;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top:-10px;
+            font-size: 50px;
+            color: #B08F5E;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+          }
+        }
+        .item-header.mobile {
+          .viewport-mobile & {
+            padding-left: 115px;
+            margin-bottom: 5px;
+            box-sizing: border-box;
+            border:0px none;
+          }
+          h3 {
+            .viewport-mobile & {
+              margin-bottom:0;
+            }
+            a {
+              .viewport-mobile & {
+                margin:0;
+                &:after {
+                  display:none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

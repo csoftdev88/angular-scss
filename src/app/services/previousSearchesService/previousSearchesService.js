@@ -3,7 +3,9 @@
  * This service is for tracking previous searches
  */
 angular.module('mobiusApp.services.previousSearches', [])
-  .service('previousSearchesService', function($window, Settings, sessionDataService, cookieFactory, $state, modalService, propertyService, locationService, $q, _) {
+  .service('previousSearchesService', function($window, Settings, sessionDataService,
+                                               cookieFactory, $state, modalService,
+                                               propertyService, locationService, $q, _) {
 
     function isPreviousSearchesActive() {
       return Settings.UI.previousSearches && Settings.UI.previousSearches.enable;
@@ -144,13 +146,53 @@ angular.module('mobiusApp.services.previousSearches', [])
       else {
         var previousSearches = getSearches();
         if (previousSearches && previousSearches.length) {
-          //If we have reached the maximum amount of searches, remove the oldest result before adding a new one
-          if (maxSearches && previousSearches.length >= maxSearches) {
-            previousSearches.shift();
+          var searchExists = false;
+          //Check through each previous search to see if any of them match the new search
+          _.each(previousSearches, function (previousSearch) {
+            //If the search state doesn't matche the previous search state
+            if (search.s !== previousSearch.s) {
+              return;
+            }
+            //If the new search has parameters
+            if (search.p) {
+              //If search location code doesn't match the previous search
+              if (search.p.l !== previousSearch.p.l) {
+                return;
+              }
+              //If search property code doesn't match the previous search
+              if (search.p.p !== previousSearch.p.p) {
+                return;
+              }
+              //If search room code doesn't match the previous search
+              if (search.p.r !== previousSearch.p.r) {
+                return;
+              }
+              //If search adults doesn't match the previous search
+              if (search.p.a !== previousSearch.p.a) {
+                return;
+              }
+              //If search children doesn't match the previous search
+              if (search.p.c !== previousSearch.p.c) {
+                return;
+              }
+              //If search dates doesn't match the previous search
+              if (search.p.d !== previousSearch.p.d) {
+                return;
+              }
+            }
+            searchExists = true;
+          });
+
+          //If the new search does not already exist
+          if (!searchExists) {
+            //If we have reached the maximum amount of searches, remove the oldest result before adding a new one
+            if (maxSearches && previousSearches.length >= maxSearches) {
+              previousSearches.shift();
+            }
+            cookie.searches = previousSearches;
+            cookie.searches.push(search);
+            saveSearchDataCookie(cookie);
           }
-          cookie.searches = previousSearches;
-          cookie.searches.push(search);
-          saveSearchDataCookie(cookie);
         }
       }
     }
@@ -293,7 +335,7 @@ angular.module('mobiusApp.services.previousSearches', [])
           var previousSearches = getSearches();
           if(previousSearches && previousSearches.length){
             saveSearchDisplayCookie();
-            var searchPromises = [];
+            /*var searchPromises = [];
             _.each(previousSearches, function(search){
               ///Generate the search url
               searchPromises.push(getSearchUrlParams(search).then(function(params){
@@ -302,7 +344,8 @@ angular.module('mobiusApp.services.previousSearches', [])
             });
             $q.all(searchPromises).then(function () {
               modalService.openPreviousSearchesDialog(previousSearches, removeSearch);
-            });
+            });*/
+            modalService.openPreviousSearchesDialog(previousSearches, removeSearch);
           }
         }
       }
@@ -333,6 +376,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       displaySearches: displaySearches,
       removeSearch: removeSearch,
       removeSessionSearches: removeSessionSearches,
-      hasSearchedInSession: hasSearchedInSession
+      hasSearchedInSession: hasSearchedInSession,
+      getSearchUrlParams: getSearchUrlParams
     };
   });

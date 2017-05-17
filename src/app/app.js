@@ -82,6 +82,7 @@ angular
 
     // Application modules
     'mobiusApp.config',
+    'mobiusApp.dynamicMessages',
     'mobiusApp.userobject',
     // Services
     'mobiusApp.services.state',
@@ -154,6 +155,8 @@ angular
     'mobiusApp.directives.markdownTextParser',
     'mobiusApp.directives.socialLinks',
     'mobiusApp.directives.taTeaser',
+    'mobiusApp.directives.stickyHeader',
+
     // Common controllers
     'mobius.controllers.reservation.directive',
     'mobiusApp.directives.embeddedForm',
@@ -182,6 +185,7 @@ angular
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
     'mobiusApp.directives.infinitiApeironScript',
+    'mobiusApp.directives.rumScript',
     'mobiusApp.directives.scrollPosition',
     'mobiusApp.directives.stickable',
     'mobiusApp.directives.hoverTrigger',
@@ -190,6 +194,7 @@ angular
     'mobiusApp.directives.optionsDisabled',
     'mobiusApp.directives.slidedownNotifications',
     'mobiusApp.directives.inclusions',
+    'mobiusApp.directives.sectionImage',
 
     'internationalPhoneNumber',
 
@@ -428,17 +433,17 @@ angular
   })
 
   .state('reservation.details', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/details.html'
-    })
-    .state('reservation.billing', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/billing.html'
-    })
-    .state('reservation.confirmation', {
-      parent: 'reservation',
-      templateUrl: 'layouts/reservations/reservation/confirmation.html'
-    })
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/details.html'
+  })
+  .state('reservation.billing', {
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/billing.html'
+  })
+  .state('reservation.confirmation', {
+    parent: 'reservation',
+    templateUrl: 'layouts/reservations/reservation/confirmation.html'
+  })
 
   .state('offers', {
     parent: 'root',
@@ -582,10 +587,10 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
-    if(next.name === 'unknown'){ //If the page we are navigating to is not recognised    
+    if(next.name === 'unknown'){ //If the page we are navigating to is not recognised
       if(Settings.API.track404s && Settings.API.track404s.enable) {  //This segment tracks any 404s and sends to our 404 tracking service
         var fromPath = null;
         if($location.search() && $location.search().fromDomain) {
@@ -600,7 +605,7 @@ angular
       $rootScope.prerenderStatusCode = '403';
     } else { //Otherwise set as 200 ok
       $rootScope.prerenderStatusCode = '200';
-    }    
+    }
   });
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -642,10 +647,13 @@ angular
 
   if (userLang && userLang !== appLang && Settings.UI.languages[userLang]) {
     var language_code = userLang;
-    var path = $location.path();
-    var search = encodeQueryData($location.search());
-    var hash = $location.hash();
-    $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+    //Only make this change if the new language code isn't default
+    if(Settings.UI.languages.default !== language_code){
+      var path = $location.path();
+      var search = encodeQueryData($location.search());
+      var hash = $location.hash();
+      $window.location.replace((language_code ? '/' + language_code : '') + path + (search ? '?' + search : '') + (hash ? '#' + hash : ''));
+    }
   }
 
   //Set default language header
@@ -661,27 +669,27 @@ angular
   //localize moment.js
   $window.moment.locale(appLang);
 
-  $rootScope.$on('$stateChangeSuccess', function() {
-    breadcrumbsService.clear();
-  });
-
   //Let's get property slug if single property and save it to settings for future use
-  if (Settings.UI.generics.singleProperty) {
+  if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode) {
     if (!Settings.API.propertySlug) {
       propertyService.getAll().then(function(properties) {
-        var code = properties[0].code;
-        propertyService.getPropertyDetails(code).then(function(details) {
-          var slug = details.meta.slug;
-          Settings.API.propertySlug = slug;
-          $rootScope.propertySlug = slug;
+        var singleProperty = _.find(properties, function(property){
+          return property.code === Settings.UI.generics.defaultPropertyCode;
         });
+        if(singleProperty && singleProperty.code){
+          propertyService.getPropertyDetails(singleProperty.code).then(function(details) {
+            var slug = details.meta.slug;
+            Settings.API.propertySlug = slug;
+            $rootScope.propertySlug = slug;
+          });
+        }
       });
     }
   }
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService) {
+  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -692,6 +700,28 @@ angular
   $controller('ReservationMultiRoomCtrl', {
     $scope: $scope
   });
+
+  $scope.uiConfig = Settings.UI;
+  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
+  $scope.userLang = user.getUserLanguage();
+  $scope.appLang = stateService.getAppLanguageCode();
+  $scope.scrollService = scrollService;
+  $scope.floatingBarMobileTopRight = Settings.UI.bookingWidget.mobileTopRight;
+
+  //If menu overlay is enabled, add the event handlers to open and close the menu
+  if($scope.menuOverlayEnabled){
+    $scope.toggleMenuOverlay = function(){
+      $timeout(function(){
+        $('body').toggleClass('main-menu-active');
+      }, 0);
+    };
+
+    $scope.hideMenuOverlay = function(){
+      $timeout(function(){
+        $('body').removeClass('main-menu-active');
+      }, 0);
+    };
+  }
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
 
@@ -719,15 +749,15 @@ angular
 
     //Sandman specific HACK to intercept French if NOT on a quebec page
     if (Settings.sandmanFrenchOverride) {
-
-      var userLang = user.getUserLanguage();
-      var appLang = stateService.getAppLanguageCode();
-
+      console.log('to name', toState.name);
+      // @todo work out why we need to perform check and sometime dont get a name
       //If user language is french and URL does not contain quebec, switch back to english
-      if ((appLang === 'fr' || userLang === 'fr') && toParams.regionSlug !== 'quebec') {
-        user.storeUserLanguage('en-us');
-        var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
-        $window.location.replace(nonFrenchUrl);
+      if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec' && toState.name !== 'reservation') {
+        if (toState.name && toState.name.indexof('reservation') === -1) {
+          user.storeUserLanguage('en-us');
+          var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
+          $window.location.replace(nonFrenchUrl);
+        }
       }
     }
 
@@ -753,7 +783,7 @@ angular
     }
 
     //if single property redirect home state to hotel page
-    if (Settings.UI.generics.singleProperty && toState.name === 'home') {
+    if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode && toState.name === 'home') {
       e.preventDefault();
       if (Settings.API.propertySlug) {
         $state.go('hotel', {
@@ -761,8 +791,10 @@ angular
         });
       } else {
         propertyService.getAll().then(function(properties) {
-          var code = properties[0].code;
-          propertyService.getPropertyDetails(code).then(function(details) {
+          var singleProperty = _.find(properties, function(property){
+            return property.code === Settings.UI.generics.defaultPropertyCode;
+          });
+          propertyService.getPropertyDetails(singleProperty.code).then(function(details) {
             var slug = details.meta.slug;
             $state.go('hotel', {
               propertySlug: slug
@@ -780,6 +812,21 @@ angular
     }
     metaInformationService.reset();
 
+    $scope.user = user;
+    $scope.isUserLoggedIn = user.isLoggedIn;
+
+    $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
+      $scope.isUserLoggedIn = user.isLoggedIn;
+      if($state.current.name === 'reservation.details')
+      {
+        $state.reload();
+      }
+    });
+
+    //If menu overlay is enabled, close it before navigating to the next page.
+    if($scope.menuOverlayEnabled){
+      $scope.hideMenuOverlay();
+    }
 
   });
 
@@ -821,11 +868,23 @@ angular
     if($state.current.name !== 'reservation.details' && $state.current.name !== 'reservation.billing' && $state.current.name !== 'reservation.confirmation') {
       previousSearchesService.displaySearches();
     }
+
+    $scope.hideFooter = false;
+
+    //If on a reservations page and config says to hide footer, then hide footer
+    if($state.current.parent === 'reservation' && $scope.uiConfig.reservations && $scope.uiConfig.reservations.hideFooter){
+      $scope.hideFooter = true;
+    }
+
+    //If on a lookup page and config says to hide footer, then hide footer
+    if($state.current.name === 'lookup' && $scope.uiConfig.lookUp && $scope.uiConfig.lookUp.hideFooter){
+      $scope.hideFooter = true;
+    }
   });
 
   if(funnelRetentionService.isFunnelRetentionActive()){
     funnelRetentionService.init($scope);
-    
+
     funnelRetentionService.addExitHandler();
 
     $scope.retentionClick = function(){
@@ -895,6 +954,13 @@ angular
         }
       }
     };
+  }
+
+  //Growl alerts for when a promoCode / corpCode / groupCode is prefilled
+  if(Settings.UI.bookingWidget.prefillGrowlAlert){
+    $scope.$on('CODE_ADDED_GROWL_ALERT_EMIT', function(event, type) {
+      $scope.$broadcast('CODE_ADDED_GROWL_ALERT_BROADCAST', type);
+    });
   }
 
   function repositionHeroSlider(heroSliderEl){

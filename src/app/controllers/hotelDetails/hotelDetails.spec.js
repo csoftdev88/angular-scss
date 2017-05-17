@@ -76,7 +76,16 @@ describe('mobius.controllers.hotel.details', function() {
                 c(ROOMS);
               }
             };
-          }
+          },
+          sanitizeAmenities: function(){},
+          highlightAsterixAmenities: function(){}
+        });
+
+        $provide.value('$window', {
+          Raven: {
+            captureException: sinon.stub()
+          },
+          moment: sinon.stub()
         });
 
         $provide.value('channelService', {
@@ -121,9 +130,9 @@ describe('mobius.controllers.hotel.details', function() {
           openGallery: function() {}
         });
 
-
         $provide.value('stateService', {
-          isMobile: sinon.stub()
+          getAppLanguageCode: function(){},
+          isMobile: function(){}
         });
 
         $provide.value('advertsService', {});
@@ -159,6 +168,8 @@ describe('mobius.controllers.hotel.details', function() {
         $provide.value('$stateParams', {
           propertySlug: 'vancouver'
         });
+
+        $provide.value('DynamicMessages', {});
 
         $provide.value('Settings', {
           UI: {

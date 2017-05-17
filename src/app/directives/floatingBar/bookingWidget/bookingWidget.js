@@ -20,6 +20,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var CLASS_NOT_AVAILABLE = 'date-not-available';
       var ALL_PROPERTIES = attrs.allProperties ? attrs.allProperties : 'All properties';
       var FIND_YOUR_HOTEL = 'Find Your Hotel';
+      var floatingBarEl = $('floating-bar');
 
       scope.isMobile = function(){
         return stateService.isMobile();
@@ -889,7 +890,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
         init();
       });
-
+      
       var prefillListener = $rootScope.$on('BOOKING_BAR_PREFILL_DATA', function(e, data){
         onPrefill(data);
       });
@@ -922,7 +923,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
         // TODO: Set code type from offers
         function prefillPromoCode() {
-
           // TODO: Offers should have code types - needs API
           var codeTypeParam;
           if(settings.promoCode){
@@ -942,11 +942,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             var prefilledClass = 'prefilled';
             promoInput.addClass(prefilledClass);
             scope.checkAvailability();
-
-            // Removing class when animation complete
-            $timeout(function () {
-              promoInput.removeClass(prefilledClass);
-            }, 1000);
+            
+            //Growl alerts for when a promoCode / corpCode / groupCode is prefilled.
+            if(scope.settings.prefillGrowlAlert && codeTypeParam){
+              scope.$emit('CODE_ADDED_GROWL_ALERT_EMIT', codeTypeParam);
+            }
+            
+            if(!scope.settings.keepPrefillStyle){ //If option to keep the prefill style is not enabled       
+              $timeout(function () {
+                promoInput.removeClass(prefilledClass); // Remove class when animation complete
+              }, 1000);
+            }
           }
 
           if (settings.fixedCodes) {
@@ -962,8 +968,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.availability = {};
           queryService.removeParam(PARAM_TYPES.promoCode.search);
         }
-
-
+        
         $timeout(function () {
           if (settings.promoCode || settings.corpCode || settings.groupCode) {
             prefillPromoCode();
@@ -972,6 +977,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           }
 
           if (settings && settings.openDatePicker) {
+            //Ensure floating-bar is set to active if datepicker opened
+            if(!floatingBarEl.hasClass('active')){
+              floatingBarEl.addClass('active');
+            }
             var rangeInput = angular.element('#booking-widget-date-range');
             if (rangeInput.length) {
               rangeInput.focus();
@@ -988,8 +997,9 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             scope.regionPropertySelected = {type: 'location', code: settings.location};
             scope.propertyRegionChanged();
           }
-
         }, 0);
+
+        
       }
 
       // Init

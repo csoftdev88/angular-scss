@@ -1,19 +1,21 @@
 'use strict';
 
 angular.module('mobiusApp.services.userMessagesService', [])
-  .service('userMessagesService', function($rootScope, $timeout) {
+  .service('userMessagesService', function($rootScope, $timeout, stateService) {
     var TYPE_INFO = 'info-message';
     var TYPE_RESERVATION_CONFIRMATION = 'info-reservation-confirmation';
     var messages = [];
     var isChangingRoute = false;
 
-    function clearMessages(){
+    function clearMessages() {
       messages.length = 0;
-      document.body.style.paddingTop = 0;
+      if (!stateService.isMobile()) {
+        document.body.style.paddingTop = 0;
+      }
     }
 
     function addMessage(html, keepOldMessages, routeIsChanging) {
-      
+
       isChangingRoute = routeIsChanging || false;
 
       if(!keepOldMessages && messages.length){
@@ -26,14 +28,16 @@ angular.module('mobiusApp.services.userMessagesService', [])
           html: html
         });
 
-        $timeout(function () {
-          document.body.style.paddingTop = angular.element('#user-messages').height() + 'px';
-        }, 500);
+        if (!stateService.isMobile()) {
+          $timeout(function () {
+            document.body.style.paddingTop = angular.element('#user-messages').height() + 'px';
+          }, 500);
+        }
       });
     }
 
     function addReservationConfirmationMessage(property, reservationCode, keepOldMessages, routeIsChanging) {
-      
+
       isChangingRoute = routeIsChanging || false;
 
       if(!keepOldMessages && messages.length){
@@ -47,9 +51,11 @@ angular.module('mobiusApp.services.userMessagesService', [])
           reservationCode: reservationCode
         });
 
-        $timeout(function () {
-          document.body.style.paddingTop = angular.element('#user-messages').height() + 'px';
-        }, 500);
+        if (!stateService.isMobile()) {
+          $timeout(function () {
+            document.body.style.paddingTop = angular.element('#user-messages').height() + 'px';
+          }, 500);
+        }
       });
     }
 

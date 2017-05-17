@@ -183,11 +183,11 @@
   </div>
 
   <div class="room-details-right">
-    <section ng-if="roomDetails.amenities.length" class="room-amenities">
+    <section ng-if="filteredAmenities.length" class="room-amenities">
       <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
 
       <amenities-list ng-if="property">
-        <amenity-item ng-repeat="amenity in property.amenities" ng-init="amenity.chainCode = property.chainCode">
+        <amenity-item ng-repeat="amenity in property.amenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = property.chainCode">
           <slug-img slug="amenity" type="hotel" width="15"></slug-img>
           <span class="amenity-caption">{{amenity.name}}</span>
         </amenity-item>
@@ -196,7 +196,7 @@
       <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
 
       <amenities-list ng-if="property">
-        <amenity-item ng-repeat="amenity in roomDetails.amenities" ng-init="amenity.chainCode = property.chainCode">
+        <amenity-item ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = property.chainCode">
           <slug-img slug="amenity" type="room" width="15"></slug-img>
           <span class="amenity-caption">{{amenity.name}}</span>
         </amenity-item>

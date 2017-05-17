@@ -3,9 +3,12 @@
  * This service contains reusable methods for page scrolling
  */
 angular.module('mobiusApp.services.scroll', [])
-  .service( 'scrollService',  function($window, $document, $location, $state) {
+  .service( 'scrollService',  function($window, $document, $location, $state, $timeout) {
 
     //TODO: remove half hero scroll when confirmed
+
+    var scroll = 0;
+    var headerLogoTrigger = 50;
 
     // scrollTo() with no params will default to top of content
     function scrollTo(target, offset, ignoreScrollTo) {
@@ -41,7 +44,7 @@ angular.module('mobiusApp.services.scroll', [])
         if($item.length) {
           //Default offset to half of hero slider
           // TODO: Refactor, fix magic numbers
-          var $offset = offset ? -(angular.element('#main-header').height() + angular.element('breadcrumbs').height() + offset) : -(angular.element('#main-header').height() + angular.element('breadcrumbs').height());
+          var $offset = offset ? -(angular.element('#main-header').height() + angular.element('#main-container > div > notification-bar').height() + angular.element('breadcrumbs').height() + offset) : -(angular.element('#main-header').height() + angular.element('breadcrumbs').height());
           //scroll
           toAnimate.stop().animate({
             scrollTop: $item.offset().top + $offset
@@ -51,17 +54,26 @@ angular.module('mobiusApp.services.scroll', [])
     }
 
     function getHeaderHeight(hasHeroSlider){
-      return angular.element('#main-header').height() + angular.element('breadcrumbs').height() + hasHeroSlider?angular.element('hero-slider').height():0;
+      return angular.element('#main-header').height() + angular.element('breadcrumbs').height() + hasHeroSlider?angular.element('hero-slider').height() : 0;
     }
 
     function getScrollTop(){
       return ($window.pageYOffset || $document.scrollTop)  - ($document.clientTop || 0) || 0;
     }
 
+    function scrollToBreadcrumbs () {
+      $timeout(function () {
+        scrollTo(null, angular.element('breadcrumbs').height());
+      }, 0);
+    }
+
     // Public methods
     return {
+      scroll: scroll,
       scrollTo: scrollTo,
+      headerLogoTrigger: headerLogoTrigger,
       getScrollTop: getScrollTop,
-      getHeaderHeight: getHeaderHeight
+      getHeaderHeight: getHeaderHeight,
+      scrollToBreadcrumbs: scrollToBreadcrumbs
     };
   });

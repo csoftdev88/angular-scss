@@ -162,7 +162,7 @@ angular.module('mobiusApp.config', [])
     //API request headers, check with PM for tenant values
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-chainId': '1',
+      'Mobius-tenantId': '1',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -311,7 +311,7 @@ angular.module('mobiusApp.config', [])
         'showRoomCount': false,
         //Show room highlight text instead of description
         'showRoomHighlight': false,
-        'displayRatesOnLoad': true,
+        'desktopDisplayRatesOnLoad': true,
         'displayAmenities': false,
         'displayRoomDetails': false,
         'displayRoomSubtitle': false,

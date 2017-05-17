@@ -26,6 +26,11 @@ angular.module('mobiusApp.directives.megaMenu', [])
       //external region links
       scope.externalRegionLinks = Settings.UI.menu.externalRegionLinks;
 
+      scope.bookingWidgetConfg = Settings.UI.bookingWidget;
+
+      //Show all hotels
+      scope.displaySelectAllHotelsAction = scope.bookingWidgetConfg.displaySelectAllHotelsAction;
+      scope.defaultRegion = scope.bookingWidgetConfg.defaultRegion;
 
       //boooking-widget version style and event listeners
       if (attrs.type === 'booking-widget') {
@@ -110,6 +115,10 @@ angular.module('mobiusApp.directives.megaMenu', [])
                 region.locations = _.where(locations, {
                   regionCode: region.code
                 });
+                //If a default region is set and equals the current, set this region as active in mega menu
+                if(scope.defaultRegion && scope.defaultRegion === region.code){
+                  scope.regionSelect(region);
+                }
                 assignPropertiesToLocations(region, _.uniq(properties));
               });
             }
