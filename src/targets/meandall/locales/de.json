@@ -101,7 +101,7 @@
         "generic_error_message": "Es ist leider ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
         "profile_updated_success_message": "Vielen Dank, Ihr Profil wurde aktualisiert",
         "email_not_registered_error": "Die von die Ihnen eingegebene E-Mail-Adresse ist nicht registriert",
-        "incorrect_email_password_error": "Die von die Ihnen eingegebene E-Mail-Adresse und/oder das Passwort ist falsch",
+        "incorrect_email_password_error": "Die von Ihnen eingegegbene E-Mail_Adresse und/oder das Passwort ist falsch",
         "BOOKING BAR": "//////////////////////////////////////////////////////////////////////////////////////////////////////",
         "select_hotel": "Ihr Hotel auswählen",
         "select_all_hotels": "Alle Hotels auswählen",
