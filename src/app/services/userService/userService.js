@@ -242,6 +242,10 @@ angular.module('mobiusApp.services.user', [])
       });
     }
 
+    function getUser () {
+      return userObject;
+    }
+
     if(Settings.authType === 'infiniti'){
       initSSOListeners();
     }
@@ -254,18 +258,12 @@ angular.module('mobiusApp.services.user', [])
       isLoggedIn: function() {
         return hasSSOCookies() && isProfileLoaded();
       },
-
-      getUser: function() {
-        return userObject;
-      },
-
-      // NOTE: Will keep this function public for now.
+      getUser: getUser,
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
       loadLoyalties: loadLoyalties,
       loadRewards: loadRewards,
       updateUser: updateUser,
-      logout: logout, // @todo remove this
       authPromise: authPromise.promise,
       storeUserLanguage: storeUserLanguage,
       getUserLanguage: getUserLanguage,

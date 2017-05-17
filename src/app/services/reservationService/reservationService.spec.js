@@ -10,7 +10,7 @@ describe('reservationService', function() {
   };
 
   beforeEach(function() {
-    module('mobiusApp.services.reservation', function($provide) {
+    module('mobiusApp.services.reservation', function($provide, $controllerProvider) {
       var Settings = {
         'API': {
           'baseURL': 'http://domain/',
@@ -32,7 +32,10 @@ describe('reservationService', function() {
         }
       };
 
+      var $scope = {};
+
       $provide.value('apiService', apiService);
+      $controllerProvider('AuthCtrl', { $scope:  })
     });
   });
 

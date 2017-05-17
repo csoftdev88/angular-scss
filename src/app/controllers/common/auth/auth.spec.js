@@ -37,7 +37,7 @@ describe('mobius.controllers.common.auth', function() {
 
       _spyOnAuthorized = sinon.spy(config, 'onAuthorized');
 
-      $controller('AuthCtrl', { $scope: _scope, user: user });
+      $controller('AuthCtrl', { $scope: _scope, user: user, config: config });
     }));
 
     afterEach(function(){

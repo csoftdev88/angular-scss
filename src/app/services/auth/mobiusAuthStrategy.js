@@ -9,7 +9,7 @@ angular
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'mobius-authentication';
 
-    function clearErrorMsg(scope) {
+    function clearErrorMsg (scope) {
       scope.loginDialogError = false;
       scope.missingFieldsError = false;
       scope.incorrectEmailPasswordError = false;
@@ -17,33 +17,37 @@ angular
       scope.passwordResetSuccess = false;
     }
 
+    var doLogin = function (scope) {
+      scope.loginForm.$submitted = true;
+      if (scope.loginForm.$valid) {
+        var headersObj = {};
+        headersObj[KEY_CUSTOMER_ID] = undefined;
+        apiService.setHeaders(headersObj);
+        apiService.post(apiService.getFullURL('customers.login'), scope.loginData).then(function (data) {
+          if (data.id !== null) {
+            $rootScope.showLoginDialog = false;
+            clearErrorMsg(scope);
+            userObject.id = data.id;
+            user.storeUserId(data.id);
+            user.loadProfile();
+          }
+          else {
+            scope.loginDialogError = true;
+            scope.incorrectEmailPasswordError = true;
+          }
+        }, function () {
+          scope.loginDialogError = true;
+          scope.incorrectEmailPasswordError = true;
+        });
+      }
+    };
+
     var login = function (scope) {
       $rootScope.showLoginDialog = !$rootScope.showLoginDialog;
       // @todo find a way to assign the function without doing it every time login is called
-      scope.doLogin = function () {
-        scope.loginForm.$submitted = true;
-        if (scope.loginForm.$valid) {
-          var headersObj = {};
-          headersObj[KEY_CUSTOMER_ID] = undefined;
-          apiService.setHeaders(headersObj);
-          apiService.post(apiService.getFullURL('customers.login'), scope.loginData).then(function (data) {
-            if (data.id !== null) {
-              $rootScope.showLoginDialog = false;
-              clearErrorMsg(scope);
-              userObject.id = data.id;
-              user.storeUserId(data.id);
-              user.loadProfile();
-            }
-            else {
-              scope.loginDialogError = true;
-              scope.incorrectEmailPasswordError = true;
-            }
-          }, function () {
-            scope.loginDialogError = true;
-            scope.incorrectEmailPasswordError = true;
-          });
-        }
-      };
+      if (! scope.doLogin) {
+        scope.doLogin = doLogin.bind(scope);
+      }
     };
 
     var logout = function () {
