@@ -412,7 +412,7 @@
         "city_pattern_error": "Bitte geben Sie eine gültige Stadt ein",
         "postcode_pattern_error": "Bitte geben Sie eine gültige Postleitzahl ein",
         "email_optin_label": "Ich bin damit einverstanden, exklusive Aktionen und Angebote von Me and All Hotels zu erhalten",
-        "enter_voucher_label": "Code eingeben",
+        "enter_voucher_label": "Code anwenden",
         "voucher_code_valid": "Ihr Gutscheincode wurde hinzugefügt",
         "redeem_voucher_message": "Gutschein-Code",
         "redeem_addon_voucher_message": "Add-on-Gutschein-Code:",
