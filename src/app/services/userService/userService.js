@@ -31,12 +31,6 @@ angular.module('mobiusApp.services.user', [])
       return Settings.authType === 'mobius' ? true : !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
     }
 
-    function isProfileLoaded(){
-      //console.log('isProfileLoaded: ' + angular.toJson(userObject));
-      // NOTE: Email data is loaded via customers API
-      return !!(userObject.id && userObject.email);
-    }
-
     function getCustomerId(){
       if(!hasSSOCookies()){
         return null;
@@ -254,10 +248,6 @@ angular.module('mobiusApp.services.user', [])
     }
 
     return {
-      // @todo remove this
-      isLoggedIn: function() {
-        return hasSSOCookies() && isProfileLoaded();
-      },
       getUser: getUser,
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,

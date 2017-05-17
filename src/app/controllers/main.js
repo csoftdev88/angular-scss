@@ -207,7 +207,7 @@ angular.module('mobius.controllers.main', [])
           var loggedIn = $scope.auth.isLoggedIn();
           if(!$rootScope.thirdparty && _.isEmpty(activeThirdParty)){
             locationService.getLocations().then(function(locations){
-              campaignsService.setCampaigns(loggedIn, locations);
+              campaignsService.setCampaigns($scope.auth, loggedIn, locations);
             });
           }
         }
