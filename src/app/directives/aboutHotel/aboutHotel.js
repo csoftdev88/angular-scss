@@ -10,9 +10,9 @@ angular.module('mobiusApp.directives.aboutHotel', [])
       scope.isCollapsed = true;
       scope.showBenefits = Settings.UI.aboutHotel.showBenefits;
       scope.randomAdverts = [];
-      
+
       scope.offerWidth = Settings.UI.offers.width ? Settings.UI.offers.width : false;
-      scope.offerHeight = Settings.UI.offers.width ? Settings.UI.offers.height : false;
+      scope.offerHeight = Settings.UI.offers.height ? Settings.UI.offers.height : false;
 
       var getRandomAdvert = function (index) {
         contentService.getRandomAdvert({bannerSize: Settings.UI.adverts.randomMainPageAdvertSize}).then(
