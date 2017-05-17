@@ -2,7 +2,8 @@
 
 angular.module('mobiusApp.services.api', [])
 
-.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject, $cacheFactory, sessionDataService, channelService, stateService) {
+.service( 'apiService',  function($q, $http, $window, $rootScope, $location, $interval, _, Settings, userObject,
+                                  $cacheFactory, sessionDataService, channelService, stateService) {
 
   var sessionCookie = sessionDataService.getCookie();
   var sessionId = sessionCookie.sessionData.sessionId;
@@ -14,8 +15,6 @@ angular.module('mobiusApp.services.api', [])
     'mobius-chainId': Settings.API.headers['Mobius-chainId'] ? Settings.API.headers['Mobius-chainId'] : null
   };
 
-  var apiCache = $cacheFactory('apiCache');
-
   var cookieExpiryDate = null;
   var expiryMins = Settings.API.sessionData.expiry || 15;
 
@@ -23,55 +22,44 @@ angular.module('mobiusApp.services.api', [])
   cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
 
   function get(url, params, cacheParam) {
-    var q = $q.defer();
+
+    // Promise to return
+    var defer = $q.defer();
+
+    // Http config options
+    var config = {
+      method: 'GET',
+      url: url,
+      headers: headers,
+      params: params
+    };
+
+    // If there are any request parameters or the cacheParam is set to false, do not cache
     var canCache = !params || Object.keys(params).length === 0;
     canCache = cacheParam === false ? false : canCache;
 
-
+    // Create the headers
     headers['mobius-requestId'] = $rootScope.requestId;
-
-    //sessionData
     handleSessionDataHeaders();
 
-    if (canCache && angular.isUndefined(apiCache.get(url))) {
-      $http({
-        method: 'GET',
-        url: url,
-        headers: headers,
-        params: params
-      }).success(function(res, status, resHeaders) {
-        if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
-          updateMobiusAuthHeader(resHeaders('mobius-authentication'));
-        }
-        apiCache.put(url, res);
-        q.resolve(res);
+    // If we can cache the response, use angular's http cache
+    // https://docs.angularjs.org/api/ng/service/$http#caching
+    if (canCache) {
+      config.cache = true;
+    }
 
-      }).error(function(err, status, resHeaders) {
-        logApiError('GET', err, url, params, resHeaders);
-        q.reject(err);
-      });
-    }
-    else if(canCache && angular.isDefined(apiCache.get(url))){
-      q.resolve(apiCache.get(url));
-    }
-    else{
-      $http({
-        method: 'GET',
-        url: url,
-        headers: headers,
-        params: params
-      }).success(function(res, status, resHeaders) {
-        if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
-          updateMobiusAuthHeader(resHeaders('mobius-authentication'));
-        }
-        q.resolve(res);
+    $http(config).success(function(res, status, resHeaders) {
+      if(Settings.authType === 'mobius' && resHeaders('mobius-authentication')){
+        updateMobiusAuthHeader(resHeaders('mobius-authentication'));
+      }
+      defer.resolve(res);
 
-      }).error(function(err, status, resHeaders) {
-        logApiError('GET', err, url, params, resHeaders);
-        q.reject(err);
-      });
-    }
-    return q.promise;
+    }).error(function(err, status, resHeaders) {
+      logApiError('GET', err, url, params, resHeaders);
+      defer.reject(err);
+    });
+
+    return defer.promise;
   }
 
   function post(url, data, params, ignoreHeaders, ignoreLogging) {
