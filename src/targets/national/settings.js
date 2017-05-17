@@ -804,7 +804,8 @@ angular.module('mobiusApp.config', [])
         }
       },
       'roomDetails':{
-        'showAmenitiesTop': true
+        'showAmenitiesTop': true,
+        'showTagline': false
       },
       'userProfile':{
         'hasAvatar': false,

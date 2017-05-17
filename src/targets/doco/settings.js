@@ -5,40 +5,32 @@ angular.module('mobiusApp.config', [])
 .constant('Settings', {
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
-  'defaultProductRateId': 1,
-  'authType': 'infiniti',
+  'defaultProductRateId': 9,
+  'authType': 'mobius',
   'loyaltyProgramEnabled': false,
-  'newUrlStructure': true,
-  'sandmanFrenchOverride': true,
-  'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
-  'showEUCookieDisclaimer':true,
-  'enableHotDeals':true,
   'infiniti': {
-    'enable': true,
-    'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
-    'staging': 'http://staging-infiniti-sandman.mobiusbookingengine.com/track/content/infiniti.js',
-    'uat': '/infiniti/track/content/infiniti.js',
-    'live': '//infiniti.sandmanhotels.com/track/content/infiniti.js'
+    'enable': false,
+    'development': '',
+    'integration': '',
+    'staging': '',
+    'live': ''
   },
   'sentry': {
     'enable': true,
     'development': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'integration': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
-    'uat': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'live': 'https://75b4292eef0c40b3aee999d89858367c@app.getsentry.com/53504'
   },
   'evolutionInfiniti': {
     'enable': false,
-    'id': '',
-    'bridge': '',
+    'id': '8a56624d-08ff-4188-bef8-f4d32d95b6fb',
+    'bridge': 'obsolete_sso',
     'script': {
-      'development': '',
-      'integration': '',
-      'staging': '',
-      'uat':'',
-      'live': '',
+      'development': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'integration': 'https://storage.googleapis.com/infiniti-evolution-development/infiniti.evolution.js',
+      'staging': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js',
+      'live': 'https://storage.googleapis.com/infiniti-evolution/infiniti.evolution.js'
     }
   },
   'infinitiEcommerceTracking': {
@@ -48,153 +40,38 @@ angular.module('mobiusApp.config', [])
       'development': '',
       'integration': '',
       'staging': '',
-      'uat':'',
       'live': ''
     }
-  },
-  'infinitiApeironTracking': {
-    'development': {
-      'enable':false,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-development',
-      'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
-    },
-    'integration': {
-      'enable':true,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-integration',
-      'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
-      'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
-      'singlePageApp': true
-    },
-    'staging': {
-      'enable':true,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-staging',
-      'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
-      'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
-      'singlePageApp': true
-    },
-    'uat': {
-      'enable':true,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-staging',
-      'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
-    },
-    'live': {
-      'enable':true,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-live',
-      'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
-    }
-  },
-  'derbysoftTracking' : {
-    'enable': true,
-    'accountCode':'2p'
   },
   'googleAnalytics': {
     'enable': false,
     'id': ''
   },
   'googleTagManager': {
-    'enable': true,
+    'enable': false,
     'trackUserId': true,
-    'id': 'GTM-56G27K'
-  },
-  'hotjar': {
-    'enable': true,
-    'id': '294639'
-  },
-  'rumScript': {
-    'enable': true,
-    'id': '5910613c8a112b33c9d2e6c7'
+    'id': ''
   },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    'chainCode': 'SAND',
-    'trackUsage': true,
-    'languageInPath': true,
+    'chainCode': 'DOCO',
     'baseURL': {
-      'development': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
-      'integration': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
-      'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
-      'uat': '/api/4.0/',
-      'live': 'https://www.sandmanhotels.com/api/4.0/'
+      'development': 'http://doco.mobiuswebservices.com/api/4.0/',
+      'integration': 'http://doco.mobiuswebservices.com/api/4.0/',
+      'staging': 'http://doco.mobiuswebservices.com/api/4.0/',
+      'live':  'http://doco.mobiuswebservices.com/api/4.0/'
     },
     'mobiusTracking': {
-      'development': {
-        'id': 'sandman-development',
-        'search': {
-          'enable': true
-        },
-        'purchase': {
-          'enable': true
-        },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      'search': {
+        'enable':false,
+        'url':'properties/track/search'
       },
-      'integration': {
-        'id': 'sandman-integration',
-        'search': {
-          'enable': true
-        },
-        'purchase': {
-          'enable': true
-        },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
-      },
-      'staging': {
-        'id': 'sandman-staging',
-        'search': {
-          'enable': true
-        },
-        'purchase': {
-          'enable': true
-        },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
-      },
-      'uat': {
-        'id': 'sandman-uat',
-        'search': {
-          'enable': true
-        },
-        'purchase': {
-          'enable': true
-        },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
-      },
-      'live': {
-        'id': 'sandman-live',
-        'search': {
-          'enable': true
-        },
-        'purchase': {
-          'enable': true
-        },
-        'url':'https://80ha7ieaqj.execute-api.us-east-2.amazonaws.com/stag/event/create'
+      'purchase': {
+        'enable':false,
+        'url':'properties/track/purchase'
       }
     },
-    'track404s': {
-      'enable':true,
-      'url':'https://errors.2pvservices.com/status'
-    },
-    'campaigns':'campaigns',
-    'retention':'retention',
     'contents': {
       'contents': 'contents',
       'about': 'contents/about',
@@ -229,7 +106,6 @@ angular.module('mobiusApp.config', [])
       'all': 'properties',
       'details': 'properties/:propertyCode',
       'availability': 'properties/:propertyCode/availabilities',
-      'availabilityOverview': 'properties/:propertyCode/availabilityOverview',
       'room': {
         'all': 'properties/:propertyCode/rooms',
         'details': 'properties/:propertyCode/rooms/:roomTypeCode',
@@ -259,24 +135,20 @@ angular.module('mobiusApp.config', [])
       'all': 'customers/:customerId/loyalty'
     },
     'reservations': {
-      'new': 'reservations?propertyCode=:property&roomCode=:rooms',
+      'new': 'reservations',
       'modify': 'reservations/:reservationCode',
       'detail': 'reservations/:reservationCode',
       'addons': 'reservations/:reservationCode/addons/',
       'availableAddons': 'addons',
-      'inclusionsAsAddons': true,
       'cancel': 'reservations/:reservationCode/actions/cancel',
-      'cancelAnon': 'reservations/:reservationCode/actions/cancel?email=:email',
       // NOTE: Currently used for all/details - check the API
       'all': 'reservations/',
       'action': 'reservations/:reservationCode/actions/:actionType',
-      'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true',
-      'checkVoucher': 'voucher',
-      'upgradeRoom': 'upgrades/:upgradeGuid'
+      'anonCustomerProfile': 'customers/:customerId?email=:customerEmail&isAnon=true'
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-tenantId': '1',
+      'Mobius-tenantId': '354',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -292,7 +164,7 @@ angular.module('mobiusApp.config', [])
       }]
     },
     'sessionData': {
-      'includeInApiCalls': true,
+      'includeInApiCalls': false,
       'cookieName': 'mobiusSessionData',
       'httpHeaderFieldName': 'sessionData',
       //cookie expiry in minutes
@@ -315,48 +187,28 @@ angular.module('mobiusApp.config', [])
       'promoCode': 'promoCode',
       'groupCode': 'groupCode',
       'corpCode': 'corpCode'
-    },
-    'thirdparties': {
-      'get': 'thirdparties/:code'
     }
   },
   'UI': {
-    'campaigns': {
-      display:true
-    },
-    'previousSearches': {
-      'enable':true,
-      'searchDataCookieName':'MobiusPreviousSearchData',
-      'searchDataCookieExpiry':259200, //180 days
-      'searchDisplayCookieName':'MobiusPreviousSearchDisplay',
-      'searchInSessionCookieName':'MobiusSearchInSession',
-      'maxSearches':3
-    },
-    'funnelRetention':{
-      'enable':false,
-      'cookieName': 'MobiusFunnelRetention',
-      'inactivityPeriod':30000, //The time limit that when reached denotes that a session is inactive (Milliseconds)
-      'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
-      'displayExitModal':false
-    },
-    'chains': ['SIGN', 'SAND'],
+    'chains': ['DOCO'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
-
     'generics': {
-      'singleProperty': false,
+      'singleProperty': true,
       'facebookAppId': '',
+      'loyaltyProgramEnabled': false,
       'disableMainHeaderStyle': true,
-      'applyChainClassToBody': true,
-      'orderPropertiesByChain': true,
-      'longDateFormat': 'Do MMM YYYY'
+      'showAltNav': false,
+      'longDateFormat': 'Do MMM YYYY',
+      'applyChainClassToBody': false,
+      'orderPropertiesByChain': false
     },
     'contents':{
-      'displayContentImageInHeroSlider': true
+      'displayContentImageInHeroSlider': false
     },
     'adverts' : {
       'randomMainPageAdvertSize' : 'homepage-advert',
@@ -372,58 +224,48 @@ angular.module('mobiusApp.config', [])
       // Use 0 value to disable automatic slide animation
       'autoplayDelay': 5000,
       'animationDuration': 800,
-      'preloadImages': true,
-      'slideWidth': 1680,
-      'slideHeight': 530
+      'preloadImages': true
     },
     // Menu settings - showing/hidding menu items
     'menu': {
-      'showHotels': false,
+      'showHotels': true,
       'hotelMenuContent': {
-        'service': 'locationService',
-        'method': 'getRegions',
-        'detailState': 'regions',
-        'listState': 'regions',
-        'paramName': 'regionSlug'
+        'service': 'propertyService',
+        'method': 'getAll',
+        'detailState': 'hotel',
+        'listState': 'hotels',
+        'paramName': 'propertySlug'
       },
-      'showRegionsMegaMenu': true,
-      'showHotDeals': true,
-      'showMeetingsBanquets': true,
+      'showRegionsMegaMenu': false,
       'showOffers': true,
       'showAbout': true,
       'showNews': false,
-      'showContact': false,
-      'offerlimitedToChainWide': true,
-      'offersKeepProperty': false,
+      'showContact': true,
+      'offerlimitedToChainWide': false,
+      'offersKeepProperty': true,
       'offerSpecificToSelectedProperty': false,
-      'maxOffersCount': 4,
-      'maxAboutCount': 5,
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': true,
-      'standalone': true,
-      'externalRegionLinks':[
-        {
-          'title': 'United Kingdom',
-          'url': 'http://www.sandmansignature.co.uk/'
-        }
-      ]
+      'standalone': false,
+      'externalRegionLinks':[]
     },
     // Social links
     'displaySocialLinks': true,
     'socialLinks': [
-      {'network': 'blog', 'link': 'https://sandmanhotelgroup.wordpress.com/'},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/SandmanHotelGroup'},
-      {'network': 'twitter', 'link': 'https://twitter.com/sandmanhotels'},
-      {'network': 'instagram', 'link': 'https://www.instagram.com/sandmanhotels/'},
-      {'network': 'google', 'link': 'https://plus.google.com/+SandmanHotelGroup'}
+      {'network': 'pinterest', 'link': 'https://pinterest.com/'},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/docohotel'},
+      {'network': 'google', 'link': 'https://www.google.com'},
+      {'network': 'twitter', 'link': 'https://twitter.com/docohotelvienna'},
+      {'network': 'yelp', 'link': 'https://yelp.com'},
+      {'network': 'flickr', 'link': 'https://flickr.com'}
     ],
     'shareLinks': {
       'facebook': true,
       'twitter': true,
       'googleplus': true,
       'mail': true,
-      'twitterUsername': 'SuttonPlaceHtl'
+      'twitterUsername': ''
     },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
@@ -437,20 +279,17 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'hotelDetails': {
-      'chainPrefix': 'Sandman Hotels',
+      'chainPrefix': 'DO & CO Hotel Vienna',
       'breadcrumbs': {
-        'hotels': false,
-        'location': true
+        'hotels': true,
+        'location': false
       },
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
-      'defaultNumberOfRoomsMobile':10,
       'numberOfRoomsAddedOnMobile': 2,
-      //Allow subpages to redirect if specified in admin
-      'subPageRedirects': true,
       'rooms': {
         'hideRoomsWithNoAvailability': true,
-        'sortRoomsByWeighting': true,
+        'sortRoomsByWeighting': false,
         'defaultNumberOfAmenities': 3,
         'viewRatesButtonText': 'View Rates',
         // Loading rates when hovering over the room
@@ -458,62 +297,42 @@ angular.module('mobiusApp.config', [])
         'hoverTriggerDelay': 2000,
         'showRoomCount': true,
         //Show room highlight text instead of description
-        'showRoomHighlight': true,
+        'showRoomHighlight': false,
         'desktopDisplayRatesOnLoad': false,
-        'mobileHideRates':true,
         'displayAmenities': true,
         'displayRoomDetails': true,
-        'displayRoomSubtitle': true,
-        'hideShowInfoIcon': true,
+        'displayRoomSubtitle': false,
+        'rateInfoIsTabbed': false,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
         },
-        'includeSlider': true,
-        'sliderHasThumbnails': true,
+        'includeSlider': false,
+        'sliderHasThumbnails': false,
         'includeTripAdvisorPreloader': false,
-        'roomsAsLinks': true,
         // Room Rates
         'rates': {
-          'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
-          'ratesPerRoomOnDesktop': 3,
+          'bookNowButtonText': 'Book Now',
+          'ratesPerRoomOnDesktop': 20,
           'ratesPerRoomOnMobile': 2,
-          'showTagline': true,
+          'showTagline': false,
           'showDescription': true,
           'showDescriptionToggle': false,
           'showNoRatesSubDescription': false,
           'showRateInfoIcon': true,
           'showRateInfoLink': false,
-          'rateInfoIsTabbed': true,
-          'displayOtaRates': true,
-          'highlightFirstRate': true,
-          'showSlashThrough': true,
-          'showInclusions': false
-        },
-        'upsells': {
-          'display': true
-        },
-        'alternativeDisplays': {
-          'dates':{
-            'enable':true,
-            'flexiRange':3, //The +/- range for alt dates. i.e. 3 returns 3 days before and 3 days after (7 in total)
-          },
-          'properties':{
-            'enable':true
-          }
-        },
-        'restrictAmenities':true //Only display amenities with an asterix at the beginning of the name
+          'rateInfoIsTabbed': false
+        }
+
       },
       'offers': {
-        'toState': 'propertyHotDeals',
-        'singleOfferMobile':true //Only display one offer on mobile view
+        'toState': 'propertyOffers'
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
-      'showLocalInfo': true,
-      'removeScrollToRoomsOnFinish': true,
-      'displayAmenitiesInHotelInfo': true,
-      'findOutMoreLinksBottomMobile':true, //Positions the find out more section to the bottom of the page on mobile
+      'showLocalInfo': false,
+      'removeScrollToRoomsOnFinish': false,
+      'displayAmenitiesInHotelInfo': false,
       'headerPartial':{
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
@@ -524,40 +343,166 @@ angular.module('mobiusApp.config', [])
         'hotelHeader': false,
         'hotelDatesSelected': false,
         'hotelInfo': true,
+        'hotelRooms': true,
         'hotelServices': false,
-        'hotelRooms': false,
-        'hotelRoomsCompare': true,
-        'hotelOffers': true,
         'hotelLocation': true,
-        'hotelReadMoreMobile': true
-      },
-      'bookingStatistics':{
-        'display':false,
-        'displayDelay':5000,
-        'displayTime':2000000, //The length that you wish the alerts to appear for
-        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
-      },
-      'restrictAmenities':true, //Only display amenities that's name begins with asterix
-      'hideViewMoreImagesMobile':true, //Hide the view more images on mobile
-      'shortenDescriptionMobile':true //Shorten the description with read more on mobile
+        'hotelOffers': true
+      }
     },
+
     //rate lookup teasers
-    'showHotelDetailsTestimonials': true,
+    'showHotelDetailsTestimonials': false,
     'hotelDetailsTestimonialsMaxNumStars': 5,
-    'hotelDetailsTestimonialsCarousel': true,
-    'hotelDetailsTestimonialsCarouselDelay': 4000,
-    'hotelDetailsTestimonials':[],
+    'hotelDetailsTestimonials':
+    [{
+      'property': 'VAN',
+      'review': '“My new favourite in Vancouver',
+      'reviewer': {
+        'name': 'Denise K',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183019/SAN/rateLoading/denisek.jpg',
+        'location': 'Toronto, Canada'
+      },
+      'stars': 5
+    }, {
+      'property': 'VAN',
+      'review': '“Perfect in every way...service, location, comfort!!”',
+      'reviewer': {
+        'name': 'Karikins',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183317/SAN/rateLoading/karinkins.jpg',
+        'location': 'Kamloops, Canada'
+      },
+      'stars': 5
+    }, {
+      'property': 'VAN',
+      'review': '“A high point of our two week trip”',
+      'reviewer': {
+        'name': 'Magnolia13',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183173/SAN/rateLoading/magnolia13.jpg',
+        'location': 'Thomasville, Georgia'
+      },
+      'stars': 5
+    }, {
+      'property': 'VAN',
+      'review': '“A Lovely Downtown Hotel that shines with elegance and professionalism.”',
+      'reviewer': {
+        'name': 'CdnTrekkie',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183317/SAN/rateLoading/cdntrekkie.jpg',
+        'location': 'Vancouver, BC'
+      },
+      'stars': 5
+    }, {
+      'property': 'VAN',
+      'review': '“Pretty smart! We dont like being too posh but felt quite comfortable here.”',
+      'reviewer': {
+        'name': 'John C',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183317/SAN/rateLoading/johnc.jpg',
+        'location': 'Jasper, Canada'
+      },
+      'stars': 4
+    }, {
+      'property': 'EDM',
+      'review': '“Great Hotel - Friendly, Helpful Staff”',
+      'reviewer': {
+        'name': 'Judy B',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450184767/SAN/rateLoading/judyb.jpg',
+        'location': 'Penticton, Canada'
+      },
+      'stars': 4
+    }, {
+      'property': 'EDM',
+      'review': '“Wonderful Hotel!”',
+      'reviewer': {
+        'name': 'Melissa P',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450194394/SAN/rateLoading/Melissa_P.jpg',
+        'location': 'Grande Prairie, Canada'
+      },
+      'stars': 5
+    }, {
+      'property': 'EDM',
+      'review': '“Lovely place ”',
+      'reviewer': {
+        'name': 'Dan468',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450194584/SAN/rateLoading/dan468.jpg',
+        'location': 'Vancouver, Canada'
+      },
+      'stars': 4
+    }, {
+      'property': 'EDM',
+      'review': '“Fabulous hotel!”',
+      'reviewer': {
+        'name': 'LaraKitty',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450194963/SAN/rateLoading/LaraKitty.jpg',
+        'location': 'N/A'
+      },
+      'stars': 5
+    }, {
+      'property': 'EDM',
+      'review': '“Just like coming home”',
+      'reviewer': {
+        'name': 'Timothy S',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195156/SAN/rateLoading/Timothy_S.jpg',
+        'location': 'Whitecourt, Canada'
+      },
+      'stars': 5
+    }, {
+      'property': 'REV',
+      'review': '“A Perfect stay”',
+      'reviewer': {
+        'name': 'SammyT819',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195367/SAN/rateLoading/SammyT819.jpg',
+        'location': 'Kelowna, Canada'
+      },
+      'stars': 5
+    }, {
+      'property': 'REV',
+      'review': '“Awesome room and great location”',
+      'reviewer': {
+        'name': 'David G',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195480/SAN/rateLoading/David_G.jpg',
+        'location': 'Orlando, Florida'
+      },
+      'stars': 5
+    }, {
+      'property': 'REV',
+      'review': '“Exquisite Suites”',
+      'reviewer': {
+        'name': 'andyg_Can',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195582/SAN/rateLoading/andyg_Can.jpg',
+        'location': 'Calgary, Canada'
+      },
+      'stars': 5
+    }, {
+      'property': 'REV',
+      'review': '“Surreal”',
+      'reviewer': {
+        'name': 'PIYUSH J',
+        'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195804/SAN/rateLoading/PIYSH_J.jpg',
+        'location': 'Amsterdam'
+      },
+      'stars': 5
+      },
+      {
+        'property': 'REV',
+        'review': '“Our two night stay turned into three...”',
+        'reviewer':
+        {
+          'name': 'MTnLZ',
+          'avatar': 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450195906/SAN/rateLoading/mtnlz.jpg',
+          'location': 'NW Subs of IL'
+        },
+        'stars': 5
+      }
+    ],
+
     'roomDetails': {
-      'displayRoomSubtitle': true,
-      'hasBreadcrumbsSecondaryNav': true,
+      'displayRoomSubtitle': false,
+      'hasBreadcrumbsSecondaryNav': false,
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
       'showDescription': true,
       //show room highlight before description
-      'showRoomHighlight': true,
-      'includeTripAdvisorPreloader': false,
-      'rateInfoIsTabbed': true,
-      'showLocalInfo': true,
+      'showRoomHighlight': false,
+      'includeTripAdvisorPreloader': true,
       'headerPartial':{
         'display': false,
         'logo':{
@@ -566,54 +511,26 @@ angular.module('mobiusApp.config', [])
         }
       },
       'otherRooms':{
-        'useThumbnails': false,
-        'hide': true,
+        'useThumbnails': true,
         'thumbnails':{
           'width': 150,
           'height': 100
         },
         //displayPrice can be button or text
         'displayPrice': 'text'
-      },
-      'bookingStatistics':{
-        'display':false,
-        'displayDelay':5000,
-        'displayTime':20000, //The length that you wish the alerts to appear for
-        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
-      },
-      'showSlashThrough': true,
-      'showMetaView': true,
-      'upsells': {
-        'display': true
-      },
-      'displayAltProduct':false,
-      'showProductImage':true,
-      'ratesAsLinks':false,
-      'productImages': {
-        'height':125,
-        'width':145
-      },
-      'restrictAmenities':true
+      }
     },
 
     'reservations': {
       //override per hotel confirmation number per hotel
-      'displayConfirmationNumberOnAllHotels': true,
+      'displayConfirmationNumberOnAllHotels': false,
       //confirmation label display
       'displayConfirmationNumberLabel': true,
       // Confirmation number display settings per hotel(code)
       'confirmationNumber': {
-        'REV': {
-          'displayOnListView': true,
-          'displayOnDetailsView': true
-        },
-        'EDM': {
-          'displayOnListView': true,
-          'displayOnDetailsView': true
-        },
-        'VAN': {
-          'displayOnListView': true,
-          'displayOnDetailsView': true
+        'DOCO': {
+          displayOnListView: true,
+          displayOnDetailsView: true
         }
       },
       'headerPartial':{
@@ -628,15 +545,12 @@ angular.module('mobiusApp.config', [])
         'passbook': true,
         'print': true
       },
-      'displayNewsletterCtaOnReservationDetail': true,
-      'reservationDetailPriceBreakdownExtended': true,
-      'displayAddonVoucherEntry': true,
-      'displayAddonComments': false,
-      'hideHeroSliderOnReservations':true
+      'displayNewsletterCtaOnReservationDetail': false,
+      'reservationDetailPriceBreakdownExtended': false
     },
 
     'aboutHotel': {
-      'showBenefits': true
+      'showBenefits': false
     },
     'aboutChain': {
       'offersLimit': 999
@@ -646,13 +560,21 @@ angular.module('mobiusApp.config', [])
       {
         'type': 'sort',
         'enable': true,
-        'displayInSidebar': true,
+        'displayInSidebar': false,
+        'accordion': false
+      },
+      {
+        'type': 'stars',
+        'enable': true,
+        'minStars': 3,
+        'maxStars': 5,
+        'displayStarsOnHotels': true,
         'accordion': false
       },
       {
         'type': 'tripAdvisor',
         'enable': true,
-        'minTaRating': 2,
+        'minTaRating': 3,
         'maxTaRating': 5,
         'accordion': false
       },
@@ -668,12 +590,12 @@ angular.module('mobiusApp.config', [])
       },
       {
         'type': 'chain',
-        'enable': true,
+        'enable': false,
         'accordion': false
       },
       {
         'type': 'tags',
-        'enable': true,
+        'enable': false,
         'filters': [
           {
             'name': 'airport',
@@ -689,22 +611,14 @@ angular.module('mobiusApp.config', [])
         'accordion': false
       },
       {
-        'type': 'stars',
-        'enable': true,
-        'minStars': 3,
-        'maxStars': 5,
-        'displayStarsOnHotels': false,
-        'accordion': true
-      },
-      {
         'type': 'reset',
-        'enable': false,
+        'enable': true,
         'accordion': false
       }
     ],
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'CAD',
+      'default': 'EUR',
 
       'GBP': {
         'code': 'GBP',
@@ -726,33 +640,23 @@ angular.module('mobiusApp.config', [])
 
       'CAD': {
         'code': 'CAD',
-        'symbol': 'CAD',
-        'format': '{{amount}} {{symbol}}',
-        'shortSymbol': '$',
-        'shortFormat': '{{symbol}}{{amount}}',
+        'symbol': '$',
+        'format': '{{symbol}}{{amount}}'
       }
     },
 
     'offers':{
       'discountCodeCookieExpiryDays': 5,
-      'displayPageHeading': true,
-      'includeOfferAvailabilityPropertyDropdown': true,
+      'displayPageHeading': false,
+      'includeOfferAvailabilityPropertyDropdown': false,
       'displayOfferImageInHeroSlider': false,
-      'scrollToBreadcrumbs': true,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
         '0': 1,
         '3': 2
       }
     },
-    'regions':{
-      'bookingStatistics':{
-        'display':false,
-        'displayDelay':5000,
-        'displayTime':10000, //The length that you wish the alerts to appear for
-        'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
-      }
-    },
+
     'registerPage':{
       'headerPartial':{
         'display': false,
@@ -775,34 +679,22 @@ angular.module('mobiusApp.config', [])
       'allowPasswordChange': false
     },
 
-    'aboutUs': {
-      'scrollToBreadcrumbs': true
-    },
-
     'languages': {
-      'headerAlignment': 'left',
-      'dropdown': false,
-      'default': 'en-us',
-      'en-us': {
+      'headerAlignment': 'right',
+      'dropdown': true,
+      'default': 'en',
+      'en': {
         'shortName': 'EN',
-        'name': 'English (US)',
+        'name': 'English',
         'decimalSeparator': '.',
         'groupSeparator': ',',
         'groupSize': 3,
         'neg': '-'
       },
-      'en-ca': {
-        'shortName': 'EN',
-        'name': 'English (CAN)',
-        'decimalSeparator': '.',
-        'groupSeparator': ',',
-        'groupSize': 3,
-        'neg': '-'
-      },
-      'fr': {
-        'shortName': 'FR',
-        'name': 'French',
-        'decimalSeparator': '.',
+      'de': {
+        'shortName': 'DE',
+        'name': 'German',
+        'decimalSeparator': ',',
         'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
@@ -811,19 +703,16 @@ angular.module('mobiusApp.config', [])
 
     // Settings related to booking process
     'bookingWidget': {
-      'datePickerNumberOfMonths': 2,
-      'datePickerHasCounter': true,
-      'datePickerHasTitle': false,
-      'datePickerCounterIncludeDates': true,
-      'datePickerCloseOnDatesSelected': false,
-      'defaultRegion':'BC',
-      'checkAvailabilityOnChange': false,
-      'checkOfferAvailabilityOnChange': false,
-      'displayPropertiesMegamenu': true,
-      'displaySelectAllHotelsAction':false,
+      "datePickerNumberOfMonths": 1,
+      "datePickerHasCounter": true,
+      "datePickerHasTitle": false,
+      "datePickerCounterIncludeDates": false,
+      "datePickerCloseOnDatesSelected": false,
+      "checkAvailabilityOnChange": false,
+      "checkOfferAvailabilityOnChange": false,
+      "displayPropertiesMegamenu": false,
       'hasMutiroomTab': true,
-      'hasRatesSelection': true,
-      'timezone':'America/Vancouver',
+      'hasRatesSelection': false,
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
         'enable': true,
@@ -833,8 +722,8 @@ angular.module('mobiusApp.config', [])
       // than this value and server returns no products
       'maxAdultsForSingleRoomBooking': 3,
       'includeAllPropertyOption': true,
-      'includeRegions': false,
-      'includeLocations': true,
+      'includeRegions': true,
+      'includeLocations': false,
       'includeRegionsOnMobile': false,
       'includeLocationsOnMobile': false,
       'adults': {
@@ -847,28 +736,19 @@ angular.module('mobiusApp.config', [])
       },
       'defaultAdultCount': 2,
       'maxRooms': 4,
-      'availabilityOverview': {
-        'display':true
-      },
-      'flexibleDates': {
-        'enable':true
-      },
       'availability': {
         // Date range modification rules
         'from': {
           // Extra day/month added to a date
-          'value': -15,
-          'type': 'days'
+          'value': -3,
+          'type': 'month'
         },
         'to': {
           // Extra day/month added to a date
-          'value': 15,
-          'type': 'days'
+          'value': 3,
+          'type': 'month'
         }
-      },
-      'mobileTopRight':true, //Displays the booking book now button in top right
-      'prefillGrowlAlert':true, //When enabled will display a growl alert if code field is prefilled
-      'keepPrefillStyle':true //By default prefill style is hidden after 1 second. When enabled this will prevent it from being hidden.
+      }
     },
 
     'booking': {
@@ -891,12 +771,18 @@ angular.module('mobiusApp.config', [])
           'code': 'AX',
           'icon': 'amex',
           'regex': /^3[47][0-9]{13}$/
+        },
+        'discover': {
+          'name': 'Discover',
+          'code': 'DS',
+          'icon': 'discover',
+          'regex': /^6(?:011|5[0-9]{2})[0-9]{3,}$/
         }
       },
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
-      'priceBreakdownExtended': true,
+      'priceBreakdownExtended': false,
       //display hero slider on booking page
       'displayHeroSlider': false,
       //display advanced header
@@ -909,14 +795,17 @@ angular.module('mobiusApp.config', [])
       },
       //Booking steps navigation
       'bookingStepsNav':{
-        'display': true,
-        'showInReservationWidget': true
+        'display': false
       },
       //Default value for newsletter opt-in checkbox
       'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
         'display': true
+      },
+      //Reverse the same address checkbox logic
+      'billingAddress': {
+        'reverseCheckboxLogic':true
       },
       //Additional details screen
       'additionalDetails':{
@@ -930,18 +819,10 @@ angular.module('mobiusApp.config', [])
           'display': true,
           'position': 'top'
         },
-        'email2':{
-          'display': true
-        },
-        'email3':{
-          'display': true
-        }
-      },
-      'vouchers' : {
-        'enable':true
+        'optedInDefault': true
       },
       'reservationAssurance': {
-        display: false,
+        display: true,
         payment: true,
         price: true,
         security: true
@@ -950,11 +831,11 @@ angular.module('mobiusApp.config', [])
     'myAccount' : {
       'displaySettings' : {
         'profile': true,
-        'tier': false,
+        'tier': true,
         'badges': false,
-        'rewards': false,
+        'rewards': true,
         'loyalities': false,
-        'description': true
+        'description': false
       }
     },
     // States layout
@@ -968,6 +849,9 @@ angular.module('mobiusApp.config', [])
       'room': [
         'room',
         'room-aside'
+      ],
+      'contacts': [
+        'hotel-location'
       ]
     },
 
@@ -978,7 +862,8 @@ angular.module('mobiusApp.config', [])
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',
       'room': '<room></room>',
-      'room-aside': '<room-aside></room-aside>'
+      'room-aside': '<room-aside></room-aside>',
+      'hotel-location': '<hotel-location hotel-details="details"></hotel-location>'
     },
 
     // Responsive design breakpoints
@@ -991,63 +876,46 @@ angular.module('mobiusApp.config', [])
       }
     },
 
-    'viewsSettings':{
+    'viewsSettings': {
       'contacts': {
         'formGrid': 12,
-        'contactDetailsGrid': 12,
-        'hasContactDetails': true,
-        'hasMap': false,
-        'hasDescription': false,
-        'includePhoneField': true,
-        'showStaticContactInfo': true
+        'contactDetailsGrid': 4,
+        'hasContactDetails': false,
+        'hasMap': true,
+        'hasDescription': true,
+        'includePhoneField': false
       },
       'hotels': {
         'showRegionDescription': false,
-        'showLocationDescription': true,
-        'displayHotelRegionName': true,
-        'displayMap': true,
-        'displayHotelsCount': true,
-        'defaultViewMode': 'list',
-        'displayCompare': true,
-        'bookingStatistics':{
-          'display':false,
-          'displayDelay':3000,
-          'displayTime':10000, //The length that you wish the alerts to appear for
-          'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
-        }
+        'showLocationDescription': false,
+        'displayHotelRegionName': false,
+        'displayHotelsCount': false
       },
       'hotelDetails':{
-        'hasViewMore': true,
-        'hasTitle': true,
+        'hasViewMore': false,
+        'hasTitle': false,
         'hotelInfo': {
-          'descriptionGrid': 7,
-          'sidebarGrid': 5
+          'descriptionGrid': 8,
+          'sidebarGrid': 4
         }
       },
-      'roomDetails':{
-        'hasViewMore': true,
-        'showInclusions': false,
-        'showTagline': true,
-        'roomInfo': {
-          'descriptionGrid': 7,
-          'sidebarGrid': 5
-        }
+      'roomDetails': {
+        'showTagline': false
       },
       'userProfile':{
-        'hasAvatar': true,
-        'hasWelcomeMessage': false,
+        'hasAvatar': false,
+        'hasWelcomeMessage': true,
         'hasPrestigeAccount': false,
-        'hasRewards': false,
+        'hasRewards': true,
         'prestigeIsInfiniti': false,
         'infinitiPrestigeUrl': 'https://prestige.suttonplace.com',
-        'hasLoyaltyInfo': false,
-        'displayPointsWithUsername': true
+        'hasLoyaltyInfo': true,
+        'displayPointsWithUsername': false
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
-        'displayPropertyTitle': true,
-        'displayStaticContent': false,
-        'propertyHotDealsShowTitle': true
+        'displayPropertyTitle': false,
+        'displayStaticContent': false
       },
       'locationMap':{
         'displayMainTitle': false,
@@ -1120,7 +988,7 @@ angular.module('mobiusApp.config', [])
       }
     ],
     localTimeUpdates: {
-      format: 'h:mm A',
+      format: 'h.mm A',
       interval: 1000*60 // every minute
     },
     'imageCarousel': {
@@ -1144,7 +1012,7 @@ angular.module('mobiusApp.config', [])
           // it shows the numeric date and the month (ie 5 Aug)
           min: 8 * 86400000,
           max: 90 * 86400000,
-          format: 'Do MMM'
+          format: 'DD MMM'
         },
         {
           // If it's 90 days away it shows the month and year
@@ -1154,8 +1022,8 @@ angular.module('mobiusApp.config', [])
       ]
     },
     'cloudinary': {
-      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/{chainCode}/properties_amenities/',
-      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/{chainCode}/room_amenities/',
+      'prefix-hotel': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/Mobius/DOCO/properties_amenities/',
+      'prefix-room': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/Mobius/DOCO/room_amenities/',
       'suffix': '.png'
     },
     // See: http://openweathermap.org/wiki/API/Weather_Condition_Codes
@@ -1172,10 +1040,6 @@ angular.module('mobiusApp.config', [])
     },
     'forms': {
       'contactSubjects': [
-        {
-          key: 'Prestige and Loyalty',
-          value: 'Prestige and Loyalty'
-        },
         {
           key: 'My Reservation',
           value: 'My Reservation'
@@ -1204,40 +1068,13 @@ angular.module('mobiusApp.config', [])
     },
     //Footer: type: advanced or simple (advanced for national for example)
     'footer':{
-      'displaySitemap': false,
-      'type': 'advanced',
+      'displaySitemap': true,
+      'type': 'simple',
       'advanced': {
         'logo':{
           'src': '/static/images/hotelFooterLogo.png',
           'alt': 'Worldhotels deluxe'
         }
-      }
-    },
-    'otaRates': [
-      {
-        'name': 'expedia',
-        'logo': '/static/images/expedia_logo.png'
-      },
-      {
-        'name': 'bookingcom',
-        'logo': '/static/images/bookingcom_logo.png'
-      },
-      {
-        'name': 'priceline',
-        'logo': '/static/images/priceline_logo.png'
-      }
-    ],
-    'thirdparties': {
-      'enable': true,
-      'menu': {
-        'showHotels': false,
-        'showRegionsMegaMenu': true,
-        'showHotDeals': false,
-        'showMeetingsBanquets': false,
-        'showOffers': false,
-        'showAbout': true,
-        'showNews': false,
-        'showContact': false
       }
     }
   }
