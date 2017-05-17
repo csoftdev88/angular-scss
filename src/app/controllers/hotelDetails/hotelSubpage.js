@@ -76,6 +76,36 @@ angular.module('mobius.controllers.hotel.subpage', [])
     }
   }
 
+  function getQueryParameters(query) {
+    if (!query) {
+      return { };
+    }
+
+    return (/^[?#]/.test(query) ? query.slice(1) : query)
+      .split('&')
+      .reduce(function(params, param) {
+        var arr = param.split('=');
+        var key = arr[0];
+        var value = arr[1];
+
+        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+        return params;
+      }, { });
+  }
+
+  function buildRedirectUrl(urlData) {
+    var url = urlData.url;
+    var keepParams = urlData.retainParameters;
+
+    if (keepParams) {
+      var arr = url.split('?');
+      var params = angular.extend(getQueryParameters(arr[1]), $location.search());
+      url = arr[0] + '?' + $.param(params);
+    }
+
+    return url;
+  }
+
   function getHotelDetails(propertyCode, params){
 
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
@@ -101,10 +131,11 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
-        if(Settings.UI.hotelDetails.subPageRedirects){
+        if (Settings.UI.hotelDetails.subPageRedirects) {
           var redirectUrl = $scope.info && $scope.info.meta && $scope.info.meta.redirectUrl ? $scope.info.meta.redirectUrl : null;
-          if(redirectUrl){
-            $window.location.href = redirectUrl;
+
+          if (redirectUrl) {
+            $window.location.href = buildRedirectUrl(redirectUrl);
           }
         }
 
