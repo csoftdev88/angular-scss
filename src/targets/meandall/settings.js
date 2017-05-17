@@ -1161,6 +1161,7 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': false,
         'showInclusions': true,
         'showAmenitiesTop': false,
+        'showTagline': false,
         'hideHeroSlider': true,
         'hideBreadcrumbs': true,
         'roomInfo': {
