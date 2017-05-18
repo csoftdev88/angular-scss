@@ -346,7 +346,9 @@ angular.module('mobiusApp.config', [])
       // Use 0 value to disable automatic slide animation
       'autoplayDelay': 5000,
       'animationDuration': 800,
-      'preloadImages': true
+      'preloadImages': true,
+      'slideWidth': 1250,
+      'slideHeight': 393
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -820,6 +822,8 @@ angular.module('mobiusApp.config', [])
       'displayPageHeading': false,
       'includeOfferAvailabilityPropertyDropdown': false,
       'displayOfferImageInHeroSlider': false,
+      'height': 160,
+      'width': 307,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
         '0': 1,

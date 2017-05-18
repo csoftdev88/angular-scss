@@ -373,8 +373,8 @@ angular.module('mobiusApp.config', [])
       'autoplayDelay': 5000,
       'animationDuration': 800,
       'preloadImages': true,
-      'slideWidth': 1680,
-      'slideHeight': 530
+      'slideWidth': 1250,
+      'slideHeight': 393
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -738,6 +738,8 @@ angular.module('mobiusApp.config', [])
       'displayPageHeading': true,
       'includeOfferAvailabilityPropertyDropdown': true,
       'displayOfferImageInHeroSlider': false,
+      'height': 200,
+      'width': 307,
       'scrollToBreadcrumbs': true,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
@@ -1027,6 +1029,7 @@ angular.module('mobiusApp.config', [])
       'roomDetails':{
         'hasViewMore': true,
         'showInclusions': false,
+        'showTagline': true,
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
@@ -1227,7 +1230,7 @@ angular.module('mobiusApp.config', [])
       }
     ],
     'thirdparties': {
-      'enable': false,
+      'enable': true,
       'menu': {
         'showHotels': false,
         'showRegionsMegaMenu': true,
