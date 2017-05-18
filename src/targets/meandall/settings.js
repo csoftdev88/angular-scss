@@ -1071,7 +1071,8 @@ angular.module('mobiusApp.config', [])
         payment: true,
         price: true,
         security: true
-      }
+      },
+      'termsAndConditionsLink':'https://duesseldorf.meandallhotels.com/en/general-terms-and-conditions.html'
     },
     'myAccount' : {
       'displaySettings' : {
