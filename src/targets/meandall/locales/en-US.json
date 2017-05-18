@@ -258,7 +258,7 @@
     "payment_not_authorized_payment_type": "Payment Type is invalid",
     "payment_not_authorized_expiry_date": "Expiry Date is invalid",
     "payment_not_authorized_cc_expired": "Credit card will be expired",
-    "payment_not_authorized_ccv_invalid": "CCV is invalid",
+    "payment_not_authorized_ccv_invalid": "CVV is invalid",
     "payment_not_authorized_cc_number_invalid": "Card Number is invalid",
     "check_in": "Check in",
     "check_out": "Check out",
