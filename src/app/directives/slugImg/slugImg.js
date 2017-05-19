@@ -29,10 +29,9 @@ angular.module('mobiusApp.directives.slugImg', [])
               scope.src = Settings.UI.cloudinary['prefix-' + attrs.type].replace('{chainCode}', amenity.chainCode) + amenity.id + Settings.UI.cloudinary.suffix;
               // see http://cloudinary.com/documentation/image_transformations
               if (attrs.width) {
-                var replaceString = 'w_' + attrs.width + ',c_limit';
+                var replaceString = 'w_' + attrs.width + ',c_limit,';
                 var inputParts = scope.src.split('/');
-                // insert dimensions after /image/upload/q_auto,f_auto/
-                inputParts.splice(6, 0, replaceString);
+                inputParts[6] = replaceString + inputParts[6];
                 scope.src = inputParts.join('/');
               }
             } else {
