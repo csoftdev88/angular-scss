@@ -6,7 +6,8 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
 .controller( 'HotelSubpageCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService, $location, _, Settings, routerService) {
+  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService,
+  $location, _, Settings, routerService, queryService) {
 
   $scope.scroll = 0;
   $scope.moreInfo = [];
@@ -76,30 +77,13 @@ angular.module('mobius.controllers.hotel.subpage', [])
     }
   }
 
-  function getQueryParameters(query) {
-    if (!query) {
-      return { };
-    }
-
-    return (/^[?#]/.test(query) ? query.slice(1) : query)
-      .split('&')
-      .reduce(function(params, param) {
-        var arr = param.split('=');
-        var key = arr[0];
-        var value = arr[1];
-
-        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-        return params;
-      }, { });
-  }
-
   function buildRedirectUrl(urlData) {
     var url = urlData.url;
     var keepParams = urlData.retainParameters;
 
     if (keepParams) {
       var arr = url.split('?');
-      var params = angular.extend(getQueryParameters(arr[1]), $location.search());
+      var params = angular.extend(queryService.getQueryParameters(arr[1]), $location.search());
       url = arr[0] + '?' + $.param(params);
     }
 
