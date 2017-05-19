@@ -110,7 +110,7 @@
                  ng-pattern="$root.generalValidationPattern"/>
         <span>
           <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_phone_label_</span>
-          <span ng-hide="forms.details.$submitted && forms.details.phone.$error && !forms.details.phone.$error.pattern">_phone_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.phone.$error && !forms.details.phone.$error.pattern">_phone_label_</span>
           <span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">_phone_pattern_error_</span>
         </span>
       </label>
