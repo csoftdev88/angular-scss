@@ -13,6 +13,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-localisation');
   grunt.loadNpmTasks('grunt-istanbul');
+  grunt.loadNpmTasks('grunt-githooks');
 
   // Time how long tasks take
   require('time-grunt')(grunt);
@@ -62,6 +63,13 @@ module.exports = function(grunt) {
           'targets/' + target + '/**/*.js'
         ],
         dest: '<%= config.build %>'
+      }
+    },
+
+    githooks: {
+      all: {
+        // Will run the jshint and test tasks at every push
+        'pre-push': 'jshint test'
       }
     },
 
@@ -343,7 +351,7 @@ module.exports = function(grunt) {
   //Prebuild
   grunt.registerTask('prebuild:development', [
     'jshint',
-    'test',
+    //'test',
     'localisation',
     'templateCache:development',
     'ngmin'
