@@ -18,7 +18,7 @@ describe('cloudinaryImage', function() {
   it('should set width, height and fill of the image', function() {
     expect(env.$filter('cloudinaryImage')
       ('http://res.cloudinary.com/dmh2cjswj/image/upload/v1435746996/TEST/TEST/TEST_NAME.jpg', 10,20,'fill'))
-    .equal('http://res.cloudinary.com/dmh2cjswj/image/upload/w_10,h_20,c_fill/q_auto,f_auto/v1435746996/TEST/TEST/TEST_NAME.jpg');
+    .equal('http://res.cloudinary.com/dmh2cjswj/image/upload/w_10,h_20,c_fill,q_auto,f_auto/v1435746996/TEST/TEST/TEST_NAME.jpg');
   });
 
   it('should not update the URL when not a cloudinary image', function() {

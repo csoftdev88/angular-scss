@@ -52,6 +52,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-development',
@@ -60,6 +61,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-integration',
@@ -70,6 +72,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -80,6 +83,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -88,6 +92,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-live',
@@ -817,7 +822,7 @@ angular.module('mobiusApp.config', [])
       'displayPageHeading': true,
       'includeOfferAvailabilityPropertyDropdown': true,
       'displayOfferImageInHeroSlider': false,
-      'width': 600,
+      'width': 307,
       'height': 200,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
