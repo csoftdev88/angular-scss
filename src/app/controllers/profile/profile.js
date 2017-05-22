@@ -8,7 +8,7 @@ angular.module('mobius.controllers.profile', [])
 
     //check if user is logged in
     function onAuthorized(){
-      if(!user.isLoggedIn()){
+      if(!$scope.auth.isLoggedIn()){
         $state.go('home');
       }
     }

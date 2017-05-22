@@ -31,7 +31,6 @@ angular
     'mobius.controllers.common.sanitize',
     'mobius.controllers.common.preloader',
     'mobius.controllers.common.auth',
-    'mobius.controllers.common.sso',
     'mobius.controllers.common.content',
     'mobius.controllers.common.price',
     'mobius.controllers.common.preference',
@@ -694,11 +693,12 @@ angular
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
   });
-  $controller('SSOCtrl', {
-    $scope: $scope
-  });
   $controller('ReservationMultiRoomCtrl', {
     $scope: $scope
+  });
+  $controller('AuthCtrl', {
+    $scope: $scope,
+    config: {}
   });
 
   $scope.uiConfig = Settings.UI;
@@ -808,15 +808,17 @@ angular
       }
     }
     if (Settings.authType === 'infiniti') {
-      $scope.sso.trackPageLeave();
+      if ($window.infiniti && $window.infiniti.api) {
+        $window.infiniti.api.trackPageLeave();
+      }
     }
     metaInformationService.reset();
 
     $scope.user = user;
-    $scope.isUserLoggedIn = user.isLoggedIn;
+    $scope.isUserLoggedIn = $scope.auth.isLoggedIn;
 
     $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
-      $scope.isUserLoggedIn = user.isLoggedIn;
+      $scope.isUserLoggedIn = $scope.auth.isLoggedIn;
       if($state.current.name === 'reservation.details')
       {
         $state.reload();
@@ -852,7 +854,11 @@ angular
     }
 
     if (Settings.authType === 'infiniti') {
-      $scope.sso.trackPageView();
+      if ($window.infiniti && $window.infiniti.api) {
+        $timeout(function(){
+          $window.infiniti.api.trackPageView();
+        }, 1000);
+      }
       //Evolution
       if ($window.evolution) {
         $window.evolution('track', 'pageview');
