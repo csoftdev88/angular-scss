@@ -290,7 +290,7 @@ angular.module('mobiusApp.config', [])
 
     'generics': {
       'singleProperty': true,
-      'defaultPropertyCode': 'DUS',
+      'defaultPropertyCode': 'DUSIMM',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
