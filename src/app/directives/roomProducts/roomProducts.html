@@ -47,7 +47,7 @@
           </div>
           <a ng-if="!room.priceFrom" ng-click="goToRoom(details.meta.slug, room.meta.slug)" class="button">_view_details_</a>
           <a ng-if="room.priceFrom" ng-hide="product.memberOnly && !isUserLoggedIn()" ng-click="selectProduct(room.code, product.code, null, null, product.upSell, $event)" class="button">_book_now_</a>
-          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="sso.login()">_login_to_book_</a>
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn()" ng-click="auth.login()">_login_to_book_</a>
         </div>
       </div>
 
