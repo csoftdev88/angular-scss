@@ -24,6 +24,11 @@ floating-bar {
     max-width: @grid-width;
     padding-left:60px;
     li {
+      &.floating-bar--tab-booking {
+        a {
+          color: @c-black;
+        }
+      }
       a {
         font-size: 0.9em;
         line-height: 27px;
@@ -44,6 +49,7 @@ floating-bar {
       &.floating-bar--tab-booking.is-active,
       &.floating-bar--tab-booking:before {
         background: @c-booking-widget;
+        color: @c-black;
       }
       &.floating-bar--tab-booking:after {
         border-bottom: @baseline solid @c-booking-widget!important;
