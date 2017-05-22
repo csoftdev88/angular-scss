@@ -2,6 +2,7 @@ notification-bar {
   position:relative;
   bottom:initial;
 
+  .singleroom-notification,
   .multiroom-notification {
     width: 600px;
     .rooms,
@@ -35,6 +36,14 @@ notification-bar {
       &:before {
         content: @fa-var-calendar;
       }
+    }
+  }
+
+  .singleroom-notification {
+    .rooms,
+    .details,
+    .dates {
+      width: 50%;
     }
   }
 
