@@ -19,13 +19,14 @@ angular.module('mobiusApp.filters.cloudinaryImage', [])
             replaceString.push('c_scale');
           }
           var inputParts = input.split('/');
+          replaceString.push('q_auto,f_auto');
           if((inputParts[6].indexOf('w_') === 0) || (inputParts[6].indexOf('h_') === 0) || (inputParts[6].indexOf('c_') === 0)) {
             inputParts.splice(6, 1, replaceString.join(',')); // replace
           } else {
             inputParts.splice(6, 0, replaceString.join(',')); // insert
           }
           //Add q_auto and f_auto segments
-          inputParts.splice(7, 0, 'q_auto,f_auto');
+          //inputParts.splice(7, 0, 'q_auto,f_auto');
           input = inputParts.join('/');
         }
       }

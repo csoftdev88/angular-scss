@@ -55,6 +55,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -64,6 +65,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -75,6 +77,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -86,6 +89,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -95,6 +99,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -373,8 +378,8 @@ angular.module('mobiusApp.config', [])
       'autoplayDelay': 5000,
       'animationDuration': 800,
       'preloadImages': true,
-      'slideWidth': 1680,
-      'slideHeight': 530
+      'slideWidth': 1250,
+      'slideHeight': 393
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -738,6 +743,8 @@ angular.module('mobiusApp.config', [])
       'displayPageHeading': true,
       'includeOfferAvailabilityPropertyDropdown': true,
       'displayOfferImageInHeroSlider': false,
+      'height': 200,
+      'width': 307,
       'scrollToBreadcrumbs': true,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
@@ -1027,6 +1034,7 @@ angular.module('mobiusApp.config', [])
       'roomDetails':{
         'hasViewMore': true,
         'showInclusions': false,
+        'showTagline': true,
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
