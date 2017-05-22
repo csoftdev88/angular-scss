@@ -14,11 +14,6 @@ angular.module('mobius.controllers.offers', [])
   ///Scope variables
   //////////////////////////
 
-  //Inherit SSOCtrl to access infiniti methods
-  $controller('SSOCtrl', {
-    $scope: $scope
-  });
-
   //Assign offers setting as scope config
   $scope.config = Settings.UI.offers;
 
@@ -621,7 +616,7 @@ angular.module('mobius.controllers.offers', [])
 
   $scope.bindHtmlClick = function(event) {
     if (event.target.attributes['ng-click'] && event.target.attributes['ng-click'].value === 'login()') {
-      $scope.sso.login();
+      $scope.auth.login();
     }
   };
 

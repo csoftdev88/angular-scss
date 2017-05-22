@@ -409,7 +409,7 @@ angular.module('mobiusApp.directives.room', [])
 
 
       scope.setRoomsSorting = function() {
-        return user.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
+        return scope.auth.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
       };
 
       scope.selectProduct = function(product) {
@@ -562,7 +562,7 @@ angular.module('mobiusApp.directives.room', [])
           }
           else if(product.memberOnly && !scope.isUserLoggedIn() && !scope.isModifyingAsAnonymous())
           {
-            scope.sso.login();
+            scope.auth.login();
           }
         }
       };

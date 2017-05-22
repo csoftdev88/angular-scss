@@ -22,7 +22,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
-  
+
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
 
@@ -91,7 +91,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.$on('USER_LOGIN_EVENT', function() {
-    prefillUserDetails(user.isLoggedIn() ? user.getUser() : {
+    prefillUserDetails($scope.auth.isLoggedIn() ? user.getUser() : {
       email: $stateParams.email
     }, true);
   });
@@ -251,10 +251,10 @@ angular.module('mobius.controllers.reservation', [])
 
         //If we have a stored upgrade with an increased price, and room and pricing are set
         if(storedUpgrade && storedUpgrade.increased && storedUpgrade.room && storedUpgrade.email){
-          if(room.roomID === storedUpgrade.room.code) { //If the current room id matches the stored upgrade                  
+          if(room.roomID === storedUpgrade.room.code) { //If the current room id matches the stored upgrade
             //Validate the current dates and calculate the stayLength
-            if($stateParams.dates){ 
-              var datesArray = $stateParams.dates.split('_');             
+            if($stateParams.dates){
+              var datesArray = $stateParams.dates.split('_');
               if(datesArray.length === 2){
                 var checkInDate = $window.moment.tz(datesArray[0], Settings.UI.bookingWidget.timezone).startOf('day');
                 var checkOutDate = $window.moment.tz(datesArray[1], Settings.UI.bookingWidget.timezone).startOf('day');
@@ -274,7 +274,7 @@ angular.module('mobius.controllers.reservation', [])
                 roomData._selectedProduct.price.taxDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.taxDetails.policyTaxItemDetails;
                 roomData._selectedProduct.price.feeDetails = {};
                 roomData._selectedProduct.price.feeDetails.totalTax = storedUpgrade.email.priceDetail.priceOverview.feeDetails.totalTax;
-                roomData._selectedProduct.price.feeDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.feeDetails.policyTaxItemDetails;            
+                roomData._selectedProduct.price.feeDetails.policyTaxItemDetails = storedUpgrade.email.priceDetail.priceOverview.feeDetails.policyTaxItemDetails;
               }
             }
           }
@@ -361,9 +361,6 @@ angular.module('mobius.controllers.reservation', [])
 
   // Inheriting the login from RoomDetails controller
   $controller('RoomDetailsCtrl', {
-    $scope: $scope
-  });
-  $controller('SSOCtrl', {
     $scope: $scope
   });
   $controller('CardExpirationCtrl', {
@@ -485,7 +482,7 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
-  if (!user.isLoggedIn()) {
+  if (!$scope.auth.isLoggedIn()) {
     $scope.billingDetails.paymentMethod = 'cc';
   }
 
@@ -517,7 +514,7 @@ angular.module('mobius.controllers.reservation', [])
           pointsRequired: $scope.getTotal('pointsRequired')
         };
 
-        if (user.isLoggedIn()) {
+        if ($scope.isLoggedIn()) {
           if (user.getUser().loyalties) {
             $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
           }
@@ -542,7 +539,7 @@ angular.module('mobius.controllers.reservation', [])
         case 'reservation.billing':
           switch ($scope.billingDetails.paymentMethod) {
             case 'point':
-              if (user.isLoggedIn() && $scope.getTotal('pointsRequired')) {
+              if ($scope.isLoggedIn() && $scope.getTotal('pointsRequired')) {
                 return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
               }
               break;
@@ -730,7 +727,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     // Adding customerID when logged in
-    if (user.isLoggedIn()) {
+    if ($scope.auth.isLoggedIn()) {
       reservationData.customer = user.getUser().id;
     } else {
       // TODO: Anonymous reservation working but fails on getting
@@ -993,7 +990,7 @@ angular.module('mobius.controllers.reservation', [])
 
       // When booked as anonymous we are adding customer email to the next route
       // so booking data can be fetched from the API
-      if (!user.isLoggedIn()) {
+      if (!$scope.auth.isLoggedIn()) {
         reservationDetailsParams.email = reservationData.customerEmail;
       }
 
@@ -1151,7 +1148,7 @@ angular.module('mobius.controllers.reservation', [])
             'products': infinitiTrackingProducts
           };
 
-          if (!user.isLoggedIn()) {
+          if (!$scope.auth.isLoggedIn()) {
             infinitiTrackingData.customer = {
               'title': getUserTitle().name,
               'fName': $scope.userDetails.firstName,
@@ -1165,14 +1162,14 @@ angular.module('mobius.controllers.reservation', [])
               'secondPhoneNumber': $scope.additionalInfo.secondPhoneNumber
             };
           }
-          infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
+          infinitiEcommerceService.trackPurchase($scope.auth.isLoggedIn(), infinitiTrackingData);
 
           var env = document.querySelector('meta[name=environment]').getAttribute('content');
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
             if($rootScope.campaign)
             {
               locationService.getLocations().then(function(locations){
-                if(locations && campaignsService.criteriaCheck($rootScope.campaign, user.isLoggedIn(), $stateParams.dates, $stateParams.locationSlug, $stateParams.property, locations)){
+                if(locations && campaignsService.criteriaCheck($rootScope.campaign, $scope.auth.isLoggedIn(), $stateParams.dates, $stateParams.locationSlug, $stateParams.property, locations)){
                   infinitiApeironService.trackCampaignPurchase($rootScope.campaign.code);
                   console.log('campaign purchase fulfilled');
                 }
@@ -1192,7 +1189,7 @@ angular.module('mobius.controllers.reservation', [])
 
 
       //creating anon user account
-      if (!user.isLoggedIn()) {
+      if (!$scope.auth.isLoggedIn()) {
 
         var anonUserData = {
           title: $scope.userDetails.title,
@@ -1221,7 +1218,7 @@ angular.module('mobius.controllers.reservation', [])
           });
         });
       } else {
-        if (reservationData.paymentInfo.paymentMethod === 'point' && user.isLoggedIn) {
+        if (reservationData.paymentInfo.paymentMethod === 'point' && $scope.auth.isLoggedIn) {
           userObject.loyalties.amount = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
         }
         bookingService.clearParams($rootScope.thirdparty ? true : false);
@@ -1521,14 +1518,14 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   //Retrieve stored upgrade
-  var storedUpgradeData = roomUpgradesService.getStoredUpgrade();  
+  var storedUpgradeData = roomUpgradesService.getStoredUpgrade();
   var storedUpgrade = storedUpgradeData.upgrade;
   if(storedUpgrade){
     if(storedUpgrade.increased){ //price has increased
       roomUpgradesService.notifyUpgrade($scope,'increase');
       $scope.continue();
     }
-    else if(storedUpgrade.decreased){ //price has decreased   
+    else if(storedUpgrade.decreased){ //price has decreased
       roomUpgradesService.notifyUpgrade($scope,'decrease');
       $scope.continue();
     }
