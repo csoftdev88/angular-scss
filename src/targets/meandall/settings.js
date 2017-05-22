@@ -287,7 +287,6 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
-
     'generics': {
       'singleProperty': true,
       'defaultPropertyCode': 'DUSIMM',
