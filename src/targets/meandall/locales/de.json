@@ -445,7 +445,7 @@
         "cancel_reservation_modal_error_desc": "Sie können diese Buchung nicht stornieren",
         "modify_reservation_modal_title": "Ändern - ",
         "modify_reservation_modal_desc_short": "Sie können Ihre Buchung jetzt ändern.",
-        "modify_reservation_voucher_remove_warning": "Alle auf diese Reservierung angewendeten Gutscheine werden entfernt",
+        "modify_reservation_voucher_remove_warning": "",
         "modify_reservation_modal_desc_long": "Aktualisieren Sie Ihre Daten und Anzahl der Reisenden in der Buchungsleiste, um erneut zu suchen",
         "modify_reservation_modal_error_title": "Ihre Buchung",
         "modify_reservation_modal_error_desc": "Um Ihre Reservierung zu ändern, rufen Sie bitte unser Reservierungsteam unter +49 211 54259 0 an",
