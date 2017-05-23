@@ -125,7 +125,7 @@ angular.module('mobiusApp.config', [])
     'languageInPath':true, //Temporary fix for cloudflare language caching issues
     'baseURL': {
       'development': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
-      'integration': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
+      'integration': '//integration-www-meandall.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-meandall.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
       'live': '//meandallhotels.com/api/4.0/'
@@ -965,6 +965,8 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      // Should we include company name as a field
+      'includeCompanyForBilling': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
