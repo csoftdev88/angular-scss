@@ -125,7 +125,7 @@ angular.module('mobiusApp.config', [])
     'languageInPath':true, //Temporary fix for cloudflare language caching issues
     'baseURL': {
       'development': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
-      'integration': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
+      'integration': '//integration-www-meandall.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-meandall.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
       'live': '//meandallhotels.com/api/4.0/'
@@ -964,6 +964,11 @@ angular.module('mobiusApp.config', [])
           'icon': 'amex',
           'regex': /^3[47][0-9]{13}$/
         }
+      },
+      // Display an image for alerts?
+      'alertImage': {
+        'display': true,
+        'url': '/static/images/v4/icon-eclaimation.png'
       },
       //Is billing state a required field?
       'billingStateRequired': true,
