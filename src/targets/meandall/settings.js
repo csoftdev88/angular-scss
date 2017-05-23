@@ -326,6 +326,12 @@ angular.module('mobiusApp.config', [])
       'slideWidth': 1680,
       'slideHeight': 530
     },
+    'userMessages': {
+      'image': {
+        'display': true,
+        'url': '/static/images/v4/icon-thumbs-up@2x.png'
+      }
+    },
     // Menu settings - showing/hidding menu items
     'menu': {
       'showHotels': false,
