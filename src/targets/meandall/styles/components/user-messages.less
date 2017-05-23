@@ -1,8 +1,16 @@
 user-messages {
-  background:transparent;
+  // @note The image that this matches is set in a config file, if that image is updated this file was also need to reflect the change
+  background: url("@{img-prefix}/section-images/RS12959_DUSIMM_Zimmer_STANDARD_05-scr.jpg");
   box-shadow:none;
   position:relative;
   top:initial;
+  ul {
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-bottom: 60px;
+    padding-top: 30px;
+  }
   ul li {
     display:inline-block;
     width:100%;
@@ -49,6 +57,7 @@ user-messages {
       text-indent:initial;
       display:block;
       position:absolute;
+      font-size: 14px;
     }
   }
 }
