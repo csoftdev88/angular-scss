@@ -208,8 +208,12 @@
     </nav>
   </div>
 
-  <div class="login-dialog-overlay" ng-show="!(auth.getStrategy() === 'infiniti') && showLoginDialog">
-    <div class="login-dialog" ng-class="'form-step' + loginFormStep">
+  <div class="login-dialog-overlay"
+       ng-show="!(auth.getStrategy() === 'infiniti') && showLoginDialog"
+       ng-click="auth.clearErrors(); auth.login(); retentionClick()">
+    <div class="login-dialog"
+         ng-click="$event.stopPropagation()"
+         ng-class="'form-step' + loginFormStep">
 
       <header>
         <a href="" ng-click="loginFormStep = 1; auth.clearErrors(); retentionClick()" ng-show="loginFormStep == 2" class="back-btn">_back_</a>
