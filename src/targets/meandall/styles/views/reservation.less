@@ -68,6 +68,13 @@ main.reservation-page {
         color: @c-secondary;
       }
     }
+    input[required] + span,
+    select[required] ~ span {
+      &:before {
+        content: '*';
+        display: inline;
+      }
+    }
     input[type="text"],
     input[type="email"],
     input[type="tel"],
