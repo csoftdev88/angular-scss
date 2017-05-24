@@ -524,6 +524,8 @@
     "statistics_booking_message": "There have been {numTypes} bookings in the last {numUnits} {unit}",
     "statistics_views_message": "There have been {numTypes} views in the last {numUnits} {unit}",
     "statistics_searches_message": "There have been {numTypes} searches in the last {numUnits} {unit}",
+    "minute": "minute",
+    "minutes": "minutes",
     "hour": "hour",
     "hours": "hours",
     "day": "day",

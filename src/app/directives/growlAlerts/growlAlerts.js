@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.directives.growlAlerts', [])
   .directive('growlAlerts', ['growl', '$rootScope', '$timeout', '$location', 'modalService', 'Settings', 'dataLayerService', 'stateService', 'DynamicMessages',
-    function(growl, $rootScope, $timeout, $location, modalService, Settings, dataLayerService, stateService, DynamicMessages) { 
+    function(growl, $rootScope, $timeout, $location, modalService, Settings, dataLayerService, stateService, DynamicMessages) {
       return {
         restrict: 'E',
         scope: {
@@ -12,6 +12,8 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           positionReference: '=',
           displayTime: '=',
           displayDelay: '=',
+          minute: '=',
+          minutes: '=',
           hour: '=',
           hours: '=',
           day: '=',
@@ -97,7 +99,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
               }
             }
           });
-          
+
           scope.$on('$destroy', function() {
             destroyRetentionGrowlListener();
           });
@@ -114,7 +116,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 altProductsPromptConfig.variables.product = product;
                 altProductsPromptConfig.variables.products = products;
                 growl.info('<i class="fa fa-check-circle"></i><p>' + scope.altProductsMessage + '</p>', altProductsPromptConfig);
-                
+
                 //Track the display of alt products notifcation in dataLayer
                 dataLayerService.trackAltDisplayNotification('Rates');
               });
@@ -143,7 +145,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             var upgradeMessage = '';
             var icon = 'fa-check-circle';
 
-            //Retrieve our upgrade message based on the notification type       
+            //Retrieve our upgrade message based on the notification type
             switch(type) {
               case 'success':
                 upgradeMessage = scope.roomUpgradeSuccess;
@@ -189,7 +191,7 @@ angular.module('mobiusApp.directives.growlAlerts', [])
               });
             }
           });
-          
+
           function destroyRetentionGrowlListener(){
             //destroy existing retention growl alert listeners
             scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
@@ -214,6 +216,9 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             var unit = '';
             if(statistic.time.period === 1){
               switch(statistic.time.unit) {
+                case 'minutes':
+                  unit = scope.minute;
+                  break;
                 case 'hours':
                   unit = scope.hour;
                   break;
@@ -229,6 +234,9 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             }
             else{
               switch(statistic.time.unit) {
+                case 'minutes':
+                  unit = scope.minutes;
+                  break;
                 case 'hours':
                   unit = scope.hours;
                   break;
