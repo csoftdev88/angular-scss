@@ -118,7 +118,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
         if (Settings.UI.hotelDetails.subPageRedirects) {
           var redirectUrl = $scope.info && $scope.info.meta && $scope.info.meta.redirectUrl ? $scope.info.meta.redirectUrl : null;
 
-          if (redirectUrl) {
+          if (redirectUrl && redirectUrl.url !== '') {
             $window.location.href = buildRedirectUrl(redirectUrl);
           }
         }
