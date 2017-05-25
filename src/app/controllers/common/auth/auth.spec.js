@@ -18,6 +18,9 @@ describe('mobius.controllers.common.auth', function() {
       module('mobiusApp.services.auth.infiniti', function ($provide) {
         $provide.value('infinitiAuthStrategy', sinon.spy());
       });
+      module('mobiusApp.services.auth.keystone', function ($provide) {
+        $provide.value('keystoneAuthStrategy', sinon.spy());
+      });
     });
 
     beforeEach(inject(function($controller, $rootScope) {

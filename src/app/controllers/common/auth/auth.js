@@ -5,11 +5,13 @@
 angular
   .module('mobius.controllers.common.auth', [
     'mobiusApp.services.auth.mobius',
-    'mobiusApp.services.auth.infiniti'
+    'mobiusApp.services.auth.infiniti',
+    'mobiusApp.services.auth.keystone'
   ])
-  .controller( 'AuthCtrl', function($scope, _, user, config, mobiusAuthStrategy, infinitiAuthStrategy, Settings) {
+  .controller( 'AuthCtrl', function($scope, _, user, config, mobiusAuthStrategy, infinitiAuthStrategy,
+                                    keystoneAuthStrategy, Settings) {
 
-    // The auth strategy to use, it will be assigned to on of the <type>AuthStrategy services
+    // The auth strategy to use, it will be assigned to one of the <type>AuthStrategy services
     var strategy;
 
     // Function to ensure a strategy has the correct functions. As js does not have interfaces we need
@@ -26,6 +28,9 @@ angular
           break;
         case ('infiniti'):
           strategy = infinitiAuthStrategy;
+          break;
+        case ('keystone'):
+          strategy = keystoneAuthStrategy;
           break;
         default:
           console.warn('The application has been configured without a valid auth type!!');
