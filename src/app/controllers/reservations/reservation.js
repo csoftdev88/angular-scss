@@ -333,7 +333,7 @@ angular.module('mobius.controllers.reservation', [])
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: userData.state,
-          localeCode: userData.localeCode,
+          localeCode: userData.localeId,
           country: userCountry || null,
           zip: userData.zip || '',
           phone: userData.tel1 || userData.tel2 || ''
