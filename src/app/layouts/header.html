@@ -117,6 +117,10 @@
           <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="auth.logout(); retentionClick()">_logout_</a>
         </li>
 
+        <li>
+          <div id="keystone-status"></div>
+        </li>
+
         <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
           <div class="dropdown">
             <a href>
