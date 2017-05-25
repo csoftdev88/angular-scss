@@ -14,7 +14,10 @@ angular.module('mobiusApp.config', [])
   'showEUCookieDisclaimer':true,
   'enableHotDeals':true,
   'keystone': {
-    'development': 'http://localhost:8080/status.0.0.1.js'
+    'development': 'http://localhost:8080/status.0.0.1.js',
+    'integration': 'http://localhost:8080/status.0.0.1.js',
+    'staging': 'http://localhost:8080/status.0.0.1.js',
+    'live': 'http://localhost:8080/status.0.0.1.js'
   },
   'infiniti': {
     'enable': true,
