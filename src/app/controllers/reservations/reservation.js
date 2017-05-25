@@ -695,7 +695,6 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   function createReservationData() {
-    console.log('localeCode', getUserCountry());
     var reservationData = {
       guestTitle: $scope.userDetails.title,
       guestFirstName: $scope.userDetails.firstName,
