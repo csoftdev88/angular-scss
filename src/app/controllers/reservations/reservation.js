@@ -514,7 +514,7 @@ angular.module('mobius.controllers.reservation', [])
           pointsRequired: $scope.getTotal('pointsRequired')
         };
 
-        if ($scope.isLoggedIn()) {
+        if ($scope.auth.isLoggedIn()) {
           if (user.getUser().loyalties) {
             $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
           }
@@ -539,7 +539,7 @@ angular.module('mobius.controllers.reservation', [])
         case 'reservation.billing':
           switch ($scope.billingDetails.paymentMethod) {
             case 'point':
-              if ($scope.isLoggedIn() && $scope.getTotal('pointsRequired')) {
+              if ($scope.auth.isLoggedIn() && $scope.getTotal('pointsRequired')) {
                 return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
               }
               break;
