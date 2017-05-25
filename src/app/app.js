@@ -183,6 +183,7 @@ angular
     'mobiusApp.directives.evolutionInfinitiScript',
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
+    'mobiusApp.directives.keystoneScript',
     'mobiusApp.directives.infinitiApeironScript',
     'mobiusApp.directives.rumScript',
     'mobiusApp.directives.scrollPosition',
@@ -724,6 +725,11 @@ angular
   }
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
+
+    // Re inject keystone plugin when the header gets recompiled
+    if (Settings.authType === 'keystone' && window.KS && window.KS.$event) {
+      window.KS.$event.emit(window.KS.$event.const.PARENT_CONTENT_LOADED);
+    }
 
     //If date is in past, remove from params and reload page
     if(toParams.dates)
