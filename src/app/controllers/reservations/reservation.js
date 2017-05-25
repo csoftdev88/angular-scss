@@ -705,7 +705,7 @@ angular.module('mobius.controllers.reservation', [])
       guestCity: $scope.userDetails.city,
       guestZip: $scope.userDetails.zip,
       guestStateProvince: $scope.userDetails.stateProvince,
-      guestCountry: $scope.userDetails.localeCode,
+      guestCountry: getUserCountry().code,
 
       billingDetailsUseGuestAddress: $scope.billingDetails.useGuestAddress,
       optedIn: $scope.additionalInfo.optedIn,
