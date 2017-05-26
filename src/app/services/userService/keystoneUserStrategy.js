@@ -5,7 +5,8 @@
     .module('mobiusApp.services.user', [])
     .service('keystoneUserStrategy', KeystoneUserStrategy);
 
-  KeystoneUserStrategy.$inject = ['$q', '$window', '$state', 'userObject', 'apiService', 'loyaltyService', 'cookieFc'];
+  KeystoneUserStrategy.$inject = ['$q', '$window', '$state', 'userObject', 'apiService', 'loyaltyService',
+                                  'cookieFactory', 'rewardsService', 'Settings'];
 
   function KeystoneUserStrategy($q, $window, $state, userObject, apiService, loyaltyService, cookieFactory,
                                 rewardsService, Settings) {
