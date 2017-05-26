@@ -1,28 +1,42 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular
-  .module('mobiusApp.services.user', [])
-  .service('mobiusUserStrategy', function($rootScope, $q, $window, $state, userObject, apiService, _, loyaltyService, cookieFactory,
-                            dataLayerService, rewardsService, Settings, $timeout, stateService) {
+  angular
+    .module('mobiusApp.services.user', [])
+    .service('mobiusUserStrategy', MobiusUserStrategy);
 
+  MobiusUserStrategy.$inject = ['$rootScope', '$q', '$window', 'userObject', 'apiService', '_', 'loyaltyService',
+                                'cookieFactory', 'dataLayerService', 'Settings', '$timeout', 'stateService', '$log'];
+
+  function MobiusUserStrategy($rootScope, $q, $window, userObject, apiService, _, loyaltyService, cookieFactory,
+                              dataLayerService, rewardsService, Settings, $timeout, stateService, $log) {
+
+    // Name of authentication header sent to the API
     var HEADER_INFINITI_SSO = 'mobius-authentication';
 
-    var cookieExpiryDate = null;
-    var expiryMins = Settings.API.sessionData.expiry || 15;
-
-    cookieExpiryDate = new Date();
-    cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
-
-    // Promise is fullfiled when user logged in as mobius customer
-    // or anonymous
+    // Promise is fullfiled when user logged in as mobius customer or anonymous
     var authPromise = $q.defer();
 
-    function getCustomerId() {
-      return userObject.id || getStoredUser().id;
-    }
+    // ViewModel
+    var vm = this;
 
-    function updateUser(data) {
-      var customerId = getCustomerId();
+    // Cookie expiry time
+    var expiryMins = Settings.API.sessionData.expiry || 15;
+    var cookieExpiryDate = new Date();
+    cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
+
+    // Run once on initialisation
+    var init = function() {
+      vm.loadProfile();
+    };
+    init();
+
+    vm.getCustomerId = function() {
+      return userObject.id || vm.getStoredUser().id;
+    };
+
+    vm.updateUser = function(data) {
+      var customerId = vm.getCustomerId();
 
       if (customerId) {
         return apiService.put(
@@ -33,18 +47,18 @@ angular
       } else {
         throw new Error('No user logged in');
       }
-    }
+    };
 
-    function storeUserId(id) {
+    vm.storeUserId = function(id) {
       $window.document.cookie = 'MobiusId' + '=' + id + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
-    }
+    };
 
-    function getStoredUser() {
+    vm.getStoredUser = function() {
       return {
         id: cookieFactory('MobiusId'),
         token: cookieFactory('MobiusToken')
       };
-    }
+    };
 
     function clearStoredUser() {
       $window.document.cookie = 'MobiusId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
@@ -52,29 +66,29 @@ angular
       $window.document.cookie = 'CustomerID' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     }
 
-    function storeUserLanguage(lang) {
+    vm.storeUserLanguage = function(lang) {
       $window.document.cookie = 'MobiusLanguageCode' + '=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.languageCode = lang;
-    }
+    };
 
-    function getUserLanguage() {
+    vm.getUserLanguage = function() {
       return cookieFactory('MobiusLanguageCode');
-    }
+    };
 
-    function storeUserCurrency(currency) {
+    vm.storeUserCurrency = function(currency) {
       $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
     }
 
-    function getUserCurrency() {
+    vm.getUserCurrency = function() {
       return cookieFactory('MobiusCurrencyCode');
-    }
+    };
 
-    function loadProfile() {
-      var customerId = getCustomerId();
+    vm.loadProfile = function() {
+      var customerId = vm.getCustomerId();
 
       //We need token to load mobius profile
-      if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
+      if(Settings.authType === 'mobius' && !(userObject.token || vm.getStoredUser().token)){
         // Logged in as anonymous
         if(authPromise){
           authPromise.resolve(false);
@@ -85,13 +99,13 @@ angular
       if(customerId){
         // Setting up the headers for a future requests
         var headers = {};
-        headers[HEADER_INFINITI_SSO] = userObject.token || getStoredUser().token;
+        headers[HEADER_INFINITI_SSO] = userObject.token || vm.getStoredUser().token;
         apiService.setHeaders(headers);
 
         // Loading profile data and users loyelties
         return $q.all([
           apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
-          loadLoyalties(customerId), loadRewards(customerId)
+          vm.loadLoyalties(customerId), vm.loadRewards(customerId)
         ]).then(function(data){
           var userData = data[0];
 
@@ -106,7 +120,7 @@ angular
 
           userObject = _.extend(userObject, userData);
           userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
-          userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
+          userObject.languageCode = vm.getUserLanguage() || stateService.getAppLanguageCode();
 
           $timeout(function(){
             $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
@@ -124,15 +138,15 @@ angular
         clearStoredUser();
         return $q.reject({});
       }
-    }
+    };
 
-    function loadLoyalties(customerId){
+    vm.loadLoyalties = function(customerId) {
 
       if(!Settings.loyaltyProgramEnabled){
         return $q.when();
       }
 
-      customerId = customerId || getCustomerId();
+      customerId = customerId || vm.getCustomerId();
 
       return loyaltyService.getAll(customerId).then(function(loyalties){
         if(loyalties && loyalties.amount === undefined){
@@ -143,49 +157,34 @@ angular
 
         return loyalties;
       });
-    }
+    };
 
-    function loadRewards(customerId){
+    vm.loadRewards = function(customerId) {
 
       if(!Settings.loyaltyProgramEnabled){
         return;
       }
 
-      customerId = customerId || getCustomerId();
+      customerId = customerId || vm.getCustomerId();
 
       return rewardsService.getMy(customerId).then(function(rewards){
         userObject.rewards = rewards;
 
         return rewards;
       });
-    }
-
-    function getUser () {
-      return userObject;
-    }
-
-    loadProfile();
-
-    return {
-      getProfileUrl: function() {
-        console.warn('warn');
-      },
-      openLogin: function() {
-        console.warn('warn');
-      },
-      getUser: getUser,
-      loadProfile: loadProfile,
-      getCustomerId: getCustomerId,
-      loadLoyalties: loadLoyalties,
-      loadRewards: loadRewards,
-      updateUser: updateUser,
-      authPromise: authPromise.promise,
-      storeUserLanguage: storeUserLanguage,
-      getUserLanguage: getUserLanguage,
-      storeUserId: storeUserId,
-      getStoredUser: getStoredUser,
-      clearStoredUser: clearStoredUser,
-      storeUserCurrency: storeUserCurrency,
-      getUserCurrency: getUserCurrency
     };
-  });
+
+    vm.getUser = function() {
+      return userObject;
+    };
+
+    vm.getProfileUrl = function() {
+      $log.warn('warn');
+    };
+
+    vm.openLogin = function() {
+      $log.warn('warn');
+    };
+
+  }
+}());

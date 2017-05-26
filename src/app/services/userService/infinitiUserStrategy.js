@@ -1,10 +1,16 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular
-  .module('mobiusApp.services.user', [])
-  .service('infinitiUserStrategy', function($rootScope, $q, $window, $state, userObject, apiService, _, loyaltyService,
-                                            cookieFactory, dataLayerService, rewardsService, Settings, $timeout,
-                                            stateService) {
+  angular
+    .module('mobiusApp.services.user', [])
+    .service('infinitiUserStrategy', InfinitiUserStrategy);
+
+  InfinitiUserStrategy.$inject = ['$rootScope', '$q', '$window', '$state', 'userObject', 'apiService', '_',
+                                  'loyaltyService', 'cookieFactory', 'dataLayerService', 'rewardsService',
+                                  'Settings', 'stateService'];
+
+  function InfinitiUserStrategy($rootScope, $q, $window, $state, userObject, apiService, _, loyaltyService,
+           cookieFactory, dataLayerService, rewardsService, Settings, stateService) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'MobiusID';
@@ -25,45 +31,46 @@ angular
     cookieExpiryDate = new Date();
     cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
 
-    // Promise is fullfiled when user logged in as mobius customer
-    // or anonymous
+    // Promise is fullfiled when user logged in as mobius customer or anonymous
     var authPromise = $q.defer();
+
+    var vm = this;
 
     function hasSSOCookies(){
       return !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
     }
 
-    function getCustomerId(){
+    vm.getCustomerId = function() {
       if (!hasSSOCookies()) {
         return null;
       }
       return userObject.id || cookieFactory(KEY_CUSTOMER_ID);
-    }
+    };
 
     function updateUser(data) {
-      var customerId = getCustomerId();
+      var customerId = vm.getCustomerId();
 
       if (customerId) {
         return apiService.put(
           apiService.getFullURL('customers.customer', {customerId: customerId}), data)
-            .then(function() {
-              userObject = _.extend(userObject, data);
-            });
+          .then(function() {
+            userObject = _.extend(userObject, data);
+          });
       }
 
       throw new Error('No user logged in');
     }
 
-    function storeUserId(id) {
+    vm.storeUserId = function(id) {
       $window.document.cookie = 'MobiusId' + '=' + id + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
-    }
+    };
 
-    function getStoredUser() {
+    vm.getStoredUser = function() {
       return {
         id: cookieFactory('MobiusId'),
         token: cookieFactory('MobiusToken')
       };
-    }
+    };
 
     function clearStoredUser() {
       $window.document.cookie = 'MobiusId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
@@ -71,26 +78,26 @@ angular
       $window.document.cookie = 'CustomerID' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     }
 
-    function storeUserLanguage(lang) {
+    vm.storeUserLanguage = function(lang) {
       $window.document.cookie = 'MobiusLanguageCode' + '=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.languageCode = lang;
-    }
+    };
 
-    function getUserLanguage() {
+    vm.getUserLanguage = function() {
       return cookieFactory('MobiusLanguageCode');
-    }
+    };
 
-    function storeUserCurrency(currency) {
+    vm.storeUserCurrency = function(currency) {
       $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
-    }
+    };
 
-    function getUserCurrency() {
+    vm.getUserCurrency = function() {
       return cookieFactory('MobiusCurrencyCode');
-    }
+    };
 
-    function loadProfile() {
-      var customerId = getCustomerId();
+    vm.loadProfile = function() {
+      var customerId = vm.getCustomerId();
 
       if (customerId) {
         // Setting up the headers for a future requests
@@ -101,7 +108,7 @@ angular
         // Loading profile data and users loyelties
         return $q.all([
           apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
-          loadLoyalties(customerId), loadRewards(customerId)
+          vm.loadLoyalties(customerId), vm.loadRewards(customerId)
         ]).then(function(data){
           var userData = data[0];
 
@@ -116,7 +123,7 @@ angular
 
           userObject = _.extend(userObject, userData);
           userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
-          userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
+          userObject.languageCode = vm.getUserLanguage() || stateService.getAppLanguageCode();
 
           if(authPromise && authPromise.resolve){
             authPromise.resolve(true);
@@ -128,15 +135,15 @@ angular
         clearStoredUser();
         return $q.reject({});
       }
-    }
+    };
 
-    function loadLoyalties(customerId){
+    vm.loadLoyalties = function(customerId){
 
       if(!Settings.loyaltyProgramEnabled){
         return $q.when();
       }
 
-      customerId = customerId || getCustomerId();
+      customerId = customerId || vm.getCustomerId();
 
       return loyaltyService.getAll(customerId).then(function(loyalties){
         if(loyalties && loyalties.amount === undefined){
@@ -147,24 +154,24 @@ angular
 
         return loyalties;
       });
-    }
+    };
 
-    function loadRewards(customerId){
+    vm.loadRewards = function(customerId) {
 
       if(!Settings.loyaltyProgramEnabled){
         return;
       }
 
-      customerId = customerId || getCustomerId();
+      customerId = customerId || vm.getCustomerId();
 
       return rewardsService.getMy(customerId).then(function(rewards){
         userObject.rewards = rewards;
 
         return rewards;
       });
-    }
+    };
 
-    function logout() {
+    vm.logout = function() {
       $rootScope.$evalAsync(function(){
         userObject = {};
         $state.go('home', {}, {reload: true});
@@ -203,30 +210,17 @@ angular
         });
     }
 
-    function getUser () {
+    vm.getUser = function() {
       return userObject;
     }
 
-    initSSOListeners();
-
-    // @todo make sure all interfaces are the same
-    return {
-      getProfileUrl: function() {
-        console.warn('warn');
-      },
-      getUser: getUser,
-      loadProfile: loadProfile,
-      getCustomerId: getCustomerId,
-      loadLoyalties: loadLoyalties,
-      loadRewards: loadRewards,
-      updateUser: updateUser,
-      authPromise: authPromise.promise,
-      storeUserLanguage: storeUserLanguage,
-      getUserLanguage: getUserLanguage,
-      storeUserId: storeUserId,
-      getStoredUser: getStoredUser,
-      clearStoredUser: clearStoredUser,
-      storeUserCurrency: storeUserCurrency,
-      getUserCurrency: getUserCurrency
+    vm.getProfileUrl = function() {
+      $log.warn('sdfdsf');
     };
-  });
+
+    var init = function() {
+      initSSOListeners();
+    };
+
+  }
+}());
