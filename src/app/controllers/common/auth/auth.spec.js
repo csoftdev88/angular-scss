@@ -7,7 +7,17 @@ describe('mobius.controllers.common.auth', function() {
 
     beforeEach(function() {
       module('underscore');
-      module('mobius.controllers.common.auth');
+      module('mobius.controllers.common.auth', function ($provide) {
+        $provide.value('Settings', {
+          authType: 'mobius'
+        });
+      });
+      module('mobiusApp.services.auth.mobius', function ($provide) {
+        $provide.value('mobiusAuthStrategy', sinon.spy());
+      });
+      module('mobiusApp.services.auth.infiniti', function ($provide) {
+        $provide.value('infinitiAuthStrategy', sinon.spy());
+      });
     });
 
     beforeEach(inject(function($controller, $rootScope) {

@@ -55,6 +55,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -64,6 +65,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -75,6 +77,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -86,6 +89,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -95,6 +99,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -527,12 +532,12 @@ angular.module('mobiusApp.config', [])
         'hotelServices': false,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
-        'hotelOffers': true,
         'hotelLocation': true,
+        'hotelOffers': true,
         'hotelReadMoreMobile': true
       },
       'bookingStatistics':{
-        'display':false,
+        'display':true,
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -576,7 +581,7 @@ angular.module('mobiusApp.config', [])
         'displayPrice': 'text'
       },
       'bookingStatistics':{
-        'display':false,
+        'display':true,
         'displayDelay':5000,
         'displayTime':20000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -749,7 +754,7 @@ angular.module('mobiusApp.config', [])
     },
     'regions':{
       'bookingStatistics':{
-        'display':false,
+        'display':true,
         'displayDelay':5000,
         'displayTime':10000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -1012,7 +1017,7 @@ angular.module('mobiusApp.config', [])
         'defaultViewMode': 'list',
         'displayCompare': true,
         'bookingStatistics':{
-          'display':false,
+          'display':true,
           'displayDelay':3000,
           'displayTime':10000, //The length that you wish the alerts to appear for
           'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left

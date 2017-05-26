@@ -52,6 +52,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-development',
@@ -60,6 +61,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-integration',
@@ -70,6 +72,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -80,6 +83,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -88,6 +92,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-live',
@@ -285,7 +290,7 @@ angular.module('mobiusApp.config', [])
 
     'generics': {
       'singleProperty': true,
-      'defaultPropertyCode': 'DUS',
+      'defaultPropertyCode': 'DUSIMM',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,

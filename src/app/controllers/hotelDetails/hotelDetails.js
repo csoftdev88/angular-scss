@@ -399,6 +399,9 @@ angular.module('mobius.controllers.hotel.details', [
 
         if($scope.details.content){
           _.each($scope.details.content, function(item){
+            // Setting default value to display options
+            item = _.defaults(item, { displayOnPageMenu: true, displayTile: true });
+
             if(item.meta){
               item.url = getContentUrl(item);
             }

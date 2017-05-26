@@ -14,11 +14,6 @@ angular.module('mobius.controllers.offers', [])
   ///Scope variables
   //////////////////////////
 
-  //Inherit SSOCtrl to access infiniti methods
-  $controller('SSOCtrl', {
-    $scope: $scope
-  });
-
   //Assign offers setting as scope config
   $scope.config = Settings.UI.offers;
 
@@ -621,7 +616,7 @@ angular.module('mobius.controllers.offers', [])
 
   $scope.bindHtmlClick = function(event) {
     if (event.target.attributes['ng-click'] && event.target.attributes['ng-click'].value === 'login()') {
-      $scope.sso.login();
+      $scope.auth.login();
     }
   };
 
@@ -825,38 +820,48 @@ angular.module('mobius.controllers.offers', [])
           breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
         }
 
-        //alt nav
-        breadcrumbsService
-          .addAbsHref('About', 'hotel', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            propertySlug: property.meta.slug,
-            scrollTo: 'jsAbout'
-          })
-          .addAbsHref('Location', 'hotel', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            propertySlug: property.meta.slug,
-            scrollTo: 'jsLocation'
-          })
-          .addAbsHref('Offers', 'hotel', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            propertySlug: property.meta.slug,
-            scrollTo: 'jsOffers'
-          })
-          .addAbsHref('Rooms', 'hotel', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            propertySlug: property.meta.slug,
-            scrollTo: 'jsRooms'
-          })
-          .addAbsHref('Gallery', 'hotel', {
-            regionSlug: propertyRegionData.region.meta.slug,
-            locationSlug: propertyRegionData.location.meta.slug,
-            propertySlug: property.meta.slug,
-            scrollTo: 'fnOpenLightBox'
-          });
+        if ($scope.isHotDeals) {
+          breadcrumbsService
+            .addAbsHref('Offers', 'hotel', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              locationSlug: propertyRegionData.location.meta.slug,
+              propertySlug: property.meta.slug,
+              scrollTo: 'jsOffers'
+            });
+        } else {
+          //alt nav
+          breadcrumbsService
+            .addAbsHref('About', 'hotel', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              locationSlug: propertyRegionData.location.meta.slug,
+              propertySlug: property.meta.slug,
+              scrollTo: 'jsAbout'
+            })
+            .addAbsHref('Location', 'hotel', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              locationSlug: propertyRegionData.location.meta.slug,
+              propertySlug: property.meta.slug,
+              scrollTo: 'jsLocation'
+            })
+            .addAbsHref('Offers', 'hotel', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              locationSlug: propertyRegionData.location.meta.slug,
+              propertySlug: property.meta.slug,
+              scrollTo: 'jsOffers'
+            })
+            .addAbsHref('Rooms', 'hotel', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              locationSlug: propertyRegionData.location.meta.slug,
+              propertySlug: property.meta.slug,
+              scrollTo: 'jsRooms'
+            })
+            .addAbsHref('Gallery', 'hotel', {
+              regionSlug: propertyRegionData.region.meta.slug,
+              locationSlug: propertyRegionData.location.meta.slug,
+              propertySlug: property.meta.slug,
+              scrollTo: 'fnOpenLightBox'
+            });
+        }
 
       });
     } else {

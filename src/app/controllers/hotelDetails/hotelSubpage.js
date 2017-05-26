@@ -6,7 +6,8 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
 .controller( 'HotelSubpageCtrl', function($scope, bookingService, $state, contentService,
   propertyService, filtersService, preloaderFactory, $q, modalService, breadcrumbsService,
-  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService, $location, _, Settings, routerService) {
+  $window, advertsService, $controller, $timeout, $stateParams, metaInformationService,
+  $location, _, Settings, routerService, queryService) {
 
   $scope.scroll = 0;
   $scope.moreInfo = [];
@@ -76,6 +77,19 @@ angular.module('mobius.controllers.hotel.subpage', [])
     }
   }
 
+  function buildRedirectUrl(urlData) {
+    var url = urlData.url;
+    var keepParams = urlData.retainParameters;
+
+    if (keepParams) {
+      var arr = url.split('?');
+      var params = angular.extend(queryService.getQueryParameters(arr[1]), $location.search());
+      url = arr[0] + '?' + $.param(params);
+    }
+
+    return url;
+  }
+
   function getHotelDetails(propertyCode, params){
 
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
@@ -101,10 +115,11 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         metaInformationService.setOgGraph($scope.details.meta.microdata.og);
 
-        if(Settings.UI.hotelDetails.subPageRedirects){
+        if (Settings.UI.hotelDetails.subPageRedirects) {
           var redirectUrl = $scope.info && $scope.info.meta && $scope.info.meta.redirectUrl ? $scope.info.meta.redirectUrl : null;
-          if(redirectUrl){
-            $window.location.href = redirectUrl;
+
+          if (redirectUrl && redirectUrl.url) {
+            $window.location.href = buildRedirectUrl(redirectUrl);
           }
         }
 
