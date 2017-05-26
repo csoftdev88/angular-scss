@@ -1,19 +1,24 @@
 'use strict';
 
-angular
-  .module('mobiusApp.services.user', [])
-  .service('user', function($rootScope, $q, $window, $state, userObject, apiService, _, loyaltyService, cookieFactory,
-                            dataLayerService, rewardsService, Settings, $timeout, stateService) {
+angular.module('mobiusApp.services.user', [])
+  .service('user_old', function($rootScope, $q, $window, $state,
+    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout, stateService) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = Settings.authType === 'mobius' ? 'mobius-authentication' : 'MobiusID';
     // We are looking for this cookie in order to detect SSO
     var KEY_CUSTOMER_PROFILE = 'CustomerProfile';
 
-    var HEADER_INFINITI_SSO = Settings.authType === 'mobius' ? 'mobius-authentication' : 'infinitiAuthN';
+    var HEADER_INFINITI_SSO = (Settings.authType === 'mobius' || Settings.authType === 'keystone') ? 'mobius-authentication' : 'infinitiAuthN';
 
     var EVENT_CUSTOMER_LOADED = 'infiniti.customer.loaded';
     var EVENT_CUSTOMER_LOGGED_OUT = 'infiniti.customer.logged.out';
+
+    if (Settings.authType === 'keystone') {
+      EVENT_CUSTOMER_LOADED = 'keystone.session.created';
+      EVENT_CUSTOMER_LOGGED_OUT = 'keystone.session.destroyed';
+    }
+
     // TODO Implement this with AuthCtrl
     var EVENT_ANONYMOUS_LOADED = 'infiniti.anonymous.loaded';
 
@@ -33,6 +38,9 @@ angular
     }
 
     function getCustomerId(){
+      if (Settings.authType === 'keystone') {
+        return (keystoneIsAuthenticated() && window.KS.$me.get().MobiusId) ? window.KS.$me.get().MobiusId : null;
+      }
       if(!hasSSOCookies()){
         return null;
       }
@@ -50,11 +58,17 @@ angular
       var customerId = getCustomerId();
 
       if (customerId) {
-        return apiService.put(
-          apiService.getFullURL('customers.customer', {customerId: customerId}), data)
-        .then(function() {
-          _.extend(userObject, data);
-        });
+        if (Settings.authType === 'keystone') {
+          window.KS.$me.update(data).then(function(updatedUser) {
+            userObject = updatedUser;
+          });
+        } else {
+          return apiService.put(
+            apiService.getFullURL('customers.customer', {customerId: customerId}), data)
+            .then(function() {
+              userObject = _.extend(userObject, data);
+            });
+        }
       } else {
         throw new Error('No user logged in');
       }
@@ -65,10 +79,18 @@ angular
     }
 
     function getStoredUser() {
-      var data = {
-        id: cookieFactory('MobiusId'),
-        token: cookieFactory('MobiusToken')
-      };
+      var data;
+      if (Settings.authType === 'keystone') {
+        data = {
+          id: getCustomerId(),
+          token: cookieFactory('KS_MT')
+        };
+      } else {
+        data = {
+          id: cookieFactory('MobiusId'),
+          token: cookieFactory('MobiusToken')
+        };
+      }
       return data;
     }
 
@@ -81,44 +103,93 @@ angular
     function storeUserLanguage(lang) {
       $window.document.cookie = 'MobiusLanguageCode' + '=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.languageCode = lang;
+      if (Settings.authType === 'keystone' && window.KS.$me) {
+        window.KS.$me.update({
+          Language: lang
+        })
+          .then(function(updatedUser) {
+            userObject = updatedUser;
+          });
+      }
     }
 
     function getUserLanguage() {
+      if (Settings.authType === 'keystone' && keystoneIsAuthenticated()) {
+        return window.KS.$me.get().Language;
+      } else {
+        return 'en';
+      }
       return cookieFactory('MobiusLanguageCode');
     }
 
     function storeUserCurrency(currency) {
       $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
+      if (Settings.authType === 'keystone' && keystoneIsAuthenticated()) {
+        window.KS.$me.update({
+          Currency: currency
+        })
+          .then(function(updatedUser) {
+            userObject = updatedUser;
+          });
+      }
     }
 
     function getUserCurrency() {
+      if (Settings.authType === 'keystone') {
+        if (keystoneIsAuthenticated()) {
+          return window.KS.$me.get().Currency;
+        } else {
+          return 'CAD';
+        }
+      }
       return cookieFactory('MobiusCurrencyCode');
     }
 
-    function loadProfile(customerId) {
-      customerId = customerId || getCustomerId();
-
-      //We need token to load mobius profile
-      if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
-        // Logged in as anonymous
-        if(authPromise){
-          authPromise.resolve(false);
+    function loadProfile() {
+      if (Settings.authType === 'keystone') {
+        if (!keystoneIsAuthenticated()) {
+          return authPromise.reject('no user');
         }
-        return;
-      }
+        console.log('customer id load prfile', getCustomerId());
 
-      if(customerId){
-        // Setting up the headers for a future requests
-        var headers = {};
-        headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token || getStoredUser().token : cookieFactory(KEY_CUSTOMER_PROFILE);
-        apiService.setHeaders(headers);
+        return loadLoyalties(getCustomerId()).then(function() {
+          return loadRewards(getCustomerId());
+        })
+          .then(function() {
+            userObject = mapKeystoneUserToMobiusUser(window.KS.$me.get());
 
-        if (Settings.authType === 'mobius') {
-          return apiService.get(
-            apiService.getFullURL('customers.customer',
-              { customerId: customerId }), {}, false
-          ).then(function(userData) {
+            var headers = {};
+            headers[HEADER_INFINITI_SSO] = getStoredUser().token;
+            apiService.setHeaders(headers);
+            return authPromise.resolve(true);
+
+          });
+      } else {
+        var customerId = getCustomerId();
+
+        //We need token to load mobius profile
+        if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
+          // Logged in as anonymous
+          if(authPromise){
+            authPromise.resolve(false);
+          }
+          return;
+        }
+
+        if(customerId){
+          // Setting up the headers for a future requests
+          var headers = {};
+          headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token || getStoredUser().token : cookieFactory(KEY_CUSTOMER_PROFILE);
+          apiService.setHeaders(headers);
+
+          // Loading profile data and users loyelties
+          return $q.all([
+            apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
+            loadLoyalties(customerId), loadRewards(customerId)
+          ]).then(function(data){
+            var userData = data[0];
+
             // NOTE: data[0] is userProfile data
             // data[1] is loyalties data - handled in loadLoyalties function
             if(userData && _.isArray(userData.email) &&  userData.email.length){
@@ -128,75 +199,39 @@ angular
               dataLayerService.setUserId(customerId);
             }
 
-            //userObject = angular.extend(userObject, userData);
-            _.extend(userObject, userData);
+            userObject = _.extend(userObject, userData);
             userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
             userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
-            return $q.all([
-              loadLoyalties(customerId),
-              loadRewards(customerId)
-            ]).then(function () {
 
+            // Logged in as mobius user
+            if(Settings.authType === 'mobius'){
               $timeout(function(){
                 $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
               });
-              if(authPromise && authPromise.resolve){
-                authPromise.resolve(true);
-              }
-            });
+            }
+
+
+            if(authPromise && authPromise.resolve){
+              authPromise.resolve(true);
+            }
+
           }, function(){
-            clearStoredUser();
+            if(Settings.authType === 'mobius'){
+              clearStoredUser();
+            }
           });
+        } else {
+          //If for whatever reason we do not have a customerId, clear the stored user and reject the auth
+          clearStoredUser();
+          return $q.reject({});
         }
-
-        // Loading profile data and users loyalties
-        return $q.all([
-          apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
-          loadLoyalties(customerId), loadRewards(customerId)
-        ]).then(function(data){
-          var userData = data[0];
-
-          // NOTE: data[0] is userProfile data
-          // data[1] is loyalties data - handled in loadLoyalties function
-          if(userData && _.isArray(userData.email) &&  userData.email.length){
-            // Multiple email are not needed - we picking the first one
-            userData.email =  userData.email[0].value;
-            // Updating user details in data layer
-            dataLayerService.setUserId(customerId);
-          }
-
-          _.extend(userObject, userData);
-          userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
-          userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
-
-          // Logged in as mobius user
-          if(Settings.authType === 'mobius'){
-            $timeout(function(){
-              $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
-            });
-          }
-
-
-          if(authPromise && authPromise.resolve){
-            authPromise.resolve(true);
-          }
-
-        }, function(){
-          if(Settings.authType === 'mobius'){
-            clearStoredUser();
-          }
-        });
-      } else {
-        //If for whatever reason we do not have a customerId, clear the stored user and reject the auth
-        clearStoredUser();
-        return $q.reject({});
       }
     }
 
     function loadLoyalties(customerId){
 
       if(!Settings.loyaltyProgramEnabled){
-        return;
+        return $q.when();
       }
 
       customerId = customerId || getCustomerId();
@@ -228,27 +263,29 @@ angular
     }
 
     function logout() {
-      $rootScope.$evalAsync(function(){
-        for (var prop in userObject) {
-          if (userObject.hasOwnProperty(prop)) {
-            delete userObject[prop];
-          }
-        }
-        $state.go('home', {}, {reload: true});
-
-      });
-      // Removing auth headers
-      var headers = {};
-      headers[HEADER_INFINITI_SSO] = undefined;
-      apiService.setHeaders(headers);
-      clearStoredUser();
-
-      authPromise = $q.defer();
-
-      if(Settings.authType === 'mobius'){
-        $timeout(function(){
-          $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
+      if (window.KS.$me) {
+        window.KS.$me.revoke().then(function() {
+          $state.go('home', {});
         });
+      } else {
+        $rootScope.$evalAsync(function(){
+          userObject = {};
+          $state.go('home', {}, {reload: true});
+        });
+
+        // Removing auth headers
+        var headers = {};
+        headers[HEADER_INFINITI_SSO] = undefined;
+        apiService.setHeaders(headers);
+        clearStoredUser();
+
+        authPromise = $q.defer();
+
+        if(Settings.authType === 'mobius'){
+          $timeout(function(){
+            $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
+          });
+        }
       }
     }
 
@@ -276,11 +313,21 @@ angular
       });
     }
 
+    function keystoneIsAuthenticated() {
+      return (window.KS && window.KS.$me && window.KS.$me.get() !== null);
+    }
+
     function getUser () {
+      if(Settings.authType === 'keystone') {
+        if (keystoneIsAuthenticated()) {
+          return mapKeystoneUserToMobiusUser(window.KS.$me.get());
+        }
+        return emptyUser;
+      }
       return userObject;
     }
 
-    if(Settings.authType === 'infiniti'){
+    if(Settings.authType === 'infiniti' || Settings.authType === 'keystone'){
       initSSOListeners();
     }
     else{
@@ -288,10 +335,67 @@ angular
     }
 
     function isLoggedIn() {
+      if (Settings.authType === 'keystone') {
+        return keystoneIsAuthenticated();
+      }
       return !!(userObject.id && userObject.email);
     }
 
+    var emptyUser = {
+      id:           null,
+      title:        null,
+      firstName:    null,
+      lastName:     null,
+      email:        null,
+      address1:     null,
+      city:         null,
+      zip:          null,
+      state:        null,
+      country:      null,
+      currencyCode: null,
+      languageCode: null,
+      tel1:         null,
+      tel2:         null,
+      optedIn:      null,
+      avatarUrl:    null,
+    };
+
+    function mapKeystoneUserToMobiusUser(ksUser) {
+
+      if (ksUser === null) {
+        return emptyUser;
+      }
+
+      return {
+        id:           ksUser.MobiusId || null,
+        title:        ksUser.Name.Title || null,
+        firstName:    ksUser.Name.FirstName || null,
+        lastName:     ksUser.Name.LastName || null,
+        email:        (ksUser.Email[0]) ? ksUser.Email[0].Email : null,
+        address1:     (ksUser.Address[0]) ? ksUser.Address[0].FirstLine : null,
+        city:         (ksUser.Address[0]) ? ksUser.Address[0].City      : null,
+        zip:          (ksUser.Address[0]) ? ksUser.Address[0].Postcode  : null,
+        state:        (ksUser.Address[0]) ? ksUser.Address[0].County    : null,
+        country:      (ksUser.Address[0]) ? ksUser.Address[0].Country   : null,
+        languageCode: ksUser.Language || null,
+        currencyCode: ksUser.Currency || null,
+        tel1:         (ksUser.Phone[0]) ? ksUser.Phone[0].Number : null,
+        tel2:         (ksUser.Phone[1]) ? ksUser.Phone[1].Number : null,
+        optedIn:      ksUser.OptIn,
+        avatarUrl:    (ksUser.Avatar[0]) ? ksUser.Avatar[0].ImagePath : 'http://profile.ak.fbcdn.net/static-ak/rsrc.php/v2/yo/r/UlIqmHJn-SK.gif',
+      };
+    }
+
     return {
+      getProfileUrl: function() {
+        return (keystoneIsAuthenticated()) ? window.KS.$url.PROFILE : '#';
+      },
+      isKeystoneActive: function () {
+        return Settings.authType === 'keystone';
+      },
+      openLogin: function() {
+        window.KS.$event.emit(window.KS.$event.const.PARENT_REQUEST_LOGIN);
+      },
       getUser: getUser,
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
