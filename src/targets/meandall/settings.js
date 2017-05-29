@@ -973,6 +973,11 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      // Display an image for alerts?
+      'alertImage': {
+        'display': true,
+        'url': '/static/images/v4/icon-eclaimation.png'
+      },
       // Should we include company name as a field
       'includeCompanyForBilling': true,
       //Is billing state a required field?
@@ -1081,7 +1086,8 @@ angular.module('mobiusApp.config', [])
         payment: true,
         price: true,
         security: true
-      }
+      },
+      'termsAndConditionsLink':'https://duesseldorf.meandallhotels.com/en/general-terms-and-conditions.html'
     },
     'myAccount' : {
       'displaySettings' : {

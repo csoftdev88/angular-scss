@@ -245,9 +245,8 @@
               name="secondEmail"
               email-check/>
             <span>
-              <span ng-hide="forms.additionalInfo.secondEmail.$error">_additional_email_label_</span>
-              <span ng-show="forms.additionalInfo.secondEmail.$error">_additional_email_label_</span>
-              <span ng-show="forms.additionalInfo.secondEmail.$error.pattern">_invalid_email_message_</span>
+              <span ng-hide="forms.additionalInfo.$submitted && forms.additionalInfo.secondEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.$submitted && forms.additionalInfo.secondEmail.$error.emailCheck">_invalid_email_message_</span>
             </span>
           </label>
 

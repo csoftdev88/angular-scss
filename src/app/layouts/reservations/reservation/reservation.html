@@ -48,6 +48,9 @@
     <reservation-widget grid-row ng-class="{'reservation-assurance-active': bookingConfig.reservationAssurance}">
 
       <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.payment">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
         <span>_payment_not_authorized_: </span>
       <span ng-if="invalidFormData.cardName">_payment_not_authorized_card_name_</span>
       <span ng-if="invalidFormData.paymentType">_payment_not_authorized_payment_type_</span>
@@ -58,10 +61,16 @@
       </span>
 
       <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.email">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
         _user_already_registered_
       </span>
 
       <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.generic">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
         _generic_reservation_error_
       </span>
 

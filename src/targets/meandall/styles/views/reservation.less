@@ -22,9 +22,18 @@ main.reservation-page {
       margin-top: 130px;
     }
     .alert-warning {
+      text-align: left;
+      padding: 15px 18px 40px 39px;
+      margin: 16px;
+      background: @c-black;
+      border-radius: 0;
       .viewport-mobile & {
         margin: 40px 0 0 0;
         font-size: @size--1;
+      }
+      .alert-warning__img {
+        margin: 10px 39px 0 0;
+        float: left;
       }
     }
     div[grid="7"] {
@@ -67,6 +76,13 @@ main.reservation-page {
       .viewport-mobile & {
         color: @c-secondary;
       }
+    }
+
+    label[for="form-departure-time"],
+    label[for="arrival-method"],
+    label[for="thirdEmail"],
+    label[for="form-arrival-time"]{
+      display: none;
     }
     input[required] + span,
     select[required] ~ span {
