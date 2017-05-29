@@ -688,7 +688,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _) {
+  metaInformationService, Settings, notificationService, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -830,7 +830,30 @@ angular
       $scope.hideMenuOverlay();
     }
 
+    if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates) {
+      notificationService.show(
+        '<div class="singleroom-notification">' +
+          '<div class="details">' +
+            '<p>' + toParams.adults + ' adults</p>' +
+            '<p>' + toParams.children + ' children</p>' +
+          '</div>' +
+          '<div class="dates">' +
+            '<p>' + getStartDate(toParams.dates) + '</p>' +
+            '<p>' + getEndDate(toParams.dates) + '</p>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+
   });
+
+  function getStartDate(dates) {
+    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.generics.longDateFormat);
+  }
+
+  function getEndDate(dates) {
+    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.generics.longDateFormat);
+  }
 
   $scope.$on('$stateChangeSuccess', function() {
     //Sandman specific HACK to display french on quebec pages
