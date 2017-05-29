@@ -333,7 +333,7 @@ angular.module('mobius.controllers.reservation', [])
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: userData.state,
-          localeCode: userData.localeCode,
+          localeCode: userData.localeId,
           country: userCountry || null,
           zip: userData.zip || '',
           phone: userData.tel1 || userData.tel2 || ''
@@ -514,7 +514,7 @@ angular.module('mobius.controllers.reservation', [])
           pointsRequired: $scope.getTotal('pointsRequired')
         };
 
-        if ($scope.isLoggedIn()) {
+        if ($scope.auth.isLoggedIn()) {
           if (user.getUser().loyalties) {
             $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
           }
@@ -539,7 +539,7 @@ angular.module('mobius.controllers.reservation', [])
         case 'reservation.billing':
           switch ($scope.billingDetails.paymentMethod) {
             case 'point':
-              if ($scope.isLoggedIn() && $scope.getTotal('pointsRequired')) {
+              if ($scope.auth.isLoggedIn() && $scope.getTotal('pointsRequired')) {
                 return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
               }
               break;
@@ -705,7 +705,7 @@ angular.module('mobius.controllers.reservation', [])
       guestCity: $scope.userDetails.city,
       guestZip: $scope.userDetails.zip,
       guestStateProvince: $scope.userDetails.stateProvince,
-      guestCountry: $scope.userDetails.localeCode,
+      guestCountry: getUserCountry().code,
 
       billingDetailsUseGuestAddress: $scope.billingDetails.useGuestAddress,
       optedIn: $scope.additionalInfo.optedIn,

@@ -287,7 +287,9 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
-
+    'datepicker': {
+      'showToday': true
+    },
     'generics': {
       'singleProperty': true,
       'defaultPropertyCode': 'DUSIMM',
@@ -325,6 +327,12 @@ angular.module('mobiusApp.config', [])
       'preloadImages': true,
       'slideWidth': 1680,
       'slideHeight': 530
+    },
+    'userMessages': {
+      'image': {
+        'display': true,
+        'url': '/static/images/v4/icon-thumbs-up@2x.png'
+      }
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -970,6 +978,8 @@ angular.module('mobiusApp.config', [])
         'display': true,
         'url': '/static/images/v4/icon-eclaimation.png'
       },
+      // Should we include company name as a field
+      'includeCompanyForBilling': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown

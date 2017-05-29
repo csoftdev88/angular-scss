@@ -840,7 +840,17 @@
     "you_are_currently_editing": "Sie bearbeiten die Reservation:",
     "cookie_disclaimer_message": "We use cookies to track usage and preferences to ensure that we give you the best experience on our website. If you continue, we'll assume that you are happy to receive all cookies on our website.",
     "continue_your_search": "Continue your search?",
-    "would_you_like_to_continue": "Would you like to continue one of your last searches? You were looking at:"
+    "would_you_like_to_continue": "Would you like to continue one of your last searches? You were looking at:",
+    "statistics_booking_message": "Es gab {numTypes} Reservierungen in den letzten {numUnits} {unit}",
+    "statistics_searches_message": "Es gab {numTypes} Suchen in den letzten {numUnits} {unit}",
+    "statistics_views_message": "Es gab {numTypes} Aufrufe in den letzten {numUnits} {unit}",
+    "minute": "Minute",
+    "minutes": "Minuten",
+    "hour": "Stunde",
+    "hours": "Stunden",
+    "day": "Tag",
+    "days": "Tage",
+    "week": "Woche",
+    "weeks": "Wochen"
   }
-
 }

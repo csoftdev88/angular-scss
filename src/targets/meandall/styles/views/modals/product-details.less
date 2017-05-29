@@ -31,11 +31,16 @@
   }
   &.tabbed {
     .nav-tabs {
+      font-size: 18px;
       li {
         padding: 15px 0;
         border: 0px none !important;
+        width: 50%;
+        &:nth-child(2) {
+          display: none;
+        }
         a {
-          color: #636363;      
+          color: #636363;
           border-left: 1px solid @c-primary;
           padding: 0;
           line-height: 1em;

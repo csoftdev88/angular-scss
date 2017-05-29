@@ -139,6 +139,7 @@
             <textarea id="commentsTop" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments" name="commentsTop" ng-pattern="$root.generalValidationPattern"></textarea>
             <span>
               <span ng-hide="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
               <span ng-show="forms.additionalInfo.commentsTop.$error.pattern">_letters_pattern_error_</span>
             </span>
           </label>
@@ -232,6 +233,7 @@
               ng-pattern="$root.generalValidationPattern"/>
             <span>
               <span ng-hide="forms.additionalInfo.secondTelephone.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.secondTelephone.$error">_comments_label_</span>
               <span ng-show="forms.additionalInfo.secondTelephone.$error.pattern">_letters_pattern_error_</span>
             </span>
           </label>
@@ -256,7 +258,8 @@
               email-check/>
             <span>
               <span ng-hide="forms.additionalInfo.thirdEmail.$error">_additional_email_label_</span>
-              <span ng-show="forms.additionalInfo.thirdEmail.$error.emailCheck">_invalid_email_message_</span>
+              <span ng-show="forms.additionalInfo.thirdEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.thirdEmail.$error.pattern">_invalid_email_message_</span>
             </span>
           </label>
 

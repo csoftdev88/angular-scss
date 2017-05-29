@@ -207,6 +207,9 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
+    'datepicker': {
+      'showToday': false
+    },
     'generics': {
       'singleProperty': true,
       'defaultPropertyCode': 'GHNL',
@@ -239,6 +242,12 @@ angular.module('mobiusApp.config', [])
       'preloadImages': true,
       'slideWidth': 1250,
       'slideHeight': 393
+    },
+    'userMessages': {
+      'image': {
+        'display': false,
+        'url': ''
+      }
     },
     // Menu settings - showing/hidding menu items
     'menu': {

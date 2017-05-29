@@ -65,7 +65,7 @@ hotel-room {
       }
       &:last-of-type {
         border-bottom: 0px none;
-      }  
+      }
       .list-item-header {
         .clearfix;
       }
@@ -140,6 +140,11 @@ hotel-room {
         }
         .action-links {
           margin-top: 0;
+          font-size: 15px;
+          a {
+            color: @c-black;
+            text-decoration: underline;
+          }
           .viewport-mobile & {
             display:none;
           }
@@ -176,7 +181,7 @@ hotel-room {
     display:none;
     .viewport-mobile & {
       display:block;
-      padding:35px; 
+      padding:35px;
     }
   }
   section.room-description {
