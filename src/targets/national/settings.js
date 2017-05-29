@@ -240,6 +240,12 @@ angular.module('mobiusApp.config', [])
       'slideWidth': 1250,
       'slideHeight': 393
     },
+    'userMessages': {
+      'image': {
+        'display': false,
+        'url': ''
+      }
+    },
     // Menu settings - showing/hidding menu items
     'menu': {
       'showHotels': false,
