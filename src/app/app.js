@@ -839,9 +839,7 @@ angular
             '<p>' + getStartDate(toParams.dates) + '</p>' +
             '<p>' + getEndDate(toParams.dates) + '</p>' +
           '</div>' +
-        '</div>',
-
-        'fsdfsdf'
+        '</div>'
       );
     }
 
