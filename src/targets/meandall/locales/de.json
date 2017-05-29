@@ -270,6 +270,7 @@
         "booking_reference": "Web-Buchungscode",
         "booked": "Gebucht",
         "reservation_enhance_title": "Erweitern Sie Ihren Aufenthalt mit",
+        "was_successfully_cancelled": "wurde erfolgreich storniert.",
         "add_reservation_enhance_to_booking_desc": "Mit einem Klick zu Ihrer Reservierung hinzufügen",
         "reservation_enhance_summary_title": "Ihre Erweiterungen",
         "reservation_list_empty": "Ihre Reservierungsliste ist leer",

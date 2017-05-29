@@ -634,6 +634,10 @@ angular.module('mobiusApp.config', [])
     },
 
     'reservations': {
+      // temp hacks for meandall
+      'tempHackGuestFormReorder': true,
+      'tempHackBillingFormReorder': true,
+      'tempHackInfoFormReorder': true,
       //override per hotel confirmation number per hotel
       'displayConfirmationNumberOnAllHotels': true,
       //confirmation label display
@@ -665,6 +669,9 @@ angular.module('mobiusApp.config', [])
         'passbook': true,
         'print': true
       },
+      'displayCancelConfirmedModal': true,
+      'newCancelFormat': true,
+      'cancelImg': '/static/images/v4/icon-thumbs-up@2x_black.png',
       'displayNewsletterCtaOnReservationDetail': false,
       'reservationDetailPriceBreakdownExtended': true,
       'displayAddonVoucherEntry': false,
@@ -1001,6 +1008,10 @@ angular.module('mobiusApp.config', [])
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
+      },
+      'cancellationMessageImage': {
+        'display': true,
+        'url': '/static/images/v4/icon-thumbs-up@2x_black.png'
       },
       //Booking steps navigation
       'bookingStepsNav':{

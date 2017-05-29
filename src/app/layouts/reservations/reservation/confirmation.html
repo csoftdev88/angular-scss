@@ -2,7 +2,7 @@
   <tabset>
     <tab heading="_guest_details_">
       <table>
-        <tbody>
+        <tbody ng-if="!uiConfig.reservations.tempHackInfoFormReorder">
           <tr>
             <th>_first_name_label_:</th>
             <td>{{userDetails.firstName}}</td>
@@ -39,6 +39,44 @@
             <th>_postcode_label_:</th>
             <td>{{userDetails.zip}}</td>
           </tr>
+        </tbody>
+        <tbody ng-if="uiConfig.reservations.tempHackInfoFormReorder">
+        <tr>
+          <th>_first_name_label_:</th>
+          <td>{{userDetails.firstName}}</td>
+        </tr>
+        <tr>
+          <th>_last_name_label_:</th>
+          <td>{{userDetails.lastName}}</td>
+        </tr>
+        <tr>
+          <th>_email_label_:</th>
+          <td>{{userDetails.email}}</td>
+        </tr>
+        <tr>
+          <th>_primary_phone_label_:</th>
+          <td>{{userDetails.phone}}</td>
+        </tr>
+        <tr>
+          <th>_address_label_:</th>
+          <td>{{userDetails.address}}</td>
+        </tr>
+        <tr>
+          <th>_postcode_label_:</th>
+          <td>{{userDetails.zip}}</td>
+        </tr>
+        <tr>
+          <th>_city_label_:</th>
+          <td>{{userDetails.city}}</td>
+        </tr>
+        <tr>
+          <th>_state_label_:</th>
+          <td>{{userDetails.stateProvince}}</td>
+        </tr>
+        <tr>
+          <th>_country_label_:</th>
+          <td>{{userDetails.countryObj.name}}</td>
+        </tr>
         </tbody>
       </table>
     </tab>
