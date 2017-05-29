@@ -266,11 +266,7 @@ angular.module('mobiusApp.services.user', [])
 
     function logout() {
 
-      if (window.KS.$me) {
-        window.KS.$me.revoke().then(function() {
-          $state.go('home', {});
-        });
-      } else {
+      if (! window.KS.$me) {
         $rootScope.$evalAsync(function(){
           userObject = {};
           $state.go('home', {}, {reload: true});
