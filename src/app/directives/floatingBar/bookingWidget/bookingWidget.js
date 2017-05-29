@@ -181,7 +181,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             // URL parameter is presented but has no value
             if(paramValue === true || !validationService.isValueValid(paramValue, paramSettings)){
               queryService.removeParam(paramSettings.search);
-              
+
               //If there is no property querystring value
               if(paramSettings.search === 'property'){
                 //Get the property slug
@@ -340,6 +340,17 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.addRoom(1,0);
           scope.addRoom(1,0);
         }
+
+        // Select today until tomorrow by default if configured
+        if (Settings.UI.datepicker && Settings.UI.datepicker.showToday) {
+          var startDate = new Date();
+          var endDate = new Date();
+          endDate.setDate(endDate.getDate() + 1);
+          startDate = $.datepicker.formatDate( 'yy-mm-dd', new Date(startDate), {});
+          endDate = $.datepicker.formatDate( 'yy-mm-dd', new Date(endDate), {});
+          scope.selected.dates = startDate + DATES_SEPARATOR + endDate;
+        }
+
       }
 
       function validateRate() {
@@ -890,7 +901,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var routeChangeListener = scope.$on('$stateChangeSuccess', function(){
         init();
       });
-      
+
       var prefillListener = $rootScope.$on('BOOKING_BAR_PREFILL_DATA', function(e, data){
         onPrefill(data);
       });
@@ -942,13 +953,13 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             var prefilledClass = 'prefilled';
             promoInput.addClass(prefilledClass);
             scope.checkAvailability();
-            
+
             //Growl alerts for when a promoCode / corpCode / groupCode is prefilled.
             if(scope.settings.prefillGrowlAlert && codeTypeParam){
               scope.$emit('CODE_ADDED_GROWL_ALERT_EMIT', codeTypeParam);
             }
-            
-            if(!scope.settings.keepPrefillStyle){ //If option to keep the prefill style is not enabled       
+
+            if(!scope.settings.keepPrefillStyle){ //If option to keep the prefill style is not enabled
               $timeout(function () {
                 promoInput.removeClass(prefilledClass); // Remove class when animation complete
               }, 1000);
@@ -968,7 +979,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           scope.availability = {};
           queryService.removeParam(PARAM_TYPES.promoCode.search);
         }
-        
+
         $timeout(function () {
           if (settings.promoCode || settings.corpCode || settings.groupCode) {
             prefillPromoCode();
@@ -999,7 +1010,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           }
         }, 0);
 
-        
+
       }
 
       // Init

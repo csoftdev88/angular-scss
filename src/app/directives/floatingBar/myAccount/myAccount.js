@@ -19,7 +19,6 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
         var badges = [];
         var loyaltyCard = {};
 
-        $controller('SSOCtrl', {$scope: scope});
         scope.displaySettings = Settings.UI.myAccount.displaySettings;
 
         function loadLoyalities() {
@@ -84,7 +83,7 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
         var userUnWatch = scope.$watch(
           function() {
-            return user.isLoggedIn();
+            return scope.auth.isLoggedIn();
           },
           function(isLoggedIn) {
             if (isLoggedIn) {

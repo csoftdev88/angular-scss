@@ -12,14 +12,28 @@ main.reservation-page {
     padding-top: 0;
     label {
       color: @c-secondary !important;
+      > span {
+        left: initial;
+        opacity: 1;
+        transform: initial;
+      }
     }
     .viewport-mobile & {
       margin-top: 130px;
     }
     .alert-warning {
+      text-align: left;
+      padding: 15px 18px 40px 39px;
+      margin: 16px;
+      background: @c-black;
+      border-radius: 0;
       .viewport-mobile & {
         margin: 40px 0 0 0;
         font-size: @size--1;
+      }
+      .alert-warning__img {
+        margin: 10px 39px 0 0;
+        float: left;
       }
     }
     div[grid="7"] {
@@ -61,6 +75,20 @@ main.reservation-page {
       font-size: @size--3;
       .viewport-mobile & {
         color: @c-secondary;
+      }
+    }
+
+    label[for="form-departure-time"],
+    label[for="arrival-method"],
+    label[for="thirdEmail"],
+    label[for="form-arrival-time"]{
+      display: none;
+    }
+    input[required] + span,
+    select[required] ~ span {
+      &:before {
+        content: '*';
+        display: inline;
       }
     }
     input[type="text"],
@@ -244,6 +272,9 @@ main.reservation-page {
         display: block;
         td {
           font-weight: bold;
+        }
+        .breakdown {
+          background-color: #000;
         }
         .breakdown-toggle {
           td {

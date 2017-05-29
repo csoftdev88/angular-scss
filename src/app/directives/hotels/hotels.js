@@ -21,9 +21,6 @@ angular.module('mobiusApp.directives.hotels', [])
 
         breadcrumbsService.clear();
 
-        $controller('SSOCtrl', {
-          $scope: scope
-        });
         $controller('MainCtrl', {
           $scope: scope
         });

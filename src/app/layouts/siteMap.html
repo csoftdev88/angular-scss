@@ -7,14 +7,14 @@
 
   <article grid="1" ng-show="uiConfig.menu.showNews" site-map-content="news" data-title="_news_" limit="3"></article>
 
-  <article grid="1" ng-if="!user.isLoggedIn()">
+  <article grid="1" ng-if="!auth.isLoggedIn()">
     <h3><a ui-sref="contacts">_contact_</a></h3>
-    <h3 class="login"><a href ng-click="sso.login()">_login_</a></h3>
+    <h3 class="login"><a href ng-click="auth.login()">_login_</a></h3>
     <h3><a ui-sref="lookup">_lookup_booking_</a></h3>
   </article>
 
-  <article grid="1" ng-if="user.isLoggedIn()">
-    <h3><a href ng-click="sso.profile()">_profile_</a></h3>
+  <article grid="1" ng-if="auth.isLoggedIn()">
+    <h3><a href ng-click="auth.profile()">_profile_</a></h3>
     <ul>
       <li>
         <a ui-sref="reservations">_reservations_</a>
@@ -23,7 +23,7 @@
         <a ui-sref="rewards">_rewards_</a>
       </li>
       <li>
-        <a href ng-click="sso.logout()">_logout_</a>
+        <a href ng-click="auth.logout()">_logout_</a>
       </li>
     </ul>
     <h3><a ui-sref="contacts">_contact_</a></h3>

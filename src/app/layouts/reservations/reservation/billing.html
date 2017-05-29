@@ -20,7 +20,7 @@
     </ul>
     <section class="payment-points" ng-switch-when="point">
       <!-- Points details only for logged in user -->
-      <table ng-if="user.isLoggedIn()">
+      <table ng-if="auth.isLoggedIn()">
         <tr>
           <th>_current_points_</th>
           <td>{{pointsData.currentPoints}}</td>
@@ -41,10 +41,10 @@
         </tr>
       </table>
 
-      <div ng-if="!user.isLoggedIn()">
+      <div ng-if="!auth.isLoggedIn()">
         <registration-call>
           <h4>_feature_available_registered_</h4>
-          <p>_click_here_to_ <a href ng-click="sso.login()">_login_register_</a>.</p>
+          <p>_click_here_to_ <a href ng-click="auth.login()">_login_register_</a>.</p>
         </registration-call>
       </div>
 
@@ -128,16 +128,32 @@
           _use_guest_address_label_
         </label>
 
-        <div ng-if="!billingDetails.useGuestAddress">
+        <div ng-if="!billingDetails.useGuestAddress && !uiConfig.reservations.tempHackBillingFormReorder">
           <label for="address">
-            <input type="text" id="address" required
-              placeholder="_address_placeholder_"
-              ng-model="billingDetails.address"
-              ng-pattern="$root.generalValidationPattern"
-              name="address"/>
+            <input type="text"
+                   id="address"
+                   required
+                   placeholder="_address_placeholder_"
+                   ng-model="billingDetails.address"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="address"/>
               <span>
                 <span ng-hide="forms.billing.$submitted && forms.billing.address.$error">_address_label_</span>
                 <span ng-show="forms.billing.$submitted && forms.billing.address.$error.pattern">_address_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="company" ng-if="bookingConfig.includeCompanyForBilling">
+            <input type="text"
+                   id="company"
+                   required
+                   placeholder="_company_placeholder_"
+                   ng-model="billingDetails.company"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="company"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.company.$error">_company_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.company.$error.pattern">_company_pattern_error_</span>
               </span>
           </label>
 
@@ -201,6 +217,82 @@
             </select>
             <span>_country_label_</span>
           </label>
+        </div>
+
+        <div ng-if="!billingDetails.useGuestAddress && uiConfig.reservations.tempHackBillingFormReorder">
+          <label for="address">
+            <input type="text" id="address" required
+                   placeholder="_address_placeholder_"
+                   ng-model="billingDetails.address"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="address"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.address.$error">_address_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.address.$error.pattern">_address_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="postal-code" class="input-left">
+            <input type="text" id="postal-code" required
+                   placeholder="_postcode_placeholder_"
+                   ng-model="billingDetails.zip"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="zip"/>
+            <span>
+              <span ng-hide="forms.billing.$submitted && forms.billing.zip.$error">_postcode_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.zip.$error.pattern">_postcode_pattern_error_</span>
+            </span>
+          </label>
+
+          <label for="city" class="input-left">
+            <input type="text" id="city" required
+                   placeholder="_city_placeholder_"
+                   ng-model="billingDetails.city"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="city"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.city.$error">_city_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.city.$error.pattern">_city_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="state">
+            <input type="text" id="state" ng-required="bookingConfig.billingStateRequired"
+                   placeholder="_state_placeholder_"
+                   ng-model="billingDetails.stateProvince"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="state"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.state.$error">_state_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.state.$error.pattern">_state_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="country" ng-if="profileCountries">
+            <select type="text" id="country" required
+                    placeholder="_country_label_"
+                    placeholder-text-single="_country_label_"
+                    ng-model="billingDetails.country"
+                    chosen ng-options="country.id as country.name for country in profileCountries">
+            </select>
+            <span>_country_label_</span>
+          </label>
+
+          <label for="telephone">
+            <!--<input type="text" ng-intl-tel-input id="telephone"
+              placeholder="_phone_placeholder_"
+              data-default-country="ca"
+              data-preferred-countries="ca, us, gb"
+              ng-model="billingDetails.phone"
+              placeholder="Phone"/>-->
+            <input type="tel" id="telephone"
+                   placeholder="_phone_placeholder_"
+                   ng-model="billingDetails.phone"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="zip"/>
+            <span>_phone_label_</span>
+          </label>
+
         </div>
 
         <input type="submit" id="submit" value="_submit_" ng-hide="true" />

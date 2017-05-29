@@ -521,6 +521,8 @@
         "ota_loading": "CHARGEMENT DES TARIFS",
         "statistics_views_message": "Il y a eu {numTypes} vues ces {numUnits} dernières {unit}",
         "statistics_searches_message": "Il y a eu {numTypes} recherches ces {numUnits} derniers {unit}",
+        "minute": "minute",
+        "minutes": "minutes",
         "hours": "heures",
         "hour": "heure",
         "day": "jour",

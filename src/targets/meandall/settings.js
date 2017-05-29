@@ -125,7 +125,7 @@ angular.module('mobiusApp.config', [])
     'languageInPath':true, //Temporary fix for cloudflare language caching issues
     'baseURL': {
       'development': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
-      'integration': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
+      'integration': '//integration-www-meandall.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-meandall.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
       'live': '//meandallhotels.com/api/4.0/'
@@ -287,6 +287,9 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
+    'datepicker': {
+      'showToday': true
+    },
     'generics': {
       'singleProperty': true,
       'defaultPropertyCode': 'DUSIMM',
@@ -324,6 +327,12 @@ angular.module('mobiusApp.config', [])
       'preloadImages': true,
       'slideWidth': 1680,
       'slideHeight': 530
+    },
+    'userMessages': {
+      'image': {
+        'display': true,
+        'url': '/static/images/v4/icon-thumbs-up@2x.png'
+      }
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -625,6 +634,10 @@ angular.module('mobiusApp.config', [])
     },
 
     'reservations': {
+      // temp hacks for meandall
+      'tempHackGuestFormReorder': true,
+      'tempHackBillingFormReorder': true,
+      'tempHackInfoFormReorder': true,
       //override per hotel confirmation number per hotel
       'displayConfirmationNumberOnAllHotels': true,
       //confirmation label display
@@ -656,6 +669,9 @@ angular.module('mobiusApp.config', [])
         'passbook': true,
         'print': true
       },
+      'displayCancelConfirmedModal': true,
+      'newCancelFormat': true,
+      'cancelImg': '/static/images/v4/icon-thumbs-up@2x_black.png',
       'displayNewsletterCtaOnReservationDetail': false,
       'reservationDetailPriceBreakdownExtended': true,
       'displayAddonVoucherEntry': false,
@@ -964,6 +980,13 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      // Display an image for alerts?
+      'alertImage': {
+        'display': true,
+        'url': '/static/images/v4/icon-eclaimation.png'
+      },
+      // Should we include company name as a field
+      'includeCompanyForBilling': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
@@ -985,6 +1008,10 @@ angular.module('mobiusApp.config', [])
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
+      },
+      'cancellationMessageImage': {
+        'display': true,
+        'url': '/static/images/v4/icon-thumbs-up@2x_black.png'
       },
       //Booking steps navigation
       'bookingStepsNav':{
@@ -1070,7 +1097,8 @@ angular.module('mobiusApp.config', [])
         payment: true,
         price: true,
         security: true
-      }
+      },
+      'termsAndConditionsLink':'https://duesseldorf.meandallhotels.com/en/general-terms-and-conditions.html'
     },
     'myAccount' : {
       'displaySettings' : {
