@@ -1,16 +1,21 @@
 (function() {
   'use strict';
 
+  /**
+   * Infiniti user strategy, this strategy interacts with the infiniti API ($window.infiniti.api) loaded
+   * using the infinitiScript directive. This strategy should NEVER be injected directly, but instead use
+   * it's context, the userService and ensure the auth type is set to infiniti.
+   *
+   * @see infinitiScript
+   * @see userService
+   * @author Bryan Kneis
+   */
   angular
-    .module('mobiusApp.services.user', [])
+    .module('mobiusApp.services.infinitiUserStrategy', [])
     .service('infinitiUserStrategy', InfinitiUserStrategy);
 
-  InfinitiUserStrategy.$inject = ['$rootScope', '$q', '$window', '$state', 'userObject', 'apiService', '_',
-                                  'loyaltyService', 'cookieFactory', 'dataLayerService', 'rewardsService',
-                                  'Settings', 'stateService'];
-
   function InfinitiUserStrategy($rootScope, $q, $window, $state, userObject, apiService, _, loyaltyService,
-           cookieFactory, dataLayerService, rewardsService, Settings, stateService) {
+                                cookieFactory, dataLayerService, rewardsService, Settings, stateService, $log) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'MobiusID';
@@ -36,8 +41,44 @@
 
     var vm = this;
 
+    var init = function() {
+      initSSOListeners();
+    };
+    init();
+
     function hasSSOCookies(){
       return !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
+    }
+
+    function initSSOListeners(){
+      // SSO event listeners
+      $window.addEventListener(
+        EVENT_CUSTOMER_LOADED,
+        function(){
+          vm.loadProfile();
+        });
+
+      $window.addEventListener(
+        EVENT_CUSTOMER_LOGGED_OUT,
+        function(){
+          vm.logout();
+        });
+
+      $window.addEventListener(
+        EVENT_ANONYMOUS_LOADED,
+        function(){
+          // Logged in as anonymous
+          if(authPromise){
+            authPromise.resolve(false);
+          }
+        });
+    }
+
+    function clearStoredUser() {
+      var expireTokenString = ' expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      $window.document.cookie = 'MobiusId =;' + expireTokenString;
+      $window.document.cookie = 'MobiusToken =;' + expireTokenString;
+      $window.document.cookie = 'CustomerID =;' + expireTokenString;
     }
 
     vm.getCustomerId = function() {
@@ -46,20 +87,6 @@
       }
       return userObject.id || cookieFactory(KEY_CUSTOMER_ID);
     };
-
-    function updateUser(data) {
-      var customerId = vm.getCustomerId();
-
-      if (customerId) {
-        return apiService.put(
-          apiService.getFullURL('customers.customer', {customerId: customerId}), data)
-          .then(function() {
-            userObject = _.extend(userObject, data);
-          });
-      }
-
-      throw new Error('No user logged in');
-    }
 
     vm.storeUserId = function(id) {
       $window.document.cookie = 'MobiusId' + '=' + id + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
@@ -72,11 +99,19 @@
       };
     };
 
-    function clearStoredUser() {
-      $window.document.cookie = 'MobiusId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-      $window.document.cookie = 'MobiusToken' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-      $window.document.cookie = 'CustomerID' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-    }
+    vm.updateUser = function(data) {
+      var customerId = vm.getCustomerId();
+
+      if (customerId) {
+        return apiService.put(
+          apiService.getFullURL('customers.customer', {customerId: customerId}), data)
+          .then(function() {
+            userObject = _.extend(userObject, data);
+          });
+      }
+
+      throw new Error('No user logged in');
+    };
 
     vm.storeUserLanguage = function(lang) {
       $window.document.cookie = 'MobiusLanguageCode' + '=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
@@ -184,42 +219,14 @@
       clearStoredUser();
 
       authPromise = $q.defer();
-    }
-
-    function initSSOListeners(){
-      // SSO event listeners
-      $window.addEventListener(
-        EVENT_CUSTOMER_LOADED,
-        function(){
-          loadProfile();
-        });
-
-      $window.addEventListener(
-        EVENT_CUSTOMER_LOGGED_OUT,
-        function(){
-          logout();
-        });
-
-      $window.addEventListener(
-        EVENT_ANONYMOUS_LOADED,
-        function(){
-          // Logged in as anonymous
-          if(authPromise){
-            authPromise.resolve(false);
-          }
-        });
-    }
+    };
 
     vm.getUser = function() {
       return userObject;
-    }
-
-    vm.getProfileUrl = function() {
-      $log.warn('sdfdsf');
     };
 
-    var init = function() {
-      initSSOListeners();
+    vm.getProfileUrl = function() {
+      $log.warn('userService.getProfileUrl is not supported by the infiniti user strategy');
     };
 
   }

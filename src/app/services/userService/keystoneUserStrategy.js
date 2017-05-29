@@ -1,12 +1,19 @@
 (function() {
   'use strict';
 
+  /**
+   * Keystone user strategy, this strategy interacts with the keystone API ($window.KS.$me) loaded
+   * using the keystoneScript directive. This strategy should NEVER be injected directly, but instead use
+   * it's context, the userService and ensure the auth type is set to keystone.
+   * This strategy is using the most up to date SSO product we offer. All new tenants unless specified should use this.
+   *
+   * @see keystoneScript
+   * @see userService
+   * @author Bryan Kneis
+   */
   angular
-    .module('mobiusApp.services.user', [])
+    .module('mobiusApp.services.keystoneUserStrategy', [])
     .service('keystoneUserStrategy', KeystoneUserStrategy);
-
-  KeystoneUserStrategy.$inject = ['$q', '$window', '$state', 'userObject', 'apiService', 'loyaltyService',
-                                  'cookieFactory', 'rewardsService', 'Settings'];
 
   function KeystoneUserStrategy($q, $window, $state, userObject, apiService, loyaltyService, cookieFactory,
                                 rewardsService, Settings) {

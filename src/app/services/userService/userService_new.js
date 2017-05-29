@@ -11,10 +11,12 @@
    * @author Bryan Kneis
    */
   angular
-    .module('mobiusApp.services.user', [])
-    .service( 'user', userService);
-
-  userService.$inject = ['_', 'mobiusUserStrategy', 'infinitiUserStrategy', 'keystoneUserStrategy', 'Settings', '$log'];
+    .module('mobiusApp.services.user_new', [
+      'mobiusApp.services.mobiusUserStrategy',
+      'mobiusApp.services.infinitiUserStrategy',
+      'mobiusApp.services.keystoneUserStrategy'
+    ])
+    .service( 'user_new', userService);
 
   function userService(_, mobiusUserStrategy, infinitiUserStrategy, keystoneUserStrategy, Settings, $log) {
 
@@ -54,6 +56,8 @@
       return valid;
     };
 
+    // Based on the auth type set in Settings.authType choose a strategy object to use
+    // so functions to the userService are proxied to the correct service
     var setStrategy = function () {
       switch (Settings.authType) {
         case ('mobius'):
@@ -69,6 +73,7 @@
           $log.warn('The application has been configured without a valid auth type!!');
           break;
       }
+      vm.authPromise = strategy.authPromise;
       if (!isValidStrategy(strategy)) {
         $log.warn('The application has been configured with an invalid auth strategy');
       }
@@ -80,7 +85,6 @@
         setStrategy();
       }
     };
-
     init();
 
     // ---- USER FUNCTIONS -----
@@ -138,10 +142,6 @@
         return strategy.updateUser();
       }
       $log.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
-    };
-
-    vm.authPromise = function () {
-      return strategy ? strategy.authPromise : null;
     };
 
     vm.storeUserLanguage = function(language) {
