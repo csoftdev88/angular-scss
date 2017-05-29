@@ -204,6 +204,9 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
+    'datepicker': {
+      'showToday': false
+    },
     'generics': {
       'singleProperty': false,
       'facebookAppId': '',
