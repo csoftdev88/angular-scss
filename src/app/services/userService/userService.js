@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobiusApp.services.user', [])
-  .service('user_old', function($rootScope, $q, $window, $state,
+  .service('user', function($rootScope, $q, $window, $state,
     userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout, stateService) {
 
     // SSO will expose mobius customer ID via this cookie
