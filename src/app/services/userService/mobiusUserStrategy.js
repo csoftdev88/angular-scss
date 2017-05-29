@@ -1,12 +1,18 @@
 (function() {
   'use strict';
 
+  /**
+   * Mobius user strategy, this was the first  authentication / user product integrated into mobius. It uses cookie
+   * based authentication and interacts with the mobius soap2rest endpoints to get customer information. This strategy
+   * should NEVER be injected directly, but instead use it's context, the userService and ensure the auth type is set
+   * to mobius.
+   *
+   * @see userService
+   * @author Bryan Kneis
+   */
   angular
-    .module('mobiusApp.services.user', [])
+    .module('mobiusApp.services.mobiusUserStrategy', [])
     .service('mobiusUserStrategy', MobiusUserStrategy);
-
-  MobiusUserStrategy.$inject = ['$rootScope', '$q', '$window', 'userObject', 'apiService', '_', 'loyaltyService',
-                                'cookieFactory', 'dataLayerService', 'Settings', '$timeout', 'stateService', '$log'];
 
   function MobiusUserStrategy($rootScope, $q, $window, userObject, apiService, _, loyaltyService, cookieFactory,
                               dataLayerService, rewardsService, Settings, $timeout, stateService, $log) {
@@ -14,7 +20,7 @@
     // Name of authentication header sent to the API
     var HEADER_INFINITI_SSO = 'mobius-authentication';
 
-    // Promise is fullfiled when user logged in as mobius customer or anonymous
+    // Promise is fulfilled when user logged in as mobius customer or anonymous
     var authPromise = $q.defer();
 
     // ViewModel
@@ -25,11 +31,11 @@
     var cookieExpiryDate = new Date();
     cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
 
-    // Run once on initialisation
-    var init = function() {
-      vm.loadProfile();
-    };
-    init();
+    function clearStoredUser() {
+      $window.document.cookie = 'MobiusId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      $window.document.cookie = 'MobiusToken' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      $window.document.cookie = 'CustomerID' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+    }
 
     vm.getCustomerId = function() {
       return userObject.id || vm.getStoredUser().id;
@@ -60,12 +66,6 @@
       };
     };
 
-    function clearStoredUser() {
-      $window.document.cookie = 'MobiusId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-      $window.document.cookie = 'MobiusToken' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-      $window.document.cookie = 'CustomerID' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-    }
-
     vm.storeUserLanguage = function(lang) {
       $window.document.cookie = 'MobiusLanguageCode' + '=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.languageCode = lang;
@@ -78,7 +78,7 @@
     vm.storeUserCurrency = function(currency) {
       $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
-    }
+    };
 
     vm.getUserCurrency = function() {
       return cookieFactory('MobiusCurrencyCode');
@@ -185,6 +185,13 @@
     vm.openLogin = function() {
       $log.warn('warn');
     };
+
+    // Run once on initialisation
+    // @todo why does this need to be done after function declarations??
+    var init = function() {
+      vm.loadProfile();
+    };
+    init();
 
   }
 }());
