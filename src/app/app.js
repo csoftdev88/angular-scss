@@ -831,7 +831,6 @@ angular
     }
 
     if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms) {
-      console.log('fsfsdf', bookingService.getMultiRoomData(toParams.rooms), toParams.rooms);
       notificationService.show(
         '<div class="singleroom-notification">' +
         '<div class="details">' +
