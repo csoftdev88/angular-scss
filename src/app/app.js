@@ -830,17 +830,17 @@ angular
       $scope.hideMenuOverlay();
     }
 
-    if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates) {
+    if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms) {
       notificationService.show(
         '<div class="singleroom-notification">' +
-          '<div class="details">' +
-            '<p>' + toParams.adults + ' adults</p>' +
-            '<p>' + toParams.children + ' children</p>' +
-          '</div>' +
-          '<div class="dates">' +
-            '<p>' + getStartDate(toParams.dates) + '</p>' +
-            '<p>' + getEndDate(toParams.dates) + '</p>' +
-          '</div>' +
+        '<div class="details">' +
+        '<p>' + toParams.adults + ' adults</p>' +
+        '<p>' + toParams.children + ' children</p>' +
+        '</div>' +
+        '<div class="dates">' +
+        '<p>' + getStartDate(toParams.dates) + '</p>' +
+        '<p>' + getEndDate(toParams.dates) + '</p>' +
+        '</div>' +
         '</div>'
       );
     }
