@@ -118,11 +118,10 @@ angular.module('mobiusApp.services.user', [])
 
     function getUserLanguage() {
       if (Settings.authType === 'keystone' && keystoneIsAuthenticated()) {
-        return window.KS.$me.get().Language;
+        return window.KS.$me.get().Language || 'en';
       } else {
-        return 'en';
+        return cookieFactory('MobiusLanguageCode');
       }
-      return cookieFactory('MobiusLanguageCode');
     }
 
     function storeUserCurrency(currency) {
