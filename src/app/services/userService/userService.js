@@ -385,7 +385,7 @@ angular.module('mobiusApp.services.user', [])
         tel1:         (ksUser.Phone[0]) ? ksUser.Phone[0].Number : null,
         tel2:         (ksUser.Phone[1]) ? ksUser.Phone[1].Number : null,
         optedIn:      ksUser.OptIn,
-        avatarUrl:    (ksUser.Avatar[0]) ? ksUser.Avatar[0].ImagePath : 'http://profile.ak.fbcdn.net/static-ak/rsrc.php/v2/yo/r/UlIqmHJn-SK.gif',
+        avatarUrl:    (ksUser.Avatar[0]) ? ksUser.Avatar[0].ImagePath : '/static/images/v4/img-profile.png'
       };
     }
 
