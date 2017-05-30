@@ -9,7 +9,10 @@ angular.module('mobiusApp.services.user', [])
     // We are looking for this cookie in order to detect SSO
     var KEY_CUSTOMER_PROFILE = 'CustomerProfile';
 
-    var HEADER_INFINITI_SSO = (Settings.authType === 'mobius' || Settings.authType === 'keystone') ? 'mobius-authentication' : 'infinitiAuthN';
+    var HEADER_INFINITI_SSO = Settings.authType === 'mobius' ? 'mobius-authentication' : 'infinitiAuthN';
+    if (Settings.authType === 'keystone') {
+      HEADER_INFINITI_SSO = 'keystone-authentication';
+    }
 
     var EVENT_CUSTOMER_LOADED = 'infiniti.customer.loaded';
     var EVENT_CUSTOMER_LOGGED_OUT = 'infiniti.customer.logged.out';
@@ -83,7 +86,7 @@ angular.module('mobiusApp.services.user', [])
       if (Settings.authType === 'keystone') {
         data = {
           id: getCustomerId(),
-          token: cookieFactory('KS_MT')
+          token: cookieFactory('KS_MT').replace(/%22/g, '')
         };
       } else {
         data = {
