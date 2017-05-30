@@ -38,6 +38,10 @@ hotel-room {
   .controls {
     margin-bottom: 0;
   }
+  .product-rates, .room-details-left {
+    max-width: 1026px;
+    padding: 0 20px;
+  }
   list-items {
     .viewport-mobile & {
       margin-left:0;
@@ -172,9 +176,12 @@ hotel-room {
     display:none;
   }
   pricing-switch a {
-    color: #ccc;
+    color: #bbb;
+    &:hover {
+      color: #aaa;
+    }
     &.is-active {
-      color: @c-blue;
+      color: @c-black;
     }
   }
   .room-details-right {
