@@ -86,7 +86,7 @@ angular.module('mobiusApp.services.user', [])
       if (Settings.authType === 'keystone') {
         data = {
           id: getCustomerId(),
-          token: cookieFactory('KS_MT').replace(/%22/g, '')
+          token: cookieFactory('KS_MT') ? cookieFactory('KS_MT').replace(/%22/g, '') : null
         };
       } else {
         data = {
@@ -140,7 +140,7 @@ angular.module('mobiusApp.services.user', [])
     function getUserCurrency() {
       if (Settings.authType === 'keystone') {
         if (keystoneIsAuthenticated()) {
-          return window.KS.$me.get().Currency;
+          return window.KS.$me.get().Currency || 'CAD';
         } else {
           return 'CAD';
         }
