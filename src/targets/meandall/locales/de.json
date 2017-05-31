@@ -415,7 +415,7 @@
         "receive_offer_label": "Ich möchte gerne Angebote per E-Mail erhalten",
         "city_pattern_error": "Bitte geben Sie eine gültige Stadt ein",
         "postcode_pattern_error": "Bitte geben Sie eine gültige Postleitzahl ein",
-        "email_optin_label": "Ich bin damit einverstanden, exklusive Aktionen und Angebote von me and all Hotels zu erhalten",
+        "email_optin_label": "Ich bin damit einverstanden, Neuigkeiten von den me and all hotels zu erhalten.",
         "enter_voucher_label": "Code anwenden",
         "voucher_code_valid": "Ihr Gutscheincode wurde hinzugefügt",
         "redeem_voucher_message": "Gutschein-Code",
