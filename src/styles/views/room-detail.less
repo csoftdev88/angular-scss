@@ -87,6 +87,41 @@ hotel-room {
 
   list-items {
     list-item {
+      &:first-child {
+        background: #000;
+        .product-image {
+          top: 80px;
+        }
+      }
+    }
+    room-ota-products {
+      display: none;
+      .viewport-mobile & {
+        display: block;
+        position: initial;
+        float: initial;
+        ul.ota-products {
+          border: none;
+          li {
+            width: 33%;
+            float: left;
+            span.ota-rate-text {
+              span {
+                display: initial;
+                font-size: 12px !important;
+              }
+              img.rate-logo {
+                max-width: 80px;
+              }
+            }
+          }
+          h4 {
+            text-align: left;
+          }
+        }
+      }
+    }
+    list-item {
       h2,
       h3 {
         color: @c-black;
