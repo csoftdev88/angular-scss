@@ -10,7 +10,6 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
     var EVENT_MULTIROOM_CANCELED = 'EVENT-MULTIROOM-CANCELED';
 
     $scope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams){
-      console.log('multi room data', toParams, toState);
       // NOTE: ENTERING MULTIROOM RESRVATION MODE
       if(toParams.rooms && toState.data && toState.data.supportsMultiRoom){
         // NOTE: We can disable reservation edition when app starts
@@ -19,8 +18,8 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
 
         var rooms, currentRoomIndex;
 
-        if(toParams.room){
-          rooms = bookingService.getMultiRoomData(toParams.rooms);
+        rooms = bookingService.getMultiRoomData(toParams.rooms);
+        if(toParams.room && (rooms.length > 1)) {
           currentRoomIndex = parseInt(toParams.room, 10) - 1;
           showNotification(rooms, currentRoomIndex, toParams.dates);
         }else{
