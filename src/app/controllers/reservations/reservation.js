@@ -1477,9 +1477,16 @@ angular.module('mobius.controllers.reservation', [])
     var userDetails = userData || $scope.userDetails;
     var userLocale = userDetails.iso3 || userDetails.localeCode;
 
-    return _.find($scope.profileCountries, function(country) {
+    var userCountry = _.find($scope.profileCountries, function(country) {
       return country.code === userLocale;
     });
+
+    if (!userCountry) {
+      $log.warn('WARNING: Unexpected behaviour, the user country has not been found');
+      return null;
+    }
+
+    return userCountry;
   }
 
   function getCheckVoucherParams() {
