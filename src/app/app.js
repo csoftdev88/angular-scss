@@ -817,7 +817,7 @@ angular
     $scope.user = user;
     $scope.isUserLoggedIn = $scope.auth.isLoggedIn;
 
-    $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
+    $rootScope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
       $scope.isUserLoggedIn = $scope.auth.isLoggedIn;
       if($state.current.name === 'reservation.details')
       {
