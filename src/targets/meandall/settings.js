@@ -230,7 +230,7 @@ angular.module('mobiusApp.config', [])
       'Mobius-chainId': '1000',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
-        'channelID': 23,
+        'channelID': 13,
         'contentLength': 'short'
       }, {
         'name': 'web',
