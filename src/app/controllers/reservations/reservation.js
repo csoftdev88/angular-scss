@@ -319,12 +319,7 @@ angular.module('mobius.controllers.reservation', [])
       //waiting for countries
       $scope.$watch('profileCountries', function() {
         //overriding country name from /locales data using user data iso3 as infiniti country name doesn't match /locales country names
-        var userCountry = null;
-        _.each($scope.profileCountries, function(country) {
-          if (country.id === userData.localeCode) {
-            userCountry = country.name;
-          }
-        });
+        var userCountry = getUserCountry(userData);
         _.extend($scope.userDetails, {
           title: userData.title || null,
           firstName: userData.firstName || '',
@@ -333,8 +328,9 @@ angular.module('mobius.controllers.reservation', [])
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: userData.state,
-          localeCode: userData.localeId,
-          country: userCountry || null,
+          localeCode: userData.iso3 || userData.localeCode,
+          localeId: userData.localeId,
+          country: userCountry && userCountry.name || null,
           zip: userData.zip || '',
           phone: userData.tel1 || userData.tel2 || ''
         });
@@ -1399,9 +1395,9 @@ angular.module('mobius.controllers.reservation', [])
     }
   });
 
-  $scope.$watch('userDetails.localeCode', function() {
-    if ($scope.userDetails.localeCode && $scope.profileCountries) {
-      $scope.userDetails.countryObj = contentService.getCountryByID($scope.userDetails.localeCode, $scope.profileCountries);
+  $scope.$watch('userDetails.localeId', function() {
+    if ($scope.userDetails.localeId && $scope.profileCountries) {
+      $scope.userDetails.countryObj = contentService.getCountryByID($scope.userDetails.localeId, $scope.profileCountries);
     }
   });
 
@@ -1477,11 +1473,13 @@ angular.module('mobius.controllers.reservation', [])
     return userTitle;
   }
 
-  function getUserCountry(){
-    var userCountry = _.find($scope.profileCountries, function(country) {
-      return country.id === $scope.userDetails.localeCode;
+  function getUserCountry(userData) {
+    var userDetails = userData || $scope.userDetails;
+    var userLocale = userDetails.iso3 || userDetails.localeCode;
+
+    return _.find($scope.profileCountries, function(country) {
+      return country.code === userLocale;
     });
-    return userCountry;
   }
 
   function getCheckVoucherParams() {
