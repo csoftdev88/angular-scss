@@ -89,7 +89,7 @@ booking-widget-room {
 
 .multiroom-mode {
   booking-widget-add-room {
-    width: 50%;
+    width: 46%;
     margin-top: 23px;
     .viewport-mobile & {
       width: 100%;
@@ -104,8 +104,21 @@ booking-widget-room {
   button-submit {
     background: @c-white;
     color: @c-black;
+    float: right;
     &:hover {
       background: darken(@c-white, 30%);
+    }
+  }
+}
+
+booking-widget {
+  &.multiroom-mode {
+    button-submit {
+      float: right;
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+      margin-top: 70px;
     }
   }
 }
