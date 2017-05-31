@@ -73,11 +73,11 @@ angular
       return !!(userObject.id && userObject.email);
     };
 
-    var reset = function (scope) {
-      scope.resetForm.$submitted = true;
-      if (scope.resetForm.$valid) {
-        apiService.post(apiService.getFullURL('customers.forgotPassword'), scope.resetData).then(function(){
-          clearErrorMsg();
+    var reset = function (resetForm, resetData, scope) {
+      resetForm.$submitted = true;
+      if (resetForm.$valid) {
+        apiService.post(apiService.getFullURL('customers.forgotPassword'), resetData).then(function(){
+          clearErrorMsg(scope);
           scope.loginDialogError = true;
           scope.passwordResetSuccess = true;
         }, function () {
