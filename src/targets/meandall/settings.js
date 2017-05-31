@@ -1021,7 +1021,7 @@ angular.module('mobiusApp.config', [])
       //Display the details section above the form in DOM
       'detailsBeforeForm':true,
       //Default value for newsletter opt-in checkbox
-      'newsLetterOptedIn': true,
+      'newsLetterOptedIn': false,
       //Display the property name after room details in overview panel
       'propertyNameAfterDetails':true,
       //Hide newsletter checkbox if not on first step
