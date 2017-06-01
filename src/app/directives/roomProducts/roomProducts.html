@@ -1,5 +1,8 @@
 <div class="preloader" ng-show="products === undefined"><span>_fetching_room_rates_</span></div>
-<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0" ota-products="otaProducts" currency-code="currencyCode"></room-ota-products>
+<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0"
+                   ota-products="otaProducts"
+                   currency-code="currencyCode">
+</room-ota-products>
 <ul ng-if="products">
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
   <li ng-class="{'is-highlighted': product.highlighted || ($first && !product.memberOnly && settings.highlightFirstRate), 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && settings.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-repeat="product in products | limitTo: getRatesLimit()">
