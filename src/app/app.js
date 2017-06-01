@@ -830,7 +830,7 @@ angular
       $scope.hideMenuOverlay();
     }
 
-    if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms) {
+    if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms && !stateService.isMobile()) {
       notificationService.show(
         '<div class="singleroom-notification">' +
         '<div class="details">' +
