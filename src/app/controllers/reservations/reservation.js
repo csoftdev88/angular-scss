@@ -1397,7 +1397,10 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.$watch('userDetails.localeId', function() {
     if ($scope.userDetails.localeId && $scope.profileCountries) {
-      $scope.userDetails.countryObj = contentService.getCountryByID($scope.userDetails.localeId, $scope.profileCountries);
+      var countryObj = contentService.getCountryByID($scope.userDetails.localeId, $scope.profileCountries);
+      $scope.userDetails.countryObj = countryObj;
+      // Make sure we have the localeCode for annon user
+      $scope.userDetails.localeCode = $scope.userDetails.localeCode || countryObj.code;
     }
   });
 
