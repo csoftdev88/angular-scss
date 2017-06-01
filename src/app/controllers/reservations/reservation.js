@@ -1109,9 +1109,7 @@ angular.module('mobius.controllers.reservation', [])
           };
 
           var trackingData = angular.copy(reservationData);
-          trackingData.guestCountry = _.find($scope.profileCountries, function(country) {
-            return country.id === $scope.userDetails.localeCode;
-          });
+          trackingData.guestCountry = getUserCountry();
 
           var scopeData = {
             'allRooms':$scope.allRooms,
