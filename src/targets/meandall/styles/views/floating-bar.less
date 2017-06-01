@@ -24,14 +24,21 @@ floating-bar {
     max-width: @grid-width;
     padding-left:60px;
     li {
-      &.floating-bar--tab-booking,
-      &.floating-bar--tab-advanced-booking{
+      &.floating-bar--tab-booking {
         a {
           color: @c-black;
         }
-        &.is-active {
+      }
+      &.floating-bar--tab-booking,
+      &.floating-bar--tab-advanced-booking{
+        .viewport-mobile & {
           a {
-            color: @c-white;
+            color: @c-black;
+          }
+          &.is-active {
+            a {
+              color: @c-white;
+            }
           }
         }
       }
