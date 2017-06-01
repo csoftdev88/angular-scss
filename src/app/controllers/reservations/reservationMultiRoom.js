@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.reservationMultiRoom', [])
   .controller('ReservationMultiRoomCtrl', function($scope, $state, $filter, $location, $stateParams, Settings, $window,
-                                                   notificationService, bookingService, validationService){
+                                                   notificationService, bookingService, validationService, stateService){
     var isMultiRoomMode = false;
 
     var EVENT_MULTIROOM_CANCELED = 'EVENT-MULTIROOM-CANCELED';
@@ -85,24 +85,34 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
 
       currentRoomIndex++;
 
-      notificationService.show(
-        '<div class="multiroom-notification">' +
-          '<div class="rooms">' +
-            '<p>Room</p>' +
-            '<p>' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
-          '</div>' +
-          '<div class="details">' +
-            '<p>' + getAdultsCount(currentRoom) + '</p>' +
-            '<p>' + getChildrenCount(currentRoom) +'</p>' +
-          '</div>' +
-          '<div class="dates">' +
-            '<p>' + getStartDate(dates) + '</p>' +
-            '<p>' + getEndDate(dates) + '</p>' +
-          '</div>' +
-        '</div>',
+      var notification = '';
 
-        EVENT_MULTIROOM_CANCELED
-      );
+      if (stateService.isMobile()) {
+        notification =
+          '<div class="multiroom-notification">' +
+            '<div class="number-of-rooms">' +
+              '<p>Room ' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
+            '</div>' +
+          '</div>';
+      } else {
+        notification =
+          '<div class="multiroom-notification">' +
+            '<div class="rooms">' +
+              '<p>Room</p>' +
+              '<p>' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
+            '</div>' +
+            '<div class="details">' +
+              '<p>' + getAdultsCount(currentRoom) + '</p>' +
+              '<p>' + getChildrenCount(currentRoom) +'</p>' +
+            '</div>' +
+            '<div class="dates">' +
+              '<p>' + getStartDate(dates) + '</p>' +
+              '<p>' + getEndDate(dates) + '</p>' +
+            '</div>' +
+          '</div>';
+      }
+
+      notificationService.show(notification, EVENT_MULTIROOM_CANCELED);
     }
 
     function getStartDate(dates) {

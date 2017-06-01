@@ -5,6 +5,20 @@ notification-bar {
   .singleroom-notification,
   .multiroom-notification {
     width: 600px;
+    .number-of-rooms {
+      margin-left: 25%;
+      p {
+        text-align: left;
+        color: @c-black;
+      }
+      &:before {
+        .fa;
+        font-size: 21px;
+        float: left;
+        content: @fa-var-bed;
+        margin: 5px 10px 10px 10px;
+      }
+    }
     .rooms,
     .details,
     .dates {
