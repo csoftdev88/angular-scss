@@ -19,8 +19,6 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
         var badges = [];
         var loyaltyCard = {};
 
-        scope.displaySettings = Settings.UI.myAccount.displaySettings;
-
         function loadLoyalities() {
           // NOTE: Loyalties object should be already loaded
           // However, we are fetching the latest data
@@ -59,6 +57,9 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
         }
 
         scope.user = user;
+        scope.displaySettings = Settings.UI.myAccount.displaySettings;
+        // Inheriting the following controllers
+        $controller('AuthCtrl', {$scope: scope, config: {}});
 
         scope.goToPrestige = function(){
           if(Settings.UI.viewsSettings.userProfile.prestigeIsInfiniti){
