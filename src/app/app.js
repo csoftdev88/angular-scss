@@ -702,7 +702,7 @@ angular
   });
 
   $scope.uiConfig = Settings.UI;
-  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
+  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay;
   $scope.userLang = user.getUserLanguage();
   $scope.appLang = stateService.getAppLanguageCode();
   $scope.scrollService = scrollService;
@@ -834,8 +834,8 @@ angular
       notificationService.show(
         '<div class="singleroom-notification">' +
         '<div class="details">' +
-        '<p>' + toParams.adults + ' adults</p>' +
-        '<p>' + toParams.children + ' children</p>' +
+        '<p>' + toParams.adults + ' _adults_</p>' +
+        '<p>' + toParams.children + ' _children_</p>' +
         '</div>' +
         '<div class="dates">' +
         '<p>' + getStartDate(toParams.dates) + '</p>' +
