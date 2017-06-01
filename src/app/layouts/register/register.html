@@ -147,7 +147,7 @@
           <select type="text" id="country" required
             placeholder="_country_label_"
             placeholder-text-single="_country_label_"
-            ng-options="country.id as country.name for country in registerCountries"
+            ng-options="country.code as country.name for country in registerCountries"
             ng-model="registerData.localeCode"
             name="country"
             chosen>
