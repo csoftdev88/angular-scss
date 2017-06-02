@@ -10,10 +10,8 @@ booking-widget {
       background: lighten(@c-black, 10%);
     }
     .viewport-mobile & {
-      background: @c-tertiary;
-      &:hover {
-        background: lighten(@c-tertiary, 10%);
-      }
+      background: @c-white;
+      color: @c-black;
     }
 
   }
@@ -85,6 +83,11 @@ booking-widget-search {
 
 booking-widget-room {
   margin-bottom:20px;
+  h3 {
+    .viewport-mobile & {
+      width: 100%;
+    }
+  }
 }
 
 .multiroom-mode {
@@ -115,10 +118,14 @@ booking-widget {
   &.multiroom-mode {
     button-submit {
       float: right;
-      margin-left: 0;
-      margin-right: 0;
-      margin-bottom: 0;
-      margin-top: 70px;
+      margin: 70px 0 0 0;
+    }
+  }
+  .viewport-mobile & {
+    &.multiroom-mode {
+      button-submit {
+        margin: 0;
+      }
     }
   }
 }
