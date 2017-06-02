@@ -82,12 +82,10 @@ angular.module('mobius.controllers.profile', [])
 
         data.userCountry = contentService.getCountryByID(data.localeId, $scope.profileCountries);
 
-        if(data.userCountry)
-        {
+        if(data.userCountry) {
           data.country = data.userCountry.code;
+          data.localeCode = data.userCountry.code;
         }
-
-        data.localeCode = data.userCountry.code;
 
 		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
 		      userObject = _.extend(userObject, data);
