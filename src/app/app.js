@@ -688,7 +688,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, notificationService, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _) {
+  metaInformationService, Settings, notificationService, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _, DynamicMessages) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -830,12 +830,14 @@ angular
       $scope.hideMenuOverlay();
     }
 
+    //Get our dynamic translations
+    var appLang = stateService.getAppLanguageCode();
     if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms && !stateService.isMobile()) {
       notificationService.show(
         '<div class="singleroom-notification">' +
         '<div class="details">' +
-        '<p>' + toParams.adults + ' _adults_</p>' +
-        '<p>' + toParams.children + ' _children_</p>' +
+        '<p>' + toParams.adults + ' ' + DynamicMessages[appLang].adults + '</p>' +
+        '<p>' + toParams.children + ' ' + DynamicMessages[appLang].children + '</p>' +
         '</div>' +
         '<div class="dates">' +
         '<p>' + getStartDate(toParams.dates) + '</p>' +
