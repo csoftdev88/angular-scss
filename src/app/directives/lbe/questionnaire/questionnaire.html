@@ -3,17 +3,20 @@
   <article class="questionnaire__points">
 
     <div class="questionnaire__status">
-      <span>_your_status_</span>
+      <span>Your Status</span>
     </div>
 
-    <div class="questionnaire__points">
-      <span>{{ points }}</span>
-      <span>_points_</span>
+    <div class="questionnaire__your-points">
+      <span class="points">{{ points }}</span>
+      <span class="points-label">_points_</span>
     </div>
 
     <div class="questionnaire__tier">
-      <span>{{ tier }}</span>
-      <span>{{ numStaysToNextTier }}</span>
+      <div class="tier-content">
+        <span class="tier">{{ tier }} tier</span>
+        <span class="stays">{{ numStaysToNextTier }} Stays</span>
+        <span class="tagline">Away from Next Tier</span>
+      </div>
     </div>
 
   </article>
@@ -21,28 +24,35 @@
   <article class="questionnaire__feature">
 
     <div class="questionnaire__featureReward">
-      <span>_featured_reward_</span>
+      <span>Featured reward</span>
     </div>
 
     <div class="questionnaire__reward">
-      <span>{{ reward }}</span>
+      <span class="rewardName">{{ featuredReward }}</span>
+      <span class="rewardPoints">{{ featuredRewardPoints }} Points</span>
     </div>
 
   </article>
 
   <article class="questionnaire__questions">
 
-    <h1 class="questionnaire__title">_questionnaire_title_</h1>
+    <h2 class="questionnaire__title">{{ title }}</h2>
 
-    <p class="questionnaire__reward">{{ reward }}</p>
+    <p class="questionnaire__subtitle">{{ reward }}</p>
 
-    <h2 class="questionnaire__question">{{ question }}</h2>
+    <h1 class="questionnaire__question">{{ question }}</h1>
 
     <ul class="questionnaire__options">
-      <li ng-repeat="option in options">{{ option.name }}</li>
+      <li ng-repeat="option in options">
+        <label>
+          <input type="checkbox" value="{{ option.value }}" />
+          {{ option.name }}
+        </label>
+
+      </li>
     </ul>
 
-    <button-submit class="questionnaire__submit">_submit_</button-submit>
+    <button type="submit" class="questionnaire__submit">_submit_</button>
 
   </article>
 

@@ -21,8 +21,11 @@
         scope.points = 50;
         scope.tier = 'bronze';
         scope.numStaysToNextTier = 4;
-        scope.reward = '10 points';
+        scope.reward = 'Answer the following question to earn 10 points';
         scope.question = 'What would you be most delighted to have in your room upon arrival?';
+        scope.title = 'What would you prefer';
+        scope.featuredReward = 'Late check out';
+        scope.featuredRewardPoints = 200;
         scope.options = [
           {
             name: 'Flowers'
