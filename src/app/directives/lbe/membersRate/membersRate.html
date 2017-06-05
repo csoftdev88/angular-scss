@@ -1,0 +1,27 @@
+<div class="members-rates"
+     ng-class="sizeClass">
+
+  <div class="members-rate"
+       ng-repeat="room in rooms">
+
+    <h1 class="members-rate__title">
+      {{ room.title }}
+    </h1>
+
+    <small class="members-rate__tagline">
+      {{ room.tagline }}
+    </small>
+
+    <ul class="members-rate__rates">
+
+      <li ng-repeat="rate in room.rates"
+          class="members-rate__rate">
+        {{ rate.label }}
+        <span class="members-rate__price">{{ rate.price | i18nCurrency: currencyCode }}</span>
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>
