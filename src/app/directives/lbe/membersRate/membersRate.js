@@ -1,7 +1,12 @@
 'use strict';
 
 /**
- * Directive to encapsulate member rate boxes
+ * Directive to encapsulate member rate boxes.
+ *
+ * The directive has 2 different types, small and large, passed by the attribute size
+ * for example <members-rate size="small"> can be used when only 30% of the screen is available
+ * Typically the small should be used for between 30% - 50% screen width and large for 50% up as these
+ * have been tested with the default styles.
  */
 (function() {
   angular
