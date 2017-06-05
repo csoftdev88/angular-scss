@@ -29,6 +29,28 @@ floating-bar {
           color: @c-black;
         }
       }
+      &.floating-bar--tab-booking,
+      &.floating-bar--tab-advanced-booking{
+        .viewport-mobile & {
+          a {
+            color: @c-black;
+          }
+          &.is-active {
+            a {
+              color: @c-white;
+            }
+          }
+        }
+      }
+      .mobile {
+        color: @c-black;
+        font-size: 20px;
+        .mobile-close {
+          &:after {
+            color: @c-black !important;
+          }
+        }
+      }
       a {
         font-size: 0.9em;
         line-height: 27px;
@@ -84,11 +106,6 @@ floating-bar {
           }
           a {
             background:@c-booking-widget;
-            &.with-search-params {
-              background: @c-tertiary;
-              font-size: 0.9em;
-              line-height: 27px;
-            }
             .mobile {}
           }
         }

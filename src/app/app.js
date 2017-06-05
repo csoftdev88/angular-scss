@@ -689,7 +689,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, notificationService, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _) {
+  metaInformationService, Settings, notificationService, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _, DynamicMessages) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -703,7 +703,7 @@ angular
   });
 
   $scope.uiConfig = Settings.UI;
-  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
+  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay;
   $scope.userLang = user.getUserLanguage();
   $scope.appLang = stateService.getAppLanguageCode();
   $scope.scrollService = scrollService;
@@ -831,12 +831,14 @@ angular
       $scope.hideMenuOverlay();
     }
 
-    if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms) {
+    //Get our dynamic translations
+    var appLang = stateService.getAppLanguageCode();
+    if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms && !stateService.isMobile()) {
       notificationService.show(
         '<div class="singleroom-notification">' +
         '<div class="details">' +
-        '<p>' + toParams.adults + ' adults</p>' +
-        '<p>' + toParams.children + ' children</p>' +
+        '<p>' + toParams.adults + ' ' + DynamicMessages[appLang].adults + '</p>' +
+        '<p>' + toParams.children + ' ' + DynamicMessages[appLang].children + '</p>' +
         '</div>' +
         '<div class="dates">' +
         '<p>' + getStartDate(toParams.dates) + '</p>' +
