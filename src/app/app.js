@@ -194,7 +194,6 @@ angular
     'mobiusApp.directives.slidedownNotifications',
     'mobiusApp.directives.inclusions',
     'mobiusApp.directives.sectionImage',
-    'mobiusApp.directives.lbe.questionnaire',
     'mobiusApp.directives.lbe.recommendation',
     'internationalPhoneNumber',
 
