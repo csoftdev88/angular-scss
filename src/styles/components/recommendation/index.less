@@ -1,4 +1,5 @@
 @import "./variables";
+@import "./mobile";
 
 .recommendation {
 
@@ -45,19 +46,19 @@
     }
   }
 
-  .opening-quote {
-    background: url('@{img-prefix}/lbe/quote-left.png');
+  .opening-quote, .closing-quote {
     width: 111px;
     height: 106px;
     position: relative;
   }
 
+  .opening-quote {
+    background: url('@{img-prefix}/lbe/quote-left.png');
+  }
+
   .closing-quote {
     background: url('@{img-prefix}/lbe/quote-right.png');
-    width: 111px;
-    height: 106px;
     float: right;
-    position: relative;
   }
 
 }
