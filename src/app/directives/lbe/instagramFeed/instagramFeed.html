@@ -1,0 +1,13 @@
+<article class="instagram-feed">
+
+  <h1 class="instagram-feed__title"> From our feed </h1>
+
+  <div class="instagram-feed__images">
+
+    <img ng-repeat="image in images"
+         ng-src="{{ image.url }}"
+         class="instagram-feed__thumbnail" />
+
+  </div>
+
+</article>

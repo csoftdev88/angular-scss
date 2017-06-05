@@ -1,0 +1,20 @@
+@import "./variables";
+
+.viewport-mobile {
+
+  .instagram-feed {
+
+    .instagram-feed__thumbnail {
+      width: @instagram-feed-thumbnail-size;
+      height: @instagram-feed-thumbnail-size;
+      &:not(:last-of-type) {
+        margin-right: @instagram-feed-thumbnail-margin-right;
+      }
+      &:nth-child(n + @{instagram-feed-mobile-max-thumbnails-n}) {
+        display: none;
+      }
+    }
+
+  }
+
+}
