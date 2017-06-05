@@ -19,7 +19,7 @@
           $log.warn('No config for the recommendation was provided!');
         }
         scope.recommendation = {
-          avatar: '/static/images/avatar.png',
+          avatarUrl: 'http://res.cloudinary.com/dmh2cjswj/image/upload/v1473438545/SAN/contents/qxitlxuhmr2lsownyuvd.jpg',
           text: '20% off and a room upgrade, what more could I ask for!',
           name: 'Laura Sandoval',
           city: 'New York'

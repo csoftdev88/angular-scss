@@ -1,29 +1,47 @@
+@import "./variables";
 
 .recommendation {
 
-  padding: 0 130px;
+  padding: 0 130px 40px 130px;
 
   .recommendation__text {
     padding: 0 50px;
     margin: -50px 0;
     color: @c-black;
-    font-size: 36px;
-    line-height: 42px;
+    font-size: 42px;
+    line-height: 48px;
     font-family: Raleway;
     font-style: italic;
     text-transform: none;
   }
 
   .recommendation__avatar {
-    margin-top: 80px;
-    text-align: center;
-    img, h2 {
+    margin: 70px auto 0 auto;
+    width: 50%;
+
+    img {
+      display: inline;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      float: left;
+    }
+  }
+
+  .recommendation__avatar-info {
+    padding: 10px 0 0 80px;
+    h2 {
+      font-family: Raleway;
+      font-size: 24px;
+      color: #adb3b9;
       display: inline;
     }
-    img {
-      height: 80px;
-      width: 80px;
-      border-radius: 50%;
+    small {
+      font-family: Raleway;
+      font-size: 14px;
+      line-height: 16px;
+      color: #adb3b9;
+      display: block;
     }
   }
 

@@ -2,14 +2,21 @@
 
   <div class="opening-quote"></div>
 
-  <h1 class="recommendation__text"> {{ recommendation.text }} </h1>
+  <h1 class="recommendation__text">
+    {{ recommendation.text }}
+  </h1>
 
   <div class="closing-quote"></div>
 
   <div class="recommendation__avatar">
-    <img src="http://res.cloudinary.com/dmh2cjswj/image/upload/v1473438545/SAN/contents/qxitlxuhmr2lsownyuvd.jpg" />
-    <h2>{{ recommendation.name }}</h2>
-    <small>{{ recommendation.city }}</small>
+
+    <img ng-src="{{ recommendation.avatarUrl }}" />
+
+    <div class="recommendation__avatar-info">
+      <h2>{{ recommendation.name }}</h2>
+      <small>{{ recommendation.city }}</small>
+    </div>
+
   </div>
 
 </article>
