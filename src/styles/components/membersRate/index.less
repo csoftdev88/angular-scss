@@ -9,6 +9,35 @@
     height: 221px;
   }
 
+  &.members-rates__size-small {
+    height: 104px;
+    .members-rate {
+      width: calc(~'50% - 5px');
+      padding: 9px 4px 16px 4px;
+      &:first-child {
+        margin-right: 10px;
+      }
+      .members-rate__title {
+        font-size: 14px;
+        margin-bottom: 0;
+        line-height: 16px;
+      }
+      .members-rate__tagline {
+        font-size: 9px;
+      }
+      .members-rate__rates {
+        margin-top: 5px;
+      }
+      .members-rate__rate {
+        margin-bottom: 3px;
+        font-size: 8px;
+        height: 20px;
+        line-height: 20px;
+        padding: 0 5px;
+      }
+    }
+  }
+
   .members-rate {
     width: calc(~'50% - 44px');
     height: 100%;

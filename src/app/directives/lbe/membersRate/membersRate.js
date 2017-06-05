@@ -20,7 +20,7 @@
         }
 
         var size = attr.size || 'large';
-        if(! _.contains(size, ['small', 'medium', 'large'])) {
+        if(! _.contains(size, ['small', 'large'])) {
           $log.warn('Invalid size attribute passed to the members rate directive');
         }
 
