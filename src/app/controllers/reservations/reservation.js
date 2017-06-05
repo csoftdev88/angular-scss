@@ -313,7 +313,6 @@ angular.module('mobius.controllers.reservation', [])
     if (!userData) {
       return;
     }
-
     if (!Object.keys($scope.userDetails).length || isMobius) {
       // No fields are touched yet, prefiling
       //waiting for countries
@@ -328,7 +327,7 @@ angular.module('mobius.controllers.reservation', [])
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: userData.state,
-          localeCode: userData.iso3 || userData.localeCode,
+          localeCode: contentService.getCountryByID(userData.localeId, $scope.profileCountries).code, //getUserCountry().code, //userData.iso3 || userData.localeCode,
           localeId: userData.localeId,
           country: userCountry && userCountry.name || null,
           zip: userData.zip || '',
@@ -1396,9 +1395,11 @@ angular.module('mobius.controllers.reservation', [])
   $scope.$watch('userDetails.localeId', function() {
     if ($scope.userDetails.localeId && $scope.profileCountries) {
       var countryObj = contentService.getCountryByID($scope.userDetails.localeId, $scope.profileCountries);
-      $scope.userDetails.countryObj = countryObj;
-      // Make sure we have the localeCode for annon user
-      $scope.userDetails.localeCode = $scope.userDetails.localeCode || countryObj.code;
+      if (countryObj) {
+        $scope.userDetails.countryObj = countryObj;
+        // Make sure we have the localeCode for annon user
+        $scope.userDetails.localeCode = countryObj.code;
+      }
     }
   });
 

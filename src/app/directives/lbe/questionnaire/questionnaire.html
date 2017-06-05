@@ -1,0 +1,59 @@
+<article class="questionnaire">
+
+  <article class="questionnaire__points">
+
+    <div class="questionnaire__status">
+      <span>Your Status</span>
+    </div>
+
+    <div class="questionnaire__your-points">
+      <span class="points">{{ points }}</span>
+      <span class="points-label">_points_</span>
+    </div>
+
+    <div class="questionnaire__tier">
+      <div class="tier-content">
+        <span class="tier">{{ tier }} tier</span>
+        <span class="stays">{{ numStaysToNextTier }} Stays</span>
+        <span class="tagline">Away from Next Tier</span>
+      </div>
+    </div>
+
+  </article>
+
+  <article class="questionnaire__feature">
+
+    <div class="questionnaire__featureReward">
+      <span>Featured reward</span>
+    </div>
+
+    <div class="questionnaire__reward">
+      <span class="rewardName">{{ featuredReward }}</span>
+      <span class="rewardPoints">{{ featuredRewardPoints }} Points</span>
+    </div>
+
+  </article>
+
+  <article class="questionnaire__questions">
+
+    <h2 class="questionnaire__title">{{ title }}</h2>
+
+    <p class="questionnaire__subtitle">{{ reward }}</p>
+
+    <h1 class="questionnaire__question">{{ question }}</h1>
+
+    <ul class="questionnaire__options">
+      <li ng-repeat="option in options">
+        <label>
+          <input type="checkbox" value="{{ option.value }}" />
+          {{ option.name }}
+        </label>
+
+      </li>
+    </ul>
+
+    <button type="submit" class="questionnaire__submit">_submit_</button>
+
+  </article>
+
+</article>

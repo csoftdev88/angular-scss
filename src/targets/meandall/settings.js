@@ -1093,10 +1093,10 @@ angular.module('mobiusApp.config', [])
         'enable':false
       },
       'reservationAssurance': {
-        display: true,
-        payment: true,
-        price: true,
-        security: true
+        display: false,
+        payment: false,
+        price: false,
+        security: false
       },
       'termsAndConditionsLink':'https://duesseldorf.meandallhotels.com/en/general-terms-and-conditions.html'
     },

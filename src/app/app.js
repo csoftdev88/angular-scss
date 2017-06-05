@@ -195,6 +195,8 @@ angular
     'mobiusApp.directives.inclusions',
     'mobiusApp.directives.sectionImage',
     'mobiusApp.directives.lbe.recommendation',
+    'mobiusApp.directives.lbe.questionnaire',
+  
     'internationalPhoneNumber',
 
     // Filters
