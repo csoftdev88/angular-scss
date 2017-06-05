@@ -1,0 +1,67 @@
+@import "./variables";
+@import "./mobile";
+
+.members-rates {
+
+  margin-bottom: 80px;
+
+  &.members-rates__size-large {
+    height: 221px;
+  }
+
+  .members-rate {
+    width: calc(~'50% - 44px');
+    height: 100%;
+    padding: 14px 37px 20px 24px;
+    background-size: cover;
+    box-sizing: border-box;
+    &:first-child {
+      float: left;
+      background: url('@{lbe-img-prefix}/court-bg.png');
+      margin-right: 88px;
+    }
+    &:last-child {
+      float: right;
+      background: url('@{lbe-img-prefix}/tuscany-bg.png');
+      .members-rate__rate {
+        color: #902325;
+      }
+    }
+    .members-rate__title {
+      font-size: 25px;
+      font-weight: 300;
+      font-family: Lato;
+      letter-spacing: 0;
+      color: @c-white;
+      margin-bottom: 8px;
+    }
+    .members-rate__tagline {
+      font-size: 20px;
+      font-family: Lato;
+      letter-spacing: 0;
+      color: @c-white;
+    }
+    .members-rate__rates {
+      margin-top: 20px;
+    }
+    .members-rate__rate {
+      background: @c-white;
+      color: #e3a314;
+      margin-bottom: 8px;
+      font-size: 17px;
+      letter-spacing: 0;
+      height: 43px;
+      line-height: 43px;
+      padding: 0 31px;
+      &:last-of-type {
+        text-decoration: line-through;
+        .members-rate__price {
+          text-decoration: line-through;
+        }
+      }
+      .members-rate__price {
+        float: right;
+      }
+    }
+  }
+}
