@@ -9,8 +9,8 @@
     padding: 0 50px;
     margin: -50px 0;
     color: @c-black;
-    font-size: 42px;
-    line-height: 48px;
+    font-size: @testimonial-text-size;
+    line-height: @testimonial-line-height;
     font-family: Raleway;
     font-style: italic;
     text-transform: none;
@@ -22,42 +22,42 @@
 
     img {
       display: inline;
-      height: 60px;
-      width: 60px;
+      height: @testimonial-avatar-size;
+      width: @testimonial-avatar-size;
       border-radius: 50%;
       float: left;
     }
   }
 
   .recommendation__avatar-info {
-    padding: 10px 0 0 80px;
+    padding: 10px 0 0 85px;
     h2 {
       font-family: Raleway;
-      font-size: 24px;
+      font-size: @testimonial-name-size;
       color: #adb3b9;
       display: inline;
     }
     small {
       font-family: Raleway;
-      font-size: 14px;
-      line-height: 16px;
+      font-size: @testimonial-city-size;
+      line-height: @testimonial-city-line-height;
       color: #adb3b9;
       display: block;
     }
   }
 
   .opening-quote, .closing-quote {
-    width: 111px;
-    height: 106px;
+    width: @testimonial-quote-width;
+    height: @testimonial-quote-height;
     position: relative;
   }
 
   .opening-quote {
-    background: url('@{img-prefix}/lbe/quote-left.png');
+    background: url(@testimonial-left-quote-url);
   }
 
   .closing-quote {
-    background: url('@{img-prefix}/lbe/quote-right.png');
+    background: url(@testimonial-right-quote-url);
     float: right;
   }
 
