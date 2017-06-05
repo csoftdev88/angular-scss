@@ -14,6 +14,13 @@
   font-weight: bold;
 }
 
+.title-divider() when (@instagram-feed-title-divider = true) {
+  &:after {
+    content: url('@{lbe-img-prefix}/@{instagram-feed-title-divider-img}');
+    display: block;
+  }
+}
+
 .instagram-feed {
 
   text-align: center;
@@ -26,6 +33,7 @@
     font-family: Raleway;
     .title-uppercase();
     .title-uppercase();
+    .title-divider();
   }
 
   .instagram-feed__thumbnail {
