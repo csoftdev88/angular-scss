@@ -21,14 +21,7 @@
           $log.warn('No config for the questionnaire was provided!');
         }
 
-        scope.images = [
-          { url: '/static/images/lbe/insta-1.png'},
-          { url: '/static/images/lbe/insta-2.png'},
-          { url: '/static/images/lbe/insta-3.png'},
-          { url: '/static/images/lbe/insta-4.png'},
-          { url: '/static/images/lbe/insta-5.png'}
-        ];
-
+        scope.images = config.images;
       }
     };
   }
