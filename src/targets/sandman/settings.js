@@ -351,7 +351,8 @@ angular.module('mobiusApp.config', [])
     'bookingBar': {
       'maxAdults': 8,
       'maxChildren': 8,
-      'dateFormat': 'dd MM yy'
+      'dateFormat': 'dd MM yy',
+      'defaultSize': 'large'
     },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']

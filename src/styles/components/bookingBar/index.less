@@ -1,19 +1,66 @@
 @import "./variables";
 
 .booking-bar {
-
-  height: 210px;
+  -webkit-backdrop-filter: blur(1.6px);
   backdrop-filter: blur(1.6px);
   background-color: rgba(26, 26, 26, 0.8);
-  padding: 31px 28px 0 28px;
+  padding: 31px 28px 19px 28px;
   margin-bottom: 40px;
+  box-sizing: border-box;
+
+  p, span, label {
+    font-family: Lato;
+  }
+
+  &.booking-bar__size-small {
+    height: 451px;
+    width: 301px;
+    .booking-bar__form {
+      form-element {
+        display: block;
+        padding: 0 0 24px 0;
+      }
+      .booking-bar__title {
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        padding-bottom: 12px;
+        text-align: center;
+        font-family: Raleway;
+      }
+      remove-text {
+        right: 15px;
+        top: initial;
+        bottom: 35px;
+      }
+      .booking-bar__form--dates.check-in,
+      .booking-bar__form--guests.adults {
+        float: left;
+      }
+      .booking-bar__form--dates.check-out,
+      .booking-bar__form--guests.children {
+        float: right;
+      }
+      .booking-bar__submit {
+        width: 245px;
+      }
+    }
+  }
+
+  &.booking-bar__size-large {
+    height: 210px;
+    .booking-bar__form {
+      form-element {
+        display: inline-block;
+        padding: 0 10px 0 0;
+      }
+      .booking-bar__form--guests.adults {
+        padding: 0;
+      }
+    }
+  }
 
   .booking-bar__form {
-
-    form-element {
-      display: inline-block;
-      padding: 0 15px 0 0;
-    }
 
     span, input {
       color: #fff;

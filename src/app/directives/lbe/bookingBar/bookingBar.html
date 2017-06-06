@@ -1,6 +1,8 @@
-<article class="booking-bar">
+<article class="booking-bar" ng-class="sizeClass">
 
   <form class="booking-bar__form">
+
+    <h3 class="booking-bar__title" ng-if="isSmall()">Quick Book</h3>
 
     <form-element class="booking-bar__form--room">
       <select name="room"
@@ -12,7 +14,7 @@
       </select>
     </form-element>
 
-    <form-element class="booking-bar__form--dates">
+    <form-element class="booking-bar__form--dates check-in">
       <span class="booking-bar__form--label">Check in</span>
       <input type="text"
              required
@@ -22,7 +24,7 @@
              ng-model="search.checkIn">
     </form-element>
 
-    <form-element class="booking-bar__form--dates">
+    <form-element class="booking-bar__form--dates check-out">
       <span class="booking-bar__form--label">Check out</span>
       <input type="text"
              required
@@ -32,7 +34,7 @@
              ng-model="search.checkOut">
     </form-element>
 
-    <form-element class="booking-bar__form--guests">
+    <form-element class="booking-bar__form--guests adults">
       <select name="adults"
               chosen
               disable-search="true"
@@ -42,7 +44,7 @@
       </select>
     </form-element>
 
-    <form-element class="booking-bar__form--guests">
+    <form-element class="booking-bar__form--guests children">
       <select name="children"
               chosen
               disable-search="true"
