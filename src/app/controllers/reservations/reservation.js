@@ -150,6 +150,7 @@ angular.module('mobius.controllers.reservation', [])
     if ($stateParams.reservation && !$scope.isModifyingAsAnonymous()) {
 
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
+        var userCountry = getUserCountry({localeCode: reservation.rooms[0].guestCountry});
         $scope.userDetails.title = reservation.rooms[0].guestTitleId || reservation.rooms[0].guestTitle;
         $scope.userDetails.firstName = reservation.rooms[0].firstName;
         $scope.userDetails.lastName = reservation.rooms[0].lastName;
@@ -158,8 +159,9 @@ angular.module('mobius.controllers.reservation', [])
         $scope.userDetails.city = reservation.rooms[0].guestCity;
         $scope.userDetails.zip = reservation.rooms[0].guestZip;
         $scope.userDetails.stateProvince = reservation.rooms[0].guestState;
-        $scope.userDetails.country = reservation.rooms[0].guestCountry;
-        $scope.userDetails.localeCode = parseInt(reservation.rooms[0].guestCountry);
+        $scope.userDetails.country = userCountry.code;
+        $scope.userDetails.localeCode = userCountry.code;
+        $scope.userDetails.localeId = userCountry.id;
         $scope.userDetails.phone = reservation.rooms[0].guestPhone;
 
         $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
@@ -327,7 +329,7 @@ angular.module('mobius.controllers.reservation', [])
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: userData.state,
-          localeCode: contentService.getCountryByID(userData.localeId, $scope.profileCountries).code, //getUserCountry().code, //userData.iso3 || userData.localeCode,
+          localeCode: userCountry.code,
           localeId: userData.localeId,
           country: userCountry && userCountry.name || null,
           zip: userData.zip || '',
@@ -1111,11 +1113,11 @@ angular.module('mobius.controllers.reservation', [])
           trackingData.guestCountry = getUserCountry();
 
           var scopeData = {
-            'allRooms':$scope.allRooms,
-            'moreRoomData':$scope.moreRoomData,
-            'profileTitles':$scope.profileTitles,
-            'profileCountries':$scope.profileCountries,
-            'userDetails':$scope.userDetails
+            'allRooms': angular.copy($scope.allRooms),
+            'moreRoomData': angular.copy($scope.moreRoomData),
+            'profileTitles': angular.copy($scope.profileTitles),
+            'profileCountries': angular.copy($scope.profileCountries),
+            'userDetails': angular.copy($scope.userDetails)
           };
           mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, $scope.rates.selectedRate);
 
@@ -1394,7 +1396,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.$watch('userDetails.localeId', function() {
     if ($scope.userDetails.localeId && $scope.profileCountries) {
-      var countryObj = contentService.getCountryByID($scope.userDetails.localeId, $scope.profileCountries);
+      var countryObj = getUserCountry($scope.userDetails);
       if (countryObj) {
         $scope.userDetails.countryObj = countryObj;
         // Make sure we have the localeCode for annon user
@@ -1477,11 +1479,17 @@ angular.module('mobius.controllers.reservation', [])
 
   function getUserCountry(userData) {
     var userDetails = userData || $scope.userDetails;
-    var userLocale = userDetails.iso3 || userDetails.localeCode;
+    var code = userDetails.iso3 || userDetails.localeCode;
+    var id = userDetails.localeId;
+    var userCountry;
 
-    var userCountry = _.find($scope.profileCountries, function(country) {
-      return country.code === userLocale;
-    });
+    if (code) {
+      userCountry = contentService.getCountryByCode(code, $scope.profileCountries);
+    }
+
+    if (id) {
+      userCountry = contentService.getCountryByID(id, $scope.profileCountries);
+    }
 
     if (!userCountry) {
       $log.warn('WARNING: Unexpected behaviour, the user country has not been found');
