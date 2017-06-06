@@ -1,0 +1,36 @@
+@import "./variables";
+@import "./mobile";
+
+.highlight {
+
+  margin-bottom: 40px;
+  border: @highlight-border;
+  background: @highlight-bg;
+  padding: @highlight-padding;
+
+  img {
+    position: absolute;
+    top: @highlight-image-offset-px;
+    left: @highlight-image-offset-px;
+    height: @highlight-image-size-px;
+    width: @highlight-image-size-px;
+  }
+
+  h1, h3 {
+    color: @highlight-title-color;
+    letter-spacing: 0;
+    font-family: Raleway;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: @highlight-title-size;
+    line-height: @highlight-title-height;
+  }
+
+  h3 {
+    font-size: @highlight-subtitle-size;
+    line-height: @highlight-subtitle-height;
+  }
+
+}
