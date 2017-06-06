@@ -1,0 +1,78 @@
+<article class="booking-bar">
+
+  <form class="booking-bar__form">
+
+    <form-element class="booking-bar__form--room">
+      <select name="room"
+              chosen
+              disable-search="true"
+              ng-model="search.room"
+              placeholder-text-single="The court"
+              ng-options="room.value as room.title for room in rooms">
+      </select>
+    </form-element>
+
+    <form-element class="booking-bar__form--dates">
+      <span class="booking-bar__form--label">Check in</span>
+      <input type="text"
+             required
+             id="check-in"
+             name="check-in"
+             placeholder="_dates_"
+             ng-model="search.checkIn">
+    </form-element>
+
+    <form-element class="booking-bar__form--dates">
+      <span class="booking-bar__form--label">Check out</span>
+      <input type="text"
+             required
+             id="check-out"
+             name="check-out"
+             placeholder="_dates_"
+             ng-model="search.checkOut">
+    </form-element>
+
+    <form-element class="booking-bar__form--guests">
+      <select name="adults"
+              chosen
+              disable-search="true"
+              ng-model="search.adults"
+              placeholder-text-single="_adults_"
+              ng-options="adult.value as adult.title for adult in adults">
+      </select>
+    </form-element>
+
+    <form-element class="booking-bar__form--guests">
+      <select name="children"
+              chosen
+              disable-search="true"
+              ng-model="search.children"
+              placeholder-text-single="_children_"
+              ng-options="child.value as child.title for child in children">
+      </select>
+    </form-element>
+
+    <form-element ng-show="!showCode" class="booking-bar__form--code">
+      <select name="code"
+              chosen
+              disable-search="true"
+              ng-model="search.codeType"
+              ng-change="showCode = !showCode"
+              placeholder-text-single="_apply_code_"
+              ng-options="code.value as code.name for code in codes">
+      </select>
+    </form-element>
+
+    <form-element ng-show="showCode" class="booking-bar__form--code">
+      <input type="text" ng-model="search.code">
+      <remove-text role="button"
+                   class="remove"
+                   ng-click="showCode = !showCode">
+      </remove-text>
+    </form-element>
+
+    <button type="submit" class="booking-bar__submit">Update</button>
+
+  </form>
+
+</article>
