@@ -344,6 +344,9 @@ angular.module('mobiusApp.config', [])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
+    'highlight': {
+      'imageUrl': '/static/images/lbe/sun.png'
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
