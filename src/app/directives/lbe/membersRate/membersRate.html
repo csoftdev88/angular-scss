@@ -16,8 +16,12 @@
 
       <li ng-repeat="rate in room.rates"
           class="members-rate__rate">
+
         {{ rate.label }}
-        <span class="members-rate__price">{{ rate.price | i18nCurrency: currencyCode }}</span>
+        <span class="members-rate__price">
+          {{ rate.price | i18nCurrency: currencyCode }}
+        </span>
+
       </li>
 
     </ul>

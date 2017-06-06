@@ -21,14 +21,15 @@
       link: function (scope, elem, attr) {
         var config = Settings.UI.membersRate;
         if (!config) {
-          $log.warn('No config for the questionnaire was provided!');
+          $log.warn('No config for the members rate directive was provided!');
         }
 
-        var size = attr.size || 'large';
+        var size = attr.size || config.defaultSize;
         if(! _.contains(size, ['small', 'large'])) {
           $log.warn('Invalid size attribute passed to the members rate directive');
         }
 
+        // @todo pull these from the API ??
         scope.sizeClass = 'members-rates__size-' + size;
         scope.rooms = [{
           title: 'The Court',
