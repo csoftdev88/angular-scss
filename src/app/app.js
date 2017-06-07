@@ -230,6 +230,12 @@ angular
   growlProvider.globalPosition('top-center');
   //growlProvider.globalReversedOrder(true);
 
+  // Determine which layouts to used based on engine type
+  var aboutLayout = 'layouts/about/about.html';
+  if (Settings.engine === 'loyalty') {
+    aboutLayout = 'layouts/lbe/about/about.html';
+  }
+
   $stateProvider
   // Default application layout
     .state('root', {
@@ -515,7 +521,7 @@ angular
   // About Us oage
   .state('aboutUs', {
     parent: 'root',
-    templateUrl: 'layouts/about/about.html',
+    templateUrl: aboutLayout,
     url: '/about/:code',
     controller: 'AboutUsCtrl'
   })
