@@ -17,7 +17,7 @@
       link: function (scope) {
         var config = Settings.UI.highlight;
         if (!config) {
-          $log.warn('No config for the recommendation was provided!');
+          $log.warn('No config for the highlight was provided!');
         }
         scope.imageUrl = config.imageUrl;
       }
