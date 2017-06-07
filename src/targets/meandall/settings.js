@@ -280,6 +280,9 @@ angular.module('mobiusApp.config', [])
       'searchInSessionCookieName':'MobiusSearchInSession',
       'maxSearches':3
     },
+    'infoBar': {
+      'showForSingleBookings': true
+    },
     'chains': ['LINDNER', 'MEANDALL'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
