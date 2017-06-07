@@ -144,7 +144,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'town': trackingData.guestCity,
         'state': trackingData.guestStateProvince,
         'postcode': trackingData.guestZip,
-        'country': getUserCountry(scopeData.profileCountries, scopeData.userDetails.localeCode).code,
+        'country': scopeData.userDetails.localeCode,
         'gender': userObject.gender || '',
         'isCorporateCustomer': stateParams.corpCode && stateParams.corpCode !== '' ? true : false,
         'isLoyaltyMember': Settings.authType === 'infiniti',
@@ -458,7 +458,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
     function getUserCountry(countries, countryCode) {
       var userCountry = _.find(countries, function(country) {
-        return country.id === countryCode;
+        return country.code === countryCode;
       });
       return userCountry;
     }

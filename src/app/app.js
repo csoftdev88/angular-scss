@@ -194,8 +194,10 @@ angular
     'mobiusApp.directives.slidedownNotifications',
     'mobiusApp.directives.inclusions',
     'mobiusApp.directives.sectionImage',
+    'mobiusApp.directives.lbe.recommendation',
     'mobiusApp.directives.lbe.questionnaire',
     'mobiusApp.directives.lbe.instagramFeed',
+
 
     'internationalPhoneNumber',
 
