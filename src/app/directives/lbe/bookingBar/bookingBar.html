@@ -5,12 +5,12 @@
     <h3 class="booking-bar__title" ng-if="isSmall()">Quick Book</h3>
 
     <form-element class="booking-bar__form--room">
-      <select name="room"
+      <select name="property"
               chosen
               disable-search="true"
-              ng-model="search.room"
-              placeholder-text-single="The court"
-              ng-options="room.value as room.title for room in rooms">
+              ng-model="search.property"
+              placeholder-text-single="_find_your_hotel_"
+              ng-options="property.$$hashKey as property.nameShort for property in properties">
       </select>
     </form-element>
 
@@ -61,7 +61,7 @@
               ng-model="search.codeType"
               ng-change="showCode = !showCode"
               placeholder-text-single="_apply_code_"
-              ng-options="code.value as code.name for code in codes">
+              ng-options="code.value as code.title for code in codes">
       </select>
     </form-element>
 
@@ -73,7 +73,11 @@
       </remove-text>
     </form-element>
 
-    <button type="submit" class="booking-bar__submit">Update</button>
+    <button type="submit"
+            ng-click="doSearch()"
+            class="booking-bar__submit">
+      Update
+    </button>
 
   </form>
 
