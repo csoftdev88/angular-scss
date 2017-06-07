@@ -1,0 +1,70 @@
+<div class="About__hero">
+  <div class="About__hero--info">
+    <h2 class="About__hero--tagline">Your exclusive perks and privileges</h2>
+    <h1 class="About__hero--title">Be central</h1>
+    <h1 class="About__hero--title">Be rewarded</h1>
+  </div>
+</div>
+
+<main class="grid-wrapper About">
+
+  <div class="About__benefits">
+
+    <div class="About__logo">
+      <img src="/static/images/v4/logo-dark.png">
+    </div>
+
+    <div class="About__benefits--overview">
+      <div class="About__benefit">
+        <span class="lowest-rates"></span>
+        <h2>Lowest Rates</h2>
+        <p>Exclusive Access to our Best Rates. Guaranteed</p>
+      </div>
+      <div class="About__benefit">
+        <span class="get-rewarded"></span>
+        <h2>Get Rewarded</h2>
+        <p>Special Member Rewards for all interests</p>
+      </div>
+      <div class="About__benefit">
+        <span class="privileges"></span>
+        <h2>Privileges and Perks</h2>
+        <p>Red Carpet Treatment: Membership entitles you to benefits at the hotel</p>
+      </div>
+      <div class="About__benefit">
+        <span class="points"></span>
+        <h2>Pay with Points</h2>
+        <p>Use your points to pay for your stay</p>
+      </div>
+    </div>
+
+    <div class="About__benefits--offer">
+      <h2>Exclusive member offer</h2>
+      <img src="/static/images/offer-bg@3x.png">
+    </div>
+
+  </div>
+
+  <div class="About__signup">
+    <h1>Become a st. giles insider</h1>
+    <p>Sign Up now and benefit immediately… It’s that simple.</p>
+    <button>Sign up</button>
+  </div>
+
+  <div class="About__testimonial">
+    <recommendation></recommendation>
+  </div>
+
+  <!-- Scroll to top button -->
+  <scroll-to-top class="back-to-top"
+                 ng-click="scrollToTop()"
+                 scroll-position="scroll"
+                 ng-class="{visible: scroll > scrollTopTrigger}">
+    <span>_back_to_top_</span>
+  </scroll-to-top>
+
+  <!-- Growl notifications -->
+  <growl-alerts class="growl-alerts-dir"
+                languages-message="'_languages_message_'"
+                retention-message="'_retention_message_'">
+  </growl-alerts>
+</main>
