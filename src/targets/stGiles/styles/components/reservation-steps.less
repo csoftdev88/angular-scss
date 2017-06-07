@@ -1,0 +1,190 @@
+//////////////////////////////////////
+//// Reservation steps navigation ////
+//////////////////////////////////////
+
+.reservation-steps{
+  display: inline-block;
+  width: 100%;
+  margin: 10px;
+  text-align: left;
+
+  .label{
+    display: none;
+  }
+
+  ul{
+    position: relative;
+    width: auto;
+    float: none;
+    display: inline-block;
+
+    &:after{
+      content: '';
+      position: absolute;
+      left: 2%;
+      top: 21px;
+      width: 96%;
+      height: 2px;
+      background: @c-light-grey;
+      z-index: -1;
+    }
+
+    li{
+      display: inline;
+      float: left;
+      width: auto;
+      margin-left: 50px;
+      box-sizing: border-box;
+
+      &:first-child{
+        margin-left: 0;
+      }
+
+      .button{
+        position: relative;
+        padding: 0;
+        min-width: 0;
+        border-radius: 0;
+        line-height: 32px;
+        height: 32px;
+        width: 32px;
+        border: 0;
+        box-shadow: none;
+        text-shadow: none;
+        text-align: center;
+        background: @c-green;
+        font-weight: 400;
+        color: #fff;
+        border-radius: 20px;
+        font-size: 15px;
+
+        &:active,
+        &:focus,
+        &:hover {
+          .chain-sand &{
+            background: @c-menu-active-sand;
+          }
+          .chain-sign &{
+            background: @c-menu-active-sign;
+          }
+        }
+
+        &:after,
+        .dot {
+          display: none;
+        }
+
+        &[disabled="disabled"]{
+          background: #fff;
+          text-shadow: none;
+          padding: 0;
+          color: @c-light-grey;
+          border: 1px solid @c-light-grey;
+
+          &:active,
+          &:focus,
+          &:hover {
+            .chain-sand &{
+              background: #fff;
+            }
+            .chain-sign &{
+              background: #fff;
+            }
+          }
+
+        }
+
+        .text{
+          color: @c-light-grey;
+          font-size: 10px;
+          line-height: 19px;
+          display: block;
+          width: 82px;
+          margin-left: -25px;
+          padding-top: 5px;
+        }
+      }
+
+      &.current{
+        .button{
+          cursor: default;
+          padding: 0;
+          filter: none;
+          .chain-sand &{
+            background: @c-menu-active-sand;
+            .text{
+              color: @c-menu-active-sand;
+            }
+          }
+          .chain-sign &{
+            background: @c-menu-active-sign;
+            .text{
+              color: @c-menu-active-sign;
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  .viewport-tablet &,
+  .viewport-mobile &{
+    ul{
+      width: auto;
+      li{
+        width: auto;
+        margin-left: 70px;
+        &:first-child{
+          margin-left: 0;
+        }
+        .button{
+          padding: 0;
+          &[disabled="disabled"]{
+            padding: 0;
+          }
+        }
+        &.current{
+          .button{
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .viewport-mobile &{
+    margin: 10px 0;
+    ul{
+      li{
+        margin-left: 35px;
+
+        &:first-child{
+          margin-left: 0;
+        }
+        .button{
+          padding-right: 0;
+          &[disabled="disabled"]{
+            padding: 0;
+          }
+          .text{
+            display: block;
+            font-size: 11px;
+            line-height: 16px;
+            width: 80px;
+            margin-left: -20px;
+          }
+        }
+        &.current{
+          .button{
+            padding: 0;
+            .text{
+
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
