@@ -61,3 +61,146 @@ main {
       opacity: 1;
   }
 }
+
+@media only screen and (min-width: 1000px) {
+  .grid-wrapper {
+    // todo dont use important
+    max-width: 1212px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .grid,
+  [grid],
+  [grid="1"],
+  [grid="2"],
+  [grid="3"],
+  [grid="4"],
+  [grid="5"],
+  [grid="6"],
+  [grid="7"],
+  [grid="8"],
+  [grid="9"],
+  [grid="10"],
+  [grid="11"],
+  [grid="12"],
+  [grid-container="1"],
+  [grid-container="2"],
+  [grid-container="3"],
+  [grid-container="4"],
+  [grid-container="5"],
+  [grid-container="6"],
+  [grid-container="7"],
+  [grid-container="8"],
+  [grid-container="9"],
+  [grid-container="10"],
+  [grid-container="11"],
+  [grid-container="12"],
+  .site-map [grid="1"],
+  .site-map [grid="2"],
+  .site-map [grid="3"],
+  .site-map [grid="4"],
+  .site-map [grid-container="1"],
+  .site-map [grid-container="2"],
+  .site-map [grid-container="3"],
+  .site-map [grid-container="4"] {
+    float: left;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .grid-outer {
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  [grid="1"] {
+    width: 43px;
+  }
+  [grid="2"] {
+    width: 126px;
+  }
+  [grid="3"] {
+    width: 210px;
+  }
+  [grid="4"] {
+    width: 293px;
+  }
+  [grid="5"] {
+    width: 376px;
+  }
+  [grid="6"] {
+    width: 460px;
+  }
+  [grid="7"] {
+    width: 543px;
+  }
+  [grid="8"] {
+    width: 626px;
+  }
+  [grid="9"] {
+    width: 710px;
+  }
+  [grid="10"] {
+    width: 793px;
+  }
+  [grid="11"] {
+    width: 876px;
+  }
+  [grid="12"] {
+    width: 960px;
+  }
+  [grid-container="1"] {
+    width: 43px;
+  }
+  [grid-container="2"] {
+    width: 126px;
+  }
+  [grid-container="3"] {
+    width: 210px;
+  }
+  [grid-container="4"] {
+    width: 293px;
+  }
+  [grid-container="5"] {
+    width: 376px;
+  }
+  [grid-container="6"] {
+    width: 460px;
+  }
+  [grid-container="7"] {
+    width: 543px;
+  }
+  [grid-container="8"] {
+    width: 626px;
+  }
+  [grid-container="9"] {
+    width: 710px;
+  }
+  [grid-container="10"] {
+    width: 793px;
+  }
+  [grid-container="11"] {
+    width: 876px;
+  }
+  [grid-container="12"] {
+    width: 960px;
+  }
+}
+.grid-row,
+[grid-row] {
+  *zoom: 1;
+}
+.grid-row:before,
+[grid-row]:before,
+.grid-row:after,
+[grid-row]:after {
+  content: " ";
+  display: table;
+}
+.grid-row:after,
+[grid-row]:after {
+  clear: both;
+}
+.grid-img {
+  width: 100%;
+  height: auto;
+}
