@@ -1,0 +1,48 @@
+@import "./variables";
+@import "./mobile";
+
+.full-width() when (@instagram-feed-full-screen = true) {
+  width: 100vw;
+  margin-left: calc(~'-50vw + 50%');
+}
+
+.title-uppercase() when (@instagram-feed-title-uppercase = true) {
+  text-transform: uppercase;
+}
+
+.title-uppercase() when (@instagram-feed-title-bold = true) {
+  font-weight: bold;
+}
+
+.title-divider() when (@instagram-feed-title-divider = true) {
+  &:after {
+    content: url('@{lbe-img-prefix}/@{instagram-feed-title-divider-img}');
+    display: block;
+  }
+}
+
+.instagram-feed {
+
+  text-align: center;
+  margin-bottom: @lbe-widget-bottom-margin;
+  .full-width();
+
+  .instagram-feed__title {
+    font-size: @instagram-feed-title-font-size;
+    color: @c-black;
+    font-family: Raleway;
+    .title-uppercase();
+    .title-uppercase();
+    .title-divider();
+  }
+
+  .instagram-feed__thumbnail {
+    border: @instagram-feed-thumbnail-border;
+    width: @instagram-feed-thumbnail-size;
+    height: @instagram-feed-thumbnail-size;
+    &:not(:last-of-type) {
+      margin-right: @instagram-feed-thumbnail-margin-right;
+    }
+  }
+
+}
