@@ -1,0 +1,108 @@
+@import "./mobile";
+
+footer.main {
+  height: initial;
+  background-color: #000;
+  padding: 56px 160px 0 160px;
+  text-align: initial;
+  h1, h2, h3, p, span, small {
+    color: #fff;
+    font-family: Raleway;
+  }
+}
+
+.Footer__button {
+  background: transparent;
+  border: solid 2px white;
+  border-radius: 0;
+  color: #fff;
+  font-size: 17px;
+  line-height: 20px;
+  text-transform: uppercase;
+  padding: 0 46px;
+}
+
+.Footer__title {
+  text-transform: uppercase;
+  font-size: 25px;
+  letter-spacing: 0.3px;
+  line-height: 30px;
+}
+
+.Footer__text {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0;
+  font-family: Lato;
+  margin-top: 15px;
+}
+
+.Footer__signup {
+  width: 50%;
+  float: left;
+  .Footer__text {
+    margin-bottom: 68px;
+  }
+}
+
+.Footer__tagline {
+  h3 {
+    font-family: Raleway;
+    font-size: 25px;
+    line-height: 30px;
+    &:before {
+      .fa;
+      position: absolute;
+      color: #e3a314;
+      font-size: 25px;
+      content: @fa-var-heart;
+    }
+  }
+}
+
+.Footer_social--icons {
+  li {
+    display: inline;
+  }
+  span {
+    margin-right: 40px;
+  }
+  span:before {
+    .fa;
+    position: absolute;
+    color: #fff;
+    font-size: 25px;
+  }
+  .facebook:before {
+    content: @fa-var-facebook;
+  }
+  .twitter:before {
+    content: @fa-var-twitter;
+  }
+  .instagram:before {
+    content: @fa-var-instagram;
+  }
+  .linkedin:before {
+    content: @fa-var-linkedin;
+  }
+  .youtube:before {
+    content: @fa-var-youtube;
+  }
+}
+
+.Footer__nav--item {
+  display: inline;
+}
+
+.Footer__apps {
+  width: 50%;
+  display: inline;
+}
+
+.Footer__phone {
+  padding-left: 60%;
+  img {
+    width: 208px;
+    height: 222px;
+  }
+}
