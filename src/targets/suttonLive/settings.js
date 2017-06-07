@@ -329,6 +329,9 @@ angular.module('mobiusApp.config', [])
     'datepicker': {
       'showToday': false
     },
+    'infoBar': {
+      'showForSingleBookings': false
+    },
     'generics': {
       'singleProperty': false,
       'facebookAppId': '954663594591416',
