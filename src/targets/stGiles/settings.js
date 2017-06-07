@@ -370,7 +370,15 @@ angular.module('mobiusApp.config', [])
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
       'orderPropertiesByChain': true,
-      'longDateFormat': 'Do MMM YYYY'
+      'longDateFormat': 'Do MMM YYYY',
+      'header': {
+        'logoLink': 'https://gooole.com',
+        'logoText': 'St. Giles Hotels',
+        'telephone': '+49 211 54259 0',
+        'loginAsLink': true,
+        'hideMobileHeader': true,
+        'mainMenuAsOverlay': true
+      }
     },
     'contents':{
       'displayContentImageInHeroSlider': true

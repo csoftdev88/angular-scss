@@ -1,0 +1,34 @@
+<img class="Header__logo desktop" src="/static/images/v4/logo@3x.png" alt="Mobius logo">
+
+<div class="Header__buttons">
+
+  <div class="Header__buttons--auth">
+    <button class="Header__button login">Log in</button>
+    <button class="Header__button register">Register</button>
+  </div>
+
+  <ul dropdown-group class="Header__buttons--preferences">
+
+    <li has-dropdown="click"
+        currency-list
+        class="Header__buttons--currency Header__buttons--preference"
+        ng-show="!$state.includes('reservation') && !$state.includes('reservationDetail') && !$state.includes('reservations')">
+    </li>
+    <li has-dropdown="click"
+        class="Header__buttons--language Header__buttons--preference"
+        language-list>
+    </li>
+
+  </ul>
+
+  <div class="Header__menu">
+
+    <img src="/static/images/menu-icon@3x.png"
+         ng-click="toggleMenuOverlay()"
+         class="Header__menu--hamburger">
+
+    <span ng-click="toggleMenuOverlay()" class="Header__menu--close"></span>
+
+  </div>
+
+</div>
