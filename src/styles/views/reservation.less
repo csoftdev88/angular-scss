@@ -761,6 +761,29 @@ reservation-confirmation {
     border-radius: 4px;
   }
 
+  form {
+    label {
+      input,
+      select,
+      textarea {
+        &.ng-invalid ~ span {
+          opacity: 1;
+          transform: translateX(0);
+          color: @c-red;
+        }
+      }
+    }
+
+    input,
+    select,
+    textarea {
+      &.ng-invalid {
+        border-color: @c-red !important;
+      }
+    }
+
+  }
+
   ///////////////////////////////////////////////
   // Styles for tabs from Angular Bootstrap UI //
   ///////////////////////////////////////////////

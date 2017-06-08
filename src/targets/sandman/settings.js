@@ -335,6 +335,15 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:true
     },
+    'instagramFeed': {
+      'images': [
+        { url: '/static/images/lbe/insta-1.png'},
+        { url: '/static/images/lbe/insta-2.png'},
+        { url: '/static/images/lbe/insta-3.png'},
+        { url: '/static/images/lbe/insta-4.png'},
+        { url: '/static/images/lbe/insta-5.png'}
+      ]
+    },
     'previousSearches': {
       'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
@@ -350,14 +359,29 @@ angular.module('mobiusApp.config', [])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
+    'highlight': {
+      'imageUrl': '/static/images/lbe/sun.png'
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
+    'bookingBar': {
+      'maxAdults': 8,
+      'maxChildren': 8,
+      'dateFormat': 'dd MM yy',
+      'defaultSize': 'large',
+      'useTommorowDefault': true
+    },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
-
+    'datepicker': {
+      'showToday': false
+    },
+    'infoBar': {
+      'showForSingleBookings': false
+    },
     'generics': {
       'singleProperty': false,
       'facebookAppId': '',
@@ -386,6 +410,12 @@ angular.module('mobiusApp.config', [])
       'preloadImages': true,
       'slideWidth': 1250,
       'slideHeight': 393
+    },
+    'userMessages': {
+      'image': {
+        'display': false,
+        'url': ''
+      }
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -543,7 +573,7 @@ angular.module('mobiusApp.config', [])
         'hotelReadMoreMobile': true
       },
       'bookingStatistics':{
-        'display':true,
+        'display': true,
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left

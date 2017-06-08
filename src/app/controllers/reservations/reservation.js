@@ -150,6 +150,7 @@ angular.module('mobius.controllers.reservation', [])
     if ($stateParams.reservation && !$scope.isModifyingAsAnonymous()) {
 
       reservationService.getReservation($stateParams.reservation, null).then(function(reservation) {
+        var userCountry = getUserCountry({localeCode: reservation.rooms[0].guestCountry});
         $scope.userDetails.title = reservation.rooms[0].guestTitleId || reservation.rooms[0].guestTitle;
         $scope.userDetails.firstName = reservation.rooms[0].firstName;
         $scope.userDetails.lastName = reservation.rooms[0].lastName;
@@ -158,8 +159,9 @@ angular.module('mobius.controllers.reservation', [])
         $scope.userDetails.city = reservation.rooms[0].guestCity;
         $scope.userDetails.zip = reservation.rooms[0].guestZip;
         $scope.userDetails.stateProvince = reservation.rooms[0].guestState;
-        $scope.userDetails.country = reservation.rooms[0].guestCountry;
-        $scope.userDetails.localeCode = parseInt(reservation.rooms[0].guestCountry);
+        $scope.userDetails.country = userCountry.code;
+        $scope.userDetails.localeCode = userCountry.code;
+        $scope.userDetails.localeId = userCountry.id;
         $scope.userDetails.phone = reservation.rooms[0].guestPhone;
 
         $scope.additionalInfo.arrivalTime = reservation.arrivalTime;
@@ -313,18 +315,12 @@ angular.module('mobius.controllers.reservation', [])
     if (!userData) {
       return;
     }
-
     if (!Object.keys($scope.userDetails).length || isMobius) {
       // No fields are touched yet, prefiling
       //waiting for countries
       $scope.$watch('profileCountries', function() {
         //overriding country name from /locales data using user data iso3 as infiniti country name doesn't match /locales country names
-        var userCountry = null;
-        _.each($scope.profileCountries, function(country) {
-          if (country.id === userData.localeCode) {
-            userCountry = country.name;
-          }
-        });
+        var userCountry = getUserCountry(userData);
         _.extend($scope.userDetails, {
           title: userData.title || null,
           firstName: userData.firstName || '',
@@ -333,8 +329,9 @@ angular.module('mobius.controllers.reservation', [])
           address: userData.address1 || '',
           city: userData.city || '',
           stateProvince: userData.state,
-          localeCode: userData.localeCode,
-          country: userCountry || null,
+          localeCode: userCountry ? userCountry.code : '',
+          localeId: userCountry ? userCountry.id : '',
+          country: userCountry && userCountry.name || null,
           zip: userData.zip || '',
           phone: userData.tel1 || userData.tel2 || ''
         });
@@ -514,7 +511,7 @@ angular.module('mobius.controllers.reservation', [])
           pointsRequired: $scope.getTotal('pointsRequired')
         };
 
-        if ($scope.isLoggedIn()) {
+        if ($scope.auth.isLoggedIn()) {
           if (user.getUser().loyalties) {
             $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
           }
@@ -539,7 +536,7 @@ angular.module('mobius.controllers.reservation', [])
         case 'reservation.billing':
           switch ($scope.billingDetails.paymentMethod) {
             case 'point':
-              if ($scope.isLoggedIn() && $scope.getTotal('pointsRequired')) {
+              if ($scope.auth.isLoggedIn() && $scope.getTotal('pointsRequired')) {
                 return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
               }
               break;
@@ -705,7 +702,7 @@ angular.module('mobius.controllers.reservation', [])
       guestCity: $scope.userDetails.city,
       guestZip: $scope.userDetails.zip,
       guestStateProvince: $scope.userDetails.stateProvince,
-      guestCountry: $scope.userDetails.localeCode,
+      guestCountry: getUserCountry().code,
 
       billingDetailsUseGuestAddress: $scope.billingDetails.useGuestAddress,
       optedIn: $scope.additionalInfo.optedIn,
@@ -1113,16 +1110,14 @@ angular.module('mobius.controllers.reservation', [])
           };
 
           var trackingData = angular.copy(reservationData);
-          trackingData.guestCountry = _.find($scope.profileCountries, function(country) {
-            return country.id === $scope.userDetails.localeCode;
-          });
+          trackingData.guestCountry = getUserCountry();
 
           var scopeData = {
-            'allRooms':$scope.allRooms,
-            'moreRoomData':$scope.moreRoomData,
-            'profileTitles':$scope.profileTitles,
-            'profileCountries':$scope.profileCountries,
-            'userDetails':$scope.userDetails
+            'allRooms': angular.copy($scope.allRooms),
+            'moreRoomData': angular.copy($scope.moreRoomData),
+            'profileTitles': angular.copy($scope.profileTitles),
+            'profileCountries': angular.copy($scope.profileCountries),
+            'userDetails': angular.copy($scope.userDetails)
           };
           mobiusTrackingService.trackPurchase($scope.bookingDetails, $scope.chain, $scope.property, products, $scope.allRooms, trackingData, $scope.rates.selectedRate);
 
@@ -1399,9 +1394,14 @@ angular.module('mobius.controllers.reservation', [])
     }
   });
 
-  $scope.$watch('userDetails.localeCode', function() {
-    if ($scope.userDetails.localeCode && $scope.profileCountries) {
-      $scope.userDetails.countryObj = contentService.getCountryByID($scope.userDetails.localeCode, $scope.profileCountries);
+  $scope.$watch('userDetails.localeId', function() {
+    if ($scope.userDetails.localeId && $scope.profileCountries) {
+      var countryObj = getUserCountry($scope.userDetails);
+      if (countryObj) {
+        $scope.userDetails.countryObj = countryObj;
+        // Make sure we have the localeCode for annon user
+        $scope.userDetails.localeCode = countryObj.code;
+      }
     }
   });
 
@@ -1477,10 +1477,25 @@ angular.module('mobius.controllers.reservation', [])
     return userTitle;
   }
 
-  function getUserCountry(){
-    var userCountry = _.find($scope.profileCountries, function(country) {
-      return country.id === $scope.userDetails.localeCode;
-    });
+  function getUserCountry(userData) {
+    var userDetails = userData || $scope.userDetails;
+    var code = userDetails.iso3 || userDetails.localeCode;
+    var id = userDetails.localeId;
+    var userCountry;
+
+    if (code) {
+      userCountry = contentService.getCountryByCode(code, $scope.profileCountries);
+    }
+
+    if (id) {
+      userCountry = contentService.getCountryByID(id, $scope.profileCountries);
+    }
+
+    if (!userCountry) {
+      $log.warn('WARNING: Unexpected behaviour, the user country has not been found');
+      return null;
+    }
+
     return userCountry;
   }
 

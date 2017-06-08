@@ -24,7 +24,9 @@ angular.module('mobiusApp.dynamicMessages', [])
     'noshow':'No Show',
     'pet':'Pet',
     'from':'From',
-    'tax':'tax'
+    'tax':'tax',
+    'adults': 'adults',
+    'children': 'children'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
@@ -45,6 +47,8 @@ angular.module('mobiusApp.dynamicMessages', [])
     'noshow':'Keine Show',
     'pet':'Haustier',
     'from':'Von',
-    'tax':'Steuer'
+    'tax':'Steuer',
+    'adults': 'Erwachsene',
+    'children': 'Kinder'
   }
 });

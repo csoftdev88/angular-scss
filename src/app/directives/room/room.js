@@ -4,7 +4,8 @@ angular.module('mobiusApp.directives.room', [])
 
 .directive('room', function($stateParams, $state, Settings, breadcrumbsService, $q, $window, stateService,
   bookingService, propertyService, filtersService, modalService, preloaderFactory, metaInformationService, user, _,
-  $controller,$location,$rootScope,scrollService,$timeout, contentService, dataLayerService, cookieFactory, chainService, channelService, userPreferenceService, $filter) {
+  $controller,$location,$rootScope,scrollService,$timeout, contentService, dataLayerService, cookieFactory,
+                            chainService, channelService, userPreferenceService, $filter) {
 
   return {
     restrict: 'E',
@@ -18,6 +19,7 @@ angular.module('mobiusApp.directives.room', [])
       scope.ratesLoaded = false;
       scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
       scope.roomRatesLimit = Settings.UI.roomDetails.numberOfRatesToShow;
+      scope.roomsConfig = Settings.UI.hotelDetails.rooms;
       scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
       scope.config = Settings.UI.roomDetails;
       var bookingParams = bookingService.getAPIParams();
@@ -149,6 +151,11 @@ angular.module('mobiusApp.directives.room', [])
         });
 
         $q.all([roomDetailsPromise, propertyPromise]).then(function(data) {
+
+          propertyService.getRoomProducts(propertyCode, roomCode, bookingParams)
+            .then(function(data) {
+              scope.otaProducts = data.otaProducts;
+            });
 
           if(data && data.length > 1){
 

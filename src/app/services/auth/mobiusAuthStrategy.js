@@ -17,27 +17,28 @@ angular
       scope.passwordResetSuccess = false;
     }
 
-    var doLogin = function (scope) {
-      scope.loginForm.$submitted = true;
-      if (scope.loginForm.$valid) {
+    var doLogin = function (loginForm, loginData) {
+      loginForm.$submitted = true;
+      if (loginForm.$valid) {
         var headersObj = {};
+        var vm = this;
         headersObj[KEY_CUSTOMER_ID] = undefined;
         apiService.setHeaders(headersObj);
-        apiService.post(apiService.getFullURL('customers.login'), scope.loginData).then(function (data) {
+        apiService.post(apiService.getFullURL('customers.login'), loginData).then(function (data) {
           if (data.id !== null) {
             $rootScope.showLoginDialog = false;
-            clearErrorMsg(scope);
+            clearErrorMsg(vm);
             userObject.id = data.id;
             user.storeUserId(data.id);
             user.loadProfile();
           }
           else {
-            scope.loginDialogError = true;
-            scope.incorrectEmailPasswordError = true;
+            vm.loginDialogError = true;
+            vm.incorrectEmailPasswordError = true;
           }
         }, function () {
-          scope.loginDialogError = true;
-          scope.incorrectEmailPasswordError = true;
+          vm.loginDialogError = true;
+          vm.incorrectEmailPasswordError = true;
         });
       }
     };
@@ -45,9 +46,7 @@ angular
     var login = function (scope) {
       $rootScope.showLoginDialog = !$rootScope.showLoginDialog;
       // @todo find a way to assign the function without doing it every time login is called
-      if (! scope.doLogin) {
-        scope.doLogin = doLogin.bind(scope);
-      }
+      scope.doLogin = doLogin.bind(scope);
     };
 
     var logout = function () {
@@ -73,11 +72,11 @@ angular
       return !!(userObject.id && userObject.email);
     };
 
-    var reset = function (scope) {
-      scope.resetForm.$submitted = true;
-      if (scope.resetForm.$valid) {
-        apiService.post(apiService.getFullURL('customers.forgotPassword'), scope.resetData).then(function(){
-          clearErrorMsg();
+    var reset = function (resetForm, resetData, scope) {
+      resetForm.$submitted = true;
+      if (resetForm.$valid) {
+        apiService.post(apiService.getFullURL('customers.forgotPassword'), resetData).then(function(){
+          clearErrorMsg(scope);
           scope.loginDialogError = true;
           scope.passwordResetSuccess = true;
         }, function () {

@@ -25,9 +25,13 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Pet',
       'from': 'From',
       'tax': 'tax',
+      'adults': 'Adults',
+      'children': 'Children',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
-      'group_code_applied':'Group code applied successfully'
+      'group_code_applied':'Group code applied successfully',
+      'apply_code': 'Enter a code',
+      'select_property': 'Find Your Hotel'
     },
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',
@@ -51,7 +55,9 @@ angular.module('mobiusApp.dynamicMessages', [])
       'tax': 'Steuer',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
-      'group_code_applied':'Group code applied successfully'
+      'group_code_applied':'Group code applied successfully',
+      'apply_code': 'Enter a code',
+      'select_property': 'Find Your Hotel'
     },
     'fr': {
       'your_reservation': '<div>Votre réservation <strong>',
@@ -75,6 +81,8 @@ angular.module('mobiusApp.dynamicMessages', [])
       'tax': 'Taxes',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
-      'group_code_applied':'Group code applied successfully'
+      'group_code_applied':'Group code applied successfully',
+      'apply_code': 'Enter a code',
+      'select_property': 'Find Your Hotel'
     }
   });

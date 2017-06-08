@@ -89,6 +89,13 @@ angular
       console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
     };
 
+    var reset = function (resetForm, resetData) {
+      if (strategy) {
+        return strategy.reset(resetForm, resetData, $scope);
+      }
+      console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
+    };
+
     // ---- UTILITY FUNCTIONS -----
     var getStrategy = function () {
       return Settings.authType;
@@ -121,6 +128,7 @@ angular
       isLoggedIn: isLoggedIn,
       register: register,
       viewProfile: viewProfile,
+      reset: reset,
       getStrategy: getStrategy,
       isInfiniti: isInfiniti,
       isMobius: isMobius,

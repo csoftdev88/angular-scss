@@ -1,0 +1,191 @@
+@import "./variables";
+@import "./mobile";
+
+.questionnaire {
+
+  padding: 0 @questionnaire-padding;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 20px;
+
+  // Typography
+  h1, h2 {
+    color: @lbe-c-primary;
+  }
+
+  h1 {
+    font-size: 16px;
+    letter-spacing: @questionnaire-letter-spacing-wide;
+    font-family: @lbe-ff-primary;
+  }
+
+  h2 {
+    font-size: 12px;
+    letter-spacing: @questionnaire-letter-spacing-avg;
+    font-family: @lbe-ff-secondary;
+  }
+
+  .questionnaire__points {
+    height: 300px;
+    margin-bottom: 13px;
+    object-fit: contain;
+    background: url(@questionnaire-points-bg-image);
+  }
+
+  .questionnaire__feature {
+    height: 137px;
+    object-fit: contain;
+    background: url(@questionnaire-feature-reward-bg-image);
+  }
+
+  .questionnaire__subtitle {
+    color: @lbe-c-secondary;
+    font-size: 15.2px;
+    letter-spacing: @questionnaire-letter-spacing-wide;
+    margin-bottom: 48px;
+  }
+
+  .questionnaire__your-points {
+    margin: 64px 0 0 66px;
+    font-family: @lbe-ff-secondary;
+    .points {
+      color: @lbe-c-primary;
+      font-size: 55px;
+      letter-spacing: @questionnaire-letter-spacing-wide;
+      display: block;
+      padding-bottom: 20px;
+    }
+    .points-label {
+      color: @lbe-c-secondary;
+      font-size: 31px;
+      letter-spacing: @questionnaire-letter-spacing-wide;
+      text-transform: capitalize;
+    }
+  }
+
+  .questionnaire__status {
+    margin: 27px 0 0 37px;
+    span {
+      font-family: @lbe-ff-secondary;
+      text-transform: uppercase;
+      color: @c-white;
+      font-size: 16px;
+    }
+    &:after {
+      content: url(@questionnaire-status-divider);
+      display: block;
+      margin-left: 7px;
+    }
+  }
+
+  .questionnaire__points,
+  .questionnaire__feature {
+    float: left;
+    width: 54%;
+    margin-right: 15px;
+  }
+
+  .questionnaire__questions {
+    overflow: hidden;
+    padding: @questionnaire-questions-padding;
+    border: @questionnaire-questions-border;
+  }
+
+  .questionnaire__options {
+    label {
+      font-size: 18.2px;
+      font-family: @lbe-ff-primary;
+      line-height: 2.3;
+      color: @c-black;
+    }
+    // @todo create custom checkboxes
+    /*input {
+      //appearance: none;
+      width: 18px;
+      height: 18px;
+      border: solid 1px #adb3b9;
+    }*/
+  }
+
+  .questionnaire__tier {
+    width: @questionnaire-tier-circle-size;
+    height: @questionnaire-tier-circle-size;
+    border-radius: 50%;
+    border: @questionnaire-tier-circle-border;
+    position: absolute;
+    top: 60px;
+    left: 350px;
+    .tier-content {
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 100%;
+    }
+    span {
+      display: block;
+      font-family: @lbe-ff-secondary;
+    }
+    .tier {
+      text-transform: uppercase;
+      color: @c-white;
+      font-size: 14px;
+    }
+    .tagline {
+      color: @lbe-c-secondary;
+    }
+    .stays {
+      font-size: 30px;
+      line-height: 34px;
+      color: @lbe-c-primary;
+      letter-spacing: @questionnaire-letter-spacing-thin;
+    }
+  }
+
+  .questionnaire__featureReward {
+    width: 169px;
+    height: 24px;
+    margin-top: 8px;
+    padding-left: 20px;
+    background: @lbe-c-tertiary;
+    span {
+      font-size: 14px;
+      color: @c-white;
+      text-transform: uppercase;
+    }
+  }
+
+  .questionnaire__reward {
+    width: 491px;
+    height: 70px;
+    margin-top: 9px;
+    backdrop-filter: blur(1.6px);
+    background-color: rgba(26, 26, 26, 0.8);
+    padding: 11px 0 0 17px;
+    span {
+      font-family: @lbe-ff-secondary;
+      display: block;
+      color: @c-white;
+    }
+    .rewardName {
+      text-transform: uppercase;
+    }
+    .rewardPoints {
+      font-size: 18px;
+    }
+  }
+
+  .questionnaire__submit {
+    width: 246px;
+    height: 40px;
+    background-color: @lbe-c-primary;
+    font-size: 16px;
+    font-family: @lbe-ff-primary;
+    text-align: center;
+    border-radius: 0;
+    color: @c-white;
+  }
+
+}
+

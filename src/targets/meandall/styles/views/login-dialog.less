@@ -50,8 +50,21 @@
       padding: 0 30px;
     }
   }
+  .form-wrapper {
+    form {
+      button-submit {
+        position: relative;
+        left: 30px;
+        bottom: 15px;
+        width: 340px;
+        width: 82%;
+        background: initial;
+        border: solid 2px #ffffff;
+      }
+    }
+  }
   .options {
-    margin: 0;
+    margin: 0 0 50px 0;
     text-align: center;
     padding-bottom: 30px;
     li {
@@ -61,14 +74,13 @@
       a {
         font-size: 19px;
         padding: 0 10px;
+        color: @c-white;
+        text-decoration: underline;
         &:before {
           color: @c-primary;
         }
       }
     }
-  }
-  a {
-    color: @c-link !important;
   }
   .close-btn {
     color: @c-primary !important;

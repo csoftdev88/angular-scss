@@ -1,8 +1,22 @@
 user-messages {
-  background:transparent;
+  background: transparent;
   box-shadow:none;
   position:relative;
   top:initial;
+  &.reservation-confirmation {
+    // @note The image that this matches is set in a config file, if that image is updated this file was also need to reflect the change
+    background: url("@{img-prefix}/section-images/RS12959_DUSIMM_Zimmer_STANDARD_05-scr.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    ul {
+      width: 80%;
+      margin-right: auto;
+      margin-left: auto;
+      padding-bottom: 60px;
+      padding-top: 30px;
+    }
+  }
+
   ul li {
     display:inline-block;
     width:100%;
@@ -22,8 +36,8 @@ user-messages {
       padding: 30px 0px 15px 0;
     }
     span.title {
-      margin-bottom:45px;
-      font-size:28px;
+      margin-bottom: 19px;
+      font-size: 28px;
       .viewport-mobile & {
         font-size:18px;
         line-height:1.3em;
@@ -37,6 +51,12 @@ user-messages {
         font-size:23px;
       }
     }
+    .user-message__img {
+      float: left;
+      height: 123px;
+      padding-left: 31px;
+      margin-right: 32px;
+    }
   }
   .message-close {
     // Cross icon
@@ -49,6 +69,10 @@ user-messages {
       text-indent:initial;
       display:block;
       position:absolute;
+      font-size: 18px;
     }
+  }
+  .message-content {
+    text-align: left;
   }
 }
