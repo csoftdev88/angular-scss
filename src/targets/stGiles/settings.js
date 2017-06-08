@@ -763,7 +763,9 @@ angular.module('mobiusApp.config', [])
         'shortFormat': '{{symbol}}{{amount}}',
       }
     },
-
+    'offersWidget': {
+      'numOffers': 6
+    },
     'offers':{
       'discountCodeCookieExpiryDays': 5,
       'displayPageHeading': true,
@@ -993,7 +995,9 @@ angular.module('mobiusApp.config', [])
     // States layout
     'layout': {
       'home': [
-        'about-hotel'
+        'about-hotel',
+        'testimonial',
+        'offers'
       ],
       'hotels': [
         'hotels'
@@ -1006,7 +1010,9 @@ angular.module('mobiusApp.config', [])
 
     // Widget names and their templates
     'templates': {
-      'about-hotel': '<about-hotel></about-hotel>',
+      'about-hotel': '<h1>dsfsdf</h1>',
+      'testimonial': '<recommendation></recommendation>',
+      'offers': '<offers></offers>',
       'best-offers': '<best-offers></best-offers>',
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',

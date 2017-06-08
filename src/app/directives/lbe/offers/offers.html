@@ -1,0 +1,25 @@
+<article class="Offers">
+
+  <h1 class="Offers__title">Members Offers</h1>
+
+  <div class="Offers__panel">
+
+    <div class="Offers__offer"
+         ng-repeat="offer in offers">
+
+      <span class="Offers__offer--title">
+        {{ offer.title }}
+      </span>
+      <img ng-click="gotoOffer(offer)" ng-src="{{ offer.image.uri }}">
+
+    </div>
+
+  </div>
+
+  <div class="Offers__see-more">
+    <button ui-sref="offers" class="Offers__button">
+      See more
+    </button>
+  </div>
+
+</article>
