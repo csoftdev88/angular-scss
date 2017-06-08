@@ -14,7 +14,7 @@ angular.module('mobiusApp.services.userMessagesService', [])
       }
     }
 
-    function addMessage(html, keepOldMessages, routeIsChanging) {
+    function addMessage(html, keepOldMessages, routeIsChanging, style) {
 
       isChangingRoute = routeIsChanging || false;
 
@@ -28,6 +28,10 @@ angular.module('mobiusApp.services.userMessagesService', [])
           html: html
         });
 
+        $timeout(function () {
+          updateStyleClass(style);
+        }, 0);
+
         if (!stateService.isMobile()) {
           $timeout(function () {
             document.body.style.paddingTop = angular.element('#user-messages').height() + 'px';
@@ -36,11 +40,20 @@ angular.module('mobiusApp.services.userMessagesService', [])
       });
     }
 
+    function updateStyleClass(style) {
+      var element = $('user-messages');
+      element.removeClass();
+      element.addClass('ng-scope');
+      if (style) {
+        element.addClass(style);
+      }
+    }
+
     function addReservationConfirmationMessage(property, reservationCode, keepOldMessages, routeIsChanging) {
 
       isChangingRoute = routeIsChanging || false;
 
-      if(!keepOldMessages && messages.length){
+      if(!keepOldMessages && messages.length) {
         clearMessages();
       }
 
@@ -50,6 +63,10 @@ angular.module('mobiusApp.services.userMessagesService', [])
           property: property,
           reservationCode: reservationCode
         });
+
+        $timeout(function () {
+          updateStyleClass('reservation-confirmation');
+        }, 0);
 
         if (!stateService.isMobile()) {
           $timeout(function () {

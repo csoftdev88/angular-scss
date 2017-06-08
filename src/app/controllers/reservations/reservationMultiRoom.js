@@ -3,8 +3,8 @@
  * This module controlls reservation update flow
  */
 angular.module('mobius.controllers.reservationMultiRoom', [])
-  .controller('ReservationMultiRoomCtrl', function($scope, $state, $filter,
-    $location, $stateParams, notificationService, bookingService, validationService){
+  .controller('ReservationMultiRoomCtrl', function($scope, $state, $filter, $location, $stateParams, Settings, $window,
+                                                   notificationService, bookingService, validationService, stateService){
     var isMultiRoomMode = false;
 
     var EVENT_MULTIROOM_CANCELED = 'EVENT-MULTIROOM-CANCELED';
@@ -18,10 +18,10 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
 
         var rooms, currentRoomIndex;
 
-        if(toParams.room){
-          rooms = bookingService.getMultiRoomData(toParams.rooms);
+        rooms = bookingService.getMultiRoomData(toParams.rooms);
+        if(toParams.room && (rooms.length > 1)) {
           currentRoomIndex = parseInt(toParams.room, 10) - 1;
-          showNotification(rooms, currentRoomIndex);
+          showNotification(rooms, currentRoomIndex, toParams.dates);
         }else{
           notificationService.hide();
         }
@@ -80,16 +80,47 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
       }
     });
 
-    function showNotification(rooms, currentRoomIndex){
+    function showNotification(rooms, currentRoomIndex, dates){
       var currentRoom = rooms[currentRoomIndex];
 
       currentRoomIndex++;
 
-      notificationService.show('<div class="multiroom-notification"><div class="rooms"><p>Room</p><p>' +
-        currentRoomIndex + ' of ' + rooms.length +'</p></div>' +
-        '<div class="details"><p>' + getAdultsCount(currentRoom) +
-        '</p><p>' + getChildrenCount(currentRoom) +'</p></div></div>',
-        EVENT_MULTIROOM_CANCELED);
+      var notification = '';
+
+      if (stateService.isMobile()) {
+        notification =
+          '<div class="multiroom-notification">' +
+            '<div class="number-of-rooms">' +
+              '<p>Room ' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
+            '</div>' +
+          '</div>';
+      } else {
+        notification =
+          '<div class="multiroom-notification">' +
+            '<div class="rooms">' +
+              '<p>Room</p>' +
+              '<p>' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
+            '</div>' +
+            '<div class="details">' +
+              '<p>' + getAdultsCount(currentRoom) + '</p>' +
+              '<p>' + getChildrenCount(currentRoom) +'</p>' +
+            '</div>' +
+            '<div class="dates">' +
+              '<p>' + getStartDate(dates) + '</p>' +
+              '<p>' + getEndDate(dates) + '</p>' +
+            '</div>' +
+          '</div>';
+      }
+
+      notificationService.show(notification, EVENT_MULTIROOM_CANCELED);
+    }
+
+    function getStartDate(dates) {
+      return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.generics.longDateFormat);
+    }
+
+    function getEndDate(dates) {
+      return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.generics.longDateFormat);
     }
 
     function getAdultsCount(room){

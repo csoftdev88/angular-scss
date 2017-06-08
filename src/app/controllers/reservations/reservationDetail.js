@@ -360,6 +360,17 @@ angular.module('mobius.controllers.reservationDetail', [])
       });
   }
 
+  function buildCancellationMessageHtml() {
+    var html = DynamicMessages[appLang].your_reservation +
+      $stateParams.reservationCode +
+      DynamicMessages[appLang].was_successfully_cancelled;
+
+    if (Settings.UI.booking.cancellationMessageImage && Settings.UI.booking.cancellationMessageImage.display) {
+      html = '<img src="'+ Settings.UI.booking.cancellationMessageImage.url + '">' + html;
+    }
+    return html;
+  }
+
   $scope.openCancelReservationDialog = function() {
     // NOTE: API not providing the flag yet
     if ($scope.reservation.canCancel === false) {
@@ -376,11 +387,10 @@ angular.module('mobius.controllers.reservationDetail', [])
           if ($scope.config.displayCancelConfirmedModal) {
             modalService.openReservationCancelConfirmedDialog($stateParams.reservationCode);
           } else if(DynamicMessages && DynamicMessages[appLang]) {
-            userMessagesService.addMessage(DynamicMessages[appLang].your_reservation +
-              $stateParams.reservationCode + DynamicMessages[appLang].was_successfully_cancelled, false, true);
+            userMessagesService.addMessage(buildCancellationMessageHtml(), false, true, 'reservation-cancellation');
           } else {
             userMessagesService.addMessage('<div>Your Reservation <strong>' +
-              $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true);
+              $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true, 'reservation-cancellation');
           }
 
           // Tracking refund

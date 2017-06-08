@@ -194,6 +194,10 @@ angular
     'mobiusApp.directives.slidedownNotifications',
     'mobiusApp.directives.inclusions',
     'mobiusApp.directives.sectionImage',
+    'mobiusApp.directives.lbe.recommendation',
+    'mobiusApp.directives.lbe.questionnaire',
+    'mobiusApp.directives.lbe.instagramFeed',
+
 
     'internationalPhoneNumber',
 
@@ -688,7 +692,7 @@ angular
 })
 
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _) {
+  metaInformationService, Settings, notificationService, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _, DynamicMessages) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -702,7 +706,7 @@ angular
   });
 
   $scope.uiConfig = Settings.UI;
-  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
+  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay;
   $scope.userLang = user.getUserLanguage();
   $scope.appLang = stateService.getAppLanguageCode();
   $scope.scrollService = scrollService;
@@ -817,7 +821,7 @@ angular
     $scope.user = user;
     $scope.isUserLoggedIn = $scope.auth.isLoggedIn;
 
-    $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
+    $rootScope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
       $scope.isUserLoggedIn = $scope.auth.isLoggedIn;
       if($state.current.name === 'reservation.details')
       {
@@ -830,7 +834,34 @@ angular
       $scope.hideMenuOverlay();
     }
 
+    if (Settings.UI.infoBar && Settings.UI.infoBar.showForSingleBookings) {
+      //Get our dynamic translations
+      var appLang = stateService.getAppLanguageCode();
+      if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms && !stateService.isMobile()) {
+        notificationService.show(
+          '<div class="singleroom-notification">' +
+          '<div class="details">' +
+          '<p>' + toParams.adults + ' ' + DynamicMessages[appLang].adults + '</p>' +
+          '<p>' + toParams.children + ' ' + DynamicMessages[appLang].children + '</p>' +
+          '</div>' +
+          '<div class="dates">' +
+          '<p>' + getStartDate(toParams.dates) + '</p>' +
+          '<p>' + getEndDate(toParams.dates) + '</p>' +
+          '</div>' +
+          '</div>'
+        );
+      }
+    }
+
   });
+
+  function getStartDate(dates) {
+    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.generics.longDateFormat);
+  }
+
+  function getEndDate(dates) {
+    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.generics.longDateFormat);
+  }
 
   $scope.$on('$stateChangeSuccess', function() {
     //Sandman specific HACK to display french on quebec pages
