@@ -360,6 +360,13 @@ angular.module('mobiusApp.config', [])
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
+    'bookingBar': {
+      'maxAdults': 8,
+      'maxChildren': 8,
+      'dateFormat': 'dd MM yy',
+      'defaultSize': 'large',
+      'useTommorowDefault': true
+    },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
