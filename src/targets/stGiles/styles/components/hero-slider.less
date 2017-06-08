@@ -54,6 +54,12 @@ hero-slider {
         }
       }
       .content-inner {
+        .slide-title {
+          display: none;
+        }
+        .slide-subtitle {
+          display: none;
+        }
         max-width: 100%;
         margin: 0 auto;
         position: relative;
@@ -167,8 +173,7 @@ hero-slider {
 // MOBILE SPECIFIC STYLES
 @media only screen and @small-mobile-max {
   hero-slider {
-    height: 158px;
-    margin-top: 60px;
+    height: 100vh; //calc(~'100vh - 109px');
     .thirdparty-active & {
       margin-top:95px;
     }

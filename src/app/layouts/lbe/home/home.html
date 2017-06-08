@@ -3,6 +3,37 @@
              slide-height="uiConfig.heroSlider.slideHeight">
 </hero-slider>
 
+<article class="HeroTitle">
+  <img src="/static/images/icon.png">
+  <div class="HeroTitle__title">
+    <h1>{{ $root.heroContent[0].title }}</h1>
+  </div>
+  <button class="HeroTitle__button">_find_out_more_</button>
+</article>
+
+<article class="HeroBenefits" ng-if="!auth.isLoggedIn()">
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_one_title_</h2>
+    <p>_about_benefit_one_text_</p>
+  </div>
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_two_title_</h2>
+    <p>_about_benefit_two_text_</p>
+  </div>
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_four_title_</h2>
+    <p>_about_benefit_four_text_</p>
+  </div>
+  <div class="HeroBenefits__buttons">
+    <button class="HeroBenefits__button find-out">
+      _find_out_more_
+    </button>
+    <button class="HeroBenefits__button signup">
+      _sign_up_
+    </button>
+  </div>
+</article>
+
 <main class="grid-wrapper">
   <div class="preloader" ng-show="preloader.visible"></div>
   <section dynamic-layout></section>
