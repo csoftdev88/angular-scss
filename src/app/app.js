@@ -232,15 +232,17 @@ angular
 
   // Determine which layouts to used based on engine type
   var aboutLayout = 'layouts/about/about.html';
+  var indexLayout = 'layouts/index.html';
   if (Settings.engine === 'loyalty') {
     aboutLayout = 'layouts/lbe/about/about.html';
+    indexLayout = 'layouts/lbe/index.html';
   }
 
   $stateProvider
   // Default application layout
     .state('root', {
     abstract: true,
-    templateUrl: 'layouts/index.html',
+    templateUrl: indexLayout,
     controller: 'MainCtrl',
     // NOTE: These params are used by booking widget
     // Can be placed into induvidual state later if needed

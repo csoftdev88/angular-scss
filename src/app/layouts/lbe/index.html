@@ -1,0 +1,47 @@
+
+<header class="Header" ng-include="'layouts/lbe/header.html'"></header>
+
+<div class="Menu">
+  <ul class="Menu__items">
+    <li ui-sref="hotels" class="Menu__items--item">
+      _menu_hotels_
+    </li>
+    <li ui-sref="offers" class="Menu__items--item">
+      _menu_specials_
+    </li>
+    <li ui-sref="contacts" class="Menu__items--item">
+      _menu_contact_
+    </li>
+    <li class="Menu__items--item">
+      <img src="/static/images/lbe/divider-orange.png">
+    </li>
+    <li class="Menu__items--highlight">
+      _menu_name_
+    </li>
+    <li ui-sref="reservations" class="Menu__items--item">
+      _menu_reservations_
+    </li>
+    <li ui-sref="rewards" class="Menu__items--item">
+      _menu_rewards_
+    </li>
+    <li ui-sref="prestige" class="Menu__items--item">
+      _menu_loyalty_
+    </li>
+    <li ui-sref="profile" class="Menu__items--item">
+      _menu_profile_
+    </li>
+    <li ng-click="auth.logout(); retentionClick();" class="Menu__items--item">
+      _logout_
+    </li>
+  </ul>
+</div>
+
+<user-messages></user-messages>
+
+<!-- MAIN CONTENT AREA -->
+<div ui-view autoscroll="true"></div>
+
+<footer class="main"
+        ng-if="!hideFooter"
+        ng-include="'layouts/lbe/footer.html'">
+</footer>
