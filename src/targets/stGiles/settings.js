@@ -339,6 +339,9 @@ angular.module('mobiusApp.config', [])
         { url: '/static/images/lbe/insta-5.png'}
       ]
     },
+    'tagline': {
+      'showLogo': true
+    },
     'previousSearches': {
       'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
@@ -995,9 +998,11 @@ angular.module('mobiusApp.config', [])
     // States layout
     'layout': {
       'home': [
-        'about-hotel',
+        'about',
+        'questionnaire',
         'testimonial',
-        'offers'
+        'offers',
+        'instagram-feed'
       ],
       'hotels': [
         'hotels'
@@ -1010,9 +1015,10 @@ angular.module('mobiusApp.config', [])
 
     // Widget names and their templates
     'templates': {
-      'about-hotel': '<h1>dsfsdf</h1>',
+      'about': '<tagline showLogo="true" text="Become a St. Giles Insider - Sign Up now and benefit immediately… It’s that simple."></tagline>',
       'testimonial': '<recommendation></recommendation>',
       'offers': '<offers></offers>',
+      'instagram-feed': '<instagram-feed></instagram-feed>',
       'best-offers': '<best-offers></best-offers>',
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',

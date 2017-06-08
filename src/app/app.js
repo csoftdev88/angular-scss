@@ -198,7 +198,7 @@ angular
     'mobiusApp.directives.lbe.questionnaire',
     'mobiusApp.directives.lbe.instagramFeed',
     'mobiusApp.directives.lbe.offers',
-
+    'mobiusApp.directives.lbe.tagline',
 
     'internationalPhoneNumber',
 
@@ -234,9 +234,11 @@ angular
   // Determine which layouts to used based on engine type
   var aboutLayout = 'layouts/about/about.html';
   var indexLayout = 'layouts/index.html';
+  var homeLayout = 'layouts/home/home.html';
   if (Settings.engine === 'loyalty') {
     aboutLayout = 'layouts/lbe/about/about.html';
     indexLayout = 'layouts/lbe/index.html';
+    homeLayout = 'layouts/lbe/home/home.html';
   }
 
   $stateProvider
@@ -253,7 +255,7 @@ angular
   // Home page
   .state('home', {
     parent: 'root',
-    templateUrl: 'layouts/home/home.html',
+    templateUrl: homeLayout,
     url: '/'
   })
 
