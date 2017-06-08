@@ -2,7 +2,27 @@
 .viewport-mobile {
 
   .HeroBenefits {
-    display: none;
+    position: initial;
+    padding: 31px 12px 0 12px;
+  }
+
+  .HeroBenefits__benefit {
+    margin-bottom: 32px;
+    h2, p {
+      color: #000;
+    }
+  }
+
+  .HeroBenefits__button {
+    border: solid 2.4px #e3a314;
+    width: calc(~'50% - 14px');
+    display: inline-block;
+    &:first-of-type {
+      margin-right: 24px;
+    }
+    &.login {
+      background: #e3a314;
+    }
   }
 
 }
