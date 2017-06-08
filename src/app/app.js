@@ -197,6 +197,7 @@ angular
     'mobiusApp.directives.lbe.recommendation',
     'mobiusApp.directives.lbe.questionnaire',
     'mobiusApp.directives.lbe.bookingBar',
+    'mobiusApp.directives.lbe.highlight',
     'mobiusApp.directives.lbe.instagramFeed',
 
     'internationalPhoneNumber',
