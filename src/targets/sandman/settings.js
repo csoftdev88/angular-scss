@@ -329,6 +329,15 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:true
     },
+    'instagramFeed': {
+      'images': [
+        { url: '/static/images/lbe/insta-1.png'},
+        { url: '/static/images/lbe/insta-2.png'},
+        { url: '/static/images/lbe/insta-3.png'},
+        { url: '/static/images/lbe/insta-4.png'},
+        { url: '/static/images/lbe/insta-5.png'}
+      ]
+    },
     'previousSearches': {
       'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
@@ -356,6 +365,9 @@ angular.module('mobiusApp.config', [])
     },
     'datepicker': {
       'showToday': false
+    },
+    'infoBar': {
+      'showForSingleBookings': false
     },
     'generics': {
       'singleProperty': false,
@@ -548,7 +560,7 @@ angular.module('mobiusApp.config', [])
         'hotelReadMoreMobile': true
       },
       'bookingStatistics':{
-        'display': false,
+        'display': true,
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
