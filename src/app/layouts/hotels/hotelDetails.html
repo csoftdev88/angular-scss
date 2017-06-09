@@ -4,13 +4,13 @@
 
 <notification-bar ng-if="config.sectionImages && config.sectionImages[0]" sticky-header="true" currently-editing="_you_are_currently_editing_"></notification-bar>
 
-<breadcrumbs ng-if="!viewSettings.hideBreadcrumbs" stickable="main-header" id="breadcrumbs"></breadcrumbs>
+<breadcrumbs class="HotelBreadcrumbs" ng-if="!viewSettings.hideBreadcrumbs" stickable="main-header" id="breadcrumbs"></breadcrumbs>
 
 <main class="grid-wrapper hotel-detail">
 
   <div class="preloader" ng-show="preloader.visible && !isFromSearch"></div>
 
-  <hotel-detail itemscope itemtype="http://schema.org/Hotel">
+  <hotel-detail itemscope itemtype="http://schema.org/Hotel" class="HotelDetails">
 
     <!-- schema.org -->
     <meta itemprop="description" content="{{details.meta.microdata.schemaOrg.description}}" />

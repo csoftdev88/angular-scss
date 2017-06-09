@@ -26,6 +26,9 @@ room-products {
 		> li {
 			border-color: #c6beb5;
 			position:relative;
+      .rate-description {
+        border-right: none;
+      }
 			//border: 0;
 			//border-bottom: 1px solid @c-light-grey;
 			&:first-child {
@@ -227,14 +230,14 @@ room-products {
 				}
 				.action-buttons {
 					.button {
-						background: @c-green;
+						background: @lbe-c-primary;
 						border-radius: 2px;
 						font-size: 14px;
 						text-transform: uppercase;
 						line-height: 38px;
 						min-width:91px;
 						&:hover {
-							background: darken(@c-green, 10%);
+							background: darken(@lbe-c-primary, 10%);
 						}
 					}
 					.viewport-mobile & {}

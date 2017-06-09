@@ -1,0 +1,202 @@
+@import "./mobile";
+
+.HotelDetails {
+  // Hide all the dividers
+  hr {
+    display: none;
+  }
+
+  .section-header {
+    h2 {
+      display: none;
+    }
+    .search-details {
+      display: none;
+    }
+  }
+
+  .hotel-detail__location {
+    margin-top: 95px;
+  }
+
+  .hotel-overview {
+    margin-top: 148px;
+  }
+
+  .gallery-link,
+  .slide-button,
+  .view-map-link,
+  .pages {
+    display: none !important;
+  }
+
+  view-more-images {
+    read-more {
+      display: none;
+    }
+  }
+
+  .hotel-info-amenities {
+    h2 {
+      display: none;
+    }
+  }
+
+  .hotel-detail__rooms {
+
+    .display-all-rooms {
+      float: initial !important;
+      width: 192px !important;
+      height: 60px !important;
+      border: solid 2.4px #e3a314 !important;
+      text-transform: uppercase !important;
+      color: #e3a314 !important;
+      box-sizing: border-box;
+      background: transparent !important;
+      margin-left: calc(~'50% - 96px');
+      margin-top: 60px;
+    }
+
+    list-item {
+
+      .list-item-container {
+        border-top: none;
+      }
+
+      .list-item-info {
+        width: 280px !important;
+        hero-slider {
+          width: 100% !important;
+          ul.thumbnail-nav {
+            display: none;
+          }
+        }
+      }
+
+      room-products {
+
+        .button {
+          background: @lbe-c-primary !important;
+          border-radius: 0 !important;
+          width: 206px !important;
+          text-transform: uppercase !important;
+          color: #fff !important;
+        }
+
+        .view-more-rates {
+          display: none !important;
+        }
+
+        room-ota-products {
+          background: #fff;
+          h4 {
+            border-bottom: solid 1px #dfdfdf;
+          }
+          .ota-products {
+            border: none;
+            > li {
+              border-top: none;
+            }
+          }
+        }
+
+        a.info {
+          display: none;
+        }
+
+        a.tagline, .full-description {
+          padding-left: 0;
+        }
+
+      }
+
+      room-details {
+        border: none !important;
+        width: calc(~'100% - 280px') !important;
+        .description {
+          width: 100% !important;
+        }
+        .price-form {
+          display: none;
+        }
+      }
+
+      .amenities {
+        display: none;
+      }
+
+      h3 {
+        a {
+          color: #000 !important;
+        }
+        width: 100%;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 31px;
+        line-height: 36px;
+        font-family: Raleway;
+        font-weight: bold;
+        letter-spacing: 0;
+        &:after {
+          content: url('@{img-prefix}/lbe/divider-orange.png');
+          display: block;
+        }
+      }
+    }
+  }
+
+  .amenities-list {
+    margin: 44px 0 0 0;
+  }
+
+  .amenity-item {
+    margin-bottom: 57px;
+    span {
+      img {
+        max-height: none;
+        max-width: none;
+        height: 49px;
+        width: 54px;
+      }
+    }
+    .amenity-caption {
+      padding-left: 30px;
+      font-size: 21px;
+      letter-spacing: 0;
+      color: #000;
+      font-family: Raleway;
+      line-height: 25px;
+    }
+    &:nth-child(n + 7) {
+      display: none;
+    }
+  }
+
+  hotel-location {
+    h2 {
+      display: none;
+    }
+    .map-wrapper {
+      width: 100vw;
+      margin-left: calc(~'-50vw + 50% - 10px');
+      height: 376px;
+    }
+  }
+}
+
+.HotelBreadcrumbs {
+  .breadcrumbs {
+    background: #fff;
+    .alt-nav {
+      display: none;
+    }
+    h1 {
+      display: none;
+    }
+    .wrapper {
+      width: initial;
+      margin-left: 85px;
+      margin-top: 10px;
+    }
+  }
+}

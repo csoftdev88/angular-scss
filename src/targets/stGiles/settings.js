@@ -551,10 +551,10 @@ angular.module('mobiusApp.config', [])
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
-      'showLocalInfo': true,
+      'showLocalInfo': false,
       'removeScrollToRoomsOnFinish': true,
-      'displayAmenitiesInHotelInfo': true,
-      'findOutMoreLinksBottomMobile':true, //Positions the find out more section to the bottom of the page on mobile
+      'displayAmenitiesInHotelInfo': false,
+      'findOutMoreLinksBottomMobile':false, //Positions the find out more section to the bottom of the page on mobile
       'headerPartial':{
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
@@ -562,15 +562,17 @@ angular.module('mobiusApp.config', [])
         }
       },
       'partials':{
+        'hotelBookingBar': true,
         'hotelHeader': false,
         'hotelDatesSelected': false,
-        'hotelInfo': true,
         'hotelServices': false,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
+        'hotelInfo': true,
+        'hotelAmenities': true,
         'hotelLocation': true,
-        'hotelOffers': true,
-        'hotelReadMoreMobile': true
+        'hotelOffers': false,
+        'hotelReadMoreMobile': false
       },
       'bookingStatistics':{
         'display': false,
@@ -598,7 +600,7 @@ angular.module('mobiusApp.config', [])
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,
       'rateInfoIsTabbed': true,
-      'showLocalInfo': true,
+      'showLocalInfo': false,
       'headerPartial':{
         'display': false,
         'logo':{
@@ -1071,11 +1073,12 @@ angular.module('mobiusApp.config', [])
         }
       },
       'hotelDetails':{
+        'hideBreadcrumbs': false,
         'hasViewMore': true,
         'hasTitle': true,
         'hotelInfo': {
-          'descriptionGrid': 7,
-          'sidebarGrid': 5
+          'descriptionGrid': 6,
+          'sidebarGrid': 6
         }
       },
       'roomDetails':{
