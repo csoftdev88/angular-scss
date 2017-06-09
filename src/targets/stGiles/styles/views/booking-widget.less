@@ -4,9 +4,32 @@
 
 booking-widget {
 
+  // Override standard input styling
+  .chosen-container, input, select, input[type='text'] {
+    border-radius: 0;
+    border: none;
+    background: #000;
+    color: @c-white;
+    height: 45px;
+    line-height: 16px;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-family: Lato;
+    a, div {
+      padding-top: 6px;
+    }
+    .chosen-drop {
+      background: #000;
+      border-radius: 0;
+    }
+    .chosen-results {
+      border: none;
+      border-radius: 0;
+    }
+  }
+
   //- Search button
   button-submit {
-    background: @c-green;
     color: #fff;
     text-transform: uppercase;
     height: 26px;
@@ -14,6 +37,7 @@ booking-widget {
     border-radius: 2px;
     min-width: 0px;
     padding:0;
+    background: @lbe-c-primary;
     &:hover {
       background: darken(@c-green, 10%);
     }
@@ -22,6 +46,11 @@ booking-widget {
       line-height: 44px;
       margin-top: 0 !important;
     }
+  }
+
+  button-submit[disabled='disabled'] {
+    color: #fff;
+    background: lighten(@lbe-c-primary, 5%);
   }
 
   .chosen-container,
@@ -46,6 +75,34 @@ booking-widget-search {
   h3 {
     display: none
   }
+  form-element {
+    &.code.code-input {
+      remove-text {
+        top: 7px;
+      }
+    }
+    input-value {
+      border-radius: 0;
+      border: none;
+      background: #000;
+      color: @c-white;
+      font-size: 13px;
+      text-transform: uppercase;
+      font-family: Lato;
+      a, div {
+        padding-top: 6px;
+      }
+      .chosen-drop {
+        background: #000;
+        border-radius: 0;
+      }
+      .chosen-results {
+        border: none;
+        border-radius: 0;
+      }
+    }
+  }
+
 }
 
 booking-widget-search form-element,

@@ -11,6 +11,8 @@
 
 floating-bar {
 
+  display: none;
+
   &.multi-room{
     background: @c-booking-widget-active;
   }
@@ -19,6 +21,12 @@ floating-bar {
   > ul {
 
     li {
+
+      &.floating-bar--tab-advanced-booking {
+        a {
+          text-decoration: underline;
+        }
+      }
 
       &.floating-bar--tab-booking,
       &.floating-bar--tab-booking.is-active,

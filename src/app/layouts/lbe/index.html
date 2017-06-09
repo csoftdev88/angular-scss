@@ -41,6 +41,9 @@
 <!-- MAIN CONTENT AREA -->
 <div ui-view autoscroll="true"></div>
 
+<!-- BOOKING WIDGET AREA-->
+<floating-bar ng-if="isMobile" ng-class="{'hide': $state.includes('reservation') || $state.includes('error')}"></floating-bar>
+
 <footer class="main"
         ng-if="!hideFooter"
         ng-include="'layouts/lbe/footer.html'">

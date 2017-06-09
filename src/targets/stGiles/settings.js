@@ -1002,7 +1002,8 @@ angular.module('mobiusApp.config', [])
         'questionnaire',
         'testimonial',
         'offers',
-        'instagram-feed'
+        'instagram-feed',
+        'hotel-info'
       ],
       'hotels': [
         'hotels'
@@ -1019,6 +1020,7 @@ angular.module('mobiusApp.config', [])
       'testimonial': '<recommendation></recommendation>',
       'offers': '<offers></offers>',
       'instagram-feed': '<instagram-feed></instagram-feed>',
+      'hotel-info': '<hotel-intro></hotel-intro>',
       'best-offers': '<best-offers></best-offers>',
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',
