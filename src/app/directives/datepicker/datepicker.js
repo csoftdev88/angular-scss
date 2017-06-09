@@ -314,7 +314,7 @@ angular.module('mobiusApp.directives.datepicker', [])
             .datepicker( 'widget' )
             .find( '.ui-datepicker-buttonpane' );
           buttonPane.attr( attribute, value );
-          if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && ((scope.barData.property && scope.barData.property.code) || singleProperty) && !buttonPane.hasClass('button-added'))
+          if(Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && ((scope.barData && scope.barData.property && scope.barData.property.code) || singleProperty) && !buttonPane.hasClass('button-added'))
           {
             buttonPane.append('<span class="flexible-dates-control"><span>' + exactDates + '</span> | <span data-flexi-days="3">-/+3 ' + daysString + '</span> | <span data-flexi-days="7">-/+7 ' + daysString + '</span></span>');
             buttonPane.addClass('button-added');

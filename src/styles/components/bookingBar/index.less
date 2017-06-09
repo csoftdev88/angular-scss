@@ -14,12 +14,12 @@
   }
 
   &.booking-bar__size-small {
-    height: 451px;
+    min-height: 451px;
     width: 301px;
     .booking-bar__form {
       form-element {
         display: block;
-        padding: 0 0 24px 0;
+        padding: 0 0 15px 0;
       }
       .booking-bar__title {
         font-size: 13px;
@@ -148,4 +148,20 @@
 
   }
 
+}
+
+.booking-bar__link {
+  margin-top: 10px;
+  float: right;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: Raleway;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &.remove-room, .add-room {
+    width: 100%;
+    text-align: right;
+  }
 }

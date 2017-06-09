@@ -41,6 +41,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   console.log($scope.roomImageHeight);
   console.log($scope.roomImageWidth);
+  console.log('state', $stateParams);
 
   var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;

@@ -25,6 +25,10 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Pet',
       'from': 'From',
       'tax': 'tax',
+      'adults': 'Adults',
+      'children': 'Children',
+      'apply_code': 'Enter a code',
+      'select_property': 'Find Your Hotel',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully'
