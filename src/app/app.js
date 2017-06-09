@@ -196,6 +196,8 @@ angular
     'mobiusApp.directives.sectionImage',
     'mobiusApp.directives.lbe.recommendation',
     'mobiusApp.directives.lbe.questionnaire',
+    'mobiusApp.directives.lbe.bookingBar',
+    'mobiusApp.directives.lbe.highlight',
     'mobiusApp.directives.lbe.instagramFeed',
     'mobiusApp.directives.lbe.offers',
     'mobiusApp.directives.lbe.tagline',
@@ -845,21 +847,23 @@ angular
       $scope.hideMenuOverlay();
     }
 
-    //Get our dynamic translations
-    var appLang = stateService.getAppLanguageCode();
-    if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms && !stateService.isMobile()) {
-      notificationService.show(
-        '<div class="singleroom-notification">' +
-        '<div class="details">' +
-        '<p>' + toParams.adults + ' ' + DynamicMessages[appLang].adults + '</p>' +
-        '<p>' + toParams.children + ' ' + DynamicMessages[appLang].children + '</p>' +
-        '</div>' +
-        '<div class="dates">' +
-        '<p>' + getStartDate(toParams.dates) + '</p>' +
-        '<p>' + getEndDate(toParams.dates) + '</p>' +
-        '</div>' +
-        '</div>'
-      );
+    if (Settings.UI.infoBar && Settings.UI.infoBar.showForSingleBookings) {
+      //Get our dynamic translations
+      var appLang = stateService.getAppLanguageCode();
+      if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms && !stateService.isMobile()) {
+        notificationService.show(
+          '<div class="singleroom-notification">' +
+          '<div class="details">' +
+          '<p>' + toParams.adults + ' ' + DynamicMessages[appLang].adults + '</p>' +
+          '<p>' + toParams.children + ' ' + DynamicMessages[appLang].children + '</p>' +
+          '</div>' +
+          '<div class="dates">' +
+          '<p>' + getStartDate(toParams.dates) + '</p>' +
+          '<p>' + getEndDate(toParams.dates) + '</p>' +
+          '</div>' +
+          '</div>'
+        );
+      }
     }
 
   });

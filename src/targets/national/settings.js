@@ -210,6 +210,9 @@ angular.module('mobiusApp.config', [])
     'datepicker': {
       'showToday': false
     },
+    'infoBar': {
+      'showForSingleBookings': false
+    },
     'generics': {
       'singleProperty': true,
       'defaultPropertyCode': 'GHNL',
