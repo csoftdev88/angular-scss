@@ -201,6 +201,7 @@ angular
     'mobiusApp.directives.lbe.instagramFeed',
     'mobiusApp.directives.lbe.offers',
     'mobiusApp.directives.lbe.tagline',
+    'mobiusApp.directives.lbe.hotelIntro',
 
     'internationalPhoneNumber',
 
@@ -846,6 +847,8 @@ angular
     if($scope.menuOverlayEnabled){
       $scope.hideMenuOverlay();
     }
+
+    $scope.isMobile = stateService.isMobile();
 
     if (Settings.UI.infoBar && Settings.UI.infoBar.showForSingleBookings) {
       //Get our dynamic translations
