@@ -330,6 +330,13 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:true
     },
+    'bookingBar': {
+      'maxAdults': 8,
+      'maxChildren': 8,
+      'dateFormat': 'dd MM yy',
+      'defaultSize': 'large',
+      'useTommorowDefault': true
+    },
     'instagramFeed': {
       'images': [
         { url: '/static/images/lbe/insta-1.png'},
