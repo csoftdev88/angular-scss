@@ -151,6 +151,13 @@ angular.module('mobius.controllers.main', [])
         );
       }
 
+      $scope.openBookingBar = function () {
+        if (Settings.engine === 'loyalty') {
+          $('floating-bar').css('display', 'block');
+        }
+        $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
+      };
+
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;
       $scope.openTiersListDialog = function(e){
