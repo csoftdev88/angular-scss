@@ -6,7 +6,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'authType': 'infiniti',
+  'authType': 'mobius',
   'engine': 'loyalty',
   'loyaltyProgramEnabled': true,
   'newUrlStructure': true,

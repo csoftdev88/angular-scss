@@ -4,9 +4,12 @@ angular.module('mobius.controllers.main', [])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService', 'locationService', 'bookingService',
-    function($scope, $state, $modal, orderByFilter, modalService, $window,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService) {
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService',
+    'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
+    'locationService', 'bookingService', 'apiService', 'userObject',
+    function($scope, $state, $modal, orderByFilter, modalService, $window, contentService, Settings, user, $controller,
+             _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,
+             stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService, userObject) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
 
@@ -27,6 +30,63 @@ angular.module('mobius.controllers.main', [])
 
       }
 
+      contentService.getTitles().then(function(data) {
+        $scope.registerTitles = data;
+      });
+
+      contentService.getContactMethods().then(function(data) {
+        $scope.registerContacts = data;
+      });
+
+      contentService.getCountries().then(function(data) {
+        $scope.registerCountries = data;
+      });
+
+      // @todo move this into registerService and refactor register controller
+      $scope.register = function(form, registerData){
+        $scope.clearErrorMsg();
+        $scope.submitted = true;
+        if (form.$valid) {
+          if (registerData.localeId && angular.isDefined($scope.registerCountries)) {
+            var selectedCountry = _.find($scope.registerCountries, function(country) {
+              return country.id === registerData.localeId;
+            });
+
+            registerData.localeCode = selectedCountry && selectedCountry.code;
+          }
+          apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
+            userObject.id = response.id;
+            user.loadProfile();
+            $state.go('home');
+          }, function(err){
+            if(err.error.msg === 'User already registered'){
+              $scope.userRegisteredError = true;
+              $scope.error = true;
+            }
+            else{
+              $scope.genericError = true;
+              $scope.error = true;
+            }
+          });
+        }
+        else{
+          $scope.missingFieldsError = true;
+          $scope.error = true;
+        }
+      };
+
+      $scope.clearErrorMsg = function () {
+        $scope.loginDialogError = false;
+        $scope.missingFieldsError = false;
+        $scope.incorrectEmailPasswordError = false;
+        $scope.notRegisteredEmailError = false;
+        $scope.passwordResetSuccess = false;
+        $scope.error = false;
+        $scope.userRegisteredError = false;
+        $scope.genericError = false;
+        $scope.missingFieldsError = false;
+        $scope.submitted = false;
+      };
 
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
 
@@ -34,6 +94,9 @@ angular.module('mobius.controllers.main', [])
       $scope.config = Settings.UI;
       $scope.uiConfig = Settings.UI;
       $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
+
+      $rootScope.showRegisterDialog = false;
+      $scope.registerFormFilledEmail = false;
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;

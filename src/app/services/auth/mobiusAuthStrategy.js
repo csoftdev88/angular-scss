@@ -91,7 +91,7 @@ angular
     };
 
     var register = function () {
-      console.warn('Register function is not supported by mobius auth');
+      $rootScope.showRegisterDialog = !$rootScope.showRegisterDialog;
     };
 
     var viewProfile = function () {
