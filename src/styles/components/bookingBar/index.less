@@ -57,6 +57,15 @@
       }
     }
     .booking-bar__form {
+      &.multiroom-booking {
+        .booking-bar__form--rooms {
+          display: block;
+          width: 520px;
+        }
+        .booking-bar__link.remove-room {
+          width: initial;
+        }
+      }
       form-element {
         display: inline-block;
         padding: 0 20px 0 0;
