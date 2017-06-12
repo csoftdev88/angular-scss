@@ -12,7 +12,8 @@
       _advanced_search_
     </h3>
 
-    <form-element class="booking-bar__form--room">
+    <form-element class="booking-bar__form--room"
+                  ng-if="!uiConfig.generics.singleProperty">
       <select name="property"
               chosen
               disable-search="true"

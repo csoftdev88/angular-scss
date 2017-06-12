@@ -375,7 +375,7 @@ angular.module('mobiusApp.config', [])
       'showToday': false
     },
     'generics': {
-      'singleProperty': false,
+      'singleProperty': true,
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
@@ -896,7 +896,7 @@ angular.module('mobiusApp.config', [])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display':true
+        'display': false // @todo work out why this does not work in conjunction with single property
       },
       'flexibleDates': {
         'enable':true

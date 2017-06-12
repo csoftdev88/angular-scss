@@ -20,6 +20,7 @@
         if (!config) {
           $log.warn('No config for the recommendation was provided!');
         }
+        scope.uiConfig = Settings.UI;
         var appLang = stateService.getAppLanguageCode();
         // Default search params, this is the object the booking form is bound to
         scope.search = {

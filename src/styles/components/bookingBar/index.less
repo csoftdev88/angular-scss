@@ -5,7 +5,7 @@
   -webkit-backdrop-filter: blur(1.6px);
   backdrop-filter: blur(1.6px);
   background-color: rgba(26, 26, 26, 0.8);
-  padding: 31px 28px 19px 28px;
+  padding: 31px 50px 19px 50px;
   margin-bottom: 40px;
   box-sizing: border-box;
 
@@ -49,14 +49,29 @@
   }
 
   &.booking-bar__size-large {
-    height: 210px;
+    .booking-bar__form--rooms {
+      .multiroom-booking & {
+        width: 340px;
+        display: block;
+        margin-top: 20px;
+      }
+    }
     .booking-bar__form {
       form-element {
         display: inline-block;
-        padding: 0 10px 0 0;
+        padding: 0 20px 0 0;
       }
-      .booking-bar__form--guests.adults {
-        padding: 0;
+      .booking-bar__link.remove {
+        width: initial;
+      }
+      .booking-bar__form--guests {
+        &.adults,
+        &.children {
+          padding: 0;
+        }
+      }
+      .booking-bar__submit {
+        width: 125px;
       }
     }
   }
@@ -66,6 +81,10 @@
     span, input {
       color: #fff;
       font-family: Raleway;
+    }
+
+    .dates {
+      width: 270px;
     }
 
     .booking-bar__form--label {
@@ -82,11 +101,11 @@
     }
 
     .booking-bar__form--guests {
-      width: 122px;
+      width: 200px;
     }
 
     .booking-bar__form--code {
-      width: 245px;
+      width: 243px;
     }
 
     remove-text {
