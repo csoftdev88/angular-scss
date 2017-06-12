@@ -5,7 +5,6 @@
   -webkit-backdrop-filter: blur(1.6px);
   backdrop-filter: blur(1.6px);
   background-color: rgba(26, 26, 26, 0.8);
-  padding: 31px 50px 19px 50px;
   margin-bottom: 40px;
   box-sizing: border-box;
 
@@ -14,12 +13,19 @@
   }
 
   &.booking-bar__size-small {
-    min-height: 451px;
+    min-height: 400px;
     width: 301px;
+    padding: 31px 28px 19px 28px;
     .booking-bar__form {
       form-element {
         display: block;
         padding: 0 0 15px 0;
+      }
+      .dates {
+        width: 100%;
+      }
+      .booking-bar__form--guests {
+        width: 50%;
       }
       .booking-bar__title {
         font-size: 13px;
@@ -49,6 +55,7 @@
   }
 
   &.booking-bar__size-large {
+    padding: 31px 50px 19px 50px;
     .booking-bar__form--rooms {
       .multiroom-booking & {
         width: 340px;

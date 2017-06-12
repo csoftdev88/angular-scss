@@ -28,6 +28,10 @@ describe('mobiusApp.services.modal', function() {
 
       $provide.value('thirdPartiesService', {});
 
+      $provide.value('user', {
+        getUser: function() {}
+      });
+
       $provide.value('preloaderFactory', {});
 
       $provide.value('dataLayerService', {});

@@ -4,7 +4,7 @@
 */
 angular.module('mobiusApp.services.modal', [])
 .service( 'modalService',  function($modal, $q, $log, $window, $modalStack,
-    Settings, queryService, thirdPartiesService, dataLayerService, _) {
+    Settings, queryService, thirdPartiesService, dataLayerService, _, user) {
   var CONTROLLER_DEFAULT = 'ModalCtrl',
       CONTROLLER_DATA = 'ModalDataCtrl',
       CONTROLLER_POLICY = 'PolicyCtrl',
@@ -417,14 +417,21 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openUpsellsDialog(upsell, params, goToReservationDetails, product){
-    return openDialog('openUpsellsDialog', 'layouts/modals/upsellsDialog.html', CONTROLLER_UPSELLS, {
-      windowClass: 'dialog-v2 upsells-dialog',
+    var upsellsDialogTemplate = 'layouts/modals/upsellsDialog.html';
+    var upsellsDialogClass = 'dialog-v2 upsells-dialog';
+    if (Settings.engine === 'loyalty') {
+      upsellsDialogTemplate = 'layouts/modals/lbe/upsellsDialog.html';
+      upsellsDialogClass += ' loyalty-upsell';
+    }
+    return openDialog('openUpsellsDialog', upsellsDialogTemplate, CONTROLLER_UPSELLS, {
+      windowClass: upsellsDialogClass,
       resolve: {
         data: function() {
           return {
             upsell:upsell,
             params:params,
-            product:product
+            product:product,
+            user: user.getUser()
           };
         },
         goToReservationDetails: function(){return goToReservationDetails;}

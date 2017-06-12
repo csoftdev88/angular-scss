@@ -376,6 +376,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'generics': {
       'singleProperty': true,
+      'defaultPropertyCode': 'CCC',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
@@ -1078,7 +1079,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'hasViewMore': true,
         'hasTitle': true,
         'showSubNav': true,
-        // @todo make this multi l
+        // @todo make this multi lingual
         'subNavLinks': [
           {
             'name': 'Points of interest',
@@ -1112,7 +1113,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
             'name': 'Contact',
             'link': 'http://www.stgiles.com/interest'
           }
-        ]
+        ],
         'hotelInfo': {
           'descriptionGrid': 6,
           'sidebarGrid': 6,

@@ -94,7 +94,15 @@
           });
 
         function getProperty(id) {
-          var property = _.findWhere(scope.properties, {id: id});
+          var property;
+          if (Settings.UI.generics.singleProperty) {
+            property = _.findWhere(scope.properties, {code: Settings.UI.generics.defaultPropertyCode});
+            if (! property) {
+              $log.warn('Potentially unexpected behaviour, the property was not found from its hash key.');
+            }
+            return property;
+          }
+          property = _.findWhere(scope.properties, {id: id});
           if (! property) {
             $log.warn('Potentially unexpected behaviour, the property was not found from its hash key.');
           }
@@ -150,7 +158,7 @@
 
         scope.doSearch = function () {
           // @todo Add here some kind of UI validation, make the fields red. Design input required
-          if (scope.search.property === 'default' || scope.dates === '') {
+          if ((scope.search.property === 'default' && !Settings.UI.generics.singleProperty) || scope.dates === '') {
             return;
           }
           // Get the property object by looking it up by its hashKey from the select box
