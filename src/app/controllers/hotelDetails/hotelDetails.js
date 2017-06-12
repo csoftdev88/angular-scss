@@ -692,7 +692,15 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.selectDates = function() {
-    $rootScope.$broadcast('OPEN_DATE_PICKER');
+    if (Settings.engine === 'loyalty') {
+      console.log('mob', stateService.isMobile());
+      if (stateService.isMobile()) { 
+        $scope.openBookingBar();
+        return;
+      }
+      $rootScope.$broadcast('OPEN_DATE_PICKER');
+      return;
+    }
     $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
       openBookingTab: true,
       openDatePicker: true,
