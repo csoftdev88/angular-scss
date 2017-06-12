@@ -692,6 +692,7 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.selectDates = function() {
+    $rootScope.$broadcast('OPEN_DATE_PICKER');
     $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
       openBookingTab: true,
       openDatePicker: true,

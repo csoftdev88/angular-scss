@@ -7,10 +7,10 @@
   angular
     .module('mobiusApp.directives.lbe.bookingBar', [])
     .directive('bookingBar', ['Settings', '$log', 'DynamicMessages','stateService', '$state', 'propertyService', '_',
-                              'routerService', '$window', 'validationService', 'queryService', BookingBar]);
+                              'routerService', '$window', 'validationService', '$rootScope', BookingBar]);
 
   function BookingBar(Settings, $log, DynamicMessages, stateService, $state, propertyService, _, routerService,
-                      $window, validationService) {
+                      $window, validationService, $rootScope) {
     return {
       restrict: 'E',
       scope: true,
@@ -62,6 +62,17 @@
         scope.isSmall = function () {
           return size === 'small';
         };
+
+        var datePickerListener = $rootScope.$on('OPEN_DATE_PICKER', function () {
+          var rangeInput = angular.element('#booking-bar-dates');
+          if (rangeInput.length) {
+            rangeInput.focus();
+          }
+        });
+
+        scope.$on('$destroy', function(){
+          datePickerListener();
+        });
 
         // Code types available to user
         scope.codes = [
