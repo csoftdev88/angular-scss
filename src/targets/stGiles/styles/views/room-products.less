@@ -62,10 +62,10 @@ room-products {
 						padding-top:40px;
 					}
 					.action-buttons {
-						padding-top:60px;
+						/*padding-top:60px;
 						.viewport-mobile & {
 							padding-top:0;
-						}
+						}*/
 					}
 				}
 				.rate-description {
@@ -80,6 +80,7 @@ room-products {
 				pricing-details {
 					.price-form {
 						font-weight: 700;
+            margin-top: 60px;
 					}
 				}
 				.chain-sand & {
@@ -206,9 +207,17 @@ room-products {
 			pricing-details {
 				margin-bottom:10px;
 				.price-details {
+          width: 100%;
+          padding-top: 60px;
 					.price-form {
+            float: right;
 						text-align: right;
 						margin-top: 10px;
+            margin-bottom: 7px;
+            .value {
+              font-size: 29px;
+              font-family: Lato;
+            }
 						&.points {
 							top: -6px;
 							position: relative;
@@ -229,6 +238,8 @@ room-products {
 					.viewport-mobile & {}
 				}
 				.action-buttons {
+          width: 100%;
+          float: initial;
 					.button {
 						background: @lbe-c-primary;
 						border-radius: 2px;

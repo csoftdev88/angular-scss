@@ -9,6 +9,18 @@
   .section-header {
     h2 {
       display: none;
+      &.offer-title {
+        font-family: Raleway;
+        display: block;
+        text-align: center;
+        font-size: 31px;
+        font-weight: bold;
+        line-height: 36px;
+        &:after {
+          content: url('@{img-prefix}/lbe/divider-orange.png');
+          display: block;
+        }
+      }
     }
     .search-details {
       display: none;
@@ -40,6 +52,61 @@
     h2 {
       display: none;
     }
+  }
+
+  .hotel-detail__offers {
+
+    margin-top: 123px;
+    margin-bottom: 0;
+
+    offers-list {
+      offer-item {
+        border: none;
+        height: 400px;
+        h2, div {
+          font-family: Lato;
+        }
+        h2 {
+          text-align: left;
+          padding: 0;
+        }
+        section {
+          div {
+            padding: 0;
+            text-align: left;
+          }
+        }
+        .read-more {
+          border-radius: 0 !important;
+          width: 246px !important;
+          font-weight: 300 !important;
+          font-size: 16px !important;
+          height: 40px !important;
+          line-height: 40px !important;
+          font-family: Raleway !important;
+          box-shadow: none !important;
+        }
+      }
+    }
+
+    .offers-title {
+      display: block;
+      font-size: 31px;
+      line-height: 36px;
+      font-family: Raleway;
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: center;
+      &:after {
+        content: url('@{img-prefix}/lbe/divider-orange.png');
+        display: block;
+      }
+    }
+
+    .more-btn {
+      display: none;
+    }
+
   }
 
   .hotel-detail__rooms {
@@ -187,6 +254,9 @@
 .HotelBreadcrumbs {
   .breadcrumbs {
     background: #fff;
+    width: 1212px;
+    margin-left: auto;
+    margin-right: auto;
     .alt-nav {
       display: none;
     }
@@ -195,8 +265,15 @@
     }
     .wrapper {
       width: initial;
-      margin-left: 85px;
       margin-top: 10px;
     }
   }
+}
+
+.HotelDescription {
+  margin-bottom: 25px;
+  font-size: 17px;
+  line-height: 27px;
+  color: #6f6f6f;
+  font-family: Lato;
 }

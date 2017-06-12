@@ -562,16 +562,17 @@ angular.module('mobiusApp.config', [])
         }
       },
       'partials':{
+        'hotelDescription': true,
         'hotelBookingBar': true,
         'hotelHeader': false,
         'hotelDatesSelected': false,
         'hotelServices': false,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
+        'hotelOffers': true,
         'hotelInfo': true,
         'hotelAmenities': true,
         'hotelLocation': true,
-        'hotelOffers': false,
         'hotelReadMoreMobile': false
       },
       'bookingStatistics':{
@@ -581,7 +582,7 @@ angular.module('mobiusApp.config', [])
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
       'restrictAmenities':true, //Only display amenities that's name begins with asterix
-      'hideViewMoreImagesMobile':true, //Hide the view more images on mobile
+      'hideViewMoreImagesMobile': false, //Hide the view more images on mobile
       'shortenDescriptionMobile':true //Shorten the description with read more on mobile
     },
     //rate lookup teasers
@@ -1078,7 +1079,11 @@ angular.module('mobiusApp.config', [])
         'hasTitle': true,
         'hotelInfo': {
           'descriptionGrid': 6,
-          'sidebarGrid': 6
+          'sidebarGrid': 6,
+          'images': {
+            'width': '664',
+            'height': '583'
+          }
         }
       },
       'roomDetails':{
@@ -1109,7 +1114,7 @@ angular.module('mobiusApp.config', [])
       'locationMap':{
         'displayMainTitle': false,
         'displayGoogleMapsLink': true,
-        'displayIcons': true,
+        'displayIcons': false,
         'directionsLink':{
           'display': false,
           'link': ''

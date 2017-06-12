@@ -203,7 +203,7 @@
     "no_points_rate_desc": "This rate does not award points",
     "mapLocationHeader": "{nameLong} Location",
     "mapLocationHeaderNameField": "nameLong",
-    "offers_title": "Hot Deals",
+    "offers_title": "Our Offers",
     "more_offers_title": "You may also be interested in:",
     "rooms_title": "Our Rooms",
     "amenities_title": "OUR FACILITIES",
@@ -559,7 +559,7 @@
     "room_upgrade_increase":"The price of your room upgrade has increased. However we will honor the price received in your upgrade email.",
     "room_upgrade_decrease":"The price of your room upgrade has decreased. We will adjust prices accordingly.",
     "show_all_facilities": "Show all facilities",
-    "selected_offer_for_you":"Selected offer for you",
+    "selected_offer_for_you":"Our Offers",
     "show_all_offers":"Show All Offers",
     "secured_with_digicert":"Secured with",
     "we_value_your_privacy":"We value your privacy and take security very seriously. This is an encrypted site using the latest security standards, so your details are always protected.",
@@ -606,6 +606,7 @@
     "hotel_info_text": "St Giles offers travelers a growing collection of centrally and strategically located, individual and inspired hotels in the heart of major cities across Asia, Australia, Europe, and North America.",
     "hotel_info_details": "Our well-appointed hotels are the hidden gems of the cities they serve, creating unique experiences that turn ordinary trips into memorable journeys. Categorized by three levels of excellence (Signature, Red, and Blue), our hotels offer true value but not at the expense of personality or service. </p> <p>Like the individual facets of a precious gemstone, each hotel in the St Giles group shines with a special character all its own. And just as the gemstone is the centerpiece of any fine work of jewelry, so, too, St Giles hotels are positioned at the very core of major business and cultural hubs around the world, providing guests with the best vantage points from which to plan and enjoy their visits. </p><p>Come and explore our world. Expand your comfort zone with a St Giles experience.",
     "quick_book": "Quick book",
-    "advanced_search": "Advanced Search"
+    "advanced_search": "Advanced Search",
+    "hotel_description": "Centrally located in Murray Hill with a residential ambiance, The Court – A St Giles Hotel welcomes guests to a spacious alternative to the closet-sized accommodations of most New York City hotels. Tastefully furnished, the 199 expansive rooms and suites entice with rest and work areas, plush bedding, and deluxe bath and shower amenities with many showcasing stunning views of the Chrysler and Empire State Buildings."
   }
 }
