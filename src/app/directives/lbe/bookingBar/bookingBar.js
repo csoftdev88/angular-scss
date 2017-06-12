@@ -150,6 +150,19 @@
 
         scope.switchSearchType = function () {
           scope.multiRoomSearch = !scope.multiRoomSearch;
+          if (scope.multiRoomSearch) {
+            scope.rooms = [
+              {
+                adults: 1,
+                children: 0
+              },
+              {
+                adults: 1,
+                children: 0
+              }
+            ];
+            return;
+          }
           scope.rooms = [{
             adults: 1,
             children: 0

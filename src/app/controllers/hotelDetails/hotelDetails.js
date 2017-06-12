@@ -75,6 +75,13 @@ angular.module('mobius.controllers.hotel.details', [
   // Include the amenities
   bookingParams.includes = 'amenities';
 
+  $scope.openBookingBar = function () {
+    if (Settings.engine === 'loyalty') {
+      $('floating-bar').css('display', 'block');
+    }
+    $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
+  };
+
   // Sorting options
   $scope.initSortingOptions = function(options) {
     $scope.sortingOptions = [{
@@ -254,6 +261,7 @@ angular.module('mobius.controllers.hotel.details', [
     //response from request with params may be faster, in which case don't overwrite scope.details as response from this call does not include amenities
     if (angular.isUndefined($scope.details)) {
       $scope.details = details;
+      console.log('details', $scope.details);
     }
 
     if (!details.meta.slug) {

@@ -18,8 +18,14 @@
   top: 245px;
   right: calc(~'50% - 180px');
   box-sizing: border-box;
+  .viewport-mobile & {
+    top: 350px;
+  }
   &.register {
     top: 145px;
+    .viewport-mobile & {
+      top: 350px;
+    }
   }
   .options {
     margin: 20px 0 5px 10px;
@@ -57,6 +63,10 @@
     .close-btn {
       right: -25px;
       top: -25px;
+      .viewport-mobile & {
+        right: -5px;
+        top: -35px;
+      }
       &:before {
         font-size: 24px;
         color: #fff;

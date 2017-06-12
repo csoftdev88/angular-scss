@@ -62,6 +62,9 @@
         display: block;
         margin-top: 20px;
       }
+      &.margin-left {
+        margin: 20px 0 0 293px;
+      }
     }
     .booking-bar__form {
       &.multiroom-booking {
@@ -72,6 +75,17 @@
         .booking-bar__link.remove-room {
           width: initial;
         }
+        .booking-bar__submit {
+          margin-left: 185px;
+        }
+        .booking-bar__link.quick {
+          float: initial;
+          display: block;
+          margin-left: 610px;
+        }
+      }
+      .booking-bar__form--add-room {
+        margin: 20px 0 0 293px;
       }
       form-element {
         display: inline-block;
@@ -152,6 +166,9 @@
       width: 117px;
       font-size: 16px;
       line-height: 19px;
+      .multiroom-booking & {
+
+      }
     }
 
     // Override chosen styling for select boxes
@@ -199,4 +216,10 @@
     width: 100%;
     text-align: right;
   }
+}
+
+// Kind of a hack. I need to have the first element in an ng-repeat display inline, so combining ng-class
+// to use this was the best way I can think of.
+form-element.inlineFormElement {
+  display: inline !important;
 }
