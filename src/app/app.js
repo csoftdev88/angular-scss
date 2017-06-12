@@ -202,6 +202,7 @@ angular
     'mobiusApp.directives.lbe.offers',
     'mobiusApp.directives.lbe.tagline',
     'mobiusApp.directives.lbe.hotelIntro',
+    'mobiusApp.directives.lbe.subNav',
 
     'internationalPhoneNumber',
 

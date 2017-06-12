@@ -1,16 +1,42 @@
-<hero-slider ng-if="!viewSettings.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<hero-slider ng-if="!viewSettings.hideHeroSlider"
+             content="heroContent"
+             slide-width="uiConfig.heroSlider.slideWidth"
+             slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
 
-<section-image ng-if="config.sectionImages && config.sectionImages[0]" id="hotel-header-image" section="config.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="true" hide-header-logo="true" description="details.descriptionShort"></section-image>
+<section-image ng-if="config.sectionImages && config.sectionImages[0]"
+               id="hotel-header-image"
+               section="config.sectionImages[0]"
+               when="'enter'"
+               from="1"
+               to="1.5"
+               show-logo="true"
+               hide-header-logo="true"
+               description="details.descriptionShort">
+</section-image>
 
-<notification-bar ng-if="config.sectionImages && config.sectionImages[0]" sticky-header="true" currently-editing="_you_are_currently_editing_"></notification-bar>
+<notification-bar ng-if="config.sectionImages && config.sectionImages[0]"
+                  sticky-header="true"
+                  currently-editing="_you_are_currently_editing_">
+</notification-bar>
 
-<breadcrumbs class="HotelBreadcrumbs" ng-if="!viewSettings.hideBreadcrumbs" stickable="main-header" id="breadcrumbs"></breadcrumbs>
+<sub-nav ng-if="viewSettings.showSubNav" links="{{ viewSettings.subNavLinks }}"></sub-nav>
+
+<breadcrumbs class="HotelBreadcrumbs"
+             ng-if="!viewSettings.hideBreadcrumbs"
+             stickable="main-header"
+             id="breadcrumbs">
+</breadcrumbs>
 
 <main class="grid-wrapper hotel-detail">
 
-  <div class="preloader" ng-show="preloader.visible && !isFromSearch"></div>
+  <div class="preloader"
+       ng-show="preloader.visible && !isFromSearch">
+  </div>
 
-  <hotel-detail itemscope itemtype="http://schema.org/Hotel" class="HotelDetails">
+  <hotel-detail itemscope
+                itemtype="http://schema.org/Hotel"
+                class="HotelDetails">
 
     <!-- schema.org -->
     <meta itemprop="description" content="{{details.meta.microdata.schemaOrg.description}}" />

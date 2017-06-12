@@ -1,0 +1,27 @@
+@import "./mobile";
+
+@SubNavBg: #000;
+@SubNavLinkColor: #fff;
+@SubNavLinkSize: 15px;
+@SubNavHeight: 63px;
+
+.SubNav {
+
+  width: 100vw;
+  background: @SubNavBg;
+  height: @SubNavHeight;
+  padding: 0 130px;
+
+}
+
+.SubNav__link {
+  display: inline;
+  a {
+    color: @SubNavLinkColor;
+    font-size: @SubNavLinkSize;
+    text-transform: uppercase;
+    line-height: @SubNavHeight;
+    font-family: Raleway;
+    margin-right: 79px;
+  }
+}

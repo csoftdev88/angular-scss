@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobiusApp.config', [])
+angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
 .constant('Settings', {
   'currencyParamName': 'currency',
@@ -1077,6 +1077,42 @@ angular.module('mobiusApp.config', [])
         'hideBreadcrumbs': false,
         'hasViewMore': true,
         'hasTitle': true,
+        'showSubNav': true,
+        // @todo make this multi l
+        'subNavLinks': [
+          {
+            'name': 'Points of interest',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Meetings & events',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Facilities',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Rooms',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Dining',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'FAQS',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Info',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Contact',
+            'link': 'http://www.stgiles.com/interest'
+          }
+        ]
         'hotelInfo': {
           'descriptionGrid': 6,
           'sidebarGrid': 6,

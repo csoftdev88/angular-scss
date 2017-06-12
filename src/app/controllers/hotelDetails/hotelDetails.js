@@ -49,6 +49,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   //Get our dynamic translations
   var appLang = stateService.getAppLanguageCode();
+  // @todo log if null
   var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
   //define page partials based on settings

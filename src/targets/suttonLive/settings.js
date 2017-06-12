@@ -1096,6 +1096,7 @@ angular.module('mobiusApp.config', [])
       'hotelDetails':{
         'hasViewMore': true,
         'hasTitle': true,
+        'showSubNav': false,
         'hotelInfo': {
           'descriptionGrid': 8,
           'sidebarGrid': 4
