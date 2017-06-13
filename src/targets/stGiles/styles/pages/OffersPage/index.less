@@ -1,0 +1,54 @@
+
+.OffersPage {
+
+  margin-top: 51px;
+
+  .OffersGrid__item--details {
+    display: none;
+  }
+
+  .OffersGrid__item {
+    height: 262px;
+    border: none;
+    .read-more,
+    .banner {
+      display: none;
+    }
+  }
+
+  .OffersGrid__item--title {
+    position: absolute;
+    background-color: rgba(26, 26, 26, 0.8);
+    .backdrop-filter-blur(20px);
+    top: 23px;
+    height: 72px;
+    line-height: 72px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 21px;
+    letter-spacing: 0;
+  }
+
+  .OffersGrid__title {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @lbe-ff-primary;
+    font-size: 31px;
+    color: #000;
+    font-weight: bold;
+    &:after {
+      content: url('@{img-prefix}/lbe/divider-orange.png');
+      display: block;
+    }
+  }
+
+  .OffersGrid__image {
+    height: 100%;
+    max-height: initial;
+  }
+
+}
+
+.OffersBreadcrumbs {
+  display: none;
+}

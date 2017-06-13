@@ -1,8 +1,29 @@
 <hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
 
-<breadcrumbs stickable="main-header"></breadcrumbs>
+<article class="HeroTitle" ng-if="isLoyalty">
+  <img src="/static/images/v4/logo-icon@3x.png">
+  <div class="HeroTitle__title">
+    <h1>{{ offersList[0].subtitle }}</h1>
+  </div>
+  <button class="HeroTitle__button">_find_out_more_</button>
+</article>
 
-<main class="grid-wrapper">
+<booking-bar class="Home__booking-bar"
+             size="small"
+             ng-if="isLoyalty">
+</booking-bar>
+
+<article class="HeroBenefits bottom"
+         ng-if="isLoyalty">
+  <div class="HeroBenefits__benefit">
+    <h2>_about_offers_title_</h2>
+    <h1>{{ offersList[0].title }}</h1>
+  </div>
+</article>
+
+<breadcrumbs stickable="main-header" class="OffersBreadcrumbs"></breadcrumbs>
+
+<main class="grid-wrapper OffersPage">
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <div grid="12" ng-if="isHotDeals && !showDetail">
@@ -10,19 +31,22 @@
     <hr/>
   </div>
 
-  <offers-list grid-row ng-if="!showDetail">
+  <offers-list grid-row ng-if="!showDetail" class="OffersGrid">
 
     <div grid="12" ng-if="config.displayPageHeading" class="offers-heading">
-      <h1 ng-if="isHotDeals" ng-bind-html="'_hot_deals_' | mainHeaderStyle"></h1>
-      <h1 ng-if="!isHotDeals" ng-bind-html="'_offers_deals_' | mainHeaderStyle"></h1>
+      <h1 ng-if="isHotDeals" class="OffersGrid__title" ng-bind-html="'_hot_deals_' | mainHeaderStyle"></h1>
+      <h1 ng-if="!isHotDeals" class="OffersGrid__title" ng-bind-html="'_offers_deals_' | mainHeaderStyle"></h1>
     </div>
 
-    <offer-item ng-repeat="offer in offersList track by $index" ng-if="offersList.length > 0">
+    <offer-item ng-repeat="offer in offersList track by $index" ng-if="offersList.length > 0" class="OffersGrid__item">
       <a ng-href="{{offer.url}}">
+        <div class="OffersGrid__item--title"
+             ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : offer.propertyName">
+        </div>
         <div class="banner" ng-if="offer.merchandisingBanner" ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">{{offer.merchandisingBanner.text}}</div>
-        <img ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.alt}}"/>
+        <img class="OffersGrid__image" ng-src="{{offer.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{offer.image.alt}}"/>
 
-        <section>
+        <section class="OffersGrid__item--details">
           <span class="offer-property-name" ng-if="isHotDeals && offer.propertyName">{{offer.propertyName}}</span>
           <h2 ng-bind-html="offer.availability && offer.availability.title && offer.availability.title != ''  ? offer.availability.title : offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : offer.propertyName"></h2>
           <div ng-bind-html="offer.availability && offer.availability.subtitle && offer.availability.subtitle != ''  ? offer.availability.subtitle : offer.subtitle"></div>

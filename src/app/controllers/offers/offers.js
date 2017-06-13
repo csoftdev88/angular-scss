@@ -23,6 +23,8 @@ angular.module('mobius.controllers.offers', [])
   //Used by view to define whether we are on a property specific offer
   $scope.property = null;
 
+  $scope.isLoyalty = Settings.engine === 'loyalty';
+
   //Catch previous state data for back button - see goToOffersList
   var previousState = {
     state: $state.fromState,
@@ -305,12 +307,16 @@ angular.module('mobius.controllers.offers', [])
             setOfferUrl(offer);
           });
 
+          console.log('offers', $scope.offersList);
+
           if ($stateParams.code) {
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
         }
       }
     }
+    console.log('offers', $scope.offersList);
+    console.log('selected', $scope.selectedOffer);
   });
 
   function setOfferUrl(offer) {
