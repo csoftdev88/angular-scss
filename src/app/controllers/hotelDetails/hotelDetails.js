@@ -694,7 +694,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.selectDates = function() {
     if (Settings.engine === 'loyalty') {
       console.log('mob', stateService.isMobile());
-      if (stateService.isMobile()) { 
+      if (stateService.isMobile()) {
         $scope.openBookingBar();
         return;
       }
