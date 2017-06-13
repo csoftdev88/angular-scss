@@ -942,12 +942,14 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      'detailsBeforeForm': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
       'priceBreakdownExtended': true,
       //display hero slider on booking page
       'displayHeroSlider': false,
+      'policiesLinkBottom': true,
       //display advanced header
       'headerPartial':{
         'display': false,
@@ -959,7 +961,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       //Booking steps navigation
       'bookingStepsNav':{
         'display': true,
-        'showInReservationWidget': true
+        'showInReservationWidget': false
       },
       //Default value for newsletter opt-in checkbox
       'newsLetterOptedIn': true,
@@ -987,13 +989,13 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         }
       },
       'vouchers' : {
-        'enable':true
+        'enable':false
       },
       'reservationAssurance': {
         display: false,
-        payment: true,
-        price: true,
-        security: true
+        payment: false,
+        price: false,
+        security: false
       }
     },
     'myAccount' : {

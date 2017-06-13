@@ -2,38 +2,38 @@
 //// Reservation steps navigation ////
 //////////////////////////////////////
 
-.reservation-steps{
+.reservation-steps {
   display: inline-block;
   width: 100%;
-  margin: 10px;
-  text-align: left;
+  margin: 14px 0 31px 0;
+  text-align: center;
 
-  .label{
+  .label {
     display: none;
   }
 
-  ul{
+  ul {
     position: relative;
-    width: auto;
+    height: 153px;
     float: none;
     display: inline-block;
+    background-color: rgba(0, 0, 0, 0.75);
+    .backdrop-filter-blur(20px);
+    padding: 33px 86px;
+    width: initial;
+    box-sizing: border-box;
 
-    &:after{
-      content: '';
-      position: absolute;
-      left: 2%;
-      top: 21px;
-      width: 96%;
-      height: 2px;
-      background: @c-light-grey;
-      z-index: -1;
+    .viewport-mobile & {
+      padding: 20px;
+      width: 100% !important;
+      height: initial;
     }
 
-    li{
+    li {
       display: inline;
       float: left;
       width: auto;
-      margin-left: 50px;
+      margin-left: 70px;
       box-sizing: border-box;
 
       &:first-child{
@@ -45,28 +45,28 @@
         padding: 0;
         min-width: 0;
         border-radius: 0;
-        line-height: 32px;
-        height: 32px;
-        width: 32px;
-        border: 0;
+        line-height: 50px;
+        height: 50px;
+        width: 50px;
+        border: solid 2px #fff;
         box-shadow: none;
         text-shadow: none;
         text-align: center;
-        background: @c-green;
+        background: transparent;
         font-weight: 400;
         color: #fff;
-        border-radius: 20px;
         font-size: 15px;
+
+        .viewport-mobile & {
+          line-height: 40px;
+          height: 40px;
+          width: 40px;
+        }
 
         &:active,
         &:focus,
         &:hover {
-          .chain-sand &{
-            background: @c-menu-active-sand;
-          }
-          .chain-sign &{
-            background: @c-menu-active-sign;
-          }
+          background: transparent;
         }
 
         &:after,
@@ -75,33 +75,28 @@
         }
 
         &[disabled="disabled"]{
-          background: #fff;
           text-shadow: none;
           padding: 0;
-          color: @c-light-grey;
-          border: 1px solid @c-light-grey;
+          background: transparent;
 
           &:active,
           &:focus,
           &:hover {
-            .chain-sand &{
-              background: #fff;
-            }
-            .chain-sign &{
-              background: #fff;
-            }
+            background: transparent;
           }
 
         }
 
         .text{
-          color: @c-light-grey;
-          font-size: 10px;
-          line-height: 19px;
+          color: #fff;
+          font-size: 13px;
+          line-height: 15px;
           display: block;
           width: 82px;
-          margin-left: -25px;
+          margin-left: -17px;
           padding-top: 5px;
+          font-family: @lbe-ff-primary;
+          font-weight: bold;
         }
       }
 
@@ -110,18 +105,7 @@
           cursor: default;
           padding: 0;
           filter: none;
-          .chain-sand &{
-            background: @c-menu-active-sand;
-            .text{
-              color: @c-menu-active-sand;
-            }
-          }
-          .chain-sign &{
-            background: @c-menu-active-sign;
-            .text{
-              color: @c-menu-active-sign;
-            }
-          }
+          background: @lbe-c-primary;
         }
 
       }

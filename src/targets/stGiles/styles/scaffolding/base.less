@@ -28,10 +28,12 @@ body{
 main {
   margin-top: 84px;
   &.no-hero{
-    margin: 173px auto 40px;
-  }
-  .viewport-mobile & {
-    margin-top: @baseline!important;
+    margin: 0;
+    padding: 70px 0 0 0;
+    .viewport-mobile & {
+      margin-top: 0 !important;
+      margin: 0 !important;
+    }
   }
 }
 

@@ -76,9 +76,15 @@
 
 
       <div grid-row>
+
         <!-- RESERVATION DETAILS -->
-        <aside ng-if="bookingConfig.detailsBeforeForm" grid="5" ng-include="'layouts/components/reservation-overview.html'"></aside>
-        <div grid="7">
+        <aside ng-if="bookingConfig.detailsBeforeForm && !isMobile"
+               grid="5"
+               class="ReservationDetails__overview"
+               ng-include="'layouts/components/reservation-overview.html'">
+        </aside>
+
+        <div class="ReservationDetails__container" grid="7">
           <nav grid-row id="reservation-steps" class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display && bookingConfig.bookingStepsNav.showInReservationWidget">
             <h4 class="label">_your_booking_progress_</h4>
             <ul>
@@ -107,12 +113,16 @@
               </label>
             </div>
             <button-submit class="continue-btn" ng-click="continue()" ng-disabled="isContinueDisabled()">
-              <span ng-if="continueName === 'continue'">> _continue_</span>
+              <span ng-if="continueName === 'continue'">_continue_</span>
               <span ng-if="continueName === 'confirm'">_confirm_</span>
             </button-submit>
           </div>
         </div>
-        <aside ng-if="!bookingConfig.detailsBeforeForm" grid="5" ng-include="'layouts/components/reservation-overview.html'"></aside>
+        <aside ng-if="!bookingConfig.detailsBeforeForm || isMobile"
+               grid="5"
+               class="ReservationDetails__overview"
+               ng-include="'layouts/components/reservation-overview.html'">
+        </aside>
       </div>
 
       <label ng-if="!bookingConfig.detailsBeforeForm" for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
@@ -123,7 +133,7 @@
       <div class="reservation-controls" grid-row>
         <span class="tooltiptext" ng-if="bookingConfig.ccvAsTooltip && isCurrentBookingStep('reservation.billing')">_cvv_modal_desc_</span>
         <button ng-if="!bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button>
-        <button ng-if="!bookingConfig.detailsBeforeForm" class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">
+        <button ng-if="(bookingConfig.detailsBeforeForm && isMobile) || !bookingConfig.detailsBeforeForm" class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">
           <span ng-if="continueName === 'continue'">_continue_</span>
           <span ng-if="continueName === 'confirm'">_confirm_</span>
         </button>
