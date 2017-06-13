@@ -826,48 +826,38 @@ angular.module('mobius.controllers.offers', [])
           breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
         }
 
-        if ($scope.isHotDeals) {
-          breadcrumbsService
-            .addAbsHref('Offers', 'hotel', {
-              regionSlug: propertyRegionData.region.meta.slug,
-              locationSlug: propertyRegionData.location.meta.slug,
-              propertySlug: property.meta.slug,
-              scrollTo: 'jsOffers'
-            });
-        } else {
-          //alt nav
-          breadcrumbsService
-            .addAbsHref('About', 'hotel', {
-              regionSlug: propertyRegionData.region.meta.slug,
-              locationSlug: propertyRegionData.location.meta.slug,
-              propertySlug: property.meta.slug,
-              scrollTo: 'jsAbout'
-            })
-            .addAbsHref('Location', 'hotel', {
-              regionSlug: propertyRegionData.region.meta.slug,
-              locationSlug: propertyRegionData.location.meta.slug,
-              propertySlug: property.meta.slug,
-              scrollTo: 'jsLocation'
-            })
-            .addAbsHref('Offers', 'hotel', {
-              regionSlug: propertyRegionData.region.meta.slug,
-              locationSlug: propertyRegionData.location.meta.slug,
-              propertySlug: property.meta.slug,
-              scrollTo: 'jsOffers'
-            })
-            .addAbsHref('Rooms', 'hotel', {
-              regionSlug: propertyRegionData.region.meta.slug,
-              locationSlug: propertyRegionData.location.meta.slug,
-              propertySlug: property.meta.slug,
-              scrollTo: 'jsRooms'
-            })
-            .addAbsHref('Gallery', 'hotel', {
-              regionSlug: propertyRegionData.region.meta.slug,
-              locationSlug: propertyRegionData.location.meta.slug,
-              propertySlug: property.meta.slug,
-              scrollTo: 'fnOpenLightBox'
-            });
-        }
+        //alt nav
+        breadcrumbsService
+          .addAbsHref('About', 'hotel', {
+            regionSlug: propertyRegionData.region.meta.slug,
+            locationSlug: propertyRegionData.location.meta.slug,
+            propertySlug: property.meta.slug,
+            scrollTo: 'jsAbout'
+          })
+          .addAbsHref('Location', 'hotel', {
+            regionSlug: propertyRegionData.region.meta.slug,
+            locationSlug: propertyRegionData.location.meta.slug,
+            propertySlug: property.meta.slug,
+            scrollTo: 'jsLocation'
+          })
+          .addAbsHref('Offers', 'hotel', {
+            regionSlug: propertyRegionData.region.meta.slug,
+            locationSlug: propertyRegionData.location.meta.slug,
+            propertySlug: property.meta.slug,
+            scrollTo: 'jsOffers'
+          })
+          .addAbsHref('Rooms', 'hotel', {
+            regionSlug: propertyRegionData.region.meta.slug,
+            locationSlug: propertyRegionData.location.meta.slug,
+            propertySlug: property.meta.slug,
+            scrollTo: 'jsRooms'
+          })
+          .addAbsHref('Gallery', 'hotel', {
+            regionSlug: propertyRegionData.region.meta.slug,
+            locationSlug: propertyRegionData.location.meta.slug,
+            propertySlug: property.meta.slug,
+            scrollTo: 'fnOpenLightBox'
+          });
 
       });
     } else {
