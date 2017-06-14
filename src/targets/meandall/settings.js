@@ -684,6 +684,7 @@ angular.module('mobiusApp.config', [])
       'breakdownLinkAfterTotal':true,
       'displayActionsInDetails':true,
       'displayPoliciesInDetails':true,
+      'useSingleRowData': true,
       'displayPropertyNameInDetails':true,
       'displayConfirmationNumberInDetails':true,
       'displayBookingDateInDetails': true,

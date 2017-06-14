@@ -361,6 +361,8 @@ reservation-widget {
 
     .data {
       margin: @spacing 0;
+      border: solid 1px #d1d1d1;
+      border-bottom: none;
     }
 
     .charges {
@@ -862,9 +864,46 @@ reservation-finished {
     }
   }
 
+  .map-section {
+    hotel-location {
+      > header {
+        margin: 72px 0;
+      }
+      .view-map-link {
+        display: none;
+      }
+      h2 {
+        text-transform: uppercase;
+        text-align: center;
+        color: #000;
+        font-family: @lbe-ff-primary;
+        font-size: 31px;
+        font-weight: bold;
+        line-height: 36px;
+        &:after {
+          content: url('@{img-prefix}/lbe/divider-orange.png');
+          display: block;
+        }
+      }
+    }
+  }
+
 
   // This part is specific for RESERVATION DETAIL page only
   .reservation-summary {
+
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    padding: 70px 0;
+    padding-top: 70px !important;
+    background-color: rgba(26, 26, 26, 0.8);
+    .backdrop-filter-blur(20px);
+
+    .summary-container {
+      max-width: 1212px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     // Block w/ PRINT and ADD TO PASSBOOK and SHARE buttons
     .actions {
@@ -877,8 +916,35 @@ reservation-finished {
        display: none;
       }
 
+      .share {
+        float: initial;
+        display: block;
+        width: 100%;
+        color: #fff;
+        margin: 20px 0;
+
+        a {
+          &.icon-fb {
+            content: @fa-var-facebook-square;
+            color: #fff;
+          }
+          &.icon-twitter {
+            content: @fa-var-twitter;
+            color: #fff;
+          }
+          &.icon-gplus {
+            content: @fa-var-google-plus;
+            color: #fff;
+          }
+          &.icon-email {
+            content: @fa-var-envelope;
+            color: #fff;
+          }
+        }
+      }
+
       .passbook{
-        float: right;
+        float: left;
         a {
           display: block;
           margin-left: @spacing / 2;
@@ -888,6 +954,7 @@ reservation-finished {
           width: 108px;
           height: 36px;
           float: right;
+          margin-left: 0;
         }
 
         .button-print {
@@ -1133,6 +1200,10 @@ reservation-finished {
 reservation-finished,
 reservation-hotel-details {
 
+  .booking-details {
+    padding-top: 20px;
+  }
+
   .reservation-summary {
 
     padding-top: 0;
@@ -1207,6 +1278,25 @@ reservation-hotel-details {
   // Reservation data in tables
   .tables {
 
+    .table-container {
+      display: block;
+    }
+
+    table {
+      width: 50% !important;
+      margin-top: 0 !important;
+      float: right;
+      border: solid 1px #d1d1d1;
+      border-bottom: none;
+      display: table;
+      td {
+        font-weight: 300 !important;
+      }
+      tr {
+        padding-bottom: 6px !important;
+      }
+    }
+
     figure {
       width: 33.3333%;
       float: left;
@@ -1219,23 +1309,13 @@ reservation-hotel-details {
       img {
         width: 100%;
         margin-bottom: 14px;
+        height: 348px;
       }
 
       .room-image-placeholder {
         width: 100%;
         height:210px;
         margin-bottom: 14px;
-
-        .chain-sand & {
-          background:url('@{img-prefix}/sandman-placeholder-large.jpg') no-repeat;
-          background-size: cover;
-          background-position: center;
-        }
-        .chain-sign & {
-          background:url('@{img-prefix}/signature-placeholder-large.jpg') no-repeat;
-          background-size: cover;
-          background-position: center;
-        }
       }
 
       button,
@@ -1261,44 +1341,74 @@ reservation-hotel-details {
       }
 
       button:first-of-type{
-        border-radius: 3px;
-        background: @c-green;
+        border-radius: 0;
+        background: @lbe-ff-primary;
         &:active,
         &:focus,
         &:hover {
-          background: @c-green;
+          background: @lbe-ff-primary;
         }
       }
 
       button + button {
         float: right;
+        background: transparent;
+        background-color: transparent;
+        border: solid 2px @lbe-c-primary;
+        border-radius: 0;
+        box-shadow: none;
+        &:hover {
+          background: transparent;
+          background-color: transparent;
+          box-shadow: none;
+        }
       }
     }
 
     > div {
-      padding-left: 100px;
+      padding-left: 50px;
     }
 
     .chain-logo {
       display: none;
     }
 
-    h3 {
-      max-width: 75%;
-      font-family: @ff-default;
-      font-size: 18px;
-      line-height: 24px;
-      color: @c-grey;
+    h1, h3, h4, .booking-date {
+      font-family: @lbe-ff-secondary;
+      color: #fff;
       text-transform: uppercase;
+      font-weight: 300;
     }
 
-    h4 {
-      max-width: 75%;
-      font-size: 14px;
-      color: @c-secondary;
-      text-transform: none;
+    span, tr, td {
+      font-family: @lbe-ff-secondary;
+      color: #fff;
       font-weight: 300;
-      line-height: 20px;
+    }
+
+    h1 {
+      font-size: 34px;
+      line-height: 41px;
+      margin-bottom: 18px;
+      max-width: 75%;
+    }
+
+    h3 {
+      font-size: 24px;
+      line-height: 29px;
+      margin-bottom: 14px;
+      max-width: 75%;
+    }
+
+    h4, .booking-date {
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 14px;
+    }
+
+    .booking-policies {
+      display: block;
+      margin-top: 20px;
     }
 
     table {
@@ -1335,22 +1445,17 @@ reservation-hotel-details {
     }
 
     .total-value {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 700;
     }
 
     .extended-charges{
+      border: solid 1px #d1d1d1;
+      border-top: none;
+      width: 50%;
+      float: right;
       table{
-        .breakdown-toggle{
-          a{
-            .chain-sand &{
-              color: @c-menu-active-sand;
-            }
-            .chain-sign &{
-              color: @c-menu-active-sign;
-            }
-          }
-        }
+        width: 100% !important;
       }
       .past-booking-message {
         background:#daf3f6;
@@ -1363,9 +1468,9 @@ reservation-hotel-details {
       }
 
       .extended-total{
-        position: absolute;
-        bottom: 0;
-        right: 0;
+        position: initial;
+        width: 100%;
+        text-align: right;
         a{
           font-size: 12px;
           line-height: 14px;

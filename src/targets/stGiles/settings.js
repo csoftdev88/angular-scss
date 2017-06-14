@@ -133,13 +133,13 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    'chainCode': 'SAND',
+    'chainCode': 'STG',
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'development': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
-      'integration': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
-      'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
+      'development': '//integration-www-stgiles.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-stgiles.mobiusbookingengine.com/api/4.0/',
+      'staging': '//integration-www-stgiles.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://www.sandmanhotels.com/api/4.0/'
     },
@@ -364,7 +364,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
-    'chains': ['SIGN', 'SAND'],
+    'chains': ['STG'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
@@ -376,7 +376,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'generics': {
       'singleProperty': true,
-      'defaultPropertyCode': 'CCC',
+      'defaultPropertyCode': 'SGC',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
@@ -683,8 +683,18 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'passbook': true,
         'print': true
       },
+      'displayPropertyNameInDetails':true,
       'displayNewsletterCtaOnReservationDetail': false,
+      'displayConfirmationNumberInDetails':true,
+      'displayBookingDateInDetails': true,
+      'displayActionsInDetails':true,
+      'displayPoliciesInDetails':true,
+      'displayVideo': true,
+      'hideHeader':true,
+      'useSingleRowData': true,
+      'useSidetable': false,
       'displayInstagramFeed': true,
+      'modifyButtonsAfterDetails':false,
       'reservationDetailPriceBreakdownExtended': true,
       'displayAddonVoucherEntry': false,
       'displayAddonComments': false,

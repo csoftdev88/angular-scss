@@ -46,7 +46,7 @@
     <section grid-row
              class="reservation-summary">
 
-      <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+      <div class="summary-container" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
 
         <div ng-if="!config.displayActionsInDetails"
              class="actions"
@@ -136,6 +136,7 @@
 
               <a ng-if="config.displayPoliciesInDetails && !isMobile"
                  href
+                 class="booking-policies"
                  ng-click="openPoliciesInfo()">
                 _view_policies_
               </a>
@@ -147,8 +148,9 @@
 
             </div>
 
+            <div class="table-container">
             <table class="data">
-              <tbody>
+              <tbody ng-if="!config.useSingleRowData">
                 <tr ng-if="config.showGuestName" class="guest-name">
                   <th>_guest_name_:</th>
                   <td>{{reservation.rooms[0].firstName}} {{reservation.rooms[0].lastName}}</td>
@@ -166,11 +168,34 @@
                   <td class="children">{{getCount('children')}}</td>
                 </tr>
               </tbody>
+
+              <tbody ng-if="config.useSingleRowData">
+                <tr ng-if="config.showGuestName" class="guest-name">
+                  <th>_guest_name_:</th>
+                  <td>{{reservation.rooms[0].firstName}} {{reservation.rooms[0].lastName}}</td>
+                </tr>
+                <tr>
+                  <th>_check_in_:</th>
+                  <td>{{reservation.arrivalDate | dateTime}}</td>
+                </tr>
+                <tr>
+                  <th class="check-out">_check_out_:</th>
+                  <td class="check-out">{{reservation.departureDate | dateTime}}</td>
+                </tr>
+                <tr>
+                  <th class="adults">_adults_:</th>
+                  <td class="adults">{{getCount('adults')}}</td>
+                </tr>
+                <tr>
+                  <th class="children">_children_:</th>
+                  <td class="children">{{getCount('children')}}</td>
+                </tr>
+              </tbody>
             </table>
 
             <table class="charges"
                    ng-switch="!!reservation.pointValue"
-                   ng-if="!config.reservationDetailPriceBreakdownExtended">
+                   ng-if="!config.reservationDetailPriceBreakdownExtended && !config.useSidetable">
               <tbody ng-switch-when="false">
                 <tr>
                   <th>_room_charges_: {{billingDetails.paymentMethod}}</th>
@@ -217,6 +242,7 @@
                      ng-init="breakdownExtended = false"
                      ng-if="config.reservationDetailPriceBreakdownExtended &&
                             reservation &&
+                            !config.useSidetable &&
                             reservation.rooms[0].priceDetail &&
                             !reservation.pointValue">
 
@@ -300,6 +326,7 @@
                   </tr>
                 </thead>
               </table>
+            </div>
 
               <div class="past-booking-message"
                    ng-if="!reservation || !reservation.rooms[0].priceDetail">
@@ -479,6 +506,12 @@
       <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
         <hotel-location hotel-details="property" ng-if="property"></hotel-location>
       </div>
+    </section>
+
+    <section grid-row
+             ng-if="config.displayVideo"
+             class="video-section">
+      <video width="100%" height="500" autoplay src="/static/images/reservation.mov"></video>
     </section>
 
     <section grid-row
