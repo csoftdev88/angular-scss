@@ -13,6 +13,7 @@ button-submit {
   &:focus,
   &:hover {
     background: darken(@lbe-c-primary, 10%);
+    box-shadow: none;
   }
 
   border-radius: 0;
@@ -29,21 +30,5 @@ button-submit {
 
   &.hide{
     display: none;
-  }
-
-  &.alt,
-  &.alt:active,
-  &.alt:focus,
-  &.alt:hover,
-  &[disabled="disabled"] {
-    background: @lbe-c-primary;
-    background: -moz-linear-gradient(top,  @lbe-c-primary 0%, #c2c1bd 100%);
-    background: -webkit-linear-gradient(top,  @lbe-c-primary 0%,#c2c1bd 100%);
-    background: linear-gradient(to bottom,  @lbe-c-primary 0%,#c2c1bd 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3efe6', endColorstr='#c2c1bd',GradientType=0 );
-    color: #fff;
-    -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
   }
 }

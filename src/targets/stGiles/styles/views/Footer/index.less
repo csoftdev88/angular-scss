@@ -3,7 +3,7 @@
 footer.main {
   height: 441px;
   background-color: #000;
-  padding: 56px 160px 0 160px;
+  padding: 56px 0 0 0;
   text-align: initial;
   width: initial;
   h1, h2, h3, p, span, small, li {
@@ -44,6 +44,12 @@ footer.main {
   .Footer__text {
     margin-bottom: 68px;
   }
+}
+
+.Footer__inner {
+  max-width: 1212px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Footer__tagline {
@@ -139,7 +145,7 @@ footer.main {
 .Footer__phone {
   position: absolute;
   bottom: 0;
-  right: 58px;
+  right: calc(~'(100vw - 1212px) / 2');
   img {
     width: 208px;
     height: 222px;
