@@ -30,8 +30,15 @@
     <li ui-sref="profile" class="Menu__items--item">
       _menu_profile_
     </li>
-    <li ng-click="auth.logout(); retentionClick();" class="Menu__items--item">
+    <li ng-click="auth.logout(); retentionClick();"
+        ng-if="user.isLoggedIn()"
+        class="Menu__items--item">
       _logout_
+    </li>
+    <li ng-click="toggleMenuOverlay(); auth.login(); retentionClick();"
+        ng-if="!user.isLoggedIn()"
+        class="Menu__items--item">
+      _login_
     </li>
   </ul>
 </div>

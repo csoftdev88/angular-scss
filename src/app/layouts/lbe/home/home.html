@@ -16,7 +16,7 @@
     <div class="HeroTitle__title">
       <h1>{{ $root.heroContent[0].title }}</h1>
     </div>
-    <button class="HeroTitle__button">_find_out_more_</button>
+    <a ui-sref="aboutUs" class="HeroTitle__button">_find_out_more_</a>
   </div>
 </article>
 
@@ -36,10 +36,12 @@
     <p>_about_benefit_four_text_</p>
   </div>
   <div class="HeroBenefits__buttons">
-    <button class="HeroBenefits__button login">
+    <button ng-click="auth.login()"
+            class="HeroBenefits__button login">
       _login_
     </button>
-    <button class="HeroBenefits__button signup">
+    <button ng-click="auth.register()"
+            class="HeroBenefits__button signup">
       _sign_up_
     </button>
   </div>
