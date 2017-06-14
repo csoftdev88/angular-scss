@@ -143,6 +143,9 @@ angular.module('mobius.controllers.offers', [])
         if ($stateParams.code) {
           selectOffer(bookingService.getCodeFromSlug($stateParams.code));
         }
+        _.each($scope.offersList, function(offer) {
+          setOfferUrl(offer);
+        });
       } else {
         if ($scope.isHotDeals) {
           //Hotdeal offers logic
@@ -386,6 +389,7 @@ angular.module('mobius.controllers.offers', [])
         code: slug
       });
     }
+    console.log('offer', offer);
   }
 
 
