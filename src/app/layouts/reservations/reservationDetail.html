@@ -598,8 +598,8 @@
             <description-info>
               <p>{{ addon._expanded ? addon.description : addon.descriptionShort }}</p>
               <p>
-                <a href ng-if="addon.hasViewMore" ng-click="addons[addonCode]._expanded = !addons[addonCode]._expanded">
-                    {{ addon._expanded ? '_show_less_' : '_show_more_' }}
+                <a href ng-if="addon.hasViewMore" ng-click="addon._expanded = !addon._expanded">
+                  {{ addon._expanded ? '_show_less_' : '_show_more_' }}
                 </a>
               </p>
             </description-info>
