@@ -688,7 +688,7 @@ angular.module('mobiusApp.config', [])
       'displayConfirmationNumberInDetails':true,
       'displayBookingDateInDetails': true,
       'addonNameAsDescriptionTitle':true,
-      'modifyButtonsAfterDetails':true,
+      'modifyButtonsAfterDetails':false,
       'largeRoomImage': true,
       'largePropertyImage': true,
       'descriptionUnderTitle': true,

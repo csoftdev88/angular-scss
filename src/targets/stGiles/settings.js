@@ -674,9 +674,10 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'passbook': true,
         'print': true
       },
-      'displayNewsletterCtaOnReservationDetail': true,
+      'displayNewsletterCtaOnReservationDetail': false,
+      'displayInstagramFeed': true,
       'reservationDetailPriceBreakdownExtended': true,
-      'displayAddonVoucherEntry': true,
+      'displayAddonVoucherEntry': false,
       'displayAddonComments': false,
       'hideHeroSliderOnReservations':true
     },

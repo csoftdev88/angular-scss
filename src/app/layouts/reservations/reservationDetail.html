@@ -481,6 +481,12 @@
       </div>
     </section>
 
+    <section grid-row
+             ng-if="config.displayInstagramFeed"
+             class="instagram-section">
+      <instagram-feed></instagram-feed>
+    </section>
+
     <hr ng-if="reservationAddons.length">
 
     <!-- RESERVATION ADDONS -->

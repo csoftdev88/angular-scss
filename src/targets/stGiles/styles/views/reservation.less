@@ -844,10 +844,22 @@ reservation-confirmation {
 ////////////////////////////////
 reservation-finished {
 
-  margin-top: 240px;
+  margin-top: 260px;
 
   .viewport-mobile &{
     margin-top: 0px;
+  }
+
+  hr {
+    display: none;
+  }
+
+  hotel-location {
+    .map-wrapper {
+      width: 100vw;
+      margin-left: calc(~'-50vw + 50% - 10px');
+      height: 376px;
+    }
   }
 
 

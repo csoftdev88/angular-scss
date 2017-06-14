@@ -6,9 +6,18 @@
 user-messages {
   top: 70px;
   background: @c-secondary;
+
+  &.reservation-confirmation {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+  }
+
   .viewport-mobile & {
     top: 0;
   }
+
   ul {
     li {
       > div {
@@ -23,8 +32,10 @@ user-messages {
       }
     }
   }
+
   .message-close {
     font-weight:bold;
     font-size:18px;
   }
+
 }
