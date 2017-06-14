@@ -310,16 +310,12 @@ angular.module('mobius.controllers.offers', [])
             setOfferUrl(offer);
           });
 
-          console.log('offers', $scope.offersList);
-
           if ($stateParams.code) {
             selectOffer(bookingService.getCodeFromSlug($stateParams.code));
           }
         }
       }
     }
-    console.log('offers', $scope.offersList);
-    console.log('selected', $scope.selectedOffer);
   });
 
   function setOfferUrl(offer) {
@@ -389,7 +385,6 @@ angular.module('mobius.controllers.offers', [])
         code: slug
       });
     }
-    console.log('offer', offer);
   }
 
 
