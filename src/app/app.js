@@ -203,6 +203,7 @@ angular
     'mobiusApp.directives.lbe.tagline',
     'mobiusApp.directives.lbe.hotelIntro',
     'mobiusApp.directives.lbe.subNav',
+    'mobiusApp.directives.lbe.tripAdviserQuote',
 
     'internationalPhoneNumber',
 

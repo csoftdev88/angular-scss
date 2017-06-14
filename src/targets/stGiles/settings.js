@@ -592,7 +592,16 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'hotelDetailsTestimonialsMaxNumStars': 5,
     'hotelDetailsTestimonialsCarousel': true,
     'hotelDetailsTestimonialsCarouselDelay': 4000,
-    'hotelDetailsTestimonials':[],
+    'hotelDetailsTestimonials': [{
+      'property': 'CCC',
+      'review': 'This hotel was in a great location and had amazing views of the city. Customer service was also very helpful. This hotel had everything we needed for a great stay in New York City',
+      'reviewer': {
+        'name': 'Brenda M.',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183019/SAN/rateLoading/denisek.jpg',
+        'location': 'Toronto, Canada'
+      },
+      'stars': 5
+    }],
     'roomDetails': {
       'displayRoomSubtitle': true,
       'hasBreadcrumbsSecondaryNav': true,

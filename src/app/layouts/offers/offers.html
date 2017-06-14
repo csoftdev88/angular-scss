@@ -127,6 +127,8 @@
                         selectedOffer.title | mainHeaderStyle">
       </h1>
 
+      <trip-adviser-quote></trip-adviser-quote>
+
       <div class="offer-content">
         <img ng-if="!config.displayOfferImageInHeroSlider"
              ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}"
