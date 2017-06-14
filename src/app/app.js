@@ -802,7 +802,10 @@ angular
     }
 
     //if single property redirect home state to hotel page
-    if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode && toState.name === 'home') {
+    if (Settings.UI.generics.singleProperty &&
+        Settings.UI.generics.defaultPropertyCode &&
+        Settings.UI.generics.redirectSinglePropertyHome &&
+        toState.name === 'home') {
       e.preventDefault();
       if (Settings.API.propertySlug) {
         $state.go('hotel', {
