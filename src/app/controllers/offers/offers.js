@@ -486,6 +486,8 @@ angular.module('mobius.controllers.offers', [])
       //Get offer title for breadcrumbs
       var offerTitle = $scope.selectedOffer.availability && $scope.selectedOffer.availability.title && $scope.selectedOffer.availability.title !== '' ? $scope.selectedOffer.availability.title : $scope.selectedOffer.title;
 
+      console.log('selected offer', $scope.selectedOffer);
+
       //Update breadcrumbs and hero slider
       if ($stateParams.propertySlug) {
         propertyService.getAll().then(function(properties) {
