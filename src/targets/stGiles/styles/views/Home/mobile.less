@@ -1,24 +1,15 @@
 
 .viewport-mobile {
 
-  .Home__hero--info {
+  .Home__hero--info,
+  .Home__hero--info.show-desktop {
     display: initial;
-    position: absolute;
     left: 13px;
-    top: calc(~'100vh - 250px');
-  }
-
-  .Home__hero--button {
-    margin-top: 20px;
-    background-color: #e3a314;
-    border-radius: 0;
-    width: 322px;
-    height: 39.9px;
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 16px;
-    line-height: 39.9px;
-    font-family: Raleway;
+    top: calc(~'100vh - 300px');
+    width: 100%;
+    .Home__hero--button {
+      display: initial;
+    }
   }
 
 }

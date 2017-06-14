@@ -2,6 +2,29 @@
 
 .Home__hero--info {
   display: none;
+  position: absolute;
+  &.show-desktop {
+    display: block;
+    left: 100px;
+    top: 450px;
+    width: 62%;
+    .Home__hero--button {
+      display: none;
+    }
+  }
+}
+
+.Home__hero--button {
+  margin-top: 20px;
+  background-color: #e3a314;
+  border-radius: 0;
+  width: 322px;
+  height: 39.9px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 39.9px;
+  font-family: Raleway;
 }
 
 .Home__booking-bar {

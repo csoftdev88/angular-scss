@@ -3,6 +3,12 @@
              slide-height="uiConfig.heroSlider.slideHeight">
 </hero-slider>
 
+<div class="Home__hero--info show-desktop">
+  <h2 class="About__hero--tagline">_about_tagline_</h2>
+  <h1 class="About__hero--title">{{ offersList[0].title }}</h1>
+  <button ng-click="openBookingBar()" class="Home__hero--button">_search_</button>
+</div>
+
 <article class="HeroTitle" ng-if="isLoyalty">
   <img src="/static/images/v4/logo-icon@3x.png">
   <div class="HeroTitle__title">
