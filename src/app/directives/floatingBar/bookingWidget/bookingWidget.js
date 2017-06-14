@@ -695,8 +695,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
           stateParams.room = roomIndex;
           roomIndex--;
           var rooms = roomsToNumbers(scope.selected.rooms);
-          console.log('rooms', rooms, scope.selected);
-          console.log('state params', stateParams);
           if(rooms.length > roomIndex){
             stateParams.adults = rooms[roomIndex].adults;
             stateParams.children = rooms[roomIndex].children;
@@ -709,7 +707,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         //check if we should go to region/location/property/room
         stateParams.fromSearch = '1';
         var paramsData = {};
-        console.log('state params', stateParams);
 
         if((!scope.selected.property || !scope.selected.property.code) && (!scope.selected.location || !scope.selected.location.code)){
           stateParams.propertyCode = null;
@@ -720,7 +717,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.property = null;
             stateParams.scrollTo = 'jsRooms';
             scope.hideBar();
-            console.log('state params', stateParams);
             $timeout(function () {
               $state.go('hotel', stateParams, {reload: true});
             }, 1000);
@@ -766,7 +762,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams = _.extend(stateParams, params);
             stateParams.property = null;
             scope.hideBar();
-            console.log('state params', stateParams);
             $timeout(function () {
               $state.go('hotels', stateParams, {reload: true});
             }, 1000);
@@ -780,7 +775,6 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams = _.extend(stateParams, params);
             stateParams.property = null;
             scope.hideBar();
-            console.log('state params', stateParams);
             $timeout(function () {
               $state.go('hotels', stateParams, {reload: true});
             }, 1000);
@@ -794,12 +788,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.scrollTo = 'jsRooms';
           }
           paramsData.property =  scope.selected.property;
-          console.log('state params', stateParams);
           routerService.buildStateParams('hotel', paramsData).then(function(params){
             stateParams = _.extend(stateParams, params);
             stateParams.property = null;
             scope.hideBar();
-            console.log('state params', stateParams);
             $timeout(function () {
               $state.go('hotel', stateParams, {reload: true});
             }, 1000);

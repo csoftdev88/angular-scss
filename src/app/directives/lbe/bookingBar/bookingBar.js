@@ -105,15 +105,10 @@
           });
 
         function getProperty(id) {
-          var property;
-          if (Settings.UI.generics.singleProperty) {
-            property = _.findWhere(scope.properties, {code: Settings.UI.generics.defaultPropertyCode});
-            if (! property) {
-              $log.warn('Potentially unexpected behaviour, the property was not found from its hash key.');
-            }
-            return property;
-          }
-          property = _.findWhere(scope.properties, {id: id});
+          var property = Settings.UI.generics.singleProperty ?
+            _.findWhere(scope.properties, {code: Settings.UI.generics.defaultPropertyCode}) :
+            _.findWhere(scope.properties, {id: id});
+
           if (! property) {
             $log.warn('Potentially unexpected behaviour, the property was not found from its hash key.');
           }
