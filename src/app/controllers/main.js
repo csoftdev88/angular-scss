@@ -48,10 +48,7 @@ angular.module('mobius.controllers.main', [])
         $scope.submitted = true;
         if (form.$valid) {
           if (registerData.localeId && angular.isDefined($scope.registerCountries)) {
-            var selectedCountry = _.find($scope.registerCountries, function(country) {
-              return country.id === registerData.localeId;
-            });
-
+            var selectedCountry = contentService.getCountryByID(registerData.localeId, $scope.registerCountries);
             registerData.localeCode = selectedCountry && selectedCountry.code;
           }
           apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
