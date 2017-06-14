@@ -39,10 +39,6 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.roomImageHeight = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.height ? $scope.roomsConfig.roomImageSize.height : '384';
   $scope.roomImageWidth = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.width ? $scope.roomsConfig.roomImageSize.width : '768';
 
-  console.log($scope.roomImageHeight);
-  console.log($scope.roomImageWidth);
-  console.log('state', $stateParams);
-
   var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
   var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
@@ -77,7 +73,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   $scope.openBookingBar = function () {
     if (Settings.engine === 'loyalty') {
-      $('floating-bar').css('display', 'block');
+      angular.element('floating-bar').css('display', 'block');
     }
     $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
   };
@@ -261,7 +257,6 @@ angular.module('mobius.controllers.hotel.details', [
     //response from request with params may be faster, in which case don't overwrite scope.details as response from this call does not include amenities
     if (angular.isUndefined($scope.details)) {
       $scope.details = details;
-      console.log('details', $scope.details);
     }
 
     if (!details.meta.slug) {
@@ -693,7 +688,6 @@ angular.module('mobius.controllers.hotel.details', [
 
   $scope.selectDates = function() {
     if (Settings.engine === 'loyalty') {
-      console.log('mob', stateService.isMobile());
       if (stateService.isMobile()) {
         $scope.openBookingBar();
         return;
