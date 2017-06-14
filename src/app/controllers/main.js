@@ -213,7 +213,7 @@ angular.module('mobius.controllers.main', [])
 
       $scope.openBookingBar = function () {
         if (Settings.engine === 'loyalty') {
-          $('floating-bar').css('display', 'block');
+          angular.element('floating-bar').css('display', 'block');
         }
         $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
       };
