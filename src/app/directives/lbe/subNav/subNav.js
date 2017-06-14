@@ -18,7 +18,7 @@
         if (!config) {
           $log.warn('No config for the subNav was provided!');
         }
-        if (attrs.links) {
+        if (! attrs.links) {
           $log.warn('No links for the subNav was provided!');
         }
         scope.links = JSON.parse(attrs.links);
