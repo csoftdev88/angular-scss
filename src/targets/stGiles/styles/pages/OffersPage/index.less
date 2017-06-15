@@ -7,6 +7,24 @@
     display: none;
   }
 
+  offer-detail {
+    margin-bottom: 86px;
+    h1 {
+      font-size: 40px;
+      letter-spacing: 0;
+      font-family: @lbe-ff-primary;
+      line-height: 47px;
+      text-transform: uppercase;
+      color: #000;
+    }
+    div[grid="12"] {
+      margin: 0;
+      button-back {
+        display: none;
+      }
+    }
+  }
+
   .OffersGrid__item {
     height: 262px;
     border: none;
@@ -52,5 +70,15 @@
 }
 
 .OffersBreadcrumbs {
-  display: none;
+  .breadcrumbs {
+    background: #fff;
+  }
+  .wrapper {
+    width: 1212px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.hide {
+    display: none;
+  }
 }

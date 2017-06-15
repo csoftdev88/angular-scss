@@ -52,47 +52,26 @@
   .crumbs{
     clear: both;
     max-width:50%;
-    li{
-      color: @c-grey;
-      line-height: 21px;
-
-      .chain-sand & {
-        font-weight: 300;
+    li:last-of-type {
+      span {
+        color: #000;
       }
-
+    }
+    li {
+      line-height: 21px;
       .sticky & {
         font-size:10px;
-        .chain-sign & {
-          font-size:12px;
-        }
       }
-
-      a{
-        color: @c-menu-active;
-        line-height: 16px;
+      a {
+        color: @lbe-c-primary;
+        span {
+          color: @lbe-c-primary;
+        }
+        line-height: 15px;
         font-weight: 300;
-        .sticky & {
-          .chain-sand & {
-            font-size:10px;
-          }
-        }
         &:after{
-          color: @c-dark-grey;
+          color: #000;
           font-size: 18px;
-        }
-        .chain-sign &{
-          color: @lbe-c-primary;
-          font-family: @lbe-ff-primary;
-          font-style: italic;
-        }
-        .chain-sand &{
-          color: @lbe-c-primary;
-        }
-      }
-      span{
-        .chain-sign &{
-          font-family: @ff-heading-it-sign;
-          font-style: italic;
         }
       }
     }

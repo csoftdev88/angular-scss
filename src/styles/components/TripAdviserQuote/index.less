@@ -2,19 +2,68 @@
 
 .TripAdviserQuote {
 
+  width: 440px;
+  height: 311px;
+  background: @lbe-c-primary;
+  margin-top: 300px;
+  float: right;
+
   .opening-quote, .closing-quote {
-    width: @testimonial-quote-width;
-    height: @testimonial-quote-height;
+    width: 74px;
+    height: 58px;
     position: relative;
+    background-size: cover;
+  }
+
+  .thumbnail {
+    width: 74px;
+    height: 74px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: solid 1px #fff;
+    }
+  }
+
+  .author-details {
+    width: 74px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+    color: #fff;
+    font-family: @lbe-ff-secondary;
   }
 
   .opening-quote {
-    background: url(@testimonial-left-quote-url);
+    background: url('@{img-prefix}/yellow-quote-open.png');
+    left: 20px;
+    top: 20px;
   }
 
   .closing-quote {
-    background: url(@testimonial-right-quote-url);
+    background: url('@{img-prefix}/yellow-quote-close.png');
+    left: 320px;
+    top: 170px;
+  }
+
+  .TripAdviserQuote__review {
+    text-transform: none;
+    font-family: Raleway;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0;
+    color: #fff;
+    width: 70%;
     float: right;
+    padding-right: 20px;
+  }
+
+  .TripAdviserQuote__author {
+    float: left;
+    top: 90px;
+    left: 21px;
+    position: relative;
   }
 
 }
