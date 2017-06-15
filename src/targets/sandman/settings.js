@@ -346,6 +346,9 @@ angular.module('mobiusApp.config', [])
       'searchInSessionCookieName':'MobiusSearchInSession',
       'maxSearches':3
     },
+    'membersRate': {
+      'defaultSize': 'large'
+    },
     'funnelRetention':{
       'enable':false,
       'cookieName': 'MobiusFunnelRetention',
