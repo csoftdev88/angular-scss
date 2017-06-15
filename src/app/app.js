@@ -221,7 +221,8 @@ angular
     'mobiusApp.filters.stringLocaleReplace',
     'mobiusApp.filters.content',
     'mobiusApp.filters.trustAsHtml',
-    'mobiusApp.filters.byNameOrZip'
+    'mobiusApp.filters.byNameOrZip',
+    'mobiusApp.filters.trustAsUrl'
   ])
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider, growlProvider, Settings) {
