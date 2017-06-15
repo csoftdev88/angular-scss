@@ -353,9 +353,19 @@ angular.module('mobiusApp.config', [])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
+    'highlight': {
+      'imageUrl': '/static/images/lbe/sun.png'
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
+    },
+    'bookingBar': {
+      'maxAdults': 8,
+      'maxChildren': 8,
+      'dateFormat': 'dd MM yy',
+      'defaultSize': 'large',
+      'useTommorowDefault': true
     },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']

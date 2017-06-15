@@ -1,0 +1,151 @@
+@import "./variables";
+@import "./mobile";
+
+.booking-bar {
+  -webkit-backdrop-filter: blur(1.6px);
+  backdrop-filter: blur(1.6px);
+  background-color: rgba(26, 26, 26, 0.8);
+  padding: 31px 28px 19px 28px;
+  margin-bottom: 40px;
+  box-sizing: border-box;
+
+  p, span, label {
+    font-family: Lato;
+  }
+
+  &.booking-bar__size-small {
+    height: 451px;
+    width: 301px;
+    .booking-bar__form {
+      form-element {
+        display: block;
+        padding: 0 0 24px 0;
+      }
+      .booking-bar__title {
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        padding-bottom: 12px;
+        text-align: center;
+        font-family: Raleway;
+      }
+      remove-text {
+        right: 15px;
+        top: initial;
+        bottom: 35px;
+      }
+      .booking-bar__form--dates.check-in,
+      .booking-bar__form--guests.adults {
+        float: left;
+      }
+      .booking-bar__form--dates.check-out,
+      .booking-bar__form--guests.children {
+        float: right;
+      }
+      .booking-bar__submit {
+        width: 245px;
+      }
+    }
+  }
+
+  &.booking-bar__size-large {
+    height: 210px;
+    .booking-bar__form {
+      form-element {
+        display: inline-block;
+        padding: 0 10px 0 0;
+      }
+      .booking-bar__form--guests.adults {
+        padding: 0;
+      }
+    }
+  }
+
+  .booking-bar__form {
+
+    span, input {
+      color: #fff;
+      font-family: Raleway;
+    }
+
+    .booking-bar__form--label {
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .booking-bar__form--dates {
+      width: 115px;
+    }
+
+    .booking-bar__form--room {
+      width: 245px;
+    }
+
+    .booking-bar__form--guests {
+      width: 122px;
+    }
+
+    .booking-bar__form--code {
+      width: 245px;
+    }
+
+    remove-text {
+      display: inline-block;
+      position: absolute;
+      margin: 2px 4px;
+      right: 25px;
+      top: 9px;
+      color: @c-gray;
+      z-index: 9;
+      cursor: pointer;
+
+      &:before {
+        .fa;
+        content: @fa-var-times;
+        color: #fff;
+      }
+    }
+
+    .booking-bar__submit {
+      border-radius: 0;
+      background-color: #e3a314;
+      color: white;
+      font-family: Raleway;
+      text-transform: uppercase;
+      font-weight: 100;
+      height: 45px;
+      width: 117px;
+      font-size: 16px;
+      line-height: 19px;
+    }
+
+    // Override chosen styling for select boxes
+    .chosen-container-active.chosen-with-drop .chosen-single {
+      box-shadow: none;
+    }
+    .chosen-container, input, select {
+      border-radius: 0;
+      border: none;
+      background: #000;
+      color: @c-white;
+      height: 45px;
+      line-height: 16px;
+      font-size: 13px;
+      text-transform: uppercase;
+      font-family: Lato;
+      a, div {
+        padding-top: 6px;
+      }
+      .chosen-drop {
+        background: #000;
+        border-radius: 0;
+      }
+      .chosen-results {
+        border: none;
+        border-radius: 0;
+      }
+    }
+
+  }
+
+}
