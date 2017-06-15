@@ -516,7 +516,15 @@
     <section grid-row
              ng-if="config.displayVideo"
              class="video-section">
-      <video width="100%" height="100%" autoplay src="/static/images/reservation.mov"></video>
+      <iframe width="100%"
+              height="100%"
+              src="{{ config.videoUrl | trustAsUrl }}"
+              frameborder="0"
+              allowfullscreen>
+      </iframe>
+      <!--<video width="100%" height="100%" autoplay>
+        <source src="{{ config.videoUrl | trustAsUrl }}" type="video/mp4">
+      </video>-->
     </section>
 
     <section grid-row

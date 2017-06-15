@@ -691,6 +691,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'displayPoliciesInDetails':true,
       'displayVideo': true,
       'hideHeader':true,
+      'videoUrl': 'https://www.youtube.com/embed/4znCOZMJdlY',
       'useBackground': true,
       'useSingleRowData': true,
       'useSidetable': false,
