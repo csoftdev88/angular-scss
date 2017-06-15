@@ -286,7 +286,7 @@ reservation-widget {
         font-size: 29px;
         line-height: 35px;
         font-weight: bold;
-        .viewport-mobile {
+        .viewport-mobile & {
           font-size: 23px;
           line-height: 28px;
         }
@@ -849,7 +849,21 @@ reservation-finished {
   margin-top: 260px;
 
   .viewport-mobile &{
-    margin-top: 0px;
+    margin-top: 130px;
+    .RoomImage {
+      display: none;
+    }
+    .reservation-summary {
+      padding: 0 20px;
+      width: 100%;
+      padding-bottom: 40px !important;
+    }
+    .booking-details {
+      width: 100%;
+    }
+    .table-container {
+      width: 100%;
+    }
   }
 
   hr {
@@ -861,13 +875,30 @@ reservation-finished {
       width: 100vw;
       margin-left: calc(~'-50vw + 50% - 10px');
       height: 376px;
+      .viewport-mobile & {
+        height: 326px;
+        margin-top: 120px;
+        margin-left: calc(~'-50vw + 50%');
+      }
+    }
+  }
+
+  .video-section {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    height: 500px;
+    .viewport-mobile & {
+      height: 132px;
     }
   }
 
   .map-section {
     hotel-location {
       > header {
-        margin: 72px 0;
+        margin: 154px 0 72px 0;
+        .viewport-mobile & {
+          display: none;
+        }
       }
       .view-map-link {
         display: none;
@@ -925,20 +956,28 @@ reservation-finished {
 
         a {
           &.icon-fb {
-            content: @fa-var-facebook-square;
-            color: #fff;
+            &:before {
+              content: @fa-var-facebook-square;
+              color: #fff;
+            }
           }
           &.icon-twitter {
-            content: @fa-var-twitter;
-            color: #fff;
+            &:before {
+              content: @fa-var-twitter;
+              color: #fff;
+            }
           }
           &.icon-gplus {
-            content: @fa-var-google-plus;
-            color: #fff;
+            &:before {
+              content: @fa-var-google-plus;
+              color: #fff;
+            }
           }
           &.icon-email {
-            content: @fa-var-envelope;
-            color: #fff;
+            &:before {
+              content: @fa-var-envelope;
+              color: #fff;
+            }
           }
         }
       }
@@ -1202,6 +1241,8 @@ reservation-hotel-details {
 
   .booking-details {
     padding-top: 20px;
+    width: 50%;
+    float: left;
   }
 
   .reservation-summary {
@@ -1279,18 +1320,27 @@ reservation-hotel-details {
   .tables {
 
     .table-container {
-      display: block;
+      border: solid 1px white;
+      padding: 20px 10px;
+      box-sizing: border-box;
+      width: 50%;
+      float: right;
+      .viewport-mobile & {
+        width: 100%;
+      }
     }
 
     table {
-      width: 50% !important;
       margin-top: 0 !important;
       float: right;
-      border: solid 1px #d1d1d1;
-      border-bottom: none;
+      border: none;
       display: table;
+      .price-breakdown {
+        color: @lbe-c-primary;
+      }
       td {
         font-weight: 300 !important;
+        padding-bottom: 10px;
       }
       tr {
         padding-bottom: 6px !important;
@@ -1409,6 +1459,9 @@ reservation-hotel-details {
     .booking-policies {
       display: block;
       margin-top: 20px;
+      .booking-policies {
+        color: @lbe-c-primary;
+      }
     }
 
     table {
@@ -1449,14 +1502,22 @@ reservation-hotel-details {
       font-weight: 700;
     }
 
+    .extended-total {
+      text-align: right;
+    }
+
     .extended-charges{
-      border: solid 1px #d1d1d1;
-      border-top: none;
-      width: 50%;
-      float: right;
-      table{
-        width: 100% !important;
+      border: none;
+
+      table {
+        width: 100%;
+        td {
+          .viewport-mobile & {
+            text-align: right;
+          }
+        }
       }
+
       .past-booking-message {
         background:#daf3f6;
         border:1px solid @c-menu-active;
@@ -1488,4 +1549,22 @@ reservation-hotel-details {
   &[ng-click] {
     cursor: pointer;
   }
+}
+
+.ConfirmationBackground {
+  background: url('@{img-prefix}/confirmation-bg.png');
+  position: absolute;
+  height: 900px;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  .viewport-mobile & {
+    height: 1150px;
+    background-size: cover;
+  }
+}
+
+dialog.confirmation-dialog .ui-dialog {
+  overflow-x: hidden;
 }

@@ -691,6 +691,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'displayPoliciesInDetails':true,
       'displayVideo': true,
       'hideHeader':true,
+      'useBackground': true,
       'useSingleRowData': true,
       'useSidetable': false,
       'displayInstagramFeed': true,

@@ -2,6 +2,8 @@
              stickable="main-header">
 </breadcrumbs>
 
+<div class="ConfirmationBackground" ng-if="config.useBackground"></div>
+
 <main class="reservation-detail"
       ng-class="{'grid-wrapper':!viewSettings.fullWidthSections}">
 
@@ -75,10 +77,12 @@
           <figure ng-switch="!config.isEditable && reservation.status !== 'Cancelled'">
 
             <img ng-if="!config.largeRoomImage && roomDetails.images[0].uri"
+                 class="RoomImage"
                  ng-src="{{roomDetails.images[0].uri}}"
                  alt="{{roomDetails.name}}">
 
             <img ng-if="config.largeRoomImage && roomDetails.images[0].uri"
+                 class="RoomImage"
                  ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
                  alt="{{roomDetails.name}}">
 
@@ -319,8 +323,8 @@
                     <th></th>
                     <td>
                       <a href ng-click="breakdownExtended = !breakdownExtended">
-                        <span ng-if="!breakdownExtended">_view_price_breakdown_</span>
-                        <span ng-if="breakdownExtended">_hide_price_breakdown_</span>
+                        <span class="price-breakdown" ng-if="!breakdownExtended">_view_price_breakdown_</span>
+                        <span class="price-breakdown" ng-if="breakdownExtended">_hide_price_breakdown_</span>
                       </a>
                     </td>
                   </tr>
@@ -351,6 +355,7 @@
 
                 <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)"
                    href
+                   class="booking-policies"
                    ng-click="openPoliciesInfo()">
                   _view_policies_
                 </a>
@@ -511,7 +516,7 @@
     <section grid-row
              ng-if="config.displayVideo"
              class="video-section">
-      <video width="100%" height="500" autoplay src="/static/images/reservation.mov"></video>
+      <video width="100%" height="100%" autoplay src="/static/images/reservation.mov"></video>
     </section>
 
     <section grid-row
