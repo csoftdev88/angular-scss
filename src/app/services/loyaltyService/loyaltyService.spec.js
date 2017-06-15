@@ -28,9 +28,6 @@ describe('loyaltyService', function() {
         }
       };
       $provide.value('apiService', apiService);
-      $provide.value('userObject', {
-        figur8Id: ''
-      });
     });
   });
 
