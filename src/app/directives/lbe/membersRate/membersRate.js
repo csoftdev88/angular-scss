@@ -11,9 +11,9 @@
 (function() {
   angular
     .module('mobiusApp.directives.lbe.membersRate', [])
-    .directive('membersRate', ['Settings', '$log', '_', MembersRate]);
+    .directive('membersRate', ['Settings', '$log', '_', '$window', 'propertyService', MembersRate]);
 
-  function MembersRate(Settings, $log, _) {
+  function MembersRate(Settings, $log, _, $window, propertyService) {
     return {
       restrict: 'E',
       scope: true,
@@ -29,35 +29,67 @@
           $log.warn('Invalid size attribute passed to the members rate directive');
         }
 
-        // @todo pull these from the API ??
         scope.sizeClass = 'members-rates__size-' + size;
-        scope.rooms = [{
-          title: 'The Court',
-          tagline: 'Enjoy value and confort',
-          rates: [
-            {
-              label: 'Members rates from',
-              price: 149.15
-            },
-            {
-              label: 'Public Rate',
-              price: 169
-            }
-          ]
-        },{
-          title: 'The Tuscany',
-          tagline: 'Your oasis in the city',
-          rates: [
-            {
-              label: 'Members rates from',
-              price: 149.15
-            },
-            {
-              label: 'Public Rate',
-              price: 169
-            }
-          ]
-        }];
+        // @todo add logic to handle multi properties
+        scope.memberRates = [];
+        if (Settings.UI.generics.singleProperty) {
+          propertyService.getAll()
+            .then(function (data) {
+              scope.membersRateProperties = data;
+              console.log('data', data);
+              scope.memberRates = [{
+                name: data[0].nameShort,
+                tagline: data[0].descriptionShort,
+                memberRate: null,
+                publicRate: null
+              }];
+              propertyService.getRooms(Settings.UI.generics.defaultPropertyCode)
+                .then(function (rooms) {
+                  var top = -1;
+                  var selectedRoom = rooms[0];
+                  _.each(rooms, function (room) {
+                    if (room.weighting > top) {
+                      selectedRoom = room;
+                      top = room.weighting;
+                    }
+                  });
+                  var params = {
+                    adults: 1,
+                    children: 0,
+                    propertySlug: scope.membersRateProperties[0].meta.slug,
+                    propertyCode: scope.membersRateProperties[0].code,
+                    productGroupId: 1,
+                    from: $window.moment.tz
+                  };
+                  var startDate = new Date();
+                  var endDate = new Date();
+                  endDate.setDate(endDate.getDate() + 1);
+                  startDate = $.datepicker.formatDate('yy-mm-dd', new Date(startDate), {});
+                  endDate = $.datepicker.formatDate('yy-mm-dd', new Date(endDate), {});
+                  params.from = startDate;
+                  params.to = endDate;
+                  propertyService.getRoomProducts(Settings.UI.generics.defaultPropertyCode, selectedRoom.code, params)
+                    .then(function (products) {
+                      console.log('products', products);
+                      var highest = -1;
+                      var highestPrice = products.products[0].totalBaseAfterPricingRules;
+                      _.each(products.products, function (product) {
+                        if (product.price.totalBaseAfterPricingRules > highest) {
+                          highestPrice = product.totalBaseAfterPricingRules;
+                          highest = product.totalBaseAfterPricingRules;
+                        }
+                        if (product.memberOnly) {
+                          scope.memberRates[0].memberRate = product.totalBaseAfterPricingRules;
+                        }
+                      });
+                      scope.memberRates[0].publicRate = highestPrice;
+                      scope.rooms = scope.memberRates;
+                      console.log('members rates', scope.memberRates);
+                    });
+                });
+            });
+        }
+
       }
     };
   }

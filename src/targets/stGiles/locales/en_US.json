@@ -610,6 +610,9 @@
     "hotel_description": "Centrally located in Murray Hill with a residential ambiance, The Court – A St Giles Hotel welcomes guests to a spacious alternative to the closet-sized accommodations of most New York City hotels. Tastefully furnished, the 199 expansive rooms and suites entice with rest and work areas, plush bedding, and deluxe bath and shower amenities with many showcasing stunning views of the Chrysler and Empire State Buildings.",
     "next": "Next",
     "about_offers_title": "Your exclusive perks and privileges",
-    "book_offer_to_receive": "Book this offer to receive"
+    "book_offer_to_receive": "Book this offer to receive",
+    "book_now_at": "Book now at",
+    "members_rate": "Members rates from",
+    "public_rate": "Public Rate"
   }
 }

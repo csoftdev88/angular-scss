@@ -5,7 +5,7 @@
        ng-repeat="room in rooms">
 
     <h1 class="members-rate__title">
-      {{ room.title }}
+      {{ room.name }}
     </h1>
 
     <small class="members-rate__tagline">
@@ -14,14 +14,18 @@
 
     <ul class="members-rate__rates">
 
-      <li ng-repeat="rate in room.rates"
-          class="members-rate__rate">
-
-        {{ rate.label }}
+      <li class="members-rate__rate">
+        _members_rate_
         <span class="members-rate__price">
-          {{ rate.price | i18nCurrency: currencyCode }}
+          {{ room.membersRate | i18nCurrency: currencyCode }}
         </span>
+      </li>
 
+      <li class="members-rate__rate">
+        _public_rate_
+        <span class="members-rate__price">
+          {{ room.publicRate | i18nCurrency: currencyCode }}
+        </span>
       </li>
 
     </ul>
