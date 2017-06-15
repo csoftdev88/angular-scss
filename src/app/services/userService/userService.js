@@ -113,7 +113,42 @@ angular.module('mobiusApp.services.user', [])
         headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token || getStoredUser().token : cookieFactory(KEY_CUSTOMER_PROFILE);
         apiService.setHeaders(headers);
 
-        // Loading profile data and users loyelties
+        if (Settings.authType === 'mobius') {
+          return apiService.get(
+            apiService.getFullURL('customers.customer',
+              { customerId: customerId })
+          ).then(function(userData) {
+            // NOTE: data[0] is userProfile data
+            // data[1] is loyalties data - handled in loadLoyalties function
+            if(userData && _.isArray(userData.email) &&  userData.email.length){
+              // Multiple email are not needed - we picking the first one
+              userData.email =  userData.email[0].value;
+              // Updating user details in data layer
+              dataLayerService.setUserId(customerId);
+            }
+
+            userObject = _.extend(userObject, userData);
+            userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
+            userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
+            console.log('user', userObject);
+            return $q.all([
+              loadLoyalties(customerId),
+              loadRewards(customerId)
+            ]).then(function () {
+
+              $timeout(function(){
+                $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
+              });
+              if(authPromise && authPromise.resolve){
+                authPromise.resolve(true);
+              }
+            });
+          }, function(){
+            clearStoredUser();
+          });
+        }
+
+        // Loading profile data and users loyalties
         return $q.all([
           apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
           loadLoyalties(customerId), loadRewards(customerId)

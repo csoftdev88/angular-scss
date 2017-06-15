@@ -22,11 +22,15 @@ describe('loyaltyService', function() {
             }
           };
         },
+        setHeaders: function() {},
         getFullURL: function(p){
           return p;
         }
       };
       $provide.value('apiService', apiService);
+      $provide.value('userObject', {
+        figur8Id: ''
+      });
     });
   });
 

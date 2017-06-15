@@ -51,6 +51,7 @@ angular.module('mobius.controllers.main', [])
             var selectedCountry = contentService.getCountryByID(registerData.localeId, $scope.registerCountries);
             registerData.localeCode = selectedCountry && selectedCountry.code;
           }
+          registerData.external = true;
           apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
             userObject.id = response.id;
             user.loadProfile();
