@@ -71,15 +71,13 @@
                   propertyService.getRoomProducts(Settings.UI.generics.defaultPropertyCode, selectedRoom.code, params)
                     .then(function (products) {
                       console.log('products', products);
-                      var highest = -1;
-                      var highestPrice = products.products[0].totalBaseAfterPricingRules;
+                      var highestPrice = products.products[0].price.totalBaseAfterPricingRules;
                       _.each(products.products, function (product) {
-                        if (product.price.totalBaseAfterPricingRules > highest) {
-                          highestPrice = product.totalBaseAfterPricingRules;
-                          highest = product.totalBaseAfterPricingRules;
+                        if (product.price.totalBaseAfterPricingRules > highestPrice) {
+                          highestPrice = product.price.totalBaseAfterPricingRules;
                         }
                         if (product.memberOnly) {
-                          scope.memberRates[0].memberRate = product.totalBaseAfterPricingRules;
+                          scope.memberRates[0].memberRate = product.price.totalBaseAfterPricingRules;
                         }
                       });
                       scope.memberRates[0].publicRate = highestPrice;

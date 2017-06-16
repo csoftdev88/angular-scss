@@ -3,9 +3,6 @@
 
 .members-rates {
 
-  // @todo change this to lbe variable when merged
-  margin-bottom: 40px;
-
   &.members-rates__size-large {
     height: @members-rate-large-height;
   }
@@ -50,7 +47,7 @@
       background: url(@members-rate-bg-1);
       margin-right: @members-rate-large-space-between-px;
     }
-    &:last-child {
+    &:nth-child(2) {
       float: right;
       background: url(@members-rate-bg-2);
       .members-rate__rate {
@@ -94,5 +91,18 @@
         float: right;
       }
     }
+  }
+}
+
+.members-rates__title {
+  color: #902325;
+  font-size: 25px;
+  font-family: @lbe-ff-primary;
+  letter-spacing: 0;
+  line-height: 30px;
+  text-transform: uppercase;
+  .highlight & {
+    font-size: 15px;
+    margin-bottom: 0;
   }
 }

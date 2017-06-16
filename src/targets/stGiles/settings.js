@@ -349,6 +349,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'tagline': {
       'showLogo': true
     },
+    'highlight': {
+      'imageUrl': '/static/images/sun.png'
+    },
     'previousSearches': {
       'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
