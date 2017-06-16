@@ -118,11 +118,20 @@ list-item {
   &.slashthrough {
     pricing-info{
       p{
+        display: block;
         .original-price{
           font-weight: 700;
           .viewport-mobile & {
             float:none;
             margin-right:5px;
+          }
+        }
+        span:not(.points) {
+          float: initial;
+          display: block;
+          &:after {
+            left: initial;
+            width: 20%;
           }
         }
         .value{

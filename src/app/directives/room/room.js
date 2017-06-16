@@ -305,6 +305,7 @@ angular.module('mobiusApp.directives.room', [])
         defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
+        console.log('products', scope.products);
         scope.altProduct = data.altProducts && data.altProducts.length ? data.altProducts[0] : null;
 
         //STUB THIS

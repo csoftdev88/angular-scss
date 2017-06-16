@@ -116,7 +116,7 @@ angular.module('mobiusApp.services.user', [])
         if (Settings.authType === 'mobius') {
           return apiService.get(
             apiService.getFullURL('customers.customer',
-              { customerId: customerId })
+              { customerId: customerId }), {}, false
           ).then(function(userData) {
             // NOTE: data[0] is userProfile data
             // data[1] is loyalties data - handled in loadLoyalties function

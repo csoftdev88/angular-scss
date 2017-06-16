@@ -556,6 +556,7 @@ angular.module('mobiusApp.config', [])
       'numberOfRatesToShow': 5,
       'showDescription': false,
       'showDescriptionBottom': true,
+      'showOtherRoomsTitle': true,
       //show room highlight before description
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,

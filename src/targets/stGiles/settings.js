@@ -607,25 +607,27 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     }],
     'roomDetails': {
       'displayRoomSubtitle': true,
-      'hasBreadcrumbsSecondaryNav': true,
+      'hasBreadcrumbsSecondaryNav': false,
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
-      'showDescription': true,
+      'showDescription': false,
+      'showDescriptionBottom': false,
+      'displayBookingBar': true,
       //show room highlight before description
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,
       'rateInfoIsTabbed': true,
       'showLocalInfo': false,
       'headerPartial':{
-        'display': false,
+        'display': true,
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
       },
       'otherRooms':{
-        'useThumbnails': false,
-        'hide': true,
+        'useThumbnails': true,
+        'hide': false,
         'thumbnails':{
           'width': 150,
           'height': 100
@@ -644,7 +646,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'upsells': {
         'display': true
       },
-      'displayAltProduct':false,
+      'displayAltProduct':true,
       'showProductImage':true,
       'ratesAsLinks':false,
       'productImages': {
@@ -1153,8 +1155,45 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       },
       'roomDetails':{
         'hasViewMore': true,
+        'hideBreadcrumbs': false,
         'showInclusions': false,
-        'showTagline': true,
+        'showTagline': false,
+        'showSubNav': true,
+        // @todo make this multi lingual
+        'subNavLinks': [
+          {
+            'name': 'Points of interest',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Meetings & events',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Facilities',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Rooms',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Dining',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'FAQS',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Info',
+            'link': 'http://www.stgiles.com/interest'
+          },
+          {
+            'name': 'Contact',
+            'link': 'http://www.stgiles.com/interest'
+          }
+        ],
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
@@ -1172,7 +1211,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
-        'displayPropertyTitle': true,
+        'displayPropertyTitle': false,
         'displayStaticContent': false,
         'propertyHotDealsShowTitle': true
       },
