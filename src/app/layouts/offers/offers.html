@@ -143,7 +143,7 @@
         </div>
       </highlight>
 
-      <trip-adviser-quote></trip-adviser-quote>
+      <trip-adviser-quote ng-if="!isMobile"></trip-adviser-quote>
 
       <div class="offer-content">
         <img ng-if="!config.displayOfferImageInHeroSlider"
@@ -164,6 +164,8 @@
           _login_register_
         </a>
       </div>
+
+      <trip-adviser-quote ng-if="isMobile"></trip-adviser-quote>
 
       <members-rate rooms="memberRates" size="large"></members-rate>
 

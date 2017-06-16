@@ -1,3 +1,4 @@
+@import "./mobile";
 
 .OffersPage {
 
@@ -13,7 +14,7 @@
       font-size: 40px;
       letter-spacing: 0;
       font-family: @lbe-ff-primary;
-      line-height: 47px;
+      line-height: 57px;
       text-transform: uppercase;
       color: #000;
     }
@@ -21,6 +22,12 @@
       margin: 0;
       button-back {
         display: none;
+      }
+    }
+    .offer-content {
+      min-height: 300px;
+      .viewport-mobile & {
+        min-height: initial;
       }
     }
   }
@@ -109,4 +116,10 @@
   width: 30%;
   margin-left: 70%;
   height: 120px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }

@@ -810,7 +810,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'discountCodeCookieExpiryDays': 5,
       'displayPageHeading': true,
       'includeOfferAvailabilityPropertyDropdown': true,
-      'displayOfferImageInHeroSlider': false,
+      'displayOfferImageInHeroSlider': true,
       'height': 200,
       'width': 307,
       'scrollToBreadcrumbs': true,
