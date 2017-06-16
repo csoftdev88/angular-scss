@@ -53,6 +53,6 @@
 
 <footer class="main"
         ng-if="!hideFooter"
-        ng-hide="$state.includes('reservation')"
+        ng-hide="$state.includes('reservation') || $state.includes('rewards')"
         ng-include="'layouts/lbe/footer.html'">
 </footer>

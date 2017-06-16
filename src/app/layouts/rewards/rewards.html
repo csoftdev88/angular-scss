@@ -1,13 +1,23 @@
-<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<div class="RewardsPage__bg" ng-if="config.useBackground"></div>
 
-<breadcrumbs stickable="main-header"></breadcrumbs>
+<hero-slider content="heroContent"
+             ng-if="!config.hideHero"
+             slide-width="uiConfig.heroSlider.slideWidth"
+             slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
 
-<main class="grid-wrapper">
+<breadcrumbs stickable="main-header" ng-if="!config.hideBreadCrumbs"></breadcrumbs>
+
+<main class="grid-wrapper RewardsPage">
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <rewards-list grid-row>
     <nav>
+      <div class="RewardsBalance" ng-if="!isMobile">
+        <h3>Your Balance :</h3>
+        <h1> {{ pointsBalance }} points</h1>
+      </div>
       <ul>
         <li ng-class="{active: viewMode === 'consumed'}">
           <a href ng-click="viewMode = 'consumed'">_my_rewards_</a>
@@ -19,79 +29,89 @@
           <a href ng-click="toogleFullListMode()">_all_rewards_</a>
         </li>
       </ul>
+      <div class="RewardsBalance" ng-if="isMobile">
+        <h3>Your Balance :</h3>
+        <h1> {{ pointsBalance }} points</h1>
+      </div>
     </nav>
 
     <!-- MY REWARDS -->
-    <reward-item ng-if="viewMode === 'consumed'" ng-repeat="reward in consumedRewards" ng-click="openRewardDetails(reward)" ng-class="{'redeemed': reward.consumed}">
+    <reward-item ng-if="viewMode === 'consumed'"
+                 ng-repeat="reward in consumedRewards"
+                 ng-click="openRewardDetails(reward)"
+                 ng-class="{'redeemed': reward.consumed}">
 
       <figure>
-        <img ng-if="reward.images && reward.images.length && reward.images[0].uri" ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}">
+        <img ng-if="reward.images && reward.images.length && reward.images[0].uri"
+             ng-src="{{reward.images[0].uri}}"
+             alt="{{reward.images[0].alt}}">
         <figcaption>Redeemed</figcaption>
       </figure>
 
-      <section>
+      <section class="RewardItem__info">
         <h2>{{reward.name}}</h2>
-        <div ng-bind-html="sanitize(reward.descriptionShort)"></div>
+        <p class="RewardItem__points" ng-if="config.showPointsInBanner">{{ reward.descriptionShort }}</p>
+        <div class="RewardItem__description" ng-bind-html="sanitize(reward.descriptionShort)"></div>
       </section>
-      <span>_read_more_</span>
+
+      <span class="RewardItem__more">_read_more_</span>
+
     </reward-item>
 
     <!-- NO REWARDS CONSUMED -->
-    <div ng-if="viewMode === 'consumed' && consumedRewards && !consumedRewards.length" class="products-not-available ng-scope">
+    <div ng-if="viewMode === 'consumed' && consumedRewards && !consumedRewards.length"
+         class="products-not-available ng-scope">
+
       <div>
         <h3>_no_rewards_title_</h3>
         <p>_no_rewards_desc_</p>
       </div>
+
     </div>
 
     <!-- ALL REWARDS -->
-    <reward-item ng-if="viewMode !== 'consumed'" ng-repeat="reward in consumableRewards | orderBy: '-weighting'" ng-click="openRewardDetails(reward)">
-      <img ng-if="reward.images && reward.images.length && reward.images[0].uri" ng-src="{{reward.images[0].uri}}" alt="{{reward.images[0].alt}}">
+    <reward-item ng-if="viewMode !== 'consumed'"
+                 ng-repeat="reward in consumableRewards | orderBy: '-weighting'"
+                 ng-click="openRewardDetails(reward)">
 
-      <section>
+      <img ng-if="reward.images && reward.images.length && reward.images[0].uri"
+           ng-src="{{reward.images[0].uri}}"
+           alt="{{reward.images[0].alt}}">
+
+      <section class="RewardItem__info">
         <h2>{{reward.name}}</h2>
-        <div ng-bind-html="sanitize(reward.descriptionShort)"></div>
+        <p class="RewardItem__points" ng-if="config.showPointsInBanner">{{ reward.descriptionShort }}</p>
+        <div class="RewardItem__description" ng-bind-html="sanitize(reward.descriptionShort)"></div>
       </section>
-      <span>_read_more_</span>
+
+      <span class="RewardItem__more">_read_more_</span>
+
     </reward-item>
+
     <!-- NO REWARDS AVAILABLE FOR CONSUMPTION -->
-    <div ng-if="viewMode !== 'consumed' && consumableRewards && !consumableRewards.length" class="products-not-available ng-scope">
+    <div ng-if="viewMode !== 'consumed' && consumableRewards && !consumableRewards.length"
+         class="products-not-available ng-scope">
+
       <div>
         <h3>_no_rewards_available_</h3>
         <p>_check_back_soon_</p>
       </div>
+
     </div>
+
   </rewards-list>
 
-  <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+  <scroll-to-top class="back-to-top"
+                 ng-click="scrollToTop()"
+                 scroll-position="scroll"
+                 ng-class="{visible: scroll > scrollTopTrigger}">
+    <span>_back_to_top_</span>
+  </scroll-to-top>
+
   <!-- Growl notifications -->
-  <growl-alerts class="growl-alerts-dir" languages-message="'_languages_message_'" retention-message="'_retention_message_'"></growl-alerts>
-<!--
+  <growl-alerts class="growl-alerts-dir"
+                languages-message="'_languages_message_'"
+                retention-message="'_retention_message_'">
+  </growl-alerts>
 
-  <reward-detail grid-row ng-if="showDetail">
-    <h1>{{selectedReward.name}}</h1>
-    <img ng-src="{{selectedReward.image.uri}}" alt="{{selectedReward.image.uri}}" err-source="http://lorempixel.com/1000/460/"/>
-    <div ng-bind-html="selectedReward.desc"></div>
-
-    <button-back role="button" tabindex="0" ng-click="goToRewardsList()">Back</button-back>
-    <button-submit ui-sref="hotels({promoCode: selectedOffer.promoCode})">Purchase Reward</button-submit>
-
-    <hr>
-
-    <h2 ng-if="rewardsList.length > 1">You may also be <strong>interested in:</strong></h2>
-    <rewards-list ng-if="rewardsList.length > 1">
-      <reward-item ng-repeat="reward in rewardsList | filter:getRelevant track by $index"  ng-click="goToDetail(reward.code)">
-        <img ng-src="{{reward.image.uri}}" alt="{{reward.image.uri}}" err-source="http://lorempixel.com/300/160/"/>
-
-        <section>
-          <h2>{{reward.name}} </h2>
-          <div ng-bind-html="reward.desc"></div>
-        </section>
-
-        <span>Read more</span>
-      </reward-item>
-    </rewards-list>
-
-  </reward-detail>
--->
 </main>

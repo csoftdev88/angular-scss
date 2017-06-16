@@ -1089,6 +1089,12 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'includePhoneField': true,
         'showStaticContactInfo': true
       },
+      'rewards': {
+        'hideHero': true,
+        'hideBreadCrumbs': true,
+        'useBackground': true,
+        'showPointsInBanner': true
+      },
       'hotels': {
         'showRegionDescription': false,
         'showLocationDescription': true,

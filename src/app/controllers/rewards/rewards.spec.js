@@ -63,6 +63,14 @@ describe('mobius.controllers.rewards', function() {
 
         });
 
+        $provide.value('Settings', {
+          'UI': {
+            'viewsSettings': {
+              'rewards': sinon.stub()
+            }
+          }
+        });
+
         $provide.value('modalService', {
           openRewardDetailsDialog: sinon.stub()
         });
