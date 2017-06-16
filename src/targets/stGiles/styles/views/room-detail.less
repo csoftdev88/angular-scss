@@ -160,6 +160,12 @@ hotel-room {
         figure {
           height: 246px;
           max-height: initial;
+          .viewport-mobile & {
+            height: 100px;
+            img {
+              height: 100%;
+            }
+          }
         }
       }
     }
@@ -187,6 +193,9 @@ hotel-room {
           button-submit {
             border-radius: 0;
             background: @lbe-c-primary;
+            &:hover {
+              background: @lbe-c-primary;
+            }
           }
         }
       }
@@ -398,6 +407,10 @@ hotel-room {
   &:after {
     content: url('@{img-prefix}/lbe/divider-orange.png');
     display: block;
+  }
+  .viewport-mobile & {
+    margin-bottom: 30px;
+    margin-top: 30px;
   }
 }
 
