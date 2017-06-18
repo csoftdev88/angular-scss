@@ -8,10 +8,19 @@
   <div class="Header__buttons">
 
     <div class="Header__buttons--auth">
-      <button class="Header__button login" ng-click="auth.login()">
+      <button class="Header__button login"
+              ng-if="!auth.isLoggedIn()"
+              ng-click="auth.login()">
         _log_in_
       </button>
-      <button class="Header__button register" ng-click="auth.register()">
+      <button class="Header__button register"
+              ng-if="auth.isLoggedIn()"
+              ng-click="auth.logout()">
+        _logout_
+      </button>
+      <button class="Header__button register"
+              ng-if="!auth.isLoggedIn()"
+              ng-click="auth.register()">
         _register_
       </button>
     </div>
