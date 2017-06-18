@@ -777,7 +777,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     ],
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'CAD',
+      'default': 'USD',
 
       'GBP': {
         'code': 'GBP',
@@ -1263,7 +1263,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'code':'DEFAULT'
       }
     },
-    'defaultCountryCode': 'ca',
+    'defaultCountryCode': 'us',
     'preferredCountryCodes': 'ca,us,gb',
     'arrivalMethods': [
       {
