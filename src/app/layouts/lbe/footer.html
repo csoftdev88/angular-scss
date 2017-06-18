@@ -21,11 +21,31 @@
 
   <div class="Footer__social">
     <ul class="Footer__social--icons">
-      <li><span class="facebook"></span></li>
-      <li><span class="twitter"></span></li>
-      <li><span class="instagram"></span></li>
-      <li><span class="linkedin"></span></li>
-      <li><span class="youtube"></span></li>
+      <li ng-if="uiConfig.socialLinksNew.facebook">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.facebook }}">
+          <span class="facebook"></span>
+        </a>
+      </li>
+      <li ng-if="uiConfig.socialLinksNew.twitter">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.twitter }}">
+          <span class="twitter"></span>
+        </a>
+      </li>
+      <li ng-if="uiConfig.socialLinksNew.instagram">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.instagram }}">
+          <span class="instagram"></span>
+        </a>
+      </li>
+      <li ng-if="uiConfig.socialLinksNew.linkedIn">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.linkedIn }}">
+          <span class="linkedin"></span>
+        </a>
+      </li>
+      <li ng-if="uiConfig.socialLinksNew.youtube">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.youtube }}">
+          <span class="youtube"></span>
+        </a>
+      </li>
     </ul>
     <div class="Footer__tagline">
       <h3>_footer_tagline_</h3>

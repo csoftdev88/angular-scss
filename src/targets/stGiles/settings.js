@@ -458,18 +458,25 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     // Social links
     'displaySocialLinks': true,
     'socialLinks': [
-      {'network': 'blog', 'link': 'https://sandmanhotelgroup.wordpress.com/'},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/SandmanHotelGroup'},
-      {'network': 'twitter', 'link': 'https://twitter.com/sandmanhotels'},
-      {'network': 'instagram', 'link': 'https://www.instagram.com/sandmanhotels/'},
-      {'network': 'google', 'link': 'https://plus.google.com/+SandmanHotelGroup'}
+      {'network': 'blog', 'link': ''},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/StGilesHotels/'},
+      {'network': 'twitter', 'link': 'https://twitter.com/stgileshotels'},
+      {'network': 'instagram', 'link': 'https://www.instagram.com/stgileshotels/'},
+      {'network': 'google', 'link': ''}
     ],
+    'socialLinksNew': {
+      'facebook': 'https://www.facebook.com/StGilesHotels/',
+      'twitter': 'https://twitter.com/stgileshotels',
+      'instagram': 'https://www.instagram.com/stgileshotels/',
+      'linkedIn': 'https://www.linkedin.com/company-beta/1019577/',
+      'youtube': ''
+    },
     'shareLinks': {
       'facebook': true,
       'twitter': true,
-      'googleplus': true,
+      'googleplus': false,
       'mail': true,
-      'twitterUsername': 'SuttonPlaceHtl'
+      'twitterUsername': 'stgileshotels'
     },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
