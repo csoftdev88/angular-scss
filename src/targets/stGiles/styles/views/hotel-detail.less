@@ -348,6 +348,9 @@ hotel-detail {
                     padding-left:0;
                     padding-top:10px;
                   }
+                  button-submit:hover {
+                    background: @lbe-c-primary;
+                  }
                 }
                 .price-form {
                   .viewport-mobile & {
@@ -362,12 +365,6 @@ hotel-detail {
                       color:@c-secondary;
                       font-weight:initial;
                       padding:0;
-                    }
-                  }
-                  .chain-sign.viewport-mobile & {
-                    color:@c-menu-active-sign;
-                    .value {
-                      color:@c-menu-active-sign;
                     }
                   }
                 }
@@ -413,14 +410,10 @@ hotel-detail {
 
               .not-available{
                 button-submit{
-                  background: @c-green;
+                  background: @lbe-c-primary;
                   border-radius: 2px;
-                  .chain-sign &,
-                  .chain-sand &{
-                    font-family: @ff-default;
-                  }
                   &:hover {
-                    background: darken(@c-green, 10%);
+                    background: @lbe-c-primary
                   }
                 }
               }
@@ -664,6 +657,18 @@ hotel-detail {
   }
 
   .hotel-detail__rooms-compare {
+    .room-list-compare-container {
+      .rooms-list {
+        list-item {
+          .pricing-info {
+            button-submit,
+            button-submit:hover {
+              background: @lbe-c-primary;
+            }
+          }
+        }
+      }
+    }
     .section-header {
       .flexible-dates-bar {
         background: rgba(62, 177, 194, 0.2);
