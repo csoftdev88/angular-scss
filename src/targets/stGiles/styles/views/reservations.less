@@ -26,6 +26,11 @@ reservation-hotel-details {
   }
 
   .tables {
+    figure {
+      .viewport-mobile & {
+        display: none;
+      }
+    }
     h3{
       font-size: 24px;
       line-height: 29px;
@@ -84,7 +89,7 @@ reservation-hotel-details {
   left: 0;
   z-index: -999;
   .viewport-mobile & {
-    height: 1150px;
+    height: 100vh;
     background-size: cover;
   }
 }
@@ -93,12 +98,20 @@ reservation-hotel-details {
 
   margin-top: 189px;
 
+  .viewport-mobile & {
+    margin-top: 109px;
+  }
+
   .ReservationsNextStay__container {
     width: 100vw;
     margin-left: calc(~'50% - 50vw - 15px');
     background-color: rgba(0, 0, 0, 0.75);
     .backdrop-filter-blur(20px);
     margin-bottom: 220px;
+    .viewport-mobile & {
+      margin-left: calc(~'50% - 50vw');
+      margin-bottom: 140px;
+    }
   }
 
   .ReservationsNextStay {
@@ -106,6 +119,9 @@ reservation-hotel-details {
     margin-left: auto;
     margin-right: auto;
     padding-top: 72px;
+    .viewport-mobile & {
+      padding: 40px 20px;
+    }
   }
 
   .ReservationsNextStay__title {
