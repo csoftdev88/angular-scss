@@ -49,7 +49,7 @@
           appLang = stateService.getAppLanguageCode();
           dynamicMessages = DynamicMessages[appLang];
 
-          // Get the config for the directive 
+          // Get the config for the directive
           config = Settings.UI.questionnnaire;
           if (!config) {
             $log.warn('No config for the questionnaire was provided!');
