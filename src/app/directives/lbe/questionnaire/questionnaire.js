@@ -27,13 +27,18 @@
           pollsService.getAll()
             .then(function (data) {
               pollId = data[0].id;
-              pollsService.get(data[0].id)
-                .then(function (data) {
-                  scope.question = data.question;
-                  scope.options = data.choices;
-                  scope.choiceId = data.choices[0].id;
-                  scope.reward = dynamicMessages.answer_the_question.replace('XX', data.spinsAwarded);
-                });
+              if (pollId) {
+                pollsService.get(data[0].id)
+                  .then(function (data) {
+                    scope.question = data.question;
+                    scope.options = data.choices;
+                    scope.choiceId = data.choices[0].id;
+                    scope.reward = dynamicMessages.answer_the_question.replace('XX', data.spinsAwarded);
+                  });
+                return;
+              }
+              $log.info('No polls available');
+              scope.question = false;
             });
         };
 

@@ -34,6 +34,14 @@
 
   </article>
 
+  <article ng-if="!nextStay && !question"
+           ui-sref="reservations"
+           class="questionnaire__questions nextStay">
+
+    <h1 class="questionnaire__nextStay--subtitle emptyMessage">You do not have any upcoming stays</h1>
+
+  </article>
+
   <article ng-if="nextStay"
            ui-sref="reservations"
            class="questionnaire__questions nextStay">
