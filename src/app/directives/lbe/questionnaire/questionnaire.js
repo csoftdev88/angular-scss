@@ -7,10 +7,11 @@
   angular
     .module('mobiusApp.directives.lbe.questionnaire', [])
     .directive('questionnaire', ['Settings', '$log', 'polls', 'userObject', 'DynamicMessages', 'stateService',
-                                 'rewardsService', '$controller', '_', 'reservationService', 'propertyService', Questionnaire]);
+                                 'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
+                                 'apiService', Questionnaire]);
 
   function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, rewardsService,
-                         $controller, _, reservations, property) {
+                         $controller, _, reservations, property, apiService) {
     return {
       restrict: 'E',
       scope: true,
@@ -26,8 +27,8 @@
         var selectPoll = function () {
           pollsService.getAll()
             .then(function (data) {
-              pollId = data[0].id;
-              if (pollId) {
+              if (data[0]) {
+                pollId = data[0].id;
                 pollsService.get(data[0].id)
                   .then(function (data) {
                     scope.question = data.question;
@@ -59,8 +60,19 @@
             scope.points = userObject.loyalties.amount;
             scope.tier = userObject.loyalties.tier;
           } else {
-            $log.warn('Loyalties should have been loaded but where not. Maybe something funky happening with the auth controller');
+            $log.warn('Loyalties should have been loaded but where not. Maybe something funky is happening with the auth controller');
           }
+
+          apiService.get(
+            apiService.getFullURL('customers.transactions', { customerId: userObject.id })
+          ).then(function(data) {
+            var total = 0;
+            $log.info('Retrieved customer transactions', data);
+            _.each(data.recentTransactions, function (transaction) {
+              total += transaction.amount;
+            });
+            scope.numPointsToNextTier = (Math.ceil(total / 1000) * 1000) - scope.points;
+          });
 
           selectPoll();
 
