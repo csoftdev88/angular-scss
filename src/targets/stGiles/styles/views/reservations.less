@@ -12,10 +12,12 @@ reservation-hotel-details {
     .reference,
     .booked {
       margin: 0;
-      font-size: 18px;
-      line-height: 23px;
-      color: @c-grey;
-      font-weight: 600;
+      font-size: 34px;
+      line-height: 41px;
+      color: #fff;
+      font-weight: 300;
+      font-family: @lbe-ff-secondary;
+      padding-bottom: 23px;
     }
 
     .booked{
@@ -25,25 +27,30 @@ reservation-hotel-details {
 
   .tables {
     h3{
-      font-size: 18px;
-      line-height: 23px;
-      color: @c-grey;
-      font-weight: 600;
-      max-width: 75%;
-    }
-    h4{
-      font-size: 14px;
-      color: @c-grey;
+      font-size: 24px;
+      line-height: 29px;
+      color: #fff;
       font-weight: 300;
       max-width: 75%;
-      text-transform: none;
+      text-transform: uppercase;
+      font-family: @lbe-ff-secondary;
+      padding-bottom: 11px;
+    }
+    h4{
+      font-size: 16px;
+      line-height: 19px;
+      color: #fff;
+      font-weight: 300;
+      max-width: 75%;
+      text-transform: uppercase;
+      font-family: @lbe-ff-secondary;
 
     }
     .chain-logo{
       display: block;
       top: 0;
       max-width: 25%;
-      
+
       &.sand{
         width: 98px;
         height: 17px;
@@ -67,7 +74,43 @@ reservation-hotel-details {
 //////////////////////////
 // List of FUTURE STAYS //
 //////////////////////////
+.ReservationsBackground {
+  background: url('@{img-prefix}/confirmation-bg.png');
+  background-size: cover;
+  position: absolute;
+  height: 900px;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  .viewport-mobile & {
+    height: 1150px;
+    background-size: cover;
+  }
+}
+
 .reservations {
+
+  margin-top: 189px;
+
+  .ReservationsNextStay__container {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw - 15px');
+    background-color: rgba(0, 0, 0, 0.75);
+    .backdrop-filter-blur(20px);
+    margin-bottom: 220px;
+  }
+
+  .ReservationsNextStay {
+    max-width: 1212px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 72px;
+  }
+
+  .ReservationsNextStay__title {
+    display: none;
+  }
 
   hr{
     display: none;
