@@ -9,25 +9,33 @@
     <li ui-sref="offers" class="Menu__items--item">
       _menu_specials_
     </li>
-    <li ui-sref="contacts" class="Menu__items--item">
+    <!--<li ui-sref="contacts" class="Menu__items--item">
       _menu_contact_
-    </li>
+    </li>-->
     <li class="Menu__items--item">
       <img src="/static/images/lbe/divider-orange.png">
     </li>
     <li class="Menu__items--highlight">
       _menu_name_
     </li>
-    <li ui-sref="reservations" class="Menu__items--item">
+    <li ui-sref="reservations"
+        ng-if="auth.isLoggedIn()"
+        class="Menu__items--item">
       _menu_reservations_
     </li>
-    <li ui-sref="rewards" class="Menu__items--item">
+    <li ui-sref="rewards"
+        ng-if="auth.isLoggedIn()"
+        class="Menu__items--item">
       _menu_rewards_
     </li>
-    <li ui-sref="prestige" class="Menu__items--item">
+    <li ui-sref="prestige"
+        ng-if="auth.isLoggedIn()"
+        class="Menu__items--item">
       _menu_loyalty_
     </li>
-    <li ui-sref="profile" class="Menu__items--item">
+    <li ui-sref="profile"
+        ng-if="auth.isLoggedIn()"
+        class="Menu__items--item">
       _menu_profile_
     </li>
     <li has-dropdown="click"
@@ -42,6 +50,11 @@
         has-dropdown="click"
         class="Menu__items--item"
         language-list>
+    </li>
+    <li ng-click="toggleMenuOverlay(); auth.register(); retentionClick();"
+        ng-if="!auth.isLoggedIn()"
+        class="Menu__items--item">
+      _register_
     </li>
     <li ng-click="auth.logout(); retentionClick();"
         ng-if="auth.isLoggedIn()"
