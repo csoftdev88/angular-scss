@@ -53,15 +53,12 @@ angular
       $rootScope.$evalAsync(function(){
         userObject = {};
         $state.go('home', {}, {reload: true});
-
       });
       // Removing auth headers
       var headers = {};
       headers[AUTH_HEADER] = undefined;
       apiService.setHeaders(headers);
       user.clearStoredUser();
-
-      user.authPromise = $q.defer();
 
       $timeout(function () {
         $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
