@@ -100,6 +100,9 @@
         font-family: @lbe-ff-primary;
         color: @lbe-c-primary;
       }
+      button-submit {
+        background: @lbe-c-primary;
+      }
       .viewport-mobile & {
         width: initial;
       }
@@ -141,6 +144,15 @@
     margin-top: 0 !important;
   }
 
+}
+
+.alt-room-display {
+  button-submit {
+    background: @lbe-c-primary !important;
+    .viewport-mobile & {
+      background: @lbe-c-primary !important;
+    }
+  }
 }
 
 .RewardsPage__bg {
