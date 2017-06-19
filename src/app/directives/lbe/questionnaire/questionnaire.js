@@ -7,10 +7,10 @@
   angular
     .module('mobiusApp.directives.lbe.questionnaire', [])
     .directive('questionnaire', ['Settings', '$log', 'polls', 'userObject', 'DynamicMessages', 'stateService',
-                                 'rewardsService', '$controller', '_', Questionnaire]);
+                                 'rewardsService', '$controller', '_', 'reservationService', 'propertyService', Questionnaire]);
 
   function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, rewardsService,
-                         $controller, _) {
+                         $controller, _, reservations, property) {
     return {
       restrict: 'E',
       scope: true,
@@ -59,6 +59,30 @@
 
           selectPoll();
 
+          var reservationPromise = reservations.getAll()
+            .then(function (reservations) {
+              $log.info('Reservations retrieved', reservations);
+              var nextStay = reservations[0];
+              // Find the reservation with the earliest start date
+              _.each(reservations, function (reservation) {
+                if (new Date(reservation.arrivalDate) < new Date(nextStay.arrivalDate)) {
+                  nextStay = reservation;
+                }
+              });
+              $log.info('Next stay has been selected', nextStay);
+              return nextStay;
+            });
+
+          reservationPromise.then(function (nextStay) {
+            property.getPropertyDetails(nextStay.property.code)
+              .then(function (property) {
+                $log.info('Property retrieved, assigning it to the next stay object');
+                nextStay.property = property;
+                scope.nextStay = nextStay;
+                $log.info('The next stay', nextStay);
+              });
+          });
+
           // Get rewards available to the user
           rewardsService.getAll(userObject.id)
             .then(function (rewards) {
@@ -97,6 +121,7 @@
           scope.options = [];
           scope.featuredReward = null;
           scope.featuredRewardPoints = null;
+          scope.nextStay = false;
         };
 
         /**

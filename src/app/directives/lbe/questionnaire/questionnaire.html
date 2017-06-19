@@ -34,7 +34,37 @@
 
   </article>
 
-  <article class="questionnaire__questions">
+  <article ng-if="nextStay"
+           ui-sref="reservations"
+           class="questionnaire__questions nextStay">
+
+    <div class="questionnaire__status">
+      <span>Your next stay</span>
+    </div>
+
+    <h1 class="questionnaire__nextStay--title">
+      {{ nextStay.property.nameShort }}
+    </h1>
+
+    <h2 class="questionnaire__nextStay--subtitle">
+      {{ nextStay.rooms[0].roomTypeName }}
+    </h2>
+
+    <h3 class="questionnaire__nextStay--details">
+      {{ nextStay.rooms[0].productName }}
+    </h3>
+
+    <h3 class="questionnaire__nextStay--details">
+      Confirmation number : {{ nextStay.reservationCode }}
+    </h3>
+
+    <h3 class="questionnaire__nextStay--details">
+      {{ nextStay.arrivalDate | dateTime }} - {{ nextStay.departureDate | dateTime }}
+    </h3>
+
+  </article>
+
+  <article ng-if="! nextStay" class="questionnaire__questions">
 
     <span class="error" ng-if="errorMsg">{{ errorMsg }}</span>
 

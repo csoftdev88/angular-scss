@@ -2,7 +2,7 @@
 
 <breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
 
-<main class="grid-wrapper" id="jsProfile">
+<main class="grid-wrapper ProfilePage" id="jsProfile">
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
@@ -110,6 +110,7 @@
             id="newPassword"
             name="newPassword"
             ng-model="passwordData.password"
+            class="ProfileForm__input"
             ng-class="{'ng-submitted': form.$submitted && form.newPassword.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
@@ -120,6 +121,7 @@
             type="password"
             id="newPasswordConf"
             name="newPasswordConf"
+            class="ProfileForm__input"
             ng-model="passwordData.passwordConf"
             equals="passwordData.password"
             ng-class="{'ng-submitted': form.$submitted && (form.newPasswordConf.$error.required || form.newPasswordConf.$error.equals)}"/>
@@ -152,6 +154,7 @@
           <label for="profileTitle">_title_label_</label>
           <select name="profileTitle" required chosen
                   disable-search="true"
+                  class="ProfileForm__input"
                   placeholder-text-single="_title_label_"
                   ng-model="profileData.title"
                   ng-options="title.id as title.name for title in profileTitles">
@@ -164,6 +167,7 @@
             type="text"
             id="profileFname"
             name="profileFname"
+            class="ProfileForm__input"
             ng-model="profileData.firstName"
             ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -175,6 +179,7 @@
             type="text"
             id="profileLname"
             name="profileLname"
+            class="ProfileForm__input"
             ng-model="profileData.lastName"
             ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -206,6 +211,7 @@
             type="text"
             id="profileAddress1"
             name="profileAddress1"
+            class="ProfileForm__input"
             ng-model="profileData.address1"
             ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -217,6 +223,7 @@
             type="text"
             id="profileAddress2"
             name="profileAddress2"
+            class="ProfileForm__input"
             ng-model="profileData.address2"
             ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -228,6 +235,7 @@
             type="text"
             id="profileCity"
             name="profileCity"
+            class="ProfileForm__input"
             ng-model="profileData.city"
             ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -239,6 +247,7 @@
             type="text"
             id="profileState"
             name="profileState"
+            class="ProfileForm__input"
             ng-model="profileData.state"
             ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -249,6 +258,7 @@
           <select name="profileCountry" chosen
                   disable-search="true"
                   data-placeholder=""
+                  class="ProfileForm__input"
                   ng-model="profileData.localeId"
                   ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
           </select>
@@ -260,6 +270,7 @@
             type="text"
             id="profileZip"
             name="profileZip"
+            class="ProfileForm__input"
             ng-model="profileData.zip"
             ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -271,6 +282,7 @@
             type="text"
             id="profileTel"
             name="profileTel"
+            class="ProfileForm__input"
             ng-model="profileData.tel1"
             ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -280,6 +292,7 @@
           <label for="profileContact">_prefered_contact_label_</label>
           <select name="profileContact" required chosen
                   disable-search="true"
+                  class="ProfileForm__input"
                   placeholder-text-single="_prefered_contact_label_"
                   ng-model="profileData.preferredContactMethodCode"
                   ng-options="contact.id as contact.name for contact in profileContacts">

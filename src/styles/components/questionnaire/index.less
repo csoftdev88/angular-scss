@@ -6,6 +6,7 @@
   padding: 0 @questionnaire-padding;
   overflow: hidden;
   margin-bottom: 20px;
+  position: relative;
 
   // Typography
   h1, h2 {
@@ -88,12 +89,27 @@
     overflow: hidden;
     padding: @questionnaire-questions-padding;
     border: @questionnaire-questions-border;
+    box-sizing: border-box;
+    height: 100%;
+    position: absolute;
+    margin-left: 50%;
+    width: 100%;
 
     .error {
       font-family: Raleway;
       color: #ff0000;
       font-size: 12px;
     }
+
+    &.nextStay {
+      background: url('@{lbe-img-prefix}/next-stay-bg.png');
+      padding: 0 32px 20px 32px;
+    }
+
+    .questionnaire__status {
+      margin-left: 0;
+    }
+
   }
 
   .questionnaire__options {
@@ -190,6 +206,32 @@
     text-align: center;
     border-radius: 0;
     color: @c-white;
+  }
+
+  .questionnaire__nextStay--title,
+  .questionnaire__nextStay--subtitle,
+  .questionnaire__nextStay--details {
+    text-transform: uppercase;
+    font-family: @lbe-ff-secondary;
+    color: #fff;
+  }
+
+  .questionnaire__nextStay--title {
+    font-size: 34px;
+    line-height: 41px;
+    padding-bottom: 23px;
+  }
+
+  .questionnaire__nextStay--subtitle {
+    font-size: 24px;
+    line-height: 29px;
+    padding-bottom: 11px;
+  }
+
+  .questionnaire__nextStay--details {
+    font-size: 16px;
+    line-height: 19px;
+    padding-bottom: 17px;
   }
 
 }
