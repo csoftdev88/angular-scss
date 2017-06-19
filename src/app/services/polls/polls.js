@@ -19,7 +19,7 @@
 
     self.get = function (id) {
       return apiService.get(
-        apiService.getFullURL('contents.polls.index', id),
+        apiService.getFullURL('contents.polls.index', { pollId: id }),
         { deviceId: _deviceId }
       ).then(function (data) {
         return data;
@@ -41,7 +41,7 @@
 
     self.answer = function (id, choice) {
       return apiService.post(
-        apiService.getFullURL('contents.polls.answer', id),
+        apiService.getFullURL('contents.polls.answer', { pollId: id }),
         {
           choiceId: choice,
           deviceId: _deviceId

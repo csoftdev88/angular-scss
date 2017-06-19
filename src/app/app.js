@@ -206,6 +206,7 @@ angular
     'mobiusApp.directives.lbe.subNav',
     'mobiusApp.directives.lbe.tripAdviserQuote',
     'mobiusApp.directives.lbe.membersRate',
+    'mobiusApp.directives.lbe.localAttractions',
 
     'internationalPhoneNumber',
 

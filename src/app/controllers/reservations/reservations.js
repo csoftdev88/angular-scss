@@ -4,9 +4,10 @@
  */
 angular.module('mobius.controllers.reservations', [])
 
-.controller('ReservationsCtrl', function($scope, $controller, $q,
-  $state, $timeout, modalService, creditCardTypeService, reservationService, scrollService,
-  preloaderFactory, propertyService, $window, _, breadcrumbsService, userObject, chainService, metaInformationService, $location, Settings, $rootScope){
+.controller('ReservationsCtrl', function($scope, $controller, $q, $state, $timeout, modalService, creditCardTypeService,
+                                         reservationService, scrollService, preloaderFactory, propertyService, $window,
+                                         _, breadcrumbsService, userObject, chainService, metaInformationService,
+                                         $location, Settings, $rootScope) {
 
   breadcrumbsService.addBreadCrumb('My Stays');
 

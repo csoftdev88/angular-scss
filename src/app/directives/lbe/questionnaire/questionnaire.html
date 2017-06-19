@@ -21,7 +21,7 @@
 
   </article>
 
-  <article class="questionnaire__feature">
+  <article ui-sref="rewards" class="questionnaire__feature">
 
     <div class="questionnaire__featureReward">
       <span>Featured reward</span>
@@ -36,7 +36,9 @@
 
   <article class="questionnaire__questions">
 
-    <h2 class="questionnaire__title">{{ title }}</h2>
+    <span class="error" ng-if="errorMsg">{{ errorMsg }}</span>
+
+    <h2 class="questionnaire__title">_questionnaire_title_</h2>
 
     <p class="questionnaire__subtitle">{{ reward }}</p>
 
@@ -46,6 +48,7 @@
       <li ng-repeat="option in options">
         <label>
           <input type="radio"
+                 name="choice"
                  ng-model="choiceId"
                  value="{{ option.value }}" />
           {{ option.name }}
@@ -54,7 +57,11 @@
       </li>
     </ul>
 
-    <button type="submit" class="questionnaire__submit">_submit_</button>
+    <button type="submit"
+            ng-click="answer()"
+            class="questionnaire__submit">
+      _submit_
+    </button>
 
   </article>
 

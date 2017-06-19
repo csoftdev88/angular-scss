@@ -88,6 +88,12 @@
     overflow: hidden;
     padding: @questionnaire-questions-padding;
     border: @questionnaire-questions-border;
+
+    .error {
+      font-family: Raleway;
+      color: #ff0000;
+      font-size: 12px;
+    }
   }
 
   .questionnaire__options {
@@ -111,8 +117,8 @@
     height: @questionnaire-tier-circle-size;
     border-radius: 50%;
     border: @questionnaire-tier-circle-border;
-    position: absolute;
-    top: 60px;
+    position: relative;
+    top: -120px;
     left: 350px;
     .tier-content {
       top: 50%;
