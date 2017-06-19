@@ -1096,6 +1096,11 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'includePhoneField': true,
         'showStaticContactInfo': true
       },
+      'prestige': {
+        'hideHero': true,
+        'hideBreadCrumbs': true,
+        'useBackground': true
+      },
       'rewards': {
         'hideHero': true,
         'hideBreadCrumbs': true,

@@ -1,4 +1,18 @@
-prestige-account{
+prestige-account {
+
+  div[grid="12"] {
+    margin-top: 112px;
+    background-color: rgba(0, 0, 0, 0.75);
+    .backdrop-filter-blur(20px);
+    min-height: 800px;
+    padding: 0 40px;
+    margin-right: 0;
+    margin-left: 0;
+    box-sizing: border-box;
+    .viewport-mobile & {
+      padding: 0 16px;
+    }
+  }
 
   //Page header
   header{
@@ -7,15 +21,26 @@ prestige-account{
       font-weight: 300;
     }
     .points{
-      color: @c-secondary;
+      color: @lbe-c-primary;
     }
     .viewport-mobile &{
+      text-align: center;
+      padding-top: 10px;
+      .Prestige__balance {
+        display: block;
+      }
       h1,
       .points{
       }
       .bg{
         background: @c-secondary;
       }
+    }
+  }
+
+  .title {
+    span {
+      color: #fff;
     }
   }
 
@@ -34,7 +59,8 @@ prestige-account{
         border: none;
       }
 
-      .title{
+      .title {
+        font-family: @lbe-ff-primary;
         float: left;
         font-size: @size-2;
         line-height: @size-4;
@@ -44,7 +70,7 @@ prestige-account{
           font-weight: 300;
           font-style: italic;
           margin-left: 10px;
-          color: #898989;
+          color: #fff;
         }
         .viewport-mobile &{
           display: none;
@@ -73,7 +99,7 @@ prestige-account{
             position: absolute;
             left: -4px;
             top: 0;
-            color: #737373;
+            color: #fff;
           }
           &:first-child:before{
             content: none;
@@ -82,7 +108,7 @@ prestige-account{
             padding-right: 0;
           }
           a{
-            color: @c-grey;
+            color: #fff;
             font-weight: 300;
             &.active{
               color: @c-secondary;
@@ -116,7 +142,8 @@ prestige-account{
           box-sizing: border-box;
           min-height: 1px;
           .label{
-            color: #9b9b9b;
+            font-family: @lbe-ff-primary;
+            color: #fff;
             font-size: @size--3;
             line-height: @size-0;
             text-transform: uppercase;
@@ -125,8 +152,9 @@ prestige-account{
             margin-bottom: 6px;
           }
           .value,
-          .detail{
-            color: #4a4a4a;
+          .detail {
+            font-family: @lbe-ff-primary;
+            color: #fff;
             font-size: @size-1;
             line-height: @size-3;
             font-weight: 600;
@@ -189,7 +217,7 @@ prestige-account{
         .transaction-value{
           width: 15%;
           .value{
-            color: #9b9b9b;
+            color: @lbe-c-primary;
             &.positive{
               color: @c-green;
             }
@@ -207,7 +235,7 @@ prestige-account{
           width: 10%;
           text-align: right;
           .value{
-            color: @c-secondary;
+            color: @lbe-c-primary;
           }
           .viewport-mobile &{
             display: none;
@@ -241,5 +269,58 @@ prestige-account{
       }
     }
 
+  }
+}
+
+.PrestigePage {
+  .viewport-mobile & {
+    margin-top: 0 !important;
+  }
+}
+
+.Prestige__balance {
+  line-height: 19px;
+  font-family: @lbe-ff-secondary;
+  font-size: 16px;
+  letter-spacing: 0;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-top: 39px;
+  margin-bottom: 0;
+  .viewport-mobile & {
+    font-size: 13px;
+    line-height: 16px;
+  }
+}
+
+.Prestige__points {
+  line-height: 44px;
+  font-family: @lbe-ff-secondary;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: left;
+  color: @lbe-c-primary;
+  .viewport-mobile & {
+    color: @lbe-c-primary !important;
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+
+.PrestigePage__bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('@{img-prefix}/rewards-bg.png');
+  background-size: cover;
+}
+
+.Prestige__view-switches {
+  .viewport-mobile & {
+    display: flex;
+    justify-content: center;
+    float: initial !important;
   }
 }

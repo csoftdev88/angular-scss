@@ -2,9 +2,10 @@
 /*
  * This module controlls offers page
  */
-angular.module('mobius.controllers.prestige', [])
-
-  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService, userObject, $window, $controller, $state) {
+angular
+  .module('mobius.controllers.prestige', [])
+  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService,
+                                       userObject, $window, $controller, $state, Settings) {
 
     $scope.dataLoaded = false;
 
@@ -18,6 +19,7 @@ angular.module('mobius.controllers.prestige', [])
         apiService.get(apiService.getFullURL('customers.transactions', {customerId: userObject.id})).then(function(data){
           $scope.viewMode = 'recent';
           $scope.prestigeData = data;
+          console.log('pres data', data);
           $scope.dataLoaded = true;
         });
       }
@@ -49,5 +51,7 @@ angular.module('mobius.controllers.prestige', [])
     $scope.formatDate = function(date, format){
       return $window.moment(date).format(format);
     };
+
+    $scope.config = Settings.UI.viewsSettings.prestige;
 
   });
