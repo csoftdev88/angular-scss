@@ -45,7 +45,9 @@
     <ul class="questionnaire__options">
       <li ng-repeat="option in options">
         <label>
-          <input type="checkbox" value="{{ option.value }}" />
+          <input type="radio"
+                 ng-model="choiceId"
+                 value="{{ option.value }}" />
           {{ option.name }}
         </label>
 

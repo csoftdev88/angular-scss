@@ -31,7 +31,9 @@ angular.module('mobiusApp.dynamicMessages', [])
       'select_property': 'Find Your Hotel',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
-      'group_code_applied':'Group code applied successfully'
+      'group_code_applied':'Group code applied successfully',
+      'enter_valid_choice': 'Please provide a valid option',
+      'answer_the_question': 'Answer the following question to earn XX points'
     },
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',
@@ -79,6 +81,8 @@ angular.module('mobiusApp.dynamicMessages', [])
       'tax': 'Taxes',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
-      'group_code_applied':'Group code applied successfully'
+      'group_code_applied':'Group code applied successfully',
+      'enter_valid_choice': 'Please provide a valid option',
+      'answer_the_question': 'Answer the following question to earn XX points'
     }
   });

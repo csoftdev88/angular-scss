@@ -210,6 +210,11 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'adverts': {
         'adverts': 'contents/teasers',
         'random': 'contents/teasers/random'
+      },
+      'polls': {
+        'index': 'contents/polls/:pollId',
+        'all': 'contents/polls',
+        'answer': 'contents/polls/:pollId'
       }
     },
     'chain': {
@@ -1064,7 +1069,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
     // Widget names and their templates
     'templates': {
-      'about': '<tagline showLogo="true" text="Become a St. Giles Insider - Sign Up now and benefit immediately… It’s that simple."></tagline>',
+      'about': '<tagline ng-if="auth.isLoggedIn()" showLogo="true" text="Become a St. Giles Insider - Sign Up now and benefit immediately… It’s that simple."></tagline>',
+      'questionnaire': '<questionnaire ng-if="auth.isLoggedIn()"></questionnaire>',
       'testimonial': '<recommendation></recommendation>',
       'offers': '<offers></offers>',
       'instagram-feed': '<instagram-feed></instagram-feed>',

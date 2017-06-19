@@ -122,6 +122,7 @@ angular
     'mobiusApp.services.previousSearches',
     'mobiusApp.services.funnelRetention',
     'mobiusApp.services.roomUpgrades',
+    'mobiusApp.services.polls',
 
     // Factories
     'mobiusApp.factories.template',
