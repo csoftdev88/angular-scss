@@ -16,6 +16,8 @@ angular.module('mobius.controllers.reservations', [])
   }
   $scope.viewSettings = Settings.UI.viewsSettings.reservationsOverview;
 
+  $scope.isLoyaltyEngine = Settings.engine === 'loyalty';
+
   //get meta information
   chainService.getChain(Settings.API.chainCode).then(function(chain) {
     $scope.chain = chain;
@@ -76,6 +78,7 @@ angular.module('mobius.controllers.reservations', [])
       pastStays: pastStays,
       futureStays: futureStays
     };
+    console.log('reservations', $scope.reservations);
 
     $timeout(function(){
       scrollService.scrollTo('jsReservations');
