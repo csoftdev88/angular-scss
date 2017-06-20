@@ -72,7 +72,13 @@
 
   </article>
 
-  <article ng-if="! nextStay" class="questionnaire__questions">
+  <article ng-if="! nextStay && isComplete" class="questionnaire__questions">
+
+    <h2 class="questionnaire__title">_questionnaire_completed_</h2>
+
+  </article>
+
+  <article ng-if="! nextStay && !isComplete" class="questionnaire__questions">
 
     <span class="error" ng-if="errorMsg">{{ errorMsg }}</span>
 
