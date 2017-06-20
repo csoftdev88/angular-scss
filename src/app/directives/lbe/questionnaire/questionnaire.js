@@ -62,28 +62,25 @@
           }
 
           // Get the user's loyalty info
-          if (userObject.loyalties) {
+          var loyaltiesPromise = $q.all([
+            user.loadLoyalties(userObject.id),
+            user.loadRewards(userObject.id)
+          ]).then(function () {
             scope.points = userObject.loyalties.amount;
             scope.tier = userObject.loyalties.tier;
-          } else {
-            $q.all([
-              user.loadLoyalties(userObject.id),
-              user.loadRewards(userObject.id)
-            ]).then(function () {
-              scope.points = userObject.loyalties.amount;
-              scope.tier = userObject.loyalties.tier;
-            });
-          }
+          });
 
-          apiService.get(
-            apiService.getFullURL('customers.transactions', { customerId: userObject.id })
-          ).then(function(data) {
-            var total = 0;
-            $log.info('Retrieved customer transactions', data);
-            _.each(data.recentTransactions, function (transaction) {
-              total += transaction.amount;
+          loyaltiesPromise.then(function () {
+            apiService.get(
+              apiService.getFullURL('customers.transactions', { customerId: userObject.id })
+            ).then(function(data) {
+              var total = 0;
+              $log.info('Retrieved customer transactions', data);
+              _.each(data.recentTransactions, function (transaction) {
+                total += transaction.amount;
+              });
+              scope.numPointsToNextTier = (Math.ceil(total / 1000) * 1000) - scope.points;
             });
-            scope.numPointsToNextTier = (Math.ceil(total / 1000) * 1000) - scope.points;
           });
 
           selectPoll();
