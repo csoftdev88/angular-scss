@@ -163,8 +163,7 @@
             </li>
             <li>
               <a href=""
-                 ui-sref="register"
-                 ng-click="auth.clearErrors(); toggleMenuOverlay(); auth.register(); retentionClick()">
+                 ng-click="auth.clearErrors(); $root.showLoginDialog = !$root.showLoginDialog; auth.register(); retentionClick()">
                 _register_now_
               </a>
             </li>

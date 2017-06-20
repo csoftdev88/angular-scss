@@ -38,13 +38,13 @@
                   });
                 return;
               }
-              $log.info('No polls available');
+              $log.info('No polls available, maybe the user answered all of them');
               scope.question = false;
             })
             .catch(function(err) {
               if (!scope.nextStay) {
                 $log.warn('APi failed to get the next poll, maybe the user answered all of them', err);
-
+                scope.question = false;
               }
             });
         };
@@ -145,7 +145,6 @@
           scope.featuredReward = null;
           scope.featuredRewardPoints = null;
           scope.nextStay = false;
-          scope.isComplete = false;
         };
 
         /**

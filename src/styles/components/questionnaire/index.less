@@ -93,7 +93,11 @@
     height: 100%;
     position: absolute;
     margin-left: 50%;
-    width: 100%;
+    width: 50%;
+
+    &.completed {
+      padding-left: 90px;
+    }
 
     .error {
       font-family: Raleway;
@@ -223,13 +227,14 @@
   }
 
   .questionnaire__nextStay--subtitle {
-    font-size: 24px;
+    font-size: 21px;
     line-height: 29px;
     padding-bottom: 11px;
 
     &.emptyMessage {
       text-align: center;
-      padding-top: 45%;
+      padding-top: 40%;
+      padding-right: 50px;
     }
   }
 
