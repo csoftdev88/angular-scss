@@ -595,7 +595,7 @@ angular.module('mobius.controllers.hotel.details', [
         roomSlug: rSlug,
         promoCode: $stateParams.promoCode,
         viewAllRates: viewAllRates,
-        scrollTo: 'hotel-room'
+        scrollTo: Settings.engine === 'loyalty' ? 'RatesList' : 'hotel-room'
       });
     } else {
       return $state.href('room', {
@@ -604,7 +604,7 @@ angular.module('mobius.controllers.hotel.details', [
         propertySlug: pSlug,
         roomSlug: rSlug,
         viewAllRates: viewAllRates,
-        scrollTo: 'hotel-room'
+        scrollTo: Settings.engine === 'loyalty' ? 'RatesList' : 'hotel-room'
       });
     }
   };
@@ -619,7 +619,7 @@ angular.module('mobius.controllers.hotel.details', [
         roomSlug: rSlug,
         promoCode: $stateParams.promoCode,
         viewAllRates: viewAllRates,
-        scrollTo: 'hotel-room'
+        scrollTo: Settings.engine === 'loyalty' ? 'RatesList' : 'hotel-room'
       });
     } else {
       $state.go('room', {
@@ -628,7 +628,7 @@ angular.module('mobius.controllers.hotel.details', [
         propertySlug: pSlug,
         roomSlug: rSlug,
         viewAllRates: viewAllRates,
-        scrollTo: 'hotel-room'
+        scrollTo: Settings.engine === 'loyalty' ? 'RatesList' : 'hotel-room'
       });
     }
   };

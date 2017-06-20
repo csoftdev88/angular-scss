@@ -48,7 +48,7 @@
   <section ng-if="products" class="products-section">
     <div class="product-rates" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
       <!-- <hr class="dividerWithoutImage"/> -->
-      <list-items ng-if="products.length">
+      <list-items ng-if="products.length" id="RatesList">
 
         <div class="controls">
           <order-switch ng-show="hasDates && products.length > 1">
