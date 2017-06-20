@@ -55,6 +55,7 @@ angular.module('mobius.controllers.main', [])
           apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
             userObject.id = response.id;
             user.loadProfile();
+            $rootScope.showRegisterDialog = !$rootScope.showRegisterDialog;
             $state.go('home');
           }, function(err){
             if(err.error.msg === 'User already registered'){
