@@ -30,7 +30,15 @@
     <p class="description" ng-bind-html="sanitize(roomDetails.description)"></p>
   </section>
 
-  <booking-bar size="large" ng-if="config.displayBookingBar"></booking-bar>
+  <booking-bar size="large"
+               ng-if="config.displayBookingBar && !isMobile">
+  </booking-bar>
+
+  <button ng-click="openBookingBar()"
+          ng-if="isMobile"
+          class="Home__hero--button">
+    _search_
+  </button>
 
   <section ng-if="filteredAmenities.length && viewSettings.showAmenitiesTop" class="room-amenities">
     <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
