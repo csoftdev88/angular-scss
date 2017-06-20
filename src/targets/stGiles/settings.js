@@ -1139,35 +1139,35 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'subNavLinks': [
           {
             'name': 'Points of interest',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel1a'
           },
           {
             'name': 'Meetings & events',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel5a'
           },
           {
             'name': 'Facilities',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel4a'
           },
           {
             'name': 'Rooms',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel2a'
           },
           {
             'name': 'Dining',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel3a'
           },
           {
             'name': 'FAQS',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court/faq'
           },
           {
             'name': 'Info',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court/faq'
           },
           {
             'name': 'Contact',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel6a'
           }
         ],
         'hotelInfo': {
@@ -1189,35 +1189,35 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'subNavLinks': [
           {
             'name': 'Points of interest',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel1a'
           },
           {
             'name': 'Meetings & events',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel5a'
           },
           {
             'name': 'Facilities',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel4a'
           },
           {
             'name': 'Rooms',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel2a'
           },
           {
             'name': 'Dining',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel3a'
           },
           {
             'name': 'FAQS',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court/faq'
           },
           {
             'name': 'Info',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court/faq'
           },
           {
             'name': 'Contact',
-            'link': 'http://www.stgiles.com/interest'
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel6a'
           }
         ],
         'roomInfo': {
