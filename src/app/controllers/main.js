@@ -96,6 +96,9 @@ angular.module('mobius.controllers.main', [])
       $rootScope.showRegisterDialog = false;
       $scope.registerFormFilledEmail = false;
 
+      $scope.user = userObject;
+      console.log('user', userObject);
+
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;
         $scope.updateHeroContent();
