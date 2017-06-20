@@ -43,10 +43,12 @@
         <div>
           <h3>_reservation_list_empty_</h3>
           <p>_please_make_reservation_</p>
-          <button-submit ng-if="!isLoyaltyEngine" ng-click="selectDates()">
+          <button-submit ng-if="!isLoyaltyEngine"
+                         ng-click="selectDates()">
             _select_dates_
           </button-submit>
-          <button-submit ng-if="isLoyaltyEngine" ui-sref="hotel">
+          <button-submit ng-if="isLoyaltyEngine"
+                         ng-click="$state.go('hotels', { scrollTo: 'jsAbout'})">
             _select_hotel_
           </button-submit>
         </div>
