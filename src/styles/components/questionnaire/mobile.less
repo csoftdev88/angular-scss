@@ -4,6 +4,8 @@
   .questionnaire {
 
     padding: 0;
+    height: 800px;
+    margin-top: 15px;
 
     .questionnaire__points {
       float: initial;
@@ -19,6 +21,10 @@
     .questionnaire__questions {
       padding: 25px 9px;
       border: solid 1px #d8d8d8;
+      &.nextStay {
+        margin-left: 0;
+        height: auto;
+      }
     }
 
     .questionnaire__subtitle {
@@ -26,20 +32,21 @@
     }
 
     .questionnaire__your-points {
-      margin: 55px 0 0 36px;
+      margin: 55px 0 0 26px;
     }
 
     .questionnaire__feature {
       width: 100%;
       margin-bottom: 10px;
+      float: initial;
     }
 
     .questionnaire__tier {
       width: 150px;
       height: 150px;
       border: solid 6.1px #f1f1f1;
-      left: 176px;
-      top: 81px;
+      left: 146px;
+      top: -120px;
     }
 
   }
