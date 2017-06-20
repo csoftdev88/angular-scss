@@ -69,6 +69,9 @@
           </reservation-item>
           <hr/>
         </div>
+        <div ng-if="!reservations.nextStay" class="ReservationsNextStay empty">
+          <h3 class="noNextStay">Looks like you don’t have any upcoming stays, {{ user.firstName }}</h3>
+        </div>
       </div>
 
       <section-image ng-if="isMobile &&

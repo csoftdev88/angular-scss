@@ -36,6 +36,8 @@ angular.module('mobiusApp.directives.room', [])
       scope.productImageWidth = scope.config.productImages ? scope.config.productImages.width : '160';
       scope.productImageHeight = scope.config.productImages ? scope.config.productImages.height : '120';
 
+      scope.isLoyaltyEngine = Settings.engine === 'loyalty';
+
       console.log(scope.productImageWidth);
       console.log(scope.productImageHeight);
 

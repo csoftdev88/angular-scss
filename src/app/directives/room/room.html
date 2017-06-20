@@ -94,8 +94,15 @@
               </p>
             </pricing-info>
 
-            <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled && product.productAwardPoints">_earn_
-              <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
+            <earned-points ng-if="isUserLoggedIn() &&
+                                  product.price.pointsEarned &&
+                                  loyaltyProgramEnabled &&
+                                  product.productAwardPoints">
+              _earn_
+              <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)"
+                            when="{'1': '{} point', 'other': '{} points'}">
+              </ng-pluralize>
+
             </earned-points>
             <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
           </div>
@@ -105,7 +112,7 @@
               <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
               <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
               <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
-              <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
+              <span ng-if="isUserLoggedIn() && product.price.pointsRequired && (loyaltyProgramEnabled || isLoyaltyEngine) && product.allowPointsBooking">
               <br />_or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span>              _points_
               </span>
             </p>
