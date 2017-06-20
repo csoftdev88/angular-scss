@@ -30,7 +30,9 @@
       <li has-dropdown="click"
           currency-list
           class="Header__buttons--currency Header__buttons--preference"
-          ng-show="!$state.includes('reservation') && !$state.includes('reservationDetail') && !$state.includes('reservations')">
+          ng-show="!$state.includes('reservation') &&
+                   !$state.includes('reservationDetail') &&
+                   !$state.includes('reservations')">
       </li>
       <li has-dropdown="click"
           class="Header__buttons--language Header__buttons--preference"
@@ -60,22 +62,45 @@
          ng-class="'form-step' + loginFormStep">
 
       <header>
-        <a href="" ng-click="loginFormStep = 1; auth.clearErrors(); retentionClick()" ng-show="loginFormStep == 2" class="back-btn">_back_</a>
-        <a href="" ng-click="auth.clearErrors(); auth.login(); retentionClick()" class="close-btn"></a>
+        <a href=""
+           ng-click="loginFormStep = 1; auth.clearErrors(); retentionClick()"
+           ng-show="loginFormStep == 2"
+           class="back-btn">
+          _back_
+        </a>
+
+        <a href=""
+           ng-click="auth.clearErrors(); auth.login(); retentionClick()"
+           class="close-btn">
+        </a>
+
         <figure class="logo">
           <img src="/static/images/v4/logo-dark.png" alt="logo">
         </figure>
+
         <p class="error-msg" ng-if="loginDialogError">
-          <span ng-if="genericError">_generic_error_message_</span>
-          <span ng-if="missingFieldsError">_missing_fields_message_</span>
-          <span ng-if="incorrectEmailPasswordError">_incorrect_email_password_error_</span>
-          <span ng-if="notRegisteredEmailError">_email_not_registered_error_</span>
-          <span ng-if="passwordResetSuccess">_reset_password_error_code_thirtyfour_</span>
+          <span ng-if="genericError">
+            _generic_error_message_
+          </span>
+          <span ng-if="missingFieldsError">
+            _missing_fields_message_
+          </span>
+          <span ng-if="incorrectEmailPasswordError">
+            _incorrect_email_password_error_
+          </span>
+          <span ng-if="notRegisteredEmailError">
+            _email_not_registered_error_
+          </span>
+          <span ng-if="passwordResetSuccess">
+            _reset_password_error_code_thirtyfour_
+          </span>
         </p>
+
         <div class="title" ng-show="config.loginDialog.showLoginTitle">
           <h2>_log_in_</h2>
           <hr>
         </div>
+
       </header>
 
       <div class="form-wrapper">
@@ -91,7 +116,9 @@
                 required
                 email-check
                 placeholder="_email_label_"
-                ng-class="{'ng-submitted': loginForm.$submitted && (loginForm.loginEmail.$error.required || loginForm.loginEmail.$error.emailCheck)}"/>
+                ng-class="{'ng-submitted': loginForm.$submitted &&
+                                           (loginForm.loginEmail.$error.required ||
+                                           loginForm.loginEmail.$error.emailCheck)}"/>
             </form-element>
 
             <form-element>
@@ -108,12 +135,28 @@
 
           </fieldset>
 
-          <button-submit role="button" tabindex="0" ng-click="doLogin(loginForm, loginData); retentionClick()">_login_</button-submit>
+          <button-submit role="button"
+                         tabindex="0"
+                         ng-click="doLogin(loginForm, loginData); retentionClick()">
+            _login_
+          </button-submit>
 
           <ul class="options">
-            <li><a href="" ng-click="loginFormStep = 2; auth.clearErrors(); retentionClick()">_forgot_password_label_</a></li>
-            <li><a href="" ui-sref="register" ng-click="auth.clearErrors(); auth.login(); retentionClick()">_register_now_</a></li>
+            <li>
+              <a href=""
+                   ng-click="loginFormStep = 2; auth.clearErrors(); retentionClick()">
+                _forgot_password_label_
+              </a>
+            </li>
+            <li>
+              <a href=""
+                 ui-sref="register"
+                 ng-click="auth.clearErrors(); auth.login(); retentionClick()">
+                _register_now_
+              </a>
+            </li>
           </ul>
+
         </form>
 
         <form name="resetForm" class="reset-form" novalidate>
@@ -132,12 +175,16 @@
 
           </fieldset>
 
-          <button-submit role="button" tabindex="0" ng-click="auth.reset(resetForm, resetData); retentionClick()">_reset_password_</button-submit>
+          <button-submit role="button"
+                         tabindex="0"
+                         ng-click="auth.reset(resetForm, resetData); retentionClick()">
+            _reset_password_
+          </button-submit>
+
         </form>
 
       </div>
-
-
+      
     </div>
   </div>
 
