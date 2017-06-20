@@ -8,10 +8,10 @@
     .module('mobiusApp.directives.lbe.questionnaire', [])
     .directive('questionnaire', ['Settings', '$log', 'polls', 'userObject', 'DynamicMessages', 'stateService',
                                  'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
-                                 'apiService', Questionnaire]);
+                                 'apiService', '$q', 'user', Questionnaire]);
 
   function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, rewardsService,
-                         $controller, _, reservations, property, apiService) {
+                         $controller, _, reservations, property, apiService, $q, user) {
     return {
       restrict: 'E',
       scope: true,
@@ -66,7 +66,13 @@
             scope.points = userObject.loyalties.amount;
             scope.tier = userObject.loyalties.tier;
           } else {
-            $log.warn('Loyalties should have been loaded but where not. Maybe something funky is happening with the auth controller');
+            $q.all([
+              user.loadLoyalties(userObject.id),
+              user.loadRewards(userObject.id)
+            ]).then(function () {
+              scope.points = userObject.loyalties.amount;
+              scope.tier = userObject.loyalties.tier;
+            });
           }
 
           apiService.get(
