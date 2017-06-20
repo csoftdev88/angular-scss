@@ -127,9 +127,12 @@ angular.module('mobiusApp.services.user', [])
               dataLayerService.setUserId(customerId);
             }
 
-            userObject = _.extend(userObject, userData);
+
+            userObject = angular.extend(userObject, userData);
+            //userObject = _.extend(userObject, userData);
             userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
             userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
+            console.log('successfully gotten the user', userObject);
             return $q.all([
               loadLoyalties(customerId),
               loadRewards(customerId)

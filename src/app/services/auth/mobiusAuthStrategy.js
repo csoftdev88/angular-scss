@@ -28,9 +28,11 @@ angular
           if (data.id !== null) {
             $rootScope.showLoginDialog = false;
             clearErrorMsg(vm);
+            console.log('successfully logged in', userObject);
             userObject.id = data.id;
             user.storeUserId(data.id);
             user.loadProfile();
+            $state.go($state.current, {}, {reload: true});
           }
           else {
             vm.loginDialogError = true;
