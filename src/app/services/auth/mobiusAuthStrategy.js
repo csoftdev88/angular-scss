@@ -32,7 +32,6 @@ angular
             userObject.id = data.id;
             user.storeUserId(data.id);
             user.loadProfile();
-            $state.go($state.current, {}, {reload: true});
           }
           else {
             vm.loginDialogError = true;

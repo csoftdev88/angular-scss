@@ -190,7 +190,6 @@ angular.module('mobiusApp.services.api', [])
 
   function setHeaders(obj) {
     _.extend(headers, obj);
-    console.log('APi headers set to', obj);
   }
 
   function handleSessionDataHeaders(){

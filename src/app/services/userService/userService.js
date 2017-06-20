@@ -127,7 +127,6 @@ angular.module('mobiusApp.services.user', [])
               dataLayerService.setUserId(customerId);
             }
 
-
             userObject = angular.extend(userObject, userData);
             //userObject = _.extend(userObject, userData);
             userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
