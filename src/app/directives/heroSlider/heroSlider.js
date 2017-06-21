@@ -2,8 +2,8 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', ['$timeout', '$state', '$templateCache', 'Settings',
-  'advertsService', '$window', '$filter', function($timeout, $state, $templateCache, Settings,
+.directive('heroSlider', ['$timeout', '$state', '$templateCache', '$compile', 'Settings',
+  'advertsService', '$window', '$filter', function($timeout, $state, $templateCache, $compile, Settings,
   advertsService, $window, $filter){
   return {
     restrict: 'E',
@@ -119,22 +119,25 @@ angular.module('mobiusApp.directives.slider', [])
         }
       };
 
-      function createSlide(){
+      function createSlide() {
         var slideData = scope.content[scope.slideIndex];
 
         var template;
-
-        if(slideData.title && slideData.subtitle){
-          template = $templateCache.get(SLIDE_TYPE_INFO)
-            .replace('slide_title', slideData.title)
-            .replace('slide_subtitle', slideData.subtitle);
-        }else{
+        if (slideData.title || slideData.subtitle) {
+          template = $templateCache.get(SLIDE_TYPE_INFO);
+        } else {
           template = $templateCache.get(SLIDE_TYPE_SIMPLE);
         }
 
-        var slide = $(template)[0];
+        var slideScope = scope.$new(true);
+        slideScope.slideData = slideData;
+
+        var compiledTemplate = $compile(template)(slideScope);
+
+        var slide = $(compiledTemplate)[0];
         var resizedSlideUri = (scope.slideWidth !== undefined && scope.slideHeight !== undefined) ? $filter('cloudinaryImage')(slideData.uri,scope.slideWidth,scope.slideHeight,'fill') : slideData.uri;
         $(slide).css('background-image', 'url(' + resizedSlideUri + ')');
+
         sliderContent.append(slide);
 
         return $(slide);
