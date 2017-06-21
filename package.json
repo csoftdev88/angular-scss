@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node app.js",
     "server.sandman": "NODE_ENV=development node server.js --tenant=sandman --environment=integration",
-    "int.sandman": "grunt development --tenant=sandman --environment=integration"
+    "server.sutton": "NODE_ENV=development node server.js --tenant=suttonLive --environment=integration",
+    "int.sandman": "grunt development --tenant=sandman --environment=integration",
+    "int.sutton": "grunt development --tenant=suttonLive --environment=integration"
   },
   "engines": {
     "node": "=0.10.22"
