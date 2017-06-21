@@ -1246,6 +1246,25 @@ reservation-finished {
 
     margin-bottom: 2*@baseline;
 
+    text-align: center;
+
+    list-item {
+      padding-right: 0;
+    }
+
+    h3 {
+      font-size: 31px;
+      font-family: @lbe-ff-primary;
+      font-weight: bold;
+      line-height: 36px;
+      text-transform: uppercase;
+      color: #000;
+      &:after {
+        content: url('@{lbe-img-prefix}/divider-orange.png');
+        display: block;
+      }
+    }
+
     .total {
       font-size: @size-2;
       font-weight: 600;
