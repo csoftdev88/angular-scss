@@ -103,7 +103,7 @@ angular.module('mobiusApp.services.content', [])
         // NOTE: Reducing the size of images
         uri:  isFormatingRequred? $filter('cloudinaryImage')(img.uri, width, height, fill) : img.uri,
         title: img.imageName || img.alt,
-        subtitle: img.alt || img.imageName
+        subtitle: img.alt
       };
     });
   }
