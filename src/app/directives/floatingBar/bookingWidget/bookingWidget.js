@@ -22,7 +22,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
       var ALL_PROPERTIES = attrs.allProperties ? attrs.allProperties : 'All properties';
-      var FIND_YOUR_HOTEL = dynamicMessages.find_your_hotel;
+      var FIND_YOUR_HOTEL = dynamicMessages ? dynamicMessages.find_your_hotel : 'Find Your Hotel';
       var floatingBarEl = $('floating-bar');
 
       scope.isMobile = function(){
