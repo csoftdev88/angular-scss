@@ -439,7 +439,42 @@
         <ul>
           <li class="{{ availableAddons < 3 ? 'half' : 'third' }}"
               ng-repeat="addon in availableAddons"
-              ng-if="reservation.packages.indexOf(addon.code) === -1"
+              ng-if="(reservation.packages.indexOf(addon.code) === -1) && viewSettings.useAltAddons"
+              ng-click="openAddonDetailDialog(null, addon)">
+            <div ng-class="{'disabled': !addon.description || addon.description == ''}">
+              <h4 ng-if="config.addonTitleAboveImage"
+                  ng-bind-html="addon.name | wrapWordHtml : 'span' : 0">
+              </h4>
+              <a class="eye-icon"
+                 ng-click="openAddonDetailDialog($event,
+                                                 addon,
+                                                 addon.pointsRequired &&
+                                                 loyaltyProgramEnabled &&
+                                                 addon.allowPointsBooking)">
+                <span class="Addons__title">
+                  {{ addon.name }}
+                  <span class="Addons__subtitle">
+                    {{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}
+                    <span ng-if="addon.pointsRequired &&
+                        loyaltyProgramEnabled &&
+                        addon.allowPointsBooking">
+                    or {{addon.pointsRequired}} <small>_points_</small>
+                  </span>
+                  </span>
+                </span>
+                <img ng-if="addon.image && addon.image.uri"
+                     ng-src="{{addon.image.uri}}" />
+                <img ng-if="(!addon.image || !addon.image.uri) &&
+                            addon.images &&
+                            addon.images.length &&
+                            addon.images[0].uri"
+                     ng-src="{{addon.images[0].uri}}"/>
+              </a>
+            </div>
+          </li>
+          <li class="{{ availableAddons < 3 ? 'half' : 'third' }}"
+              ng-repeat="addon in availableAddons"
+              ng-if="(reservation.packages.indexOf(addon.code) === -1) && !viewSettings.useAltAddons"
               ng-click="openAddonDetailDialog(null, addon)">
             <div ng-class="{'disabled': !addon.description || addon.description == ''}">
               <h4 ng-if="config.addonTitleAboveImage"

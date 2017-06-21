@@ -263,6 +263,8 @@ angular.module('mobius.controllers.reservationDetail', [])
               return a.code === addon.code;
             });
 
+            console.log('added addon', addedAddon);
+
             if (!addedAddon) {
               // Checking if user has enought points to buy the addon
               if (addon.pointsRequired && availablePoints < addon.pointsRequired) {

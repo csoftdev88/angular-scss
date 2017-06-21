@@ -1179,6 +1179,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
           }
         }
       },
+      'reservationDetails': {
+        'useAltAddons': true
+      },
       'roomDetails':{
         'hasViewMore': true,
         'hideBreadcrumbs': false,

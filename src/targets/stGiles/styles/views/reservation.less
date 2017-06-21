@@ -900,7 +900,7 @@ reservation-finished {
   .map-section {
     hotel-location {
       > header {
-        margin: 154px 0 72px 0;
+        margin: 74px 0 72px 0;
         .viewport-mobile & {
           display: none;
         }
@@ -1045,13 +1045,50 @@ reservation-finished {
 
   // List of possible enhancements for users reservation
   .reservation-enhance {
+    margin-top: 174px;
+    text-align: center;
+
+    .Addons__title {
+      position: absolute;
+      left: 0;
+      top: 20px;
+      width: 60%;
+      padding: 5px 20px 5px 40px;
+      background-color: rgba(26, 26, 26, 0.8);
+      .backdrop-filter-blur(20px);
+      color: #fff;
+      text-transform: uppercase;
+      font-family: @lbe-ff-primary;
+      display: block;
+      font-size: 24px;
+      line-height: 35px;
+      text-align: left;
+      .Addons__subtitle {
+        text-transform: none;
+        display: inline;
+      }
+    }
+
+    h3 {
+      font-size: 31px;
+      font-family: @lbe-ff-primary;
+      font-weight: bold;
+      line-height: 36px;
+      text-transform: uppercase;
+      color: #000;
+      &:after {
+        content: url('@{lbe-img-prefix}/divider-orange.png');
+        display: block;
+      }
+    }
+
     ul {
       .clearfix;
       margin: @spacing 0;
       padding: @spacing @spacing / 2;
-      border: 2px solid rgba(214, 185, 185, 0.4);
-      border-radius: 4px;
-      background-color: rgba(215, 198, 174, 0.2);
+      border: none;
+      border-radius: 0;
+      background-color: #fff;
     }
 
     li {
@@ -1075,9 +1112,9 @@ reservation-finished {
       > div {
         cursor: pointer;
         padding-bottom: 5px;
-        border-radius: 4px;
+        border-radius: 0;
         background: #fff;
-        box-shadow: 0 2px 1px 0 fade(@c-black, 50%);
+        box-shadow: none;
         text-align: center;
         overflow: hidden;
 
