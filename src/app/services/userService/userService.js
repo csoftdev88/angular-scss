@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('mobiusApp.services.user', [])
-  .service('user', function($rootScope, $q, $window, $state,
-    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout, stateService) {
+angular
+  .module('mobiusApp.services.user', [])
+  .service('user', function($rootScope, $q, $window, $state, userObject, apiService, _, loyaltyService, cookieFactory,
+                            dataLayerService, rewardsService, Settings, $timeout, stateService) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = Settings.authType === 'mobius' ? 'mobius-authentication' : 'MobiusID';
@@ -52,7 +53,7 @@ angular.module('mobiusApp.services.user', [])
         return apiService.put(
           apiService.getFullURL('customers.customer', {customerId: customerId}), data)
         .then(function() {
-          userObject = _.extend(userObject, data);
+          _.extend(userObject, data);
         });
       } else {
         throw new Error('No user logged in');
@@ -95,8 +96,8 @@ angular.module('mobiusApp.services.user', [])
       return cookieFactory('MobiusCurrencyCode');
     }
 
-    function loadProfile() {
-      var customerId = getCustomerId();
+    function loadProfile(customerId) {
+      customerId = customerId || getCustomerId();
 
       //We need token to load mobius profile
       if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
@@ -127,11 +128,11 @@ angular.module('mobiusApp.services.user', [])
               dataLayerService.setUserId(customerId);
             }
 
-            userObject = angular.extend(userObject, userData);
-            //userObject = _.extend(userObject, userData);
+            //userObject = angular.extend(userObject, userData);
+            _.extend(userObject, userData);
             userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
             userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
-            console.log('successfully gotten the user', userObject);
+            console.log('userObject in the user service', userObject);
             return $q.all([
               loadLoyalties(customerId),
               loadRewards(customerId)
@@ -165,7 +166,7 @@ angular.module('mobiusApp.services.user', [])
             dataLayerService.setUserId(customerId);
           }
 
-          userObject = _.extend(userObject, userData);
+          _.extend(userObject, userData);
           userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
           userObject.languageCode = getUserLanguage() || stateService.getAppLanguageCode();
 
@@ -229,7 +230,11 @@ angular.module('mobiusApp.services.user', [])
 
     function logout() {
       $rootScope.$evalAsync(function(){
-        userObject = {};
+        for (var prop in userObject) {
+          if (userObject.hasOwnProperty(prop)) {
+            delete userObject[prop];
+          }
+        }
         $state.go('home', {}, {reload: true});
 
       });
@@ -283,6 +288,10 @@ angular.module('mobiusApp.services.user', [])
       loadProfile();
     }
 
+    function isLoggedIn() {
+      return !!(userObject.id && userObject.email);
+    }
+
     return {
       getUser: getUser,
       loadProfile: loadProfile,
@@ -297,6 +306,7 @@ angular.module('mobiusApp.services.user', [])
       getStoredUser: getStoredUser,
       clearStoredUser: clearStoredUser,
       storeUserCurrency: storeUserCurrency,
-      getUserCurrency: getUserCurrency
+      getUserCurrency: getUserCurrency,
+      isLoggedIn: isLoggedIn
     };
   });

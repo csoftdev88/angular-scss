@@ -11,7 +11,7 @@
     <div class="Header__buttons--auth">
 
       <button class="Header__button login"
-              ng-if="!auth.isLoggedIn()"
+              ng-if="!isUserLoggedIn()"
               ng-click="auth.login()">
         _log_in_
       </button>

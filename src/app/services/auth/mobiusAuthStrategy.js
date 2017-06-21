@@ -28,10 +28,9 @@ angular
           if (data.id !== null) {
             $rootScope.showLoginDialog = false;
             clearErrorMsg(vm);
-            console.log('successfully logged in', userObject);
             userObject.id = data.id;
             user.storeUserId(data.id);
-            user.loadProfile();
+            user.loadProfile(data.id);
           }
           else {
             vm.loginDialogError = true;
@@ -51,15 +50,24 @@ angular
     };
 
     var logout = function () {
-      $rootScope.$evalAsync(function(){
+      /*$rootScope.$evalAsync(function(){
         userObject = {};
         $state.go('home', {}, {reload: true});
-      });
+      });*/
       // Removing auth headers
       var headers = {};
       headers[AUTH_HEADER] = undefined;
       apiService.setHeaders(headers);
       user.clearStoredUser();
+
+      // @todo why would this be wrapped in an evalAync ??
+      //userObject = {};
+      for (var prop in userObject) {
+        if (userObject.hasOwnProperty(prop)) {
+          delete userObject[prop];
+        }
+      }
+      $state.go('home', {}, {reload: true});
 
       $timeout(function () {
         $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
@@ -67,6 +75,7 @@ angular
     };
 
     var isLoggedIn = function () {
+      // @todo remove !!
       return !!(userObject.id && userObject.email);
     };
 
