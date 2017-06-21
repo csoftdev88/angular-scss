@@ -97,7 +97,6 @@
         // Retrieve property list for the select box
         propertyService.getAll()
           .then(function (properties) {
-            console.log('api properties', properties);
             scope.properties = _.extend(scope.properties, properties);
             // @todo Investigate why this needs to be wrapped in a timeOut
             setTimeout(function () {
@@ -109,7 +108,6 @@
           var property = Settings.UI.generics.singleProperty ?
             _.findWhere(scope.properties, {code: Settings.UI.generics.defaultPropertyCode}) :
             _.findWhere(scope.properties, {id: id});
-          console.log('properties', scope.properties);
           if (! property) {
             $log.warn('Potentially unexpected behaviour, the property was not found from its id.');
           }

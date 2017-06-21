@@ -22,7 +22,6 @@
         offers.getAvailableFeatured(config.numOffers)
           .then(function (offers) {
             scope.offers = offers;
-            console.log('offers', scope.offers);
           });
 
         scope.gotoOffer = function (offer) {

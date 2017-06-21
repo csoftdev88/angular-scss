@@ -36,7 +36,6 @@
           propertyService.getAll()
             .then(function (data) {
               scope.membersRateProperties = data;
-              console.log('data', data);
               scope.memberRates = [{
                 name: data[0].nameShort,
                 tagline: data[0].descriptionShort,
@@ -70,7 +69,6 @@
                   params.to = endDate;
                   propertyService.getRoomProducts(Settings.UI.generics.defaultPropertyCode, selectedRoom.code, params)
                     .then(function (products) {
-                      console.log('products', products);
                       var highestPrice = products.products[0].price.totalBaseAfterPricingRules;
                       _.each(products.products, function (product) {
                         if (product.price.totalBaseAfterPricingRules > highestPrice) {
@@ -82,7 +80,6 @@
                       });
                       scope.memberRates[0].publicRate = highestPrice;
                       scope.rooms = scope.memberRates;
-                      console.log('members rates', scope.memberRates);
                     });
                 });
             });

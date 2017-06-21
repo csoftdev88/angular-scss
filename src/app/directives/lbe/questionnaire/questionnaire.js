@@ -27,7 +27,7 @@
         var selectPoll = function () {
           pollsService.getAll()
             .then(function (data) {
-              if (data[0]) {
+              if (data) {
                 pollId = data[0].id;
                 pollsService.get(data[0].id)
                   .then(function (data) {
