@@ -91,6 +91,10 @@ describe('mobius.controllers.rewards', function() {
 
       _scope = $rootScope.$new();
 
+      _scope.auth = {
+        isLoggedIn: function () { return true; }
+      };
+
       _breadcrumbsService = breadcrumbsService;
       _breadcrumbsService.clear.returns({
         addBreadCrumb: sinon.stub().returns(_breadcrumbsService)
