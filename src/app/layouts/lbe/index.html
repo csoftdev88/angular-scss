@@ -1,7 +1,7 @@
 
-<header class="Header" ng-include="'layouts/lbe/header.html'"></header>
+<header class="Header" ng-include="uiConfig.partials.header"></header>
 
-<div class="Menu" ng-include="'layouts/lbe/menu.html'"></div>
+<div class="Menu" ng-include="uiConfig.partials.menu"></div>
 
 <user-messages></user-messages>
 
@@ -19,5 +19,5 @@
         ng-hide="$state.includes('reservation') ||
                  $state.includes('rewards') ||
                  $state.includes('prestige')"
-        ng-include="'layouts/lbe/footer.html'">
+        ng-include="uiConfig.partials.footer">
 </footer>

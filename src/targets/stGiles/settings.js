@@ -335,6 +335,11 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'campaigns': {
       display:true
     },
+    'partials': {
+      'menu': 'layouts/lbe/menu.html',
+      'header': 'layouts/lbe/header.html',
+      'footer': 'layouts/lbe/footer.html'
+    },
     'bookingBar': {
       'maxAdults': 8,
       'maxChildren': 8,
