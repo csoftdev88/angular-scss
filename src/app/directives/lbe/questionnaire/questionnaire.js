@@ -88,39 +88,44 @@
           var reservationPromise = reservations.getAll()
             .then(function (reservations) {
               $log.info('Reservations retrieved', reservations);
-              var nextStay = reservations[0];
+              var nextStay = reservations[0] || null;
               // Find the reservation with the earliest start date
               _.each(reservations, function (reservation) {
                 if (new Date(reservation.arrivalDate) < new Date(nextStay.arrivalDate)) {
                   nextStay = reservation;
                 }
               });
-              $log.info('Next stay has been selected', nextStay);
               return nextStay;
             });
 
           reservationPromise.then(function (nextStay) {
-            property.getPropertyDetails(nextStay.property.code)
-              .then(function (property) {
-                $log.info('Property retrieved, assigning it to the next stay object');
-                nextStay.property = property;
-                scope.nextStay = nextStay;
-                $log.info('The next stay', nextStay);
-              });
+            if (nextStay) {
+              property.getPropertyDetails(nextStay.property.code)
+                .then(function (property) {
+                  $log.info('Property retrieved, assigning it to the next stay object');
+                  nextStay.property = property;
+                  scope.nextStay = nextStay;
+                  $log.info('The next stay', nextStay);
+                });
+            }
           });
 
           // Get rewards available to the user
           rewardsService.getAll(userObject.id)
             .then(function (rewards) {
               $log.info('Rewards have been retrieved.', rewards);
-              var highest = rewards[0];
+              var highest = rewards[0] || null;
               _.each(rewards, function (reward) {
                 if (reward.weighting > highest.weighting) {
                   highest = reward;
                 }
               });
-              scope.featuredReward = highest.name;
-              scope.featuredRewardPoints = highest.pointCost;
+              if (highest) {
+                scope.featuredReward = highest.name;
+                scope.featuredRewardPoints = highest.pointCost;
+              } else {
+                scope.noRewardAvailable = true;
+              }
             });
 
           /**

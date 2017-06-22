@@ -23,13 +23,17 @@
 
   <article ui-sref="rewards" class="questionnaire__feature">
 
-    <div class="questionnaire__featureReward">
-      <span>Featured reward</span>
+    <div ng-if="!noRewardAvailable" class="questionnaire__featureReward">
+      <span>_featured_reward_</span>
     </div>
 
-    <div class="questionnaire__reward">
+    <div ng-if="!noRewardAvailable" class="questionnaire__reward">
       <span class="rewardName">{{ featuredReward }}</span>
-      <span class="rewardPoints">{{ featuredRewardPoints }} Points</span>
+      <span class="rewardPoints">{{ featuredRewardPoints }} _points_</span>
+    </div>
+
+    <div ng-if="noRewardAvailable" class="questionnaire__reward">
+      <span class="rewardName">_no_rewards_available_</span>
     </div>
 
   </article>
