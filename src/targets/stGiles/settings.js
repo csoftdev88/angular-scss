@@ -340,6 +340,12 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'header': 'layouts/lbe/header.html',
       'footer': 'layouts/lbe/footer.html'
     },
+    'recommendation': {
+      'avatarUrl': '/static/images/lbe/avatar@3x.png',
+      'text': '20% off and a room upgrade, what more could I ask for!',
+      'name': 'Laura Sandoval',
+      'city': 'New York'
+    },
     'bookingBar': {
       'maxAdults': 8,
       'maxChildren': 8,

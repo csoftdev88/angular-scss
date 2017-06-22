@@ -19,10 +19,10 @@
           $log.warn('No config for the recommendation was provided!');
         }
         scope.recommendation = {
-          avatarUrl: '/static/images/lbe/avatar@3x.png',
-          text: '20% off and a room upgrade, what more could I ask for!',
-          name: 'Laura Sandoval',
-          city: 'New York'
+          avatarUrl: config.avatarUrl,
+          text: config.text,
+          name: config.name,
+          city: config.city
         };
       }
     };
