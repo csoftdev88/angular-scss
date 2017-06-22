@@ -34,7 +34,7 @@
                     scope.question = data.question;
                     scope.options = data.choices;
                     scope.choiceId = data.choices[0].id;
-                    scope.reward = dynamicMessages.answer_the_question.replace('XX', data.spinsAwarded);
+                    scope.reward = dynamicMessages.answer_the_question.replace('XX', data.points);
                   });
                 return;
               }
