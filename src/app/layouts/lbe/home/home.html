@@ -24,6 +24,7 @@
 </div>
 
 <article class="HeroTitle">
+
   <div class="HeroTitle__inner">
     <img src="/static/images/v4/logo-icon@3x.png">
     <div class="HeroTitle__title">
@@ -31,23 +32,28 @@
     </div>
     <a ui-sref="aboutUs" class="HeroTitle__button">_find_out_more_</a>
   </div>
+
 </article>
 
 <booking-bar class="Home__booking-bar" size="small"></booking-bar>
 
 <article class="HeroBenefits" ng-if="!auth.isLoggedIn()">
+
   <div class="HeroBenefits__benefit">
     <h2>_about_benefit_one_title_</h2>
     <p>_about_benefit_one_text_</p>
   </div>
+
   <div class="HeroBenefits__benefit">
     <h2>_about_benefit_two_title_</h2>
     <p>_about_benefit_two_text_</p>
   </div>
+
   <div class="HeroBenefits__benefit">
     <h2>_about_benefit_four_title_</h2>
     <p>_about_benefit_four_text_</p>
   </div>
+
   <div class="HeroBenefits__buttons">
     <button ng-click="auth.login()"
             class="HeroBenefits__button login">
@@ -58,11 +64,14 @@
       _sign_up_
     </button>
   </div>
+
 </article>
 
 <main class="grid-wrapper HomePage">
+
   <div class="preloader" ng-show="preloader.visible"></div>
   <section dynamic-layout></section>
+
 </main>
 
 <scroll-to-top class="back-to-top"

@@ -2,16 +2,19 @@
      ng-click="$event.stopPropagation()">
 
   <header>
+
     <a href=""
        ng-click="registerFormFilledEmail = !registerFormFilledEmail; retentionClick()"
        ng-show="registerFormFilledEmail"
        class="back-btn">
       _back_
     </a>
+
     <a href="" ng-click="auth.clearErrors(); auth.register(); retentionClick()" class="close-btn"></a>
     <figure class="logo">
       <img src="/static/images/v4/logo-dark.png" alt="logo">
     </figure>
+
     <p class="error-msg error" ng-if="error">
           <span ng-if="userRegisteredError">
             _user_already_registered_
@@ -26,6 +29,7 @@
             _password_pattern_error_
           </span>
     </p>
+
   </header>
 
   <div class="form-wrapper">
@@ -61,9 +65,9 @@
             equals="registerData.email"
             placeholder="_confirm_email_label_"
             ng-class="{'ng-submitted': form.$submitted &&
-                                           (form.registerEmailConfirm.$error.required ||
-                                           form.registerEmailConfirm.$error.emailCheck ||
-                                           form.registerEmailConfirm.$error.equals)}"/>
+                                       (form.registerEmailConfirm.$error.required ||
+                                       form.registerEmailConfirm.$error.emailCheck ||
+                                       form.registerEmailConfirm.$error.equals)}"/>
           <span class="error"
                 ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">
                 _invalid_email_message_
@@ -85,8 +89,8 @@
             required
             placeholder="_password_label_"
             ng-class="{'ng-submitted': form.$submitted &&
-                                           (form.registerPassword.$error.required ||
-                                           form.registerPassword.$error.pattern)}"
+                                       (form.registerPassword.$error.required ||
+                                       form.registerPassword.$error.pattern)}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
@@ -100,8 +104,8 @@
             equals="registerData.password"
             placeholder="_confirm_password_label_"
             ng-class="{'ng-submitted': form.$submitted &&
-                                           (form.registerPasswordConfirm.$error.required ||
-                                           form.registerPasswordConfirm.$error.equals)}"/>
+                                       (form.registerPasswordConfirm.$error.required ||
+                                       form.registerPasswordConfirm.$error.equals)}"/>
           <span class="error"
                 ng-if="form.$submitted && form.registerPasswordConfirm.$error.equals">
                 _password_match_error_message_

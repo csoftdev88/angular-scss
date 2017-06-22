@@ -3,15 +3,13 @@
 
 <div class="Menu">
   <ul class="Menu__items" dropdown-group>
+
     <li ng-click="$state.go('hotels', { scrollTo: 'jsAbout'})" class="Menu__items--item">
       _menu_hotels_
     </li>
     <li ui-sref="offers" class="Menu__items--item">
       _menu_specials_
     </li>
-    <!--<li ui-sref="contacts" class="Menu__items--item">
-      _menu_contact_
-    </li>-->
     <li class="Menu__items--item">
       <img src="/static/images/lbe/divider-orange.png">
     </li>
@@ -67,6 +65,7 @@
         class="Menu__items--item">
       _login_
     </li>
+
   </ul>
 </div>
 
@@ -76,10 +75,15 @@
 <div ui-view autoscroll="true"></div>
 
 <!-- BOOKING WIDGET AREA-->
-<floating-bar ng-if="isMobile" ng-class="{'hide': $state.includes('reservation') || $state.includes('error')}"></floating-bar>
+<floating-bar ng-if="isMobile"
+              ng-class="{'hide': $state.includes('reservation') || $state.includes('error')}">
+</floating-bar>
 
+<!-- TODO Set a config called footerless pages, then we can loop through that instead of direct page refs -->
 <footer class="main"
         ng-if="!hideFooter"
-        ng-hide="$state.includes('reservation') || $state.includes('rewards') || $state.includes('prestige')"
+        ng-hide="$state.includes('reservation') ||
+                 $state.includes('rewards') ||
+                 $state.includes('prestige')"
         ng-include="'layouts/lbe/footer.html'">
 </footer>
