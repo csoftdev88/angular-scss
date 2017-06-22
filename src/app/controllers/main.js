@@ -98,7 +98,6 @@ angular.module('mobius.controllers.main', [])
       $scope.registerFormFilledEmail = false;
 
       $scope.user = userObject;
-      console.log('user', userObject);
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;

@@ -624,6 +624,7 @@
     "android_app_download_link": "https://play.google.com/store/apps/details?id=com.digitalworkroom.stgiles&hl=en",
     "about_offer_subtitle": "Summer in the city",
     "questionnaire_title": "Answer the question to gain points",
-    "questionnaire_completed": "Thank you very much, you have answered all the questions"
+    "questionnaire_completed": "Thank you very much, you have answered all the questions",
+    "featured_reward": "Featured reward"
   }
 }
