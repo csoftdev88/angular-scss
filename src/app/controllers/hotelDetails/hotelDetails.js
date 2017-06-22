@@ -72,7 +72,7 @@ angular.module('mobius.controllers.hotel.details', [
   bookingParams.includes = 'amenities';
 
   $scope.openBookingBar = function () {
-    if (Settings.engine === 'loyalty') {
+    if ($scope.loyaltyEngine) {
       angular.element('floating-bar').css('display', 'block');
     }
     $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
@@ -595,7 +595,7 @@ angular.module('mobius.controllers.hotel.details', [
         roomSlug: rSlug,
         promoCode: $stateParams.promoCode,
         viewAllRates: viewAllRates,
-        scrollTo: Settings.engine === 'loyalty' ? 'RatesList' : 'hotel-room'
+        scrollTo: $scope.loyaltyEngine ? 'RatesList' : 'hotel-room'
       });
     } else {
       return $state.href('room', {
@@ -604,7 +604,7 @@ angular.module('mobius.controllers.hotel.details', [
         propertySlug: pSlug,
         roomSlug: rSlug,
         viewAllRates: viewAllRates,
-        scrollTo: Settings.engine === 'loyalty' ? 'RatesList' : 'hotel-room'
+        scrollTo: $scope.loyaltyEngine ? 'RatesList' : 'hotel-room'
       });
     }
   };
@@ -619,7 +619,7 @@ angular.module('mobius.controllers.hotel.details', [
         roomSlug: rSlug,
         promoCode: $stateParams.promoCode,
         viewAllRates: viewAllRates,
-        scrollTo: Settings.engine === 'loyalty' ? 'RatesList' : 'hotel-room'
+        scrollTo: $scope.loyaltyEngine ? 'RatesList' : 'hotel-room'
       });
     } else {
       $state.go('room', {
@@ -628,7 +628,7 @@ angular.module('mobius.controllers.hotel.details', [
         propertySlug: pSlug,
         roomSlug: rSlug,
         viewAllRates: viewAllRates,
-        scrollTo: Settings.engine === 'loyalty' ? 'RatesList' : 'hotel-room'
+        scrollTo: $scope.loyaltyEngine ? 'RatesList' : 'hotel-room'
       });
     }
   };
@@ -687,7 +687,7 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.selectDates = function() {
-    if (Settings.engine === 'loyalty') {
+    if ($scope.loyaltyEngine) {
       if (stateService.isMobile()) {
         $scope.openBookingBar();
         return;

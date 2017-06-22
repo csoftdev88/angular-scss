@@ -455,7 +455,7 @@ angular.module('mobius.controllers.offers', [])
       //apply selected offer data to scope
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
-      if (Settings.engine === 'loyalty') {
+      if ($scope.loyaltyEngine) {
         updateAvailableProperties();
       }
 
