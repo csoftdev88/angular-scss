@@ -15,9 +15,9 @@
       templateUrl: 'directives/lbe/hotelIntro/hotelIntro.html',
       link: function () {
         // Get the config for the hotel info
-        var config = Settings.UI.hotelInfo;
+        var config = Settings.UI.hotelIntro;
         if (!config) {
-          $log.warn('No config for the hotel-info directive was provided!');
+          $log.warn('No config for the hotel-intro directive was provided!');
         }
       }
     };

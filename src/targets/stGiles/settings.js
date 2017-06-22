@@ -346,6 +346,12 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'name': 'Laura Sandoval',
       'city': 'New York'
     },
+    'hotelIntro': {
+
+    },
+    'questionnaire': {
+
+    },
     'bookingBar': {
       'maxAdults': 8,
       'maxChildren': 8,
