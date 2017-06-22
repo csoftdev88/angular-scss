@@ -50,23 +50,18 @@ angular
     };
 
     var logout = function () {
-      /*$rootScope.$evalAsync(function(){
-        userObject = {};
-        $state.go('home', {}, {reload: true});
-      });*/
       // Removing auth headers
       var headers = {};
       headers[AUTH_HEADER] = undefined;
       apiService.setHeaders(headers);
       user.clearStoredUser();
 
-      // @todo why would this be wrapped in an evalAync ??
-      //userObject = {};
       for (var prop in userObject) {
         if (userObject.hasOwnProperty(prop)) {
           delete userObject[prop];
         }
       }
+
       $state.go('home', {}, {reload: true});
 
       $timeout(function () {
@@ -75,7 +70,6 @@ angular
     };
 
     var isLoggedIn = function () {
-      // @todo remove !!
       return !!(userObject.id && userObject.email);
     };
 
