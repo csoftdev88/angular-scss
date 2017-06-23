@@ -19,7 +19,7 @@
     </li>
 
     <!--hide it when the all of ng-repeat items above has filtered flag set with true-->
-    <li has-dropdown="hover" class="dropdown-submenu" ng-show="hasFilteredItems(content) && hasSecondLevelDropdown" >
+    <li has-dropdown="hover" class="dropdown-submenu" ng-if="hasFilteredItems(content) && hasSecondLevelDropdown" >
       <div class="divider"/>
       <div class="dropdown">
         <span class="fa fa-angle-right"></span>
