@@ -468,7 +468,7 @@
     "page_not_found_desc": "Désolé, cette page n'existe pas!",
     "page_not_found_cta": "Cliquez ici pour retourner a <a href='/'>l'accueil</a>",
     "hotels_page_title": "Nos Hôtels",
-    "hotels_page_login_prompt_desc": "Économisez jusqu’à 20% en <a href ng-click='sso.login()''>vous connectant</a> ou en vous <a ng-click='sso.register()''>inscrivant</a>!",
+    "hotels_page_login_prompt_desc": "Économisez jusqu’à 20% en <a href ng-click='auth.login()''>vous connectant</a> ou en vous <a ng-click='auth.register()''>inscrivant</a>!",
     "reservation_confirmation_message_title": "Nous vous remercions de votre réservation au {hotelName}!",
     "reservation_confirmation_message_desc": "Votre code de réservation internet est {reservationNumber}. Vous recevrez bientôt un e-mail qui contient votre numéro de référence de réservation.",
     "FOOTER": "////////////////////////////////////////////////////////////",
