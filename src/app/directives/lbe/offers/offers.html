@@ -17,7 +17,9 @@
   </div>
 
   <div class="Offers__see-more">
-    <button ui-sref="offers" class="Offers__button">
+    <button ui-sref="offers"
+            ng-if="offers.length > 3"
+            class="Offers__button">
       See more
     </button>
   </div>
