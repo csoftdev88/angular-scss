@@ -1,9 +1,9 @@
-'use strict';
-
 /**
- * Directive to encapsulate the loyalty questions widget used in the LBE
+ * Directive for the LBE as a replica to the floating bar's booking-widget.
  */
 (function() {
+  'use strict';
+
   angular
     .module('mobiusApp.directives.lbe.bookingBar', [])
     .directive('bookingBar', ['Settings', '$log', 'DynamicMessages','stateService', '$state', 'propertyService', '_',
