@@ -1,6 +1,9 @@
-<h2 class="members-rates__title">_book_now_at_</h2>
+<h2 ng-if="rooms.length" class="members-rates__title">
+  _book_now_at_
+</h2>
 
 <div class="members-rates"
+     ng-if="rooms.length"
      ng-class="sizeClass">
 
   <div class="members-rate"
