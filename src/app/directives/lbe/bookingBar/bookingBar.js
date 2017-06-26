@@ -7,10 +7,11 @@
   angular
     .module('mobiusApp.directives.lbe.bookingBar', [])
     .directive('bookingBar', ['Settings', '$log', 'DynamicMessages','stateService', '$state', 'propertyService', '_',
-                              'routerService', '$window', 'validationService', '$rootScope', BookingBar]);
+                              'routerService', '$window', 'validationService', '$rootScope', '$stateParams',
+                              BookingBar]);
 
   function BookingBar(Settings, $log, DynamicMessages, stateService, $state, propertyService, _, routerService,
-                      $window, validationService, $rootScope) {
+                      $window, validationService, $rootScope, $stateParams) {
     return {
       restrict: 'E',
       scope: true,
@@ -104,6 +105,34 @@
             }, 0);
           });
 
+        console.log('params', $stateParams);
+
+        function initialiseValues() {
+          if ($stateParams.adults) {
+            scope.rooms[0].adults = parseInt($stateParams.adults);
+          }
+          if ($stateParams.children) {
+            scope.rooms[0].children = parseInt($stateParams.children);
+          }
+          if ($stateParams.dates) {
+            scope.search.dates = $stateParams.dates;
+          }
+          if ($stateParams.corpCode) {
+            scope.search.codeType = scope.codes[1];
+            scope.search.code = $stateParams.corpCode;
+            scope.showCode = true;
+          } else if ($stateParams.groupCode) {
+            scope.search.codeType = scope.codes[2];
+            scope.search.code = $stateParams.groupCode;
+            scope.showCode = true;
+          } else if ($stateParams.promoCode) {
+            scope.search.codeType = scope.codes[3];
+            scope.search.code = $stateParams.promoCode;
+            scope.showCode = true;
+          }
+        }
+        initialiseValues();
+
         function getProperty(id) {
           var property = Settings.UI.generics.singleProperty ?
             _.findWhere(scope.properties, {code: Settings.UI.generics.defaultPropertyCode}) :
@@ -124,6 +153,7 @@
           stateParams.adults = scope.search.adults;
           stateParams.children = scope.search.children;
           stateParams.dates = scope.dates;
+
           if (scope.search.code !== 'default') {
             stateParams[scope.search.codeType] = scope.search.code;
           }
