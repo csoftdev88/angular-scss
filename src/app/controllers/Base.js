@@ -30,6 +30,7 @@
     $scope.scrollService = scrollService;
     $scope.floatingBarMobileTopRight = Settings.UI.bookingWidget.mobileTopRight;
     $scope.loyaltyEngine = Settings.engine === 'loyalty';
+    $scope.isSingleProperty = Settings.UI.generics.singleProperty;
 
     //If menu overlay is enabled, add the event handlers to open and close the menu
     if($scope.menuOverlayEnabled){

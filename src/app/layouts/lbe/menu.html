@@ -1,7 +1,14 @@
 <ul class="Menu__items" dropdown-group>
 
-  <li ng-click="$state.go('hotels', { scrollTo: 'jsAbout'})" class="Menu__items--item">
+  <li ng-click="$state.go('hotels', { scrollTo: 'jsAbout'})"
+      ng-if="!isSingleProperty"
+      class="Menu__items--item">
     _menu_hotels_
+  </li>
+  <li ng-click="$state.go('hotels', { scrollTo: 'jsAbout'})"
+      ng-if="isSingleProperty"
+      class="Menu__items--item">
+    _menu_our_hotel_
   </li>
   <li ui-sref="offers" class="Menu__items--item">
     _menu_specials_
