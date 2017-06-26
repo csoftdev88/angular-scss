@@ -324,3 +324,22 @@ prestige-account {
     float: initial !important;
   }
 }
+
+dir-pagination-controls {
+  ul.pagination {
+    li {
+      &:first-child,
+      &:last-child {
+        a {
+          background: @lbe-c-primary !important;
+          color: @lbe-c-primary !important;
+        }
+      }
+      &.disabled {
+        a {
+          background: #9b9b9b !important;
+        }
+      }
+    }
+  }
+}
