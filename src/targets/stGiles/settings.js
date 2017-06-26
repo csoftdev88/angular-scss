@@ -738,8 +738,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'displayAddonVoucherEntry': false,
       'displayAddonComments': false,
       'hideBreadcrumbs': true,
-      'hideHeroSliderOnReservations': true,
-      'useBackground': true
+      'hideHeroSliderOnReservations': true
     },
 
     'aboutHotel': {
