@@ -1,14 +1,20 @@
 <reservation-hotel-details ng-class="{'inactive': !reservation.active}">
-  <section grid-row class="reservation-summary" ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
-    <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
-      <header ng-if="!config.hideHeader">
-        <h1>{{property.nameLong}}</h1>
 
-        <div class="reference" ng-class="{'reference-visible': displayConfirmationNumber}">
+  <section grid-row
+           class="reservation-summary"
+           ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
+
+    <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+
+      <header ng-if="!config.hideHeader">
+
+        <h1>{{ property.nameLong }}</h1>
+
+        <div class="reference"
+             ng-class="{'reference-visible': displayConfirmationNumber}">
+
           <p ng-if="config.displayConfirmationNumberLabel">_booking_reference_:</p>
-          <!-- TODO: reservation.IRI is string in format "/reservations/ABB-EF-01435",
-          should we cut the reservation code from this field? -->
-          <p><strong>{{reservation.reservationCode}}</strong></p>
+          <p><strong>{{ reservation.reservationCode }}</strong></p>
         </div>
 
         <div class="booked">
@@ -18,19 +24,50 @@
 
       <div class="tables">
         <figure>
-          <img ng-if="!config.largePropertyImage" ng-src="{{property.images[0].uri | cloudinaryImage : 320 : 160 : 'fill'}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
-          <img ng-if="config.largePropertyImage" ng-src="{{property.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
+          <img ng-if="!config.largePropertyImage"
+               ng-src="{{property.images[0].uri | cloudinaryImage : 320 : 160 : 'fill'}}"
+               err-source="/static/images/hotel.jpg"
+               alt="{{property.nameShort}}">
+
+          <img ng-if="config.largePropertyImage"
+               ng-src="{{property.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
+               err-source="/static/images/hotel.jpg"
+               alt="{{property.nameShort}}">
         </figure>
 
         <div>
           <div class="room-types">
-            <span class="chain-logo {{property.chainCode.toLowerCase()}}"></span>
-            <h1 ng-if="config.displayPropertyNameInDetails">{{property.nameLong}}</h1>
-            <h3>{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': 'room', 'other': 'rooms'}"></ng-pluralize></a></h3>
+
+            <span class="chain-logo {{ property.chainCode.toLowerCase() }}"></span>
+            <h1 ng-if="config.displayPropertyNameInDetails">
+              {{ property.nameLong }}
+            </h1>
+
+            <h3>
+              {{ reservation.rooms[0].roomTypeName }}
+              <a href ng-if="reservation.rooms.length > 1">
+                + {{reservation.rooms.length - 1}} other
+                <ng-pluralize count="reservation.rooms.length"
+                              when="{'2': 'room', 'other': 'rooms'}">
+                </ng-pluralize>
+              </a>
+            </h3>
+
             <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
-            <h4 ng-if="config.displayConfirmationNumberInDetails">_booking_reference_: <span>{{reservationCode}}</span></h4>
-            <span ng-if="config.displayBookingDateInDetails" class="booking-date">_booked_: <span>{{reservation.bookingDate | dateTime}}</span></span>
-            <a ng-if="config.displayPoliciesInDetails && !isMobile" href ng-click="openPoliciesInfo()">_view_policies_</a>        
+            <h4 ng-if="config.displayConfirmationNumberInDetails">
+              _booking_reference_: <span>{{ reservationCode }}</span>
+            </h4>
+            <span ng-if="config.displayBookingDateInDetails"
+                  class="booking-date">
+              _booked_:
+              <span>{{ reservation.bookingDate | dateTime }}</span>
+            </span>
+            <a ng-if="config.displayPoliciesInDetails && !isMobile"
+               href
+               ng-click="openPoliciesInfo()">
+              _view_policies_
+            </a>
+
           </div>
 
           <table class="data">
@@ -81,12 +118,21 @@
               <tr>
                 <th rowspan="3" class="total">_total_:</th>
                 <td rowspan="3" class="total-value">
-                  <ng-pluralize count="reservation.pointValue" when="{'1': '{} _point_', 'other': '{} _points_'}"> </ng-pluralize>
+                  <ng-pluralize count="reservation.pointValue"
+                                when="{'1': '{} _point_', 'other': '{} _points_'}">
+                  </ng-pluralize>
                 </td>
               </tr>
             </tbody>
           </table>
-          <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)" class="policy-link" href ng-click="openPoliciesInfo()">_view_policies_</a>
+          
+          <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)"
+             class="policy-link"
+             href
+             ng-click="openPoliciesInfo()">
+            _view_policies_
+          </a>
+
         </div>
       </div>
     </div>
