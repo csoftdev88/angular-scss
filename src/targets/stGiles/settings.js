@@ -543,6 +543,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'displayRoomDetails': true,
         'displayRoomSubtitle': true,
         'hideShowInfoIcon': true,
+        'displayEarnedPointsBelowDescription': true,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
