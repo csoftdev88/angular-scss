@@ -62,6 +62,8 @@
     $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
     $scope.shareConfig = Settings.UI.shareLinks;
     $scope.viewSettings = Settings.UI.viewsSettings.reservationDetails;
+    console.log('params', $stateParams);
+    $scope.showActionButtons = $stateParams.showActionButtons;
 
     $timeout(function() {
       $rootScope.$broadcast('floatingBarEvent', {

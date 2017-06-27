@@ -1,4 +1,4 @@
-<div ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
+<div ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode, showActionButtons: true})">
   <div class="property-preview">
     <img ng-src="{{property.images[0].uri | cloudinaryImage : 430 : 300 : 'fill'}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
   </div>

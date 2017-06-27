@@ -2,7 +2,7 @@
 
   <section grid-row
            class="reservation-summary"
-           ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode})">
+           ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode, showActionButtons: true})">
 
     <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
 
@@ -125,7 +125,7 @@
               </tr>
             </tbody>
           </table>
-          
+
           <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)"
              class="policy-link"
              href

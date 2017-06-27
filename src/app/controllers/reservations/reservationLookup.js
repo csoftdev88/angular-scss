@@ -38,7 +38,8 @@ angular.module('mobius.controllers.reservationLookup', [])
       reservationService.find($scope.formData.fields.subject, $scope.formData.fields.email).then(function(data){
         // Redirecting to reservation details
         var stateParams = {
-          reservationCode: data.reservationCode
+          reservationCode: data.reservationCode,
+          showActionButtons: false
         };
 
         if($scope.formData.fields.email){

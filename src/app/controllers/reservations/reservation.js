@@ -977,6 +977,7 @@ angular.module('mobius.controllers.reservation', [])
     var reservationPromise = $q.all(promises).then(function(data) {
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
+        hideActionButtons: false,
         // Removing reservation code when booking modification is complete
         reservation: null,
         //Retain codes in confirmation for thirdparty bookings

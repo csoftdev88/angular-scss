@@ -95,7 +95,7 @@
                     class="button"
                     ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
                     ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
-                    ng-if="!reservation.isInThePast"
+                    ng-if="!reservation.isInThePast && showActionButtons"
                     ng-disabled="!reservation.canModify">
               _modify_
             </button>
@@ -104,7 +104,7 @@
                     class="button-gray"
                     ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
                     ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
-                    ng-if="!reservation.isInThePast"
+                    ng-if="!reservation.isInThePast && showActionButtons"
                     ng-disabled="!reservation.canCancel">
               _cancel_
             </button>
@@ -373,7 +373,7 @@
                       class="button"
                       ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
                       ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
-                      ng-if="!reservation.isInThePast"
+                      ng-if="!reservation.isInThePast && showActionButtons"
                       ng-disabled="!reservation.canModify">
                 _modify_
               </button>
@@ -382,7 +382,7 @@
                       class="button-gray"
                       ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
                       ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
-                      ng-if="!reservation.isInThePast"
+                      ng-if="!reservation.isInThePast && showActionButtons"
                       ng-disabled="!reservation.canCancel">
                 _cancel_
               </button>
