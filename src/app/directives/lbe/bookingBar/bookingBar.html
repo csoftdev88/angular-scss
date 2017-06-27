@@ -45,11 +45,13 @@
     <form-element class="booking-bar__form--rooms"
                   ng-repeat="room in rooms"
                   ng-class="{'inlineFormElement': room == rooms[0], 'margin-left': room !== rooms[0]}">
+
       <a ng-click="removeRoom($index)"
             ng-if="$index !== 0"
             class="booking-bar__link remove-room">
-        Remove room
+        _remove_room_
       </a>
+
       <form-element class="booking-bar__form--guests adults">
         <select name="adults"
                 chosen
@@ -69,10 +71,13 @@
                 ng-options="child.value as child.title for child in children">
         </select>
       </form-element>
+
     </form-element>
 
     <form-element ng-if="multiRoomSearch" class="booking-bar__form--add-room">
-      <a ng-click="addRoom()" class="booking-bar__link add-room">Add room</a>
+      <a ng-click="addRoom()" class="booking-bar__link add-room">
+        _add_room_
+      </a>
     </form-element>
 
     <form-element ng-show="!showCode && !multiRoomSearch" class="booking-bar__form--code">
