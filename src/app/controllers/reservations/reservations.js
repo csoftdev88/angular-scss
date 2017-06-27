@@ -1,5 +1,5 @@
 /*
- * This module controls a list of reservation page(My stays)
+ * This module controls a list of reservation page (My stays)
  */
 (function () {
   'use strict';
@@ -38,7 +38,6 @@
       $timeout(function(){
         scrollService.scrollTo('jsReservations');
       });
-
 
     });
 
