@@ -171,6 +171,9 @@
             stateParams.corpCode = null;
             stateParams.groupCode = null;
           }
+          if ($stateParams.roomSlug) {
+            stateParams.roomSlug = $stateParams.roomSlug;
+          }
           return stateParams;
         }
 
@@ -235,13 +238,19 @@
             var queryValue = validationService.convertValue(stateParams.rooms, romSettings);
             stateParams.rooms = queryValue;
           }
+          // Default to the hotel page
+          var page = 'hotel';
+          // If the user is already on the room page, stay on this page
+          if (stateParams.roomSlug) {
+            page = 'room';
+          }
           // The router service will locate the region and location slug for us based on the property in paramsData
-          routerService.buildStateParams('hotel', paramsData).then(function(params) {
+          routerService.buildStateParams(page, paramsData).then(function(params) {
             // Combine the search params with the ones gotten from routerService
             stateParams = _.extend(stateParams, params);
             stateParams.property = null;
             // Navigate to the hotel page and pass the search data
-            $state.go('hotel', stateParams, {reload: true});
+            $state.go(page, stateParams, {reload: true});
           });
         };
       }
