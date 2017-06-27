@@ -626,6 +626,7 @@
     "questionnaire_title": "Answer the question to gain points",
     "questionnaire_completed": "Thank you very much, you have answered all the questions",
     "featured_reward": "Featured reward",
-    "menu_our_hotel": "Our Hotel"
+    "menu_our_hotel": "Our Hotel",
+    "lowercase_or": "or"
   }
 }
