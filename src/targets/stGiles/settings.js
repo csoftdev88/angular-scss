@@ -439,7 +439,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'animationDuration': 800,
       'preloadImages': true,
       'slideWidth': 1250,
-      'slideHeight': 393
+      'slideHeight': 658
     },
     'userMessages': {
       'image': {
