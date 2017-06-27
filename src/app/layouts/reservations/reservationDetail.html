@@ -94,7 +94,8 @@
             <button ng-switch-when="true"
                     class="button"
                     ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
-                    ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}" ng-if="!reservation.isInThePast"
+                    ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
+                    ng-if="!reservation.isInThePast"
                     ng-disabled="!reservation.canModify">
               _modify_
             </button>
@@ -102,7 +103,8 @@
             <button ng-switch-when="true"
                     class="button-gray"
                     ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
-                    ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}" ng-if="!reservation.isInThePast"
+                    ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
+                    ng-if="!reservation.isInThePast"
                     ng-disabled="!reservation.canCancel">
               _cancel_
             </button>
@@ -110,17 +112,17 @@
 
           <div>
             <div class="booking-details">
-              <span class="chain-logo {{property.chainCode.toLowerCase()}}"></span>
+              <span class="chain-logo {{ property.chainCode.toLowerCase() }}"></span>
 
               <h1 ng-if="config.displayPropertyNameInDetails">
-                {{property.nameLong}}
+                {{ property.nameLong }}
               </h1>
 
               <h3>
-                {{roomDetails.name}}
+                {{ roomDetails.name }}
                 <a href ng-click="openOtherRoomsDialog()"
                    ng-if="reservation.rooms.length > 1">
-                  + {{reservation.rooms.length - 1}} other
+                  + {{ reservation.rooms.length - 1 }} other
                   <ng-pluralize count="reservation.rooms.length"
                                 when="{'2': 'room', 'other': 'rooms'}">
                   </ng-pluralize>
@@ -130,12 +132,12 @@
               <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
 
               <h4 ng-if="config.displayConfirmationNumberInDetails">
-                _booking_reference_: <span>{{reservationCode}}</span>
+                _booking_reference_: <span>{{ reservationCode }}</span>
               </h4>
 
               <span ng-if="config.displayBookingDateInDetails"
                     class="booking-date">
-                _booked_: <span>{{reservation.bookingDate | dateTime}}</span>
+                _booked_: <span>{{ reservation.bookingDate | dateTime }}</span>
               </span>
 
               <a ng-if="config.displayPoliciesInDetails && !isMobile"
@@ -157,42 +159,42 @@
               <tbody ng-if="!config.useSingleRowData">
                 <tr ng-if="config.showGuestName" class="guest-name">
                   <th>_guest_name_:</th>
-                  <td>{{reservation.rooms[0].firstName}} {{reservation.rooms[0].lastName}}</td>
+                  <td>{{ reservation.rooms[0].firstName }} {{ reservation.rooms[0].lastName }}</td>
                 </tr>
                 <tr>
                   <th>_check_in_:</th>
-                  <td>{{reservation.arrivalDate | dateTime}}</td>
+                  <td>{{ reservation.arrivalDate | dateTime }}</td>
                   <th class="adults">_adults_:</th>
-                  <td class="adults">{{getCount('adults')}}</td>
+                  <td class="adults">{{ getCount('adults') }}</td>
                 </tr>
                 <tr>
                   <th class="check-out">_check_out_:</th>
-                  <td class="check-out">{{reservation.departureDate | dateTime}}</td>
+                  <td class="check-out">{{ reservation.departureDate | dateTime }}</td>
                   <th class="children">_children_:</th>
-                  <td class="children">{{getCount('children')}}</td>
+                  <td class="children">{{ getCount('children') }}</td>
                 </tr>
               </tbody>
 
               <tbody ng-if="config.useSingleRowData">
                 <tr ng-if="config.showGuestName" class="guest-name">
                   <th>_guest_name_:</th>
-                  <td>{{reservation.rooms[0].firstName}} {{reservation.rooms[0].lastName}}</td>
+                  <td>{{ reservation.rooms[0].firstName }} {{ reservation.rooms[0].lastName }}</td>
                 </tr>
                 <tr>
                   <th>_check_in_:</th>
-                  <td>{{reservation.arrivalDate | dateTime}}</td>
+                  <td>{{ reservation.arrivalDate | dateTime }}</td>
                 </tr>
                 <tr>
                   <th class="check-out">_check_out_:</th>
-                  <td class="check-out">{{reservation.departureDate | dateTime}}</td>
+                  <td class="check-out">{{ reservation.departureDate | dateTime }}</td>
                 </tr>
                 <tr>
                   <th class="adults">_adults_:</th>
-                  <td class="adults">{{getCount('adults')}}</td>
+                  <td class="adults">{{ getCount('adults') }}</td>
                 </tr>
                 <tr>
                   <th class="children">_children_:</th>
-                  <td class="children">{{getCount('children')}}</td>
+                  <td class="children">{{ getCount('children') }}</td>
                 </tr>
               </tbody>
             </table>
