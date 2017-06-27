@@ -74,8 +74,11 @@
           </reservation-item>
           <hr/>
         </div>
-        <div ng-if="!reservations.nextStay && (reservations.pastStays.length || reservations.futureStays.length)" class="ReservationsNextStay empty">
-          <h3 class="noNextStay">Looks like you don’t have any upcoming stays, {{ user.firstName }}</h3>
+        <div ng-if="!reservations.nextStay && (reservations.pastStays.length || reservations.futureStays.length)"
+             class="ReservationsNextStay empty">
+          <h3 class="noNextStay">
+            Looks like you don’t have any upcoming stays, {{ user.firstName }}
+          </h3>
         </div>
       </div>
 
