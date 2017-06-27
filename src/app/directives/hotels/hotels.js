@@ -238,7 +238,7 @@ angular.module('mobiusApp.directives.hotels', [])
         //Breadcrumbs
         /////////////
         function addBreadCrumbs(location) {
-          if (location) {
+          if (location && !Settings.UI.generics.singleProperty) {
             locationService.getRegions().then(function(regions) {
               var region = _.find(regions, function(region) {
                 return region.code === location.regionCode;

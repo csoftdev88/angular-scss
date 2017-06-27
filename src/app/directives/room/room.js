@@ -168,7 +168,7 @@ angular.module('mobiusApp.directives.room', [])
             propertyService.getPropertyRegionData(propertyData.locationCode).then(function(propertyRegionData){
 
               //breadcrumbs
-              if($stateParams.regionSlug && $stateParams.locationSlug)
+              if($stateParams.regionSlug && $stateParams.locationSlug && !Settings.UI.generics.singleProperty)
               {
                 breadcrumbsService
                   .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})

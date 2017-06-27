@@ -383,7 +383,10 @@ angular.module('mobius.controllers.hotel.details', [
           breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
         }
 
-        if ($scope.config.breadcrumbs.location && $stateParams.regionSlug && $stateParams.locationSlug) {
+        if ($scope.config.breadcrumbs.location &&
+            $stateParams.regionSlug &&
+            $stateParams.locationSlug &&
+            !Settings.UI.generics.singleProperty) {
           //Get property region/location data for breadcrumbs
           propertyService.getPropertyRegionData(details.locationCode).then(function(data) {
             breadcrumbsService
