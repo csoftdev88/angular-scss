@@ -112,11 +112,22 @@
 
     span, input {
       color: #fff;
-      font-family: Raleway;
+      font-family: @lbe-ff-primary;
     }
 
     .dates {
       width: 250px;
+      input[type="text"] {
+        color: #000;
+      }
+    }
+
+    .dates-text {
+      position: absolute;
+      z-index: 100;
+      top: 10px;
+      left: 10px;
+      color: #fff;
     }
 
     .booking-bar__form--label {

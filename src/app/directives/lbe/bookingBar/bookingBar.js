@@ -37,6 +37,7 @@
           id: 'default',
           nameShort: DynamicMessages[appLang].select_property
         }];
+        scope.inputDateText = '';
         // Used to toggle the visibility of the code text input, as it should only show once a code type is selected
         scope.showCode = false;
         // Used to determine if searching for a single or multiroom booking
@@ -115,7 +116,7 @@
             scope.rooms[0].children = parseInt($stateParams.children);
           }
           if ($stateParams.dates) {
-            scope.search.dates = $stateParams.dates;
+            scope.dates = $stateParams.dates;
           }
           if ($stateParams.corpCode) {
             scope.search.codeType = scope.codes[1];
