@@ -54,7 +54,7 @@
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
 
       $timeout(function(){
-        scrollService.scrollTo('jsProfile');
+        scrollService.scrollTo('profile-page');
       }, 500);
 
     });

@@ -1,12 +1,16 @@
 <breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
 
-<main class="grid-wrapper ProfilePage" id="jsProfile">
+<main class="grid-wrapper ProfilePage" id="profile-page">
 
+  <!-- Loading bar -->
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <!-- This is where the keystone profile will be injected -->
-  <div id="keystone-profile" class="ProfilePage__container"></div>
+  <div class="ProfilePage__container">
+    <div id="keystone-profile"></div>
+  </div>
 
+  <!-- Scroll to to button -->
   <scroll-to-top class="back-to-top"
                  ng-click="scrollToTop()"
                  scroll-position="scroll"
