@@ -25,10 +25,16 @@
     chainService.getChain(Settings.API.chainCode).then(function(chain) {
       $scope.chain = chain;
 
+<<<<<<< d41db5feb3ad4c9dd1522db13935e56b406e3963
       $scope.chain.meta.microdata.og = {};
       $scope.chain.meta.microdata.og['og:url'] = $location.absUrl().split('?')[0];
       $scope.chain.meta.microdata.og['og:title'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:title'];
       $scope.chain.meta.microdata.og['og:description'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:description'];
+=======
+    $timeout(function() {
+      scrollService.scrollTo('jsReservations');
+    });
+>>>>>>> Update unit test and make reservations controller use the new auth isLoggedIn function
 
       metaInformationService.setPageTitle(chain.meta.pagetitle);
       metaInformationService.setMetaDescription(chain.meta.description);
@@ -39,27 +45,24 @@
         scrollService.scrollTo('jsReservations');
       });
 
-    });
+  function onAuthorized() {
 
-    function onAuthorized(isMobiusUser){
-
-      if(isMobiusUser || userObject.token){
-        var reservationsPromise = $q.all([
-          reservationService.getAll(),
-          reservationService.getCancelledReservations()
-        ]).then(function(data){
-            // data[0] - all active reservations
-            // data[1] - cancelled reservations
-            processReservationsData(data[0], data[1]);
-          },
-          function(){
-            $state.go('error');
-          });
-        preloaderFactory(reservationsPromise);
-      } else {
-        // TODO: Check actions for anonymous user
-        $state.go('home');
-      }
+    if ($scope.auth.isLoggedIn()) {
+      var reservationsPromise = $q.all([
+        reservationService.getAll(),
+        reservationService.getCancelledReservations()
+      ]).then(function(data){
+        // data[0] - all active reservations
+        // data[1] - cancelled reservations
+        processReservationsData(data[0], data[1]);
+      },
+      function(){
+        $state.go('error');
+      });
+      preloaderFactory(reservationsPromise);
+    } else {
+      // TODO: Check actions for anonymous user
+      $state.go('home');
     }
 
     $controller('MainCtrl', {$scope: $scope});

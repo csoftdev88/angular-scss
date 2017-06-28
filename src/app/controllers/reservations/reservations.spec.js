@@ -119,6 +119,10 @@ describe('mobius.controllers.reservations', function() {
       propertyService, chainService, $q) {
       _scope = $rootScope.$new();
 
+      _scope.auth = {
+        isLoggedIn: function () { return true; }
+      };
+
       _clock = sinon.useFakeTimers(0 , 'Date');
       _clock.tick(window.moment('2015-01-01T10:53:35+0000').valueOf());
 
