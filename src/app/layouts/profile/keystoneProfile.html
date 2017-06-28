@@ -1,17 +1,11 @@
-<hero-slider ng-if="!config.hideHeroSlider"
-             content="heroContent"
-             slide-width="uiConfig.heroSlider.slideWidth"
-             slide-height="uiConfig.heroSlider.slideHeight">
-</hero-slider>
-
 <breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
 
-<main class="grid-wrapper" id="jsProfile">
+<main class="grid-wrapper ProfilePage" id="jsProfile">
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <!-- This is where the keystone profile will be injected -->
-  <div id="keystone-profile"></div>
+  <div id="keystone-profile" class="ProfilePage__container"></div>
 
   <scroll-to-top class="back-to-top"
                  ng-click="scrollToTop()"
