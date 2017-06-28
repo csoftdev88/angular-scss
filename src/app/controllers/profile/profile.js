@@ -1,18 +1,31 @@
-'use strict';
 /*
  * This module controlls profile page
  */
-angular.module('mobius.controllers.profile', [])
+(function () {
+  'use strict';
 
-  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings, propertyService, scrollService){
+  angular
+    .module('mobius.controllers.profile', [])
+    .controller('ProfileCtrl', Profile);
+
+  function Profile($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user,
+                   $timeout, _, chainService, metaInformationService, $location, Settings, propertyService,
+                   scrollService){
 
     //check if user is logged in
-    function onAuthorized(){
-      if(!$scope.auth.isLoggedIn()){
+    function onAuthorized() {
+      if (!$scope.auth.isLoggedIn()) {
         $state.go('home');
       }
     }
+
     $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
+
+    // If we are using keystone, the alternative keystoneProfile layout will be used that contains
+    // the keystone-profile div. We now need to tell keystone to inject the profile page into it
+    if (Settings.authType === 'keystone' && window.KS && window.KS.$event) {
+      window.KS.$event.emit('parent.content.loaded');
+    }
 
     //Add breadcrumb
     breadcrumbsService.addBreadCrumb('Profile');
@@ -46,13 +59,13 @@ angular.module('mobius.controllers.profile', [])
 
     });
 
-		contentService.getTitles().then(function(data) {
-			$scope.profileTitles = data;
-		});
+    contentService.getTitles().then(function(data) {
+      $scope.profileTitles = data;
+    });
 
-		contentService.getContactMethods().then(function(data) {
-			$scope.profileContacts = data;
-		});
+    contentService.getContactMethods().then(function(data) {
+      $scope.profileContacts = data;
+    });
 
     contentService.getCountries().then(function(data) {
       $scope.profileCountries = data;
@@ -68,17 +81,17 @@ angular.module('mobius.controllers.profile', [])
       });
     }
 
-		$timeout(function(){
+    $timeout(function(){
       $scope.profileData = user.getUser();
       $scope.profileData.userCountry = contentService.getCountryByID($scope.profileData.localeCode, $scope.profileCountries);
     }, 2000);
 
-		$scope.update = function(form, profileData){
+    $scope.update = function(form, profileData){
       $scope.submitted = true;
       clearErrorMsg();
-		  if(form.$valid){
-				var data = _.omit(profileData, _.isNull);
-				data = _.omit(data, ['id','token','email', 'languageCode']);
+      if(form.$valid){
+        var data = _.omit(profileData, _.isNull);
+        data = _.omit(data, ['id','token','email', 'languageCode']);
 
         data.userCountry = contentService.getCountryByID(data.localeId, $scope.profileCountries);
 
@@ -87,21 +100,21 @@ angular.module('mobius.controllers.profile', [])
           data.localeCode = data.userCountry.code;
         }
 
-		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
-		      userObject = _.extend(userObject, data);
-		      $scope.success = true;
+        apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
+          userObject = _.extend(userObject, data);
+          $scope.success = true;
           if($scope.config.displaySummary){
             $scope.showSummary = true;
           }
-		    }, function(){
-		      $scope.error = true;
+        }, function(){
+          $scope.error = true;
           $scope.genericError = true;
-		    });
-		  }
-		  else{
-		    $scope.missingFieldsError = true;
-		  }
-		};
+        });
+      }
+      else{
+        $scope.missingFieldsError = true;
+      }
+    };
 
     $scope.savePassword = function(form, passwordData){
       form.$submitted = true;
@@ -128,16 +141,18 @@ angular.module('mobius.controllers.profile', [])
       }
     };
 
-	  function clearErrorMsg(){
-	    $scope.error = false;
-	    $scope.success = false;
+    function clearErrorMsg(){
+      $scope.error = false;
+      $scope.success = false;
       $scope.genericError = false;
       $scope.missingFieldsError = false;
       $scope.submitted = false;
-	  }
+    }
 
     $scope.scrollToForm = function(){
       scrollService.scrollTo('profile-form', 20);
     };
 
-  });
+  }
+
+}());
