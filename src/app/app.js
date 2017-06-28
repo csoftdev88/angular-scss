@@ -482,6 +482,11 @@ angular
     }
   }
 
+  var profileLayout = 'layouts/profile/profile.html';
+  if (Settings.authType === 'keystone') {
+    profileLayout = 'layouts/profile/keystoneProfile.html';
+  }
+
   // Rewards page
   $stateProvider.state('rewards', {
     parent: 'root',
@@ -541,7 +546,7 @@ angular
   // Profile page
   .state('profile', {
     parent: 'root',
-    templateUrl: 'layouts/profile/profile.html',
+    templateUrl: profileLayout,
     url: '/profile',
     controller: 'ProfileCtrl',
     data: {
