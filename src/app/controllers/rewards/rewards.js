@@ -12,11 +12,10 @@ angular
     //$controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Rewards');
 
-    function onAuthorized(){
-      if(!$scope.auth.isLoggedIn()){
+    function onAuthorized() {
+      if (!$scope.auth.isLoggedIn()) {
         $state.go('home');
-      }else{
-        // Init
+      } else {
         init();
       }
     }
