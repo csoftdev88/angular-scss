@@ -12,7 +12,7 @@
     .controller('PreviousSearchesCtrl', PreviousSearches);
 
   function PreviousSearches($scope, $modalInstance, $controller, previousSearchesService, data, $state, $window,
-                            _, removeSearch) {
+                            _, removeSearch, $log) {
 
     $controller('SanitizeCtrl', {$scope: $scope});
     $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
@@ -56,17 +56,15 @@
     $scope.data = data;
 
     $scope.viewSearch = function(search) {
-      console.log('search', search);
       previousSearchesService.getSearchUrlParams(search)
         .then(function(params) {
-          console.log('search params', params);
           search.params = params;
           $scope.cancel();
           //Go to this search URL
           $state.go(search.s, search.params, {reload: true});
         })
         .catch(function(err) {
-          console.error(err);
+          $log.error(err);
         });
 
     };
