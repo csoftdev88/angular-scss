@@ -96,7 +96,7 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.sortingOptions.splice(0, 0, {
         name: options.recommended,
         sort: function(room) {
-          return room.weighting ? (room.weighting !== 0 ? 0 - room.weighting : 0 - room.priceFrom) : room.name;
+          return room.weighting ? (room.weighting !== 0 ? 0 - room.weighting : room.priceFrom) : room.name;
         }
       });
     }
