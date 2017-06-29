@@ -556,6 +556,7 @@
         "fitness": "Fitness",
         "alt_products_extend_your_stay": "Verlängern Sie Ihren Aufenthalt um {{stayExtension}} Nächte und Sie können buchen",
         "faq": "Faq",
-        "filter_dates": "Daten"
+        "filter_dates": "Daten",
+        "rate_not_available": "Der Preis, den Sie suchen, ist an diesen Terminen nicht verfügbar. Bitte wählen Sie aus einer der unten angegebenen Preise."
     }
 }

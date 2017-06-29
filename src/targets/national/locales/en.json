@@ -509,6 +509,7 @@
     "day": "day",
     "days": "days",
     "week": "week",
-    "weeks": "weeks"
+    "weeks": "weeks",
+    "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates."
   }
 }

@@ -546,6 +546,7 @@
     "we_value_your_privacy":"We value your privacy and take security very seriously. This is an encrypted site using the latest security standards, so your details are always protected.",
     "when_will_we_charge_your_card":"When will we charge your card?",
     "best_price_guarantee":"Best Price Guarantee",
-    "you_wont_find_it_cheaper":"You won’t find it cheaper elsewhere, guaranteed! If you find a better price, call us on +1 866.378.8866 with the details and we promise we'll match it."
+    "you_wont_find_it_cheaper":"You won’t find it cheaper elsewhere, guaranteed! If you find a better price, call us on +1 866.378.8866 with the details and we promise we'll match it.",
+    "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates."
   }
 }
