@@ -66,7 +66,6 @@
         .catch(function(err) {
           $log.error(err);
         });
-
     };
 
     $scope.removeSearch = function(searchToRemove) {
