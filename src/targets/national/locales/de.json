@@ -851,6 +851,7 @@
     "day": "Tag",
     "days": "Tage",
     "week": "Woche",
-    "weeks": "Wochen"
+    "weeks": "Wochen",
+    "rate_not_available": "Der Preis, den Sie suchen, ist an diesen Terminen nicht verfügbar. Bitte wählen Sie aus einer der unten angegebenen Preise."
   }
 }

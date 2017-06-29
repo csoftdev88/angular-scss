@@ -503,5 +503,6 @@
     "days": "jours",
     "week": "semaine",
     "weeks": "semaines",
+    "rate_not_available": "Désolé, le taux que vous recherchez n'est pas disponible à ces dates. Sélectionnez l'un des taux ci-dessous."
   }
 }
