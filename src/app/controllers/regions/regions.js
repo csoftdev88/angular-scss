@@ -57,7 +57,7 @@ angular.module('mobius.controllers.regions', [])
           return region.meta.slug === regionSlug;
         });
 
-        if($scope.regionConfig .bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region.statistics){
+        if($scope.regionConfig.bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region.statistics){
           $timeout(function(){
             $scope.$broadcast('STATS_GROWL_ALERT', $scope.region.statistics);
           });
@@ -95,7 +95,7 @@ angular.module('mobius.controllers.regions', [])
           .addBreadCrumb($scope.region.nameShort);
 
         var titleRegionSegment = $scope.region.nameShort + ' | ';
-        
+
         //Add meta data to page
         updateMetaData(titleRegionSegment);
 
@@ -105,7 +105,7 @@ angular.module('mobius.controllers.regions', [])
         });
       });
     }
-    
+
     $scope.showDetail = $stateParams.regionSlug ? true : false;
     $scope.regionConfig = Settings.UI.regions;
 
