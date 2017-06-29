@@ -21,7 +21,7 @@ angular.module('mobiusApp.services.previousSearches', [])
 
     function getSearches() {
       if(isPreviousSearchesActive()){
-        removePastSearches();
+        removeInvalidSearches();
         var cookie = getSearchDataCookie();
         var searches = cookie ? cookie.searches : null;
         return searches;
@@ -96,7 +96,7 @@ angular.module('mobiusApp.services.previousSearches', [])
     }
 
     //Retrieves all required parameters to form a search URL
-    function getSearchUrlParams(search){      
+    function getSearchUrlParams(search){
       var q = $q.defer();
       if(search.p){
         if(search.p.r && search.p.p){
@@ -205,7 +205,7 @@ angular.module('mobiusApp.services.previousSearches', [])
       });
       var cookie = getSearchDataCookie();
       if(cookie){
-        if(filteredSearches.length){      
+        if(filteredSearches.length){
           cookie.searches = filteredSearches;
           saveSearchDataCookie(cookie);
         }
@@ -241,30 +241,45 @@ angular.module('mobiusApp.services.previousSearches', [])
       }
     }
 
+    function hasPropertyName(search) {
+      if (search.n) {
+        return !(/^\s*-/.test(search.n));
+      }
+      return false;
+    }
+
+    function datesInPast(search) {
+      if (search.p && search.p.d) {
+        var today = $window.moment().format('YYYY-MM-DD');
+        var datesArray = search.p.d.split('_');
+        if (datesArray.length) {
+          var from = datesArray[0];
+          var to = datesArray[1];
+          // Checking that the dates aren't in the past
+          if ($window.moment(from).isBefore(today, 'day') || $window.moment(to).isBefore(today, 'day')) {
+            return true;
+          }
+          return false;
+        }
+      }
+    }
+
     //Check all previous searches and remove any that are in the past
-    function removePastSearches() {
+    function removeInvalidSearches() {
       var changedCookie = false;
       var cookie = getSearchDataCookie();
       var previousSearches = cookie ? cookie.searches : null;
       if (previousSearches && previousSearches.length) {
-        var today = $window.moment().format('YYYY-MM-DD');
         var filteredPreviousSearches = _.reject(previousSearches, function(search) {
-          if(search.p && search.p.d){
-            var datesArray = search.p.d.split('_');
-            if(datesArray.length){
-              var from = datesArray[0];
-              var to = datesArray[1];
-              if($window.moment(from).isBefore(today, 'day') || $window.moment(to).isBefore(today, 'day')){
-                changedCookie = true;
-                return true;
-              }
-              else {
-                return false;
-              }
-            }
+
+          var invalidSearch = false;
+          if (!hasPropertyName(search) || datesInPast(search)) {
+            invalidSearch = true;
+            changedCookie = true;
           }
+          return invalidSearch;
         });
-        if(changedCookie){
+        if (changedCookie){
           cookie.searches = filteredPreviousSearches;
           saveSearchDataCookie(cookie);
         }
