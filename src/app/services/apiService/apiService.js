@@ -294,7 +294,7 @@ angular.module('mobiusApp.services.api', [])
           'url': url,
           'params': params,
           'headers': resHeaders,
-          'ravenId': ravenId
+          'ravenId': ravenID
         },
         'severity': 5
       };
