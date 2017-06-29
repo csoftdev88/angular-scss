@@ -508,6 +508,11 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms) {
+        if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+          rooms = rooms.sort(function(accu, current) {
+            return accu.weighting < current.weighting;
+          });
+        }
 
         //handle displaying of rates
         _.each(rooms, function(room) {
