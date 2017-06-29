@@ -12,7 +12,7 @@
     .controller('PreviousSearchesCtrl', PreviousSearches);
 
   function PreviousSearches($scope, $modalInstance, $controller, previousSearchesService, data, $state, $window,
-                            _, removeSearch) {
+                            _, removeSearch, $log) {
 
     $controller('SanitizeCtrl', {$scope: $scope});
     $controller('ModalCtrl', {$scope: $scope, $modalInstance: $modalInstance});
