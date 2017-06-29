@@ -105,6 +105,8 @@ angular.module('mobiusApp.directives.room.products', [])
 
             scope.otaProducts = data.otaProducts;
 
+            scope.isRequestedRateReturned = data.requestedRateReturned;
+
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails(bookingParams.propertyCode).then(function(propertyData){
