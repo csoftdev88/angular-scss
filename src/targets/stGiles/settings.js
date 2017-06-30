@@ -594,7 +594,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'ratesCacheTimeout': 30 * 60,
       'showLocalInfo': false,
       'removeScrollToRoomsOnFinish': true,
-      'displayAmenitiesInHotelInfo': false,
+      'displayAmenitiesInHotelInfo': true,
       'findOutMoreLinksBottomMobile':false, //Positions the find out more section to the bottom of the page on mobile
       'headerPartial':{
         'logo':{
@@ -612,7 +612,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'hotelRoomsCompare': true,
         'hotelOffers': true,
         'hotelInfo': true,
-        'hotelAmenities': true,
+        'hotelAmenities': false,
         'hotelLocation': true,
         'hotelReadMoreMobile': false
       },
