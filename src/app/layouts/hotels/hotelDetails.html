@@ -65,15 +65,53 @@
       <local-info ng-if="showLocalInfo && localInfo && localInfo.time" local-info="localInfo" grid="6"></local-info>
     </header>
 
-    <div ng-repeat-start="partial in partials" ng-include="partial" class="hotel-detail-partials" include-replace ng-repeat-end></div>
+    <div ng-repeat-start="partial in partials"
+         ng-include="partial"
+         class="hotel-detail-partials"
+         include-replace
+         ng-repeat-end>
+    </div>
 
-    <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+    <div ng-if="loyaltyEngine" ng-include="'layouts/lbe/hotel-contact-info.html'"></div>
+
+    <scroll-to-top class="back-to-top"
+                   ng-click="scrollToTop()"
+                   scroll-position="scroll"
+                   ng-class="{visible: scroll > scrollTopTrigger}">
+      <span>_back_to_top_</span>
+    </scroll-to-top>
 
     <!-- Growl notifications -->
-    <growl-alerts class="growl-alerts-dir" booking-message="'_statistics_booking_message_'" views-message="'_statistics_views_message_'" searches-message="'_statistics_searches_message_'" languages-message="'_languages_message_'" retention-message="'_retention_message_'" minute="'_minute_'" minutes="'_minutes_'" hour="'_hour_'" hours="'_hours_'" day="'_day_'" days="'_days_'" week="'_week_'" weeks="'_weeks_'" position-reference="config.bookingStatistics.positionReference" display-time="config.bookingStatistics.displayTime" display-delay="config.bookingStatistics.displayDelay"></growl-alerts>
+    <growl-alerts class="growl-alerts-dir"
+                  booking-message="'_statistics_booking_message_'"
+                  views-message="'_statistics_views_message_'"
+                  searches-message="'_statistics_searches_message_'"
+                  languages-message="'_languages_message_'"
+                  retention-message="'_retention_message_'"
+                  minute="'_minute_'"
+                  minutes="'_minutes_'"
+                  hour="'_hour_'"
+                  hours="'_hours_'"
+                  day="'_day_'"
+                  days="'_days_'"
+                  week="'_week_'"
+                  weeks="'_weeks_'"
+                  position-reference="config.bookingStatistics.positionReference"
+                  display-time="config.bookingStatistics.displayTime"
+                  display-delay="config.bookingStatistics.displayDelay">
+    </growl-alerts>
+
   </hotel-detail>
+
 </main>
 
-<section-image ng-if="config.sectionImages && config.sectionImages[2]" id="bottom-image" section="config.sectionImages[2]" when="'enter'" from="0.5" to="0.4" show-logo="false"></section-image>
+<section-image ng-if="config.sectionImages && config.sectionImages[2]"
+               id="bottom-image"
+               section="config.sectionImages[2]"
+               when="'enter'"
+               from="0.5"
+               to="0.4"
+               show-logo="false">
+</section-image>
 
 

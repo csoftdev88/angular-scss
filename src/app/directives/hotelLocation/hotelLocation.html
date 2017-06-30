@@ -30,57 +30,49 @@
   </map>
 </div>
 
-<p>{{hotelDetails.locationDescription}}</p>
+<span ng-if="config.displayMainTitle">
 
-<contact-list ng-if="!config.hideContactDetails">
+  <p>{{hotelDetails.locationDescription}}</p>
 
-  <contact-item ng-if="hotelDetails.email">
-    <div>
-      <i class="fa fa-envelope" ng-if="config.displayIcons"></i>
-      <strong>_hotel_map_email_label_:</strong>
-      <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
-    </div>
-  </contact-item>
+  <contact-list ng-if="!config.hideContactDetails">
 
-  <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
-    <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
-      <i class="fa fa-phone" ng-if="config.displayIcons"></i>
-      <strong>_hotel_map_phone_label_:</strong>
-      <span ng-if="hotelDetails.tel1"><a href="tel:{{hotelDetails.tel1}}">{{hotelDetails.tel1}}</a></span>
-      <span ng-if="hotelDetails.tel2"><a href="tel:{{hotelDetails.tel2}}">{{hotelDetails.tel2}}</a></span>
-    </div>
-  </contact-item>
+    <contact-item ng-if="hotelDetails.email">
+      <div>
+        <i class="fa fa-envelope" ng-if="config.displayIcons"></i>
+        <strong>_hotel_map_email_label_:</strong>
+        <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
+      </div>
+    </contact-item>
 
-  <contact-item>
-    <div>
-      <i class="fa fa-home" ng-if="config.displayIcons"></i>
-      <strong>_hotel_map_address_label_:</strong>
-      <address>
-        <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
-        <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},</span><br ng-if="hotelDetails.address2" />
-        <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},</span><br ng-if="hotelDetails.address3" />
-        <span>{{hotelDetails.city}}, {{hotelDetails.zip}}</span>
-      </address>
-    </div>
-  </contact-item>
+    <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
+      <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
+        <i class="fa fa-phone" ng-if="config.displayIcons"></i>
+        <strong>_hotel_map_phone_label_:</strong>
+        <span ng-if="hotelDetails.tel1"><a href="tel:{{hotelDetails.tel1}}">{{hotelDetails.tel1}}</a></span>
+        <span ng-if="hotelDetails.tel2"><a href="tel:{{hotelDetails.tel2}}">{{hotelDetails.tel2}}</a></span>
+      </div>
+    </contact-item>
 
-  <contact-item ng-if="config.directionsLink.display">
-    <div>
-      <i class="fa fa-location-arrow" ng-if="config.displayIcons"></i>
-      <strong>_hotel_map_directions_label_:</strong>
-      <a ng-href="{{config.directionsLink.link}}" target="_blank">_hotel_map_directions_value_</a>
-    </div>
-  </contact-item>
+    <contact-item>
+      <div>
+        <i class="fa fa-home" ng-if="config.displayIcons"></i>
+        <strong>_hotel_map_address_label_:</strong>
+        <address>
+          <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
+          <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},</span><br ng-if="hotelDetails.address2" />
+          <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},</span><br ng-if="hotelDetails.address3" />
+          <span>{{hotelDetails.city}}, {{hotelDetails.zip}}</span>
+        </address>
+      </div>
+    </contact-item>
 
-</contact-list>
+    <contact-item ng-if="config.directionsLink.display">
+      <div>
+        <i class="fa fa-location-arrow" ng-if="config.displayIcons"></i>
+        <strong>_hotel_map_directions_label_:</strong>
+        <a ng-href="{{config.directionsLink.link}}" target="_blank">_hotel_map_directions_value_</a>
+      </div>
+    </contact-item>
 
-<!--
-<h3>How to get to us</h3>
-<transportation-list>
-  <transportation-item ng-repeat="direction in hotelDetails.directions">
-    <img ng-src="{{direction.icon}}" err-source="http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/h_24/v1436183532/SAN/location.png">
-    <h4>{{direction.name}}</h4>
-    <p>{{direction.description}}</p>
-  </transportation-item>
-</transportation-list>
--->
+  </contact-list>
+</span>

@@ -1272,6 +1272,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'displayMainTitle': false,
         'displayGoogleMapsLink': true,
         'displayIcons': false,
+        'displayContactInfo': false,
         'directionsLink':{
           'display': false,
           'link': ''
