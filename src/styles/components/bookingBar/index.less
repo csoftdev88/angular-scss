@@ -2,8 +2,7 @@
 @import "./mobile";
 
 .booking-bar {
-  -webkit-backdrop-filter: blur(1.6px);
-  backdrop-filter: blur(1.6px);
+  .backdrop-filter-blur(20px);
   background-color: rgba(26, 26, 26, 0.8);
   margin-bottom: 40px;
   box-sizing: border-box;
@@ -53,7 +52,8 @@
     }
   }
 
-  &.booking-bar__size-large {
+  &.booking-bar__size-large,
+  &.booking-bar__size-full-width {
     padding: 31px 50px 19px 50px;
     .booking-bar__form--rooms {
       .multiroom-booking & {
@@ -105,6 +105,18 @@
       .booking-bar__submit {
         width: 125px;
       }
+    }
+  }
+
+  &.booking-bar__size-full-width {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    display: flex;
+
+    .booking-bar__form {
+      width: 1212px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
