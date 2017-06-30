@@ -349,6 +349,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'name': 'Laura Sandoval',
       'city': 'New York'
     },
+    'homePage': {
+      'showOffer': true
+    },
     'hotelIntro': {
 
     },
@@ -747,8 +750,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'showBenefits': true
     },
     'aboutChain': {
-      'offersLimit': 999,
-      'showOffer': true
+      'offersLimit': 999
     },
     // toggle filters on hotels page
     'hotelFilters': [

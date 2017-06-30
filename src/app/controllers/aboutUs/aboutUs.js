@@ -9,8 +9,7 @@
     .controller('AboutUsCtrl', About);
 
   function About($scope, $controller, contentService, chainService, $state, $stateParams, _, Settings, modalService,
-                 breadcrumbsService, metaInformationService, $location, bookingService, scrollService, $timeout,
-                 offers) {
+                 breadcrumbsService, metaInformationService, $location, bookingService, scrollService, $timeout) {
 
     $controller('MainCtrl', {$scope: $scope});
 
@@ -115,18 +114,6 @@
       breadcrumbsService.clear()
         .addBreadCrumb('About Us', 'aboutUs', {code: null})
         .addBreadCrumb($scope.selectedAbout.title);
-    }
-
-    if ($scope.config.showOffer) {
-      offers.getAvailableFeatured(1)
-        .then(function (offers) {
-          $scope.offers = offers;
-          console.log('offers', offers);
-        });
-
-      $scope.gotoOffer = function (offer) {
-        $state.go('offers', { code: offer.meta.slug });
-      };
     }
 
   }

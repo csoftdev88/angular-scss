@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('mobius.controllers.main', [])
+angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
     'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService',
     'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
-    'locationService', 'bookingService', 'apiService', 'userObject',
+    'locationService', 'bookingService', 'apiService', 'userObject', 'offers',
     function($scope, $state, $modal, orderByFilter, modalService, $window, contentService, Settings, user, $controller,
              _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,
-             stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService, userObject) {
+             stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService, userObject, offers) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
 
@@ -282,6 +282,18 @@ angular.module('mobius.controllers.main', [])
             });
           }
         }
+      }
+
+      if ($scope.uiConfig.homePage.showOffer) {
+        offers.getAvailableFeatured(1)
+          .then(function (offers) {
+            $scope.offers = offers;
+            console.log('offers', offers);
+          });
+
+        $scope.gotoOffer = function (offer) {
+          $state.go('offers', { code: offer.meta.slug });
+        };
       }
 
       // Inheriting the following controllers
