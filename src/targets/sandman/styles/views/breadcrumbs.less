@@ -1,6 +1,33 @@
 /////////////////////
 //// BREADCRUMBS ////
 /////////////////////
+
+.viewport-mobile & {
+  breadcrumbs {
+    display: block;
+    .breadcrumbs {
+      padding: 20px 0;
+      h1 + .crumbs + .alt-nav {
+        right: 0;
+        left: 0;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    h1, .crumbs {
+      display: none;
+    }
+    .alt-nav {
+      li a {
+        font-size: 13px;
+      }
+      li:first-of-type {
+        padding-left: 0;
+      }
+    }
+  }
+}
+
 .breadcrumbs {
   background: @c-light-grey;
   padding: 10px 15px;
