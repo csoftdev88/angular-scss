@@ -15,9 +15,9 @@ angular.module('mobiusApp.config', [])
   'enableHotDeals':true,
   'keystone': {
     'development': 'http://localhost:8080/status.0.0.1.js',
-    'integration': 'http://localhost:8080/status.0.0.1.js',
-    'staging': 'http://localhost:8080/status.0.0.1.js',
-    'live': 'http://localhost:8080/status.0.0.1.js'
+    'integration': 'https://scripts.infiniti.io/sandman/status.js',
+    'staging': 'https://scripts.infiniti.io/sandman/status.js',
+    'live': 'https://scripts.infiniti.io/sandman/status.js'
   },
   'infiniti': {
     'enable': true,
