@@ -75,8 +75,8 @@
 
     <div class="About__benefits--offer">
       <h2>_about_offer_title_</h2>
-      <span>_about_offer_subtitle_</span>
-      <img src="/static/images/offer-bg@3x.png">
+      <span>{{ offers[0].title }}</span>
+      <img ng-click="gotoOffer(offers[0])" ng-src="{{ offers[0].image.uri }}">
     </div>
 
   </div>
@@ -84,6 +84,10 @@
   <div class="About__signup">
     <p>_about_signup_text_</p>
     <button ng-click="auth.register()">_sign_up_</button>
+  </div>
+
+  <div class="About__instagram">
+    <instagram-feed></instagram-feed>
   </div>
 
   <div class="About__testimonial">

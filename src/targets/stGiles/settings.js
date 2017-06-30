@@ -747,7 +747,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'showBenefits': true
     },
     'aboutChain': {
-      'offersLimit': 999
+      'offersLimit': 999,
+      'showOffer': true
     },
     // toggle filters on hotels page
     'hotelFilters': [
