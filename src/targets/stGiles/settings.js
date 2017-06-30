@@ -524,7 +524,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'location': true
       },
       //List of rooms and their products
-      'defaultNumberOfRooms': 2,
+      'defaultNumberOfRooms': 5,
       'defaultNumberOfRoomsMobile':10,
       'numberOfRoomsAddedOnMobile': 2,
       //Allow subpages to redirect if specified in admin
@@ -603,7 +603,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         }
       },
       'partials':{
-        'hotelDescription': true,
+        'hotelDescription': false,
         'hotelBookingBar': true,
         'hotelHeader': false,
         'hotelDatesSelected': false,
@@ -1155,10 +1155,10 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         }
       },
       'hotelDetails':{
-        'hideBreadcrumbs': false,
+        'hideBreadcrumbs': true,
         'hasViewMore': true,
-        'hasTitle': true,
-        'showSubNav': true,
+        'hasTitle': false,
+        'showSubNav': false,
         // @todo make this multi lingual
         'subNavLinks': [
           {
