@@ -470,7 +470,7 @@
     "page_not_found_desc": "Sorry, this page doesn't exist!",
     "page_not_found_cta": "Click here to go back to the <a href='/'>homepage</a>",
     "hotels_page_title": "Our Hotels",
-    "hotels_page_login_prompt_desc": "Save up to 20% by <a href ng-click='sso.login()''>signing</a> in or <a ng-click='sso.register()''>registering</a>!",
+    "hotels_page_login_prompt_desc": "Save up to 20% by <a href ng-click='auth.login()''>signing</a> in or <a ng-click='auth.register()''>registering</a>!",
     "reservation_confirmation_message_title": "Thank you for your reservation at {hotelName}!",
     "reservation_confirmation_message_desc": "Your web booking code is {reservationNumber}. You will receive an email shortly that contains your reservation reference number.",
     "FOOTER": "////////////////////////////////////////////////////////////",
@@ -493,6 +493,7 @@
     "you_are_currently_editing": "You are currently editing:",
     "cookie_disclaimer_message": "We use cookies to track usage and preferences to ensure that we give you the best experience on our website. If you continue, we'll assume that you are happy to receive all cookies on our website.",
     "continue_your_search": "Continue your search?",
-    "would_you_like_to_continue": "Would you like to continue one of your last searches? You were looking at:"
+    "would_you_like_to_continue": "Would you like to continue one of your last searches? You were looking at:",
+    "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates."
   }
 }

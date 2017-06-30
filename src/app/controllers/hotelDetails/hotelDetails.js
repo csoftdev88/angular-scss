@@ -91,7 +91,7 @@ angular.module('mobius.controllers.hotel.details', [
       $scope.sortingOptions.splice(0, 0, {
         name: options.recommended,
         sort: function(room) {
-          return room.weighting ? [-room.priceFrom, -room.weighting] : room.name;
+          return room.weighting ? (room.weighting !== 0 ? 0 - room.weighting : room.priceFrom) : room.name;
         }
       });
     }
@@ -508,6 +508,11 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms) {
+        if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+          rooms = rooms.sort(function(accu, current) {
+            return accu.weighting < current.weighting;
+          });
+        }
 
         //handle displaying of rates
         _.each(rooms, function(room) {

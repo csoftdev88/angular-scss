@@ -4,7 +4,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService, deviceDetector){
+  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService, deviceDetector, DynamicMessages) {
   return {
     restrict: 'E',
     scope: {
@@ -15,11 +15,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
     templateUrl: 'directives/floatingBar/bookingWidget/bookingWidget.html',
 
     // Widget logic goes here
-    link: function(scope, elem, attrs){
+    link: function(scope, elem, attrs) {
+      var appLang = stateService.getAppLanguageCode();
+      var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
+
       var DATE_FORMAT = 'YYYY-MM-DD';
       var CLASS_NOT_AVAILABLE = 'date-not-available';
       var ALL_PROPERTIES = attrs.allProperties ? attrs.allProperties : 'All properties';
-      var FIND_YOUR_HOTEL = 'Find Your Hotel';
+      var FIND_YOUR_HOTEL = dynamicMessages ? dynamicMessages.find_your_hotel : 'Find Your Hotel';
       var floatingBarEl = $('floating-bar');
 
       scope.isMobile = function(){

@@ -1,6 +1,6 @@
 <div class="hero-slide">
   <div class="content-inner">
-     <h1 class="slide-title"><span>slide_title</span></h1>
-     <h2 class="slide-subtitle"><span>slide_subtitle</span></h2>
+     <h1 ng-if="slideData.title" class="slide-title"><span>{{ slideData.title }}</span></h1>
+     <h2 ng-if="slideData.subtitle" class="slide-subtitle"><span>{{ slideData.subtitle }}</span></h2>
    </div>
 </div>

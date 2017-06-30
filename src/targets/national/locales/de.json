@@ -817,7 +817,7 @@
 
     "hotels_page_title": "Unsere Hotels",
 
-    "hotels_page_login_prompt_desc": "Spare bis zu 20% indem du <a href ng-click='sso.login()''>signing</a> in or <a ng-click='sso.register()''>registering</a>!",
+    "hotels_page_login_prompt_desc": "Spare bis zu 20% indem du <a href ng-click='auth.login()''>signing</a> in or <a ng-click='auth.register()''>registering</a>!",
     "reservation_confirmation_message_title": "Vielen Dank für Ihre Reservation bei {hotelName}!",
     "reservation_confirmation_message_desc": "Ihre Reservationsnummer lautet {reservationNumber}. Sie werden in Kürze eine E-Mail mit Ihren Buchungsinformationen erhalten.",
     "FOOTER": "////////////////////////////////////////////////////////////",
@@ -851,6 +851,7 @@
     "day": "Tag",
     "days": "Tage",
     "week": "Woche",
-    "weeks": "Wochen"
+    "weeks": "Wochen",
+    "rate_not_available": "Der Preis, den Sie suchen, ist an diesen Terminen nicht verfügbar. Bitte wählen Sie aus einer der unten angegebenen Preise."
   }
 }

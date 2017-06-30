@@ -993,7 +993,7 @@ angular.module('mobiusApp.config', [])
         'display': false
       },
       //Default value for newsletter opt-in checkbox
-      'newsLetterOptedIn': true,
+      'newsLetterOptedIn': false,
       //Prompt to ask user to login
       'loginCta':{
         'display': true
