@@ -118,7 +118,7 @@
           var headers = {};
           headers[AUTH_HEADER] = getStoredUser().token;
           apiService.setHeaders(headers);
-
+          console.log('resolving the promise 2b');
           return authPromise.resolve(true);
         });
     }

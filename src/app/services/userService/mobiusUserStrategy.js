@@ -127,6 +127,7 @@
           });
 
           if(authPromise && authPromise.resolve){
+            console.log('resolving the promise 2a');
             authPromise.resolve(true);
           }
 

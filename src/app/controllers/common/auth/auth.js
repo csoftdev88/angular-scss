@@ -44,7 +44,7 @@ angular
     console.log('the auth promise is', user.authPromise);
     // Set the callback to run once authenticated
     user.authPromise.then(function (isMobiusUser) {
-      console.log('the auth promise called in user');
+      console.log('the auth promise called in user', isMobiusUser);
       if (_.isFunction(config.onAuthorized)) {
         return config.onAuthorized(isMobiusUser);
       }

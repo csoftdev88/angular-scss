@@ -153,6 +153,7 @@ angular.module('mobiusApp.services.user', [])
         if (!keystoneIsAuthenticated()) {
           console.log('rejecting the promise');
           if(authPromise){
+            console.log('resolving the promise 1');
             authPromise.resolve(false);
           }
           return;
@@ -178,6 +179,7 @@ angular.module('mobiusApp.services.user', [])
         if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
           // Logged in as anonymous
           if(authPromise){
+            console.log('resolving the promise 3');
             authPromise.resolve(false);
           }
           return;
@@ -218,6 +220,7 @@ angular.module('mobiusApp.services.user', [])
 
 
             if(authPromise && authPromise.resolve){
+              console.log('resolving the promise 2');
               authPromise.resolve(true);
             }
 
@@ -314,6 +317,7 @@ angular.module('mobiusApp.services.user', [])
       function(){
         // Logged in as anonymous
         if(authPromise){
+          console.log('resolving the promise 5');
           authPromise.resolve(false);
         }
       });
