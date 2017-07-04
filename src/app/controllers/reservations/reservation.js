@@ -102,6 +102,7 @@ angular.module('mobius.controllers.reservation', [])
     var roomsPromises = [];
     var rooms;
     $scope.allRooms = [];
+    console.log('on auth', $scope.allRooms);
 
     if (!$scope.isMultiRoomMode) {
       // Getting single room details
@@ -529,6 +530,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function() {
+    console.log('checking the validity', $scope.allRooms);
     if ($scope.allRooms && $scope.allRooms.length) {
       switch ($state.current.name) {
         case 'reservation.details':
