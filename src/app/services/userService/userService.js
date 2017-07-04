@@ -366,23 +366,23 @@ angular.module('mobiusApp.services.user', [])
     function mapKeystoneTitleToId(title) {
       switch (title) {
         case 'Mr':
-          return 0;
-        case 'Mrs':
           return 1;
-        case 'Miss':
+        case 'Mrs':
           return 2;
-        case 'Ms':
+        case 'Miss':
           return 3;
-        case 'Master':
+        case 'Ms':
           return 4;
-        case 'Dr':
+        case 'Master':
           return 5;
-        case 'Prof':
+        case 'Dr':
           return 6;
-        case 'Rev':
+        case 'Prof':
           return 7;
-        case 'Other':
+        case 'Rev':
           return 8;
+        case 'Other':
+          return 9;
         default:
           return null;
       }
