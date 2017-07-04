@@ -140,7 +140,7 @@
           </a>
         </li>
 
-        <li ng-if="auth.isKeystone()" ng-click="$event.stopPropagation()">
+        <li ng-if="auth.isKeystone()" ng-hide="isMobile && auth.isLoggedIn()" ng-click="$event.stopPropagation()">
           <div id="keystone-status"></div>
         </li>
 
