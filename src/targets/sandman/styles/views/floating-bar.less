@@ -12,7 +12,11 @@
 floating-bar {
 
   &.multi-room{
-    background: @c-booking-widget-active;
+    display: none;
+  }
+
+  .mobile-menu-active & {
+    z-index: 900;
   }
 
   //- Tabs
