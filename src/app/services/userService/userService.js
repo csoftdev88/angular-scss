@@ -354,6 +354,31 @@ angular.module('mobiusApp.services.user', [])
       avatarUrl:    null,
     };
 
+    function mapKeystoneTitleToId(title) {
+      switch (title) {
+        case 'Mr':
+          return 0;
+        case 'Mrs':
+          return 1;
+        case 'Miss':
+          return 2;
+        case 'Ms':
+          return 3;
+        case 'Master':
+          return 4;
+        case 'Dr':
+          return 5;
+        case 'Prof':
+          return 6;
+        case 'Rev':
+          return 7;
+        case 'Other':
+          return 8;
+        default:
+          return null;
+      }
+    }
+
     function mapKeystoneUserToMobiusUser(ksUser) {
 
       if (ksUser === null) {
@@ -362,7 +387,7 @@ angular.module('mobiusApp.services.user', [])
 
       return {
         id:           ksUser.MobiusId || null,
-        title:        ksUser.Name.Title || null,
+        title:        mapKeystoneTitleToId(ksUser.Name.Title),
         firstName:    ksUser.Name.FirstName || null,
         lastName:     ksUser.Name.LastName || null,
         email:        (ksUser.Email[0]) ? ksUser.Email[0].Email : null,
@@ -371,6 +396,7 @@ angular.module('mobiusApp.services.user', [])
         zip:          (ksUser.Address[0]) ? ksUser.Address[0].Postcode  : null,
         state:        (ksUser.Address[0]) ? ksUser.Address[0].County    : null,
         country:      (ksUser.Address[0]) ? ksUser.Address[0].Country   : null,
+        localeCode:   (ksUser.Address[0]) ? ksUser.Address[0].Country   : null,
         languageCode: ksUser.Language || null,
         currencyCode: ksUser.Currency || null,
         tel1:         (ksUser.Phone[0]) ? ksUser.Phone[0].Number : null,
