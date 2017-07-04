@@ -160,6 +160,7 @@
           userObject.avatarUrl = userObject.avatar && userObject.avatarUrl ? userObject.avatarUrl : '/static/images/v4/img-profile.png';
           userObject.languageCode = vm.getUserLanguage() || stateService.getAppLanguageCode();
 
+          console.log('resolving the promise 2c');
           if(authPromise && authPromise.resolve){
             authPromise.resolve(true);
           }
