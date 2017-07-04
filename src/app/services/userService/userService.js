@@ -151,7 +151,11 @@ angular.module('mobiusApp.services.user', [])
     function loadProfile() {
       if (Settings.authType === 'keystone') {
         if (!keystoneIsAuthenticated()) {
-          return authPromise.reject('no user');
+          console.log('rejecting the promise');
+          if(authPromise){
+            authPromise.resolve(false);
+          }
+          return;
         }
         console.log('customer id load prfile', getCustomerId());
 
