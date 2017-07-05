@@ -736,6 +736,10 @@ angular
       window.KS.$event.emit(window.KS.$event.const.PARENT_CONTENT_LOADED);
     }
 
+    if (Settings.authType === 'keystone' && !$scope.auth.isLoggedIn()) {
+      window.dispatchEvent(new CustomEvent('keystone.session.anonymous'));
+    }
+
     //If date is in past, remove from params and reload page
     if(toParams.dates)
     {
