@@ -150,14 +150,10 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function loadProfile() {
-      console.log('Calling load profile');
       if (Settings.authType === 'keystone') {
         if (!keystoneIsAuthenticated()) {
-          console.log('rejecting the promise');
-          console.log('resolving the promise 1');
           return authPromise.resolve(false);
         }
-        console.log('customer id load prfile', getCustomerId());
 
         return loadLoyalties(getCustomerId()).then(function() {
           return loadRewards(getCustomerId());
@@ -170,7 +166,6 @@ angular.module('mobiusApp.services.user', [])
             headers[HEADER_INFINITI_SSO] = getStoredUser().token;
             apiService.setHeaders(headers);
 
-            console.log('resolving the promise 4');
             return authPromise.resolve(true);
 
           });
@@ -181,7 +176,6 @@ angular.module('mobiusApp.services.user', [])
         if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
           // Logged in as anonymous
           if(authPromise){
-            console.log('resolving the promise 3');
             authPromise.resolve(false);
           }
           return;
@@ -222,7 +216,6 @@ angular.module('mobiusApp.services.user', [])
 
 
             if(authPromise && authPromise.resolve){
-              console.log('resolving the promise 2');
               authPromise.resolve(true);
             }
 
@@ -316,7 +309,6 @@ angular.module('mobiusApp.services.user', [])
       function(){
         // Logged in as anonymous
         if(authPromise){
-          console.log('resolving the promise 5');
           authPromise.resolve(false);
         }
       });
