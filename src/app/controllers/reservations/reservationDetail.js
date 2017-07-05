@@ -108,8 +108,6 @@ angular.module('mobius.controllers.reservationDetail', [])
             }
           });
 
-          console.log(policies);
-
           return {
             name: room.productName,
             policies: policies
