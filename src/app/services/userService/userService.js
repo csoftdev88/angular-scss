@@ -17,13 +17,14 @@ angular.module('mobiusApp.services.user', [])
     var EVENT_CUSTOMER_LOADED = 'infiniti.customer.loaded';
     var EVENT_CUSTOMER_LOGGED_OUT = 'infiniti.customer.logged.out';
 
+    // TODO Implement this with AuthCtrl
+    var EVENT_ANONYMOUS_LOADED = 'infiniti.anonymous.loaded';
+
     if (Settings.authType === 'keystone') {
       EVENT_CUSTOMER_LOADED = 'keystone.session.created';
       EVENT_CUSTOMER_LOGGED_OUT = 'keystone.session.destroyed';
+      EVENT_ANONYMOUS_LOADED = 'keystone.session.anonymous';
     }
-
-    // TODO Implement this with AuthCtrl
-    var EVENT_ANONYMOUS_LOADED = 'infiniti.anonymous.loaded';
 
     var cookieExpiryDate = null;
     var expiryMins = Settings.API.sessionData.expiry || 15;
