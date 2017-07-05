@@ -5,7 +5,7 @@ angular
   .service( 'keystoneAuthStrategy', function($timeout, $state) {
 
     var login = function () {
-      console.warn('Login function is not supported by keystone, it is injected into the DOM and is self contained.');
+      window.dispatchEvent(new CustomEvent('parent.request.login'));
     };
 
     var logout = function () {
