@@ -5,7 +5,10 @@ angular
   .service( 'keystoneAuthStrategy', function($timeout, $state) {
 
     var login = function () {
-      window.dispatchEvent(new CustomEvent('parent.request.login'));
+      $timeout(function () {
+        window.dispatchEvent(new CustomEvent('parent.request.login'));
+        $('#mobile-menu-opener').click();
+      });
     };
 
     var logout = function () {
