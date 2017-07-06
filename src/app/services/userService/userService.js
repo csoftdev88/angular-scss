@@ -114,8 +114,6 @@ angular.module('mobiusApp.services.user', [])
         })
         .then(function(updatedUser) {
           userObject = updatedUser;
-          window.KS.setLocale(lang);
-          $log.info('changing the lang for keystone profiles to', lang);
         });
       }
     }
