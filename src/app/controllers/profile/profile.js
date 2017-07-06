@@ -10,7 +10,7 @@
 
   function Profile($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user,
                    $timeout, _, chainService, metaInformationService, $location, Settings, propertyService,
-                   scrollService){
+                   scrollService, $rootScope){
 
     //check if user is logged in
     function onAuthorized() {
@@ -26,6 +26,14 @@
     if (Settings.authType === 'keystone' && window.KS && window.KS.$event) {
       window.KS.$event.emit('parent.content.loaded');
     }
+
+    // Hide the floating bar
+    // @todo Why does this need to be wrapped in a timeout ??
+    $timeout(function() {
+      $rootScope.$broadcast('floatingBarEvent', {
+        isCollapsed: true
+      });
+    }, 0);
 
     //Add breadcrumb
     breadcrumbsService.addBreadCrumb('Profile');
