@@ -34,10 +34,9 @@
       var lang = UrlService.getParameter('lang');
       // @todo safely change the application language code to en as this is the official i18n standard which
       // keystone is expecting. So for now place a check to convert
-      lang = lang.substring(0, 2);
-      if (lang && lang !== Settings.UI.languages.default) {
-        window.location.href = '/' + lang + '/profile';
-        $log.info('Setting the locale for keystone based off the URL param', lang);
+      if (lang && lang !== Settings.UI.languages.default.substring(0, 2)) {
+        window.location.href = '/' + lang.substring(0, 2) + '/profile';
+        $log.info('Setting the locale for keystone based off the URL param', lang.substring(0, 2));
       }
     }
 
