@@ -5,12 +5,12 @@
   'use strict';
 
   angular
-    .module('mobius.controllers.profile', [])
+    .module('mobius.controllers.profile', ['mobiusApp.utilities'])
     .controller('ProfileCtrl', Profile);
 
   function Profile($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user,
                    $timeout, _, chainService, metaInformationService, $location, Settings, propertyService,
-                   scrollService, $rootScope){
+                   scrollService, UrlService, $log){
 
     //check if user is logged in
     function onAuthorized() {
@@ -23,8 +23,24 @@
 
     // If we are using keystone, the alternative keystoneProfile layout will be used that contains
     // the keystone-profile div. We now need to tell keystone to inject the profile page into it
-    if (Settings.authType === 'keystone' && window.KS && window.KS.$event) {
-      window.KS.$event.emit('parent.content.loaded');
+    if (Settings.authType === 'keystone' && window.KS) {
+      if (window.KS.$event) {
+        window.KS.$event.emit('parent.content.loaded');
+      }
+      /**
+       * We need to accept the language code from keystone, check if its our default, if not, then
+       * redirect the
+       */
+      var lang = UrlService.getParameter('lang');
+      // @todo safely change the application language code to en as this is the official i18n standard which
+      // keystone is expecting. So for now place a check to convert
+      if (lang === 'en') {
+        lang = 'en-us';
+      }
+      if (lang && lang !== Settings.UI.languages.default) {
+        window.location.href = '/' + lang + '/profile';
+        $log.info('Setting the locale for keystone based off the URL param', lang);
+      }
     }
 
     // Hide the floating bar
