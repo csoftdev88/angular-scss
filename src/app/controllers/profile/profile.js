@@ -10,7 +10,7 @@
 
   function Profile($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user,
                    $timeout, _, chainService, metaInformationService, $location, Settings, propertyService,
-                   scrollService, UrlService, $log){
+                   scrollService, UrlService, $rootScope, $log) {
 
     //check if user is logged in
     function onAuthorized() {
@@ -42,6 +42,14 @@
         $log.info('Setting the locale for keystone based off the URL param', lang);
       }
     }
+
+    // Hide the floating bar
+    // @todo Why does this need to be wrapped in a timeout ??
+    $timeout(function() {
+      $rootScope.$broadcast('floatingBarEvent', {
+        isCollapsed: true
+      });
+    }, 0);
 
     //Add breadcrumb
     breadcrumbsService.addBreadCrumb('Profile');
