@@ -2,7 +2,7 @@
 
 angular.module('mobiusApp.services.user', [])
   .service('user', function($rootScope, $q, $window, $state,
-    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout, stateService) {
+    userObject, apiService, _, loyaltyService, cookieFactory, dataLayerService, rewardsService, Settings, $timeout, stateService, $log) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = Settings.authType === 'mobius' ? 'mobius-authentication' : 'MobiusID';
@@ -99,21 +99,24 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function clearStoredUser() {
-      $window.document.cookie = 'MobiusId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-      $window.document.cookie = 'MobiusToken' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
-      $window.document.cookie = 'CustomerID' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      $window.document.cookie = 'MobiusId=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      $window.document.cookie = 'MobiusToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+      $window.document.cookie = 'CustomerID=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     }
 
     function storeUserLanguage(lang) {
-      $window.document.cookie = 'MobiusLanguageCode' + '=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
+      $window.document.cookie = 'MobiusLanguageCode=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.languageCode = lang;
       if (Settings.authType === 'keystone' && window.KS.$me) {
+        $log.info('changing the lang for the user to', lang);
         window.KS.$me.update({
           Language: lang
         })
-          .then(function(updatedUser) {
-            userObject = updatedUser;
-          });
+        .then(function(updatedUser) {
+          userObject = updatedUser;
+          window.KS.setLocale(lang);
+          $log.info('changing the lang for keystone profiles to', lang);
+        });
       }
     }
 
