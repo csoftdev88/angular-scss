@@ -107,15 +107,13 @@ angular.module('mobiusApp.services.user', [])
     function storeUserLanguage(lang) {
       $window.document.cookie = 'MobiusLanguageCode=' + lang + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.languageCode = lang;
-      if (Settings.authType === 'keystone' && window.KS.$me) {
+      if (Settings.authType === 'keystone' && window.KS.$me && keystoneIsAuthenticated()) {
         $log.info('changing the lang for the user to', lang);
         window.KS.$me.update({
           Language: lang
         })
         .then(function(updatedUser) {
           userObject = updatedUser;
-          window.KS.setLocale(lang);
-          $log.info('changing the lang for keystone profiles to', lang);
         });
       }
     }
