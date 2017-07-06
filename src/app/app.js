@@ -655,6 +655,18 @@ angular
   var userLang = user.getUserLanguage();
   var appLang = stateService.getAppLanguageCode();
 
+  /**
+   * If keystone, set the locale when the app loads
+   */
+  if (Settings.authType === 'keystone' && window.KS) {
+    // @todo safely change the application language code to en as this is the official i18n standard which
+    // keystone is expecting. So for now place a check to convert
+    if (appLang === 'en-us') {
+      appLang = 'en';
+    }
+    window.KS.setLocale(appLang);
+  }
+
   if (userLang && userLang !== appLang && Settings.UI.languages[userLang]) {
     var language_code = userLang;
     //Only make this change if the new language code isn't default
@@ -773,7 +785,7 @@ angular
       console.log('to name', toState.name);
       // @todo work out why we need to perform check and sometime dont get a name
       //If user language is french and URL does not contain quebec, switch back to english
-      if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec' && toState.name !== 'reservation') {
+      if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec' && toState.name !== 'reservation' && toState.name !== 'profile') {
         if (toState.name && toState.name.indexOf('reservation') === -1) {
           user.storeUserLanguage('en-us');
           var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');
