@@ -661,10 +661,8 @@ angular
   if (Settings.authType === 'keystone' && window.KS) {
     // @todo safely change the application language code to en as this is the official i18n standard which
     // keystone is expecting. So for now place a check to convert
-    if (appLang === 'en-us') {
-      appLang = 'en';
-    }
-    window.KS.setLocale(appLang);
+    var lang = appLang.substring(0, 2);
+    window.KS.setLocale(lang);
   }
 
   if (userLang && userLang !== appLang && Settings.UI.languages[userLang]) {
