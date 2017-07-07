@@ -45,25 +45,26 @@
       loginForm.$submitted = true;
       if (loginForm.$valid) {
         var headersObj = {};
-        var vm = this;
+        var that = this;
         headersObj[KEY_CUSTOMER_ID] = undefined;
         apiService.setHeaders(headersObj);
-        apiService.post(apiService.getFullURL('customers.login'), loginData).then(function (data) {
-          if (data.id !== null) {
-            $rootScope.showLoginDialog = false;
-            clearErrorMsg(vm);
-            userObject.id = data.id;
-            user.storeUserId(data.id);
-            user.loadProfile();
-          }
-          else {
-            vm.loginDialogError = true;
-            vm.incorrectEmailPasswordError = true;
-          }
-        }, function () {
-          vm.loginDialogError = true;
-          vm.incorrectEmailPasswordError = true;
-        });
+        apiService.post(apiService.getFullURL('customers.login'), loginData)
+          .then(function (data) {
+            if (data.id !== null) {
+              $rootScope.showLoginDialog = false;
+              clearErrorMsg(that);
+              userObject.id = data.id;
+              user.storeUserId(data.id);
+              user.loadProfile();
+            } else {
+              that.loginDialogError = true;
+              that.incorrectEmailPasswordError = true;
+            }
+          })
+          .catch(function () {
+            that.loginDialogError = true;
+            that.incorrectEmailPasswordError = true;
+          });
       }
     };
 
@@ -140,12 +141,20 @@
       }
     };
 
+    /**
+     * @todo Needs investigating, why is this not supported?
+     */
     this.register = function () {
       $log.warn('Register function is not supported by mobius auth');
     };
 
+    /**
+     * Function to direct the user to the profile page
+     */
     this.viewProfile = function () {
-      $log.warn('ViewProfile function is not supported by mobius auth');
+      if (this.isLoggedIn()) {
+        $state.go('profile');
+      }
     };
 
   }
