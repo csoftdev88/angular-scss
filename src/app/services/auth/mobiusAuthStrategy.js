@@ -1,14 +1,33 @@
-'use strict';
+/**
+ * Auth service used when the mobiusApp.config.Settings has been set to mobius.
+ *
+ * This service interacts with mobius soap to rest customer endpoint (mobius auth). For new tenants, please
+ * ensure you use keystone, this should only be kept for legacy support.
+ *
+ * @see Auth
+ * @tenants Meandall, national
+ * @version 1.0.0
+ * @author Bryan Kneis
+ */
+(function () {
+  'use strict';
 
-angular
-  .module('mobiusApp.services.auth.mobius', [])
-  .service( 'mobiusAuthStrategy', function($rootScope, $q, $timeout, $state, user, apiService, userObject) {
+  angular
+    .module('mobiusApp.services.auth.mobius', [])
+    .service( 'mobiusAuthStrategy', MobiusAuthStrategy);
+
+  function MobiusAuthStrategy($rootScope, $q, $timeout, $state, user, apiService, userObject, $log) {
 
     // The header's attributes name
     var AUTH_HEADER = 'mobius-authentication';
-    // SSO will expose mobius customer ID via this cookie
+    // Name of the cookie to expose mobius customer ID
     var KEY_CUSTOMER_ID = 'mobius-authentication';
 
+    /**
+     * Clear the error messages on the login / register modal
+     * The booleans are bound to the page's controller, hence why its passed in via param
+     * @param scope
+     */
     function clearErrorMsg (scope) {
       scope.loginDialogError = false;
       scope.missingFieldsError = false;
@@ -17,6 +36,11 @@ angular
       scope.passwordResetSuccess = false;
     }
 
+    /**
+     * Function used to perform the login, its bound to the scope via the call to login.
+     * @param loginForm
+     * @param loginData
+     */
     var doLogin = function (loginForm, loginData) {
       loginForm.$submitted = true;
       if (loginForm.$valid) {
@@ -43,17 +67,27 @@ angular
       }
     };
 
-    var login = function (scope) {
+    /**
+     * Function to show the login modal.
+     * As we need a unified API for authenticating due to the 3 different providers, all this login
+     * function does is show the login modal and bind the function doLogin to the controllers scope. Then
+     * that page will have the login button itself that calls doLogin.
+     * @param scope
+     * @todo Find a better way to do this
+     */
+    this.login = function (scope) {
       $rootScope.showLoginDialog = !$rootScope.showLoginDialog;
-      // @todo find a way to assign the function without doing it every time login is called
       scope.doLogin = doLogin.bind(scope);
     };
 
-    var logout = function () {
-      $rootScope.$evalAsync(function(){
+    /**
+     * Perform a logout for the current session's user and clear the headers persisted in the apiService
+     * @see apiService
+     */
+    this.logout = function () {
+      $rootScope.$evalAsync(function() {
         userObject = {};
         $state.go('home', {}, {reload: true});
-
       });
       // Removing auth headers
       var headers = {};
@@ -61,28 +95,44 @@ angular
       apiService.setHeaders(headers);
       user.clearStoredUser();
 
+      // Create a new auth promise
+      // @todo Why do we need to do this ?
       user.authPromise = $q.defer();
 
+      // Submit a login event that updates the base ctrl's function isLoggedIn
+      // @todo again, why the hell do we do this?
       $timeout(function () {
         $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
       });
     };
 
-    var isLoggedIn = function () {
+    /**
+     * Function to check if the current session is authenticated
+     * @returns {boolean}
+     */
+    this.isLoggedIn = function () {
       return !!(userObject.id && userObject.email);
     };
 
-    var reset = function (resetForm, resetData, scope) {
+    /**
+     * Function to reset the customer's password
+     * @param resetForm
+     * @param resetData
+     * @param scope
+     */
+    this.reset = function (resetForm, resetData, scope) {
       resetForm.$submitted = true;
       if (resetForm.$valid) {
-        apiService.post(apiService.getFullURL('customers.forgotPassword'), resetData).then(function(){
-          clearErrorMsg(scope);
-          scope.loginDialogError = true;
-          scope.passwordResetSuccess = true;
-        }, function () {
-          scope.loginDialogError = true;
-          scope.notRegisteredEmailError = true;
-        });
+        apiService.post(apiService.getFullURL('customers.forgotPassword'), resetData)
+          .then(function() {
+            clearErrorMsg(scope);
+            scope.loginDialogError = true;
+            scope.passwordResetSuccess = true;
+          })
+          .catch(function () {
+            scope.loginDialogError = true;
+            scope.notRegisteredEmailError = true;
+          });
       }
       else{
         scope.loginDialogError = true;
@@ -90,21 +140,14 @@ angular
       }
     };
 
-    var register = function () {
-      console.warn('Register function is not supported by mobius auth');
+    this.register = function () {
+      $log.warn('Register function is not supported by mobius auth');
     };
 
-    var viewProfile = function () {
-      console.warn('ViewProfile function is not supported by mobius auth');
+    this.viewProfile = function () {
+      $log.warn('ViewProfile function is not supported by mobius auth');
     };
 
-    return {
-      login: login,
-      logout: logout,
-      reset: reset,
-      register: register,
-      viewProfile: viewProfile,
-      isLoggedIn: isLoggedIn
-    };
+  }
 
-  });
+}());
