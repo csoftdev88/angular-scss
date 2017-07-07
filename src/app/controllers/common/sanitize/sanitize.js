@@ -6,6 +6,9 @@ angular.module('mobius.controllers.common.sanitize', [])
 
 .controller( 'SanitizeCtrl', function($scope, $sce) {
   $scope.sanitize = function(content){
-    return $sce.trustAsHtml(content);
+    if (typeof content === "string") {
+      return $sce.trustAsHtml(content);
+    }
+    return content;
   };
 });
