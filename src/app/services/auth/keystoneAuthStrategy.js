@@ -30,7 +30,8 @@ angular
     };
 
     var register = function () {
-      console.warn('Register function is not supported by keystone');
+      // Keystone does not have a function to show register, so show login so the user can choose register
+      login();
     };
 
     var viewProfile = function () {
