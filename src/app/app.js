@@ -122,6 +122,7 @@ angular
     'mobiusApp.services.previousSearches',
     'mobiusApp.services.funnelRetention',
     'mobiusApp.services.roomUpgrades',
+    'mobiusApp.utilities',
 
     // Factories
     'mobiusApp.factories.template',
@@ -592,7 +593,8 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings,
+              propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
     if(next.name === 'unknown'){ //If the page we are navigating to is not recognised
@@ -716,6 +718,21 @@ angular
     $scope: $scope,
     config: {}
   });
+
+  // If the URL contains show login, open the login modal for keystone
+  if ($scope.auth.isKeystone()) {
+    if (UrlService.getParameter('showLogin')) {
+      if (window.KS && window.KS.$me) {
+        $scope.auth.login();
+      } else {
+        // Provide this purely as a fall back
+        $log.warn('The keystone window object was not available');
+        $timeout(function () {
+          $scope.auth.login();
+        }, 100);
+      }
+    }
+  }
 
   $scope.uiConfig = Settings.UI;
   $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
