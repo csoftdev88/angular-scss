@@ -2,9 +2,11 @@
 /*
  * This module controlls reservation update flow
  */
-angular.module('mobius.controllers.reservationUpdate', [])
-  .controller('ReservationUpdateCtrl', function($scope, $state,
-    $location, $stateParams, notificationService, modalService, user){
+angular
+  .module('mobius.controllers.reservationUpdate', [])
+  .controller('ReservationUpdateCtrl', function ($scope, $state, $location, $stateParams,
+                                                notificationService, modalService) {
+
     var EVENT_NOTIFICATION_CLOSED = 'notification-closed';
 
     var reservationUpdateMode = false;
@@ -55,7 +57,7 @@ angular.module('mobius.controllers.reservationUpdate', [])
     // Returns true when user is not logged-in and modifying the
     // reservation based on his email and reservation code
     $scope.isModifyingAsAnonymous = function(){
-      return !user.isLoggedIn() && $stateParams.email && $stateParams.reservation;
+      return $scope.auth && !$scope.auth.isLoggedIn() && $stateParams.email && $stateParams.reservation;
     };
 
     function cancelReservationUpdate(redirectTo, reservationCode, showModal){

@@ -4,7 +4,9 @@
  */
 angular.module('mobius.controllers.register', [])
 
-  .controller('RegisterCtrl', function($scope, $controller, $timeout, $state, scrollService, breadcrumbsService, contentService, apiService, userObject, user, chainService, metaInformationService, $location, Settings){
+  .controller('RegisterCtrl', function($scope, $controller, $timeout, $state, scrollService, breadcrumbsService,
+                                       contentService, apiService, userObject, user, chainService,
+                                       metaInformationService, $location, Settings, _){
 
     breadcrumbsService.addBreadCrumb('Register');
 
@@ -47,6 +49,13 @@ angular.module('mobius.controllers.register', [])
       clearErrorMsg();
 			$scope.submitted = true;
 		  if (form.$valid) {
+        if (registerData.localeId && angular.isDefined($scope.registerCountries)) {
+          var selectedCountry = _.find($scope.registerCountries, function(country) {
+            return country.id === registerData.localeId;
+          });
+
+          registerData.localeCode = selectedCountry && selectedCountry.code;
+        }
 		    apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
 		      userObject.id = response.id;
 		      user.loadProfile();

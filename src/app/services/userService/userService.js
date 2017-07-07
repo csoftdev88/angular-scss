@@ -31,12 +31,6 @@ angular.module('mobiusApp.services.user', [])
       return Settings.authType === 'mobius' ? true : !!cookieFactory(KEY_CUSTOMER_PROFILE) && !!cookieFactory(KEY_CUSTOMER_ID);
     }
 
-    function isProfileLoaded(){
-      //console.log('isProfileLoaded: ' + angular.toJson(userObject));
-      // NOTE: Email data is loaded via customers API
-      return !!(userObject.id && userObject.email);
-    }
-
     function getCustomerId(){
       if(!hasSSOCookies()){
         return null;
@@ -242,6 +236,10 @@ angular.module('mobiusApp.services.user', [])
       });
     }
 
+    function getUser () {
+      return userObject;
+    }
+
     if(Settings.authType === 'infiniti'){
       initSSOListeners();
     }
@@ -250,21 +248,12 @@ angular.module('mobiusApp.services.user', [])
     }
 
     return {
-      isLoggedIn: function() {
-        return hasSSOCookies() && isProfileLoaded();
-      },
-
-      getUser: function() {
-        return userObject;
-      },
-
-      // NOTE: Will keep this function public for now.
+      getUser: getUser,
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
       loadLoyalties: loadLoyalties,
       loadRewards: loadRewards,
       updateUser: updateUser,
-      logout: logout,
       authPromise: authPromise.promise,
       storeUserLanguage: storeUserLanguage,
       getUserLanguage: getUserLanguage,

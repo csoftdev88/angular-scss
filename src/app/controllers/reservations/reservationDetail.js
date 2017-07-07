@@ -12,10 +12,6 @@ angular.module('mobius.controllers.reservationDetail', [])
   userMessagesService, propertyService, breadcrumbsService, user, $rootScope, $timeout, $location,
   metaInformationService, dataLayerService, Settings, DynamicMessages, stateService, userObject, chainService, infinitiEcommerceService, contentService, routerService,
   apiService, queryService) {
- 
-  $controller('SSOCtrl', {
-    $scope: $scope
-  });
 
   var appLang = stateService.getAppLanguageCode();
 
@@ -127,10 +123,10 @@ angular.module('mobius.controllers.reservationDetail', [])
         $scope.voucher.verifying = true;
         if($scope.voucher.code){
           //Validate voucher which returns an addon
-          reservationService.addAddon($stateParams.reservationCode, null, user.isLoggedIn() ? null : $scope.reservation.email, $scope.voucher.code).then(function() {
+          reservationService.addAddon($stateParams.reservationCode, null, $scope.auth && $scope.auth.isLoggedIn() ? null : $scope.reservation.email, $scope.voucher.code).then(function() {
             $q.all([
               // Available addons
-              reservationService.getAvailableAddons({
+              reservationService.getAvailableAddons($scope.auth, {
                 propertyCode: reservation.property.code,
                 roomTypeCode: defaultRoom.roomTypeCode,
                 productCode: reservation.rooms[0].productCode,
@@ -236,7 +232,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       // Getting available addons and reservation addons
       var availablePoints;
 
-      if (user.isLoggedIn() && user.getUser().loyalties) {
+      if ($scope.auth && $scope.auth.isLoggedIn() && user.getUser().loyalties) {
         availablePoints = user.getUser().loyalties.amount || 0;
       } else {
         availablePoints = 0;
@@ -247,7 +243,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       if(!$scope.config.disableAddons){
         var addonsPromise = $q.all([
           // Available addons
-          reservationService.getAvailableAddons({
+          reservationService.getAvailableAddons($scope.auth, {
             propertyCode: reservation.property.code,
             roomTypeCode: defaultRoom.roomTypeCode,
             productCode: reservation.rooms[0].productCode,
@@ -349,7 +345,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       // NOTE: This will enable editing
       reservation: reservation.reservationCode,
       // Removing email param when user is logged in
-      email: user.isLoggedIn() ? null : reservation.email
+      email: $scope.auth && $scope.auth.isLoggedIn() ? null : reservation.email
     };
 
     propertyService.getPropertyDetails(reservation.property.code)
@@ -364,6 +360,17 @@ angular.module('mobius.controllers.reservationDetail', [])
       });
   }
 
+  function buildCancellationMessageHtml() {
+    var html = DynamicMessages[appLang].your_reservation +
+      $stateParams.reservationCode +
+      DynamicMessages[appLang].was_successfully_cancelled;
+
+    if (Settings.UI.booking.cancellationMessageImage && Settings.UI.booking.cancellationMessageImage.display) {
+      html = '<img src="'+ Settings.UI.booking.cancellationMessageImage.url + '">' + html;
+    }
+    return html;
+  }
+
   $scope.openCancelReservationDialog = function() {
     // NOTE: API not providing the flag yet
     if ($scope.reservation.canCancel === false) {
@@ -372,7 +379,7 @@ angular.module('mobius.controllers.reservationDetail', [])
     }
 
     modalService.openCancelReservationDialog($stateParams.reservationCode).then(function() {
-      var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, user.isLoggedIn() ? null : $scope.reservation.email)
+      var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, $scope.auth && $scope.auth.isLoggedIn() ? null : $scope.reservation.email)
         .then(function() {
           // Reservation is removed, notifying user
           //TODO: move to locales
@@ -380,17 +387,16 @@ angular.module('mobius.controllers.reservationDetail', [])
           if ($scope.config.displayCancelConfirmedModal) {
             modalService.openReservationCancelConfirmedDialog($stateParams.reservationCode);
           } else if(DynamicMessages && DynamicMessages[appLang]) {
-            userMessagesService.addMessage(DynamicMessages[appLang].your_reservation +
-              $stateParams.reservationCode + DynamicMessages[appLang].was_successfully_cancelled, false, true);
+            userMessagesService.addMessage(buildCancellationMessageHtml(), false, true, 'reservation-cancellation');
           } else {
             userMessagesService.addMessage('<div>Your Reservation <strong>' +
-              $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true);
+              $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true, 'reservation-cancellation');
           }
 
           // Tracking refund
           dataLayerService.trackReservationRefund($stateParams.reservationCode);
 
-          if (user.isLoggedIn()) {
+          if ($scope.auth && $scope.auth.isLoggedIn()) {
             $state.go('reservations');
           } else {
             console.log('take anonymous user to home');
@@ -476,7 +482,7 @@ angular.module('mobius.controllers.reservationDetail', [])
       var addAddonPromise = reservationService.addAddon(
         $stateParams.reservationCode,
         addon,
-        user.isLoggedIn() ? null : $scope.reservation.email).then(function() {
+        $scope.auth && $scope.auth.isLoggedIn() ? null : $scope.reservation.email).then(function() {
 
         //Infiniti Tracking purchase
         var infinitiTrackingProducts = [];
@@ -498,7 +504,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         };
 
         //Getting anon user details
-        if (!user.isLoggedIn()) {
+        if ($scope.auth && !$scope.auth.isLoggedIn()) {
 
           var reservationParams = {
             email: $scope.reservation.email
@@ -529,14 +535,14 @@ angular.module('mobius.controllers.reservationDetail', [])
                     'secondPhoneNumber': anonUserData.tel2
                   };
 
-                  infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
+                  infinitiEcommerceService.trackPurchase($scope.auth && $scope.auth.isLoggedIn(), infinitiTrackingData);
 
                 });
               });
             });
           });
         } else {
-          infinitiEcommerceService.trackPurchase(user.isLoggedIn(), infinitiTrackingData);
+          infinitiEcommerceService.trackPurchase($scope.auth && $scope.auth.isLoggedIn(), infinitiTrackingData);
         }
 
         // Removing from available addons
@@ -548,7 +554,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         // property as in original object `points` instead of `pointsRequired`
         addon.points = addon.pointsRequired;
         $scope.reservationAddons.push(addon);
-        
+
 
         if(DynamicMessages && DynamicMessages[appLang]) {
           userMessagesService.addMessage(DynamicMessages[appLang].you_have_added + addon.name + DynamicMessages[appLang].to_your_reservation, true);
@@ -557,7 +563,7 @@ angular.module('mobius.controllers.reservationDetail', [])
         }
 
         // Updating user loyalties once payment was done using the points
-        if (addon.pointsRequired && user.isLoggedIn()) {
+        if (addon.pointsRequired && $scope.auth && $scope.auth.isLoggedIn()) {
           user.loadLoyalties();
         }
       });
@@ -600,14 +606,14 @@ angular.module('mobius.controllers.reservationDetail', [])
       }
       else {
         userMessagesService.addMessage('<div>You have successfully added your reservation to passbook.</div>');
-      }    
+      }
     }, function() {
       if(DynamicMessages && DynamicMessages[appLang]) {
         userMessagesService.addMessage(DynamicMessages[appLang].sorry_could_not_add_passbook);
       }
       else {
         userMessagesService.addMessage('<div>Sorry, we could not add reservation to passbook, please try again.</div>');
-      }  
+      }
     });
   };
 

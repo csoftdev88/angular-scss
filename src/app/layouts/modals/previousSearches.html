@@ -9,7 +9,7 @@
     <div>
       <ul class="previous-search-results">
         <li ng-repeat="search in data.searches | filter:{'display':true}">
-          <a ng-href="{{search.url}}" ng-click="cancel()">
+          <a ng-click="cancel(); viewSearch(search);">
             <span class="search-name">{{search.name}}</span>
             <span class="search-dates">{{search.dates}}</span>
           </a>

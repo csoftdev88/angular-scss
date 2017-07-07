@@ -34,7 +34,7 @@
     </section>
 
     <nav grid-row id="reservation-steps" class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display && !bookingConfig.bookingStepsNav.showInReservationWidget">
-      <a ng-click="sso.login()" ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCtaTop.display"
+      <a ng-click="auth.login()" ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCtaTop.display"
         class="reservation-login-banner">_user_has_account_login_</a>
       <h4 class="label">_your_booking_progress_</h4>
       <ul>
@@ -48,6 +48,9 @@
     <reservation-widget grid-row ng-class="{'reservation-assurance-active': bookingConfig.reservationAssurance}">
 
       <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.payment">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
         <span>_payment_not_authorized_: </span>
       <span ng-if="invalidFormData.cardName">_payment_not_authorized_card_name_</span>
       <span ng-if="invalidFormData.paymentType">_payment_not_authorized_payment_type_</span>
@@ -58,10 +61,16 @@
       </span>
 
       <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.email">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
         _user_already_registered_
       </span>
 
       <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.generic">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
         _generic_reservation_error_
       </span>
 
@@ -90,7 +99,7 @@
             <div ng-if="bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
               <label for="agreement1" class="input-checkbox">
                 <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
-                _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
+                _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" class="terms-link" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
               </label>
               <label ng-if="!bookingConfig.hideNewsletterCheckboxIfSelected || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn)" for="agreement2" class="input-checkbox">
                 <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
@@ -98,7 +107,7 @@
               </label>
             </div>
             <button-submit class="continue-btn" ng-click="continue()" ng-disabled="isContinueDisabled()">
-              <span ng-if="continueName === 'continue'">_continue_</span>
+              <span ng-if="continueName === 'continue'">> _continue_</span>
               <span ng-if="continueName === 'confirm'">_confirm_</span>
             </button-submit>
           </div>
@@ -120,7 +129,7 @@
         </button>
         <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCta.display">
           <h4 ng-bind-html="'_reservation_page_loginprompt_title_' | mainHeaderStyle"></h4>
-          <p>_click_here_to_ <a href ng-click="sso.login()">_login_register_</a>.</p>
+          <p>_click_here_to_ <a href ng-click="auth.login()">_login_register_</a>.</p>
         </registration-call>
       </div>
     </reservation-widget>

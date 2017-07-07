@@ -81,6 +81,12 @@ angular.module('mobiusApp.services.content', [])
     return countryMatch;
   }
 
+  function getCountryByCode(code, countries) {
+    return _.find(countries, function(country) {
+      return country.code === code;
+    });
+  }
+
   function getTitles(){
     return apiService.get(apiService.getFullURL('generics.titles'));
   }
@@ -95,8 +101,8 @@ angular.module('mobiusApp.services.content', [])
     return images.map(function(img){
       return {
         // NOTE: Reducing the size of images
-        uri:  isFormatingRequred? $filter('cloudinaryImage')(img.uri, width, height, fill):img.uri,
-        title: img.imageName ? img.imageName : img.alt,
+        uri:  isFormatingRequred ? $filter('cloudinaryImage')(img.uri, width, height, fill) : img.uri,
+        title: img.imageName || img.alt,
         subtitle: img.alt
       };
     });
@@ -117,6 +123,7 @@ angular.module('mobiusApp.services.content', [])
     getContactMethods: getContactMethods,
     getLightBoxContent: getLightBoxContent,
     getCountries: getCountries,
-    getCountryByID: getCountryByID
+    getCountryByID: getCountryByID,
+    getCountryByCode: getCountryByCode
   };
 });

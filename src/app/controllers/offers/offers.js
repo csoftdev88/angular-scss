@@ -14,11 +14,6 @@ angular.module('mobius.controllers.offers', [])
   ///Scope variables
   //////////////////////////
 
-  //Inherit SSOCtrl to access infiniti methods
-  $controller('SSOCtrl', {
-    $scope: $scope
-  });
-
   //Assign offers setting as scope config
   $scope.config = Settings.UI.offers;
 
@@ -532,7 +527,10 @@ angular.module('mobius.controllers.offers', [])
     if (bookingParams.from && bookingParams.to) {
       stateParams.dates = bookingParams.from + DATES_SEPARATOR + bookingParams.to;
     }
-
+    // @todo Find out why the property code is undefined
+    if (!bookingParams.propertyCode) {
+      bookingParams.propertyCode = bookingService.getCodeFromSlug(bookingParams.propertySlug);
+    }
     if (bookingParams.propertyCode && !$scope.config.includeOfferAvailabilityPropertyDropdown) {
       propertyService.getPropertyDetails($scope.isHotDeals ? offer.offerAvailability[0].property : bookingParams.propertyCode)
         .then(function(details) {
@@ -546,7 +544,6 @@ angular.module('mobius.controllers.offers', [])
           });
         });
     } else if ($scope.config.includeOfferAvailabilityPropertyDropdown && $scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty) {
-
       var propertyCode = bookingService.getCodeFromSlug($scope.selectedOfferAvailabilityData.selectedOfferAvailabilityProperty);
 
       propertyService.getPropertyDetails(propertyCode)
@@ -621,7 +618,7 @@ angular.module('mobius.controllers.offers', [])
 
   $scope.bindHtmlClick = function(event) {
     if (event.target.attributes['ng-click'] && event.target.attributes['ng-click'].value === 'login()') {
-      $scope.sso.login();
+      $scope.auth.login();
     }
   };
 

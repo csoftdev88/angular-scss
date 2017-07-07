@@ -12,7 +12,7 @@
         "breadcrumbs_static_content": "Lorem Ipsum",
         "HOMEPAGE": "//////////////////////////////////////////////////////",
         "home_page_title": "<span><strong>SANDMAN</strong> HOTEL GROUP<span>HÉBERGEMENTS À TRAVERS LE CANADA, LE ROYAUME-UNI ET BIENTÔT LES ÉTATS-UNIS</span></span>",
-        "home_page_offer_two": "<a href ng-click='sso.profile()'><img src='/static/images/status-plus.jpg' class='grid-img' alt='PERSONAL PROFILE'><h2>PROFIL PERSONNEL</h2><p>Consultez vos séjours précédents et conservez vos informations personnelles pour des réservations plus rapides!</p></a>",
+        "home_page_offer_two": "<a href ng-click='auth.viewProfile()'><img src='/static/images/status-plus.jpg' class='grid-img' alt='PERSONAL PROFILE'><h2>PROFIL PERSONNEL</h2><p>Consultez vos séjours précédents et conservez vos informations personnelles pour des réservations plus rapides!</p></a>",
         "home_page_desc": "<p>Faire confiance à Sandman Hotel Group, c'est nous donner la possibilité de vous offrir le supplément de qualité, de confort et de bien-être personnel dont vous avez besoin. Avec plus de 45 hôtels, stations, auberges et suites hôtelières de la Colombie Britannique au Québec en passant par le Royaume-Uni, et avec de nombreuses structures en construction, Sandman est le groupe hôtelier privé qui connaît le développement le plus rapide au Canada. C'est l'histoire d'une réussite à la canadienne ; nous améliorons constamment nos produits et nous agrandissons continuellement nos installations. Nous avons décidément trouvé notre élan!</p><p>En plus d'un hébergement de qualité, vous pourrez bénéficier de diverses possibilités de restauration durant vos voyages. Choisissez entre une expérience dînatoire décontractée mais haut de gamme au CHOP Steakhouse & Bar ou un environnement stylé et apaisant au Moxie's Grill & Bar. Sinon, pourquoi ne pas opter pour le confort des restaurants Denny's, du Shark Club Sport | Bar | Grill, du Rockford Wok|Bar|Grill, ou vous retrouver entre amis dans l'un de nos salons-bars si recherchés?</p><p>Chez Sandman, nous comprenons. Depuis plus de 50 ans, notre métier est de prendre soin des moindres détails qui rendent votre séjour agréable, confortable et abordable.</p>",
         "home_page_offer_three": "<a ui-sref='aboutUs({code: &quot;sandman-mobile-app-mobile&quot;})'><img src='/static/images/mobile-app.jpg' class='grid-img' alt='Exciting News'><h2>APPLICATION MOBILE</h2><p>Où que vous alliez, l'application Sandman vous donnera le meilleur prix. Et c'est garanti!</p></a>",
         "home_page_offer_one": "<a ui-sref='offers'><img src='/static/images/gift.jpg' class='grid-img' alt='Great Offers'><h2>Bonnes affaires</h2><p>Profitez de nos bonnes affaires et de nos promotions pour rendre votre séjour encore plus agréable!</p></a>",
@@ -79,6 +79,7 @@
         "cancel": "Annuler",
         "close": "Fermer",
         "or": "OU",
+        "from_feed": "From our feed",
         "cancel_reservation": "Annuler la réservation",
         "select_dates": "Sélectionner des dates",
         "book_now": "Réserver",
@@ -497,7 +498,7 @@
         "page_not_found_desc": "Désolé, cette page n'existe pas!",
         "page_not_found_cta": "Cliquez ici pour retourner à la <a href='/'>page d'accueil</a>",
         "hotels_page_title": "Nos hôtels",
-        "hotels_page_login_prompt_desc": "Économisez jusqu'à 20% en vous <a href ng-click='sso.login()''>identifiant</a> ou en vous <a ng-click='sso.register()''>inscrivant</a>!",
+        "hotels_page_login_prompt_desc": "Économisez jusqu'à 20% en vous <a href ng-click='auth.login()''>identifiant</a> ou en vous <a ng-click='auth.register()''>inscrivant</a>!",
         "reservation_confirmation_message_title": "Merci pour votre réservation à {hotelName}!<br/> Vous recevrez sous pu un courriel contenant le numéro de référence de votre réservation.",
         "reservation_confirmation_message_desc": "Votre code de réservation internet est {reservationNumber}.",
         "reservaion_in_past_message": "Pour modifier cette réservation, veuillez contacter Sandman Hotel Group au (604) 276-1160 ou à l'adresse <a href='mailto:reservations@sandman.ca'>reservations@sandman.ca</a>",
@@ -521,6 +522,8 @@
         "ota_loading": "CHARGEMENT DES TARIFS",
         "statistics_views_message": "Il y a eu {numTypes} vues ces {numUnits} dernières {unit}",
         "statistics_searches_message": "Il y a eu {numTypes} recherches ces {numUnits} derniers {unit}",
+        "minute": "minute",
+        "minutes": "minutes",
         "hours": "heures",
         "hour": "heure",
         "day": "jour",
@@ -576,6 +579,7 @@
         "you_wont_find_it_cheaper": "Vous ne trouverez pas plus \u00e9conomique ailleurs, c'est garanti! Si vous trouvez un meilleur prix, contactez-nous au 1-800-SANDMAN avec les d\u00e9tails et nous promettons d'\u00e9galer le prix.",
         "promo_code_applied": "Code Promo appliqu\u00e9 avec succ\u00e8s",
         "corp_code_applied": "Code Corp appliqu\u00e9 avec succ\u00e8s",
-        "group_code_applied": "Code Groupe appliqu\u00e9 avec succ\u00e8s"
+        "group_code_applied": "Code Groupe appliqu\u00e9 avec succ\u00e8s",
+        "rate_not_available": "Désolé, le taux que vous recherchez n'est pas disponible à ces dates. Sélectionnez l'un des taux ci-dessous."
   }
 }

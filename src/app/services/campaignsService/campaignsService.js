@@ -9,7 +9,7 @@ angular.module('mobiusApp.services.campaigns', [])
     var savedLocations = null;
     var locationCode = null;
 
-    function setCampaigns(loggedIn, locations) {
+    function setCampaigns(auth, loggedIn, locations) {
       savedLocations = locations;
       var locationMatch = _.find(savedLocations, function (location) {
         return $stateParams.locationSlug === location.meta.slug;
@@ -52,14 +52,14 @@ angular.module('mobiusApp.services.campaigns', [])
         } else {
           //If no campaign returned display previous campaign
           console.log('no campaign returned');
-          getSavedCampaign(getAllCampaigns);
+          getSavedCampaign(auth, getAllCampaigns);
         }
       });
     }
 
-    function getSavedCampaign(getAllCampaigns) {
+    function getSavedCampaign(auth, getAllCampaigns) {
       if (savedCampaign) {
-        getCampaigns(null, true).then(function (data) {
+        getCampaigns(auth, null, true).then(function (data) {
           var retrievedCampaign = null;
           if (data.length && data[0]) {
             retrievedCampaign = _.find(data[0], function (thisCampaign) {
@@ -79,7 +79,7 @@ angular.module('mobiusApp.services.campaigns', [])
       }
     }
 
-    function getCampaigns(loggedIn, getAll) {
+    function getCampaigns(auth, loggedIn, getAll) {
       var params = {};
       if (!getAll) {
         if ($stateParams.dates) {
@@ -96,7 +96,7 @@ angular.module('mobiusApp.services.campaigns', [])
           params.location = locationCode;
         }
       }
-      params.loggedIn = loggedIn !== null ? loggedIn : user.isLoggedIn();
+      params.loggedIn = loggedIn !== null ? loggedIn : auth && auth.isLoggedIn();
 
       return apiService.getThrottled(apiService.getFullURL('campaigns'), params);
     }

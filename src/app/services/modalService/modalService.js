@@ -82,8 +82,16 @@ angular.module('mobiusApp.services.modal', [])
   function openReservationCancelConfirmedDialog(reservationCode){
     // Accepting reservation data to be rendered in modal window
     return openDialog('CancelReservationDialog', 'layouts/modals/reservation/cancelConfirmed.html', CONTROLLER_DATA, {
-      windowClass: 'details confirmation-dialog',
-      resolve: {data: function(){return reservationCode;}}
+      windowClass: 'details confirmation-dialog cancellation-dialog',
+      resolve: {
+        data: function(){
+          return {
+            reservationCode: reservationCode,
+            newFormat: Settings.UI.reservations.newCancelFormat,
+            imgUrl: Settings.UI.reservations.cancelImg
+          };
+        }
+      }
     });
   }
 

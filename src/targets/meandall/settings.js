@@ -52,6 +52,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-development',
@@ -60,6 +61,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-integration',
@@ -70,6 +72,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -80,6 +83,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -88,6 +92,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-live',
@@ -120,7 +125,7 @@ angular.module('mobiusApp.config', [])
     'languageInPath':true, //Temporary fix for cloudflare language caching issues
     'baseURL': {
       'development': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
-      'integration': '//integration-lindner-node.mobiuswebservices.com/api/4.0/',
+      'integration': '//integration-www-meandall.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-meandall.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
       'live': '//meandallhotels.com/api/4.0/'
@@ -225,7 +230,7 @@ angular.module('mobiusApp.config', [])
       'Mobius-chainId': '1000',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
-        'channelID': 23,
+        'channelID': 13,
         'contentLength': 'short'
       }, {
         'name': 'web',
@@ -275,6 +280,9 @@ angular.module('mobiusApp.config', [])
       'searchInSessionCookieName':'MobiusSearchInSession',
       'maxSearches':3
     },
+    'infoBar': {
+      'showForSingleBookings': true
+    },
     'chains': ['LINDNER', 'MEANDALL'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
@@ -282,10 +290,12 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
-
+    'datepicker': {
+      'showToday': true
+    },
     'generics': {
       'singleProperty': true,
-      'defaultPropertyCode': 'DUS',
+      'defaultPropertyCode': 'DUSIMM',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
@@ -320,6 +330,12 @@ angular.module('mobiusApp.config', [])
       'preloadImages': true,
       'slideWidth': 1680,
       'slideHeight': 530
+    },
+    'userMessages': {
+      'image': {
+        'display': true,
+        'url': '/static/images/v4/icon-thumbs-up@2x.png'
+      }
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -621,6 +637,10 @@ angular.module('mobiusApp.config', [])
     },
 
     'reservations': {
+      // temp hacks for meandall
+      'tempHackGuestFormReorder': true,
+      'tempHackBillingFormReorder': true,
+      'tempHackInfoFormReorder': true,
       //override per hotel confirmation number per hotel
       'displayConfirmationNumberOnAllHotels': true,
       //confirmation label display
@@ -652,6 +672,9 @@ angular.module('mobiusApp.config', [])
         'passbook': true,
         'print': true
       },
+      'displayCancelConfirmedModal': true,
+      'newCancelFormat': true,
+      'cancelImg': '/static/images/v4/icon-thumbs-up@2x_black.png',
       'displayNewsletterCtaOnReservationDetail': false,
       'reservationDetailPriceBreakdownExtended': true,
       'displayAddonVoucherEntry': false,
@@ -796,19 +819,19 @@ angular.module('mobiusApp.config', [])
       'GBP': {
         'code': 'GBP',
         'symbol': '£',
-        'format': '{{symbol}}{{amount}}'
+        'format': '{{symbol}} {{amount}}'
       },
 
       'USD': {
         'code': 'USD',
         'symbol': '$',
-        'format': '{{symbol}}{{amount}}'
+        'format': '{{symbol}} {{amount}}'
       },
 
       'EUR': {
         'code': 'EUR',
         'symbol': '€',
-        'format': '{{symbol}}{{amount}}'
+        'format': '{{symbol}} {{amount}}'
       }
     },
 
@@ -960,6 +983,13 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      // Display an image for alerts?
+      'alertImage': {
+        'display': true,
+        'url': '/static/images/v4/icon-eclaimation.png'
+      },
+      // Should we include company name as a field
+      'includeCompanyForBilling': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
@@ -982,6 +1012,10 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       },
+      'cancellationMessageImage': {
+        'display': true,
+        'url': '/static/images/v4/icon-thumbs-up@2x_black.png'
+      },
       //Booking steps navigation
       'bookingStepsNav':{
         'display': true,
@@ -990,7 +1024,7 @@ angular.module('mobiusApp.config', [])
       //Display the details section above the form in DOM
       'detailsBeforeForm':true,
       //Default value for newsletter opt-in checkbox
-      'newsLetterOptedIn': true,
+      'newsLetterOptedIn': false,
       //Display the property name after room details in overview panel
       'propertyNameAfterDetails':true,
       //Hide newsletter checkbox if not on first step
@@ -1062,11 +1096,12 @@ angular.module('mobiusApp.config', [])
         'enable':false
       },
       'reservationAssurance': {
-        display: true,
-        payment: true,
-        price: true,
-        security: true
-      }
+        display: false,
+        payment: false,
+        price: false,
+        security: false
+      },
+      'termsAndConditionsLink':'https://duesseldorf.meandallhotels.com/en/general-terms-and-conditions.html'
     },
     'myAccount' : {
       'displaySettings' : {

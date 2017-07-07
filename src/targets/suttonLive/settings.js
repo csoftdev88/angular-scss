@@ -52,6 +52,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-development',
@@ -60,6 +61,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-integration',
@@ -68,6 +70,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-staging',
@@ -76,6 +79,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-staging',
@@ -84,6 +88,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-live',
@@ -321,6 +326,12 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
+    'datepicker': {
+      'showToday': false
+    },
+    'infoBar': {
+      'showForSingleBookings': false
+    },
     'generics': {
       'singleProperty': false,
       'facebookAppId': '954663594591416',
@@ -349,6 +360,12 @@ angular.module('mobiusApp.config', [])
       'preloadImages': true,
       'slideWidth': 1250,
       'slideHeight': 393
+    },
+    'userMessages': {
+      'image': {
+        'display': false,
+        'url': ''
+      }
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -976,7 +993,7 @@ angular.module('mobiusApp.config', [])
         'display': false
       },
       //Default value for newsletter opt-in checkbox
-      'newsLetterOptedIn': true,
+      'newsLetterOptedIn': false,
       //Prompt to ask user to login
       'loginCta':{
         'display': true

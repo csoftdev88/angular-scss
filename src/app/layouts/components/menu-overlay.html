@@ -7,10 +7,10 @@
   <h2 ng-if="uiConfig.menu.customLinks.faq"><a ng-href="{{uiConfig.menu.customLinks.faq}}">_faq_</a></h2>
   <h2 ng-show="isUserLoggedIn()"><a ui-sref="reservations">_reservations_</a></h2>
   <h2 ng-show="isUserLoggedIn()">
-    <a ng-if="sso.isInfiniti()" href ng-click="sso.profile();">_profile_</a>
-    <a ng-if="!sso.isInfiniti()" ui-sref="profile">_profile_</a>
+    <a ng-if="auth.isInfiniti()" href ng-click="auth.profile();">_profile_</a>
+    <a ng-if="!auth.isInfiniti()" ui-sref="profile">_profile_</a>
   </h2>
-  <h2 ng-show="isUserLoggedIn()"><a ng-click="sso.logout();">_logout_</a></h2>
-  <h2 ng-show="!isUserLoggedIn()"><a ng-click="sso.login()">_login_</a></h2>
+  <h2 ng-show="isUserLoggedIn()"><a ng-click="auth.logout();">_logout_</a></h2>
+  <h2 ng-show="!isUserLoggedIn()"><a ng-click="auth.login()">_login_</a></h2>
   <social-links></social-links>
-</nav>  
+</nav>

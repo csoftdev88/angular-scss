@@ -16,7 +16,7 @@
           <hr>
         </div>
 
-        <form-element ng-if="!user.isLoggedIn()">
+        <form-element ng-if="auth && !auth.isLoggedIn()">
           <label for="email">
             <input type="email" id="email" required
               placeholder="_email_placeholder_"

@@ -2,7 +2,7 @@
   <tabset>
     <tab heading="_guest_details_">
       <table>
-        <tbody>
+        <tbody ng-if="!uiConfig.reservations.tempHackInfoFormReorder">
           <tr>
             <th>_first_name_label_:</th>
             <td>{{userDetails.firstName}}</td>
@@ -39,6 +39,44 @@
             <th>_postcode_label_:</th>
             <td>{{userDetails.zip}}</td>
           </tr>
+        </tbody>
+        <tbody ng-if="uiConfig.reservations.tempHackInfoFormReorder">
+        <tr>
+          <th>_first_name_label_:</th>
+          <td>{{userDetails.firstName}}</td>
+        </tr>
+        <tr>
+          <th>_last_name_label_:</th>
+          <td>{{userDetails.lastName}}</td>
+        </tr>
+        <tr>
+          <th>_email_label_:</th>
+          <td>{{userDetails.email}}</td>
+        </tr>
+        <tr>
+          <th>_primary_phone_label_:</th>
+          <td>{{userDetails.phone}}</td>
+        </tr>
+        <tr>
+          <th>_address_label_:</th>
+          <td>{{userDetails.address}}</td>
+        </tr>
+        <tr>
+          <th>_postcode_label_:</th>
+          <td>{{userDetails.zip}}</td>
+        </tr>
+        <tr>
+          <th>_city_label_:</th>
+          <td>{{userDetails.city}}</td>
+        </tr>
+        <tr>
+          <th>_state_label_:</th>
+          <td>{{userDetails.stateProvince}}</td>
+        </tr>
+        <tr>
+          <th>_country_label_:</th>
+          <td>{{userDetails.countryObj.name}}</td>
+        </tr>
         </tbody>
       </table>
     </tab>
@@ -139,6 +177,7 @@
             <textarea id="commentsTop" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments" name="commentsTop" ng-pattern="$root.generalValidationPattern"></textarea>
             <span>
               <span ng-hide="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
               <span ng-show="forms.additionalInfo.commentsTop.$error.pattern">_letters_pattern_error_</span>
             </span>
           </label>
@@ -232,6 +271,7 @@
               ng-pattern="$root.generalValidationPattern"/>
             <span>
               <span ng-hide="forms.additionalInfo.secondTelephone.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.secondTelephone.$error">_comments_label_</span>
               <span ng-show="forms.additionalInfo.secondTelephone.$error.pattern">_letters_pattern_error_</span>
             </span>
           </label>
@@ -243,8 +283,8 @@
               name="secondEmail"
               email-check/>
             <span>
-              <span ng-hide="forms.additionalInfo.secondEmail.$error">_additional_email_label_</span>
-              <span ng-show="forms.additionalInfo.secondEmail.$error.pattern">_invalid_email_message_</span>
+              <span ng-hide="forms.additionalInfo.$submitted && forms.additionalInfo.secondEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.$submitted && forms.additionalInfo.secondEmail.$error.emailCheck">_invalid_email_message_</span>
             </span>
           </label>
 
@@ -256,6 +296,7 @@
               email-check/>
             <span>
               <span ng-hide="forms.additionalInfo.thirdEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.thirdEmail.$error">_additional_email_label_</span>
               <span ng-show="forms.additionalInfo.thirdEmail.$error.pattern">_invalid_email_message_</span>
             </span>
           </label>

@@ -66,11 +66,11 @@
                 <a ng-if="config.viewsSettings.userProfile.prestigeIsInfiniti" href ng-href="{{config.viewsSettings.userProfile.infinitiPrestigeUrl}}" ng-click="retentionClick()">_prestige_account_</a>
               </li>
               <li>
-                <a ng-if="sso.isInfiniti()" href ng-click="sso.profile(); retentionClick">_profile_</a>
-                <a ng-if="!sso.isInfiniti()" ui-sref="profile" ng-click="retentionClick()">_profile_</a>
+                <a ng-if="auth.isInfiniti()" href ng-click="auth.viewProfile(); retentionClick">_profile_</a>
+                <a ng-if="!auth.isInfiniti()" ui-sref="profile" ng-click="retentionClick()">_profile_</a>
               </li>
               <li>
-                <a href ng-click="sso.logout(); retentionClick()">_logout_</a>
+                <a href ng-click="auth.logout(); retentionClick()">_logout_</a>
               </li>
             </ul>
           </div>
@@ -111,10 +111,10 @@
         <a ng-if="config.generics.header && config.generics.header.mainMenuAsOverlay" href class="main-menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="toggleMenuOverlay(); retentionClick()"></a>
 
         <li ng-show="!isUserLoggedIn()" profile>
-          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="sso.login(); retentionClick()">_login_</a>
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="auth.login(); retentionClick()">_login_</a>
         </li>
         <li ng-show="isUserLoggedIn()" profile class="mobile-logout" ng-class="{'is-desktop': !config.menu.isLogoutInDropdown}">
-          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="sso.logout(); retentionClick()">_logout_</a>
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="auth.logout(); retentionClick()">_logout_</a>
         </li>
 
         <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
@@ -153,11 +153,11 @@
                 <a ng-if="config.viewsSettings.userProfile.prestigeIsInfiniti" href ng-href="{{config.viewsSettings.userProfile.infinitiPrestigeUrl}}" ng-click="retentionClick()">_prestige_account_</a>
               </li>
               <li>
-                <a ng-if="sso.isInfiniti()" href ng-click="sso.profile(); retentionClick()">_profile_</a>
-                <a ng-if="!sso.isInfiniti()" href ui-sref="profile" ng-click="retentionClick()">_profile_</a>
+                <a ng-if="auth.isInfiniti()" href ng-click="auth.viewProfile(); retentionClick()">_profile_</a>
+                <a ng-if="!auth.isInfiniti()" href ui-sref="profile" ng-click="retentionClick()">_profile_</a>
               </li>
               <li>
-                <a href ng-click="sso.logout(); retentionClick()">_logout_</a>
+                <a href ng-click="auth.logout(); retentionClick()">_logout_</a>
               </li>
             </ul>
           </div>
@@ -208,12 +208,16 @@
     </nav>
   </div>
 
-  <div class="login-dialog-overlay" ng-show="!sso.isInfiniti() && showLoginDialog">
-    <div class="login-dialog" ng-class="'form-step' + loginFormStep">
+  <div class="login-dialog-overlay"
+       ng-show="!(auth.getStrategy() === 'infiniti') && showLoginDialog"
+       ng-click="auth.clearErrors(); auth.login(); retentionClick()">
+    <div class="login-dialog"
+         ng-click="$event.stopPropagation()"
+         ng-class="'form-step' + loginFormStep">
 
       <header>
-        <a href="" ng-click="loginFormStep = 1; sso.clearErrors(); retentionClick()" ng-show="loginFormStep == 2" class="back-btn">_back_</a>
-        <a href="" ng-click="sso.clearErrors(); sso.login(); retentionClick()" class="close-btn"></a>
+        <a href="" ng-click="loginFormStep = 1; auth.clearErrors(); retentionClick()" ng-show="loginFormStep == 2" class="back-btn">_back_</a>
+        <a href="" ng-click="auth.clearErrors(); auth.login(); retentionClick()" class="close-btn"></a>
         <figure class="logo">
           <img src="/static/images/v4/logo.png" alt="logo">
         </figure>
@@ -261,11 +265,11 @@
           </fieldset>
 
           <ul class="options">
-            <li><a href="" ng-click="loginFormStep = 2; sso.clearErrors(); retentionClick()">_forgot_password_label_</a></li>
-            <li><a href="" ui-sref="register" ng-click="sso.clearErrors(); sso.login(); retentionClick()">_register_now_</a></li>
+            <li><a href="" ng-click="loginFormStep = 2; auth.clearErrors(); retentionClick()">_forgot_password_label_</a></li>
+            <li><a href="" ui-sref="register" ng-click="auth.clearErrors(); auth.login(); retentionClick()">_register_now_</a></li>
           </ul>
 
-          <button-submit role="button" tabindex="0" ng-click="sso.doLogin(loginForm, loginData); retentionClick()">_login_</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="doLogin(loginForm, loginData); retentionClick()">_login_</button-submit>
         </form>
 
         <form name="resetForm" class="reset-form" novalidate>
@@ -284,7 +288,7 @@
 
           </fieldset>
 
-          <button-submit role="button" tabindex="0" ng-click="sso.reset(resetForm, resetData); retentionClick()">_reset_password_</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="auth.reset(resetForm, resetData); retentionClick()">_reset_password_</button-submit>
         </form>
 
       </div>

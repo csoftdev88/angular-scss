@@ -276,11 +276,11 @@ angular.module('mobiusApp.services.api', [])
       $window.Raven.captureException('API ERROR - Type:'+ type +', Error:' + JSON.stringify(error) + ', URL:' + url + ', Params:' + JSON.stringify(params) + ', Headers:' + JSON.stringify(resHeaders()));
 
       //Send our error to alerts end-endpoint
-      sendApiAlert(type, error, url, params, resHeaders);
+      sendApiAlert(type, error, url, params, resHeaders, $window.Raven.lastEventId());
     }
   }
 
-  function sendApiAlert(type, error, url, params, resHeaders){
+  function sendApiAlert(type, error, url, params, resHeaders, ravenID){
     if(Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env]){
       //error params url headers
       var alertData = {
@@ -293,7 +293,8 @@ angular.module('mobiusApp.services.api', [])
           'type': type,
           'url': url,
           'params': params,
-          'headers': resHeaders
+          'headers': resHeaders,
+          'ravenId': ravenID
         },
         'severity': 5
       };

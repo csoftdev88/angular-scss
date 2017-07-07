@@ -55,6 +55,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -64,6 +65,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -75,6 +77,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -86,6 +89,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -95,6 +99,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':true,
+      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -324,6 +329,15 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:true
     },
+    'instagramFeed': {
+      'images': [
+        { url: '/static/images/lbe/insta-1.png'},
+        { url: '/static/images/lbe/insta-2.png'},
+        { url: '/static/images/lbe/insta-3.png'},
+        { url: '/static/images/lbe/insta-4.png'},
+        { url: '/static/images/lbe/insta-5.png'}
+      ]
+    },
     'previousSearches': {
       'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
@@ -339,14 +353,29 @@ angular.module('mobiusApp.config', [])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
+    'highlight': {
+      'imageUrl': '/static/images/lbe/sun.png'
+    },
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
+    'bookingBar': {
+      'maxAdults': 8,
+      'maxChildren': 8,
+      'dateFormat': 'dd MM yy',
+      'defaultSize': 'large',
+      'useTommorowDefault': true
+    },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
-
+    'datepicker': {
+      'showToday': false
+    },
+    'infoBar': {
+      'showForSingleBookings': false
+    },
     'generics': {
       'singleProperty': false,
       'facebookAppId': '',
@@ -375,6 +404,12 @@ angular.module('mobiusApp.config', [])
       'preloadImages': true,
       'slideWidth': 1250,
       'slideHeight': 393
+    },
+    'userMessages': {
+      'image': {
+        'display': false,
+        'url': ''
+      }
     },
     // Menu settings - showing/hidding menu items
     'menu': {
@@ -527,12 +562,12 @@ angular.module('mobiusApp.config', [])
         'hotelServices': false,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
-        'hotelOffers': true,
         'hotelLocation': true,
+        'hotelOffers': true,
         'hotelReadMoreMobile': true
       },
       'bookingStatistics':{
-        'display':false,
+        'display': true,
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -576,7 +611,7 @@ angular.module('mobiusApp.config', [])
         'displayPrice': 'text'
       },
       'bookingStatistics':{
-        'display':false,
+        'display':true,
         'displayDelay':5000,
         'displayTime':20000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -749,7 +784,7 @@ angular.module('mobiusApp.config', [])
     },
     'regions':{
       'bookingStatistics':{
-        'display':false,
+        'display':true,
         'displayDelay':5000,
         'displayTime':10000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
@@ -915,7 +950,7 @@ angular.module('mobiusApp.config', [])
         'showInReservationWidget': true
       },
       //Default value for newsletter opt-in checkbox
-      'newsLetterOptedIn': true,
+      'newsLetterOptedIn': false,
       //Prompt to ask user to login
       'loginCta':{
         'display': true
@@ -1012,7 +1047,7 @@ angular.module('mobiusApp.config', [])
         'defaultViewMode': 'list',
         'displayCompare': true,
         'bookingStatistics':{
-          'display':false,
+          'display':true,
           'displayDelay':3000,
           'displayTime':10000, //The length that you wish the alerts to appear for
           'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left

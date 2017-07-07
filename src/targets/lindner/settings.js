@@ -204,6 +204,12 @@ angular.module('mobiusApp.config', [])
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
+    'datepicker': {
+      'showToday': false
+    },
+    'infoBar': {
+      'showForSingleBookings': false
+    },
     'generics': {
       'singleProperty': false,
       'facebookAppId': '',
@@ -234,6 +240,12 @@ angular.module('mobiusApp.config', [])
       'preloadImages': true,
       'slideWidth': 1250,
       'slideHeight': 393
+    },
+    'userMessages': {
+      'image': {
+        'display': false,
+        'url': ''
+      }
     },
     // Menu settings - showing/hidding menu items
     'menu': {

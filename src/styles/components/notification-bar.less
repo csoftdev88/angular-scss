@@ -48,6 +48,7 @@ notification-bar {
     bottom: 0px;
   }
 
+  .singleroom-notification,
   .multiroom-notification {
     width: 350px;
     margin: 0 auto;
@@ -59,7 +60,8 @@ notification-bar {
     }
 
     .rooms,
-    .details {
+    .details,
+    .dates {
       width: 50%;
       float: left;
       box-sizing: border-box;
@@ -89,6 +91,12 @@ notification-bar {
       .viewport-mobile &{
         padding: 5px 10px 5px 0;
       }
+    }
+
+    // By default, do not show the dates. If you want to enable them for a tenant
+    // override this in the tenant styles, for an example look at meandall..
+    .dates {
+      display: none;
     }
 
     .details {

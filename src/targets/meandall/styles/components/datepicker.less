@@ -51,6 +51,10 @@
       a {
         color: #b3bdc2; // Today and Future days
         font-weight: 300;
+        font-family: ArialNarrow;
+        font-size: 18px;
+        line-height: 1.67;
+        text-align: center;
       }
       >*[data-tooltip]:after {
         background: #f4b458;
@@ -86,11 +90,11 @@
         background: none;
         a,
         span {
-          color: @c-white !important;
+          color: @c-black !important;
           background: @c-datepicker-selected;
         }
         &:before {
-          background: rgba(63, 114, 155, 0.8);
+          background: @c-white;
         }
         &:after {
           color: @c-secondary;
@@ -109,8 +113,8 @@
           color: @c-secondary;
         }
         a {
-          background: rgba(63, 114, 155, 0.8);
-          color: @c-white;
+          background: @c-white;
+          color: @c-black;
         }
       }
       &.ui-datepicker-unselectable {
@@ -147,7 +151,7 @@
             background: @c-datepicker-unavailable;
           }
           &:before {
-            background: rgba(208, 2, 27, 0.7);
+            background: @c-white;
           }
           &:after {}
         }
@@ -158,8 +162,8 @@
         }
         &.date-range-selected {
           a {
-            background: rgba(207, 154, 77, 0.7);
-            color: @c-white;
+            background: @c-white;
+            color: @c-black;
           }
           &:after {
             color: @c-datepicker-partially-available;
@@ -172,7 +176,7 @@
             background: @c-datepicker-partially-available;
           }
           &:before {
-            background: rgba(207, 154, 77, 0.7);
+            background: @c-white;
           }
           &:after {
             color: @c-datepicker-partially-available;
@@ -208,8 +212,11 @@
       }
     }
     >span {
+      text-decoration: underline;
       &.selected {
         color: @c-link;
+        text-decoration: none;
+        font-weight: bold;
       }
     }
   }
@@ -222,6 +229,7 @@
     font-size:@size--1;
     font-weight: normal;
     min-width: 95px !important;
+    border: solid 2px #ffffff !important;
     &:hover {
       background: lighten(@c-button, 15%);
     }

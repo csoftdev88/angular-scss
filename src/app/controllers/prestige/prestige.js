@@ -4,13 +4,13 @@
  */
 angular.module('mobius.controllers.prestige', [])
 
-  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService, userObject, $window, $controller, user, $state) {
+  .controller('PrestigeCtrl', function($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService, userObject, $window, $controller, $state) {
 
     $scope.dataLoaded = false;
 
     //check if user is logged in
-    function onAuthorized(){
-      if(!user.isLoggedIn()){
+    function onAuthorized() {
+      if ($scope.auth && !$scope.auth.isLoggedIn()) {
         $state.go('home');
       }
       else{
@@ -39,7 +39,7 @@ angular.module('mobius.controllers.prestige', [])
     $scope.onPageChange = function(){
       scrollToTop();
     };
-    
+
     //Detect mobile
     $scope.isMobile = function(){
       return stateService.isMobile();

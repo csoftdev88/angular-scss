@@ -7,8 +7,8 @@ angular.module('mobius.controllers.profile', [])
   .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings, propertyService, scrollService){
 
     //check if user is logged in
-    function onAuthorized(){
-      if(!user.isLoggedIn()){
+    function onAuthorized() {
+      if ($scope.auth && !$scope.auth.isLoggedIn()) {
         $state.go('home');
       }
     }
@@ -80,11 +80,11 @@ angular.module('mobius.controllers.profile', [])
 				var data = _.omit(profileData, _.isNull);
 				data = _.omit(data, ['id','token','email', 'languageCode']);
 
-        data.userCountry = contentService.getCountryByID(data.localeCode, $scope.profileCountries);
+        data.userCountry = contentService.getCountryByID(data.localeId, $scope.profileCountries);
 
-        if(data.userCountry)
-        {
+        if(data.userCountry) {
           data.country = data.userCountry.code;
+          data.localeCode = data.userCountry.code;
         }
 
 		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
