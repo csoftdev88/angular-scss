@@ -38,7 +38,7 @@ angular.module('mobius.controllers.reservations', [])
 
   function onAuthorized(isMobiusUser){
 
-    if(isMobiusUser || userObject.token){
+    if ($scope.auth && $scope.auth.isLoggedIn()) {
       var reservationsPromise = $q.all([
         reservationService.getAll(),
         reservationService.getCancelledReservations()

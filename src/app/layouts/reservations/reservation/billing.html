@@ -20,7 +20,7 @@
     </ul>
     <section class="payment-points" ng-switch-when="point">
       <!-- Points details only for logged in user -->
-      <table ng-if="auth.isLoggedIn()">
+      <table ng-if="auth && auth.isLoggedIn()">
         <tr>
           <th>_current_points_</th>
           <td>{{pointsData.currentPoints}}</td>
@@ -41,7 +41,7 @@
         </tr>
       </table>
 
-      <div ng-if="!auth.isLoggedIn()">
+      <div ng-if="auth && !auth.isLoggedIn()">
         <registration-call>
           <h4>_feature_available_registered_</h4>
           <p>_click_here_to_ <a href ng-click="auth.login()">_login_register_</a>.</p>

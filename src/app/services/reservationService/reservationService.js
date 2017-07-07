@@ -48,7 +48,7 @@ angular.module('mobiusApp.services.reservation', [])
   }
 
   function getAvailableAddons(auth, params){
-    if(auth.isLoggedIn()){
+    if(auth && auth.isLoggedIn()){
       if(!params){
         params = {};
       }

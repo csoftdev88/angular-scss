@@ -9,8 +9,8 @@ angular.module('mobius.controllers.prestige', [])
     $scope.dataLoaded = false;
 
     //check if user is logged in
-    function onAuthorized(){
-      if(!$scope.auth.isLoggedIn()){
+    function onAuthorized() {
+      if ($scope.auth && !$scope.auth.isLoggedIn()) {
         $state.go('home');
       }
       else{

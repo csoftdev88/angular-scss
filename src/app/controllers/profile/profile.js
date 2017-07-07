@@ -7,8 +7,8 @@ angular.module('mobius.controllers.profile', [])
   .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings, propertyService, scrollService){
 
     //check if user is logged in
-    function onAuthorized(){
-      if(!$scope.auth.isLoggedIn()){
+    function onAuthorized() {
+      if ($scope.auth && !$scope.auth.isLoggedIn()) {
         $state.go('home');
       }
     }
