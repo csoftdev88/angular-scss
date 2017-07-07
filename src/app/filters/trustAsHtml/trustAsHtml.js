@@ -5,11 +5,12 @@
 
 angular.module('mobiusApp.filters.trustAsHtml', [])
 
-.filter('trustAsHtml' , function($sce) {
+.filter('trustAsHtml' , function($sce, $log) {
   return function (text) {
-    if (typeof text === "string") {
-      return $sce.trustAsHtml(text);
+    if (typeof text !== 'string') {
+      $log.warn('Trust as html didnt get passed a string');
+      return '';
     }
-    return text;
+    return $sce.trustAsHtml(text);
   };
 });
