@@ -45,25 +45,26 @@
       loginForm.$submitted = true;
       if (loginForm.$valid) {
         var headersObj = {};
-        var vm = this;
+        var that = this;
         headersObj[KEY_CUSTOMER_ID] = undefined;
         apiService.setHeaders(headersObj);
-        apiService.post(apiService.getFullURL('customers.login'), loginData).then(function (data) {
-          if (data.id !== null) {
-            $rootScope.showLoginDialog = false;
-            clearErrorMsg(vm);
-            userObject.id = data.id;
-            user.storeUserId(data.id);
-            user.loadProfile(data.id);
-          }
-          else {
-            vm.loginDialogError = true;
-            vm.incorrectEmailPasswordError = true;
-          }
-        }, function () {
-          vm.loginDialogError = true;
-          vm.incorrectEmailPasswordError = true;
-        });
+        apiService.post(apiService.getFullURL('customers.login'), loginData)
+          .then(function (data) {
+            if (data.id !== null) {
+              $rootScope.showLoginDialog = false;
+              clearErrorMsg(that);
+              userObject.id = data.id;
+              user.storeUserId(data.id);
+              user.loadProfile();
+            } else {
+              that.loginDialogError = true;
+              that.incorrectEmailPasswordError = true;
+            }
+          })
+          .catch(function () {
+            that.loginDialogError = true;
+            that.incorrectEmailPasswordError = true;
+          });
       }
     };
 
@@ -84,22 +85,20 @@
      * Perform a logout for the current session's user and clear the headers persisted in the apiService
      * @see apiService
      */
-    this. logout = function () {
-
+    this.logout = function () {
+      $rootScope.$evalAsync(function() {
+        userObject = {};
+        $state.go('home', {}, {reload: true});
+      });
       // Removing auth headers
       var headers = {};
       headers[AUTH_HEADER] = undefined;
       apiService.setHeaders(headers);
       user.clearStoredUser();
 
+      // Create a new auth promise
+      // @todo Why do we need to do this ?
       user.authPromise = $q.defer();
-      for (var prop in userObject) {
-        if (userObject.hasOwnProperty(prop)) {
-          delete userObject[prop];
-        }
-      }
-
-      $state.go('home', {}, {reload: true});
 
       // Submit a login event that updates the base ctrl's function isLoggedIn
       // @todo again, why the hell do we do this?
@@ -142,8 +141,8 @@
       }
     };
 
-    var register = function () {
-      console.warn('Register function is not supported by mobius auth');
+    this.register = function () {
+      $log.warn('Register function is not supported by mobius auth');
     };
 
     this.viewProfile = function () {
