@@ -84,7 +84,7 @@ angular.module('mobiusApp.directives.floatingBar.myAccount', [])
 
         var userUnWatch = scope.$watch(
           function() {
-            return scope.auth.isLoggedIn();
+            return scope.auth && scope.auth.isLoggedIn();
           },
           function(isLoggedIn) {
             if (isLoggedIn) {

@@ -96,7 +96,7 @@ angular.module('mobiusApp.services.campaigns', [])
           params.location = locationCode;
         }
       }
-      params.loggedIn = loggedIn !== null ? loggedIn : auth.isLoggedIn();
+      params.loggedIn = loggedIn !== null ? loggedIn : auth && auth.isLoggedIn();
 
       return apiService.getThrottled(apiService.getFullURL('campaigns'), params);
     }
